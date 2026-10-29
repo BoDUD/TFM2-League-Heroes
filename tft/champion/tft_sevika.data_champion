@@ -39,7 +39,7 @@
       "r_tri_n": 4,
       "r_gap": 18,
       "r_dmg": 60,
-      "r_ad": 130,
+      "r_ad": 135,
       "r_stun": 66,
       "r_bleed": 300,
       "r_bl_ad": 60,
@@ -58,9 +58,9 @@
     "asset/tft/icons/tft_sevika_ult"
   ],
   "stat": {
-    "attack": 80,
+    "attack": 82,
     "magic_power": 0,
-    "hp": 1180,
+    "hp": 1200,
     "defence": 36,
     "magic_resistance": 30,
     "move_speed": 1000,
@@ -302,7 +302,7 @@
                   {
                     "type": "Attack",
                     "damage": 19,
-                    "attack_ratio": 48,
+                    "attack_ratio": 51,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -338,7 +338,7 @@
                   {
                     "type": "Attack",
                     "damage": 12,
-                    "attack_ratio": 30,
+                    "attack_ratio": 32,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -394,7 +394,7 @@
                   {
                     "type": "Attack",
                     "damage": 19,
-                    "attack_ratio": 48,
+                    "attack_ratio": 51,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -430,7 +430,7 @@
                   {
                     "type": "Attack",
                     "damage": 12,
-                    "attack_ratio": 30,
+                    "attack_ratio": 32,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -486,7 +486,7 @@
                   {
                     "type": "Attack",
                     "damage": 19,
-                    "attack_ratio": 48,
+                    "attack_ratio": 51,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -522,7 +522,7 @@
                   {
                     "type": "Attack",
                     "damage": 12,
-                    "attack_ratio": 30,
+                    "attack_ratio": 32,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -578,7 +578,7 @@
                   {
                     "type": "Attack",
                     "damage": 19,
-                    "attack_ratio": 48,
+                    "attack_ratio": 51,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -614,7 +614,7 @@
                   {
                     "type": "Attack",
                     "damage": 12,
-                    "attack_ratio": 30,
+                    "attack_ratio": 32,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -670,7 +670,7 @@
                   {
                     "type": "Attack",
                     "damage": 19,
-                    "attack_ratio": 48,
+                    "attack_ratio": 51,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"
@@ -706,7 +706,7 @@
                   {
                     "type": "Attack",
                     "damage": 12,
-                    "attack_ratio": 30,
+                    "attack_ratio": 32,
                     "hp_ratio": 0,
                     "target_hp_ratio": 0,
                     "attack_effect_type": "Target"

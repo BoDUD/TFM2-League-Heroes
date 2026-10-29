@@ -51,9 +51,14 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Timings are provisional until her frames are rigged (tools/art/rig_sevika.py): TFT's punch lands at ~200 ms of its
 # loop, the flamethrower holds 0.67 s loops, the chomp's two slams come ~400 ms apart. Stats start from the pack's top
 # fighters (tft_renni hp 1150 +115, atk 82; league_sett) - a 5-cost, a little stronger in a fight, less of a tank.
+# Numbers = the 10-min classic-SDK simulations (C:/t/al_sim/kd.py, top lane against the base fighter, executioner,
+# knight, berserker, lancer and pole warrior, three lineups, both sides, seeds 1-8; 2026-10-29), all --plain (a third
+# of each mod every cast, no jackpot, no execute, no re-dash, half the stun): the draft (atk 80, hp 1180, Q 30%, R 130%)
+# +1.49; atk 84, hp 1220, Q 35%, R 140% +2.52; between = P: +1.62 (tft_renni --plain +2.03 on the same games) - the
+# native kit adds the execute, the re-dash, the collision stun and the jackpot on top.
 P = {
     # stats (Melee, a top fighter with attack damage)
-    "hp": 1180, "hp_g": 118, "atk": 80, "atk_g": 11, "apw": 0, "apw_g": 0, "def": 36, "def_g": 7, "mr": 30, "mr_g": 5,
+    "hp": 1200, "hp_g": 118, "atk": 82, "atk_g": 11, "apw": 0, "apw_g": 0, "def": 36, "def_g": 7, "mr": 30, "mr_g": 5,
     "ms": 1000, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 30, "atk_cd": 66, "atk_st": 12, "a_pct": 100, "a_t": 240, "a2_dmg": 25,
     "a2_ad": 150,
@@ -64,14 +69,14 @@ P = {
     "p_as": 35, "p_as_t": 180,
     # Flamethrower
     "q_cd": 480, "q_range": 32000, "q_dur": 72, "q_st": 10, "q_n": 5, "q_gap": 12, "q_r": 40000, "q_cone": 700,
-    "q_dmg": 12, "q_ad": 30, "q_tri_k": 160, "q_dr": 30, "q_burn_t": 60, "q_len": 45000, "q_w": 22000,
+    "q_dmg": 12, "q_ad": 32, "q_tri_k": 160, "q_dr": 30, "q_burn_t": 60, "q_len": 45000, "q_w": 22000,
     # Extendo-Punch
     "e_cd": 600, "e_range": 55000, "e_dur": 40, "e_st": 14, "e_w": 8000, "e_speed": 4000,
     "e_dmg": 40, "e_ad": 120, "e_kb_speed": 2500, "e_kb_t": 10, "e_behind": 30000, "e_stun": 72, "e_dmg2": 50,
     "e_tri": 50,
     # Chomp (TFT: 2 slams 320% AD, stun 1.25 s, bleed 75% AD over 5 s, execute 15%, re-dash 2 hexes at 80%)
     "r_cd": 2700, "r_range": 40000, "r_dur": 70, "r_speed": 4000, "r_chomp_t": 40,
-    "r_n": 2, "r_tri_n": 4, "r_gap": 18, "r_dmg": 60, "r_ad": 130, "r_stun": 66, "r_bleed": 300, "r_bl_ad": 60,
+    "r_n": 2, "r_tri_n": 4, "r_gap": 18, "r_dmg": 60, "r_ad": 135, "r_stun": 66, "r_bleed": 300, "r_bl_ad": 60,
     "r_exec": 15, "r_exec_tri": 25, "r_reset": 30000, "r_resets": 2, "r_fall": 80,
 }
 # what tft.dll reads from passive.params (addons/tft/src/sevika.rs), and the names only it puts on or plays

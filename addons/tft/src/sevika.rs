@@ -202,7 +202,7 @@ impl Default for Params {
             r_tri_n: 4,
             r_gap: 18,
             r_dmg: 60,
-            r_ad: 130,
+            r_ad: 135,
             r_stun: 66,
             r_bleed: 300,
             r_bl_ad: 60,
@@ -754,7 +754,7 @@ mod tests {
         let json = r#"{"p_tri":12,"p_tri_t":150,"p_rk_n":4,"p_rk_gap":6,"p_rk_r":60000,"p_rk_dmg":15,"p_rk_ad":30,
             "p_rk_speed":5000,"p_sh":60,"p_sh_ad":100,"p_sh_t":180,"p_as":35,"p_as_t":180,"e_range":55000,"e_w":8000,
             "e_speed":4000,"e_dmg":40,"e_ad":120,"e_kb_speed":2500,"e_kb_t":10,"e_behind":30000,"e_stun":72,
-            "e_dmg2":50,"e_tri":50,"r_n":2,"r_tri_n":4,"r_gap":18,"r_dmg":60,"r_ad":130,"r_stun":66,"r_bleed":300,
+            "e_dmg2":50,"e_tri":50,"r_n":2,"r_tri_n":4,"r_gap":18,"r_dmg":60,"r_ad":135,"r_stun":66,"r_bleed":300,
             "r_bl_ad":60,"r_exec":15,"r_exec_tri":25,"r_reset":30000,"r_resets":2,"r_fall":80}"#;
         assert_eq!(parse_params(json), Params::default());
     }
@@ -799,7 +799,7 @@ mod tests {
         assert_eq!(bite_pct(&p, 0), 100);
         assert_eq!(bite_pct(&p, 1), 80);
         assert_eq!(bite_pct(&p, 2), 64);
-        assert_eq!(physical(60, 130, 100, 80), 152);
+        assert_eq!(physical(60, 135, 100, 80), 156);
         assert!(executed(149, 1000, 15));
         assert!(!executed(150, 1000, 15));
         assert!(!executed(0, 1000, 15));
