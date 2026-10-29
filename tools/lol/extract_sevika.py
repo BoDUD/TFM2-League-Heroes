@@ -1,6 +1,6 @@
 r"""Pull Sevika's sounds out of the local League of Legends installs.
 
-    python tools/lol/extract_sevika.py --riot "D:\Riot Games\League of Legends" --lol "D:\WeGameApps\lol" --vgmstream pathgmstream-cli.exe
+    python tools/lol/extract_sevika.py --riot "D:\Riot Games\League of Legends" --lol "D:\WeGameApps\lol" --vgmstream path\vgmstream-cli.exe
 
 Her own TFT sounds (the user: 「音效什么都要自己找」): set 13's Map22 bank MODE_TFT_Set13_Champs_SFX (Riot client: --riot)
 holds nearly her whole kit (Play_sfx_TFT13_Lieutenant*, named in her skin and animation bins, 2026-10-29): the arm's two
