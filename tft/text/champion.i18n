@@ -84,6 +84,13 @@
         "skill": "向最近的<#ffb900ff>3<>名敌人各扔一颗炸弹，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并<#ef5350ff>晕眩1秒<>；自己回复<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
         "skill2": "长矛横扫前方，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理伤害并<#ef5350ff>击退<>敌人。",
         "ult": "踩滑板冲向敌人，途中丢下两颗燃烧弹（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法伤害）；落地爆炸，周围敌人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法伤害并被<#ef5350ff>击飞0.5秒<>，之后<#ffb900ff>4秒<>内减伤<#ffb900ff>40%<>。"
+      },
+      "tft_smeech": {
+        "name": "史密奇",
+        "attack": "双爪轮流挥抓，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>伏击专家<>：暴击率<#ffb900ff>25%<>；技能也能暴击，技能暴击造成<#ffb900ff>220%<>伤害。",
+        "skill": "跳向范围内<#ffb900ff>生命最低<>的敌人，连斩<#ffb900ff>3<>次，每次造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>；目标阵亡则再跳一次，伤害为<#ffb900ff>70%<>。",
+        "skill2": "双爪撕扯目标，造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>，并使其<#ef5350ff>护甲降低30%<>，持续<#ffb900ff>4秒<>。",
+        "ult": "<#ffb900ff>1.2秒<>内<#ef5350ff>不受控制<>、减伤<#ffb900ff>30%<>，接连跳斩最多<#ffb900ff>5<>名未被斩过的敌人，每次造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并获得<#ffb900ff>10%<>暴击率（<#ffb900ff>5秒<>）。"
       }
     },
     "skill_name": {
@@ -146,6 +153,11 @@
         "skill1": "水坑狙击惊喜",
         "skill2": "长矛横扫",
         "ult": "野火突袭"
+      },
+      "tft_smeech": {
+        "skill1": "废铁黑客",
+        "skill2": "拆解",
+        "ult": "废铁狂潮"
       }
     }
   },
@@ -234,6 +246,13 @@
         "skill": "向最近的<#ffb900ff>3<>名敵人各扔一顆炸彈，造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並<#ef5350ff>暈眩1秒<>；自己回復<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>生命。",
         "skill2": "長矛橫掃前方，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理傷害並<#ef5350ff>擊退<>敵人。",
         "ult": "踩滑板衝向敵人，途中丟下兩顆燃燒彈（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>魔法傷害）；落地爆炸，周圍敵人受到<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法傷害並被<#ef5350ff>擊飛0.5秒<>，之後<#ffb900ff>4秒<>內減傷<#ffb900ff>40%<>。"
+      },
+      "tft_smeech": {
+        "name": "斯米奇",
+        "attack": "雙爪輪流揮抓，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>潛伏者<>：暴擊率<#ffb900ff>25%<>；技能也能暴擊，技能暴擊造成<#ffb900ff>220%<>傷害。",
+        "skill": "跳向範圍內<#ffb900ff>生命最低<>的敵人，連斬<#ffb900ff>3<>次，每次造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>；目標陣亡則再跳一次，傷害為<#ffb900ff>70%<>。",
+        "skill2": "雙爪撕扯目標，造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>，並使其<#ef5350ff>護甲降低30%<>，持續<#ffb900ff>4秒<>。",
+        "ult": "<#ffb900ff>1.2秒<>內<#ef5350ff>不受控制<>、減傷<#ffb900ff>30%<>，接連跳斬最多<#ffb900ff>5<>名未被斬過的敵人，每次造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並獲得<#ffb900ff>10%<>暴擊率（<#ffb900ff>5秒<>）。"
       }
     },
     "skill_name": {
@@ -296,6 +315,11 @@
         "skill1": "汙水坑驚喜",
         "skill2": "長矛橫掃",
         "ult": "野火突襲"
+      },
+      "tft_smeech": {
+        "skill1": "拼裝駭客",
+        "skill2": "拆解",
+        "ult": "廢鐵狂潮"
       }
     }
   },
@@ -384,6 +408,13 @@
         "skill": "Throws a bomb at each of the <#ffb900ff>3<> nearest enemies for <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, <#ef5350ff>stunning for 1s<>. Heals himself <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>.",
         "skill2": "Sweeps his spear in front of him for <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> physical damage, <#ef5350ff>knocking enemies back<>.",
         "ult": "Rides his hoverboard at an enemy, dropping two fire bombs (<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> magic damage each); landing, a blast deals <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> magic damage around him and <#ef5350ff>knocks up for 0.5s<>, then he takes <#ffb900ff>40%<> less damage for <#ffb900ff>4s<>."
+      },
+      "tft_smeech": {
+        "name": "Smeech",
+        "attack": "Rakes with each claw in turn for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Ambusher<>: <#ffb900ff>25%<> crit chance; his abilities can crit too, for <#ffb900ff>220%<> damage.",
+        "skill": "Leaps at the <#ffb900ff>lowest-health<> enemy in range and slashes it <#ffb900ff>3<> times for <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>physical damage<> each. If it dies, he leaps again for <#ffb900ff>70%<> damage.",
+        "skill2": "Rips the target with both claws for <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<>, <#ef5350ff>shredding 30% of its armor<> for <#ffb900ff>4s<>.",
+        "ult": "For <#ffb900ff>1.2s<> he is <#ef5350ff>unstoppable<> and takes <#ffb900ff>30%<> less damage, leaping at up to <#ffb900ff>5<> enemies he has not yet hit, each for <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, gaining <#ffb900ff>10%<> crit chance for <#ffb900ff>5s<> per leap."
       }
     },
     "skill_name": {
@@ -446,6 +477,11 @@
         "skill1": "Sumpsnipe Surprise",
         "skill2": "Spear Sweep",
         "ult": "Firelight Raid"
+      },
+      "tft_smeech": {
+        "skill1": "Scrap Hacker",
+        "skill2": "Scrap Rip",
+        "ult": "Scrap Frenzy"
       }
     }
   },
@@ -534,6 +570,13 @@
         "skill": "가장 가까운 적 <#ffb900ff>3<>명에게 폭탄을 던져 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>와 <#ef5350ff>1초 기절<>; 자신은 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 회복.",
         "skill2": "앞쪽을 창으로 휩쓸어 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> 물리 피해와 <#ef5350ff>밀쳐내기<>.",
         "ult": "호버보드로 적에게 돌진하며 화염 폭탄 두 개(각 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> 마법 피해); 착지 폭발로 주변 적에게 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> 마법 피해와 <#ef5350ff>0.5초 에어본<>, 이후 <#ffb900ff>4초<> 동안 피해 감소 <#ffb900ff>40%<>."
+      },
+      "tft_smeech": {
+        "name": "스미치",
+        "attack": "양 발톱으로 번갈아 할퀴어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>매복자<>: 치명타 확률 <#ffb900ff>25%<>; 스킬도 치명타 가능, 스킬 치명타는 <#ffb900ff>220%<> 피해.",
+        "skill": "범위 내 <#ffb900ff>체력이 가장 낮은<> 적에게 도약해 <#ffb900ff>3<>회 베어 각각 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>; 대상이 죽으면 <#ffb900ff>70%<> 피해로 다시 도약.",
+        "skill2": "양 발톱으로 대상을 찢어 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>4초<> 동안 <#ef5350ff>방어력 30% 감소<>.",
+        "ult": "<#ffb900ff>1.2초<> 동안 <#ef5350ff>저지 불가<>, 피해 <#ffb900ff>30%<> 감소, 아직 베지 않은 적에게 최대 <#ffb900ff>5<>회 도약해 각각 <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 도약마다 치명타 확률 <#ffb900ff>10%<>(<#ffb900ff>5초<>)."
       }
     },
     "skill_name": {
@@ -596,6 +639,11 @@
         "skill1": "지하동굴 깜짝선물",
         "skill2": "창 휩쓸기",
         "ult": "점화단 습격"
+      },
+      "tft_smeech": {
+        "skill1": "고물상 해커",
+        "skill2": "분해",
+        "ult": "고물 광란"
       }
     }
   },
@@ -684,6 +732,13 @@
         "skill": "最も近い敵<#ffb900ff>3<>体に爆弾を投げ、<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>1秒スタン<>。自身は<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>回復。",
         "skill2": "前方を槍で薙ぎ払い、<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>+<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>の物理ダメージと<#ef5350ff>ノックバック<>。",
         "ult": "ホバーボードで敵へ突進し、焼夷弾を2つ落とす（各<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の魔法ダメージ）。着地の爆発で周囲の敵に<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の魔法ダメージと<#ef5350ff>0.5秒のノックアップ<>、その後<#ffb900ff>4秒<>間被ダメージ<#ffb900ff>40%<>軽減。"
+      },
+      "tft_smeech": {
+        "name": "スミーチ",
+        "attack": "左右の爪で交互に引っかき、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>伏兵<>：クリティカル率<#ffb900ff>25%<>。スキルもクリティカルし、<#ffb900ff>220%<>のダメージ。",
+        "skill": "範囲内で<#ffb900ff>体力が最も低い<>敵に跳びかかり<#ffb900ff>3<>回斬りつけ、各<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>。倒すと<#ffb900ff>70%<>のダメージで再跳躍。",
+        "skill2": "両爪で対象を引き裂き、<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>4秒<>間<#ef5350ff>物理防御30%低下<>。",
+        "ult": "<#ffb900ff>1.2秒<>間<#ef5350ff>阻止不能<>、被ダメージ<#ffb900ff>30%<>軽減。まだ斬っていない敵に最大<#ffb900ff>5<>回跳びかかり、各<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、跳躍ごとにクリティカル率<#ffb900ff>10%<>（<#ffb900ff>5秒<>）。"
       }
     },
     "skill_name": {
@@ -746,6 +801,11 @@
         "skill1": "最下層の奇襲",
         "skill2": "スピアスイープ",
         "ult": "ファイヤーライト強襲"
+      },
+      "tft_smeech": {
+        "skill1": "スクラップハッカー",
+        "skill2": "解体",
+        "ult": "スクラップフレンジー"
       }
     }
   }

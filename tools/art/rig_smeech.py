@@ -139,7 +139,7 @@ class Canvas:
 # dive's first frame, then a rake and a thrust), landed at the end
 HOP = [("q_dive", 67), ("a_rake", 67), ("a_thrust", 66)]
 MS = {"idle": [1000], "run": [RUN_MS] * len(RUN), "attack": [100, 150, 117], "attack2": [100, 150, 117],
-      "leap": [83, 83, 67], "stabs": [133, 133, 134, 133, 134], "skill2": [167, 233],
+      "leap": [83, 83, 67], "skill": [83, 83, 67], "stabs": [133, 133, 134, 133, 134], "skill2": [167, 233],
       "ult": [100] + [ms for _ in range(5) for _, ms in HOP] + [100], "hit": [100, 100], "dead": [140, 260, 600]}
 
 
@@ -153,6 +153,7 @@ def actions(C):
     out["attack2"] = [f("a_wind2"), f("a_thrust"), f("a_back")]
     # Scrap Hacker: gathered low, up with the claws high, diving; landed, then thrust / rake / thrust
     out["leap"] = [f("q_crouch"), f("q_air"), f("q_dive")]
+    out["skill"] = out["leap"]          # the skill action's own tag (its CasterAnimations play leap, then stabs)
     out["stabs"] = [f("q_land"), f("a_thrust"), f("a_rake"), f("a_thrust"), f("a_back")]
     # Scrap Rip (claws thrown wide, torn apart)
     out["skill2"] = [f("e_wind"), f("e_rip")]
