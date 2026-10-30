@@ -57,14 +57,10 @@ CHAINS = {"spine": ["Root", "Spine", "chest", "neck", "Neck_b", "head"],
           "tail": ["hip", "Tail_a", "Tail_b", "Tail_c", "Tail_d", "Tail_e", "Tail_f", "Tail_g"],
           "L_wing": ["l_hand", "l_wing"], "R_wing": ["R_hand", "R_Wing"]}
 HEAD_JOINTS = ("head", "jaw", "EYE")
-# The lunge and her fall stretch the tail out to two bodies: shortened in those poses (the design's tail, step 0's B,
+# TFT's run, the lunge and her fall stretch the tail out to two bodies: shortened in those poses (the design's tail, step 0's B,
 # is a body long), so the whole pose fits the canvas
 TAIL_SCALE = 0.7
-LONG_TAIL = ("death@2500", "attack1@500")
-# her walk (Poser.walk_mats): WALK_N frames a cycle, the thighs swing +-WALK_SWING degrees, the swinging knee bends
-# WALK_LIFT more
-WALK_N, WALK_SWING, WALK_LIFT = 8, 24, 50
-LEG_PAIRS = (("l_thigh", "R_Thigh"), ("l_knee", "R_Knee"), ("l_foot", "R_Foot"), ("l_toe", "R_Toe"), ("l_tip", "R_Tip"))
+LONG_TAIL = ("death@2500", "attack1@500")   # and every run frame (pack_idas_run.py)
 
 # name -> (clip@ms, yaw, what it is for (Chinese), the pose line (English))
 POSES = {
@@ -105,63 +101,15 @@ class Poser:
         self.tris = self.m.tris
 
     def pose(self, clip):
-        """A clip's frame ("idle@0"), or "walk@<k>": frame k of WALK_N of her own walk (walk_mats)."""
         name, ms = clip.split("@")
-        walking = name == "walk"
-        anim = pose_ref.read_anim(self.m.w.read(CLIPS["idle" if walking else name]))
-        local = pose_ref.local_pose(self.m.joints, anim, 0.0 if walking else float(ms) / 1000.0)
-        long_tail = clip in LONG_TAIL
+        anim = pose_ref.read_anim(self.m.w.read(CLIPS[name]))
+        local = pose_ref.local_pose(self.m.joints, anim, float(ms) / 1000.0)
+        long_tail = clip in LONG_TAIL or name == "run"
         local = pose_ref.chibi(self.m.joints, local, HEAD_SCALE, scale={"Tail_a": TAIL_SCALE} if long_tail else None)
-        mats = [pose_ref.trs(*p) for p in local]
-        if walking:
-            mats = self.walk_mats(mats, 2 * np.pi * int(ms) / WALK_N)
-        glob = pose_ref.globals_(self.m.joints, mats)
+        glob = pose_ref.globals_(self.m.joints, [pose_ref.trs(*p) for p in local])
         verts = pose_ref.skin(self.m.v, self.m.infl, self.m.bind_inv, glob)
         joints = np.array([g[:3, 3] for g in glob])
         return verts, joints
-
-    def walk_mats(self, mats, phase):
-        """Her walk on her idle: TFT's run is a four-legged bound (the wing-claws on the ground, the legs hidden under
-        the body), so the legs are swung on her own rig instead (the user, 2026-10-30: 「走路要有明显的腿部交换啊」).
-        Each thigh swings about the body's side axis (world x) by WALK_SWING degrees (sin: positive swings it back, the
-        legs half a cycle apart: her right leg at `phase`, the left at phase + pi); while a leg swings from the back to
-        the front (-cos > 0) its knee bends a further WALK_LIFT degrees (most at the passing: the foot lifted over the
-        ground), the other leg standing; the toes turn back by the sum so the planted foot stays flat (the signs
-        measured on her rig 2026-10-30: this bend lifts the toe)."""
-        J = self.m.joints
-
-        def about(p, ang):
-            c, s = np.cos(ang), np.sin(ang)
-            m = np.eye(4)
-            m[:3, :3] = [[1, 0, 0], [0, c, -s], [0, s, c]]
-            m[:3, 3] = p - m[:3, :3] @ p
-            return m
-
-        # the legs made mirror images of each other first (her idle stands with the left foot well ahead: swung as it
-        # is, that leg led almost the whole cycle): each left joint's world matrix = her right one's mirrored across
-        # her middle (x = the root's x), corrected by the bind pose's own left / right difference
-        if not hasattr(self, "bind"):
-            self.bind = [np.linalg.inv(m) for m in self.m.bind_inv]
-        g = pose_ref.globals_(J, mats)
-        mx = g[self.names["Root"]][0, 3]
-        S = np.diag([-1.0, 1.0, 1.0, 1.0])
-        S[0, 3] = 2 * mx
-        Sb = np.diag([-1.0, 1.0, 1.0, 1.0])
-        for left, right in LEG_PAIRS:
-            li, ri = self.names[left], self.names[right]
-            fix = np.linalg.inv(Sb @ self.bind[ri] @ Sb) @ self.bind[li]
-            g = pose_ref.globals_(J, mats)
-            want = S @ g[ri] @ Sb @ fix
-            mats[li] = np.linalg.inv(g[J[li]["parent"]]) @ want
-        for thigh, knee, toe, off in (("R_Thigh", "R_Knee", "R_Toe", 0.0), ("l_thigh", "l_knee", "l_toe", np.pi)):
-            a = np.radians(WALK_SWING) * np.sin(phase + off)
-            b = np.radians(WALK_LIFT) * max(0.0, -np.cos(phase + off))
-            for j, ang in ((thigh, a), (knee, b), (toe, -(a + b))):
-                i = self.names[j]
-                g = pose_ref.globals_(J, mats)
-                par = J[i]["parent"]
-                mats[i] = np.linalg.inv(g[par]) @ about(g[i][:3, 3], ang) @ g[par] @ mats[i]
-        return mats
 
     @staticmethod
     def project(p, yaw, scale, ground, x0):
