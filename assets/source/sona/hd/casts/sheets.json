@@ -1,0 +1,371 @@
+{
+ "square": 5,
+ "square_of": {
+  "ult": 3.8
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "run": {
+   "1": "design 0",
+   "8": "design 0"
+  },
+  "attack": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "attack_p": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "skill": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "skill2": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "ult": {
+   "1": "design 0",
+   "8": "design 0",
+   "6": "ult 2"
+  },
+  "hit": {
+   "2": "design 0"
+  }
+ },
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "moving (her move loop): she GLIDES, the etwahl level before her waist, both hands on it, the gown swaying and the twin tails bobbing with each step hidden under the gown",
+   "ms": [
+    160,
+    160
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's.",
+   "legs": "Frame 2: no legs: the gown hides them as in the pale figure; the gown's hem and the twin tails sway with the step. Frame 3: no legs: the gown hides them as in the pale figure; the gown's hem and the twin tails sway with the step. The gown and the twin tails SWAY frame by frame as the pale figures show - never the same picture in every frame; the body bobs gently."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "moving (her move loop): she GLIDES, the etwahl level before her waist, both hands on it, the gown swaying and the twin tails bobbing with each step hidden under the gown",
+   "ms": [
+    160,
+    160
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's.",
+   "legs": "Frame 4: no legs: the gown hides them as in the pale figure; the gown's hem and the twin tails sway with the step. Frame 5: no legs: the gown hides them as in the pale figure; the gown's hem and the twin tails sway with the step. The gown and the twin tails SWAY frame by frame as the pale figures show - never the same picture in every frame; the body bobs gently."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "moving (her move loop): she GLIDES, the etwahl level before her waist, both hands on it, the gown swaying and the twin tails bobbing with each step hidden under the gown",
+   "ms": [
+    160,
+    160
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's.",
+   "legs": "Frame 6: no legs: the gown hides them as in the pale figure; the gown's hem and the twin tails sway with the step. Frame 7: no legs: the gown hides them as in the pale figure; the gown's hem and the twin tails sway with the step. The gown and the twin tails SWAY frame by frame as the pale figures show - never the same picture in every frame; the body bobs gently."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "attack: she lifts her far hand over the etwahl's right end, plucks the strings and lowers it",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "attack: she lifts her far hand over the etwahl's right end, plucks the strings and lowers it",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "power chord (empowered attack): she lifts her far hand high over the etwahl's right end and strikes the strings hard, then lowers it",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "power chord (empowered attack): she lifts her far hand high over the etwahl's right end and strikes the strings hard, then lowers it",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "skill: she sweeps both arms out wide over the strings, from the middle to the etwahl's two ends, and brings them back",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "skill: she sweeps both arms out wide over the strings, from the middle to the etwahl's two ends, and brings them back",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "skill 2: she lifts her far hand over the etwahl's right end and plucks a long note, then lowers it",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "skill 2: she lifts her far hand over the etwahl's right end and plucks a long note, then lowers it",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 3.8,
+   "action": "Crescendo (R): she lifts the etwahl (frame 2), flings it up to float high OVER HER HEAD, apart from her, while she stands beneath it with her arms raised, conducting (frames 3-5), and takes it back before her waist (frame 7)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. In frames 3-5 the etwahl FLOATS HIGH OVER HER HEAD, apart from her (a gap between them), drawn where the pale figure has it; she stands beneath it, her arms raised, her whole gown showing."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 3.8,
+   "action": "Crescendo (R): she lifts the etwahl (frame 2), flings it up to float high OVER HER HEAD, apart from her, while she stands beneath it with her arms raised, conducting (frames 3-5), and takes it back before her waist (frame 7)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. In frames 3-5 the etwahl FLOATS HIGH OVER HER HEAD, apart from her (a gap between them), drawn where the pale figure has it; she stands beneath it, her arms raised, her whole gown showing."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 3.8,
+   "action": "Crescendo (R): she lifts the etwahl (frame 2), flings it up to float high OVER HER HEAD, apart from her, while she stands beneath it with her arms raised, conducting (frames 3-5), and takes it back before her waist (frame 7)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. In frames 3-5 the etwahl FLOATS HIGH OVER HER HEAD, apart from her (a gap between them), drawn where the pale figure has it; she stands beneath it, her arms raised, her whole gown showing."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "struck: jolted back, the etwahl still before her",
+   "ms": [
+    100
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "death: struck, she sinks down, her gown spreading over the ground, the etwahl sinking with her, and ends lying face down behind the etwahl, only her head and the etwahl showing over the gown",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. It sinks with her and lies before her as the pale figure; in the last frames only her head and the etwahl show over the spread gown."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "death: struck, she sinks down, her gown spreading over the ground, the etwahl sinking with her, and ends lying face down behind the etwahl, only her head and the etwahl showing over the gown",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. It sinks with her and lies before her as the pale figure; in the last frames only her head and the etwahl show over the spread gown."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "death: struck, she sinks down, her gown spreading over the ground, the etwahl sinking with her, and ends lying face down behind the etwahl, only her head and the etwahl showing over the gown",
+   "ms": [
+    150
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. It sinks with her and lies before her as the pale figure; in the last frames only her head and the etwahl show over the spread gown."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "death: struck, she sinks down, her gown spreading over the ground, the etwahl sinking with her, and ends lying face down behind the etwahl, only her head and the etwahl showing over the gown",
+   "ms": [
+    150
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. It sinks with her and lies before her as the pale figure; in the last frames only her head and the etwahl show over the spread gown."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "death: struck, she sinks down, her gown spreading over the ground, the etwahl sinking with her, and ends lying face down behind the etwahl, only her head and the etwahl showing over the gown",
+   "ms": [
+    200
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. It sinks with her and lies before her as the pale figure; in the last frames only her head and the etwahl show over the spread gown."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "death: struck, she sinks down, her gown spreading over the ground, the etwahl sinking with her, and ends lying face down behind the etwahl, only her head and the etwahl showing over the gown",
+   "ms": [
+    400
+   ],
+   "weapons": "THE ETWAHL AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the GOLD ETWAHL level before her waist, its two curled gold ends out past her body, the strings in the middle; her hands on it, or lifted over it where the pale figure lifts them. Only ONE etwahl, the design's. It sinks with her and lies before her as the pale figure; in the last frames only her head and the etwahl show over the spread gown."
+  }
+ ]
+}
