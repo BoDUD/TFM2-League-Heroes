@@ -2178,5 +2178,125 @@
   "asset/base/sound/sfx/tft_shiohyu_sfx_r_roar": {
     "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r_roar",
     "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_a": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_p": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_p",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_q": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_q_bite": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_q_bite",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_e": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_e_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_r": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_r_roar": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_r_roar",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_r_dash": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_r_dash",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_r_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_r_bite": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_r_bite",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_r_bite_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_r_bite_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_d": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_d",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_a": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_d": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_d",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_e": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_e_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_p": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_p",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_q": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_q_bite": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_q_bite",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_r": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_r_bite": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_r_bite",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_r_bite_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_r_bite_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_r_dash": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_r_dash",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_r_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_syfen_sfx_r_roar": {
+    "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_r_roar",
+    "type": "override"
   }
 }

@@ -1,0 +1,38 @@
+{
+  "A": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_threshold_128_bbox": [
+      325,
+      649,
+      996,
+      1177
+    ],
+    "transparent_pixels": 1351897,
+    "opaque_pixels": 1533,
+    "partial_alpha_pixels": 219086,
+    "requested_size_pass": false,
+    "hard_alpha_pass": false
+  },
+  "B": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_threshold_128_bbox": [
+      246,
+      534,
+      1030,
+      1158
+    ],
+    "transparent_pixels": 1326912,
+    "opaque_pixels": 379,
+    "partial_alpha_pixels": 245225,
+    "requested_size_pass": false,
+    "hard_alpha_pass": false
+  }
+}

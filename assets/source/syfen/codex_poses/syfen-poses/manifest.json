@@ -1,0 +1,636 @@
+{
+  "assets": [
+    {
+      "file": "syfen-pose-a1_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        120,
+        384,
+        1136,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        12
+      ],
+      "source_bbox": [
+        69,
+        322,
+        1200,
+        1197
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "1f2cc876eec376b711334f2204a8dda6c29a2e4a5dccb9b8485a118f6a28afa8",
+      "delivered_sha256": "9a7efdbff874cecd3d4400f962a9c6fd4539f0c5e92a1de721f37d7582c41e12"
+    },
+    {
+      "file": "syfen-pose-a1_hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        88,
+        496,
+        1160,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        14
+      ],
+      "source_bbox": [
+        35,
+        424,
+        1221,
+        1183
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "a67f9a071d7e2f2c83865fa922a811f72a24e099d59812336fe7897c28925ca3",
+      "delivered_sha256": "e4671117ee2a9509469a4c12473e031944a555acf705243afd2fda021ec39ed8"
+    },
+    {
+      "file": "syfen-pose-a2_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        96,
+        352,
+        1160,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        12
+      ],
+      "source_bbox": [
+        43,
+        288,
+        1228,
+        1199
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "f2a44fd194c5c0795e6701615178b79942200c3f6e3fc6cabb55cdd1d985113b",
+      "delivered_sha256": "3b1579e9c5463dae148b605fecde5ef535e2bf20f11724ec3870f2a40e570020"
+    },
+    {
+      "file": "syfen-pose-a2_hit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        104,
+        512,
+        1144,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        13
+      ],
+      "source_bbox": [
+        53,
+        458,
+        1211,
+        1189
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "5b6f1c01f19d3d425a865f9f6279fa66e1f3db93b70d0b49757cc6ecb2db8c24",
+      "delivered_sha256": "961b1c58b5e770055789733a243497703e8097147634681e21fee31a80dc9990"
+    },
+    {
+      "file": "syfen-pose-q_rear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        96,
+        248,
+        1152,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        11
+      ],
+      "source_bbox": [
+        48,
+        177,
+        1215,
+        1205
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "91f7e8620fff8076c5df75e2771eaec9282d9514ef61c1464d8d8aba6c5b4fab",
+      "delivered_sha256": "5398b59415226458a5a8bfac8e3ff447a92960f71803b779b15d56d51008bc8d"
+    },
+    {
+      "file": "syfen-pose-q_bite.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        72,
+        624,
+        1144,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        14
+      ],
+      "source_bbox": [
+        21,
+        565,
+        1211,
+        1186
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "c7d460effc0c9172ebcc945578a3554a33f91ef9f8dac6d8c7008f1c49c1adb7",
+      "delivered_sha256": "0adc515f8b00e141e360ab9386fdad912e8b4ec3437d50334c2ac16b670b0cf1"
+    },
+    {
+      "file": "syfen-pose-e_spread.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        88,
+        232,
+        1168,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        12
+      ],
+      "source_bbox": [
+        37,
+        156,
+        1233,
+        1200
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "6d5f7569fc38c6332740d393f3a422c5737ee1b4ccde13fc05c509d396c30881",
+      "delivered_sha256": "4d120efab82fb207531a73d415dd6feb8ef198db080f5c7e3594cea386563824"
+    },
+    {
+      "file": "syfen-pose-e_sweep.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        112,
+        400,
+        1136,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        11
+      ],
+      "source_bbox": [
+        64,
+        352,
+        1197,
+        1204
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "b35c45b3b2c01171959b460e398525cd7142aaa41a9bd1c268cff53db7a0078b",
+      "delivered_sha256": "c1fdd1dc9c19c1f9b4ada743c0e33ef685f524fd906d47655532f80a0242e316"
+    },
+    {
+      "file": "syfen-pose-r_roar.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        72,
+        152,
+        1168,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        9
+      ],
+      "source_bbox": [
+        21,
+        87,
+        1233,
+        1222
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "8e164715549696d56daa082dba91163ad134aa33276cf0bd06bf3fbbcfefe81a",
+      "delivered_sha256": "bd2b09c4adf1366ca3154ba1bca656247cfecd2fa06f622df38d9e3a2e3cc8c4"
+    },
+    {
+      "file": "syfen-pose-r_charge.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        96,
+        704,
+        1176,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        21
+      ],
+      "source_bbox": [
+        46,
+        596,
+        1244,
+        1124
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "3f9567f2ee5604085010d9a5689df0d26550696ef6ce2d3efc7d47f0f05072d9",
+      "delivered_sha256": "21626054504be4331481b3961f14717781850a1217ae2b95156422555f44047e"
+    },
+    {
+      "file": "syfen-pose-r_bite.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        88,
+        608,
+        1184,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        24
+      ],
+      "source_bbox": [
+        40,
+        466,
+        1253,
+        1089
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "f19e88e6d09bf3a24bf51e29b48d6fca787d4782d7b8f5be1e43817ca233b921",
+      "delivered_sha256": "6c4ba0d56e6c7891ac4e7e8932a4267af60c20f73dae701a46822526336376fd"
+    },
+    {
+      "file": "syfen-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        104,
+        184,
+        1144,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        11
+      ],
+      "source_bbox": [
+        58,
+        109,
+        1208,
+        1205
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "dd3141108dfdf382cc3add08a74da16085088d6048f63e4ef43b688ad3ef4602",
+      "delivered_sha256": "f0e889f677f263399d239476805fd2f0474097d9091428ea55d8849bbafc7e59"
+    },
+    {
+      "file": "syfen-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        80,
+        848,
+        1176,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        9
+      ],
+      "source_bbox": [
+        26,
+        860,
+        1241,
+        1223
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "10af9d1d47ce6ebe31bb945530d89ce682ccee05ea5ef30e9ed1bd849afbf15c",
+      "delivered_sha256": "b092d065a3a4aaceecc4e15ce8efe0534ea220288c55f3c5684eebafab6ad547"
+    },
+    {
+      "file": "syfen-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        88,
+        632,
+        1176,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        12
+      ],
+      "source_bbox": [
+        38,
+        594,
+        1245,
+        1196
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "7990e76d56ceb3743f7f8604846d3e5e97e8bc6beb9274b0f2c8d095e4c30e55",
+      "delivered_sha256": "8d12552feaa2edc1599eea32d76f1cb65bc0e0c15f40713d21c1ef67d6c95d8b"
+    },
+    {
+      "file": "syfen-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        96,
+        600,
+        1184,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        12
+      ],
+      "source_bbox": [
+        49,
+        556,
+        1251,
+        1201
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "6bd3cdbb074d0a2164b4aca4cc22dd4022b7fb75980f3a17e846a3dc9f3942a0",
+      "delivered_sha256": "8246f5736a133a8a354e43c49f2d174487e9678ec0d80f9e69bc51f91593bbdd"
+    },
+    {
+      "file": "syfen-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        88,
+        648,
+        1160,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        15
+      ],
+      "source_bbox": [
+        41,
+        587,
+        1222,
+        1170
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "39fe8ece6dd9a73bcbd01f22caefce52da2a2dce57b743fd32a54141a6cae192",
+      "delivered_sha256": "275aee63ad261f67601a8af3da7bb383eeb988b253b5daf035c0648bb76f6b65"
+    },
+    {
+      "file": "syfen-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        80,
+        656,
+        1160,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        14
+      ],
+      "source_bbox": [
+        26,
+        601,
+        1228,
+        1183
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "f71e7598e9f5731c3ee738da4232defd45f6fec830cf1485abdf86b133425294",
+      "delivered_sha256": "8d67be18af43bae4d28172918e079d42e0314dc304dce392a9ba3ff087ec99a2"
+    },
+    {
+      "file": "syfen-pose-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        80,
+        720,
+        1160,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        14
+      ],
+      "source_bbox": [
+        27,
+        676,
+        1227,
+        1188
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "3dd3c29f190cd32c75f069d248fb616dae91468dcdabacc3fbb8f9abb9b30b3f",
+      "delivered_sha256": "f572c2b8b91cef92f1b42a50f825930168ef0f4f6774fa0973e2dab05d363cfe"
+    },
+    {
+      "file": "syfen-pose-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        72,
+        704,
+        1184,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        15
+      ],
+      "source_bbox": [
+        17,
+        649,
+        1251,
+        1173
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "41e709ed64398f3894be2f064a97bfe7d66dcac9311e0837a0093a3793d970f8",
+      "delivered_sha256": "4faceb56780bf7965ca840ffffb1cab0ae986669e68c8547b36c444dd9c87f46"
+    },
+    {
+      "file": "syfen-pose-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        96,
+        680,
+        1160,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        15
+      ],
+      "source_bbox": [
+        42,
+        622,
+        1228,
+        1172
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "c1e0557ec1cd443b68f1f4b056a3e588729f2796c33c4e1cf30502e6060492cb",
+      "delivered_sha256": "a38fb192c6db71a87ea685c8e19c4a21ff6a2275eb6986887da1abae683fbf07"
+    },
+    {
+      "file": "syfen-pose-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "hard_alpha": true,
+      "pixel_grid": 8,
+      "foot_baseline_exclusive": 1176,
+      "visible_bbox": [
+        96,
+        672,
+        1176,
+        1176
+      ],
+      "shared_scale": 0.8995215311004785,
+      "translation_cells": [
+        7,
+        18
+      ],
+      "source_bbox": [
+        48,
+        585,
+        1245,
+        1148
+      ],
+      "source_touches_canvas": false,
+      "source_sha256": "10b6ad7b3b634661434cff59f2aa6818c25842944d1dc022c145e36df7e4c7ac",
+      "delivered_sha256": "50a4d2936c82fbe75655874f2ba3e7300372e8be38243b8761362a2e15bb53ff"
+    }
+  ],
+  "method": "all source canvases mapped to 141x141 logical cells; >=30% hard-alpha coverage; modal RGB rounded to steps of 8; shared scale; translated by whole cells to baseline 147; nearest 8x on 1254 canvas",
+  "limitations": "sampling and framing cannot recover artwork already absent beyond source image edges; pose anatomy and head identity are AI approximations"
+}

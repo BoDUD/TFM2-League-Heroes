@@ -350,6 +350,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // from the wing tips to his feet, PPU 2.46 (「B1 42 PPU 2.46」: 103 rows), and Codex's key poses and run after his own
     // TFT clips with the design's face, posed by tools/art/rig_shiohyu.py, so no SIZES row
     ("tft_shiohyu", 2.46, include_str!("../../../tft/champions/tft_shiohyu#anim.fanim")),
+    // Sy'fen (tft_syfen, the tft pack): the shadow wyvern side-on and hunched, step 0's B-1 at the user's 40 game px from
+    // the horn tips to his feet, PPU 2.52 (「B-1、40 像素高、PPU 2.52」: 111 rows brought down to 101), and Codex's key poses
+    // after his own TFT clips, posed by tools/art/rig_syfen.py, so no SIZES row
+    ("tft_syfen", 2.52, include_str!("../../../tft/champions/tft_syfen#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

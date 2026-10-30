@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 193 位：主包 173 位、tft 包 20 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 194 位：主包 173 位、tft 包 21 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（44）
 
@@ -149,7 +149,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_sevika.png" width="32"> | [塞薇卡](docs/heroes/tft_sevika.md)<br>Sevika（tft 包） | 上单 | 喷火器 · 伸缩拳 · 大招 嚼一嚼 | — | PPU 1.8 |
 | <img src="docs/heroes/img/tft_shiohyu.png" width="32"> | [石傲玉](docs/heroes/tft_shiohyu.md)<br>Shi Oh Yu（tft 包） | 上单 | 玉拳连打 · 震地 · 大招 玉龙形态 | — | PPU 2.46 |
 
-### 打野（44）
+### 打野（45）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -195,6 +195,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_zac.png" width="32"> | [扎克](docs/heroes/league_zac.md)<br>Zac | 打野 | 延伸打击 · 橡筋弹弓 · 大招 动感弹球 | [扎克附加包](addons/league_zac/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/tft_krug.png" width="32"> | [远古石甲虫](docs/heroes/tft_krug.md)<br>Krug（tft 包） | 打野 | 岩之摇滚 · 坚岩外壳 · 大招 远古崩落 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_smeech.png" width="32"> | [史密奇](docs/heroes/tft_smeech.md)<br>Smeech（tft 包） | 打野 | 废铁黑客 · 拆解 · 大招 废铁狂潮 | — | PPU 2.4 |
+| <img src="docs/heroes/img/tft_syfen.png" width="32"> | [赛芬](docs/heroes/tft_syfen.md)<br>Sy'fen（tft 包） | 打野 | 噬咬 · 翼刃横扫 · 大招 暴走 | — | PPU 2.52 |
 | <img src="docs/heroes/img/tft_vander.png" width="32"> | [范德尔](docs/heroes/tft_vander.md)<br>Vander（tft 包） | 打野 | 地下猎犬 · 铁拳突进 · 大招 桥头死守 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_violet.png" width="32"> | [蔚奥莱](docs/heroes/tft_violet.md)<br>Violet（tft 包） | 打野 | 1-2-3连招 · 冲拳 · 大招 底城怒拳 | — | PPU 2 |
 

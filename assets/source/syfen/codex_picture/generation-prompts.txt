@@ -1,0 +1,15 @@
+Generation method: built-in image_gen (transparent_background=true).
+Initial A call with fifteen paths was rejected before generation (tool supports at most five reference paths). Successful calls below use five.
+Source: syfen_pack0.zip. Images are references; document workflow directions for other agents were not executed.
+
+PICTURE A: refs/1_syfen_34.png, refs/3_syfen_head.png, refs/7_syfen_wings.png, refs/10a_layout_A.png, style/13_style_idas.png
+
+undefined
+
+
+PICTURE A REVISION: raw/syfen-A-initial.png + refs/1_syfen_34.png + refs/3_syfen_head.png + refs/10a_layout_A.png + style/13_style_idas.png
+undefined
+
+PICTURE B: refs/4_syfen_side.png + refs/6_syfen_head_side.png + refs/10b_layout_B.png + style/13_style_idas.png + raw/syfen-A-initial.png
+undefined
+
