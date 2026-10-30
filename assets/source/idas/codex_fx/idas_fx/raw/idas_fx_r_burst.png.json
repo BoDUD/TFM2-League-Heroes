@@ -1,0 +1,12 @@
+{
+  "kind": "fx",
+  "index": 9,
+  "file": "idas_fx_r_burst.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: THE SHELL BURSTS, 7 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the golden dragon stands in the middle, not drawn: 52 squares wide and 40 tall, her head at the upper right; 1 the dome of golden scales (as in a crouching shell) cracking with white-gold light; 2 a white-gold flash, the plates blowing OUTWARD; 3-4 a wide golden shockwave ring (an ellipse 70 squares wide) with dozens of golden scales and a few gold coins flying out to both sides, a golden light beam rising above her; 5-7 the ring at the edge thinning, the scales falling and fading into gold sparks. Her body area stays EMPTY. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 7 frames total, arranged in one horizontal row of 7 identical cells. Each cell has exactly the same framing and scale and aspect ratio 76:52. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 7 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-d28ed063-8a3d-4cd3-84c9-ada4a5f21519.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_r_burst.png"
+}

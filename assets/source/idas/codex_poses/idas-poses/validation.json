@@ -1,0 +1,270 @@
+{
+  "method": "Read-only PNG audit. No image modification. Bbox uses alpha >=128. Grid test includes RGBA constancy in each 7x7 cell originating at canvas corner.",
+  "frames": [
+    {
+      "file": "idas-pose-a_claw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 358377,
+      "opaque_pixels": 909,
+      "alpha128_bbox": [
+        39,
+        414,
+        1232,
+        1221
+      ],
+      "grid7_foreground_cells": 6763,
+      "grid7_mixed_cells": 6763,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-a_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 437368,
+      "opaque_pixels": 1897,
+      "alpha128_bbox": [
+        164,
+        283,
+        1139,
+        1246
+      ],
+      "grid7_foreground_cells": 8508,
+      "grid7_mixed_cells": 8508,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 275335,
+      "opaque_pixels": 561,
+      "alpha128_bbox": [
+        21,
+        675,
+        1241,
+        1196
+      ],
+      "grid7_foreground_cells": 5221,
+      "grid7_mixed_cells": 5221,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 366920,
+      "opaque_pixels": 918,
+      "alpha128_bbox": [
+        185,
+        303,
+        1073,
+        1229
+      ],
+      "grid7_foreground_cells": 6886,
+      "grid7_mixed_cells": 6886,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-e_open.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 403779,
+      "opaque_pixels": 720,
+      "alpha128_bbox": [
+        72,
+        329,
+        1188,
+        1227
+      ],
+      "grid7_foreground_cells": 7157,
+      "grid7_mixed_cells": 7157,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-e_roar.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 372448,
+      "opaque_pixels": 563,
+      "alpha128_bbox": [
+        88,
+        402,
+        1223,
+        1207
+      ],
+      "grid7_foreground_cells": 6849,
+      "grid7_mixed_cells": 6847,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-q_breath.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 398162,
+      "opaque_pixels": 1661,
+      "alpha128_bbox": [
+        18,
+        282,
+        1237,
+        1221
+      ],
+      "grid7_foreground_cells": 7468,
+      "grid7_mixed_cells": 7468,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-q_rear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 367298,
+      "opaque_pixels": 747,
+      "alpha128_bbox": [
+        259,
+        177,
+        1142,
+        1218
+      ],
+      "grid7_foreground_cells": 7001,
+      "grid7_mixed_cells": 7001,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-r_burst.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 489146,
+      "opaque_pixels": 556,
+      "alpha128_bbox": [
+        54,
+        270,
+        1234,
+        1199
+      ],
+      "grid7_foreground_cells": 8125,
+      "grid7_mixed_cells": 8125,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-r_hold.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 268415,
+      "opaque_pixels": 1200,
+      "alpha128_bbox": [
+        39,
+        618,
+        1229,
+        1198
+      ],
+      "grid7_foreground_cells": 5316,
+      "grid7_mixed_cells": 5316,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    },
+    {
+      "file": "idas-pose-r_wrap.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "alpha_range": [
+        0,
+        255
+      ],
+      "partial_alpha_pixels": 281431,
+      "opaque_pixels": 649,
+      "alpha128_bbox": [
+        34,
+        631,
+        1214,
+        1203
+      ],
+      "grid7_foreground_cells": 5451,
+      "grid7_mixed_cells": 5451,
+      "hard_alpha_pass": false,
+      "grid7_pass": false,
+      "canvas_pass": true
+    }
+  ],
+  "status": "generated_candidates_not_production_ready"
+}

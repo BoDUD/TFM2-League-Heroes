@@ -1,0 +1,12 @@
+{
+  "kind": "fx",
+  "index": 6,
+  "file": "idas_fx_p_burst.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: A GUARDIAN'S VOW FLASH, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the unit stands in the middle, not drawn: 16 squares wide and 36 tall; 1 a white-gold flash round the unit; 2-3 golden scale plates flying IN from all sides and locking together into a SHIELD round the unit: only an OUTLINE of overlapping faceted golden scale plates (a tall egg shape round the unit, 2 squares thick), the inside EMPTY so the unit shows through; 4 the shield complete and shining, a cyan gem flaring at its top; 5 the shine fading. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 5 frames total, arranged in one horizontal row of 5 identical cells. Each cell has exactly the same framing and scale and aspect ratio 30:38. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 5 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-e6b079c5-8a12-4dd8-9b41-d3995b920e35.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_p_burst.png"
+}

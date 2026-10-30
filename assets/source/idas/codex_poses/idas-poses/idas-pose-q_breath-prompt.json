@@ -1,0 +1,12 @@
+{
+  "name": "idas-pose-q_breath",
+  "group": "idas-poses",
+  "prompt": "Repaint IMAGE1 exact 3D POSE into chunky pixel art matching IMAGE2 APPROVED DESIGN and IMAGE3 HEAD; IMAGE4 SKELETON fixes limb placement. Output one transparent PNG 1254x1254, 7px grid, 0/255 alpha. Keep reference1 composition/empty margins, whole body, lowest point y1176. Same character, head, limb lengths/bulk, gold feather-blade forearm wings, dark brown chest, cyan crest/horns/eyes, grey claws, long tail violet blade, near-black outline, 3-4 flat colors per material. Same approved head moved/tilted to pose; no redesign. EXACTLY TWO ARMS (arms ARE wings, no separate back wings), TWO LEGS, ONE TAIL. Use pose1, not idle pose2. All wings/claws/feet/tail/horns visible. No guides, grid, labels, ground, shadow, VFX or glow. POSE: BREATHE: head thrust FORWARD RIGHT, mouth opened as wide as possible dark red interior, no breath effects. Only two hands: near hand low by waist and far hand extended high right. No extra idle hand. Jaw widely OPEN dark red interior, keep cyan cheek horn attached to lower cheek.",
+  "refs": [
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/5_q_breath_ref.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/0_design.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/1_head.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/5_q_breath_skeleton.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-b1e70e54-15b6-4dcc-a122-31fb19b75717.png"
+}

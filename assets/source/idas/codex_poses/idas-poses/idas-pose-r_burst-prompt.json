@@ -1,0 +1,12 @@
+{
+  "name": "idas-pose-r_burst",
+  "group": "idas-poses",
+  "prompt": "Repaint IMAGE1 exact 3D POSE into chunky pixel art matching IMAGE2 APPROVED DESIGN and IMAGE3 HEAD; IMAGE4 SKELETON fixes limb placement. Output one transparent PNG 1254x1254, 7px grid, 0/255 alpha. Keep reference1 composition/empty margins, whole body, lowest point y1176. Same character, head, limb lengths/bulk, gold feather-blade forearm wings, dark brown chest, cyan crest/horns/eyes, grey claws, long tail violet blade, near-black outline, 3-4 flat colors per material. Same approved head moved/tilted to pose; no redesign. EXACTLY TWO ARMS (arms ARE wings, no separate back wings), TWO LEGS, ONE TAIL. Use pose1, not idle pose2. All wings/claws/feet/tail/horns visible. No guides, grid, labels, ground, shadow, VFX or glow. POSE: BURST: STAND UP tall, BOTH wings thrown WIDE OPEN to sides, head UP roaring with WIDE OPEN mouth dark red inside. Match render1 neck lifted and arms unfolded, one arm reaches high right and near arm angled low right; BOTH forearm golden fans visible fully opened. Exactly two hands. Leave at least 60px transparent margin on left/right.",
+  "refs": [
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/10_r_burst_ref.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/0_design.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/1_head.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/10_r_burst_skeleton.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-fb7fcd5c-a9e4-49ee-869b-cfea3bc86dc3.png"
+}

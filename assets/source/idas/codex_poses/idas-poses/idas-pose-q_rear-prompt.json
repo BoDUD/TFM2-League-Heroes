@@ -1,0 +1,12 @@
+{
+  "name": "idas-pose-q_rear",
+  "group": "idas-poses",
+  "prompt": "Repaint IMAGE1 exact 3D POSE into chunky pixel art matching IMAGE2 APPROVED DESIGN and IMAGE3 HEAD; IMAGE4 SKELETON fixes limb placement. Output one transparent PNG 1254x1254, 7px grid, 0/255 alpha. Keep reference1 composition/empty margins, whole body, lowest point y1176. Same character, head, limb lengths/bulk, gold feather-blade forearm wings, dark brown chest, cyan crest/horns/eyes, grey claws, long tail violet blade, near-black outline, 3-4 flat colors per material. Same approved head moved/tilted to pose; no redesign. EXACTLY TWO ARMS (arms ARE wings, no separate back wings), TWO LEGS, ONE TAIL. Use pose1, not idle pose2. All wings/claws/feet/tail/horns visible. No guides, grid, labels, ground, shadow, VFX or glow. POSE: INHALE: upper body leaning BACK, head raised HIGH, chest puffed, mouth CLOSED. Despite render's open jaw, this wind-up frame's mouth must be CLOSED. Long neck arches back, snout points upwards.",
+  "refs": [
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/4_q_rear_ref.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/0_design.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/1_head.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/4_q_rear_skeleton.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-0eb67283-c06c-4aaa-becc-73a0f2edd3e2.png"
+}
