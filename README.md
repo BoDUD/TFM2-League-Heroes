@@ -309,7 +309,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_renata.png" width="32"> | [烈娜塔](docs/heroes/league_renata.md)<br>Renata | 辅助 | 忠诚激励 · 铁腕竞合 · 大招 恶意收购 | [烈娜塔附加包](addons/league_renata/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_senna.png" width="32"> | [赛娜](docs/heroes/league_senna.md)<br>Senna | 辅助 | 黑暗洞灭 · 无尽厮守 · 大招 暗影燎原 | [赛娜黑雾常驻附加包](addons/league_senna_mist/README.md) | — |
 | <img src="docs/heroes/img/league_seraphine.png" width="32"> | [萨勒芬妮](docs/heroes/league_seraphine.md)<br>Seraphine | 辅助 | 被动 星光漫射 · 清籁穿云 · 增幅节拍 · 大招 炫音返场 | — | — |
-| <img src="docs/heroes/img/league_sona.png" width="32"> | [娑娜](docs/heroes/league_sona.md)<br>Sona | 辅助 | 被动 能量和弦 · 英勇赞美诗 · 坚毅咏叹调 · 大招 狂舞终乐章 | [辅助挑人附加包：迦娜、娑娜、璐璐](addons/league_support_pick/README.md) | — |
+| <img src="docs/heroes/img/league_sona.png" width="32"> | [娑娜](docs/heroes/league_sona.md)<br>Sona | 辅助 | 被动 能量和弦 · 英勇赞美诗 · 坚毅咏叹调 · 大招 狂舞终乐章 | [辅助挑人附加包：迦娜、娑娜、璐璐](addons/league_support_pick/README.md) | PPU 3.88 |
 | <img src="docs/heroes/img/league_soraka.png" width="32"> | [索拉卡](docs/heroes/league_soraka.md)<br>Soraka | 辅助 | 流星坠落 · 星之灌注 · 大招 祈愿 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_tahmkench.png" width="32"> | [塔姆](docs/heroes/league_tahmkench.md)<br>Tahm Kench | 辅助 | 巨舌鞭笞 · 深渊潜航 · 大招 大快朵颐 | [塔姆附加包](addons/league_tahmkench/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_taric.png" width="32"> | [塔里克](docs/heroes/league_taric.md)<br>Taric | 辅助 | 被动 正气凌人 · 炫光 · 星光之触 · 大招 宇宙之辉 | — | PPU 1.55 |
