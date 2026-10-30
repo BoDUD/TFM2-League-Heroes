@@ -1,0 +1,44 @@
+{
+  "sohm-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox": [
+      41,
+      31,
+      1234,
+      1254
+    ],
+    "alpha_levels": 256,
+    "alpha_128_bbox": [
+      437,
+      663,
+      873,
+      1219
+    ],
+    "alpha_nonbinary_count": 160942
+  },
+  "sohm-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "bbox": [
+      33,
+      21,
+      1222,
+      1254
+    ],
+    "alpha_levels": 256,
+    "alpha_128_bbox": [
+      449,
+      665,
+      895,
+      1219
+    ],
+    "alpha_nonbinary_count": 150176
+  }
+}

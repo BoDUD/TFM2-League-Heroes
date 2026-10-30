@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.263.0"
+      "version": ">=0.264.0"
     }
   ],
   "description": "Test build of Illaoi as in League (needs League of Legends Heroes): replaces the main pack's Illaoi so her tentacles grow on the edge of the walls near her, strike the enemies Harsh Lesson marked and the Vessels first, Test of Spirit's spirit echoes her hits and breaks into a Vessel when its champion walks off. Other champions are untouched. Writes a log for testing.",
@@ -16,5 +16,5 @@
   "mod_id": "league_illaoi",
   "mod_type": "native",
   "name": "League Heroes: Illaoi's tentacles and spirit (test)",
-  "version": "0.2.32"
+  "version": "0.2.33"
 }

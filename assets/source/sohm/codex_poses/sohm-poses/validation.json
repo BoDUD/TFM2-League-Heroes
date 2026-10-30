@@ -1,0 +1,320 @@
+{
+  "poses": [
+    {
+      "file": "sohm-pose-a_rear.png",
+      "passed": true,
+      "bbox": [
+        432,
+        272,
+        888,
+        1176
+      ],
+      "sha256": "695ca872a48b4b34f328eecfc2dc945998743cc8de12fe3b774df584f93e9daf"
+    },
+    {
+      "file": "sohm-pose-a_spit.png",
+      "passed": true,
+      "bbox": [
+        384,
+        576,
+        944,
+        1176
+      ],
+      "sha256": "e8737630ee3b4766b14e22722545205762a993c2f86784201095eb9c4d8602fb"
+    },
+    {
+      "file": "sohm-pose-q_rise.png",
+      "passed": true,
+      "bbox": [
+        456,
+        384,
+        912,
+        1176
+      ],
+      "sha256": "1a3cc03344d706fa3d7a533e49370efc3724fb951e654c8c8660d3aa36291198"
+    },
+    {
+      "file": "sohm-pose-q_send.png",
+      "passed": true,
+      "bbox": [
+        200,
+        480,
+        1104,
+        1176
+      ],
+      "sha256": "21e2fc35045c1d7b21bf2e094e4c6fda9f9c4259dd349709f68b9d6458f95a98"
+    },
+    {
+      "file": "sohm-pose-e_gather.png",
+      "passed": true,
+      "bbox": [
+        392,
+        576,
+        880,
+        1176
+      ],
+      "sha256": "be79ccef37c3715cc914f21253718e4afa63b9202a7c44b60c0d3555b3a348a5"
+    },
+    {
+      "file": "sohm-pose-e_push.png",
+      "passed": true,
+      "bbox": [
+        320,
+        392,
+        1008,
+        1176
+      ],
+      "sha256": "41d57b8329a74df32d8e541de147981224b39b9d839643dc54a4ff4b6c075812"
+    },
+    {
+      "file": "sohm-pose-r_coil.png",
+      "passed": true,
+      "bbox": [
+        288,
+        712,
+        896,
+        1176
+      ],
+      "sha256": "7089588752cac480ea356622361e77c22cbac84da9759c8bb1fa4659d1410a03"
+    },
+    {
+      "file": "sohm-pose-r_rise.png",
+      "passed": true,
+      "bbox": [
+        312,
+        72,
+        888,
+        1176
+      ],
+      "sha256": "0f74ea91869b74475e37294b0bcc6964d02168e2177d56087761c8d3b340dec7"
+    },
+    {
+      "file": "sohm-pose-r_swirl.png",
+      "passed": true,
+      "bbox": [
+        304,
+        448,
+        960,
+        1176
+      ],
+      "sha256": "35c624780bf775456455096708681c191e3789cf59805b59a88ba2838e7b3bea"
+    },
+    {
+      "file": "sohm-pose-d_fall.png",
+      "passed": true,
+      "bbox": [
+        208,
+        672,
+        992,
+        1176
+      ],
+      "sha256": "b49000f3a7af59efb909749281de88e26294ce4b3f9a0628c58056d87f2876b7"
+    },
+    {
+      "file": "sohm-pose-d_down.png",
+      "passed": true,
+      "bbox": [
+        80,
+        768,
+        1176,
+        1176
+      ],
+      "sha256": "4bccceb8636ce13c263d44ac5d40a90be1e397c866b14d4da95603320f8b0d61"
+    },
+    {
+      "file": "sohm-pose-run1.png",
+      "passed": true,
+      "bbox": [
+        208,
+        824,
+        1032,
+        1176
+      ],
+      "sha256": "473e094e6073367c9b7e14dc5cffcd12fe38d0fad6653c4e244e5c8fb4e59ea2"
+    },
+    {
+      "file": "sohm-pose-run2.png",
+      "passed": true,
+      "bbox": [
+        224,
+        840,
+        1072,
+        1176
+      ],
+      "sha256": "0e44bccf53285c2c96b57383fdfc1e27398c1c9a0dacde1e65440bedb1fefd6f"
+    },
+    {
+      "file": "sohm-pose-run3.png",
+      "passed": true,
+      "bbox": [
+        120,
+        776,
+        1128,
+        1176
+      ],
+      "sha256": "5efc2f10a30a624ac8c2614521e0ebe631d1137ccd6e420ab4789aaf6ff190eb"
+    },
+    {
+      "file": "sohm-pose-run4.png",
+      "passed": true,
+      "bbox": [
+        168,
+        840,
+        1120,
+        1176
+      ],
+      "sha256": "2b25e283dc7ca6be1b1751f4f7e36a473c12a7ad2030d1b5844ed60143bb9e09"
+    }
+  ],
+  "effects": [
+    {
+      "file": "sohm_fx_a_bolt.png",
+      "passed": true,
+      "frames": 4,
+      "cell_1x": [
+        10,
+        8
+      ],
+      "distinct_frames": 4,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_a_hit.png",
+      "passed": true,
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "distinct_frames": 4,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_q_wave.png",
+      "passed": true,
+      "frames": 6,
+      "cell_1x": [
+        40,
+        16
+      ],
+      "distinct_frames": 6,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_q_hit.png",
+      "passed": true,
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "distinct_frames": 4,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_q_flower.png",
+      "passed": true,
+      "frames": 6,
+      "cell_1x": [
+        14,
+        12
+      ],
+      "distinct_frames": 6,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_q_jump.png",
+      "passed": true,
+      "frames": 4,
+      "cell_1x": [
+        10,
+        8
+      ],
+      "distinct_frames": 4,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_e.png",
+      "passed": true,
+      "frames": 5,
+      "cell_1x": [
+        24,
+        16
+      ],
+      "distinct_frames": 5,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_e_shield.png",
+      "passed": true,
+      "frames": 6,
+      "cell_1x": [
+        24,
+        38
+      ],
+      "distinct_frames": 6,
+      "center_body_fill": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "file": "sohm_fx_r_bloom.png",
+      "passed": true,
+      "frames": 7,
+      "cell_1x": [
+        40,
+        40
+      ],
+      "distinct_frames": 7,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_r_hit.png",
+      "passed": true,
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "distinct_frames": 4,
+      "center_body_fill": null
+    },
+    {
+      "file": "sohm_fx_p_glow.png",
+      "passed": true,
+      "frames": 6,
+      "cell_1x": [
+        44,
+        48
+      ],
+      "distinct_frames": 6,
+      "center_body_fill": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "icons": [
+    {
+      "file": "sohm_icon_skill.png",
+      "passed": true
+    },
+    {
+      "file": "sohm_icon_skill2.png",
+      "passed": true
+    },
+    {
+      "file": "sohm_icon_ult.png",
+      "passed": true
+    }
+  ]
+}

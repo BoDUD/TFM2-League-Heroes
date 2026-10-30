@@ -1,0 +1,332 @@
+[
+  {
+    "file": "sohm-pose-a_rear.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      432,
+      272,
+      888,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": 0,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-a_spit.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      384,
+      576,
+      944,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -24,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-q_rise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      456,
+      384,
+      912,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -48,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-q_send.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      200,
+      480,
+      1104,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -72,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-e_gather.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      392,
+      576,
+      880,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -8,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-e_push.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      320,
+      392,
+      1008,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -32,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-r_coil.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      288,
+      712,
+      896,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -48,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-r_rise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      312,
+      72,
+      888,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -64,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-r_swirl.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      304,
+      448,
+      960,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -48,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      208,
+      672,
+      992,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -56,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      80,
+      768,
+      1176,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -56,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      208,
+      824,
+      1032,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": 0,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      224,
+      840,
+      1072,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -16,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      120,
+      776,
+      1128,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -40,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  },
+  {
+    "file": "sohm-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 8,
+    "bbox": [
+      168,
+      840,
+      1120,
+      1176
+    ],
+    "anchor_y": 1176,
+    "vertical_translation_px": -24,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "normalization": "8px block majority, alpha threshold128; vertical anchor translation only; no actor fit-to-box",
+    "status": "generated pose; requires animation integration review"
+  }
+]

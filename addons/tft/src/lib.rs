@@ -18,6 +18,7 @@ pub mod sevika;
 pub mod shiohyu;
 pub mod silco;
 pub mod smeech;
+pub mod sohm;
 pub mod steb;
 pub mod syfen;
 pub mod vander;
@@ -43,6 +44,7 @@ fn init(host: &StableHost) -> StableMod {
     shiohyu::register(host, &mut module);
     silco::register(host, &mut module);
     smeech::register(host, &mut module);
+    sohm::register(host, &mut module);
     steb::register(host, &mut module);
     syfen::register(host, &mut module);
     vander::register(host, &mut module);

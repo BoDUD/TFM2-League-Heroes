@@ -2298,5 +2298,125 @@
   "asset/base/sound/sfx/tft_syfen_sfx_r_roar": {
     "remapping": "asset/tft/sound/sfx/tft_syfen_sfx_r_roar",
     "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_a": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_p": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_p",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_q": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_q_mark": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_q_mark",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_q_jump": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_q_jump",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_q_jump_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_q_jump_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_e": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_e_shield": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_e_shield",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_r": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_r_cast": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_r_bloom": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_r_bloom",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_r_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_d": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_d",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_a": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_d": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_d",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_e": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_e_shield": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_e_shield",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_p": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_p",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_q": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_q_jump": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_q_jump",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_q_jump_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_q_jump_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_q_mark": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_q_mark",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_r": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_r_bloom": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_r_bloom",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_r_cast": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_r_cast",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_sohm_sfx_r_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_sohm_sfx_r_hit",
+    "type": "override"
   }
 }

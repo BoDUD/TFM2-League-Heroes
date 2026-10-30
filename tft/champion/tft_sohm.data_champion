@@ -1,0 +1,317 @@
+{
+  "id": "tft_sohm",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_sohm:lagoon",
+    "params": {
+      "p_max": 5,
+      "p_t": 360,
+      "p_ap": 9,
+      "p_as": 9,
+      "q_range": 62000,
+      "q_dmg": 95,
+      "q_ratio": 65,
+      "q_w": 9000,
+      "q_speed": 3500,
+      "m_t": 900,
+      "j_r": 40000,
+      "j_speed": 3000,
+      "e_ar": 55000,
+      "e_sh": 95,
+      "e_sh_ap": 65,
+      "e_sh_t": 180,
+      "e_as": 25,
+      "r_r": 32000,
+      "r_dmg": 180,
+      "r_ratio": 90
+    }
+  },
+  "sprite": "asset/tft/champions/tft_sohm",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_sohm_skill",
+    "asset/tft/icons/tft_sohm_skill2",
+    "asset/tft/icons/tft_sohm_ult"
+  ],
+  "stat": {
+    "attack": 78,
+    "magic_power": 40,
+    "hp": 980,
+    "defence": 20,
+    "magic_resistance": 24,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 20,
+    "hp": 102,
+    "defence": 7,
+    "magic_resistance": 5,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_sohm.attack",
+    "duration": 24,
+    "cooltime": 90,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Delayed",
+      "tick": 9,
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sohm_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "tft_sohm_a_bolt",
+          "speed": 4000,
+          "y_offset": 2000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "tft_sohm_a_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "tft_sohm_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_sohm.skill",
+    "duration": 36,
+    "cooltime": 240,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 62000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 17,
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sohm_q"
+        },
+        {
+          "type": "Native",
+          "effect_ref": "tft_sohm:tide"
+        },
+        {
+          "type": "Native",
+          "effect_ref": "tft_sohm:wave"
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_sohm.skill2",
+    "duration": 30,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "None",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Delayed",
+      "tick": 13,
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sohm_e"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "tft_sohm_e"
+        },
+        {
+          "type": "Native",
+          "effect_ref": "tft_sohm:tide"
+        },
+        {
+          "type": "Native",
+          "effect_ref": "tft_sohm:guard"
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_sohm.ult",
+    "duration": 48,
+    "cooltime": 2100,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sohm_r"
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sohm_r_cast"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_sohm:tide"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_sohm:bloom"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_sohm_a_bolt",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sohm_q_wave",
+      "anim": "asset/tft/effects/tft_sohm_big",
+      "tag": "q_wave",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sohm_q_jump",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "q_jump",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_sohm_a_hit",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sohm_q_hit",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sohm_e",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "e",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sohm_r_bloom",
+      "anim": "asset/tft/effects/tft_sohm_big",
+      "tag": "r_bloom",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sohm_r_hit",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "r_hit",
+      "z": 3,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_sohm_q_flower",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "q_flower",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sohm_e_shield",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "e_shield",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sohm_p_glow",
+      "anim": "asset/tft/effects/tft_sohm_fx",
+      "tag": "p_glow",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}
