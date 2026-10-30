@@ -207,9 +207,9 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ ult: Tidal Bloom
     if is_native:   # tft.dll bursts every flower of hers
         bloom = native("bloom")
-    else:           # the sims: bursts on random enemy champions
-        burst = lob("r_seed", 2, [zone("r_zone", p["r_r"], [ap(p["r_dmg"], p["r_ratio"]), view("r_hit")])],
-                    "EnemyChampion")
+    else:           # the sims (and Sylas's stolen copy): bursts on random enemy champions, the lotus on each
+        burst = lob("r_seed", 2, [view("r_bloom"), zone("r_zone", p["r_r"], [ap(p["r_dmg"], p["r_ratio"]),
+                                                                             view("r_hit")])], "EnemyChampion")
         bloom = combine(*[pick(p["r_range"], "EnemyChampion", [burst]) for _ in range(p["r_plain_n"])])
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(sfx("r"), delayed(p["r_rel"] - 1, sfx("r_cast"), tide, bloom)))
@@ -244,6 +244,15 @@ def build(p, is_native=False):
                "passive": {"passive_ref": f"{ID}:lagoon", "params": {k: p[k] for k in NATIVE_KEYS}},
                **{k: v for k, v in kit.items() if k not in ("id", "category", "tags")}}
     return kit
+
+
+def sylas_ult(p=None):
+    """Tidal Bloom as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's add-on
+    bundle is on the Workshop and the tft mod is not, so his stolen ult cannot call tft.dll (the user, 2026-10-27:
+    「塞拉斯的大招什么一定要能偷到特效版本的」). The kit's --plain ult: r_plain_n lotuses bursting on random enemy
+    champions, their hits. The views are the kit's own (tft_sohm_*); make_override copies them and their sheets."""
+    p = dict(P) if p is None else p
+    return build(p, False)["ult"]["effect"]
 
 
 def nodes(o):
