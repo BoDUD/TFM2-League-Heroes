@@ -1,0 +1,762 @@
+{
+  "generator": "built-in image_gen",
+  "generated_assets": 15,
+  "expected_assets": 15,
+  "assets": [
+    {
+      "file": "daeja_fx_a_bolt.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        8
+      ],
+      "output_scale": 8,
+      "output_size": [
+        320,
+        64
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_a_bolt.png",
+      "raw": "raw/daeja_fx_a_bolt.png",
+      "raw_size": [
+        1402,
+        1122
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_union": [
+        104,
+        47,
+        639,
+        502
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 4,
+      "frame_hashes": [
+        "bf408dc10361fc3354ac2b457fdeb36310ecadba330431c093d8d7a6eb14fa4a",
+        "e03886655a7216a3787e47ceed10448879d39d2d095f9377d9785dc8613c348b",
+        "3901bf2c2c92aaaf27540f7d565b734089e90ecb7c89bffba8283fe925d53f6f",
+        "f5eec071207c2282ed2525465a7634450d5a8c00684fb0c535a2389146a587cb"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6"
+      ],
+      "binding": "view_projectiles `tft_daeja_a_bolt`（飞向目标，随方向旋转；上下对称、朝右）",
+      "sha256": "ff0b251d905d00823f146f6af7fe3398b7ad27234a1b3b1168239b5e751c6934"
+    },
+    {
+      "file": "daeja_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "output_scale": 8,
+      "output_size": [
+        448,
+        112
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_a_hit.png",
+      "raw": "raw/daeja_fx_a_hit.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_union": [
+        127,
+        22,
+        653,
+        448
+      ],
+      "symmetry": "left-right",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 4,
+      "frame_hashes": [
+        "ee80ac3525678616c67b99e1e8c5a47ac4cb0914f9539130725b2fd9d95c73c0",
+        "3663fc8fd41ef95e5371bf2de742e3513c1e6e5591c3ae6658e565a0ce95bb73",
+        "8aadeee35b38d87ffa85793006b12611ee600525552a5a86a65c5cfd31e19887",
+        "1f8828a968230972ecbe92a4a8700c09e9380d9c6a6e26b2a12fb0476617906f"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6"
+      ],
+      "binding": "view_effects `tft_daeja_a_hit`（跟随目标，z 2；左右对称）",
+      "sha256": "50b80e07a5ef0e830bcaa813631b98542aa3ba80af2118f77f2c8f0702ae72c5"
+    },
+    {
+      "file": "daeja_fx_p_bolt.png",
+      "frames": 4,
+      "cell_1x": [
+        8,
+        6
+      ],
+      "output_scale": 8,
+      "output_size": [
+        256,
+        48
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_p_bolt.png",
+      "raw": "raw/daeja_fx_p_bolt.png",
+      "raw_size": [
+        1448,
+        1086
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_union": [
+        97,
+        144,
+        559,
+        399
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 3,
+      "frame_hashes": [
+        "bfde0154d93c1c776fe4e28e714f135136f1c578940a496a083b4822fdfc22e3",
+        "fc4a9c3b9810664937cdca1ae91b1ba84610a9066f4ccbfaee0e698067e56277",
+        "bc03810b479cc07c50549e07dd093c2fecb5253a26687568167484f0d7d2b01f",
+        "bc03810b479cc07c50549e07dd093c2fecb5253a26687568167484f0d7d2b01f"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6",
+        "#F6EBFF",
+        "#D8B2FF",
+        "#A878F2",
+        "#6E48C8"
+      ],
+      "binding": "view_projectiles `tft_daeja_p_bolt`（飞向目标，随方向旋转；上下对称、朝右）",
+      "sha256": "3615459589cfc99ad5cf15411ca9c8654840cbefd09292c9aee596895932d6e3"
+    },
+    {
+      "file": "daeja_fx_p_hit.png",
+      "frames": 3,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "output_scale": 8,
+      "output_size": [
+        240,
+        80
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_p_hit.png",
+      "raw": "raw/daeja_fx_p_hit.png",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "raw_grid": [
+        3,
+        1
+      ],
+      "source_union": [
+        53,
+        67,
+        666,
+        659
+      ],
+      "symmetry": "left-right",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 3,
+      "frame_hashes": [
+        "10b1eb97a8e450bce69d25207237a3990f8581d990ebab535e532a955ea4e723",
+        "ce8267dfe8596d8cd210fa6375be93f66706455767aceb8bb95892c3c5b2a134",
+        "8054813e8b948aa8e780dc3a3dce51274fae776ff999bafcea1ad3c462d37d30"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6",
+        "#F6EBFF",
+        "#D8B2FF",
+        "#A878F2",
+        "#6E48C8"
+      ],
+      "binding": "view_effects `tft_daeja_p_hit`（跟随目标，z 2；左右对称）",
+      "sha256": "6e7561dc94d82d5b0c89a2777c7ca1d3bfc2a7f357fdd33aef4c49d931306f44"
+    },
+    {
+      "file": "daeja_fx_p_shred.png",
+      "frames": 6,
+      "cell_1x": [
+        14,
+        30
+      ],
+      "output_scale": 8,
+      "output_size": [
+        672,
+        240
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_p_shred.png",
+      "raw": "raw/daeja_fx_p_shred.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "source_union": [
+        116,
+        54,
+        395,
+        204
+      ],
+      "symmetry": "left-right",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6,
+      "frame_hashes": [
+        "d4936a4bb93d304c533d68482161b8bcde1ebe59d533b64cdeae1aa2cc7dcb34",
+        "5fe35d47c4a5e7249e9ca7bc0192d7d7c19c4fb2a35d4eedb2781212a61ff80c",
+        "d3b18d4235374fe3b4886b9d73a870c90cf890e999b03607c90a888b6990eac2",
+        "0364509e7d500f01fad4b19e87dd8789500aa8a0fafe26835a8d838eb591cc74",
+        "843227df694a5f65c8f0f3af5c9e36d87a2d5036a7638fec790566be0f0c2c90",
+        "948d2902f3e129e7146fdaeecba7fadfaa29065717e6ac25be903e10a22179bb"
+      ],
+      "palette": [
+        "#FFE2FF",
+        "#FF7AF0",
+        "#E81CE8",
+        "#F6EBFF",
+        "#D8B2FF",
+        "#A878F2",
+        "#6E48C8"
+      ],
+      "binding": "view_buffs `tft_daeja_p_shred`（跟随被打中的人，头顶上，z 3；左右对称）",
+      "sha256": "ad8afb3b7c76329a0095886fcba83ed926eb05004d39a4ee05d9a443c9378a91"
+    },
+    {
+      "file": "daeja_fx_q_wave.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        22
+      ],
+      "output_scale": 8,
+      "output_size": [
+        512,
+        176
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_q_wave.png",
+      "raw": "raw/daeja_fx_q_wave.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_union": [
+        39,
+        51,
+        598,
+        607
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 4,
+      "frame_hashes": [
+        "99ee44a5826ca60e785eecabe5bf58366ffdd75b192b80e362b753ea23d611e0",
+        "f79b15b91a19613da5fa0d09ec7806454ef816bb18b79fd228ee88c31cc73c16",
+        "eb064f7cc396928ab10f7c849784a03b84daf04549ffb51d9a608b54906f36b2",
+        "2b4c0106e40fcb2d2ef4351f1cbdc6964806189e0635fa4b0d91eb8e99cdca9d"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6",
+        "#F6EBFF",
+        "#D8B2FF",
+        "#A878F2",
+        "#6E48C8"
+      ],
+      "binding": "view_projectiles `tft_daeja_q_wave`（大表，穿透的直线风波，随方向旋转；上下对称、朝右）",
+      "sha256": "89b1281f1dcd20f4d1a20b641ff58d7d351f5ad2be06d0078a1a8df342c0ffd7"
+    },
+    {
+      "file": "daeja_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "output_scale": 8,
+      "output_size": [
+        800,
+        160
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_q_hit.png",
+      "raw": "raw/daeja_fx_q_hit.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "source_union": [
+        0,
+        95,
+        418,
+        613
+      ],
+      "symmetry": "left-right",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 5,
+      "frame_hashes": [
+        "f7d88a49a50e399fc0cdc43f1d9b239f0412c5dbcfc588c828e90ed23ebdafdf",
+        "c8616a9f641a0c529f07b206dae44d3f9c3563db4d72f06814b117b1b2cc646f",
+        "d5b28667f1adf4a2897319a5caec69977e7e39f0e3a957e6305c02021cc7ff7f",
+        "7a0455d7382a4f1ccd2d059ee9a5afd4e0f56f4240456243e85b92ee4260534f",
+        "e6c425b874b5ffce89a536ae4889f8ea4da23e5921810cc6e9f617ceffba6b49"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6"
+      ],
+      "binding": "view_effects `tft_daeja_q_hit`（在被穿过的人身上，z 3；左右对称）",
+      "sha256": "55ccde6f2669f58207eb0d1285ec1632bc49c9d2ea62e52ee80c206fa676bcfb"
+    },
+    {
+      "file": "daeja_fx_e_gust.png",
+      "frames": 6,
+      "cell_1x": [
+        46,
+        16
+      ],
+      "output_scale": 8,
+      "output_size": [
+        2208,
+        128
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_e_gust.png",
+      "raw": "raw/daeja_fx_e_gust.png",
+      "raw_size": [
+        2127,
+        739
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "source_union": [
+        0,
+        34,
+        709,
+        334
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6,
+      "frame_hashes": [
+        "7e1af7985892eda58efa4ca2795f9edbad4e0450539638b17e0fe15656976c4e",
+        "103d0a7f2a6b7f1a88921bcf2b6c12fc83d4b35bd3a31ac856b660e9e27080e7",
+        "705327285d0ba2f071d356e5f781e5dd22da1e5a23e0241dc7bd3331be7b6d38",
+        "cf20734cf8d0fcab8a8a0992f99f3018f12a4f849dd9df87df3b41c5c939cb10",
+        "8bba13661bdd2bbd4092fc166a5cfec75c636d004d5e3b959ba862df600c6731",
+        "78c01762204e1431d0b7056ef3e0a18917a05e796ad17489ea5c7f92b4232238"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6",
+        "#F6EBFF",
+        "#D8B2FF",
+        "#A878F2",
+        "#6E48C8"
+      ],
+      "binding": "view_projectiles `tft_daeja_e_gust`（大表，从他身上指向目标的一条线，随方向旋转；上下对称、朝右）",
+      "sha256": "6de3ff3cf0af9f8d79b5e586c7649b17f702beb8bc440fb765b2e4ec22362c16"
+    },
+    {
+      "file": "daeja_fx_e_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        10
+      ],
+      "output_scale": 8,
+      "output_size": [
+        960,
+        80
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_e_slow.png",
+      "raw": "raw/daeja_fx_e_slow.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "source_union": [
+        5,
+        116,
+        502,
+        483
+      ],
+      "symmetry": "left-right",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6,
+      "frame_hashes": [
+        "727ab5580494813f4a19a31206459e6552255299643d69523b0296ee764e9c4e",
+        "19ab89e24e1906c96f1b7dcdf682aa86d90c7ac840730e74baba0be3480fc155",
+        "9905a7c35ad2d7d6d0094be142565bb2d73a12d3eb6c5968e38180d3583a3aaa",
+        "cc26dc050415bc0b07bd123d8c0a8256a7f2a1eb90813e0d772ac22f2114fa39",
+        "d9571ca66cb63951bfc94c4f847e1b66228cc4164c29452021bab6d7647b251f",
+        "b4f7ec3b664caa2e844938c98ad4f10c1c695198efb7b04debe77f94a3ee4f18"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6"
+      ],
+      "binding": "view_buffs `tft_daeja_e_slow`（跟随被减速的人，脚下地面，z 3；左右对称）",
+      "sha256": "a43642adf8d52ad3265eed72962617afba0a58650b2cb7c1adc9238ec6d9eacd"
+    },
+    {
+      "file": "daeja_fx_r_wave.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        30
+      ],
+      "output_scale": 8,
+      "output_size": [
+        704,
+        240
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_r_wave.png",
+      "raw": "raw/daeja_fx_r_wave.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_grid": [
+        2,
+        2
+      ],
+      "source_union": [
+        36,
+        52,
+        618,
+        606
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 4,
+      "frame_hashes": [
+        "73dfc63eb06f21dc3b884366ee7aa8e53e3186c390111911ed5089aa861f2994",
+        "c8901d2460f017f7c0244546f16e03126ca3cd108cf987e7ef6450dff2f0a317",
+        "f26b1c0edcea2bdb1bd66a8efc1e72faa5c895573c235d9dfe1f8842e2478d99",
+        "703321ec0c6092faa90c7f288c64e75968895cfeec66a6e13d02e288f6011dda"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6",
+        "#F6EBFF",
+        "#D8B2FF",
+        "#A878F2",
+        "#6E48C8"
+      ],
+      "binding": "view_projectiles `tft_daeja_r_wave`（大表，穿透的直线大冲击波，随方向旋转；上下对称、朝右）",
+      "sha256": "fd71fbd25f787d5aba39b57f7dc234f0493820e4db89f05e88c048ecf4d1a1be"
+    },
+    {
+      "file": "daeja_fx_r_hit.png",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        30
+      ],
+      "output_scale": 8,
+      "output_size": [
+        1440,
+        240
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_r_hit.png",
+      "raw": "raw/daeja_fx_r_hit.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "source_union": [
+        16,
+        105,
+        409,
+        609
+      ],
+      "symmetry": "left-right",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6,
+      "frame_hashes": [
+        "eb87aaec0a2cbd0d531ddb833ebfebe39f4210b1507d9dc3a6c4e20d54d1f73d",
+        "271373b29ad75bb8edfa3f0aa88e2fe4ec48f5816459e88214849c1214f8d4d6",
+        "0f1b3e0ae43916b5639c5a18be0849d3eafe012904dd8feb0eb4f319bc64ed69",
+        "76e8631ef8747afe30c2148b48601392cab208e427fdd4b5d9888b28b29dc5ed",
+        "f932a673b3d4e2f1a0ba2d3ce875127914aafac780026f9b3cdf7074f3f476d0",
+        "8d971c1bf7e0e8538c33f64e369363967ce6a4955925d38c4cdb30963ea9afb3"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6",
+        "#F6EBFF",
+        "#D8B2FF",
+        "#A878F2",
+        "#6E48C8"
+      ],
+      "binding": "view_effects `tft_daeja_r_hit`（大表，在被穿过的人身上，z 3；左右对称）",
+      "sha256": "41708a3bd1665369710ab14314843984619bca0043939515441fc2e07010077f"
+    },
+    {
+      "file": "daeja_fx_r_fly.png",
+      "frames": 6,
+      "cell_1x": [
+        44,
+        14
+      ],
+      "output_scale": 8,
+      "output_size": [
+        2112,
+        112
+      ],
+      "pixel_1x": "pixel_1x/daeja_fx_r_fly.png",
+      "raw": "raw/daeja_fx_r_fly.png",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_grid": [
+        3,
+        2
+      ],
+      "source_union": [
+        10,
+        169,
+        504,
+        463
+      ],
+      "symmetry": "left-right",
+      "symmetry_pass": true,
+      "hard_alpha": true,
+      "frame_nonempty": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "unique_frames": 6,
+      "frame_hashes": [
+        "fdb96fdc4c3bb9e25c6a37c0f04c1deab0183e1bcfd3f0d30af595d6f561ca69",
+        "02e0e571540695101cb4f55c044dadf4e55e44085b2aaf9692bff5aa7bdd648a",
+        "331bea67cfcf0f3c271b6dd8b67f74d0808c51cdadea4fc0bb32766fbbc654ba",
+        "a4f05a8bfa87a77691a218a37c2ae4858efcf2b46d29f16196f50ddccdfc27aa",
+        "f046741194f51760de89c11f2bedb41082d0aff2d20b9fa8458d5bbeef65d964",
+        "e867705a4c71812a316b9981c128f98b02b3e27d48a090dbf6b6fcf8bc270126"
+      ],
+      "palette": [
+        "#FFFFFF",
+        "#E6FCFF",
+        "#A8EEFF",
+        "#5CCBF2",
+        "#2C86D6",
+        "#F6EBFF",
+        "#D8B2FF",
+        "#A878F2",
+        "#6E48C8"
+      ],
+      "binding": "view_buffs `tft_daeja_r_fly`（跟随他，在他身后，z -1；左右对称）",
+      "sha256": "99df4868000622a96a267969dd380fbdd9fa59d0d8d69177753d2b6b86d33445"
+    },
+    {
+      "file": "daeja_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "output_size": [
+        64,
+        64
+      ],
+      "raw": "raw/daeja_icon_skill.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "sha256": "e9dfb7f36fa3f3b7eb7e3f11105d84e7d48e836186f325cd0f7984bd9b729c61",
+      "kind": "icon"
+    },
+    {
+      "file": "daeja_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "output_size": [
+        64,
+        64
+      ],
+      "raw": "raw/daeja_icon_skill2.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "sha256": "5f8409bde6e6e8f487affb496e35c745629ee41e9a4d58d1adbf0e79f656a009",
+      "kind": "icon"
+    },
+    {
+      "file": "daeja_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "output_size": [
+        64,
+        64
+      ],
+      "raw": "raw/daeja_icon_ult.png",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "sha256": "f9e2e60bf38686fa31fed5a0235d7e59f71834872e3af83888f6eed64c2ba328",
+      "kind": "icon"
+    }
+  ]
+}

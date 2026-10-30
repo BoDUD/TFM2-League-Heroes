@@ -1,0 +1,826 @@
+{
+  "generator": "built-in image_gen",
+  "generated_assets": 21,
+  "expected_assets": 21,
+  "assets": [
+    {
+      "file": "daeja-pose-a_wind.png",
+      "raw": "raw/daeja-pose-a_wind.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        244,
+        193,
+        961,
+        1137
+      ],
+      "reference_bbox": [
+        422,
+        488,
+        814,
+        1175
+      ],
+      "actor_bbox": [
+        360,
+        486,
+        880,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "38c38d34d3a62a77dc50b82b5e3126fb098e86d6f41aa7cff6cdab240c4f2a80",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-a_punch.png",
+      "raw": "raw/daeja-pose-a_punch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        204,
+        284,
+        1126,
+        1157
+      ],
+      "reference_bbox": [
+        422,
+        488,
+        979,
+        1175
+      ],
+      "actor_bbox": [
+        340,
+        486,
+        1070,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "47638d0a870d77c67bfd9a269c6bd3c2fd9da5960c3a7640ed3b3abbf5e47da1",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-q_raise.png",
+      "raw": "raw/daeja-pose-q_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        79,
+        83,
+        1127,
+        1196
+      ],
+      "reference_bbox": [
+        112,
+        471,
+        812,
+        1173
+      ],
+      "actor_bbox": [
+        130,
+        476,
+        790,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "96006e0b4a25ea4759cfd68c10f03a4853927fddc22b509c87a3c60b24b786cb",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-q_sweep.png",
+      "raw": "raw/daeja-pose-q_sweep.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        216,
+        689,
+        1225,
+        1222
+      ],
+      "reference_bbox": [
+        232,
+        665,
+        1213,
+        1174
+      ],
+      "actor_bbox": [
+        240,
+        666,
+        1210,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "cd4c98dfe2d5b208c6a656999638f983f8fc7cbedd4251e6d1ac71efe3be7348",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-e_beat.png",
+      "raw": "raw/daeja-pose-e_beat.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        41,
+        501,
+        1216,
+        1183
+      ],
+      "reference_bbox": [
+        295,
+        592,
+        941,
+        1175
+      ],
+      "actor_bbox": [
+        120,
+        596,
+        1120,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "abaa354f13d039a19b8fb9682a1622fd976f382f2927ab5647ed5bc48a48afcb",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-e_hop.png",
+      "raw": "raw/daeja-pose-e_hop.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        207,
+        433,
+        1188,
+        1157
+      ],
+      "reference_bbox": [
+        390,
+        554,
+        1006,
+        1166
+      ],
+      "actor_bbox": [
+        280,
+        556,
+        1120,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "cbdb12e60e51c7a3bb3ac91035b1d1846bed598eeb7f36d85c2afbe15f6e2412",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-r_up.png",
+      "raw": "raw/daeja-pose-r_up.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        157,
+        490,
+        1176,
+        1206
+      ],
+      "reference_bbox": [
+        414,
+        512,
+        942,
+        1175
+      ],
+      "actor_bbox": [
+        210,
+        516,
+        1150,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "3011bbef9f4a4980279b5cee6e1a56f79956c521834e739f95ff70df45a189a5",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-r_fly1.png",
+      "raw": "raw/daeja-pose-r_fly1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        68,
+        573,
+        1192,
+        1163
+      ],
+      "reference_bbox": [
+        295,
+        592,
+        941,
+        1175
+      ],
+      "actor_bbox": [
+        70,
+        596,
+        1170,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "8bec2e6bc645a9f6b661fc9a2445a163403da8e0c4bc25eae2ed60adf2a822f5",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-r_fly2.png",
+      "raw": "raw/daeja-pose-r_fly2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        119,
+        196,
+        1117,
+        1166
+      ],
+      "reference_bbox": [
+        112,
+        471,
+        812,
+        1173
+      ],
+      "actor_bbox": [
+        100,
+        476,
+        820,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "4a524cc43c0cb7c3f5729580a337146c9e30d4b1d5410a2306c9b75f7fa61837",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-r_blast.png",
+      "raw": "raw/daeja-pose-r_blast.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        155,
+        553,
+        1213,
+        1165
+      ],
+      "reference_bbox": [
+        232,
+        665,
+        1213,
+        1174
+      ],
+      "actor_bbox": [
+        280,
+        666,
+        1160,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "1085ec2b044f4eb19e109465337e90274a78231dd673d8be070387c2185a0ed7",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-r_land.png",
+      "raw": "raw/daeja-pose-r_land.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        245,
+        475,
+        997,
+        1194
+      ],
+      "reference_bbox": [
+        376,
+        564,
+        924,
+        1175
+      ],
+      "actor_bbox": [
+        330,
+        566,
+        970,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "3954c23847b3dbec71bbe0280869ac4d0d74852a297202838f9f2b4b14dfdb1c",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-d_fall.png",
+      "raw": "raw/daeja-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        285,
+        422,
+        971,
+        1186
+      ],
+      "reference_bbox": [
+        414,
+        567,
+        847,
+        1175
+      ],
+      "actor_bbox": [
+        360,
+        566,
+        910,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "7a6358e1fd1d68494a0d1a8236558db5c590486f513cacaac88bd47da6cf119f",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-d_down.png",
+      "raw": "raw/daeja-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        324,
+        737,
+        913,
+        1166
+      ],
+      "reference_bbox": [
+        332,
+        769,
+        831,
+        1175
+      ],
+      "actor_bbox": [
+        300,
+        766,
+        860,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "db595c3b0c4adb94d875f3e79132d8665cdbb65b896901e5101017a8ef1700de",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-run1.png",
+      "raw": "raw/daeja-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        372,
+        628,
+        882,
+        1195
+      ],
+      "reference_bbox": [
+        456,
+        583,
+        876,
+        1174
+      ],
+      "actor_bbox": [
+        400,
+        586,
+        930,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "70517a6625f23911885ce4fa3174352be8a5dc7e98b2b4bd0093fb2194a0822c",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-run2.png",
+      "raw": "raw/daeja-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        353,
+        561,
+        922,
+        1185
+      ],
+      "reference_bbox": [
+        442,
+        611,
+        854,
+        1175
+      ],
+      "actor_bbox": [
+        390,
+        616,
+        900,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "b10770be011727838ac26fb9131364ce838c7ddd19eb172621a292edcd5bee62",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-run3.png",
+      "raw": "raw/daeja-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        353,
+        598,
+        912,
+        1175
+      ],
+      "reference_bbox": [
+        434,
+        591,
+        817,
+        1175
+      ],
+      "actor_bbox": [
+        350,
+        596,
+        910,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "c0f702228389fdf361f5cba3a9990f18362184d776d69b8edbe5f857131cb8e4",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-run4.png",
+      "raw": "raw/daeja-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        353,
+        495,
+        921,
+        1176
+      ],
+      "reference_bbox": [
+        425,
+        549,
+        778,
+        1175
+      ],
+      "actor_bbox": [
+        340,
+        546,
+        870,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "5a6d929c6ca48f776406090c5ef3d74dd99efb9ee8151e5c05af534cfa4d6a69",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-run5.png",
+      "raw": "raw/daeja-pose-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        323,
+        405,
+        1018,
+        1192
+      ],
+      "reference_bbox": [
+        417,
+        578,
+        790,
+        1174
+      ],
+      "actor_bbox": [
+        340,
+        576,
+        870,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "b8718b17fae72851bb0ff6e9f28f574c5cd5dc5895ec1bd42517e36701e4db9f",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-run6.png",
+      "raw": "raw/daeja-pose-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        164,
+        429,
+        1108,
+        1205
+      ],
+      "reference_bbox": [
+        405,
+        627,
+        816,
+        1175
+      ],
+      "actor_bbox": [
+        280,
+        626,
+        950,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "09398e77e99df6132b64af6dc86827cbc469e6a603940f9b8c520b46ceef68a2",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-run7.png",
+      "raw": "raw/daeja-pose-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        218,
+        478,
+        1022,
+        1184
+      ],
+      "reference_bbox": [
+        427,
+        616,
+        868,
+        1175
+      ],
+      "actor_bbox": [
+        330,
+        616,
+        970,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "4727cf6358a9c5f7dd27ae1e05ade3ae42fb094d08a5d02045650d7dd2bf3d3b",
+      "head_pixel_identity_verified": false
+    },
+    {
+      "file": "daeja-pose-run8.png",
+      "raw": "raw/daeja-pose-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_actor_bbox": [
+        256,
+        478,
+        969,
+        1176
+      ],
+      "reference_bbox": [
+        454,
+        579,
+        869,
+        1176
+      ],
+      "actor_bbox": [
+        360,
+        576,
+        970,
+        1176
+      ],
+      "grid_px": 10,
+      "grid_origin": [
+        0,
+        6
+      ],
+      "baseline_y": 1176,
+      "hard_alpha": true,
+      "sha256": "c17ce4118feb142c80eddea7fe5cf8988f9361e8c8d5ac7bd141466de5279646",
+      "head_pixel_identity_verified": false
+    }
+  ]
+}
