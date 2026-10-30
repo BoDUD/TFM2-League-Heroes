@@ -15,8 +15,10 @@
 //!   `TOWER_R` 内扣分；然后用强制位移（`ForceMove`）把他送过去。主包的火焰带照常每隔几 tick 落在他身后。
 //!
 //! 数字和主包 P 表的值写在这里（`R_*`、`W_*`、`PK_*`），主包改了这里一起改（`tests::the_numbers_match_the_kit` 读主包的
-//! 参数表核对）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_corki.log`，每次启动游戏重写。
+//! 参数表核对）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_corki.log`，每次启动游戏重写；你看的那场全记，
+//! 服务端预模拟每种前 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -101,6 +103,25 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// A kind of line in the server's presims (hundreds of runs a launch): the first LOG_FIRST, then every LOG_EVERY-th
+/// (10-30: one line a missile, blast and flight in every presim, 3.9 MB a launch).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of a kind: its count when it is to be logged - every one in the match on screen (watched, spectated or
+/// replayed), the presims' the first LOG_FIRST, then every LOG_EVERY-th.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (on_screen || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -290,7 +311,8 @@ fn field(sim: &StableSim<'_>, me: usize, team: usize) -> Field {
 
 fn queue(sim: &mut StableSim<'_>, stage: &str, caster: usize, input: InputTargetV1, delay: usize) {
     let name = format!("{ID}:{stage}");
-    if !sim.queue_effect(&name, AttackTypeV1::Skill, caster, &input, delay.max(1)) {
+    let queued = sim.queue_effect(&name, AttackTypeV1::Skill, caster, &input, delay.max(1));
+    if !queued && tally(sim, "queue_refused").is_some() {
         wlog(format!("{} queue_effect({name}) refused", head(sim, caster)));
     }
 }
@@ -305,7 +327,10 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
     let list: Vec<Foe> = f.foes.iter().map(|x| x.1).collect();
     let target = input_unit(sim, &input).or_else(|| input_pos(&input));
     let Some((aim, stop, score)) = best_shot(me, target, &list, big) else {
-        wlog(format!("{} {}: nobody to aim at (input kind {})", head(sim, caster), if big { "BIG" } else { "AIM" }, input.kind));
+        if tally(sim, "nobody").is_some() {
+            wlog(format!("{} {}: nobody to aim at (input kind {})", head(sim, caster), if big { "BIG" } else { "AIM" },
+                         input.kind));
+        }
         return;
     };
     let (x, y) = upos(me);
@@ -331,17 +356,19 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
     sim.play_sfx(&ck(sound), caster, &InputTargetV1::target(caster));
     let flew = sim.spawn_projectile(&ck(pic), &format!("{ID}:pass"), &spec);
     let ticks = (d / R_SPEED).ceil().max(1.0) as usize;
-    wlog(format!(
-        "{} {} aim {} -> stops at {} ({:.0} away, {} ticks), score {:.1}{}",
-        head(sim, caster),
-        if big { "BIG" } else { "AIM" },
-        pt(aim),
-        pt(stop),
-        d,
-        ticks,
-        score,
-        if flew { "" } else { " (spawn_projectile refused: no flying missile)" }
-    ));
+    if tally(sim, if big { "big" } else { "aim" }).is_some() {
+        wlog(format!(
+            "{} {} aim {} -> stops at {} ({:.0} away, {} ticks), score {:.1}{}",
+            head(sim, caster),
+            if big { "BIG" } else { "AIM" },
+            pt(aim),
+            pt(stop),
+            d,
+            ticks,
+            score,
+            if flew { "" } else { " (spawn_projectile refused: no flying missile)" }
+        ));
+    }
     queue(sim, stage, caster, InputTargetV1::pos(tx, ty), ticks);
 }
 
@@ -352,7 +379,9 @@ fn pass(_: &mut StableSim<'_>, _: usize, _: InputTargetV1) {}
 fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool) {
     let Some(spot) = input_pos(&input) else { return };
     if alive_at(sim, caster).is_none() {
-        wlog(format!("{} boom: he is dead, no blast", head(sim, caster)));
+        if tally(sim, "dead").is_some() {
+            wlog(format!("{} boom: he is dead, no blast", head(sim, caster)));
+        }
         return;
     }
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
@@ -375,8 +404,10 @@ fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool)
             n.1 += 1;
         }
     }
-    wlog(format!("{} {} at {}: {} enemies hit ({} champions), {} magic + {} physical each", head(sim, caster),
-                 if big { "BIG BOOM" } else { "BOOM" }, pt(spot), n.0, n.1, magic, phys));
+    if tally(sim, if big { "big_boom" } else { "boom" }).is_some() {
+        wlog(format!("{} {} at {}: {} enemies hit ({} champions), {} magic + {} physical each", head(sim, caster),
+                     if big { "BIG BOOM" } else { "BOOM" }, pt(spot), n.0, n.1, magic, phys));
+    }
 }
 
 // ===================== 俯冲 =====================
@@ -395,7 +426,9 @@ fn fly(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, package: bo
         Some((me.0 + u.0 * reach, me.1 + u.1 * reach))
     });
     let Some(spot) = spot else {
-        wlog(format!("{} {}: no way out", head(sim, caster), if package { "PACKAGE" } else { "ESCAPE" }));
+        if tally(sim, "no_way_out").is_some() {
+            wlog(format!("{} {}: no way out", head(sim, caster), if package { "PACKAGE" } else { "ESCAPE" }));
+        }
         return;
     };
     let mut cc = CcV1::of_kind(CcKindV1::ForceMove, ticks as u64);
@@ -403,19 +436,21 @@ fn fly(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, package: bo
     cc.dy = (spot.1 - me.1).round() as i64;
     cc.speed = speed.ceil() as u64;
     sim.apply_cc(caster, &cc);
-    let near = champs.iter().map(|c| dist(spot, *c)).fold(f64::INFINITY, f64::min);
-    wlog(format!(
-        "{} {} from {} to {} ({:.0}), nearest enemy champion then {:.0} (now {:.0}), {} allies, walls {}",
-        head(sim, caster),
-        if package { "PACKAGE" } else { "ESCAPE" },
-        pt(me),
-        pt(spot),
-        reach,
-        near,
-        champs.iter().map(|c| dist(me, *c)).fold(f64::INFINITY, f64::min),
-        f.allies.len(),
-        f.walls
-    ));
+    if tally(sim, if package { "package" } else { "escape" }).is_some() {
+        let near = champs.iter().map(|c| dist(spot, *c)).fold(f64::INFINITY, f64::min);
+        wlog(format!(
+            "{} {} from {} to {} ({:.0}), nearest enemy champion then {:.0} (now {:.0}), {} allies, walls {}",
+            head(sim, caster),
+            if package { "PACKAGE" } else { "ESCAPE" },
+            pt(me),
+            pt(spot),
+            reach,
+            near,
+            champs.iter().map(|c| dist(me, *c)).fold(f64::INFINITY, f64::min),
+            f.allies.len(),
+            f.walls
+        ));
+    }
 }
 
 // ===================== 注册 =====================

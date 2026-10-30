@@ -11,7 +11,7 @@
 //! 窗口里有敌方英雄、而且血量一直没低于 `SUSPECT_HP`% 的回城再标 `SUSPECT`（不像是被打残了回家）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_recall_log.log`，每次启动游戏重写，上一次的留在 .prev.log；
-//! 一次启动最多 `LOG_CAP` 行。
+//! 你看的那场全记，其余（服务端的预模拟）一次启动最多 `LOG_CAP` 行。
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -23,7 +23,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_recall_log";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 /// 观察钩子的优先级：最低（只看不改）。
 const WATCH_PRIORITY: i32 = -2_000_000;
 /// 「身边」：引擎算 nuke / dps 的范围。
@@ -34,8 +34,8 @@ pub const WINDOW: usize = 600;
 const SCAN: usize = 10;
 /// 血量一直在这以上的回城算可疑。
 pub const SUSPECT_HP: usize = 60;
-/// 一次启动最多写多少行。
-const LOG_CAP: usize = 20_000;
+/// 一次启动最多写多少行不在屏幕上的（服务端的预模拟；你看的那场不算）：2 万行在 10-30 一次启动的第 4 分钟就满了，2.3 MB。
+const LOG_CAP: usize = 2_000;
 
 // ===================== 日志 =====================
 
@@ -57,10 +57,16 @@ fn log_path() -> PathBuf {
 
 static LOG_PATH: LazyLock<PathBuf> = LazyLock::new(log_path);
 
+/// One more line: whether it is to be written - every one from the match on screen (watched, spectated or replayed),
+/// the rest the first LOG_CAP of the launch.
+fn room(sim: &StableSim<'_>) -> bool {
+    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    on_screen || LINES.fetch_add(1, Ordering::Relaxed) < LOG_CAP
+}
+
 fn wlog(msg: impl AsRef<str>) {
-    if LINES.fetch_add(1, Ordering::Relaxed) >= LOG_CAP {
-        return;
-    }
     // the file stays open: opening and closing it for every line took 0.6 ms a line in game (memory log-open-once)
     let mut file = LOG_FILE.lock().unwrap_or_else(|e| e.into_inner());
     if file.is_none() {
@@ -234,6 +240,9 @@ impl StablePlayerAi for Watch {
             return None;
         }
         self.returning = true;
+        if !room(&sim) {
+            return None;
+        }
         let near: Vec<String> = self
             .recent
             .near(tick)

@@ -55,7 +55,7 @@
 
 ### 薇恩圣银弩箭附加包
 
-[薇恩圣银弩箭附加包](../../addons/league_vayne_bolts/README.md)：`league_vayne_bolts` v0.1.0
+[薇恩圣银弩箭附加包](../../addons/league_vayne_bolts/README.md)：`league_vayne_bolts` v0.1.1
 
 主包 `league` 保持纯数据。数据分不清一次攻击打中的是谁，所以主包里圣银弩箭的两层记在薇恩自己身上：她轮流打两个人也会凑满
 3 下，在第三个被打中的人身上爆。这个附加包用原生代码做成英雄联盟的样子：**同一个目标**连续挨 3 下才爆。

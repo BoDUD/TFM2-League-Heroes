@@ -12,10 +12,13 @@
 //!   奇亚娜（league_qiyana）突进落地时身上有它就算身边有草（拿草元素）。这三个附加包谁装了都行，标记只是一个 buff，
 //!   没装艾翁的附加包时它们照旧只看地图。
 //!
-//! 每个计时都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。
+//! 每个计时都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量（只有日志的行数是全局的）。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ivern.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//! 你看的那场每行都写，服务器的预模拟 SPAWN、BRUSH 各先写 `LOG_FIRST` 行、之后每 `LOG_EVERY` 次一行（见 `tally`）；
+//! 行头带 `m=`（哪一场）、`s=`（第几局）：同时跑着的不同场的预模拟分得开。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -70,15 +73,39 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// 日志行数的上限（2026-10-30 一次启动 719 KB：78% 是预模拟的 BRUSH，两成多是预模拟的 SPAWN）。计数是全局的：每场预模拟的
+/// 被动都是新实例，以前记在实例里的 `grown <= 40 || grown % 50 == 0` 管不住几百场预模拟（一次启动约一万八千丛草）。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count when it is to be written - every one in the match on screen (watched,
+/// spectated or replayed), the server's presims (and background matches) the first `LOG_FIRST`, then every
+/// `LOG_EVERY`-th.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (on_screen || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// `[presim m=.. s=..] t=.. #id`: which run, which match and set (presims of different matches running at once told
+/// apart), the tick, the unit.
 fn head(sim: &StableSim<'_>, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
         Some(SimOriginKindV1::ServerPresim) => "presim",
         Some(SimOriginKindV1::ClientMatchView) => "view",
         Some(SimOriginKindV1::ClientSpectate) => "spectate",
+        Some(SimOriginKindV1::ClientReplay) => "replay",
+        Some(SimOriginKindV1::Tool) => "tool",
         _ => "unknown",
     };
-    format!("[{kind} t={}] #{id}", sim.tick())
+    let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
+    format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
 // ===================== 参数 =====================
@@ -173,8 +200,10 @@ impl StablePassive for Brushmaker {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Ivern (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        if tally(sim, "spawn").is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Ivern (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -190,7 +219,7 @@ impl StablePassive for Brushmaker {
         };
         if let Some(b) = new {
             self.grown += 1;
-            if self.grown <= 40 || self.grown % 50 == 0 {
+            if tally(sim, "brush").is_some() {
                 wlog(format!("{} BRUSH #{}: at ({}, {}) until t={}", head(sim, me), self.grown, b.x, b.y, b.until));
             }
         }

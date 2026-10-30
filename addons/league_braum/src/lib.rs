@@ -30,7 +30,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_braum";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 /// 主包布隆的英雄 id（AI 钩子按它认人）。
 const HERO: &str = "league_braum";
 
@@ -97,16 +97,31 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
-/// 日志条数：每种最多先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条。
+/// 日志条数：你看的那场（观看、观战、回放）每条都写；服务器的预模拟每种最多先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条
+/// 一条（计数是全局的，每次启动游戏从头数）。2026-10-30：一次启动 1 909 行里 822 行是没算进来的 SPAWN（每条命一行）；
+/// 你看的那场除了 SPAWN 只写了 1 行（条数早被预模拟用完）；STACK、BLOCK 一次启动各一万五千次以上，以前每 50 次一行。
 const LOG_FIRST: usize = 40;
-const LOG_EVERY: usize = 50;
+const LOG_EVERY: usize = 200;
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-fn counted(kind: &'static str) -> Option<usize> {
+/// The match on screen (the client's view, spectating, a replay), not a server presim or a background match.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// One more line of `kind`: its count when it is to be written - every one when `shown` (the match on screen), the
+/// others the first `LOG_FIRST`, then every `LOG_EVERY`-th.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -266,7 +281,7 @@ fn blow(sim: &mut StableSim<'_>, braum: usize, target: usize, hit: Hit) {
         if hit == Hit::Attack {
             let amount = magic(sim, braum, target, P_EXTRA, P_EXTRA_AP);
             sim.play_view_effect(&br("p_extra"), braum, &InputTargetV1::target(target), 0, 0, 0);
-            if let Some(n) = counted("extra") {
+            if let Some(n) = tally(sim, "extra") {
                 wlog(format!("{} EXTRA #{n} {}: +{amount} magic (stunned lately)", head(sim, braum), who(sim, target)));
             }
         }
@@ -293,7 +308,7 @@ fn blow(sim: &mut StableSim<'_>, braum: usize, target: usize, hit: Hit) {
         Hit::Ally(a) => format!("ally {}", who(sim, a)),
     };
     if stacks < 4 {
-        if let Some(n) = counted("stack") {
+        if let Some(n) = tally(sim, "stack") {
             wlog(format!("{} STACK #{n} {} -> {stacks} ({by})", head(sim, braum), who(sim, target)));
         }
         return;
@@ -306,7 +321,7 @@ fn blow(sim: &mut StableSim<'_>, braum: usize, target: usize, hit: Hit) {
     let at = InputTargetV1::target(target);
     sim.play_view_effect(&br("p_proc"), braum, &at, 0, 0, 0);
     sim.play_sfx(&br("p_proc"), braum, &at);
-    if let Some(n) = counted("stun") {
+    if let Some(n) = tally(sim, "stun") {
         wlog(format!("{} STUN #{n} {}: 4th stack ({by}), {amount} magic, stunned {P_STUN} ticks", head(sim, braum),
                      who(sim, target)));
     }
@@ -416,7 +431,7 @@ impl Heart {
             self.covered = 0;
         }
         if !on && self.raised {
-            if let Some(n) = counted("raise") {
+            if let Some(n) = tally(sim, "raise") {
                 wlog(format!("{} SHIELD #{n} down: {} damage given back, {} ally-ticks covered", head(sim, me),
                              self.blocked, self.covered));
             }
@@ -473,8 +488,10 @@ impl StablePassive for Heart {
         self.last.clear();
         self.raised = false;
         self.dir = None;
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Braum (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        if tally(sim, "spawn").is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Braum (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -505,7 +522,7 @@ impl StablePassive for Heart {
         let Some((hp, max)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
         sim.entity_set_hp(me, (hp + back).min(max));
         self.blocked += back;
-        if let Some(n) = counted("block") {
+        if let Some(n) = tally(sim, "block") {
             wlog(format!("{} BLOCK #{n} {} hit {damage} from the front -> {back} back{}", head(sim, me),
                          who(sim, attacker), if first { " (the first: all)" } else { "" }));
         }
@@ -547,7 +564,7 @@ impl StablePlayerAi for UltAi {
         }
         let current = b.target.target_id;
         let player = ctx.player_id();
-        let (pick, line) = {
+        let (pick, line, shown) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
             if !me.is_alive() {
@@ -562,13 +579,14 @@ impl StablePlayerAi for UltAi {
             if id == current || n <= was {
                 return None;
             }
-            ((id, n, was), format!("{} R {} -> {}", head(&sim, me.id()), who(&sim, current), who(&sim, id)))
+            let line = format!("{} R {} -> {}", head(&sim, me.id()), who(&sim, current), who(&sim, id));
+            ((id, n, was), line, on_screen(&sim))
         };
         let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(pick.0));
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        if let Some(k) = counted("aim") {
+        if let Some(k) = noted("aim", shown) {
             wlog(format!("{line} AIM #{k}: {} champions on the line instead of {}", pick.1, pick.2));
         }
         Some(input)

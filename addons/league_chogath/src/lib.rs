@@ -12,8 +12,10 @@
 //!   `R_DMG` + 他最大生命的 `R_HP`% 真实伤害，加法强 `R_AP`% 的魔法伤害（主包先挂 100% 魔抗穿透，等于真实）。有人一口吃得死：
 //!   放，几个时吃生命 + 护盾最少的，AI 没想放也放；AI 想放 R 却吃不死：改成普攻那个人（打不到就走过去）。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_chogath.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_chogath.log`，每次启动游戏重写，上一次的留在 .prev.log；你看的
+//! 那场全记，服务端预模拟每种前 `PRESIM_FIRST` 行、之后每 `PRESIM_EVERY` 行记一行。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -35,6 +37,10 @@ pub const R_RANGE: usize = 30_000;
 const ULT_LEVEL: usize = 5;
 /// 同一类日志至少隔这么多 tick 记一次（AI 每 tick 想一次）。
 const LOG_EVERY: usize = 120;
+/// A kind of line in the server's presims (hundreds of runs a launch): the first PRESIM_FIRST of the launch, then every
+/// PRESIM_EVERY-th (10-30: FEAST HELD, one a LOG_EVERY per AI with no cap, was 1.1 MB of the launch's 1.4 MB).
+const PRESIM_FIRST: usize = 40;
+const PRESIM_EVERY: usize = 200;
 
 // ===================== 日志 =====================
 
@@ -72,6 +78,28 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// The match you watch (the view, a spectated match, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// One more line of a kind: its count when it is to be logged - every one when `shown` (the match on screen), the
+/// presims' the first PRESIM_FIRST, then every PRESIM_EVERY-th.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= PRESIM_FIRST || *n % PRESIM_EVERY == 0).then_some(*n)
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -177,15 +205,20 @@ impl StablePassive for Keep {
         let Some(e) = sim.get_entity(me) else { return };
         let alive = e.is_alive();
         if alive != self.was_alive {
-            wlog(format!("{} {} with {} Feast stacks kept", head(sim, me), if alive { "ALIVE" } else { "DEAD" }, self.kept.len()));
+            if tally(sim, if alive { "alive" } else { "dead" }).is_some() {
+                wlog(format!("{} {} with {} Feast stacks kept", head(sim, me), if alive { "ALIVE" } else { "DEAD" },
+                             self.kept.len()));
+            }
             self.was_alive = alive;
         }
         let have = buffs_named(sim, me, STACK);
         let gone = missing(&self.kept, &have);
         if gone.is_empty() {
             if alive && have.len() > self.kept.len() {
-                wlog(format!("{} STACK {} -> {} (+{} max health a stack)", head(sim, me), self.kept.len(), have.len(),
-                             have.last().map_or(0, |b| b.hp)));
+                if tally(sim, "stack").is_some() {
+                    wlog(format!("{} STACK {} -> {} (+{} max health a stack)", head(sim, me), self.kept.len(),
+                                 have.len(), have.last().map_or(0, |b| b.hp)));
+                }
                 self.kept = have;
             }
             return;
@@ -193,8 +226,10 @@ impl StablePassive for Keep {
         for b in &gone {
             sim.add_buff(me, b);
         }
-        wlog(format!("{} KEEP {} stacks put back ({}), {} in all", head(sim, me), gone.len(),
-                     if alive { "alive" } else { "dead" }, self.kept.len()));
+        if tally(sim, "keep").is_some() {
+            wlog(format!("{} KEEP {} stacks put back ({}), {} in all", head(sim, me), gone.len(),
+                         if alive { "alive" } else { "dead" }, self.kept.len()));
+        }
     }
 }
 
@@ -265,18 +300,21 @@ impl StablePlayerAi for FeastAi {
                 let ai_foe = target.as_ref().filter(|e| enemy(e)).map(|e| read_foe(e));
                 let target_pos = target.as_ref().map(|e| e.pos());
                 let d = bite(me.hp().1, me.stat().magic_power);
-                Some((d, free, foes, ai_foe, target_pos, me.pos(), head(&sim, id), buffs_named(&sim, id, STACK).len()))
+                let line = (head(&sim, id), on_screen(&sim));
+                Some((d, free, foes, ai_foe, target_pos, me.pos(), line, buffs_named(&sim, id, STACK).len()))
             })()
         };
-        let (d, free, foes, ai_foe, target_pos, my_pos, line, stacks) = read?;
+        let (d, free, foes, ai_foe, target_pos, my_pos, (line, shown), stacks) = read?;
         let foes: Vec<Foe> = foes.into_iter().filter(|f| ctx.is_valid_input(&ult(f.id))).collect();
         if free && !busy {
             if let Some(f) = best_kill(&foes, d) {
                 if self.last_cast.is_none_or(|(t0, i)| i != f.id || tick >= t0 + LOG_EVERY) {
                     self.last_cast = Some((tick, f.id));
-                    wlog(format!("{line} FEAST #{}: hp + shield {} vs a bite of {} ({d} before his damage taken changes), \
-                                  {stacks} stacks{}", f.id, f.ehp(), f.damage_from(d),
-                                 if wants_ult { "" } else { ", the AI had not cast it" }));
+                    if noted("feast", shown).is_some() {
+                        wlog(format!("{line} FEAST #{}: hp + shield {} vs a bite of {} ({d} before his damage taken \
+                                      changes), {stacks} stacks{}", f.id, f.ehp(), f.damage_from(d),
+                                     if wants_ult { "" } else { ", the AI had not cast it" }));
+                    }
                 }
                 return Some(ult(f.id));
             }
@@ -287,12 +325,14 @@ impl StablePlayerAi for FeastAi {
         // AI 想放 R 却吃不死：改普攻那个人（打不到就走过去），R 留着
         if self.last_hold.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
             self.last_hold = Some(tick);
-            let who = match (ai_target, ai_foe) {
-                (Some(x), Some(f)) => format!("#{x} hp + shield {} > a bite of {}", f.ehp(), f.damage_from(d)),
-                (Some(x), None) => format!("#{x} is no enemy champion alive"),
-                _ => "no target".to_string(),
-            };
-            wlog(format!("{line} FEAST HELD: {who}, attacking instead"));
+            if noted("feast_held", shown).is_some() {
+                let who = match (ai_target, ai_foe) {
+                    (Some(x), Some(f)) => format!("#{x} hp + shield {} > a bite of {}", f.ehp(), f.damage_from(d)),
+                    (Some(x), None) => format!("#{x} is no enemy champion alive"),
+                    _ => "no target".to_string(),
+                };
+                wlog(format!("{line} FEAST HELD: {who}, attacking instead"));
+            }
         }
         if let Some(x) = ai_target {
             let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(x));

@@ -18,9 +18,12 @@
 //! - **贪婪**：她参与的每一次英雄击杀（`on_kill` 的英雄、`on_assist`）都把 Q、W 的冷却清掉、瞬步就绪（去掉冷却标记），
 //!   播主包的 `p_reset` 和音效；几个人同时阵亡各算一次，不再受主包击杀窗口「一次只认一个」的限制。
 //!
-//! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局变量，服务端预模拟和你看的那场各算各的。
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_katarina.log`，每次启动游戏重写。
+//! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局变量（日志的计数除外），服务端预模拟和你看的那场各算各的。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_katarina.log`，每次启动游戏重写：你看的那场（观战、回放）
+//! 每一行都记；服务端的预模拟（每次启动几百场，每场的被动都是新的）每种先记 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行；
+//! 参数（`Params`）每次启动只在第一条 `SPAWN` 里写一次。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -86,6 +89,46 @@ fn wlog(msg: impl AsRef<str>) {
 
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// Lines of each kind a launch: the server's presims (hundreds a launch, each with new passives - a count in the passive
+/// counts one sim) the first `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all of them.
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
+}
+
+/// The `Params` the log showed last (they come from the champion data: the same in every sim of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only if they ever differ. Every Katarina of every presim wrote them at
+/// every spawn (2026-10-30: 751 SPAWN lines, 54% of a 294 KB log).
+fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.clone());
+    true
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -336,7 +379,7 @@ impl Blades {
             sim.play_view_effect(&kt("e_hit"), me, &InputTargetV1::target(target), 0, 0, 0);
         }
         self.blinks += 1;
-        if self.blinks <= 80 || self.blinks % 25 == 0 {
+        if tally(sim, "blink").is_some() {
             wlog(format!("{} BLINK #{} {why}: {} -> {} ({:.0}), hp {}%, hit {:?}", head(sim, me), self.blinks, pt(here),
                          pt(to), dist(here, to), hp_pct(sim, me), best.map(|b| b.1)));
         }
@@ -355,7 +398,7 @@ impl Blades {
         sim.play_view_effect(&kt("p_reset"), me, &at_me, 0, 0, 0);
         sim.play_sfx(&kt("reset"), me, &at_me);
         self.resets += 1;
-        if self.resets <= 80 {
+        if tally(sim, "reset").is_some() {
             wlog(format!("{} RESET #{} ({why}): Q, W and Shunpo ready", head(sim, me), self.resets));
         }
     }
@@ -372,8 +415,13 @@ impl StablePassive for Blades {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.seen.clear();
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Katarina (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        // the Params in the first SPAWN line of a launch only; the line itself capped in the presims (every respawn writes one)
+        let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
+        if tally(sim, "spawn").is_some() || params.is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Katarina (player {player}, team {team}){}", head(sim, me),
+                         params.unwrap_or_default()));
+        }
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
@@ -545,5 +593,21 @@ mod tests {
         for x in ["e_cd", "e_out", "e_in", "e_hit", "e_blink", "vo_cd", "vo_e", "p_reset", "reset", "r_ch"] {
             assert!(kt(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    #[test]
+    fn the_params_are_logged_once() {
+        let p = Params::default();
+        assert!(params_new(&p));
+        assert!(!params_new(&p));
+        assert!(params_new(&Params { e_cd: 1, ..Params::default() }), "other Params: again");
     }
 }

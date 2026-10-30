@@ -69,7 +69,9 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ult_press.log`，每次启动游戏重写，上一次的留在 .prev.log。
 //! ORDER = 按了；CAST = 冷却真的开始走（按下去了，莎弥拉记下当时的评价）；FIRED = 莎弥拉的真大招放出（主包的
-//! `league_samira_r_on`）；TELEPORT = 崔斯特按下之后一 tick 内移动了 `TF_JUMP` 以上；STYLE = 莎弥拉这一局到过的最高评价。
+//! `league_samira_r_on`）；TELEPORT = 崔斯特按下之后一 tick 内移动了 `TF_JUMP` 以上；STYLE = 莎弥拉这一局到过的最高评价；
+//! R ARMED = 备好式大招用掉了（kept）、退还了（refunded），或者等着的时候阵亡了、判断不了（died while armed）。
+//! ORDER 行开头也写是哪一场（`[presim m=.. s=..]`，不写 seed）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -229,6 +231,9 @@ pub const YONE_R_LINE: f64 = 30_000.0;
 pub const YONE_R_LOW: f64 = 0.5;
 /// 备好式大招按下后看这么久：冷却一下掉了很多就是退还了，没掉就是用掉了（最长的凯尔待命 900 tick）。
 pub const ARM_WATCH: usize = 960;
+/// 两次 think 隔了这么多 tick 以上（平时每 tick 一次；阵亡期间没有），冷却自己走掉的就比「退还」的门槛（一下少 10 tick 以上）
+/// 还多：备好式大招的观察就此作废（只是日志）。
+const THINK_GAP: usize = 10;
 /// 费德提克 R（`Position` 80000，引导 1 秒后传过去，鸦群打 45000 内的敌人）。
 pub const FIDDLE_R_RANGE: f64 = 80_000.0;
 pub const FIDDLE_STORM: f64 = 45_000.0;
@@ -559,7 +564,8 @@ fn counted(kind: String) -> Option<usize> {
     (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
-fn head(sim: &StableSim<'_>, id: usize) -> String {
+/// Which sim: `presim m=841 s=-` (the server's presim of match 841), `view m=750 s=1` (set 1 of 750 on screen), ...
+fn run(sim: &StableSim<'_>) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
         Some(SimOriginKindV1::ServerPresim) => "presim",
@@ -570,8 +576,12 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
         _ => "unknown",
     };
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
+    format!("{kind} m={} s={}", m(o.match_id), m(o.set_index))
+}
+
+fn head(sim: &StableSim<'_>, id: usize) -> String {
     let name = sim.get_entity(id).and_then(|e| e.name()).unwrap_or_default();
-    format!("[{kind} m={} s={} seed={}] t={} {name}#{id}", m(o.match_id), m(o.set_index), sim.seed(), sim.tick())
+    format!("[{} seed={}] t={} {name}#{id}", run(sim), sim.seed(), sim.tick())
 }
 
 fn who(sim: &StableSim<'_>, id: usize) -> String {
@@ -1137,6 +1147,9 @@ struct UltPress {
     orders: [Option<Order>; 4],
     last_cds: [Option<usize>; 4],
     armed_at: Option<usize>,
+    /// 上一次 think 时他的实体编号（`last_tick` 是那一 tick）：阵亡期间没有 think，复活是新的实体。日志用（`armed_at`、
+    /// `cast_at` 的观察跨过一次阵亡就作废），不影响按什么。
+    last_mid: Option<usize>,
     /// 希维尔看的：每个敌方英雄三个技能格上次的剩余冷却、最近一次开始走冷却的 tick。
     foe_cds: HashMap<usize, ([usize; 3], Option<usize>)>,
     /// 莎弥拉 / 崔斯特的 R 按下去的那一 tick（之后 `WATCH_AFTER` tick 内看结果）。
@@ -1414,6 +1427,12 @@ mod verify {
 }
 
 
+/// This think follows his last one (entity `was` at tick `then`) unbroken: the same entity (a respawn is a new one), at
+/// most `THINK_GAP` ticks later (there is no think while he is dead). Else the cooldown watches end unread.
+pub fn unbroken(was: Option<usize>, then: usize, mid: usize, tick: usize) -> bool {
+    was == Some(mid) && tick <= then + THINK_GAP
+}
+
 /// AI 这一 tick 是不是在让她原地站：没下命令，或者「走到」她脚下 `HOLD_HERE` 以内。
 fn holding(base: Option<InputV1>, me: (f64, f64)) -> bool {
     match base {
@@ -1490,6 +1509,23 @@ impl UltPress {
             self.volleys = (self.volleys + (tick - self.volley_tick) as f64 / KOG_VOLLEY_EVERY as f64).min(KOG_VOLLEYS_MAX);
             self.volley_tick = tick;
             let vol_open = name == KOGMAW && has_buff(&me, KOG_VOLLEY);
+            // the watches below compare this think with the last one, and there is none while he is dead (he comes back
+            // as a new entity): over a death an armed ult's cooldown ran on by the whole wait, which read as a refund
+            // (2026-10-30: 171 of 199 "refunded" lines had N above ARM_WATCH, up to 3300), and Twisted Fate's respawn
+            // would read as a teleport. Those watches end here, unread - they only log, no press reads them
+            if !unbroken(self.last_mid, self.last_tick, mid, tick) {
+                if let Some(t0) = self.armed_at.take() {
+                    if let Some(k) = counted(format!("{name} arm unread")) {
+                        let why = match self.last_mid {
+                            Some(was) if was != mid => "died while armed".to_string(),
+                            _ => format!("no think for {} ticks", tick.saturating_sub(self.last_tick)),
+                        };
+                        wlog(format!("{} R ARMED {} ticks before: {why} (not read) #{k}", head(&sim, mid), tick - t0));
+                    }
+                }
+                self.cast_at = None;
+            }
+            self.last_mid = Some(mid);
             self.last_tick = tick;
             let grade = if name == SAMIRA { samira_grade(&me) } else { 0 };
             if grade > self.best_grade {
@@ -1828,7 +1864,9 @@ impl UltPress {
         // one ORDER line a burst (the engine may take a few ticks; the hook presses again every tick meanwhile)
         if self.last_order.is_none_or(|(k0, t0)| k0 != key || tick > t0 + ORDER_FRESH) {
             if let Some(k) = counted(format!("player {player} {key} order")) {
-                wlog(format!("t={tick} player {player} {name} {key} ORDER: {why} #{k}"));
+                // which sim, like every other line (the seed left out: these lines are many)
+                let which = ctx.sim().map_or_else(String::new, |s| format!("[{}] ", run(&s)));
+                wlog(format!("{which}t={tick} player {player} {name} {key} ORDER: {why} #{k}"));
             }
         }
         self.last_order = Some((key, tick));
@@ -2327,6 +2365,17 @@ mod tests {
         }
         assert!(slots_of("league_garen").is_empty());
         assert!(is_armed_ult(KAYLE) && is_armed_ult(APHELIOS) && is_armed_ult(SWAIN) && is_armed_ult(RENATA) && is_armed_ult(WUKONG) && !is_armed_ult(JANNA) && !is_armed_ult(VLADIMIR));
+    }
+
+    #[test]
+    fn a_death_ends_the_armed_watch_unread() {
+        // every tick while he lives
+        assert!(unbroken(Some(139), 19_445, 139, 19_446));
+        // dead in between: no think, and he is back as a new entity (2026-10-30: such "refunds" 961-3300 ticks on)
+        assert!(!unbroken(Some(139), 19_445, 1214, 21_800));
+        // no think for longer than the refund test's margin, the same entity
+        assert!(!unbroken(Some(139), 19_445, 139, 19_445 + THINK_GAP + 1));
+        assert!(!unbroken(None, 0, 139, 30), "his first think");
     }
 
     /// The action-level `"range"` of a slot in the main pack's data (four spaces in, like `melee_list_matches_the_data`).
