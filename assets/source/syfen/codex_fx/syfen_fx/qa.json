@@ -1,0 +1,138 @@
+{
+  "all_export_checks_pass": true,
+  "checks": [
+    {
+      "file": "syfen_fx_a_hit.png",
+      "frames": 4,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 4
+    },
+    {
+      "file": "syfen_fx_q_bite.png",
+      "frames": 5,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 5
+    },
+    {
+      "file": "syfen_fx_e_sweep.png",
+      "frames": 6,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 6
+    },
+    {
+      "file": "syfen_fx_e_hit.png",
+      "frames": 4,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 4
+    },
+    {
+      "file": "syfen_fx_e_slow.png",
+      "frames": 6,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 6
+    },
+    {
+      "file": "syfen_fx_r.png",
+      "frames": 6,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 6
+    },
+    {
+      "file": "syfen_fx_r_dash.png",
+      "frames": 4,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 4
+    },
+    {
+      "file": "syfen_fx_r_hit.png",
+      "frames": 5,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 5
+    },
+    {
+      "file": "syfen_fx_r_bite.png",
+      "frames": 6,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 6
+    },
+    {
+      "file": "syfen_fx_p.png",
+      "frames": 5,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 5
+    },
+    {
+      "file": "syfen_fx_p_shrink.png",
+      "frames": 6,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 6
+    },
+    {
+      "file": "syfen_fx_p_rage.png",
+      "frames": 6,
+      "dimensions_pass": true,
+      "all_frames_nonempty": true,
+      "hard_alpha_pass": true,
+      "each_frame_symmetry_pass": true,
+      "exact_nearest_8x_pass": true,
+      "distinct_frames": 6
+    },
+    {
+      "file": "syfen_icon_skill.png",
+      "size_pass": true
+    },
+    {
+      "file": "syfen_icon_skill2.png",
+      "size_pass": true
+    },
+    {
+      "file": "syfen_icon_ult.png",
+      "size_pass": true
+    }
+  ],
+  "runtime_verified": false
+}

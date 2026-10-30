@@ -1,0 +1,1551 @@
+{
+  "generation": "image_gen",
+  "programmatic_export_authorized": true,
+  "assets": [
+    {
+      "file": "syfen_fx_a_hit.png",
+      "kind": "fx",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          99,
+          213,
+          443,
+          502
+        ],
+        [
+          12,
+          141,
+          532,
+          578
+        ],
+        [
+          26,
+          141,
+          520,
+          570
+        ],
+        [
+          48,
+          141,
+          482,
+          563
+        ]
+      ],
+      "source_y_window": [
+        141,
+        578
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        64,
+        16
+      ],
+      "export_8x_size": [
+        512,
+        128
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            4,
+            4,
+            12,
+            12
+          ],
+          "visible_pixels": 40,
+          "sha256": "d56aea469bb55f13b830af12c0b300c9a0c47fda2b05807da0f9706caef38e9d"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            1,
+            1,
+            15,
+            15
+          ],
+          "visible_pixels": 106,
+          "sha256": "0f425af1f7b03a91346cd8d38afcaa84f76074b1be05ede82649313525fb760a"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            2,
+            2,
+            14,
+            13
+          ],
+          "visible_pixels": 68,
+          "sha256": "462dc6c6e634f8d83887caf42c8aa2e9ae1349a1be113e4bc222b42e1b1d70be"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            2,
+            2,
+            14,
+            14
+          ],
+          "visible_pixels": 42,
+          "sha256": "340e25244cc344471d5562769e8e098a3b24e830318eace466b6a2bebdaa4321"
+        }
+      ],
+      "distinct_frames": 4,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_q_bite.png",
+      "kind": "fx",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_frame_boxes": [
+        [
+          17,
+          195,
+          397,
+          588
+        ],
+        [
+          0,
+          225,
+          396,
+          564
+        ],
+        [
+          18,
+          241,
+          381,
+          564
+        ],
+        [
+          3,
+          235,
+          396,
+          569
+        ],
+        [
+          0,
+          278,
+          364,
+          511
+        ]
+      ],
+      "source_y_window": [
+        195,
+        588
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        100,
+        20
+      ],
+      "export_8x_size": [
+        800,
+        160
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            2,
+            1,
+            18,
+            19
+          ],
+          "visible_pixels": 200,
+          "sha256": "4462251908be974834a8dd27de203c9d7435557008115a99400561e112a5f0f0"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            3,
+            2,
+            17,
+            18
+          ],
+          "visible_pixels": 166,
+          "sha256": "f837d07417df674b3993c6bbe0f886f13aea0c931f318d16e06777de2726ec66"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            2,
+            3,
+            18,
+            18
+          ],
+          "visible_pixels": 168,
+          "sha256": "109e069b57b61ae39084ab80d712e7d4c2ba080659e2fce2f1f079140a6bced8"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            1,
+            3,
+            19,
+            18
+          ],
+          "visible_pixels": 154,
+          "sha256": "1c644f1c569bc92d46565fcad7b299d3e026c9f8b35e249665bdf2b0f968df24"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            1,
+            5,
+            19,
+            16
+          ],
+          "visible_pixels": 56,
+          "sha256": "414ccbd7b2741145e0d0fee4321948e18931a0e033b3bb1eda288ffb763dfc1c"
+        }
+      ],
+      "distinct_frames": 5,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_e_sweep.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        36
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          29,
+          194,
+          362,
+          432
+        ],
+        [
+          0,
+          196,
+          362,
+          492
+        ],
+        [
+          0,
+          197,
+          362,
+          522
+        ],
+        [
+          0,
+          196,
+          362,
+          529
+        ],
+        [
+          0,
+          200,
+          362,
+          523
+        ],
+        [
+          0,
+          208,
+          354,
+          516
+        ]
+      ],
+      "source_y_window": [
+        194,
+        529
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        384,
+        36
+      ],
+      "export_8x_size": [
+        3072,
+        288
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            6,
+            1,
+            58,
+            25
+          ],
+          "visible_pixels": 214,
+          "sha256": "3b654e499700dd606ddfc0069b2b2894412f99bfee291f7678ebae1be3ff7d1c"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            1,
+            1,
+            63,
+            30
+          ],
+          "visible_pixels": 512,
+          "sha256": "5927c5dfd834922bdfb67605147156677bef6caea46fa9f9baa5075005a9cfe3"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            1,
+            1,
+            63,
+            34
+          ],
+          "visible_pixels": 940,
+          "sha256": "0f6e7b85dbd0e4a25b95ded88c54ee034ca1e51762d354183b5eba488a3500da"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            1,
+            1,
+            63,
+            35
+          ],
+          "visible_pixels": 1176,
+          "sha256": "f3e7e81ce11e0ffed8105578faf6e2c442db16553de0bcc5c8447079f212632d"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            1,
+            1,
+            63,
+            35
+          ],
+          "visible_pixels": 1076,
+          "sha256": "53e54d07bf2cfb602f4f61248a547689733da4d2bf56e5b35f22585c2ded1c5c"
+        },
+        {
+          "index": 5,
+          "bbox": [
+            1,
+            2,
+            63,
+            34
+          ],
+          "visible_pixels": 736,
+          "sha256": "6713879e28a36dea32ac8277d2bf11ccb2f3dcb14cf9a6ef0c71b900dda133a8"
+        }
+      ],
+      "distinct_frames": 6,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_e_hit.png",
+      "kind": "fx",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          96,
+          223,
+          543,
+          504
+        ],
+        [
+          0,
+          236,
+          543,
+          495
+        ],
+        [
+          25,
+          214,
+          518,
+          513
+        ],
+        [
+          28,
+          244,
+          511,
+          496
+        ]
+      ],
+      "source_y_window": [
+        214,
+        513
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        56,
+        14
+      ],
+      "export_8x_size": [
+        448,
+        112
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            3,
+            3,
+            11,
+            11
+          ],
+          "visible_pixels": 38,
+          "sha256": "fcd1d86665afa354022f65aac522f4c27afec0751dc7ab82e854d2c325cc3535"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            1,
+            2,
+            13,
+            12
+          ],
+          "visible_pixels": 80,
+          "sha256": "72273c97d5712d811331879d06550ea864071ce89fe474f9a99ceaad20a10725"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            1,
+            1,
+            13,
+            12
+          ],
+          "visible_pixels": 70,
+          "sha256": "1835a2f049e5ca8217ceea153188beeca8ab85b2680078d444ee0742448a05c3"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            2,
+            2,
+            12,
+            12
+          ],
+          "visible_pixels": 40,
+          "sha256": "e5e4211356c5cc198b421f4072d9f5c46188aa2704bf66d735d3bfadf4b2fa8f"
+        }
+      ],
+      "distinct_frames": 4,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_e_slow.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        8
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          30,
+          358,
+          362,
+          489
+        ],
+        [
+          0,
+          313,
+          354,
+          488
+        ],
+        [
+          7,
+          240,
+          355,
+          491
+        ],
+        [
+          7,
+          282,
+          355,
+          489
+        ],
+        [
+          7,
+          312,
+          354,
+          488
+        ],
+        [
+          3,
+          358,
+          331,
+          489
+        ]
+      ],
+      "source_y_window": [
+        240,
+        491
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        120,
+        8
+      ],
+      "export_8x_size": [
+        960,
+        64
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            3,
+            4,
+            17,
+            7
+          ],
+          "visible_pixels": 32,
+          "sha256": "5939679492c142331dd31be293195855bcef3ef1fede28c30bc68839e16bb77d"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            2,
+            3,
+            18,
+            7
+          ],
+          "visible_pixels": 44,
+          "sha256": "3ee1590f100296f0dc32593e31c4416bbc509f8bb7d6e0b4937a41083ef342e6"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            1,
+            1,
+            19,
+            7
+          ],
+          "visible_pixels": 64,
+          "sha256": "cb27400b8484595e5b54fdd6d18db941d00694ba66a00ab6954a0dbc6682a5fb"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            1,
+            2,
+            19,
+            7
+          ],
+          "visible_pixels": 52,
+          "sha256": "2eadb223235dd8d9f6ec413c4fa0e68dd3b891786cbe06e7ff954d16dad717ef"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            1,
+            3,
+            19,
+            7
+          ],
+          "visible_pixels": 44,
+          "sha256": "0eacb29d63bc040bf837efb1720142a5ed388d1079b9107d73ae442a5c3fa4ee"
+        },
+        {
+          "index": 5,
+          "bbox": [
+            1,
+            4,
+            19,
+            7
+          ],
+          "visible_pixels": 40,
+          "sha256": "73b9d1ee8bdcb270511c946d30ed60223a8f56e100e86e2ea8f5b475f9fd9e96"
+        }
+      ],
+      "distinct_frames": 6,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_r.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        48
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        2032,
+        774
+      ],
+      "source_frame_boxes": [
+        [
+          9,
+          285,
+          339,
+          482
+        ],
+        [
+          0,
+          259,
+          338,
+          513
+        ],
+        [
+          4,
+          233,
+          338,
+          516
+        ],
+        [
+          0,
+          261,
+          339,
+          509
+        ],
+        [
+          0,
+          261,
+          338,
+          502
+        ],
+        [
+          0,
+          270,
+          324,
+          509
+        ]
+      ],
+      "source_y_window": [
+        233,
+        516
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        336,
+        48
+      ],
+      "export_8x_size": [
+        2688,
+        384
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            2,
+            10,
+            54,
+            42
+          ],
+          "visible_pixels": 782,
+          "sha256": "2eea250bef3fe2709a209cb9276d3b2da5d1dadc3f4bd23a8233b585105d030d"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            1,
+            5,
+            55,
+            47
+          ],
+          "visible_pixels": 1224,
+          "sha256": "54f7c9088da130f7d29b92a3d7cda90c4c6f56e5d8f7973aecf9fe27555ee746"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            1,
+            1,
+            55,
+            47
+          ],
+          "visible_pixels": 1546,
+          "sha256": "83b81f8efebece956ffe0af81de6ceeb879001189a6dac98a051ba0fe185ccbc"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            2,
+            5,
+            54,
+            46
+          ],
+          "visible_pixels": 1104,
+          "sha256": "f2376e26969817359ef6da492d596f8e0b00e83e845a4a4bb6b1311648ffe7f3"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            1,
+            5,
+            55,
+            45
+          ],
+          "visible_pixels": 784,
+          "sha256": "2ebe10708b85b5e5e84ff7953bc607047f3ffbdca335fbe7090fd7f383c490c6"
+        },
+        {
+          "index": 5,
+          "bbox": [
+            1,
+            7,
+            55,
+            46
+          ],
+          "visible_pixels": 460,
+          "sha256": "4946e0375f15125b1e8fa1a892d5cb9e88637a974cfc01efc128a32e6b628344"
+        }
+      ],
+      "distinct_frames": 6,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_r_dash.png",
+      "kind": "fx",
+      "frames": 4,
+      "cell_1x": [
+        32,
+        12
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          92,
+          393,
+          467,
+          513
+        ],
+        [
+          37,
+          294,
+          506,
+          512
+        ],
+        [
+          2,
+          282,
+          536,
+          510
+        ],
+        [
+          19,
+          314,
+          524,
+          512
+        ]
+      ],
+      "source_y_window": [
+        282,
+        513
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        128,
+        12
+      ],
+      "export_8x_size": [
+        1024,
+        96
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            6,
+            6,
+            26,
+            11
+          ],
+          "visible_pixels": 52,
+          "sha256": "d53cc1f8c84e21d689a5427e30bb9cf75904219e3ee4f911550d5019d5b12825"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            3,
+            1,
+            29,
+            11
+          ],
+          "visible_pixels": 154,
+          "sha256": "8cb6f8c108390313febfca413b2e6fea1e6342c10e75ea5080d060a6560d7205"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            1,
+            1,
+            31,
+            11
+          ],
+          "visible_pixels": 196,
+          "sha256": "5d8802f27b1c8213267d1e957df39b655b670bffc6f081984464a40c50497e08"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            2,
+            3,
+            30,
+            11
+          ],
+          "visible_pixels": 106,
+          "sha256": "a0ab09c33916dd4a9a72a7fcc351c758bb7fd61d603a3f3d741c15ec5c5f7950"
+        }
+      ],
+      "distinct_frames": 4,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_r_hit.png",
+      "kind": "fx",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_frame_boxes": [
+        [
+          16,
+          190,
+          397,
+          607
+        ],
+        [
+          0,
+          187,
+          396,
+          616
+        ],
+        [
+          0,
+          202,
+          396,
+          610
+        ],
+        [
+          12,
+          195,
+          394,
+          609
+        ],
+        [
+          16,
+          240,
+          383,
+          601
+        ]
+      ],
+      "source_y_window": [
+        187,
+        616
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        100,
+        20
+      ],
+      "export_8x_size": [
+        800,
+        160
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            2,
+            1,
+            18,
+            18
+          ],
+          "visible_pixels": 210,
+          "sha256": "5435a26017eb972cc1b3a7ada1ecb0c752a072fa4a8c0d2fa46198319e39319a"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            1,
+            1,
+            19,
+            19
+          ],
+          "visible_pixels": 250,
+          "sha256": "ec62fa4c4057d072027b09b39ce7e8247c0ac106da2c26634b2e2007c39f26a1"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            1,
+            2,
+            19,
+            19
+          ],
+          "visible_pixels": 184,
+          "sha256": "f0e3f95fbe13a5fca7867e545166dfbf97e4cbd7ba051272c1bf014dd964b450"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            1,
+            2,
+            19,
+            19
+          ],
+          "visible_pixels": 190,
+          "sha256": "80154c74958ef85a1931b5faa9d3f0006e749c6f060baa1f18d2c256bdaac802"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            2,
+            3,
+            18,
+            19
+          ],
+          "visible_pixels": 100,
+          "sha256": "0463d1ed044ef1c26898962a082c0bff9145d5ca6fd627b65e459b5bd3713691"
+        }
+      ],
+      "distinct_frames": 5,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_r_bite.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        32,
+        32
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          18,
+          133,
+          353,
+          587
+        ],
+        [
+          22,
+          164,
+          344,
+          553
+        ],
+        [
+          3,
+          179,
+          357,
+          562
+        ],
+        [
+          5,
+          149,
+          354,
+          559
+        ],
+        [
+          14,
+          188,
+          353,
+          540
+        ],
+        [
+          23,
+          200,
+          343,
+          530
+        ]
+      ],
+      "source_y_window": [
+        133,
+        587
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        192,
+        32
+      ],
+      "export_8x_size": [
+        1536,
+        256
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            2,
+            2,
+            30,
+            30
+          ],
+          "visible_pixels": 468,
+          "sha256": "3d193831f58ff0fc22403522b7d76b7292aba0a3abaa37889d1214451fcb7276"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            3,
+            3,
+            29,
+            28
+          ],
+          "visible_pixels": 460,
+          "sha256": "bb31bfb52c3ad1191e983e033d8532d2ddb33d911ee19b4b323538e31473587d"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            1,
+            4,
+            31,
+            29
+          ],
+          "visible_pixels": 516,
+          "sha256": "c597fa0b2fc71822e8a9aeefab3d2d9b742f55b94898504c52b01b461e3d67d8"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            1,
+            2,
+            31,
+            29
+          ],
+          "visible_pixels": 558,
+          "sha256": "8905c77bb58533ee797b284245c54c8290d1f6efc76731c751b1fada80a58131"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            2,
+            4,
+            30,
+            28
+          ],
+          "visible_pixels": 416,
+          "sha256": "49caea1c3d659906829d097e7edf9bbe6ed88c23c1404d2a05ca2110b0e400e5"
+        },
+        {
+          "index": 5,
+          "bbox": [
+            3,
+            6,
+            29,
+            27
+          ],
+          "visible_pixels": 232,
+          "sha256": "80716500e5fba0986e257df18690fa9224928232af23110868c4cbc56d54a548"
+        }
+      ],
+      "distinct_frames": 6,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_p.png",
+      "kind": "fx",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        24
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        1983,
+        793
+      ],
+      "source_frame_boxes": [
+        [
+          16,
+          151,
+          397,
+          634
+        ],
+        [
+          0,
+          165,
+          396,
+          634
+        ],
+        [
+          0,
+          207,
+          380,
+          634
+        ],
+        [
+          14,
+          245,
+          376,
+          586
+        ],
+        [
+          12,
+          180,
+          374,
+          648
+        ]
+      ],
+      "source_y_window": [
+        151,
+        648
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        100,
+        24
+      ],
+      "export_8x_size": [
+        800,
+        192
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            2,
+            1,
+            18,
+            22
+          ],
+          "visible_pixels": 112,
+          "sha256": "b2615d562a0d9a1160ac7782573de5f1fb68e77ef2372a56ae41fc5ed414d144"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            1,
+            2,
+            19,
+            22
+          ],
+          "visible_pixels": 168,
+          "sha256": "92f038e2b004b93b80993487332dc6713fded84dabb5178bbbfd6af4c9f49cd8"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            2,
+            3,
+            18,
+            22
+          ],
+          "visible_pixels": 152,
+          "sha256": "2bd5c1e6da183f02bee0516dd01c31567a8972a6571c9807a0e878d445ee5265"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            2,
+            5,
+            18,
+            20
+          ],
+          "visible_pixels": 156,
+          "sha256": "8593d61f0d66bb8d7c757a4d9769575110ab095af4217146c5a5349f7c45fb17"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            1,
+            2,
+            19,
+            23
+          ],
+          "visible_pixels": 98,
+          "sha256": "c778434cc4cb341d596525f4e5b44547fbd469ca07171acabaac3720c96b4b6c"
+        }
+      ],
+      "distinct_frames": 5,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_p_shrink.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        18,
+        8
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        1457,
+        1080
+      ],
+      "source_frame_boxes": [
+        [
+          8,
+          479,
+          237,
+          630
+        ],
+        [
+          12,
+          479,
+          234,
+          639
+        ],
+        [
+          6,
+          462,
+          235,
+          639
+        ],
+        [
+          6,
+          462,
+          238,
+          640
+        ],
+        [
+          11,
+          479,
+          231,
+          639
+        ],
+        [
+          8,
+          478,
+          236,
+          630
+        ]
+      ],
+      "source_y_window": [
+        462,
+        640
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        108,
+        8
+      ],
+      "export_8x_size": [
+        864,
+        64
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            2,
+            2,
+            16,
+            7
+          ],
+          "visible_pixels": 32,
+          "sha256": "73b6703f31274b0a4bc4f00b60c5d40b96db82afbe0b5b3186d9e22f6d5eb674"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            2,
+            2,
+            16,
+            7
+          ],
+          "visible_pixels": 40,
+          "sha256": "496924125ee3bf980edc732578ddf073dd6e257893892a8ce3d40f7c9611aa53"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            1,
+            1,
+            17,
+            7
+          ],
+          "visible_pixels": 60,
+          "sha256": "f88bf6e2d6492b2993f7369c98451e843ec51cb9466aad30cc158123e09eab9a"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            1,
+            1,
+            17,
+            7
+          ],
+          "visible_pixels": 54,
+          "sha256": "f8eee652f50c33ca12d80f90236f0adf964a89379383a4d296accb26158fc166"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            2,
+            2,
+            16,
+            7
+          ],
+          "visible_pixels": 44,
+          "sha256": "0e9e5dac708099662073ad852670c7df5621b022f66d08c6970397be14fd6aa1"
+        },
+        {
+          "index": 5,
+          "bbox": [
+            1,
+            2,
+            17,
+            7
+          ],
+          "visible_pixels": 42,
+          "sha256": "1ac40dfe8bdc42aceba8e56ae19095a83d073c3abd6425501187fbf7ded298e3"
+        }
+      ],
+      "distinct_frames": 6,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_fx_p_rage.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        44
+      ],
+      "symmetry": "left-right; left half copied to right per frame",
+      "source_size": [
+        2172,
+        724
+      ],
+      "source_frame_boxes": [
+        [
+          14,
+          275,
+          353,
+          531
+        ],
+        [
+          8,
+          212,
+          352,
+          539
+        ],
+        [
+          9,
+          165,
+          354,
+          539
+        ],
+        [
+          12,
+          196,
+          354,
+          537
+        ],
+        [
+          7,
+          253,
+          356,
+          534
+        ],
+        [
+          11,
+          275,
+          352,
+          531
+        ]
+      ],
+      "source_y_window": [
+        165,
+        539
+      ],
+      "sampling": "nearest listed palette colour per covered source pixel; majority among covered pixels per target grid; 20% coverage minimum; source alpha >=8; shared x/y mapping across frames, restored target cell aspect ratio",
+      "export_1x_size": [
+        336,
+        44
+      ],
+      "export_8x_size": [
+        2688,
+        352
+      ],
+      "hard_alpha": true,
+      "symmetry_pass": true,
+      "frame_reports": [
+        {
+          "index": 0,
+          "bbox": [
+            3,
+            13,
+            53,
+            42
+          ],
+          "visible_pixels": 592,
+          "sha256": "15a144a516b916d8224a258606f5f162bc63c8ea71d7ab4ce6abf69b59703ef2"
+        },
+        {
+          "index": 1,
+          "bbox": [
+            2,
+            6,
+            54,
+            43
+          ],
+          "visible_pixels": 934,
+          "sha256": "12ac84a60b8b5a8d5e291f19d067c331207cdbf2256fecc1e8589a7325c822aa"
+        },
+        {
+          "index": 2,
+          "bbox": [
+            2,
+            1,
+            54,
+            43
+          ],
+          "visible_pixels": 1186,
+          "sha256": "7c1d8b7549570004491a73e8e790cdbfe2c18755839512ca641f0538c92851f7"
+        },
+        {
+          "index": 3,
+          "bbox": [
+            3,
+            4,
+            53,
+            43
+          ],
+          "visible_pixels": 1000,
+          "sha256": "007ff47ddcf5c47f2e6efd53fb0676021b784001936f54a2b8cd6a8eb1e5e414"
+        },
+        {
+          "index": 4,
+          "bbox": [
+            2,
+            11,
+            54,
+            43
+          ],
+          "visible_pixels": 734,
+          "sha256": "2538c19eb3047ecc407eae8f123e762d98d706308e8a160716c4367cfa851cfa"
+        },
+        {
+          "index": 5,
+          "bbox": [
+            2,
+            13,
+            54,
+            42
+          ],
+          "visible_pixels": 602,
+          "sha256": "811867190639fdb3967e047860bb70ed28472c4516968dd11181f3f4120034d6"
+        }
+      ],
+      "distinct_frames": 6,
+      "layout_mapping": "equal-width original cells; shared source content top/bottom; horizontal and vertical mapping restored independently to requested logical frame aspect"
+    },
+    {
+      "file": "syfen_icon_skill.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "export_size": [
+        64,
+        64
+      ]
+    },
+    {
+      "file": "syfen_icon_skill2.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "export_size": [
+        64,
+        64
+      ]
+    },
+    {
+      "file": "syfen_icon_ult.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "export_size": [
+        64,
+        64
+      ]
+    }
+  ]
+}

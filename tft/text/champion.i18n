@@ -133,6 +133,13 @@
         "skill": "双翼前扫，朝敌人最多的直线轰出穿透的风波，造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。",
         "skill2": "振翅朝身边的敌人扇出一阵风，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己借风后跳。",
         "ult": "展翅飞起（减伤<#ffb900ff>30%<>、免疫控制），朝敌人最多的直线连续轰出<#ffb900ff>3<>道大冲击波，各造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。"
+      },
+      "tft_syfen": {
+        "name": "赛芬",
+        "attack": "翼爪和甩尾交替攻击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>幽影低语<>：他的伤害让敌人缩小<#ffb900ff>4秒<>（护甲、魔抗<#ffb900ff>-20%<>）；打缩小的敌人叠怒气，每层<#ffb900ff>+5<>攻击力，最多<#ffb900ff>5<>层。",
+        "skill": "扑上去咬住目标，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>，无视<#ffb900ff>33%<>护甲，回复<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>生命。",
+        "skill2": "张开双翼横扫身边，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并减速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "ult": "龙吼后冲向最远的敌方英雄（免疫控制），路上的敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>并晕眩<#ffb900ff>1.25秒<>，最后猛咬一口造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>240%<><#ff9028ff>物理伤害<>，无视<#ffb900ff>33%<>护甲。"
       }
     },
     "skill_name": {
@@ -230,6 +237,11 @@
         "skill1": "罡风轰击",
         "skill2": "振翼退风",
         "ult": "苍穹罡风"
+      },
+      "tft_syfen": {
+        "skill1": "噬咬",
+        "skill2": "翼刃横扫",
+        "ult": "暴走"
       }
     }
   },
@@ -367,6 +379,13 @@
         "skill": "雙翼前掃，朝敵人最多的直線轟出穿透的風波，造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。",
         "skill2": "振翅朝身邊的敵人搧出一陣風，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己借風後跳。",
         "ult": "展翅飛起（減傷<#ffb900ff>30%<>、免疫控制），朝敵人最多的直線連續轟出<#ffb900ff>3<>道大衝擊波，各造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。"
+      },
+      "tft_syfen": {
+        "name": "賽焚",
+        "attack": "翼爪和甩尾交替攻擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>幽影低語<>：他的傷害讓敵人縮小<#ffb900ff>4秒<>（物防、魔防<#ffb900ff>-20%<>）；打縮小的敵人疊怒氣，每層<#ffb900ff>+5<>攻擊力，最多<#ffb900ff>5<>層。",
+        "skill": "撲上去咬住目標，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>，無視<#ffb900ff>33%<>物防，回復<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>生命。",
+        "skill2": "張開雙翼橫掃身邊，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並緩速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "ult": "龍吼後衝向最遠的敵方英雄（免疫控制），路上的敵人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>並暈眩<#ffb900ff>1.25秒<>，最後猛咬一口造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>240%<><#ff9028ff>物理傷害<>，無視<#ffb900ff>33%<>物防。"
       }
     },
     "skill_name": {
@@ -464,6 +483,11 @@
         "skill1": "猛烈狂風",
         "skill2": "振翼退風",
         "ult": "蒼穹罡風"
+      },
+      "tft_syfen": {
+        "skill1": "噬咬",
+        "skill2": "翼刃橫掃",
+        "ult": "盛怒龍顎"
       }
     }
   },
@@ -601,6 +625,13 @@
         "skill": "Sweeps his wings forward: a wind wave runs down the line with the most enemies, <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> to each.",
         "skill2": "Beats his wings at a nearby enemy: a gust for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and a <#ffb900ff>40%<> slow for <#ffb900ff>1.5s<>, and he hops back on the wind.",
         "ult": "Flies up (<#ffb900ff>30%<> less damage, immune to crowd control) and blasts <#ffb900ff>3<> big waves down the line with the most enemies, each <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>."
+      },
+      "tft_syfen": {
+        "name": "Sy'fen",
+        "attack": "Wing claws and tail lashes in turn for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Whispers<>: his damage shrinks enemies for <#ffb900ff>4s<> (<#ffb900ff>-20%<> armor and magic resist); hitting a shrunk enemy stacks <#ffb900ff>+5<> attack (up to <#ffb900ff>5<>).",
+        "skill": "Lunges and bites the target for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<>, ignoring <#ffb900ff>33%<> armor, healing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>.",
+        "skill2": "Sweeps his wings around him: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and a <#ffb900ff>30%<> slow for <#ffb900ff>1.5s<>.",
+        "ult": "Roars and charges the farthest enemy champion (immune to crowd control): enemies in his path take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<> and are stunned <#ffb900ff>1.25s<>; then a bite for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>240%<>, ignoring <#ffb900ff>33%<> armor."
       }
     },
     "skill_name": {
@@ -698,6 +729,11 @@
         "skill1": "Windblast",
         "skill2": "Wingbeat Retreat",
         "ult": "Sky Gale"
+      },
+      "tft_syfen": {
+        "skill1": "Bite",
+        "skill2": "Wing Sweep",
+        "ult": "Rampage"
       }
     }
   },
@@ -835,6 +871,13 @@
         "skill": "날개를 앞으로 휘둘러 적이 가장 많은 일직선으로 관통하는 바람 파동을 날려 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>.",
         "skill2": "가까운 적에게 날갯짓으로 돌풍을 일으켜 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>, <#ffb900ff>40%<> 둔화(<#ffb900ff>1.5초<>), 바람을 타고 뒤로 도약.",
         "ult": "날아올라(받는 피해 <#ffb900ff>30%<> 감소, 군중 제어 면역) 적이 가장 많은 일직선으로 큰 충격파 <#ffb900ff>3<>개를 연달아 날려 각각 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>."
+      },
+      "tft_syfen": {
+        "name": "사이펜",
+        "attack": "날개 발톱과 꼬리로 번갈아 공격해 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>속삭임<>: 피해를 준 적을 <#ffb900ff>4초<> 동안 축소(방어력·마법 저항력 <#ffb900ff>-20%<>), 축소된 적을 공격하면 공격력 <#ffb900ff>+5<> 중첩(최대 <#ffb900ff>5<>).",
+        "skill": "덮쳐서 대상을 물어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>, 방어력 <#ffb900ff>33%<> 무시, 체력 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 회복.",
+        "skill2": "날개를 펼쳐 주변을 휩쓸어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, <#ffb900ff>30%<> 둔화(<#ffb900ff>1.5초<>).",
+        "ult": "포효한 뒤 가장 먼 적 챔피언에게 돌진(군중 제어 면역), 경로의 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>와 기절 <#ffb900ff>1.25초<>, 마지막으로 물어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>240%<> <#ff9028ff>물리 피해<>, 방어력 <#ffb900ff>33%<> 무시."
       }
     },
     "skill_name": {
@@ -932,6 +975,11 @@
         "skill1": "돌풍",
         "skill2": "날갯짓 후퇴",
         "ult": "창공의 돌풍"
+      },
+      "tft_syfen": {
+        "skill1": "물어뜯기",
+        "skill2": "날개 칼날 휩쓸기",
+        "ult": "광분"
       }
     }
   },
@@ -1069,6 +1117,13 @@
         "skill": "翼を前へ振り、敵が最も多い直線に貫通する風の波を放ち<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。",
         "skill2": "近くの敵へ羽ばたいて突風を起こし<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>40%<>スロウ（<#ffb900ff>1.5秒<>）、風に乗って後ろへ跳ぶ。",
         "ult": "飛び上がり（被ダメージ<#ffb900ff>30%<>軽減、行動妨害無効）、敵が最も多い直線に大きな衝撃波を<#ffb900ff>3<>発連続で放ちそれぞれ<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。"
+      },
+      "tft_syfen": {
+        "name": "サイ・フェン",
+        "attack": "翼の爪と尾で交互に攻撃し<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>囁き<>：ダメージを与えた敵を<#ffb900ff>4秒<>縮小（物理防御・魔法防御<#ffb900ff>-20%<>）、縮小した敵を攻撃すると攻撃力<#ffb900ff>+5<>を重ねる（最大<#ffb900ff>5<>）。",
+        "skill": "飛びかかって対象に噛みつき<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>、物理防御を<#ffb900ff>33%<>無視、体力を<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>回復。",
+        "skill2": "翼を広げて周囲を薙ぎ払い<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>30%<>スロウ（<#ffb900ff>1.5秒<>）。",
+        "ult": "咆哮し最も遠い敵チャンピオンへ突進（行動妨害無効）、進路上の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>とスタン<#ffb900ff>1.25秒<>、最後に噛みついて<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>240%<>の<#ff9028ff>物理ダメージ<>、物理防御を<#ffb900ff>33%<>無視。"
       }
     },
     "skill_name": {
@@ -1166,6 +1221,11 @@
         "skill1": "突風",
         "skill2": "羽ばたき後退",
         "ult": "蒼穹の突風"
+      },
+      "tft_syfen": {
+        "skill1": "噛みつき",
+        "skill2": "翼刃払い",
+        "ult": "龍の猛攻"
       }
     }
   }
