@@ -1,0 +1,761 @@
+{
+  "id": "tft_shiohyu",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC",
+    "Tank"
+  ],
+  "passive": {
+    "passive_ref": "tft_shiohyu:jade",
+    "params": {
+      "p_low": 50,
+      "p_red": 40,
+      "p_t": 180,
+      "p_cd": 1800
+    }
+  },
+  "sprite": "asset/tft/champions/tft_shiohyu",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_shiohyu_skill",
+    "asset/tft/icons/tft_shiohyu_skill2",
+    "asset/tft/icons/tft_shiohyu_ult"
+  ],
+  "stat": {
+    "attack": 84,
+    "magic_power": 0,
+    "hp": 1260,
+    "defence": 48,
+    "magic_resistance": 38,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 10,
+    "magic_power": 0,
+    "hp": 118,
+    "defence": 8,
+    "magic_resistance": 6,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_shiohyu.attack",
+    "duration": 30,
+    "cooltime": 66,
+    "start_timing": 12,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "SwitchByBuff",
+      "buff_name": "tft_shiohyu_r_b3",
+      "effect_buff": {
+        "type": "Combine",
+        "effects": [
+          {
+            "type": "RemoveCasterBuff",
+            "name": "tft_shiohyu_r_b3"
+          },
+          {
+            "type": "RemoveCasterBuff",
+            "name": "tft_shiohyu_r_jade"
+          },
+          {
+            "type": "CasterAnimation",
+            "name": "r_wave",
+            "tick": 30
+          },
+          {
+            "type": "Sfx",
+            "name": "tft_shiohyu_r3"
+          },
+          {
+            "type": "Sfx",
+            "name": "tft_shiohyu_r3_wave"
+          },
+          {
+            "type": "LineRangeProjectile",
+            "name": "tft_shiohyu_r3_wave",
+            "width": 20000,
+            "length": 92000,
+            "delay": 18,
+            "apply": 1,
+            "applied_target": "EnemyWithoutTower",
+            "applied_effects": [
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "Attack",
+                  "damage": 40,
+                  "attack_ratio": 175,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "Stun",
+                  "duration": 60
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "ViewEffect",
+                  "name": "tft_shiohyu_r3_hit"
+                }
+              },
+              {
+                "casting_type": "Targeting",
+                "effect": {
+                  "type": "TargetSfx",
+                  "name": "tft_shiohyu_r3_hit"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect_none": {
+        "type": "SwitchByBuff",
+        "buff_name": "tft_shiohyu_r_b2",
+        "effect_buff": {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "RemoveCasterBuff",
+              "name": "tft_shiohyu_r_b2"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_shiohyu_r_b3",
+                "duration": {
+                  "Time": {
+                    "tick": 480
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "attack2",
+              "tick": 30
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_shiohyu_r2"
+            },
+            {
+              "type": "FixedAttack",
+              "damage": 40,
+              "attack_ratio": 175,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_shiohyu_r2_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_shiohyu_r2_hit"
+            }
+          ]
+        },
+        "effect_none": {
+          "type": "SwitchByBuff",
+          "buff_name": "tft_shiohyu_r_b1",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": [
+              {
+                "type": "RemoveCasterBuff",
+                "name": "tft_shiohyu_r_b1"
+              },
+              {
+                "type": "AddCasterBuff",
+                "buff_state": {
+                  "name": "tft_shiohyu_r_b2",
+                  "duration": {
+                    "Time": {
+                      "tick": 480
+                    }
+                  }
+                },
+                "only_to_enemy": false
+              },
+              {
+                "type": "Sfx",
+                "name": "tft_shiohyu_r1"
+              },
+              {
+                "type": "Attack",
+                "damage": 40,
+                "attack_ratio": 175,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              },
+              {
+                "type": "Stun",
+                "duration": 60
+              },
+              {
+                "type": "ViewEffect",
+                "name": "tft_shiohyu_r1_hit"
+              },
+              {
+                "type": "TargetSfx",
+                "name": "tft_shiohyu_r1_hit"
+              }
+            ]
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "tft_shiohyu_a_2",
+            "effect_buff": {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_shiohyu_a_2"
+                },
+                {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "CasterAnimation",
+                      "name": "attack3",
+                      "tick": 30
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "tft_shiohyu_a"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 20,
+                      "attack_ratio": 130,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_shiohyu_a_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_shiohyu_a_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            "effect_none": {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_shiohyu_a_1",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "tft_shiohyu_a_1"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "tft_shiohyu_a_2",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "CasterAnimation",
+                        "name": "attack2",
+                        "tick": 30
+                      },
+                      {
+                        "type": "Sfx",
+                        "name": "tft_shiohyu_a"
+                      },
+                      {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "tft_shiohyu_a_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "tft_shiohyu_a_hit"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "tft_shiohyu_a_1",
+                      "duration": {
+                        "Time": {
+                          "tick": 240
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "tft_shiohyu_a"
+                      },
+                      {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 100,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "tft_shiohyu_a_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "tft_shiohyu_a_hit"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_shiohyu.skill",
+    "duration": 60,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_shiohyu_q"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "dash",
+          "tick": 60
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 3500,
+          "range": 85000,
+          "end_effects": [
+            {
+              "type": "CasterAnimation",
+              "name": "skill",
+              "tick": 38
+            },
+            {
+              "type": "Delayed",
+              "tick": 6,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_shiohyu_q_punch"
+                },
+                {
+                  "type": "Attack",
+                  "damage": 15,
+                  "attack_ratio": 45,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_shiohyu_q_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_shiohyu_q_hit"
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 14,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_shiohyu_q_punch"
+                },
+                {
+                  "type": "Attack",
+                  "damage": 15,
+                  "attack_ratio": 45,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_shiohyu_q_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_shiohyu_q_hit"
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 22,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_shiohyu_q_punch"
+                },
+                {
+                  "type": "Attack",
+                  "damage": 15,
+                  "attack_ratio": 45,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_shiohyu_q_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_shiohyu_q_hit"
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 30,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_shiohyu_q_punch"
+                },
+                {
+                  "type": "Attack",
+                  "damage": 15,
+                  "attack_ratio": 45,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_shiohyu_q_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_shiohyu_q_hit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_shiohyu.skill2",
+    "duration": 36,
+    "cooltime": 540,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_shiohyu_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_shiohyu_e_hit"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_shiohyu_e_slam"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 45000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 50,
+                  "attack_ratio": 110,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Airborne",
+                  "duration": 45
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_shiohyu_e_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 90
+                      }
+                    },
+                    "move_speed_mult": -35
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_shiohyu_e_hit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_shiohyu.ult",
+    "duration": 40,
+    "cooltime": 1500,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_shiohyu_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_shiohyu_r_roar"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_shiohyu_r"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_shiohyu_r_jade",
+            "duration": {
+              "Time": {
+                "tick": 480
+              }
+            },
+            "damaged_reduce": 35,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "tft_shiohyu_r_b2"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "tft_shiohyu_r_b3"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_shiohyu_r_b1",
+            "duration": {
+              "Time": {
+                "tick": 480
+              }
+            }
+          },
+          "only_to_enemy": false
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_shiohyu_r3_wave",
+      "anim": "asset/tft/effects/tft_shiohyu_big",
+      "tag": "r3_wave",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_a_hit",
+      "anim": "asset/tft/effects/tft_shiohyu_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_q_hit",
+      "anim": "asset/tft/effects/tft_shiohyu_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_e_slam",
+      "anim": "asset/tft/effects/tft_shiohyu_big",
+      "tag": "e_slam",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_e_hit",
+      "anim": "asset/tft/effects/tft_shiohyu_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_r",
+      "anim": "asset/tft/effects/tft_shiohyu_big",
+      "tag": "r",
+      "z": 4,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_r1_hit",
+      "anim": "asset/tft/effects/tft_shiohyu_fx",
+      "tag": "r1_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_r2_hit",
+      "anim": "asset/tft/effects/tft_shiohyu_fx",
+      "tag": "r2_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_r3_hit",
+      "anim": "asset/tft/effects/tft_shiohyu_fx",
+      "tag": "r3_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_shiohyu_p",
+      "anim": "asset/tft/effects/tft_shiohyu_big",
+      "tag": "p",
+      "z": 4,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_shiohyu_e_slow",
+      "anim": "asset/tft/effects/tft_shiohyu_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_shiohyu_r_jade",
+      "anim": "asset/tft/effects/tft_shiohyu_big",
+      "tag": "r_jade",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_shiohyu_p_skin",
+      "anim": "asset/tft/effects/tft_shiohyu_big",
+      "tag": "p_skin",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
