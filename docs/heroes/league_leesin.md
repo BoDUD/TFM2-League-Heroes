@@ -55,7 +55,7 @@
 
 ### 盲僧 W 位移附加包
 
-[盲僧 W 位移附加包](../../addons/league_leesin_hop/README.md)：`league_leesin_hop` v0.1.10
+[盲僧 W 位移附加包](../../addons/league_leesin_hop/README.md)：`league_leesin_hop` v0.1.11
 
 主包 `league` 保持纯数据。主包的李青不能「摸眼」：R 身后没人时直接冲过目标落到他身后回旋踢，W 并进了 E、不冲刺。
 英雄联盟手游里李青的 W 不用插眼就能冲到一个点，这个附加包照这个做（不画眼）：

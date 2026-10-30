@@ -157,7 +157,7 @@
   "league_viego": {"idle": [["attack", [0, 1]], ["ult", [4, 5]]]},
   "league_viktor": {"idle": [["skill2", [0, 1, 2, 3]], ["skill2_e", [0, 1, 2, 3]]]},
   "league_vladimir": {"idle": [["ult", [0, 1, 2, 3]], ["attack", [3, 4, 5]]]},
-  "league_volibear": {"idle": [["attack", [2, 3]], ["skill2", [1]]]},
+  "league_volibear": {"idle": [["attack", [2, 3]], ["skill2", [1]]], "r_idle": "idle"},
   "league_warwick": {"idle": [["skill2_howl", [1, 2, 3]], ["skill2", [3]]]},
   "league_wukong": {"idle": [["skill2", [0, 1]], ["attack", [0]]]},
   "league_xayah": {"idle": [["skill2", [0, 1, 2, 3]], ["attack", [0, 1, 2, 3]]]},

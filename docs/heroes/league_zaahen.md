@@ -55,7 +55,7 @@
 
 ### 亚恒附加包
 
-[亚恒附加包](../../addons/league_zaahen/README.md)：`league_zaahen` v0.1.0
+[亚恒附加包](../../addons/league_zaahen/README.md)：`league_zaahen` v0.1.1
 
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|

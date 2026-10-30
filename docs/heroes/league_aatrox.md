@@ -55,7 +55,7 @@
 
 ### 剑魔 W 锁链附加包
 
-[剑魔 W 锁链附加包](../../addons/league_aatrox_chain/README.md)：`league_aatrox_chain` v0.2.3
+[剑魔 W 锁链附加包](../../addons/league_aatrox_chain/README.md)：`league_aatrox_chain` v0.2.4
 
 主包 `league` 保持纯数据。主包里剑魔的 W「恶火束链」：锁链停在第一个敌人身上（40 + 40% 攻击力、减速 25% 1.5 秒）；
 锁链旁边有敌方英雄时在落点放圈，1.5 秒后那个英雄再受一次伤害、被拉向剑魔。League 的两条数据写不出来：

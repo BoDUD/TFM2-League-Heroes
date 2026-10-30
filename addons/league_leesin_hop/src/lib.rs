@@ -862,6 +862,9 @@ pub fn plan_q(input: &InputTargetV1, me: (f64, f64), marks: &[Mark]) -> (QPlan, 
 #[derive(Clone, Default)]
 struct LeeAi {
     seen: HashMap<usize, (f64, f64, usize)>,
+    /// The last unit a Q was skipped on: logged once per unit, not every time the AI asks again (the 10-29 log was 63 %
+    /// "Q SKIP ... no Q on minions", every 4 ticks on the same minion).
+    skipped: Option<usize>,
 }
 
 impl LeeAi {
@@ -967,7 +970,10 @@ impl StablePlayerAi for LeeAi {
                 } else {
                     InputV1::move_to(t.at.0.round().max(0.0) as u64, t.at.1.round().max(0.0) as u64)
                 };
-                wlog(format!("{head_line} Q SKIP #{} {:?} at {}: {why}", t.id, t.kind, pt(t.at)));
+                if self.skipped != Some(t.id) {
+                    self.skipped = Some(t.id);
+                    wlog(format!("{head_line} Q SKIP #{} {:?} at {}: {why}", t.id, t.kind, pt(t.at)));
+                }
                 Some(input)
             }
         }

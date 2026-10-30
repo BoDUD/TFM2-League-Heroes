@@ -33,7 +33,9 @@ Dense heroes get the same lists in hd_ and lo_ (the frames' own rects there; eve
 three). tools/art/hero_reels.json holds the picks made by eye where the rules pick badly:
 `{"league_x": {"idle": [["skill", [0, 1]], ...], "c_idle": [...], "bp": ["attack", "ult"], "bp_cut": {"ult": [3, 4]}}}`
 - a list of [action, frames] snippets for an idle ([action, frames, "fwd"]: played forward only; [] keeps frame 0 alone), the card's actions in order, and
-action frames held on the card besides the spilling ones.
+action frames held on the card besides the spilling ones. A form idle can name another idle instead (`"r_idle": "idle"`):
+a form that is that idle's frames in other colours (league_volibear's storm twins, tools/art/volibear_storm.py) gets
+that idle's reel frame for frame from its own tags, so an add-on can swap the two in mid-play.
 """
 import argparse
 import hashlib
@@ -297,6 +299,11 @@ def plan(h, picks):
     for idle in idles:
         base = h.base(idle)
         sn = picks.get(idle)
+        if isinstance(sn, str):                     # another idle's reel in this form's twins of its tags
+            out[idle + "_base"] = [(base, i, f["duration"]) for i, f in enumerate(h.frames(base))]
+            out[idle] = twin(h, idle, sn, out[sn])
+            snips[idle] = snips[sn]
+            continue
         sn = [(e[0], list(e[1]), *e[2:]) for e in sn] if sn is not None else snippets(h, idle)
         snips[idle] = sn
         out[idle + "_base"] = [(base, i, f["duration"]) for i, f in enumerate(h.frames(base))]
@@ -316,6 +323,18 @@ def plan(h, picks):
             bp += played(h, tt, run, *how)
     out["bp"] = bp or out["idle"]
     return out, snips, acts
+
+
+def twin(h, idle, of, seq):
+    """The reel `seq` of idle `of` with each frame taken from this form's twin of its tag (its own base for of's base)."""
+    form = idle[:-len("idle")]
+    out = []
+    for t, i, d in seq:
+        tt = h.base(idle) if t == h.base(of) else form + t
+        if tt not in h.anims or len(h.frames(tt)) != len(h.frames(t)):
+            raise SystemExit(f"{h.id}: {idle} takes {of}'s reel, but {tt} is not {t}'s twin in the sheet")
+        out.append((tt, i, d))
+    return out
 
 
 def frames_for(h, seq, prefix):

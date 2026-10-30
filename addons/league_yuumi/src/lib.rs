@@ -42,6 +42,9 @@ pub const RIDING: &str = "league_yuumi_w_on";
 const CAST_JUMP: usize = 30;
 /// 附身后续上放逐时，提前几 tick 续（两段之间不留空档）。
 const OVERLAP: usize = 1;
+/// Out this many ticks in a row with no window: what is on her goes to the log (10-29 games: after a window she was
+/// often out tens to hundreds of ticks while every re-banish "succeeded").
+const OUT_LONG: usize = 30;
 /// 每多少 tick 记一行 WATCH。
 const REPORT: usize = 1800;
 /// How far behind her ally she is kept while riding (world units: two champions' radii and a little more). She used
@@ -373,6 +376,8 @@ struct Bond {
     /// Riding ticks, and those of them she was out (targetable) with no window open - a banish that did not hold.
     ridden: usize,
     out: usize,
+    /// Ticks out in a row with no window open (logged at OUT_LONG).
+    out_run: usize,
     /// `entity_banish` refusals (it respects cc_immune: the data's `w_act` / the window's `w_safe`).
     refused: usize,
     /// The host's position last tick and his steps since the last report (a push shows as steps over his move speed).
@@ -503,6 +508,7 @@ impl Bond {
                     let free_at = self.banished_until.max(tick);
                     let until = free_at + self.p.w_wait;
                     self.window = Some(Window { kind, cast_at: None, until });
+                    self.out_run = 0;
                     self.windows += 1;
                     let mut safe = BuffV1::timed(&yu("w_safe"), until - tick + self.p.r_dur + 4);
                     safe.damaged_reduce = 100;
@@ -521,9 +527,32 @@ impl Bond {
                     let out = sim.get_entity(me).is_some_and(|e| e.is_targetable());
                     if out {
                         self.out += 1;
+                        self.out_run += 1;
+                        if self.out_run == OUT_LONG {
+                            if let Some(k) = counted("long_out") {
+                                let what = sim.get_entity(me).map_or_else(String::new, |e| {
+                                    let b: Vec<String> = (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+                                        .map(|b| b.name().to_string()).collect();
+                                    let c: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i))
+                                        .map(|c| c.kind.to_string()).collect();
+                                    format!("buffs [{}], cc [{}]", b.join(", "), c.join(" "))
+                                });
+                                wlog(format!("{} OUT LONG #{k}: {OUT_LONG} ticks out with no window ({what})", head(sim, me)));
+                            }
+                        }
+                    } else {
+                        self.out_run = 0;
                     }
                     if out || tick + OVERLAP >= self.banished_until {
                         self.banish(sim, me, tick);
+                    }
+                    if out {
+                        // out between windows: no damage until the banish holds again (no cc immunity - that refuses
+                        // the banish)
+                        let mut cover = BuffV1::timed(&yu("w_cover"), 3);
+                        cover.damaged_reduce = 100;
+                        sim.entity_remove_buff(me, &yu("w_cover"));
+                        sim.add_buff(me, &cover);
                     }
                 }
             }

@@ -55,13 +55,14 @@
 
 ### 沃利贝尔附加包
 
-[沃利贝尔附加包](../../addons/league_volibear/README.md)：`league_volibear` v0.1.0
+[沃利贝尔附加包](../../addons/league_volibear/README.md)：`league_volibear` v0.2.0
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|
 | 狂雷渐起的闪电（满 5 层） | 一道飞向目标的闪电，路上和目标身边 22000 以内的敌人都受伤 | 打**目标和离它最近的 4 个敌人**（22000 以内，防御塔不算），每个身上闪一下 |
 | 暴怒撕咬的标记 | 标记记在沃利贝尔自己身上：下一口咬**谁**都算第二口；第二口回固定值 + 攻击力加成 | 标记记在**被咬的那个英雄**身上（8 秒）：再咬**同一个人**才是第二口；第二口回复再加**已损失生命的 12%** |
 | 天声震落 | 落地砸地、减速、加生命 | 另外让落点 55000 以内的**敌方防御塔 4 秒不能攻击**（塔身上缠着电光） |
+| 天声震落后的 12 秒风暴形态 | 身后有雷云，他本身的颜色不变 | 他整个人变成**雷电蓝**：白毛变浅电蓝、腿变深蓝，符文和冰晶爪子发亮青光，外圈一道电蓝描边；形态结束或阵亡时变回来 |
 
 装上附加包后游戏里显示的说明（和主包不同的部分）：
 
@@ -97,6 +98,7 @@
 | 特效 | 第 3 步 18 张特效（[`tools/art/pack_volibear_fx.py`](../../tools/art/pack_volibear_fx.py)，颜色照英雄联盟：雷电是白芯青蓝的电光，雷云深蓝，护盾和爪子冰蓝）。弹道（满层闪电）画成朝右、上下对称，跟着飞行方向转；其余全部左右对称（游戏不镜像特效图）。Codex 的交付在 `codex_fx/`，[`import_volibear_fx.py`](../../tools/art/import_volibear_fx.py) 按清单的帧大小切开、照技能播放的位置摆好（再查一遍对称），得到 `league_volibear_fx`（小特效）和 `league_volibear_big`（治疗光柱、Q 移速电光、E 雷云 / 落雷 / 护盾、R 落地 / 风暴形态 / 塔失效）两张图 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_volibear.py`](../../tools/lol/extract_volibear.py)，23 段）：抓击、满层闪电、撕咬 / 第二口、Q 冲锋 / 扑砸、E 召雷 / 落雷 / 护盾、R 起跳 / 落地 / 命中 / 塔失效，配音是他的 Q / W / E / R 台词（中文） |
 | 图标 | 官方技能图标（擂首一击、霹天雳地、天声震落，另有暴怒撕咬和狂雷渐起），从本地客户端取 |
+| 风暴形态变色（2026-10-30） | 用户：「沃利贝尔开大是不是得搞个变色啊」。天声震落落地后的 12 秒风暴形态里，原来只有身后的雷云，他本身和平时一样。英雄联盟里开大的他身体换成一张更蓝的贴图（Volibear_Base_R_Avatar_Blend_01）、头上一道闪电鬃毛。三份草稿（雷电蓝 / 雷电蓝 + 蓝色描边 / 深色风暴 + 蓝色描边）里用户选了「2 雷电蓝+描边」。[`tools/art/volibear_storm.py`](../../tools/art/volibear_storm.py)：每个能在形态里播的动作（待机、走、Q 的冲锋和扑砸、普攻、撕咬、E、R 的起跳和落地、挨打）在图里多一个 `r_` 双胞胎，他自己的帧逐格换颜色：身体按亮度映到深蓝到浅电蓝（明暗不变），符文、冰晶爪子和眼睛映到更亮的青色到白，描边和辫子上的铁环不动；外描边长出来之后，最外一圈换成电蓝（ppu_restyle 的 `rim`）。双胞胎和原帧帧数、时长、大小、画到的格子都一样（先收好描边再换色：描边只补在亮格旁边，他三种中等紫色换成深蓝后会少补几格），所以动作播到一半换也接得上；待机卷轴 `r_idle` 就是 `idle` 那一条（hero_reels.json `"r_idle": "idle"`）。换帧在[附加包](#附加包)（0.2.0，`src/view.rs`，照芸阿娜的超凡形态）：他身上有 `league_volibear_r_form` 时正在播的动作换成 `r_*`，落地砸地第一帧就换，形态结束或阵亡换回来。主包不变色（数据只换得了出招的动作，待机、走换不了，会出招蓝、站着白地来回闪）。league.dll 0.8.12（编进了他的帧表），主包 0.259.4，佛耶戈附身 0.2.25（他的新标签） |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -108,9 +110,10 @@ python tools/art/design_volibear_model.py           # Codex 第 1 步的造型�
 python tools/art/design_volibear_poses.py           # Codex 重画的四个手臂姿势
 python tools/art/design_volibear_run.py             # Codex 换皮的走路
 python tools/art/design_volibear_q.py               # Codex 画的 Q 冲锋和扑砸
-python tools/art/rig_volibear.py                    # 1.2 的原帧和 1 倍帧
+python tools/art/rig_volibear.py                    # 1.2 的原帧和 1 倍帧（连同风暴形态的 r_ 双胞胎，volibear_storm.py）
 python tools/art/ppu_restyle.py --hero volibear     # 外描边（不要加 --preview）
 python tools/art/ppu_hd.py --hero volibear          # hd_ / lo_ 帧
+python tools/art/hero_reels.py --hero volibear      # 待机和选人卡片的卷轴（r_idle 照 idle 那一条）
 python tools/art/import_volibear_fx.py              # 特效
 python tools/art/preview_volibear.py                # 预览和演示 GIF
 python addons/league_volibear/make_override.py      # 附加包的副本（主包的沃利贝尔改了就重跑）
@@ -118,4 +121,4 @@ python addons/league_volibear/make_override.py      # 附加包的副本（主�
 
 美术提示词见 [`assets/source/volibear/`](../../assets/source/volibear) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`POSE_PROMPTS.md`、`Q_PROMPTS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_poses/`、`codex_q/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_volibear_frames.png`](../preview/league_volibear_frames.png?v=1019a)，特效：[`docs/preview/league_volibear_effects.png`](../preview/league_volibear_effects.png?v=1019a)。
+逐帧预览：[`docs/preview/league_volibear_frames.png`](../preview/league_volibear_frames.png?v=1030a)，特效：[`docs/preview/league_volibear_effects.png`](../preview/league_volibear_effects.png?v=1019a)。

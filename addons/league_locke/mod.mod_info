@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Locke as in League (needs League of Legends Heroes): replaces the main pack's Locke so Silver Stake deals extra magic damage on the target's missing health (the main pack: a fixed amount), Soul Ignition burns a share of his current health and heals back most of what it burnt (the main pack: his maximum health, a fixed heal), Purgatory executes marked champions under a share of their maximum health and drops the artifact where one was sealed - picking it up raises the execute line for the whole game and cuts the ult's cooldown (the main pack: an approximation, seals lost on death), takedowns ready Ashen Pursuit, and he wears his W look while Soul Ignition lasts. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-26",
+  "last_updated": "2026-10-30",
   "mod_id": "league_locke",
   "mod_type": "native",
   "name": "League Heroes: Locke's Silver Stake, Soul Ignition, Purgatory's execute and W look as in League (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
