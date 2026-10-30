@@ -121,8 +121,8 @@ impl Default for Params {
             r_len: 100000,
             r_w: 16000,
             r_speed: 5000,
-            r_dmg: 120,
-            r_ratio: 140,
+            r_dmg: 170,
+            r_ratio: 170,
             r_hp: 4,
             r_up: 50,
             r_mark: 900,
@@ -411,7 +411,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"r_dmg":120,"r_hp":4,"r_len":100000,"r_mark":900,"r_ratio":140,"r_reave":120,"r_speed":5000,"r_up":50,"r_w":16000}"#;
+        let json = r#"{"r_dmg":170,"r_hp":4,"r_len":100000,"r_mark":900,"r_ratio":170,"r_reave":120,"r_speed":5000,"r_up":50,"r_w":16000}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
@@ -452,6 +452,6 @@ mod tests {
     #[test]
     fn damage_by_the_numbers() {
         let p = Params::default();
-        assert_eq!(magic(p.r_dmg, p.r_ratio, 50, p.r_hp, 1500), 120 + 70 + 60);
+        assert_eq!(magic(p.r_dmg, p.r_ratio, 50, p.r_hp, 1500), 170 + 85 + 60);
     }
 }
