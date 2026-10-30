@@ -1,0 +1,632 @@
+{
+ "square": 6,
+ "square_of": {
+  "skill": 5
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "6": "design 0"
+  },
+  "skill": {
+   "6": "design 0"
+  },
+  "skill2_scream": {
+   "4": "design 0"
+  },
+  "ult": {
+   "6": "design 0"
+  },
+  "ult_land": {
+   "5": "design 0"
+  },
+  "hit": {
+   "2": "design 0"
+  }
+ },
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "running (her move loop): a wild, eager run, the pillory on her shoulders, her locked hands out to the sides, the LEGS STEPPING IN TURN, the hair bouncing",
+   "ms": [
+    125
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's.",
+   "legs": "Frame 1: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "running (her move loop): a wild, eager run, the pillory on her shoulders, her locked hands out to the sides, the LEGS STEPPING IN TURN, the hair bouncing",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's.",
+   "legs": "Frame 2: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. Frame 3: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "running (her move loop): a wild, eager run, the pillory on her shoulders, her locked hands out to the sides, the LEGS STEPPING IN TURN, the hair bouncing",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's.",
+   "legs": "Frame 4: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. Frame 5: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "running (her move loop): a wild, eager run, the pillory on her shoulders, her locked hands out to the sides, the LEGS STEPPING IN TURN, the hair bouncing",
+   "ms": [
+    125
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's.",
+   "legs": "Frame 6: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "running (her move loop): a wild, eager run, the pillory on her shoulders, her locked hands out to the sides, the LEGS STEPPING IN TURN, the hair bouncing",
+   "ms": [
+    125
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's.",
+   "legs": "Frame 7: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "running (her move loop): a wild, eager run, the pillory on her shoulders, her locked hands out to the sides, the LEGS STEPPING IN TURN, the hair bouncing",
+   "ms": [
+    125
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's.",
+   "legs": "Frame 8: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "attack: she crouches, LEAPS forward low and bites ahead of her to the right (frames 3-4: stretched out in the air, the far leg kicked back), then lands and stands",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "attack: she crouches, LEAPS forward low and bites ahead of her to the right (frames 3-4: stretched out in the air, the far leg kicked back), then lands and stands",
+   "ms": [
+    70
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "attack: she crouches, LEAPS forward low and bites ahead of her to the right (frames 3-4: stretched out in the air, the far leg kicked back), then lands and stands",
+   "ms": [
+    70
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "attack: she crouches, LEAPS forward low and bites ahead of her to the right (frames 3-4: stretched out in the air, the far leg kicked back), then lands and stands",
+   "ms": [
+    80
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Head Rush (Q): she crouches, leaps HEAD FIRST through the air stretched out FLAT, the pillory leading (frames 3-5), and lands",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's. In frames 3-5 she flies HEAD FIRST, stretched out flat, the pillory ahead of her body, as the pale figure."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "Head Rush (Q): she crouches, leaps HEAD FIRST through the air stretched out FLAT, the pillory leading (frames 3-5), and lands",
+   "ms": [
+    60
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's. In frames 3-5 she flies HEAD FIRST, stretched out flat, the pillory ahead of her body, as the pale figure."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "Head Rush (Q): she crouches, leaps HEAD FIRST through the air stretched out FLAT, the pillory leading (frames 3-5), and lands",
+   "ms": [
+    60
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's. In frames 3-5 she flies HEAD FIRST, stretched out flat, the pillory ahead of her body, as the pale figure."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "Head Rush (Q): she crouches, leaps HEAD FIRST through the air stretched out FLAT, the pillory leading (frames 3-5), and lands",
+   "ms": [
+    80
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's. In frames 3-5 she flies HEAD FIRST, stretched out flat, the pillory ahead of her body, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Blood Frenzy (W): she crouches low, then rises into a wide, wild stance, swaying, ready to pounce",
+   "ms": [
+    160,
+    160
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Blood Frenzy (W): she crouches low, then rises into a wide, wild stance, swaying, ready to pounce",
+   "ms": [
+    170,
+    170
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Blood Frenzy (W): she crouches low, then rises into a wide, wild stance, swaying, ready to pounce",
+   "ms": [
+    170,
+    170
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "skill2_scream",
+   "name": "skill2_scream_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Chilling Scream (E): she braces and SCREAMS, leaning forward with her mouth wide open (frames 2-3), and straightens",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "skill2_scream",
+   "name": "skill2_scream_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Chilling Scream (E): she braces and SCREAMS, leaning forward with her mouth wide open (frames 2-3), and straightens",
+   "ms": [
+    100
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Certain Death (R): she lifts a knee and KICKS high forward (frame 3), stamps down and crouches, ready to fly",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Certain Death (R): she lifts a knee and KICKS high forward (frame 3), stamps down and crouches, ready to fly",
+   "ms": [
+    70
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Certain Death (R): she lifts a knee and KICKS high forward (frame 3), stamps down and crouches, ready to fly",
+   "ms": [
+    90,
+    100
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "ult_fly",
+   "name": "ult_fly_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Certain Death's flight (R): she FLIES forward to the right, stretched out FLAT in the air, the pillory leading, the legs trailing behind",
+   "ms": [
+    100
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's. She flies stretched out flat, the pillory ahead of her body, as the pale figure."
+  },
+  {
+   "tag": "ult_fly",
+   "name": "ult_fly_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Certain Death's flight (R): she FLIES forward to the right, stretched out FLAT in the air, the pillory leading, the legs trailing behind",
+   "ms": [
+    100
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's. She flies stretched out flat, the pillory ahead of her body, as the pale figure."
+  },
+  {
+   "tag": "ult_fly",
+   "name": "ult_fly_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Certain Death's flight (R): she FLIES forward to the right, stretched out FLAT in the air, the pillory leading, the legs trailing behind",
+   "ms": [
+    100
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's. She flies stretched out flat, the pillory ahead of her body, as the pale figure."
+  },
+  {
+   "tag": "ult_fly",
+   "name": "ult_fly_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Certain Death's flight (R): she FLIES forward to the right, stretched out FLAT in the air, the pillory leading, the legs trailing behind",
+   "ms": [
+    100
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's. She flies stretched out flat, the pillory ahead of her body, as the pale figure."
+  },
+  {
+   "tag": "ult_land",
+   "name": "ult_land_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Certain Death's landing (R): she lands from the flight crouching low, then rises to stand",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "ult_land",
+   "name": "ult_land_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Certain Death's landing (R): she lands from the flight crouching low, then rises to stand",
+   "ms": [
+    90,
+    100
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "struck: jolted back, her eyes squeezed shut",
+   "ms": [
+    120
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "death: struck, she staggers, sinks to her knees, falls forward and ends lying flat on the ground, the pillory still on her",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "death: struck, she staggers, sinks to her knees, falls forward and ends lying flat on the ground, the pillory still on her",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck, she staggers, sinks to her knees, falls forward and ends lying flat on the ground, the pillory still on her",
+   "ms": [
+    120
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck, she staggers, sinks to her knees, falls forward and ends lying flat on the ground, the pillory still on her",
+   "ms": [
+    150
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck, she staggers, sinks to her knees, falls forward and ends lying flat on the ground, the pillory still on her",
+   "ms": [
+    150
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck, she staggers, sinks to her knees, falls forward and ends lying flat on the ground, the pillory still on her",
+   "ms": [
+    500
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "attack_fx1",
+   "name": "attack_fx1_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the Snack (her healing bite): she LUNGES forward stretched out and bites, a few RED BLOOD drops at her mouth (frames 1-3), then lands and stands, blood on her chin (frames 4-7)",
+   "ms": [
+    40
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "attack_fx1",
+   "name": "attack_fx1_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the Snack (her healing bite): she LUNGES forward stretched out and bites, a few RED BLOOD drops at her mouth (frames 1-3), then lands and stands, blood on her chin (frames 4-7)",
+   "ms": [
+    40
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "attack_fx1",
+   "name": "attack_fx1_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the Snack (her healing bite): she LUNGES forward stretched out and bites, a few RED BLOOD drops at her mouth (frames 1-3), then lands and stands, blood on her chin (frames 4-7)",
+   "ms": [
+    30
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "attack_fx1",
+   "name": "attack_fx1_4",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "the Snack (her healing bite): she LUNGES forward stretched out and bites, a few RED BLOOD drops at her mouth (frames 1-3), then lands and stands, blood on her chin (frames 4-7)",
+   "ms": [
+    50,
+    30
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  },
+  {
+   "tag": "attack_fx1",
+   "name": "attack_fx1_5",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "the Snack (her healing bite): she LUNGES forward stretched out and bites, a few RED BLOOD drops at her mouth (frames 1-3), then lands and stands, blood on her chin (frames 4-7)",
+   "ms": [
+    50,
+    27
+   ],
+   "weapons": "THE PILLORY AND THE HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the DARK IRON PILLORY always locked round her neck, BOTH WRISTS locked in its two ends, the hands sticking out; it tilts and turns with her as the pale figure's does. Only ONE pillory, the design's."
+  }
+ ]
+}
