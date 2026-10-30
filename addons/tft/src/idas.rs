@@ -6,6 +6,7 @@
 //!   队友，所以由本被动每拍看她的生命：掉到最大生命的 `p_low`% 以下、且冷却 `p_cd` 拍已过（每条命一开始就是好的）时，
 //!   她和 `p_r` 以内离她最近的友方英雄各得最大生命 `p_pct`% 的护盾，`p_t` 拍；两人身上挂护盾在时一直在的
 //!   `tft_idas_p_shield`，各亮一下 `tft_idas_p_burst`，播 `tft_idas_p`。身边没有队友就只给自己。
+//! - **死亡**：倒下时播 `tft_idas_d`（数据没有死亡的时机）。
 //!
 //! 黄金龙息（扇形吐息、降护甲）、龙威振翅（减速、小护盾）和黄金龙鳞（裹翼减伤、回血、队友护盾和攻速）是数据自己的。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
@@ -21,8 +22,9 @@ use mod_api_stable::*;
 
 const ID: &str = "tft_idas";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
-/// The vow's sound (the tft pack's sound_info; the rest of her sounds the data plays).
+/// The vow's sound and her death cry (the tft pack's sound_info; the rest of her sounds the data plays).
 const SFX_VOW: &str = "tft_idas_p";
+const SFX_DEAD: &str = "tft_idas_d";
 
 fn ia(x: &str) -> String {
     format!("{ID}_{x}")
@@ -265,6 +267,11 @@ impl StablePassive for Guardian {
                 self.ally = None;
             }
         }
+    }
+
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        // her death cry (the data has no moment for it)
+        sim.play_sfx(SFX_DEAD, me, &InputTargetV1::target(me));
     }
 }
 

@@ -47,16 +47,39 @@ def design(name="idle.png"):
     return np.asarray(Image.open(lp(os.path.join(OUT, name))).convert("RGBA"))
 
 
-def snap(a, d):
-    """Every opaque square to the nearest of the design's colours (in Lab)."""
+# the inside of her open mouth (MOUTH_POSES): Codex's crimson, a colour the design (mouth shut) does not have - its
+# three shades measured on the three raws (squares red with almost no green, 2026-10-30); kept only on a red patch of
+# MOUTH_MIN squares or more in those poses, so the reddish dark browns Codex scattered over her body (a_wind had 27
+# squares of them) stay the design's browns
+MOUTH = np.array([(69, 1, 13), (101, 4, 18), (140, 5, 24)])
+MOUTH_POSES = ("q_breath", "e_roar", "r_burst")
+MOUTH_MIN = 8
+
+
+def mouth(a):
+    """The squares of a frame that are the open mouth's crimson: red patches of MOUTH_MIN squares or more."""
+    c = a[..., :3].astype(int)
+    r, g, b = c[..., 0], c[..., 1], c[..., 2]
+    red = (a[..., 3] > 0) & (r > 60) & (g < 35) & (b > 8) & (b < 90) & (r > b + 40)
+    lb, n = ndimage.label(red, structure=np.ones((3, 3), bool))
+    sizes = ndimage.sum(red, lb, range(1, n + 1))
+    return np.isin(lb, [j + 1 for j in range(n) if sizes[j] >= MOUTH_MIN])
+
+
+def snap(a, d, open_mouth=False):
+    """Every opaque square to the nearest of the design's colours (in Lab); with open_mouth, the mouth's crimson to
+    MOUTH."""
     pal = np.unique(d[d[..., 3] > 0][:, :3], axis=0)
-    op = a[..., 3] > 0
-    lab_p = PD._lab(pal.astype(float))
-    lab_a = PD._lab(a[op][:, :3].astype(float))
-    idx = np.argmin(((lab_a[:, None, :] - lab_p[None, :, :]) ** 2).sum(-1), axis=1)
+    m = mouth(a) if open_mouth else np.zeros(a.shape[:2], bool)
     out = np.zeros_like(a)
-    out[op, :3] = pal[idx]
-    out[op, 3] = 255
+    for sel, p in ((a[..., 3] > 0) & ~m, pal), (m, MOUTH):
+        if not sel.any():
+            continue
+        lab_p = PD._lab(p.astype(float))
+        lab_a = PD._lab(a[sel][:, :3].astype(float))
+        idx = np.argmin(((lab_a[:, None, :] - lab_p[None, :, :]) ** 2).sum(-1), axis=1)
+        out[sel, :3] = p[idx]
+        out[sel, 3] = 255
     return out
 
 
@@ -70,12 +93,12 @@ def read(name):
     # ... then brought to SQ px squares through the pivot (the pack's root column, the pose's lowest square)
     # (the squares on the design's colours first: pixelate's own palette, the 64 commonest, was all golds - the cyan
     # crest and the grey claws went gold)
-    a = snap(a, d)
-    pal = np.unique(d[d[..., 3] > 0][:, :3], axis=0).astype(float)
+    a = snap(a, d, name in MOUTH_POSES)
+    pal = np.concatenate([np.unique(d[d[..., 3] > 0][:, :3], axis=0), MOUTH]).astype(float)
     a, (pvx, pvy) = PD.pixelate(a, sq / SQ, ((PIVOT_X * SQ - bx[0]) / sq, a.shape[0]), PD.edge_colour(d), pal=pal)
     a = a.copy()
     a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
-    g = close_gaps(snap(a, d), d)
+    g = close_gaps(snap(a, d, name in MOUTH_POSES), d)
     op = g[..., 3] > 0
     lb, n = ndimage.label(op, structure=np.ones((3, 3), bool))
     sizes = ndimage.sum(op, lb, range(1, n + 1))

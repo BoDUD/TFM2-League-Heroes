@@ -1,0 +1,522 @@
+{
+  "id": "tft_idas",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "Tank",
+    "Heal",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_idas:guardian",
+    "params": {
+      "p_low": 50,
+      "p_pct": 18,
+      "p_t": 300,
+      "p_r": 60000,
+      "p_cd": 1800
+    }
+  },
+  "sprite": "asset/tft/champions/tft_idas",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_idas_skill",
+    "asset/tft/icons/tft_idas_skill2",
+    "asset/tft/icons/tft_idas_ult"
+  ],
+  "stat": {
+    "attack": 72,
+    "magic_power": 35,
+    "hp": 1250,
+    "defence": 42,
+    "magic_resistance": 36,
+    "move_speed": 960,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 16,
+    "hp": 120,
+    "defence": 8,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_idas.attack",
+    "duration": 28,
+    "cooltime": 84,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_idas_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_idas_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_idas_a_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_idas.skill",
+    "duration": 36,
+    "cooltime": 300,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 35000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_idas_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_idas_q_shred"
+                },
+                {
+                  "type": "LineRangeProjectile",
+                  "name": "tft_idas_q_breath",
+                  "width": 12000,
+                  "length": 70000,
+                  "delay": 22,
+                  "apply": 1,
+                  "applied_target": "Ally",
+                  "applied_effects": []
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "DirDot": {
+                      "radius": 50000,
+                      "range": 600
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": {
+                    "Forward": {
+                      "offset": 1000
+                    }
+                  },
+                  "effects": [
+                    {
+                      "type": "ApAttack",
+                      "damage": 110,
+                      "attack_ratio": 70,
+                      "hp_ratio": 0,
+                      "can_crit": false
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_idas_q_shred",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -35
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_idas_q_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_idas.skill2",
+    "duration": 30,
+    "cooltime": 540,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_idas_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_idas_e_wing"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_idas_e_roar"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 42000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_idas_e_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 120
+                          }
+                        },
+                        "move_speed_mult": -50
+                      }
+                    },
+                    {
+                      "type": "Stun",
+                      "duration": 45
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 50,
+                      "attack_ratio": 0,
+                      "ap_ratio": 30,
+                      "tick": 180
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 60000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 50,
+                      "attack_ratio": 0,
+                      "ap_ratio": 30,
+                      "tick": 180
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_idas_e_shield",
+                        "duration": {
+                          "Time": {
+                            "tick": 180
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_idas_e_shield"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_idas.ult",
+    "duration": 138,
+    "cooltime": 1500,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_idas_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_idas_r_loop"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_idas_r_wrap",
+            "duration": {
+              "Time": {
+                "tick": 120
+              }
+            },
+            "damaged_reduce": 60
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 119,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_idas_r_hit"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_idas_r_roar"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_idas_r_heal"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_idas_r_burst"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 1000
+                    }
+                  },
+                  "target": "AllyOnlySelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Heal",
+                      "amount": 200,
+                      "attack_ratio": 0,
+                      "ap_ratio": 60,
+                      "heal_type": "Caster"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_idas_r_heal"
+                    }
+                  ]
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 60000
+                    }
+                  },
+                  "target": "AllyNotSelf",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Shield",
+                      "amount": 150,
+                      "attack_ratio": 0,
+                      "ap_ratio": 50,
+                      "tick": 300
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_idas_r_shield",
+                        "duration": "WithShield",
+                        "attack_speed_mult": 30
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_idas_r_shield"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_idas_q_breath",
+      "anim": "asset/tft/effects/tft_idas_big",
+      "tag": "q_breath",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_idas_a_hit",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_idas_p_burst",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "p_burst",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_idas_e_roar",
+      "anim": "asset/tft/effects/tft_idas_big",
+      "tag": "e_roar",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_idas_r_burst",
+      "anim": "asset/tft/effects/tft_idas_big",
+      "tag": "r_burst",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_idas_r_heal",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "r_heal",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_idas_q_shred",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "q_shred",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_idas_e_slow",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_idas_e_shield",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "e_shield",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_idas_r_wrap",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "r_wrap",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_idas_r_shield",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "r_shield",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_idas_p_shield",
+      "anim": "asset/tft/effects/tft_idas_fx",
+      "tag": "p_shield",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

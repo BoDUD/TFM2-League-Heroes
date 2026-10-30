@@ -338,6 +338,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the far wing to her feet, PPU 2.6 (「A-1 36 PPU 2.6」: 94 rows kept 1:1), and Codex's key poses after her own TFT
     // clips on the design's palette, posed by tools/art/rig_nomsy.py, so no SIZES row
     ("tft_nomsy", 2.6, include_str!("../../../tft/champions/tft_nomsy#anim.fanim")),
+    // Idas (tft_idas, the tft pack): the golden dragon side-on on her two digitigrade legs, step 0's B-1 at the user's
+    // 40 game px from her crest to her feet, PPU 2.45 (「B-1 40 PPU 2.45」: 98 rows kept 1:1), and Codex's key poses after
+    // her own TFT clips on the design's colours, posed by tools/art/rig_idas.py, so no SIZES row
+    ("tft_idas", 2.45, include_str!("../../../tft/champions/tft_idas#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
