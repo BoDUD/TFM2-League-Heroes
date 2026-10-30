@@ -246,6 +246,8 @@ struct Track {
     shaped: bool,
     last_start: Option<std::time::Instant>,
     victim: Option<Vec<u8>>,
+    /// The body last written to the log (`possession ...` lines only when it changes).
+    logged: Option<Vec<u8>>,
 }
 
 static TRACKS: Mutex<Vec<Track>> = Mutex::new(Vec::new());
@@ -338,9 +340,10 @@ unsafe fn dress_viego(world: usize, ents: &[Ent]) {
         } else {
             Vec::new()
         };
-        // the soul's buffs are logged whenever they change (the first BUFF_LINES other changes too)
+        // the soul's buffs are logged whenever they change (the first BUFF_LINES other changes too) - not his sim tag,
+        // which he carries all game: with it every buff change was a line (2026-10-30: 1876 lines in two sets)
         let soulish = buffs.iter().any(|b| b.starts_with(b"league_viego_soul") || b.starts_with(b"league_viego_p_")
-            || b.starts_with(b"league_viego_sim:") || *b == SHAPE);
+            || *b == SHAPE);
         if st.buff_lines < BUFF_LINES || soulish {
             let joined = buffs.join(&b", "[..]);
             if !st.buffsets.iter().any(|b| b.0 == world && b.1 == key && b.2 == joined) {
@@ -364,7 +367,7 @@ unsafe fn dress_viego(world: usize, ents: &[Ent]) {
                 Some(i) => i,
                 None => {
                     tracks.push(Track { world, key, view, used: 0, in_possess: false, shaped: false, last_start: None,
-                                        victim: None });
+                                        victim: None, logged: None });
                     if tracks.len() > 64 {
                         tracks.remove(0);
                     }
@@ -375,9 +378,8 @@ unsafe fn dress_viego(world: usize, ents: &[Ent]) {
             if tr.view != view {
                 // another match: the same display world and key start over
                 *tr = Track { world, key, view, used: 0, in_possess: false, shaped: false, last_start: None,
-                              victim: None };
+                              victim: None, logged: None };
             }
-            let had = if tr.shaped { tr.victim.clone() } else { None };
             // the pose and the shape buff of one show arrive together: a second signal within 0.25 s is the same start
             let fresh = (posing && !tr.in_possess) || (shaped && !tr.shaped);
             if fresh && !tr.last_start.is_some_and(|t| now.duration_since(t).as_secs_f64() < 0.25) {
@@ -414,10 +416,13 @@ unsafe fn dress_viego(world: usize, ents: &[Ent]) {
             } else {
                 None
             };
-            if now_victim != had {
+            // against what was logged last, not the noted victim: the body can come from the clock or the buffs, and the
+            // line repeated every frame (2026-10-30: runs of 129 lines)
+            if now_victim != tr.logged {
                 wlog(format!("world {world:#x} Viego #{key}: possession {} (shape buff {})",
                     now_victim.as_deref().map_or("over".into(), |n| String::from_utf8_lossy(n).into_owned()),
                     if shaped { "on" } else { "off" }));
+                tr.logged = now_victim.clone();
             }
             now_victim
         };

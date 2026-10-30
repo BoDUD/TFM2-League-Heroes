@@ -14,7 +14,7 @@
 //!   v0.3.2（用户 2026-10-26：「剑圣会无限Q？」）：「普攻」原来用 `on_attack` 数，可它连技能的每一下伤害都算（接口说明：
 //!   `on_attack` also fires for skills）——Q 的每一斩、E 的真实伤害、R 期间的每一下都在减 Q 的冷却，一次 Q 自己就把冷却
 //!   减没了。现在只认真正的普攻：每 tick 看普攻栏的冷却，冷却变长（刚打出一下普攻，`attack_went_out`）才减；
-//!   Q 在数据里是 BaseAttack 类型，也不算（它走的是技能栏的冷却）。每次减记一行 `YI ATTACK`（前 40 行）。
+//!   Q 在数据里是 BaseAttack 类型，也不算（它走的是技能栏的冷却）。每次减记一行 `YI ATTACK`（预模拟限量，见下面的日志）。
 //!
 //! - **图奇 `league_takedowns:twitch`**：英雄联盟里身上有毒的敌方英雄死了就刷新埋伏。主包只认他自己的击杀（击杀检查留着），
 //!   本包补上助攻：清掉 Q 的剩余冷却（`entity_reduce_cooldown`），播主包的刷新画面和声音（`TWITCH_RESET`）。
@@ -25,8 +25,11 @@
 //!   30 tick、连招冷却里的 W 键），标记那时多半没挂，游戏里 E 几乎不爆（10-24 的日志 1080 次 GO 都没被读走）；副本的每次普攻也读它，挂上后的下一箭就引爆。
 //!   每次引爆记一行 `TWITCH E POP`。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`，每次启动游戏重写。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`，每次启动游戏重写：你看的那场（观战、回放）
+//! 每一行都记；服务端的预模拟（每次启动几百场，每场的被动都是新的）每种先记 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行
+//! （整个游戏一个计数：原来记在被动里的「前 40 行」「前 80 行」每场都从头数，2026-10-30 的 1.47 MB 里一半是 `YI ATTACK`）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -101,6 +104,32 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// Lines of each kind a launch: the server's presims (hundreds a launch, each with new passives - a count in the passive
+/// counts one sim) the first `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all of them.
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
+}
+
 fn head(sim: &StableSim<'_>, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
@@ -157,7 +186,7 @@ impl Jinx {
         sim.play_view_effect(JINX_VIEW, me, &at, 0, 0, 0);
         sim.play_sfx(JINX_VIEW, me, &at);
         self.n += 1;
-        if self.n <= 80 {
+        if tally(sim, "jinx excited").is_some() {
             wlog(format!("{} JINX EXCITED #{} ({why})", head(sim, me), self.n));
         }
     }
@@ -169,7 +198,9 @@ impl StablePassive for Jinx {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Jinx (player {player})", head(sim, me)));
+        if tally(sim, "jinx spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Jinx (player {player})", head(sim, me)));
+        }
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
@@ -196,7 +227,7 @@ impl Tristana {
             sim.play_view_effect(TRIS_READY, me, &InputTargetV1::target(me), 0, 0, 0);
         }
         self.n += 1;
-        if self.n <= 80 {
+        if tally(sim, "tristana reset").is_some() {
             wlog(format!("{} TRISTANA W RESET #{} ({why})", head(sim, me), self.n));
         }
     }
@@ -208,7 +239,9 @@ impl StablePassive for Tristana {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Tristana (player {player})", head(sim, me)));
+        if tally(sim, "tristana spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Tristana (player {player})", head(sim, me)));
+        }
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
@@ -270,7 +303,9 @@ impl StablePassive for Twitch {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Twitch (player {player})", head(sim, me)));
+        if tally(sim, "twitch spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Twitch (player {player})", head(sim, me)));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -286,7 +321,7 @@ impl StablePassive for Twitch {
         if popping {
             if !self.bursting {
                 self.bursts += 1;
-                if self.bursts <= 80 || self.bursts % 25 == 0 {
+                if tally(sim, "twitch pop").is_some() {
                     wlog(format!("{} TWITCH E POP #{}: stacks {:?}", head(sim, me), self.bursts,
                                  foes.iter().map(|f| f.1).collect::<Vec<_>>()));
                 }
@@ -306,7 +341,7 @@ impl StablePassive for Twitch {
         if ready && !going && contaminate(&list, per) {
             sim.add_buff(me, &BuffV1::timed(TWITCH_E_GO, 30));
             self.pops += 1;
-            if self.pops <= 80 || self.pops % 25 == 0 {
+            if tally(sim, "twitch go").is_some() {
                 let top = foes.iter().max_by_key(|f| f.1).map_or(0, |f| f.1);
                 wlog(format!("{} TWITCH E GO #{}: stacks {:?}, most {top}, {per} a stack", head(sim, me), self.pops,
                              foes.iter().map(|f| f.1).collect::<Vec<_>>()));
@@ -323,7 +358,7 @@ impl StablePassive for Twitch {
         sim.play_view_effect(TWITCH_RESET, me, &InputTargetV1::target(me), 0, 0, 0);
         sim.play_sfx(TWITCH_RESET, me, &InputTargetV1::target(me));
         self.n += 1;
-        if self.n <= 80 {
+        if tally(sim, "twitch reset").is_some() {
             wlog(format!("{} TWITCH Q RESET #{} (assist, {left} ticks left)", head(sim, me), self.n));
         }
     }
@@ -369,7 +404,7 @@ impl MasterYi {
             _ => false,
         };
         self.n += 1;
-        if self.n <= 80 {
+        if tally(sim, "yi takedown").is_some() {
             wlog(format!("{} YI TAKEDOWN #{} ({why}): Q {q} -> {}, W {w} -> {}{}", head(sim, me), self.n, q - cut(q, YI_CUT),
                          w - cut(w, YI_CUT), if extended { ", Highlander extended" } else { "" }));
         }
@@ -382,7 +417,9 @@ impl StablePassive for MasterYi {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Master Yi (player {player})", head(sim, me)));
+        if tally(sim, "yi spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Master Yi (player {player})", head(sim, me)));
+        }
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {
@@ -403,7 +440,7 @@ impl StablePassive for MasterYi {
             if q > 0 {
                 sim.entity_reduce_cooldown(me, SkillSlotV1::Skill, YI_ATTACK_CUT);
                 self.cuts += 1;
-                if self.cuts <= 40 {
+                if tally(sim, "yi attack").is_some() {
                     wlog(format!("{} YI ATTACK #{}: Q {q} -> {}", head(sim, me), self.cuts, q.saturating_sub(YI_ATTACK_CUT)));
                 }
             }
@@ -412,9 +449,11 @@ impl StablePassive for MasterYi {
         if buff_left(sim, me, YI_HIGHLANDER).is_none() {
             return;
         }
-        // Highlander: immune to slows (every buff on him that lowers his move speed goes)
+        // Highlander: immune to slows (every buff on him that lowers his move speed goes) - not the game's own permanent
+        // `sed_` buffs (sed_reward), which are no slow (league_sejuani 0.1.1's `is_slow`)
         let slows: Vec<String> = match sim.get_entity(me) {
-            Some(e) => (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.move_speed_mult < 0)
+            Some(e) => (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+                .filter(|b| b.move_speed_mult < 0 && !b.name().starts_with("sed_"))
                 .map(|b| b.name().to_string()).collect(),
             None => return,
         };
@@ -493,5 +532,14 @@ mod tests {
             assert!(n.len() <= BUFF_NAME_CAP);
         }
         assert!(YI_HIGHLANDER.len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        // one count for every sim of the launch (the passives' own counts started over in every presim)
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
     }
 }

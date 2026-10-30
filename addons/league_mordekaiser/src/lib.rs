@@ -40,7 +40,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_mordekaiser";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.3";
+const VERSION: &str = "0.1.5";
 
 /// 主包莫德凯撒的名字（buff、画面都以它开头）。
 fn mk(x: &str) -> String {
@@ -537,7 +537,9 @@ fn params_of(sim: &StableSim<'_>, id: usize) -> Params {
 fn realm(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let Some(me) = alive_at(sim, caster) else { return };
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
-    let mut champs = Vec::new();
+    // a champion immune to crowd control (Master Yi's Alpha Strike, Maokai's root) is pulled in only when nobody else is
+    // in reach: the banish does not hold him and the realm ends 3 ticks in (32 of them on 2026-10-30)
+    let (mut champs, mut immune) = (Vec::new(), Vec::new());
     for i in 0..sim.entity_count() {
         let Some(u) = sim.entity_at(i) else { continue };
         if u.team() == team || !u.is_alive() || !u.is_champion() || !u.is_targetable() {
@@ -545,10 +547,16 @@ fn realm(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
         }
         let (x, y) = u.pos();
         let s = u.stat();
-        champs.push((u.id(), (x as f64, y as f64), s.attack + s.magic_power));
+        let c = (u.id(), (x as f64, y as f64), s.attack + s.magic_power);
+        if (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| b.cc_immune) {
+            immune.push(c);
+        } else {
+            champs.push(c);
+        }
     }
     let asked = (input.kind == InputTargetKindV1::Target.code()).then_some(input.target_id);
-    let Some(target) = pick_carry(me, &champs, R_RANGE + BODY).or(asked) else {
+    let Some(target) = pick_carry(me, &champs, R_RANGE + BODY).or_else(|| pick_carry(me, &immune, R_RANGE + BODY)).or(asked)
+    else {
         wlog(format!("{} R: no enemy champion in reach", head(sim, caster)));
         return;
     };

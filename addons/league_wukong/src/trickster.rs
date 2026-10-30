@@ -96,7 +96,9 @@ impl StablePlayerAi for Trickster {
                 }
                 if u.is_tower() {
                     towers.push(pt(&u));
-                } else if u.is_champion() && u.is_targetable() {
+                } else if u.is_champion() && u.is_targetable() && sim.is_visible(team, u.id()) {
+                    // one his team sees (league_mel's and league_ornn's hooks): a W at one in a bush is never cast and
+                    // the press held him on the spot every tick (the 2026-10-30 view: 11 ticks, 11356 from Master Yi)
                     foes.push((u.id(), pt(&u)));
                 }
             }

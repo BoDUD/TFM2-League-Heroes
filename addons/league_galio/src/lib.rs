@@ -33,7 +33,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_galio";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.4";
 
 // ===================== 数值（主包 build_galio.P） =====================
 
@@ -393,12 +393,15 @@ impl StableEffectType for Fly {
             }
             return;
         };
-        sim.entity_set_pos(caster, x, y);
-        if live.is_none() {
-            if let Some(k) = counted("fly_spot") {
-                wlog(format!("{} FLY #{k}: {} is dead or gone - landing where he was ({x}, {y})", head(sim, caster),
-                             ally.map_or("-".to_string(), |id| who(sim, id))));
-            }
+        let from = sim.get_entity(caster).map(|e| e.pos());
+        let moved = sim.entity_set_pos(caster, x, y);
+        // every flight logged (0.1.4): 12 channels of 2026-10-30 ended where they began ("NO FLIGHT", most 0 moved)
+        // without one FLY line, so whether this ran, for whom and whether the host moved him is in the log now
+        if let Some(k) = counted("fly") {
+            let whom = ally.map_or("-".to_string(), |id| who(sim, id));
+            let to = if live.is_some() { "onto" } else { "to the last spot of" };
+            wlog(format!("{} FLY #{k}: {to} {whom} at ({x}, {y}) from {from:?}{}", head(sim, caster),
+                         if moved { "" } else { " - set_pos refused" }));
         }
     }
 }

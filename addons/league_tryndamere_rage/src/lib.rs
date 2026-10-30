@@ -413,19 +413,21 @@ impl StablePassive for Guard {
 }
 
 /// R 结束前喝的 Q：以蛮王为施法者排队的原生效果；参数在他的 R 结束时由被动传不过来，
-/// 所以从身上的标记读回（`league_tryndamere_rg_p:<q_heal>:<q_heal_ratio>:<q_per>:<q_per_ratio>:<f_n>:<q_anim>`）。
+/// 所以从身上的标记读回（`league_tryndamere_rg_p:<q_heal>:<q_heal_ratio>:<q_per>:<q_per_ratio>:<f_n>:<q_anim>:<q_cd>`）。
+/// 这一口也是一次 Q，照样进 `q_cd`（2026-10-30 的日志：没进冷却，残血那条紧接着又喝一口，最快 10 tick 后）。
 struct RageEnd;
 
 /// 标记名（buff 名最多 64 字节）。
 pub fn mark_name(p: &Params) -> String {
-    format!("{}:{}:{}:{}:{}:{}:{}", tr("rg_p"), p.q_heal, p.q_heal_ratio, p.q_per, p.q_per_ratio, p.f_n, p.q_anim)
+    format!("{}:{}:{}:{}:{}:{}:{}:{}", tr("rg_p"), p.q_heal, p.q_heal_ratio, p.q_per, p.q_per_ratio, p.f_n, p.q_anim,
+            p.q_cd)
 }
 
 pub fn parse_mark(name: &str) -> Option<Params> {
     let rest = name.strip_prefix(&tr("rg_p"))?.strip_prefix(':')?;
     let v: Vec<usize> = rest.split(':').map(|x| x.parse().ok()).collect::<Option<Vec<_>>>()?;
-    let [q_heal, q_heal_ratio, q_per, q_per_ratio, f_n, q_anim] = v[..] else { return None };
-    Some(Params { q_heal, q_heal_ratio, q_per, q_per_ratio, f_n, q_anim, ..Params::default() })
+    let [q_heal, q_heal_ratio, q_per, q_per_ratio, f_n, q_anim, q_cd] = v[..] else { return None };
+    Some(Params { q_heal, q_heal_ratio, q_per, q_per_ratio, f_n, q_anim, q_cd, ..Params::default() })
 }
 
 impl StableEffectType for RageEnd {
@@ -433,6 +435,10 @@ impl StableEffectType for RageEnd {
         let names = buff_names(sim, caster);
         let Some(mark) = names.iter().find(|b| b.starts_with(&tr("rg_p"))).cloned() else { return };
         let Some(p) = parse_mark(&mark) else { return };
+        let mut cd = BuffV1::timed(&tr("q_cd"), p.q_cd);
+        cd.duration_kind = BuffDurationV1::Time.code();
+        sim.entity_remove_buff(caster, &tr("q_cd"));
+        sim.add_buff(caster, &cd);
         drink(sim, caster, &p, "R ends");
         sim.play_sfx(&tr("r_end"), caster, &InputTargetV1::target(caster));
     }
@@ -766,7 +772,8 @@ mod tests {
 
     #[test]
     fn the_mark_carries_the_heal() {
-        let p = Params { q_heal: 60, q_heal_ratio: 30, q_per: 50, q_per_ratio: 10, f_n: 5, q_anim: 24, ..Params::default() };
+        let p = Params { q_heal: 60, q_heal_ratio: 30, q_per: 50, q_per_ratio: 10, f_n: 5, q_anim: 24, q_cd: 600,
+                         ..Params::default() };
         let m = mark_name(&p);
         assert!(m.len() <= BUFF_NAME_CAP);
         assert_eq!(parse_mark(&m), Some(Params { ..p.clone() }));
