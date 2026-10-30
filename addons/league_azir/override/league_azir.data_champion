@@ -16182,6 +16182,238 @@
       "tag": "q_wave",
       "repeat": true,
       "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_8",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_8",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_10",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_10",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_12",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_12",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_14",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_14",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_16",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_16",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_18",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_18",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_20",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_20",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_22",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_22",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_24",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_24",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_26",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_26",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_28",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_28",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_30",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_30",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_32",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_32",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_34",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_34",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_36",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_36",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_38",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_38",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_40",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_40",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_42",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_42",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_44",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_44",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_46",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_46",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_48",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_48",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_50",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_50",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_52",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_52",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_54",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_54",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_56",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_56",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_58",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_58",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_60",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_60",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_62",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_62",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_azir_tether_64",
+      "anim": "asset/league_azir/effects/league_azir_tether",
+      "tag": "tether_64",
+      "repeat": true,
+      "z": -1
     }
   ],
   "view_effects": [

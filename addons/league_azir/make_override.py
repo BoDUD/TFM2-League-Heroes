@@ -11,7 +11,10 @@ defaults in src/lib.rs's Params are P's numbers, and writes addons/league_azir/o
   * R's wall calls league_azir:r_wall with the ult's target instead of stamping right-facing guards itself (the add-on
     stamps them facing the way the wall runs); the wall's damage and knockback are the data's, unchanged;
   * the attack's tooltip (a key of the add-on's own id) adds the Sun Disc, so the tooltip in game shows whether the
-    override took.
+    override took;
+  * 0.1.7: view_projectiles for the line of sand from him to each soldier, `league_azir_tether_<px>` for px in
+    TETHER_MIN..=TETHER_MAX step 2 (src/lib.rs), the add-on's own sheet effects/league_azir_tether
+    (tools/art/fx_azir_tether.py) under the units (z -1): his passive spawns one a soldier every tick.
 Every other champion stays untouched. Run it again whenever the main pack's Azir changes.
 """
 import json
@@ -27,6 +30,7 @@ import setup_azir as setup  # noqa: E402
 
 MOD_ID = "league_azir"
 HERO = "league_azir"
+TETHER = "league_azir_tether"   # the add-on's own sheet: the line of sand to the soldiers (tools/art/fx_azir_tether.py)
 mag, t, n = setup.mag, setup.t, setup.n
 # lang -> the add-on's sentence after the main pack's attack text
 DISC = {
@@ -61,6 +65,21 @@ def rust_defaults():
     return {k.strip(): int(v.strip().rstrip(",")) for k, v in re.findall(r"(\w+): (\d+),?", m.group(1))}
 
 
+def tether_views():
+    """The line's pieces as projectile views (one length a tag), checked against the sheet."""
+    src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
+    lo, hi = (int(re.search(r"pub const " + k + r": usize = (\d+);", src).group(1)) for k in ("TETHER_MIN", "TETHER_MAX"))
+    with open(lp(os.path.join(ADDON, "effects", TETHER + "#anim.fanim")), encoding="utf-8-sig") as f:
+        anims = json.load(f)["anims"]
+    want = [f"tether_{k}" for k in range(lo, hi + 1, 2)]
+    missing = [t for t in want if t not in anims]
+    if missing:
+        sys.exit(f"effects/{TETHER} lacks {missing}: run tools/art/fx_azir_tether.py")
+    # under the units (z -1): his body and the soldiers' cover the line's ends
+    return [{"type": "Animated", "name": f"{HERO}_{t}", "anim": f"asset/{MOD_ID}/effects/{TETHER}", "tag": t,
+             "repeat": True, "z": -1} for t in want]
+
+
 def main():
     p = dict(kit.P)
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8", newline="") as f:
@@ -76,6 +95,10 @@ def main():
     if '"league_azir:r_wall"' not in json.dumps(champion):
         sys.exit("the copy's wall does not call league_azir:r_wall: update this script")
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
+    tethers = tether_views()
+    if {v["name"] for v in champion["view_projectiles"]} & {v["name"] for v in tethers}:
+        sys.exit("the main pack's Azir already has the tether's view names: update this script")
+    champion["view_projectiles"] = champion["view_projectiles"] + tethers
 
     values = dict(setup.values(p), d_life=setup.secs(p["d_life"]), d_per=setup.secs(p["d_per"]), d_dmg=p["d_dmg"],
                   d_ap=p["d_ap"])
