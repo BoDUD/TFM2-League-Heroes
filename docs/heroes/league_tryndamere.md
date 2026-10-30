@@ -55,7 +55,7 @@
 
 ### 蛮王残血开大附加包
 
-[蛮王残血开大附加包](../../addons/league_tryndamere_rage/README.md)：`league_tryndamere_rage` v0.2.0
+[蛮王残血开大附加包](../../addons/league_tryndamere_rage/README.md)：`league_tryndamere_rage` v0.2.1
 
 主包 `league` 保持纯数据。数据读不到当前生命，主包里蛮王的 R 由 AI 在敌方英雄 60000 内时放出、**待命** 900 tick
 （没用上就退还冷却）；待命期间他每次普攻查一次：被**两名以上**敌方英雄贴身、或**连续 5 次**检查都挨了打，才爆发「无尽怒火」。

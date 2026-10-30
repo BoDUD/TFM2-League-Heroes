@@ -16,5 +16,5 @@
   "mod_id": "league_marks",
   "mod_type": "native",
   "name": "League Heroes: marks read on the target (Diana, Kennen, Kai'Sa, Lux, Miss Fortune) (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

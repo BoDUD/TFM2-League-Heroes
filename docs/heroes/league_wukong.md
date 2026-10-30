@@ -55,7 +55,7 @@
 
 ### 悟空附加包
 
-[悟空附加包](../../addons/league_wukong/README.md)：`league_wukong` v0.1.3
+[悟空附加包](../../addons/league_wukong/README.md)：`league_wukong` v0.1.4
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

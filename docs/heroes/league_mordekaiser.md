@@ -55,7 +55,7 @@
 
 ### 莫德凯撒附加包
 
-[莫德凯撒附加包](../../addons/league_mordekaiser/README.md)：`league_mordekaiser` v0.1.4
+[莫德凯撒附加包](../../addons/league_mordekaiser/README.md)：`league_mordekaiser` v0.1.5
 
 主包 `league` 保持纯数据。用户要了附加包；问到「R做不了独特空间吗？」，选了「放逐两人 + 附加包算单挑」，并且「嘲讽不做」（和英雄联盟一样）。这个附加包用原生代码做主包数据做不到的两件事：
 

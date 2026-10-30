@@ -55,7 +55,7 @@
 
 ### 烈娜塔附加包
 
-[烈娜塔附加包](../../addons/league_renata/README.md)：`league_renata` v0.1.2
+[烈娜塔附加包](../../addons/league_renata/README.md)：`league_renata` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

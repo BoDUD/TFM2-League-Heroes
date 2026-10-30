@@ -11,10 +11,15 @@
 //! - 生命回到 `low`% 以上、怒气被耗尽或清空时，计数归零。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从 tools/kit/build_renekton.py 的参数表 P 写进去）。
-//! 计数记在每个雷克顿自己的被动实例里；不用全局变量，服务端预模拟和你看的那场各算各的。
+//! 计数记在每个雷克顿自己的被动实例里；不用全局变量（只有日志的行数是全局的），服务端预模拟和你看的那场各算各的。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_renekton.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//! 你看的那场每行都写，服务器的预模拟 SPAWN、ANGER 各先写 `LOG_FIRST` 行、之后每 `LOG_EVERY` 次一行（见 `tally`）。
+//! 以前每个雷克顿每 30 秒还写一行 `WATCH`（积攒了几次、低血多给了几次），是为了回答 README 里「还没在游戏里看过日志」：
+//! 2026-10-30 两次启动的日志（league_renekton.log 和 .prev.log）里有 279 行 ANGER，生命全在 50% 以下（两行写着 50% 是
+//! 49.5–50 四舍五入），低血多给的那一阶确实在发生，问题已经回答，WATCH 就去掉了（它占日志的 79–85%）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -65,6 +70,25 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// 日志行数的上限。计数是全局的：每场预模拟的被动都是新实例，记在实例里的上限（以前 ANGER 的 `extra <= 8 || % 50`）
+/// 管不住几百场预模拟。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count when it is to be written - every one in the match on screen (watched,
+/// spectated or replayed), the server's presims (and background matches) the first `LOG_FIRST`, then every
+/// `LOG_EVERY`-th.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (on_screen || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -166,15 +190,13 @@ fn climb(sim: &mut StableSim<'_>, me: usize, from: usize, p: &Params) {
 
 // ===================== 被动 =====================
 
-/// 每个雷克顿一份：参数、上一 tick 的阶数、低血时攒下的积攒次数、诊断计数。
+/// 每个雷克顿一份：参数、上一 tick 的阶数、低血时攒下的积攒次数、低血多给了几阶（日志 `ANGER #n`）。
 #[derive(Clone, Default)]
 struct Anger {
     p: Params,
     was: usize,
     bank: usize,
-    gains: usize,
     extra: usize,
-    next_report: usize,
 }
 
 impl StablePassive for Anger {
@@ -189,8 +211,10 @@ impl StablePassive for Anger {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.was = 0;
         self.bank = 0;
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Renekton (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        if tally(sim, "spawn").is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Renekton (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -203,9 +227,6 @@ impl StablePassive for Anger {
         let (now_hp, max_hp) = e.hp();
         let hp = if max_hp > 0 { now_hp as f64 * 100.0 / max_hp as f64 } else { 100.0 };
         let now = rung_of(&buff_names(sim, me), self.p.f_n);
-        if now > self.was {
-            self.gains += now - self.was;
-        }
         let (bank, more) = step(&self.p, self.was, now, hp, self.bank);
         self.bank = bank;
         self.was = now;
@@ -213,17 +234,11 @@ impl StablePassive for Anger {
             climb(sim, me, now, &self.p);
             self.was = now + 1;
             self.extra += 1;
-            if self.extra <= 8 || self.extra % 50 == 0 {
+            if tally(sim, "anger").is_some() {
                 wlog(format!("{} ANGER #{}: hp {hp:.0}%, Fury {now} -> {}", head(sim, me), self.extra, now + 1));
             }
         }
-        let tick = sim.tick();
-        if tick >= self.next_report {
-            self.next_report = tick + 1800;
-            if tick > 0 {
-                wlog(format!("{} WATCH: Fury {now}, hp {hp:.0}%, gains {} extra {}", head(sim, me), self.gains, self.extra));
-            }
-        }
+        // the 30-second WATCH line is gone: the question it watched is answered (the module notes)
     }
 }
 

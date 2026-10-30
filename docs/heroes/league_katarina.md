@@ -55,7 +55,7 @@
 
 ### 卡特琳娜附加包
 
-[卡特琳娜附加包](../../addons/league_katarina/README.md)：`league_katarina` v0.1.0
+[卡特琳娜附加包](../../addons/league_katarina/README.md)：`league_katarina` v0.1.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -68,7 +68,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.5.5（通用附加包，下面只列和卡特琳娜有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.5.6（通用附加包，下面只列和卡特琳娜有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|
