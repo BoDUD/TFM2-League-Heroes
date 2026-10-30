@@ -1,0 +1,32 @@
+{
+  "sentinel-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_zero_pixels": 1280507,
+    "alpha_partial_pixels": 291279,
+    "visible_bbox_alpha128": [
+      281,
+      706,
+      1058,
+      1223
+    ]
+  },
+  "sentinel-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_zero_pixels": 1269908,
+    "alpha_partial_pixels": 301400,
+    "visible_bbox_alpha128": [
+      346,
+      521,
+      950,
+      1193
+    ]
+  }
+}
