@@ -107,7 +107,7 @@ impl Default for Params {
         Self {
             p_red: 18,
             q_def: 50,
-            r_def: 35,
+            r_def: 32,
         }
     }
 }
@@ -275,7 +275,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"p_red":18,"q_def":50,"r_def":35}"#;
+        let json = r#"{"p_red":18,"q_def":50,"r_def":32}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 

@@ -38,7 +38,7 @@ OUT = os.path.join(REPO, MOD_ID, "champion", f"{ID}.data_champion")
 FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 
-# Units: melee range 28000 (a long snout, like tft_syfen's 30000); radii count the unit's collision radius (~15000) on top.
+# Units: melee range 30000 (her snout reaches 30 game px ahead in the strike, like tft_syfen's); radii count the unit's collision radius (~15000) on top.
 # Timings are placeholders until the strips exist (tools/art/rig_terra.py). Stats start from the tft top tanks'
 # (tft_shiohyu hp 1260 atk 84 def 48 mr 38, tft_renni, tft_krug 1200 / 80): Terra is the 5-cost earth dragon, TFT's
 # 100 armour and magic resistance, a slow attack.
@@ -47,12 +47,14 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # (hp 1320, atk 76 every 72, Q 100%, R 50% + 25%, the armour part at 220) +0.10 on seeds 1-8 (tft_shiohyu --plain +1.31
 # on the same games); her armour + resistance at mid game is ~250 (level 10.5: 58 + 9 x 10.5 and 48 + 7 x 10.5), atk 82,
 # Q 130%, R 70% + 30% +0.62; + hp 1380, attack every 66, taunt 1.5 s +1.28 / +0.69 (seeds 9-16; tft_shiohyu +1.14); +
-# atk 84, Q 50% and R 35% of armour + resistance +1.92 / +1.32 = P (a 5-cost a little above the 4-cost control).
+# atk 84, Q 50% and R 35% of armour + resistance +1.92 / +1.32; with the art in, her attack range 30000 (her snout
+# reaches 30 game px ahead of her standing point in Rock Claw's strike) +2.15 / +2.19, so atk 81 and R 32% = P: +0.94 /
+# +1.37 (tft_shiohyu --plain +1.31 / +1.14).
 P = {
     # stats (Melee, a top tank with attack damage)
-    "hp": 1380, "hp_g": 125, "atk": 84, "atk_g": 9, "apw": 0, "apw_g": 0, "def": 58, "def_g": 9, "mr": 48, "mr_g": 7,
+    "hp": 1380, "hp_g": 125, "atk": 81, "atk_g": 9, "apw": 0, "apw_g": 0, "def": 58, "def_g": 9, "mr": 48, "mr_g": 7,
     "ms": 990, "ms_g": 10,
-    "atk_range": 28000, "atk_dur": 30, "atk_cd": 66, "atk_st": 14, "a_pct": 100,
+    "atk_range": 30000, "atk_dur": 30, "atk_cd": 66, "atk_st": 14, "a_pct": 100,
     # passive Monolith Hide (TFT's Monolith tile: 18% less damage); --plain's mid-game armour + resistance (x100)
     "p_red": 18, "p_plain_def": 250,
     # Rending Bite
@@ -63,7 +65,7 @@ P = {
     "e_sh_t": 180,
     # Earthquake (TFT: 160 / 240% of armour + resistance and AD in all, then 130 / 165 of each for 8 s)
     "r_cd": 2400, "r_range": 40000, "r_dur": 110, "r_t1": 30, "r_t2": 58, "r_t3": 86, "r_r": 48000,
-    "r_dmg": 30, "r_ad": 70, "r_def": 35, "r_res": 60, "r_res_t": 480,
+    "r_dmg": 30, "r_ad": 70, "r_def": 32, "r_res": 60, "r_res_t": 480,
 }
 # what tft.dll reads from passive.params (addons/tft/src/terra.rs)
 NATIVE_KEYS = ("p_red", "q_def", "r_def")

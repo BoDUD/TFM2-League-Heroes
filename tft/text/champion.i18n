@@ -154,6 +154,13 @@
         "skill": "朝没开花的敌人冲出一道潮涌，沿途敌人受到<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法伤害<>，目标头上开出水之花（<#ffb900ff>15秒<>）；带花的敌人倒下，花跳到附近的敌人。",
         "skill2": "给附近生命比例最低的队友套上<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>的水盾（<#ffb900ff>3秒<>），攻速<#ffb900ff>+25%<>。",
         "ult": "所有水之花一齐绽放，每朵花周围的敌人受到<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，花随之散去；没有花时在目标身上绽放。"
+      },
+      "tft_terra": {
+        "name": "泰拉",
+        "attack": "岩爪一拍，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>巨岩之躯<>：受到的伤害永久减少<#ffb900ff>18%<>。",
+        "skill": "低头扑咬目标，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>（<i#asset/base/ui/banpick/champion_stat_icon:armor_0>=护甲+魔抗），减速<#ef5350ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "仰天咆哮，<#ef5350ff>嘲讽<>周围敌人<#ffb900ff>1.5秒<>，自己获得<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>的岩石护盾（<#ffb900ff>3秒<>）。",
+        "ult": "重踏三次（施放中<#ef5350ff>免疫控制<>），每踏对周围敌人造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<><#ff9028ff>物理伤害<>；之后护甲和魔抗<#ffb900ff>+60<>（<#ffb900ff>8秒<>）。"
       }
     },
     "skill_name": {
@@ -266,6 +273,11 @@
         "skill1": "潮涌",
         "skill2": "海潮护佑",
         "ult": "潮汐绽放"
+      },
+      "tft_terra": {
+        "skill1": "裂地咬",
+        "skill2": "龙威咆哮",
+        "ult": "地震"
       }
     }
   },
@@ -424,6 +436,13 @@
         "skill": "朝沒開花的敵人衝出一道潮湧，沿途敵人受到<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法傷害<>，目標頭上開出水之花（<#ffb900ff>15秒<>）；帶花的敵人倒下，花跳到附近的敵人。",
         "skill2": "給附近生命比例最低的隊友套上<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>的水盾（<#ffb900ff>3秒<>），攻速<#ffb900ff>+25%<>。",
         "ult": "所有水之花一齊綻放，每朵花周圍的敵人受到<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，花隨之散去；沒有花時在目標身上綻放。"
+      },
+      "tft_terra": {
+        "name": "泰拉",
+        "attack": "岩爪一拍，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>巨岩之軀<>：受到的傷害永久減少<#ffb900ff>18%<>。",
+        "skill": "低頭撲咬目標，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>（<i#asset/base/ui/banpick/champion_stat_icon:armor_0>=護甲+魔抗），緩速<#ef5350ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "仰天咆哮，<#ef5350ff>嘲諷<>周圍敵人<#ffb900ff>1.5秒<>，自己獲得<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>的岩石護盾（<#ffb900ff>3秒<>）。",
+        "ult": "重踏三次（施放中<#ef5350ff>免疫控制<>），每踏對周圍敵人造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<><#ff9028ff>物理傷害<>；之後護甲和魔抗<#ffb900ff>+60<>（<#ffb900ff>8秒<>）。"
       }
     },
     "skill_name": {
@@ -536,6 +555,11 @@
         "skill1": "潮湧",
         "skill2": "海潮護佑",
         "ult": "潮汐綻放"
+      },
+      "tft_terra": {
+        "skill1": "裂地咬",
+        "skill2": "龍威咆哮",
+        "ult": "地動山搖"
       }
     }
   },
@@ -694,6 +718,13 @@
         "skill": "Sends a wave at an enemy without a flower: <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> to every enemy on its way, and a water flower blooms over the target (<#ffb900ff>15s<>). When a flowered enemy falls, the flower jumps to a nearby enemy.",
         "skill2": "Wraps the nearby ally lowest on health in a <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> water shield (<#ffb900ff>3s<>) and <#ffb900ff>+25%<> attack speed.",
         "ult": "Every water flower bursts at once: <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<> to enemies around each, and the flowers fade. With no flower out, one bursts on the target."
+      },
+      "tft_terra": {
+        "name": "Terra",
+        "attack": "A rock claw swipe for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Monolith Hide<>: she always takes <#ffb900ff>18%<> less damage.",
+        "skill": "Lunges low and bites the target for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> (<i#asset/base/ui/banpick/champion_stat_icon:armor_0> = armor + magic resist), slowing it <#ef5350ff>30%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "Roars, <#ef5350ff>taunting<> nearby enemies for <#ffb900ff>1.5s<>, and gains a <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> rock shield for <#ffb900ff>3s<>.",
+        "ult": "Stomps three times (<#ef5350ff>unstoppable<> while casting), each dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<> <#ff9028ff>physical damage<> around her; then <#ffb900ff>+60<> armor and magic resist for <#ffb900ff>8s<>."
       }
     },
     "skill_name": {
@@ -806,6 +837,11 @@
         "skill1": "Tideblossom",
         "skill2": "Tidecaller's Guard",
         "ult": "Tidal Bloom"
+      },
+      "tft_terra": {
+        "skill1": "Rending Bite",
+        "skill2": "Dragon's Roar",
+        "ult": "Earthquake"
       }
     }
   },
@@ -964,6 +1000,13 @@
         "skill": "꽃이 없는 적에게 물결을 보내 경로의 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>마법 피해<>, 대상 머리 위에 물의 꽃(<#ffb900ff>15초<>). 꽃이 핀 적이 쓰러지면 꽃이 근처 적에게 옮겨 갑니다.",
         "skill2": "근처에서 체력 비율이 가장 낮은 아군에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 물보호막(<#ffb900ff>3초<>)과 공격 속도 <#ffb900ff>+25%<>.",
         "ult": "모든 물의 꽃이 한꺼번에 터져 각 꽃 주변 적에게 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>, 꽃은 사라집니다. 꽃이 없으면 대상에게서 터집니다."
+      },
+      "tft_terra": {
+        "name": "테라",
+        "attack": "바위 발톱으로 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>거석의 몸<>: 받는 피해가 항상 <#ffb900ff>18%<> 감소.",
+        "skill": "낮게 덮쳐 대상을 물어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<> <#ff9028ff>물리 피해<>(<i#asset/base/ui/banpick/champion_stat_icon:armor_0> = 방어력+마법 저항력), <#ffb900ff>1.5초<> 동안 <#ef5350ff>30%<> 둔화.",
+        "skill2": "포효해 주변 적을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>도발<>하고, <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 바위 보호막(<#ffb900ff>3초<>)을 얻습니다.",
+        "ult": "땅을 세 번 구릅니다(시전 중 <#ef5350ff>저지 불가<>). 매번 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<> <#ff9028ff>물리 피해<>, 이후 <#ffb900ff>8초<> 동안 방어력과 마법 저항력 <#ffb900ff>+60<>."
       }
     },
     "skill_name": {
@@ -1076,6 +1119,11 @@
         "skill1": "조수의 꽃",
         "skill2": "조수의 가호",
         "ult": "조수 개화"
+      },
+      "tft_terra": {
+        "skill1": "대지 물어뜯기",
+        "skill2": "용의 포효",
+        "ult": "지진"
       }
     }
   },
@@ -1234,6 +1282,13 @@
         "skill": "花のない敵へ潮の波を放ち、通り道の敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の<#a974ffff>魔法ダメージ<>、対象の頭上に水の花（<#ffb900ff>15秒<>）。花のついた敵が倒れると花は近くの敵へ移る。",
         "skill2": "近くで体力の割合が最も低い味方に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の水のシールド（<#ffb900ff>3秒<>）と攻撃速度<#ffb900ff>+25%<>。",
         "ult": "すべての水の花が一斉に咲き、各花の周囲の敵に<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>、花は消える。花がなければ対象の上で咲く。"
+      },
+      "tft_terra": {
+        "name": "テラ",
+        "attack": "岩の爪で叩き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>巨岩の体<>：受けるダメージが常に<#ffb900ff>18%<>減少。",
+        "skill": "低く飛びかかって噛みつき<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>（<i#asset/base/ui/banpick/champion_stat_icon:armor_0>＝物理防御＋魔法防御）、<#ffb900ff>1.5秒<>間<#ef5350ff>30%<>スロウ。",
+        "skill2": "咆哮して周囲の敵を<#ffb900ff>1.5秒<>間<#ef5350ff>挑発<>し、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の岩のシールド（<#ffb900ff>3秒<>）を得る。",
+        "ult": "3回踏み鳴らし（詠唱中<#ef5350ff>阻止不可<>）、そのたびに周囲の敵へ<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<>の<#ff9028ff>物理ダメージ<>。その後<#ffb900ff>8秒<>間物理防御と魔法防御<#ffb900ff>+60<>。"
       }
     },
     "skill_name": {
@@ -1346,6 +1401,11 @@
         "skill1": "潮の花",
         "skill2": "潮の加護",
         "ult": "潮汐の開花"
+      },
+      "tft_terra": {
+        "skill1": "大地の噛みつき",
+        "skill2": "竜の咆哮",
+        "ult": "地震"
       }
     }
   }

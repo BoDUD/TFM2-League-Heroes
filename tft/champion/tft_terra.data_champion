@@ -13,7 +13,7 @@
     "params": {
       "p_red": 18,
       "q_def": 50,
-      "r_def": 35
+      "r_def": 32
     }
   },
   "sprite": "asset/tft/champions/tft_terra",
@@ -24,7 +24,7 @@
     "asset/tft/icons/tft_terra_ult"
   ],
   "stat": {
-    "attack": 84,
+    "attack": 81,
     "magic_power": 0,
     "hp": 1380,
     "defence": 58,
@@ -52,7 +52,7 @@
     "cooltime": 66,
     "start_timing": 14,
     "cancelable": true,
-    "range": 28000,
+    "range": 30000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",

@@ -1,0 +1,747 @@
+{
+  "mode": "built-in image_gen",
+  "assets": [
+    {
+      "group": "fx",
+      "key": "a_hit",
+      "file": "terra_fx_a_hit.png",
+      "binding": "view_effects `tft_terra_a_hit`（跟随目标，z 2；左右对称）",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_file": "raw/terra_fx_a_hit.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        64,
+        16
+      ],
+      "size_8x": [
+        512,
+        128
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "loop": false,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 10
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 86
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 26
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 56
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "q_hit",
+      "file": "terra_fx_q_hit.png",
+      "binding": "view_effects `tft_terra_q_hit`（跟随目标，z 3；左右对称）",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        22
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_file": "raw/terra_fx_q_hit.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        110,
+        22
+      ],
+      "size_8x": [
+        880,
+        176
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "loop": false,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 142
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 142
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 170
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 86
+        },
+        {
+          "frame": 4,
+          "left_right_symmetric": true,
+          "opaque_pixels": 32
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "q_slow",
+      "file": "terra_fx_q_slow.png",
+      "binding": "view_buffs `tft_terra_q_slow`（跟随被减速的人，脚下地面，z 3；左右对称）",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        8
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "raw_file": "raw/terra_fx_q_slow.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        120,
+        8
+      ],
+      "size_8x": [
+        960,
+        64
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "loop": true,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 32
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 36
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 44
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 38
+        },
+        {
+          "frame": 4,
+          "left_right_symmetric": true,
+          "opaque_pixels": 32
+        },
+        {
+          "frame": 5,
+          "left_right_symmetric": true,
+          "opaque_pixels": 34
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "e",
+      "file": "terra_fx_e.png",
+      "binding": "view_effects `tft_terra_e`（大表，跟随她，z 4；左右对称）",
+      "frames": 6,
+      "cell_1x": [
+        72,
+        48
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_file": "raw/terra_fx_e.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        432,
+        48
+      ],
+      "size_8x": [
+        3456,
+        384
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "loop": false,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 724
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 1044
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 1340
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 1200
+        },
+        {
+          "frame": 4,
+          "left_right_symmetric": true,
+          "opaque_pixels": 742
+        },
+        {
+          "frame": 5,
+          "left_right_symmetric": true,
+          "opaque_pixels": 336
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "e_taunt",
+      "file": "terra_fx_e_taunt.png",
+      "binding": "view_buffs `tft_terra_e_taunt`（跟随被嘲讽的人，头顶上方，z 3；左右对称）",
+      "frames": 6,
+      "cell_1x": [
+        14,
+        10
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1484,
+        1060
+      ],
+      "raw_file": "raw/terra_fx_e_taunt.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        84,
+        10
+      ],
+      "size_8x": [
+        672,
+        80
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "loop": true,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 22
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 26
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 30
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 38
+        },
+        {
+          "frame": 4,
+          "left_right_symmetric": true,
+          "opaque_pixels": 34
+        },
+        {
+          "frame": 5,
+          "left_right_symmetric": true,
+          "opaque_pixels": 26
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "e_shield",
+      "file": "terra_fx_e_shield.png",
+      "binding": "view_buffs `tft_terra_e_shield`（大表，跟随她，z 3；左右对称）",
+      "frames": 6,
+      "cell_1x": [
+        72,
+        48
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_file": "raw/terra_fx_e_shield.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        432,
+        48
+      ],
+      "size_8x": [
+        3456,
+        384
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "loop": true,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 748
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 734
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 742
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 830
+        },
+        {
+          "frame": 4,
+          "left_right_symmetric": true,
+          "opaque_pixels": 806
+        },
+        {
+          "frame": 5,
+          "left_right_symmetric": true,
+          "opaque_pixels": 734
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "r",
+      "file": "terra_fx_r.png",
+      "binding": "view_effects `tft_terra_r`（跟随她，脚下地面，z 3；左右对称）",
+      "frames": 4,
+      "cell_1x": [
+        56,
+        14
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1774,
+        887
+      ],
+      "raw_file": "raw/terra_fx_r.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        224,
+        14
+      ],
+      "size_8x": [
+        1792,
+        112
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        2,
+        2
+      ],
+      "loop": false,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 96
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 154
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 200
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 128
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "r_quake",
+      "file": "terra_fx_r_quake.png",
+      "binding": "view_effects `tft_terra_r_quake`（大表，每一踏放在她脚下的地面上，不跟随，z -1；左右对称）",
+      "frames": 7,
+      "cell_1x": [
+        112,
+        48
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1916,
+        821
+      ],
+      "raw_file": "raw/terra_fx_r_quake.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        784,
+        48
+      ],
+      "size_8x": [
+        6272,
+        384
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        4,
+        2
+      ],
+      "loop": false,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 274
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 1094
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 1756
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 1954
+        },
+        {
+          "frame": 4,
+          "left_right_symmetric": true,
+          "opaque_pixels": 1882
+        },
+        {
+          "frame": 5,
+          "left_right_symmetric": true,
+          "opaque_pixels": 1138
+        },
+        {
+          "frame": 6,
+          "left_right_symmetric": true,
+          "opaque_pixels": 122
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "r_hit",
+      "file": "terra_fx_r_hit.png",
+      "binding": "view_effects `tft_terra_r_hit`（跟随被打中的人，z 3；左右对称）",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        20
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_file": "raw/terra_fx_r_hit.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        100,
+        20
+      ],
+      "size_8x": [
+        800,
+        160
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "loop": false,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 58
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 132
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 136
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 144
+        },
+        {
+          "frame": 4,
+          "left_right_symmetric": true,
+          "opaque_pixels": 112
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "r_res",
+      "file": "terra_fx_r_res.png",
+      "binding": "view_buffs `tft_terra_r_res`（大表，跟随她，z 3；左右对称）",
+      "frames": 6,
+      "cell_1x": [
+        72,
+        48
+      ],
+      "layout": "one horizontal row",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "raw_file": "raw/terra_fx_r_res.png",
+      "symmetry": "per-frame exact left-right, retain more occupied half then mirror",
+      "size_1x": [
+        432,
+        48
+      ],
+      "size_8x": [
+        3456,
+        384
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "raw_layout": [
+        3,
+        2
+      ],
+      "loop": true,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "left_right_symmetric": true,
+          "opaque_pixels": 412
+        },
+        {
+          "frame": 1,
+          "left_right_symmetric": true,
+          "opaque_pixels": 520
+        },
+        {
+          "frame": 2,
+          "left_right_symmetric": true,
+          "opaque_pixels": 708
+        },
+        {
+          "frame": 3,
+          "left_right_symmetric": true,
+          "opaque_pixels": 606
+        },
+        {
+          "frame": 4,
+          "left_right_symmetric": true,
+          "opaque_pixels": 384
+        },
+        {
+          "frame": 5,
+          "left_right_symmetric": true,
+          "opaque_pixels": 300
+        }
+      ]
+    },
+    {
+      "group": "fx",
+      "key": "skill",
+      "file": "terra_icon_skill.png",
+      "binding": "skill_icons[0] `asset/tft/icons/tft_terra_skill`",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "layout": [
+        1,
+        1
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_file": "raw/terra_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "pixel_scale": 2,
+      "symmetry": "none: directional skill icon"
+    },
+    {
+      "group": "fx",
+      "key": "skill2",
+      "file": "terra_icon_skill2.png",
+      "binding": "skill_icons[1] `asset/tft/icons/tft_terra_skill2`",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "layout": [
+        1,
+        1
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_file": "raw/terra_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "pixel_scale": 2,
+      "symmetry": "none: directional skill icon"
+    },
+    {
+      "group": "fx",
+      "key": "ult",
+      "file": "terra_icon_ult.png",
+      "binding": "skill_icons[2] `asset/tft/icons/tft_terra_ult`",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "layout": [
+        1,
+        1
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "raw_file": "raw/terra_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "pixel_scale": 2,
+      "symmetry": "none: directional skill icon"
+    }
+  ],
+  "palette": [
+    "ECEAD6",
+    "BDBC9C",
+    "8C8E70",
+    "5E6249",
+    "3A3D2E",
+    "FFF7CC",
+    "FFD75C",
+    "F59B20",
+    "C2580F",
+    "6E2C08",
+    "E6D9BE",
+    "BBA680",
+    "8B7452",
+    "5B4732",
+    "A9C474",
+    "73923F",
+    "48622B"
+  ]
+}

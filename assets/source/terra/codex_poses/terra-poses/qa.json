@@ -1,0 +1,200 @@
+[
+  {
+    "file": "terra-pose-a_wind.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1193,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-a_hit.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1183,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-q_crouch.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1215,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-q_pounce.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1097,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-q_bite.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1215,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-e_spread.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1205,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-e_roar.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1220,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-r_rear.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1215,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-r_stomp.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1206,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-r_roar.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1182,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-run1.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1117,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-run2.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1168,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-run3.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1064,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-run4.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1185,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-run5.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1215,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-run6.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1215,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-d_fall.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1205,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  },
+  {
+    "file": "terra-pose-d_down.png",
+    "size_pass": true,
+    "hard_alpha_pass": true,
+    "no_RGB_resampling_pass": true,
+    "raw_sha256_pass": true,
+    "exact_9px_grid": false,
+    "actual_bottom_exclusive": 1186,
+    "requested_bottom_exclusive": 1176,
+    "baseline_pass": false
+  }
+]
