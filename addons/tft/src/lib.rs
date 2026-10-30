@@ -21,6 +21,7 @@ pub mod smeech;
 pub mod sohm;
 pub mod steb;
 pub mod syfen;
+pub mod terra;
 pub mod vander;
 pub mod violet;
 
@@ -47,6 +48,7 @@ fn init(host: &StableHost) -> StableMod {
     sohm::register(host, &mut module);
     steb::register(host, &mut module);
     syfen::register(host, &mut module);
+    terra::register(host, &mut module);
     vander::register(host, &mut module);
     violet::register(host, &mut module);
     module
