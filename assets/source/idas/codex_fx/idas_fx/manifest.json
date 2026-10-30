@@ -1,0 +1,231 @@
+{
+  "assets": [
+    {
+      "file": "idas_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_idas_a_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_a_hit.png"
+    },
+    {
+      "file": "idas_fx_q_breath.png",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        22
+      ],
+      "scale": 8,
+      "symmetry": "top-bottom (pointing right)",
+      "binding": "view_projectiles `tft_idas_q_breath`（大表，一道从她嘴边指向目标的线，随方向旋转；上下对称、朝右）",
+      "loop": true,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_q_breath.png"
+    },
+    {
+      "file": "idas_fx_q_shred.png",
+      "frames": 6,
+      "cell_1x": [
+        18,
+        26
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_idas_q_shred`（跟随被喷到的人，身上，z 3；左右对称）",
+      "loop": true,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_q_shred.png"
+    },
+    {
+      "file": "idas_fx_e_roar.png",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        44
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_idas_e_roar`（大表，在她身上，z 3；左右对称）",
+      "loop": false,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_e_roar.png"
+    },
+    {
+      "file": "idas_fx_e_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        10
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_idas_e_slow`（跟随被减速的人，脚下地面，z -1；左右对称）",
+      "loop": true,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_e_slow.png"
+    },
+    {
+      "file": "idas_fx_e_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        22,
+        38
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_idas_e_shield`（跟随被套盾的队友，z 3；左右对称）",
+      "loop": true,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_e_shield.png"
+    },
+    {
+      "file": "idas_fx_p_burst.png",
+      "frames": 5,
+      "cell_1x": [
+        30,
+        38
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_idas_p_burst`（tft.dll 播，在她和被保护的队友身上，z 3；左右对称）",
+      "loop": false,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_p_burst.png"
+    },
+    {
+      "file": "idas_fx_p_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        40
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_idas_p_shield`（tft.dll 挂，跟随她和被保护的队友，z 3；左右对称）",
+      "loop": true,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_p_shield.png"
+    },
+    {
+      "file": "idas_fx_r_wrap.png",
+      "frames": 6,
+      "cell_1x": [
+        58,
+        46
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_idas_r_wrap`（跟随她，z 3；左右对称）",
+      "loop": true,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_r_wrap.png"
+    },
+    {
+      "file": "idas_fx_r_burst.png",
+      "frames": 7,
+      "cell_1x": [
+        76,
+        52
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_idas_r_burst`（大表，在她身上，z 3；左右对称）",
+      "loop": false,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_r_burst.png"
+    },
+    {
+      "file": "idas_fx_r_heal.png",
+      "frames": 6,
+      "cell_1x": [
+        32,
+        40
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_idas_r_heal`（在她身上，z 3；左右对称）",
+      "loop": false,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_r_heal.png"
+    },
+    {
+      "file": "idas_fx_r_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        40
+      ],
+      "scale": 8,
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_idas_r_shield`（跟随被套盾的队友，护盾在时一直在，z 3；左右对称）",
+      "loop": true,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": "pixel_1x/idas_fx_r_shield.png"
+    },
+    {
+      "file": "idas_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "scale": 1,
+      "symmetry": null,
+      "binding": "skill_icons[0] `asset/tft/icons/tft_idas_skill`",
+      "loop": false,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": null
+    },
+    {
+      "file": "idas_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "scale": 1,
+      "symmetry": null,
+      "binding": "skill_icons[1] `asset/tft/icons/tft_idas_skill2`",
+      "loop": false,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": null
+    },
+    {
+      "file": "idas_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "scale": 1,
+      "symmetry": null,
+      "binding": "skill_icons[2] `asset/tft/icons/tft_idas_ult`",
+      "loop": false,
+      "frame_ms": null,
+      "layout": "horizontal",
+      "pixel_1x": null
+    }
+  ],
+  "frame_timing": "Not specified by source pack. GIF preview uses 100 ms only; configure engine timing on import.",
+  "processing": "Source-generated art, alpha >=160, palette nearest RGB then per-cell majority; identical crop across frames, exact mirrored half, clear reserved actor rectangle. No procedural drawing."
+}

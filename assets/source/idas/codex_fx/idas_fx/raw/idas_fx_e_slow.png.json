@@ -1,0 +1,12 @@
+{
+  "kind": "fx",
+  "index": 4,
+  "file": "idas_fx_e_slow.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08).\nEffect: A HEAVY SLOW, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the GROUND under the unit's feet, an ellipse seen from above, about 18 squares wide and 6 tall: a ring of heavy faceted golden scales lying on the ground, between them three small golden arrows pointing DOWN; frames 1-6 a glint running round the scales. Nothing above the feet. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 20:10. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-09abc3d5-ad55-469c-aced-b71b10e2b452.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_e_slow.png"
+}

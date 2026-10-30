@@ -1,0 +1,12 @@
+{
+  "name": "idas-pose-e_roar",
+  "group": "idas-poses",
+  "prompt": "Repaint IMAGE1 exact 3D POSE into chunky pixel art matching IMAGE2 APPROVED DESIGN and IMAGE3 HEAD; IMAGE4 SKELETON fixes limb placement. Output one transparent PNG 1254x1254, 7px grid, 0/255 alpha. Keep reference1 composition/empty margins, whole body, lowest point y1176. Same character, head, limb lengths/bulk, gold feather-blade forearm wings, dark brown chest, cyan crest/horns/eyes, grey claws, long tail violet blade, near-black outline, 3-4 flat colors per material. Same approved head moved/tilted to pose; no redesign. EXACTLY TWO ARMS (arms ARE wings, no separate back wings), TWO LEGS, ONE TAIL. Use pose1, not idle pose2. All wings/claws/feet/tail/horns visible. No guides, grid, labels, ground, shadow, VFX or glow. POSE: ROAR: BOTH wing-arms WIDE apart, head thrust forward, mouth WIDE OPEN dark red inside. Keep HEAD IN RIGHT-FACING PROFILE from approved head even though render turns it: same head with jaw wide open dark red. Near arm down-left, far arm raised right as skeleton, only two hands.",
+  "refs": [
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/7_e_roar_ref.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/0_design.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/1_head.png",
+    "D:/TFM2-Workshop/idas_packs/idas_pose_pack/7_e_roar_skeleton.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-dea313fe-f0eb-4df9-82b5-c3ac5940238f.png"
+}

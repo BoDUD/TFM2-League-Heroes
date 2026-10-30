@@ -1,0 +1,234 @@
+{
+ "run1": {
+  "rows": 74,
+  "ms": 86,
+  "red": {
+   "heel": [
+    75,
+    140
+   ],
+   "toe": [
+    75,
+    148
+   ],
+   "lift": 9.8
+  },
+  "blue": {
+   "heel": [
+    74,
+    149
+   ],
+   "toe": [
+    77,
+    157
+   ],
+   "lift": 4.5
+  },
+  "lead": "blue",
+  "near_leg": "blue",
+  "clip": "run@0"
+ },
+ "run2": {
+  "rows": 93,
+  "ms": 86,
+  "red": {
+   "heel": [
+    85,
+    140
+   ],
+   "toe": [
+    92,
+    145
+   ],
+   "lift": 13.6
+  },
+  "blue": {
+   "heel": [
+    65,
+    148
+   ],
+   "toe": [
+    63,
+    157
+   ],
+   "lift": 4.8
+  },
+  "lead": "red",
+  "near_leg": "blue",
+  "clip": "run@80"
+ },
+ "run3": {
+  "rows": 92,
+  "ms": 86,
+  "red": {
+   "heel": [
+    93,
+    151
+   ],
+   "toe": [
+    101,
+    153
+   ],
+   "lift": 9.0
+  },
+  "blue": {
+   "heel": [
+    59,
+    150
+   ],
+   "toe": [
+    53,
+    157
+   ],
+   "lift": 4.7
+  },
+  "lead": "red",
+  "near_leg": "blue",
+  "clip": "run@160"
+ },
+ "run4": {
+  "rows": 67,
+  "ms": 130,
+  "red": {
+   "heel": [
+    85,
+    151
+   ],
+   "toe": [
+    94,
+    154
+   ],
+   "lift": 7.9
+  },
+  "blue": {
+   "heel": [
+    61,
+    153
+   ],
+   "toe": [
+    53,
+    150
+   ],
+   "lift": 7.4
+  },
+  "lead": "red",
+  "near_leg": "blue",
+  "clip": "run@240"
+ },
+ "run5": {
+  "rows": 66,
+  "ms": 86,
+  "red": {
+   "heel": [
+    73,
+    152
+   ],
+   "toe": [
+    79,
+    157
+   ],
+   "lift": 5.1
+  },
+  "blue": {
+   "heel": [
+    71,
+    149
+   ],
+   "toe": [
+    77,
+    155
+   ],
+   "lift": 0.1
+  },
+  "lead": "red",
+  "near_leg": "blue",
+  "clip": "run@360"
+ },
+ "run6": {
+  "rows": 76,
+  "ms": 86,
+  "red": {
+   "heel": [
+    66,
+    154
+   ],
+   "toe": [
+    66,
+    161
+   ],
+   "lift": 0.7
+  },
+  "blue": {
+   "heel": [
+    82,
+    159
+   ],
+   "toe": [
+    90,
+    163
+   ],
+   "lift": 0.0
+  },
+  "lead": "blue",
+  "near_leg": "blue",
+  "clip": "run@440"
+ },
+ "run7": {
+  "rows": 58,
+  "ms": 86,
+  "red": {
+   "heel": [
+    62,
+    148
+   ],
+   "toe": [
+    56,
+    152
+   ],
+   "lift": 6.1
+  },
+  "blue": {
+   "heel": [
+    89,
+    155
+   ],
+   "toe": [
+    95,
+    161
+   ],
+   "lift": 0.0
+  },
+  "lead": "blue",
+  "near_leg": "blue",
+  "clip": "run@520"
+ },
+ "run8": {
+  "rows": 64,
+  "ms": 72,
+  "red": {
+   "heel": [
+    69,
+    149
+   ],
+   "toe": [
+    62,
+    151
+   ],
+   "lift": 7.9
+  },
+  "blue": {
+   "heel": [
+    84,
+    153
+   ],
+   "toe": [
+    88,
+    161
+   ],
+   "lift": 0.0
+  },
+  "lead": "blue",
+  "near_leg": "blue",
+  "clip": "run@600"
+ }
+}

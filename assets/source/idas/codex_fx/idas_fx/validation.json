@@ -1,0 +1,225 @@
+[
+  {
+    "file": "idas_fx_a_hit.png",
+    "frames": 4,
+    "unique_frames": 4,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      78,
+      62,
+      30,
+      12
+    ]
+  },
+  {
+    "file": "idas_fx_q_breath.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      288,
+      442,
+      554,
+      622,
+      628,
+      586
+    ]
+  },
+  {
+    "file": "idas_fx_q_shred.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      92,
+      102,
+      104,
+      102,
+      100,
+      92
+    ]
+  },
+  {
+    "file": "idas_fx_e_roar.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      588,
+      1214,
+      1190,
+      768,
+      442,
+      94
+    ]
+  },
+  {
+    "file": "idas_fx_e_slow.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      68,
+      72,
+      78,
+      82,
+      84,
+      84
+    ]
+  },
+  {
+    "file": "idas_fx_e_shield.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      222,
+      222,
+      218,
+      222,
+      214,
+      214
+    ]
+  },
+  {
+    "file": "idas_fx_p_burst.png",
+    "frames": 5,
+    "unique_frames": 5,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      114,
+      216,
+      266,
+      360,
+      270
+    ]
+  },
+  {
+    "file": "idas_fx_p_shield.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      126,
+      168,
+      204,
+      268,
+      366,
+      366
+    ]
+  },
+  {
+    "file": "idas_fx_r_wrap.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      902,
+      924,
+      950,
+      876,
+      866,
+      912
+    ]
+  },
+  {
+    "file": "idas_fx_r_burst.png",
+    "frames": 7,
+    "unique_frames": 7,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      650,
+      1212,
+      1114,
+      1048,
+      600,
+      410,
+      258
+    ]
+  },
+  {
+    "file": "idas_fx_r_heal.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      114,
+      222,
+      386,
+      566,
+      244,
+      92
+    ]
+  },
+  {
+    "file": "idas_fx_r_shield.png",
+    "frames": 6,
+    "unique_frames": 6,
+    "hard_alpha": true,
+    "exact_symmetry": true,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      322,
+      358,
+      342,
+      354,
+      360,
+      374
+    ]
+  },
+  {
+    "file": "idas_icon_skill.png",
+    "frames": 1,
+    "unique_frames": 1,
+    "hard_alpha": true,
+    "exact_symmetry": null,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      1024
+    ]
+  },
+  {
+    "file": "idas_icon_skill2.png",
+    "frames": 1,
+    "unique_frames": 1,
+    "hard_alpha": true,
+    "exact_symmetry": null,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      1024
+    ]
+  },
+  {
+    "file": "idas_icon_ult.png",
+    "frames": 1,
+    "unique_frames": 1,
+    "hard_alpha": true,
+    "exact_symmetry": null,
+    "allowed_palette": true,
+    "opaque_pixels": [
+      1024
+    ]
+  }
+]

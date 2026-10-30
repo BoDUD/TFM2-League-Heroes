@@ -338,6 +338,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the far wing to her feet, PPU 2.6 (「A-1 36 PPU 2.6」: 94 rows kept 1:1), and Codex's key poses after her own TFT
     // clips on the design's palette, posed by tools/art/rig_nomsy.py, so no SIZES row
     ("tft_nomsy", 2.6, include_str!("../../../tft/champions/tft_nomsy#anim.fanim")),
+    // Idas (tft_idas, the tft pack): the golden dragon side-on on her two digitigrade legs, step 0's B-1 at the user's
+    // 40 game px from her crest to her feet, PPU 2.45 (「B-1 40 PPU 2.45」: 98 rows kept 1:1), and Codex's key poses after
+    // her own TFT clips on the design's colours, posed by tools/art/rig_idas.py, so no SIZES row
+    ("tft_idas", 2.45, include_str!("../../../tft/champions/tft_idas#anim.fanim")),
     // Daeja (tft_daeja, the tft pack): the crystal dragon-man standing upright, step 0's A-1 at the user's 40 game px from
     // the wing tips to his feet, PPU 1.72 (「A-1、40 游戏像素、PPU 1.72」: 69 rows kept 1:1), and Codex's key poses after his
     // own TFT clips with the design's face, posed by tools/art/rig_daeja.py, so no SIZES row

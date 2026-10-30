@@ -178,6 +178,7 @@ pub const SOULS: &[&str] = &[
     "tft_alune",
     "tft_aoshin",
     "tft_daeja",
+    "tft_idas",
     "tft_kobuko",
     "tft_krug",
     "tft_loris",

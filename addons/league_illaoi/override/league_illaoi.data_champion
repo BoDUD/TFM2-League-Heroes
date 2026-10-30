@@ -4108,6 +4108,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_idas",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_idas",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_idas_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_idas_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_kobuko",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_kobuko",

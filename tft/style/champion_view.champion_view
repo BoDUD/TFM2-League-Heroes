@@ -230,6 +230,20 @@
         "y": -14
       }
     },
+    "tft_idas": {
+      "face": {
+        "x": 18,
+        "y": -31
+      },
+      "center": {
+        "x": 3,
+        "y": -18
+      },
+      "banpick_center": {
+        "x": 3,
+        "y": 1
+      }
+    },
     "tft_daeja": {
       "face": {
         "x": 2,
