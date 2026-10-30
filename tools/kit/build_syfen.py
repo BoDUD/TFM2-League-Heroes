@@ -41,18 +41,20 @@ OUT = os.path.join(REPO, MOD_ID, "champion", f"{ID}.data_champion")
 FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 
-# Units: melee range 25000 like the pack's fighters; radii count the unit's collision radius (~15000) on top.
+# Units: melee range 30000 (the pack's fighters' 25000 + his long snout); radii count the unit's collision radius (~15000) on top.
 # Timings are placeholders until the strips exist (tools/art/rig_syfen.py). Stats start from the tft junglers'
 # (tft_vander hp 1080 atk 78, tft_krug 1200 / 80, tft_smeech 940 / 90): Sy'fen is the 4-cost wyvern, a bruiser.
 # Numbers = the 10-min classic-SDK simulations (C:/t/sf_sim with C:/t/al_sim/kd.py: jungle lane 1 against the base
 # ninja, demon, hunter, werewolf and vampire, three lineups, both sides; 2026-10-30), all --plain: the draft (fury 6 a
 # stack, 3 on average; bite 260%) +1.79 / +1.90 on seeds 1-8 / 9-16 (tft_vander --plain +1.73 / +1.48 on the same
-# games); a full fury of 5 stacks +2.29 (seeds 1-16); fury 5 a stack (4 on average), bite 240% +1.59 = P.
+# games); a full fury of 5 stacks +2.29 (seeds 1-16); fury 5 a stack (4 on average), bite 240% +1.59; with the art in,
+# his attack range 30000 (his snout reaches 29 game px ahead of his standing point: at 25000 it bit into the target)
+# +1.78 / +1.79 (seeds 1-16 / 17-32), so the bite 235%: +1.59 on seeds 1-32 = P.
 P = {
     # stats (Melee, a jungle fighter with attack damage)
     "hp": 1150, "hp_g": 112, "atk": 84, "atk_g": 14, "apw": 0, "apw_g": 0, "def": 36, "def_g": 8, "mr": 28, "mr_g": 5,
     "ms": 1040, "ms_g": 10,
-    "atk_range": 25000, "atk_dur": 30, "atk_cd": 60, "atk_st": 12, "a_pct": 100, "a_t": 240,
+    "atk_range": 30000, "atk_dur": 30, "atk_cd": 60, "atk_st": 12, "a_pct": 100, "a_t": 240,
     # passive Whispers (TFT's trait: 20% shred and sunder, stacking AD)
     "p_t": 240, "p_shred": 20, "p_ad": 5, "p_max": 5, "p_stack_t": 300, "p_plain": 4,
     # Bite (TFT's bite: 33% armour ignored)
@@ -63,7 +65,7 @@ P = {
     "e_slow_t": 90,
     # Rampage (TFT: 145 / 220% AD and a stun on the charge, 350 / 525% AD bite ignoring 33% armour, 2.5 hexes)
     "r_cd": 2400, "r_range": 72000, "r_dur": 54, "r_go": 14, "r_speed": 4500, "r_t": 16, "r_w": 20000,
-    "r_dmg": 30, "r_ad": 140, "r_stun": 75, "r_bite_t": 34, "r_bite_dmg": 60, "r_bite_ad": 240, "r_pen": 33,
+    "r_dmg": 30, "r_ad": 140, "r_stun": 75, "r_bite_t": 34, "r_bite_dmg": 60, "r_bite_ad": 235, "r_pen": 33,
     "r_reach": 40000,
 }
 # what tft.dll reads from passive.params (addons/tft/src/syfen.rs)

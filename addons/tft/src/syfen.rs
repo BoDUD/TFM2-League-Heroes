@@ -141,7 +141,7 @@ impl Default for Params {
             r_ad: 140,
             r_stun: 75,
             r_bite_dmg: 60,
-            r_bite_ad: 240,
+            r_bite_ad: 235,
             r_pen: 33,
             r_reach: 40000,
         }
@@ -553,7 +553,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"p_ad":5,"p_max":5,"p_shred":20,"p_stack_t":300,"p_t":240,"r_ad":140,"r_bite_ad":240,"r_bite_dmg":60,"r_dmg":30,"r_pen":33,"r_range":72000,"r_reach":40000,"r_speed":4500,"r_stun":75,"r_t":16,"r_w":20000}"#;
+        let json = r#"{"p_ad":5,"p_max":5,"p_shred":20,"p_stack_t":300,"p_t":240,"r_ad":140,"r_bite_ad":235,"r_bite_dmg":60,"r_dmg":30,"r_pen":33,"r_range":72000,"r_reach":40000,"r_speed":4500,"r_stun":75,"r_t":16,"r_w":20000}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
@@ -590,6 +590,6 @@ mod tests {
     fn damage_by_the_numbers() {
         let p = Params::default();
         assert_eq!(physical(p.r_dmg, p.r_ad, 100), 170);
-        assert_eq!(physical(p.r_bite_dmg, p.r_bite_ad, 100), 300);
+        assert_eq!(physical(p.r_bite_dmg, p.r_bite_ad, 100), 295);
     }
 }

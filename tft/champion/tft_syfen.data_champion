@@ -22,7 +22,7 @@
       "r_ad": 140,
       "r_stun": 75,
       "r_bite_dmg": 60,
-      "r_bite_ad": 240,
+      "r_bite_ad": 235,
       "r_pen": 33,
       "r_reach": 40000
     }
@@ -63,7 +63,7 @@
     "cooltime": 60,
     "start_timing": 12,
     "cancelable": true,
-    "range": 25000,
+    "range": 30000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
