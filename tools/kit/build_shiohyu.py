@@ -23,8 +23,9 @@ every enemy in it, each 190-250% AD). The rest is our own design (the user's pic
   ult     Jade Form (玉龙形态, TFT's), `None` on `EnemyChampion` (r_range, only in fights): wings out, jade light - r_red%
           less damage and crowd-control immunity until the third blow (r_t ticks at most), and his next attacks are:
           blow 1 r_dmg + r_ad% AD and a stun of r_stun ticks; blow 2 r_dmg + r_ad% AD as true damage (`FixedAttack`);
-          blow 3 ends the stance: a jade wave down the line to the target (`LineRangeProjectile` r3_len x r3_w) hits
-          every enemy in it for r_dmg + r_ad% AD and stuns them r_stun ticks.
+          blow 3 ends the stance: a jade wave down the line to the target (`LineRangeProjectile` r3_len x r3_w, its
+          picture the spikes bursting along it, hitting r3_delay ticks after it appears) hits every enemy in it for
+          r_dmg + r_ad% AD and stuns them r_stun ticks.
 What the data cannot do is the tft pack's own code (tft.dll, addons/tft/src/shiohyu.rs; the passive is
 tft_shiohyu:jade, params NATIVE_KEYS): the data reads no health, so it cannot know he is low. A build of P checks
 shiohyu.rs's Params::default() against it.
@@ -66,7 +67,7 @@ P = {
     "e_slow": 35, "e_slow_t": 90,
     # Jade Form (TFT: 190 / 250% AD a blow, 1 s stuns, 20-25% durability at 1-2 stars)
     "r_cd": 1500, "r_range": 60000, "r_dur": 40, "r_t": 480, "r_red": 35,
-    "r_dmg": 40, "r_ad": 175, "r_stun": 60, "r3_len": 90000, "r3_w": 20000,
+    "r_dmg": 40, "r_ad": 175, "r_stun": 60, "r3_len": 92000, "r3_w": 20000, "r3_delay": 8,
 }
 # what tft.dll reads from passive.params (addons/tft/src/shiohyu.rs)
 NATIVE_KEYS = ("p_low", "p_red", "p_t", "p_cd")
@@ -177,7 +178,7 @@ def build(p, is_native=False):
     blow3 = combine(unflag("r_b3"), unflag("r_jade"), anim("r_wave", p["atk_dur"]), sfx("r3"), sfx("r3_wave"),
                     line("r3_wave", p["r3_len"], p["r3_w"], "EnemyWithoutTower",
                          [attack(p["r_dmg"], p["r_ad"]), {"type": "Stun", "duration": p["r_stun"]}, view("r3_hit"),
-                          tsfx("r3_hit")]))
+                          tsfx("r3_hit")], delay=p["r3_delay"]))
     count = when("r_b3", blow3, when("r_b2", blow2, when("r_b1", blow1, combo)))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["atk_st"], p["atk_range"], "Targeting", "Enemy",
                       count, atype="BaseAttack", cancel=True)
@@ -219,9 +220,9 @@ def build(p, is_native=False):
     # under him (symmetric); the stance's flash plays on him (symmetric); the wave is a line turned to the target (drawn
     # top-bottom symmetric, so turned half round to the left it reads the same); the stance and the skin are auras
     views_p = [B_("r3_wave", BIG)]
-    views_e = [E("a_hit"), E("q_hit"), E("e_slam", BIG, 1, False), E("e_hit"), E("r", FX, 4), E("r1_hit"),
-               E("r2_hit"), E("r3_hit"), E("p", FX, 4)]
-    views_b = [B_("e_slow", FX, 3), B_("r_jade", FX, 3), B_("p_skin", FX, 3)]
+    views_e = [E("a_hit"), E("q_hit"), E("e_slam", BIG, 1, False), E("e_hit"), E("r", BIG, 4), E("r1_hit"),
+               E("r2_hit"), E("r3_hit"), E("p", BIG, 4)]
+    views_b = [B_("e_slow", FX, 3), B_("r_jade", BIG, 3), B_("p_skin", BIG, 3)]
     kit = {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "CC", "Tank"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",
