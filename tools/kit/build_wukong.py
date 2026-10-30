@@ -34,11 +34,16 @@ Kit (the user's pick, 2026-10-18: layout A with the add-on league_wukong - 「�
           3-tick action adds `r_armed` (r_arm ticks; unused, a 3-tick ult_cooldown_mult refunds it). While armed every
           attack looks for an enemy champion within r_rad: one is enough (League spins in a duel too) -> the spin. The spin: `CasterAnimation spin` for r_t, a pulse every
           r_every ticks (league_garen E: each pulse damages everyone within r_rad, r_dmg + r_ratio% AD + r_hp% of a
-          champion's max health, and moves him at r_speed toward a champion / the units round him / the next group);
-          the first pulse knocks up r_up ticks; every pulse starts `spin` again after its dash (league_garen E: a dash
-          drops the forced animation, and the next pulse cuts the dash short before its end_effects run - the user,
-          2026-10-29: 「开大后动画定格」). The first spin opens `r_two` (r_two_t from the cast, after r_gap): the
-          next attack with an enemy champion within r_rad spins again (League's second cast within 8 s).
+          champion's max health); the first pulse knocks up r_up ticks. He spins where he stands while an enemy
+          champion is within r_rad and dashes at r_speed (`MoveTo`: to where it stood, within a pulse) to one within
+          r_chase only when none is; with no champion about, the units within r_rad hold him the same way, and the last
+          pulse does not dash (2026-10-30). A dash freezes his spin on screen: the
+          forced animation stops on its frame while the dash moves him (the user, 2026-10-29: 「开大后动画定格」, and
+          after every pulse started `spin` again on its dash: 「猴子开大只有分身转 本体不转」 - he dashed onto a target
+          on almost every pulse, 84% of the spin's ticks in the simulation). A dash's end starts `spin` again; the
+          spin's own end takes it off (a dash ending late held him spinning past it). The first spin opens `r_two`
+          (r_two_t from the cast, after r_gap): the next attack with an enemy champion within r_rad spins again
+          (League's second cast within 8 s).
 Timings from the strips (tools/art/rig_wukong.py MS): the attack's and the crushing blow's hits on their frame 3 (170 ms,
 8 ticks after the 2-tick decision), E 300 ms (4 frames), W 200 ms, the spin a 240 ms loop held r_t.
 """
@@ -86,8 +91,8 @@ P = {
     "w_rad": 30000, "w_period": 60, "w_ratio": 50, "w_spin": 50,
     # ult: R Cyclone (League: r 315, 2 s, +20% ms, 8-16% max hp +275% AD a cast (ticks every 0.25 s), knock-up 0.6 s
     # once, second cast within 8 s after 1 s, cd 130-90 s)
-    "r_cd": 3600, "r_range": 60000, "r_arm": 900, "r_rad": 28000, "r_t": 120, "r_every": 15, "r_speed": 1200,
-    "r_dmg": 10, "r_ratio": 35, "r_hp": 2, "r_up": 36, "r_gap": 180, "r_two_t": 480,
+    "r_cd": 3600, "r_range": 60000, "r_arm": 900, "r_rad": 28000, "r_t": 120, "r_every": 15, "r_speed": 3000,
+    "r_chase": 45000, "r_dmg": 10, "r_ratio": 35, "r_hp": 2, "r_up": 36, "r_gap": 180, "r_two_t": 480,
 }
 
 
@@ -241,31 +246,38 @@ def build(p, native=False):
               "end_effects": [strike, *slots]}
 
     # ------------------------------------------------------------------ R Cyclone: the spin (one copy, in the attack)
-    def rings(end):
-        """league_garen E: a champion he is on, else the units round him, else the next group - one dash a pulse."""
-        spec = [(25000, "EnemyChampion"), (30000, "EnemyWithoutTower"), (45000, "EnemyWithoutTower")]
+    def rings(end, go):
+        """Where a pulse takes him: a champion within r_rad holds him, else he dashes (`go`) to one within r_chase;
+        with no champion about the units within r_rad hold him, else he dashes to the next group. A dash freezes the
+        spin on screen, so he dashes only to catch up, and briefly: `MoveTo` stops where the target stood (a
+        `MoveToTarget` after a runner went on past the spin's end) at r_speed, r_chase within one pulse (2026-10-30)."""
+        spec = [(p["r_rad"], "EnemyChampion", False), (p["r_chase"], "EnemyChampion", go),
+                (p["r_rad"], "EnemyWithoutTower", False), (p["r_chase"], "EnemyWithoutTower", go)]
         node = None
         for i in range(len(spec) - 1, -1, -1):
-            rng, target = spec[i]
-            dash = {"type": "MoveToTarget", "speed": p["r_speed"], "range": rng, "end_effects": list(end)}
-            r = pick(rng, target, *([] if node is None else [flag("r_found", 1)]), dash)
+            rng, target, dash = spec[i]
+            move = [{"type": "MoveTo", "speed": p["r_speed"], "range": rng, "end_effects": list(end)}] if dash else []
+            r = pick(rng, target, *([] if node is None else [flag("r_found", 1)]), *move)
             node = r if node is None else combine(r, sw("r_found", NONE, node))
         return node
 
+    dash_t = -(-p["r_chase"] // p["r_speed"])
     pulses = []
     for k, t in enumerate(range(1, p["r_t"], p["r_every"])):
         hit = [attack(p["r_dmg"], p["r_ratio"]), view("r_hit")]
         if k == 0:
             hit += [{"type": "Airborne", "duration": p["r_up"]}, tsfx("r_up")]
-        # the spin again after the pulse's dash starts (league_garen E's way): a dash drops the forced animation and the
-        # next pulse's dash cuts this one short before its end_effects run (the user, 2026-10-29: 「开大后动画定格」)
+        # the spin starts again where a dash ends (the dash froze it on its frame) while the spin lasts; a pulse
+        # without a dash leaves it turning - starting it on every pulse showed its first frame only (「猴子开大只有分身转
+        # 本体不转」); no dash that would end past the spin
         pulses.append(delayed(t, around(p["r_rad"], "EnemyWithoutTower", hit),
                               around(p["r_rad"], "EnemyChampion", [attack(0, 0, p["r_hp"])] + ([stone] if k % 2 == 0 else [])),
-                              sfx("r_whoosh"), rings([anim("spin", p["r_t"] - t)]), anim("spin", p["r_t"] - t)))
+                              sfx("r_whoosh"), rings([sw("r_on", anim("spin", p["r_t"] - t))], t + dash_t < p["r_t"])))
     spin = combine(
         sw("r_two", combine(*rm("r_two")), combine(*rm("r_armed"), flag("r_two", p["r_two_t"]))),
         *rm("r_on", "r_gap", "r_ck"), flag("r_on", p["r_t"]), flag("r_gap", p["r_gap"]),
-        anim("spin", p["r_t"]), sfx("r_cast"), *pulses)
+        anim("spin", p["r_t"]), sfx("r_cast"), *pulses,
+        delayed(p["r_t"], {"type": "RemoveCasterAnimation", "name": "spin"}))
 
     # ------------------------------------------------------------------ attack: swing / Crushing Blow / the spin
     swing = combine(sfx("a_swing"), delayed(p["a_hit"], attack(0, 100), view("a_hit"), tsfx("a_hit"), twin))
