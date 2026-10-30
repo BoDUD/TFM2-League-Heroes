@@ -1,0 +1,19 @@
+{
+  "poses": 21,
+  "effect_sheets": 12,
+  "effect_frames": 58,
+  "icons": 3,
+  "mechanical_checks": "PASS",
+  "pose_grid_px": 10,
+  "pose_grid_origin": [
+    0,
+    6
+  ],
+  "pose_baseline_y": 1176,
+  "pose_head_pixel_identity": "not verified; image generation may vary individual head pixels",
+  "runtime_tests": "not in scope; assets have not been imported into the game",
+  "notes": [
+    "Pose grid origin follows actual approved design (0,6), rather than contradictory requested corner (0,0).",
+    "Skeleton pose, wing anatomy, run leg exchange and constant actor bulk still require artistic/manual approval; mechanical checks do not prove them."
+  ]
+}

@@ -55,7 +55,7 @@
 
 ### 悠米附加包
 
-[悠米附加包](../../addons/league_yuumi/README.md)：`league_yuumi` v0.1.13
+[悠米附加包](../../addons/league_yuumi/README.md)：`league_yuumi` v0.1.14
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
