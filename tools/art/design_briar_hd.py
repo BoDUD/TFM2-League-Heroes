@@ -10,9 +10,9 @@ Codex delivered (2026-10-30, Documents/Codex/2026-10-30/new-chat-7/outputs/briar
 pass, filling the canvas: 1157 px pillory top to soles) and raw/briar-pass2.png (its layout retry, 964 px): 1254 x 1254
 each with soft alpha, not cut to 7-px squares. As Sona's picture, their outlines and pillory are coarse squares (~12 /
 ~10 px) but the eyes, lashes, fingers and studs are drawn on half and third squares - so each is read at several
-pitches (PITCHES) for the user to choose from: pass2 on its own ~10-px squares, PPU 2.13 (the user, 2026-10-30:
-「用2.13就行」), its eyes and mouth read on the uniform grid (FACES: the snapped lines lean on the lashes and left the
-eyes one blue square each). Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line
+pitches (PITCHES) for the user to choose from: A on ~8.5-px squares, PPU 2.94 (the user, 2026-10-30: 「用2.13就行」,
+then 「算了用2.94吧」); pass2 on its own ~10-px squares (2.13) kept with its eyes and mouth on the uniform grid
+(FACES: the snapped lines lean on the lashes and left the eyes one blue square each). Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line
 snapped to the strongest colour edge near it, each square the palette colour most of its middle has, the outline closed
 where the read lost it. Its rows from the top of the pillory to her soles over her 1x sprite's 46 make the PPU.
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/briar_ppu_size*.png (the
@@ -36,12 +36,12 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "briar", "hd")
-AH.RAW, AH.PITCH = "briar-pass2.png", (9.5, 10.2)  # its own squares (~10 px)
+AH.RAW, AH.PITCH = "briar-A.png", (8.2, 8.8)    # about two thirds of its outline squares (~8.5 px)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"briar-A.png": {"12": ((11.2, 13.0), 5), "8.5": ((8.2, 8.8), 3), "6": ((5.7, 6.3), 2)},
            "briar-pass2.png": {"10": ((9.5, 10.2), 4), "6.5": ((6.3, 6.8), 2)}}
-DEFAULT = ("briar-pass2.png", "10")
-FACES = {DEFAULT: (34, 49, 40, 60)}     # rows / columns of the read (the eyes and the mouth) read by the uniform grid
+DEFAULT = ("briar-A.png", "8.5")
+FACES = {("briar-pass2.png", "10"): (34, 49, 40, 60)}     # rows / columns of the read (the eyes and the mouth) read by the uniform grid
 AH.COLOURS = 64                 # (as Kayle's: room for the iron greys, the golds, the reds and the pinks)
 OLD = 46                        # her 1x idle_base, the top of the pillory to her soles
 PEERS = ["briar", "jinx", "ahri", "annie"]
@@ -147,7 +147,7 @@ def main():
     ap.add_argument("--review")
     a = ap.parse_args()
     global SNAP, FACE
-    p = a.pitch or next(iter(PITCHES[a.raw]))
+    p = a.pitch or (DEFAULT[1] if a.raw == DEFAULT[0] else next(iter(PITCHES[a.raw])))
     FACE = FACES.get((a.raw, p))
     AH.RAW = a.raw
     AH.PITCH, SNAP = PITCHES[a.raw][p]
