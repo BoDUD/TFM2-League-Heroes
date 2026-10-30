@@ -522,6 +522,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Codex's whole-frame redraw of her old frame read onto it at the zoom her figure, head and height give
     // (tools/art/casts_sona_hd.py, rig_sona_hd.py; nothing baked); 40 game px as her 1x sprite, so no SIZES row
     ("league_sona", 3.875, include_str!("../../../league/champions/league_sona#anim.fanim")),
+    // Briar (2026-10-30, 「下一个英雄重做贝蕾亚」, 「算了用2.94吧」): Codex's briar-A read on ~8.5-px squares (110 x 135,
+    // tools/art/design_briar_hd.py: 135 rows / 46 = 2.935); every action Codex's whole-frame redraw of her old frame read
+    // onto it at the zoom her figure, pink hair and pillory give (tools/art/casts_briar_hd.py, rig_briar_hd.py; nothing
+    // baked but the Snack's blood drops); 46 game px as her 1x sprite, so no SIZES row
+    ("league_briar", 2.935, include_str!("../../../league/champions/league_briar#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
