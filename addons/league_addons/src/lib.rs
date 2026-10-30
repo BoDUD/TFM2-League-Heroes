@@ -406,8 +406,8 @@ mod lucian;
 
 pub const ID: &str = "league_addons";
 
-/// A mod has one map hook: Camille's wall reader, Rengar's, Nidalee's and Maokai's bush readers and Qiyana's terrain
-/// reader all read the map's document.
+/// A mod has one map hook: Camille's wall reader, Rengar's, Nidalee's, Maokai's and Teemo's bush readers and Qiyana's
+/// terrain reader all read the map's document.
 struct MapReaders;
 impl StableMapCustomizer for MapReaders {
     fn customize(&self, mode: Option<GameModeKindV1>, doc: &mut StableJsonDoc<'_>) {
@@ -415,6 +415,7 @@ impl StableMapCustomizer for MapReaders {
         rengar_bush::BushReader::read(mode, doc);
         nidalee::bush::BushReader::read(mode, doc);
         maokai::bush::BushReader::read(mode, doc);
+        teemo_shrooms::bush::BushReader::read(mode, doc);
         qiyana::terrain::TerrainReader::read(mode, doc);
     }
 }
