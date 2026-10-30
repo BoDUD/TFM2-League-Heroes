@@ -147,6 +147,13 @@
         "skill": "扑上去咬住目标，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理伤害<>，无视<#ffb900ff>33%<>护甲，回复<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>生命。",
         "skill2": "张开双翼横扫身边，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>并减速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
         "ult": "龙吼后冲向最远的敌方英雄（免疫控制），路上的敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>并晕眩<#ffb900ff>1.25秒<>，最后猛咬一口造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>235%<><#ff9028ff>物理伤害<>，无视<#ffb900ff>33%<>护甲。"
+      },
+      "tft_sohm": {
+        "name": "索姆",
+        "attack": "吐出水泡弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>碧波之力<>：每次施放技能叠一层潮水（<#ffb900ff>6秒<>，最多<#ffb900ff>5<>层），每层法强<#ffb900ff>+9%<>、攻速<#ffb900ff>+9%<>。",
+        "skill": "朝没开花的敌人冲出一道潮涌，沿途敌人受到<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法伤害<>，目标头上开出水之花（<#ffb900ff>15秒<>）；带花的敌人倒下，花跳到附近的敌人。",
+        "skill2": "给附近生命比例最低的队友套上<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>的水盾（<#ffb900ff>3秒<>），攻速<#ffb900ff>+25%<>。",
+        "ult": "所有水之花一齐绽放，每朵花周围的敌人受到<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，花随之散去；没有花时在目标身上绽放。"
       }
     },
     "skill_name": {
@@ -254,6 +261,11 @@
         "skill1": "噬咬",
         "skill2": "翼刃横扫",
         "ult": "暴走"
+      },
+      "tft_sohm": {
+        "skill1": "潮涌",
+        "skill2": "海潮护佑",
+        "ult": "潮汐绽放"
       }
     }
   },
@@ -405,6 +417,13 @@
         "skill": "撲上去咬住目標，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<><#ff9028ff>物理傷害<>，無視<#ffb900ff>33%<>物防，回復<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>生命。",
         "skill2": "張開雙翼橫掃身邊，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>並緩速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
         "ult": "龍吼後衝向最遠的敵方英雄（免疫控制），路上的敵人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>並暈眩<#ffb900ff>1.25秒<>，最後猛咬一口造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>235%<><#ff9028ff>物理傷害<>，無視<#ffb900ff>33%<>物防。"
+      },
+      "tft_sohm": {
+        "name": "頌沐",
+        "attack": "吐出水泡彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>碧波之力<>：每次施放技能疊一層潮水（<#ffb900ff>6秒<>，最多<#ffb900ff>5<>層），每層法強<#ffb900ff>+9%<>、攻速<#ffb900ff>+9%<>。",
+        "skill": "朝沒開花的敵人衝出一道潮湧，沿途敵人受到<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法傷害<>，目標頭上開出水之花（<#ffb900ff>15秒<>）；帶花的敵人倒下，花跳到附近的敵人。",
+        "skill2": "給附近生命比例最低的隊友套上<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>的水盾（<#ffb900ff>3秒<>），攻速<#ffb900ff>+25%<>。",
+        "ult": "所有水之花一齊綻放，每朵花周圍的敵人受到<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，花隨之散去；沒有花時在目標身上綻放。"
       }
     },
     "skill_name": {
@@ -512,6 +531,11 @@
         "skill1": "噬咬",
         "skill2": "翼刃橫掃",
         "ult": "盛怒龍顎"
+      },
+      "tft_sohm": {
+        "skill1": "潮湧",
+        "skill2": "海潮護佑",
+        "ult": "潮汐綻放"
       }
     }
   },
@@ -663,6 +687,13 @@
         "skill": "Lunges and bites the target for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>physical damage<>, ignoring <#ffb900ff>33%<> armor, healing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>.",
         "skill2": "Sweeps his wings around him: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and a <#ffb900ff>30%<> slow for <#ffb900ff>1.5s<>.",
         "ult": "Roars and charges the farthest enemy champion (immune to crowd control): enemies in his path take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<> and are stunned <#ffb900ff>1.25s<>; then a bite for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>235%<>, ignoring <#ffb900ff>33%<> armor."
+      },
+      "tft_sohm": {
+        "name": "Sohm",
+        "attack": "Spits a water bolt for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Lagoon Power<>: every cast adds a tide stack (<#ffb900ff>6s<>, up to <#ffb900ff>5<>): <#ffb900ff>+9%<> ability power and <#ffb900ff>+9%<> attack speed each.",
+        "skill": "Sends a wave at an enemy without a flower: <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<> to every enemy on its way, and a water flower blooms over the target (<#ffb900ff>15s<>). When a flowered enemy falls, the flower jumps to a nearby enemy.",
+        "skill2": "Wraps the nearby ally lowest on health in a <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> water shield (<#ffb900ff>3s<>) and <#ffb900ff>+25%<> attack speed.",
+        "ult": "Every water flower bursts at once: <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<> to enemies around each, and the flowers fade. With no flower out, one bursts on the target."
       }
     },
     "skill_name": {
@@ -770,6 +801,11 @@
         "skill1": "Bite",
         "skill2": "Wing Sweep",
         "ult": "Rampage"
+      },
+      "tft_sohm": {
+        "skill1": "Tideblossom",
+        "skill2": "Tidecaller's Guard",
+        "ult": "Tidal Bloom"
       }
     }
   },
@@ -921,6 +957,13 @@
         "skill": "덮쳐서 대상을 물어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<> <#ff9028ff>물리 피해<>, 방어력 <#ffb900ff>33%<> 무시, 체력 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> 회복.",
         "skill2": "날개를 펼쳐 주변을 휩쓸어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, <#ffb900ff>30%<> 둔화(<#ffb900ff>1.5초<>).",
         "ult": "포효한 뒤 가장 먼 적 챔피언에게 돌진(군중 제어 면역), 경로의 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>와 기절 <#ffb900ff>1.25초<>, 마지막으로 물어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>235%<> <#ff9028ff>물리 피해<>, 방어력 <#ffb900ff>33%<> 무시."
+      },
+      "tft_sohm": {
+        "name": "솜",
+        "attack": "물방울 탄을 뱉어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>석호의 힘<>: 스킬을 쓸 때마다 조수 1중첩(<#ffb900ff>6초<>, 최대 <#ffb900ff>5<>), 중첩당 주문력 <#ffb900ff>+9%<>, 공격 속도 <#ffb900ff>+9%<>.",
+        "skill": "꽃이 없는 적에게 물결을 보내 경로의 적에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>마법 피해<>, 대상 머리 위에 물의 꽃(<#ffb900ff>15초<>). 꽃이 핀 적이 쓰러지면 꽃이 근처 적에게 옮겨 갑니다.",
+        "skill2": "근처에서 체력 비율이 가장 낮은 아군에게 <#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 물보호막(<#ffb900ff>3초<>)과 공격 속도 <#ffb900ff>+25%<>.",
+        "ult": "모든 물의 꽃이 한꺼번에 터져 각 꽃 주변 적에게 <#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>, 꽃은 사라집니다. 꽃이 없으면 대상에게서 터집니다."
       }
     },
     "skill_name": {
@@ -1028,6 +1071,11 @@
         "skill1": "물어뜯기",
         "skill2": "날개 칼날 휩쓸기",
         "ult": "광분"
+      },
+      "tft_sohm": {
+        "skill1": "조수의 꽃",
+        "skill2": "조수의 가호",
+        "ult": "조수 개화"
       }
     }
   },
@@ -1179,6 +1227,13 @@
         "skill": "飛びかかって対象に噛みつき<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>160%<>の<#ff9028ff>物理ダメージ<>、物理防御を<#ffb900ff>33%<>無視、体力を<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>回復。",
         "skill2": "翼を広げて周囲を薙ぎ払い<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>30%<>スロウ（<#ffb900ff>1.5秒<>）。",
         "ult": "咆哮し最も遠い敵チャンピオンへ突進（行動妨害無効）、進路上の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>とスタン<#ffb900ff>1.25秒<>、最後に噛みついて<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>235%<>の<#ff9028ff>物理ダメージ<>、物理防御を<#ffb900ff>33%<>無視。"
+      },
+      "tft_sohm": {
+        "name": "ソーム",
+        "attack": "水の弾を吐き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ラグーンの力<>：スキルを使うたびに潮を1スタック（<#ffb900ff>6秒<>、最大<#ffb900ff>5<>）、1スタックごとに魔力<#ffb900ff>+9%<>、攻撃速度<#ffb900ff>+9%<>。",
+        "skill": "花のない敵へ潮の波を放ち、通り道の敵に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の<#a974ffff>魔法ダメージ<>、対象の頭上に水の花（<#ffb900ff>15秒<>）。花のついた敵が倒れると花は近くの敵へ移る。",
+        "skill2": "近くで体力の割合が最も低い味方に<#a974ffff>95<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の水のシールド（<#ffb900ff>3秒<>）と攻撃速度<#ffb900ff>+25%<>。",
+        "ult": "すべての水の花が一斉に咲き、各花の周囲の敵に<#a974ffff>180<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>、花は消える。花がなければ対象の上で咲く。"
       }
     },
     "skill_name": {
@@ -1286,6 +1341,11 @@
         "skill1": "噛みつき",
         "skill2": "翼刃払い",
         "ult": "龍の猛攻"
+      },
+      "tft_sohm": {
+        "skill1": "潮の花",
+        "skill2": "潮の加護",
+        "ult": "潮汐の開花"
       }
     }
   }

@@ -55,7 +55,7 @@
 
 ### 塞拉斯附加包
 
-[塞拉斯附加包](../../addons/league_sylas/README.md)：`league_sylas` v0.2.32
+[塞拉斯附加包](../../addons/league_sylas/README.md)：`league_sylas` v0.2.33
 
 主包 `league` 保持纯数据。用户选了「做，含按类别偷大招+连招」，又要求「有连招要做连招」。主包的数据复制不了别的英雄的大招，也读不到当前生命，所以这两件事放在这个附加包里用原生代码做，外加连招：
 
