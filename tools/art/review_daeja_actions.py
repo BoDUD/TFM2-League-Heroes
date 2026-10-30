@@ -40,27 +40,30 @@ BG = (96, 112, 96)
 GREY = (150, 160, 150)
 
 
-def tft_cell(poser, clip, yaw, name, size=320):
+# the TFT renders all at one scale (his idle IDLE_FILL of a cell's height), the ground on one line, his root on one
+# column - framing each render on its own figure made him big with the wings folded and small with them spread
+IDLE_FILL = 0.5
+CELL = (480, 320)
+
+
+def model_scale(poser):
+    pv = poser.pose(PK.DESIGN)[0]
+    return CELL[1] * IDLE_FILL / np.ptp(pv[:, 1])
+
+
+def tft_cell(poser, clip, yaw, name, scale):
     """His model in that frame (TFT as it is; the attack's arm turned as the pack turned it), mirrored to face right, on
-    the review's grey, framed on his body."""
+    the review's grey, at `scale`, his lowest point on the cell's ground line, his root on its middle column."""
     m = poser.m
     pv = poser.pose(clip, PK.ARM.get(name))[0].copy()
     pv[:, 1] -= pv[:, 1].min()
-    tris = body = m.tris
-    big = size * 3
-
-    def shot(t, scale):
-        return pose_ref.render_hq(pv, t, m.v["uv"], m.tex, -yaw, PK.PITCH, (big, big), scale,
-                                  big * 0.75).transpose(Image.FLIP_LEFT_RIGHT)
-    s0 = size * 0.5 / pv[:, 1].max()
-    x0, y0, x1, y1 = shot(body, s0).getbbox()
-    k = size * 0.86 / max(x1 - x0, y1 - y0)
-    im = shot(tris, s0 * k)
-    x0, y0, x1, y1 = shot(body, s0 * k).getbbox()
-    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
-    can = Image.new("RGBA", (size, size), GREY + (255,))
-    can.alpha_composite(im.crop((round(cx - size / 2), round(cy - size / 2), round(cx + size / 2),
-                                 round(cy + size / 2))))
+    W, H = CELL
+    big = 3 * W
+    im = pose_ref.render_hq(pv, m.tris, m.v["uv"], m.tex, -yaw, PK.PITCH, (big, big), scale,
+                            big * 0.75).transpose(Image.FLIP_LEFT_RIGHT)
+    can = Image.new("RGBA", (W, H), GREY + (255,))
+    gx, gy = big / 2, big * 0.75
+    can.alpha_composite(im.crop((round(gx - W / 2), round(gy - H * 0.9), round(gx + W / 2), round(gy + H * 0.1))))
     return can.convert("RGB")
 
 
@@ -71,7 +74,9 @@ def tft_frames(m, tag, n, cache):
         clip, yaw, name = want[min(i, len(want) - 1)]
         key = (clip, yaw, name)
         if key not in cache:
-            cache[key] = tft_cell(m, clip, yaw, name)
+            if "scale" not in cache:
+                cache["scale"] = model_scale(m)
+            cache[key] = tft_cell(m, clip, yaw, name, cache["scale"])
         out.append(cache[key])
     return out
 

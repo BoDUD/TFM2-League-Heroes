@@ -9,14 +9,13 @@
 The pictures (tools/art/design_daeja_model.py, design_daeja_poses.py):
   hd/idle.png         Daeja standing upright, 3/4 facing right, 58 x 69 at PPU 1.72 (40 game px, the wing tips to his
                       feet): the idle and the hit;
-  hd/pose_<name>.png  Codex's key poses at the design's density with the design's face (assets/source/daeja/
-                      POSE_PROMPTS.md): a_wind a_punch q_raise q_sweep e_beat e_hop r_up r_fly1 r_fly2 r_blast r_land
-                      d_fall d_down run1-8.
+  hd/pose_<name>.png  Codex's key poses at the design's body size and density with the design's face
+                      (assets/source/daeja/POSE_PROMPTS.md, design_daeja_poses.py): a_wind a_punch q_raise q_sweep e_beat
+                      e_hop r_up r_fly1 r_fly2 r_blast r_land d_fall d_down.
 Placing a pose: the pack drew every reference with his root on one canvas column and his lowest point on the ground
 line, and Codex placed each pose over its reference; so a pose's pivot (its json: that column) goes on the design's
-root column (DESIGN_PIVOT) and its lowest row on the design's ground line. The run stands every frame by its face (the
-face pasted from the design: its json) so the head runs in place; the poses in the air were drawn standing on the line
-(the pack's rule) and are lifted here: the hop back (e_hop) and the ult's take-off, flight and blasts (r_up, r_fly1,
+root column (DESIGN_PIVOT) and its lowest row on the design's ground line. The run is the idle's own legs stepping
+(walk); the poses in the air were drawn standing on the line (the pack's rule) and are lifted here: the hop back (e_hop) and the ult's take-off, flight and blasts (r_up, r_fly1,
 r_fly2, r_blast) - the flight flaps LEVEL -> UP between the blasts, bobbing a row.
 """
 import argparse
@@ -40,12 +39,14 @@ PPU = 1.72
 SRC = os.path.join(ROOT, "assets", "source", "daeja", "hd")
 DESIGN_PIVOT = 32             # the design's root column (pack_daeja_poses' pelvis column 31.9)
 POSES = ("a_wind", "a_punch", "q_raise", "q_sweep", "e_beat", "e_hop", "r_up", "r_fly1", "r_fly2", "r_blast", "r_land",
-         "run1", "run2", "run3", "run4", "run5", "run6", "run7", "run8", "d_fall", "d_down")
+         "d_fall", "d_down")
 E_LIFT = 8                    # the hop back's height (design rows; 4.7 game px)
 HOVER = 22                    # the flight's height (design rows; 12.8 game px over the ground)
 LIFT_MAX = HOVER + 2
-# the run stands every frame by its face: Codex's run frames slid back and forth by their pivots, a run in place does not
-FACE_ALIGN = tuple(f"run{k}" for k in range(1, 9))
+# the flight's frames stand by the design's face pasted on them (design_daeja_poses: its json's face): their root columns,
+# read back through Codex's fit of each raw drawing, wander a few squares from frame to frame
+FACE_ALIGN = ("r_fly1", "r_fly2", "r_blast")
+FACE_X = ("r_up", "r_land")   # the take-off and the landing: the face's column on the design's (out of and back into the idle), soles down
 
 # ------------------------------------------------------------------------------------------------ the walk
 # Codex's eight run frames kept the same leg ahead in all of them (the far leg trailing, the near one planted: no swap -
@@ -143,10 +144,13 @@ class Canvas:
         self.outline = D.outline
 
     def offset(self, name, p):
-        """A pose's top-left square relative to the design's: its pivot column on the design's (the run: its face on the
-        design's, FACE_ALIGN), its lowest row on the ground."""
+        """A pose's top-left square relative to the design's: its root column (its json's pivot) on the design's, its
+        lowest row on the ground; the flight (FACE_ALIGN) by its face on the design's, so the body hangs still in the
+        air while the wings beat."""
         m = meta(name)
         if name in FACE_ALIGN:
+            return -m["face"][0], -m["face"][1]
+        if name in FACE_X:
             return -m["face"][0], self.d.shape[0] - p.shape[0]
         return DESIGN_PIVOT - m["pivot"][0], self.d.shape[0] - p.shape[0]
 
