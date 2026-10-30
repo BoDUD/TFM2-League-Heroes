@@ -217,6 +217,15 @@ def build(p, is_native=False):
     return kit
 
 
+def sylas_ult(p=None):
+    """Sky Gale as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's add-on
+    bundle is on the Workshop and the tft mod is not, so his stolen ult cannot call tft.dll (the user, 2026-10-27:
+    「塞拉斯的大招什么一定要能偷到特效版本的」). The kit's --plain ult: the flight, three penetrating waves at the champion he
+    casts at, their hits. The views are the kit's own (tft_daeja_*); make_override copies them and their sheets."""
+    p = dict(P) if p is None else p
+    return build(p, False)["ult"]["effect"]
+
+
 def nodes(o):
     """Effect nodes in a tree (dicts with a `type`), the measure the game's per-tick clone cost follows."""
     if isinstance(o, dict):
