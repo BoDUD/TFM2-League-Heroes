@@ -1,0 +1,1361 @@
+{
+  "expected_sheets": 25,
+  "expected_frames": 45,
+  "sheets": [
+    {
+      "name": "run_1",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          252,
+          252,
+          252
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          252,
+          251,
+          252
+        ]
+      ],
+      "colours": 150321,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            126,
+            282,
+            749,
+            910
+          ]
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            834,
+            282,
+            1462,
+            910
+          ]
+        }
+      ],
+      "sha256": "6a7d8eca2c8fe42c9d0e3aa2240103bd0b0864c0ddc681115806077a4db6a806",
+      "raw_identical": true
+    },
+    {
+      "name": "run_2",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          255
+        ],
+        [
+          254,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 134197,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            92,
+            322,
+            742,
+            936
+          ]
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            808,
+            322,
+            1436,
+            936
+          ]
+        }
+      ],
+      "sha256": "6cdad245e91c0c32c83df030d47019ae880524a2cd6dc303e6ee7f5c093dd5c5",
+      "raw_identical": true
+    },
+    {
+      "name": "run_3",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          255
+        ],
+        [
+          255,
+          255,
+          254
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 140883,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            110,
+            293,
+            759,
+            934
+          ]
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            855,
+            289,
+            1484,
+            934
+          ]
+        }
+      ],
+      "sha256": "f6daf097d1cd8f50448232b134b82328c6ce42825bcaccef55313a6a22889273",
+      "raw_identical": true
+    },
+    {
+      "name": "run_4",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          254,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 143325,
+      "cells": [
+        {
+          "frame": 7,
+          "bbox": [
+            81,
+            259,
+            738,
+            895
+          ]
+        },
+        {
+          "frame": 8,
+          "bbox": [
+            841,
+            268,
+            1498,
+            942
+          ]
+        }
+      ],
+      "sha256": "0dd7f18bcad005f150934826f96c11a060fd9c503f7b7d400548490a8e613107",
+      "raw_identical": true
+    },
+    {
+      "name": "attack_1",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          254,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 136531,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            128,
+            164,
+            677,
+            968
+          ]
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            886,
+            247,
+            1404,
+            968
+          ]
+        }
+      ],
+      "sha256": "d16e362d50070e18669b887b4fe3c51a16c03be6f1bbf94b22edf3c03c011b65",
+      "raw_identical": true
+    },
+    {
+      "name": "attack_2",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 144414,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            24,
+            302,
+            768,
+            926
+          ]
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            768,
+            302,
+            1527,
+            926
+          ]
+        }
+      ],
+      "sha256": "05e327649c193d2fb934fd28b94f10dcb1788b2d622049be89b32cac0cedeb8e",
+      "raw_identical": true
+    },
+    {
+      "name": "attack_3",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          255
+        ],
+        [
+          254,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          254,
+          253,
+          254
+        ]
+      ],
+      "colours": 104368,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            426,
+            255,
+            1196,
+            937
+          ]
+        }
+      ],
+      "sha256": "341b376be02276a8ad4652bcc0bbd7444b425155c8e378c30072e2e897ff0bba",
+      "raw_identical": true
+    },
+    {
+      "name": "skill_1",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          254
+        ],
+        [
+          254,
+          253,
+          253
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 141664,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            88,
+            242,
+            765,
+            941
+          ]
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            905,
+            162,
+            1405,
+            944
+          ]
+        }
+      ],
+      "sha256": "546c331ef8b201b14c673a9f19334674abb7f4f0106164b4b3d6cddd5b5cb83e",
+      "raw_identical": true
+    },
+    {
+      "name": "skill_2",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          254,
+          253,
+          253
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 144896,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            61,
+            260,
+            768,
+            931
+          ]
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            768,
+            237,
+            1501,
+            931
+          ]
+        }
+      ],
+      "sha256": "3330aed7b1913d9e6e16a96adc68d3d0089c02c2e0169826c02af70abcaf320b",
+      "raw_identical": true
+    },
+    {
+      "name": "skill_3",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          254,
+          254
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          252,
+          253
+        ]
+      ],
+      "colours": 142497,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            34,
+            281,
+            758,
+            936
+          ]
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            884,
+            313,
+            1499,
+            936
+          ]
+        }
+      ],
+      "sha256": "24ec9ad5a24e5c85970f7d0af1437ff7c638b02ba58e1a4402d632db0440080c",
+      "raw_identical": true
+    },
+    {
+      "name": "skill_4",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          255,
+          254
+        ],
+        [
+          254,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          254,
+          253,
+          254
+        ]
+      ],
+      "colours": 71423,
+      "cells": [
+        {
+          "frame": 7,
+          "bbox": [
+            565,
+            361,
+            1050,
+            855
+          ]
+        }
+      ],
+      "sha256": "46dbb8c8b10010134ad04e31415e3d33a25b7953ab0606ae40b94cc5ed937dd3",
+      "raw_identical": true
+    },
+    {
+      "name": "skill2_1",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          254,
+          254
+        ],
+        [
+          254,
+          254,
+          253
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 143226,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            161,
+            129,
+            698,
+            963
+          ]
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            792,
+            194,
+            1435,
+            963
+          ]
+        }
+      ],
+      "sha256": "7e304a7831ae59e5dc1142534d94622eccef54f76ba26127315b5aff547fbfa9",
+      "raw_identical": true
+    },
+    {
+      "name": "skill2_2",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          254,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          252,
+          253
+        ]
+      ],
+      "colours": 143538,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            40,
+            246,
+            753,
+            952
+          ]
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            823,
+            280,
+            1504,
+            952
+          ]
+        }
+      ],
+      "sha256": "bac5678cd0d1bc6a3ade1eb2656ea4ba2df224b42300b48d2ad47a896cd65f83",
+      "raw_identical": true
+    },
+    {
+      "name": "skill2_3",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          254,
+          253,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 136801,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            89,
+            314,
+            721,
+            928
+          ]
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            798,
+            314,
+            1526,
+            928
+          ]
+        }
+      ],
+      "sha256": "c3fc5f0579ffd80cff6c33f50ad1ae2d034bb3212fe04b54a1fd1ac96ae11479",
+      "raw_identical": true
+    },
+    {
+      "name": "e_dash_1",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          254,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 138886,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            26,
+            263,
+            732,
+            937
+          ]
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            788,
+            378,
+            1511,
+            937
+          ]
+        }
+      ],
+      "sha256": "954f32feeae68caaee31dd6935ec2b39ce454afd9ce178c70b9a925dbf72c5f8",
+      "raw_identical": true
+    },
+    {
+      "name": "ult_1",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          254,
+          253,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 126769,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            15,
+            304,
+            743,
+            929
+          ]
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            783,
+            304,
+            1512,
+            929
+          ]
+        }
+      ],
+      "sha256": "defc74258d594e2bcd42f23b0ef63565ac341e2baad0ddb693bae11e4db1f5ea",
+      "raw_identical": true
+    },
+    {
+      "name": "ult_2",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          254
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          252,
+          253
+        ]
+      ],
+      "colours": 140409,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            65,
+            210,
+            768,
+            963
+          ]
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            768,
+            77,
+            1465,
+            963
+          ]
+        }
+      ],
+      "sha256": "9f8230ffeabdfeade283d2dff1e5e7fb077c74bbd31d1e96264641c7d486adef",
+      "raw_identical": true
+    },
+    {
+      "name": "ult_3",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          254
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 146444,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            96,
+            44,
+            666,
+            981
+          ]
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            889,
+            59,
+            1465,
+            981
+          ]
+        }
+      ],
+      "sha256": "c1619973f3d56a7f7f3efe67eaa10368c68d441d26ec1318b8985ef76346f5a1",
+      "raw_identical": true
+    },
+    {
+      "name": "ult_4",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          255,
+          254
+        ],
+        [
+          254,
+          255,
+          255
+        ],
+        [
+          254,
+          253,
+          253
+        ],
+        [
+          254,
+          253,
+          254
+        ]
+      ],
+      "colours": 84463,
+      "cells": [
+        {
+          "frame": 7,
+          "bbox": [
+            498,
+            335,
+            1129,
+            898
+          ]
+        }
+      ],
+      "sha256": "08c2d5e536e49b7bb6ed9ae148230a2ed0cb555ea3cb64b891e1db2bdc380898",
+      "raw_identical": true
+    },
+    {
+      "name": "hit_1",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          254
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 145492,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            19,
+            240,
+            723,
+            920
+          ]
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            808,
+            264,
+            1508,
+            920
+          ]
+        }
+      ],
+      "sha256": "8dc50b337aa06eaab1290c26e33cd5c83dde4626d0105d409e63626f38c911eb",
+      "raw_identical": true
+    },
+    {
+      "name": "dead_1",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          254,
+          253,
+          253
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 146764,
+      "cells": [
+        {
+          "frame": 1,
+          "bbox": [
+            79,
+            224,
+            731,
+            923
+          ]
+        },
+        {
+          "frame": 2,
+          "bbox": [
+            786,
+            214,
+            1448,
+            923
+          ]
+        }
+      ],
+      "sha256": "ab24ddb3966ddf5e639067f58a1324211d9e3e643fe35e0755bec5d80d72f122",
+      "raw_identical": true
+    },
+    {
+      "name": "dead_2",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          255
+        ],
+        [
+          254,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 132167,
+      "cells": [
+        {
+          "frame": 3,
+          "bbox": [
+            30,
+            308,
+            760,
+            905
+          ]
+        },
+        {
+          "frame": 4,
+          "bbox": [
+            784,
+            417,
+            1511,
+            912
+          ]
+        }
+      ],
+      "sha256": "a8b7c329015b0fd15d9021821116c5d1aa13427dc98dc1f31e8112882284ab04",
+      "raw_identical": true
+    },
+    {
+      "name": "dead_3",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          253,
+          253
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          254,
+          253,
+          254
+        ],
+        [
+          253,
+          253,
+          253
+        ]
+      ],
+      "colours": 120578,
+      "cells": [
+        {
+          "frame": 5,
+          "bbox": [
+            30,
+            373,
+            758,
+            917
+          ]
+        },
+        {
+          "frame": 6,
+          "bbox": [
+            792,
+            441,
+            1519,
+            917
+          ]
+        }
+      ],
+      "sha256": "73cb7b662e94cba89e461bd0401956681365a5fa7b58a609681203abeca4a840",
+      "raw_identical": true
+    },
+    {
+      "name": "dead_4",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          255,
+          254
+        ],
+        [
+          254,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          253
+        ],
+        [
+          254,
+          253,
+          254
+        ]
+      ],
+      "colours": 81405,
+      "cells": [
+        {
+          "frame": 7,
+          "bbox": [
+            347,
+            589,
+            1218,
+            915
+          ]
+        }
+      ],
+      "sha256": "4c6a2b87b64f6e81eb09de07340d03ed008baeffc676063456d2fe471b85c05e",
+      "raw_identical": true
+    },
+    {
+      "name": "dead_5",
+      "present": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "correct_size": true,
+      "mode": "RGB",
+      "alpha_values": 1,
+      "corner_rgb": [
+        [
+          253,
+          255,
+          254
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          254,
+          254,
+          253
+        ],
+        [
+          254,
+          253,
+          254
+        ]
+      ],
+      "colours": 78781,
+      "cells": [
+        {
+          "frame": 8,
+          "bbox": [
+            262,
+            667,
+            1395,
+            909
+          ]
+        }
+      ],
+      "sha256": "cb5b8df75aff4d1ed569b1f6d010379b7babfab5ee164bc86887dec954b9a760",
+      "raw_identical": true
+    }
+  ]
+}

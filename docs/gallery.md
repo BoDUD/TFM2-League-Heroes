@@ -23,7 +23,7 @@
 
 ![金克丝演示：机枪砰砰和 W 震荡电磁波击杀德莱厄斯、罪恶快感、R 超究极死神飞弹、E 嚼火者手雷咬住盖伦、鱼骨头火箭](preview/league_jinx_showcase.gif?v=1023jx)
 
-![蕾欧娜演示：E 天顶之刃禁锢德莱厄斯并冲过去、日蚀护罩、Q 破晓之盾眩晕、普攻、日蚀爆发、R 日炎耀斑落在走来的盖伦身上](preview/league_leona_showcase.gif?v=1018dg)
+![蕾欧娜演示：E 天顶之刃禁锢德莱厄斯并冲过去、日蚀护罩、Q 破晓之盾眩晕、普攻、日蚀爆发、R 日炎耀斑落在走来的盖伦身上](preview/league_leona_showcase.gif?v=1030hd)
 
 ![提莫演示：Q 致盲吹箭、毒性射击普攻、W 小莫快跑和伪装、R 种蘑菇：落地、潜伏、盖伦踩上去爆出毒云，德莱厄斯毒发倒下](preview/league_teemo_showcase.gif?v=1018dg)
 

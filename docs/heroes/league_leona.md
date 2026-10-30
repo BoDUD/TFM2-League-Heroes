@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.76 |
 | 附加包 | 无 |
 
 ![蕾欧娜演示](../preview/league_leona_showcase.gif)
@@ -73,6 +73,7 @@
 | 特效 | 剑击、盾击和眩晕星、天顶之刃剑光、剑光命中、禁锢日印、日光印记、日蚀护罩、日蚀爆发、日炎耀斑（聚光、光柱、火环）、大招眩晕星 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 3 条中文语音（Q、E、R）。不提交到仓库，按下面的命令在本地生成 |
+| 高清帧（PPU 1.76） | 2026-10-30 用 PPU 重做（用户：「接下来重做曙光女神」「通过，用 1.76」「动作通过」）。设计图：Codex 照她的旧精灵描密的原图（两版，用 A 版：按布局缩小重画的那张），按原图约 12 像素一格读回（69 × 72 格；冠顶到脚底 72 行 / 1.76 = 原来的 41 像素；调色板 64 色，眼睛那几行按均匀格子读，贴色边的读法会把琥珀色眼睛读成深棕，`design_leona_hd.py`）。英雄联盟 3D 模型的盾是深红长盾，提示词写明照精灵画圆形金色太阳盾。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_leona_actions.py`，45 帧，没有和别的帧重复的；Q 第 4–5 帧把盾推到右前方，死亡第 3 帧起盾和剑掉在地上）。读回（`casts_leona_hd.py`）：每张的缩放按整个人的面积量，再乘头的大小（橙红头发和脸，和设计图比）定下来，45 帧的头平均是设计图的 1.015 倍；对齐点按设计图和旧待机剪影重叠最多的那列（第 25 列）；死亡里的盾和剑是单独的块，保留。待机不上下起伏（待机和选人卡是从动作里剪的随机片段）；没有烤进动作的特效（`rig_leona_hd.py`）。高 41 像素和原来一样，没有 SIZES 行；头像点不变；选人卡片 −10 不变（审查标出的只是 W 第 1 帧高举的剑尖，头完整） |
 
 ```bash
 python tools/lol/extract_leona.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -81,6 +82,16 @@ python tools/art/restyle_native.py assets/source/leona/poses.json --renders <渲
 python tools/art/import_native.py --hero leona
 python tools/art/import_leona.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_leona.py
+# PPU 1.76 重做（2026-10-30）：
+python tools/art/pack_leona_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_leona_hd.py                      # Codex 的原图（hd/raw/leona-A.png）按自己的格子读回 -> hd/design.png
+python tools/art/pack_leona_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_leona_hd.py --area                # 每张按面积的缩放；--heads 每帧头的大小（定 ZOOM）
+python tools/art/rig_leona_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero leona && python tools/art/ppu_hd.py --hero leona
+python tools/art/ppu_one.py --hero leona && python tools/art/rig_leona_hd.py --one-ground && python tools/art/hero_reels.py --hero leona
+python tools/art/preview_leona.py
+python tools/art/review_leona_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/leona/PROMPTS.md`](../../assets/source/leona/PROMPTS.md)）：
@@ -92,4 +103,4 @@ python tools/art/preview_leona.py
 - 出手时刻和动画对齐：普攻第 8 tick 命中，Q 第 11 tick，E 第 9 tick 掷出，R 第 12 tick 召唤；耀斑出现后第 37 tick（光柱那一帧）结算，1 秒的画面播完。
 - 结果：20 色，和右边像素同色的比例 30%（原版英雄 18%–46%）。头像截取点 (3, −35)。
 
-逐帧预览：[`docs/preview/league_leona_frames.png`](../preview/league_leona_frames.png?v=1014g)，特效：[`docs/preview/league_leona_effects.png`](../preview/league_leona_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_leona_frames.png`](../preview/league_leona_frames.png?v=1030hd)，特效：[`docs/preview/league_leona_effects.png`](../preview/league_leona_effects.png?v=1014g)。

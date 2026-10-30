@@ -1,0 +1,47 @@
+{
+  "leona-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_values": 256,
+    "hard_alpha": false,
+    "solid_bbox": [
+      242,
+      335,
+      1095,
+      1181
+    ],
+    "sha256": "58f481e8b4881c0a52d0cdc70072fc3d858527c5e8f3dd05024e9218ac49e332"
+  },
+  "raw/leona-generation-01.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_values": 256,
+    "hard_alpha": false,
+    "solid_bbox": [
+      78,
+      58,
+      1228,
+      1196
+    ],
+    "sha256": "a044983bc61789b407a0e2f8c44209980414ecf3c2a9c1809e6d9372f947bb22"
+  },
+  "raw/leona-generation-02.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_values": 256,
+    "hard_alpha": false,
+    "solid_bbox": [
+      242,
+      335,
+      1095,
+      1181
+    ],
+    "sha256": "58f481e8b4881c0a52d0cdc70072fc3d858527c5e8f3dd05024e9218ac49e332"
+  }
+}
