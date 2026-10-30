@@ -17,6 +17,7 @@ pub mod scar;
 pub mod sevika;
 pub mod silco;
 pub mod smeech;
+pub mod sohm;
 pub mod steb;
 pub mod vander;
 pub mod violet;
@@ -40,6 +41,7 @@ fn init(host: &StableHost) -> StableMod {
     sevika::register(host, &mut module);
     silco::register(host, &mut module);
     smeech::register(host, &mut module);
+    sohm::register(host, &mut module);
     steb::register(host, &mut module);
     vander::register(host, &mut module);
     violet::register(host, &mut module);
