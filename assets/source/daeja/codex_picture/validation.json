@@ -1,0 +1,48 @@
+[
+  {
+    "file": "daeja-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_bbox": [
+      0,
+      7,
+      1203,
+      1254
+    ],
+    "opaque_bbox": [
+      375,
+      563,
+      913,
+      1249
+    ],
+    "transparent_pixels": 1332399,
+    "partial_alpha_pixels": 239063,
+    "grid_11px_verified": false
+  },
+  {
+    "file": "daeja-B.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_bbox": [
+      25,
+      37,
+      1226,
+      1254
+    ],
+    "opaque_bbox": [
+      376,
+      456,
+      874,
+      1214
+    ],
+    "transparent_pixels": 1333764,
+    "partial_alpha_pixels": 237605,
+    "grid_11px_verified": false
+  }
+]
