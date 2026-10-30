@@ -4284,6 +4284,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_shiohyu",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_shiohyu",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_shiohyu_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_shiohyu_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_silco",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_silco",
@@ -4327,6 +4343,22 @@
       "name": "league_illaoi_soul_tft_steb_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_steb_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_syfen",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_syfen",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_syfen_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_syfen_l",
       "z": 3,
       "is_follow": false
     },

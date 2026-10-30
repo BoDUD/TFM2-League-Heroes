@@ -1,0 +1,142 @@
+[
+  {
+    "pose": "a1_wind",
+    "reference_number": 2,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-a7828f54-93d5-4191-b08a-bbceba9ccc08.png",
+    "file": "shiohyu-pose-a1_wind.png",
+    "raw": "raw/shiohyu-pose-a1_wind.png"
+  },
+  {
+    "pose": "a1_hit",
+    "reference_number": 3,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-c8691507-1a6f-48c5-b421-06590b0bbd71.png",
+    "file": "shiohyu-pose-a1_hit.png",
+    "raw": "raw/shiohyu-pose-a1_hit.png"
+  },
+  {
+    "pose": "a2_wind",
+    "reference_number": 4,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-27135db5-dc58-4759-88d1-63268528bcb4.png",
+    "file": "shiohyu-pose-a2_wind.png",
+    "raw": "raw/shiohyu-pose-a2_wind.png"
+  },
+  {
+    "pose": "a2_hit",
+    "reference_number": 5,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-2f487d13-7ba6-4231-b528-b52afd1ad3e1.png",
+    "file": "shiohyu-pose-a2_hit.png",
+    "raw": "raw/shiohyu-pose-a2_hit.png"
+  },
+  {
+    "pose": "a3_wind",
+    "reference_number": 6,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-11b569d2-b0c1-454b-8851-d15b5233c9e8.png",
+    "file": "shiohyu-pose-a3_wind.png",
+    "raw": "raw/shiohyu-pose-a3_wind.png"
+  },
+  {
+    "pose": "a3_hit",
+    "reference_number": 7,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-a3ed8991-9edb-4784-8bbc-5c446b22b8bb.png",
+    "file": "shiohyu-pose-a3_hit.png",
+    "raw": "raw/shiohyu-pose-a3_hit.png"
+  },
+  {
+    "pose": "q_dash",
+    "reference_number": 8,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-1c9d1644-8243-4c3e-ba4f-7d0338b04eef.png",
+    "file": "shiohyu-pose-q_dash.png",
+    "raw": "raw/shiohyu-pose-q_dash.png"
+  },
+  {
+    "pose": "e_slam",
+    "reference_number": 9,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-a1b3b6cf-a21b-41c7-b806-076d1a7e539b.png",
+    "file": "shiohyu-pose-e_slam.png",
+    "raw": "raw/shiohyu-pose-e_slam.png"
+  },
+  {
+    "pose": "r_roar",
+    "reference_number": 10,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-7c3d1f78-a700-40fa-9d88-f1968e723fcf.png",
+    "file": "shiohyu-pose-r_roar.png",
+    "raw": "raw/shiohyu-pose-r_roar.png"
+  },
+  {
+    "pose": "r_wave",
+    "reference_number": 11,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-b1d6cc6d-b646-4fa3-b205-0ed9af9d48ac.png",
+    "file": "shiohyu-pose-r_wave.png",
+    "raw": "raw/shiohyu-pose-r_wave.png"
+  },
+  {
+    "pose": "d_fall",
+    "reference_number": 12,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-b337d7cf-5fe6-4b63-8a01-7f64d0d1713d.png",
+    "file": "shiohyu-pose-d_fall.png",
+    "raw": "raw/shiohyu-pose-d_fall.png"
+  },
+  {
+    "pose": "d_down",
+    "reference_number": 13,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-4859cf33-7b06-42fa-8f97-2ca25d8ab53b.png",
+    "file": "shiohyu-pose-d_down.png",
+    "raw": "raw/shiohyu-pose-d_down.png"
+  },
+  {
+    "pose": "run1",
+    "reference_number": 14,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-5487653f-3615-43f4-83b2-5c5e88b94d49.png",
+    "file": "shiohyu-pose-run1.png",
+    "raw": "raw/shiohyu-pose-run1.png"
+  },
+  {
+    "pose": "run2",
+    "reference_number": 15,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-635bd910-d620-42ff-ae5a-b121b196ab2f.png",
+    "file": "shiohyu-pose-run2.png",
+    "raw": "raw/shiohyu-pose-run2.png"
+  },
+  {
+    "pose": "run3",
+    "reference_number": 16,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-ab33d891-123c-47bb-8cf0-4587f05dbaf6.png",
+    "file": "shiohyu-pose-run3.png",
+    "raw": "raw/shiohyu-pose-run3.png"
+  },
+  {
+    "pose": "run4",
+    "reference_number": 17,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-137eaf58-fa49-4d2f-8c12-8ce89906be71.png",
+    "file": "shiohyu-pose-run4.png",
+    "raw": "raw/shiohyu-pose-run4.png"
+  },
+  {
+    "pose": "run5",
+    "reference_number": 18,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-457584d8-257b-463b-adb2-775a5fc40ae3.png",
+    "file": "shiohyu-pose-run5.png",
+    "raw": "raw/shiohyu-pose-run5.png"
+  },
+  {
+    "pose": "run6",
+    "reference_number": 19,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-f09713a6-6913-47a5-9026-72a67e1999fe.png",
+    "file": "shiohyu-pose-run6.png",
+    "raw": "raw/shiohyu-pose-run6.png"
+  },
+  {
+    "pose": "run7",
+    "reference_number": 20,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-45d63a88-3aeb-456a-8954-3add15e2023e.png",
+    "file": "shiohyu-pose-run7.png",
+    "raw": "raw/shiohyu-pose-run7.png"
+  },
+  {
+    "pose": "run8",
+    "reference_number": 21,
+    "generated_source_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18ac2-e33f-7ba1-9db6-bbb2ecf7ed85\\exec-d7e5be91-b431-42e7-b044-3e95d387bc8c.png",
+    "file": "shiohyu-pose-run8.png",
+    "raw": "raw/shiohyu-pose-run8.png"
+  }
+]
