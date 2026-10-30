@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 191 位：主包 173 位、tft 包 18 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 192 位：主包 173 位、tft 包 19 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（43）
 
@@ -250,7 +250,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_powder.png" width="32"> | [爆爆](docs/heroes/tft_powder.md)<br>Powder（tft 包） | 中单 | 猴子炸弹 · 快跑，爆爆！ · 大招 海克斯水晶炸弹 | — | PPU 1.75 |
 | <img src="docs/heroes/img/tft_silco.png" width="32"> | [希尔科](docs/heroes/tft_silco.md)<br>Silco（tft 包） | 中单 | 罐装畸变体 · 微光注射 · 大招 炼金狂潮 | — | PPU 2 |
 
-### ADC（26）
+### ADC（27）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -279,6 +279,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_xayah.png" width="32"> | [霞](docs/heroes/league_xayah.md)<br>Xayah | ADC | 被动 锐切 · 双刃·倒钩 · 致死羽衣 · 大招 暴风羽刃 | [霞羽毛附加包](addons/league_xayah_feathers/README.md) | — |
 | <img src="docs/heroes/img/league_yunara.png" width="32"> | [芸阿娜](docs/heroes/league_yunara.md)<br>Yunara | ADC | 善恶轮 · 明踪步 · 大招 定圣诀 | [芸阿娜附加包](addons/league_yunara/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zeri.png" width="32"> | [泽丽](docs/heroes/league_zeri.md)<br>Zeri | ADC | 被动 内能迁转 · 强穿激光 · 灿丽花火 · 大招 超限爆闪 | [泽丽附加包：W 撞墙激光 + 被动偷盾](addons/league_zeri/README.md) | PPU 3 |
+| <img src="docs/heroes/img/tft_daeja.png" width="32"> | [迭嘉](docs/heroes/tft_daeja.md)<br>Daeja（tft 包） | ADC | 罡风轰击 · 振翼退风 · 大招 苍穹罡风 | — | PPU 1.72 |
 | <img src="docs/heroes/img/tft_maddie.png" width="32"> | [麦迪](docs/heroes/tft_maddie.md)<br>Maddie（tft 包） | ADC | 连拨击锤 · 通缉令 · 大招 执法狙杀 | — | PPU 1.5 |
 
 ### 辅助（30）
