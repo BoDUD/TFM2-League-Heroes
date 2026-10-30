@@ -22,7 +22,7 @@
 //! 等级装备不变）。比赛会被重算好几遍（预演、观看、回放）：只在模拟里的被动钩子里写，用的都是模拟里的数据，结果每遍一样。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_akshan.log`，每次启动游戏重写，上一次的留在 .prev.log：`LAYOUT`
-//! （找到的偏移）、`MARK`、`REVIVE`、`REFRESH`、`R FIRE`、`R HELD` / `R CAST`，限了条数。
+//! （找到的偏移）、`MARK`、`REVIVE`、`VIEW`、`BANNER`、`REFRESH`、`R FIRE`、`R HELD` / `R CAST`，限了条数。
 
 use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
@@ -1059,6 +1059,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:noop"), NoopFx);
     module.add_native_passive(format!("{ID}:rogue"), Rogue::default());
     module.add_player_input_ai(UltAi::default());
+    module.add_player_input_ai(banner::Screen::default());
     // the revive banner: a single league_akshan.dll draws it itself; in league_addons the bundle's one client extension
     // (BundleClient) calls banner::draw
     #[cfg(not(league_bundle))]
