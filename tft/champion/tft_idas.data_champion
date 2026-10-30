@@ -124,7 +124,7 @@
                   "type": "LineRangeProjectile",
                   "name": "tft_idas_q_breath",
                   "width": 12000,
-                  "length": 70000,
+                  "length": 104000,
                   "delay": 22,
                   "apply": 1,
                   "applied_target": "Ally",
@@ -134,7 +134,7 @@
                   "type": "RangeEffect",
                   "shape": {
                     "DirDot": {
-                      "radius": 50000,
+                      "radius": 80000,
                       "range": 600
                     }
                   },

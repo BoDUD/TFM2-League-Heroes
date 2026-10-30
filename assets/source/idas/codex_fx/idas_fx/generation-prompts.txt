@@ -1,0 +1,208 @@
+{
+  "kind": "fx",
+  "index": 0,
+  "file": "idas_fx_a_hit.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08).\nEffect: A CLAW HIT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white-gold flash 4 squares across; 2 three short golden claw rakes crossing over it in a symmetric star (one upright, two leaning out to each side), a few tiny golden scale chips flying out; 3 the rakes thinner, the chips farther; 4 a few fading gold sparks. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 4 frames total, arranged in one horizontal row of 4 identical cells. Each cell has exactly the same framing and scale and aspect ratio 16:16. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 4 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-4efcdbb5-d45f-4ac2-9407-54175d80c1ea.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_a_hit.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 1,
+  "file": "idas_fx_q_breath.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: A GOLDEN DRAGON BREATH, 6 looping frames, SYMMETRIC TOP TO BOTTOM in every frame, square for square, pointing RIGHT (the game turns it with its flight; turned half round to the left it must read the same): a cone of MOLTEN GOLD breath pouring out from the LEFT edge (6 squares tall there: her mouth) to the RIGHT, widening to 20 squares tall at the right end like a fan; inside it rolling waves of golden light with a white-gold core along the middle, drops of molten gold and a few small golden scales tumbling in it, a thin cyan glint along its two edges; frames 1-6 the waves rolling to the right. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 56:22. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-dc4cee7c-3f78-4148-a134-70e1feac8000.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_q_breath.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 2,
+  "file": "idas_fx_q_shred.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08).\nEffect: MOLTEN ARMOUR, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the unit stands in the middle, not drawn: 16 squares wide and 36 tall; molten gold clinging to the unit's shoulders (two small blobs, one each side, 3 squares across) dripping down the sides, a tiny CRACKED golden shield shard above the head (4 squares, split by a crack) showing the armour broken; frames 1-6 one drop of gold running down and falling off each side. Only at the shoulders, the sides and above the head: the body area stays EMPTY. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 18:26. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-c8be55ff-e0b6-4269-8820-8c32a3aaef2e.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_q_shred.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 3,
+  "file": "idas_fx_e_roar.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a light dust ramp (#F6EAC8, #CDB88A, #92784E).\nEffect: A DRAGON'S ROAR SHOCKWAVE, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the golden dragon stands in the middle, not drawn: 52 squares wide and 40 tall, her head at the upper right; 1 a bright golden ring tight round her body (an ellipse twice as wide as tall), 2-3 the ring bursting outward to 60 squares wide, two sweeping golden wind arcs (one each side) curving out from her wings, a few golden scales and puffs of light dust riding on the ring; 4-6 the ring at the cell's edge, thinner, breaking into fading golden dashes. The ring only: her body area stays EMPTY. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 64:44. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-c9e41311-3236-43ca-8de8-bfab9b4f1747.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_e_roar.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 4,
+  "file": "idas_fx_e_slow.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08).\nEffect: A HEAVY SLOW, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the GROUND under the unit's feet, an ellipse seen from above, about 18 squares wide and 6 tall: a ring of heavy faceted golden scales lying on the ground, between them three small golden arrows pointing DOWN; frames 1-6 a glint running round the scales. Nothing above the feet. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 20:10. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-09abc3d5-ad55-469c-aced-b71b10e2b452.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_e_slow.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 5,
+  "file": "idas_fx_e_shield.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: A LIGHT SCALE SHIELD, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the unit stands in the middle, not drawn: 16 squares wide and 36 tall; a SHIELD round the unit: only an OUTLINE of overlapping faceted golden scale plates (a tall egg shape round the unit, 2 squares thick), the inside EMPTY so the unit shows through, thin and pale (the lighter golden shades), one small cyan gem at its top; frames 1-6 a glint running up both sides together. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 22:38. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-aadcea03-f6ec-4c26-bd01-fbef297c722b.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_e_shield.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 6,
+  "file": "idas_fx_p_burst.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: A GUARDIAN'S VOW FLASH, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the unit stands in the middle, not drawn: 16 squares wide and 36 tall; 1 a white-gold flash round the unit; 2-3 golden scale plates flying IN from all sides and locking together into a SHIELD round the unit: only an OUTLINE of overlapping faceted golden scale plates (a tall egg shape round the unit, 2 squares thick), the inside EMPTY so the unit shows through; 4 the shield complete and shining, a cyan gem flaring at its top; 5 the shine fading. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 5 frames total, arranged in one horizontal row of 5 identical cells. Each cell has exactly the same framing and scale and aspect ratio 30:38. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 5 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-e6b079c5-8a12-4dd8-9b41-d3995b920e35.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_p_burst.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 7,
+  "file": "idas_fx_p_shield.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: A GUARDIAN'S SCALE SHIELD, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the unit stands in the middle, not drawn: 16 squares wide and 36 tall; a SHIELD round the unit: only an OUTLINE of overlapping faceted golden scale plates (a tall egg shape round the unit, 2 squares thick), the inside EMPTY so the unit shows through, bold and bright (the brightest golden shades), a cyan gem at its top; frames 1-6 the scales lighting up one pair at a time from the bottom to the top. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 24:40. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-a7be2a97-9e07-40fe-8c1e-761ee9977744.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_p_shield.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 8,
+  "file": "idas_fx_r_wrap.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: A GOLDEN SCALE SHELL, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the golden dragon stands in the middle, not drawn: 52 squares wide and 40 tall, her head at the upper right crouching (about 32 squares tall); a DOME of big overlapping faceted golden scale plates arching over her, only its OUTLINE (3 squares thick) from the ground on the left over her to the ground on the right, a short golden glow line on the ground under her, two small cyan gems on the dome; frames 1-6 a glint sweeping across the plates. The inside stays EMPTY. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 58:46. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-b326a79f-d2d5-4914-956a-433910169ced.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_r_wrap.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 9,
+  "file": "idas_fx_r_burst.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: THE SHELL BURSTS, 7 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the golden dragon stands in the middle, not drawn: 52 squares wide and 40 tall, her head at the upper right; 1 the dome of golden scales (as in a crouching shell) cracking with white-gold light; 2 a white-gold flash, the plates blowing OUTWARD; 3-4 a wide golden shockwave ring (an ellipse 70 squares wide) with dozens of golden scales and a few gold coins flying out to both sides, a golden light beam rising above her; 5-7 the ring at the edge thinning, the scales falling and fading into gold sparks. Her body area stays EMPTY. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 7 frames total, arranged in one horizontal row of 7 identical cells. Each cell has exactly the same framing and scale and aspect ratio 76:52. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 7 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-d28ed063-8a3d-4cd3-84c9-ada4a5f21519.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_r_burst.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 10,
+  "file": "idas_fx_r_heal.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a fresh green healing ramp (#F8FFE8, #D6F79A, #8EDC5E, #3E9E4A), a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08).\nEffect: A GOLDEN HEAL, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the unit stands in the middle, not drawn: 16 squares wide and 36 tall; at both sides of the unit thin rising columns of green-gold light, small green plus signs and tiny golden scales floating up; 1 low at the feet, 2-4 rising past the shoulders, 5-6 fading above the head. The body area stays EMPTY. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 32:40. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-0e9dda69-d49b-46d8-b2a7-340143d2c095.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_r_heal.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 11,
+  "file": "idas_fx_r_shield.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: A GOLDEN SCALES SHIELD WITH HASTE, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the unit stands in the middle, not drawn: 16 squares wide and 36 tall; a SHIELD round the unit: only an OUTLINE of overlapping faceted golden scale plates (a tall egg shape round the unit, 2 squares thick), the inside EMPTY so the unit shows through, bright, a cyan gem at its top, outside it on each side two short golden SPEED LINES streaking UPWARD; frames 1-6 the speed lines running up and starting again, a glint running round the shield. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 26:40. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-3a88fe13-e901-4e8a-95b8-404c4992beef.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_r_shield.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 12,
+  "file": "idas_icon_skill.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square dark bronze frame with little cyan gem corners, a deep warm brown inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: at the left a golden dragon's open jaws (a cyan crest above them), a wide cone of molten golden breath pouring out to the right with a cracked shield shard in it. No text, no letters.\n",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-427c1f06-9e33-4a63-aeb2-a8d192037bb8.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_icon_skill.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 13,
+  "file": "idas_icon_skill2.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square dark bronze frame with little cyan gem corners, a deep warm brown inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: a pair of golden wings (rows of gold feather-blades) spread wide, a golden shockwave ring bursting out between them. No text, no letters.\n",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-5118b3bc-ba37-422b-8fd7-df109bc9d5dc.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_icon_skill2.png"
+}
+
+
+{
+  "kind": "fx",
+  "index": 14,
+  "file": "idas_icon_ult.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square dark bronze frame with little cyan gem corners, a deep warm brown inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: a big shield made of overlapping faceted golden dragon scales with a cyan gem in its middle, golden light rays behind it. No text, no letters.\n",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-e2bb8f75-ea5f-49ab-bb69-4f6f4f08655e.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_icon_ult.png"
+}

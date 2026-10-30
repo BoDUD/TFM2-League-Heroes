@@ -1,0 +1,12 @@
+{
+  "kind": "fx",
+  "index": 14,
+  "file": "idas_icon_ult.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square dark bronze frame with little cyan gem corners, a deep warm brown inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: a big shield made of overlapping faceted golden dragon scales with a cyan gem in its middle, golden light rays behind it. No text, no letters.\n",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-e2bb8f75-ea5f-49ab-bb69-4f6f4f08655e.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_icon_ult.png"
+}

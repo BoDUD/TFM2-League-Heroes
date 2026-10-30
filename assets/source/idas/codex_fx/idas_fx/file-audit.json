@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "assets": [
+    {
+      "file": "idas_fx_a_hit.png",
+      "passed": true,
+      "sha256": "e03df04e2046eff0fa4c4968f38339d3c0f6d6007e55bf0a3fb14ef76471aaec"
+    },
+    {
+      "file": "idas_fx_q_breath.png",
+      "passed": true,
+      "sha256": "145eaecbb3dd6562fc984a050139ec3f0a73fdc0487fde0ebccfe48fa19a2245"
+    },
+    {
+      "file": "idas_fx_q_shred.png",
+      "passed": true,
+      "sha256": "8e80764c6c90337bcdbe0d1a16ec89f86b70f68fa6409eca0b448035f763c45a"
+    },
+    {
+      "file": "idas_fx_e_roar.png",
+      "passed": true,
+      "sha256": "1b74f7e496960cdc5d62ee7991522945e84aa110df4b200f3815963a8aca39fb"
+    },
+    {
+      "file": "idas_fx_e_slow.png",
+      "passed": true,
+      "sha256": "d8ce91981a9fc364b4f8daf6c8ba1c35bf833afdb0a50163253a5c12079ddd5d"
+    },
+    {
+      "file": "idas_fx_e_shield.png",
+      "passed": true,
+      "sha256": "102958d8a440f5795e3bb5f6e8aab8a24bedc652e6fc8f939036600794429c31"
+    },
+    {
+      "file": "idas_fx_p_burst.png",
+      "passed": true,
+      "sha256": "0fec9d051fe748cb291543b7551cea0d8bafcac732bf9f3b9f490f16070e8ca9"
+    },
+    {
+      "file": "idas_fx_p_shield.png",
+      "passed": true,
+      "sha256": "0d044251b7937845689e664491ba8a5f7cab88b9be3246922b5523db3c4b3db0"
+    },
+    {
+      "file": "idas_fx_r_wrap.png",
+      "passed": true,
+      "sha256": "1c9eee6a621bbf3e18088299bd1cd1744cd55c3880693111c0823bdb83cc3a91"
+    },
+    {
+      "file": "idas_fx_r_burst.png",
+      "passed": true,
+      "sha256": "d229326b32b2f94af4565b90a5ca152b8e856809e3aee2c03cf4d59867912911"
+    },
+    {
+      "file": "idas_fx_r_heal.png",
+      "passed": true,
+      "sha256": "71d6f03fe3200974e1d871735969e856476094fa0dd00635f711c94d2600caee"
+    },
+    {
+      "file": "idas_fx_r_shield.png",
+      "passed": true,
+      "sha256": "b13d14dd3d22f1ba9fa434afe2617b4cf1b2ae1e5004bd6ed16a692909626c33"
+    },
+    {
+      "file": "idas_icon_skill.png",
+      "passed": true,
+      "sha256": "61eeb6bd66e3ca8794363d08df090a96c6ebd64b7e37292fa62e6bc1b8432f13"
+    },
+    {
+      "file": "idas_icon_skill2.png",
+      "passed": true,
+      "sha256": "b57592b459f0d7da4ede126ec9f1200a1b5e29ebd825375e195741816e88346c"
+    },
+    {
+      "file": "idas_icon_ult.png",
+      "passed": true,
+      "sha256": "60a233efba79ced3f05edd4e23997ce89952d2d20f4dedace91f4b53751de94a"
+    }
+  ],
+  "checks": [
+    "PNG decodes",
+    "file dimensions",
+    "hard alpha",
+    "8x exact nearest expansion",
+    "1x per-frame exact required symmetry",
+    "every animation frame nonempty and distinct",
+    "effect palette membership",
+    "icons exact 2px blocks"
+  ]
+}

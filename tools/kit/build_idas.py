@@ -50,7 +50,9 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # +1.40 / +0.86 on seeds 9-16); attack every 84, Q 110 + 70% every 5 s, E every 9 s within 55000, R every 30 s -0.80;
 # R every 25 s within 70000 -0.74, Q's shred 35% and E's slow 50% for 2 s -0.61, R 60% less damage, 200 heal, 150
 # shields -0.58, all of them -0.87: no crowd control is what she lacks (tft_steb's way); + a 0.75 s stun on E's roar
-# (e_stun 45) +1.18 / +1.40 = P.
+# (e_stun 45) +1.18 / +1.40; then the breath met its picture (Codex's 56 px plume, its left end at her open jaws 24 px
+# ahead of her pivot: q_len 104000, its middle 52 px ahead; the cone's reach q_r 80000 to its far end, as Nomsy's
+# breath) +1.23 / +1.20 = P.
 P = {
     # stats (Util, the tank supports)
     "hp": 1250, "hp_g": 120, "atk": 72, "atk_g": 6, "apw": 35, "apw_g": 16, "def": 42, "def_g": 8, "mr": 36, "mr_g": 5,
@@ -59,7 +61,7 @@ P = {
     # passive Guardian's Vow (TFT's Guardian: 50% health, 35-150% of her health shared as shields, once a combat)
     "p_low": 50, "p_pct": 18, "p_t": 300, "p_r": 60000, "p_cd": 1800, "p_plain": 200,
     # Golden Breath
-    "q_cd": 300, "q_range": 35000, "q_dur": 36, "q_rel": 14, "q_r": 50000, "q_cone": 600, "q_len": 70000, "q_w": 12000,
+    "q_cd": 300, "q_range": 35000, "q_dur": 36, "q_rel": 14, "q_r": 80000, "q_cone": 600, "q_len": 104000, "q_w": 12000,
     "q_dmg": 110, "q_ratio": 70, "q_shred": 35, "q_shred_t": 240,
     # Dragon's Roar
     "e_cd": 540, "e_range": 55000, "e_dur": 30, "e_st": 12, "e_r": 42000, "e_slow": 50, "e_slow_t": 120,

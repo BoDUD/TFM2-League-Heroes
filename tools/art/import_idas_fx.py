@@ -4,7 +4,7 @@ tft_idas_fx and tft_idas_big and its icons.
 
     python tools/art/import_idas_fx.py [--review out.png]
 
-The source is Codex's step-3 delivery (assets/source/idas/codex_fx/idas-fx: pixel_1x/idas_fx_<name>.png, one row of
+The source is Codex's step-3 delivery (assets/source/idas/codex_fx/idas_fx: pixel_1x/idas_fx_<name>.png, one row of
 equal frames at game size, cell_1x and frames in manifest.json's assets; raw/ its drafts; 64 px icons). Every frame is
 cut from pixel_1x as delivered (alpha 0 / 255) and placed as the kit plays it (import_nomsy_fx.py's way): spots are
 game px from the pivot (x forward, y down); a unit's soles are 11 under it. The symmetry is checked again: left to
@@ -35,7 +35,7 @@ import strips as G  # noqa: E402
 import import_jhin as J  # noqa: E402
 import pack_idas_fx as PK  # noqa: E402
 
-SRC = os.path.join(ROOT, "assets", "source", "idas", "codex_fx", "idas-fx")
+SRC = os.path.join(ROOT, "assets", "source", "idas", "codex_fx", "idas_fx")
 MOD = os.path.join(ROOT, "tft")
 PRE = chr(92) * 2 + "?" + chr(92)
 

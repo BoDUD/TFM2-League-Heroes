@@ -1,0 +1,12 @@
+{
+  "kind": "fx",
+  "index": 10,
+  "file": "idas_fx_r_heal.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a fresh green healing ramp (#F8FFE8, #D6F79A, #8EDC5E, #3E9E4A), a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08).\nEffect: A GOLDEN HEAL, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the unit stands in the middle, not drawn: 16 squares wide and 36 tall; at both sides of the unit thin rising columns of green-gold light, small green plus signs and tiny golden scales floating up; 1 low at the feet, 2-4 rising past the shoulders, 5-6 fading above the head. The body area stays EMPTY. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 32:40. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-0e9dda69-d49b-46d8-b2a7-340143d2c095.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_r_heal.png"
+}

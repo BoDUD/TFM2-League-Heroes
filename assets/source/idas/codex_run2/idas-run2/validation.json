@@ -1,0 +1,411 @@
+{
+  "status": "needs_revision_not_approved",
+  "method": "Whole image uniform fit to width128, left31, bottom168. No limb compositing or limb transforms. Pixel centres quantized to approved-design palette, alpha threshold160, majority alpha then opaque-colour mode.",
+  "frames": [
+    {
+      "file": "idas-run-run1.png",
+      "source": "raw/idas-run-run1.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "lowest_exclusive_y": 1176,
+      "actual_height_cells": 60,
+      "target_height_cells": 74,
+      "target_near_toe": [
+        77,
+        157
+      ],
+      "target_far_toe": [
+        75,
+        148
+      ],
+      "actual_near_toe": [
+        96,
+        163
+      ],
+      "actual_far_toe": [
+        74,
+        149
+      ],
+      "pose_passed": false,
+      "measurement": "Manually identified hindfeet; foremost coloured gray claw cell, excluding near-black outline. See previews/feet-measured.png. Coordinates are actual normalized output cells, not copied targets.",
+      "actual_lead": "near",
+      "actual_gap_cells": 22,
+      "near_error_cells": [
+        19,
+        6
+      ],
+      "far_error_cells": [
+        -1,
+        1
+      ],
+      "toe_coordinates_passed": false,
+      "crossing_passed": false,
+      "far_leg_palette_passed": false,
+      "head_pixel_exact_passed": false,
+      "file_checks_passed": true
+    },
+    {
+      "file": "idas-run-run2.png",
+      "source": "raw/idas-run-run2-repair.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "lowest_exclusive_y": 1176,
+      "actual_height_cells": 66,
+      "target_height_cells": 93,
+      "target_near_toe": [
+        63,
+        157
+      ],
+      "target_far_toe": [
+        92,
+        145
+      ],
+      "actual_near_toe": [
+        72,
+        164
+      ],
+      "actual_far_toe": [
+        106,
+        159
+      ],
+      "pose_passed": false,
+      "measurement": "Manually identified hindfeet; foremost coloured gray claw cell, excluding near-black outline. See previews/feet-measured.png. Coordinates are actual normalized output cells, not copied targets.",
+      "actual_lead": "far",
+      "actual_gap_cells": 34,
+      "near_error_cells": [
+        9,
+        7
+      ],
+      "far_error_cells": [
+        14,
+        14
+      ],
+      "toe_coordinates_passed": false,
+      "crossing_passed": null,
+      "far_leg_palette_passed": false,
+      "head_pixel_exact_passed": false,
+      "file_checks_passed": true
+    },
+    {
+      "file": "idas-run-run3.png",
+      "source": "raw/idas-run-run3.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "lowest_exclusive_y": 1176,
+      "actual_height_cells": 49,
+      "target_height_cells": 92,
+      "target_near_toe": [
+        53,
+        157
+      ],
+      "target_far_toe": [
+        101,
+        153
+      ],
+      "actual_near_toe": [
+        67,
+        159
+      ],
+      "actual_far_toe": [
+        113,
+        163
+      ],
+      "pose_passed": false,
+      "measurement": "Manually identified hindfeet; foremost coloured gray claw cell, excluding near-black outline. See previews/feet-measured.png. Coordinates are actual normalized output cells, not copied targets.",
+      "actual_lead": "far",
+      "actual_gap_cells": 46,
+      "near_error_cells": [
+        14,
+        2
+      ],
+      "far_error_cells": [
+        12,
+        10
+      ],
+      "toe_coordinates_passed": false,
+      "crossing_passed": null,
+      "far_leg_palette_passed": false,
+      "head_pixel_exact_passed": false,
+      "file_checks_passed": true
+    },
+    {
+      "file": "idas-run-run4.png",
+      "source": "raw/idas-run-run4.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "lowest_exclusive_y": 1176,
+      "actual_height_cells": 43,
+      "target_height_cells": 67,
+      "target_near_toe": [
+        53,
+        150
+      ],
+      "target_far_toe": [
+        94,
+        154
+      ],
+      "actual_near_toe": [
+        76,
+        164
+      ],
+      "actual_far_toe": [
+        105,
+        165
+      ],
+      "pose_passed": false,
+      "measurement": "Manually identified hindfeet; foremost coloured gray claw cell, excluding near-black outline. See previews/feet-measured.png. Coordinates are actual normalized output cells, not copied targets.",
+      "actual_lead": "far",
+      "actual_gap_cells": 29,
+      "near_error_cells": [
+        23,
+        14
+      ],
+      "far_error_cells": [
+        11,
+        11
+      ],
+      "toe_coordinates_passed": false,
+      "crossing_passed": null,
+      "far_leg_palette_passed": false,
+      "head_pixel_exact_passed": false,
+      "file_checks_passed": true
+    },
+    {
+      "file": "idas-run-run5.png",
+      "source": "raw/idas-run-run5-repair.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "lowest_exclusive_y": 1176,
+      "actual_height_cells": 51,
+      "target_height_cells": 66,
+      "target_near_toe": [
+        77,
+        155
+      ],
+      "target_far_toe": [
+        79,
+        157
+      ],
+      "actual_near_toe": [
+        93,
+        162
+      ],
+      "actual_far_toe": [
+        97,
+        157
+      ],
+      "pose_passed": false,
+      "measurement": "Manually identified hindfeet; foremost coloured gray claw cell, excluding near-black outline. See previews/feet-measured.png. Coordinates are actual normalized output cells, not copied targets.",
+      "actual_lead": "far",
+      "actual_gap_cells": 4,
+      "near_error_cells": [
+        16,
+        7
+      ],
+      "far_error_cells": [
+        18,
+        0
+      ],
+      "toe_coordinates_passed": false,
+      "crossing_passed": true,
+      "far_leg_palette_passed": false,
+      "head_pixel_exact_passed": false,
+      "file_checks_passed": true
+    },
+    {
+      "file": "idas-run-run6.png",
+      "source": "raw/idas-run-run6.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "lowest_exclusive_y": 1176,
+      "actual_height_cells": 58,
+      "target_height_cells": 76,
+      "target_near_toe": [
+        90,
+        163
+      ],
+      "target_far_toe": [
+        66,
+        161
+      ],
+      "actual_near_toe": [
+        102,
+        164
+      ],
+      "actual_far_toe": [
+        76,
+        165
+      ],
+      "pose_passed": false,
+      "measurement": "Manually identified hindfeet; foremost coloured gray claw cell, excluding near-black outline. See previews/feet-measured.png. Coordinates are actual normalized output cells, not copied targets.",
+      "actual_lead": "near",
+      "actual_gap_cells": 26,
+      "near_error_cells": [
+        12,
+        1
+      ],
+      "far_error_cells": [
+        10,
+        4
+      ],
+      "toe_coordinates_passed": false,
+      "crossing_passed": null,
+      "far_leg_palette_passed": false,
+      "head_pixel_exact_passed": false,
+      "file_checks_passed": true
+    },
+    {
+      "file": "idas-run-run7.png",
+      "source": "raw/idas-run-run7.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "lowest_exclusive_y": 1176,
+      "actual_height_cells": 48,
+      "target_height_cells": 58,
+      "target_near_toe": [
+        95,
+        161
+      ],
+      "target_far_toe": [
+        56,
+        152
+      ],
+      "actual_near_toe": [
+        112,
+        165
+      ],
+      "actual_far_toe": [
+        69,
+        159
+      ],
+      "pose_passed": false,
+      "measurement": "Manually identified hindfeet; foremost coloured gray claw cell, excluding near-black outline. See previews/feet-measured.png. Coordinates are actual normalized output cells, not copied targets.",
+      "actual_lead": "near",
+      "actual_gap_cells": 43,
+      "near_error_cells": [
+        17,
+        4
+      ],
+      "far_error_cells": [
+        13,
+        7
+      ],
+      "toe_coordinates_passed": false,
+      "crossing_passed": null,
+      "far_leg_palette_passed": false,
+      "head_pixel_exact_passed": false,
+      "file_checks_passed": true
+    },
+    {
+      "file": "idas-run-run8.png",
+      "source": "raw/idas-run-run8.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "grid": 7,
+      "alpha": [
+        0,
+        255
+      ],
+      "lowest_exclusive_y": 1176,
+      "actual_height_cells": 42,
+      "target_height_cells": 64,
+      "target_near_toe": [
+        88,
+        161
+      ],
+      "target_far_toe": [
+        62,
+        151
+      ],
+      "actual_near_toe": [
+        102,
+        166
+      ],
+      "actual_far_toe": [
+        68,
+        155
+      ],
+      "pose_passed": false,
+      "measurement": "Manually identified hindfeet; foremost coloured gray claw cell, excluding near-black outline. See previews/feet-measured.png. Coordinates are actual normalized output cells, not copied targets.",
+      "actual_lead": "near",
+      "actual_gap_cells": 34,
+      "near_error_cells": [
+        14,
+        5
+      ],
+      "far_error_cells": [
+        6,
+        4
+      ],
+      "toe_coordinates_passed": false,
+      "crossing_passed": null,
+      "far_leg_palette_passed": false,
+      "head_pixel_exact_passed": false,
+      "file_checks_passed": true
+    }
+  ],
+  "all_file_checks_passed": true,
+  "all_pose_checks_passed": false,
+  "duration_ms": [
+    86,
+    86,
+    86,
+    130,
+    86,
+    86,
+    86,
+    72
+  ],
+  "total_duration_ms": 718
+}

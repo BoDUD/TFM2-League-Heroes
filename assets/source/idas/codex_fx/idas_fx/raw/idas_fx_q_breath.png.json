@@ -1,0 +1,12 @@
+{
+  "kind": "fx",
+  "index": 1,
+  "file": "idas_fx_q_breath.png",
+  "prompt": "References: first image CHARACTER PALETTE ONLY (do NOT draw the creature in VFX), second image actual game VFX reference texture shapes ONLY, never copy labels, backgrounds or layout. Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a golden light ramp (#FFFFFF, #FFF6C8, #FFE07A, #FFC23A, #E8920E, #A85E08), a cyan gem ramp (#F0FFFF, #9AF6FA, #2ED2E0, #108A9E).\nEffect: A GOLDEN DRAGON BREATH, 6 looping frames, SYMMETRIC TOP TO BOTTOM in every frame, square for square, pointing RIGHT (the game turns it with its flight; turned half round to the left it must read the same): a cone of MOLTEN GOLD breath pouring out from the LEFT edge (6 squares tall there: her mouth) to the RIGHT, widening to 20 squares tall at the right end like a fan; inside it rolling waves of golden light with a white-gold core along the middle, drops of molten gold and a few small golden scales tumbling in it, a thin cyan glint along its two edges; frames 1-6 the waves rolling to the right. everything is a GOLDEN DRAGON's magic: molten GOLD and golden light, faceted golden DRAGON SCALES (small angular plates like her armour), a few glinting gold coins, touches of her CYAN gems; flat shades, crisp angular shapes; no fire, no red, no purple, no smooth neon beams.\nLayout for generation: 6 frames total, arranged in one horizontal row of 6 identical cells. Each cell has exactly the same framing and scale and aspect ratio 56:22. Draw every frame completely, with clear transparent gutters separating cells. Read left to right. No text, labels, borders, grid or numbering. Preserve visible changes over the animation; this must not be 6 identical stills. Output one transparent sprite sheet only.",
+  "refs": [
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/design/idas_design.png",
+    "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/work/idas-next/fx/idas_fx_pack/refs/tft_fx_ref.png"
+  ],
+  "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18843-1cd5-7b72-ae02-bee47e6c097b\\exec-dc4cee7c-3f78-4148-a134-70e1feac8000.png",
+  "raw": "C:/Users/OWNER/Documents/Codex/2026-10-30/wanc/outputs/idas_fx/raw/idas_fx_q_breath.png"
+}
