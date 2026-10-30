@@ -1,0 +1,452 @@
+[
+  {
+    "file": "sohm_fx_a_bolt.png",
+    "frames": 4,
+    "cell_1x": [
+      10,
+      8
+    ],
+    "symmetry": "top-bottom",
+    "source_layout": [
+      4,
+      1
+    ],
+    "pixel_1x_size": [
+      40,
+      8
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      30,
+      241,
+      467,
+      542
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_projectiles `tft_sohm_a_bolt`（飞向目标，随飞行方向旋转；上下对称、朝右）"
+  },
+  {
+    "file": "sohm_fx_a_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      2,
+      2
+    ],
+    "pixel_1x_size": [
+      56,
+      14
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      34,
+      71,
+      854,
+      435
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_effects `tft_sohm_a_hit`（跟随目标，z 2；左右对称）"
+  },
+  {
+    "file": "sohm_fx_q_wave.png",
+    "frames": 6,
+    "cell_1x": [
+      40,
+      16
+    ],
+    "symmetry": "top-bottom",
+    "source_layout": [
+      3,
+      2
+    ],
+    "pixel_1x_size": [
+      240,
+      16
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      0,
+      57,
+      647,
+      401
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_projectiles `tft_sohm_q_wave`（大表，从她身上朝目标直线飞，随飞行方向旋转；上下对称、朝右）"
+  },
+  {
+    "file": "sohm_fx_q_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      2,
+      2
+    ],
+    "pixel_1x_size": [
+      64,
+      16
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      32,
+      0,
+      859,
+      444
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_effects `tft_sohm_q_hit`（跟随被冲到的人，z 2；左右对称）"
+  },
+  {
+    "file": "sohm_fx_q_flower.png",
+    "frames": 6,
+    "cell_1x": [
+      14,
+      12
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "pixel_1x_size": [
+      84,
+      12
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      6,
+      0,
+      533,
+      474
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_buffs `tft_sohm_q_flower`（跟随带标记的敌人，在他头顶上方，z 3；左右对称）"
+  },
+  {
+    "file": "sohm_fx_q_jump.png",
+    "frames": 4,
+    "cell_1x": [
+      10,
+      8
+    ],
+    "symmetry": "top-bottom",
+    "source_layout": [
+      2,
+      2
+    ],
+    "pixel_1x_size": [
+      40,
+      8
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      43,
+      124,
+      670,
+      510
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_projectiles `tft_sohm_q_jump`（从倒下的人飞向下一个敌人，随方向旋转；上下对称、朝右）"
+  },
+  {
+    "file": "sohm_fx_e.png",
+    "frames": 5,
+    "cell_1x": [
+      24,
+      16
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "pixel_1x_size": [
+      120,
+      16
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      11,
+      61,
+      716,
+      321
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_effects `tft_sohm_e`（跟随她，z 3；左右对称）"
+  },
+  {
+    "file": "sohm_fx_e_shield.png",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      38
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "pixel_1x_size": [
+      144,
+      38
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      51,
+      20,
+      528,
+      442
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_buffs `tft_sohm_e_shield`（跟随被保护的队友，罩住全身，z 3；左右对称）"
+  },
+  {
+    "file": "sohm_fx_r_bloom.png",
+    "frames": 7,
+    "cell_1x": [
+      40,
+      40
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      4,
+      2
+    ],
+    "pixel_1x_size": [
+      280,
+      40
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      0,
+      0,
+      443,
+      444
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_effects `tft_sohm_r_bloom`（大表，在每朵花的人身上，不跟随，z 3；左右对称）"
+  },
+  {
+    "file": "sohm_fx_r_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      2,
+      2
+    ],
+    "pixel_1x_size": [
+      64,
+      16
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      72,
+      32,
+      816,
+      418
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_effects `tft_sohm_r_hit`（在被炸到的人身上，z 3；左右对称）"
+  },
+  {
+    "file": "sohm_fx_p_glow.png",
+    "frames": 6,
+    "cell_1x": [
+      44,
+      48
+    ],
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "pixel_1x_size": [
+      264,
+      48
+    ],
+    "preview_scale": 8,
+    "alpha": [
+      0,
+      255
+    ],
+    "nonempty_frames": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "source_common_crop": [
+      11,
+      60,
+      479,
+      526
+    ],
+    "normalization": "majority palette voting, shared crop for sequence; mirrored pair union preserving gold/pink highlights; actor-center alpha cleared for shield/aura",
+    "binding": "view_buffs `tft_sohm_p_glow`（大表，跟随她，在她身后，z -1；左右对称）"
+  },
+  {
+    "file": "sohm_icon_skill.png",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none",
+    "size": [
+      64,
+      64
+    ],
+    "binding": "skill_icons[0] `asset/tft/icons/tft_sohm_skill`"
+  },
+  {
+    "file": "sohm_icon_skill2.png",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none",
+    "size": [
+      64,
+      64
+    ],
+    "binding": "skill_icons[1] `asset/tft/icons/tft_sohm_skill2`"
+  },
+  {
+    "file": "sohm_icon_ult.png",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "symmetry": "none",
+    "size": [
+      64,
+      64
+    ],
+    "binding": "skill_icons[2] `asset/tft/icons/tft_sohm_ult`"
+  }
+]

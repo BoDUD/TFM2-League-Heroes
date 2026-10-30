@@ -354,6 +354,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the horn tips to his feet, PPU 2.52 (「B-1、40 像素高、PPU 2.52」: 111 rows brought down to 101), and Codex's key poses
     // after his own TFT clips, posed by tools/art/rig_syfen.py, so no SIZES row
     ("tft_syfen", 2.52, include_str!("../../../tft/champions/tft_syfen#anim.fanim")),
+    // Sohm (tft_sohm, the tft pack): the sea dragon side-on floating in her coil, step 0's B-1 at the user's 40 game px
+    // from the antler tips to the bottom of her coil, PPU 1.8 (「B-1 40px PPU 1.8」: 72 rows 1:1), and Codex's key poses
+    // after her own TFT clips, posed by tools/art/rig_sohm.py, so no SIZES row
+    ("tft_sohm", 1.8, include_str!("../../../tft/champions/tft_sohm#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

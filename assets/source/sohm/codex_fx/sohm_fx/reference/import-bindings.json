@@ -1,0 +1,83 @@
+[
+ {
+  "file": "sohm_fx_a_bolt.png",
+  "binding": "view_projectiles `tft_sohm_a_bolt`（飞向目标，随飞行方向旋转；上下对称、朝右）",
+  "size": "10 × 8",
+  "symmetry": "top-bottom (pointing right)"
+ },
+ {
+  "file": "sohm_fx_a_hit.png",
+  "binding": "view_effects `tft_sohm_a_hit`（跟随目标，z 2；左右对称）",
+  "size": "14 × 14",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sohm_fx_q_wave.png",
+  "binding": "view_projectiles `tft_sohm_q_wave`（大表，从她身上朝目标直线飞，随飞行方向旋转；上下对称、朝右）",
+  "size": "40 × 16",
+  "symmetry": "top-bottom (pointing right)"
+ },
+ {
+  "file": "sohm_fx_q_hit.png",
+  "binding": "view_effects `tft_sohm_q_hit`（跟随被冲到的人，z 2；左右对称）",
+  "size": "16 × 16",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sohm_fx_q_flower.png",
+  "binding": "view_buffs `tft_sohm_q_flower`（跟随带标记的敌人，在他头顶上方，z 3；左右对称）",
+  "size": "14 × 12",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sohm_fx_q_jump.png",
+  "binding": "view_projectiles `tft_sohm_q_jump`（从倒下的人飞向下一个敌人，随方向旋转；上下对称、朝右）",
+  "size": "10 × 8",
+  "symmetry": "top-bottom (pointing right)"
+ },
+ {
+  "file": "sohm_fx_e.png",
+  "binding": "view_effects `tft_sohm_e`（跟随她，z 3；左右对称）",
+  "size": "24 × 16",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sohm_fx_e_shield.png",
+  "binding": "view_buffs `tft_sohm_e_shield`（跟随被保护的队友，罩住全身，z 3；左右对称）",
+  "size": "24 × 38",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sohm_fx_r_bloom.png",
+  "binding": "view_effects `tft_sohm_r_bloom`（大表，在每朵花的人身上，不跟随，z 3；左右对称）",
+  "size": "40 × 40",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sohm_fx_r_hit.png",
+  "binding": "view_effects `tft_sohm_r_hit`（在被炸到的人身上，z 3；左右对称）",
+  "size": "16 × 16",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sohm_fx_p_glow.png",
+  "binding": "view_buffs `tft_sohm_p_glow`（大表，跟随她，在她身后，z -1；左右对称）",
+  "size": "44 × 48",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sohm_icon_skill.png",
+  "binding": "skill_icons[0] `asset/tft/icons/tft_sohm_skill`",
+  "size": "64 x 64"
+ },
+ {
+  "file": "sohm_icon_skill2.png",
+  "binding": "skill_icons[1] `asset/tft/icons/tft_sohm_skill2`",
+  "size": "64 x 64"
+ },
+ {
+  "file": "sohm_icon_ult.png",
+  "binding": "skill_icons[2] `asset/tft/icons/tft_sohm_ult`",
+  "size": "64 x 64"
+ }
+]
