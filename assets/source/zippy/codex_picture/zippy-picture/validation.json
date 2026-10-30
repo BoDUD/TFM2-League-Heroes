@@ -1,0 +1,98 @@
+{
+  "zippy-A-grid11.png": {
+    "size": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      625,
+      950,
+      911,
+      1390
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  "zippy-A-logical.png": {
+    "size": [
+      26,
+      40
+    ],
+    "bbox": [
+      0,
+      0,
+      26,
+      40
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  "zippy-A.png": {
+    "size": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      628,
+      950,
+      909,
+      1390
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  "zippy-B-grid11.png": {
+    "size": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      548,
+      950,
+      988,
+      1390
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  "zippy-B-logical.png": {
+    "size": [
+      45,
+      40
+    ],
+    "bbox": [
+      0,
+      0,
+      45,
+      40
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  },
+  "zippy-B.png": {
+    "size": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      522,
+      950,
+      1015,
+      1390
+    ],
+    "alpha_values": [
+      0,
+      255
+    ]
+  }
+}
