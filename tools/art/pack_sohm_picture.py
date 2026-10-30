@@ -44,6 +44,7 @@ CLIPS = {   # animations/tft7_aquaticdragon_<name>.anm
     "spell": 12473777340866831693,        # spell1 2.07 s: dives down, whirls up in a long S, comes back to the coil
     "death": 12326686120638257778,        # 2.00 s: sinks and lies coiled on the ground
     "celebrate": 3225644982371000856,     # 1.67 s
+    "coil": 6192943551690612506,          # 1.50 s, no name in her bins: rears up, curls low, thrusts forward in an S
 }
 SQ = 11
 SOLE = 1390
