@@ -512,6 +512,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rig_kayle_hd.py; nothing baked - her fire, waves and blades are effect strips); 49 game px as her 1x sprite and
     // hovering 2 px as before, so no SIZES row
     ("league_kayle", 2.286, include_str!("../../../league/champions/league_kayle#anim.fanim")),
+    // Leona (2026-10-30, 「接下来重做曙光女神」, 「通过，用 1.76」): Codex's leona-A read as drawn (69 x 72,
+    // tools/art/design_leona_hd.py: 72 rows / 41 = 1.756); every action Codex's whole-frame redraw of her old frame
+    // read onto it at the zoom her figure and head give (tools/art/casts_leona_hd.py, rig_leona_hd.py; nothing baked -
+    // her sunlight, eclipse and flare are effect strips); 41 game px as her 1x sprite, so no SIZES row
+    ("league_leona", 1.756, include_str!("../../../league/champions/league_leona#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
