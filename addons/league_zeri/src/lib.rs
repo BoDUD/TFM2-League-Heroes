@@ -26,6 +26,7 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -364,8 +365,30 @@ const DIAG_ATTACKS: usize = 16;
 const DIAG_PULSES: usize = 8;
 const DIAG_TICKS: usize = 18;
 
+/// The match on screen (the client's view, spectating, a replay). 0.1.2: the diagnostics run there only and the
+/// server's presims log `DMG_FIRST` `DMG 30s` lines, then every `DMG_EVERY`-th - every Zeri of every presim wrote both
+/// (2026-10-30: 19 MB a launch, three quarters of it DIAG).
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+const DMG_FIRST: usize = 40;
+const DMG_EVERY: usize = 100;
+static DMG_LINES: AtomicUsize = AtomicUsize::new(0);
+
+/// Log this `DMG 30s` line: every one on screen, the presims' capped.
+fn dmg_logged(shown: bool) -> bool {
+    let n = DMG_LINES.fetch_add(1, Ordering::Relaxed) + 1;
+    shown || n <= DMG_FIRST || n % DMG_EVERY == 0
+}
+
 impl Diag {
     fn begin(&mut self, sim: &StableSim<'_>, me: usize, kind: &'static str) {
+        if !on_screen(sim) {
+            return;
+        }
         let n = if kind == "attack" { &mut self.attacks } else { &mut self.pulses };
         if *n >= if kind == "attack" { DIAG_ATTACKS } else { DIAG_PULSES } {
             return;
@@ -549,7 +572,9 @@ impl StablePassive for Battery {
         if self.tally.next == 0 {
             self.tally.next = (t / TALLY_TICKS + 1) * TALLY_TICKS;
         } else if t >= self.tally.next {
-            wlog(format!("{} {}", head(sim, me), self.tally.line()));
+            if dmg_logged(on_screen(sim)) {
+                wlog(format!("{} {}", head(sim, me), self.tally.line()));
+            }
             self.tally = Tally { last: t, next: (t / TALLY_TICKS + 1) * TALLY_TICKS, ..Tally::default() };
         }
         if !alive(sim, me) {

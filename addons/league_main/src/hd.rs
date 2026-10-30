@@ -358,6 +358,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // from the antler tips to the bottom of her coil, PPU 1.8 (「B-1 40px PPU 1.8」: 72 rows 1:1), and Codex's key poses
     // after her own TFT clips, posed by tools/art/rig_sohm.py, so no SIZES row
     ("tft_sohm", 1.8, include_str!("../../../tft/champions/tft_sohm#anim.fanim")),
+    // Terra (tft_terra, the tft pack): the earth dragon crouched at 3/4, step 0's A-1 at the user's 36 game px from the
+    // wing-bone tips to her soles, PPU 1.45 (「A-1、36 px、PPU 1.45」: 52 rows 1:1), and Codex's key poses after her own
+    // TFT clips, posed by tools/art/rig_terra.py, so no SIZES row
+    ("tft_terra", 1.45, include_str!("../../../tft/champions/tft_terra#anim.fanim")),
     // Zippy (tft_zippy, the tft pack): the little raptor upright at 3/4, step 0's A-1 at the user's 38 game px from the
     // head spikes to its soles, PPU 2.2 (「A-1、38 px、PPU 2.2」: 83 rows 1:1), and Codex's key poses after its own TFT
     // clips, posed by tools/art/rig_zippy.py, so no SIZES row

@@ -29,11 +29,13 @@ import rig_zac as Z  # noqa: E402
 import pack_zac_poses as PK  # noqa: E402
 
 # tag -> League's frames shown beside ours (clip@ms, the .anm names), one per frame of ours (the last held for the rest):
-# the very frames the poses were drawn after (pack_zac_poses.POSES); the run is League's Zac_run_Slow at our 8 steps
+# the very frames the poses were drawn after (pack_zac_poses.POSES); the run is League's Zac_run_Slow at our 8 steps;
+# the attack's stretched arm beside Zac_attack1's (rig_zac.RUBBER): swung far back, the fist out, snapping back
 P = {k: v[0] for k, v in PK.POSES.items()}
 IDLE = "zac_idle1@0"
 CLIPS = {"idle": [IDLE], "run": [f"zac_run_slow@{t}" for t in range(0, 1000, 125)],
-         "attack": [P["a_wind"], P["a_punch"], IDLE],
+         "attack": [P["a_wind"], "zac_attack1@300", P["a_punch"], "zac_attack1@433", "zac_attack1@467",
+                    "zac_attack1@500", IDLE],
          "skill": [P["q_wind"], P["q_reach"]], "skill_slam": [P["q_lift"], P["q_slam"]],
          "skill2": [P["e_plant"], P["e_pull"]], "skill2_fly": [P["e_fly"]], "skill2_land": [P["e_land"], P["r_crouch"]],
          "ult": [P["r_crouch"], P["r_jump"], P["r_ball"], P["r_jump"]], "ult_land": [P["r_splat"], P["r_crouch"]],

@@ -18,7 +18,8 @@
 //! 你看的那场各算各的），AI 钩子读一张按（这份模拟的编号, 悠米）记的附身表。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yuumi.log`，每次启动游戏重写，上一次的留在 .prev.log：`ATTACH` /
-//! `DETACH`（附在谁身上、为什么下来）、`WINDOW`（为哪一招解除放逐、出没出招）、`WATCH`（每 30 秒一行的统计），都限了条数。
+//! `DETACH`（附在谁身上、为什么下来）、`WINDOW`（为哪一招解除放逐、出没出招）、`AI casts`（每个窗口一行）、`WATCH`（每 30 秒
+//! 一行的统计，没附身又什么都没变就不记）：你看的那场全记，服务端预模拟每种前 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -34,7 +35,7 @@ pub mod view;
 
 const ID: &str = "league_yuumi";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.16";
+const VERSION: &str = "0.1.18";
 const HERO: &str = "league_yuumi";
 /// 她身上的附身 buff（view.rs 照它把她的动作换成空白的 a_*）。
 pub const RIDING: &str = "league_yuumi_w_on";
@@ -126,12 +127,41 @@ fn close_log() {
 
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-/// The n-th line of a kind: the first 12, then every 25th (None = leave it out of the log).
-pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+/// A simulation's lines of a kind in the server's presims (hundreds of runs a launch): the first LOG_FIRST, then every
+/// LOG_EVERY-th (10-30: 3.65 MB a launch, AI casts and WATCH nine tenths of it).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+/// One more line of a kind: its count.
+fn bump(kind: &'static str) -> usize {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= 12 || *n % 25 == 0).then_some(*n)
+    *n
+}
+
+/// The n-th line of a kind: the first 12, then every 25th (None = leave it out of the log).
+pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+    let n = bump(kind);
+    (n <= 12 || n % 25 == 0).then_some(n)
+}
+
+/// The match you watch (the view, a spectated match, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// The n-th line of a kind from a simulation: every one when `shown` (the match on screen), the presims' the first
+/// LOG_FIRST, then every LOG_EVERY-th (None = leave it out of the log).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let n = bump(kind);
+    (shown || n <= LOG_FIRST || n % LOG_EVERY == 0).then_some(n)
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -325,6 +355,9 @@ struct Ride {
     host: usize,
     /// 解除放逐、等她出的那一招。
     cast: Option<InputKindV1>,
+    /// The AI hook has logged its press of this window's cast (log only: it presses every tick of the window, about 26
+    /// a window - one line a window).
+    told: bool,
 }
 
 /// (这份模拟的编号, 悠米的 entity id) -> 她骑在谁身上。
@@ -337,6 +370,11 @@ fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
 
 fn sim_of(sim: &StableSim<'_>, me: usize) -> u64 {
     sim.get_entity(me).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string())))
+}
+
+/// The AI hook's first press of a window's cast: marks the ride told (true only that first time).
+fn first_press(key: (u64, usize)) -> bool {
+    RIDES.lock().unwrap_or_else(|e| e.into_inner()).get_mut(&key).is_some_and(|r| !std::mem::replace(&mut r.told, true))
 }
 
 // ===================== 被动 =====================
@@ -385,6 +423,8 @@ struct Bond {
     steps: usize,
     step_sum: f64,
     step_max: f64,
+    /// The counters at the last WATCH (log only: a report while she is free with none of them moved is left out).
+    watched: [usize; 8],
 }
 
 impl Bond {
@@ -392,7 +432,7 @@ impl Bond {
         let mut r = RIDES.lock().unwrap_or_else(|e| e.into_inner());
         match self.host {
             Some(host) => {
-                r.insert((self.sim_no, me), Ride { host, cast });
+                r.insert((self.sim_no, me), Ride { host, cast, told: false });
             }
             None => {
                 r.remove(&(self.sim_no, me));
@@ -412,7 +452,7 @@ impl Bond {
             self.banished_until = tick + n;
         } else {
             self.refused += 1;
-            if let Some(k) = counted("refused") {
+            if let Some(k) = tally(sim, "refused") {
                 wlog(format!("{} BANISH #{k} refused", head(sim, me)));
             }
         }
@@ -438,7 +478,7 @@ impl Bond {
         }
         self.banish(sim, me, tick);
         self.record(me, None);
-        if let Some(k) = counted("attach") {
+        if let Some(k) = tally(sim, "attach") {
             let (hp, max) = sim.get_entity(host).map_or((0, 0), |e| e.hp());
             wlog(format!("{} ATTACH #{k} on {} ({hp}/{max} hp), the ride picture {}", head(sim, me), who(sim, host),
                          self.ride));
@@ -457,7 +497,7 @@ impl Bond {
         // she shows again when the banish she is in runs out: the landing then
         self.land_at = Some(self.banished_until.max(tick));
         self.record(me, None);
-        if let Some(k) = counted("detach") {
+        if let Some(k) = tally(sim, "detach") {
             wlog(format!("{} DETACH #{k} from {} after {} ticks: {why}", head(sim, me), who(sim, host),
                          tick.saturating_sub(self.since)));
         }
@@ -516,7 +556,7 @@ impl Bond {
                     sim.entity_remove_buff(me, &yu("w_safe"));
                     sim.add_buff(me, &safe);
                     self.record(me, Some(kind));
-                    if let Some(k) = counted("window") {
+                    if let Some(k) = tally(sim, "window") {
                         wlog(format!("{} WINDOW #{k} opens for {} in {} ticks ({} enemy champions near {})",
                                      head(sim, me), kind_name(kind), free_at - tick, foes.iter().filter(|f| dist(at, f.1)
                                          <= self.p.r_range.max(self.p.q_range) as f64).count(), who(sim, host)));
@@ -529,7 +569,7 @@ impl Bond {
                         self.out += 1;
                         self.out_run += 1;
                         if self.out_run == OUT_LONG {
-                            if let Some(k) = counted("long_out") {
+                            if let Some(k) = tally(sim, "long_out") {
                                 let what = sim.get_entity(me).map_or_else(String::new, |e| {
                                     let b: Vec<String> = (0..e.buff_count()).filter_map(|i| e.buff_at(i))
                                         .map(|b| b.name().to_string()).collect();
@@ -564,7 +604,7 @@ impl Bond {
                         w.cast_at = Some(tick);
                         w.until = tick + durs[i] + 2;
                         self.casts += 1;
-                        if let Some(k) = counted("cast") {
+                        if let Some(k) = tally(sim, "cast") {
                             wlog(format!("{} WINDOW cast #{k}: {} from {}'s head (asked {})", head(sim, me),
                                          kind_name(slots[i]), who(sim, host), kind_name(w.kind)));
                         }
@@ -574,7 +614,7 @@ impl Bond {
                     self.window = None;
                     sim.entity_remove_buff(me, &yu("w_safe"));
                     if w.cast_at.is_none() {
-                        if let Some(k) = counted("nocast") {
+                        if let Some(k) = tally(sim, "nocast") {
                             wlog(format!("{} WINDOW #{k} closed without a cast ({})", head(sim, me), kind_name(w.kind)));
                         }
                     }
@@ -611,9 +651,11 @@ impl StablePassive for Bond {
         self.window = None;
         self.land_at = None;
         self.record(me, None);
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Yuumi (player {player}, team {team}, sim {}), {:?}", head(sim, me),
-                     self.sim_no, self.p));
+        if tally(sim, "spawn").is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Yuumi (player {player}, team {team}, sim {}), {:?}", head(sim, me),
+                         self.sim_no, self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -642,19 +684,28 @@ impl StablePassive for Bond {
         if tick >= self.next_report {
             self.next_report = tick + REPORT;
             if tick > 0 {
-                // the host now: his move speed and attack speed (percent, 100 unbuffed), and his steps while ridden
-                let host_now = self.host.and_then(|h| sim.get_entity(h)).map_or(String::new(), |e| {
-                    format!(", host move speed {} attack speed {}%", e.stat().move_speed, e.attack_speed_mult())
-                });
-                let steps = if self.steps > 0 {
-                    format!(", host steps avg {:.0} max {:.0}", self.step_sum / self.steps as f64, self.step_max)
-                } else {
-                    String::new()
-                };
-                wlog(format!("{} WATCH: attached {} times ({}), windows {}, casts from the head {}, heals {} ({} hp), \
-                              out {}/{} riding ticks, banish refused {}{steps}{host_now}",
-                             head(sim, me), self.attaches, self.host.map_or("free".to_string(), |h| format!("on {}", who(sim, h))),
-                             self.windows, self.casts, self.heals, self.healed, self.out, self.ridden, self.refused));
+                // free with nothing moved since the last report: no line (10-30: a quarter of the WATCH lines were all
+                // zeros), and the presims' capped
+                let now = [self.attaches, self.windows, self.casts, self.heals, self.healed, self.out, self.ridden,
+                           self.refused];
+                let quiet = self.host.is_none() && now == self.watched;
+                self.watched = now;
+                if !quiet && tally(sim, "watch").is_some() {
+                    // the host now: his move speed and attack speed (percent, 100 unbuffed), and his steps while ridden
+                    let host_now = self.host.and_then(|h| sim.get_entity(h)).map_or(String::new(), |e| {
+                        format!(", host move speed {} attack speed {}%", e.stat().move_speed, e.attack_speed_mult())
+                    });
+                    let steps = if self.steps > 0 {
+                        format!(", host steps avg {:.0} max {:.0}", self.step_sum / self.steps as f64, self.step_max)
+                    } else {
+                        String::new()
+                    };
+                    wlog(format!("{} WATCH: attached {} times ({}), windows {}, casts from the head {}, heals {} ({} hp), \
+                                  out {}/{} riding ticks, banish refused {}{steps}{host_now}",
+                                 head(sim, me), self.attaches,
+                                 self.host.map_or("free".to_string(), |h| format!("on {}", who(sim, h))), self.windows,
+                                 self.casts, self.heals, self.healed, self.out, self.ridden, self.refused));
+                }
                 self.steps = 0;
                 self.step_sum = 0.0;
                 self.step_max = 0.0;
@@ -692,14 +743,15 @@ impl StablePlayerAi for Ai {
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let player = ctx.player_id();
-        let (input, line) = {
+        let (input, line, key, told, shown) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
             if !me.is_alive() {
                 return None;
             }
             let id = me.id();
-            let ride = RIDES.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim_of(&sim, id), id)).copied()?;
+            let key = (sim_of(&sim, id), id);
+            let ride = RIDES.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied()?;
             let at = sim.get_entity(ride.host)?.pos();
             // stay on her spot behind him (walking onto his own spot pushed him: BESIDE)
             let spot = beside(at, me.team());
@@ -728,15 +780,19 @@ impl StablePlayerAi for Ai {
                     return None;
                 }
             }
-            (input, head(&sim, id))
+            (input, head(&sim, id), key, ride.told, on_screen(&sim))
         };
         if input.kind != InputKindV1::Move.code() {
             if !ctx.is_valid_input(&input) {
                 return None;
             }
-            if let Some(k) = counted("ai_cast") {
-                wlog(format!("{line} AI casts {} from the ally's head #{k}",
-                             InputKindV1::from_code(input.kind).map_or("?", kind_name)));
+            // it presses every tick of the window, about 26 times: the first press is logged (10-30: every 25th press
+            // was, 22.5k lines a launch), the presims' capped
+            if !told && first_press(key) {
+                if let Some(k) = noted("ai_cast", shown) {
+                    wlog(format!("{line} AI casts {} from the ally's head #{k}",
+                                 InputKindV1::from_code(input.kind).map_or("?", kind_name)));
+                }
             }
         }
         Some(input)

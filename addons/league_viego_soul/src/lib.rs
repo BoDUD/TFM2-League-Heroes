@@ -53,6 +53,17 @@ pub const OFF: &str = "league_viego_p_off";
 /// 的佛耶戈身上带着编号，显示钩子记下它，这份模拟的每一行（出生时的对阵名单、灵魂、附身）就对得上了。
 pub const SIM_TAG: &str = "league_viego_sim:";
 static NEXT_SIM: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(1);
+
+/// `MIST` lines: every one on screen, the server's presims the first `MIST_FIRST`, then every `MIST_EVERY`-th - a count
+/// per Viego (40, then every 25th) logged about every mist of every presim (2026-10-30: about 1 MB a launch).
+static MISTS: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+const MIST_FIRST: usize = 40;
+const MIST_EVERY: usize = 200;
+
+fn mist_logged(shown: bool) -> bool {
+    let n = MISTS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
+    shown || n <= MIST_FIRST || n % MIST_EVERY == 0
+}
 /// 五套招式（数据副本里 `league_viego_soul_<类别>`）。
 pub const CATS: [&str; 5] = ["melee", "range", "mage", "util", "assassin"];
 
@@ -286,7 +297,7 @@ impl Possess {
         }
         self.mist_at = now + p.e_cd as usize;
         self.mists += 1;
-        if self.mists <= 40 || self.mists % 25 == 0 {
+        if mist_logged(on_screen(sim).is_some()) {
             wlog(format!("{} MIST #{}: an enemy champion {} away (reach {}), +{}% move / +{}% attack speed {} ticks, hidden {} ticks{}",
                 head(sim, me), self.mists, nearest.unwrap_or(0), p.e_trig, p.e_ms, p.e_as, p.e_t, p.e_hide,
                 if hidden { "" } else { " (entity_set_invisible refused)" }));
@@ -383,7 +394,11 @@ impl Possess {
         let acted = cds.iter().zip(self.cds.iter()).any(|(now, was)| now > was);
         self.cds = cds;
         let (team, pos, alive) = (e.team(), e.pos(), e.is_alive());
-        let (force, anim) = (has(CcKindV1::ForceMove), has(CcKindV1::Animation));
+        // a held body that is no stuck cast: Guardian Angel's stasis (a 241-tick Animation) or a banish (Mordekaiser's
+        // realm) - the guard fired on every revive and cut it short, and lifted the realm's lock (the 2026-10-30 log)
+        let held = !e.is_targetable()
+            || (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == stuck::STASIS);
+        let (force, anim) = (has(CcKindV1::ForceMove), has(CcKindV1::Animation) && !held);
         let ccs: Vec<String> = (0..e.cc_count())
             .filter_map(|i| e.cc_at(i))
             .map(|c| format!("{:?} {}", CcKindV1::from_code(c.kind), c.tick))

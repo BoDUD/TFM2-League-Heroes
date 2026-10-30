@@ -24,7 +24,8 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ornn.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SPAWN`、`PILLAR`（立柱、推开）、`HOLD` / `PUSH`（挡在柱子外）、`CHARGE`（撞柱 / 撞墙 / 没撞）、`BROKEN`（柱子碎了）、
-//! `SHATTER`（引爆易碎）、`Q FIRST` / `E PILLAR` / `BRITTLE`（连招），限了条数。
+//! `SHATTER`（引爆易碎）、`Q FIRST` / `E PILLAR` / `BRITTLE`（连招），限了条数（整个游戏一个计数）；`ITEMS`（友方玩家的装备，
+//! 变了才记：你看的那场每条都记，预模拟限条数）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -155,10 +156,28 @@ const LOG_EVERY: usize = 200;
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+    noted(kind, false)
+}
+
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Like `counted`, but every line of the match on screen: only the presims capped.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 pub(crate) fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -549,6 +568,8 @@ struct Forge {
     forged: HashMap<usize, [i32; 6]>,
     /// 锻造杰作记过日志没有。
     master_seen: bool,
+    /// 日志里每个友方玩家（玩家编号）上一次记下的装备：装备、从哪里读的、主属性加起来。只在变了的时候再记 `ITEMS`。
+    items_shown: HashMap<usize, (Vec<String>, &'static str, [i32; 6])>,
 }
 
 impl Forge {
@@ -578,12 +599,16 @@ impl Forge {
                 Some(s) => (s, "item buffs"),
                 None => (item_stats(&keys), "the table"),
             };
-            if !keys.is_empty() {
-                if let Some(k) = counted(if from == "the table" { "items table" } else { "items buffs" }) {
+            // a player's items when they change (read every FORGE_EVERY ticks for each, they were logged every 200th read
+            // of the launch: 2026-10-30, 805 lines of 435 bytes, 65% of a 519 KB log), the presims' capped
+            let changed = self.items_shown.get(&pl.id()).is_none_or(|(k0, f0, s0)| *k0 != keys || *f0 != from || *s0 != sum);
+            if !keys.is_empty() && changed {
+                if let Some(k) = tally(sim, if from == "the table" { "items table" } else { "items buffs" }) {
                     let names: Vec<&str> = on.iter().filter(|(_, p, _)| *p).map(|(n, _, _)| n.as_str()).collect();
                     wlog(format!("{} ITEMS of #{id} {keys:?} read from {from}: {sum:?}; his permanent buffs {names:?} #{k}",
                                  head(sim, me)));
                 }
+                self.items_shown.insert(pl.id(), (keys, from, sum));
             }
             rows.push((id, c.is_alive(), sum));
         }
@@ -824,5 +849,13 @@ mod tests {
     #[test]
     fn shatter_is_a_share_of_max_health() {
         assert_eq!(shatter_damage(2000), 2000 * BR_HP / 100);
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
     }
 }

@@ -55,7 +55,7 @@
 
 ### 加里奥附加包
 
-[加里奥附加包](../../addons/league_galio/README.md)：`league_galio` v0.1.3
+[加里奥附加包](../../addons/league_galio/README.md)：`league_galio` v0.1.4
 
 主包 `league` 保持纯数据。用户选了「主包数据 + 附加包」。这个附加包用原生代码做主包数据做不到的三件事：
 

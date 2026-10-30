@@ -478,7 +478,10 @@ impl StablePassive for Whisper {
             return;
         }
         let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return };
-        let ok = sim.get_entity(target).is_some_and(|e| e.team() != team && e.is_alive() && !e.is_tower());
+        // not the Nexus either (`foes` leaves it out too): it was shrunk and fed her fury (the 2026-10-30 log)
+        let ok = sim.get_entity(target).is_some_and(|e| {
+            e.team() != team && e.is_alive() && !e.is_tower() && !matches!(e.kind(), Some(EntityKindV1::Nexus))
+        });
         if !ok {
             return;
         }

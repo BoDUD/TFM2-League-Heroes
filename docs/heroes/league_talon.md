@@ -55,7 +55,7 @@
 
 ### 泰隆「刺客之道」翻墙附加包
 
-[泰隆「刺客之道」翻墙附加包](../../addons/league_talon_vault/README.md)：`league_talon_vault` v0.1.3
+[泰隆「刺客之道」翻墙附加包](../../addons/league_talon_vault/README.md)：`league_talon_vault` v0.1.4
 
 |  | 主包（纯数据） | 装了附加包（照英雄联盟） |
 |---|---|---|

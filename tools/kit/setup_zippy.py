@@ -38,8 +38,8 @@ MOD = os.path.join(REPO, MOD_ID)
 CLIP = f"{ID}_sfx_"
 # Powder 0.1, Norra 0.2, tft.dll 0.3, Alune 0.4, Silco 0.5, Maddie 0.6, Loris 0.7, Kobuko 0.8, Vander 0.9, Violet 0.10,
 # Krug 0.11, Ao Shin 0.13, Scar 0.14, Renni 0.15, Smeech 0.16, Sevika 0.17, Steb 0.18, Nomsy 0.19, Idas 0.20, Daeja 0.21,
-# Shi Oh Yu 0.22, Sy'fen 0.23, Sohm 0.24, Zippy 0.25 (Terra's branch takes the next free one when it merges first)
-VERSION = "0.25.0"
+# Shi Oh Yu 0.22, Sy'fen 0.23, Sohm 0.24, Terra 0.25, Zippy 0.26
+VERSION = "0.26.0"
 ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 AD = ADi + O + "100%" + E

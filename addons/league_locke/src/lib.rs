@@ -345,7 +345,9 @@ impl Exorcist {
         }
         for (id, hp, max, at) in execute {
             sim.entity_remove_buff(id, R_MARK);
-            sim.deal_damage_typed(me, id, hp, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+            // through any shield, heal or regeneration before it lands next tick (league_pyke's way): exactly his health
+            // let 5 of 19 executes survive (the 2026-10-30 log)
+            sim.deal_damage_typed(me, id, hp + max, DamageTypeV1::Fixed, AttackTypeV1::Skill);
             self.n_exec += 1;
             self.pending.push((id, at, tick, hp, max));
         }

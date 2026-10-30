@@ -55,7 +55,7 @@
 
 ### 亚索风之障壁附加包
 
-[亚索风之障壁附加包](../../addons/league_yasuo_wall/README.md)：`league_yasuo_wall` v0.1.0
+[亚索风之障壁附加包](../../addons/league_yasuo_wall/README.md)：`league_yasuo_wall` v0.1.1
 
 主包没有 W：游戏里没有能挡掉飞行物的效果，只画一面墙显得奇怪，当时用户决定删掉。亚索也没有空的技能格，所以风墙全由原生代码做（被动 `league_yasuo_wall:wall`，不占技能格、没有施法动作）。
 

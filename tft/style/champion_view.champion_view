@@ -300,6 +300,20 @@
         "y": -10
       }
     },
+    "tft_terra": {
+      "face": {
+        "x": 17,
+        "y": -16
+      },
+      "center": {
+        "x": -5,
+        "y": -18
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -14
+      }
+    },
     "tft_zippy": {
       "face": {
         "x": 10,
