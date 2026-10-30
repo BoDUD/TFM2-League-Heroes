@@ -1,4 +1,4 @@
-# 提莫蘑菇附加包（测试版 v0.1.0，可选）
+# 提莫蘑菇附加包（测试版 v0.2.0，可选）
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -8,22 +8,38 @@
 |---|---|---|
 | 蘑菇在地上多久 | 最多 12 秒 | 3 分钟（10800 tick），提莫阵亡也在；最多 9 个，再多收掉最早的 |
 | 扔、布好、踩发距离 8000、毒云 30000 内中毒 4 秒共 100 + 48% 法强、减速 40% 2 秒、画面 | 主包 | 一样 |
-| 往哪扔 | AI 往敌方英雄脚下扔 | 一样（没有改成往草丛扔） |
+| 往哪扔 | AI 往敌方英雄脚下扔 | 打架时一样；**不打架时往身边最近的草丛里种**（0.2.0：R 留一次充能给打架，没埋过的草丛、不在自家基地） |
 
 ## 怎么做的
 
 - `mod.override_info` 把提莫换成 `override/` 里的副本。副本由 `make_override.py` 从主包生成：R 的三个蘑菇分支（`league_teemo_r_throw`）只留扔出去和落地的画面，后面的踩发判定、毒云和 49 个蘑菇画面去掉，换成落地时（第 20 tick）调用原生效果 `league_teemo_shrooms:plant`（`input` 是落点）；毒云的数字对照 `src/lib.rs` 检查；R 的说明开头加【附加包】、「潜伏 12 秒」换掉。
 - 被动 `league_teemo_shrooms:shrooms` 管所有埋着的蘑菇：落地 60 tick 后布好，每 15 tick 在原地播一次主包的蘑菇画面 `league_teemo_r_trap`；敌人（英雄、小兵、野怪）走到 8000 内就炸：播 `league_teemo_r_burst` 画面和声音，30000 内的敌人每 60 tick 受到 25 + 12% 法强的魔法伤害（4 跳），减速 40% 120 tick，播中毒画面。
 - 落点由原生效果交给被动（按模拟记：同一时间可能跑着几份模拟，各记各的）。
+- 0.2.0：AI 钩子 `league_teemo_shrooms:sow`（`src/sow.rs`，优先级 105）在他没在打架时替 AI 把 R 按在草丛里，详见下面一节。草丛格子由读图钩子读地图文档的 `bushes`（`#[path]` 用奈德丽附加包的 `bush.rs`；合集里由 `league_addons` 的 `MapReaders` 调用）。
 
 ## 在游戏里测
 
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_teemo_shrooms` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 提莫 R 的说明开头是「【附加包】」、写着「潜伏 3 分钟」就说明换上了。
-4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_teemo_shrooms.log`：`PLANT #n at (x, y), 4 in the ground`、`BOOM #n at (x, y) 2400 ticks after planting: 2 enemies poisoned`。
+4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_teemo_shrooms.log`：`PLANT #n at (x, y), 4 in the ground`、`BOOM #n at (x, y) 2400 ticks after planting: 2 enemies poisoned`；0.2.0 起还有 `== map mode=0: bushes under ...`（读到的草丛格子）、`BUSHES`、`R UNLOCKED`（解锁时几次充能）、`SOW #n`（从哪种到哪个草丛、R 剩几次、AI 原来在干什么）、`SOWN`（那里长出了蘑菇）/ `SOW MISSED`（没长出来）/ `REFUSED`（引擎不收这个输入）。
 
 ## 开发
 
 - `python addons/league_teemo_shrooms/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。主包里提莫改了就重跑。
 - `cargo test -p league_teemo_shrooms`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。
+
+## 0.2.0：不打架时往草丛里种
+
+用户 2026-10-30：「提莫好像不会种蘑菇了？」——查下来没坏：当晚预模拟 75 场种了 887 颗，第一颗的时间和前一晚一样（中位数约 4 分钟）。
+只是 R 是大招（5 级解锁），游戏的 AI 只往射程里的敌方英雄脚下扔：那场提莫 5 分半死了 5 次，第一颗到 5:30 才种。用户：「要，照LOL种」。
+
+AI 钩子 `league_teemo_shrooms:sow`（`src/sow.rs`）每 tick 看一次，下面几条都成立就替 AI 把 R 按在草丛里：
+
+- R 已解锁、充能多于 1 次（留一次给打架时 AI 自己扔；只有一次充能的格子、充满了也种）。主包的 R 3 次充能，3600 tick 回满、一次 1200 tick（20 秒）；
+- 70000 内没有敌方英雄（看不看得见都算：草丛里蹲着的也留给打架）；AI 这一 tick 在走路、站着或打英雄以外的东西（打英雄、放技能、回城时不管）；他活着、没被控；离上一次按下超过 120 tick；
+- 种在地图草丛格子（5v5 地图 71 格）里离他最近的一格的中心：70000 内（R 的射程 75000，单元测试对照副本），64000 内没有他埋着的蘑菇
+  （一片草丛不扎堆），20000 内没有敌方单位（英雄、小兵、野怪：不然布好前就被踩），离自己水晶 160000 以外（家里不种）。
+
+他埋着的蘑菇由被动每 tick 记一份（按模拟和玩家），钩子看它挑草丛，也看自己按下的那颗 180 tick 内长没长出来。R 的说明里加了一句「不打架时往身边草丛里种」。
+只有单元测试（经典 SDK 跑不了原生代码）：进游戏后看日志里的 `SOW` / `SOWN`。

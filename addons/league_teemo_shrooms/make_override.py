@@ -8,7 +8,8 @@ addons/league_teemo_shrooms/override/league_teemo.data_champion and .../text/cha
     (Delayed 20) and losing the rest (the trigger and cloud zones, the 49 shroom pictures): one more Delayed 20 calls the
     native effect league_teemo_shrooms:plant at the landing spot; the cloud's numbers are checked against src/lib.rs;
   * the passive league_teemo_shrooms:shrooms (it keeps the shrooms, sets them off and poisons);
-  * R's tooltip pointing to description.league_teemo_shrooms.ult with the shroom's life swapped.
+  * R's tooltip pointing to description.league_teemo_shrooms.ult with the shroom's life swapped and (0.2.0) the bushes
+    he sows in out of fights (the AI hook league_teemo_shrooms:sow, src/sow.rs) added to where it is thrown.
 Every other champion stays untouched. Run it again whenever the main pack's Teemo changes (--check: compare only).
 """
 import argparse
@@ -31,6 +32,14 @@ SWAPS = {
     "en": ("hides for up to " + Y + "12s" + E + ".", "hides for " + Y + "3 minutes" + E + ", even after Teemo dies."),
     "ko": ("최대 " + Y + "12초" + E + " 동안 숨어 있습니다.", Y + "3분" + E + " 동안 숨어 있으며 티모가 죽어도 남습니다."),
     "ja": ("最大" + Y + "12秒" + E + "潜む。", Y + "3分" + E + "潜み、ティーモが倒れても残る。"),
+}
+# 0.2.0: out of fights he sows his spare shrooms in the bushes near him (src/sow.rs)
+SOWS = {
+    "zh-hans": ("向敌方英雄脚下扔出蘑菇，", "向敌方英雄脚下扔出蘑菇（不打架时往身边草丛里种），"),
+    "zh-hant": ("向敵方英雄腳下擲出蘑菇，", "向敵方英雄腳下擲出蘑菇（不打架時往身邊草叢裡種），"),
+    "en": ("Teemo throws a mushroom at an enemy champion's feet.", "Teemo throws a mushroom at an enemy's feet, or a bush when idle."),
+    "ko": ("적 챔피언의 발밑에 버섯을 던집니다.", "적 챔피언의 발밑에, 싸우지 않을 때는 근처 수풀에 버섯을 던집니다."),
+    "ja": ("敵チャンピオンの足元に毒キノコを投げる。", "敵チャンピオンの足元に（戦闘外は近くの茂みに）毒キノコを投げる。"),
 }
 
 
@@ -101,11 +110,12 @@ def build():
         main_text = json.load(f)
     text = {}
     for lang, tab in main_text.items():
-        old, new = SWAPS[lang]
         t = tab["description"][HERO][SLOT]
-        if old not in t:
-            sys.exit(f"{lang} {HERO}.{SLOT}: the main pack's text changed ({old!r} not found): update this script")
-        t = LEAD[lang] + t.replace(old, new)
+        for old, new in (SWAPS[lang], SOWS[lang]):
+            if old not in t:
+                sys.exit(f"{lang} {HERO}.{SLOT}: the main pack's text changed ({old!r} not found): update this script")
+            t = t.replace(old, new)
+        t = LEAD[lang] + t
         if shown_length(t) > TOOLTIP_MAX[lang]:
             sys.exit(f"{lang}: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")
         text[lang] = {"description": {MOD_ID: {SLOT: t}}}

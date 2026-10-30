@@ -10,6 +10,9 @@
 //! - 敌人（英雄、小兵、野怪）走到 `TRIGGER` 内就炸：播主包的爆炸画面和声音，`CLOUD` 内的敌人中毒 4 秒——每 60 tick
 //!   `POISON` + `POISON_AP`% 法强的魔法伤害、共 4 跳（同主包 100 + 48%），减速 40% 2 秒，播中毒画面。
 //! - 提莫阵亡后蘑菇照样在（被动每 tick 都在看，伤害仍算他的）。
+//! - **0.2.0 主动往草丛里种**（用户 2026-10-30：「提莫好像不会种蘑菇了？」→「要，照LOL种」）：游戏的 AI 只把 R 往敌方英雄
+//!   脚下扔。AI 钩子 `league_teemo_shrooms:sow`（`src/sow.rs`）在他没在打架、R 有多余充能时替 AI 把 R 按在身边最近的草丛里；
+//!   草丛格子由读图钩子读地图文档的 `bushes`（奈德丽附加包的 `bush.rs`），他埋着的蘑菇由被动每 tick 记进 `FIELDS` 给钩子看。
 //!
 //! 落点经 `PLANTED`（按对局记）交给被动：同一时间可能跑着几份模拟（预模拟、观看），各记各的。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_teemo_shrooms.log`。
@@ -23,7 +26,15 @@ use std::time::{Duration, Instant};
 
 use mod_api_stable::*;
 
+#[path = "../../league_nidalee/src/bush.rs"]
+pub mod bush;
+pub mod sow;
+
 const ID: &str = "league_teemo_shrooms";
+/// The main pack's Teemo (the sowing hook's champion).
+pub const HERO: &str = "league_teemo";
+const LOG_FIRST: usize = 30;
+const LOG_EVERY: usize = 50;
 pub const ARM: usize = 60;
 pub const LIFE: usize = 10_800;
 pub const MAX: usize = 9;
@@ -74,6 +85,20 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more of a kind: its count when it is to be logged - every one in the match on screen (watched, spectated or
+/// replayed), the server's presims (the same match run many times over) the first LOG_FIRST, then every LOG_EVERY-th.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (on_screen || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
 fn head(sim: &StableSim<'_>, me: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
@@ -100,6 +125,32 @@ fn key(sim: &StableSim<'_>, me: usize) -> Key {
 
 /// Shrooms planted by the data and not yet taken by the passive: (simulation, x, y, when).
 static PLANTED: Mutex<Vec<(Key, f64, f64, Instant)>> = Mutex::new(Vec::new());
+
+/// Each Teemo's shrooms in the ground, by (seed, origin, match, set, player) - his entity changes with every life, the
+/// player does not: the passive writes them every tick, the sowing hook (sow.rs) reads them (new ones keep apart from
+/// them, and its own show up there).
+type FieldKey = (u64, u32, u64, u64, usize);
+static FIELDS: LazyLock<Mutex<HashMap<FieldKey, Vec<Shroom>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// More fields remembered than this (matches that ended): start over.
+const MAX_FIELDS: usize = 4096;
+
+fn field_key(sim: &StableSim<'_>, player: usize) -> FieldKey {
+    let o = sim.sim_origin().unwrap_or_default();
+    (sim.seed(), o.kind, o.match_id, o.set_index, player)
+}
+
+fn publish(sim: &StableSim<'_>, player: usize, field: &[Shroom]) {
+    let mut f = FIELDS.lock().unwrap_or_else(|e| e.into_inner());
+    if f.len() > MAX_FIELDS {
+        f.clear();
+    }
+    f.insert(field_key(sim, player), field.to_vec());
+}
+
+/// The player's Teemo's shrooms in the ground (none before his passive has run).
+fn field_of(sim: &StableSim<'_>, player: usize) -> Vec<Shroom> {
+    FIELDS.lock().unwrap_or_else(|e| e.into_inner()).get(&field_key(sim, player)).cloned().unwrap_or_default()
+}
 
 struct Plant;
 
@@ -175,7 +226,7 @@ impl StablePassive for Shrooms {
         wlog(format!("{} SPAWN: the add-on's Teemo (player {player}), {} shrooms in the ground", head(sim, me), self.field.len()));
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
         let tick = sim.tick();
         let k = key(sim, me);
         let new: Vec<Pt> = {
@@ -193,6 +244,7 @@ impl StablePassive for Shrooms {
             }
         }
         self.field.retain(|s| !s.gone(tick));
+        publish(sim, player, &self.field);
         for s in self.field.iter().filter(|s| s.armed(tick) && (tick - s.planted - ARM) % PIC_EVERY == 0) {
             sim.play_view_effect(PIC, me, &pos_input(s.at), 0, 0, 0);
         }
@@ -219,6 +271,7 @@ impl StablePassive for Shrooms {
                 wlog(format!("{} BOOM #{} at ({:.0}, {:.0}) {} ticks after planting: {} enemies poisoned", head(sim, me),
                              self.booms, s.at.0, s.at.1, tick - s.planted, hit.len()));
             }
+            publish(sim, player, &self.field);
         }
         let damage = POISON + power * POISON_AP / 100;
         let due: Vec<usize> = self.poisoned.iter().filter(|(_, v)| tick >= v.0).map(|(k, _)| *k).collect();
@@ -243,7 +296,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Teemo's shrooms stay in the ground for minutes) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{} (Teemo's shrooms stay in the ground for minutes, and he sows them in the bushes) loaded: game {}.{}.{} abi {} log={} ===",
         env!("CARGO_PKG_VERSION"),
         v.major,
         v.minor,
@@ -253,13 +306,17 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_effect(format!("{ID}:plant"), Plant);
     module.add_native_passive(format!("{ID}:shrooms"), Shrooms::default());
-    host.log(LogLevel::Info, "league_teemo_shrooms v1 loaded (Noxious Traps stay for minutes).");
+    // 0.2.0: out of fights he sows his spare shrooms in the bushes near him (src/sow.rs)
+    module.add_player_input_ai(sow::Sow::default());
+    host.log(LogLevel::Info, "league_teemo_shrooms v1 loaded (Noxious Traps stay for minutes, sown in the bushes).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
 fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new(ID);
     register(host, &mut module);
+    // the bush grid (in league_addons the bundle's MapReaders calls bush::BushReader::read)
+    module.set_map_customizer(bush::BushReader);
     module
 }
 

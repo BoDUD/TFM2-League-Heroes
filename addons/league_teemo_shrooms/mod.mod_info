@@ -11,10 +11,10 @@
       "version": ">=0.210.0"
     }
   ],
-  "description": "Test build of Teemo's Noxious Trap as in League (needs League of Legends Heroes): replaces the main pack's Teemo so his mushrooms stay hidden in the ground for 3 minutes, even after he dies, until an enemy steps on one (the main pack's last 12 seconds, a data zone cannot last longer). The poison cloud, slow and pictures are the main pack's. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-24",
+  "description": "Test build of Teemo's Noxious Trap as in League (needs League of Legends Heroes): replaces the main pack's Teemo so his mushrooms stay hidden in the ground for 3 minutes, even after he dies, until an enemy steps on one (the main pack's last 12 seconds, a data zone cannot last longer). Out of fights he sows his spare mushrooms in the bushes near him, as in League (the game's AI only throws them at enemy champions). The poison cloud, slow and pictures are the main pack's. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-10-30",
   "mod_id": "league_teemo_shrooms",
   "mod_type": "native",
-  "name": "League Heroes: Teemo's shrooms stay for minutes (test)",
-  "version": "0.1.0"
+  "name": "League Heroes: Teemo's shrooms stay for minutes, sown in bushes (test)",
+  "version": "0.2.0"
 }
