@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC / Heal / Dot |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.94 |
 | 附加包 | [贝蕾亚附加包](#附加包)（`league_briar_frenzy`） |
 
 ![贝蕾亚演示](../preview/league_briar_showcase.gif)
@@ -90,6 +90,7 @@
 | 特效 | 普攻爪痕、噬击的獠牙大嘴和回血光点、冲头的撞击和头顶双星、血莽和彻底血狂的血焰（绕着她）、惊吼蓄力的护壳、尖啸声波和命中、眩晕星、血石（金边、拖尾）、猎物标记（头顶的菱形）、落地爆炸和命中、恐惧骷髅（头顶） |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 4 条中文语音（Q、W、R、R 落地）。不提交到仓库，按下面的命令在本地生成 |
+| 高清帧（PPU 2.94） | 2026-10-30 用 PPU 重做（用户：「下一个英雄重做贝蕾亚」「用2.13就行」「算了用2.94吧」「动作通过」）。设计图：Codex 照她的旧精灵描密的原图（两版，用 A 版：画满画布的那张）；原图的描边和刑枷约 12 像素一格，眼睛、铆钉、手指画得更细，所以按约 8.5 像素一格读回（110 × 135 格；刑枷顶到脚底 135 行 / 2.94 = 原来的 46 像素；调色板 64 色，`design_briar_hd.py`，`--raw` / `--pitch` 是另外几种读法，pass2 按 10 像素一格是 2.13）。英雄联盟 3D 模型的眼睛是粉色的，提示词写明照精灵画浅蓝色。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_briar_actions.py`，十一个动作 56 帧；吸血啃咬 `attack_fx1` 是技能在她身上播放的身体动画，也重画；旧版里和待机一模一样的帧直接用设计图）。读回（`casts_briar_hd.py`）：她的头发、脸和腿是同一种浅色，所以每张的缩放按整个人的面积量，再乘只有她才有的两样东西的大小：头发里的粉色发丝和刑枷的金色部分，每帧都在设计图的 ±8% 以内；对齐点按设计图和旧待机剪影重叠最多的那列（第 71 列）。Codex 在普攻里也画了嘴边的血滴，去掉了，只在吸血啃咬里留嘴边的血。待机不上下起伏（待机和选人卡是从动作里剪的随机片段）（`rig_briar_hd.py`）。高 46 像素和原来一样，没有 SIZES 行；头像点不变；选人卡片 −8 改成 −3（新帧更高，−8 会切掉刑枷顶上的红宝石） |
 
 ```bash
 python tools/lol/extract_briar.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -98,6 +99,16 @@ python tools/art/tidy_briar.py <Codex 的动作交付文件夹>   # 角色图：
 python tools/art/import_native.py --hero briar
 python tools/art/import_briar.py      # 特效；--raw <Codex 的特效交付文件夹> 先把整理图转成原尺寸条
 python tools/art/preview_briar.py
+# PPU 2.94 重做（2026-10-30）：
+python tools/art/pack_briar_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_briar_hd.py                      # Codex 的原图（hd/raw/briar-A.png）按约 8.5 像素一格读回 -> hd/design.png
+python tools/art/pack_briar_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_briar_hd.py --area                # 每张按面积的缩放；--heads 每帧粉色发丝和刑枷金色的大小（定 ZOOM）
+python tools/art/rig_briar_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero briar && python tools/art/ppu_hd.py --hero briar
+python tools/art/ppu_one.py --hero briar && python tools/art/rig_briar_hd.py --one-ground && python tools/art/hero_reels.py --hero briar
+python tools/art/preview_briar.py
+python tools/art/review_briar_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（造型的提示词见 [`assets/source/briar/MODEL_PROMPTS.md`](../../assets/source/briar/MODEL_PROMPTS.md)，10 条动作的见 [`MODEL_STRIPS.md`](../../assets/source/briar/MODEL_STRIPS.md)，特效的见 [`PROMPTS.md`](../../assets/source/briar/PROMPTS.md)）：
@@ -110,4 +121,4 @@ python tools/art/preview_briar.py
 - 出手时刻和动画对齐：普攻第 3 帧咬中（第 8 tick），冲头第 2 帧起跳（第 3 tick），惊吼蓄力 1 秒后播尖啸（`CasterAnimation`），再过 4 tick 张嘴出声、判定，踢血石第 3 帧（第 8 tick），飞行由 `CasterAnimation` 播 `ult_fly`，落地播 26 tick 的 `ult_land`。
 - 结果：23 色，和右边像素同色的比例 35%（原版英雄 18%–46%）。待机每帧 928–938 个不透明像素，约是原版剑士（472）的两倍，和卢锡安（983）、莫甘娜（1066）相近，多出来的主要是枷锁。
 
-逐帧预览：[`docs/preview/league_briar_frames.png`](../preview/league_briar_frames.png?v=1014g)，特效：[`docs/preview/league_briar_effects.png`](../preview/league_briar_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_briar_frames.png`](../preview/league_briar_frames.png?v=1030hd)，特效：[`docs/preview/league_briar_effects.png`](../preview/league_briar_effects.png?v=1014g)。
