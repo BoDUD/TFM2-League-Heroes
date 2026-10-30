@@ -1,0 +1,602 @@
+{
+  "id": "tft_daeja",
+  "category": "Range",
+  "tags": [
+    "AD",
+    "AP",
+    "Magic",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "tft_daeja:mirage",
+    "params": {
+      "q_len": 90000,
+      "q_w": 9000,
+      "q_speed": 6000,
+      "q_dmg": 110,
+      "q_ratio": 70,
+      "r_len": 110000,
+      "r_w": 12000,
+      "r_speed": 7000,
+      "r_dmg": 150,
+      "r_ratio": 70
+    }
+  },
+  "sprite": "asset/tft/champions/tft_daeja",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_daeja_skill",
+    "asset/tft/icons/tft_daeja_skill2",
+    "asset/tft/icons/tft_daeja_ult"
+  ],
+  "stat": {
+    "attack": 90,
+    "magic_power": 30,
+    "hp": 880,
+    "defence": 20,
+    "magic_resistance": 18,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 17,
+    "magic_power": 14,
+    "hp": 90,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_daeja.attack",
+    "duration": 24,
+    "cooltime": 72,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Delayed",
+      "tick": 7,
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_daeja_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "tft_daeja_a_bolt",
+          "speed": 5000,
+          "y_offset": 2000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "tft_daeja_a_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "tft_daeja_a_hit"
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 4,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_p"
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "tft_daeja_p_bolt",
+              "speed": 6000,
+              "y_offset": 2000,
+              "applied_target": "Enemy",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 15,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_daeja_p_shred",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "magic_resistance": -4
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "tft_daeja_p_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "tft_daeja_p_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 8,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_p"
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "tft_daeja_p_bolt",
+              "speed": 6000,
+              "y_offset": 2000,
+              "applied_target": "Enemy",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 15,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_daeja_p_shred",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "magic_resistance": -4
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "tft_daeja_p_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "tft_daeja_p_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_p"
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "tft_daeja_p_bolt",
+              "speed": 6000,
+              "y_offset": 2000,
+              "applied_target": "Enemy",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ApAttack",
+                    "damage": 10,
+                    "attack_ratio": 15,
+                    "hp_ratio": 0,
+                    "can_crit": false
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_daeja_p_shred",
+                      "duration": {
+                        "Time": {
+                          "tick": 180
+                        }
+                      },
+                      "magic_resistance": -4
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "tft_daeja_p_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "tft_daeja_p_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_daeja.skill",
+    "duration": 30,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_daeja_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_q_launch"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_daeja:windblast"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_daeja.skill2",
+    "duration": 24,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_daeja_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 5,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_daeja_e_wind"
+                },
+                {
+                  "type": "LineRangeProjectile",
+                  "name": "tft_daeja_e_gust",
+                  "width": 14000,
+                  "length": 45000,
+                  "delay": 12,
+                  "apply": 1,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ApAttack",
+                        "damage": 40,
+                        "attack_ratio": 30,
+                        "hp_ratio": 0,
+                        "can_crit": false
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "tft_daeja_e_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 90
+                            }
+                          },
+                          "move_speed_mult": -40
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "tft_daeja_e_slow"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "MoveBack",
+                  "speed": 5000,
+                  "tick": 6
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_daeja.ult",
+    "duration": 114,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_daeja_r"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_daeja_r_fly",
+            "duration": {
+              "Time": {
+                "tick": 96
+              }
+            },
+            "damaged_reduce": 30,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_r_roar"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_r_blast"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_daeja:skygale"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 47,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_r_blast"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_daeja:skygale"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 71,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_r_blast"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_daeja:skygale"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 96,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_daeja_r_land"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_daeja_a_bolt",
+      "anim": "asset/tft/effects/tft_daeja_fx",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_daeja_p_bolt",
+      "anim": "asset/tft/effects/tft_daeja_fx",
+      "tag": "p_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_daeja_q_wave",
+      "anim": "asset/tft/effects/tft_daeja_big",
+      "tag": "q_wave",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_daeja_e_gust",
+      "anim": "asset/tft/effects/tft_daeja_big",
+      "tag": "e_gust",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_daeja_r_wave",
+      "anim": "asset/tft/effects/tft_daeja_big",
+      "tag": "r_wave",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_daeja_a_hit",
+      "anim": "asset/tft/effects/tft_daeja_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_daeja_p_hit",
+      "anim": "asset/tft/effects/tft_daeja_fx",
+      "tag": "p_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_daeja_q_hit",
+      "anim": "asset/tft/effects/tft_daeja_fx",
+      "tag": "q_hit",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_daeja_r_hit",
+      "anim": "asset/tft/effects/tft_daeja_big",
+      "tag": "r_hit",
+      "z": 3,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_daeja_p_shred",
+      "anim": "asset/tft/effects/tft_daeja_fx",
+      "tag": "p_shred",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_daeja_e_slow",
+      "anim": "asset/tft/effects/tft_daeja_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_daeja_r_fly",
+      "anim": "asset/tft/effects/tft_daeja_fx",
+      "tag": "r_fly",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}

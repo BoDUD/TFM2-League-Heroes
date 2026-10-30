@@ -119,6 +119,13 @@
         "skill": "抛出大火球，爆炸造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>63%<><#a974ffff>魔法伤害<>，再弹出<#ffb900ff>2<>颗小火球打附近的敌人，各造成<#ffb900ff>55%<>伤害。",
         "skill2": "向前喷出扇形龙息，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>36%<><#a974ffff>魔法伤害<>并灼烧<#ffb900ff>2秒<>，魔抗降低<#ffb900ff>20%<>（<#ffb900ff>4秒<>）。",
         "ult": "飞上天空（减伤<#ffb900ff>50%<>、免疫控制），降下<#ffb900ff>10<>颗火球，各造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法伤害<>；落地后攻速<#ffb900ff>+30%<>、法强<#ffb900ff>+25%<>（<#ffb900ff>5秒<>）。"
+      },
+      "tft_daeja": {
+        "name": "迭嘉",
+        "attack": "推出风弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>三连弹幕<>：每次普攻再射出<#ffb900ff>3<>颗小风弹，各造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法伤害<>，魔抗<#ffb900ff>-4<>（<#ffb900ff>3秒<>，可叠加）。",
+        "skill": "双翼前扫，朝敌人最多的直线轰出穿透的风波，造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。",
+        "skill2": "振翅朝身边的敌人扇出一阵风，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己借风后跳。",
+        "ult": "展翅飞起（减伤<#ffb900ff>30%<>、免疫控制），朝敌人最多的直线连续轰出<#ffb900ff>3<>道大冲击波，各造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -206,6 +213,11 @@
         "skill1": "火球！",
         "skill2": "龙息",
         "ult": "龙神飞升"
+      },
+      "tft_daeja": {
+        "skill1": "罡风轰击",
+        "skill2": "振翼退风",
+        "ult": "苍穹罡风"
       }
     }
   },
@@ -329,6 +341,13 @@
         "skill": "拋出大火球，爆炸造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>63%<><#a974ffff>魔法傷害<>，再彈出<#ffb900ff>2<>顆小火球打附近的敵人，各造成<#ffb900ff>55%<>傷害。",
         "skill2": "向前噴出扇形龍息，造成<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>36%<><#a974ffff>魔法傷害<>並灼燒<#ffb900ff>2秒<>，魔抗降低<#ffb900ff>20%<>（<#ffb900ff>4秒<>）。",
         "ult": "飛上天空（減傷<#ffb900ff>50%<>、免疫控制），降下<#ffb900ff>10<>顆火球，各造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<><#a974ffff>魔法傷害<>；落地後攻速<#ffb900ff>+30%<>、法強<#ffb900ff>+25%<>（<#ffb900ff>5秒<>）。"
+      },
+      "tft_daeja": {
+        "name": "戴枷",
+        "attack": "推出風彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>三連彈幕<>：每次普攻再射出<#ffb900ff>3<>顆小風彈，各造成<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法傷害<>，魔抗<#ffb900ff>-4<>（<#ffb900ff>3秒<>，可疊加）。",
+        "skill": "雙翼前掃，朝敵人最多的直線轟出穿透的風波，造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。",
+        "skill2": "振翅朝身邊的敵人搧出一陣風，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己借風後跳。",
+        "ult": "展翅飛起（減傷<#ffb900ff>30%<>、免疫控制），朝敵人最多的直線連續轟出<#ffb900ff>3<>道大衝擊波，各造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -416,6 +435,11 @@
         "skill1": "噴火球！",
         "skill2": "龍息",
         "ult": "龍神飛升"
+      },
+      "tft_daeja": {
+        "skill1": "猛烈狂風",
+        "skill2": "振翼退風",
+        "ult": "蒼穹罡風"
       }
     }
   },
@@ -539,6 +563,13 @@
         "skill": "Lobs a fireball that explodes for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>63%<> <#a974ffff>magic damage<> and bounces <#ffb900ff>2<> small fireballs on to nearby enemies for <#ffb900ff>55%<> of it each.",
         "skill2": "Breathes a cone of fire for <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>36%<> <#a974ffff>magic damage<>, burning for <#ffb900ff>2s<> and cutting magic resist by <#ffb900ff>20%<> for <#ffb900ff>4s<>.",
         "ult": "Flies up (<#ffb900ff>50%<> less damage, immune to crowd control) and rains <#ffb900ff>10<> fireballs, each <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<>; landing, she gains <#ffb900ff>30%<> attack speed and <#ffb900ff>25%<> ability power for <#ffb900ff>5s<>."
+      },
+      "tft_daeja": {
+        "name": "Daeja",
+        "attack": "Punches out a wind bolt for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Barrage<>: each attack sends <#ffb900ff>3<> small wind bolts after it, each <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> and <#ffb900ff>-4<> magic resist for <#ffb900ff>3s<> (stacks).",
+        "skill": "Sweeps his wings forward: a wind wave runs down the line with the most enemies, <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> to each.",
+        "skill2": "Beats his wings at a nearby enemy: a gust for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and a <#ffb900ff>40%<> slow for <#ffb900ff>1.5s<>, and he hops back on the wind.",
+        "ult": "Flies up (<#ffb900ff>30%<> less damage, immune to crowd control) and blasts <#ffb900ff>3<> big waves down the line with the most enemies, each <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>."
       }
     },
     "skill_name": {
@@ -626,6 +657,11 @@
         "skill1": "Fireballs!",
         "skill2": "Dragon Breath",
         "ult": "Dragon Ascension"
+      },
+      "tft_daeja": {
+        "skill1": "Windblast",
+        "skill2": "Wingbeat Retreat",
+        "ult": "Sky Gale"
       }
     }
   },
@@ -749,6 +785,13 @@
         "skill": "불덩이를 던져 폭발로 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>63%<> <#a974ffff>마법 피해<>, 작은 불덩이 <#ffb900ff>2<>개가 근처 적에게 튀어 각각 <#ffb900ff>55%<> 피해.",
         "skill2": "부채꼴로 불을 뿜어 <#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>36%<> <#a974ffff>마법 피해<>, <#ffb900ff>2초<> 화상, 마법 저항력 <#ffb900ff>20%<> 감소(<#ffb900ff>4초<>).",
         "ult": "하늘로 날아올라(받는 피해 <#ffb900ff>50%<> 감소, 군중 제어 면역) 불덩이 <#ffb900ff>10<>개를 떨어뜨려 각각 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>마법 피해<>; 착지 후 공격 속도 <#ffb900ff>+30%<>, 주문력 <#ffb900ff>+25%<>(<#ffb900ff>5초<>)."
+      },
+      "tft_daeja": {
+        "name": "다에야",
+        "attack": "주먹으로 바람 탄을 날려 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>삼연 탄막<>: 기본 공격마다 작은 바람 탄 <#ffb900ff>3<>개를 더 날려 각각 <#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>마법 피해<>, 마법 저항력 <#ffb900ff>-4<>(<#ffb900ff>3초<>, 중첩).",
+        "skill": "날개를 앞으로 휘둘러 적이 가장 많은 일직선으로 관통하는 바람 파동을 날려 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>.",
+        "skill2": "가까운 적에게 날갯짓으로 돌풍을 일으켜 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>, <#ffb900ff>40%<> 둔화(<#ffb900ff>1.5초<>), 바람을 타고 뒤로 도약.",
+        "ult": "날아올라(받는 피해 <#ffb900ff>30%<> 감소, 군중 제어 면역) 적이 가장 많은 일직선으로 큰 충격파 <#ffb900ff>3<>개를 연달아 날려 각각 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>."
       }
     },
     "skill_name": {
@@ -836,6 +879,11 @@
         "skill1": "불덩이!",
         "skill2": "용의 숨결",
         "ult": "용신 승천"
+      },
+      "tft_daeja": {
+        "skill1": "돌풍",
+        "skill2": "날갯짓 후퇴",
+        "ult": "창공의 돌풍"
       }
     }
   },
@@ -959,6 +1007,13 @@
         "skill": "火の玉を投げ、爆発で<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>63%<>の<#a974ffff>魔法ダメージ<>、小さな火の玉<#ffb900ff>2<>個が近くの敵に跳ね、それぞれ<#ffb900ff>55%<>のダメージ。",
         "skill2": "扇形に炎を吐き<#a974ffff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>36%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>2秒<>炎上、魔法防御<#ffb900ff>20%<>低下（<#ffb900ff>4秒<>）。",
         "ult": "空へ舞い上がり（被ダメージ<#ffb900ff>50%<>軽減、行動妨害無効）、火の玉<#ffb900ff>10<>個を降らせそれぞれ<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の<#a974ffff>魔法ダメージ<>；着地後、攻撃速度<#ffb900ff>+30%<>・魔力<#ffb900ff>+25%<>（<#ffb900ff>5秒<>）。"
+      },
+      "tft_daeja": {
+        "name": "デイジャ",
+        "attack": "拳から風の弾を放ち<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>三連弾幕<>：通常攻撃のたびに小さな風の弾を<#ffb900ff>3<>個追加で放ち、それぞれ<#a974ffff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の<#a974ffff>魔法ダメージ<>と魔法防御<#ffb900ff>-4<>（<#ffb900ff>3秒<>、重複）。",
+        "skill": "翼を前へ振り、敵が最も多い直線に貫通する風の波を放ち<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill2": "近くの敵へ羽ばたいて突風を起こし<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>40%<>スロウ（<#ffb900ff>1.5秒<>）、風に乗って後ろへ跳ぶ。",
+        "ult": "飛び上がり（被ダメージ<#ffb900ff>30%<>軽減、行動妨害無効）、敵が最も多い直線に大きな衝撃波を<#ffb900ff>3<>発連続で放ちそれぞれ<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。"
       }
     },
     "skill_name": {
@@ -1046,6 +1101,11 @@
         "skill1": "ファイヤーボール！",
         "skill2": "ドラゴンブレス",
         "ult": "龍神昇天"
+      },
+      "tft_daeja": {
+        "skill1": "突風",
+        "skill2": "羽ばたき後退",
+        "ult": "蒼穹の突風"
       }
     }
   }

@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "tft_daeja_sfx_p_hit",
+      "volume": 0.25
+    }
+  ]
+}
