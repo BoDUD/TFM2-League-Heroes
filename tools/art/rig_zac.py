@@ -14,6 +14,9 @@ The pictures (tools/art/design_zac_model.py, design_zac_poses.py):
                       r_jump r_ball r_splat d_stagger d_melt d_puddle.
 Placing a pose: across, the middle of its squares (MEAN: the mean column) on the design's, moved dx squares (League's
 lunges and pulls); up and down, its soles on the ground row (its lowest square) or `lift` rows over it (in the air).
+A pose's arm can be drawn longer like rubber (RUBBER: a stretch of it with level edges, each column repeated in turn so
+its shading is drawn out, the hand pushed out; the body stays where it stands): the attack's arm swung far back and the
+fist thrown out on a long arm, as League's Zac_attack1 does.
 The idle is the design alone (no breathing: hero_reels cuts the idle and ban/pick snippets from these actions).
 The run is league_braum's / league_warwick's approved walk for big heroes: the design's own legs under the hip band, one
 lifted per frame by losing its top rows and stepped forward, the body floating a little, the arms swinging a square
@@ -146,6 +149,28 @@ def sway(layer, k):
     return out
 
 
+def stretch(d, x0, x1, k, rows, side):
+    """An arm drawn k columns longer like rubber: its columns x0..x1 in `rows` (a stretch of it with level edges and no
+    other part in those rows) drawn n + k wide, each column repeated in turn (nearest: the shading drawn out, no square
+    made up), the part beyond pushed out - side +1 to the right, -1 to the left (the picture grows k columns there)."""
+    H, W = d.shape[:2]
+    out = np.zeros((H, W + k, 4), d.dtype)
+    r0, r1 = rows
+    n = x1 - x0 + 1
+    cols = [x0 + j * n // (n + k) for j in range(n + k)]
+    if side > 0:
+        out[:, :W] = d
+        out[r0:r1, x0:] = 0
+        out[r0:r1, x0:x0 + n + k] = d[r0:r1][:, cols]
+        out[r0:r1, x0 + n + k:] = d[r0:r1, x1 + 1:]
+    else:
+        out[:, k:] = d
+        out[r0:r1, :x1 + 1 + k] = 0
+        out[r0:r1, :x0] = d[r0:r1, :x0]
+        out[r0:r1, x0:x0 + n + k] = d[r0:r1][:, cols]
+    return out
+
+
 def close_cracks(can, outline, most=12, slit=40):
     """Enclosed gaps a move opened: up to `most` squares, or up to `slit` squares but only one square across - the
     outline (gap-check; rig_warwick.close_cracks). The design's own armpit and leg gaps stay open."""
@@ -193,14 +218,19 @@ class Form:
         can[self.rig.GY:] = 0
         return close_cracks(can, self.D.outline)
 
-    def posed(self, name, dx=0, lift=0):
+    def posed(self, name, dx=0, lift=0, rubber=0):
         """A Codex pose (hd/pose_<name>.png) standing where the design stands: the middle of its squares on the
-        design's, moved dx squares; its lowest row on the ground, `lift` rows above it in the air."""
+        design's, moved dx squares; its lowest row on the ground, `lift` rows above it in the air. `rubber`: its RUBBER
+        arm that many squares longer, the body left where the pose stands."""
         rig = self.rig
         d = load(f"pose_{name}.png")
         ys = np.nonzero((d[..., 3] > 0).any(1))[0]
         left = rig.ox + int(round(self.mid - middle(d))) + dx
         top = rig.GY - (ys.max() + 1) - lift
+        if rubber:
+            x0, x1, rows, side = RUBBER[name]
+            d = stretch(d, x0, x1, rubber, rows, side)
+            left -= rubber if side < 0 else 0
         can = rig.canvas()
         ys_, xs_ = np.nonzero(d[..., 3] > 0)
         ty, tx = ys_ + top, xs_ + left
@@ -213,7 +243,8 @@ class Form:
 
 # ------------------------------------------------------------------------------------------------- the actions
 # ms per frame; the kit's ticks (tools/kit/build_zac.py) come from these (a frame's start in ticks = ms x 0.06):
-# attack 467 ms = atk_dur 28: the wind-up, the punch landing at a_hit 11 (183 ms), back to the idle;
+# attack 467 ms = atk_dur 28: the wind-up, the arm stretched back, the lunge, the fist out on the long arm landing at
+# a_hit 11 (183 ms), the arm snapping back, the idle;
 # Q (skill, q_dur 24 = 400 ms): the wind-up, the long grab from q_rel 8 (133 ms) held; skill_slam (q_slam 18 = 300 ms):
 # lifting him, the slam landing at q_slam_at 8 (133 ms);
 # E: skill2 (e_wind 36 = 600 ms) the arms planted, then pulled back; skill2_fly (held while he flies); skill2_land
@@ -223,7 +254,7 @@ class Form:
 # the walk (league_braum / league_warwick): per frame the near leg's (dx, dy, lift), the far leg's, the figure's rise, the
 # arms' swing (columns: the near arm, the far arm - against the legs), the tendril's sway
 MS = {"idle": [1000], "run": [110] * 8,
-      "attack": [183, 167, 117],
+      "attack": [67, 67, 49, 100, 50, 50, 84],
       "skill": [133, 267], "skill_slam": [133, 167],
       "skill2": [200, 400], "skill2_fly": [100, 100], "skill2_land": [167, 100],
       "ult": [83, 83, 167, 84], "ult_land": [117, 83],
@@ -239,21 +270,27 @@ AT = {"a_wind": (0, 0), "a_punch": (2, 0), "q_wind": (-1, 0), "q_reach": (2, 0),
       "e_plant": (1, 0), "e_pull": (-4, 0), "e_fly": (0, 12), "e_land": (0, 0),
       "r_crouch": (0, 0), "r_jump": (0, 10), "r_ball": (6, 22), "r_splat": (0, 0),
       "d_stagger": (0, 0), "d_melt": (0, 0), "d_puddle": (0, 0)}
+# the arm a pose can stretch (stretch()): its columns x0..x1 and rows (the pose's own squares), the side the hand is on -
+# a_wind's near arm swung back (its upper arm, level along the top), a_punch's far arm (the forearm, shoulder to fist)
+RUBBER = {"a_wind": (18, 36, (0, 41), -1), "a_punch": (84, 99, (0, 47), +1)}
 
 
 def actions(F):
     p, q = F.pose, F.posed
 
-    def at(name, ddx=0, dlift=0):
+    def at(name, ddx=0, dlift=0, rubber=0):
         dx, lift = AT[name]
-        return q(name, dx + ddx, lift + dlift)
+        return q(name, dx + ddx, lift + dlift, rubber)
     out = {}
     out["idle"] = [p()]
     # run (League's Zac_run_Slow, a heavy waddle): league_braum's walk on the design's own legs
     out["run"] = [p(whole=(0, -r), near_leg=n, far_leg=f, near_at=(sw[0], 0), far_at=(sw[1], 0), tendril=t)
                   for n, f, r, sw, t in WALK]
-    # auto attack (League's Zac_attack1: the near arm swung back, then the punch lunging forward)
-    out["attack"] = [at("a_wind"), at("a_punch"), p()]
+    # auto attack (League's Zac_attack1: the near arm swung back and stretched far behind him, the lunge, the punch
+    # thrown out on an arm stretched like rubber and snapping back; the user, 2026-10-31: 「扎克的平A动作有点奇怪」 - it
+    # was the wind-up and the lunge held 183 / 167 ms each, then the idle, three pictures popping in turn)
+    out["attack"] = [at("a_wind"), at("a_wind", rubber=10), at("a_punch"), at("a_punch", rubber=12),
+                     at("a_punch", rubber=6), at("a_punch"), p()]
     # Q Stretching Strikes (Zac_Spell1_max: the arm swung up and back, then shot out along the ground; Zac_Spell1_Slam:
     # both arms up with the catch, then the slam)
     out["skill"] = [at("q_wind"), at("q_reach")]
