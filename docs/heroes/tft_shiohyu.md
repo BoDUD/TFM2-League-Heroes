@@ -74,7 +74,7 @@
 | 跑步 | 用 Codex 画的金铲铲原版跑步（一整个 0.97 秒循环取 8 帧，两次交错在第 4、8 帧，脚尖量过），各帧按贴上的脸对齐，头平稳、两条腿轮流迈步；帧长按原片段的时间分配 |
 | 特效 | 13 张 + 3 个技能图标，用户用 Gemini 画（[`tools/art/pack_shiohyu_fx.py`](../../tools/art/pack_shiohyu_fx.py) 的提示词，参考是他自己第 7 赛季的粒子贴图 [`tools/lol/fx_ref_shiohyu.py`](../../tools/lol/fx_ref_shiohyu.py)）：爪痕、拳击、砸地的玉光裂地、碎石、减速、玉龙形态的开启和光环、三击的命中、直线玉石尖晶冲击波、玉石之肤的开启和光环。[`tools/art/clean_shiohyu_fx.py`](../../tools/art/clean_shiohyu_fx.py) 切帧、去背景和分隔线、去掉 Gemini 在地上画的整块圆盘（只留裂缝、光环和碎石）、缩到游戏格子、换成玉 / 金 / 碎石三套色、逐格对称（冲击波上下对称，其余左右对称）；[`tools/art/import_shiohyu_fx.py`](../../tools/art/import_shiohyu_fx.py) 按各自贴地的行切成 `tft_shiohyu_fx` 和 `tft_shiohyu_big` |
 | 音效 | 普攻、暴击（连拳）和三击（attack1–3）是他自己的金铲铲音效（Riot 客户端 Map22 里第 7 赛季的音效包，事件名是 `Play_sfx_tft7_DragonGreen` 后面直接接动作名）；玉石之肤和震地借墨菲特，冲刺借李青，玉龙形态开启和冲击波借塔里克（炫光的晕眩直线），吼声和死亡借峡谷的龙（[`tools/lol/extract_shiohyu.py`](../../tools/lol/extract_shiohyu.py)，18 段） |
-| 选人卡片 | 翅膀尖到脚底 42 游戏像素：`banpick_center` (−1, −8)（按规则 −39 减去最高点 −30.5）。脸 (3, −26)（近处的眼睛）。待机按 `tools/art/hero_reels.py` 剪进第三爪的出手帧，卡片轮播第三爪和玉龙形态两段：所有英雄的 BP 小图集加起来要在 192 MiB 以内（`tools/ci/ui_sheets.py`），四段的话会超出 |
+| 选人卡片 | 翅膀尖到脚底 42 游戏像素：`banpick_center` (−1, −8)（按规则 −39 减去最高点 −30.5）。脸 (3, −26)（近处的眼睛）。待机按 `tools/art/hero_reels.py` 剪进第三爪的出手帧，卡片轮播普攻、玉拳连打、震地、玉龙形态四段（上线时 BP 小图集加起来的预算 192 MiB 只够两段，league.dll 0.8.16 把游戏的 GPU 图片缓存放大到 1 GiB 后恢复四段，见 docs/perf.md 第 10 节） |
 
 重新生成（素材来自本机的金铲铲客户端，音频和 Riot 的渲染不进仓库）：
 

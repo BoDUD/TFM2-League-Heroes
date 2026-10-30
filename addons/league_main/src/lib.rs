@@ -10,6 +10,9 @@
 //! src/ui.rs（0.7.140）：BP 格子、图鉴 / 头像、选人位、选中特写、记分板头像改画每个英雄自己的小图集（打包时生成，
 //! 只有界面画的帧）——一屏画全部英雄的界面不再把整张战斗图集塞进游戏 256 MiB 的图片缓存（「BP界面非常的卡」）。
 //!
+//! src/cache.rs（0.8.16）：游戏的 GPU 图片缓存（Skia 的 GrResourceCache，默认 256 MiB）放大到 1 GiB——一屏英雄多的界面
+//! 不再因为装不下而每帧清掉、重新上传贴图。
+//!
 //! src/warm.rs（0.7.27）：标题画面出来以后，后台线程把主包 `sound/bgm/` 里的音频按盘上的顺序读一遍进系统缓存，
 //! 比赛里音频第一次播放就不用在主线程等读盘。
 //!
@@ -23,6 +26,8 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod build;
+#[cfg(windows)]
+mod cache;
 pub mod hd;
 #[cfg(windows)]
 mod lookup;
@@ -34,7 +39,7 @@ mod view;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.8.15";
+const VERSION: &str = "0.8.16";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -87,6 +92,9 @@ fn init(host: &StableHost) -> StableMod {
     let v = host.game_version();
     wlog(format!("=== {ID}.dll {VERSION} (dense frames) loaded: game {}.{}.{} abi {} log={} ===",
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
+    // the GPU image cache first, whatever the build: it only needs Skia's GrResourceCache (src/cache.rs)
+    #[cfg(windows)]
+    cache::install_once(view::module_base());
     #[cfg(windows)]
     match build::detect(view::read_rva).or_else(|why| {
         // not a listed build: look for the same places by their patterns (game_places, made from the listed build)

@@ -190,5 +190,5 @@
   "tft_nomsy": {"idle": [["attack", [1]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "tft_idas": {"idle": [["skill2", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "tft_daeja": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
-  "tft_shiohyu": {"idle": [["attack3", [1]]], "bp": ["attack3", "ult"]}
+  "tft_shiohyu": {"idle": [["attack3", [1]]], "bp": ["attack", "skill", "skill2", "ult"]}
 }
