@@ -517,6 +517,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read onto it at the zoom her figure and head give (tools/art/casts_leona_hd.py, rig_leona_hd.py; nothing baked -
     // her sunlight, eclipse and flare are effect strips); 41 game px as her 1x sprite, so no SIZES row
     ("league_leona", 1.756, include_str!("../../../league/champions/league_leona#anim.fanim")),
+    // Sona (2026-10-30, 「接下来重做琴女」, 「调高PPU像素」「达到和我给你的图一样的效果」, 「通过，用 3.88」): the user's
+    // picture read on its finest squares (117 x 155, tools/art/design_sona_hd.py: 155 rows / 40 = 3.875); every action
+    // Codex's whole-frame redraw of her old frame read onto it at the zoom her figure, head and height give
+    // (tools/art/casts_sona_hd.py, rig_sona_hd.py; nothing baked); 40 game px as her 1x sprite, so no SIZES row
+    ("league_sona", 3.875, include_str!("../../../league/champions/league_sona#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

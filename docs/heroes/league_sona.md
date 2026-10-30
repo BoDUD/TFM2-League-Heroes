@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / CC / Heal / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 3.88 |
 | 附加包 | [辅助挑人附加包：迦娜、娑娜、璐璐](#附加包)（`league_support_pick`）、[游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![娑娜演示](../preview/league_sona_showcase.gif)
@@ -98,6 +98,7 @@
 | 特效 | 普攻的蓝色音波弹（11 px）和命中；能量和弦：金色音符、三种命中（金色高音谱号外一圈蓝 / 绿 / 粉音波）、琴边转着的三个金色音符、节奏的粉色五线谱减速环（42 px，套在脚下）、渐弱的头顶绿色音符；Q 的蓝色编织音波（23 px）、命中的星形光爆、旋律加攻的蓝色小音符；W 的绿色治疗光柱、护盾（23 × 35 px 的绿色椭圆罩）；E 的粉色加速风（38 px）；三个旋律光环（蓝 / 绿 / 粉，地上 90 × 45 px 的椭圆，正好是 45000 的半径，跟着她 3 秒）；R 头顶的金色和弦爆发（38 px）、金色音波（15 × 45 px）、晕眩时头顶转圈的金色音符（12 帧，1.5 秒） |
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 4 条中文语音（Q、W、E、R），合成 13 个游戏音效。不提交到仓库，按下面的命令在本地生成 |
+| 高清帧（PPU 3.88） | 2026-10-30 用 PPU 重做（用户：「接下来重做琴女」「调高PPU像素」「达到和我给你的图一样的效果」「通过，用 3.88」「动作通过」）。设计图：用户给的原图（描边和头发约 16 像素一格，眼睛、睫毛、琴弦、手指、裙子的金色花纹画在半格、三分之一格上），为了和原图一样细，按约 5.5 像素一格读回（117 × 155 格；头顶到裙摆 155 行 / 3.88 = 原来的 40 像素；调色板 64 色，`design_sona_hd.py`，`--pitch 8` / `16` 是更粗的读法）。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_sona_actions.py`，36 帧；旧版里和待机一模一样的帧直接用设计图，R 第 6 帧 = 第 2 帧；R 第 3–5 帧竖琴悬在头顶，和人分开）。读回（`casts_sona_hd.py`）：每张的缩放按整个人的面积量，再乘头的大小（蓝色头发和脸）；站着的帧再按旧版同一帧的身高对齐（Codex 有的图头一样大、身体矮 8% 或高 5%，一次普攻里身高会跳），头和设计图的差距都在 6% 以内；对齐点按设计图和旧待机剪影重叠最多的那列（第 58 列）。死亡第 3–5 帧用 Codex 的第一版（修订版第 3–4 帧又站直、第 5 帧直接趴平），跪下去、裙子慢慢铺开，和旧版节奏一样。待机不上下起伏（待机和选人卡是从动作里剪的随机片段）；没有烤进动作的特效（`rig_sona_hd.py`）。高 40 像素和原来一样，没有 SIZES 行；头像点不变；选人卡片 −10 不变 |
 
 ```bash
 python tools/lol/extract_sona.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -107,6 +108,16 @@ python tools/art/fix_sona_strips.py     # 动作：擦掉 Codex 画的细棍手�
 python tools/art/import_native.py --hero sona
 python tools/art/import_sona.py         # 特效：缩一半；减速环、加速风、R 的爆发用原尺寸；光环按半径缩放；和弦的金色音符
 python tools/art/preview_sona.py
+# PPU 3.88 重做（2026-10-30）：
+python tools/art/pack_sona_ppu.py --out <文件夹>           # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_sona_hd.py                       # 用户的原图（hd/raw/sona-A.png）按约 5.5 像素一格读回 -> hd/design.png
+python tools/art/pack_sona_actions.py --out <文件夹>       # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_sona_hd.py --area                 # 每张按面积的缩放；--heads 每帧头的大小（定 ZOOM）
+python tools/art/rig_sona_hd.py                          # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero sona && python tools/art/ppu_hd.py --hero sona
+python tools/art/ppu_one.py --hero sona && python tools/art/rig_sona_hd.py --one-ground && python tools/art/hero_reels.py --hero sona
+python tools/art/preview_sona.py
+python tools/art/review_sona_actions.py --out <文件夹>     # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`PICTURE_PROMPT.md`](../../assets/source/sona/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/sona/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/sona/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/sona/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/sona/codex_model)、[`codex_strips/`](../../assets/source/sona/codex_strips)、[`codex_fx/`](../../assets/source/sona/codex_fx)）：
@@ -118,4 +129,4 @@ python tools/art/preview_sona.py
 - 导入：待机 6 帧都用定稿，第 3–5 帧从裙摆往上下沉一格呼吸（`BOB`，接缝在设计的第 94/95 行：裙片是竖直的，这两行一样宽）；按虹膜的青绿色定头的位置（`EYES`）；描边补齐（`COMPLETE`）。补齐后脸两侧原来一格宽的缝口被封住，每帧脸边各露出一个透地面的小洞，贴回的手臂旁边也有几个——`PLUG` 用描边色补上（共 145 格），设计自己在裙片和腿之间的 4 个缝保留。头像截取点 (−1, −36)（`tfm2_ase.py face`），待机最高点 −28，不设选人卡位置。
 - 特效用 Codex 画的 20 张（104 帧），交的是要求尺寸 2 倍的像素图（`logical-source`）。`import_sona.py` 缩一半（每 2 × 2 格取最亮的像素，白色的芯和一格的五线谱线都留得住）；节奏减速环、加速风缩一半后比人还窄，画在人身后会被完全挡住，R 的爆发缩一半后比抛起的琴还小，这三张用原尺寸；三个旋律光环按 45000 的半径缩放（宽 90 px，画的就是 2:1 的椭圆）；能量和弦的金色音符是普攻的音符按色阶换成金色。挂点：命中在上半身 (0, −8)，琴边的金色音符在腰前 (0, −3)，渐弱和晕眩在头顶 (0, −31)，治疗、护盾落在脚底，减速环、加速风和光环的椭圆中心在脚底上方 2 px（画在人身后，前半圈露在脚下），R 的爆发在抛起的琴上 (0, −40)。
 
-逐帧预览：[`docs/preview/league_sona_frames.png`](../preview/league_sona_frames.png?v=1014g)，特效：[`docs/preview/league_sona_effects.png`](../preview/league_sona_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_sona_frames.png`](../preview/league_sona_frames.png?v=1030hd)，特效：[`docs/preview/league_sona_effects.png`](../preview/league_sona_effects.png?v=1014g)。
