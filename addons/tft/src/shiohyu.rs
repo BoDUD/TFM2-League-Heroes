@@ -3,9 +3,9 @@
 //! `passive.params` 来（build_shiohyu.py 从参数表 P 写进去，`NATIVE_KEYS`）：
 //!
 //! - **玉石之肤**：生命掉到最大生命的 `p_low`% 以下、且冷却 `p_cd` 拍已过（每条命一开始就是好的）时，全身化作玉石：
-//!   `p_t` 拍内受到的伤害减少 `p_red`%（挂 `tft_shiohyu_p_skin`，带画面），亮一下 `tft_shiohyu_p`，播 `tft_shiohyu_sfx_p`。
+//!   `p_t` 拍内受到的伤害减少 `p_red`%（挂 `tft_shiohyu_p_skin`，带画面），亮一下 `tft_shiohyu_p`，播 `tft_shiohyu_p`。
 //!   数据读不到生命，所以由本被动每拍看他的生命。
-//! - **死亡**：倒下时播 `tft_shiohyu_sfx_d`（数据没有死亡的时机）。
+//! - **死亡**：倒下时播 `tft_shiohyu_d`（数据没有死亡的时机）。
 //!
 //! 龙爪三连、玉拳连打、震地和玉龙形态（减伤免控、三记强化攻击）是数据自己的。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
@@ -22,8 +22,8 @@ use mod_api_stable::*;
 const ID: &str = "tft_shiohyu";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 /// The skin's sound and his death cry (the tft pack's sound_info; the rest of his sounds the data plays).
-const SFX_SKIN: &str = "tft_shiohyu_sfx_p";
-const SFX_DEAD: &str = "tft_shiohyu_sfx_d";
+const SFX_SKIN: &str = "tft_shiohyu_p";
+const SFX_DEAD: &str = "tft_shiohyu_d";
 
 fn sy(x: &str) -> String {
     format!("{ID}_{x}")

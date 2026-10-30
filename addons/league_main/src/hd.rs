@@ -346,6 +346,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the wing tips to his feet, PPU 1.72 (「A-1、40 游戏像素、PPU 1.72」: 69 rows kept 1:1), and Codex's key poses after his
     // own TFT clips with the design's face, posed by tools/art/rig_daeja.py, so no SIZES row
     ("tft_daeja", 1.72, include_str!("../../../tft/champions/tft_daeja#anim.fanim")),
+    // Shi Oh Yu (tft_shiohyu, the tft pack): the jade dragon-man turned near side-on, step 0's B-1 at the user's 42 game px
+    // from the wing tips to his feet, PPU 2.46 (「B1 42 PPU 2.46」: 103 rows), and Codex's key poses and run after his own
+    // TFT clips with the design's face, posed by tools/art/rig_shiohyu.py, so no SIZES row
+    ("tft_shiohyu", 2.46, include_str!("../../../tft/champions/tft_shiohyu#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
