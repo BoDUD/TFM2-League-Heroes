@@ -358,6 +358,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // from the antler tips to the bottom of her coil, PPU 1.8 (「B-1 40px PPU 1.8」: 72 rows 1:1), and Codex's key poses
     // after her own TFT clips, posed by tools/art/rig_sohm.py, so no SIZES row
     ("tft_sohm", 1.8, include_str!("../../../tft/champions/tft_sohm#anim.fanim")),
+    // Zippy (tft_zippy, the tft pack): the little raptor upright at 3/4, step 0's A-1 at the user's 38 game px from the
+    // head spikes to its soles, PPU 2.2 (「A-1、38 px、PPU 2.2」: 83 rows 1:1), and Codex's key poses after its own TFT
+    // clips, posed by tools/art/rig_zippy.py, so no SIZES row
+    ("tft_zippy", 2.2, include_str!("../../../tft/champions/tft_zippy#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

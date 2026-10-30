@@ -1,0 +1,473 @@
+{
+  "poses": [
+    {
+      "name": "a_wind",
+      "file": "zippy-pose-a_wind.png",
+      "raw": "raw/zippy-pose-a_wind-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        10
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "8ddb09191985b690055cc2b49a775d4242944a45393239202b08ef70e1660165"
+    },
+    {
+      "name": "a_kick",
+      "file": "zippy-pose-a_kick.png",
+      "raw": "raw/zippy-pose-a_kick-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        -1
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "57b361ff9e1293e72a256f10e868d2a58a2b941133aa4b95d81c44bfeac49382"
+    },
+    {
+      "name": "q_crouch",
+      "file": "zippy-pose-q_crouch.png",
+      "raw": "raw/zippy-pose-q_crouch-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        -6
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "a4a4e455439424e6f9b4ed52b8a33de61e10ff2afe0ec4b13942d6dcfad49d27"
+    },
+    {
+      "name": "q_flip",
+      "file": "zippy-pose-q_flip.png",
+      "raw": "raw/zippy-pose-q_flip-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        84
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "d6b98606eed127b01ad52b81de7f779ea75a4f6a9fc6c7d9df9f156cb1fd5ed9"
+    },
+    {
+      "name": "q_kick",
+      "file": "zippy-pose-q_kick.png",
+      "raw": "raw/zippy-pose-q_kick-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        13
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "78c65acfd3a7be4aca4f567db7e155b8681cb0006a9f8f5d71d632eb001602c3"
+    },
+    {
+      "name": "q_land",
+      "file": "zippy-pose-q_land.png",
+      "raw": "raw/zippy-pose-q_land-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        -19
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "ffd738dba9360c4ae23cad89a1e0ba2ca2459a21cf100d0a51189773d3acd609"
+    },
+    {
+      "name": "e_curl",
+      "file": "zippy-pose-e_curl.png",
+      "raw": "raw/zippy-pose-e_curl-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        56
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "89164fec0cbf3e019f2964f5b9d86da3402920eb1c89441d03a092b87cc4c066"
+    },
+    {
+      "name": "e_ball",
+      "file": "zippy-pose-e_ball.png",
+      "raw": "raw/zippy-pose-e_ball-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        37
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "86f646392ef6479bb6b6f3d261aec61f454b24dcc311939ab917612b9b3876af"
+    },
+    {
+      "name": "r_crouch",
+      "file": "zippy-pose-r_crouch.png",
+      "raw": "raw/zippy-pose-r_crouch-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        10
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "7f1d6cccf19cc4bb5269d5c7ab1d477b885dbd682f338127f5ee154b2c07d441"
+    },
+    {
+      "name": "r_spring",
+      "file": "zippy-pose-r_spring.png",
+      "raw": "raw/zippy-pose-r_spring-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        65
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "d878f3cbac158dbb92da15dc232293ebe0a47153c1844b91ee5022c94f1a20d1"
+    },
+    {
+      "name": "r_open",
+      "file": "zippy-pose-r_open.png",
+      "raw": "raw/zippy-pose-r_open-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        -19
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "c1b78c9ef325a8d8b268f663834c572720fcc675adbdfd6893d31cd67becc795"
+    },
+    {
+      "name": "r_land",
+      "file": "zippy-pose-r_land.png",
+      "raw": "raw/zippy-pose-r_land-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        1
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "c471ead8cfd197bb0d7d4b830d343ee5f2e5f22fdb59f373bc37b9994019c356"
+    },
+    {
+      "name": "run1",
+      "file": "zippy-pose-run1.png",
+      "raw": "raw/zippy-pose-run1-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        30
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "60ec479e35bab2974c8637f5db966d20df2fe08d14b713aae31451ca6df4459f"
+    },
+    {
+      "name": "run2",
+      "file": "zippy-pose-run2.png",
+      "raw": "raw/zippy-pose-run2-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        13
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "63ef628566b5eb5a18fc6542701e81acbabd23576b2be05f21c88f8fb81b24ed"
+    },
+    {
+      "name": "run3",
+      "file": "zippy-pose-run3.png",
+      "raw": "raw/zippy-pose-run3-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        0
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "eb8b275b1619be9ab05dde20176b4bedcb62933c6039fdd3ca9561903dd8885a"
+    },
+    {
+      "name": "run4",
+      "file": "zippy-pose-run4.png",
+      "raw": "raw/zippy-pose-run4-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        20
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "509fa4c03240d7a3a55b50bf72481cb0b4db515f292d2f5dfb58ab40010125e5"
+    },
+    {
+      "name": "run5",
+      "file": "zippy-pose-run5.png",
+      "raw": "raw/zippy-pose-run5-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        10
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "fbe5737661513f1df3be99551b9323e61b2668cbf53237c378f6a5f0b856bd17"
+    },
+    {
+      "name": "run6",
+      "file": "zippy-pose-run6.png",
+      "raw": "raw/zippy-pose-run6-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        -20
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "c02099a683730b086bbdca3eda15c1a30d0409e0630ee60f9279368cadac94ac"
+    },
+    {
+      "name": "run7",
+      "file": "zippy-pose-run7.png",
+      "raw": "raw/zippy-pose-run7-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        20
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "c7e2bd10b9990897ba87dc8ebbfd63ee77088a535423502b5589c7b935891af7"
+    },
+    {
+      "name": "run8",
+      "file": "zippy-pose-run8.png",
+      "raw": "raw/zippy-pose-run8-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        20
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "3f3e198822366b4aa7181d35910816f4de836993522bf161d4fb7fecc4303188"
+    },
+    {
+      "name": "d_fall",
+      "file": "zippy-pose-d_fall.png",
+      "raw": "raw/zippy-pose-d_fall-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        1
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "42834871c985995d311cc8601ecf5baf4d4caa88edca6b4aeb2d6f7f6e84aa55"
+    },
+    {
+      "name": "d_down",
+      "file": "zippy-pose-d_down.png",
+      "raw": "raw/zippy-pose-d_down-raw.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "lowest_opaque_boundary_y": 1176,
+      "translation_px": [
+        0,
+        98
+      ],
+      "resampled": false,
+      "source_pixels_preserved": true,
+      "hard_alpha": true,
+      "requested_grid_px": 10,
+      "strict_grid_verified": false,
+      "head_pixel_identity_verified": false,
+      "sha256": "527f7bbddf8ee3f49da89160f1670bd501a1dde81bf0ddd47a7a6385799b548a"
+    }
+  ],
+  "generation": "built-in image_gen",
+  "processing": "alpha threshold 128 and whole-image integer Y translation only; no resampling",
+  "limitations": [
+    "Generated grid is not certified exactly 10 px",
+    "Heads are generated redraws rather than pixel-identical copies",
+    "Run torso, head and feather silhouettes vary between frames; not a rigged animation"
+  ]
+}

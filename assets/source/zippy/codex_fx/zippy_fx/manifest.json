@@ -1,0 +1,904 @@
+{
+  "generation": "built-in image_gen",
+  "readback": "mode of opaque palette-mapped colors per source bin; alpha coverage >= 0.20 gives hard opacity; each frame recentered by integer translation before sampling; half-bin horizontal phase alignment to retain bright cores; p_guild source alpha threshold=32, all other source alpha threshold=128; mirror correction retains brighter visible partner; body masks remove only central overlap",
+  "alpha": [
+    0,
+    255
+  ],
+  "effects": [
+    {
+      "name": "a_hit",
+      "file": "zippy_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/zippy_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "sheet_1x": [
+        56,
+        14
+      ],
+      "sheet_8x": [
+        448,
+        112
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": false,
+      "palette": [
+        "#FFC2E4",
+        "#FF6FB8",
+        "#E8288A",
+        "#A8135F",
+        "#5E0A36",
+        "#FFF4C2",
+        "#FFD24A",
+        "#E39A1A",
+        "#9A5A0E"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            156,
+            457,
+            608
+          ],
+          "source_integer_dx": -3,
+          "opaque_pixels": 50,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            457,
+            156,
+            1040,
+            608
+          ],
+          "source_integer_dx": -11,
+          "opaque_pixels": 116,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            1040,
+            156,
+            1574,
+            608
+          ],
+          "source_integer_dx": 29,
+          "opaque_pixels": 108,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1574,
+            156,
+            2079,
+            608
+          ],
+          "source_integer_dx": 15,
+          "opaque_pixels": 94,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_effects `tft_zippy_a_hit`（跟随目标，z 2；左右对称）",
+      "sha256_1x": "395b4da3841ffbf61399a91d1d51d308b1f2f3dce3d3f80ddacf9969e465451d"
+    },
+    {
+      "name": "q_hit",
+      "file": "zippy_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/zippy_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        24
+      ],
+      "sheet_1x": [
+        100,
+        24
+      ],
+      "sheet_8x": [
+        800,
+        192
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": false,
+      "palette": [
+        "#FFC2E4",
+        "#FF6FB8",
+        "#E8288A",
+        "#A8135F",
+        "#5E0A36",
+        "#FFF4C2",
+        "#FFD24A",
+        "#E39A1A",
+        "#9A5A0E"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            12,
+            400,
+            757
+          ],
+          "source_integer_dx": 4,
+          "opaque_pixels": 104,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            400,
+            12,
+            797,
+            757
+          ],
+          "source_integer_dx": 8,
+          "opaque_pixels": 148,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            797,
+            12,
+            1191,
+            757
+          ],
+          "source_integer_dx": 12,
+          "opaque_pixels": 184,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1191,
+            12,
+            1594,
+            757
+          ],
+          "source_integer_dx": 12,
+          "opaque_pixels": 158,
+          "left_right_equal": true
+        },
+        {
+          "index": 4,
+          "source_crop": [
+            1594,
+            12,
+            1983,
+            757
+          ],
+          "source_integer_dx": 17,
+          "opaque_pixels": 80,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_effects `tft_zippy_q_hit`（跟随目标，z 3；左右对称）",
+      "sha256_1x": "890fdb892410910d0810246b8052d6d4caad885679f096eda23493ba99d97a5b"
+    },
+    {
+      "name": "e",
+      "file": "zippy_fx_e.png",
+      "pixel_1x": "pixel_1x/zippy_fx_e.png",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        10
+      ],
+      "sheet_1x": [
+        120,
+        10
+      ],
+      "sheet_8x": [
+        960,
+        80
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": false,
+      "palette": [
+        "#F0E2C8",
+        "#C9AE86",
+        "#94775A",
+        "#5E4A38",
+        "#FFC2E4",
+        "#FF6FB8",
+        "#E8288A",
+        "#A8135F",
+        "#5E0A36"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            261,
+            458,
+            530
+          ],
+          "source_integer_dx": -32,
+          "opaque_pixels": 18,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            458,
+            261,
+            1095,
+            530
+          ],
+          "source_integer_dx": -21,
+          "opaque_pixels": 120,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            1095,
+            261,
+            1622,
+            530
+          ],
+          "source_integer_dx": 11,
+          "opaque_pixels": 104,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1622,
+            261,
+            2172,
+            530
+          ],
+          "source_integer_dx": 15,
+          "opaque_pixels": 38,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_effects `tft_zippy_e`（放在它起滚的地面上，不跟随，z 1；左右对称）",
+      "sha256_1x": "74ffb6550bcd3bf6a52941f5a0da3eb071c831fff6374b25a1d194be8ca25c9b"
+    },
+    {
+      "name": "e_hit",
+      "file": "zippy_fx_e_hit.png",
+      "pixel_1x": "pixel_1x/zippy_fx_e_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "sheet_8x": [
+        512,
+        128
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": false,
+      "palette": [
+        "#FFC2E4",
+        "#FF6FB8",
+        "#E8288A",
+        "#A8135F",
+        "#5E0A36",
+        "#FFF4C2",
+        "#FFD24A",
+        "#E39A1A",
+        "#9A5A0E"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            87,
+            492,
+            637
+          ],
+          "source_integer_dx": -11,
+          "opaque_pixels": 40,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            492,
+            87,
+            1085,
+            637
+          ],
+          "source_integer_dx": -8,
+          "opaque_pixels": 100,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            1085,
+            87,
+            1656,
+            637
+          ],
+          "source_integer_dx": 29,
+          "opaque_pixels": 116,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1656,
+            87,
+            2172,
+            637
+          ],
+          "source_integer_dx": 30,
+          "opaque_pixels": 28,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_effects `tft_zippy_e_hit`（跟随被撞到的人，z 3；左右对称）",
+      "sha256_1x": "5d84ed0a7df40aa114666bc9a47bee1cd7e5f0ea653ad869621be198c6432208"
+    },
+    {
+      "name": "r",
+      "file": "zippy_fx_r.png",
+      "pixel_1x": "pixel_1x/zippy_fx_r.png",
+      "frames": 4,
+      "cell_1x": [
+        34,
+        12
+      ],
+      "sheet_1x": [
+        136,
+        12
+      ],
+      "sheet_8x": [
+        1088,
+        96
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": false,
+      "palette": [
+        "#F0E2C8",
+        "#C9AE86",
+        "#94775A",
+        "#5E4A38",
+        "#FFF4C2",
+        "#FFD24A",
+        "#E39A1A",
+        "#9A5A0E"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            251,
+            412,
+            576
+          ],
+          "source_integer_dx": -8,
+          "opaque_pixels": 74,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            412,
+            251,
+            851,
+            576
+          ],
+          "source_integer_dx": -4,
+          "opaque_pixels": 170,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            851,
+            251,
+            1356,
+            576
+          ],
+          "source_integer_dx": 6,
+          "opaque_pixels": 148,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1356,
+            251,
+            1828,
+            576
+          ],
+          "source_integer_dx": 12,
+          "opaque_pixels": 92,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_effects `tft_zippy_r`（放在它起跳的地面上，不跟随，z 1；左右对称）",
+      "sha256_1x": "25215ebd445139f65fa6cc9fac26ecdb6f591d45dfc0538ab66d5ba99e5845fd"
+    },
+    {
+      "name": "r_hit",
+      "file": "zippy_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/zippy_fx_r_hit.png",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        40
+      ],
+      "sheet_1x": [
+        336,
+        40
+      ],
+      "sheet_8x": [
+        2688,
+        320
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": false,
+      "palette": [
+        "#FFC2E4",
+        "#FF6FB8",
+        "#E8288A",
+        "#A8135F",
+        "#5E0A36",
+        "#FFF4C2",
+        "#FFD24A",
+        "#E39A1A",
+        "#9A5A0E",
+        "#F0E2C8",
+        "#C9AE86",
+        "#94775A",
+        "#5E4A38"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            256,
+            294,
+            548
+          ],
+          "source_integer_dx": -18,
+          "opaque_pixels": 278,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            294,
+            256,
+            666,
+            548
+          ],
+          "source_integer_dx": -2,
+          "opaque_pixels": 720,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            666,
+            256,
+            1021,
+            548
+          ],
+          "source_integer_dx": 2,
+          "opaque_pixels": 630,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1021,
+            256,
+            1388,
+            548
+          ],
+          "source_integer_dx": 2,
+          "opaque_pixels": 464,
+          "left_right_equal": true
+        },
+        {
+          "index": 4,
+          "source_crop": [
+            1388,
+            256,
+            1720,
+            548
+          ],
+          "source_integer_dx": 9,
+          "opaque_pixels": 456,
+          "left_right_equal": true
+        },
+        {
+          "index": 5,
+          "source_crop": [
+            1720,
+            256,
+            2032,
+            548
+          ],
+          "source_integer_dx": -4,
+          "opaque_pixels": 354,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_effects `tft_zippy_r_hit`（大表，跟随被砸中的人，z 4；左右对称）",
+      "sha256_1x": "1bcd7c064c1822d6af5c44f0210f43bf7a1185e655df4f10b17d774305367757"
+    },
+    {
+      "name": "p_guild",
+      "file": "zippy_fx_p_guild.png",
+      "pixel_1x": "pixel_1x/zippy_fx_p_guild.png",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        8
+      ],
+      "sheet_1x": [
+        180,
+        8
+      ],
+      "sheet_8x": [
+        1440,
+        64
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": true,
+      "palette": [
+        "#FFF4C2",
+        "#FFD24A",
+        "#E39A1A",
+        "#9A5A0E"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            332,
+            362,
+            540
+          ],
+          "source_integer_dx": -10,
+          "opaque_pixels": 60,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            362,
+            332,
+            697,
+            540
+          ],
+          "source_integer_dx": 7,
+          "opaque_pixels": 72,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            697,
+            332,
+            1040,
+            540
+          ],
+          "source_integer_dx": 5,
+          "opaque_pixels": 74,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1040,
+            332,
+            1408,
+            540
+          ],
+          "source_integer_dx": 7,
+          "opaque_pixels": 84,
+          "left_right_equal": true
+        },
+        {
+          "index": 4,
+          "source_crop": [
+            1408,
+            332,
+            1740,
+            540
+          ],
+          "source_integer_dx": 4,
+          "opaque_pixels": 74,
+          "left_right_equal": true
+        },
+        {
+          "index": 5,
+          "source_crop": [
+            1740,
+            332,
+            2103,
+            540
+          ],
+          "source_integer_dx": 22,
+          "opaque_pixels": 62,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_buffs `tft_zippy_p_guild`（跟随它，脚下地面，z 3；左右对称）",
+      "sha256_1x": "b4908f63511b942a00fa521d116b3c96ac95432ae15513d226328e6ce9f9ba19"
+    },
+    {
+      "name": "e_speed",
+      "file": "zippy_fx_e_speed.png",
+      "pixel_1x": "pixel_1x/zippy_fx_e_speed.png",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        14
+      ],
+      "sheet_1x": [
+        180,
+        14
+      ],
+      "sheet_8x": [
+        1440,
+        112
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": true,
+      "palette": [
+        "#FFC2E4",
+        "#FF6FB8",
+        "#E8288A",
+        "#A8135F",
+        "#5E0A36"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            289,
+            340,
+            462
+          ],
+          "source_integer_dx": 2,
+          "opaque_pixels": 82,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            340,
+            289,
+            702,
+            462
+          ],
+          "source_integer_dx": 4,
+          "opaque_pixels": 82,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            702,
+            289,
+            1050,
+            462
+          ],
+          "source_integer_dx": 5,
+          "opaque_pixels": 102,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1050,
+            289,
+            1399,
+            462
+          ],
+          "source_integer_dx": 5,
+          "opaque_pixels": 98,
+          "left_right_equal": true
+        },
+        {
+          "index": 4,
+          "source_crop": [
+            1399,
+            289,
+            1762,
+            462
+          ],
+          "source_integer_dx": 8,
+          "opaque_pixels": 72,
+          "left_right_equal": true
+        },
+        {
+          "index": 5,
+          "source_crop": [
+            1762,
+            289,
+            2103,
+            462
+          ],
+          "source_integer_dx": 11,
+          "opaque_pixels": 76,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_buffs `tft_zippy_e_speed`（跟随加速的友军，脚下，z 3；左右对称）",
+      "sha256_1x": "3f2156b9a7284d5d329aac6fa59cf65926f7ba61aa712f3793fc1fede9c80013"
+    },
+    {
+      "name": "r_shield",
+      "file": "zippy_fx_r_shield.png",
+      "pixel_1x": "pixel_1x/zippy_fx_r_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        44,
+        50
+      ],
+      "sheet_1x": [
+        264,
+        50
+      ],
+      "sheet_8x": [
+        2112,
+        400
+      ],
+      "symmetry": "left-right per frame; visible/brighter partner retained and mirrored",
+      "loop": true,
+      "palette": [
+        "#F2FCFF",
+        "#AEEBFF",
+        "#5CC6F0",
+        "#2A86C2",
+        "#FFC2E4",
+        "#FF6FB8",
+        "#E8288A",
+        "#A8135F",
+        "#5E0A36",
+        "#FFF4C2",
+        "#FFD24A",
+        "#E39A1A",
+        "#9A5A0E"
+      ],
+      "frames_readback": [
+        {
+          "index": 0,
+          "source_crop": [
+            0,
+            100,
+            366,
+            595
+          ],
+          "source_integer_dx": 2,
+          "opaque_pixels": 608,
+          "left_right_equal": true
+        },
+        {
+          "index": 1,
+          "source_crop": [
+            366,
+            100,
+            729,
+            595
+          ],
+          "source_integer_dx": 3,
+          "opaque_pixels": 580,
+          "left_right_equal": true
+        },
+        {
+          "index": 2,
+          "source_crop": [
+            729,
+            100,
+            1089,
+            595
+          ],
+          "source_integer_dx": 6,
+          "opaque_pixels": 678,
+          "left_right_equal": true
+        },
+        {
+          "index": 3,
+          "source_crop": [
+            1089,
+            100,
+            1442,
+            595
+          ],
+          "source_integer_dx": 2,
+          "opaque_pixels": 670,
+          "left_right_equal": true
+        },
+        {
+          "index": 4,
+          "source_crop": [
+            1442,
+            100,
+            1807,
+            595
+          ],
+          "source_integer_dx": 5,
+          "opaque_pixels": 668,
+          "left_right_equal": true
+        },
+        {
+          "index": 5,
+          "source_crop": [
+            1807,
+            100,
+            2172,
+            595
+          ],
+          "source_integer_dx": 6,
+          "opaque_pixels": 632,
+          "left_right_equal": true
+        }
+      ],
+      "binding": "view_buffs `tft_zippy_r_shield`（大表，跟随它，z 3；左右对称）",
+      "sha256_1x": "43572cb19a37cf5bf2bdce21126fbcad8e074c1d5442dc0a826dec6521895e88"
+    }
+  ],
+  "icons": [
+    {
+      "name": "skill",
+      "file": "zippy_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "logical_size": [
+        32,
+        32
+      ],
+      "pixel_scale": 2
+    },
+    {
+      "name": "skill2",
+      "file": "zippy_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "logical_size": [
+        32,
+        32
+      ],
+      "pixel_scale": 2
+    },
+    {
+      "name": "ult",
+      "file": "zippy_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "logical_size": [
+        32,
+        32
+      ],
+      "pixel_scale": 2
+    }
+  ]
+}

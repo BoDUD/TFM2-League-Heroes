@@ -192,5 +192,6 @@
   "tft_daeja": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "tft_shiohyu": {"idle": [["attack3", [1]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "tft_syfen": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
-  "tft_sohm": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "skill2", "ult"]}
+  "tft_sohm": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
+  "tft_zippy": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "skill2", "ult"]}
 }

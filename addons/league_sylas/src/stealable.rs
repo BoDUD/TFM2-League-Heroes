@@ -175,4 +175,5 @@ pub const STEALABLE: &[&str] = &[
     "tft_syfen",
     "tft_vander",
     "tft_violet",
+    "tft_zippy",
 ];

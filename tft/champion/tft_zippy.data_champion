@@ -1,0 +1,405 @@
+{
+  "id": "tft_zippy",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "CC",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_zippy:guild",
+    "params": {
+      "p_r": 50000,
+      "p_def": 10,
+      "p_max": 4,
+      "r_range": 70000,
+      "r_speed": 4000,
+      "r_t": 20,
+      "r_dmg": 80,
+      "r_ad": 220,
+      "r_stun": 90,
+      "r_kb": 1500,
+      "r_kb_t": 8
+    }
+  },
+  "sprite": "asset/tft/champions/tft_zippy",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_zippy_skill",
+    "asset/tft/icons/tft_zippy_skill2",
+    "asset/tft/icons/tft_zippy_ult"
+  ],
+  "stat": {
+    "attack": 78,
+    "magic_power": 0,
+    "hp": 1020,
+    "defence": 38,
+    "magic_resistance": 30,
+    "move_speed": 1070,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 13,
+    "magic_power": 0,
+    "hp": 106,
+    "defence": 7,
+    "magic_resistance": 5,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_zippy.attack",
+    "duration": 30,
+    "cooltime": 58,
+    "start_timing": 12,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_zippy_a"
+        },
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "tft_zippy_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "tft_zippy_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_zippy.skill",
+    "duration": 40,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_zippy_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 30,
+              "attack_ratio": 140,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "Airborne",
+              "duration": 40
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_zippy_q_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_zippy_q_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_zippy.skill2",
+    "duration": 30,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_zippy_e"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_zippy_e_speed"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 50000
+            }
+          },
+          "target": "AllyChampion",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_zippy_e_speed",
+                "duration": {
+                  "Time": {
+                    "tick": 150
+                  }
+                },
+                "move_speed_mult": 20
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_zippy_e_roll"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_zippy_e"
+            },
+            {
+              "type": "RushTime",
+              "speed": 3500,
+              "tick": 14,
+              "range": 1000,
+              "casting_target": "EnemyWithoutTower",
+              "penetrate": true,
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 40,
+                    "attack_ratio": 80,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "tft_zippy_e_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "tft_zippy_e_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_zippy.ult",
+    "duration": 50,
+    "cooltime": 2400,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_zippy_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_zippy_r_vo"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_zippy_r_shield"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 120,
+              "attack_ratio": 100,
+              "ap_ratio": 0,
+              "tick": 120
+            }
+          ]
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_zippy_r_shield",
+            "duration": {
+              "Time": {
+                "tick": 120
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_zippy_r_on",
+            "duration": {
+              "Time": {
+                "tick": 32
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_zippy_r_spin"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_zippy_r"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_zippy:leap"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_zippy_a_hit",
+      "anim": "asset/tft/effects/tft_zippy_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_zippy_q_hit",
+      "anim": "asset/tft/effects/tft_zippy_fx",
+      "tag": "q_hit",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_zippy_e",
+      "anim": "asset/tft/effects/tft_zippy_fx",
+      "tag": "e",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_zippy_e_hit",
+      "anim": "asset/tft/effects/tft_zippy_fx",
+      "tag": "e_hit",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_zippy_r",
+      "anim": "asset/tft/effects/tft_zippy_fx",
+      "tag": "r",
+      "z": 1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_zippy_r_hit",
+      "anim": "asset/tft/effects/tft_zippy_big",
+      "tag": "r_hit",
+      "z": 4,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_zippy_p_guild",
+      "anim": "asset/tft/effects/tft_zippy_fx",
+      "tag": "p_guild",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_zippy_e_speed",
+      "anim": "asset/tft/effects/tft_zippy_fx",
+      "tag": "e_speed",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_zippy_r_shield",
+      "anim": "asset/tft/effects/tft_zippy_big",
+      "tag": "r_shield",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+[
+  {
+    "name": "a_hit",
+    "kind": "fx",
+    "raw_size": [
+      2079,
+      756
+    ],
+    "bbox_alpha128": [
+      108,
+      188,
+      2057,
+      576
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "fbc0ae7e369ec2ae35fe57199502f76474010aaee1236ed958fec45d7e41663b"
+  },
+  {
+    "name": "q_hit",
+    "kind": "fx",
+    "raw_size": [
+      1983,
+      793
+    ],
+    "bbox_alpha128": [
+      32,
+      74,
+      1942,
+      695
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "04223fbf25eefc2b3b6e48ef446d1598527992d64f7c77b1fef4015eeb37c0ae"
+  },
+  {
+    "name": "e",
+    "kind": "fx",
+    "raw_size": [
+      2172,
+      724
+    ],
+    "bbox_alpha128": [
+      192,
+      288,
+      2137,
+      503
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "c53c9343cdd63ad68a14ed75391a10c474eb5a5da81a46b18606b172a4138aae"
+  },
+  {
+    "name": "e_hit",
+    "kind": "fx",
+    "raw_size": [
+      2172,
+      724
+    ],
+    "bbox_alpha128": [
+      127,
+      121,
+      2096,
+      603
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "551836baf4bcf697bc4bf4e6605f9eb36bfa15a5c004af89a240348987c3b99a"
+  },
+  {
+    "name": "r",
+    "kind": "fx",
+    "raw_size": [
+      1828,
+      860
+    ],
+    "bbox_alpha128": [
+      73,
+      278,
+      1795,
+      549
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "614b8b2d00e8754638f2b81b69b998d87d6d948e54444b33af788ec17ae6c1ae"
+  },
+  {
+    "name": "r_hit",
+    "kind": "fx",
+    "raw_size": [
+      2032,
+      774
+    ],
+    "bbox_alpha128": [
+      58,
+      263,
+      2026,
+      541
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "73cb05362b95c28266becf556e476974511a251adce3a386f74ac4f6d9087940"
+  },
+  {
+    "name": "p_guild",
+    "kind": "fx",
+    "raw_size": [
+      2103,
+      748
+    ],
+    "bbox_alpha128": [
+      57,
+      358,
+      2046,
+      514
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "bfae07a0a09cf31cc3c5588169a56e5eeb2469eeb2d83ef87de17c2236b111ad"
+  },
+  {
+    "name": "e_speed",
+    "kind": "fx",
+    "raw_size": [
+      2103,
+      748
+    ],
+    "bbox_alpha128": [
+      35,
+      320,
+      2064,
+      431
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "598415da19b2ad15a1e0c5ffeef7f30836f97e7798109c52cdfe5e7eee53b9c0"
+  },
+  {
+    "name": "r_shield",
+    "kind": "fx",
+    "raw_size": [
+      2172,
+      724
+    ],
+    "bbox_alpha128": [
+      22,
+      120,
+      2150,
+      575
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "29ee0eaf9dc262bd76d87c7008ef5387c848fd41a1ae6b31b2c446ee964c6222"
+  },
+  {
+    "name": "skill",
+    "kind": "icon",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "raw_alpha_levels": 1,
+    "raw_sha256": "317fc11730ee4bc8fc10200a7de16566138a5a207da5d70e88628fedffffac62"
+  },
+  {
+    "name": "skill2",
+    "kind": "icon",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "raw_alpha_levels": 1,
+    "raw_sha256": "d4be7911db0f569e25b0f8e0dae3645bc48b325a664f1851663a408e82caabeb"
+  },
+  {
+    "name": "ult",
+    "kind": "icon",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      0,
+      0,
+      1254,
+      1254
+    ],
+    "raw_alpha_levels": 1,
+    "raw_sha256": "f626ff3ab2a177d21bc2f3537d2d5c2d854fd48fc9797c447487f2e28cbfae7e"
+  }
+]
