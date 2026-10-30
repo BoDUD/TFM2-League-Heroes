@@ -20,8 +20,8 @@ from PIL import Image, ImageDraw
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
-import casts_rengar_hd as CR  # noqa: E402
 import casts_briar_hd as CS  # noqa: E402
+import casts_rengar_hd as CR  # noqa: E402
 
 TAGS = ["idle_base", "run", "attack", "skill", "skill2", "skill2_scream", "ult", "ult_fly", "ult_land", "hit", "dead",
         "attack_fx1"]
