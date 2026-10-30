@@ -157,7 +157,7 @@ impl StablePlayerAi for Sow {
             }
             let (id, team, at) = (e.id(), e.team(), pt(&e));
             let tick = sim.tick();
-            let field = field_of(&sim, player);
+            let field = field_of(&sim, player, id);
             if let Some((t0, s)) = self.pressed {
                 if field.iter().any(|f| f.planted >= t0 && dist(f.at, s) <= SOWN_R) {
                     if let Some(n) = tally(&sim, "sown") {

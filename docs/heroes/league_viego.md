@@ -55,7 +55,7 @@
 
 ### 佛耶戈「君命已决」附加包
 
-[佛耶戈「君命已决」附加包](../../addons/league_viego_soul/README.md)：`league_viego_soul` v0.2.33
+[佛耶戈「君命已决」附加包](../../addons/league_viego_soul/README.md)：`league_viego_soul` v0.2.34
 
 |  | 主包（纯数据） | 装了附加包（照英雄联盟） |
 |---|---|---|
@@ -66,7 +66,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.5.5（通用附加包，下面只列和佛耶戈有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.5.6（通用附加包，下面只列和佛耶戈有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

@@ -11,8 +11,11 @@
 
 /// 连续这么多 tick 有强制位移算卡住（W 6、R 12、附身扑向灵魂最多 23、被击退 30 以内）。
 pub const FORCE_MAX: usize = 90;
-/// 连续这么多 tick 在施法动作里算卡住（W 46、R 36）。
+/// 连续这么多 tick 在施法动作里算卡住（W 46、R 36）。守护天使的复活（`STASIS`，241 tick 的施法动作）和放逐（不可选中）
+/// 不算（2026-10-30 的日志：590 次 STUCK 全是这两种，把复活截短、把莫德凯撒的领域解开）。
 pub const ANIM_MAX: usize = 240;
+/// 游戏的守护天使复活时挂的 buff。
+pub const STASIS: &str = "guardian_angel_stasis";
 /// 敌方英雄在这么近、他这么多 tick 没动也没出手算卡住。
 pub const STILL_MAX: usize = 300;
 pub const NEAR: f64 = 50_000.0;

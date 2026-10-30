@@ -23,8 +23,10 @@
 //!   普攻出手时给目标挂 `MF_ASK`，2 tick 后读 `MF_NEW` 决定开哪种枪；本包记住她上一枪的目标，换了人（或上一个死了）就挂
 //!   `MF_NEW`。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_marks.log`。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_marks.log`；你看的那场全记，服务端预模拟每种前 `LOG_FIRST`
+//! 行、之后每 `LOG_EVERY` 行记一行（按整个启动数，不在被动实例里数：每场预模拟都是新的实例）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -88,6 +90,26 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// A kind of line in the server's presims (hundreds of runs a launch): the first LOG_FIRST, then every LOG_EVERY-th.
+/// Counted for the whole launch: a cap in the passive (`self.n <= 80`) started over in every presim's new instance
+/// (10-30: 2.5 MB a launch, MF LOVE TAP 16k lines, DIANA E 11k).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of a kind: its count when it is to be logged - every one in the match on screen (watched, spectated or
+/// replayed), the presims' the first LOG_FIRST, then every LOG_EVERY-th.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (on_screen || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
 fn head(sim: &StableSim<'_>, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
@@ -129,7 +151,9 @@ impl StablePassive for Diana {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Diana (player {player})", head(sim, me)));
+        if tally(sim, "diana_spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Diana (player {player})", head(sim, me)));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -146,7 +170,7 @@ impl StablePassive for Diana {
                     sim.entity_remove_buff(lit, DIANA_MOON);
                 }
             }
-            if self.asked <= 80 {
+            if tally(sim, "diana_e").is_some() {
                 wlog(format!("{} DIANA E #{} on #{target}: {} ({} of {} moonlit)", head(sim, me), self.asked,
                              if moonlit { "moonlit, dash again" } else { "no moonlight" }, self.yes, self.asked));
             }
@@ -244,7 +268,9 @@ impl StablePassive for Kennen {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Kennen (player {player})", head(sim, me)));
+        if tally(sim, "kennen_spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Kennen (player {player})", head(sim, me)));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -265,7 +291,7 @@ impl StablePassive for Kennen {
                 self.stunned.push((target, now));
                 view(sim, me, target, "league_kennen_k_stun", true);
                 self.n += 1;
-                if self.n <= 80 {
+                if tally(sim, "kennen_stun").is_some() {
                     wlog(format!("{} KENNEN STUN #{} on #{target}: {ticks} ticks", head(sim, me), self.n));
                 }
             } else {
@@ -292,7 +318,9 @@ impl StablePassive for Kaisa {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Kai'Sa (player {player}), {:?}", head(sim, me), self.p));
+        if tally(sim, "kaisa_spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Kai'Sa (player {player}), {:?}", head(sim, me), self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -321,7 +349,7 @@ impl StablePassive for Kaisa {
                 sim.deal_damage_typed(me, target, d, DamageTypeV1::Fixed, AttackTypeV1::BaseAttack);
                 view(sim, me, target, "league_kaisa_p_burst", true);
                 self.pops += 1;
-                if self.pops <= 80 {
+                if tally(sim, "kaisa_pop").is_some() {
                     wlog(format!("{} KAISA POP #{} on #{target}: {d} true", head(sim, me), self.pops));
                 }
             } else {
@@ -347,7 +375,9 @@ impl StablePassive for Lux {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Lux (player {player}), {:?}", head(sim, me), self.p));
+        if tally(sim, "lux_spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Lux (player {player}), {:?}", head(sim, me), self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -363,7 +393,7 @@ impl StablePassive for Lux {
                 sim.play_view_effect("league_lux_ignite", me, &at, 0, 0, 0);
                 sim.play_sfx("league_lux_passive_hit", me, &at);
                 self.n += 1;
-                if self.n <= 80 {
+                if tally(sim, "lux").is_some() {
                     wlog(format!("{} LUX ILLUMINATION #{} on #{target}: {d} magic", head(sim, me), self.n));
                 }
             }
@@ -390,7 +420,9 @@ impl StablePassive for MissFortune {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.last = None;
-        wlog(format!("{} SPAWN: the add-on's Miss Fortune (player {player})", head(sim, me)));
+        if tally(sim, "mf_spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Miss Fortune (player {player})", head(sim, me)));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -406,7 +438,7 @@ impl StablePassive for MissFortune {
                 sim.entity_remove_buff(me, MF_NEW);
                 sim.add_buff(me, &BuffV1::timed(MF_NEW, ANSWER));
             }
-            if new && self.taps <= 60 {
+            if new && tally(sim, "mf_tap").is_some() {
                 wlog(format!("{} MF LOVE TAP #{} on #{target} ({} of {} shots)", head(sim, me), self.taps, self.taps,
                              self.shots));
             }

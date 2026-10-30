@@ -22,7 +22,9 @@
 //! 马上读生命读不到变化；击杀、助攻计数在单位死亡结算的那一步里加（和击杀记录、团队比分同一处），被动每 tick 读，及时救难的
 //! w_doom tick 来得及。
 //!
-//! 被动在玩家身上、每份模拟各一份，她死了也照样每 tick 跑（救难、狂暴不因她阵亡停下）。日志：
+//! 被动在玩家身上、每份模拟各一份。她死了被动就不再每 tick 跑（2026-10-30 的日志：DEAD 之后到她复活那一 tick 一行都没有），
+//! 所以及时救难在她阵亡时当场了结（`on_dead`）：还只是护着的，buff 自己到时间；已经在流失的，被救后参与过击杀就保住，没参与就
+//! 当场阵亡（以前会冻住：队友白拿着回满的血，等她复活那一刻才被判死，算在身边的小兵头上）。狂暴的挥打同样停到她复活。日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_renata.log`，每次启动游戏重写，上一次的留在 .prev.log：`POP`、`BAILOUT`、
 //! `REVIVE`、`SAVED`、`DOOMED`、`LASH`，都限了条数。
 
@@ -36,7 +38,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_renata";
 /// Written out (in the bundle `env!("CARGO_PKG_VERSION")` would be league_addons').
-const VERSION: &str = "0.1.2";
+const VERSION: &str = "0.1.3";
 /// 物尽其用的印记（主包数据：她打中敌方英雄时挂上）。
 pub const MARK: &str = "league_renata_p_mark";
 /// 及时救难（主包数据的 buff 名：画面绑在它上面）。
@@ -46,6 +48,8 @@ pub const BERSERK: &str = "league_renata_r_berserk";
 
 /// 每隔几 tick 看一次要不要放 W（主包的看守也是 15）。
 const WATCH: usize = 15;
+/// 流失结束这么多 tick 后才看到它：中间没跑（她阵亡时被动停了），只撤掉，不判死。
+const STALE: usize = 30;
 /// 队友出手（冷却跳起）后多少 tick 算打中：普攻的前摇加飞行。
 const POP_WAIT: usize = 10;
 /// 普攻：他身边这么远内最近的敌方单位就是他打的；技能：这么远内带印记的敌方英雄。
@@ -567,6 +571,13 @@ impl Glasc {
                 }
                 Some(b)
             }
+            Some((until, _, _)) if now > until + STALE => {
+                // missed ticks (her passive was not run): over long ago, never a kill out of nowhere
+                sim.entity_remove_buff(b.ally, W_BUFF);
+                wlog(format!("{} BAILOUT on {} dropped: its drain ended {} ticks ago", head(sim, me), who(sim, b.ally),
+                             now - until));
+                None
+            }
             Some((until, td, full)) => {
                 let now_td = takedowns(sim, b.ally).map_or(0, |t| t.1);
                 if now_td > td {
@@ -593,6 +604,39 @@ impl Glasc {
                 sim.entity_set_hp(b.ally, hp.saturating_sub(drain_step(full, self.p.w_doom)).max(1));
                 Some(b)
             }
+        }
+    }
+
+    /// 她阵亡：被动到她复活前不再跑，救难当场了结。还只是护着的，buff 自己到时间；在流失的，被救后参与过击杀就保住，没有就
+    /// 当场阵亡。
+    fn bail_ends_with_her(&mut self, sim: &mut StableSim<'_>, me: Option<usize>) {
+        let Some(b) = self.bail.take() else { return };
+        let Some((alive, at, team, hp)) = sim.get_entity(b.ally).map(|a| (a.is_alive(), fpos(a.pos()), a.team(), a.hp().0))
+        else {
+            return;
+        };
+        let line = me.map_or_else(|| format!("[t={}]", sim.tick()), |m| head(sim, m));
+        if !alive {
+            return;
+        }
+        let Some((_, td, _)) = b.doom else {
+            if let Some(k) = counted("unused") {
+                wlog(format!("{line} BAILOUT #{k} on {}: Renata died, the buff runs out by itself", who(sim, b.ally)));
+            }
+            return;
+        };
+        sim.entity_remove_buff(b.ally, W_BUFF);
+        if takedowns(sim, b.ally).map_or(0, |t| t.1) > td {
+            if let Some(k) = counted("saved") {
+                wlog(format!("{line} SAVED #{k}: {} scored a takedown, keeps {hp} (Renata died)", who(sim, b.ally)));
+            }
+            return;
+        }
+        let killer = doom_killer(sim, team, at, 200000.0).unwrap_or(b.ally);
+        let dealt = sim.deal_damage_typed(killer, b.ally, hp + 1000, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+        if let Some(k) = counted("doomed") {
+            wlog(format!("{line} DOOMED #{k}: {} got no takedown, killed by {} (Renata died){}", who(sim, b.ally),
+                         who(sim, killer), if dealt { "" } else { " (refused)" }));
         }
     }
 
@@ -659,6 +703,11 @@ impl StablePassive for Glasc {
         self.ally_hits(sim, me, team, now);
         self.bailout(sim, me, team, now);
         self.berserk(sim, me, team, now);
+    }
+
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
+        let me = sim.get_player(player).and_then(|p| p.champion()).map(|e| e.id());
+        self.bail_ends_with_her(sim, me);
     }
 }
 

@@ -5,7 +5,8 @@
 //!
 //! - **什么时候放（智能）**：墙好了（冷却 `CD`，`MIN_LEVEL` 级起），亚索没被硬控，而且敌方英雄的飞行物正朝亚索或 `GUARD_R`
 //!   内的队友飞来、`NEAR`–`FAR` 之内就要打到：这样的飞行物 ≥ `MANY` 个，或者有一个是冲着生命不高于 `LOW`% 的人去的，才放。
-//!   飞行物的方向由它这一 tick 和上一 tick 的位置算（按施放者配对）。
+//!   飞行物的方向由它这一 tick 和上一 tick 的位置算（按施放者配对）；同一个施放者 `TWIN_R` 内的两个算一次攻击（普攻和它只打
+//!   英雄的那份，0.1.1）。
 //! - **放在哪**：亚索身前 `AHEAD`，朝着来袭飞行物的平均方向，墙和这个方向垂直，长 2 × `HALF`，中间往敌人那边鼓 `BOW`
 //!   （英雄联盟的弧形墙），`LIFE` tick。
 //! - **画面像英雄联盟**（用户：「跟着方向转有点奇怪啊风墙 做成像英雄联盟那样啊」）：墙脚是地上的一条线，跟着墙的方向；风永远
@@ -13,8 +14,10 @@
 //!   从上到下）一段段摆开，墙脚每 `DOT` 放一个地上的小点；出手时他脚下卷起一阵风（`CAST_PIC`），挡住飞行物的地方一道青白的
 //!   光（`BLOCK_PIC`），墙到时间在第 1、3、5 段散开（`FADE_PIC`）。
 //! - **挡住**：敌方英雄的飞行物这一 tick 从墙的这一边穿到那一边，就算被挡：在穿过的地方播挡住的画面。引擎删不掉飞行物，
-//!   所以之后它打到的友方英雄（它经过的路线 `HIT_R` 内、这一 tick 掉了血的）把这一下的伤害补回去（`heal`），这一 tick 新挂上的
-//!   控制也清掉（`entity_clear_cc`）。塔的炮弹不挡（英雄联盟也不挡）。
+//!   所以之后它打到的友方英雄（它经过的路线 `HIT_R` 内、这一 tick 掉了血的）把这一下的伤害补回去（把生命设回去
+//!   `entity_set_hp`：不是治疗，不冒绿字、不受重伤影响），这一 tick 新挂上的控制也清掉（`entity_clear_cc`）。飞行物不见了（打中了
+//!   人）以后再看 `LINGER` tick、按它最后一步往前一段（伤害那一 tick 或下一 tick 才扣），每个只补一次（0.1.1：以前不见了就不再看，
+//!   2026-10-30 挡了约 450 个只补回 4 次）。塔的炮弹不挡（英雄联盟也不挡）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yasuo_wall.log`。
 
@@ -41,6 +44,12 @@ pub const FAR: f64 = 32_000.0;
 pub const MANY: usize = 2;
 pub const LOW: usize = 40;
 pub const HIT_R: f64 = 12_000.0;
+/// Two missiles of one caster this close are one attack (an attack and its champion-only twin).
+pub const TWIN_R: f64 = 2_000.0;
+/// A stopped missile that vanished (it hit someone) is watched this many ticks more, one step on from where it was last:
+/// its damage shows that tick or the next, often past `HIT_R` from its last tracked point (2026-10-30: 4 of 450 blocked
+/// missiles given back while they were only watched until they vanished).
+pub const LINGER: usize = 3;
 /// 上一 tick 和这一 tick 的同一个飞行物最多差这么远（最快的飞行物每 tick 约 20000）。
 pub const MATCH_R: f64 = 30_000.0;
 /// 墙的画面：`PIECE_PIC` + 段号（`plume_0`..`plume_6`），墙脚的小点。
@@ -205,9 +214,18 @@ pub fn aimed_at(m: &Missile, guarded: &[Guarded]) -> Option<Guarded> {
 }
 
 /// Raise the wall now? Where (its middle, the direction the missiles come from, unit): from the missiles aimed at the
-/// guarded ones round Yasuo at `me`.
+/// guarded ones round Yasuo at `me`. Two missiles of one caster within `TWIN_R` are one attack (an attack and its
+/// champion-only twin): counted twice, a single auto attack was `MANY` (2026-10-30: 117 blocked pairs on one tick and
+/// spot, 121 of 180 walls before minute 10).
 pub fn plan(me: Pt, missiles: &[Missile], guarded: &[Guarded]) -> Option<(Pt, Pt, usize)> {
-    let threats: Vec<(Missile, Guarded)> = missiles.iter().filter_map(|m| aimed_at(m, guarded).map(|g| (*m, g))).collect();
+    let mut threats: Vec<(Missile, Guarded)> = Vec::new();
+    for m in missiles {
+        let Some(g) = aimed_at(m, guarded) else { continue };
+        if threats.iter().any(|(t, _)| t.caster == m.caster && len(sub(t.at, m.at)) <= TWIN_R) {
+            continue;
+        }
+        threats.push((*m, g));
+    }
     let low = threats.iter().any(|(_, g)| g.share * 100 <= LOW * 1000);
     if threats.len() < MANY && !low {
         return None;
@@ -251,12 +269,21 @@ struct Wall {
     until: usize,
 }
 
+/// 被墙挡住的飞行物：施放者、最后的位置、最后一步、不见了的 tick（还在飞时 None）。
+#[derive(Clone, Copy, Debug)]
+struct Stopped {
+    caster: usize,
+    last: Pt,
+    step: Pt,
+    gone: Option<usize>,
+}
+
 #[derive(Clone, Default)]
 struct WallPassive {
     /// 上一 tick 敌方英雄的飞行物（施放者、位置）。
     prev: Vec<(usize, Pt)>,
-    /// 被墙挡住、还在飞的飞行物（施放者、位置）。
-    blocked: Vec<(usize, Pt)>,
+    /// 被墙挡住的飞行物（还在飞的，和不见了 `LINGER` tick 内的）。
+    blocked: Vec<Stopped>,
     wall: Option<Wall>,
     ready_at: usize,
     /// 上一 tick 友方英雄的生命和控制数。
@@ -333,11 +360,11 @@ impl StablePassive for WallPassive {
         if let Some(w) = self.wall {
             let pl = line(w.mid, w.dir);
             for m in &missiles {
-                if self.blocked.iter().any(|q| q.0 == m.caster && len(sub(q.1, m.from)) < 1.0) {
+                if self.blocked.iter().any(|q| q.gone.is_none() && q.caster == m.caster && len(sub(q.last, m.from)) < 1.0) {
                     continue;
                 }
                 if let Some(p) = pl.windows(2).find_map(|s| crossing(m.from, m.at, s[0], s[1])) {
-                    newly.push((m.caster, m.at, p));
+                    newly.push((m.caster, m.from, m.at, p));
                 }
             }
             if tick >= w.until {
@@ -349,49 +376,59 @@ impl StablePassive for WallPassive {
                 self.wall = None;
             }
         }
-        for (c, now_at, p) in newly {
+        for (c, from, now_at, p) in newly {
             let (x, y) = upos(p);
             sim.play_view_effect(BLOCK_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
             self.stops += 1;
             if self.stops <= 120 {
                 wlog(format!("{} BLOCKED #{}: a missile of #{c} at ({:.0}, {:.0})", head(sim, me), self.stops, p.0, p.1));
             }
-            self.blocked.push((c, now_at));
+            self.blocked.push(Stopped { caster: c, last: now_at, step: sub(now_at, from), gone: None });
         }
-        // the blocked ones' paths this tick (still flying: from -> at; gone: where they were last)
-        let mut paths: Vec<(Pt, Pt)> = Vec::new();
+        // the blocked ones' paths this tick (still flying: from -> at; gone: one step on from where they were last, for
+        // LINGER ticks - the hit shows that tick or the next)
+        let mut paths: Vec<(Pt, Pt, bool)> = Vec::new();
         let mut still = Vec::new();
-        for &(c, last) in &self.blocked {
-            match missiles.iter().find(|m| m.caster == c && len(sub(m.from, last)) < 1.0) {
-                Some(m) => {
-                    paths.push((m.from, m.at));
-                    still.push((c, m.at));
+        for s in std::mem::take(&mut self.blocked) {
+            if s.gone.is_none() {
+                if let Some(m) = missiles.iter().find(|m| m.caster == s.caster && len(sub(m.from, s.last)) < 1.0) {
+                    paths.push((m.from, m.at, false));
+                    still.push(Stopped { last: m.at, step: sub(m.at, m.from), ..s });
+                    continue;
                 }
-                None => paths.push((last, last)),
+            }
+            let gone = s.gone.unwrap_or(tick);
+            if tick < gone + LINGER {
+                paths.push((s.last, add(s.last, s.step), true));
+                still.push(Stopped { gone: Some(gone), ..s });
             }
         }
-        self.blocked = still;
-        // the damage and the new crowd control they did to allies: undone
+        // the damage and the new crowd control they did to allies: undone - the health set back (a refund for damage the
+        // wall stopped, not a heal: no green number, no grievous wounds; champion-data.md), a vanished one once
+        let mut spent = vec![false; still.len()];
         let mut seen = HashMap::new();
-        for &(id, t, p, (h, _), cc) in champs.iter().filter(|c| c.1 == team) {
+        for &(id, _, p, (h, max), cc) in champs.iter().filter(|c| c.1 == team) {
             if let Some(&(h0, cc0)) = self.seen.get(&id) {
                 let lost = h0.saturating_sub(h);
-                let near = paths.iter().any(|(a, b)| seg_dist(p, *a, *b) <= HIT_R);
-                if lost > 0 && near {
-                    sim.heal(me, id, lost);
+                let near = paths.iter().enumerate()
+                    .find(|(i, (a, b, gone))| !(*gone && spent[*i]) && seg_dist(p, *a, *b) <= HIT_R).map(|(i, x)| (i, x.2));
+                if let (true, Some((i, gone))) = (lost > 0, near) {
+                    spent[i] = gone;
+                    sim.entity_set_hp(id, (h + lost).min(max));
                     if cc > cc0 {
                         sim.entity_clear_cc(id);
                     }
                     self.saved += lost;
                     if self.stops <= 120 {
-                        wlog(format!("{} SAVED #{id}: {lost} damage given back{}", head(sim, me),
+                        wlog(format!("{} SAVED #{id}: {lost} damage given back{}{}", head(sim, me),
+                                     if gone { " (it had vanished)" } else { "" },
                                      if cc > cc0 { ", crowd control cleared" } else { "" }));
                     }
                 }
             }
-            let _ = t;
             seen.insert(id, (h, cc));
         }
+        self.blocked = still.into_iter().zip(spent).filter(|(s, used)| !(*used && s.gone.is_some())).map(|(s, _)| s).collect();
         self.seen = seen;
         self.prev = now;
         // when to raise it
@@ -460,7 +497,11 @@ mod tests {
         let at_me = Missile { caster: 5, from: (-30_000.0, 0.0), at: (-20_000.0, 0.0) };
         let away = Missile { caster: 6, from: (-20_000.0, 0.0), at: (-30_000.0, 0.0) };
         assert_eq!(plan(me, &[at_me, away], &g), None);
-        let (mid, dir, n) = plan(me, &[at_me, at_me], &g).unwrap();
+        // an attack and its champion-only twin are one attack: no wall
+        let twin = Missile { at: (-20_000.0, 500.0), ..at_me };
+        assert_eq!(plan(me, &[at_me, twin], &g), None);
+        let other = Missile { caster: 7, ..at_me };
+        let (mid, dir, n) = plan(me, &[at_me, twin, other], &g).unwrap();
         assert_eq!(n, 2);
         assert!(dir.0 < -0.99 && (mid.0 + AHEAD).abs() < 1e-6);
         let at_low = Missile { caster: 5, from: (-20_000.0, 10_000.0), at: (-15_000.0, 10_000.0) };

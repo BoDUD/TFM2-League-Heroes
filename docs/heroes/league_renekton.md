@@ -55,7 +55,7 @@
 
 ### 雷克顿低血怒气附加包
 
-[雷克顿低血怒气附加包](../../addons/league_renekton/README.md)：`league_renekton` v0.1.1
+[雷克顿低血怒气附加包](../../addons/league_renekton/README.md)：`league_renekton` v0.1.2
 
 主包 `league` 保持纯数据。数据读不到当前生命，所以主包雷克顿的被动「怒之领域」只做了怒气本身：普攻和技能命中积攒怒气
 （雷克顿身上的一条阶梯，最多 5 层，8 秒没积攒就清空），满层时下一个技能被强化并耗尽怒气。英雄联盟里**生命低于一半时怒气获取

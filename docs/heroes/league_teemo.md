@@ -55,7 +55,7 @@
 
 ### 提莫蘑菇附加包
 
-[提莫蘑菇附加包](../../addons/league_teemo_shrooms/README.md)：`league_teemo_shrooms` v0.2.0
+[提莫蘑菇附加包](../../addons/league_teemo_shrooms/README.md)：`league_teemo_shrooms` v0.2.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

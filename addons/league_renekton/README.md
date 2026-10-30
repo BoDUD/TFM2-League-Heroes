@@ -19,8 +19,8 @@
 4. 选人界面雷克顿普攻的说明开头是「【低血怒气测试版】」就说明换上了。
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_renekton.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `SPAWN: the add-on's Renekton (player 0, team 0), Params { … }`：这局的雷克顿是附加包的副本；
-   - `ANGER #3: hp 41%, Fury 2 -> 3`：低血时多给的一阶（前 8 次和之后每 50 次记一行）；
-   - `WATCH: Fury 4, hp 63%, gains 120 extra 9`：每 30 秒一行，到现在积攒了几次、低血多给了几次。
+   - `ANGER #3: hp 41%, Fury 2 -> 3`：低血时多给的一阶（屏幕上那局每次都记；服务器预模拟一次启动先记 40 次，之后每 100 次
+     记一行）。以前每 30 秒一行的 `WATCH` 已删：它要看的问题 2026-10-30 的日志已经回答（见下）。
 
 ## 开发
 
@@ -29,4 +29,5 @@
 - 在 `addons/` 下 `cargo test --release -p league_renekton`：单元测试（参数、低血时每 2 次多一阶、耗尽 / 清空 / 回血后重数、不超过满层、
   buff 名字）。
 - 在 `addons/` 下 `cargo build --release -p league_renekton`（Windows）得到 `target/release/league_renekton.dll`；`league_addons` 合集也会编进本包。
-- 经典 SDK 的模拟器跑不了原生代码，还没在游戏里看过日志。
+- 经典 SDK 的模拟器跑不了原生代码。游戏里的日志 2026-10-31 看过（10-30 两次启动）：279 次 `ANGER` 都在生命 50% 以下（两行显示
+  50% 是四舍五入），怒气只从 2→3、3→4、4→5 多给。

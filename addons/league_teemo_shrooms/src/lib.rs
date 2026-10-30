@@ -14,15 +14,17 @@
 //!   脚下扔。AI 钩子 `league_teemo_shrooms:sow`（`src/sow.rs`）在他没在打架、R 有多余充能时替 AI 把 R 按在身边最近的草丛里；
 //!   草丛格子由读图钩子读地图文档的 `bushes`（奈德丽附加包的 `bush.rs`），他埋着的蘑菇由被动每 tick 记进 `FIELDS` 给钩子看。
 //!
-//! 落点经 `PLANTED`（按对局记）交给被动：同一时间可能跑着几份模拟（预模拟、观看），各记各的。
+//! 落点经 `PLANTED` 交给被动、埋着的蘑菇经 `FIELDS` 给钩子：同一时间跑着几份模拟（服务器同一局两份预模拟并排跑，种子、局、
+//! 实体编号都一样；还有观看），按每份模拟的编号（`SIM_TAG`，被动出生时挂在他身上）各记各的。0.2.1：以前按种子、来源、局记，
+//! 并排的两份预模拟互相拿走对方的蘑菇，有提莫的局两份预模拟就分了岔（2026-10-30 的日志）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_teemo_shrooms.log`。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
-use std::time::{Duration, Instant};
 
 use mod_api_stable::*;
 
@@ -115,41 +117,47 @@ fn head(sim: &StableSim<'_>, me: usize) -> String {
 
 // ===================== 落点 =====================
 
-/// Which simulation (and Teemo in it) a planted shroom belongs to.
-type Key = (u64, u32, u64, u64, usize);
+/// Each simulation's number: his passive draws one at his first spawn and hangs it on him at every spawn (buff
+/// `SIM_TAG<n>`, no stats, no picture; league_galio's way).
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_teemo_shrooms_sim:";
 
-fn key(sim: &StableSim<'_>, me: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+/// The simulation number hung on this unit (0: none).
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+            .unwrap_or(0)
+    })
 }
 
-/// Shrooms planted by the data and not yet taken by the passive: (simulation, x, y, when).
-static PLANTED: Mutex<Vec<(Key, f64, f64, Instant)>> = Mutex::new(Vec::new());
+/// Which simulation (and Teemo in it) a planted shroom belongs to.
+type Key = (u64, usize);
 
-/// Each Teemo's shrooms in the ground, by (seed, origin, match, set, player) - his entity changes with every life, the
-/// player does not: the passive writes them every tick, the sowing hook (sow.rs) reads them (new ones keep apart from
-/// them, and its own show up there).
-type FieldKey = (u64, u32, u64, u64, usize);
+/// Shrooms planted by the data and not yet taken by the passive (the next tick): (simulation, x, y). More than
+/// `MAX_PLANTED` (simulations that ended between a plant and its take): the older half goes.
+static PLANTED: Mutex<Vec<(Key, f64, f64)>> = Mutex::new(Vec::new());
+const MAX_PLANTED: usize = 4096;
+
+/// Each Teemo's shrooms in the ground, by (simulation, player) - his entity changes with every life, the player does
+/// not: the passive writes them every tick, the sowing hook (sow.rs) reads them (new ones keep apart from them, and its
+/// own show up there).
+type FieldKey = (u64, usize);
 static FIELDS: LazyLock<Mutex<HashMap<FieldKey, Vec<Shroom>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// More fields remembered than this (matches that ended): start over.
 const MAX_FIELDS: usize = 4096;
 
-fn field_key(sim: &StableSim<'_>, player: usize) -> FieldKey {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, player)
-}
-
-fn publish(sim: &StableSim<'_>, player: usize, field: &[Shroom]) {
+fn publish(sim_no: u64, player: usize, field: &[Shroom]) {
     let mut f = FIELDS.lock().unwrap_or_else(|e| e.into_inner());
     if f.len() > MAX_FIELDS {
         f.clear();
     }
-    f.insert(field_key(sim, player), field.to_vec());
+    f.insert((sim_no, player), field.to_vec());
 }
 
-/// The player's Teemo's shrooms in the ground (none before his passive has run).
-fn field_of(sim: &StableSim<'_>, player: usize) -> Vec<Shroom> {
-    FIELDS.lock().unwrap_or_else(|e| e.into_inner()).get(&field_key(sim, player)).cloned().unwrap_or_default()
+/// The player's Teemo's shrooms in the ground (`me`: his champion now; none before his passive has run).
+fn field_of(sim: &StableSim<'_>, player: usize, me: usize) -> Vec<Shroom> {
+    FIELDS.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim_no(sim, me), player)).cloned().unwrap_or_default()
 }
 
 struct Plant;
@@ -161,10 +169,12 @@ impl StableEffectType for Plant {
             _ => Some((input.x as f64, input.y as f64)),
         };
         let Some((x, y)) = at else { return };
-        let k = key(sim, caster);
+        let k = (sim_no(sim, caster), caster);
         let mut p = PLANTED.lock().unwrap_or_else(|e| e.into_inner());
-        p.retain(|q| q.3.elapsed() < Duration::from_secs(30)); // nobody took them: a simulation that has ended
-        p.push((k, x, y, Instant::now()));
+        if p.len() > MAX_PLANTED {
+            p.drain(..MAX_PLANTED / 2); // nobody took them: simulations that have ended
+        }
+        p.push((k, x, y));
     }
 }
 
@@ -215,6 +225,8 @@ struct Shrooms {
     poisoned: HashMap<usize, (usize, usize)>,
     planted: usize,
     booms: usize,
+    /// 这份模拟的编号（`SIM_TAG`），他第一次出生时抽。
+    sim: u64,
 }
 
 impl StablePassive for Shrooms {
@@ -223,12 +235,18 @@ impl StablePassive for Shrooms {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
         wlog(format!("{} SPAWN: the add-on's Teemo (player {player}), {} shrooms in the ground", head(sim, me), self.field.len()));
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
         let tick = sim.tick();
-        let k = key(sim, me);
+        let k = (self.sim, me);
         let new: Vec<Pt> = {
             let mut p = PLANTED.lock().unwrap_or_else(|e| e.into_inner());
             let mine: Vec<Pt> = p.iter().filter(|q| q.0 == k).map(|q| (q.1, q.2)).collect();
@@ -238,13 +256,14 @@ impl StablePassive for Shrooms {
         for at in new {
             add(&mut self.field, Shroom { at, planted: tick });
             self.planted += 1;
-            if self.planted <= 80 {
-                wlog(format!("{} PLANT #{} at ({:.0}, {:.0}), {} in the ground", head(sim, me), self.planted, at.0, at.1,
-                             self.field.len()));
+            // one count for all Teemos (0.2.1): 80 a Teemo logged every plant of every presim (830 KB a launch)
+            if let Some(k) = tally(sim, "plant") {
+                wlog(format!("{} PLANT #{} at ({:.0}, {:.0}), {} in the ground #{k}", head(sim, me), self.planted, at.0,
+                             at.1, self.field.len()));
             }
         }
         self.field.retain(|s| !s.gone(tick));
-        publish(sim, player, &self.field);
+        publish(self.sim, player, &self.field);
         for s in self.field.iter().filter(|s| s.armed(tick) && (tick - s.planted - ARM) % PIC_EVERY == 0) {
             sim.play_view_effect(PIC, me, &pos_input(s.at), 0, 0, 0);
         }
@@ -267,11 +286,11 @@ impl StablePassive for Shrooms {
                 sim.play_view_effect(POISONED, me, &InputTargetV1::target(*id), 0, 0, 0);
             }
             self.booms += 1;
-            if self.booms <= 80 || self.booms % 25 == 0 {
-                wlog(format!("{} BOOM #{} at ({:.0}, {:.0}) {} ticks after planting: {} enemies poisoned", head(sim, me),
+            if let Some(k) = tally(sim, "boom") {
+                wlog(format!("{} BOOM #{} at ({:.0}, {:.0}) {} ticks after planting: {} enemies poisoned #{k}", head(sim, me),
                              self.booms, s.at.0, s.at.1, tick - s.planted, hit.len()));
             }
-            publish(sim, player, &self.field);
+            publish(self.sim, player, &self.field);
         }
         let damage = POISON + power * POISON_AP / 100;
         let due: Vec<usize> = self.poisoned.iter().filter(|(_, v)| tick >= v.0).map(|(k, _)| *k).collect();
@@ -326,6 +345,11 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_sim_tag_fits_a_buff_name() {
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
 
     #[test]
     fn shrooms_arm_wait_and_go_off_under_feet() {

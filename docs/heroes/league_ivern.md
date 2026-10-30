@@ -55,7 +55,7 @@
 
 ### 艾翁附加包
 
-[艾翁附加包](../../addons/league_ivern/README.md)：`league_ivern` v0.1.0
+[艾翁附加包](../../addons/league_ivern/README.md)：`league_ivern` v0.1.1
 
 | 技能 | 主包（纯数据） | 附加包 |
 |---|---|---|

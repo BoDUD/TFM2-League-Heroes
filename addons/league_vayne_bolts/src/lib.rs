@@ -13,7 +13,10 @@
 //! 标志都留 3 tick，数据同一 tick 读一次，读不到在下一 tick 再读一次（本包加的 buff 什么时候能被数据读到，游戏里还没证实过）。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_vayne_bolts.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//! 你看的那场每一下都写，服务器的预模拟三种结果（Ring1 / Ring2 / Proc）各先写 `LOG_FIRST` 行、之后每 `LOG_EVERY` 下一行
+//! （见 `tally`）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -68,6 +71,25 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// 日志行数的上限（2026-10-30 一次启动 0.58 MB：8 052 行全是预模拟的 `bolt on`，每一下都写、没有上限）。
+/// 计数是全局的（一次启动几百场预模拟），按这一下的结果（Ring1 / Ring2 / Proc）分三种。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count when it is to be written - every one in the match on screen (watched,
+/// spectated or replayed), the server's presims (and background matches) the first `LOG_FIRST`, then every
+/// `LOG_EVERY`-th.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (on_screen || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -128,7 +150,10 @@ fn bolt(sim: &mut StableSim<'_>, vayne: usize, input: InputTargetV1) {
         Bolt::Proc => GO,
     };
     sim.add_buff(vayne, &BuffV1::timed(flag, FLAG_T));
-    wlog(format!("{} bolt on #{target}: {had} stack(s) before -> {what:?}", head(sim, vayne)));
+    // counted by the flag (one kind per result): the presims' first procs are written as well as the first rings
+    if tally(sim, flag).is_some() {
+        wlog(format!("{} bolt on #{target}: {had} stack(s) before -> {what:?}", head(sim, vayne)));
+    }
 }
 
 struct BoltFx;

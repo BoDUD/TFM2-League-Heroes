@@ -237,14 +237,21 @@ fn pos_input(p: Pt) -> InputTargetV1 {
     InputTargetV1::pos(p.0.round().max(0.0) as u64, p.1.round().max(0.0) as u64)
 }
 
-/// W 施放（`league_wukong:clone`，在他冲出去之前）：把他站的地方写在他身上，被动下一拍读走。
+/// W 施放（`league_wukong:clone`，在他冲出去之前）：把他站的地方写在他身上，被动下一拍读走。0.1.4：一个短时 buff（交接位置的
+/// 附加包都这么做：奥恩的柱子、阿克尚的绳子），日志 `MARK`——2026-10-30 的两次启动 W 放了，却一次 `CLONE` 都没有。
 struct CloneMark;
+
+/// 交接 buff 留多久（被动下一拍就读走）。
+const MARK_T: usize = 30;
 
 impl StableEffectType for CloneMark {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _input: InputTargetV1) {
         let Some(at) = sim.get_entity(me).map(|e| (e.pos().0 as f64, e.pos().1 as f64)) else { return };
         let name = mark(at, sim.tick());
-        sim.add_buff(me, &BuffV1::named(&name));
+        sim.add_buff(me, &BuffV1::timed(&name, MARK_T));
+        if let Some(k) = tally(sim, "mark") {
+            wlog(format!("{} MARK #{k}: W cast at ({:.0}, {:.0})", head(sim, me), at.0, at.1));
+        }
     }
 }
 

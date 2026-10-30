@@ -32,7 +32,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_tahmkench";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.3";
+const VERSION: &str = "0.1.4";
 const HERO: &str = "league_tahmkench";
 
 // ===================== 数值（主包 build_tahmkench.P） =====================
@@ -642,7 +642,10 @@ struct Ai;
 enum Plan {
     Keep,
     Ult(usize, String),
-    Instead(InputV1, String),
+    /// What he does instead of the held cast, and a walk toward its target for when the game refuses the attack (out of
+    /// reach, in an action): never the AI's own cast (2026-10-30: 37 of 39 devours went through a hold that way, 13 of
+    /// them on allies in no danger).
+    Instead(InputV1, InputV1, String),
 }
 
 impl Ai {
@@ -665,7 +668,8 @@ impl Ai {
             } else {
                 centre(&friends).unwrap_or(at)
             };
-            return Some(Plan::Instead(InputV1::move_to(to.0.max(0.0) as u64, to.1.max(0.0) as u64),
+            let walk = InputV1::move_to(to.0.max(0.0) as u64, to.1.max(0.0) as u64);
+            return Some(Plan::Instead(walk, walk,
                                       format!("CARRY {}", if c.ally { "ally: back off" } else { "enemy: to the team" })));
         }
         match kind {
@@ -714,14 +718,16 @@ impl Ai {
     /// Instead of a held cast: attack what the AI aimed at (or the nearest enemy champion), else walk back to the team.
     fn instead(&self, at: (f64, f64), current: Option<usize>, foes: &[(usize, (f64, f64))],
                mates: &[(usize, (f64, f64))], why: &str) -> Plan {
-        let target = current.filter(|c| foes.iter().any(|f| f.0 == *c)).or_else(|| {
-            foes.iter().min_by(|a, b| dist(at, a.1).partial_cmp(&dist(at, b.1)).unwrap_or(std::cmp::Ordering::Equal)).map(|f| f.0)
+        let target = current.and_then(|c| foes.iter().find(|f| f.0 == c)).or_else(|| {
+            foes.iter().min_by(|a, b| dist(at, a.1).partial_cmp(&dist(at, b.1)).unwrap_or(std::cmp::Ordering::Equal))
         });
-        if let Some(t) = target {
-            return Plan::Instead(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)), why.to_string());
+        if let Some(&(t, p)) = target {
+            return Plan::Instead(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)),
+                                 InputV1::move_to(p.0.max(0.0) as u64, p.1.max(0.0) as u64), why.to_string());
         }
         let to = centre(&mates.iter().map(|m| m.1).collect::<Vec<_>>()).unwrap_or(at);
-        Plan::Instead(InputV1::move_to(to.0.max(0.0) as u64, to.1.max(0.0) as u64), why.to_string())
+        let walk = InputV1::move_to(to.0.max(0.0) as u64, to.1.max(0.0) as u64);
+        Plan::Instead(walk, walk, why.to_string())
     }
 }
 
@@ -780,11 +786,11 @@ impl StablePlayerAi for Ai {
                 }
                 Some(input)
             }
-            Plan::Instead(input, why) => {
-                if !ctx.is_valid_input(&input) && input.kind == InputKindV1::Attack.code() {
-                    return None;
-                }
-                if let Some(k) = counted("held") {
+            Plan::Instead(input, walk, why) => {
+                let input = if ctx.is_valid_input(&input) { input } else { walk };
+                // one count each: CARRY (thousands a launch) hid every R HELD after the first 40
+                let kind = if why.starts_with("CARRY") { "carry" } else if why.starts_with("R ") { "r held" } else { "w held" };
+                if let Some(k) = counted(kind) {
                     wlog(format!("{line} {why} #{k}"));
                 }
                 Some(input)

@@ -9,8 +9,10 @@
 //!   （主包的冲刺速度）；一个都没斩中就照主包冲到离他最近的敌方英雄身后（`REACH` 内），都没有就不动。
 //! - 冲到之后把斩中的英雄拉向他（`entity_pull`，每 tick `PULL_SPEED`，最多拉 `PULL_MAX`，停在他身前 `STOP`）。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yone_r.log`。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yone_r.log`。你看的那场每行都写，服务器的预模拟每种先写
+//! `LOG_FIRST` 行、之后每 `LOG_EVERY` 次一行（见 `tally`）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -64,6 +66,25 @@ fn wlog(msg: impl AsRef<str>) {
 
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// 日志行数的上限（2026-10-30 一次启动 0.82 MB、10 969 行：八成是预模拟的 R / LANDED，两成是预模拟的 SPAWN）。
+/// 计数是全局的：每场预模拟的被动都是新实例，以前记在实例里的 `n <= 80 || n % 25 == 0` 一行也没拦住。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count when it is to be written - every one in the match on screen (watched,
+/// spectated or replayed), the server's presims (and background matches) the first `LOG_FIRST`, then every
+/// `LOG_EVERY`-th.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    let on_screen = sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    });
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (on_screen || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
 fn head(sim: &StableSim<'_>, me: usize) -> String {
@@ -144,6 +165,8 @@ enum Phase {
 struct Dash {
     phase: Phase,
     n: usize,
+    /// This R's lines are written (`tally` asked once at the R line, so its LANDED line goes with it).
+    shown: bool,
 }
 
 impl StablePassive for Dash {
@@ -153,7 +176,9 @@ impl StablePassive for Dash {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.phase = Phase::Idle;
-        wlog(format!("{} SPAWN: the add-on's Yone (player {player})", head(sim, me)));
+        if tally(sim, "spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Yone (player {player})", head(sim, me)));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -185,13 +210,16 @@ impl StablePassive for Dash {
                         .min_by(|a, b| dist(at, a.1).total_cmp(&dist(at, b.1))).map(|f| (f.0, f.1))
                 });
                 let Some((who, there)) = goal else {
-                    wlog(format!("{} R: nobody struck, no enemy champion in reach - stays", head(sim, me)));
+                    if tally(sim, "stay").is_some() {
+                        wlog(format!("{} R: nobody struck, no enemy champion in reach - stays", head(sim, me)));
+                    }
                     self.phase = Phase::Idle;
                     return;
                 };
                 let land = behind(at, there);
                 self.n += 1;
-                if self.n <= 80 || self.n % 25 == 0 {
+                self.shown = tally(sim, "R").is_some();
+                if self.shown {
                     wlog(format!("{} R #{}: {} struck, lands behind #{who} {:.0} away{}", head(sim, me), self.n, struck.len(),
                                  dist(at, land), if struck.is_empty() { " (nobody struck: nearest)" } else { "" }));
                 }
@@ -229,7 +257,7 @@ impl Dash {
                 pulled += 1;
             }
         }
-        if self.n <= 80 || self.n % 25 == 0 {
+        if self.shown {
             wlog(format!("{} R #{} LANDED after {steps} steps, pulled {pulled} of {}", head(sim, me), self.n, struck.len()));
         }
         self.phase = Phase::Idle;

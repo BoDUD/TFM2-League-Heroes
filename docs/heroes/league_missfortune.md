@@ -55,7 +55,7 @@
 
 ### 目标标记附加包
 
-[目标标记附加包](../../addons/league_marks/README.md)：`league_marks` v0.1.0
+[目标标记附加包](../../addons/league_marks/README.md)：`league_marks` v0.1.1
 
 | 英雄 | 主包（纯数据） | 装了附加包（英雄联盟） |
 |---|---|---|

@@ -17,6 +17,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -171,16 +172,40 @@ pub struct Guard {
     pub last_hp: usize,
 }
 
-static GUARDS: LazyLock<Mutex<HashMap<usize, Guard>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 每份模拟一个编号：被动在他第一次出生时抽，每次出生挂在他身上（buff `SIM_TAG<编号>`，没有数值、没有画面；league_galio 的
+/// 做法）。下面两张表按 (编号, 他) 记：以前一张只按他的实体编号、一张按种子、来历、比赛、局记，同时跑的模拟（服务器同一局两份
+/// 预模拟并排跑，实体编号也一样；观看）共用一份，屏幕上那局拿到了预模拟写的盾卫（2026-10-30 的日志）。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "tft_loris_sim:";
 
-/// 盾卫冲到哪一拍为止：(这场模拟的种子、来历、比赛、第几局, 他) -> 那一拍。原来塞在排队效果输入的 dir_y 里，可指向单位的输入
+/// The simulation number hung on this unit (0: none).
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+            .unwrap_or(0)
+    })
+}
+
+static GUARDS: LazyLock<Mutex<HashMap<(u64, usize), Guard>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 盾卫冲到哪一拍为止：(这份模拟, 他) -> 那一拍。原来塞在排队效果输入的 dir_y 里，可指向单位的输入
 /// 排一拍后只剩目标编号，dir_y 成了 0：每次第一拍就「LEAP SHORT」原地落下（2026-10-27 的日志：40 次盾卫 30 次只给了自己）。
-type LeapKey = (u64, u32, u64, u64, usize);
+type LeapKey = (u64, usize);
 static LEAPS: LazyLock<Mutex<HashMap<LeapKey, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn leap_key(sim: &StableSim<'_>, me: usize) -> LeapKey {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+    (sim_no(sim, me), me)
+}
+
+/// Crowd control that holds him (league_leesin_hop's list): a leap step of ours would move him through it - Aatrox's
+/// chain dragged him and he ended 48285 short of its centre (the 2026-10-30 log). The leap ends there.
+const HELD: [CcKindV1; 6] =
+    [CcKindV1::Bind, CcKindV1::Stun, CcKindV1::Airborne, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
+
+fn held(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id)
+        .is_some_and(|e| (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| HELD.iter().any(|k| k.code() == c.kind))))
 }
 
 // ===================== 规则（单元测试用） =====================
@@ -288,7 +313,8 @@ fn land(sim: &mut StableSim<'_>, me: usize, ally: Option<usize>) {
         guard.damaged_reduce = p.e_share;
         put(sim, id, &guard);
         let last_hp = sim.get_entity(id).map_or(0, |e| e.hp().0);
-        GUARDS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, Guard { ally: id, until: sim.tick() + p.e_t, last_hp });
+        GUARDS.lock().unwrap_or_else(|e| e.into_inner())
+            .insert((sim_no(sim, me), me), Guard { ally: id, until: sim.tick() + p.e_t, last_hp });
     }
     let on = InputTargetV1::target(at);
     sim.play_view_effect(&lo("e_land"), me, &on, 0, 0, 0);
@@ -344,7 +370,7 @@ impl StableEffectType for Leap {
             LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key);
             land(sim, me, with);
         };
-        if !reachable(sim, ally) {
+        if !reachable(sim, ally) || held(sim, me) {
             done(sim, None);
             return;
         }
@@ -378,6 +404,8 @@ struct Warden {
     /// The thresholds given this life (high, low), and whether he was alive last tick (a respawn starts them over).
     given: (bool, bool),
     was_alive: bool,
+    /// This simulation's number (`SIM_TAG`), drawn at his first spawn.
+    sim: u64,
 }
 
 impl Warden {
@@ -399,14 +427,15 @@ impl Warden {
     /// The guarded ally's loss since last tick, his share of it taken from him.
     fn guard(&self, sim: &mut StableSim<'_>, me: usize) {
         let tick = sim.tick();
+        let key = (self.sim, me);
         let mut guards = GUARDS.lock().unwrap_or_else(|e| e.into_inner());
-        let Some(g) = guards.get(&me).copied() else { return };
+        let Some(g) = guards.get(&key).copied() else { return };
         let ally_hp = sim.get_entity(g.ally).filter(|e| e.is_alive()).map(|e| e.hp().0);
         let (Some(hp), true) = (ally_hp, tick < g.until) else {
-            guards.remove(&me);
+            guards.remove(&key);
             return;
         };
-        guards.insert(me, Guard { last_hp: hp, ..g });
+        guards.insert(key, Guard { last_hp: hp, ..g });
         drop(guards);
         let lost = g.last_hp.saturating_sub(hp);
         if lost == 0 {
@@ -434,6 +463,12 @@ impl StablePassive for Warden {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -449,7 +484,7 @@ impl StablePassive for Warden {
         }
         self.was_alive = alive;
         if !alive {
-            GUARDS.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
+            GUARDS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
             return;
         }
         let (hi, low) = crossed(hp, max, self.p.p_hi, self.p.p_lo, self.given);
