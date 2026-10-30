@@ -67,7 +67,7 @@ P = {
     "e_slow": 35, "e_slow_t": 90,
     # Jade Form (TFT: 190 / 250% AD a blow, 1 s stuns, 20-25% durability at 1-2 stars)
     "r_cd": 1500, "r_range": 60000, "r_dur": 40, "r_t": 480, "r_red": 35,
-    "r_dmg": 40, "r_ad": 175, "r_stun": 60, "r3_len": 92000, "r3_w": 20000, "r3_delay": 8,
+    "r_dmg": 40, "r_ad": 175, "r_stun": 60, "r3_len": 92000, "r3_w": 20000, "r3_delay": 18,
 }
 # what tft.dll reads from passive.params (addons/tft/src/shiohyu.rs)
 NATIVE_KEYS = ("p_low", "p_red", "p_t", "p_cd")
