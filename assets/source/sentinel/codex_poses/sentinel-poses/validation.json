@@ -1,0 +1,308 @@
+[
+  {
+    "file": "sentinel-pose-a_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      245,
+      40,
+      1108,
+      1206
+    ],
+    "partial_alpha_pixels": 521213,
+    "sha256": "82ba96666afc7b9e61af8149b10583191e370fcc03533064215032eb426904d4",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-a_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      67,
+      465,
+      1214,
+      1212
+    ],
+    "partial_alpha_pixels": 510339,
+    "sha256": "5db3e3235afb9ff1ed9ffa7ef149a23310eff61b14af01f660978a7397169d25",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-q_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      177,
+      162,
+      1177,
+      1205
+    ],
+    "partial_alpha_pixels": 607687,
+    "sha256": "e730476f2c12e3a758236ebad771b4944a76e055ea0bd2ca236acf8519051aa3",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-q_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      133,
+      552,
+      1178,
+      1208
+    ],
+    "partial_alpha_pixels": 476874,
+    "sha256": "3b4f659de5f02d8ba9de04d9c513ab3284466e98c843d03cefc7bf010a9dd9cc",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-e_brace.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      235,
+      432,
+      1098,
+      1215
+    ],
+    "partial_alpha_pixels": 489615,
+    "sha256": "0dd0e3ba2a65af6016e6a1c7bf5aa5c2d443feaf9c63a6478f2e9353b7c6e90c",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-e_roar.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      20,
+      394,
+      1243,
+      1184
+    ],
+    "partial_alpha_pixels": 557937,
+    "sha256": "7f1c927c4f35aa934075e801988fc9829cbd3f67c1ef7b07a097df6bd3732f25",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-r_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      196,
+      80,
+      1098,
+      1213
+    ],
+    "partial_alpha_pixels": 606314,
+    "sha256": "8b9bbda430655a2aa9fa43a22d197ae1fe5b0d29f251e05ca63111afd64586ee",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-r_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      62,
+      470,
+      1208,
+      1185
+    ],
+    "partial_alpha_pixels": 554738,
+    "sha256": "6b272d060195f26f4707a42289aeebbef9e9125505677dc0a5aabe27acc32e89",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      69,
+      421,
+      1215,
+      1186
+    ],
+    "partial_alpha_pixels": 572886,
+    "sha256": "3a179bd1dcde35cfa3bf555c25a63825a72d0006328aa0d46a1554e503e06c1d",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      79,
+      398,
+      1206,
+      1177
+    ],
+    "partial_alpha_pixels": 563675,
+    "sha256": "4dfc07eafa2cb8327ac468d37273764dde393b6b3b2b3fb44b492a0335aa643a",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      94,
+      477,
+      1196,
+      1191
+    ],
+    "partial_alpha_pixels": 552114,
+    "sha256": "4c0a13a163584038758d8dc66e2976cc0f53445d4fcb4247faff9021acecb6c9",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      89,
+      460,
+      1205,
+      1176
+    ],
+    "partial_alpha_pixels": 560730,
+    "sha256": "7d849774807c0023e07c34c8bad0624a7e0aebcc3073a0accbb309b725d26f1e",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-run5.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      87,
+      433,
+      1215,
+      1185
+    ],
+    "partial_alpha_pixels": 575018,
+    "sha256": "71c4c942d15f2470a0a33c08e9b9f6bb54d9c5ddbea122e0f54fe108ced6807d",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-run6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      108,
+      386,
+      1174,
+      1173
+    ],
+    "partial_alpha_pixels": 552833,
+    "sha256": "a782155ac8381fa6218e4f30c24b1ef36365a72caa5b6f309e126a850e0766f4",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-run7.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      157,
+      437,
+      1196,
+      1176
+    ],
+    "partial_alpha_pixels": 526940,
+    "sha256": "4752ce86b1afc9fd74210f4bc9f3b48eacb308069835a6360a925ca6439542a6",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-run8.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      98,
+      425,
+      1166,
+      1156
+    ],
+    "partial_alpha_pixels": 546807,
+    "sha256": "05ffb4b0997e4f69498b342e920bcf154ae7385d75f01b4d8d494627ad61bda6",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      181,
+      627,
+      1171,
+      1211
+    ],
+    "partial_alpha_pixels": 379804,
+    "sha256": "c4f92782045d34b767a162486a987888d445625f65277a77c573e146a239b734",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  },
+  {
+    "file": "sentinel-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "raw_byte_identical": true,
+    "visible_bbox_alpha128": [
+      49,
+      706,
+      1205,
+      1214
+    ],
+    "partial_alpha_pixels": 356121,
+    "sha256": "930a3f68d885f0df6769b2fb0b48e5932a36a82dc44b409489c33bb2f092bbf7",
+    "note": "Unresampled generator output. Exact 8px grid/head pixel parity and joint geometry are not deterministic guarantees."
+  }
+]

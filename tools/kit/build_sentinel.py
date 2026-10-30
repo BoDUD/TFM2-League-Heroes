@@ -49,7 +49,7 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # at the AI's target, the reave a silence at once): the draft (atk 70, Q 60 + 80% AP + 3%, R 120 + 140% + 4%) +0.93 on
 # seeds 1-8 against tft_krug --plain +2.06 - too little damage (4800 dealt to Krug's 6200); atk 76, Q 80 + 100% + 4%,
 # R 160 + 160% +1.66; atk 78, Q 90 + 110% + 5% every 6 s, R 180 + 180%, taunt 1.25 s +3.31; between the two (atk 77,
-# Q 85 + 105% + 4% every 6.5 s, R 170 + 170%, taunt 70 ticks) +2.20 / +3.00 on seeds 1-8 / 9-16 (tft_krug +2.06 /
+# Q 85 + 105% + 4% every 6.5 s, R 170 + 170%, taunt 70 ticks; then 72 = 1.2 s for the text) +2.20 / +3.00 on seeds 1-8 / 9-16 (tft_krug +2.06 /
 # +1.89) = P: the 4-cost a little above the 3-cost jungle tank.
 P = {
     # stats (Melee, a jungle tank with magic skills)
@@ -63,7 +63,7 @@ P = {
     "q_slow": 30, "q_slow_t": 120,
     # Carved Skin
     "e_cd": 600, "e_range": 30000, "e_dur": 30, "e_st": 10, "e_sh": 120, "e_ap": 120, "e_sh_t": 240, "e_r": 30000,
-    "e_taunt": 70,
+    "e_taunt": 72,
     # Azure Shockwave (TFT: a shield, the fissure toward the most enemies, knock-up, magic damage, Mana Reave)
     "r_cd": 3000, "r_range": 60000, "r_dur": 48, "r_st": 24, "r_sh": 150, "r_ap": 120, "r_sh_t": 240,
     "r_len": 100000, "r_w": 16000, "r_speed": 5000, "r_dmg": 170, "r_ratio": 170, "r_hp": 4, "r_up": 50,
@@ -191,9 +191,14 @@ def build(p, is_native=False):
     else:           # --plain: a line toward the AI's target, the reave a silence at once
         hit = [magic(p["r_dmg"], p["r_ratio"], p["r_hp"]), {"type": "Airborne", "duration": p["r_up"]},
                {"type": "BlockSkill", "tick": p["r_reave"]}, view("r_hit")]
-        fissure = {"type": "LineRangeProjectile", "name": n("r_line"), "width": p["r_w"], "length": p["r_len"],
-                   "delay": 2, "apply": 1, "applied_target": "EnemyWithoutTower",
-                   "applied_effects": [T(e) for e in hit]}
+        line = {"type": "LineRangeProjectile", "name": n("r_line"), "width": p["r_w"], "length": p["r_len"],
+                "delay": 2, "apply": 1, "applied_target": "EnemyWithoutTower", "applied_effects": [T(e) for e in hit]}
+        # the running fissure's picture: a view-only line along it on the ground (y_offset 5000: it leaves 5000 -
+        # y_offset north of its pivot, champion-data.md), the hits all at once on the line's apply
+        crack = {"type": "LinearProjectile", "name": n("r_crack"), "penetrate": True,
+                 "applied_target": "EnemyWithoutTower", "applied_effects": [], "end_effects": [],
+                 "speed": p["r_speed"], "range": p["r_len"], "shape": circle(1000), "y_offset": 5000}
+        fissure = combine(crack, line)
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(sfx("r_vo"), sfx("r"), sfx("r_shield"), blue(p),
                          on_me(shield(p["r_sh"], p["r_ap"], p["r_sh_t"])), flag("r_shield", p["r_sh_t"]),
@@ -209,9 +214,8 @@ def build(p, is_native=False):
     # the ult's shield is the Carved Skin's shell (tag e_shield)
     views_e = [E("a_hit"), E("q_hit", BIG, -1, False), E("e_cast", BIG, 3), E("r_slam", BIG, -1, False)]
     views_b = [B_("p_blue"), B_("q_slow"), B_("e_shield", BIG), B_("r_shield", BIG, 3, "e_shield"), B_("e_taunt", FX, 4)]
-    views_p = []
-    if is_native:   # tft.dll's fissure (a projectile it spawns) and the buffs it gives
-        views_p = [B_("r_crack", BIG, 1)]
+    views_p = [B_("r_crack", BIG, 1)]   # tft.dll's fissure (a projectile it spawns), or --plain's picture line
+    if is_native:   # the buffs tft.dll gives
         views_b += [B_("r_hit"), B_("r_reave", FX, 4), B_("r_seal", FX, 4)]
     else:
         views_e += [E("r_hit", FX, 3)]
@@ -233,6 +237,16 @@ def build(p, is_native=False):
                "passive": {"passive_ref": f"{ID}:golem", "params": {k: p[k] for k in NATIVE_KEYS}},
                **{k: v for k, v in kit.items() if k not in ("id", "category", "tags")}}
     return kit
+
+
+def sylas_ult(p=None):
+    """Azure Shockwave as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's
+    add-on bundle is on the Workshop and the tft mod is not, so his stolen ult cannot call tft.dll (the user,
+    2026-10-27: 「塞拉斯的大招什么一定要能偷到特效版本的」). The kit's --plain ult: the shield, the smash, the fissure's
+    picture and its line toward his target, the knock-up, the magic damage and the silence. The views are the kit's own
+    (tft_sentinel_*); make_override copies them and their sheets."""
+    p = dict(P) if p is None else p
+    return build(p, False)["ult"]["effect"]
 
 
 def nodes(o):
