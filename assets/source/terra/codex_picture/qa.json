@@ -1,0 +1,46 @@
+{
+  "A": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      429,
+      950,
+      1089,
+      1390
+    ],
+    "grid": [
+      60,
+      40
+    ],
+    "solid_11px_cells": true,
+    "colors": 27
+  },
+  "B": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bbox": [
+      374,
+      972,
+      1144,
+      1390
+    ],
+    "grid": [
+      70,
+      38
+    ],
+    "solid_11px_cells": true,
+    "colors": 28
+  }
+}

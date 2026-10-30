@@ -358,6 +358,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // from the antler tips to the bottom of her coil, PPU 1.8 (「B-1 40px PPU 1.8」: 72 rows 1:1), and Codex's key poses
     // after her own TFT clips, posed by tools/art/rig_sohm.py, so no SIZES row
     ("tft_sohm", 1.8, include_str!("../../../tft/champions/tft_sohm#anim.fanim")),
+    // Terra (tft_terra, the tft pack): the earth dragon crouched at 3/4, step 0's A-1 at the user's 36 game px from the
+    // wing-bone tips to her soles, PPU 1.45 (「A-1、36 px、PPU 1.45」: 52 rows 1:1), and Codex's key poses after her own
+    // TFT clips, posed by tools/art/rig_terra.py, so no SIZES row
+    ("tft_terra", 1.45, include_str!("../../../tft/champions/tft_terra#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
