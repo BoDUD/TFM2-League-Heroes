@@ -11,8 +11,9 @@ The pictures (tools/art/design_zippy_model.py, design_zippy_poses.py):
                       its soles): the idle and the hit;
   hd/pose_<name>.png  Codex's key poses at the design's body size and density with the design's face where the head is
                       not turned (assets/source/zippy/POSE_PROMPTS.md, design_zippy_poses.py): a_wind a_kick q_crouch
-                      q_flip q_kick q_land e_curl e_ball r_crouch r_spring r_open r_land d_fall d_down and the run run1-8
-                      (TFT's own sprint: one full 0.8 s cycle, the legs passing in run3 and run8).
+                      q_flip q_kick q_land e_curl e_ball r_crouch r_spring r_open r_land d_fall d_down; the run run1-8 is
+                      Codex's redraw (design_zippy_run.py, pack_zippy_run.py: TFT's own sprint, one full 0.8 s cycle, the
+                      near leg ahead in run1-2, the far one in run4-7, the legs passing in run3 and run8).
 Placing a pose: the pack drew every reference with its root on one canvas column and its lowest point on the ground
 line, and Codex drew each pose over its reference; so a pose's pivot (its json: that column) goes on the design's root
 column (DESIGN_PIVOT) plus SHIFT[name] (columns, read off the review GIFs), and its lowest row on the design's ground,
@@ -40,10 +41,10 @@ DESIGN_PIVOT = 20             # the design's root column (pack_zippy_poses' pelv
 RUNS = tuple(f"run{k}" for k in range(1, 9))
 POSES = ("a_wind", "a_kick", "q_crouch", "q_flip", "q_kick", "q_land", "e_curl", "e_ball", "r_crouch", "r_spring",
          "r_open", "r_land", "d_fall", "d_down") + RUNS
-# extra columns per pose (+ = forward). The run: each frame's face (its json: where the design's face went) put on the
-# frames' mean - Codex drew the heads 18 columns apart over the cycle (run1 10 ahead of the mean, run8 8 behind), which
-# jumped back and forth in the loop
-SHIFT = {"run1": -10, "run2": -4, "run3": 0, "run4": 4, "run5": 0, "run6": 2, "run7": 0, "run8": 8}
+# extra columns per pose (+ = forward). The run (Codex's redraw, design_zippy_run.py): each frame's face (its json: where
+# the design's face went) put on the frames' mean - Codex drew the bodies 15 columns apart round their roots over the
+# cycle (run2 and run6 10 ahead of their roots, run8 5 behind), which would jump back and forth in the loop
+SHIFT = {"run1": -3, "run2": -8, "run3": 5, "run4": 5, "run5": 5, "run6": -8, "run7": -2, "run8": 7}
 # heights in the air (design rows; 2.2 a game px): the backflip, the spring, the ball's arc, the burst
 Q_FLIP, Q_KICK = 14, 16
 R_SPRING, R_BALL, R_OPEN = 10, (22, 30, 30, 22), 12
@@ -127,8 +128,8 @@ class Canvas:
 # feet up); Rolling Charge 500 ms = e_dur 30, the roll from e_st 8 (133 ms: the ball turning a quarter every 92 ms);
 # Somersault Assault 833 ms = r_dur 50: the crouch and the spring until r_go 12 (200 ms), the ball spinning through the
 # leap (tft.dll lands it within r_t 20 ticks: 333 ms), the burst, the crash. The run: TFT's 0.8 s cycle at its own
-# spacing (pack_zippy_poses.RUN_MS 0 120 260 360 480 560 660 740).
-MS = {"idle": [1000], "run": [120, 140, 100, 120, 80, 100, 80, 60], "attack": [200, 300],
+# spacing (pack_zippy_run.RUN 0 120 255 360 440 520 620 740: pack_zippy_run.MS).
+MS = {"idle": [1000], "run": [120, 135, 105, 80, 80, 100, 120, 60], "attack": [200, 300],
       "skill": [133, 134, 200, 200], "skill2": [133, 92, 92, 92, 91], "ult": [100, 100, 75, 75, 75, 75, 133, 200],
       "hit": [100, 100], "dead": [100, 200, 700]}
 

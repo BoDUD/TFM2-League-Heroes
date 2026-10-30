@@ -7,7 +7,8 @@
 For each tag: its TFT frames named in CLIPS - the very frames the poses were drawn after (pack_zippy_poses.POSES; its
 model from the Riot client's TFTSet7.wad.client, its own map, mirrored to face right, as TFT has it; the renders stay
 in DIR, never committed), one beside each of ours, next to the rig's frame at z screen px a design square, both at the
-tag's own frame times. Our feather ball rolls by quarter turns of one drawing; TFT's ball is its spell clip's first frame.
+tag's own frame times (the run: the redrawn run's own clip times, pack_zippy_run.RUN). Our feather ball rolls by
+quarter turns of one drawing; TFT's ball is its spell clip's first frame.
 Writes <out>/zippy_<tag>_vs_tft.gif and .png, and <out>/zippy_all_vs_tft.gif: every tag in turn (each action played
 twice, the idle once), one picture to review (memory one-gif-review).
 --sheet: the exported sheet's hd_ frames (tft/champions/tft_zippy#sheet.png, what the game draws: after ppu_restyle's
@@ -28,11 +29,12 @@ import ppu_rig as R  # noqa: E402
 import pose_ref  # noqa: E402
 import rig_zippy as A  # noqa: E402
 import pack_zippy_poses as PK  # noqa: E402
+import pack_zippy_run as RP  # noqa: E402
 
 P = {k: (v[0], v[1], k) for k, v in PK.POSES.items()}
 IDLE = (PK.DESIGN, PK.YAW, "idle")
 BALL = P["e_ball"]
-CLIPS = {"idle": [IDLE], "run": [P[f"run{k}"] for k in range(1, 9)], "attack": [P["a_wind"], P["a_kick"]],
+CLIPS = {"idle": [IDLE], "run": [(f"run@{t}", PK.YAW, n) for n, t in RP.RUN], "attack": [P["a_wind"], P["a_kick"]],
          "skill": [P["q_crouch"], P["q_flip"], P["q_kick"], P["q_land"]], "skill2": [P["e_curl"]] + [BALL] * 4,
          "ult": [P["r_crouch"], P["r_spring"]] + [BALL] * 4 + [P["r_open"], P["r_land"]], "hit": [IDLE, IDLE],
          "dead": [P["d_fall"], P["d_fall"], P["d_down"]]}
