@@ -7,6 +7,11 @@
 //!
 //! 游戏每个 mod 只有一个客户端扩展槽：附加包合集的槽给 league_addons 的 `BundleClient`（佛耶戈的时钟 + 本包的 [`draw`]），
 //! 单独的 league_akshan.dll 用 [`Overlay`]。
+//!
+//! 0.2.3（用户 2026-10-30：「没有阿克尚的对局也出现了阿克尚复活的提示」「就我现在这把 出现了」）：屏幕在放哪一场以前只由阿克尚
+//! 的被动记，第 2 局（738 场，没有阿克尚）开始后还认为在放第 1 局，屏幕时钟走到 8:28 时又把第 1 局的复活画了一遍。现在由 AI 钩子
+//! [`Screen`] 在每个屏幕模拟里记，有没有阿克尚都算。文字的键补上游戏自己用的 `#`（[`text`]）：0.2.0 不带它，什么都没查到，
+//! 画出来的是「akshan revived jax!」。
 
 use std::sync::Mutex;
 
@@ -28,13 +33,17 @@ pub struct Banner {
 static BANNERS: Mutex<Vec<Banner>> = Mutex::new(Vec::new());
 /// The last banner logged (its tick): one `BANNER` line each, with the text drawn.
 static LOGGED: Mutex<Option<(u64, u64, usize)>> = Mutex::new(None);
-/// 屏幕看的那一场（最近一个有阿克尚的屏幕模拟）。
+/// 屏幕看的那一场（最近一个屏幕模拟，有没有阿克尚都算）。
 static VIEW: Mutex<Option<(u64, u64)>> = Mutex::new(None);
 
-/// 屏幕模拟里有阿克尚：大字只认这一场的。
+/// 屏幕在放这一场（[`Screen`] 和阿克尚的被动记）：大字只认这一场的，换了一场就扔掉别场的，日志记一行 `VIEW`。
 pub fn note_view(m: u64, s: u64) {
     if let Ok(mut v) = VIEW.lock() {
         if *v != Some((m, s)) {
+            if let Some(k) = super::counted("view") {
+                let was = v.map_or("none".to_string(), |(m, s)| format!("m={m} s={s}"));
+                super::wlog(format!("VIEW m={m} s={s} on screen (was {was}) #{k}"));
+            }
             *v = Some((m, s));
             if let Ok(mut b) = BANNERS.lock() {
                 b.retain(|x| (x.m, x.s) == (m, s));
@@ -52,6 +61,48 @@ pub fn note_revive(b: Banner) {
     }
 }
 
+/// 记屏幕在放哪一场：每个模拟的 0 号玩家身上的 AI 钩子，隔 `SCREEN_EVERY` tick 看一次模拟的来源，只旁观、不改输入。
+#[derive(Clone, Default)]
+pub struct Screen {
+    last: Option<usize>,
+}
+
+pub const SCREEN_EVERY: usize = 60;
+
+/// 这一 tick 该看了：第一次、过了 `SCREEN_EVERY`，或者 tick 往回走了（换了一个模拟）。
+pub fn due(last: Option<usize>, t: usize) -> bool {
+    last.is_none_or(|l| t < l || t >= l + SCREEN_EVERY)
+}
+
+impl StablePlayerAi for Screen {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{}:screen", super::ID)
+    }
+
+    fn priority(&self) -> i32 {
+        i32::MIN
+    }
+
+    fn matches(&self, init: &StableAiInit) -> bool {
+        init.player_id == 0
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, _base: Option<InputV1>) -> Option<InputV1> {
+        let t = ctx.tick();
+        if due(self.last, t) {
+            self.last = Some(t);
+            if let Some((m, s)) = ctx.sim().and_then(|sim| super::on_screen(&sim)) {
+                note_view(m, s);
+            }
+        }
+        None
+    }
+}
+
 /// 屏幕时钟 `t` 时该画的那条（最近开始的一条）和它已经画了几 tick。
 pub fn showing(all: &[Banner], view: Option<(u64, u64)>, t: usize) -> Option<(&Banner, usize)> {
     let (m, s) = view?;
@@ -61,7 +112,7 @@ pub fn showing(all: &[Banner], view: Option<(u64, u64)>, t: usize) -> Option<(&B
         .map(|b| (b, t - b.tick))
 }
 
-/// 游戏的语言（按阿克尚第一个技能名的写法认：简体「去而复还」、繁体「去而復還」，其他按文字）。
+/// 游戏的语言（按阿克尚第一个技能名的写法认：简体「去而复还」、繁体「復仇迴力鏢」，其他按文字）。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Lang {
     Hans,
@@ -106,8 +157,14 @@ pub fn alpha(age: usize) -> u32 {
     }
 }
 
+/// 游戏的一条文字。游戏自己的代码查的键带 `#`（TeamfightManager2.exe 里有 `#asset/base/text/champion?description.`）；
+/// 先带 `#` 查，再按 0.2.0 的不带查，查到空的或原样的键都不算。
+fn text(ctx: &StableClient<'_>, key: &str) -> Option<String> {
+    [format!("#{key}"), key.to_string()].into_iter().find_map(|k| ctx.i18n(&k).filter(|s| !s.is_empty() && *s != k))
+}
+
 fn name(ctx: &StableClient<'_>, id: &str) -> String {
-    ctx.i18n(&format!("asset/base/text/champion?description.{id}.name")).filter(|s| !s.is_empty())
+    text(ctx, &format!("asset/base/text/champion?description.{id}.name"))
         .unwrap_or_else(|| id.trim_start_matches("league_").to_string())
 }
 
@@ -126,7 +183,7 @@ pub fn draw(ctx: &mut StableClient<'_>) {
     };
     let Some((b, age)) = shown else { return };
     let Some((w, h)) = ctx.draw_map_size("UI").filter(|s| s.0 > 0.0 && s.1 > 0.0) else { return };
-    let lang = lang_of(&ctx.i18n("asset/base/text/champion?skill_name.league_akshan.skill1").unwrap_or_default());
+    let lang = lang_of(&text(ctx, "asset/base/text/champion?skill_name.league_akshan.skill1").unwrap_or_default());
     let text = line(lang, &name(ctx, &b.akshan), &name(ctx, &b.ally));
     if let Ok(mut l) = LOGGED.lock() {
         if *l != Some((b.m, b.s, b.tick)) {
@@ -193,11 +250,30 @@ mod tests {
     }
 
     #[test]
+    fn the_screen_is_looked_at_every_60_ticks_and_on_a_new_sim() {
+        assert!(due(None, 0));
+        assert!(!due(Some(0), 1));
+        assert!(!due(Some(0), SCREEN_EVERY - 1));
+        assert!(due(Some(0), SCREEN_EVERY));
+        // the tick went back: another sim on the same hook
+        assert!(due(Some(30_000), 5));
+    }
+
+    #[test]
+    fn another_match_on_screen_hides_the_last_ones_banner() {
+        // 2026-10-30: set 1 (with Akshan) revived at 30513, set 2 (without) reached 8:28 on screen
+        let all = vec![Banner { m: 738, s: 1, tick: 30_513, akshan: "league_akshan".into(), ally: "league_jax".into() }];
+        assert!(showing(&all, Some((738, 1)), 30_513).is_some());
+        assert!(showing(&all, Some((738, 2)), 30_513).is_none());
+    }
+
+    #[test]
     fn the_language_follows_the_skill_name() {
+        // league/text/champion.i18n's skill_name.league_akshan.skill1 in each language
         assert_eq!(lang_of("去而复还"), Lang::Hans);
-        assert_eq!(lang_of("去而復還"), Lang::Hant);
-        assert_eq!(lang_of("돌아오는 응징"), Lang::Ko);
-        assert_eq!(lang_of("アヴェンジェラン"), Lang::Ja);
+        assert_eq!(lang_of("復仇迴力鏢"), Lang::Hant);
+        assert_eq!(lang_of("복수의 부메랑"), Lang::Ko);
+        assert_eq!(lang_of("報復のブーメラン"), Lang::Ja);
         assert_eq!(lang_of("Avengerang"), Lang::En);
         assert_eq!(line(Lang::Hans, "阿克尚", "盖伦"), "阿克尚 复活了 盖伦！");
     }
