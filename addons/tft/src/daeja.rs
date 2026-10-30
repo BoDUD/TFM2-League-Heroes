@@ -117,8 +117,8 @@ impl Default for Params {
             q_len: 90000,
             q_w: 9000,
             q_speed: 6000,
-            q_dmg: 120,
-            q_ratio: 75,
+            q_dmg: 110,
+            q_ratio: 70,
             r_len: 110000,
             r_w: 12000,
             r_speed: 7000,
@@ -423,15 +423,15 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"q_dmg":120,"q_len":90000,"q_ratio":75,"q_speed":6000,"q_w":9000,"r_dmg":150,"r_len":110000,"r_ratio":70,"r_speed":7000,"r_w":12000}"#;
+        let json = r#"{"q_dmg":110,"q_len":90000,"q_ratio":70,"q_speed":6000,"q_w":9000,"r_dmg":150,"r_len":110000,"r_ratio":70,"r_speed":7000,"r_w":12000}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
     #[test]
     fn a_wave_hurts_by_its_own_numbers() {
         let p = Params::default();
-        assert_eq!(wave_damage(0, &p.q()), 120);
-        assert_eq!(wave_damage(100, &p.q()), 195);
+        assert_eq!(wave_damage(0, &p.q()), 110);
+        assert_eq!(wave_damage(100, &p.q()), 180);
         assert_eq!(wave_damage(100, &p.r()), 220);
     }
 

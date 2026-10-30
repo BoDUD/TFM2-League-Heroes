@@ -42,7 +42,11 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Units: attack range 60000 like the pack's long-range bottoms (tft_maddie 68000, the base archer 60000); radii count
 # the unit's collision radius (~15000) on top. Timings are placeholders until the strips exist (tools/art/rig_daeja.py).
 # Stats from the Range base (attack 100 +20, hp 900 +90, def 20 +7, mr 15 +3, move 900 +9), a little attack traded
-# for magic power: his damage is half attacks, half the barrages' and waves' magic.
+# for magic power: his damage is half attacks, half the barrages' and waves' magic. Numbers = the 10-min classic-SDK
+# simulations (C:/t/dj_sim with C:/t/al_sim/kd.py: bottom lane 3 against the base archer, gunner, boomerang and
+# poison-dart hunters, three lineups, both sides; 2026-10-30), all --plain (the waves at the target): the draft (Q 120 +
+# 75%, E within 30000) +1.58 on seeds 1-8 / +0.52 on 9-16, E cast 3 times a game; E within 40000 +1.86 / +1.09 (4 a
+# game); + Q 110 + 70% +1.39 / +1.17 = P (tft_nomsy's final +1.12 / +1.16 in mid).
 P = {
     "hp": 880, "hp_g": 90, "atk": 90, "atk_g": 17, "apw": 30, "apw_g": 14, "def": 20, "def_g": 7, "mr": 18, "mr_g": 3,
     "ms": 900, "ms_g": 9,
@@ -51,9 +55,9 @@ P = {
     "p_n": 3, "p_gap": 4, "p_speed": 6000, "p_dmg": 10, "p_ap": 15, "p_mr": 4, "p_mr_t": 180,
     # Windblast (TFT: 265/400 (AP) magic in the line with the most enemies)
     "q_cd": 360, "q_range": 65000, "q_dur": 30, "q_rel": 14, "q_len": 90000, "q_w": 9000, "q_speed": 6000,
-    "q_dmg": 120, "q_ratio": 75,
+    "q_dmg": 110, "q_ratio": 70,
     # Wingbeat Retreat
-    "e_cd": 600, "e_range": 30000, "e_dur": 24, "e_rel": 6, "e_len": 45000, "e_w": 14000, "e_dmg": 40, "e_ratio": 30,
+    "e_cd": 600, "e_range": 40000, "e_dur": 24, "e_rel": 6, "e_len": 45000, "e_w": 14000, "e_dmg": 40, "e_ratio": 30,
     "e_slow": 40, "e_slow_t": 90, "e_back": 5000, "e_back_t": 6,
     # Sky Gale
     "r_cd": 2700, "r_range": 75000, "r_rise": 24, "r_n": 3, "r_gap": 24, "r_land": 18, "r_dr": 30, "r_len": 110000,
