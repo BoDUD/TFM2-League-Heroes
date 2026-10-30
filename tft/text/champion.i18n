@@ -134,6 +134,13 @@
         "skill2": "振翅朝身边的敌人扇出一阵风，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己借风后跳。",
         "ult": "展翅飞起（减伤<#ffb900ff>30%<>、免疫控制），朝敌人最多的直线连续轰出<#ffb900ff>3<>道大冲击波，各造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>。"
       },
+      "tft_shiohyu": {
+        "name": "石傲玉",
+        "attack": "左右爪交替挥击，第3下造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>。<#ff9028ff>玉石之肤<>：生命低于<#ffb900ff>50%<>时化作玉石，减伤<#ffb900ff>40%<>（<#ffb900ff>3秒<>，冷却<#ffb900ff>30秒<>）。",
+        "skill": "冲向目标连打<#ffb900ff>4<>拳，每拳造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<><#ff9028ff>物理伤害<>。",
+        "skill2": "一拳砸地，周围敌人受到<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>，被<#ef5350ff>击飞0.75秒<>并减速<#ffb900ff>35%<>。",
+        "ult": "减伤<#ffb900ff>35%<>、免疫控制，接下来3次普攻各造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>175%<>伤害：第1下<#ef5350ff>晕眩1秒<>；第2下为<#f5f5f5ff>真实伤害<>；第3下打出直线冲击波，<#ef5350ff>晕眩<>沿线敌人。"
+      },
       "tft_syfen": {
         "name": "赛芬",
         "attack": "翼爪和甩尾交替攻击，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>幽影低语<>：他的伤害让敌人缩小<#ffb900ff>4秒<>（护甲、魔抗<#ffb900ff>-20%<>）；打缩小的敌人叠怒气，每层<#ffb900ff>+5<>攻击力，最多<#ffb900ff>5<>层。",
@@ -237,6 +244,11 @@
         "skill1": "罡风轰击",
         "skill2": "振翼退风",
         "ult": "苍穹罡风"
+      },
+      "tft_shiohyu": {
+        "skill1": "玉拳连打",
+        "skill2": "震地",
+        "ult": "玉龙形态"
       },
       "tft_syfen": {
         "skill1": "噬咬",
@@ -380,6 +392,13 @@
         "skill2": "振翅朝身邊的敵人搧出一陣風，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己借風後跳。",
         "ult": "展翅飛起（減傷<#ffb900ff>30%<>、免疫控制），朝敵人最多的直線連續轟出<#ffb900ff>3<>道大衝擊波，各造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>。"
       },
+      "tft_shiohyu": {
+        "name": "襲奧玉",
+        "attack": "左右爪交替揮擊，第3下造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>。<#ff9028ff>玉石之膚<>：生命低於<#ffb900ff>50%<>時化作翠玉，減傷<#ffb900ff>40%<>（<#ffb900ff>3秒<>，冷卻<#ffb900ff>30秒<>）。",
+        "skill": "衝向目標連打<#ffb900ff>4<>拳，每拳造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<><#ff9028ff>物理傷害<>。",
+        "skill2": "一拳砸地，周圍敵人受到<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>，被<#ef5350ff>擊飛0.75秒<>並緩速<#ffb900ff>35%<>。",
+        "ult": "減傷<#ffb900ff>35%<>、免疫控場，接下來3次普攻各造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>175%<>傷害：第1下<#ef5350ff>暈眩1秒<>；第2下為<#f5f5f5ff>真實傷害<>；第3下打出直線衝擊波，<#ef5350ff>暈眩<>沿線敵軍。"
+      },
       "tft_syfen": {
         "name": "賽焚",
         "attack": "翼爪和甩尾交替攻擊，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>幽影低語<>：他的傷害讓敵人縮小<#ffb900ff>4秒<>（物防、魔防<#ffb900ff>-20%<>）；打縮小的敵人疊怒氣，每層<#ffb900ff>+5<>攻擊力，最多<#ffb900ff>5<>層。",
@@ -483,6 +502,11 @@
         "skill1": "猛烈狂風",
         "skill2": "振翼退風",
         "ult": "蒼穹罡風"
+      },
+      "tft_shiohyu": {
+        "skill1": "玉拳連打",
+        "skill2": "震地",
+        "ult": "翠玉之型"
       },
       "tft_syfen": {
         "skill1": "噬咬",
@@ -626,6 +650,13 @@
         "skill2": "Beats his wings at a nearby enemy: a gust for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> and a <#ffb900ff>40%<> slow for <#ffb900ff>1.5s<>, and he hops back on the wind.",
         "ult": "Flies up (<#ffb900ff>30%<> less damage, immune to crowd control) and blasts <#ffb900ff>3<> big waves down the line with the most enemies, each <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<>."
       },
+      "tft_shiohyu": {
+        "name": "Shi Oh Yu",
+        "attack": "Swipes with alternating claws; every third deals <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>. <#ff9028ff>Jade Skin<>: under <#ffb900ff>50%<> health his skin turns to jade, <#ffb900ff>40%<> less damage for <#ffb900ff>3s<> (<#ffb900ff>30s<> cooldown).",
+        "skill": "Rushes at the target and lands <#ffb900ff>4<> punches, each <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> <#ff9028ff>physical damage<>.",
+        "skill2": "Smashes the ground: nearby enemies take <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<>, are <#ef5350ff>knocked up for 0.75s<> and slowed <#ffb900ff>35%<>.",
+        "ult": "Takes <#ffb900ff>35%<> less damage and is immune to crowd control; his next 3 attacks deal <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>175%<> each: the 1st <#ef5350ff>stuns for 1s<>, the 2nd is <#f5f5f5ff>true damage<>, the 3rd sends a wave down a line that <#ef5350ff>stuns<> every enemy in it."
+      },
       "tft_syfen": {
         "name": "Sy'fen",
         "attack": "Wing claws and tail lashes in turn for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Whispers<>: his damage shrinks enemies for <#ffb900ff>4s<> (<#ffb900ff>-20%<> armor and magic resist); hitting a shrunk enemy stacks <#ffb900ff>+5<> attack (up to <#ffb900ff>5<>).",
@@ -729,6 +760,11 @@
         "skill1": "Windblast",
         "skill2": "Wingbeat Retreat",
         "ult": "Sky Gale"
+      },
+      "tft_shiohyu": {
+        "skill1": "Jade Fist Barrage",
+        "skill2": "Earthshaker",
+        "ult": "Jade Form"
       },
       "tft_syfen": {
         "skill1": "Bite",
@@ -872,6 +908,13 @@
         "skill2": "가까운 적에게 날갯짓으로 돌풍을 일으켜 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>마법 피해<>, <#ffb900ff>40%<> 둔화(<#ffb900ff>1.5초<>), 바람을 타고 뒤로 도약.",
         "ult": "날아올라(받는 피해 <#ffb900ff>30%<> 감소, 군중 제어 면역) 적이 가장 많은 일직선으로 큰 충격파 <#ffb900ff>3<>개를 연달아 날려 각각 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>."
       },
+      "tft_shiohyu": {
+        "name": "시오유",
+        "attack": "양 발톱을 번갈아 휘두르며 세 번째 공격은 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>. <#ff9028ff>비취 피부<>: 체력이 <#ffb900ff>50%<> 미만이 되면 피부가 비취로 변해 받는 피해 <#ffb900ff>40%<> 감소(<#ffb900ff>3초<>, 재사용 <#ffb900ff>30초<>).",
+        "skill": "대상에게 돌진해 주먹을 <#ffb900ff>4<>번 날려 각각 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "땅을 내리쳐 주변 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.75초 공중에 띄움<>, <#ffb900ff>35%<> 둔화.",
+        "ult": "받는 피해 <#ffb900ff>35%<> 감소, 군중 제어 면역. 다음 3번의 공격이 각각 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>175%<> 피해: 1번째 <#ef5350ff>1초 기절<>, 2번째 <#f5f5f5ff>고정 피해<>, 3번째 일직선 충격파로 적 모두 <#ef5350ff>기절<>."
+      },
       "tft_syfen": {
         "name": "사이펜",
         "attack": "날개 발톱과 꼬리로 번갈아 공격해 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>속삭임<>: 피해를 준 적을 <#ffb900ff>4초<> 동안 축소(방어력·마법 저항력 <#ffb900ff>-20%<>), 축소된 적을 공격하면 공격력 <#ffb900ff>+5<> 중첩(최대 <#ffb900ff>5<>).",
@@ -975,6 +1018,11 @@
         "skill1": "돌풍",
         "skill2": "날갯짓 후퇴",
         "ult": "창공의 돌풍"
+      },
+      "tft_shiohyu": {
+        "skill1": "비취 연타",
+        "skill2": "대지 강타",
+        "ult": "비취 형태"
       },
       "tft_syfen": {
         "skill1": "물어뜯기",
@@ -1118,6 +1166,13 @@
         "skill2": "近くの敵へ羽ばたいて突風を起こし<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>40%<>スロウ（<#ffb900ff>1.5秒<>）、風に乗って後ろへ跳ぶ。",
         "ult": "飛び上がり（被ダメージ<#ffb900ff>30%<>軽減、行動妨害無効）、敵が最も多い直線に大きな衝撃波を<#ffb900ff>3<>発連続で放ちそれぞれ<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>。"
       },
+      "tft_shiohyu": {
+        "name": "シ・オー・ユー",
+        "attack": "左右の爪で交互に攻撃し、3回目は<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>翡翠の肌<>：体力が<#ffb900ff>50%<>未満で肌が翡翠になり、被ダメージ<#ffb900ff>40%<>軽減（<#ffb900ff>3秒<>、クールダウン<#ffb900ff>30秒<>）。",
+        "skill": "対象へ突進し拳を<#ffb900ff>4<>回叩き込み、それぞれ<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>45%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "地面を殴りつけ、周囲の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>0.75秒打ち上げ<>、<#ffb900ff>35%<>スロウ。",
+        "ult": "被ダメージ<#ffb900ff>35%<>軽減、行動妨害無効。次の3回の通常攻撃がそれぞれ<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>175%<>：1回目<#ef5350ff>1秒スタン<>、2回目<#f5f5f5ff>確定ダメージ<>、3回目は直線の衝撃波で敵全員を<#ef5350ff>スタン<>。"
+      },
       "tft_syfen": {
         "name": "サイ・フェン",
         "attack": "翼の爪と尾で交互に攻撃し<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>囁き<>：ダメージを与えた敵を<#ffb900ff>4秒<>縮小（物理防御・魔法防御<#ffb900ff>-20%<>）、縮小した敵を攻撃すると攻撃力<#ffb900ff>+5<>を重ねる（最大<#ffb900ff>5<>）。",
@@ -1221,6 +1276,11 @@
         "skill1": "突風",
         "skill2": "羽ばたき後退",
         "ult": "蒼穹の突風"
+      },
+      "tft_shiohyu": {
+        "skill1": "翡翠連拳",
+        "skill2": "大地砕き",
+        "ult": "翡翠の構え"
       },
       "tft_syfen": {
         "skill1": "噛みつき",

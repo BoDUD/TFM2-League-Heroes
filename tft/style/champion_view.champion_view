@@ -258,6 +258,20 @@
         "y": -10
       }
     },
+    "tft_shiohyu": {
+      "face": {
+        "x": 3,
+        "y": -26
+      },
+      "center": {
+        "x": -1,
+        "y": -18
+      },
+      "banpick_center": {
+        "x": -1,
+        "y": -8
+      }
+    },
     "tft_syfen": {
       "face": {
         "x": 23,

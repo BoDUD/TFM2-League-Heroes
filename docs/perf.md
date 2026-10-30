@@ -296,3 +296,22 @@ D 盘（5900 转机械盘）上一份测试用的游戏：exe、`bundle.game_dat
 
 - 战斗图集里的 lo_ 帧（140 MiB）界面已经不读，可以从图集里删掉，省内存和加载时间；等实机确认小图集没问题再做。
 - BP 格子还有一种「播一次某个动作再回 idle」的状态（`banpick_champion_slot.rs` 动画状态 4），没查到什么时候出现；出现时现在画的是 reel。
+
+## 10. 游戏的 GPU 图片缓存：256 MiB → 1 GiB（2026-10-30）
+
+用户：「能强制改缓存吗 游戏的」「先收尾，再扩缓存」。第 9 节的小图集让 BP 和英雄界面装得下，但 `tools/ci/ui_sheets.py` 给 BP 小图集留的 192 MiB 到石傲玉（tft 第 20 位）已经满了（191.7 MiB，他的选人卡片只能放两段动作）。
+
+### 缓存是什么
+
+- 游戏用 Skia 画图（EXE 里的 `skia-bindings`，GPU 后端 Ganesh）。贴图上传后放在 Skia 的 `GrResourceCache` 里，预算是 Skia 默认的 `kDefaultMaxBudget` = 256 MiB：0.7.0 的构造函数在 rva `0x3716120`，`mov qword [rdi+0x70], 0x10000000` 就是 `fMaxBytes`；后面两个消息信箱、上下文 ID（+0xe8 / +0xec）、`fSingleOwner`（+0xf0）和 Skia 源码的成员一一对应。
+- `insertResource`（`0x3716b40`）：`fBytes`（+0x78）加上大小，计入预算的再 `fBudgetedCount`（+0x80）加一、`fBudgetedBytes`（+0x88）加上大小，最后跳到 `purgeAsNeeded`（`0x3716960`）；`purgeAsNeeded` 每次刷新比较 `fBudgetedBytes > fMaxBytes`，超了就从最久没用的开始清。一屏要的贴图超过 256 MiB 时，每帧都在清掉、重新上传——就是第 9 节的「每一帧都在重新解码」。
+- 游戏自己从来不调 `setLimit`（`fMaxBytes` 只在构造函数里写）。Rin 的 PPU Core 0.2.16 把它提到过 512 MiB，0.2.18 撤掉改成小图集（撤的原因没有记录）。
+
+### 做法
+
+- league.dll 0.8.16 [`src/cache.rs`](../addons/league_main/src/cache.rs)：GPU 上下文在 mod 加载前就建好了，改构造函数来不及，所以改正在用的那个缓存对象。`insertResource` 开头 13 字节（几个 push、`sub rsp`、两个寄存器 mov，没有 rip 相对的操作数）换成跳到一小段机器码：`fMaxBytes` 还是 256 MiB 就改成 1 GiB，并记下缓存对象的地址，然后执行原来的开头、跳回去。不调用 Rust，只改标志位。游戏或别的 mod 设过别的上限就不动。
+- 找函数：`insertResource` 开头 64 字节的特征码（两个 call 的位移挖空）和构造函数里 `fMaxBytes = 256 MiB; fBytes = 0` 两句，在 `.text` 里必须各找到一处，才挂（`cargo test -p league_main` 拿本机的 EXE 核对）。任一个不对就不挂，日志写原因，游戏照旧 256 MiB。和 build.rs 列的版本无关：认不得的游戏版本也会试。
+- 日志：league.log 里 `GPU cache`：挂上了没有、缓存对象的地址、用量每过 64 MiB 的新高。
+- 1 GiB 而不是更多：这台机器 31 GB 内存，游戏跑在 AMD 核显上（显存就是系统内存），1 GiB 只是上限，用到多少才占多少。
+- `tools/ci/ui_sheets.py` 的预算跟着放大到缓存的四分之三 / 四分之一：BP 768 MiB、idle 256 MiB；石傲玉的选人卡片恢复四段。缓存补丁没挂上的游戏版本（league.log 写 `GPU cache left at 256 MiB`）上，BP 界面又会在英雄多时卡，到时按日志重找函数。
+

@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """CI: the UI sheets (tools/package_mod.py ui_sheets, league.dll src/ui.rs) - every champion of league/ and tft/ gets
 both, pixel for pixel (package_mod checks each UI frame against its source frame and its clear pads), and the screens
-that show every hero at once stay well inside the game's 256 MiB image cache. 589 MiB of battle sheets on those screens
+that show every hero at once stay well inside the game's GPU image cache (Skia's GrResourceCache: 256 MiB by default,
+1 GiB with league.dll's src/cache.rs). 589 MiB of battle sheets on those screens
 made the BP grid and the hero screen decode every frame (2026-10-24, docs/perf.md section 9: 「PPU导致页面卡 特别是英雄界面
 还有BP界面非常的卡」).
 
@@ -18,8 +19,9 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import package_mod as pm  # noqa: E402
 
 # MiB once decoded, every hero's together: the BP grid keeps every hero's bp sheet, the hero screen every idle sheet, each
-# beside the screen's own pictures - three quarters and a quarter of the 256 MiB cache
-LIMITS = {"bp": 192, "idle": 64}
+# beside the screen's own pictures - three quarters and a quarter of the GPU image cache: 1 GiB since league.dll 0.8.16
+# (addons/league_main/src/cache.rs raises Skia's default 256 MiB; docs/perf.md section 10). Before it: 192 and 64.
+LIMITS = {"bp": 768, "idle": 256}
 
 
 def main():
@@ -47,7 +49,7 @@ def main():
         print(f"  {kind:5s} {total[kind]:6.1f} MiB of {limit} (largest: " + ", ".join(f"{h} {m:.1f}" for m, _, h in top) + ")")
         if total[kind] > limit:
             bad.append(f"{pm.UI_DIR}/{kind}: {total[kind]:.0f} MiB together, past {limit} MiB - the screens showing every "
-                       f"hero near the game's 256 MiB image cache again (docs/perf.md section 9)")
+                       f"hero near the game's GPU image cache again (docs/perf.md sections 9 and 10)")
     if bad:
         print("\n".join(["FAILED:"] + bad))
         sys.exit(1)

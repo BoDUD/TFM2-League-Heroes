@@ -1,0 +1,119 @@
+[
+ {
+  "file": "shiohyu_fx_a_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   16,
+   16
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_e_hit.png",
+  "frames": 4,
+  "cell_1x": [
+   18,
+   14
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_e_slam.png",
+  "frames": 6,
+  "cell_1x": [
+   52,
+   22
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_e_slow.png",
+  "frames": 6,
+  "cell_1x": [
+   20,
+   8
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_p.png",
+  "frames": 5,
+  "cell_1x": [
+   40,
+   50
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_p_skin.png",
+  "frames": 6,
+  "cell_1x": [
+   38,
+   48
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_q_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   12,
+   12
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_r.png",
+  "frames": 5,
+  "cell_1x": [
+   44,
+   52
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_r1_hit.png",
+  "frames": 5,
+  "cell_1x": [
+   22,
+   22
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_r2_hit.png",
+  "frames": 3,
+  "cell_1x": [
+   20,
+   24
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_r3_hit.png",
+  "frames": 4,
+  "cell_1x": [
+   18,
+   18
+  ],
+  "symmetry": "left-right"
+ },
+ {
+  "file": "shiohyu_fx_r3_wave.png",
+  "frames": 6,
+  "cell_1x": [
+   92,
+   24
+  ],
+  "symmetry": "top-bottom"
+ },
+ {
+  "file": "shiohyu_fx_r_jade.png",
+  "frames": 6,
+  "cell_1x": [
+   40,
+   50
+  ],
+  "symmetry": "left-right"
+ }
+]

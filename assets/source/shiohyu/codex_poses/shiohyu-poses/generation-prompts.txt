@@ -1,0 +1,69 @@
+Generator: built-in image_gen, transparent_background=true.
+Input A=0_design.png; B=1_head.png; C=<number>_<pose>_ref.png; D=<number>_<pose>_skeleton.png.
+Every frame uses the following base prompt plus its per-frame suffix below.
+
+Create ONE new pose frame of the APPROVED pixel-art character in reference image A. A is the exact accepted design, B is the exact head, C is this frame's 3D POSE reference, D is the matching colored joint skeleton. Copy the identity, chunky pixel style, proportions, palette, material shapes and body thickness ONLY from A. Copy limb positions, bends, torso lean, wing folding/opening and location ONLY from C and D. Do NOT copy the 3D rendering style. This is the SAME jade dragon-man in a NEW action pose, not an idle repaint.
+Output a 1254x1254 PNG, GENUINE TRANSPARENT background, alpha only 0/255. Keep same scale and placement as C/D, ground baseline y=1176. All pixels are exactly 8x8 aligned squares starting from top-left of canvas. Coarse flat game pixel art, thick continuous near-black outline, 3 flat shades per material, large solid pixel clusters, no fine details, blur, antialiasing, gradients or dithering. Empty space above and around sprite stays transparent. Never include the gray background, grid, red ground line, skeleton lines/dots, gray boxes, shadows, letters or guide graphics.
+IDENTITY LOCK: broad sturdy JADE TEAL biped dragon-man with huge rounded PALE MINT BEARD, dark teal gold-edged chevron chest armor, DARK PURPLE crystal shoulder spikes and forearm spikes, CORAL ORANGE claws, dark NAVY digitigrade legs and black toes. Two wings with purple bones, GOLD/AMBER to SALMON/ROSE membrane panels, teal fin spines. Wing size stays the same as A, only its joint pose changes; never enlarge wings. Purple tail with spiky leaf fluke follows brown skeleton line.
+HEAD LOCK: copy B's exact side-facing-right head, including GOLD curved horns, purple forehead crystal, TEAL brow, BRONZE muzzle, clearly luminous ORANGE eye and upper beard. Move/tilt this same head with torso; do not turn it away or redesign it. Orange eye remains visible in ALL frames.
+SKELETON: green=spine; orange=LEFT arm and large dot=left claw; purple=RIGHT arm and dot=right claw; red=LEFT leg; blue=RIGHT leg; pink=LEFT wing; cyan=RIGHT wing; brown=tail. Draw both legs along their distinct lines, knee bends in proper positions, maintain muscular thickness. Near arm/leg/wing in bright full palette and far side one shade darker. Hands open for claws, closed fists for punches. No effects, claw trails, wave, aura, rubble, cracks, sparkles, speed lines or floor. Exact pose takes priority over a generic heroic idle.
+
+a1_wind:
+NEAR ARM: LEFT. THE POSE: CLAW 1 WIND UP: low crouch with wide planted stance; one claw drawn behind the body gathering power. Follow C/D exactly.
+
+a1_hit:
+NEAR ARM: RIGHT. THE POSE: CLAW 1 STRIKE: body lunges forward in low wide stance, a claw sweeps across the front; torso twisting as C/D.
+
+a2_wind:
+NEAR ARM: RIGHT. THE POSE: CLAW 2 WIND UP: rise tall, rear up and lean BACK, OTHER claw lifted HIGH; legs nearly straight. Follow raised orange-arm line and bent near purple arm.
+
+a2_hit:
+NEAR ARM: LEFT. THE POSE: CLAW 2 STRIKE: drop torso down, claw slashes forward and downward; near orange claw low in front, far purple claw behind to left. One leg folds up.
+
+a3_wind:
+NEAR ARM: LEFT. THE POSE: CLAW 3 WIND UP: low bent knees, wide feet, coil body gathering force, both arms held wide exactly as joint lines.
+
+a3_hit:
+NEAR ARM: LEFT. THE POSE: CLAW 3 HEAVY STRIKE: push whole body forward, near orange arm curls back/low and far purple claw high forward as C/D; long diagonal tail down-left. Keep same visible right-facing head despite body twist.
+
+q_dash:
+NEAR ARM: RIGHT. THE POSE: POUNCE: low horizontal forward lunge, BOTH FISTS fully extended together to the RIGHT. Rear blue leg stretched backward and left red leg bent under body. Wings laid back over horizontal back, not idle upright. Eye visible.
+
+e_slam:
+NEAR ARM: RIGHT. THE POSE: GROUND SLAM: crouch almost prone FLAT down, head very low on right, bent elbows and BOTH clenched fists at ground/front right, knees deep folded, tail lifted left. Wings laid horizontally backward along back. No ground/effects.
+
+r_roar:
+NEAR ARM: RIGHT. THE POSE: JADE FORM ACTIVATION: stand and lean back roaring, BOTH WINGS FULLY OPEN TO THE SIDES not vertical folded idle, one wing spreads to LEFT and other diagonally up-RIGHT as C/D. Far orange arm reaches far forward/up-right; near purple arm folds before chest. Same eye visible.
+
+r_wave:
+NEAR ARM: RIGHT. THE POSE: THIRD BLOW: deep low horizontal lunge to RIGHT, BOTH OPEN CLAWS extended forward to right, hips back-left and head low-forward, wings fold at an angle along leaning back. No wave or effects.
+
+d_fall:
+NEAR ARM: RIGHT. THE POSE: KNOCKED BACK / DEATH FALL: whole body thrown BACK, chest arched up, near RIGHT purple arm flung out forward-right and far orange bent behind head, tail whips up-left, legs angle forward-right. Same head tilts back with torso, glowing eye visible.
+
+d_down:
+NEAR ARM: RIGHT. THE POSE: DEATH DOWN: collapsed onto BOTH KNEES, body slumped, head hanging downward, arms limp low near knees, wings collapsed against back, tail fluke lies to left. Defeated kneeling pose, not a standing squat; no ground.
+
+run1:
+NEAR ARM: RIGHT. THE POSE: RUN FRAME 1/8: exact leg and foot arrangement from C/D; one fixed body, head, horn and wing scale throughout cycle. Hunched FORWARD right-running torso, arms counter-swing, wings tilted back. Red LEFT leg and blue RIGHT leg must follow THEIR OWN lines with distinct front/back overlap; far leg darker. First half-stride phase, match reference foot extension and knee bends precisely.
+
+run2:
+NEAR ARM: RIGHT. THE POSE: RUN FRAME 2/8: exact leg and foot arrangement from C/D; one fixed body, head, horn and wing scale throughout cycle. Hunched FORWARD right-running torso, arms counter-swing, wings tilted back. Red LEFT leg and blue RIGHT leg must follow THEIR OWN lines with distinct front/back overlap; far leg darker. First half-stride phase, match reference foot extension and knee bends precisely.
+
+run3:
+NEAR ARM: RIGHT. THE POSE: RUN FRAME 3/8: exact leg and foot arrangement from C/D; one fixed body, head, horn and wing scale throughout cycle. Hunched FORWARD right-running torso, arms counter-swing, wings tilted back. Red LEFT leg and blue RIGHT leg must follow THEIR OWN lines with distinct front/back overlap; far leg darker. First half-stride phase, match reference foot extension and knee bends precisely.
+
+run4:
+NEAR ARM: RIGHT. THE POSE: RUN FRAME 4/8: exact leg and foot arrangement from C/D; one fixed body, head, horn and wing scale throughout cycle. Hunched FORWARD right-running torso, arms counter-swing, wings tilted back. Red LEFT leg and blue RIGHT leg must follow THEIR OWN lines with distinct front/back overlap; far leg darker. This is a PASSING frame where the legs cross under the body, NOT a wide split stride.
+
+run5:
+NEAR ARM: RIGHT. THE POSE: RUN FRAME 5/8: exact leg and foot arrangement from C/D; one fixed body, head, horn and wing scale throughout cycle. Hunched FORWARD right-running torso, arms counter-swing, wings tilted back. Red LEFT leg and blue RIGHT leg must follow THEIR OWN lines with distinct front/back overlap; far leg darker. Opposite half-stride: SWAP the forward leg versus frames 1-3; do not reuse their pose.
+
+run6:
+NEAR ARM: RIGHT. THE POSE: RUN FRAME 6/8: exact leg and foot arrangement from C/D; one fixed body, head, horn and wing scale throughout cycle. Hunched FORWARD right-running torso, arms counter-swing, wings tilted back. Red LEFT leg and blue RIGHT leg must follow THEIR OWN lines with distinct front/back overlap; far leg darker. Opposite half-stride: SWAP the forward leg versus frames 1-3; do not reuse their pose.
+
+run7:
+NEAR ARM: RIGHT. THE POSE: RUN FRAME 7/8: exact leg and foot arrangement from C/D; one fixed body, head, horn and wing scale throughout cycle. Hunched FORWARD right-running torso, arms counter-swing, wings tilted back. Red LEFT leg and blue RIGHT leg must follow THEIR OWN lines with distinct front/back overlap; far leg darker. Opposite half-stride: SWAP the forward leg versus frames 1-3; do not reuse their pose.
+
+run8:
+NEAR ARM: RIGHT. THE POSE: RUN FRAME 8/8: exact leg and foot arrangement from C/D; one fixed body, head, horn and wing scale throughout cycle. Hunched FORWARD right-running torso, arms counter-swing, wings tilted back. Red LEFT leg and blue RIGHT leg must follow THEIR OWN lines with distinct front/back overlap; far leg darker. This is a PASSING frame where the legs cross under the body, NOT a wide split stride.

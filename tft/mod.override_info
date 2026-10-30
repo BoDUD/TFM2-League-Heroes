@@ -2035,6 +2035,150 @@
     "remapping": "asset/tft/sound/sfx/tft_daeja_sfx_r_roar",
     "type": "override"
   },
+  "asset/base/sound/sfx/tft_shiohyu_a": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_p": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_p",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_q": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_q_punch": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_q_punch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_e": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_e_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r_roar": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r_roar",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r1": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r1",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r1_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r1_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r2": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r2_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r2_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r3": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r3_wave": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r3_wave",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_r3_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_r3_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_d": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_d",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_a": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_d": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_d",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_e": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_e_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_p": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_p",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_q": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_q_punch": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_q_punch",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r1": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r1",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r1_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r1_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r2": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r2",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r2_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r2_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r3": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r3_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r3_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r3_wave": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r3_wave",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_shiohyu_sfx_r_roar": {
+    "remapping": "asset/tft/sound/sfx/tft_shiohyu_sfx_r_roar",
+    "type": "override"
+  },
   "asset/base/sound/sfx/tft_syfen_a": {
     "remapping": "asset/tft/sound/sfx/tft_syfen_a",
     "type": "override"
