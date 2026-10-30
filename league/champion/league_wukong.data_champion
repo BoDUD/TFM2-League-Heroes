@@ -866,7 +866,7 @@
                             "effects": [
                               {
                                 "type": "RandomTarget",
-                                "range": 25000,
+                                "range": 28000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -881,18 +881,6 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "MoveToTarget",
-                                    "speed": 1200,
-                                    "range": 25000,
-                                    "end_effects": [
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "spin",
-                                        "tick": 119
-                                      }
-                                    ]
                                   }
                                 ]
                               },
@@ -908,8 +896,8 @@
                                   "effects": [
                                     {
                                       "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "EnemyWithoutTower",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [
                                         {
@@ -925,14 +913,22 @@
                                           "only_to_enemy": false
                                         },
                                         {
-                                          "type": "MoveToTarget",
-                                          "speed": 1200,
-                                          "range": 30000,
+                                          "type": "MoveTo",
+                                          "speed": 3000,
+                                          "range": 45000,
                                           "end_effects": [
                                             {
-                                              "type": "CasterAnimation",
-                                              "name": "spin",
-                                              "tick": 119
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_wukong_r_on",
+                                              "effect_buff": {
+                                                "type": "CasterAnimation",
+                                                "name": "spin",
+                                                "tick": 119
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
                                             }
                                           ]
                                         }
@@ -946,22 +942,63 @@
                                         "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 45000,
-                                        "casting_target": "EnemyWithoutTower",
-                                        "from_projectile": false,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "MoveToTarget",
-                                            "speed": 1200,
-                                            "range": 45000,
-                                            "end_effects": [
+                                            "type": "RandomTarget",
+                                            "range": 28000,
+                                            "casting_target": "EnemyWithoutTower",
+                                            "from_projectile": false,
+                                            "effects": [
                                               {
-                                                "type": "CasterAnimation",
-                                                "name": "spin",
-                                                "tick": 119
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_r_found",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_wukong_r_found",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 45000,
+                                              "casting_target": "EnemyWithoutTower",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "MoveTo",
+                                                  "speed": 3000,
+                                                  "range": 45000,
+                                                  "end_effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_wukong_r_on",
+                                                      "effect_buff": {
+                                                        "type": "CasterAnimation",
+                                                        "name": "spin",
+                                                        "tick": 119
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
                                       }
@@ -970,11 +1007,6 @@
                                 }
                               }
                             ]
-                          },
-                          {
-                            "type": "CasterAnimation",
-                            "name": "spin",
-                            "tick": 119
                           }
                         ]
                       },
@@ -1035,7 +1067,7 @@
                             "effects": [
                               {
                                 "type": "RandomTarget",
-                                "range": 25000,
+                                "range": 28000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -1050,18 +1082,6 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "MoveToTarget",
-                                    "speed": 1200,
-                                    "range": 25000,
-                                    "end_effects": [
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "spin",
-                                        "tick": 104
-                                      }
-                                    ]
                                   }
                                 ]
                               },
@@ -1077,8 +1097,8 @@
                                   "effects": [
                                     {
                                       "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "EnemyWithoutTower",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [
                                         {
@@ -1094,14 +1114,22 @@
                                           "only_to_enemy": false
                                         },
                                         {
-                                          "type": "MoveToTarget",
-                                          "speed": 1200,
-                                          "range": 30000,
+                                          "type": "MoveTo",
+                                          "speed": 3000,
+                                          "range": 45000,
                                           "end_effects": [
                                             {
-                                              "type": "CasterAnimation",
-                                              "name": "spin",
-                                              "tick": 104
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_wukong_r_on",
+                                              "effect_buff": {
+                                                "type": "CasterAnimation",
+                                                "name": "spin",
+                                                "tick": 104
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
                                             }
                                           ]
                                         }
@@ -1115,22 +1143,63 @@
                                         "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 45000,
-                                        "casting_target": "EnemyWithoutTower",
-                                        "from_projectile": false,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "MoveToTarget",
-                                            "speed": 1200,
-                                            "range": 45000,
-                                            "end_effects": [
+                                            "type": "RandomTarget",
+                                            "range": 28000,
+                                            "casting_target": "EnemyWithoutTower",
+                                            "from_projectile": false,
+                                            "effects": [
                                               {
-                                                "type": "CasterAnimation",
-                                                "name": "spin",
-                                                "tick": 104
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_r_found",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_wukong_r_found",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 45000,
+                                              "casting_target": "EnemyWithoutTower",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "MoveTo",
+                                                  "speed": 3000,
+                                                  "range": 45000,
+                                                  "end_effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_wukong_r_on",
+                                                      "effect_buff": {
+                                                        "type": "CasterAnimation",
+                                                        "name": "spin",
+                                                        "tick": 104
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
                                       }
@@ -1139,11 +1208,6 @@
                                 }
                               }
                             ]
-                          },
-                          {
-                            "type": "CasterAnimation",
-                            "name": "spin",
-                            "tick": 104
                           }
                         ]
                       },
@@ -1666,7 +1730,7 @@
                             "effects": [
                               {
                                 "type": "RandomTarget",
-                                "range": 25000,
+                                "range": 28000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -1681,18 +1745,6 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "MoveToTarget",
-                                    "speed": 1200,
-                                    "range": 25000,
-                                    "end_effects": [
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "spin",
-                                        "tick": 89
-                                      }
-                                    ]
                                   }
                                 ]
                               },
@@ -1708,8 +1760,8 @@
                                   "effects": [
                                     {
                                       "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "EnemyWithoutTower",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [
                                         {
@@ -1725,14 +1777,22 @@
                                           "only_to_enemy": false
                                         },
                                         {
-                                          "type": "MoveToTarget",
-                                          "speed": 1200,
-                                          "range": 30000,
+                                          "type": "MoveTo",
+                                          "speed": 3000,
+                                          "range": 45000,
                                           "end_effects": [
                                             {
-                                              "type": "CasterAnimation",
-                                              "name": "spin",
-                                              "tick": 89
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_wukong_r_on",
+                                              "effect_buff": {
+                                                "type": "CasterAnimation",
+                                                "name": "spin",
+                                                "tick": 89
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
                                             }
                                           ]
                                         }
@@ -1746,22 +1806,63 @@
                                         "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 45000,
-                                        "casting_target": "EnemyWithoutTower",
-                                        "from_projectile": false,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "MoveToTarget",
-                                            "speed": 1200,
-                                            "range": 45000,
-                                            "end_effects": [
+                                            "type": "RandomTarget",
+                                            "range": 28000,
+                                            "casting_target": "EnemyWithoutTower",
+                                            "from_projectile": false,
+                                            "effects": [
                                               {
-                                                "type": "CasterAnimation",
-                                                "name": "spin",
-                                                "tick": 89
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_r_found",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_wukong_r_found",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 45000,
+                                              "casting_target": "EnemyWithoutTower",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "MoveTo",
+                                                  "speed": 3000,
+                                                  "range": 45000,
+                                                  "end_effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_wukong_r_on",
+                                                      "effect_buff": {
+                                                        "type": "CasterAnimation",
+                                                        "name": "spin",
+                                                        "tick": 89
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
                                       }
@@ -1770,11 +1871,6 @@
                                 }
                               }
                             ]
-                          },
-                          {
-                            "type": "CasterAnimation",
-                            "name": "spin",
-                            "tick": 89
                           }
                         ]
                       },
@@ -1835,7 +1931,7 @@
                             "effects": [
                               {
                                 "type": "RandomTarget",
-                                "range": 25000,
+                                "range": 28000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -1850,18 +1946,6 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "MoveToTarget",
-                                    "speed": 1200,
-                                    "range": 25000,
-                                    "end_effects": [
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "spin",
-                                        "tick": 74
-                                      }
-                                    ]
                                   }
                                 ]
                               },
@@ -1877,8 +1961,8 @@
                                   "effects": [
                                     {
                                       "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "EnemyWithoutTower",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [
                                         {
@@ -1894,14 +1978,22 @@
                                           "only_to_enemy": false
                                         },
                                         {
-                                          "type": "MoveToTarget",
-                                          "speed": 1200,
-                                          "range": 30000,
+                                          "type": "MoveTo",
+                                          "speed": 3000,
+                                          "range": 45000,
                                           "end_effects": [
                                             {
-                                              "type": "CasterAnimation",
-                                              "name": "spin",
-                                              "tick": 74
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_wukong_r_on",
+                                              "effect_buff": {
+                                                "type": "CasterAnimation",
+                                                "name": "spin",
+                                                "tick": 74
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
                                             }
                                           ]
                                         }
@@ -1915,22 +2007,63 @@
                                         "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 45000,
-                                        "casting_target": "EnemyWithoutTower",
-                                        "from_projectile": false,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "MoveToTarget",
-                                            "speed": 1200,
-                                            "range": 45000,
-                                            "end_effects": [
+                                            "type": "RandomTarget",
+                                            "range": 28000,
+                                            "casting_target": "EnemyWithoutTower",
+                                            "from_projectile": false,
+                                            "effects": [
                                               {
-                                                "type": "CasterAnimation",
-                                                "name": "spin",
-                                                "tick": 74
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_r_found",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_wukong_r_found",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 45000,
+                                              "casting_target": "EnemyWithoutTower",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "MoveTo",
+                                                  "speed": 3000,
+                                                  "range": 45000,
+                                                  "end_effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_wukong_r_on",
+                                                      "effect_buff": {
+                                                        "type": "CasterAnimation",
+                                                        "name": "spin",
+                                                        "tick": 74
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
                                       }
@@ -1939,11 +2072,6 @@
                                 }
                               }
                             ]
-                          },
-                          {
-                            "type": "CasterAnimation",
-                            "name": "spin",
-                            "tick": 74
                           }
                         ]
                       },
@@ -2466,7 +2594,7 @@
                             "effects": [
                               {
                                 "type": "RandomTarget",
-                                "range": 25000,
+                                "range": 28000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -2481,18 +2609,6 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "MoveToTarget",
-                                    "speed": 1200,
-                                    "range": 25000,
-                                    "end_effects": [
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "spin",
-                                        "tick": 59
-                                      }
-                                    ]
                                   }
                                 ]
                               },
@@ -2508,8 +2624,8 @@
                                   "effects": [
                                     {
                                       "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "EnemyWithoutTower",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [
                                         {
@@ -2525,14 +2641,22 @@
                                           "only_to_enemy": false
                                         },
                                         {
-                                          "type": "MoveToTarget",
-                                          "speed": 1200,
-                                          "range": 30000,
+                                          "type": "MoveTo",
+                                          "speed": 3000,
+                                          "range": 45000,
                                           "end_effects": [
                                             {
-                                              "type": "CasterAnimation",
-                                              "name": "spin",
-                                              "tick": 59
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_wukong_r_on",
+                                              "effect_buff": {
+                                                "type": "CasterAnimation",
+                                                "name": "spin",
+                                                "tick": 59
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
                                             }
                                           ]
                                         }
@@ -2546,22 +2670,63 @@
                                         "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 45000,
-                                        "casting_target": "EnemyWithoutTower",
-                                        "from_projectile": false,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "MoveToTarget",
-                                            "speed": 1200,
-                                            "range": 45000,
-                                            "end_effects": [
+                                            "type": "RandomTarget",
+                                            "range": 28000,
+                                            "casting_target": "EnemyWithoutTower",
+                                            "from_projectile": false,
+                                            "effects": [
                                               {
-                                                "type": "CasterAnimation",
-                                                "name": "spin",
-                                                "tick": 59
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_r_found",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_wukong_r_found",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 45000,
+                                              "casting_target": "EnemyWithoutTower",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "MoveTo",
+                                                  "speed": 3000,
+                                                  "range": 45000,
+                                                  "end_effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_wukong_r_on",
+                                                      "effect_buff": {
+                                                        "type": "CasterAnimation",
+                                                        "name": "spin",
+                                                        "tick": 59
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
                                       }
@@ -2570,11 +2735,6 @@
                                 }
                               }
                             ]
-                          },
-                          {
-                            "type": "CasterAnimation",
-                            "name": "spin",
-                            "tick": 59
                           }
                         ]
                       },
@@ -2635,7 +2795,7 @@
                             "effects": [
                               {
                                 "type": "RandomTarget",
-                                "range": 25000,
+                                "range": 28000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -2650,18 +2810,6 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "MoveToTarget",
-                                    "speed": 1200,
-                                    "range": 25000,
-                                    "end_effects": [
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "spin",
-                                        "tick": 44
-                                      }
-                                    ]
                                   }
                                 ]
                               },
@@ -2677,8 +2825,8 @@
                                   "effects": [
                                     {
                                       "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "EnemyWithoutTower",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [
                                         {
@@ -2694,14 +2842,22 @@
                                           "only_to_enemy": false
                                         },
                                         {
-                                          "type": "MoveToTarget",
-                                          "speed": 1200,
-                                          "range": 30000,
+                                          "type": "MoveTo",
+                                          "speed": 3000,
+                                          "range": 45000,
                                           "end_effects": [
                                             {
-                                              "type": "CasterAnimation",
-                                              "name": "spin",
-                                              "tick": 44
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_wukong_r_on",
+                                              "effect_buff": {
+                                                "type": "CasterAnimation",
+                                                "name": "spin",
+                                                "tick": 44
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
                                             }
                                           ]
                                         }
@@ -2715,22 +2871,63 @@
                                         "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 45000,
-                                        "casting_target": "EnemyWithoutTower",
-                                        "from_projectile": false,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "MoveToTarget",
-                                            "speed": 1200,
-                                            "range": 45000,
-                                            "end_effects": [
+                                            "type": "RandomTarget",
+                                            "range": 28000,
+                                            "casting_target": "EnemyWithoutTower",
+                                            "from_projectile": false,
+                                            "effects": [
                                               {
-                                                "type": "CasterAnimation",
-                                                "name": "spin",
-                                                "tick": 44
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_r_found",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_wukong_r_found",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 45000,
+                                              "casting_target": "EnemyWithoutTower",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "MoveTo",
+                                                  "speed": 3000,
+                                                  "range": 45000,
+                                                  "end_effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_wukong_r_on",
+                                                      "effect_buff": {
+                                                        "type": "CasterAnimation",
+                                                        "name": "spin",
+                                                        "tick": 44
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
                                       }
@@ -2739,11 +2936,6 @@
                                 }
                               }
                             ]
-                          },
-                          {
-                            "type": "CasterAnimation",
-                            "name": "spin",
-                            "tick": 44
                           }
                         ]
                       },
@@ -3266,7 +3458,7 @@
                             "effects": [
                               {
                                 "type": "RandomTarget",
-                                "range": 25000,
+                                "range": 28000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -3281,18 +3473,6 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "MoveToTarget",
-                                    "speed": 1200,
-                                    "range": 25000,
-                                    "end_effects": [
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "spin",
-                                        "tick": 29
-                                      }
-                                    ]
                                   }
                                 ]
                               },
@@ -3308,8 +3488,8 @@
                                   "effects": [
                                     {
                                       "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "EnemyWithoutTower",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [
                                         {
@@ -3325,14 +3505,22 @@
                                           "only_to_enemy": false
                                         },
                                         {
-                                          "type": "MoveToTarget",
-                                          "speed": 1200,
-                                          "range": 30000,
+                                          "type": "MoveTo",
+                                          "speed": 3000,
+                                          "range": 45000,
                                           "end_effects": [
                                             {
-                                              "type": "CasterAnimation",
-                                              "name": "spin",
-                                              "tick": 29
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_wukong_r_on",
+                                              "effect_buff": {
+                                                "type": "CasterAnimation",
+                                                "name": "spin",
+                                                "tick": 29
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
                                             }
                                           ]
                                         }
@@ -3346,22 +3534,63 @@
                                         "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 45000,
-                                        "casting_target": "EnemyWithoutTower",
-                                        "from_projectile": false,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "MoveToTarget",
-                                            "speed": 1200,
-                                            "range": 45000,
-                                            "end_effects": [
+                                            "type": "RandomTarget",
+                                            "range": 28000,
+                                            "casting_target": "EnemyWithoutTower",
+                                            "from_projectile": false,
+                                            "effects": [
                                               {
-                                                "type": "CasterAnimation",
-                                                "name": "spin",
-                                                "tick": 29
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_r_found",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_wukong_r_found",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 45000,
+                                              "casting_target": "EnemyWithoutTower",
+                                              "from_projectile": false,
+                                              "effects": [
+                                                {
+                                                  "type": "MoveTo",
+                                                  "speed": 3000,
+                                                  "range": 45000,
+                                                  "end_effects": [
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_wukong_r_on",
+                                                      "effect_buff": {
+                                                        "type": "CasterAnimation",
+                                                        "name": "spin",
+                                                        "tick": 29
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
                                       }
@@ -3370,11 +3599,6 @@
                                 }
                               }
                             ]
-                          },
-                          {
-                            "type": "CasterAnimation",
-                            "name": "spin",
-                            "tick": 29
                           }
                         ]
                       },
@@ -3435,7 +3659,7 @@
                             "effects": [
                               {
                                 "type": "RandomTarget",
-                                "range": 25000,
+                                "range": 28000,
                                 "casting_target": "EnemyChampion",
                                 "from_projectile": false,
                                 "effects": [
@@ -3450,18 +3674,6 @@
                                       }
                                     },
                                     "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "MoveToTarget",
-                                    "speed": 1200,
-                                    "range": 25000,
-                                    "end_effects": [
-                                      {
-                                        "type": "CasterAnimation",
-                                        "name": "spin",
-                                        "tick": 14
-                                      }
-                                    ]
                                   }
                                 ]
                               },
@@ -3477,8 +3689,8 @@
                                   "effects": [
                                     {
                                       "type": "RandomTarget",
-                                      "range": 30000,
-                                      "casting_target": "EnemyWithoutTower",
+                                      "range": 45000,
+                                      "casting_target": "EnemyChampion",
                                       "from_projectile": false,
                                       "effects": [
                                         {
@@ -3492,18 +3704,6 @@
                                             }
                                           },
                                           "only_to_enemy": false
-                                        },
-                                        {
-                                          "type": "MoveToTarget",
-                                          "speed": 1200,
-                                          "range": 30000,
-                                          "end_effects": [
-                                            {
-                                              "type": "CasterAnimation",
-                                              "name": "spin",
-                                              "tick": 14
-                                            }
-                                          ]
                                         }
                                       ]
                                     },
@@ -3515,22 +3715,42 @@
                                         "effects": []
                                       },
                                       "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 45000,
-                                        "casting_target": "EnemyWithoutTower",
-                                        "from_projectile": false,
+                                        "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "MoveToTarget",
-                                            "speed": 1200,
-                                            "range": 45000,
-                                            "end_effects": [
+                                            "type": "RandomTarget",
+                                            "range": 28000,
+                                            "casting_target": "EnemyWithoutTower",
+                                            "from_projectile": false,
+                                            "effects": [
                                               {
-                                                "type": "CasterAnimation",
-                                                "name": "spin",
-                                                "tick": 14
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_wukong_r_found",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 1
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
                                               }
                                             ]
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_wukong_r_found",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "RandomTarget",
+                                              "range": 45000,
+                                              "casting_target": "EnemyWithoutTower",
+                                              "from_projectile": false,
+                                              "effects": []
+                                            }
                                           }
                                         ]
                                       }
@@ -3539,11 +3759,16 @@
                                 }
                               }
                             ]
-                          },
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 120,
+                        "effects": [
                           {
-                            "type": "CasterAnimation",
-                            "name": "spin",
-                            "tick": 14
+                            "type": "RemoveCasterAnimation",
+                            "name": "spin"
                           }
                         ]
                       }

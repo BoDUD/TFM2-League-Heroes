@@ -1088,6 +1088,14 @@ issued at the start did not survive the dashes. Base Nightmare plays its forced 
 dash's `end_effects`, so league_garen E now re-issues `CasterAnimation spin` on every pulse (after
 its `RandomTarget`) and in each `MoveToTarget`'s `end_effects`, each lasting until the next pulse
 *(inferred: a dash ending drops the forced animation; not yet confirmed in-game)*.
+That re-issue did not make league_wukong R turn (2026-10-30: 「猴子开大只有分身转 本体不转」; on one
+spin at the start: 「开大后动画定格」). Both fit a dash *holding* the forced animation on its frame
+while it moves the unit *(inferred from the two reports)*: his pulses dashed onto a target on 84% of
+the spin's ticks in the simulation, so every restart froze on the first frame. league_wukong now
+dashes only when no champion is within the spin's radius, with `MoveTo` (to where the target stood,
+within one pulse: a `MoveToTarget` after a runner went on past the spin's end), restarts the spin
+only where a dash ends while the spin lasts, and takes it off at the spin's end: dashes on 10% of the
+spin's ticks. league_garen E still dashes every pulse.
 Make the spin reach past the cast distance. The AI starts an action at `range` plus both units'
 radii (league_garen E, range 28000, began with its target about 45 px away, centre to centre), so
 a 30000 spin missed whoever stood at its edge and players still called the skill useless, though
