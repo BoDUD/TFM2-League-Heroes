@@ -36,6 +36,12 @@
 //!   刺过以后下一次改放 `ss_stab`（`ss_stab` tick），朝被刺的那个。每个槽位按 `SLOT_AT` 错开一点（三个站一处时分得开）。
 //!   狂沙猛攻把沙兵挪走时新的升起换一条盖章链，旧的那条自己停；检查点不来了（沙兵到时间、换代）就不再盖。
 //!   谁放的都画（佛耶戈附身阿兹尔时也一样），不靠被动。
+//! - v1.7（用户 2026-10-30：「沙皇和召唤的士兵之间没连接线 LOL是有的」）：**他和沙兵之间连一条流沙线**。英雄联盟从阿兹尔到
+//!   牵引半径内（Arise! 的 TETHER RADIUS 660，V7.19 起的指挥距离）的每个沙兵拉一道流沙光束（Azir_Base_W_SoldierIndicator）。
+//!   被动每 tick 给每个站着的沙兵（升起完、盖章链还接着）放一段投射物画面 `tether_<像素>`，从他到沙兵画的地方：两头都抬高
+//!   `TETHER_LIFT`、各往里收 `TETHER_INSET`（身体盖住两头），游戏把图转向它飞的方向；离得超过 `TETHER_R`（660 x 100）不连。
+//!   沙粒每 `FLOW_T` tick 朝沙兵挪一像素。图是本包自己的 `effects/league_azir_tether`（tools/art/fx_azir_tether.py），主包不动。
+//!   线靠被动画：沙兵只有阿兹尔自己放（佛耶戈附身用的是五套通用招式，召不出沙兵）。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -370,6 +376,9 @@ impl StablePassive for Disc {
         let alive = e.is_alive();
         let ap = e.stat().magic_power;
         walls_tick(sim, me, team, tick, &self.p);
+        if alive {
+            tethers(sim, me, team, tick, here);
+        }
         if self.towers.is_empty() && tick < 600 {
             self.snapshot(sim, team);
         }
@@ -898,6 +907,8 @@ struct Soldier {
     /// not survive the queue); a checkpoint of the data finding it undrawn for `REDRAW` ticks draws it and starts again.
     next: usize,
     last: usize,
+    /// 0.1.7: the tick it stands, out of the sand (its line to him starts then).
+    up: usize,
 }
 
 /// A checkpoint redraws a soldier nothing drew for this many ticks (its chain of stamps broken).
@@ -1008,7 +1019,8 @@ impl StableEffectType for SoldierFx {
                 let right = turn_to(at, enemy, from.map_or(true, |f| at.0 >= f.0));
                 let chain = CHAINS.fetch_add(1, Ordering::Relaxed);
                 let first = if rising { p.ss_rise } else { 1 };
-                map.insert(key, Soldier { at, right, chain, stab: None, until, next: tick + first, last: tick });
+                let up = if rising { tick + p.ss_rise } else { tick };
+                map.insert(key, Soldier { at, right, chain, stab: None, until, next: tick + first, last: tick, up });
                 drop(map);
                 if rising {
                     draw_soldier(sim, me, self.slot, at, "rise", right);
@@ -1056,6 +1068,109 @@ impl StableEffectType for SoldierFx {
     }
 }
 
+// ===================== 沙兵和他之间的流沙线（0.1.7） =====================
+
+/// League's tether radius (Arise!'s TETHER RADIUS 660, the soldiers' command range since V7.19; League's 525 range is
+/// atk_range 52500 here): a soldier within this of him is joined to him by a line of sand.
+pub const TETHER_R: f64 = 66_000.0;
+/// The line runs this far over both pivots (a unit's pivot is 11 px over its soles, a soldier's spot too), game units:
+/// his waist, the soldier's chest.
+pub const TETHER_LIFT: f64 = 5_000.0;
+/// It starts and ends this far inside him and the soldier, game units: the flow and the even lengths move each end up
+/// to 3 px, still behind the bodies (the line is drawn under the units, z -1).
+pub const TETHER_INSET: f64 = 3_000.0;
+/// The pieces drawn (tools/art/fx_azir_tether.py: `tether_<px>` for px in TETHER_MIN..=TETHER_MAX step 2).
+pub const TETHER_MIN: usize = 8;
+pub const TETHER_MAX: usize = 64;
+/// The sand flows toward the soldier a px every FLOW_T ticks; its grains repeat every FLOW_P px.
+pub const FLOW_T: usize = 2;
+pub const FLOW_P: usize = 3;
+
+/// The piece of the line drawn on `tick` between him at `a` and the soldier at `b` (both already raised): its length
+/// (px: the tag `tether_<px>`), its centre and the way it points (toward the soldier); None when they stand too far
+/// apart or on top of each other. Whatever the phase it covers a + INSET to b - INSET: it starts FLOW_P - 1 - phase px
+/// before a + INSET (the grains move a px toward the soldier a phase) and is the gap and FLOW_P - 1 px more, rounded up
+/// to an even length.
+pub fn tether_piece(a: Pt, b: Pt, tick: usize) -> Option<(usize, Pt, Pt)> {
+    let d = dist(a, b);
+    let gap = d - 2.0 * TETHER_INSET;
+    if d > TETHER_R || gap < 2_000.0 {
+        return None;
+    }
+    let u = unit((b.0 - a.0, b.1 - a.1))?;
+    let need = gap / 1_000.0 + (FLOW_P - 1) as f64;
+    let len = ((need / 2.0).ceil() as usize * 2).max(TETHER_MIN);
+    if len > TETHER_MAX {
+        return None;
+    }
+    let phase = (tick / FLOW_T) % FLOW_P;
+    let mid = TETHER_INSET - (FLOW_P - 1 - phase) as f64 * 1_000.0 + len as f64 * 500.0;
+    Some((len, (a.0 + u.0 * mid, a.1 + u.1 * mid), u))
+}
+
+/// Is the soldier drawn on `tick`: out of the sand (`up`), its checkpoints still coming (`until`), its chain of stamps
+/// going (the next one due at `next`, taken up to two ticks late: `stamp_due`)?
+pub fn standing_up(up: usize, until: usize, next: usize, tick: usize) -> bool {
+    tick >= up && tick < until && tick <= next + 2
+}
+
+/// One piece of the line: the projectile picture `tether_<len>` at `c` pointing along `dir` (the game turns a
+/// projectile's picture to its direction), gone after a tick (league_akshan's rope, league_illaoi's tether).
+fn tether_spawn(sim: &mut StableSim<'_>, me: usize, team: usize, len: usize, c: Pt, dir: Pt) -> bool {
+    let spec = ProjectileSpawnV1 {
+        caster_id: me,
+        team,
+        x: ux(c.0),
+        y: ux(c.1),
+        radius: 1_000,
+        speed: 1_000,
+        move_kind: ProjectileMoveKindV1::Linear.code(),
+        target_id: 0,
+        target_x: ux(c.0 + dir.0 * 1_000.0),
+        target_y: ux(c.1 + dir.1 * 1_000.0),
+        penetrate: true,
+        attack_type: AttackTypeV1::Skill.code(),
+        casting_type: CastingTypeV1::Position.code(),
+        casting_target: CastingTargetV1::None.code(),
+    };
+    sim.spawn_projectile(&az(&format!("tether_{len}")), &format!("{ID}:noop"), &spec)
+}
+
+/// Every tick (his passive, while he lives): a piece of the line to each soldier of his standing within TETHER_R.
+fn tethers(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, here: Pt) {
+    let a = (here.0, here.1 - TETHER_LIFT);
+    let pieces: Vec<(usize, usize, Pt, Pt)> = {
+        let map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
+        (0..SLOTS.len())
+            .filter_map(|slot| {
+                let s = map.get(&soldier_key(sim, me, slot)).filter(|s| standing_up(s.up, s.until, s.next, tick))?;
+                let (ox, oy) = SLOT_AT[slot];
+                let (len, c, u) = tether_piece(a, (s.at.0 + ox, s.at.1 + oy - TETHER_LIFT), tick)?;
+                Some((slot, len, c, u))
+            })
+            .collect()
+    };
+    for (slot, len, c, u) in pieces {
+        if !tether_spawn(sim, me, team, len, c, u) {
+            if let Some(k) = counted("tether refused") {
+                wlog(format!("{} TETHER {} #{k}: spawn_projectile refused tether_{len}", head(sim, me), SLOTS[slot]));
+            }
+        } else if let Some(k) = counted("tether") {
+            if k <= 6 || k % 5_000 == 0 {
+                wlog(format!("{} TETHER {} #{k}: tether_{len} at {} pointing ({:.2},{:.2})", head(sim, me), SLOTS[slot],
+                             pt(c), u.0, u.1));
+            }
+        }
+    }
+}
+
+/// The line's pieces hit nothing (a projectile needs an effect to apply on a hit).
+struct Noop;
+
+impl StableEffectType for Noop {
+    fn apply(&self, _: &mut StableSim<'_>, _: u64, _: usize, _: InputTargetV1) {}
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -1064,7 +1179,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.6 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v1.7 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1089,6 +1204,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
             module.add_native_effect(format!("{ID}:{what}_{s}"), SoldierFx { slot, step });
         }
     }
+    // 0.1.7: the line of sand to each soldier (the passive spawns its pieces; they hit nothing)
+    module.add_native_effect(format!("{ID}:noop"), Noop);
     host.log(LogLevel::Info, "league_azir v1 loaded (Azir's Sun Disc, his guards facing the charge).");
 }
 
@@ -1287,5 +1404,79 @@ mod tests {
                 }
             }
         }
+    }
+
+    /// Where a piece starts and ends along the line from `a`, game units.
+    fn ends(a: Pt, (len, c, u): (usize, Pt, Pt)) -> (f64, f64) {
+        let mid = (c.0 - a.0) * u.0 + (c.1 - a.1) * u.1;
+        (mid - len as f64 * 500.0, mid + len as f64 * 500.0)
+    }
+
+    /// The line covers him to the soldier at every phase, its ends inside the two bodies (within the insets), in an
+    /// even length the sheet has, pointing at the soldier.
+    #[test]
+    fn the_tether_runs_from_him_to_the_soldier() {
+        let lines = [((100_000.0, 100_000.0), (140_000.0, 100_000.0)), ((100_000.0, 100_000.0), (70_000.0, 130_000.0)),
+                     ((200_000.0, 50_000.0), (200_000.0, 100_000.0)), ((0.0, 0.0), (9_000.0, 4_000.0)),
+                     ((0.0, 0.0), (TETHER_R, 0.0))];
+        for (a, b) in lines {
+            let d = dist(a, b);
+            for tick in 0..FLOW_T * FLOW_P {
+                let piece = tether_piece(a, b, tick).expect("in reach");
+                let (len, _, u) = piece;
+                assert!(len % 2 == 0 && (TETHER_MIN..=TETHER_MAX).contains(&len), "{d}: length {len}");
+                assert!((u.0 - (b.0 - a.0) / d).abs() < 1e-9 && (u.1 - (b.1 - a.1) / d).abs() < 1e-9, "{d}: {u:?}");
+                let (s, e) = ends(a, piece);
+                assert!((0.0..=TETHER_INSET + 1e-6).contains(&s), "{d}: starts {s}");
+                assert!(e >= d - TETHER_INSET - 1e-6 && e <= d + TETHER_INSET + 1e-6, "{d}: ends {e}");
+            }
+        }
+    }
+
+    /// The grains move a px toward the soldier every FLOW_T ticks: the piece's start does, and goes back FLOW_P - 1 px
+    /// at the wrap (the grains, FLOW_P px apart, then look one px further on).
+    #[test]
+    fn the_sand_flows_toward_the_soldier() {
+        let (a, b) = ((100_000.0, 100_000.0), (130_000.0, 120_000.0));
+        let start = |tick: usize| ends(a, tether_piece(a, b, tick).unwrap()).0;
+        for k in 0..FLOW_P - 1 {
+            assert!((start((k + 1) * FLOW_T) - start(k * FLOW_T) - 1_000.0).abs() < 1e-6, "phase {k}");
+            assert!((start(k * FLOW_T + FLOW_T - 1) - start(k * FLOW_T)).abs() < 1e-6, "still for FLOW_T ticks");
+        }
+        let back = start(FLOW_P * FLOW_T) - start((FLOW_P - 1) * FLOW_T);
+        assert!((back + (FLOW_P - 1) as f64 * 1_000.0).abs() < 1e-6, "wrap {back}");
+    }
+
+    #[test]
+    fn no_tether_out_of_reach_or_on_top_of_him() {
+        let a = (100_000.0, 100_000.0);
+        assert!(tether_piece(a, (a.0 + TETHER_R + 1.0, a.1), 0).is_none());
+        assert!(tether_piece(a, (a.0, a.1 - TETHER_R), 0).is_some());
+        assert!(tether_piece(a, (a.0 + 7_000.0, a.1), 0).is_none());
+        assert!(tether_piece(a, a, 0).is_none());
+    }
+
+    /// Risen on tick 100 (ss_rise 20): up from 120, its next stamp due on 124, its checkpoints keeping it to 150.
+    #[test]
+    fn the_tether_waits_for_the_soldier_to_stand() {
+        assert!(!standing_up(120, 150, 124, 119), "still rising");
+        assert!(standing_up(120, 150, 124, 120));
+        assert!(standing_up(120, 150, 124, 126), "a stamp up to two ticks late");
+        assert!(!standing_up(120, 150, 124, 127), "its stamps stopped");
+        assert!(!standing_up(120, 150, 160, 150), "its checkpoints stopped");
+    }
+
+    /// Every length the passive can draw is a tag of the sheet (tools/art/fx_azir_tether.py) and a view of the copy
+    /// (make_override.py).
+    #[test]
+    fn every_tether_length_is_drawn_and_a_view() {
+        let fanim = include_str!("../effects/league_azir_tether#anim.fanim");
+        let copy = include_str!("../override/league_azir.data_champion");
+        for len in (TETHER_MIN..=TETHER_MAX).step_by(2) {
+            assert!(fanim.contains(&format!("\"tether_{len}\":")), "tether_{len} not in the sheet");
+            assert!(copy.contains(&format!("\"name\": \"{}\"", az(&format!("tether_{len}")))), "tether_{len} not a view");
+        }
+        assert!(!fanim.contains(&format!("\"tether_{}\":", TETHER_MAX + 2)));
+        assert!(copy.contains("\"anim\": \"asset/league_azir/effects/league_azir_tether\""));
     }
 }
