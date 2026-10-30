@@ -1,0 +1,242 @@
+[
+  {
+    "file": "terra_fx_a_hit.png",
+    "frames": 4,
+    "cell_1x": [
+      16,
+      16
+    ],
+    "size_1x": [
+      64,
+      16
+    ],
+    "size_8x": [
+      512,
+      128
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_q_hit.png",
+    "frames": 5,
+    "cell_1x": [
+      22,
+      22
+    ],
+    "size_1x": [
+      110,
+      22
+    ],
+    "size_8x": [
+      880,
+      176
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_q_slow.png",
+    "frames": 6,
+    "cell_1x": [
+      20,
+      8
+    ],
+    "size_1x": [
+      120,
+      8
+    ],
+    "size_8x": [
+      960,
+      64
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_e.png",
+    "frames": 6,
+    "cell_1x": [
+      72,
+      48
+    ],
+    "size_1x": [
+      432,
+      48
+    ],
+    "size_8x": [
+      3456,
+      384
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_e_taunt.png",
+    "frames": 6,
+    "cell_1x": [
+      14,
+      10
+    ],
+    "size_1x": [
+      84,
+      10
+    ],
+    "size_8x": [
+      672,
+      80
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_e_shield.png",
+    "frames": 6,
+    "cell_1x": [
+      72,
+      48
+    ],
+    "size_1x": [
+      432,
+      48
+    ],
+    "size_8x": [
+      3456,
+      384
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_r.png",
+    "frames": 4,
+    "cell_1x": [
+      56,
+      14
+    ],
+    "size_1x": [
+      224,
+      14
+    ],
+    "size_8x": [
+      1792,
+      112
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_r_quake.png",
+    "frames": 7,
+    "cell_1x": [
+      112,
+      48
+    ],
+    "size_1x": [
+      784,
+      48
+    ],
+    "size_8x": [
+      6272,
+      384
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_r_hit.png",
+    "frames": 5,
+    "cell_1x": [
+      20,
+      20
+    ],
+    "size_1x": [
+      100,
+      20
+    ],
+    "size_8x": [
+      800,
+      160
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_fx_r_res.png",
+    "frames": 6,
+    "cell_1x": [
+      72,
+      48
+    ],
+    "size_1x": [
+      432,
+      48
+    ],
+    "size_8x": [
+      3456,
+      384
+    ],
+    "hard_alpha_pass": true,
+    "all_frames_nonempty": true,
+    "all_frames_exact_left_right_symmetry": true,
+    "scale_8_exact_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_icon_skill.png",
+    "size": [
+      64,
+      64
+    ],
+    "hard_alpha_pass": true,
+    "pixel_scale_2_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_icon_skill2.png",
+    "size": [
+      64,
+      64
+    ],
+    "hard_alpha_pass": true,
+    "pixel_scale_2_pass": true,
+    "raw_sha256_pass": true
+  },
+  {
+    "file": "terra_icon_ult.png",
+    "size": [
+      64,
+      64
+    ],
+    "hard_alpha_pass": true,
+    "pixel_scale_2_pass": true,
+    "raw_sha256_pass": true
+  }
+]
