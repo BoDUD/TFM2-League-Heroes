@@ -1,0 +1,381 @@
+{
+ "square": 8,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a steady armoured run, the round shield held before her, the sword low in her far hand, the LEGS STEPPING IN TURN, the hair and the skirt swaying",
+   "ms": [
+    121,
+    121
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's.",
+   "legs": "Frame 1: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. Frame 2: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a steady armoured run, the round shield held before her, the sword low in her far hand, the LEGS STEPPING IN TURN, the hair and the skirt swaying",
+   "ms": [
+    121,
+    121
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's.",
+   "legs": "Frame 3: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. Frame 4: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a steady armoured run, the round shield held before her, the sword low in her far hand, the LEGS STEPPING IN TURN, the hair and the skirt swaying",
+   "ms": [
+    121,
+    121
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's.",
+   "legs": "Frame 5: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. Frame 6: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "action": "running (her move loop): a steady armoured run, the round shield held before her, the sword low in her far hand, the LEGS STEPPING IN TURN, the hair and the skirt swaying",
+   "ms": [
+    121,
+    121
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's.",
+   "legs": "Frame 7: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. Frame 8: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "attack: she raises the sword, draws it back over her shoulder, thrusts it out ahead of her to the right, lunges low slashing down ahead, and settles",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "attack: she raises the sword, draws it back over her shoulder, thrusts it out ahead of her to the right, lunges low slashing down ahead, and settles",
+   "ms": [
+    90,
+    80
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "action": "attack: she raises the sword, draws it back over her shoulder, thrusts it out ahead of her to the right, lunges low slashing down ahead, and settles",
+   "ms": [
+    100
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Shield of Daybreak (Q): she raises the sword behind her, braces behind the shield, then lunges and BASHES the shield out ahead of her to the right, and draws it back before her",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's. In frames 4-5 she pushes the shield out AHEAD of her to the right (the bash), as the pale figure."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Shield of Daybreak (Q): she raises the sword behind her, braces behind the shield, then lunges and BASHES the shield out ahead of her to the right, and draws it back before her",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's. In frames 4-5 she pushes the shield out AHEAD of her to the right (the bash), as the pale figure."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Shield of Daybreak (Q): she raises the sword behind her, braces behind the shield, then lunges and BASHES the shield out ahead of her to the right, and draws it back before her",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's. In frames 4-5 she pushes the shield out AHEAD of her to the right (the bash), as the pale figure."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Shield of Daybreak (Q): she raises the sword behind her, braces behind the shield, then lunges and BASHES the shield out ahead of her to the right, and draws it back before her",
+   "ms": [
+    60
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's. In frames 4-5 she pushes the shield out AHEAD of her to the right (the bash), as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Eclipse (W): she raises the sword over her shoulder, swings it round behind her and over, sweeps it down ahead of her and thrusts it out level, the shield before her",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Eclipse (W): she raises the sword over her shoulder, swings it round behind her and over, sweeps it down ahead of her and thrusts it out level, the shield before her",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Eclipse (W): she raises the sword over her shoulder, swings it round behind her and over, sweeps it down ahead of her and thrusts it out level, the shield before her",
+   "ms": [
+    100,
+    110
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "e_dash",
+   "name": "e_dash_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Zenith Blade's dash (E): she lunges forward with the sword raised up ahead of her, then dashes low with it pointing ahead",
+   "ms": [
+    130,
+    130
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "Solar Flare (R): she thrusts the sword out level ahead, raises it up, holds it straight up over her head, and lowers it ahead of her",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "Solar Flare (R): she thrusts the sword out level ahead, raises it up, holds it straight up over her head, and lowers it ahead of her",
+   "ms": [
+    70,
+    90
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "Solar Flare (R): she thrusts the sword out level ahead, raises it up, holds it straight up over her head, and lowers it ahead of her",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "Solar Flare (R): she thrusts the sword out level ahead, raises it up, holds it straight up over her head, and lowers it ahead of her",
+   "ms": [
+    150
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "struck: jolted back, the sword up",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE SHIELD AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the ROUND GOLD SUN SHIELD on her NEAR arm (image left), before her unless she bashes it out ahead; the SWORD in her FAR hand (image right), its silver blade pointing where the pale figure's does. Only ONE shield and ONE sword, the design's."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "action": "death: struck, she drops the shield (frame 3: it falls to the ground on her left) and the sword (it falls to the ground on her right), sinks to her knees and slumps forward onto the ground",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "As the pale figure: shield and sword in her hands in frames 1-2; from frame 3 on BOTH lie on the ground apart from her - the round shield on her left, the sword on her right - drawn where the pale figure has them, only one of each."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "action": "death: struck, she drops the shield (frame 3: it falls to the ground on her left) and the sword (it falls to the ground on her right), sinks to her knees and slumps forward onto the ground",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "As the pale figure: shield and sword in her hands in frames 1-2; from frame 3 on BOTH lie on the ground apart from her - the round shield on her left, the sword on her right - drawn where the pale figure has them, only one of each."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "action": "death: struck, she drops the shield (frame 3: it falls to the ground on her left) and the sword (it falls to the ground on her right), sinks to her knees and slumps forward onto the ground",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "As the pale figure: shield and sword in her hands in frames 1-2; from frame 3 on BOTH lie on the ground apart from her - the round shield on her left, the sword on her right - drawn where the pale figure has them, only one of each."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "action": "death: struck, she drops the shield (frame 3: it falls to the ground on her left) and the sword (it falls to the ground on her right), sinks to her knees and slumps forward onto the ground",
+   "ms": [
+    150
+   ],
+   "weapons": "As the pale figure: shield and sword in her hands in frames 1-2; from frame 3 on BOTH lie on the ground apart from her - the round shield on her left, the sword on her right - drawn where the pale figure has them, only one of each."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "action": "death: struck, she drops the shield (frame 3: it falls to the ground on her left) and the sword (it falls to the ground on her right), sinks to her knees and slumps forward onto the ground",
+   "ms": [
+    400
+   ],
+   "weapons": "As the pale figure: shield and sword in her hands in frames 1-2; from frame 3 on BOTH lie on the ground apart from her - the round shield on her left, the sword on her right - drawn where the pale figure has them, only one of each."
+  }
+ ]
+}
