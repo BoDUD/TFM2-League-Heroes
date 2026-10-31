@@ -1,0 +1,455 @@
+{
+  "id": "tft_elderdragon",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Dot",
+    "CC",
+    "Tank"
+  ],
+  "passive": {
+    "passive_ref": "tft_elderdragon:elder",
+    "params": {
+      "p_exec": 15,
+      "a_r": 22000,
+      "a_splash": 35,
+      "q_len": 75000,
+      "q_w": 13000,
+      "q_speed": 6000,
+      "q_dmg": 70,
+      "q_ad": 130,
+      "q_decay": 20,
+      "q_min": 40,
+      "ig_t": 180,
+      "ig_every": 60,
+      "ig_hp": 25,
+      "ig_cap": 100
+    }
+  },
+  "sprite": "asset/tft/champions/tft_elderdragon",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_elderdragon_skill",
+    "asset/tft/icons/tft_elderdragon_skill2",
+    "asset/tft/icons/tft_elderdragon_ult"
+  ],
+  "stat": {
+    "attack": 88,
+    "magic_power": 0,
+    "hp": 1200,
+    "defence": 38,
+    "magic_resistance": 32,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 15,
+    "magic_power": 0,
+    "hp": 118,
+    "defence": 8,
+    "magic_resistance": 7,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_elderdragon.attack",
+    "duration": 36,
+    "cooltime": 72,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_elderdragon_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_elderdragon_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_elderdragon_a_hit"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_elderdragon:bite"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_elderdragon.skill",
+    "duration": 36,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_elderdragon_q_vo"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_elderdragon_q"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_elderdragon:breath"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_elderdragon.skill2",
+    "duration": 36,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_elderdragon_e_vo"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_elderdragon_e"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_elderdragon_e_cast"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_elderdragon_e_guard",
+                "duration": {
+                  "Time": {
+                    "tick": 120
+                  }
+                },
+                "damaged_reduce": 25
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 35000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 30,
+                  "attack_ratio": 60,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Knockback",
+                  "speed": 2500,
+                  "tick": 12
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_elderdragon_e_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 120
+                      }
+                    },
+                    "move_speed_mult": -35
+                  }
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_elderdragon_e_hit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_elderdragon.ult",
+    "duration": 110,
+    "cooltime": 3600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_elderdragon_r_vo"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_elderdragon_r"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_elderdragon_r_fly",
+            "duration": {
+              "Time": {
+                "tick": 90
+              }
+            },
+            "damaged_reduce": 100,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 89,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_elderdragon_r_land"
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_elderdragon_r_slam"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_elderdragon_r_slam"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 55000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 80,
+                  "attack_ratio": 80,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "Stun",
+                  "duration": 75
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_elderdragon_r_stun",
+                    "duration": {
+                      "Time": {
+                        "tick": 75
+                      }
+                    }
+                  }
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "tft_elderdragon:ignite"
+                }
+              ]
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_elderdragon_r_vamp",
+                "duration": {
+                  "Time": {
+                    "tick": 300
+                  }
+                },
+                "vamp": 30
+              },
+              "only_to_enemy": false
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 105,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_elderdragon_q"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_elderdragon:breath"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_q_fire",
+      "anim": "asset/tft/effects/tft_elderdragon_fx",
+      "tag": "q_fire",
+      "repeat": true,
+      "z": 3
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_elderdragon_a_hit",
+      "anim": "asset/tft/effects/tft_elderdragon_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_elderdragon_e_cast",
+      "anim": "asset/tft/effects/tft_elderdragon_big",
+      "tag": "e_cast",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_elderdragon_r_slam",
+      "anim": "asset/tft/effects/tft_elderdragon_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_e_slow",
+      "anim": "asset/tft/effects/tft_elderdragon_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_e_guard",
+      "anim": "asset/tft/effects/tft_elderdragon_big",
+      "tag": "e_guard",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_r_stun",
+      "anim": "asset/tft/effects/tft_elderdragon_fx",
+      "tag": "r_stun",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_r_vamp",
+      "anim": "asset/tft/effects/tft_elderdragon_big",
+      "tag": "r_vamp",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_a_splash",
+      "anim": "asset/tft/effects/tft_elderdragon_fx",
+      "tag": "a_splash",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_q_hit",
+      "anim": "asset/tft/effects/tft_elderdragon_fx",
+      "tag": "q_hit",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_ig",
+      "anim": "asset/tft/effects/tft_elderdragon_fx",
+      "tag": "ig",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_elderdragon_p_exec",
+      "anim": "asset/tft/effects/tft_elderdragon_fx",
+      "tag": "p_exec",
+      "repeat": true,
+      "z": 4
+    }
+  ]
+}

@@ -47,9 +47,12 @@ ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 AD = ADi + O + "100%" + E
 # champion_view (game px from its feet's point, up negative): the face point on its near eye (the design's eye at
-# column 125, row 95 of 125 at PPU 2.84: 11 over the ground; ahead of its standing point by ppu_restyle's face_to, set
-# once the rig places it); the centre in its body (half its 44 px); the ban/pick card by bp_card_audit.py's rule
-VIEW = {"face": {"x": 14, "y": -11}, "center": {"x": 0, "y": -22}, "banpick_center": {"x": 0, "y": -14}}
+# column 125, row 95 of 125 at PPU 2.84: 11 over the ground, 18 ahead of its standing point, the design's pivot column
+# 74 - ppu_restyle's face_to); the centre in its body (half its 44 px); the ban/pick card by bp_card_audit.py's rule
+# with hd.rs's UI_SIZES 0.85 (-39 less the idle frame's top over its centre, -27.8 at 0.85: its raised wing tip 1 game px
+# under the card's top; the idle reel's snippet is the wings beaten down and the card plays no ult, whose flight would
+# leave the card)
+VIEW = {"face": {"x": 18, "y": -11}, "center": {"x": 0, "y": -22}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def phys(d, r):

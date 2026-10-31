@@ -162,8 +162,14 @@ def breath(p, is_native):
     if is_native:   # tft.dll: the line through the target with the most enemy champions, the decay, the Ignite
         return native("breath")
     hit = [attack(p["q_dmg"], p["q_ad"]), ignite_plain(p), view("q_hit_v")]
-    return {"type": "LineRangeProjectile", "name": n("q_line"), "width": p["q_w"], "length": p["q_len"], "delay": 2,
+    line = {"type": "LineRangeProjectile", "name": n("q_line"), "width": p["q_w"], "length": p["q_len"], "delay": 2,
             "apply": 1, "applied_target": "EnemyWithoutTower", "applied_effects": [T(e) for e in hit]}
+    # the fire's picture: a view-only projectile along the line (y_offset -4000: it leaves 5000 - y_offset = 9000 north of
+    # its pivot, from its jaws, as tft.dll's does: elderdragon.rs JAWS), the hits all at once on the line's apply
+    fire = {"type": "LinearProjectile", "name": n("q_fire"), "penetrate": True, "applied_target": "EnemyWithoutTower",
+            "applied_effects": [], "end_effects": [], "speed": p["q_speed"], "range": p["q_len"], "shape": circle(1000),
+            "y_offset": -4000}
+    return combine(fire, line)
 
 
 def build(p, is_native=False):
@@ -200,7 +206,7 @@ def build(p, is_native=False):
     ult = action("ult", p["r_air"] + p["q_st"] + 4, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(sfx("r_vo"), sfx("r"),
                          flag("r_fly", p["r_air"], damaged_reduce=100, cc_immune=True),
-                         delayed(p["r_air"] - 1, sfx("r_land"), sfx("r_slam"), view("r_slam"),
+                         delayed(p["r_air"] - 1, sfx("r_land"), sfx("r_slam"), cview("r_slam"),
                                  around(p["r_r"], "EnemyWithoutTower", landed),
                                  flag("r_vamp", p["r_vamp_t"], vamp=p["r_vamp"])),
                          delayed(p["r_air"] + p["q_st"] - 1, sfx("q"), breath(p, is_native))))
@@ -236,6 +242,16 @@ def build(p, is_native=False):
                "passive": {"passive_ref": f"{ID}:elder", "params": {k: p[k] for k in NATIVE_KEYS}},
                **{k: v for k, v in kit.items() if k not in ("id", "category", "tags")}}
     return kit
+
+
+def sylas_ult(p=None):
+    """Heat Without Equal as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): Sylas's
+    add-on bundle is on the Workshop and the tft mod is not, so his stolen ult cannot call tft.dll (the user,
+    2026-10-27: 「塞拉斯的大招什么一定要能偷到特效版本的」). The kit's --plain ult: the invulnerable flight, the slam's ring,
+    the stun, the Ignite as a Fire burn, the omnivamp and the breath's picture and line toward his target. The views are
+    the kit's own (tft_elderdragon_*); make_override copies them and their sheets."""
+    p = dict(P) if p is None else p
+    return build(p, False)["ult"]["effect"]
 
 
 def nodes(o):

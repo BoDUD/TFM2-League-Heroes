@@ -10,7 +10,7 @@
 //! - **烈焰吐息** `tft_elderdragon:breath`：朝**穿过目标、敌方英雄最多**的直线喷火。候选方向是朝 `q_len` 以内每个敌方
 //!   英雄的方向，只留目标在那条带子（长 `q_len`、半宽 `q_w` 加上身子）里的方向，数带子里的敌方英雄，取最多的；一样多时
 //!   取正对目标的，再取近的；没有目标（大招落地时目标已经死了）就在所有方向里取最多的。火焰是一发穿透的直线弹道
-//!   （`tft_elderdragon_q_fire`，带画面，每拍 `q_speed`），烧到的每个敌人（`tft_elderdragon:scorch`，每口吐息每人一次）挨
+//!   （`tft_elderdragon_q_fire`，带画面，每拍 `q_speed`，从它的嘴的高度喷出：整条线往北挪 `JAWS`），烧到的每个敌人（`tft_elderdragon:scorch`，每口吐息每人一次）挨
 //!   `q_dmg` + `q_ad`% 攻击力的物理伤害，每烧过一个人后面的少 `q_decay`%（最低 `q_min`%），并被【引燃】。
 //! - **引燃** `tft_elderdragon:ignite`：`ig_t` 拍里每 `ig_every` 拍挨目标最大生命 `ig_hp`‰ 的物理伤害（一次最多
 //!   `ig_cap`，大龙那种上万血的不至于被烧穿）；再被引燃只续时间不叠两份（`tft_elderdragon_ig` 画面）。大招落地时数据
@@ -35,6 +35,9 @@ const SCORCH_FX: &str = "tft_elderdragon:scorch";
 const IGNITE_TICK_FX: &str = "tft_elderdragon:ignite_tick";
 /// A champion's body on top of the breath's half width (the pack's collision radius).
 const BODY: u64 = 15000;
+/// The fire leaves its jaws: the breath's line runs this far north of the one through its pivot (a projectile is drawn
+/// at its own point, and its jaws stand 9-11 game px over its feet); far inside q_w + BODY, so it burns the same units.
+const JAWS: u64 = 9000;
 
 fn ed(x: &str) -> String {
     format!("{ID}_{x}")
@@ -427,12 +430,13 @@ impl StableEffectType for BreathFx {
             return;
         };
         let end = end_of(at, to, p.q_len as u64);
+        let (from, end) = ((at.0, at.1.saturating_sub(JAWS)), (end.0, end.1.saturating_sub(JAWS)));
         BREATHS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), Breath::default());
         let spec = ProjectileSpawnV1 {
             caster_id: me,
             team,
-            x: at.0,
-            y: at.1,
+            x: from.0,
+            y: from.1,
             radius: p.q_w as u64,
             speed: p.q_speed as u64,
             move_kind: ProjectileMoveKindV1::Linear.code(),
