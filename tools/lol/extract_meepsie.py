@@ -1,6 +1,6 @@
 r"""Pull Meepsie's sounds out of the local League of Legends install (the Riot client).
 
-    python tools/lol/extract_meepsie.py --riot "D:\Riot Games\League of Legends" --vgmstream pathgmstream-cli.exe
+    python tools/lol/extract_meepsie.py --riot "D:\Riot Games\League of Legends" --vgmstream path\vgmstream-cli.exe
 
 Its own sounds (the user: 「音效什么都要自己找」). Set 17's TFT17_IvernMinion names three events in its skin bin -
 Play_sfx_tft17_IvernMinion_Hero_cast, _slam_into, _slam_hit (its Big Bang) - kept in Map22.wad.client: the set-17 events
