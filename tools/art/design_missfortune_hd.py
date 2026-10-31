@@ -8,7 +8,7 @@ two gold-mounted pistols, the navy boots) read back on its own squares, design_t
 Codex delivered (2026-10-31, Documents/Codex/2026-10-31/new-chat-7/outputs/missfortune_ppu_done.zip) missfortune-A.png
 (1034 px hat top to soles; its raw/ the same picture): 1254 x 1254 with soft alpha, not cut to 6-px squares. Its
 outline is ~9.75-px squares (a ~14.75 coarse one under them), the eyes, lips and gold fittings drawn on finer ones -
-so it is read at several pitches (PITCHES) for the user to choose from, the face on the uniform grid at every pitch
+so it is read at several pitches (PITCHES) for the user to choose from (the user, 2026-10-31: 「都用中间档」 - A on its own ~9.75-px squares, PPU 2.76), the face on the uniform grid at every pitch
 (FACES). Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped to the strongest colour edge
 near it, each square the palette colour most of its middle has, the outline closed where the read lost it. Its rows
 from the top of the hat to her soles over her 1x sprite's 38 make the PPU.

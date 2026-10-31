@@ -9,7 +9,7 @@ design_talon_hd's way.
 Codex delivered (2026-10-31, Documents/Codex/2026-10-31/new-chat-7/outputs/thresh_ppu_done.zip) thresh-A.png (its
 refined pass: 971 px chain top to soles) and raw/thresh-v1.png (its first, 970 px): 1254 x 1254 each with soft alpha,
 not cut to 6-px squares. Their outlines are ~9.75-px squares (a ~14.75 coarse one under them), the eyes, teeth and
-rivets drawn on finer ones - so each is read at several pitches (PITCHES) for the user to choose from, the face on the
+rivets drawn on finer ones - so each is read at several pitches (PITCHES) for the user to choose from (the user, 2026-10-31: 「都用中间档」 - A on its own ~9.75-px squares, PPU 2.48), the face on the
 uniform grid at every pitch (FACES). Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped
 to the strongest colour edge near it, each square the palette colour most of its middle has, the outline closed where
 the read lost it. Its rows from the top of the chain to his soles over his 1x sprite's 40 make the PPU.
