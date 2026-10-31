@@ -8,17 +8,13 @@
 #           * league.dll (PPU, UI sheets, run-time places), game_places, the four add-ons' own tests (every hero
 #             stealable or robbed by class, a soul with its sheets' hd_ / lo_ tags, its range for Kayn) and every add-on
 #             in the league_addons bundle.
-# mac     - the same code for a Mac, where the game loads <mod_id>.dylib instead of the .dll: league.dylib,
-#           league_addons.dylib, tft.dylib, Apple silicon and Intel in one file each (a .dylib links only on a Mac), after
-#           league.dll's, the add-on bundle's and tft's tests on the Mac. Artifact mac-dylibs-<commit>, which
-#           tools/package_mod.py and assemble.py put into the Workshop packages (tools/kit/mac_dylib.py).
 # package - league.dll and the add-on bundle built; one artifact with what can be copied into <game>/mods as it is:
 #           league/league.dll, tft/tft.dll, league/ and tft/ ui_sheets, league_addons/ (tools/package_mod.py,
-#           addons/league_addons/assemble.py), and the mac job's .dylib files beside the DLLs.
+#           addons/league_addons/assemble.py).
 #
-# Windows runners for the checks and the DLLs: the generators compare against files checked out with CRLF line ends
-# (core.autocrlf true, as on the developers' machines; the Mac checks out the same way). No game on the runners: the
-# tests that need its EXE skip, the tables made from its champion sheet are checked by the add-ons' tests.
+# Windows runners: the DLLs are Windows-only, and the generators compare against files checked out with CRLF line ends
+# (core.autocrlf true, as on the developers' machines). No game on the runner: the tests that need its EXE skip, the
+# tables made from its champion sheet are checked by the add-ons' tests.
 name: CI
 
 on:
@@ -94,45 +90,10 @@ jobs:
       - name: The tft pack's tft.dll (Norra's and Alune's rules)
         run: cargo test --manifest-path addons/Cargo.toml -p tft
 
-  mac:
-    name: Mac - league.dylib, league_addons.dylib, tft.dylib
-    runs-on: macos-latest
-    timeout-minutes: 45
-    steps:
-      - name: CRLF checkout, like the developers' machines
-        run: git config --global core.autocrlf true
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: aarch64-apple-darwin,x86_64-apple-darwin
-      - uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: addons -> target
-      - name: league.dll's, the add-on bundle's and tft's tests on a Mac
-        run: cargo test --manifest-path addons/Cargo.toml -p league_main -p game_places -p league_addons -p tft
-      - name: Apple silicon and Intel in one file each
-        run: |
-          for t in aarch64-apple-darwin x86_64-apple-darwin; do
-            cargo build --release --manifest-path addons/Cargo.toml --target $t -p league_main -p league_addons -p tft
-          done
-          mkdir -p mac
-          for n in league league_addons tft; do
-            lipo -create -output mac/$n.dylib addons/target/aarch64-apple-darwin/release/lib$n.dylib \
-              addons/target/x86_64-apple-darwin/release/lib$n.dylib
-          done
-          lipo -info mac/*.dylib
-          ls -l mac
-      - uses: actions/upload-artifact@v4
-        with:
-          name: mac-dylibs-${{ github.sha }}
-          path: mac/
-          retention-days: 90
-
   package:
     name: Packages to install
-    needs: [checks, mac]
-    # a red mac job only leaves the .dylib files out
-    if: ${{ !cancelled() && github.event_name != 'pull_request' && needs.checks.result == 'success' }}
+    needs: checks
+    if: github.event_name != 'pull_request'
     runs-on: windows-latest
     timeout-minutes: 60
     steps:
@@ -149,12 +110,6 @@ jobs:
           workspaces: addons -> target
       - name: league.dll and the add-on bundle
         run: cargo build --release --manifest-path addons/Cargo.toml -p league_main -p league_addons
-      - name: The Mac build
-        if: needs.mac.result == 'success'
-        uses: actions/download-artifact@v4
-        with:
-          name: mac-dylibs-${{ github.sha }}
-          path: mac
       # The repo has no League audio (Riot's, never committed): a whole `league` package from here has no clips and its
       # mod.override_info points the clips back at sound/sfx - copied over an install it would silence every hero. So
       # the artifact holds what can be dropped into <game>/mods as it is: league.dll, the UI sheets and the add-on
@@ -162,17 +117,14 @@ jobs:
       - name: league.dll, the UI sheets, the add-on bundle
         id: pack
         run: |
-          dylib() { if [ -f mac/$1.dylib ]; then echo "--dylib mac/$1.dylib"; else echo "--no-dylib"; fi; }
-          python -I tools/package_mod.py --out build/league --dll addons/target/release/league.dll $(dylib league)
-          python -I tools/package_mod.py --src tft --out build/tft $(dylib tft)
+          python -I tools/package_mod.py --out build/league --dll addons/target/release/league.dll
+          python -I tools/package_mod.py --src tft --out build/tft
           mkdir -p dist/league dist/tft
           cp build/league/league.dll dist/league/
           cp -r build/league/ui_sheets dist/league/
           cp -r build/tft/ui_sheets dist/tft/
           cp build/tft/tft.dll dist/tft/
-          if [ -d mac ]; then cp build/league/league.dylib dist/league/; cp build/tft/tft.dylib dist/tft/; fi
-          python -I addons/league_addons/assemble.py dist/league_addons --dll addons/target/release/league_addons.dll \
-            $(dylib league_addons)
+          python -I addons/league_addons/assemble.py dist/league_addons --dll addons/target/release/league_addons.dll
           v=$(python -I -c "import json; print(json.load(open('league/mod.mod_info', encoding='utf-8'))['version'])")
           echo "name=TFM2-League-Heroes-$v-${GITHUB_SHA::9}" >> "$GITHUB_OUTPUT"
           {
@@ -181,11 +133,6 @@ jobs:
             echo "关掉游戏，把压缩包里的 league、tft、league_addons 三个文件夹复制进 <Teamfight Manager2>/mods（合并、覆盖同名文件）："
             echo "league.dll、每个英雄的界面小图集、附加包合集。英雄的图、数据、语音不在里面，完整安装和创意工坊上传照旧在本地用 tools/package_mod.py。"
             echo "合集会换掉游戏里的 league_addons：还没合并的分支装进去的附加包会被盖掉。"
-            if [ -d mac ]; then
-              echo "三个文件夹里的 .dylib 是 Mac 版（苹果芯片和 Intel 都能用），Windows 用不到，留着没关系。"
-            else
-              echo "这次没有 Mac 版（mac 任务没成功）：里面没有 .dylib。"
-            fi
             echo
             du -sh dist/* | sed 's/^/    /'
           } >> "$GITHUB_STEP_SUMMARY"
