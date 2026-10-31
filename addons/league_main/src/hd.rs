@@ -548,6 +548,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // onto it at the zoom her figure, pink hair and pillory give (tools/art/casts_briar_hd.py, rig_briar_hd.py; nothing
     // baked but the Snack's blood drops); 46 game px as her 1x sprite, so no SIZES row
     ("league_briar", 2.935, include_str!("../../../league/champions/league_briar#anim.fanim")),
+    // Talon (2026-10-31, 「下一个英雄重做泰隆」, 「用A PPU2.21吧」): Codex's talon-A read on its own ~10.5-px squares
+    // (105 x 86, tools/art/design_talon_hd.py: 86 rows / 39 = 2.205); every action Codex's whole-frame redraw of his old
+    // frame read onto it at the zoom his figure and face give (tools/art/casts_talon_hd.py, rig_talon_hd.py; the run
+    // redrawn with the legs changing over, 「走路没有换腿」; nothing baked); 39 game px as his 1x sprite, so no SIZES row
+    ("league_talon", 2.205, include_str!("../../../league/champions/league_talon#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

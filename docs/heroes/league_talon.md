@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.21 |
 | 附加包 | [泰隆「刺客之道」翻墙附加包](#附加包)（`league_talon_vault`） |
 
 ![泰隆演示](../preview/league_talon_showcase.gif)
@@ -91,6 +91,7 @@
 | 亚索联动 | 没有击飞和硬控，亚索大招不受影响，不用调 |
 | 技能树大小 | 普攻 24、W 235、Q 171、R 259 个节点（都在 300 以内；R 收刀由大招每 2 tick 检查一次，不放进被复制的普攻和 Q 里；悬停的刀圈 23 块、每块 3 个节点，也在大招树里） |
 | 精灵图 | 10 个动作 63 帧：待机 6、移动 8、普攻 5、W（`skill`）6、Q 跃击（`skill2`）7、Q 近身回旋斩（`skill2_stab`）6、E（`skill_e`）7、R（`ult`）8、受击 2、死亡 8，全部是英雄联盟原版泰隆的动作按游戏尺寸渲染、逐格上成泰隆的配色（`restyle_native.py`），头是定稿的兜帽头。按 35 行高渲染（`poses.json` 的 `height`；原来 40，换上大兜帽后连兜帽 43 格高，用户：「男刀体型偏大现在 需要适当缩小 但不要出现模型变形的情况」，在三档里选了 B），连兜帽 39 格高，和盖伦、泽丽差不多；整个动作按这个高度重新渲染，不删行列，兜帽头照旧是定稿那颗，21 色。不画眼睛：额前银色刀刃护额下是一条兜帽黑影，只露下半张脸（用户：「这眼睛不对 你要么就别画眼睛了 拿头罩遮住」）。之后用户：「男刀按照之前的遮挡了眼睛 但是面部还是奇怪」「而且这里都挺奇怪的」，又拿原画缩小后的样子问「泰隆这种感觉做不到？」「帽子改大点 然后照着这个轮廓描 不就好了吗」「注意模型不要过大」——头按原画 15 px 一格缩小后描出来（`design_talon.py`）：兜帽大了一圈（宽一列、高两行；圆顶和护额各比描下来的少一行，整个模型只高 2 行），护额是灰色金属，下面一条兜帽黑影（眼睛照旧不画），脸五格宽、四行高，中间亮、下巴收窄，左边一条灰色衬里。每一帧贴着的头都按原来那张脸的位置和朝向换成新头（转四分之一圈、翻转的也一样），新头和身体、刀之间合出来的几个小缝用旁边的颜色补上（restyle 的 fill_holes）。头像截取点 (10, −36)；选人卡片用默认位置（兜帽顶在站位点上方 26.5 格，不到 28 格不用设；缩小前兜帽顶在 −30，设过 −9）。普攻第 4 帧原来是英雄联盟 attack1 的 300 毫秒，正是他转身甩开披风的时候，缩到游戏尺寸两边成了两条细长的红线挂着刀尖，像翅膀（用户：「泰隆怎么普攻模型变形啊」），现在是刺出（222 毫秒）和收招（950 毫秒）各一半：刀还在身前往回收，披风垂着 |
+| 高清帧（PPU 2.21） | 2026-10-31 用 PPU 重做（用户：「下一个英雄重做泰隆」「用A PPU2.21吧」「走路没有换腿」「动作通过」）。设计图：Codex 照他的旧精灵描密的原图（两版，用 A 版）；原图的描边和兜帽约 10.5 像素一格，所以按原图自己的格子读回（105 × 86 格；兜帽顶到脚底 86 行 / 2.21 = 原来的 39 像素；调色板 64 色，`design_talon_hd.py`，`--raw` / `--pitch` 是另外几种读法：A 按 7 / 5.25 像素是 3.33 / 4.28，v1 是 2.0 / 3.03 / 4.03）；脸那一块按均匀格子读（贴色边的读法会丢掉蓝灰色的瞳孔和嘴）。设计图比旧精灵宽（长银刀尖拖得更远、拳头更往前）。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_talon_actions.py`，九个动作 57 帧，旧版没有和待机一样的帧；旧帧手上有刀的帧画一把长银刀，没有的画拳头）；第一轮跑步八帧一直是同一条腿在前，照旧版逐帧写明哪条腿撑地重画了跑步（`RUN_REDO_PROMPT_PPU.md`：第 1–4 帧近侧腿撑地，第 5–8 帧远侧腿）。读回（`casts_talon_hd.py`）：兜帽和上衣是同一种蓝、钢色到处都有，所以每张的缩放按整个人的面积量，再乘他脸上晒黑的皮肤面积和设计图之比；E 第 4 帧倒着翻跟头时头画大了三成，单独缩放；对齐点按设计图和旧待机剪影重叠最多的那列（第 68 列）。待机不上下起伏（待机和选人卡是从动作里剪的随机片段）；没有烤进动作的特效（`rig_talon_hd.py`）。高 39 像素和原来一样，没有 SIZES 行；头像点不变；选人卡片新设 −1（不设时兜帽顶伸进卡片顶上的黑边） |
 | 特效 | Codex 第 3 步的 16 张，`import_talon.py` 按格读回、按技能范围定大小：`league_talon_fx` 普攻刀光、伤口标记（循环）、流血血雾、Q 起跳 / 刺中血花 / 击杀回血、W 去程一扇刀刃 / 回程拖暗红刀痕 / 命中 / 减速刀痕、E 翻越弧光 / 加速风线、R 命中 / 隐身的蓝紫烟；`league_talon_big` R 甩出的一圈刀刃（前 4 格，183 ms）、悬停的刀圈（`r_ring0`–`r_ring3`：甩出最后一格的刀刃，去掉刀刃之间的碎点、整体提亮一档，好在隐身的蓝紫烟上看清，每块让一排刀刃亮成白色）和收回的刀刃（先是亮起的刀圈，再收拢、闪光，去掉了最后残留的红点圈）。配色照英雄联盟：银白刀刃 + 冰蓝刃光、暗红血和刀痕、暗蓝紫隐身烟。飞刀朝右画（会转到飞行方向，上下对称），其余左右对称 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_talon.py`）：普攻挥刀和命中、被动流血、Q 跃击 / 捅刺 / 命中、W 出手 / 命中 / 回程、E、R 出手 / 命中 / 收刀；Q、W、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（W / Q / R），从本地客户端提取，缩到 64×64；E 自动，没有技能位 |
@@ -107,6 +108,15 @@ python tools/art/restyle_native.py assets/source/talon/poses.json --renders <目
 python tools/art/import_native.py --hero talon
 python tools/art/import_talon.py --raw assets/source/talon/codex_fx   # 特效：读回成游戏尺寸，再拼成特效表
 python tools/art/preview_talon.py         # 预览和演示 GIF
+# PPU 2.21 重做（2026-10-31）：
+python tools/art/pack_talon_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照他的旧精灵描密）
+python tools/art/design_talon_hd.py                      # Codex 的原图（hd/raw/talon-A.png）按原图约 10.5 像素一格读回 -> hd/design.png
+python tools/art/pack_talon_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）；--only run --prompt RUN_REDO_PROMPT_PPU.md 是跑步重画包
+python tools/art/casts_talon_hd.py --area                # 每张按面积的缩放；--heads 每帧脸上皮肤的大小（定 ZOOM）
+python tools/art/rig_talon_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero talon && python tools/art/ppu_hd.py --hero talon
+python tools/art/ppu_one.py --hero talon && python tools/art/rig_talon_hd.py --one-ground && python tools/art/hero_reels.py --hero talon
+python tools/art/review_talon_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 python addons/league_talon_vault/make_override.py   # 翻墙附加包的副本（主包的泰隆改了就重跑）
 ```
 
@@ -120,4 +130,4 @@ python addons/league_talon_vault/make_override.py   # 翻墙附加包的副本�
   - 逐块投票上色留下的单个杂点按周围同一材质的颜色抹平（`denoise`），被身体围住的空隙用旁边的颜色补上（`fill_holes`，贴头后再补一次头和脖子之间的缝 `fill_seams`），63 帧每帧一整块、没有空洞；
   - 头跟着身体转：躺倒、翻滚的帧按英雄联盟头的朝向转整四分之一圈（`forward`），Q 俯冲的第 4、5 帧头关节没转够，按画面指定成脸朝下（`tilt`）。
 
-逐帧预览：[`docs/preview/league_talon_frames.png`](../preview/league_talon_frames.png?v=1014g)，特效：[`docs/preview/league_talon_effects.png`](../preview/league_talon_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_talon_frames.png`](../preview/league_talon_frames.png?v=1031hd)，特效：[`docs/preview/league_talon_effects.png`](../preview/league_talon_effects.png?v=1014g)。
