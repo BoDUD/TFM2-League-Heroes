@@ -8,7 +8,8 @@
 //! 由 game_places 在运行时找）——0.9.0 起在 addons/hd_engine，和 tft 包的 tft.dll 共用（tft 包要单独上创意工坊，只订阅它
 //! 也要有高清帧）。init 把 src/hd.rs 的表交给引擎：进程里第一个加载的包 DLL 挂钩、画两个包的英雄；league.dll 加载在
 //! tft.dll 之后时自己一个钩子都不挂，把表交给它（hd_engine src/share.rs）——两个包都开着时 Mods 菜单里谁先谁后都一样。
-//! 认不得的游戏版本、Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
+//! 认不得的游戏版本、Mac（league.dylib，CI 的 mac 任务编：钩子都是照 Windows 的 EXE 做的，Mac 上一个都不挂）什么都不改，
+//! 英雄照旧画 1 倍的帧。
 //!
 //! src/cache.rs（0.8.16）：游戏的 GPU 图片缓存（Skia 的 GrResourceCache，默认 256 MiB）放大到 1 GiB——一屏英雄多的界面
 //! 不再因为装不下而每帧清掉、重新上传贴图。
@@ -24,6 +25,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+#[cfg(windows)]
 use hd_engine::Role;
 use mod_api_stable::*;
 
@@ -85,19 +87,27 @@ fn init(host: &StableHost) -> StableMod {
     close_log();
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
-    wlog(format!("=== {ID}.dll {VERSION} (dense frames) loaded: game {}.{}.{} abi {} log={} ===",
+    wlog(format!("=== {ID}.{} {VERSION} (dense frames) loaded: game {}.{}.{} abi {} log={} ===", std::env::consts::DLL_EXTENSION,
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
     // the GPU image cache first, whatever the build: it only needs Skia's GrResourceCache (src/cache.rs)
     #[cfg(windows)]
     cache::install_once(hd_engine::module_base());
     // the dense frames: this pack's table to the engine - it hooks the game from here (build, display pair, lookups,
     // scale, as before 0.9.0), or hands the table to the pack DLL that did (tft.dll loaded first: hd_engine src/share.rs)
+    #[cfg(windows)]
     match hd_engine::start(&hd::table(), &format!("{ID}.dll {VERSION}"), |m: &str| wlog(m)) {
         Role::Host => host.log(LogLevel::Info, "League Heroes: dense (PPU) frames for the heroes that have them."),
         Role::Guest { host: by, .. } => host.log(LogLevel::Info,
             &format!("League Heroes: dense (PPU) frames for the heroes that have them, drawn by {by}.")),
         Role::Off(why) => host.log(LogLevel::Info, &format!("League Heroes: 1x frames - {why}.")),
     }
+    // the hooks are made for the Windows EXE: on a Mac the heroes play as on Windows, drawn with their 1x frames
+    #[cfg(not(windows))]
+    {
+        wlog("not Windows: no hooks (dense frames, UI sheets, image cache, audio warm-up) - every hero draws its 1x frames");
+        host.log(LogLevel::Info, "League Heroes: dense (PPU) frames are Windows-only - 1x frames.");
+    }
+    #[cfg_attr(not(windows), allow(unused_mut))]
     let mut module = StableMod::new(ID);
     #[cfg(windows)]
     module.set_extension(warm::Warm);

@@ -5,7 +5,7 @@
 
 ## 怎么合在一起
 
-- 游戏一个 mod 只加载一个 DLL（`<mod_id>.dll`），所以不能把几个附加包的 DLL 放进同一个文件夹。这里把各附加包的源码当模块编进
+- 游戏一个 mod 只加载一个 DLL（`<mod_id>.dll`；Mac 上是同一份代码编的 `<mod_id>.dylib`，CI 的 `mac` 任务编，见主 README 的「Mac」），所以不能把几个附加包的 DLL 放进同一个文件夹。这里把各附加包的源码当模块编进
   `league_addons.dll`（`src/lib.rs` 的 `#[path]`），每个附加包的 `register` 把自己的原生效果、被动、AI 钩子和地图读取注册进同一个
   `StableMod`。SDK 里这些都是列表（地图读取只有一个：合集的 `MapReaders` 先调卡密尔的读墙、再调雷恩加尔的读草丛），名字只是约定加前缀，所以名字照旧（`league_nocturne_dark:start`
   等），各附加包的英雄数据原样可用。
@@ -84,3 +84,8 @@ AI 钩子在大招解锁（5 级）前按 R、技能 2 解锁（3 级）前按�
 世界和实体值的偏移只在 `game_places::hook`（`VALUE`、`NAME_PTR`、`ANIM_*`、`BUFFS_*` ……），不要再写死 rva 或抄偏移。合成一个前
 15 个附加包各自换槽、各自每帧走一遍表：合成后每帧约 10.6 µs，原来 13.3 µs（100 个实体的假表，`game_places` 的
 `one_walk_against_fifteen`），主要省的是维护。
+
+Mac（2026-10-31）：合集也编成 `league_addons.dylib`。显示钩子是照 Windows 版 EXE 做的，Mac 上 `game_places::hook::add` 直接返回
+「not Windows」，各英雄退回没有整身变身画面的样子；钩子交给游戏的动画名字符串用 `game_places::heap::{GetProcessHeap, HeapAlloc,
+HeapFree}`（Windows 上就是 kernel32 的，别处是 malloc / free），**附加包里不要自己写 `#[link(name = "kernel32")]`**：有一个，
+整个合集在 Mac 上就链接不了（PR 上 CI 的 `mac` 那一项会红）。
