@@ -553,6 +553,16 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // frame read onto it at the zoom his figure and face give (tools/art/casts_talon_hd.py, rig_talon_hd.py; the run
     // redrawn with the legs changing over, 「走路没有换腿」; nothing baked); 39 game px as his 1x sprite, so no SIZES row
     ("league_talon", 2.205, include_str!("../../../league/champions/league_talon#anim.fanim")),
+    // Thresh (2026-10-31, 「锤石和女枪在这个pr里一起重做二轮」, 「都用中间档」): Codex's thresh-A read on its own ~9.75-px
+    // squares (90 x 99, tools/art/design_thresh_hd.py: 99 rows / 40 = 2.475); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom its height (or its area) gives (tools/art/casts_thresh_hd.py,
+    // rig_thresh_hd.py; nothing baked); 40 game px as his 1x sprite, so no SIZES row
+    ("league_thresh", 2.475, include_str!("../../../league/champions/league_thresh#anim.fanim")),
+    // Miss Fortune (2026-10-31, the same PR, 「都用中间档」): Codex's missfortune-A read on its own ~9.75-px squares (80 x
+    // 105, tools/art/design_missfortune_hd.py: 105 rows / 38 = 2.763); every action Codex's whole-frame redraw of her old
+    // frame read onto it at the zoom its height (the deaths: its area; E 2-6 by the hat) gives
+    // (tools/art/casts_missfortune_hd.py, rig_missfortune_hd.py; nothing baked); 38 game px as her 1x sprite, so no SIZES row
+    ("league_missfortune", 2.763, include_str!("../../../league/champions/league_missfortune#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
