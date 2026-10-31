@@ -19,10 +19,14 @@ entry of any mod's mod.override_info remaps it to (the add-ons' copies); the loc
 copies of our mods are older and lose to it). For every champion whose id starts with a prefix, a copy that differs
 from it (a value of the installed JSON the copy lacks or has otherwise, or a non-default value the copy has that the
 installed JSON leaves out) becomes the installed JSON without view_projectiles / view_effects / view_buffs, with the
-career's balance patches kept: the first list is the career's unpatched start (checked on 11-01: its stat and growth
-equal the 10-29 files for every hero), later lists scale some stat / growth values (a hero's hp 1200 -> 1032). Such a
-value becomes the installed one times the copy's over the first list's (Viego's hp went 980 -> 900 after the career
-started: a patched 843 becomes 774). Everything else stays: other champions byte for byte, the rest of the body, the
+career's balance patches kept. Some rulesets are the career's unpatched start (checked on 11-01: their stat and growth
+equal the 10-29 files for every hero), the others scale some stat / growth values (a hero's hp 1200 -> 1032). Such a
+value becomes the installed one times the copy's over the unpatched ruleset's (Viego's hp went 980 -> 900 after the
+career started: a patched 843 becomes 774). The game reorders the rulesets when it saves (11-01: the patched values
+of Rumble and Aatrox moved between lists 3-6 across one save), so the unpatched one is not taken as the first list:
+it is the list whose stat and growth equal the installed files for the most of our champions - after a refresh all
+of them, and a patched list misses at least its patched champions (taking a patched Aatrox's 946 as the base would
+make his unpatched 1100 into 1279). Everything else stays: other champions byte for byte, the rest of the body, the
 header but for the gzip part's length and CRC32. OUT is read back and checked.
 
 The game's other mentions of a champion are by id (athletes' proficiency, match history, news, each ruleset's table
@@ -126,7 +130,8 @@ def installed(mods):
 
 
 def is_default(v, key=None):
-    return key in ENUM_DEFAULTS and v == ENUM_DEFAULTS[key] or v in (0, False, "", None, [], {}) or         isinstance(v, dict) and all(is_default(x, k) for k, x in v.items())
+    return key in ENUM_DEFAULTS and v == ENUM_DEFAULTS[key] or v in (0, False, "", None, [], {}) or \
+        isinstance(v, dict) and all(is_default(x, k) for k, x in v.items())
 
 
 def differs(new, copy):
@@ -140,7 +145,7 @@ def differs(new, copy):
 
 
 def patched(now, first, copy):
-    """the installed section with each value the career patched (copy != first list) scaled the same way"""
+    """the installed section with each value the career patched (copy != the unpatched ruleset) scaled the same way"""
     out = dict(now)
     for k, c in copy.items():
         c0 = first.get(k, 0)
@@ -149,6 +154,25 @@ def patched(now, first, copy):
         f = now.get(k, 0)
         out[k] = round(f * c / c0) if c0 else f + c - c0
     return out
+
+
+def base_list(runs, body, defs, prefixes):
+    """(index, matches, champions): the unpatched ruleset - the list whose stat and growth equal the installed
+    definitions' for the most of our champions (a tie: the first of them)"""
+    best, champions = (0, -1), 0
+    for li, run in enumerate(runs):
+        n = champions = 0
+        for s, e, cid in run:
+            if not cid.startswith(prefixes) or cid not in defs:
+                continue
+            champions += 1
+            copy, defn = json.loads(body[s + 16:e]), defs[cid][1]
+            if all(isinstance(copy.get(sec), dict) and
+                   all(copy[sec].get(k, 0) == v for k, v in (defn.get(sec) or {}).items()) for sec in PATCHED):
+                n += 1
+        if n > best[1]:
+            best = (li, n)
+    return best[0], max(best[1], 0), champions
 
 
 def refreshed(defn, first, copy):
@@ -173,7 +197,8 @@ def main():
     if not runs:
         sys.exit("no champion definition lists in the body")
     defs = installed(a.mods)
-    first = {e[2]: json.loads(body[e[0] + 16:e[1]]) for e in runs[0]}
+    bi, matched, champions = base_list(runs, body, defs, prefixes)
+    first = {e[2]: json.loads(body[e[0] + 16:e[1]]) for e in runs[bi]}
     repl, report, missing = {}, collections.defaultdict(list), set()
     for li, run in enumerate(runs):
         for s, e, cid in run:
@@ -189,6 +214,8 @@ def main():
                 report[cid].append(li)
     print(f"{a.save}: {len(runs)} lists of {[len(r) for r in runs]} champions; {len(repl)} stale copies of "
           f"{len(report)} champions")
+    print(f"  unpatched ruleset: list {bi} (stat and growth equal the installed files for {matched} of {champions} "
+          f"of ours)")
     for cid in sorted(report):
         print(f"  {cid}: lists {report[cid]}  <- {os.path.relpath(defs[cid][0], a.mods)}")
     if missing:
