@@ -1,0 +1,46 @@
+[
+  {
+    "file": "elderdragon-A.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_bbox": [
+      0,
+      33,
+      1219,
+      1254
+    ],
+    "body_bbox": [
+      110,
+      482,
+      1214,
+      1246
+    ],
+    "alpha_levels": 256,
+    "semitransparent_pixels": 489519
+  },
+  {
+    "file": "elderdragon-B.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_bbox": [
+      0,
+      0,
+      1240,
+      1254
+    ],
+    "body_bbox": [
+      119,
+      658,
+      1168,
+      1190
+    ],
+    "alpha_levels": 256,
+    "semitransparent_pixels": 298621
+  }
+]
