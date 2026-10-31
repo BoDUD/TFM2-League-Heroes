@@ -1,4 +1,5 @@
-//! Which game build league.dll knows, by fingerprint: Steam 0.7.0 (2026-10-28). 0.6.5 is no longer listed, as 0.6.4 and
+//! Which game build league.dll knows, by fingerprint (the dense-frame engine's since 2026-10-31: whichever pack DLL hosts
+//! it, league.dll or tft.dll, src/share.rs): Steam 0.7.0 (2026-10-28). 0.6.5 is no longer listed, as 0.6.4 and
 //! 0.6.3 were dropped before it (the user, 2026-10-14: 「0.6.3不用适配了 直接0.6.4就行了」) - another build is looked for at
 //! run time ([`from_places`]); the earlier wish to know two builds at once (2026-10-12: 「就是你要兼容0.6.3和0.7」) is why
 //! this is a list.
@@ -71,8 +72,8 @@ pub struct Build {
     pub ui_anim_ret: &'static [usize],
     pub ui_size_ret: &'static [usize],
     /// the ones of those that show the whole body - the pick slot, the BP grid, the pick moment: only they draw a hero at
-    /// its [`crate::hd::UI_SIZES`] size; the encyclopedia / face icons and the scoreboard portraits crop around the
-    /// face point and keep the plain UI size, so the face points stay on the faces
+    /// its UI size ([`crate::hd::Table::ui_sizes`]); the encyclopedia / face icons and the scoreboard portraits crop
+    /// around the face point and keep the plain UI size, so the face points stay on the faces
     pub ui_sized_anim_ret: &'static [usize],
     pub ui_sized_size_ret: &'static [usize],
     /// return addresses of those UI drawers' own sheet lookups (the same order as `ui_anim_ret`): src/ui.rs hands them

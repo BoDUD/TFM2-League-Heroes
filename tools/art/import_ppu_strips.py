@@ -15,7 +15,7 @@ stands (its soles on the 1x soles, across where it overlaps the scaled 1x idle m
     python tools/art/import_ppu_strips.py --hero yasuo --delivery <...> --scale 2     # pack PPU 1.5 -> game PPU 3
 
 Then: python tools/art/ppu_hd.py --hero <hero> (the hd_ tags into the sheet) and the hero in
-addons/league_main/src/hd.rs.
+addons/league_main/src/hd.rs (a tft hero: addons/tft/src/hd.rs).
 """
 import argparse
 import json

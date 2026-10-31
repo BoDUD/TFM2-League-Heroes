@@ -5,9 +5,10 @@
 #             (tools/ci/ui_sheets.py; league.dll's tests below);
 #           * the add-ons' copies of main-pack heroes rebuilt and compared (make_override.py --check): Sylas's stolen
 #             ults, Viego's possession, Neeko's disguise, Kayn's form;
-#           * league.dll (PPU, UI sheets, run-time places), game_places, the four add-ons' own tests (every hero
-#             stealable or robbed by class, a soul with its sheets' hd_ / lo_ tags, its range for Kayn) and every add-on
-#             in the league_addons bundle.
+#           * the dense-frame engine both pack DLLs share (hd_engine: PPU, UI sheets, the host / guest handshake),
+#             league.dll's and tft.dll's tables, game_places, the four add-ons' own tests (every hero stealable or
+#             robbed by class, a soul with its sheets' hd_ / lo_ tags, its range for Kayn) and every add-on in the
+#             league_addons bundle.
 # package - league.dll and the add-on bundle built; one artifact with what can be copied into <game>/mods as it is:
 #           league/league.dll, tft/tft.dll, league/ and tft/ ui_sheets, league_addons/ (tools/package_mod.py,
 #           addons/league_addons/assemble.py).
@@ -81,13 +82,13 @@ jobs:
           python -I addons/league_yasuo_wall/make_override.py --check
           python -I addons/league_kayle/make_override.py --check
           python -I addons/league_rumble/make_override.py --check
-      - name: league.dll - PPU, UI sheets, run-time places
-        run: cargo test --manifest-path addons/Cargo.toml -p league_main -p game_places
+      - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
+        run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges
         run: cargo test --manifest-path addons/Cargo.toml -p league_sylas -p league_viego_soul -p league_neeko -p league_kayn_form
       - name: Every add-on (the league_addons bundle)
         run: cargo test --manifest-path addons/Cargo.toml -p league_addons
-      - name: The tft pack's tft.dll (Norra's and Alune's rules)
+      - name: The tft pack's tft.dll (its heroes' rules, its dense-frame table)
         run: cargo test --manifest-path addons/Cargo.toml -p tft
 
   package:

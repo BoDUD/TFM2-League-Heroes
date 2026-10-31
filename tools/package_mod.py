@@ -27,7 +27,7 @@ The game reads every mod file except background music into memory when it starts
   only the frames the screens that show many heroes at once draw, pixel for pixel - ui_sheets/idle: `idle` (the
   encyclopedia, faces, pick slots, pick moment, scoreboard portraits: a dense hero's lo_idle); ui_sheets/bp: `bp`
   (the ban/pick grid's reel: hd_bp) and `dead` (a banned hero in the grid: hd_dead). league.dll draws those screens
-  from them (addons/league_main/src/lookup.rs): they drew every hero from its whole battle sheet, 589 MiB of RGBA for
+  from them (addons/hd_engine/src/lookup.rs): they drew every hero from its whole battle sheet, 589 MiB of RGBA for
   167 heroes against the game's 256 MiB image cache, so every frame decoded them again (2026-10-24, the user:
   「PPU导致页面卡 特别是英雄界面 还有BP界面非常的卡」).
 - JSON files (.data_champion .fanim .i18n .champion_view .override_info .sound_info) minified: whitespace
@@ -101,14 +101,15 @@ MP3_QUALITY = 0.0          # libsndfile compression level for VBR MP3: 0.0 = LAM
 MAX_SHEET = 2048           # repacked sheets stay within 2048 x 2048, like the sheets the mod ships today
 GAP = 1                    # transparent pixels between packed frames
 IDLE_PAD = 8               # clear pixels round every idle frame (the cards draw past its rect)
-UI_DIR = "ui_sheets"       # each hero's UI sheets (ui_sheets): league.dll's src/lookup.rs looks them up by this path
+UI_DIR = "ui_sheets"       # each hero's UI sheets (ui_sheets): addons/hd_engine/src/ui.rs looks them up by this path
 # ui_sheets/<kind>/<hero>: idle for the encyclopedia, faces, pick slots, pick moment and scoreboard; bp (the reel and
 # dead) for the ban/pick grid alone - a screen showing every hero keeps only the one it draws
 UI_KINDS = {"idle": ("idle",), "bp": ("bp", "dead")}
 
 
 # each native pack's own code, next to its mod.mod_info: mod_id -> (the DLL, its crate in addons/) - the main pack's
-# league.dll (addons/league_main), the tft pack's tft.dll (addons/tft: its heroes' rules the data cannot play)
+# league.dll (addons/league_main), the tft pack's tft.dll (addons/tft: its heroes' rules the data cannot play and,
+# since 0.28.0, their dense frames); both carry the dense-frame engine (addons/hd_engine)
 DLLS = {"league": ("league.dll", "league_main"), "tft": ("tft.dll", "tft")}
 
 

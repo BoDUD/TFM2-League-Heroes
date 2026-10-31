@@ -1,11 +1,14 @@
-//! Which heroes have dense (PPU) frames - the parts that need no game.
+//! Which of the main pack's heroes have dense (PPU) frames: league.dll's table (the tft pack's rows are in
+//! tft/src/hd.rs since 2026-10-31). What a row does is hd_engine's (addons/hd_engine: src/hd.rs Table, src/lookup.rs,
+//! src/view.rs, src/ui.rs); league.dll hands it this table at init (src/lib.rs) - hooking the game itself when it is
+//! the first pack DLL loaded, else handing the table to the one that did (tft.dll, hd_engine src/share.rs).
 //!
 //! A hero listed in `HEROES` carries `hd_<tag>` beside every `<tag>` in its own sheet (tools/art/ppu_hd.py, the same
 //! PPU there), each frame PPU times the 1x frame's size - a drawn one may be grown alike at both ends (its centre, the
-//! pivot, kept), hd_idle exactly PPU times as wide (src/lookup.rs tells a changed table by it). src/lookup.rs hands every
-//! reader of the hero's animations a table whose every tag holds the dense frames with their rects divided by PPU, and
-//! every reader of its sheet a texture that reports its size divided by PPU: the same UVs (the dense squares), the 1x
-//! sizes. The tags are read from the sheet's .fanim compiled in.
+//! pivot, kept), hd_idle exactly PPU times as wide (hd_engine src/lookup.rs tells a changed table by it). The tags are
+//! read from the sheet's .fanim compiled in.
+
+use hd_engine::Table;
 
 /// Champion id, pixels per 1x square, the sheet's .fanim (as shipped in league/).
 pub const HEROES: &[(&str, f32, &str)] = &[
@@ -270,106 +273,6 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // design's head; the ao_* tags All Out's, the kit's CasterAnimations and league_ksante's view hook), so no SIZES row;
     // brought down to 1.2 (2026-10-22: 「奎桑提像素也太高了」, tools/art/ppu_restyle.py)
     ("league_ksante", 1.2, include_str!("../../../league/champions/league_ksante#anim.fanim")),
-    // Powder (tft_powder, the tft pack in tft/: Teamfight Tactics' own units, its own mod; this DLL draws her dense
-    // frames when both packs are enabled): the idle design and Codex's skeleton poses with one clean head, posed by
-    // tools/art/rig_powder.py at 1.75 squares a game pixel (61 rows: 「35」, then 「PPU像素好低啊 能调一下吗」), shown at 90 % (SIZES)
-    ("tft_powder", 1.75, include_str!("../../../tft/champions/tft_powder#anim.fanim")),
-    // Norra (tft_norra, the tft pack's second hero): the design (Codex's step-0 A-1 at 72 rows, 36 game px hat top to
-    // soles: 「A-1 36px PPU2.0」, the gold ring in her near hand) and Codex's key poses after the videos with the design's
-    // head, posed by tools/art/rig_norra.py at 2.0 squares a game pixel, so no SIZES row
-    ("tft_norra", 2.0, include_str!("../../../tft/champions/tft_norra#anim.fanim")),
-    // Alune (tft_alune, the tft pack): riding her crescent glaive, step 0's A-1 at the user's 46 game px horns to the
-    // crescent's foot, PPU 2.0 (「A-1 46 PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
-    // posed by tools/art/rig_alune.py, so no SIZES row
-    ("tft_alune", 2.0, include_str!("../../../tft/champions/tft_alune#anim.fanim")),
-    // Silco (tft_silco, the tft pack): leaning on his cane, step 0's A-1 at the user's 40 game px hair to soles, PPU 2.0
-    // (「A-1 40 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed by
-    // tools/art/rig_silco.py, so no SIZES row
-    ("tft_silco", 2.0, include_str!("../../../tft/champions/tft_silco#anim.fanim")),
-    // Maddie (tft_maddie, the tft pack): the rifle on her shoulder, step 0's A-1 at the user's 38 game px beret to soles,
-    // PPU 1.5 (「A-1 38 PPU 1.5」), and Codex's key poses after her own TFT clips with the design's head, posed by
-    // tools/art/rig_maddie.py, so no SIZES row
-    ("tft_maddie", 1.5, include_str!("../../../tft/champions/tft_maddie#anim.fanim")),
-    // Loris (tft_loris, the tft pack): the tower shield upright at his side, step 0's B-1 at the user's 42 game px hair
-    // to soles, PPU 2.0 (「B-1 42 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed
-    // by tools/art/rig_loris.py, so no SIZES row
-    ("tft_loris", 2.0, include_str!("../../../tft/champions/tft_loris#anim.fanim")),
-    // Kobuko (tft_kobuko, the tft pack): stroking his beard, step 0's A-1 at the user's 40 game px topknot to soles,
-    // PPU 2.0 (「A-1 40 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed by
-    // tools/art/rig_kobuko.py, so no SIZES row
-    ("tft_kobuko", 2.0, include_str!("../../../tft/champions/tft_kobuko#anim.fanim")),
-    // Vander (tft_vander, the tft pack): the low fighting stance, step 0's B-2 at the user's 40 game px hair to soles,
-    // PPU 2.0 (「B-2 40 PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head, posed by
-    // tools/art/rig_vander.py, so no SIZES row
-    ("tft_vander", 2.0, include_str!("../../../tft/champions/tft_vander#anim.fanim")),
-    // Violet (tft_violet, the tft pack): the fighting stance, both gauntlets up, step 0's B-1 at the user's 38 game px
-    // hair to soles, PPU 2.0 (「B-1 38 PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
-    // posed by tools/art/rig_violet.py, so no SIZES row
-    ("tft_violet", 2.0, include_str!("../../../tft/champions/tft_violet#anim.fanim")),
-    // The Ancient Krug (tft_krug, the tft pack): hunched on all fours, step 0's A-1 at the user's 38 game px boulder to
-    // soles, PPU 2.0 (「A-1 38 PPU 2.0」), and Codex's key poses after his own TFT clips, posed by tools/art/rig_krug.py,
-    // so no SIZES row
-    ("tft_krug", 2.0, include_str!("../../../tft/champions/tft_krug#anim.fanim")),
-    // Ao Shin (tft_aoshin, the tft pack): the storm dragon hovering upright, step 0's A-1 at the user's 38 game px horns
-    // to the tail's lowest curl, PPU 2.0 (「A-1 38 PPU 2.0」), and Codex's key poses after his own TFT clips, posed by
-    // tools/art/rig_aoshin.py, so no SIZES row
-    ("tft_aoshin", 2.0, include_str!("../../../tft/champions/tft_aoshin#anim.fanim")),
-    // Scar (tft_scar, the tft pack): the spear guard, the point forward, step 0's B-1 at the user's 38 game px mohawk to
-    // soles, PPU 2.0 (「B-1、38 游戏像素、PPU 2.0」), and Codex's key poses after his own TFT clips with the design's head,
-    // posed by tools/art/rig_scar.py, so no SIZES row
-    ("tft_scar", 2.0, include_str!("../../../tft/champions/tft_scar#anim.fanim")),
-    // Renni (tft_renni, the tft pack): the stance, the chainsaw level forward, step 0's B-1 at the user's 38 game px hair
-    // to soles, PPU 2.0 (「B-1、38 像素、PPU 2.0」), and Codex's key poses after her own TFT clips with the design's head,
-    // posed by tools/art/rig_renni.py, so no SIZES row
-    ("tft_renni", 2.0, include_str!("../../../tft/champions/tft_renni#anim.fanim")),
-    // Smeech (tft_smeech, the tft pack): the ambush crouch, claws spread, step 0's B-1 at the user's 36 game px hat to
-    // claw tips, PPU 2.4 (「B-1 36像素 PPU2.4」, the picture one square a pixel), and Codex's key poses after his own TFT
-    // clips with the design's head, posed by tools/art/rig_smeech.py, so no SIZES row
-    ("tft_smeech", 2.4, include_str!("../../../tft/champions/tft_smeech#anim.fanim")),
-    // Sevika (tft_sevika, the tft pack): the standing guard, the mechanical arm hanging, step 0's A-1 at the user's 38
-    // game px hair to soles, PPU 1.8 (「A-1、38、PPU 1.8」: 70 rows kept 1:1), and Codex's key poses after her own TFT
-    // clips with the design's head, posed by tools/art/rig_sevika.py, so no SIZES row
-    ("tft_sevika", 1.8, include_str!("../../../tft/champions/tft_sevika#anim.fanim")),
-    // Steb (tft_steb, the tft pack): the idle, a baton on his shoulder, step 0's A-1 at the user's 40 game px quiff to
-    // soles, PPU 2.6 (「A-1 40 PPU 2.6」: 106 rows kept 1:1), and Codex's key poses after his own TFT clips with the
-    // design's head, posed by tools/art/rig_steb.py, so no SIZES row
-    ("tft_steb", 2.6, include_str!("../../../tft/champions/tft_steb#anim.fanim")),
-    // Nomsy (tft_nomsy, the tft pack): the chubby dragon sitting on all fours, step 0's A-1 at the user's 36 game px from
-    // the far wing to her feet, PPU 2.6 (「A-1 36 PPU 2.6」: 94 rows kept 1:1), and Codex's key poses after her own TFT
-    // clips on the design's palette, posed by tools/art/rig_nomsy.py, so no SIZES row
-    ("tft_nomsy", 2.6, include_str!("../../../tft/champions/tft_nomsy#anim.fanim")),
-    // Idas (tft_idas, the tft pack): the golden dragon side-on on her two digitigrade legs, step 0's B-1 at the user's
-    // 40 game px from her crest to her feet, PPU 2.45 (「B-1 40 PPU 2.45」: 98 rows kept 1:1), and Codex's key poses after
-    // her own TFT clips on the design's colours, posed by tools/art/rig_idas.py, so no SIZES row
-    ("tft_idas", 2.45, include_str!("../../../tft/champions/tft_idas#anim.fanim")),
-    // Daeja (tft_daeja, the tft pack): the crystal dragon-man standing upright, step 0's A-1 at the user's 40 game px from
-    // the wing tips to his feet, PPU 1.72 (「A-1、40 游戏像素、PPU 1.72」: 69 rows kept 1:1), and Codex's key poses after his
-    // own TFT clips with the design's face, posed by tools/art/rig_daeja.py, so no SIZES row
-    ("tft_daeja", 1.72, include_str!("../../../tft/champions/tft_daeja#anim.fanim")),
-    // Shi Oh Yu (tft_shiohyu, the tft pack): the jade dragon-man turned near side-on, step 0's B-1 at the user's 42 game px
-    // from the wing tips to his feet, PPU 2.46 (「B1 42 PPU 2.46」: 103 rows), and Codex's key poses and run after his own
-    // TFT clips with the design's face, posed by tools/art/rig_shiohyu.py, so no SIZES row
-    ("tft_shiohyu", 2.46, include_str!("../../../tft/champions/tft_shiohyu#anim.fanim")),
-    // Sy'fen (tft_syfen, the tft pack): the shadow wyvern side-on and hunched, step 0's B-1 at the user's 40 game px from
-    // the horn tips to his feet, PPU 2.52 (「B-1、40 像素高、PPU 2.52」: 111 rows brought down to 101), and Codex's key poses
-    // after his own TFT clips, posed by tools/art/rig_syfen.py, so no SIZES row
-    ("tft_syfen", 2.52, include_str!("../../../tft/champions/tft_syfen#anim.fanim")),
-    // Sohm (tft_sohm, the tft pack): the sea dragon side-on floating in her coil, step 0's B-1 at the user's 40 game px
-    // from the antler tips to the bottom of her coil, PPU 1.8 (「B-1 40px PPU 1.8」: 72 rows 1:1), and Codex's key poses
-    // after her own TFT clips, posed by tools/art/rig_sohm.py, so no SIZES row
-    ("tft_sohm", 1.8, include_str!("../../../tft/champions/tft_sohm#anim.fanim")),
-    // Terra (tft_terra, the tft pack): the earth dragon crouched at 3/4, step 0's A-1 at the user's 36 game px from the
-    // wing-bone tips to her soles, PPU 1.45 (「A-1、36 px、PPU 1.45」: 52 rows 1:1), and Codex's key poses after her own
-    // TFT clips, posed by tools/art/rig_terra.py, so no SIZES row
-    ("tft_terra", 1.45, include_str!("../../../tft/champions/tft_terra#anim.fanim")),
-    // Zippy (tft_zippy, the tft pack): the little raptor upright at 3/4, step 0's A-1 at the user's 38 game px from the
-    // head spikes to its soles, PPU 2.2 (「A-1、38 px、PPU 2.2」: 83 rows 1:1), and Codex's key poses after its own TFT
-    // clips, posed by tools/art/rig_zippy.py, so no SIZES row
-    ("tft_zippy", 2.2, include_str!("../../../tft/champions/tft_zippy#anim.fanim")),
-    // the Blue Sentinel (tft_sentinel, the tft pack): the stone golem hunched at 3/4, step 0's A-1 at the user's 40 game
-    // px from the shoulder boulders to its soles, PPU 1.7 (「A-1 40像素 PPU1.7」: 68 rows 1:1), and Codex's key poses after
-    // its own TFT clips, posed by tools/art/rig_sentinel.py, so no SIZES row
-    ("tft_sentinel", 1.7, include_str!("../../../tft/champions/tft_sentinel#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
@@ -542,10 +445,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
-/// the texture's reported size are divided by PPU / size (src/lookup.rs: the cards, the encyclopedia, the face icons,
-/// the BP slots draw him that much smaller, the UVs unchanged) and the battlefield scale is the game's / PPU x size
-/// (src/view.rs), each about the frame's centre / the unit's position - so the hero's dense frames are drawn lower by
-/// (1 / size - 1) x the pivot-to-soles distance and the soles stay where they were (tools/art/ppu_gragas.py SHIFT).
+/// the texture's reported size are divided by PPU / size (hd_engine/src/lookup.rs: the cards, the encyclopedia, the
+/// face icons, the BP slots draw him that much smaller, the UVs unchanged) and the battlefield scale is the game's / PPU
+/// x size (hd_engine/src/view.rs), each about the frame's centre / the unit's position - so the hero's dense frames are
+/// drawn lower by (1 / size - 1) x the pivot-to-soles distance and the soles stay where they were
+/// (tools/art/ppu_gragas.py SHIFT).
 /// Gragas: the user, 2026-10-12: 「酒桶模型缩小一点 太大了」 (85%), then 「要改全改啊」, then 80% (「怎么看起来还是比诺手高这么多」) (the cards and the encyclopedia too);
 /// 2026-10-13 after the restyle 「酒桶可以稍微放大点吧 现在也太小了」 -> 90% from a size sheet, then 「还是太小啊」 -> 100% - judged on a preview GIF that
 /// drew him at 80% - then 「感觉又太大了？」 from a true-scale sheet -> 90% (40 game px, Darius 42); his frames
@@ -581,7 +485,6 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// PPU 1.38 (1.2 squares a game pixel at 115 %); he floats, his frames lifted by the restyle (RESTYLE malzahar lift).
 /// Wukong: 「猴子现在太小了」 (2026-10-20, 36 game px against Lee Sin's / Pantheon's / Garen's 41) -> 115 % from a
 /// true-scale sheet (41 game px), his frames lifted 2 squares by the restyle (RESTYLE wukong lift_sq).
-/// Powder (tft_powder): 90 % (the user, 2026-10-19: 「人物模型太大 缩小一点」), her frames 2 squares lower (RESTYLE powder lift).
 /// Nami: 90 % (the user, 2026-10-20: 「娜美的模型可以整体缩小一点 太大了」), her frames 2 squares lower (RESTYLE nami
 /// lift_sq: 11.5 x 1.5 x (1 / 0.9 - 1) = 1.9) so her tail stays on the ground.
 /// Hwei: 85 % (the user, 2026-10-22: 「画师局内有点大 可以调小一点」, 0.85 picked of 0.9 / 0.85 / 0.8), his frames 3 squares
@@ -604,36 +507,27 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
                                     ("league_corki", 0.90), ("league_malzahar", 1.15), ("league_aphelios", 0.90),
                                     ("league_poppy", 0.85), ("league_yuumi", 0.75), ("league_wukong", 1.15),
-                                    ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
+                                    ("league_nami", 0.90), ("league_hwei", 0.85),
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
                                     ("league_zac", 0.85)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
-/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, up to GROW_CAP,
-/// about his soles (src/view.rs: only the body's own commands, so his shadow and rings stay). The main pack loses the
-/// stacks at his death (Permanent buffs end with it); the add-on league_chogath puts them back. 15 % a stack (was 5 %:
-/// one bite put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」), then 30 % a stack and at most twice his
-/// size (the user 2026-10-26 after a game with one bite, x1.15: 「大虫子体型不变大？」「隔壁oppi的大虫子就会变大的」, picked
-/// 30 % / 2x): one bite x1.3, four x2.
+/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, up to
+/// hd_engine's GROW_CAP, about his soles (hd_engine/src/view.rs: only the body's own commands, so his shadow and rings
+/// stay). The main pack loses the stacks at his death (Permanent buffs end with it); the add-on league_chogath puts
+/// them back. 15 % a stack (was 5 %: one bite put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」), then
+/// 30 % a stack and at most twice his size (the user 2026-10-26 after a game with one bite, x1.15: 「大虫子体型不变大？」
+/// 「隔壁oppi的大虫子就会变大的」, picked 30 % / 2x): one bite x1.3, four x2.
 pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.30)];
-/// The most a GROWTH body is drawn: twice its size.
-pub const GROW_CAP: f32 = 2.0;
-
-/// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
-pub const FEET: f32 = 11.5;
-
-/// The body's growth for `stacks` stacks of a GROWTH row (1.0 for none, GROW_CAP at most).
-pub fn grown(per: f32, stacks: usize) -> f32 {
-    (1.0 + per * stacks as f32).min(GROW_CAP)
-}
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
 /// for the 14-px picture; tools/art/import_yuumi_fx.py) and league_leblanc_clone (below; league_zyra_thicket was one
-/// until 2026-10-21, now a plain 1x sheet: 「婕拉的大招特效局内怎么这么模糊」). Looked up like the heroes (src/lookup.rs); the battlefield's
-/// entity scale (src/view.rs) never meets them - they are no entity's body.
+/// until 2026-10-21, now a plain 1x sheet: 「婕拉的大招特效局内怎么这么模糊」). Looked up like the heroes
+/// (hd_engine/src/lookup.rs); the battlefield's entity scale (hd_engine/src/view.rs) never meets them - they are no
+/// entity's body.
 pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_yuumi_ride", 1.5, include_str!("../../../league/effects/league_yuumi_ride#anim.fanim")),
     // league_heimerdinger's two turrets (Q's and R's apex), one life each, drawn from their step-1 designs at his 1.5
@@ -687,25 +581,12 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_zaahen_rise", 1.75, include_str!("../../../league/effects/league_zaahen_rise#anim.fanim")),
 ];
 
-/// Effects whose pictures the view node draw (src/view.rs effect_detour) shrinks to 1 / PPU about their top-left corner.
-/// Every other EFFECTS sheet is still drawn a square a game pixel (its frames' corners placed at 1 / PPU) - the way the
-/// user has seen them; Daisy and the sand soldiers were 76 / 54 game px that way (the user, 2026-10-27: 「给召唤物做真正的
-/// 缩放，保留高清，大小按我看到的再缩一点」).
+/// Effects whose pictures the view node draw (hd_engine/src/view.rs effect_detour) shrinks to 1 / PPU about their
+/// top-left corner. Every other EFFECTS sheet is still drawn a square a game pixel (its frames' corners placed at
+/// 1 / PPU) - the way the user has seen them; Daisy and the sand soldiers were 76 / 54 game px that way (the user,
+/// 2026-10-27: 「给召唤物做真正的缩放，保留高清，大小按我看到的再缩一点」).
 pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
                                      "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side"];
-
-pub const PREFIX: &str = "hd_";
-
-/// `lo_<tag>`: the same frames at [`UI_PPU`] squares a displayed game pixel (tools/art/ppu_hd.py add_lo) - what the BP
-/// grid, the encyclopedia, the pick slots and the pick moment draw (src/lookup.rs ui_table; the user, 2026-10-13:
-/// 「BP界面里看英雄还是太清晰」, picked the 1.5 row of the preview). The battlefield keeps the hd_ frames.
-pub const LO_PREFIX: &str = "lo_";
-pub const UI_PPU: f32 = 1.5;
-
-/// `bp`: the hero's ban/pick reel (tools/art/hero_reels.py) - its idle loop with its actions and idle snippets in
-/// between, cut from the frames its sheet holds. The BP grid plays it where it asks for the idle (src/lookup.rs
-/// ui_table / reel_table; the user, 2026-10-22: 「BP页面的动图可以随便切动画帧里面的动作来做吧 包括待机的时候」).
-pub const REEL: &str = "bp";
 
 /// Tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): the card's canvas holds
 /// about 40 game px at 2.2x and these idles are 45-58 px from the head to the feet, so the knees and feet hid behind
@@ -789,135 +670,29 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // 2026-10-27: 「奎桑提在BP格太大了吧 学学其他英雄怎么缩放的」); 0.82 with -10 as Ambessa's / Trundle's / Bel'Veth's:
     // hair to soles on the card with 4 px over him, only the raised Ntofo of the reel's attack snippet over the top
     ("league_ksante", 0.82),
-    // Alune (tft_alune): 46 game px from her horns to the crescent's foot at PPU 2.0 (the card's canvas is 40 tall); UI size
-    // and card value set with bp_card_audit.py's math (85 %: the horns a pixel under the canvas top, the foot on its bottom)
-    ("tft_alune", 0.85),
 ];
 
-/// The `"lo_..."` animation names of a .fanim.
-pub fn lo_tags(fanim: &str) -> Vec<String> {
-    keys_with(fanim, LO_PREFIX)
-}
-
-/// The `"hd_..."` animation names of a .fanim (its keys under "anims"; no frame key starts with hd_).
-pub fn hd_tags(fanim: &str) -> Vec<String> {
-    keys_with(fanim, PREFIX)
-}
-
-fn keys_with(fanim: &str, prefix: &str) -> Vec<String> {
-    let mut out = Vec::new();
-    let b = fanim.as_bytes();
-    let mut i = 0;
-    while let Some(off) = fanim[i..].find('"') {
-        let start = i + off + 1;
-        let Some(len) = fanim[start..].find('"') else { break };
-        let end = start + len;
-        let name = &fanim[start..end];
-        let mut j = end + 1;
-        while j < b.len() && b[j].is_ascii_whitespace() {
-            j += 1;
-        }
-        if j < b.len() && b[j] == b':' && name.starts_with(prefix) && !out.iter().any(|t| t == name) {
-            out.push(name.to_string());
-        }
-        i = end + 1;
-    }
-    out
-}
-
-/// A registered hero: its PPU and the plain tags that have an hd copy.
-pub struct Hero {
-    pub id: &'static str,
-    pub ppu: f32,
-    /// the size it is shown at (SIZES; 1.0 when not listed)
-    pub size: f32,
-    pub tags: Vec<String>,
-    /// the sheet has lo_ frames for every tag (the UI draws those)
-    pub lo: bool,
-    /// what the whole-body UI (the pick slot, the BP grid, the pick moment) divides a lo_ frame's pixels by:
-    /// [`UI_PPU`] / its [`UI_SIZES`] size; the encyclopedia / face icons and the scoreboard divide by [`UI_PPU`]
-    /// ([`Hero::ui_for`])
-    pub ui: f32,
-}
-
-impl Hero {
-    /// What a dense frame's pixels are divided by to give its shown size: PPU / size.
-    pub fn shown(&self) -> f32 {
-        self.ppu / self.size
-    }
-
-    /// What the BP grid divides an hd_ frame's pixels by: PPU / its [`UI_SIZES`] size - the battlefield's frames at the
-    /// size the whole-body UI draws the hero (2026-10-21: 「BP 格子也改成显示战场那套 hd_ 高清帧」).
-    pub fn bp_hd(&self) -> f32 {
-        self.ppu * self.ui / UI_PPU
-    }
-
-    /// The UI's divisor for a caller: `sized` (a whole-body drawer, src/build.rs ui_sized_*) takes the UI_SIZES size,
-    /// the face crops (encyclopedia / face icons, scoreboard portraits) the plain [`UI_PPU`] - their face point is
-    /// measured on the hero at that size (2026-10-20: Galio's and Mordekaiser's icons showed a crown / a belly).
-    pub fn ui_for(&self, sized: bool) -> f32 {
-        if sized { self.ui } else { UI_PPU }
-    }
-}
-
-pub fn heroes() -> Vec<Hero> {
-    HEROES
-        .iter()
-        .chain(EFFECTS.iter())
-        .map(|&(id, ppu, fanim)| Hero {
-            id,
-            ppu,
-            size: SIZES.iter().find(|s| s.0 == id).map_or(1.0, |s| s.1),
-            tags: hd_tags(fanim).into_iter().map(|t| t[PREFIX.len()..].to_string()).collect(),
-            lo: !lo_tags(fanim).is_empty(),
-            ui: UI_PPU / UI_SIZES.iter().find(|s| s.0 == id).map_or(1.0, |s| s.1),
-        })
-        .collect()
-}
-
-/// The registered heroes, found by id with one hash lookup. The hooks ask for every resource the game looks up by name
-/// and every entity on the battlefield each frame; a walk down the list compared up to 55 names, twice for each lookup
-/// (2026-10-19 profile: league.dll's own time on the render thread was mostly that walk).
-pub struct Heroes {
-    pub list: Vec<Hero>,
-    by_id: std::collections::HashMap<&'static str, usize>,
-}
-
-impl Heroes {
-    pub fn new() -> Self {
-        let list = heroes();
-        let by_id = list.iter().enumerate().map(|(k, h)| (h.id, k)).collect();
-        Heroes { list, by_id }
-    }
-
-    pub fn get(&self, id: &str) -> Option<&Hero> {
-        // every registered id starts with league_ or tft_ (the tft pack's heroes): the base heroes, effects and UI names
-        // go without hashing
-        if !id.starts_with("league_") && !id.starts_with("tft_") {
-            return None;
-        }
-        self.by_id.get(id).map(|&k| &self.list[k])
-    }
-
-    /// The hero a resource name is of: `.../league_yasuo#anim` (or the bare id) -> league_yasuo.
-    pub fn of_name(&self, name: &str) -> Option<&Hero> {
-        self.get(name.rsplit('/').next()?.split('#').next()?)
-    }
-}
-
-impl Default for Heroes {
-    fn default() -> Self {
-        Self::new()
+/// This pack's table, as league.dll hands it to hd_engine at init (src/lib.rs).
+pub fn table() -> Table<'static> {
+    Table {
+        pack: crate::ID,
+        heroes: HEROES.to_vec(),
+        sizes: SIZES.to_vec(),
+        growth: GROWTH.to_vec(),
+        effects: EFFECTS.to_vec(),
+        drawn_effects: DRAWN_EFFECTS.to_vec(),
+        ui_sizes: UI_SIZES.to_vec(),
     }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use hd_engine::hd::{checks, Heroes, UI_PPU};
 
     #[test]
     fn heroes_are_found_by_id_and_resource_name() {
-        let h = Heroes::new();
+        let h = Heroes::of(&[&table()]);
         assert_eq!(h.list.len(), HEROES.len() + EFFECTS.len());
         for &(id, ..) in HEROES {
             assert_eq!(h.get(id).map(|x| x.id), Some(id));
@@ -925,66 +700,27 @@ mod tests {
             assert_eq!(h.of_name(&format!("asset/base/aseprite_resources/champions/{id}#sheet")).map(|x| x.id), Some(id));
         }
         assert!(h.get("league_amumu").is_none());
-        assert_eq!(h.get("tft_powder").map(|x| (x.id, x.size)), Some(("tft_powder", 0.90)));
-        assert!(h.get("tft_nobody").is_none());
+        // the tft pack's heroes are its own table's (tft/src/hd.rs): tft.dll hands them to whichever DLL hosts
+        assert!(h.get("tft_powder").is_none());
         assert!(h.of_name("asset/base/aseprite_resources/champions/alchemist#anim").is_none());
         assert!(h.of_name("asset/league/champions/league_ashe_fx#sheet").is_none());
         assert!(h.of_name("").is_none());
     }
 
-    /// The first frame's width of tag `t` in a .fanim (`"t": {"frames": [{... "w": <here>`).
-    fn first_w(fanim: &str, t: &str) -> Option<f32> {
-        let at = fanim.find(&format!("\"{t}\""))?;
-        let w = at + fanim[at..].find("\"w\"")?;
-        let num = fanim[w + 3..].trim_start().strip_prefix(':')?.trim_start();
-        num[..num.find(|c: char| !(c.is_ascii_digit() || c == '.'))?].parse().ok()
-    }
-
-    /// src/lookup.rs takes a table only when hd_idle is PPU times as wide as idle (within half a square), else it
-    /// leaves it alone and the texture's size, divided all the same, cuts the wrong part of the sheet: Daisy at PPU
-    /// 1.333 on her 2.533 sheets drew nothing (the user, 2026-10-27: 「你改了小菊后 我怎么在游戏里看不到了」).
     #[test]
     fn every_registered_sheet_is_ppu_times_as_wide() {
-        for &(id, ppu, fanim) in HEROES.iter().chain(EFFECTS.iter()) {
-            let (Some(wi), Some(wh)) = (first_w(fanim, "idle"), first_w(fanim, "hd_idle")) else {
-                panic!("{id}: no idle / hd_idle frame");
-            };
-            assert!((wh - wi * ppu).abs() <= 0.5, "{id}: hd_idle {wh} wide, idle {wi}: not PPU {ppu} times");
-        }
+        checks::every_registered_sheet_is_ppu_times_as_wide(&table());
     }
 
     #[test]
     fn every_registered_sheet_has_hd_tags_for_all_its_tags() {
-        for &(id, ppu, fanim) in HEROES {
-            let hd = hd_tags(fanim);
-            assert!(!hd.is_empty(), "{id}: no hd_ tags in its sheet (python tools/art/ppu_hd.py)");
-            assert!(ppu > 1.0);
-            // the plain tags: every top-level anim name that is not hd_
-            let anims = &fanim[fanim.find("\"anims\"").unwrap()..];
-            for t in ["idle", "run", "attack", "hit", "dead"] {
-                assert!(anims.contains(&format!("\"{t}\"")), "{id}: no {t}");
-                assert!(hd.contains(&format!("{PREFIX}{t}")), "{id}: no {PREFIX}{t}");
-            }
-            // lo_ frames: none, or one for every hd_ tag (the UI table maps every tag to its lo_ frames)
-            let lo = lo_tags(fanim);
-            if !lo.is_empty() {
-                for h in &hd {
-                    let want = format!("{LO_PREFIX}{}", &h[PREFIX.len()..]);
-                    assert!(lo.contains(&want), "{id}: no {want} (python tools/art/ppu_hd.py --hero ...)");
-                }
-            }
-        }
+        checks::every_registered_sheet_has_hd_tags_for_all_its_tags(&table());
     }
 
     #[test]
     fn ui_sizes_shrink_heroes_with_lo_frames() {
-        let h = Heroes::new();
-        for &(id, size) in UI_SIZES {
-            let hero = h.get(id).unwrap_or_else(|| panic!("{id}: not a registered hero"));
-            assert!(hero.lo, "{id}: no lo_ frames - the UI draws its 1x frames, a UI size would not reach them");
-            assert!(size > 0.5 && size < 1.0, "{id}: {size}");
-            assert!((hero.ui - UI_PPU / size).abs() < 1e-6);
-        }
+        checks::ui_sizes_shrink_heroes_with_lo_frames(&table());
+        let h = Heroes::of(&[&table()]);
         assert_eq!(h.get("league_zoe").map(|x| x.ui), Some(UI_PPU));
         // the face crops keep the plain UI size, so a hero's face point holds there too
         let galio = h.get("league_galio").unwrap();
@@ -994,27 +730,26 @@ mod tests {
 
     #[test]
     fn effect_sheets_have_a_dense_idle() {
-        let h = Heroes::new();
-        for &(id, ppu, fanim) in EFFECTS {
-            assert!(ppu > 1.0);
-            // src/lookup.rs densify_table: idle / hd_idle tell a dense table, every other tag needs its hd_ twin
-            let hd = hd_tags(fanim);
-            assert!(hd.contains(&format!("{PREFIX}idle")), "{id}: no hd_idle");
-            assert!(fanim.contains("\"idle\""), "{id}: no idle");
-            // the anims' names: every quoted key but the frame fields
-            let fields = ["anims", "frames", "duration", "data", "x", "y", "w", "h"];
-            for t in keys_with(fanim, "").into_iter().filter(|t| !fields.contains(&t.as_str())) {
-                assert!(t.starts_with(PREFIX) || hd.contains(&format!("{PREFIX}{t}")), "{id}: {t} has no {PREFIX}{t}");
-            }
-            assert!(lo_tags(fanim).is_empty(), "{id}: no UI frames for an effect");
-            assert_eq!(h.of_name(&format!("asset/league/effects/{id}#anim")).map(|x| x.id), Some(id));
-            assert_eq!(h.get(id).map(|x| x.size), Some(1.0), "{id}: an effect is never resized");
-        }
+        checks::effect_sheets_have_a_dense_idle(&table());
     }
 
     #[test]
-    fn tags_are_read_from_a_fanim() {
-        let f = r#"{"anims":{"idle":{"frames":[{"duration":0.1,"data":{"x":0.0}}]},"hd_idle":{"frames":[]},"hd_run" : {}}}"#;
-        assert_eq!(hd_tags(f), vec!["hd_idle".to_string(), "hd_run".to_string()]);
+    fn every_row_is_one_of_the_packs_heroes_once() {
+        checks::ids_are_the_packs_once(&table());
+    }
+
+    #[test]
+    fn the_table_reaches_a_host_unchanged() {
+        checks::the_table_goes_through_the_text_unchanged(&table());
+    }
+
+    /// Cho'Gath's Feast (the growth row) and the shrunk effects reach the engine's registered heroes.
+    #[test]
+    fn the_growth_and_drawn_effects_go_with_the_table() {
+        assert!(GROWTH.iter().any(|g| g.0 == "league_chogath" && g.1 == "league_chogath_r_stack"));
+        let h = Heroes::of(&[&table()]);
+        assert_eq!(h.growth, GROWTH.to_vec());
+        assert_eq!(h.drawn_effects, DRAWN_EFFECTS.to_vec());
+        assert_eq!(h.packs, vec!["league"]);
     }
 }

@@ -9,7 +9,7 @@
 //! 再走一遍显示世界的实体表（+0x138 的哈希表，每格 0x1d0 字节，值从 +8 开始：+0x40 名字，+0x68 / +0x70 / +0x78 正在播的动画名，
 //! +0xb8 / +0xc0 buff 列表）。名字是 `league_rammus` 的实体身上有滚球 / 防御 buff 时，正在播的 idle / run / hit 换成 `b_*` / `c_*`
 //! （滚球优先；新名字用游戏同一个堆分配，旧的照游戏的做法释放）。高清帧不用另管：league.dll 把登记英雄动画表里每个动作（b_idle 也
-//! 在内）就地换成它的 hd_ 帧（addons/league_main/src/lookup.rs）。
+//! 在内）就地换成它的 hd_ 帧（addons/hd_engine/src/lookup.rs）。
 
 use std::sync::{Mutex, Once};
 

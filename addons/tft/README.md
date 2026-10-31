@@ -2,6 +2,8 @@
 
 tft 包（mod_id `tft`，源文件在 [`tft/`](../../tft/)）是原生 mod：英雄是数据，数据做不到的地方写在这个 crate 里，编成 `tft.dll` 跟着 tft 包一起装（`python tools/package_mod.py --src tft ...` 会编好带上）。所有 tft 英雄都在这一个 mod 里，每个英雄一个模块（用户，2026-10-26：「诺拉和爆爆合并在一个mod啊」「tft的英雄都放一个mod里 参考英雄联盟」）。新英雄：在 `src/` 加一个模块，在 `src/lib.rs` 的 `init` 里调用它的 `register`。
 
+**高清帧**（0.28.0 起，tft 包要单独上创意工坊）：[`src/hd.rs`](src/hd.rs) 是这个包的高清帧表（原来在 `league.dll` 的 [`addons/league_main/src/hd.rs`](../league_main/src/hd.rs) 里，只有两个包都开着时才画）。`init` 先把它交给两个包共用的高清帧引擎 [`addons/hd_engine`](../hd_engine/src/lib.rs)：`tft.dll` 是游戏进程里第一个加载的包 DLL（只开 tft 包，或者 Mods 菜单里排在 `league` 前面）就自己挂钩、画两个包的英雄；不是就把表交给先加载的 `league.dll`，自己不挂（[`src/share.rs`](../hd_engine/src/share.rs)）。新英雄有高清帧：在 `src/hd.rs` 的 `HEROES` 加一行（PPU 和 `tools/art/ppu_hd.py` 里的一致）。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`（每次启动重写，上一次的留作 `tft.prev.log`）——挂钩时是挂钩、取表、缩放的行，交给 `league.dll` 时只有一行。
+
 | 英雄 | 模块 | 做什么 |
 |---|---|---|
 | 爆爆 `tft_powder` | — | 纯数据 |
@@ -36,7 +38,7 @@ tft 包（mod_id `tft`，源文件在 [`tft/`](../../tft/)）是原生 mod：英
 
 ## 检查
 
-- 在 `addons/` 下 `cargo test -p tft`（CI 也跑）：诺拉的单元测试（参数、伤害和冷却的数、三个琐物的位置、琐物装进输入再取出来、自己那发 Q 不引爆自己的琐物、最近的英雄、毛线球的线、名字），拉露恩的（参数、最近的 3 个、满月分摊）。
+- 在 `addons/` 下 `cargo test -p tft`（CI 也跑）：诺拉的单元测试（参数、伤害和冷却的数、三个琐物的位置、琐物装进输入再取出来、自己那发 Q 不引爆自己的琐物、最近的英雄、毛线球的线、名字），拉露恩的（参数、最近的 3 个、满月分摊），还有 `src/hd.rs` 的表（每张图的 `hd_idle` 正好是 `idle` 的 PPU 倍宽、每个动作都有 `hd_` / `lo_` 帧、表写成文本交给主再读回来一样：`hd_engine::hd::checks`）。主 / 客交接本身的测试在 `cargo test -p hd_engine`。
 - `python tools/kit/build_norra.py` 每次都核对 `src/norra.rs` 的默认参数和 P 一致；`python tools/kit/build_alune.py` 核对 `src/alune.rs` 的默认参数和 P 一致，以及代码读的标记、播的画面都在她的数据里。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_norra.log`：`SPAWN`、撒琐物 `DROP`、琐物飞出 `TRINKET`、引爆 `PRIMED`、减冷却 `REFUND`、Q 的加伤 `SURGE`、开门 `JOURNEY`、裂隙 `RIFT`、每波 `VOLLEY`、毛线球命中 `YARN`。
 - 拉露恩的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_alune.log`：`SPAWN`、每次 `MOONFALL`、每颗 `MOON` 的分摊、`RING` 回程。

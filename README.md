@@ -1,6 +1,6 @@
 # TFM2-League-Heroes
 
-团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。英雄本身都是数据（`league/`）；主包从 0.97.0 起带一个自己的 DLL（`league.dll`，源码 [`addons/league_main`](addons/league_main/src/lib.rs)，`mod.mod_info` 是 `contains_code` / `native`，订阅时游戏会提示这是代码 mod），只做数据做不到的事：高清帧（PPU）、界面小图集、选人卡片的动画、音频预读。仓库里还有第二个 mod `tft`（金铲铲之战系列，源文件在 [`tft/`](tft/)），和一组可选的原生代码附加包（[`addons/`](addons/)，合成一个 `league_addons`）。
+团战经理2（Teamfight Manager 2）的英雄联盟英雄 Mod，mod_id 是 `league`。英雄本身都是数据（`league/`）；主包从 0.97.0 起带一个自己的 DLL（`league.dll`，源码 [`addons/league_main`](addons/league_main/src/lib.rs)，`mod.mod_info` 是 `contains_code` / `native`，订阅时游戏会提示这是代码 mod），只做数据做不到的事：高清帧（PPU）、界面小图集、选人卡片的动画、音频预读（高清帧和小图集的画法在 [`addons/hd_engine`](addons/hd_engine/src/lib.rs)，和 tft 包的 `tft.dll` 共用）。仓库里还有第二个 mod `tft`（金铲铲之战系列，源文件在 [`tft/`](tft/)），和一组可选的原生代码附加包（[`addons/`](addons/)，合成一个 `league_addons`）。
 
 - **每位英雄现在的技能、附加包、高清帧和开发记录**：见下面的 [英雄一览](#英雄一览)，或者 [`docs/heroes/`](docs/heroes/) 里每位英雄一页；表格版是 [`docs/heroes.xlsx`](docs/heroes.xlsx)。
 - 原来 README 里很长的技术说明搬到了 [`docs/tech-notes.md`](docs/tech-notes.md)，演示动图在 [`docs/gallery.md`](docs/gallery.md)，不属于某位英雄的几节在 [`docs/dev-notes.md`](docs/dev-notes.md)，性能调查在 [`docs/perf.md`](docs/perf.md)。
@@ -58,21 +58,21 @@ python addons/league_addons/assemble.py <输出文件夹>       # 全部附加�
 
 ## 高清帧（PPU）和界面
 
-详细的来龙去脉见 [docs/tech-notes.md](docs/tech-notes.md)（「高清帧」「画风统一」「待机和选人卡片的动画」「界面小图集」「平涂像素画」各节）。要点：
+详细的来龙去脉见 [docs/tech-notes.md](docs/tech-notes.md)（「高清帧」「画风统一」「待机和选人卡片的动画」「界面小图集」「两个包共用的高清帧引擎」「平涂像素画」各节）。要点：
 
-- **高清帧**：登记在 [`addons/league_main/src/hd.rs`](addons/league_main/src/hd.rs) `HEROES` 里的英雄（每位的 PPU 见英雄一览，画出来的大小 `SIZES`）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 PPU 倍大。游戏里画出来大小不变、像素细 PPU 倍：`league.dll` 挂在游戏按名字取动画表和贴图的函数上，把每个动作换成高清帧、矩形和贴图尺寸除以 PPU；战场画真实的高清帧、实体的绘制缩放写成 1/PPU。没有 DLL 或游戏版本不认得时，照旧画 1 倍帧。
+- **高清帧**：登记在 [`addons/league_main/src/hd.rs`](addons/league_main/src/hd.rs)（tft 包的在 [`addons/tft/src/hd.rs`](addons/tft/src/hd.rs)）`HEROES` 里的英雄（每位的 PPU 见英雄一览，画出来的大小 `SIZES`）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 PPU 倍大。游戏里画出来大小不变、像素细 PPU 倍：高清帧引擎 [`addons/hd_engine`](addons/hd_engine/src/lib.rs)（`league.dll` 和 `tft.dll` 共用）挂在游戏按名字取动画表和贴图的函数上，把每个动作换成高清帧、矩形和贴图尺寸除以 PPU；战场画真实的高清帧、实体的绘制缩放写成 1/PPU。两个包都开着时，先加载的那个 DLL 挂钩、画两个包的英雄，后加载的只把自己的表交给它（[`src/share.rs`](addons/hd_engine/src/share.rs)），Mods 菜单里谁先谁后都一样。没有 DLL 或游戏版本不认得时，照旧画 1 倍帧。
 - **工具**：[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py) 把高清帧写进图里（`python tools/art/ppu_hd.py --hero <英雄>`）；[`tools/art/ppu_restyle.py`](tools/art/ppu_restyle.py) 把原来的高清帧（`assets/source/ppu/orig/`）统一成泽丽那样「像素多但清晰」的画风（每个游戏像素约 2.2 格）；[`pack_ppu_strips.py`](tools/art/pack_ppu_strips.py) / [`import_ppu_strips.py`](tools/art/import_ppu_strips.py) 把动作打包给美术重画、再读回；[`ppu_one.py`](tools/art/ppu_one.py) 把 1 倍帧按高清帧缩回。
 - **界面**：图鉴、头像、选人槽位、选中特写用每个游戏像素 1.5 格的 `lo_<动作>` 帧；选人网格（BP 格子）用战场那套 `hd_` 帧播 `bp` 动画（[`tools/art/hero_reels.py`](tools/art/hero_reels.py)：只用图里已有的帧重排，挑哪几帧记在 [`hero_reels.json`](tools/art/hero_reels.json)）；待机 `idle` 不再上下呼吸，而是定住、随机冒一个小动作。
-- **界面小图集**：一屏画全部英雄时，整张战斗图集装不进游戏 256 MiB 的图片缓存。`tools/package_mod.py` 给每个英雄打出两张只有界面帧的小图集（`ui_sheets/idle/`、`ui_sheets/bp/`），`league.dll` 让界面改画它们（[`src/ui.rs`](addons/league_main/src/ui.rs)），战场照旧。见 [docs/perf.md](docs/perf.md) 第 9 节。
+- **界面小图集**：一屏画全部英雄时，整张战斗图集装不进游戏 256 MiB 的图片缓存。`tools/package_mod.py` 给每个英雄打出两张只有界面帧的小图集（`ui_sheets/idle/`、`ui_sheets/bp/`），高清帧引擎让界面改画它们（[`src/ui.rs`](addons/hd_engine/src/ui.rs)），战场照旧。见 [docs/perf.md](docs/perf.md) 第 9 节。
 
 ## 游戏版本更新时
 
-`league.dll` 和整身变身的附加包要在游戏的 EXE 里找函数。[`build.rs`](addons/league_main/src/build.rs) 列着认得的游戏版本（现在是 0.7.0），逐字节核对每一处要改、要调用的代码；对不上（游戏更新了）就由 [`addons/game_places`](addons/game_places/src/lib.rs) 在运行时按特征码找（日志 `game build: found at run time in … ms`），找不到或不唯一才退回 1 倍帧。游戏改了代码形状时：
+高清帧引擎（`league.dll` / `tft.dll`）和整身变身的附加包要在游戏的 EXE 里找函数。[`build.rs`](addons/hd_engine/src/build.rs) 列着认得的游戏版本（现在是 0.7.0），逐字节核对每一处要改、要调用的代码；对不上（游戏更新了）就由 [`addons/game_places`](addons/game_places/src/lib.rs) 在运行时按特征码找（日志 `game build: found at run time in … ms`），找不到或不唯一才退回 1 倍帧。游戏改了代码形状时：
 
 ```bash
 python tools/re/find_build.py        # 从上一版 build.rs 在新 EXE 里重新找出地址，更新 build.rs
 python tools/re/make_sigs.py         # 重新生成 addons/game_places/src/sigs.rs
-cargo test -p league_main            # 拿游戏目录里的 EXE 跑一遍：动态找出的每个地址都和 build.rs 一致
+cargo test -p hd_engine              # 拿游戏目录里的 EXE 跑一遍：动态找出的每个地址都和 build.rs 一致
 ```
 
 结构体里的偏移没有做成动态的。0.6.4、0.6.5、0.7.0 三次更新改了什么（地址、新编译器、玩家结构体、官方 AI、放逐和韧性、睡眠、射程和定身修复、各英雄表）见 [docs/tech-notes.md](docs/tech-notes.md) 的「游戏 0.6.4」「动态寻址」「游戏 0.6.5」「游戏 0.7.0」四节。
@@ -83,13 +83,13 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 
 - PPU 界面小图集（[`tools/ci/ui_sheets.py`](tools/ci/ui_sheets.py)：每个英雄都有两张、和战斗图集逐像素一致，全部英雄加起来 bp ≤ 192 MiB、idle ≤ 64 MiB）；
 - 附加包的英雄副本有没有过期（各附加包的 `make_override.py --check`：塞拉斯偷的每个大招、佛耶戈、妮蔻、凯隐等的副本按主包重建后和提交的逐字比对，主包改了英雄却没重跑脚本就会红）；
-- `cargo test`：league.dll（高清帧、小图集、运行时寻址）、game_places 和附加包合集的全部测试。
+- `cargo test`：高清帧引擎 hd_engine（高清帧、小图集、运行时寻址、两个 DLL 的主 / 客交接）、league.dll 和 tft.dll 的表、game_places、附加包合集和 tft.dll 的全部测试。
 
 合并进 main 后再构建 league.dll 和附加包合集，打成一个下载附件（Actions 页面那次运行的 Artifacts）；英雄的图、数据和语音不在里面，完整安装和创意工坊上传照旧在本地用 `tools/package_mod.py`。检查红了：PR 页面点 Details 看是哪一步；`make_override.py` 过期就在装着游戏的电脑上重跑那个脚本再提交。
 
 ## 金铲铲之战系列（tft 包）
 
-第二个 mod，mod_id `tft`，名字「Teamfight Tactics Heroes」，源文件在 [`tft/`](tft/)：金铲铲之战（云顶之弈）里英雄联盟没有的棋子——爆爆（[`tft_powder`](docs/heroes/tft_powder.md)）和诺拉（[`tft_norra`](docs/heroes/tft_norra.md)，技能照英雄联盟手游）。爆爆的音效是游戏本体自带的音频片段（在她自己的 `.sound_info` 里叠起来播），诺拉的是从英雄联盟客户端借的片段（和主包一样不进仓库，`tools/lol/extract_norra.py` 提取、打包时带上）。tft 包是原生 mod：数据做不到的地方写在它自己的 `tft.dll` 里（[`addons/tft`](addons/tft/README.md)，每个 tft 英雄一个模块，现在是诺拉的手游规则），打包时编好带上，所有 tft 英雄都在这一个 mod 里。高清帧借 `league.dll`（两个包都开着时它也画 `tft_` 开头的英雄的 `hd_` 帧，只开 tft 包时退回 1 倍帧）。工具链共用：`python tools/package_mod.py --src tft --hero powder --install` 装进 `<游戏>/mods/tft`，`ppu_hd.PACKS` 把她们的图写进 `tft/champions/`，`lint_mod.py tft` 检查。
+第二个 mod，mod_id `tft`，名字「Teamfight Tactics Heroes」，源文件在 [`tft/`](tft/)：金铲铲之战（云顶之弈）里英雄联盟没有的棋子——爆爆（[`tft_powder`](docs/heroes/tft_powder.md)）和诺拉（[`tft_norra`](docs/heroes/tft_norra.md)，技能照英雄联盟手游）。爆爆的音效是游戏本体自带的音频片段（在她自己的 `.sound_info` 里叠起来播），诺拉的是从英雄联盟客户端借的片段（和主包一样不进仓库，`tools/lol/extract_norra.py` 提取、打包时带上）。tft 包是原生 mod：数据做不到的地方写在它自己的 `tft.dll` 里（[`addons/tft`](addons/tft/README.md)，每个 tft 英雄一个模块，现在是诺拉的手游规则），打包时编好带上，所有 tft 英雄都在这一个 mod 里。高清帧是 `tft.dll` 自己的（0.28.0 起；以前借 `league.dll`，只有两个包都开着时才有）：表在 [`addons/tft/src/hd.rs`](addons/tft/src/hd.rs)，画法是和 `league.dll` 共用的 [`addons/hd_engine`](addons/hd_engine/src/lib.rs)——只开 tft 包也有高清帧；两个包都开着时先加载的那个 DLL 挂钩、画两个包的英雄，后加载的把表交给它，Mods 菜单里谁先谁后都一样。`tft.dll` 的日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`。工具链共用：`python tools/package_mod.py --src tft --hero powder --install` 装进 `<游戏>/mods/tft`，`ppu_hd.PACKS` 把她们的图写进 `tft/champions/`，`lint_mod.py tft` 检查。
 
 ## 英雄一览
 
@@ -327,7 +327,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 
 ## 英雄文档怎么生成
 
-英雄一览、[`docs/heroes/`](docs/heroes/) 里每页的上半部分和 [`docs/heroes.xlsx`](docs/heroes.xlsx) 都由 [`tools/docs/gen_hero_docs.py`](tools/docs/gen_hero_docs.py) 按仓库里**现在的**数据生成（不联网）：名字和技能说明来自 `league/text/champion.i18n`（简体中文，去掉颜色和图标），冷却、距离、数值来自 `league/champion/<id>.data_champion`，PPU 来自 `addons/league_main/src/hd.rs`，附加包来自 `addons/*/mod.override_info`、`README.md` 和 `text/`，动图是 `docs/preview/<id>_*.gif`，头像是待机第一帧（`docs/heroes/img/`）。改了英雄、加了英雄或附加包之后重跑：
+英雄一览、[`docs/heroes/`](docs/heroes/) 里每页的上半部分和 [`docs/heroes.xlsx`](docs/heroes.xlsx) 都由 [`tools/docs/gen_hero_docs.py`](tools/docs/gen_hero_docs.py) 按仓库里**现在的**数据生成（不联网）：名字和技能说明来自 `league/text/champion.i18n`（简体中文，去掉颜色和图标），冷却、距离、数值来自 `league/champion/<id>.data_champion`，PPU 来自 `addons/league_main/src/hd.rs` 和 `addons/tft/src/hd.rs`，附加包来自 `addons/*/mod.override_info`、`README.md` 和 `text/`，动图是 `docs/preview/<id>_*.gif`，头像是待机第一帧（`docs/heroes/img/`）。改了英雄、加了英雄或附加包之后重跑：
 
 ```bash
 pip install pillow openpyxl                                   # 头像要 pillow，xlsx 要 openpyxl（都不是 mod 的依赖）

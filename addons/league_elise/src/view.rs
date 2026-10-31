@@ -8,7 +8,7 @@
 //! 每格 0x1d0 字节，值从 +8 开始：+0x40 名字，+0x68 / +0x70 / +0x78 正在播的动画名，+0xb8 / +0xc0 buff 列表）。名字是
 //! `league_elise` 的实体身上有蜘蛛形态的 buff `league_elise_sp` 时，正在播的 idle / run / hit / dead / attack 换成伊莉丝图里的
 //! `c_idle` …（新名字用游戏同一个堆分配，旧的照游戏的做法释放）。高清帧不用另管：league.dll 把登记英雄动画表里每个动作（c_idle
-//! 也在内）就地换成它的 hd_ 帧（addons/league_main/src/lookup.rs）。阵亡时 buff 清掉：尸体按倒下前那一帧的形态画（复活后没有
+//! 也在内）就地换成它的 hd_ 帧（addons/hd_engine/src/lookup.rs）。阵亡时 buff 清掉：尸体按倒下前那一帧的形态画（复活后没有
 //! buff，是人形，和英雄联盟一样）。
 
 use std::sync::{Mutex, Once};

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Find league.dll's places in a new game build and print the `Build` for addons/league_main/src/build.rs.
+"""Find league.dll's places in a new game build and print the `Build` for addons/hd_engine/src/build.rs.
 
     python -I tools/re/find_build.py [--exe <TeamfightManager2.exe>] [--out build.rs.txt]
 
@@ -54,7 +54,7 @@ except ImportError:
     sys.exit("needs: pip install capstone pefile")
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-BUILD_RS = os.path.join(ROOT, "addons", "league_main", "src", "build.rs")
+BUILD_RS = os.path.join(ROOT, "addons", "hd_engine", "src", "build.rs")
 GAME = r"D:/steam/steamapps/common/Teamfight Manager2/TeamfightManager2.exe"
 PROLOGUE = bytes([0x55, 0x41, 0x57, 0x41, 0x56, 0x41, 0x55, 0x41, 0x54, 0x56, 0x57, 0x53])
 UI_NAMES = ["encyclopedia / face icons", "pick slot", "BP grid", "pick moment", "scoreboard portraits"]

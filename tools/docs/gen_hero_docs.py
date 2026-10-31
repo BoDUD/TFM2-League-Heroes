@@ -7,7 +7,7 @@
 Reads (nothing else, nothing written outside docs/ and README.md):
   league/champion/*.data_champion, tft/champion/*.data_champion   the heroes, their cooldowns, ranges and stats
   league/text/champion.i18n, tft/text/champion.i18n               names, skill names and the in-game skill texts (zh-hans)
-  addons/league_main/src/hd.rs                                    PPU (HEROES) and drawn size (SIZES)
+  addons/league_main/src/hd.rs, addons/tft/src/hd.rs              PPU (HEROES) and drawn size (SIZES), both packs' tables
   addons/*/mod.mod_info, mod.override_info, README.md, text/      the add-ons: which hero, name, what changes
   docs/preview/<id>_*.gif / .png                                  showcase GIFs and frame sheets (links only)
   league/champions/<id>#sheet.png + #anim.fanim                   the avatar (idle frame 0) in docs/heroes/img/, needs pillow
@@ -65,7 +65,8 @@ SLOTS = [("attack", "普攻 / 被动"), ("skill", "技能1"), ("skill2", "技能
 SLOT_NAME = {"skill": "skill1", "skill2": "skill2", "ult": "ult"}
 TICKS = 60  # ticks a second
 # add-ons that are no hero's (the DLL, the bundle, shared code, diagnostics)
-NOT_HERO_ADDONS = {"league_main", "league_addons", "game_places", "vendor", "league_recall_log", "league_unlock_guard"}
+NOT_HERO_ADDONS = {"league_main", "league_addons", "game_places", "hd_engine", "vendor", "league_recall_log",
+                   "league_unlock_guard"}
 
 
 # ---------------------------------------------------------------- reading the repo (working tree, else git HEAD)
@@ -207,16 +208,18 @@ def load_texts():
 
 
 def load_ppu():
-    src = read_text("addons/league_main/src/hd.rs") or ""
+    """PPU and drawn size of both dense-frame tables: league.dll's and tft.dll's (addons/hd_engine draws them)."""
     ppu, size = {}, {}
-    m = re.search(r"pub const HEROES[^=]*=\s*&\[(.*?)\n\];", src, re.S)
-    if m:
-        for hid, p in re.findall(r'\("((?:league|tft)_\w+)",\s*([\d.]+),\s*include_str', m.group(1)):
-            ppu[hid] = float(p)
-    m = re.search(r"pub const SIZES[^=]*=\s*&\[(.*?)\];", src, re.S)
-    if m:
-        for hid, s in re.findall(r'\("((?:league|tft)_\w+)",\s*([\d.]+)\)', m.group(1)):
-            size[hid] = float(s)
+    for path in ("addons/league_main/src/hd.rs", "addons/tft/src/hd.rs"):
+        src = read_text(path) or ""
+        m = re.search(r"pub const HEROES[^=]*=\s*&\[(.*?)\n\];", src, re.S)
+        if m:
+            for hid, p in re.findall(r'\("((?:league|tft)_\w+)",\s*([\d.]+),\s*include_str', m.group(1)):
+                ppu[hid] = float(p)
+        m = re.search(r"pub const SIZES[^=]*=\s*&\[(.*?)\];", src, re.S)
+        if m:
+            for hid, s in re.findall(r'\("((?:league|tft)_\w+)",\s*([\d.]+)\)', m.group(1)):
+                size[hid] = float(s)
     return ppu, size
 
 

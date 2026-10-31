@@ -18,7 +18,7 @@ assets/source/ppu/orig/ on the first run, read from there afterwards), in up to 
 2. size (`grow`): everything scaled evenly round the pivot and the ground row (league_corki: 「飞机像泽丽那样变大点」).
 3. pixel density (`ppu`): the frames brought to a coarser grid - `ppu` squares a game pixel - each square the commonest
    colour of the dense pixels under it (a square a third or more outline takes the outline, so eyes and lines stay);
-   the hero's PPU changes to `ppu` (ppu_hd.py PPU, addons/league_main/src/hd.rs HEROES).
+   the hero's PPU changes to `ppu` (ppu_hd.py PPU, HEROES in addons/league_main/src/hd.rs or addons/tft/src/hd.rs).
 4. outline (`edge`): the outer outline grown by `edge` squares.
 Frames that come out bigger grow alike at both ends (the pivot kept, ppu_hd.py's drawn-strip rule); when an idle frame
 would be wider than PPU x its 1x frame (the DLL needs hd_idle exactly that wide), the 1x idle frames get clear columns

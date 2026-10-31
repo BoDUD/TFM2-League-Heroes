@@ -30,7 +30,7 @@
 
 use std::ffi::c_void;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
-use std::sync::{LazyLock, Mutex, Once};
+use std::sync::{Mutex, Once};
 
 use super::build::Build;
 use super::hd::{self, Hero};
@@ -121,8 +121,6 @@ pub fn at_draw(shrunk: Option<Scale>, drawn: Option<Scale>, cur: f32, shown: Opt
     }
 }
 
-static HEROES: LazyLock<hd::Heroes> = LazyLock::new(hd::Heroes::new);
-
 struct State {
     scales: Vec<(usize, u64, Scale)>,
     /// the same scales by the entity value's address (what the body draw gets in rdx)
@@ -155,12 +153,12 @@ extern "system" {
     fn VirtualProtect(addr: *mut c_void, size: usize, new: u32, old: *mut u32) -> i32;
 }
 
-/// `len` bytes of the game EXE at `rva` (None when unreadable).
 /// The game EXE's base in this process.
 pub fn module_base() -> usize {
     unsafe { GetModuleHandleW(std::ptr::null()) }
 }
 
+/// `len` bytes of the game EXE at `rva` (None when unreadable).
 pub fn read_rva(rva: usize, len: usize) -> Option<Vec<u8>> {
     let module = unsafe { GetModuleHandleW(std::ptr::null()) };
     if module == 0 {
@@ -217,6 +215,7 @@ unsafe fn shrink(world: usize) {
         return;
     }
     let Ok(mut st) = STATE.try_lock() else { return };
+    let heroes = hd::heroes();
     for i in 0..=mask {
         if *(ctrl as *const u8).add(i) & 0x80 != 0 {
             continue; // empty or deleted
@@ -227,7 +226,7 @@ unsafe fn shrink(world: usize) {
         let res = string_at(v + RES_PTR, v + RES_LEN_AT);
         let key = q(elem) as u64;
         let at = st.scales.iter().position(|e| e.0 == world && e.1 == key);
-        let Some(hero) = drawn_as(&HEROES, res, id) else {
+        let Some(hero) = drawn_as(heroes, res, id) else {
             // no longer drawn with dense frames (a possession ended): the game's own value back
             st.by_value.retain(|e| e.0 != v);
             if let Some(k) = at {
@@ -336,7 +335,7 @@ unsafe fn scale_at_draw(ent: usize) -> Option<(Scale, &'static Hero)> {
     }
     let id = string_at(ent + NAME_PTR, ent + NAME_LEN_AT);
     let res = string_at(ent + RES_PTR, ent + RES_LEN_AT);
-    let hero = drawn_as(&HEROES, res, id);
+    let hero = drawn_as(hd::heroes(), res, id);
     let mut st = STATE.try_lock().ok()?;
     let shrunk = st.by_value.iter().find(|e| e.0 == ent).map(|e| e.1);
     let at = st.drawn.iter().position(|e| e.0 == ent);
@@ -474,8 +473,9 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         insert(out, b + 1, &back);
         insert(out, a, &grow);
     }
-    // a hero that grows with a stack (hd::GROWTH, Cho'Gath's Feast): his body's own commands once more, about his soles
-    let Some(&(_, buff, per)) = hd::GROWTH.iter().find(|g| g.0 == hero.id) else { return };
+    // a hero that grows with a stack (a table's growth rows, Cho'Gath's Feast): his body's own commands once more, about
+    // his soles
+    let Some(&(_, buff, per)) = hd::heroes().growth.iter().find(|g| g.0 == hero.id) else { return };
     let n = stacks(ent, buff);
     let g = hd::grown(per, n);
     if !st.grows.iter().any(|e| e.0 == ent && e.1 == n) && st.grow_lines < GROW_LINES {
@@ -540,10 +540,11 @@ static EFFECTS_SEEN: Mutex<Vec<&'static str>> = Mutex::new(Vec::new());
 type EffectDraw = unsafe extern "system" fn(usize, usize, usize, usize) -> usize;
 
 /// The view node draw (Build::effect_draw: the command Vec it returns in rcx, the node in rdx, r8 / r9 its own): as the
-/// game draws it, then every sprite command of a [`hd::DRAWN_EFFECTS`] sheet wrapped in a 1 / PPU scale about the
-/// sprite's top-left corner (+0x78 / +0x7c). The game places that corner with the frame's size divided by PPU (the
-/// anim table, src/lookup.rs) but draws the picture UV x the texture's real pixels - a square a game pixel, PPU times
-/// too big, hanging right and down from the corner; shrunk about the corner it covers its frame at 1 / PPU.
+/// game draws it, then every sprite command of a drawn effect's sheet ([`hd::Table::drawn_effects`]) wrapped in a
+/// 1 / PPU scale about the sprite's top-left corner (+0x78 / +0x7c). The game places that corner with the frame's size
+/// divided by PPU (the anim table, src/lookup.rs) but draws the picture UV x the texture's real pixels - a square a game
+/// pixel, PPU times too big, hanging right and down from the corner; shrunk about the corner it covers its frame at
+/// 1 / PPU.
 unsafe extern "system" fn effect_detour(out: usize, node: usize, a3: usize, a4: usize) -> usize {
     let f: EffectDraw = std::mem::transmute(ORIG_EFFECT.load(Ordering::Acquire));
     let r = f(out, node, a3, a4);
@@ -560,10 +561,11 @@ unsafe fn shrink_effects(out: usize) {
     if cap == usize::MAX || len == 0 || len > 256 || cap < len || !plausible(q(out + 8)) {
         return;
     }
+    let heroes = hd::heroes();
     let mut i = 0;
     while i < q(out + 0x10) {
         let c = q(out + 8) + i * CMD;
-        let hero = sprite_name(c).and_then(|n| HEROES.of_name(n)).filter(|h| hd::DRAWN_EFFECTS.contains(&h.id));
+        let hero = sprite_name(c).and_then(|n| heroes.of_name(n)).filter(|h| heroes.drawn_effects.contains(&h.id));
         let Some(hero) = hero else {
             i += 1;
             continue;
@@ -656,7 +658,10 @@ pub fn install_once(b: &'static Build) {
                 super::lookup::hook_keeping_r9(module + b.effect_draw,
                     effect_detour as EffectDraw as usize, &ORIG_EFFECT)
             };
-            wlog(format!("effect draw hooked ({r:?}): {} at 1 / PPU", hd::DRAWN_EFFECTS.join(", ")));
+            // the host's own table's (a guest's come in later and are shrunk the same)
+            let drawn = &hd::heroes().drawn_effects;
+            wlog(format!("effect draw hooked ({r:?}): {} at 1 / PPU",
+                         if drawn.is_empty() { "the drawn effects".to_string() } else { drawn.join(", ") }));
         }
     });
 }
@@ -718,7 +723,7 @@ mod tests {
         assert!((hd::grown(0.30, 3) - 1.9).abs() < 1e-6);
         assert_eq!(hd::grown(0.30, 4), hd::GROW_CAP);
         assert_eq!(hd::grown(0.30, 12), hd::GROW_CAP);
-        assert!(hd::GROWTH.iter().any(|g| g.0 == "league_chogath" && g.1 == "league_chogath_r_stack"));
+        // Cho'Gath's growth row is league.dll's data: league_main/src/hd.rs tests it
     }
 
     #[test]
@@ -776,7 +781,9 @@ mod tests {
 
     #[test]
     fn a_possessing_viego_is_shrunk_as_his_victim() {
-        let h = hd::Heroes::new();
+        // league.dll's dense heroes among them (its table: league_main/src/hd.rs), Viego and Amumu not
+        let league = hd::tests::table("league", &[("league_zeri", 3.0), ("league_yasuo", 2.2), ("league_karma", 2.2)]);
+        let h = hd::Heroes::of(&[&league]);
         let as_ = |res, id| drawn_as(&h, res, id).map(|h| h.id);
         assert_eq!(as_(Some("league_zeri"), Some("league_viego")), Some("league_zeri"));
         assert_eq!(as_(Some("champions/league_yasuo#anim"), Some("league_viego")), Some("league_yasuo"));

@@ -32,9 +32,9 @@ NAME = "Teamfight Tactics Heroes"
 # pack in HEROES)
 DESC = ("Teamfight Tactics units that League of Legends does not have, for Teamfight Manager 2: {heroes}. Powder's, "
         "Alune's and Silco's kits are our own designs, drawn from TFT and Arcane; Norra's follows League of Legends: "
-        "Wild Rift (what the data cannot play is the pack's own code, tft.dll). Sharper frames when the League of "
-        "Legends Heroes pack (league) is also enabled. Non-commercial fan project; Teamfight Tactics, Wild Rift "
-        "and Arcane (c) Riot Games.")
+        "Wild Rift (what the data cannot play is the pack's own code, tft.dll). Sharper frames from tft.dll itself, "
+        "with or without the League of Legends Heroes pack (league). Non-commercial fan project; Teamfight Tactics, "
+        "Wild Rift and Arcane (c) Riot Games.")
 HEROES = ["Powder", "Norra", "Alune", "Silco", "Maddie", "Loris", "Kobuko", "Vander", "Violet", "Krug", "Ao Shin", "Scar", "Renni", "Smeech", "Sevika", "Steb", "Nomsy", "Idas", "Daeja", "Shi Oh Yu", "Sy'fen", "Sohm", "Terra", "Zippy", "Sentinel"]
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"

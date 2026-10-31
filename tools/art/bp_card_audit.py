@@ -35,12 +35,16 @@ def lp(path):
 
 
 def ui_sizes(league):
-    """league.dll's UI_SIZES (addons/league_main/src/hd.rs): tall HD heroes drawn smaller in the UI."""
-    rs = os.path.join(os.path.dirname(league), "addons", "league_main", "src", "hd.rs")
-    src = open(lp(rs), encoding="utf-8").read()
-    body = src[src.index("pub const UI_SIZES"):]
-    body = body[:body.index("];")]
-    return {h: float(k) for h, k in re.findall(r'\("(\w+)", ([0-9.]+)\)', body)}
+    """UI_SIZES of both dense-frame tables (league.dll's addons/league_main/src/hd.rs, tft.dll's addons/tft/src/hd.rs;
+    addons/hd_engine draws them): tall HD heroes drawn smaller in the UI."""
+    out = {}
+    for crate in ("league_main", "tft"):
+        rs = os.path.join(os.path.dirname(league), "addons", crate, "src", "hd.rs")
+        src = open(lp(rs), encoding="utf-8").read()
+        body = src[src.index("pub const UI_SIZES"):]
+        body = body[:body.index("];")]
+        out.update({h: float(k) for h, k in re.findall(r'\("(\w+)", ([0-9.]+)\)', body)})
+    return out
 
 
 def frames(league, hid):

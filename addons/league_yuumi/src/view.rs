@@ -9,7 +9,7 @@
 //! 函数，再走一遍显示世界的实体表（+0x138 的哈希表，每格 0x1d0 字节，值从 +8 开始：+0x40 名字，+0x68 / +0x70 / +0x78 正在播的动画名，
 //! +0xb8 / +0xc0 buff 列表）。名字是 `league_yuumi` 的实体身上有附身 buff 时，正在播的动作换成 `a_*`（新名字用游戏同一个堆分配，旧的
 //! 照游戏的做法释放）；附身结束后换回来。高清帧不用另管：league.dll 把登记英雄动画表里每个动作（a_idle 也在内）就地换成它的 hd_ 帧
-//! （addons/league_main/src/lookup.rs）。
+//! （addons/hd_engine/src/lookup.rs）。
 
 use std::sync::{Mutex, Once};
 

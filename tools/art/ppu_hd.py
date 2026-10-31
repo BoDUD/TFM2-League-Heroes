@@ -62,8 +62,9 @@ SRC = os.path.join(ROOT, "assets", "source", "ppu")
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import strips as G  # noqa: E402
 
-# hero -> pixels per 1x square; the DLL's table (addons/league_main/src/hd.rs) must list the same. 2026-10-13: every
-# hero but zeri / irelia brought to about 2.2 squares a game pixel by tools/art/ppu_restyle.py (RESTYLE there)
+# hero -> pixels per 1x square; the DLLs' tables must list the same (addons/league_main/src/hd.rs, a tft hero's in
+# addons/tft/src/hd.rs). 2026-10-13: every hero but zeri / irelia brought to about 2.2 squares a game pixel by
+# tools/art/ppu_restyle.py (RESTYLE there)
 # gragas, zeri, irelia: dense strips drawn by tools/art/ppu_gragas.py, ppu_zeri.py, ppu_irelia.py; kassadin: posed from
 # his PPU design by tools/art/rig_kassadin.py (134 design rows / 37 game rows); vladimir, karma, ashe,
 # yasuo: Codex's strips read back by tools/art/import_ppu_strips.py; corki: tools/art/rig_corki_hd.py; braum: Codex's
@@ -621,7 +622,7 @@ def main():
     bad = 0
     for hero in a.hero or sorted(PPU):
         if hero not in PPU:
-            sys.exit(f"{hero}: not in PPU (tools/art/ppu_hd.py and addons/league_main/src/hd.rs)")
+            sys.exit(f"{hero}: not in PPU (tools/art/ppu_hd.py and addons/league_main/src/hd.rs or addons/tft/src/hd.rs)")
         stem = stem_of(hero)
         sheet = read_sheet(stem)
         if not a.check:

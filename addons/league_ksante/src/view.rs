@@ -5,7 +5,7 @@
 //! league_kayn_form）：game_places::hook::add 把本包的函数挂进显示处理表的槽（游戏版本不同地址不同，由 game_places 在加载时找），
 //! 一个接一个调用：走一遍显示世界的实体表，名字是 `league_ksante` 的实体身上有全盛 buff 时，正在播的 idle / run / hit / attack 换成
 //! `ao_*`（`attack` 是普攻第一 tick：数据下一 tick 才播 `ao_attack`，league_gnar 的做法）。全盛结束把换上去的 `ao_*` 换回来。高清帧不用另管：
-//! league.dll 把登记英雄动画表里每个动作（ao_idle 也在内）就地换成它的 hd_ 帧（addons/league_main/src/lookup.rs）。阵亡不换：全盛随
+//! league.dll 把登记英雄动画表里每个动作（ao_idle 也在内）就地换成它的 hd_ 帧（addons/hd_engine/src/lookup.rs）。阵亡不换：全盛随
 //! 死亡结束，倒下的是普通姿态。
 
 use std::sync::{Mutex, Once};

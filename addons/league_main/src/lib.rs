@@ -2,13 +2,13 @@
 //!
 //! 主包的英雄还是纯数据；这个 DLL 只做数据做不到的画面：**高清帧（PPU）**——登记在 src/hd.rs 的英雄（先是亚索，PPU 3：
 //! 身体 1 倍图整 3 倍，Codex 画的头每格 2×2）在战场、卡牌、图鉴、头像上都画自己图里 PPU 倍密的 `hd_` 帧，大小不变、
-//! 像素更细。src/lookup.rs：游戏按名字取动画表和贴图的两个函数上挂钩——动画表就地改成每个动作都是高清帧（矩形 ÷ PPU），
-//! 贴图的宽高报 ÷ PPU，界面按帧大小画、UV 落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿到真实的高清帧和真实
-//! 宽高，src/view.rs 把实体的绘制缩放写成 ÷ PPU。只在 src/build.rs 认得的游戏版本上挂钩（每处要改要调的代码逐字节核对指纹，现在认得 0.7.0；认不得的版本由 game_places 在运行时找）；找不到的版本、
-//! Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
+//! 像素更细；界面（BP 格子、图鉴 / 头像、选人位、选中特写、记分板头像）画每个英雄自己的小图集（0.7.140）。
 //!
-//! src/ui.rs（0.7.140）：BP 格子、图鉴 / 头像、选人位、选中特写、记分板头像改画每个英雄自己的小图集（打包时生成，
-//! 只有界面画的帧）——一屏画全部英雄的界面不再把整张战斗图集塞进游戏 256 MiB 的图片缓存（「BP界面非常的卡」）。
+//! 画法——游戏按名字取动画表和贴图的两个函数上的钩子、战场的绘制缩放、界面小图集、认游戏版本（现在认得 0.7.0，认不得的
+//! 由 game_places 在运行时找）——0.9.0 起在 addons/hd_engine，和 tft 包的 tft.dll 共用（tft 包要单独上创意工坊，只订阅它
+//! 也要有高清帧）。init 把 src/hd.rs 的表交给引擎：进程里第一个加载的包 DLL 挂钩、画两个包的英雄；league.dll 加载在
+//! tft.dll 之后时自己一个钩子都不挂，把表交给它（hd_engine src/share.rs）——两个包都开着时 Mods 菜单里谁先谁后都一样。
+//! 认不得的游戏版本、Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
 //!
 //! src/cache.rs（0.8.16）：游戏的 GPU 图片缓存（Skia 的 GrResourceCache，默认 256 MiB）放大到 1 GiB——一屏英雄多的界面
 //! 不再因为装不下而每帧清掉、重新上传贴图。
@@ -17,29 +17,24 @@
 //! 比赛里音频第一次播放就不用在主线程等读盘。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
+//! 挂钩、取表、缩放的行写在挂钩的那个 DLL 的日志里：tft.dll 先加载时在 tft.log，这里只有一行「交给了谁」。
 
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use hd_engine::Role;
 use mod_api_stable::*;
 
-pub mod build;
 #[cfg(windows)]
 mod cache;
 pub mod hd;
 #[cfg(windows)]
-mod lookup;
-#[cfg(windows)]
-mod ui;
-#[cfg(windows)]
-mod view;
-#[cfg(windows)]
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.8.26";
+const VERSION: &str = "0.9.0";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -94,45 +89,14 @@ fn init(host: &StableHost) -> StableMod {
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
     // the GPU image cache first, whatever the build: it only needs Skia's GrResourceCache (src/cache.rs)
     #[cfg(windows)]
-    cache::install_once(view::module_base());
-    #[cfg(windows)]
-    match build::detect(view::read_rva).or_else(|why| {
-        // not a listed build: look for the same places by their patterns (game_places, made from the listed build)
-        let t0 = std::time::Instant::now();
-        let module = view::module_base();
-        // the display pair through game_places::display (shared with the add-ons, read before anyone swaps the slot)
-        let found = game_places::display().and_then(|(f, slot)| {
-            let img = unsafe { game_places::Image::from_module(module) }?;
-            game_places::resolve_with(&img, Some((f - module, slot - module)))
-        });
-        match found {
-            Ok(p) => {
-                for n in &p.notes {
-                    wlog(n);
-                }
-                let name = format!("found at run time in {:.0} ms ({why}; patterns from {})",
-                                   t0.elapsed().as_secs_f64() * 1000.0, game_places::sigs::FROM);
-                Ok(build::from_places(p, name))
-            }
-            Err(e) => Err(format!("{why}; the run-time search: {e}")),
-        }
-    }) {
-        Ok(b) => {
-            wlog(format!("game build: {}", b.name));
-            // publish the display pair for the add-ons' hooks before this DLL swaps the slot (game_places::ENV)
-            match game_places::display() {
-                Ok((f, slot)) => wlog(format!("display handler {f:#x}, slot {slot:#x} ({}={:?})", game_places::ENV,
-                                              std::env::var(game_places::ENV).unwrap_or_default())),
-                Err(e) => wlog(format!("display handler not found by game_places ({e})")),
-            }
-            lookup::install_once(b);
-            view::install_once(b);
-            host.log(LogLevel::Info, "League Heroes: dense (PPU) frames for the heroes that have them.");
-        }
-        Err(why) => {
-            wlog(format!("game build unknown ({why}): no hooks - every hero draws its 1x frames"));
-            host.log(LogLevel::Info, "League Heroes: this game build is not known to league.dll yet - 1x frames.");
-        }
+    cache::install_once(hd_engine::module_base());
+    // the dense frames: this pack's table to the engine - it hooks the game from here (build, display pair, lookups,
+    // scale, as before 0.9.0), or hands the table to the pack DLL that did (tft.dll loaded first: hd_engine src/share.rs)
+    match hd_engine::start(&hd::table(), &format!("{ID}.dll {VERSION}"), |m: &str| wlog(m)) {
+        Role::Host => host.log(LogLevel::Info, "League Heroes: dense (PPU) frames for the heroes that have them."),
+        Role::Guest { host: by, .. } => host.log(LogLevel::Info,
+            &format!("League Heroes: dense (PPU) frames for the heroes that have them, drawn by {by}.")),
+        Role::Off(why) => host.log(LogLevel::Info, &format!("League Heroes: 1x frames - {why}.")),
     }
     let mut module = StableMod::new(ID);
     #[cfg(windows)]
