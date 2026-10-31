@@ -46,6 +46,11 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Timings are placeholders until the strips are rigged (tools/art/rig_elderdragon.py). Stats start from the pack's top
 # bruisers (tft_krug hp 1200 +118 / atk 80, league_volibear 1180 / 88): the 5-cost dragon, slow heavy bites, all
 # physical, thick hide.
+# Numbers = the 10-min classic-SDK simulations (C:/t/ed_sim with C:/t/al_sim/kd.py: top lane 0 against the base
+# fighter, executioner, knight, berserker, lancer and pole warrior, three lineups, both sides; 2026-11-01), --plain (the
+# breath at full damage on everyone in the line, no execute, the splash hitting the target too): the draft = P +1.79
+# (+-0.40) on seeds 1-8 against league_volibear (--native) +1.47 (+-0.42): level with the pack's tops, the Elder buff's
+# execute on top in the game.
 P = {
     # stats (Melee, a top bruiser with physical skills)
     "hp": 1200, "hp_g": 118, "atk": 88, "atk_g": 15, "apw": 0, "apw_g": 0, "def": 38, "def_g": 8, "mr": 32, "mr_g": 7,
