@@ -1,0 +1,872 @@
+{
+  "generator": "built-in imagegen",
+  "source_layout": "contact sheets; row-major frames, repacked into horizontal strips",
+  "sampling": "per target pixel majority category after palette quantization; source alpha>=128; transparent is a category",
+  "palette": [
+    "#F0FFFF",
+    "#A6F4FF",
+    "#3FD8F2",
+    "#1594CF",
+    "#0C5A86",
+    "#DDE0C6",
+    "#AEB497",
+    "#73898A",
+    "#45606A",
+    "#263840",
+    "#E2DACA",
+    "#B3A992",
+    "#7D7464",
+    "#4C473E"
+  ],
+  "assets": [
+    {
+      "file": "sentinel_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        16
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        2,
+        2
+      ],
+      "source_size": [
+        1330,
+        1182
+      ],
+      "size_1x": [
+        72,
+        16
+      ],
+      "size_8x": [
+        576,
+        128
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 4,
+          "symmetric": true,
+          "sha256": "fdd179d569529476624e54ae6fdd0a15db7f8d52f2395e67a2349928620c4c95"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 50,
+          "symmetric": true,
+          "sha256": "c4e5ae97fe4b1b95375ca60406ec5bb43b8e6d306f29a3ad752c4e828e353b25"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 50,
+          "symmetric": true,
+          "sha256": "0d7a26b546d1b794c20ed4f873543d7fb086dbd86ced97af0c28a8552b9f972f"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 28,
+          "symmetric": true,
+          "sha256": "0311a98c1aaa61cb25a4377b24cf47374fde83fe1d4efab2e0cb338d4922fa5a"
+        }
+      ],
+      "binding": "view_effects `tft_sentinel_a_hit`（跟随目标，z 2；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_q_hit.png",
+      "frames": 6,
+      "cell_1x": [
+        76,
+        26
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        2143,
+        734
+      ],
+      "size_1x": [
+        456,
+        26
+      ],
+      "size_8x": [
+        3648,
+        208
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 6,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 20,
+          "symmetric": true,
+          "sha256": "2345c8297ddfa01e9940970fd0458ea2fd4119af906c9526fdd655fdcedd6716"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 104,
+          "symmetric": true,
+          "sha256": "9af49e7862a19b0e45fc00b611ee07fc1c03899d100bdaab455ec17f5081d052"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 366,
+          "symmetric": true,
+          "sha256": "99263cd01077695b123d5020380e815f3ef4f6cdbb70e55034888677b80ec4ef"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 492,
+          "symmetric": true,
+          "sha256": "ff458010778e32de0c2a2914155e48fbd183af6c482e4fab7ed1765bd808a415"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 316,
+          "symmetric": true,
+          "sha256": "39ae183ad99643f84582dfe00985c62a7764cc498bdcc0e657876b8d8e489980"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 32,
+          "symmetric": true,
+          "sha256": "ebdedee48be218abfa55dc43f152bdf398d9d1178e97b5c56a67582e17317963"
+        }
+      ],
+      "binding": "view_effects `tft_sentinel_q_hit`（大表，放在它砸地的地面上，不跟随，z -1；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_q_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        8
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        2172,
+        724
+      ],
+      "size_1x": [
+        144,
+        8
+      ],
+      "size_8x": [
+        1152,
+        64
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 6,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 52,
+          "symmetric": true,
+          "sha256": "c646aad1501d40de19c4573d503f8bd55150efa45f9911d8211eb8fc4d02699c"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 54,
+          "symmetric": true,
+          "sha256": "5385ce949fd3fddd5b04c9d956c62413597792a68ba0cfe0e9adc8bdb9aef118"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 44,
+          "symmetric": true,
+          "sha256": "8b474a8ae96515806c8f4a01bf1504217c6ba4106b99ae50c6286a931a5f7e44"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 52,
+          "symmetric": true,
+          "sha256": "90ccafdb665f2757840b5ff368e5cd862e226d077f151d858fc9a8d2fa5a2a5a"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 46,
+          "symmetric": true,
+          "sha256": "6fffa598147e140c3a4a122e7a1820f8f99237295789a33ded23e53391404c81"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 60,
+          "symmetric": true,
+          "sha256": "a78a7d82908eb18bb0a203a8c0fbbfeef5d00c8f0828944650f9b89b9f0fd3e5"
+        }
+      ],
+      "binding": "view_buffs `tft_sentinel_q_slow`（跟随被减速的人，脚下，z 3；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_e_cast.png",
+      "frames": 5,
+      "cell_1x": [
+        64,
+        46
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1478,
+        1064
+      ],
+      "size_1x": [
+        320,
+        46
+      ],
+      "size_8x": [
+        2560,
+        368
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 5,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 264,
+          "symmetric": true,
+          "sha256": "c6e73a38ef75169c7e4c1bb31d7e10d1e9bd9034d962c50052346808d37fa237"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 616,
+          "symmetric": true,
+          "sha256": "d9991f183375dc11ad6fa9cda6794f0364c55f660894cab8bd29ce6f8c1b3903"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 930,
+          "symmetric": true,
+          "sha256": "9d2d9db558b8beda871d0f125063ea6b72406852999d3fa82e015db011f120ef"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 338,
+          "symmetric": true,
+          "sha256": "bfe71a3eab8a462c89bc639c919dfb3ffbbd95822217f02a793d79b64bffee8c"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 102,
+          "symmetric": true,
+          "sha256": "ff3e4888f23e084302d92e4d8d6186e92d3dc9aed837f73f9feec086e8b217a5"
+        }
+      ],
+      "binding": "view_effects `tft_sentinel_e_cast`（大表，跟随它，z 3；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_e_shield.png",
+      "frames": 6,
+      "cell_1x": [
+        70,
+        50
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1484,
+        1060
+      ],
+      "size_1x": [
+        420,
+        50
+      ],
+      "size_8x": [
+        3360,
+        400
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 6,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 1384,
+          "symmetric": true,
+          "sha256": "e84b0f7515da0825fe97dd8257c66a1038fa05fb324ef3e5e4f8054a83e611c7"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 1512,
+          "symmetric": true,
+          "sha256": "643415237dcdc93786d9ba5f770f7a0df8c016773c73f2ef0515753ce2258daa"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 1562,
+          "symmetric": true,
+          "sha256": "bcd6ae543da9f53c0e0e98ca2550f9898270ac5e847942b62b8fc4e6c39fd7ed"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 1552,
+          "symmetric": true,
+          "sha256": "596bb4d6370ffee505ce7319ca5102f8660acb15ac4ebf6cc48dc058d887a70f"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 1486,
+          "symmetric": true,
+          "sha256": "645921c13aa2a48c7846a0c9952c824908928458955861718f0ca49e051bd847"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 1444,
+          "symmetric": true,
+          "sha256": "740daa841e737988a1971e147bdbe11be0480a6ee014c37a547e1caeb8e193cb"
+        }
+      ],
+      "binding": "view_buffs `tft_sentinel_e_shield` / `tft_sentinel_r_shield`（大表，跟随它，z 3；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_e_taunt.png",
+      "frames": 6,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1536,
+        1024
+      ],
+      "size_1x": [
+        72,
+        12
+      ],
+      "size_8x": [
+        576,
+        96
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 4,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 76,
+          "symmetric": true,
+          "sha256": "9c1caa3ed04c9cd5f09865757d2831055cece9e2c9efad2f5ea9484850d28751"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 76,
+          "symmetric": true,
+          "sha256": "9c1caa3ed04c9cd5f09865757d2831055cece9e2c9efad2f5ea9484850d28751"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 76,
+          "symmetric": true,
+          "sha256": "9c1caa3ed04c9cd5f09865757d2831055cece9e2c9efad2f5ea9484850d28751"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 76,
+          "symmetric": true,
+          "sha256": "8a967e10a86506fb3ff5d2a6b1ca88141f9a69c7e487f9a24daa99206fc27c0b"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 76,
+          "symmetric": true,
+          "sha256": "0dfe4b3bbd349e148246c336e4bd0aabf084c27b55848aeb9f34a08b094c4330"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 76,
+          "symmetric": true,
+          "sha256": "b65dab4237cc4fc30f807f408b5135c5f2bb014c2584bca6c9005584794c7a8c"
+        }
+      ],
+      "binding": "view_buffs `tft_sentinel_e_taunt`（跟随被嘲讽的人，头顶上方，z 4；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_r_slam.png",
+      "frames": 6,
+      "cell_1x": [
+        96,
+        40
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1942,
+        809
+      ],
+      "size_1x": [
+        576,
+        40
+      ],
+      "size_8x": [
+        4608,
+        320
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 6,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 100,
+          "symmetric": true,
+          "sha256": "6fd3fb77e7da6b4a5c288a0acd80520b27e52417511630f70488e8c7849b295a"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 932,
+          "symmetric": true,
+          "sha256": "406d8767d88acc4f8006f242147192c11a9fdba809b45e3762a64df206ddcc7f"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 1942,
+          "symmetric": true,
+          "sha256": "f9b09f4f32cd2164a31ac34bcea79a03a64556fd3f41d79962aec2f5b92025de"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 1830,
+          "symmetric": true,
+          "sha256": "712d136c63cdf10b3df98dbe432c8aeb485aa64b0d5db39d059098b26ea9db3b"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 1494,
+          "symmetric": true,
+          "sha256": "2c71167472c03197793bf6d4669add186ab83c353540dc074471b5ea5d985432"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 290,
+          "symmetric": true,
+          "sha256": "d8fc96a4bb9cc93fabfc87076f6f5e91c0ced16dfaa13420e7f074ff1c6006f4"
+        }
+      ],
+      "binding": "view_effects `tft_sentinel_r_slam`（大表，放在它砸地的地面上，不跟随，z -1；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_r_crack.png",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        18
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1870,
+        841
+      ],
+      "size_1x": [
+        240,
+        18
+      ],
+      "size_8x": [
+        1920,
+        144
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 6,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 348,
+          "symmetric": true,
+          "sha256": "707b23535b0fad8406ea9798ef51f7d7045d36275a9b199c0e9b5b38a06acad3"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 220,
+          "symmetric": true,
+          "sha256": "0a79c1283a99f7ad06e21194a56780df718b02564c2e256aaacc4fdca16be25e"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 220,
+          "symmetric": true,
+          "sha256": "005bd45e3a506ea3a64e5d10af3799f45e4bfa3b01392c33f27aa28c6befd9e4"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 272,
+          "symmetric": true,
+          "sha256": "cfaf3edc1c50c4683bcb44bc107fe10f6712772aa6fd6293c78faaab0a89a8f9"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 260,
+          "symmetric": true,
+          "sha256": "d990526870f448b0539fcf64dd38a36bf1aa062f7e4c77bbb6d95616d6e9d16c"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 222,
+          "symmetric": true,
+          "sha256": "d02508a757619779fa0584fb5582fb3eec8abec34aca620354956fef1fb9a01b"
+        }
+      ],
+      "binding": "view_projectiles `tft_sentinel_r_crack`（大表，tft.dll 放的直线弹道，随飞行方向旋转；上下对称、朝右）"
+    },
+    {
+      "file": "sentinel_fx_r_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        26
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1412,
+        1114
+      ],
+      "size_1x": [
+        110,
+        26
+      ],
+      "size_8x": [
+        880,
+        208
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 5,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 16,
+          "symmetric": true,
+          "sha256": "3df9828be91083285de06e075ca89fc9279af8a77b672579c49fb51100e47740"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 180,
+          "symmetric": true,
+          "sha256": "e7e2ff860674d98684b8201de00d820fe61383fe5aec616a60aea97ca6671c98"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 200,
+          "symmetric": true,
+          "sha256": "2c1dbc68ef69ce30af5b95c72a866d9a3387f7ae8ca75540b35b6bcd4ed99682"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 168,
+          "symmetric": true,
+          "sha256": "7f9a2ba03b5b68603d74bd012fd651f29d1eef17767fe5865908e88e9458ef17"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 74,
+          "symmetric": true,
+          "sha256": "8d20e9cdb1cf00223c6df675b4011ff287cd92201424d6458d29aee8a000e598"
+        }
+      ],
+      "binding": "view_buffs `tft_sentinel_r_hit`（跟随被击飞的人，z 3；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_r_reave.png",
+      "frames": 6,
+      "cell_1x": [
+        14,
+        12
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1355,
+        1161
+      ],
+      "size_1x": [
+        84,
+        12
+      ],
+      "size_8x": [
+        672,
+        96
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 6,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 24,
+          "symmetric": true,
+          "sha256": "75332bf24fa461f4208b878aa8e30fcbbb2d60da546ab019753ac3a68c175924"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 22,
+          "symmetric": true,
+          "sha256": "9c0e37a17e4db2a4670f9bf19c4f80c59b11f67964a3a76e62d7d2f559345365"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 14,
+          "symmetric": true,
+          "sha256": "6508119ad4b8c471764a3d9228f87e85175d1b9a3673b35af99a527eac9e3179"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 20,
+          "symmetric": true,
+          "sha256": "b23eb2cab4552aeb05c9fe12d8e4683c7ee605b8a827a61e4cc7343591cba769"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 20,
+          "symmetric": true,
+          "sha256": "c802f66105333fd365ec27202e505fe41f3f62891e7cccd1e111b234abec512f"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 22,
+          "symmetric": true,
+          "sha256": "e34e559e1d0f7cdbdc29927412bbc7436b168cf0e8a89b245391b64887fa6b07"
+        }
+      ],
+      "binding": "view_buffs `tft_sentinel_r_reave`（跟随被破法的人，头顶上方，z 4；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_r_seal.png",
+      "frames": 6,
+      "cell_1x": [
+        18,
+        14
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1422,
+        1106
+      ],
+      "size_1x": [
+        108,
+        14
+      ],
+      "size_8x": [
+        864,
+        112
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 6,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 44,
+          "symmetric": true,
+          "sha256": "3b8cbed1d27103e259a127dbb0e664187bd50309c8f755370a75e859b9ffed9a"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 32,
+          "symmetric": true,
+          "sha256": "a3fa1efd80346af9b05c30eb8ee999bba5c087a4ea115ca2c0af8e7c41059090"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 36,
+          "symmetric": true,
+          "sha256": "ae1046a9c23b787752f61583d3ecb6053a728c861c5e0609a7260f24266adf01"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 38,
+          "symmetric": true,
+          "sha256": "c985b5d878eb8dfe93724aaabbbacf2e28f15f9924cd648497ba5c5fe52b5277"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 40,
+          "symmetric": true,
+          "sha256": "1b9c28cbba669003c0c4fdfe04baad33add64c42a4c9b5844516bf738d6397e2"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 48,
+          "symmetric": true,
+          "sha256": "96525e0457fae6c9b5e274fdc21d0ac7379ad31987ea209d6b3e702cad52c5de"
+        }
+      ],
+      "binding": "view_buffs `tft_sentinel_r_seal`（跟随被封住的人，头顶上方，z 4；左右对称）"
+    },
+    {
+      "file": "sentinel_fx_p_blue.png",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        34
+      ],
+      "symmetry": "left-right",
+      "source_grid": [
+        3,
+        2
+      ],
+      "source_size": [
+        1342,
+        1172
+      ],
+      "size_1x": [
+        156,
+        34
+      ],
+      "size_8x": [
+        1248,
+        272
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "distinct_frames": 6,
+      "frame_checks": [
+        {
+          "frame": 0,
+          "opaque_pixels": 48,
+          "symmetric": true,
+          "sha256": "05426be967f507567b33ff483e38fd0af9626505faec5c5e64796ecae5b63b01"
+        },
+        {
+          "frame": 1,
+          "opaque_pixels": 128,
+          "symmetric": true,
+          "sha256": "cdb66efd0edce6d9471b018b8a89b2c546472892b370757fa51968ed6c0beb45"
+        },
+        {
+          "frame": 2,
+          "opaque_pixels": 134,
+          "symmetric": true,
+          "sha256": "5da9892180c6f673d4b7bdbe2fdc969f92885b83582a58b449edb09480690c71"
+        },
+        {
+          "frame": 3,
+          "opaque_pixels": 188,
+          "symmetric": true,
+          "sha256": "fe0658fff99f7cc3cded372b99a42646d81d3bc18d434fd3b539e24b6be4c548"
+        },
+        {
+          "frame": 4,
+          "opaque_pixels": 116,
+          "symmetric": true,
+          "sha256": "8e3ab50a5c970cee8fd3032823c0afdad254353077b1a586eff16f1608f26d81"
+        },
+        {
+          "frame": 5,
+          "opaque_pixels": 52,
+          "symmetric": true,
+          "sha256": "35302df19d99ba50f845d60839408a442adcb2632199cb7e19ad340abf936613"
+        }
+      ],
+      "binding": "view_buffs `tft_sentinel_p_blue`（跟随拿到的友军，z 3；左右对称）"
+    },
+    {
+      "file": "sentinel_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "pixel_block": 2,
+      "source_size": [
+        1254,
+        1254
+      ],
+      "symmetry": "none",
+      "sha256": "f3e132c5ac443b9eca9338699d70ec80b6474b453226540907e8408c3d83ff0c"
+    },
+    {
+      "file": "sentinel_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "pixel_block": 2,
+      "source_size": [
+        1254,
+        1254
+      ],
+      "symmetry": "none",
+      "sha256": "5fbe452973514594bf4bb2fc33e5ed1b0bd592c4577a7cb31cec93d10ffc1be7"
+    },
+    {
+      "file": "sentinel_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "pixel_block": 2,
+      "source_size": [
+        1254,
+        1254
+      ],
+      "symmetry": "none",
+      "sha256": "43bb659d46b993d548358571705725df26ee00436cda36f5545d8709d2098299"
+    }
+  ]
+}

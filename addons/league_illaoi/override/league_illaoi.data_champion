@@ -4268,6 +4268,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_sentinel",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_sentinel",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_sentinel_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_sentinel_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_sevika",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_sevika",

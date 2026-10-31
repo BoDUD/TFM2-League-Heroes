@@ -122,7 +122,9 @@ STOLEN = {"tft_silco": ("build_silco", "sylas_ult"), "tft_maddie": ("build_maddi
           "tft_syfen": ("build_syfen", "sylas_ult"),
           "tft_sohm": ("build_sohm", "sylas_ult"),
           "tft_terra": ("build_terra", "sylas_ult"),
-          "tft_zippy": ("build_zippy", "sylas_ult")}
+          "tft_zippy": ("build_zippy", "sylas_ult"),
+
+          "tft_sentinel": ("build_sentinel", "sylas_ult")}
 
 
 # a robbed champion's own animation tags -> Sylas's (his sheet has none of theirs): a dash, a leap or a flight his leap,

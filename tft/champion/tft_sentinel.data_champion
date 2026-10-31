@@ -1,0 +1,589 @@
+{
+  "id": "tft_sentinel",
+  "category": "Melee",
+  "tags": [
+    "AP",
+    "Melee",
+    "Tank",
+    "CC",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_sentinel:golem",
+    "params": {
+      "r_len": 100000,
+      "r_w": 16000,
+      "r_speed": 5000,
+      "r_dmg": 170,
+      "r_ratio": 170,
+      "r_hp": 4,
+      "r_up": 50,
+      "r_mark": 900,
+      "r_reave": 120
+    }
+  },
+  "sprite": "asset/tft/champions/tft_sentinel",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_sentinel_skill",
+    "asset/tft/icons/tft_sentinel_skill2",
+    "asset/tft/icons/tft_sentinel_ult"
+  ],
+  "stat": {
+    "attack": 77,
+    "magic_power": 40,
+    "hp": 1250,
+    "defence": 40,
+    "magic_resistance": 36,
+    "move_speed": 950,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 11,
+    "magic_power": 14,
+    "hp": 120,
+    "defence": 8,
+    "magic_resistance": 6,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_sentinel.attack",
+    "duration": 36,
+    "cooltime": 76,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 26000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sentinel_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_sentinel_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_sentinel_a_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_sentinel.skill",
+    "duration": 34,
+    "cooltime": 390,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sentinel_q"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentinel_p"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 50000
+                }
+              },
+              "target": "AllyNotSelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentinel_p_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    },
+                    "skill_cooldown_mult": 50
+                  }
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentinel_p_blue",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentinel_q_hit"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_sentinel_q_hit"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 34000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 85,
+                  "attack_ratio": 105,
+                  "hp_ratio": 4,
+                  "can_crit": false
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentinel_q_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 120
+                      }
+                    },
+                    "move_speed_mult": -30
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_sentinel.skill2",
+    "duration": 30,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sentinel_e"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentinel_p"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 50000
+                }
+              },
+              "target": "AllyNotSelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentinel_p_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    },
+                    "skill_cooldown_mult": 50
+                  }
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentinel_p_blue",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_sentinel_e_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentinel_e_taunt"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Shield",
+                  "amount": 120,
+                  "attack_ratio": 0,
+                  "ap_ratio": 120,
+                  "tick": 240
+                }
+              ]
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_sentinel_e_shield",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 30000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Taunt",
+                  "duration": 72
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentinel_e_taunt",
+                    "duration": {
+                      "Time": {
+                        "tick": 72
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_sentinel.ult",
+    "duration": 48,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sentinel_r_vo"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_sentinel_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_sentinel_r_shield"
+        },
+        {
+          "type": "Combine",
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentinel_p"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 50000
+                }
+              },
+              "target": "AllyNotSelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentinel_p_cd",
+                    "duration": {
+                      "Time": {
+                        "tick": 3
+                      }
+                    },
+                    "skill_cooldown_mult": 50
+                  }
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentinel_p_blue",
+                    "duration": {
+                      "Time": {
+                        "tick": 60
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 150,
+              "attack_ratio": 0,
+              "ap_ratio": 120,
+              "tick": 240
+            }
+          ]
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_sentinel_r_shield",
+            "duration": {
+              "Time": {
+                "tick": 240
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_sentinel_r_rise",
+            "duration": {
+              "Time": {
+                "tick": 24
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_sentinel_r_slam"
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_sentinel_r_crack"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_sentinel:fissure"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_r_crack",
+      "anim": "asset/tft/effects/tft_sentinel_big",
+      "tag": "r_crack",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_sentinel_a_hit",
+      "anim": "asset/tft/effects/tft_sentinel_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sentinel_q_hit",
+      "anim": "asset/tft/effects/tft_sentinel_big",
+      "tag": "q_hit",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sentinel_e_cast",
+      "anim": "asset/tft/effects/tft_sentinel_big",
+      "tag": "e_cast",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sentinel_r_slam",
+      "anim": "asset/tft/effects/tft_sentinel_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_p_blue",
+      "anim": "asset/tft/effects/tft_sentinel_fx",
+      "tag": "p_blue",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_q_slow",
+      "anim": "asset/tft/effects/tft_sentinel_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_e_shield",
+      "anim": "asset/tft/effects/tft_sentinel_big",
+      "tag": "e_shield",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_r_shield",
+      "anim": "asset/tft/effects/tft_sentinel_big",
+      "tag": "e_shield",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_e_taunt",
+      "anim": "asset/tft/effects/tft_sentinel_fx",
+      "tag": "e_taunt",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_r_hit",
+      "anim": "asset/tft/effects/tft_sentinel_fx",
+      "tag": "r_hit",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_r_reave",
+      "anim": "asset/tft/effects/tft_sentinel_fx",
+      "tag": "r_reave",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentinel_r_seal",
+      "anim": "asset/tft/effects/tft_sentinel_fx",
+      "tag": "r_seal",
+      "repeat": true,
+      "z": 4
+    }
+  ]
+}

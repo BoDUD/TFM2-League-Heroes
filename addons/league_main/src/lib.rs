@@ -39,7 +39,7 @@ mod view;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.8.24";
+const VERSION: &str = "0.8.26";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);

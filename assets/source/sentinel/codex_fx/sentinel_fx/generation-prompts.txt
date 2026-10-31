@@ -1,0 +1,320 @@
+[
+  {
+    "key": "a_hit",
+    "kind": "fx",
+    "filename": "sentinel_fx_a_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86), a stone ramp (#DDE0C6, #AEB497, #73898A, #45606A, #263840), a dust ramp (#E2DACA, #B3A992, #7D7464, #4C473E).\nEffect: A STONE FIST IMPACT, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a pale cyan-white flash 5 squares across; 2 a short burst of cyan light with four stubby rays, 12 squares across, a few slate stone chips flying out to both sides (mirrored); 3 the chips falling outward, a low puff of grey-brown dust at the bottom, two tiny cyan sparks; 4 the last dust and one falling chip on each side. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 4 animation frames, in a strict 2 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 18:16. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      16
+    ],
+    "source_grid": [
+      2,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_effects `tft_sentinel_a_hit`（跟随目标，z 2；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-37b9c475-651b-4f5e-9ed3-43f8dcf4fdd7.png"
+  },
+  {
+    "key": "q_hit",
+    "kind": "fx",
+    "filename": "sentinel_fx_q_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86), a stone ramp (#DDE0C6, #AEB497, #73898A, #45606A, #263840), a dust ramp (#E2DACA, #B3A992, #7D7464, #4C473E).\nEffect: A GROUND POUND RING, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the GROUND only, seen from above at a slant: 1 a bright cyan-white flash in the middle, 12 squares wide; 2 a ring of short jagged CRACKS glowing cyan bursting outward (an ellipse 40 squares wide, 13 tall), stone chips jumping up along it; 3 the ring 60 squares wide, its cracks longer, grey dust rolling out on both sides (mirrored); 4 the ring at 72 squares wide and thinner, the chips falling; 5 only the cracks' cyan glow fading and settling dust; 6 a few dim cracks. The middle stays clear after frame 2. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 6 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 76:26. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 6,
+    "cell_1x": [
+      76,
+      26
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_effects `tft_sentinel_q_hit`（大表，放在它砸地的地面上，不跟随，z -1；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-20d73bcb-1b7f-417e-86ac-c0190605816e.png"
+  },
+  {
+    "key": "q_slow",
+    "kind": "fx",
+    "filename": "sentinel_fx_q_slow.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a stone ramp (#DDE0C6, #AEB497, #73898A, #45606A, #263840), a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86).\nEffect: STONE SHACKLES, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): low round a unit's feet only (the unit not drawn): on EACH side (mirrored) two or three small slate-teal stone chunks hugging the ankle line, a thin cyan glint in the seam between them, a faint low dust haze; frames 1-6 the chunks grinding a square up and down and the glints moving (every frame left-right symmetric). Subtle. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 6 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 24:8. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 6,
+    "cell_1x": [
+      24,
+      8
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_buffs `tft_sentinel_q_slow`（跟随被减速的人，脚下，z 3；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-4f2976e4-f478-4256-a414-a88f29c0beeb.png"
+  },
+  {
+    "key": "e_cast",
+    "kind": "fx",
+    "filename": "sentinel_fx_e_cast.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86).\nEffect: A RUNE FLARE, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the golem stands in the middle, not drawn: about 58 squares wide and 40 tall, hunched, its two huge fists low at its sides, its small head at the upper right: 1 a few cyan sparks at its edges; 2 six to eight glowing cyan SPIRAL RUNE GLYPHS (each a small square spiral 5 squares across, near-white in their middle line) appearing all round the edge of its body, mirrored; 3 the glyphs bright, pushed a little outward, short cyan rays between them; 4 the glyphs breaking into cyan motes drifting UP; 5 the last motes at the top. The middle of the cell (its body) stays EMPTY. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 5 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 64:46. Last cell entirely empty, not a sixth frame. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 5,
+    "cell_1x": [
+      64,
+      46
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_effects `tft_sentinel_e_cast`（大表，跟随它，z 3；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-0c78d7d6-ded2-4f20-bc4e-ca233d1a6093.png"
+  },
+  {
+    "key": "e_shield",
+    "kind": "fx",
+    "filename": "sentinel_fx_e_shield.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a stone ramp (#DDE0C6, #AEB497, #73898A, #45606A, #263840), a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86).\nEffect: A RUNE STONE SHELL, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the golem stands in the middle, not drawn: about 58 squares wide and 40 tall, hunched, its two huge fists low at its sides, its small head at the upper right: a ring of CARVED STONE PLATES (an upright ellipse 66 squares wide and 46 tall, only its 3-square rim drawn, made of eight to ten pale sage stone slabs with dark seams), each slab with a small glowing CYAN SPIRAL RUNE; a thin cyan light line along the inner edge; frames 1-6 the runes lighting up in turn round the ring (mirrored pairs) and the inner line breathing (every frame left-right symmetric). INSIDE the ring stays EMPTY (its body). everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 6 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 70:50. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 6,
+    "cell_1x": [
+      70,
+      50
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_buffs `tft_sentinel_e_shield` / `tft_sentinel_r_shield`（大表，跟随它，z 3；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-e25bf2c2-36bd-4b49-b0f7-60260ad19502.png"
+  },
+  {
+    "key": "e_taunt",
+    "kind": "fx",
+    "filename": "sentinel_fx_e_taunt.png",
+    "prompt": "Create a true transparent pixel-art animation sheet: SIX frames in THREE COLUMNS TWO ROWS. Each frame contains ONLY ONE small round slate-teal stone disc with ONE cyan almond-shaped eye carved into it and a near-white square pupil, thin bright cyan rim. Disc10x10 pixel units centered in12x12pixel cells. Slight vertical bobbing and pupil brightness variations across six frames. Strict left-right symmetry each frame. Coarse very low-resolution flat pixel art. Hard alpha. No glows, no gradients, no ground, no rocks below disc, no cast shadow, no background, no text. The disc floats alone, surrounding area alpha0. Dark teal3shades,pale sage highlights,cyan3shades. Transparent PNG. This is a tiny overhead taunt marker, not a landscape.",
+    "frames": 6,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_buffs `tft_sentinel_e_taunt`（跟随被嘲讽的人，头顶上方，z 4；左右对称）",
+    "refs": [],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-13885b86-93f0-4f79-90d2-0b9bbd7709d8.png"
+  },
+  {
+    "key": "r_slam",
+    "kind": "fx",
+    "filename": "sentinel_fx_r_slam.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86), a stone ramp (#DDE0C6, #AEB497, #73898A, #45606A, #263840), a dust ramp (#E2DACA, #B3A992, #7D7464, #4C473E).\nEffect: A HUGE RUNE SHOCKWAVE, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the GROUND and low above it, seen from above at a slant: 1 a big cyan-white flash at the middle bottom, 20 squares wide, short rays; 2 a thick bright cyan SHOCKWAVE RING bursting open on the ground (an ellipse 50 squares wide, 16 tall, 3 squares thick), big slate STONE SLABS tilting up out of the ground on both sides (mirrored), chips flying; 3 the ring 84 squares wide, a ring of glowing cyan CRACKS left inside it, grey dust billowing out low; 4 the ring at the cell's edge and thinning, the slabs sinking, the chips falling; 5 the cracks' glow and the settling dust; 6 a few dim cracks. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 6 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 96:40. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 6,
+    "cell_1x": [
+      96,
+      40
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_effects `tft_sentinel_r_slam`（大表，放在它砸地的地面上，不跟随，z -1；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-0a17ebc6-9d9e-4e76-8a16-0c6109515bdf.png"
+  },
+  {
+    "key": "r_crack",
+    "kind": "fx",
+    "filename": "sentinel_fx_r_crack.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86), a stone ramp (#DDE0C6, #AEB497, #73898A, #45606A, #263840), a dust ramp (#E2DACA, #B3A992, #7D7464, #4C473E).\nEffect: A RUNNING FISSURE HEAD, 6 looping frames, SYMMETRIC TOP TO BOTTOM in every frame, square for square, pointing RIGHT (the game turns it with its flight; turned half round to the left it must read the same): on the ground, seen from above: a jagged CRACK of bright cyan light running from the left edge to the right, 6 squares wide at the left and splitting into forks at the front (the right third), near-white along its middle; at its front end slate STONE SPIKES and chips bursting up on both sides of the crack (mirrored top and bottom), grey dust round them; frames 1-6 the spikes rising and falling in turn and the forks flickering forward, the glow pulsing along the crack (every frame top-bottom symmetric). everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 6 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 40:18. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 6,
+    "cell_1x": [
+      40,
+      18
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "top-bottom (pointing right)",
+    "binding": "view_projectiles `tft_sentinel_r_crack`（大表，tft.dll 放的直线弹道，随飞行方向旋转；上下对称、朝右）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-065947ad-6047-46ef-a95e-bd92d0bc19e7.png"
+  },
+  {
+    "key": "r_hit",
+    "kind": "fx",
+    "filename": "sentinel_fx_r_hit.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86), a stone ramp (#DDE0C6, #AEB497, #73898A, #45606A, #263840), a dust ramp (#E2DACA, #B3A992, #7D7464, #4C473E).\nEffect: A ROCK ERUPTION, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round an upright champion 16 squares wide and 30 tall stands in the middle, not drawn: 1 a cyan crack flash on the ground under its feet; 2 three sharp slate STONE SPIKES shooting up beside its feet (one each side, one small in front, mirrored), a column of cyan light rising up its sides; 3 the spikes at their tallest (10 squares), chips flying out; 4 the spikes crumbling, the light fading upward; 5 falling chips and dust. The middle of the cell (its body) stays EMPTY. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 5 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 22:26. Last cell entirely empty, not a sixth frame. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 5,
+    "cell_1x": [
+      22,
+      26
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_buffs `tft_sentinel_r_hit`（跟随被击飞的人，z 3；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-9eb493f0-798f-48a1-8f0c-66046d23ede1.png"
+  },
+  {
+    "key": "r_reave",
+    "kind": "fx",
+    "filename": "sentinel_fx_r_reave.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86).\nEffect: A CRACKED MANA RUNE, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): above a unit's head: a cyan diamond crystal 8 squares wide and 10 tall, a near-white spiral rune in it, a dark CRACK running down its middle splitting it in two halves a square apart; frames 1-6 it bobbing one square up and down, the halves glowing brighter and dimmer, one tiny shard falling from the crack. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 6 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 14:12. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 6,
+    "cell_1x": [
+      14,
+      12
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_buffs `tft_sentinel_r_reave`（跟随被破法的人，头顶上方，z 4；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-d385dca0-75ca-405e-9804-013d81767fb9.png"
+  },
+  {
+    "key": "r_seal",
+    "kind": "fx",
+    "filename": "sentinel_fx_r_seal.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86), a stone ramp (#DDE0C6, #AEB497, #73898A, #45606A, #263840).\nEffect: A RUNE SEAL, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): above a unit's head: a flat ring of glowing cyan rune marks (an ellipse 16 squares wide, 6 tall) with a small slate STONE PADLOCK 6 squares tall hanging in its middle, a cyan spiral on the lock; frames 1-6 the rune marks moving round the ring (mirrored) and the lock glinting. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 6 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 18:14. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 6,
+    "cell_1x": [
+      18,
+      14
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_buffs `tft_sentinel_r_seal`（跟随被封住的人，头顶上方，z 4；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-a6f07346-6658-4527-8193-c4b88085cc19.png"
+  },
+  {
+    "key": "p_blue",
+    "kind": "fx",
+    "filename": "sentinel_fx_p_blue.png",
+    "prompt": "Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a rune-cyan light ramp (#F0FFFF, #A6F4FF, #3FD8F2, #1594CF, #0C5A86).\nEffect: A BLUE BUFF GLOW, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round an upright champion 16 squares wide and 30 tall stands in the middle, not drawn: 1 a thin cyan ring appearing on the ground at its feet (an ellipse 22 squares wide, 6 tall); 2 the ring bright, small cyan rune motes (2x2 and 1x1 squares) rising from it up both sides of the body (mirrored); 3-4 the motes rising higher, one small spiral glyph above its head; 5 the motes fading near the top, the ring dimming; 6 the last motes. The middle (its body) stays EMPTY. everything is an ANCIENT RUNE GOLEM's power: glowing CYAN carved runes and spiral glyphs, cyan cracks of light in the ground, chunky slate-teal and pale sage stone chips and slabs, grey-brown dust; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smooth neon beams.\nLayout: exactly 6 animation frames, in a strict 3 COLUMN by 2 ROW contact sheet, equal-size cells, read LEFT TO RIGHT then TOP TO BOTTOM. Each cell has width:height ratio 26:34. All frames wholly inside their own cells, no gutters, no dividing lines, no labels, no reference art or creature. Draw VFX only. True transparent background. Coarse flat pixel shapes at the specified game resolution. The reference images are identity/palette and effect inspiration only. Do not reproduce their labels or characters.",
+    "frames": 6,
+    "cell_1x": [
+      26,
+      34
+    ],
+    "source_grid": [
+      3,
+      2
+    ],
+    "symmetry": "left-right",
+    "binding": "view_buffs `tft_sentinel_p_blue`（跟随拿到的友军，z 3；左右对称）",
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png",
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\refs\\tft_fx_ref.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-bd19f981-3b1e-47ae-8dac-9bb31abe292e.png"
+  },
+  {
+    "key": "skill",
+    "kind": "icon",
+    "filename": "sentinel_icon_skill.png",
+    "prompt": "A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square dark slate frame with little cyan rune corners, a deep teal-black inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: two huge slate-teal stone fists smashing down together into the ground, a ring of glowing cyan cracks and stone chips bursting out under them. No text, no letters.\n Reference golem image is identity and palette only. Return one icon, no reference sheet. Crisp square pixel art, no text.",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "source_grid": [
+      1,
+      1
+    ],
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-bb5ae77d-71c6-45ce-acb5-51ba3305977e.png"
+  },
+  {
+    "key": "skill2",
+    "kind": "icon",
+    "filename": "sentinel_icon_skill2.png",
+    "prompt": "A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square dark slate frame with little cyan rune corners, a deep teal-black inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: a round shield of carved pale sage stone plates with a big glowing cyan spiral rune in its middle, small cyan rune sparks round it. No text, no letters.\n Reference golem image is identity and palette only. Return one icon, no reference sheet. Crisp square pixel art, no text.",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "source_grid": [
+      1,
+      1
+    ],
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-ba285cfc-aa0f-4259-954a-91136abd9b46.png"
+  },
+  {
+    "key": "ult",
+    "kind": "icon",
+    "filename": "sentinel_icon_ult.png",
+    "prompt": "A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square dark slate frame with little cyan rune corners, a deep teal-black inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: a jagged bright cyan fissure tearing across the ground from the lower left to the upper right, stone spikes bursting up along it, a small one-eyed stone golem head glowing cyan in the lower left corner. No text, no letters.\n Reference golem image is identity and palette only. Return one icon, no reference sheet. Crisp square pixel art, no text.",
+    "frames": 1,
+    "cell_1x": [
+      64,
+      64
+    ],
+    "source_grid": [
+      1,
+      1
+    ],
+    "refs": [
+      "C:\\Users\\OWNER\\Documents\\Codex\\2026-10-31\\new-chat-3\\work\\sentinel_fx_pack\\sentinel_fx_pack\\design\\sentinel_design.png"
+    ],
+    "generated_path": "C:\\Users\\OWNER\\.codex\\generated_images\\01a18dd4-f9cb-7bf3-bd2f-b7f8e1e8f26f\\exec-05da6ebd-415c-40fe-97e4-6f074cd4c79f.png"
+  }
+]
