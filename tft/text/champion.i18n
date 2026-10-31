@@ -182,6 +182,13 @@
         "skill": "跃起扑向目标，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并减速<#ef5350ff>30%<>（<#ffb900ff>1秒<>）。",
         "skill2": "人立怒吼：周围敌人减速<#ef5350ff>30%<>、攻击力降低<#ef5350ff>20%<>，自己受到的伤害降低<#ff9028ff>25%<>，持续<#ffb900ff>3秒<>。",
         "ult": "狂暴<#ffb900ff>6秒<>：攻击力<#ff9028ff>+55%<>、攻速<#ff9028ff>+35%<>，无视目标<#ff9028ff>40%<>护甲。"
+      },
+      "tft_raptor": {
+        "name": "深红锋喙鸟",
+        "attack": "甩出一根锋羽，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>橙霸符<>：它的物理伤害使目标护甲<#ef5350ff>-6<>（<#ffb900ff>3秒<>，最多<#ffb900ff>5层<>）。",
+        "skill": "张开翅膀，扇形甩出<#ffb900ff>5根<>羽刃，每根命中第一个敌人，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理伤害<>。",
+        "skill2": "受惊尖叫，往后一跳，之后<#ffb900ff>3秒<>攻速<#ffb900ff>+70%<>。",
+        "ult": "召唤<#ffb900ff>4只<>不可选中的小锋喙鸟（<#ffb900ff>7秒<>）：它每次普攻，小鸟们一起啄同一目标，各造成<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>。"
       }
     },
     "skill_name": {
@@ -314,6 +321,11 @@
         "skill1": "荆棘飞扑",
         "skill2": "绯红咆哮",
         "ult": "猩红之怒"
+      },
+      "tft_raptor": {
+        "skill1": "羽刃扇射",
+        "skill2": "惊飞跃退",
+        "ult": "鸟群之家"
       }
     }
   },
@@ -500,6 +512,13 @@
         "skill": "躍起撲向目標，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並緩速<#ef5350ff>30%<>（<#ffb900ff>1秒<>）。",
         "skill2": "人立怒吼：周圍敵人緩速<#ef5350ff>30%<>、攻擊力降低<#ef5350ff>20%<>，自己受到的傷害降低<#ff9028ff>25%<>，持續<#ffb900ff>3秒<>。",
         "ult": "狂暴<#ffb900ff>6秒<>：攻擊力<#ff9028ff>+55%<>、攻速<#ff9028ff>+35%<>，無視目標<#ff9028ff>40%<>物防。"
+      },
+      "tft_raptor": {
+        "name": "巨喙鳥媽媽",
+        "attack": "甩出一根鋒羽，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>橘色增益<>：牠的物理傷害使目標物防<#ef5350ff>-6<>（<#ffb900ff>3秒<>，最多<#ffb900ff>5層<>）。",
+        "skill": "張開翅膀，扇形甩出<#ffb900ff>5根<>羽刃，每根命中第一個敵人，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理傷害<>。",
+        "skill2": "受驚尖叫，往後一跳，之後<#ffb900ff>3秒<>攻速<#ffb900ff>+70%<>。",
+        "ult": "召喚<#ffb900ff>4隻<>無法被指定的小巨喙鳥（<#ffb900ff>7秒<>）：牠每次普攻，小鳥們一起啄同一目標，各造成<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>。"
       }
     },
     "skill_name": {
@@ -632,6 +651,11 @@
         "skill1": "荊棘飛撲",
         "skill2": "緋紅咆哮",
         "ult": "猩紅狂怒"
+      },
+      "tft_raptor": {
+        "skill1": "羽刃扇射",
+        "skill2": "驚飛躍退",
+        "ult": "飛禽家族"
       }
     }
   },
@@ -818,6 +842,13 @@
         "skill": "Pounces on its target for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<>, slowing it <#ef5350ff>30%<> for <#ffb900ff>1s<>.",
         "skill2": "Rears up and roars: nearby enemies are slowed <#ef5350ff>30%<> and lose <#ef5350ff>20%<> attack, it takes <#ff9028ff>25%<> less damage, for <#ffb900ff>3s<>.",
         "ult": "Frenzied for <#ffb900ff>6s<>: <#ff9028ff>+55%<> attack, <#ff9028ff>+35%<> attack speed, ignores <#ff9028ff>40%<> of its target's armor."
+      },
+      "tft_raptor": {
+        "name": "Mama Beak",
+        "attack": "Flings a sharp feather for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Orange Buff<>: its physical damage takes <#ef5350ff>6<> armour off the target for <#ffb900ff>3s<> (up to <#ffb900ff>5<> stacks).",
+        "skill": "Spreads its wings and flings <#ffb900ff>5<> blade feathers in a fan, each hitting the first enemy for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>physical damage<>.",
+        "skill2": "Startled, it screeches and hops back, then gains <#ffb900ff>+70%<> attack speed for <#ffb900ff>3s<>.",
+        "ult": "Calls <#ffb900ff>4<> untargetable Tiny Beaks for <#ffb900ff>7s<>: each of its attacks, they peck the same enemy for <#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<> each."
       }
     },
     "skill_name": {
@@ -950,6 +981,11 @@
         "skill1": "Bramble Pounce",
         "skill2": "Crimson Roar",
         "ult": "Crimson Fury"
+      },
+      "tft_raptor": {
+        "skill1": "Feather Fan",
+        "skill2": "Startled Hop",
+        "ult": "Flock Family"
       }
     }
   },
@@ -1136,6 +1172,13 @@
         "skill": "대상에게 덮쳐 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1초<> 동안 <#ef5350ff>30%<> 둔화.",
         "skill2": "일어서서 포효: 주변 적 <#ef5350ff>30%<> 둔화, 공격력 <#ef5350ff>20%<> 감소, 자신은 받는 피해 <#ff9028ff>25%<> 감소(<#ffb900ff>3초<>).",
         "ult": "<#ffb900ff>6초<> 동안 광폭화: 공격력 <#ff9028ff>+55%<>, 공격 속도 <#ff9028ff>+35%<>, 대상 방어력 <#ff9028ff>40%<> 무시."
+      },
+      "tft_raptor": {
+        "name": "어미 부리",
+        "attack": "날카로운 깃털을 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>오렌지 버프<>: 물리 피해를 입히면 대상의 방어력 <#ef5350ff>-6<>(<#ffb900ff>3초<>, 최대 <#ffb900ff>5<>중첩).",
+        "skill": "날개를 펼쳐 깃날 <#ffb900ff>5개<>를 부채꼴로 던집니다. 각각 처음 맞힌 적에게 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "깜짝 놀라 울며 뒤로 뛴 뒤 <#ffb900ff>3초<> 동안 공격 속도 <#ffb900ff>+70%<>.",
+        "ult": "대상으로 지정할 수 없는 꼬마 부리 <#ffb900ff>4마리<>를 <#ffb900ff>7초<> 동안 소환합니다. 기본 공격할 때마다 같은 적을 쪼아 각각 <#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>."
       }
     },
     "skill_name": {
@@ -1268,6 +1311,11 @@
         "skill1": "가시덩굴 덮치기",
         "skill2": "진홍의 포효",
         "ult": "핏빛 분노"
+      },
+      "tft_raptor": {
+        "skill1": "깃날 부채",
+        "skill2": "화들짝 뜀",
+        "ult": "새 떼 가족"
       }
     }
   },
@@ -1454,6 +1502,13 @@
         "skill": "対象に跳びかかり<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1秒<>間<#ef5350ff>30%<>スロウ。",
         "skill2": "立ち上がって咆哮：周囲の敵を<#ef5350ff>30%<>スロウ、攻撃力<#ef5350ff>20%<>低下、自身の被ダメージ<#ff9028ff>25%<>軽減（<#ffb900ff>3秒<>）。",
         "ult": "<#ffb900ff>6秒<>間激昂：攻撃力<#ff9028ff>+55%<>、攻撃速度<#ff9028ff>+35%<>、対象の物理防御を<#ff9028ff>40%<>無視。"
+      },
+      "tft_raptor": {
+        "name": "ママ鳥",
+        "attack": "鋭い羽根を放ち<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>オレンジバフ<>：物理ダメージを与えると対象の物理防御<#ef5350ff>-6<>（<#ffb900ff>3秒<>、最大<#ffb900ff>5<>スタック）。",
+        "skill": "翼を広げ、刃の羽根を<#ffb900ff>5本<>扇状に放つ。それぞれ最初に当たった敵に<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "驚いて鳴き、後ろへ跳ねる。その後<#ffb900ff>3秒<>間攻撃速度<#ffb900ff>+70%<>。",
+        "ult": "対象指定不可のミニヒナ鳥を<#ffb900ff>4体<>召喚（<#ffb900ff>7秒<>）：攻撃するたびに同じ敵をついばみ、それぞれ<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>。"
       }
     },
     "skill_name": {
@@ -1586,6 +1641,11 @@
         "skill1": "茨の飛びかかり",
         "skill2": "深紅の咆哮",
         "ult": "深紅の憤怒"
+      },
+      "tft_raptor": {
+        "skill1": "羽刃の扇",
+        "skill2": "びっくり跳び",
+        "ult": "フロックファミリー"
       }
     }
   }

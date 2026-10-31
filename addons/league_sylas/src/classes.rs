@@ -253,6 +253,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("tft_nomsy", "mage"),
     ("tft_norra", "mage"),
     ("tft_powder", "mage"),
+    ("tft_raptor", "range"),
     ("tft_renni", "melee"),
     ("tft_scar", "melee"),
     ("tft_sentinel", "melee"),

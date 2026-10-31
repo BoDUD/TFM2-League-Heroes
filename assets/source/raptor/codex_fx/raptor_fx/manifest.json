@@ -1,0 +1,642 @@
+[
+  {
+    "file": "raptor_fx_a_bolt.png",
+    "kind": "effect",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      6
+    ],
+    "sheet_1x": [
+      56,
+      6
+    ],
+    "display_scale": 8,
+    "symmetry": "top-bottom",
+    "source_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1916,
+      821
+    ],
+    "unique_frames": 4,
+    "palette": [
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26",
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      32,
+      30,
+      18,
+      18
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "378fee1ec4a4f45169ea5715e02aa4ab0a61a83ee8b565e1c039e38ad85ef2d5",
+      "484fa2132a78182b47c7d2c4ad29a4103a8f1ba0bfbe79401e69d1a7bacd3ce8",
+      "e5854f0dde08dfff4e5559f99e5f69f8d1b7107a4874be153a34ce90677f00b6",
+      "8f5f4d9d73f458eecffd997a4a2c5f2743c36e5f4186c2c67566b1fe5e3b82fd"
+    ]
+  },
+  {
+    "file": "raptor_fx_a_hit.png",
+    "kind": "effect",
+    "frames": 4,
+    "cell_1x": [
+      14,
+      14
+    ],
+    "sheet_1x": [
+      56,
+      14
+    ],
+    "display_scale": 8,
+    "symmetry": "left-right",
+    "source_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1402,
+      1122
+    ],
+    "unique_frames": 4,
+    "palette": [
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A",
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      8,
+      28,
+      16,
+      12
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "8f54b5bbfd6959f962809e57cc6eded0ccbd415c1c15e8c06bb57c92c957152d",
+      "e83742284435cb7ee01565f4efdc64fc9969e0ef61321118083d22db8ce39370",
+      "e11f6213f4fc911a3b759b60c3d9581c2b05272a24cc79a38485460b8ca14cb4",
+      "c3ec336aa34357ab21571a7433b363fe99bd23107b79d93964cfeca0afba2d59"
+    ]
+  },
+  {
+    "file": "raptor_fx_q_feather.png",
+    "kind": "effect",
+    "frames": 4,
+    "cell_1x": [
+      20,
+      8
+    ],
+    "sheet_1x": [
+      80,
+      8
+    ],
+    "display_scale": 8,
+    "symmetry": "top-bottom",
+    "source_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1983,
+      793
+    ],
+    "unique_frames": 4,
+    "palette": [
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26",
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      64,
+      66,
+      54,
+      50
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "8842519a511c771ad347a394747ff70c475a5db4b816bfd85578eb5b407e0f7c",
+      "3d18939a4f5f43de65f37b5d8d2c01fbecb16d132cbfd1605a82864fd330461a",
+      "e0ec9573fb61db88fad324c5bfc76a3d4997a46ddf38c58c0c52bb22cd4091ce",
+      "701ec559431632ec2151081a679a182defaa0456c8b841548624114cfeb766d0"
+    ]
+  },
+  {
+    "file": "raptor_fx_q_hit.png",
+    "kind": "effect",
+    "frames": 4,
+    "cell_1x": [
+      18,
+      16
+    ],
+    "sheet_1x": [
+      72,
+      16
+    ],
+    "display_scale": 8,
+    "symmetry": "left-right",
+    "source_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1330,
+      1182
+    ],
+    "unique_frames": 4,
+    "palette": [
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A",
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      14,
+      110,
+      66,
+      8
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "086593ba04081717a38881ef5e4a1b5a2bc46eb1ad7154bcae224124f492f0ca",
+      "d94e5219f5340f5b843c6afe3f2289e106a5686de23c009bed21c2f1caa17f1d",
+      "7e85148449acfdd46c6e1009e76f06db2bf4c2b61d511b6b051d22f05ce7e178",
+      "4a16c792b14de6fa2c4c753633108fa6c7c2065f62b3b0dfe42e02dd77fb0094"
+    ]
+  },
+  {
+    "file": "raptor_fx_r_peck.png",
+    "kind": "effect",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      6
+    ],
+    "sheet_1x": [
+      48,
+      6
+    ],
+    "display_scale": 8,
+    "symmetry": "top-bottom",
+    "source_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1774,
+      887
+    ],
+    "unique_frames": 3,
+    "palette": [
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26",
+      "#CDBDFF",
+      "#8E6CF0",
+      "#5B3FC0",
+      "#35227A",
+      "#1C1240",
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A",
+      "#BFA27A",
+      "#8A6A48",
+      "#523C2A"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      22,
+      22,
+      16,
+      14
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "d683be46a72c557a9b2ba00ea65422c2c22df00e9310af0c58388f2dc7799df6",
+      "d683be46a72c557a9b2ba00ea65422c2c22df00e9310af0c58388f2dc7799df6",
+      "23b7a796bfd3b8a3756c2d14961aa0563776b932f12ab87ce3a6ce925579dd28",
+      "b1254d59e956976cbea79136fe34c358654877a6e92437cb3fc9d6ccd2167ffb"
+    ]
+  },
+  {
+    "file": "raptor_fx_r_peck_hit.png",
+    "kind": "effect",
+    "frames": 4,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "sheet_1x": [
+      48,
+      12
+    ],
+    "display_scale": 8,
+    "symmetry": "left-right",
+    "source_layout": [
+      2,
+      2
+    ],
+    "raw_size": [
+      1358,
+      1159
+    ],
+    "unique_frames": 4,
+    "palette": [
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A",
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26",
+      "#CDBDFF",
+      "#8E6CF0",
+      "#5B3FC0",
+      "#35227A",
+      "#1C1240"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      4,
+      16,
+      16,
+      14
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "d274624149d822ebaeff9c5b086f0e8a8dc410fb42650223664d2eecff8adb7b",
+      "a6f424757003be519c5fcbca88fe08f1461552e123ef1632ca15976008cf9c79",
+      "7e6aa3de4db39153a4cc20a2ef2de3d54c97034acb95b00ed78c5ff42fea267e",
+      "6ae8ff65907899295b5756de0e25e73f8a01e999f9913a79013633278824b8b4"
+    ]
+  },
+  {
+    "file": "raptor_fx_e_jump.png",
+    "kind": "effect",
+    "frames": 5,
+    "cell_1x": [
+      40,
+      14
+    ],
+    "sheet_1x": [
+      200,
+      14
+    ],
+    "display_scale": 8,
+    "symmetry": "left-right",
+    "source_layout": [
+      2,
+      3
+    ],
+    "raw_size": [
+      2120,
+      742
+    ],
+    "unique_frames": 5,
+    "palette": [
+      "#E8D9BF",
+      "#BFA27A",
+      "#8A6A48",
+      "#523C2A",
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      28,
+      172,
+      164,
+      68,
+      30
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "c8f0ee8b79fa470a191251a75cf7142911c8a2b69ecdbe61209e9b33013a1c8d",
+      "a7d39b99b04bbd5e45ffe235df2e7f2c48de85894ed6a265e4d8f591e05094d0",
+      "4a006f73d49235062578fd5baaaacdafcf26b6e44f57495b8cb66d3caeac8910",
+      "16a828566b042293e192a3725f6921f91f2e119bb5220262c04f1a1e2648119b",
+      "372c0dfc0bbd266ed25b17a3475d8afd9c468339a046f6f63d9e6e7561090a1d"
+    ]
+  },
+  {
+    "file": "raptor_fx_e_rush.png",
+    "kind": "effect",
+    "frames": 6,
+    "cell_1x": [
+      56,
+      40
+    ],
+    "sheet_1x": [
+      336,
+      40
+    ],
+    "display_scale": 8,
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      1816,
+      866
+    ],
+    "unique_frames": 6,
+    "palette": [
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A",
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      56,
+      44,
+      76,
+      54,
+      50,
+      70
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "90ca577b6e705a00724752e5e13bda2edde2fc698b78d763a6d388c57cac20ad",
+      "caffbd51200ed3fddfd0a6dfe49b0131eeb28052503c833a2032148119dd5930",
+      "c8c5ef17dd057b68c2d1bcf8577ed783b88bff5e7449755429465342c3a0ab7a",
+      "1a4ff914c626bc0794f39fd1e1a6e3766bbaa6a289844f0d259eeeb3df79173a",
+      "6380f44cbeb9bb8badedd3f82cadf9e6caa8e5d0aee45bec4d65ee033e697f4a",
+      "cd925aa46f7bcf090bae2f57ca2e2116a9cb517720ae737d6597242410e5028b"
+    ]
+  },
+  {
+    "file": "raptor_fx_p_shred.png",
+    "kind": "effect",
+    "frames": 6,
+    "cell_1x": [
+      12,
+      12
+    ],
+    "sheet_1x": [
+      72,
+      12
+    ],
+    "display_scale": 8,
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      1536,
+      1024
+    ],
+    "unique_frames": 3,
+    "palette": [
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A",
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26"
+    ],
+    "group_translation_x_1x": [
+      0,
+      0
+    ],
+    "opaque_pixels": [
+      44,
+      44,
+      44,
+      42,
+      42,
+      42
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "9519bb87dea3fab4e08bd67813fcd50a6c0292c6319197878e331a8969ecb8aa",
+      "9519bb87dea3fab4e08bd67813fcd50a6c0292c6319197878e331a8969ecb8aa",
+      "9519bb87dea3fab4e08bd67813fcd50a6c0292c6319197878e331a8969ecb8aa",
+      "13541c3532bfa30ccd5e4dfcd6d38e282eb259700bb47aed6f07bf102823bf03",
+      "d516eb9944cdb602dee2c8be3193701553062137e34606cab00afcad0c0bb803",
+      "d516eb9944cdb602dee2c8be3193701553062137e34606cab00afcad0c0bb803"
+    ]
+  },
+  {
+    "file": "raptor_fx_r_flock.png",
+    "kind": "effect",
+    "frames": 6,
+    "cell_1x": [
+      84,
+      44
+    ],
+    "sheet_1x": [
+      504,
+      44
+    ],
+    "display_scale": 8,
+    "symmetry": "left-right",
+    "source_layout": [
+      3,
+      2
+    ],
+    "raw_size": [
+      2121,
+      741
+    ],
+    "unique_frames": 6,
+    "palette": [
+      "#FFD9B0",
+      "#FF7A3D",
+      "#E8331F",
+      "#A3122A",
+      "#5C0A26",
+      "#CDBDFF",
+      "#8E6CF0",
+      "#5B3FC0",
+      "#35227A",
+      "#1C1240",
+      "#FFF7CC",
+      "#FFD24A",
+      "#FF9A1F",
+      "#D9560F",
+      "#8A2A0A",
+      "#E8D9BF",
+      "#BFA27A",
+      "#8A6A48",
+      "#523C2A"
+    ],
+    "group_translation_x_1x": [
+      -3,
+      3
+    ],
+    "opaque_pixels": [
+      368,
+      326,
+      388,
+      372,
+      324,
+      382
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "frame_hashes": [
+      "a8c10198a65f7abfe1a36545c498f75862502efbde93d1bf196dbcc02e48665d",
+      "9ceeac5fa8b0adbe2dce1bb91ed759c07d0439e7bc71a55d10e525fb9613dc6d",
+      "1520abdcd958cb3e5239994bd415f4e094a6a60c20eaa622eb892bd66286878f",
+      "773ed914ad7619f727b71d129b343e1154a64876b7441e5df9037207aeaab558",
+      "5dfb0c5470f0556e9334278ead65c22d121c8610aef1e0109d64bad2acbf96fa",
+      "d415bf0976662b6143a20dc4b996689b484b7c3618ab63a14c320a36d3527bcb"
+    ]
+  },
+  {
+    "file": "raptor_icon_skill.png",
+    "kind": "icon",
+    "size": [
+      64,
+      64
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "file": "raptor_icon_skill2.png",
+    "kind": "icon",
+    "size": [
+      64,
+      64
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "alpha_values": [
+      255
+    ]
+  },
+  {
+    "file": "raptor_icon_ult.png",
+    "kind": "icon",
+    "size": [
+      64,
+      64
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "alpha_values": [
+      255
+    ]
+  }
+]

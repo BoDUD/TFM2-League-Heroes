@@ -374,6 +374,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // at the user's 40 game px from the back branches to its claws, PPU 1.7 (「A 40 像素 PPU 1.7」: 132 rows brought to
     // 68), and Codex's key poses after its own TFT clips, posed by tools/art/rig_brambleback.py, so no SIZES row
     ("tft_brambleback", 1.7, include_str!("../../../tft/champions/tft_brambleback#anim.fanim")),
+    // the Crimson Raptor (tft_raptor, the tft pack): the raptor crouched at 3/4, step 0's A-1 at the user's 36 game px
+    // from the crest to its talons, PPU 1.56 (「A-1 36 PPU 1.56」: 56 rows 1:1), and Codex's key poses after its own TFT
+    // clips, posed by tools/art/rig_raptor.py, so no SIZES row
+    ("tft_raptor", 1.56, include_str!("../../../tft/champions/tft_raptor#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

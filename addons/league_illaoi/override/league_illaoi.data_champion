@@ -4252,6 +4252,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_raptor",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_raptor",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_raptor_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_raptor_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_renni",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_renni",
