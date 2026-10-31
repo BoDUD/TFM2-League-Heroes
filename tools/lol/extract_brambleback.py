@@ -5,11 +5,11 @@ r"""Pull the Crimson Brambleback's sounds out of the local League of Legends ins
 Its own sounds (the user: 「音效什么都要自己找」). Set 18 (DA_Brambleback18) names no event and the client ships no set-18
 bank (as for the Krug and the Sentinel); its skin bin borrows the Rift's SRU_Red, so its voice is the Rift's own Red
 Brambleback: Map11's NPC_Map11_Red_SFX banks. Named by guessing their hashes (2026-10-31): Spawn_cast, Death_cast,
-n2a_buffactivate (its animation bin names it); the claw swings, their hits and the roars answer to no guessed name, so
+n2a_buffactivate (its animation bin names it; only the death is used); the claw swings, their hits and the roars answer to no guessed name, so
 they are picked by their event id (read by their length and loudness: a swing ~1 s, a hit ~0.7 s with a sharp attack, a
 roar ~2 s; the 2589636900 roar swells to its peak at 1 s).
 The rest is League's other beasts and fire, Champions/<name>.wad.client: Warwick's Jaws of the Beast (the leap) and
-Primal Howl (the guard), Rengar's Savagery (the leap on to the next), Brand's burning hit (Red Buff's burn) and Ablaze
+Primal Howl (the guard), Rengar's Savagery (the leap on to the next), Brand's burning hit (Red Buff's burn; its heal plays no sound, every claw heals) and Ablaze
 (the fury's fire), Nasus's Wither (the roar's slow) and Fury of the Sands (Crimson Fury).
 Read, never written; the bank's Wwise events resolved to their media (the first variant unless picked), decoded with
 vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games).
@@ -37,7 +37,6 @@ CLIPS = {
     C + "a": ("red", [SWING], 1.0, -11),
     C + "a_hit": ("red", [CLAW_HIT], 0.7, -9),
     C + "p": ("Brand", ["Play_sfx_Brand_BrandBasicAttack_OnHit"], 0.8, -14),           # Red Buff: the burn
-    C + "p_heal": ("red", [B + "n2a_buffactivate"], 1.4, -14),                         # Red Buff: the heal
     C + "q": ("Warwick", ["Play_sfx_Warwick_WarwickQ_OnCast"], 1.0, -9),               # the leap
     C + "q_hit": ("Warwick", ["Play_sfx_Warwick_WarwickQ_OnHit"], 0.9, -9),
     C + "q_next": ("Rengar", ["Play_sfx_Rengar_RengarQ_OnCast"], 1.0, -10),           # on to the next target
