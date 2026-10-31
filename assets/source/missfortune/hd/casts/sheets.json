@@ -1,0 +1,539 @@
+{
+ "square": 8,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (her move loop): a quick, swaggering run, both pistols in her hands, the hair and the sleeves flying, the LEGS CHANGING OVER",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke.",
+   "legs": "Frame 1: STRIDE: the NEAR leg (the lighter one) reaching forward (image right), the FAR leg behind pushing off. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (her move loop): a quick, swaggering run, both pistols in her hands, the hair and the sleeves flying, the LEGS CHANGING OVER",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke.",
+   "legs": "Frame 2: the near foot landing under her, the far leg lifting off behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (her move loop): a quick, swaggering run, both pistols in her hands, the hair and the sleeves flying, the LEGS CHANGING OVER",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke.",
+   "legs": "Frame 3: PASSING: the near leg planted under her hips; the FAR leg swinging through under her, knee up. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (her move loop): a quick, swaggering run, both pistols in her hands, the hair and the sleeves flying, the LEGS CHANGING OVER",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke.",
+   "legs": "Frame 4: the FAR leg reaching forward to land, the near leg pushing off behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (her move loop): a quick, swaggering run, both pistols in her hands, the hair and the sleeves flying, the LEGS CHANGING OVER",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke.",
+   "legs": "Frame 5: STRIDE: now the FAR leg (the darker one) forward (image right), the NEAR leg behind pushing off. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (her move loop): a quick, swaggering run, both pistols in her hands, the hair and the sleeves flying, the LEGS CHANGING OVER",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke.",
+   "legs": "Frame 6: the far foot landing under her, the near leg lifting off behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (her move loop): a quick, swaggering run, both pistols in her hands, the hair and the sleeves flying, the LEGS CHANGING OVER",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke.",
+   "legs": "Frame 7: PASSING: the far leg planted under her hips; the NEAR leg swinging through under her, knee up. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (her move loop): a quick, swaggering run, both pistols in her hands, the hair and the sleeves flying, the LEGS CHANGING OVER",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke.",
+   "legs": "Frame 8: the NEAR leg reaching forward to land, the far leg pushing off behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she aims the near pistol forward and FIRES (frames 1-3), then swings it up beside her head, muzzle to the sky (frames 4-6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she aims the near pistol forward and FIRES (frames 1-3), then swings it up beside her head, muzzle to the sky (frames 4-6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she aims the near pistol forward and FIRES (frames 1-3), then swings it up beside her head, muzzle to the sky (frames 4-6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack: she aims the near pistol forward and FIRES (frames 1-3), then swings it up beside her head, muzzle to the sky (frames 4-6)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she aims the near pistol forward and FIRES (frames 1-3), then swings it up beside her head, muzzle to the sky (frames 4-6)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Double Up (Q): she aims the near pistol forward (frames 2-3) and FIRES, the recoil lifting it up beside her head (frames 4-6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Double Up (Q): she aims the near pistol forward (frames 2-3) and FIRES, the recoil lifting it up beside her head (frames 4-6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Double Up (Q): she aims the near pistol forward (frames 2-3) and FIRES, the recoil lifting it up beside her head (frames 4-6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Double Up (Q): she aims the near pistol forward (frames 2-3) and FIRES, the recoil lifting it up beside her head (frames 4-6)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Double Up (Q): she aims the near pistol forward (frames 2-3) and FIRES, the recoil lifting it up beside her head (frames 4-6)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Make It Rain (E): she swings both pistols up and FIRES INTO THE SKY, both muzzles up over her head (frames 2-6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Make It Rain (E): she swings both pistols up and FIRES INTO THE SKY, both muzzles up over her head (frames 2-6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Make It Rain (E): she swings both pistols up and FIRES INTO THE SKY, both muzzles up over her head (frames 2-6)",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Make It Rain (E): she swings both pistols up and FIRES INTO THE SKY, both muzzles up over her head (frames 2-6)",
+   "ms": [
+    90,
+    90
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Bullet Time (R): she braces in a wide stance, the near pistol FIRING forward and the far pistol raised behind her head, swaying with the recoil frame by frame",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Bullet Time (R): she braces in a wide stance, the near pistol FIRING forward and the far pistol raised behind her head, swaying with the recoil frame by frame",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Bullet Time (R): she braces in a wide stance, the near pistol FIRING forward and the far pistol raised behind her head, swaying with the recoil frame by frame",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Bullet Time (R): she braces in a wide stance, the near pistol FIRING forward and the far pistol raised behind her head, swaying with the recoil frame by frame",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Bullet Time (R): she braces in a wide stance, the near pistol FIRING forward and the far pistol raised behind her head, swaying with the recoil frame by frame",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Bullet Time (R): she braces in a wide stance, the near pistol FIRING forward and the far pistol raised behind her head, swaying with the recoil frame by frame",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Bullet Time (R): she braces in a wide stance, the near pistol FIRING forward and the far pistol raised behind her head, swaying with the recoil frame by frame",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Bullet Time (R): she braces in a wide stance, the near pistol FIRING forward and the far pistol raised behind her head, swaying with the recoil frame by frame",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back, the pistols swung out",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back, the pistols swung out",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, she staggers, drops the pistols, sinks to her knees (frames 4-6) and ends lying flat on the ground (frame 7)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke. Where the pale figure has dropped them, draw them lying on the ground or leave them out."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, she staggers, drops the pistols, sinks to her knees (frames 4-6) and ends lying flat on the ground (frame 7)",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke. Where the pale figure has dropped them, draw them lying on the ground or leave them out."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, she staggers, drops the pistols, sinks to her knees (frames 4-6) and ends lying flat on the ground (frame 7)",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke. Where the pale figure has dropped them, draw them lying on the ground or leave them out."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, she staggers, drops the pistols, sinks to her knees (frames 4-6) and ends lying flat on the ground (frame 7)",
+   "ms": [
+    500
+   ],
+   "weapons": "THE TWO PISTOLS go where the pale figure has them, frame by frame (image 3 shows them in colour): the FAR pistol in her far hand, the NEAR pistol in her near hand - dark barrels, gold fittings, flared muzzles, her hands round the grips - aimed forward, raised to the sky or hanging as the pale figure holds them; never a third pistol. Only these: no muzzle flash, no bullets, no smoke. Where the pale figure has dropped them, draw them lying on the ground or leave them out."
+  }
+ ]
+}
