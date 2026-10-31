@@ -125,12 +125,7 @@ static ORIG: Mutex<Vec<(usize, u64, Vec<u8>)>> = Mutex::new(Vec::new());
 static LOOKS: Mutex<Vec<(usize, u64, Vec<u8>)>> = Mutex::new(Vec::new());
 static HOOK: Once = Once::new();
 
-#[link(name = "kernel32")]
-extern "system" {
-    fn GetProcessHeap() -> isize;
-    fn HeapAlloc(heap: isize, flags: u32, bytes: usize) -> *mut u8;
-    fn HeapFree(heap: isize, flags: u32, mem: *mut u8) -> i32;
-}
+use game_places::heap::{GetProcessHeap, HeapAlloc, HeapFree};
 
 unsafe fn q(addr: usize) -> usize {
     std::ptr::read_unaligned(addr as *const usize)

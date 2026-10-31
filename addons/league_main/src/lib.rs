@@ -5,7 +5,7 @@
 //! 像素更细。src/lookup.rs：游戏按名字取动画表和贴图的两个函数上挂钩——动画表就地改成每个动作都是高清帧（矩形 ÷ PPU），
 //! 贴图的宽高报 ÷ PPU，界面按帧大小画、UV 落在高清那块；战场按「UV × 图的真实像素」画，所以战场拿到真实的高清帧和真实
 //! 宽高，src/view.rs 把实体的绘制缩放写成 ÷ PPU。只在 src/build.rs 认得的游戏版本上挂钩（每处要改要调的代码逐字节核对指纹，现在认得 0.7.0；认不得的版本由 game_places 在运行时找）；找不到的版本、
-//! Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
+//! Mac（league.dylib，CI 的 mac 任务编：钩子都是照 Windows 的 EXE 做的，Mac 上一个都不挂）什么都不改，英雄照旧画 1 倍的帧。
 //!
 //! src/ui.rs（0.7.140）：BP 格子、图鉴 / 头像、选人位、选中特写、记分板头像改画每个英雄自己的小图集（打包时生成，
 //! 只有界面画的帧）——一屏画全部英雄的界面不再把整张战斗图集塞进游戏 256 MiB 的图片缓存（「BP界面非常的卡」）。
@@ -90,7 +90,7 @@ fn init(host: &StableHost) -> StableMod {
     close_log();
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
-    wlog(format!("=== {ID}.dll {VERSION} (dense frames) loaded: game {}.{}.{} abi {} log={} ===",
+    wlog(format!("=== {ID}.{} {VERSION} (dense frames) loaded: game {}.{}.{} abi {} log={} ===", std::env::consts::DLL_EXTENSION,
         v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
     // the GPU image cache first, whatever the build: it only needs Skia's GrResourceCache (src/cache.rs)
     #[cfg(windows)]
@@ -134,6 +134,13 @@ fn init(host: &StableHost) -> StableMod {
             host.log(LogLevel::Info, "League Heroes: this game build is not known to league.dll yet - 1x frames.");
         }
     }
+    // the hooks are made for the Windows EXE: on a Mac the heroes play as on Windows, drawn with their 1x frames
+    #[cfg(not(windows))]
+    {
+        wlog("not Windows: no hooks (dense frames, UI sheets, image cache, audio warm-up) - every hero draws its 1x frames");
+        host.log(LogLevel::Info, "League Heroes: dense (PPU) frames are Windows-only - 1x frames.");
+    }
+    #[cfg_attr(not(windows), allow(unused_mut))]
     let mut module = StableMod::new(ID);
     #[cfg(windows)]
     module.set_extension(warm::Warm);

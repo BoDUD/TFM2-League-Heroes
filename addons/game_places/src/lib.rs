@@ -23,6 +23,7 @@
 use std::collections::{HashMap, HashSet};
 
 pub mod clock;
+pub mod heap;
 pub mod hook;
 pub mod sigs;
 
