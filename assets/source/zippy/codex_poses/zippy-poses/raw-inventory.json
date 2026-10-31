@@ -1,0 +1,574 @@
+[
+  {
+    "name": "a_wind",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      285,
+      169,
+      971,
+      1166
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "a6283c3c5d92c01480e48ada8781d5dacfb455b3dc20f08f92bb06d6b2477c8e",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      10
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "a_kick",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      145,
+      140,
+      1199,
+      1177
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "99bb6fefa94e620100a0ad82abe83f269ec9aa98145ecd8d17ab79f50fa33729",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      -1
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "q_crouch",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      197,
+      363,
+      1042,
+      1182
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "2198841a9d61c25458401cbfafd98603b66ed26911f18b39673ff8f8a5c4cb05",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      -6
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "q_flip",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      177,
+      146,
+      1181,
+      1092
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "bbe2ae8b1a342b761505a9302c3cbf1aebdec27f9c2e2415f5581c87cf87326b",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      84
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "q_kick",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      122,
+      89,
+      1221,
+      1163
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "93da0e414fae1e23b19a2a4d7f30f672cb5af2d2069f15180c511ba4da6638f6",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      13
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "q_land",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      249,
+      400,
+      1006,
+      1195
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "081ebeb940e2ad209712f8df1645eeaf380b4fc61cb9306c46ab5f059e2338fe",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      -19
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "e_curl",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      239,
+      264,
+      1068,
+      1120
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "41407bccdf298599cdfeafc799d3a9f5729d6bd8dbc94cf296b1ba59e2706672",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      56
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "e_ball",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      323,
+      435,
+      970,
+      1139
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "7d6a8af0389944bd7b9f73def7b2b81964f17862b31f00f3beee47eb5f4e1f27",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      37
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "r_crouch",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      215,
+      429,
+      1020,
+      1166
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "41ed1eee67f9853087df10f0fd9dbe64e17f132be18c3a2402b2f06a89cd2845",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      10
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "r_spring",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      234,
+      159,
+      1165,
+      1111
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "3fc1423b40c6934ba8e4f4132cabdc284331f4ba36e84719e65c8abd0e7eb31b",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      65
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "r_open",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      157,
+      78,
+      1167,
+      1195
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "30e1d9b6f30157d2b5a943fb195bc7d004a84deef136ebe53d804b626af88249",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      -19
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "r_land",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      81,
+      460,
+      1147,
+      1175
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "8c6be77a05d7642b61871f455c04653cf9ecd55390e57a2440dab0f151bee730",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      1
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "run1",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      69,
+      440,
+      1196,
+      1146
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "3188ca8fd57515b0ad22778e3d0e52a7a52daea862008146a2189e26ae1ad97a",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      30
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "run2",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      150,
+      372,
+      1127,
+      1163
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "4fcb9112f4c48d847ea9b180d1851e67118eabe1ed17137443c0a28663db5dca",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      13
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "run3",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      158,
+      372,
+      1088,
+      1176
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "a0c83aa7a81863f576ff14410b6148cde12a45d915ed2a27c96529c7078d5048",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      0
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "run4",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      225,
+      361,
+      1041,
+      1156
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "855868a257af0b5e4096d8f0c671de81086b5795ac274575284eb3e13ad51161",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      20
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "run5",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      166,
+      334,
+      1122,
+      1166
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "661dd3b714bc035adc947d1314f2f97a826a9e9221e4c5f9bf3229d03bc782ed",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      10
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "run6",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      166,
+      339,
+      1100,
+      1196
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "a2e104048223c80a21096e7f651190bb336fef197a7d0a8bff2a80b41c75f8f0",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      -20
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "run7",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      181,
+      404,
+      1089,
+      1156
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "293a26bc6b9a45b0ee301b087b7ae075892cce370d63d7f6ff080f9573f6a920",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      20
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "run8",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      198,
+      299,
+      1050,
+      1156
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "7b8f4c5f4a23890be83898a429ca493e3b39fefc4c881f18f1e03fc5380a1f6d",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      20
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "d_fall",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      283,
+      212,
+      1082,
+      1175
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "eccf8792f2acac2079e66cf5aedf20ad4b10d72f8d1ac40cb6a1924eb44c5699",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      1
+    ],
+    "floor_delta_from_1176": 0
+  },
+  {
+    "name": "d_down",
+    "kind": "pose",
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "bbox_alpha128": [
+      264,
+      568,
+      1048,
+      1078
+    ],
+    "raw_alpha_levels": 256,
+    "raw_sha256": "3e9f7057a983b2f431e10a3b314226d92580403fc59de22eefc363b15c1c42c3",
+    "delivery_size": [
+      1254,
+      1254
+    ],
+    "resampled": false,
+    "translation_px": [
+      0,
+      98
+    ],
+    "floor_delta_from_1176": 0
+  }
+]

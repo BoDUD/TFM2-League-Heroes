@@ -1,0 +1,10 @@
+{
+  "pose_count": 22,
+  "canvas_all_1254": true,
+  "floor_all_1176": true,
+  "hard_alpha_all": true,
+  "all_source_pixels_preserved_under_translation": true,
+  "strict_grid_10px": "not passed as exact",
+  "pixel_identical_head": "not passed as exact",
+  "run_body_fixed": "not passed as exact"
+}

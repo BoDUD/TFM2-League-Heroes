@@ -1,0 +1,148 @@
+{
+  "effects": 9,
+  "effect_frames": 45,
+  "icons": 3,
+  "checks": [
+    {
+      "name": "a_hit",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "q_hit",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        24
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "e",
+      "frames": 4,
+      "cell_1x": [
+        30,
+        10
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "e_hit",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "r",
+      "frames": 4,
+      "cell_1x": [
+        34,
+        12
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "r_hit",
+      "frames": 6,
+      "cell_1x": [
+        56,
+        40
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "p_guild",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        8
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "e_speed",
+      "frames": 6,
+      "cell_1x": [
+        30,
+        14
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "r_shield",
+      "frames": 6,
+      "cell_1x": [
+        44,
+        50
+      ],
+      "hard_alpha": true,
+      "symmetric_per_frame": true,
+      "nonempty_every_frame": true,
+      "palette_only": true,
+      "exact_8x_repeat": true
+    },
+    {
+      "name": "skill",
+      "size": [
+        64,
+        64
+      ],
+      "exact_2px_grid": true
+    },
+    {
+      "name": "skill2",
+      "size": [
+        64,
+        64
+      ],
+      "exact_2px_grid": true
+    },
+    {
+      "name": "ult",
+      "size": [
+        64,
+        64
+      ],
+      "exact_2px_grid": true
+    }
+  ]
+}
