@@ -41,9 +41,15 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # placeholders until the strips are rigged (tools/art/rig_brambleback.py). Stats start from the pack's jungle bruisers
 # (tft_krug hp 1200 +118 / atk 80, league_warwick 1120 / 92, league_udyr 1120 / 86): the 4-cost berserker, slow
 # heavy claws, all physical.
+# Numbers = the 10-min classic-SDK simulations (C:/t/bb_sim with C:/t/al_sim/kd.py: jungle lane 1 against the base
+# ninja, demon, hunter, werewolf and vampire, three lineups, both sides; 2026-10-31), all --plain (the burn a Fire
+# AddCasted, the heal flat, no leap on to the next): the draft (atk 88, Q 60 + 130%, R +45%) +1.48 on seeds 1-8;
+# atk 92, Q 150%, R +55% +2.15 / +1.34 (seeds 1-8 / 9-16) = P; atk 95, Q 155%, R +55%, roar 30% +1.72 / +1.73 (the
+# same within the noise, +-0.47). tft_krug --plain +2.06 / +1.89, tft_sentinel +2.20 / +3.00: a little under them
+# here, with tft.dll's leap on to the next after each kill (never in the sims) on top in the game.
 P = {
     # stats (Melee, a jungle bruiser with physical skills)
-    "hp": 1100, "hp_g": 108, "atk": 88, "atk_g": 16, "apw": 0, "apw_g": 0, "def": 34, "def_g": 8, "mr": 28, "mr_g": 6,
+    "hp": 1100, "hp_g": 108, "atk": 92, "atk_g": 16, "apw": 0, "apw_g": 0, "def": 34, "def_g": 8, "mr": 28, "mr_g": 6,
     "ms": 1040, "ms_g": 10,
     "atk_range": 25000, "atk_dur": 32, "atk_cd": 66, "atk_st": 16,
     # passive Red Buff (tft.dll) and its --plain stand-in
@@ -52,13 +58,13 @@ P = {
     # the leap on to the next (tft.dll; TFT's passive)
     "k_range": 60000, "k_speed": 4000, "k_t": 24, "k_dmg": 60, "k_ad": 120, "k_cd": 60,
     # Bramble Pounce
-    "q_cd": 420, "q_range": 55000, "q_dur": 30, "q_speed": 3500, "q_dmg": 60, "q_ad": 130, "q_slow": 30,
+    "q_cd": 420, "q_range": 55000, "q_dur": 30, "q_speed": 3500, "q_dmg": 60, "q_ad": 150, "q_slow": 30,
     "q_slow_t": 60,
     # Crimson Roar
     "e_cd": 600, "e_range": 30000, "e_dur": 36, "e_st": 14, "e_r": 34000, "e_slow": 30, "e_atk": 20, "e_t": 180,
     "e_dr": 25,
     # Crimson Fury (TFT: bonus AD, armour ignored)
-    "r_cd": 3000, "r_range": 40000, "r_dur": 30, "r_st": 12, "r_t": 360, "r_atk": 45, "r_as": 35, "r_pen": 40,
+    "r_cd": 3000, "r_range": 40000, "r_dur": 30, "r_st": 12, "r_t": 360, "r_atk": 55, "r_as": 35, "r_pen": 40,
 }
 # what tft.dll reads from passive.params (addons/tft/src/brambleback.rs)
 NATIVE_KEYS = ("p_burn", "p_burn_t", "p_burn_every", "p_burn_cap", "p_heal", "k_range", "k_speed", "k_t", "k_dmg",
