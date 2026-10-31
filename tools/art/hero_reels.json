@@ -138,7 +138,7 @@
   "league_sylas": {"idle": [["skill", [2, 1]]]},
   "league_syndra": {"idle": [["skill2", [0, 1, 2, 3]], ["skill2_e", [0, 1, 2, 3]]]},
   "league_tahmkench": {"idle": [["skill", [0, 1, 2, 3]], ["r_spit", [0, 1, 2, 3]]]},
-  "league_talon": {"idle": [["attack", [0, 1]], ["skill2_stab", [5]]]},
+  "league_talon": {"idle": [["attack", [0, 1]]]},
   "league_taric": {"idle": [["skill2", [0, 1, 2, 3]], ["ult", [0, 1]]]},
   "league_teemo": {"idle": [["ult", [0, 1, 2]], ["attack", [0]]]},
   "league_thresh": {"idle": [["skill", [7, 6]], ["skill2", [3, 4]]]},

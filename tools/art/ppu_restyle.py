@@ -733,8 +733,10 @@ RESTYLE = {
     # Talon (2026-10-31, 「下一个英雄重做泰隆」, 「用A PPU2.21吧」): Codex's talon-A read on its own ~10.5-px squares
     # (105 x 86, design_talon_hd.py: 86 rows / 2.205 = his 39); every action Codex's whole-frame redraw of his old frame
     # read onto it (tools/art/casts_talon_hd.py), so no density change; the face point stays: he is as tall as before;
-    # nothing baked
-    "talon": dict(ppu=86 / 39, edge=0),
+    # nothing baked. Then the user (2026-10-31): 「男刀局内体型有点过大了 缩小一点」「太高清 加点黑色描边吧」: drawn at 2.205
+    # (ORIG_PPU), brought to 1.5 squares a game pixel like Leona, Lucian and Lee Sin, a 1-square outline, 90 % in game
+    # (hd.rs SIZES): 2 squares lower (lift_sq: 11.5 x 1.5 x (1 / 0.9 - 1) = 1.9)
+    "talon": dict(ppu=1.5, edge=1, lift_sq=-2),
     # Thresh (2026-10-31, 「锤石和女枪在这个pr里一起重做二轮」, 「都用中间档」): Codex's thresh-A read on its own ~9.75-px
     # squares (90 x 99, design_thresh_hd.py: 99 rows / 2.475 = his 40); every action Codex's whole-frame redraw of his
     # old frame read onto it (tools/art/casts_thresh_hd.py), so no density change; the face point stays: he is as tall

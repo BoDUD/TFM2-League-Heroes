@@ -1191,7 +1191,8 @@
                                           "buff_state": {
                                             "name": "league_chogath_r_stack",
                                             "duration": "Permanent",
-                                            "hp": 70
+                                            "hp": 70,
+                                            "move_speed_mult": -3
                                           },
                                           "only_to_enemy": false
                                         },

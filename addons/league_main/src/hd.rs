@@ -551,8 +551,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Talon (2026-10-31, 「下一个英雄重做泰隆」, 「用A PPU2.21吧」): Codex's talon-A read on its own ~10.5-px squares
     // (105 x 86, tools/art/design_talon_hd.py: 86 rows / 39 = 2.205); every action Codex's whole-frame redraw of his old
     // frame read onto it at the zoom his figure and face give (tools/art/casts_talon_hd.py, rig_talon_hd.py; the run
-    // redrawn with the legs changing over, 「走路没有换腿」; nothing baked); 39 game px as his 1x sprite, so no SIZES row
-    ("league_talon", 2.205, include_str!("../../../league/champions/league_talon#anim.fanim")),
+    // redrawn with the legs changing over, 「走路没有换腿」; nothing baked); 39 game px as his 1x sprite. Then 「男刀局内体型有点
+    // 过大了 缩小一点」「太高清 加点黑色描边吧」(2026-10-31): brought to 1.5 with an outline (RESTYLE talon), 90 % in game (SIZES)
+    ("league_talon", 1.5, include_str!("../../../league/champions/league_talon#anim.fanim")),
     // Thresh (2026-10-31, 「锤石和女枪在这个pr里一起重做二轮」, 「都用中间档」): Codex's thresh-A read on its own ~9.75-px
     // squares (90 x 99, tools/art/design_thresh_hd.py: 99 rows / 40 = 2.475); every action Codex's whole-frame redraw of
     // his old frame read onto it at the zoom its height (or its area) gives (tools/art/casts_thresh_hd.py,
@@ -623,6 +624,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Sion, and 79 wide in his punch, 93 landing his E: the widest in the pack; 85 % picked from a true-scale sheet of 100 /
 /// 90 / 85 / 80 %: 50 x 39 standing, 67 / 79 in the punch / E), his frames 3 squares lower (RESTYLE zac lift_sq:
 /// 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0).
+/// Talon: 90 % (the user, 2026-10-31: 「男刀局内体型有点过大了 缩小一点」 - 39 game px hood to soles), his frames 2 squares
+/// lower (RESTYLE talon lift_sq: 11.5 x 1.5 x (1 / 0.9 - 1) = 1.9).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
@@ -631,26 +634,25 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("tft_powder", 0.90), ("league_nami", 0.90), ("league_hwei", 0.85),
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
-                                    ("league_zac", 0.85)];
+                                    ("league_zac", 0.85), ("league_talon", 0.90)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
 /// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
-/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, up to GROW_CAP,
+/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, with no cap,
 /// about his soles (src/view.rs: only the body's own commands, so his shadow and rings stay). The main pack loses the
 /// stacks at his death (Permanent buffs end with it); the add-on league_chogath puts them back. 15 % a stack (was 5 %:
 /// one bite put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」), then 30 % a stack and at most twice his
 /// size (the user 2026-10-26 after a game with one bite, x1.15: 「大虫子体型不变大？」「隔壁oppi的大虫子就会变大的」, picked
-/// 30 % / 2x): one bite x1.3, four x2.
+/// 30 % / 2x), then the cap gone (the user 2026-10-31: 「大虫子体型应该可以无限变大吧」 - 4 of 45 logged games reached the
+/// 4 bites of x2, 1 had 5): one bite x1.3, four x2.2, ten x4.
 pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.30)];
-/// The most a GROWTH body is drawn: twice its size.
-pub const GROW_CAP: f32 = 2.0;
 
 /// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
 pub const FEET: f32 = 11.5;
 
-/// The body's growth for `stacks` stacks of a GROWTH row (1.0 for none, GROW_CAP at most).
+/// The body's growth for `stacks` stacks of a GROWTH row (1.0 for none, no cap).
 pub fn grown(per: f32, stacks: usize) -> f32 {
-    (1.0 + per * stacks as f32).min(GROW_CAP)
+    1.0 + per * stacks as f32
 }
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares

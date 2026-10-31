@@ -10,9 +10,14 @@ Star / The Skies Descend (R) the `ult`. Q and E keep their cooldowns in flags (`
 the combos can cast them; a slot cast while its flag is up does nothing (a 3-tick idle). Flags die with him.
   passive Cosmic Creator (星海焕然): his spells gather stardust - a champion in the breath (once every d_lk ticks), a
           champion caught in the black hole (the same), every champion the falling star hits. Each stardust is a
-          Permanent stack (d1 .. d_max, d_ap% ability power each, so every spell grows); in the main pack the stacks end
-          with his death (the add-on puts them back: League's stardust is permanent). Every sky_n stardust charge The
-          Skies Descend (the flag `sky`, kept until the next R).
+          Permanent stack (d1 .. d_max; the first d_ap_n d_ap% ability power each, so every spell grows); in the main
+          pack the stacks end with his death (the add-on puts them back: League's stardust is permanent). Every sky_n
+          stardust charge The Skies Descend (the flag `sky`, kept until the next R). Every grow_n stardust is a size
+          step (League: stardust widens Falling Star, The Skies Descend and Singularity; the user 2026-10-31:
+          「龙王的大招后期感觉没有英雄联盟那种感觉啊」「应该后期大招会很大吧」 - the cap went from 15 to 30, the 15 past
+          the first size alone): the star, the Skies, the shockwave and the black hole's picture and pull grow to grow_x%
+          at d_max (`sized`: the deepest d<step * grow_n> on him picks the step; each step's own pictures,
+          tools/art/import_aurelionsol_fx.py).
           Astral Flight (星穹流丽, W), folded in: a takedown of an enemy champion he damaged (within p_win ticks of his
           last hit on it, by anyone's hand: league_viego's window, league_belveth's watch) lifts him into flight for
           w_t ticks: w_ms% move speed over walls, w_ap% ability power, and the breath's cooldown is q_cd_f (no cooldown
@@ -79,7 +84,9 @@ P = {
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: stardust; Astral Flight folded in
-    "d_max": 15, "d_ap": 3, "d_lk": 60, "g_t": 30, "sky_n": 6, "p_win": 180,
+    "d_max": 30, "d_ap": 3, "d_ap_n": 15, "d_lk": 60, "g_t": 30, "sky_n": 6, "p_win": 180,
+    # stardust grows the star, the Skies, the shockwave and the black hole: a size step every grow_n, grow_x% at d_max
+    "grow_n": 5, "grow_x": 200,
     "w_t": 240, "w_ms": 60, "w_ap": 20, "w_cd": 1200, "w_cut": 300,
     # skill: Breath of Light
     "q_cd": 300, "q_cd_f": 150, "q_range": 75000, "q_t": 90, "q_t_f": 150, "q_p": 10, "q_rel": 8,
@@ -87,7 +94,7 @@ P = {
     # skill2: Singularity
     "e_cd": 630, "e_range": 75000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 26000, "e_t": 300, "e_p": 15,
     "e_dmg": 16, "e_ratio": 9, "e_pull": 250, "e_pull_t": 4, "e_slow": 25, "e_core": 9000, "e_cp": 60, "e_exec": 4,
-    "e_ap": 15, "e_low": 5, "e_low_d": 1,
+    "e_ap": 15, "e_low": 5, "e_low_d": 1, "e_low_n": 15,
     # ult: Falling Star / The Skies Descend
     "r_cd": 2100, "r_range": 125000, "r_dur": 36, "r_rel": 14, "r_fall": 30, "r_r": 22000, "r_dmg": 270,
     "r_ratio": 85, "r_stun": 60, "r_r2": 30000, "r_dmg2": 350, "r_ratio2": 105, "r_up": 50, "r_wave_at": 12,
@@ -247,6 +254,21 @@ def voice(name, p):
     return sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))
 
 
+def tiers(p):
+    """The size steps stardust climbs: one every grow_n, the last at d_max."""
+    return p["d_max"] // p["grow_n"]
+
+
+def grown(p, t):
+    """Step t's size (1 for none, grow_x% at the last)."""
+    return 1 + (p["grow_x"] / 100 - 1) * t / tiers(p)
+
+
+def tier_tag(name, t):
+    """A picture's tag at size step t (tools/art/import_aurelionsol_fx.py draws each step's own, bigger)."""
+    return name if t == 0 else f"{name}_{t}"
+
+
 def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel=False, key=None):
     return {"action_name": name, "description": f"#asset/base/text/champion?description.{ID}.{key or name}",
             "duration": dur, "cooltime": cd, "start_timing": st, "cancelable": cancel, "range": rng,
@@ -264,11 +286,15 @@ def build(p):
         return combine(casted(p["p_win"], 1, refresh("p_alive", 2)),
                        on_me(refresh("p_alive", 3), refresh("p_win_on", p["p_win"] - 2)))
 
+    def d_flag(i):
+        """Stardust stack i: d_ap% ability power for the first d_ap_n, size alone after them."""
+        return flag(f"d{i}", None, **({"magic_power_mult": p["d_ap"]} if i <= p["d_ap_n"] else {}))
+
     def dust():
         """One more stardust: a Permanent stack (d_max at most) and one step of the Skies' charge (sky_n -> `sky`)."""
-        stack = flag("d1", None, magic_power_mult=p["d_ap"])
+        stack = d_flag(1)
         for i in range(2, p["d_max"] + 1):
-            stack = sw(f"d{i - 1}", flag(f"d{i}", None, magic_power_mult=p["d_ap"]), stack)
+            stack = sw(f"d{i - 1}", d_flag(i), stack)
         stack = sw(f"d{p['d_max']}", NONE, stack)
         # the charge c1 .. c(sky_n - 1) fills in order (the deepest one present decides); the next one charges `sky`
         last = p["sky_n"] - 1
@@ -305,15 +331,25 @@ def build(p):
                        delayed(p["q_rel"] - 1 + p["q_sec"], casted(p["q_t_f"] - p["q_sec"], p["q_p"],
                                                                    alive(sw("q_ch", held)))))
 
+    def sized(make):
+        """make(t) for the size step his stardust has reached (stack d<t * grow_n> on him; the deepest one decides)."""
+        out = make(0)
+        for t in range(1, tiers(p) + 1):
+            out = sw(f"d{t * p['grow_n']}", make(t), out)
+        return out
+
     # ------------------------------------------------------------------ E Singularity
     def hole():
-        """The black hole where this runs (a lob's landing spot): pull, damage, the core, E -> Q."""
+        """The black hole where this runs (a lob's landing spot): pull, damage, the core, E -> Q. Its picture and its pull
+        grow with his stardust (sized); the champions caught for stardust and E -> Q, and the core, keep e_r and e_core -
+        the pull brings the outer ones in, and skill2's tree, which the game copies every tick, stays small."""
         hit = [ap(p["e_dmg"], p["e_ratio"]), {"type": "Pull", "speed": p["e_pull"], "tick": p["e_pull_t"]},
                buff("e_slow", p["e_p"] + 5, move_speed_mult=-p["e_slow"])]
         caught = [gain("g_e", "e_lk"), sw("eq_lk", NONE, combine(flag("eq_lk", p["e_t"]), refresh("q_go", ctl_p * 3)))]
         core = [pct(p["e_exec"]), view("e_core"), tsfx("e_core")] + ([native("core")] if p["native"] else [])
-        return combine(view("e_hole"), sfx("e_hole"), on_me(refresh("e_on", p["e_t"], magic_power_mult=p["e_ap"])),
-                       field("e_field", p["e_r"], p["e_t"], p["e_p"], hit),
+        return combine(sized(lambda t: combine(view(tier_tag("e_hole", t)),
+                                               field("e_field", round(p["e_r"] * grown(p, t)), p["e_t"], p["e_p"], hit))),
+                       sfx("e_hole"), on_me(refresh("e_on", p["e_t"], magic_power_mult=p["e_ap"])),
                        field("e_catch", p["e_r"], p["e_t"], p["e_p"], caught, "EnemyChampion"),
                        field("e_eye", p["e_core"], p["e_t"], p["e_cp"], core, "EnemyChampion"))
 
@@ -327,22 +363,30 @@ def build(p):
         return combine(sw("g_r2", flag("g_r3", p["g_t"]), sw("g_r1", flag("g_r2", p["g_t"]), flag("g_r1", p["g_t"]))),
                        track())
 
-    star = combine(view("r_impact"), sfx("r_land"),
-                   blast("r_blast", p["r_r"], [ap(p["r_dmg"], p["r_ratio"]), {"type": "Stun", "duration": p["r_stun"]},
-                                               view("r_hit"), tsfx("r_hit")]),
-                   blast("r_tw", p["r_r"], [r_gain()], "EnemyChampion"))
+    def star(t):
+        k = grown(p, t)
+        return combine(view(tier_tag("r_impact", t)), sfx("r_land"),
+                       blast("r_blast", round(p["r_r"] * k), [ap(p["r_dmg"], p["r_ratio"]),
+                                                              {"type": "Stun", "duration": p["r_stun"]},
+                                                              view("r_hit"), tsfx("r_hit")]),
+                       blast("r_tw", round(p["r_r"] * k), [r_gain()], "EnemyChampion"))
+
     wave_hit = [ap(p["r_wdmg"], p["r_wratio"]), buff("r_slow", p["r_wslow_t"], move_speed_mult=-p["r_wslow"]),
                 view("r_hit")]
-    skies = combine(*rm("sky"), view("r_sky"), sfx("r_sky"),
-                    blast("r_blast2", p["r_r2"], [ap(p["r_dmg2"], p["r_ratio2"]),
-                                                  {"type": "Airborne", "duration": p["r_up"]}, view("r_hit"),
-                                                  tsfx("r_hit")]),
-                    blast("r_tw2", p["r_r2"], [r_gain()], "EnemyChampion"),
-                    delayed(p["r_wave_at"], view("r_wave"), sfx("r_wave"), blast("r_shock", p["r_wave"], wave_hit)))
+
+    def skies(t):
+        k = grown(p, t)
+        return combine(*rm("sky"), view(tier_tag("r_sky", t)), sfx("r_sky"),
+                       blast("r_blast2", round(p["r_r2"] * k), [ap(p["r_dmg2"], p["r_ratio2"]),
+                                                                {"type": "Airborne", "duration": p["r_up"]},
+                                                                view("r_hit"), tsfx("r_hit")]),
+                       blast("r_tw2", round(p["r_r2"] * k), [r_gain()], "EnemyChampion"),
+                       delayed(p["r_wave_at"], view(tier_tag("r_wave", t)), sfx("r_wave"),
+                               blast("r_shock", round(p["r_wave"] * k), wave_hit)))
     # R -> E: the black hole on the impact's spot at once, if Singularity is ready - only for Aurelion Sol himself (`own`,
     # raised by his attack: league_sylas's stolen ult brings the star alone)
     then_e = sw("own", sw("e_cd", NONE, combine(refresh("e_cd", p["e_cd"]), *rm("eq_lk"), sfx("e"), hole())))
-    landing = [sw("sky", skies, star), then_e]
+    landing = [sw("sky", sized(skies), sized(star)), then_e]
     r_cast = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                      delayed(p["r_rel"] - 1, alive(cview("r_call"), view("r_fall"),
                                                    lob("r_star", p["r_fall"], landing, "EnemyChampion"))))
@@ -390,12 +434,14 @@ def build(p):
     views_e = [E("a_hit"), E("q_hit"), E("e_hole", BIG, -1, False), E("e_core"), E("r_call", FX, 3, False), E("r_fall", BIG, 3, False),
                E("r_impact", BIG, -1, False), E("r_sky", BIG, -1, False), E("r_wave", BIG, -1, False), E("r_hit"),
                E("w_lift", FX, 3, False), E("d_gain"), E("sky_ready")]
+    views_e += [E(tier_tag(x, t), BIG, -1, False) for t in range(1, tiers(p) + 1)
+                for x in ("e_hole", "r_impact", "r_sky", "r_wave")]
     views_b = [B_("e_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"), B_("w_fly", FX, -1, "w_trail"),
                B_("sky", FX, 3, "sky_glow")]
     extra = {}
     if p["native"]:   # addons/league_aurelionsol: stardust kept through death, the core's real execute
         extra["passive"] = {"passive_ref": f"{ID}:stardust",
-                            "params": {k: p[k] for k in ("d_max", "e_low", "e_low_d")}}
+                            "params": {k: p[k] for k in ("d_max", "e_low", "e_low_d", "e_low_n")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

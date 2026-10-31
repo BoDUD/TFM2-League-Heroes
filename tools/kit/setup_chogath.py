@@ -65,7 +65,7 @@ TEXT = {
                  R + "减速{q_slow}%" + E + "。",
         "skill2": "向前方锥形区域尖叫，造成" + mag("w_dmg", "w_ap") + "魔法伤害并" + R + "沉默{w_sil}秒" + E + "。",
         "ult": "吞噬受伤的敌方英雄，造成" + O + "{r_dmg}" + E + " + 自身{r_hp}%最大生命的真实伤害和" + APi + M + "{r_ap}%" + E + "无视魔抗的魔法伤害；吃掉则叠一层："
-               "最大生命+{r_stack_hp}、体型变大（最多 2 倍，死亡清空）。",
+               "最大生命+{r_stack_hp}、移速-{r_stack_ms}%、体型变大（不封顶，死亡清空）。",
         "names": ("破裂", "野性尖叫", "盛宴"),
     },
     "zh-hant": {
@@ -77,7 +77,7 @@ TEXT = {
                  R + "緩速{q_slow}%" + E + "。",
         "skill2": "向前方錐形區域尖嘯，造成" + mag("w_dmg", "w_ap") + "魔法傷害並" + R + "沉默{w_sil}秒" + E + "。",
         "ult": "吞噬受傷的敵方英雄，造成" + O + "{r_dmg}" + E + " + 自身{r_hp}%最大生命的真實傷害和" + APi + M + "{r_ap}%" + E + "無視魔抗的魔法傷害；吃掉則疊一層："
-               "最大生命+{r_stack_hp}、體型變大（最多 2 倍，死亡清空）。",
+               "最大生命+{r_stack_hp}、移速-{r_stack_ms}%、體型變大（不封頂，死亡清空）。",
         "names": ("破裂", "野性尖嘯", "饗宴"),
     },
     "en": {
@@ -90,8 +90,8 @@ TEXT = {
                  " magic damage, " + R + "knocking up {q_up}s" + E + " and " + R + "slowing {q_slow}%" + E + ".",
         "skill2": "Screams in a cone ahead: " + mag("w_dmg", "w_ap") + " magic damage and " + R + "silence {w_sil}s" + E + ".",
         "ult": "Devours a wounded enemy champion: " + bite() + " of his max health as true damage and " + APi + M + "{r_ap}%" + E +
-               " magic damage through all magic resist. A kill is a stack: +{r_stack_hp} max health and a bigger body (up "
-               "to 2x; lost on death).",
+               " magic damage through all magic resist. A kill is a stack: +{r_stack_hp} max health, -{r_stack_ms}% move "
+               "speed and a bigger body (no cap; lost on death).",
         "names": ("Rupture", "Feral Scream", "Feast"),
     },
     "ko": {
@@ -103,7 +103,7 @@ TEXT = {
                  ", " + R + "{q_slow}% 둔화" + E + ".",
         "skill2": "전방 원뿔에 울부짖어 " + mag("w_dmg", "w_ap") + " 마법 피해와 " + R + "{w_sil}초 침묵" + E + ".",
         "ult": "부상당한 적 챔피언을 삼켜 " + bite() + " (자신의 최대 체력) 고정 피해와 " + APi + M + "{r_ap}%" + E + " 마법 피해(마법 저항 무시). "
-               "처치하면 중첩: 최대 체력 +{r_stack_hp}, 몸집 증가(최대 2배, 사망 시 초기화).",
+               "처치하면 중첩: 최대 체력 +{r_stack_hp}, 이동 속도 -{r_stack_ms}%, 몸집 증가(제한 없음, 사망 시 초기화).",
         "names": ("파열", "흉포한 울부짖음", "포식"),
     },
     "ja": {
@@ -115,7 +115,7 @@ TEXT = {
                  "と" + R + "{q_slow}%スロウ" + E + "。",
         "skill2": "前方の扇状範囲に叫び" + mag("w_dmg", "w_ap") + "の魔法ダメージと" + R + "{w_sil}秒サイレンス" + E + "。",
         "ult": "傷ついた敵チャンピオンを捕食し" + bite() + "（自身の最大体力）の確定ダメージと" + APi + M + "{r_ap}%" + E + "の魔法ダメージ"
-               "（魔法防御無視）。倒すとスタック：最大体力+{r_stack_hp}、体が大きくなる（最大2倍、死亡で消える）。",
+               "（魔法防御無視）。倒すとスタック：最大体力+{r_stack_hp}、移動速度-{r_stack_ms}%、体が大きくなる（上限なし、死亡で消える）。",
         "names": ("ラプチャー", "スクリーム", "捕食"),
     },
 }
@@ -152,7 +152,7 @@ def secs(t):
 
 def values(p):
     v = {k: p[k] for k in ("p_heal", "p_ap", "e_n", "e_dmg", "e_ap", "e_hp", "e_slow", "q_dmg", "q_ap", "q_slow", "w_dmg",
-                           "w_ap", "r_dmg", "r_hp", "r_ap", "r_stack_hp")}
+                           "w_ap", "r_dmg", "r_hp", "r_ap", "r_stack_hp", "r_stack_ms")}
     for k in ("e_cd", "q_delay", "q_up", "w_sil"):
         v[k] = secs(p[k])
     return v

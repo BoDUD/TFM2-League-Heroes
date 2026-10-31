@@ -7,9 +7,9 @@ main pack's league/champion/league_aurelionsol.data_champion byte for byte (so t
 kit) and that the defaults in src/lib.rs's Params are P's numbers, and writes
 addons/league_aurelionsol/override/league_aurelionsol.data_champion and .../text/champion.i18n: the build with native=1 -
   * Singularity's centre also runs league_aurelionsol:core on every champion it strikes (it dies under e_low% of its
-    maximum health + e_low_d% per stardust, by its real health);
-  * passive = league_aurelionsol:stardust (params: d_max, e_low, e_low_d), which puts his stardust stacks back after a
-    death;
+    maximum health + e_low_d% per stardust of the first e_low_n, by its real health);
+  * passive = league_aurelionsol:stardust (params: d_max, e_low, e_low_d, e_low_n), which puts his stardust stacks back
+    after a death (and with them his size step);
   * the attack's and Singularity's tooltips (keys of the add-on's own id) say both rules, so the tooltip in game shows
     whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Aurelion Sol changes.
@@ -31,14 +31,14 @@ mag, t, n, cc = setup.mag, setup.t, setup.n, setup.cc
 # lang -> the add-on's attack and skill2 texts (the main pack's with the add-on's rules)
 NATIVE = {
     "zh-hans": {
-        "attack": "【附加包】甩出一颗星星。" + n("星海焕然") + "：技能命中英雄收集星尘（每层法强+{d_ap}%，最多{d_max}层，"
+        "attack": "【附加包】甩出一颗星星。" + n("星海焕然") + "：技能命中英雄收集星尘（最多{d_max}层，前{d_ap_n}层每层法强+{d_ap}%，"
                   "死亡后保留），每{sky_n}层下一次大招变为天瀑。" + n("星穹流丽") + "：击杀英雄后起飞" + t("{w_t}秒") +
                   "，移速+{w_ms}%、法强+{w_ap}%。",
         "skill2": "【附加包】在目标处召唤黑洞（" + t("{e_t}秒") + "），每" + t("{e_p}秒") + "造成" + mag("e_dmg", "e_ratio") +
                   "魔法伤害，把敌人拉向中心并" + cc("减速") + "{e_slow}%；中心" + cc("处决") + "生命低于{e_low}%（每层星尘+{e_low_d}%）的英雄。",
     },
     "zh-hant": {
-        "attack": "【附加包】甩出一顆星星。" + n("宇宙創世") + "：技能命中英雄收集星塵（每層魔攻+{d_ap}%，最多{d_max}層，"
+        "attack": "【附加包】甩出一顆星星。" + n("宇宙創世") + "：技能命中英雄收集星塵（最多{d_max}層，前{d_ap_n}層每層魔攻+{d_ap}%，"
                   "死亡後保留），每{sky_n}層下一次大絕變為天界殞落。" + n("星界翱翔") + "：擊殺英雄後起飛" + t("{w_t}秒") +
                   "，移速+{w_ms}%、魔攻+{w_ap}%。",
         "skill2": "【附加包】在目標處召喚奇點（" + t("{e_t}秒") + "），每" + t("{e_p}秒") + "造成" + mag("e_dmg", "e_ratio") +
@@ -46,7 +46,8 @@ NATIVE = {
     },
     "en": {
         "attack": "[Add-on] Flings a star. " + n("Cosmic Creator") + ": his spells hitting champions gather Stardust "
-                  "(+{d_ap}% ability power a stack, {d_max} at most, kept through death); every {sky_n} make his next ult "
+                  "(max {d_max}, kept through death; the first {d_ap_n} +{d_ap}% ability power each); every {sky_n} make "
+                  "his next ult "
                   "The Skies Descend. " + n("Astral Flight") + ": after a takedown he flies for " + t("{w_t}s") +
                   ", +{w_ms}% move speed and +{w_ap}% ability power.",
         "skill2": "[Add-on] Summons a black hole at the target for " + t("{e_t}s") + ": every " + t("{e_p}s") + " " +
@@ -55,16 +56,16 @@ NATIVE = {
                   "Stardust).",
     },
     "ko": {
-        "attack": "[확장] 별을 던진다. " + n("우주의 창조자") + ": 스킬이 챔피언을 맞히면 별무리 획득(중첩당 주문력 +{d_ap}%, "
-                  "최대 {d_max}, 죽어도 유지), {sky_n}개마다 다음 궁극기가 천상 강림이 됨. " + n("별의 비행") +
+        "attack": "[확장] 별을 던진다. " + n("우주의 창조자") + ": 스킬이 챔피언을 맞히면 별무리 획득(최대 {d_max}, 죽어도 유지; "
+                  "{d_ap_n}개까지 중첩당 주문력 +{d_ap}%), {sky_n}개마다 다음 궁극기가 천상 강림이 됨. " + n("별의 비행") +
                   ": 처치 관여 후 " + t("{w_t}초") + " 동안 비행, 이동 속도 +{w_ms}%, 주문력 +{w_ap}%.",
         "skill2": "[확장] 대상 위치에 " + t("{e_t}초") + " 동안 블랙홀 소환: " + t("{e_p}초") + "마다 " +
                   mag("e_dmg", "e_ratio") + " 마법 피해, 적을 중심으로 끌어당기고 {e_slow}% " + cc("둔화") +
                   "; 중심은 체력 {e_low}%(별무리당 +{e_low_d}%) 미만 챔피언을 " + cc("처형") + ".",
     },
     "ja": {
-        "attack": "【拡張】星を投げる。" + n("宇宙の創造者") + "：スキルがチャンピオンに当たると星屑獲得（1スタックにつき魔力"
-                  "+{d_ap}%、最大{d_max}、死んでも残る）、{sky_n}個ごとに次のアルティメットが崩れ落つ天穹に。" +
+        "attack": "【拡張】星を投げる。" + n("宇宙の創造者") + "：スキルがチャンピオンに当たると星屑獲得（最大{d_max}、死んでも残る；"
+                  "{d_ap_n}個まで1つにつき魔力+{d_ap}%）、{sky_n}個ごとに次のアルティメットが崩れ落つ天穹に。" +
                   n("天空への飛翔") + "：キル関与後" + t("{w_t}秒") + "飛行、移動速度+{w_ms}%、魔力+{w_ap}%。",
         "skill2": "【拡張】対象の位置に" + t("{e_t}秒") + "ブラックホールを召喚：" + t("{e_p}秒") + "ごとに" +
                   mag("e_dmg", "e_ratio") + "の魔法ダメージ、敵を中心へ引き寄せ{e_slow}%" + cc("スロウ") +
