@@ -82,7 +82,8 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_ult_press";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// The add-on's own version (mod.mod_info): inside league_addons CARGO_PKG_VERSION is the bundle's.
+const VERSION: &str = "0.5.7";
 
 pub const SAMIRA: &str = "league_samira";
 pub const TF: &str = "league_twistedfate";
@@ -724,6 +725,20 @@ pub fn hold_target(
 /// （`last_hit`），拉长的射程里又有 `hold_target` 肯打的英雄，就改打他。
 pub fn stretched_retarget(stretched: bool, on_champion: bool, last_hit: bool) -> bool {
     stretched && !on_champion && !last_hit
+}
+
+/// 射程被拉长时打英雄的血量门槛（0.5.7）。
+pub const POKE_MIN_HP: f64 = 0.3;
+
+/// 0.5.7（用户 2026-11-01：「大嘴W只打小兵塔这问题不解决吗」）：射程 buff 拉长了普攻时，他站在原地就打得到拉长射程里的英雄，
+/// 不往前走一步，所以 `hold_target` 的塔下、以少打多两条不用看（对线时敌方英雄几乎总在自家塔的 75000 内，0.5.2 的改打很少成）：
+/// 生命不低于 `POKE_MIN_HP`，打正在盯的那个（还在 `keep` 内）或 `reach` 内最近的敌方英雄。
+pub fn poke_target(me: (f64, f64), hp: f64, enemies: &[Unit], (reach, keep): (f64, f64), engaged: Option<usize>) -> Option<usize> {
+    if hp < POKE_MIN_HP {
+        return None;
+    }
+    let kept = engaged.filter(|t| enemies.iter().any(|u| u.id == *t && dist(me, u.at) <= keep));
+    kept.or_else(|| nearest_in(me, reach, enemies))
 }
 
 /// AI 还在不在回城（0.5.0，游戏 0.6.5 改进了「什么时候回城买装备」：回城是它的决定，钩子不再打断）：回城命令开始，别的
@@ -1680,7 +1695,7 @@ impl UltPress {
                     .map(|t| (t.is_champion(), t.hp().0 <= me.stat().attack));
                 let stretched = buff_range(&me) > 0.0;
                 if swing.is_some_and(|(c, l)| stretched_retarget(stretched, c, l)) {
-                    if let Some(t) = hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, reach, engaged) {
+                    if let Some(t) = poke_target(my_at, hp_share(me.hp()), &enemies, reach, engaged) {
                         if engaged != Some(t) {
                             self.engage = Some((t, tick + ENGAGE_TICKS));
                         }
@@ -1694,7 +1709,12 @@ impl UltPress {
                         self.engage = None;
                     }
                 } else if still_held || walk_held || engaged.is_some() {
-                    match hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, reach, engaged) {
+                    let pick = if stretched {
+                        poke_target(my_at, hp_share(me.hp()), &enemies, reach, engaged)
+                    } else {
+                        hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, reach, engaged)
+                    };
+                    match pick {
                         Some(t) => {
                             if engaged != Some(t) {
                                 self.engage = Some((t, tick + ENGAGE_TICKS));
@@ -1962,6 +1982,21 @@ mod tests {
         assert!(!stretched_retarget(true, false, true), "a last hit stays");
         assert!(!stretched_retarget(true, true, false), "already on a champion");
         assert!(!stretched_retarget(false, false, false), "no range buff: the old rules");
+    }
+
+    #[test]
+    fn a_stretched_reach_pokes_champions_by_their_tower_and_outnumbered() {
+        // 「大嘴W只打小兵塔这问题不解决吗」: the enemy carry by her tower with her support, his own support away
+        let me = (0.0, 0.0);
+        let enemies = [Unit { id: 7, at: (70_000.0, 0.0), hp: 0.9 }, Unit { id: 8, at: (80_000.0, 5_000.0), hp: 0.9 }];
+        let towers = [(110_000.0, 0.0)];
+        let reach = hold_reach_with("league_kogmaw", 18_000.0);
+        assert_eq!(reach.0, 73_000.0);
+        assert_eq!(hold_target(me, 0.9, &[], &enemies, &towers, reach, None), None, "the old rule: by her tower");
+        assert_eq!(poke_target(me, 0.9, &enemies, reach, None), Some(7));
+        assert_eq!(poke_target(me, 0.2, &enemies, reach, None), None, "too hurt");
+        assert_eq!(poke_target(me, 0.9, &enemies[1..], reach, None), None, "out of the stretched reach");
+        assert_eq!(poke_target(me, 0.9, &enemies, reach, Some(8)), Some(8), "kept on the one he is on");
     }
 
     #[test]

@@ -29,7 +29,8 @@ use mod_api_stable::*;
 pub mod trickster;
 
 const ID: &str = "league_wukong";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.4";
 /// 金刚不坏的层（主包数据：打中英雄时叠，最多 5 层，每层一个名字）。
 pub const STACKS: [&str; 5] =
     ["league_wukong_s_1", "league_wukong_s_2", "league_wukong_s_3", "league_wukong_s_4", "league_wukong_s_5"];

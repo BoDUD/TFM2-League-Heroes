@@ -30,7 +30,8 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_reksai";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.2";
 /// 遁地形态（本包挂的 buff；view.rs 照它换画面）。
 pub const BURROW: &str = "league_reksai_burrow";
 /// 主包数据的怒气层、W 的起落信号、猎物标记、大招上膛和潜地。

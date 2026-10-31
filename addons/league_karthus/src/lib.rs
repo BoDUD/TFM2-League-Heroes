@@ -21,13 +21,17 @@ use mod_api_stable::*;
 
 const ID: &str = "league_karthus";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+const VERSION: &str = "0.3.1";
 
 /// 「不死」挂多久、多久续一次（一直挂着，化成灵体前不断）。
 pub const GUARD_T: usize = 30;
 pub const GUARD_EVERY: usize = 10;
 /// 灵体的隐身每隔多久续一次（放技能、攻击可能让隐身断掉）。
 pub const HIDE_EVERY: usize = 30;
+/// 灵体里该放的技能（Q 好了、射程里有敌方英雄，或值得放的 R）这么多 tick 还没放出来，就现形 `REVEAL_T` tick 再试
+/// （2026-11-01 的日志：灵体按了 50 tick 的 Q，Q 一直好着、塔里克就在射程里，一下都没放出来，原因不明）。
+pub const STUCK_T: usize = 20;
+pub const REVEAL_T: usize = 20;
 
 fn sn(x: &str) -> String {
     format!("league_karthus_{x}")
@@ -161,6 +165,12 @@ struct DeathDefied {
     next_guard: usize,
     /// 这条命里见过他 1 血以上：游戏 0.6.4 开局第 0 tick 读到的血量是 0，那不是致命伤（赛恩附加包的教训）。
     alive_seen: bool,
+    /// 灵体里有技能该放的起始 tick（`watch_casts`）。
+    due_since: Option<usize>,
+    /// 现形到这个 tick（之后照常隐身）。
+    reveal_until: usize,
+    /// 上一 tick Q、E、R 的剩余冷却：变大了就是放出来了。
+    cds: [usize; 3],
 }
 
 impl DeathDefied {
@@ -178,6 +188,9 @@ impl DeathDefied {
     fn rise(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
         self.ready = false;
         self.spirit = Some(now);
+        self.due_since = None;
+        self.reveal_until = 0;
+        self.cds = cooldowns(sim, me);
         sim.entity_remove_buff(me, &sn("p_guard"));
         let mut s = BuffV1::timed(&sn("p_spirit"), self.p.p_t + 2);
         s.undying = true;
@@ -191,6 +204,44 @@ impl DeathDefied {
             wlog(format!("{} SPIRIT #{k}: lethal damage caught at 1 hp (last hit by {}), a spirit for {} ticks{}",
                          head(sim, me), self.last_hit.map_or_else(|| "-".to_string(), |a| who(sim, a)), self.p.p_t,
                          if hidden { "" } else { " (entity_set_invisible refused)" }));
+        }
+    }
+
+    /// 灵体里技能放不出来的自诊断：该放的技能（灵体 AI 这时每 tick 都按）`STUCK_T` tick 没放出来，就现形 `REVEAL_T` tick
+    /// （隐身挡住出手的话这时能放出来），记 SPIRIT STUCK；放出来时记 SPIRIT CAST（等了多久、是隐身还是现形时放的）。
+    fn watch_casts(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
+        let cds = cooldowns(sim, me);
+        let cast = (0..3).find(|&i| cds[i] > self.cds[i]);
+        self.cds = cds;
+        let due = sim.get_entity(me).is_some_and(|e| {
+            let at = (e.pos().0 as f64, e.pos().1 as f64);
+            let power = e.stat().magic_power.max(0) as usize;
+            let hits: Vec<(usize, usize, usize)> = foes_toll(sim, e.team(), power).iter().map(|f| (f.1, f.2, f.3)).collect();
+            let q_due = ready(&e, SkillSlotV1::Skill)
+                && foes_by_distance(sim, e.team(), at).first().is_some_and(|f| f.1 <= Q_RANGE);
+            q_due || ready(&e, SkillSlotV1::Ult) && r_worth(RWhen::Spirit, &hits, power)
+        });
+        if let Some(i) = cast {
+            if let Some(c) = counted("spirit_cast_seen") {
+                wlog(format!("{} SPIRIT CAST #{c}: {} went {} ticks after it was due{}", head(sim, me), ["Q", "E", "R"][i],
+                             self.due_since.map_or(0, |t| now - t),
+                             if now < self.reveal_until { ", revealed" } else { ", hidden" }));
+            }
+            self.due_since = None;
+        }
+        if !due {
+            self.due_since = None;
+        } else if self.due_since.is_none() {
+            self.due_since = Some(now);
+        }
+        if self.due_since.is_some_and(|t| now - t >= STUCK_T) && now >= self.reveal_until {
+            let targetable = sim.get_entity(me).is_some_and(|e| e.is_targetable());
+            let shown = sim.entity_set_invisible(me, 0);
+            self.reveal_until = now + REVEAL_T;
+            self.due_since = Some(now);
+            if let Some(c) = counted("spirit_stuck") {
+                wlog(format!("{} SPIRIT STUCK #{c}: a ready Q / R due for {STUCK_T} ticks did not go (targetable {targetable})                               - revealed for {REVEAL_T} ticks (entity_set_invisible 0: {shown})", head(sim, me)));
+            }
         }
     }
 
@@ -222,6 +273,8 @@ impl StablePassive for DeathDefied {
         self.last_hit = None;
         self.next_guard = 0;
         self.alive_seen = false;
+        self.due_since = None;
+        self.reveal_until = 0;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Karthus (player {player}, team {team}), {:?}", head(sim, me),
@@ -238,9 +291,31 @@ impl StablePassive for DeathDefied {
         let now = sim.tick();
         if let Some(t0) = self.spirit {
             let k = now.saturating_sub(t0);
-            if k >= self.p.p_t {
+            self.watch_casts(sim, me, now);
+            // re-hide on the period, not while revealed by `watch_casts`, and at once when the reveal ends
+            let hide = now >= self.reveal_until && (hide_due(k) || now == self.reveal_until);
+            // a Requiem begun as a spirit is not cut by the spirit's end (the user 2026-11-01: 「灵体状态下放大是不能被打断的」):
+            // the fall waits for its channel (`r_ch` on him, R_CH ticks at most), the spirit kept on meanwhile
+            let channel = buffs(sim, me).iter().any(|b| b.name() == sn("r_ch"));
+            if k >= self.p.p_t && channel && k < self.p.p_t + R_CH {
+                if k == self.p.p_t {
+                    if let Some(c) = counted("spirit_holds") {
+                        wlog(format!("{} SPIRIT HOLDS #{c}: Requiem still channelling as the spirit's time runs out",
+                                     head(sim, me)));
+                    }
+                }
+                let mut s = BuffV1::timed(&sn("p_spirit"), 3);
+                s.undying = true;
+                s.damaged_reduce = 100;
+                s.cc_immune = true;
+                sim.entity_remove_buff(me, &sn("p_spirit"));
+                sim.add_buff(me, &s);
+                if hide {
+                    sim.entity_set_invisible(me, HIDE_EVERY + 2);
+                }
+            } else if k >= self.p.p_t {
                 self.fall(sim, me);
-            } else if k > 0 && hide_due(k) {
+            } else if k > 0 && hide {
                 sim.entity_set_invisible(me, self.p.p_t - k);
             }
             return;
@@ -280,11 +355,69 @@ impl StablePassive for DeathDefied {
     }
 }
 
-// ===================== AI 钩子：灵体照常打 =====================
+// ===================== AI 钩子：灵体照常打，R 挑时机 =====================
 
 /// Q 和 E 的施法距离（build_karthus.py 的 q_range / e_cast；单元测试核对）。R 是全图的。
 pub const Q_RANGE: f64 = 80000.0;
 pub const E_RANGE: f64 = 40000.0;
+
+/// R 的伤害（build_karthus.py 的 r_dmg / r_ratio；单元测试核对）：魔法伤害，按目标魔抗 100 / (100 + mr) 打折
+/// （league_ekko_rewind 的算法）。
+pub const R_DMG: usize = 200;
+pub const R_RATIO: usize = 75;
+/// R 的引导（build_karthus.py 的 r_ch；单元测试核对）：灵体时开始的 R 引导完才倒下，最多等这么久。
+pub const R_CH: usize = 180;
+/// 泉水：离他这条命出生（开局、复活）的位置这么近以内。
+pub const FOUNTAIN_R: f64 = 25000.0;
+/// 灵体时放 R：能打死一个敌方英雄，或者把一个打到最大生命的这个百分比以下。
+pub const SPIRIT_LOW: usize = 30;
+/// 泉水里放 R：能打死一个，或者把至少 `FOUNTAIN_LOW_N` 个打到最大生命的 `FOUNTAIN_LOW`% 以下。
+pub const FOUNTAIN_LOW: usize = 20;
+pub const FOUNTAIN_LOW_N: usize = 2;
+/// 拦下 R 时改成普攻的敌方英雄最远多远（再远就照游戏的 AI 原来的走路命令走，不穿过半张地图去打人）。
+pub const HOLD_ATTACK_R: f64 = 70000.0;
+
+/// R 打在魔抗 `mr` 的英雄身上的伤害（他的法强 `power`）。
+pub fn r_damage(power: usize, mr: usize) -> usize {
+    (R_DMG + power * R_RATIO / 100) * 100 / (100 + mr)
+}
+
+/// R 打完：(打死几个, 没死但剩的血不到最大生命 `low`% 的几个)。`foes`：每个敌方英雄的 (生命 + 护盾, 最大生命, 魔抗)。
+pub fn r_toll(foes: &[(usize, usize, usize)], power: usize, low: usize) -> (usize, usize) {
+    let mut kills = 0;
+    let mut low_left = 0;
+    for &(hp, max, mr) in foes {
+        let d = r_damage(power, mr);
+        if hp <= d {
+            kills += 1;
+        } else if (hp - d) * 100 <= low * max {
+            low_left += 1;
+        }
+    }
+    (kills, low_left)
+}
+
+/// 什么时候放 R（用户 2026-11-01：「最好改成死后放大 或者复活后在泉水放大 放大也要看敌方血量吧？不能乱放吧」）：死后的灵体里，
+/// 或者复活后（回城后）在泉水里，而且要看敌方的血量；别的时候游戏的 AI 想放也拦下。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum RWhen {
+    Spirit,
+    Fountain,
+}
+
+/// 这时候放 R 值不值：灵体里打死或打残（`SPIRIT_LOW`）一个就放；泉水里打死一个、或打残（`FOUNTAIN_LOW`）两个以上才放。
+pub fn r_worth(when: RWhen, foes: &[(usize, usize, usize)], power: usize) -> bool {
+    match when {
+        RWhen::Spirit => {
+            let (k, l) = r_toll(foes, power, SPIRIT_LOW);
+            k + l >= 1
+        }
+        RWhen::Fountain => {
+            let (k, l) = r_toll(foes, power, FOUNTAIN_LOW);
+            k >= 1 || l >= FOUNTAIN_LOW_N
+        }
+    }
+}
 
 /// 正在施法（R 的引导也是）或被强制位移：不替 AI 按，按了会打断。
 const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
@@ -300,6 +433,13 @@ fn spirit_on(e: &StableEntity<'_, '_>) -> bool {
 /// 这一格现在能按：解锁了，冷却好了（引擎的「输入合法」不看冷却，league_pyke 的教训）。
 fn ready(e: &StableEntity<'_, '_>, slot: SkillSlotV1) -> bool {
     e.cooldown(slot).is_some_and(|c| c.unlocked && (c.remaining == 0 || c.charges > 0))
+}
+
+/// Q、E、R 的剩余冷却（读不到算 0）。
+fn cooldowns(sim: &StableSim<'_>, me: usize) -> [usize; 3] {
+    let e = sim.get_entity(me);
+    [SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult]
+        .map(|s| e.as_ref().and_then(|e| e.cooldown(s)).map_or(0, |c| c.remaining))
 }
 
 fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
@@ -334,9 +474,37 @@ pub fn spirit_pick(foes: &[(usize, f64)], ready: [bool; 3]) -> Vec<(InputKindV1,
     out
 }
 
-/// 游戏的 AI 看他 1 血就跑（`run_away_input`）或回城，灵体 7 秒白白浪费：灵体时换成放技能、打人。
+/// 敌队活着、选得中的英雄：(实体, 生命 + 护盾, 最大生命, 魔抗)，R 打完剩血最少的在前。
+fn foes_toll(sim: &StableSim<'_>, team: usize, power: usize) -> Vec<(usize, usize, usize, usize)> {
+    let mut out: Vec<(usize, usize, usize, usize)> = (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && u.is_champion())
+        .map(|u| (u.id(), u.hp().0 + u.shield(), u.hp().1.max(1), u.stat().magic_resistance.max(0) as usize))
+        .collect();
+    out.sort_by_key(|f| f.1.saturating_sub(r_damage(power, f.3)));
+    out
+}
+
+/// 这一 tick 想怎么做（读 sim 时定好，读完再问游戏这些输入合不合法）。
+enum Want {
+    /// 灵体：按顺序试这些（R 只在值得时在里面）。
+    Spirit(Vec<(InputKindV1, usize)>),
+    /// 泉水里放 R：按顺序试这些目标；(打死几个, 打残几个)。
+    Fountain(Vec<usize>, (usize, usize)),
+    /// 游戏的 AI 想放 R，这时候不放：改按这些（Q、E、近处的普攻），都不行就照它原来的走路命令。
+    Hold(Vec<(InputKindV1, usize)>),
+}
+
+/// 游戏的 AI 看他 1 血就跑（`run_away_input`）或回城，灵体 7 秒白白浪费：灵体时换成放技能、打人。R 只在灵体或泉水里、
+/// 敌方血量够低时放（`r_worth`），别的时候游戏的 AI 想放就拦下。
 #[derive(Clone, Default)]
-struct SpiritAi;
+struct SpiritAi {
+    /// 他这条命出生的位置（泉水）：开局和每次复活后第一次看到他活着时记下。
+    home: Option<(f64, f64)>,
+    alive: bool,
+    /// 游戏的 AI 最近一次下的走路命令：拦下它想放的 R 时照着走。
+    last_move: Option<InputV1>,
+}
 
 impl StablePlayerAi for SpiritAi {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
@@ -358,34 +526,91 @@ impl StablePlayerAi for SpiritAi {
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let player = ctx.player_id();
-        let (cands, line) = {
+        let was = base.and_then(|b| InputKindV1::from_code(b.kind));
+        if was == Some(InputKindV1::Move) {
+            self.last_move = base;
+        }
+        let (want, names, line, spot) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
-            if !me.is_alive() || !spirit_on(&me) || busy(&me) {
+            if !me.is_alive() {
+                self.alive = false;
                 return None;
             }
             let at = (me.pos().0 as f64, me.pos().1 as f64);
+            if !self.alive || self.home.is_none() {
+                self.home = Some(at);
+                self.alive = true;
+            }
+            if busy(&me) {
+                return None;
+            }
+            let spirit = spirit_on(&me);
+            let in_home = self.home.is_some_and(|h| dist(at, h) <= FOUNTAIN_R);
+            if !spirit && !in_home && was != Some(InputKindV1::Ult) {
+                return None; // nothing of ours to decide this tick
+            }
+            let power = me.stat().magic_power.max(0) as usize;
+            let toll = foes_toll(&sim, me.team(), power);
+            let hits: Vec<(usize, usize, usize)> = toll.iter().map(|f| (f.1, f.2, f.3)).collect();
+            let r_ready = ready(&me, SkillSlotV1::Ult);
             let foes = foes_by_distance(&sim, me.team(), at);
-            let ready = [ready(&me, SkillSlotV1::Ult), ready(&me, SkillSlotV1::Skill), ready(&me, SkillSlotV1::Skill2)];
-            let cands = spirit_pick(&foes, ready);
+            let qe = [ready(&me, SkillSlotV1::Skill), ready(&me, SkillSlotV1::Skill2)];
+            let want = if spirit {
+                Want::Spirit(spirit_pick(&foes, [r_ready && r_worth(RWhen::Spirit, &hits, power), qe[0], qe[1]]))
+            } else if in_home && r_ready && r_worth(RWhen::Fountain, &hits, power) {
+                Want::Fountain(toll.iter().map(|f| f.0).collect(), r_toll(&hits, power, FOUNTAIN_LOW))
+            } else if was == Some(InputKindV1::Ult) {
+                let near: Vec<(usize, f64)> = foes.iter().copied().filter(|f| f.1 <= HOLD_ATTACK_R).collect();
+                Want::Hold(spirit_pick(&near, [false, qe[0], qe[1]]))
+            } else {
+                return None;
+            };
             let names: HashMap<usize, String> = foes.iter().map(|f| (f.0, who(&sim, f.0))).collect();
-            let line = head(&sim, me.id());
-            (cands.into_iter().map(|(k, t)| (k, t, names.get(&t).cloned().unwrap_or_default())).collect::<Vec<_>>(), line)
+            (want, names, head(&sim, me.id()), me.pos())
         };
-        let (kind, input, name) = cands.into_iter().find_map(|(k, t, n)| {
-            let input = InputV1::action(k, InputTargetV1::target(t));
-            ctx.is_valid_input(&input).then_some((k, input, n))
-        })?;
-        let was = base.and_then(|b| InputKindV1::from_code(b.kind));
-        if was == Some(kind) {
-            return None;
+        let name = |t: usize| names.get(&t).cloned().unwrap_or_default();
+        let first_valid = |ctx: &StableAiContext<'_>, cands: Vec<(InputKindV1, usize)>| {
+            cands.into_iter().find_map(|(k, t)| {
+                let input = InputV1::action(k, InputTargetV1::target(t));
+                ctx.is_valid_input(&input).then_some((k, t, input))
+            })
+        };
+        match want {
+            Want::Spirit(cands) => {
+                let (kind, t, input) = first_valid(ctx, cands)?;
+                if was == Some(kind) {
+                    return None;
+                }
+                let tag = if kind == InputKindV1::Attack { "spirit_attack" } else { "spirit_cast" };
+                if let Some(k) = counted(tag) {
+                    wlog(format!("{line} SPIRIT AI #{k}: {:?} on {} (the game's AI: {})", kind, name(t),
+                                 was.map_or_else(|| "none".to_string(), |w| format!("{w:?}"))));
+                }
+                Some(input)
+            }
+            Want::Fountain(targets, (kills, low)) => {
+                let (_, t, input) = first_valid(ctx, targets.into_iter().map(|t| (InputKindV1::Ult, t)).collect())?;
+                if let Some(k) = counted("r_fountain") {
+                    wlog(format!("{line} R FOUNTAIN #{k}: Requiem from the fountain on {} - {kills} would die, {low} left \
+                                  under {FOUNTAIN_LOW}%", name(t)));
+                }
+                Some(input)
+            }
+            Want::Hold(cands) => {
+                let instead = first_valid(ctx, cands);
+                let input = instead.map(|i| i.2).or(self.last_move).filter(|i| ctx.is_valid_input(i));
+                if let Some(k) = counted("r_held") {
+                    wlog(format!("{line} R HELD #{k}: the game's AI wanted Requiem away from the fountain and alive - {}",
+                                 match (&instead, &input) {
+                                     (Some((kind, t, _)), _) => format!("{kind:?} on {} instead", name(*t)),
+                                     (None, Some(_)) => "its last walk instead".to_string(),
+                                     _ => "standing instead".to_string(),
+                                 }));
+                }
+                Some(input.unwrap_or_else(|| InputV1::move_to(spot.0, spot.1)))
+            }
         }
-        let tag = if kind == InputKindV1::Attack { "spirit_attack" } else { "spirit_cast" };
-        if let Some(k) = counted(tag) {
-            wlog(format!("{line} SPIRIT AI #{k}: {:?} on {name} (the game's AI: {})", kind,
-                         was.map_or_else(|| "none".to_string(), |w| format!("{w:?}"))));
-        }
-        Some(input)
     }
 }
 
@@ -404,7 +629,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:death_defied"), DeathDefied::default());
-    module.add_player_input_ai(SpiritAi);
+    module.add_player_input_ai(SpiritAi::default());
     host.log(LogLevel::Info, "league_karthus loaded (Death Defied's spirit, casting while a spirit).");
 }
 
@@ -451,6 +676,31 @@ mod tests {
         assert!(src.contains(&format!("\"p_t\": {}", d.p_t)), "p_t is not {} in build_karthus.P", d.p_t);
         assert!(src.contains(&format!("\"q_range\": {}", Q_RANGE as usize)), "q_range is not {Q_RANGE}");
         assert!(src.contains(&format!("\"e_cast\": {}", E_RANGE as usize)), "e_cast is not {E_RANGE}");
+        assert!(src.contains(&format!("\"r_dmg\": {R_DMG}, \"r_ratio\": {R_RATIO}")), "r_dmg / r_ratio are not {R_DMG} / {R_RATIO}");
+        assert!(src.contains(&format!("\"r_ch\": {R_CH}")), "r_ch is not {R_CH}");
+    }
+
+    #[test]
+    fn requiem_waits_for_low_enemies() {
+        // 300 AP: 200 + 225 = 425 raw; 25 magic resist -> 340
+        assert_eq!(r_damage(300, 0), 425);
+        assert_eq!(r_damage(300, 25), 340);
+        let foes = [(300, 1500, 25), (900, 1500, 25), (2000, 2500, 0)];
+        // the first dies; the second is left at 560 of 1500 (37 %); the third at 1575 of 2500
+        assert_eq!(r_toll(&foes, 300, 20), (1, 0));
+        assert_eq!(r_toll(&foes, 300, 40), (1, 1));
+        assert!(r_worth(RWhen::Spirit, &foes, 300));
+        assert!(r_worth(RWhen::Fountain, &foes, 300));
+        // nobody low: never from the fountain, never as a spirit
+        let healthy = [(1400, 1500, 25), (2400, 2500, 0)];
+        assert!(!r_worth(RWhen::Spirit, &healthy, 300));
+        assert!(!r_worth(RWhen::Fountain, &healthy, 300));
+        // one left at 25 %: enough for the spirit, the fountain wants two under 20 % (or a kill)
+        let one = [(715, 1500, 25), (2400, 2500, 0)];
+        assert!(r_worth(RWhen::Spirit, &one, 300));
+        assert!(!r_worth(RWhen::Fountain, &one, 300));
+        let two = [(600, 1500, 25), (600, 1500, 25)];
+        assert!(r_worth(RWhen::Fountain, &two, 300));
     }
 
     #[test]

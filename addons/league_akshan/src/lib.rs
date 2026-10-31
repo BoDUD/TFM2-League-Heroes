@@ -701,7 +701,10 @@ impl Rogue {
                             sim.play_sfx(SFX_MARK, me, &InputTargetV1::target(e));
                         }
                     }
-                    wlog(format!("{} MARK player {s} killed ally {victim} (victims {:?})", head(sim, me), m.victims));
+                    // the match on screen in full, the presims capped (0.2.4: ~1.9k MARK lines a launch, 2026-11-01)
+                    if on_screen(sim).is_some() || counted("mark").is_some() {
+                        wlog(format!("{} MARK player {s} killed ally {victim} (victims {:?})", head(sim, me), m.victims));
+                    }
                 }
             } else {
                 // an enemy down: my takedown?
@@ -1006,7 +1009,9 @@ impl StablePlayerAi for UltAi {
                 if ctx.is_valid_input(&input) {
                     if self.last_log.is_none_or(|t0| tick >= t0 + 60) {
                         self.last_log = Some(tick);
-                        wlog(format!("{line} R CAST on #{id} ({})", if wants_ult { "the AI's R, retargeted" } else { "pressed" }));
+                        if line.starts_with("[view") || counted("r_cast").is_some() {
+                            wlog(format!("{line} R CAST on #{id} ({})", if wants_ult { "the AI's R, retargeted" } else { "pressed" }));
+                        }
                     }
                     return Some(input);
                 }

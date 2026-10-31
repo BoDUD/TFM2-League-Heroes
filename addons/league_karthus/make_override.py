@@ -26,12 +26,20 @@ HERO = "league_karthus"
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[애드온] ", "ja": "【アドオン】"}
 O, A, E = setup.O, setup.A, setup.E
 PASSIVE = {
-    "zh-hans": O + "死亡契约" + E + "：受到致命伤害时化为灵体" + A + "{p_t}秒" + E + "，敌人选不中、不受伤害，照常放技能，之后倒下。",
-    "zh-hant": O + "無視死亡！" + E + "：受到致命傷害時化為靈體" + A + "{p_t}秒" + E + "，敵人選不中、不受傷害，照常施放技能，之後倒下。",
+    "zh-hans": O + "死亡契约" + E + "：受到致命伤害时化为灵体" + A + "{p_t}秒" + E + "，敌人选不中、不受伤害，照常放技能（安魂曲不会被打断），之后倒下。",
+    "zh-hant": O + "無視死亡！" + E + "：受到致命傷害時化為靈體" + A + "{p_t}秒" + E + "，敵人選不中、不受傷害，照常施放技能（安魂曲不會被打斷），之後倒下。",
     "en": O + "Death Defied" + E + ": a lethal blow turns him into a spirit for " + A + "{p_t}s" + E +
-          " - untargetable, taking no damage, still casting - before he falls.",
-    "ko": O + "죽음 극복" + E + ": 치명상을 입으면 " + A + "{p_t}초" + E + " 동안 영혼이 되어 대상 지정 불가, 피해 없음, 스킬 사용 가능. 이후 쓰러짐.",
-    "ja": O + "怨嗟の叫び" + E + "：致命傷を受けると" + A + "{p_t}秒" + E + "霊体になり、対象指定不可・ダメージ無効でスキルを使い続け、その後倒れる。",
+          " - untargetable, taking no damage, still casting (Requiem unbroken) - before he falls.",
+    "ko": O + "죽음 극복" + E + ": 치명상을 입으면 " + A + "{p_t}초" + E + " 동안 영혼이 되어 대상 지정 불가, 피해 없음, 스킬 사용 가능(진혼곡은 끊기지 않음). 이후 쓰러짐.",
+    "ja": O + "怨嗟の叫び" + E + "：致命傷を受けると" + A + "{p_t}秒" + E + "霊体になり、対象指定不可・ダメージ無効でスキルを使い続け（鎮魂歌は中断されない）、その後倒れる。",
+}
+# the ult's text with the add-on's timing (the user 2026-11-01: 「最好改成死后放大 或者复活后在泉水放大 放大也要看敌方血量吧」)
+WHEN = {
+    "zh-hans": "只在灵体里或泉水里、敌方英雄残血时放。",
+    "zh-hant": "只在靈體或泉水裡、敵方英雄殘血時施放。",
+    "en": " Cast only from the spirit or the fountain, when enemy champions are low.",
+    "ko": " 영혼일 때나 우물에서, 적 챔피언이 빈사일 때만 사용.",
+    "ja": "霊体か泉で、敵チャンピオンの体力が低い時だけ使う。",
 }
 
 
@@ -55,12 +63,14 @@ def main():
     if champion.get("passive", {}).get("passive_ref") != "league_karthus:death_defied":
         sys.exit("the copy does not call the add-on: update this script")
     champion["attack"]["description"] = f"#asset/base/text/champion?description.{TEXT_ID}.attack"
+    champion["ult"]["description"] = f"#asset/base/text/champion?description.{TEXT_ID}.ult"
 
     v = setup.values(p)
     v["p_t"] = setup.secs(p["p_t"])
-    texts = {lang: {"attack": (LEAD[lang] + setup.TEXT[lang]["attack"] + t).format(**v)} for lang, t in PASSIVE.items()}
-    long = {f"{lang}.attack": setup.shown_length(d["attack"]) for lang, d in texts.items()
-            if setup.shown_length(d["attack"]) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
+    texts = {lang: {"attack": (LEAD[lang] + setup.TEXT[lang]["attack"] + t).format(**v),
+                    "ult": (LEAD[lang] + setup.TEXT[lang]["ult"] + WHEN[lang]).format(**v)} for lang, t in PASSIVE.items()}
+    long = {f"{lang}.{k}": setup.shown_length(tx) for lang, d in texts.items() for k, tx in d.items()
+            if setup.shown_length(tx) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
 

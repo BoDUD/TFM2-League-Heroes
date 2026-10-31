@@ -206,6 +206,13 @@ unsafe fn string_at<'a>(ptr_at: usize, len_at: usize) -> Option<&'a str> {
     std::str::from_utf8(std::slice::from_raw_parts(p as *const u8, n)).ok()
 }
 
+/// Drops the scale records of `world` whose entity was not in this walk of its table (`seen`): a set over, the next one
+/// numbers its entities from #18 again, and a record left from the last set (2026-11-01 log: a minion "drawn as range_minion
+/// again, draw scale back to 1.150" - Cho'Gath's base from the set before) is not the new entity's.
+pub fn keep_seen(scales: &mut Vec<(usize, u64, Scale)>, world: usize, seen: &[u64]) {
+    scales.retain(|e| e.0 != world || seen.contains(&e.1));
+}
+
 unsafe fn shrink(world: usize) {
     if !plausible(world) {
         return;
@@ -217,6 +224,7 @@ unsafe fn shrink(world: usize) {
         return;
     }
     let Ok(mut st) = STATE.try_lock() else { return };
+    let mut seen = Vec::with_capacity(items);
     for i in 0..=mask {
         if *(ctrl as *const u8).add(i) & 0x80 != 0 {
             continue; // empty or deleted
@@ -226,6 +234,7 @@ unsafe fn shrink(world: usize) {
         let id = string_at(v + NAME_PTR, v + NAME_LEN_AT);
         let res = string_at(v + RES_PTR, v + RES_LEN_AT);
         let key = q(elem) as u64;
+        seen.push(key);
         let at = st.scales.iter().position(|e| e.0 == world && e.1 == key);
         let Some(hero) = drawn_as(&HEROES, res, id) else {
             // no longer drawn with dense frames (a possession ended): the game's own value back
@@ -233,10 +242,11 @@ unsafe fn shrink(world: usize) {
             if let Some(k) = at {
                 let p = st.scales.remove(k).2;
                 let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
-                if (cur - p.wrote).abs() <= 1e-6 {
+                let ours = (cur - p.wrote).abs() <= 1e-6;
+                if ours {
                     std::ptr::write_unaligned((v + SCALE) as *mut f32, p.base);
                 }
-                if st.lines < 200 {
+                if ours && st.lines < 200 {
                     st.lines += 1;
                     wlog(format!("world {world:#x} #{key} {}: drawn as {} again, draw scale back to {:.3}",
                         id.unwrap_or("?"), res.unwrap_or("?"), p.base));
@@ -277,6 +287,7 @@ unsafe fn shrink(world: usize) {
             wlog(format!("world {world:#x} #{key} {name}: draw scale {cur:.3} -> {:.3} (base {:.3})", s.wrote, s.base));
         }
     }
+    keep_seen(&mut st.scales, world, &seen);
 }
 
 /// Draw command tags (the enum's niche values at +0) and layout (0xd0 bytes each). The sprite's tag stayed 0x…03; the
@@ -704,6 +715,14 @@ mod tests {
         assert!(!is_body("asset/base/sprite/circle", "league_ashe"));
         assert!(!is_body("asset/base/aseprite_resources/skill_effect/stun_effect#sheet", "league_ashe"));
         assert!(!is_body("asset/league/champions/league_ashe_fx#sheet", "league_ashe"));
+    }
+
+    #[test]
+    fn a_set_over_drops_its_entities_scale_records() {
+        let s = Scale { base: 1.15, wrote: 0.958 };
+        let mut scales = vec![(1, 18, s), (1, 939, s), (2, 939, s)];
+        keep_seen(&mut scales, 1, &[18, 20]);
+        assert_eq!(scales, vec![(1, 18, s), (2, 939, s)], "world 1's #939 is gone; another world's stays");
     }
 
     #[test]

@@ -27,7 +27,8 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_yunara";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.1";
 /// 数据和本包之间的标记（主包数据的施法者 buff 名）。
 pub const RE_F: &str = "league_yunara_re_f";
 pub const RE_B: &str = "league_yunara_re_b";

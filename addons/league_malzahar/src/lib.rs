@@ -19,13 +19,14 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
 const ID: &str = "league_malzahar";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+const VERSION: &str = "0.1.1";
 /// 虚空穿越的 buff 挂多久（一直挂到被打破，用一个很长的时间）。
 pub const SHIFT_T: usize = 1_000_000;
 
@@ -181,13 +182,28 @@ struct Vision {
     last_pos: (u64, u64),
 }
 
-/// 每个玛尔扎哈（实体 id）身上正在跑的幻象。效果和被动是两个对象，用这张表连起来。
-static VISIONS: LazyLock<Mutex<HashMap<usize, Vec<Vision>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// 每个玛尔扎哈的参数（被动 on_spawn 时写入，效果用它算时间）。
-static PARAMS: LazyLock<Mutex<HashMap<usize, Params>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 每份模拟的编号（0.1.x，2026-11-01 复查；league_teemo_shrooms / league_galio 的做法）：被动第一次出生时抽一个，每次出生挂在
+/// 他身上（buff `SIM_TAG<n>`）。以前两张表只按实体 id 记：服务器并排跑的两份预演实体 id 一样，别的比赛里同 id 的玛尔扎哈也会撞上，
+/// 一份模拟的被动 `remove` 走另一份的幻象，幻象的伤害和跳转只在其中一份里发生。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_malzahar_sim:";
 
-fn params_of(caster: usize) -> Params {
-    PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&caster).copied().unwrap_or_default()
+/// 挂在这个单位身上的模拟编号（还没挂：0）。
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+            .unwrap_or(0)
+    })
+}
+
+/// 每个玛尔扎哈（模拟编号, 实体 id）身上正在跑的幻象。效果和被动是两个对象，用这张表连起来。
+static VISIONS: LazyLock<Mutex<HashMap<(u64, usize), Vec<Vision>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 每个玛尔扎哈的参数（被动 on_spawn 时写入，效果用它算时间）。
+static PARAMS: LazyLock<Mutex<HashMap<(u64, usize), Params>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn params_of(key: (u64, usize)) -> Params {
+    PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied().unwrap_or_default()
 }
 
 /// 主包数据的幻象打中一个单位（`league_malzahar:vision`）：记下它，被动每 tick 看它死没死。
@@ -195,10 +211,11 @@ fn vision_hit(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let target = input.target_id;
     let Some(e) = sim.get_entity(target) else { return };
     let pos = e.pos();
-    let p = params_of(caster);
+    let key = (sim_no(sim, caster), caster);
+    let p = params_of(key);
     let now = sim.tick();
     let mut map = VISIONS.lock().unwrap_or_else(|e| e.into_inner());
-    let list = map.entry(caster).or_default();
+    let list = map.entry(key).or_default();
     list.retain(|v| v.target != target);
     list.push(Vision { target, until: now + p.e_t, ours: false, next: now + p.e_p, last_pos: pos });
 }
@@ -222,6 +239,8 @@ struct Void {
     linger_until: Option<usize>,
     broken_at: usize,
     last_champion_hit: Option<usize>,
+    /// 这份模拟的编号（`SIM_TAG`），他第一次出生时抽。
+    sim: u64,
 }
 
 impl Void {
@@ -250,7 +269,7 @@ impl Void {
     fn visions(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
         let mut list = {
             let mut map = VISIONS.lock().unwrap_or_else(|e| e.into_inner());
-            map.remove(&me).unwrap_or_default()
+            map.remove(&(self.sim, me)).unwrap_or_default()
         };
         if list.is_empty() {
             return;
@@ -306,7 +325,7 @@ impl Void {
             keep.push(Vision { target: next, until: now + self.p.e_t, ours: true, next: now + self.p.e_p, last_pos: pos });
         }
         let mut map = VISIONS.lock().unwrap_or_else(|e| e.into_inner());
-        let slot = map.entry(me).or_default();
+        let slot = map.entry((self.sim, me)).or_default();
         // visions the data started during this tick are already in the table: keep both
         for v in keep {
             if !slot.iter().any(|s| s.target == v.target) {
@@ -328,8 +347,14 @@ impl StablePassive for Void {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.me = me;
         self.last_champion_hit = None;
-        PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
-        VISIONS.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
+        PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert((self.sim, me), self.p);
+        VISIONS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
         self.arm(sim, me);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {

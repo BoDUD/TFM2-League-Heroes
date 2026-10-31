@@ -28,7 +28,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -37,7 +37,7 @@ pub mod combo;
 
 const ID: &str = "league_velkoz";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
+const VERSION: &str = "0.1.2";
 /// 诊断：每这么多 tick 报一次（30 秒）。
 const WATCH_EVERY: usize = 1800;
 
@@ -213,11 +213,24 @@ pub fn parse_params(json: &str) -> Params {
     p
 }
 
-/// 每个维克兹的参数（被动 configure 时存下，原生效果和连招里读）：键是 (这局的种子, 他的编号)。
+/// 每份模拟的编号（2026-11-01 复查；league_galio 的做法）：被动第一次出生时抽一个，每次出生挂在他身上（buff `SIM_TAG<n>`）。
+/// 以前按这局的种子分：服务器并排跑的两份预演种子一样，射线的波数混在一起。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_velkoz_sim:";
+
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+            .unwrap_or(0)
+    })
+}
+
+/// 每个维克兹的参数（被动出生时存下，原生效果和连招里读）：键是 (这份模拟的编号, 他的编号)。
 static PARAMS: LazyLock<Mutex<HashMap<(u64, usize), Params>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn params_of(sim: &StableSim<'_>, me: usize) -> Params {
-    PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim.seed(), me)).copied().unwrap_or_default()
+    PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim_no(sim, me), me)).copied().unwrap_or_default()
 }
 
 // ===================== 计算 =====================
@@ -427,7 +440,7 @@ fn ray(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let tick = sim.tick();
     let k = {
         let mut w = WAVES.lock().unwrap_or_else(|e| e.into_inner());
-        let slot = w.entry((sim.seed(), me)).or_insert((0, 0));
+        let slot = w.entry((sim_no(sim, me), me)).or_insert((0, 0));
         let k = if tick > slot.0 + p.r_p * 2 || slot.1 == 0 && slot.0 == 0 { 0 } else { slot.1 + 1 };
         *slot = (tick, k);
         k
@@ -476,6 +489,8 @@ impl StableEffectType for Step {
 #[derive(Clone, Default)]
 struct Research {
     p: Params,
+    /// 这份模拟的编号（第一次出生时抽，见 `SIM_TAG`）。
+    sim: u64,
 }
 
 impl StablePassive for Research {
@@ -488,7 +503,13 @@ impl StablePassive for Research {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert((sim.seed(), me), self.p);
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
+        PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert((self.sim, me), self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Vel'Koz (player {player}, team {team}), {:?}", head(sim, me), self.p));

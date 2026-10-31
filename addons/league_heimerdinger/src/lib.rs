@@ -33,6 +33,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -41,7 +42,7 @@ pub mod combo;
 
 const ID: &str = "league_heimerdinger";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+const VERSION: &str = "0.2.1";
 /// 侧面炮台朝右时炮口离炮台的点多远（游戏像素 x 1000：往前、往上；tools/art/import_heimerdinger_fx.py 写的
 /// assets/source/heimerdinger/hd/side_muzzles.json，make_override.py 核对）。一颗飞行物画在它的点上方 5 px，所以发射点往南挪
 /// 5 px 减去炮口的高度。
@@ -362,8 +363,21 @@ pub fn shot_from(pos: (f64, f64), muzzle: (i64, i64), left: bool) -> (f64, f64) 
     (pos.0 + dx, pos.1 + (5_000 - muzzle.1) as f64)
 }
 
-/// 原生效果放下、被动还没接走的炮台：按（这局的种子、模拟的来源、比赛、局、他的编号）分开。
-type Key = (u64, u32, u64, u64, usize);
+/// 每份模拟的编号（2026-11-01 复查；league_galio 的做法）：被动第一次出生时抽一个，每次出生挂在他身上（buff `SIM_TAG<n>`）。
+/// 以前按（种子、模拟的来源、比赛、局）分：服务器并排跑的两份预演这些都一样，炮台和参数会混在一起。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_heimerdinger_sim:";
+
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+            .unwrap_or(0)
+    })
+}
+
+/// 原生效果放下、被动还没接走的炮台：按（这份模拟的编号、他的编号）分开。
+type Key = (u64, usize);
 static PUTS: LazyLock<Mutex<HashMap<Key, Vec<Put>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// 每个黑默丁格的参数（被动出场时放进来，钩子读）。
 static PARAMS: LazyLock<Mutex<HashMap<Key, Params>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
@@ -373,8 +387,7 @@ fn params_of(sim: &StableSim<'_>, me: usize) -> Params {
 }
 
 fn key(sim: &StableSim<'_>, me: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+    (sim_no(sim, me), me)
 }
 
 /// `league_heimerdinger:q` / `:x`：副本里炮台的槽位空着、隐形弹出手的那一 tick。
@@ -432,6 +445,8 @@ struct Flight {
 #[derive(Clone, Default)]
 struct Workshop {
     p: Params,
+    /// 这份模拟的编号（第一次出生时抽，见 `SIM_TAG`）。
+    sim: u64,
     turrets: Vec<Turret>,
     flights: Vec<Flight>,
     next_haste: usize,
@@ -595,7 +610,13 @@ impl StablePassive for Workshop {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        // a stale put of an earlier match with the same seed and id
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
+        // a stale put of an earlier life
         PUTS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), self.p.clone());
         wlog(format!("{} SPAWN: the add-on's Heimerdinger (player {player}, team {team}), {:?}", head(sim, me), self.p));
@@ -665,6 +686,11 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_sim_tag_fits_a_buff_name() {
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {

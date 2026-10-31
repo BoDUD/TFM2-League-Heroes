@@ -111,8 +111,20 @@ FX = {
     # the add-on's Death Defied: the spirit's glow (a buff, looped)
     "p_spirit": (("feet", 0), loop(4, 150), [SOLES]),
 }
+# made here from a delivered picture: Requiem's mark on every enemy champion while the channel holds (a buff's picture,
+# looped; the user 2026-11-01: 「卡尔萨斯放大时候敌方英雄身上也没特效」) - the thin beam of r_hit's first frame, and every
+# other row of it, so it flickers where the strike will land
+DERIVED = {"r_mark": ("r_hit", ("feet", 0), [SOLES])}
+BIG.add("r_mark")
 # the pictures that must last as long as something in the kit: tag -> ticks
 LASTS = {"q_mark": P["q_delay"], "w_wall": P["w_t"], "r_cast": P["r_ch"]}
+
+
+def dashed(c):
+    """Every other drawn row of a cell, the rest cleared."""
+    out = c.copy()
+    out[1::2] = 0
+    return out
 STRAY = {}
 
 
@@ -176,6 +188,10 @@ def main():
         anc = anchor(cs[0], kind)
         out = [(J.place(cs[k], anc, spots), ms) for k, ms in frames]
         tables["league_karthus_big" if name in BIG else "league_karthus_fx"][name] = out
+    for name, (src, kind, spots) in DERIVED.items():
+        beam = allc[src][0]
+        anc = anchor(beam, kind)
+        tables["league_karthus_big"][name] = [(J.place(c, anc, spots), 90) for c in (beam, dashed(beam))]
     for sheet, tags in tables.items():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(

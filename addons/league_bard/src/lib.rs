@@ -321,6 +321,17 @@ impl Grid {
     }
 }
 
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<(f64, f64)> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
+}
+
 /// 这局是哪张图：站在墙里的英雄最少、墙又最多的那张（泰隆、卡蜜尔附加包的判断）。
 pub fn current(grids: &[Grid], champions: &[(f64, f64)]) -> Option<usize> {
     grids
@@ -677,7 +688,6 @@ impl Door {
     /// 看局面：撤或追，挑好出口就开门（动作、门、音效、冷却），`e_wind` tick 后出发。
     fn decide(&mut self, sim: &mut StableSim<'_>, me: usize, here: (f64, f64)) {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        let mut champs = Vec::new();
         let mut foes = Vec::new();
         let mut friends = Vec::new();
         for i in 0..sim.entity_count() {
@@ -687,7 +697,6 @@ impl Door {
             }
             let (x, y) = u.pos();
             let at = (x as f64, y as f64);
-            champs.push(at);
             if u.team() != team {
                 if u.is_targetable() {
                     let (hp, max) = u.hp();
@@ -708,7 +717,7 @@ impl Door {
             })
             .min_by(|a, b| dist(here, *a).total_cmp(&dist(here, *b)));
         let grids = Grid::builtin();
-        let Some(gi) = current(&grids, &champs) else { return };
+        let Some(gi) = current(&grids, &unit_points(sim)) else { return };
         let g = &grids[gi];
         let plan = if wants_out(&self.p, here, mine, &foes, allies) {
             plan_exit(&self.p, g, here, &foes.iter().map(|f| f.at).collect::<Vec<_>>(), home).map(|way| (way, "out".to_string()))
@@ -753,21 +762,19 @@ impl Door {
             return;
         }
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        let mut champs = Vec::new();
         let mut friends = Vec::new();
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
             if u.is_champion() && u.is_alive() {
                 let (x, y) = u.pos();
                 let at = (x as f64, y as f64);
-                champs.push(at);
                 if u.team() == team && u.id() != me && u.is_targetable() && dist(here, at) <= self.p.e_ride as f64 {
                     friends.push((u.id(), at));
                 }
             }
         }
         let grids = Grid::builtin();
-        let riders: Vec<(usize, (f64, f64))> = match current(&grids, &champs) {
+        let riders: Vec<(usize, (f64, f64))> = match current(&grids, &unit_points(sim)) {
             Some(gi) => friends.iter().filter_map(|&(id, a)| ride_exit(&grids[gi], here, plan.to, a).map(|q| (id, q))).collect(),
             None => Vec::new(),
         };
@@ -833,17 +840,8 @@ impl Door {
 
 /// 出发那一刻再看一次落点（门开着的几 tick 里地图判断可能变了）。
 fn landing_ok(sim: &StableSim<'_>, to: (f64, f64)) -> bool {
-    let mut champs = Vec::new();
-    for i in 0..sim.entity_count() {
-        if let Some(u) = sim.entity_at(i) {
-            if u.is_champion() && u.is_alive() {
-                let (x, y) = u.pos();
-                champs.push((x as f64, y as f64));
-            }
-        }
-    }
     let grids = Grid::builtin();
-    current(&grids, &champs).is_some_and(|gi| grids[gi].roomy(to) && !grids[gi].is_wall(to.0, to.1))
+    current(&grids, &unit_points(sim)).is_some_and(|gi| grids[gi].roomy(to) && !grids[gi].is_wall(to.0, to.1))
 }
 
 impl StablePassive for Door {

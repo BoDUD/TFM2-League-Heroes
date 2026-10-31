@@ -207,7 +207,7 @@ impl StablePassive for Low {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let Some(alive) = sim.get_entity(me).map(|e| e.is_alive()) else { return };
         if let Some(t) = self.thralls.as_mut() {
-            t.update(sim, me, alive); // a thrall raised before she died still shatters
+            t.update(sim, me, alive);
         }
         let Some(e) = sim.get_entity(me) else { return };
         if !alive {
@@ -229,8 +229,15 @@ impl StablePassive for Low {
         self.was = now;
     }
 
+    /// Her death also takes her pending thralls and what she saw (0.2.2, the 2026-11-01 review): a dead champion's update
+    /// does not run, so a thrall raised just before her death shattered only at her respawn (10-60 s late, on whoever
+    /// stood there by then), and an enemy who died while she was dead raised a thrall at her first update.
     fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
         self.was = false;
+        if let Some(t) = self.thralls.as_mut() {
+            t.rising.clear();
+            t.seen.clear();
+        }
     }
 }
 
@@ -241,8 +248,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Blitzcrank's Mana Barrier, LeBlanc's Mirror Image, Lissandra's self-tomb on low health) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{} (Blitzcrank's Mana Barrier, LeBlanc's Mirror Image, Lissandra's self-tomb on low health and her thralls) loaded: game {}.{}.{} abi {} log={} ===",
+        "0.2.2", // the add-on's own (mod.mod_info): inside league_addons CARGO_PKG_VERSION is the bundle's
         v.major,
         v.minor,
         v.patch,

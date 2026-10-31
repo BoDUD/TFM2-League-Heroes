@@ -243,12 +243,20 @@ def build(p):
                             delayed(p["e_rel"] - 1, alive(refresh("e_on", p["e_t"]), sfx("e_loop"))), *pulses))
 
     # ------------------------------------------------------------------ ult: R Requiem
-    brk = [delayed(k, pick(1, "AllyChampionInCC", *rm("r_ch"), {"type": "RemoveCasterAnimation", "name": "ult"}))
+    # crowd control on him breaks the channel - not in the add-on's spirit (`p_spirit`, the user 2026-11-01: 「灵体状态下放大
+    # 是不能被打断的」)
+    brk = [delayed(k, sw("p_spirit", NONE, pick(1, "AllyChampionInCC", *rm("r_ch"),
+                                               {"type": "RemoveCasterAnimation", "name": "ult"})))
            for k in range(p["r_brk"], p["r_ch"], p["r_brk"])]
     toll = around(p["r_range"], "EnemyChampion", ap(p["r_dmg"], p["r_ratio"]), view("r_hit"), tsfx("r_hit"))
+    # Requiem's mark on every enemy champion while the channel holds (the user 2026-11-01: 「卡尔萨斯放大时候敌方英雄身上也没
+    # 特效」; League marks them for the 3 s): a buff with its picture, renewed every r_brk ticks while `r_ch` lasts, so a
+    # broken channel takes the marks off within r_brk ticks
+    marks = [delayed(k, alive(sw("r_ch", around(p["r_range"], "EnemyChampion", buff("r_mark", p["r_brk"] + 3)))))
+             for k in range(p["r_rel"], p["r_ch"] - 1, p["r_brk"])]
     ult = action("ult", p["r_ch"] + 6, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
                  combine(decoy(p["r_dmg"], p["r_ratio"], ap), refresh("r_ch", p["r_ch"] + 2), anim("ult", p["r_ch"]),
-                         sfx("r"), voice("vo_r", p), delayed(p["r_rel"], alive(cview("r_cast"))), *brk,
+                         sfx("r"), voice("vo_r", p), delayed(p["r_rel"], alive(cview("r_cast"))), *brk, *marks,
                          delayed(p["r_ch"] - 1, alive(sw("r_ch", combine(*rm("r_ch"), sfx("r_boom"), toll))))))
 
     # ------------------------------------------------------------------ views
@@ -261,7 +269,7 @@ def build(p):
     views_p = [Pj("a_bolt")]       # round; the zones carry no picture (an upright one would turn with the cast)
     views_e = [E("a_hit"), E("q_mark", BIG, -1, False), E("q_boom", BIG, 2, False), E("q_hit"), E("q_lone"), E("e_hit"),
                E("w_wall", BIG, -1, False), E("r_cast", BIG, -1, True), E("r_hit", BIG)]
-    views_b = [B_("e_on", BIG, -1), B_("w_slow", FX, 3), B_("w_shred", FX, 3)]
+    views_b = [B_("e_on", BIG, -1), B_("w_slow", FX, 3), B_("w_shred", FX, 3), B_("r_mark", BIG, 3)]
     extra = {}
     if native:          # the add-on's spirit
         views_b.append(B_("p_spirit", BIG, 3))

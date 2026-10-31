@@ -32,7 +32,8 @@ pub mod view;
 
 const ID: &str = "league_jayce";
 const HERO: &str = "league_jayce";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.1";
 /// 炮形态（主包数据的永久 buff）。
 pub const FORM: &str = "league_jayce_cn";
 
@@ -221,6 +222,17 @@ impl Grid {
         }
         true
     }
+}
+
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<(f64, f64)> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
 }
 
 /// 当前对局的地图：英雄站进墙里最少的那张（同巴德附加包）。
@@ -443,7 +455,7 @@ impl StableEffectType for Blow {
         }
         let (Some(me), Some(at)) = (pos(sim, caster), pos(sim, target)) else { return };
         let team = sim.get_entity(caster).map_or(0, |c| c.team());
-        let (mut allies, mut towers, mut champs) = (Vec::new(), Vec::new(), Vec::new());
+        let (mut allies, mut towers) = (Vec::new(), Vec::new());
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
             if !u.is_alive() {
@@ -451,7 +463,6 @@ impl StableEffectType for Blow {
             }
             let at_u = (u.pos().0 as f64, u.pos().1 as f64);
             if u.is_champion() {
-                champs.push(at_u);
                 if u.team() == team && u.id() != caster {
                     allies.push(at_u);
                 }
@@ -460,7 +471,7 @@ impl StableEffectType for Blow {
             }
         }
         let grids = Grid::builtin();
-        let grid = current(&grids, &champs).map(|i| &grids[i]);
+        let grid = current(&grids, &unit_points(sim)).map(|i| &grids[i]);
         let reach = (p.kb_speed * p.kb_t) as f64;
         let plan = blow_plan(me, at, &allies, &towers, grid, reach);
         let mut cc = CcV1::of_kind(CcKindV1::ForceMove, p.kb_t as u64);
