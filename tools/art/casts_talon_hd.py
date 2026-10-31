@@ -52,8 +52,12 @@ HEAD = (0, 37, 64, 105)         # the design's head: rows 0-36 (the top of the h
 # (casts_sona_hd's)
 ZOOM = {'run_1': 7.16, 'run_2': 6.82, 'run_3': 6.74, 'run_4': 7.09, 'run_5': 6.62, 'run_6': 6.72, 'attack_1': 7.29, 'attack_2': 8.96, 'attack_3': 7.65, 'skill_1': 7.14, 'skill_2': 7.58, 'skill_3': 7.0, 'skill_4': 7.93, 'skill2_1': 5.75, 'skill2_2': 6.8, 'skill2_3': 6.79, 'skill2_4': 7.87, 'skill2_5': 8.05, 'skill2_stab_1': 8.28, 'skill2_stab_2': 7.77, 'skill2_stab_3': 6.87, 'skill2_stab_4': 7.49, 'skill2_stab_5': 6.93, 'skill_e_1': 6.51, 'skill_e_2': 6.28, 'skill_e_3': 5.75, 'skill_e_4': 7.36, 'ult_1': 5.77, 'ult_2': 7.39, 'ult_3': 8.26, 'ult_4': 8.43, 'ult_5': 6.88, 'ult_6': 6.62, 'hit_1': 6.6, 'dead_1': 6.85, 'dead_2': 6.67, 'dead_3': 9.26, 'dead_4': 7.62, 'dead_5': 7.76, 'dead_6': 7.18}
 # a frame drawn at another size than the rest of its sheet: its own zoom (E's frame 4, upside down mid-vault: its face
-# read 1.31 of the design's at its sheet's 6.28, the hood as much too big)
-FRAME_ZOOM = {"skill_e_4": 7.6}
+# read 1.31 of the design's at its sheet's 6.28, the hood as much too big). Then the user 2026-10-31: 「男刀会变大变小」 -
+# frames read 3-8 % bigger than the design (his hood's area and his face's skin both over it; the idle's cut from W's
+# last stab and the attack's wind-up popped him bigger every few seconds): their zoom times that, the run's size
+FRAME_ZOOM = {"skill_e_4": 7.6, "attack_1": 7.6, "attack_2": 7.53, "skill_4": 7.2, "skill2_2": 6.12, "skill2_6": 8.41,
+              "skill2_stab_3": 7.14, "skill2_stab_4": 8.09, "skill2_stab_6": 7.43, "skill_e_6": 6.01, "ult_1": 6.11,
+              "ult_2": 6.09, "ult_8": 7.15, "hit_2": 6.83}
 ZOOMS = np.arange(5.0, 13.01, 0.1)                      # the zooms the head is searched at (8-px templates)
 PIVOT = 68                      # the design's column on the old idle_base's pivot (overlap peak 0.57)
 

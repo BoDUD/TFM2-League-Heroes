@@ -1,6 +1,7 @@
 //! 奥瑞利安·索尔附加包：「星海焕然」的星尘死后不掉；「星芒凝汇」黑洞中心按真实生命处决。
 //!
-//! 主包保持纯数据：引擎在他死亡时清掉身上全部 buff，所以星尘（`league_aurelionsol_d1`…`d15`，每层一个名字，各带法强）
+//! 主包保持纯数据：引擎在他死亡时清掉身上全部 buff，所以星尘（`league_aurelionsol_d1`…`d30`，每层一个名字，前 15 层各带
+//! 法强，每 5 层大招和黑洞大一档）
 //! 每条命从零叠起；数据读不到生命，黑洞中心只能每秒打英雄最大生命的 `e_exec`%（处决的替身）。
 //! `mod.override_info` 把主包的奥瑞利安·索尔换成 `override/` 里的副本（tools/kit/build_aurelionsol.py --native）：黑洞中心
 //! 每次打到英雄时多跑一个原生效果 `league_aurelionsol:core`，`passive` 换成本包的 `league_aurelionsol:stardust`：
@@ -8,8 +9,8 @@
 //! - 活着时把身上每一层 `league_aurelionsol_d<n>` 原样记下来；少了（死亡清掉的）就原样补回（卑尔维斯附加包的做法）。层数
 //!   只会变多（主包从不去掉一层），所以「身上比记下的少」只会是死亡清掉的。最多 `d_max` 层。天瀑的充能（`c1`…）不记：
 //!   放天瀑时主包自己会清掉它们。
-//! - 黑洞中心打到一个英雄：它的生命低于最大生命的 `e_low`% + 每层星尘 `e_low_d`%（英雄联盟：星尘越多处决线越高）就直接
-//!   处决（真实伤害 = 生命 + 护盾 + 1，梅尔附加包的做法）。
+//! - 黑洞中心打到一个英雄：它的生命低于最大生命的 `e_low`% + 每层星尘 `e_low_d`%（英雄联盟：星尘越多处决线越高；只算前
+//!   `e_low_n` 层，星尘上限提到 30 层后处决线仍最多 20%）就直接处决（真实伤害 = 生命 + 护盾 + 1，梅尔附加包的做法）。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份；原生效果读不到参数，被动出生
 //! 时按（这局的种子, 单位）记一份给它。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurelionsol.log`，每次启动
@@ -96,17 +97,19 @@ pub struct Params {
     pub d_max: usize,
     /// 黑洞中心的处决线：最大生命的这个百分比……
     pub e_low: usize,
-    /// ……每层星尘再加这么多。
+    /// ……每层星尘再加这么多……
     pub e_low_d: usize,
+    /// ……只算前这么多层。
+    pub e_low_n: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { d_max: 15, e_low: 5, e_low_d: 1 }
+        Self { d_max: 30, e_low: 5, e_low_d: 1, e_low_n: 15 }
     }
 }
 
-/// `{"d_max":15,"e_low":5,"e_low_d":1}` -> 参数；缺的键用默认值，认不得的键忽略。
+/// `{"d_max":30,"e_low":5,"e_low_d":1,"e_low_n":15}` -> 参数；缺的键用默认值，认不得的键忽略。
 pub fn parse_params(json: &str) -> Params {
     let mut p = Params::default();
     let body = json.trim().trim_start_matches('{').trim_end_matches('}');
@@ -118,6 +121,7 @@ pub fn parse_params(json: &str) -> Params {
             "d_max" => p.d_max = v,
             "e_low" => p.e_low = v,
             "e_low_d" => p.e_low_d = v,
+            "e_low_n" => p.e_low_n = v,
             _ => {}
         }
     }
@@ -139,9 +143,9 @@ pub fn stack_of(name: &str, d_max: usize) -> Option<usize> {
     (1..=d_max).contains(&n).then_some(n)
 }
 
-/// The execute line in percent of maximum health with this much stardust.
+/// The execute line in percent of maximum health with this much stardust (its first e_low_n stacks count).
 pub fn execute_line(p: &Params, stacks: usize) -> usize {
-    p.e_low + p.e_low_d * stacks.min(p.d_max)
+    p.e_low + p.e_low_d * stacks.min(p.d_max).min(p.e_low_n)
 }
 
 /// Is a champion with this health under the line (a unit with no maximum never is).
@@ -289,17 +293,19 @@ mod tests {
 
     #[test]
     fn params_come_from_the_champion_data() {
-        assert_eq!(parse_params(r#"{"d_max":12,"e_low":6,"e_low_d":2,"x":1}"#), Params { d_max: 12, e_low: 6, e_low_d: 2 });
+        assert_eq!(parse_params(r#"{"d_max":12,"e_low":6,"e_low_d":2,"x":1}"#),
+                   Params { d_max: 12, e_low: 6, e_low_d: 2, e_low_n: 15 });
+        assert_eq!(parse_params(r#"{"d_max":30,"e_low":5,"e_low_d":1,"e_low_n":15}"#), Params::default());
         assert_eq!(parse_params("{}"), Params::default());
     }
 
     #[test]
     fn stacks_are_the_data_s_names() {
-        assert_eq!(stack_of("league_aurelionsol_d1", 15), Some(1));
-        assert_eq!(stack_of("league_aurelionsol_d15", 15), Some(15));
-        assert_eq!(stack_of("league_aurelionsol_d16", 15), None);
-        assert_eq!(stack_of("league_aurelionsol_d0", 15), None);
-        assert_eq!(stack_of("league_aurelionsol_dg", 15), None);
+        assert_eq!(stack_of("league_aurelionsol_d1", 30), Some(1));
+        assert_eq!(stack_of("league_aurelionsol_d30", 30), Some(30));
+        assert_eq!(stack_of("league_aurelionsol_d31", 30), None);
+        assert_eq!(stack_of("league_aurelionsol_d0", 30), None);
+        assert_eq!(stack_of("league_aurelionsol_dg", 30), None);
     }
 
     #[test]
@@ -307,6 +313,7 @@ mod tests {
         let p = Params::default();
         assert_eq!(execute_line(&p, 0), 5);
         assert_eq!(execute_line(&p, 15), 20);
+        assert_eq!(execute_line(&p, 30), 20);
         assert_eq!(execute_line(&p, 40), 20);
         assert!(executes(&p, 0, 49, 1000));
         assert!(!executes(&p, 0, 50, 1000));
