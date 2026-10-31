@@ -55,7 +55,7 @@
 
 ### 卡尔萨斯附加包
 
-[卡尔萨斯附加包](../../addons/league_karthus/README.md)：`league_karthus` v0.2.0
+[卡尔萨斯附加包](../../addons/league_karthus/README.md)：`league_karthus` v0.3.1
 
 主包 `league` 保持纯数据。用户选了「被动做附加包」。这个附加包用原生代码做主包数据做不到的**死亡契约**：
 

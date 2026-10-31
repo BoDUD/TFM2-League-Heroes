@@ -31,7 +31,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_lillia";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的（0.1.1 的日志写着 v0.1.0）。
-const VERSION: &str = "0.1.3";
+const VERSION: &str = "0.1.4";
 
 /// 主包莉莉娅的名字（buff、声音、画面都以它开头）。
 fn ll(x: &str) -> String {
@@ -221,6 +221,8 @@ struct Dream {
     /// 上一次 on_update 打出去的梦尘：(目标, 减免前的伤害)。打出去时只是排进效果队列，下一次 on_update 之前才扣血。
     queued: Vec<(usize, usize)>,
     go_was: bool,
+    /// 这一轮大招（`r_go` 在她身上的这段时间）已经困倦过的敌人。
+    lulled: Vec<usize>,
     ticks: usize,
     lullabies: usize,
     sleeps: usize,
@@ -304,16 +306,25 @@ impl Dream {
         dealt
     }
 
-    /// 大招：标记刚出现的那一 tick，所有带梦尘的敌人困倦，`r_drowsy` tick 后睡着。
+    /// 大招：标记 `r_go` 在她身上的每一 tick（主包数据挂 d_period tick，好让每个敌人的梦尘下一跳都碰上它），带梦尘、这一轮还没
+    /// 困倦的敌人困倦，`r_drowsy` tick 后睡着。0.1.4（2026-11-01 日志：一局 6 次大招 5 次谁也没困倦）：以前只看标记刚出现的那一
+    /// tick——R 打中的那一下先加标记（`Delayed` 0）、梦尘下一 tick 才挂上（`Delayed` 1），那一刻常常谁身上都还没有梦尘。
     fn lullaby(&mut self, sim: &mut StableSim<'_>, me: usize, tick: usize) {
         let go = has_buff(sim, me, &ll("r_go"));
-        let rising = go && !self.go_was;
+        let (rising, falling) = (go && !self.go_was, !go && self.go_was);
         self.go_was = go;
-        if !rising {
+        if rising {
+            self.lullabies += 1;
+            self.lulled.clear();
+        }
+        if falling && (self.lullabies <= 8 || self.lullabies % 20 == 0) {
+            wlog(format!("{} LULLABY #{}: {} dusted champion(s) {:?}", head(sim, me), self.lullabies, self.lulled.len(),
+                         self.lulled));
+        }
+        if !go {
             return;
         }
-        self.lullabies += 1;
-        let targets: Vec<usize> = self.dusted.iter().map(|d| d.target).collect();
+        let targets: Vec<usize> = self.dusted.iter().map(|d| d.target).filter(|t| !self.lulled.contains(t)).collect();
         for id in &targets {
             let mut b = BuffV1::timed(&ll("drowsy"), self.p.r_drowsy);
             b.move_speed_mult = -(self.p.r_slow as i32);
@@ -321,9 +332,7 @@ impl Dream {
             sim.play_sfx(&ll("drowsy"), me, &InputTargetV1::target(*id));
             self.sleepers.retain(|s| s.target != *id);
             self.sleepers.push(Sleeper { target: *id, sleep_at: tick + self.p.r_drowsy, asleep: false, until: 0, guard: 0 });
-        }
-        if self.lullabies <= 8 || self.lullabies % 20 == 0 {
-            wlog(format!("{} LULLABY #{}: {} dusted champion(s) {:?}", head(sim, me), self.lullabies, targets.len(), targets));
+            self.lulled.push(*id);
         }
     }
 
@@ -409,6 +418,7 @@ impl StablePassive for Dream {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.go_was = false;
+        self.lulled.clear();
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Lillia (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }

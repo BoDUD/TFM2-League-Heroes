@@ -39,6 +39,8 @@ use mod_api_stable::*;
 mod maps;
 
 const ID: &str = "league_smolder";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.3";
 
 /// 主包的名字（buff、画面、音效）：`league_smolder_<x>`。
 fn sm(x: &str) -> String {
@@ -379,6 +381,17 @@ impl Grid {
     }
 }
 
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<(f64, f64)> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
+}
+
 /// 这局是哪张图：站在墙里的英雄最少、墙又最多的那张（泰隆、卡蜜尔、巴德附加包的判断）。
 pub fn current(grids: &[Grid], champions: &[(f64, f64)]) -> Option<usize> {
     grids
@@ -587,7 +600,6 @@ impl Dragon {
     /// 看局面：撤或追，挑好落点就起飞（冷却、动作、音效、台词、加速），`e_wind` tick 后出发，火球排好。
     fn decide(&mut self, sim: &mut StableSim<'_>, me: usize, here: (f64, f64)) {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        let mut champs = Vec::new();
         let mut foes = Vec::new();
         let mut allies = 0;
         for i in 0..sim.entity_count() {
@@ -597,7 +609,6 @@ impl Dragon {
             }
             let (x, y) = u.pos();
             let at = (x as f64, y as f64);
-            champs.push(at);
             if u.team() != team {
                 if u.is_targetable() {
                     let (hp, max) = u.hp();
@@ -620,7 +631,7 @@ impl Dragon {
             })
             .min_by(|a, b| dist(here, *a).total_cmp(&dist(here, *b)));
         let grids = Grid::builtin();
-        let Some(gi) = current(&grids, &champs) else { return };
+        let Some(gi) = current(&grids, &unit_points(sim)) else { return };
         let g = &grids[gi];
         let plan = if wants_out(&self.p, here, mine, &foes, allies) {
             plan_exit(&self.p, g, here, &foes.iter().map(|f| f.at).collect::<Vec<_>>(), home).map(|(to, wall)| (to, wall, "out".to_string()))
@@ -783,17 +794,8 @@ impl Dragon {
 
 /// 出发那一刻再看一次落点（地图判断可能变了）。
 fn landing_ok(sim: &StableSim<'_>, to: (f64, f64)) -> bool {
-    let mut champs = Vec::new();
-    for i in 0..sim.entity_count() {
-        if let Some(u) = sim.entity_at(i) {
-            if u.is_champion() && u.is_alive() {
-                let (x, y) = u.pos();
-                champs.push((x as f64, y as f64));
-            }
-        }
-    }
     let grids = Grid::builtin();
-    current(&grids, &champs).is_some_and(|gi| grids[gi].clear(to))
+    current(&grids, &unit_points(sim)).is_some_and(|gi| grids[gi].clear(to))
 }
 
 impl StablePassive for Dragon {
@@ -943,7 +945,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let v = host.game_version();
     wlog(format!(
         "=== {ID} v{} (Smolder: stacks kept through death, the tier-3 execute, Flap over walls) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        VERSION,
         v.major,
         v.minor,
         v.patch,

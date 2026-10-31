@@ -305,6 +305,17 @@ impl Grid {
     }
 }
 
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<(f64, f64)> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
+}
+
 /// 这局是哪张图：站在墙里的英雄最少（翻墙、穿墙途中的英雄会站在墙格上）、墙又最多的那张（卡蜜尔、凯隐附加包的判断，
 /// 但不因为一个正在穿墙的凯隐就换图）。
 pub fn current(grids: &[Grid], champions: &[(f64, f64)]) -> Option<usize> {
@@ -591,7 +602,6 @@ impl StablePassive for Path {
         if sim.tick() % EVERY != 0 || has_buff(sim, me, &tl("e_cd")) || has_cc(sim, me, &NO_VAULT) || !targetable {
             return;
         }
-        let mut champs = Vec::new();
         let mut foes = Vec::new();
         let mut allies = 0;
         for i in 0..sim.entity_count() {
@@ -601,7 +611,6 @@ impl StablePassive for Path {
             }
             let (x, y) = u.pos();
             let at = (x as f64, y as f64);
-            champs.push(at);
             if u.team() != team && u.is_targetable() {
                 let (hp, max) = u.hp();
                 foes.push(Foe { at, hp_pct: hp * 100 / max.max(1), id: u.id() });
@@ -610,7 +619,7 @@ impl StablePassive for Path {
             }
         }
         let grids = Grid::builtin();
-        let Some(gi) = current(&grids, &champs) else { return };
+        let Some(gi) = current(&grids, &unit_points(sim)) else { return };
         let g = &grids[gi];
         let mine = hp_pct(sim, me);
         let plan = if wants_out(&self.p, here, mine, &foes, allies) {

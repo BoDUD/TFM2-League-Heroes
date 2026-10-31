@@ -42,7 +42,8 @@ mod maps;
 pub mod combo;
 
 pub const ID: &str = "league_ornn";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.3";
 
 /// 主包参数表 P 的同名项：柱子留多久；易碎引爆（最大生命 %、击飞、击退速度和 tick）；地震半径；E 的动作长度、射程；Q 的射程。
 pub const Q_LIFE: usize = 240;
@@ -441,13 +442,20 @@ fn from_of(sim: &StableSim<'_>, me: usize) -> Option<Pt> {
     buffs(sim, me).iter().find_map(|b| untag(FROM_TAG, b.name()))
 }
 
-fn champion_points(sim: &StableSim<'_>) -> Vec<Pt> {
-    (0..sim.champion_count()).filter_map(|i| pos(sim, sim.champion_id_at(i))).collect()
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
 }
 
 fn grid_now(sim: &StableSim<'_>) -> Option<Grid> {
     let grids = Grid::builtin();
-    let i = current(&grids, &champion_points(sim))?;
+    let i = current(&grids, &unit_points(sim))?;
     grids.into_iter().nth(i)
 }
 

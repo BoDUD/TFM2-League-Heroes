@@ -25,7 +25,8 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_swain";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.1";
 /// 恶魔形态（主包数据的 buff）。
 pub const FORM: &str = "league_swain_r_on";
 /// 一块魂屑（主包数据：永久，最大生命 +p_hp）。

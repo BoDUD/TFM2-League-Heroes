@@ -55,7 +55,7 @@
 
 ### 卡莉丝塔附加包
 
-[卡莉丝塔附加包](../../addons/league_kalista/README.md)：`league_kalista` v0.1.2
+[卡莉丝塔附加包](../../addons/league_kalista/README.md)：`league_kalista` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -71,7 +71,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.5.6（通用附加包，下面只列和卡莉丝塔有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.5.7（通用附加包，下面只列和卡莉丝塔有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

@@ -51,7 +51,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -296,6 +296,24 @@ struct Disc {
     towers: Vec<(usize, (f64, f64))>,
     used: bool,
     up: Option<Up>,
+    /// This simulation's number (`SIM_TAG`), drawn at his first spawn.
+    sim: u64,
+}
+
+/// Each simulation's number (0.1.8, the 2026-11-01 review; league_teemo_shrooms' and league_galio's way): his passive
+/// draws one at his first spawn and hangs it on him at every spawn. The server runs two presims of a set side by side with
+/// the same seed, origin, match, set and entity ids, so the walls and soldiers keyed by those were shared between them (one
+/// sim could carry an enemy twice through one wall, the other find him "already carried", or find no wall at all).
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_azir_sim:";
+
+/// The simulation number hung on Azir (0: none yet).
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+            .unwrap_or(0)
+    })
 }
 
 /// The nearest enemy of `team` within r of `at`: champions first, then minions and monsters (never a tower or the nexus):
@@ -359,6 +377,12 @@ impl StablePassive for Disc {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if self.towers.is_empty() {
@@ -610,14 +634,13 @@ pub fn behind(p: &Params, me: Pt, target: Pt, home: Option<Pt>) -> Pt {
     (target.0 + away.0 * b, target.1 + away.1 * b)
 }
 
-type WallKey = (u64, u32, u64, u64, usize);
+type WallKey = (u64, usize);
 
-/// 立着的墙，按（种子、哪一种模拟、比赛、局、阿兹尔）分开：服务器的预演和屏幕上的比赛同时在跑。
+/// 立着的墙，按（这份模拟的编号 `SIM_TAG`、阿兹尔）分开：服务器的两份预演和屏幕上的比赛同时在跑。
 static WALLS: LazyLock<Mutex<HashMap<WallKey, Vec<Standing>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn wall_key(sim: &StableSim<'_>, me: usize) -> WallKey {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+    (sim_no(sim, me), me)
 }
 
 /// 正在被推、在冲刺的人不挡（被墙推过去的那一下、闪现和突进都能过墙，同英雄联盟）。
@@ -919,15 +942,14 @@ pub fn stamp_due(tick: usize, next: usize) -> bool {
     tick >= next && tick <= next + 2
 }
 
-/// Every soldier drawn: by (this game's seed, the simulation's origin, match, set, the caster, the slot) - the server's
-/// pre-simulation and the match on screen draw their own.
-type SoldierKey = (u64, u32, u64, u64, usize, usize);
+/// Every soldier drawn: by (the simulation's number `SIM_TAG`, the caster, the slot) - each of the server's presims and
+/// the match on screen draw their own.
+type SoldierKey = (u64, usize, usize);
 static SOLDIERS: LazyLock<Mutex<HashMap<SoldierKey, Soldier>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 static CHAINS: AtomicUsize = AtomicUsize::new(1);
 
 fn soldier_key(sim: &StableSim<'_>, caster: usize, slot: usize) -> SoldierKey {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, caster, slot)
+    (sim_no(sim, caster), caster, slot)
 }
 
 /// The spot a native in the soldier's landing gets: its position (a unit given instead: where it stands).
@@ -1223,6 +1245,11 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_sim_tag_fits_a_buff_name() {
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {

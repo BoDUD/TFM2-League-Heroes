@@ -292,7 +292,7 @@ unsafe fn densify_table(t: usize, hero: &Hero) -> bool {
         None => "the game does NOT find idle".into(),
     };
     wlog(format!("{}: anim table {t:#x}: {} tags on their dense frames, rects / {}; {check}", hero.id, plan.len(),
-        hero.ppu));
+        hero.shown()));
     true
 }
 
@@ -326,7 +326,7 @@ pub(crate) unsafe fn proxy_of(got: usize, hero: &Hero) -> Option<usize> {
         f.insert(fake, data);
     }
     std::ptr::write_volatile((got + 8) as *mut usize, fake);
-    wlog(format!("{}: texture {got:#x} reports its size / {} (vtable {vt:#x} -> {fake:#x})", hero.id, hero.ppu));
+    wlog(format!("{}: texture {got:#x} reports its size / {} (vtable {vt:#x} -> {fake:#x})", hero.id, hero.shown()));
     Some(got)
 }
 

@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_karthus_spirit": {
-        "attack": "【附加包】<#ff9028ff>痛苦之墙<>：每<#ffb900ff>12秒<>，身边有敌方英雄时，攻击在那名英雄脚下立起一道墙（<#ffb900ff>5秒<>），墙里的敌人<#ef5350ff>减速40%<>，魔抗-20%（<#ffb900ff>4秒<>）。<#ff9028ff>死亡契约<>：受到致命伤害时化为灵体<#ffb900ff>7秒<>，敌人选不中、不受伤害，照常放技能，之后倒下。"
+        "attack": "【附加包】<#ff9028ff>痛苦之墙<>：每<#ffb900ff>12秒<>，身边有敌方英雄时，攻击在那名英雄脚下立起一道墙（<#ffb900ff>5秒<>），墙里的敌人<#ef5350ff>减速40%<>，魔抗-20%（<#ffb900ff>4秒<>）。<#ff9028ff>死亡契约<>：受到致命伤害时化为灵体<#ffb900ff>7秒<>，敌人选不中、不受伤害，照常放技能（安魂曲不会被打断），之后倒下。",
+        "ult": "【附加包】引导<#ffb900ff>3秒<>（被控制会打断），然后对全图所有敌方英雄造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法伤害。只在灵体里或泉水里、敌方英雄残血时放。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_karthus_spirit": {
-        "attack": "【附加包】<#ff9028ff>痛苦之牆<>：每<#ffb900ff>12秒<>，身邊有敵方英雄時，攻擊在那名英雄腳下立起一道牆（<#ffb900ff>5秒<>），牆裡的敵人<#ef5350ff>緩速40%<>，魔抗-20%（<#ffb900ff>4秒<>）。<#ff9028ff>無視死亡！<>：受到致命傷害時化為靈體<#ffb900ff>7秒<>，敵人選不中、不受傷害，照常施放技能，之後倒下。"
+        "attack": "【附加包】<#ff9028ff>痛苦之牆<>：每<#ffb900ff>12秒<>，身邊有敵方英雄時，攻擊在那名英雄腳下立起一道牆（<#ffb900ff>5秒<>），牆裡的敵人<#ef5350ff>緩速40%<>，魔抗-20%（<#ffb900ff>4秒<>）。<#ff9028ff>無視死亡！<>：受到致命傷害時化為靈體<#ffb900ff>7秒<>，敵人選不中、不受傷害，照常施放技能（安魂曲不會被打斷），之後倒下。",
+        "ult": "【附加包】引導<#ffb900ff>3秒<>（被控制會打斷），然後對全圖所有敵方英雄造成<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>魔法傷害。只在靈體或泉水裡、敵方英雄殘血時施放。"
       }
     }
   },
   "en": {
     "description": {
       "league_karthus_spirit": {
-        "attack": "[Add-on] <#ff9028ff>Wall of Pain<>: every <#ffb900ff>12s<>, with an enemy champion near, his attack raises a wall at that champion for <#ffb900ff>5s<>: enemies in it are <#ef5350ff>slowed 40%<> and lose 20% magic resist for <#ffb900ff>4s<>.<#ff9028ff>Death Defied<>: a lethal blow turns him into a spirit for <#ffb900ff>7s<> - untargetable, taking no damage, still casting - before he falls."
+        "attack": "[Add-on] <#ff9028ff>Wall of Pain<>: every <#ffb900ff>12s<>, with an enemy champion near, his attack raises a wall at that champion for <#ffb900ff>5s<>: enemies in it are <#ef5350ff>slowed 40%<> and lose 20% magic resist for <#ffb900ff>4s<>.<#ff9028ff>Death Defied<>: a lethal blow turns him into a spirit for <#ffb900ff>7s<> - untargetable, taking no damage, still casting (Requiem unbroken) - before he falls.",
+        "ult": "[Add-on] Channels <#ffb900ff>3s<> (crowd control breaks it), then deals <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> magic damage to every enemy champion on the map. Cast only from the spirit or the fountain, when enemy champions are low."
       }
     }
   },
   "ko": {
     "description": {
       "league_karthus_spirit": {
-        "attack": "[애드온] <#ff9028ff>고통의 벽<>: <#ffb900ff>12초<>마다 근처에 적 챔피언이 있으면 공격이 그 챔피언 위치에 <#ffb900ff>5초<> 동안 벽을 세움. 벽 안의 적은 <#ef5350ff>40% 둔화<>, 마법 저항력 -20% (<#ffb900ff>4초<>).<#ff9028ff>죽음 극복<>: 치명상을 입으면 <#ffb900ff>7초<> 동안 영혼이 되어 대상 지정 불가, 피해 없음, 스킬 사용 가능. 이후 쓰러짐."
+        "attack": "[애드온] <#ff9028ff>고통의 벽<>: <#ffb900ff>12초<>마다 근처에 적 챔피언이 있으면 공격이 그 챔피언 위치에 <#ffb900ff>5초<> 동안 벽을 세움. 벽 안의 적은 <#ef5350ff>40% 둔화<>, 마법 저항력 -20% (<#ffb900ff>4초<>).<#ff9028ff>죽음 극복<>: 치명상을 입으면 <#ffb900ff>7초<> 동안 영혼이 되어 대상 지정 불가, 피해 없음, 스킬 사용 가능(진혼곡은 끊기지 않음). 이후 쓰러짐.",
+        "ult": "[애드온] <#ffb900ff>3초<> 정신 집중(군중 제어에 끊김) 후 맵의 모든 적 챔피언에게 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> 마법 피해. 영혼일 때나 우물에서, 적 챔피언이 빈사일 때만 사용."
       }
     }
   },
   "ja": {
     "description": {
       "league_karthus_spirit": {
-        "attack": "【アドオン】<#ff9028ff>嘆きの壁<>：<#ffb900ff>12秒<>ごとに、近くに敵チャンピオンがいると通常攻撃でその位置に壁を<#ffb900ff>5秒<>立てる。壁の中の敵は<#ef5350ff>40%スロウ<>、魔法防御-20%（<#ffb900ff>4秒<>）。<#ff9028ff>怨嗟の叫び<>：致命傷を受けると<#ffb900ff>7秒<>霊体になり、対象指定不可・ダメージ無効でスキルを使い続け、その後倒れる。"
+        "attack": "【アドオン】<#ff9028ff>嘆きの壁<>：<#ffb900ff>12秒<>ごとに、近くに敵チャンピオンがいると通常攻撃でその位置に壁を<#ffb900ff>5秒<>立てる。壁の中の敵は<#ef5350ff>40%スロウ<>、魔法防御-20%（<#ffb900ff>4秒<>）。<#ff9028ff>怨嗟の叫び<>：致命傷を受けると<#ffb900ff>7秒<>霊体になり、対象指定不可・ダメージ無効でスキルを使い続け（鎮魂歌は中断されない）、その後倒れる。",
+        "ult": "【アドオン】<#ffb900ff>3秒<>詠唱（行動妨害で中断）した後、マップ上のすべての敵チャンピオンに<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の魔法ダメージ。霊体か泉で、敵チャンピオンの体力が低い時だけ使う。"
       }
     }
   }

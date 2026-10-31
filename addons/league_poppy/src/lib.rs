@@ -35,7 +35,8 @@ use mod_api_stable::*;
 mod maps;
 
 const ID: &str = "league_poppy";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.2";
 
 /// 坚定风采：护甲魔抗 %、低血线 %、光环半径、挡下突进的伤害（固定、法强 %）、击飞、缚地、减速 %。
 pub const W_DEF: usize = 16;
@@ -260,14 +261,21 @@ fn target_of(input: &InputTargetV1) -> Option<usize> {
     (InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target)).then_some(input.target_id)
 }
 
-fn champion_points(sim: &StableSim<'_>) -> Vec<Pt> {
-    (0..sim.champion_count()).filter_map(|i| pos(sim, sim.champion_id_at(i))).collect()
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
 }
 
 /// 当前地图的墙格（和它是不是 5v5）。
 fn grid_now(sim: &StableSim<'_>) -> Option<(Grid, bool)> {
     let grids = Grid::builtin();
-    let i = current(&grids, &champion_points(sim))?;
+    let i = current(&grids, &unit_points(sim))?;
     let moba = i == 0;
     grids.into_iter().nth(i).map(|g| (g, moba))
 }

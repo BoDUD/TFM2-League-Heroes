@@ -36,7 +36,7 @@ use mod_api_stable::*;
 
 const ID: &str = "league_drmundo";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.4";
+const VERSION: &str = "0.1.6";
 const HERO: &str = "league_drmundo";
 
 // ===================== 数值 =====================

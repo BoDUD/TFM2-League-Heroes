@@ -55,7 +55,7 @@
 
 ### 维克兹附加包
 
-[维克兹附加包](../../addons/league_velkoz/README.md)：`league_velkoz` v0.1.1
+[维克兹附加包](../../addons/league_velkoz/README.md)：`league_velkoz` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

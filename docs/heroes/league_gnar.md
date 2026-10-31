@@ -55,7 +55,7 @@
 
 ### 纳尔附加包
 
-[纳尔附加包](../../addons/league_gnar/README.md)：`league_gnar` v0.1.2
+[纳尔附加包](../../addons/league_gnar/README.md)：`league_gnar` v0.1.3
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

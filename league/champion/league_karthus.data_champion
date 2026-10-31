@@ -2574,20 +2574,28 @@
           "tick": 15,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2596,20 +2604,28 @@
           "tick": 30,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2618,20 +2634,28 @@
           "tick": 45,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2640,20 +2664,28 @@
           "tick": 60,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2662,20 +2694,28 @@
           "tick": 75,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2684,20 +2724,28 @@
           "tick": 90,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2706,20 +2754,28 @@
           "tick": 105,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2728,20 +2784,28 @@
           "tick": 120,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2750,20 +2814,28 @@
           "tick": 135,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2772,20 +2844,28 @@
           "tick": 150,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
-              "effects": [
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
-                },
-                {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
             }
           ]
         },
@@ -2794,18 +2874,974 @@
           "tick": 165,
           "effects": [
             {
-              "type": "RandomTarget",
-              "range": 1,
-              "casting_target": "AllyChampionInCC",
-              "from_projectile": false,
+              "type": "SwitchByBuff",
+              "buff_name": "league_karthus_p_spirit",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "RandomTarget",
+                "range": 1,
+                "casting_target": "AllyChampionInCC",
+                "from_projectile": false,
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_karthus_r_ch"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "ult"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 2,
+          "effects": [
+            {
+              "type": "Combine",
               "effects": [
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_karthus_r_ch"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
                 },
                 {
-                  "type": "RemoveCasterAnimation",
-                  "name": "ult"
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 32,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 47,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 62,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 77,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 92,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 107,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 122,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 137,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 152,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 167,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_karthus_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_karthus_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_karthus_r_ch",
+                        "effect_buff": {
+                          "type": "RangeEffect",
+                          "shape": {
+                            "Circle": {
+                              "radius": 960000
+                            }
+                          },
+                          "target": "EnemyChampion",
+                          "apply_type": "AroundCaster",
+                          "effects": [
+                            {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_karthus_r_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 18
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_karthus_lives"
                 }
               ]
             }
@@ -3016,6 +4052,14 @@
       "name": "league_karthus_w_shred",
       "anim": "asset/league/effects/league_karthus_fx",
       "tag": "w_shred",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_karthus_r_mark",
+      "anim": "asset/league/effects/league_karthus_big",
+      "tag": "r_mark",
       "repeat": true,
       "z": 3
     }
