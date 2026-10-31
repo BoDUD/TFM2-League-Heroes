@@ -1,0 +1,188 @@
+{
+  "count": 12,
+  "fx_sheets": 9,
+  "fx_frames": 51,
+  "icons": 3,
+  "checks": [
+    {
+      "file": "brambleback_fx_a_hit.png",
+      "size": [
+        576,
+        128
+      ],
+      "hard_alpha": true,
+      "sha256": "6c0b6cfe569654511996135e555b201f29fc1f69d14735fa9ca0cce5ba7f5cf2",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        16
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 4
+    },
+    {
+      "file": "brambleback_fx_q_hit.png",
+      "size": [
+        1920,
+        192
+      ],
+      "hard_alpha": true,
+      "sha256": "6f0f631bc99bb6d67e6faa3eebc15855fd37720fca43df4c63e19529818ef9c2",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        24
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 6
+    },
+    {
+      "file": "brambleback_fx_q_slow.png",
+      "size": [
+        1152,
+        64
+      ],
+      "hard_alpha": true,
+      "sha256": "a5dcb04e38326bedb7cd7c52f8bea1a541bfecbd9559ae29cb57a1b28834e6d6",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        8
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 6
+    },
+    {
+      "file": "brambleback_fx_e_cast.png",
+      "size": [
+        2880,
+        384
+      ],
+      "hard_alpha": true,
+      "sha256": "f09d38b2a3d19c0634ab95d9704bb22a57232cd7edf1e55f27a866d138bdae98",
+      "frames": 5,
+      "cell_1x": [
+        72,
+        48
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 5
+    },
+    {
+      "file": "brambleback_fx_e_slow.png",
+      "size": [
+        576,
+        96
+      ],
+      "hard_alpha": true,
+      "sha256": "1a902fd4cf8bd8204755e42a64565a33bd46876ad57f62bd2df068f7bca8eeb1",
+      "frames": 6,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 6
+    },
+    {
+      "file": "brambleback_fx_e_guard.png",
+      "size": [
+        3552,
+        400
+      ],
+      "hard_alpha": true,
+      "sha256": "16b7079503fdbe38e44ddb116d5a0e498807f45cc6d5a6c81c6d15fa3555cfc0",
+      "frames": 6,
+      "cell_1x": [
+        74,
+        50
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 6
+    },
+    {
+      "file": "brambleback_fx_r_cast.png",
+      "size": [
+        3648,
+        448
+      ],
+      "hard_alpha": true,
+      "sha256": "1f203ed59d7f00ec9909ca545848b9966069e6afffca811c65594dabf7de3c3e",
+      "frames": 6,
+      "cell_1x": [
+        76,
+        56
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 6
+    },
+    {
+      "file": "brambleback_fx_r_fury.png",
+      "size": [
+        3360,
+        432
+      ],
+      "hard_alpha": true,
+      "sha256": "41467680cbd5f8cd58c18f585f2477c56fcf5bbc1bb680ed692684043a2de7ea",
+      "frames": 6,
+      "cell_1x": [
+        70,
+        54
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 6
+    },
+    {
+      "file": "brambleback_fx_p_burn.png",
+      "size": [
+        960,
+        208
+      ],
+      "hard_alpha": true,
+      "sha256": "1a93394bdb1eb556a20519fd0693f7e3a4b5d825ebad3e429bbebc9530ec6825",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        26
+      ],
+      "symmetry": true,
+      "exact_8x": true,
+      "unique_frames": 6
+    },
+    {
+      "file": "brambleback_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "hard_alpha": true,
+      "sha256": "d8a6a675eff6c70806a1906a240cafb0e561723a2d808b6cb4fe52f90842e999"
+    },
+    {
+      "file": "brambleback_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "hard_alpha": true,
+      "sha256": "83c160e6e3550def49d9e3743446401c6e8d51a565e11a7f5a86159cd5d77600"
+    },
+    {
+      "file": "brambleback_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "hard_alpha": true,
+      "sha256": "d90104c9e9b7104befe08ba627eb4fa4a6e2caa6c93b695a95e725d12602edc9"
+    }
+  ]
+}

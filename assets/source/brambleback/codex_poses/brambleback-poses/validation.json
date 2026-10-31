@@ -1,0 +1,386 @@
+{
+  "count": 19,
+  "poses": [
+    {
+      "file": "brambleback-pose-a_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        80,
+        134,
+        1236,
+        1194
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "0b534e6fb8d0feb6cb6d822422640d791cffc5196fd77be04347a2eac0c6527f"
+    },
+    {
+      "file": "brambleback-pose-a_swipe.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        71,
+        398,
+        1219,
+        1180
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "982a56e279018976fa6ed49682969cd14fa60237092cf9277c28f19dd189a8e4"
+    },
+    {
+      "file": "brambleback-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        73,
+        584,
+        1214,
+        1207
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "500b6fd79249dca7715dfb2eb9f4c5c6a742111f7d35347fef7d72a029057daf"
+    },
+    {
+      "file": "brambleback-pose-d_rear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        282,
+        7,
+        1127,
+        1236
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "023dba300ce45f87caa86ad46640537b884f186161d5a56412cbf55319288589"
+    },
+    {
+      "file": "brambleback-pose-e_crouch.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        85,
+        478,
+        1195,
+        1171
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "8578855768f3a58feafa68c26d8c283f7e990a2297953198c84d1045049feba2"
+    },
+    {
+      "file": "brambleback-pose-e_rear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        21,
+        152,
+        1233,
+        1206
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "cb5b471296ce9fcbbc8788f9a0974d31f633a8f6c74f8bdd91c3d15e0aa27514"
+    },
+    {
+      "file": "brambleback-pose-q_jump.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        78,
+        235,
+        1206,
+        1028
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "c9d846ccd94db158d4658d41661c5165281ccdfd051835c66745f404a0deeae6"
+    },
+    {
+      "file": "brambleback-pose-q_land.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        111,
+        500,
+        1208,
+        1162
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "31bafe8c12bf792e01aedd952b5e16ea06ff4cbca4349fe50349ef9e50988cc3"
+    },
+    {
+      "file": "brambleback-pose-q_reach.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        74,
+        89,
+        1201,
+        1196
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "d275a5509799c2c0f8efcd14e93077651ccb5504cdfc04758112d21ddf0c1ef7"
+    },
+    {
+      "file": "brambleback-pose-r_rear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        209,
+        44,
+        1188,
+        1211
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "d65b6b920dd07da51c9fbdb27018dacdfcc19f941f10b7f3b14994c5138314d2"
+    },
+    {
+      "file": "brambleback-pose-r_slam.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        101,
+        400,
+        1206,
+        1163
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "bd88529fd78dd38efa2b22f3963891f98452f7482f26c6d47e4d8ff12c472d81"
+    },
+    {
+      "file": "brambleback-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        158,
+        471,
+        1228,
+        1159
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "df6d59368e0a0b925663f8a1e49784878ddae362da43b226e8003e5988227e18"
+    },
+    {
+      "file": "brambleback-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        39,
+        399,
+        1245,
+        1186
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "fcfa5adedc0a416f2ce0f20aa1cbc59ba9f9139a696e92c366dc63c0751338eb"
+    },
+    {
+      "file": "brambleback-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        53,
+        482,
+        1225,
+        1154
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "b91979ca7710c1efb9044b066fefc57fb4de099071e223bbee2d681129bd2add"
+    },
+    {
+      "file": "brambleback-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        69,
+        392,
+        1225,
+        1146
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "50b9385b4ee0f60c71762db85cd20f9f6ae250c94a071d6d2f61faf8e9d64e24"
+    },
+    {
+      "file": "brambleback-pose-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        58,
+        400,
+        1240,
+        1143
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "2bb9aa085fa73616b562c1b9b1fabeb61b4d137a17d734200daabab30076c18c"
+    },
+    {
+      "file": "brambleback-pose-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        116,
+        473,
+        1173,
+        1168
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "9827d4ad769bde1db079384e928afd8b8dcb75b96d4032a59486c9682343278f"
+    },
+    {
+      "file": "brambleback-pose-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        152,
+        617,
+        1163,
+        1175
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "1aafb3768a78b361bfe2e486e58a663553d11474cbee746d353735548d5980d2"
+    },
+    {
+      "file": "brambleback-pose-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "solid_bbox": [
+        86,
+        426,
+        1209,
+        1200
+      ],
+      "has_transparency": true,
+      "alpha_levels": 2,
+      "hard_alpha": true,
+      "same_canvas_as_raw": true,
+      "opaque_rgb_matches_raw": true,
+      "alpha_only_processing": true,
+      "sha256": "f0eb68329d02002065fb6a624e5b553056a70a8ba425abdc92d9ae576a4b05e3"
+    }
+  ],
+  "note": "No pose was resized or spatially resampled. Final alpha hardened at 128; generated raw preserved separately. Generator grid/limb alignment can differ from requested values. This report does not assert exact head pixel identity or skeleton coincidence."
+}

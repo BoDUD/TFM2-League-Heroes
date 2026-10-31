@@ -429,7 +429,7 @@ mod tests {
         assert!(HOST.heroes().get("league_yasuo").is_some() && HOST.heroes().get("tft_powder").is_none());
         // the host there: the next DLL hooks nothing and its heroes join the host's
         let mine = Registry::new();
-        let r = start_with(&env, &mine, &me, &tft(), "tft.dll 0.28.0", host_door, || panic!("a guest hooks nothing"));
+        let r = start_with(&env, &mine, &me, &tft(), "tft.dll 0.29.0", host_door, || panic!("a guest hooks nothing"));
         assert_eq!(r, Role::Guest { host: "league.dll 0.9.0".into(), heroes: 2 });
         assert_eq!(env.get().as_deref(), Some(v.as_str()), "the host's value stays");
         let h = HOST.heroes();
@@ -450,7 +450,7 @@ mod tests {
         let env = TestEnv::default();
         let v = host_value(&me, old_host_door as Door as usize, "league.dll 9.0.0");
         env.set(&v.replacen(&format!(":{PROTOCOL}:"), ":7:", 1));
-        let r = start_with(&env, &Registry::new(), &me, &tft(), "tft.dll 0.28.0", unused_door, || panic!("no hooks"));
+        let r = start_with(&env, &Registry::new(), &me, &tft(), "tft.dll 0.29.0", unused_door, || panic!("no hooks"));
         assert!(matches!(&r, Role::Off(why) if why.contains("protocol 7")), "{r:?}");
         assert!(OLD_HOST.heroes().list.is_empty(), "nothing handed over");
         // and a host refuses a table of another protocol at its door, and what is not a table
@@ -473,14 +473,14 @@ mod tests {
         env.set(&host_value("4d2.1dc0ffee", unused_door as Door as usize, "league.dll 0.9.0"));
         let reg = Registry::new();
         let hooked = Cell::new(false);
-        let r = start_with(&env, &reg, &me, &tft(), "tft.dll 0.28.0", unused_door, || {
+        let r = start_with(&env, &reg, &me, &tft(), "tft.dll 0.29.0", unused_door, || {
             hooked.set(true);
             Ok(())
         });
         assert_eq!(r, Role::Host);
         assert!(hooked.get());
         let now = seen(env.get().as_deref(), &me);
-        assert_eq!(now, Seen::Host { door: unused_door as Door as usize, name: "tft.dll 0.28.0".into() });
+        assert_eq!(now, Seen::Host { door: unused_door as Door as usize, name: "tft.dll 0.29.0".into() });
         assert!(reg.heroes().get("tft_powder").is_some());
         assert!(UNUSED.heroes().list.is_empty());
     }

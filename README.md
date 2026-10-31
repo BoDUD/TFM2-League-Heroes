@@ -89,7 +89,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 
 ## 金铲铲之战系列（tft 包）
 
-第二个 mod，mod_id `tft`，名字「Teamfight Tactics Heroes」，源文件在 [`tft/`](tft/)：金铲铲之战（云顶之弈）里英雄联盟没有的棋子——爆爆（[`tft_powder`](docs/heroes/tft_powder.md)）和诺拉（[`tft_norra`](docs/heroes/tft_norra.md)，技能照英雄联盟手游）。爆爆的音效是游戏本体自带的音频片段（在她自己的 `.sound_info` 里叠起来播），诺拉的是从英雄联盟客户端借的片段（和主包一样不进仓库，`tools/lol/extract_norra.py` 提取、打包时带上）。tft 包是原生 mod：数据做不到的地方写在它自己的 `tft.dll` 里（[`addons/tft`](addons/tft/README.md)，每个 tft 英雄一个模块，现在是诺拉的手游规则），打包时编好带上，所有 tft 英雄都在这一个 mod 里。高清帧是 `tft.dll` 自己的（0.28.0 起；以前借 `league.dll`，只有两个包都开着时才有）：表在 [`addons/tft/src/hd.rs`](addons/tft/src/hd.rs)，画法是和 `league.dll` 共用的 [`addons/hd_engine`](addons/hd_engine/src/lib.rs)——只开 tft 包也有高清帧；两个包都开着时先加载的那个 DLL 挂钩、画两个包的英雄，后加载的把表交给它，Mods 菜单里谁先谁后都一样。`tft.dll` 的日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`。工具链共用：`python tools/package_mod.py --src tft --hero powder --install` 装进 `<游戏>/mods/tft`，`ppu_hd.PACKS` 把她们的图写进 `tft/champions/`，`lint_mod.py tft` 检查。
+第二个 mod，mod_id `tft`，名字「Teamfight Tactics Heroes」，源文件在 [`tft/`](tft/)：金铲铲之战（云顶之弈）里英雄联盟没有的棋子——爆爆（[`tft_powder`](docs/heroes/tft_powder.md)）和诺拉（[`tft_norra`](docs/heroes/tft_norra.md)，技能照英雄联盟手游）。爆爆的音效是游戏本体自带的音频片段（在她自己的 `.sound_info` 里叠起来播），诺拉的是从英雄联盟客户端借的片段（和主包一样不进仓库，`tools/lol/extract_norra.py` 提取、打包时带上）。tft 包是原生 mod：数据做不到的地方写在它自己的 `tft.dll` 里（[`addons/tft`](addons/tft/README.md)，每个 tft 英雄一个模块，现在是诺拉的手游规则），打包时编好带上，所有 tft 英雄都在这一个 mod 里。高清帧是 `tft.dll` 自己的（0.29.0 起；以前借 `league.dll`，只有两个包都开着时才有）：表在 [`addons/tft/src/hd.rs`](addons/tft/src/hd.rs)，画法是和 `league.dll` 共用的 [`addons/hd_engine`](addons/hd_engine/src/lib.rs)——只开 tft 包也有高清帧；两个包都开着时先加载的那个 DLL 挂钩、画两个包的英雄，后加载的把表交给它，Mods 菜单里谁先谁后都一样。`tft.dll` 的日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`。工具链共用：`python tools/package_mod.py --src tft --hero powder --install` 装进 `<游戏>/mods/tft`，`ppu_hd.PACKS` 把她们的图写进 `tft/champions/`，`lint_mod.py tft` 检查。
 
 ## 英雄一览
 
@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 198 位：主包 173 位、tft 包 25 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 199 位：主包 173 位、tft 包 26 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（45）
 
@@ -150,7 +150,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_shiohyu.png" width="32"> | [石傲玉](docs/heroes/tft_shiohyu.md)<br>Shi Oh Yu（tft 包） | 上单 | 玉拳连打 · 震地 · 大招 玉龙形态 | — | PPU 2.46 |
 | <img src="docs/heroes/img/tft_terra.png" width="32"> | [泰拉](docs/heroes/tft_terra.md)<br>Terra（tft 包） | 上单 | 裂地咬 · 龙威咆哮 · 大招 地震 | — | PPU 1.45 |
 
-### 打野（47）
+### 打野（48）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -194,6 +194,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_wukong.png" width="32"> | [孙悟空](docs/heroes/league_wukong.md)<br>Wukong | 打野 | 腾云突击 · 真假猴王 · 大招 大闹天宫 | [悟空附加包](addons/league_wukong/README.md) | PPU 1.53 |
 | <img src="docs/heroes/img/league_xinzhao.png" width="32"> | [赵信](docs/heroes/league_xinzhao.md)<br>Xin Zhao | 打野 | 被动 果决 · 无畏冲锋 · 风斩电刺 · 大招 新月护卫 | [赵信大招远程免伤附加包](addons/league_xinzhao_guard/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zac.png" width="32"> | [扎克](docs/heroes/league_zac.md)<br>Zac | 打野 | 延伸打击 · 橡筋弹弓 · 大招 动感弹球 | [扎克附加包](addons/league_zac/README.md) | PPU 1.5 |
+| <img src="docs/heroes/img/tft_brambleback.png" width="32"> | [绯红印记树怪](docs/heroes/tft_brambleback.md)<br>Brambleback（tft 包） | 打野 | 荆棘飞扑 · 绯红咆哮 · 大招 猩红之怒 | — | PPU 1.7 |
 | <img src="docs/heroes/img/tft_krug.png" width="32"> | [远古石甲虫](docs/heroes/tft_krug.md)<br>Krug（tft 包） | 打野 | 岩之摇滚 · 坚岩外壳 · 大招 远古崩落 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_sentinel.png" width="32"> | [苍蓝雕纹魔像](docs/heroes/tft_sentinel.md)<br>Sentinel（tft 包） | 打野 | 双拳重砸 · 雕纹石肤 · 大招 蔚蓝冲击波 | — | PPU 1.7 |
 | <img src="docs/heroes/img/tft_smeech.png" width="32"> | [史密奇](docs/heroes/tft_smeech.md)<br>Smeech（tft 包） | 打野 | 废铁黑客 · 拆解 · 大招 废铁狂潮 | — | PPU 2.4 |

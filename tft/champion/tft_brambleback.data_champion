@@ -1,0 +1,366 @@
+{
+  "id": "tft_brambleback",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Dot",
+    "Heal"
+  ],
+  "passive": {
+    "passive_ref": "tft_brambleback:fury",
+    "params": {
+      "p_burn": 6,
+      "p_burn_t": 180,
+      "p_burn_every": 30,
+      "p_burn_cap": 40,
+      "p_heal": 15,
+      "k_range": 60000,
+      "k_speed": 4000,
+      "k_t": 24,
+      "k_dmg": 60,
+      "k_ad": 120,
+      "k_cd": 60
+    }
+  },
+  "sprite": "asset/tft/champions/tft_brambleback",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_brambleback_skill",
+    "asset/tft/icons/tft_brambleback_skill2",
+    "asset/tft/icons/tft_brambleback_ult"
+  ],
+  "stat": {
+    "attack": 92,
+    "magic_power": 0,
+    "hp": 1100,
+    "defence": 34,
+    "magic_resistance": 28,
+    "move_speed": 1040,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 16,
+    "magic_power": 0,
+    "hp": 108,
+    "defence": 8,
+    "magic_resistance": 6,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_brambleback.attack",
+    "duration": 32,
+    "cooltime": 66,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_brambleback_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_brambleback_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_brambleback_a_hit"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_brambleback:red"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_brambleback.skill",
+    "duration": 30,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 55000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_brambleback_q"
+        },
+        {
+          "type": "MoveToTarget",
+          "speed": 3500,
+          "range": 55000,
+          "end_effects": [
+            {
+              "type": "Attack",
+              "damage": 60,
+              "attack_ratio": 150,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_brambleback_q_slow",
+                "duration": {
+                  "Time": {
+                    "tick": 60
+                  }
+                },
+                "move_speed_mult": -30
+              }
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_brambleback_q_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_brambleback_q_hit"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_brambleback.skill2",
+    "duration": 36,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_brambleback_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_brambleback_e_guard"
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_brambleback_e_slow"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_brambleback_e_cast"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_brambleback_e_guard",
+                "duration": {
+                  "Time": {
+                    "tick": 180
+                  }
+                },
+                "damaged_reduce": 25
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 34000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_brambleback_e_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    },
+                    "move_speed_mult": -30,
+                    "attack_mult": -20
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_brambleback.ult",
+    "duration": 30,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_brambleback_r_vo"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_brambleback_r"
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_brambleback_r_fire"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_brambleback_r_cast"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_brambleback_r_fury",
+                "duration": {
+                  "Time": {
+                    "tick": 360
+                  }
+                },
+                "attack_mult": 55,
+                "attack_speed_mult": 35,
+                "defence_penetration": 40
+              },
+              "only_to_enemy": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_brambleback_a_hit",
+      "anim": "asset/tft/effects/tft_brambleback_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brambleback_q_hit",
+      "anim": "asset/tft/effects/tft_brambleback_fx",
+      "tag": "q_hit",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brambleback_e_cast",
+      "anim": "asset/tft/effects/tft_brambleback_big",
+      "tag": "e_cast",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brambleback_r_cast",
+      "anim": "asset/tft/effects/tft_brambleback_big",
+      "tag": "r_cast",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_brambleback_q_slow",
+      "anim": "asset/tft/effects/tft_brambleback_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_brambleback_e_slow",
+      "anim": "asset/tft/effects/tft_brambleback_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_brambleback_e_guard",
+      "anim": "asset/tft/effects/tft_brambleback_big",
+      "tag": "e_guard",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_brambleback_r_fury",
+      "anim": "asset/tft/effects/tft_brambleback_big",
+      "tag": "r_fury",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_brambleback_p_burn",
+      "anim": "asset/tft/effects/tft_brambleback_fx",
+      "tag": "p_burn",
+      "repeat": true,
+      "z": 4
+    }
+  ]
+}

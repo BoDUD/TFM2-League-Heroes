@@ -2,7 +2,7 @@
 
 tft 包（mod_id `tft`，源文件在 [`tft/`](../../tft/)）是原生 mod：英雄是数据，数据做不到的地方写在这个 crate 里，编成 `tft.dll` 跟着 tft 包一起装（`python tools/package_mod.py --src tft ...` 会编好带上）。所有 tft 英雄都在这一个 mod 里，每个英雄一个模块（用户，2026-10-26：「诺拉和爆爆合并在一个mod啊」「tft的英雄都放一个mod里 参考英雄联盟」）。新英雄：在 `src/` 加一个模块，在 `src/lib.rs` 的 `init` 里调用它的 `register`。
 
-**高清帧**（0.28.0 起，tft 包要单独上创意工坊）：[`src/hd.rs`](src/hd.rs) 是这个包的高清帧表（原来在 `league.dll` 的 [`addons/league_main/src/hd.rs`](../league_main/src/hd.rs) 里，只有两个包都开着时才画）。`init` 先把它交给两个包共用的高清帧引擎 [`addons/hd_engine`](../hd_engine/src/lib.rs)：`tft.dll` 是游戏进程里第一个加载的包 DLL（只开 tft 包，或者 Mods 菜单里排在 `league` 前面）就自己挂钩、画两个包的英雄；不是就把表交给先加载的 `league.dll`，自己不挂（[`src/share.rs`](../hd_engine/src/share.rs)）。新英雄有高清帧：在 `src/hd.rs` 的 `HEROES` 加一行（PPU 和 `tools/art/ppu_hd.py` 里的一致）。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`（每次启动重写，上一次的留作 `tft.prev.log`）——挂钩时是挂钩、取表、缩放的行，交给 `league.dll` 时只有一行。
+**高清帧**（0.29.0 起，tft 包要单独上创意工坊）：[`src/hd.rs`](src/hd.rs) 是这个包的高清帧表（原来在 `league.dll` 的 [`addons/league_main/src/hd.rs`](../league_main/src/hd.rs) 里，只有两个包都开着时才画）。`init` 先把它交给两个包共用的高清帧引擎 [`addons/hd_engine`](../hd_engine/src/lib.rs)：`tft.dll` 是游戏进程里第一个加载的包 DLL（只开 tft 包，或者 Mods 菜单里排在 `league` 前面）就自己挂钩、画两个包的英雄；不是就把表交给先加载的 `league.dll`，自己不挂（[`src/share.rs`](../hd_engine/src/share.rs)）。新英雄有高清帧：在 `src/hd.rs` 的 `HEROES` 加一行（PPU 和 `tools/art/ppu_hd.py` 里的一致）。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`（每次启动重写，上一次的留作 `tft.prev.log`）——挂钩时是挂钩、取表、缩放的行，交给 `league.dll` 时只有一行。
 
 | 英雄 | 模块 | 做什么 |
 |---|---|---|
