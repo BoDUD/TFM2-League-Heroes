@@ -112,6 +112,13 @@ empty tooltip). That is why the linter exists - run it after every edit.
   `sound/bgm/` into the OS cache after the title) - build it from that main too, and merge main before a hero
   branch installs its own `league.dll`. Seeding a worktree's audio from the install: copy
   `<install>/sound/bgm/*.mp3` into `league/sound/sfx/`.
+- **Native code builds for a Mac too (league, 2026-10-31; the user: 「想个办法主包和附加包能兼容mac吧」).** On a Mac the
+  game loads `<mod_id>.dylib` instead of the `.dll`; CI's `mac` job builds league.dylib, league_addons.dylib and
+  tft.dylib, and `tools/package_mod.py --out` / `assemble.py` ship CI's build of HEAD (`tools/kit/mac_dylib.py`). So in
+  `addons/`: no `#[link(name = "kernel32")]` outside `game_places` (a display hook's strings: `use
+  game_places::heap::{GetProcessHeap, HeapAlloc, HeapFree};`), Windows-only code under `#[cfg(windows)]`; a red `mac`
+  job on the PR means the bundle no longer links on a Mac. Upload from a pushed commit whose CI is green (otherwise
+  the package has no `.dylib` and says so).
 - **Keep `skill` and `skill2` small, and slim only with the same game (league, 2026-10-18; the user: 「这个要写好skill规矩」).**
   The game deep-copies every data champion's skill and skill2 trees each tick of a match - in game half the main
   thread's time with a match on screen, and the single-threaded stretch at the end of a day advance (league

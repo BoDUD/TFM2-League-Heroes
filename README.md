@@ -12,6 +12,7 @@
 - [高清帧（PPU）和界面](#高清帧ppu和界面)
 - [游戏版本更新时](#游戏版本更新时)
 - [持续集成](#持续集成)
+- [Mac](#mac)
 - [金铲铲之战系列（tft 包）](#金铲铲之战系列tft-包)
 - [英雄一览](#英雄一览)
 - [英雄文档怎么生成](#英雄文档怎么生成)
@@ -79,13 +80,23 @@ cargo test -p league_main            # 拿游戏目录里的 EXE 跑一遍：动
 
 ## 持续集成
 
-GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Windows 机器）在每个 PR 和每次合并进 main 时检查（合并进 main 要求这一项通过）：
+GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Windows 机器；Mac 版另有一项，见 [Mac](#mac)）在每个 PR 和每次合并进 main 时检查（合并进 main 要求这一项通过）：
 
 - PPU 界面小图集（[`tools/ci/ui_sheets.py`](tools/ci/ui_sheets.py)：每个英雄都有两张、和战斗图集逐像素一致，全部英雄加起来 bp ≤ 192 MiB、idle ≤ 64 MiB）；
 - 附加包的英雄副本有没有过期（各附加包的 `make_override.py --check`：塞拉斯偷的每个大招、佛耶戈、妮蔻、凯隐等的副本按主包重建后和提交的逐字比对，主包改了英雄却没重跑脚本就会红）；
 - `cargo test`：league.dll（高清帧、小图集、运行时寻址）、game_places 和附加包合集的全部测试。
 
 合并进 main 后再构建 league.dll 和附加包合集，打成一个下载附件（Actions 页面那次运行的 Artifacts）；英雄的图、数据和语音不在里面，完整安装和创意工坊上传照旧在本地用 `tools/package_mod.py`。检查红了：PR 页面点 Details 看是哪一步；`make_override.py` 过期就在装着游戏的电脑上重跑那个脚本再提交。
+
+## Mac
+
+游戏按平台挑 mod 文件夹里的代码（游戏目录 `mod-sdk-stable/README.txt`）：Windows 读 `<mod_id>.dll`，Mac 读 `<mod_id>.dylib`；文件夹里没有自己平台的那个文件，Mac 上就提示「This mod has no version for your operating system」。所以 `league`、`league_addons`、`tft` 三个包都同时带 `.dll` 和 `.dylib`（2026-10-31，用户：「想个办法主包和附加包能兼容mac吧」）：
+
+- **怎么编**：`.dylib` 只能在 Mac 上链接（苹果的 SDK 不许拿出来交叉链接），所以由 CI 的 `mac` 任务（GitHub 的 Mac 机器）每个提交编一次 `league.dylib`、`league_addons.dylib`、`tft.dylib`，苹果芯片和 Intel 合在一个文件里；编之前先在 Mac 上跑 league.dll、附加包合集和 tft 的测试。结果是那次运行的下载附件 `mac-dylibs-<提交>`，合并进 main 后的整包附件里也有。
+- **怎么进包**：`tools/package_mod.py --out`（上传创意工坊的整包）和 `assemble.py` 用 `gh` 取当前 HEAD 那次提交的 `.dylib` 放进包里（[`tools/kit/mac_dylib.py`](tools/kit/mac_dylib.py)，下载到 `dist/mac/<提交>/`）；HEAD 没推上去、CI 没跑完或红了、`addons/` 里有没提交的改动时不带，并提示。`--dylib <文件>` 用别处编的，`--no-dylib` 不带。装进本机游戏（`--install`）用不到它。
+- **Mac 上有什么**：英雄、数据、音效和附加包的玩法（原生效果、被动、AI 钩子、读墙和草丛……都走游戏的稳定接口）和 Windows 一样。**没有**的是直接改游戏 EXE 的那部分，它们是照 Windows 版的 EXE 做的：高清帧（高清英雄在 Mac 上画 1 倍帧）、界面小图集、GPU 图片缓存放大、音频预读，以及附加包的整身变身画面（凯隐、奈德丽、杰斯、佛耶戈附身等：机制照旧，只是站着、跑着、挨打不换成变身后的样子）。
+- **写原生代码的规矩**：显示钩子交给游戏的字符串用 `game_places::heap` 的 `HeapAlloc` / `HeapFree`，附加包里不要自己写 `#[link(name = "kernel32")]`——有一个，整个 `league_addons.dylib` 就链接不了（PR 上 `mac` 那一项会红）；只在 Windows 上有意义的代码用 `#[cfg(windows)]` 包起来（像 [`league_main/src/lib.rs`](addons/league_main/src/lib.rs)）。
+- 这里没有 Mac，`mac` 任务只证明编得出来、测试在 Mac 上通过；真机上好不好用要等 Mac 玩家反馈。
 
 ## 金铲铲之战系列（tft 包）
 

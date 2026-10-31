@@ -3,6 +3,7 @@
 
     python addons/league_addons/assemble.py OUT [--src addons] [--only league_nocturne_dark,league_leesin_hop]
                                             [--dll addons/target/release/league_addons.dll] [--version 0.1.0]
+                                            [--dylib league_addons.dylib | --no-dylib]
 
 For each add-on folder in --src (default: every addons/league_* but this one; --only picks some, e.g. the heroes
 already released): its override/ and effects/ files are copied (a champion copy's effect trees through
@@ -11,6 +12,8 @@ mod.override_info becomes `asset/league_addons/`, the champion remaps are merged
 text files into one text/champion.i18n (their keys are the add-ons' own ids - `description.league_leesin_hop` - so
 none collide; a clash stops the script). mod.mod_info: mod_id league_addons, native code, and the highest `league`
 version any of them needs. --src can be the Workshop release folders (texts already prefixed), not only the repo's.
+Next to the DLL goes the same code built for a Mac, league_addons.dylib: CI's build of HEAD (a .dylib links only on a
+Mac: tools/kit/mac_dylib.py), --dylib to ship one built elsewhere, --no-dylib to leave it out.
 """
 import argparse
 import json
@@ -22,6 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ADDONS = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(os.path.dirname(ADDONS), "tools", "kit"))
 import slim  # noqa: E402  the exact effect-tree rewrites (fewer nodes for the trees the game copies every tick)
+import mac_dylib  # noqa: E402  the Mac build of the bundle's code (CI's)
 ID = "league_addons"
 TEXT = "asset/base/text/champion"
 
@@ -57,6 +61,8 @@ def main():
     ap.add_argument("--only", help="comma-separated add-on ids")
     ap.add_argument("--dll", default=os.path.join(ADDONS, "target", "release", f"{ID}.dll"))
     ap.add_argument("--version", default="0.1.0")
+    ap.add_argument("--dylib", help="ship this Mac build instead of CI's build of HEAD")
+    ap.add_argument("--no-dylib", action="store_true", help="a bundle without the Mac build")
     a = ap.parse_args()
     names = a.only.split(",") if a.only else sorted(
         d for d in os.listdir(a.src) if d.startswith("league_") and d != ID
@@ -103,8 +109,16 @@ def main():
           "mod_id": ID, "mod_type": "native", "name": "League Heroes: Add-ons", "version": a.version},
          os.path.join(a.out, "mod.mod_info"))
     shutil.copyfile(a.dll, os.path.join(a.out, f"{ID}.dll"))
+    if not a.no_dylib:
+        data, where = mac_dylib.dylib(f"{ID}.dylib", a.dylib)
+        if data:
+            with open(os.path.join(a.out, f"{ID}.dylib"), "wb") as f:
+                f.write(data)
+            print(f"{ID}.dylib: {len(data) / 1e3:.0f} kB ({where})")
+        else:
+            print(f"warning: no {ID}.dylib ({where}) - on a Mac the game will say the bundle has no version for it")
     left = [p for p in (os.path.join(dp, f) for dp, _, fs in os.walk(a.out) for f in fs)
-            if not p.endswith((".png", ".dll")) and any(f"asset/{n}/" in open(p, encoding="utf-8").read() for n in names)]
+            if not p.endswith((".png", ".dll", ".dylib")) and any(f"asset/{n}/" in open(p, encoding="utf-8").read() for n in names)]
     if left:
         sys.exit(f"paths of the add-ons' own folders left in {left}")
     print(f"{a.out}: {len(names)} add-ons ({', '.join(names)}), league {need}, "
