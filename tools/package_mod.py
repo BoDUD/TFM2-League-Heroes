@@ -59,9 +59,7 @@ The main pack is a native mod (mod.mod_info contains_code / mod_type native, 202
 addons/league_main): every package and every install also carries league.dll, built here with
 `cargo build --release -p league_main` in addons/ (cargo needed; --dll <path> to ship one built elsewhere). The tft pack
 is native too (2026-10-26, its heroes' rules in one tft.dll, addons/tft: 「tft的英雄都放一个mod里」): --src tft builds
-and ships tft.dll the same way. A whole package (--out, the Workshop upload) also carries the same code built for a Mac,
-league.dylib / tft.dylib: a .dylib links only on a Mac, so it is CI's build of HEAD (tools/kit/mac_dylib.py; --dylib
-<path> to ship one built elsewhere, --no-dylib to leave it out). Installs into this Windows game do not need it.
+and ships tft.dll the same way.
 
 Needs Python 3.9+ with Pillow, numpy and soundfile (`pip install pillow numpy soundfile`; the libsndfile in
 soundfile's wheel brings the LAME encoder). The audio is Riot's: it is never committed.
@@ -85,7 +83,6 @@ from PIL import Image
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "tools", "kit"))
 import slim  # noqa: E402  the exact effect-tree rewrites
-import mac_dylib  # noqa: E402  the Mac build of the pack's code (CI's)
 GAME_DIRS = [
     r"C:\Program Files (x86)\Steam\steamapps\common\Teamfight Manager2",
     r"C:\Program Files\Steam\steamapps\common\Teamfight Manager2",
@@ -827,8 +824,6 @@ def main():
     ap.add_argument("--dry", action="store_true", help="with --install: report, write nothing")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--dll", help="ship this DLL (league.dll, tft.dll) instead of building it in addons/")
-    ap.add_argument("--dylib", help="ship this Mac build (league.dylib, tft.dylib) instead of CI's build of HEAD")
-    ap.add_argument("--no-dylib", action="store_true", help="a package without the Mac build")
     a = ap.parse_args()
     t0 = time.time()
     # the pack's own id: league/ (league_<hero>) or another pack in this repo, tft/ (tft_<hero>: --src tft)
@@ -845,20 +840,12 @@ def main():
         heroes = all_heroes
     pkg, report = build(a.src, heroes, everything=not a.hero, workers=a.workers)
     info = parse_json(read(os.path.join(a.src, "mod.mod_info")), "mod.mod_info")
-    out = a.out or (None if a.install else os.path.join(REPO, "dist", mod_id))
     if info.get("contains_code"):
         name, pkg_dll = build_dll(a.dll, mod_id)
         pkg[name] = pkg_dll
         print(f"{name}: {len(pkg_dll) / 1e3:.0f} kB")
-        if a.dylib or (out and not a.no_dylib):
-            mac = mod_id + ".dylib"
-            data, where = mac_dylib.dylib(mac, a.dylib)
-            if data:
-                pkg[mac] = data
-                print(f"{mac}: {len(data) / 1e3:.0f} kB ({where})")
-            else:
-                print(f"warning: no {mac} ({where}) - on a Mac the game will say the pack has no version for it")
     print_report(report, time.time() - t0)
+    out = a.out or (None if a.install else os.path.join(REPO, "dist", mod_id))
     if out:
         if a.hero:
             sys.exit("--out writes a whole package; leave out --hero")
