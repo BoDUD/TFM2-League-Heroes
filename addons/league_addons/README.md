@@ -88,4 +88,4 @@ AI 钩子在大招解锁（5 级）前按 R、技能 2 解锁（3 级）前按�
 Mac（2026-10-31）：合集也编成 `league_addons.dylib`。显示钩子是照 Windows 版 EXE 做的，Mac 上 `game_places::hook::add` 直接返回
 「not Windows」，各英雄退回没有整身变身画面的样子；钩子交给游戏的动画名字符串用 `game_places::heap::{GetProcessHeap, HeapAlloc,
 HeapFree}`（Windows 上就是 kernel32 的，别处是 malloc / free），**附加包里不要自己写 `#[link(name = "kernel32")]`**：有一个，
-整个合集在 Mac 上就链接不了（PR 上 CI 的 `mac` 那一项会红）。
+整个合集在 Mac 上就链接不了（PR 上 CI 的 `mac` 那一项会红；它是合并进 main 必需的检查，PR 就合并不了）。
