@@ -14,6 +14,7 @@ pub mod nomsy;
 pub mod norra;
 pub mod renni;
 pub mod scar;
+pub mod sentinel;
 pub mod sevika;
 pub mod shiohyu;
 pub mod silco;
@@ -42,6 +43,7 @@ fn init(host: &StableHost) -> StableMod {
     norra::register(host, &mut module);
     renni::register(host, &mut module);
     scar::register(host, &mut module);
+    sentinel::register(host, &mut module);
     sevika::register(host, &mut module);
     shiohyu::register(host, &mut module);
     silco::register(host, &mut module);

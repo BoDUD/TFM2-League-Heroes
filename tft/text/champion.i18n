@@ -168,6 +168,13 @@
         "skill": "后空翻踢中目标，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>并击飞<#ffb900ff>0.67秒<>。",
         "skill2": "缩成羽毛球滚向敌人，路上的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>；身边友方英雄移速<#ffb900ff>+20%<>（<#ffb900ff>2.5秒<>）。",
         "ult": "获得<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>护盾（<#ffb900ff>2秒<>），跃起砸向生命百分比最高的敌方英雄（免疫控制），造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<><#ff9028ff>物理伤害<>，晕眩<#ffb900ff>1.5秒<>并略微击退。"
+      },
+      "tft_sentinel": {
+        "name": "苍蓝雕纹魔像",
+        "attack": "巨拳砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>蓝霸符<>：每放一个技能，身边友军的技能剩余冷却立刻降到最多<#ffb900ff>67%<>。",
+        "skill": "双拳砸地，对周围敌人造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法伤害<>并减速<#ef5350ff>30%<>（<#ffb900ff>2秒<>）。",
+        "skill2": "符文亮起，获得<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>护盾（<#ffb900ff>4秒<>），<#ef5350ff>嘲讽<>周围敌人<#ffb900ff>1.2秒<>。",
+        "ult": "获得<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>护盾，猛砸地面，朝敌方英雄最多的方向裂开裂隙：<#ef5350ff>击飞<>、<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法伤害<>，<#ef5350ff>破法<>（下一个技能晚<#ffb900ff>2秒<>）。"
       }
     },
     "skill_name": {
@@ -290,6 +297,11 @@
         "skill1": "后空翻踢",
         "skill2": "翻滚冲锋",
         "ult": "翻滚突袭"
+      },
+      "tft_sentinel": {
+        "skill1": "双拳重砸",
+        "skill2": "雕纹石肤",
+        "ult": "蔚蓝冲击波"
       }
     }
   },
@@ -462,6 +474,13 @@
         "skill": "後空翻踢中目標，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>並擊飛<#ffb900ff>0.67秒<>。",
         "skill2": "縮成羽毛球滾向敵人，路上的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>；身邊友方英雄移速<#ffb900ff>+20%<>（<#ffb900ff>2.5秒<>）。",
         "ult": "獲得<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>護盾（<#ffb900ff>2秒<>），躍起砸向生命百分比最高的敵方英雄（免疫控制），造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<><#ff9028ff>物理傷害<>，暈眩<#ffb900ff>1.5秒<>並略微擊退。"
+      },
+      "tft_sentinel": {
+        "name": "守望者",
+        "attack": "巨拳砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>藍霸符<>：每放一個技能，身邊友軍的技能剩餘冷卻立刻降到最多<#ffb900ff>67%<>。",
+        "skill": "雙拳砸地，對周圍敵人造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法傷害<>並緩速<#ef5350ff>30%<>（<#ffb900ff>2秒<>）。",
+        "skill2": "符文亮起，獲得<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>護盾（<#ffb900ff>4秒<>），<#ef5350ff>嘲諷<>周圍敵人<#ffb900ff>1.2秒<>。",
+        "ult": "獲得<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>護盾，猛砸地面，朝敵方英雄最多的方向裂開裂隙：<#ef5350ff>擊飛<>、<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法傷害<>，<#ef5350ff>破法<>（下一個技能晚<#ffb900ff>2秒<>）。"
       }
     },
     "skill_name": {
@@ -584,6 +603,11 @@
         "skill1": "後空翻踢",
         "skill2": "翻滾衝鋒",
         "ult": "筋斗突進"
+      },
+      "tft_sentinel": {
+        "skill1": "雙拳重砸",
+        "skill2": "雕紋石膚",
+        "ult": "蒼藍衝擊波"
       }
     }
   },
@@ -756,6 +780,13 @@
         "skill": "Backflips and kicks the target for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<>, knocking it up for <#ffb900ff>0.67s<>.",
         "skill2": "Curls into a ball and rolls at an enemy: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> to enemies rolled over; nearby allied champions gain <#ffb900ff>20%<> move speed for <#ffb900ff>2.5s<>.",
         "ult": "Gains a <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> shield for <#ffb900ff>2s<>, then leaps at the enemy champion with the highest percent health (immune to crowd control): <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<> <#ff9028ff>physical damage<>, a <#ffb900ff>1.5s<> stun and a short knockback."
+      },
+      "tft_sentinel": {
+        "name": "Sentinel",
+        "attack": "A stone fist slam for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Blue Buff<>: each of its spells drops nearby allies' spell cooldowns at once to at most <#ffb900ff>67%<>.",
+        "skill": "Slams both fists down, dealing <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>magic damage<> to nearby enemies and slowing them <#ef5350ff>30%<> for <#ffb900ff>2s<>.",
+        "skill2": "Its runes flare: gains a <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> shield for <#ffb900ff>4s<> and <#ef5350ff>taunts<> nearby enemies for <#ffb900ff>1.2s<>.",
+        "ult": "Gains a <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> shield and slams a fissure toward the most enemy champions: <#ef5350ff>knock-up<>, <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>magic damage<> and <#ef5350ff>Mana Reave<> (their next spell <#ffb900ff>2s<> late)."
       }
     },
     "skill_name": {
@@ -878,6 +909,11 @@
         "skill1": "Backflip Kick",
         "skill2": "Rolling Charge",
         "ult": "Somersault Assault"
+      },
+      "tft_sentinel": {
+        "skill1": "Twin Slam",
+        "skill2": "Carved Skin",
+        "ult": "Azure Shockwave"
       }
     }
   },
@@ -1050,6 +1086,13 @@
         "skill": "공중제비로 대상을 차서 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>, <#ffb900ff>0.67초<> 동안 띄워 올림.",
         "skill2": "공처럼 몸을 말아 적에게 굴러가 경로의 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, 주변 아군 챔피언 이동 속도 <#ffb900ff>+20%<>(<#ffb900ff>2.5초<>).",
         "ult": "<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 보호막(<#ffb900ff>2초<>) 후 체력 비율이 가장 높은 적 챔피언에게 도약(군중 제어 면역), <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<> <#ff9028ff>물리 피해<>, 기절 <#ffb900ff>1.5초<>, 살짝 밀쳐냄."
+      },
+      "tft_sentinel": {
+        "name": "파수꾼",
+        "attack": "돌 주먹으로 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>파란 버프<>: 스킬을 쓸 때마다 주변 아군의 스킬 재사용 대기시간이 즉시 줄어듭니다(최대 <#ffb900ff>67%<>까지).",
+        "skill": "두 주먹으로 땅을 내리쳐 주변 적에게 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>마법 피해<>, <#ffb900ff>2초<> 동안 <#ef5350ff>30%<> 둔화.",
+        "skill2": "문양이 빛나며 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>의 보호막(<#ffb900ff>4초<>)을 얻고 주변 적을 <#ffb900ff>1.2초<> 동안 <#ef5350ff>도발<>.",
+        "ult": "<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>의 보호막을 얻고 적 챔피언이 가장 많은 쪽으로 균열을 일으킵니다: <#ef5350ff>띄우기<>, <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>마법 피해<>, <#ef5350ff>마나 약탈<>(다음 스킬 <#ffb900ff>2초<> 지연)."
       }
     },
     "skill_name": {
@@ -1172,6 +1215,11 @@
         "skill1": "공중제비 차기",
         "skill2": "구르기 돌진",
         "ult": "공중제비 공격"
+      },
+      "tft_sentinel": {
+        "skill1": "쌍주먹 강타",
+        "skill2": "문양 석피",
+        "ult": "하늘빛 충격파"
       }
     }
   },
@@ -1344,6 +1392,13 @@
         "skill": "バク宙キックで対象に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>0.67秒<>打ち上げる。",
         "skill2": "羽毛の玉になって敵へ転がり、通った敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、近くの味方チャンピオンの移動速度<#ffb900ff>+20%<>（<#ffb900ff>2.5秒<>）。",
         "ult": "<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>のシールド（<#ffb900ff>2秒<>）を得て、体力割合が最も高い敵チャンピオンへ跳ぶ（行動妨害無効）：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<>の<#ff9028ff>物理ダメージ<>、スタン<#ffb900ff>1.5秒<>、少しノックバック。"
+      },
+      "tft_sentinel": {
+        "name": "センチネル",
+        "attack": "石の拳を振り下ろし<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ブルーバフ<>：スキルを使うたび周囲の味方のスキルクールダウンを即座に短縮（最大<#ffb900ff>67%<>まで）。",
+        "skill": "両拳で地面を叩き、周囲の敵に<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>2秒<>間<#ef5350ff>30%<>スロウ。",
+        "skill2": "紋様が輝き<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>のシールド（<#ffb900ff>4秒<>）を得て、周囲の敵を<#ffb900ff>1.2秒<>間<#ef5350ff>挑発<>。",
+        "ult": "<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>のシールドを得て、敵チャンピオンが最も多い方向へ亀裂を走らせる：<#ef5350ff>ノックアップ<>、<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>マナ枯渇<>（次のスキルが<#ffb900ff>2秒<>遅れる）。"
       }
     },
     "skill_name": {
@@ -1466,6 +1521,11 @@
         "skill1": "バク宙キック",
         "skill2": "ローリングチャージ",
         "ult": "サマーソルトアサルト"
+      },
+      "tft_sentinel": {
+        "skill1": "双拳叩きつけ",
+        "skill2": "刻印の石肌",
+        "ult": "蒼き衝撃波"
       }
     }
   }
