@@ -342,6 +342,20 @@
         "y": -10
       }
     },
+    "tft_brambleback": {
+      "face": {
+        "x": 15,
+        "y": -22
+      },
+      "center": {
+        "x": 0,
+        "y": -20
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
+    },
     "tft_raptor": {
       "face": {
         "x": 8,
