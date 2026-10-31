@@ -109,7 +109,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 198 位：主包 173 位、tft 包 25 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 199 位：主包 173 位、tft 包 26 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（45）
 
@@ -161,7 +161,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_shiohyu.png" width="32"> | [石傲玉](docs/heroes/tft_shiohyu.md)<br>Shi Oh Yu（tft 包） | 上单 | 玉拳连打 · 震地 · 大招 玉龙形态 | — | PPU 2.46 |
 | <img src="docs/heroes/img/tft_terra.png" width="32"> | [泰拉](docs/heroes/tft_terra.md)<br>Terra（tft 包） | 上单 | 裂地咬 · 龙威咆哮 · 大招 地震 | — | PPU 1.45 |
 
-### 打野（47）
+### 打野（48）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -205,6 +205,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_wukong.png" width="32"> | [孙悟空](docs/heroes/league_wukong.md)<br>Wukong | 打野 | 腾云突击 · 真假猴王 · 大招 大闹天宫 | [悟空附加包](addons/league_wukong/README.md) | PPU 1.53 |
 | <img src="docs/heroes/img/league_xinzhao.png" width="32"> | [赵信](docs/heroes/league_xinzhao.md)<br>Xin Zhao | 打野 | 被动 果决 · 无畏冲锋 · 风斩电刺 · 大招 新月护卫 | [赵信大招远程免伤附加包](addons/league_xinzhao_guard/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zac.png" width="32"> | [扎克](docs/heroes/league_zac.md)<br>Zac | 打野 | 延伸打击 · 橡筋弹弓 · 大招 动感弹球 | [扎克附加包](addons/league_zac/README.md) | PPU 1.5 |
+| <img src="docs/heroes/img/tft_brambleback.png" width="32"> | [绯红印记树怪](docs/heroes/tft_brambleback.md)<br>Brambleback（tft 包） | 打野 | 荆棘飞扑 · 绯红咆哮 · 大招 猩红之怒 | — | PPU 1.7 |
 | <img src="docs/heroes/img/tft_krug.png" width="32"> | [远古石甲虫](docs/heroes/tft_krug.md)<br>Krug（tft 包） | 打野 | 岩之摇滚 · 坚岩外壳 · 大招 远古崩落 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_sentinel.png" width="32"> | [苍蓝雕纹魔像](docs/heroes/tft_sentinel.md)<br>Sentinel（tft 包） | 打野 | 双拳重砸 · 雕纹石肤 · 大招 蔚蓝冲击波 | — | PPU 1.7 |
 | <img src="docs/heroes/img/tft_smeech.png" width="32"> | [史密奇](docs/heroes/tft_smeech.md)<br>Smeech（tft 包） | 打野 | 废铁黑客 · 拆解 · 大招 废铁狂潮 | — | PPU 2.4 |

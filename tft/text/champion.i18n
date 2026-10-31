@@ -175,6 +175,13 @@
         "skill": "双拳砸地，对周围敌人造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法伤害<>并减速<#ef5350ff>30%<>（<#ffb900ff>2秒<>）。",
         "skill2": "符文亮起，获得<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>护盾（<#ffb900ff>4秒<>），<#ef5350ff>嘲讽<>周围敌人<#ffb900ff>1.2秒<>。",
         "ult": "获得<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>护盾，猛砸地面，朝敌方英雄最多的方向裂开裂隙：<#ef5350ff>击飞<>、<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法伤害<>，<#ef5350ff>破法<>（下一个技能晚<#ffb900ff>2秒<>）。"
+      },
+      "tft_brambleback": {
+        "name": "绯红印记树怪",
+        "attack": "大爪横扫，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>红霸符<>：普攻灼烧目标<#ffb900ff>3秒<>（每秒<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ef5350ff>1.2%<>真实伤害），回复<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1.5%<>生命；击杀后扑向下一个敌人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>。",
+        "skill": "跃起扑向目标，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并减速<#ef5350ff>30%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "人立怒吼：周围敌人减速<#ef5350ff>30%<>、攻击力降低<#ef5350ff>20%<>，自己受到的伤害降低<#ff9028ff>25%<>，持续<#ffb900ff>3秒<>。",
+        "ult": "狂暴<#ffb900ff>6秒<>：攻击力<#ff9028ff>+55%<>、攻速<#ff9028ff>+35%<>，无视目标<#ff9028ff>40%<>护甲。"
       }
     },
     "skill_name": {
@@ -302,6 +309,11 @@
         "skill1": "双拳重砸",
         "skill2": "雕纹石肤",
         "ult": "蔚蓝冲击波"
+      },
+      "tft_brambleback": {
+        "skill1": "荆棘飞扑",
+        "skill2": "绯红咆哮",
+        "ult": "猩红之怒"
       }
     }
   },
@@ -481,6 +493,13 @@
         "skill": "雙拳砸地，對周圍敵人造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法傷害<>並緩速<#ef5350ff>30%<>（<#ffb900ff>2秒<>）。",
         "skill2": "符文亮起，獲得<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>護盾（<#ffb900ff>4秒<>），<#ef5350ff>嘲諷<>周圍敵人<#ffb900ff>1.2秒<>。",
         "ult": "獲得<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>護盾，猛砸地面，朝敵方英雄最多的方向裂開裂隙：<#ef5350ff>擊飛<>、<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<><#a974ffff>魔法傷害<>，<#ef5350ff>破法<>（下一個技能晚<#ffb900ff>2秒<>）。"
+      },
+      "tft_brambleback": {
+        "name": "樹精長老",
+        "attack": "大爪橫掃，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>紅色增益<>：普攻燃燒目標<#ffb900ff>3秒<>（每秒<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ef5350ff>1.2%<>真實傷害），回復<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1.5%<>生命；擊殺後撲向下一個敵人，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>。",
+        "skill": "躍起撲向目標，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並緩速<#ef5350ff>30%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "人立怒吼：周圍敵人緩速<#ef5350ff>30%<>、攻擊力降低<#ef5350ff>20%<>，自己受到的傷害降低<#ff9028ff>25%<>，持續<#ffb900ff>3秒<>。",
+        "ult": "狂暴<#ffb900ff>6秒<>：攻擊力<#ff9028ff>+55%<>、攻速<#ff9028ff>+35%<>，無視目標<#ff9028ff>40%<>物防。"
       }
     },
     "skill_name": {
@@ -608,6 +627,11 @@
         "skill1": "雙拳重砸",
         "skill2": "雕紋石膚",
         "ult": "蒼藍衝擊波"
+      },
+      "tft_brambleback": {
+        "skill1": "荊棘飛撲",
+        "skill2": "緋紅咆哮",
+        "ult": "猩紅狂怒"
       }
     }
   },
@@ -787,6 +811,13 @@
         "skill": "Slams both fists down, dealing <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>magic damage<> to nearby enemies and slowing them <#ef5350ff>30%<> for <#ffb900ff>2s<>.",
         "skill2": "Its runes flare: gains a <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> shield for <#ffb900ff>4s<> and <#ef5350ff>taunts<> nearby enemies for <#ffb900ff>1.2s<>.",
         "ult": "Gains a <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> shield and slams a fissure toward the most enemy champions: <#ef5350ff>knock-up<>, <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>magic damage<> and <#ef5350ff>Mana Reave<> (their next spell <#ffb900ff>2s<> late)."
+      },
+      "tft_brambleback": {
+        "name": "Brambleback",
+        "attack": "A claw rake for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Red Buff<>: attacks Burn for <#ffb900ff>3s<> (<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ef5350ff>1.2%<> true damage a second) and heal <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1.5%<>; after a kill it leaps at the next enemy for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<>.",
+        "skill": "Pounces on its target for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<>, slowing it <#ef5350ff>30%<> for <#ffb900ff>1s<>.",
+        "skill2": "Rears up and roars: nearby enemies are slowed <#ef5350ff>30%<> and lose <#ef5350ff>20%<> attack, it takes <#ff9028ff>25%<> less damage, for <#ffb900ff>3s<>.",
+        "ult": "Frenzied for <#ffb900ff>6s<>: <#ff9028ff>+55%<> attack, <#ff9028ff>+35%<> attack speed, ignores <#ff9028ff>40%<> of its target's armor."
       }
     },
     "skill_name": {
@@ -914,6 +945,11 @@
         "skill1": "Twin Slam",
         "skill2": "Carved Skin",
         "ult": "Azure Shockwave"
+      },
+      "tft_brambleback": {
+        "skill1": "Bramble Pounce",
+        "skill2": "Crimson Roar",
+        "ult": "Crimson Fury"
       }
     }
   },
@@ -1093,6 +1129,13 @@
         "skill": "두 주먹으로 땅을 내리쳐 주변 적에게 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>마법 피해<>, <#ffb900ff>2초<> 동안 <#ef5350ff>30%<> 둔화.",
         "skill2": "문양이 빛나며 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>의 보호막(<#ffb900ff>4초<>)을 얻고 주변 적을 <#ffb900ff>1.2초<> 동안 <#ef5350ff>도발<>.",
         "ult": "<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>의 보호막을 얻고 적 챔피언이 가장 많은 쪽으로 균열을 일으킵니다: <#ef5350ff>띄우기<>, <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<> <#a974ffff>마법 피해<>, <#ef5350ff>마나 약탈<>(다음 스킬 <#ffb900ff>2초<> 지연)."
+      },
+      "tft_brambleback": {
+        "name": "덩굴정령",
+        "attack": "발톱으로 할퀴어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>레드 버프<>: 기본 공격이 <#ffb900ff>3초<> 동안 화상(초당 <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ef5350ff>1.2%<> 고정 피해)을 입히고 <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1.5%<> 회복; 처치 후 다음 적에게 도약해 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>.",
+        "skill": "대상에게 덮쳐 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1초<> 동안 <#ef5350ff>30%<> 둔화.",
+        "skill2": "일어서서 포효: 주변 적 <#ef5350ff>30%<> 둔화, 공격력 <#ef5350ff>20%<> 감소, 자신은 받는 피해 <#ff9028ff>25%<> 감소(<#ffb900ff>3초<>).",
+        "ult": "<#ffb900ff>6초<> 동안 광폭화: 공격력 <#ff9028ff>+55%<>, 공격 속도 <#ff9028ff>+35%<>, 대상 방어력 <#ff9028ff>40%<> 무시."
       }
     },
     "skill_name": {
@@ -1220,6 +1263,11 @@
         "skill1": "쌍주먹 강타",
         "skill2": "문양 석피",
         "ult": "하늘빛 충격파"
+      },
+      "tft_brambleback": {
+        "skill1": "가시덩굴 덮치기",
+        "skill2": "진홍의 포효",
+        "ult": "핏빛 분노"
       }
     }
   },
@@ -1399,6 +1447,13 @@
         "skill": "両拳で地面を叩き、周囲の敵に<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>2秒<>間<#ef5350ff>30%<>スロウ。",
         "skill2": "紋様が輝き<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>のシールド（<#ffb900ff>4秒<>）を得て、周囲の敵を<#ffb900ff>1.2秒<>間<#ef5350ff>挑発<>。",
         "ult": "<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<>のシールドを得て、敵チャンピオンが最も多い方向へ亀裂を走らせる：<#ef5350ff>ノックアップ<>、<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>170%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#a974ffff>4%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>マナ枯渇<>（次のスキルが<#ffb900ff>2秒<>遅れる）。"
+      },
+      "tft_brambleback": {
+        "name": "ブランブルバック",
+        "attack": "爪でなぎ払い<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>レッドバフ<>：通常攻撃が<#ffb900ff>3秒<>燃焼（毎秒<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ef5350ff>1.2%<>の確定ダメージ）させ、<i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>1.5%<>回復。倒すと次の敵に跳びかかり<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill": "対象に跳びかかり<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1秒<>間<#ef5350ff>30%<>スロウ。",
+        "skill2": "立ち上がって咆哮：周囲の敵を<#ef5350ff>30%<>スロウ、攻撃力<#ef5350ff>20%<>低下、自身の被ダメージ<#ff9028ff>25%<>軽減（<#ffb900ff>3秒<>）。",
+        "ult": "<#ffb900ff>6秒<>間激昂：攻撃力<#ff9028ff>+55%<>、攻撃速度<#ff9028ff>+35%<>、対象の物理防御を<#ff9028ff>40%<>無視。"
       }
     },
     "skill_name": {
@@ -1526,6 +1581,11 @@
         "skill1": "双拳叩きつけ",
         "skill2": "刻印の石肌",
         "ult": "蒼き衝撃波"
+      },
+      "tft_brambleback": {
+        "skill1": "茨の飛びかかり",
+        "skill2": "深紅の咆哮",
+        "ult": "深紅の憤怒"
       }
     }
   }

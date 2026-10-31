@@ -1,0 +1,504 @@
+{
+  "generator": "built-in image_gen",
+  "readback": "Image-generated sources only. Per-row common vertical crop, specified palette nearest mapping, 50% foreground coverage then majority foreground colour. Left-right pair reconciliation per frame. 1x output and exact nearest-neighbour8x. Icons: source32-colour palette, majority32x32, nearest2x. p_burn sampled to10px effect-height and bottom-aligned in26px cell.",
+  "assets": [
+    {
+      "file": "brambleback_fx_a_hit.png",
+      "kind": "fx",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        16
+      ],
+      "binding": "view_effects `tft_brambleback_a_hit`（跟随目标，z 2；左右对称）",
+      "raw_size": [
+        2172,
+        724
+      ],
+      "source_layout": [
+        4,
+        1
+      ],
+      "source_vertical_crops": [
+        [
+          75,
+          638
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        576,
+        128
+      ],
+      "pixel_1x_size": [
+        72,
+        16
+      ],
+      "nonempty_pixels": [
+        12,
+        72,
+        50,
+        24
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": false
+    },
+    {
+      "file": "brambleback_fx_q_hit.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        40,
+        24
+      ],
+      "binding": "view_effects `tft_brambleback_q_hit`（跟随被扑中的人，z 3；左右对称；tft.dll 的「扑向下一个」落地时也用）",
+      "raw_size": [
+        1983,
+        793
+      ],
+      "source_layout": [
+        3,
+        2
+      ],
+      "source_vertical_crops": [
+        [
+          203,
+          386
+        ],
+        [
+          545,
+          725
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        1920,
+        192
+      ],
+      "pixel_1x_size": [
+        240,
+        24
+      ],
+      "nonempty_pixels": [
+        76,
+        174,
+        346,
+        140,
+        20,
+        12
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": false
+    },
+    {
+      "file": "brambleback_fx_q_slow.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        8
+      ],
+      "binding": "view_buffs `tft_brambleback_q_slow`（跟随被减速的人，脚下，z 3；左右对称）",
+      "raw_size": [
+        1679,
+        937
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_vertical_crops": [
+        [
+          413,
+          658
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        1152,
+        64
+      ],
+      "pixel_1x_size": [
+        144,
+        8
+      ],
+      "nonempty_pixels": [
+        52,
+        70,
+        50,
+        78,
+        74,
+        54
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": true
+    },
+    {
+      "file": "brambleback_fx_e_cast.png",
+      "kind": "fx",
+      "frames": 5,
+      "cell_1x": [
+        72,
+        48
+      ],
+      "binding": "view_effects `tft_brambleback_e_cast`（大表，跟随它，z 3；左右对称）",
+      "raw_size": [
+        2048,
+        768
+      ],
+      "source_layout": [
+        5,
+        1
+      ],
+      "source_vertical_crops": [
+        [
+          212,
+          525
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        2880,
+        384
+      ],
+      "pixel_1x_size": [
+        360,
+        48
+      ],
+      "nonempty_pixels": [
+        398,
+        988,
+        858,
+        458,
+        260
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": false
+    },
+    {
+      "file": "brambleback_fx_e_slow.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "binding": "view_buffs `tft_brambleback_e_slow`（跟随被吼的人，头顶上方，z 3；左右对称）",
+      "raw_size": [
+        1536,
+        1024
+      ],
+      "source_layout": [
+        3,
+        2
+      ],
+      "source_vertical_crops": [
+        [
+          35,
+          466
+        ],
+        [
+          543,
+          977
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        576,
+        96
+      ],
+      "pixel_1x_size": [
+        72,
+        12
+      ],
+      "nonempty_pixels": [
+        74,
+        68,
+        74,
+        74,
+        68,
+        74
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": true
+    },
+    {
+      "file": "brambleback_fx_e_guard.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        74,
+        50
+      ],
+      "binding": "view_buffs `tft_brambleback_e_guard`（大表，跟随它，z 3；左右对称）",
+      "raw_size": [
+        2051,
+        767
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_vertical_crops": [
+        [
+          204,
+          519
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        3552,
+        400
+      ],
+      "pixel_1x_size": [
+        444,
+        50
+      ],
+      "nonempty_pixels": [
+        1828,
+        1700,
+        1554,
+        1684,
+        1756,
+        1826
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": true
+    },
+    {
+      "file": "brambleback_fx_r_cast.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        76,
+        56
+      ],
+      "binding": "view_effects `tft_brambleback_r_cast`（大表，跟随它，z 3；左右对称）",
+      "raw_size": [
+        1717,
+        916
+      ],
+      "source_layout": [
+        3,
+        2
+      ],
+      "source_vertical_crops": [
+        [
+          0,
+          430
+        ],
+        [
+          536,
+          880
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        3648,
+        448
+      ],
+      "pixel_1x_size": [
+        456,
+        56
+      ],
+      "nonempty_pixels": [
+        598,
+        1068,
+        1784,
+        1344,
+        652,
+        136
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": false
+    },
+    {
+      "file": "brambleback_fx_r_fury.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        70,
+        54
+      ],
+      "binding": "view_buffs `tft_brambleback_r_fury`（大表，跟随它，z 3；左右对称）",
+      "raw_size": [
+        1717,
+        916
+      ],
+      "source_layout": [
+        3,
+        2
+      ],
+      "source_vertical_crops": [
+        [
+          1,
+          437
+        ],
+        [
+          472,
+          886
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        3360,
+        432
+      ],
+      "pixel_1x_size": [
+        420,
+        54
+      ],
+      "nonempty_pixels": [
+        756,
+        820,
+        1166,
+        1014,
+        604,
+        972
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": true
+    },
+    {
+      "file": "brambleback_fx_p_burn.png",
+      "kind": "fx",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        26
+      ],
+      "binding": "view_buffs `tft_brambleback_p_burn`（跟随被烧的人，z 4；左右对称；tft.dll 给）",
+      "raw_size": [
+        1717,
+        916
+      ],
+      "effect_height_1x": 10,
+      "source_layout": [
+        3,
+        2
+      ],
+      "source_vertical_crops": [
+        [
+          82,
+          418
+        ],
+        [
+          473,
+          853
+        ]
+      ],
+      "symmetry": "left-right per frame; paired pixel reconciliation",
+      "output_size": [
+        960,
+        208
+      ],
+      "pixel_1x_size": [
+        120,
+        26
+      ],
+      "nonempty_pixels": [
+        40,
+        40,
+        56,
+        72,
+        38,
+        22
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "loop": true
+    },
+    {
+      "file": "brambleback_icon_skill.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "binding": "skill_icons[0] `asset/tft/icons/tft_brambleback_skill`",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "symmetry": "not-required",
+      "output_size": [
+        64,
+        64
+      ],
+      "alpha_values": [
+        255
+      ]
+    },
+    {
+      "file": "brambleback_icon_skill2.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "binding": "skill_icons[1] `asset/tft/icons/tft_brambleback_skill2`",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "symmetry": "not-required",
+      "output_size": [
+        64,
+        64
+      ],
+      "alpha_values": [
+        255
+      ]
+    },
+    {
+      "file": "brambleback_icon_ult.png",
+      "kind": "icon",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "binding": "skill_icons[2] `asset/tft/icons/tft_brambleback_ult`",
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "symmetry": "not-required",
+      "output_size": [
+        64,
+        64
+      ],
+      "alpha_values": [
+        255
+      ]
+    }
+  ]
+}

@@ -956,6 +956,14 @@ RESTYLE = {
     # outline grown a square like the others, its one-square cracks closed and the small holes filled; the face point on
     # its one eye (7 game px ahead of its standing point and 27 over the ground)
     "sentinel": dict(ppu=1.7, edge=1, face_to=(7, -27), cracks=True, fill_holes=15),
+    # tft_brambleback (the tft pack, jungle): the design (Codex's step-0 A-1, the bark beast crouched on all fours at 3/4,
+    # its 132 rows brought to 68 for the user's picks 「A 40 像素 PPU 1.7」, the far eye and the forehead spiral redrawn)
+    # and Codex's key poses after its own TFT clips (drawn bigger than asked: read on squares of the design's body, the
+    # commonest design colour each, the design's face on Codex's head: design_brambleback_poses.py), posed by
+    # tools/art/rig_brambleback.py, so no proportion or density change here; the outer outline grown a square like the
+    # others, its one-square cracks closed and the small holes filled; the face point between its two eyes (15 game px
+    # ahead of its standing point and 22 over the ground)
+    "brambleback": dict(ppu=1.7, edge=1, face_to=(15, -22), cracks=True, fill_holes=15),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

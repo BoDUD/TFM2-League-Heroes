@@ -4,6 +4,7 @@
 
 pub mod alune;
 pub mod aoshin;
+pub mod brambleback;
 pub mod daeja;
 pub mod idas;
 pub mod kobuko;
@@ -33,6 +34,7 @@ fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new("tft");
     alune::register(host, &mut module);
     aoshin::register(host, &mut module);
+    brambleback::register(host, &mut module);
     daeja::register(host, &mut module);
     idas::register(host, &mut module);
     kobuko::register(host, &mut module);
