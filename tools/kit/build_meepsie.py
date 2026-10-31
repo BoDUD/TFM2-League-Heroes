@@ -43,6 +43,11 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # collision radius (~15000) on top; a TFT hex ~15000 (r_hex). Timings are placeholders until the strips are rigged
 # (tools/art/rig_meepsie.py). Stats start from tft_idas's (hp 1250 +120, atk 72, apw 35 +16, def 42, mr 36): the 2-cost
 # golem, slow and heavy, TFT's even armour and resistance.
+# Numbers = the 10-min classic-SDK simulations (C:/t/mp_sim with C:/t/al_sim/kd.py: support lane 4 against the base
+# priest, monk, bard, enchanter and taoist, three lineups, both sides; 2026-11-01), --plain (the meeps heal everyone
+# within e_r, the slam full damage on all and every champion knocked up, at its target): the draft (Q 90 + 70%, R every
+# 40 s) +0.87 (+-0.49) on seeds 1-8; Q 100, R every 35 s +1.00 / +1.12 on seeds 9-16 = P; tft_idas --plain +1.23 /
+# +1.20 on the same games.
 P = {
     # stats (Util, the tank supports)
     "hp": 1250, "hp_g": 118, "atk": 66, "atk_g": 6, "apw": 30, "apw_g": 15, "def": 44, "def_g": 8, "mr": 40, "mr_g": 6,
@@ -52,12 +57,12 @@ P = {
     "p_dmg": 15, "p_ap": 25,
     # Moon-Dust Quake
     "q_cd": 360, "q_range": 30000, "q_dur": 36, "q_st": 18, "q_r": 65000, "q_cone": 700, "q_len": 70000, "q_w": 12000,
-    "q_dmg": 90, "q_ap": 70, "q_slow": 40, "q_slow_t": 120,
+    "q_dmg": 100, "q_ap": 70, "q_slow": 40, "q_slow_t": 120,
     # Healing Meeps (tft.dll; --plain: everyone within e_r)
     "e_cd": 540, "e_range": 60000, "e_dur": 30, "e_st": 14, "e_r": 60000, "e_n": 4, "e_speed": 2500, "e_t": 180,
     "e_every": 30, "e_hot": 20, "e_hot_ap": 10,
     # The Big Bang (TFT: 2 hexes, 3-hex slam, -35% a hex, 3 knocked up 1-1.5 s)
-    "r_cd": 2400, "r_range": 45000, "r_dur": 54, "r_leap": 45000, "r_air": 30, "r_speed": 2000, "r_r": 45000,
+    "r_cd": 2100, "r_range": 45000, "r_dur": 54, "r_leap": 45000, "r_air": 30, "r_speed": 2000, "r_r": 45000,
     "r_hex": 15000, "r_fall": 35, "r_dmg": 160, "r_ap": 90, "r_n": 3, "r_up": 75,
 }
 # what tft.dll reads from passive.params (addons/tft/src/meepsie.rs)
