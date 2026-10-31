@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 199 位：主包 173 位、tft 包 26 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 200 位：主包 173 位、tft 包 27 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（45）
 
@@ -257,7 +257,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_silco.png" width="32"> | [希尔科](docs/heroes/tft_silco.md)<br>Silco（tft 包） | 中单 | 罐装畸变体 · 微光注射 · 大招 炼金狂潮 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_sohm.png" width="32"> | [索姆](docs/heroes/tft_sohm.md)<br>Sohm（tft 包） | 中单 | 潮涌 · 海潮护佑 · 大招 潮汐绽放 | — | PPU 1.8 |
 
-### ADC（27）
+### ADC（28）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -288,6 +288,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_zeri.png" width="32"> | [泽丽](docs/heroes/league_zeri.md)<br>Zeri | ADC | 被动 内能迁转 · 强穿激光 · 灿丽花火 · 大招 超限爆闪 | [泽丽附加包：W 撞墙激光 + 被动偷盾](addons/league_zeri/README.md) | PPU 3 |
 | <img src="docs/heroes/img/tft_daeja.png" width="32"> | [迭嘉](docs/heroes/tft_daeja.md)<br>Daeja（tft 包） | ADC | 罡风轰击 · 振翼退风 · 大招 苍穹罡风 | — | PPU 1.72 |
 | <img src="docs/heroes/img/tft_maddie.png" width="32"> | [麦迪](docs/heroes/tft_maddie.md)<br>Maddie（tft 包） | ADC | 连拨击锤 · 通缉令 · 大招 执法狙杀 | — | PPU 1.5 |
+| <img src="docs/heroes/img/tft_raptor.png" width="32"> | [深红锋喙鸟](docs/heroes/tft_raptor.md)<br>Mama Beak（tft 包） | ADC | 羽刃扇射 · 惊飞跃退 · 大招 鸟群之家 | — | PPU 1.56 |
 
 ### 辅助（30）
 
