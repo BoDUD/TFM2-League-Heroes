@@ -24,6 +24,7 @@ pub mod syfen;
 pub mod terra;
 pub mod vander;
 pub mod violet;
+pub mod zippy;
 
 use mod_api_stable::*;
 
@@ -51,6 +52,7 @@ fn init(host: &StableHost) -> StableMod {
     terra::register(host, &mut module);
     vander::register(host, &mut module);
     violet::register(host, &mut module);
+    zippy::register(host, &mut module);
     module
 }
 

@@ -161,6 +161,13 @@
         "skill": "低头扑咬目标，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<><#ff9028ff>物理伤害<>（<i#asset/base/ui/banpick/champion_stat_icon:armor_0>=护甲+魔抗），减速<#ef5350ff>30%<>（<#ffb900ff>1.5秒<>）。",
         "skill2": "仰天咆哮，<#ef5350ff>嘲讽<>周围敌人<#ffb900ff>1.5秒<>，自己获得<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>的岩石护盾（<#ffb900ff>3秒<>）。",
         "ult": "重踏三次（施放中<#ef5350ff>免疫控制<>），每踏对周围敌人造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<><#ff9028ff>物理伤害<>；之后护甲和魔抗<#ffb900ff>+60<>（<#ffb900ff>8秒<>）。"
+      },
+      "tft_zippy": {
+        "name": "呲呲",
+        "attack": "抬腿一蹬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>冒险家之魂<>：身边每有一个友方英雄，护甲和魔抗<#ffb900ff>+10<>（最多<#ffb900ff>4<>个）。",
+        "skill": "后空翻踢中目标，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理伤害<>并击飞<#ffb900ff>0.67秒<>。",
+        "skill2": "缩成羽毛球滚向敌人，路上的敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>；身边友方英雄移速<#ffb900ff>+20%<>（<#ffb900ff>2.5秒<>）。",
+        "ult": "获得<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>护盾（<#ffb900ff>2秒<>），跃起砸向生命百分比最高的敌方英雄（免疫控制），造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<><#ff9028ff>物理伤害<>，晕眩<#ffb900ff>1.5秒<>并略微击退。"
       }
     },
     "skill_name": {
@@ -278,6 +285,11 @@
         "skill1": "裂地咬",
         "skill2": "龙威咆哮",
         "ult": "地震"
+      },
+      "tft_zippy": {
+        "skill1": "后空翻踢",
+        "skill2": "翻滚冲锋",
+        "ult": "翻滚突袭"
       }
     }
   },
@@ -443,6 +455,13 @@
         "skill": "低頭撲咬目標，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<><#ff9028ff>物理傷害<>（<i#asset/base/ui/banpick/champion_stat_icon:armor_0>=護甲+魔抗），緩速<#ef5350ff>30%<>（<#ffb900ff>1.5秒<>）。",
         "skill2": "仰天咆哮，<#ef5350ff>嘲諷<>周圍敵人<#ffb900ff>1.5秒<>，自己獲得<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>的岩石護盾（<#ffb900ff>3秒<>）。",
         "ult": "重踏三次（施放中<#ef5350ff>免疫控制<>），每踏對周圍敵人造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<><#ff9028ff>物理傷害<>；之後護甲和魔抗<#ffb900ff>+60<>（<#ffb900ff>8秒<>）。"
+      },
+      "tft_zippy": {
+        "name": "橘皮",
+        "attack": "抬腿一蹬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>冒險者之魂<>：身邊每有一個友方英雄，物防和魔防<#ffb900ff>+10<>（最多<#ffb900ff>4<>個）。",
+        "skill": "後空翻踢中目標，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<><#ff9028ff>物理傷害<>並擊飛<#ffb900ff>0.67秒<>。",
+        "skill2": "縮成羽毛球滾向敵人，路上的敵人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>；身邊友方英雄移速<#ffb900ff>+20%<>（<#ffb900ff>2.5秒<>）。",
+        "ult": "獲得<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>護盾（<#ffb900ff>2秒<>），躍起砸向生命百分比最高的敵方英雄（免疫控制），造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<><#ff9028ff>物理傷害<>，暈眩<#ffb900ff>1.5秒<>並略微擊退。"
       }
     },
     "skill_name": {
@@ -560,6 +579,11 @@
         "skill1": "裂地咬",
         "skill2": "龍威咆哮",
         "ult": "地動山搖"
+      },
+      "tft_zippy": {
+        "skill1": "後空翻踢",
+        "skill2": "翻滾衝鋒",
+        "ult": "筋斗突進"
       }
     }
   },
@@ -725,6 +749,13 @@
         "skill": "Lunges low and bites the target for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<> <#ff9028ff>physical damage<> (<i#asset/base/ui/banpick/champion_stat_icon:armor_0> = armor + magic resist), slowing it <#ef5350ff>30%<> for <#ffb900ff>1.5s<>.",
         "skill2": "Roars, <#ef5350ff>taunting<> nearby enemies for <#ffb900ff>1.5s<>, and gains a <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> rock shield for <#ffb900ff>3s<>.",
         "ult": "Stomps three times (<#ef5350ff>unstoppable<> while casting), each dealing <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<> <#ff9028ff>physical damage<> around her; then <#ffb900ff>+60<> armor and magic resist for <#ffb900ff>8s<>."
+      },
+      "tft_zippy": {
+        "name": "Zippy",
+        "attack": "A claw kick for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Adventurer's Spirit<>: <#ffb900ff>+10<> armor and magic resist for each allied champion nearby (up to <#ffb900ff>4<>).",
+        "skill": "Backflips and kicks the target for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>physical damage<>, knocking it up for <#ffb900ff>0.67s<>.",
+        "skill2": "Curls into a ball and rolls at an enemy: <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> to enemies rolled over; nearby allied champions gain <#ffb900ff>20%<> move speed for <#ffb900ff>2.5s<>.",
+        "ult": "Gains a <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> shield for <#ffb900ff>2s<>, then leaps at the enemy champion with the highest percent health (immune to crowd control): <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<> <#ff9028ff>physical damage<>, a <#ffb900ff>1.5s<> stun and a short knockback."
       }
     },
     "skill_name": {
@@ -842,6 +873,11 @@
         "skill1": "Rending Bite",
         "skill2": "Dragon's Roar",
         "ult": "Earthquake"
+      },
+      "tft_zippy": {
+        "skill1": "Backflip Kick",
+        "skill2": "Rolling Charge",
+        "ult": "Somersault Assault"
       }
     }
   },
@@ -1007,6 +1043,13 @@
         "skill": "낮게 덮쳐 대상을 물어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<> <#ff9028ff>물리 피해<>(<i#asset/base/ui/banpick/champion_stat_icon:armor_0> = 방어력+마법 저항력), <#ffb900ff>1.5초<> 동안 <#ef5350ff>30%<> 둔화.",
         "skill2": "포효해 주변 적을 <#ffb900ff>1.5초<> 동안 <#ef5350ff>도발<>하고, <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 바위 보호막(<#ffb900ff>3초<>)을 얻습니다.",
         "ult": "땅을 세 번 구릅니다(시전 중 <#ef5350ff>저지 불가<>). 매번 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<> <#ff9028ff>물리 피해<>, 이후 <#ffb900ff>8초<> 동안 방어력과 마법 저항력 <#ffb900ff>+60<>."
+      },
+      "tft_zippy": {
+        "name": "쌩쌩이",
+        "attack": "발톱 차기로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>모험가의 혼<>: 주변 아군 챔피언 하나마다 방어력·마법 저항력 <#ffb900ff>+10<>(최대 <#ffb900ff>4<>명).",
+        "skill": "공중제비로 대상을 차서 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<> <#ff9028ff>물리 피해<>, <#ffb900ff>0.67초<> 동안 띄워 올림.",
+        "skill2": "공처럼 몸을 말아 적에게 굴러가 경로의 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, 주변 아군 챔피언 이동 속도 <#ffb900ff>+20%<>(<#ffb900ff>2.5초<>).",
+        "ult": "<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> 보호막(<#ffb900ff>2초<>) 후 체력 비율이 가장 높은 적 챔피언에게 도약(군중 제어 면역), <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<> <#ff9028ff>물리 피해<>, 기절 <#ffb900ff>1.5초<>, 살짝 밀쳐냄."
       }
     },
     "skill_name": {
@@ -1124,6 +1167,11 @@
         "skill1": "대지 물어뜯기",
         "skill2": "용의 포효",
         "ult": "지진"
+      },
+      "tft_zippy": {
+        "skill1": "공중제비 차기",
+        "skill2": "구르기 돌진",
+        "ult": "공중제비 공격"
       }
     }
   },
@@ -1289,6 +1337,13 @@
         "skill": "低く飛びかかって噛みつき<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>50%<>の<#ff9028ff>物理ダメージ<>（<i#asset/base/ui/banpick/champion_stat_icon:armor_0>＝物理防御＋魔法防御）、<#ffb900ff>1.5秒<>間<#ef5350ff>30%<>スロウ。",
         "skill2": "咆哮して周囲の敵を<#ffb900ff>1.5秒<>間<#ef5350ff>挑発<>し、<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の岩のシールド（<#ffb900ff>3秒<>）を得る。",
         "ult": "3回踏み鳴らし（詠唱中<#ef5350ff>阻止不可<>）、そのたびに周囲の敵へ<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:armor_0><#ff9028ff>32%<>の<#ff9028ff>物理ダメージ<>。その後<#ffb900ff>8秒<>間物理防御と魔法防御<#ffb900ff>+60<>。"
+      },
+      "tft_zippy": {
+        "name": "ジッピー",
+        "attack": "爪で蹴り<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>冒険者の魂<>：近くの味方チャンピオン1体ごとに物理防御・魔法防御<#ffb900ff>+10<>（最大<#ffb900ff>4<>体）。",
+        "skill": "バク宙キックで対象に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>140%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>0.67秒<>打ち上げる。",
+        "skill2": "羽毛の玉になって敵へ転がり、通った敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、近くの味方チャンピオンの移動速度<#ffb900ff>+20%<>（<#ffb900ff>2.5秒<>）。",
+        "ult": "<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>のシールド（<#ffb900ff>2秒<>）を得て、体力割合が最も高い敵チャンピオンへ跳ぶ（行動妨害無効）：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>220%<>の<#ff9028ff>物理ダメージ<>、スタン<#ffb900ff>1.5秒<>、少しノックバック。"
       }
     },
     "skill_name": {
@@ -1406,6 +1461,11 @@
         "skill1": "大地の噛みつき",
         "skill2": "竜の咆哮",
         "ult": "地震"
+      },
+      "tft_zippy": {
+        "skill1": "バク宙キック",
+        "skill2": "ローリングチャージ",
+        "ult": "サマーソルトアサルト"
       }
     }
   }
