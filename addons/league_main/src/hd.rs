@@ -378,6 +378,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // from the crest to its talons, PPU 1.56 (「A-1 36 PPU 1.56」: 56 rows 1:1), and Codex's key poses after its own TFT
     // clips, posed by tools/art/rig_raptor.py, so no SIZES row
     ("tft_raptor", 1.56, include_str!("../../../tft/champions/tft_raptor#anim.fanim")),
+    // the Elder Dragon (tft_elderdragon, the tft pack): the winged dragon low on four legs at 3/4, step 0's A-1 at the
+    // user's 44 game px from the highest wing tip to its claws, PPU 2.84 (「A-1 44像素 PPU2.84」: 125 rows 1:1), and Codex's
+    // key poses after League's Elder Dragon clips, posed by tools/art/rig_elderdragon.py, so no SIZES row
+    ("tft_elderdragon", 2.84, include_str!("../../../tft/champions/tft_elderdragon#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
@@ -779,6 +783,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Singed: 45 game px from the tank's cap to his soles at PPU 1.39, the idle reel's raised flask higher; UI size and
     // card value set with bp_card_audit.py (the tank under the canvas top, the soles on its bottom)
     ("league_singed", 0.80),
+    // the Elder Dragon (tft_elderdragon): 60 x 44 game px with its raised wings at PPU 2.84 - wider than the card's 59.5 px
+    // canvas and taller than its 40; UI size and card value set with bp_card_audit.py (the wing tips under the canvas
+    // top, the claws on its bottom)
+    ("tft_elderdragon", 0.85),
     // Bel'Veth: 47 game px from her shoulder spikes to her claws at PPU 1.75 (the raised wings of the reel higher); UI
     // size and card value set with bp_card_audit.py
     ("league_belveth", 0.82),

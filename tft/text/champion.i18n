@@ -189,6 +189,13 @@
         "skill": "张开翅膀，扇形甩出<#ffb900ff>5根<>羽刃，每根命中第一个敌人，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理伤害<>。",
         "skill2": "受惊尖叫，往后一跳，之后<#ffb900ff>3秒<>攻速<#ffb900ff>+70%<>。",
         "ult": "召唤<#ffb900ff>4只<>不可选中的小锋喙鸟（<#ffb900ff>7秒<>）：它每次普攻，小鸟们一起啄同一目标，各造成<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>。"
+      },
+      "tft_elderdragon": {
+        "name": "远古巨龙",
+        "attack": "撕咬目标，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，目标身边的敌人受到<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>溅射。<#ff9028ff>远古巨龙霸符<>：被它伤害后生命低于<#ef5350ff>15%<>的敌方英雄直接被处决。",
+        "skill": "朝穿过目标、敌人最多的直线喷吐龙焰，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，每烧过一人伤害<#ef5350ff>-20%<>（最低<#ffb900ff>40%<>），并<#ff9028ff>引燃<>：<#ffb900ff>3秒<>内每秒受到<#ef5350ff>2.5%<>最大生命的物理伤害。",
+        "skill2": "立起身猛拍双翼，身边的敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>、被击退并减速<#ffb900ff>35%<>（<#ffb900ff>2秒<>），自己受到的伤害<#ef5350ff>-25%<>。",
+        "ult": "无敌飞上天空，<#ffb900ff>1.5秒<>后砸落：大范围敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、晕眩<#ffb900ff>1.25秒<>并被<#ff9028ff>引燃<>；获得<#ffb900ff>30%<>全能吸血（<#ffb900ff>5秒<>），立刻喷一次<#ff9028ff>烈焰吐息<>。"
       }
     },
     "skill_name": {
@@ -326,6 +333,11 @@
         "skill1": "羽刃扇射",
         "skill2": "惊飞跃退",
         "ult": "鸟群之家"
+      },
+      "tft_elderdragon": {
+        "skill1": "烈焰吐息",
+        "skill2": "龙翼风暴",
+        "ult": "绝伦火热"
       }
     }
   },
@@ -519,6 +531,13 @@
         "skill": "張開翅膀，扇形甩出<#ffb900ff>5根<>羽刃，每根命中第一個敵人，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理傷害<>。",
         "skill2": "受驚尖叫，往後一跳，之後<#ffb900ff>3秒<>攻速<#ffb900ff>+70%<>。",
         "ult": "召喚<#ffb900ff>4隻<>無法被指定的小巨喙鳥（<#ffb900ff>7秒<>）：牠每次普攻，小鳥們一起啄同一目標，各造成<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>。"
+      },
+      "tft_elderdragon": {
+        "name": "遠古巨龍",
+        "attack": "撕咬目標，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，目標身邊的敵軍受到<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>濺射。<#ff9028ff>遠古巨龍增益<>：被牠傷害後生命低於<#ef5350ff>15%<>的敵方英雄直接被處決。",
+        "skill": "朝穿過目標、敵軍最多的直線噴火，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，每穿過一人傷害<#ef5350ff>-20%<>（最低<#ffb900ff>40%<>），並<#ff9028ff>點燃<>：<#ffb900ff>3秒<>內每秒受到<#ef5350ff>2.5%<>最大生命的物理傷害。",
+        "skill2": "挺身猛拍雙翼，身邊的敵軍受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>、被擊退並緩速<#ffb900ff>35%<>（<#ffb900ff>2秒<>），自身受到的傷害<#ef5350ff>-25%<>。",
+        "ult": "進入無敵飛上天空，<#ffb900ff>1.5秒<>後落下：大範圍敵軍受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、暈眩<#ffb900ff>1.25秒<>並被<#ff9028ff>點燃<>；獲得<#ffb900ff>30%<>全能吸血（<#ffb900ff>5秒<>），立即施放<#ff9028ff>龍之吐息<>。"
       }
     },
     "skill_name": {
@@ -656,6 +675,11 @@
         "skill1": "羽刃扇射",
         "skill2": "驚飛躍退",
         "ult": "飛禽家族"
+      },
+      "tft_elderdragon": {
+        "skill1": "龍之吐息",
+        "skill2": "龍翼風暴",
+        "ult": "無與倫比的熱力"
       }
     }
   },
@@ -849,6 +873,13 @@
         "skill": "Spreads its wings and flings <#ffb900ff>5<> blade feathers in a fan, each hitting the first enemy for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>physical damage<>.",
         "skill2": "Startled, it screeches and hops back, then gains <#ffb900ff>+70%<> attack speed for <#ffb900ff>3s<>.",
         "ult": "Calls <#ffb900ff>4<> untargetable Tiny Beaks for <#ffb900ff>7s<>: each of its attacks, they peck the same enemy for <#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<> each."
+      },
+      "tft_elderdragon": {
+        "name": "Elder Dragon",
+        "attack": "Bites for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>; enemies next to the target take <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>. <#ff9028ff>Elder buff<>: enemy champions it leaves under <#ef5350ff>15%<> health are executed.",
+        "skill": "Breathes fire along the line through the target with the most enemies: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>, <#ef5350ff>20%<> less per enemy passed (min <#ffb900ff>40%<>), and <#ff9028ff>Ignites<> them: <#ef5350ff>2.5%<> max health physical a second for <#ffb900ff>3s<>.",
+        "skill2": "Rears up and beats its wings: nearby enemies take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, are knocked back and slowed <#ffb900ff>35%<> (<#ffb900ff>2s<>); it takes <#ef5350ff>25%<> less damage.",
+        "ult": "Invulnerable, it flies up and lands after <#ffb900ff>1.5s<>: enemies in a wide area take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, are stunned <#ffb900ff>1.25s<> and <#ff9028ff>Ignited<>; it gains <#ffb900ff>30%<> omnivamp (<#ffb900ff>5s<>) and casts <#ff9028ff>Flame Breath<> at once."
       }
     },
     "skill_name": {
@@ -986,6 +1017,11 @@
         "skill1": "Feather Fan",
         "skill2": "Startled Hop",
         "ult": "Flock Family"
+      },
+      "tft_elderdragon": {
+        "skill1": "Flame Breath",
+        "skill2": "Wing Storm",
+        "ult": "Heat Without Equal"
       }
     }
   },
@@ -1179,6 +1215,13 @@
         "skill": "날개를 펼쳐 깃날 <#ffb900ff>5개<>를 부채꼴로 던집니다. 각각 처음 맞힌 적에게 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>물리 피해<>.",
         "skill2": "깜짝 놀라 울며 뒤로 뛴 뒤 <#ffb900ff>3초<> 동안 공격 속도 <#ffb900ff>+70%<>.",
         "ult": "대상으로 지정할 수 없는 꼬마 부리 <#ffb900ff>4마리<>를 <#ffb900ff>7초<> 동안 소환합니다. 기본 공격할 때마다 같은 적을 쪼아 각각 <#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>."
+      },
+      "tft_elderdragon": {
+        "name": "장로 드래곤",
+        "attack": "대상을 물어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 대상과 인접한 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>. <#ff9028ff>장로 드래곤 버프<>: 피해를 입은 뒤 체력이 <#ef5350ff>15%<> 이하인 적 챔피언을 처형합니다.",
+        "skill": "대상을 관통하며 적이 가장 많은 일직선에 불을 내뿜어 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>, 관통한 적 하나당 <#ef5350ff>-20%<>(최소 <#ffb900ff>40%<>). <#ff9028ff>점화<>: <#ffb900ff>3초<> 동안 매초 최대 체력의 <#ef5350ff>2.5%<> 물리 피해.",
+        "skill2": "몸을 일으켜 날개를 내리쳐 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, 밀쳐 내고 <#ffb900ff>35%<> 둔화(<#ffb900ff>2초<>). 받는 피해 <#ef5350ff>-25%<>.",
+        "ult": "무적 상태로 날아올라 <#ffb900ff>1.5초<> 뒤 내려찍습니다: 넓은 범위의 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1.25초<> 기절, <#ff9028ff>점화<>. 모든 피해 흡혈 <#ffb900ff>30%<>(<#ffb900ff>5초<>) 후 즉시 <#ff9028ff>화염 숨결<>."
       }
     },
     "skill_name": {
@@ -1316,6 +1359,11 @@
         "skill1": "깃날 부채",
         "skill2": "화들짝 뜀",
         "ult": "새 떼 가족"
+      },
+      "tft_elderdragon": {
+        "skill1": "화염 숨결",
+        "skill2": "용날개 폭풍",
+        "ult": "비할 데 없는 열기"
       }
     }
   },
@@ -1509,6 +1557,13 @@
         "skill": "翼を広げ、刃の羽根を<#ffb900ff>5本<>扇状に放つ。それぞれ最初に当たった敵に<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の<#ff9028ff>物理ダメージ<>。",
         "skill2": "驚いて鳴き、後ろへ跳ねる。その後<#ffb900ff>3秒<>間攻撃速度<#ffb900ff>+70%<>。",
         "ult": "対象指定不可のミニヒナ鳥を<#ffb900ff>4体<>召喚（<#ffb900ff>7秒<>）：攻撃するたびに同じ敵をついばみ、それぞれ<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>。"
+      },
+      "tft_elderdragon": {
+        "name": "エルダードラゴン",
+        "attack": "噛みついて<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、対象に隣接する敵に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>。<#ff9028ff>エルダードラゴンのバフ<>：ダメージ後に体力<#ef5350ff>15%<>以下の敵チャンピオンをキルする。",
+        "skill": "対象を通り敵が最も多い直線に炎を吐き<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>、敵1体ごとに<#ef5350ff>-20%<>（最小<#ffb900ff>40%<>）。<#ff9028ff>発火<>：<#ffb900ff>3秒<>間毎秒最大体力の<#ef5350ff>2.5%<>の物理ダメージ。",
+        "skill2": "立ち上がって翼を打ち下ろし、周囲の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、ノックバックと<#ffb900ff>35%<>スロウ（<#ffb900ff>2秒<>）。被ダメージ<#ef5350ff>-25%<>。",
+        "ult": "無敵となって飛び上がり、<#ffb900ff>1.5秒<>後に降下：広範囲の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1.25秒<>スタンと<#ff9028ff>発火<>。オムニヴァンプ<#ffb900ff>30%<>（<#ffb900ff>5秒<>）を得て即座に<#ff9028ff>フレイムブレス<>。"
       }
     },
     "skill_name": {
@@ -1646,6 +1701,11 @@
         "skill1": "羽刃の扇",
         "skill2": "びっくり跳び",
         "ult": "フロックファミリー"
+      },
+      "tft_elderdragon": {
+        "skill1": "フレイムブレス",
+        "skill2": "竜翼の嵐",
+        "ult": "比類なき熱"
       }
     }
   }
