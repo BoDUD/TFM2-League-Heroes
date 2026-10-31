@@ -535,8 +535,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Leona (2026-10-30, 「接下来重做曙光女神」, 「通过，用 1.76」): Codex's leona-A read as drawn (69 x 72,
     // tools/art/design_leona_hd.py: 72 rows / 41 = 1.756); every action Codex's whole-frame redraw of her old frame
     // read onto it at the zoom her figure and head give (tools/art/casts_leona_hd.py, rig_leona_hd.py; nothing baked -
-    // her sunlight, eclipse and flare are effect strips); 41 game px as her 1x sprite, so no SIZES row
-    ("league_leona", 1.756, include_str!("../../../league/champions/league_leona#anim.fanim")),
+    // her sunlight, eclipse and flare are effect strips); 41 game px as her 1x sprite, so no SIZES row. Then
+    // 「另外蕾欧娜的模型太高清了 降低点像素」: drawn at 1.756, brought to 1.5 (tools/art/review_leona_ppu.py, 「蒾欧娜用 1.5」)
+    ("league_leona", 1.5, include_str!("../../../league/champions/league_leona#anim.fanim")),
     // Sona (2026-10-30, 「接下来重做琴女」, 「调高PPU像素」「达到和我给你的图一样的效果」, 「通过，用 3.88」): the user's
     // picture read on its finest squares (117 x 155, tools/art/design_sona_hd.py: 155 rows / 40 = 3.875); every action
     // Codex's whole-frame redraw of her old frame read onto it at the zoom her figure, head and height give

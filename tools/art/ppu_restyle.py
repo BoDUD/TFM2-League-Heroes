@@ -715,9 +715,11 @@ RESTYLE = {
     "kayle": dict(ppu=112 / 49, edge=0),
     # Leona (2026-10-30, 「接下来重做曙光女神」, 「通过，用 1.76」): Codex's leona-A read as drawn (69 x 72,
     # design_leona_hd.py: 72 rows / 1.76 = her 41); every action Codex's whole-frame redraw of her old frame read onto
-    # it (tools/art/casts_leona_hd.py), so no density change; the face point stays: she is as tall as before; nothing
-    # baked (her sunlight, eclipse and flare are effect strips)
-    "leona": dict(ppu=72 / 41, edge=0),
+    # it (tools/art/casts_leona_hd.py); the face point stays: she is as tall as before; nothing baked (her sunlight,
+    # eclipse and flare are effect strips). Then 「另外蕾欧娜的模型太高清了 降低点像素」: picked 1.5 of 1.756 / 1.5 / 1.35 /
+    # 1.2 (tools/art/review_leona_ppu.py, 「蒾欧娜用 1.5」) - drawn at 1.756 (ORIG_PPU), brought to 1.5 squares a game
+    # pixel like Lucian, Lee Sin and Jax
+    "leona": dict(ppu=1.5, edge=0),
     # Sona (2026-10-30, 「接下来重做琴女」, 「调高PPU像素」「达到和我给你的图一样的效果」, 「通过，用 3.88」): the user's
     # picture read on its finest squares (117 x 155, design_sona_hd.py: 155 rows / 3.875 = her 40); every action
     # Codex's whole-frame redraw of her old frame read onto it (tools/art/casts_sona_hd.py), so no density change; the
