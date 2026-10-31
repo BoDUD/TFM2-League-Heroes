@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 197 位：主包 173 位、tft 包 24 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 198 位：主包 173 位、tft 包 25 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（45）
 
@@ -150,7 +150,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_shiohyu.png" width="32"> | [石傲玉](docs/heroes/tft_shiohyu.md)<br>Shi Oh Yu（tft 包） | 上单 | 玉拳连打 · 震地 · 大招 玉龙形态 | — | PPU 2.46 |
 | <img src="docs/heroes/img/tft_terra.png" width="32"> | [泰拉](docs/heroes/tft_terra.md)<br>Terra（tft 包） | 上单 | 裂地咬 · 龙威咆哮 · 大招 地震 | — | PPU 1.45 |
 
-### 打野（46）
+### 打野（47）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -200,6 +200,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_syfen.png" width="32"> | [赛芬](docs/heroes/tft_syfen.md)<br>Sy'fen（tft 包） | 打野 | 噬咬 · 翼刃横扫 · 大招 暴走 | — | PPU 2.52 |
 | <img src="docs/heroes/img/tft_vander.png" width="32"> | [范德尔](docs/heroes/tft_vander.md)<br>Vander（tft 包） | 打野 | 地下猎犬 · 铁拳突进 · 大招 桥头死守 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_violet.png" width="32"> | [蔚奥莱](docs/heroes/tft_violet.md)<br>Violet（tft 包） | 打野 | 1-2-3连招 · 冲拳 · 大招 底城怒拳 | — | PPU 2 |
+| <img src="docs/heroes/img/tft_zippy.png" width="32"> | [呲呲](docs/heroes/tft_zippy.md)<br>Zippy（tft 包） | 打野 | 后空翻踢 · 翻滚冲锋 · 大招 翻滚突袭 | — | PPU 2.2 |
 
 ### 中单（49）
 

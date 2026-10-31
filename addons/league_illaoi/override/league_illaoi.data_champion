@@ -4441,6 +4441,22 @@
       "tag": "tft_violet_l",
       "z": 3,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_zippy",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_zippy",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_zippy_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_zippy_l",
+      "z": 3,
+      "is_follow": false
     }
   ],
   "view_buffs": [

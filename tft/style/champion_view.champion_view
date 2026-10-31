@@ -314,6 +314,20 @@
         "y": -14
       }
     },
+    "tft_zippy": {
+      "face": {
+        "x": 10,
+        "y": -26
+      },
+      "center": {
+        "x": 2,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -12
+      }
+    },
     "tft_sentinel": {
       "face": {
         "x": 7,
