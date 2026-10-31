@@ -61,10 +61,32 @@ BLADE = ("THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame
 WEAPONS = {t: BLADE for t in NAMES}
 WEAPONS["skill2"] = BLADE + " In frames 4-5 he is UPSIDE DOWN mid-flip, the hood at the bottom, as the pale figure."
 WEAPONS["skill_e"] = BLADE + " In frames 2-4 he is tucked and turning in a somersault, as the pale figure."
-# The run's legs, each frame following its pale figure
-RUN_LEGS = {k: "the legs exactly as the pale figure: one foot planted, the other lifted or swinging" for k in range(1, 9)}
-RUN_SWAP = ("The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, "
-            "never both legs stretched apart in every frame; the body bobs with the steps.")
+# The run's legs frame by frame, read off the old run (the pale figures): Codex's first run kept the same leg in front
+# and the same leg behind in all 8 frames - the legs never changed over (the user, 2026-10-31: 「走路没有换腿」) - so the
+# redo (--only run --prompt RUN_REDO_PROMPT_PPU.md) names each frame's legs; he runs to the right, "back" is the
+# picture's left
+RUN_LEGS = {
+    1: "SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under his hips, its foot flat on "
+       "the ground; the FAR leg (the darker one) kicked up and back behind him, bent, its foot high off the ground",
+    2: "SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from "
+       "behind, its foot off the ground behind the planted one",
+    3: "PASSING: both legs gathered under his low crouch, knees deeply bent; the FAR leg passing forward close beside "
+       "the planted near leg, its foot just off the ground",
+    4: "STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image "
+       "left) pushing off, its toes on the ground",
+    5: "SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under his hips, its foot flat on "
+       "the ground; the NEAR leg (the lighter one) kicked up and back behind him, bent, its foot high off the ground",
+    6: "SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from "
+       "behind, its foot off the ground behind the planted one",
+    7: "PASSING: both legs gathered under his low crouch, knees deeply bent; the NEAR leg passing forward close beside "
+       "the planted far leg, its foot just off the ground",
+    8: "STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image "
+       "left) pushing off, its toes on the ground",
+}
+RUN_SWAP = ("The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes "
+            "forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 "
+            "and 5 must look different: a different leg planted, the other one kicked back. Follow the pale figure's "
+            "LEGS exactly; never the same leg in front in every frame.")
 # old frames that are another frame pixel for pixel (checked on the old sheet / the native cells, cropped to the
 # figure): drawn once, here (tag, frame), 1-based; DESIGN: his idle pose itself (the old idle_base 1)
 DESIGN = ("design", 0)
