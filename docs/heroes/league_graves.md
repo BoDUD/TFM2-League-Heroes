@@ -55,7 +55,7 @@
 
 ### 格雷福斯附加包
 
-[格雷福斯附加包](../../addons/league_graves/README.md)：`league_graves` v0.2.1
+[格雷福斯附加包](../../addons/league_graves/README.md)：`league_graves` v0.2.2
 
 主包 `league` 保持纯数据。用户选了「做附加包」。这个附加包用原生代码做主包数据做不到的三件事，外加连招（0.2.0）：
 

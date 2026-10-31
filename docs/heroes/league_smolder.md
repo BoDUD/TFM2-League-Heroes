@@ -51,7 +51,7 @@
 
 ### 斯莫德附加包
 
-[斯莫德附加包](../../addons/league_smolder/README.md)：`league_smolder` v0.1.2
+[斯莫德附加包](../../addons/league_smolder/README.md)：`league_smolder` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

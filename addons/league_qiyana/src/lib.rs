@@ -19,6 +19,7 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -143,16 +144,29 @@ pub fn parse_params(json: &str) -> Params {
     p
 }
 
-/// 每局的被动参数，给原生效果用：(sim 种子, 她) -> 参数（league_naafiri 的做法；服务端预模拟和画面各算各的）。
+/// 每份模拟的编号（2026-11-01 复查；league_galio 的做法）：被动第一次出生时抽一个，每次出生挂在她身上（buff `SIM_TAG<n>`）。
+/// 以前按 sim 种子分：服务器并排跑的两份预演种子一样，第二份的凌人贵气被第一份记的时间挡掉。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_qiyana_sim:";
+
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+            .unwrap_or(0)
+    })
+}
+
+/// 每局的被动参数，给原生效果用：(这份模拟的编号, 她) -> 参数（league_naafiri 的做法；服务端预模拟和画面各算各的）。
 static PARAMS: Mutex<Vec<((u64, usize), Params)>> = Mutex::new(Vec::new());
 
 fn params_of(sim: &StableSim<'_>, me: usize) -> Params {
-    let key = (sim.seed(), me);
+    let key = (sim_no(sim, me), me);
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).iter().find(|(k, _)| *k == key).map_or_else(Params::default, |(_, p)| p.clone())
 }
 
 fn keep_params(sim: &StableSim<'_>, me: usize, p: &Params) {
-    let key = (sim.seed(), me);
+    let key = (sim_no(sim, me), me);
     let mut all = PARAMS.lock().unwrap_or_else(|e| e.into_inner());
     all.retain(|(k, _)| *k != key);
     all.push((key, p.clone()));
@@ -247,7 +261,7 @@ pub fn rock_damage(p: &Params, attack: usize, hp: usize, max: usize) -> usize {
 
 // ===================== 凌人贵气：每个敌人一次 =====================
 
-/// (sim 种子, 她, 敌人) -> 上一次加伤的 tick。
+/// (这份模拟的编号, 她, 敌人) -> 上一次加伤的 tick。
 static ROYAL: Mutex<Vec<((u64, usize, usize), usize)>> = Mutex::new(Vec::new());
 
 /// 这一 tick 对这个敌人加不加伤（加的话记下）。
@@ -281,7 +295,7 @@ impl StableEffectType for Royal {
             return;
         }
         let p = params_of(sim, caster);
-        if royal_ready(sim.seed(), caster, target, sim.tick(), p.rp_rest) {
+        if royal_ready(sim_no(sim, caster), caster, target, sim.tick(), p.rp_rest) {
             sim.deal_damage(caster, target, p.rp_dmg + atk * p.rp_ratio / 100, 0, AttackTypeV1::Skill);
             let at = InputTargetV1::target(target);
             sim.play_view_effect(&qy("p_hit"), caster, &at, 0, 0, 0);
@@ -367,6 +381,8 @@ impl StableEffectType for Enchant {
 #[derive(Clone, Default)]
 pub struct Empress {
     p: Params,
+    /// This simulation's number (`SIM_TAG`), drawn at her first spawn.
+    sim: u64,
 }
 
 impl StablePassive for Empress {
@@ -379,6 +395,12 @@ impl StablePassive for Empress {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
         keep_params(sim, me, &self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Qiyana (player {player}, team {team}), {:?}", head(sim, me), self.p));

@@ -216,11 +216,21 @@ pub fn pick_grid(points: &[(f64, f64)]) -> (&'static str, Grid) {
         .expect("three built-in maps")
 }
 
-/// 从 `a` 走到 `b`，第一个落在墙里的点（每 `STEP` 看一次，`a` 本身不算）。
+/// 从 `a` 走到 `b`，第一个落在墙里的点（每 `STEP` 看一次，`a` 本身不算）。她站在墙里（地图四边的墙面带，单位走得进去）时，
+/// 先要走出墙、再碰上的墙才算（0.1.3，2026-11-01 日志：从四边带里放的 W 几乎每一发都在一步外「撞墙」，激光反射回地图里）。
 pub fn first_wall(grid: &Grid, a: (f64, f64), b: (f64, f64)) -> Option<(f64, f64)> {
     let d = dist(a, b);
     let n = (d / STEP).ceil().max(1.0) as usize;
-    (1..=n).map(|k| lerp(a, b, k as f64 / n as f64)).find(|p| grid.solid(p.0, p.1))
+    let mut open = !grid.solid(a.0, a.1);
+    for k in 1..=n {
+        let p = lerp(a, b, k as f64 / n as f64);
+        if !grid.solid(p.0, p.1) {
+            open = true;
+        } else if open {
+            return Some(p);
+        }
+    }
+    None
 }
 
 // ===================== 计算 =====================
@@ -368,6 +378,20 @@ const DIAG_TICKS: usize = 18;
 /// The match on screen (the client's view, spectating, a replay). 0.1.2: the diagnostics run there only and the
 /// server's presims log `DMG_FIRST` `DMG 30s` lines, then every `DMG_EVERY`-th - every Zeri of every presim wrote both
 /// (2026-10-30: 19 MB a launch, three quarters of it DIAG).
+/// Off-screen lines of a kind this launch: the first `LOG_FIRST`, then every `LOG_EVERY`-th (0.1.3: per-Zeri caps let
+/// every Zeri of every presim write her first 30 W and 60 STEAL lines - 1.0-1.7 MB a launch, 2026-11-01).
+const LOG_FIRST: usize = 60;
+const LOG_EVERY: usize = 200;
+static COUNTS: LazyLock<Mutex<std::collections::HashMap<&'static str, usize>>> =
+    LazyLock::new(|| Mutex::new(std::collections::HashMap::new()));
+
+fn counted(kind: &'static str) -> bool {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    *n <= LOG_FIRST || *n % LOG_EVERY == 0
+}
+
 fn on_screen(sim: &StableSim<'_>) -> bool {
     sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
         matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
@@ -532,7 +556,7 @@ impl Battery {
         let ok = sim.spawn_projectile(&zr("w_wall"), &format!("{ID}:laser"), &spec);
         sim.play_sfx(&zr("w_beam"), me, &InputTargetV1::pos(x, y));
         self.lasers += 1;
-        if self.lasers <= 60 || self.lasers % 25 == 0 {
+        if on_screen(sim) || counted("laser") {
             wlog(format!(
                 "{} W #{}: the pulse met a wall at {} - laser to {}{}",
                 head(sim, me),
@@ -593,7 +617,7 @@ impl StablePassive for Battery {
             self.done_until = tick + 20;
             self.pulses += 1;
             self.pulse = Some(Pulse { start: tick, before: mine(sim, me), at: None });
-            if self.pulses <= 30 || self.pulses % 25 == 0 {
+            if on_screen(sim) || counted("w") {
                 let at = pos(sim, me).map_or("-".into(), pt);
                 wlog(format!("{} W #{}: pulse fired from {at}", head(sim, me), self.pulses));
             }
@@ -631,7 +655,7 @@ impl StablePassive for Battery {
         timed(sim, me, &zr("p_shv"), self.p.steal_t);
         sim.play_sfx(&zr("shield"), me, &InputTargetV1::target(me));
         self.steals += 1;
-        if self.steals <= 60 || self.steals % 25 == 0 {
+        if on_screen(sim) || counted("steal") {
             wlog(format!(
                 "{} STEAL #{}: hit {} for {} on a {shield} shield -> her shield +{gain} for {} ticks",
                 head(sim, me),
@@ -747,6 +771,16 @@ mod tests {
         let w = first_wall(&g, (10_000.0, 48_000.0), (120_000.0, 48_000.0)).unwrap();
         assert!(w.0 >= 64_000.0 && w.0 < 65_100.0, "{w:?}");
         assert_eq!(first_wall(&g, (10_000.0, 10_000.0), (120_000.0, 10_000.0)), None);
+    }
+
+    #[test]
+    fn a_pulse_from_the_border_strip_meets_only_a_wall_after_open_ground() {
+        // 2026-11-01: fired from the strip outside MOBA_BOUNDS, every pulse "met a wall" one step out
+        let g = Grid::from_rows(&["....", "..#.", "...."], Some((20_000.0, 0.0, 128_000.0, 96_000.0)));
+        assert!(g.solid(10_000.0, 10_000.0), "she stands in the strip");
+        assert_eq!(first_wall(&g, (10_000.0, 10_000.0), (120_000.0, 10_000.0)), None);
+        let w = first_wall(&g, (10_000.0, 48_000.0), (120_000.0, 48_000.0)).unwrap();
+        assert!(w.0 >= 64_000.0 && w.0 < 65_100.0, "the real wall after open ground: {w:?}");
     }
 
     #[test]

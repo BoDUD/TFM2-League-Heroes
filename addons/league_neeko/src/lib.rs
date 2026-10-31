@@ -186,6 +186,8 @@ pub struct Glamour {
     cds: [usize; 3],
     started: bool,
     count: usize,
+    /// Her unit, set by every update (`on_dead` is given only the player; a respawn is a new unit).
+    me: Option<usize>,
 }
 
 const SLOTS: [SkillSlotV1; 3] = [SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult];
@@ -255,6 +257,8 @@ impl StablePassive for Glamour {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.ready = sim.tick() + self.p.p_first;
+        self.me = Some(me);
+        self.on = None; // a new life starts undisguised
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Neeko (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }
@@ -266,7 +270,18 @@ impl StablePassive for Glamour {
         }
     }
 
+    /// Her death ends a disguise at once (0.1.1, the 2026-11-01 logs: a dead Neeko's update does not run, so the disguise
+    /// outlived her and "revealed" on the respawned Neeko - a poof at the fountain, or 20 % magic pen for a disguise the screen
+    /// never drew).
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        if let Some(me) = self.me {
+            self.end(sim, me, "dead", false);
+        }
+        self.ready = self.ready.max(sim.tick() + self.p.p_first);
+    }
+
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+        self.me = Some(me);
         let t = sim.tick();
         let Some(e) = sim.get_entity(me) else { return };
         if !self.started {

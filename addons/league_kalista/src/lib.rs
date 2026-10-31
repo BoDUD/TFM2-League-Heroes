@@ -32,7 +32,8 @@ use mod_api_stable::*;
 
 const ID: &str = "league_kalista";
 const HERO: &str = "league_kalista";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.1.3";
 /// 数据和本包之间的标记（主包数据的施法者 buff 名）。
 pub const HOP_F: &str = "league_kalista_hop_f";
 pub const HOP_B: &str = "league_kalista_hop_b";
@@ -43,6 +44,8 @@ pub const R_SAFE: &str = "league_kalista_r_safe";
 pub const E_OK: &str = "league_kalista_e_ok";
 pub const E_CD: &str = "league_kalista_e_cd";
 pub const E_POP: &str = "league_kalista_e_pop";
+/// 附加包自己的：「拔了能杀」的那个敌人身上挂 6 tick，AI 钩子对它按技能 2（`FateAi::rend_now`）。
+pub const E_AIM: &str = "league_kalista_e_aim";
 /// 地图边长（坐标 0..MAP）。
 const MAP: f64 = 960_000.0;
 
@@ -533,7 +536,8 @@ impl Oath {
         let mut kill = None;
         for (&id, v) in &self.spears {
             let Some(e) = sim.get_entity(id) else { continue };
-            if !e.is_alive() {
+            // 选不中的、挂着不死的（阿克尚复活前停在 1 血）拔了也杀不死（2026-11-01 复查：对 1 血的阿克尚报了 33 次）
+            if !e.is_alive() || !e.is_targetable() || (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.undying) {
                 continue;
             }
             let (hp, _) = e.hp();
@@ -545,6 +549,7 @@ impl Oath {
         }
         if let Some((id, n, dmg, hp)) = kill {
             set_flag(sim, me, E_OK, 6);
+            set_flag(sim, id, E_AIM, 6);
             if let Some(k) = counted("rend") {
                 wlog(format!("{} REND {} spears in {} would deal {dmg} against {hp} hp: rip now #{k}", head(sim, me), n,
                              who(sim, id)));
@@ -621,10 +626,12 @@ impl StablePlayerAi for FateAi {
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        let was = base.and_then(|b| InputKindV1::from_code(b.kind));
+        if was != Some(InputKindV1::Ult) {
+            return rend_now(ctx, was);
+        }
         let b = base?;
-        if InputKindV1::from_code(b.kind) != Some(InputKindV1::Ult)
-            || InputTargetKindV1::from_code(b.target.kind) != Some(InputTargetKindV1::Target)
-        {
+        if InputTargetKindV1::from_code(b.target.kind) != Some(InputTargetKindV1::Target) {
             return None;
         }
         let current = b.target.target_id;
@@ -678,6 +685,41 @@ impl StablePlayerAi for FateAi {
         }
         Some(input)
     }
+}
+
+/// 「拔了能杀」（被动在她身上挂 `E_OK`、在那个敌人身上挂 `E_AIM`）时自己按技能 2：数据只在矛打中英雄、或游戏的 AI 按技能 2
+/// 的时候看 `e_ok`，游戏的 AI 一两分钟才按一次，「立刻拔」常常等到下一矛（2026-11-01 复查：18 次 rip now 都没拔）。
+fn rend_now(ctx: &mut StableAiContext<'_>, was: Option<InputKindV1>) -> Option<InputV1> {
+    if was == Some(InputKindV1::Skill2) {
+        return None;
+    }
+    let player = ctx.player_id();
+    let (target, line) = {
+        let sim = ctx.sim()?;
+        let me = sim.get_player(player)?.champion()?;
+        let mid = me.id();
+        if !me.is_alive() || !has_buff(&sim, mid, E_OK) || has_buff(&sim, mid, E_CD) {
+            return None;
+        }
+        // 技能 2 解锁了（3 级）、试拔的格子好了（引擎的「输入合法」不看冷却和解锁）
+        if !me.cooldown(SkillSlotV1::Skill2).is_some_and(|c| c.unlocked && c.remaining == 0) {
+            return None;
+        }
+        let team = me.team();
+        let t = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .find(|u| u.team() != team && u.is_alive() && u.is_champion() && has_buff(&sim, u.id(), E_AIM))?
+            .id();
+        (t, format!("{} REND PRESS: Skill2 on {}", head(&sim, mid), who(&sim, t)))
+    };
+    let input = InputV1::action(InputKindV1::Skill2, InputTargetV1::target(target));
+    if !ctx.is_valid_input(&input) {
+        return None;
+    }
+    if let Some(k) = counted("rend_press") {
+        wlog(format!("{line} #{k}"));
+    }
+    Some(input)
 }
 
 // ===================== 注册 =====================
