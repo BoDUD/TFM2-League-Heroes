@@ -236,7 +236,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_sylas.png" width="32"> | [塞拉斯](docs/heroes/league_sylas.md)<br>Sylas | 中单 | 锁链鞭击 · 潜掠/强掳 · 大招 其人之道 | [塞拉斯附加包](addons/league_sylas/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_syndra.png" width="32"> | [辛德拉](docs/heroes/league_syndra.md)<br>Syndra | 中单 | 被动 卓尔不凡 · 暗黑法球 · 弱者退散 · 大招 能量倾泻 | [辛德拉举小兵附加包](addons/league_syndra/README.md) | PPU 1.86 |
 | <img src="docs/heroes/img/league_taliyah.png" width="32"> | [塔莉垭](docs/heroes/league_taliyah.md)<br>Taliyah | 中单 | 石穿 · 岩突 · 大招 墙幔 | [塔莉垭附加包](addons/league_taliyah/README.md) | PPU 1.75 |
-| <img src="docs/heroes/img/league_talon.png" width="32"> | [泰隆](docs/heroes/league_talon.md)<br>Talon | 中单 | 斩草除根 · 诺克萨斯式外交 · 大招 暗影突袭 | [泰隆「刺客之道」翻墙附加包](addons/league_talon_vault/README.md) | — |
+| <img src="docs/heroes/img/league_talon.png" width="32"> | [泰隆](docs/heroes/league_talon.md)<br>Talon | 中单 | 斩草除根 · 诺克萨斯式外交 · 大招 暗影突袭 | [泰隆「刺客之道」翻墙附加包](addons/league_talon_vault/README.md) | PPU 2.21 |
 | <img src="docs/heroes/img/league_twistedfate.png" width="32"> | [崔斯特](docs/heroes/league_twistedfate.md)<br>Twisted Fate | 中单 | 被动 灌铅骰子 · 万能牌 · 选牌 · 大招 命运 | — | — |
 | <img src="docs/heroes/img/league_veigar.png" width="32"> | [维迦](docs/heroes/league_veigar.md)<br>Veigar | 中单 | 被动 超凡邪力 · 黑暗祭祀 · 扭曲空间 · 大招 能量爆裂 | [维迦法强常驻附加包](addons/league_veigar_power/README.md) | — |
 | <img src="docs/heroes/img/league_velkoz.png" width="32"> | [维克兹](docs/heroes/league_velkoz.md)<br>Vel'Koz | 中单 | 等离子裂变 · 构造分解 · 大招 生命形态瓦解射线 | [维克兹附加包](addons/league_velkoz/README.md) | PPU 1.5 |
@@ -274,7 +274,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_kogmaw.png" width="32"> | [克格莫](docs/heroes/league_kogmaw.md)<br>Kog'Maw | ADC | 腐蚀唾液 · 虚空淤泥 · 大招 活体大炮 | — | — |
 | <img src="docs/heroes/img/league_lucian.png" width="32"> | [卢锡安](docs/heroes/league_lucian.md)<br>Lucian | ADC | 被动 圣光银弹 · 透体圣光 · 冷酷追击 · 大招 圣枪洗礼 | 卢锡安附加包 | PPU 1.5 |
 | <img src="docs/heroes/img/league_mel.png" width="32"> | [梅尔](docs/heroes/league_mel.md)<br>Mel | ADC | 耀光齐射 · 阳炎涡旋 · 大招 鎏金蚀日 | [梅尔附加包](addons/league_mel/README.md) | PPU 1.5 |
-| <img src="docs/heroes/img/league_missfortune.png" width="32"> | [厄运小姐](docs/heroes/league_missfortune.md)<br>Miss Fortune | ADC | 被动 厄运的眷顾 · 一箭双雕 · 枪林弹雨 · 大招 弹幕时间 | [目标标记附加包](addons/league_marks/README.md) | — |
+| <img src="docs/heroes/img/league_missfortune.png" width="32"> | [厄运小姐](docs/heroes/league_missfortune.md)<br>Miss Fortune | ADC | 被动 厄运的眷顾 · 一箭双雕 · 枪林弹雨 · 大招 弹幕时间 | [目标标记附加包](addons/league_marks/README.md) | PPU 2.76 |
 | <img src="docs/heroes/img/league_nilah.png" width="32"> | [尼菈](docs/heroes/league_nilah.md)<br>Nilah | ADC | 游刃万变 · 纵情逐流 / 轻纱飞漾 · 大招 神恩激荡 | [尼菈附加包](addons/league_nilah/README.md) | PPU 1.98 |
 | <img src="docs/heroes/img/league_samira.png" width="32"> | [莎弥拉](docs/heroes/league_samira.md)<br>Samira | ADC | 被动 悍勇本色 · 交火 · 狂飙 · 大招 炼狱扳机 | [莎弥拉边走边射附加包](addons/league_samira_r/README.md) | PPU 2.84 |
 | <img src="docs/heroes/img/league_sivir.png" width="32"> | [希维尔](docs/heroes/league_sivir.md)<br>Sivir | ADC | 被动 敏锐疾行 · 回旋之刃 · 法术护盾 · 大招 狩猎 | — | PPU 2.25 |
@@ -300,7 +300,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_braum.png" width="32"> | [布隆](docs/heroes/league_braum.md)<br>Braum | 辅助 | 寒冬之咬 · 坚不可摧 · 大招 冰川裂隙 | 布隆附加包 | PPU 1.98 |
 | <img src="docs/heroes/img/league_janna.png" width="32"> | [迦娜](docs/heroes/league_janna.md)<br>Janna | 辅助 | 被动 顺风而行 · 飓风呼啸 · 风暴之眼 · 大招 复苏季风 | [辅助挑人附加包：迦娜、娑娜、璐璐](addons/league_support_pick/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_karma.png" width="32"> | [卡尔玛](docs/heroes/league_karma.md)<br>Karma | 辅助 | 心灵烈焰 · 坚定不移 · 大招 梵咒 | — | PPU 2.2 |
-| <img src="docs/heroes/img/league_leona.png" width="32"> | [蕾欧娜](docs/heroes/league_leona.md)<br>Leona | 辅助 | 被动 日光 · 破晓之盾 · 天顶之刃 · 大招 日炎耀斑 | — | PPU 1.76 |
+| <img src="docs/heroes/img/league_leona.png" width="32"> | [蕾欧娜](docs/heroes/league_leona.md)<br>Leona | 辅助 | 被动 日光 · 破晓之盾 · 天顶之刃 · 大招 日炎耀斑 | — | PPU 1.5 |
 | <img src="docs/heroes/img/league_lulu.png" width="32"> | [璐璐](docs/heroes/league_lulu.md)<br>Lulu | 辅助 | 闪耀长枪 · 奇思妙想 · 大招 狂野生长 | [辅助挑人附加包：迦娜、娑娜、璐璐](addons/league_support_pick/README.md) | — |
 | <img src="docs/heroes/img/league_maokai.png" width="32"> | [茂凯](docs/heroes/league_maokai.md)<br>Maokai | 辅助 | 荆棘重击 · 扭曲突刺 · 大招 自然之握 | [茂凯附加包](addons/league_maokai/README.md) | PPU 1.3 |
 | <img src="docs/heroes/img/league_milio.png" width="32"> | [米利欧](docs/heroes/league_milio.md)<br>Milio | 辅助 | 被动 热情洋溢！ · 火爆飞踢 · 融融情谊 / 依依不舍 · 大招 生生不息 | [米利欧附加包](addons/league_milio/README.md) | PPU 2.2 |
@@ -318,7 +318,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_soraka.png" width="32"> | [索拉卡](docs/heroes/league_soraka.md)<br>Soraka | 辅助 | 流星坠落 · 星之灌注 · 大招 祈愿 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_tahmkench.png" width="32"> | [塔姆](docs/heroes/league_tahmkench.md)<br>Tahm Kench | 辅助 | 巨舌鞭笞 · 深渊潜航 · 大招 大快朵颐 | [塔姆附加包](addons/league_tahmkench/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_taric.png" width="32"> | [塔里克](docs/heroes/league_taric.md)<br>Taric | 辅助 | 被动 正气凌人 · 炫光 · 星光之触 · 大招 宇宙之辉 | — | PPU 1.55 |
-| <img src="docs/heroes/img/league_thresh.png" width="32"> | [锤石](docs/heroes/league_thresh.md)<br>Thresh | 辅助 | 被动 厄运钟摆 · 死亡判决 · 厄运钟摆 · 大招 幽冥监牢 | [锤石灯笼附加包](addons/league_thresh_lantern/README.md) | — |
+| <img src="docs/heroes/img/league_thresh.png" width="32"> | [锤石](docs/heroes/league_thresh.md)<br>Thresh | 辅助 | 被动 厄运钟摆 · 死亡判决 · 厄运钟摆 · 大招 幽冥监牢 | [锤石灯笼附加包](addons/league_thresh_lantern/README.md) | PPU 2.48 |
 | <img src="docs/heroes/img/league_yuumi.png" width="32"> | [悠米](docs/heroes/league_yuumi.md)<br>Yuumi | 辅助 | 摸鱼飞弹 · 悠米出动！ · 大招 魔典终章 | [悠米附加包](addons/league_yuumi/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_zilean.png" width="32"> | [基兰](docs/heroes/league_zilean.md)<br>Zilean | 辅助 | 被动 瓶中时光 · 定时炸弹 · 时光发条 · 大招 时光倒流 | [基兰复活附加包](addons/league_zilean_rewind/README.md) | — |
 | <img src="docs/heroes/img/tft_idas.png" width="32"> | [艾达丝](docs/heroes/tft_idas.md)<br>Idas（tft 包） | 辅助 | 黄金龙息 · 龙威振翅 · 大招 黄金龙鳞 | — | PPU 2.45 |

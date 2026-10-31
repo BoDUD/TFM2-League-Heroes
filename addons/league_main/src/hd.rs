@@ -535,8 +535,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Leona (2026-10-30, 「接下来重做曙光女神」, 「通过，用 1.76」): Codex's leona-A read as drawn (69 x 72,
     // tools/art/design_leona_hd.py: 72 rows / 41 = 1.756); every action Codex's whole-frame redraw of her old frame
     // read onto it at the zoom her figure and head give (tools/art/casts_leona_hd.py, rig_leona_hd.py; nothing baked -
-    // her sunlight, eclipse and flare are effect strips); 41 game px as her 1x sprite, so no SIZES row
-    ("league_leona", 1.756, include_str!("../../../league/champions/league_leona#anim.fanim")),
+    // her sunlight, eclipse and flare are effect strips); 41 game px as her 1x sprite, so no SIZES row. Then
+    // 「另外蕾欧娜的模型太高清了 降低点像素」: drawn at 1.756, brought to 1.5 (tools/art/review_leona_ppu.py, 「蒾欧娜用 1.5」)
+    ("league_leona", 1.5, include_str!("../../../league/champions/league_leona#anim.fanim")),
     // Sona (2026-10-30, 「接下来重做琴女」, 「调高PPU像素」「达到和我给你的图一样的效果」, 「通过，用 3.88」): the user's
     // picture read on its finest squares (117 x 155, tools/art/design_sona_hd.py: 155 rows / 40 = 3.875); every action
     // Codex's whole-frame redraw of her old frame read onto it at the zoom her figure, head and height give
@@ -547,6 +548,21 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // onto it at the zoom her figure, pink hair and pillory give (tools/art/casts_briar_hd.py, rig_briar_hd.py; nothing
     // baked but the Snack's blood drops); 46 game px as her 1x sprite, so no SIZES row
     ("league_briar", 2.935, include_str!("../../../league/champions/league_briar#anim.fanim")),
+    // Talon (2026-10-31, 「下一个英雄重做泰隆」, 「用A PPU2.21吧」): Codex's talon-A read on its own ~10.5-px squares
+    // (105 x 86, tools/art/design_talon_hd.py: 86 rows / 39 = 2.205); every action Codex's whole-frame redraw of his old
+    // frame read onto it at the zoom his figure and face give (tools/art/casts_talon_hd.py, rig_talon_hd.py; the run
+    // redrawn with the legs changing over, 「走路没有换腿」; nothing baked); 39 game px as his 1x sprite, so no SIZES row
+    ("league_talon", 2.205, include_str!("../../../league/champions/league_talon#anim.fanim")),
+    // Thresh (2026-10-31, 「锤石和女枪在这个pr里一起重做二轮」, 「都用中间档」): Codex's thresh-A read on its own ~9.75-px
+    // squares (90 x 99, tools/art/design_thresh_hd.py: 99 rows / 40 = 2.475); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom its height (or its area) gives (tools/art/casts_thresh_hd.py,
+    // rig_thresh_hd.py; nothing baked); 40 game px as his 1x sprite, so no SIZES row
+    ("league_thresh", 2.475, include_str!("../../../league/champions/league_thresh#anim.fanim")),
+    // Miss Fortune (2026-10-31, the same PR, 「都用中间档」): Codex's missfortune-A read on its own ~9.75-px squares (80 x
+    // 105, tools/art/design_missfortune_hd.py: 105 rows / 38 = 2.763); every action Codex's whole-frame redraw of her old
+    // frame read onto it at the zoom its height (the deaths: its area; E 2-6 by the hat) gives
+    // (tools/art/casts_missfortune_hd.py, rig_missfortune_hd.py; nothing baked); 38 game px as her 1x sprite, so no SIZES row
+    ("league_missfortune", 2.763, include_str!("../../../league/champions/league_missfortune#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
