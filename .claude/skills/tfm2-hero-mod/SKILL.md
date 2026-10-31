@@ -117,8 +117,8 @@ empty tooltip). That is why the linter exists - run it after every edit.
   tft.dylib, and `tools/package_mod.py --out` / `assemble.py` ship CI's build of HEAD (`tools/kit/mac_dylib.py`). So in
   `addons/`: no `#[link(name = "kernel32")]` outside `game_places` (a display hook's strings: `use
   game_places::heap::{GetProcessHeap, HeapAlloc, HeapFree};`), Windows-only code under `#[cfg(windows)]`; a red `mac`
-  job on the PR means the bundle no longer links on a Mac. Upload from a pushed commit whose CI is green (otherwise
-  the package has no `.dylib` and says so).
+  job on the PR means the bundle no longer links on a Mac, and the PR cannot merge (a required check from
+  2026-10-31). Upload from a pushed commit whose CI is green (otherwise the package has no `.dylib` and says so).
 - **Keep `skill` and `skill2` small, and slim only with the same game (league, 2026-10-18; the user: 「这个要写好skill规矩」).**
   The game deep-copies every data champion's skill and skill2 trees each tick of a match - in game half the main
   thread's time with a match on screen, and the single-threaded stretch at the end of a day advance (league
