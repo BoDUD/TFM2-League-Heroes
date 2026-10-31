@@ -211,6 +211,26 @@ def build(p, is_native=False):
     return kit
 
 
+# Sylas's copy: the flock comes for SY_WAVES waves SY_GAP ticks apart (the flag r_flock on him as long), each wave the
+# r_n pecks at his target
+SY_WAVES, SY_GAP = 3, 24
+
+
+def sylas_ult(p=None):
+    """Flock Family as plain data for league_sylas's copy (addons/league_sylas/make_override.py STOLEN): the kit's ult is
+    a flag only its own attack reads, so in his hands it would do nothing; his flock dives at his target instead - the
+    call, the four Tiny Beaks round him (r_flock) for SY_WAVES waves of the r_n pecks (r_dmg + r_ratio% AD physical,
+    Orange Buff's data shred), then they fly off. The views are the kit's own (tft_raptor_*); make_override copies them
+    and their sheets."""
+    p = dict(P) if p is None else p
+    peck = [attack(p["r_dmg"], p["r_ratio"]), shred(p, False), view("r_peck_hit"), tsfx("r_peck_hit")]
+    waves = [delayed(w * SY_GAP + k * p["r_gap"], sfx("r_peck"), homing("r_peck", "Enemy", peck, p["r_speed"], p["a_y"]))
+             for w in range(SY_WAVES) for k in range(p["r_n"])]
+    stay = SY_WAVES * SY_GAP
+    return combine(sfx("r"), delayed(p["r_rel"] - 1, sfx("r_chick"), flag("r_flock", stay), *waves,
+                                     delayed(stay, sfx("r_end"))))
+
+
 def nodes(o):
     """Effect nodes in a tree (dicts with a `type`), the measure the game's per-tick clone cost follows."""
     if isinstance(o, dict):

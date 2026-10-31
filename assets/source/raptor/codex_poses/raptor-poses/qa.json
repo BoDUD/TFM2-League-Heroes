@@ -1,0 +1,434 @@
+[
+  {
+    "file": "raptor-pose-a_back.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      168,
+      420,
+      1163,
+      1174
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-a_jab.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      88,
+      645,
+      1196,
+      1146
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-q_rear.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      254,
+      405,
+      1170,
+      1204
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-q_spread.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      72,
+      364,
+      1214,
+      1194
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-e_hop.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      146,
+      320,
+      1060,
+      1029
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-e_land.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      134,
+      436,
+      1177,
+      1175
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-r_rear.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      157,
+      253,
+      1128,
+      1214
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-r_call.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      186,
+      429,
+      1143,
+      1204
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      212,
+      487,
+      1061,
+      1106
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      267,
+      637,
+      1068,
+      1195
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      176,
+      527,
+      1099,
+      1101
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      272,
+      585,
+      1070,
+      1107
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-run5.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      217,
+      571,
+      1030,
+      1194
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-run6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      195,
+      502,
+      1083,
+      1168
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-run7.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      190,
+      482,
+      1144,
+      1087
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-run8.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      166,
+      535,
+      1105,
+      1159
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      198,
+      268,
+      1088,
+      1096
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  },
+  {
+    "file": "raptor-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "requested_size": [
+      1254,
+      1254
+    ],
+    "bbox": [
+      77,
+      439,
+      1167,
+      1117
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "resampled": false,
+    "body_art": "image_gen; no scripted pose construction",
+    "canvas_matches": true
+  }
+]
