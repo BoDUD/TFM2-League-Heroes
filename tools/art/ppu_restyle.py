@@ -755,8 +755,9 @@ RESTYLE = {
     # Evelynn (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「伊芙琳用2.78」): Codex's evelynn-A read on its own ~10.4-px squares
     # (103 x 114, design_evelynn_hd.py: 114 rows / 2.780 = her 41); every action Codex's whole-frame redraw of her old
     # frame read onto it (tools/art/casts_evelynn_hd.py), so no density change; the face point stays: she is as tall as
-    # before; nothing baked
-    "evelynn": dict(ppu=114 / 41, edge=0),
+    # before; nothing baked. Then the user: 「伊芙琳可以加点黑边 避免过度高清」 - the outline grown by 2 squares (1 hardly shows at
+    # 2.78)
+    "evelynn": dict(ppu=114 / 41, edge=2),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2
