@@ -318,7 +318,8 @@ def build(p):
         # its summoner spells: the icon lighting up on the ground where she cast it, the icons a shard cycles through,
         # and the pictures of their own (Heal, Ignite, Exhaust, Ghost and Barrier's bubble are its buffs' views)
         views_e += [E("sg_" + s, SPELL_ICONS, -1, False) for s in SPELLS] + [E("ss_" + s, SPELL_ICONS, -1, False) for s in SPELLS]
-        views_e += [E("s_flash", SPELLS_FX, 2, False), E("s_cleanse", SPELLS_FX)]      # Flash: where she was / lands
+        # Flash: a starburst where she was / lands and the puffs of the streak between them
+        views_e += [E("s_flash", SPELLS_FX, 2, False), E("s_flash_trail", SPELLS_FX, 2, False), E("s_cleanse", SPELLS_FX)]
     views_b = [B_("e_drowsy", FX, 3), B_("e_zz", FX, 3), B_("w_haste", FX, -1)]
     if native:
         views_b += [B_("s_heal", SPELLS_FX), B_("s_ignite", SPELLS_FX), B_("s_exhaust", SPELLS_FX, 3),

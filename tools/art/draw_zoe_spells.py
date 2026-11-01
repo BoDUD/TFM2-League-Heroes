@@ -12,7 +12,8 @@ EFFECTS: every tag has its hd_ twin, the 1x frames are the dense ones halved). T
                 the icon popping in white, held, dithered away; ~0.8 s, z -1, where she stood);
   * ss_<spell>  the same icon over a spell shard lying on the ground (one picture for one stamp, 15 ticks): the shard
                 cycles through the seven - which one it gives is picked when she picks it up;
-  * s_flash     a starburst on her and on the one Flash knocks away;     s_cleanse  a ring sweeping up her body;
+  * s_flash     a starburst where she blinks from and where she lands;   s_cleanse  a ring sweeping up her body;
+  * s_flash_trail  one puff of the golden streak between the two (played at points along the way);
   * s_barrier   a golden bubble round her;                               s_heal     green crosses rising (a buff's view);
   * s_ignite    flames on the burning one (a buff's view);               s_exhaust  a dusty cloud over his head;
   * s_ghost     cyan wisps round her feet (a buff's view, under her).
@@ -147,27 +148,75 @@ def astroid(f, cy, r, c, keep=None):
 
 
 def flash():
+    """Where she blinks from and where she lands (the user, 2026-11-01: 「闪现现在怎么看不出效果？」 - the old one was
+    10-22 squares and 0.22 s): a starburst as tall as she is with a ring bursting out to 17 px, a flat ring on the
+    ground round her feet, glints drifting up as it fades; 0.5 s."""
     c = PAL["flash"]
-    cy = SY - 24
+    cy = SY - 26
     out = []
-    for k, ms in enumerate([40, 50, 60, 70]):
+    for k, ms in enumerate([40, 50, 60, 60, 70, 70, 80, 90]):
+        f = F()
+        if 1 <= k <= 5:                             # the ground ring at her feet, widening and thinning
+            f.ring(SY, 16 + 5 * k, 4 + 1.2 * k, c["mid"] if k < 3 else c["edge"] if k < 5 else c["out"],
+                   1.5 if k < 3 else 1, keep=None if k < 3 else checker(1 if k < 5 else 2))
+        if k == 0:
+            astroid(f, cy, 16, c)
+            f.ring(cy, 10, 10, c["core"], 1.5)
+        elif k == 1:
+            f.ring(cy, 18, 18, c["core"], 2)
+            astroid(f, cy, 28, c)
+        elif k == 2:
+            f.ring(cy, 26, 26, c["mid"], 2)
+            astroid(f, cy, 20, c)
+            for d in (14, 20):
+                f.spark(d, cy - d, c["core"], c["mid"], 2)
+                f.spark(d, cy + d, c["mid"], c["edge"], 1)
+        elif k == 3:
+            f.ring(cy, 31, 31, c["edge"], 1.5, keep=checker(1))
+            astroid(f, cy, 13, c)
+            for d in (19, 25):
+                f.spark(d, cy - d, c["core"], c["mid"], 2)
+                f.spark(d, cy + d, c["mid"], c["edge"], 1)
+        elif k == 4:
+            f.ring(cy, 34, 34, c["out"], 1, keep=checker(2))
+            astroid(f, cy, 8, c)
+            f.spark(22, cy - 28, c["core"], c["mid"], 2)
+            f.spark(28, cy + 16, c["mid"], c["edge"], 1)
+            f.spark(8, cy - 34, c["mid"], c["edge"], 1)
+        else:                                       # glints drifting up and going out
+            up = 6 * (k - 4)
+            f.spark(0, cy, c["core"] if k == 5 else c["mid"], c["mid"] if k == 5 else c["edge"], 7 - k)
+            f.spark(20, cy - 30 - up, c["mid"], c["edge"], 1 if k < 7 else 0)
+            f.spark(10, cy - 40 - up, c["edge"], c["out"], 1 if k < 6 else 0)
+            if k < 7:
+                f.spark(26, cy + 10 - up, c["edge"], c["out"], 0)
+        out.append((f.crop(), ms))
+    return out
+
+
+def flash_trail():
+    """s_flash_trail: one puff of the golden streak Flash leaves between where she was and where she lands (the add-on
+    plays it at points along the way, so it lies the right way whichever way she blinks): a sparkle at her chest height
+    that blooms, sheds glints and fades; 0.43 s."""
+    c = PAL["flash"]
+    cy = SY - 26
+    out = []
+    for k, ms in enumerate([50, 70, 90, 100, 120]):
         f = F()
         if k == 0:
-            astroid(f, cy, 10, c)
-        elif k == 1:
-            f.ring(cy, 12, 12, c["mid"], 1)
-            astroid(f, cy, 17, c)
-        elif k == 2:
-            f.ring(cy, 18, 18, c["edge"], 1, keep=lambda x, y: (x + y) % 2 == 0)
             astroid(f, cy, 9, c)
-            for d in (10, 14):
-                f.spark(d, cy - d, c["core"], c["mid"], 1)
-                f.spark(d, cy + d, c["mid"], c["edge"], 1)
+        elif k == 1:
+            astroid(f, cy, 7, c)
+            f.ring(cy, 10, 10, c["mid"], 1, keep=checker(1))
+        elif k == 2:
+            astroid(f, cy, 5, c, keep=checker(1))
+            f.spark(7, cy - 9, c["core"], c["mid"], 1)
+            f.spark(9, cy + 5, c["mid"], c["edge"], 1)
+        elif k == 3:
+            f.spark(0, cy, c["mid"], c["edge"], 1)
+            f.spark(8, cy - 13, c["mid"], c["edge"], 1)
         else:
-            f.ring(cy, 22, 22, c["out"], 1, keep=checker(2))
-            f.spark(15, cy - 15, c["mid"], c["edge"], 1)
-            f.spark(15, cy + 15, c["edge"], c["out"], 0)
-            f.spark(0, cy, c["core"], c["mid"], 2)
+            f.spark(8, cy - 17, c["edge"], c["out"], 0)
         out.append((f.crop(), ms))
     return out
 
@@ -448,8 +497,8 @@ def sheet(t, ppu):
 def tags():
     """(the spells' own pictures, the icons): {tag: [(dense frame, ms)]} each, idle first (league_main's lookup reads
     its width to tell a dense sheet)."""
-    fx = dict(s_flash=flash(), s_cleanse=cleanse(), s_barrier=barrier(), s_heal=heal(), s_ignite=ignite(),
-              s_exhaust=exhaust(), s_ghost=ghost())
+    fx = dict(s_flash=flash(), s_flash_trail=flash_trail(), s_cleanse=cleanse(), s_barrier=barrier(), s_heal=heal(),
+              s_ignite=ignite(), s_exhaust=exhaust(), s_ghost=ghost())
     icons = {"sg_" + s: ground(s) for s in SPELLS}
     icons.update({"ss_" + s: shard(s) for s in SPELLS})
     return {"idle": fx["s_flash"], **fx}, {"idle": icons["ss_flash"], **icons}

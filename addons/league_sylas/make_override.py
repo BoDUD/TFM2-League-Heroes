@@ -128,6 +128,7 @@ STOLEN = {"tft_silco": ("build_silco", "sylas_ult"), "tft_maddie": ("build_maddi
           "tft_raptor": ("build_raptor", "sylas_ult"),
           "tft_elderdragon": ("build_elderdragon", "sylas_ult"),
           "tft_meepsie": ("build_meepsie", "sylas_ult"),
+          "tft_murkwolf": ("build_murkwolf", "sylas_ult"),
           "tft_scuttlecrab": ("build_scuttlecrab", "sylas_ult")}
 
 
