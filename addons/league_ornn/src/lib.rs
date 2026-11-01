@@ -17,6 +17,9 @@
 //!   游戏的、数据 mod 的、原生 mod 的装备都一样（用户：「你也要能兼容mod的装备啊」）；一条都认不出来才退回游戏的装备表 `ITEMS`；`P_MASTER_LV` 级起锻造杰作
 //!   （英雄联盟 13 级）：他自己 +`P_MASTER`%，每个友方英雄的装备 +`P_ALLY`%。只补差额的永久 buff（重挂生命会掉血）。主包：
 //!   护甲、魔抗 +10%、生命 +6%（数据读不到装备）。
+//! - **锻造看得见**（`fx.rs`，用户 2026-11-01：「锻造后装备上加点特效？不然看不出啊」，选了样式 2）：比赛下方玩家栏里被锻造的装备
+//!   图标外一圈金色光晕、右下角一个小铁砧（他自己的亮，锻造杰作后队友的淡），刚锻造时闪一下金光；按屏幕上的比赛时钟画，
+//!   只画屏幕上那一场的（AI 钩子 `league_ornn:screen` 记屏幕在放哪一个模拟）。
 //! - **连招**（AI 钩子 `league_ornn:combo`，`combo.rs`）：AI 想放 E 而 Q 好着时先放 Q 立柱（Q → E）；柱子立着、E 好了、
 //!   柱子旁边有敌方英雄时替 AI 按 E 撞过去；身边有易碎的英雄时普攻改打他。
 //!
@@ -25,7 +28,8 @@
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ornn.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SPAWN`、`PILLAR`（立柱、推开）、`HOLD` / `PUSH`（挡在柱子外）、`CHARGE`（撞柱 / 撞墙 / 没撞）、`BROKEN`（柱子碎了）、
 //! `SHATTER`（引爆易碎）、`Q FIRST` / `E PILLAR` / `BRITTLE`（连招），限了条数（整个游戏一个计数）；`ITEMS`（友方玩家的装备，
-//! 变了才记：你看的那场每条都记，预模拟限条数）。
+//! 变了才记：你看的那场每条都记，预模拟限条数）；锻造光晕：`STATS`（你看的那场每 30 秒每个选手的队伍、分路、英雄、KDA、补刀）、
+//! `FX ROWS`（屏幕上玩家栏每一行的 KDA、补刀和当它是哪条分路，1、3、6 分钟各一次）、`FX DRAW`（第一次画）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -40,10 +44,11 @@ use mod_api_stable::*;
 mod maps;
 
 pub mod combo;
+pub mod fx;
 
 pub const ID: &str = "league_ornn";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.3";
+const VERSION: &str = "0.2.0";
 
 /// 主包参数表 P 的同名项：柱子留多久；易碎引爆（最大生命 %、击飞、击退速度和 tick）；地震半径；E 的动作长度、射程；Q 的射程。
 pub const Q_LIFE: usize = 240;
@@ -580,6 +585,21 @@ struct Forge {
     items_shown: HashMap<usize, (Vec<String>, &'static str, [i32; 6])>,
 }
 
+/// 屏幕上那一场每 `fx::STATS_EVERY` tick：每个选手的队伍、分路、英雄、KDA、补刀（日志 `STATS`，和客户端的 `FX ROWS` 对玩家栏的行）。
+fn stats(sim: &StableSim<'_>, me: usize) {
+    let mut parts = Vec::new();
+    for i in 0..sim.player_count() {
+        let Some(pl) = sim.player_at(i) else { continue };
+        let lane = pl.lane().map_or("?".to_string(), |l| l.code().to_string());
+        let champ = pl.champion().map_or("-".to_string(), |c| who(sim, c.id()));
+        parts.push(format!("team {} lane {lane} {champ} {}/{}/{} cs {}", pl.team(), pl.kills(), pl.deaths(), pl.assists(),
+                           pl.cs()));
+    }
+    if let Some(k) = tally(sim, "stats") {
+        wlog(format!("{} STATS {} #{k}", head(sim, me), parts.join(" | ")));
+    }
+}
+
 impl Forge {
     /// 活体锻炉：每 `FORGE_EVERY` tick 按身上的装备补上放大的那部分（他自己；杰作后还有每个友方英雄）。
     fn forge(&mut self, sim: &mut StableSim<'_>, me: usize) {
@@ -594,6 +614,7 @@ impl Forge {
             let Some(c) = pl.champion() else { continue };
             let id = c.id();
             let keys = pl.item_keys();
+            let items = keys.len();
             if id == me {
                 level = pl.level();
             }
@@ -618,7 +639,7 @@ impl Forge {
                 }
                 self.items_shown.insert(pl.id(), (keys, from, sum));
             }
-            rows.push((id, c.is_alive(), sum));
+            rows.push((id, c.is_alive(), sum, pl.lane(), items));
         }
         let (mine, ally) = forge_pct(level);
         if ally > 0 && !self.master_seen {
@@ -627,7 +648,21 @@ impl Forge {
                 wlog(format!("{} MASTERWORK at level {level}: his items +{mine}%, his allies' +{ally}% #{k}", head(sim, me)));
             }
         }
-        for (id, alive, sum) in rows {
+        // the match on screen: which item icons on the scoreboard glow, and when they were forged (fx.rs)
+        let now = sim.tick();
+        if on_screen(sim) && now >= FORGE_EVERY {
+            let gen = fx::screen_gen();
+            for &(id, _, sum, lane, items) in &rows {
+                let Some(lane) = lane else { continue };
+                let own = id == me;
+                let pct = if own { mine } else { ally };
+                fx::publish(gen, now, (team, lane.code() as usize), items, pct, own, forged(sum, pct));
+            }
+            if now % fx::STATS_EVERY == 0 {
+                stats(sim, me);
+            }
+        }
+        for (id, alive, sum, _, _) in rows {
             if !alive {
                 continue;
             }
@@ -760,7 +795,12 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:shatter"), Step(shatter));
     module.add_native_passive(format!("{ID}:forge"), Forge::default());
     module.add_player_input_ai(combo::Combo::default());
-    host.log(LogLevel::Info, "league_ornn loaded (a real pillar, quakes on pillars and walls, Brittle per champion, the combos).");
+    module.add_player_input_ai(fx::Screen::default());
+    // the forged items' glow: a single league_ornn.dll draws it itself; in league_addons the bundle's one client extension
+    // (BundleClient) calls fx::draw
+    #[cfg(not(league_bundle))]
+    module.set_extension(fx::Overlay);
+    host.log(LogLevel::Info, "league_ornn loaded (a real pillar, quakes on pillars and walls, Brittle per champion, the combos, the forged items' glow).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

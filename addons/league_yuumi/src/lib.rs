@@ -12,13 +12,18 @@
 //!   出招期间挂 `league_yuumi_w_safe`（受到的伤害 -100%、免控）。冷却从 0 跳起来算出了招，这一招的动作（`q_dur` / `w_dur` / `r_dur`
 //!   tick）放完就接着放逐；等了 `w_wait` tick 还没出招也接着放逐。出招时她的动作画成空白（`view.rs`，游戏 0.6.4 起的 Windows 版），头上的
 //!   小猫一直在。
+//! - **骑着再放 W，旺盛精力给他**（0.2.0，用户 2026-11-01：「悠米的W的护盾现在给上了吗」）：副本只在她身边 `W_ON_R` 内找队友给
+//!   旺盛精力（0.1.0 她就坐在他身上），10-20 起她骑在他身后 `BESIDE`，够不着，11-01 的日志里她在他头上放了 19 次 W 都落空。现在
+//!   看见她出了 W，`ZOOM_T` tick 后本包给他：护盾 `E_SH` + `E_AP`% 法强（`E_T` tick）、`league_yuumi_e_haste`（攻速、移速）、
+//!   `league_yuumi_e_on` 和命中的画面；副本自己给上了（他身上已经有 e_on）就不再给。
 //! - **AI**：附身时她不普攻、不回城、不自己走（都换成「站在他身上」），只在出招的那一小段放技能。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个悠米自己的被动实例里（服务端预模拟和
 //! 你看的那场各算各的），AI 钩子读一张按（这份模拟的编号, 悠米）记的附身表。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yuumi.log`，每次启动游戏重写，上一次的留在 .prev.log：`ATTACH` /
-//! `DETACH`（附在谁身上、为什么下来）、`WINDOW`（为哪一招解除放逐、出没出招）、`AI casts`（每个窗口一行）、`WATCH`（每 30 秒
+//! `DETACH`（附在谁身上、为什么下来，ATTACH 带他那时的护盾）、`WINDOW`（为哪一招解除放逐、出没出招）、`AI casts`（每个窗口一行）、
+//! `ZOOMIES`（骑着放的 W：他的护盾从多少到多少）、`WATCH`（每 30 秒
 //! 一行的统计，没附身又什么都没变就不记）：你看的那场全记，服务端预模拟每种前 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行。
 
 use std::collections::HashMap;
@@ -35,7 +40,7 @@ pub mod view;
 
 const ID: &str = "league_yuumi";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.24";
+const VERSION: &str = "0.2.0";
 const HERO: &str = "league_yuumi";
 /// 她身上的附身 buff（view.rs 照它把她的动作换成空白的 a_*）。
 pub const RIDING: &str = "league_yuumi_w_on";
@@ -56,6 +61,19 @@ const REPORT: usize = 1800;
 const BESIDE: f64 = 22000.0;
 /// The two nexuses (blue, red): "behind" him is toward his own.
 const NEXUS: [(f64, f64); 2] = [(96000.0, 864000.0), (864000.0, 96000.0)];
+/// Zoomies (P's e_sh, e_ap, e_t, e_as, e_ms; a test checks them against the copy): the shield and its AP %, how long it
+/// and the haste last, the haste's attack speed and move speed %.
+pub const E_SH: usize = 130;
+pub const E_AP: usize = 60;
+pub const E_T: usize = 180;
+pub const E_AS: i32 = 20;
+pub const E_MS: i32 = 10;
+/// Riding, W again gives him Zoomies alone: the copy looks for the ally within this of HER (P's w_on_r, from 0.1.0 when
+/// she sat on his spot). BESIDE behind him (from 10-20) is out of it, so the add-on gives it to him.
+pub const W_ON_R: f64 = 8000.0;
+/// Ticks from seeing W cast (its cooldown jumped) to giving him Zoomies: the copy's W fires at w_st - 2 = 9, and two more
+/// to see whether the copy's own reached him (his e_on).
+pub const ZOOM_T: usize = 11;
 
 /// 主包悠米的名字（buff、声音、画面都以它开头）。
 fn yu(x: &str) -> String {
@@ -264,6 +282,11 @@ pub fn ride_heal(p: &Params, ap: usize) -> usize {
     p.w_heal + p.w_hap * ap / 100
 }
 
+/// 旺盛精力的护盾（护盾强化前）。
+pub fn zoomies_shield(ap: usize) -> usize {
+    E_SH + E_AP * ap / 100
+}
+
 /// 冷却从 `was` 变成 `now`：出了这一招（从好着跳到 CAST_JUMP 以上）。
 pub fn cast_seen(was: usize, now: usize) -> bool {
     was == 0 && now > CAST_JUMP
@@ -424,7 +447,10 @@ struct Bond {
     step_sum: f64,
     step_max: f64,
     /// The counters at the last WATCH (log only: a report while she is free with none of them moved is left out).
-    watched: [usize; 8],
+    watched: [usize; 9],
+    /// W cast from his head: (him, the tick to give him Zoomies); Zoomies given so far.
+    zoom: Option<(usize, usize)>,
+    zooms: usize,
 }
 
 impl Bond {
@@ -478,15 +504,50 @@ impl Bond {
         }
         self.banish(sim, me, tick);
         self.record(me, None);
+        self.zoom = None;
         if let Some(k) = tally(sim, "attach") {
-            let (hp, max) = sim.get_entity(host).map_or((0, 0), |e| e.hp());
-            wlog(format!("{} ATTACH #{k} on {} ({hp}/{max} hp), the ride picture {}", head(sim, me), who(sim, host),
-                         self.ride));
+            // the jump's Zoomies lands with it (the copy shields the ally it lands on): his shield shows it
+            let (hp, max, shield) = sim.get_entity(host).map_or((0, 0, 0), |e| (e.hp().0, e.hp().1, e.shield()));
+            wlog(format!("{} ATTACH #{k} on {} ({hp}/{max} hp, shield {shield}), the ride picture {}", head(sim, me),
+                         who(sim, host), self.ride));
+        }
+    }
+
+    /// Zoomies for him, W cast from his head: the copy's own looks within `W_ON_R` of her, out of reach `BESIDE` behind
+    /// him; given only when it did not reach him (no e_on on him).
+    fn zoomies(&mut self, sim: &mut StableSim<'_>, me: usize, host: usize, ap: usize) {
+        let on = yu("e_on");
+        if has_buff(sim, host, &on) {
+            if let Some(k) = tally(sim, "zoomies") {
+                wlog(format!("{} ZOOMIES #{k}: the copy's own reached {} (e_on on him)", head(sim, me), who(sim, host)));
+            }
+            return;
+        }
+        let amount = zoomies_shield(ap);
+        let before = sim.get_entity(host).map_or(0, |e| e.shield());
+        let given = sim.entity_add_shield(host, amount, E_T);
+        sim.add_buff(host, &BuffV1::timed(&on, E_T));
+        let haste = yu("e_haste");
+        let mut buff = BuffV1::timed(&haste, E_T);
+        buff.attack_speed_mult = E_AS;
+        buff.move_speed_mult = E_MS;
+        sim.entity_remove_buff(host, &haste);
+        sim.add_buff(host, &buff);
+        let at = InputTargetV1::target(host);
+        sim.play_view_effect(&yu("e_hit"), me, &at, 0, 0, 0);
+        sim.play_sfx(&yu("e_hit"), me, &at);
+        self.zooms += 1;
+        if let Some(k) = tally(sim, "zoomies") {
+            let after = sim.get_entity(host).map_or(0, |e| e.shield());
+            wlog(format!("{} ZOOMIES #{k} on {}: shield {before} -> {after} (+{amount}{}), +{E_AS}% attack speed, \
+                          +{E_MS}% move speed for {E_T} ticks", head(sim, me), who(sim, host),
+                         if given { "" } else { ", refused" }));
         }
     }
 
     fn detach(&mut self, sim: &mut StableSim<'_>, me: usize, why: &str, tick: usize) {
         let Some(host) = self.host.take() else { return };
+        self.zoom = None;
         sim.entity_remove_buff(me, RIDING);
         sim.entity_remove_buff(me, &yu("w_safe"));
         self.host_at = None;
@@ -536,6 +597,14 @@ impl Bond {
             sim.play_view_effect(&yu("w_heal"), me, &InputTargetV1::target(host), 0, 0, 0);
             self.heals += 1;
             self.healed += amount;
+        }
+        if let Some((h, due)) = self.zoom {
+            if tick >= due {
+                self.zoom = None;
+                if h == host {
+                    self.zoomies(sim, me, host, ap);
+                }
+            }
         }
         let cd = ready_of(sim, me);
         match self.window {
@@ -608,6 +677,9 @@ impl Bond {
                             wlog(format!("{} WINDOW cast #{k}: {} from {}'s head (asked {})", head(sim, me),
                                          kind_name(slots[i]), who(sim, host), kind_name(w.kind)));
                         }
+                        if matches!(slots[i], InputKindV1::Skill2) {
+                            self.zoom = Some((host, tick + ZOOM_T));
+                        }
                     }
                 }
                 if tick >= w.until {
@@ -650,6 +722,7 @@ impl StablePassive for Bond {
         self.host = None;
         self.window = None;
         self.land_at = None;
+        self.zoom = None;
         self.record(me, None);
         if tally(sim, "spawn").is_some() {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -687,7 +760,7 @@ impl StablePassive for Bond {
                 // free with nothing moved since the last report: no line (10-30: a quarter of the WATCH lines were all
                 // zeros), and the presims' capped
                 let now = [self.attaches, self.windows, self.casts, self.heals, self.healed, self.out, self.ridden,
-                           self.refused];
+                           self.refused, self.zooms];
                 let quiet = self.host.is_none() && now == self.watched;
                 self.watched = now;
                 if !quiet && tally(sim, "watch").is_some() {
@@ -701,10 +774,10 @@ impl StablePassive for Bond {
                         String::new()
                     };
                     wlog(format!("{} WATCH: attached {} times ({}), windows {}, casts from the head {}, heals {} ({} hp), \
-                                  out {}/{} riding ticks, banish refused {}{steps}{host_now}",
+                                  zoomies {}, out {}/{} riding ticks, banish refused {}{steps}{host_now}",
                                  head(sim, me), self.attaches,
                                  self.host.map_or("free".to_string(), |h| format!("on {}", who(sim, h))), self.windows,
-                                 self.casts, self.heals, self.healed, self.out, self.ridden, self.refused));
+                                 self.casts, self.heals, self.healed, self.zooms, self.out, self.ridden, self.refused));
                 }
                 self.steps = 0;
                 self.step_sum = 0.0;
@@ -880,6 +953,28 @@ mod tests {
         assert_eq!(left(None), usize::MAX);
         // the slot unlocking is not taken for a cast
         assert!(!cast_seen(left(cd(0, false)), left(cd(0, true))));
+    }
+
+    #[test]
+    fn zoomies_reach_him_from_behind() {
+        // the copy gives the riding recast's Zoomies only within W_ON_R of her: she rides BESIDE behind him, out of it
+        let at = (480_000, 480_000);
+        for team in [0, 1] {
+            assert!(dist(at, beside(at, team)) > W_ON_R, "team {team}: the copy's own would reach him");
+        }
+        assert_eq!(zoomies_shield(0), E_SH);
+        assert_eq!(zoomies_shield(150), E_SH + E_AP * 150 / 100);
+        // the numbers are the copy's (its riding W: skill2's w_on branch up to effect_none)
+        let copy = include_str!("../override/league_yuumi.data_champion");
+        let w = copy.find("\"skill2\"").expect("no skill2 in the copy");
+        let at = w + copy[w..].find("\"buff_name\": \"league_yuumi_w_on\"").expect("no riding branch in the copy's W");
+        let end = copy[at..].find("\"effect_none\"").expect("no end to the riding branch");
+        let branch = &copy[at..at + end];
+        for want in [format!("\"range\": {}", W_ON_R as usize), format!("\"amount\": {E_SH}"), format!("\"ap_ratio\": {E_AP}"),
+                     format!("\"tick\": {E_T}"), format!("\"move_speed_mult\": {E_MS}"),
+                     format!("\"attack_speed_mult\": {E_AS}")] {
+            assert!(branch.contains(&want), "{want} is not in the copy's riding W");
+        }
     }
 
     #[test]
