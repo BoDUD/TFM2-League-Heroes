@@ -49,12 +49,15 @@ DARK_EYE = {"d_down"}
 BODY_DEFAULT = 12.0
 BODY_SCAN = np.arange(9.0, 15.01, 0.2)
 WIN = 5                       # raw pixels round each design square's centre that vote
-# BODY: the face's best fit where it holds (>= 75 %), then levelled by the belly (rigid but for the swells): its area
-# against the design's (684 squares) taken back to the design's; run4's flattened belly half way; the swells kept
-# (q_puff 1.44, r_belch 1.64 the biggest - Codex drew r_rear's bigger: read smaller, 1.52)
-BODY = {"a_back": 10.4, "a_spit": 10.2, "q_puff": 10.2, "q_belch": 10.8, "e_back": 10.2, "e_spit": 10.5, "r_rear": 12.2,
-        "r_belch": 10.4, "run1": 10.1, "run2": 9.9, "run3": 9.9, "run4": 8.4, "run5": 9.1, "run6": 9.85, "run7": 10.0,
-        "run8": 9.9, "d_fall": 11.0, "d_down": 11.5}
+# BODY (raw px for one design square): levelled so that nothing grows or shrinks between frames (the user, 2026-11-01:
+# 「怎么模型容易一大一小」 - the swells had been read by the belly, which Codex drew big by shrinking everything else:
+# the head 0.78x in the ult). Each pose read again until the median of three sizes against the design's is 1: the head
+# (its orange), the mushroom caps and the belly (rigid but for the swells q_puff, r_rear, r_belch, which keep the belly
+# Codex drew). Where Codex's drawing itself mixes proportions the middle is kept: q_belch (the neck stretched up reads
+# as a big head, the caps 0.9x) and the falls (a small head, big caps).
+BODY = {"a_back": 10.35, "a_spit": 10.1, "q_puff": 11.05, "q_belch": 10.4, "e_back": 10.1, "e_spit": 10.3,
+        "r_rear": 10.3, "r_belch": 9.15, "run1": 10.15, "run2": 9.85, "run3": 10.0, "run4": 7.65, "run5": 9.05,
+        "run6": 9.85, "run7": 10.0, "run8": 9.95, "d_fall": 10.4, "d_down": 10.4}
 DESIGN_PIVOT = 47             # hd/idle.png: pack_gromp_poses' root column 47.4
 PIVOT = {"d_fall": 46, "d_down": 45}   # name -> pivot column where the belly does not tell (tipped over: the middle)
 
