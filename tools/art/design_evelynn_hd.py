@@ -16,7 +16,8 @@ most of its middle has, the outline closed where the read lost it. Its rows from
 over her 1x sprite's 41 make the PPU.
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/evelynn_ppu_size*.png
 (the design beside Senna, Miss Fortune, Jinx and Evelynn now, as the game draws them) and
-<dir>/evelynn_ppu_closeup*.png (the picture | the read).
+<dir>/evelynn_ppu_closeup*.png (the picture | the read). The user, 2026-11-01: 「伊芙琳用2.78」 - A on its own ~10.4-px squares,
+PPU 2.78.
 """
 import argparse
 import os

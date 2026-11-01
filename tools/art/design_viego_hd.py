@@ -15,7 +15,7 @@ square the palette colour most of its middle has, the outline closed where the r
 sword's tip to his soles over his 1x sprite's 47 make the PPU.
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/viego_ppu_size*.png (the
 design beside Thresh, Talon, Jinx and Viego now, as the game draws them) and <dir>/viego_ppu_closeup*.png (the picture
-| the read).
+| the read). The user, 2026-11-01: 「佛耶戈用2.45」 - on its own ~9.8-px squares, PPU 2.45.
 """
 import argparse
 import os

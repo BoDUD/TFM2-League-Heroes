@@ -15,7 +15,7 @@ strongest colour edge near it, each square the palette colour most of its middle
 read lost it. Its rows from the top of his hair to his soles over his 1x sprite's 42 make the PPU.
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/sett_ppu_size*.png (the
 design beside Thresh, Talon, Jinx and Sett now, as the game draws them) and <dir>/sett_ppu_closeup*.png (the picture |
-the read).
+the read). The user, 2026-11-01: 「瑟提用1.79」 - A on its own ~15.5-px squares, PPU 1.79.
 """
 import argparse
 import os
@@ -34,11 +34,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "sett", "hd")
-AH.RAW, AH.PITCH = "sett-A.png", (10.15, 10.55)    # its own outline squares (~10.35 px)
+AH.RAW, AH.PITCH = "sett-A.png", (15.3, 15.7)    # its own outline squares (~15.5 px)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"sett-A.png": {"15.5": ((15.3, 15.7), 6), "10.35": ((10.15, 10.55), 4), "7.75": ((7.6, 7.9), 3)},
            "sett-v1.png": {"14.7": ((14.5, 14.9), 6), "9.8": ((9.6, 10.0), 4), "7.35": ((7.2, 7.5), 3)}}
-DEFAULT = ("sett-A.png", "10.35")
+DEFAULT = ("sett-A.png", "15.5")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - the snapped lines
 # lean on the strong edges round the face there and lose the eyes and the mouth
 FACES = {"sett-A.png": (560, 320, 770, 490), "sett-v1.png": (560, 380, 730, 520)}
