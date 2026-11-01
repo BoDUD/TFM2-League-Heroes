@@ -1,0 +1,354 @@
+{
+  "id": "tft_meepsie",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "Tank",
+    "Heal",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "tft_meepsie:pilot",
+    "params": {
+      "e_r": 60000,
+      "e_n": 4,
+      "e_speed": 2500,
+      "e_t": 180,
+      "e_every": 30,
+      "e_hot": 20,
+      "e_hot_ap": 10,
+      "r_leap": 45000,
+      "r_air": 30,
+      "r_r": 45000,
+      "r_hex": 15000,
+      "r_fall": 35,
+      "r_dmg": 160,
+      "r_ap": 90,
+      "r_n": 3,
+      "r_up": 75
+    }
+  },
+  "sprite": "asset/tft/champions/tft_meepsie",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_meepsie_skill",
+    "asset/tft/icons/tft_meepsie_skill2",
+    "asset/tft/icons/tft_meepsie_ult"
+  ],
+  "stat": {
+    "attack": 66,
+    "magic_power": 30,
+    "hp": 1250,
+    "defence": 44,
+    "magic_resistance": 40,
+    "move_speed": 940,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 6,
+    "magic_power": 15,
+    "hp": 118,
+    "defence": 8,
+    "magic_resistance": 6,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_meepsie.attack",
+    "duration": 30,
+    "cooltime": 90,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_meepsie_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ApAttack",
+              "damage": 15,
+              "attack_ratio": 25,
+              "hp_ratio": 0,
+              "can_crit": false,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_meepsie_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_meepsie_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_meepsie_p"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_meepsie.skill",
+    "duration": 36,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_meepsie_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_meepsie_q_hit"
+                },
+                {
+                  "type": "LineRangeProjectile",
+                  "name": "tft_meepsie_q_wave",
+                  "width": 12000,
+                  "length": 94000,
+                  "delay": 1,
+                  "apply": 1,
+                  "applied_target": "Ally",
+                  "applied_effects": []
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "DirDot": {
+                      "radius": 65000,
+                      "range": 700
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": {
+                    "Forward": {
+                      "offset": 1000
+                    }
+                  },
+                  "effects": [
+                    {
+                      "type": "ApAttack",
+                      "damage": 100,
+                      "attack_ratio": 70,
+                      "hp_ratio": 0,
+                      "can_crit": false,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_meepsie_q_slow",
+                        "duration": {
+                          "Time": {
+                            "tick": 120
+                          }
+                        },
+                        "move_speed_mult": -40
+                      }
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_meepsie_q_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_meepsie_q_slow"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_meepsie.skill2",
+    "duration": 30,
+    "cooltime": 540,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_meepsie_e_vo"
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_meepsie_e"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_meepsie_e_cast"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_meepsie:meeps"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_meepsie.ult",
+    "duration": 54,
+    "cooltime": 2100,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_meepsie_r_vo"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_meepsie_r"
+        },
+        {
+          "type": "Native",
+          "effect_ref": "tft_meepsie:bigbang"
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_meepsie_q_wave",
+      "anim": "asset/tft/effects/tft_meepsie_big",
+      "tag": "q_wave",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_meepsie_e_meep",
+      "anim": "asset/tft/effects/tft_meepsie_fx",
+      "tag": "e_meep",
+      "repeat": true,
+      "z": 3
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_meepsie_a_hit",
+      "anim": "asset/tft/effects/tft_meepsie_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_meepsie_q_hit",
+      "anim": "asset/tft/effects/tft_meepsie_fx",
+      "tag": "q_hit",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_meepsie_e_cast",
+      "anim": "asset/tft/effects/tft_meepsie_big",
+      "tag": "e_cast",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_meepsie_r_slam",
+      "anim": "asset/tft/effects/tft_meepsie_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_meepsie_r_up",
+      "anim": "asset/tft/effects/tft_meepsie_fx",
+      "tag": "r_up",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_meepsie_q_slow",
+      "anim": "asset/tft/effects/tft_meepsie_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_meepsie_e_hot",
+      "anim": "asset/tft/effects/tft_meepsie_fx",
+      "tag": "e_hot",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

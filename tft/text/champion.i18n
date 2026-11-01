@@ -196,6 +196,13 @@
         "skill": "朝穿过目标、敌人最多的直线喷吐龙焰，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，每烧过一人伤害<#ef5350ff>-20%<>（最低<#ffb900ff>40%<>），并<#ff9028ff>引燃<>：<#ffb900ff>3秒<>内每秒受到<#ef5350ff>2.5%<>最大生命的物理伤害。",
         "skill2": "立起身猛拍双翼，身边的敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>、被击退并减速<#ffb900ff>35%<>（<#ffb900ff>2秒<>），自己受到的伤害<#ef5350ff>-25%<>。",
         "ult": "无敌飞上天空，<#ffb900ff>1.5秒<>后砸落：大范围敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、晕眩<#ffb900ff>1.25秒<>并被<#ff9028ff>引燃<>；获得<#ffb900ff>30%<>全能吸血（<#ffb900ff>5秒<>），立刻喷一次<#ff9028ff>烈焰吐息<>。"
+      },
+      "tft_meepsie": {
+        "name": "小木灵",
+        "attack": "挥出月岩重拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>木灵驾驶员<>：每一拳额外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>。",
+        "skill": "一拳砸向前方地面，扇形范围内的敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并减速<#ef5350ff>40%<>（<#ffb900ff>2秒<>）。",
+        "skill2": "驾驶员一招手，<#ffb900ff>4只<>小木灵飞向身边生命比例最低的队友（名额有剩时也治疗自己），每<#ffb900ff>0.5秒<>回复<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>生命，持续<#ffb900ff>3秒<>。",
+        "ult": "跳向附近敌方英雄最多的地方砸地，周围的敌人受到<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，离中心每远一格少<#ef5350ff>35%<>；离落点最近的<#ffb900ff>3个<>敌方英雄被<#ef5350ff>击飞<><#ffb900ff>1.25秒<>。"
       }
     },
     "skill_name": {
@@ -338,6 +345,11 @@
         "skill1": "烈焰吐息",
         "skill2": "龙翼风暴",
         "ult": "绝伦火热"
+      },
+      "tft_meepsie": {
+        "skill1": "月尘震地",
+        "skill2": "治疗木灵",
+        "ult": "宇宙大爆炸"
       }
     }
   },
@@ -538,6 +550,13 @@
         "skill": "朝穿過目標、敵軍最多的直線噴火，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，每穿過一人傷害<#ef5350ff>-20%<>（最低<#ffb900ff>40%<>），並<#ff9028ff>點燃<>：<#ffb900ff>3秒<>內每秒受到<#ef5350ff>2.5%<>最大生命的物理傷害。",
         "skill2": "挺身猛拍雙翼，身邊的敵軍受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>、被擊退並緩速<#ffb900ff>35%<>（<#ffb900ff>2秒<>），自身受到的傷害<#ef5350ff>-25%<>。",
         "ult": "進入無敵飛上天空，<#ffb900ff>1.5秒<>後落下：大範圍敵軍受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、暈眩<#ffb900ff>1.25秒<>並被<#ff9028ff>點燃<>；獲得<#ffb900ff>30%<>全能吸血（<#ffb900ff>5秒<>），立即施放<#ff9028ff>龍之吐息<>。"
+      },
+      "tft_meepsie": {
+        "name": "小米普",
+        "attack": "揮出月岩重拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>米普駕駛員<>：每一拳額外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>。",
+        "skill": "一拳砸向前方地面，扇形範圍內的敵軍受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並緩速<#ef5350ff>40%<>（<#ffb900ff>2秒<>）。",
+        "skill2": "駕駛員一招手，<#ffb900ff>4隻<>米普飛向身邊生命比例最低的隊友（名額有剩時也治療自身），每<#ffb900ff>0.5秒<>回復<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>生命，持續<#ffb900ff>3秒<>。",
+        "ult": "跳向附近敵方英雄最多的地方砸地，周圍的敵軍受到<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，離中心每遠一格減少<#ef5350ff>35%<>；離落點最近的<#ffb900ff>3名<>敵方英雄被<#ef5350ff>擊飛<><#ffb900ff>1.25秒<>。"
       }
     },
     "skill_name": {
@@ -680,6 +699,11 @@
         "skill1": "龍之吐息",
         "skill2": "龍翼風暴",
         "ult": "無與倫比的熱力"
+      },
+      "tft_meepsie": {
+        "skill1": "月塵震地",
+        "skill2": "治療米普",
+        "ult": "大霹靂星系"
       }
     }
   },
@@ -880,6 +904,13 @@
         "skill": "Breathes fire along the line through the target with the most enemies: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>, <#ef5350ff>20%<> less per enemy passed (min <#ffb900ff>40%<>), and <#ff9028ff>Ignites<> them: <#ef5350ff>2.5%<> max health physical a second for <#ffb900ff>3s<>.",
         "skill2": "Rears up and beats its wings: nearby enemies take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, are knocked back and slowed <#ffb900ff>35%<> (<#ffb900ff>2s<>); it takes <#ef5350ff>25%<> less damage.",
         "ult": "Invulnerable, it flies up and lands after <#ffb900ff>1.5s<>: enemies in a wide area take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, are stunned <#ffb900ff>1.25s<> and <#ff9028ff>Ignited<>; it gains <#ffb900ff>30%<> omnivamp (<#ffb900ff>5s<>) and casts <#ff9028ff>Flame Breath<> at once."
+      },
+      "tft_meepsie": {
+        "name": "Meepsie",
+        "attack": "Punches for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Meep Pilot<>: every punch deals <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> bonus <#a974ffff>magic damage<>.",
+        "skill": "Punches the ground ahead: enemies in a cone take <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and are slowed <#ef5350ff>40%<> (<#ffb900ff>2s<>).",
+        "skill2": "The pilot waves and <#ffb900ff>4<> meeps fly to the nearby allies with the lowest health share (itself with one to spare), each healing <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> every <#ffb900ff>0.5s<> for <#ffb900ff>3s<>.",
+        "ult": "Leaps to the spot with the most enemy champions and slams: enemies around take <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>, <#ef5350ff>35%<> less a hex out; the <#ffb900ff>3<> enemy champions nearest are <#ef5350ff>knocked up<> <#ffb900ff>1.25s<>."
       }
     },
     "skill_name": {
@@ -1022,6 +1053,11 @@
         "skill1": "Flame Breath",
         "skill2": "Wing Storm",
         "ult": "Heat Without Equal"
+      },
+      "tft_meepsie": {
+        "skill1": "Moon-Dust Quake",
+        "skill2": "Healing Meeps",
+        "ult": "The Big Bang"
       }
     }
   },
@@ -1222,6 +1258,13 @@
         "skill": "대상을 관통하며 적이 가장 많은 일직선에 불을 내뿜어 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>, 관통한 적 하나당 <#ef5350ff>-20%<>(최소 <#ffb900ff>40%<>). <#ff9028ff>점화<>: <#ffb900ff>3초<> 동안 매초 최대 체력의 <#ef5350ff>2.5%<> 물리 피해.",
         "skill2": "몸을 일으켜 날개를 내리쳐 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, 밀쳐 내고 <#ffb900ff>35%<> 둔화(<#ffb900ff>2초<>). 받는 피해 <#ef5350ff>-25%<>.",
         "ult": "무적 상태로 날아올라 <#ffb900ff>1.5초<> 뒤 내려찍습니다: 넓은 범위의 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1.25초<> 기절, <#ff9028ff>점화<>. 모든 피해 흡혈 <#ffb900ff>30%<>(<#ffb900ff>5초<>) 후 즉시 <#ff9028ff>화염 숨결<>."
+      },
+      "tft_meepsie": {
+        "name": "꼬마 정령",
+        "attack": "월석 주먹으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>정령 조종사<>: 주먹마다 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>마법 피해<>를 추가로 입힙니다.",
+        "skill": "앞쪽 땅을 내리쳐 부채꼴 범위의 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>, <#ef5350ff>40%<> 둔화(<#ffb900ff>2초<>).",
+        "skill2": "조종사가 손짓하면 정령 <#ffb900ff>4마리<>가 체력 비율이 가장 낮은 주변 아군에게 날아가(자리가 남으면 자신도) <#ffb900ff>3초<> 동안 <#ffb900ff>0.5초<>마다 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> 회복.",
+        "ult": "적 챔피언이 가장 많은 곳으로 뛰어올라 내려찍어 주변 적에게 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>(중심에서 한 칸마다 <#ef5350ff>-35%<>). 가장 가까운 적 챔피언 <#ffb900ff>3명<> <#ef5350ff>에어본<> <#ffb900ff>1.25초<>."
       }
     },
     "skill_name": {
@@ -1364,6 +1407,11 @@
         "skill1": "화염 숨결",
         "skill2": "용날개 폭풍",
         "ult": "비할 데 없는 열기"
+      },
+      "tft_meepsie": {
+        "skill1": "달먼지 진동",
+        "skill2": "치유 정령",
+        "ult": "빅뱅"
       }
     }
   },
@@ -1564,6 +1612,13 @@
         "skill": "対象を通り敵が最も多い直線に炎を吐き<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>、敵1体ごとに<#ef5350ff>-20%<>（最小<#ffb900ff>40%<>）。<#ff9028ff>発火<>：<#ffb900ff>3秒<>間毎秒最大体力の<#ef5350ff>2.5%<>の物理ダメージ。",
         "skill2": "立ち上がって翼を打ち下ろし、周囲の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、ノックバックと<#ffb900ff>35%<>スロウ（<#ffb900ff>2秒<>）。被ダメージ<#ef5350ff>-25%<>。",
         "ult": "無敵となって飛び上がり、<#ffb900ff>1.5秒<>後に降下：広範囲の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1.25秒<>スタンと<#ff9028ff>発火<>。オムニヴァンプ<#ffb900ff>30%<>（<#ffb900ff>5秒<>）を得て即座に<#ff9028ff>フレイムブレス<>。"
+      },
+      "tft_meepsie": {
+        "name": "ミィプシー",
+        "attack": "月岩の拳で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ミープの操縦士<>：パンチごとに<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>を追加。",
+        "skill": "前方の地面を殴り、扇状範囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%<>スロウ（<#ffb900ff>2秒<>）。",
+        "skill2": "操縦士が手を振ると<#ffb900ff>4匹<>のミープが体力割合の最も低い周囲の味方へ飛び（枠が余れば自身も）、<#ffb900ff>3秒<>間<#ffb900ff>0.5秒<>ごとに<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>回復。",
+        "ult": "敵チャンピオンが最も多い地点へ跳んで叩きつけ、周囲の敵に<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>（中心から1マスごとに<#ef5350ff>-35%<>）。最も近い敵チャンピオン<#ffb900ff>3体<>を<#ef5350ff>ノックアップ<><#ffb900ff>1.25秒<>。"
       }
     },
     "skill_name": {
@@ -1706,6 +1761,11 @@
         "skill1": "フレイムブレス",
         "skill2": "竜翼の嵐",
         "ult": "比類なき熱"
+      },
+      "tft_meepsie": {
+        "skill1": "ムーンダストクエイク",
+        "skill2": "癒しのミープ",
+        "ult": "ビッグバン"
       }
     }
   }

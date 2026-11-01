@@ -1,0 +1,612 @@
+{
+  "effects": [
+    {
+      "file": "meepsie_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        14
+      ],
+      "symmetry": "left-right",
+      "source_splits_x": [
+        0,
+        390,
+        1055,
+        1590,
+        2120
+      ],
+      "source_bboxes": [
+        [
+          97,
+          258,
+          351,
+          547
+        ],
+        [
+          48,
+          188,
+          654,
+          580
+        ],
+        [
+          0,
+          291,
+          503,
+          547
+        ],
+        [
+          19,
+          361,
+          498,
+          551
+        ]
+      ],
+      "readback_scale_xy": [
+        0.0231023102310231,
+        0.030612244897959183
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_fx_q_wave.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_q_wave.png",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        26
+      ],
+      "symmetry": "top-bottom",
+      "source_splits_x": [
+        0,
+        260,
+        557,
+        890,
+        1260,
+        1665,
+        2079
+      ],
+      "source_bboxes": [
+        [
+          25,
+          293,
+          241,
+          497
+        ],
+        [
+          15,
+          267,
+          286,
+          529
+        ],
+        [
+          18,
+          237,
+          324,
+          554
+        ],
+        [
+          22,
+          219,
+          364,
+          573
+        ],
+        [
+          25,
+          188,
+          391,
+          603
+        ],
+        [
+          10,
+          170,
+          388,
+          622
+        ]
+      ],
+      "readback_scale_xy": [
+        0.15343915343915343,
+        0.05309734513274336
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        18
+      ],
+      "symmetry": "left-right",
+      "source_splits_x": [
+        0,
+        458,
+        994,
+        1470,
+        1962
+      ],
+      "source_bboxes": [
+        [
+          76,
+          471,
+          419,
+          631
+        ],
+        [
+          23,
+          360,
+          536,
+          622
+        ],
+        [
+          0,
+          253,
+          471,
+          647
+        ],
+        [
+          36,
+          390,
+          457,
+          622
+        ]
+      ],
+      "readback_scale_xy": [
+        0.03898635477582846,
+        0.04060913705583756
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_fx_q_slow.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_q_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        8
+      ],
+      "symmetry": "left-right",
+      "source_splits_x": [
+        0,
+        321,
+        636,
+        955,
+        1277,
+        1590,
+        1881
+      ],
+      "source_bboxes": [
+        [
+          15,
+          439,
+          316,
+          534
+        ],
+        [
+          26,
+          398,
+          308,
+          539
+        ],
+        [
+          7,
+          340,
+          301,
+          543
+        ],
+        [
+          12,
+          365,
+          312,
+          543
+        ],
+        [
+          20,
+          413,
+          289,
+          537
+        ],
+        [
+          6,
+          448,
+          284,
+          534
+        ]
+      ],
+      "readback_scale_xy": [
+        0.07308970099667775,
+        0.029556650246305417
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_fx_e_cast.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_e_cast.png",
+      "frames": 5,
+      "cell_1x": [
+        60,
+        52
+      ],
+      "symmetry": "left-right",
+      "source_splits_x": [
+        0,
+        435,
+        864,
+        1300,
+        1735,
+        2172
+      ],
+      "source_bboxes": [
+        [
+          49,
+          167,
+          417,
+          397
+        ],
+        [
+          31,
+          130,
+          417,
+          464
+        ],
+        [
+          22,
+          120,
+          422,
+          498
+        ],
+        [
+          25,
+          130,
+          417,
+          529
+        ],
+        [
+          32,
+          180,
+          379,
+          500
+        ]
+      ],
+      "readback_scale_xy": [
+        0.145,
+        0.12531328320802004
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_fx_e_meep.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_e_meep.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "symmetry": "top-bottom",
+      "source_splits_x": [
+        0,
+        505,
+        1045,
+        1585,
+        2097
+      ],
+      "source_bboxes": [
+        [
+          64,
+          318,
+          450,
+          510
+        ],
+        [
+          63,
+          295,
+          491,
+          535
+        ],
+        [
+          28,
+          265,
+          492,
+          562
+        ],
+        [
+          37,
+          305,
+          463,
+          526
+        ]
+      ],
+      "readback_scale_xy": [
+        0.02586206896551724,
+        0.020202020202020204
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_fx_e_hot.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_e_hot.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        32
+      ],
+      "symmetry": "left-right",
+      "source_splits_x": [
+        0,
+        363,
+        724,
+        1087,
+        1450,
+        1814,
+        2172
+      ],
+      "source_bboxes": [
+        [
+          25,
+          180,
+          345,
+          585
+        ],
+        [
+          24,
+          180,
+          344,
+          597
+        ],
+        [
+          22,
+          144,
+          343,
+          592
+        ],
+        [
+          20,
+          145,
+          345,
+          597
+        ],
+        [
+          13,
+          147,
+          340,
+          597
+        ],
+        [
+          12,
+          180,
+          333,
+          585
+        ]
+      ],
+      "readback_scale_xy": [
+        0.0672782874617737,
+        0.06637168141592921
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_fx_r_slam.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_r_slam.png",
+      "frames": 6,
+      "cell_1x": [
+        96,
+        44
+      ],
+      "symmetry": "left-right",
+      "source_splits_x": [
+        0,
+        265,
+        665,
+        1097,
+        1531,
+        1903,
+        2172
+      ],
+      "source_bboxes": [
+        [
+          21,
+          343,
+          260,
+          497
+        ],
+        [
+          21,
+          296,
+          400,
+          509
+        ],
+        [
+          0,
+          277,
+          432,
+          513
+        ],
+        [
+          0,
+          304,
+          427,
+          512
+        ],
+        [
+          5,
+          337,
+          371,
+          508
+        ],
+        [
+          17,
+          372,
+          244,
+          489
+        ]
+      ],
+      "readback_scale_xy": [
+        0.2175925925925926,
+        0.17796610169491525
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_fx_r_up.png",
+      "pixel_1x": "pixel_1x/meepsie_fx_r_up.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        28
+      ],
+      "symmetry": "left-right",
+      "source_splits_x": [
+        0,
+        396,
+        790,
+        1192,
+        1588,
+        1983
+      ],
+      "source_bboxes": [
+        [
+          33,
+          343,
+          374,
+          740
+        ],
+        [
+          21,
+          202,
+          392,
+          745
+        ],
+        [
+          12,
+          120,
+          390,
+          747
+        ],
+        [
+          32,
+          77,
+          387,
+          745
+        ],
+        [
+          59,
+          171,
+          359,
+          745
+        ]
+      ],
+      "readback_scale_xy": [
+        0.05291005291005291,
+        0.038922155688622756
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "readback": "majority palette color per square; author half mirrored, nearest-neighbor8x display",
+      "preview_ms": 120,
+      "brightness": "near-white core from supplied palette"
+    },
+    {
+      "file": "meepsie_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source_crop": [
+        60,
+        60,
+        1194,
+        1194
+      ],
+      "pixel_block": 2
+    },
+    {
+      "file": "meepsie_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source_crop": [
+        48,
+        48,
+        1207,
+        1207
+      ],
+      "pixel_block": 2
+    },
+    {
+      "file": "meepsie_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source_crop": [
+        20,
+        20,
+        1234,
+        1234
+      ],
+      "pixel_block": 2
+    }
+  ],
+  "fx_count": 9,
+  "icon_count": 3,
+  "raw_unchanged": true,
+  "method": "image_gen sources; per-cell majority readback and exact symmetry; no code-drawn substitute artwork"
+}

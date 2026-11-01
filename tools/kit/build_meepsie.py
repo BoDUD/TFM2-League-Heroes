@@ -56,7 +56,7 @@ P = {
     # passive Meep Pilot (TFT: attacks deal bonus magic damage)
     "p_dmg": 15, "p_ap": 25,
     # Moon-Dust Quake
-    "q_cd": 360, "q_range": 30000, "q_dur": 36, "q_st": 18, "q_r": 65000, "q_cone": 700, "q_len": 70000, "q_w": 12000,
+    "q_cd": 360, "q_range": 30000, "q_dur": 36, "q_st": 18, "q_r": 65000, "q_cone": 700, "q_len": 94000, "q_w": 12000,
     "q_dmg": 100, "q_ap": 70, "q_slow": 40, "q_slow_t": 120,
     # Healing Meeps (tft.dll; --plain: everyone within e_r)
     "e_cd": 540, "e_range": 60000, "e_dur": 30, "e_st": 14, "e_r": 60000, "e_n": 4, "e_speed": 2500, "e_t": 180,
