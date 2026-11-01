@@ -7,6 +7,7 @@ pub mod aoshin;
 pub mod brambleback;
 pub mod daeja;
 pub mod elderdragon;
+pub mod gromp;
 pub mod idas;
 pub mod kobuko;
 pub mod krug;
@@ -42,6 +43,7 @@ fn init(host: &StableHost) -> StableMod {
     brambleback::register(host, &mut module);
     daeja::register(host, &mut module);
     elderdragon::register(host, &mut module);
+    gromp::register(host, &mut module);
     idas::register(host, &mut module);
     kobuko::register(host, &mut module);
     krug::register(host, &mut module);

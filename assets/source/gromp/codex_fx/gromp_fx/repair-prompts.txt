@@ -1,0 +1,11 @@
+=== r_cast second generation ===
+REPAIR GAME VFX SHEET. Create EXACTLY SIX distinct animation frames, arranged in a clean 3 columns x 2 rows grid of equal rectangular cells, reading left to right then top to bottom. No text, labels, borders or visible grid. Canvas landscape. Each cell has wide aspect 84:44, representing 84 logical pixels wide x44 pixels high. ALL EFFECTS MUST STAY WHOLLY INSIDE THEIR CELL with comfortable margin; no overlap with neighboring cells. Output has true transparency. Low resolution pixel art, large hard square blocks, 2-3 flat colors per material, NO black outlines, NO glow/blur/antialiasing.
+Subject: SWAMP TOAD'S BIG BELCH shockwave, no creature drawn. Palette ONLY toxic yellow green #F6FFC8 #D2F55E #8ED13A #4C9A2C and swamp purple #EBD2FF #B884EE #8048BE #4E267C. Bright lightest-color cores on the green shockwave. Strict LEFT-RIGHT symmetry in each frame.
+In every cell reserve a large transparent rectangle for the toad: 62 pixels wide x32 pixels high, centered horizontally, sitting on the bottom of the 84x44 cell. Draw only ABOVE or OUTSIDE this rectangle! No marks across the empty middle, no object/actor/silhouette drawn in it.
+Frame1: few green spit flecks above rectangle and outside sides.
+Frame2: upper ellipse arc of a yellow-green shockwave and two arcs outside sides around the empty body, about70pixels totalwidth.
+Frame3: shockwave expands to80pixelswide, purple spores ejected on both sides. Keep empty center.
+Frame4: green arcs breaking into separate flecks outside body; purple spores rise above.
+Frame5: sparse purple puffs only at upper corners and sides.
+Frame6: few last purple spores near upper corners.
+Keep six frames well-separated and centered IN SIX EQUAL CELLS. Do NOT show a continuous connected strip. Reference1 illustrates swamp effect identity only, not its typography or layout. Reference2 is the toad identity ONLY: DO NOT draw it.

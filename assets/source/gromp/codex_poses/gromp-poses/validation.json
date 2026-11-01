@@ -1,0 +1,596 @@
+[
+  {
+    "file": "gromp-pose-a_back.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      109,
+      616,
+      1156,
+      1157
+    ],
+    "bbox": [
+      103,
+      635,
+      1150,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "17dfdcc0c87bb2cf3cc45a75a6a661afe8f13013a4f0b54506667390d9ec7b90",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-a_spit.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      89,
+      523,
+      1177,
+      1195
+    ],
+    "bbox": [
+      83,
+      504,
+      1171,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "3d23d9ed4492c20ec5088d12c228bbb12557adeb7f292997a50ca687a28802ab",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-q_puff.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      47,
+      555,
+      1209,
+      1194
+    ],
+    "bbox": [
+      46,
+      537,
+      1208,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "e1dc538aae78ee65ddaaa36a7cdb92b2ba79fd4d2595ba3cd4af8c852ecd5d22",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-q_belch.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      118,
+      418,
+      1192,
+      1192
+    ],
+    "bbox": [
+      90,
+      402,
+      1164,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "dc9685613085e891409178079cdf4afc50afed8ccec506661ac8d2dbb753f1ba",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-e_back.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      62,
+      624,
+      1192,
+      1178
+    ],
+    "bbox": [
+      62,
+      622,
+      1192,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "0a692846e2fd6a3bc4c27b9726a82b82f26659a088119f3f18a1fcbeb4479784",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-e_spit.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      59,
+      629,
+      1244,
+      1196
+    ],
+    "bbox": [
+      34,
+      609,
+      1219,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "1ca8684595efe18177440bca82804b2d8718a08e47adb12a6132270e82df8191",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-r_rear.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      61,
+      330,
+      1195,
+      1205
+    ],
+    "bbox": [
+      60,
+      301,
+      1194,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "8363c129be99a5d72c94a0a2422a3c52cf3a0e76aa530a55f0fa9eef090321c3",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-r_belch.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      102,
+      360,
+      1232,
+      1184
+    ],
+    "bbox": [
+      62,
+      352,
+      1192,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "7247e59ea50bf4520618c0b8589fdaa84f29fc147abde74867f5ef96349643e9",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-run1.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      89,
+      620,
+      1194,
+      1176
+    ],
+    "bbox": [
+      74,
+      620,
+      1179,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "7b6483bed63ba5b147d23e0992165cc80a5cdb1d49290ea864df2d8dca1e8034",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-run2.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      110,
+      509,
+      1171,
+      1148
+    ],
+    "bbox": [
+      96,
+      537,
+      1157,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "1e82fc6a069ef16d2c08eed4bc902a9dfbcac25e0d037d64a70cd2af595fd18c",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-run3.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      52,
+      373,
+      1243,
+      1159
+    ],
+    "bbox": [
+      31,
+      390,
+      1222,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "99231a2269e1a4dc084f68ff4cb4a387efa6810d611efca3c65713410abb85bc",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-run4.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      79,
+      532,
+      1215,
+      1016
+    ],
+    "bbox": [
+      59,
+      692,
+      1195,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "2a61aecd6b06dbf8e9e1c793f3fd6920ed249de3722e0c922e3c17c2c1b17bfc",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-run5.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      69,
+      408,
+      1226,
+      956
+    ],
+    "bbox": [
+      48,
+      628,
+      1205,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "651e8b82bc45d3839d2dd82f323bd0c6ece840ecd1eb01b696f977bade23fc75",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-run6.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      57,
+      525,
+      1227,
+      1193
+    ],
+    "bbox": [
+      42,
+      508,
+      1212,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "b61b8dac45350ed934c66b180ef0a2f265d4cbf2875b63ec3794489552d8c735",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-run7.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      118,
+      630,
+      1186,
+      1166
+    ],
+    "bbox": [
+      93,
+      640,
+      1161,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "5397694f1f2e0663b9dfadfae0b17c7fe2fcb3bbf586666bc14c0bb1f1cef364",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-run8.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      118,
+      682,
+      1156,
+      1214
+    ],
+    "bbox": [
+      108,
+      644,
+      1146,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "4abcdcdd30d7ff9a23a2335d677cb3fe8627cf405e2bf3cbf57a91fceccfed4c",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-d_fall.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      166,
+      369,
+      1194,
+      1145
+    ],
+    "bbox": [
+      113,
+      400,
+      1141,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "bc8b06061e5a3d6a17b9e4813e6a85debec0921a676456a51db846c9be45ce03",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  },
+  {
+    "file": "gromp-pose-d_down.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox": [
+      165,
+      502,
+      1212,
+      1176
+    ],
+    "bbox": [
+      103,
+      502,
+      1150,
+      1176
+    ],
+    "ground_y": 1176,
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "raw_sha256": "0f5b4c9effebb39fdebdee9886adb893c52e9c32241b2d359db5058c23244e45",
+    "requested_grid_px": 7,
+    "exact_grid_verified": false,
+    "body_scale_vs_design": "needs importer alignment; raw retained"
+  }
+]
