@@ -190,7 +190,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_trundle.png" width="32"> | [特朗德尔](docs/heroes/league_trundle.md)<br>Trundle | 打野 | 利齿撕咬 · 寒冰之柱 · 大招 强权至上 | [特朗德尔附加包](addons/league_trundle/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_udyr.png" width="32"> | [乌迪尔](docs/heroes/league_udyr.md)<br>Udyr | 打野 | 狂暴爪击 · 踏火蛮冲 · 大招 极凌飓风 | [乌迪尔附加包](addons/league_udyr/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_vi.png" width="32"> | [蔚](docs/heroes/league_vi.md)<br>Vi | 打野 | 强能冲拳 · 透体之劲 · 大招 天霸横空烈轰 | — | — |
-| <img src="docs/heroes/img/league_viego.png" width="32"> | [佛耶戈](docs/heroes/league_viego.md)<br>Viego | 打野 | 破败王剑 · 千载幽咽 · 大招 痛贯天灵 | [佛耶戈「君命已决」附加包](addons/league_viego_soul/README.md) | — |
+| <img src="docs/heroes/img/league_viego.png" width="32"> | [佛耶戈](docs/heroes/league_viego.md)<br>Viego | 打野 | 破败王剑 · 千载幽咽 · 大招 痛贯天灵 | [佛耶戈「君命已决」附加包](addons/league_viego_soul/README.md) | PPU 2.45 |
 | <img src="docs/heroes/img/league_warwick.png" width="32"> | [沃里克](docs/heroes/league_warwick.md)<br>Warwick | 打野 | 野兽之口 · 远祖嗥叫 · 大招 无尽束缚 | [沃里克附加包](addons/league_warwick/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_wukong.png" width="32"> | [孙悟空](docs/heroes/league_wukong.md)<br>Wukong | 打野 | 腾云突击 · 真假猴王 · 大招 大闹天宫 | [悟空附加包](addons/league_wukong/README.md) | PPU 1.53 |
 | <img src="docs/heroes/img/league_xinzhao.png" width="32"> | [赵信](docs/heroes/league_xinzhao.md)<br>Xin Zhao | 打野 | 被动 果决 · 无畏冲锋 · 风斩电刺 · 大招 新月护卫 | [赵信大招远程免伤附加包](addons/league_xinzhao_guard/README.md) | PPU 1.5 |

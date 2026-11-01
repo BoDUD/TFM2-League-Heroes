@@ -600,6 +600,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // his old frame read onto it at the zoom between his height and his hair (tools/art/casts_sett_hd.py, rig_sett_hd.py;
     // nothing baked); 42 game px as his 1x sprite, so no SIZES row
     ("league_sett", 1.786, include_str!("../../../league/champions/league_sett#anim.fanim")),
+    // Viego (2026-11-01, 「再加一个佛耶戈重做吧」, 「佛耶戈用2.45」): Codex's viego-A read on its own ~9.8-px
+    // squares (114 x 115, tools/art/design_viego_hd.py: 115 rows / 47 = 2.447); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom between his height and his hair (tools/art/casts_viego_hd.py, rig_viego_hd.py;
+    // nothing baked); 47 game px as his 1x sprite, so no SIZES row
+    ("league_viego", 2.447, include_str!("../../../league/champions/league_viego#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
