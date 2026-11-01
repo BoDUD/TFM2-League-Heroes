@@ -390,6 +390,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 36 game px from its tail tip to its claws, PPU 1.67 (「A-1 36 高 PPU 1.67」: 60 rows 1:1), and Codex's key poses after
     // its own TFT clips, posed by tools/art/rig_murkwolf.py, so no SIZES row
     ("tft_murkwolf", 1.67, include_str!("../../../tft/champions/tft_murkwolf#anim.fanim")),
+    // the Scuttle Crab (tft_scuttlecrab, the tft pack): the river crab at 3/4 under its plated teal shell, step 0's A-1 at
+    // the user's 30 game px from the antenna tops to its lowest leg tips, PPU 2.667 (「A-1 30像素」: 80 rows 1:1), and
+    // Codex's key poses after League's river-crab clips, posed by tools/art/rig_scuttlecrab.py, so no SIZES row
+    ("tft_scuttlecrab", 2.667, include_str!("../../../tft/champions/tft_scuttlecrab#anim.fanim")),
     // Gromp (tft_gromp, the tft pack): the squat toad at 3/4, step 0's first A read on its own 12 px squares at the user's
     // 32 game px from its mushroom caps to its feet, PPU 1.69 (「A-1，32 像素」: 54 rows 1:1), and Codex's key poses after
     // its own TFT and Rift clips, posed by tools/art/rig_gromp.py, so no SIZES row

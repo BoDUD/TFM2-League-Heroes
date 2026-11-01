@@ -1,0 +1,92 @@
+{
+  "assets": [
+    {
+      "file": "scuttle_fx_a_hit.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_p_heal.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_q_shrine.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_q_haste.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_e_shell.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_e_burst.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_e_slow.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_r_dig.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_r_burst.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_fx_r_up.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass",
+      "symmetry": "pass",
+      "unique_frames": "pass"
+    },
+    {
+      "file": "scuttle_icon_skill.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass"
+    },
+    {
+      "file": "scuttle_icon_skill2.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass"
+    },
+    {
+      "file": "scuttle_icon_ult.png",
+      "dimensions": "pass",
+      "hard_alpha": "pass"
+    }
+  ],
+  "fx_frame_total": 57,
+  "icon_total": 3,
+  "runtime_import_tested": false
+}

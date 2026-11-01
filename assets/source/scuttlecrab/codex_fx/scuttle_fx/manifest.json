@@ -1,0 +1,531 @@
+{
+  "generation": "native image_gen",
+  "postprocess": "palette majority per logical grid; generated left half mirrored; integer scale; no code-drawn shapes",
+  "assets": [
+    {
+      "file": "scuttle_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        14
+      ],
+      "sheet_1x": [
+        72,
+        14
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\a_hit-original.png",
+      "source_size": [
+        1422,
+        1106
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 2,
+        "row_cuts": [
+          0,
+          561,
+          1106
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 4,
+      "frame_visible_pixels": [
+        14,
+        78,
+        22,
+        14
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_effects `tft_scuttlecrab_a_hit`（跟随被打中的人，z 2；左右对称）",
+      "sha256": "7a87335f1ffbfa3bd72f2d72e198b1eb4b95e7a0d18ec0873f78d6a270e13593",
+      "loop": false
+    },
+    {
+      "file": "scuttle_fx_p_heal.png",
+      "frames": 5,
+      "cell_1x": [
+        26,
+        34
+      ],
+      "sheet_1x": [
+        130,
+        34
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\p_heal-original.png",
+      "source_size": [
+        994,
+        1582
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "row_cuts": [
+          0,
+          527,
+          1055,
+          1582
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 5,
+      "frame_visible_pixels": [
+        154,
+        186,
+        160,
+        118,
+        46
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_effects `tft_scuttlecrab_p_heal`（tft.dll 在被治疗的人身上播，z 3；左右对称）",
+      "sha256": "b7312eb38812fc5fe6bde5ff89c4940f4c0878a51af51e39115d2b1b7d715d34",
+      "loop": false
+    },
+    {
+      "file": "scuttle_fx_q_shrine.png",
+      "frames": 6,
+      "cell_1x": [
+        96,
+        30
+      ],
+      "sheet_1x": [
+        576,
+        30
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right and top-bottom",
+      "source": "raw\\q_shrine-original.png",
+      "source_size": [
+        1828,
+        860
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "row_cuts": [
+          0,
+          287,
+          573,
+          860
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        1404,
+        1412,
+        1628,
+        1584,
+        1692,
+        1688
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_projectiles `tft_scuttlecrab_q_shrine`（大表，神龛范围的画面，放在它脚下的地面上，游戏可能把它转半圈；左右上下都对称，z -1）",
+      "sha256": "6d655c91906234e39e08d0e328b2ec935f96cbe0544baa8160022da4fb8f966a",
+      "loop": true,
+      "loop_frame_indices_0based": [
+        0,
+        5
+      ]
+    },
+    {
+      "file": "scuttle_fx_q_haste.png",
+      "frames": 6,
+      "cell_1x": [
+        26,
+        10
+      ],
+      "sheet_1x": [
+        156,
+        10
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\q_haste-original.png",
+      "source_size": [
+        1651,
+        953
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "row_cuts": [
+          0,
+          318,
+          635,
+          953
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        8,
+        16,
+        24,
+        10,
+        6,
+        8
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_buffs `tft_scuttlecrab_q_haste`（跟随被加速的队友，脚下，z 3；左右对称）",
+      "sha256": "7a35648034a80b978f2b0aff5aa575c2a1173e8c20bb14271bbd629012f90185",
+      "loop": true,
+      "loop_frame_indices_0based": [
+        0,
+        5
+      ]
+    },
+    {
+      "file": "scuttle_fx_e_shell.png",
+      "frames": 6,
+      "cell_1x": [
+        54,
+        40
+      ],
+      "sheet_1x": [
+        324,
+        40
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\e_shell-original.png",
+      "source_size": [
+        1190,
+        1322
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "row_cuts": [
+          0,
+          441,
+          881,
+          1322
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        406,
+        494,
+        550,
+        602,
+        492,
+        414
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_buffs `tft_scuttlecrab_e_shell`（跟随它，z 3；左右对称）",
+      "sha256": "8120ca1ac713f4c48089646c4d2c80713abbd34cb55a4f2eae66e81a160d4c10",
+      "loop": true,
+      "loop_frame_indices_0based": [
+        0,
+        5
+      ]
+    },
+    {
+      "file": "scuttle_fx_e_burst.png",
+      "frames": 5,
+      "cell_1x": [
+        70,
+        44
+      ],
+      "sheet_1x": [
+        350,
+        44
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\e_burst-original.png",
+      "source_size": [
+        1531,
+        1027
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "row_cuts": [
+          0,
+          366,
+          694,
+          1027
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 5,
+      "frame_visible_pixels": [
+        888,
+        808,
+        832,
+        396,
+        320
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_effects `tft_scuttlecrab_e_burst`（大表，tft.dll 在它身上播，z 3；左右对称）",
+      "sha256": "428737a452856f34d583fb7ca1e815cecb1357ba317a1f254276b600b6344746",
+      "loop": false
+    },
+    {
+      "file": "scuttle_fx_e_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        8
+      ],
+      "sheet_1x": [
+        144,
+        8
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\e_slow-original.png",
+      "source_size": [
+        1774,
+        887
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "row_cuts": [
+          0,
+          296,
+          591,
+          887
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        36,
+        36,
+        36,
+        36,
+        36,
+        38
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_buffs `tft_scuttlecrab_e_slow`（跟随被减速的人，脚下，z 3；左右对称）",
+      "sha256": "ee1c5befd15ed02a49c99e04510def03483cc95a2f19ef6707fd599abcbce64e",
+      "loop": true,
+      "loop_frame_indices_0based": [
+        0,
+        5
+      ]
+    },
+    {
+      "file": "scuttle_fx_r_dig.png",
+      "frames": 8,
+      "cell_1x": [
+        60,
+        26
+      ],
+      "sheet_1x": [
+        480,
+        26
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\r_dig-original.png",
+      "source_size": [
+        1492,
+        1054
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 4,
+        "row_cuts": [
+          0,
+          291,
+          551,
+          795,
+          1054
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 8,
+      "frame_visible_pixels": [
+        362,
+        472,
+        480,
+        564,
+        494,
+        598,
+        464,
+        478
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_effects `tft_scuttlecrab_r_dig`（大表，跟随它，地面上，z -1；左右对称）",
+      "sha256": "a60ef7ebad6f537d689ed2a9d390fcb908a59fb5ab95408bc7a520d73f0a1b59",
+      "loop": true,
+      "loop_frame_indices_0based": [
+        2,
+        7
+      ]
+    },
+    {
+      "file": "scuttle_fx_r_burst.png",
+      "frames": 6,
+      "cell_1x": [
+        84,
+        48
+      ],
+      "sheet_1x": [
+        504,
+        48
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\r_burst-original.png",
+      "source_size": [
+        1355,
+        1161
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "row_cuts": [
+          0,
+          387,
+          774,
+          1161
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        450,
+        1190,
+        1250,
+        712,
+        354,
+        140
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_effects `tft_scuttlecrab_r_burst`（大表，跟随它，z 3；左右对称）",
+      "sha256": "012d2b542dc33cea32c6896d7459aef71415f7896bb87c08867b688fccbdc863",
+      "loop": false
+    },
+    {
+      "file": "scuttle_fx_r_up.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        28
+      ],
+      "sheet_1x": [
+        110,
+        28
+      ],
+      "export_scale": 8,
+      "symmetry": "left-right",
+      "source": "raw\\r_up-original.png",
+      "source_size": [
+        907,
+        1734
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "row_cuts": [
+          0,
+          578,
+          1156,
+          1734
+        ],
+        "order": "row-major"
+      },
+      "unique_frames": 5,
+      "frame_visible_pixels": [
+        102,
+        120,
+        162,
+        124,
+        48
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "binding": "view_effects `tft_scuttlecrab_r_up`（跟随被击飞的人，z 3；左右对称）",
+      "sha256": "ea86827729e6d5e55619dba5f7ae3b1469c3f98071275b42a4f9b40206f17255",
+      "loop": false
+    },
+    {
+      "file": "scuttle_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source": "raw\\skill-original.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[0] `asset/tft/icons/tft_scuttlecrab_skill`",
+      "sha256": "8d9616172ad9f6f8e4ef28edb1e1d10ecaf3897cf8c47fb7db5390091c64b43a"
+    },
+    {
+      "file": "scuttle_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source": "raw\\skill2-original.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[1] `asset/tft/icons/tft_scuttlecrab_skill2`",
+      "sha256": "375f1e56940fa5cb37dbbf568f59d4e9c146f2ad3d65dcd6db39bacd4d2c4d37"
+    },
+    {
+      "file": "scuttle_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "none",
+      "source": "raw\\ult-original.png",
+      "source_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[2] `asset/tft/icons/tft_scuttlecrab_ult`",
+      "sha256": "5fb10d5c69184ad230c4ee010e342c507f5d4422f68f3f3c61da2198f749919e"
+    }
+  ]
+}
