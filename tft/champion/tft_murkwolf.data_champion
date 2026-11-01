@@ -258,7 +258,7 @@
         {
           "type": "AddCasterBuff",
           "buff_state": {
-            "name": "tft_murkwolf_r_pack",
+            "name": "tft_murkwolf_r_pups",
             "duration": {
               "Time": {
                 "tick": 360
@@ -367,6 +367,22 @@
       "name": "tft_murkwolf_r_pack",
       "anim": "asset/tft/effects/tft_murkwolf_big",
       "tag": "r_pack",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "tft_murkwolf_r_pack_r",
+      "anim": "asset/tft/effects/tft_murkwolf_big",
+      "tag": "r_pack_r",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "tft_murkwolf_r_pack_l",
+      "anim": "asset/tft/effects/tft_murkwolf_big",
+      "tag": "r_pack_l",
       "repeat": true,
       "z": -1
     }

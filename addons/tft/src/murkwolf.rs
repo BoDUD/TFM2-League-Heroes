@@ -12,8 +12,12 @@
 //!   满了摘掉 `q_emp`。
 //! - **狂战士之嚎**：`e_howl` 在身上时它的每一下（普攻、技能、小狼）多 `e_amp`%，对生命低于 `e_line`% 的单位翻倍
 //!   （`on_attack`）；吸血是数据的。
-//! - **狼群攻击**：施法时两只小狼扑向目标（`tft_murkwolf:pounce`，`r_leap_dmg` + 攻击 `r_leap_ad`%）；`r_pack` 在身上
+//! - **狼群攻击**：施法时两只小狼扑向目标（`tft_murkwolf:pounce`，`r_leap_dmg` + 攻击 `r_leap_ad`%）；`r_pups` 在身上
 //!   时它每次攻击，小狼咬同一个敌人 `r_n` 口，间隔 `r_gap` 拍（`tft_murkwolf:pup`，每口 `r_dmg` + 攻击 `r_ad`%）。
+//!   两只小狼**面向敌人**（用户 2026-11-01：「召唤出来的小狼应该面向敌人 参考沙皇怎么做的」）：特效图不会跟着单位翻转，
+//!   所以小狼是两张大表图 `r_pack_r`（都朝右）和 `r_pack_l`（都朝左），这里每 `PUP_CHECK` 拍看最近的敌人在哪边
+//!   （左右差不到 `FACE_DX` 就不转，league_azir 的士兵的规矩），挂上那一边的、摘掉另一边的，时长是 `r_pups` 剩下的；
+//!   它每次攻击和小狼扑上去时朝被咬的人重新挂一次，动画从缩身扑咬开始，和小狼的咬对上。
 //!
 //! 所有记号都挂在单位身上（不存静态表），预演和观战两个模拟同时跑也互不干扰。只有单元测试（经典 SDK 跑不了原生代码），
 //! 要在游戏里看日志。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_murkwolf.log`，每次启动游戏重写，上一次的
@@ -32,6 +36,10 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 const PUP_FX: &str = "tft_murkwolf:pup";
 /// How often Gray Buff's crit is matched to its missing health (ticks).
 const CHECK: usize = 15;
+/// How often the pups are turned toward the nearest enemy (ticks).
+const PUP_CHECK: usize = 6;
+/// An enemy less than this to the side is straight above or below: the pups keep facing the way they face.
+const FACE_DX: u64 = 2_000;
 
 fn mw(x: &str) -> String {
     format!("{ID}_{x}")
@@ -313,6 +321,52 @@ fn strike(sim: &mut StableSim<'_>, seed: u64, me: usize, target: usize, dmg: usi
     (amount, crit, !alive(sim, target))
 }
 
+/// Which way the pups face: toward the enemy at `enemy` unless it is less than FACE_DX to the side of the wolf at `me`
+/// (straight above or below), then `keep`.
+pub fn pups_right(me: u64, enemy: Option<u64>, keep: bool) -> bool {
+    match enemy {
+        Some(e) if e.abs_diff(me) >= FACE_DX => e > me,
+        _ => keep,
+    }
+}
+
+fn ticks_left(sim: &StableSim<'_>, id: usize, name: &str) -> usize {
+    let Some(e) = sim.get_entity(id) else { return 0 };
+    (0..).map_while(|i| e.buff_at(i)).filter(|b| b.name() == name).map(|b| b.duration_tick).max().unwrap_or(0)
+}
+
+/// The pups' picture toward `toward` (else the nearest enemy) for what is left of `r_pups`: that side's put on (again
+/// when `restart`: its loop starts over from the wind-up), the other taken off; both off once `r_pups` is gone.
+fn show_pups(sim: &mut StableSim<'_>, me: usize, toward: Option<usize>, restart: bool) {
+    let (right_n, left_n) = (mw("r_pack_r"), mw("r_pack_l"));
+    let left = ticks_left(sim, me, &mw("r_pups"));
+    let (on_r, on_l) = (has(sim, me, &right_n), has(sim, me, &left_n));
+    if left == 0 || !alive(sim, me) {
+        if on_r || on_l {
+            sim.entity_remove_buff(me, &right_n);
+            sim.entity_remove_buff(me, &left_n);
+        }
+        return;
+    }
+    let Some(at) = sim.get_entity(me).map(|e| e.pos()) else { return };
+    let enemy = toward.and_then(|t| sim.get_entity(t)).filter(|e| e.is_alive()).map(|e| e.pos())
+        .or_else(|| foes(sim, me).into_iter().min_by_key(|f| dist_sq(f.1, at)).map(|f| f.1));
+    let right = pups_right(at.0, enemy.map(|e| e.0), on_r || !on_l);
+    let (name, other) = if right { (right_n, left_n) } else { (left_n, right_n) };
+    let turned = if right { on_l } else { on_r };
+    if turned {
+        sim.entity_remove_buff(me, &other);
+    }
+    if restart || turned || !has(sim, me, &name) {
+        put(sim, me, &BuffV1::timed(&name, left));
+        if turned {
+            if let Some(k) = counted("pups_turn") {
+                wlog(format!("{} PUPS TURN #{k}: facing {}", head(sim, me), if right { "right" } else { "left" }));
+            }
+        }
+    }
+}
+
 // ===================== 被动：灰霸符（和狂战士之嚎的伤害） =====================
 
 #[derive(Clone, Default)]
@@ -341,6 +395,9 @@ impl StablePassive for Gray {
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).entry(me).or_insert(self.p);
+        if sim.tick() % PUP_CHECK == 0 {
+            show_pups(sim, me, None, false);
+        }
         if sim.tick() % CHECK != 0 {
             return;
         }
@@ -420,7 +477,7 @@ impl StableEffectType for Rend {
 // ===================== 双头撕咬（每次攻击） =====================
 
 /// Every attack: Rending Claws' bonus while `q_emp` lasts (counted, `q_emp` off after q_n), the pups' bites while
-/// `r_pack` lasts.
+/// `r_pups` lasts (the pups turned to the bitten).
 struct Bite;
 impl StableEffectType for Bite {
     fn apply(&self, sim: &mut StableSim<'_>, seed: u64, me: usize, input: InputTargetV1) {
@@ -447,7 +504,8 @@ impl StableEffectType for Bite {
         } else if has(sim, me, &mw("q_n1")) {
             sim.entity_remove_buff(me, &mw("q_n1"));   // q_emp ran out before q_n attacks
         }
-        if has(sim, me, &mw("r_pack")) {
+        if has(sim, me, &mw("r_pups")) {
+            show_pups(sim, me, Some(target), true);   // the pups turn to the bitten and lunge with their bites
             for i in 0..p.r_n {
                 sim.queue_effect(PUP_FX, AttackTypeV1::Skill, me, &on, p.r_gap * (i + 1));
             }
@@ -470,6 +528,7 @@ impl StableEffectType for Pounce {
             return;
         }
         let p = params_of(me);
+        show_pups(sim, me, Some(target), true);
         let (amount, crit, killed) = strike(sim, seed, me, target, p.r_leap_dmg, p.r_leap_ad);
         let on = InputTargetV1::target(target);
         sim.play_view_effect(&mw("r_hit"), me, &on, 0, 0, 0);
@@ -548,6 +607,15 @@ mod tests {
     #[test]
     fn pup_name_matches_the_registry() {
         assert_eq!(PUP_FX, format!("{ID}:pup"));
+    }
+
+    #[test]
+    fn the_pups_face_the_enemy() {
+        assert!(pups_right(100_000, Some(130_000), false));     // the enemy to the right: turn right
+        assert!(!pups_right(100_000, Some(70_000), true));      // to the left: turn left
+        assert!(!pups_right(100_000, Some(101_000), false));    // straight above or below: keep the way they face
+        assert!(pups_right(100_000, Some(99_000), true));
+        assert!(pups_right(100_000, None, true));               // nobody: keep
     }
 
     #[test]

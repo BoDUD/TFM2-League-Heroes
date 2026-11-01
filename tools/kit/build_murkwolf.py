@@ -25,10 +25,13 @@ is one big wolf and two pups. The kit is our own design from that (the user's pi
           for e_t ticks (`e_howl`) it has e_vamp% omnivamp and deals e_amp% more damage, 2 x e_amp% to units under
           e_line% health (tft.dll's on_attack, every hit of its own). --plain: attack_mult e_plain% instead.
   ult     Pack Attack (狼群攻击, the Rift camp's), `Targeting` on `EnemyChampion` (r_range, only in fights): its call
-          brings two Murk Wolf pups (`r_pack`, drawn round it) for r_t ticks; on r_st they pounce at the target
+          brings two Murk Wolf pups (`r_pups`, a flag tft.dll reads) for r_t ticks; on r_st they pounce at the target
           (tft_murkwolf:pounce: r_leap_dmg + r_leap_ad% AD), then each of its attacks meanwhile they bite the same
-          enemy r_n times r_gap ticks apart (tft_murkwolf:pup), r_dmg + r_ad% AD each. --plain: the pounce and the
-          bites as data, the bites by an attack switch on `r_pack`.
+          enemy r_n times r_gap ticks apart (tft_murkwolf:pup), r_dmg + r_ad% AD each. The pups face the enemy: tft.dll
+          shows `r_pack_r` (both facing right) or `r_pack_l` beside it, toward the nearest enemy (the user,
+          2026-11-01: 「召唤出来的小狼应该面向敌人」). --plain and Sylas's copy (sylas_ult): `r_pack` with its own
+          view (the pups facing the camera, the same both ways), the pounce and the bites as data, the bites by an
+          attack switch on `r_pack`.
 What the data cannot do is the tft pack's own code (tft.dll, addons/tft/src/murkwolf.rs; the passive is
 tft_murkwolf:gray, params NATIVE_KEYS): no health-scaled crit, no target picked by health, no counted attacks, no
 damage by the target's health. A build of P checks murkwolf.rs's Params::default() against it.
@@ -192,7 +195,7 @@ def build(p, is_native=False):
     pounce = (native("pounce") if is_native
               else combine(attack(p["r_leap_dmg"], p["r_leap_ad"]), view("r_hit"), tsfx("r_bite")))
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(sfx("r"), sfx("r_vo"), anim("ult", p["r_dur"]), flag("r_pack", p["r_t"]),
+                 combine(sfx("r"), sfx("r_vo"), anim("ult", p["r_dur"]), flag("r_pups" if is_native else "r_pack", p["r_t"]),
                          delayed(p["r_st"] - 1, sfx("r_leap"), pounce),
                          delayed(p["r_t"] - 2, sfx("r_end"))))
 
@@ -206,7 +209,11 @@ def build(p, is_native=False):
     views_e = [E("a_hit"), E("q_land", -1, False), E("q_hit"), E("r_hit"), E("r_bite")]
     if is_native:
         views_e.append(E("p_hit", 3))
-    views_b = [B_("q_emp", FX, 3), B_("e_howl", FX, 3), B_("r_pack", BIG, -1)]   # the pups stand beside it (z -1)
+    # the pups stand beside it (z -1): facing the camera for the plain kit and Sylas's copy (r_pack), facing the enemy
+    # for tft.dll (r_pack_r / r_pack_l, put on by it)
+    views_b = [B_("q_emp", FX, 3), B_("e_howl", FX, 3), B_("r_pack", BIG, -1)]
+    if is_native:
+        views_b += [B_("r_pack_r", BIG, -1), B_("r_pack_l", BIG, -1)]
     kit = {
         "id": ID, "category": "Assassin", "tags": ["AD", "Melee"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",

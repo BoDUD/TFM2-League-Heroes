@@ -18,6 +18,14 @@ PACK: the pack's two pups (r_pack): Codex's 100 x 40 cut squashed its raw pups (
 than wide) into 14 x 13. Each frame's left pup is read again from the raw 2 x 3 draft at PUP_K raw px a square (about
 16 x 19 game px), standing on the cell's bottom row with its middle PUP_X columns from the cell's left edge, and
 mirrored onto the right (the wolf's 50 x 36 body stays clear between them).
+SIDE PUPS (the user, 2026-11-01: 「召唤出来的小狼应该面向敌人 参考沙皇怎么做的」「左右都可以面向敌人」): Codex's pups above face
+the camera and stay for the plain kit and Sylas's copy (r_pack); tft.dll shows r_pack_r (both pups facing right) or
+r_pack_l (that picture mirrored) toward the nearest enemy. The pup is Codex's side-on one (PUP_PROMPT.md, delivered in
+assets/source/murkwolf/codex_pups/murkwolf-pups: one 3 x 2 sheet of PUP_CELL raw px cells on PUP_SQ px squares, the
+paws on each cell's ground line, 276 px down), each cell read square for square on the strip's palette and the ramps; in the
+pair one pup stands behind its tail and one ahead of its heads (PUP_AT: each pup's middle, game px from the body's
+middle), the loop from the wind-up (PUP_ORDER, PUP_MS) so the lunge lands with the bites (tft.dll puts it on again on
+each attack).
 Anchors: the hits on the struck body (the cell's middle, HIT); the landing murk on the ground where it lands (SOLES);
 the claws' glint, the howl's smoke and the pups stand on its soles under the middle of its body (BODY: the design's
 middle is 3 game px ahead of its standing point).
@@ -66,6 +74,13 @@ EDGE_KEEP = {"q_emp", "e_howl", "r_pack", "r_hit", "r_bite"}   # drawn out at th
 # name -> the cell (game px) to cut again from the raw draft
 RECUT = {"p_hit": (22, 22), "r_bite": (14, 14), "a_hit": (16, 16)}
 LIGHTER = {"q_land"}
+PUPS = os.path.join(ROOT, "assets", "source", "murkwolf", "codex_pups", "murkwolf-pups", "murkwolf-pups.png")
+PUP_CELL, PUP_SQ = (400, 300), 12
+PUP_NAMES = ("stand", "breath", "crouch", "lunge", "recover", "settle")
+PUP_ORDER = ("crouch", "lunge", "recover", "settle", "stand", "breath")
+PUP_MS = (70, 110, 100, 120, 200, 200)
+PUP_AT = (-38, 38)              # each pup's middle off the body's middle (game px): behind the tail, ahead of the heads
+PAIR = (112, 28)                # the pair's cell (game px), the body's middle on its middle, the paws on its bottom
 PUP_K = 10.3                    # raw px a square for the pups
 PUP_X = 14                      # the left pup's middle column in the 100-wide cell
 
@@ -191,6 +206,38 @@ def lighter(a):
     return out
 
 
+def side_pups(ramps, strip):
+    """r_pack_r's frames (the two side-on pups facing right, PUP_ORDER) and r_pack_l's (each mirrored)."""
+    if not os.path.isfile(lp(PUPS)):
+        sys.exit(f"no side-on pups yet: {PUPS} (assets/source/murkwolf/PUP_PROMPT.md)")
+    a = np.asarray(Image.open(lp(PUPS)).convert("RGBA"))
+    pal = palette(strip, ramps)
+    cw, ch = PUP_CELL
+    per = cw // PUP_SQ, ch // PUP_SQ
+    pups = {}
+    for k, name in enumerate(PUP_NAMES):
+        t = a[(k // 3) * ch:(k // 3 + 1) * ch, (k % 3) * cw:(k % 3 + 1) * cw]
+        g = vote(t, 0, 0, PUP_SQ, per[0], per[1], pal)
+        ys, _ = np.nonzero(g[..., 3] > 0)
+        pups[name] = g[:ys.max() + 1]           # standing on its lowest row
+    xs = np.nonzero(pups["stand"][..., 3] > 0)[1]
+    mid = (xs.min() + xs.max() + 1) / 2         # every pose on the stand's middle (the cells share it)
+    W, H = PAIR
+    right = []
+    for name in PUP_ORDER:
+        g = pups[name]
+        c = np.zeros((H, W, 4), np.uint8)
+        for dx in PUP_AT:
+            x0 = int(round(W / 2 + dx - mid))
+            ys, xs = np.nonzero(g[..., 3] > 0)
+            ty, tx = ys + H - g.shape[0], xs + x0
+            ok = (ty >= 0) & (tx >= 0) & (tx < W)
+            c[ty[ok], tx[ok]] = g[ys[ok], xs[ok]]
+        right.append(c)
+    print(f"side pups {pups['stand'].shape[1]}x{pups['stand'].shape[0]} (stand)")
+    return right, [c[:, ::-1].copy() for c in right]
+
+
 def cells(name, m, ramps):
     """The frames of an effect, symmetry checked."""
     e = m[name]
@@ -274,15 +321,18 @@ def main():
     if set(m) != set(FX):
         sys.exit(f"delivered {sorted(set(m) ^ set(FX))} differ from the list")
     allc = {n: cells(n, m, ramps) for n in FX}
+    strip = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", "murkwolf_fx_r_pack.png"))).convert("RGBA"))
+    allc["r_pack_r"], allc["r_pack_l"] = side_pups(ramps, strip)
     if a.review:
         review(allc, a.review)
         return
     tables = {"tft_murkwolf_fx": {}, "tft_murkwolf_big": {}}
-    for tag, (kind, frames, spots) in FX.items():
+    side = {t: ("foot", seq(range(len(PUP_MS)), list(PUP_MS)), [BODY]) for t in ("r_pack_r", "r_pack_l")}
+    for tag, (kind, frames, spots) in {**FX, **side}.items():
         cs = allc[tag]
         anc = anchor(cs, kind)
         out = [(np.zeros((3, 3, 4), np.uint8) if k == J.EMPTY else J.place(cs[k], anc, spots), ms) for k, ms in frames]
-        tables["tft_murkwolf_big" if tag in BIG else "tft_murkwolf_fx"][tag] = out
+        tables["tft_murkwolf_big" if tag in BIG or tag in side else "tft_murkwolf_fx"][tag] = out
         print(f"{tag:8s} {cs[0].shape[1]}x{cs[0].shape[0]}, anchor {anc}")
     os.makedirs(lp(os.path.join(MOD, "effects")), exist_ok=True)
     for sheet, tags in tables.items():
