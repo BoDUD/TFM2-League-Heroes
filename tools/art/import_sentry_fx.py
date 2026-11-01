@@ -61,6 +61,8 @@ FLY = (0, 0)                    # a projectile's own point
 SOLES = (0, 11)                 # on the ground under a unit (or under its own pivot)
 MS = 1000 / 60                  # one tick
 BEAM_FLARE = 4                  # q_beam's flare middle, px from the cell's left edge (the prompt)
+BEAM_LEN = (40, 26)             # q_beam cut to its first 40 and last 26 columns: 66 px, Azure Laser's reach (q_range 65000
+                                # from the core on its pivot), so it ends on a target at range instead of 25 px past it
 SWEEP_FLARE = (5, 35)           # r_sweep's flare middle in its 100 x 70 cell (the prompt)
 SWEEP_TICKS = 3                 # ticks each swept beam shows (6 x 3 = 18 ticks = r_rel's frame showing r_blast)
 seq = J.seq
@@ -159,6 +161,8 @@ def cells(name, m):
     if a.shape[0] != h or a.shape[1] != w * e["frames"]:
         sys.exit(f"{name}: sheet {a.shape[1]}x{a.shape[0]} is not {e['frames']} cells of {w}x{h}")
     out = [a[:, k * w:(k + 1) * w].copy() for k in range(e["frames"])]
+    if name == "q_beam":
+        out = [np.concatenate([c[:, :BEAM_LEN[0]], c[:, -BEAM_LEN[1]:]], axis=1) for c in out]
     for k, c in enumerate(out):
         if name != "r_sweep":
             flip = c[::-1] if name in FLYING else c[:, ::-1]
