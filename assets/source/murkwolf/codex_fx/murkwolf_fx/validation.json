@@ -1,0 +1,50 @@
+{
+  "poses": {
+    "count": 19,
+    "canvas": [
+      1254,
+      1254
+    ],
+    "alpha": "0/255",
+    "baseline_y": 1176,
+    "run_unique_lower_body_frames": 8,
+    "cyan_eye_pixels": {
+      "a_back": 795,
+      "a_bite": 601,
+      "q_crouch": 1084,
+      "q_leap": 879,
+      "q_rend": 915,
+      "e_gather": 1135,
+      "e_howl": 588,
+      "r_growl": 640,
+      "r_bark": 958,
+      "run1": 1083,
+      "run2": 1099,
+      "run3": 1111,
+      "run4": 973,
+      "run5": 1066,
+      "run6": 1213,
+      "run7": 994,
+      "run8": 1134,
+      "d_fall": 534,
+      "d_down": 0
+    },
+    "spatial_resampling": false,
+    "exact_10px_grid": "not asserted; original model-authored clusters preserved"
+  },
+  "fx": {
+    "effects": 9,
+    "icons": 3,
+    "total_effect_frames": 45,
+    "symmetry": "exact per-frame left-right",
+    "pixel_scale": 8,
+    "body_area": "50x36 empty rectangle on3 buff sheets"
+  },
+  "missing": [],
+  "errors": [],
+  "notes": [
+    "Pose art was generated, not scripted. Original grid and body scale retained without resampling; no claim of exact cell-perfect model or skeleton parity. FX generated in 2-column source sheets, then majority sampled, mirrored and packed."
+  ],
+  "technical_checks_pass": true,
+  "all_requested_assets_present": true
+}
