@@ -1,0 +1,452 @@
+[
+  {
+    "file": "sentry-pose-a_rise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      440,
+      558,
+      824,
+      1117
+    ],
+    "target_layout_bbox": [
+      420,
+      548,
+      768,
+      1064
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-a_fire.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      513,
+      550,
+      862,
+      1081
+    ],
+    "target_layout_bbox": [
+      516,
+      548,
+      840,
+      1076
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-q_open.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      423,
+      572,
+      854,
+      1126
+    ],
+    "target_layout_bbox": [
+      420,
+      548,
+      816,
+      1076
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-q_beam1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      441,
+      557,
+      888,
+      1107
+    ],
+    "target_layout_bbox": [
+      420,
+      548,
+      876,
+      1076
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-q_beam2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      406,
+      521,
+      922,
+      1141
+    ],
+    "target_layout_bbox": [
+      420,
+      536,
+      876,
+      1064
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-e_split.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      302,
+      525,
+      996,
+      1121
+    ],
+    "target_layout_bbox": [
+      324,
+      560,
+      912,
+      1076
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-e_close.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      447,
+      554,
+      829,
+      1111
+    ],
+    "target_layout_bbox": [
+      420,
+      560,
+      828,
+      1088
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-r_open.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      312,
+      573,
+      923,
+      1101
+    ],
+    "target_layout_bbox": [
+      324,
+      572,
+      900,
+      1064
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-r_blast.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      300,
+      580,
+      1046,
+      1123
+    ],
+    "target_layout_bbox": [
+      300,
+      584,
+      972,
+      1064
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      519,
+      589,
+      874,
+      1098
+    ],
+    "target_layout_bbox": [
+      528,
+      560,
+      852,
+      1076
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      497,
+      571,
+      822,
+      1092
+    ],
+    "target_layout_bbox": [
+      528,
+      548,
+      852,
+      1064
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      505,
+      565,
+      862,
+      1097
+    ],
+    "target_layout_bbox": [
+      528,
+      536,
+      852,
+      1052
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      499,
+      564,
+      863,
+      1149
+    ],
+    "target_layout_bbox": [
+      528,
+      548,
+      852,
+      1064
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-d_split.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      216,
+      666,
+      1048,
+      1116
+    ],
+    "target_layout_bbox": [
+      216,
+      668,
+      1008,
+      1100
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  },
+  {
+    "file": "sentry-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "target_size": [
+      1254,
+      1254
+    ],
+    "actual_bbox": [
+      90,
+      933,
+      1130,
+      1134
+    ],
+    "target_layout_bbox": [
+      84,
+      896,
+      1032,
+      1100
+    ],
+    "resampled": false,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "rgb_spatial_pixels_preserved": true,
+    "strict_12px_grid_guaranteed": false
+  }
+]

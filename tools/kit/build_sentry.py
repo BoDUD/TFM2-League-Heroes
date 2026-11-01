@@ -41,8 +41,13 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 
 # Units: attack range 60000 like the pack's bottoms (tft_daeja, tft_gromp); radii count the unit's collision radius
-# (~15000) on top. Timings and heights (a_y, q_by: its core) are placeholders until the strips are rigged
-# (tools/art/rig_sentry.py).
+# (~15000) on top. Timings from the frames (tools/art/rig_sentry.py MS): the bolt leaves on a_rel 8 (133 ms: a_fire
+# showing), the laser from q_rel 10 (skill 200 ms = q_anim 12, then skill_loop), Rift Leap's blink on e_rel 4 inside its
+# 300 ms (e_dur 18), the sweep on r_rel 18 (300 ms: r_blast showing) inside its 667 ms (r_dur 40). Heights (a projectile
+# starts 5000 - y_offset above the pivot, 1000 a game px; the pivot is 11 px over the ground): its core is 19 px over
+# the ground with the hover (22 design rows + 3 at PPU 1.29), 8 over the pivot: a_y / q_by -3000. The laser's and the
+# sweep's pictures creep 1 px a tick (q_bspeed, r_speed 1000) and are drawn held on the core
+# (tools/art/import_sentry_fx.py).
 # Stats from the Range base (attack 100 +20, hp 900 +90, def 20 +7, mr 15 +3, move 900 +9), less attack and more magic
 # power: an AP carry like tft_daeja and tft_gromp. Numbers = the 10-min classic-SDK simulations (C:/t/pb_sim with
 # C:/t/al_sim/kd.py: bottom lane 3 against the base archer, gunner, boomerang and poison-dart hunters, three lineups,
@@ -56,7 +61,7 @@ P = {
     # stats (Range, an AP carry)
     "hp": 1000, "hp_g": 80, "atk": 95, "atk_g": 11, "apw": 30, "apw_g": 16, "def": 26, "def_g": 7, "mr": 22, "mr_g": 3,
     "ms": 900, "ms_g": 9,
-    "atk_range": 60000, "atk_dur": 24, "atk_cd": 72, "a_rel": 8, "a_speed": 5000, "a_y": 2000, "a_ap": 45,
+    "atk_range": 60000, "atk_dur": 24, "atk_cd": 72, "a_rel": 8, "a_speed": 5000, "a_y": -3000, "a_ap": 45,
     # passive Blue Buff (TFT: mana regeneration every few seconds channelled; ours: the ult's cooldown)
     "p_every": 60, "p_cut": 60, "q_break": 85000,
     # Azure Laser (TFT: magic a second + magic resistance down while channelled)
@@ -67,7 +72,7 @@ P = {
     "e_hold": 90, "e_back": 6000, "e_back_t": 6,
     # Prism Sweep
     "r_cd": 2100, "r_range": 70000, "r_dur": 40, "r_rel": 18, "r_len": 85000, "r_cos": 500, "r_dmg": 320,
-    "r_ratio": 160, "r_mr": 25, "r_hold": 180, "r_speed": 12000,
+    "r_ratio": 160, "r_mr": 25, "r_hold": 180, "r_speed": 1000,
 }
 # what tft.dll reads from passive.params (addons/tft/src/sentry.rs)
 NATIVE_KEYS = ("p_every", "p_cut", "r_cd", "q_break")
