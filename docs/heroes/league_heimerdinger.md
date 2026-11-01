@@ -55,7 +55,7 @@
 
 ### 黑默丁格附加包
 
-[黑默丁格附加包](../../addons/league_heimerdinger/README.md)：`league_heimerdinger` v0.2.1
+[黑默丁格附加包](../../addons/league_heimerdinger/README.md)：`league_heimerdinger` v0.2.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

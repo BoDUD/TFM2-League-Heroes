@@ -25,6 +25,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_aurelionsol";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_aurelionsol") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// A stardust stack's name: this and its number (build_aurelionsol.py: `d1` .. `d<d_max>`).
 const STACK: &str = "league_aurelionsol_d";
 
@@ -79,13 +85,21 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
-/// The first `n` of each kind of line are logged, then every 100th (a long game repeats the same event).
-fn counted(kind: &str) -> Option<usize> {
+/// The first `n` of each kind of line are logged, then every 100th (a long game repeats the same event); every one of the
+/// match on screen (`shown`: 2026-11-02, a watched set kept 2 lines, the presims had used the count up).
+fn counted(kind: &str, shown: bool) -> Option<usize> {
     static COUNTS: LazyLock<Mutex<HashMap<String, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let k = c.entry(kind.to_string()).or_insert(0);
     *k += 1;
-    (*k <= 40 || *k % 100 == 0).then_some(*k)
+    (shown || *k <= 40 || *k % 100 == 0).then_some(*k)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 // ===================== 参数 =====================
@@ -148,6 +162,18 @@ pub fn execute_line(p: &Params, stacks: usize) -> usize {
     p.e_low + p.e_low_d * stacks.min(p.d_max).min(p.e_low_n)
 }
 
+/// The execute's fixed damage: his health + shield + maximum health (it lands next tick: through this tick's heal or
+/// shield, league_locke's and league_pyke's way), scaled up by his damage reduction (league_mel's executes left 5 of 48
+/// alive at `hp + shield + 1`, 2026-11-02). A 100% reduction (Master Yi's Alpha Strike): None, no execute this time.
+pub fn execute_damage(hp: usize, shield: usize, max: usize, reduce: usize) -> Option<usize> {
+    (reduce < 100).then(|| (hp + shield + max) * 100 / (100 - reduce))
+}
+
+/// A unit's damage reduction in % (damage taken and skill damage taken, up to 100).
+pub fn reduction(e: &StableEntity<'_, '_>) -> usize {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.damaged_reduce + b.skill_damaged_reduce).sum::<usize>().min(100)
+}
+
 /// Is a champion with this health under the line (a unit with no maximum never is).
 pub fn executes(p: &Params, stacks: usize, hp: usize, max: usize) -> bool {
     max > 0 && hp > 0 && hp * 100 < execute_line(p, stacks) * max
@@ -181,13 +207,20 @@ fn core(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let (hp, max) = u.hp();
     let shield = u.shield();
     let name = u.name().unwrap_or_default();
+    let reduce = reduction(&u);
     if !executes(&p, stacks, hp, max) {
         return;
     }
-    sim.deal_damage_typed(me, t, hp + shield + 1, DamageTypeV1::Fixed, AttackTypeV1::Skill);
-    if let Some(k) = counted("execute") {
-        wlog(format!("{} EXECUTE #{k}: {name} #{t} at {hp}/{max} ({}%) under {}% ({stacks} stardust)", head(sim, me),
-                     hp * 100 / max.max(1), execute_line(&p, stacks)));
+    let Some(dmg) = execute_damage(hp, shield, max, reduce) else {
+        if let Some(k) = counted("execute held", on_screen(sim)) {
+            wlog(format!("{} EXECUTE HELD #{k}: {name} #{t} takes no damage now (reduced {reduce}%)", head(sim, me)));
+        }
+        return;
+    };
+    sim.deal_damage_typed(me, t, dmg, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+    if let Some(k) = counted("execute", on_screen(sim)) {
+        wlog(format!("{} EXECUTE #{k}: {name} #{t} at {hp}/{max} ({}%) under {}% ({stacks} stardust), dealt {dmg} (reduced {reduce}%)",
+                     head(sim, me), hp * 100 / max.max(1), execute_line(&p, stacks)));
     }
 }
 
@@ -220,7 +253,7 @@ impl StablePassive for Stardust {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert((sim.seed(), me), self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        if let Some(k) = counted("spawn") {
+        if let Some(k) = counted("spawn", on_screen(sim)) {
             wlog(format!("{} SPAWN #{k}: the add-on's Aurelion Sol (player {player}, team {team}), {:?}", head(sim, me),
                          self.p));
         }
@@ -230,7 +263,7 @@ impl StablePassive for Stardust {
         let Some(e) = sim.get_entity(me) else { return };
         let alive = e.is_alive();
         if alive != self.was_alive {
-            if let Some(k) = counted("life") {
+            if let Some(k) = counted("life", on_screen(sim)) {
                 wlog(format!("{} {} #{k} with {} stardust kept", head(sim, me), if alive { "ALIVE" } else { "DEAD" },
                              self.kept.len()));
             }
@@ -243,12 +276,12 @@ impl StablePassive for Stardust {
             for b in &gone {
                 sim.add_buff(me, b);
             }
-            if let Some(k) = counted("keep") {
+            if let Some(k) = counted("keep", on_screen(sim)) {
                 wlog(format!("{} KEEP #{k}: {} stardust put back ({}), {} in all", head(sim, me), gone.len(),
                              if alive { "alive" } else { "dead" }, self.kept.len()));
             }
         } else if alive && have.len() > self.kept.len() {
-            if let Some(k) = counted("stack") {
+            if let Some(k) = counted("stack", on_screen(sim)) {
                 wlog(format!("{} STACK #{k}: {} -> {}", head(sim, me), self.kept.len(), have.len()));
             }
             self.kept = have;
@@ -264,7 +297,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (stardust kept through death, Singularity's core executing by real health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (stardust kept through death, Singularity's core executing by real health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -320,6 +353,10 @@ mod tests {
         assert!(executes(&p, 15, 199, 1000));
         assert!(!executes(&p, 15, 0, 1000));
         assert!(!executes(&p, 15, 10, 0));
+        // through this tick's heal or shield and any damage reduction short of 100%
+        assert_eq!(execute_damage(150, 0, 1000, 0), Some(1150));
+        assert!(execute_damage(150, 0, 1000, 40).unwrap() * 60 / 100 > 150);
+        assert_eq!(execute_damage(150, 0, 1000, 100), None);
     }
 
     #[test]

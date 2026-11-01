@@ -10,7 +10,10 @@
 //! P 一致，不一致就停。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gwen.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//! `CUTS`：你看的那场同一个格温每 `LOG_GAP` tick 最多一行；服务器的预模拟整个游戏一共先记 `LOG_FIRST` 行、之后每
+//! `LOG_EVERY` 行记一行（0.1.2：以前只按格温的实体编号隔 60 tick，每份模拟的格温编号都一样，一次启动记了 13 123 行）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -19,13 +22,22 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_gwen";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_gwen") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 最大生命值的这么多 %（主包 P 的 p_hp）。
 pub const P_HP: u64 = 1;
 /// 每 100 法强再加最大生命值的这么多万分之一（主包 P 的 p_hp_ap；英雄联盟每 100 法强 +0.6%，后期一套 Q 打掉二成多生命，减半）。
 pub const P_HP_AP: u64 = 30;
-/// 同一个格温至少隔这么多 tick 记一行命中日志（Q 一次剪五六下）。
-const LOG_EVERY: usize = 60;
+/// 你看的那场：同一个格温至少隔这么多 tick 记一行命中日志（Q 一次剪五六下）。
+const LOG_GAP: usize = 60;
+/// 预模拟：每种日志整个游戏先记这么多行，之后每这么多行记一行。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
 
 // ===================== 日志 =====================
 
@@ -79,13 +91,13 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
-/// (格温的 id, 上次记日志的 tick)。
+/// (格温的 id, 上次记日志的 tick)：只给你看的那场用（预模拟的格温实体编号和它一样）。
 static LAST_LOG: Mutex<Vec<(usize, usize)>> = Mutex::new(Vec::new());
 
 fn due(caster: usize, tick: usize) -> bool {
     let mut last = LAST_LOG.lock().unwrap_or_else(|e| e.into_inner());
     match last.iter_mut().find(|(id, _)| *id == caster) {
-        Some((_, t)) if tick >= *t && tick < *t + LOG_EVERY => false,
+        Some((_, t)) if tick >= *t && tick < *t + LOG_GAP => false,
         Some((_, t)) => {
             *t = tick;
             true
@@ -94,6 +106,34 @@ fn due(caster: usize, tick: usize) -> bool {
             last.push((caster, tick));
             true
         }
+    }
+}
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Write this `kind` line of the Gwen `key`? The match on screen: one a Gwen every `LOG_GAP` ticks (`due`); the presims:
+/// the launch's count (`noted`) - `due` is keyed by the entity id, which every sim's Gwen shares.
+fn logged(sim: &StableSim<'_>, key: usize, kind: &'static str) -> bool {
+    if on_screen(sim) {
+        due(key, sim.tick())
+    } else {
+        noted(kind, false).is_some()
     }
 }
 
@@ -114,7 +154,7 @@ fn cuts(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
         // Q's cuts are a RangeEffect's own effects (the attack's and R's come in a projectile's, as Pyke's X): no data
         // in the base game puts a Native there, so a target kind other than the unit hit is logged for the test
-        if due(usize::MAX - caster, sim.tick()) {
+        if logged(sim, usize::MAX - caster, "cuts skipped") {
             let line = head(sim, caster);
             wlog(format!("{line} CUTS skipped: input kind {} is not a unit", input.kind));
         }
@@ -125,7 +165,7 @@ fn cuts(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let Some((hp, max)) = sim.get_entity(target).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
     let d = cut_damage(max, ap);
     sim.deal_damage_typed(caster, target, d, DamageTypeV1::Ap, AttackTypeV1::Skill);
-    if due(caster, sim.tick()) {
+    if logged(sim, caster, "cuts") {
         let line = head(sim, caster);
         wlog(format!(
             "{line} CUTS #{target}: hp {hp}/{max}, ap {ap} -> {}.{:02}% = {d} magic (before resistance)",
@@ -150,8 +190,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Gwen's A Thousand Cuts: % max-health magic damage) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Gwen's A Thousand Cuts: % max-health magic damage) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -200,5 +239,13 @@ mod tests {
         assert!(!due(7, 130));
         assert!(due(8, 130));
         assert!(due(7, 160));
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
     }
 }

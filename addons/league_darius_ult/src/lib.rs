@@ -31,6 +31,12 @@ pub mod plan;
 use plan::{own_kill_refund, plan as decide, Foe, Me, Plan, Why, HEMO, HERO, MARK, MIGHT, R_KILL, R_LAND, R_RANGE};
 
 const ID: &str = "league_darius_ult";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_darius_ult") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// R 从这一级起能放（同 league_pyke）。
 const ULT_LEVEL: usize = 5;
 /// 同一类日志至少隔这么多 tick 记一次（AI 每 tick 想一次）。
@@ -448,8 +454,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Darius's R only for a kill; his own kill before the blow refreshes it) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Darius's R only for a kill; his own kill before the blow refreshes it) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

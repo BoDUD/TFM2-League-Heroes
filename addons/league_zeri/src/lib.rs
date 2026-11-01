@@ -34,6 +34,12 @@ use mod_api_stable::*;
 pub mod maps;
 
 const ID: &str = "league_zeri";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_zeri") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 主包泽丽的名字（buff、投射物、音效都以它开头）。
 fn zr(x: &str) -> String {
@@ -374,6 +380,16 @@ impl Tally {
 const DIAG_ATTACKS: usize = 16;
 const DIAG_PULSES: usize = 8;
 const DIAG_TICKS: usize = 18;
+/// `DIAG` lines of the whole launch, the match on screen too (0.1.4: the 10-14 diagnosis is done, and its 16 attacks and
+/// 8 pulses a Zeri on screen still wrote 2036 lines, half the 11-01 log): the first `DIAG_FIRST`, then every `DIAG_EVERY`-th.
+const DIAG_FIRST: usize = 40;
+const DIAG_EVERY: usize = 200;
+static DIAG_LINES: AtomicUsize = AtomicUsize::new(0);
+
+fn diag_logged() -> bool {
+    let n = DIAG_LINES.fetch_add(1, Ordering::Relaxed) + 1;
+    n <= DIAG_FIRST || n % DIAG_EVERY == 0
+}
 
 /// The match on screen (the client's view, spectating, a replay). 0.1.2: the diagnostics run there only and the
 /// server's presims log `DMG_FIRST` `DMG 30s` lines, then every `DMG_EVERY`-th - every Zeri of every presim wrote both
@@ -434,8 +450,10 @@ impl Diag {
             .collect();
         foes.sort_by(|a, b| a.0.total_cmp(&b.0));
         let list: Vec<String> = foes.into_iter().take(6).map(|f| f.1).collect();
-        wlog(format!("{} DIAG {kind} #{n}: she is at {}, enemies near: [{}], her projectiles: {:?}", head(sim, me), pt(at),
-                     list.join("; "), mine(sim, me).iter().map(|p| pt(*p)).collect::<Vec<_>>()));
+        if diag_logged() {
+            wlog(format!("{} DIAG {kind} #{n}: she is at {}, enemies near: [{}], her projectiles: {:?}", head(sim, me), pt(at),
+                         list.join("; "), mine(sim, me).iter().map(|p| pt(*p)).collect::<Vec<_>>()));
+        }
     }
 
     fn tick(&mut self, sim: &StableSim<'_>, me: usize) {
@@ -445,7 +463,7 @@ impl Diag {
             self.open = None;
             return;
         }
-        if k == 0 {
+        if k == 0 || !diag_logged() {
             return;
         }
         let shots: Vec<String> = (0..sim.projectile_count())
@@ -458,6 +476,9 @@ impl Diag {
 
     fn hit(&self, sim: &StableSim<'_>, me: usize, target: usize, damage: usize) {
         let Some((kind, n, start)) = self.open else { return };
+        if !diag_logged() {
+            return;
+        }
         let at = pos(sim, target).map_or("-".into(), pt);
         wlog(format!("{} DIAG {kind} #{n} +{}: HIT {} at {at} for {damage}", head(sim, me), sim.tick().saturating_sub(start),
                      who(sim, target)));
@@ -490,7 +511,10 @@ impl Battery {
                 })
                 .collect();
             let (name, g) = pick_grid(&points);
-            wlog(format!("{} map: {name} ({} wall cells; {} units placed)", head(sim, me), g.walls(), points.len()));
+            // once a Zeri a sim, but every presim's: the launch's count (0.1.4; 226 lines on 11-01)
+            if on_screen(sim) || counted("map") {
+                wlog(format!("{} map: {name} ({} wall cells; {} units placed)", head(sim, me), g.walls(), points.len()));
+            }
             self.grid = Some((name, g));
         }
         self.grid.as_ref().map(|g| g.1.clone()).unwrap_or_else(|| Grid::builtin().remove(0).1)
@@ -582,8 +606,11 @@ impl StablePassive for Battery {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.pulse = None;
         self.done_until = 0;
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Zeri (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        // every spawn of every presim's Zeri: the launch's count (0.1.4; 888 lines on 11-01)
+        if on_screen(sim) || counted("spawn") {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Zeri (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -711,8 +738,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Zeri: Ultrashock Laser off walls, Living Battery steals shields) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Zeri: Ultrashock Laser off walls, Living Battery steals shields) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

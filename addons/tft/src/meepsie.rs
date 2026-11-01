@@ -548,6 +548,8 @@ fn slam(sim: &mut StableSim<'_>, me: usize, at: (u64, u64)) {
 
 #[derive(Clone, Default)]
 struct Pilot {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
 }
 
@@ -561,6 +563,7 @@ impl StablePassive for Pilot {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -572,7 +575,8 @@ impl StablePassive for Pilot {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).entry(me).or_insert(self.p);
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         // it falls on its face (the data has no moment for it); a leap in the air ends there
         LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
         sim.play_sfx(&mp("d"), me, &InputTargetV1::target(me));

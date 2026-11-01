@@ -1,4 +1,4 @@
-# 奥恩附加包（测试版 v0.2.0，可选）
+# 奥恩附加包（测试版 v0.2.1，可选）
 
 **不装这个附加包，主包里的奥恩也是完整的**：普攻里每 12 秒喷一次风箱炎息；Q 火山突堑砸出一道裂隙、尽头升起熔岩柱；E 炽烈冲锋
 在 Q 之后 4 秒内撞过去就地震击飞；R 熔铸之神的召唤召来熔岩公羊冲向自己，再一头槌把它顶回去；被动活体锻炉加护甲、魔抗和生命，
@@ -23,7 +23,8 @@ W / E / R 让敌方英雄易碎，下一下普攻引爆。主包是纯数据：*
   E 出发时 `league_ornn:from` 记下起点、撞上目标时 `league_ornn:charge` 判断地震，普攻打中英雄时 `league_ornn:shatter` 引爆易碎；
   普攻、Q、E 的说明开头加【扩展包】。
 - **熔岩柱**：位置记在他身上的 buff 名里（`league_ornn_pillar@x,y`，同一局的两份预模拟各记各的），被动每 tick 读它：中心进了柱子
-  （`PILLAR_R` + 单位半径）的单位放回上一 tick 的位置。
+  （`PILLAR_R` + 单位半径）的单位：走路的贴着柱子的边绕过去（游戏的寻路不知道柱子，原来放回上一 tick 的位置会一直卡到柱子倒），
+  一 tick 走了 `DASH_STEP` 以上（冲刺）的放回上一 tick 的位置。
 - **地震**：`league_ornn:charge` 判断撞上的是柱子还是墙（`wall_ahead` 读 `league_camille_wall` 的地图墙格），给他挂 1 tick 后数据读的
   `league_ornn_e_quake_go`（周围击飞、伤害、易碎都是主包的数据），撞上的柱子从 buff 名里去掉。
 - **易碎**：英雄身上的 `league_ornn_brittle`；引爆用 `deal_damage_typed(Fixed)`、击飞和击退，易碎随之去掉。
@@ -40,7 +41,7 @@ W / E / R 让敌方英雄易碎，下一下普攻引爆。主包是纯数据：*
   游戏每个 mod 只有一个客户端扩展槽：附加包合集里由 `BundleClient` 调 `fx::draw`，单独的 league_ornn.dll 自己设 `fx::Overlay`。
 - **连招**（`src/combo.rs`）：`add_player_input_ai`，优先级 110（排在 league_ult_press 之后），被控住、正在放技能或被强制位移时不动；
   按 Q、E 之前自己看格子解锁了、冷却为 0（引擎的「输入合法」不看冷却）。
-- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ornn.log`：`SPAWN`、`PILLAR`（立柱）、`HOLD` / `PUSH`（挡在柱子外）、
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ornn.log`：`SPAWN`、`PILLAR`（立柱）、`HOLD` / `PUSH`（第一次挡住一个单位）、`HELD`（柱子倒了：挡过几个单位、几个英雄、一共和最久多少 tick）、
   `CHARGE`（撞柱 / 撞墙 / 没撞）、`BROKEN`（柱子碎了）、`SHATTER`（引爆易碎）、`ITEMS` / `FORGE` / `MASTERWORK`（活体锻炉）、
   连招（`Q FIRST`、`E PILLAR`、`BRITTLE`），都限了条数；锻造光晕：`STATS`（你看的那场每 30 秒每个选手的队伍、分路、英雄、KDA、补刀）、
   `FX ROWS`（玩家栏每一行的 KDA、补刀、图标数和当它是哪条分路，1、3、6 分钟各一次）、`FX DRAW`（第一次画：画了几个图标、第一个在哪）。

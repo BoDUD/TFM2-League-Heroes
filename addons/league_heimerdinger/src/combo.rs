@@ -21,6 +21,15 @@ pub const COMBO_PRIORITY: i32 = 110;
 /// 每种决定最多记多少行（presim 和画面里那场一起算）。
 const LOG_LINES: usize = 40;
 static LOGGED: [AtomicUsize; 3] = [const { AtomicUsize::new(0) }; 3];
+/// 一串连着按的只记一行：引擎接下施放之前钩子每 tick 都再按一次，同一种决定离上一次按不到这么多 tick 就算同一串
+/// （league_ult_press 的 `ORDER_FRESH`；0.2.2：以前每 tick 一行，一次 Q 记了 21 行、一次 E 记了 8 行）。
+pub const ORDER_FRESH: usize = 30;
+
+/// A press at `tick` starts a burst: none of its kind in the `ORDER_FRESH` ticks before (`last`: that kind's last press;
+/// a tick before it is another match).
+pub fn new_burst(last: Option<usize>, tick: usize) -> bool {
+    last.is_none_or(|t0| tick < t0 || tick > t0 + ORDER_FRESH)
+}
 
 pub type Pt = (f64, f64);
 
@@ -162,6 +171,8 @@ pub fn still_recalling(was: bool, base: Option<InputV1>) -> bool {
 pub struct Combo {
     /// the AI is recalling (`still_recalling`)
     recalling: bool,
+    /// each kind's (`Why`) last press: one line a burst (`new_burst`)
+    pressed: [Option<usize>; 3],
 }
 
 impl StablePlayerAi for Combo {
@@ -205,9 +216,14 @@ impl StablePlayerAi for Combo {
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        let n = LOGGED[why as usize].fetch_add(1, Ordering::Relaxed) + 1;
-        if n <= LOG_LINES || n % 100 == 0 {
-            wlog(format!("{line} {} #{n}", why.line()));
+        let tick = ctx.tick();
+        let fresh = new_burst(self.pressed[why as usize], tick);
+        self.pressed[why as usize] = Some(tick);
+        if fresh {
+            let n = LOGGED[why as usize].fetch_add(1, Ordering::Relaxed) + 1;
+            if n <= LOG_LINES || n % 100 == 0 {
+                wlog(format!("{line} {} #{n}", why.line()));
+            }
         }
         Some(input)
     }
@@ -256,5 +272,15 @@ mod tests {
     #[test]
     fn the_flag_fits() {
         assert!(hd("upg").len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn a_burst_of_presses_is_one_line() {
+        assert!(new_burst(None, 14544));
+        // pressed again every tick until the engine takes it (2026-11-01: t=14544..14572)
+        assert!((14545..=14572).all(|t| !new_burst(Some(t - 1), t)));
+        assert!(!new_burst(Some(14572), 14572 + ORDER_FRESH));
+        assert!(new_burst(Some(14572), 14573 + ORDER_FRESH), "the next cast");
+        assert!(new_burst(Some(14572), 100), "another match");
     }
 }

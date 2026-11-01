@@ -30,7 +30,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_trundle";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_trundle") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// On him while the domain lasts (the data's W; no stats in the add-on's copy).
 const W_ON: &str = "league_trundle_w_on";
 /// On him while he stands in the domain (2 ticks, renewed): its attack speed, move speed and regeneration.

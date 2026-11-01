@@ -3,8 +3,8 @@
 //! 几处换成本包的原生效果），本包补数据做不到的事（英雄联盟的规则）：
 //!
 //! - **熔岩柱是真的地形**（原生效果 `league_ornn:pillar`，火山突堑的裂隙到头时）：柱子立在裂隙的尽头，`Q_LIFE` tick；
-//!   立起时站在上面的单位被推开，之后谁（两边的英雄、小兵、野怪，他自己也算）的中心进了柱子（`PILLAR_R` + 单位半径）就放回
-//!   上一 tick 的位置。柱子的位置记在他身上的 buff 名里（`league_ornn_pillar@x,y`），被动读它：同一局的两份预模拟各记各的。
+//!   立起时站在上面的单位被推开，之后谁（两边的英雄、小兵、野怪，他自己也算）的中心进了柱子（`PILLAR_R` + 单位半径）：走路的
+//!   贴着柱子的边绕过去，冲刺的放回上一 tick 的位置。柱子的位置记在他身上的 buff 名里（`league_ornn_pillar@x,y`），被动读它：同一局的两份预模拟各记各的。
 //!   主包：柱子只是画面，冲撞读他身上的 `league_ornn_q_pillar`。
 //! - **撞上柱子或墙才地震**（原生效果 `league_ornn:from` 记冲撞的起点、`league_ornn:charge` 在撞上目标时判断）：撞上的那一刻
 //!   柱子离他不到 `E_QUAKE_R` + `PILLAR_R`，或沿冲撞的方向 `WALL_REACH` 内是墙（卡蜜尔附加包的墙格、5v5 地图的四边），就给他挂
@@ -26,7 +26,7 @@
 //! 数字是主包参数表 P 的同名项（大写）；`make_override.py` 生成副本时核对，不一致就停。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ornn.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `SPAWN`、`PILLAR`（立柱、推开）、`HOLD` / `PUSH`（挡在柱子外）、`CHARGE`（撞柱 / 撞墙 / 没撞）、`BROKEN`（柱子碎了）、
+//! `SPAWN`、`PILLAR`（立柱、推开）、`HOLD` / `PUSH`（第一次挡住一个单位）、`HELD`（柱子倒了：挡过几个单位、多少 tick）、`CHARGE`（撞柱 / 撞墙 / 没撞）、`BROKEN`（柱子碎了）、
 //! `SHATTER`（引爆易碎）、`Q FIRST` / `E PILLAR` / `BRITTLE`（连招），限了条数（整个游戏一个计数）；`ITEMS`（友方玩家的装备，
 //! 变了才记：你看的那场每条都记，预模拟限条数）；锻造光晕：`STATS`（你看的那场每 30 秒每个选手的队伍、分路、英雄、KDA、补刀）、
 //! `FX ROWS`（屏幕上玩家栏每一行的 KDA、补刀和当它是哪条分路，1、3、6 分钟各一次）、`FX DRAW`（第一次画）。
@@ -47,8 +47,12 @@ pub mod combo;
 pub mod fx;
 
 pub const ID: &str = "league_ornn";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_ornn") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 主包参数表 P 的同名项：柱子留多久；易碎引爆（最大生命 %、击飞、击退速度和 tick）；地震半径；E 的动作长度、射程；Q 的射程。
 pub const Q_LIFE: usize = 240;
@@ -112,6 +116,8 @@ pub const WALL_REACH: f64 = 14_000.0;
 pub const FROM_T: usize = E_ANIM + 120;
 /// 单位半径读不到时用的值。
 pub const BODY: f64 = 6_000.0;
+/// 一 tick 走了这么远以上算冲刺（走路约 1000，加速后约 1500，冲刺 2500 起）：冲刺撞上柱子停住，走路的绕着柱子走。
+pub const DASH_STEP: f64 = 2_200.0;
 /// 5v5 地图四边的可走范围（卡蜜尔附加包量的）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
 /// 墙格的边长（世界单位）和查墙的步长。
@@ -182,7 +188,7 @@ fn on_screen(sim: &StableSim<'_>) -> bool {
 }
 
 /// Like `counted`, but every line of the match on screen: only the presims capped.
-fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+pub(crate) fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
     noted(kind, on_screen(sim))
 }
 
@@ -317,15 +323,30 @@ pub fn charge_hit(at: Pt, body: f64, pillars: &[Pt], wall: impl Fn() -> bool) ->
     }
 }
 
-/// 柱子挡路：这一 tick 单位该在哪。进了柱子就回到上一 tick 的位置；上一 tick 也在柱子里（柱子刚立起来压在他身上），
-/// 就沿柱心到他的方向推到柱子外。
+/// 半径 `r` 的单位站在 `at` 时压着的柱子。
+pub fn pillar_at(pillars: &[Pt], at: Pt, r: f64) -> Option<Pt> {
+    pillars.iter().copied().find(|&p| dist(p, at) < PILLAR_R + r)
+}
+
+/// 柱子挡路：这一 tick 单位该在哪。上一 tick 在柱子外、这一 tick 走进了柱子：走路的贴着柱子的边绕过去，这一步的长度全用来绕
+/// （往他这一步偏的那一边，正对着柱心走就固定往一边）；一 tick 走了 `DASH_STEP` 以上（冲刺）就回到上一 tick 的位置。游戏的寻路不知道
+/// 柱子，会一直往里走：原来走路的也放回上一 tick 的位置，就一直卡到柱子倒（2026-11-02 复查 11-01 的日志：一次启动挡了 227 万次，
+/// 四分之一是英雄）。上一 tick 也在柱子里（柱子刚立起来压在他身上）就沿柱心到他的方向推到柱子外。
 pub fn hold(pillars: &[Pt], last: Option<Pt>, now: Pt, r: f64) -> Option<Pt> {
-    let p = *pillars.iter().find(|&&p| dist(p, now) < PILLAR_R + r)?;
+    let p = pillar_at(pillars, now, r)?;
+    let k = PILLAR_R + r + 1.0;
     match last {
-        Some(l) if dist(p, l) >= PILLAR_R + r => Some(l),
+        Some(l) if dist(p, l) >= PILLAR_R + r => {
+            let step = dist(l, now);
+            if step >= DASH_STEP {
+                return Some(l);
+            }
+            let side = (l.0 - p.0) * (now.1 - l.1) - (l.1 - p.1) * (now.0 - l.0);
+            let a = (l.1 - p.1).atan2(l.0 - p.0) + if side < 0.0 { -step / k } else { step / k };
+            Some((p.0 + a.cos() * k, p.1 + a.sin() * k))
+        }
         _ => {
             let d = unit((now.0 - p.0, now.1 - p.1)).unwrap_or((-1.0, 0.0));
-            let k = PILLAR_R + r + 1.0;
             Some((p.0 + d.0 * k, p.1 + d.1 * k))
         }
     }
@@ -577,6 +598,8 @@ struct Forge {
     up: Vec<(Pt, usize)>,
     /// 柱子立着时每个单位上一 tick 的位置。
     last_pos: HashMap<usize, Pt>,
+    /// 每根柱子挡过谁：单位编号 -> (挡了几 tick, 是不是英雄)；柱子倒了记一行 `HELD`。
+    held: Vec<(Pt, HashMap<usize, (usize, bool)>)>,
     /// 锻造已经加在每个单位身上的属性（单位编号 -> 主属性）：他自己的 `forged`、友方英雄的 `masterwork`。
     forged: HashMap<usize, [i32; 6]>,
     /// 锻造杰作记过日志没有。
@@ -703,9 +726,41 @@ impl Forge {
                 if let Some(k) = counted("broken") {
                     wlog(format!("{} BROKEN: the pillar at {} is gone #{k}", head(sim, me), pt(q)));
                 }
+                self.settle(sim, me, q);
             }
         }
+        let fallen: Vec<Pt> = self.up.iter().filter(|&&(_, until)| now >= until).map(|&(q, _)| q).collect();
         self.up.retain(|&(_, until)| now < until);
+        for q in fallen {
+            self.settle(sim, me, q);
+        }
+    }
+
+    /// 柱子 `p` 又挡了 `id` 一 tick；第一次挡他时 true。
+    fn note(&mut self, p: Pt, id: usize, champion: bool) -> bool {
+        let i = match self.held.iter().position(|(q, _)| *q == p) {
+            Some(i) => i,
+            None => {
+                self.held.push((p, HashMap::new()));
+                self.held.len() - 1
+            }
+        };
+        let (ticks, _) = self.held[i].1.entry(id).or_insert((0, champion));
+        *ticks += 1;
+        *ticks == 1
+    }
+
+    /// 柱子 `q` 倒了：它挡过谁（`HELD`：几个单位、几个英雄、一共几 tick、挡得最久的那个几 tick）。
+    fn settle(&mut self, sim: &StableSim<'_>, me: usize, q: Pt) {
+        let Some(i) = self.held.iter().position(|(p, _)| *p == q) else { return };
+        let (_, units) = self.held.swap_remove(i);
+        let ticks: usize = units.values().map(|&(t, _)| t).sum();
+        let longest = units.values().map(|&(t, _)| t).max().unwrap_or(0);
+        let champions = units.values().filter(|&&(_, c)| c).count();
+        if let Some(k) = tally(sim, "held") {
+            wlog(format!("{} HELD by the pillar at {}: {} units ({champions} champions), {ticks} ticks in all, the longest {longest} #{k}",
+                         head(sim, me), pt(q), units.len()));
+        }
     }
 
     fn block(&mut self, sim: &mut StableSim<'_>) {
@@ -721,26 +776,31 @@ impl Forge {
             if !e.is_alive() {
                 continue;
             }
-            match e.kind() {
-                Some(EntityKindV1::Champion | EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Summon) => {}
+            let champion = match e.kind() {
+                Some(EntityKindV1::Champion) => true,
+                Some(EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Summon) => false,
                 _ => continue,
-            }
+            };
             let id = e.id();
             let now_pos = (e.pos().0 as f64, e.pos().1 as f64);
             let r = match e.radius() as f64 { r if r > 0.0 => r, _ => BODY };
             let last = self.last_pos.get(&id).copied();
-            let at = match hold(&pillars, last, now_pos, r) {
-                Some(q) => {
-                    moves.push((id, q, last.is_some_and(|l| pillars.iter().all(|&p| dist(p, l) >= PILLAR_R + r))));
+            let at = match (hold(&pillars, last, now_pos, r), pillar_at(&pillars, now_pos, r)) {
+                (Some(q), Some(p)) => {
+                    moves.push((id, q, last.is_some_and(|l| pillars.iter().all(|&p| dist(p, l) >= PILLAR_R + r)), p, champion));
                     q
                 }
-                None => now_pos,
+                _ => now_pos,
             };
             seen.insert(id, at);
         }
-        for (id, (x, y), was_out) in moves {
+        for (id, (x, y), was_out, p, champion) in moves {
             sim.entity_set_pos(id, x.max(0.0).round() as u64, y.max(0.0).round() as u64);
-            if let Some(k) = counted(if was_out { "hold" } else { "push" }) {
+            // the first tick a pillar holds a unit (a unit walking round one is held every tick); HELD sums it up
+            if !self.note(p, id, champion) {
+                continue;
+            }
+            if let Some(k) = tally(sim, if was_out { "hold" } else { "push" }) {
                 wlog(format!("{} {} #{k}: {} kept out of the pillar at ({x:.0}, {y:.0})", head(sim, self.me),
                              if was_out { "HOLD" } else { "PUSH" }, who(sim, id)));
             }
@@ -849,13 +909,30 @@ mod tests {
     #[test]
     fn units_stay_out_of_the_pillar() {
         let p = [(500_000.0, 400_000.0)];
-        // walking in from the left: back to where it was
+        let k = PILLAR_R + 6001.0;
+        // dashing in from the left (5000 in a tick): back to where it was
         assert_eq!(hold(&p, Some((485_000.0, 400_000.0)), (490_000.0, 400_000.0), 6000.0), Some((485_000.0, 400_000.0)));
+        // walking straight at its centre: round its edge (always the same way), the whole step
+        let last = (486_500.0, 400_000.0);
+        let out = hold(&p, Some(last), (487_500.0, 400_000.0), 6000.0).unwrap();
+        assert!((dist(out, p[0]) - k).abs() < 1.0, "{out:?}");
+        assert!(out.1 < 400_000.0 - 900.0 && (dist(out, last) - 1_000.0).abs() < 200.0, "{out:?}");
+        // walking in at a slant (up the y axis): round its edge that way, out of it
+        let out = hold(&p, Some(last), (487_500.0, 401_000.0), 6000.0).unwrap();
+        assert!(out.1 > 400_000.0 + 1_000.0 && (dist(out, p[0]) - k).abs() < 1.0, "{out:?}");
+        // walking on round it: it gets past the pillar, never through it
+        let mut at = last;
+        for _ in 0..60 {
+            let next = (at.0 + 1_000.0, at.1);
+            at = hold(&p, Some(at), next, 6000.0).unwrap_or(next);
+            assert!(dist(at, p[0]) >= PILLAR_R + 6000.0, "{at:?}");
+        }
+        assert!(at.0 > 500_000.0, "still behind the pillar at {at:?}");
         // far away: free
         assert_eq!(hold(&p, Some((450_000.0, 400_000.0)), (455_000.0, 400_000.0), 6000.0), None);
         // standing on it when it rises: pushed straight out from its centre
         let out = hold(&p, None, (503_000.0, 400_000.0), 6000.0).unwrap();
-        assert!((out.0 - (500_000.0 + PILLAR_R + 6001.0)).abs() < 1.0 && (out.1 - 400_000.0).abs() < 1.0);
+        assert!((out.0 - (500_000.0 + k)).abs() < 1.0 && (out.1 - 400_000.0).abs() < 1.0);
     }
 
     #[test]

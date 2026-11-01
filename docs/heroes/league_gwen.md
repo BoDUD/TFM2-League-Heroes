@@ -55,7 +55,7 @@
 
 ### 格温被动附加包
 
-[格温被动附加包](../../addons/league_gwen/README.md)：`league_gwen` v0.1.1
+[格温被动附加包](../../addons/league_gwen/README.md)：`league_gwen` v0.1.2
 
 主包 `league` 保持纯数据。数据里能读目标最大生命值的只有真实伤害，读不到法强，所以主包格温的被动「千穿百孔」对英雄造成
 1% 最大生命值的**真实伤害**（用户：「这个可以改rust」）。这个附加包用原生代码做成英雄联盟的样子：
@@ -73,7 +73,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.5.7（通用附加包，下面只列和格温有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.5.8（通用附加包，下面只列和格温有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

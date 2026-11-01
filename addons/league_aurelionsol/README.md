@@ -15,7 +15,7 @@
 
 `mod.override_info` 把主包的奥瑞利安·索尔换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_aurelionsol.py` 的 `native=1` 生成）：
 
-- 黑洞中心每次打到英雄时多跑原生效果 `league_aurelionsol:core`：读目标真实的生命和护盾，低于处决线就打出「生命 + 护盾 + 1」的真实伤害（梅尔附加包的做法）；处决线按他身上的星尘层数算；
+- 黑洞中心每次打到英雄时多跑原生效果 `league_aurelionsol:core`：读目标真实的生命和护盾，低于处决线就打出「生命 + 护盾 + 最大生命」的真实伤害，再按他身上的减伤放大（伤害下一 tick 才结算，盖过这一 tick 的回血、护盾和减伤；原来的「生命 + 护盾 + 1」让梅尔 48 次处决有 5 次没打死；减伤 100% 时先不处决，日志 `EXECUTE HELD`）；处决线按他身上的星尘层数算；
 - `passive` 是本包的 `league_aurelionsol:stardust`，参数 `d_max`、`e_low`、`e_low_d`、`e_low_n` 来自主包参数表 P：记下他身上每一层 `league_aurelionsol_d<n>`，少了就补回（卑尔维斯附加包的做法：层数只会变多，所以少了只会是死亡清掉的）；出生时把参数按（这局的种子, 单位）记一份给原生效果；
 - 普攻和技能 2 的说明换成附加包自己的文字（`description.league_aurelionsol.attack` / `.skill2`，写着「死亡后保留」和处决线），游戏里看说明就知道副本有没有生效。
 

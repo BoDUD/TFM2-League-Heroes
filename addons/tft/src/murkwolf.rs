@@ -40,6 +40,9 @@ const CHECK: usize = 15;
 const PUP_CHECK: usize = 6;
 /// An enemy less than this to the side is straight above or below: the pups keep facing the way they face.
 const FACE_DX: u64 = 2_000;
+/// A bite turns the pups toward the bitten for this long: the `PUP_CHECK` pass (toward the nearest enemy) leaves them
+/// so meanwhile (2026-11-02 logs: the two passes flipped them left, right, left within 40 ticks).
+const FACE_HOLD: usize = 60;
 
 fn mw(x: &str) -> String {
     format!("{ID}_{x}")
@@ -348,6 +351,11 @@ fn show_pups(sim: &mut StableSim<'_>, me: usize, toward: Option<usize>, restart:
         }
         return;
     }
+    if toward.is_some() {
+        put(sim, me, &BuffV1::timed(&mw("r_face"), FACE_HOLD));
+    } else if has(sim, me, &mw("r_face")) {
+        return;
+    }
     let Some(at) = sim.get_entity(me).map(|e| e.pos()) else { return };
     let enemy = toward.and_then(|t| sim.get_entity(t)).filter(|e| e.is_alive()).map(|e| e.pos())
         .or_else(|| foes(sim, me).into_iter().min_by_key(|f| dist_sq(f.1, at)).map(|f| f.1));
@@ -371,6 +379,8 @@ fn show_pups(sim: &mut StableSim<'_>, me: usize, toward: Option<usize>, restart:
 
 #[derive(Clone, Default)]
 struct Gray {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
     /// the crit bonus last put on (to log changes only)
     last: usize,
@@ -386,6 +396,7 @@ impl StablePassive for Gray {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -435,7 +446,8 @@ impl StablePassive for Gray {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         // its death howl (the data has no moment for it)
         sim.play_sfx(&mw("d"), me, &InputTargetV1::target(me));
     }

@@ -332,6 +332,8 @@ impl StableEffectType for Crack {
 
 #[derive(Clone, Default)]
 struct Golem {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
 }
 
@@ -345,6 +347,7 @@ impl StablePassive for Golem {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -377,7 +380,8 @@ impl StablePassive for Golem {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         // its crumbling (the data has no moment for it)
         HIT.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
         sim.play_sfx(&sn("d"), me, &InputTargetV1::target(me));

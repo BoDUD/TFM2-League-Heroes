@@ -11,7 +11,7 @@
 //! 8 个种子（下路对 4 个原版射手、3 套阵容、两边）：前 5 分钟击杀差 +0.38 → +0.74，10 分钟 +1.65 → +2.14。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_caitlyn.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `Q POKE`（Q 改打英雄）、`HARASS`（普攻改打英雄）、`TALLY`（每分钟一行：改了几次、为什么没改），都限了条数。
+//! `Q POKE`（Q 改打英雄）、`HARASS`（普攻改打英雄）、`TALLY`（每个凯特琳每分钟一行：改了几次、为什么没改），都限了条数。
 
 use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
@@ -25,7 +25,12 @@ pub mod plan;
 use plan::{Base, Champ, Plan, Pt, Why};
 
 const ID: &str = "league_caitlyn";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_caitlyn") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 // ===================== 日志 =====================
 
@@ -93,25 +98,31 @@ fn who(sim: &StableSim<'_>, id: usize) -> String {
     sim.get_entity(id).and_then(|e| e.name()).map_or_else(|| format!("#{id}"), |n| format!("{n}#{id}"))
 }
 
-/// 每分钟一行：这一分钟里钩子的每种判断各几次（看它是不是在干活、为什么没改）。
-static TALLY: LazyLock<Mutex<BTreeMap<String, usize>>> = LazyLock::new(|| Mutex::new(BTreeMap::new()));
-static TALLY_MIN: Mutex<Option<usize>> = Mutex::new(None);
+/// 每分钟一行：这一分钟里钩子的每种判断各几次（看它是不是在干活、为什么没改）。每个凯特琳一份，记在她的 AI 钩子上（引擎给
+/// 每份模拟的每个玩家各一个钩子）：0.1.0 整个游戏只有一份、一个分钟数，几份模拟同时跑时（服务器同一局两份预模拟并排跑，局、
+/// 实体编号都一样）每换一份就把上一份的写出去，日志里 m=2211 / m=2115 交替、每行只有一两项。钩子拿到的模拟是只读的，挂不了
+/// 加里奥附加包 `SIM_TAG` 那样的模拟编号 buff，钩子自己就是每份模拟一个。
+#[derive(Clone, Default)]
+struct Tally {
+    minute: Option<usize>,
+    counts: BTreeMap<String, usize>,
+}
 
-fn tally(sim: &StableSim<'_>, me: usize, why: Why, changed: bool) {
-    let minute = sim.tick() as usize / 3600;
-    let mut last = TALLY_MIN.lock().unwrap_or_else(|e| e.into_inner());
-    let mut t = TALLY.lock().unwrap_or_else(|e| e.into_inner());
-    if *last != Some(minute) {
-        if last.is_some() && !t.is_empty() {
-            if let Some(k) = counted("tally") {
-                let list: Vec<String> = t.iter().map(|(w, n)| format!("{w}:{n}")).collect();
-                wlog(format!("{} TALLY minute {}: {} #{k}", head(sim, me), minute.saturating_sub(1), list.join(" ")));
+impl Tally {
+    /// One more `key` at `minute`: the minute before and its counts when this one starts a new minute (the line to write;
+    /// an earlier minute is another match: started over, nothing written).
+    fn add(&mut self, minute: usize, key: String) -> Option<(usize, BTreeMap<String, usize>)> {
+        let mut done = None;
+        if self.minute != Some(minute) {
+            let counts = std::mem::take(&mut self.counts);
+            if let Some(last) = self.minute.filter(|&m| m < minute && !counts.is_empty()) {
+                done = Some((last, counts));
             }
+            self.minute = Some(minute);
         }
-        t.clear();
-        *last = Some(minute);
+        *self.counts.entry(key).or_insert(0) += 1;
+        done
     }
-    *t.entry(format!("{why:?}{}", if changed { "" } else { "_kept" })).or_insert(0) += 1;
 }
 
 // ===================== AI 钩子 =====================
@@ -134,7 +145,22 @@ fn at(e: &StableEntity<'_, '_>) -> Pt {
 }
 
 #[derive(Clone, Default)]
-struct Lane;
+struct Lane {
+    /// her `TALLY` (each sim's Caitlyn her own)
+    tally: Tally,
+}
+
+impl Lane {
+    fn tally(&mut self, sim: &StableSim<'_>, me: usize, why: Why, changed: bool) {
+        let minute = sim.tick() as usize / 3600;
+        if let Some((m, counts)) = self.tally.add(minute, format!("{why:?}{}", if changed { "" } else { "_kept" })) {
+            if let Some(k) = counted("tally") {
+                let list: Vec<String> = counts.iter().map(|(w, n)| format!("{w}:{n}")).collect();
+                wlog(format!("{} TALLY minute {m}: {} #{k}", head(sim, me), list.join(" ")));
+            }
+        }
+    }
+}
 
 impl StablePlayerAi for Lane {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
@@ -217,7 +243,7 @@ impl StablePlayerAi for Lane {
                 }
                 Plan::Attack(t) => Some(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t))),
             };
-            tally(&sim, my_id, why, input.is_some());
+            self.tally(&sim, my_id, why, input.is_some());
             let line = input.map(|_| {
                 let t = match p {
                     Plan::Q(t) | Plan::Attack(t) => t,
@@ -257,7 +283,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
-    module.add_player_input_ai(Lane);
+    module.add_player_input_ai(Lane::default());
     host.log(LogLevel::Info, "league_caitlyn loaded (Caitlyn's early lane pressure).");
 }
 
@@ -280,6 +306,24 @@ mod tests {
     fn a_shot_through_armour() {
         assert_eq!(shot(100, 0), 100);
         assert_eq!(shot(100, 25), 80);
+    }
+
+    #[test]
+    fn each_caitlyn_keeps_her_own_minute() {
+        // two sims side by side, their thinks taking turns: neither writes out the other's minute
+        let (mut a, mut b) = (Tally::default(), Tally::default());
+        for _ in 0..3 {
+            assert_eq!(a.add(2, "Harass".into()), None);
+            assert_eq!(b.add(2, "Late_kept".into()), None);
+        }
+        let (m, counts) = a.add(3, "QPoke".into()).unwrap();
+        assert_eq!((m, counts.len(), counts.get("Harass")), (2, 1, Some(&3)));
+        assert_eq!(b.add(2, "Late_kept".into()), None);
+        // a minute without a think: the line names the minute counted
+        assert_eq!(a.add(5, "QPoke".into()).map(|(m, c)| (m, c.len())), Some((3, 1)));
+        // an earlier minute: another match, started over
+        assert_eq!(a.add(0, "Harass".into()), None);
+        assert_eq!(a.add(1, "Harass".into()).map(|(m, c)| (m, c.get("Harass").copied())), Some((0, Some(1))));
     }
 
     #[test]
