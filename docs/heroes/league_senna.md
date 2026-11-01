@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 射手（Range） · AD / Range / Heal / Shield / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.87 |
 | 附加包 | [赛娜黑雾常驻附加包](#附加包)（`league_senna_mist`） |
 
 ![赛娜演示](../preview/league_senna_showcase.gif)
@@ -95,6 +95,7 @@
 | 特效 | Codex 生图的 21 张（原稿按 `manifest.json` 的每帧区域切，`import_senna.py` 读回成游戏尺寸）：`league_senna_fx` 普攻炮弹和命中、赦除印记、收魂、黑雾 +1、Q 命中 / 治疗 / 减速、W 黑雾 / 命中 / 缠身 / 定身、E 加速、R 命中 / 护盾落下 / 护盾；`league_senna_big` Q 光束、W 炸开、E 黑雾、R 黑暗核心和圣光墙。颜色照英雄联盟：黑雾是深青绿的烟、青绿到白色的亮芯，治疗和护盾是金白色的圣光。她的炮很长（缩小后开炮帧炮口在身前 40–44 格），炮弹在炮管里那几 tick 不显示，Q 光束的画从炮口画到光束尽头（`LineRangeProjectile` 的画只能在站位点那一行，比炮口低 6–7 格，炮弹和 W 飞在站位点上方 6 格）；R 护盾那圈 Codex 画得太粗，3 秒里像一个金盘盖住人，只留亮边 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_senna.py`）：开炮、命中，收魂、黑雾 +1，Q 出手 / 命中 / 治疗，W 出手 / 命中 / 炸开定身，E，R 蓄力（大招第 1 tick 就放）/ 出手 / 命中 / 护盾；Q、W、E、R 的配音（最多每 10 秒一句）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q 黑暗洞灭 / W 无尽厮守 / R 暗影燎原），从本地客户端提取，缩到 64×64；E 自动，没有技能位 |
+| 高清帧（PPU 1.87） | 2026-11-01 用 PPU 重做（用户：「下一个英雄我们重做赛娜」「用 A 1.87」「赛娜没问题」）。设计图：Codex 照她的旧精灵描密的原图（两版，用 A 版）；原图的描边约 14.4 像素一格（细节画在半格上），按原图自己的格子读回（82 × 73 格；炮的金爪顶到脚底 73 行，旧精灵 39 行，PPU 1.87），脸按均匀格子读。动作：Codex 照旧版同一帧整帧重画 38 帧（ult 8 = ult 7、dead 4 = dead 3、dead 6 = dead 5 只画一次），读回到设计图的格子上：每帧的缩放先按身高比旧帧，再按脸的肤色面积把头拉到设计图的约 1.13 倍（Codex 一直把头画大约 16%），身体和旧帧相差不超过 10%。跑步第一版没换腿、头身比例不一，Q 第 1–2 帧炮端平朝前（旧版蹲下、炮朝左下）：这 10 帧让 Codex 重画（第 1–4 帧近侧腿撑地、第 5–8 帧换远侧腿）。待机和选人卡轮播是 hero_reels 从新动作剪的。|
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
@@ -108,6 +109,15 @@ python tools/art/import_native.py --hero senna
 python tools/art/import_senna.py --raw assets/source/senna/codex_fx   # 特效：读回成游戏尺寸，再拼成特效表
 python tools/art/preview_senna.py      # 预览和演示 GIF
 python addons/league_senna_mist/make_override.py   # 黑雾常驻附加包的副本（主包的赛娜改了就重跑）
+# PPU 1.87 重做（2026-11-01）：
+python tools/art/pack_senna_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_senna_hd.py                      # Codex 的原图（hd/raw/senna-A.png）按原图约 14.4 像素一格读回 -> hd/design.png
+python tools/art/pack_senna_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）；--only run,skill --sheets run_1,run_2,run_3,run_4,skill_1 --prompt RUN_REDO_PROMPT_PPU.md 是重画包
+python tools/art/casts_senna_hd.py --heights             # 每帧按身高的缩放；--heads 每帧脸上皮肤的大小（定 FRAME_ZOOM）
+python tools/art/rig_senna_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero senna && python tools/art/ppu_hd.py --hero senna
+python tools/art/ppu_one.py --hero senna && python tools/art/rig_senna_hd.py --one-ground && python tools/art/hero_reels.py --hero senna
+python tools/art/review_senna_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（造型、动作、特效的提示词见 [`assets/source/senna/`](../../assets/source/senna) 里的 `MODEL_STRIPS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_model/`、`codex_strips/`、`codex_fx/`）：
@@ -118,4 +128,4 @@ python addons/league_senna_mist/make_override.py   # 黑雾常驻附加包的副
 - 特效：21 张按 `manifest.json` 的每帧区域切（Codex 在透明的空隙上切，帧宽不一，站在一个点上的画每帧取自己的框中间）；挂在人身上和地上的画面叠上自己的左右翻转（红色方不反）。
 - 缩小：用户「模型太大了 能缩小点吗」，对比图里选 85%。`import_native.py` 的 SHRINK 整行整列删除、不重采样（`shrink_frames.py`）：脸逐像素不动；头在每个动作删同样的两行两列（以眼睛为基准，`SHRINK_HEAD`，不然换动作时兜帽形状会跳）；靴子三行不删；腿部的行跟着地面删、不跟着头（`SHRINK_GROUND`：按头的位置删时，身体上下晃的帧删到了脚底下面，脚低了 1–2 格）；大招第 1→2 帧眼睛一下移 13 列，按眼睛那一块的左上角定位（`SHRINK_ROBUST`）；倒地的死亡帧按自己的高度比例删（`SHRINK_GROUPS`）。用户：「这头太大了 跑动时特别违和」——头整块保护时只删 2 行 2 列，跑步时头占了全身近一半；改成头上删 6 行 6 列（兜帽和头发 4 行 6 列，额头、脸颊各一行纯皮肤，眼睛、眉毛、嘴不动），总高度仍是 85%，跑步时头 16 行 → 13 行。之后用户：「赛娜的头顶有点扁看起来不自然」——兜帽的圆顶原来隔行删了两行，顶上被压平、左上角的描边也断开了；现在圆顶只删一行（描边的台阶还连着），头发两行、额头和脸颊各一行照旧，头共删 5 行 6 列，跑步时头 14 行。这些开关默认关闭，已缩过的图奇、卡尔玛、雷克顿重导结果不变。
 
-逐帧预览：[`docs/preview/league_senna_frames.png`](../preview/league_senna_frames.png?v=1014g)，特效：[`docs/preview/league_senna_effects.png`](../preview/league_senna_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_senna_frames.png`](../preview/league_senna_frames.png?v=1101hd)，特效：[`docs/preview/league_senna_effects.png`](../preview/league_senna_effects.png?v=1014g)。

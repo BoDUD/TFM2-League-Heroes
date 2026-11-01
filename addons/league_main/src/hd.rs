@@ -584,6 +584,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // frame read onto it at the zoom its height (the deaths: its area; E 2-6 by the hat) gives
     // (tools/art/casts_missfortune_hd.py, rig_missfortune_hd.py; nothing baked); 38 game px as her 1x sprite, so no SIZES row
     ("league_missfortune", 2.763, include_str!("../../../league/champions/league_missfortune#anim.fanim")),
+    // Senna (2026-11-01, 「下一个英雄我们重做赛娜」, 「用 A 1.87」): Codex's senna-A read on its own ~14.4-px
+    // squares (82 x 73, tools/art/design_senna_hd.py: 73 rows / 39 = 1.872); every action Codex's whole-frame redraw of her
+    // old frame read onto it at the zoom her height and face give (tools/art/casts_senna_hd.py, rig_senna_hd.py; the run
+    // and Q's first two frames redrawn: the legs changing over, the cannon low; nothing baked); 39 game px as her 1x
+    // sprite, so no SIZES row
+    ("league_senna", 1.872, include_str!("../../../league/champions/league_senna#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

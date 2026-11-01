@@ -55,7 +55,7 @@
 
 ### 佛耶戈「君命已决」附加包
 
-[佛耶戈「君命已决」附加包](../../addons/league_viego_soul/README.md)：`league_viego_soul` v0.2.46
+[佛耶戈「君命已决」附加包](../../addons/league_viego_soul/README.md)：`league_viego_soul` v0.2.47
 
 |  | 主包（纯数据） | 装了附加包（照英雄联盟） |
 |---|---|---|
