@@ -13,13 +13,14 @@ from League's river crab (its speed shrine, its shield that breaks into a slow):
           `tft_scuttlecrab:greenbuff`). --plain: Speed Shrine's cast heals itself and the allies within p_r p_plain,
           off a p_cd lockout (the data reads no health).
   attack  Crab Dance (螃蟹舞, TFT's) on `Enemy` (towers too): at atk_st every enemy within a_r of it takes 100% AD.
-  skill   Speed Shrine (疾行神龛), `None` on `EnemyChampion` (q_range, only in fights): at q_st a shrine q_r wide stays
-          at its feet for q_t ticks; every q_every ticks the allied champions in it (itself too) get q_ms% move speed and
-          q_as% attack speed for q_buff_t ticks.
+  skill   Speed Shrine (疾行神龛), `None` on `EnemyWithoutTower` (q_range: waves and camps too): at q_st a shrine q_r
+          wide stays at its feet for q_t ticks, its water splashing every enemy within q_r as it rises (q_dmg + q_ap% AP
+          magic damage, q_slow% slower for q_slow_t ticks); every q_every ticks the allied champions in it (itself too)
+          get q_ms% move speed and q_as% attack speed for q_buff_t ticks.
   skill2  Shell Shield (蟹壳护盾), `None` on `EnemyChampion` (e_range): it pulls everything into the shell (e_dur ticks)
           and gets an e_sh + e_sh_ap% AP shield for e_t ticks; when the shield is spent or runs out the shell bursts:
-          every enemy within e_r takes e_dmg + e_dmg_ap% AP magic damage and is e_slow% slower for e_slow_t ticks
-          (tft.dll's passive watches the shield). --plain: the burst comes when e_t runs out.
+          every enemy within e_r takes e_dmg + e_dmg_ap% AP magic damage, is stunned e_stun ticks and e_slow% slower
+          for e_slow_t ticks (tft.dll's passive watches the shield). --plain: the burst comes when e_t runs out.
   ult     Can You Dig It? (你挖得动吗？, TFT's), `None` on `EnemyChampion` (r_range): it burrows for r_t ticks taking
           r_red% less damage, immune to crowd control, healing r_heal + r_heal_ap% AP over the burrow (r_n pulses);
           then it bursts out: every enemy within r_r takes r_dmg + r_ad% AD physical damage and is knocked up r_up ticks.
@@ -42,26 +43,33 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Units: melee range 25000 like the pack's tank supports (tft_idas, tft_meepsie, tft_loris); radii count the unit's
 # collision radius (~15000) on top. Timings are placeholders until the strips are rigged (tools/art/rig_scuttlecrab.py).
 # Stats start from tft_meepsie's (hp 1250 +118, atk 66, apw 30 +15, def 44, mr 40): the 2-cost crab, quick on its legs
-# (迅捷: ms 1000), its dance a little weaker a hit since it strikes everyone next to it.
+# (迅捷: ms 1000).
+# Numbers = the 10-min classic-SDK simulations (C:/t/sc_sim with C:/t/al_sim/kd.py: support lane 4 against the base
+# priest, monk, bard, enchanter and taoist, three lineups, both sides; 2026-11-01), --plain (the Green Buff on the shrine's
+# cast, the shell bursting when e_t runs out): the draft (no damage on Q, no stun on E, attack 58 every 90) -3.73 (+-0.44)
+# on seeds 1-8 - very tanky (10616 taken, 3968 healed) but nothing to kill with; + the shrine's splash (80 + 60%, 40%
+# slow), the shell's 0.5 s stun, shorter cooldowns -1.25 .. -0.81; the ult cast only ~5 times a game (in reach 30000):
+# r_range 50000, E every 6 s from 60000, the dance 35000 wide +0.26 / -0.25 (seeds 9-16); its attack every 80 ticks and
+# the shrine 55000 wide +0.44 (+-0.33) on seeds 1-16 = P; tft_idas --plain +1.23 / +1.20 on the same games.
 P = {
     # stats (Util, the tank supports)
-    "hp": 1200, "hp_g": 115, "atk": 58, "atk_g": 5, "apw": 30, "apw_g": 15, "def": 44, "def_g": 8, "mr": 40, "mr_g": 6,
+    "hp": 1200, "hp_g": 115, "atk": 70, "atk_g": 5, "apw": 30, "apw_g": 15, "def": 44, "def_g": 8, "mr": 40, "mr_g": 6,
     "ms": 1000, "ms_g": 10,
-    "atk_range": 25000, "atk_dur": 30, "atk_cd": 90, "atk_st": 15, "a_r": 30000,
+    "atk_range": 25000, "atk_dur": 30, "atk_cd": 80, "atk_st": 15, "a_r": 35000,
     # passive Green Buff (TFT's: allies under a health line restore a share of their maximum health)
     "p_low": 40, "p_pct": 12, "p_r": 70000, "p_cd": 600, "p_plain": 120,
     # Speed Shrine (League's crab shrine)
-    "q_cd": 600, "q_range": 60000, "q_dur": 30, "q_st": 12, "q_r": 45000, "q_t": 240, "q_every": 15, "q_buff_t": 24,
-    "q_ms": 30, "q_as": 25, "q_dmg": 0, "q_ap": 0, "q_slow": 0, "q_slow_t": 90,
+    "q_cd": 420, "q_range": 60000, "q_dur": 30, "q_st": 12, "q_r": 55000, "q_t": 240, "q_every": 15, "q_buff_t": 24,
+    "q_ms": 30, "q_as": 25, "q_dmg": 80, "q_ap": 60, "q_slow": 40, "q_slow_t": 90,
     # Shell Shield (League's crab shield: when it breaks, the crab is slowed - here the enemies round it are)
-    "e_cd": 480, "e_range": 40000, "e_dur": 36, "e_st": 8, "e_sh": 120, "e_sh_ap": 60, "e_t": 180, "e_r": 40000,
-    "e_dmg": 50, "e_dmg_ap": 40, "e_slow": 40, "e_slow_t": 90, "e_stun": 0,
+    "e_cd": 360, "e_range": 60000, "e_dur": 36, "e_st": 8, "e_sh": 120, "e_sh_ap": 60, "e_t": 120, "e_r": 40000,
+    "e_dmg": 80, "e_dmg_ap": 60, "e_slow": 40, "e_slow_t": 90, "e_stun": 30,
     # Can You Dig It? (TFT: burrow, durability, heal over the burrow)
-    "r_cd": 1800, "r_range": 30000, "r_t": 150, "r_out": 24, "r_red": 50, "r_heal": 250, "r_heal_ap": 80, "r_n": 5,
-    "r_r": 40000, "r_dmg": 120, "r_ad": 60, "r_up": 60,
+    "r_cd": 1500, "r_range": 50000, "r_t": 150, "r_out": 24, "r_red": 50, "r_heal": 250, "r_heal_ap": 80, "r_n": 5,
+    "r_r": 50000, "r_dmg": 160, "r_ad": 60, "r_up": 90,
 }
 # what tft.dll reads from passive.params (addons/tft/src/scuttlecrab.rs)
-NATIVE_KEYS = ("p_low", "p_pct", "p_r", "p_cd", "e_t", "e_r", "e_dmg", "e_dmg_ap", "e_slow", "e_slow_t")
+NATIVE_KEYS = ("p_low", "p_pct", "p_r", "p_cd", "e_t", "e_r", "e_dmg", "e_dmg_ap", "e_slow", "e_slow_t", "e_stun")
 # names scuttlecrab.rs uses that need no view: sounds (the Green Buff's heal, the shell bursting, the death)
 NATIVE_ONLY = {"p", "e_break", "d"}
 

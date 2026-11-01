@@ -7,8 +7,8 @@
 //!   且他自己的冷却已过，谁就回最大生命的 `p_pct`%，亮一下 `tft_scuttlecrab_p_heal`，播 `tft_scuttlecrab_p`；之后这个人
 //!   `p_cd` 拍内不再有。数据读不到生命。
 //! - **蟹壳护盾碎裂**：数据在 E 出手时给它护盾和 `e_t` 拍的标记 `tft_scuttlecrab_e_shell`；本被动每拍看：护盾打光了、
-//!   或者标记到时间了，蟹壳就碎：`e_r` 以内每个敌人（不算塔）受 `e_dmg` + `e_dmg_ap`% 法强的魔法伤害、`e_slow_t` 拍里
-//!   慢 `e_slow`%（挂 `tft_scuttlecrab_e_slow`），它身上亮 `tft_scuttlecrab_e_burst`，播 `tft_scuttlecrab_e_break`。
+//!   或者标记到时间了，蟹壳就碎：`e_r` 以内每个敌人（不算塔）受 `e_dmg` + `e_dmg_ap`% 法强的魔法伤害、眩晕 `e_stun` 拍、
+//!   `e_slow_t` 拍里慢 `e_slow`%（挂 `tft_scuttlecrab_e_slow`），它身上亮 `tft_scuttlecrab_e_burst`，播 `tft_scuttlecrab_e_break`。
 //!   数据读不到护盾。
 //! - **死亡**：倒下时播 `tft_scuttlecrab_d`（数据没有死亡的时机）。
 //!
@@ -102,13 +102,14 @@ pub struct Params {
     pub p_pct: usize,
     pub p_r: u64,
     pub p_cd: usize,
-    /// 蟹壳护盾：标记 e_t 拍；碎时 e_r 以内的敌人受 e_dmg + e_dmg_ap% 法强、e_slow_t 拍里慢 e_slow%。
+    /// 蟹壳护盾：标记 e_t 拍；碎时 e_r 以内的敌人受 e_dmg + e_dmg_ap% 法强、眩晕 e_stun 拍、e_slow_t 拍里慢 e_slow%。
     pub e_t: usize,
     pub e_r: u64,
     pub e_dmg: usize,
     pub e_dmg_ap: usize,
     pub e_slow: usize,
     pub e_slow_t: usize,
+    pub e_stun: usize,
 }
 
 impl Default for Params {
@@ -118,12 +119,13 @@ impl Default for Params {
             p_pct: 12,
             p_r: 70000,
             p_cd: 600,
-            e_t: 180,
+            e_t: 120,
             e_r: 40000,
-            e_dmg: 50,
-            e_dmg_ap: 40,
+            e_dmg: 80,
+            e_dmg_ap: 60,
             e_slow: 40,
             e_slow_t: 90,
+            e_stun: 30,
         }
     }
 }
@@ -147,6 +149,7 @@ pub fn parse_params(json: &str) -> Params {
             "e_dmg_ap" => p.e_dmg_ap = u,
             "e_slow" => p.e_slow = u.min(100),
             "e_slow_t" => p.e_slow_t = u,
+            "e_stun" => p.e_stun = u,
             _ => {}
         }
     }
@@ -261,6 +264,9 @@ impl GreenBuff {
             sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
             if sim.get_entity(id).is_some_and(|e| e.is_alive()) {
                 put(sim, id, &slow);
+                if p.e_stun > 0 {
+                    sim.apply_cc(id, &CcV1::of_kind(CcKindV1::Stun, p.e_stun as u64));
+                }
             }
         }
         sim.entity_remove_buff(me, &sc("e_shell"));
@@ -342,7 +348,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"p_low":40,"p_pct":12,"p_r":70000,"p_cd":600,"e_t":180,"e_r":40000,"e_dmg":50,"e_dmg_ap":40,"e_slow":40,"e_slow_t":90}"#;
+        let json = r#"{"p_low":40,"p_pct":12,"p_r":70000,"p_cd":600,"e_t":120,"e_r":40000,"e_dmg":80,"e_dmg_ap":60,"e_slow":40,"e_slow_t":90,"e_stun":30}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
