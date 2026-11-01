@@ -1,0 +1,23 @@
+{
+  "status": "PASS for exported-file checks",
+  "poses": 18,
+  "effects": 15,
+  "icons": 3,
+  "checks": [
+    "all raw PNGs match original generated-file hashes",
+    "18 unresampled pose RGB/alpha readbacks",
+    "1254x1254 pose canvases and ground line y=1176",
+    "RGBA and hard alpha",
+    "all 15 effects match requested frame and cell sizes",
+    "all effect frames nonempty and distinct",
+    "per-frame exact symmetry",
+    "8x sheets exactly reproduce 1x pixels",
+    "reserved actor regions transparent",
+    "three 64x64 icons on 2px grid"
+  ],
+  "limits": [
+    "Pose grid is generative and NOT certified as a strict 7px grid.",
+    "Pose head/body size consistency and exact square-for-square model identity are not certified.",
+    "No game import, runtime binding or engine animation timing has been tested."
+  ]
+}

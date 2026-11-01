@@ -217,6 +217,13 @@
         "skill": "在脚下放下神龛（<#ffb900ff>4秒<>），水花使周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并减速<#ef5350ff>40%<>；神龛里的友方英雄移速<#ffb900ff>+30%<>、攻速<#ffb900ff>+25%<>。",
         "skill2": "缩进壳里，获得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>护盾（<#ffb900ff>2秒<>）。护盾打光或到时间时蟹壳碎裂：周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>、<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>并减速<#ef5350ff>40%<>。",
         "ult": "钻入地下<#ffb900ff>2.5秒<>：受到的伤害降低<#ffb900ff>50%<>、免疫控制，持续回复<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>生命；然后钻出地面，周围敌人受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<><#ffb900ff>1.5秒<>。"
+      },
+      "tft_gromp": {
+        "name": "魔沼蛙",
+        "attack": "吐出毒口水，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。<#ff9028ff>紫霸符<>：战斗中每<#ffb900ff>4秒<>法术加成<#ffb900ff>+8<>，最多<#ffb900ff>8层<>。",
+        "skill": "打出一个毒泡泡，碰到第一个敌人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并炸开，周围敌人<#ffb900ff>3秒<>内受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>。",
+        "skill2": "往敌人脚下吐一滩黏液，持续<#ffb900ff>4秒<>，站在里面的敌人减速<#ffb900ff>55%<>，每秒受到<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法伤害<>。",
+        "ult": "肚子鼓起变大<#ffb900ff>5秒<>（受到伤害<#ffb900ff>-20%<>），向前打出大嗝，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>35%<>，毒雾留在地上<#ffb900ff>4秒<>，每秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<><#a974ffff>魔法伤害<>。"
       }
     },
     "skill_name": {
@@ -374,6 +381,11 @@
         "skill1": "疾行神龛",
         "skill2": "蟹壳护盾",
         "ult": "你挖得动吗？"
+      },
+      "tft_gromp": {
+        "skill1": "打嗝泡泡",
+        "skill2": "黏液沼泽",
+        "ult": "毒沼大嗝"
       }
     }
   },
@@ -595,6 +607,13 @@
         "skill": "在腳下放下神龕（<#ffb900ff>4秒<>），水花使周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並緩速<#ef5350ff>40%<>；神龕裡的友方英雄移速<#ffb900ff>+30%<>、攻速<#ffb900ff>+25%<>。",
         "skill2": "縮進殼裡，獲得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>護盾（<#ffb900ff>2秒<>）。護盾被打破或時間到時蟹殼碎裂：周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>、<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>並緩速<#ef5350ff>40%<>。",
         "ult": "鑽入地下<#ffb900ff>2.5秒<>：受到的傷害降低<#ffb900ff>50%<>、免疫控場，持續回復<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>生命；接著鑽出地面，周圍敵軍受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<><#ffb900ff>1.5秒<>。"
+      },
+      "tft_gromp": {
+        "name": "啾吉",
+        "attack": "吐出毒口水，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。<#ff9028ff>紫色增益<>：戰鬥中每<#ffb900ff>4秒<>魔攻<#ffb900ff>+8<>，最多<#ffb900ff>8層<>。",
+        "skill": "吐出飽嗝泡泡，碰到第一個敵軍造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並炸開，周圍敵軍<#ffb900ff>3秒<>內受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>。",
+        "skill2": "往敵軍腳下吐一灘黏液，持續<#ffb900ff>4秒<>，站在裡面的敵軍緩速<#ffb900ff>55%<>，每秒受到<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法傷害<>。",
+        "ult": "肚子鼓起變大<#ffb900ff>5秒<>（受到傷害<#ffb900ff>-20%<>），向前打出大嗝，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>35%<>，毒霧留在地上<#ffb900ff>4秒<>，每秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<><#a974ffff>魔法傷害<>。"
       }
     },
     "skill_name": {
@@ -752,6 +771,11 @@
         "skill1": "疾行神龕",
         "skill2": "蟹殼護盾",
         "ult": "你挖得動嗎？"
+      },
+      "tft_gromp": {
+        "skill1": "飽嗝泡泡",
+        "skill2": "黏液沼澤",
+        "ult": "毒沼大嗝"
       }
     }
   },
@@ -973,6 +997,13 @@
         "skill": "Raises a speed shrine at its feet for <#ffb900ff>4s<>: its splash deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> to enemies around and slows them <#ef5350ff>40%<>; allied champions in it gain <#ffb900ff>30%<> move speed and <#ffb900ff>25%<> attack speed.",
         "skill2": "Pulls into its shell for a <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> shield (<#ffb900ff>2s<>). When the shield breaks or runs out, the shell bursts: enemies around take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, are <#ef5350ff>stunned<> <#ffb900ff>0.5s<> and slowed <#ef5350ff>40%<>.",
         "ult": "Burrows for <#ffb900ff>2.5s<>, taking <#ffb900ff>50%<> less damage, immune to crowd control and healing <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>; then bursts out: enemies around take <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<> <#ffb900ff>1.5s<>."
+      },
+      "tft_gromp": {
+        "name": "Gromp",
+        "attack": "Spits for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>. <#ff9028ff>Purple Buff<>: in a fight it gains <#ffb900ff>+8<> Ability Power every <#ffb900ff>4s<>, up to <#ffb900ff>8<> stacks.",
+        "skill": "Belches a bubble that bursts on the first enemy hit for <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>; enemies around it take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> over <#ffb900ff>3s<>.",
+        "skill2": "Spits a pool of slime under an enemy for <#ffb900ff>4s<>: enemies in it are slowed by <#ffb900ff>55%<> and take <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>magic damage<> per second.",
+        "ult": "Swells up for <#ffb900ff>5s<> (<#ffb900ff>20%<> less damage taken) and belches a cone of poison for <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, slowing by <#ffb900ff>35%<>; the fog lingers <#ffb900ff>4s<>, dealing <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<> <#a974ffff>magic damage<> per second."
       }
     },
     "skill_name": {
@@ -1130,6 +1161,11 @@
         "skill1": "Speed Shrine",
         "skill2": "Shell Shield",
         "ult": "Can You Dig It?"
+      },
+      "tft_gromp": {
+        "skill1": "Belchy Bubble",
+        "skill2": "Slime Swamp",
+        "ult": "Swamp Belch"
       }
     }
   },
@@ -1351,6 +1387,13 @@
         "skill": "발밑에 신속의 성소를 세워(<#ffb900ff>4초<>) 물보라로 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, <#ef5350ff>40%<> 둔화. 성소 안의 아군 챔피언은 이동 속도 <#ffb900ff>+30%<>, 공격 속도 <#ffb900ff>+25%<>.",
         "skill2": "껍데기 속에 숨어 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 보호막(<#ffb900ff>2초<>). 보호막이 깨지거나 끝나면 껍데기가 터져 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, <#ef5350ff>기절<> <#ffb900ff>0.5초<>, <#ef5350ff>40%<> 둔화.",
         "ult": "땅속으로 <#ffb900ff>2.5초<> 파고들어 받는 피해 <#ffb900ff>50%<> 감소, 군중 제어 면역, <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 회복. 이후 튀어나와 주변 적에게 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, <#ef5350ff>에어본<> <#ffb900ff>1.5초<>."
+      },
+      "tft_gromp": {
+        "name": "심술두꺼비",
+        "attack": "독침을 뱉어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>마법 피해<>. <#ff9028ff>퍼플 버프<>: 전투 중 <#ffb900ff>4초<>마다 주문력 <#ffb900ff>+8<>, 최대 <#ffb900ff>8중첩<>.",
+        "skill": "독 방울을 뱉어 처음 맞은 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>를 주고 터지며, 주변 적은 <#ffb900ff>3초<> 동안 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>.",
+        "skill2": "적의 발밑에 점액을 뱉어 <#ffb900ff>4초<> 동안 남깁니다. 안의 적은 <#ffb900ff>55%<> 둔화되고 초당 <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>마법 피해<>.",
+        "ult": "<#ffb900ff>5초<> 동안 몸이 부풀어(받는 피해 <#ffb900ff>-20%<>) 앞으로 독 트림을 뿜어 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>와 <#ffb900ff>35%<> 둔화. 독안개가 <#ffb900ff>4초<> 동안 남아 초당 <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<> <#a974ffff>마법 피해<>."
       }
     },
     "skill_name": {
@@ -1508,6 +1551,11 @@
         "skill1": "신속의 성소",
         "skill2": "껍데기 보호막",
         "ult": "팔 수 있겠어?"
+      },
+      "tft_gromp": {
+        "skill1": "꿀꺽 방울",
+        "skill2": "점액 늪",
+        "ult": "독늪 트림"
       }
     }
   },
@@ -1729,6 +1777,13 @@
         "skill": "足元に祠を置き（<#ffb900ff>4秒<>）、水しぶきで周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%<>スロウ。祠の中の味方チャンピオンは移動速度<#ffb900ff>+30%<>、攻撃速度<#ffb900ff>+25%<>。",
         "skill2": "甲羅にこもり<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>のシールド（<#ffb900ff>2秒<>）。シールドが割れるか切れると甲羅が弾け、周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>スタン<><#ffb900ff>0.5秒<>、<#ef5350ff>40%<>スロウ。",
         "ult": "<#ffb900ff>2.5秒<>地中に潜り、受けるダメージ<#ffb900ff>-50%<>、行動妨害無効、<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>回復。その後飛び出し、周囲の敵に<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>ノックアップ<><#ffb900ff>1.5秒<>。"
+      },
+      "tft_gromp": {
+        "name": "グロンプ",
+        "attack": "毒液を吐き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>パープルバフ<>：戦闘中<#ffb900ff>4秒<>ごとに魔力<#ffb900ff>+8<>、最大<#ffb900ff>8スタック<>。",
+        "skill": "毒の泡を吐き、最初に当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>を与えて弾け、周囲の敵に<#ffb900ff>3秒<>かけて<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill2": "敵の足元に粘液を吐き<#ffb900ff>4秒<>残す。中の敵は<#ffb900ff>55%<>スロウ、毎秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>の<#a974ffff>魔法ダメージ<>。",
+        "ult": "<#ffb900ff>5秒<>間膨らみ（被ダメージ<#ffb900ff>-20%<>）、前方に毒のげっぷを放ち<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>35%<>スロウ。毒霧が<#ffb900ff>4秒<>残り、毎秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<>の<#a974ffff>魔法ダメージ<>。"
       }
     },
     "skill_name": {
@@ -1886,6 +1941,11 @@
         "skill1": "疾走の祠",
         "skill2": "甲羅の盾",
         "ult": "掘り起こせるか？"
+      },
+      "tft_gromp": {
+        "skill1": "ベルチーバブル",
+        "skill2": "粘液の沼",
+        "ult": "毒沼のげっぷ"
       }
     }
   }
