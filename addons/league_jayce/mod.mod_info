@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Jayce as in League (needs League of Legends Heroes): replaces the main pack's Jayce so in Mercury Cannon form his whole body is the cannon (standing, running and hit too, game 0.6.4), Thundering Blow knocks champions back toward his own side (his allies, else his tower) instead of straight away from him, and the Acceleration Gate shot goes for a champion it can kill, else the lowest, else the farthest one in reach. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-15",
+  "last_updated": "2026-11-02",
   "mod_id": "league_jayce",
   "mod_type": "native",
   "name": "League Heroes: Jayce's whole-body cannon, Thundering Blow toward his side and the smart gate shot (test)",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

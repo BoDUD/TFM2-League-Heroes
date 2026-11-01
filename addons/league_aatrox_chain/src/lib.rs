@@ -35,6 +35,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_aatrox_chain";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_aatrox_chain") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 本包：被锁住的人身上的标记，名字后面带 `:<圈心x>:<圈心y>:<剑魔>:<到点tick>`。
 pub const ON: &str = "league_aatrox_chain_on";
@@ -550,8 +556,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (League's Infernal Chains; pictures and hits in data) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (League's Infernal Chains; pictures and hits in data) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

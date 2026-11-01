@@ -25,7 +25,12 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_kled";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_kled") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// Mounted: the copy's mount and remount raise it, this add-on takes it off when Skaarl's health is gone.
 const SK: &str = "league_kled_sk";
 /// On foot (the data's controller raises it once `sk` is gone; the remount takes it off).

@@ -55,7 +55,7 @@
 
 ### 奥瑞利安·索尔附加包
 
-[奥瑞利安·索尔附加包](../../addons/league_aurelionsol/README.md)：`league_aurelionsol` v0.2.0
+[奥瑞利安·索尔附加包](../../addons/league_aurelionsol/README.md)：`league_aurelionsol` v0.2.1
 
 | 技能 | 主包（纯数据） | 附加包 |
 |---|---|---|

@@ -473,7 +473,7 @@ fn chronoshift_rewinds_lethal_damage_and_leaves_soraka_and_kayle_alone() {
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert!(text.starts_with("=== league_zilean_rewind v2"), "{text}");
+        assert!(text.starts_with("=== league_zilean_rewind v0.2.0"), "{text}");
         for line in [
             "RUNE from #0 league_zilean",
             "REWIND: lethal damage caught at 1 hp, banished",

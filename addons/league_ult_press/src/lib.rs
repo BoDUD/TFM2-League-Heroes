@@ -71,7 +71,9 @@
 //! ORDER = 按了；CAST = 冷却真的开始走（按下去了，莎弥拉记下当时的评价）；FIRED = 莎弥拉的真大招放出（主包的
 //! `league_samira_r_on`）；TELEPORT = 崔斯特按下之后一 tick 内移动了 `TF_JUMP` 以上；STYLE = 莎弥拉这一局到过的最高评价；
 //! R ARMED = 备好式大招用掉了（kept）、退还了（refunded），或者等着的时候阵亡了、判断不了（died while armed）。
-//! ORDER 行开头也写是哪一场（`[presim m=.. s=..]`，不写 seed）。
+//! ORDER 行开头也写是哪一场（`[presim m=.. s=..]`，不写 seed）。每种行整个游戏一个计数：你看的那场（画面、观战、回放）
+//! 每条都记，服务器的预模拟先记 `LOG_FIRST` 条、之后每 `LOG_EVERY` 条记一条（0.5.8：以前你看的那场也一样限，
+//! 2026-11-01 一晚看的 6 场只留下 21 行）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -82,8 +84,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_ult_press";
-/// The add-on's own version (mod.mod_info): inside league_addons CARGO_PKG_VERSION is the bundle's.
-const VERSION: &str = "0.5.7";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_ult_press") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 pub const SAMIRA: &str = "league_samira";
 pub const TF: &str = "league_twistedfate";
@@ -552,17 +558,24 @@ fn wlog(msg: impl AsRef<str>) {
     }
 }
 
-/// 日志条数：每种最多先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条。
+/// 日志条数：每种整个游戏先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条；`shown`（你看的那场）每条都写。
 const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 50;
 
 static COUNTS: LazyLock<Mutex<HashMap<String, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-fn counted(kind: String) -> Option<usize> {
+fn counted(kind: String, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 /// Which sim: `presim m=841 s=-` (the server's presim of match 841), `view m=750 s=1` (set 1 of 750 on screen), ...
@@ -1530,7 +1543,7 @@ impl UltPress {
             // would read as a teleport. Those watches end here, unread - they only log, no press reads them
             if !unbroken(self.last_mid, self.last_tick, mid, tick) {
                 if let Some(t0) = self.armed_at.take() {
-                    if let Some(k) = counted(format!("{name} arm unread")) {
+                    if let Some(k) = counted(format!("{name} arm unread"), on_screen(&sim)) {
                         let why = match self.last_mid {
                             Some(was) if was != mid => "died while armed".to_string(),
                             _ => format!("no think for {} ticks", tick.saturating_sub(self.last_tick)),
@@ -1546,7 +1559,7 @@ impl UltPress {
             if grade > self.best_grade {
                 self.best_grade = grade;
                 if grade >= 4 {
-                    if let Some(k) = counted(format!("{name} style {grade}")) {
+                    if let Some(k) = counted(format!("{name} style {grade}"), on_screen(&sim)) {
                         wlog(format!("{} STYLE {} reached #{k}", head(&sim, mid), grade_name(grade)));
                     }
                 }
@@ -1562,7 +1575,7 @@ impl UltPress {
                             None => "by the AI itself".to_string(),
                         };
                         let style = if name == SAMIRA { format!(" [style {}]", grade_name(grade)) } else { String::new() };
-                        if let Some(k) = counted(format!("{name} {} cast", ps.key)) {
+                        if let Some(k) = counted(format!("{name} {} cast", ps.key), on_screen(&sim)) {
                             wlog(format!("{} {} CAST {why}{style} #{k}", head(&sim, mid), ps.key));
                         }
                         if ps.slot == SkillSlotV1::Ult {
@@ -1582,7 +1595,7 @@ impl UltPress {
                         let refunded = prev > c + 10;
                         if refunded || tick > t0 + ARM_WATCH {
                             let what = if refunded { "refunded (not used)" } else { "kept (used)" };
-                            if let Some(k) = counted(format!("{name} arm {what}")) {
+                            if let Some(k) = counted(format!("{name} arm {what}"), on_screen(&sim)) {
                                 wlog(format!("{} R ARMED {} ticks before: {what} #{k}", head(&sim, mid), tick - t0));
                             }
                             self.armed_at = None;
@@ -1598,13 +1611,13 @@ impl UltPress {
                     self.cast_at = None;
                 } else if name == SAMIRA {
                     if has_buff(&me, SAMIRA_R_ON) && !self.r_on {
-                        if let Some(k) = counted(format!("{name} fired")) {
+                        if let Some(k) = counted(format!("{name} fired"), on_screen(&sim)) {
                             wlog(format!("{} R FIRED (S grade) {} ticks after the press #{k}", head(&sim, mid), tick - t0));
                         }
                     }
                 } else if name == TF {
                     if let Some(p) = self.last_pos.filter(|p| dist(*p, my_at) >= TF_JUMP) {
-                        if let Some(k) = counted(format!("{name} teleport")) {
+                        if let Some(k) = counted(format!("{name} teleport"), on_screen(&sim)) {
                             wlog(format!("{} R TELEPORT {:.0} {} ticks after the press #{k}", head(&sim, mid), dist(p, my_at), tick - t0));
                         }
                         self.cast_at = None;
@@ -1883,9 +1896,9 @@ impl UltPress {
         }
         // one ORDER line a burst (the engine may take a few ticks; the hook presses again every tick meanwhile)
         if self.last_order.is_none_or(|(k0, t0)| k0 != key || tick > t0 + ORDER_FRESH) {
-            if let Some(k) = counted(format!("player {player} {key} order")) {
-                // which sim, like every other line (the seed left out: these lines are many)
-                let which = ctx.sim().map_or_else(String::new, |s| format!("[{}] ", run(&s)));
+            // which sim, like every other line (the seed left out: these lines are many); the match on screen: every one
+            let (which, shown) = ctx.sim().map_or((String::new(), false), |s| (format!("[{}] ", run(&s)), on_screen(&s)));
+            if let Some(k) = counted(format!("player {player} {key} order"), shown) {
                 wlog(format!("{which}t={tick} player {player} {name} {key} ORDER: {why} #{k}"));
             }
         }

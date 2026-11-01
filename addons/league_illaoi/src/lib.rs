@@ -36,6 +36,12 @@ mod maps;
 pub mod souls;
 
 const ID: &str = "league_illaoi";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_illaoi") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 const HERO: &str = "league_illaoi";
 /// 触手画面的三段（tools/art/rig_illaoi.py TENT_PARTS）：冒出来、一次摆动、沉下去，tick。
 pub const RISE_T: usize = 13;
@@ -864,8 +870,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Illaoi: tentacles on the walls, the spirit's echo and leash, tentacles after the marked) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Illaoi: tentacles on the walls, the spirit's echo and leash, tentacles after the marked) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

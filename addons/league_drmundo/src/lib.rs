@@ -35,8 +35,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_drmundo";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.6";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_drmundo") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 const HERO: &str = "league_drmundo";
 
 // ===================== 数值 =====================
@@ -678,8 +682,22 @@ impl StablePassive for Pleases {
 
 // ===================== AI 钩子：R 的时机、去捡药罐 =====================
 
+/// R 的行一串只记一行：时机到了钩子每 tick 都替 AI 按 R（`R PRESSED`），直到引擎接下施放；AI 留着 R 时每 tick 都要放
+/// （`R HELD`）。同一类离上一次不到这么多 tick 就算同一串（league_ult_press 的 `ORDER_FRESH`；0.1.7：以前每 tick 一行，
+/// 一次 R 记了 `R PRESSED #8..#30`）。
+pub const ORDER_FRESH: usize = 30;
+
+/// A line at `tick` starts a burst: none of its kind in the `ORDER_FRESH` ticks before (`last`: that kind's last tick;
+/// a tick before it is another match).
+pub fn new_burst(last: Option<usize>, tick: usize) -> bool {
+    last.is_none_or(|t0| tick < t0 || tick > t0 + ORDER_FRESH)
+}
+
 #[derive(Clone, Default)]
-struct Ai;
+struct Ai {
+    /// each R line's (`pressed`, `dose_ok`, `held`) last tick: one line a burst
+    r_lines: Vec<(&'static str, usize)>,
+}
 
 enum Plan {
     Keep,
@@ -688,7 +706,15 @@ enum Plan {
 }
 
 impl Ai {
-    fn plan(&self, sim: &StableSim<'_>, me: usize, kind: Option<InputKindV1>, current: Option<usize>) -> Option<Plan> {
+    /// One more R line of `kind` at `tick`: true when it starts a burst (`new_burst`), the line to be written.
+    fn burst(&mut self, kind: &'static str, tick: usize) -> bool {
+        let last = self.r_lines.iter().find(|(k, _)| *k == kind).map(|&(_, t)| t);
+        self.r_lines.retain(|(k, _)| *k != kind);
+        self.r_lines.push((kind, tick));
+        new_burst(last, tick)
+    }
+
+    fn plan(&mut self, sim: &StableSim<'_>, me: usize, kind: Option<InputKindV1>, current: Option<usize>) -> Option<Plan> {
         let e = sim.get_entity(me)?;
         let team = e.team();
         let (hp, max) = e.hp();
@@ -717,8 +743,10 @@ impl Ai {
                 with_state(key, |s| s.walking = false);
                 let what = format!("({why}: {}% hp, {lost}% lost in 1 s, {near} enemy champions near)", pct(hp, max));
                 if ult {
-                    if let Some(n) = counted("dose_ok") {
-                        wlog(format!("{} R GO #{n} {what}", head(sim, me)));
+                    if self.burst("dose_ok", now) {
+                        if let Some(n) = counted("dose_ok") {
+                            wlog(format!("{} R GO #{n} {what}", head(sim, me)));
+                        }
                     }
                     return Some(Plan::Keep);
                 }
@@ -820,8 +848,11 @@ impl StablePlayerAi for Ai {
                     return None;
                 }
                 if let Some((kind, why)) = why {
-                    if let Some(k) = counted(kind) {
-                        wlog(format!("{line} {why} #{k}"));
+                    // the R lines one a burst (pressed again every tick until the engine takes it); TANK is one a walk
+                    if kind == "tank" || self.burst(kind, ctx.tick()) {
+                        if let Some(k) = counted(kind) {
+                            wlog(format!("{line} {why} #{k}"));
+                        }
                     }
                 }
                 Some(input)
@@ -862,7 +893,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:zap"), Zap);
     module.add_native_effect(format!("{ID}:zap_end"), ZapEnd);
     module.add_native_effect(format!("{ID}:dose"), Dose);
-    module.add_player_input_ai(Ai);
+    module.add_player_input_ai(Ai::default());
     host.log(LogLevel::Info, "league_drmundo loaded (passive CC block, health-scaled Q/E/W/R).");
 }
 
@@ -985,5 +1016,18 @@ mod tests {
         for x in ["p_cd", "p_drop_n", "can", "w_full", "w_half", "e_bonus_ad"] {
             assert!(md(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    #[test]
+    fn a_burst_of_r_lines_is_one_line() {
+        let mut ai = Ai::default();
+        // R pressed every tick until the engine takes it: one line
+        assert!(ai.burst("pressed", 5000));
+        assert!((5001..5023).all(|t| !ai.burst("pressed", t)));
+        // the other kinds apart; the next cast, or another match, a new burst
+        assert!(ai.burst("held", 5010));
+        assert!(ai.burst("pressed", 5023 + ORDER_FRESH));
+        assert!(ai.burst("pressed", 100));
+        assert!(new_burst(None, 0) && !new_burst(Some(10), 10 + ORDER_FRESH) && new_burst(Some(10), 11 + ORDER_FRESH));
     }
 }

@@ -44,8 +44,12 @@ pub mod lifts;
 pub mod view;
 
 const ID: &str = "league_yuumi";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.1";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_yuumi") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 const HERO: &str = "league_yuumi";
 /// 她身上的附身 buff（view.rs 照它把她的动作换成空白的 a_*）。
 pub const RIDING: &str = "league_yuumi_w_on";
@@ -321,13 +325,14 @@ pub enum Why {
     Idle,
     /// He is fine and someone near, in a fight, is about to die.
     Rescue,
-    /// He is no carry and a carry fights as many as he does.
+    /// He is no carry, he is fine and a carry fights as many as he does.
     Carry,
 }
 
 /// Who to hop to from `host` among `near` (the allies within SWITCH_R of him), League's Yuumi's way: she goes where the
 /// fight is (the most enemy champions round him, then the lowest health, then a carry), saves the one about to die,
-/// rides the carry. None: she stays.
+/// rides the carry (a hurt rider in a fight keeps her: 2026-11-02 logs, she left a Rumble at 30% for a Sivir at 96%
+/// and came back to rescue him 2550 ticks later). None: she stays.
 pub fn switch_pick(host: Mate, near: &[Mate]) -> Option<(Mate, Why)> {
     let need = |m: &&Mate| (m.foes, std::cmp::Reverse(m.hp), m.carry);
     if host.foes == 0 {
@@ -338,7 +343,7 @@ pub fn switch_pick(host: Mate, near: &[Mate]) -> Option<(Mate, Why)> {
             return Some((*m, Why::Rescue));
         }
     }
-    if !host.carry {
+    if !host.carry && host.hp > HOST_OK {
         return near.iter().filter(|m| m.carry && m.foes >= host.foes).max_by_key(need).map(|m| (*m, Why::Carry));
     }
     None
@@ -1100,6 +1105,7 @@ mod tests {
         let tank = m(1, 1, 80, false);
         assert_eq!(switch_pick(tank, &[m(4, 1, 70, true)]), Some((m(4, 1, 70, true), Why::Carry)));
         assert_eq!(switch_pick(tank, &[m(4, 0, 70, true)]), None);
+        assert_eq!(switch_pick(m(1, 1, 30, false), &[m(4, 1, 96, true)]), None, "a hurt rider in a fight keeps her");
         assert_eq!(switch_pick(fine, &[m(4, 3, 70, true)]), None, "a carry's rider stays");
         // the pace: a hop waits for MIN_RIDE on him and SWITCH_CD after the last one, W's reach is the copy's
         assert!(MIN_RIDE < SWITCH_CD && SWITCH_EVERY < MIN_RIDE);

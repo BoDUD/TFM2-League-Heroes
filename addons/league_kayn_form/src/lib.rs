@@ -31,6 +31,12 @@ mod view;
 mod wall;
 
 const ID: &str = "league_kayn_form";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_kayn_form") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 主包（本包的副本）在凯隐打中的英雄身上挂的标记，每次命中一层，30 tick。
 pub const TAG: &str = "league_kayn_tag";
@@ -406,7 +412,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v0.3 (melee hits charge the Darkin, ranged the Shadow Assassin; the form stays; the whole body transforms) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (melee hits charge the Darkin, ranged the Shadow Assassin; the form stays; the whole body transforms) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

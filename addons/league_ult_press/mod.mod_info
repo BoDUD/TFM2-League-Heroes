@@ -12,9 +12,9 @@
     }
   ],
   "description": "Slots pressed for game 0.6.4's AI (needs League of Legends Heroes). The 0.6.4 AI almost never presses some of the pack's slots, so this add-on presses them at the right moment and the main pack's data does the rest: Samira's R (and E / Q at champions to climb her Style to S), Twisted Fate's R when he is alone and an ally far away is fighting, Kog'Maw's R at the lowest-health champion it may hit, Camille's E in range; Zed's W when his Q is ready, Gwen's, Viego's E and Katarina's W to dash in (at 40% health or more, not under a tower, not outnumbered, the lowest-health target first), Katarina's R on two champions or a low one, Fiddlesticks' R on a crowd, Xerath's and Jhin's R from safety on low or fought champions, Syndra's R on a low, held or crowded target, Janna's R when someone near her is about to fall, Sona's W when someone is hurt, Orianna's and Zilean's E in a fight, Sivir's spell shield when an enemy champion near her just cast, Kalista's rend when her spears are enough, the armed R of Kayle, Karma, Evelynn, Orianna, Ryze and Aphelios when an enemy champion is near, and Vladimir's R on a low target or two in its cloud. Nothing of the main pack is replaced. Writes a log for testing. Also, when the AI holds any League champion next to an enemy champion without attacking (standing still, or walking along with him), it attacks him for them - melee within 35000, ranged only within their own attack range; only at half health or more, away from his tower and not outnumbered, and never while casting or moved by force.",
-  "last_updated": "2026-10-25",
+  "last_updated": "2026-11-02",
   "mod_id": "league_ult_press",
   "mod_type": "native",
   "name": "League Heroes: skills the AI hardly presses, pressed for it; holds broken for every champion",
-  "version": "0.5.7"
+  "version": "0.5.8"
 }

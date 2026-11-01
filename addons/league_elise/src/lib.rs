@@ -14,7 +14,8 @@
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_elise.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `FORM`（显示里变蜘蛛 / 变人、模拟里蜘蛛形态 buff 上下）、`COCOON` / `RAPPEL` / `HUNT`（挑了谁、为什么），都限了条数。
+//! `FORM`（显示里变蜘蛛 / 变人、模拟里蜘蛛形态 buff 上下）、`COCOON` / `RAPPEL` / `HUNT`（挑了谁、为什么）：服务器的预模拟
+//! 限了条数（整个游戏一个计数），你看的那场每条都记。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -27,9 +28,13 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_elise";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_elise") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 const HERO: &str = "league_elise";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.1";
 /// 蜘蛛形态（主包数据的永久 buff）。
 pub const FORM: &str = "league_elise_sp";
 /// 结茧、盘丝的冷却标记（主包数据的施法者 buff）。
@@ -73,17 +78,32 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
-/// 日志条数：每种最多先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条。
+/// 日志条数：每种整个游戏先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条；你看的那场每条都写（0.1.2：以前一起限，
+/// 预模拟先把条数用完，2026-11-01 一晚看的几场只留下 3 行）。
 const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 50;
 
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Like `noted`, but every line of the match on screen: only the presims capped.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -311,7 +331,7 @@ impl StablePassive for Queen {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize) {
         self.spider = None;
-        if let Some(k) = counted("spawn") {
+        if let Some(k) = tally(sim, "spawn") {
             wlog(format!("{} SPAWN {} (the add-on's Elise) #{k}", head(sim, entity), who(sim, entity)));
         }
     }
@@ -319,7 +339,7 @@ impl StablePassive for Queen {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
         let sp = has_buff(sim, me, FORM);
         if self.spider.is_some_and(|was| was != sp) {
-            if let Some(k) = counted("form_sim") {
+            if let Some(k) = tally(sim, "form_sim") {
                 let alive = sim.get_entity(me).is_some_and(|e| e.is_alive());
                 wlog(format!("{} FORM sim: {}{} #{k}", head(sim, me), if sp { "SPIDER on" } else { "spider off (human)" },
                     if alive { "" } else { ", dead" }));
@@ -362,7 +382,7 @@ impl StablePlayerAi for AimAi {
         let current = b.target.target_id;
         let player = ctx.player_id();
         let p = shared();
-        let (pick, line) = {
+        let (pick, line, shown) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
             if !me.is_alive() {
@@ -402,22 +422,22 @@ impl StablePlayerAi for AimAi {
             };
             let line = format!("{} {tag} {} -> {} ({why}; {:.0} away)", head(&sim, mid), who(&sim, current), who(&sim, u.id),
                                dist(at, u.at));
-            (u, line)
+            (u, line, on_screen(&sim))
         };
         if pick.id == current {
-            if let Some(k) = counted("aim") {
+            if let Some(k) = noted("aim", shown) {
                 wlog(format!("{line} kept #{k}"));
             }
             return None;
         }
         let input = InputV1::action(kind, InputTargetV1::target(pick.id));
         if !ctx.is_valid_input(&input) {
-            if let Some(k) = counted("aim") {
+            if let Some(k) = noted("aim", shown) {
                 wlog(format!("{line} refused by the game, the AI's target kept #{k}"));
             }
             return None;
         }
-        if let Some(k) = counted("aim") {
+        if let Some(k) = noted("aim", shown) {
             wlog(format!("{line} AIM #{k}"));
         }
         Some(input)

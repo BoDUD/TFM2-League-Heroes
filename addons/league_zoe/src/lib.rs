@@ -41,8 +41,12 @@ mod maps;
 pub mod summon;
 
 const ID: &str = "league_zoe";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.5.0";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_zoe") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 窃法巧手由大招发动时 `summon` 的 `why`（大招里不闪现，传送门半秒后就把她送回原地）。
 const ULT: &str = "the ult";
 /// 闪现的起点和落点之间放几团金色拖影（`s_flash_trail`，等分）。

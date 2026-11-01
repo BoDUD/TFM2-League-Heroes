@@ -36,8 +36,12 @@ use mod_api_stable::*;
 pub mod combo;
 
 const ID: &str = "league_velkoz";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_velkoz") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 诊断：每这么多 tick 报一次（30 秒）。
 const WATCH_EVERY: usize = 1800;
 

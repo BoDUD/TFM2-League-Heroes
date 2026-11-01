@@ -59,6 +59,12 @@ use mod_api_stable::*;
 pub mod combo;
 
 const ID: &str = "league_azir";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_azir") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// The disc_rise tag's length (tools/art/rig_azir.py: four sinking frames of 90 ms and one of 200): its standing stamps
 /// start after it.
 const RISE_TICKS: usize = 34;
@@ -517,7 +523,8 @@ fn unit(v: Pt) -> Option<Pt> {
 
 /// 一道墙：冲锋时（从 `start`、`launch` 那个 tick 起，每 tick `speed`，半径 `reach`）和立住时（中点、冲锋方向的单位向量、
 /// 从哪个 tick 立到哪个 tick、禁军朝哪边、每个敌方英雄在墙的哪一边：+1 冲锋方向那边、-1 阿兹尔这边、下一次盖禁军的 tick、
-/// 挡回来几次）；被墙带着走的单位（到哪个 tick 落地）、被带走的英雄和没带走的英雄（日志用）。
+/// 挡回来几次）；被墙带着走的单位（到哪个 tick 落地；落地就去掉）、这道墙带过的所有单位（不清空：一道墙只带一次）、被带走的英雄
+/// 和没带走的英雄（日志用）。
 #[derive(Clone, Debug)]
 pub struct Standing {
     pub start: Pt,
@@ -533,6 +540,7 @@ pub struct Standing {
     pub next_stamp: usize,
     pub held: usize,
     pub carried: HashMap<usize, usize>,
+    pub once: Vec<usize>,
     pub pending: HashMap<usize, usize>,
     pub moved: usize,
     pub took: Vec<usize>,
@@ -546,7 +554,7 @@ pub fn standing(p: &Params, from: Pt, to: Pt, tick: usize, right: bool) -> Stand
     let up = tick + (p.r_len / p.r_speed.max(1)).max(1);
     Standing { start: from, launch: tick, speed: p.r_speed.max(1), reach: p.r_w as f64,
                mid: (from.0 + dir.0 * len, from.1 + dir.1 * len), dir, from: up, until: up + p.r_hold, right,
-               sides: HashMap::new(), next_stamp: up, held: 0, carried: HashMap::new(), pending: HashMap::new(), moved: 0,
+               sides: HashMap::new(), next_stamp: up, held: 0, carried: HashMap::new(), once: Vec::new(), pending: HashMap::new(), moved: 0,
                took: Vec::new(), skipped: Vec::new() }
 }
 
@@ -563,13 +571,17 @@ pub fn swept(w: &Standing, tick: usize, at: Pt, body: f64) -> bool {
 }
 
 /// 墙带走一个在 `at` 的单位：一道墙只带一次（本包扫到的、数据那道墙打中的，谁先算谁）；记下他到哪个 tick 落地，英雄再记
-/// 「在墙那一边」和被带走（日志用）。返回强制位移的计划（`carry_plan`）；带过了、已经在墙外面就是 None。
+/// 「在墙那一边」和被带走（日志用）。返回强制位移的计划（`carry_plan`）；带过了、已经在墙外面就是 None。带过的记在 `once`：
+/// `carried` 落地就去掉，原来只看它，数据那道墙先带走、落地以后扫墙到期的那一条又带了一次（2026-11-02 复查 11-01 的日志：31 道墙
+/// 有 10 道把同一个英雄带了两次，第二次多一个 1 tick 的强制位移、最多挪 6000）。
 pub fn take(w: &mut Standing, id: usize, at: Pt, champ: bool, now: usize) -> Option<(Pt, f64, usize, usize)> {
-    if w.carried.contains_key(&id) {
+    if w.carried.contains_key(&id) || w.once.contains(&id) {
         return None;
     }
     let plan = carry_plan(w, at, now, w.speed)?;
     w.carried.insert(id, now + plan.2 + 2);
+    w.once.push(id);
+    w.pending.remove(&id);
     w.moved += 1;
     if champ {
         w.sides.insert(id, 1.0);
@@ -672,7 +684,7 @@ fn sweep(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, w: &mut S
         .map(|u| (u.id(), at_of(&u), u.is_champion(), immune(&u), u.radius() as f64))
         .collect();
     for (id, at, champ, immune, body) in units {
-        if w.carried.contains_key(&id) || w.skipped.contains(&id) {
+        if w.carried.contains_key(&id) || w.once.contains(&id) || w.skipped.contains(&id) {
             continue;
         }
         match w.pending.get(&id) {
@@ -849,7 +861,7 @@ impl StableEffectType for Carry {
             let mut walls = WALLS.lock().unwrap_or_else(|e| e.into_inner());
             match walls.get_mut(&key).and_then(|v| v.last_mut()) {
                 None => Err("no wall of his recorded yet: left to the sweep"),
-                Some(w) if w.carried.contains_key(&id) => Err("already carried by the sweep"),
+                Some(w) if w.carried.contains_key(&id) || w.once.contains(&id) => Err("already carried by the sweep"),
                 Some(w) if immune => {
                     if !w.skipped.contains(&id) {
                         w.skipped.push(id);
@@ -1201,7 +1213,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.7 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1389,6 +1401,10 @@ mod tests {
         assert_eq!((w.took.clone(), w.moved), (vec![7], 1));
         // the wall's hit after the sweep (or the other way round): not twice
         assert_eq!(take(&mut w, 7, (140_000.0, 100_000.0), true, 1007), None);
+        // nor once he has landed (walls_tick takes him out of `carried`) and the sweep's pending turn comes
+        w.carried.remove(&7);
+        assert_eq!(take(&mut w, 7, (150_000.0, 100_000.0), true, 1010), None);
+        assert_eq!(w.moved, 1);
         // a minion: carried, no side kept (the wall holds champions only)
         assert!(take(&mut w, 900, (120_000.0, 95_000.0), false, 1004).is_some());
         assert_eq!((w.sides.get(&900), w.moved), (None, 2));
