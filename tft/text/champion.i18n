@@ -224,6 +224,13 @@
         "skill": "打出一个毒泡泡，碰到第一个敌人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并炸开，周围敌人<#ffb900ff>3秒<>内受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>。",
         "skill2": "往敌人脚下吐一滩黏液，持续<#ffb900ff>4秒<>，站在里面的敌人减速<#ffb900ff>55%<>，每秒受到<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法伤害<>。",
         "ult": "肚子鼓起变大<#ffb900ff>5秒<>（受到伤害<#ffb900ff>-20%<>），向前打出大嗝，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>35%<>，毒雾留在地上<#ffb900ff>4秒<>，每秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<><#a974ffff>魔法伤害<>。"
+      },
+      "tft_sentry": {
+        "name": "苍蓝哨戒",
+        "attack": "蓝核射出碎光弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>。<#ff9028ff>青霸符<>：蔚蓝激光每引导<#ffb900ff>1秒<>，大招冷却<#ffb900ff>-1秒<>。",
+        "skill": "对目标引导激光<#ffb900ff>2.5秒<>（可以边飘边照），共造成<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<><#a974ffff>魔法伤害<>，每<#ffb900ff>0.25秒<>魔抗<#ffb900ff>-4<>（可叠加，持续<#ffb900ff>2秒<>）。目标离开射程或自己被控时中断。",
+        "skill2": "两块石头猛地分开再合拢，周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己向后闪开。",
+        "ult": "两块石头张开，蓝核射出光柱扫过前方扇形，造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<><#a974ffff>魔法伤害<>，魔抗<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
       }
     },
     "skill_name": {
@@ -386,6 +393,11 @@
         "skill1": "打嗝泡泡",
         "skill2": "黏液沼泽",
         "ult": "毒沼大嗝"
+      },
+      "tft_sentry": {
+        "skill1": "蔚蓝激光",
+        "skill2": "裂石跃迁",
+        "ult": "棱镜扫射"
       }
     }
   },
@@ -614,6 +626,13 @@
         "skill": "吐出飽嗝泡泡，碰到第一個敵軍造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並炸開，周圍敵軍<#ffb900ff>3秒<>內受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>。",
         "skill2": "往敵軍腳下吐一灘黏液，持續<#ffb900ff>4秒<>，站在裡面的敵軍緩速<#ffb900ff>55%<>，每秒受到<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法傷害<>。",
         "ult": "肚子鼓起變大<#ffb900ff>5秒<>（受到傷害<#ffb900ff>-20%<>），向前打出大嗝，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>35%<>，毒霧留在地上<#ffb900ff>4秒<>，每秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<><#a974ffff>魔法傷害<>。"
+      },
+      "tft_sentry": {
+        "name": "小石子",
+        "attack": "藍核射出碎光彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>。<#ff9028ff>深藍綠色增益<>：蒼藍雷射每照射<#ffb900ff>1秒<>，大絕冷卻<#ffb900ff>-1秒<>。",
+        "skill": "對目標照射雷射<#ffb900ff>2.5秒<>（可以邊飄邊照），共造成<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<><#a974ffff>魔法傷害<>，每<#ffb900ff>0.25秒<>魔防<#ffb900ff>-4<>（可疊加，持續<#ffb900ff>2秒<>）。目標離開射程或自己被控時中斷。",
+        "skill2": "兩塊石頭猛地分開再合攏，周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己向後閃開。",
+        "ult": "兩塊石頭張開，藍核射出光柱掃過前方扇形，造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<><#a974ffff>魔法傷害<>，魔防<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
       }
     },
     "skill_name": {
@@ -776,6 +795,11 @@
         "skill1": "飽嗝泡泡",
         "skill2": "黏液沼澤",
         "ult": "毒沼大嗝"
+      },
+      "tft_sentry": {
+        "skill1": "蒼藍雷射",
+        "skill2": "裂石躍遷",
+        "ult": "稜鏡掃射"
       }
     }
   },
@@ -1004,6 +1028,13 @@
         "skill": "Belches a bubble that bursts on the first enemy hit for <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>; enemies around it take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> over <#ffb900ff>3s<>.",
         "skill2": "Spits a pool of slime under an enemy for <#ffb900ff>4s<>: enemies in it are slowed by <#ffb900ff>55%<> and take <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>magic damage<> per second.",
         "ult": "Swells up for <#ffb900ff>5s<> (<#ffb900ff>20%<> less damage taken) and belches a cone of poison for <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, slowing by <#ffb900ff>35%<>; the fog lingers <#ffb900ff>4s<>, dealing <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<> <#a974ffff>magic damage<> per second."
+      },
+      "tft_sentry": {
+        "name": "Pebbles",
+        "attack": "Fires a shard bolt from its core for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<>. <#ff9028ff>Teal Buff<>: every <#ffb900ff>1s<> of Azure Laser channeled cuts its ult's cooldown by <#ffb900ff>1s<>.",
+        "skill": "Channels a laser at its target for <#ffb900ff>2.5s<> (it can float while lasing), dealing <#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<> <#a974ffff>magic damage<> in all and <#ffb900ff>-4<> Magic Resist every <#ffb900ff>0.25s<> (stacking, <#ffb900ff>2s<>). Breaks if the target leaves range or it is crowd controlled.",
+        "skill2": "Its two halves split apart and close again: nearby enemies take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and are slowed by <#ffb900ff>40%<> for <#ffb900ff>1.5s<>; it blinks back.",
+        "ult": "Its halves open wide and its core sweeps a beam across a cone in front for <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<> <#a974ffff>magic damage<> and <#ffb900ff>-25<> Magic Resist for <#ffb900ff>3s<>."
       }
     },
     "skill_name": {
@@ -1166,6 +1197,11 @@
         "skill1": "Belchy Bubble",
         "skill2": "Slime Swamp",
         "ult": "Swamp Belch"
+      },
+      "tft_sentry": {
+        "skill1": "Azure Laser",
+        "skill2": "Rift Leap",
+        "ult": "Prism Sweep"
       }
     }
   },
@@ -1394,6 +1430,13 @@
         "skill": "독 방울을 뱉어 처음 맞은 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>를 주고 터지며, 주변 적은 <#ffb900ff>3초<> 동안 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>.",
         "skill2": "적의 발밑에 점액을 뱉어 <#ffb900ff>4초<> 동안 남깁니다. 안의 적은 <#ffb900ff>55%<> 둔화되고 초당 <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>마법 피해<>.",
         "ult": "<#ffb900ff>5초<> 동안 몸이 부풀어(받는 피해 <#ffb900ff>-20%<>) 앞으로 독 트림을 뿜어 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>와 <#ffb900ff>35%<> 둔화. 독안개가 <#ffb900ff>4초<> 동안 남아 초당 <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<> <#a974ffff>마법 피해<>."
+      },
+      "tft_sentry": {
+        "name": "조약돌",
+        "attack": "핵에서 파편 광탄을 쏴 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>. <#ff9028ff>청록색 버프<>: 하늘빛 레이저를 <#ffb900ff>1초<> 집중할 때마다 궁극기 재사용 대기시간 <#ffb900ff>-1초<>.",
+        "skill": "대상에게 <#ffb900ff>2.5초<> 동안 레이저를 집중해(떠다니며 가능) 총 <#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<> <#a974ffff>마법 피해<>를 주고 <#ffb900ff>0.25초<>마다 마법 저항력 <#ffb900ff>-4<>(중첩, <#ffb900ff>2초<>). 대상이 사거리를 벗어나거나 군중 제어를 받으면 끊깁니다.",
+        "skill2": "두 조각이 갈라졌다 다시 붙으며 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>와 <#ffb900ff>40%<> 둔화(<#ffb900ff>1.5초<>). 자신은 뒤로 순간이동합니다.",
+        "ult": "두 조각이 활짝 열리고 핵이 전방 부채꼴로 광선을 휩쓸어 <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<> <#a974ffff>마법 피해<>와 마법 저항력 <#ffb900ff>-25<>(<#ffb900ff>3초<>)."
       }
     },
     "skill_name": {
@@ -1556,6 +1599,11 @@
         "skill1": "꿀꺽 방울",
         "skill2": "점액 늪",
         "ult": "독늪 트림"
+      },
+      "tft_sentry": {
+        "skill1": "하늘빛 레이저",
+        "skill2": "균열 도약",
+        "ult": "프리즘 휩쓸기"
       }
     }
   },
@@ -1784,6 +1832,13 @@
         "skill": "毒の泡を吐き、最初に当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>を与えて弾け、周囲の敵に<#ffb900ff>3秒<>かけて<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>。",
         "skill2": "敵の足元に粘液を吐き<#ffb900ff>4秒<>残す。中の敵は<#ffb900ff>55%<>スロウ、毎秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>の<#a974ffff>魔法ダメージ<>。",
         "ult": "<#ffb900ff>5秒<>間膨らみ（被ダメージ<#ffb900ff>-20%<>）、前方に毒のげっぷを放ち<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>35%<>スロウ。毒霧が<#ffb900ff>4秒<>残り、毎秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<>の<#a974ffff>魔法ダメージ<>。"
+      },
+      "tft_sentry": {
+        "name": "小石",
+        "attack": "コアから砕光弾を放ち<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ティールバフ<>：蒼き光線を<#ffb900ff>1秒<>詠唱するごとにアルティメットのクールダウン<#ffb900ff>-1秒<>。",
+        "skill": "対象に光線を<#ffb900ff>2.5秒<>照射し（浮遊しながら可）、合計<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>0.25秒<>ごとに魔法防御<#ffb900ff>-4<>（スタック、<#ffb900ff>2秒<>）。対象が射程外に出るか行動妨害で中断。",
+        "skill2": "二つの石が割れて再び閉じ、周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>40%<>スロウ（<#ffb900ff>1.5秒<>）。自身は後方へ跳ぶ。",
+        "ult": "二つの石が大きく開き、コアから光柱を前方扇形に薙ぎ払い<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<>の<#a974ffff>魔法ダメージ<>と魔法防御<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
       }
     },
     "skill_name": {
@@ -1946,6 +2001,11 @@
         "skill1": "ベルチーバブル",
         "skill2": "粘液の沼",
         "ult": "毒沼のげっぷ"
+      },
+      "tft_sentry": {
+        "skill1": "蒼き光線",
+        "skill2": "裂石跳躍",
+        "ult": "プリズムスイープ"
       }
     }
   }

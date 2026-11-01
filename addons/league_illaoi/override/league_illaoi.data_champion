@@ -4396,6 +4396,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_sentry",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_sentry",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_sentry_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_sentry_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_sevika",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_sevika",

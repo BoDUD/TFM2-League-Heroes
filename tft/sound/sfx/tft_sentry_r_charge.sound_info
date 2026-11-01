@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.0,
+      "clip": "tft_sentry_sfx_r_charge",
+      "volume": 0.5
+    }
+  ]
+}

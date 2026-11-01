@@ -1,0 +1,22 @@
+[
+  {
+    "name": "e_split",
+    "prompt": "Edit ONLY the stone inner-edge colors in reference 1; reference 2 is the approved palette. Keep exactly the same pose, two stone shapes, scale, angles, positions, canvas 1254x1254 and all existing 12px pixel squares. The WHITE STAIR-STEP STRIPS on the inner cut faces of the two shards are unwanted rotation artifacts, NOT highlights: replace those white strips with the stone's darkest deep navy (#161B36 or #203247) plus a continuous near-black outline. NO WHITE pixels on stone inner edges. Keep pale sage TOP facets unchanged, navy lower facets unchanged. Keep the entire central cyan-white blue core unchanged, including its white center and blue rings. Leave the space between shards transparent. Remove stray blue edge noise outside the core. Do NOT move, enlarge, shrink, smooth, antialias or resample anything. Keep a square transparent canvas, no background, no ground, no shadow, no effects. One pose only.",
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a197c8-3a5c-7de2-b972-25335d6297b8\\exec-63ab99a4-f664-414a-8bb2-3f6872448fa5.png"
+  },
+  {
+    "name": "r_blast",
+    "prompt": "Edit ONLY the stone inner-edge colors in reference 1; reference 2 is the approved palette. Keep exactly the same pose, two stone shapes, scale, angles, positions, canvas 1254x1254 and all existing 12px pixel squares. The WHITE STAIR-STEP STRIPS on the inner cut faces of the two shards are unwanted rotation artifacts, NOT highlights: replace those white strips with the stone's darkest deep navy (#161B36 or #203247) plus a continuous near-black outline. NO WHITE pixels on stone inner edges. Keep pale sage TOP facets unchanged, navy lower facets unchanged. Keep the entire central cyan-white blue core unchanged, including its white center and blue rings. Leave the space between shards transparent. Remove stray blue edge noise outside the core. Do NOT move, enlarge, shrink, smooth, antialias or resample anything. Keep a square transparent canvas, no background, no ground, no shadow, no effects. One pose only.",
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a197c8-3a5c-7de2-b972-25335d6297b8\\exec-cfe7c09e-3944-4f23-9b60-2680b25cda53.png"
+  },
+  {
+    "name": "r_open",
+    "prompt": "Edit ONLY the stone inner-edge colors in reference 1; reference 2 is the approved palette. Keep exactly the same pose, two stone shapes, scale, angles, positions, canvas 1254x1254 and all existing 12px pixel squares. The WHITE STAIR-STEP STRIPS on the inner cut faces of the two shards are unwanted rotation artifacts, NOT highlights: replace those white strips with the stone's darkest deep navy (#161B36 or #203247) plus a continuous near-black outline. NO WHITE pixels on stone inner edges. Keep pale sage TOP facets unchanged, navy lower facets unchanged. Keep the entire central cyan-white blue core unchanged, including its white center and blue rings. Leave the space between shards transparent. Remove stray blue edge noise outside the core. Do NOT move, enlarge, shrink, smooth, antialias or resample anything. Keep a square transparent canvas, no background, no ground, no shadow, no effects. One pose only.",
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a197c8-3a5c-7de2-b972-25335d6297b8\\exec-47dd3122-e9f0-4abb-9329-a1c93041efea.png"
+  },
+  {
+    "name": "d_down",
+    "prompt": "Edit ONLY the stone inner-edge colors in reference 1; reference 2 is the approved palette. Keep exactly the same pose, two stone shapes, scale, angles, positions, canvas 1254x1254 and all existing 12px pixel squares. The WHITE STAIR-STEP STRIPS on the inner cut faces of the two shards are unwanted rotation artifacts, NOT highlights: replace those white strips with the stone's darkest deep navy (#161B36 or #203247) plus a continuous near-black outline. NO WHITE pixels on stone inner edges. Keep pale sage TOP facets unchanged, navy lower facets unchanged. The dark grey-blue extinguished core MUST stay dark grey-blue, no cyan, no glow. Leave the space between shards transparent. Remove stray blue edge noise outside the core. Do NOT move, enlarge, shrink, smooth, antialias or resample anything. Keep a square transparent canvas, no background, no ground, no shadow, no effects. One pose only.",
+    "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a197c8-3a5c-7de2-b972-25335d6297b8\\exec-958ec305-8029-4be7-853d-63303a959e86.png"
+  }
+]

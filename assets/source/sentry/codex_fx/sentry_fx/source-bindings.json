@@ -1,0 +1,95 @@
+[
+ {
+  "file": "sentry_fx_a_bolt.png",
+  "binding": "view_projectiles `tft_sentry_a_bolt`（追踪弹道，随飞行方向转；上下对称、朝右）",
+  "size": "10 × 6",
+  "symmetry": "top-bottom (pointing right)"
+ },
+ {
+  "file": "sentry_fx_q_zap.png",
+  "binding": "view_projectiles `tft_sentry_q_zap`（很快的追踪弹道，几乎一出来就到；上下对称、朝右）",
+  "size": "6 × 6",
+  "symmetry": "top-bottom (pointing right)"
+ },
+ {
+  "file": "sentry_fx_q_beam.png",
+  "binding": "view_projectiles `tft_sentry_q_beam`（Claude 把每帧切成从蓝核射出的固定激光：league_velkoz R 的做法；上下对称；大图表）",
+  "size": "92 × 9",
+  "symmetry": "top-bottom (pointing right)"
+ },
+ {
+  "file": "sentry_fx_r_sweep.png",
+  "binding": "view_projectiles `tft_sentry_r_sweep`（Claude 把每帧钉在蓝核上；朝右画，向左时游戏把它转半圈；大图表）",
+  "size": "100 × 70",
+  "symmetry": "none (swept, pointing right)"
+ },
+ {
+  "file": "sentry_fx_a_hit.png",
+  "binding": "view_effects `tft_sentry_a_hit`（跟随目标，z 2；左右对称）",
+  "size": "12 × 12",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_fx_q_hit.png",
+  "binding": "view_effects `tft_sentry_q_hit`（跟随目标，z 2；左右对称；每 0.25 秒打一下）",
+  "size": "14 × 14",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_fx_e_split.png",
+  "binding": "view_effects `tft_sentry_e_split`（跟随它，z 3；左右对称）",
+  "size": "40 × 40",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_fx_e_ring.png",
+  "binding": "view_effects `tft_sentry_e_ring`（大表，放在它原来的位置，不跟随，z -1；左右对称）",
+  "size": "50 × 18",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_fx_r_open.png",
+  "binding": "view_effects `tft_sentry_r_open`（大表，跟随它，z 3；左右对称）",
+  "size": "60 × 60",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_fx_r_hit.png",
+  "binding": "view_effects `tft_sentry_r_hit`（跟随目标，z 2；左右对称）",
+  "size": "18 × 16",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_fx_q_shred.png",
+  "binding": "view_buffs `tft_sentry_q_shred`（跟随被照的人，z 3；左右对称）",
+  "size": "20 × 40",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_fx_e_slow.png",
+  "binding": "view_buffs `tft_sentry_e_slow`（跟随被减速的人，z 3；左右对称）",
+  "size": "24 × 10",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_fx_r_shred.png",
+  "binding": "view_buffs `tft_sentry_r_shred`（跟随被扫中的人，z 3；左右对称）",
+  "size": "24 × 40",
+  "symmetry": "left-right"
+ },
+ {
+  "file": "sentry_icon_skill.png",
+  "binding": "skill_icons[0] `asset/tft/icons/tft_sentry_skill`",
+  "size": "64 x 64"
+ },
+ {
+  "file": "sentry_icon_skill2.png",
+  "binding": "skill_icons[1] `asset/tft/icons/tft_sentry_skill2`",
+  "size": "64 x 64"
+ },
+ {
+  "file": "sentry_icon_ult.png",
+  "binding": "skill_icons[2] `asset/tft/icons/tft_sentry_ult`",
+  "size": "64 x 64"
+ }
+]

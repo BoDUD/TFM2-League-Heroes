@@ -1,0 +1,186 @@
+Built-in image_gen; each asset generated separately.
+
+=== sentry_fx_a_bolt ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: A FLYING SHARD OF LIGHT, 4 looping frames, SYMMETRIC TOP TO BOTTOM in every frame, square for square, pointing RIGHT (the game turns it with its flight; turned half round to the left it must read the same): a small diamond-shaped azure bolt 4 squares long at the right with a near-white core square, a tapering azure tail 5 squares long behind it to the left, two tiny sparks trailing; frames 1-4 the core pulsing and the sparks flickering. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+Layout: one horizontal row of 4 equal 10:6 cells, image size 640x96 (each cell 160x96, 16 px a square); centered in every cell. Transparent background (if not possible: pure black #000000). No gaps, no borders, no labels.
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet. For the final sprite sheet render EXACTLY the requested number of frames in ONE HORIZONTAL ROW, equal-width cells. No second row, no labels, no vertical dividers. No checkerboard drawn into the image. Keep all particles within each cell.
+STRICT CONTENT LIMIT: PURE AZURE ENERGY ONLY. No grey, green, sage, navy stone chips, rocks, crystals, rubble, character stones or physical debris. The word shard means a luminous BLUE glint, NOT a physical stone. Use only the five azure palette colors specified.
+
+=== sentry_fx_q_zap ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: A TINY ZAP, 4 looping frames, SYMMETRIC TOP TO BOTTOM in every frame, square for square, pointing RIGHT (the game turns it with its flight; turned half round to the left it must read the same): a near-white dot 2 squares across in an azure ring, one-square glints up, down, left and right; frames 1-4 it pulsing. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 2 columns by 2 rows, 4 frames in reading order left to right then next row. Each frame cell aspect 6:6. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+STRICT CONTENT LIMIT: PURE AZURE ENERGY ONLY. No grey, green, sage, navy stone chips, rocks, crystals, rubble, character stones or physical debris. The word shard means a luminous BLUE glint, NOT a physical stone. Use only the five azure palette colors specified.
+
+=== sentry_fx_q_beam ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: A LONG AZURE LASER, 4 frames, a seamless loop, SYMMETRIC TOP TO BOTTOM in every frame, square for square (the game turns the picture with its direction): a straight horizontal beam 90 squares long from a round near-white and azure flare 7 squares across at the LEFT end (where it leaves the core); the beam 5 squares thick near the flare and 3 along its length - a near-white core 1 square, bright azure round it, a thin deeper blue edge; small bright beads of light running along it; the RIGHT end thinning to 1 square and breaking into azure sparks over its last 6 squares; each frame the beads move to the right and the flare pulses.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 1 columns by 4 rows, 4 frames in reading order left to right then next row. Each frame cell aspect 92:9. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+STRICT CONTENT LIMIT: PURE AZURE ENERGY ONLY. No grey, green, sage, navy stone chips, rocks, crystals, rubble, character stones or physical debris. The word shard means a luminous BLUE glint, NOT a physical stone. Use only the five azure palette colors specified.
+
+=== sentry_fx_r_sweep ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: A THICK PRISM BEAM SWEEPING DOWN, 6 frames (NOT symmetric: drawn pointing right, the game turns it): every beam leaves ONE point - a round near-white and azure flare 9 squares across centred on the cell's LEFT edge middle (5 squares in from the left edge, the middle row); each frame one straight thick beam 90 squares long and 7 thick (a near-white core 3 squares, bright azure round it, a deeper blue edge), its far end breaking into azure sparks, aimed in turn 30 degrees UP, 18 up, 6 up, 6 DOWN, 18 down, 30 down (frames 1-6) from that point; from frame 2 on a faint thin afterimage of the previous frame's beam. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 3 columns by 2 rows, 6 frames in reading order left to right then next row. Each frame cell aspect 100:70. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+STRICT CONTENT LIMIT: PURE AZURE ENERGY ONLY. No grey, green, sage, navy stone chips, rocks, crystals, rubble, character stones or physical debris. The word shard means a luminous BLUE glint, NOT a physical stone. Use only the five azure palette colors specified.
+
+=== sentry_fx_a_hit ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: A SMALL LIGHT BURST, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a near-white dot 3 squares across; 2 an azure star burst 8 squares across with a white core; 3 a thin azure ring 11 squares across, four sparks flying out (mirrored); 4 the last sparks. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 2 columns by 2 rows, 4 frames in reading order left to right then next row. Each frame cell aspect 12:12. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+STRICT CONTENT LIMIT: PURE AZURE ENERGY ONLY. No grey, green, sage, navy stone chips, rocks, crystals, rubble, character stones or physical debris. The word shard means a luminous BLUE glint, NOT a physical stone. Use only the five azure palette colors specified.
+
+=== sentry_fx_q_hit ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: A LASER BURN, 4 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a near-white spot 4 squares across in an azure glow 9 squares across; 2 the glow flaring to 12 squares, small azure flecks spitting out to both sides (mirrored); 3 the flecks rising, the glow shrinking; 4 a fading azure spot. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 2 columns by 2 rows, 4 frames in reading order left to right then next row. Each frame cell aspect 14:14. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+STRICT CONTENT LIMIT: PURE AZURE ENERGY ONLY. No grey, green, sage, navy stone chips, rocks, crystals, rubble, character stones or physical debris. The word shard means a luminous BLUE glint, NOT a physical stone. Use only the five azure palette colors specified.
+
+=== sentry_fx_e_split ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C), a pale sage stone ramp (#E4E9C8, #B4C2A6, #7E9488, #4E6670, #26343F).
+Effect: A SPLITTING FLASH, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the sentry floats in the middle, not drawn: two crystal shards about 22 squares wide and 34 tall, their bottom points 2 squares above the bottom line of the cell, its glowing core 19 squares above the bottom line in the middle column: 1 a near-white flash 6 squares across at the core's spot; 2 two azure crack-lines of light shooting out level from it to the left and right, 30 squares across in all; 3 small pale sage and navy STONE CHIPS (1x1 to 2x2 squares) flying out to both sides (mirrored) along the lines; 4 the lines fading, the chips falling; 5 the last chips. Keep the shards' place (the middle 22 squares wide, except the core's spot) EMPTY. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 3 columns by 2 rows, 5 frames in reading order left to right then next row. Each frame cell aspect 40:40. Equal cells with NO padding/gaps. Last unused cell completely transparent. We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+
+=== sentry_fx_e_ring ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pale sage stone ramp (#E4E9C8, #B4C2A6, #7E9488, #4E6670, #26343F), an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: A RING OF CRYSTAL SHARDS, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): on the GROUND seen from above at a slant, centred on the bottom middle: 1 an azure flash ring 20 squares wide and 6 tall; 2 small pointed CRYSTAL SHARDS (pale sage tops, navy bases, 2-4 squares tall) bursting up in an oval ring 46 squares wide and 14 tall, azure light in the cracks between them; 3 the ring settled, the light glowing; 4 the light dimming; 5 the shards sinking into the ground; 6 a few last chips and a faint azure glint. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 2 columns by 3 rows, 6 frames in reading order left to right then next row. Each frame cell aspect 50:18. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+
+=== sentry_fx_r_open ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: A CHARGING CORE, 6 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round the sentry floats in the middle, not drawn: two crystal shards about 22 squares wide and 34 tall, their bottom points 2 squares above the bottom line of the cell, its glowing core 19 squares above the bottom line in the middle column: 1 eight thin azure light streaks far out round the core's spot, pointing at it (mirrored pairs); 2 the streaks closer; 3 the streaks reaching it, a thin azure ring 14 squares across round the core's spot; 4 the ring brighter, 10 squares; 5 the ring tight, 7 squares, near-white; 6 a white-hot flash 9 squares across at the core's spot with four short glints. The shards' place round the core stays EMPTY. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 3 columns by 2 rows, 6 frames in reading order left to right then next row. Each frame cell aspect 60:60. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+STRICT CONTENT LIMIT: PURE AZURE ENERGY ONLY. No grey, green, sage, navy stone chips, rocks, crystals, rubble, character stones or physical debris. The word shard means a luminous BLUE glint, NOT a physical stone. Use only the five azure palette colors specified.
+
+=== sentry_fx_r_hit ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C), a pale sage stone ramp (#E4E9C8, #B4C2A6, #7E9488, #4E6670, #26343F).
+Effect: A BEAM BLAST HIT, 5 frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): 1 a white flash 6 squares across; 2 an azure blast 14 squares across with a near-white core, small crystal glints thrown to both sides (mirrored); 3 the blast ringing out, thinner; 4 azure flecks drifting; 5 the last flecks. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 3 columns by 2 rows, 5 frames in reading order left to right then next row. Each frame cell aspect 18:16. Equal cells with NO padding/gaps. Last unused cell completely transparent. We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+
+=== sentry_fx_q_shred ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C), a deep navy stone ramp (#6A80B8, #3A4A80, #252F58, #161B36).
+Effect: MAGIC RESIST BROKEN, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round a champion 16 squares wide and 36 tall stands in the middle, not drawn, its feet on the bottom line of the cell: above its head, in the top middle of the cell, a small azure HEXAGON SHIELD 8 squares across with a jagged dark navy CRACK down its middle, near-white edges; a few azure flecks falling along both sides of its outline (mirrored); frames 1-6 the shield flickering bright and dim and the crack glinting, the flecks falling. The middle of the cell (its body) stays EMPTY. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 3 columns by 2 rows, 6 frames in reading order left to right then next row. Each frame cell aspect 20:40. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+
+=== sentry_fx_e_slow ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from a pale sage stone ramp (#E4E9C8, #B4C2A6, #7E9488, #4E6670, #26343F), an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C).
+Effect: SLOWED BY SHARDS, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): at the bottom of the cell round a unit's feet (the feet 8 squares apart in the middle, not drawn): a flat oval of small crystal shards and stone chips 22 squares wide and 4 tall (pale sage and navy), two little shards 3 squares tall poking up on each side (mirrored), azure light glinting between them; frames 1-6 the glints moving round. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 2 columns by 3 rows, 6 frames in reading order left to right then next row. Each frame cell aspect 24:10. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+
+=== sentry_fx_r_shred ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+Pixel art game VFX sprite sheet for a small tactics game: chunky square pixels, hard edges, no anti-aliasing, NO outline around light, energy, dust, smoke, rings or shockwaves, BRIGHT colours (each light shape lit with its lightest shades and a white core - it must read on a dark battlefield), colours only from an azure light ramp (#F2FCFF, #9EEBFF, #3CC3FF, #1C7FE0, #10418C), a deep navy stone ramp (#6A80B8, #3A4A80, #252F58, #161B36).
+Effect: MAGIC RESIST SHATTERED, 6 looping frames, SYMMETRIC LEFT TO RIGHT in every frame, square for square (the game never mirrors it on the red side): round a champion 16 squares wide and 36 tall stands in the middle, not drawn, its feet on the bottom line of the cell: a jagged azure CRACK OF LIGHT climbing up each side of its outline (mirrored), near-white at its tip; above its head a navy and azure HEXAGON SHIELD 10 squares across split into two halves with a gap between them; frames 1-6 the cracks climbing and flickering, the halves trembling. The middle of the cell (its body) stays EMPTY. everything is a FLOATING CRYSTAL SENTRY's from the jungle's blue camp: crisp AZURE LIGHT with a near-white core (its glowing core and its laser), sharp little CRYSTAL SHARDS and stone chips in pale sage and deep navy; flat shades, crisp blocky shapes; no fire, no lightning bolts, no smoke clouds, no runes or letters.
+
+Reference 1 is character identity/palette ONLY; reference 2 size reference ONLY; reference 3 shapes ONLY. NEVER draw the character in an effect sheet.  No checkerboard drawn into the image. Keep all particles within each cell.
+GENERATION LAYOUT (overrides earlier horizontal-row wording): 3 columns by 2 rows, 6 frames in reading order left to right then next row. Each frame cell aspect 24:40. Equal cells with NO padding/gaps.  We will mechanically assemble the final horizontal strip after generation. Draw at 16px per game pixel if possible, but correct frame count and proportions take priority. All frame cells share a single fixed pixel scale; no dividers or labels.
+
+=== sentry_icon_skill ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square deep navy frame with little pale sage stone corner studs, a dark blue-black inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: two tall crystal shards (pale sage tops, navy bottoms) at the lower left with a glowing azure core between them, a straight bright azure LASER with a white core shooting from the core to the upper right. No text, no letters.
+Reference images show the approved character. Match its pale sage upper stones and navy lower stones, one tall left pointed shard and one shorter right blunt shard. One icon only.
+
+=== sentry_icon_skill2 ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square deep navy frame with little pale sage stone corner studs, a dark blue-black inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: two crystal shards flung apart to the left and right with a glowing azure core between them, a ring of small crystal shards on the ground below, a short azure arrow curving back to the left. No text, no letters.
+Reference images show the approved character. Match its pale sage upper stones and navy lower stones, one tall left pointed shard and one shorter right blunt shard. One icon only.
+
+=== sentry_icon_ult ===
+References:
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_design.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\design\sentry_size.png
+C:\Users\OWNER\Documents\Codex\2026-11-02\new-chat\work\sentry_fx_pack\sentry_fx_pack\refs\tft_fx_ref.png
+
+A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square deep navy frame with little pale sage stone corner studs, a dark blue-black inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: two crystal shards opened wide into a V at the left, a white-hot azure core between them, a thick azure BEAM fanning out to the right with two faint afterimages above and below it (a sweep). No text, no letters.
+Reference images show the approved character. Match its pale sage upper stones and navy lower stones, one tall left pointed shard and one shorter right blunt shard. One icon only.
+
+
+
+=== Follow-up image_gen corrections, in addition to initial prompts ===
+
+sentry_fx_q_zap
+Create a clean tiny pixel-art energy animation sheet, EXACTLY FOUR frames arranged 2 columns x 2 rows. Each frame is EXACTLY 6x6 LARGE logical squares. Draw it magnified at 64 actual pixels per logical square, total sheet768x768. No margins, each cell384x384. Transparent background. In every frame the CENTER FOUR logical squares (2x2) are SOLID near-white #F2FCFF, always clearly visible. Around this white 2x2 core, a compact bright azure ring and one-square cardinal glints; top-bottom symmetry. Four slight brightness pulse variants, never shrinking the white center, never a nearly invisible frame. Palette only #F2FCFF #9EEBFF #3CC3FF #1C7FE0 #10418C. Crisp exactly square flat blocks, no outline, no gradients, no blur, no soft halo, no physical stones, no reference guide lines, no letters. Reference is effect identity only; redraw in a MUCH SIMPLER 6x6 logical grid per cell.
+
+sentry_fx_r_sweep
+Redraw the reference as a precise low resolution pixel-art beam sweep sheet. SIX frames arranged THREE COLUMNS and TWO ROWS. Each cell has exactly100x70 logical pixels. Render at5px per logical pixel, total1500x700. In every cell the beam pivot is EXACTLY(x=5,y=35) measured in logical pixels from top-left. Identical small round emitter flare only9 pixels diameter at this pivot: NOT a giant star or explosion. Keep this source flare SMALL, at most9% of cell width. Long beam extends toward the RIGHT edge, bright azure with a white core, thickness7 logical pixels. Frames1-6 sweep downward:30deg up,18up,6up,6down,18down,30down; compress only the distant vertical reach if needed to keep each beam inside its70px-high cell. From frame2 a thin dark blue previous-angle afterimage, no giant filled wedge. Every source point aligned at EXACT same coordinate5,35. Each beam endpoint approaches x95. Uniform pixel grid. Transparent background, all pixels alpha0or255. Palette only #F2FCFF #9EEBFF #3CC3FF #1C7FE0 #10418C. NO giant flare, no stars around emitter, no gray/green stones, no physical debris, no fog, no soft glows, no gradient, no labels, no grid lines. Keep SIX equal cells.

@@ -398,6 +398,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 32 game px from its mushroom caps to its feet, PPU 1.69 (「A-1，32 像素」: 54 rows 1:1), and Codex's key poses after
     // its own TFT and Rift clips, posed by tools/art/rig_gromp.py, so no SIZES row
     ("tft_gromp", 1.69, include_str!("../../../tft/champions/tft_gromp#anim.fanim")),
+    // the Sentry (tft_sentry, the tft pack): two floating crystal shards and an azure core at a slight 3/4, step 0's A
+    // read on 12 px squares at the user's 34 game px from the left tip to the bottom points, PPU 1.29 (「造型用这个」 =
+    // A-3: 44 rows 1:1), and Codex's poses laid out from its three parts, posed by tools/art/rig_sentry.py, so no SIZES row
+    ("tft_sentry", 1.29, include_str!("../../../tft/champions/tft_sentry#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
