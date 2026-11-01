@@ -302,7 +302,8 @@ RESTYLE = {
     # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run;
     # the face point at the crown of his hair (tfm2_ase.py face), the card -8 (bp_card_audit.py's rule)
     # 2026-10-18 face (5,-38): the redo's point missed the face
-    "darius": dict(ppu=1.45, edge=1, face_to=(5, -38)),
+    # 2026-11-01 the user: 「诺手现在应该也要加点」 (a black outline, 「避免过度高清」) - edge 1 -> 2
+    "darius": dict(ppu=1.45, edge=2, face_to=(5, -38)),
     # Riven (2026-10-18): Codex's design picture read back on its own 15.57 x 17.48-px squares (68 x 61), her sword one of
     # Codex's angle drawings (swords_riven_hd.py) in her fist; idle, run, ult, wind slash, hit and death posed after
     # League's clips by tools/art/rig_riven_hd.py, her three attacks, Broken Wings and Valor Codex's whole-frame
