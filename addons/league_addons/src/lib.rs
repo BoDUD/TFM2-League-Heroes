@@ -607,7 +607,8 @@ mod tests {
             if !id.starts_with("league_") || id == "league_addons" || !lib.is_file() || !info.is_file() {
                 continue;
             }
-            let src = std::fs::read_to_string(&lib).unwrap();
+            // CI checks out with core.autocrlf: CRLF line ends there
+            let src = std::fs::read_to_string(&lib).unwrap().replace("\r\n", "\n");
             assert!(src.contains(&format!("option_env!(\"ADDON_VERSION_{id}\")")), "{id}: its VERSION is not its mod.mod_info's");
             assert!(src.contains("v{VERSION}") || src.contains("\n        VERSION,\n"), "{id}: the header does not print VERSION");
             n += 1;
