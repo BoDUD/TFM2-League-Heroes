@@ -595,6 +595,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // whole-frame redraw of her old frame read onto it at the zoom her height and hair give (tools/art/casts_evelynn_hd.py,
     // rig_evelynn_hd.py; nothing baked); 41 game px as her 1x sprite, so no SIZES row
     ("league_evelynn", 2.780, include_str!("../../../league/champions/league_evelynn#anim.fanim")),
+    // Sett (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「瑟提用1.79」): Codex's sett-A read on its own ~15.5-px
+    // squares (53 x 75, tools/art/design_sett_hd.py: 75 rows / 42 = 1.786); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom between his height and his hair (tools/art/casts_sett_hd.py, rig_sett_hd.py;
+    // nothing baked); 42 game px as his 1x sprite, so no SIZES row
+    ("league_sett", 1.786, include_str!("../../../league/champions/league_sett#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
