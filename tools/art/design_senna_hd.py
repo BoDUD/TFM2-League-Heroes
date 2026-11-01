@@ -11,9 +11,10 @@ Codex delivered (2026-11-01, Documents/Codex/2026-11-01/new-chat-6/outputs/senna
 generation: 1043 px claw top to soles) and raw/senna-generation-01.png as senna-v1.png (its first, 1084 px): 1254 x 1254
 each with soft alpha, not cut to 6-px squares. A's outline is ~14.4-px squares, its face and gold drawn on half ones
 (~7.2); v1 holds no one grid (~10.25 at best) - so each is read at several pitches (PITCHES) for the user to choose
-from, the face on the uniform grid at every pitch (FACES). Syndra's reader: the grid fitted (design_fiora_hd.fit,
-PITCH), each line snapped to the strongest colour edge near it, each square the palette colour most of its middle has,
-the outline closed where the read lost it. Its rows from the top of the cannon's claw to her soles over her 1x sprite's
+from (the user, 2026-11-01: 「用 A 1.87」 - A on its own ~14.4-px squares, PPU 1.87), the face on the uniform grid
+at every pitch (FACES). Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped to the
+strongest colour edge near it, each square the palette colour most of its middle has, the outline closed where the
+read lost it. Its rows from the top of the cannon's claw to her soles over her 1x sprite's
 39 make the PPU.
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/senna_ppu_size*.png (the
 design beside Thresh, Miss Fortune, Jinx and Senna now, as the game draws them) and <dir>/senna_ppu_closeup*.png (the
@@ -40,7 +41,7 @@ AH.RAW, AH.PITCH = "senna-A.png", (14.2, 14.6)    # its own outline squares (~14
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"senna-A.png": {"14.4": ((14.2, 14.6), 6), "9.6": ((9.4, 9.8), 4), "7.2": ((7.1, 7.3), 3)},
            "senna-v1.png": {"14.4": ((14.0, 14.8), 6), "10.25": ((10.0, 10.5), 4), "7.2": ((6.9, 7.5), 3)}}
-DEFAULT = ("senna-A.png", "9.6")
+DEFAULT = ("senna-A.png", "14.4")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - the snapped lines
 # lean on the strong edges round the face there and lose the eyes and the mouth
 FACES = {"senna-A.png": (700, 480, 920, 690), "senna-v1.png": (700, 380, 940, 610)}
