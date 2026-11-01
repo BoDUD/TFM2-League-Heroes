@@ -48,6 +48,7 @@ CLIPS = {   # path hashes only, named by what they show
     "run": (WAD, 14446475540929667257),      # 0.53 s: one big hop, stretched out at ~228-304 ms
     "puff": (WAD, 8908363383003671965),      # 0.93 s: the belly puffs up
     "roar": (MAP11, 3250657539129483045),    # 1.6 s (LoL): rears up, the mouth WIDE open (~456 ms)
+    "spit": (MAP11, 4503125194198841615),    # 0.93 s (LoL): head up and the mouth open (~266 ms), the belly heaving
 }
 SQ = 11
 SOLE = 1390
