@@ -1,0 +1,48 @@
+{
+  "A": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      647,
+      1016,
+      889,
+      1390
+    ],
+    "logical_size": [
+      22,
+      34
+    ],
+    "grid_px": 11,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bottom_margin_px": 146,
+    "uniform_grid_verified": true
+  },
+  "B": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      658,
+      1016,
+      878,
+      1390
+    ],
+    "logical_size": [
+      20,
+      34
+    ],
+    "grid_px": 11,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "bottom_margin_px": 146,
+    "uniform_grid_verified": true
+  }
+}
