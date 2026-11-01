@@ -1,0 +1,615 @@
+{
+ "square": 8,
+ "square_of": {
+  "ult_slam": 7
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): a heavy, swaggering run, the fists pumping, the coat and the fur flying, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under his hips, its foot flat on the ground; the FAR leg (the darker one) kicked up and back behind him, bent, its foot high off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): a heavy, swaggering run, the fists pumping, the coat and the fur flying, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow.",
+   "legs": "Frame 3: PASSING: both legs gathered under him, knees bent; the FAR leg passing forward close beside the planted near leg, its foot just off the ground. Frame 4: STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): a heavy, swaggering run, the fists pumping, the coat and the fur flying, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under his hips, its foot flat on the ground; the NEAR leg (the lighter one) kicked up and back behind him, bent, its foot high off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): a heavy, swaggering run, the fists pumping, the coat and the fur flying, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow.",
+   "legs": "Frame 7: PASSING: both legs gathered under him, knees bent; the NEAR leg passing forward close beside the planted far leg, its foot just off the ground. Frame 8: STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (the left punch): he draws the fist back (frames 1-2), punches straight forward (frames 3-4) and recovers (frame 5)",
+   "ms": [
+    67,
+    67
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the left punch): he draws the fist back (frames 1-2), punches straight forward (frames 3-4) and recovers (frame 5)",
+   "ms": [
+    66
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the left punch): he draws the fist back (frames 1-2), punches straight forward (frames 3-4) and recovers (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the left punch): he draws the fist back (frames 1-2), punches straight forward (frames 3-4) and recovers (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (the right punch): he draws the other fist back (frames 1-2), punches straight forward (frames 3-4) and recovers (frame 5)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (the right punch): he draws the other fist back (frames 1-2), punches straight forward (frames 3-4) and recovers (frame 5)",
+   "ms": [
+    80,
+    85
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the right punch): he draws the other fist back (frames 1-2), punches straight forward (frames 3-4) and recovers (frame 5)",
+   "ms": [
+    85
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Facebreaker (E): he crouches (frame 1), flings both arms wide to grab on either side (frames 2-4), hauls them in and smashes forward in a low lunge (frames 5-8), then straightens up (frames 9-11)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Facebreaker (E): he crouches (frame 1), flings both arms wide to grab on either side (frames 2-4), hauls them in and smashes forward in a low lunge (frames 5-8), then straightens up (frames 9-11)",
+   "ms": [
+    67
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Facebreaker (E): he crouches (frame 1), flings both arms wide to grab on either side (frames 2-4), hauls them in and smashes forward in a low lunge (frames 5-8), then straightens up (frames 9-11)",
+   "ms": [
+    67
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Facebreaker (E): he crouches (frame 1), flings both arms wide to grab on either side (frames 2-4), hauls them in and smashes forward in a low lunge (frames 5-8), then straightens up (frames 9-11)",
+   "ms": [
+    66,
+    17
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Facebreaker (E): he crouches (frame 1), flings both arms wide to grab on either side (frames 2-4), hauls them in and smashes forward in a low lunge (frames 5-8), then straightens up (frames 9-11)",
+   "ms": [
+    40
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Facebreaker (E): he crouches (frame 1), flings both arms wide to grab on either side (frames 2-4), hauls them in and smashes forward in a low lunge (frames 5-8), then straightens up (frames 9-11)",
+   "ms": [
+    43
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_7",
+   "frames": [
+    9,
+    10
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Facebreaker (E): he crouches (frame 1), flings both arms wide to grab on either side (frames 2-4), hauls them in and smashes forward in a low lunge (frames 5-8), then straightens up (frames 9-11)",
+   "ms": [
+    7,
+    60
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_8",
+   "frames": [
+    11
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Facebreaker (E): he crouches (frame 1), flings both arms wide to grab on either side (frames 2-4), hauls them in and smashes forward in a low lunge (frames 5-8), then straightens up (frames 9-11)",
+   "ms": [
+    33
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Haymaker (W): he raises his fist and winds up (frames 1-3), crouches (frame 4), throws a huge lunging punch forward (frames 5-6) and recovers (frame 7)",
+   "ms": [
+    80,
+    100
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Haymaker (W): he raises his fist and winds up (frames 1-3), crouches (frame 4), throws a huge lunging punch forward (frames 5-6) and recovers (frame 7)",
+   "ms": [
+    150,
+    153
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Haymaker (W): he raises his fist and winds up (frames 1-3), crouches (frame 4), throws a huge lunging punch forward (frames 5-6) and recovers (frame 7)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Haymaker (W): he raises his fist and winds up (frames 1-3), crouches (frame 4), throws a huge lunging punch forward (frames 5-6) and recovers (frame 7)",
+   "ms": [
+    130
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Haymaker (W): he raises his fist and winds up (frames 1-3), crouches (frame 4), throws a huge lunging punch forward (frames 5-6) and recovers (frame 7)",
+   "ms": [
+    137
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Show Stopper (R): he lunges and grabs forward (frame 1), crouches (frame 2), straightens (frame 3) and heaves his arm up (frame 4)",
+   "ms": [
+    40
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "The Show Stopper (R): he lunges and grabs forward (frame 1), crouches (frame 2), straightens (frame 3) and heaves his arm up (frame 4)",
+   "ms": [
+    40,
+    53
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Show Stopper (R): he lunges and grabs forward (frame 1), crouches (frame 2), straightens (frame 3) and heaves his arm up (frame 4)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Show Stopper (R), carrying: he flies forward low, one fist thrust ahead (frames 1-4)",
+   "ms": [
+    125
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Show Stopper (R), carrying: he flies forward low, one fist thrust ahead (frames 1-4)",
+   "ms": [
+    125
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Show Stopper (R), carrying: he flies forward low, one fist thrust ahead (frames 1-4)",
+   "ms": [
+    125
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Show Stopper (R), carrying: he flies forward low, one fist thrust ahead (frames 1-4)",
+   "ms": [
+    125
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult_slam",
+   "name": "ult_slam_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "The Show Stopper (R), the slam: high in the air above (frame 1), he slams down into a deep crouch (frame 2) and rises (frames 3-4)",
+   "ms": [
+    67,
+    100
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "ult_slam",
+   "name": "ult_slam_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "The Show Stopper (R), the slam: high in the air above (frame 1), he slams down into a deep crouch (frame 2) and rises (frames 3-4)",
+   "ms": [
+    100,
+    133
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "struck: jolted back, the fists up",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2), falls backwards (frame 3) and lies flat on his back (frames 4-8)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2), falls backwards (frame 3) and lies flat on his back (frames 4-8)",
+   "ms": [
+    110,
+    110
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2), falls backwards (frame 3) and lies flat on his back (frames 4-8)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2), falls backwards (frame 3) and lies flat on his back (frames 4-8)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2), falls backwards (frame 3) and lies flat on his back (frames 4-8)",
+   "ms": [
+    300
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2), falls backwards (frame 3) and lies flat on his back (frames 4-8)",
+   "ms": [
+    500
+   ],
+   "weapons": "HIS FISTS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold knuckle gauntlets, the violet fur bracers and the white wrist wraps, as large as in image 1, punching, spread wide or raised as the pale figure holds them. The pale figure's gold flashes and sparks are the old frame's effects: do NOT draw them. Only him: no flash, no sparks, no shockwave, no punch trails, no grit glow."
+  }
+ ]
+}

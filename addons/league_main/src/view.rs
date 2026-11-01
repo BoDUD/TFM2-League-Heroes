@@ -114,9 +114,12 @@ pub fn at_draw(shrunk: Option<Scale>, drawn: Option<Scale>, cur: f32, shown: Opt
             }
             AtDraw::Write(next_scale(prev, cur, k))
         }
-        None => match drawn {
-            Some(d) if ours(&d) => AtDraw::Restore(d.base),
-            _ => AtDraw::Leave,
+        // not drawn dense now: the value back if it is still one written here - by the body draw (a possession over),
+        // or by this frame's display update (league_viego has dense frames since league.dll 0.8.39: the update divided
+        // by Viego's PPU, then league_viego_soul swapped in a plain victim's body)
+        None => match drawn.filter(|d| ours(d)).or(shrunk.filter(|s| ours(s))) {
+            Some(d) => AtDraw::Restore(d.base),
+            None => AtDraw::Leave,
         },
     }
 }
@@ -840,6 +843,10 @@ mod tests {
         assert_eq!(at_draw(None, Some(s), 1.0 / k, None), AtDraw::Restore(1.0));
         assert_eq!(at_draw(None, Some(s), 1.0, None), AtDraw::Leave);
         assert_eq!(at_draw(None, None, 1.0, None), AtDraw::Leave);
+        // Viego (dense) divided by the update, then a plain victim's body swapped in: the game's value back at once
+        let v = Scale { base: 1.0, wrote: 1.0 / 2.447 };
+        assert_eq!(at_draw(Some(v), None, 1.0 / 2.447, None), AtDraw::Restore(1.0));
+        assert_eq!(at_draw(Some(v), None, 1.0, None), AtDraw::Leave);
     }
 
     #[test]
@@ -865,7 +872,8 @@ mod tests {
         let as_ = |res, id| drawn_as(&h, res, id).map(|h| h.id);
         assert_eq!(as_(Some("league_zeri"), Some("league_viego")), Some("league_zeri"));
         assert_eq!(as_(Some("champions/league_yasuo#anim"), Some("league_viego")), Some("league_yasuo"));
-        assert_eq!(as_(Some("league_viego"), Some("league_viego")), None); // the possession over
+        // the possession over: Viego himself, dense since league.dll 0.8.39
+        assert_eq!(as_(Some("league_viego"), Some("league_viego")), Some("league_viego"));
         assert_eq!(as_(Some("league_amumu"), Some("league_viego")), None); // a plain victim (Darius has dense frames since league.dll 0.7.48, Annie since 0.7.150)
         assert_eq!(as_(None, Some("league_karma")), Some("league_karma")); // no resource name read: the id
         assert_eq!(as_(Some("league_karma"), Some("league_karma")), Some("league_karma"));

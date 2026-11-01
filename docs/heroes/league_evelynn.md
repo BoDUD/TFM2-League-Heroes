@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AP / Magic / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.78 |
 | 附加包 | [斩杀附加包：伊芙琳、阿卡丽、锐雯](#附加包)（`league_executes`）、[游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![伊芙琳演示](../preview/league_evelynn_showcase.gif)
@@ -94,6 +94,7 @@
 | 数值 | 攻击 75（+10）、法术强度 50（+20）、生命 880（+85）、护甲 26（+8）、魔抗 20（+4）、移速 1100（+12）。数值是自己设计的，用 SDK 对战模拟调：打野，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），每批两边各 24 局。初稿（魅影回血 25、生命 920、攻击 80）+2.42；只降回血到 12，换种子在 +1.04 到 +2.63 之间；回血 12、生命 880、攻击 75 两批 +1.38 / +1.30，和包里的打野持平（凯隐 +1.70 / +0.88），定下这版；改削 Q、尖刺和鞭笞的伤害是 +1.31 / +1.22 |
 | 亚索联动 | 引诱的魅惑是亚索大招要的控制：伊芙琳打野、亚索同队时，亚索每局 R 到被控英雄 1.81 次（同一批凯隐 1.00、原版忍者 0.50），亚索不用调 |
 | 精灵图 | 10 个动作 57 帧：待机、移动、普攻、鞭笞、强化鞭笞（冲刺）、Q、W、R、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机：近手的爪子抬在下巴边，两条鞭子卷在身后），Codex 的生图草稿按自己的格子读回、减半到 41 行（`design_evelynn.py`，用户：「3 原稿A减半 40行」「小修版」），36 × 41 px，18 色；动作是 Codex 照英雄联盟的动作画的，奇怪的地方 Claude 修（`fix_evelynn_strips.py`，用户：「有奇怪的地方你直接修复 codex太笨了」）。待机 6 帧同一张（不呼吸）；待机最高点 −28，不设 `banpick_center`；头像截取点 (−10, −39) |
+| 高清帧（PPU 2.78） | 2026-11-01 用 PPU 重做，和赛娜在同一个 PR（用户：「伊芙琳和瑟提也在这个pr里重做」「伊芙琳用2.78」「伊芙琳通过」）。设计图：Codex 照她的旧精灵描密的原图（两版，用 A 版）；原图的描边约 10.4 像素一格，按原图自己的格子读回（103 × 114 格；头发顶到脚底 114 行，旧精灵 41 行，PPU 2.78），脸按均匀格子读。动作：Codex 照旧版同一帧整帧重画 49 帧（10 帧和别的帧或待机姿势一样，只画一次），读回到设计图的格子上：每帧的缩放按身高比旧帧，她的脸和身体是同一种淡紫色，头的大小改用头发里的浅粉和白色量，强化 E、W、受击、死亡里头画大的帧拉回设计图的大小（身体和旧帧相差不超过 10%）。旧版强化 E 里画进去的紫色光带不再画进角色帧。选人卡偏移 -10 改成 -6。待机和选人卡轮播是 hero_reels 从新动作剪的。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_evelynn.py`）：普攻出手和命中，鞭笞出手，强化鞭笞冲出和命中，Q 出手、鞭子飞出和命中，尖刺射出和命中，W 出手和命中、印记成熟、魅惑炸开，R 出手和命中，进入魅影；强化鞭笞、W、R 各一句配音 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -106,6 +107,15 @@ python tools/art/fix_evelynn_strips.py     # 动作：Codex 的动作条加上�
 python tools/art/import_native.py --hero evelynn
 python tools/art/import_evelynn.py         # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_evelynn.py
+# PPU 2.78 重做（2026-11-01）：
+python tools/art/pack_evelynn_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_evelynn_hd.py                      # Codex 的原图（hd/raw/evelynn-A.png）按原图约 10.4 像素一格读回 -> hd/design.png
+python tools/art/pack_evelynn_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_evelynn_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头发的大小（定 FRAME_ZOOM）
+python tools/art/rig_evelynn_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero evelynn && python tools/art/ppu_hd.py --hero evelynn
+python tools/art/ppu_one.py --hero evelynn && python tools/art/rig_evelynn_hd.py --one-ground && python tools/art/hero_reels.py --hero evelynn
+python tools/art/review_evelynn_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（造型的提示词见 [`assets/source/evelynn/MODEL_PROMPTS.md`](../../assets/source/evelynn/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/evelynn/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/evelynn/PROMPTS_FX.md)；Codex 的提示词和交接说明在 [`codex_picture/`](../../assets/source/evelynn/codex_picture)、[`codex_model/`](../../assets/source/evelynn/codex_model)、[`codex_strips/`](../../assets/source/evelynn/codex_strips)、[`codex_fx/`](../../assets/source/evelynn/codex_fx)）：
@@ -121,4 +131,4 @@ python tools/art/preview_evelynn.py
   - 帧时长对上技能：Q 第 3 帧在鞭子飞出的第 10 tick，W 第 2 帧在第 6 tick，R 第 3 帧在斩击的第 13 tick，强化鞭笞第 4 帧在冲到目标的第 5 tick 左右；普攻和鞭笞本来就对得上。
 - 特效用 Codex 画的 31 张（133 帧，生图原稿，`import_evelynn.py --raw` 同洛：每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——粉（心、尖刺、斩痕）、紫（鞭光、光带、光环）、烟（魅影、大招）——光效外圈最暗的一档去掉）。位置：Q 出手的闪光在甩鞭的手 (17, −12)，W 的飞吻在手 (13, −12)；头顶三层标记错开（荆棘冠 −31 贴着头顶，魅惑的小心 −36，心印记 −42），三个能同时看到；R 的 X 斩痕画在她前方 20 px（扇形的中段），残影留在原地、她闪回后脚下炸开落地烟；魅影的进入、循环、离开三张共用一帧，按同一个比例、同一个脚下锚点导入；冲刺拖尾从她起跳的胯部向前铺开。飞出去的鞭子、尖刺、诅咒第一帧前空 2–3 tick（飞过手之前不画）。
 
-逐帧预览：[`docs/preview/league_evelynn_frames.png`](../preview/league_evelynn_frames.png?v=1014g)，特效：[`docs/preview/league_evelynn_effects.png`](../preview/league_evelynn_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_evelynn_frames.png`](../preview/league_evelynn_frames.png?v=1101hd)，特效：[`docs/preview/league_evelynn_effects.png`](../preview/league_evelynn_effects.png?v=1014g)。

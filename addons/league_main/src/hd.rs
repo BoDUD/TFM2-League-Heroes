@@ -584,6 +584,27 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // frame read onto it at the zoom its height (the deaths: its area; E 2-6 by the hat) gives
     // (tools/art/casts_missfortune_hd.py, rig_missfortune_hd.py; nothing baked); 38 game px as her 1x sprite, so no SIZES row
     ("league_missfortune", 2.763, include_str!("../../../league/champions/league_missfortune#anim.fanim")),
+    // Senna (2026-11-01, 「下一个英雄我们重做赛娜」, 「用 A 1.87」): Codex's senna-A read on its own ~14.4-px
+    // squares (82 x 73, tools/art/design_senna_hd.py: 73 rows / 39 = 1.872); every action Codex's whole-frame redraw of her
+    // old frame read onto it at the zoom her height and face give (tools/art/casts_senna_hd.py, rig_senna_hd.py; the run
+    // and Q's first two frames redrawn: the legs changing over, the cannon low; nothing baked); 39 game px as her 1x
+    // sprite, so no SIZES row
+    ("league_senna", 1.872, include_str!("../../../league/champions/league_senna#anim.fanim")),
+    // Evelynn (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「伊芙琳用2.78」): Codex's evelynn-A read on its own
+    // ~10.4-px squares (103 x 114, tools/art/design_evelynn_hd.py: 114 rows / 41 = 2.780); every action Codex's
+    // whole-frame redraw of her old frame read onto it at the zoom her height and hair give (tools/art/casts_evelynn_hd.py,
+    // rig_evelynn_hd.py; nothing baked); 41 game px as her 1x sprite, so no SIZES row
+    ("league_evelynn", 2.780, include_str!("../../../league/champions/league_evelynn#anim.fanim")),
+    // Sett (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「瑟提用1.79」): Codex's sett-A read on its own ~15.5-px
+    // squares (53 x 75, tools/art/design_sett_hd.py: 75 rows / 42 = 1.786); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom between his height and his hair (tools/art/casts_sett_hd.py, rig_sett_hd.py;
+    // nothing baked); 42 game px as his 1x sprite, so no SIZES row
+    ("league_sett", 1.786, include_str!("../../../league/champions/league_sett#anim.fanim")),
+    // Viego (2026-11-01, 「再加一个佛耶戈重做吧」, 「佛耶戈用2.45」): Codex's viego-A read on its own ~9.8-px
+    // squares (114 x 115, tools/art/design_viego_hd.py: 115 rows / 47 = 2.447); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom between his height and his hair (tools/art/casts_viego_hd.py, rig_viego_hd.py;
+    // nothing baked); 47 game px as his 1x sprite, so no SIZES row
+    ("league_viego", 2.447, include_str!("../../../league/champions/league_viego#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

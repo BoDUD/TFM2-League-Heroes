@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "raptor": 1.56, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2, "skarner": 1.75, "zaahen": 1.75, "alune": 2.0, "silco": 2.0, "maddie": 1.5, "loris": 2.0, "kobuko": 2.0, "vander": 2.0, "violet": 2.0, "krug": 2.0, "aoshin": 2.0, "scar": 2.0, "renni": 2.0, "smeech": 2.4, "sevika": 1.8, "steb": 2.6, "nomsy": 2.6, "idas": 2.45, "daeja": 1.72, "shiohyu": 2.46, "syfen": 2.52, "sohm": 1.8, "terra": 1.45, "zippy": 2.2, "leesin": 2.1, "vayne": 2.55, "lucian": 2.02, "rengar": 59 / 40, "syndra": 78 / 42, "akali": 72 / 40, "sivir": 81 / 36, "tristana": 87 / 34, "zed": 65 / 40, "taric": 62 / 40, "kayle": 112 / 49, "leona": 72 / 41, "sona": 155 / 40, "briar": 135 / 46, "talon": 86 / 39, "thresh": 99 / 40, "missfortune": 105 / 38, "sentinel": 1.7, "elderdragon": 2.84, "meepsie": 2.875, "murkwolf": 1.67, "gromp": 1.69, "scuttlecrab": 80 / 30}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "raptor": 1.56, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2, "skarner": 1.75, "zaahen": 1.75, "alune": 2.0, "silco": 2.0, "maddie": 1.5, "loris": 2.0, "kobuko": 2.0, "vander": 2.0, "violet": 2.0, "krug": 2.0, "aoshin": 2.0, "scar": 2.0, "renni": 2.0, "smeech": 2.4, "sevika": 1.8, "steb": 2.6, "nomsy": 2.6, "idas": 2.45, "daeja": 1.72, "shiohyu": 2.46, "syfen": 2.52, "sohm": 1.8, "terra": 1.45, "zippy": 2.2, "leesin": 2.1, "vayne": 2.55, "lucian": 2.02, "rengar": 59 / 40, "syndra": 78 / 42, "akali": 72 / 40, "sivir": 81 / 36, "tristana": 87 / 34, "zed": 65 / 40, "taric": 62 / 40, "kayle": 112 / 49, "leona": 72 / 41, "sona": 155 / 40, "briar": 135 / 46, "talon": 86 / 39, "thresh": 99 / 40, "missfortune": 105 / 38, "senna": 73 / 39, "evelynn": 114 / 41, "sett": 75 / 42, "viego": 115 / 47, "sentinel": 1.7, "elderdragon": 2.84, "meepsie": 2.875, "murkwolf": 1.67, "gromp": 1.69, "scuttlecrab": 80 / 30}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -302,7 +302,8 @@ RESTYLE = {
     # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run;
     # the face point at the crown of his hair (tfm2_ase.py face), the card -8 (bp_card_audit.py's rule)
     # 2026-10-18 face (5,-38): the redo's point missed the face
-    "darius": dict(ppu=1.45, edge=1, face_to=(5, -38)),
+    # 2026-11-01 the user: 「诺手现在应该也要加点」 (a black outline, 「避免过度高清」) - edge 1 -> 2
+    "darius": dict(ppu=1.45, edge=2, face_to=(5, -38)),
     # Riven (2026-10-18): Codex's design picture read back on its own 15.57 x 17.48-px squares (68 x 61), her sword one of
     # Codex's angle drawings (swords_riven_hd.py) in her fist; idle, run, ult, wind slash, hit and death posed after
     # League's clips by tools/art/rig_riven_hd.py, her three attacks, Broken Wings and Valor Codex's whole-frame
@@ -487,7 +488,8 @@ RESTYLE = {
     # the hunched head is pushed out over his far foot)
     # 2026-10-23: 90 % in game (「狼人局内模型有点大了 开个pr缩小一点」, hd.rs SIZES): 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5 -> 2
     # squares lower; the face point x 0.9 about the soles
-    "warwick": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(10, -25)),
+    # 2026-11-01 the user: 「狼人加点黑边」 - edge 1 -> 2
+    "warwick": dict(ppu=1.2, edge=2, lift_sq=-2, face_to=(10, -25)),
     # league_gnar (#141): posed by tools/art/rig_gnar.py at the user's 1.5 squares a game pixel (「迷你 32」「巨型 44」:
     # Codex's step-1 takes A-2 cut to 48 rows, M-1 and SM-2 as drawn / cut to 66, Mega's turned poses drawn again from
     # Codex's own picture), so no proportion or density change here; the outer outline grown a square like the others;
@@ -747,6 +749,27 @@ RESTYLE = {
     # whole-frame redraw of her old frame read onto it (tools/art/casts_missfortune_hd.py), so no density change; the face
     # point stays: she is as tall as before; nothing baked
     "missfortune": dict(ppu=105 / 38, edge=0),
+    # Senna (2026-11-01, 「下一个英雄我们重做赛娜」, 「用 A 1.87」): Codex's senna-A read on its own ~14.4-px squares (82 x 73,
+    # design_senna_hd.py: 73 rows / 1.872 = her 39); every action Codex's whole-frame redraw of her old frame read onto
+    # it (tools/art/casts_senna_hd.py), so no density change; the face point stays: she is as tall as before; nothing
+    # baked
+    "senna": dict(ppu=73 / 39, edge=0),
+    # Evelynn (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「伊芙琳用2.78」): Codex's evelynn-A read on its own ~10.4-px squares
+    # (103 x 114, design_evelynn_hd.py: 114 rows / 2.780 = her 41); every action Codex's whole-frame redraw of her old
+    # frame read onto it (tools/art/casts_evelynn_hd.py), so no density change; the face point stays: she is as tall as
+    # before; nothing baked. Then the user: 「伊芙琳可以加点黑边 避免过度高清」 - the outline grown by 2 squares (1 hardly shows at
+    # 2.78)
+    "evelynn": dict(ppu=114 / 41, edge=2),
+    # Sett (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「瑟提用1.79」): Codex's sett-A read on its own ~15.5-px squares (53 x 75,
+    # design_sett_hd.py: 75 rows / 1.786 = his 42); every action Codex's whole-frame redraw of his old frame read onto it
+    # (tools/art/casts_sett_hd.py), so no density change; the face point stays: he is as tall as before; nothing baked;
+    # the outline grown by 2 squares (the user: 「瑟提和佛耶戈也是 避免过度高清」)
+    "sett": dict(ppu=75 / 42, edge=2),
+    # Viego (「再加一个佛耶戈重做吧」, 「佛耶戈用2.45」): Codex's viego-A read on its own ~9.8-px squares (114 x 115,
+    # design_viego_hd.py: 115 rows / 2.447 = his 47); every action Codex's whole-frame redraw of his old frame read onto
+    # it (tools/art/casts_viego_hd.py), so no density change; the face point stays: he is as tall as before; nothing baked;
+    # the outline grown by 2 squares (the user: 「瑟提和佛耶戈也是 避免过度高清」)
+    "viego": dict(ppu=115 / 47, edge=2),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2

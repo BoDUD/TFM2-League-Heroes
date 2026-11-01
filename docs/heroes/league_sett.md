@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.79 |
 | 附加包 | [瑟提豪意附加包](#附加包)（`league_sett_grit`） |
 
 ![瑟提演示](../preview/league_sett_showcase.gif)
@@ -87,6 +87,7 @@
 | 数值 | 攻击 90（+18）、生命 1100（+110）、护甲 34（+8）、魔抗 26（+4）、移速 1000（+11）、生命回复 5（+2）。在 SDK 上模拟过（见下面「平衡」） |
 | 精灵图 | 11 个动作 60 帧：待机、移动、左拳（`attack`）、右拳（`attack2`）、E（`skill`）、W（`skill2`）、R 抓起扔出（`ult`）、R 飞扑（`ult_dash`）、R 砸地（`ult_slam`）、受击、死亡。造型是 Codex 的生图原稿 B 按块读到 42 行（`design_sett.py`），26 × 42 px，26 色；动作是 Codex 的生图原稿按同样的读法读到 42 行、每帧贴定稿的头（`strips_sett.py`），跑步在定稿自己的身体上做（`run_sett.py`）；待机 6 帧同一张（不呼吸）；待机最高点 −30，`banpick_center` −9；头像截取点 (−2, −37) |
 | 特效 | Codex 生图的 14 张 77 帧（`import_sett.py` 缩成游戏像素）：`league_sett_fx` 左右拳命中、强化拳的金色拳光和命中、E 拽到、W 护盾（出现 / 持续 / 碎掉）、W 真伤和两侧命中、R 抓取和砸中、豪意 4–5 层脚下的热浪；`league_sett_big` W 巨拳（铺在出拳线上）、E 对撞、R 砸地大坑。颜色照英雄联盟：拳头和冲击橙金、护盾银白、热浪橙红、砸地土黄 |
+| 高清帧（PPU 1.79） | 2026-11-01 用 PPU 重做，和赛娜在同一个 PR（用户：「伊芙琳和瑟提也在这个pr里重做」「瑟提用1.79」「瑟提和佛耶戈也是 避免过度高清」「瑟提通过」）。设计图：Codex 照他的旧精灵描密的原图（两版，用 A 版）；原图的描边约 15.5 像素一格，按原图自己的格子读回（53 × 75 格；头发顶到脚底 75 行，旧精灵 42 行，PPU 1.79），脸按均匀格子读，外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 58 帧，读回到设计图的格子上：每帧的缩放取身高比旧帧的缩放和头发比设计图的缩放的几何平均（只按头发拉平时身体前后帧差到 ±10%，用户：「瑟提感觉模型会一大一小？」），蹲下和倒地的帧按整个人的面积。旧版 E 里画进去的金色闪光不再画进角色帧。选人卡偏移 -9 改成 -6。待机和选人卡轮播是 hero_reels 从新动作剪的。|
 | 音效 | 从本地客户端提取的 13 条技能音效和 3 条中文语音（E、W、R 出手），`.sound_info` 写明每个技能放哪几条。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（E / W / R），从本地客户端提取，缩到 64×64 |
 
@@ -103,6 +104,15 @@ python tools/art/import_native.py --hero sett   # 动作条导入成游戏贴图
 python tools/art/pack_sett_fx.py --out <包文件夹>/sett_fx_pack --zip   # 第 3 步给 Codex 的特效包
 python tools/art/import_sett.py           # 特效；--raw <Codex 的特效交付文件夹> 先把生图缩成游戏尺寸的原尺寸条
 python tools/art/preview_sett.py          # 逐帧图、特效图和展示动图
+# PPU 1.79 重做（2026-11-01）：
+python tools/art/pack_sett_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照他的旧精灵描密）
+python tools/art/design_sett_hd.py                      # Codex 的原图（hd/raw/sett-A.png）按原图约 15.5 像素一格读回 -> hd/design.png
+python tools/art/pack_sett_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_sett_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头发的大小（定 FRAME_ZOOM）
+python tools/art/rig_sett_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero sett && python tools/art/ppu_hd.py --hero sett
+python tools/art/ppu_one.py --hero sett && python tools/art/rig_sett_hd.py --one-ground && python tools/art/hero_reels.py --hero sett
+python tools/art/review_sett_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 做法：
@@ -121,4 +131,4 @@ python tools/art/preview_sett.py          # 逐帧图、特效图和展示动图
 - 导入：待机 6 帧同一张不呼吸，按眼睛的琥珀色对齐跑步的头，补描边；60 帧 26 色，头像截取点 (−2, −37)。
 - 特效：第 3 步特效（[`PROMPTS_FX.md`](../../assets/source/sett/PROMPTS_FX.md)，包由 `tools/art/pack_sett_fx.py` 生成：定稿、大小对照（W 往前 50 格、R 砸地 52 × 26 的椭圆）、出手帧的挂点（待机两拳 (±10, −5)、E 对撞 (7, −11)、W 出拳 (24, −14)、R 砸地在鞋底）、蔚的特效当画风参考）：14 张，小图进 `league_sett_fx`（左右拳命中、强化拳的金色拳光和命中、E 拽到、W 护盾三段、W 真伤和两侧命中、R 抓取和砸中、豪意 4–5 层脚下的热浪），大图进 `league_sett_big`（W 巨拳：朝右画、铺在 50 格的出拳线上，前 4 帧地上预警，第 27 tick 拳头轰出；E 对撞；R 砸地大坑）；颜色照英雄联盟：拳头和冲击橙金、护盾银白、热浪橙红、砸地土黄。Codex 交回 14 张生图（77 帧，[`codex_fx/HANDOFF.md`](../../assets/source/sett/codex_fx/HANDOFF.md)），`import_sett.py --raw` 照希维尔的做法缩成游戏像素：每个游戏像素取覆盖的原稿像素里最多的颜色，归到包里给每张的色阶，光效外圈最深的一档去掉（砸地的土块留着暗边）；每张按包里写的大小定比例（命中 12–22 格、拳光 30 格宽、E 对撞 26 格、W 巨拳的预警扇形正好 50 格，画面中心是出拳线的中点，R 砸坑 64 格宽、热浪 32 格宽）。W 护盾按 36 格导入时是个罩在胸口的圈，头顶和脚露在外面，放大到 44 格罩住全身。挂点：命中在上半身 (0, −8)，拳光两团对着待机的两只拳头（中点 (−1, −5)），E 对撞在两拳之间 (7, −11)，护盾中心 (−1, −10)，热浪和砸坑在鞋底 (0, 10)；时长：W 巨拳 46 tick（前 4 帧 27 tick 的地上预警，第 5 帧拳头轰出，正好在打中那一刻），护盾三段（出现 0.2 秒、持续循环、碎掉 0.26 秒），砸坑 0.7 秒。特效的平均亮度 173（蔚 152、希维尔 155），暗底上看得见。
 
-逐帧预览：[`docs/preview/league_sett_frames.png`](../preview/league_sett_frames.png?v=1014g)，特效：[`docs/preview/league_sett_effects.png`](../preview/league_sett_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_sett_frames.png`](../preview/league_sett_frames.png?v=1101hd)，特效：[`docs/preview/league_sett_effects.png`](../preview/league_sett_effects.png?v=1014g)。

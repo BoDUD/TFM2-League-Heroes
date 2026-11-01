@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / CC / Heal |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.45 |
 | 附加包 | [佛耶戈「君命已决」附加包](#附加包)（`league_viego_soul`）、[游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![佛耶戈演示](../preview/league_viego_showcase.gif)
@@ -55,7 +55,7 @@
 
 ### 佛耶戈「君命已决」附加包
 
-[佛耶戈「君命已决」附加包](../../addons/league_viego_soul/README.md)：`league_viego_soul` v0.2.46
+[佛耶戈「君命已决」附加包](../../addons/league_viego_soul/README.md)：`league_viego_soul` v0.2.47
 
 |  | 主包（纯数据） | 装了附加包（照英雄联盟） |
 |---|---|---|
@@ -100,6 +100,7 @@
 | 数值 | 攻击 92（+18）、生命 980（+105）、护甲 30（+8）、魔抗 26（+4）、移速 1010（+11）。数值是自己设计的，用 SDK 对战模拟调：打野，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），3 套阵容、两边各打，10 分钟。初稿（二连击回血 40 + 40%、附身攻击 +25%、Q / W 冷却直接刷新）种子 1–12 +2.02、25–36 +1.92，太强；回血 30 + 30%、攻击 +20%、冷却减半后 +1.51 / +1.16（同一批凯隐 +1.76 / +1.23） |
 | 精灵图 | 9 个动作 57 帧：待机 8（他自己的呼吸）、移动 8（身体前倾，大剑扛在肩上、剑尖朝后，两条腿在敞开的大衣两片衣摆之间照英雄联盟的跑步迈步）、普攻 6（第 5 帧砍中）、Q（`skill`）6、W+E（`skill2`）7、R（`ult`）8、吸魂（`possess`）4、受击 2、死亡 8（跪在插地的剑旁）。王冠到脚底 38 行（连剑 46 行；缩到 90%，用户「佛耶戈的模型在游戏里有点大了 稍微缩小一点」），27 色，待机时大剑扛在肩上、剑尖朝前。头像截取点 (4, −39)，选人卡片 −8 |
 | 特效 | Codex 生图的 25 张（游戏尺寸版逐格切，`import_viego.py`；红色方的对称逐格检查）：`league_viego_fx` 普攻 X 形剑光、二连击、Q 剑气 / 刺中 / 王冠标记、W 黑雾巨口 / 咬中 / 晕眩、E 脚边黑雾、无敌外壳、附身结束、R 起跳 / 刺中，附加包的灵魂光弹、穿透射击、命中、减速、治疗、加速；`league_viego_big` E 的黑雾、夺魂、附身黑雾、R 刺中和落地冲击、附加包的灵魂爆裂和范围震荡。颜色照英雄联盟的破败黑雾：他剑上的青绿光（白芯），雾的深色只在里面、边缘是亮的，灵魂是苍白的青白色。地上的圈和两个爆裂 Codex 画满了整个格子（四四方方），按格子里的椭圆裁掉外面 |
+| 高清帧（PPU 2.45） | 2026-11-01 用 PPU 重做，和赛娜在同一个 PR（用户：「再加一个佛耶戈重做吧」「佛耶戈用2.45」「瑟提和佛耶戈也是 避免过度高清」「都通过」）。设计图：Codex 照他的旧精灵描密的原图；原图的描边约 9.8 像素一格，按原图自己的格子读回（114 × 115 格；剑尖到脚底 115 行，旧精灵 47 行，PPU 2.45），脸按均匀格子读，外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 30 帧（17 帧和别的帧或待机姿势一样，只画一次），读回到设计图的格子上：每帧的缩放取身高缩放和白头发缩放的几何平均，十字护手挡住头发、两者差 15% 以上的帧只按身高。死亡改成单膝跪地拄剑。待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_viego.py`）：挥剑、砍中、二连击，Q 出手 / 刺中，W 蓄力 / 出手 / 咬中，E 黑雾，夺魂、附身结束，R 起跳 / 落地 / 刺中；Q、W、E、R、夺魂的配音（最多每 10 秒一句）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q 破败王剑 / W 千载幽咽 / R 痛贯天灵），从本地客户端提取，缩到 64×64 |
 | 破败之雾自动升起（附加包 0.2.0） | 用户：「佛耶哥的二技能被ai当成点控用了，没法利用破败之雾抓人。把开雾写成一个有内置cd的靠近敌方英雄一定范围自动触发的隐身技能」。附加包 `league_viego_soul` 的副本里 W 只剩千载幽咽（冲刺吐魂眩晕），黑雾由被动自己升起：看得见的敌方英雄进到 90000 以内、每 10 秒最多一次、没在附身时，5 秒移速 +30%、攻速 +40%，隐身 2 秒，原地播黑雾的画面和声音。主包（不装附加包）的佛耶戈不变；经典模拟器跑不了附加包，要在游戏里看日志的 `MIST` 行（[`addons/league_viego_soul`](../../addons/league_viego_soul)） |
@@ -116,6 +117,15 @@ python tools/art/import_native.py --hero viego
 python tools/art/import_viego.py       # 特效：游戏尺寸版逐格切，拼成特效表
 python tools/art/preview_viego.py      # 预览和演示 GIF
 python addons/league_viego_soul/make_override.py   # 附身附加包的副本（主包的佛耶戈改了就重跑）
+# PPU 2.45 重做（2026-11-01）：
+python tools/art/pack_viego_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照他的旧精灵描密）
+python tools/art/design_viego_hd.py                      # Codex 的原图（hd/raw/viego-A.png）按原图约 9.8 像素一格读回 -> hd/design.png
+python tools/art/pack_viego_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_viego_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头发的大小（定 FRAME_ZOOM）
+python tools/art/rig_viego_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero viego && python tools/art/ppu_hd.py --hero viego
+python tools/art/ppu_one.py --hero viego && python tools/art/rig_viego_hd.py --one-ground && python tools/art/hero_reels.py --hero viego
+python tools/art/review_viego_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画、造型、动作、特效的提示词见 [`assets/source/viego/`](../../assets/source/viego) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`MODEL_STRIPS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_strips/`、`codex_fx/`）：
@@ -126,4 +136,4 @@ python addons/league_viego_soul/make_override.py   # 附身附加包的副本（
 - 缩小：用户「佛耶戈的模型在游戏里有点大了 稍微缩小一点 你选一套最合适的」，缩到 90%（王冠到脚底 42 → 38 行，和赛娜、慎差不多高）：`rig_viego.py` 先把定稿（不含剑）整行整列删一次（`shrink_frames.py`，脸不删，靴子的行不删），再用缩好的身体摆所有动作，每个动作删的都是他身上同一批行列；剑不按行列删（1:2 的斜剑身会出现不均匀的台阶），而是在剑身被头挡住、按两列补出来的那段（每两列一行完全重复）整段去掉两节，剑短 10%、没有接缝。
 - 特效：25 张用 Codex 的游戏尺寸版逐格切；地上的圈、两个爆裂裁成格子里的椭圆，E 的黑雾最后一帧是一整块，改成倒放自己的前两帧散去。
 
-逐帧预览：[`docs/preview/league_viego_frames.png`](../preview/league_viego_frames.png?v=1014g)，特效：[`docs/preview/league_viego_effects.png`](../preview/league_viego_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_viego_frames.png`](../preview/league_viego_frames.png?v=1101hd)，特效：[`docs/preview/league_viego_effects.png`](../preview/league_viego_effects.png?v=1014g)。

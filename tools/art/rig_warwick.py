@@ -17,9 +17,10 @@ far arm also turned by quarter turns about its shoulder (forward for the swipes,
 head so it never covers the face); the head is never cut from the body, sheared or turned. Parts: the tail (left of
 the near gauntlet), the far arm (right of the face from the shoulder down), the near arm (the gauntlet and the hand),
 the two legs under the shorts; the rest is the body.
-The run is league_braum's / league_galio's approved walk for big heroes (memory run-legs-caitlyn-way, 「你按照泰坦布隆那种
+The run below was league_braum's / league_galio's approved walk for big heroes (memory run-legs-caitlyn-way, 「你按照泰坦布隆那种
 走路方式这种腿就不会变形」): the design's own legs, one lifted per frame by losing its top rows and stepped forward, the body
-floating a little, the arms swinging a square against the legs, the tail swaying.
+floating a little, the arms swinging a square against the legs, the tail swaying. Since 2026-11-01 (「狼人的走路姿势现在有点
+奇怪」) it only places the frames: the export ends with tools/art/casts_warwick_run.py writing Codex's redrawn run over it.
 """
 import argparse
 import os
@@ -407,6 +408,12 @@ def main():
         F.rig.review(acts, a.review)
     else:
         export(F, acts)
+        # the run is Codex's redraw now (tools/art/casts_warwick_run.py): the rig's own run kept as its frames' places
+        import shutil
+        import casts_warwick_run as CR
+        for ext in (".png", ".json"):
+            shutil.copyfile(CR.ORIG + ext, CR.RIG + ext)
+        CR.write()
 
 
 if __name__ == "__main__":
