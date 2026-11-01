@@ -70,7 +70,7 @@ TEXT = {
 }
 
 CONSTS = {k: k.upper() for k in ("p_dmg", "p_ap", "p_r", "w_dmg", "w_ratio", "w_hp", "w2", "w_mark_t", "w_heal", "w_heal_ad",
-                                  "w_heal_miss", "r_tower_r", "r_tower_t")}
+                                  "w_heal_miss", "r_tower_r", "r_tower_t", "r_range", "r_r")}
 P_N = 4                         # src/lib.rs P_N: the lightning's targets besides the one attacked (League: 4)
 
 

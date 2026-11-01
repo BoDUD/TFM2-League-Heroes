@@ -659,6 +659,35 @@ pub fn grown(per: f32, stacks: usize) -> f32 {
     1.0 + per * stacks as f32
 }
 
+/// Heroes drawn bigger while a buff of theirs is on them: (id, the buffs - any one of them, the size, seconds to grow to
+/// it and to shrink back), about the soles like GROWTH. Volibear's Stormbringer (the user, 2026-11-01: 「开大时候可以加大点
+/// 体型吧 我记得英雄联盟是这样的」): League's R makes him 35 % bigger, grown over 1.25 seconds from the cast and shrunk
+/// back when it ends - here from the leap (`league_volibear_r_air`, 1 s) through the 12 s storm form after the landing
+/// (`league_volibear_r_form`), main pack data both.
+pub const FORMS: &[(&str, &[&str], f32, f32)] =
+    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.35, 1.25)];
+
+/// Seconds a form's body may go undrawn and still ease on: past it the next draw is another unit at that address or a
+/// new match, drawn straight at its size.
+pub const FORM_STALE: f32 = 0.5;
+
+/// The size a FORMS body is drawn at now: `prev` the size it was drawn at last and the seconds since (None: never drawn),
+/// `target` the row's size while a buff is on him, else 1.0. It moves toward the target by (size - 1) / secs a second
+/// (the whole way in `secs`), straight to it when never drawn or stale.
+pub fn eased(prev: Option<(f32, f32)>, target: f32, size: f32, secs: f32) -> f32 {
+    match prev {
+        Some((was, dt)) if dt <= FORM_STALE && secs > 0.0 => {
+            let step = (size - 1.0).abs() / secs * dt;
+            if (target - was).abs() <= step {
+                target
+            } else {
+                was + step * (target - was).signum()
+            }
+        }
+        _ => target,
+    }
+}
+
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
 /// for the 14-px picture; tools/art/import_yuumi_fx.py) and league_leblanc_clone (below; league_zyra_thicket was one
