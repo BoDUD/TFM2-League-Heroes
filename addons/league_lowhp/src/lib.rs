@@ -29,6 +29,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_lowhp";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_lowhp") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 标记每次续多久（每 tick 都续，比 1 多一点，跨过结算顺序）。
 pub const HOLD: usize = 3;
 /// (英雄, 被动名, 标记, 门槛 %)。
@@ -248,8 +254,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Blitzcrank's Mana Barrier, LeBlanc's Mirror Image, Lissandra's self-tomb on low health and her thralls) loaded: game {}.{}.{} abi {} log={} ===",
-        "0.2.2", // the add-on's own (mod.mod_info): inside league_addons CARGO_PKG_VERSION is the bundle's
+        "=== {ID} v{VERSION} (Blitzcrank's Mana Barrier, LeBlanc's Mirror Image, Lissandra's self-tomb on low health and her thralls) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

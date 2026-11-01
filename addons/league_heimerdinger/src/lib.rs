@@ -27,7 +27,7 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_heimerdinger.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SPAWN`（他出场和参数）、`PUT`（炮台站下，施法输入的种类）、`SHOT`（炮台出手）、`HASTE`（加速，塔边还是炮台边）、
-//! `WATCH`（每 30 秒的计数）、`E CLUMP` / `Q APEX` / `E ONE`（钩子替 AI 按的），都限了条数。
+//! `WATCH`（每 30 秒的计数）、`E CLUMP` / `Q APEX` / `E ONE`（钩子替 AI 按的，一串连着按的只记一行），都限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -41,8 +41,12 @@ use mod_api_stable::*;
 pub mod combo;
 
 const ID: &str = "league_heimerdinger";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.1";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_heimerdinger") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 侧面炮台朝右时炮口离炮台的点多远（游戏像素 x 1000：往前、往上；tools/art/import_heimerdinger_fx.py 写的
 /// assets/source/heimerdinger/hd/side_muzzles.json，make_override.py 核对）。一颗飞行物画在它的点上方 5 px，所以发射点往南挪
 /// 5 px 减去炮口的高度。

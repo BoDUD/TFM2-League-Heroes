@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Caitlyn's lane pressure (needs League of Legends Heroes): for the first ten minutes her AI aims Piltover Peacemaker at the enemy laner instead of the wave and shoots the laner rather than a minion that is not a last hit - never under an enemy tower, when low or outnumbered. Her numbers and every picture stay the main pack's. Writes a log for testing.",
-  "last_updated": "2026-10-22",
+  "last_updated": "2026-11-02",
   "mod_id": "league_caitlyn",
   "mod_type": "native",
   "name": "League Heroes: Caitlyn's lane pressure (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

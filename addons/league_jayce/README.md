@@ -1,4 +1,4 @@
-# 杰斯附加包（测试版 v0.1.0，可选）
+# 杰斯附加包（测试版 v0.1.2，可选）
 
 **不装这个附加包，主包里的杰斯也是完整的**：锤 / 炮两种形态、按战况切换、苍穹之跃、电能震荡、雷霆一击、闪电领域、超能电荷、
 海克斯科技电容和 5 级的加速电炮都在主包数据里。主包是纯数据，有几件事做不到，这个附加包用原生代码补上（用户 2026-10-15 选的三件）：
@@ -37,6 +37,8 @@
    - `FORM display … Jayce #…: CANNON on` / `hammer`：画面里变了形态；`FORM sim: CANNON on` / `cannon off`：模拟里的形态 buff；
    - `BLOW 某英雄 at (…): toward 2 allied champions` / `toward his nearest tower` / `straight away from him (…)`：雷霆一击往哪推；
    - `GATE A -> B (KILL: … / LOWEST: …% hp / FARTHEST …) AIM`：电炮换了目标（`kept` 是 AI 本来选的就是它）。
+   - 每种行整个游戏一个计数，先记 40 条、之后每 50 条记一条；模拟里的行（`FORM sim`、`BLOW`、`GATE`）你看的那场每条都记
+     （0.1.2：以前你看的那场也一样限，预模拟先把条数用完）。
 
 ## 开发
 

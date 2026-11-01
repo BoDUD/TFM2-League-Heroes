@@ -55,7 +55,7 @@
 
 ### 蒙多附加包
 
-[蒙多附加包](../../addons/league_drmundo/README.md)：`league_drmundo` v0.1.6
+[蒙多附加包](../../addons/league_drmundo/README.md)：`league_drmundo` v0.1.7
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

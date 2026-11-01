@@ -493,7 +493,7 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
     // a hero drawn bigger, with a stack (hd::GROWTH, Cho'Gath's Feast) or while his form's buff is on (hd::FORMS,
     // Volibear's Stormbringer, eased in and out): his body's own commands once more, about his soles
     let g = if let Some(&(_, buff, per)) = hd::GROWTH.iter().find(|g| g.0 == hero.id) {
-        let n = stacks(ent, buff);
+        let n = hd::grow_count(buff_names(ent).iter().map(String::as_str), buff);
         let g = hd::grown(per, n);
         if note_grow(&mut st, ent, n) {
             wlog(format!("{}: {n} x {buff} - body drawn x{g:.2} about the soles", hero.id));
@@ -628,6 +628,21 @@ unsafe fn stacks(ent: usize, name: &str) -> usize {
             plausible(p) && n == name.len() && std::slice::from_raw_parts(p as *const u8, n) == name.as_bytes()
         })
         .count()
+}
+
+/// The names of the buffs on the entity value `ent` (its buff list, as `stacks` reads it).
+unsafe fn buff_names(ent: usize) -> Vec<String> {
+    let (bp, bn) = (q(ent + BUFFS_PTR), q(ent + BUFFS_LEN));
+    if !plausible(bp) || bn > 4096 {
+        return Vec::new();
+    }
+    (0..bn)
+        .filter_map(|k| {
+            let b = bp + k * BUFF_SIZE;
+            let (p, n) = (q(b + 8), q(b + 0x10));
+            (plausible(p) && n <= 256).then(|| String::from_utf8_lossy(std::slice::from_raw_parts(p as *const u8, n)).into_owned())
+        })
+        .collect()
 }
 
 /// Whether a growing body's state `n` (its stacks; 1 / 0 for a form on / off) is new for the entity value `ent`: one
@@ -774,6 +789,19 @@ mod tests {
         assert!((hd::grown(0.30, 4) - 2.2).abs() < 1e-6);
         assert!((hd::grown(0.30, 10) - 4.0).abs() < 1e-6);
         assert!(hd::GROWTH.iter().any(|g| g.0 == "league_chogath" && g.1 == "league_chogath_r_stack"));
+    }
+
+    #[test]
+    fn stacks_on_screen_are_the_add_ons_marks() {
+        let s = "league_chogath_r_stack";
+        // the display keeps one entry a name: 3 stacks show as one, plus league_chogath's marks for the 2nd and 3rd
+        assert_eq!(hd::grow_count([s, "league_chogath_r_stack_2", "league_chogath_r_stack_3", "league_chogath_r_cd"], s), 3);
+        assert_eq!(hd::grow_count([s], s), 1);
+        // no stack: a stale mark alone draws nothing; other buffs that share the start do not count
+        assert_eq!(hd::grow_count(["league_chogath_r_stack_2"], s), 0);
+        assert_eq!(hd::grow_count([s, "league_chogath_r_stacked", "league_chogath_r_stack_x"], s), 1);
+        // a display that keeps every entry: the entries themselves
+        assert_eq!(hd::grow_count([s, s, s, "league_chogath_r_stack_2"], s), 3);
     }
 
     #[test]

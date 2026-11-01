@@ -55,7 +55,7 @@
 
 ### 韦鲁斯枯萎附加包
 
-[韦鲁斯枯萎附加包](../../addons/league_varus_blight/README.md)：`league_varus_blight` v0.1.0
+[韦鲁斯枯萎附加包](../../addons/league_varus_blight/README.md)：`league_varus_blight` v0.1.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

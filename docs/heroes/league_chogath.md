@@ -55,7 +55,7 @@
 
 ### 科加斯附加包
 
-[科加斯附加包](../../addons/league_chogath/README.md)：`league_chogath` v0.1.3
+[科加斯附加包](../../addons/league_chogath/README.md)：`league_chogath` v0.1.4
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

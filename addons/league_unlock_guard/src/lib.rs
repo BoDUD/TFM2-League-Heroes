@@ -26,8 +26,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_unlock_guard";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_unlock_guard") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 排在所有钩子之后（单元测试核对别的附加包都没用它）。
 pub const PRIORITY: i32 = i32::MAX;
 /// 每个英雄、每个格子先记这么多次……

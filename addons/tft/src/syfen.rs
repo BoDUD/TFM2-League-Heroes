@@ -6,8 +6,8 @@
 //!   `tft_syfen_p_shrink`（护甲、魔抗各少 `p_shred`%，带画面）；新缩小的一下亮 `tft_syfen_p`、播 `tft_syfen_sfx_p`。
 //!   打到**已经缩小**的敌人时他叠一层怒气：每层 `p_ad` 攻击力，最多 `p_max` 层，最后一次叠起 `p_stack_t` 拍后全部消失
 //!   （`tft_syfen_p_rage`，带画面）。数据问不了目标身上有没有某个状态，所以由本被动来做。
-//! - **暴走（冲锋）** `tft_syfen:rampage`：找 `r_range` 内**最远**的敌方英雄（没有就用 AI 选的目标），每拍往它冲
-//!   `r_speed`，最多 `r_t` 拍，贴到身前就停；路上离他的路线 `r_w` 以内的每个敌人（不含塔）挨 `r_dmg` + `r_ad`% 攻击力的
+//! - **暴走（冲锋）** `tft_syfen:rampage`：找 `r_range` 内（边到边，同引擎的施法距离）**最远**的敌方英雄（没有就用 AI 选的目标），每拍往它冲
+//!   `r_speed`，最多 `r_t` 拍（目标更远时加到够冲到它身前，至多 2 倍），贴到身前就停；路上离他的路线 `r_w` 以内的每个敌人（不含塔）挨 `r_dmg` + `r_ad`% 攻击力的
 //!   物理伤害并晕眩 `r_stun` 拍（每人一次），亮 `tft_syfen_r_hit`、播撞击声。数据找不到最远的人。
 //! - **暴走（猛咬）** `tft_syfen:bite`：咬他冲向的那个人（还活着、在 `r_reach` 内；否则咬身边最近的敌人）：
 //!   `r_bite_dmg` + `r_bite_ad`% 攻击力的物理伤害，无视 `r_pen`% 护甲，亮 `tft_syfen_r_bite`、播咬中的声音。
@@ -259,10 +259,23 @@ pub fn seg_dist_sq(a: (u64, u64), b: (u64, u64), p: (u64, u64)) -> f64 {
     (px - cx) * (px - cx) + (py - cy) * (py - cy)
 }
 
-/// The farthest of the (id, where) within `reach` of `at`.
-pub fn farthest(at: (u64, u64), champs: &[(usize, (u64, u64))], reach: usize) -> Option<usize> {
-    let r = (reach as u128) * (reach as u128);
-    champs.iter().filter(|(_, p)| dist_sq(at, *p) <= r).max_by_key(|(id, p)| (dist_sq(at, *p), *id)).map(|(id, _)| *id)
+/// The farthest of the (id, where, body radius) within `reach` of a unit of radius `me_r` at `at`, edge to edge like the
+/// engine's cast range (it casts the ult at champions 90 000 - 104 000 away centre to centre: counted centre to centre
+/// none of them was in reach and the charge went at the AI's target, 2026-11-02 logs).
+pub fn farthest(at: (u64, u64), me_r: u64, champs: &[(usize, (u64, u64), u64)], reach: usize) -> Option<usize> {
+    let within = |p: (u64, u64), r: u64| {
+        let lim = reach as u128 + me_r as u128 + r as u128;
+        dist_sq(at, p) <= lim * lim
+    };
+    champs.iter().filter(|(_, p, r)| within(*p, *r)).max_by_key(|(id, p, _)| (dist_sq(at, *p), *id)).map(|(id, _, _)| *id)
+}
+
+/// How many ticks the charge may take for a target `d` away (centre to centre): `r_t`, or as many as it takes to get
+/// in front of a farther one, at most twice `r_t` (2026-11-02 logs: 21 of 57 charges ran out of ticks short of a target
+/// the AI cast at 90 000 - 104 000 away, and their bites found nobody).
+pub fn charge_ticks(d: u64, p: &Params) -> usize {
+    let need = d.saturating_sub(TOUCH).div_ceil(p.r_speed.max(1) as u64) as usize;
+    need.clamp(p.r_t, p.r_t * 2)
 }
 
 /// The nearest of the (id, where) within `reach` of `at`.
@@ -342,9 +355,10 @@ impl StableEffectType for Rampage {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
         let Some(at) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.pos()) else { return };
         let p = params_of(me);
-        let champs: Vec<_> = foes(sim, me).into_iter().filter(|f| f.2).map(|f| (f.0, f.1)).collect();
+        let radius = |sim: &StableSim<'_>, id: usize| sim.get_entity(id).map_or(0, |e| e.radius() as u64);
+        let champs: Vec<_> = foes(sim, me).into_iter().filter(|f| f.2).map(|f| (f.0, f.1, radius(sim, f.0))).collect();
         let aimed = (input.kind == InputTargetKindV1::Target.code()).then_some(input.target_id);
-        let target = farthest(at, &champs, p.r_range).or(aimed.filter(|&id| reachable(sim, id)));
+        let target = farthest(at, radius(sim, me), &champs, p.r_range).or(aimed.filter(|&id| reachable(sim, id)));
         let Some(target) = target else {
             if let Some(k) = counted("rampage_none") {
                 wlog(format!("{} RAMPAGE NONE #{k}: nobody to charge at", head(sim, me)));
@@ -355,7 +369,7 @@ impl StableEffectType for Rampage {
         let k_ = key(sim, me);
         RUSHES.lock().unwrap_or_else(|e| e.into_inner()).insert(k_, Rush {
             target,
-            until: sim.tick() + p.r_t,
+            until: sim.tick() + charge_ticks((dist_sq(at, to) as f64).sqrt() as u64, &p),
             last: to,
             rammed: Vec::new(),
         });
@@ -463,6 +477,8 @@ impl StableEffectType for Bite {
 
 #[derive(Clone, Default)]
 struct Whisper {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
     /// Fury stacks and the tick they all fall off; the last tick the shrink sound played.
     stacks: usize,
@@ -482,6 +498,7 @@ impl StablePassive for Whisper {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
         if self.sim == 0 {
             self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
         }
@@ -543,7 +560,8 @@ impl StablePassive for Whisper {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         // his death cry (the data has no moment for it); the fury is gone
         self.stacks = 0;
         sim.play_sfx(&sf("d"), me, &InputTargetV1::target(me));
@@ -594,10 +612,26 @@ mod tests {
 
     #[test]
     fn the_charge_goes_to_the_farthest_in_reach() {
-        let champs = [(1, (10000, 0)), (2, (60000, 0)), (3, (90000, 0)), (4, (0, 50000))];
-        assert_eq!(farthest((0, 0), &champs, 72000), Some(2));
-        assert_eq!(farthest((0, 0), &champs, 5000), None);
-        assert_eq!(nearest((0, 0), &champs, 72000), Some(1));
+        let champs = [(1, (10000, 0), 0), (2, (60000, 0), 0), (3, (90000, 0), 0), (4, (0, 50000), 0)];
+        assert_eq!(farthest((0, 0), 0, &champs, 72000), Some(2));
+        assert_eq!(farthest((0, 0), 0, &champs, 5000), None);
+        // edge to edge, like the cast range: his body and theirs count
+        let big = [(1, (10000, 0), 8000), (3, (90000, 0), 8000)];
+        assert_eq!(farthest((0, 0), 12000, &big, 72000), Some(3));
+        let plain: Vec<_> = champs.iter().map(|&(id, at, _)| (id, at)).collect();
+        assert_eq!(nearest((0, 0), &plain, 72000), Some(1));
+    }
+
+    #[test]
+    fn the_charge_lasts_until_it_can_reach_the_one_it_goes_at() {
+        let p = Params::default();
+        // near: the usual r_t ticks
+        assert_eq!(charge_ticks(50_000, &p), p.r_t);
+        // 104 000 away (centre to centre): 82 000 to go at 4 500 a tick
+        assert_eq!(charge_ticks(104_000, &p), 19);
+        assert!(charge_ticks(104_000, &p) as u64 * p.r_speed as u64 >= 104_000 - TOUCH);
+        // never more than twice r_t
+        assert_eq!(charge_ticks(1_000_000, &p), p.r_t * 2);
     }
 
     #[test]

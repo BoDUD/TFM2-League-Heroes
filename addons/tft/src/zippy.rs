@@ -366,6 +366,8 @@ fn hop(sim: &mut StableSim<'_>, me: usize, k_: Key) {
 
 #[derive(Clone, Default)]
 struct Guild {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
     /// How many allies the last count gave armour for (a change is logged).
     last: usize,
@@ -381,6 +383,7 @@ impl StablePassive for Guild {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -412,7 +415,8 @@ impl StablePassive for Guild {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         // its death cry (the data has no moment for it); the count starts again on the next life
         self.last = 0;
         LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));

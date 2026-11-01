@@ -28,8 +28,12 @@ mod maps;
 pub mod view;
 
 const ID: &str = "league_gnar";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.3";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_gnar") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 巨型的 buff（主包数据：变身 mega_t tick）和巨型刚结束、还没播变回动作的标记。
 pub const MEGA: [&str; 2] = ["league_gnar_mg", "league_gnar_was_mg"];
 

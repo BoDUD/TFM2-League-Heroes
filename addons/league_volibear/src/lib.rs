@@ -34,8 +34,12 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_volibear";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.3.0";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_volibear") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 天声震落落地后的风暴形态（主包数据的 buff，12 秒）：这期间画面上是雷电蓝的他（view.rs）。
 pub const R_FORM: &str = "league_volibear_r_form";
 

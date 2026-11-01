@@ -26,6 +26,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_sejuani";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_sejuani") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// A Frost stack on an enemy champion (build_sejuani.py native: `buff("frost", f_t)`).
 const FROST: &str = "league_sejuani_frost";
 /// Her attack / W hit this champion (3 ticks): the shatter looks at it once.
@@ -346,7 +352,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (Frost on each champion, the shatter on anyone's stun, slow immunity, Q stops at a champion) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Frost on each champion, the shatter on anyone's stun, slow immunity, Q stops at a champion) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

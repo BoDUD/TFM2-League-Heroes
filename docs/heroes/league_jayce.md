@@ -55,7 +55,7 @@
 
 ### 杰斯附加包
 
-[杰斯附加包](../../addons/league_jayce/README.md)：`league_jayce` v0.1.1
+[杰斯附加包](../../addons/league_jayce/README.md)：`league_jayce` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

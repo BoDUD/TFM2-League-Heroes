@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Yone's Fate Sealed as in League (needs League of Legends Heroes): replaces the main pack's Yone so his ult dashes him behind the farthest enemy champion its line struck and pulls the champions struck toward him (the main pack's lands behind the chosen target and pulls nobody). Damage, knock-up and pictures are the main pack's. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-24",
+  "last_updated": "2026-11-02",
   "mod_id": "league_yone_r",
   "mod_type": "native",
   "name": "League Heroes: Yone's ult lands behind the last champion struck (test)",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

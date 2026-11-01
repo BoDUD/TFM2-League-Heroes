@@ -31,8 +31,12 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_locke";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_locke") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// On him while Soul Ignition lasts (the data's W: its attack speed and move speed; the add-on burns and heals).
 pub const W_ON: &str = "league_locke_w_on";
 /// On a unit his attack hit (3 ticks): Silver Stake's missing-health part.

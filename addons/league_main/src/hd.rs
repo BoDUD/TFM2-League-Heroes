@@ -696,6 +696,23 @@ pub fn grown(per: f32, stacks: usize) -> f32 {
     1.0 + per * stacks as f32
 }
 
+/// A GROWTH row's stacks from the names of the buffs on a hero's display entity. The game's display world keeps one
+/// entry a name (it adds a name only when it has none of it), so any number of `buff` stacks shows as one; the add-on
+/// (league_chogath) marks the 2nd, 3rd ... stack with `buff_2`, `buff_3` ...: the stacks are the highest mark seen with
+/// a `buff` on him, or the `buff` entries if a display ever keeps them all (2026-11-02: league.log never drew a 2nd
+/// bite, two minutes on screen with 2 stacks).
+pub fn grow_count<'a>(names: impl IntoIterator<Item = &'a str>, buff: &str) -> usize {
+    let (mut plain, mut mark) = (0, 0);
+    for n in names {
+        if n == buff {
+            plain += 1;
+        } else if let Some(k) = n.strip_prefix(buff).and_then(|r| r.strip_prefix('_')).and_then(|k| k.parse::<usize>().ok()) {
+            mark = mark.max(k);
+        }
+    }
+    if plain == 0 { 0 } else { plain.max(mark) }
+}
+
 /// Heroes drawn bigger while a buff of theirs is on them: (id, the buffs - any one of them, the size, seconds to grow to
 /// it and to shrink back), about the soles like GROWTH. Volibear's Stormbringer (the user, 2026-11-01: 「开大时候可以加大点
 /// 体型吧 我记得英雄联盟是这样的」): League's R makes him 35 % bigger, grown over 1.25 seconds from the cast and shrunk

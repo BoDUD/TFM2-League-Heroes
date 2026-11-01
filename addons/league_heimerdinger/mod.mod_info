@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Heimerdinger as in League (needs League of Legends Heroes): replaces the main pack's Heimerdinger so his H-28G turrets and the H-28Q apex turret fire visible shots from their muzzles (the charged beam at a crowd-controlled champion, then the nearest champion, then the nearest unit; damage on arrival), and Hextech Affinity also speeds him up near his side's towers (the main pack: the turrets' damage lands on the target at once and the speed comes from his turrets only); while R's upgrade waits, his AI spends it well: CH-3X (E) at enemy champions standing together, else the apex turret (Q). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-24",
+  "last_updated": "2026-11-02",
   "mod_id": "league_heimerdinger",
   "mod_type": "native",
   "name": "League Heroes: Heimerdinger's turret shots and tower affinity (test)",
-  "version": "0.2.1"
+  "version": "0.2.2"
 }

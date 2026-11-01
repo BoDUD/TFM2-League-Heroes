@@ -220,10 +220,13 @@ impl StablePlayerAi for Sow {
                 let points: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| u.is_alive())
                     .map(|u| pt(&u)).collect();
                 let g = pick_grid(&points, &bush::maps());
-                wlog(match &g {
-                    Some(g) => format!("{} BUSHES: {} bush cells to sow in", head(&sim, id), g.count()),
-                    None => format!("{} BUSHES: no bush grid - no shrooms sown, only the AI's throws", head(&sim, id)),
-                });
+                // once a Teemo a sim, but every presim's: the launch's count (0.2.2; 203 lines on 11-01)
+                if tally(&sim, "bushes").is_some() {
+                    wlog(match &g {
+                        Some(g) => format!("{} BUSHES: {} bush cells to sow in", head(&sim, id), g.count()),
+                        None => format!("{} BUSHES: no bush grid - no shrooms sown, only the AI's throws", head(&sim, id)),
+                    });
+                }
                 self.grid = Some(g);
             }
             let grid = self.grid.as_ref()?.as_ref()?;
