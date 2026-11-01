@@ -1,0 +1,2203 @@
+{
+  "id": "tft_sentry",
+  "category": "Range",
+  "tags": [
+    "AP",
+    "Magic",
+    "Range"
+  ],
+  "passive": {
+    "passive_ref": "tft_sentry:blue",
+    "params": {
+      "p_every": 60,
+      "p_cut": 60,
+      "r_cd": 2100,
+      "q_break": 85000
+    }
+  },
+  "sprite": "asset/tft/champions/tft_sentry",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_sentry_skill",
+    "asset/tft/icons/tft_sentry_skill2",
+    "asset/tft/icons/tft_sentry_ult"
+  ],
+  "stat": {
+    "attack": 95,
+    "magic_power": 30,
+    "hp": 1000,
+    "defence": 26,
+    "magic_resistance": 22,
+    "move_speed": 900,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 11,
+    "magic_power": 16,
+    "hp": 80,
+    "defence": 7,
+    "magic_resistance": 3,
+    "move_speed": 9,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_sentry.attack",
+    "duration": 24,
+    "cooltime": 72,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Delayed",
+      "tick": 7,
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sentry_a"
+        },
+        {
+          "type": "TargetProjectile",
+          "name": "tft_sentry_a_bolt",
+          "speed": 5000,
+          "y_offset": -3000,
+          "applied_target": "Enemy",
+          "applied_effects": [
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "Attack",
+                "damage": 0,
+                "attack_ratio": 100,
+                "hp_ratio": 0,
+                "target_hp_ratio": 0,
+                "attack_effect_type": "Target"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ApAttack",
+                "damage": 0,
+                "attack_ratio": 45,
+                "hp_ratio": 0,
+                "can_crit": false
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "ViewEffect",
+                "name": "tft_sentry_a_hit"
+              }
+            },
+            {
+              "casting_type": "Targeting",
+              "effect": {
+                "type": "TargetSfx",
+                "name": "tft_sentry_a_hit"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_sentry.skill",
+    "duration": 12,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 65000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "RemoveCasterBuff",
+          "name": "tft_sentry_q_ch"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "tft_sentry_q_on"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_sentry_q_ch",
+            "duration": {
+              "Time": {
+                "tick": 160
+              }
+            },
+            "move_speed_mult": 0
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_sentry_q_on",
+            "duration": {
+              "Time": {
+                "tick": 160
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "skill",
+          "tick": 12
+        },
+        {
+          "type": "Delayed",
+          "tick": 12,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_sentry_q_ch",
+              "effect_buff": {
+                "type": "CasterAnimation",
+                "name": "skill_loop",
+                "tick": 148
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "AddCasted",
+              "casted_type": "Heal",
+              "duration": 150,
+              "period": 5,
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyChampionInCC",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_sentry_q_ch"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Sfx",
+                          "name": "tft_sentry_q"
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 24,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 39,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_shred"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 54,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 69,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 84,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_shred"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 99,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 114,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 129,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_shred"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 144,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_sentry_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "tft_sentry_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "tft_sentry_q_ch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_zap",
+                              "speed": 30000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ApAttack",
+                                    "damage": 46,
+                                    "attack_ratio": 25,
+                                    "hp_ratio": 0,
+                                    "can_crit": false
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_shred",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 120
+                                        }
+                                      },
+                                      "magic_resistance": -4
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "tft_sentry_q_lock",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 21
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "ViewEffect",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                },
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "TargetSfx",
+                                    "name": "tft_sentry_q_hit"
+                                  }
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TargetProjectile",
+                              "name": "tft_sentry_q_beam",
+                              "speed": 1000,
+                              "y_offset": -3000,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": []
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "tft_sentry_q_on",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "tft_sentry_q_on"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill"
+                              },
+                              {
+                                "type": "RemoveCasterAnimation",
+                                "name": "skill_loop"
+                              },
+                              {
+                                "type": "Sfx",
+                                "name": "tft_sentry_q_end"
+                              }
+                            ]
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "tft_sentry_lives"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 159,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_sentry_q_on",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "tft_sentry_q_on"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "skill"
+                  },
+                  {
+                    "type": "RemoveCasterAnimation",
+                    "name": "skill_loop"
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "tft_sentry_q_end"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "tft_sentry_q_ch"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_sentry.skill2",
+    "duration": 18,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sentry_e_split"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_sentry_e_split"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_sentry_e_ring"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_sentry_e_ring"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 24000
+            }
+          },
+          "target": "EnemyWithoutTower",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "ApAttack",
+              "damage": 80,
+              "attack_ratio": 45,
+              "hp_ratio": 0,
+              "can_crit": false
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_sentry_e_slow",
+                "duration": {
+                  "Time": {
+                    "tick": 90
+                  }
+                },
+                "move_speed_mult": -40
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 3,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentry_e_slow"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 3,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentry_e"
+            },
+            {
+              "type": "MoveBack",
+              "speed": 6000,
+              "tick": 6
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_sentry.ult",
+    "duration": 40,
+    "cooltime": 2100,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Position",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_sentry_r"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_sentry_r_open"
+        },
+        {
+          "type": "Delayed",
+          "tick": 6,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentry_r_charge"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_sentry_r_beam"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 85000,
+                  "range": 500
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 320,
+                  "attack_ratio": 160,
+                  "hp_ratio": 0,
+                  "can_crit": false
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_sentry_r_shred",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    },
+                    "magic_resistance": -25
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_sentry_r_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_sentry_r_hit"
+                }
+              ]
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "tft_sentry_r_sweep",
+              "penetrate": true,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [],
+              "speed": 1000,
+              "range": 85000,
+              "shape": {
+                "Circle": {
+                  "radius": 1
+                }
+              },
+              "y_offset": -3000
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_sentry_a_bolt",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "a_bolt",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentry_q_zap",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "q_zap",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentry_q_beam",
+      "anim": "asset/tft/effects/tft_sentry_big",
+      "tag": "q_beam",
+      "repeat": false,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentry_r_sweep",
+      "anim": "asset/tft/effects/tft_sentry_big",
+      "tag": "r_sweep",
+      "repeat": false,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_sentry_a_hit",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sentry_q_hit",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sentry_e_split",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "e_split",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sentry_e_ring",
+      "anim": "asset/tft/effects/tft_sentry_big",
+      "tag": "e_ring",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sentry_r_open",
+      "anim": "asset/tft/effects/tft_sentry_big",
+      "tag": "r_open",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_sentry_r_hit",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_sentry_q_shred",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "q_shred",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentry_e_slow",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_sentry_r_shred",
+      "anim": "asset/tft/effects/tft_sentry_fx",
+      "tag": "r_shred",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
