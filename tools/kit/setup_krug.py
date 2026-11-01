@@ -41,7 +41,8 @@ M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # (the design's eye at column 62, row 56 of 86 x 76 at PPU 2.0, 10 over the ground and 9.5 ahead of his standing column
 # 43); the centre in his boulder-backed body; the ban/pick card by bp_card_audit.py's rule (y = -39 - top: his lo_idle
 # reaches 30.5 over its centre -> -8)
-VIEW = {"face": {"x": 7, "y": -15}, "center": {"x": 0, "y": -19}, "banpick_center": {"x": 0, "y": -8}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 7, "y": -15}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def mag(d, r):

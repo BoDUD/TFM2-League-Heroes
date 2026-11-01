@@ -48,7 +48,8 @@ AD = ADi + O + "100%" + E
 # row 28.5 of 52 at PPU 1.45: 16 over the ground, 17 ahead of her standing point, the root column 50 - ppu_restyle's
 # face_to); the centre in her body (its middle column 43, half her 36 px); the ban/pick card by bp_card_audit.py's rule
 # (-39 less the idle's top -24.5, as Nomsy's: her wing bones 1 game px under the card's top)
-VIEW = {"face": {"x": 17, "y": -16}, "center": {"x": -5, "y": -18}, "banpick_center": {"x": 0, "y": -14}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 17, "y": -16}, "center": {"x": -5, "y": -9}, "banpick_center": {"x": 0, "y": -14}}
 
 
 def phys(d, r, df):

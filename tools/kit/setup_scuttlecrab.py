@@ -50,7 +50,8 @@ AD = ADi + O + "100%" + E
 # at column 82, row 49 of 80 at PPU 2.667: 12 over the ground, 9 ahead of its standing point, the design's pivot column
 # 57 - ppu_restyle's face_to); the centre in its body (half its 30 px); the ban/pick card -15 (bp_card_audit.card
 # mocks: at -12 its legs went under the card's edge)
-VIEW = {"face": {"x": 9, "y": -12}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -15}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 9, "y": -12}, "center": {"x": 0, "y": -6}, "banpick_center": {"x": 0, "y": -15}}
 
 
 def mag(d, r):

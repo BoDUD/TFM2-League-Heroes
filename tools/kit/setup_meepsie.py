@@ -48,7 +48,8 @@ AD = ADi + O + "100%" + E
 # champion_view (game px from its feet's point, up negative): the face point on the pilot's eyes (the design's eyes at
 # column 80, row 36 of 115 at PPU 2.875: 27 over the ground, 6 ahead of its standing point, the design's pivot column
 # 64 - ppu_restyle's face_to); the centre in its body (half its 40 px); the ban/pick card by bp_card_audit.py's rule
-VIEW = {"face": {"x": 6, "y": -27}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -10}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 6, "y": -27}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):
