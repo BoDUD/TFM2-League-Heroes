@@ -123,7 +123,7 @@ def scene(out, steps, gap, W=360, H=170, z=4, tail=900, x0=90):
         c.a("ult", tick(P["r_dur"]))
         at = t + tick(P["r_st"] - 1)
         pack["until"] = at + 2600
-        c.on_me("r_pack", t, sheet=c.big, until=pack["until"])
+        c.on_me("r_pack_r", t, sheet=c.big, until=pack["until"])   # tft.dll: the pair facing Darius (to the right)
         c.on_foe(d, "r_hit", at)
         d.flinches.append(at)
         bite()

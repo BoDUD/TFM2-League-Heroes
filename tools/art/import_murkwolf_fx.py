@@ -21,8 +21,9 @@ mirrored onto the right (the wolf's 50 x 36 body stays clear between them).
 SIDE PUPS (the user, 2026-11-01: 「召唤出来的小狼应该面向敌人 参考沙皇怎么做的」「左右都可以面向敌人」): Codex's pups above face
 the camera and stay for the plain kit and Sylas's copy (r_pack); tft.dll shows r_pack_r (both pups facing right) or
 r_pack_l (that picture mirrored) toward the nearest enemy. The pup is Codex's side-on one (PUP_PROMPT.md, delivered in
-assets/source/murkwolf/codex_pups/murkwolf-pups: one 3 x 2 sheet of PUP_CELL raw px cells on PUP_SQ px squares, the
-paws on each cell's ground line, 276 px down), each cell read square for square on the strip's palette and the ramps; in the
+assets/source/murkwolf/codex_pups/murkwolf-pups: one 3 x 2 sheet, 1774 x 887 where 1200 x 600 was asked, its own ~6 px
+squares), each pup found whole (its lunge's paw reaches into the next cell) and read at PUP_SIDE_K raw px a square on
+its own PUP_COLOURS colours (its eye, smaller than a game px, stamped back as one cyan square), where it stands in its cell kept (the lunge reaches forward); in the
 pair one pup stands behind its tail and one ahead of its heads (PUP_AT: each pup's middle, game px from the body's
 middle), the loop from the wind-up (PUP_ORDER, PUP_MS) so the lunge lands with the bites (tft.dll puts it on again on
 each attack).
@@ -75,13 +76,16 @@ EDGE_KEEP = {"q_emp", "e_howl", "r_pack", "r_hit", "r_bite"}   # drawn out at th
 RECUT = {"p_hit": (22, 22), "r_bite": (14, 14), "a_hit": (16, 16)}
 LIGHTER = {"q_land"}
 PUPS = os.path.join(ROOT, "assets", "source", "murkwolf", "codex_pups", "murkwolf-pups", "murkwolf-pups.png")
-PUP_CELL, PUP_SQ = (400, 300), 12
 PUP_NAMES = ("stand", "breath", "crouch", "lunge", "recover", "settle")
 PUP_ORDER = ("crouch", "lunge", "recover", "settle", "stand", "breath")
 PUP_MS = (70, 110, 100, 120, 200, 200)
-PUP_AT = (-38, 38)              # each pup's middle off the body's middle (game px): behind the tail, ahead of the heads
-PAIR = (112, 28)                # the pair's cell (game px), the body's middle on its middle, the paws on its bottom
-PUP_K = 10.3                    # raw px a square for the pups
+PUP_AT = (-41, 41)              # each pup's middle off the body's middle (game px): behind the tail, ahead of the heads
+PAIR = (128, 26)                # the pair's cell (game px), the body's middle on its middle, the paws on its bottom
+PUP_K = 10.3                    # raw px a square for the pups facing the camera
+PUP_COLOURS = 20                # the side-on pups' own palette
+PUP_EYE = 20                    # raw px of cyan that is its eye
+CYAN_EYE = (54, 214, 242)       # pack_murkwolf_fx.CYAN's middle shade
+PUP_SIDE_K = 16.5               # raw px a square for the side-on pups (the standing one 28 x 17)
 PUP_X = 14                      # the left pup's middle column in the 100-wide cell
 
 
@@ -211,30 +215,51 @@ def side_pups(ramps, strip):
     if not os.path.isfile(lp(PUPS)):
         sys.exit(f"no side-on pups yet: {PUPS} (assets/source/murkwolf/PUP_PROMPT.md)")
     a = np.asarray(Image.open(lp(PUPS)).convert("RGBA"))
-    pal = palette(strip, ramps)
-    cw, ch = PUP_CELL
-    per = cw // PUP_SQ, ch // PUP_SQ
-    pups = {}
-    for k, name in enumerate(PUP_NAMES):
-        t = a[(k // 3) * ch:(k // 3 + 1) * ch, (k % 3) * cw:(k % 3 + 1) * cw]
-        g = vote(t, 0, 0, PUP_SQ, per[0], per[1], pal)
-        ys, _ = np.nonzero(g[..., 3] > 0)
-        pups[name] = g[:ys.max() + 1]           # standing on its lowest row
+    op = a[..., 3] >= 128
+    # its own colours (median cut over its opaque pixels): the front pups' strip lacks its light fur and ruff
+    px = Image.fromarray(a[op][None, :, :3])
+    pal = np.array(px.quantize(PUP_COLOURS, method=Image.Quantize.MEDIANCUT).getpalette()[:PUP_COLOURS * 3],
+                   float).reshape(-1, 3)
+    lb, n = ndimage.label(ndimage.binary_closing(op, iterations=4))
+    sizes = ndimage.sum(op, lb, range(1, n + 1))
+    cw, ch = a.shape[1] / 3, a.shape[0] / 2
+    pups, offs = {}, {}
+    for j in [int(i) + 1 for i in np.argsort(-sizes)[:len(PUP_NAMES)]]:
+        m = (lb == j) & op
+        ys, xs = np.nonzero(m)
+        col, row = int(xs.mean() // cw), int(ys.mean() // ch)
+        name = PUP_NAMES[row * 3 + col]
+        nw, nh = int(np.ceil((np.ptp(xs) + 1) / PUP_SIDE_K)), int(np.ceil((np.ptp(ys) + 1) / PUP_SIDE_K))
+        g = vote(np.where(m[..., None], a, 0).astype(np.uint8), xs.min(), ys.max() + 1 - nh * PUP_SIDE_K, PUP_SIDE_K, nw, nh, pal)
+        # its eye (a cyan blob smaller than one game px) stamped back as one cyan square
+        r_, g_, b_ = (a[..., i].astype(int) for i in range(3))
+        eye = m & (b_ > 190) & (g_ > 170) & (r_ < 140) & (b_ - r_ > 90)
+        if eye.sum() >= PUP_EYE:
+            ey, ex = np.nonzero(eye)
+            j_, i_ = int((ey.mean() - (ys.max() + 1 - nh * PUP_SIDE_K)) // PUP_SIDE_K), int((ex.mean() - xs.min()) // PUP_SIDE_K)
+            g[j_, i_, :3], g[j_, i_, 3] = CYAN_EYE, 255
+        yy, xx = np.nonzero(g[..., 3] > 0)
+        pups[name] = g[:yy.max() + 1]               # standing on its lowest row
+        offs[name] = (xs.min() - col * cw) / PUP_SIDE_K   # where in its cell it was drawn (the lunge reaches forward)
+    if set(pups) != set(PUP_NAMES):
+        sys.exit(f"pups: found {sorted(pups)}")
     xs = np.nonzero(pups["stand"][..., 3] > 0)[1]
-    mid = (xs.min() + xs.max() + 1) / 2         # every pose on the stand's middle (the cells share it)
+    mid = offs["stand"] + (xs.min() + xs.max() + 1) / 2   # the stand's middle in its cell, squares
     W, H = PAIR
     right = []
     for name in PUP_ORDER:
         g = pups[name]
         c = np.zeros((H, W, 4), np.uint8)
+        ys, xs = np.nonzero(g[..., 3] > 0)
         for dx in PUP_AT:
-            x0 = int(round(W / 2 + dx - mid))
-            ys, xs = np.nonzero(g[..., 3] > 0)
+            x0 = int(round(W / 2 + dx - mid + offs[name]))
             ty, tx = ys + H - g.shape[0], xs + x0
             ok = (ty >= 0) & (tx >= 0) & (tx < W)
-            c[ty[ok], tx[ok]] = g[ys[ok], xs[ok]]
+            if not ok.all():
+                sys.exit(f"pups: {name} runs out of the pair's {W} x {H} cell")
+            c[ty, tx] = g[ys, xs]
         right.append(c)
-    print(f"side pups {pups['stand'].shape[1]}x{pups['stand'].shape[0]} (stand)")
+    print("side pups " + ", ".join(f"{k} {v.shape[1]}x{v.shape[0]}" for k, v in pups.items()))
     return right, [c[:, ::-1].copy() for c in right]
 
 

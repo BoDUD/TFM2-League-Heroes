@@ -2,7 +2,7 @@
 """Murk Wolf's pup pack for Codex (assets/source/murkwolf/PUP_PROMPT.md): the two pups of Pack Attack drawn side-on so
 they can face the enemy (the user, 2026-11-01: 「召唤出来的小狼应该面向敌人 参考沙皇怎么做的」「左右都可以面向敌人」).
 
-    python tools/lol/../art/pack_murkwolf_pups.py [--out D:/TFM2-Workshop/murkwolf_packs/murkwolf_pup_pack] [--lol "D:/Riot Games/League of Legends"]
+    python tools/art/pack_murkwolf_pups.py [--out D:/TFM2-Workshop/murkwolf_packs/murkwolf_pup_pack] [--lol "D:/Riot Games/League of Legends"]
 
 Codex's first pups (codex_fx r_pack) face the camera, so a picture cannot turn them. One pup is drawn here at the
 design's own 3/4 angle facing right (yaw 35, as pack_murkwolf_poses), in six poses of the Rift's own small murk wolf
