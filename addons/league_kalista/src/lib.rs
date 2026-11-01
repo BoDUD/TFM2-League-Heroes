@@ -2,10 +2,13 @@
 //! `mod.override_info` 把主包的卡莉丝塔换成 `override/` 里的副本（`make_override.py` 用 tools/kit/build_kalista.py 的 `native=1`
 //! 生成：被动 `league_kalista:oath`；投矛后的跳由本包决定方向和挪人；大招改成对队友施放、甩出去的飞行由本包做），本包补数据做不到的事：
 //!
-//! - **武术姿态：往前还是往后跳**（每 tick 判断，挂 `hop_f` / `hop_b` 标记给数据；数据在投矛出手时按标记放前跳 / 后跳的动作并挂
+//! - **武术姿态：往前、往后还是侧跳**（每 tick 判断，挂 `hop_f` / `hop_b` 标记给数据；数据在投矛出手时按标记放前跳 / 后跳的动作并挂
 //!   `hop_go`，本包看到就逐 tick 把她挪过去，`hop_v` x `hop_t`）：照英雄联盟每次投矛后都跳（用户 10-16：「前跳后跳」——第一版站在
-//!   射程里舒服的位置就不跳）：最近的敌方英雄残血（40% 以下）、或者它在逃（15 tick 里离她远了 4000 以上）而且快跑出射程（超过攻击
-//!   距离的 80%），就往前追；其余都往后跳、背离它（风筝）。身边没有敌方英雄（打小兵、野怪）时两个标记都不挂，数据照主包往后跳。
+//!   射程里舒服的位置就不跳）：最近的敌方英雄残血（40% 以下）、或者它在逃（15 tick 里自己往外挪了 4000 以上）而且快跑出射程（超过
+//!   攻击距离的 80%），就往前追；贴到射程 60% 以内、或者正冲过来（15 tick 里自己往她这边挪了 4000 以上；只看它自己的位移，她走回
+//!   射程不算），就往后拉开；其余（站着对射）绕着它侧跳，
+//!   左右交替，跳完离它一样远（侧跳放后跳那套腾空的动作）。身边没有敌方英雄（打小兵、野怪、塔）时照最近的敌方单位原地前后交替跳，
+//!   先往前。0.2.0 之前（用户 11-01：「卡莉斯塔为什么只会往后滑？」）：其余一律往后，打小兵时两个标记都不挂、数据照主包往后跳。
 //! - **誓约者**：开局（每条命出生时重新看）绑定一名队友——辅助位优先，没有就离她最近的队友英雄；大招的 AI 钩子
 //!   （`league_kalista:fate`）把施放目标换成誓约者（在 `r_bind` 内、能选中时；不然留 AI 自己挑的队友）。
 //! - **命运的召唤的飞行**：数据把队友拉进来、保护、定身，甩出时挂 `r_launch`；本包挑落点（离她最近的敌方英雄，`r_range` 内；
@@ -33,7 +36,7 @@ use mod_api_stable::*;
 const ID: &str = "league_kalista";
 const HERO: &str = "league_kalista";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.3";
+const VERSION: &str = "0.2.0";
 /// 数据和本包之间的标记（主包数据的施法者 buff 名）。
 pub const HOP_F: &str = "league_kalista_hop_f";
 pub const HOP_B: &str = "league_kalista_hop_b";
@@ -178,55 +181,123 @@ pub fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 一个敌方英雄：id、位置、生命百分比、最近 FLEE_WINDOW tick 里离她远了多少（负数 = 近了）。
+/// 一个敌方单位：id、位置、生命百分比、最近 FLEE_WINDOW tick 里它自己往外挪了多少（`gain`）、往她这边挪了多少（`came`）。
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Foe {
     pub id: usize,
     pub at: Pt,
     pub hp_pct: usize,
     pub gain: f64,
+    pub came: f64,
 }
 
-/// 「在逃」：FLEE_WINDOW tick 里离她远了 FLEE_GAIN 以上（用户 10-16 进游戏：58 次跳全是往前——原来只看距离超过射程 80%，
-/// 射手本来就站在射程边上打，等于每下都往前扑）。
+/// 「在逃」：FLEE_WINDOW tick 里它自己往外挪了 FLEE_GAIN 以上（用户 10-16 进游戏：58 次跳全是往前——原来只看距离超过射程 80%，
+/// 射手本来就站在射程边上打，等于每下都往前扑）；「冲过来」：同样的窗口里往她这边挪了 FLEE_GAIN 以上。
 pub const FLEE_WINDOW: usize = 15;
 pub const FLEE_GAIN: f64 = 4000.0;
 
+/// 敌人自己往哪挪：`moved` 是它的位移（上一整段窗口、这一段到现在），投到「它 -> 她」的方向上，取往外挪得最多的（`gain`）
+/// 和往她这边挪得最多的（`came`）。她自己走、自己跳都不算：0.1.x 看两人的距离变化，她往后跳完走回射程就像对方冲过来，
+/// 她往后跳就像对方在逃。-> (gain, came)
+pub fn its_steps(me: Pt, at: Pt, moved: [Pt; 2]) -> (f64, f64) {
+    let d = dist(me, at);
+    if d < 1.0 {
+        return (0.0, 0.0);
+    }
+    let toward = |m: Pt| (m.0 * (me.0 - at.0) + m.1 * (me.1 - at.1)) / d;
+    let (a, b) = (toward(moved[0]), toward(moved[1]));
+    ((-a).max(-b).max(0.0), a.max(b).max(0.0))
+}
+/// 跳只看攻击距离这个倍数以内的敌人。
+pub const REACH: f64 = 1.4;
+/// 最近的敌方英雄贴到攻击距离的这个比例以内，就往后拉开。
+pub const CLOSE: f64 = 0.6;
+/// 打小兵的前后跳隔了这么多 tick 没跳，下一跳重新从往前开始（新的一波兵、换了野怪）。
+pub const WAVE_RESET: usize = 120;
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Hop {
-    /// 往前追 `Foe`。
+    /// 朝 `Foe` 往前跳。
     Forward(Foe),
     /// 背离 `Foe` 往后跳。
     Back(Foe),
+    /// 绕着 `Foe` 侧跳（`true` = 逆时针），跳完离它一样远。
+    Side(Foe, bool),
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum HopWhy {
-    Kite,
-    Fleeing,
+    /// 英雄残血：往前追。
     Low,
+    /// 英雄在逃、快跑出射程：往前追。
+    Fleeing,
+    /// 英雄贴到射程 60% 以内：往后拉开。
+    Close,
+    /// 英雄正冲过来：往后拉开。
+    Charging,
+    /// 和英雄站着对射：左右交替侧跳。
+    Strafe,
+    /// 附近没有敌方英雄（小兵、野怪、塔）：原地前后交替跳。
+    Wave,
 }
 
-/// 投矛后往哪跳（只看攻击距离 1.4 倍内最近的敌方英雄；没有就 None，数据照主包往后跳）：残血（< 40%），或者在逃（离她越来越远）
-/// 而且快跑出射程（> 80% 攻击距离），就往前追；其余都往后、背离它（风筝）。hop_thr 不再用（第一版：贴近才往后跳）。
-pub fn hop_choice(me: Pt, foes: &[Foe], p: &Params) -> Option<(Hop, HopWhy)> {
-    let reach = p.atk_range as f64 * 1.4;
-    let near = foes.iter().filter(|f| dist(me, f.at) <= reach).min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)))?;
+/// 两个交替的开关：下一次侧跳往哪边（`ccw`）、下一次打小兵的跳往后（`wave_back`，不然往前）。
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct Turns {
+    pub ccw: bool,
+    pub wave_back: bool,
+}
+
+/// 投矛后往哪跳。英雄联盟里她跟着玩家的移动指令跳，前后左右都有（用户 11-01：「卡莉斯塔为什么只会往后滑？」——上一版打英雄
+/// 除了追残血 / 逃跑都往后，日志 77 后 26 前，打小兵一律往后）。看攻击距离 1.4 倍内最近的敌方英雄：残血（< 40%），或者在逃
+/// （离她越来越远）而且快跑出射程（> 80% 攻击距离），就往前追；贴到射程 60% 以内、或者正冲过来，就往后拉开；其余（站着对射）
+/// 侧跳，左右交替，跳完离它一样远，接着打不用走回来。附近没有敌方英雄时看最近的其他敌方单位（小兵、野怪、塔），原地前后交替跳，
+/// 先往前；什么都没有就 None，数据照主包往后跳。hop_thr 不再用（第一版：贴近才往后跳）。
+pub fn hop_choice(me: Pt, foes: &[Foe], units: &[Foe], turns: Turns, p: &Params) -> Option<(Hop, HopWhy)> {
+    let range = p.atk_range as f64;
+    let nearest = |list: &[Foe]| {
+        list.iter().filter(|f| dist(me, f.at) <= range * REACH).min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at))).copied()
+    };
+    let Some(near) = nearest(foes) else {
+        let unit = nearest(units)?;
+        return Some((if turns.wave_back { Hop::Back(unit) } else { Hop::Forward(unit) }, HopWhy::Wave));
+    };
     let d = dist(me, near.at);
     if near.hp_pct < 40 {
-        return Some((Hop::Forward(*near), HopWhy::Low));
+        return Some((Hop::Forward(near), HopWhy::Low));
     }
-    if d > p.atk_range as f64 * 0.8 && near.gain >= FLEE_GAIN {
-        return Some((Hop::Forward(*near), HopWhy::Fleeing));
+    if d > range * 0.8 && near.gain >= FLEE_GAIN {
+        return Some((Hop::Forward(near), HopWhy::Fleeing));
     }
-    Some((Hop::Back(*near), HopWhy::Kite))
+    if d < range * CLOSE {
+        return Some((Hop::Back(near), HopWhy::Close));
+    }
+    if near.came >= FLEE_GAIN {
+        return Some((Hop::Back(near), HopWhy::Charging));
+    }
+    // the side that stays on the map
+    let len = (p.hop_v * p.hop_t) as f64;
+    let ccw = if on_map(hop_end(me, Hop::Side(near, turns.ccw), len)) { turns.ccw } else { !turns.ccw };
+    Some((Hop::Side(near, ccw), HopWhy::Strafe))
 }
 
-/// 单位方向：往前 = 朝目标，往后 = 背离目标；重合时往后跳朝画面左边（-x）、往前朝右。
-pub fn hop_dir(me: Pt, hop: Hop) -> Pt {
+/// 单位方向：往前 = 朝目标，往后 = 背离目标，侧跳 = 以目标为圆心、她现在的距离为半径的圆上一根长 `len` 的弦（跳完离它一样远）；
+/// 重合时往后跳朝画面左边（-x）、往前朝右、侧跳朝上下。
+pub fn hop_dir(me: Pt, hop: Hop, len: f64) -> Pt {
     let (to, sign) = match hop {
         Hop::Forward(f) => (f.at, 1.0),
         Hop::Back(f) => (f.at, -1.0),
+        Hop::Side(f, ccw) => {
+            let (vx, vy) = (me.0 - f.at.0, me.1 - f.at.1);
+            let r = (vx * vx + vy * vy).sqrt();
+            let turn = if ccw { 1.0 } else { -1.0 };
+            if r < 1.0 || len < 1.0 {
+                return (0.0, turn);
+            }
+            // turned about the target by the angle whose chord is len
+            let a = 2.0 * (len / (2.0 * r)).min(1.0).asin() * turn;
+            ((f.at.0 + vx * a.cos() - vy * a.sin(), f.at.1 + vx * a.sin() + vy * a.cos()), 1.0)
+        }
     };
     let (dx, dy) = (to.0 - me.0, to.1 - me.1);
     let l = (dx * dx + dy * dy).sqrt();
@@ -234,6 +305,16 @@ pub fn hop_dir(me: Pt, hop: Hop) -> Pt {
         return (sign, 0.0);
     }
     (sign * dx / l, sign * dy / l)
+}
+
+/// 跳 `len` 之后落在哪。
+pub fn hop_end(me: Pt, hop: Hop, len: f64) -> Pt {
+    let d = hop_dir(me, hop, len);
+    (me.0 + d.0 * len, me.1 + d.1 * len)
+}
+
+pub fn on_map(p: Pt) -> bool {
+    (0.0..MAP).contains(&p.0) && (0.0..MAP).contains(&p.1)
 }
 
 /// 一名队友：玩家 id、是不是辅助、英雄位置。
@@ -305,6 +386,9 @@ struct Hopping {
     /// 起跳的位置、游戏拒绝挪人的次数（日志 HOP DONE 用：用户 10-16 进游戏：「还是不前后跳」）。
     from: Pt,
     refused: usize,
+    /// 照着跳的那个敌人、起跳时离它多远（日志 HOP DONE 看侧跳是不是还在原来的距离上）。
+    foe: usize,
+    was: f64,
 }
 
 #[derive(Clone, Copy)]
@@ -321,11 +405,14 @@ struct Oath {
     /// 现在挂着的跳的方向标记、上次挂的 tick。
     hop_flag: Option<(&'static str, usize)>,
     hopping: Option<Hopping>,
+    /// 侧跳、打小兵的前后跳下一次轮到哪边，上次打小兵跳的 tick。
+    turns: Turns,
+    last_wave: usize,
     flight: Option<Flight>,
     /// 敌方英雄 -> 她每根矛插上的 tick。
     spears: HashMap<usize, Vec<usize>>,
-    /// 敌方英雄 -> (取样的 tick, 那时离她的距离, 上一段 FLEE_WINDOW 里远了多少)。
-    gaps: HashMap<usize, (usize, f64, f64)>,
+    /// 敌方英雄 -> (取样的 tick, 那时它在哪, 上一段 FLEE_WINDOW 里它自己挪了多少)。
+    gaps: HashMap<usize, (usize, Pt, Pt)>,
 }
 
 fn ent_has(e: &StableEntity<'_, '_>, name: &str) -> bool {
@@ -360,7 +447,20 @@ fn foes(sim: &StableSim<'_>, team: usize) -> Vec<Foe> {
         }
         let (hp, max) = u.hp();
         out.push(Foe { id: u.id(), at: (u.pos().0 as f64, u.pos().1 as f64), hp_pct: if max == 0 { 100 } else { hp * 100 / max },
-                       gain: 0.0 });
+                       gain: 0.0, came: 0.0 });
+    }
+    out
+}
+
+/// 附近没有敌方英雄时跳的参照：其他敌方单位（小兵、野怪、塔、召唤物）。
+fn units(sim: &StableSim<'_>, team: usize) -> Vec<Foe> {
+    let mut out = Vec::new();
+    for i in 0..sim.entity_count() {
+        let Some(u) = sim.entity_at(i) else { continue };
+        if u.team() == team || !u.is_alive() || u.is_champion() || !u.is_targetable() || !sim.is_visible(team, u.id()) {
+            continue;
+        }
+        out.push(Foe { id: u.id(), at: (u.pos().0 as f64, u.pos().1 as f64), hp_pct: 100, gain: 0.0, came: 0.0 });
     }
     out
 }
@@ -404,17 +504,24 @@ impl Oath {
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         let mut fs = foes(sim, team);
         for f in fs.iter_mut() {
-            let d = dist(at, f.at);
-            let g = self.gaps.entry(f.id).or_insert((tick, d, 0.0));
+            let g = self.gaps.entry(f.id).or_insert((tick, f.at, (0.0, 0.0)));
             if tick >= g.0 + FLEE_WINDOW || tick < g.0 {
-                *g = (tick, d, if tick < g.0 { 0.0 } else { d - g.1 });
+                // a sample from before it went out of sight says nothing about where it is going
+                let fresh = tick >= g.0 && tick < g.0 + 2 * FLEE_WINDOW;
+                *g = (tick, f.at, if fresh { (f.at.0 - g.1.0, f.at.1 - g.1.1) } else { (0.0, 0.0) });
             }
-            f.gain = g.2.max(d - g.1);
+            (f.gain, f.came) = its_steps(at, f.at, [g.2, (f.at.0 - g.1.0, f.at.1 - g.1.1)]);
         }
-        let choice = hop_choice(at, &fs, p);
+        // no enemy champion near: the minions, monsters and towers round her
+        let us = if fs.iter().any(|f| dist(at, f.at) <= p.atk_range as f64 * REACH) { Vec::new() } else { units(sim, team) };
+        if self.turns.wave_back && (tick < self.last_wave || tick - self.last_wave > WAVE_RESET) {
+            self.turns.wave_back = false;
+        }
+        let choice = hop_choice(at, &fs, &us, self.turns, p);
+        // the side hop plays the hop up (hop_b), not the lunge
         let want = match choice {
             Some((Hop::Forward(_), _)) => Some(HOP_F),
-            Some((Hop::Back(_), _)) => Some(HOP_B),
+            Some((Hop::Back(_) | Hop::Side(..), _)) => Some(HOP_B),
             None => None,
         };
         let had = self.hop_flag.map(|(n, _)| n);
@@ -432,12 +539,23 @@ impl Oath {
         if has_buff(sim, me, HOP_GO) && self.hopping.is_none() {
             sim.entity_remove_buff(me, HOP_GO);
             if let Some((hop, why)) = choice {
-                self.hopping = Some(Hopping { dir: hop_dir(at, hop), left: p.hop_t.max(1), from: at, refused: 0 });
+                let (way, f) = match hop {
+                    Hop::Forward(f) => ("FORWARD to", f),
+                    Hop::Back(f) => ("BACK from", f),
+                    Hop::Side(f, _) => ("SIDE round", f),
+                };
+                let len = (p.hop_v * p.hop_t) as f64;
+                self.hopping = Some(Hopping { dir: hop_dir(at, hop, len), left: p.hop_t.max(1), from: at, refused: 0, foe: f.id,
+                                              was: dist(at, f.at) });
+                match hop {
+                    Hop::Side(_, ccw) => self.turns.ccw = !ccw,
+                    _ if why == HopWhy::Wave => {
+                        self.turns.wave_back = matches!(hop, Hop::Forward(_));
+                        self.last_wave = tick;
+                    }
+                    _ => {}
+                }
                 if let Some(k) = counted("hop") {
-                    let (way, f) = match hop {
-                        Hop::Forward(f) => ("FORWARD to", f),
-                        Hop::Back(f) => ("BACK from", f),
-                    };
                     wlog(format!("{} HOP {way} {} ({why:?}, {:.0} away) #{k}", head(sim, me), who(sim, f.id), dist(at, f.at)));
                 }
             }
@@ -446,8 +564,10 @@ impl Oath {
             let held = hard_cc(sim, me);
             if h.left == 0 || held {
                 if let Some(k) = counted("hop_done") {
-                    wlog(format!("{} HOP DONE moved {:.0} of {} ({} steps refused{}) #{k}", head(sim, me), dist(h.from, at),
-                                 p.hop_v * p.hop_t, h.refused, if held { ", cut by CC" } else { "" }));
+                    let now = pos_of(sim, h.foe).map_or("gone".to_string(), |f| format!("{:.0}", dist(at, f)));
+                    wlog(format!("{} HOP DONE moved {:.0} of {} ({} steps refused{}), {now} from {} (was {:.0}) #{k}", head(sim, me),
+                                 dist(h.from, at), p.hop_v * p.hop_t, h.refused, if held { ", cut by CC" } else { "" },
+                                 who(sim, h.foe), h.was));
                 }
                 self.hopping = None;
             } else {
@@ -575,6 +695,8 @@ impl StablePassive for Oath {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, _player: usize, entity: usize) {
         self.hop_flag = None;
         self.hopping = None;
+        self.turns = Turns::default();
+        self.last_wave = 0;
         self.flight = None;
         self.spears.clear();
         self.oath = None;
@@ -738,7 +860,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:oath"), Oath::default());
     module.add_player_input_ai(FateAi);
-    host.log(LogLevel::Info, "league_kalista loaded (hop forward / back, Oathsworn, Fate's Call flight, Rend execute).");
+    host.log(LogLevel::Info, "league_kalista loaded (hop forward / back / sideways, Oathsworn, Fate's Call flight, Rend execute).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -767,7 +889,7 @@ mod tests {
     }
 
     fn foe(id: usize, at: Pt, hp_pct: usize) -> Foe {
-        Foe { id, at, hp_pct, gain: 0.0 }
+        Foe { id, at, hp_pct, gain: 0.0, came: 0.0 }
     }
 
     #[test]
@@ -793,37 +915,98 @@ mod tests {
         let ult = &copy[copy.find("\"ult\"").unwrap()..];
         let target = &ult[ult.find("\"casting_target\"").unwrap()..][..40];
         assert!(target.contains("\"AllyNotSelf\""), "the copy's ult is not cast on an ally: {target}");
-        // the add-on's hop flags first; the main pack's MoveBack stays only for no enemy champion near (neither flag)
+        // the add-on's hop flags first; the main pack's MoveBack stays only for no enemy near at all (neither flag)
         let f = copy.find(HOP_F).expect("the copy has no hop_f switch");
         let back = copy.find("\"MoveBack\"").expect("the copy has no fallback hop");
         assert!(f < back, "the copy's MoveBack comes before the add-on's hop flags");
     }
 
     #[test]
-    fn hop_back_by_default_forward_when_they_run_or_are_low() {
+    fn hop_forward_back_or_round_them_like_league() {
         let p = Params::default();
-        let me = (0.0, 0.0);
-        // close: back, away from it
-        let close = foe(1, (30_000.0, 0.0), 100);
-        assert_eq!(hop_choice(me, &[close], &p), Some((Hop::Back(close), HopWhy::Kite)));
-        assert_eq!(hop_dir(me, Hop::Back(close)), (-1.0, 0.0));
-        // at the edge of her range but standing (the ADC's usual spot): back (kiting); running off: forward
-        let edge = foe(2, (0.0, 45_000.0), 100);
-        assert_eq!(hop_choice(me, &[edge], &p), Some((Hop::Back(edge), HopWhy::Kite)));
-        let leaving = Foe { gain: FLEE_GAIN, ..edge };
-        assert_eq!(hop_choice(me, &[leaving], &p), Some((Hop::Forward(leaving), HopWhy::Fleeing)));
-        assert_eq!(hop_dir(me, Hop::Forward(leaving)), (0.0, 1.0));
-        // low: forward even when close; healthy: back wherever it stands
-        let low = foe(3, (35_000.0, 0.0), 30);
-        assert_eq!(hop_choice(me, &[low], &p).map(|c| c.1), Some(HopWhy::Low));
-        let mid = foe(4, (35_000.0, 0.0), 80);
-        assert_eq!(hop_choice(me, &[mid], &p).map(|c| c.1), Some(HopWhy::Kite));
-        let comfy = foe(6, (41_000.0, 0.0), 80);
-        assert_eq!(hop_choice(me, &[comfy], &p).map(|c| c.1), Some(HopWhy::Kite));
-        // nobody near: no hop
-        assert_eq!(hop_choice(me, &[foe(5, (200_000.0, 0.0), 10)], &p), None);
+        let len = (p.hop_v * p.hop_t) as f64;
+        let me = (500_000.0, 500_000.0);
+        let at = |dx: f64, dy: f64| (me.0 + dx, me.1 + dy);
+        let t = Turns::default();
+        // low: forward even when close
+        let low = foe(3, at(25_000.0, 0.0), 30);
+        assert_eq!(hop_choice(me, &[low], &[], t, &p), Some((Hop::Forward(low), HopWhy::Low)));
+        // running off near the edge of her range: forward
+        let leaving = Foe { gain: FLEE_GAIN, ..foe(2, at(0.0, 45_000.0), 100) };
+        assert_eq!(hop_choice(me, &[leaving], &[], t, &p), Some((Hop::Forward(leaving), HopWhy::Fleeing)));
+        assert_eq!(hop_dir(me, Hop::Forward(leaving), len), (0.0, 1.0));
+        // inside 60 % of her range: back, away from it
+        let close = foe(1, at(30_000.0, 0.0), 100);
+        assert_eq!(hop_choice(me, &[close], &[], t, &p), Some((Hop::Back(close), HopWhy::Close)));
+        assert_eq!(hop_dir(me, Hop::Back(close), len), (-1.0, 0.0));
+        // coming at her from further off: back
+        let charging = Foe { came: FLEE_GAIN, ..foe(4, at(45_000.0, 0.0), 100) };
+        assert_eq!(hop_choice(me, &[charging], &[], t, &p), Some((Hop::Back(charging), HopWhy::Charging)));
+        // standing at range (the usual trade, 77 of 103 hops in the 11-01 log went back here): round it, either way
+        let edge = foe(5, at(45_000.0, 0.0), 80);
+        assert_eq!(hop_choice(me, &[edge], &[], t, &p), Some((Hop::Side(edge, false), HopWhy::Strafe)));
+        let other = Turns { ccw: true, ..t };
+        assert_eq!(hop_choice(me, &[edge], &[], other, &p), Some((Hop::Side(edge, true), HopWhy::Strafe)));
         // the nearest decides
-        assert_eq!(hop_choice(me, &[leaving, close], &p).map(|c| c.1), Some(HopWhy::Kite));
+        assert_eq!(hop_choice(me, &[leaving, close], &[], t, &p).map(|c| c.1), Some(HopWhy::Close));
+        // no champion near: the minion beside her, forward then back (in place)
+        let minion = foe(9, at(-40_000.0, 0.0), 100);
+        let far = foe(6, at(200_000.0, 0.0), 10);
+        assert_eq!(hop_choice(me, &[far], &[minion], t, &p), Some((Hop::Forward(minion), HopWhy::Wave)));
+        let back = Turns { wave_back: true, ..t };
+        assert_eq!(hop_choice(me, &[far], &[minion], back, &p), Some((Hop::Back(minion), HopWhy::Wave)));
+        let (fwd, bwd) = (hop_end(me, Hop::Forward(minion), len), hop_end(me, Hop::Back(minion), len));
+        assert!((fwd.0 + bwd.0) / 2.0 == me.0 && fwd.1 == me.1 && bwd.1 == me.1, "the pair ends where it began");
+        // a champion near counts before the minions
+        assert_eq!(hop_choice(me, &[edge], &[minion], t, &p).map(|c| c.1), Some(HopWhy::Strafe));
+        // nobody near: no flag, the data's own MoveBack
+        assert_eq!(hop_choice(me, &[far], &[], t, &p), None);
+        assert_eq!(hop_choice(me, &[far], &[foe(7, at(0.0, 90_000.0), 100)], t, &p), None);
+    }
+
+    #[test]
+    fn a_side_hop_keeps_her_distance_and_stays_on_the_map() {
+        let p = Params::default();
+        let len = (p.hop_v * p.hop_t) as f64;
+        let me = (500_000.0, 500_000.0);
+        let it = foe(1, (545_000.0, 500_000.0), 80);
+        let ends = [false, true].map(|ccw| hop_end(me, Hop::Side(it, ccw), len));
+        for end in ends {
+            assert!((dist(me, end) - len).abs() < 1.0, "the hop is {len} long: {end:?}");
+            assert!((dist(end, it.at) - 45_000.0).abs() < 1.0, "as far from it after the hop: {end:?}");
+        }
+        assert!((ends[0].1 - me.1) * (ends[1].1 - me.1) < 0.0, "the two turns go opposite ways: {ends:?}");
+        // the same 24000 moved step by step from her spot (hop_v a tick for hop_t ticks)
+        let dir = hop_dir(me, Hop::Side(it, true), len);
+        let mut at = me;
+        for _ in 0..p.hop_t {
+            at = clamp((at.0 + dir.0 * p.hop_v as f64, at.1 + dir.1 * p.hop_v as f64));
+        }
+        assert!(dist(at, ends[1]) < 1.0);
+        // at the map's edge both turns take the side that stays on it
+        let low_edge = (500_000.0, 5_000.0);
+        let it2 = foe(2, (545_000.0, 5_000.0), 80);
+        let side = |turns: Turns| match hop_choice(low_edge, &[it2], &[], turns, &p) {
+            Some((Hop::Side(_, ccw), HopWhy::Strafe)) => ccw,
+            x => panic!("{x:?}"),
+        };
+        let t = Turns::default();
+        assert_eq!(side(t), side(Turns { ccw: true, ..t }));
+        assert!(on_map(hop_end(low_edge, Hop::Side(it2, side(t)), len)));
+        assert!(!on_map(hop_end(low_edge, Hop::Side(it2, !side(t)), len)));
+    }
+
+    #[test]
+    fn only_its_own_steps_say_running_off_or_coming_at_her() {
+        let me = (0.0, 0.0);
+        let at = (45_000.0, 0.0);
+        // walked 13500 straight at her in the last window: coming; away this window: running off; across: neither
+        assert_eq!(its_steps(me, at, [(-13_500.0, 0.0), (0.0, 0.0)]), (0.0, 13_500.0));
+        assert_eq!(its_steps(me, at, [(0.0, 0.0), (6_000.0, 0.0)]), (6_000.0, 0.0));
+        let (gain, came) = its_steps(me, at, [(0.0, 13_500.0), (0.0, -2_000.0)]);
+        assert!(gain.abs() < 1e-9 && came.abs() < 1e-9);
+        // standing still while she walks back into range after a hop: nothing (0.1.x saw the gap shrink: "charging")
+        assert_eq!(its_steps((24_000.0, 0.0), at, [(0.0, 0.0), (0.0, 0.0)]), (0.0, 0.0));
     }
 
     #[test]
