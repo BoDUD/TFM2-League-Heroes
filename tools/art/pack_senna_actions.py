@@ -55,21 +55,31 @@ CANNON = ("THE RELIC CANNON goes where the pale figure has it, frame by frame (i
           "flash, no black mist, no souls.")
 WEAPONS = {t: CANNON for t in NAMES}
 WEAPONS["dead"] = CANNON + " Where the pale figure has let it fall, draw it lying on the ground before her."
-# The run's legs, each frame following its pale figure; named from the start (Talon's first run kept one leg in
-# front in every frame: 「走路没有换腿」)
+# The run's legs, frame by frame (Talon's first run kept one leg in front in every frame: 「走路没有换腿」;
+# so did Codex's first run of hers, its heads and bodies drawn at other sizes than her other actions' too: redone with
+# --only run --prompt RUN_REDO_PROMPT_PPU.md); she runs to the right, "back" is the image's left
 RUN_LEGS = {
-    1: "STRIDE: the NEAR leg (the lighter one) reaching forward (image right), the FAR leg behind pushing off",
-    2: "the near foot landing under her, the far leg lifting off behind",
-    3: "PASSING: the near leg planted under her hips; the FAR leg swinging through under her, knee up",
-    4: "the FAR leg reaching forward to land, the near leg pushing off behind",
-    5: "STRIDE: now the FAR leg (the darker one) forward (image right), the NEAR leg behind pushing off",
-    6: "the far foot landing under her, the near leg lifting off behind",
-    7: "PASSING: the far leg planted under her hips; the NEAR leg swinging through under her, knee up",
-    8: "the NEAR leg reaching forward to land, the far leg pushing off behind",
+    1: "SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under her hips, its foot flat on "
+       "the ground; the FAR leg (the darker one) kicked up and back behind her, bent, its foot high off the ground",
+    2: "SUPPORT ON THE NEAR LEG: the near leg still planted under her hips, bending; the far leg swinging down from "
+       "behind, its foot off the ground behind the planted one",
+    3: "PASSING: both legs gathered under her, knees bent; the FAR leg passing forward close beside the planted near "
+       "leg, its foot just off the ground",
+    4: "STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image "
+       "left) pushing off, its toes on the ground",
+    5: "SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under her hips, its foot flat on "
+       "the ground; the NEAR leg (the lighter one) kicked up and back behind her, bent, its foot high off the ground",
+    6: "SUPPORT ON THE FAR LEG: the far leg still planted under her hips, bending; the near leg swinging down from "
+       "behind, its foot off the ground behind the planted one",
+    7: "PASSING: both legs gathered under her, knees bent; the NEAR leg passing forward close beside the planted far "
+       "leg, its foot just off the ground",
+    8: "STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image "
+       "left) pushing off, its toes on the ground",
 }
-RUN_SWAP = ("The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg "
-            "(the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's "
-            "LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」).")
+RUN_SWAP = ("The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes "
+            "forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 "
+            "and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in "
+            "front in every frame (her first run did that, and Talon's: 「走路没有换腿」).")
 # old frames that are another frame pixel for pixel (checked on the old sheet, cropped to the figure): drawn once,
 # here (tag, frame), 1-based; DESIGN: her idle pose itself (the old idle_base 1)
 DESIGN = ("design", 0)
@@ -209,6 +219,7 @@ def main():
     ap.add_argument("--old-sheet", default=os.path.join(SRC, "hd", "old", "sheet.png"))
     ap.add_argument("--old-fanim", default=os.path.join(SRC, "hd", "old", "anim.fanim"))
     ap.add_argument("--only", help="tags to pack, comma-separated (the redo of one action: --only run)")
+    ap.add_argument("--sheets", help="of those, only these sheets, comma-separated (the redo: run_1,...,skill_1)")
     ap.add_argument("--prompt", default="ACTIONS_PROMPT_PPU.md", help="the prompt file in assets/source/senna")
     a = ap.parse_args()
     tpl, refs = os.path.join(a.out, "templates"), os.path.join(a.out, "refs")
@@ -234,6 +245,8 @@ def main():
         sq = SQ_OF.get(tag, SQ)
         for n, (nums, part) in enumerate(groups(old[tag], set(SAME.get(tag, {})), sq)):
             name = f"{tag}_{n + 1}"
+            if a.sheets and name not in a.sheets.split(","):
+                continue
             template(os.path.join(tpl, name + ".png"), part, nums, sq)
             old_ref(part, nums, os.path.join(refs, f"old_{name}.png"), sq)
             sheets.append(dict(tag=tag, name=name, frames=nums, cells=len(part), square=sq, action=NAMES[tag],
