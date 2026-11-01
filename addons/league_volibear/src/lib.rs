@@ -12,11 +12,16 @@
 //!   `R_TOWER_T` tick 不能攻击（眩晕 + 禁止攻击，塔身上缠着电光 `league_volibear_r_tower`）。主包：没有这一条。
 //! - **风暴形态变成雷电蓝**（0.2.0，用户 2026-10-30：「沃利贝尔开大是不是得搞个变色啊」→「2 雷电蓝+描边」，view.rs）：落地后的
 //!   12 秒（主包的 buff `R_FORM`）他的每个动作都换成图里雷电蓝、电蓝外描边的 `r_*` 一套。主包：颜色不变，只有身后的雷云。
+//!   （体型变大 35% 是主包 league.dll 画的，装不装本包都有：addons/league_main/src/hd.rs FORMS。）
+//! - **天声震落跳进人堆**（0.3.0，用户 2026-11-01：「沃利贝尔现在的大招是跳进去开的吗 人群中」，AI 钩子 `league_volibear:leap`）：
+//!   英雄联盟的 R 是指定地点，往人堆里跳；主包的 R 只能指定一个敌方英雄，游戏的 AI 挑谁就跳谁。AI 按下 R 时，`R_RANGE` 以内
+//!   要是有落在他身上能砸到更多敌方英雄（他身边 `R_R` 以内，含他自己）的，改跳他；一样多照 AI 挑的。什么时候按还是 AI 定。
 //!
-//! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。本包不按任何技能键。
+//! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。本包不自己按技能键：AI 按下的 R 只换个目标。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_volibear.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `STORM`（闪电打到谁）、`MAUL`（标记 / 第二口回了多少）、`TOWER`（哪座塔失效）、`FORM`（画面上换成风暴形态的颜色），限了条数。
+//! `STORM`（闪电打到谁）、`MAUL`（标记 / 第二口回了多少）、`TOWER`（哪座塔失效）、`FORM`（画面上换成风暴形态的颜色）、
+//! `LEAP`（AI 的 R 改跳了谁、照旧跳谁，各砸到几个敌方英雄），限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -29,7 +34,8 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_volibear";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
+const VERSION: &str = "0.3.0";
 /// 天声震落落地后的风暴形态（主包数据的 buff，12 秒）：这期间画面上是雷电蓝的他（view.rs）。
 pub const R_FORM: &str = "league_volibear_r_form";
 
@@ -50,6 +56,9 @@ pub const W_HEAL_MISS: usize = 12;
 /// 天声震落：多远以内的敌方塔、失效多少 tick。
 pub const R_TOWER_R: usize = 55_000;
 pub const R_TOWER_T: usize = 240;
+/// 天声震落：射程、落地砸到多远以内（跳进人堆时数人用）。
+pub const R_RANGE: usize = 70_000;
+pub const R_R: usize = 32_000;
 /// 闪电打中时身上的电光（p_hit 一遍的长度）。
 pub const ZAP_T: usize = 20;
 
@@ -136,6 +145,22 @@ pub fn nearest(at: Pt, target: usize, candidates: &[(usize, Pt)], reach: f64, co
         .collect();
     near.sort_by(|a, b| a.0.total_cmp(&b.0).then(a.1.cmp(&b.1)));
     near.into_iter().take(count).map(|(_, id)| id).collect()
+}
+
+/// 天声震落跳谁：`me` 射程 `range` 内的敌方英雄（id、位置）里，落在他身上砸到的敌方英雄（他身边 `radius` 以内，含他）最多的；
+/// 一样多时 AI 自己挑的 `ai` 优先，再挑离得近的。返回（目标，砸到几个）。
+pub fn crowd_pick(me: Pt, ai: Option<usize>, champs: &[(usize, Pt)], range: f64, radius: f64) -> Option<(usize, usize)> {
+    champs
+        .iter()
+        .filter(|&&(_, p)| dist(me, p) <= range)
+        .map(|&(id, p)| (id, in_slam(p, champs, radius), dist(me, p)))
+        .max_by(|a, b| a.1.cmp(&b.1).then((Some(a.0) == ai).cmp(&(Some(b.0) == ai))).then(b.2.total_cmp(&a.2)))
+        .map(|(id, n, _)| (id, n))
+}
+
+/// 落在 `at` 砸到的敌方英雄：`champs` 里 `radius` 以内的个数。
+pub fn in_slam(at: Pt, champs: &[(usize, Pt)], radius: f64) -> usize {
+    champs.iter().filter(|&&(_, p)| dist(at, p) <= radius).count()
 }
 
 /// 第二口的回复：攻击力 `ad`、生命 (`hp`, `max_hp`)。
@@ -244,6 +269,73 @@ impl StableEffectType for Step {
     }
 }
 
+// ===================== AI 钩子：天声震落跳进人堆 =====================
+
+/// AI 按下天声震落时，改跳射程内落下去砸到敌方英雄最多的那个（`crowd_pick`）；不比 AI 挑的多就不动。
+#[derive(Clone, Default)]
+struct Leap;
+
+impl StablePlayerAi for Leap {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:leap")
+    }
+
+    /// league_ult_press（100）之后。
+    fn priority(&self) -> i32 {
+        105
+    }
+
+    fn matches(&self, init: &StableAiInit) -> bool {
+        init.champion_name == ID
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        let b = base?;
+        if InputKindV1::from_code(b.kind) != Some(InputKindV1::Ult) {
+            return None;
+        }
+        let ai = target_of(&b.target);
+        let player = ctx.player_id();
+        let (input, line) = {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion()?;
+            if !me.is_alive() {
+                return None;
+            }
+            let (my_id, team) = (me.id(), me.team());
+            let at = (me.pos().0 as f64, me.pos().1 as f64);
+            let champs: Vec<(usize, Pt)> = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .filter(|e| e.team() != team && e.is_alive() && e.is_targetable() && e.is_champion())
+                .map(|e| (e.id(), (e.pos().0 as f64, e.pos().1 as f64)))
+                .collect();
+            let was = ai.and_then(|a| champs.iter().find(|c| c.0 == a)).map_or(0, |&(_, p)| in_slam(p, &champs, R_R as f64));
+            let (t, n) = crowd_pick(at, ai, &champs, R_RANGE as f64, R_R as f64)?;
+            if Some(t) == ai || n <= was {
+                if let Some(k) = counted("leap_kept") {
+                    let who = ai.map_or("-".to_string(), |a| format!("#{a}"));
+                    wlog(format!("{} LEAP the AI's {who} kept: {was} enemy champions in the slam #{k}", head(&sim, my_id)));
+                }
+                return None;
+            }
+            let who = ai.map_or("-".to_string(), |a| format!("#{a}"));
+            (InputV1::action(InputKindV1::Ult, InputTargetV1::target(t)),
+             format!("{} LEAP at #{t}: {n} enemy champions in the slam (the AI's {who}: {was})", head(&sim, my_id)))
+        };
+        if !ctx.is_valid_input(&input) {
+            return None;
+        }
+        if let Some(k) = counted("leap") {
+            wlog(format!("{line} #{k}"));
+        }
+        Some(input)
+    }
+}
+
 // ===================== 注册 =====================
 
 /// Everything this add-on registers, into `module`: its own DLL's (`init`) or league_addons' (all add-ons in one).
@@ -252,7 +344,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Volibear: chain lightning to the 4 nearest, the second maul by the mark on its target, Stormbringer silences towers, the storm form in electric blue) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Volibear: chain lightning to the 4 nearest, the second maul by the mark on its target, Stormbringer leaps into the crowd and silences towers, the storm form in electric blue) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -262,8 +354,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:storm"), Step(storm));
     module.add_native_effect(format!("{ID}:maul"), Step(maul));
     module.add_native_effect(format!("{ID}:stormbringer"), Step(stormbringer));
+    module.add_player_input_ai(Leap);
     view::install_once();
-    host.log(LogLevel::Info, "league_volibear loaded (chain lightning, marked maul, tower silence, storm colours).");
+    host.log(LogLevel::Info, "league_volibear loaded (chain lightning, marked maul, leap into the crowd, tower silence, storm colours).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -289,6 +382,23 @@ mod tests {
         assert_eq!(nearest(at, 1, &c, 22_000.0, 4), vec![3, 7, 2, 5]);
         assert_eq!(nearest(at, 1, &c, 4_000.0, 4), vec![3, 7]);
         assert!(nearest(at, 1, &[(1, at)], 22_000.0, 4).is_empty());
+    }
+
+    #[test]
+    fn stormbringer_leaps_into_the_crowd() {
+        let (range, r) = (R_RANGE as f64, R_R as f64);
+        let me = (0.0, 0.0);
+        // the AI's #1 alone in front; #2 with #3 and #4 round him, in range; #5 in a bigger pile out of range
+        let c = [(1, (20_000.0, 0.0)), (2, (60_000.0, 0.0)), (3, (75_000.0, 10_000.0)), (4, (60_000.0, -25_000.0)),
+                 (5, (120_000.0, 0.0)), (6, (125_000.0, 5_000.0)), (7, (118_000.0, -6_000.0)), (8, (122_000.0, 9_000.0))];
+        assert_eq!(in_slam((60_000.0, 0.0), &c, r), 3);
+        assert_eq!(crowd_pick(me, Some(1), &c, range, r), Some((2, 3)));
+        // two pairs, two in the slam wherever he lands: the AI's pick stays, else the nearest
+        let two = [(1, (20_000.0, 0.0)), (2, (20_000.0, 20_000.0)), (3, (60_000.0, -30_000.0)), (4, (60_000.0, -50_000.0))];
+        assert_eq!(crowd_pick(me, Some(3), &two, range, r), Some((3, 2)));
+        assert_eq!(crowd_pick(me, None, &two, range, r), Some((1, 2)), "a tie and no AI pick: the nearest");
+        assert_eq!(crowd_pick(me, Some(1), &[(1, (90_000.0, 0.0))], range, r), None, "nobody in range");
+        assert_eq!(crowd_pick(me, Some(9), &[(1, (40_000.0, 0.0))], range, r), Some((1, 1)));
     }
 
     #[test]

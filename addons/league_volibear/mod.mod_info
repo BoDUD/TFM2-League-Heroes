@@ -11,10 +11,10 @@
       "version": ">=0.259.4"
     }
   ],
-  "description": "Test build of Volibear as in League (needs League of Legends Heroes): replaces the main pack's Volibear so The Relentless Storm's five-stack lightning strikes the target and the 4 nearest enemies (the main pack: a bolt that splashes round the target), Frenzied Maul keeps its mark on the champion bitten and the second bite heals by his missing health (the main pack: any second maul, a flat heal), Stormbringer's landing disables nearby enemy towers, and for the 12 s storm form after it he is drawn in electric blue with a glowing outline (the main pack: his own colours under the storm cloud). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-30",
+  "description": "Test build of Volibear as in League (needs League of Legends Heroes): replaces the main pack's Volibear so The Relentless Storm's five-stack lightning strikes the target and the 4 nearest enemies (the main pack: a bolt that splashes round the target), Frenzied Maul keeps its mark on the champion bitten and the second bite heals by his missing health (the main pack: any second maul, a flat heal), Stormbringer leaps at the enemy champion with the most enemy champions round him (the main pack: whoever the game's AI picks) and its landing disables nearby enemy towers, and for the 12 s storm form after it he is drawn in electric blue with a glowing outline (the main pack: his own colours under the storm cloud). Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-01",
   "mod_id": "league_volibear",
   "mod_type": "native",
-  "name": "League Heroes: Volibear's chain lightning, marked maul, tower silence and storm colours (test)",
-  "version": "0.2.0"
+  "name": "League Heroes: Volibear's chain lightning, marked maul, leap into the crowd, tower silence and storm colours (test)",
+  "version": "0.3.0"
 }
