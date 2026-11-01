@@ -139,11 +139,13 @@ struct State {
     /// growth lines written: their own budget, so the draw-scale lines of a long session never silence them (2026-10-23:
     /// the 200 shared lines ran out a second after Cho'Gath came on screen, before his first stack)
     grow_lines: usize,
+    /// (entity value, size drawn, when) of the hd::FORMS heroes, eased from frame to frame
+    forms: Vec<(usize, f32, std::time::Instant)>,
 }
 
 static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), lines: 0,
                                                 seen: Vec::new(), noted: Vec::new(), grows: Vec::new(),
-                                                grow_lines: 0 });
+                                                grow_lines: 0, forms: Vec::new() });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -485,20 +487,36 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         insert(out, b + 1, &back);
         insert(out, a, &grow);
     }
-    // a hero that grows with a stack (hd::GROWTH, Cho'Gath's Feast): his body's own commands once more, about his soles
-    let Some(&(_, buff, per)) = hd::GROWTH.iter().find(|g| g.0 == hero.id) else { return };
-    let n = stacks(ent, buff);
-    let g = hd::grown(per, n);
-    if !st.grows.iter().any(|e| e.0 == ent && e.1 == n) && st.grow_lines < GROW_LINES {
-        st.grows.retain(|e| e.0 != ent);
-        st.grows.push((ent, n));
-        if st.grows.len() > 64 {
-            st.grows.remove(0);
+    // a hero drawn bigger, with a stack (hd::GROWTH, Cho'Gath's Feast) or while his form's buff is on (hd::FORMS,
+    // Volibear's Stormbringer, eased in and out): his body's own commands once more, about his soles
+    let g = if let Some(&(_, buff, per)) = hd::GROWTH.iter().find(|g| g.0 == hero.id) {
+        let n = stacks(ent, buff);
+        let g = hd::grown(per, n);
+        if note_grow(&mut st, ent, n) {
+            wlog(format!("{}: {n} x {buff} - body drawn x{g:.2} about the soles", hero.id));
         }
-        st.grow_lines += 1;
-        wlog(format!("{}: {n} x {buff} - body drawn x{g:.2} about the soles", hero.id));
-    }
-    if n == 0 {
+        g
+    } else if let Some(&(_, buffs, size, secs)) = hd::FORMS.iter().find(|f| f.0 == hero.id) {
+        let on = buffs.iter().find(|b| stacks(ent, b) > 0);
+        let now = std::time::Instant::now();
+        let prev = st.forms.iter().find(|f| f.0 == ent).map(|f| (f.1, now.duration_since(f.2).as_secs_f32()));
+        let g = hd::eased(prev, if on.is_some() { size } else { 1.0 }, size, secs);
+        st.forms.retain(|f| f.0 != ent);
+        st.forms.push((ent, g, now));
+        if st.forms.len() > 64 {
+            st.forms.remove(0);
+        }
+        if note_grow(&mut st, ent, usize::from(on.is_some())) {
+            match on {
+                Some(b) => wlog(format!("{}: {b} on - body growing to x{size:.2} about the soles over {secs} s", hero.id)),
+                None => wlog(format!("{}: no form buff - body x{g:.2}, back to x1.00 over {secs} s", hero.id)),
+            }
+        }
+        g
+    } else {
+        return;
+    };
+    if (g - 1.0).abs() < 1e-4 {
         return;
     }
     let (sx, sy) = soles(px, py, hero.ppu);
@@ -607,6 +625,21 @@ unsafe fn stacks(ent: usize, name: &str) -> usize {
             plausible(p) && n == name.len() && std::slice::from_raw_parts(p as *const u8, n) == name.as_bytes()
         })
         .count()
+}
+
+/// Whether a growing body's state `n` (its stacks; 1 / 0 for a form on / off) is new for the entity value `ent`: one
+/// line a change, within the growth lines' own budget.
+fn note_grow(st: &mut State, ent: usize, n: usize) -> bool {
+    if st.grows.iter().any(|e| e.0 == ent && e.1 == n) || st.grow_lines >= GROW_LINES {
+        return false;
+    }
+    st.grows.retain(|e| e.0 != ent);
+    st.grows.push((ent, n));
+    if st.grows.len() > 64 {
+        st.grows.remove(0);
+    }
+    st.grow_lines += 1;
+    true
 }
 
 /// The point a growing body is scaled about: its soles, hd::FEET game pixels under the unit's position - in the body
@@ -738,6 +771,39 @@ mod tests {
         assert!((hd::grown(0.30, 4) - 2.2).abs() < 1e-6);
         assert!((hd::grown(0.30, 10) - 4.0).abs() < 1e-6);
         assert!(hd::GROWTH.iter().any(|g| g.0 == "league_chogath" && g.1 == "league_chogath_r_stack"));
+    }
+
+    #[test]
+    fn a_form_body_eases_in_and_out() {
+        let (size, secs) = (1.35, 1.25);
+        // never drawn or stale: straight at the size (a match view opened in the middle of his form)
+        assert_eq!(hd::eased(None, size, size, secs), size);
+        assert_eq!(hd::eased(Some((1.0, hd::FORM_STALE + 0.1)), size, size, secs), size);
+        // a 60 fps frame: 0.35 / 1.25 / 60 of the way
+        let one = hd::eased(Some((1.0, 1.0 / 60.0)), size, size, secs);
+        assert!((one - (1.0 + 0.35 / 1.25 / 60.0)).abs() < 1e-6, "{one}");
+        // frame by frame, the whole way in 1.25 s, and no further
+        let mut g = 1.0;
+        for _ in 0..74 {
+            g = hd::eased(Some((g, 1.0 / 60.0)), size, size, secs);
+        }
+        assert!(g < size && g > 1.34, "{g}");
+        for _ in 0..3 {
+            g = hd::eased(Some((g, 1.0 / 60.0)), size, size, secs);
+        }
+        assert_eq!(g, size);
+        // the form over: back down at the same pace
+        let down = hd::eased(Some((size, 0.25)), 1.0, size, secs);
+        assert!((down - (size - 0.07)).abs() < 1e-6, "{down}");
+        assert_eq!(hd::eased(Some((1.01, 0.1)), 1.0, size, secs), 1.0);
+        // Volibear's leap and storm form are main pack buffs of his
+        let data = include_str!("../../../league/champion/league_volibear.data_champion");
+        let (_, buffs, s, t) = *hd::FORMS.iter().find(|f| f.0 == "league_volibear").expect("Volibear grows in his form");
+        assert_eq!((s, t), (1.35, 1.25));
+        for b in buffs {
+            assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives him {b}");
+        }
+        assert!(hd::FORMS.iter().all(|f| !hd::GROWTH.iter().any(|g| g.0 == f.0)), "a hero grows one way");
     }
 
     #[test]
