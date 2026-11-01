@@ -1,0 +1,26 @@
+{
+  "meepsie-A-coarse-revision.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256
+  },
+  "meepsie-A-original.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256
+  },
+  "meepsie-B-original.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256
+  }
+}

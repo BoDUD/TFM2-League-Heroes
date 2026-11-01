@@ -1,0 +1,552 @@
+{
+  "design": "A original first draft supplied as0_design.png",
+  "poses": [
+    {
+      "file": "meepsie-pose-a_raise.png",
+      "raw": "raw/meepsie-pose-a_raise.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        235,
+        72,
+        1175,
+        1176
+      ],
+      "translation": [
+        0,
+        -2
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "161330b95f3bc3b0d0dd62a6b7d7d2ff1f4f830921c2ed2d9cbf22de59c87aa3"
+    },
+    {
+      "file": "meepsie-pose-a_punch.png",
+      "raw": "raw/meepsie-pose-a_punch.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        65,
+        425,
+        1194,
+        1176
+      ],
+      "translation": [
+        0,
+        -11
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "09ad43726b43c317b41fe600b06cb0b3f30c8651bad06ac4b1b063a2c79ed019"
+    },
+    {
+      "file": "meepsie-pose-q_raise.png",
+      "raw": "raw/meepsie-pose-q_raise.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        160,
+        61,
+        1036,
+        1176
+      ],
+      "translation": [
+        0,
+        -18
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "8d4814d910de2fc6928cd173979b5716cae06f142b2b3a689d28ace4c00a1f63"
+    },
+    {
+      "file": "meepsie-pose-q_smash.png",
+      "raw": "raw/meepsie-pose-q_smash.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        36,
+        373,
+        1208,
+        1176
+      ],
+      "translation": [
+        0,
+        -36
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "a9b0d58debf5ec5ee5060a095f373c03563cd72680a53ca7d5f4f2234ea4f8c3"
+    },
+    {
+      "file": "meepsie-pose-e_ready.png",
+      "raw": "raw/meepsie-pose-e_ready.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        157,
+        369,
+        1170,
+        1176
+      ],
+      "translation": [
+        0,
+        -7
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "94c802abc8e775563cd993896b649ab346c2d6b04c159bed7f582b11033e72e8"
+    },
+    {
+      "file": "meepsie-pose-e_call.png",
+      "raw": "raw/meepsie-pose-e_call.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        168,
+        220,
+        1173,
+        1176
+      ],
+      "translation": [
+        0,
+        -17
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "e4a02ae1c356880bbc1a67ad19a5cbf5d7e2fca8521e4d7d3a31e83e9645c152"
+    },
+    {
+      "file": "meepsie-pose-r_jump.png",
+      "raw": "raw/meepsie-pose-r_jump.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        20,
+        380,
+        1242,
+        1176
+      ],
+      "translation": [
+        0,
+        60
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "0d966b5a6431848a2ed9497d9264d997756f0e54ef1e14d64f57443044ba2cd7"
+    },
+    {
+      "file": "meepsie-pose-r_air.png",
+      "raw": "raw/meepsie-pose-r_air.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        133,
+        93,
+        1153,
+        1176
+      ],
+      "translation": [
+        0,
+        -21
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "0ffb9e800298017bf7522ac03bf858029537510ac1c7aa50cdff6afb2bdaeb13"
+    },
+    {
+      "file": "meepsie-pose-r_land.png",
+      "raw": "raw/meepsie-pose-r_land.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        197,
+        385,
+        1181,
+        1176
+      ],
+      "translation": [
+        0,
+        -44
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "683c28ec79ca0e5becf756f27e2c8ebf71bb81c63d17d6da1bbfddbcd1597851"
+    },
+    {
+      "file": "meepsie-pose-r_slam.png",
+      "raw": "raw/meepsie-pose-r_slam.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        131,
+        465,
+        1174,
+        1176
+      ],
+      "translation": [
+        0,
+        -14
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "03728ab8e9f409ab2c67fac704d0a3651a075c07c90e6075587da50494c6c1b5"
+    },
+    {
+      "file": "meepsie-pose-run1.png",
+      "raw": "raw/meepsie-pose-run1.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        113,
+        351,
+        1217,
+        1176
+      ],
+      "translation": [
+        0,
+        -5
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "3d60b8ebd6f61d28de2ab3cb250d2e209593a8d3d7d68f51d5a496a01024e782"
+    },
+    {
+      "file": "meepsie-pose-run2.png",
+      "raw": "raw/meepsie-pose-run2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        119,
+        306,
+        1196,
+        1176
+      ],
+      "translation": [
+        0,
+        1
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "a539f09fcfcdf52a7e318b3ebed4dd7a2132357ac53430433eaf09c49008a614"
+    },
+    {
+      "file": "meepsie-pose-run3.png",
+      "raw": "raw/meepsie-pose-run3.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        84,
+        291,
+        1203,
+        1176
+      ],
+      "translation": [
+        0,
+        1
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "8997fd35ca47314b2dec6d2538f6bbcffa00b9ff9325290e02ab35de381a613d"
+    },
+    {
+      "file": "meepsie-pose-run4.png",
+      "raw": "raw/meepsie-pose-run4.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        157,
+        473,
+        1143,
+        1176
+      ],
+      "translation": [
+        0,
+        -4
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "a9b6ddf9d1504687ceaef4fc285facdd4be985fde5d14ea13a4f1e0049be6526"
+    },
+    {
+      "file": "meepsie-pose-run5.png",
+      "raw": "raw/meepsie-pose-run5.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        150,
+        400,
+        1173,
+        1176
+      ],
+      "translation": [
+        0,
+        31
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "64629d85dfce08757c3317aba3cb1b6db44488ea547b9e4b74d33197b93d6811"
+    },
+    {
+      "file": "meepsie-pose-run6.png",
+      "raw": "raw/meepsie-pose-run6.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        88,
+        365,
+        1203,
+        1176
+      ],
+      "translation": [
+        0,
+        2
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "186cfe124b7b9fa5554842e7c2a0c0387ab0315aff5a376befa78aaba1590256"
+    },
+    {
+      "file": "meepsie-pose-run7.png",
+      "raw": "raw/meepsie-pose-run7.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        121,
+        349,
+        1187,
+        1176
+      ],
+      "translation": [
+        0,
+        -19
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "9ceefa6d8bc1f49e023978ea803be0b7717c3af49b2c6314a5b2d7ade0f16065"
+    },
+    {
+      "file": "meepsie-pose-run8.png",
+      "raw": "raw/meepsie-pose-run8.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        113,
+        350,
+        1198,
+        1176
+      ],
+      "translation": [
+        0,
+        -17
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "7508e746e274fdce7bd981193c0dd345490fe62c1015d412a832d7623cf59454"
+    },
+    {
+      "file": "meepsie-pose-d_fall.png",
+      "raw": "raw/meepsie-pose-d_fall.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        146,
+        452,
+        1186,
+        1176
+      ],
+      "translation": [
+        0,
+        -24
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "85715d3221e59352234eb210b673deeb531a5c7d80d243dbf247756257046b88"
+    },
+    {
+      "file": "meepsie-pose-d_down.png",
+      "raw": "raw/meepsie-pose-d_down.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "alpha_levels": [
+        0,
+        255
+      ],
+      "bbox": [
+        200,
+        435,
+        1155,
+        1176
+      ],
+      "translation": [
+        0,
+        -43
+      ],
+      "resampled": false,
+      "art_rgb_unchanged": true,
+      "requested_grid_px": 6,
+      "grid_status": "AI-generated local pixel grid; not regridded; exact6px not claimed",
+      "raw_sha256": "a27bfa23ea65d1a5ae028980f12276235b039c817c88cbc4ea151a6f004f4b67"
+    }
+  ],
+  "count": 20,
+  "postprocess": "alpha>=180 hard mask and integer vertical translation only; no scale/resample or body repaint",
+  "limits": [
+    "Generation does not guarantee square-for-square pilot identity or exact6px grid.",
+    "Per-pose body proportions should be aligned during import; original raw retained.",
+    "No game integration or runtime acceptance."
+  ]
+}

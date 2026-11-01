@@ -185,6 +185,7 @@ pub const SOULS: &[&str] = &[
     "tft_krug",
     "tft_loris",
     "tft_maddie",
+    "tft_meepsie",
     "tft_murkwolf",
     "tft_nomsy",
     "tft_norra",

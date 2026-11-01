@@ -1,0 +1,172 @@
+{
+  "status": "structural_checks_passed_with_art_alignment_limits",
+  "count": 20,
+  "checks": [
+    {
+      "file": "meepsie-pose-a_raise.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-a_punch.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-q_raise.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-q_smash.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-e_ready.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-e_call.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-r_jump.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-r_air.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-r_land.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-r_slam.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-run1.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-run2.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-run3.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-run4.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-run5.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-run6.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-run7.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-run8.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-d_fall.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    },
+    {
+      "file": "meepsie-pose-d_down.png",
+      "canvas": true,
+      "hard_alpha": true,
+      "baseline_1176": true,
+      "no_boundary_crop": true,
+      "no_resampling_rgb_preserved": true
+    }
+  ],
+  "unique_run_lower_body_frames": 8,
+  "limits": [
+    "Exact6px grid not guaranteed or fabricated by resampling.",
+    "Pose-to-pose body/pilot proportions still require import alignment review.",
+    "No runtime or game UI verification."
+  ]
+}

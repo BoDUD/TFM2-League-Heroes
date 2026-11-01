@@ -382,6 +382,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // user's 44 game px from the highest wing tip to its claws, PPU 2.84 (「A-1 44像素 PPU2.84」: 125 rows 1:1), and Codex's
     // key poses after League's Elder Dragon clips, posed by tools/art/rig_elderdragon.py, so no SIZES row
     ("tft_elderdragon", 2.84, include_str!("../../../tft/champions/tft_elderdragon#anim.fanim")),
+    // Meepsie (tft_meepsie, the tft pack): the headless moon-rock golem at 3/4 with the meep pilot in its chest, step 0's
+    // A-1 at the user's 40 game px from the mushroom tops to its soles, PPU 2.875 (「A-1，40 像素」: 115 rows 1:1), and
+    // Codex's key poses after its own TFT clips, posed by tools/art/rig_meepsie.py, so no SIZES row
+    ("tft_meepsie", 2.875, include_str!("../../../tft/champions/tft_meepsie#anim.fanim")),
     // Murk Wolf (tft_murkwolf, the tft pack): the two-headed wolf crouched on four legs at 3/4, step 0's A-1 at the user's
     // 36 game px from its tail tip to its claws, PPU 1.67 (「A-1 36 高 PPU 1.67」: 60 rows 1:1), and Codex's key poses after
     // its own TFT clips, posed by tools/art/rig_murkwolf.py, so no SIZES row
