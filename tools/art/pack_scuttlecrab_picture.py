@@ -46,6 +46,7 @@ CLIPS = {   # path hashes only (Map11 data/characters/sru_crab/animations/skin0.
     "shell": 6024500345596115350,      # 1.00 s: hidden in its shell, legs and face pulled in
     "rise": 989724509526753260,        # 1.63 s: climbs out of the ground (spawn)
     "pop": 16735728757355940408,       # 0.20 s: pops up out of the shell, legs out
+    "tuck": 5156845676768319795,       # 0.27 s: the antennae coming down, the body sinking (into the shell)
     "dance": 18125865922111818644,     # 1.60 s: the dance (Sru_Dance): up on its legs, claws up, rocking side to side
 }
 SQ = 11
