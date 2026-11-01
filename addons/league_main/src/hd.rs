@@ -590,6 +590,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // and Q's first two frames redrawn: the legs changing over, the cannon low; nothing baked); 39 game px as her 1x
     // sprite, so no SIZES row
     ("league_senna", 1.872, include_str!("../../../league/champions/league_senna#anim.fanim")),
+    // Evelynn (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「伊芙琳用2.78」): Codex's evelynn-A read on its own
+    // ~10.4-px squares (103 x 114, tools/art/design_evelynn_hd.py: 114 rows / 41 = 2.780); every action Codex's
+    // whole-frame redraw of her old frame read onto it at the zoom her height and hair give (tools/art/casts_evelynn_hd.py,
+    // rig_evelynn_hd.py; nothing baked); 41 game px as her 1x sprite, so no SIZES row
+    ("league_evelynn", 2.780, include_str!("../../../league/champions/league_evelynn#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
