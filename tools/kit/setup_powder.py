@@ -46,7 +46,8 @@ R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: the face point between her eyes, 10 px under the crown (tfm2_ase.py face: crown 35 px up; lint_mod allows
 # 10 under the crown); her idle's top is 23.5 px over the pivot: the ban/pick card fits it, no banpick_center
-VIEW = {"face": {"x": 0, "y": -25}, "center": {"x": 0, "y": -12}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 0, "y": -25}, "center": {"x": 0, "y": -7}}
 
 
 def mag(d, r):

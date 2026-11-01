@@ -47,7 +47,8 @@ AD = ADi + O + "100%" + E
 # row 26 of 83 at PPU 2.2: 26 over the ground, 10 ahead of its standing column 20 - ppu_restyle's face_to); the centre in
 # its chest; the ban/pick card by bp_card_audit.py's rule (-39 less the idle's top -26.5 over the frame centre: the head
 # spikes 1 game px under the card's top)
-VIEW = {"face": {"x": 10, "y": -26}, "center": {"x": 2, "y": -16}, "banpick_center": {"x": 0, "y": -12}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 10, "y": -26}, "center": {"x": 2, "y": -9}, "banpick_center": {"x": 0, "y": -12}}
 
 
 def phys(d, r):

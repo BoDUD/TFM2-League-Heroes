@@ -48,7 +48,8 @@ AD = ADi + O + "100%" + E
 # round column 77.5, row 30.5 of 68 at PPU 1.7: 22 over the ground, 15 ahead of its standing point, the design's pivot
 # column 52 - ppu_restyle's face_to); the centre in its body (the pivot column, half its 40 px); the ban/pick card as
 # the Sentinel's (the same 40 px at PPU 1.7)
-VIEW = {"face": {"x": 15, "y": -22}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -10}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 15, "y": -22}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phys(d, r):

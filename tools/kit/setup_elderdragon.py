@@ -52,7 +52,8 @@ AD = ADi + O + "100%" + E
 # with hd.rs's UI_SIZES 0.85 (-39 less the idle frame's top over its centre, -27.8 at 0.85: its raised wing tip 1 game px
 # under the card's top; the idle reel's snippet is the wings beaten down and the card plays no ult, whose flight would
 # leave the card)
-VIEW = {"face": {"x": 18, "y": -11}, "center": {"x": 0, "y": -22}, "banpick_center": {"x": 0, "y": -11}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 18, "y": -11}, "center": {"x": 0, "y": -17}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def phys(d, r):

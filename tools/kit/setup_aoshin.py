@@ -41,7 +41,8 @@ T = "<#f5f5f5ff>"      # true damage
 # champion_view (game px from his soles' point, up negative): the face point between his eyes under the gold mask (the
 # design's eye at column 47.5, row 21 of 74 x 76 at PPU 2.0: 27 over the ground, 4 ahead of his standing column 40);
 # the centre in his coiled body; the ban/pick card by bp_card_audit.py's rule (checked there after the sheet is built)
-VIEW = {"face": {"x": 4, "y": -27}, "center": {"x": 0, "y": -19}, "banpick_center": {"x": 0, "y": -11}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 4, "y": -27}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def mag(d, r):
