@@ -60,6 +60,8 @@ HIT = (0, -13)                  # a hit on the upper body of a 32-46 px unit
 FLY = (0, 0)                    # a projectile's own point
 SOLES = (0, 11)                 # on the ground under a unit (or under a ground point)
 BODY = (3, 11)                  # under the middle of its body (3 game px ahead of its standing point), on its soles
+RUNE = (3, 19)                  # Purple Buff's cell 8 lower: its rune (the cell's top rows) just over the mushrooms, not
+                                # floating 18 px above its 32 px back
 seq = J.seq
 EDGE_SPECK = 6                  # parts touching a cell's side smaller than this are dropped
 EDGE_STRIP = 3                  # and parts within this many columns of a side and narrower than it
@@ -95,7 +97,7 @@ FX = {
     "r_fog": ("foot", loop(6, 50), [SOLES]),
     "r_slow": ("foot", loop(6, 100), [SOLES]),
     # Purple Buff: the rune above its back while its stacks hold
-    "p_ap": ("foot", loop(6, 110), [BODY]),
+    "p_ap": ("foot", loop(6, 110), [RUNE]),
 }
 ICONS = {"icon_skill": "tft_gromp_skill", "icon_skill2": "tft_gromp_skill2", "icon_ult": "tft_gromp_ult"}
 
