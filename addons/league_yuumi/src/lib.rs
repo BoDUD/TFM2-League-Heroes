@@ -16,6 +16,11 @@
 //!   旺盛精力（0.1.0 她就坐在他身上），10-20 起她骑在他身后 `BESIDE`，够不着，11-01 的日志里她在他头上放了 19 次 W 都落空。现在
 //!   看见她出了 W，`ZOOM_T` tick 后本包给他：护盾 `E_SH` + `E_AP`% 法强（`E_T` tick）、`league_yuumi_e_haste`（攻速、移速）、
 //!   `league_yuumi_e_on` 和命中的画面；副本自己给上了（他身上已经有 e_on）就不再给。
+//! - **看局势换人**（0.2.1，用户 2026-11-01：「还有个问题猫会智能附身吗 现在我感觉会长时间附身在一个人身上」——0.2.0 骑上
+//!   一个人就骑到他死，日志里有一次 21355 tick）：骑着、没在出招时每 `SWITCH_EVERY` tick 看一次（同一个人至少骑 `MIN_RIDE`，
+//!   两次换人隔 `SWITCH_CD`），在他 `SWITCH_R` 内的队友里照英雄联盟悠米的习惯挑（`switch_pick`）：他身边没有敌方英雄而别人在打，
+//!   跳去打得最凶的；他血量好、旁边打架的队友快死了，跳去救；他不是中单 / 下路而中单 / 下路打得不比他少，跳去跟大哥。猫从他头上
+//!   跳到新宿主头上（起跳的画面、附身的声音），她仍在放逐里，回血跟着换人。W 的冷却加不了，用 `SWITCH_CD` 代替。
 //! - **AI**：附身时她不普攻、不回城、不自己走（都换成「站在他身上」），只在出招的那一小段放技能。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个悠米自己的被动实例里（服务端预模拟和
@@ -23,7 +28,7 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yuumi.log`，每次启动游戏重写，上一次的留在 .prev.log：`ATTACH` /
 //! `DETACH`（附在谁身上、为什么下来，ATTACH 带他那时的护盾）、`WINDOW`（为哪一招解除放逐、出没出招）、`AI casts`（每个窗口一行）、
-//! `ZOOMIES`（骑着放的 W：他的护盾从多少到多少）、`WATCH`（每 30 秒
+//! `ZOOMIES`（骑着放的 W：他的护盾从多少到多少）、`SWITCH`（从谁换到谁、为什么、两人身边几个敌人和血量）、`WATCH`（每 30 秒
 //! 一行的统计，没附身又什么都没变就不记）：你看的那场全记，服务端预模拟每种前 `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行。
 
 use std::collections::HashMap;
@@ -40,7 +45,7 @@ pub mod view;
 
 const ID: &str = "league_yuumi";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.2.0";
+const VERSION: &str = "0.2.1";
 const HERO: &str = "league_yuumi";
 /// 她身上的附身 buff（view.rs 照它把她的动作换成空白的 a_*）。
 pub const RIDING: &str = "league_yuumi_w_on";
@@ -74,6 +79,19 @@ pub const W_ON_R: f64 = 8000.0;
 /// Ticks from seeing W cast (its cooldown jumped) to giving him Zoomies: the copy's W fires at w_st - 2 = 9, and two more
 /// to see whether the copy's own reached him (his e_on).
 pub const ZOOM_T: usize = 11;
+/// Hopping to a better host (0.2.1, user 2026-11-01: 「还有个问题猫会智能附身吗 现在我感觉会长时间附身在一个人身上」 - she
+/// rode one ally until he died, 21355 ticks once): looked at every SWITCH_EVERY ticks with no cast under way, after
+/// MIN_RIDE ticks on him and SWITCH_CD after the last hop (League: W again after 10 s; an add-on cannot start W's
+/// cooldown), among the allies within SWITCH_R of him (P's w_ally_r, the copy's W reach) - `switch_pick`.
+pub const SWITCH_EVERY: usize = 30;
+pub const MIN_RIDE: usize = 300;
+pub const SWITCH_CD: usize = 600;
+pub const SWITCH_R: f64 = 70000.0;
+/// An ally with an enemy champion this near is fighting.
+pub const FIGHT_R: f64 = 60000.0;
+/// A fighting ally under this % of his health is about to die; her host is fine over HOST_OK %.
+pub const LOW_HP: usize = 35;
+pub const HOST_OK: usize = 60;
 
 /// 主包悠米的名字（buff、声音、画面都以它开头）。
 fn yu(x: &str) -> String {
@@ -287,6 +305,45 @@ pub fn zoomies_shield(ap: usize) -> usize {
     E_SH + E_AP * ap / 100
 }
 
+/// An ally as `switch_pick` weighs him: enemy champions within FIGHT_R of him, his health %, a carry (mid or bottom).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Mate {
+    pub id: usize,
+    pub foes: usize,
+    pub hp: usize,
+    pub carry: bool,
+}
+
+/// Why she hops.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Why {
+    /// He is out of the fight and someone near fights.
+    Idle,
+    /// He is fine and someone near, in a fight, is about to die.
+    Rescue,
+    /// He is no carry and a carry fights as many as he does.
+    Carry,
+}
+
+/// Who to hop to from `host` among `near` (the allies within SWITCH_R of him), League's Yuumi's way: she goes where the
+/// fight is (the most enemy champions round him, then the lowest health, then a carry), saves the one about to die,
+/// rides the carry. None: she stays.
+pub fn switch_pick(host: Mate, near: &[Mate]) -> Option<(Mate, Why)> {
+    let need = |m: &&Mate| (m.foes, std::cmp::Reverse(m.hp), m.carry);
+    if host.foes == 0 {
+        return near.iter().filter(|m| m.foes > 0).max_by_key(need).map(|m| (*m, Why::Idle));
+    }
+    if host.hp > HOST_OK {
+        if let Some(m) = near.iter().filter(|m| m.foes > 0 && m.hp < LOW_HP).min_by_key(|m| m.hp) {
+            return Some((*m, Why::Rescue));
+        }
+    }
+    if !host.carry {
+        return near.iter().filter(|m| m.carry && m.foes >= host.foes).max_by_key(need).map(|m| (*m, Why::Carry));
+    }
+    None
+}
+
 /// 冷却从 `was` 变成 `now`：出了这一招（从好着跳到 CAST_JUMP 以上）。
 pub fn cast_seen(was: usize, now: usize) -> bool {
     was == 0 && now > CAST_JUMP
@@ -340,6 +397,25 @@ pub fn beside(at: (u64, u64), team: usize) -> (u64, u64) {
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+}
+
+/// Her team's living champions but her, as `switch_pick` weighs them, and where they are.
+fn mates(sim: &StableSim<'_>, team: usize, me: usize) -> Vec<(Mate, (u64, u64))> {
+    let foes = champions(sim, team, false);
+    let mut lanes = HashMap::new();
+    for i in 0..sim.player_count() {
+        if let Some(pl) = sim.player_at(i) {
+            if let Some(c) = pl.champion() {
+                lanes.insert(c.id(), pl.lane());
+            }
+        }
+    }
+    champions(sim, team, true).into_iter().filter(|c| c.0 != me).filter_map(|(id, at)| {
+        let (hp, max) = sim.get_entity(id)?.hp();
+        let carry = matches!(lanes.get(&id).copied().flatten(), Some(LaneV1::Mid | LaneV1::Bottom));
+        let near = foes.iter().filter(|f| dist(at, f.1) <= FIGHT_R).count();
+        Some((Mate { id, foes: near, hp: if max == 0 { 100 } else { hp * 100 / max }, carry }, at))
+    }).collect()
 }
 
 /// Living champions of `team` (`mates`) or of the other team: (id, position).
@@ -447,10 +523,13 @@ struct Bond {
     step_sum: f64,
     step_max: f64,
     /// The counters at the last WATCH (log only: a report while she is free with none of them moved is left out).
-    watched: [usize; 9],
+    watched: [usize; 10],
     /// W cast from his head: (him, the tick to give him Zoomies); Zoomies given so far.
     zoom: Option<(usize, usize)>,
     zooms: usize,
+    /// The first tick she may hop to another ally; hops so far.
+    next_switch: usize,
+    switches: usize,
 }
 
 impl Bond {
@@ -505,6 +584,7 @@ impl Bond {
         self.banish(sim, me, tick);
         self.record(me, None);
         self.zoom = None;
+        self.next_switch = tick + MIN_RIDE;
         if let Some(k) = tally(sim, "attach") {
             // the jump's Zoomies lands with it (the copy shields the ally it lands on): his shield shows it
             let (hp, max, shield) = sim.get_entity(host).map_or((0, 0, 0), |e| (e.hp().0, e.hp().1, e.shield()));
@@ -542,6 +622,40 @@ impl Bond {
             wlog(format!("{} ZOOMIES #{k} on {}: shield {before} -> {after} (+{amount}{}), +{E_AS}% attack speed, \
                           +{E_MS}% move speed for {E_T} ticks", head(sim, me), who(sim, host),
                          if given { "" } else { ", refused" }));
+        }
+    }
+
+    /// Hop from `from` to `to` (switch_pick's pick; `was` is how it weighed `from`): the ride picture leaves his head for
+    /// the new one's, her jump's picture where she was and the attach sound on him, her spot beside him; still
+    /// banished, and the heals go on to him.
+    #[allow(clippy::too_many_arguments)]
+    fn switch(&mut self, sim: &mut StableSim<'_>, me: usize, from: usize, to: Mate, was: Mate, why: Why, team: usize,
+              tick: usize) {
+        if let Some(here) = sim.get_entity(me).map(|e| e.pos()) {
+            sim.play_view_effect(&yu("w_jump"), me, &InputTargetV1::pos(here.0, here.1), 0, 0, 0);
+        }
+        sim.entity_remove_buff(from, &self.ride);
+        let lift = sim.get_entity(to.id).and_then(|e| e.name()).map_or(0, |n| lift_of(&n));
+        self.ride = ride_buff(lift);
+        sim.entity_remove_buff(to.id, &self.ride);
+        sim.add_buff(to.id, &BuffV1::named(&self.ride));
+        if let Some(at) = sim.get_entity(to.id).map(|e| e.pos()) {
+            let spot = beside(at, team);
+            sim.entity_set_pos(me, spot.0, spot.1);
+        }
+        sim.play_sfx(&yu("w_on"), me, &InputTargetV1::target(to.id));
+        let rode = tick.saturating_sub(self.since);
+        self.host = Some(to.id);
+        self.since = tick;
+        self.host_at = None;
+        self.zoom = None;
+        self.next_switch = tick + SWITCH_CD;
+        self.switches += 1;
+        self.record(me, None);
+        if let Some(k) = tally(sim, "switch") {
+            wlog(format!("{} SWITCH #{k} from {} after {rode} ticks to {}: {why:?} (he: {} enemy champions near, {}% hp; \
+                          the new one: {}, {}%{})", head(sim, me), who(sim, from), who(sim, to.id), was.foes, was.hp,
+                         to.foes, to.hp, if to.carry { ", a carry" } else { "" }));
         }
     }
 
@@ -603,6 +717,19 @@ impl Bond {
                 self.zoom = None;
                 if h == host {
                     self.zoomies(sim, me, host, ap);
+                }
+            }
+        }
+        // a better host (League's Yuumi hops where she is needed): with no cast under way
+        if self.window.is_none() && tick >= self.next_switch && tick % SWITCH_EVERY == 0 {
+            let all = mates(sim, team, me);
+            if let Some(&(him, _)) = all.iter().find(|(m, _)| m.id == host) {
+                let near: Vec<Mate> =
+                    all.iter().filter(|(m, p)| m.id != host && dist(at, *p) <= SWITCH_R).map(|(m, _)| *m).collect();
+                if let Some((to, why)) = switch_pick(him, &near) {
+                    self.switch(sim, me, host, to, him, why, team, tick);
+                    self.last_cd = ready_of(sim, me);
+                    return;
                 }
             }
         }
@@ -760,7 +887,7 @@ impl StablePassive for Bond {
                 // free with nothing moved since the last report: no line (10-30: a quarter of the WATCH lines were all
                 // zeros), and the presims' capped
                 let now = [self.attaches, self.windows, self.casts, self.heals, self.healed, self.out, self.ridden,
-                           self.refused, self.zooms];
+                           self.refused, self.zooms, self.switches];
                 let quiet = self.host.is_none() && now == self.watched;
                 self.watched = now;
                 if !quiet && tally(sim, "watch").is_some() {
@@ -773,11 +900,12 @@ impl StablePassive for Bond {
                     } else {
                         String::new()
                     };
-                    wlog(format!("{} WATCH: attached {} times ({}), windows {}, casts from the head {}, heals {} ({} hp), \
-                                  zoomies {}, out {}/{} riding ticks, banish refused {}{steps}{host_now}",
+                    wlog(format!("{} WATCH: attached {} times ({}), switches {}, windows {}, casts from the head {}, heals {} \
+                                  ({} hp), zoomies {}, out {}/{} riding ticks, banish refused {}{steps}{host_now}",
                                  head(sim, me), self.attaches,
-                                 self.host.map_or("free".to_string(), |h| format!("on {}", who(sim, h))), self.windows,
-                                 self.casts, self.heals, self.healed, self.zooms, self.out, self.ridden, self.refused));
+                                 self.host.map_or("free".to_string(), |h| format!("on {}", who(sim, h))), self.switches,
+                                 self.windows, self.casts, self.heals, self.healed, self.zooms, self.out, self.ridden,
+                                 self.refused));
                 }
                 self.steps = 0;
                 self.step_sum = 0.0;
@@ -953,6 +1081,29 @@ mod tests {
         assert_eq!(left(None), usize::MAX);
         // the slot unlocking is not taken for a cast
         assert!(!cast_seen(left(cd(0, false)), left(cd(0, true))));
+    }
+
+    #[test]
+    fn she_hops_where_she_is_needed() {
+        let m = |id, foes, hp, carry| Mate { id, foes, hp, carry };
+        // out of the fight: to the ally with the most enemy champions round him (then the lowest health)
+        let idle = m(1, 0, 90, true);
+        assert_eq!(switch_pick(idle, &[m(2, 1, 40, false), m(3, 2, 80, false)]), Some((m(3, 2, 80, false), Why::Idle)));
+        assert_eq!(switch_pick(idle, &[m(2, 1, 40, false), m(3, 1, 80, false)]), Some((m(2, 1, 40, false), Why::Idle)));
+        assert_eq!(switch_pick(idle, &[m(2, 0, 20, true)]), None, "nobody fights: she stays");
+        // fine in a fight: to the ally about to die (the lowest)
+        let fine = m(1, 1, 90, true);
+        assert_eq!(switch_pick(fine, &[m(2, 2, 30, false), m(3, 1, 20, false)]), Some((m(3, 1, 20, false), Why::Rescue)));
+        assert_eq!(switch_pick(m(1, 1, 50, true), &[m(3, 1, 20, false)]), None, "he needs her too");
+        assert_eq!(switch_pick(fine, &[m(3, 0, 20, false)]), None, "low but out of the fight");
+        // no carry: to a carry fighting as many
+        let tank = m(1, 1, 80, false);
+        assert_eq!(switch_pick(tank, &[m(4, 1, 70, true)]), Some((m(4, 1, 70, true), Why::Carry)));
+        assert_eq!(switch_pick(tank, &[m(4, 0, 70, true)]), None);
+        assert_eq!(switch_pick(fine, &[m(4, 3, 70, true)]), None, "a carry's rider stays");
+        // the pace: a hop waits for MIN_RIDE on him and SWITCH_CD after the last one, W's reach is the copy's
+        assert!(MIN_RIDE < SWITCH_CD && SWITCH_EVERY < MIN_RIDE);
+        assert!(SWITCH_R > BESIDE + FIGHT_R / 2.0);
     }
 
     #[test]
