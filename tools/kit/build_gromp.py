@@ -43,24 +43,30 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # Units: attack range 60000 like the pack's bottoms (tft_daeja, tft_raptor); radii count the unit's collision radius
 # (~15000) on top. Timings are placeholders until the strips are rigged (tools/art/rig_gromp.py).
 # Stats from the Range base (attack 100 +20, hp 900 +90, def 20 +7, mr 15 +3, move 900 +9), less attack and more magic
-# power: an AP carry like tft_daeja.
+# power: an AP carry like tft_daeja. Numbers = the 10-min classic-SDK simulations (C:/t/gp_sim with C:/t/al_sim/kd.py:
+# bottom lane 3 against the base archer, gunner, boomerang and poison-dart hunters, three lineups, both sides;
+# 2026-11-01), all --plain (Purple Buff as p_plain flat stacks): the draft (atk 70, spit +25% AP, Q 90 + 70%, poison
+# 60 + 45%, R 140 + 70%) -1.85 on seeds 1-8 against tft_daeja --plain +1.39 / +1.17 (seeds 1-8 / 9-16); atk 85, spit
+# +35%, Q 110 + 80% / poison 80 + 60%, slime 6 + 4%, R 170 + 80% / fog 12 + 7% -1.10; + hp 880, Q cd 300 +0.15; + atk
+# 95, spit +40%, R cd 2400, E cd 480 and slow 55% +1.51 / +0.50 = P (atk 90, spit +38% +0.89 / -0.07): the 2-cost a
+# little under the 4-cost Daeja.
 P = {
     # stats (Range, an AP carry)
-    "hp": 820, "hp_g": 85, "atk": 70, "atk_g": 12, "apw": 30, "apw_g": 16, "def": 20, "def_g": 7, "mr": 18, "mr_g": 3,
+    "hp": 880, "hp_g": 85, "atk": 95, "atk_g": 12, "apw": 30, "apw_g": 16, "def": 20, "def_g": 7, "mr": 18, "mr_g": 3,
     "ms": 900, "ms_g": 9,
-    "atk_range": 60000, "atk_dur": 24, "atk_cd": 72, "a_rel": 8, "a_speed": 5000, "a_y": 2000, "a_ap": 25,
+    "atk_range": 60000, "atk_dur": 24, "atk_cd": 72, "a_rel": 8, "a_speed": 5000, "a_y": 2000, "a_ap": 40,
     # passive Purple Buff (TFT: every few seconds, Ability Power)
     "p_every": 240, "p_ap": 8, "p_max": 8, "p_t": 600, "p_near": 90000, "p_plain": 3,
     # Belchy Bubble (TFT: magic on the first enemy hit, 1-hex poison round it)
-    "q_cd": 360, "q_range": 65000, "q_dur": 30, "q_rel": 14, "q_len": 80000, "q_w": 5000, "q_speed": 5000,
-    "q_dmg": 90, "q_ratio": 70, "q_r": 25000, "q_t": 180, "q_p": 30, "q_dot": 60, "q_dratio": 45,
+    "q_cd": 300, "q_range": 65000, "q_dur": 30, "q_rel": 14, "q_len": 80000, "q_w": 5000, "q_speed": 5000,
+    "q_dmg": 110, "q_ratio": 80, "q_r": 25000, "q_t": 180, "q_p": 30, "q_dot": 80, "q_dratio": 60,
     # Slime Swamp (TFT's AD form: heavily slows)
-    "e_cd": 600, "e_range": 60000, "e_dur": 24, "e_rel": 8, "e_travel": 14, "e_r": 26000, "e_t": 240, "e_p": 15,
-    "e_dmg": 4, "e_ratio": 3, "e_slow": 45, "e_hold": 20, "e_show": 15,
+    "e_cd": 480, "e_range": 60000, "e_dur": 24, "e_rel": 8, "e_travel": 14, "e_r": 26000, "e_t": 240, "e_p": 15,
+    "e_dmg": 6, "e_ratio": 4, "e_slow": 55, "e_hold": 20, "e_show": 15,
     # Swamp Belch
-    "r_cd": 2700, "r_range": 60000, "r_dur": 36, "r_rel": 18, "r_grow": 300, "r_dr": 20, "r_len": 55000, "r_cos": 600,
-    "r_dmg": 140, "r_ratio": 70, "r_slow": 35, "r_hold": 90, "r_travel": 10, "r_r": 32000, "r_t": 240, "r_p": 20,
-    "r_fdmg": 8, "r_fratio": 5, "r_show": 15,
+    "r_cd": 2400, "r_range": 60000, "r_dur": 36, "r_rel": 18, "r_grow": 300, "r_dr": 20, "r_len": 55000, "r_cos": 600,
+    "r_dmg": 170, "r_ratio": 80, "r_slow": 35, "r_hold": 90, "r_travel": 10, "r_r": 32000, "r_t": 240, "r_p": 20,
+    "r_fdmg": 12, "r_fratio": 7, "r_show": 15,
 }
 # what tft.dll reads from passive.params (addons/tft/src/gromp.rs)
 NATIVE_KEYS = ("p_every", "p_ap", "p_max", "p_t", "p_near")
