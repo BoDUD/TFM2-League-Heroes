@@ -21,6 +21,9 @@ mirrored onto the right (the wolf's 50 x 36 body stays clear between them).
 Anchors: the hits on the struck body (the cell's middle, HIT); the landing murk on the ground where it lands (SOLES);
 the claws' glint, the howl's smoke and the pups stand on its soles under the middle of its body (BODY: the design's
 middle is 3 game px ahead of its standing point).
+LIGHTER: the landing murk (q_land) was drawn in the murk ramp's darkest shades and all but vanished under the wolf on the
+ground (preview_murkwolf.py): every one of its squares on a ramp of pack_murkwolf_fx (MURK, CYAN) takes the next lighter
+shade of that ramp.
 Icons: Codex's 64 px icons were its 1254 px tiles voted down into mud; brought to 64 x 64 again from the raw tiles with
 LANCZOS (the Raptor, Sohm, Terra and Sentinel way).
 """
@@ -62,6 +65,7 @@ EDGE_STRIP = 3                  # and parts within this many columns of a side a
 EDGE_KEEP = {"q_emp", "e_howl", "r_pack", "r_hit", "r_bite"}   # drawn out at the cell's sides on purpose (the drops)
 # name -> the cell (game px) to cut again from the raw draft
 RECUT = {"p_hit": (22, 22), "r_bite": (14, 14), "a_hit": (16, 16)}
+LIGHTER = {"q_land"}
 PUP_K = 10.3                    # raw px a square for the pups
 PUP_X = 14                      # the left pup's middle column in the 100-wide cell
 
@@ -176,10 +180,23 @@ def pack(strip, e, ramps):
     return out
 
 
+def lighter(a):
+    """Every square on the murk or cyan ramp one shade lighter (the ramps run lightest first)."""
+    out = a.copy()
+    for ramp in (PK.MURK, PK.CYAN):
+        cols = [tuple(int(h[i:i + 2], 16) for i in (1, 3, 5)) for h in ramp.split(", ")]
+        for k in range(1, len(cols)):
+            m = (a[..., 3] > 0) & (a[..., :3] == cols[k]).all(-1)
+            out[m, :3] = cols[k - 1]
+    return out
+
+
 def cells(name, m, ramps):
     """The frames of an effect, symmetry checked."""
     e = m[name]
     a = np.asarray(Image.open(lp(os.path.join(SRC, "pixel_1x", f"murkwolf_fx_{name}.png"))).convert("RGBA")).copy()
+    if name in LIGHTER:
+        a = lighter(a)
     w, h = e["cell_1x"]
     if name in RECUT:
         a = recut(name, a, e, ramps)

@@ -791,6 +791,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // canvas and taller than its 40; UI size and card value set with bp_card_audit.py (the wing tips under the canvas
     // top, the claws on its bottom)
     ("tft_elderdragon", 0.85),
+    // Murk Wolf (tft_murkwolf): its two heads reach 28 game px ahead of its standing point at PPU 1.67 - the card's canvas
+    // is centred on that point, so the far snout ran past its right edge (59.5 / 2 px); 0.9 brings it inside, the tail
+    // keeping its room behind (hero_reels.py --card)
+    ("tft_murkwolf", 0.9),
     // Bel'Veth: 47 game px from her shoulder spikes to her claws at PPU 1.75 (the raised wings of the reel higher); UI
     // size and card value set with bp_card_audit.py
     ("league_belveth", 0.82),
