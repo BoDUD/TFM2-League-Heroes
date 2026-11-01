@@ -1,6 +1,6 @@
 [package]
 name = "league_viego_soul"
-version = "0.2.43"
+version = "0.2.44"
 edition = "2021"
 publish = false
 

@@ -1,0 +1,390 @@
+{
+  "id": "tft_murkwolf",
+  "category": "Assassin",
+  "tags": [
+    "AD",
+    "Melee"
+  ],
+  "passive": {
+    "passive_ref": "tft_murkwolf:gray",
+    "params": {
+      "p_bonus": 30,
+      "p_cdmg": 0,
+      "q_range": 45000,
+      "q_gap": 20000,
+      "q_dmg": 40,
+      "q_ad": 110,
+      "q_n": 3,
+      "q_emp_dmg": 10,
+      "q_emp_ad": 30,
+      "e_amp": 15,
+      "e_line": 50,
+      "r_leap_dmg": 40,
+      "r_leap_ad": 60,
+      "r_n": 2,
+      "r_gap": 4,
+      "r_dmg": 12,
+      "r_ad": 25
+    }
+  },
+  "sprite": "asset/tft/champions/tft_murkwolf",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_murkwolf_skill",
+    "asset/tft/icons/tft_murkwolf_skill2",
+    "asset/tft/icons/tft_murkwolf_ult"
+  ],
+  "stat": {
+    "attack": 86,
+    "magic_power": 0,
+    "hp": 920,
+    "defence": 28,
+    "magic_resistance": 24,
+    "move_speed": 1100,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 25
+  },
+  "growth": {
+    "attack": 15,
+    "magic_power": 0,
+    "hp": 88,
+    "defence": 8,
+    "magic_resistance": 4,
+    "move_speed": 12,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_murkwolf.attack",
+    "duration": 22,
+    "cooltime": 56,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 23000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_murkwolf_a"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "attack",
+          "tick": 22
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_murkwolf_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_murkwolf_a_hit"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_murkwolf:bite"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_murkwolf.skill",
+    "duration": 30,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 45000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_murkwolf_q"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_murkwolf_q_vo"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "leap",
+          "tick": 14
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_murkwolf_q_air",
+            "duration": {
+              "Time": {
+                "tick": 14
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "tft_murkwolf:rend"
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "rend",
+              "tick": 16
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_murkwolf_q_emp",
+                "duration": {
+                  "Time": {
+                    "tick": 240
+                  }
+                },
+                "attack_speed_mult": 60
+              },
+              "only_to_enemy": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_murkwolf.skill2",
+    "duration": 30,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 30000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_murkwolf_e"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_murkwolf_e_vo"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "howl",
+          "tick": 30
+        },
+        {
+          "type": "Delayed",
+          "tick": 19,
+          "effects": [
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_murkwolf_e_howl",
+                "duration": {
+                  "Time": {
+                    "tick": 300
+                  }
+                },
+                "vamp": 20
+              },
+              "only_to_enemy": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_murkwolf.ult",
+    "duration": 30,
+    "cooltime": 2700,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_murkwolf_r"
+        },
+        {
+          "type": "Sfx",
+          "name": "tft_murkwolf_r_vo"
+        },
+        {
+          "type": "CasterAnimation",
+          "name": "ult",
+          "tick": 30
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_murkwolf_r_pups",
+            "duration": {
+              "Time": {
+                "tick": 360
+              }
+            }
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_murkwolf_r_leap"
+            },
+            {
+              "type": "Native",
+              "effect_ref": "tft_murkwolf:pounce"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 358,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_murkwolf_r_end"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_murkwolf_a_hit",
+      "anim": "asset/tft/effects/tft_murkwolf_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_murkwolf_q_land",
+      "anim": "asset/tft/effects/tft_murkwolf_fx",
+      "tag": "q_land",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_murkwolf_q_hit",
+      "anim": "asset/tft/effects/tft_murkwolf_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_murkwolf_r_hit",
+      "anim": "asset/tft/effects/tft_murkwolf_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_murkwolf_r_bite",
+      "anim": "asset/tft/effects/tft_murkwolf_fx",
+      "tag": "r_bite",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_murkwolf_p_hit",
+      "anim": "asset/tft/effects/tft_murkwolf_fx",
+      "tag": "p_hit",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_murkwolf_q_emp",
+      "anim": "asset/tft/effects/tft_murkwolf_fx",
+      "tag": "q_emp",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_murkwolf_e_howl",
+      "anim": "asset/tft/effects/tft_murkwolf_fx",
+      "tag": "e_howl",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_murkwolf_r_pack",
+      "anim": "asset/tft/effects/tft_murkwolf_big",
+      "tag": "r_pack",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "tft_murkwolf_r_pack_r",
+      "anim": "asset/tft/effects/tft_murkwolf_big",
+      "tag": "r_pack_r",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "tft_murkwolf_r_pack_l",
+      "anim": "asset/tft/effects/tft_murkwolf_big",
+      "tag": "r_pack_l",
+      "repeat": true,
+      "z": -1
+    }
+  ]
+}

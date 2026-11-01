@@ -197,6 +197,13 @@
         "skill2": "立起身猛拍双翼，身边的敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>、被击退并减速<#ffb900ff>35%<>（<#ffb900ff>2秒<>），自己受到的伤害<#ef5350ff>-25%<>。",
         "ult": "无敌飞上天空，<#ffb900ff>1.5秒<>后砸落：大范围敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、晕眩<#ffb900ff>1.25秒<>并被<#ff9028ff>引燃<>；获得<#ffb900ff>30%<>全能吸血（<#ffb900ff>5秒<>），立刻喷一次<#ff9028ff>烈焰吐息<>。"
       },
+      "tft_murkwolf": {
+        "name": "暗影狼",
+        "attack": "两个头一起撕咬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>灰霸符<>：暴击率<#ffb900ff>25%<>，随已损失生命值最多再<#ffb900ff>+30%<>，技能也能暴击。",
+        "skill": "跃向附近生命值最低的敌人，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>。接下来<#ffb900ff>3次<>攻击攻速<#ffb900ff>+60%<>，额外造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>。",
+        "skill2": "仰头长嚎，<#ffb900ff>5秒<>内吸血<#ffb900ff>20%<>，伤害提高<#ffb900ff>15%<>，对生命低于<#ffb900ff>50%<>的敌人翻倍。",
+        "ult": "叫来<#ffb900ff>2只<>小暗影狼扑向目标，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>。<#ffb900ff>6秒<>内它每次攻击，小狼咬<#ffb900ff>2口<>，每口<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理伤害<>。"
+      },
       "tft_meepsie": {
         "name": "小木灵",
         "attack": "挥出月岩重拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>木灵驾驶员<>：每一拳额外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>。",
@@ -345,6 +352,11 @@
         "skill1": "烈焰吐息",
         "skill2": "龙翼风暴",
         "ult": "绝伦火热"
+      },
+      "tft_murkwolf": {
+        "skill1": "撕裂之爪",
+        "skill2": "狂战士之嚎",
+        "ult": "狼群攻击"
       },
       "tft_meepsie": {
         "skill1": "月尘震地",
@@ -551,6 +563,13 @@
         "skill2": "挺身猛拍雙翼，身邊的敵軍受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>、被擊退並緩速<#ffb900ff>35%<>（<#ffb900ff>2秒<>），自身受到的傷害<#ef5350ff>-25%<>。",
         "ult": "進入無敵飛上天空，<#ffb900ff>1.5秒<>後落下：大範圍敵軍受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、暈眩<#ffb900ff>1.25秒<>並被<#ff9028ff>點燃<>；獲得<#ffb900ff>30%<>全能吸血（<#ffb900ff>5秒<>），立即施放<#ff9028ff>龍之吐息<>。"
       },
+      "tft_murkwolf": {
+        "name": "魔狼",
+        "attack": "兩個頭一起撕咬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>灰色增益<>：暴擊率<#ffb900ff>25%<>，隨已損失生命最多再<#ffb900ff>+30%<>，技能也能暴擊。",
+        "skill": "躍向附近生命最低的敵軍，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>。接下來<#ffb900ff>3次<>普攻攻速<#ffb900ff>+60%<>，額外造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>。",
+        "skill2": "仰頭長嚎，<#ffb900ff>5秒<>內吸血<#ffb900ff>20%<>，傷害提高<#ffb900ff>15%<>，對生命低於<#ffb900ff>50%<>的敵軍加倍。",
+        "ult": "叫來<#ffb900ff>2隻<>小魔狼撲向目標，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>。<#ffb900ff>6秒<>內牠每次普攻，小狼咬<#ffb900ff>2口<>，每口<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理傷害<>。"
+      },
       "tft_meepsie": {
         "name": "小米普",
         "attack": "揮出月岩重拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>米普駕駛員<>：每一拳額外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>。",
@@ -699,6 +718,11 @@
         "skill1": "龍之吐息",
         "skill2": "龍翼風暴",
         "ult": "無與倫比的熱力"
+      },
+      "tft_murkwolf": {
+        "skill1": "撕扯之爪",
+        "skill2": "狂戰士之嚎",
+        "ult": "狼群攻擊"
       },
       "tft_meepsie": {
         "skill1": "月塵震地",
@@ -905,6 +929,13 @@
         "skill2": "Rears up and beats its wings: nearby enemies take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, are knocked back and slowed <#ffb900ff>35%<> (<#ffb900ff>2s<>); it takes <#ef5350ff>25%<> less damage.",
         "ult": "Invulnerable, it flies up and lands after <#ffb900ff>1.5s<>: enemies in a wide area take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, are stunned <#ffb900ff>1.25s<> and <#ff9028ff>Ignited<>; it gains <#ffb900ff>30%<> omnivamp (<#ffb900ff>5s<>) and casts <#ff9028ff>Flame Breath<> at once."
       },
+      "tft_murkwolf": {
+        "name": "Murkwolf",
+        "attack": "Both heads bite for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Grey Buff<>: <#ffb900ff>25%<> critical strike chance, up to <#ffb900ff>+30%<> more with its missing Health; its skills can critically strike.",
+        "skill": "Leaps to the nearby enemy with the lowest Health for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<>. Its next <#ffb900ff>3<> attacks gain <#ffb900ff>+60%<> attack speed and deal <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> bonus <#ff9028ff>physical damage<>.",
+        "skill2": "Howls: for <#ffb900ff>5s<> it gains <#ffb900ff>20%<> omnivamp and deals <#ffb900ff>15%<> more damage, doubled against enemies below <#ffb900ff>50%<> Health.",
+        "ult": "Calls <#ffb900ff>2<> murk wolf pups that pounce on its target for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>. For <#ffb900ff>6s<>, each of its attacks the pups bite <#ffb900ff>2<> times for <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>physical damage<> each."
+      },
       "tft_meepsie": {
         "name": "Meepsie",
         "attack": "Punches for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Meep Pilot<>: every punch deals <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> bonus <#a974ffff>magic damage<>.",
@@ -1053,6 +1084,11 @@
         "skill1": "Flame Breath",
         "skill2": "Wing Storm",
         "ult": "Heat Without Equal"
+      },
+      "tft_murkwolf": {
+        "skill1": "Rending Claws",
+        "skill2": "Slayer's Howl",
+        "ult": "Pack Attack"
       },
       "tft_meepsie": {
         "skill1": "Moon-Dust Quake",
@@ -1259,6 +1295,13 @@
         "skill2": "몸을 일으켜 날개를 내리쳐 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, 밀쳐 내고 <#ffb900ff>35%<> 둔화(<#ffb900ff>2초<>). 받는 피해 <#ef5350ff>-25%<>.",
         "ult": "무적 상태로 날아올라 <#ffb900ff>1.5초<> 뒤 내려찍습니다: 넓은 범위의 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1.25초<> 기절, <#ff9028ff>점화<>. 모든 피해 흡혈 <#ffb900ff>30%<>(<#ffb900ff>5초<>) 후 즉시 <#ff9028ff>화염 숨결<>."
       },
+      "tft_murkwolf": {
+        "name": "어스름늑대",
+        "attack": "두 머리로 물어뜯어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>그레이 버프<>: 치명타 확률 <#ffb900ff>25%<>, 잃은 체력에 비례해 최대 <#ffb900ff>+30%<> 더 증가하며 스킬도 치명타가 발생합니다.",
+        "skill": "근처 체력이 가장 낮은 적에게 도약해 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>. 다음 기본 공격 <#ffb900ff>3회<> 동안 공격 속도 <#ffb900ff>+60%<>, 추가로 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "울부짖어 <#ffb900ff>5초<> 동안 모든 피해 흡혈 <#ffb900ff>20%<>, 주는 피해 <#ffb900ff>15%<> 증가. 체력이 <#ffb900ff>50%<> 미만인 적에게는 두 배.",
+        "ult": "새끼 늑대 <#ffb900ff>2마리<>를 불러 대상에게 덮쳐 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>. <#ffb900ff>6초<> 동안 기본 공격할 때마다 새끼 늑대가 <#ffb900ff>2번<> 물어 각각 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>물리 피해<>."
+      },
       "tft_meepsie": {
         "name": "꼬마 정령",
         "attack": "월석 주먹으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>정령 조종사<>: 주먹마다 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>마법 피해<>를 추가로 입힙니다.",
@@ -1407,6 +1450,11 @@
         "skill1": "화염 숨결",
         "skill2": "용날개 폭풍",
         "ult": "비할 데 없는 열기"
+      },
+      "tft_murkwolf": {
+        "skill1": "찢어발기는 발톱",
+        "skill2": "광전사의 울부짖음",
+        "ult": "늑대 무리 공격"
       },
       "tft_meepsie": {
         "skill1": "달먼지 진동",
@@ -1613,6 +1661,13 @@
         "skill2": "立ち上がって翼を打ち下ろし、周囲の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、ノックバックと<#ffb900ff>35%<>スロウ（<#ffb900ff>2秒<>）。被ダメージ<#ef5350ff>-25%<>。",
         "ult": "無敵となって飛び上がり、<#ffb900ff>1.5秒<>後に降下：広範囲の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1.25秒<>スタンと<#ff9028ff>発火<>。オムニヴァンプ<#ffb900ff>30%<>（<#ffb900ff>5秒<>）を得て即座に<#ff9028ff>フレイムブレス<>。"
       },
+      "tft_murkwolf": {
+        "name": "マークウルフ",
+        "attack": "2つの頭で噛みつき<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>グレーバフ<>：クリティカル率<#ffb900ff>25%<>、減少体力に応じて最大<#ffb900ff>+30%<>。スキルもクリティカルする。",
+        "skill": "近くで最も体力の低い敵に跳びかかり<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>。次の<#ffb900ff>3回<>の通常攻撃は攻撃速度<#ffb900ff>+60%<>、<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の追加<#ff9028ff>物理ダメージ<>。",
+        "skill2": "遠吠えし、<#ffb900ff>5秒<>間オムニヴァンプ<#ffb900ff>20%<>、与ダメージ<#ffb900ff>+15%<>。体力<#ffb900ff>50%<>未満の敵には2倍。",
+        "ult": "子狼を<#ffb900ff>2体<>呼び、対象に飛びかからせ<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。<#ffb900ff>6秒<>間、通常攻撃のたびに子狼が<#ffb900ff>2回<>噛みつき、それぞれ<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の<#ff9028ff>物理ダメージ<>。"
+      },
       "tft_meepsie": {
         "name": "ミィプシー",
         "attack": "月岩の拳で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ミープの操縦士<>：パンチごとに<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>を追加。",
@@ -1761,6 +1816,11 @@
         "skill1": "フレイムブレス",
         "skill2": "竜翼の嵐",
         "ult": "比類なき熱"
+      },
+      "tft_murkwolf": {
+        "skill1": "引き裂く爪",
+        "skill2": "狂戦士の遠吠え",
+        "ult": "群狼の襲撃"
       },
       "tft_meepsie": {
         "skill1": "ムーンダストクエイク",

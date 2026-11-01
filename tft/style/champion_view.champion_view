@@ -384,6 +384,20 @@
         "y": -11
       }
     },
+    "tft_murkwolf": {
+      "face": {
+        "x": 9,
+        "y": -16
+      },
+      "center": {
+        "x": 3,
+        "y": -16
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -14
+      }
+    },
     "tft_meepsie": {
       "face": {
         "x": 6,

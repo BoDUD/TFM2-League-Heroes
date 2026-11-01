@@ -386,6 +386,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // A-1 at the user's 40 game px from the mushroom tops to its soles, PPU 2.875 (「A-1，40 像素」: 115 rows 1:1), and
     // Codex's key poses after its own TFT clips, posed by tools/art/rig_meepsie.py, so no SIZES row
     ("tft_meepsie", 2.875, include_str!("../../../tft/champions/tft_meepsie#anim.fanim")),
+    // Murk Wolf (tft_murkwolf, the tft pack): the two-headed wolf crouched on four legs at 3/4, step 0's A-1 at the user's
+    // 36 game px from its tail tip to its claws, PPU 1.67 (「A-1 36 高 PPU 1.67」: 60 rows 1:1), and Codex's key poses after
+    // its own TFT clips, posed by tools/art/rig_murkwolf.py, so no SIZES row
+    ("tft_murkwolf", 1.67, include_str!("../../../tft/champions/tft_murkwolf#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
@@ -820,6 +824,10 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // canvas and taller than its 40; UI size and card value set with bp_card_audit.py (the wing tips under the canvas
     // top, the claws on its bottom)
     ("tft_elderdragon", 0.85),
+    // Murk Wolf (tft_murkwolf): its two heads reach 28 game px ahead of its standing point at PPU 1.67 - the card's canvas
+    // is centred on that point, so the far snout ran past its right edge (59.5 / 2 px); 0.9 brings it inside, the tail
+    // keeping its room behind (hero_reels.py --card)
+    ("tft_murkwolf", 0.9),
     // Bel'Veth: 47 game px from her shoulder spikes to her claws at PPU 1.75 (the raised wings of the reel higher); UI
     // size and card value set with bp_card_audit.py
     ("league_belveth", 0.82),

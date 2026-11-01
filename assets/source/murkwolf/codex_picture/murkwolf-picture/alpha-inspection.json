@@ -1,0 +1,68 @@
+[
+  {
+    "file": "murkwolf-A-generated.png",
+    "size": [
+      1470,
+      1070
+    ],
+    "alpha_bbox": [
+      0,
+      19,
+      1440,
+      1070
+    ],
+    "visible_bbox": [
+      229,
+      378,
+      1255,
+      1070
+    ],
+    "transparent_pixels": 1145690,
+    "opaque_pixels": 1492,
+    "partial_alpha_pixels": 425718
+  },
+  {
+    "file": "murkwolf-A-normalization-attempt.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_bbox": [
+      33,
+      17,
+      1202,
+      1230
+    ],
+    "visible_bbox": [
+      268,
+      682,
+      1053,
+      1216
+    ],
+    "transparent_pixels": 1319851,
+    "opaque_pixels": 1574,
+    "partial_alpha_pixels": 251091
+  },
+  {
+    "file": "murkwolf-B-generated.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "alpha_bbox": [
+      0,
+      53,
+      1240,
+      1226
+    ],
+    "visible_bbox": [
+      67,
+      484,
+      1217,
+      1153
+    ],
+    "transparent_pixels": 1106604,
+    "opaque_pixels": 1569,
+    "partial_alpha_pixels": 464343
+  }
+]
