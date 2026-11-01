@@ -199,5 +199,6 @@
   "tft_brambleback": {"idle": [["skill2", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "tft_raptor": {"idle": [["attack", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
   "tft_elderdragon": {"idle": [["skill2", [1]]], "bp": ["attack", "skill", "skill2"]},
-  "tft_meepsie": {"idle": [["skill2", [0]]], "bp": ["attack", "skill", "skill2", "ult"]}
+  "tft_meepsie": {"idle": [["skill2", [0]]], "bp": ["attack", "skill", "skill2", "ult"]},
+  "tft_scuttlecrab": {"idle": [["skill2", [0]]], "bp": ["attack", "skill", "skill2"]}
 }

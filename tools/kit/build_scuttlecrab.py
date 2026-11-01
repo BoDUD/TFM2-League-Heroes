@@ -169,8 +169,8 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 
 def shrine(name, radius, tick, period, effects):
-    """A zone at its feet (a `None` cast) ticking on its allied champions; its picture a ring of water round the pivot,
-    the same turned half round."""
+    """A zone at its feet (a `None` cast) ticking on its allied champions. No view: a zone's picture turns with its
+    direction (red side: upside down, the ring under it thrown over it), so the ring is a CasterViewEffect beside it."""
     return {"type": "RangePeriodProjectile", "name": n(name), "shape": circle(radius), "tick": tick, "period": period,
             "first_delay": 0, "applied_target": "AllyChampion", "applied_effects": [T(e) for e in effects],
             "end_effects": []}
@@ -195,7 +195,7 @@ def build(p, is_native=False):
         splash = around(p["q_r"], "EnemyWithoutTower", [ap(p["q_dmg"], p["q_ap"]),
                                                         buff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"])])
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "None", "EnemyWithoutTower" if splash else "EnemyChampion",
-                   combine(sfx("q"), delayed(p["q_st"] - 1, sfx("q_buff"),
+                   combine(sfx("q"), delayed(p["q_st"] - 1, sfx("q_buff"), cview("q_shrine"),
                                              shrine("q_shrine", p["q_r"], p["q_t"], p["q_every"], haste), splash, green)))
 
     # ------------------------------------------------------------------ skill2: Shell Shield
@@ -224,13 +224,14 @@ def build(p, is_native=False):
                                                    "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    # q_shrine is the water ring of the shrine on the ground, symmetric about its pivot (a zone's picture turns with the
-    # cast); e_burst / r_dig / r_burst ride on it, drawn left-right symmetric (the client never mirrors a picture);
-    # the haste, the slow and the shell glow are buff pictures on whoever holds them
-    views_p = [B_("q_shrine", BIG, -1)]
-    views_e = [E("a_hit"), E("p_heal", FX, 3), E("e_burst", BIG, 3), E("r_dig", BIG, -1), E("r_burst", BIG, 3),
-               E("r_up", FX, 3)]
-    views_b = [B_("q_haste", FX, 3), B_("e_slow", FX, 3), B_("e_shell", FX, 3)]
+    # q_shrine is the water ring of the shrine on the ground where it was cast (not following, its frames cover the
+    # zone's q_t); e_burst / r_dig / r_burst ride on it, drawn left-right symmetric (the client never mirrors a picture);
+    # the haste, the slows (the shrine's splash wears the shell's wet ground too) and the shell glow are buff pictures on
+    # whoever holds them
+    views_p = []
+    views_e = [E("a_hit"), E("p_heal", FX, 3), E("q_shrine", BIG, -1, False), E("e_burst", BIG, 3), E("r_dig", BIG, -1),
+               E("r_burst", BIG, 3), E("r_up", FX, 3)]
+    views_b = [B_("q_haste", FX, 3), B_("e_slow", FX, 3), B_("q_slow", FX, 3, "e_slow"), B_("e_shell", FX, 3)]
     kit = {
         "id": ID, "category": "Util", "tags": ["AP", "Magic", "Melee", "Tank", "Heal", "Shield", "CC"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",

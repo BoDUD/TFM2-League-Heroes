@@ -4332,6 +4332,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_scuttlecrab",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_scuttlecrab",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_scuttlecrab_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_scuttlecrab_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_sentinel",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_sentinel",

@@ -1,0 +1,2 @@
+A 64x64 SKILL ICON (one picture, not a sheet): a square tile with a 2-square dark teal frame with little lime corners, a deep river-blue inside, the symbol big and centred, lit from the upper left; pixel art at 2 px a square (32 x 32 squares), chunky and readable at 64 px: a glowing ring of swirling river water seen from above at a slant, rippling, with two lime-yellow chevron arrows pointing right above it (speed). No text, no letters.
+

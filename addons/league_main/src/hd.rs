@@ -386,6 +386,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // A-1 at the user's 40 game px from the mushroom tops to its soles, PPU 2.875 (「A-1，40 像素」: 115 rows 1:1), and
     // Codex's key poses after its own TFT clips, posed by tools/art/rig_meepsie.py, so no SIZES row
     ("tft_meepsie", 2.875, include_str!("../../../tft/champions/tft_meepsie#anim.fanim")),
+    // the Scuttle Crab (tft_scuttlecrab, the tft pack): the river crab at 3/4 under its plated teal shell, step 0's A-1 at
+    // the user's 30 game px from the antenna tops to its lowest leg tips, PPU 2.667 (「A-1 30像素」: 80 rows 1:1), and
+    // Codex's key poses after League's river-crab clips, posed by tools/art/rig_scuttlecrab.py, so no SIZES row
+    ("tft_scuttlecrab", 80.0 / 30.0, include_str!("../../../tft/champions/tft_scuttlecrab#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

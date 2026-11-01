@@ -8,7 +8,8 @@
 //!   `p_cd` 拍内不再有。数据读不到生命。
 //! - **蟹壳护盾碎裂**：数据在 E 出手时给它护盾和 `e_t` 拍的标记 `tft_scuttlecrab_e_shell`；本被动每拍看：护盾打光了、
 //!   或者标记到时间了，蟹壳就碎：`e_r` 以内每个敌人（不算塔）受 `e_dmg` + `e_dmg_ap`% 法强的魔法伤害、眩晕 `e_stun` 拍、
-//!   `e_slow_t` 拍里慢 `e_slow`%（挂 `tft_scuttlecrab_e_slow`），它身上亮 `tft_scuttlecrab_e_burst`，播 `tft_scuttlecrab_e_break`。
+//!   `e_slow_t` 拍里慢 `e_slow`%（挂 `tft_scuttlecrab_e_slow`），它身上亮 `tft_scuttlecrab_e_burst`，
+//!   播 `tft_scuttlecrab_e_break`（打到人时再在第一个人身上播 `tft_scuttlecrab_e_slow`）。
 //!   数据读不到护盾。
 //! - **死亡**：倒下时播 `tft_scuttlecrab_d`（数据没有死亡的时机）。
 //!
@@ -272,6 +273,9 @@ impl GreenBuff {
         sim.entity_remove_buff(me, &sc("e_shell"));
         sim.play_view_effect(&sc("e_burst"), me, &InputTargetV1::target(me), 0, 0, 0);
         sim.play_sfx(&sc("e_break"), me, &InputTargetV1::target(me));
+        if let Some(&first) = hit.first() {
+            sim.play_sfx(&sc("e_slow"), me, &InputTargetV1::target(first));
+        }
         if let Some(k) = counted("burst") {
             wlog(format!("{} BURST #{k} ({why}): {dmg} to {:?}", head(sim, me),
                          hit.iter().map(|&t| name_of(sim, t)).collect::<Vec<_>>()));
