@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 203 位：主包 173 位、tft 包 30 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 204 位：主包 173 位、tft 包 31 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（46）
 
@@ -292,7 +292,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_maddie.png" width="32"> | [麦迪](docs/heroes/tft_maddie.md)<br>Maddie（tft 包） | ADC | 连拨击锤 · 通缉令 · 大招 执法狙杀 | — | PPU 1.5 |
 | <img src="docs/heroes/img/tft_raptor.png" width="32"> | [深红锋喙鸟](docs/heroes/tft_raptor.md)<br>Mama Beak（tft 包） | ADC | 羽刃扇射 · 惊飞跃退 · 大招 鸟群之家 | — | PPU 1.56 |
 
-### 辅助（31）
+### 辅助（32）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -326,6 +326,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_idas.png" width="32"> | [艾达丝](docs/heroes/tft_idas.md)<br>Idas（tft 包） | 辅助 | 黄金龙息 · 龙威振翅 · 大招 黄金龙鳞 | — | PPU 2.45 |
 | <img src="docs/heroes/img/tft_loris.png" width="32"> | [洛里斯](docs/heroes/tft_loris.md)<br>Loris（tft 包） | 辅助 | 皮城争斗 · 盾卫 · 大招 钢铁防线 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_meepsie.png" width="32"> | [小木灵](docs/heroes/tft_meepsie.md)<br>Meepsie（tft 包） | 辅助 | 月尘震地 · 治疗木灵 · 大招 宇宙大爆炸 | — | PPU 2.88 |
+| <img src="docs/heroes/img/tft_scuttlecrab.png" width="32"> | [迅捷蟹](docs/heroes/tft_scuttlecrab.md)<br>Scuttle Crab（tft 包） | 辅助 | 疾行神龛 · 蟹壳护盾 · 大招 你挖得动吗？ | — | PPU 2.67 |
 | <img src="docs/heroes/img/tft_steb.png" width="32"> | [斯特卜](docs/heroes/tft_steb.md)<br>Steb（tft 包） | 辅助 | 战地医疗 · 通缉令 · 大招 医疗背包 | — | PPU 2.6 |
 
 <!-- HEROES:END -->
