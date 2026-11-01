@@ -678,9 +678,10 @@ pub fn grown(per: f32, stacks: usize) -> f32 {
 /// (`league_volibear_r_form`), main pack data both.
 pub const FORMS: &[(&str, &[&str], f32, f32)] = &[
     ("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.35, 1.25),
-    // Gromp's Swamp Belch (tft_gromp, 2026-11-01 plan A: 「自身短时间变大」): its belly blown up to its biggest, the body
-    // 30 % bigger while the flag r_big lasts (tools/kit/build_gromp.py r_grow), grown and shrunk in 0.5 s
-    ("tft_gromp", &["tft_gromp_r_big"], 1.3, 0.5),
+    // Gromp's Swamp Belch (tft_gromp, 2026-11-01 plan A: 「自身短时间变大」): the body 15 % bigger while the flag r_big
+    // lasts (tools/kit/build_gromp.py r_grow), grown and shrunk in 0.5 s - 1.3 at first, lowered at the user's word since
+    // the ult's own frames already blow its belly up to 1.6x (「Lower it to 1.15×」)
+    ("tft_gromp", &["tft_gromp_r_big"], 1.15, 0.5),
 ];
 
 /// Seconds a form's body may go undrawn and still ease on: past it the next draw is another unit at that address or a

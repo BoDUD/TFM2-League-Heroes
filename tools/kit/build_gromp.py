@@ -21,7 +21,7 @@ seconds it gains Ability Power. The kit is our own design from that (the user's 
           that lands e_travel ticks later and lies e_t ticks in e_r: every e_p ticks e_dmg + e_ratio% AP magic and an
           e_slow% slow for e_hold ticks.
   ult     Swamp Belch (毒沼大嗝), `Position` on `EnemyChampion` (r_range, only in fights): it rears up, the belly swelling
-          to its biggest (the flag r_big for r_grow ticks: drawn bigger by league.dll's hd::FORMS, r_dr% less damage
+          to its biggest (the flag r_big for r_grow ticks: drawn 15 % bigger by league.dll's hd::FORMS, r_dr% less damage
           taken), and belches a cone of poison (r_len, r_cos): r_dmg + r_ratio% AP magic and an r_slow% slow for
           r_hold ticks; the cloud stays on the aimed spot r_t ticks in r_r: every r_p ticks r_fdmg + r_fratio% AP magic.
 What the data cannot do is the tft pack's own code (tft.dll, addons/tft/src/gromp.rs; the passive is
