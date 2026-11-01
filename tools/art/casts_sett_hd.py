@@ -37,15 +37,15 @@ TAGS = PK.TAGS
 D0 = np.asarray(Image.open(CS.lp(os.path.join(HD, "design.png"))).convert("RGBA"))
 PPU = D0.shape[0] / 42          # 75 rows over his 1x 42 (design_sett_hd: hair top to soles)
 HOVER = 0                       # (he stands on the ground: his old idle_base's soles on its soles' line)
-GROUND = int(np.nonzero(D0[..., 3].any(1))[0].max()) + 1 + int(round(HOVER * PPU))   # the soles' line, under her
+GROUND = int(np.nonzero(D0[..., 3].any(1))[0].max()) + 1 + int(round(HOVER * PPU))   # the soles' line, under him
 HEAD = (0, 21, 14, 42)          # the design's head: rows 0-20 (the top of his hair to the chin), its sides
 # px of Codex's drawing a design square, a sheet: its frames' heights against the old frames' (heights()); the
 # lying deaths from the figure's area (area())
-ZOOM = {'run_1': 11.43, 'run_2': 11.37, 'run_3': 10.29, 'run_4': 11.47, 'attack_1': 10.27, 'attack_2': 12.97, 'attack_3': 13.19, 'attack_4': 12.78, 'attack2_1': 10.34, 'attack2_2': 9.38, 'attack2_3': 10.96, 'skill_1': 9.84, 'skill_2': 12.15, 'skill_3': 12.25, 'skill_4': 9.93, 'skill_5': 11.7, 'skill_6': 12.88, 'skill_7': 9.75, 'skill_8': 11.55, 'skill2_1': 9.95, 'skill2_2': 10.15, 'skill2_3': 12.34, 'skill2_4': 10.95, 'skill2_5': 9.36, 'ult_1': 12.16, 'ult_2': 9.48, 'ult_3': 10.54, 'ult_dash_1': 13.01, 'ult_dash_2': 14.01, 'ult_dash_3': 14.19, 'ult_dash_4': 14.02, 'ult_slam_1': 8.65, 'ult_slam_2': 10.5, 'hit_1': 10.23, 'dead_1': 9.73, 'dead_2': 7.49, 'dead_3': 12.23, 'dead_4': 10.45, 'dead_5': 11.47, 'dead_6': 11.94}
+ZOOM = {'run_1': 11.46, 'run_2': 11.37, 'run_3': 10.5, 'run_4': 11.39, 'attack_1': 10.27, 'attack_2': 12.97, 'attack_3': 13.19, 'attack_4': 12.78, 'attack2_1': 10.34, 'attack2_2': 9.38, 'attack2_3': 10.96, 'skill_1': 8.48, 'skill_2': 12.15, 'skill_3': 12.25, 'skill_4': 9.86, 'skill_5': 11.7, 'skill_6': 12.88, 'skill_7': 9.82, 'skill_8': 11.55, 'skill2_1': 9.95, 'skill2_2': 10.61, 'skill2_3': 12.34, 'skill2_4': 10.95, 'skill2_5': 9.36, 'ult_1': 12.16, 'ult_2': 9.48, 'ult_3': 10.54, 'ult_dash_1': 13.01, 'ult_dash_2': 14.01, 'ult_dash_3': 14.19, 'ult_dash_4': 14.02, 'ult_slam_1': 8.65, 'ult_slam_2': 10.36, 'hit_1': 10.23, 'dead_1': 9.73, 'dead_2': 7.49, 'dead_3': 12.23, 'dead_4': 10.45, 'dead_5': 11.47, 'dead_6': 11.94}
 # each frame's own zoom: the geometric mean of the zoom its height against the old frame's gives and the one its hair
 # against the design's gives (levelling the hair alone made the body jump +-10 % frame to frame: the user, 「瑟提感觉模型会
 # 一大一小？」); the crouches (ult 2-3, the slam's landing) and the fall (dead 3-8) from the figure's area
-FRAME_ZOOM = {'run_1': 10.98, 'run_2': 11.87, 'run_3': 11.35, 'run_4': 11.39, 'run_5': 10.24, 'run_6': 10.33, 'run_7': 11.49, 'run_8': 11.45, 'attack_1': 10.48, 'attack_2': 10.06, 'attack_3': 12.97, 'attack_4': 13.19, 'attack_5': 12.78, 'attack2_1': 10.65, 'attack2_2': 10.03, 'attack2_3': 9.4, 'attack2_4': 9.35, 'attack2_5': 10.96, 'skill_1': 10.17, 'skill_2': 9.51, 'skill_3': 12.15, 'skill_4': 12.25, 'skill_5': 10.05, 'skill_6': 9.8, 'skill_7': 11.7, 'skill_8': 12.88, 'skill_9': 9.79, 'skill_10': 9.72, 'skill_11': 11.55, 'skill2_1': 9.94, 'skill2_2': 9.95, 'skill2_3': 10.01, 'skill2_4': 10.29, 'skill2_5': 12.34, 'skill2_6': 10.95, 'skill2_7': 9.36, 'ult_1': 12.16, 'ult_2': 9.21, 'ult_3': 9.74, 'ult_4': 10.54, 'ult_dash_1': 13.01, 'ult_dash_2': 14.01, 'ult_dash_3': 14.19, 'ult_dash_4': 14.02, 'ult_slam_1': 8.21, 'ult_slam_2': 9.09, 'ult_slam_3': 10.31, 'ult_slam_4': 10.7, 'hit_1': 10.36, 'hit_2': 10.11, 'dead_1': 9.74, 'dead_2': 9.73, 'dead_3': 8.13, 'dead_4': 6.85, 'dead_5': 12.23, 'dead_6': 10.45, 'dead_7': 11.47, 'dead_8': 11.94}
+FRAME_ZOOM = {'run_1': 11.32, 'run_2': 11.59, 'run_3': 11.35, 'run_4': 11.39, 'run_5': 10.19, 'run_6': 10.81, 'run_7': 11.4, 'run_8': 11.39, 'attack_1': 10.48, 'attack_2': 10.06, 'attack_3': 12.97, 'attack_4': 13.19, 'attack_5': 12.78, 'attack2_1': 10.65, 'attack2_2': 10.03, 'attack2_3': 9.4, 'attack2_4': 9.35, 'attack2_5': 10.96, 'skill_1': 8.87, 'skill_2': 8.09, 'skill_3': 12.15, 'skill_4': 12.25, 'skill_5': 9.78, 'skill_6': 9.93, 'skill_7': 11.7, 'skill_8': 12.88, 'skill_9': 9.78, 'skill_10': 9.87, 'skill_11': 11.55, 'skill2_1': 9.94, 'skill2_2': 9.95, 'skill2_3': 10.53, 'skill2_4': 10.68, 'skill2_5': 12.34, 'skill2_6': 10.95, 'skill2_7': 9.36, 'ult_1': 12.16, 'ult_2': 9.21, 'ult_3': 9.74, 'ult_4': 10.54, 'ult_dash_1': 13.01, 'ult_dash_2': 14.01, 'ult_dash_3': 14.19, 'ult_dash_4': 14.02, 'ult_slam_1': 8.21, 'ult_slam_2': 9.09, 'ult_slam_3': 9.89, 'ult_slam_4': 10.83, 'hit_1': 10.36, 'hit_2': 10.11, 'dead_1': 9.74, 'dead_2': 9.73, 'dead_3': 8.13, 'dead_4': 6.85, 'dead_5': 12.23, 'dead_6': 10.45, 'dead_7': 11.47, 'dead_8': 11.94}
 ZOOMS = np.arange(6.0, 12.01, 0.1)                      # the zooms the head is searched at (7- and 8-px templates)
 PIVOT = 30                      # the design's column on the old idle_base's pivot (overlap peak 0.81)
 
@@ -82,9 +82,19 @@ def old_box(tag, k):
     return xs.min() - pvx, ys.min() - pvy, xs.max() + 1 - pvx, ys.max() + 1 - pvy
 
 
+# sheets where Codex's corrected run drew the far leg's trousers dark navy to tell it from the near one (his trousers are
+# white): those navy squares read as his trousers' shadow white instead (the far leg stays a step darker, never navy)
+NAVY_LEGS = ("run_3", "run_4")
+TROUSER_SHADOW = (182, 187, 216)
+
+
 def frame_masks(s):
     """(sheet picture, [(frame, mask)]) of a sheet."""
-    a = np.asarray(Image.open(CS.lp(os.path.join(SRC, s["name"] + ".png"))).convert("RGBA"))
+    a = np.asarray(Image.open(CS.lp(os.path.join(SRC, s["name"] + ".png"))).convert("RGBA")).copy()
+    if s["name"] in NAVY_LEGS:
+        r, g, b = (a[..., i].astype(int) for i in range(3))
+        navy = (b > r + 15) & (g >= r - 12) & (r >= 46) & (r < 130) & (b < 170)
+        a[navy, :3] = TROUSER_SHADOW
     return a, CS.cells(s, CS.figure(a))
 
 
