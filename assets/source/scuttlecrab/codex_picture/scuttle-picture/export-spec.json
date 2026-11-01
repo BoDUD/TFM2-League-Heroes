@@ -1,0 +1,66 @@
+[
+  {
+    "variant": "A",
+    "sourceSize": [
+      1254,
+      1254
+    ],
+    "sourceBBox": [
+      183,
+      564,
+      1107,
+      1,
+      1156,
+      1
+    ],
+    "logicalGrid": [
+      46,
+      32
+    ],
+    "gridSize": 11,
+    "canvas": [
+      1536,
+      1536
+    ],
+    "origin": [
+      506,
+      1038
+    ],
+    "bottomExclusive": 1390,
+    "alpha": "0 or 255",
+    "paletteColors": 18,
+    "method": "bbox center-sampling, fixed material palette, nearest-neighbor integer packing; generated original unchanged in raw/"
+  },
+  {
+    "variant": "B",
+    "sourceSize": [
+      1512,
+      1040
+    ],
+    "sourceBBox": [
+      220,
+      410,
+      1302,
+      1,
+      1016,
+      1
+    ],
+    "logicalGrid": [
+      50,
+      33
+    ],
+    "gridSize": 11,
+    "canvas": [
+      1536,
+      1536
+    ],
+    "origin": [
+      484,
+      1027
+    ],
+    "bottomExclusive": 1390,
+    "alpha": "0 or 255",
+    "paletteColors": 18,
+    "method": "bbox center-sampling, fixed material palette, nearest-neighbor integer packing; generated original unchanged in raw/"
+  }
+]

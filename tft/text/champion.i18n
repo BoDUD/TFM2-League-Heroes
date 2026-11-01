@@ -210,6 +210,13 @@
         "skill": "一拳砸向前方地面，扇形范围内的敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并减速<#ef5350ff>40%<>（<#ffb900ff>2秒<>）。",
         "skill2": "驾驶员一招手，<#ffb900ff>4只<>小木灵飞向身边生命比例最低的队友（名额有剩时也治疗自己），每<#ffb900ff>0.5秒<>回复<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>生命，持续<#ffb900ff>3秒<>。",
         "ult": "跳向附近敌方英雄最多的地方砸地，周围的敌人受到<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，离中心每远一格少<#ef5350ff>35%<>；离落点最近的<#ffb900ff>3个<>敌方英雄被<#ef5350ff>击飞<><#ffb900ff>1.25秒<>。"
+      },
+      "tft_scuttlecrab": {
+        "name": "迅捷蟹",
+        "attack": "跳一段螃蟹舞，踩中身边所有敌人，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>绿霸符<>：附近的友方英雄生命低于<#ffb900ff>40%<>时回复<#ffb900ff>12%<>最大生命（每人<#ffb900ff>10秒<>一次）。",
+        "skill": "在脚下放下神龛（<#ffb900ff>4秒<>），水花使周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并减速<#ef5350ff>40%<>；神龛里的友方英雄移速<#ffb900ff>+30%<>、攻速<#ffb900ff>+25%<>。",
+        "skill2": "缩进壳里，获得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>护盾（<#ffb900ff>2秒<>）。护盾打光或到时间时蟹壳碎裂：周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>、<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>并减速<#ef5350ff>40%<>。",
+        "ult": "钻入地下<#ffb900ff>2.5秒<>：受到的伤害降低<#ffb900ff>50%<>、免疫控制，持续回复<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>生命；然后钻出地面，周围敌人受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<><#ffb900ff>1.5秒<>。"
       }
     },
     "skill_name": {
@@ -362,6 +369,11 @@
         "skill1": "月尘震地",
         "skill2": "治疗木灵",
         "ult": "宇宙大爆炸"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "疾行神龛",
+        "skill2": "蟹壳护盾",
+        "ult": "你挖得动吗？"
       }
     }
   },
@@ -576,6 +588,13 @@
         "skill": "一拳砸向前方地面，扇形範圍內的敵軍受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並緩速<#ef5350ff>40%<>（<#ffb900ff>2秒<>）。",
         "skill2": "駕駛員一招手，<#ffb900ff>4隻<>米普飛向身邊生命比例最低的隊友（名額有剩時也治療自身），每<#ffb900ff>0.5秒<>回復<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>生命，持續<#ffb900ff>3秒<>。",
         "ult": "跳向附近敵方英雄最多的地方砸地，周圍的敵軍受到<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，離中心每遠一格減少<#ef5350ff>35%<>；離落點最近的<#ffb900ff>3名<>敵方英雄被<#ef5350ff>擊飛<><#ffb900ff>1.25秒<>。"
+      },
+      "tft_scuttlecrab": {
+        "name": "河蟹",
+        "attack": "跳一段螃蟹舞，踩中身邊所有敵軍，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>綠色增益<>：附近的友方英雄生命低於<#ffb900ff>40%<>時回復<#ffb900ff>12%<>最大生命（每人<#ffb900ff>10秒<>一次）。",
+        "skill": "在腳下放下神龕（<#ffb900ff>4秒<>），水花使周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並緩速<#ef5350ff>40%<>；神龕裡的友方英雄移速<#ffb900ff>+30%<>、攻速<#ffb900ff>+25%<>。",
+        "skill2": "縮進殼裡，獲得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>護盾（<#ffb900ff>2秒<>）。護盾被打破或時間到時蟹殼碎裂：周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>、<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>並緩速<#ef5350ff>40%<>。",
+        "ult": "鑽入地下<#ffb900ff>2.5秒<>：受到的傷害降低<#ffb900ff>50%<>、免疫控場，持續回復<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>生命；接著鑽出地面，周圍敵軍受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<><#ffb900ff>1.5秒<>。"
       }
     },
     "skill_name": {
@@ -728,6 +747,11 @@
         "skill1": "月塵震地",
         "skill2": "治療米普",
         "ult": "大霹靂星系"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "疾行神龕",
+        "skill2": "蟹殼護盾",
+        "ult": "你挖得動嗎？"
       }
     }
   },
@@ -942,6 +966,13 @@
         "skill": "Punches the ground ahead: enemies in a cone take <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and are slowed <#ef5350ff>40%<> (<#ffb900ff>2s<>).",
         "skill2": "The pilot waves and <#ffb900ff>4<> meeps fly to the nearby allies with the lowest health share (itself with one to spare), each healing <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> every <#ffb900ff>0.5s<> for <#ffb900ff>3s<>.",
         "ult": "Leaps to the spot with the most enemy champions and slams: enemies around take <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>, <#ef5350ff>35%<> less a hex out; the <#ffb900ff>3<> enemy champions nearest are <#ef5350ff>knocked up<> <#ffb900ff>1.25s<>."
+      },
+      "tft_scuttlecrab": {
+        "name": "Scuttle Crab",
+        "attack": "Dances, stomping every enemy beside it for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Green Buff<>: a nearby allied champion falling under <#ffb900ff>40%<> health restores <#ffb900ff>12%<> of its max health (once every <#ffb900ff>10s<> each).",
+        "skill": "Raises a speed shrine at its feet for <#ffb900ff>4s<>: its splash deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> to enemies around and slows them <#ef5350ff>40%<>; allied champions in it gain <#ffb900ff>30%<> move speed and <#ffb900ff>25%<> attack speed.",
+        "skill2": "Pulls into its shell for a <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> shield (<#ffb900ff>2s<>). When the shield breaks or runs out, the shell bursts: enemies around take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, are <#ef5350ff>stunned<> <#ffb900ff>0.5s<> and slowed <#ef5350ff>40%<>.",
+        "ult": "Burrows for <#ffb900ff>2.5s<>, taking <#ffb900ff>50%<> less damage, immune to crowd control and healing <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>; then bursts out: enemies around take <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<> <#ffb900ff>1.5s<>."
       }
     },
     "skill_name": {
@@ -1094,6 +1125,11 @@
         "skill1": "Moon-Dust Quake",
         "skill2": "Healing Meeps",
         "ult": "The Big Bang"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "Speed Shrine",
+        "skill2": "Shell Shield",
+        "ult": "Can You Dig It?"
       }
     }
   },
@@ -1308,6 +1344,13 @@
         "skill": "앞쪽 땅을 내리쳐 부채꼴 범위의 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>, <#ef5350ff>40%<> 둔화(<#ffb900ff>2초<>).",
         "skill2": "조종사가 손짓하면 정령 <#ffb900ff>4마리<>가 체력 비율이 가장 낮은 주변 아군에게 날아가(자리가 남으면 자신도) <#ffb900ff>3초<> 동안 <#ffb900ff>0.5초<>마다 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> 회복.",
         "ult": "적 챔피언이 가장 많은 곳으로 뛰어올라 내려찍어 주변 적에게 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>(중심에서 한 칸마다 <#ef5350ff>-35%<>). 가장 가까운 적 챔피언 <#ffb900ff>3명<> <#ef5350ff>에어본<> <#ffb900ff>1.25초<>."
+      },
+      "tft_scuttlecrab": {
+        "name": "바위 게",
+        "attack": "게 춤을 춰 주변 모든 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>초록 버프<>: 주변 아군 챔피언의 체력이 <#ffb900ff>40%<> 아래로 떨어지면 최대 체력의 <#ffb900ff>12%<> 회복(각자 <#ffb900ff>10초<>마다 한 번).",
+        "skill": "발밑에 신속의 성소를 세워(<#ffb900ff>4초<>) 물보라로 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, <#ef5350ff>40%<> 둔화. 성소 안의 아군 챔피언은 이동 속도 <#ffb900ff>+30%<>, 공격 속도 <#ffb900ff>+25%<>.",
+        "skill2": "껍데기 속에 숨어 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 보호막(<#ffb900ff>2초<>). 보호막이 깨지거나 끝나면 껍데기가 터져 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, <#ef5350ff>기절<> <#ffb900ff>0.5초<>, <#ef5350ff>40%<> 둔화.",
+        "ult": "땅속으로 <#ffb900ff>2.5초<> 파고들어 받는 피해 <#ffb900ff>50%<> 감소, 군중 제어 면역, <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 회복. 이후 튀어나와 주변 적에게 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, <#ef5350ff>에어본<> <#ffb900ff>1.5초<>."
       }
     },
     "skill_name": {
@@ -1460,6 +1503,11 @@
         "skill1": "달먼지 진동",
         "skill2": "치유 정령",
         "ult": "빅뱅"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "신속의 성소",
+        "skill2": "껍데기 보호막",
+        "ult": "팔 수 있겠어?"
       }
     }
   },
@@ -1674,6 +1722,13 @@
         "skill": "前方の地面を殴り、扇状範囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%<>スロウ（<#ffb900ff>2秒<>）。",
         "skill2": "操縦士が手を振ると<#ffb900ff>4匹<>のミープが体力割合の最も低い周囲の味方へ飛び（枠が余れば自身も）、<#ffb900ff>3秒<>間<#ffb900ff>0.5秒<>ごとに<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>回復。",
         "ult": "敵チャンピオンが最も多い地点へ跳んで叩きつけ、周囲の敵に<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>（中心から1マスごとに<#ef5350ff>-35%<>）。最も近い敵チャンピオン<#ffb900ff>3体<>を<#ef5350ff>ノックアップ<><#ffb900ff>1.25秒<>。"
+      },
+      "tft_scuttlecrab": {
+        "name": "スカトルクラブ",
+        "attack": "カニダンスで周囲の全ての敵に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>グリーンバフ<>：近くの味方チャンピオンの体力が<#ffb900ff>40%<>を下回ると最大体力の<#ffb900ff>12%<>を回復（各自<#ffb900ff>10秒<>に1回）。",
+        "skill": "足元に祠を置き（<#ffb900ff>4秒<>）、水しぶきで周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%<>スロウ。祠の中の味方チャンピオンは移動速度<#ffb900ff>+30%<>、攻撃速度<#ffb900ff>+25%<>。",
+        "skill2": "甲羅にこもり<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>のシールド（<#ffb900ff>2秒<>）。シールドが割れるか切れると甲羅が弾け、周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>スタン<><#ffb900ff>0.5秒<>、<#ef5350ff>40%<>スロウ。",
+        "ult": "<#ffb900ff>2.5秒<>地中に潜り、受けるダメージ<#ffb900ff>-50%<>、行動妨害無効、<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>回復。その後飛び出し、周囲の敵に<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>ノックアップ<><#ffb900ff>1.5秒<>。"
       }
     },
     "skill_name": {
@@ -1826,6 +1881,11 @@
         "skill1": "ムーンダストクエイク",
         "skill2": "癒しのミープ",
         "ult": "ビッグバン"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "疾走の祠",
+        "skill2": "甲羅の盾",
+        "ult": "掘り起こせるか？"
       }
     }
   }

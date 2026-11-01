@@ -35,7 +35,7 @@ DESC = ("Teamfight Tactics units that League of Legends does not have, for Teamf
         "Wild Rift (what the data cannot play is the pack's own code, tft.dll). Sharper frames when the League of "
         "Legends Heroes pack (league) is also enabled. Non-commercial fan project; Teamfight Tactics, Wild Rift "
         "and Arcane (c) Riot Games.")
-HEROES = ["Powder", "Norra", "Alune", "Silco", "Maddie", "Loris", "Kobuko", "Vander", "Violet", "Krug", "Ao Shin", "Scar", "Renni", "Smeech", "Sevika", "Steb", "Nomsy", "Idas", "Daeja", "Shi Oh Yu", "Sy'fen", "Sohm", "Terra", "Zippy", "Sentinel", "Brambleback", "Mama Beak", "Elder Dragon", "Meepsie", "Murkwolf"]
+HEROES = ["Powder", "Norra", "Alune", "Silco", "Maddie", "Loris", "Kobuko", "Vander", "Violet", "Krug", "Ao Shin", "Scar", "Renni", "Smeech", "Sevika", "Steb", "Nomsy", "Idas", "Daeja", "Shi Oh Yu", "Sy'fen", "Sohm", "Terra", "Zippy", "Sentinel", "Brambleback", "Mama Beak", "Elder Dragon", "Meepsie", "Murkwolf", "Scuttle Crab"]
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
