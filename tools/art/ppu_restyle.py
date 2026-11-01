@@ -1011,6 +1011,13 @@ RESTYLE = {
     # change here; the outer outline grown a square like the others, its one-square cracks closed and the small holes
     # filled; the face point on its near eye (9 game px ahead of its standing point and 16 over the ground)
     "murkwolf": dict(ppu=1.67, edge=1, face_to=(9, -16), cracks=True, fill_holes=15),
+    # tft_gromp (the tft pack, bottom): the design (Codex's step-0 first A read on its 12 px squares, the squat toad at
+    # 3/4, its 54 rows 1:1 for the user's picks 「A-1，32 像素」) and Codex's key poses after its own TFT / Rift clips (each
+    # read at the design's body size levelled by the belly, the design's face where it matches: design_gromp_poses.py),
+    # posed by tools/art/rig_gromp.py (the run is Codex's own hop), so no proportion or density change here; the outer
+    # outline grown a square like the others, its one-square cracks closed and the small holes filled; the face point on
+    # its near eye (6 game px ahead of its standing point and 25 over the ground)
+    "gromp": dict(ppu=1.69, edge=1, face_to=(6, -25), cracks=True, fill_holes=15),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

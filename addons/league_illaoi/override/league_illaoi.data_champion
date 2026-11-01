@@ -4140,6 +4140,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_gromp",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_gromp",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_gromp_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_gromp_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_idas",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_idas",

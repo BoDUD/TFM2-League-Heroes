@@ -390,6 +390,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // 36 game px from its tail tip to its claws, PPU 1.67 (「A-1 36 高 PPU 1.67」: 60 rows 1:1), and Codex's key poses after
     // its own TFT clips, posed by tools/art/rig_murkwolf.py, so no SIZES row
     ("tft_murkwolf", 1.67, include_str!("../../../tft/champions/tft_murkwolf#anim.fanim")),
+    // Gromp (tft_gromp, the tft pack): the squat toad at 3/4, step 0's first A read on its own 12 px squares at the user's
+    // 32 game px from its mushroom caps to its feet, PPU 1.69 (「A-1，32 像素」: 54 rows 1:1), and Codex's key poses after
+    // its own TFT and Rift clips, posed by tools/art/rig_gromp.py, so no SIZES row
+    ("tft_gromp", 1.69, include_str!("../../../tft/champions/tft_gromp#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
@@ -672,8 +676,12 @@ pub fn grown(per: f32, stacks: usize) -> f32 {
 /// 体型吧 我记得英雄联盟是这样的」): League's R makes him 35 % bigger, grown over 1.25 seconds from the cast and shrunk
 /// back when it ends - here from the leap (`league_volibear_r_air`, 1 s) through the 12 s storm form after the landing
 /// (`league_volibear_r_form`), main pack data both.
-pub const FORMS: &[(&str, &[&str], f32, f32)] =
-    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.35, 1.25)];
+pub const FORMS: &[(&str, &[&str], f32, f32)] = &[
+    ("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.35, 1.25),
+    // Gromp's Swamp Belch (tft_gromp, 2026-11-01 plan A: 「自身短时间变大」): its belly blown up to its biggest, the body
+    // 30 % bigger while the flag r_big lasts (tools/kit/build_gromp.py r_grow), grown and shrunk in 0.5 s
+    ("tft_gromp", &["tft_gromp_r_big"], 1.3, 0.5),
+];
 
 /// Seconds a form's body may go undrawn and still ease on: past it the next draw is another unit at that address or a
 /// new match, drawn straight at its size.
@@ -828,6 +836,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // is centred on that point, so the far snout ran past its right edge (59.5 / 2 px); 0.9 brings it inside, the tail
     // keeping its room behind (hero_reels.py --card)
     ("tft_murkwolf", 0.9),
+    // Gromp (tft_gromp): its belly reaches 34 game px ahead of its standing point at PPU 1.69 - the card's canvas is
+    // centred on that point (59.5 / 2 px either side); 0.82 brings the belly and the belching head inside
+    ("tft_gromp", 0.82),
     // Bel'Veth: 47 game px from her shoulder spikes to her claws at PPU 1.75 (the raised wings of the reel higher); UI
     // size and card value set with bp_card_audit.py
     ("league_belveth", 0.82),

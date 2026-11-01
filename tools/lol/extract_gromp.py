@@ -9,7 +9,7 @@ rest are unnamed and picked by event id, read by their spectrograms (C:/t/gp_wor
 burst (its spit), 1675042177 = a splash decaying over ~1 s (3 variants), 1113834141 = a ~2 s rattling croak
 (4 variants), 1121474553 = a deep thump with a long tail (the belly).
 The rest is League's champions', Champions/<name>.wad.client: Kog'Maw (Caustic Spittle, Void Ooze: a spat bubble and
-a slowing slime trail), Twitch (the Venom Cask bursting), Cassiopeia (the poison ticks, the Miasma cloud) and Singed
+a slowing slime trail), Twitch (the Venom Cask bursting), Cassiopeia (the Miasma cloud) and Singed
 (Mega Adhesive: the sticky slow).
 Read, never written; the bank's Wwise events resolved to their media (the first variant unless picked), decoded with
 vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games).
@@ -42,7 +42,6 @@ CLIPS = {
     C + "q": ("KogMaw", [KM + "Q_OnCast"], 0.8, -10),                         # Belchy Bubble: the bubble spat
     C + "q_vo": ("gromp", [G + "aggro2_buffactivate"], 0.8, -9),
     C + "q_hit": ("Twitch", ["Play_sfx_Twitch_TwitchVenomCaskMissile_OnHitLocation"], 1.2, -10),   # it bursts
-    C + "q_dot": ("Cassiopeia", [CA + "Q_tick"], 0.5, -16),                   # the poison ticking
     C + "e": ("KogMaw", [KM + "VoidOoze_OnCast"], 1.0, -10),                 # Slime Swamp: the slime spat
     C + "e_vo": ("gromp", [CROAK], 1.6, -10, 3),
     C + "e_hit": ("KogMaw", [KM + "VoidOozeMissile_hit"], 1.0, -11),         # the puddle splats down

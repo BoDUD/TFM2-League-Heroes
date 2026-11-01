@@ -1,0 +1,778 @@
+{
+  "effects": [
+    {
+      "file": "gromp_fx_a_spit.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        6
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `tft_gromp_a_spit`（追踪弹道，随飞行方向转；上下对称、朝右）",
+      "loop": true,
+      "sheet_1x": [
+        48,
+        6
+      ],
+      "sheet_8x": [
+        384,
+        48
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        224,
+        2172,
+        496
+      ],
+      "source_layout": [
+        4,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 4,
+      "frame_visible_pixels": [
+        14,
+        12,
+        14,
+        16
+      ],
+      "raw_sha256": "87b2ac3f9a9a8c958c2182ca146e3710c7f86bec39ab78dcd8fbc0d6d41c31bc"
+    },
+    {
+      "file": "gromp_fx_q_bubble.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        12
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `tft_gromp_q_bubble`（直线弹道，随飞行方向转；上下对称、朝右）",
+      "loop": true,
+      "sheet_1x": [
+        56,
+        12
+      ],
+      "sheet_8x": [
+        448,
+        96
+      ],
+      "raw_size": [
+        2120,
+        742
+      ],
+      "readback_crop": [
+        0,
+        131,
+        2120,
+        585
+      ],
+      "source_layout": [
+        4,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 4,
+      "frame_visible_pixels": [
+        66,
+        66,
+        62,
+        60
+      ],
+      "raw_sha256": "bf32608c211509a43a3e0846e5d017fc0bd5718ecc8d23da8e93771f18d0a427"
+    },
+    {
+      "file": "gromp_fx_e_glob.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        8
+      ],
+      "symmetry": "top-bottom",
+      "binding": "view_projectiles `tft_gromp_e_glob`（抛物线弹道，随飞行方向转；上下对称、朝右）",
+      "loop": true,
+      "sheet_1x": [
+        48,
+        8
+      ],
+      "sheet_8x": [
+        384,
+        64
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        156,
+        2172,
+        560
+      ],
+      "source_layout": [
+        4,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 4,
+      "frame_visible_pixels": [
+        34,
+        34,
+        30,
+        40
+      ],
+      "raw_sha256": "ad7ffc6cef83bf7305633ed4d43800b310ca792fb27c78531d393948ad99d94e"
+    },
+    {
+      "file": "gromp_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_gromp_a_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "sheet_1x": [
+        48,
+        12
+      ],
+      "sheet_8x": [
+        384,
+        96
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        92,
+        2172,
+        635
+      ],
+      "source_layout": [
+        4,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 4,
+      "frame_visible_pixels": [
+        10,
+        26,
+        14,
+        10
+      ],
+      "raw_sha256": "69739b8bdc86939b0fb5e7d8a1e99ab81ada7e4e85758e678c95cc846048aa2d"
+    },
+    {
+      "file": "gromp_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_gromp_q_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "sheet_1x": [
+        80,
+        16
+      ],
+      "sheet_8x": [
+        640,
+        128
+      ],
+      "raw_size": [
+        1983,
+        793
+      ],
+      "readback_crop": [
+        0,
+        177,
+        1983,
+        637
+      ],
+      "source_layout": [
+        5,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 5,
+      "frame_visible_pixels": [
+        76,
+        122,
+        84,
+        74,
+        40
+      ],
+      "raw_sha256": "86c4ff4ad9780a4c3829fb318c7501d89b9f9931a6c357feb42843bad00da8de"
+    },
+    {
+      "file": "gromp_fx_q_burst.png",
+      "frames": 6,
+      "cell_1x": [
+        50,
+        30
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_gromp_q_burst`（大表，放在泡泡停下的地方，不跟随，z 2；左右对称）",
+      "loop": false,
+      "sheet_1x": [
+        300,
+        30
+      ],
+      "sheet_8x": [
+        2400,
+        240
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        210,
+        2172,
+        554
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        370,
+        724,
+        930,
+        684,
+        508,
+        196
+      ],
+      "raw_sha256": "a26fe8c680671213281452f63bced21fa8018f8a9349c3707ff1502747c47bd4"
+    },
+    {
+      "file": "gromp_fx_e_land.png",
+      "frames": 5,
+      "cell_1x": [
+        52,
+        20
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_gromp_e_land`（大表，放在落点的地面上，不跟随，z -1；左右对称）",
+      "loop": false,
+      "sheet_1x": [
+        260,
+        20
+      ],
+      "sheet_8x": [
+        2080,
+        160
+      ],
+      "raw_size": [
+        2191,
+        718
+      ],
+      "readback_crop": [
+        0,
+        168,
+        2191,
+        584
+      ],
+      "source_layout": [
+        5,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 5,
+      "frame_visible_pixels": [
+        314,
+        428,
+        490,
+        424,
+        288
+      ],
+      "raw_sha256": "531b4c93eb76a2d48e389d687d5976ae3932db3f08c302feb5e817d4028ba243"
+    },
+    {
+      "file": "gromp_fx_e_pool.png",
+      "frames": 6,
+      "cell_1x": [
+        52,
+        18
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_gromp_e_pool`（大表，放在地面上，不跟随，z -2，每 0.25 秒重放一次；左右对称）",
+      "loop": true,
+      "sheet_1x": [
+        312,
+        18
+      ],
+      "sheet_8x": [
+        2496,
+        144
+      ],
+      "raw_size": [
+        2079,
+        756
+      ],
+      "readback_crop": [
+        0,
+        244,
+        2079,
+        479
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        394,
+        404,
+        402,
+        444,
+        414,
+        384
+      ],
+      "raw_sha256": "56a785dde103eebf092ac1a35cc892b06462fe197045e313ebb06718a7e07773"
+    },
+    {
+      "file": "gromp_fx_r_cast.png",
+      "frames": 6,
+      "cell_1x": [
+        84,
+        44
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_gromp_r_cast`（大表，跟随它，z 3；左右对称）",
+      "loop": false,
+      "sheet_1x": [
+        504,
+        44
+      ],
+      "sheet_8x": [
+        4032,
+        352
+      ],
+      "raw_size": [
+        1734,
+        907
+      ],
+      "readback_crop": [
+        0,
+        0,
+        1734,
+        907
+      ],
+      "source_layout": [
+        3,
+        2
+      ],
+      "source_cell_trim": [
+        0,
+        0.2,
+        1,
+        0.95
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        152,
+        202,
+        690,
+        690,
+        236,
+        222
+      ],
+      "raw_sha256": "e1d23f437bedcc9159473bb6f7aa945a091510eedb7cf036d06f6b919d3beafd"
+    },
+    {
+      "file": "gromp_fx_r_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        18,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_gromp_r_hit`（跟随目标，z 2；左右对称）",
+      "loop": false,
+      "sheet_1x": [
+        90,
+        16
+      ],
+      "sheet_8x": [
+        720,
+        128
+      ],
+      "raw_size": [
+        2103,
+        748
+      ],
+      "readback_crop": [
+        0,
+        200,
+        2103,
+        574
+      ],
+      "source_layout": [
+        5,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 5,
+      "frame_visible_pixels": [
+        52,
+        152,
+        140,
+        112,
+        38
+      ],
+      "raw_sha256": "a12d3bc8d674bd7470ffbaa5c2c311a8cf440bfaf518f56f742aa9398d27394b"
+    },
+    {
+      "file": "gromp_fx_r_fog.png",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        40
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_gromp_r_fog`（大表，放在瞄准的地方，不跟随，z 3，每 0.25 秒重放一次；左右对称）",
+      "loop": true,
+      "sheet_1x": [
+        384,
+        40
+      ],
+      "sheet_8x": [
+        3072,
+        320
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        222,
+        2172,
+        525
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        1078,
+        1234,
+        1294,
+        1306,
+        1230,
+        1060
+      ],
+      "raw_sha256": "18a4478490b2f97bf9a8d6776cc7952b2d2be03f674fe3801a942c2d7fe503a7"
+    },
+    {
+      "file": "gromp_fx_p_ap.png",
+      "frames": 6,
+      "cell_1x": [
+        70,
+        50
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_gromp_p_ap`（跟随它，z 3；左右对称）",
+      "loop": true,
+      "sheet_1x": [
+        420,
+        50
+      ],
+      "sheet_8x": [
+        3360,
+        400
+      ],
+      "raw_size": [
+        2073,
+        758
+      ],
+      "readback_crop": [
+        0,
+        150,
+        2073,
+        397
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        52,
+        46,
+        40,
+        38,
+        50,
+        54
+      ],
+      "raw_sha256": "c2780928e419387ea735525b99521bd53c08975fa7f3f89a7625f52fe67f7164"
+    },
+    {
+      "file": "gromp_fx_q_poison.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        40
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_gromp_q_poison`（跟随中毒的人，z 3；左右对称）",
+      "loop": true,
+      "sheet_1x": [
+        120,
+        40
+      ],
+      "sheet_8x": [
+        960,
+        320
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_cell_trim": [
+        0.07,
+        0,
+        0.93,
+        1
+      ],
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        26,
+        14,
+        12,
+        8,
+        22,
+        10
+      ],
+      "raw_sha256": "0a76e78f4fd804d40f648f8a102866fab0d86f55406956836b50d31ca3b1596b"
+    },
+    {
+      "file": "gromp_fx_e_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        10
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_gromp_e_slow`（跟随被减速的人，z 3；左右对称）",
+      "loop": true,
+      "sheet_1x": [
+        144,
+        10
+      ],
+      "sheet_8x": [
+        1152,
+        80
+      ],
+      "raw_size": [
+        1881,
+        836
+      ],
+      "readback_crop": [
+        0,
+        285,
+        1881,
+        544
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        72,
+        74,
+        68,
+        56,
+        58,
+        46
+      ],
+      "raw_sha256": "bcc24d425b264f80ed24c58474be50e4c1fd2fb4dcebe64f92c9dd8f4a996a7f"
+    },
+    {
+      "file": "gromp_fx_r_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        24
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_gromp_r_slow`（跟随被减速的人，z 3；左右对称）",
+      "loop": true,
+      "sheet_1x": [
+        144,
+        24
+      ],
+      "sheet_8x": [
+        1152,
+        192
+      ],
+      "raw_size": [
+        2172,
+        724
+      ],
+      "readback_crop": [
+        0,
+        150,
+        2172,
+        578
+      ],
+      "source_layout": [
+        6,
+        1
+      ],
+      "source_cell_trim": null,
+      "alpha_values": [
+        0,
+        255
+      ],
+      "symmetry_check": "PASS",
+      "unique_frames": 6,
+      "frame_visible_pixels": [
+        20,
+        36,
+        52,
+        50,
+        42,
+        26
+      ],
+      "raw_sha256": "8e94a2f43c9494cc7ab9936f6b3931f0fcc88afc1519653907bb8a4c4f17b699"
+    }
+  ],
+  "icons": [
+    {
+      "file": "gromp_icon_skill.png",
+      "size": [
+        64,
+        64
+      ],
+      "logical_size": [
+        32,
+        32
+      ],
+      "raw_sha256": "cf9f35501b8fbeb1342c3d7b90bca6d62fb038fa8f804aab9456290df1959ab8"
+    },
+    {
+      "file": "gromp_icon_skill2.png",
+      "size": [
+        64,
+        64
+      ],
+      "logical_size": [
+        32,
+        32
+      ],
+      "raw_sha256": "1d8cf3d1caf426dab204b86a65e4529157d907226b422f0441a86e54daed5892"
+    },
+    {
+      "file": "gromp_icon_ult.png",
+      "size": [
+        64,
+        64
+      ],
+      "logical_size": [
+        32,
+        32
+      ],
+      "raw_sha256": "cf82675f30dbe8044cb9b9128a475880df679e4891e61bf487c710b663126600"
+    }
+  ],
+  "route": "native image_gen; majority palette readback; mirrored pairs; nearest-neighbor 8x",
+  "timing": "Not supplied by source pack; frames are ordered, no engine timing invented"
+}
