@@ -3,7 +3,8 @@
 //!
 //! 按先后：
 //! 1. 被控住（眩晕、定身、击飞……）：**净化**；
-//! 2. 残血（`LOW`）、敌方英雄贴脸（`CLOSE`）：**闪现**躲开；
+//! 2. 残血（`LOW`）、敌方英雄贴脸（`CLOSE`）：**闪现**躲开（大招里不闪：半秒后传送门就把她送回原地，闪了也白闪，
+//!    用户 2026-11-01「闪现现在怎么看不出效果」；落到下一条的治疗）；
 //! 3. 残血，或身边有快死的队友（`ALLY_LOW`）：**治疗**；
 //! 4. 身边有快死的敌方英雄（`KILL`）：**点燃**他；
 //! 5. 敌方英雄贴脸：**虚弱**他；
@@ -72,14 +73,15 @@ pub const FAR: u64 = 90_000;
 /// 一个英雄：(实体号, 距离, 生命比例)。
 pub type Unit = (usize, u64, f64);
 
-/// 挑哪个召唤师技能、对谁（点燃 / 虚弱的目标，治疗顺带的队友，闪现躲开的那个），为什么。
-pub fn pick(me_hp: f64, controlled: bool, foes: &[Unit], allies: &[Unit], roll: u64) -> (Spell, Option<usize>, &'static str) {
+/// 挑哪个召唤师技能、对谁（点燃 / 虚弱的目标，治疗顺带的队友，闪现躲开的那个），为什么。`in_ult`：大招里发动的（不闪现）。
+pub fn pick(me_hp: f64, controlled: bool, in_ult: bool, foes: &[Unit], allies: &[Unit], roll: u64)
+            -> (Spell, Option<usize>, &'static str) {
     let nearest = foes.iter().min_by_key(|f| f.1).copied();
     let close = nearest.filter(|f| f.1 <= CLOSE);
     if controlled {
         return (Spell::Cleanse, None, "controlled");
     }
-    if me_hp < LOW {
+    if me_hp < LOW && !in_ult {
         if let Some(f) = close {
             return (Spell::Flash, Some(f.0), "low with a champion on her");
         }
@@ -156,12 +158,14 @@ mod tests {
 
     #[test]
     fn controlled_first() {
-        assert_eq!(pick(0.2, true, &[(1, 10_000, 1.0)], &[], 0).0, Spell::Cleanse);
+        assert_eq!(pick(0.2, true, false, &[(1, 10_000, 1.0)], &[], 0).0, Spell::Cleanse);
     }
 
     #[test]
     fn low_and_dived_flashes_low_alone_heals() {
-        assert_eq!(pick(0.2, false, &[(1, 20_000, 1.0)], &[], 0), (Spell::Flash, Some(1), "low with a champion on her"));
+        assert_eq!(pick(0.2, false, false, &[(1, 20_000, 1.0)], &[], 0), (Spell::Flash, Some(1), "low with a champion on her"));
+        // in the ult the portal takes her home half a second later: no Flash, the heal instead
+        assert_eq!(pick(0.2, false, true, &[(1, 20_000, 1.0)], &[], 0), (Spell::Heal, None, "low"));
     }
 
     #[test]
@@ -184,34 +188,34 @@ mod tests {
         // the map's corner: away from it is off the map, so it turns
         let t = flash_spot((30_000, 30_000), (60_000, 60_000)).unwrap();
         assert!(t.0 < 960_000 && t.1 < 960_000);
-        assert_eq!(pick(0.2, false, &[(1, 50_000, 1.0)], &[], 0).0, Spell::Heal);
+        assert_eq!(pick(0.2, false, false, &[(1, 50_000, 1.0)], &[], 0).0, Spell::Heal);
     }
 
     #[test]
     fn a_dying_ally_gets_the_heal() {
-        assert_eq!(pick(0.9, false, &[(1, 50_000, 1.0)], &[(7, 40_000, 0.2), (8, 30_000, 0.25)], 0),
+        assert_eq!(pick(0.9, false, false, &[(1, 50_000, 1.0)], &[(7, 40_000, 0.2), (8, 30_000, 0.25)], 0),
                    (Spell::Heal, Some(7), "an ally nearly dead"));
         // too far to heal
-        assert_ne!(pick(0.9, false, &[(1, 50_000, 1.0)], &[(7, 90_000, 0.2)], 0).0, Spell::Heal);
+        assert_ne!(pick(0.9, false, false, &[(1, 50_000, 1.0)], &[(7, 90_000, 0.2)], 0).0, Spell::Heal);
     }
 
     #[test]
     fn a_dying_enemy_gets_ignited_a_diver_exhausted() {
-        assert_eq!(pick(0.9, false, &[(1, 50_000, 0.25), (2, 40_000, 0.9)], &[], 0), (Spell::Ignite, Some(1), "a champion nearly dead"));
-        assert_eq!(pick(0.9, false, &[(2, 20_000, 0.9)], &[], 0), (Spell::Exhaust, Some(2), "a champion on her"));
+        assert_eq!(pick(0.9, false, false, &[(1, 50_000, 0.25), (2, 40_000, 0.9)], &[], 0), (Spell::Ignite, Some(1), "a champion nearly dead"));
+        assert_eq!(pick(0.9, false, false, &[(2, 20_000, 0.9)], &[], 0), (Spell::Exhaust, Some(2), "a champion on her"));
     }
 
     #[test]
     fn hurt_in_a_fight_shields_alone_runs() {
-        assert_eq!(pick(0.5, false, &[(2, 50_000, 0.9)], &[], 0).0, Spell::Barrier);
-        assert_eq!(pick(0.9, false, &[(2, 120_000, 0.9)], &[], 0).0, Spell::Ghost);
-        assert_eq!(pick(0.9, false, &[], &[], 0).0, Spell::Ghost);
+        assert_eq!(pick(0.5, false, false, &[(2, 50_000, 0.9)], &[], 0).0, Spell::Barrier);
+        assert_eq!(pick(0.9, false, false, &[(2, 120_000, 0.9)], &[], 0).0, Spell::Ghost);
+        assert_eq!(pick(0.9, false, false, &[], &[], 0).0, Spell::Ghost);
     }
 
     #[test]
     fn otherwise_the_roll_decides_and_both_sims_agree() {
         let foes = [(2, 50_000, 0.9)];
-        let got: Vec<Spell> = (0..4).map(|r| pick(0.9, false, &foes, &[], r).0).collect();
+        let got: Vec<Spell> = (0..4).map(|r| pick(0.9, false, false, &foes, &[], r).0).collect();
         assert_eq!(got, vec![Spell::Ignite, Spell::Exhaust, Spell::Barrier, Spell::Ghost]);
         assert_eq!(roll(42, 1000, 7), roll(42, 1000, 7));
         assert_ne!(roll(42, 1000, 7), roll(42, 1001, 7));

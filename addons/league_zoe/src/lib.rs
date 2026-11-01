@@ -20,7 +20,8 @@
 //!   被控净化、残血被贴脸闪现、残血或队友快死治疗、敌人快死点燃、被贴脸虚弱、打架掉血屏障、附近没人幽灵疾步），都不是就在
 //!   点燃 / 虚弱 / 屏障 / 幽灵疾步里随机（比赛的种子定，两份模拟一样）。数字在下面的 `S_*`。日志 `SUMMON`。
 //!   画面（0.3.0，用户：「加啊」「地面上最好也要有图标显示」）：放的时候她脚下的地上亮起那个技能的图标
-//!   （`league_zoe_sg_<技能>`）；闪现在她和被弹开的人身上一闪（`s_flash`），净化一道光环从脚扫到头（`s_cleanse`），屏障一个金色
+//!   （`league_zoe_sg_<技能>`）；闪现在起点和落点各炸开一团星芒（`s_flash`），中间一串金色拖影（`s_flash_trail`），落点也亮
+//!   图标（0.5.0；大招里不挑闪现，传送门半秒后就把她送回原地），净化一道光环从脚扫到头（`s_cleanse`），屏障一个金色
 //!   气泡（`s_barrier`），治疗、点燃、虚弱、幽灵疾步是它们 buff 的画面；地上的碎片每次重画换一个图标（`ss_<技能>`，七个轮流），
 //!   捡起来才按局面定是哪个。图在 `league_zoe_spells`（tools/art/draw_zoe_spells.py）。
 //!
@@ -41,7 +42,11 @@ pub mod summon;
 
 const ID: &str = "league_zoe";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.4.0";
+const VERSION: &str = "0.5.0";
+/// 窃法巧手由大招发动时 `summon` 的 `why`（大招里不闪现，传送门半秒后就把她送回原地）。
+const ULT: &str = "the ult";
+/// 闪现的起点和落点之间放几团金色拖影（`s_flash_trail`，等分）。
+const FLASH_TRAIL: usize = 4;
 /// 场上最多同时留几块碎片（多了丢最早的）。
 const MAX_SHARDS: usize = 3;
 /// 碎片的画面多少 tick 重放一次（画面 4 帧 x 约 100 ms）。
@@ -385,7 +390,9 @@ impl Sparkles {
             }
         }
         let tick = sim.tick();
-        let (spell, target, reason) = summon::pick(me_hp, controlled, &foes, &allies, summon::roll(sim.seed(), tick, me));
+        let in_ult = why == ULT;
+        let (spell, target, reason) =
+            summon::pick(me_hp, controlled, in_ult, &foes, &allies, summon::roll(sim.seed(), tick, me));
         let on_me = InputTargetV1::target(me);
         sim.play_view_effect(&zo(&format!("sg_{}", spell.key())), me, &InputTargetV1::pos(pos.0, pos.1), 0, 0, 0);
         match spell {
@@ -394,12 +401,22 @@ impl Sparkles {
                 sim.play_view_effect(&zo("s_cleanse"), me, &on_me, 0, 0, 0);
             }
             summon::Spell::Flash => {
-                // a flash where she was and where she lands (s_flash stays where it is played)
+                // a starburst where she was and where she lands (s_flash stays where it is played), a golden streak of
+                // FLASH_TRAIL puffs between them and the icon lighting up where she lands too (0.5.0, the user: 「闪现现在
+                // 怎么看不出效果？」 - one small 0.2 s burst at each end, a body apart, read as nothing)
                 sim.play_view_effect(&zo("s_flash"), me, &InputTargetV1::pos(pos.0, pos.1), 0, 0, 0);
                 let from = target.and_then(|t| sim.get_entity(t)).map(|t| t.pos());
                 if let Some(to) = from.and_then(|f| summon::flash_spot(pos, f)) {
                     sim.entity_set_pos(me, to.0, to.1);
-                    sim.play_view_effect(&zo("s_flash"), me, &InputTargetV1::pos(to.0, to.1), 0, 0, 0);
+                    for k in 1..=FLASH_TRAIL {
+                        let f = k as f64 / (FLASH_TRAIL + 1) as f64;
+                        let at = |a: u64, b: u64| (a as f64 + (b as f64 - a as f64) * f).round() as u64;
+                        let p = InputTargetV1::pos(at(pos.0, to.0), at(pos.1, to.1));
+                        sim.play_view_effect(&zo("s_flash_trail"), me, &p, 0, 0, 0);
+                    }
+                    let land = InputTargetV1::pos(to.0, to.1);
+                    sim.play_view_effect(&zo("s_flash"), me, &land, 0, 0, 0);
+                    sim.play_view_effect(&zo("sg_flash"), me, &land, 0, 0, 0);
                 }
             }
             summon::Spell::Heal => {
@@ -659,7 +676,7 @@ impl StablePassive for Sparkles {
         // the ult's Spell Thief: its w_haste just put on - the summoner spell first (the data fires the missiles)
         let haste = alive && has_buff(sim, me, &zo("w_haste"));
         if haste && !self.haste_was {
-            self.summon(sim, me, "the ult");
+            self.summon(sim, me, ULT);
         }
         self.haste_was = haste;
         if tick > self.barrier_at + 1 && has_buff(sim, me, &zo("s_barrier")) && sim.get_entity(me).is_some_and(|e| e.shield() == 0) {
@@ -762,7 +779,7 @@ mod tests {
 
     #[test]
     fn buff_names_fit() {
-        for x in ["e_mark", "e_zz", "e_wake", "q_go", "q_hit", "w_haste", "w_shard", "w_shot", "w_hit", "e_sleep", "s_heal", "s_ignite", "s_exhaust", "s_ghost", "s_flash", "s_cleanse", "s_barrier"] {
+        for x in ["e_mark", "e_zz", "e_wake", "q_go", "q_hit", "w_haste", "w_shard", "w_shot", "w_hit", "e_sleep", "s_heal", "s_ignite", "s_exhaust", "s_ghost", "s_flash", "s_flash_trail", "s_cleanse", "s_barrier"] {
             assert!(zo(x).len() <= BUFF_NAME_CAP);
         }
         for s in summon::Spell::ALL {
