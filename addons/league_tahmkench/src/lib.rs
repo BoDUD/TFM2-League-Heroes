@@ -31,8 +31,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_tahmkench";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.4";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_tahmkench") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 const HERO: &str = "league_tahmkench";
 
 // ===================== 数值（主包 build_tahmkench.P） =====================
@@ -676,7 +680,9 @@ impl Ai {
             InputKindV1::Ult => {
                 // 1. an ally in danger, the lowest first
                 let mut best: Option<(Mate, &'static str)> = None;
-                for &(id, p) in mates.iter().filter(|m| dist(at, m.1) <= R_ALLY_R) {
+                // not one immune to crowd control: the swallow (a banish) does not hold him and R is wasted (0.1.5, the
+                // 2026-11-01 log: Sivir's spell shield up, spat out 3 ticks in)
+                for &(id, p) in mates.iter().filter(|m| dist(at, m.1) <= R_ALLY_R && immune_by(sim, m.0).is_none()) {
                     let Some(u) = sim.get_entity(id) else { continue };
                     let (h, mx) = u.hp();
                     let m = Mate { id, at: p, hp: h, max: mx, peak: peak_hp(tag, id, now, h), cc: hard_cc(&u) };

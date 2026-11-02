@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.165.0"
+      "version": ">=0.283.0"
     }
   ],
   "description": "Test build of Zoe as in League (needs League of Legends Heroes): replaces the main pack's Zoe so Paddle Star grows with the real distance it flew (the main pack: three steps by flight time), and Spell Thief picks up spell shards that enemy champions drop when they cast their ult (three missiles and a burst of speed). Sleepy Trouble Bubble uses the game's own sleep (0.7.0, as the main pack) and shows Zoe's Zz while it holds. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-28",
+  "last_updated": "2026-11-01",
   "mod_id": "league_zoe",
   "mod_type": "native",
   "name": "League Heroes: Zoe's sleep, Paddle Star and Spell Thief shards (test)",
-  "version": "0.4.0"
+  "version": "0.5.0"
 }

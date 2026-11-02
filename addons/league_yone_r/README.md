@@ -6,8 +6,8 @@
 
 | | 主包（纯数据） | 装了附加包 |
 |---|---|---|
-| 落在哪里 | 选中的目标身后 | 直线上离他最远的那个被斩中的英雄身后 6000（一个都没斩中就照主包，落在 90000 内最近的敌方英雄身后） |
-| 拉人 | 没有 | 落地后把斩中的英雄拉向他（每 tick 2000，每个最多 16000，停在他身前 6000） |
+| 落在哪里 | 选中的目标身后 | 直线上离他最远的那个被斩中的英雄身后、他身体外面（两人里大的身体半径 + 1000；一个都没斩中就照主包，落在 90000 内最近的敌方英雄身后） |
+| 拉人 | 没有 | 落地后把斩中的英雄拉向他（每 tick 2000，每个最多 16000，停在他身前 12000） |
 | 伤害、击飞、画面、Q3 连 R | 主包 | 一样 |
 
 ## 怎么做的
@@ -20,7 +20,7 @@
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_yone_r` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 永恩 R 的说明开头是「【附加包】」就说明换上了。
-4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yone_r.log`：`R #n: 2 struck, lands behind #7 76000 away`、`R #n LANDED after 7 steps, pulled 1 of 2`。
+4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yone_r.log`：`R #n: 2 struck, lands behind #7 76000 away`、`R #n LANDED after 7 steps (0 off the spot), pulled 1 of 2`。
 
 ## 开发
 

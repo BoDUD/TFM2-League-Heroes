@@ -15,8 +15,8 @@
 //! - **连招**（用户：「有连招要做连招」；`combo.rs`）：AI 钩子 `league_mel:combo` 替游戏的 AI 按 Q、E、R——E → Q（先禁锢，
 //!   禁锢住了马上把 Q 砸在被禁锢的英雄身上，主包数据做的快速落点）、残影够杀人或两个英雄都叠满了才按 R。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_mel.log`，每次启动游戏重写：`SPAWN`、`EXECUTE`、`W UP`、
-//! `REFLECT`、`E FIRST` / `Q ON ROOT` / `R KILL` / `R MANY` / `R HELD`（连招），都限了条数。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_mel.log`，每次启动游戏重写：`SPAWN`、`EXECUTE` / `EXECUTE HELD`、`W UP`、
+//! `REFLECT`、`E FIRST` / `Q ON ROOT` / `R KILL` / `R MANY` / `R HELD`（连招，按一次只记一行），预模拟限了条数，你看的那场都记。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -29,8 +29,12 @@ use mod_api_stable::*;
 pub mod combo;
 
 const ID: &str = "league_mel";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.3";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_mel") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 同一个人的弹体隔多久才再反弹一次（一个弹体从进圈到打中只有几 tick；读不到弹体的编号）。
 pub const REFLECT_GAP: usize = 20;
@@ -77,16 +81,24 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
-/// 日志条数：每种最多先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条。
+/// 日志条数：预模拟每种最多先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条（整次启动一个计数）；你看的那场（`shown`）每条都写
+/// （2026-11-02：看的一整局只剩一行 `W UP`，计数早被预模拟用完了）。
 const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 50;
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-fn counted(kind: &'static str) -> Option<usize> {
+fn counted(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+pub(crate) fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -190,6 +202,18 @@ pub fn stacks_worth(stacks: usize, per: usize, ratio: usize, ap: usize) -> usize
     stacks * (per + ratio * ap / 100)
 }
 
+/// 处决打出的固定伤害：生命 + 护盾 + 最大生命（伤害下一 tick 才结算，盖过这一 tick 里的回血、护盾，同洛克、派克的处决），再按他
+/// 身上的减伤放大（2026-11-02 复查 11-01 的日志：原来打 `hp + shield + 1`，48 次处决有 5 次没打死——蕾欧娜的日蚀减伤 25%、易的
+/// 冥想 40%）。减伤到 100%（易的阿尔法突袭）什么都打不动：None，这一下不处决，残影留着。
+pub fn execute_damage(hp: usize, shield: usize, max: usize, reduce: usize) -> Option<usize> {
+    (reduce < 100).then(|| (hp + shield + max) * 100 / (100 - reduce))
+}
+
+/// 一个单位身上的减伤 %（受到的伤害、技能伤害两种都算上，封顶 100）。
+pub fn reduction(e: &StableEntity<'_, '_>) -> usize {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.damaged_reduce + b.skill_damaged_reduce).sum::<usize>().min(100)
+}
+
 /// 残影够不够处决：值的伤害 ≥ 生命 + 护盾。
 pub fn executes(stacks: usize, ap: usize, hp: usize, shield: usize, p: &Params) -> bool {
     stacks > 0 && stacks_worth(stacks, p.x_st, p.x_ratio, ap) >= hp + shield
@@ -224,21 +248,29 @@ fn overwhelm(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     if !u.is_alive() || !u.is_champion() {
         return;
     }
-    let (hp, _) = u.hp();
+    let (hp, max) = u.hp();
     let shield = u.shield();
     let stacks = count_buff(&u, &mark);
+    let reduce = reduction(&u);
     if !executes(stacks, ap, hp, shield, &p) {
         return;
     }
     let worth = stacks_worth(stacks, p.x_st, p.x_ratio, ap);
-    sim.deal_damage_typed(me, t, hp + shield + 1, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+    let Some(dmg) = execute_damage(hp, shield, max, reduce) else {
+        if let Some(k) = counted("execute held", on_screen(sim)) {
+            wlog(format!("{} EXECUTE HELD #{k}: {} takes no damage now (reduced {reduce}%) - the {stacks} stacks stay",
+                         head(sim, me), who(sim, t)));
+        }
+        return;
+    };
+    sim.deal_damage_typed(me, t, dmg, DamageTypeV1::Fixed, AttackTypeV1::Skill);
     sim.entity_remove_buff(t, &mark);
     let hit = InputTargetV1::target(t);
     sim.play_view_effect(&sn("x_hit"), me, &hit, 0, 0, 0);
     sim.play_sfx(&sn("x"), me, &hit);
-    if let Some(k) = counted("execute") {
-        wlog(format!("{} EXECUTE #{k}: {} - {stacks} stacks worth {worth} >= health {hp} + shield {shield}", head(sim, me),
-                     who(sim, t)));
+    if let Some(k) = counted("execute", on_screen(sim)) {
+        wlog(format!("{} EXECUTE #{k}: {} - {stacks} stacks worth {worth} >= health {hp} + shield {shield} (dealt {dmg}, reduced {reduce}%)",
+                     head(sim, me), who(sim, t)));
     }
 }
 
@@ -323,7 +355,7 @@ impl Reflect {
             let at_me = InputTargetV1::target(me);
             sim.play_sfx(&sn("w"), me, &at_me);
             sim.play_sfx(&sn("vo_w"), me, &at_me);
-            if let Some(k) = counted("w up") {
+            if let Some(k) = counted("w up", on_screen(sim)) {
                 let (d, c) = near.iter().copied().min_by(|a, b| a.0.total_cmp(&b.0)).unwrap_or((0.0, me));
                 wlog(format!("{} W UP #{k}: a projectile of {} {d:.0} away - the barrier for {} ticks", head(sim, me),
                              who(sim, c), self.p.w_t));
@@ -361,7 +393,7 @@ impl Reflect {
             let dmg = back_damage(ap, &self.p);
             self.backs.push(Back { target: c, due: now + fly, dmg });
             sim.play_sfx(&sn("w_reflect"), me, &InputTargetV1::target(me));
-            if let Some(k) = counted("reflect") {
+            if let Some(k) = counted("reflect", on_screen(sim)) {
                 wlog(format!("{} REFLECT #{k}: a projectile of {} sent back ({dmg} magic in {fly} ticks)", head(sim, me),
                              who(sim, c)));
             }
@@ -384,7 +416,7 @@ impl StablePassive for Reflect {
         self.backs.clear();
         self.last.clear();
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        if let Some(k) = counted("spawn") {
+        if let Some(k) = counted("spawn", on_screen(sim)) {
             wlog(format!("{} SPAWN #{k}: the add-on's Mel (player {player}, team {team}), {:?}", head(sim, me), self.p));
         }
     }
@@ -439,6 +471,11 @@ mod tests {
         assert!(!executes(10, 200, 300, 20, &p));
         assert!(!executes(0, 200, 0, 0, &p));
         assert!(!executes(3, 200, 500, 0, &p));
+        // through this tick's heal or shield and any damage reduction short of 100%
+        assert_eq!(execute_damage(300, 50, 2000, 0), Some(2350));
+        assert_eq!(execute_damage(300, 0, 2000, 25), Some(3066));
+        assert!(execute_damage(300, 0, 2000, 40).unwrap() * 60 / 100 > 300);
+        assert_eq!(execute_damage(300, 0, 2000, 100), None, "Alpha Strike: nothing to execute through");
     }
 
     #[test]

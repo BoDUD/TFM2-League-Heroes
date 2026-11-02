@@ -40,7 +40,8 @@ M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from his soles' point, up negative): the face point at his eye (the design's eye at row 13 of
 # 80, column 39 at PPU 2.0: 33 over the ground, 1 behind his standing column 41); the centre in his body; the ban/pick
 # card by bp_card_audit.py's rule (y = -39 - top: his lo_idle reaches 32.7 over its centre -> -6)
-VIEW = {"face": {"x": -1, "y": -33}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -6}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": -1, "y": -33}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -6}}
 
 
 def mag(d, r):

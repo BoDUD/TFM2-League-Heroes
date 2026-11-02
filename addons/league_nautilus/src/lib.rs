@@ -27,6 +27,12 @@ use mod_api_stable::*;
 mod maps;
 
 const ID: &str = "league_nautilus";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_nautilus") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 主包诺提勒斯的名字（动作、画面、音效都以它开头）。
 fn nt(x: &str) -> String {
@@ -163,6 +169,17 @@ impl Grid {
     }
 }
 
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<(f64, f64)> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
+}
+
 /// 这局是哪张图：站在墙里的英雄最少、墙又最多的那张（泰隆附加包的判断）。
 pub fn current(grids: &[Grid], champions: &[(f64, f64)]) -> Option<usize> {
     grids
@@ -269,7 +286,6 @@ fn hook(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
         return;
     };
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
-    let mut champs = Vec::new();
     let mut foes = Vec::new();
     for i in 0..sim.entity_count() {
         let Some(u) = sim.entity_at(i) else { continue };
@@ -277,13 +293,12 @@ fn hook(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
             continue;
         }
         let (x, y) = u.pos();
-        champs.push((x as f64, y as f64));
         if u.team() != team && u.is_targetable() {
             foes.push((x as f64, y as f64));
         }
     }
     let grids = Grid::builtin();
-    let Some(gi) = current(&grids, &champs) else { return };
+    let Some(gi) = current(&grids, &unit_points(sim)) else { return };
     match trace(&grids[gi], here, dir, &foes) {
         Hit::Wall(stop, t) => {
             let flight = (t / Q_SPEED).ceil() as usize;
@@ -375,7 +390,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (Nautilus's Dredge Line hooks walls: pulled to the wall, half the cooldown back) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Nautilus's Dredge Line hooks walls: pulled to the wall, half the cooldown back) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

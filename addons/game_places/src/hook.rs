@@ -9,7 +9,6 @@
 //! 值从 +8 开始：+0x40 / +0x48 名字（String 指针、长度），+0x68 / +0x70 / +0x78 正在播的动画名（String：容量、指针、
 //! 长度），+0xb8 / +0xc0 buff 列表（每个 0x28 字节，名字指针 +8、长度 +0x10）。
 
-#[cfg(windows)]
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{Mutex, OnceLock};
 
@@ -38,7 +37,6 @@ pub struct Ent {
 pub type Dresser = unsafe fn(world: usize, ents: &[Ent]);
 
 static DRESSERS: Mutex<Vec<(&'static str, Dresser)>> = Mutex::new(Vec::new());
-#[cfg(windows)]
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static INSTALLED: OnceLock<Result<(usize, usize), String>> = OnceLock::new();
 
@@ -75,10 +73,8 @@ pub unsafe fn ents(world: usize) -> Vec<Ent> {
     out
 }
 
-#[cfg(windows)]
 type Update = unsafe extern "system" fn(usize, usize, usize, f32);
 
-#[cfg(windows)]
 unsafe extern "system" fn update(this: usize, a2: usize, world: usize, dt: f32) {
     let prev = PREV.load(Ordering::Acquire);
     if prev != 0 {

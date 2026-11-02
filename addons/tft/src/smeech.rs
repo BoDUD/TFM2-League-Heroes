@@ -425,13 +425,19 @@ impl StableEffectType for Rip {
 // ===================== 废铁狂潮 =====================
 
 /// One hop: the next enemy in reach not hit by this ult (champions first, then the weakest), a strike, a crit stack.
+/// Nobody in reach: the ult's own target while this ult has not hit it (2026-11-01 log: the cast reaches r_range
+/// between bodies, the hops r_reach between centres, so a cast from 45000-50000 away had all five hops find nobody).
 struct Hop;
 impl StableEffectType for Hop {
-    fn apply(&self, sim: &mut StableSim<'_>, seed: u64, me: usize, _: InputTargetV1) {
+    fn apply(&self, sim: &mut StableSim<'_>, seed: u64, me: usize, input: InputTargetV1) {
         let p = params_of(me);
         let Some(at) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.pos()) else { return };
         let mark = sm("r_mark");
-        let Some(target) = weakest(&foes(sim, me, Some(&mark)), at, p.r_reach as u64) else {
+        let around = foes(sim, me, Some(&mark));
+        let aimed = (InputTargetKindV1::from_code(input.kind) == Some(InputTargetKindV1::Target))
+            .then_some(input.target_id)
+            .filter(|t| around.iter().any(|f| f.0 == *t));
+        let Some(target) = weakest(&around, at, p.r_reach as u64).or(aimed) else {
             if let Some(k) = counted("hop_none") {
                 wlog(format!("{} HOP NONE #{k}: nobody left in reach", head(sim, me)));
             }

@@ -1,0 +1,132 @@
+{
+  "status": "passed",
+  "fx_count": 9,
+  "fx_frames": 46,
+  "icons": 3,
+  "checks": [
+    {
+      "file": "meepsie_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        14
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_fx_q_wave.png",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        26
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        22,
+        18
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_fx_q_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        8
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_fx_e_cast.png",
+      "frames": 5,
+      "cell_1x": [
+        60,
+        52
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_fx_e_meep.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        8
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_fx_e_hot.png",
+      "frames": 6,
+      "cell_1x": [
+        24,
+        32
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_fx_r_slam.png",
+      "frames": 6,
+      "cell_1x": [
+        96,
+        44
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_fx_r_up.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        28
+      ],
+      "hard_alpha": true,
+      "exact_symmetry": true,
+      "integer8x_matches": true,
+      "nonempty_varied_frames": true
+    },
+    {
+      "file": "meepsie_icon_skill.png",
+      "size64": true,
+      "pixel_block2": true
+    },
+    {
+      "file": "meepsie_icon_skill2.png",
+      "size64": true,
+      "pixel_block2": true
+    },
+    {
+      "file": "meepsie_icon_ult.png",
+      "size64": true,
+      "pixel_block2": true
+    }
+  ],
+  "limit": "Visual source pack only; no in-game timing or runtime proof."
+}

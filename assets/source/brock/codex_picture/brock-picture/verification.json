@@ -1,0 +1,34 @@
+[
+  {
+    "file": "brock-A.png",
+    "passed": [
+      "1536 square",
+      "hard alpha 0/255",
+      "11px uniform grid",
+      "soles at y1390",
+      "transparent margins"
+    ],
+    "bbox": [
+      416,
+      840,
+      1120,
+      1390
+    ]
+  },
+  {
+    "file": "brock-B.png",
+    "passed": [
+      "1536 square",
+      "hard alpha 0/255",
+      "11px uniform grid",
+      "soles at y1390",
+      "transparent margins"
+    ],
+    "bbox": [
+      515,
+      620,
+      1021,
+      1390
+    ]
+  }
+]

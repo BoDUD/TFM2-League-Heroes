@@ -951,7 +951,7 @@
         "attack": "<#ff9028ff>肉食者<>：攻击击杀单位时回复<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>恐惧之刺<>：每<#ffb900ff>6秒<>接下来3次攻击射出一排尖刺，直线上的敌人受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法伤害并<#ef5350ff>减速35%<>，英雄另受2%最大生命真实伤害。",
         "skill": "地面破裂，<#ffb900ff>0.6秒<>后尖刺冲出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法伤害，<#ef5350ff>击飞0.75秒<>并<#ef5350ff>减速60%<>。",
         "skill2": "向前方锥形区域尖叫，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并<#ef5350ff>沉默1.8秒<>。",
-        "ult": "吞噬受伤的敌方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、体型变大（最多 2 倍，死亡清空）。"
+        "ult": "吞噬受伤的敌方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、移速-3%、体型变大（不封顶，死亡清空）。"
       },
       "league_karthus": {
         "name": "卡尔萨斯",
@@ -1144,10 +1144,10 @@
       },
       "league_aurelionsol": {
         "name": "奥瑞利安·索尔",
-        "attack": "甩出一颗星星。<#ff9028ff>星海焕然<>：技能命中英雄收集星尘（每层法强+3%，最多15层），每6层下一次大招变为天瀑。<#ff9028ff>星穹流丽<>：击杀英雄后起飞<#ffb900ff>4秒<>，移速+60%、法强+20%。",
+        "attack": "甩出一颗星星。<#ff9028ff>星海焕然<>：技能命中英雄收集星尘（最多30层，前15层每层法强+3%），每6层下一次大招变为天瀑。<#ff9028ff>星穹流丽<>：击杀英雄后起飞<#ffb900ff>4秒<>，移速+60%、法强+20%。",
         "skill": "引导龙息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>对一线上的敌人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法伤害，喷同一目标<#ffb900ff>1秒<>后每次额外30；被控制打断。飞行中无冷却、引导更久。",
         "skill2": "在目标处召唤黑洞（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法伤害，把敌人拉向中心并<#ef5350ff>减速<>25%；中心每秒造成英雄最大生命值4%的真实伤害。",
-        "ult": "<#ff9028ff>星落<>：星星坠落在目标处，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>1秒<>。<#ff9028ff>天瀑<>：范围更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>并<#ef5350ff>击飞<><#ffb900ff>0.83秒<>，外圈冲击波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#ef5350ff>减速<>50%。"
+        "ult": "<#ff9028ff>星落<>：星星坠落在目标处，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法伤害并<#ef5350ff>眩晕<><#ffb900ff>1秒<>。<#ff9028ff>天瀑<>：范围更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>并<#ef5350ff>击飞<><#ffb900ff>0.83秒<>，外圈冲击波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#ef5350ff>减速<>50%。星尘每5层，星落、天瀑和黑洞的范围大一档（满层2倍）。"
       },
       "league_sejuani": {
         "name": "瑟庄妮",
@@ -3033,7 +3033,7 @@
         "attack": "<#ff9028ff>肉食者<>：攻擊擊殺單位時回復<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>恐懼尖刺<>：每<#ffb900ff>6秒<>接下來3次攻擊射出一排尖刺，直線上的敵人受<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>魔法傷害並<#ef5350ff>緩速35%<>，英雄另受2%最大生命真實傷害。",
         "skill": "地面破裂，<#ffb900ff>0.6秒<>後尖刺衝出，造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>魔法傷害，<#ef5350ff>擊飛0.75秒<>並<#ef5350ff>緩速60%<>。",
         "skill2": "向前方錐形區域尖嘯，造成<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並<#ef5350ff>沉默1.8秒<>。",
-        "ult": "吞噬受傷的敵方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、體型變大（最多 2 倍，死亡清空）。"
+        "ult": "吞噬受傷的敵方英雄，造成<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、移速-3%、體型變大（不封頂，死亡清空）。"
       },
       "league_karthus": {
         "name": "卡爾瑟斯",
@@ -3226,10 +3226,10 @@
       },
       "league_aurelionsol": {
         "name": "翱銳龍獸",
-        "attack": "甩出一顆星星。<#ff9028ff>宇宙創世<>：技能命中英雄收集星塵（每層魔攻+3%，最多15層），每6層下一次大絕變為天界殞落。<#ff9028ff>星界翱翔<>：擊殺英雄後起飛<#ffb900ff>4秒<>，移速+60%、魔攻+20%。",
+        "attack": "甩出一顆星星。<#ff9028ff>宇宙創世<>：技能命中英雄收集星塵（最多30層，前15層每層魔攻+3%），每6層下一次大絕變為天界殞落。<#ff9028ff>星界翱翔<>：擊殺英雄後起飛<#ffb900ff>4秒<>，移速+60%、魔攻+20%。",
         "skill": "引導吐息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>對一線上的敵人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法傷害，噴同一目標<#ffb900ff>1秒<>後每次額外30；被控制打斷。飛行中無冷卻、引導更久。",
         "skill2": "在目標處召喚奇點（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法傷害，把敵人拉向中心並<#ef5350ff>緩速<>25%；中心每秒造成英雄最大生命4%的真實傷害。",
-        "ult": "<#ff9028ff>降世星辰<>：星辰墜落在目標處，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>1秒<>。<#ff9028ff>天界殞落<>：範圍更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>並<#ef5350ff>擊飛<><#ffb900ff>0.83秒<>，外圈衝擊波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#ef5350ff>緩速<>50%。"
+        "ult": "<#ff9028ff>降世星辰<>：星辰墜落在目標處，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法傷害並<#ef5350ff>暈眩<><#ffb900ff>1秒<>。<#ff9028ff>天界殞落<>：範圍更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>並<#ef5350ff>擊飛<><#ffb900ff>0.83秒<>，外圈衝擊波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#ef5350ff>緩速<>50%。星塵每5層，降世星辰、天界殞落和奇點的範圍大一檔（滿層2倍）。"
       },
       "league_sejuani": {
         "name": "史瓦妮",
@@ -5115,7 +5115,7 @@
         "attack": "<#ff9028ff>Carnivore<>: a unit his attack kills heals him <#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>. <#ff9028ff>Vorpal Spikes<>: every <#ffb900ff>6s<> his next 3 attacks fire a line of spikes: <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> <#a974ffff>magic damage<> and a <#ef5350ff>35% slow<> to enemies in it, champions also taking 2% max health true damage.",
         "skill": "Ruptures the ground: after <#ffb900ff>0.6s<> spikes burst out for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> magic damage, <#ef5350ff>knocking up 0.75s<> and <#ef5350ff>slowing 60%<>.",
         "skill2": "Screams in a cone ahead: <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage and <#ef5350ff>silence 1.8s<>.",
-        "ult": "Devours a wounded enemy champion: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health and a bigger body (up to 2x; lost on death)."
+        "ult": "Devours a wounded enemy champion: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health, -3% move speed and a bigger body (no cap; lost on death)."
       },
       "league_karthus": {
         "name": "Karthus",
@@ -5308,10 +5308,10 @@
       },
       "league_aurelionsol": {
         "name": "Aurelion Sol",
-        "attack": "Flings a star. <#ff9028ff>Cosmic Creator<>: his spells hitting champions gather Stardust (+3% ability power a stack, 15 at most); every 6 make his next ult The Skies Descend. <#ff9028ff>Astral Flight<>: after a takedown he flies for <#ffb900ff>4s<>, +60% move speed and +20% ability power.",
+        "attack": "Flings a star. <#ff9028ff>Cosmic Creator<>: his spells hitting champions gather Stardust (max 30; the first 15 +3% ability power each); every 6 make his next ult The Skies Descend. <#ff9028ff>Astral Flight<>: after a takedown he flies for <#ffb900ff>4s<>, +60% move speed and +20% ability power.",
         "skill": "Channels his breath for <#ffb900ff>1.5s<>: every <#ffb900ff>0.17s<> it deals <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> magic damage to the enemies in a line, 30 more after <#ffb900ff>1s<> on one target; crowd control breaks it. In flight it has no cooldown and channels longer.",
         "skill2": "Summons a black hole at the target for <#ffb900ff>5s<>: every <#ffb900ff>0.25s<> <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> magic damage, pulling enemies toward its centre and <#ef5350ff>slowing<> them 25%; its centre deals 4% of a champion's maximum health as true damage each second.",
-        "ult": "<#ff9028ff>Falling Star<>: a star crashes on the target for <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> magic damage and a <#ffb900ff>1s<> <#ef5350ff>stun<>. <#ff9028ff>The Skies Descend<>: a wider impact, <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> and a <#ffb900ff>0.83s<> <#ef5350ff>knock-up<>, then a shockwave from its edge for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> and a 50% <#ef5350ff>slow<>."
+        "ult": "<#ff9028ff>Falling Star<>: a star crashes on the target for <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> magic damage and a <#ffb900ff>1s<> <#ef5350ff>stun<>. <#ff9028ff>The Skies Descend<>: a wider impact, <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> and a <#ffb900ff>0.83s<> <#ef5350ff>knock-up<>, then a shockwave from its edge for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> and a 50% <#ef5350ff>slow<>. Every 5 Stardust widen the star, the Skies and the black hole a step (2x when full)."
       },
       "league_sejuani": {
         "name": "Sejuani",
@@ -7197,7 +7197,7 @@
         "attack": "<#ff9028ff>육식<>: 기본 공격으로 처치하면 <#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> 회복. <#ff9028ff>날카로운 가시<>: <#ffb900ff>6초<>마다 다음 3회 공격이 가시를 일직선으로 쏘아 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<> 마법 피해와 <#ef5350ff>35% 둔화<>, 챔피언은 최대 체력 2% 고정 피해 추가.",
         "skill": "땅을 갈라 <#ffb900ff>0.6초<> 뒤 가시가 솟아 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 마법 피해, <#ef5350ff>0.75초 에어본<>, <#ef5350ff>60% 둔화<>.",
         "skill2": "전방 원뿔에 울부짖어 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해와 <#ef5350ff>1.8초 침묵<>.",
-        "ult": "부상당한 적 챔피언을 삼켜 <#ff9028ff>300<> + 5% (자신의 최대 체력) 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 몸집 증가(최대 2배, 사망 시 초기화)."
+        "ult": "부상당한 적 챔피언을 삼켜 <#ff9028ff>300<> + 5% (자신의 최대 체력) 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 이동 속도 -3%, 몸집 증가(제한 없음, 사망 시 초기화)."
       },
       "league_karthus": {
         "name": "카서스",
@@ -7390,10 +7390,10 @@
       },
       "league_aurelionsol": {
         "name": "아우렐리온 솔",
-        "attack": "별을 던진다. <#ff9028ff>우주의 창조자<>: 스킬이 챔피언을 맞히면 별무리 획득(중첩당 주문력 +3%, 최대 15), 6개마다 다음 궁극기가 천상 강림이 됨. <#ff9028ff>별의 비행<>: 처치 관여 후 <#ffb900ff>4초<> 동안 비행, 이동 속도 +60%, 주문력 +20%.",
+        "attack": "별을 던진다. <#ff9028ff>우주의 창조자<>: 스킬이 챔피언을 맞히면 별무리 획득(최대 30, 15개까지 중첩당 주문력 +3%), 6개마다 다음 궁극기가 천상 강림이 됨. <#ff9028ff>별의 비행<>: 처치 관여 후 <#ffb900ff>4초<> 동안 비행, 이동 속도 +60%, 주문력 +20%.",
         "skill": "<#ffb900ff>1.5초<> 동안 숨결을 정신 집중: <#ffb900ff>0.17초<>마다 일직선의 적에게 <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> 마법 피해, 한 대상에 <#ffb900ff>1초<> 이상 시 매번 30 추가; 군중 제어에 끊김. 비행 중 재사용 대기시간 없음.",
         "skill2": "대상 위치에 <#ffb900ff>5초<> 동안 블랙홀 소환: <#ffb900ff>0.25초<>마다 <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> 마법 피해, 적을 중심으로 끌어당기고 25% <#ef5350ff>둔화<>; 중심은 매초 챔피언 최대 체력의 4% 고정 피해.",
-        "ult": "<#ff9028ff>유성<>: 대상 위치에 별이 떨어져 <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> 마법 피해와 <#ffb900ff>1초<> <#ef5350ff>기절<>. <#ff9028ff>천상 강림<>: 더 넓게 <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>와 <#ffb900ff>0.83초<> <#ef5350ff>에어본<>, 이어서 가장자리 충격파 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>와 50% <#ef5350ff>둔화<>."
+        "ult": "<#ff9028ff>유성<>: 대상 위치에 별이 떨어져 <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> 마법 피해와 <#ffb900ff>1초<> <#ef5350ff>기절<>. <#ff9028ff>천상 강림<>: 더 넓게 <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>와 <#ffb900ff>0.83초<> <#ef5350ff>에어본<>, 이어서 가장자리 충격파 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>와 50% <#ef5350ff>둔화<>. 별무리 5개마다 유성·천상 강림·특이점 범위 증가(최대 2배)."
       },
       "league_sejuani": {
         "name": "세주아니",
@@ -9279,7 +9279,7 @@
         "attack": "<#ff9028ff>暴食<>：通常攻撃でユニットを倒すと<#66bb6aff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>回復。<#ff9028ff>ヴォーパルスパイク<>：<#ffb900ff>6秒<>ごとに次の3回の攻撃が棘を直線に放ち<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>20%<>の魔法ダメージと<#ef5350ff>35%スロウ<>、チャンピオンは最大体力の2%確定ダメージ追加。",
         "skill": "地面を割り<#ffb900ff>0.6秒<>後に棘が突き出て<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の魔法ダメージ、<#ef5350ff>0.75秒打ち上げ<>と<#ef5350ff>60%スロウ<>。",
         "skill2": "前方の扇状範囲に叫び<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと<#ef5350ff>1.8秒サイレンス<>。",
-        "ult": "傷ついた敵チャンピオンを捕食し<#ff9028ff>300<> + 5%（自身の最大体力）の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、体が大きくなる（最大2倍、死亡で消える）。"
+        "ult": "傷ついた敵チャンピオンを捕食し<#ff9028ff>300<> + 5%（自身の最大体力）の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、移動速度-3%、体が大きくなる（上限なし、死亡で消える）。"
       },
       "league_karthus": {
         "name": "カーサス",
@@ -9472,10 +9472,10 @@
       },
       "league_aurelionsol": {
         "name": "オレリオン・ソル",
-        "attack": "星を投げる。<#ff9028ff>宇宙の創造者<>：スキルがチャンピオンに当たると星屑獲得（1スタックにつき魔力+3%、最大15）、6個ごとに次のアルティメットが崩れ落つ天穹に。<#ff9028ff>天空への飛翔<>：キル関与後<#ffb900ff>4秒<>飛行、移動速度+60%、魔力+20%。",
+        "attack": "星を投げる。<#ff9028ff>宇宙の創造者<>：スキルがチャンピオンに当たると星屑獲得（最大30、15個まで1つにつき魔力+3%）、6個ごとに次のアルティメットが崩れ落つ天穹に。<#ff9028ff>天空への飛翔<>：キル関与後<#ffb900ff>4秒<>飛行、移動速度+60%、魔力+20%。",
         "skill": "<#ffb900ff>1.5秒<>息吹を詠唱：<#ffb900ff>0.17秒<>ごとに直線上の敵に<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>の魔法ダメージ、同じ対象に<#ffb900ff>1秒<>以上で毎回+30；行動妨害で中断。飛行中はクールダウンなし。",
         "skill2": "対象の位置に<#ffb900ff>5秒<>ブラックホールを召喚：<#ffb900ff>0.25秒<>ごとに<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>の魔法ダメージ、敵を中心へ引き寄せ25%<#ef5350ff>スロウ<>；中心は毎秒チャンピオンの最大体力4%の確定ダメージ。",
-        "ult": "<#ff9028ff>星の邂逅<>：対象の位置に星が落ち<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>スタン<>。<#ff9028ff>崩れ落つ天穹<>：範囲が広く<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>と<#ffb900ff>0.83秒<><#ef5350ff>ノックアップ<>、続いて外縁の衝撃波<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>と50%<#ef5350ff>スロウ<>。"
+        "ult": "<#ff9028ff>星の邂逅<>：対象の位置に星が落ち<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>スタン<>。<#ff9028ff>崩れ落つ天穹<>：範囲が広く<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>と<#ffb900ff>0.83秒<><#ef5350ff>ノックアップ<>、続いて外縁の衝撃波<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>と50%<#ef5350ff>スロウ<>。星屑5個ごとにウルトと特異点の範囲拡大（最大2倍）。"
       },
       "league_sejuani": {
         "name": "セジュアニ",

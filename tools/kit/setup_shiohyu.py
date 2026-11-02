@@ -46,7 +46,8 @@ T = "<#f5f5f5ff>"      # true damage (setup_aoshin's)
 # (53, 38) of 74 x 103 at PPU 2.46, his standing column 46: 3 ahead, 26 over the ground; ppu_restyle's face_to); the
 # centre in his chest; the ban/pick card by bp_card_audit.py's rule (-39 less the idle's top -30.5 over its frame centre:
 # the wing tips 1 game px under the card's top)
-VIEW = {"face": {"x": 3, "y": -26}, "center": {"x": -1, "y": -18}, "banpick_center": {"x": -1, "y": -8}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 3, "y": -26}, "center": {"x": -1, "y": -11}, "banpick_center": {"x": -1, "y": -8}}
 
 
 def ad(d, r):

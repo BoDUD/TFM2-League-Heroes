@@ -49,7 +49,8 @@ AD = ADi + O + "100%" + E
 # ppu_restyle's face_to); the centre in its body (the middle column, half its 40 px); the ban/pick card by
 # bp_card_audit.py's rule (-39 less the highest idle frame's top over its centre, -28.7: its shoulder boulders 1 game px
 # under the card's top)
-VIEW = {"face": {"x": 7, "y": -27}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -10}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 7, "y": -27}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def magic(d, r, h):

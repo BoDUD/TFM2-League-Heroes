@@ -42,7 +42,8 @@ M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from his soles' point, up negative): the face point between his eyes (the design's eye row 12
 # of 80 at PPU 2.0: 34 over the ground; the stance leans his head 8 ahead of his standing column); the centre in his
 # body; the ban/pick card by bp_card_audit.py's rule (checked there after the sheet is built)
-VIEW = {"face": {"x": 8, "y": -34}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -6}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 8, "y": -34}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -6}}
 
 
 def phys(d, r):

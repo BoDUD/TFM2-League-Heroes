@@ -1,0 +1,394 @@
+{
+  "status": "all_18_sources_delivered_with_engineering_deviations",
+  "tool": "built-in image_gen",
+  "requested_count": 18,
+  "generated_count": 18,
+  "missing_files": [],
+  "assets": [
+    {
+      "file": "elderdragon-pose-a_back.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        82,
+        121,
+        1227,
+        1219
+      ],
+      "alpha_levels": 256,
+      "sha256": "e7df4a0dd4ebcfe5c3f7fc9389f717b81aac3670add3fe6bde5547a2c958fe43"
+    },
+    {
+      "file": "elderdragon-pose-a_bite.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        18,
+        476,
+        1205,
+        1201
+      ],
+      "alpha_levels": 256,
+      "sha256": "1d459bd00d43edfe9bf6760b6a84965fb5877a79b81e9c4b4cf46f6eb6e4bee4"
+    },
+    {
+      "file": "elderdragon-pose-q_rear.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        84,
+        113,
+        1246,
+        1235
+      ],
+      "alpha_levels": 256,
+      "sha256": "c06ddebcd9aa5a550f5a22e74d97a3f7999d9373794e4d155d5f3b0d3d867555"
+    },
+    {
+      "file": "elderdragon-pose-q_breath.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        8,
+        484,
+        1249,
+        1199
+      ],
+      "alpha_levels": 256,
+      "sha256": "f4d75f271dedcbd61fb62f1f356dbcaf174500097ba5414a47df1fc6697fcc53"
+    },
+    {
+      "file": "elderdragon-pose-e_rear.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        96,
+        21,
+        1246,
+        1212
+      ],
+      "alpha_levels": 256,
+      "sha256": "3f692e97a329d99171f7abdab4fae386e9ef347e8aaef41cbeddd3d845ce9c52"
+    },
+    {
+      "file": "elderdragon-pose-e_slam.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        81,
+        618,
+        1233,
+        1183
+      ],
+      "alpha_levels": 256,
+      "sha256": "d067ad1f0279d5adc75cdd2e687905fbd0c20f6241206a759009d41fac857c97"
+    },
+    {
+      "file": "elderdragon-pose-r_jump.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        40,
+        105,
+        1223,
+        1141
+      ],
+      "alpha_levels": 256,
+      "sha256": "7b26c0fad66953b361dab831a44ccd232064074178fbe8b3d9a76a8d22813f99"
+    },
+    {
+      "file": "elderdragon-pose-r_land.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        45,
+        558,
+        1229,
+        1210
+      ],
+      "alpha_levels": 256,
+      "sha256": "57e8bbcd6ebd561d42331ea681eabf1fec57c0bb6cc74cc43ae81aa2a519844d"
+    },
+    {
+      "file": "elderdragon-pose-run1.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        26,
+        131,
+        1243,
+        1203
+      ],
+      "alpha_levels": 256,
+      "sha256": "a203646a2dc8875263d2723cde70bac092f61c43363f8e3c1521888e02235f8b"
+    },
+    {
+      "file": "elderdragon-pose-run2.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        6,
+        299,
+        1238,
+        1153
+      ],
+      "alpha_levels": 256,
+      "sha256": "09b5cf9ca377626e5a87a899f534e18f6887cbe35150b3f93bdda6ca450204f0"
+    },
+    {
+      "file": "elderdragon-pose-run3.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        14,
+        267,
+        1240,
+        1066
+      ],
+      "alpha_levels": 256,
+      "sha256": "fd811276e392e56066741598156bde71002f0b3c8c0d95aec5b61e95df5a51cb"
+    },
+    {
+      "file": "elderdragon-pose-run4.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        46,
+        156,
+        1210,
+        1189
+      ],
+      "alpha_levels": 256,
+      "sha256": "045e1dadfca7568323fcc4e62e711635af52c5aa5b058dfb85e485a9c5d9db26"
+    },
+    {
+      "file": "elderdragon-pose-run5.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        24,
+        164,
+        1215,
+        1205
+      ],
+      "alpha_levels": 256,
+      "sha256": "9a01288c35d425522c0dcb9aa08057e821e46dea71f185a8ac2f2b77c2b4ed56"
+    },
+    {
+      "file": "elderdragon-pose-run6.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        11,
+        290,
+        1248,
+        1158
+      ],
+      "alpha_levels": 256,
+      "sha256": "5baf758008c8f8c8991ec494b79c0187f635f843515e17c4562afe75fb9ebf0b"
+    },
+    {
+      "file": "elderdragon-pose-run7.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        84,
+        94,
+        1243,
+        1196
+      ],
+      "alpha_levels": 256,
+      "sha256": "38b649b8138fbcb3599b9b891b2e4be129fef4dccab46496037c3a36df9c3b6f"
+    },
+    {
+      "file": "elderdragon-pose-run8.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        60,
+        168,
+        1217,
+        1157
+      ],
+      "alpha_levels": 256,
+      "sha256": "ff30f08eb0b4898deb62c53acad85e0c6774dd1618ff19f4487d324aa8a0698d"
+    },
+    {
+      "file": "elderdragon-pose-d_fall.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        13,
+        428,
+        1243,
+        1179
+      ],
+      "alpha_levels": 256,
+      "sha256": "b48e185b6e0fdbb68b82eadee4779f6324e7ad162dcbb9eb1b28af51af13afd2"
+    },
+    {
+      "file": "elderdragon-pose-d_down.png",
+      "raw_untouched": true,
+      "size": [
+        1254,
+        1254
+      ],
+      "target_size": [
+        1254,
+        1254
+      ],
+      "size_pass": true,
+      "body_bbox": [
+        79,
+        514,
+        1242,
+        1139
+      ],
+      "alpha_levels": 256,
+      "sha256": "15baae986844147c1aadb01874956f275dfb27f6d61fad54d11b1e6e576206e3"
+    }
+  ],
+  "limitations": [
+    "alpha has intermediate values",
+    "strict 6px grid not proven",
+    "head and body scale require import alignment",
+    "baseline differs between generated poses",
+    "flight review is a visual preview, not runtime acceptance"
+  ]
+}

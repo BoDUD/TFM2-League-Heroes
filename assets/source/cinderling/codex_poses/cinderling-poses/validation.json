@@ -1,0 +1,280 @@
+{
+  "expected": 13,
+  "delivered": 13,
+  "note": "Read-only inspection. All files remain original image_gen outputs, without resizing, resampling, recoloring, alpha thresholding, or guide-line cleanup. Bounding boxes use alpha>=128 for measurement only. Exact 8px lattice and mask pixel identity are not certified.",
+  "poses": [
+    {
+      "pose": "a_fling",
+      "file": "cinderling-pose-a_fling.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        209,
+        228,
+        1169,
+        1072
+      ],
+      "opaque_threshold_bottom": 1071,
+      "sha256": "ee3fd8dbe5ea19daebcbde448175219a406319f34c6602f4093ca6d9d260c204",
+      "raw_identical": true
+    },
+    {
+      "pose": "q_bristle",
+      "file": "cinderling-pose-q_bristle.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        98,
+        326,
+        1196,
+        1166
+      ],
+      "opaque_threshold_bottom": 1165,
+      "sha256": "13cf4e174197602682271037a2e6470dcabdaaa5683572e9abc05e3bca3df53a",
+      "raw_identical": true
+    },
+    {
+      "pose": "q_throw",
+      "file": "cinderling-pose-q_throw.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        82,
+        323,
+        1233,
+        1125
+      ],
+      "opaque_threshold_bottom": 1124,
+      "sha256": "51225855abb8640293e0471014d0a02d20b676bd3350ae4c1cca755c86457882",
+      "raw_identical": true
+    },
+    {
+      "pose": "e_dig",
+      "file": "cinderling-pose-e_dig.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        233,
+        731,
+        1039,
+        1192
+      ],
+      "opaque_threshold_bottom": 1191,
+      "sha256": "9c91f806ae1cd6a628b7c27ba333f9f16c4bfea15821794ea81c13ea829a75de",
+      "raw_identical": true
+    },
+    {
+      "pose": "e_pop",
+      "file": "cinderling-pose-e_pop.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        158,
+        78,
+        1138,
+        1196
+      ],
+      "opaque_threshold_bottom": 1195,
+      "sha256": "ff537fa3c5c7d236de9f27a343040e40c84c46318bf7b9aa791b5f5268ad51ec",
+      "raw_identical": true
+    },
+    {
+      "pose": "r_rear",
+      "file": "cinderling-pose-r_rear.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        177,
+        59,
+        1157,
+        1215
+      ],
+      "opaque_threshold_bottom": 1214,
+      "sha256": "f360d2e7d32cb295cf1f576bd611b112b572a4a24da3f4b7e842968e636ad952",
+      "raw_identical": true
+    },
+    {
+      "pose": "r_roar",
+      "file": "cinderling-pose-r_roar.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        274,
+        137,
+        981,
+        1191
+      ],
+      "opaque_threshold_bottom": 1190,
+      "sha256": "638f60003fbe008e328216bf8d0b5470e8d4e532016fc0dc9366140943ca3de8",
+      "raw_identical": true
+    },
+    {
+      "pose": "run1",
+      "file": "cinderling-pose-run1.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        100,
+        521,
+        1203,
+        1191
+      ],
+      "opaque_threshold_bottom": 1190,
+      "sha256": "8ba6aab469bee8e77c533a583e5c94cd0fd1c55ae9812a169739ecc9beac63f2",
+      "raw_identical": true
+    },
+    {
+      "pose": "run2",
+      "file": "cinderling-pose-run2.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        141,
+        282,
+        1216,
+        1052
+      ],
+      "opaque_threshold_bottom": 1051,
+      "sha256": "0b7d1ca07442b6a9e9db10967391f71625f10ca6b84aca5cc28cf864adeed645",
+      "raw_identical": true
+    },
+    {
+      "pose": "run3",
+      "file": "cinderling-pose-run3.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        91,
+        215,
+        1212,
+        1060
+      ],
+      "opaque_threshold_bottom": 1059,
+      "sha256": "1e192beea679d1636089d8bfe153588fb8c8f5312703de69ed7da055aa8988a4",
+      "raw_identical": true
+    },
+    {
+      "pose": "run4",
+      "file": "cinderling-pose-run4.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        190,
+        528,
+        1148,
+        1175
+      ],
+      "opaque_threshold_bottom": 1174,
+      "sha256": "fbb9f4a8499b0e8d33fd111c2eb7f3619287d3cced90b555684e126d490d93bd",
+      "raw_identical": true
+    },
+    {
+      "pose": "d_flip",
+      "file": "cinderling-pose-d_flip.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        168,
+        196,
+        1155,
+        1108
+      ],
+      "opaque_threshold_bottom": 1107,
+      "sha256": "bc35f88e11ee357495b18f24cb6d78987a7358940d3f9da85af8902ad673ef40",
+      "raw_identical": true
+    },
+    {
+      "pose": "d_down",
+      "file": "cinderling-pose-d_down.png",
+      "canvas": [
+        1254,
+        1254
+      ],
+      "canvas_1254_pass": true,
+      "transparent_background_present": true,
+      "hard_alpha": false,
+      "alpha_levels": 256,
+      "bbox_alpha128": [
+        242,
+        591,
+        1070,
+        1169
+      ],
+      "opaque_threshold_bottom": 1168,
+      "sha256": "1c17facd0a2d1bf1a5ba040943a8ac501cb36e4e5f2c8e88e9915f421ea12dbf",
+      "raw_identical": true
+    }
+  ]
+}

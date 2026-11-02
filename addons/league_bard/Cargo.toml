@@ -1,6 +1,6 @@
 [package]
 name = "league_bard"
-version = "0.1.0"
+version = "0.6.3"
 edition = "2021"
 publish = false
 

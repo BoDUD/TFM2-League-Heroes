@@ -3,7 +3,7 @@
 
     python tools/art/preview_missfortune.py [--out docs/preview]
 
-  league_missfortune_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_missfortune_frames.png    every animation's dense frames (hd_, PPU 2.76, as league.dll shows them)
   league_missfortune_effects.png   every effect animation, 3x
   league_missfortune_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: she runs in and
                                    her first shot is Love Tap (the heart), the next a plain one; Double Up goes
@@ -22,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_jinx import Follow, Walker  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -44,7 +45,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(mf, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(mf, tag, "missfortune", z), t, x, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
 
@@ -82,7 +83,7 @@ def showcase(out, z=3, step=40):
         g.flinches.append(hit2 + tick(4))
 
     # she runs in while Garen walks up behind Darius, 47 px back: inside the bounce's reach
-    body.append(Anim(frames_of(mf, "run"), 0.0, x - 36, gy, loop=True, until=1200, x1=x))
+    body.append(Anim(dense(mf, "run", "missfortune", z), 0.0, x - 36, gy, loop=True, until=1200, x1=x))
     t = 1200.0
     g.walks.append((0.0, 2000, 146 - g.x))
     a("idle", 300, loop=True)
@@ -130,12 +131,12 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     order = sorted((d, g), key=lambda f: f.y)         # the one further back first
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -151,7 +152,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -169,8 +170,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                            os.path.join(args.out, "league_missfortune_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_missfortune_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

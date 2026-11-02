@@ -55,7 +55,7 @@
 
 ### 塔姆附加包
 
-[塔姆附加包](../../addons/league_tahmkench/README.md)：`league_tahmkench` v0.1.4
+[塔姆附加包](../../addons/league_tahmkench/README.md)：`league_tahmkench` v0.1.5
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

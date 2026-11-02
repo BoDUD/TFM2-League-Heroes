@@ -44,7 +44,8 @@ AD = ADi + O + "100%" + E
 # champion_view (game px from her feet's point, up negative): the face point between her eyes (the design's eye row 29
 # of 94 at PPU 2.6: 25 over the ground; 15 ahead of her standing column, ppu_restyle's face_to); the centre in her belly;
 # the ban/pick card by bp_card_audit.py's rule (-39 less the idle's top -25.3: her head 1 game px under the card's top)
-VIEW = {"face": {"x": 15, "y": -25}, "center": {"x": 2, "y": -14}, "banpick_center": {"x": 2, "y": -14}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 15, "y": -25}, "center": {"x": 2, "y": -10}, "banpick_center": {"x": 2, "y": -14}}
 
 
 def mag(d, r):

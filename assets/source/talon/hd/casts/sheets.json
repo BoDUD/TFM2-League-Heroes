@@ -1,0 +1,617 @@
+{
+ "square": 8,
+ "square_of": {
+  "skill2": 7,
+  "ult": 7,
+  "skill_e": 6
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (his move loop): a low, fast assassin's run, leaning far forward, the cloak streaming behind, the near arm and its blade held low ahead, the LEGS STEPPING IN TURN",
+   "ms": [
+    121
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails.",
+   "legs": "Frame 1: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (his move loop): a low, fast assassin's run, leaning far forward, the cloak streaming behind, the near arm and its blade held low ahead, the LEGS STEPPING IN TURN",
+   "ms": [
+    121
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails.",
+   "legs": "Frame 2: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): a low, fast assassin's run, leaning far forward, the cloak streaming behind, the near arm and its blade held low ahead, the LEGS STEPPING IN TURN",
+   "ms": [
+    121,
+    121
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails.",
+   "legs": "Frame 3: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. Frame 4: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): a low, fast assassin's run, leaning far forward, the cloak streaming behind, the near arm and its blade held low ahead, the LEGS STEPPING IN TURN",
+   "ms": [
+    121,
+    121
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails.",
+   "legs": "Frame 5: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. Frame 6: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (his move loop): a low, fast assassin's run, leaning far forward, the cloak streaming behind, the near arm and its blade held low ahead, the LEGS STEPPING IN TURN",
+   "ms": [
+    121
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails.",
+   "legs": "Frame 7: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "running (his move loop): a low, fast assassin's run, leaning far forward, the cloak streaming behind, the near arm and its blade held low ahead, the LEGS STEPPING IN TURN",
+   "ms": [
+    121
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails.",
+   "legs": "Frame 8: the legs exactly as the pale figure: one foot planted, the other lifted or swinging. The two legs TAKE TURNS frame by frame as the pale figures show - never the same leg pose in every frame, never both legs stretched apart in every frame; the body bobs with the steps."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack: he draws the near arm back, then STABS the wrist blade straight forward (frame 3, the blade reaching far ahead to the right), and pulls it back to his crouch",
+   "ms": [
+    60,
+    50
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: he draws the near arm back, then STABS the wrist blade straight forward (frame 3, the blade reaching far ahead to the right), and pulls it back to his crouch",
+   "ms": [
+    80
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack: he draws the near arm back, then STABS the wrist blade straight forward (frame 3, the blade reaching far ahead to the right), and pulls it back to his crouch",
+   "ms": [
+    80,
+    110
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Rake (W): he winds up, then FLINGS his near arm forward and out (frame 3), throwing his blades (the thrown blades are effects - not drawn), the cloak swirling, and recovers",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Rake (W): he winds up, then FLINGS his near arm forward and out (frame 3), throwing his blades (the thrown blades are effects - not drawn), the cloak swirling, and recovers",
+   "ms": [
+    80
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Rake (W): he winds up, then FLINGS his near arm forward and out (frame 3), throwing his blades (the thrown blades are effects - not drawn), the cloak swirling, and recovers",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Rake (W): he winds up, then FLINGS his near arm forward and out (frame 3), throwing his blades (the thrown blades are effects - not drawn), the cloak swirling, and recovers",
+   "ms": [
+    90
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Noxian Diplomacy's leap (Q): he springs UP (frames 1-2), FLIPS head over heels through the air (frames 4-5: upside down, the cloak and its blades flung up), and lands in a deep lunge (frame 6) and rises",
+   "ms": [
+    60,
+    50
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 4-5 he is UPSIDE DOWN mid-flip, the hood at the bottom, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Noxian Diplomacy's leap (Q): he springs UP (frames 1-2), FLIPS head over heels through the air (frames 4-5: upside down, the cloak and its blades flung up), and lands in a deep lunge (frame 6) and rises",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 4-5 he is UPSIDE DOWN mid-flip, the hood at the bottom, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Noxian Diplomacy's leap (Q): he springs UP (frames 1-2), FLIPS head over heels through the air (frames 4-5: upside down, the cloak and its blades flung up), and lands in a deep lunge (frame 6) and rises",
+   "ms": [
+    70
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 4-5 he is UPSIDE DOWN mid-flip, the hood at the bottom, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Noxian Diplomacy's leap (Q): he springs UP (frames 1-2), FLIPS head over heels through the air (frames 4-5: upside down, the cloak and its blades flung up), and lands in a deep lunge (frame 6) and rises",
+   "ms": [
+    80
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 4-5 he is UPSIDE DOWN mid-flip, the hood at the bottom, as the pale figure."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Noxian Diplomacy's leap (Q): he springs UP (frames 1-2), FLIPS head over heels through the air (frames 4-5: upside down, the cloak and its blades flung up), and lands in a deep lunge (frame 6) and rises",
+   "ms": [
+    90
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 4-5 he is UPSIDE DOWN mid-flip, the hood at the bottom, as the pale figure."
+  },
+  {
+   "tag": "skill2_stab",
+   "name": "skill2_stab_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Noxian Diplomacy's stab (Q, close): he coils, then SLASHES and THRUSTS the blade far forward (frames 2-3, stretched out), spins back round (frames 4-5) and settles",
+   "ms": [
+    50
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill2_stab",
+   "name": "skill2_stab_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Noxian Diplomacy's stab (Q, close): he coils, then SLASHES and THRUSTS the blade far forward (frames 2-3, stretched out), spins back round (frames 4-5) and settles",
+   "ms": [
+    50
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill2_stab",
+   "name": "skill2_stab_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Noxian Diplomacy's stab (Q, close): he coils, then SLASHES and THRUSTS the blade far forward (frames 2-3, stretched out), spins back round (frames 4-5) and settles",
+   "ms": [
+    70
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill2_stab",
+   "name": "skill2_stab_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Noxian Diplomacy's stab (Q, close): he coils, then SLASHES and THRUSTS the blade far forward (frames 2-3, stretched out), spins back round (frames 4-5) and settles",
+   "ms": [
+    70
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill2_stab",
+   "name": "skill2_stab_5",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Noxian Diplomacy's stab (Q, close): he coils, then SLASHES and THRUSTS the blade far forward (frames 2-3, stretched out), spins back round (frames 4-5) and settles",
+   "ms": [
+    70,
+    90
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "skill_e",
+   "name": "skill_e_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Assassin's Way (E): he crouches and VAULTS - a tight SOMERSAULT through the air (frames 2-4: tucked, upside down, turning), lands (frame 5) and runs on (frames 6-7)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 2-4 he is tucked and turning in a somersault, as the pale figure."
+  },
+  {
+   "tag": "skill_e",
+   "name": "skill_e_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Assassin's Way (E): he crouches and VAULTS - a tight SOMERSAULT through the air (frames 2-4: tucked, upside down, turning), lands (frame 5) and runs on (frames 6-7)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 2-4 he is tucked and turning in a somersault, as the pale figure."
+  },
+  {
+   "tag": "skill_e",
+   "name": "skill_e_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Assassin's Way (E): he crouches and VAULTS - a tight SOMERSAULT through the air (frames 2-4: tucked, upside down, turning), lands (frame 5) and runs on (frames 6-7)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 2-4 he is tucked and turning in a somersault, as the pale figure."
+  },
+  {
+   "tag": "skill_e",
+   "name": "skill_e_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Assassin's Way (E): he crouches and VAULTS - a tight SOMERSAULT through the air (frames 2-4: tucked, upside down, turning), lands (frame 5) and runs on (frames 6-7)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails. In frames 2-4 he is tucked and turning in a somersault, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Shadow Assault (R): he crouches, then SPINS round, flinging both arms out with blades (frames 2-7: the body turning, the cloak and blades whirling out), and comes back to his crouch",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Shadow Assault (R): he crouches, then SPINS round, flinging both arms out with blades (frames 2-7: the body turning, the cloak and blades whirling out), and comes back to his crouch",
+   "ms": [
+    60
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Shadow Assault (R): he crouches, then SPINS round, flinging both arms out with blades (frames 2-7: the body turning, the cloak and blades whirling out), and comes back to his crouch",
+   "ms": [
+    60
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Shadow Assault (R): he crouches, then SPINS round, flinging both arms out with blades (frames 2-7: the body turning, the cloak and blades whirling out), and comes back to his crouch",
+   "ms": [
+    60
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Shadow Assault (R): he crouches, then SPINS round, flinging both arms out with blades (frames 2-7: the body turning, the cloak and blades whirling out), and comes back to his crouch",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Shadow Assault (R): he crouches, then SPINS round, flinging both arms out with blades (frames 2-7: the body turning, the cloak and blades whirling out), and comes back to his crouch",
+   "ms": [
+    90
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "struck: jolted back, the head knocked back",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, he staggers back, rises on his toes, twists, falls and ends lying flat on the ground on his front, the cloak and its long spear tip laid out behind him",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, he staggers back, rises on his toes, twists, falls and ends lying flat on the ground on his front, the cloak and its long spear tip laid out behind him",
+   "ms": [
+    100,
+    120
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers back, rises on his toes, twists, falls and ends lying flat on the ground on his front, the cloak and its long spear tip laid out behind him",
+   "ms": [
+    120
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers back, rises on his toes, twists, falls and ends lying flat on the ground on his front, the cloak and its long spear tip laid out behind him",
+   "ms": [
+    150
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers back, rises on his toes, twists, falls and ends lying flat on the ground on his front, the cloak and its long spear tip laid out behind him",
+   "ms": [
+    200
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers back, rises on his toes, twists, falls and ends lying flat on the ground on his front, the cloak and its long spear tip laid out behind him",
+   "ms": [
+    500
+   ],
+   "weapons": "THE WRIST BLADE AND THE CLOAK go where the pale figure has them, frame by frame (image 3 shows them in colour): where the pale figure shows a long grey blade from his NEAR FIST, draw it there - one long, straight, single-edged SILVER BLADE held in the near hand, as long as his forearm, in the steel colours of the design; where it shows none, draw the bare blue-violet fist as the design. The rust-red CLOAK with its silver BLADE TIPS and the LONG SPEAR TIP at its lower end streams, swirls and lies as the pale figure's does. Only these: no thrown blades in the air, no blade trails."
+  }
+ ]
+}

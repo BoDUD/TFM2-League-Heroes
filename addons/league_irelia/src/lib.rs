@@ -20,7 +20,10 @@
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去；AI 钩子读被动配置时存下的同一份）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_irelia.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//! 每种行（`SPAWN`、`RESET`、`Q HIT`、`HOP`、`Q AT THE MARK`）整个游戏一个计数：你看的那场每条都记，服务器的预模拟先记
+//! `LOG_FIRST` 条、之后每 `LOG_EVERY` 条记一条（0.1.3：以前每个艾瑞莉娅自己数，每份预模拟又从 #1 记起，一次启动记了 11 403 行）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -29,8 +32,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_irelia";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.2";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_irelia") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 主包艾瑞莉娅的名字（buff、音效都以它开头）。
 fn ir(x: &str) -> String {
@@ -92,6 +99,33 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     };
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
+}
+
+/// 日志条数：每种整个游戏先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条（你看的那场每条都写）。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Like `noted`, but every line of the match on screen: only the presims capped.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 // ===================== 参数 =====================
@@ -205,16 +239,12 @@ struct Dash {
     reset: bool,
 }
 
-/// 每个艾瑞莉娅一份。
+/// 每个艾瑞莉娅一份。日志的计数不在这里（每份预模拟从 #1 数起就限不住条数），在 `noted`。
 #[derive(Clone, Default)]
 struct Surge {
     p: Params,
     dash: Option<Dash>,
     was_dashing: bool,
-    dashes: usize,
-    marks: usize,
-    kills: usize,
-    hits: usize,
 }
 
 impl Surge {
@@ -225,14 +255,7 @@ impl Surge {
         }
         d.reset = true;
         timed(sim, me, &ir("q_again"), self.p.poll);
-        let n = if why == "mark" {
-            self.marks += 1;
-            self.marks
-        } else {
-            self.kills += 1;
-            self.kills
-        };
-        if n <= 40 || n % 25 == 0 {
+        if let Some(n) = tally(sim, if why == "mark" { "reset mark" } else { "reset kill" }) {
             wlog(format!("{} RESET #{n} ({why}): Q on {} -> one more dash", head(sim, me), who(sim, target)));
         }
     }
@@ -251,8 +274,11 @@ impl StablePassive for Surge {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.dash = None;
         self.was_dashing = false;
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Irelia (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        // every respawn comes here: the launch's count like the other lines
+        if tally(sim, "spawn").is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Irelia (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -260,7 +286,6 @@ impl StablePassive for Surge {
         let now = has_buff(sim, me, &ir("q_dash"));
         if now && !self.was_dashing {
             self.dash = Some(Dash { start: tick, target: None, reset: false });
-            self.dashes += 1;
         }
         self.was_dashing = now;
         // 小兵、野怪死了游戏不调 on_kill（只有英雄）：冲刺里打中的目标在窗口内没了或没血 = 这一下打死了
@@ -283,9 +308,8 @@ impl StablePassive for Surge {
         }
         self.dash.as_mut().unwrap().target = Some(target);
         if !sim.get_entity(target).is_some_and(|e| e.is_champion()) {
-            self.hits += 1;
-            if self.hits <= 40 || self.hits % 25 == 0 {
-                wlog(format!("{} Q HIT #{} {} ({} hp left)", head(sim, me), self.hits, who(sim, target),
+            if let Some(n) = tally(sim, "q hit") {
+                wlog(format!("{} Q HIT #{n} {} ({} hp left)", head(sim, me), who(sim, target),
                              sim.get_entity(target).map_or(0, |e| e.hp().0)));
             }
         }
@@ -333,8 +357,6 @@ pub fn walking_away(base: Option<InputV1>, me: (f64, f64), to: (f64, f64)) -> bo
 
 #[derive(Clone, Default)]
 struct Hop {
-    hops: usize,
-    marked: usize,
     /// 上一次改写的 (她, 目标)：施放开始前每 tick 都会再问一次，同一个目标只算一次
     last: Option<(usize, usize)>,
     /// AI 在回城（`still_recalling`）：不跳兵线
@@ -391,8 +413,9 @@ impl StablePlayerAi for Hop {
         let p = SHARED.lock().unwrap_or_else(|e| e.into_inner()).clone();
         let me_id = ctx.player_id();
         self.recalling = still_recalling(self.recalling, base);
-        let (choice, line) = {
+        let (choice, line, shown) = {
             let sim = ctx.sim()?;
+            let shown = on_screen(&sim);
             let player = sim.get_player(me_id)?;
             if player.cooldowns()?.1 > 0 {
                 self.last = None;               // Q 放出去了：下一次同一个目标再记一行
@@ -418,7 +441,8 @@ impl StablePlayerAi for Hop {
                     dist(me, a.at).total_cmp(&dist(me, b.at))
                 }) {
                     if base.is_some_and(|b| b.target.target_id != m.id) {
-                        (Some((m.id, false)), format!("{} Q AT THE MARK: {} instead", head(&sim, her_id), who(&sim, m.id)))
+                        (Some((m.id, false)), format!("{} Q AT THE MARK: {} instead", head(&sim, her_id), who(&sim, m.id)),
+                         shown)
                     } else {
                         return None;
                     }
@@ -454,6 +478,7 @@ impl StablePlayerAi for Hop {
                         who(&sim, c.id),
                         dist(me, c.at)
                     ),
+                    shown,
                 )
             }
         };
@@ -466,14 +491,7 @@ impl StablePlayerAi for Hop {
             return Some(input);
         }
         self.last = Some((me_id, target));
-        let n = if hop {
-            self.hops += 1;
-            self.hops
-        } else {
-            self.marked += 1;
-            self.marked
-        };
-        if n <= 40 || n % 25 == 0 {
+        if let Some(n) = noted(if hop { "hop" } else { "mark" }, shown) {
             wlog(format!("{line} (#{n})"));
         }
         Some(input)
@@ -547,5 +565,13 @@ mod tests {
         ];
         assert_eq!(pick_hop((0.0, 0.0), 100, &c, &units, &p).map(|u| u.id), Some(1));
         assert_eq!(pick_hop((0.0, 0.0), 10, &c, &units, &p), None, "too weak to kill anything");
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
     }
 }

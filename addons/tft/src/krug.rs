@@ -214,6 +214,8 @@ fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
 
 #[derive(Clone, Default)]
 struct Split {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
     /// The next tick a rebirth may come (kept across lives), and whether this life had its rebirth.
     ready_at: usize,
@@ -292,6 +294,10 @@ impl StablePassive for Split {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
+        // a new life is a new unit, and on_update does not run while it is dead: the first tick of this life
+        // must see a dead one, or what each life has once stays used up (2026-11-02 logs)
+        self.was_alive = false;
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
             wlog(format!("{} SPAWN #{k}: tft.dll's Ancient Krug (player {player}, team {team}), {:?}", head(sim, me),
@@ -333,7 +339,8 @@ impl StablePassive for Split {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         if self.shattered.take().is_some() {
             if let Some(k) = counted("broken") {
                 wlog(format!("{} BROKEN #{k}: killed while in pieces", head(sim, me)));

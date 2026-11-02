@@ -21,8 +21,9 @@ Spikes (League: three empowered attacks on a 8-4 s cooldown) and the passive rid
   ult     R Feast (盛宴), `Targeting` on `EnemyChampionRecentlyAttacked` (r_range: not wasted on a champion at full
           health - league_darius R): he bites on r_rel: r_dmg + r_hp% of his max health true damage, plus r_ap% AP as
           magic through all magic resistance (league_ahri's true AP). A champion the bite kills is eaten: one more
-          stack (a Permanent caster buff `r_stack` with r_stack_hp health, healed at once; no cap, the user's pick),
-          and league.dll draws his body r_grow% bigger per stack (src/view.rs, the display counts `r_stack` on him).
+          stack (a Permanent caster buff `r_stack` with r_stack_hp health, healed at once, and r_stack_ms% slower -
+          the user 2026-10-31: 「大虫子变大后要降移速啊」; no cap, the user's pick), and league.dll draws his body
+          r_grow% bigger per stack (src/view.rs, the display counts `r_stack` on him).
           Permanent buffs end with his death (section 5), so the main pack loses the stacks when he dies.
   combos  Q -> W (-> R), League's Rupture into Feral Scream (the user: 「有连招要做连招」「都要帮我补」): Q's spikes
           throwing up an enemy champion open q_combo (a caster flag, q_combo ticks: the knock-up and a little more);
@@ -91,7 +92,7 @@ P = {
     "q_combo": 60, "w_fast": 2,
     # R Feast
     "r_cd": 3600, "r_range": 30000, "r_dur": 41, "r_rel": 6, "r_dmg": 300, "r_hp": 5, "r_ap": 50,
-    "r_stack_hp": 70, "r_grow": 30,
+    "r_stack_hp": 70, "r_stack_ms": 3, "r_grow": 30,
     # his sounds, at most one every vo_gap ticks
     "vo_gap": 600,
 }
@@ -290,7 +291,7 @@ def build(p):
                             sw("q_combo", combine(*rm("q_combo"), shout(p["w_fast"])), shout(p["w_rel"]))))
 
     # ------------------------------------------------------------------ ult: R Feast
-    grow = combine(flag("r_stack", None, hp=p["r_stack_hp"]),
+    grow = combine(flag("r_stack", None, hp=p["r_stack_hp"], move_speed_mult=-p["r_stack_ms"]),
                    on_me(heal(p["r_stack_hp"]), delayed(p["r_grow_at"], cview("r_grow"))),
                    delayed(p["r_grow_at"], sfx("r_grow")))
     r_set, r_read = kill_check("r", grow)

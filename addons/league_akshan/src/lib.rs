@@ -35,8 +35,13 @@ use mod_api_stable::*;
 pub mod banner;
 
 const ID: &str = "league_akshan";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_akshan") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 const HERO: &str = "league_akshan";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 // ---- 主包数据里的名字（tools/kit/build_akshan.py）
 pub const P_GO: &str = "league_akshan_p_go";
@@ -701,7 +706,10 @@ impl Rogue {
                             sim.play_sfx(SFX_MARK, me, &InputTargetV1::target(e));
                         }
                     }
-                    wlog(format!("{} MARK player {s} killed ally {victim} (victims {:?})", head(sim, me), m.victims));
+                    // the match on screen in full, the presims capped (0.2.4: ~1.9k MARK lines a launch, 2026-11-01)
+                    if on_screen(sim).is_some() || counted("mark").is_some() {
+                        wlog(format!("{} MARK player {s} killed ally {victim} (victims {:?})", head(sim, me), m.victims));
+                    }
                 }
             } else {
                 // an enemy down: my takedown?
@@ -1006,7 +1014,9 @@ impl StablePlayerAi for UltAi {
                 if ctx.is_valid_input(&input) {
                     if self.last_log.is_none_or(|t0| tick >= t0 + 60) {
                         self.last_log = Some(tick);
-                        wlog(format!("{line} R CAST on #{id} ({})", if wants_ult { "the AI's R, retargeted" } else { "pressed" }));
+                        if line.starts_with("[view") || counted("r_cast").is_some() {
+                            wlog(format!("{line} R CAST on #{id} ({})", if wants_ult { "the AI's R, retargeted" } else { "pressed" }));
+                        }
                     }
                     return Some(input);
                 }

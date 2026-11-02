@@ -1,0 +1,19 @@
+Route: native image_gen tool. Original AI outputs preserved in raw/. Export conversion is recorded in HANDOFF.md.
+
+INITIAL A
+
+Use case: stylized-concept. Create raptor-A.png, ONE production pixel-art full-body idle creature sprite on a genuinely transparent 1536 x 1536 square canvas. References 1 and 2 define identity and camera, reference 3 is POSITION AND SIZE ONLY, references 4 and 5 are PIXEL STYLE ONLY, do not copy their characters.
+Creature: the crimson raptor mother from the supplied references. A plump low-crouching wedge-shaped bird, wider than tall, 3/4 facing RIGHT, both orange eyes visible. Head at front right, big brown-grey BONY bird skull face with chunky thick hooked upper beak and broad separate lower jaw, orange in mouth and nostrils, dark sockets with bright orange eyes minimum 2x2 logical pixels each plus yellow-white highlight. Deep indigo-purple spiky mane frames the entire head; ONE red pointed crest above. Crimson/dark red/orange red overlapping large pointed back feathers and short spiky fan tail sweep backward/up on LEFT. Two short brown legs and big hooked dark navy talons, 3 claws each, both feet visible. Wings folded. Match original anatomy, avoid ordinary parrot, rooster, eagle or a dinosaur with teeth.
+EXACT PIXEL STYLE: extremely low resolution, approx 48 logical pixels wide x38 high; EVERY pixel a perfectly aligned 11x11 square, hard alpha, 2 logical pixel near-black outer outline. Simple 3-4 flat colors per material. Large triangular feathers with one highlight and one shade, clean clusters. No gradients, antialiasing, noise, painted shading or fine detail.
+COMPOSITION CRITICAL: character about 528 px wide and 418 px high ONLY, at horizontal center x768 with feet at y1390, highest feather at y972. Huge transparent empty area ABOVE. Match layout reference placement. Whole figure fits with generous margins. No ground, shadow, text, guides, checkerboard drawing, frame, aura, dust, feathers flying or effects. Deliver only this single transparent PNG.
+
+B
+
+Create ONE companion sprite raptor-B, a SIDE PROFILE facing RIGHT of the creature in reference 1 (the finished A model). Preserve its exact identity, bone beak face shape, colors, short legs and hooked claws. Reference 2 is the original creature SIDE VIEW anatomy. Reference 3 is PIXEL STYLE only.
+The same plump low-crouched crimson raptor mother, NOT upright; a low wide wedge body with a huge grey-brown bony bird face on RIGHT, a thick down-hooked upper beak, broad lower jaw, orange mouth, ONE visible glowing orange eye with dark socket and yellow-white highlight. Indigo-purple spiky neck mane; include ONE RED pointed crest on top of the head above the purple mane. Red/crimson/orange red back feathers extend to left into a fan of tail feathers. Two short brown legs end in big curved dark navy claws. Wings folded, no raised wings.
+Make EXTREMELY COARSE AND SIMPLE actual low-resolution pixel-art: about 56 pixels wide x36 pixels high in total sprite, including TWO-pixel thick near-black outer outline. Each logical pixel is an identical 11x11 square on a single grid. Large clear clusters, 3-4 flat shades per material, no dithering, no noise, no fine details. Match reference 3's simplicity; far fewer smaller feather subdivisions than reference 1. Keep eye and bone hook legible at tiny size.
+Output square 1536x1536 PNG, TRUE transparent background, hard opaque sprite alpha. Sprite ONLY 616 px wide x396 px high, centered at x768, sole baseline y1390, top around y994. The sprite is small in bottom part of canvas, huge transparent space above, generous side margins, no clipping. No text, no ground, no shadows, no effects, no checkerboard drawing. Entire bird, tail and both feet included.
+
+A HEAD CREST / PIXEL SIMPLIFICATION REVISION
+
+

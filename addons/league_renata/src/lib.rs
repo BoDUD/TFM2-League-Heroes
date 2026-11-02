@@ -37,8 +37,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_renata";
-/// Written out (in the bundle `env!("CARGO_PKG_VERSION")` would be league_addons').
-const VERSION: &str = "0.1.3";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_renata") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 物尽其用的印记（主包数据：她打中敌方英雄时挂上）。
 pub const MARK: &str = "league_renata_p_mark";
 /// 及时救难（主包数据的 buff 名：画面绑在它上面）。

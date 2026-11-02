@@ -1,0 +1,525 @@
+{
+  "status": "all_15_assets_exported_and_structurally_verified",
+  "tool": "built-in image_gen",
+  "requested_count": 15,
+  "generated_count": 15,
+  "missing_files": [],
+  "assets": [
+    {
+      "file": "elderdragon_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        16
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_elderdragon_a_hit`（跟随目标，z 2；左右对称）",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1330,
+        1182
+      ],
+      "output_1x": [
+        72,
+        16
+      ],
+      "output_8x": [
+        576,
+        128
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        26,
+        48,
+        82,
+        2
+      ],
+      "distinct_frames": 4,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_a_splash.png",
+      "frames": 4,
+      "cell_1x": [
+        12,
+        12
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_elderdragon_a_splash`（跟随被溅射的人，z 3；左右对称）",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "output_1x": [
+        48,
+        12
+      ],
+      "output_8x": [
+        384,
+        96
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        8,
+        56,
+        42,
+        30
+      ],
+      "distinct_frames": 4,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_q_fire.png",
+      "frames": 6,
+      "cell_1x": [
+        34,
+        18
+      ],
+      "symmetry": "top-bottom (pointing right)",
+      "binding": "view_projectiles `tft_elderdragon_q_fire`（tft.dll 沿直线放出、穿透一路的敌人，随飞行方向旋转；上下对称、朝右）",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_size": [
+        1407,
+        1118
+      ],
+      "output_1x": [
+        204,
+        18
+      ],
+      "output_8x": [
+        1632,
+        144
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        292,
+        378,
+        336,
+        362,
+        288,
+        280
+      ],
+      "distinct_frames": 6,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_q_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        18,
+        22
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_elderdragon_q_hit`（跟随被烧到的人，z 3；左右对称）",
+      "raw_grid": [
+        2,
+        2
+      ],
+      "raw_size": [
+        1134,
+        1387
+      ],
+      "output_1x": [
+        72,
+        22
+      ],
+      "output_8x": [
+        576,
+        176
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        24,
+        148,
+        154,
+        64
+      ],
+      "distinct_frames": 4,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_ig.png",
+      "frames": 6,
+      "cell_1x": [
+        22,
+        30
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_elderdragon_ig`（跟随被引燃的人，z 3；左右对称）",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_size": [
+        1058,
+        1487
+      ],
+      "output_1x": [
+        132,
+        30
+      ],
+      "output_8x": [
+        1056,
+        240
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        90,
+        116,
+        152,
+        172,
+        122,
+        98
+      ],
+      "distinct_frames": 6,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_p_exec.png",
+      "frames": 6,
+      "cell_1x": [
+        28,
+        34
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_elderdragon_p_exec`（跟随被处决的人，z 4；左右对称）",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_size": [
+        930,
+        1692
+      ],
+      "output_1x": [
+        168,
+        34
+      ],
+      "output_8x": [
+        1344,
+        272
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        146,
+        252,
+        402,
+        544,
+        346,
+        154
+      ],
+      "distinct_frames": 6,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_e_cast.png",
+      "frames": 6,
+      "cell_1x": [
+        96,
+        40
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_elderdragon_e_cast`（大表，跟随它，z 3；左右对称）",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_size": [
+        1586,
+        992
+      ],
+      "output_1x": [
+        576,
+        40
+      ],
+      "output_8x": [
+        4608,
+        320
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        204,
+        724,
+        898,
+        708,
+        276,
+        82
+      ],
+      "distinct_frames": 6,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_e_slow.png",
+      "frames": 6,
+      "cell_1x": [
+        20,
+        8
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_elderdragon_e_slow`（跟随被减速的人，脚下，z 3；左右对称）",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_size": [
+        1619,
+        972
+      ],
+      "output_1x": [
+        120,
+        8
+      ],
+      "output_8x": [
+        960,
+        64
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        16,
+        14,
+        26,
+        20,
+        22,
+        12
+      ],
+      "distinct_frames": 6,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_e_guard.png",
+      "frames": 6,
+      "cell_1x": [
+        70,
+        52
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_elderdragon_e_guard`（大表，跟随它，z 3；左右对称）",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_size": [
+        1188,
+        1324
+      ],
+      "output_1x": [
+        420,
+        52
+      ],
+      "output_8x": [
+        3360,
+        416
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        578,
+        510,
+        538,
+        478,
+        532,
+        534
+      ],
+      "distinct_frames": 6,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_r_slam.png",
+      "frames": 8,
+      "cell_1x": [
+        130,
+        44
+      ],
+      "symmetry": "left-right",
+      "binding": "view_effects `tft_elderdragon_r_slam`（大表，放在它落地的地方，不跟随，z -1；左右对称）",
+      "raw_grid": [
+        2,
+        4
+      ],
+      "raw_size": [
+        1524,
+        1032
+      ],
+      "output_1x": [
+        1040,
+        44
+      ],
+      "output_8x": [
+        8320,
+        352
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        882,
+        1940,
+        2982,
+        3802,
+        2586,
+        1982,
+        1190,
+        936
+      ],
+      "distinct_frames": 8,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_r_stun.png",
+      "frames": 6,
+      "cell_1x": [
+        16,
+        8
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_elderdragon_r_stun`（跟随被晕的人，头顶上方，z 4；左右对称）",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_size": [
+        1448,
+        1086
+      ],
+      "output_1x": [
+        96,
+        8
+      ],
+      "output_8x": [
+        768,
+        64
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        14,
+        22,
+        18,
+        18,
+        18,
+        20
+      ],
+      "distinct_frames": 6,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_fx_r_vamp.png",
+      "frames": 6,
+      "cell_1x": [
+        76,
+        56
+      ],
+      "symmetry": "left-right",
+      "binding": "view_buffs `tft_elderdragon_r_vamp`（大表，跟随它，z 3；左右对称）",
+      "raw_grid": [
+        2,
+        3
+      ],
+      "raw_size": [
+        1193,
+        1318
+      ],
+      "output_1x": [
+        456,
+        56
+      ],
+      "output_8x": [
+        3648,
+        448
+      ],
+      "alpha_binary": true,
+      "symmetry_pass": true,
+      "nonempty_frames": [
+        476,
+        740,
+        1180,
+        1372,
+        1496,
+        1856
+      ],
+      "distinct_frames": 6,
+      "sampling": "equal source grid cells; per logical cell majority palette index; mirror pairs use brighter palette index; no procedural effect drawing"
+    },
+    {
+      "file": "elderdragon_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        64,
+        64
+      ],
+      "logical_design": [
+        32,
+        32
+      ],
+      "alpha_binary": true
+    },
+    {
+      "file": "elderdragon_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        64,
+        64
+      ],
+      "logical_design": [
+        32,
+        32
+      ],
+      "alpha_binary": true
+    },
+    {
+      "file": "elderdragon_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "raw_size": [
+        1254,
+        1254
+      ],
+      "output_size": [
+        64,
+        64
+      ],
+      "logical_design": [
+        32,
+        32
+      ],
+      "alpha_binary": true
+    }
+  ],
+  "qa": "12 VFX strips: expected frames, cell dimensions, binary alpha, exact symmetry, nonempty frames, distinct frames, 8x nearest-neighbour copies and GIF frame counts verified; 3 icons64x64; no runtime integration performed"
+}

@@ -1,4 +1,4 @@
-# 盲僧 W 位移附加包（测试版 v0.1.9）
+# 盲僧 W 位移附加包（测试版 v0.1.12）
 
 主包 `league` 保持纯数据。主包的李青不能「摸眼」：R 身后没人时直接冲过目标落到他身后回旋踢，W 并进了 E、不冲刺。
 英雄联盟手游里李青的 W 不用插眼就能冲到一个点，这个附加包照这个做（不画眼）：
@@ -50,7 +50,8 @@
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_leesin_hop.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `INSEC W behind him: kick #… toward allies/tower/back …` 或 `INSEC DIRECT: already behind him …`（回旋踢：往哪踢、W 还是直接踢）；
      10 tick 后主包踢的那一刻 `KICK at t+10: … (… apart), N deg off the planned way: on target`（踢的方向和计划差 30° 以内）或 `OFF`；
-   - `Q AIM at #… walking …/tick: thrown at … (… lead)`（对英雄的 Q 预判了多少）、`Q SKIP #… : …`（不放的原因）；
+   - `Q AIM at #… walking …/tick: thrown at … (… lead)`（对英雄的 Q 预判了多少）、`Q SKIP #… : …`（不放的原因：同一个单位
+     连着只记一次，整个游戏一个计数，你看的那场每条都记，服务器的预模拟先记 40 条、之后每 200 条记一条）；
      `Q LANDED (Q2 after … ticks)` / `Q MISSED`（每次按 Q 打中没有：打中会接 Q2 飞踢）；
    - `INSEC FRONT: W on cooldown …`（W 在冷却，正面踢）；
    - `ESCAPE W to …` / `CHASE W to …` / `ENGAGE #… W to …`（逃跑 / 追击 / 突进，带 `running …/tick`：他当时跑多快）；

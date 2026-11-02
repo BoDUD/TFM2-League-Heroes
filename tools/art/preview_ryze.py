@@ -3,7 +3,7 @@
 
     python tools/art/preview_ryze.py [--out docs/preview]
 
-  league_ryze_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_ryze_frames.png    every animation's dense frames (hd_, PPU 1.66, as league.dll shows them)
   league_ryze_effects.png   every effect animation, 3x
   league_ryze_showcase.gif  a scripted fight with Lucian beside him against Darius and Garen, timed like the kit:
                             Ryze walks in and throws a rune orb at Darius; Overload's bolt hits him; the combo: Spell
@@ -27,6 +27,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -82,7 +83,7 @@ def showcase(out, z=3, step=40):
     def a(tag, dur=None, loop=False, to=None, at=None):
         nonlocal t
         px, py = at if at else (x, gy)
-        an = Anim(frames_of(ryze, tag), t, px, py, loop=loop, until=(t + dur) if dur else None, x1=to)
+        an = Anim(dense(ryze, tag, "ryze", z), t, px, py, loop=loop, until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
 
@@ -118,7 +119,7 @@ def showcase(out, z=3, step=40):
                 k += tick(12)
 
     # he walks in; Garen walks up behind Darius
-    run_in = Anim(frames_of(ryze, "run"), 0.0, x - 40, gy, loop=True, until=1000, x1=x)
+    run_in = Anim(dense(ryze, "run", "ryze", z), 0.0, x - 40, gy, loop=True, until=1000, x1=x)
     body.append(run_in)
     t = run_in.until
     g.walks.append((300.0, 2400.0, (x + 78) - g.x))  # 24 px behind Darius: inside Flux's 25 px spread
@@ -200,11 +201,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -223,7 +224,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -241,7 +242,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_ryze_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_ryze_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

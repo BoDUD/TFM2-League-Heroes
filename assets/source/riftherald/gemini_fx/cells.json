@@ -1,0 +1,82 @@
+{
+ "a_hit": {
+  "frames": 4,
+  "cell": [
+   16,
+   14
+  ],
+  "symmetry": "LR"
+ },
+ "q_spin": {
+  "frames": 6,
+  "cell": [
+   76,
+   28
+  ],
+  "symmetry": "LR"
+ },
+ "q_hit": {
+  "frames": 4,
+  "cell": [
+   14,
+   12
+  ],
+  "symmetry": "LR"
+ },
+ "q_slow": {
+  "frames": 6,
+  "cell": [
+   18,
+   8
+  ],
+  "symmetry": "LR"
+ },
+ "e_hit": {
+  "frames": 5,
+  "cell": [
+   22,
+   20
+  ],
+  "symmetry": "LR"
+ },
+ "e_crash": {
+  "frames": 6,
+  "cell": [
+   56,
+   26
+  ],
+  "symmetry": "LR"
+ },
+ "e_stun": {
+  "frames": 6,
+  "cell": [
+   16,
+   8
+  ],
+  "symmetry": "LR"
+ },
+ "r_roar": {
+  "frames": 6,
+  "cell": [
+   68,
+   56
+  ],
+  "symmetry": "LR"
+ },
+ "r_slam": {
+  "frames": 7,
+  "cell": [
+   88,
+   34
+  ],
+  "symmetry": "LR"
+ },
+ "r_armor": {
+  "frames": 6,
+  "cell": [
+   64,
+   52
+  ],
+  "symmetry": "LR"
+ }
+}

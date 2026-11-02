@@ -17,15 +17,51 @@ use std::collections::HashMap;
 use std::sync::atomic::{AtomicPtr, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-/// The most a growing body ([`Table::growth`]) is drawn: twice its size.
-pub const GROW_CAP: f32 = 2.0;
-
 /// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
 pub const FEET: f32 = 11.5;
 
-/// The body's growth for `stacks` stacks of a growth row (1.0 for none, GROW_CAP at most).
+/// The body's growth for `stacks` stacks of a growth row (1.0 for none, no cap: the user 2026-10-31, 「大虫子体型应该可以
+/// 无限变大吧」).
 pub fn grown(per: f32, stacks: usize) -> f32 {
-    (1.0 + per * stacks as f32).min(GROW_CAP)
+    1.0 + per * stacks as f32
+}
+
+/// A growth row's stacks from the names of the buffs on a hero's display entity. The game's display world keeps one
+/// entry a name (it adds a name only when it has none of it), so any number of `buff` stacks shows as one; the add-on
+/// (league_chogath) marks the 2nd, 3rd ... stack with `buff_2`, `buff_3` ...: the stacks are the highest mark seen with
+/// a `buff` on him, or the `buff` entries if a display ever keeps them all (2026-11-02: league.log never drew a 2nd
+/// bite, two minutes on screen with 2 stacks).
+pub fn grow_count<'a>(names: impl IntoIterator<Item = &'a str>, buff: &str) -> usize {
+    let (mut plain, mut mark) = (0, 0);
+    for n in names {
+        if n == buff {
+            plain += 1;
+        } else if let Some(k) = n.strip_prefix(buff).and_then(|r| r.strip_prefix('_')).and_then(|k| k.parse::<usize>().ok()) {
+            mark = mark.max(k);
+        }
+    }
+    if plain == 0 { 0 } else { plain.max(mark) }
+}
+
+/// Seconds a form's body ([`Table::forms`]) may go undrawn and still ease on: past it the next draw is another unit at
+/// that address or a new match, drawn straight at its size.
+pub const FORM_STALE: f32 = 0.5;
+
+/// The size a form's body is drawn at now: `prev` the size it was drawn at last and the seconds since (None: never
+/// drawn), `target` the row's size while a buff is on him, else 1.0. It moves toward the target by (size - 1) / secs a
+/// second (the whole way in `secs`), straight to it when never drawn or stale.
+pub fn eased(prev: Option<(f32, f32)>, target: f32, size: f32, secs: f32) -> f32 {
+    match prev {
+        Some((was, dt)) if dt <= FORM_STALE && secs > 0.0 => {
+            let step = (size - 1.0).abs() / secs * dt;
+            if (target - was).abs() <= step {
+                target
+            } else {
+                was + step * (target - was).signum()
+            }
+        }
+        _ => target,
+    }
 }
 
 pub const PREFIX: &str = "hd_";
@@ -55,8 +91,11 @@ pub struct Table<'a> {
     /// scale is the game's / PPU x size
     pub sizes: Vec<(&'a str, f32)>,
     /// heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack), the
-    /// body drawn that much bigger about his soles, up to [`GROW_CAP`] (src/view.rs)
+    /// body drawn that much bigger about his soles, with no cap (src/view.rs)
     pub growth: Vec<(&'a str, &'a str, f32)>,
+    /// heroes drawn bigger while a buff of theirs is on them: (id, the buffs - any one of them, the size, seconds to
+    /// grow to it and to shrink back), about the soles like growth, eased in and out ([`eased`], src/view.rs)
+    pub forms: Vec<(&'a str, Vec<&'a str>, f32, f32)>,
     /// effect sheets drawn dense like a hero's sheet (id, PPU, .fanim: `idle` / `hd_idle` and any more tags, each with
     /// its hd_ twin): looked up like the heroes, no entity's body
     pub effects: Vec<(&'a str, f32, &'a str)>,
@@ -171,6 +210,8 @@ pub struct Heroes {
     prefixes: Vec<String>,
     /// every table's growth rows ([`Table::growth`])
     pub growth: Vec<(&'static str, &'static str, f32)>,
+    /// every table's form rows ([`Table::forms`])
+    pub forms: Vec<(&'static str, &'static [&'static str], f32, f32)>,
     /// every table's drawn effects ([`Table::drawn_effects`])
     pub drawn_effects: Vec<&'static str>,
 }
@@ -182,7 +223,7 @@ impl Heroes {
     }
 
     /// These heroes and table `t`'s -> them and the ids `t` brought. An id registered already keeps its first row (the
-    /// host's own, the first guest's): `t`'s row of it is left out, with its growth and drawn-effect rows.
+    /// host's own, the first guest's): `t`'s row of it is left out, with its growth, form and drawn-effect rows.
     pub fn and(&self, t: &Table<'_>) -> (Self, Vec<&'static str>) {
         let mut list = self.list.clone();
         let mut by_id = self.by_id.clone();
@@ -202,9 +243,15 @@ impl Heroes {
         let prefixes = packs.iter().map(|p| format!("{p}_")).collect();
         let mut growth = self.growth.clone();
         growth.extend(t.growth.iter().filter(|g| came.contains(&g.0)).map(|&(id, buff, per)| (keep(id), keep(buff), per)));
+        let mut forms = self.forms.clone();
+        forms.extend(t.forms.iter().filter(|f| came.contains(&f.0)).map(|(id, buffs, size, secs)| {
+            let buffs: &'static [&'static str] =
+                Box::leak(buffs.iter().map(|b| keep(b)).collect::<Vec<_>>().into_boxed_slice());
+            (keep(id), buffs, *size, *secs)
+        }));
         let mut drawn_effects = self.drawn_effects.clone();
         drawn_effects.extend(t.drawn_effects.iter().filter(|id| came.contains(id)).map(|id| keep(id)));
-        (Heroes { list, by_id, packs, prefixes, growth, drawn_effects }, came)
+        (Heroes { list, by_id, packs, prefixes, growth, forms, drawn_effects }, came)
     }
 
     pub fn get(&self, id: &str) -> Option<&Hero> {

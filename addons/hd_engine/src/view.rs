@@ -114,9 +114,12 @@ pub fn at_draw(shrunk: Option<Scale>, drawn: Option<Scale>, cur: f32, shown: Opt
             }
             AtDraw::Write(next_scale(prev, cur, k))
         }
-        None => match drawn {
-            Some(d) if ours(&d) => AtDraw::Restore(d.base),
-            _ => AtDraw::Leave,
+        // not drawn dense now: the value back if it is still one written here - by the body draw (a possession over),
+        // or by this frame's display update (league_viego has dense frames since league.dll 0.8.39: the update divided
+        // by Viego's PPU, then league_viego_soul swapped in a plain victim's body)
+        None => match drawn.filter(|d| ours(d)).or(shrunk.filter(|s| ours(s))) {
+            Some(d) => AtDraw::Restore(d.base),
+            None => AtDraw::Leave,
         },
     }
 }
@@ -137,11 +140,13 @@ struct State {
     /// growth lines written: their own budget, so the draw-scale lines of a long session never silence them (2026-10-23:
     /// the 200 shared lines ran out a second after Cho'Gath came on screen, before his first stack)
     grow_lines: usize,
+    /// (entity value, size drawn, when) of the form rows' heroes (hd::Table::forms), eased from frame to frame
+    forms: Vec<(usize, f32, std::time::Instant)>,
 }
 
 static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), lines: 0,
                                                 seen: Vec::new(), noted: Vec::new(), grows: Vec::new(),
-                                                grow_lines: 0 });
+                                                grow_lines: 0, forms: Vec::new() });
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -204,6 +209,13 @@ unsafe fn string_at<'a>(ptr_at: usize, len_at: usize) -> Option<&'a str> {
     std::str::from_utf8(std::slice::from_raw_parts(p as *const u8, n)).ok()
 }
 
+/// Drops the scale records of `world` whose entity was not in this walk of its table (`seen`): a set over, the next one
+/// numbers its entities from #18 again, and a record left from the last set (2026-11-01 log: a minion "drawn as range_minion
+/// again, draw scale back to 1.150" - Cho'Gath's base from the set before) is not the new entity's.
+pub fn keep_seen(scales: &mut Vec<(usize, u64, Scale)>, world: usize, seen: &[u64]) {
+    scales.retain(|e| e.0 != world || seen.contains(&e.1));
+}
+
 unsafe fn shrink(world: usize) {
     if !plausible(world) {
         return;
@@ -216,6 +228,7 @@ unsafe fn shrink(world: usize) {
     }
     let Ok(mut st) = STATE.try_lock() else { return };
     let heroes = hd::heroes();
+    let mut seen = Vec::with_capacity(items);
     for i in 0..=mask {
         if *(ctrl as *const u8).add(i) & 0x80 != 0 {
             continue; // empty or deleted
@@ -225,6 +238,7 @@ unsafe fn shrink(world: usize) {
         let id = string_at(v + NAME_PTR, v + NAME_LEN_AT);
         let res = string_at(v + RES_PTR, v + RES_LEN_AT);
         let key = q(elem) as u64;
+        seen.push(key);
         let at = st.scales.iter().position(|e| e.0 == world && e.1 == key);
         let Some(hero) = drawn_as(heroes, res, id) else {
             // no longer drawn with dense frames (a possession ended): the game's own value back
@@ -232,10 +246,11 @@ unsafe fn shrink(world: usize) {
             if let Some(k) = at {
                 let p = st.scales.remove(k).2;
                 let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
-                if (cur - p.wrote).abs() <= 1e-6 {
+                let ours = (cur - p.wrote).abs() <= 1e-6;
+                if ours {
                     std::ptr::write_unaligned((v + SCALE) as *mut f32, p.base);
                 }
-                if st.lines < 200 {
+                if ours && st.lines < 200 {
                     st.lines += 1;
                     wlog(format!("world {world:#x} #{key} {}: drawn as {} again, draw scale back to {:.3}",
                         id.unwrap_or("?"), res.unwrap_or("?"), p.base));
@@ -276,6 +291,7 @@ unsafe fn shrink(world: usize) {
             wlog(format!("world {world:#x} #{key} {name}: draw scale {cur:.3} -> {:.3} (base {:.3})", s.wrote, s.base));
         }
     }
+    keep_seen(&mut st.scales, world, &seen);
 }
 
 /// Draw command tags (the enum's niche values at +0) and layout (0xd0 bytes each). The sprite's tag stayed 0x…03; the
@@ -473,21 +489,36 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         insert(out, b + 1, &back);
         insert(out, a, &grow);
     }
-    // a hero that grows with a stack (a table's growth rows, Cho'Gath's Feast): his body's own commands once more, about
-    // his soles
-    let Some(&(_, buff, per)) = hd::heroes().growth.iter().find(|g| g.0 == hero.id) else { return };
-    let n = stacks(ent, buff);
-    let g = hd::grown(per, n);
-    if !st.grows.iter().any(|e| e.0 == ent && e.1 == n) && st.grow_lines < GROW_LINES {
-        st.grows.retain(|e| e.0 != ent);
-        st.grows.push((ent, n));
-        if st.grows.len() > 64 {
-            st.grows.remove(0);
+    // a hero drawn bigger, with a stack (a table's growth rows, Cho'Gath's Feast) or while his form's buff is on (a table's form
+    // rows, Volibear's Stormbringer, eased in and out): his body's own commands once more, about his soles
+    let g = if let Some(&(_, buff, per)) = hd::heroes().growth.iter().find(|g| g.0 == hero.id) {
+        let n = hd::grow_count(buff_names(ent).iter().map(String::as_str), buff);
+        let g = hd::grown(per, n);
+        if note_grow(&mut st, ent, n) {
+            wlog(format!("{}: {n} x {buff} - body drawn x{g:.2} about the soles", hero.id));
         }
-        st.grow_lines += 1;
-        wlog(format!("{}: {n} x {buff} - body drawn x{g:.2} about the soles", hero.id));
-    }
-    if n == 0 {
+        g
+    } else if let Some(&(_, buffs, size, secs)) = hd::heroes().forms.iter().find(|f| f.0 == hero.id) {
+        let on = buffs.iter().find(|b| stacks(ent, b) > 0);
+        let now = std::time::Instant::now();
+        let prev = st.forms.iter().find(|f| f.0 == ent).map(|f| (f.1, now.duration_since(f.2).as_secs_f32()));
+        let g = hd::eased(prev, if on.is_some() { size } else { 1.0 }, size, secs);
+        st.forms.retain(|f| f.0 != ent);
+        st.forms.push((ent, g, now));
+        if st.forms.len() > 64 {
+            st.forms.remove(0);
+        }
+        if note_grow(&mut st, ent, usize::from(on.is_some())) {
+            match on {
+                Some(b) => wlog(format!("{}: {b} on - body growing to x{size:.2} about the soles over {secs} s", hero.id)),
+                None => wlog(format!("{}: no form buff - body x{g:.2}, back to x1.00 over {secs} s", hero.id)),
+            }
+        }
+        g
+    } else {
+        return;
+    };
+    if (g - 1.0).abs() < 1e-4 {
         return;
     }
     let (sx, sy) = soles(px, py, hero.ppu);
@@ -598,6 +629,36 @@ unsafe fn stacks(ent: usize, name: &str) -> usize {
             plausible(p) && n == name.len() && std::slice::from_raw_parts(p as *const u8, n) == name.as_bytes()
         })
         .count()
+}
+
+/// The names of the buffs on the entity value `ent` (its buff list, as `stacks` reads it).
+unsafe fn buff_names(ent: usize) -> Vec<String> {
+    let (bp, bn) = (q(ent + BUFFS_PTR), q(ent + BUFFS_LEN));
+    if !plausible(bp) || bn > 4096 {
+        return Vec::new();
+    }
+    (0..bn)
+        .filter_map(|k| {
+            let b = bp + k * BUFF_SIZE;
+            let (p, n) = (q(b + 8), q(b + 0x10));
+            (plausible(p) && n <= 256).then(|| String::from_utf8_lossy(std::slice::from_raw_parts(p as *const u8, n)).into_owned())
+        })
+        .collect()
+}
+
+/// Whether a growing body's state `n` (its stacks; 1 / 0 for a form on / off) is new for the entity value `ent`: one
+/// line a change, within the growth lines' own budget.
+fn note_grow(st: &mut State, ent: usize, n: usize) -> bool {
+    if st.grows.iter().any(|e| e.0 == ent && e.1 == n) || st.grow_lines >= GROW_LINES {
+        return false;
+    }
+    st.grows.retain(|e| e.0 != ent);
+    st.grows.push((ent, n));
+    if st.grows.len() > 64 {
+        st.grows.remove(0);
+    }
+    st.grow_lines += 1;
+    true
 }
 
 /// The point a growing body is scaled about: its soles, hd::FEET game pixels under the unit's position - in the body
@@ -712,18 +773,65 @@ mod tests {
     }
 
     #[test]
+    fn a_set_over_drops_its_entities_scale_records() {
+        let s = Scale { base: 1.15, wrote: 0.958 };
+        let mut scales = vec![(1, 18, s), (1, 939, s), (2, 939, s)];
+        keep_seen(&mut scales, 1, &[18, 20]);
+        assert_eq!(scales, vec![(1, 18, s), (2, 939, s)], "world 1's #939 is gone; another world's stays");
+    }
+
+    #[test]
     fn a_growing_body_is_scaled_about_its_soles() {
         assert_eq!(body_runs(&[0, 1, 1, 0, 2, 1]), vec![(1, 2), (5, 5)]);
         assert_eq!(body_runs(&[0, 2, 0]), vec![]);
         assert_eq!(soles(100.0, 50.0, 1.2), (100.0, 50.0 + 11.5 * 1.2));
         assert_eq!(hd::grown(0.05, 0), 1.0);
         assert!((hd::grown(0.05, 6) - 1.3).abs() < 1e-6);
-        // Cho'Gath (2026-10-26): 30 % a bite, twice his size at most
+        // Cho'Gath: 30 % a bite (2026-10-26), with no cap (2026-10-31)
         assert!((hd::grown(0.30, 1) - 1.3).abs() < 1e-6);
         assert!((hd::grown(0.30, 3) - 1.9).abs() < 1e-6);
-        assert_eq!(hd::grown(0.30, 4), hd::GROW_CAP);
-        assert_eq!(hd::grown(0.30, 12), hd::GROW_CAP);
+        assert!((hd::grown(0.30, 4) - 2.2).abs() < 1e-6);
+        assert!((hd::grown(0.30, 10) - 4.0).abs() < 1e-6);
         // Cho'Gath's growth row is league.dll's data: league_main/src/hd.rs tests it
+    }
+
+    #[test]
+    fn stacks_on_screen_are_the_add_ons_marks() {
+        let s = "league_chogath_r_stack";
+        // the display keeps one entry a name: 3 stacks show as one, plus league_chogath's marks for the 2nd and 3rd
+        assert_eq!(hd::grow_count([s, "league_chogath_r_stack_2", "league_chogath_r_stack_3", "league_chogath_r_cd"], s), 3);
+        assert_eq!(hd::grow_count([s], s), 1);
+        // no stack: a stale mark alone draws nothing; other buffs that share the start do not count
+        assert_eq!(hd::grow_count(["league_chogath_r_stack_2"], s), 0);
+        assert_eq!(hd::grow_count([s, "league_chogath_r_stacked", "league_chogath_r_stack_x"], s), 1);
+        // a display that keeps every entry: the entries themselves
+        assert_eq!(hd::grow_count([s, s, s, "league_chogath_r_stack_2"], s), 3);
+    }
+
+    #[test]
+    fn a_form_body_eases_in_and_out() {
+        let (size, secs) = (1.35, 1.25);
+        // never drawn or stale: straight at the size (a match view opened in the middle of his form)
+        assert_eq!(hd::eased(None, size, size, secs), size);
+        assert_eq!(hd::eased(Some((1.0, hd::FORM_STALE + 0.1)), size, size, secs), size);
+        // a 60 fps frame: 0.35 / 1.25 / 60 of the way
+        let one = hd::eased(Some((1.0, 1.0 / 60.0)), size, size, secs);
+        assert!((one - (1.0 + 0.35 / 1.25 / 60.0)).abs() < 1e-6, "{one}");
+        // frame by frame, the whole way in 1.25 s, and no further
+        let mut g = 1.0;
+        for _ in 0..74 {
+            g = hd::eased(Some((g, 1.0 / 60.0)), size, size, secs);
+        }
+        assert!(g < size && g > 1.34, "{g}");
+        for _ in 0..3 {
+            g = hd::eased(Some((g, 1.0 / 60.0)), size, size, secs);
+        }
+        assert_eq!(g, size);
+        // the form over: back down at the same pace
+        let down = hd::eased(Some((size, 0.25)), 1.0, size, secs);
+        assert!((down - (size - 0.07)).abs() < 1e-6, "{down}");
+        assert_eq!(hd::eased(Some((1.01, 0.1)), 1.0, size, secs), 1.0);
+        // Volibear's form row is league.dll's data: league_main/src/hd.rs tests it
     }
 
     #[test]
@@ -760,6 +868,10 @@ mod tests {
         assert_eq!(at_draw(None, Some(s), 1.0 / k, None), AtDraw::Restore(1.0));
         assert_eq!(at_draw(None, Some(s), 1.0, None), AtDraw::Leave);
         assert_eq!(at_draw(None, None, 1.0, None), AtDraw::Leave);
+        // Viego (dense) divided by the update, then a plain victim's body swapped in: the game's value back at once
+        let v = Scale { base: 1.0, wrote: 1.0 / 2.447 };
+        assert_eq!(at_draw(Some(v), None, 1.0 / 2.447, None), AtDraw::Restore(1.0));
+        assert_eq!(at_draw(Some(v), None, 1.0, None), AtDraw::Leave);
     }
 
     #[test]
@@ -781,13 +893,16 @@ mod tests {
 
     #[test]
     fn a_possessing_viego_is_shrunk_as_his_victim() {
-        // league.dll's dense heroes among them (its table: league_main/src/hd.rs), Viego and Amumu not
-        let league = hd::tests::table("league", &[("league_zeri", 3.0), ("league_yasuo", 2.2), ("league_karma", 2.2)]);
+        // league.dll's dense heroes among them (its table: league_main/src/hd.rs; Viego since league.dll 0.8.39), Amumu
+        // not
+        let league = hd::tests::table("league", &[("league_zeri", 3.0), ("league_yasuo", 2.2), ("league_karma", 2.2),
+                                                  ("league_viego", 2.447)]);
         let h = hd::Heroes::of(&[&league]);
         let as_ = |res, id| drawn_as(&h, res, id).map(|h| h.id);
         assert_eq!(as_(Some("league_zeri"), Some("league_viego")), Some("league_zeri"));
         assert_eq!(as_(Some("champions/league_yasuo#anim"), Some("league_viego")), Some("league_yasuo"));
-        assert_eq!(as_(Some("league_viego"), Some("league_viego")), None); // the possession over
+        // the possession over: Viego himself, dense since league.dll 0.8.39
+        assert_eq!(as_(Some("league_viego"), Some("league_viego")), Some("league_viego"));
         assert_eq!(as_(Some("league_amumu"), Some("league_viego")), None); // a plain victim (Darius has dense frames since league.dll 0.7.48, Annie since 0.7.150)
         assert_eq!(as_(None, Some("league_karma")), Some("league_karma")); // no resource name read: the id
         assert_eq!(as_(Some("league_karma"), Some("league_karma")), Some("league_karma"));

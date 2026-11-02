@@ -18,7 +18,12 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_ksante";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_ksante") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 全盛姿态的 buff（主包大招挂的）：view.rs 照它换画面。
 pub const ALL_OUT: &str = "league_ksante_ao";
 

@@ -504,7 +504,7 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert!(text.starts_with("=== league_leesin_hop v1.8"), "{text}");
+        assert!(text.starts_with("=== league_leesin_hop v0.1.12"), "{text}");
         assert!(!text.contains(": OFF"), "{text}");
         assert!(!text.contains("placed on the spot"), "{text}");
         for line in [

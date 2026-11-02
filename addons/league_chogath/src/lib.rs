@@ -8,6 +8,8 @@
 //!
 //! - **被动 keep**（维迦附加包的做法）：活着时把身上每一层 `league_chogath_r_stack` 原样记下来；少了（死亡清掉的）就原样
 //!   补回。层数只会变多（主包从不去掉一层），所以「身上比记下的少」只会是死亡清掉的。补回的层带着生命，复活后生命上限照旧。
+//!   第 2、3……层另挂一个没有属性的记号 `league_chogath_r_stack_2`、`_3`……（`mark`）：游戏的显示层同名的 buff 只留一个，
+//!   league.dll 按身上的层数把他画大，读到的永远是 1 层（2026-11-02：两层两分钟，画的一直是 x1.30），它也数这些记号。
 //! - **AI 钩子 feast**（诺手大招附加包的做法）：读射程内敌方英雄的生命、护盾、免死和受到伤害的增减，照主包的数字算这一口：
 //!   `R_DMG` + 他最大生命的 `R_HP`% 真实伤害，加法强 `R_AP`% 的魔法伤害（主包先挂 100% 魔抗穿透，等于真实）。有人一口吃得死：
 //!   放，几个时吃生命 + 护盾最少的，AI 没想放也放；AI 想放 R 却吃不死：改成普攻那个人（打不到就走过去）。
@@ -24,6 +26,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_chogath";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_chogath") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 pub const HERO: &str = "league_chogath";
 /// 主包的一层盛宴。
 pub const STACK: &str = "league_chogath_r_stack";
@@ -169,6 +177,24 @@ pub fn best_kill(foes: &[Foe], d: usize) -> Option<Foe> {
     foes.iter().copied().filter(|f| f.dies_to(d)).min_by_key(|f| (f.ehp(), f.id))
 }
 
+/// The mark of the `k`th stack (2 and up): a name of its own, which the game's display keeps.
+pub fn mark_name(k: usize) -> String {
+    format!("{STACK}_{k}")
+}
+
+/// The marks of stacks 2 to `n` he lacks (a death clears them with the stacks), put on with no stats.
+fn mark(sim: &mut StableSim<'_>, me: usize, n: usize) {
+    let have: Vec<String> = sim.get_entity(me).map_or_else(Vec::new, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()).collect()
+    });
+    for k in 2..=n {
+        let name = mark_name(k);
+        if !have.contains(&name) {
+            sim.add_buff(me, &BuffV1::named(&name));
+        }
+    }
+}
+
 fn buffs_named(sim: &StableSim<'_>, id: usize, name: &str) -> Vec<BuffV1> {
     sim.get_entity(id).map_or_else(Vec::new, |e| {
         (0..e.buff_count()).filter_map(|i| e.buff_at(i)).filter(|b| b.name() == name).collect()
@@ -220,12 +246,14 @@ impl StablePassive for Keep {
                                  have.len(), have.last().map_or(0, |b| b.hp)));
                 }
                 self.kept = have;
+                mark(sim, me, self.kept.len());
             }
             return;
         }
         for b in &gone {
             sim.add_buff(me, b);
         }
+        mark(sim, me, self.kept.len());
         if tally(sim, "keep").is_some() {
             wlog(format!("{} KEEP {} stacks put back ({}), {} in all", head(sim, me), gone.len(),
                          if alive { "alive" } else { "dead" }, self.kept.len()));
@@ -353,8 +381,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Cho'Gath: Feast stacks kept through death, Feast only for a kill) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Cho'Gath: Feast stacks kept through death, Feast only for a kill) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -385,6 +412,13 @@ mod tests {
         let mut b = BuffV1::named(STACK);
         b.hp = 70;
         b
+    }
+
+    #[test]
+    fn each_stack_after_the_first_has_a_mark_of_its_own() {
+        assert_eq!(mark_name(2), "league_chogath_r_stack_2");
+        assert_eq!(mark_name(12), "league_chogath_r_stack_12");
+        assert!(mark_name(999).len() <= BUFF_NAME_CAP);
     }
 
     #[test]

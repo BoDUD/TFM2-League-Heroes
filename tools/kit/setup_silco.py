@@ -43,7 +43,8 @@ M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # 80 at PPU 2: 33 over the ground, 2 ahead of his standing column); the centre in his body; the ban/pick card by
 # bp_card_audit.py's rule (y = -39 - top: his lo_idle reaches 29.3 over its centre -> -10, the hair a pixel under the
 # canvas top; 41 px tall on the 40-px canvas, the soles 2 px under its bottom, no UI size)
-VIEW = {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -20}, "banpick_center": {"x": 0, "y": -10}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 2, "y": -33}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

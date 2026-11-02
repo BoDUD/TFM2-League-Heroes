@@ -33,6 +33,12 @@ pub mod bush;
 pub mod sow;
 
 const ID: &str = "league_teemo_shrooms";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_teemo_shrooms") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// The main pack's Teemo (the sowing hook's champion).
 pub const HERO: &str = "league_teemo";
 const LOG_FIRST: usize = 30;
@@ -241,7 +247,11 @@ impl StablePassive for Shrooms {
         let tag = format!("{SIM_TAG}{}", self.sim);
         sim.entity_remove_buff(me, &tag);
         sim.add_buff(me, &BuffV1::named(&tag));
-        wlog(format!("{} SPAWN: the add-on's Teemo (player {player}), {} shrooms in the ground", head(sim, me), self.field.len()));
+        // every spawn of every presim's Teemo: the launch's count (0.2.2; 751 lines on 11-01)
+        if tally(sim, "spawn").is_some() {
+            wlog(format!("{} SPAWN: the add-on's Teemo (player {player}), {} shrooms in the ground", head(sim, me),
+                         self.field.len()));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
@@ -315,8 +325,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Teemo's shrooms stay in the ground for minutes, and he sows them in the bushes) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Teemo's shrooms stay in the ground for minutes, and he sows them in the bushes) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

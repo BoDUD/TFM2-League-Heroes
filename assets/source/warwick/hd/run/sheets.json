@@ -1,0 +1,58 @@
+{
+ "square": 8,
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "weapons": "THE ARMS swing against the legs, a hunched beast's run as image 3: when the near leg is forward the far arm reaches forward, and the other way; the near arm keeps its bronze gauntlet with the green vials and the tall spike, the far arm its open claws, both as large as in image 1. The tail streams out behind him, swaying. Only him: no dust, no speed lines, no afterimages, no blood.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg planted under his hips, its clawed foot flat on the ground; the FAR leg kicked up and back behind him, bent, its foot high off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted, bending as he sinks; the far leg swinging down from behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg carries him and the FAR leg comes forward, in frames 5-8 the FAR leg carries him and the NEAR leg comes forward - frames 1 and 5 must look different. The pale figure's legs are the OLD ones (they hardly move): follow these words and image 3's League frames for the legs, the pale figure only for where he stands and how big he is."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "weapons": "THE ARMS swing against the legs, a hunched beast's run as image 3: when the near leg is forward the far arm reaches forward, and the other way; the near arm keeps its bronze gauntlet with the green vials and the tall spike, the far arm its open claws, both as large as in image 1. The tail streams out behind him, swaying. Only him: no dust, no speed lines, no afterimages, no blood.",
+   "legs": "Frame 3: PASSING: the far leg swinging forward past the planted near leg, its foot just off the ground; the body at its lowest. Frame 4: STRIDE: the FAR leg reaching forward (image right) to land; the NEAR leg pushing off behind (image left), its toes on the ground; the body rising. The two legs TAKE TURNS: in frames 1-4 the NEAR leg carries him and the FAR leg comes forward, in frames 5-8 the FAR leg carries him and the NEAR leg comes forward - frames 1 and 5 must look different. The pale figure's legs are the OLD ones (they hardly move): follow these words and image 3's League frames for the legs, the pale figure only for where he stands and how big he is."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "weapons": "THE ARMS swing against the legs, a hunched beast's run as image 3: when the near leg is forward the far arm reaches forward, and the other way; the near arm keeps its bronze gauntlet with the green vials and the tall spike, the far arm its open claws, both as large as in image 1. The tail streams out behind him, swaying. Only him: no dust, no speed lines, no afterimages, no blood.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg planted under his hips; the NEAR leg kicked up and back behind him, bent, its foot high off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted, bending as he sinks; the near leg swinging down from behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg carries him and the FAR leg comes forward, in frames 5-8 the FAR leg carries him and the NEAR leg comes forward - frames 1 and 5 must look different. The pale figure's legs are the OLD ones (they hardly move): follow these words and image 3's League frames for the legs, the pale figure only for where he stands and how big he is."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 8,
+   "weapons": "THE ARMS swing against the legs, a hunched beast's run as image 3: when the near leg is forward the far arm reaches forward, and the other way; the near arm keeps its bronze gauntlet with the green vials and the tall spike, the far arm its open claws, both as large as in image 1. The tail streams out behind him, swaying. Only him: no dust, no speed lines, no afterimages, no blood.",
+   "legs": "Frame 7: PASSING: the near leg swinging forward past the planted far leg, its foot just off the ground; the body at its lowest. Frame 8: STRIDE: the NEAR leg reaching forward to land; the FAR leg pushing off behind, its toes on the ground; the body rising. The two legs TAKE TURNS: in frames 1-4 the NEAR leg carries him and the FAR leg comes forward, in frames 5-8 the FAR leg carries him and the NEAR leg comes forward - frames 1 and 5 must look different. The pale figure's legs are the OLD ones (they hardly move): follow these words and image 3's League frames for the legs, the pale figure only for where he stands and how big he is."
+  }
+ ]
+}

@@ -55,7 +55,7 @@
 
 ### 玛尔扎哈附加包
 
-[玛尔扎哈附加包](../../addons/league_malzahar/README.md)：`league_malzahar` v0.1.0
+[玛尔扎哈附加包](../../addons/league_malzahar/README.md)：`league_malzahar` v0.1.1
 
 主包 `league` 保持纯数据。用户选了「做：E 跳转 + 被动精确」。这个附加包用原生代码做主包数据做不准的两件事：
 

@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Mel as in League (needs League of Legends Heroes): replaces the main pack's Mel so Overwhelm executes a champion once his stacks are worth his health and Rebuttal rises when an enemy projectile flies at her, sending a golden copy back at its caster; the AI plays her combos (Solar Snare before Radiant Volley, the volley on the rooted champion, Golden Eclipse only for a kill or with two champions stacked). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-20",
+  "last_updated": "2026-11-02",
   "mod_id": "league_mel",
   "mod_type": "native",
   "name": "League Heroes: Mel's Overwhelm and Rebuttal (test)",
-  "version": "0.1.3"
+  "version": "0.1.4"
 }

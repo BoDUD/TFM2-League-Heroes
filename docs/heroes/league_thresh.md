@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / CC / Shield / Tank |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.48 |
 | 附加包 | [锤石灯笼附加包](#附加包)（`league_thresh_lantern`） |
 
 ![锤石演示](../preview/league_thresh_showcase.gif)
@@ -87,6 +87,7 @@
 | 数值 | 攻击 75（+6）、法强 25（+18）、生命 1000（+110）、护甲 24（+10）、魔抗 25（+4）、移速 1000（+10）。数值是自己设计的，用 SDK 对战模拟调：打辅助，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），两边、三套队友阵容各 24 局，一批 720 局。团队击杀差：初版（出手时刻还是估的：普攻第 13 tick、E 第 12 tick、R 第 14 tick）+0.04；按美术定下的出手帧重跑（普攻第 14 tick，E 第 8 tick 起扫、第 13 tick 命中，R 第 17 tick），两批种子 +0.39 / +0.34。游戏内测试后 E 改成推拉两种模式、位移从 15000 加到 30000：+0.80 / +0.34，仍在本包辅助中间，数值没再改。同样两批里：迦娜 +0.11 / +0.31、蕾欧娜 +0.78 / +1.23、索拉卡 −0.07 / −0.28，原版 `priest` +1.10 / +1.12。锤石每局放 Q 约 15 次、E 22 次（对英雄约 4 次，其余在清线、打野）、R 2.3 次 |
 | 亚索联动 | Q 的眩晕算亚索大招要的控制（监牢的 99% 减速不算）。亚索打上路、锤石打辅助时，亚索每局放 R 0.92 次（E 改成推拉之前是 1.25；同一批 48 局里辅助换成蕾欧娜是 1.88 次，之前测过迦娜 0.92、索拉卡 0.54、原版 `priest` 0.48）。锤石和迦娜一样，亚索不用调 |
 | 精灵图 | 8 个动作 55 帧：待机、移动（英雄联盟的走路动作）、普攻、Q、E、R、受击、死亡。连头上的锁链 39 px，35 色，动作全部取自英雄联盟原版动画 |
+| 高清帧（PPU 2.48） | 2026-10-31 用 PPU 重做，和泰隆在同一个 PR（用户：「锤石和女枪在这个pr里一起重做二轮」「都用中间档」「动作通过」）。设计图：Codex 照他的旧精灵描密的原图（两版，用 A 版：修过一遍的那张）；原图的描边约 9.75 像素一格（下面还有一层约 14.75 像素的粗格），按原图自己的格子读回（90 × 99 格；锁链尖到脚底 99 行 / 2.48 = 原来的 40 像素；调色板 64 色，`design_thresh_hd.py`，`--pitch` 是另外两种读法：14.75 / 6.5 像素是 1.65 / 3.73）；脸那一块按均匀格子读。英雄联盟里他头顶上竖着的是锁链，不是兜帽，提示词照这个写。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_thresh_actions.py`，七个动作 49 帧，旧版没有和待机一样的帧；镰刀在远侧手，普攻、Q、E 甩出去的锁链照旧帧的长度一节一节画出来，灯笼在近侧手，R 举过头顶；走路逐帧写明哪只脚在前）。读回（`casts_thresh_hd.py`）：骷髅脸的骨白色和盔甲的高光是同一种颜色，没法按颜色量头，所以每张的缩放按每帧和旧帧的身高定；趴着的死亡帧、R、受击第 2 帧、普攻第 4/6/7 帧和 Q 第 1–3 帧（Codex 把灯笼或锁链画得比旧帧低，按身高量会把人放大一两成）按整个人的面积定；对齐点按设计图和旧待机剪影重叠最多的那列（第 53 列）。待机不上下起伏（待机和选人卡是从动作里剪的随机片段）；没有烤进动作的特效（`rig_thresh_hd.py`）。高 40 像素和原来一样，没有 SIZES 行；头像点不变；选人卡片 −10 不变 |
 | 特效 | 普攻的锁链和命中、强化普攻的锁链和命中、Q 镰刀（锁链随飞行变长）、钩中后缠身的锁链、拉回时的镰刀（锁链随距离变短）、魂引之灯、灯笼护盾、E 横扫和命中、R 幽冥监牢（升起、立 5 秒、碎裂）、R 命中、减速时脚下的灵魂镣铐 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 12 条技能音效和 4 条中文语音（Q、W、E、R）。不提交到仓库，按下面的命令在本地生成 |
@@ -98,6 +99,15 @@ python tools/art/restyle_native.py assets/source/thresh/poses.json --renders <�
 python tools/art/import_native.py --hero thresh
 python tools/art/import_thresh.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_thresh.py
+# PPU 2.48 重做（2026-10-31）：
+python tools/art/pack_thresh_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照他的旧精灵描密）
+python tools/art/design_thresh_hd.py                      # Codex 的原图（hd/raw/thresh-A.png）按约 9.75 像素一格读回 -> hd/design.png
+python tools/art/pack_thresh_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_thresh_hd.py --heights             # 每帧按身高的缩放；--area 按面积（定 ZOOM）
+python tools/art/rig_thresh_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero thresh && python tools/art/ppu_hd.py --hero thresh
+python tools/art/ppu_one.py --hero thresh && python tools/art/rig_thresh_hd.py --one-ground && python tools/art/hero_reels.py --hero thresh
+python tools/art/review_thresh_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/thresh/PROMPTS.md`](../../assets/source/thresh/PROMPTS.md)）：
@@ -111,4 +121,4 @@ python tools/art/preview_thresh.py
 - 出手时刻和动画对齐：普攻第 14 tick（锁链甩出的那一帧）、Q 第 16 tick（镰刀出手）、E 第 8 tick 开始横扫的画面，5 tick 后（锁链扫过身前）才命中、R 第 17 tick（举灯那一帧）立起监牢。
 - 结果：35 色，和右边像素同色的比例 34%（原版英雄 18%–46%）。头像截取点 (−4, −33)：落在骷髅脸上，头上的锁链往后弯，工具按整个头算出的中心偏后。
 
-逐帧预览：[`docs/preview/league_thresh_frames.png`](../preview/league_thresh_frames.png?v=1014g)，特效：[`docs/preview/league_thresh_effects.png`](../preview/league_thresh_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_thresh_frames.png`](../preview/league_thresh_frames.png?v=1031hd)，特效：[`docs/preview/league_thresh_effects.png`](../preview/league_thresh_effects.png?v=1014g)。

@@ -523,7 +523,7 @@ fn infernal_chains_follow_league() {
         if std::env::var_os("KEEP_LOG").is_none() {
             let _ = std::fs::remove_file(&log);
         }
-        assert!(text.starts_with("=== league_aatrox_chain v0.2"), "{text}");
+        assert!(text.starts_with("=== league_aatrox_chain v0.2.4"), "{text}");
         for line in [
             "TETHER Champion #1 league_garen at (160000,0) ring (152000,0) (the chain's stop; Aatrox (100000,0))",
             "TETHER Monster #3 rhino_monster",

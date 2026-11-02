@@ -563,6 +563,8 @@ impl StableEffectType for Bloom {
 
 #[derive(Clone, Default)]
 struct Lagoon {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
 }
 
@@ -662,6 +664,7 @@ impl StablePassive for Lagoon {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         MARKS.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
         WAVES.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
@@ -677,7 +680,8 @@ impl StablePassive for Lagoon {
         self.tend(sim, me);
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         // her flowers stay where they are (TFT's marks outlive her); her death cry (the data has no moment for it)
         sim.play_sfx(&sm("d"), me, &InputTargetV1::target(me));
     }

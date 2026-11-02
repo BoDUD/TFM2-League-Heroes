@@ -90,11 +90,14 @@ def put(img, im, ppu, x, y, z, mirror=False):
 def scene(z, zoe, dar, fx, sp, ic, spell, font):
     """One cast: her W, the spell; Darius across. Returns the frames."""
     W, H, gy = 150, 70, 60
-    zx, dx0 = 45, 105
+    zx, dx0 = (85, 130) if spell == "flash" else (45, 105)     # Flash: room behind her for the blink
     shots = [Shot(ic, "sg_" + spell, 0, ("at", zx, gy - FEET), layer=-1)]
-    blink = 22 if spell == "flash" else 0       # Flash: 45000 back from the one on her
+    blink = 45 if spell == "flash" else 0       # Flash: summon::FLASH_D 45000 back from the one on her (1000 a game px)
     if spell == "flash":
-        shots += [Shot(sp, "s_flash", 0, ("at", zx, gy - FEET)), Shot(sp, "s_flash", 0, ("at", zx - blink, gy - FEET))]
+        # a starburst where she was and where she lands, the streak's puffs between them, the icon at both ends
+        shots += [Shot(sp, "s_flash", 0, ("at", zx, gy - FEET)), Shot(sp, "s_flash", 0, ("at", zx - blink, gy - FEET)),
+                  Shot(ic, "sg_flash", 0, ("at", zx - blink, gy - FEET), layer=-1)]
+        shots += [Shot(sp, "s_flash_trail", 0, ("at", zx - blink * k / 5, gy - FEET)) for k in range(1, 5)]
     elif spell == "ignite":
         shots.append(Shot(sp, "s_ignite", 0, ("him",), until=1700))
     elif spell == "exhaust":

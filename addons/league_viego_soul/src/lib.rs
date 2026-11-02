@@ -37,6 +37,12 @@ pub mod stuck;
 pub mod view;
 
 const ID: &str = "league_viego_soul";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_viego_soul") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 主包里佛耶戈的 id。
 pub const HERO: &str = "league_viego";
 /// 数据副本挂在被打中的英雄身上的标记。
@@ -249,6 +255,8 @@ pub struct Possess {
     pub souls: Vec<Soul>,
     pub on: Option<Possession>,
     pub was_alive: bool,
+    /// His unit, set by every update (`on_dead` is given only the player).
+    pub me: Option<usize>,
     /// The first update has run (a sim the screen replays is noted for the display hook then).
     pub started: bool,
     /// No new dash onto a soul before this tick (the last one's length).
@@ -406,7 +414,9 @@ impl Possess {
         let foe_near = (0..sim.champion_count()).filter_map(|i| sim.get_entity(sim.champion_id_at(i))).any(|c| {
             c.team() != team && c.is_alive() && c.is_targetable() && dist(c.pos(), pos) as f64 <= stuck::NEAR
         });
-        let obs = stuck::Obs { alive, pos, force, anim, acted, foe_near };
+        // held, he stands still by design: no Still either (2026-11-01 log: Still(300) during the stasis next to an enemy
+        // cut a revive 178 ticks short, as the Anim path did before 0.2.34)
+        let obs = stuck::Obs { alive, pos, force, anim, acted, foe_near: foe_near && !held };
         let Some(why) = self.stuck.step(obs) else { return };
         let cleared = sim.entity_clear_cc(me);
         sim.apply_cc(me, &CcV1::of_kind(CcKindV1::Airborne, stuck::KICK));
@@ -449,7 +459,19 @@ impl StablePassive for Possess {
         };
     }
 
+    /// His death ends a possession at once (0.2.41, the 2026-11-01 logs: 25 possessions outlived his death and ended
+    /// "(time)" on the respawned Viego thousands of ticks later, with the return-to-body mist - a dead champion's update
+    /// does not run, so the `alive` change below never saw it).
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        if let Some(me) = self.me {
+            self.end(sim, me, "dead");
+        }
+        self.souls.clear();
+        self.was_alive = false;
+    }
+
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+        self.me = Some(me);
         self.unstick(sim, me);
         let now = sim.tick();
         let Some(e) = sim.get_entity(me) else { return };
@@ -565,8 +587,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Viego: possess the champions he helps kill, their whole body on game 0.6.4 and later (Windows); the mist rises by itself near enemy champions) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Viego: possess the champions he helps kill, their whole body on game 0.6.4 and later (Windows); the mist rises by itself near enemy champions) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

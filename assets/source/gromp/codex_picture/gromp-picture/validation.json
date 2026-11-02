@@ -1,0 +1,68 @@
+[
+  {
+    "file": "gromp-A.png",
+    "canvas": [
+      1536,
+      1536
+    ],
+    "logical_size": [
+      56,
+      32
+    ],
+    "cell_size": 11,
+    "bbox": [
+      460,
+      1038,
+      1076,
+      1390
+    ],
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 26,
+    "source": "gromp-A-revised.png",
+    "source_crop": [
+      219,
+      769,
+      1083,
+      1244
+    ],
+    "grid_check": "PASS",
+    "outline_cells": 2
+  },
+  {
+    "file": "gromp-B.png",
+    "canvas": [
+      1536,
+      1536
+    ],
+    "logical_size": [
+      56,
+      31
+    ],
+    "cell_size": 11,
+    "bbox": [
+      460,
+      1049,
+      1076,
+      1390
+    ],
+    "bottom_margin": 146,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "palette_colors": 22,
+    "source": "gromp-B-generated.png",
+    "source_crop": [
+      223,
+      755,
+      1097,
+      1241
+    ],
+    "grid_check": "PASS",
+    "outline_cells": 2
+  }
+]

@@ -213,6 +213,9 @@ impl StablePassive for Shimmer {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        // a new life is a new unit, and on_update does not run while it is dead: the first tick of this life
+        // must see a dead one, or what each life has once stays used up (2026-11-02 logs)
+        self.was_alive = false;
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
             wlog(format!("{} SPAWN #{k}: tft.dll's Renni (player {player}, team {team}), {:?}", head(sim, me), self.p));

@@ -3,7 +3,7 @@
 
     python tools/art/preview_talon.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_talon_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_talon_frames.png    every animation's dense frames (hd_, PPU 2.21, as league.dll shows them)
   league_talon_effects.png   every effect animation, 3x
   league_talon_showcase.gif  a scripted gank on Darius with Garen behind him, timed like the kit
                              (tools/kit/build_talon.py, 60 ticks a second): W Rake - the fan of blades out through
@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(HERE), "kit"))
 from preview_annie import Held  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_pyke import Me, OnFoe, OnMe, mirrored  # noqa: E402
 from build_talon import P  # noqa: E402
 
@@ -67,7 +68,7 @@ def showcase(out, z=3, step=40):
         if dur is not None and dur <= 0:
             return None
         x, y = me.pos(t)
-        fr = frames_of(sp, tag)
+        fr = dense(sp, tag, "talon", z)
         if stealth[0] and stealth[0][0] <= t < stealth[0][1]:
             fr = faded(fr)
         an = Anim(fr, t, x, y, loop=loop, until=(t + dur) if dur else None, flip=face[0])
@@ -170,11 +171,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -192,7 +193,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -212,8 +213,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_talon_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_talon_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():

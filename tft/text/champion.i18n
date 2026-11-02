@@ -182,6 +182,83 @@
         "skill": "跃起扑向目标，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理伤害<>并减速<#ef5350ff>30%<>（<#ffb900ff>1秒<>）。",
         "skill2": "人立怒吼：周围敌人减速<#ef5350ff>30%<>、攻击力降低<#ef5350ff>20%<>，自己受到的伤害降低<#ff9028ff>25%<>，持续<#ffb900ff>3秒<>。",
         "ult": "狂暴<#ffb900ff>6秒<>：攻击力<#ff9028ff>+55%<>、攻速<#ff9028ff>+35%<>，无视目标<#ff9028ff>40%<>护甲。"
+      },
+      "tft_raptor": {
+        "name": "深红锋喙鸟",
+        "attack": "甩出一根锋羽，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>橙霸符<>：它的物理伤害使目标护甲<#ef5350ff>-6<>（<#ffb900ff>3秒<>，最多<#ffb900ff>5层<>）。",
+        "skill": "张开翅膀，扇形甩出<#ffb900ff>5根<>羽刃，每根命中第一个敌人，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理伤害<>。",
+        "skill2": "受惊尖叫，往后一跳，之后<#ffb900ff>3秒<>攻速<#ffb900ff>+70%<>。",
+        "ult": "召唤<#ffb900ff>4只<>不可选中的小锋喙鸟（<#ffb900ff>7秒<>）：它每次普攻，小鸟们一起啄同一目标，各造成<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>。"
+      },
+      "tft_elderdragon": {
+        "name": "远古巨龙",
+        "attack": "撕咬目标，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，目标身边的敌人受到<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>溅射。<#ff9028ff>远古巨龙霸符<>：被它伤害后生命低于<#ef5350ff>15%<>的敌方英雄直接被处决。",
+        "skill": "朝穿过目标、敌人最多的直线喷吐龙焰，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，每烧过一人伤害<#ef5350ff>-20%<>（最低<#ffb900ff>40%<>），并<#ff9028ff>引燃<>：<#ffb900ff>3秒<>内每秒受到<#ef5350ff>2.5%<>最大生命的物理伤害。",
+        "skill2": "立起身猛拍双翼，身边的敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>、被击退并减速<#ffb900ff>35%<>（<#ffb900ff>2秒<>），自己受到的伤害<#ef5350ff>-25%<>。",
+        "ult": "无敌飞上天空，<#ffb900ff>1.5秒<>后砸落：大范围敌人受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、晕眩<#ffb900ff>1.25秒<>并被<#ff9028ff>引燃<>；获得<#ffb900ff>30%<>全能吸血（<#ffb900ff>5秒<>），立刻喷一次<#ff9028ff>烈焰吐息<>。"
+      },
+      "tft_murkwolf": {
+        "name": "暗影狼",
+        "attack": "两个头一起撕咬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>灰霸符<>：暴击率<#ffb900ff>25%<>，随已损失生命值最多再<#ffb900ff>+30%<>，技能也能暴击。",
+        "skill": "跃向附近生命值最低的敌人，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>。接下来<#ffb900ff>3次<>攻击攻速<#ffb900ff>+60%<>，额外造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>。",
+        "skill2": "仰头长嚎，<#ffb900ff>5秒<>内吸血<#ffb900ff>20%<>，伤害提高<#ffb900ff>15%<>，对生命低于<#ffb900ff>50%<>的敌人翻倍。",
+        "ult": "叫来<#ffb900ff>2只<>小暗影狼扑向目标，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>。<#ffb900ff>6秒<>内它每次攻击，小狼咬<#ffb900ff>2口<>，每口<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理伤害<>。"
+      },
+      "tft_meepsie": {
+        "name": "小木灵",
+        "attack": "挥出月岩重拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>木灵驾驶员<>：每一拳额外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法伤害<>。",
+        "skill": "一拳砸向前方地面，扇形范围内的敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法伤害<>并减速<#ef5350ff>40%<>（<#ffb900ff>2秒<>）。",
+        "skill2": "驾驶员一招手，<#ffb900ff>4只<>小木灵飞向身边生命比例最低的队友（名额有剩时也治疗自己），每<#ffb900ff>0.5秒<>回复<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>生命，持续<#ffb900ff>3秒<>。",
+        "ult": "跳向附近敌方英雄最多的地方砸地，周围的敌人受到<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法伤害<>，离中心每远一格少<#ef5350ff>35%<>；离落点最近的<#ffb900ff>3个<>敌方英雄被<#ef5350ff>击飞<><#ffb900ff>1.25秒<>。"
+      },
+      "tft_scuttlecrab": {
+        "name": "迅捷蟹",
+        "attack": "跳一段螃蟹舞，踩中身边所有敌人，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>绿霸符<>：附近的友方英雄生命低于<#ffb900ff>40%<>时回复<#ffb900ff>12%<>最大生命（每人<#ffb900ff>10秒<>一次）。",
+        "skill": "在脚下放下神龛（<#ffb900ff>4秒<>），水花使周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>并减速<#ef5350ff>40%<>；神龛里的友方英雄移速<#ffb900ff>+30%<>、攻速<#ffb900ff>+25%<>。",
+        "skill2": "缩进壳里，获得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>护盾（<#ffb900ff>2秒<>）。护盾打光或到时间时蟹壳碎裂：周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>、<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>并减速<#ef5350ff>40%<>。",
+        "ult": "钻入地下<#ffb900ff>2.5秒<>：受到的伤害降低<#ffb900ff>50%<>、免疫控制，持续回复<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>生命；然后钻出地面，周围敌人受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并被<#ef5350ff>击飞<><#ffb900ff>1.5秒<>。"
+      },
+      "tft_gromp": {
+        "name": "魔沼蛙",
+        "attack": "吐出毒口水，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法伤害<>。<#ff9028ff>紫霸符<>：战斗中每<#ffb900ff>4秒<>法术加成<#ffb900ff>+8<>，最多<#ffb900ff>8层<>。",
+        "skill": "打出一个毒泡泡，碰到第一个敌人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并炸开，周围敌人<#ffb900ff>3秒<>内受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法伤害<>。",
+        "skill2": "往敌人脚下吐一滩黏液，持续<#ffb900ff>4秒<>，站在里面的敌人减速<#ffb900ff>55%<>，每秒受到<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法伤害<>。",
+        "ult": "肚子鼓起变大<#ffb900ff>5秒<>（受到伤害<#ffb900ff>-20%<>），向前打出大嗝，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>35%<>，毒雾留在地上<#ffb900ff>4秒<>，每秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<><#a974ffff>魔法伤害<>。"
+      },
+      "tft_sentry": {
+        "name": "苍蓝哨戒",
+        "attack": "蓝核射出碎光弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>。<#ff9028ff>青霸符<>：蔚蓝激光每引导<#ffb900ff>1秒<>，大招冷却<#ffb900ff>-1秒<>。",
+        "skill": "对目标引导激光<#ffb900ff>2.5秒<>（可以边飘边照），共造成<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<><#a974ffff>魔法伤害<>，每<#ffb900ff>0.25秒<>魔抗<#ffb900ff>-4<>（可叠加，持续<#ffb900ff>2秒<>）。目标离开射程或自己被控时中断。",
+        "skill2": "两块石头猛地分开再合拢，周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己向后闪开。",
+        "ult": "两块石头张开，蓝核射出光柱扫过前方扇形，造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<><#a974ffff>魔法伤害<>，魔抗<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_brock": {
+        "name": "岩宝",
+        "attack": "双拳砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，目标周围敌人受<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>溅射；每第三下<#ef5350ff>击飞<>目标<#ffb900ff>0.33秒<>。<#ff9028ff>岩心不动<>：免疫控制。",
+        "skill": "抡起大石头砸向目标，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理伤害<>，减速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "树根从目标脚下钻出，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>并<#ef5350ff>定身0.83秒<>；自己获得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>护盾（<#ffb900ff>3秒<>）。",
+        "ult": "跃起砸向敌方英雄：周围敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理伤害<>，每远一格<#ffb900ff>-15%<>（最低<#ffb900ff>40%<>），本场第一次被砸中的<#ef5350ff>击飞1.25秒<>；随后落下<#ffb900ff>6<>块碎石。"
+      },
+      "tft_cinderling": {
+        "name": "绯红树怪",
+        "attack": "甩出余烬叶，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>绯红霸符<>：每放一个技能攻击力<#ffb900ff>+6<>（最多<#ffb900ff>4层<>，<#ffb900ff>8秒<>不放技能清空）；满层时普攻灼烧英雄。",
+        "skill": "五片叶刃聚向目标，共造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>，施加<#ffb900ff>3秒<>重伤（治疗<#ffb900ff>-40%<>）和灼烧（每秒<#ef5350ff>1%<>最大生命<#ef5350ff>真实伤害<>，<#ffb900ff>2秒<>）。",
+        "skill2": "钻进地里溅起泥土，周围敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理伤害<>并减速<#ffb900ff>35%<>（<#ffb900ff>1.5秒<>），再从远离目标的地方钻出（地下受伤<#ffb900ff>-70%<>）。",
+        "ult": "站起来点燃叶子：<#ffb900ff>4秒<>内攻速<#ffb900ff>+40%<>，每<#ffb900ff>0.5秒<>向附近敌人射出<#ffb900ff>3片<>燃烧叶刃，各造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理伤害<>，英雄被灼烧。"
+      },
+      "tft_riftherald": {
+        "name": "峡谷先锋",
+        "attack": "钳爪砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>虚空甲壳<>：身边每有一名敌方英雄，受到伤害<#ffb900ff>-4%<>（最多<#ffb900ff>5名<>）。",
+        "skill": "原地转一圈，周围敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理伤害<>并减速<#ffb900ff>30%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "直立蓄力后翻身冲向敌方英雄：沿途敌人受到<#a974ffff>40<> + <#a974ffff>4%<>最大生命<#a974ffff>魔法伤害<>并被撞开，撞到的英雄再受一次并<#ef5350ff>晕眩1秒<>。",
+        "ult": "长啸变大，最大生命<#ffb900ff>+300<>；猛击前方，敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<>最大生命<#a974ffff>魔法伤害<>；<#ffb900ff>4秒<>内受到伤害<#ffb900ff>-15%<>，虚空甲壳每名敌人再<#ffb900ff>-3%<>。"
+      },
+      "tft_thex": {
+        "name": "海克斯霸龙",
+        "attack": "每次攻击连射<#ffb900ff>4<>发子弹，每发<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>；每第四次攻击最后一发额外<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>驾驶员弹射<>：阵亡时机甲爆炸，周围敌人受到<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，<#ef5350ff>击退并晕眩1.5秒<>。",
+        "skill": "背部导弹舱翻开，向附近随机敌人发射<#ffb900ff>6<>枚导弹，每枚造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理伤害<>。",
+        "skill2": "冲向目标一口咬住，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>，<#ef5350ff>击退<>并减速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "ult": "获得<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>护盾（<#ffb900ff>4秒<>），导弹舱全开：每秒向目标射出贯穿激光，共<#ffb900ff>3<>道，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，每穿过一个敌人<#ffb900ff>-70%<>（最低<#ffb900ff>10%<>）；每道激光伴随<#ffb900ff>4<>枚导弹，每枚<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>。"
       }
     },
     "skill_name": {
@@ -314,6 +391,61 @@
         "skill1": "荆棘飞扑",
         "skill2": "绯红咆哮",
         "ult": "猩红之怒"
+      },
+      "tft_raptor": {
+        "skill1": "羽刃扇射",
+        "skill2": "惊飞跃退",
+        "ult": "鸟群之家"
+      },
+      "tft_elderdragon": {
+        "skill1": "烈焰吐息",
+        "skill2": "龙翼风暴",
+        "ult": "绝伦火热"
+      },
+      "tft_murkwolf": {
+        "skill1": "撕裂之爪",
+        "skill2": "狂战士之嚎",
+        "ult": "狼群攻击"
+      },
+      "tft_meepsie": {
+        "skill1": "月尘震地",
+        "skill2": "治疗木灵",
+        "ult": "宇宙大爆炸"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "疾行神龛",
+        "skill2": "蟹壳护盾",
+        "ult": "你挖得动吗？"
+      },
+      "tft_gromp": {
+        "skill1": "打嗝泡泡",
+        "skill2": "黏液沼泽",
+        "ult": "毒沼大嗝"
+      },
+      "tft_sentry": {
+        "skill1": "蔚蓝激光",
+        "skill2": "裂石跃迁",
+        "ult": "棱镜扫射"
+      },
+      "tft_brock": {
+        "skill1": "巨岩投掷",
+        "skill2": "苔藤缠握",
+        "ult": "震地猛击"
+      },
+      "tft_cinderling": {
+        "skill1": "刃叶",
+        "skill2": "钻土突袭",
+        "ult": "燎原叶暴"
+      },
+      "tft_riftherald": {
+        "skill1": "回旋横扫",
+        "skill2": "虚空冲锋",
+        "ult": "扭曲护甲"
+      },
+      "tft_thex": {
+        "skill1": "追踪导弹",
+        "skill2": "霸龙冲撞",
+        "ult": "海克斯军械库"
       }
     }
   },
@@ -500,6 +632,83 @@
         "skill": "躍起撲向目標，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<><#ff9028ff>物理傷害<>並緩速<#ef5350ff>30%<>（<#ffb900ff>1秒<>）。",
         "skill2": "人立怒吼：周圍敵人緩速<#ef5350ff>30%<>、攻擊力降低<#ef5350ff>20%<>，自己受到的傷害降低<#ff9028ff>25%<>，持續<#ffb900ff>3秒<>。",
         "ult": "狂暴<#ffb900ff>6秒<>：攻擊力<#ff9028ff>+55%<>、攻速<#ff9028ff>+35%<>，無視目標<#ff9028ff>40%<>物防。"
+      },
+      "tft_raptor": {
+        "name": "巨喙鳥媽媽",
+        "attack": "甩出一根鋒羽，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>橘色增益<>：牠的物理傷害使目標物防<#ef5350ff>-6<>（<#ffb900ff>3秒<>，最多<#ffb900ff>5層<>）。",
+        "skill": "張開翅膀，扇形甩出<#ffb900ff>5根<>羽刃，每根命中第一個敵人，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<><#ff9028ff>物理傷害<>。",
+        "skill2": "受驚尖叫，往後一跳，之後<#ffb900ff>3秒<>攻速<#ffb900ff>+70%<>。",
+        "ult": "召喚<#ffb900ff>4隻<>無法被指定的小巨喙鳥（<#ffb900ff>7秒<>）：牠每次普攻，小鳥們一起啄同一目標，各造成<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>。"
+      },
+      "tft_elderdragon": {
+        "name": "遠古巨龍",
+        "attack": "撕咬目標，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，目標身邊的敵軍受到<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>濺射。<#ff9028ff>遠古巨龍增益<>：被牠傷害後生命低於<#ef5350ff>15%<>的敵方英雄直接被處決。",
+        "skill": "朝穿過目標、敵軍最多的直線噴火，造成<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，每穿過一人傷害<#ef5350ff>-20%<>（最低<#ffb900ff>40%<>），並<#ff9028ff>點燃<>：<#ffb900ff>3秒<>內每秒受到<#ef5350ff>2.5%<>最大生命的物理傷害。",
+        "skill2": "挺身猛拍雙翼，身邊的敵軍受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>、被擊退並緩速<#ffb900ff>35%<>（<#ffb900ff>2秒<>），自身受到的傷害<#ef5350ff>-25%<>。",
+        "ult": "進入無敵飛上天空，<#ffb900ff>1.5秒<>後落下：大範圍敵軍受到<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、暈眩<#ffb900ff>1.25秒<>並被<#ff9028ff>點燃<>；獲得<#ffb900ff>30%<>全能吸血（<#ffb900ff>5秒<>），立即施放<#ff9028ff>龍之吐息<>。"
+      },
+      "tft_murkwolf": {
+        "name": "魔狼",
+        "attack": "兩個頭一起撕咬，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>灰色增益<>：暴擊率<#ffb900ff>25%<>，隨已損失生命最多再<#ffb900ff>+30%<>，技能也能暴擊。",
+        "skill": "躍向附近生命最低的敵軍，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>。接下來<#ffb900ff>3次<>普攻攻速<#ffb900ff>+60%<>，額外造成<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>。",
+        "skill2": "仰頭長嚎，<#ffb900ff>5秒<>內吸血<#ffb900ff>20%<>，傷害提高<#ffb900ff>15%<>，對生命低於<#ffb900ff>50%<>的敵軍加倍。",
+        "ult": "叫來<#ffb900ff>2隻<>小魔狼撲向目標，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>。<#ffb900ff>6秒<>內牠每次普攻，小狼咬<#ffb900ff>2口<>，每口<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理傷害<>。"
+      },
+      "tft_meepsie": {
+        "name": "小米普",
+        "attack": "揮出月岩重拳，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>米普駕駛員<>：每一拳額外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<><#a974ffff>魔法傷害<>。",
+        "skill": "一拳砸向前方地面，扇形範圍內的敵軍受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<><#a974ffff>魔法傷害<>並緩速<#ef5350ff>40%<>（<#ffb900ff>2秒<>）。",
+        "skill2": "駕駛員一招手，<#ffb900ff>4隻<>米普飛向身邊生命比例最低的隊友（名額有剩時也治療自身），每<#ffb900ff>0.5秒<>回復<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>生命，持續<#ffb900ff>3秒<>。",
+        "ult": "跳向附近敵方英雄最多的地方砸地，周圍的敵軍受到<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<><#a974ffff>魔法傷害<>，離中心每遠一格減少<#ef5350ff>35%<>；離落點最近的<#ffb900ff>3名<>敵方英雄被<#ef5350ff>擊飛<><#ffb900ff>1.25秒<>。"
+      },
+      "tft_scuttlecrab": {
+        "name": "河蟹",
+        "attack": "跳一段螃蟹舞，踩中身邊所有敵軍，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>綠色增益<>：附近的友方英雄生命低於<#ffb900ff>40%<>時回復<#ffb900ff>12%<>最大生命（每人<#ffb900ff>10秒<>一次）。",
+        "skill": "在腳下放下神龕（<#ffb900ff>4秒<>），水花使周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>並緩速<#ef5350ff>40%<>；神龕裡的友方英雄移速<#ffb900ff>+30%<>、攻速<#ffb900ff>+25%<>。",
+        "skill2": "縮進殼裡，獲得<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>護盾（<#ffb900ff>2秒<>）。護盾被打破或時間到時蟹殼碎裂：周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>、<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>並緩速<#ef5350ff>40%<>。",
+        "ult": "鑽入地下<#ffb900ff>2.5秒<>：受到的傷害降低<#ffb900ff>50%<>、免疫控場，持續回復<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>生命；接著鑽出地面，周圍敵軍受到<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並被<#ef5350ff>擊飛<><#ffb900ff>1.5秒<>。"
+      },
+      "tft_gromp": {
+        "name": "啾吉",
+        "attack": "吐出毒口水，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<><#a974ffff>魔法傷害<>。<#ff9028ff>紫色增益<>：戰鬥中每<#ffb900ff>4秒<>魔攻<#ffb900ff>+8<>，最多<#ffb900ff>8層<>。",
+        "skill": "吐出飽嗝泡泡，碰到第一個敵軍造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並炸開，周圍敵軍<#ffb900ff>3秒<>內受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<><#a974ffff>魔法傷害<>。",
+        "skill2": "往敵軍腳下吐一灘黏液，持續<#ffb900ff>4秒<>，站在裡面的敵軍緩速<#ffb900ff>55%<>，每秒受到<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<><#a974ffff>魔法傷害<>。",
+        "ult": "肚子鼓起變大<#ffb900ff>5秒<>（受到傷害<#ffb900ff>-20%<>），向前打出大嗝，造成<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>35%<>，毒霧留在地上<#ffb900ff>4秒<>，每秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<><#a974ffff>魔法傷害<>。"
+      },
+      "tft_sentry": {
+        "name": "小石子",
+        "attack": "藍核射出碎光彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>。<#ff9028ff>深藍綠色增益<>：蒼藍雷射每照射<#ffb900ff>1秒<>，大絕冷卻<#ffb900ff>-1秒<>。",
+        "skill": "對目標照射雷射<#ffb900ff>2.5秒<>（可以邊飄邊照），共造成<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<><#a974ffff>魔法傷害<>，每<#ffb900ff>0.25秒<>魔防<#ffb900ff>-4<>（可疊加，持續<#ffb900ff>2秒<>）。目標離開射程或自己被控時中斷。",
+        "skill2": "兩塊石頭猛地分開再合攏，周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己向後閃開。",
+        "ult": "兩塊石頭張開，藍核射出光柱掃過前方扇形，造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<><#a974ffff>魔法傷害<>，魔防<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_brock": {
+        "name": "布洛克",
+        "attack": "雙拳砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，目標周圍敵軍受<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>濺射；每第三下<#ef5350ff>擊飛<>目標<#ffb900ff>0.33秒<>。<#ff9028ff>岩心不動<>：免疫控制。",
+        "skill": "掄起大石頭砸向目標，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理傷害<>，緩速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "樹根從目標腳下鑽出，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>並<#ef5350ff>定身0.83秒<>；自己獲得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>護盾（<#ffb900ff>3秒<>）。",
+        "ult": "躍起砸向敵方英雄：周圍敵軍受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理傷害<>，每遠一格<#ffb900ff>-15%<>（最低<#ffb900ff>40%<>），本場第一次被砸中的<#ef5350ff>擊飛1.25秒<>；隨後落下<#ffb900ff>6<>塊碎石。"
+      },
+      "tft_cinderling": {
+        "name": "樹精",
+        "attack": "甩出餘燼葉，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>緋紅增益<>：每施放一個技能物攻<#ffb900ff>+6<>（最多<#ffb900ff>4層<>，<#ffb900ff>8秒<>不施放技能清空）；滿層時普攻燃燒英雄。",
+        "skill": "五片葉刃匯聚向目標，共造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>，附加<#ffb900ff>3秒<>重創（治療<#ffb900ff>-40%<>）和燃燒（每秒<#ef5350ff>1%<>最大生命<#ef5350ff>真實傷害<>，<#ffb900ff>2秒<>）。",
+        "skill2": "鑽進地裡濺起泥土，周圍敵軍受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理傷害<>並緩速<#ffb900ff>35%<>（<#ffb900ff>1.5秒<>），再從遠離目標的地方鑽出（地下受傷<#ffb900ff>-70%<>）。",
+        "ult": "站起來點燃葉子：<#ffb900ff>4秒<>內攻速<#ffb900ff>+40%<>，每<#ffb900ff>0.5秒<>向附近敵軍射出<#ffb900ff>3片<>燃燒葉刃，各造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理傷害<>，英雄被燃燒。"
+      },
+      "tft_riftherald": {
+        "name": "預示者",
+        "attack": "鉗爪砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>虛空甲殼<>：身邊每有一名敵方英雄，受到傷害<#ffb900ff>-4%<>（最多<#ffb900ff>5名<>）。",
+        "skill": "原地轉一圈，周圍敵軍受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理傷害<>並緩速<#ffb900ff>30%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "直立蓄力後翻身衝向敵方英雄：沿途敵軍受到<#a974ffff>40<> + <#a974ffff>4%<>最大生命<#a974ffff>魔法傷害<>並被撞開，撞到的英雄再受一次並<#ef5350ff>暈眩1秒<>。",
+        "ult": "長嘯變大，最大生命<#ffb900ff>+300<>；猛擊前方，敵軍受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<>最大生命<#a974ffff>魔法傷害<>；<#ffb900ff>4秒<>內受到傷害<#ffb900ff>-15%<>，虛空甲殼每名敵人再<#ffb900ff>-3%<>。"
+      },
+      "tft_thex": {
+        "name": "機械暴龍",
+        "attack": "每次攻擊連射<#ffb900ff>4<>發子彈，每發<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>；每第四次攻擊最後一發額外<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>駕駛員彈射<>：陣亡時機甲爆炸，周圍敵軍受到<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，<#ef5350ff>擊退並暈眩1.5秒<>。",
+        "skill": "背部導彈艙翻開，向附近隨機敵軍發射<#ffb900ff>6<>枚導彈，每枚造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<><#ff9028ff>物理傷害<>。",
+        "skill2": "衝向目標一口咬住，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>，<#ef5350ff>擊退<>並緩速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "ult": "獲得<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>護盾（<#ffb900ff>4秒<>），導彈艙全開：每秒向目標射出貫穿雷射，共<#ffb900ff>3<>道，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，每穿過一名敵軍<#ffb900ff>-70%<>（最低<#ffb900ff>10%<>）；每道雷射伴隨<#ffb900ff>4<>枚導彈，每枚<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>。"
       }
     },
     "skill_name": {
@@ -632,6 +841,61 @@
         "skill1": "荊棘飛撲",
         "skill2": "緋紅咆哮",
         "ult": "猩紅狂怒"
+      },
+      "tft_raptor": {
+        "skill1": "羽刃扇射",
+        "skill2": "驚飛躍退",
+        "ult": "飛禽家族"
+      },
+      "tft_elderdragon": {
+        "skill1": "龍之吐息",
+        "skill2": "龍翼風暴",
+        "ult": "無與倫比的熱力"
+      },
+      "tft_murkwolf": {
+        "skill1": "撕扯之爪",
+        "skill2": "狂戰士之嚎",
+        "ult": "狼群攻擊"
+      },
+      "tft_meepsie": {
+        "skill1": "月塵震地",
+        "skill2": "治療米普",
+        "ult": "大霹靂星系"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "疾行神龕",
+        "skill2": "蟹殼護盾",
+        "ult": "你挖得動嗎？"
+      },
+      "tft_gromp": {
+        "skill1": "飽嗝泡泡",
+        "skill2": "黏液沼澤",
+        "ult": "毒沼大嗝"
+      },
+      "tft_sentry": {
+        "skill1": "蒼藍雷射",
+        "skill2": "裂石躍遷",
+        "ult": "稜鏡掃射"
+      },
+      "tft_brock": {
+        "skill1": "巨岩投擲",
+        "skill2": "苔藤纏握",
+        "ult": "震地猛擊"
+      },
+      "tft_cinderling": {
+        "skill1": "飛葉快刀",
+        "skill2": "鑽土突襲",
+        "ult": "燎原葉暴"
+      },
+      "tft_riftherald": {
+        "skill1": "迴旋橫掃",
+        "skill2": "虛空衝鋒",
+        "ult": "扭曲護甲"
+      },
+      "tft_thex": {
+        "skill1": "追蹤導彈",
+        "skill2": "暴龍衝撞",
+        "ult": "海克斯科技軍火庫"
       }
     }
   },
@@ -818,6 +1082,83 @@
         "skill": "Pounces on its target for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>physical damage<>, slowing it <#ef5350ff>30%<> for <#ffb900ff>1s<>.",
         "skill2": "Rears up and roars: nearby enemies are slowed <#ef5350ff>30%<> and lose <#ef5350ff>20%<> attack, it takes <#ff9028ff>25%<> less damage, for <#ffb900ff>3s<>.",
         "ult": "Frenzied for <#ffb900ff>6s<>: <#ff9028ff>+55%<> attack, <#ff9028ff>+35%<> attack speed, ignores <#ff9028ff>40%<> of its target's armor."
+      },
+      "tft_raptor": {
+        "name": "Mama Beak",
+        "attack": "Flings a sharp feather for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Orange Buff<>: its physical damage takes <#ef5350ff>6<> armour off the target for <#ffb900ff>3s<> (up to <#ffb900ff>5<> stacks).",
+        "skill": "Spreads its wings and flings <#ffb900ff>5<> blade feathers in a fan, each hitting the first enemy for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>physical damage<>.",
+        "skill2": "Startled, it screeches and hops back, then gains <#ffb900ff>+70%<> attack speed for <#ffb900ff>3s<>.",
+        "ult": "Calls <#ffb900ff>4<> untargetable Tiny Beaks for <#ffb900ff>7s<>: each of its attacks, they peck the same enemy for <#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<> each."
+      },
+      "tft_elderdragon": {
+        "name": "Elder Dragon",
+        "attack": "Bites for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>; enemies next to the target take <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>. <#ff9028ff>Elder buff<>: enemy champions it leaves under <#ef5350ff>15%<> health are executed.",
+        "skill": "Breathes fire along the line through the target with the most enemies: <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>, <#ef5350ff>20%<> less per enemy passed (min <#ffb900ff>40%<>), and <#ff9028ff>Ignites<> them: <#ef5350ff>2.5%<> max health physical a second for <#ffb900ff>3s<>.",
+        "skill2": "Rears up and beats its wings: nearby enemies take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, are knocked back and slowed <#ffb900ff>35%<> (<#ffb900ff>2s<>); it takes <#ef5350ff>25%<> less damage.",
+        "ult": "Invulnerable, it flies up and lands after <#ffb900ff>1.5s<>: enemies in a wide area take <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, are stunned <#ffb900ff>1.25s<> and <#ff9028ff>Ignited<>; it gains <#ffb900ff>30%<> omnivamp (<#ffb900ff>5s<>) and casts <#ff9028ff>Flame Breath<> at once."
+      },
+      "tft_murkwolf": {
+        "name": "Murkwolf",
+        "attack": "Both heads bite for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Grey Buff<>: <#ffb900ff>25%<> critical strike chance, up to <#ffb900ff>+30%<> more with its missing Health; its skills can critically strike.",
+        "skill": "Leaps to the nearby enemy with the lowest Health for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<>. Its next <#ffb900ff>3<> attacks gain <#ffb900ff>+60%<> attack speed and deal <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> bonus <#ff9028ff>physical damage<>.",
+        "skill2": "Howls: for <#ffb900ff>5s<> it gains <#ffb900ff>20%<> omnivamp and deals <#ffb900ff>15%<> more damage, doubled against enemies below <#ffb900ff>50%<> Health.",
+        "ult": "Calls <#ffb900ff>2<> murk wolf pups that pounce on its target for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>. For <#ffb900ff>6s<>, each of its attacks the pups bite <#ffb900ff>2<> times for <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>physical damage<> each."
+      },
+      "tft_meepsie": {
+        "name": "Meepsie",
+        "attack": "Punches for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Meep Pilot<>: every punch deals <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> bonus <#a974ffff>magic damage<>.",
+        "skill": "Punches the ground ahead: enemies in a cone take <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>magic damage<> and are slowed <#ef5350ff>40%<> (<#ffb900ff>2s<>).",
+        "skill2": "The pilot waves and <#ffb900ff>4<> meeps fly to the nearby allies with the lowest health share (itself with one to spare), each healing <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> every <#ffb900ff>0.5s<> for <#ffb900ff>3s<>.",
+        "ult": "Leaps to the spot with the most enemy champions and slams: enemies around take <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>magic damage<>, <#ef5350ff>35%<> less a hex out; the <#ffb900ff>3<> enemy champions nearest are <#ef5350ff>knocked up<> <#ffb900ff>1.25s<>."
+      },
+      "tft_scuttlecrab": {
+        "name": "Scuttle Crab",
+        "attack": "Dances, stomping every enemy beside it for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Green Buff<>: a nearby allied champion falling under <#ffb900ff>40%<> health restores <#ffb900ff>12%<> of its max health (once every <#ffb900ff>10s<> each).",
+        "skill": "Raises a speed shrine at its feet for <#ffb900ff>4s<>: its splash deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> to enemies around and slows them <#ef5350ff>40%<>; allied champions in it gain <#ffb900ff>30%<> move speed and <#ffb900ff>25%<> attack speed.",
+        "skill2": "Pulls into its shell for a <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> shield (<#ffb900ff>2s<>). When the shield breaks or runs out, the shell bursts: enemies around take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<>, are <#ef5350ff>stunned<> <#ffb900ff>0.5s<> and slowed <#ef5350ff>40%<>.",
+        "ult": "Burrows for <#ffb900ff>2.5s<>, taking <#ffb900ff>50%<> less damage, immune to crowd control and healing <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>; then bursts out: enemies around take <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<> and are <#ef5350ff>knocked up<> <#ffb900ff>1.5s<>."
+      },
+      "tft_gromp": {
+        "name": "Gromp",
+        "attack": "Spits for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>magic damage<>. <#ff9028ff>Purple Buff<>: in a fight it gains <#ffb900ff>+8<> Ability Power every <#ffb900ff>4s<>, up to <#ffb900ff>8<> stacks.",
+        "skill": "Belches a bubble that bursts on the first enemy hit for <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>; enemies around it take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>magic damage<> over <#ffb900ff>3s<>.",
+        "skill2": "Spits a pool of slime under an enemy for <#ffb900ff>4s<>: enemies in it are slowed by <#ffb900ff>55%<> and take <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>magic damage<> per second.",
+        "ult": "Swells up for <#ffb900ff>5s<> (<#ffb900ff>20%<> less damage taken) and belches a cone of poison for <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>magic damage<>, slowing by <#ffb900ff>35%<>; the fog lingers <#ffb900ff>4s<>, dealing <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<> <#a974ffff>magic damage<> per second."
+      },
+      "tft_sentry": {
+        "name": "Pebbles",
+        "attack": "Fires a shard bolt from its core for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<>. <#ff9028ff>Teal Buff<>: every <#ffb900ff>1s<> of Azure Laser channeled cuts its ult's cooldown by <#ffb900ff>1s<>.",
+        "skill": "Channels a laser at its target for <#ffb900ff>2.5s<> (it can float while lasing), dealing <#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<> <#a974ffff>magic damage<> in all and <#ffb900ff>-4<> Magic Resist every <#ffb900ff>0.25s<> (stacking, <#ffb900ff>2s<>). Breaks if the target leaves range or it is crowd controlled.",
+        "skill2": "Its two halves split apart and close again: nearby enemies take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and are slowed by <#ffb900ff>40%<> for <#ffb900ff>1.5s<>; it blinks back.",
+        "ult": "Its halves open wide and its core sweeps a beam across a cone in front for <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<> <#a974ffff>magic damage<> and <#ffb900ff>-25<> Magic Resist for <#ffb900ff>3s<>."
+      },
+      "tft_brock": {
+        "name": "Brock",
+        "attack": "Slams both fists down for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, splashing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> to enemies around the target; every third blow <#ef5350ff>knocks it up<> for <#ffb900ff>0.33s<>. <#ff9028ff>Stone Heart<>: immune to crowd control.",
+        "skill": "Hurls a boulder at the target for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<> max health <#ff9028ff>physical damage<>, slowing it by <#ffb900ff>30%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "Roots burst from under the target for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<>, <#ef5350ff>rooting it for 0.83s<>; he gains a <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> shield for <#ffb900ff>3s<>.",
+        "ult": "Leaps onto an enemy champion: nearby enemies take <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<> max health <#ff9028ff>physical damage<>, <#ffb900ff>15%<> less per hex away (<#ffb900ff>40%<> minimum); the first time this fight, they are <#ef5350ff>knocked up for 1.25s<>. Then <#ffb900ff>6<> rocks fall."
+      },
+      "tft_cinderling": {
+        "name": "Cinderling",
+        "attack": "Flicks an ember leaf for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Scarlet Buff<>: each spell cast grants <#ffb900ff>+6<> Attack Damage (up to <#ffb900ff>4<> stacks, lost after <#ffb900ff>8s<> without a cast); at full stacks its attacks Burn champions.",
+        "skill": "Five razor leaves converge on its target for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> in all, applying Wound (<#ffb900ff>-40%<> healing, <#ffb900ff>3s<>) and Burn (<#ef5350ff>1%<> max Health <#ef5350ff>true damage<> a second, <#ffb900ff>2s<>).",
+        "skill2": "Burrows, kicking up earth: nearby enemies take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> <#ff9028ff>physical damage<> and are slowed by <#ffb900ff>35%<> for <#ffb900ff>1.5s<>; it bursts out away from its target (<#ffb900ff>-70%<> damage taken underground).",
+        "ult": "Rears up and sets its leaves ablaze: for <#ffb900ff>4s<> it gains <#ffb900ff>+40%<> Attack Speed and every <#ffb900ff>0.5s<> fires <#ffb900ff>3<> burning leaves at nearby enemies for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>physical damage<> each, Burning champions."
+      },
+      "tft_riftherald": {
+        "name": "Rift Herald",
+        "attack": "Brings a pincer down for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Void Shell<>: takes <#ffb900ff>4%<> less damage for each enemy champion nearby (up to <#ffb900ff>5<>).",
+        "skill": "Spins round once: nearby enemies take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<> max Health <#ff9028ff>physical damage<> and are slowed by <#ffb900ff>30%<> for <#ffb900ff>1s<>.",
+        "skill2": "Rears up, flips and charges an enemy champion: enemies in the way take <#a974ffff>40<> + <#a974ffff>4%<> max Health <#a974ffff>magic damage<> and are knocked aside; champions where it lands take it again and are <#ef5350ff>stunned for 1s<>.",
+        "ult": "Roars and grows (<#ffb900ff>+300<> max Health), then slams the ground ahead: enemies take <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<> max Health <#a974ffff>magic damage<>. For <#ffb900ff>4s<> it takes <#ffb900ff>15%<> less damage, and its Void Shell <#ffb900ff>3%<> more per enemy."
+      },
+      "tft_thex": {
+        "name": "T-Hex",
+        "attack": "Fires <#ffb900ff>4<> bullets per attack, each <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<>; every fourth attack's last bullet adds <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>. <#ff9028ff>Pilot Eject<>: on death the mech bursts, dealing <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> nearby, <#ef5350ff>knocking back and stunning for 1.5s<>.",
+        "skill": "Opens its back pods and fires <#ffb900ff>6<> missiles at random nearby enemies, each dealing <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>physical damage<>.",
+        "skill2": "Charges the target and bites for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<>, <#ef5350ff>knocking it back<> and slowing it by <#ffb900ff>30%<> for <#ffb900ff>1.5s<>.",
+        "ult": "Gains a <#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> shield for <#ffb900ff>4s<> and opens fire: <#ffb900ff>3<> piercing lasers at the target, one a second, for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>, <#ffb900ff>70%<> less per enemy passed (<#ffb900ff>10%<> minimum); each with <#ffb900ff>4<> missiles of <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>."
       }
     },
     "skill_name": {
@@ -950,6 +1291,61 @@
         "skill1": "Bramble Pounce",
         "skill2": "Crimson Roar",
         "ult": "Crimson Fury"
+      },
+      "tft_raptor": {
+        "skill1": "Feather Fan",
+        "skill2": "Startled Hop",
+        "ult": "Flock Family"
+      },
+      "tft_elderdragon": {
+        "skill1": "Flame Breath",
+        "skill2": "Wing Storm",
+        "ult": "Heat Without Equal"
+      },
+      "tft_murkwolf": {
+        "skill1": "Rending Claws",
+        "skill2": "Slayer's Howl",
+        "ult": "Pack Attack"
+      },
+      "tft_meepsie": {
+        "skill1": "Moon-Dust Quake",
+        "skill2": "Healing Meeps",
+        "ult": "The Big Bang"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "Speed Shrine",
+        "skill2": "Shell Shield",
+        "ult": "Can You Dig It?"
+      },
+      "tft_gromp": {
+        "skill1": "Belchy Bubble",
+        "skill2": "Slime Swamp",
+        "ult": "Swamp Belch"
+      },
+      "tft_sentry": {
+        "skill1": "Azure Laser",
+        "skill2": "Rift Leap",
+        "ult": "Prism Sweep"
+      },
+      "tft_brock": {
+        "skill1": "Boulder Toss",
+        "skill2": "Moss Grip",
+        "ult": "Seismic Slam"
+      },
+      "tft_cinderling": {
+        "skill1": "Razor Leaves",
+        "skill2": "Burrow",
+        "ult": "Wildfire Leafstorm"
+      },
+      "tft_riftherald": {
+        "skill1": "Spin Sweep",
+        "skill2": "Void Charge",
+        "ult": "Warp Armor"
+      },
+      "tft_thex": {
+        "skill1": "Homing Missiles",
+        "skill2": "Rex Charge",
+        "ult": "Hextech Arsenal"
       }
     }
   },
@@ -1136,6 +1532,83 @@
         "skill": "대상에게 덮쳐 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1초<> 동안 <#ef5350ff>30%<> 둔화.",
         "skill2": "일어서서 포효: 주변 적 <#ef5350ff>30%<> 둔화, 공격력 <#ef5350ff>20%<> 감소, 자신은 받는 피해 <#ff9028ff>25%<> 감소(<#ffb900ff>3초<>).",
         "ult": "<#ffb900ff>6초<> 동안 광폭화: 공격력 <#ff9028ff>+55%<>, 공격 속도 <#ff9028ff>+35%<>, 대상 방어력 <#ff9028ff>40%<> 무시."
+      },
+      "tft_raptor": {
+        "name": "어미 부리",
+        "attack": "날카로운 깃털을 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>오렌지 버프<>: 물리 피해를 입히면 대상의 방어력 <#ef5350ff>-6<>(<#ffb900ff>3초<>, 최대 <#ffb900ff>5<>중첩).",
+        "skill": "날개를 펼쳐 깃날 <#ffb900ff>5개<>를 부채꼴로 던집니다. 각각 처음 맞힌 적에게 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "깜짝 놀라 울며 뒤로 뛴 뒤 <#ffb900ff>3초<> 동안 공격 속도 <#ffb900ff>+70%<>.",
+        "ult": "대상으로 지정할 수 없는 꼬마 부리 <#ffb900ff>4마리<>를 <#ffb900ff>7초<> 동안 소환합니다. 기본 공격할 때마다 같은 적을 쪼아 각각 <#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>."
+      },
+      "tft_elderdragon": {
+        "name": "장로 드래곤",
+        "attack": "대상을 물어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 대상과 인접한 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>. <#ff9028ff>장로 드래곤 버프<>: 피해를 입은 뒤 체력이 <#ef5350ff>15%<> 이하인 적 챔피언을 처형합니다.",
+        "skill": "대상을 관통하며 적이 가장 많은 일직선에 불을 내뿜어 <#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>, 관통한 적 하나당 <#ef5350ff>-20%<>(최소 <#ffb900ff>40%<>). <#ff9028ff>점화<>: <#ffb900ff>3초<> 동안 매초 최대 체력의 <#ef5350ff>2.5%<> 물리 피해.",
+        "skill2": "몸을 일으켜 날개를 내리쳐 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, 밀쳐 내고 <#ffb900ff>35%<> 둔화(<#ffb900ff>2초<>). 받는 피해 <#ef5350ff>-25%<>.",
+        "ult": "무적 상태로 날아올라 <#ffb900ff>1.5초<> 뒤 내려찍습니다: 넓은 범위의 적에게 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ffb900ff>1.25초<> 기절, <#ff9028ff>점화<>. 모든 피해 흡혈 <#ffb900ff>30%<>(<#ffb900ff>5초<>) 후 즉시 <#ff9028ff>화염 숨결<>."
+      },
+      "tft_murkwolf": {
+        "name": "어스름늑대",
+        "attack": "두 머리로 물어뜯어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>그레이 버프<>: 치명타 확률 <#ffb900ff>25%<>, 잃은 체력에 비례해 최대 <#ffb900ff>+30%<> 더 증가하며 스킬도 치명타가 발생합니다.",
+        "skill": "근처 체력이 가장 낮은 적에게 도약해 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>. 다음 기본 공격 <#ffb900ff>3회<> 동안 공격 속도 <#ffb900ff>+60%<>, 추가로 <#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "울부짖어 <#ffb900ff>5초<> 동안 모든 피해 흡혈 <#ffb900ff>20%<>, 주는 피해 <#ffb900ff>15%<> 증가. 체력이 <#ffb900ff>50%<> 미만인 적에게는 두 배.",
+        "ult": "새끼 늑대 <#ffb900ff>2마리<>를 불러 대상에게 덮쳐 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>. <#ffb900ff>6초<> 동안 기본 공격할 때마다 새끼 늑대가 <#ffb900ff>2번<> 물어 각각 <#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>물리 피해<>."
+      },
+      "tft_meepsie": {
+        "name": "꼬마 정령",
+        "attack": "월석 주먹으로 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>정령 조종사<>: 주먹마다 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>마법 피해<>를 추가로 입힙니다.",
+        "skill": "앞쪽 땅을 내리쳐 부채꼴 범위의 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> <#a974ffff>마법 피해<>, <#ef5350ff>40%<> 둔화(<#ffb900ff>2초<>).",
+        "skill2": "조종사가 손짓하면 정령 <#ffb900ff>4마리<>가 체력 비율이 가장 낮은 주변 아군에게 날아가(자리가 남으면 자신도) <#ffb900ff>3초<> 동안 <#ffb900ff>0.5초<>마다 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<> 회복.",
+        "ult": "적 챔피언이 가장 많은 곳으로 뛰어올라 내려찍어 주변 적에게 <#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> <#a974ffff>마법 피해<>(중심에서 한 칸마다 <#ef5350ff>-35%<>). 가장 가까운 적 챔피언 <#ffb900ff>3명<> <#ef5350ff>에어본<> <#ffb900ff>1.25초<>."
+      },
+      "tft_scuttlecrab": {
+        "name": "바위 게",
+        "attack": "게 춤을 춰 주변 모든 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>초록 버프<>: 주변 아군 챔피언의 체력이 <#ffb900ff>40%<> 아래로 떨어지면 최대 체력의 <#ffb900ff>12%<> 회복(각자 <#ffb900ff>10초<>마다 한 번).",
+        "skill": "발밑에 신속의 성소를 세워(<#ffb900ff>4초<>) 물보라로 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, <#ef5350ff>40%<> 둔화. 성소 안의 아군 챔피언은 이동 속도 <#ffb900ff>+30%<>, 공격 속도 <#ffb900ff>+25%<>.",
+        "skill2": "껍데기 속에 숨어 <#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> 보호막(<#ffb900ff>2초<>). 보호막이 깨지거나 끝나면 껍데기가 터져 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>, <#ef5350ff>기절<> <#ffb900ff>0.5초<>, <#ef5350ff>40%<> 둔화.",
+        "ult": "땅속으로 <#ffb900ff>2.5초<> 파고들어 받는 피해 <#ffb900ff>50%<> 감소, 군중 제어 면역, <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 회복. 이후 튀어나와 주변 적에게 <#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, <#ef5350ff>에어본<> <#ffb900ff>1.5초<>."
+      },
+      "tft_gromp": {
+        "name": "심술두꺼비",
+        "attack": "독침을 뱉어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<> <#a974ffff>마법 피해<>. <#ff9028ff>퍼플 버프<>: 전투 중 <#ffb900ff>4초<>마다 주문력 <#ffb900ff>+8<>, 최대 <#ffb900ff>8중첩<>.",
+        "skill": "독 방울을 뱉어 처음 맞은 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>를 주고 터지며, 주변 적은 <#ffb900ff>3초<> 동안 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<> <#a974ffff>마법 피해<>.",
+        "skill2": "적의 발밑에 점액을 뱉어 <#ffb900ff>4초<> 동안 남깁니다. 안의 적은 <#ffb900ff>55%<> 둔화되고 초당 <#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<> <#a974ffff>마법 피해<>.",
+        "ult": "<#ffb900ff>5초<> 동안 몸이 부풀어(받는 피해 <#ffb900ff>-20%<>) 앞으로 독 트림을 뿜어 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> <#a974ffff>마법 피해<>와 <#ffb900ff>35%<> 둔화. 독안개가 <#ffb900ff>4초<> 동안 남아 초당 <#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<> <#a974ffff>마법 피해<>."
+      },
+      "tft_sentry": {
+        "name": "조약돌",
+        "attack": "핵에서 파편 광탄을 쏴 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>. <#ff9028ff>청록색 버프<>: 하늘빛 레이저를 <#ffb900ff>1초<> 집중할 때마다 궁극기 재사용 대기시간 <#ffb900ff>-1초<>.",
+        "skill": "대상에게 <#ffb900ff>2.5초<> 동안 레이저를 집중해(떠다니며 가능) 총 <#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<> <#a974ffff>마법 피해<>를 주고 <#ffb900ff>0.25초<>마다 마법 저항력 <#ffb900ff>-4<>(중첩, <#ffb900ff>2초<>). 대상이 사거리를 벗어나거나 군중 제어를 받으면 끊깁니다.",
+        "skill2": "두 조각이 갈라졌다 다시 붙으며 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>와 <#ffb900ff>40%<> 둔화(<#ffb900ff>1.5초<>). 자신은 뒤로 순간이동합니다.",
+        "ult": "두 조각이 활짝 열리고 핵이 전방 부채꼴로 광선을 휩쓸어 <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<> <#a974ffff>마법 피해<>와 마법 저항력 <#ffb900ff>-25<>(<#ffb900ff>3초<>)."
+      },
+      "tft_brock": {
+        "name": "브록",
+        "attack": "두 주먹을 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 대상 주변 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> 범위 피해; 세 번째 공격마다 대상을 <#ffb900ff>0.33초<> <#ef5350ff>에어본<>. <#ff9028ff>바위 심장<>: 군중 제어 면역.",
+        "skill": "대상에게 바위를 던져 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<> 최대 체력 <#ff9028ff>물리 피해<>, <#ffb900ff>1.5초<> 동안 <#ffb900ff>30%<> 둔화.",
+        "skill2": "대상 발밑에서 뿌리가 솟아 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>속박 0.83초<>; 자신은 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 보호막(<#ffb900ff>3초<>).",
+        "ult": "적 챔피언에게 도약해 주변 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<> 최대 체력 <#ff9028ff>물리 피해<>(한 칸 멀어질 때마다 <#ffb900ff>-15%<>, 최소 <#ffb900ff>40%<>); 이번 전투에서 처음 맞으면 <#ef5350ff>1.25초 에어본<>. 이어서 바위 <#ffb900ff>6<>개가 떨어집니다."
+      },
+      "tft_cinderling": {
+        "name": "불타는 묘목",
+        "attack": "잿불 잎사귀를 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>진홍색 버프<>: 스킬을 쓸 때마다 공격력 <#ffb900ff>+6<>(최대 <#ffb900ff>4중첩<>, <#ffb900ff>8초<> 동안 스킬을 안 쓰면 초기화). 최대 중첩 시 기본 공격이 챔피언에게 화상.",
+        "skill": "날카로운 잎사귀 5개가 대상에게 모여 총 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>를 주고 <#ffb900ff>3초<> 동안 상처(회복 <#ffb900ff>-40%<>)와 화상(매초 최대 체력 <#ef5350ff>1%<> <#ef5350ff>고정 피해<>, <#ffb900ff>2초<>).",
+        "skill2": "흙을 튀기며 땅속으로 파고들어 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>35%<> 둔화(<#ffb900ff>1.5초<>). 대상에게서 먼 곳으로 솟아오릅니다(땅속 피해 <#ffb900ff>-70%<>).",
+        "ult": "일어서서 잎사귀에 불을 붙입니다: <#ffb900ff>4초<> 동안 공격 속도 <#ffb900ff>+40%<>, <#ffb900ff>0.5초<>마다 주변 적에게 불타는 잎사귀 <#ffb900ff>3개<>를 날려 각각 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>물리 피해<>, 챔피언은 화상."
+      },
+      "tft_riftherald": {
+        "name": "협곡의 전령",
+        "attack": "집게발을 내리찍어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>공허 껍질<>: 주변 적 챔피언 하나당 받는 피해 <#ffb900ff>-4%<>(최대 <#ffb900ff>5명<>).",
+        "skill": "제자리에서 한 바퀴 돌아 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<> 최대 체력 <#ff9028ff>물리 피해<>와 <#ffb900ff>30%<> 둔화(<#ffb900ff>1초<>).",
+        "skill2": "일어섰다가 몸을 뒤집어 적 챔피언에게 돌진: 경로의 적은 <#a974ffff>40<> + <#a974ffff>4%<> 최대 체력 <#a974ffff>마법 피해<>를 입고 밀려나며, 부딪힌 챔피언은 한 번 더 피해를 입고 <#ef5350ff>1초 기절<>.",
+        "ult": "포효하며 커집니다(최대 체력 <#ffb900ff>+300<>). 앞을 내리찍어 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<> 최대 체력 <#a974ffff>마법 피해<>. <#ffb900ff>4초<> 동안 받는 피해 <#ffb900ff>-15%<>, 공허 껍질은 적 하나당 <#ffb900ff>-3%<> 더."
+      },
+      "tft_thex": {
+        "name": "T-헥스",
+        "attack": "공격마다 탄환 <#ffb900ff>4<>발을 연사해 각각 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>; 네 번째 공격의 마지막 탄환은 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가. <#ff9028ff>조종사 탈출<>: 사망 시 기체가 폭발해 주변 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, <#ef5350ff>밀쳐내고 1.5초 기절<>.",
+        "skill": "등의 미사일 포드를 열어 주변 무작위 적에게 미사일 <#ffb900ff>6<>발, 각각 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "대상에게 돌진해 물어뜯어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>, <#ef5350ff>밀쳐내기<>, <#ffb900ff>1.5초<> 동안 <#ffb900ff>30%<> 둔화.",
+        "ult": "<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> 보호막(<#ffb900ff>4초<>)을 얻고 대상에게 매초 관통 레이저 <#ffb900ff>3<>발: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>, 적을 지날 때마다 <#ffb900ff>-70%<>(최소 <#ffb900ff>10%<>); 레이저마다 미사일 <#ffb900ff>4<>발, 각각 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>."
       }
     },
     "skill_name": {
@@ -1268,6 +1741,61 @@
         "skill1": "가시덩굴 덮치기",
         "skill2": "진홍의 포효",
         "ult": "핏빛 분노"
+      },
+      "tft_raptor": {
+        "skill1": "깃날 부채",
+        "skill2": "화들짝 뜀",
+        "ult": "새 떼 가족"
+      },
+      "tft_elderdragon": {
+        "skill1": "화염 숨결",
+        "skill2": "용날개 폭풍",
+        "ult": "비할 데 없는 열기"
+      },
+      "tft_murkwolf": {
+        "skill1": "찢어발기는 발톱",
+        "skill2": "광전사의 울부짖음",
+        "ult": "늑대 무리 공격"
+      },
+      "tft_meepsie": {
+        "skill1": "달먼지 진동",
+        "skill2": "치유 정령",
+        "ult": "빅뱅"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "신속의 성소",
+        "skill2": "껍데기 보호막",
+        "ult": "팔 수 있겠어?"
+      },
+      "tft_gromp": {
+        "skill1": "꿀꺽 방울",
+        "skill2": "점액 늪",
+        "ult": "독늪 트림"
+      },
+      "tft_sentry": {
+        "skill1": "하늘빛 레이저",
+        "skill2": "균열 도약",
+        "ult": "프리즘 휩쓸기"
+      },
+      "tft_brock": {
+        "skill1": "바위 던지기",
+        "skill2": "이끼 움켜쥐기",
+        "ult": "지진 강타"
+      },
+      "tft_cinderling": {
+        "skill1": "예리한 잎사귀",
+        "skill2": "땅굴 기습",
+        "ult": "들불 잎폭풍"
+      },
+      "tft_riftherald": {
+        "skill1": "회전 휩쓸기",
+        "skill2": "공허 돌진",
+        "ult": "왜곡 외피"
+      },
+      "tft_thex": {
+        "skill1": "유도 미사일",
+        "skill2": "렉스 돌진",
+        "ult": "마법공학 무기고"
       }
     }
   },
@@ -1454,6 +1982,83 @@
         "skill": "対象に跳びかかり<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>150%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1秒<>間<#ef5350ff>30%<>スロウ。",
         "skill2": "立ち上がって咆哮：周囲の敵を<#ef5350ff>30%<>スロウ、攻撃力<#ef5350ff>20%<>低下、自身の被ダメージ<#ff9028ff>25%<>軽減（<#ffb900ff>3秒<>）。",
         "ult": "<#ffb900ff>6秒<>間激昂：攻撃力<#ff9028ff>+55%<>、攻撃速度<#ff9028ff>+35%<>、対象の物理防御を<#ff9028ff>40%<>無視。"
+      },
+      "tft_raptor": {
+        "name": "ママ鳥",
+        "attack": "鋭い羽根を放ち<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>オレンジバフ<>：物理ダメージを与えると対象の物理防御<#ef5350ff>-6<>（<#ffb900ff>3秒<>、最大<#ffb900ff>5<>スタック）。",
+        "skill": "翼を広げ、刃の羽根を<#ffb900ff>5本<>扇状に放つ。それぞれ最初に当たった敵に<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "驚いて鳴き、後ろへ跳ねる。その後<#ffb900ff>3秒<>間攻撃速度<#ffb900ff>+70%<>。",
+        "ult": "対象指定不可のミニヒナ鳥を<#ffb900ff>4体<>召喚（<#ffb900ff>7秒<>）：攻撃するたびに同じ敵をついばみ、それぞれ<#ff9028ff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>。"
+      },
+      "tft_elderdragon": {
+        "name": "エルダードラゴン",
+        "attack": "噛みついて<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、対象に隣接する敵に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>。<#ff9028ff>エルダードラゴンのバフ<>：ダメージ後に体力<#ef5350ff>15%<>以下の敵チャンピオンをキルする。",
+        "skill": "対象を通り敵が最も多い直線に炎を吐き<#ff9028ff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>、敵1体ごとに<#ef5350ff>-20%<>（最小<#ffb900ff>40%<>）。<#ff9028ff>発火<>：<#ffb900ff>3秒<>間毎秒最大体力の<#ef5350ff>2.5%<>の物理ダメージ。",
+        "skill2": "立ち上がって翼を打ち下ろし、周囲の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>、ノックバックと<#ffb900ff>35%<>スロウ（<#ffb900ff>2秒<>）。被ダメージ<#ef5350ff>-25%<>。",
+        "ult": "無敵となって飛び上がり、<#ffb900ff>1.5秒<>後に降下：広範囲の敵に<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>1.25秒<>スタンと<#ff9028ff>発火<>。オムニヴァンプ<#ffb900ff>30%<>（<#ffb900ff>5秒<>）を得て即座に<#ff9028ff>フレイムブレス<>。"
+      },
+      "tft_murkwolf": {
+        "name": "マークウルフ",
+        "attack": "2つの頭で噛みつき<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>グレーバフ<>：クリティカル率<#ffb900ff>25%<>、減少体力に応じて最大<#ffb900ff>+30%<>。スキルもクリティカルする。",
+        "skill": "近くで最も体力の低い敵に跳びかかり<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>。次の<#ffb900ff>3回<>の通常攻撃は攻撃速度<#ffb900ff>+60%<>、<#ff9028ff>10<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の追加<#ff9028ff>物理ダメージ<>。",
+        "skill2": "遠吠えし、<#ffb900ff>5秒<>間オムニヴァンプ<#ffb900ff>20%<>、与ダメージ<#ffb900ff>+15%<>。体力<#ffb900ff>50%<>未満の敵には2倍。",
+        "ult": "子狼を<#ffb900ff>2体<>呼び、対象に飛びかからせ<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。<#ffb900ff>6秒<>間、通常攻撃のたびに子狼が<#ffb900ff>2回<>噛みつき、それぞれ<#ff9028ff>12<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の<#ff9028ff>物理ダメージ<>。"
+      },
+      "tft_meepsie": {
+        "name": "ミィプシー",
+        "attack": "月岩の拳で<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ミープの操縦士<>：パンチごとに<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の<#a974ffff>魔法ダメージ<>を追加。",
+        "skill": "前方の地面を殴り、扇状範囲の敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%<>スロウ（<#ffb900ff>2秒<>）。",
+        "skill2": "操縦士が手を振ると<#ffb900ff>4匹<>のミープが体力割合の最も低い周囲の味方へ飛び（枠が余れば自身も）、<#ffb900ff>3秒<>間<#ffb900ff>0.5秒<>ごとに<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>10%<>回復。",
+        "ult": "敵チャンピオンが最も多い地点へ跳んで叩きつけ、周囲の敵に<#a974ffff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の<#a974ffff>魔法ダメージ<>（中心から1マスごとに<#ef5350ff>-35%<>）。最も近い敵チャンピオン<#ffb900ff>3体<>を<#ef5350ff>ノックアップ<><#ffb900ff>1.25秒<>。"
+      },
+      "tft_scuttlecrab": {
+        "name": "スカトルクラブ",
+        "attack": "カニダンスで周囲の全ての敵に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>グリーンバフ<>：近くの味方チャンピオンの体力が<#ffb900ff>40%<>を下回ると最大体力の<#ffb900ff>12%<>を回復（各自<#ffb900ff>10秒<>に1回）。",
+        "skill": "足元に祠を置き（<#ffb900ff>4秒<>）、水しぶきで周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>40%<>スロウ。祠の中の味方チャンピオンは移動速度<#ffb900ff>+30%<>、攻撃速度<#ffb900ff>+25%<>。",
+        "skill2": "甲羅にこもり<#a974ffff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>のシールド（<#ffb900ff>2秒<>）。シールドが割れるか切れると甲羅が弾け、周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>、<#ef5350ff>スタン<><#ffb900ff>0.5秒<>、<#ef5350ff>40%<>スロウ。",
+        "ult": "<#ffb900ff>2.5秒<>地中に潜り、受けるダメージ<#ffb900ff>-50%<>、行動妨害無効、<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>回復。その後飛び出し、周囲の敵に<#ff9028ff>160<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>ノックアップ<><#ffb900ff>1.5秒<>。"
+      },
+      "tft_gromp": {
+        "name": "グロンプ",
+        "attack": "毒液を吐き<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>パープルバフ<>：戦闘中<#ffb900ff>4秒<>ごとに魔力<#ffb900ff>+8<>、最大<#ffb900ff>8スタック<>。",
+        "skill": "毒の泡を吐き、最初に当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>を与えて弾け、周囲の敵に<#ffb900ff>3秒<>かけて<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>60%<>の<#a974ffff>魔法ダメージ<>。",
+        "skill2": "敵の足元に粘液を吐き<#ffb900ff>4秒<>残す。中の敵は<#ffb900ff>55%<>スロウ、毎秒<#a974ffff>24<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>16%<>の<#a974ffff>魔法ダメージ<>。",
+        "ult": "<#ffb900ff>5秒<>間膨らみ（被ダメージ<#ffb900ff>-20%<>）、前方に毒のげっぷを放ち<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>35%<>スロウ。毒霧が<#ffb900ff>4秒<>残り、毎秒<#a974ffff>36<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>21%<>の<#a974ffff>魔法ダメージ<>。"
+      },
+      "tft_sentry": {
+        "name": "小石",
+        "attack": "コアから砕光弾を放ち<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>と<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>ティールバフ<>：蒼き光線を<#ffb900ff>1秒<>詠唱するごとにアルティメットのクールダウン<#ffb900ff>-1秒<>。",
+        "skill": "対象に光線を<#ffb900ff>2.5秒<>照射し（浮遊しながら可）、合計<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>0.25秒<>ごとに魔法防御<#ffb900ff>-4<>（スタック、<#ffb900ff>2秒<>）。対象が射程外に出るか行動妨害で中断。",
+        "skill2": "二つの石が割れて再び閉じ、周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>40%<>スロウ（<#ffb900ff>1.5秒<>）。自身は後方へ跳ぶ。",
+        "ult": "二つの石が大きく開き、コアから光柱を前方扇形に薙ぎ払い<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<>の<#a974ffff>魔法ダメージ<>と魔法防御<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_brock": {
+        "name": "ブロック",
+        "attack": "両拳を叩きつけ<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、対象の周囲の敵に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の範囲ダメージ。3回目ごとに対象を<#ffb900ff>0.33秒<><#ef5350ff>打ち上げ<>。<#ff9028ff>岩の心<>：行動妨害無効。",
+        "skill": "対象に大岩を投げつけ<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<>最大体力の<#ff9028ff>物理ダメージ<>、<#ffb900ff>30%<>スロウ（<#ffb900ff>1.5秒<>）。",
+        "skill2": "対象の足元から根が噴き出し<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒のスネア<>。自身は<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>のシールド（<#ffb900ff>3秒<>）。",
+        "ult": "敵チャンピオンへ跳びかかり周囲の敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<>最大体力の<#ff9028ff>物理ダメージ<>（1マスごとに<#ffb900ff>-15%<>、最低<#ffb900ff>40%<>）。この戦闘で初めて当たった敵は<#ef5350ff>1.25秒打ち上げ<>。続いて岩が<#ffb900ff>6<>個落ちる。"
+      },
+      "tft_cinderling": {
+        "name": "シンダーリング",
+        "attack": "燃える葉を投げ<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>スカーレットバフ<>：スキル使用ごとに攻撃力<#ffb900ff>+6<>（最大<#ffb900ff>4<>スタック、<#ffb900ff>8秒<>使わないと消滅）。最大スタック時、通常攻撃がチャンピオンを燃焼。",
+        "skill": "5枚の鋭い葉が対象に収束し、合計<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>3秒<>の負傷（回復<#ffb900ff>-40%<>）と燃焼（毎秒最大体力の<#ef5350ff>1%<><#ef5350ff>確定ダメージ<>、<#ffb900ff>2秒<>）。",
+        "skill2": "土を跳ね上げて地中に潜り、周囲の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>35%<>スロウ（<#ffb900ff>1.5秒<>）。対象から離れた所に飛び出す（地中で被ダメージ<#ffb900ff>-70%<>）。",
+        "ult": "立ち上がり葉に火をつける：<#ffb900ff>4秒<>間攻撃速度<#ffb900ff>+40%<>、<#ffb900ff>0.5秒<>ごとに近くの敵へ燃える葉を<#ffb900ff>3枚<>放ち各<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の<#ff9028ff>物理ダメージ<>、チャンピオンは燃焼。"
+      },
+      "tft_riftherald": {
+        "name": "リフトヘラルド",
+        "attack": "ハサミを振り下ろし<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ヴォイドシェル<>：近くの敵チャンピオン1体ごとに被ダメージ<#ffb900ff>-4%<>（最大<#ffb900ff>5体<>）。",
+        "skill": "その場で一回転し、周囲の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<>最大体力の<#ff9028ff>物理ダメージ<>と<#ffb900ff>30%<>スロウ（<#ffb900ff>1秒<>）。",
+        "skill2": "立ち上がって体を翻し敵チャンピオンへ突進：通り道の敵に<#a974ffff>40<> + <#a974ffff>4%<>最大体力の<#a974ffff>魔法ダメージ<>と押しのけ、ぶつかったチャンピオンにもう一度与えて<#ef5350ff>1秒スタン<>。",
+        "ult": "咆哮して巨大化（最大体力<#ffb900ff>+300<>）。前方を叩きつけ敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<>最大体力の<#a974ffff>魔法ダメージ<>。<#ffb900ff>4秒<>間被ダメージ<#ffb900ff>-15%<>、ヴォイドシェルは敵1体ごとにさらに<#ffb900ff>-3%<>。"
+      },
+      "tft_thex": {
+        "name": "T-Hex",
+        "attack": "攻撃ごとに弾を<#ffb900ff>4<>発連射し、各<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>。4回目の攻撃の最後の弾は<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>追加。<#ff9028ff>パイロット脱出<>：倒れると機体が爆発し、周囲の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>ノックバックと1.5秒スタン<>。",
+        "skill": "背中のミサイルポッドを開き、近くのランダムな敵にミサイルを<#ffb900ff>6<>発、各<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "対象に突進して噛みつき<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>ノックバック<>し<#ffb900ff>30%<>スロウ（<#ffb900ff>1.5秒<>）。",
+        "ult": "<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>のシールド（<#ffb900ff>4秒<>）を得て、対象へ毎秒貫通レーザーを<#ffb900ff>3<>本：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>、敵を貫くごとに<#ffb900ff>-70%<>（最低<#ffb900ff>10%<>）。レーザーごとにミサイル<#ffb900ff>4<>発、各<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>。"
       }
     },
     "skill_name": {
@@ -1586,6 +2191,61 @@
         "skill1": "茨の飛びかかり",
         "skill2": "深紅の咆哮",
         "ult": "深紅の憤怒"
+      },
+      "tft_raptor": {
+        "skill1": "羽刃の扇",
+        "skill2": "びっくり跳び",
+        "ult": "フロックファミリー"
+      },
+      "tft_elderdragon": {
+        "skill1": "フレイムブレス",
+        "skill2": "竜翼の嵐",
+        "ult": "比類なき熱"
+      },
+      "tft_murkwolf": {
+        "skill1": "引き裂く爪",
+        "skill2": "狂戦士の遠吠え",
+        "ult": "群狼の襲撃"
+      },
+      "tft_meepsie": {
+        "skill1": "ムーンダストクエイク",
+        "skill2": "癒しのミープ",
+        "ult": "ビッグバン"
+      },
+      "tft_scuttlecrab": {
+        "skill1": "疾走の祠",
+        "skill2": "甲羅の盾",
+        "ult": "掘り起こせるか？"
+      },
+      "tft_gromp": {
+        "skill1": "ベルチーバブル",
+        "skill2": "粘液の沼",
+        "ult": "毒沼のげっぷ"
+      },
+      "tft_sentry": {
+        "skill1": "蒼き光線",
+        "skill2": "裂石跳躍",
+        "ult": "プリズムスイープ"
+      },
+      "tft_brock": {
+        "skill1": "巨岩投げ",
+        "skill2": "苔の握撃",
+        "ult": "サイズミックスラム"
+      },
+      "tft_cinderling": {
+        "skill1": "鋭葉カッター",
+        "skill2": "土潜り奇襲",
+        "ult": "燎原リーフストーム"
+      },
+      "tft_riftherald": {
+        "skill1": "回転スイープ",
+        "skill2": "ヴォイドチャージ",
+        "ult": "ワープアーマー"
+      },
+      "tft_thex": {
+        "skill1": "ホーミングミサイル",
+        "skill2": "レックスチャージ",
+        "ult": "ヘクステック アーセナル"
       }
     }
   }

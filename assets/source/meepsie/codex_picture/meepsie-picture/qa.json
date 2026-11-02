@@ -1,0 +1,68 @@
+{
+  "A": {
+    "source": "raw/meepsie-A-coarse-revision.png",
+    "source_crop": [
+      273,
+      627,
+      1040,
+      1236
+    ],
+    "canvas": [
+      1536,
+      1536
+    ],
+    "logical_size": [
+      50,
+      40
+    ],
+    "grid_px": 11,
+    "origin": [
+      493,
+      950
+    ],
+    "bbox": [
+      493,
+      950,
+      1043,
+      1390
+    ],
+    "alpha_levels": [
+      0,
+      255
+    ],
+    "palette_colors": 20
+  },
+  "B": {
+    "source": "raw/meepsie-B-coarse-revision.png",
+    "source_crop": [
+      378,
+      456,
+      884,
+      1241
+    ],
+    "canvas": [
+      1536,
+      1536
+    ],
+    "logical_size": [
+      26,
+      40
+    ],
+    "grid_px": 11,
+    "origin": [
+      625,
+      950
+    ],
+    "bbox": [
+      625,
+      950,
+      911,
+      1390
+    ],
+    "alpha_levels": [
+      0,
+      255
+    ],
+    "palette_colors": 20
+  }
+}

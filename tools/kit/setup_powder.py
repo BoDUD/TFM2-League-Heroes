@@ -35,7 +35,7 @@ DESC = ("Teamfight Tactics units that League of Legends does not have, for Teamf
         "Wild Rift (what the data cannot play is the pack's own code, tft.dll). Sharper frames from tft.dll itself, "
         "with or without the League of Legends Heroes pack (league). Non-commercial fan project; Teamfight Tactics, "
         "Wild Rift and Arcane (c) Riot Games.")
-HEROES = ["Powder", "Norra", "Alune", "Silco", "Maddie", "Loris", "Kobuko", "Vander", "Violet", "Krug", "Ao Shin", "Scar", "Renni", "Smeech", "Sevika", "Steb", "Nomsy", "Idas", "Daeja", "Shi Oh Yu", "Sy'fen", "Sohm", "Terra", "Zippy", "Sentinel", "Brambleback"]
+HEROES = ["Powder", "Norra", "Alune", "Silco", "Maddie", "Loris", "Kobuko", "Vander", "Violet", "Krug", "Ao Shin", "Scar", "Renni", "Smeech", "Sevika", "Steb", "Nomsy", "Idas", "Daeja", "Shi Oh Yu", "Sy'fen", "Sohm", "Terra", "Zippy", "Sentinel", "Brambleback", "Mama Beak", "Elder Dragon", "Meepsie", "Murkwolf", "Scuttle Crab", "Gromp", "Pebbles", "Brock", "Cinderling", "Rift Herald", "T-Hex"]
 ADi = "<i#asset/base/ui/banpick/champion_stat_icon:ad_0>"
 APi = "<i#asset/base/ui/banpick/champion_stat_icon:ap_0>"
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
@@ -46,7 +46,8 @@ R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: the face point between her eyes, 10 px under the crown (tfm2_ase.py face: crown 35 px up; lint_mod allows
 # 10 under the crown); her idle's top is 23.5 px over the pivot: the ban/pick card fits it, no banpick_center
-VIEW = {"face": {"x": 0, "y": -25}, "center": {"x": 0, "y": -12}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 0, "y": -25}, "center": {"x": 0, "y": -7}}
 
 
 def mag(d, r):

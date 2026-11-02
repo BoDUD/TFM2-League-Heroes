@@ -1,0 +1,581 @@
+{
+  "id": "tft_scuttlecrab",
+  "category": "Util",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "Tank",
+    "Heal",
+    "Shield",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "tft_scuttlecrab:greenbuff",
+    "params": {
+      "p_low": 40,
+      "p_pct": 12,
+      "p_r": 70000,
+      "p_cd": 600,
+      "e_t": 120,
+      "e_r": 40000,
+      "e_dmg": 80,
+      "e_dmg_ap": 60,
+      "e_slow": 40,
+      "e_slow_t": 90,
+      "e_stun": 30
+    }
+  },
+  "sprite": "asset/tft/champions/tft_scuttlecrab",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_scuttlecrab_skill",
+    "asset/tft/icons/tft_scuttlecrab_skill2",
+    "asset/tft/icons/tft_scuttlecrab_ult"
+  ],
+  "stat": {
+    "attack": 70,
+    "magic_power": 30,
+    "hp": 1200,
+    "defence": 44,
+    "magic_resistance": 40,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 5,
+    "magic_power": 15,
+    "hp": 115,
+    "defence": 8,
+    "magic_resistance": 6,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_scuttlecrab.attack",
+    "duration": 30,
+    "cooltime": 80,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_scuttlecrab_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 35000
+                }
+              },
+              "target": "Enemy",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 100,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_scuttlecrab_a_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_scuttlecrab_a_hit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_scuttlecrab.skill",
+    "duration": 30,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "None",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_scuttlecrab_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_scuttlecrab_q_buff"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_scuttlecrab_q_shrine"
+            },
+            {
+              "type": "RangePeriodProjectile",
+              "name": "tft_scuttlecrab_q_shrine",
+              "shape": {
+                "Circle": {
+                  "radius": 55000
+                }
+              },
+              "tick": 240,
+              "period": 15,
+              "first_delay": 0,
+              "applied_target": "AllyChampion",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_scuttlecrab_q_haste",
+                      "duration": {
+                        "Time": {
+                          "tick": 24
+                        }
+                      },
+                      "move_speed_mult": 30,
+                      "attack_speed_mult": 25
+                    }
+                  }
+                }
+              ],
+              "end_effects": []
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 55000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "ApAttack",
+                  "damage": 80,
+                  "attack_ratio": 60,
+                  "hp_ratio": 0,
+                  "can_crit": false
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_scuttlecrab_q_slow",
+                    "duration": {
+                      "Time": {
+                        "tick": 90
+                      }
+                    },
+                    "move_speed_mult": -40
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_scuttlecrab.skill2",
+    "duration": 36,
+    "cooltime": 360,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_scuttlecrab_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Shield",
+                  "amount": 120,
+                  "attack_ratio": 0,
+                  "ap_ratio": 60,
+                  "tick": 120
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "tft_scuttlecrab_e_shell",
+                    "duration": {
+                      "Time": {
+                        "tick": 120
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_scuttlecrab.ult",
+    "duration": 174,
+    "cooltime": 1500,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_scuttlecrab_r"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_scuttlecrab_r_dig"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_scuttlecrab_r_burrow",
+            "duration": {
+              "Time": {
+                "tick": 150
+              }
+            },
+            "damaged_reduce": 50,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 29,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Heal",
+                  "amount": 50,
+                  "attack_ratio": 0,
+                  "ap_ratio": 16,
+                  "heal_type": "Caster"
+                }
+              ]
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_scuttlecrab_r_heal"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 59,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Heal",
+                  "amount": 50,
+                  "attack_ratio": 0,
+                  "ap_ratio": 16,
+                  "heal_type": "Caster"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 89,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Heal",
+                  "amount": 50,
+                  "attack_ratio": 0,
+                  "ap_ratio": 16,
+                  "heal_type": "Caster"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 119,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Heal",
+                  "amount": 50,
+                  "attack_ratio": 0,
+                  "ap_ratio": 16,
+                  "heal_type": "Caster"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 149,
+          "effects": [
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Heal",
+                  "amount": 50,
+                  "attack_ratio": 0,
+                  "ap_ratio": 16,
+                  "heal_type": "Caster"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 149,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_scuttlecrab_r_up"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_scuttlecrab_r_hit"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_scuttlecrab_r_burst"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 50000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 160,
+                      "attack_ratio": 60,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "Airborne",
+                      "duration": 90
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_scuttlecrab_r_up"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_scuttlecrab_a_hit",
+      "anim": "asset/tft/effects/tft_scuttlecrab_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scuttlecrab_p_heal",
+      "anim": "asset/tft/effects/tft_scuttlecrab_fx",
+      "tag": "p_heal",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scuttlecrab_q_shrine",
+      "anim": "asset/tft/effects/tft_scuttlecrab_big",
+      "tag": "q_shrine",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scuttlecrab_e_burst",
+      "anim": "asset/tft/effects/tft_scuttlecrab_big",
+      "tag": "e_burst",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scuttlecrab_r_dig",
+      "anim": "asset/tft/effects/tft_scuttlecrab_big",
+      "tag": "r_dig",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scuttlecrab_r_burst",
+      "anim": "asset/tft/effects/tft_scuttlecrab_big",
+      "tag": "r_burst",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_scuttlecrab_r_up",
+      "anim": "asset/tft/effects/tft_scuttlecrab_fx",
+      "tag": "r_up",
+      "z": 3,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_scuttlecrab_q_haste",
+      "anim": "asset/tft/effects/tft_scuttlecrab_fx",
+      "tag": "q_haste",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_scuttlecrab_e_slow",
+      "anim": "asset/tft/effects/tft_scuttlecrab_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_scuttlecrab_q_slow",
+      "anim": "asset/tft/effects/tft_scuttlecrab_fx",
+      "tag": "e_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_scuttlecrab_e_shell",
+      "anim": "asset/tft/effects/tft_scuttlecrab_fx",
+      "tag": "e_shell",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

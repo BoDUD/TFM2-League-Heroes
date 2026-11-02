@@ -1,0 +1,684 @@
+{
+ "square": 7,
+ "square_of": {
+  "attack_e2": 6
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "attack_e": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "attack_e2": {
+   "9": "design 0"
+  },
+  "skill2": {
+   "4": "skill2 3"
+  },
+  "ult": {
+   "6": "design 0"
+  },
+  "dead": {
+   "2": "dead 1",
+   "7": "dead 6",
+   "8": "dead 6"
+  }
+ },
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "running (her move loop): a sly, gliding run, the lashers trailing behind her, the hair streaming, the LEGS CHANGING OVER",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under her hips, its foot flat on the ground; the FAR leg (the darker one) kicked up and back behind her, bent, its foot high off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "running (her move loop): a sly, gliding run, the lashers trailing behind her, the hair streaming, the LEGS CHANGING OVER",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages.",
+   "legs": "Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under her hips, bending; the far leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "running (her move loop): a sly, gliding run, the lashers trailing behind her, the hair streaming, the LEGS CHANGING OVER",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages.",
+   "legs": "Frame 3: PASSING: both legs gathered under her, knees bent; the FAR leg passing forward close beside the planted near leg, its foot just off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "running (her move loop): a sly, gliding run, the lashers trailing behind her, the hair streaming, the LEGS CHANGING OVER",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages.",
+   "legs": "Frame 4: STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "running (her move loop): a sly, gliding run, the lashers trailing behind her, the hair streaming, the LEGS CHANGING OVER",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under her hips, its foot flat on the ground; the NEAR leg (the lighter one) kicked up and back behind her, bent, its foot high off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "running (her move loop): a sly, gliding run, the lashers trailing behind her, the hair streaming, the LEGS CHANGING OVER",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages.",
+   "legs": "Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under her hips, bending; the near leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "running (her move loop): a sly, gliding run, the lashers trailing behind her, the hair streaming, the LEGS CHANGING OVER",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages.",
+   "legs": "Frame 7: PASSING: both legs gathered under her, knees bent; the NEAR leg passing forward close beside the planted far leg, its foot just off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "running (her move loop): a sly, gliding run, the lashers trailing behind her, the hair streaming, the LEGS CHANGING OVER",
+   "ms": [
+    125
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages.",
+   "legs": "Frame 8: STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack: she draws her claw back (frames 2-3), then her lashers whip forward at the target (frames 4-5) and she straightens (frame 6)",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: she draws her claw back (frames 2-3), then her lashers whip forward at the target (frames 4-5) and she straightens (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: she draws her claw back (frames 2-3), then her lashers whip forward at the target (frames 4-5) and she straightens (frame 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e",
+   "name": "attack_e_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Whiplash (E): she raises her near arm high (frames 2-3), then lashes both lashers forward and down at the target (frames 4-5)",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e",
+   "name": "attack_e_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Whiplash (E): she raises her near arm high (frames 2-3), then lashes both lashers forward and down at the target (frames 4-5)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e",
+   "name": "attack_e_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Whiplash (E): she raises her near arm high (frames 2-3), then lashes both lashers forward and down at the target (frames 4-5)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e2",
+   "name": "attack_e2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the empowered Whiplash (E): she lunges through the target, her lashers stretched out long before and behind her (frames 1-8)",
+   "ms": [
+    25
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e2",
+   "name": "attack_e2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the empowered Whiplash (E): she lunges through the target, her lashers stretched out long before and behind her (frames 1-8)",
+   "ms": [
+    25
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e2",
+   "name": "attack_e2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the empowered Whiplash (E): she lunges through the target, her lashers stretched out long before and behind her (frames 1-8)",
+   "ms": [
+    30
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e2",
+   "name": "attack_e2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the empowered Whiplash (E): she lunges through the target, her lashers stretched out long before and behind her (frames 1-8)",
+   "ms": [
+    30
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e2",
+   "name": "attack_e2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the empowered Whiplash (E): she lunges through the target, her lashers stretched out long before and behind her (frames 1-8)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e2",
+   "name": "attack_e2_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the empowered Whiplash (E): she lunges through the target, her lashers stretched out long before and behind her (frames 1-8)",
+   "ms": [
+    20
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e2",
+   "name": "attack_e2_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the empowered Whiplash (E): she lunges through the target, her lashers stretched out long before and behind her (frames 1-8)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "attack_e2",
+   "name": "attack_e2_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "the empowered Whiplash (E): she lunges through the target, her lashers stretched out long before and behind her (frames 1-8)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Hate Spike (Q): she raises her near hand (frames 1-2), then thrusts both lashers straight forward and fires (frames 3-7), and draws them back (frame 8)",
+   "ms": [
+    85,
+    80
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Hate Spike (Q): she raises her near hand (frames 1-2), then thrusts both lashers straight forward and fires (frames 3-7), and draws them back (frame 8)",
+   "ms": [
+    18
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Hate Spike (Q): she raises her near hand (frames 1-2), then thrusts both lashers straight forward and fires (frames 3-7), and draws them back (frame 8)",
+   "ms": [
+    27
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Hate Spike (Q): she raises her near hand (frames 1-2), then thrusts both lashers straight forward and fires (frames 3-7), and draws them back (frame 8)",
+   "ms": [
+    3
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Hate Spike (Q): she raises her near hand (frames 1-2), then thrusts both lashers straight forward and fires (frames 3-7), and draws them back (frame 8)",
+   "ms": [
+    40
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Hate Spike (Q): she raises her near hand (frames 1-2), then thrusts both lashers straight forward and fires (frames 3-7), and draws them back (frame 8)",
+   "ms": [
+    2
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_7",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Hate Spike (Q): she raises her near hand (frames 1-2), then thrusts both lashers straight forward and fires (frames 3-7), and draws them back (frame 8)",
+   "ms": [
+    45
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Allure (W): she reaches her near arm out towards the target and blows the curse at it (frames 2-6)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Allure (W): she reaches her near arm out towards the target and blows the curse at it (frames 2-6)",
+   "ms": [
+    17
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Allure (W): she reaches her near arm out towards the target and blows the curse at it (frames 2-6)",
+   "ms": [
+    23
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Allure (W): she reaches her near arm out towards the target and blows the curse at it (frames 2-6)",
+   "ms": [
+    18
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Allure (W): she reaches her near arm out towards the target and blows the curse at it (frames 2-6)",
+   "ms": [
+    25
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Last Caress (R): she crouches and sweeps both lashers forward in a wide arc (frames 2-4), then rises with her near arm raised (frame 5)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Last Caress (R): she crouches and sweeps both lashers forward in a wide arc (frames 2-4), then rises with her near arm raised (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Last Caress (R): she crouches and sweeps both lashers forward in a wide arc (frames 2-4), then rises with her near arm raised (frame 5)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Last Caress (R): she crouches and sweeps both lashers forward in a wide arc (frames 2-4), then rises with her near arm raised (frame 5)",
+   "ms": [
+    65
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "struck: jolted back, the lashers flung out",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "struck: jolted back, the lashers flung out",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "death: struck (frame 1), she sinks down (frames 3-5) and ends kneeling, slumped, the lashers limp on the ground (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "death: struck (frame 1), she sinks down (frames 3-5) and ends kneeling, slumped, the lashers limp on the ground (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "death: struck (frame 1), she sinks down (frames 3-5) and ends kneeling, slumped, the lashers limp on the ground (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "death: struck (frame 1), she sinks down (frames 3-5) and ends kneeling, slumped, the lashers limp on the ground (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "death: struck (frame 1), she sinks down (frames 3-5) and ends kneeling, slumped, the lashers limp on the ground (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE TWO LASHERS go where the pale figure has them, frame by frame (image 3 shows them in colour): two dark violet lashers growing from her back, as long and thick as in image 1, curled, whipped forward or stretched out as the pale figure holds them, each ending in its glowing violet blade tip; her long pink claws where the pale figure's hands are. The pale figure's violet streaks and sparks are the old frame's effects: do NOT draw them. Only her: no energy, no spikes in flight, no hearts, no trails, no afterimages."
+  }
+ ]
+}

@@ -1,4 +1,4 @@
-# 韦鲁斯枯萎附加包（测试版 v0.1.0，可选）
+# 韦鲁斯枯萎附加包（测试版 v0.1.1，可选）
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -21,7 +21,7 @@
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_varus_blight` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 韦鲁斯普攻的说明开头是「【附加包】」就说明换上了。
-4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_varus_blight.log`：`Stack #n on #7: 1 -> 2 stacks`、`POP #n on #7: 3 stacks, 180 true damage, Q/E cooldowns -39%`。
+4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_varus_blight.log`：`Stack #n on #7: 1 -> 2 stacks`、`POP #n on #7: 3 stacks, 180 true damage, Q/E cooldowns -39%`。整个游戏一个计数：你看的那场每条都记，服务器的预模拟先记 150 行、之后每 25 行记一行（0.1.1：以前你看的那场也一样限，预模拟先把条数用完）。
 
 ## 开发
 

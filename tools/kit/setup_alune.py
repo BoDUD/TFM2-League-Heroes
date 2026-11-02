@@ -40,7 +40,8 @@ M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # of 90 at PPU 2: 37 over the ground, 2 ahead of her standing column 34); the centre in her body (she sits high on the
 # crescent: league_aurora / league_nunu's -18); the ban/pick card at 85 % (league.dll UI_SIZES): her horns a game pixel
 # under the canvas top, the crescent's foot on its bottom (bp_card_audit.py's math: top -28.9, bottom 10.2 -> -10)
-VIEW = {"face": {"x": 2, "y": -37}, "center": {"x": 0, "y": -18}, "banpick_center": {"x": 0, "y": -10}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 2, "y": -37}, "center": {"x": 0, "y": -17}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

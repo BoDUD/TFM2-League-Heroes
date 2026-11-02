@@ -45,7 +45,8 @@ M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from her soles' point, up negative): the face point between her eyes (the design's eye row 12
 # of 70 at PPU 1.8: 32 over the ground; 1 ahead of her standing column, ppu_restyle's face_to); the centre in her body;
 # the ban/pick card by bp_card_audit.py's rule (-39 less the idle's top -27.9: her head 1 game px under the card's top)
-VIEW = {"face": {"x": 1, "y": -32}, "center": {"x": 1, "y": -18}, "banpick_center": {"x": 1, "y": -11}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 1, "y": -32}, "center": {"x": 1, "y": -12}, "banpick_center": {"x": 1, "y": -11}}
 
 
 def phys(d, r):

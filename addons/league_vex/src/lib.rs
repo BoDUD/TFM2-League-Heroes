@@ -29,8 +29,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_vex";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.0";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_vex") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 一 tick 里至少走这么远算突进（走路约 1000，加速后 1500；冲刺 2500 起，league_poppy 量的），超过这么远算闪现 / 传送。
 pub const DASH_STEP: f64 = 2_200.0;
 pub const BLINK_MAX: f64 = 20_000.0;

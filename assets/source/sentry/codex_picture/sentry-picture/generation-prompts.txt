@@ -1,0 +1,30 @@
+Tool: built-in image_gen; transparent_background=true
+
+A reference files:
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/refs/1_sentry_34.png
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/refs/2_sentry_front.png
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/refs/3_sentry_hole.png
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/refs/10a_layout_A.png
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/style/11_style_sentinel.png
+
+A prompt:
+Reference roles: image 1 angle/shape, image 2 front construction, image 3 hole close-up, image 4 layout only, image 5 pixel-art style only. Create ONE production pixel-art sprite on a genuinely transparent 1536x1536 PNG.  Subject is a pair of floating tall rock shards, NO limbs, NO face, NO humanoid parts. Left shard tall pointed faceted tip; right shard shorter rounded blunt top. Upper half pale sage grey-green, lower half dark navy / blue-violet tapering to bottom points. A narrow near-black central gap with a thin dark red-violet inner edge. Each shard has a semicircular notch above the middle, together making ONE circular hole, with a bright blue inner wall. ADD a luminous azure energy core filling most of hole, minimum 6x6 logical pixels, cyan-white center with one near-white pixel. No external glow. Both shards clearly separate.
+Style exactly like the style reference: extremely low-resolution hand-placed square pixel clusters, broad flat facets, 3-4 flat shades per material, no noise, no texture, no dithering, no gradients, no antialias, no 3D rendering. Each logical pixel is an EXACT 11x11px block, consistent throughout. Near-black external outline TWO logical pixels thick. Colored interiors use own darkest shade, not another black ring. Q版 proportions height/width 1.5-1.7. No ground, shadow, text, guides, frame, background, laser or projectile.
+LAYOUT CRITICAL: tiny sprite low in huge transparent canvas like layout reference, horizontal center x768, bottom y1390 (146px above bottom). Top y1016. Sprite is ONLY 34 logical pixels tall (374 actual px) and 20-24 logical pixels wide (220-264 actual px), maximum 26. Huge empty transparent upper canvas. Do not enlarge sprite to fill canvas. Hard alpha only.
+PICTURE A ONLY: idle slight three-quarter facing RIGHT, like reference 1. Left tall pointed shard on image left, right shorter round shard at image right slightly in front. Round hole completely legible looking toward viewer, slightly right of center. Keep a large clearly readable blue core within the round hole. Single sprite only.
+
+B reference files:
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/refs/4_sentry_side.png
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/refs/2_sentry_front.png
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/refs/3_sentry_hole.png
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/refs/10b_layout_B.png
+C:/Users/OWNER/Documents/Codex/2026-11-02/new-chat/work/sentry-reference/style/11_style_sentinel.png
+
+B prompt:
+Reference roles: image 1 angle/shape, image 2 front construction, image 3 hole close-up, image 4 layout only, image 5 pixel-art style only. Create ONE production pixel-art sprite on a genuinely transparent 1536x1536 PNG.  Subject is a pair of floating tall rock shards, NO limbs, NO face, NO humanoid parts. Left shard tall pointed faceted tip; right shard shorter rounded blunt top. Upper half pale sage grey-green, lower half dark navy / blue-violet tapering to bottom points. A narrow near-black central gap with a thin dark red-violet inner edge. Each shard has a semicircular notch above the middle, together making ONE circular hole, with a bright blue inner wall. ADD a luminous azure energy core filling most of hole, minimum 6x6 logical pixels, cyan-white center with one near-white pixel. No external glow. Both shards clearly separate.
+Style exactly like the style reference: extremely low-resolution hand-placed square pixel clusters, broad flat facets, 3-4 flat shades per material, no noise, no texture, no dithering, no gradients, no antialias, no 3D rendering. Each logical pixel is an EXACT 11x11px block, consistent throughout. Near-black external outline TWO logical pixels thick. Colored interiors use own darkest shade, not another black ring. Q版 proportions height/width 1.5-1.7. No ground, shadow, text, guides, frame, background, laser or projectile.
+LAYOUT CRITICAL: tiny sprite low in huge transparent canvas like layout reference, horizontal center x768, bottom y1390 (146px above bottom). Top y1016. Sprite is ONLY 34 logical pixels tall (374 actual px) and 20-24 logical pixels wide (220-264 actual px), maximum 26. Huge empty transparent upper canvas. Do not enlarge sprite to fill canvas. Hard alpha only.
+PICTURE B ONLY: same idle turned further toward RIGHT, use reference 1's sideward angle. Tall pointed left shard dominates and occludes most of the second shard. Shorter rounded shard narrow at the RIGHT edge. The hole is an UPRIGHT VERTICAL OVAL at image right, with the blue core visible through it. Same 11px square grid as A, 32-34 blocks tall and 16-22 blocks wide. Same low canvas placement with bottom y1390. Single sprite only.
+
+
+Export notes: The second generation returned two views on one sheet. Its left and right views were selected for final A and B to keep identity consistent. Generation 01 is retained unused. Export uses alpha threshold 240, nearest-neighbor sampling to A=22x34 / B=20x34 logical pixels, 11x nearest enlargement, placement on transparent 1536x1536 canvas ending at y1390. No extra character parts or effects were drawn.

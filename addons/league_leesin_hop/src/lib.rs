@@ -49,6 +49,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_leesin_hop";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_leesin_hop") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// W 绕后回旋踢：落在目标身后多远（同主包 `RushMoveToBack` 的 15000），落不了脚时最少多远，冲过去的速度。
 pub const BEHIND: f64 = 15_000.0;
@@ -172,6 +178,29 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 
 fn pt(p: (f64, f64)) -> String {
     format!("({:.0},{:.0})", p.0, p.1)
+}
+
+/// `Q SKIP` 的条数：整个游戏一个计数，你看的那场每条都记，服务器的预模拟先记 `LOG_FIRST` 条、之后每 `LOG_EVERY` 条一条
+/// （0.1.12 起；以前只跳过和上一行同一个单位的，AI 在两三个小兵之间来回挑，11-01 一次启动的 140 行里 101 行出自同一份预模拟）。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 // ===================== 地图和几何 =====================
@@ -863,7 +892,7 @@ pub fn plan_q(input: &InputTargetV1, me: (f64, f64), marks: &[Mark]) -> (QPlan, 
 struct LeeAi {
     seen: HashMap<usize, (f64, f64, usize)>,
     /// The last unit a Q was skipped on: logged once per unit, not every time the AI asks again (the 10-29 log was 63 %
-    /// "Q SKIP ... no Q on minions", every 4 ticks on the same minion).
+    /// "Q SKIP ... no Q on minions", every 4 ticks on the same minion); the lines also go by the launch's count (`noted`).
     skipped: Option<usize>,
 }
 
@@ -921,7 +950,7 @@ impl StablePlayerAi for LeeAi {
         let tick = ctx.tick();
         let me_id = ctx.player_id();
         // 先把要用的读出来（sim 借着 ctx，后面还要用 ctx 验输入）
-        let (plan, t, me, head_line) = {
+        let (plan, t, me, head_line, shown) = {
             let sim = ctx.sim()?;
             let player = sim.get_player(me_id)?;
             let lee = player.champion()?;
@@ -935,13 +964,15 @@ impl StablePlayerAi for LeeAi {
                 return None;
             }
             let (plan, t) = plan_q(&base.target, me, &marks);
-            (plan, t, me, head(&sim, lee_id))
+            (plan, t, me, head(&sim, lee_id), on_screen(&sim))
         };
         match plan {
             QPlan::Keep => None,
             QPlan::Wander(d) => {
                 let to = (me.0 + d.0 * WANDER, me.1 + d.1 * WANDER);
-                wlog(format!("{head_line} Q SKIP: nothing on that line, walks on toward {}", pt(to)));
+                if noted("q wander", shown).is_some() {
+                    wlog(format!("{head_line} Q SKIP: nothing on that line, walks on toward {}", pt(to)));
+                }
                 Some(InputV1::move_to(to.0.round().max(0.0) as u64, to.1.round().max(0.0) as u64))
             }
             QPlan::Aim(p) => {
@@ -972,7 +1003,9 @@ impl StablePlayerAi for LeeAi {
                 };
                 if self.skipped != Some(t.id) {
                     self.skipped = Some(t.id);
-                    wlog(format!("{head_line} Q SKIP #{} {:?} at {}: {why}", t.id, t.kind, pt(t.at)));
+                    if noted("q skip", shown).is_some() {
+                        wlog(format!("{head_line} Q SKIP #{} {:?} at {}: {why}", t.id, t.kind, pt(t.at)));
+                    }
                 }
                 Some(input)
             }
@@ -1152,7 +1185,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.8 (W dash, no ward, aimed Q) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (W dash, no ward, aimed Q) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

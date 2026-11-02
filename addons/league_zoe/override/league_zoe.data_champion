@@ -2423,6 +2423,14 @@
     },
     {
       "type": "Animation",
+      "name": "league_zoe_s_flash_trail",
+      "anim": "asset/league/effects/league_zoe_spells",
+      "tag": "s_flash_trail",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_zoe_s_cleanse",
       "anim": "asset/league/effects/league_zoe_spells",
       "tag": "s_cleanse",

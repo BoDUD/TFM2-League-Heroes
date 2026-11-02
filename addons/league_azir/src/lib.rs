@@ -51,7 +51,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -59,6 +59,12 @@ use mod_api_stable::*;
 pub mod combo;
 
 const ID: &str = "league_azir";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_azir") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// The disc_rise tag's length (tools/art/rig_azir.py: four sinking frames of 90 ms and one of 200): its standing stamps
 /// start after it.
 const RISE_TICKS: usize = 34;
@@ -296,6 +302,24 @@ struct Disc {
     towers: Vec<(usize, (f64, f64))>,
     used: bool,
     up: Option<Up>,
+    /// This simulation's number (`SIM_TAG`), drawn at his first spawn.
+    sim: u64,
+}
+
+/// Each simulation's number (0.1.8, the 2026-11-01 review; league_teemo_shrooms' and league_galio's way): his passive
+/// draws one at his first spawn and hangs it on him at every spawn. The server runs two presims of a set side by side with
+/// the same seed, origin, match, set and entity ids, so the walls and soldiers keyed by those were shared between them (one
+/// sim could carry an enemy twice through one wall, the other find him "already carried", or find no wall at all).
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_azir_sim:";
+
+/// The simulation number hung on Azir (0: none yet).
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+            .unwrap_or(0)
+    })
 }
 
 /// The nearest enemy of `team` within r of `at`: champions first, then minions and monsters (never a tower or the nexus):
@@ -359,6 +383,12 @@ impl StablePassive for Disc {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if self.towers.is_empty() {
@@ -493,7 +523,8 @@ fn unit(v: Pt) -> Option<Pt> {
 
 /// 一道墙：冲锋时（从 `start`、`launch` 那个 tick 起，每 tick `speed`，半径 `reach`）和立住时（中点、冲锋方向的单位向量、
 /// 从哪个 tick 立到哪个 tick、禁军朝哪边、每个敌方英雄在墙的哪一边：+1 冲锋方向那边、-1 阿兹尔这边、下一次盖禁军的 tick、
-/// 挡回来几次）；被墙带着走的单位（到哪个 tick 落地）、被带走的英雄和没带走的英雄（日志用）。
+/// 挡回来几次）；被墙带着走的单位（到哪个 tick 落地；落地就去掉）、这道墙带过的所有单位（不清空：一道墙只带一次）、被带走的英雄
+/// 和没带走的英雄（日志用）。
 #[derive(Clone, Debug)]
 pub struct Standing {
     pub start: Pt,
@@ -509,6 +540,7 @@ pub struct Standing {
     pub next_stamp: usize,
     pub held: usize,
     pub carried: HashMap<usize, usize>,
+    pub once: Vec<usize>,
     pub pending: HashMap<usize, usize>,
     pub moved: usize,
     pub took: Vec<usize>,
@@ -522,7 +554,7 @@ pub fn standing(p: &Params, from: Pt, to: Pt, tick: usize, right: bool) -> Stand
     let up = tick + (p.r_len / p.r_speed.max(1)).max(1);
     Standing { start: from, launch: tick, speed: p.r_speed.max(1), reach: p.r_w as f64,
                mid: (from.0 + dir.0 * len, from.1 + dir.1 * len), dir, from: up, until: up + p.r_hold, right,
-               sides: HashMap::new(), next_stamp: up, held: 0, carried: HashMap::new(), pending: HashMap::new(), moved: 0,
+               sides: HashMap::new(), next_stamp: up, held: 0, carried: HashMap::new(), once: Vec::new(), pending: HashMap::new(), moved: 0,
                took: Vec::new(), skipped: Vec::new() }
 }
 
@@ -539,13 +571,17 @@ pub fn swept(w: &Standing, tick: usize, at: Pt, body: f64) -> bool {
 }
 
 /// 墙带走一个在 `at` 的单位：一道墙只带一次（本包扫到的、数据那道墙打中的，谁先算谁）；记下他到哪个 tick 落地，英雄再记
-/// 「在墙那一边」和被带走（日志用）。返回强制位移的计划（`carry_plan`）；带过了、已经在墙外面就是 None。
+/// 「在墙那一边」和被带走（日志用）。返回强制位移的计划（`carry_plan`）；带过了、已经在墙外面就是 None。带过的记在 `once`：
+/// `carried` 落地就去掉，原来只看它，数据那道墙先带走、落地以后扫墙到期的那一条又带了一次（2026-11-02 复查 11-01 的日志：31 道墙
+/// 有 10 道把同一个英雄带了两次，第二次多一个 1 tick 的强制位移、最多挪 6000）。
 pub fn take(w: &mut Standing, id: usize, at: Pt, champ: bool, now: usize) -> Option<(Pt, f64, usize, usize)> {
-    if w.carried.contains_key(&id) {
+    if w.carried.contains_key(&id) || w.once.contains(&id) {
         return None;
     }
     let plan = carry_plan(w, at, now, w.speed)?;
     w.carried.insert(id, now + plan.2 + 2);
+    w.once.push(id);
+    w.pending.remove(&id);
     w.moved += 1;
     if champ {
         w.sides.insert(id, 1.0);
@@ -610,14 +646,13 @@ pub fn behind(p: &Params, me: Pt, target: Pt, home: Option<Pt>) -> Pt {
     (target.0 + away.0 * b, target.1 + away.1 * b)
 }
 
-type WallKey = (u64, u32, u64, u64, usize);
+type WallKey = (u64, usize);
 
-/// 立着的墙，按（种子、哪一种模拟、比赛、局、阿兹尔）分开：服务器的预演和屏幕上的比赛同时在跑。
+/// 立着的墙，按（这份模拟的编号 `SIM_TAG`、阿兹尔）分开：服务器的两份预演和屏幕上的比赛同时在跑。
 static WALLS: LazyLock<Mutex<HashMap<WallKey, Vec<Standing>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn wall_key(sim: &StableSim<'_>, me: usize) -> WallKey {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+    (sim_no(sim, me), me)
 }
 
 /// 正在被推、在冲刺的人不挡（被墙推过去的那一下、闪现和突进都能过墙，同英雄联盟）。
@@ -649,7 +684,7 @@ fn sweep(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, w: &mut S
         .map(|u| (u.id(), at_of(&u), u.is_champion(), immune(&u), u.radius() as f64))
         .collect();
     for (id, at, champ, immune, body) in units {
-        if w.carried.contains_key(&id) || w.skipped.contains(&id) {
+        if w.carried.contains_key(&id) || w.once.contains(&id) || w.skipped.contains(&id) {
             continue;
         }
         match w.pending.get(&id) {
@@ -826,7 +861,7 @@ impl StableEffectType for Carry {
             let mut walls = WALLS.lock().unwrap_or_else(|e| e.into_inner());
             match walls.get_mut(&key).and_then(|v| v.last_mut()) {
                 None => Err("no wall of his recorded yet: left to the sweep"),
-                Some(w) if w.carried.contains_key(&id) => Err("already carried by the sweep"),
+                Some(w) if w.carried.contains_key(&id) || w.once.contains(&id) => Err("already carried by the sweep"),
                 Some(w) if immune => {
                     if !w.skipped.contains(&id) {
                         w.skipped.push(id);
@@ -919,15 +954,14 @@ pub fn stamp_due(tick: usize, next: usize) -> bool {
     tick >= next && tick <= next + 2
 }
 
-/// Every soldier drawn: by (this game's seed, the simulation's origin, match, set, the caster, the slot) - the server's
-/// pre-simulation and the match on screen draw their own.
-type SoldierKey = (u64, u32, u64, u64, usize, usize);
+/// Every soldier drawn: by (the simulation's number `SIM_TAG`, the caster, the slot) - each of the server's presims and
+/// the match on screen draw their own.
+type SoldierKey = (u64, usize, usize);
 static SOLDIERS: LazyLock<Mutex<HashMap<SoldierKey, Soldier>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 static CHAINS: AtomicUsize = AtomicUsize::new(1);
 
 fn soldier_key(sim: &StableSim<'_>, caster: usize, slot: usize) -> SoldierKey {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, caster, slot)
+    (sim_no(sim, caster), caster, slot)
 }
 
 /// The spot a native in the soldier's landing gets: its position (a unit given instead: where it stands).
@@ -1179,7 +1213,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1.7 (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1223,6 +1257,11 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_sim_tag_fits_a_buff_name() {
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {
@@ -1362,6 +1401,10 @@ mod tests {
         assert_eq!((w.took.clone(), w.moved), (vec![7], 1));
         // the wall's hit after the sweep (or the other way round): not twice
         assert_eq!(take(&mut w, 7, (140_000.0, 100_000.0), true, 1007), None);
+        // nor once he has landed (walls_tick takes him out of `carried`) and the sweep's pending turn comes
+        w.carried.remove(&7);
+        assert_eq!(take(&mut w, 7, (150_000.0, 100_000.0), true, 1010), None);
+        assert_eq!(w.moved, 1);
         // a minion: carried, no side kept (the wall holds champions only)
         assert!(take(&mut w, 900, (120_000.0, 95_000.0), false, 1004).is_some());
         assert_eq!((w.sides.get(&900), w.moved), (None, 2));

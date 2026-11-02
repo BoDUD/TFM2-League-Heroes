@@ -147,6 +147,8 @@ pub fn skin_buff(p: &Params) -> BuffV1 {
 
 #[derive(Clone, Default)]
 struct Jade {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
     /// The tick the skin is ready again (0: ready), and whether he was alive last tick (a respawn makes it ready).
     ready_at: usize,
@@ -163,6 +165,10 @@ impl StablePassive for Jade {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
+        // a new life is a new unit, and on_update does not run while it is dead: the first tick of this life
+        // must see a dead one, or what each life has once stays used up (2026-11-02 logs)
+        self.was_alive = false;
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
             wlog(format!("{} SPAWN #{k}: tft.dll's Shi Oh Yu (player {player}, team {team}), {:?}", head(sim, me), self.p));
@@ -190,7 +196,8 @@ impl StablePassive for Jade {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         // his death cry (the data has no moment for it)
         sim.play_sfx(SFX_DEAD, me, &InputTargetV1::target(me));
     }

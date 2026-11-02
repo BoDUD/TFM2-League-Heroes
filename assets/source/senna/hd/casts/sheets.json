@@ -1,0 +1,461 @@
+{
+ "square": 8,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "ult": {
+   "8": "ult 7"
+  },
+  "dead": {
+   "4": "dead 3",
+   "6": "dead 5"
+  }
+ },
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (her move loop): a light, quick run, the Relic Cannon carried slanting across her body, the hood's sash and the locs flying, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls.",
+   "legs": "Frame 1: STRIDE: the NEAR leg (the lighter one) reaching forward (image right), the FAR leg behind pushing off. Frame 2: the near foot landing under her, the far leg lifting off behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (her move loop): a light, quick run, the Relic Cannon carried slanting across her body, the hood's sash and the locs flying, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls.",
+   "legs": "Frame 3: PASSING: the near leg planted under her hips; the FAR leg swinging through under her, knee up. Frame 4: the FAR leg reaching forward to land, the near leg pushing off behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (her move loop): a light, quick run, the Relic Cannon carried slanting across her body, the hood's sash and the locs flying, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls.",
+   "legs": "Frame 5: STRIDE: now the FAR leg (the darker one) forward (image right), the NEAR leg behind pushing off. Frame 6: the far foot landing under her, the near leg lifting off behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (her move loop): a light, quick run, the Relic Cannon carried slanting across her body, the hood's sash and the locs flying, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls.",
+   "legs": "Frame 7: PASSING: the far leg planted under her hips; the NEAR leg swinging through under her, knee up. Frame 8: the NEAR leg reaching forward to land, the far leg pushing off behind. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) leads, in frames 5-8 the FAR leg (the darker one) - frames 1 and 5 must look different: the other leg in front. Follow the pale figure's LEGS exactly; never the same leg in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she levels the cannon forward at her hip and FIRES (frames 1-4), the recoil kicking its head up to the sky (frame 5), then levels it again (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she levels the cannon forward at her hip and FIRES (frames 1-4), the recoil kicking its head up to the sky (frame 5), then levels it again (frame 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she levels the cannon forward at her hip and FIRES (frames 1-4), the recoil kicking its head up to the sky (frame 5), then levels it again (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she levels the cannon forward at her hip and FIRES (frames 1-4), the recoil kicking its head up to the sky (frame 5), then levels it again (frame 6)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she levels the cannon forward at her hip and FIRES (frames 1-4), the recoil kicking its head up to the sky (frame 5), then levels it again (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack: she levels the cannon forward at her hip and FIRES (frames 1-4), the recoil kicking its head up to the sky (frame 5), then levels it again (frame 6)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Piercing Darkness (Q): she crouches, gathering (frames 1-2), swings the cannon down (frame 3), then levels it forward and FIRES (frames 4-6)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Piercing Darkness (Q): she crouches, gathering (frames 1-2), swings the cannon down (frame 3), then levels it forward and FIRES (frames 4-6)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Piercing Darkness (Q): she crouches, gathering (frames 1-2), swings the cannon down (frame 3), then levels it forward and FIRES (frames 4-6)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Piercing Darkness (Q): she crouches, gathering (frames 1-2), swings the cannon down (frame 3), then levels it forward and FIRES (frames 4-6)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Piercing Darkness (Q): she crouches, gathering (frames 1-2), swings the cannon down (frame 3), then levels it forward and FIRES (frames 4-6)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Last Embrace (W): the cannon swung low, its head down to the ground in front (frames 1-2), then levelled forward and FIRED (frames 3-4), then lowered as she straightens up (frames 5-6)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Last Embrace (W): the cannon swung low, its head down to the ground in front (frames 1-2), then levelled forward and FIRED (frames 3-4), then lowered as she straightens up (frames 5-6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Last Embrace (W): the cannon swung low, its head down to the ground in front (frames 1-2), then levelled forward and FIRED (frames 3-4), then lowered as she straightens up (frames 5-6)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Last Embrace (W): the cannon swung low, its head down to the ground in front (frames 1-2), then levelled forward and FIRED (frames 3-4), then lowered as she straightens up (frames 5-6)",
+   "ms": [
+    90,
+    100
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Dawning Shadow (R): she crouches with the cannon low (frame 1), heaves it up to the sky (frame 2), levels it forward and FIRES (frames 3-4), the recoil dipping its head down (frame 5), then holds it level, firing (frames 6-7)",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Dawning Shadow (R): she crouches with the cannon low (frame 1), heaves it up to the sky (frame 2), levels it forward and FIRES (frames 3-4), the recoil dipping its head down (frame 5), then holds it level, firing (frames 6-7)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Dawning Shadow (R): she crouches with the cannon low (frame 1), heaves it up to the sky (frame 2), levels it forward and FIRES (frames 3-4), the recoil dipping its head down (frame 5), then holds it level, firing (frames 6-7)",
+   "ms": [
+    160
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Dawning Shadow (R): she crouches with the cannon low (frame 1), heaves it up to the sky (frame 2), levels it forward and FIRES (frames 3-4), the recoil dipping its head down (frame 5), then holds it level, firing (frames 6-7)",
+   "ms": [
+    200
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Dawning Shadow (R): she crouches with the cannon low (frame 1), heaves it up to the sky (frame 2), levels it forward and FIRES (frames 3-4), the recoil dipping its head down (frame 5), then holds it level, firing (frames 6-7)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Dawning Shadow (R): she crouches with the cannon low (frame 1), heaves it up to the sky (frame 2), levels it forward and FIRES (frames 3-4), the recoil dipping its head down (frame 5), then holds it level, firing (frames 6-7)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back, the cannon swung up",
+   "ms": [
+    100
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, she staggers (frame 1), sinks to her knees, the cannon sliding down in front of her (frame 2), and kneels with the cannon lying on the ground before her (frames 3 and 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls. Where the pale figure has let it fall, draw it lying on the ground before her."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, she staggers (frame 1), sinks to her knees, the cannon sliding down in front of her (frame 2), and kneels with the cannon lying on the ground before her (frames 3 and 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls. Where the pale figure has let it fall, draw it lying on the ground before her."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, she staggers (frame 1), sinks to her knees, the cannon sliding down in front of her (frame 2), and kneels with the cannon lying on the ground before her (frames 3 and 5)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls. Where the pale figure has let it fall, draw it lying on the ground before her."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, she staggers (frame 1), sinks to her knees, the cannon sliding down in front of her (frame 2), and kneels with the cannon lying on the ground before her (frames 3 and 5)",
+   "ms": [
+    200
+   ],
+   "weapons": "THE RELIC CANNON goes where the pale figure has it, frame by frame (image 3 shows it in colour): ONE cannon, WHOLE and STRAIGHT, as large as in image 1 - the gold claw grip, the gold ring with its dark round eye, the pale ice-blue crystal blade, the wine-red wing panel with its gold ribs - in her hands, on her shoulder, levelled forward, swung up or pointed down as the pale figure holds it; the blade end is the muzzle, the gold claw is the grip; never bent, cut, shortened or a second cannon. Only the cannon: no beam, no muzzle flash, no black mist, no souls. Where the pale figure has let it fall, draw it lying on the ground before her."
+  }
+ ]
+}

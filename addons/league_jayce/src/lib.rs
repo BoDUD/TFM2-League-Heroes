@@ -15,7 +15,8 @@
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jayce.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `FORM`（显示里变炮 / 变锤、模拟里炮形态 buff 上下）、`GATE`（挑了谁、为什么）、`BLOW`（往哪推、为什么），都限了条数。
+//! `FORM`（显示里变炮 / 变锤、模拟里炮形态 buff 上下）、`GATE`（挑了谁、为什么）、`BLOW`（往哪推、为什么）：整个游戏一个计数
+//! 限了条数，模拟里你看的那场每条都记。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -31,8 +32,13 @@ mod maps;
 pub mod view;
 
 const ID: &str = "league_jayce";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_jayce") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 const HERO: &str = "league_jayce";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
 /// 炮形态（主包数据的永久 buff）。
 pub const FORM: &str = "league_jayce_cn";
 
@@ -73,17 +79,36 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
-/// 日志条数：每种最多先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条。
+/// 日志条数：每种整个游戏先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条；模拟里你看的那场每条都写（0.1.2：以前一起限，
+/// 预模拟先把条数用完，2026-11-01 一晚看的几场只留下 2 行）。显示里的 `FORM display` 没有模拟可看，照旧限。
 const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 50;
 
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+    noted(kind, false)
+}
+
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Like `counted`, but every line of the match on screen: only the presims capped.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -221,6 +246,17 @@ impl Grid {
         }
         true
     }
+}
+
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<(f64, f64)> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
 }
 
 /// 当前对局的地图：英雄站进墙里最少的那张（同巴德附加包）。
@@ -410,7 +446,7 @@ impl StablePassive for Hextech {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
         let cn = has_buff(sim, me, FORM);
         if self.cannon.is_some_and(|was| was != cn) {
-            if let Some(k) = counted("form_sim") {
+            if let Some(k) = tally(sim, "form_sim") {
                 let alive = sim.get_entity(me).is_some_and(|e| e.is_alive());
                 wlog(format!("{} FORM sim: {}{} #{k}", head(sim, me), if cn { "CANNON on" } else { "cannon off (hammer)" },
                     if alive { "" } else { ", dead" }));
@@ -436,14 +472,14 @@ impl StableEffectType for Blow {
             return;
         }
         if cc_immune(sim, target) {
-            if let Some(k) = counted("blow") {
+            if let Some(k) = tally(sim, "blow") {
                 wlog(format!("{} BLOW {}: immune to crowd control, not pushed #{k}", head(sim, caster), who(sim, target)));
             }
             return;
         }
         let (Some(me), Some(at)) = (pos(sim, caster), pos(sim, target)) else { return };
         let team = sim.get_entity(caster).map_or(0, |c| c.team());
-        let (mut allies, mut towers, mut champs) = (Vec::new(), Vec::new(), Vec::new());
+        let (mut allies, mut towers) = (Vec::new(), Vec::new());
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
             if !u.is_alive() {
@@ -451,7 +487,6 @@ impl StableEffectType for Blow {
             }
             let at_u = (u.pos().0 as f64, u.pos().1 as f64);
             if u.is_champion() {
-                champs.push(at_u);
                 if u.team() == team && u.id() != caster {
                     allies.push(at_u);
                 }
@@ -460,7 +495,7 @@ impl StableEffectType for Blow {
             }
         }
         let grids = Grid::builtin();
-        let grid = current(&grids, &champs).map(|i| &grids[i]);
+        let grid = current(&grids, &unit_points(sim)).map(|i| &grids[i]);
         let reach = (p.kb_speed * p.kb_t) as f64;
         let plan = blow_plan(me, at, &allies, &towers, grid, reach);
         let mut cc = CcV1::of_kind(CcKindV1::ForceMove, p.kb_t as u64);
@@ -468,7 +503,7 @@ impl StableEffectType for Blow {
         cc.dy = (plan.dir.1 * reach).round() as i64;
         cc.speed = p.kb_speed as u64;
         sim.apply_cc(target, &cc);
-        if let Some(k) = counted("blow") {
+        if let Some(k) = tally(sim, "blow") {
             let why = match plan.why {
                 Why::Allies(n) => format!("toward {n} allied champion{}", if n == 1 { "" } else { "s" }),
                 Why::Tower => "toward his nearest tower".to_string(),
@@ -511,7 +546,7 @@ impl StablePlayerAi for GateAi {
         let current = b.target.target_id;
         let player = ctx.player_id();
         let p = shared();
-        let (pick, line) = {
+        let (pick, line, shown) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
             if !me.is_alive() {
@@ -537,22 +572,22 @@ impl StablePlayerAi for GateAi {
             };
             let line = format!("{} GATE {} -> {} ({why}; {:.0} away, {} champions in reach)", head(&sim, mid), who(&sim, current),
                                who(&sim, f.id), dist(at, f.at), foes.iter().filter(|g| dist(at, g.at) <= p.gate_range as f64).count());
-            (f, line)
+            (f, line, on_screen(&sim))
         };
         if pick.id == current {
-            if let Some(k) = counted("gate") {
+            if let Some(k) = noted("gate", shown) {
                 wlog(format!("{line} kept #{k}"));
             }
             return None;
         }
         let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(pick.id));
         if !ctx.is_valid_input(&input) {
-            if let Some(k) = counted("gate") {
+            if let Some(k) = noted("gate", shown) {
                 wlog(format!("{line} refused by the game, the AI's target kept #{k}"));
             }
             return None;
         }
-        if let Some(k) = counted("gate") {
+        if let Some(k) = noted("gate", shown) {
             wlog(format!("{line} AIM #{k}"));
         }
         Some(input)

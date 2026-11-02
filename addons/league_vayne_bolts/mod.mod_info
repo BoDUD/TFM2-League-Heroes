@@ -11,10 +11,10 @@
       "version": ">=0.71.0"
     }
   ],
-  "description": "Test build of Vayne's Silver Bolts as in League (needs League of Legends Heroes): replaces the main pack's Vayne so the true-damage proc needs three hits in a row on the same target, counted on that target, instead of the data pack's stand-in (any three of her hits, on anyone). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-07",
+  "description": "Test build of Vayne as in League (needs League of Legends Heroes): replaces the main pack's Vayne so the Silver Bolts true-damage proc needs three hits in a row on the same target, counted on that target, and Condemn only deals its slam damage and stuns when the target is knocked into a wall (the map's walls, the 5v5 map's edges); with no wall it is only knocked back. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-02",
   "mod_id": "league_vayne_bolts",
   "mod_type": "native",
-  "name": "League Heroes: Vayne's Silver Bolts per target (test)",
-  "version": "0.1.1"
+  "name": "League Heroes: Vayne's Silver Bolts per target, Condemn on walls (test)",
+  "version": "0.2.0"
 }

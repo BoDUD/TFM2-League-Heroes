@@ -73,7 +73,12 @@ static STATS: Mutex<Stats> = Mutex::new(Stats { calls: 0, seen: 0, writes: 0, la
 static FORMS: Mutex<Forms> = Mutex::new(Forms { seen: Vec::new() });
 static HOOK: Once = Once::new();
 
-use game_places::heap::{GetProcessHeap, HeapAlloc, HeapFree};
+#[link(name = "kernel32")]
+extern "system" {
+    fn GetProcessHeap() -> isize;
+    fn HeapAlloc(heap: isize, flags: u32, bytes: usize) -> *mut u8;
+    fn HeapFree(heap: isize, flags: u32, mem: *mut u8) -> i32;
+}
 
 unsafe fn q(addr: usize) -> usize {
     std::ptr::read_unaligned(addr as *const usize)

@@ -13,8 +13,8 @@
 //!   据此改用更大、更痛、减速更强的爆炸。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_maokai.log`，每次启动游戏重写，上一次的留在 .prev.log：`HEAL`
-//! （回了多少）、`STRUCK`（被哪名英雄的技能打中、充好吸元秘术）、`SAPLING`（树苗立在哪、在不在草丛）、`BUSHES`（这场的草丛格子），
-//! 都限了条数。
+//! （回了多少）、`STRUCK`（被哪名英雄的技能打中、充好吸元秘术）、`SAPLING`（树苗立在哪、在不在草丛）、`BUSHES`（这场的草丛格子）；
+//! `HEAL`、`STRUCK`、`SAPLING` 服务器的预模拟限了条数（整个游戏一个计数），你看的那场每条都记。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -28,7 +28,12 @@ use mod_api_stable::*;
 pub mod bush;
 
 const ID: &str = "league_maokai";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_maokai") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 吸元秘术就绪（主包数据：技能命中时挂上，下一次普攻用掉）。
 pub const SAP: &str = "league_maokai_sap";
 /// 副本的普攻打出吸元秘术时挂 3 tick：本包按最大生命回血。
@@ -71,16 +76,32 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// 日志条数：每种整个游戏先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条；你看的那场每条都写（0.1.1：以前一起限，
+/// 预模拟先把条数用完，2026-11-01 一晚看的几场只留下 5 行）。
 const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 50;
 
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-pub(crate) fn counted(kind: &'static str) -> Option<usize> {
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Like `noted`, but every line of the match on screen: only the presims capped.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -210,7 +231,7 @@ impl StablePassive for SapMagic {
         }
         let name = a.name().unwrap_or_default();
         sim.add_buff(me, &BuffV1::timed(SAP, self.p.p_t));
-        if let Some(k) = counted("struck") {
+        if let Some(k) = tally(sim, "struck") {
             wlog(format!("{} STRUCK by {name}'s {slot:?} ({damage}): Sap Magic ready #{k}", head(sim, me)));
         }
     }
@@ -223,7 +244,7 @@ impl StablePassive for SapMagic {
         if on && !self.was_on {
             let amount = heal_amount(&self.p, level, max_hp);
             sim.heal(me, me, amount);
-            if let Some(k) = counted("heal") {
+            if let Some(k) = tally(sim, "heal") {
                 wlog(format!("{} HEAL {amount} ({hp}/{max_hp}, level {level}) #{k}", head(sim, me)));
             }
         }
@@ -256,7 +277,7 @@ impl StablePassive for SapMagic {
                 if self.logged.len() > 64 {
                     self.logged.remove(0);
                 }
-                if let Some(k) = counted("sapling") {
+                if let Some(k) = tally(sim, "sapling") {
                     let b = grid.is_some_and(|g| g.at(s.0 as f64, s.1 as f64));
                     wlog(format!("{} SAPLING at ({}, {}) {} #{k}", head(sim, me), s.0, s.1, if b { "IN BRUSH" } else { "in the open" }));
                 }

@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.76 |
 | 附加包 | [目标标记附加包](#附加包)（`league_marks`） |
 
 ![厄运小姐演示](../preview/league_missfortune_showcase.gif)
@@ -85,6 +85,7 @@
 | 数值 | 攻击 100（+20）、生命 900（+90）、护甲 20（+7）、魔抗 15（+3）、移速 900（+9），攻击间隔 1 秒，和原版射手一样。没有其他 mod 做过她，数值是自己设计的，用 SDK 对战模拟调：打下路，三套队友阵容、两边各 36 局，团队击杀差 +4.41；原版射手 `gunner` +3.43、`soldier` +2.74、`archer` +2.43、`gambler` +1.91，本包艾希 +3.78、金克丝 +4.19。按美术定下的出手帧（普攻、Q、E、R 都在第 8 tick），初版（被动 60%、E 冷却 9 秒）是 +5.50，改成被动 40%、E 冷却 10 秒。再把 R 每波降到 40% 是 +4.47，没有差别，所以 R 保持 45%。Q 改成宽子弹找第二个目标后是 +4.39（同样的局，修前 +4.41），伤害略高，数值不用动 |
 | 亚索联动 | 她只有减速，不算亚索大招要的控制，亚索不用调 |
 | 精灵图 | 2026-10-04 用户在游戏里看到待机「有点怪异」（白色 T 形的肚皮、远侧手臂一块白、左上的枪像飘在头发边）：照英雄联盟原版在游戏尺寸下描（`tools/art/fix_missfortune_model.py`，逐帧补丁在 `assets/source/missfortune/modelfix/`），有明暗的腰腹、白布喇叭袖和前臂，枪拿在英雄联盟的位置（远侧垂在大腿边、近侧在腰间）；枪改成带握把和喇叭口的手枪，一个持枪姿势里只用一张图（「武器不自然啊」「右边的枪移动时变形」）。8 个动作 49 帧：待机、跑步、普攻、Q、E、R、受击、死亡。帽顶到脚底 36 px（原版戴帽子的赌徒 36、枪手 37 也把帽子算在内），23 色，动作全部取自英雄联盟原版动画 |
+| 高清帧（PPU 2.76） | 2026-10-31 用 PPU 重做，和泰隆在同一个 PR（用户：「锤石和女枪在这个pr里一起重做二轮」「都用中间档」「动作通过」）。设计图：Codex 照她的旧精灵描密的原图；原图的描边约 9.75 像素一格（下面还有一层约 14.75 像素的粗格），按原图自己的格子读回（80 × 105 格；帽顶到脚底 105 行 / 2.76 = 原来的 38 像素；调色板 64 色，`design_missfortune_hd.py`，`--pitch` 是另外两种读法：14.75 / 6.5 像素是 1.84 / 4.08）；脸那一块按均匀格子读。动作：Codex 照旧版同一帧用设计图整帧重画（`pack_missfortune_actions.py`，七个动作 43 帧，旧版没有和待机一样的帧；两把枪照旧帧拿，E 双枪朝天、R 近侧开火远侧举在脑后、死亡时枪脱手；跑步逐帧写明哪条腿在前）。旧版的逐帧补丁 `modelfix/` 不再用。读回（`casts_missfortune_hd.py`）：脸和腰腹、手臂是同一种肤色，没法按颜色量头，所以每张的缩放按每帧和旧帧的身高定；跪着、趴着的死亡帧按整个人的面积定；E 第 2–6 帧 Codex 把枪举得比旧帧高，按帽子的大小单独校正；对齐点按设计图和旧待机剪影重叠最多的那列（第 29 列）；死亡第 4 帧掉在地上的枪是单独的块，保留。待机不上下起伏（待机和选人卡是从动作里剪的随机片段）；没有烤进动作的特效（`rig_missfortune_hd.py`）。高 38 像素和原来一样，没有 SIZES 行；头像点不变；选人卡片用默认位置 |
 | 特效 | 普攻子弹、红心子弹、普攻命中、红心爆开、Q 子弹、Q 命中、弹射命中（带红心）、暴击爆炸、大步流星、弹雨区域、R 的扇形弹幕、R 命中火花 |
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 10 条技能音效和 3 条中文语音（Q、W、R；E 没有语音，E 的施放音带 W 的台词）。不提交到仓库，按下面的命令在本地生成 |
@@ -96,6 +97,15 @@ python tools/art/restyle_native.py assets/source/missfortune/poses.json --render
 python tools/art/import_native.py --hero missfortune
 python tools/art/import_missfortune.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_missfortune.py
+# PPU 2.76 重做（2026-10-31）：
+python tools/art/pack_missfortune_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照她的旧精灵描密）
+python tools/art/design_missfortune_hd.py                      # Codex 的原图（hd/raw/missfortune-A.png）按约 9.75 像素一格读回 -> hd/design.png
+python tools/art/pack_missfortune_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_missfortune_hd.py --heights             # 每帧按身高的缩放；--area 按面积（定 ZOOM）
+python tools/art/rig_missfortune_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero missfortune && python tools/art/ppu_hd.py --hero missfortune
+python tools/art/ppu_one.py --hero missfortune && python tools/art/rig_missfortune_hd.py --one-ground && python tools/art/hero_reels.py --hero missfortune
+python tools/art/review_missfortune_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/missfortune/PROMPTS.md`](../../assets/source/missfortune/PROMPTS.md)）：
@@ -108,4 +118,4 @@ python tools/art/preview_missfortune.py
 - 结果：23 色，和右边像素同色的比例 35%（原版英雄 18%–46%）。头像截取点 (1, −34)：和赌徒一样在帽顶下 1 格。
 - 黑边（2026-10-01，用户：「顺便帮我清理一下厄运小姐的黑边部分 干净一点」）：加进 `import_native.py` 的 `COMPLETE` 和 `CLEAN`。动作帧的外圈大多是另一种近黑（`#030203`，待机是 `#040213`），几处金色、发梢的边没描。现在缺描边的浅色边外补一格（582 格），外圈的近黑统一成待机那种，双层描边的内鼓包（96 格）和碎点（76 格）改成旁边的颜色，斜阶梯多出的一格去掉（42 格），眼睛周围的脸不动。第一版直接用菲奥娜的规则，逐帧审查（6 个审查代理看完四个英雄的每一帧）发现它把鞋底削成尖、把李青的黑辫子削细、把枪口、发梢、手腕红条纹这些深色像素直接涂黑、把画里第二种近黑画的内部分隔线当碎点改掉；现在用严格规则（`strips.clean_outline(strict=True)`，`import_native.py` 的 `STRICT`）：两种近黑都算描边，外圈只把近黑统一成一种，不把任何有颜色的像素涂黑，补描边新加的像素不改色，碎点只算周围一格内没有别的近黑的那种，阶梯外角只在斜阶梯处去掉（方角、直线、实心的深色块不动），找不到眼睛的帧（倒地、转身）整帧不改色。
 
-逐帧预览：[`docs/preview/league_missfortune_frames.png`](../preview/league_missfortune_frames.png?v=1014g)，特效：[`docs/preview/league_missfortune_effects.png`](../preview/league_missfortune_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_missfortune_frames.png`](../preview/league_missfortune_frames.png?v=1031hd)，特效：[`docs/preview/league_missfortune_effects.png`](../preview/league_missfortune_effects.png?v=1014g)。

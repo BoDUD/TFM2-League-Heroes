@@ -46,7 +46,8 @@ AD = ADi + O + "100%" + E
 # row 30.5 of 72 at PPU 1.8: 23 over the ground, 9 ahead of her middle column 29 - ppu_restyle's face_to); the centre in
 # her coil; the ban/pick card by bp_card_audit.py's rule (-39 less the idle's top -29 with its float: the antler tips 1
 # game px under the card's top)
-VIEW = {"face": {"x": 9, "y": -23}, "center": {"x": 0, "y": -17}, "banpick_center": {"x": 0, "y": -10}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 9, "y": -23}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

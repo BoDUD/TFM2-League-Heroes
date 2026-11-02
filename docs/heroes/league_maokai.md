@@ -55,7 +55,7 @@
 
 ### 茂凯附加包
 
-[茂凯附加包](../../addons/league_maokai/README.md)：`league_maokai` v0.1.0
+[茂凯附加包](../../addons/league_maokai/README.md)：`league_maokai` v0.1.1
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

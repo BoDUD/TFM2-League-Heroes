@@ -1,0 +1,488 @@
+{
+  "expected_frames": 20,
+  "delivered_frames": 20,
+  "finals_resampled": false,
+  "packing": "integer translation, underground clipping on r_up1/r_up2, hard-alpha threshold only; original raw remains unchanged",
+  "frames": [
+    {
+      "name": "a_rise",
+      "file": "scuttle-pose-a_rise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        198,
+        31,
+        1169,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7047,
+      "sha256": "723609f18314125f71703d80cfd4606cc346cf42ed763772215842667191a57f",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "018421b76107b46b20478b4ffe838dffc48313b5f1bfbeaa2ceb3483d477be77"
+    },
+    {
+      "name": "a_hop",
+      "file": "scuttle-pose-a_hop.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        79,
+        65,
+        1235,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.6171,
+      "sha256": "c35d869fdc9f0c3af3953dd84e8634b2bec10861b724d87eb0cb69a4bfa1fd96",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "c8e840112ef1abd0b2ef9959831f3196ac24db922b7ab963c19c2b049611d95d"
+    },
+    {
+      "name": "a_stomp",
+      "file": "scuttle-pose-a_stomp.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        47,
+        434,
+        1208,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7228,
+      "sha256": "4d9c430e1d98edcbe4ca3147b117cdefd3adb81a91ec194ada61adcc36cc3a65",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "7999c33f95c2fb4e138e096138a1cb0bf1cb5ed966545131e3f255939627e27a"
+    },
+    {
+      "name": "q_raise",
+      "file": "scuttle-pose-q_raise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        132,
+        59,
+        1147,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.6531,
+      "sha256": "8780f651a279b3bb38d1e227a772a026e44d7b52878708e3b675084578430d49",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "f9fcb2c010dabc6dec304d681a29d3fd18ffba988d3f79912afccc023fa45607"
+    },
+    {
+      "name": "q_call",
+      "file": "scuttle-pose-q_call.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        175,
+        57,
+        1118,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7083,
+      "sha256": "73b4cc29ca6c855e224d6051562f4aed808a0ae4e414ef7b69fd98bc68687819",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "cd3a7c07f2e83e0a3ef712bfd9cadd88e5037b2a9c07b5ab8f05d0f4e1afc613"
+    },
+    {
+      "name": "e_tuck",
+      "file": "scuttle-pose-e_tuck.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        182,
+        467,
+        1098,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7482,
+      "sha256": "996db93702c55023f9593dff03fb0a1b163c13cdfd8b079a19e81c8679814b02",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "a16687b65e50df250013610150e050d9a0e58a5dbb7248b5379876970b2d3c34"
+    },
+    {
+      "name": "e_shell",
+      "file": "scuttle-pose-e_shell.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        156,
+        458,
+        1177,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7291,
+      "sha256": "af30669736be5383dd91da6499d0e864caa3f265154a8aeec9b365ce149ae138",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "435d413855b29c4eccbc360b90513449a9b6f5c741d7d1e520cf1adecbad609d"
+    },
+    {
+      "name": "e_pop",
+      "file": "scuttle-pose-e_pop.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        119,
+        99,
+        1192,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.6108,
+      "sha256": "e06fb776325fa82066c3ecce9f289ee5c729a5f458b872f849d58be708d18bc2",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "16938226622f7c48464bed3563b2d6c74b2c798d6bd4a6fe28be8389113ddc99"
+    },
+    {
+      "name": "r_up1",
+      "file": "scuttle-pose-r_up1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        40,
+        539,
+        1244,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7388,
+      "sha256": "4453548291729ff95489b24aadcbc5c779a943a1e04d4957d0162de1f83c5726",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "25e9991ea78b0aa98ebfb680a010934243e11d62fcfd6561e67e3c71dd99ee2d"
+    },
+    {
+      "name": "r_up2",
+      "file": "scuttle-pose-r_up2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        89,
+        314,
+        1138,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7168,
+      "sha256": "375330f437a842c4aee80e7cb422cd90a7c799f7c166efaff43a525b85921c82",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "d20bac13b030889a89e23f0e3330aba0b4b36718bbafe65c3f932c1c7a405333"
+    },
+    {
+      "name": "r_up3",
+      "file": "scuttle-pose-r_up3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        177,
+        277,
+        1165,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.6897,
+      "sha256": "a755400a1256667e6b157435b8aed2a49039109b6369d658e291a0be66651b74",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "706938c6f02305859aa241079ac6f7b2788befff14ce62b953f2a3c9ccb7c2b8"
+    },
+    {
+      "name": "run1",
+      "file": "scuttle-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        127,
+        299,
+        1186,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.6778,
+      "sha256": "4c402eccd0bff1058c40a0bda64fec0ea044af98f592536a675d748cbba40d16",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "1a8cbe1291756db669e5ab6617d6d732243a8c06c86d77bafd13c02778f0b91d"
+    },
+    {
+      "name": "run2",
+      "file": "scuttle-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        179,
+        353,
+        1171,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7252,
+      "sha256": "00aa21f05f0de5ab9ea54f1f3c5107978e388b42bdb288901fc69f2394d406b6",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "82abe4be938aa4ec0b7a0ff14dee2eb701253fd549321b954b306e7eacd66830"
+    },
+    {
+      "name": "run3",
+      "file": "scuttle-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        118,
+        306,
+        1176,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.6902,
+      "sha256": "31c66ff6db6ecb4bf634e5c9a5db9010127a1687285932ebda50948b73667e79",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "c65cf02f95bd53e90f9ad608e376bf6ff016e29168d4d5c3e93f7808be6d05c9"
+    },
+    {
+      "name": "run4",
+      "file": "scuttle-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        96,
+        348,
+        1175,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7143,
+      "sha256": "60545462b0a794c632d08a74b6470e6c8232774216207c56343df330949d1193",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "7c261ba753cc2520d7331800e0c829b825b7c68e23f2485b62800bbe5faaa9c6"
+    },
+    {
+      "name": "run5",
+      "file": "scuttle-pose-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        112,
+        368,
+        1142,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7322,
+      "sha256": "b1c98006c36b690d8769ed15f246098e6ed66b84e0dc9ef00fea485cabfa4b65",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "5401fe6493bbcdaeab2145d1d127b8556ec2034089a4c286dcc2b2fa72f81447"
+    },
+    {
+      "name": "run6",
+      "file": "scuttle-pose-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        141,
+        334,
+        1138,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7326,
+      "sha256": "2b3b3b93ebc00027a173fb64581104141ce5e9ea3477147e444fb7a7c7d7d695",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "856056b988838528b2b4956f6ca4a9b99953c0b7f17468e12c8f312531ddf75d"
+    },
+    {
+      "name": "run7",
+      "file": "scuttle-pose-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        172,
+        328,
+        1133,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7284,
+      "sha256": "b2005c18f9f0730ab1f18f09fda9d6c8d923aed8f8ae44777dd43fceab773ff3",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "afb35eafcfc7cee6f1395f5950e9f696f901cc612869e8229422f8379f118c59"
+    },
+    {
+      "name": "run8",
+      "file": "scuttle-pose-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        172,
+        347,
+        1079,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7297,
+      "sha256": "70d5a42b37dc83abf32339056b1c1e855b2f30eb3b34808cf6e9443929792e2c",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "de1ea96391c29a5ec2c6f0cc90531e88566065ac85a92387dc82b8da58cd7720"
+    },
+    {
+      "name": "d_down",
+      "file": "scuttle-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "opaque_bbox_alpha128": [
+        183,
+        552,
+        1200,
+        1100
+      ],
+      "baseline_bottom": 1100,
+      "requested_baseline": 1100,
+      "baseline_delta": 0,
+      "partial_alpha_pixels": 0,
+      "transparent_fraction": 0.7923,
+      "sha256": "4a1159aab2eaf37cca5542a83b51c169381d07d2ad0a2786ae7ed846f8866145",
+      "exact_8px_grid_verified": false,
+      "face_pixel_identity_verified": false,
+      "final_matches_raw_bytes": false,
+      "original_sha256": "2cf213a034892a8d87fc533f56766e812f3a25a825a246c724adeffff3533378"
+    }
+  ]
+}

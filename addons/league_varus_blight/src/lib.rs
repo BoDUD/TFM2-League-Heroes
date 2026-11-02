@@ -10,7 +10,8 @@
 //!   到 R，这里不压）。
 //! - **`league_varus_blight:fill`**（R 引爆之后）：给他叠满 3 层（主包 R 的「再叠满」）。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_varus_blight.log`。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_varus_blight.log`：整个游戏一个计数，服务器的预模拟先记
+//! `LOG_FIRST` 行、之后每 `LOG_EVERY` 行记一行，你看的那场每条都记。
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -20,6 +21,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_varus_blight";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_varus_blight") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 目标身上的层数：挂着哪个就是几层。
 pub const BUFFS: [&str; 3] = ["league_varus_blight_1", "league_varus_blight_2", "league_varus_blight_3"];
 /// 主包的层数画面、引爆画面和声音。
@@ -66,11 +73,22 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
-/// Log the first 150 and every 25th after.
-fn counted() -> Option<usize> {
+/// One count for every line of the launch: the first `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`
+/// (the match on screen; 0.1.1: the presims used the count up first, so the 11-01 evening's watched sets kept 4 lines).
+const LOG_FIRST: usize = 150;
+const LOG_EVERY: usize = 25;
+
+fn counted(shown: bool) -> Option<usize> {
     let mut n = COUNT.lock().unwrap_or_else(|e| e.into_inner());
     *n += 1;
-    (*n <= 150 || *n % 25 == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 fn head(sim: &StableSim<'_>, me: usize) -> String {
@@ -161,7 +179,7 @@ impl StableEffectType for Blight {
                         }
                     }
                 }
-                if let Some(k) = counted() {
+                if let Some(k) = counted(on_screen(sim)) {
                     wlog(format!("{} POP{} #{k} on #{id}: {had} stacks, {damage} true damage{}", head(sim, caster),
                                  if self.0 == Step::PopR { " (R)" } else { "" },
                                  if self.0 == Step::Pop { format!(", Q/E cooldowns -{cut}%") } else { String::new() }));
@@ -169,7 +187,7 @@ impl StableEffectType for Blight {
                 return;
             }
         }
-        if let Some(k) = counted() {
+        if let Some(k) = counted(on_screen(sim)) {
             wlog(format!("{} {:?} #{k} on #{id}: {had} -> {} stacks", head(sim, caster), self.0, stacks(sim, id)));
         }
     }
@@ -182,8 +200,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{} (Varus's Blight on each enemy apart) loaded: game {}.{}.{} abi {} log={} ===",
-        env!("CARGO_PKG_VERSION"),
+        "=== {ID} v{VERSION} (Varus's Blight on each enemy apart) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

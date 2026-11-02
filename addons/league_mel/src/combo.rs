@@ -16,7 +16,7 @@
 
 use mod_api_stable::*;
 
-use super::{count_buff, counted, head, params_of, sn, stacks_worth, who, wlog, Params, ID};
+use super::{count_buff, counted, head, on_screen, params_of, sn, stacks_worth, who, wlog, Params, ID};
 
 /// 排在 league_ult_press（100）之后：引擎按优先级从小到大跑 AI 钩子，每个拿到前一个的决定。
 pub const COMBO_PRIORITY: i32 = 110;
@@ -24,6 +24,10 @@ pub const COMBO_PRIORITY: i32 = 110;
 pub const MANY_SHARE: f64 = 0.4;
 /// R HELD 的日志隔多久写一条。
 pub const HOLD_LOG_EVERY: usize = 120;
+/// A press of the same key at the same champion within this many ticks of the last is the same burst (the engine may
+/// take a few ticks to start the cast and the hook presses again every tick meanwhile): one log line a burst
+/// (league_ult_press's ORDER_FRESH; 2026-11-02 logs: "Q ON ROOT #1..#15" for one cast).
+pub const PRESS_FRESH: usize = 30;
 
 pub type Pt = (f64, f64);
 
@@ -225,6 +229,8 @@ pub struct Combo {
     /// the AI is recalling (`still_recalling`)
     recalling: bool,
     last_hold: Option<usize>,
+    /// the last press logged or pressed: its log kind, target, tick (one line a burst)
+    last_press: Option<(&'static str, usize, usize)>,
 }
 
 impl StablePlayerAi for Combo {
@@ -251,7 +257,7 @@ impl StablePlayerAi for Combo {
             return None;
         }
         let player = ctx.player_id();
-        let (call, line, tick, stacks, spots) = {
+        let (call, line, tick, stacks, spots, shown) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?.id();
             let (m, foes) = read(&sim, me)?;
@@ -267,7 +273,8 @@ impl StablePlayerAi for Combo {
             // where a held R's target and she stand (a walk toward it when the attack cannot reach)
             let at = |p: Pt| (p.0.max(0.0) as u64, p.1.max(0.0) as u64);
             let spots = (t.and_then(|t| foes.iter().find(|u| u.id == t)).map(|u| at(u.at)), at(m.at));
-            (c, format!("{} [hp {:.0}%] on {on}", head(&sim, me), m.hp * 100.0), sim.tick(), stacks.join(", "), spots)
+            (c, format!("{} [hp {:.0}%] on {on}", head(&sim, me), m.hp * 100.0), sim.tick(), stacks.join(", "), spots,
+             on_screen(&sim))
         };
         let (slot, t, kind_log, why) = match call {
             Call::PressQ(t, k, w) => (InputKindV1::Skill, t, k, w),
@@ -276,7 +283,7 @@ impl StablePlayerAi for Combo {
             Call::HoldR(t) => {
                 if self.last_hold.is_none_or(|t0| tick >= t0 + HOLD_LOG_EVERY) {
                     self.last_hold = Some(tick);
-                    if let Some(n) = counted("r held") {
+                    if let Some(n) = counted("r held", shown) {
                         wlog(format!("{line} R HELD: the stacks are not worth it yet [{stacks}] - attacking instead #{n}"));
                     }
                 }
@@ -292,8 +299,12 @@ impl StablePlayerAi for Combo {
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        if let Some(n) = counted(kind_log) {
-            wlog(format!("{line} {why} [{stacks}] #{n}"));
+        let burst = self.last_press.is_some_and(|(k, at, t0)| k == kind_log && at == t && tick <= t0 + PRESS_FRESH);
+        self.last_press = Some((kind_log, t, tick));
+        if !burst {
+            if let Some(n) = counted(kind_log, shown) {
+                wlog(format!("{line} {why} [{stacks}] #{n}"));
+            }
         }
         Some(input)
     }

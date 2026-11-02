@@ -113,6 +113,52 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // at the user's 40 game px from the back branches to its claws, PPU 1.7 (「A 40 像素 PPU 1.7」: 132 rows brought to
     // 68), and Codex's key poses after its own TFT clips, posed by tools/art/rig_brambleback.py, so no SIZES row
     ("tft_brambleback", 1.7, include_str!("../../../tft/champions/tft_brambleback#anim.fanim")),
+    // the Crimson Raptor (tft_raptor, the tft pack): the raptor crouched at 3/4, step 0's A-1 at the user's 36 game px
+    // from the crest to its talons, PPU 1.56 (「A-1 36 PPU 1.56」: 56 rows 1:1), and Codex's key poses after its own TFT
+    // clips, posed by tools/art/rig_raptor.py, so no SIZES row
+    ("tft_raptor", 1.56, include_str!("../../../tft/champions/tft_raptor#anim.fanim")),
+    // the Elder Dragon (tft_elderdragon, the tft pack): the winged dragon low on four legs at 3/4, step 0's A-1 at the
+    // user's 44 game px from the highest wing tip to its claws, PPU 2.84 (「A-1 44像素 PPU2.84」: 125 rows 1:1), and Codex's
+    // key poses after League's Elder Dragon clips, posed by tools/art/rig_elderdragon.py, so no SIZES row
+    ("tft_elderdragon", 2.84, include_str!("../../../tft/champions/tft_elderdragon#anim.fanim")),
+    // Meepsie (tft_meepsie, the tft pack): the headless moon-rock golem at 3/4 with the meep pilot in its chest, step 0's
+    // A-1 at the user's 40 game px from the mushroom tops to its soles, PPU 2.875 (「A-1，40 像素」: 115 rows 1:1), and
+    // Codex's key poses after its own TFT clips, posed by tools/art/rig_meepsie.py, so no SIZES row
+    ("tft_meepsie", 2.875, include_str!("../../../tft/champions/tft_meepsie#anim.fanim")),
+    // Murk Wolf (tft_murkwolf, the tft pack): the two-headed wolf crouched on four legs at 3/4, step 0's A-1 at the user's
+    // 36 game px from its tail tip to its claws, PPU 1.67 (「A-1 36 高 PPU 1.67」: 60 rows 1:1), and Codex's key poses after
+    // its own TFT clips, posed by tools/art/rig_murkwolf.py, so no SIZES row
+    ("tft_murkwolf", 1.67, include_str!("../../../tft/champions/tft_murkwolf#anim.fanim")),
+    // the Scuttle Crab (tft_scuttlecrab, the tft pack): the river crab at 3/4 under its plated teal shell, step 0's A-1 at
+    // the user's 30 game px from the antenna tops to its lowest leg tips, PPU 2.667 (「A-1 30像素」: 80 rows 1:1), and
+    // Codex's key poses after League's river-crab clips, posed by tools/art/rig_scuttlecrab.py, so no SIZES row
+    ("tft_scuttlecrab", 2.667, include_str!("../../../tft/champions/tft_scuttlecrab#anim.fanim")),
+    // Gromp (tft_gromp, the tft pack): the squat toad at 3/4, step 0's first A read on its own 12 px squares at the user's
+    // 32 game px from its mushroom caps to its feet, PPU 1.69 (「A-1，32 像素」: 54 rows 1:1), and Codex's key poses after
+    // its own TFT and Rift clips, posed by tools/art/rig_gromp.py, so no SIZES row
+    ("tft_gromp", 1.69, include_str!("../../../tft/champions/tft_gromp#anim.fanim")),
+    // the Sentry (tft_sentry, the tft pack): two floating crystal shards and an azure core at a slight 3/4, step 0's A
+    // read on 12 px squares at the user's 34 game px from the left tip to the bottom points, PPU 1.29 (「造型用这个」 =
+    // A-3: 44 rows 1:1), and Codex's poses laid out from its three parts, posed by tools/art/rig_sentry.py, so no SIZES row
+    ("tft_sentry", 1.29, include_str!("../../../tft/champions/tft_sentry#anim.fanim")),
+    // Brock (tft_brock, the tft pack): the stone golem standing at 3/4, step 0's A read on its 14 px squares at the
+    // user's 44 game px from the bonsai top to his soles, PPU 1.16 (「A-1 44格 PPU1.16」: 51 rows 1:1), and Codex's key
+    // poses after his own TFT clips, posed by tools/art/rig_brock.py, so no SIZES row
+    ("tft_brock", 1.16, include_str!("../../../tft/champions/tft_brock#anim.fanim")),
+    // the Cinderling (tft_cinderling, the tft pack): the squat bark critter with its wooden mask and leaf spines at 3/4,
+    // step 0's first A read on its own 8 px squares at the user's 30 game px from its tallest leaf to its claws, PPU 2.33
+    // (「A 30 PPU 2.33」: 70 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_cinderling.py,
+    // so no SIZES row
+    ("tft_cinderling", 2.33, include_str!("../../../tft/champions/tft_cinderling#anim.fanim")),
+    // the Rift Herald (tft_riftherald, the tft pack): the void beast hunched under its domed shell at 3/4, step 0's first
+    // A read on its own 8 px squares at the user's 44 game px from the shell's top to its soles, PPU 2.0 (「A-1，44 像素，
+    // PPU 2.0」: 88 rows), and Codex's key poses after its own TFT clips, posed by tools/art/rig_riftherald.py, so no
+    // SIZES row
+    ("tft_riftherald", 2.0, include_str!("../../../tft/champions/tft_riftherald#anim.fanim")),
+    // T-Hex (tft_thex, the tft pack): the mech rex crouched at 3/4 with the gatling before its chest, step 0's first A
+    // read on its own 10 px squares at the user's 40 game px from the ear spikes to its soles, PPU 1.9 (「A-1 40px PPU1.9」:
+    // 76 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_thex.py, so no SIZES row
+    ("tft_thex", 1.9, include_str!("../../../tft/champions/tft_thex#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the rects and the
@@ -123,6 +169,18 @@ pub const SIZES: &[(&str, f32)] = &[("tft_powder", 0.90)];
 
 /// Heroes whose body grows with a stack (league_main/src/hd.rs GROWTH: Cho'Gath's Feast): none in this pack yet.
 pub const GROWTH: &[(&str, &str, f32)] = &[];
+
+/// Heroes drawn bigger while a buff of theirs is on them (hd_engine's Table::forms: the buffs - any one of them, the
+/// size, seconds to grow to it and to shrink back), about the soles, eased in and out.
+pub const FORMS: &[(&str, &[&str], f32, f32)] = &[
+    // Gromp's Swamp Belch (tft_gromp, 2026-11-01 plan A: 「自身短时间变大」): the body 15 % bigger while the flag r_big
+    // lasts (tools/kit/build_gromp.py r_grow), grown and shrunk in 0.5 s - 1.3 at first, lowered at the user's word since
+    // the ult's own frames already blow its belly up to 1.6x (「Lower it to 1.15×」)
+    ("tft_gromp", &["tft_gromp_r_big"], 1.15, 0.5),
+    // the Rift Herald's Warp Armor (tft_riftherald, 2026-11-02, TFT's own 「获得最大生命值并且体型变大」): the body 25 % bigger
+    // while the flag r_big lasts (tools/kit/build_riftherald.py r_big_t, 8 s from the roar), grown and shrunk in 0.5 s
+    ("tft_riftherald", &["tft_riftherald_r_big"], 1.25, 0.5),
+];
 
 /// Effect sheets drawn dense like a hero's sheet (league_main/src/hd.rs EFFECTS): none in this pack yet.
 pub const EFFECTS: &[(&str, f32, &str)] = &[];
@@ -136,6 +194,17 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // Alune (tft_alune): 46 game px from her horns to the crescent's foot at PPU 2.0 (the card's canvas is 40 tall); UI size
     // and card value set with bp_card_audit.py's math (85 %: the horns a pixel under the canvas top, the foot on its bottom)
     ("tft_alune", 0.85),
+    // the Elder Dragon (tft_elderdragon): 60 x 44 game px with its raised wings at PPU 2.84 - wider than the card's 59.5 px
+    // canvas and taller than its 40; UI size and card value set with bp_card_audit.py (the wing tips under the canvas
+    // top, the claws on its bottom)
+    ("tft_elderdragon", 0.85),
+    // Murk Wolf (tft_murkwolf): its two heads reach 28 game px ahead of its standing point at PPU 1.67 - the card's canvas
+    // is centred on that point, so the far snout ran past its right edge (59.5 / 2 px); 0.9 brings it inside, the tail
+    // keeping its room behind (hero_reels.py --card)
+    ("tft_murkwolf", 0.9),
+    // Gromp (tft_gromp): its belly reaches 34 game px ahead of its standing point at PPU 1.69 - the card's canvas is
+    // centred on that point (59.5 / 2 px either side); 0.82 brings the belly and the belching head inside
+    ("tft_gromp", 0.82),
 ];
 
 /// This pack's table, as tft.dll hands it to hd_engine at init (src/lib.rs).
@@ -145,6 +214,7 @@ pub fn table() -> Table<'static> {
         heroes: HEROES.to_vec(),
         sizes: SIZES.to_vec(),
         growth: GROWTH.to_vec(),
+        forms: FORMS.iter().map(|&(id, buffs, size, secs)| (id, buffs.to_vec(), size, secs)).collect(),
         effects: EFFECTS.to_vec(),
         drawn_effects: DRAWN_EFFECTS.to_vec(),
         ui_sizes: UI_SIZES.to_vec(),

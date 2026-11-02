@@ -463,6 +463,9 @@ impl StablePassive for Warden {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        // a new life is a new unit, and on_update does not run while it is dead: the first tick of this life
+        // must see a dead one, or what each life has once stays used up (2026-11-02 logs)
+        self.was_alive = false;
         if self.sim == 0 {
             self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
         }

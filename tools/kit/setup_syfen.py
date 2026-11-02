@@ -45,7 +45,8 @@ AD = ADi + O + "100%" + E
 # champion_view (game px from his feet's point, up negative): the face point on his eye (the design's eye at column 114.5,
 # row 31.5 of 101 at PPU 2.52: 28 over the ground, 23 ahead of his standing column 56 - ppu_restyle's face_to); the centre
 # in his chest; the ban/pick card by bp_card_audit.py's rule (-39 less the idle's top -29: the horn tips at the card's top)
-VIEW = {"face": {"x": 23, "y": -28}, "center": {"x": 6, "y": -18}, "banpick_center": {"x": 3, "y": -10}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 23, "y": -28}, "center": {"x": 6, "y": -11}, "banpick_center": {"x": 3, "y": -10}}
 
 
 def phys(d, r):

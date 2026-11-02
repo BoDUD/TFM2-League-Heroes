@@ -57,7 +57,7 @@ ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
             "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2, "skarner": 1.75, "zaahen": 1.75, "alune": 2.0, "silco": 2.0, "maddie": 1.5, "loris": 2.0, "kobuko": 2.0, "vander": 2.0, "violet": 2.0, "krug": 2.0, "aoshin": 2.0, "scar": 2.0, "renni": 2.0, "smeech": 2.4, "sevika": 1.8, "steb": 2.6, "nomsy": 2.6, "idas": 2.45, "daeja": 1.72, "shiohyu": 2.46, "syfen": 2.52, "sohm": 1.8, "terra": 1.45, "zippy": 2.2, "leesin": 2.1, "vayne": 2.55, "lucian": 2.02, "rengar": 59 / 40, "syndra": 78 / 42, "akali": 72 / 40, "sivir": 81 / 36, "tristana": 87 / 34, "zed": 65 / 40, "taric": 62 / 40, "kayle": 112 / 49, "leona": 72 / 41, "sona": 155 / 40, "briar": 135 / 46, "sentinel": 1.7}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "raptor": 1.56, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2, "skarner": 1.75, "zaahen": 1.75, "alune": 2.0, "silco": 2.0, "maddie": 1.5, "loris": 2.0, "kobuko": 2.0, "vander": 2.0, "violet": 2.0, "krug": 2.0, "aoshin": 2.0, "scar": 2.0, "renni": 2.0, "smeech": 2.4, "sevika": 1.8, "steb": 2.6, "nomsy": 2.6, "idas": 2.45, "daeja": 1.72, "shiohyu": 2.46, "syfen": 2.52, "sohm": 1.8, "terra": 1.45, "zippy": 2.2, "leesin": 2.1, "vayne": 2.55, "lucian": 2.02, "rengar": 59 / 40, "syndra": 78 / 42, "akali": 72 / 40, "sivir": 81 / 36, "tristana": 87 / 34, "zed": 65 / 40, "taric": 62 / 40, "kayle": 112 / 49, "leona": 72 / 41, "sona": 155 / 40, "briar": 135 / 46, "talon": 86 / 39, "thresh": 99 / 40, "missfortune": 105 / 38, "senna": 73 / 39, "evelynn": 114 / 41, "sett": 75 / 42, "viego": 115 / 47, "diana": 78 / 43, "masteryi": 125 / 56, "ryze": 68 / 41, "sentinel": 1.7, "elderdragon": 2.84, "meepsie": 2.875, "murkwolf": 1.67, "gromp": 1.69, "scuttlecrab": 80 / 30, "sentry": 1.29, "brock": 1.16, "cinderling": 2.33, "riftherald": 2.0, "thex": 1.9}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
     "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
@@ -302,7 +302,8 @@ RESTYLE = {
     # tools/art/rig_darius_hd.py - the axe hand and the axe turned losslessly, the legs as drawn, moved whole in the run;
     # the face point at the crown of his hair (tfm2_ase.py face), the card -8 (bp_card_audit.py's rule)
     # 2026-10-18 face (5,-38): the redo's point missed the face
-    "darius": dict(ppu=1.45, edge=1, face_to=(5, -38)),
+    # 2026-11-01 the user: 「诺手现在应该也要加点」 (a black outline, 「避免过度高清」) - edge 1 -> 2
+    "darius": dict(ppu=1.45, edge=2, face_to=(5, -38)),
     # Riven (2026-10-18): Codex's design picture read back on its own 15.57 x 17.48-px squares (68 x 61), her sword one of
     # Codex's angle drawings (swords_riven_hd.py) in her fist; idle, run, ult, wind slash, hit and death posed after
     # League's clips by tools/art/rig_riven_hd.py, her three attacks, Broken Wings and Valor Codex's whole-frame
@@ -487,7 +488,8 @@ RESTYLE = {
     # the hunched head is pushed out over his far foot)
     # 2026-10-23: 90 % in game (「狼人局内模型有点大了 开个pr缩小一点」, hd.rs SIZES): 11.5 x 1.2 x (1 / 0.9 - 1) = 1.5 -> 2
     # squares lower; the face point x 0.9 about the soles
-    "warwick": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(10, -25)),
+    # 2026-11-01 the user: 「狼人加点黑边」 - edge 1 -> 2
+    "warwick": dict(ppu=1.2, edge=2, lift_sq=-2, face_to=(10, -25)),
     # league_gnar (#141): posed by tools/art/rig_gnar.py at the user's 1.5 squares a game pixel (「迷你 32」「巨型 44」:
     # Codex's step-1 takes A-2 cut to 48 rows, M-1 and SM-2 as drawn / cut to 66, Mega's turned poses drawn again from
     # Codex's own picture), so no proportion or density change here; the outer outline grown a square like the others;
@@ -715,9 +717,11 @@ RESTYLE = {
     "kayle": dict(ppu=112 / 49, edge=0),
     # Leona (2026-10-30, 「接下来重做曙光女神」, 「通过，用 1.76」): Codex's leona-A read as drawn (69 x 72,
     # design_leona_hd.py: 72 rows / 1.76 = her 41); every action Codex's whole-frame redraw of her old frame read onto
-    # it (tools/art/casts_leona_hd.py), so no density change; the face point stays: she is as tall as before; nothing
-    # baked (her sunlight, eclipse and flare are effect strips)
-    "leona": dict(ppu=72 / 41, edge=0),
+    # it (tools/art/casts_leona_hd.py); the face point stays: she is as tall as before; nothing baked (her sunlight,
+    # eclipse and flare are effect strips). Then 「另外蕾欧娜的模型太高清了 降低点像素」: picked 1.5 of 1.756 / 1.5 / 1.35 /
+    # 1.2 (tools/art/review_leona_ppu.py, 「蒾欧娜用 1.5」) - drawn at 1.756 (ORIG_PPU), brought to 1.5 squares a game
+    # pixel like Lucian, Lee Sin and Jax
+    "leona": dict(ppu=1.5, edge=0),
     # Sona (2026-10-30, 「接下来重做琴女」, 「调高PPU像素」「达到和我给你的图一样的效果」, 「通过，用 3.88」): the user's
     # picture read on its finest squares (117 x 155, design_sona_hd.py: 155 rows / 3.875 = her 40); every action
     # Codex's whole-frame redraw of her old frame read onto it (tools/art/casts_sona_hd.py), so no density change; the
@@ -728,6 +732,53 @@ RESTYLE = {
     # onto it (tools/art/casts_briar_hd.py), so no density change; the face point stays: she is as tall as before;
     # nothing baked but the Snack's blood drops
     "briar": dict(ppu=135 / 46, edge=0),
+    # Talon (2026-10-31, 「下一个英雄重做泰隆」, 「用A PPU2.21吧」): Codex's talon-A read on its own ~10.5-px squares
+    # (105 x 86, design_talon_hd.py: 86 rows / 2.205 = his 39); every action Codex's whole-frame redraw of his old frame
+    # read onto it (tools/art/casts_talon_hd.py), so no density change; the face point stays: he is as tall as before;
+    # nothing baked. Then the user (2026-10-31): 「男刀局内体型有点过大了 缩小一点」「太高清 加点黑色描边吧」: drawn at 2.205
+    # (ORIG_PPU), brought to 1.5 squares a game pixel like Leona, Lucian and Lee Sin, a 1-square outline, 90 % in game
+    # (hd.rs SIZES): 2 squares lower (lift_sq: 11.5 x 1.5 x (1 / 0.9 - 1) = 1.9)
+    "talon": dict(ppu=1.5, edge=1, lift_sq=-2),
+    # Thresh (2026-10-31, 「锤石和女枪在这个pr里一起重做二轮」, 「都用中间档」): Codex's thresh-A read on its own ~9.75-px
+    # squares (90 x 99, design_thresh_hd.py: 99 rows / 2.475 = his 40); every action Codex's whole-frame redraw of his
+    # old frame read onto it (tools/art/casts_thresh_hd.py), so no density change; the face point stays: he is as tall
+    # as before; nothing baked
+    "thresh": dict(ppu=99 / 40, edge=0),
+    # Miss Fortune (2026-10-31, 「锤石和女枪在这个pr里一起重做二轮」, 「都用中间档」): Codex's missfortune-A read on its
+    # own ~9.75-px squares (80 x 105, design_missfortune_hd.py: 105 rows / 2.763 = her 38); every action Codex's
+    # whole-frame redraw of her old frame read onto it (tools/art/casts_missfortune_hd.py), so no density change; the face
+    # point stays: she is as tall as before; nothing baked
+    "missfortune": dict(ppu=105 / 38, edge=0),
+    # Senna (2026-11-01, 「下一个英雄我们重做赛娜」, 「用 A 1.87」): Codex's senna-A read on its own ~14.4-px squares (82 x 73,
+    # design_senna_hd.py: 73 rows / 1.872 = her 39); every action Codex's whole-frame redraw of her old frame read onto
+    # it (tools/art/casts_senna_hd.py), so no density change; the face point stays: she is as tall as before; nothing
+    # baked
+    "senna": dict(ppu=73 / 39, edge=0),
+    # Evelynn (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「伊芙琳用2.78」): Codex's evelynn-A read on its own ~10.4-px squares
+    # (103 x 114, design_evelynn_hd.py: 114 rows / 2.780 = her 41); every action Codex's whole-frame redraw of her old
+    # frame read onto it (tools/art/casts_evelynn_hd.py), so no density change; the face point stays: she is as tall as
+    # before; nothing baked. Then the user: 「伊芙琳可以加点黑边 避免过度高清」 - the outline grown by 2 squares (1 hardly shows at
+    # 2.78)
+    "evelynn": dict(ppu=114 / 41, edge=2),
+    # Sett (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「瑟提用1.79」): Codex's sett-A read on its own ~15.5-px squares (53 x 75,
+    # design_sett_hd.py: 75 rows / 1.786 = his 42); every action Codex's whole-frame redraw of his old frame read onto it
+    # (tools/art/casts_sett_hd.py), so no density change; the face point stays: he is as tall as before; nothing baked;
+    # the outline grown by 2 squares (the user: 「瑟提和佛耶戈也是 避免过度高清」)
+    "sett": dict(ppu=75 / 42, edge=2),
+    # Viego (「再加一个佛耶戈重做吧」, 「佛耶戈用2.45」): Codex's viego-A read on its own ~9.8-px squares (114 x 115,
+    # design_viego_hd.py: 115 rows / 2.447 = his 47); every action Codex's whole-frame redraw of his old frame read onto
+    # it (tools/art/casts_viego_hd.py), so no density change; the face point stays: he is as tall as before; nothing baked;
+    # the outline grown by 2 squares (the user: 「瑟提和佛耶戈也是 避免过度高清」)
+    "viego": dict(ppu=115 / 47, edge=2),
+    # Diana, Master Yi and Ryze (2026-11-02, 「接下来可以重做 戴安娜 易大师 瑞兹」, 「戴安娜1.81 剑圣2.23 瑞兹1.66」): Codex's
+    # <hero>-A read on its own squares (design_<hero>_hd.py: 78 rows / 1.814 = her 43, 125 / 2.232 = his 56, 68 / 1.659 =
+    # his 41); every action Codex's whole-frame redraw of the old frame read onto it (tools/art/casts_<hero>_hd.py), so
+    # no density change; the face point stays: each is as tall as before; nothing baked; the outline grown by 2 squares
+    # (the user, on Evelynn, Sett and Viego: 「避免过度高清」)
+    "diana": dict(ppu=78 / 43, edge=2),
+    # Master Yi's outline 3 squares: at 2 his armour still read too fine (the user: 「剑圣得加点黑边吧 太高清了？」)
+    "masteryi": dict(ppu=125 / 56, edge=3),
+    "ryze": dict(ppu=68 / 41, edge=2),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2
@@ -964,6 +1015,85 @@ RESTYLE = {
     # others, its one-square cracks closed and the small holes filled; the face point between its two eyes (15 game px
     # ahead of its standing point and 22 over the ground)
     "brambleback": dict(ppu=1.7, edge=1, face_to=(15, -22), cracks=True, fill_holes=15),
+    # tft_raptor (the tft pack, bottom): the design (Codex's step-0 A-1, the crimson raptor crouched at 3/4, its 56 rows
+    # 1:1 for the user's picks 「A-1 36 PPU 1.56」) and Codex's key poses after its own TFT clips (each at its own body
+    # size: read on squares of the design's body, the commonest design colour each, the design's upper face where the
+    # head is level: design_raptor_poses.py), posed by tools/art/rig_raptor.py (the run walks the idle), so no proportion
+    # or density change here; the outer outline grown a square like the others, its one-square cracks closed and the
+    # small holes filled; the face point on its near eye (8 game px ahead of its standing point and 17 over the ground)
+    "raptor": dict(ppu=1.56, edge=1, face_to=(8, -17), cracks=True, fill_holes=15),
+    # tft_elderdragon (the tft pack, top): the design (Codex's step-0 A-1, the winged dragon low on four legs at 3/4, its
+    # 125 rows 1:1 for the user's picks 「A-1 44像素 PPU2.84」) and Codex's key poses after League's Elder Dragon clips
+    # (each read at its own body size on the design's palette, the design's face where the jaws are shut:
+    # design_elderdragon_poses.py), posed by tools/art/rig_elderdragon.py (it moves flying), so no proportion or density
+    # change here; the outer outline grown a square like the others, its one-square cracks closed and the small holes
+    # filled; the face point on its near eye (18 game px ahead of its standing point and 11 over the ground)
+    "elderdragon": dict(ppu=2.84, edge=1, face_to=(18, -11), cracks=True, fill_holes=15),
+    # tft_meepsie (the tft pack, support): the design (Codex's step-0 A-1, the headless moon-rock golem at 3/4 with the
+    # meep pilot in its chest cockpit, its 115 rows 1:1 for the user's picks 「A-1，40 像素」) and Codex's key poses after
+    # its own TFT clips (each read at its own body size on the design's palette, the design's pilot face on each:
+    # design_meepsie_poses.py), posed by tools/art/rig_meepsie.py, so no proportion or density change here; the outer
+    # outline grown a square like the others, its one-square cracks closed and the small holes filled; the face point on
+    # the pilot's eyes (6 game px ahead of its standing point and 27 over the ground)
+    "meepsie": dict(ppu=2.875, edge=1, face_to=(6, -27), cracks=True, fill_holes=15),
+    # tft_murkwolf (the tft pack, jungle): the design (Codex's step-0 A-1, the two-headed wolf crouched on four legs at
+    # 3/4, its 60 rows 1:1 for the user's picks 「A-1 36 高 PPU 1.67」) and Codex's key poses after its own TFT clips (each
+    # read at its own body size on the design's palette, the design's faces where they match, its eyes stamped back:
+    # design_murkwolf_poses.py), posed by tools/art/rig_murkwolf.py (the run trots the idle), so no proportion or density
+    # change here; the outer outline grown a square like the others, its one-square cracks closed and the small holes
+    # filled; the face point on its near eye (9 game px ahead of its standing point and 16 over the ground)
+    "murkwolf": dict(ppu=1.67, edge=1, face_to=(9, -16), cracks=True, fill_holes=15),
+    # tft_scuttlecrab (the tft pack, support): the design (Codex's step-0 A-1, the river crab at 3/4 under its plated teal
+    # shell, its 80 rows 1:1 for the user's picks 「A-1 30像素」) and Codex's key poses after League's river-crab clips
+    # (each read at its own body size on the design's palette, the design's stone face plate on each:
+    # design_scuttlecrab_poses.py), posed by tools/art/rig_scuttlecrab.py, so no proportion or density change here; the
+    # outer outline grown a square like the others, its one-square cracks closed and the small holes filled; the face
+    # point on its stone face plate (9 game px ahead of its standing point and 12 over the ground)
+    "scuttlecrab": dict(ppu=80 / 30, edge=1, face_to=(9, -12), cracks=True, fill_holes=15),
+    # tft_gromp (the tft pack, bottom): the design (Codex's step-0 first A read on its 12 px squares, the squat toad at
+    # 3/4, its 54 rows 1:1 for the user's picks 「A-1，32 像素」) and Codex's key poses after its own TFT / Rift clips (each
+    # read at the design's body size levelled by the belly, the design's face where it matches: design_gromp_poses.py),
+    # posed by tools/art/rig_gromp.py (the run is Codex's own hop), so no proportion or density change here; the outer
+    # outline grown a square like the others, its one-square cracks closed and the small holes filled; the face point on
+    # its near eye (6 game px ahead of its standing point and 25 over the ground)
+    "gromp": dict(ppu=1.69, edge=1, face_to=(6, -25), cracks=True, fill_holes=15),
+    # tft_sentry (the tft pack, bottom): the design (Codex's step-0 A read on 12 px squares, the two floating crystal
+    # shards and the azure core at a slight 3/4, its 44 rows 1:1 for the user's pick 「造型用这个」 = A-3 at 34 game px)
+    # and Codex's poses laid out from its three parts (each read at the design's stone area: design_sentry_poses.py),
+    # posed by tools/art/rig_sentry.py, so no proportion or density change here; the outer outline grown a square like
+    # the others, but NO crack closing and no hole filling: the one-square gap between the shards and the room between
+    # them when they part are its shape; the face point on its core (on its standing column, 19 game px over the ground:
+    # 22 design rows + the 3-row hover)
+    "sentry": dict(ppu=1.29, edge=1, face_to=(0, -19), cracks=False, fill_holes=0),
+    # tft_brock (the tft pack, top): the design (Codex's step-0 A read on its 14 px squares, the stone golem standing at
+    # 3/4, its two ring eyes redrawn; its 51 rows 1:1 for the user's 「A-1 44格 PPU1.16」) and Codex's poses read at the
+    # design's body (design_brock_poses.py; the walk from the design itself), posed by tools/art/rig_brock.py, so no
+    # proportion or density change here; the outer outline grown a square like the others, its one-square cracks closed
+    # and the small holes filled; the face point on his face plate (3 game px ahead of his standing point, 29 over the
+    # ground: hd/idle.png's plate (39, 17) from the pivot (36, 51) at PPU 1.16)
+    "brock": dict(ppu=1.16, edge=1, face_to=(3, -29), cracks=True, fill_holes=15),
+    # tft_cinderling (the tft pack, bottom): the design (Codex's step-0 first A read on its 8 px squares, the squat bark
+    # critter at 3/4 with its wooden mask and leaf spines, its 70 rows 1:1 for the user's pick 「A 30 PPU 2.33」) and
+    # Codex's key poses after its own TFT clips (each read at the design's body size, the design's mask where it matches:
+    # design_cinderling_poses.py), posed by tools/art/rig_cinderling.py (the run is its attack's hop), so no proportion or
+    # density change here; the outer outline grown a square like the others, its one-square cracks closed and the small
+    # holes filled; the face point on its big eye (2 game px ahead of its standing point and 11 over the ground)
+    "cinderling": dict(ppu=2.33, edge=1, face_to=(2, -11), cracks=True, fill_holes=15),
+    # tft_riftherald (the tft pack, top): the design (Codex's step-0 first A read on its 8 px squares, the void beast
+    # hunched under its domed shell at 3/4, brought to 88 rows for the user's 「A-1，44 像素，PPU 2.0」, its eyes
+    # redrawn) and Codex's key poses after its own TFT clips (each read at the design's shell size, the design's face
+    # where it matches: design_riftherald_poses.py), posed by tools/art/rig_riftherald.py (the scuttle from the design
+    # itself), so no proportion or density change here; the outer outline grown a square like the others, its
+    # one-square cracks closed and the small holes filled; the face point between its magenta eyes (13 game px ahead of
+    # its standing point, 25 over the ground: hd/idle.png's eyes (81, 39) from the pivot (55, 88) at PPU 2.0)
+    "riftherald": dict(ppu=2.0, edge=1, face_to=(13, -25), cracks=True, fill_holes=15),
+    # tft_thex (the tft pack, top): the design (Codex's step-0 first A read on its 10 px squares, the mech rex crouched at
+    # 3/4 with the gatling before its chest, its 76 rows 1:1 for the user's pick 「A-1 40px PPU1.9」) and Codex's key poses
+    # after its own TFT clips (each read at the design's body size, the design's helmet and visor where they match:
+    # design_thex_poses.py), posed by tools/art/rig_thex.py, so no proportion or density change here; the outer outline
+    # grown a square like the others, its one-square cracks closed and the small holes filled; the face point on its near
+    # eye (9 game px ahead of its standing point, 34 over the ground: hd/idle.png's eye (72, 12) from the pivot (55, 76))
+    "thex": dict(ppu=1.9, edge=1, face_to=(9, -34), cracks=True, fill_holes=15),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,
                   "c_hit": 2, "c_dead": 6}

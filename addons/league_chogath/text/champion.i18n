@@ -2,35 +2,35 @@
   "zh-hans": {
     "description": {
       "league_chogath": {
-        "ult": "【扩展包】只在一口吃得死时吞噬敌方英雄：<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、体型变大（最多 2 倍，死后保留）。"
+        "ult": "【扩展包】只在一口吃得死时吞噬敌方英雄：<#ff9028ff>300<> + 自身5%最大生命的真实伤害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>无视魔抗的魔法伤害；吃掉则叠一层：最大生命+70、移速-3%、体型变大（不封顶，死后保留）。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_chogath": {
-        "ult": "【擴充包】只在一口吃得死時吞噬敵方英雄：<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、體型變大（最多 2 倍，死後保留）。"
+        "ult": "【擴充包】只在一口吃得死時吞噬敵方英雄：<#ff9028ff>300<> + 自身5%最大生命的真實傷害和<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>無視魔抗的魔法傷害；吃掉則疊一層：最大生命+70、移速-3%、體型變大（不封頂，死後保留）。"
       }
     }
   },
   "en": {
     "description": {
       "league_chogath": {
-        "ult": "[Add-on] Devours an enemy champion only when one bite kills: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health and a bigger body (up to 2x; kept through death)."
+        "ult": "[Add-on] Devours an enemy champion only when one bite kills: <#ff9028ff>300<> + 5% of his max health as true damage and <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> magic damage through all magic resist. A kill is a stack: +70 max health, -3% move speed and a bigger body (no cap; kept through death)."
       }
     }
   },
   "ko": {
     "description": {
       "league_chogath": {
-        "ult": "[확장] 한 번에 처치할 수 있을 때만 적 챔피언을 삼켜 <#ff9028ff>300<> + 최대 체력 5% 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 몸집 증가(최대 2배, 사망해도 유지)."
+        "ult": "[확장] 한 번에 처치할 수 있을 때만 적 챔피언을 삼켜 <#ff9028ff>300<> + 최대 체력 5% 고정 피해와 <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해(마법 저항 무시). 처치하면 중첩: 최대 체력 +70, 이동 속도 -3%, 몸집 증가(제한 없음, 사망해도 유지)."
       }
     }
   },
   "ja": {
     "description": {
       "league_chogath": {
-        "ult": "【拡張】一撃で倒せる時だけ敵チャンピオンを捕食し<#ff9028ff>300<>+最大体力5%の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、体が大きくなる（最大2倍、死亡後も残る）。"
+        "ult": "【拡張】一撃で倒せる時だけ敵チャンピオンを捕食し<#ff9028ff>300<>+最大体力5%の確定ダメージと<i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージ（魔法防御無視）。倒すとスタック：最大体力+70、移動速度-3%、体が大きくなる（上限なし、死亡後も残る）。"
       }
     }
   }

@@ -17,7 +17,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_shen_shield";
-const VERSION: &str = "0.1.0";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_shen_shield") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 主包慎大招给队友挂的 buff（护盾的画面），本包看它出现。
 const MARK: &str = "league_shen_r_shield";
 

@@ -430,8 +430,9 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Leona (2026-10-30, 「接下来重做曙光女神」, 「通过，用 1.76」): Codex's leona-A read as drawn (69 x 72,
     // tools/art/design_leona_hd.py: 72 rows / 41 = 1.756); every action Codex's whole-frame redraw of her old frame
     // read onto it at the zoom her figure and head give (tools/art/casts_leona_hd.py, rig_leona_hd.py; nothing baked -
-    // her sunlight, eclipse and flare are effect strips); 41 game px as her 1x sprite, so no SIZES row
-    ("league_leona", 1.756, include_str!("../../../league/champions/league_leona#anim.fanim")),
+    // her sunlight, eclipse and flare are effect strips); 41 game px as her 1x sprite, so no SIZES row. Then
+    // 「另外蕾欧娜的模型太高清了 降低点像素」: drawn at 1.756, brought to 1.5 (tools/art/review_leona_ppu.py, 「蒾欧娜用 1.5」)
+    ("league_leona", 1.5, include_str!("../../../league/champions/league_leona#anim.fanim")),
     // Sona (2026-10-30, 「接下来重做琴女」, 「调高PPU像素」「达到和我给你的图一样的效果」, 「通过，用 3.88」): the user's
     // picture read on its finest squares (117 x 155, tools/art/design_sona_hd.py: 155 rows / 40 = 3.875); every action
     // Codex's whole-frame redraw of her old frame read onto it at the zoom her figure, head and height give
@@ -442,6 +443,60 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // onto it at the zoom her figure, pink hair and pillory give (tools/art/casts_briar_hd.py, rig_briar_hd.py; nothing
     // baked but the Snack's blood drops); 46 game px as her 1x sprite, so no SIZES row
     ("league_briar", 2.935, include_str!("../../../league/champions/league_briar#anim.fanim")),
+    // Talon (2026-10-31, 「下一个英雄重做泰隆」, 「用A PPU2.21吧」): Codex's talon-A read on its own ~10.5-px squares
+    // (105 x 86, tools/art/design_talon_hd.py: 86 rows / 39 = 2.205); every action Codex's whole-frame redraw of his old
+    // frame read onto it at the zoom his figure and face give (tools/art/casts_talon_hd.py, rig_talon_hd.py; the run
+    // redrawn with the legs changing over, 「走路没有换腿」; nothing baked); 39 game px as his 1x sprite. Then 「男刀局内体型有点
+    // 过大了 缩小一点」「太高清 加点黑色描边吧」(2026-10-31): brought to 1.5 with an outline (RESTYLE talon), 90 % in game (SIZES)
+    ("league_talon", 1.5, include_str!("../../../league/champions/league_talon#anim.fanim")),
+    // Thresh (2026-10-31, 「锤石和女枪在这个pr里一起重做二轮」, 「都用中间档」): Codex's thresh-A read on its own ~9.75-px
+    // squares (90 x 99, tools/art/design_thresh_hd.py: 99 rows / 40 = 2.475); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom its height (or its area) gives (tools/art/casts_thresh_hd.py,
+    // rig_thresh_hd.py; nothing baked); 40 game px as his 1x sprite, so no SIZES row
+    ("league_thresh", 2.475, include_str!("../../../league/champions/league_thresh#anim.fanim")),
+    // Miss Fortune (2026-10-31, the same PR, 「都用中间档」): Codex's missfortune-A read on its own ~9.75-px squares (80 x
+    // 105, tools/art/design_missfortune_hd.py: 105 rows / 38 = 2.763); every action Codex's whole-frame redraw of her old
+    // frame read onto it at the zoom its height (the deaths: its area; E 2-6 by the hat) gives
+    // (tools/art/casts_missfortune_hd.py, rig_missfortune_hd.py; nothing baked); 38 game px as her 1x sprite, so no SIZES row
+    ("league_missfortune", 2.763, include_str!("../../../league/champions/league_missfortune#anim.fanim")),
+    // Senna (2026-11-01, 「下一个英雄我们重做赛娜」, 「用 A 1.87」): Codex's senna-A read on its own ~14.4-px
+    // squares (82 x 73, tools/art/design_senna_hd.py: 73 rows / 39 = 1.872); every action Codex's whole-frame redraw of her
+    // old frame read onto it at the zoom her height and face give (tools/art/casts_senna_hd.py, rig_senna_hd.py; the run
+    // and Q's first two frames redrawn: the legs changing over, the cannon low; nothing baked); 39 game px as her 1x
+    // sprite, so no SIZES row
+    ("league_senna", 1.872, include_str!("../../../league/champions/league_senna#anim.fanim")),
+    // Evelynn (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「伊芙琳用2.78」): Codex's evelynn-A read on its own
+    // ~10.4-px squares (103 x 114, tools/art/design_evelynn_hd.py: 114 rows / 41 = 2.780); every action Codex's
+    // whole-frame redraw of her old frame read onto it at the zoom her height and hair give (tools/art/casts_evelynn_hd.py,
+    // rig_evelynn_hd.py; nothing baked); 41 game px as her 1x sprite, so no SIZES row
+    ("league_evelynn", 2.780, include_str!("../../../league/champions/league_evelynn#anim.fanim")),
+    // Sett (2026-11-01, 「伊芙琳和瑟提也在这个pr里重做」, 「瑟提用1.79」): Codex's sett-A read on its own ~15.5-px
+    // squares (53 x 75, tools/art/design_sett_hd.py: 75 rows / 42 = 1.786); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom between his height and his hair (tools/art/casts_sett_hd.py, rig_sett_hd.py;
+    // nothing baked); 42 game px as his 1x sprite, so no SIZES row
+    ("league_sett", 1.786, include_str!("../../../league/champions/league_sett#anim.fanim")),
+    // Viego (2026-11-01, 「再加一个佛耶戈重做吧」, 「佛耶戈用2.45」): Codex's viego-A read on its own ~9.8-px
+    // squares (114 x 115, tools/art/design_viego_hd.py: 115 rows / 47 = 2.447); every action Codex's whole-frame redraw of
+    // his old frame read onto it at the zoom between his height and his hair (tools/art/casts_viego_hd.py, rig_viego_hd.py;
+    // nothing baked); 47 game px as his 1x sprite, so no SIZES row
+    ("league_viego", 2.447, include_str!("../../../league/champions/league_viego#anim.fanim")),
+    // Diana (2026-11-02, 「接下来可以重做 戴安娜 易大师 瑞兹」, 「戴安娜1.81 剑圣2.23 瑞兹1.66」): Codex's diana-A read on its own ~15.7-px
+    // squares (49 x 78, tools/art/design_diana_hd.py: 78 rows / 43 = 1.814); every action Codex's whole-frame redraw of
+    // her old frame read onto it at the median of the zooms her height, head and area give
+    // (tools/art/casts_diana_hd.py, rig_diana_hd.py; the ult's moon ring and the third strike's slash left out; nothing
+    // baked); 43 game px as her 1x sprite, so no SIZES row
+    ("league_diana", 1.814, include_str!("../../../league/champions/league_diana#anim.fanim")),
+    // Master Yi (the same release): Codex's masteryi-A read on its own ~9.8-px squares (94 x 125,
+    // tools/art/design_masteryi_hd.py: 125 rows / 56 = 2.232); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the median of the zooms his height, head and area (ten frames set by eye against the helmet) give
+    // (tools/art/casts_masteryi_hd.py, rig_masteryi_hd.py; the outline 3 squares; nothing baked); 56 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_masteryi", 2.232, include_str!("../../../league/champions/league_masteryi#anim.fanim")),
+    // Ryze (the same release): Codex's ryze-A read on its own ~14.7-px squares (42 x 68, tools/art/design_ryze_hd.py:
+    // 68 rows / 41 = 1.659); every action Codex's whole-frame redraw of his old frame read onto it at the median of the
+    // zooms his height, head and area give (tools/art/casts_ryze_hd.py, rig_ryze_hd.py; the hand sparkles left out;
+    // nothing baked); 41 game px as his 1x sprite, so no SIZES row
+    ("league_ryze", 1.659, include_str!("../../../league/champions/league_ryze#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -502,6 +557,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Sion, and 79 wide in his punch, 93 landing his E: the widest in the pack; 85 % picked from a true-scale sheet of 100 /
 /// 90 / 85 / 80 %: 50 x 39 standing, 67 / 79 in the punch / E), his frames 3 squares lower (RESTYLE zac lift_sq:
 /// 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0).
+/// Talon: 90 % (the user, 2026-10-31: 「男刀局内体型有点过大了 缩小一点」 - 39 game px hood to soles), his frames 2 squares
+/// lower (RESTYLE talon lift_sq: 11.5 x 1.5 x (1 / 0.9 - 1) = 1.9).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
@@ -510,17 +567,26 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_nami", 0.90), ("league_hwei", 0.85),
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
-                                    ("league_zac", 0.85)];
+                                    ("league_zac", 0.85), ("league_talon", 0.90)];
 
-/// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack). Cho'Gath's
-/// Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent `league_chogath_r_stack`
-/// on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow % bigger a stack, up to
-/// hd_engine's GROW_CAP, about his soles (hd_engine/src/view.rs: only the body's own commands, so his shadow and rings
-/// stay). The main pack loses the stacks at his death (Permanent buffs end with it); the add-on league_chogath puts
-/// them back. 15 % a stack (was 5 %: one bite put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」), then
-/// 30 % a stack and at most twice his size (the user 2026-10-26 after a game with one bite, x1.15: 「大虫子体型不变大？」
-/// 「隔壁oppi的大虫子就会变大的」, picked 30 % / 2x): one bite x1.3, four x2.
+/// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack).
+/// Cho'Gath's Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent
+/// `league_chogath_r_stack` on him (+health, tools/kit/build_chogath.py r_stack_hp) and his body is drawn r_grow %
+/// bigger a stack, with no cap, about his soles (hd_engine/src/view.rs: only the body's own commands, so his shadow and
+/// rings stay). The main pack loses the stacks at his death (Permanent buffs end with it); the add-on league_chogath
+/// puts them back. 15 % a stack (was 5 %: one bite put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」), then
+/// 30 % a stack and at most twice his size (the user 2026-10-26 after a game with one bite, x1.15:
+/// 「大虫子体型不变大？」「隔壁oppi的大虫子就会变大的」, picked 30 % / 2x), then the cap gone (the user 2026-10-31: 「大虫子体型应该可以无限变大吧」 - 4 of 45
+/// logged games reached the 4 bites of x2, 1 had 5): one bite x1.3, four x2.2, ten x4.
 pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.30)];
+
+/// Heroes drawn bigger while a buff of theirs is on them: (id, the buffs - any one of them, the size, seconds to grow
+/// to it and to shrink back), about the soles like GROWTH, eased in and out (hd_engine's eased). Volibear's
+/// Stormbringer (the user, 2026-11-01: 「开大时候可以加大点体型吧 我记得英雄联盟是这样的」): League's R makes him 35 % bigger, grown over 1.25
+/// seconds from the cast and shrunk back when it ends - here from the leap (`league_volibear_r_air`, 1 s) through the
+/// 12 s storm form after the landing (`league_volibear_r_form`), main pack data both.
+pub const FORMS: &[(&str, &[&str], f32, f32)] =
+    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.35, 1.25)];
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
@@ -679,6 +745,7 @@ pub fn table() -> Table<'static> {
         heroes: HEROES.to_vec(),
         sizes: SIZES.to_vec(),
         growth: GROWTH.to_vec(),
+        forms: FORMS.iter().map(|&(id, buffs, size, secs)| (id, buffs.to_vec(), size, secs)).collect(),
         effects: EFFECTS.to_vec(),
         drawn_effects: DRAWN_EFFECTS.to_vec(),
         ui_sizes: UI_SIZES.to_vec(),
@@ -749,7 +816,21 @@ mod tests {
         assert!(GROWTH.iter().any(|g| g.0 == "league_chogath" && g.1 == "league_chogath_r_stack"));
         let h = Heroes::of(&[&table()]);
         assert_eq!(h.growth, GROWTH.to_vec());
+        assert_eq!(h.forms, FORMS.to_vec());
         assert_eq!(h.drawn_effects, DRAWN_EFFECTS.to_vec());
         assert_eq!(h.packs, vec!["league"]);
+    }
+
+    /// Volibear's form row (hd_engine's eased): his leap and storm form are main pack buffs of his, and a hero grows
+    /// one way (a stack or a form).
+    #[test]
+    fn volibear_grows_in_his_form() {
+        let data = include_str!("../../../league/champion/league_volibear.data_champion");
+        let (_, buffs, s, t) = *FORMS.iter().find(|f| f.0 == "league_volibear").expect("Volibear grows in his form");
+        assert_eq!((s, t), (1.35, 1.25));
+        for b in buffs {
+            assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives him {b}");
+        }
+        assert!(FORMS.iter().all(|f| !GROWTH.iter().any(|g| g.0 == f.0)), "a hero grows one way");
     }
 }

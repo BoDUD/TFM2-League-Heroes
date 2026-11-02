@@ -1,0 +1,558 @@
+{
+  "requested_grid_px": 10,
+  "requested_baseline_y": 1176,
+  "processing": "No spatial scaling or grid resampling; alpha threshold128 and integer translation to baseline1176. Raw untouched.",
+  "poses": [
+    {
+      "name": "a_back",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        72,
+        481,
+        1180,
+        1176
+      ],
+      "source_bbox": [
+        72,
+        511,
+        1180,
+        1206
+      ],
+      "translation_px": [
+        0,
+        -30
+      ],
+      "raw_sha256": "2a5a9ba83179f99e457e4a95e77b0fac6626018d525190095d84781b6d8af97f",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "a_bite",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        58,
+        414,
+        1225,
+        1176
+      ],
+      "source_bbox": [
+        58,
+        409,
+        1225,
+        1171
+      ],
+      "translation_px": [
+        0,
+        5
+      ],
+      "raw_sha256": "17bc63f17f972fda0e352552ab0890afc9e4c36525fdf062cb425ced81d7a870",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "q_crouch",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        58,
+        450,
+        1168,
+        1176
+      ],
+      "source_bbox": [
+        58,
+        475,
+        1168,
+        1201
+      ],
+      "translation_px": [
+        0,
+        -25
+      ],
+      "raw_sha256": "b5ca833d6456261f30585b125ada0f84957a56b1e99147334334dede2d122041",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "q_leap",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        156,
+        126,
+        1154,
+        1176
+      ],
+      "source_bbox": [
+        156,
+        133,
+        1154,
+        1183
+      ],
+      "translation_px": [
+        0,
+        -7
+      ],
+      "raw_sha256": "bcffbfb9ced84ed87895c12342d312d25df7fcfabad306ad52781b69681753e8",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "q_rend",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        11,
+        420,
+        1244,
+        1176
+      ],
+      "source_bbox": [
+        11,
+        426,
+        1244,
+        1182
+      ],
+      "translation_px": [
+        0,
+        -6
+      ],
+      "raw_sha256": "89d37a8dd492fc350840c24d4ce086c3f4240a3f58fbd4fa7bac2a742bd2b4b7",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "e_gather",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        91,
+        497,
+        1123,
+        1176
+      ],
+      "source_bbox": [
+        91,
+        473,
+        1123,
+        1152
+      ],
+      "translation_px": [
+        0,
+        24
+      ],
+      "raw_sha256": "fc7c59b3cd47fb505da76e589c7958236ea3affeae9875d1bf1323c815761811",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "e_howl",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        148,
+        442,
+        1161,
+        1176
+      ],
+      "source_bbox": [
+        148,
+        476,
+        1161,
+        1210
+      ],
+      "translation_px": [
+        0,
+        -34
+      ],
+      "raw_sha256": "dddd76b86150448f99d52d8df183397b805b90e4955dd9bb1e59d1147a7ecb9b",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "r_growl",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        114,
+        474,
+        1146,
+        1176
+      ],
+      "source_bbox": [
+        114,
+        509,
+        1146,
+        1211
+      ],
+      "translation_px": [
+        0,
+        -35
+      ],
+      "raw_sha256": "4d7c68bbac8d0499131dc7b86e4c0591457153664d34e9cc5d826326e2e7bd16",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "r_bark",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        59,
+        258,
+        1221,
+        1176
+      ],
+      "source_bbox": [
+        59,
+        268,
+        1221,
+        1186
+      ],
+      "translation_px": [
+        0,
+        -10
+      ],
+      "raw_sha256": "bd8803ab423f3325c9b5bc98f8a7a5f4e3342c677e00e0e58ccd0d4103415681",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "run1",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        98,
+        487,
+        1139,
+        1176
+      ],
+      "source_bbox": [
+        98,
+        506,
+        1139,
+        1195
+      ],
+      "translation_px": [
+        0,
+        -19
+      ],
+      "raw_sha256": "a4518a439786da945024558fc6fe49ef0d8f344445fe6a714bcd15dfdef23ae2",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "run2",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        98,
+        372,
+        1207,
+        1176
+      ],
+      "source_bbox": [
+        98,
+        411,
+        1207,
+        1215
+      ],
+      "translation_px": [
+        0,
+        -39
+      ],
+      "raw_sha256": "43c29d93889690e08899703c3c0118fa1dca770ed04a9806eb9bbf5fe0f9bfc3",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "run3",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        69,
+        455,
+        1165,
+        1176
+      ],
+      "source_bbox": [
+        69,
+        485,
+        1165,
+        1206
+      ],
+      "translation_px": [
+        0,
+        -30
+      ],
+      "raw_sha256": "3a24d4e06208399a1808ecf818d005efbd8216aed9602224486b8f539b51f97a",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "run4",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        85,
+        484,
+        1188,
+        1176
+      ],
+      "source_bbox": [
+        85,
+        504,
+        1188,
+        1196
+      ],
+      "translation_px": [
+        0,
+        -20
+      ],
+      "raw_sha256": "d4ebbb12f74b7e58e45650be39afac81e85d6cddb290d6f52f12e90b08680dd7",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "run5",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        98,
+        517,
+        1185,
+        1176
+      ],
+      "source_bbox": [
+        98,
+        528,
+        1185,
+        1187
+      ],
+      "translation_px": [
+        0,
+        -11
+      ],
+      "raw_sha256": "a55e1c4943611630a22a9cca2fd4f26e2d3fc78c6bc809aa5c5f8635ebccd056",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "run6",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        60,
+        349,
+        1180,
+        1176
+      ],
+      "source_bbox": [
+        60,
+        384,
+        1180,
+        1211
+      ],
+      "translation_px": [
+        0,
+        -35
+      ],
+      "raw_sha256": "57ae7552a9b1266dc9909bec5f85e7d13a417153ab4b71a5211d01c63868f4f3",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "run7",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        50,
+        462,
+        1186,
+        1176
+      ],
+      "source_bbox": [
+        50,
+        471,
+        1186,
+        1185
+      ],
+      "translation_px": [
+        0,
+        -9
+      ],
+      "raw_sha256": "0d62fa1dc5f297d50037b6747bc3e2cfb2c59e6600bd0da7271d7451dce766d4",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "run8",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        119,
+        517,
+        1193,
+        1176
+      ],
+      "source_bbox": [
+        119,
+        524,
+        1193,
+        1183
+      ],
+      "translation_px": [
+        0,
+        -7
+      ],
+      "raw_sha256": "48b07adad30614566b16676e6a8b1321a3160f3e2e3024f909e49bcd36f42e13",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "d_fall",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        56,
+        261,
+        1202,
+        1176
+      ],
+      "source_bbox": [
+        56,
+        239,
+        1202,
+        1154
+      ],
+      "translation_px": [
+        0,
+        22
+      ],
+      "raw_sha256": "e02ff25eeaba5b2c3a4d71c3321f222417c7f6c53e87b2e0aa202428631dcca6",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    },
+    {
+      "name": "d_down",
+      "size": [
+        1254,
+        1254
+      ],
+      "bbox": [
+        39,
+        700,
+        1220,
+        1176
+      ],
+      "source_bbox": [
+        39,
+        704,
+        1220,
+        1180
+      ],
+      "translation_px": [
+        0,
+        -4
+      ],
+      "raw_sha256": "f0efdc9d9da84ac8dc3b407fdcc1ad803aec501324a67926e1c4d6f640d7d901",
+      "hard_alpha": true,
+      "rescaled": false,
+      "canvas_pass": true,
+      "baseline_delta_px": 0,
+      "grid_status": "Model-authored pixel clusters retained; not asserted to be an exact 10px lattice"
+    }
+  ]
+}

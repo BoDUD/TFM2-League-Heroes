@@ -10,11 +10,14 @@
 //!   别人给的「不死」在身上时不触发。
 //! - **真冰墙**：数据在 Q 炸开、炸点里有敌方英雄的那一 tick 立墙（她身上新出现 `league_anivia_w_cd`），墙心就是那一 tick 她新放出、不在她脚下的
 //!   区域的位置（投射物信息里没有名字，只有位置）。之后 `w_t` tick 里，每个单位（英雄、小兵、野怪，两边都算，她自己也算）的中心
-//!   一进墙（竖着的长方形，半宽 `w_w`/2 + 单位半径，半高 `w_h`/2 + 单位半径）就放回上一 tick 的位置；立墙时站在墙上的被推到她那一侧（和主包数据的拖出一样：墙在被晕的人身后）。
+//!   一进墙（竖着的长方形，半宽 `w_w`/2 + 单位半径，半高 `w_h`/2 + 单位半径）：走路的贴着墙滑（这一步顺着墙面的那一份照走，
+//!   进墙的那一份只走到墙面），冲刺的放回上一 tick 的位置；立墙时站在墙上的被推到她那一侧（和主包数据的拖出一样：墙在被晕的人身后）。
 //! - **冰冻翻倍**：数据给 Q 打中、成形风暴打中的英雄挂 `league_anivia_iced`（`ice_t` tick）；E 打中时她身上亮 1 tick 的
 //!   `league_anivia_e_now`，本包在 `on_attack` 里看到它、目标身上又有冰冻，就把这一下伤害翻倍。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_anivia.log`，每次启动游戏重写。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_anivia.log`，每次启动游戏重写。`HOLD` / `PUSH` 只记一面墙
+//! 第一次挡住一个单位的那一 tick，墙倒了记一行 `HELD`（挡过几个单位、几个英雄、一共和最久多少 tick），你看的那场每条都记
+//! （0.1.5：以前每个单位每 tick 一次，每 50 次记一行，一次启动数到 #111200，日志的八成多是 `HOLD`）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -31,8 +34,12 @@ pub mod view;
 pub const FORM: &str = "league_anivia_egg_on";
 
 const ID: &str = "league_anivia";
-/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是 league_addons 的。
-const VERSION: &str = "0.1.4";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_anivia") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 「不死」挂多久、多久续一次。
 pub const GUARD_T: usize = 30;
@@ -46,6 +53,8 @@ pub const BODY: u64 = 6000;
 pub const NEAR_ME: u64 = 3000;
 /// `w_cd` 出现后最多再找这么多 tick 的墙心。
 pub const WALL_LOOK: usize = 3;
+/// 一 tick 走了这么远以上算冲刺（走路约 1000，加速后约 1500，冲刺 2500 起；同奥恩附加包的柱子）：冲刺撞上墙停住，走路的贴着墙滑。
+pub const DASH_STEP: f64 = 2_200.0;
 
 fn sn(x: &str) -> String {
     format!("league_anivia_{x}")
@@ -91,10 +100,28 @@ const LOG_EVERY: usize = 50;
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn counted(kind: &'static str) -> Option<usize> {
+    noted(kind, false)
+}
+
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Like `counted`, but every line of the match on screen: only the presims capped.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -176,12 +203,37 @@ pub fn push_out(w: &Wall, p: &Params, r: u64) -> u64 {
     if w.left { w.x.saturating_sub(edge) } else { w.x + edge }
 }
 
-/// 这一 tick 单位该在哪：进了墙就回到上一 tick 的位置（上一 tick 也在墙里，就推出去）。
+/// 这一 tick 单位该在哪。上一 tick 在墙外、这一 tick 进了墙：走路的贴着墙滑（`slide`），滑进别的墙就回到上一 tick 的位置；
+/// 一 tick 走了 `DASH_STEP` 以上（冲刺）就回到上一 tick 的位置。游戏的寻路不知道墙，会一直往里走：0.1.4 走路的也放回上一 tick
+/// 的位置，斜着走过来的也一直卡到墙倒（同奥恩附加包的柱子，2026-11-02 复查 11-01 的日志）。上一 tick 也在墙里（立墙时站在墙上）
+/// 就推到她那一侧。
 pub fn hold(walls: &[Wall], p: &Params, last: Option<(u64, u64)>, now: (u64, u64), r: u64) -> Option<(u64, u64)> {
     let w = walls.iter().find(|w| inside(w, p, now.0, now.1, r))?;
     match last {
-        Some(l) if !inside(w, p, l.0, l.1, r) => Some(l),
+        Some(l) if !inside(w, p, l.0, l.1, r) => {
+            let step = (now.0 as f64 - l.0 as f64).hypot(now.1 as f64 - l.1 as f64);
+            if step >= DASH_STEP {
+                return Some(l);
+            }
+            let s = slide(w, p, l, now, r);
+            Some(if walls.iter().any(|v| inside(v, p, s.0, s.1, r)) { l } else { s })
+        }
         _ => Some((push_out(w, p, r), now.1)),
+    }
+}
+
+/// 走进墙 `w` 的一步（`l` -> `now`）贴着墙滑到哪：这一步顺着墙面的那一份照走，进墙的那一份只走到墙面，不会停在墙里。
+/// 从长边进来（上一 tick 在墙的左右）x 停在那一边的墙面、y 照走（顺着墙的方向）；从两头进来（上一 tick 在墙头外、左右在墙的
+/// 宽度里）y 停在那一头、x 照走；从墙角进来取离 `now` 近的那个。正对着墙走的就停在墙面上。
+pub fn slide(w: &Wall, p: &Params, l: (u64, u64), now: (u64, u64), r: u64) -> (u64, u64) {
+    let (hx, hy) = (p.w_w / 2 + r, p.w_h / 2 + r);
+    let side = (if l.0 < w.x { w.x.saturating_sub(hx + 1) } else { w.x + hx + 1 }, now.1);
+    let end = (now.0, if l.1 < w.y { w.y.saturating_sub(hy + 1) } else { w.y + hy + 1 });
+    match (l.0.abs_diff(w.x) >= hx, l.1.abs_diff(w.y) >= hy) {
+        (true, false) => side,
+        (false, true) => end,
+        _ if now.0.abs_diff(side.0) <= now.1.abs_diff(end.1) => side,
+        _ => end,
     }
 }
 
@@ -248,6 +300,8 @@ struct Rebirth {
     walls: Vec<Wall>,
     /// 墙立着时每个单位上一 tick 的位置。
     last_pos: HashMap<usize, (u64, u64)>,
+    /// 每面墙挡过谁：单位编号 -> (挡了几 tick, 是不是英雄)；墙倒了记一行 `HELD`。
+    held: Vec<(Wall, HashMap<usize, (usize, bool)>)>,
 }
 
 impl Rebirth {
@@ -319,10 +373,41 @@ impl Rebirth {
         self.prev_proj = mine;
     }
 
-    /// 墙立着时：每个单位进墙就放回去。
+    /// 墙 `w` 又挡了 `id` 一 tick；第一次挡他时 true。
+    fn note(&mut self, w: Wall, id: usize, champion: bool) -> bool {
+        let i = match self.held.iter().position(|(v, _)| *v == w) {
+            Some(i) => i,
+            None => {
+                self.held.push((w, HashMap::new()));
+                self.held.len() - 1
+            }
+        };
+        let (ticks, _) = self.held[i].1.entry(id).or_insert((0, champion));
+        *ticks += 1;
+        *ticks == 1
+    }
+
+    /// 墙 `w` 倒了：它挡过谁（`HELD`：几个单位、几个英雄、一共几 tick、挡得最久的那个几 tick）。
+    fn settle(&mut self, sim: &StableSim<'_>, w: Wall) {
+        let Some(i) = self.held.iter().position(|(v, _)| *v == w) else { return };
+        let (_, units) = self.held.swap_remove(i);
+        let ticks: usize = units.values().map(|&(t, _)| t).sum();
+        let longest = units.values().map(|&(t, _)| t).max().unwrap_or(0);
+        let champions = units.values().filter(|&&(_, c)| c).count();
+        if let Some(k) = tally(sim, "held") {
+            wlog(format!("{} HELD by the wall at ({}, {}): {} units ({champions} champions), {ticks} ticks in all, the longest {longest} #{k}",
+                         head(sim, self.me), w.x, w.y, units.len()));
+        }
+    }
+
+    /// 墙立着时：每个单位进墙就挡在外面（`hold`）。
     fn block(&mut self, sim: &mut StableSim<'_>, now: usize) {
         let w_t = self.p.w_t;
+        let fallen: Vec<Wall> = self.walls.iter().filter(|w| now >= w.from + w_t).copied().collect();
         self.walls.retain(|w| now < w.from + w_t);
+        for w in fallen {
+            self.settle(sim, w);
+        }
         if self.walls.is_empty() {
             self.last_pos.clear();
             return;
@@ -334,28 +419,36 @@ impl Rebirth {
             if !e.is_alive() {
                 continue;
             }
-            match e.kind() {
-                Some(EntityKindV1::Champion | EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Summon) => {}
+            let champion = match e.kind() {
+                Some(EntityKindV1::Champion) => true,
+                Some(EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Summon) => false,
                 _ => continue,
-            }
+            };
             let id = e.id();
             let now_pos = e.pos();
             let r = match e.radius() as u64 { 0 => BODY, r => r };
             let last = self.last_pos.get(&id).copied();
             let at = match hold(&self.walls, &self.p, last, now_pos, r) {
                 Some(q) => {
-                    moves.push((id, q, last.is_some()));
+                    // the wall it went into, and whether it was out of every wall the tick before (HOLD) or on one (PUSH)
+                    let wall = self.walls.iter().copied().find(|w| inside(w, &self.p, now_pos.0, now_pos.1, r));
+                    let was_out = last.is_some_and(|l| self.walls.iter().all(|w| !inside(w, &self.p, l.0, l.1, r)));
+                    moves.push((id, q, was_out, wall, champion));
                     q
                 }
                 None => now_pos,
             };
             seen.insert(id, at);
         }
-        for (id, (x, y), was) in moves {
+        for (id, (x, y), was_out, wall, champion) in moves {
             sim.entity_set_pos(id, x, y);
-            if let Some(k) = counted(if was { "hold" } else { "push" }) {
+            // the first tick a wall holds a unit (a unit walking along one is held every tick); HELD sums it up
+            if !wall.is_some_and(|w| self.note(w, id, champion)) {
+                continue;
+            }
+            if let Some(k) = tally(sim, if was_out { "hold" } else { "push" }) {
                 wlog(format!("{} {} #{k}: {} kept out of the wall at ({x}, {y})", head(sim, self.me),
-                             if was { "HOLD" } else { "PUSH" }, who(sim, id)));
+                             if was_out { "HOLD" } else { "PUSH" }, who(sim, id)));
             }
         }
         self.last_pos = seen;
@@ -484,14 +577,54 @@ mod tests {
     }
 
     #[test]
-    fn a_unit_walking_into_the_wall_goes_back() {
+    fn units_stay_out_of_the_wall() {
+        // a unit of radius 6000 is in this wall within x 490000..510000, y 369000..431000
         let w = [Wall { x: 500000, y: 400000, from: 0, left: true }];
-        // from the left: last tick outside, now inside -> back to last
+        let out = |q: (u64, u64)| !inside(&w[0], &p(), q.0, q.1, 6000);
+        // dashing in from the left (3000 in a tick): back to where it was; from the right the same
         assert_eq!(hold(&w, &p(), Some((488000, 400000)), (491000, 400000), 6000), Some((488000, 400000)));
-        // from the right the same
         assert_eq!(hold(&w, &p(), Some((512000, 410000)), (509000, 410000), 6000), Some((512000, 410000)));
+        // walking straight at it: up to its face, no further
+        assert_eq!(hold(&w, &p(), Some((489500, 400000)), (490500, 400000), 6000), Some((489999, 400000)));
+        // walking in at a slant: at its face, on along it by the step's own part along it
+        assert_eq!(hold(&w, &p(), Some((489500, 400000)), (490200, 400700), 6000), Some((489999, 400700)));
+        assert_eq!(hold(&w, &p(), Some((510500, 400000)), (509800, 399300), 6000), Some((510001, 399300)));
+        // into one of its ends (walking along it): stops at the end, on sideways
+        assert_eq!(hold(&w, &p(), Some((500000, 431500)), (500500, 430500), 6000), Some((500500, 431001)));
+        // at a corner: out of it either way, never farther than the step
+        let q = hold(&w, &p(), Some((489500, 431500)), (490300, 430700), 6000).unwrap();
+        assert!(out(q) && (q.0 as f64 - 489500.0).hypot(q.1 as f64 - 431500.0) <= 1132.0, "{q:?}");
+        // walking on at a slant: it slides along the wall and gets past its end, never through it
+        let mut at = (489000, 380000);
+        for _ in 0..120 {
+            let next = (at.0 + 700, at.1 + 700);
+            at = hold(&w, &p(), Some(at), next, 6000).unwrap_or(next);
+            assert!(out(at), "{at:?}");
+        }
+        assert!(at.0 > 510000, "still behind the wall at {at:?}");
         // past the wall's end: free
         assert_eq!(hold(&w, &p(), Some((495000, 440000)), (500000, 440000), 6000), None);
+    }
+
+    #[test]
+    fn a_wall_notes_each_unit_once() {
+        let w = Wall { x: 500000, y: 400000, from: 0, left: true };
+        let later = Wall { from: 900, ..w };
+        let mut r = Rebirth::default();
+        assert!(r.note(w, 7, true));
+        assert!(!r.note(w, 7, true));
+        assert!(r.note(w, 8, false));
+        assert!(r.note(later, 7, true), "another wall: a new line");
+        assert_eq!(r.held.len(), 2);
+        assert_eq!(r.held[0].1.get(&7), Some(&(2, true)));
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
     }
 
     #[test]

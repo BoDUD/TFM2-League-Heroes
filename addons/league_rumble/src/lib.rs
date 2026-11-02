@@ -20,7 +20,12 @@ use mod_api_stable::*;
 pub mod view;
 
 const ID: &str = "league_rumble";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_rumble") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// 过热的 buff（主包数据：热量满 100 时 oh_t tick）。
 pub const OVERHEAT: [&str; 1] = ["league_rumble_oh"];
 /// 边走边喷火的那 1.5 秒（副本数据：纵火盛宴挂 q_t tick）。

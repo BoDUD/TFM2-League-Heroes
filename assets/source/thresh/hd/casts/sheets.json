@@ -1,0 +1,615 @@
+{
+ "square": 8,
+ "square_of": {
+  "attack": 7,
+  "skill": 7,
+  "skill2": 5
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop): a slow, looming glide forward, the robe swaying, the sickle trailing in his far hand and the lantern swinging in his near hand, the FEET under the hem STEPPING IN TURN",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings.",
+   "legs": "Frame 1: the NEAR foot (the lighter one) stepping forward under the hem, the far foot behind, exactly as the pale figure. The two feet TAKE TURNS: in frames 1-4 the NEAR foot (the lighter one) leads, in frames 5-8 the FAR foot (the darker one) - frames 1 and 5 must look different: the other foot in front. Follow the pale figure's FEET exactly; never the same foot in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop): a slow, looming glide forward, the robe swaying, the sickle trailing in his far hand and the lantern swinging in his near hand, the FEET under the hem STEPPING IN TURN",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings.",
+   "legs": "Frame 2: the NEAR foot (the lighter one) stepping forward under the hem, the far foot behind, exactly as the pale figure. The two feet TAKE TURNS: in frames 1-4 the NEAR foot (the lighter one) leads, in frames 5-8 the FAR foot (the darker one) - frames 1 and 5 must look different: the other foot in front. Follow the pale figure's FEET exactly; never the same foot in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop): a slow, looming glide forward, the robe swaying, the sickle trailing in his far hand and the lantern swinging in his near hand, the FEET under the hem STEPPING IN TURN",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings.",
+   "legs": "Frame 3: the NEAR foot (the lighter one) stepping forward under the hem, the far foot behind, exactly as the pale figure. The two feet TAKE TURNS: in frames 1-4 the NEAR foot (the lighter one) leads, in frames 5-8 the FAR foot (the darker one) - frames 1 and 5 must look different: the other foot in front. Follow the pale figure's FEET exactly; never the same foot in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop): a slow, looming glide forward, the robe swaying, the sickle trailing in his far hand and the lantern swinging in his near hand, the FEET under the hem STEPPING IN TURN",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings.",
+   "legs": "Frame 4: the NEAR foot (the lighter one) stepping forward under the hem, the far foot behind, exactly as the pale figure. The two feet TAKE TURNS: in frames 1-4 the NEAR foot (the lighter one) leads, in frames 5-8 the FAR foot (the darker one) - frames 1 and 5 must look different: the other foot in front. Follow the pale figure's FEET exactly; never the same foot in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop): a slow, looming glide forward, the robe swaying, the sickle trailing in his far hand and the lantern swinging in his near hand, the FEET under the hem STEPPING IN TURN",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings.",
+   "legs": "Frame 5: the FAR foot (the darker one) stepping forward under the hem, the near foot behind, exactly as the pale figure. The two feet TAKE TURNS: in frames 1-4 the NEAR foot (the lighter one) leads, in frames 5-8 the FAR foot (the darker one) - frames 1 and 5 must look different: the other foot in front. Follow the pale figure's FEET exactly; never the same foot in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop): a slow, looming glide forward, the robe swaying, the sickle trailing in his far hand and the lantern swinging in his near hand, the FEET under the hem STEPPING IN TURN",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings.",
+   "legs": "Frame 6: the FAR foot (the darker one) stepping forward under the hem, the near foot behind, exactly as the pale figure. The two feet TAKE TURNS: in frames 1-4 the NEAR foot (the lighter one) leads, in frames 5-8 the FAR foot (the darker one) - frames 1 and 5 must look different: the other foot in front. Follow the pale figure's FEET exactly; never the same foot in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop): a slow, looming glide forward, the robe swaying, the sickle trailing in his far hand and the lantern swinging in his near hand, the FEET under the hem STEPPING IN TURN",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings.",
+   "legs": "Frame 7: the FAR foot (the darker one) stepping forward under the hem, the near foot behind, exactly as the pale figure. The two feet TAKE TURNS: in frames 1-4 the NEAR foot (the lighter one) leads, in frames 5-8 the FAR foot (the darker one) - frames 1 and 5 must look different: the other foot in front. Follow the pale figure's FEET exactly; never the same foot in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop): a slow, looming glide forward, the robe swaying, the sickle trailing in his far hand and the lantern swinging in his near hand, the FEET under the hem STEPPING IN TURN",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings.",
+   "legs": "Frame 8: the FAR foot (the darker one) stepping forward under the hem, the near foot behind, exactly as the pale figure. The two feet TAKE TURNS: in frames 1-4 the NEAR foot (the lighter one) leads, in frames 5-8 the FAR foot (the darker one) - frames 1 and 5 must look different: the other foot in front. Follow the pale figure's FEET exactly; never the same foot in front in every frame (Talon's first run did that: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack: he swings the chain sickle - down low behind him (frames 2-3), then whirls it up OVER HIS HEAD (frame 4), FLINGS it out forward on its chain (frame 5, the chain stretched far to the right), swings it back up overhead (frame 6) and catches it",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: he swings the chain sickle - down low behind him (frames 2-3), then whirls it up OVER HIS HEAD (frame 4), FLINGS it out forward on its chain (frame 5, the chain stretched far to the right), swings it back up overhead (frame 6) and catches it",
+   "ms": [
+    60
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: he swings the chain sickle - down low behind him (frames 2-3), then whirls it up OVER HIS HEAD (frame 4), FLINGS it out forward on its chain (frame 5, the chain stretched far to the right), swings it back up overhead (frame 6) and catches it",
+   "ms": [
+    60
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: he swings the chain sickle - down low behind him (frames 2-3), then whirls it up OVER HIS HEAD (frame 4), FLINGS it out forward on its chain (frame 5, the chain stretched far to the right), swings it back up overhead (frame 6) and catches it",
+   "ms": [
+    70
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack: he swings the chain sickle - down low behind him (frames 2-3), then whirls it up OVER HIS HEAD (frame 4), FLINGS it out forward on its chain (frame 5, the chain stretched far to the right), swings it back up overhead (frame 6) and catches it",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Death Sentence (Q): he whirls the chain sickle over his head (frames 2-3), swings it low (frame 4), HURLS it straight forward on its chain (frame 5), then raises the lantern ahead of him (frames 6-7) and settles",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Death Sentence (Q): he whirls the chain sickle over his head (frames 2-3), swings it low (frame 4), HURLS it straight forward on its chain (frame 5), then raises the lantern ahead of him (frames 6-7) and settles",
+   "ms": [
+    70
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Death Sentence (Q): he whirls the chain sickle over his head (frames 2-3), swings it low (frame 4), HURLS it straight forward on its chain (frame 5), then raises the lantern ahead of him (frames 6-7) and settles",
+   "ms": [
+    70
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Death Sentence (Q): he whirls the chain sickle over his head (frames 2-3), swings it low (frame 4), HURLS it straight forward on its chain (frame 5), then raises the lantern ahead of him (frames 6-7) and settles",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Death Sentence (Q): he whirls the chain sickle over his head (frames 2-3), swings it low (frame 4), HURLS it straight forward on its chain (frame 5), then raises the lantern ahead of him (frames 6-7) and settles",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Death Sentence (Q): he whirls the chain sickle over his head (frames 2-3), swings it low (frame 4), HURLS it straight forward on its chain (frame 5), then raises the lantern ahead of him (frames 6-7) and settles",
+   "ms": [
+    90
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Flay (E): he swings the chain sickle far back behind him (frame 2), up overhead (frame 3), SWEEPS it in a wide circle low round his feet (frames 4-5), up overhead again (frames 6-7) and settles",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Flay (E): he swings the chain sickle far back behind him (frame 2), up overhead (frame 3), SWEEPS it in a wide circle low round his feet (frames 4-5), up overhead again (frames 6-7) and settles",
+   "ms": [
+    70,
+    60
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Flay (E): he swings the chain sickle far back behind him (frame 2), up overhead (frame 3), SWEEPS it in a wide circle low round his feet (frames 4-5), up overhead again (frames 6-7) and settles",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Flay (E): he swings the chain sickle far back behind him (frame 2), up overhead (frame 3), SWEEPS it in a wide circle low round his feet (frames 4-5), up overhead again (frames 6-7) and settles",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Box (R): he crouches low (frame 2), rises, and HOLDS THE LANTERN HIGH over his head (frames 4-6), then lowers it (frames 7-8)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings. In frames 4-6 the lantern is held HIGH over his head, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Box (R): he crouches low (frame 2), rises, and HOLDS THE LANTERN HIGH over his head (frames 4-6), then lowers it (frames 7-8)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings. In frames 4-6 the lantern is held HIGH over his head, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Box (R): he crouches low (frame 2), rises, and HOLDS THE LANTERN HIGH over his head (frames 4-6), then lowers it (frames 7-8)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings. In frames 4-6 the lantern is held HIGH over his head, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Box (R): he crouches low (frame 2), rises, and HOLDS THE LANTERN HIGH over his head (frames 4-6), then lowers it (frames 7-8)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings. In frames 4-6 the lantern is held HIGH over his head, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Box (R): he crouches low (frame 2), rises, and HOLDS THE LANTERN HIGH over his head (frames 4-6), then lowers it (frames 7-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings. In frames 4-6 the lantern is held HIGH over his head, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Box (R): he crouches low (frame 2), rises, and HOLDS THE LANTERN HIGH over his head (frames 4-6), then lowers it (frames 7-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings. In frames 4-6 the lantern is held HIGH over his head, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Box (R): he crouches low (frame 2), rises, and HOLDS THE LANTERN HIGH over his head (frames 4-6), then lowers it (frames 7-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings. In frames 4-6 the lantern is held HIGH over his head, as the pale figure."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "The Box (R): he crouches low (frame 2), rises, and HOLDS THE LANTERN HIGH over his head (frames 4-6), then lowers it (frames 7-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings. In frames 4-6 the lantern is held HIGH over his head, as the pale figure."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back, both arms flung out",
+   "ms": [
+    120
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back, both arms flung out",
+   "ms": [
+    120
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, collapses forward and ends lying flat on the ground, the sickle on its chain in front of him and the lantern standing on the ground by his side",
+   "ms": [
+    100
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, collapses forward and ends lying flat on the ground, the sickle on its chain in front of him and the lantern standing on the ground by his side",
+   "ms": [
+    100
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, collapses forward and ends lying flat on the ground, the sickle on its chain in front of him and the lantern standing on the ground by his side",
+   "ms": [
+    100
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, collapses forward and ends lying flat on the ground, the sickle on its chain in front of him and the lantern standing on the ground by his side",
+   "ms": [
+    120
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, collapses forward and ends lying flat on the ground, the sickle on its chain in front of him and the lantern standing on the ground by his side",
+   "ms": [
+    150
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, collapses forward and ends lying flat on the ground, the sickle on its chain in front of him and the lantern standing on the ground by his side",
+   "ms": [
+    150
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, collapses forward and ends lying flat on the ground, the sickle on its chain in front of him and the lantern standing on the ground by his side",
+   "ms": [
+    200
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, collapses forward and ends lying flat on the ground, the sickle on its chain in front of him and the lantern standing on the ground by his side",
+   "ms": [
+    500
+   ],
+   "weapons": "THE CHAIN SICKLE AND THE LANTERN go where the pale figure has them, frame by frame (image 3 shows them in colour): the CHAIN SICKLE in his FAR hand - its curved blade glowing pale green - and, wherever the pale figure swings or flings it, the CHAIN drawn link by link from his hand to the sickle, exactly as long and as curved as the pale figure's; the GREEN LANTERN in his NEAR hand, hanging by his feet or raised as the pale figure holds it. Only these: no flying souls, no green trails, no rings."
+  }
+ ]
+}

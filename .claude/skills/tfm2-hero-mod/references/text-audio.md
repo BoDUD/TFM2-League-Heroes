@@ -91,8 +91,16 @@ league_thresh -10). The game's own math (0.6.4 exe, the grid card's draw, read 2
 HD heroes (PPU > 1) draw their `lo_` frames / 1.5 there (league.dll ui_table), the 1x size: take the highest
 opaque row of the highest-reaching lo_idle frame, (row - h / 2) / 1.5 (league_renata -38.0 -> -1). The collection grid (`new_game_component/custom_champion_slot`) ignores it: every
 hero's feet sit on the image bottom there (executioner's -10 too), so a hover shows as sitting higher.
-The tier-list card (`champion_info_component/champion_slot`, 85x93 image) cut league_nami's crown as
-well; how it places heroes is not measured yet. Measure it, don't guess: `python scripts/tfm2_ase.py face
+The tier-list card (`champion_info_component/champion_slot`, 85x93 image: the encyclopedia's hero list) places
+the idle by **`center`**, measured 2026-11-01 on the user's screenshot of 12 cards (「tft英雄在游戏百科里都摆的不对」):
+the center point goes to a fixed spot about 37 game px under the picture's top, the idle drawn at the plain UI size
+(lo_idle / 1.5, no UI_SIZES), and the tier dropdown hides everything from about 2 px under that spot. So `center`
+frames that card: League heroes keep their idle's solid top (the first row at least 8 game px wide) a median 26.7 px
+over it - -12 for a 36-40 px hero, -10 for the low beasts (league_kogmaw, league_chogath, league_naafiri), -14 to -20
+only for the tall ones. Set it by that rule, not at a creature's middle: the TFT heroes had -15 to -22 and showed 4
+to 13 px low, half under the dropdown (fixed to the rule the same day). `python tools/art/bp_card_audit.py --centers
+<pack>` prints every hero's value and the rule's, round(solid top - 26.7) within League's -20..-6. In battle `center`
+is where hits land (the health bar hangs under the soles), so a few px either way do no harm there. Measure it, don't guess: `python scripts/tfm2_ase.py face
 <sprite> [--view <champion_view>]` prints the point the base game would use and `--out x.png` draws your
 hero next to base champions with every face point marked. On all 68 base champions `face` sits at the
 **crown** - the first row of idle frame 0 at least half as wide as the head (so buns, hat tips and

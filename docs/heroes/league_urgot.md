@@ -55,7 +55,7 @@
 
 ### 厄加特附加包
 
-[厄加特附加包](../../addons/league_urgot/README.md)：`league_urgot` v0.2.1
+[厄加特附加包](../../addons/league_urgot/README.md)：`league_urgot` v0.2.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

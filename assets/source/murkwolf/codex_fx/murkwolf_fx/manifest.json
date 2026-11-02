@@ -1,0 +1,679 @@
+{
+  "palette": [
+    "#C9B8F0",
+    "#8E70D0",
+    "#5C4399",
+    "#36255E",
+    "#1A1030",
+    "#F0FFFF",
+    "#9CF5FF",
+    "#36D6F2",
+    "#1690B8",
+    "#0C4E70",
+    "#FFFCEB",
+    "#F7E9AE",
+    "#DCC062",
+    "#9E812F",
+    "#FFD6E6",
+    "#F57FB4",
+    "#D63F78",
+    "#8C1F46",
+    "#4A0E26",
+    "#DCE4F5",
+    "#9AA9D1",
+    "#6A78A8",
+    "#444E78",
+    "#262B47"
+  ],
+  "processing": "Generated art; area-majority palette sampling, binary alpha, brighter mirrored pair retained, central actor rectangle cleared for buffs.",
+  "assets": [
+    {
+      "file": "murkwolf_fx_a_hit.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_a_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        14,
+        14
+      ],
+      "sheet_1x": [
+        56,
+        14
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        100,
+        78,
+        110,
+        28
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          627,
+          627
+        ],
+        [
+          627,
+          0,
+          1254,
+          627
+        ],
+        [
+          0,
+          627,
+          627,
+          1254
+        ],
+        [
+          627,
+          627,
+          1254,
+          1254
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 2,
+        "order": "row-major",
+        "unused_last_cell": false
+      },
+      "binding": "view_effects `tft_murkwolf_a_hit`（跟随目标，z 2；左右对称）"
+    },
+    {
+      "file": "murkwolf_fx_q_land.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_q_land.png",
+      "frames": 5,
+      "cell_1x": [
+        44,
+        12
+      ],
+      "sheet_1x": [
+        220,
+        12
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        32,
+        272,
+        196,
+        140,
+        102
+      ],
+      "source_size": [
+        1959,
+        803
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          980,
+          379
+        ],
+        [
+          980,
+          0,
+          1959,
+          379
+        ],
+        [
+          0,
+          379,
+          980,
+          622
+        ],
+        [
+          980,
+          379,
+          1959,
+          622
+        ],
+        [
+          0,
+          622,
+          980,
+          803
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "order": "row-major",
+        "unused_last_cell": true
+      },
+      "binding": "view_effects `tft_murkwolf_q_land`（放在它落地的地面上，不跟随，z -1；左右对称）"
+    },
+    {
+      "file": "murkwolf_fx_q_hit.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_q_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        20,
+        18
+      ],
+      "sheet_1x": [
+        100,
+        18
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        78,
+        136,
+        190,
+        116,
+        108
+      ],
+      "source_size": [
+        1080,
+        1457
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          540,
+          486
+        ],
+        [
+          540,
+          0,
+          1080,
+          486
+        ],
+        [
+          0,
+          486,
+          540,
+          971
+        ],
+        [
+          540,
+          486,
+          1080,
+          971
+        ],
+        [
+          0,
+          971,
+          540,
+          1457
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "order": "row-major",
+        "unused_last_cell": true
+      },
+      "binding": "view_effects `tft_murkwolf_q_hit`（跟随目标，z 2；左右对称）"
+    },
+    {
+      "file": "murkwolf_fx_p_hit.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_p_hit.png",
+      "frames": 4,
+      "cell_1x": [
+        16,
+        16
+      ],
+      "sheet_1x": [
+        64,
+        16
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        4,
+        146,
+        82,
+        20
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          627,
+          627
+        ],
+        [
+          627,
+          0,
+          1254,
+          627
+        ],
+        [
+          0,
+          627,
+          627,
+          1254
+        ],
+        [
+          627,
+          627,
+          1254,
+          1254
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 2,
+        "order": "row-major",
+        "unused_last_cell": false
+      },
+      "binding": "view_effects `tft_murkwolf_p_hit`（跟随目标，z 3；左右对称）"
+    },
+    {
+      "file": "murkwolf_fx_r_hit.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_r_hit.png",
+      "frames": 5,
+      "cell_1x": [
+        22,
+        16
+      ],
+      "sheet_1x": [
+        110,
+        16
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        8,
+        110,
+        138,
+        148,
+        86
+      ],
+      "source_size": [
+        1200,
+        1310
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          600,
+          437
+        ],
+        [
+          600,
+          0,
+          1200,
+          437
+        ],
+        [
+          0,
+          437,
+          600,
+          873
+        ],
+        [
+          600,
+          437,
+          1200,
+          873
+        ],
+        [
+          0,
+          873,
+          600,
+          1310
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "order": "row-major",
+        "unused_last_cell": true
+      },
+      "binding": "view_effects `tft_murkwolf_r_hit`（跟随目标，z 2；左右对称）"
+    },
+    {
+      "file": "murkwolf_fx_r_bite.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_r_bite.png",
+      "frames": 4,
+      "cell_1x": [
+        10,
+        10
+      ],
+      "sheet_1x": [
+        40,
+        10
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        22,
+        36,
+        48,
+        16
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          627,
+          627
+        ],
+        [
+          627,
+          0,
+          1254,
+          627
+        ],
+        [
+          0,
+          627,
+          627,
+          1254
+        ],
+        [
+          627,
+          627,
+          1254,
+          1254
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 2,
+        "order": "row-major",
+        "unused_last_cell": false
+      },
+      "binding": "view_effects `tft_murkwolf_r_bite`（跟随目标，z 2；左右对称）"
+    },
+    {
+      "file": "murkwolf_fx_q_emp.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_q_emp.png",
+      "frames": 6,
+      "cell_1x": [
+        60,
+        40
+      ],
+      "sheet_1x": [
+        360,
+        40
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        48,
+        54,
+        82,
+        58,
+        42,
+        34
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          627,
+          418
+        ],
+        [
+          627,
+          0,
+          1254,
+          418
+        ],
+        [
+          0,
+          418,
+          627,
+          836
+        ],
+        [
+          627,
+          418,
+          1254,
+          836
+        ],
+        [
+          0,
+          836,
+          627,
+          1254
+        ],
+        [
+          627,
+          836,
+          1254,
+          1254
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "order": "row-major",
+        "unused_last_cell": false
+      },
+      "binding": "view_buffs `tft_murkwolf_q_emp`（跟随它，z 3；左右对称）"
+    },
+    {
+      "file": "murkwolf_fx_e_howl.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_e_howl.png",
+      "frames": 6,
+      "cell_1x": [
+        64,
+        48
+      ],
+      "sheet_1x": [
+        384,
+        48
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        328,
+        336,
+        472,
+        298,
+        394,
+        446
+      ],
+      "source_size": [
+        836,
+        1881
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          418,
+          627
+        ],
+        [
+          418,
+          0,
+          836,
+          627
+        ],
+        [
+          0,
+          627,
+          418,
+          1254
+        ],
+        [
+          418,
+          627,
+          836,
+          1254
+        ],
+        [
+          0,
+          1254,
+          418,
+          1881
+        ],
+        [
+          418,
+          1254,
+          836,
+          1881
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "order": "row-major",
+        "unused_last_cell": false
+      },
+      "binding": "view_buffs `tft_murkwolf_e_howl`（跟随它，z 3；左右对称）"
+    },
+    {
+      "file": "murkwolf_fx_r_pack.png",
+      "pixel_1x": "pixel_1x/murkwolf_fx_r_pack.png",
+      "frames": 6,
+      "cell_1x": [
+        100,
+        40
+      ],
+      "sheet_1x": [
+        600,
+        40
+      ],
+      "scale": 8,
+      "symmetry": "left-right per frame",
+      "symmetry_pass": true,
+      "frame_opaque_pixels": [
+        312,
+        302,
+        306,
+        320,
+        310,
+        324
+      ],
+      "source_size": [
+        1619,
+        971
+      ],
+      "source_cells": [
+        [
+          0,
+          0,
+          810,
+          324
+        ],
+        [
+          810,
+          0,
+          1619,
+          324
+        ],
+        [
+          0,
+          324,
+          810,
+          647
+        ],
+        [
+          810,
+          324,
+          1619,
+          647
+        ],
+        [
+          0,
+          647,
+          810,
+          971
+        ],
+        [
+          810,
+          647,
+          1619,
+          971
+        ]
+      ],
+      "source_layout": {
+        "columns": 2,
+        "rows": 3,
+        "order": "row-major",
+        "unused_last_cell": false
+      },
+      "binding": "view_buffs `tft_murkwolf_r_pack`（大表，跟随它，z -1；左右对称）"
+    },
+    {
+      "file": "murkwolf_icon_skill.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "not-required",
+      "size": [
+        64,
+        64
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[0] `asset/tft/icons/tft_murkwolf_skill`"
+    },
+    {
+      "file": "murkwolf_icon_skill2.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "not-required",
+      "size": [
+        64,
+        64
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[1] `asset/tft/icons/tft_murkwolf_skill2`"
+    },
+    {
+      "file": "murkwolf_icon_ult.png",
+      "frames": 1,
+      "cell_1x": [
+        64,
+        64
+      ],
+      "symmetry": "not-required",
+      "size": [
+        64,
+        64
+      ],
+      "source_size": [
+        1254,
+        1254
+      ],
+      "binding": "skill_icons[2] `asset/tft/icons/tft_murkwolf_ult`"
+    }
+  ]
+}

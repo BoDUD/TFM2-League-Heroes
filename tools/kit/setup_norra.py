@@ -37,7 +37,8 @@ M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view: the face point between her eyes, under the tall hat (tfm2_ase.py face finds the hat's top 33 px up:
 # a portrait round it showed the hat and no face - lint's warning stands, as for the base game's two big hats); her
 # idle's top is 22 px over the pivot: the ban/pick card fits it, no banpick_center
-VIEW = {"face": {"x": 1, "y": -20}, "center": {"x": 0, "y": -12}}
+# center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
+VIEW = {"face": {"x": 1, "y": -20}, "center": {"x": 0, "y": -8}}
 
 
 def mag(d, r):

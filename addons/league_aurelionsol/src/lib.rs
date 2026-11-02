@@ -1,6 +1,7 @@
 //! 奥瑞利安·索尔附加包：「星海焕然」的星尘死后不掉；「星芒凝汇」黑洞中心按真实生命处决。
 //!
-//! 主包保持纯数据：引擎在他死亡时清掉身上全部 buff，所以星尘（`league_aurelionsol_d1`…`d15`，每层一个名字，各带法强）
+//! 主包保持纯数据：引擎在他死亡时清掉身上全部 buff，所以星尘（`league_aurelionsol_d1`…`d30`，每层一个名字，前 15 层各带
+//! 法强，每 5 层大招和黑洞大一档）
 //! 每条命从零叠起；数据读不到生命，黑洞中心只能每秒打英雄最大生命的 `e_exec`%（处决的替身）。
 //! `mod.override_info` 把主包的奥瑞利安·索尔换成 `override/` 里的副本（tools/kit/build_aurelionsol.py --native）：黑洞中心
 //! 每次打到英雄时多跑一个原生效果 `league_aurelionsol:core`，`passive` 换成本包的 `league_aurelionsol:stardust`：
@@ -8,8 +9,8 @@
 //! - 活着时把身上每一层 `league_aurelionsol_d<n>` 原样记下来；少了（死亡清掉的）就原样补回（卑尔维斯附加包的做法）。层数
 //!   只会变多（主包从不去掉一层），所以「身上比记下的少」只会是死亡清掉的。最多 `d_max` 层。天瀑的充能（`c1`…）不记：
 //!   放天瀑时主包自己会清掉它们。
-//! - 黑洞中心打到一个英雄：它的生命低于最大生命的 `e_low`% + 每层星尘 `e_low_d`%（英雄联盟：星尘越多处决线越高）就直接
-//!   处决（真实伤害 = 生命 + 护盾 + 1，梅尔附加包的做法）。
+//! - 黑洞中心打到一个英雄：它的生命低于最大生命的 `e_low`% + 每层星尘 `e_low_d`%（英雄联盟：星尘越多处决线越高；只算前
+//!   `e_low_n` 层，星尘上限提到 30 层后处决线仍最多 20%）就直接处决（真实伤害 = 生命 + 护盾 + 1，梅尔附加包的做法）。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份；原生效果读不到参数，被动出生
 //! 时按（这局的种子, 单位）记一份给它。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurelionsol.log`，每次启动
@@ -24,6 +25,12 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_aurelionsol";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_aurelionsol") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 /// A stardust stack's name: this and its number (build_aurelionsol.py: `d1` .. `d<d_max>`).
 const STACK: &str = "league_aurelionsol_d";
 
@@ -78,13 +85,21 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
-/// The first `n` of each kind of line are logged, then every 100th (a long game repeats the same event).
-fn counted(kind: &str) -> Option<usize> {
+/// The first `n` of each kind of line are logged, then every 100th (a long game repeats the same event); every one of the
+/// match on screen (`shown`: 2026-11-02, a watched set kept 2 lines, the presims had used the count up).
+fn counted(kind: &str, shown: bool) -> Option<usize> {
     static COUNTS: LazyLock<Mutex<HashMap<String, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let k = c.entry(kind.to_string()).or_insert(0);
     *k += 1;
-    (*k <= 40 || *k % 100 == 0).then_some(*k)
+    (shown || *k <= 40 || *k % 100 == 0).then_some(*k)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 // ===================== 参数 =====================
@@ -96,17 +111,19 @@ pub struct Params {
     pub d_max: usize,
     /// 黑洞中心的处决线：最大生命的这个百分比……
     pub e_low: usize,
-    /// ……每层星尘再加这么多。
+    /// ……每层星尘再加这么多……
     pub e_low_d: usize,
+    /// ……只算前这么多层。
+    pub e_low_n: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { d_max: 15, e_low: 5, e_low_d: 1 }
+        Self { d_max: 30, e_low: 5, e_low_d: 1, e_low_n: 15 }
     }
 }
 
-/// `{"d_max":15,"e_low":5,"e_low_d":1}` -> 参数；缺的键用默认值，认不得的键忽略。
+/// `{"d_max":30,"e_low":5,"e_low_d":1,"e_low_n":15}` -> 参数；缺的键用默认值，认不得的键忽略。
 pub fn parse_params(json: &str) -> Params {
     let mut p = Params::default();
     let body = json.trim().trim_start_matches('{').trim_end_matches('}');
@@ -118,6 +135,7 @@ pub fn parse_params(json: &str) -> Params {
             "d_max" => p.d_max = v,
             "e_low" => p.e_low = v,
             "e_low_d" => p.e_low_d = v,
+            "e_low_n" => p.e_low_n = v,
             _ => {}
         }
     }
@@ -139,9 +157,21 @@ pub fn stack_of(name: &str, d_max: usize) -> Option<usize> {
     (1..=d_max).contains(&n).then_some(n)
 }
 
-/// The execute line in percent of maximum health with this much stardust.
+/// The execute line in percent of maximum health with this much stardust (its first e_low_n stacks count).
 pub fn execute_line(p: &Params, stacks: usize) -> usize {
-    p.e_low + p.e_low_d * stacks.min(p.d_max)
+    p.e_low + p.e_low_d * stacks.min(p.d_max).min(p.e_low_n)
+}
+
+/// The execute's fixed damage: his health + shield + maximum health (it lands next tick: through this tick's heal or
+/// shield, league_locke's and league_pyke's way), scaled up by his damage reduction (league_mel's executes left 5 of 48
+/// alive at `hp + shield + 1`, 2026-11-02). A 100% reduction (Master Yi's Alpha Strike): None, no execute this time.
+pub fn execute_damage(hp: usize, shield: usize, max: usize, reduce: usize) -> Option<usize> {
+    (reduce < 100).then(|| (hp + shield + max) * 100 / (100 - reduce))
+}
+
+/// A unit's damage reduction in % (damage taken and skill damage taken, up to 100).
+pub fn reduction(e: &StableEntity<'_, '_>) -> usize {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.damaged_reduce + b.skill_damaged_reduce).sum::<usize>().min(100)
 }
 
 /// Is a champion with this health under the line (a unit with no maximum never is).
@@ -177,13 +207,20 @@ fn core(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let (hp, max) = u.hp();
     let shield = u.shield();
     let name = u.name().unwrap_or_default();
+    let reduce = reduction(&u);
     if !executes(&p, stacks, hp, max) {
         return;
     }
-    sim.deal_damage_typed(me, t, hp + shield + 1, DamageTypeV1::Fixed, AttackTypeV1::Skill);
-    if let Some(k) = counted("execute") {
-        wlog(format!("{} EXECUTE #{k}: {name} #{t} at {hp}/{max} ({}%) under {}% ({stacks} stardust)", head(sim, me),
-                     hp * 100 / max.max(1), execute_line(&p, stacks)));
+    let Some(dmg) = execute_damage(hp, shield, max, reduce) else {
+        if let Some(k) = counted("execute held", on_screen(sim)) {
+            wlog(format!("{} EXECUTE HELD #{k}: {name} #{t} takes no damage now (reduced {reduce}%)", head(sim, me)));
+        }
+        return;
+    };
+    sim.deal_damage_typed(me, t, dmg, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+    if let Some(k) = counted("execute", on_screen(sim)) {
+        wlog(format!("{} EXECUTE #{k}: {name} #{t} at {hp}/{max} ({}%) under {}% ({stacks} stardust), dealt {dmg} (reduced {reduce}%)",
+                     head(sim, me), hp * 100 / max.max(1), execute_line(&p, stacks)));
     }
 }
 
@@ -216,7 +253,7 @@ impl StablePassive for Stardust {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert((sim.seed(), me), self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        if let Some(k) = counted("spawn") {
+        if let Some(k) = counted("spawn", on_screen(sim)) {
             wlog(format!("{} SPAWN #{k}: the add-on's Aurelion Sol (player {player}, team {team}), {:?}", head(sim, me),
                          self.p));
         }
@@ -226,7 +263,7 @@ impl StablePassive for Stardust {
         let Some(e) = sim.get_entity(me) else { return };
         let alive = e.is_alive();
         if alive != self.was_alive {
-            if let Some(k) = counted("life") {
+            if let Some(k) = counted("life", on_screen(sim)) {
                 wlog(format!("{} {} #{k} with {} stardust kept", head(sim, me), if alive { "ALIVE" } else { "DEAD" },
                              self.kept.len()));
             }
@@ -239,12 +276,12 @@ impl StablePassive for Stardust {
             for b in &gone {
                 sim.add_buff(me, b);
             }
-            if let Some(k) = counted("keep") {
+            if let Some(k) = counted("keep", on_screen(sim)) {
                 wlog(format!("{} KEEP #{k}: {} stardust put back ({}), {} in all", head(sim, me), gone.len(),
                              if alive { "alive" } else { "dead" }, self.kept.len()));
             }
         } else if alive && have.len() > self.kept.len() {
-            if let Some(k) = counted("stack") {
+            if let Some(k) = counted("stack", on_screen(sim)) {
                 wlog(format!("{} STACK #{k}: {} -> {}", head(sim, me), self.kept.len(), have.len()));
             }
             self.kept = have;
@@ -260,7 +297,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v1 (stardust kept through death, Singularity's core executing by real health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (stardust kept through death, Singularity's core executing by real health) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -289,17 +326,19 @@ mod tests {
 
     #[test]
     fn params_come_from_the_champion_data() {
-        assert_eq!(parse_params(r#"{"d_max":12,"e_low":6,"e_low_d":2,"x":1}"#), Params { d_max: 12, e_low: 6, e_low_d: 2 });
+        assert_eq!(parse_params(r#"{"d_max":12,"e_low":6,"e_low_d":2,"x":1}"#),
+                   Params { d_max: 12, e_low: 6, e_low_d: 2, e_low_n: 15 });
+        assert_eq!(parse_params(r#"{"d_max":30,"e_low":5,"e_low_d":1,"e_low_n":15}"#), Params::default());
         assert_eq!(parse_params("{}"), Params::default());
     }
 
     #[test]
     fn stacks_are_the_data_s_names() {
-        assert_eq!(stack_of("league_aurelionsol_d1", 15), Some(1));
-        assert_eq!(stack_of("league_aurelionsol_d15", 15), Some(15));
-        assert_eq!(stack_of("league_aurelionsol_d16", 15), None);
-        assert_eq!(stack_of("league_aurelionsol_d0", 15), None);
-        assert_eq!(stack_of("league_aurelionsol_dg", 15), None);
+        assert_eq!(stack_of("league_aurelionsol_d1", 30), Some(1));
+        assert_eq!(stack_of("league_aurelionsol_d30", 30), Some(30));
+        assert_eq!(stack_of("league_aurelionsol_d31", 30), None);
+        assert_eq!(stack_of("league_aurelionsol_d0", 30), None);
+        assert_eq!(stack_of("league_aurelionsol_dg", 30), None);
     }
 
     #[test]
@@ -307,12 +346,17 @@ mod tests {
         let p = Params::default();
         assert_eq!(execute_line(&p, 0), 5);
         assert_eq!(execute_line(&p, 15), 20);
+        assert_eq!(execute_line(&p, 30), 20);
         assert_eq!(execute_line(&p, 40), 20);
         assert!(executes(&p, 0, 49, 1000));
         assert!(!executes(&p, 0, 50, 1000));
         assert!(executes(&p, 15, 199, 1000));
         assert!(!executes(&p, 15, 0, 1000));
         assert!(!executes(&p, 15, 10, 0));
+        // through this tick's heal or shield and any damage reduction short of 100%
+        assert_eq!(execute_damage(150, 0, 1000, 0), Some(1150));
+        assert!(execute_damage(150, 0, 1000, 40).unwrap() * 60 / 100 > 150);
+        assert_eq!(execute_damage(150, 0, 1000, 100), None);
     }
 
     #[test]

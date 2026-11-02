@@ -1,0 +1,128 @@
+[
+  {
+    "file": "cinderling-A.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      457,
+      907,
+      846,
+      1201
+    ],
+    "visible_size_alpha128": [
+      389,
+      294
+    ],
+    "transparent_pixels_present": true,
+    "alpha_level_count": 256,
+    "hard_alpha_pass": false,
+    "canvas_1536_pass": false
+  },
+  {
+    "file": "cinderling-B.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      375,
+      734,
+      900,
+      1192
+    ],
+    "visible_size_alpha128": [
+      525,
+      458
+    ],
+    "transparent_pixels_present": true,
+    "alpha_level_count": 256,
+    "hard_alpha_pass": false,
+    "canvas_1536_pass": false
+  },
+  {
+    "file": "raw/cinderling-A-generation-1.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      331,
+      630,
+      1044,
+      1202
+    ],
+    "visible_size_alpha128": [
+      713,
+      572
+    ],
+    "transparent_pixels_present": true,
+    "alpha_level_count": 256,
+    "hard_alpha_pass": false,
+    "canvas_1536_pass": false
+  },
+  {
+    "file": "raw/cinderling-A-generation-2.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      457,
+      907,
+      846,
+      1201
+    ],
+    "visible_size_alpha128": [
+      389,
+      294
+    ],
+    "transparent_pixels_present": true,
+    "alpha_level_count": 256,
+    "hard_alpha_pass": false,
+    "canvas_1536_pass": false
+  },
+  {
+    "file": "raw/cinderling-B-generation-1.png",
+    "canvas": [
+      1536,
+      1024
+    ],
+    "visible_bbox_alpha128": [
+      459,
+      413,
+      1100,
+      998
+    ],
+    "visible_size_alpha128": [
+      641,
+      585
+    ],
+    "transparent_pixels_present": true,
+    "alpha_level_count": 256,
+    "hard_alpha_pass": false,
+    "canvas_1536_pass": false
+  },
+  {
+    "file": "raw/cinderling-B-generation-2.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "visible_bbox_alpha128": [
+      375,
+      734,
+      900,
+      1192
+    ],
+    "visible_size_alpha128": [
+      525,
+      458
+    ],
+    "transparent_pixels_present": true,
+    "alpha_level_count": 256,
+    "hard_alpha_pass": false,
+    "canvas_1536_pass": false
+  }
+]

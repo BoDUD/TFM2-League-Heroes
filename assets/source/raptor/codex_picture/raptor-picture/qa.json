@@ -1,0 +1,70 @@
+{
+  "A": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "logical_size": [
+      49,
+      38
+    ],
+    "grid_px": 11,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "sprite_origin": [
+      495,
+      968
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "visible_bbox": [
+      495,
+      968,
+      1034,
+      1386
+    ],
+    "source_size": [
+      1254,
+      1254
+    ],
+    "route": "AI-generated art, uniform grid export; original preserved"
+  },
+  "B": {
+    "canvas": [
+      1536,
+      1536
+    ],
+    "logical_size": [
+      60,
+      35
+    ],
+    "grid_px": 11,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "sprite_origin": [
+      429,
+      1001
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "visible_bbox": [
+      429,
+      1001,
+      1089,
+      1386
+    ],
+    "source_size": [
+      1536,
+      1024
+    ],
+    "route": "AI-generated art, uniform grid export; original preserved"
+  }
+}

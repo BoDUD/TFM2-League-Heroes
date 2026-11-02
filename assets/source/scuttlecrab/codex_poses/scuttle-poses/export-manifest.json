@@ -1,0 +1,362 @@
+[
+  {
+    "name": "a_rise",
+    "status": "exported",
+    "translation": [
+      0,
+      -78
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      198,
+      109,
+      1169,
+      1178
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "a_hop",
+    "status": "exported",
+    "translation": [
+      0,
+      -30
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      79,
+      95,
+      1235,
+      1130
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "a_stomp",
+    "status": "exported",
+    "translation": [
+      0,
+      -24
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      47,
+      458,
+      1208,
+      1124
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "q_raise",
+    "status": "exported",
+    "translation": [
+      0,
+      -75
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      132,
+      134,
+      1147,
+      1175
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "q_call",
+    "status": "exported",
+    "translation": [
+      0,
+      -40
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      175,
+      97,
+      1118,
+      1140
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "e_tuck",
+    "status": "exported",
+    "translation": [
+      0,
+      -15
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      182,
+      482,
+      1098,
+      1115
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "e_shell",
+    "status": "exported",
+    "translation": [
+      0,
+      -28
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      156,
+      486,
+      1177,
+      1128
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "e_pop",
+    "status": "exported",
+    "translation": [
+      0,
+      -75
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      119,
+      174,
+      1192,
+      1175
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "r_up1",
+    "status": "exported",
+    "translation": [
+      0,
+      0
+    ],
+    "underground_crop_y": 1100,
+    "source_bbox": [
+      40,
+      539,
+      1244,
+      1213
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "r_up2",
+    "status": "exported",
+    "translation": [
+      0,
+      0
+    ],
+    "underground_crop_y": 1100,
+    "source_bbox": [
+      89,
+      314,
+      1138,
+      1167
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "r_up3",
+    "status": "exported",
+    "translation": [
+      0,
+      -59
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      177,
+      336,
+      1165,
+      1159
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "run1",
+    "status": "exported",
+    "translation": [
+      0,
+      -74
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      127,
+      373,
+      1186,
+      1174
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "run2",
+    "status": "exported",
+    "translation": [
+      0,
+      -23
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      179,
+      376,
+      1171,
+      1123
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "run3",
+    "status": "exported",
+    "translation": [
+      0,
+      -35
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      118,
+      341,
+      1176,
+      1135
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "run4",
+    "status": "exported",
+    "translation": [
+      0,
+      -35
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      96,
+      383,
+      1175,
+      1135
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "run5",
+    "status": "exported",
+    "translation": [
+      0,
+      -5
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      112,
+      373,
+      1142,
+      1105
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "run6",
+    "status": "exported",
+    "translation": [
+      0,
+      29
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      141,
+      305,
+      1138,
+      1071
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "run7",
+    "status": "exported",
+    "translation": [
+      0,
+      5
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      172,
+      323,
+      1133,
+      1095
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "run8",
+    "status": "exported",
+    "translation": [
+      0,
+      -4
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      172,
+      351,
+      1079,
+      1104
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  },
+  {
+    "name": "d_down",
+    "status": "exported",
+    "translation": [
+      0,
+      -78
+    ],
+    "underground_crop_y": null,
+    "source_bbox": [
+      183,
+      630,
+      1200,
+      1178
+    ],
+    "resampled": false,
+    "rgb_repainted": false,
+    "alpha_threshold": 128
+  }
+]

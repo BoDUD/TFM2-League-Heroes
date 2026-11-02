@@ -68,6 +68,17 @@ impl Grid {
     }
 }
 
+/// 猜地图用的点：所有活着的单位（英雄、小兵、野怪、塔……）。只看英雄的话，大家都站在三张图都空着的那条斜带上
+/// （中路、两边泉水）时打平，平手偏向墙多的单线 / 死斗图，5v5 就猜错了（2026-11-01 复查：波比的 R 有 7 次退回击退）；
+/// 5v5 边路的兵和野区的野怪几乎一直在，正好落在另两张图的墙里。
+fn unit_points(sim: &StableSim<'_>) -> Vec<(f64, f64)> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_alive())
+        .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+        .collect()
+}
+
 /// 这局是哪张图：站在墙里的英雄最少、墙又最多的那张（泰隆、诺提勒斯附加包的判断）。
 pub fn current(grids: &[Grid], champions: &[Pt]) -> Option<usize> {
     grids
@@ -167,16 +178,8 @@ fn launch(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
         return;
     };
     let p = params_of(sim, caster);
-    let mut champs = Vec::new();
-    for i in 0..sim.entity_count() {
-        let Some(u) = sim.entity_at(i) else { continue };
-        if u.is_champion() && u.is_alive() {
-            let (x, y) = u.pos();
-            champs.push((x as f64, y as f64));
-        }
-    }
     let grids = Grid::builtin();
-    let (end, wall) = match current(&grids, &champs) {
+    let (end, wall) = match current(&grids, &unit_points(sim)) {
         Some(gi) => end_of(&grids[gi], here, dir, p.q_range as f64),
         None => ((here.0 + dir.0 * p.q_range as f64, here.1 + dir.1 * p.q_range as f64), false),
     };

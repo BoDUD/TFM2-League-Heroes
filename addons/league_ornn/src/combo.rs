@@ -12,10 +12,14 @@
 
 use mod_api_stable::*;
 
-use super::{counted, dist, has_buff, head, n, pillars_of, pos, who, wlog, Pt, E_QUAKE_R, E_RANGE, ID, PILLAR_R, Q_RANGE};
+use super::{dist, has_buff, head, n, pillars_of, pos, tally, who, wlog, Pt, E_QUAKE_R, E_RANGE, ID, PILLAR_R, Q_RANGE};
 
 /// 排在 league_ult_press（100）之后：引擎按优先级从小到大跑 AI 钩子，每个拿到前一个的决定。
 pub const COMBO_PRIORITY: i32 = 110;
+/// A press of the same key at the same unit within this many ticks of the last is the same burst (the engine may take a
+/// few ticks to start the cast and the hook presses again every tick meanwhile): one log line a burst
+/// (league_ult_press's ORDER_FRESH; 2026-11-02 logs: "E PILLAR #26..#30" over 5 ticks for one charge).
+pub const PRESS_FRESH: usize = 30;
 /// 敌方英雄离柱子这么近（中心距离），冲过去撞他就撞得到柱子。
 pub const NEAR_PILLAR: f64 = E_QUAKE_R as f64 + PILLAR_R - 4_000.0;
 /// 他的普攻射程（主包 atk_range）。
@@ -196,6 +200,8 @@ fn under_tower(sim: &StableSim<'_>, me: usize, p: Pt) -> bool {
 pub struct Combo {
     /// the AI is recalling (`still_recalling`)
     recalling: bool,
+    /// the last press: its log kind, target, tick (one line a burst)
+    last_press: Option<(&'static str, usize, usize)>,
 }
 
 impl StablePlayerAi for Combo {
@@ -222,7 +228,7 @@ impl StablePlayerAi for Combo {
             return None;
         }
         let player = ctx.player_id();
-        let (call, line, on) = {
+        let (call, line, on, tick) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?.id();
             let (m, foes) = read(&sim, me)?;
@@ -236,19 +242,23 @@ impl StablePlayerAi for Combo {
             let t = match &c {
                 Call::PressQ(_, t, _) | Call::PressE(t, _) | Call::Attack(t, _) => *t,
             };
-            (c, head(&sim, me), who(&sim, t))
+            (c, head(&sim, me), who(&sim, t), sim.tick())
         };
-        let (input, kind, label, why) = match call {
-            Call::PressQ(at, _, why) => (InputV1::action(InputKindV1::Skill, InputTargetV1::pos(at.0.max(0.0) as u64, at.1.max(0.0) as u64)),
-                                         "q first", "Q FIRST", why),
-            Call::PressE(t, why) => (InputV1::action(InputKindV1::Skill2, InputTargetV1::target(t)), "e pillar", "E PILLAR", why),
-            Call::Attack(t, why) => (InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)), "brittle", "BRITTLE", why),
+        let (input, kind, label, why, t) = match call {
+            Call::PressQ(at, t, why) => (InputV1::action(InputKindV1::Skill, InputTargetV1::pos(at.0.max(0.0) as u64, at.1.max(0.0) as u64)),
+                                         "q first", "Q FIRST", why, t),
+            Call::PressE(t, why) => (InputV1::action(InputKindV1::Skill2, InputTargetV1::target(t)), "e pillar", "E PILLAR", why, t),
+            Call::Attack(t, why) => (InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)), "brittle", "BRITTLE", why, t),
         };
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        if let Some(k) = counted(kind) {
-            wlog(format!("{line} {label} on {on}: {why} #{k}"));
+        let burst = self.last_press.is_some_and(|(k, at, t0)| k == kind && at == t && tick <= t0 + PRESS_FRESH);
+        self.last_press = Some((kind, t, tick));
+        if !burst {
+            if let Some(k) = ctx.sim().and_then(|sim| tally(&sim, kind)) {
+                wlog(format!("{line} {label} on {on}: {why} #{k}"));
+            }
         }
         Some(input)
     }

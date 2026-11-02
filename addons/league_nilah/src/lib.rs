@@ -24,8 +24,13 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 const ID: &str = "league_nilah";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_nilah") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 const HERO: &str = "league_nilah";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
 /// 主包数据的 buff：E 冲刺后的间隔、两层 E 在充能、W 在冷却。
 const E_GAP: &str = "league_nilah_e_gap";
 const E_X1: &str = "league_nilah_e_x1";

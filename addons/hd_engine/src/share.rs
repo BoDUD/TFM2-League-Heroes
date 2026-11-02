@@ -106,6 +106,9 @@ impl<'a> Table<'a> {
         for (id, buff, per) in &self.growth {
             s += &format!("growth {id} {buff} {per}\n");
         }
+        for (id, buffs, size, secs) in &self.forms {
+            s += &format!("form {id} {size} {secs} {}\n", buffs.join(" "));
+        }
         for id in &self.drawn_effects {
             s += &format!("drawn {id}\n");
         }
@@ -134,6 +137,12 @@ impl<'a> Table<'a> {
                 ["effect", e, ppu, n] => t.effects.push((id(e)?, number(ppu)?, c.blob(length(n)?)?)),
                 ["size", h, size] => t.sizes.push((id(h)?, number(size)?)),
                 ["growth", h, buff, per] => t.growth.push((id(h)?, id(buff)?, number(per)?)),
+                ["form", h, size, secs, ref buffs @ ..] if !buffs.is_empty() => t.forms.push((
+                    id(h)?,
+                    buffs.iter().map(|b| id(b)).collect::<Result<_, _>>()?,
+                    number(size)?,
+                    number(secs)?,
+                )),
                 ["drawn", e] => t.drawn_effects.push(id(e)?),
                 ["ui_size", h, size] => t.ui_sizes.push((id(h)?, number(size)?)),
                 ["end"] => break,
@@ -361,6 +370,7 @@ mod tests {
     fn league() -> Table<'static> {
         let mut t = table("league", &[("league_yasuo", 2.2), ("league_chogath", 2.0)]);
         t.growth.push(("league_chogath", "league_chogath_r_stack", 0.30));
+        t.forms.push(("league_yasuo", vec!["league_volibear_r_air", "league_volibear_r_form"], 1.35, 1.25));
         t.effects.push(("league_ivern_daisy_drop", 1.333, Box::leak(fanim(1.333, false).into_boxed_str())));
         t.drawn_effects.push("league_ivern_daisy_drop");
         t
@@ -440,6 +450,8 @@ mod tests {
         assert!((h.get("tft_alune").unwrap().ui - crate::hd::UI_PPU / 0.85).abs() < 1e-6);
         assert_eq!(h.packs, vec!["league", "tft"]);
         assert_eq!(h.growth, vec![("league_chogath", "league_chogath_r_stack", 0.30)]);
+        let form: &[&str] = &["league_volibear_r_air", "league_volibear_r_form"];
+        assert_eq!(h.forms, vec![("league_yasuo", form, 1.35, 1.25)]);
         assert_eq!(h.drawn_effects, vec!["league_ivern_daisy_drop"]);
         assert!(mine.heroes().list.is_empty(), "the guest keeps no table of its own");
     }

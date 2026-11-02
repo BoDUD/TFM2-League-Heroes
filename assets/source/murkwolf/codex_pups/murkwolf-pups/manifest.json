@@ -1,0 +1,133 @@
+{
+  "frames": 6,
+  "order": [
+    "stand",
+    "breath",
+    "crouch",
+    "lunge",
+    "recover",
+    "settle"
+  ],
+  "layout": [
+    3,
+    2
+  ],
+  "actual_canvas": [
+    1774,
+    887
+  ],
+  "requested_canvas": [
+    1200,
+    600
+  ],
+  "exact_canvas_pass": false,
+  "requested_grid_px": 12,
+  "exact_grid_pass": false,
+  "alpha_values": [
+    0,
+    255
+  ],
+  "hard_alpha_pass": true,
+  "resampled": false,
+  "body_pixels_scaled": false,
+  "processing": "Alpha threshold128 only. No resize/resample or position adjustments.",
+  "raw_sha256": "b178b9761c8a36033c437fee6e184ff5c83ace1f7826a9d9c869b984bad977b4",
+  "cells": [
+    {
+      "name": "stand",
+      "source_cell": [
+        0,
+        0,
+        591,
+        444
+      ],
+      "visible_bbox": [
+        83,
+        148,
+        541,
+        420
+      ],
+      "opaque_pixels": 68527
+    },
+    {
+      "name": "breath",
+      "source_cell": [
+        591,
+        0,
+        1183,
+        444
+      ],
+      "visible_bbox": [
+        102,
+        149,
+        563,
+        421
+      ],
+      "opaque_pixels": 68511
+    },
+    {
+      "name": "crouch",
+      "source_cell": [
+        1183,
+        0,
+        1774,
+        444
+      ],
+      "visible_bbox": [
+        72,
+        143,
+        546,
+        417
+      ],
+      "opaque_pixels": 63693
+    },
+    {
+      "name": "lunge",
+      "source_cell": [
+        0,
+        444,
+        591,
+        887
+      ],
+      "visible_bbox": [
+        66,
+        52,
+        591,
+        412
+      ],
+      "opaque_pixels": 78940
+    },
+    {
+      "name": "recover",
+      "source_cell": [
+        591,
+        444,
+        1183,
+        887
+      ],
+      "visible_bbox": [
+        0,
+        64,
+        563,
+        406
+      ],
+      "opaque_pixels": 71683
+    },
+    {
+      "name": "settle",
+      "source_cell": [
+        1183,
+        444,
+        1774,
+        887
+      ],
+      "visible_bbox": [
+        64,
+        126,
+        544,
+        398
+      ],
+      "opaque_pixels": 70261
+    }
+  ]
+}

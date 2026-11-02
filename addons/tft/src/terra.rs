@@ -201,6 +201,8 @@ impl StableEffectType for RQuake {
 
 #[derive(Clone, Default)]
 struct Monolith {
+    /// The champion it belongs to (on_dead is given the player, not the unit).
+    me: usize,
     p: Params,
     /// Whether she was alive last tick (a new life puts the hide on at once).
     was_alive: bool,
@@ -216,6 +218,10 @@ impl StablePassive for Monolith {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
+        // a new life is a new unit, and on_update does not run while it is dead: the first tick of this life
+        // must see a dead one, or what each life has once stays used up (2026-11-02 logs)
+        self.was_alive = false;
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -242,7 +248,8 @@ impl StablePassive for Monolith {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        let me = self.me;
         // her death cry (the data has no moment for it)
         sim.play_sfx(&te("d"), me, &InputTargetV1::target(me));
     }

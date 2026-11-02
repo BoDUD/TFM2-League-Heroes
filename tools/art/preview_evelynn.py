@@ -3,7 +3,7 @@
 
     python tools/art/preview_evelynn.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_evelynn_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_evelynn_frames.png    every animation's dense frames (hd_, PPU 2.78, as league.dll shows them)
   league_evelynn_effects.png   every effect animation, 3x
   league_evelynn_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                                (work/ev/build_evelynn.py): Evelynn runs in and whips Darius (Whiplash: the whip's hit
@@ -27,6 +27,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_jinx import Follow  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -59,7 +60,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, to=None):
         nonlocal t, x
-        an = Anim(frames_of(ev, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
+        an = Anim(dense(ev, tag, "evelynn", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
         if to is not None:
@@ -104,7 +105,7 @@ def showcase(out, z=3, step=40):
         return rel
 
     # she runs in; Darius waits, Garen behind him
-    run = Anim(frames_of(ev, "run"), 0.0, x - 50, gy, loop=True, until=1100, x1=x)
+    run = Anim(dense(ev, "run", "evelynn", z), 0.0, x - 50, gy, loop=True, until=1100, x1=x)
     body.append(run)
     t = run.until
     a("idle", 200, loop=True)
@@ -193,11 +194,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -215,7 +216,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -235,8 +236,7 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_evelynn_frames.png")))
+        print("frames", contact(dense_rows(s), os.path.join(args.out, "league_evelynn_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():
