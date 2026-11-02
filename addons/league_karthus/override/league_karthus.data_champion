@@ -832,7 +832,7 @@
     "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
-    "range": 40000,
+    "range": 55000,
     "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
@@ -1023,7 +1023,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1094,7 +1094,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1165,7 +1165,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1236,7 +1236,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1307,7 +1307,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1378,7 +1378,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1449,7 +1449,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1520,7 +1520,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1591,7 +1591,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1662,7 +1662,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1733,7 +1733,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1804,7 +1804,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1875,7 +1875,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -1946,7 +1946,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -2017,7 +2017,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -2088,7 +2088,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -2159,7 +2159,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -2230,7 +2230,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -2301,7 +2301,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -2372,7 +2372,7 @@
                         "type": "RangeEffect",
                         "shape": {
                           "Circle": {
-                            "radius": 30000
+                            "radius": 55000
                           }
                         },
                         "target": "EnemyWithoutTower",
