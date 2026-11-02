@@ -21,6 +21,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+use crate::sim_tag::{Key, SimTag};
+
 const ID: &str = "tft_steb";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 /// The shared heal's sound and the Wanted kill's (the tft pack's sound_info; the rest of his sounds the data plays).
@@ -160,14 +162,22 @@ fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied().unwrap_or_default()
 }
 
-/// 通缉中的人：(这场模拟的种子、来历、比赛、第几局, 他) -> (那人、通缉到哪一拍)。按模拟分开记（洛里斯的 LEAPS 一样：
-/// 预演和观看同时在跑，只按他的编号记会串）。
-type Key = (u64, u32, u64, u64, usize);
+/// 通缉中的人：(这份模拟的编号 `SIM_TAG`, 他) -> (那人、通缉到哪一拍)。按模拟分开记（洛里斯的 LEAPS 一样：预演和观看同时在跑，
+/// 只按他的编号记会串）。2026-11-03（tft 0.46.0）以前按（种子、来历、比赛、第几局、他）：服务器并排跑的两份预模拟这几样全一样，
+/// 一份的通缉令盖掉另一份的，一份的赏金或过期把另一份的也删了。
+const TAG: SimTag = SimTag("tft_steb_sim:");
 static WANTED: LazyLock<Mutex<HashMap<Key, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-fn key(sim: &StableSim<'_>, me: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+fn wanted_of(row: Key) -> Option<(usize, usize)> {
+    WANTED.lock().unwrap_or_else(|e| e.into_inner()).get(&row).copied()
+}
+
+fn set_wanted(row: Key, enemy: usize, until: usize) {
+    WANTED.lock().unwrap_or_else(|e| e.into_inner()).insert(row, (enemy, until));
+}
+
+fn drop_wanted(row: Key) {
+    WANTED.lock().unwrap_or_else(|e| e.into_inner()).remove(&row);
 }
 
 // ===================== 规则（单元测试用） =====================
@@ -248,7 +258,7 @@ impl StableEffectType for Wanted {
         let on = InputTargetV1::target(target);
         sim.play_view_effect(&sb("e_mark"), me, &on, 0, 0, 0);
         sim.play_sfx(SFX_MARK, me, &on);
-        WANTED.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), (target, sim.tick() + p.e_t));
+        set_wanted(TAG.key(sim, me, me), target, sim.tick() + p.e_t);
         if let Some(k) = counted("wanted") {
             let (hp, max) = sim.get_entity(target).map_or((0, 0), |e| e.hp());
             wlog(format!("{} WANTED #{k}: {} ({hp}/{max}) takes {}% more for {} ticks", head(sim, me),
@@ -274,6 +284,8 @@ struct Medic {
     was_alive: bool,
     /// The last tick each ally showed a shared heal.
     shown: HashMap<usize, usize>,
+    /// This simulation's number (`SIM_TAG`), drawn at his first spawn.
+    sim: u64,
 }
 
 impl Medic {
@@ -306,17 +318,17 @@ impl Medic {
 
     /// The Wanted one down while marked: attack speed for him and the allies near him.
     fn watch(&self, sim: &mut StableSim<'_>, me: usize) {
-        let k = key(sim, me);
-        let Some((target, until)) = WANTED.lock().unwrap_or_else(|e| e.into_inner()).get(&k).copied() else { return };
+        let row = (self.sim, me);
+        let Some((target, until)) = wanted_of(row) else { return };
         let tick = sim.tick();
         if tick >= until {
-            WANTED.lock().unwrap_or_else(|e| e.into_inner()).remove(&k);
+            drop_wanted(row);
             return;
         }
         if sim.get_entity(target).is_some_and(|e| e.is_alive()) {
             return;
         }
-        WANTED.lock().unwrap_or_else(|e| e.into_inner()).remove(&k);
+        drop_wanted(row);
         let Some(at) = sim.get_entity(me).map(|e| e.pos()) else { return };
         let r = (self.p.e_kr as u128) * (self.p.e_kr as u128);
         let mut team: Vec<usize> = units(sim, me, true).into_iter().filter(|u| dist_sq(u.1, at) <= r).map(|u| u.0).collect();
@@ -349,6 +361,7 @@ impl StablePassive for Medic {
         // a new life is a new unit, and on_update does not run while it is dead: the first tick of this life
         // must see a dead one, or what each life has once stays used up (2026-11-02 logs)
         self.was_alive = false;
+        TAG.spawn(sim, me, &mut self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -427,5 +440,22 @@ mod tests {
     fn a_quarter_of_the_heal() {
         assert_eq!(share_of(200, 25), 50);
         assert_eq!(share_of(3, 25), 0);
+    }
+
+    #[test]
+    fn each_sim_keeps_its_own_wanted() {
+        // the tag his passive hangs is the one his Wanted reads back, and it fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+        // the server's two presims of one set: Steb is #2 in both, two numbers
+        let (a, b) = ((u64::MAX - 1, 2), (u64::MAX - 2, 2));
+        set_wanted(a, 7, 300);
+        set_wanted(b, 8, 320);
+        assert_eq!(wanted_of(a), Some((7, 300)));
+        // b's bounty (or b's mark running out) leaves a's mark
+        drop_wanted(b);
+        assert_eq!(wanted_of(a), Some((7, 300)));
+        assert_eq!(wanted_of(b), None);
+        drop_wanted(a);
     }
 }

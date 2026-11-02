@@ -19,10 +19,12 @@
 1. 主包 0.71 以上要装着并启用；本包已经编进附加包合集 `league_addons`（单独用时把 `league_fiora_duel` 文件夹放进 `mods\`）。
 2. 看剑姬大招的说明：开头是「【破绽测试版】」就说明换上了。
 3. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_fiora_duel.log`（每次启动游戏重写）：
-   - `R hit on #…: the challenged champion - a Vital`：打中被挑战的人，刺一处；
-   - `R hit on #…: another champion - the passive only; taunted onto the challenged #… (距离) for 70 ticks`：打中别人，只出被动破绽，
+   - `R hit #n on #…: the challenged champion - a Vital`：打中被挑战的人，刺一处；
+   - `R hit #n on #…: another champion - the passive only; taunted onto the challenged #… (距离) for 70 ticks`：打中别人，只出被动破绽，
      把她嘲讽回被挑战的人（下一行应该是打中他）；
    - `… the challenged #… is out of reach or sight`：他太远或看不见，不拉；`no challenged champion left`：他已经死了。
+   - 0.2.3（2026-11-03 的日志：大招的每一下命中都写，一次启动 3260 行、311 KB）：这四种行各有整次启动的计数（`#n`），服务器的预模拟每种
+     先记 40 行、之后每 50 行一行，你看的那场每行都记。
 
 ## 开发
 

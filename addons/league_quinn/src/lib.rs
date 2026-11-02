@@ -12,6 +12,8 @@
 //!   0.2.0 装进游戏后所有对局（预演和画面）一次 VAULT 都没有——冲刺 end_effects 里挂的标记本包从来没看到。现在副本出 E 时就挂
 //!   `league_quinn_e_dash`（`DASH_T` tick，和 `r_ride` 一样挂在动作里，本包看得到），本包看着她冲：冲起来（一 tick 挪 `DASH_STEP`
 //!   以上）后停下的那一 tick，或者 `STILL_T` tick 都没冲（贴身踢）就翻；踢中的标记要是看到了也照样翻，一次 E 只翻一次。
+//! - **什么时候骑**（0.4.0，`ride_ai.rs`）：游戏的 AI 从来不按这一招，钩子照英雄联盟高手的用法替它按——走远路（回线、游走、
+//!   支援）且不在交战中就骑，远处有残血、她血量健康就骑过去追。
 //! - **骑乘的样子**（`view.rs`，游戏 0.6.4 起的 Windows 版）：骑着的时候站着、走着、挨打都是骑在华洛背上的 `r_idle` / `r_run` / `r_hit`。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_quinn.log`，每次启动游戏重写，上一次的留在 .prev.log：`RIDE`（骑上、
@@ -26,6 +28,7 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod ride_ai;
 pub mod view;
 
 const ID: &str = "league_quinn";
@@ -340,7 +343,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Quinn: League's ride on Valor, Skystrike when it runs out, the riding body) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Quinn: League's ride on Valor, ridden to roam and to chase, Skystrike when it runs out, the riding body) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -349,7 +352,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     view::install_once();
     module.add_native_passive(format!("{ID}:ride"), Ride::default());
-    host.log(LogLevel::Info, "league_quinn loaded (the ride on Valor, Skystrike when it runs out, the riding body).");
+    module.add_player_input_ai(ride_ai::RideAi::default());
+    host.log(LogLevel::Info, "league_quinn loaded (the ride on Valor, pressed to roam and to chase, Skystrike, the riding body).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

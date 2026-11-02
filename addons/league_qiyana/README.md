@@ -35,14 +35,16 @@ E 天纵之勇（突进时用方圆塑令给武器附上元素、刷新 Q）、�
 
 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_qiyana.log`，每次启动游戏重写（上一份改名 `.prev.log`）。
 
-- `SPAWN`：插件版奇亚娜出场（参数）。
+- `SPAWN #n`：插件版奇亚娜出场（参数）。
 - `== map mode=…: walls …, bushes …, river … ==`：读到的地图（每种模式一行）；河流不在地图数据里时写出地图文档有哪些键、用的是斜带。
-- `ELEMENT Grass/River/Rock by Terrain/Situation at (x, y): grass … rock … river …; Spot {...}`：每次附魔选了什么、按地形还是按局势、
-  身边三种地形各有多远（`-` 是两格内没有）、局势（她的生命、身边敌人、目标是不是英雄、目标的生命）；同一种元素 2 秒内只记一次。
-- `ROCK #id: hp x/y`：岩石的斩杀打中英雄。
+- `ELEMENT #n Grass/River/Rock by Terrain/Situation at (x, y): grass … rock … river …; Spot {...}`：每次附魔选了什么、按地形还是按局势、
+  身边三种地形各有多远（`-` 是两格内没有）、局势（她的生命、身边敌人、目标是不是英雄、目标的生命）；同一份模拟里她同一种元素 2 秒内只记一次。
+- `ROCK #n on #id: hp x/y`：岩石的斩杀打中英雄。
+- 0.2.3（2026-11-03 的日志：一次启动 0.7 MB，ELEMENT 约 3200 行、SPAWN 约 620 行不限量）：这三种行走整次启动的计数，服务器的预模拟每种先记
+  40 行、之后每 200 行一行（`#n` 是第几行），你看的那场每行都记；「同一种元素 2 秒内只记一次」按（这份模拟，她）各记各的，并排跑的两份预演不再互相冲掉。
 
 ## 构建
 
 `cargo build --release -p league_qiyana`（单独的 `league_qiyana.dll`），或者随合集包 `league_addons` 一起（`league_addons/src/lib.rs` 已登记）。
 测试：`cargo test -p league_qiyana`（按地形和按局势挑元素、格子距离、河道斜带和地图边、当前对局的地图、岩石只在半血以下、凌人贵气每个敌人
-单独算、参数读法、名字长度）。
+单独算、参数读法、名字长度、日志条数、同一种元素按模拟和她各记各的）。

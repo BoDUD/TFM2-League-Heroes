@@ -7,6 +7,8 @@
 //! - `aim`（普通火箭）/ `big`（每第 3 发的大火箭，主包的计数照旧）：读所有敌人的位置和血量，对射程内每个敌方英雄试一条
 //!   线：火箭停在线上第一个敌人身上（线宽 `R_W` + 身体），按那里爆炸炸得到的敌人打分——英雄 `CHAMP_SCORE`、残血多加
 //!   （`LOW_SCORE` x 少掉的血，大火箭 `BIG_LOW_SCORE`：大火箭优先砸残血），小兵和野怪 `UNIT_SCORE`；取分最高的线。
+//!   AI 的目标在出手前死了（英雄联盟的火箭照样飞向那一点）：拿他倒下的地方当目标（`dead_aim`），他的身体也没了就拿射程内
+//!   最近的敌方单位，照样和射程内每个敌方英雄的线比分。
 //!   火箭（主包的 `r_missile` / `r_big_missile` 画面）沿直线飞过去，到了那一 tick 排一个 `boom` / `big_boom`。
 //! - `boom` / `big_boom`：落点播主包的爆炸画面和音效；`R_R`（大火箭 `R_BIG_R`）内每个敌人（塔除外）受到
 //!   `R_DMG` + `R_AP`% 法强魔法、`R_AD`% 攻击力物理伤害（大火箭 x `R_BIG`%），走引擎的伤害流程。他死了就不炸。
@@ -199,6 +201,35 @@ pub fn blast_score(spot: (f64, f64), r: f64, low: f64, foes: &[Foe]) -> f64 {
         .sum()
 }
 
+/// How far the spot where the target fell may lie for the missile to fly at it: the AI casts at R_RANGE plus both
+/// bodies (2 x 10000, champion-data.md) and the target walks on for `r_at` ticks before he falls.
+pub const CORPSE_REACH: f64 = R_RANGE + 40_000.0;
+
+/// What a missile's aim comes from.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Aim {
+    /// the AI's target, alive (or the spot of a position cast)
+    Target,
+    /// the spot where the target fell between the cast and the shot
+    Corpse,
+    /// the nearest enemy unit within R_RANGE (the target died and his body is gone)
+    Nearest,
+}
+
+/// The aim of a missile whose target died before the shot (0.1.1 fired nothing, the charge and cooldown spent; League's
+/// rocket flies on to the spot): where he fell while the game still has his body (within CORPSE_REACH), else the
+/// nearest enemy unit within R_RANGE; None with neither. `best_shot` still tries every champion in range against it.
+pub fn dead_aim(me: (f64, f64), corpse: Option<(f64, f64)>, foes: &[Foe]) -> Option<((f64, f64), Aim)> {
+    if let Some(c) = corpse.filter(|c| dist(me, *c) <= CORPSE_REACH) {
+        return Some((c, Aim::Corpse));
+    }
+    foes.iter()
+        .map(|f| f.at)
+        .filter(|at| dist(me, *at) <= R_RANGE)
+        .min_by(|a, b| dist(me, *a).total_cmp(&dist(me, *b)))
+        .map(|at| (at, Aim::Nearest))
+}
+
 /// 最好的一发：对射程内每个敌方英雄（和大招的目标）试一条线，火箭停下的地方爆炸分最高的。返回（瞄准点，停下的点，分）。
 pub fn best_shot(me: (f64, f64), target: Option<(f64, f64)>, foes: &[Foe], big: bool) -> Option<((f64, f64), (f64, f64), f64)> {
     let (r, low) = if big { (R_BIG_R, BIG_LOW_SCORE) } else { (R_R, LOW_SCORE) };
@@ -271,6 +302,17 @@ fn input_unit(sim: &StableSim<'_>, input: &InputTargetV1) -> Option<(f64, f64)> 
     (input.kind == InputTargetKindV1::Target.code()).then(|| alive_at(sim, input.target_id)).flatten()
 }
 
+/// Where the cast's target lies when he died before the shot: the game keeps a dead champion's unit (his passive still
+/// reads it dead, league_chogath's DEAD line) until he respawns as a new one. None when he lives or is gone.
+fn corpse_at(sim: &StableSim<'_>, input: &InputTargetV1) -> Option<(f64, f64)> {
+    if input.kind != InputTargetKindV1::Target.code() {
+        return None;
+    }
+    let e = sim.get_entity(input.target_id).filter(|e| !e.is_alive())?;
+    let (x, y) = e.pos();
+    ((x, y) != (0, 0)).then_some((x as f64, y as f64))
+}
+
 fn upos(p: (f64, f64)) -> (u64, u64) {
     (p.0.round().clamp(0.0, MAP - 1.0) as u64, p.1.round().clamp(0.0, MAP - 1.0) as u64)
 }
@@ -331,10 +373,19 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
     let f = field(sim, caster, team);
     let list: Vec<Foe> = f.foes.iter().map(|x| x.1).collect();
-    let target = input_unit(sim, &input).or_else(|| input_pos(&input));
+    // the target died between the cast and the shot: at where he fell, else the nearest enemy unit
+    let (target, from) = match input_unit(sim, &input).or_else(|| input_pos(&input)) {
+        Some(p) => (Some(p), Aim::Target),
+        None => dead_aim(me, corpse_at(sim, &input), &list).map_or((None, Aim::Target), |(p, how)| (Some(p), how)),
+    };
     let Some((aim, stop, score)) = best_shot(me, target, &list, big) else {
         if tally(sim, "nobody").is_some() {
-            wlog(format!("{} {}: nobody to aim at (input kind {})", head(sim, caster), if big { "BIG" } else { "AIM" },
+            let why = if input.kind == InputTargetKindV1::Target.code() {
+                format!(": #{} dead, his body gone or out of reach, no enemy unit within {R_RANGE}", input.target_id)
+            } else {
+                String::new()
+            };
+            wlog(format!("{} {}: nobody to aim at (input kind {}{why})", head(sim, caster), if big { "BIG" } else { "AIM" },
                          input.kind));
         }
         return;
@@ -362,9 +413,18 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
     sim.play_sfx(&ck(sound), caster, &InputTargetV1::target(caster));
     let flew = sim.spawn_projectile(&ck(pic), &format!("{ID}:pass"), &spec);
     let ticks = (d / R_SPEED).ceil().max(1.0) as usize;
-    if tally(sim, if big { "big" } else { "aim" }).is_some() {
+    // a dead target's fallback has lines of its own (the presims' first LOG_FIRST of each kind)
+    let dead = input.target_id;
+    let (kind, why) = match (from, target) {
+        (Aim::Corpse, Some(p)) => ("dead_corpse", format!(", #{dead} died before the shot: tried where he fell {}", pt(p))),
+        (Aim::Nearest, Some(p)) => {
+            ("dead_nearest", format!(", #{dead} died before the shot, his body gone: tried the nearest enemy {}", pt(p)))
+        }
+        _ => (if big { "big" } else { "aim" }, String::new()),
+    };
+    if tally(sim, kind).is_some() {
         wlog(format!(
-            "{} {} aim {} -> stops at {} ({:.0} away, {} ticks), score {:.1}{}",
+            "{} {} aim {} -> stops at {} ({:.0} away, {} ticks), score {:.1}{}{}",
             head(sim, caster),
             if big { "BIG" } else { "AIM" },
             pt(aim),
@@ -372,6 +432,7 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
             d,
             ticks,
             score,
+            why,
             if flew { "" } else { " (spawn_projectile refused: no flying missile)" }
         ));
     }
@@ -562,6 +623,39 @@ mod tests {
         let foes = [champ(60_000.0, 0.0, 1.0), champ(0.0, 60_000.0, 1.0), champ(4_000.0, 66_000.0, 1.0)];
         let (_, stop, _) = best_shot(me, Some((60_000.0, 0.0)), &foes, false).unwrap();
         assert!(dist(stop, (0.0, 60_000.0)) < 1.0, "{stop:?}");
+    }
+
+    #[test]
+    fn a_dead_targets_missile_flies_to_where_he_fell() {
+        let me = (0.0, 0.0);
+        // 0.1.1: the target died before the shot, nobody else in range -> no missile ("nobody to aim at (input kind 1)")
+        assert_eq!(best_shot(me, None, &[], true), None);
+        let fell = (70_000.0, 0.0);
+        assert_eq!(dead_aim(me, Some(fell), &[]), Some((fell, Aim::Corpse)));
+        let (aim, stop, _) = best_shot(me, Some(fell), &[], true).unwrap();
+        assert_eq!(aim, fell);
+        // nobody on the line: the missile flies its full reach that way
+        assert!((dist(me, stop) - (R_RANGE + 10_000.0)).abs() < 1.0 && stop.1.abs() < 1.0, "{stop:?}");
+        // a champion in range still beats the empty spot
+        let foes = [champ(0.0, 60_000.0, 0.5)];
+        let (aim, _, _) = best_shot(me, dead_aim(me, Some(fell), &foes).map(|x| x.0), &foes, true).unwrap();
+        assert_eq!(aim, (0.0, 60_000.0));
+        // the body as far as the AI casts (R_RANGE + both bodies) and a few ticks' walk still counts
+        assert_eq!(dead_aim(me, Some((R_RANGE + 30_000.0, 0.0)), &[]).map(|x| x.1), Some(Aim::Corpse));
+    }
+
+    #[test]
+    fn with_his_body_gone_the_missile_takes_the_nearest_enemy() {
+        let me = (0.0, 0.0);
+        let foes = [minion(70_000.0, 0.0), minion(0.0, 40_000.0), minion(0.0, 90_000.0)];
+        assert_eq!(dead_aim(me, None, &foes), Some(((0.0, 40_000.0), Aim::Nearest)));
+        // a body far off (not where he fell) is not trusted
+        assert_eq!(dead_aim(me, Some((500_000.0, 0.0)), &foes), Some(((0.0, 40_000.0), Aim::Nearest)));
+        let (aim, stop, s) = best_shot(me, Some((0.0, 40_000.0)), &foes, false).unwrap();
+        assert_eq!((aim, stop), ((0.0, 40_000.0), (0.0, 40_000.0)));
+        assert!(s > 0.0);
+        // nothing within R_RANGE: still no missile
+        assert_eq!(dead_aim(me, None, &[minion(0.0, 90_000.0)]), None);
     }
 
     #[test]

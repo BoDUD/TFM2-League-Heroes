@@ -24,6 +24,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+use crate::sim_tag::{Key, SimTag};
+
 const ID: &str = "tft_brambleback";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const BURN_FX: &str = "tft_brambleback:burn";
@@ -183,14 +185,40 @@ pub struct Burn {
     pub last: usize,
 }
 
-/// 按（种子、模拟来源、比赛、局、单位）分开：同一个进程里预演和观看的模拟各算各的（league_loris 的做法）。
-type Key = (u64, u32, u64, u64, usize);
+/// 按（这份模拟的编号 `SIM_TAG`、单位）分开：扑击记在它自己名下，灼烧记在它的编号、目标名下（2026-11-03，tft 0.46.0）。以前按
+/// （种子、模拟来源、比赛、局、单位），服务器并排跑的两份预模拟这几样全一样，共用一份：一份的普攻把另一份的灼烧续上、每拍的
+/// 灼烧两份抢着算，一份的扑击被另一份落地时删掉。
+const TAG: SimTag = SimTag("tft_brambleback_sim:");
 static LEAPS: LazyLock<Mutex<HashMap<Key, Leap>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 static BURNS: LazyLock<Mutex<HashMap<Key, Burn>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-fn key(sim: &StableSim<'_>, id: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, id)
+/// The row of `id` in the simulation of Brambleback `me` (by the number hung on it; an effect has no passive at hand).
+fn key(sim: &StableSim<'_>, me: usize, id: usize) -> Key {
+    TAG.key(sim, me, id)
+}
+
+/// A claw lands: the burn in `row` runs (again) until `now + t`, lit by `by`; true when it is a new one.
+fn renew_burn(row: Key, by: usize, now: usize, t: usize) -> bool {
+    let mut burns = BURNS.lock().unwrap_or_else(|e| e.into_inner());
+    let b = burns.entry(row).or_default();
+    let fresh = now > b.until;
+    if fresh {
+        b.last = now;   // the first tick burns a full period after the hit
+    }
+    b.by = by;
+    b.until = now + t;
+    fresh
+}
+
+/// A queued burn tick of `row` at `now`: whose burn it is when one is due this period (None: not now, or no burn).
+fn burn_due(row: Key, now: usize, every: usize) -> Option<usize> {
+    let mut burns = BURNS.lock().unwrap_or_else(|e| e.into_inner());
+    let b = burns.get_mut(&row)?;
+    if !burns_now(b, now, every) {
+        return None;
+    }
+    b.last = now;
+    Some(b.by)
 }
 
 // ===================== 规则（单元测试用） =====================
@@ -304,19 +332,7 @@ impl StableEffectType for Red {
         if !burnable {
             return;
         }
-        let now = sim.tick();
-        let k_ = key(sim, id);
-        let fresh = {
-            let mut burns = BURNS.lock().unwrap_or_else(|e| e.into_inner());
-            let b = burns.entry(k_).or_default();
-            let fresh = now > b.until;
-            if fresh {
-                b.last = now;   // the first tick burns a full period after the hit
-            }
-            b.by = me;
-            b.until = now + p.p_burn_t;
-            fresh
-        };
+        let fresh = renew_burn(key(sim, me, id), me, sim.tick(), p.p_burn_t);
         put(sim, id, &BuffV1::timed(&bb("p_burn"), p.p_burn_t));
         let on = InputTargetV1::target(id);
         for k in 1..=p.p_burn_t / p.p_burn_every {
@@ -340,21 +356,11 @@ impl StableEffectType for BurnTick {
         }
         let id = input.target_id;
         let Some(max_hp) = sim.get_entity(id).filter(|e| e.is_alive()).map(|e| e.hp().1) else {
-            BURNS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, id));
+            BURNS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me, id));
             return;
         };
         let p = params_of(me);
-        let now = sim.tick();
-        let k_ = key(sim, id);
-        let by = {
-            let mut burns = BURNS.lock().unwrap_or_else(|e| e.into_inner());
-            let Some(b) = burns.get_mut(&k_) else { return };
-            if !burns_now(b, now, p.p_burn_every) {
-                return;
-            }
-            b.last = now;
-            b.by
-        };
+        let Some(by) = burn_due(key(sim, me, id), sim.tick(), p.p_burn_every) else { return };
         if by != me {
             return;   // another Brambleback's burn: its own ticks burn it
         }
@@ -368,7 +374,8 @@ impl StableEffectType for BurnTick {
 
 // ===================== 扑向下一个 =====================
 
-fn leap(sim: &mut StableSim<'_>, me: usize, victim: usize, camp: bool) -> bool {
+/// The leap on to the next after a kill; `k_` its row (the passive's own number).
+fn leap(sim: &mut StableSim<'_>, me: usize, k_: Key, victim: usize, camp: bool) -> bool {
     let Some(at) = sim.get_entity(me).filter(|e| e.is_alive() && e.is_targetable()).map(|e| e.pos()) else { return false };
     let p = params_of(me);
     let Some(target) = next_target(at, &foes(sim, me), p.k_range, camp) else {
@@ -378,7 +385,6 @@ fn leap(sim: &mut StableSim<'_>, me: usize, victim: usize, camp: bool) -> bool {
         return false;
     };
     let to = sim.get_entity(target).map_or(at, |e| e.pos());
-    let k_ = key(sim, me);
     LEAPS.lock().unwrap_or_else(|e| e.into_inner()).insert(k_, Leap { target, until: sim.tick() + p.k_t, last: to });
     sim.apply_cc(me, &animation("skill", leap_ticks(at, to, p.k_speed, p.k_t)));
     sim.play_sfx(&bb("q_next"), me, &InputTargetV1::target(me));
@@ -395,7 +401,7 @@ fn leap(sim: &mut StableSim<'_>, me: usize, victim: usize, camp: bool) -> bool {
 struct Hop;
 impl StableEffectType for Hop {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
-        let k_ = key(sim, me);
+        let k_ = key(sim, me, me);
         hop(sim, me, k_);
     }
 }
@@ -448,15 +454,18 @@ struct Fury {
     p: Params,
     /// The tick the next leap may start (k_cd after the last).
     ready_at: usize,
+    /// This simulation's number (`SIM_TAG`), drawn at its first spawn.
+    sim: u64,
 }
 
 impl Fury {
     fn killed(&mut self, sim: &mut StableSim<'_>, me: usize, victim: usize, camp: bool) {
         let now = sim.tick();
-        if now < self.ready_at || LEAPS.lock().unwrap_or_else(|e| e.into_inner()).contains_key(&key(sim, me)) {
+        let row = (self.sim, me);
+        if now < self.ready_at || LEAPS.lock().unwrap_or_else(|e| e.into_inner()).contains_key(&row) {
             return;
         }
-        if leap(sim, me, victim, camp) {
+        if leap(sim, me, row, victim, camp) {
             self.ready_at = now + self.p.k_cd;
         }
     }
@@ -473,6 +482,7 @@ impl StablePassive for Fury {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.me = me;
+        TAG.spawn(sim, me, &mut self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -498,7 +508,7 @@ impl StablePassive for Fury {
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
         let me = self.me;
         // its collapse (the data has no moment for it)
-        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
+        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
         sim.play_sfx(&bb("d"), me, &InputTargetV1::target(me));
     }
 }
@@ -566,5 +576,23 @@ mod tests {
         assert_eq!(physical(60, 120, 100), 180);
         let c = animation("skill", 9);
         assert_eq!((c.kind, c.tick, c.name()), (CcKindV1::Animation.code(), 9, "skill"));
+    }
+
+    #[test]
+    fn each_sim_keeps_its_own_burns() {
+        // the tag its passive hangs is the one its claws read back, and it fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+        // the server's two presims of one set: Brambleback is #5 and its target #9 in both, two numbers
+        let (a, b) = ((u64::MAX - 1, 9), (u64::MAX - 2, 9));
+        assert!(renew_burn(a, 5, 10, 180));
+        // b's queued tick finds no burn of a's to burn or to move on
+        assert_eq!(burn_due(b, 40, 30), None);
+        assert_eq!(burn_due(a, 40, 30), Some(5));
+        assert_eq!(burn_due(a, 50, 30), None);
+        // b's claw lights a new burn in b, a's timing untouched
+        assert!(renew_burn(b, 5, 55, 180));
+        assert_eq!(burn_due(a, 70, 30), Some(5));
+        assert!(!renew_burn(a, 5, 80, 180));   // a's own next claw only renews it
     }
 }

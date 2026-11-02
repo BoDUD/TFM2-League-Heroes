@@ -366,7 +366,10 @@ def build(p):
     # the lash's damage instead of a bare flag
     retry = p["r_cd"] * 100 // 60 - 100
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_retry", 3, ult_cooldown_mult=retry)))
-    arm_r = combine(*rm("r_arm"), flag("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"], reset)))
+    # the refund reads the arm flag 3 ticks before it ends (a flag of n ticks is seen on n - 1 of them, champion-data
+    # §8): read on its last tick it was always gone, so an unused window never refunded (11-02's logs: ult_press saw 0
+    # refunds for Orianna, Ryze, Aphelios and Swain)
+    arm_r = combine(*rm("r_arm"), flag("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"] - 3, reset)))
     scored = combine(flag("r_x", 1), sw("r_x", combine(*rm("r_x"), arm_r), magic(p["r_hit"] * 3, p["r_hit_ap"] * 3)),
                      *rm("r_x"))
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", combine(life, scored),

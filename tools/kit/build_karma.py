@@ -383,7 +383,10 @@ def build(p):
     refund = sw("mantra", combine(*rm("mantra"), refresh("r_ref", 3, ult_cooldown_mult=4900)))
     ult = action("ult", p["r_anim"], p["r_cd"], 1, p["r_range"], "None", "EnemyChampion", combine(
         *rm(*[f"g{k}" for k in range(1, 7)]), refresh("mantra", p["r_arm"]), cview("r_cast"), sfx("r_cast"),
-        voice("vo_r", p), on_me(delayed(2, e_check()), delayed(p["r_arm"], refund))))
+        # the refund reads the arm flag 3 ticks before it ends (a flag of n ticks is seen on n - 1 of them,
+        # champion-data §8): read on its last tick it was always gone, so an unused window never refunded (11-02's
+        # logs: ult_press saw 0 refunds for Orianna, Ryze, Aphelios and Swain)
+        voice("vo_r", p), on_me(delayed(2, e_check()), delayed(p["r_arm"] - 3, refund))))
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

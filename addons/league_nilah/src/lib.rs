@@ -153,6 +153,17 @@ pub const E_REACH: f64 = 55_000.0;
 pub const R_RAD: f64 = 38_000.0;
 pub const R_PATIENCE: usize = 90;
 pub const R_COMING: f64 = 80_000.0;
+/// 游戏的 AI 每 4-5 tick 才按一次 R：两次之间隔不到这么多 tick 算一直在等（0.1.2，11-02 的日志：中间没按 R 的 tick 把等待清零，
+/// 24 次 R 全是「waited 0」，最多等 `R_PATIENCE` 从来没生效）。
+pub const R_GAP: usize = 30;
+
+/// 这次按 R 时已经等了多久，和新的等待起点：上一次按 R 在 `R_GAP` 以内就接着算，否则从这一 tick 重新算。
+pub fn r_wait(start: Option<usize>, last: usize, now: usize) -> (usize, usize) {
+    match start {
+        Some(t0) if now <= last + R_GAP => (now.saturating_sub(t0), t0),
+        _ => (0, now),
+    }
+}
 
 pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
@@ -338,6 +349,8 @@ impl StablePassive for Joy {
 struct PlayAi {
     /// R 第一次想放、被压住的 tick。
     r_wanted: Option<usize>,
+    /// 游戏的 AI 上一次按 R 的 tick（`r_wait`）。
+    r_last: usize,
 }
 
 impl StablePlayerAi for PlayAi {
@@ -359,14 +372,9 @@ impl StablePlayerAi for PlayAi {
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let tick = ctx.tick();
-        let Some(b) = base else {
-            self.r_wanted = None;
-            return None;
-        };
+        // no reset on the ticks between two presses of R (the game's AI presses it every 4-5 ticks): r_wait
+        let b = base?;
         let kind = InputKindV1::from_code(b.kind);
-        if kind != Some(InputKindV1::Ult) {
-            self.r_wanted = None;
-        }
         if !matches!(kind, Some(InputKindV1::Skill2 | InputKindV1::Ult)) {
             return None;
         }
@@ -411,7 +419,8 @@ impl StablePlayerAi for PlayAi {
                     }
                 }
             } else {
-                let waited = self.r_wanted.map_or(0, |t0| tick.saturating_sub(t0));
+                let (waited, since) = r_wait(self.r_wanted, self.r_last, tick);
+                self.r_last = tick;
                 let (go, why) = ult_ready(at, my_pct, &all, waited);
                 if go {
                     if let Some(k) = counted("r_go") {
@@ -420,9 +429,7 @@ impl StablePlayerAi for PlayAi {
                     self.r_wanted = None;
                     Do::Keep
                 } else {
-                    if self.r_wanted.is_none() {
-                        self.r_wanted = Some(tick);
-                    }
+                    self.r_wanted = Some(since);
                     Do::Hold(target, target_pos, line, if why == "nobody in the spin" { "R HELD: nobody in the spin" }
                              else { "R HELD: one in the spin, others coming" })
                 }
@@ -551,5 +558,16 @@ mod tests {
         assert_eq!(ult_ready(me, 90, &[foe(1, 20_000.0, 45), coming], 0).0, true);
         assert_eq!(ult_ready(me, 90, &[near], 0).0, true); // alone: no one else to wait for
         assert_eq!(ult_ready(me, 90, &[coming], 0).0, false);
+    }
+
+    #[test]
+    fn the_wait_runs_across_the_ais_presses() {
+        // the first press starts the wait
+        assert_eq!(r_wait(None, 0, 1000), (0, 1000));
+        // pressed again 4-5 ticks later (nothing between): still the same wait
+        assert_eq!(r_wait(Some(1000), 1000, 1005), (5, 1000));
+        assert_eq!(r_wait(Some(1000), 1085, 1090), (90, 1000));
+        // no press for longer than R_GAP: a new wait
+        assert_eq!(r_wait(Some(1000), 1005, 1005 + R_GAP + 1), (0, 1005 + R_GAP + 1));
     }
 }

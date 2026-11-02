@@ -29,6 +29,13 @@ pub const PRIORITY: i32 = 110;
 /// 才找 `q_range` 内的人，他们还会走几步。
 pub const Q_RANGE: f64 = 70_000.0;
 pub const Q_REACH: f64 = 64_000.0;
+/// 还没待命时只为 `ARM_REACH` 内的人堆先按 R（0.3.1，11-02 的日志：4 次待命全在 63071-63190，正是人堆刚进 `Q_REACH` 的那一 tick，
+/// 4 次里只有 1 次把 Q 扔进了人堆——R 的 3 tick 动作加 Q 的 6 tick 起手，人早走出 `q_range` 了）；待命以后照旧到 `Q_REACH`。
+pub const ARM_REACH: f64 = 52_000.0;
+/// 她自己的 Q（q_dur）、R（待命的 3 tick）动作还在播：这时按的输入游戏不收（0.3.1，11-02：Q 的球还在飞时连按 3 tick R，
+/// 一次都没放出来，两次能击杀的冲击波都错过了）。冷却从满开始走了不到这么多 tick 就算还在播。
+pub const Q_ACT: usize = 20;
+pub const R_ACT: usize = 3;
 /// R 格的射程（r_slot）：按 R 要有个这么近的敌方英雄当目标。
 pub const R_SLOT: f64 = 90_000.0;
 /// 冲击波的半径（r_r），`CROWD` 比它小一点。
@@ -65,6 +72,8 @@ pub struct Scene<'a> {
     pub q_ready: bool,
     /// AI 这一 tick 让她走到哪（没下走路命令就是 None）。
     pub walk: Option<(f64, f64)>,
+    /// 控球的守望在跑（`league_orianna_polling`，她普攻时挂上）：没在跑时 Q 的球扔出去就直接飞回来，扔不进人堆。
+    pub controller: bool,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -87,10 +96,11 @@ pub fn plan(s: &Scene<'_>) -> Option<Plan> {
             return (!s.armed).then_some(Plan::Blast { n, kill });
         }
     }
-    if !s.q_ready || s.hp < MIN_HP {
+    if !s.q_ready || s.hp < MIN_HP || !s.controller {
         return None;
     }
-    let cands: Vec<Foe> = s.foes.iter().filter(|f| dist(s.me, f.at) <= Q_REACH).copied().collect();
+    let reach = if s.armed { Q_REACH } else { ARM_REACH };
+    let cands: Vec<Foe> = s.foes.iter().filter(|f| dist(s.me, f.at) <= reach).copied().collect();
     let (target, n) = crowd_pick(&cands, s.foes)?;
     let f = cands.iter().find(|f| f.id == target)?;
     if n < 2 && !f.dies {
@@ -146,6 +156,13 @@ impl StablePlayerAi for Combo {
             if !me.is_alive() || busy(&me) {
                 return None;
             }
+            // her own Q or R still playing: a press now is dropped (the engine takes none until it ends)
+            let playing = |s: SkillSlotV1, act: usize| {
+                me.cooldown(s).is_some_and(|c| c.remaining > 0 && c.cooltime.saturating_sub(c.remaining) < act)
+            };
+            if playing(SkillSlotV1::Skill, Q_ACT) || playing(SkillSlotV1::Ult, R_ACT) {
+                return None;
+            }
             let (my_id, here, tick) = (me.id(), at(&me), sim.tick());
             let ready = |s: SkillSlotV1| me.cooldown(s).is_some_and(|c| c.unlocked && c.remaining == 0);
             let (r_ready, q_ready) = (ready(SkillSlotV1::Ult), ready(SkillSlotV1::Skill));
@@ -157,7 +174,9 @@ impl StablePlayerAi for Combo {
             let foes = foes_of(&sim, my_id);
             let ball = ball_at(&sim, my_id);
             let point = ball_point(ball, here);
-            let scene = Scene { me: here, hp: hp as f64 / max.max(1) as f64, ball: point, foes: &foes, r_ready, armed, q_ready, walk };
+            let controller = has_buff(&sim, my_id, &on("polling"));
+            let scene = Scene { me: here, hp: hp as f64 / max.max(1) as f64, ball: point, foes: &foes, r_ready, armed, q_ready, walk,
+                                controller };
             let p = plan(&scene)?;
             let place = ball.map_or("beside her", |b| b.w.label());
             let (input, kind, what) = match p {
@@ -217,7 +236,7 @@ mod tests {
     }
 
     fn scene(foes: &[Foe], ball: Option<(f64, f64)>) -> Scene<'_> {
-        Scene { me: (0.0, 0.0), hp: 1.0, ball, foes, r_ready: true, armed: false, q_ready: true, walk: None }
+        Scene { me: (0.0, 0.0), hp: 1.0, ball, foes, r_ready: true, armed: false, q_ready: true, walk: None, controller: true }
     }
 
     #[test]
@@ -251,23 +270,23 @@ mod tests {
 
     #[test]
     fn q_into_the_crowd_then_r() {
-        // one diving her, a pair 55k off: arm R first, then Q at the pair
-        let foes = [foe(1, 10_000.0, 0.0), foe(2, 50_000.0, 30_000.0), foe(3, 55_000.0, 10_000.0)];
+        // one diving her, a pair 45k off: arm R first, then Q at the pair
+        let foes = [foe(1, 5_000.0, -10_000.0), foe(2, 40_000.0, 24_000.0), foe(3, 44_000.0, 8_000.0)];
         let s = scene(&foes, Some((0.0, 0.0)));
         assert_eq!(plan(&s), Some(Plan::Throw { target: 2, n: 2, kill: false, arm: true }));
         let armed = Scene { r_ready: false, armed: true, ..scene(&foes, Some((0.0, 0.0))) };
         assert_eq!(plan(&armed), Some(Plan::Throw { target: 2, n: 2, kill: false, arm: false }));
         // the ball on its way to them: wait for the landing (or R now when it is not armed)
-        let flying = Scene { ball: Some((50_000.0, 30_000.0)), ..armed };
+        let flying = Scene { ball: Some((40_000.0, 24_000.0)), ..armed };
         assert_eq!(plan(&flying), None);
-        assert_eq!(plan(&scene(&foes, Some((50_000.0, 30_000.0)))), Some(Plan::Blast { n: 2, kill: false }));
+        assert_eq!(plan(&scene(&foes, Some((40_000.0, 24_000.0)))), Some(Plan::Blast { n: 2, kill: false }));
         // the ball sent to an ally or flying back: not a place for the shockwave, Q still goes
         assert_eq!(plan(&scene(&foes, None)), Some(Plan::Throw { target: 2, n: 2, kill: false, arm: true }));
     }
 
     #[test]
     fn no_q_out_of_reach_low_or_walking_away() {
-        let foes = [foe(2, 50_000.0, 30_000.0), foe(3, 55_000.0, 10_000.0)];
+        let foes = [foe(2, 40_000.0, 24_000.0), foe(3, 44_000.0, 8_000.0)];
         // Q down
         assert_eq!(plan(&Scene { q_ready: false, ..scene(&foes, Some((0.0, 0.0))) }), None);
         // low
@@ -278,6 +297,18 @@ mod tests {
         // beyond Q_REACH
         let far = [foe(2, 70_000.0, 0.0), foe(3, 75_000.0, 10_000.0)];
         assert_eq!(plan(&scene(&far, Some((0.0, 0.0)))), None);
+        // the ball's controller off: the Q would fly straight back
+        assert_eq!(plan(&Scene { controller: false, ..scene(&foes, Some((0.0, 0.0))) }), None);
+    }
+
+    #[test]
+    fn r_is_armed_only_for_a_crowd_well_inside_q() {
+        // 11-02: every arm came the tick the crowd crossed Q_REACH, 63k off, and the Q mostly missed them
+        let edge = [foe(2, 58_000.0, 10_000.0), foe(3, 60_000.0, -8_000.0)];
+        assert_eq!(plan(&scene(&edge, Some((0.0, 0.0)))), None);
+        // armed already (by league_ult_press, say): the Q still goes that far
+        let armed = Scene { r_ready: false, armed: true, ..scene(&edge, Some((0.0, 0.0))) };
+        assert_eq!(plan(&armed), Some(Plan::Throw { target: 2, n: 2, kill: false, arm: false }));
     }
 
     #[test]

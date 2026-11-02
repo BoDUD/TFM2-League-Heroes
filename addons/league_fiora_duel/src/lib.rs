@@ -17,6 +17,7 @@
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_fiora_duel.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -96,6 +97,32 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// 日志条数（2026-11-03 的日志：大招的每一下命中都写，一次启动 3260 行、311 KB）：每种整次启动一个计数，服务器的预模拟
+/// 先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条；你看的那场（画面、观战、回放）每条都写。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 50;
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 这一类的第 `n` 行写不写：你看的那场（`shown`）每行都写，预模拟写前 `LOG_FIRST` 行，之后每 `LOG_EVERY` 行一行。
+pub fn logged(n: usize, shown: bool) -> bool {
+    shown || n <= LOG_FIRST || n % LOG_EVERY == 0
+}
+
+/// 这一类日志又来了一行：它是整次启动的第几行（不写就是 None，[`logged`]）。
+fn counted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    logged(*n, shown).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
 // ===================== 判断 =====================
 
 /// 这一下算不算大招的破绽：剑姬在大招中，打中的是挂着挑战标记的人。
@@ -127,8 +154,11 @@ fn vital(sim: &mut StableSim<'_>, fiora: usize, input: InputTargetV1) {
         b.duration_kind = BuffDurationV1::Time.code();
         sim.add_buff(fiora, &b);
     }
+    let shown = on_screen(sim);
     if marked {
-        wlog(format!("{} R hit on #{target}: the challenged champion - a Vital", head(sim, fiora)));
+        if let Some(n) = counted("vital", shown) {
+            wlog(format!("{} R hit #{n} on #{target}: the challenged champion - a Vital", head(sim, fiora)));
+        }
         return;
     }
     let Some(team) = sim.get_entity(fiora).map(|e| e.team()) else { return };
@@ -136,7 +166,10 @@ fn vital(sim: &mut StableSim<'_>, fiora: usize, input: InputTargetV1) {
         sim.get_entity(id).is_some_and(|e| e.is_alive() && e.is_targetable() && e.team() != team) && has_buff(sim, id, MARK)
     });
     let Some(duel) = challenged else {
-        wlog(format!("{} R hit on #{target}: another champion - the passive only (no challenged champion left)", head(sim, fiora)));
+        if let Some(n) = counted("gone", shown) {
+            wlog(format!("{} R hit #{n} on #{target}: another champion - the passive only (no challenged champion left)",
+                         head(sim, fiora)));
+        }
         return;
     };
     let d2 = sim.distance_sq(fiora, duel);
@@ -144,14 +177,16 @@ fn vital(sim: &mut StableSim<'_>, fiora: usize, input: InputTargetV1) {
         let mut cc = CcV1::of_kind(CcKindV1::Taunt, PULL_T);
         cc.target = duel;
         sim.apply_cc(fiora, &cc);
+        if let Some(n) = counted("pull", shown) {
+            wlog(format!(
+                "{} R hit #{n} on #{target}: another champion - the passive only; taunted onto the challenged #{duel} ({}) for {PULL_T} ticks",
+                head(sim, fiora),
+                (d2 as f64).sqrt() as u64
+            ));
+        }
+    } else if let Some(n) = counted("far", shown) {
         wlog(format!(
-            "{} R hit on #{target}: another champion - the passive only; taunted onto the challenged #{duel} ({}) for {PULL_T} ticks",
-            head(sim, fiora),
-            (d2 as f64).sqrt() as u64
-        ));
-    } else {
-        wlog(format!(
-            "{} R hit on #{target}: another champion - the passive only; the challenged #{duel} is out of reach or sight ({})",
+            "{} R hit #{n} on #{target}: another champion - the passive only; the challenged #{duel} is out of reach or sight ({})",
             head(sim, fiora),
             (d2 as f64).sqrt() as u64
         ));
@@ -205,6 +240,14 @@ mod tests {
         assert!(!is_duel_hit(true, false));
         assert!(!is_duel_hit(false, true));
         assert!(!is_duel_hit(false, false));
+    }
+
+    #[test]
+    fn the_presims_log_the_first_lines_then_a_sample() {
+        assert!(logged(1, false) && logged(LOG_FIRST, false));
+        assert!(!logged(LOG_FIRST + 1, false) && !logged(LOG_EVERY + 1, false));
+        assert!(logged(LOG_EVERY * 2, false));
+        assert!(logged(LOG_FIRST + 1, true), "the match on screen: every line");
     }
 
     #[test]

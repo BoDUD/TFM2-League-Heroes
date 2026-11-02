@@ -5,8 +5,10 @@
 //! - **无所不用按目标计 3 下**（`league_akshan:hit`，打在每一枪、回旋镖、E 的每一枪、R 的每一发子弹上）：同一个目标第 3 下时给他
 //!   3 tick 的 `league_akshan_p_go`，数据读到就打出额外伤害（英雄时加护盾）。主包只能数他打中任何人的次数。
 //! - **恩怨相抵按已损失生命算**（`league_akshan:bullet`）：每发 `R_DMG + R_RATIO% AD`，目标每少 1% 生命多一点，到少了 `R_FULL`%
-//!   时是 `R_MAX` 倍（英雄联盟 0–200% 加成在 67% 封顶）。引导中（`r_chan`、还没开火）被动每 tick 看一眼：存的子弹打得死射程里
-//!   血最少的那个英雄，或者他快跑出射程，就给 `league_akshan_r_fire`，数据提前开火（英雄联盟里玩家手动提前放）。
+//!   时是 `R_MAX` 倍（英雄联盟 0–200% 加成在 67% 封顶）。引导中（`r_chan`、还没开火）被动每 tick 看一眼：存的子弹打得死子弹要去的
+//!   那个英雄（数据锁定的 `R_SIGHT`，没有就是射程里血最少的），或者他快跑出射程，就给 `league_akshan_r_fire`，数据提前开火（英雄
+//!   联盟里玩家手动提前放）。打不打得死（`lethal`）按他的护甲减伤算；线上站着敌方单位时，它们先挨子弹（各挨到死），剩下的子弹
+//!   还要多打 `LETHAL_MARGIN`% 才算。
 //! - **放大招的时机**（AI 钩子 `league_akshan:ult`）：射程里有英雄生命 ≤ 50%（或存满能打死），自己身边 `R_SAFE` 内没有敌方英雄、
 //!   自己生命 ≥ 40% 才放；AI 想在别的时候放就改成普攻 / 走过去。只按已解锁、冷却好的 R（低等级按 R 会让游戏 AI 崩溃）。
 //! - **赴险夺人：恶徒和复活**（被动 `league_akshan:rogue`）：读游戏的击杀记录。敌方英雄杀了阿克尚的队友（不算他自己）就成为
@@ -73,6 +75,11 @@ pub const R_MAX: usize = 3;
 pub const R_FULL: usize = 67;
 pub const R_REACH: u64 = 220_000;
 pub const R_RANGE: u64 = 160_000;
+/// The bullet's circle (build_akshan r_w): a unit within this plus its body of the line takes the bullet.
+pub const R_W: f64 = 6_000.0;
+/// With enemies on the line the bullets left over must kill with this much (%) to spare: the units walk, he steps aside
+/// from bullets aimed where he stood.
+pub const LETHAL_MARGIN: usize = 25;
 const STACK: &str = "league_akshan_p_s";
 const FLAG_T: usize = 3;
 const MARK_T: usize = 3600;
@@ -205,6 +212,83 @@ pub fn volley(attack: usize, mut hp: usize, max_hp: usize, n: usize) -> usize {
         hp = hp.saturating_sub(d);
     }
     sum
+}
+
+/// A unit the bullets may hit: where it stands, its body, health, shield, max health and armour.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct Body {
+    pub id: usize,
+    pub at: (f64, f64),
+    pub r: f64,
+    pub hp: usize,
+    pub shield: usize,
+    pub max: usize,
+    pub armor: usize,
+}
+
+/// Physical damage after armour (the bullets deal `DamageTypeV1::Ad`; league_vayne_bolts' `bolt_damage`).
+pub fn armoured(d: usize, armor: usize) -> usize {
+    d * 100 / (100 + armor)
+}
+
+/// `n` bullets on `u`, one by one: what each deals (`keep`% of it after his armour; each read on the health he has
+/// then, the shield taking it first) and the health it leaves him.
+fn rain(attack: usize, u: &Body, n: usize, keep: usize) -> Vec<(usize, usize)> {
+    let (mut hp, mut shield) = (u.hp, u.shield);
+    (0..n)
+        .map(|_| {
+            let d = armoured(bullet_damage(attack, hp, u.max), u.armor) * keep / 100;
+            let s = d.min(shield);
+            shield -= s;
+            hp = hp.saturating_sub(d - s);
+            (d, hp)
+        })
+        .collect()
+}
+
+/// What `n` bullets deal `u` in all, after his armour.
+pub fn armoured_volley(attack: usize, u: &Body, n: usize) -> usize {
+    rain(attack, u, n, 100).iter().map(|x| x.0).sum()
+}
+
+/// How many of `n` bullets it takes to drop `u` (`keep`% of each after his armour); None when they leave him standing.
+pub fn bullets_to_drop(attack: usize, u: &Body, n: usize, keep: usize) -> Option<usize> {
+    rain(attack, u, n, keep).iter().position(|x| x.1 == 0).map(|k| k + 1)
+}
+
+/// The units standing on the bullets' line from `me` to `to` - between the two, within the bullet's R_W plus their own
+/// body of it (a shape counts the unit's radius) - nearest first: the bullets stop on the first enemy they meet.
+pub fn on_line(me: (f64, f64), to: (f64, f64), units: &[Body]) -> Vec<Body> {
+    let (dx, dy) = (to.0 - me.0, to.1 - me.1);
+    let len = (dx * dx + dy * dy).sqrt();
+    if len < 1.0 {
+        return Vec::new();
+    }
+    let u = (dx / len, dy / len);
+    let mut on: Vec<(f64, Body)> = units
+        .iter()
+        .filter_map(|b| {
+            let v = (b.at.0 - me.0, b.at.1 - me.1);
+            let along = v.0 * u.0 + v.1 * u.1;
+            let off = (v.0 * u.1 - v.1 * u.0).abs();
+            (along > 0.0 && along < len && off <= R_W + b.r).then_some((along, *b))
+        })
+        .collect();
+    on.sort_by(|a, b| a.0.total_cmp(&b.0));
+    on.into_iter().map(|x| x.1).collect()
+}
+
+/// Whether `n` stored bullets kill `him`: after his armour; with no enemy on the line every bullet reaches him, else
+/// the units on it take theirs first (each until it falls) and the rest must kill him with LETHAL_MARGIN% to spare.
+/// 0.2.4 summed the bullets before armour and gave him all of them: in the 11-02 logs only 5 of 20 early "lethal"
+/// fires put all their bullets on him, and he lived.
+pub fn lethal(attack: usize, him: &Body, n: usize, blockers: &[Body]) -> bool {
+    if blockers.is_empty() {
+        return bullets_to_drop(attack, him, n, 100).is_some();
+    }
+    let taken: usize = blockers.iter().map(|b| bullets_to_drop(attack, b, n, 100).unwrap_or(n)).sum();
+    let left = n.saturating_sub(taken);
+    bullets_to_drop(attack, him, left, 100 * 100 / (100 + LETHAL_MARGIN)).is_some()
 }
 
 /// 被动第几下：之前同一目标有几层 -> (这一下是不是第 3 下, 之后留几层)。
@@ -813,7 +897,9 @@ impl Rogue {
         }
     }
 
-    /// While R channels: fire early when the stored bullets kill the weakest champion in reach, or he is leaving it.
+    /// While R channels: fire early when the stored bullets kill the champion they go to (the one the data locked,
+    /// `R_SIGHT`, else the weakest in reach) - after his armour and the enemies on the line (`lethal`) - or he is
+    /// leaving the reach.
     fn release(&self, sim: &mut StableSim<'_>, me: usize) {
         if !has_buff(sim, me, R_CHAN) || has_buff(sim, me, R_OPEN) || has_buff(sim, me, R_FIRE) {
             return;
@@ -823,9 +909,11 @@ impl Rogue {
             return;
         }
         let Some(e) = sim.get_entity(me) else { return };
-        let (team, attack) = (e.team(), e.stat().attack);
+        let (team, attack, at) = (e.team(), e.stat().attack, e.pos());
         let reach2 = R_REACH * R_REACH;
-        let mut best: Option<(usize, usize, usize, usize, u64)> = None;
+        // (id, d2) of the locked champion; (id, hp ratio, d2) of the weakest
+        let mut locked: Option<(usize, u64)> = None;
+        let mut weakest: Option<(usize, usize, u64)> = None;
         for i in 0..sim.entity_count() {
             let Some(t) = sim.entity_at(i) else { continue };
             if !t.is_champion() || !t.is_alive() || t.team() == team {
@@ -835,20 +923,50 @@ impl Rogue {
             if d2 > reach2 {
                 continue;
             }
+            if locked.is_none() && has_buff(sim, t.id(), R_SIGHT) {
+                locked = Some((t.id(), d2));
+            }
             let (hp, max) = t.hp();
             let ratio = hp * 1000 / max.max(1);
-            if best.is_none_or(|b| ratio < b.3) {
-                best = Some((t.id(), hp + t.shield(), max, ratio, d2));
+            if weakest.is_none_or(|b| ratio < b.1) {
+                weakest = Some((t.id(), ratio, d2));
             }
         }
-        let Some((id, ehp, max, _, d2)) = best else { return };
-        let dmg = volley(attack, ehp.min(max), max, n);
+        let Some((id, d2)) = locked.or(weakest.map(|w| (w.0, w.2))) else { return };
+        let body = |u: &StableEntity<'_, '_>| {
+            let (hp, max) = u.hp();
+            let (x, y) = u.pos();
+            Body { id: u.id(), at: (x as f64, y as f64), r: u.radius() as f64, hp, shield: u.shield(), max,
+                   armor: u.stat().defence }
+        };
+        let Some(him) = sim.get_entity(id).map(|t| body(&t)) else { return };
+        // every enemy unit on the way takes a bullet first: minions, monsters, towers, other champions
+        let others: Vec<Body> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.id() != id && u.is_alive() && u.team() != team && u.is_targetable())
+            .map(|u| body(&u))
+            .collect();
+        let blockers = on_line((at.0 as f64, at.1 as f64), him.at, &others);
+        let kill = lethal(attack, &him, n, &blockers);
         let leaving = d2 * 100 >= reach2 * 85;
-        if dmg >= ehp || leaving {
+        if kill || leaving {
             sim.add_buff(me, &BuffV1::timed(R_FIRE, FLAG_T));
             if let Some(k) = counted("fire") {
-                let why = if dmg >= ehp { "lethal" } else { "leaving" };
-                wlog(format!("{} R FIRE early ({why}): {n} stored, #{id} hp+shield {ehp} vs {dmg} #{k}", head(sim, me)));
+                let why = if kill { "lethal" } else { "leaving" };
+                let dmg = armoured_volley(attack, &him, n);
+                let line = if blockers.is_empty() {
+                    "line clear".to_string()
+                } else {
+                    format!("{} on the line ({})", blockers.len(),
+                            blockers.iter().map(|b| format!("#{} {}/{}", b.id, b.hp, b.max)).collect::<Vec<_>>().join(", "))
+                };
+                wlog(format!(
+                    "{} R FIRE early ({why}): {n} stored, #{id}{} hp+shield {} vs {dmg} after armour {}, {line} #{k}",
+                    head(sim, me),
+                    if locked.is_some() { " (locked)" } else { "" },
+                    him.hp + him.shield,
+                    him.armor
+                ));
             }
         }
     }
@@ -1187,6 +1305,71 @@ mod tests {
         assert!(volley(200, 1000, 1000, 5) > 5 * min);
     }
 
+    fn champ(id: usize, at: (f64, f64), hp: usize, shield: usize, max: usize, armor: usize) -> Body {
+        Body { id, at, r: 10_000.0, hp, shield, max, armor }
+    }
+
+    #[test]
+    fn armour_is_counted_before_calling_it_lethal() {
+        // the 11-02 log: 3 stored, #21 614 hp + 86 shield (1260 max), attack 233: 755 before armour "lethal" - the
+        // bullets took 169 and 195 off (armour about 38) and left him alive
+        let him = champ(21, (100_000.0, 0.0), 614, 86, 1260, 38);
+        assert!(volley(233, 700, 1260, 3) >= 700);
+        assert!(armoured_volley(233, &him, 3) < 700);
+        assert!(!lethal(233, &him, 3, &[]));
+        assert_eq!(armoured(270, 38), 195);
+        // no armour: the same three bullets drop a weaker one
+        let bare = champ(21, (100_000.0, 0.0), 500, 0, 1260, 0);
+        assert!(lethal(233, &bare, 3, &[]));
+        assert_eq!(bullets_to_drop(233, &bare, 3, 100), Some(2));
+        // the shield takes the damage first and the bullets grow on the health under it
+        let shielded = champ(21, (100_000.0, 0.0), 500, 300, 1260, 0);
+        assert!(armoured_volley(233, &shielded, 3) < 800);
+        assert!(!lethal(233, &shielded, 3, &[]));
+    }
+
+    #[test]
+    fn the_units_on_the_line_take_their_bullets_first() {
+        let me = (0.0, 0.0);
+        let him = champ(370, (100_000.0, 0.0), 300, 0, 1644, 20);
+        // a minion between them, one beside the line, one behind him, one behind Akshan
+        let minion = |id: usize, at: (f64, f64)| Body { id, at, r: 7_000.0, hp: 468, shield: 0, max: 468, armor: 0 };
+        let units = [minion(569, (50_000.0, 10_000.0)), minion(570, (50_000.0, 30_000.0)),
+                     minion(571, (120_000.0, 0.0)), minion(572, (-20_000.0, 0.0))];
+        let on = on_line(me, him.at, &units);
+        assert_eq!(on.iter().map(|b| b.id).collect::<Vec<_>>(), vec![569]);
+        // nearest first
+        let two = on_line(me, him.at, &[minion(2, (80_000.0, 0.0)), minion(1, (30_000.0, -5_000.0))]);
+        assert_eq!(two.iter().map(|b| b.id).collect::<Vec<_>>(), vec![1, 2]);
+        // 4 bullets kill him on a clear line; the minion eats 3 of them (the 11-02 log: 3 on #569, 1 on #370)
+        assert!(lethal(357, &him, 4, &[]));
+        assert_eq!(bullets_to_drop(357, &on[0], 4, 100), Some(3));
+        assert!(!lethal(357, &him, 4, &on));
+        // one bullet and a monster in the way (the log's "#24 hp+shield 4 vs 261"): never lethal
+        let low = champ(24, (100_000.0, 0.0), 4, 0, 1500, 30);
+        let big = Body { id: 342, at: (40_000.0, 0.0), r: 12_000.0, hp: 1324, shield: 0, max: 1345, armor: 30 };
+        assert!(lethal(208, &low, 1, &[]));
+        assert!(!lethal(208, &low, 1, &[big]));
+        // a tower on the line takes them all
+        let tower = Body { id: 9, at: (60_000.0, 0.0), r: 15_000.0, hp: 3200, shield: 0, max: 3200, armor: 100 };
+        assert!(!lethal(357, &champ(1, (100_000.0, 0.0), 1, 0, 1644, 0), 5, &[tower]));
+    }
+
+    #[test]
+    fn past_the_units_on_the_line_the_rest_must_kill_with_a_margin() {
+        // a nearly dead minion on the line takes one bullet (attack 200: 85 a bullet, up to 3x on low health)
+        let weak = Body { id: 2, at: (50_000.0, 0.0), r: 7_000.0, hp: 50, shield: 0, max: 400, armor: 0 };
+        assert_eq!(bullets_to_drop(200, &weak, 3, 100), Some(1));
+        // 400 of 1000: two clean bullets (237 + 255) drop him on a clear line
+        let him = champ(1, (100_000.0, 0.0), 400, 0, 1000, 0);
+        assert_eq!(armoured_volley(200, &him, 2), 492);
+        assert!(lethal(200, &him, 2, &[]));
+        // 3 stored behind the minion: 2 get through, and 492 is not LETHAL_MARGIN% over 400
+        assert!(!lethal(200, &him, 3, &[weak]));
+        // 300 of 1000: the 2 left (3x: 255 + 255) clear it with room to spare
+        assert!(lethal(200, &Body { hp: 300, ..him }, 3, &[weak]));
+    }
+
     #[test]
     fn the_copy_carries_the_numbers_and_the_native_parts() {
         let copy = include_str!("../override/league_akshan.data_champion");
@@ -1201,5 +1384,12 @@ mod tests {
         }
         assert!(copy.contains(&format!("\"range\": {R_RANGE}")), "R's range is not {R_RANGE}");
         assert!(copy.contains(&format!("\"range\": {R_REACH}")), "the bullets' reach is not {R_REACH}");
+        // the bullet stops on the first enemy it meets (`on_line`), its circle r_w (the copy is built from build_akshan.P)
+        let flat: String = copy.split_whitespace().collect();
+        assert!(flat.contains("\"name\":\"league_akshan_r_bullet\",\"penetrate\":false,\"applied_target\":\"Enemy\""),
+                "the bullet no longer stops on the first enemy");
+        let kit = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_akshan.py"))
+            .expect("build_akshan.py");
+        assert!(kit.contains(&format!("\"r_w\": {},", R_W as usize)), "r_w is not {R_W} in build_akshan.P");
     }
 }

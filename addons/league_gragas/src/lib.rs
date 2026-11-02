@@ -14,6 +14,7 @@
 //! 数字和主包 P 表的值写在这里（`R_*`），主包改了这里一起改（`tests::the_numbers_match_the_kit` 读主包的参数表核对）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gragas.log`，每次启动游戏重写。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -55,6 +56,8 @@ pub const BODY: f64 = 6_000.0;
 pub const CHAMP_SCORE: f64 = 10.0;
 pub const BACK_SCORE: f64 = 1.0;
 pub const UNIT_SCORE: f64 = 0.5;
+/// 地图边长（坐标 0..MAP）。
+pub const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
 
@@ -108,6 +111,32 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// 日志条数（2026-11-03 的日志：每个 CASK、BOOM 都写，一次启动 940 行、126 KB）：每种整次启动一个计数，服务器的预模拟先写
+/// `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条；你看的那场（画面、观战、回放）每条都写。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 50;
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 这一类的第 `n` 行写不写：你看的那场（`shown`）每行都写，预模拟写前 `LOG_FIRST` 行，之后每 `LOG_EVERY` 行一行。
+pub fn logged(n: usize, shown: bool) -> bool {
+    shown || n <= LOG_FIRST || n % LOG_EVERY == 0
+}
+
+/// 这一类日志又来了一行：它是整次启动的第几行（不写就是 None，[`logged`]）。
+fn counted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    logged(*n, shown).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
 fn pt(p: (f64, f64)) -> String {
     format!("({:.0},{:.0})", p.0, p.1)
 }
@@ -138,15 +167,22 @@ pub fn score(me: (f64, f64), spot: (f64, f64), foes: &[Foe]) -> f64 {
         .sum()
 }
 
+/// 拉回地图上（坐标 0..MAP）：酒桶飞到、爆炸的就是这一点。
+pub fn on_map(p: (f64, f64)) -> (f64, f64) {
+    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
+}
+
 /// 最好的落点：每个够得着的敌方英雄身后 0 / BEHIND_1 / BEHIND_2 处，分最高的；同分取更靠后的（离他更远）。
 /// `target` 是大招的目标：没有更好的点时就落在它身后。
+/// 落点先拉回地图上再打分（0.1.2，2026-11-03 的日志：`CASK at (-15810,300765) (target (0,298307)...`——目标贴着地图边，
+/// 身后的点在地图外，打分按地图外那一点算，酒桶和爆炸却被 `upos` 拉到了地图边上）。
 pub fn best_spot(me: (f64, f64), target: (f64, f64), foes: &[Foe]) -> (f64, f64) {
     let mut best: Option<((f64, f64), f64, f64)> = None;
     let anchors = std::iter::once(target).chain(foes.iter().filter(|f| f.champion).map(|f| f.at));
     for c in anchors {
         let Some(u) = unit((c.0 - me.0, c.1 - me.1)) else { continue };
         for off in [0.0, BEHIND_1, BEHIND_2] {
-            let spot = (c.0 + u.0 * off, c.1 + u.1 * off);
+            let spot = on_map((c.0 + u.0 * off, c.1 + u.1 * off));
             if dist(me, spot) > REACH {
                 continue;
             }
@@ -161,7 +197,7 @@ pub fn best_spot(me: (f64, f64), target: (f64, f64), foes: &[Foe]) -> (f64, f64)
             }
         }
     }
-    best.map_or(target, |b| b.0)
+    best.map_or(on_map(target), |b| b.0)
 }
 
 // ===================== 小工具 =====================
@@ -180,7 +216,8 @@ fn input_pos(input: &InputTargetV1) -> Option<(f64, f64)> {
 }
 
 fn upos(p: (f64, f64)) -> (u64, u64) {
-    (p.0.round().max(0.0) as u64, p.1.round().max(0.0) as u64)
+    let p = on_map(p);
+    (p.0.round() as u64, p.1.round() as u64)
 }
 
 /// 敌人（活着、能被选中、不是塔）：(id, 位置, 是不是英雄)。
@@ -242,19 +279,21 @@ fn cask(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
         casting_target: CastingTargetV1::EnemyWithoutTower.code(),
     };
     let flew = sim.spawn_projectile(&gr("r_cask"), &format!("{ID}:pass"), &spec);
-    let hit = list.iter().filter(|f| dist(f.at, spot) <= R_R + BODY).count();
-    let champs = list.iter().filter(|f| f.champion && dist(f.at, spot) <= R_R + BODY).count();
-    wlog(format!(
-        "{} CASK at {} (target {}, {:.0} behind it, {:.0} from him): {} enemies in reach, {} champions{}",
-        head(sim, caster),
-        pt(spot),
-        pt(target),
-        dist(target, spot),
-        d,
-        hit,
-        champs,
-        if flew { "" } else { " (spawn_projectile refused: no flying cask)" }
-    ));
+    if let Some(n) = counted("cask", on_screen(sim)) {
+        let hit = list.iter().filter(|f| dist(f.at, spot) <= R_R + BODY).count();
+        let champs = list.iter().filter(|f| f.champion && dist(f.at, spot) <= R_R + BODY).count();
+        wlog(format!(
+            "{} CASK #{n} at {} (target {}, {:.0} behind it, {:.0} from him): {} enemies in reach, {} champions{}",
+            head(sim, caster),
+            pt(spot),
+            pt(target),
+            dist(target, spot),
+            d,
+            hit,
+            champs,
+            if flew { "" } else { " (spawn_projectile refused: no flying cask)" }
+        ));
+    }
     queue(sim, "boom", caster, InputTargetV1::pos(tx, ty), R_FLY);
 }
 
@@ -286,7 +325,10 @@ fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
             n.1 += 1;
         }
     }
-    wlog(format!("{} BOOM at {}: {} enemies hit ({} champions), {} magic each, flung toward him", head(sim, caster), pt(spot), n.0, n.1, amount));
+    if let Some(k) = counted("boom", on_screen(sim)) {
+        wlog(format!("{} BOOM #{k} at {}: {} enemies hit ({} champions), {} magic each, flung toward him", head(sim, caster),
+                     pt(spot), n.0, n.1, amount));
+    }
 }
 
 // ===================== 注册 =====================
@@ -388,6 +430,35 @@ mod tests {
         let t = (R_RANGE, 0.0);
         let s = best_spot(me, t, &[champ(t.0, t.1)]);
         assert!(dist(me, s) <= REACH + 1.0);
+    }
+
+    #[test]
+    fn spots_off_the_map_are_pulled_onto_it() {
+        assert_eq!(on_map((-15_810.0, 300_765.0)), (0.0, 300_765.0));
+        assert_eq!(on_map((966_742.0, 461_298.0)), (MAP - 1.0, 461_298.0));
+        assert_eq!(on_map((-1.0, 2_000_000.0)), (0.0, MAP - 1.0));
+        assert_eq!(on_map((480_000.0, 480_000.0)), (480_000.0, 480_000.0));
+        let inside = |s: (f64, f64)| (0.0..MAP).contains(&s.0) && (0.0..MAP).contains(&s.1);
+        // the 2026-11-03 log: a target on the left edge, Gragas to its right - the spot behind it was (-15810, 300765)
+        let me = (27_000.0, 305_000.0);
+        let t = (0.0, 298_307.0);
+        let s = best_spot(me, t, &[champ(t.0, t.1)]);
+        assert!(inside(s), "{s:?} is off the map");
+        assert!(dist(s, t) <= R_R + BODY, "the scored spot {s:?} does not reach the target");
+        // and on the far edge
+        let me = (900_000.0, 400_000.0);
+        let t = (955_000.0, 420_000.0);
+        let s = best_spot(me, t, &[champ(t.0, t.1)]);
+        assert!(inside(s) && dist(s, t) <= R_R + BODY, "{s:?}");
+        assert_eq!(upos((-5.0, MAP + 10.0)), (0, MAP as u64 - 1));
+    }
+
+    #[test]
+    fn the_presims_log_the_first_lines_then_a_sample() {
+        assert!(logged(1, false) && logged(LOG_FIRST, false));
+        assert!(!logged(LOG_FIRST + 1, false) && !logged(LOG_EVERY + 1, false));
+        assert!(logged(LOG_EVERY * 2, false));
+        assert!(logged(LOG_FIRST + 1, true), "the match on screen: every line");
     }
 
     #[test]
