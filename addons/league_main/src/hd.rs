@@ -402,6 +402,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read on 12 px squares at the user's 34 game px from the left tip to the bottom points, PPU 1.29 (「造型用这个」 =
     // A-3: 44 rows 1:1), and Codex's poses laid out from its three parts, posed by tools/art/rig_sentry.py, so no SIZES row
     ("tft_sentry", 1.29, include_str!("../../../tft/champions/tft_sentry#anim.fanim")),
+    // the Cinderling (tft_cinderling, the tft pack): the squat bark critter with its wooden mask and leaf spines at 3/4,
+    // step 0's first A read on its own 8 px squares at the user's 30 game px from its tallest leaf to its claws, PPU 2.33
+    // (「A 30 PPU 2.33」: 70 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_cinderling.py,
+    // so no SIZES row
+    ("tft_cinderling", 2.33, include_str!("../../../tft/champions/tft_cinderling#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
