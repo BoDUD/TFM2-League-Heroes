@@ -203,6 +203,7 @@ pub const CROWNS: &[(&str, i32)] = &[
     ("tft_powder", 23),
     ("tft_raptor", 24),
     ("tft_renni", 27),
+    ("tft_riftherald", 32),
     ("tft_scar", 26),
     ("tft_scuttlecrab", 18),
     ("tft_sentry", 25),

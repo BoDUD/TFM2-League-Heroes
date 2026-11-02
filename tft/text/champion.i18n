@@ -246,6 +246,13 @@
         "skill2": "钻进地里溅起泥土，周围敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理伤害<>并减速<#ffb900ff>35%<>（<#ffb900ff>1.5秒<>），再从远离目标的地方钻出（地下受伤<#ffb900ff>-70%<>）。",
         "ult": "站起来点燃叶子：<#ffb900ff>4秒<>内攻速<#ffb900ff>+40%<>，每<#ffb900ff>0.5秒<>向附近敌人射出<#ffb900ff>3片<>燃烧叶刃，各造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理伤害<>，英雄被灼烧。"
       },
+      "tft_riftherald": {
+        "name": "峡谷先锋",
+        "attack": "钳爪砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>虚空甲壳<>：身边每有一名敌方英雄，受到伤害<#ffb900ff>-4%<>（最多<#ffb900ff>5名<>）。",
+        "skill": "原地转一圈，周围敌人受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理伤害<>并减速<#ffb900ff>30%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "直立蓄力后翻身冲向敌方英雄：沿途敌人受到<#a974ffff>40<> + <#a974ffff>4%<>最大生命<#a974ffff>魔法伤害<>并被撞开，撞到的英雄再受一次并<#ef5350ff>晕眩1秒<>。",
+        "ult": "长啸变大，最大生命<#ffb900ff>+300<>；猛击前方，敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<>最大生命<#a974ffff>魔法伤害<>；<#ffb900ff>4秒<>内受到伤害<#ffb900ff>-15%<>，虚空甲壳每名敌人再<#ffb900ff>-3%<>。"
+      },
       "tft_thex": {
         "name": "海克斯霸龙",
         "attack": "每次攻击连射<#ffb900ff>4<>发子弹，每发<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>；每第四次攻击最后一发额外<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>驾驶员弹射<>：阵亡时机甲爆炸，周围敌人受到<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，<#ef5350ff>击退并晕眩1.5秒<>。",
@@ -429,6 +436,11 @@
         "skill1": "刃叶",
         "skill2": "钻土突袭",
         "ult": "燎原叶暴"
+      },
+      "tft_riftherald": {
+        "skill1": "回旋横扫",
+        "skill2": "虚空冲锋",
+        "ult": "扭曲护甲"
       },
       "tft_thex": {
         "skill1": "追踪导弹",
@@ -684,6 +696,13 @@
         "skill2": "鑽進地裡濺起泥土，周圍敵軍受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理傷害<>並緩速<#ffb900ff>35%<>（<#ffb900ff>1.5秒<>），再從遠離目標的地方鑽出（地下受傷<#ffb900ff>-70%<>）。",
         "ult": "站起來點燃葉子：<#ffb900ff>4秒<>內攻速<#ffb900ff>+40%<>，每<#ffb900ff>0.5秒<>向附近敵軍射出<#ffb900ff>3片<>燃燒葉刃，各造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理傷害<>，英雄被燃燒。"
       },
+      "tft_riftherald": {
+        "name": "預示者",
+        "attack": "鉗爪砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>虛空甲殼<>：身邊每有一名敵方英雄，受到傷害<#ffb900ff>-4%<>（最多<#ffb900ff>5名<>）。",
+        "skill": "原地轉一圈，周圍敵軍受到<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理傷害<>並緩速<#ffb900ff>30%<>（<#ffb900ff>1秒<>）。",
+        "skill2": "直立蓄力後翻身衝向敵方英雄：沿途敵軍受到<#a974ffff>40<> + <#a974ffff>4%<>最大生命<#a974ffff>魔法傷害<>並被撞開，撞到的英雄再受一次並<#ef5350ff>暈眩1秒<>。",
+        "ult": "長嘯變大，最大生命<#ffb900ff>+300<>；猛擊前方，敵軍受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<>最大生命<#a974ffff>魔法傷害<>；<#ffb900ff>4秒<>內受到傷害<#ffb900ff>-15%<>，虛空甲殼每名敵人再<#ffb900ff>-3%<>。"
+      },
       "tft_thex": {
         "name": "機械暴龍",
         "attack": "每次攻擊連射<#ffb900ff>4<>發子彈，每發<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>；每第四次攻擊最後一發額外<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>。<#ff9028ff>駕駛員彈射<>：陣亡時機甲爆炸，周圍敵軍受到<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，<#ef5350ff>擊退並暈眩1.5秒<>。",
@@ -867,6 +886,11 @@
         "skill1": "飛葉快刀",
         "skill2": "鑽土突襲",
         "ult": "燎原葉暴"
+      },
+      "tft_riftherald": {
+        "skill1": "迴旋橫掃",
+        "skill2": "虛空衝鋒",
+        "ult": "扭曲護甲"
       },
       "tft_thex": {
         "skill1": "追蹤導彈",
@@ -1122,6 +1146,13 @@
         "skill2": "Burrows, kicking up earth: nearby enemies take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> <#ff9028ff>physical damage<> and are slowed by <#ffb900ff>35%<> for <#ffb900ff>1.5s<>; it bursts out away from its target (<#ffb900ff>-70%<> damage taken underground).",
         "ult": "Rears up and sets its leaves ablaze: for <#ffb900ff>4s<> it gains <#ffb900ff>+40%<> Attack Speed and every <#ffb900ff>0.5s<> fires <#ffb900ff>3<> burning leaves at nearby enemies for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>physical damage<> each, Burning champions."
       },
+      "tft_riftherald": {
+        "name": "Rift Herald",
+        "attack": "Brings a pincer down for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Void Shell<>: takes <#ffb900ff>4%<> less damage for each enemy champion nearby (up to <#ffb900ff>5<>).",
+        "skill": "Spins round once: nearby enemies take <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<> max Health <#ff9028ff>physical damage<> and are slowed by <#ffb900ff>30%<> for <#ffb900ff>1s<>.",
+        "skill2": "Rears up, flips and charges an enemy champion: enemies in the way take <#a974ffff>40<> + <#a974ffff>4%<> max Health <#a974ffff>magic damage<> and are knocked aside; champions where it lands take it again and are <#ef5350ff>stunned for 1s<>.",
+        "ult": "Roars and grows (<#ffb900ff>+300<> max Health), then slams the ground ahead: enemies take <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<> max Health <#a974ffff>magic damage<>. For <#ffb900ff>4s<> it takes <#ffb900ff>15%<> less damage, and its Void Shell <#ffb900ff>3%<> more per enemy."
+      },
       "tft_thex": {
         "name": "T-Hex",
         "attack": "Fires <#ffb900ff>4<> bullets per attack, each <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<>; every fourth attack's last bullet adds <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>. <#ff9028ff>Pilot Eject<>: on death the mech bursts, dealing <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<> nearby, <#ef5350ff>knocking back and stunning for 1.5s<>.",
@@ -1305,6 +1336,11 @@
         "skill1": "Razor Leaves",
         "skill2": "Burrow",
         "ult": "Wildfire Leafstorm"
+      },
+      "tft_riftherald": {
+        "skill1": "Spin Sweep",
+        "skill2": "Void Charge",
+        "ult": "Warp Armor"
       },
       "tft_thex": {
         "skill1": "Homing Missiles",
@@ -1560,6 +1596,13 @@
         "skill2": "흙을 튀기며 땅속으로 파고들어 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>35%<> 둔화(<#ffb900ff>1.5초<>). 대상에게서 먼 곳으로 솟아오릅니다(땅속 피해 <#ffb900ff>-70%<>).",
         "ult": "일어서서 잎사귀에 불을 붙입니다: <#ffb900ff>4초<> 동안 공격 속도 <#ffb900ff>+40%<>, <#ffb900ff>0.5초<>마다 주변 적에게 불타는 잎사귀 <#ffb900ff>3개<>를 날려 각각 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>물리 피해<>, 챔피언은 화상."
       },
+      "tft_riftherald": {
+        "name": "협곡의 전령",
+        "attack": "집게발을 내리찍어 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>공허 껍질<>: 주변 적 챔피언 하나당 받는 피해 <#ffb900ff>-4%<>(최대 <#ffb900ff>5명<>).",
+        "skill": "제자리에서 한 바퀴 돌아 주변 적에게 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<> 최대 체력 <#ff9028ff>물리 피해<>와 <#ffb900ff>30%<> 둔화(<#ffb900ff>1초<>).",
+        "skill2": "일어섰다가 몸을 뒤집어 적 챔피언에게 돌진: 경로의 적은 <#a974ffff>40<> + <#a974ffff>4%<> 최대 체력 <#a974ffff>마법 피해<>를 입고 밀려나며, 부딪힌 챔피언은 한 번 더 피해를 입고 <#ef5350ff>1초 기절<>.",
+        "ult": "포효하며 커집니다(최대 체력 <#ffb900ff>+300<>). 앞을 내리찍어 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<> 최대 체력 <#a974ffff>마법 피해<>. <#ffb900ff>4초<> 동안 받는 피해 <#ffb900ff>-15%<>, 공허 껍질은 적 하나당 <#ffb900ff>-3%<> 더."
+      },
       "tft_thex": {
         "name": "T-헥스",
         "attack": "공격마다 탄환 <#ffb900ff>4<>발을 연사해 각각 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>; 네 번째 공격의 마지막 탄환은 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가. <#ff9028ff>조종사 탈출<>: 사망 시 기체가 폭발해 주변 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, <#ef5350ff>밀쳐내고 1.5초 기절<>.",
@@ -1743,6 +1786,11 @@
         "skill1": "예리한 잎사귀",
         "skill2": "땅굴 기습",
         "ult": "들불 잎폭풍"
+      },
+      "tft_riftherald": {
+        "skill1": "회전 휩쓸기",
+        "skill2": "공허 돌진",
+        "ult": "왜곡 외피"
       },
       "tft_thex": {
         "skill1": "유도 미사일",
@@ -1998,6 +2046,13 @@
         "skill2": "土を跳ね上げて地中に潜り、周囲の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>35%<>スロウ（<#ffb900ff>1.5秒<>）。対象から離れた所に飛び出す（地中で被ダメージ<#ffb900ff>-70%<>）。",
         "ult": "立ち上がり葉に火をつける：<#ffb900ff>4秒<>間攻撃速度<#ffb900ff>+40%<>、<#ffb900ff>0.5秒<>ごとに近くの敵へ燃える葉を<#ffb900ff>3枚<>放ち各<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の<#ff9028ff>物理ダメージ<>、チャンピオンは燃焼。"
       },
+      "tft_riftherald": {
+        "name": "リフトヘラルド",
+        "attack": "ハサミを振り下ろし<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ヴォイドシェル<>：近くの敵チャンピオン1体ごとに被ダメージ<#ffb900ff>-4%<>（最大<#ffb900ff>5体<>）。",
+        "skill": "その場で一回転し、周囲の敵に<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> + <#ff9028ff>3%<>最大体力の<#ff9028ff>物理ダメージ<>と<#ffb900ff>30%<>スロウ（<#ffb900ff>1秒<>）。",
+        "skill2": "立ち上がって体を翻し敵チャンピオンへ突進：通り道の敵に<#a974ffff>40<> + <#a974ffff>4%<>最大体力の<#a974ffff>魔法ダメージ<>と押しのけ、ぶつかったチャンピオンにもう一度与えて<#ef5350ff>1秒スタン<>。",
+        "ult": "咆哮して巨大化（最大体力<#ffb900ff>+300<>）。前方を叩きつけ敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>120%<> + <#a974ffff>6%<>最大体力の<#a974ffff>魔法ダメージ<>。<#ffb900ff>4秒<>間被ダメージ<#ffb900ff>-15%<>、ヴォイドシェルは敵1体ごとにさらに<#ffb900ff>-3%<>。"
+      },
       "tft_thex": {
         "name": "T-Hex",
         "attack": "攻撃ごとに弾を<#ffb900ff>4<>発連射し、各<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>。4回目の攻撃の最後の弾は<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>追加。<#ff9028ff>パイロット脱出<>：倒れると機体が爆発し、周囲の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>ノックバックと1.5秒スタン<>。",
@@ -2181,6 +2236,11 @@
         "skill1": "鋭葉カッター",
         "skill2": "土潜り奇襲",
         "ult": "燎原リーフストーム"
+      },
+      "tft_riftherald": {
+        "skill1": "回転スイープ",
+        "skill2": "ヴォイドチャージ",
+        "ult": "ワープアーマー"
       },
       "tft_thex": {
         "skill1": "ホーミングミサイル",

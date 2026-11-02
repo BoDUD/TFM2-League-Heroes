@@ -1,0 +1,380 @@
+[
+  {
+    "file": "riftherald-pose-a_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 635965,
+    "transparent_pixels": 933514,
+    "visible_bbox_alpha128": [
+      49,
+      59,
+      1205,
+      1215
+    ],
+    "baseline_delta_vs_1176": 39,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "51f8d910208b31a554cd340d7558f84a83b4bbde0c482d2253edb9f052e33b48"
+  },
+  {
+    "file": "riftherald-pose-a_strike.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 470836,
+    "transparent_pixels": 1099793,
+    "visible_bbox_alpha128": [
+      31,
+      451,
+      1238,
+      1201
+    ],
+    "baseline_delta_vs_1176": 25,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "8e62d0a71f347a47bc5431ed535fc4af8c9c2471cba9e2091ec88d2c5a3ff2ca"
+  },
+  {
+    "file": "riftherald-pose-q_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 626348,
+    "transparent_pixels": 944003,
+    "visible_bbox_alpha128": [
+      34,
+      297,
+      1246,
+      1176
+    ],
+    "baseline_delta_vs_1176": 0,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "595c129f15250338fe7b1bf444aaa9eeabe1f7cb751b636e7a97c9aae7e586cf"
+  },
+  {
+    "file": "riftherald-pose-q_spin.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 627676,
+    "transparent_pixels": 943189,
+    "visible_bbox_alpha128": [
+      29,
+      260,
+      1238,
+      1132
+    ],
+    "baseline_delta_vs_1176": -44,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "c8cac2f7cb5b527507aa79ddcd5b8faee0afca919ed7ebdb87508ea776a66757"
+  },
+  {
+    "file": "riftherald-pose-q_end.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 626248,
+    "transparent_pixels": 943965,
+    "visible_bbox_alpha128": [
+      221,
+      198,
+      1192,
+      1176
+    ],
+    "baseline_delta_vs_1176": 0,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "4d0bcb3f1dc21bad9488797320156d054a88e7850b5a6c9bea6b634ed869a86f"
+  },
+  {
+    "file": "riftherald-pose-e_rear.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 602034,
+    "transparent_pixels": 968474,
+    "visible_bbox_alpha128": [
+      95,
+      86,
+      1216,
+      1193
+    ],
+    "baseline_delta_vs_1176": 17,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "47e535d240e310d02e62dd4691bd06b45ae793f3ec448507d99b8a7dadc5f8ae"
+  },
+  {
+    "file": "riftherald-pose-e_flip.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 500567,
+    "transparent_pixels": 1071456,
+    "visible_bbox_alpha128": [
+      232,
+      19,
+      1085,
+      1094
+    ],
+    "baseline_delta_vs_1176": -82,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "5d4f3818c10313574f3ec0c5b7cfeb8ed700f06fefe49bea69dc9245f38fd766"
+  },
+  {
+    "file": "riftherald-pose-e_charge.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 534515,
+    "transparent_pixels": 1036062,
+    "visible_bbox_alpha128": [
+      53,
+      198,
+      1244,
+      1229
+    ],
+    "baseline_delta_vs_1176": 53,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "af89a56bd207f73ccb1aa03655ef67b3f76a3d4bbe9575dbf316aa27d4b1296f"
+  },
+  {
+    "file": "riftherald-pose-r_crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 449718,
+    "transparent_pixels": 1121228,
+    "visible_bbox_alpha128": [
+      181,
+      475,
+      1177,
+      1177
+    ],
+    "baseline_delta_vs_1176": 1,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "44fb0701dc9d4f3a37ea95797ea7a352b90bf2776b5200904947dfb991f645d8"
+  },
+  {
+    "file": "riftherald-pose-r_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 600683,
+    "transparent_pixels": 969645,
+    "visible_bbox_alpha128": [
+      30,
+      350,
+      1232,
+      1161
+    ],
+    "baseline_delta_vs_1176": -15,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "4420adb27638271a8a10e5cd3bfd009da0bccbaa86770fc6c771eec82d09ac2d"
+  },
+  {
+    "file": "riftherald-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 561317,
+    "transparent_pixels": 1009664,
+    "visible_bbox_alpha128": [
+      95,
+      288,
+      1190,
+      1209
+    ],
+    "baseline_delta_vs_1176": 33,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "c634d72f7d5b5e8e99a2eaf52f02d28b44d12ff076283aafcc35ddea0ff10e45"
+  },
+  {
+    "file": "riftherald-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 600482,
+    "transparent_pixels": 970653,
+    "visible_bbox_alpha128": [
+      54,
+      294,
+      1234,
+      1148
+    ],
+    "baseline_delta_vs_1176": -28,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "2ad050bb26b884db8234d410ba21e8a33ef652e91348c6470f101002875133fd"
+  },
+  {
+    "file": "riftherald-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 577628,
+    "transparent_pixels": 992310,
+    "visible_bbox_alpha128": [
+      39,
+      314,
+      1225,
+      1154
+    ],
+    "baseline_delta_vs_1176": -22,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "b5ebae25549eb6d642e38baff31b7e4d280a134bb1833a52015fd7137d3c23df"
+  },
+  {
+    "file": "riftherald-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 576833,
+    "transparent_pixels": 994323,
+    "visible_bbox_alpha128": [
+      68,
+      318,
+      1238,
+      1180
+    ],
+    "baseline_delta_vs_1176": 4,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "ad530270eb95fd185548d14b14c04c525b0d28f66f23980f2d05bc599ae81d5e"
+  },
+  {
+    "file": "riftherald-pose-run5.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 525850,
+    "transparent_pixels": 1044443,
+    "visible_bbox_alpha128": [
+      68,
+      390,
+      1227,
+      1198
+    ],
+    "baseline_delta_vs_1176": 22,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "dbd76ed2a32f5c1e7e58faead4277e8eea4b1c2b80a4f20613d41af07fa392f3"
+  },
+  {
+    "file": "riftherald-pose-run6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 515493,
+    "transparent_pixels": 1054284,
+    "visible_bbox_alpha128": [
+      79,
+      393,
+      1225,
+      1196
+    ],
+    "baseline_delta_vs_1176": 20,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "23631222afb805f62af12d0b4a9daba728e890c6b80f4ec07e99cfb2d5d4dbc8"
+  },
+  {
+    "file": "riftherald-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 665247,
+    "transparent_pixels": 905971,
+    "visible_bbox_alpha128": [
+      79,
+      160,
+      1186,
+      1172
+    ],
+    "baseline_delta_vs_1176": -4,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "e9626633919bb748a2ff2ed84396e38a0cf4280d52090081cff55e36823d3514"
+  },
+  {
+    "file": "riftherald-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_values_count": 256,
+    "semi_transparent_pixels": 687692,
+    "transparent_pixels": 882505,
+    "visible_bbox_alpha128": [
+      82,
+      167,
+      1196,
+      1204
+    ],
+    "baseline_delta_vs_1176": 28,
+    "aligned_8px_grid_strict": false,
+    "copy_equals_raw": true,
+    "sha256": "7268c55e3d633c3ede487bf20ce5c39794f68b339ce21b467775ad39cbad0350"
+  }
+]

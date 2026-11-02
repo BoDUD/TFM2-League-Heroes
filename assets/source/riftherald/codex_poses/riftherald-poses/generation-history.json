@@ -1,0 +1,185 @@
+{
+  "tool": "native image_gen",
+  "transparent_background": true,
+  "generated_count": 18,
+  "attempts": [
+    {
+      "id": "a_raise",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-3245bed0-862a-4e97-b07c-aa35e6ac049e.png"
+    },
+    {
+      "id": "a_strike",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-41352698-74a7-475f-a277-aaa58af4697a.png"
+    },
+    {
+      "id": "q_wind",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-4d79e031-b67b-4768-8f2f-f0b2488fc012.png"
+    },
+    {
+      "id": "q_spin",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-6b7b6f79-eace-4967-9be0-40c5487c6f44.png"
+    },
+    {
+      "id": "q_end",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-b20820dd-d80c-46dc-a38c-f7cc03c912a9.png"
+    },
+    {
+      "id": "e_rear",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-417f0660-0823-4994-8d3c-e8b7a39b3a8f.png"
+    },
+    {
+      "id": "e_flip",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-a356e868-88b0-43b9-ba0c-c4a7150b0070.png"
+    },
+    {
+      "id": "e_charge",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-63e76b29-53c9-4cc8-95bf-a0d7c9eb57db.png"
+    },
+    {
+      "id": "r_crouch",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-dc0fab66-7e8d-4932-b272-6252e1dd69fe.png"
+    },
+    {
+      "id": "r_slam",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-53cd3f82-68f9-4695-bbc9-533f9c5703c7.png"
+    },
+    {
+      "id": "run1",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-370f8ce3-97b1-4ba6-9f3f-211ee1586fc2.png"
+    },
+    {
+      "id": "run3",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-39e1abbe-7759-4ff1-987a-ca9871fdd299.png"
+    },
+    {
+      "id": "run2",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-dc04ec5b-0b7c-4734-92b0-78efe9c8d57a.png",
+      "phase": "initial"
+    },
+    {
+      "id": "run4",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-6a4bc8bc-6ba4-4236-894f-d7bd84ae8494.png",
+      "phase": "initial"
+    },
+    {
+      "id": "run5",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-eb4765f7-963a-42ae-9038-fc2eb5747c58.png",
+      "phase": "initial"
+    },
+    {
+      "id": "run6",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-85bdbef3-27dc-442c-8e27-3f8b55b67d78.png",
+      "phase": "initial"
+    },
+    {
+      "id": "d_fall",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-2d183358-35e4-4e37-ac3f-0388a388499f.png",
+      "phase": "initial"
+    },
+    {
+      "id": "d_down",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-67d616e8-805f-4232-b07f-54c09b13f134.png",
+      "phase": "initial"
+    },
+    {
+      "id": "q_spin",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-f982ac60-bed7-437e-973a-93351e509e74.png",
+      "phase": "revision"
+    },
+    {
+      "id": "e_charge",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-d2a54b79-cf7e-4234-b256-a457be40bc70.png",
+      "phase": "revision"
+    },
+    {
+      "id": "e_flip",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-c508ee9e-4285-4efc-b162-e6b32601d045.png",
+      "phase": "revision"
+    },
+    {
+      "id": "d_fall",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-9a16a3c8-5e3b-436f-b7be-b8737fcd3fc6.png",
+      "phase": "revision"
+    },
+    {
+      "id": "e_flip",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-faa9e8bf-ee8f-4024-b29b-03916548e61f.png",
+      "phase": "revision_v3"
+    }
+  ],
+  "selected": [
+    {
+      "id": "a_raise",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-3245bed0-862a-4e97-b07c-aa35e6ac049e.png"
+    },
+    {
+      "id": "a_strike",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-41352698-74a7-475f-a277-aaa58af4697a.png"
+    },
+    {
+      "id": "q_wind",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-4d79e031-b67b-4768-8f2f-f0b2488fc012.png"
+    },
+    {
+      "id": "q_spin",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-f982ac60-bed7-437e-973a-93351e509e74.png"
+    },
+    {
+      "id": "q_end",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-b20820dd-d80c-46dc-a38c-f7cc03c912a9.png"
+    },
+    {
+      "id": "e_rear",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-417f0660-0823-4994-8d3c-e8b7a39b3a8f.png"
+    },
+    {
+      "id": "e_flip",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-faa9e8bf-ee8f-4024-b29b-03916548e61f.png"
+    },
+    {
+      "id": "e_charge",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-d2a54b79-cf7e-4234-b256-a457be40bc70.png"
+    },
+    {
+      "id": "r_crouch",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-dc0fab66-7e8d-4932-b272-6252e1dd69fe.png"
+    },
+    {
+      "id": "r_slam",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-53cd3f82-68f9-4695-bbc9-533f9c5703c7.png"
+    },
+    {
+      "id": "run1",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-370f8ce3-97b1-4ba6-9f3f-211ee1586fc2.png"
+    },
+    {
+      "id": "run3",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-39e1abbe-7759-4ff1-987a-ca9871fdd299.png"
+    },
+    {
+      "id": "run2",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-dc04ec5b-0b7c-4734-92b0-78efe9c8d57a.png"
+    },
+    {
+      "id": "run4",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-6a4bc8bc-6ba4-4236-894f-d7bd84ae8494.png"
+    },
+    {
+      "id": "run5",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-eb4765f7-963a-42ae-9038-fc2eb5747c58.png"
+    },
+    {
+      "id": "run6",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-85bdbef3-27dc-442c-8e27-3f8b55b67d78.png"
+    },
+    {
+      "id": "d_fall",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-9a16a3c8-5e3b-436f-b7be-b8737fcd3fc6.png"
+    },
+    {
+      "id": "d_down",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-67d616e8-805f-4232-b07f-54c09b13f134.png"
+    }
+  ],
+  "postprocessing": "none; filename copies only"
+}
