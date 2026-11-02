@@ -69,7 +69,7 @@
    40,
    18
   ],
-  "symmetry": "left-right"
+  "symmetry": "none"
  },
  {
   "file": "cinderling_fx_e_pop.png",
@@ -78,7 +78,7 @@
    48,
    26
   ],
-  "symmetry": "left-right"
+  "symmetry": "none"
  },
  {
   "file": "cinderling_fx_e_slow.png",
@@ -87,7 +87,7 @@
    22,
    8
   ],
-  "symmetry": "left-right"
+  "symmetry": "none"
  },
  {
   "file": "cinderling_fx_r_cast.png",

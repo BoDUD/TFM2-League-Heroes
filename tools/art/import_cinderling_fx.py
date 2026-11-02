@@ -7,7 +7,7 @@ the tft pack's sheets tft_cinderling_fx and tft_cinderling_big and its icons.
 The source is the user's Gemini sheet cleaned by tools/art/clean_cinderling_fx.py (assets/source/cinderling/gemini_fx/
 clean: pixel_1x/cinderling_fx_<name>.png, one row of equal frames each at game size, the cell sizes in its
 manifest.json; alpha 0 / 255; every frame symmetric - left to right, the three flying leaves top to bottom - checked
-again here; cinderling_icon_<slot>.png 64 x 64). Each frame is cut and placed as the kit plays it (import_cinderling_fx.py's
+again here, the earth's three left as drawn; cinderling_icon_<slot>.png 64 x 64). Each frame is cut and placed as the kit plays it (import_cinderling_fx.py's
 way): spots are game px from the pivot (x forward, y down); a unit's soles are 11 under it. Anchors: "core" (the
 cell's middle) or ("row", r): the cell's row r on the spot. The flying leaves on their own point; the hits on the upper
 body; the burn's flames (cell row 25) on the soles; the wound mark over the head; the dig, the burst out and the mud
@@ -44,6 +44,7 @@ def lp(p):
 
 BIG = set(PK.BIG_FX)
 FLYING = set(PK.FLYING)
+EARTH = {"e_dig", "e_pop", "e_slow"}   # heaps of dirt: no front or back, kept as Gemini drew them (not mirrored)
 HIT = (0, -13)                  # a hit on the upper body of a 32-46 px unit
 FLY = (0, 0)                    # a projectile's own point
 SOLES = (0, 11)                 # on the ground under a unit
@@ -90,7 +91,7 @@ def cells(name):
     for k, c in enumerate(out):
         if name in FLYING and not (c == c[::-1]).all():
             sys.exit(f"{name} frame {k + 1} is not symmetric top to bottom")
-        if name not in FLYING and not (c == c[:, ::-1]).all():
+        if name not in FLYING | EARTH and not (c == c[:, ::-1]).all():
             sys.exit(f"{name} frame {k + 1} is not symmetric left to right")
         if not c[..., 3].any():
             sys.exit(f"{name} frame {k + 1} is empty")

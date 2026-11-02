@@ -7,16 +7,19 @@ delivery shape) - clean_krug_fx.py's way, but from ONE sheet.
 
 The source: assets/source/cinderling/gemini_fx/cinderling_fx_sheet.jpg (2400 x 1792 JPEG on a flat dark grey, every
 effect of PROMPTS_FX.md with its label, mostly ONE or two drawings an effect, not frames; the three icons at the
-bottom). PIECES are the drawings' boxes on it (read off a box-detection pass, labels left out; a white label crossing a
-box is masked out as near-white grey). Per piece: the drawing = what differs from the background by more than BG_DIFF;
+bottom). PIECES are the drawings' boxes on it (read off a box-detection pass, the labels under them left out: a label's white
+letters are masked as near-white grey, but their dark rims read as the outline - "cracks, beast" made a black bar under
+the dig, 2026-11-02 「钻进图里的特效有点奇怪」 - so every box stops above the label). Per piece: the drawing = what differs from the background by more than BG_DIFF;
 FIRE_ONLY pieces keep only the fire's colours (r_cast's critter inside its flames, p_full's leaf bush: the critter
 draws its own body and leaves). Each frame of an effect (FRAMES) is a piece brought to the effect's game cell (one scale
 fitting the cell less a margin, times the frame's own `k`; each square drawn when KEEP of its block is, its colour the
 block's median), snapped to the pack's ramps (pack_cinderling_fx: FIRE LEAF WOOD BARK DIRT + a near-black outline, the
 squares darker than DARK dropped from fire), then made symmetric (the flying leaves turned to point right first and
-mirrored top to bottom; every other picture left to right: the client never mirrors an effect picture) and shaped
-by its ops: "dim" (every colour a step down its ramp), "sparse" (every other drawn square of a fixed checker gone: the
-fade-out), "up<n>" (n rows higher: rising embers, the bob).
+mirrored top to bottom; every other picture left to right: the client never mirrors an effect picture - except the
+earth (e_dig, e_pop, e_slow: a heap of dirt has no front or back, so it reads the same facing either way, and mirrored
+whole its clods and leaves made a face: 「钻进图里的特效有点奇怪」) and shaped
+by its ops: "dim" (every colour a step down its ramp), "fade" (the outer squares gone, the rest a step down: the
+fade-out; a checker of dropped squares read as noise), "up<n>" (n rows higher: rising embers, the bob).
 The three icons: each tile (its bright frame, the label under it cut off) brought to 64 x 64 (LANCZOS).
 Writes assets/source/cinderling/gemini_fx/clean/pixel_1x/cinderling_fx_<name>.png, cinderling_icon_<slot>.png and
 manifest.json.
@@ -48,24 +51,24 @@ PIECES = {
     "leaf_big": ((795, 118, 935, 262), {}),
     "leaf_mid": ((635, 150, 755, 262), {}),
     "hit_small": ((1100, 140, 1265, 270), {}),
-    "slash": ((1325, 112, 1615, 276), {}),
+    "slash": ((1325, 112, 1615, 272), {}),
     "crown": ((1960, 128, 2370, 320), {"fire": True}),
     "spiral": ((60, 445, 350, 705), {}),
     "fan": ((460, 436, 782, 684), {}),
-    "split": ((925, 482, 1228, 646), {}),
+    "split": ((925, 482, 1228, 640), {}),
     "flame_a": ((1945, 520, 2080, 706), {}),
     "flame_b": ((2140, 505, 2280, 706), {}),
     "dig": ((60, 836, 545, 990), {}),
-    "clods": ((575, 785, 1035, 1036), {}),
-    "burst": ((1300, 745, 1724, 1036), {}),
-    "mud": ((1902, 840, 2305, 1036), {}),
+    "clods": ((575, 785, 1035, 978), {}),
+    "burst": ((1300, 745, 1724, 982), {}),
+    "mud": ((1902, 840, 2305, 981), {}),
     "rcast": ((122, 1150, 575, 1485), {"fire": True, "cut": [(285, 1285, 500, 1470)]}),
     "blaze": ((758, 1262, 1198, 1418), {}),   # only the swirl's front arc: mirrored whole it made a face on top
     "rleaf_a": ((1583, 1105, 1765, 1220), {}),
     "rleaf_b": ((1417, 1121, 1603, 1215), {}),
     "rleaf_c": ((1367, 1206, 1520, 1358), {}),
     "spark_s": ((1935, 1142, 2080, 1290), {}),
-    "spark_b": ((2093, 1200, 2292, 1410), {}),
+    "spark_b": ((2093, 1200, 2292, 1392), {}),
 }
 # the flying pieces: the long axis turned level, the flaming end (the tail) at the left
 FLYERS = {"leaf_big", "leaf_mid", "rleaf_a", "rleaf_b", "rleaf_c", "spiral_0", "spiral_1", "spiral_2"}
@@ -75,7 +78,7 @@ FX = {
     "a_leaf": ((10, 6), "tb", "core", [("leaf_big", 1, ()), ("leaf_mid", 1, ()), ("leaf_big", 1, ("dim",)),
                                        ("leaf_mid", 1, ())]),
     "a_hit": ((14, 12), "lr_union", "core", [("hit_small", 0.55, ()), ("slash", 1, ()), ("slash", 1, ("dim",)),
-                                             ("hit_small", 0.9, ("dim", "sparse"))]),
+                                             ("hit_small", 0.9, ("dim", "fade"))]),
     "p_full": ((44, 36), "lr", "top", [("crown", 0.75, ()), ("crown", 0.75, ("up1",)), ("crown", 0.75, ("up2", "dim")),
                                        ("crown", 0.75, ("up1",)), ("crown", 0.75, ()), ("crown", 0.75, ("dim",))]),
     "p_burn": ((20, 26), "lr", "sides", [("flame_a", 1, ()), ("flame_b", 1, ()), ("flame_a", 1, ("up1",)),
@@ -83,25 +86,25 @@ FX = {
     "q_leaf": ((12, 7), "tb", "core", [("spiral_0", 1, ()), ("spiral_1", 1, ()), ("spiral_2", 1, ()),
                                        ("spiral_1", 1, ("dim",))]),
     "q_hit": ((26, 22), "lr", "core", [("fan", 0.6, ()), ("fan", 0.85, ()), ("fan", 1, ()), ("fan", 1, ("dim",)),
-                                       ("fan", 1, ("dim", "sparse"))]),
+                                       ("fan", 1, ("dim", "fade"))]),
     "q_wound": ((10, 10), "lr", "core", [("split", 1, ()), ("split", 1, ()), ("split", 1, ("up1",)),
                                          ("split", 1, ("up1", "dim")), ("split", 1, ()), ("split", 1, ("dim",))]),
-    "e_dig": ((40, 18), "lr", "bottom", [("dig", 0.7, ()), ("clods", 1, ()), ("clods", 1, ("up1",)), ("dig", 1, ()),
-                                         ("dig", 1, ("dim", "sparse"))]),
-    "e_pop": ((48, 26), "lr", "bottom", [("burst", 0.5, ()), ("burst", 0.75, ()), ("burst", 1, ()),
-                                         ("burst", 1, ("dim",)), ("burst", 1, ("sparse",)),
-                                         ("burst", 1, ("dim", "sparse"))]),
-    "e_slow": ((22, 8), "lr", "bottom", [("mud", 1, ()), ("mud", 1, ("dim",)), ("mud", 1, ()), ("mud", 1, ("up1",)),
+    "e_dig": ((40, 18), "none", "bottom", [("dig", 0.7, ()), ("clods", 1, ()), ("clods", 1, ("up1",)), ("dig", 1, ()),
+                                         ("dig", 1, ("dim", "fade"))]),
+    "e_pop": ((48, 26), "none", "bottom", [("burst", 0.5, ()), ("burst", 0.75, ()), ("burst", 1, ()),
+                                         ("burst", 1, ("dim",)), ("burst", 1, ("fade",)),
+                                         ("burst", 1, ("dim", "fade"))]),
+    "e_slow": ((22, 8), "none", "bottom", [("mud", 1, ()), ("mud", 1, ("dim",)), ("mud", 1, ()), ("mud", 1, ("up1",)),
                                          ("mud", 1, ()), ("mud", 1, ("dim",))]),
     "r_cast": ((56, 48), "lr", "bottom", [("rcast", 0.45, ()), ("rcast", 0.75, ()), ("rcast", 1, ()),
-                                          ("rcast", 1, ("up1", "dim")), ("rcast", 1, ("sparse",)),
-                                          ("rcast", 1, ("up2", "dim", "sparse"))]),
+                                          ("rcast", 1, ("up1", "dim")), ("rcast", 1, ("fade",)),
+                                          ("rcast", 1, ("up2", "dim", "fade"))]),
     "r_blaze": ((52, 20), "lr", "core", [("blaze", 1, ()), ("blaze", 1, ("up1",)), ("blaze", 1, ("dim",)),
                                          ("blaze", 1, ()), ("blaze", 1, ("up1", "dim")), ("blaze", 1, ())]),
     "r_leaf": ((12, 8), "tb", "core", [("rleaf_a", 1, ()), ("rleaf_b", 1, ()), ("rleaf_c", 1, ()),
                                        ("rleaf_a", 1, ("dim",))]),
     "r_hit": ((16, 16), "lr", "core", [("spark_s", 0.8, ()), ("spark_b", 1, ()), ("spark_b", 1, ("dim",)),
-                                       ("spark_s", 1, ("dim", "sparse"))]),
+                                       ("spark_s", 1, ("dim", "fade"))]),
 }
 ICONS = {"skill": (657, 1425, 968), "skill2": (1056, 1425, 1377), "ult": (1464, 1425, 1775)}   # x0, y0, x1
 
@@ -235,11 +238,13 @@ def ops(c, names):
         if op == "dim":
             for y, x in zip(*np.nonzero(c[..., 3] > 0)):
                 c[y, x, :3] = DIM.get(tuple(int(v) for v in c[y, x, :3]), tuple(c[y, x, :3]))
-        elif op == "sparse":
-            yy, xx = np.mgrid[0:c.shape[0], 0:c.shape[1]]
-            w = c.shape[1]
-            xs = np.minimum(xx, w - 1 - xx)   # the checker mirrored, so the frame stays symmetric
-            c[((yy + xs) % 2 == 1) & (c[..., 3] > 0)] = 0
+        elif op == "fade":   # the rim gone (a square with an empty side), the rest a step darker; thin shapes only darker
+            op_ = c[..., 3] > 0
+            p = np.pad(op_, 1)
+            inner = op_ & p[:-2, 1:-1] & p[2:, 1:-1] & p[1:-1, :-2] & p[1:-1, 2:]
+            if inner.sum() >= 0.35 * op_.sum():
+                c[op_ & ~inner] = 0
+            c = ops(c, ("dim",))
         elif op.startswith("up"):
             n = int(op[2:])
             c = np.concatenate([c[n:], np.zeros((n,) + c.shape[1:], np.uint8)])
@@ -278,10 +283,21 @@ def clean(name, sheet, cache):
         c = place(fig, cw, ch, where)
         if how == "tb":
             c = sym(c, "tb")
-        else:
+        elif how != "none":
             c = sym(c, "lr" if how == "lr" else "lr_union")
-        out.append(ops(c, names))
+        out.append(specks_off(ops(c, names)))
     return out
+
+
+def specks_off(c):
+    """Outline squares that touch no coloured square (JPEG rims read as loose dark specks) dropped."""
+    op = c[..., 3] > 0
+    dark = op & (c[..., :3] == OUTLINE).all(-1)
+    col = np.pad(op & ~dark, 1)
+    near = col[:-2, 1:-1] | col[2:, 1:-1] | col[1:-1, :-2] | col[1:-1, 2:]
+    c = c.copy()
+    c[dark & ~near] = 0
+    return c
 
 
 def icon(sheet, x0, y0, x1):
@@ -310,7 +326,7 @@ def main():
         f = f"cinderling_fx_{name}.png"
         Image.fromarray(np.concatenate(cs, axis=1)).save(os.path.join(OUT, "pixel_1x", f))
         man.append({"file": f, "frames": len(cs), "cell_1x": [cw, ch],
-                    "symmetry": "top-bottom (pointing right)" if how == "tb" else "left-right"})
+                    "symmetry": {"tb": "top-bottom (pointing right)", "none": "none"}.get(how, "left-right")})
         rows.append((name, cs))
         print(name, len(cs), "x", cw, ch)
     for slot, (x0, y0, x1) in ICONS.items():
