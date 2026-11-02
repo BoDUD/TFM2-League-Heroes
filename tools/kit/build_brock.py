@@ -169,7 +169,7 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 def stone():
     """--plain's Stone Heart: immune to crowd control, put on (Permanent) by his first action each life."""
-    return when("p_stone", combine(), flag("p_stone", None, cc_immune=True, is_hidden=True))
+    return when("p_stone", combine(), flag("p_stone", None, cc_immune=True))
 
 
 def build(p, is_native=False):
@@ -181,8 +181,8 @@ def build(p, is_native=False):
     thrown = combine({"type": "Airborne", "duration": p["a_up"]}, buff("a_up", p["a_up"]), tsfx("a_up"))
     # every third blow: a_n1 after the first, a_n2 after the second, the third throws and clears
     count = when("a_n2", combine(thrown, unflag("a_n2")),
-                 when("a_n1", combine(unflag("a_n1"), flag("a_n2", None, is_hidden=True)),
-                      flag("a_n1", None, is_hidden=True)))
+                 when("a_n1", combine(unflag("a_n1"), flag("a_n2", None)),
+                      flag("a_n1", None)))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(init, sfx("a"), delayed(p["atk_st"] - 1, *blow, count)),
                       atype="BaseAttack", cancel=True)

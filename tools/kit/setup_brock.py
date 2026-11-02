@@ -45,9 +45,11 @@ VERSION = "0.38.0"
 ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 AD = ADi + O + "100%" + E
-# champion_view (game px from his soles' point, up negative): set from the rigged sheet (bp_card_audit.py --centers)
-# when the art is in; until then Terra's (a 44-px top of the same pack)
-VIEW = {"face": {"x": 3, "y": -32}, "center": {"x": 0, "y": -18}, "banpick_center": {"x": 0, "y": -14}}
+# champion_view (game px from his soles' point, up negative): the face point on his face plate (ppu_restyle's face_to:
+# hd/idle.png's plate (39, 17) from the pivot (36, 51) at PPU 1.16); the centre by League's rule (tools/art/
+# bp_card_audit.py --centers, 2026-11-02: his solid top 44 px up -> -17); the ban/pick card by its rule (y = -39 - top:
+# the lo_idle reaches 33.3 px over its centre -> -6)
+VIEW = {"face": {"x": 3, "y": -29}, "center": {"x": 0, "y": -17}, "banpick_center": {"x": 0, "y": -6}}
 
 
 def phys(d, r, h=None, hp=""):

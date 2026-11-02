@@ -231,6 +231,13 @@
         "skill": "对目标引导激光<#ffb900ff>2.5秒<>（可以边飘边照），共造成<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<><#a974ffff>魔法伤害<>，每<#ffb900ff>0.25秒<>魔抗<#ffb900ff>-4<>（可叠加，持续<#ffb900ff>2秒<>）。目标离开射程或自己被控时中断。",
         "skill2": "两块石头猛地分开再合拢，周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己向后闪开。",
         "ult": "两块石头张开，蓝核射出光柱扫过前方扇形，造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<><#a974ffff>魔法伤害<>，魔抗<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_brock": {
+        "name": "岩宝",
+        "attack": "双拳砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>，目标周围敌人受<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>溅射；每第三下<#ef5350ff>击飞<>目标<#ffb900ff>0.33秒<>。<#ff9028ff>岩心不动<>：免疫控制。",
+        "skill": "抡起大石头砸向目标，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理伤害<>，减速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "树根从目标脚下钻出，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>并<#ef5350ff>定身0.83秒<>；自己获得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>护盾（<#ffb900ff>3秒<>）。",
+        "ult": "跃起砸向敌方英雄：周围敌人受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理伤害<>，每远一格<#ffb900ff>-15%<>（最低<#ffb900ff>40%<>），本场第一次被砸中的<#ef5350ff>击飞1.25秒<>；随后落下<#ffb900ff>6<>块碎石。"
       }
     },
     "skill_name": {
@@ -398,6 +405,11 @@
         "skill1": "蔚蓝激光",
         "skill2": "裂石跃迁",
         "ult": "棱镜扫射"
+      },
+      "tft_brock": {
+        "skill1": "巨岩投掷",
+        "skill2": "苔藤缠握",
+        "ult": "震地猛击"
       }
     }
   },
@@ -633,6 +645,13 @@
         "skill": "對目標照射雷射<#ffb900ff>2.5秒<>（可以邊飄邊照），共造成<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<><#a974ffff>魔法傷害<>，每<#ffb900ff>0.25秒<>魔防<#ffb900ff>-4<>（可疊加，持續<#ffb900ff>2秒<>）。目標離開射程或自己被控時中斷。",
         "skill2": "兩塊石頭猛地分開再合攏，周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己向後閃開。",
         "ult": "兩塊石頭張開，藍核射出光柱掃過前方扇形，造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<><#a974ffff>魔法傷害<>，魔防<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_brock": {
+        "name": "布洛克",
+        "attack": "雙拳砸下，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>，目標周圍敵軍受<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>濺射；每第三下<#ef5350ff>擊飛<>目標<#ffb900ff>0.33秒<>。<#ff9028ff>岩心不動<>：免疫控制。",
+        "skill": "掄起大石頭砸向目標，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<>最大生命<#ff9028ff>物理傷害<>，緩速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
+        "skill2": "樹根從目標腳下鑽出，造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>並<#ef5350ff>定身0.83秒<>；自己獲得<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>護盾（<#ffb900ff>3秒<>）。",
+        "ult": "躍起砸向敵方英雄：周圍敵軍受到<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<>最大生命<#ff9028ff>物理傷害<>，每遠一格<#ffb900ff>-15%<>（最低<#ffb900ff>40%<>），本場第一次被砸中的<#ef5350ff>擊飛1.25秒<>；隨後落下<#ffb900ff>6<>塊碎石。"
       }
     },
     "skill_name": {
@@ -800,6 +819,11 @@
         "skill1": "蒼藍雷射",
         "skill2": "裂石躍遷",
         "ult": "稜鏡掃射"
+      },
+      "tft_brock": {
+        "skill1": "巨岩投擲",
+        "skill2": "苔藤纏握",
+        "ult": "震地猛擊"
       }
     }
   },
@@ -1035,6 +1059,13 @@
         "skill": "Channels a laser at its target for <#ffb900ff>2.5s<> (it can float while lasing), dealing <#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<> <#a974ffff>magic damage<> in all and <#ffb900ff>-4<> Magic Resist every <#ffb900ff>0.25s<> (stacking, <#ffb900ff>2s<>). Breaks if the target leaves range or it is crowd controlled.",
         "skill2": "Its two halves split apart and close again: nearby enemies take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and are slowed by <#ffb900ff>40%<> for <#ffb900ff>1.5s<>; it blinks back.",
         "ult": "Its halves open wide and its core sweeps a beam across a cone in front for <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<> <#a974ffff>magic damage<> and <#ffb900ff>-25<> Magic Resist for <#ffb900ff>3s<>."
+      },
+      "tft_brock": {
+        "name": "Brock",
+        "attack": "Slams both fists down for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>, splashing <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> to enemies around the target; every third blow <#ef5350ff>knocks it up<> for <#ffb900ff>0.33s<>. <#ff9028ff>Stone Heart<>: immune to crowd control.",
+        "skill": "Hurls a boulder at the target for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<> max health <#ff9028ff>physical damage<>, slowing it by <#ffb900ff>30%<> for <#ffb900ff>1.5s<>.",
+        "skill2": "Roots burst from under the target for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<>, <#ef5350ff>rooting it for 0.83s<>; he gains a <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> shield for <#ffb900ff>3s<>.",
+        "ult": "Leaps onto an enemy champion: nearby enemies take <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<> max health <#ff9028ff>physical damage<>, <#ffb900ff>15%<> less per hex away (<#ffb900ff>40%<> minimum); the first time this fight, they are <#ef5350ff>knocked up for 1.25s<>. Then <#ffb900ff>6<> rocks fall."
       }
     },
     "skill_name": {
@@ -1202,6 +1233,11 @@
         "skill1": "Azure Laser",
         "skill2": "Rift Leap",
         "ult": "Prism Sweep"
+      },
+      "tft_brock": {
+        "skill1": "Boulder Toss",
+        "skill2": "Moss Grip",
+        "ult": "Seismic Slam"
       }
     }
   },
@@ -1437,6 +1473,13 @@
         "skill": "대상에게 <#ffb900ff>2.5초<> 동안 레이저를 집중해(떠다니며 가능) 총 <#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<> <#a974ffff>마법 피해<>를 주고 <#ffb900ff>0.25초<>마다 마법 저항력 <#ffb900ff>-4<>(중첩, <#ffb900ff>2초<>). 대상이 사거리를 벗어나거나 군중 제어를 받으면 끊깁니다.",
         "skill2": "두 조각이 갈라졌다 다시 붙으며 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>와 <#ffb900ff>40%<> 둔화(<#ffb900ff>1.5초<>). 자신은 뒤로 순간이동합니다.",
         "ult": "두 조각이 활짝 열리고 핵이 전방 부채꼴로 광선을 휩쓸어 <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<> <#a974ffff>마법 피해<>와 마법 저항력 <#ffb900ff>-25<>(<#ffb900ff>3초<>)."
+      },
+      "tft_brock": {
+        "name": "브록",
+        "attack": "두 주먹을 내리쳐 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>, 대상 주변 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> 범위 피해; 세 번째 공격마다 대상을 <#ffb900ff>0.33초<> <#ef5350ff>에어본<>. <#ff9028ff>바위 심장<>: 군중 제어 면역.",
+        "skill": "대상에게 바위를 던져 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<> 최대 체력 <#ff9028ff>물리 피해<>, <#ffb900ff>1.5초<> 동안 <#ffb900ff>30%<> 둔화.",
+        "skill2": "대상 발밑에서 뿌리가 솟아 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>와 <#ef5350ff>속박 0.83초<>; 자신은 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 보호막(<#ffb900ff>3초<>).",
+        "ult": "적 챔피언에게 도약해 주변 적에게 <#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<> 최대 체력 <#ff9028ff>물리 피해<>(한 칸 멀어질 때마다 <#ffb900ff>-15%<>, 최소 <#ffb900ff>40%<>); 이번 전투에서 처음 맞으면 <#ef5350ff>1.25초 에어본<>. 이어서 바위 <#ffb900ff>6<>개가 떨어집니다."
       }
     },
     "skill_name": {
@@ -1604,6 +1647,11 @@
         "skill1": "하늘빛 레이저",
         "skill2": "균열 도약",
         "ult": "프리즘 휩쓸기"
+      },
+      "tft_brock": {
+        "skill1": "바위 던지기",
+        "skill2": "이끼 움켜쥐기",
+        "ult": "지진 강타"
       }
     }
   },
@@ -1839,6 +1887,13 @@
         "skill": "対象に光線を<#ffb900ff>2.5秒<>照射し（浮遊しながら可）、合計<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>0.25秒<>ごとに魔法防御<#ffb900ff>-4<>（スタック、<#ffb900ff>2秒<>）。対象が射程外に出るか行動妨害で中断。",
         "skill2": "二つの石が割れて再び閉じ、周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>40%<>スロウ（<#ffb900ff>1.5秒<>）。自身は後方へ跳ぶ。",
         "ult": "二つの石が大きく開き、コアから光柱を前方扇形に薙ぎ払い<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<>の<#a974ffff>魔法ダメージ<>と魔法防御<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_brock": {
+        "name": "ブロック",
+        "attack": "両拳を叩きつけ<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>、対象の周囲の敵に<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の範囲ダメージ。3回目ごとに対象を<#ffb900ff>0.33秒<><#ef5350ff>打ち上げ<>。<#ff9028ff>岩の心<>：行動妨害無効。",
+        "skill": "対象に大岩を投げつけ<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>2%<>最大体力の<#ff9028ff>物理ダメージ<>、<#ffb900ff>30%<>スロウ（<#ffb900ff>1.5秒<>）。",
+        "skill2": "対象の足元から根が噴き出し<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.83秒のスネア<>。自身は<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>のシールド（<#ffb900ff>3秒<>）。",
+        "ult": "敵チャンピオンへ跳びかかり周囲の敵に<#ff9028ff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> + <#ff9028ff>3%<>最大体力の<#ff9028ff>物理ダメージ<>（1マスごとに<#ffb900ff>-15%<>、最低<#ffb900ff>40%<>）。この戦闘で初めて当たった敵は<#ef5350ff>1.25秒打ち上げ<>。続いて岩が<#ffb900ff>6<>個落ちる。"
       }
     },
     "skill_name": {
@@ -2006,6 +2061,11 @@
         "skill1": "蒼き光線",
         "skill2": "裂石跳躍",
         "ult": "プリズムスイープ"
+      },
+      "tft_brock": {
+        "skill1": "巨岩投げ",
+        "skill2": "苔の握撃",
+        "ult": "サイズミックスラム"
       }
     }
   }
