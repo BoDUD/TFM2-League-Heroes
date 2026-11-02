@@ -53,6 +53,10 @@ CLIPS = {   # path hashes only, named by what they show
     "summon": 3704933640300576163,        # 2.80 s: the sword falls from the sky into its raised hand (~466-932)
     "transform": 2796505497128703427,     # 1.97 s: transforms, the blade-wings flare out (~982)
     "death": 6865834360333618748,         # 1.00 s: falls apart
+    # the pose pack's (pack_mightymech_poses.py, after the user picked B: it always holds the sword)
+    "chop": 5087126344669973175,          # 1.67 s: the sword raised overhead (~208), chopped down forward (~416)
+    "sword_walk": 5555548862377874764,    # 2.13 s: walks with the sword held upright, one full cycle (L foot up ~266, R ~1330)
+    "break": 14397499106490484414,        # 1.17 s: staggers forward, armour pieces breaking off (~388), slumps (~1165)
 }
 SQ = 11
 SOLE = 1390
