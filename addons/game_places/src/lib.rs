@@ -4,7 +4,7 @@
 //! league.dll（PPU 高清帧：取动画表 / 贴图、战场画身体、界面的调用点）和 15 个整身变身附加包（显示更新的槽）以前都按
 //! 写死的 rva 找游戏里的函数，游戏一更新全部失效，要人用 tools/re/find_build.py 重找、改 16 处。现在：
 //!
-//! - 特征码（`sigs.rs`，由 tools/re/make_sigs.py 从 league_main/src/build.rs 列的版本离线生成：跳转 / 调用的目标和
+//! - 特征码（`sigs.rs`，由 tools/re/make_sigs.py 从 hd_engine/src/build.rs 列的版本离线生成：跳转 / 调用的目标和
 //!   rip 相对位移由 capstone 判定后挖空）在加载时按字节搜 `.text`；调用点靠扫 `E8 rel32`；函数边界用 EXE 自己的
 //!   `.pdata`；界面画英雄的五处按「四次取尺寸的间距」打分（同 find_build.py 第 5 步）。不需要反汇编器。
 //! - [`resolve`]：找全 league.dll 要的每个地址（[`Places`]），找不到或不唯一就报错（league.dll 照旧退回 1x 帧）。
@@ -15,9 +15,9 @@
 //!   `LEAGUE_DISPLAY_PLACES`（在任何钩子改槽之前），后来的直接读——槽被改过以后就搜不到原指针了。
 //!
 //! 结构体里的偏移（显示世界 +0x138 表、实体值 +0x40 / +0x68 / +0xb8 / +0x1b4 等）没有改成动态：0.6.3 → 0.6.4 → 0.6.5 → 0.7.0
-//! 一个都没变（0.7.0 换了新版编译器，代码全变，逐条指令核对过：league_main/src/build.rs 开头）；
+//! 一个都没变（0.7.0 换了新版编译器，代码全变，逐条指令核对过：hd_engine/src/build.rs 开头）；
 //! 变了的话钩子在日志里看得出（「Kayn seen 0 times」之类），到时再查。
-//! 文件版 [`Image::from_file`] 给测试和离线检查用：`cargo test -p league_main` 拿游戏目录里的 EXE 跑一遍 [`resolve`]，
+//! 文件版 [`Image::from_file`] 给测试和离线检查用：`cargo test -p hd_engine` 拿游戏目录里的 EXE 跑一遍 [`resolve`]，
 //! 必须和 build.rs 列的地址完全一致。
 
 use std::collections::{HashMap, HashSet};
@@ -252,7 +252,7 @@ fn one<T: Copy + std::fmt::LowerHex>(what: &str, v: &[T]) -> Result<T, String> {
     }
 }
 
-/// league.dll 要的地址（rva），对应 league_main/src/build.rs 的 `Build`。
+/// league.dll 要的地址（rva），对应 hd_engine/src/build.rs 的 `Build`。
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Places {
     pub anim: usize,

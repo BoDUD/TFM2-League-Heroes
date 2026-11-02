@@ -22,11 +22,16 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 
 
 def _sizes():
-    """addons/league_main/src/hd.rs SIZES -> {hero: size} (league_gragas 0.80 -> gragas 0.8)."""
-    with open(os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), encoding="utf-8") as f:
-        src = f.read()
-    m = re.search(r"pub const SIZES[^=]*=\s*&\[(.*?)\];", src, re.S)
-    return {h: float(v) for h, v in re.findall(r'\("(?:league|tft)_(\w+)",\s*([0-9.]+)\)', m.group(1))} if m else {}
+    """SIZES of both dense-frame tables (addons/league_main/src/hd.rs, addons/tft/src/hd.rs) -> {hero: size}
+    (league_gragas 0.80 -> gragas 0.8, tft_powder 0.90 -> powder 0.9)."""
+    out = {}
+    for crate in ("league_main", "tft"):
+        with open(os.path.join(ROOT, "addons", crate, "src", "hd.rs"), encoding="utf-8") as f:
+            src = f.read()
+        m = re.search(r"pub const SIZES[^=]*=\s*&\[(.*?)\];", src, re.S)
+        if m:
+            out.update({h: float(v) for h, v in re.findall(r'\("(?:league|tft)_(\w+)",\s*([0-9.]+)\)', m.group(1))})
+    return out
 
 
 SIZES = _sizes()

@@ -22,7 +22,6 @@ use std::ffi::c_void;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Once;
 
-use super::lookup;
 use super::wlog;
 
 /// Skia's kDefaultMaxBudget.
@@ -102,7 +101,7 @@ unsafe fn hook(module: usize) -> Result<usize, String> {
                             (need one each)", ins.len(), ctor.len()));
     }
     let func = module + ins[0];
-    let head = lookup::read(func, PROLOGUE).ok_or("insertResource unreadable")?;
+    let head = hd_engine::read(func, PROLOGUE).ok_or("insertResource unreadable")?;
     let page = VirtualAlloc(std::ptr::null_mut(), 0x1000, 0x3000, 0x40) as usize;
     if page == 0 {
         return Err("VirtualAlloc failed".into());
@@ -126,7 +125,7 @@ unsafe fn hook(module: usize) -> Result<usize, String> {
 }
 
 fn u64_at(addr: usize) -> Option<u64> {
-    lookup::read(addr, 8).map(|b| u64::from_le_bytes(b.try_into().unwrap()))
+    hd_engine::read(addr, 8).map(|b| u64::from_le_bytes(b.try_into().unwrap()))
 }
 
 const MIB: u64 = 1 << 20;
@@ -141,7 +140,7 @@ fn watch() {
         loop {
             std::thread::sleep(std::time::Duration::from_secs(2));
             let slot = SLOT.load(Ordering::Acquire);
-            let Some(cache) = u64_at(slot).map(|c| c as usize).filter(|c| lookup::plausible(*c)) else { continue };
+            let Some(cache) = u64_at(slot).map(|c| c as usize).filter(|c| hd_engine::plausible(*c)) else { continue };
             let (Some(max), Some(bytes), Some(budgeted)) =
                 (u64_at(cache + MAX_BYTES), u64_at(cache + BYTES), u64_at(cache + BUDGETED_BYTES)) else { continue };
             if cache != seen {

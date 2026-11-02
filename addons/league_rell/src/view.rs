@@ -8,7 +8,7 @@
 //! 的哈希表，每格 0x1d0 字节，值从 +8 开始：+0x40 名字，+0x68 / +0x70 / +0x78 正在播的动画名，+0xb8 / +0xc0 buff 列表）。名字是
 //! `league_rell` 的实体身上有下马 buff `league_rell_foot` 时，正在播的 idle / run / hit / attack / skill / dead 换成芮尔图里的
 //! `f_idle` …（新名字用游戏同一个堆分配，旧的照游戏的做法释放）。高清帧不用另管：league.dll 把登记英雄动画表里每个动作（f_idle 也在
-//! 内）就地换成它的 hd_ 帧（addons/league_main/src/lookup.rs）。
+//! 内）就地换成它的 hd_ 帧（addons/hd_engine/src/lookup.rs）。
 
 use std::sync::{Mutex, Once};
 

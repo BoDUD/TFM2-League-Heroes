@@ -20,7 +20,7 @@ design from those and League's Herald (the user's pick, 2026-11-02: 「按方案
           knocked aside (Airborne e_up); where it lands the champions within e_r take the same again and are stunned
           e_stun ticks.
   ult     Warp Armor (扭曲护甲, TFT's), `Targeting` on `EnemyChampion` (r_range): it roars and grows (the flag `r_big`,
-          r_big_t ticks: +r_hpb maximum health, healed by as much; league.dll hd::FORMS draws it bigger), at r_st slams
+          r_big_t ticks: +r_hpb maximum health, healed by as much; tft.dll's hd::FORMS draws it bigger), at r_st slams
           the ground in front of it: every enemy within r_r of the point r_off ahead takes r_dmg + r_ap% AP + r_hp% of
           its maximum health as magic damage; for r_t ticks (the flag `r_armor`) r_dr% less damage taken, and the shell
           counts r_per% more for each enemy champion near (tft.dll; --plain: r_dr only).

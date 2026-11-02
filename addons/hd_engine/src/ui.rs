@@ -26,7 +26,7 @@ use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use super::build::Build;
-use super::hd::Hero;
+use super::hd::{self, Hero};
 use super::lookup::{self, bucket_of, plausible, q, BUCKET, FRAME};
 use super::wlog;
 
@@ -82,20 +82,22 @@ struct Names {
 
 static NAMES: LazyLock<Mutex<HashMap<String, &'static Names>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-/// The hero a drawer's resource name is of - `.../champions/<id>#anim` or `#sheet` - when it is one of this repo's packs'
-/// (league_*, tft_*): only they have UI sheets.
-fn hero_id(name: &str) -> Option<&str> {
+/// The hero a drawer's resource name is of - `.../champions/<id>#anim` or `#sheet` - and its pack, when it is one of
+/// `packs`' (`<pack>_...`: league_*, tft_*, the packs whose tables are registered - src/hd.rs Heroes::packs): only they
+/// have UI sheets.
+fn hero_id<'a>(name: &'a str, packs: &[&'static str]) -> Option<(&'a str, &'static str)> {
     let (path, _) = name.rsplit_once('#')?;
     let id = path.rsplit('/').next()?;
-    (id.starts_with("league_") || id.starts_with("tft_")).then_some(id)
+    let pack = packs.iter().find(|p| id.strip_prefix(**p).is_some_and(|rest| rest.starts_with('_')))?;
+    Some((id, pack))
 }
 
-fn names_of(id: &str) -> Option<&'static Names> {
+/// Hero `id`'s UI sheets in `pack` (`asset/<pack>/ui_sheets/...`).
+fn names_of(id: &str, pack: &str) -> Option<&'static Names> {
     let mut m = NAMES.lock().ok()?;
     if let Some(n) = m.get(id) {
         return Some(n);
     }
-    let pack = if id.starts_with("tft_") { "tft" } else { "league" };
     let base = |k: usize| format!("asset/{pack}/{DIR}/{}/{id}", KINDS[k]);
     let sheet = [format!("{}#sheet", base(IDLE)), format!("{}#sheet", base(REEL))];
     // the Strings' buffers stay where they are when the Names box takes them
@@ -192,21 +194,22 @@ unsafe fn copy_from(t: usize, ut: usize, reel: bool, div: f32) -> Option<usize> 
     Some(head.as_ptr() as usize)
 }
 
-/// (the game's table, drawer) -> (its ctrl, the UI table, its ctrl, the copy)
-static COPIES: LazyLock<Mutex<HashMap<(usize, usize), (usize, usize, usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// (the game's table, drawer) -> (its ctrl, the UI table, its ctrl, the divisor's bits, the copy). The divisor is in
+/// the key: a hero whose pack registered after its first lookup (src/share.rs) is divided by its own from then on.
+static COPIES: LazyLock<Mutex<HashMap<(usize, usize), (usize, usize, usize, u32, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 unsafe fn copy_of(t: usize, ut: usize, k: usize, reel: bool, div: f32) -> Option<usize> {
     let (ctrl, uctrl) = (q(t), q(ut));
     if let Ok(c) = COPIES.lock() {
-        if let Some(&(c0, u0, uc0, copy)) = c.get(&(t, k)) {
-            if (c0, u0, uc0) == (ctrl, ut, uctrl) {
+        if let Some(&(c0, u0, uc0, d0, copy)) = c.get(&(t, k)) {
+            if (c0, u0, uc0, d0) == (ctrl, ut, uctrl, div.to_bits()) {
                 return Some(copy);
             }
         }
     }
     let copy = copy_from(t, ut, reel, div)?;
     if let Ok(mut c) = COPIES.lock() {
-        c.insert((t, k), (ctrl, ut, uctrl, copy));
+        c.insert((t, k), (ctrl, ut, uctrl, div.to_bits(), copy));
     }
     Some(copy)
 }
@@ -270,8 +273,8 @@ fn tally(k: usize) {
 /// hero's UI sheet, or None - no UI sheets for it: the drawer keeps the battle sheet's frames, as before.
 pub(crate) unsafe fn anim(ctx: usize, name: &str, got: usize, k: usize, hero: Option<&Hero>) -> Option<usize> {
     let b = lookup::build();
-    let id = hero_id(name)?;
-    let n = names_of(id)?;
+    let (id, pack) = hero_id(name, &hd::heroes().packs)?;
+    let n = names_of(id, pack)?;
     let kd = kind(b, k);
     let (ut, ue) = (lookup::orig_anim(ctx, &n.anim[kd]), lookup::orig_sheet(ctx, &n.sheet[kd]));
     if !plausible(ut) || !plausible(ue) {
@@ -306,7 +309,8 @@ pub(crate) unsafe fn sheet(ctx: usize, name: &str, k: usize, hero: Option<&Hero>
         from = s.anim.take();
         s.swap = None;
     });
-    let n = names_of(hero_id(name)?)?;
+    let (id, pack) = hero_id(name, &hd::heroes().packs)?;
+    let n = names_of(id, pack)?;
     if from != Some((k, n as *const Names as usize)) {
         return None;
     }
@@ -441,20 +445,24 @@ mod tests {
 
     #[test]
     fn a_drawers_name_gives_the_hero_and_its_ui_sheets() {
-        assert_eq!(hero_id("asset/base/aseprite_resources/champions/league_akshan#anim"), Some("league_akshan"));
-        assert_eq!(hero_id("asset/base/aseprite_resources/champions/tft_powder#sheet"), Some("tft_powder"));
-        assert_eq!(hero_id("asset/base/aseprite_resources/champions/alchemist#sheet"), None);
-        assert_eq!(hero_id("asset/base/aseprite_resources/champions/league_akshan"), None);
-        let n = names_of("league_akshan").unwrap();
+        let both = ["league", "tft"];
+        assert_eq!(hero_id("asset/base/aseprite_resources/champions/league_akshan#anim", &both), Some(("league_akshan", "league")));
+        assert_eq!(hero_id("asset/base/aseprite_resources/champions/tft_powder#sheet", &both), Some(("tft_powder", "tft")));
+        assert_eq!(hero_id("asset/base/aseprite_resources/champions/alchemist#sheet", &both), None);
+        assert_eq!(hero_id("asset/base/aseprite_resources/champions/league_akshan", &both), None);
+        assert_eq!(hero_id("asset/base/aseprite_resources/champions/leagueakshan#anim", &both), None);
+        // a pack whose table is not registered (its DLL not loaded): no UI sheets for its heroes
+        assert_eq!(hero_id("asset/base/aseprite_resources/champions/tft_powder#sheet", &["league"]), None);
+        let n = names_of("league_akshan", "league").unwrap();
         assert_eq!(n.anim, ["asset/league/ui_sheets/idle/league_akshan#anim", "asset/league/ui_sheets/bp/league_akshan#anim"]);
         assert_eq!(n.sheet[REEL], "asset/league/ui_sheets/bp/league_akshan#sheet");
-        assert_eq!(names_of("tft_powder").unwrap().sheet[IDLE], "asset/tft/ui_sheets/idle/tft_powder#sheet");
+        assert_eq!(names_of("tft_powder", "tft").unwrap().sheet[IDLE], "asset/tft/ui_sheets/idle/tft_powder#sheet");
         for k in [IDLE, REEL] {
             let [cap, ptr, len] = n.string[k];
             assert_eq!((cap, len), (n.sheet[k].len(), n.sheet[k].len()));
             assert_eq!(unsafe { std::slice::from_raw_parts(ptr as *const u8, len) }, n.sheet[k].as_bytes());
         }
-        assert!(std::ptr::eq(names_of("league_akshan").unwrap(), n));
+        assert!(std::ptr::eq(names_of("league_akshan", "league").unwrap(), n));
     }
 
     #[test]

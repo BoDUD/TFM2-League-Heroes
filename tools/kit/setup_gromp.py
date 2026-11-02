@@ -47,7 +47,7 @@ AD = ADi + O + "100%" + E
 # column 57, row 12 of 54 at PPU 1.69: 25 over the ground, 6 ahead of its standing point, the design's pivot column 47 -
 # ppu_restyle's face_to); the centre in its belly (3 ahead of its standing point, the middle of its 32 px); the ban/pick
 # card a little lower than the Murk Wolf's (32 px from its highest point to its feet; its belly kept inside the card by
-# its UI size 0.82 in league.dll's hd.rs)
+# its UI size 0.82 in tft.dll's hd.rs)
 # center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
 VIEW = {"face": {"x": 6, "y": -25}, "center": {"x": 3, "y": -6}, "banpick_center": {"x": 0, "y": -12}}
 

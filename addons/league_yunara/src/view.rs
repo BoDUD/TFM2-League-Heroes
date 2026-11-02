@@ -7,7 +7,7 @@
 //! 这里，一个接一个调用）。加载时核对函数开头 24 个字节，把槽换成本包的函数：先调用槽里原来的函数，再走一遍显示世界的实体表（+0x138
 //! 的哈希表，每格 0x1d0 字节，值从 +8 开始：+0x40 名字，+0x68 / +0x70 / +0x78 正在播的动画名，+0xb8 / +0xc0 buff 列表）。名字是
 //! `league_yunara` 的实体身上有超凡形态 buff 时，正在播的 idle / run / attack / hit 换成 `r_idle` …（新名字用游戏同一个堆分配，旧的照游戏的做法
-//! 释放）。高清帧不用另管：league.dll 把登记英雄动画表里每个动作（r_idle 也在内）就地换成它的 hd_ 帧（addons/league_main/src/lookup.rs）。
+//! 释放）。高清帧不用另管：league.dll 把登记英雄动画表里每个动作（r_idle 也在内）就地换成它的 hd_ 帧（addons/hd_engine/src/lookup.rs）。
 
 use std::sync::{Mutex, Once};
 

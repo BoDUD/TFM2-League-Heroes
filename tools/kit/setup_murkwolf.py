@@ -48,7 +48,7 @@ AD = ADi + O + "100%" + E
 # column 50, row 34 of 60 at PPU 1.67: 16 over the ground, 9 ahead of its standing point, the design's pivot column 36 -
 # ppu_restyle's face_to); the centre in its body (3 ahead of its standing point, the middle of its back's 32 px); the
 # ban/pick card as the Crimson Raptor's (the same 36 px from its highest point to its soles; its two heads kept inside
-# the card by its UI size 0.9 in league.dll's hd.rs)
+# the card by its UI size 0.9 in tft.dll's hd.rs)
 # center: the encyclopedia card puts this point at a fixed spot - set by League's rule (tools/art/bp_card_audit.py --centers, 2026-11-01)
 VIEW = {"face": {"x": 9, "y": -16}, "center": {"x": 3, "y": -8}, "banpick_center": {"x": 0, "y": -14}}
 

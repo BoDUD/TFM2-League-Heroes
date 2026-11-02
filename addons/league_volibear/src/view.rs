@@ -9,7 +9,7 @@
 //! 显示世界的实体表。名字是 `league_volibear` 的实体身上有风暴形态 buff 时，正在播的动作换成它的 `r_` 双胞胎（新名字用游戏同一个
 //! 堆分配，旧的照游戏的做法释放）；buff 没了（形态结束、阵亡）换回来。双胞胎和原帧帧数、时长、每帧大小和画到的格子都一样，只是颜色
 //! 不同，所以动作播到一半换也接得上（落地砸地 ult_land 第一帧就换：buff 和它同一 tick 开始）。高清帧不用另管：league.dll 把登记英雄
-//! 动画表里每个动作（r_idle 也在内）就地换成它的 hd_ 帧（addons/league_main/src/lookup.rs）。
+//! 动画表里每个动作（r_idle 也在内）就地换成它的 hd_ 帧（addons/hd_engine/src/lookup.rs）。
 
 use std::sync::{Mutex, Once};
 
