@@ -416,6 +416,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // PPU 2.0」: 88 rows), and Codex's key poses after its own TFT clips, posed by tools/art/rig_riftherald.py, so no
     // SIZES row
     ("tft_riftherald", 2.0, include_str!("../../../tft/champions/tft_riftherald#anim.fanim")),
+    // T-Hex (tft_thex, the tft pack): the mech rex crouched at 3/4 with the gatling before its chest, step 0's first A
+    // read on its own 10 px squares at the user's 40 game px from the ear spikes to its soles, PPU 1.9 (「A-1 40px PPU1.9」:
+    // 76 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_thex.py, so no SIZES row
+    ("tft_thex", 1.9, include_str!("../../../tft/champions/tft_thex#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),

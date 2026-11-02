@@ -4588,6 +4588,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_thex",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_thex",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_thex_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_thex_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_vander",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_vander",

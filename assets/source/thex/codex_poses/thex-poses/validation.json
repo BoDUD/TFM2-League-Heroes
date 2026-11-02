@@ -1,0 +1,291 @@
+{
+  "thex-pose-a_aim.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      74,
+      497,
+      1192,
+      1194
+    ],
+    "partial_alpha_pixels": 416441,
+    "transparent_pixels": 1153983,
+    "raw_copy_identical": true,
+    "sha256": "790c803c6c7b54db8b8edd9ac69887a35caf3d433d0b4cc2414233d5486838a2"
+  },
+  "thex-pose-a_recoil.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      135,
+      298,
+      1147,
+      1165
+    ],
+    "partial_alpha_pixels": 452910,
+    "transparent_pixels": 1117812,
+    "raw_copy_identical": true,
+    "sha256": "37e3d9294782ab028b3015d6af33fcdc78cc79176c5bb31acbf3754d3e2d9531"
+  },
+  "thex-pose-d_down.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      40,
+      736,
+      1227,
+      1146
+    ],
+    "partial_alpha_pixels": 286195,
+    "transparent_pixels": 1285124,
+    "raw_copy_identical": true,
+    "sha256": "37f1407964ed624c8f1dde74fdd5661d56d911d20e093f948d8572282c6fc6d4"
+  },
+  "thex-pose-d_fall.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      73,
+      397,
+      1212,
+      1171
+    ],
+    "partial_alpha_pixels": 413192,
+    "transparent_pixels": 1158157,
+    "raw_copy_identical": true,
+    "sha256": "a6bcd8e11f85a876921e70d98e6ade39158aad52875137b71e32cf2c18ba5f5f"
+  },
+  "thex-pose-e_bite.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      118,
+      452,
+      1161,
+      1174
+    ],
+    "partial_alpha_pixels": 416863,
+    "transparent_pixels": 1154159,
+    "raw_copy_identical": true,
+    "sha256": "0f05f42a6483fcbd733c33f1ae48c135cbabf49278736008ab4ed0dcf67fa10d"
+  },
+  "thex-pose-e_charge.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      21,
+      599,
+      1238,
+      1148
+    ],
+    "partial_alpha_pixels": 329297,
+    "transparent_pixels": 1241699,
+    "raw_copy_identical": true,
+    "sha256": "aa516828c8edd9c9a8e61862f8fa634944cc2aed653c5a2b49c680ea4d5ba1c3"
+  },
+  "thex-pose-q_fire.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      36,
+      410,
+      1226,
+      1186
+    ],
+    "partial_alpha_pixels": 469652,
+    "transparent_pixels": 1101506,
+    "raw_copy_identical": true,
+    "sha256": "b9478b83d5e0d71307ed7b4ba2cd328bbad2e5a7031ea698d7a7bed7c78b33a0"
+  },
+  "thex-pose-r_fire.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      106,
+      329,
+      1176,
+      1183
+    ],
+    "partial_alpha_pixels": 506538,
+    "transparent_pixels": 1064051,
+    "raw_copy_identical": true,
+    "sha256": "1ecb527a41a9d83486f49eca2ee6a66bf46d9de5167f0f6431f1e629fc4bbf96"
+  },
+  "thex-pose-r_open.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      130,
+      325,
+      1175,
+      1188
+    ],
+    "partial_alpha_pixels": 450587,
+    "transparent_pixels": 1120471,
+    "raw_copy_identical": true,
+    "sha256": "c73255d4801051627f468f14b4174a9c683041554b93cc4c21dfa8063df80872"
+  },
+  "thex-pose-run1.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      64,
+      516,
+      1208,
+      1195
+    ],
+    "partial_alpha_pixels": 346575,
+    "transparent_pixels": 1223858,
+    "raw_copy_identical": true,
+    "sha256": "07cfc27f547ae4bfa5dcd38d7abb4d0dc886bcc92fa2a77658160f5d70cc96c6"
+  },
+  "thex-pose-run2.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      58,
+      368,
+      1176,
+      1163
+    ],
+    "partial_alpha_pixels": 397815,
+    "transparent_pixels": 1172902,
+    "raw_copy_identical": true,
+    "sha256": "b6b851cc33b5a1f92990be497eab28580f09688129a1860bfc5cd9edbc77f5a6"
+  },
+  "thex-pose-run3.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      61,
+      454,
+      1204,
+      1195
+    ],
+    "partial_alpha_pixels": 384631,
+    "transparent_pixels": 1185280,
+    "raw_copy_identical": true,
+    "sha256": "2bec18e923f0bff25a5e1db398c5bb51d95cb8dd57849ad02f6659360cd7a1fd"
+  },
+  "thex-pose-run4.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      52,
+      497,
+      1212,
+      1202
+    ],
+    "partial_alpha_pixels": 387681,
+    "transparent_pixels": 1182224,
+    "raw_copy_identical": true,
+    "sha256": "c77788fb0d1a625e9d15dad4a6191482e5032234ed32940e40c8c67eae7b444a"
+  },
+  "thex-pose-run5.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      55,
+      482,
+      1183,
+      1194
+    ],
+    "partial_alpha_pixels": 387743,
+    "transparent_pixels": 1182970,
+    "raw_copy_identical": true,
+    "sha256": "f3273d44527d215b2dc0949746787599e9f172a2b7ea4525a34cf4018e239a2c"
+  },
+  "thex-pose-run6.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      76,
+      477,
+      1183,
+      1154
+    ],
+    "partial_alpha_pixels": 360835,
+    "transparent_pixels": 1209380,
+    "raw_copy_identical": true,
+    "sha256": "2b24b28918223eeb7094f9123387ab6053c68eb477fa08820991ed1455035841"
+  },
+  "thex-pose-run7.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      72,
+      490,
+      1226,
+      1206
+    ],
+    "partial_alpha_pixels": 358909,
+    "transparent_pixels": 1212312,
+    "raw_copy_identical": true,
+    "sha256": "c77624f468088459410051ff1de0e1c20fe5cefa512a480f2386ad3a2a926cc0"
+  },
+  "thex-pose-run8.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      61,
+      490,
+      1198,
+      1186
+    ],
+    "partial_alpha_pixels": 374246,
+    "transparent_pixels": 1196756,
+    "raw_copy_identical": true,
+    "sha256": "0047f540aa780a51ad258d4945ba7c2ef222f0131aab77b77409da719a6a8b7c"
+  }
+}

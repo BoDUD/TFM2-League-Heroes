@@ -1,0 +1,34 @@
+{
+  "thex-A.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      292,
+      643,
+      1100,
+      1229
+    ],
+    "transparent_pixels": 1268638,
+    "opaque_pixels": 1535,
+    "partial_alpha_pixels": 302343
+  },
+  "thex-B.png": {
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "body_bbox_alpha_gt_127": [
+      265,
+      438,
+      1196,
+      1235
+    ],
+    "transparent_pixels": 1135119,
+    "opaque_pixels": 2420,
+    "partial_alpha_pixels": 434977
+  }
+}
