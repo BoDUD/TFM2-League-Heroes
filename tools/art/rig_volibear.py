@@ -104,7 +104,7 @@ def tinted(D, z=12):
     return bg.convert("RGB")
 
 
-PAD = (50, 60, 40, 20)          # canvas padding round the design: left, right, top, bottom
+PAD = (50, 60, 80, 20)          # canvas padding round the design: left, right, top (R's leap), bottom
 POSES = ("up2", "up1", "rake", "maul")
 RUN_N = 9
 
@@ -198,8 +198,8 @@ class Form:
         can = R.compose(self.rig, layers)
         return self.dark_slits(self.close_holes(can)) if fill else can
 
-    def q(self, key, n, dx=0):
-        return self.dark_slits(R.compose(self.rig, [(self.Q[key][n], dict(dx=dx))]))
+    def q(self, key, n, dx=0, dy=0):
+        return self.dark_slits(R.compose(self.rig, [(self.Q[key][n], dict(dx=dx, dy=dy))]))
 
     def run(self, n, dy=0):
         """A walk frame; the slits Codex left between a thigh and an arm or the crossing legs (enclosed, not in the
@@ -229,7 +229,7 @@ def tries(F):
 # (skill: the slam lands on frame 4, 280 ms in - the kit's q_rel 17)
 MS = {"idle": [150] * 8, "run": [110] * 9, "skill_run": [80] * 8, "attack": [90, 110, 100, 120, 80],
       "attack_w": [80, 90, 100, 120, 80], "skill": [80, 90, 110, 100, 170], "skill2": [100, 120, 167, 120],
-      "ult": [100, 150, 200, 550], "ult_land": [70, 130, 200], "hit": [100, 100],
+      "ult": [100, 50, 70, 780], "ult_land": [35, 35, 160, 170], "hit": [100, 100],
       "dead": [100, 110, 120, 150, 60, 60, 100, 500]}
 ORDER = ["idle", "run", "skill_run", "attack", "attack_w", "skill", "skill2", "ult", "ult_land", "hit", "dead"]
 
@@ -254,11 +254,14 @@ def frames_all(F):
     out["skill"] = [F.q("pounce", n) for n in range(len(F.Q["pounce"]))]
     # E Sky Splitter (volibear_spell3: one arm raised to the sky, held, down)
     out["skill2"] = [p(crouch=1), c("up1"), c("up1", crouch=1), p(crouch=1)]
-    # R Stormbringer (Volibear_Spell4_Ground_Pound): crouched, the spring, in the air with both arms up (held while he
-    # flies), then ult_land: the slam with both claws down in front, the rebound, up
-    air = c("up2", whole=(1, -8), legs=((0, -2), (0, -2)))
-    out["ult"] = [p(crouch=2), c("up2", whole=(0, -4), legs=((0, -1), (0, -1))), air, air.copy()]
-    out["ult_land"] = [c("maul", crouch=2, whole=(1, 0)), c("rake", crouch=1, whole=(1, 0)), p(crouch=1)]
+    # R Stormbringer (Volibear_Spell4_Ground_Pound: crouched on all fours, a spring far up - out of League's frame -,
+    # held up there with the claws high, a crash straight down and the pound on all fours, 0.9 s): the pounce's own
+    # poses lifted (the user, 2026-11-02: 「开大的时候没有像LOL那样跳进去的动作」「我们明显不对」 - the R stood up with
+    # both arms raised 8 squares off the ground and clawed forward on landing). ult: low on all fours, rearing up,
+    # rising, held at the top (about his height) while he flies; ult_land (on arrival, the kit's r_rel 4 ticks to the
+    # slam): the dive down from the height in two steps, the pound on all fours (frame 3, 70 ms in), up
+    out["ult"] = [F.q("pounce", 0), F.q("pounce", 1, dy=-10), F.q("pounce", 2, dy=-32), F.q("pounce", 2, dy=-46)]
+    out["ult_land"] = [F.q("pounce", 3, dy=-28), F.q("pounce", 3, dy=-10), F.q("pounce", 4), p(crouch=1)]
     hit = [p(whole=(-2, 0)), p(whole=(-1, 0))]
     out["hit"] = [R.flash(hit[0]), hit[1]]
     # the death (volibear_death): staggers back, sinks, falls on his back, bounces once on the ground

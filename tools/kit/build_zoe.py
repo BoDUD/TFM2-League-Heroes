@@ -267,7 +267,10 @@ def build(p):
     if native:          # the add-on sees the mark and shows the Zz while the sleep holds
         bubble_hit = [refresh("e_got", 2), ap(p["e_dmg"], p["e_ratio"]), slow, buff("e_mark", p["e_drowsy"]),
                       delayed(p["e_drowsy"], sleep(p["e_sleep_n"])), view("e_hit"), tsfx("e_hit")]
-    caught = [sw("e_tdone", NONE, combine(flag("e_tdone", p["e_trap"]), *bubble_hit, sfx("e_pop")))]
+    # the trap comes from the bubble's end_effects and outlives her, and a dead caster's flags freeze: `e_tdone` off
+    # when she died could not be set again, so it caught (hit, put to sleep, popped) whoever stood in it every 3 ticks
+    # to its end - so past the flag it asks alive() (league_maokai's sapling, 2026-11-02)
+    caught = [sw("e_tdone", NONE, alive(flag("e_tdone", p["e_trap"]), *bubble_hit, sfx("e_pop")))]
     lying = [delayed(k, sw("e_tdone", NONE, view("e_trap"))) for k in range(0, p["e_trap"], p["e_show"])]
     left = sw("e_got", combine(*rm("e_got")), combine(trap("e_field", p["e_trap_r"], p["e_trap"], caught), *lying))
     bubble = line("e_bubble", p["e_speed"], p["e_len"], p["e_w"], "EnemyChampion", bubble_hit, end=[left])

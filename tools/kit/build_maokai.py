@@ -27,7 +27,7 @@ Sapling Toss (E) has no slot - the watch throws it (league_jarvaniv's W the same
           ticks and stands guard e_life ticks (League 30 s; the pack's traps live <= 12 s: league_teemo R); an enemy
           (minions too) within e_trig wakes it: it hops and bursts, e_dmg + e_ap% AP in e_r and a e_slow% slow for
           e_slow_t ticks (league_teemo R's trigger / blast flags). One at a time. Brush (stronger saplings) is data-blind:
-          the add-on.
+          the add-on. His death disarms it: the zones ask alive() before every check (league_caitlyn W's traps).
   ult     R Nature's Grasp (自然之握): the slot (a 3-tick `Targeting` on `EnemyChampion` within r_range) only arms the
           ult for r_arm ticks; the watch sends the wall once the moment is right (the user's rule 「看好时机」): two enemy
           champions within r_cnt, or a fight with one. Unused, the window ends with the cooldown capped (`r_retry`). The
@@ -290,23 +290,29 @@ def build(p):
     blast_b = [magic(p["e_dmg"] * p["e_bdmg"] // 100, p["e_ap"] * p["e_bdmg"] // 100),
                buff("e_slow", p["e_bslow_t"], move_speed_mult=-p["e_bslow"]), view("e_hit"), tsfx("e_hit")]
     life = p["e_life"]
+    # the picture links are left unguarded: after his death a sapling stands on its picture but no longer bursts
     links = [delayed(t, sw("e_on", view("e_idle"))) for t in range(p["e_arm"], life, p["e_link"])]
     planted = [view("e_land"), sfx("e_land"), refresh("e_on", life + p["e_arm"]), *rm("e_boom"), *links,
                delayed(p["e_arm"],
                        # trigger: the first enemy near swaps `e_on` for `e_boom` (one burst)
                        # (the sapling hops onto it: the burst picture plays on that enemy)
+                       # the zones come from the lob's end_effects and outlive him, and a dead caster's flags freeze:
+                       # unguarded, a sapling armed when he died burst on every enemy near it every tick (its picture
+                       # on the enemy and its sound, the user 2026-11-02: 「蔚奥莱身上...一直无限音效 在打大树的时候」), and
+                       # a death inside the 2 ticks of `e_boom` would blast every 2 ticks - so past each flag they ask
+                       # alive() (inside the flag: the search runs only while the flag is up)
                        field("e_trig", p["e_trig"], life, 1,
-                             [sw("e_on", combine(*rm("e_on"), refresh("e_boom", 2), view("e_burst"),
-                                                 sfx("e_burst")))], first=0),
+                             [sw("e_on", alive(*rm("e_on"), refresh("e_boom", 2), view("e_burst"), sfx("e_burst")))],
+                             first=0),
                        # blast: checks every 2 ticks, so the 2-tick `e_boom` is seen once - every enemy in e_r hit once
-                       *([field("e_blast", p["e_r"], life + 2, 2, [sw("e_boom", combine(*blast, *sap))], first=1)]
+                       *([field("e_blast", p["e_r"], life + 2, 2, [sw("e_boom", alive(*blast, *sap))], first=1)]
                          if not native else
                          # the add-on's copy: a sapling standing in brush (the add-on marks `e_brush` on him while his
                          # standing sapling is in a bush) bursts bigger, harder and slows more (League's empowered one)
                          [field("e_blast", p["e_r"], life + 2, 2,
-                                [sw("e_boom", sw("e_brush", NONE, combine(*blast, *sap)))], first=1),
+                                [sw("e_boom", sw("e_brush", NONE, alive(*blast, *sap)))], first=1),
                           field("e_blast_b", p["e_br"], life + 2, 2,
-                                [sw("e_boom", sw("e_brush", combine(*blast_b, *sap)))], first=1)]))]
+                                [sw("e_boom", sw("e_brush", alive(*blast_b, *sap)))], first=1)]))]
     toss = combine(refresh("e_cd", p["e_cd"]), refresh("busy", p["e_dur"]), anim("skill_e", p["e_dur"]), sfx("e"),
                    voice("vo_e", p),
                    delayed(p["e_rel"] - 1, alive(pick(p["e_range"], "EnemyChampion",

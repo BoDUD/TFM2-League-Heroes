@@ -55,7 +55,7 @@
 
 ### 塞拉斯附加包
 
-[塞拉斯附加包](../../addons/league_sylas/README.md)：`league_sylas` v0.2.48
+[塞拉斯附加包](../../addons/league_sylas/README.md)：`league_sylas` v0.2.49
 
 主包 `league` 保持纯数据。用户选了「做，含按类别偷大招+连招」，又要求「有连招要做连招」。主包的数据复制不了别的英雄的大招，也读不到当前生命，所以这两件事放在这个附加包里用原生代码做，外加连招：
 
@@ -103,6 +103,7 @@
 | 特效 | 23 张特效（[`tools/art/pack_sylas_fx.py`](../../tools/art/pack_sylas_fx.py) 的提示词，颜色照英雄联盟：锁链是金色，魔法是蓝紫色的闪电，锁链鞭击的爆炸是金橙色，回血是淡蓝色；参考是英雄联盟里塞拉斯自己的贴图，[`tools/lol/fx_ref_sylas.py`](../../tools/lol/fx_ref_sylas.py)），Codex 画好按格子交回；[`import_sylas_fx.py`](../../tools/art/import_sylas_fx.py) 照技能播放的位置摆好，写成 `league_sylas_fx` 和 `league_sylas_big`（横扫、交叉点、夺来的大招爆发，附加包的重砸和治疗之歌）。交叉点的光照数据亮 0.6 秒再爆；四条飞行的锁链 / 长箭画成朝右、上下对称（游戏按飞行方向转它），别的全部左右对称（游戏不镜像特效图） |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_sylas.py`](../../tools/lol/extract_sylas.py)，21 段）：甩链 / 打中，横扫，突刺 / 刺中，Q 出手 / 抽中 / 爆炸，E 冲刺 / 甩链 / 命中，R 出手 / 偷到，放夺来的大招 / 爆发；Q、W、E、R、夺来的大招的配音（片段名 `league_sylas_sfx_*`，和声音名不同） |
 | 图标 | 官方技能图标（锁链鞭击、潜掠/强掳、其人之道，另有弑君突刺和破敌禁法），从本地客户端取 |
+| 修正（偷来的大招，附加包 0.2.49，2026-11-02） | 主包[茂凯](league_maokai.md)的树苗、[提莫](league_teemo.md)的蘑菇加了「他死后不再触发」的 `alive()`，塞拉斯偷来的这两个大招里也带着它们，副本重新生成（`make_override.py`） |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 

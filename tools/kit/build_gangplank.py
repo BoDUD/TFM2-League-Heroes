@@ -281,15 +281,21 @@ def keg(p, s, native, ms):
             no = sw(f"k{o}_chain", blow, no)
         return no
 
+    # the zones come from the throw's end_effects and outlive him, and a dead caster's flags freeze: killed with a keg
+    # ripe inside the e_arm ticks of `q_fire` (or a chain flag up), `ripe` could not be taken off again and the keg blew
+    # on everyone in it every tick to its end - so past `ripe` it asks alive() (league_maokai's sapling, 2026-11-02);
+    # the `a_fire` hit asks its own search for him already
     def why(blow):   # a shot, a hit beside it or another keg's blast
-        return sw(ripe, sw("q_fire", blow, chained(blow, sw("a_fire", pick(
-            p["e_near"], "AllyOnlySelf", flag(f"k{s}_near", 1), here=True)))))
+        return sw(ripe, alive(sw("q_fire", blow, chained(blow, sw("a_fire", pick(
+            p["e_near"], "AllyOnlySelf", flag(f"k{s}_near", 1), here=True))))))
 
     near_blow = lambda blow: sw(f"k{s}_near", combine(*rm(f"k{s}_near"), blow))
     trigger = field(f"k{s}_trig", p["e_r"], life, 1, [why(hit), near_blow(hit)], first=1)
-    champ = field(f"k{s}_champ", p["e_r"], life, 1, [sw(ripe, sw("q_fire", bonus, chained(bonus, sw(
-        "a_fire", pick(p["e_near"], "AllyOnlySelf", bonus, here=True)))))], target="EnemyChampion", first=1)
-    links = [delayed(t, sw(blew, combine(*rm(blew), view("e_boom"), sfx("e_boom")),
+    champ = field(f"k{s}_champ", p["e_r"], life, 1, [sw(ripe, alive(sw("q_fire", bonus, chained(bonus, sw(
+        "a_fire", pick(p["e_near"], "AllyOnlySelf", bonus, here=True))))))], target="EnemyChampion", first=1)
+    # in the game a dead caster's Delayed effects run on: killed inside the e_link + 1 ticks of `blew`, it stayed up and
+    # every later link played the blast and its sound again to the keg's end - so the blast asks alive() too
+    links = [delayed(t, sw(blew, alive(*rm(blew), view("e_boom"), sfx("e_boom")),
                            sw(ripe, view("e_keg_lit"), sw(live, view("e_keg")))))
              for t in range(0, life, p["e_link"])]
     end = [sfx("e_land"), view("e_land"), refresh(live, life), delayed(p["e_arm"], sw(live, refresh(ripe, life))),

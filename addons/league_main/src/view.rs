@@ -830,7 +830,7 @@ mod tests {
         // Volibear's leap and storm form are main pack buffs of his
         let data = include_str!("../../../league/champion/league_volibear.data_champion");
         let (_, buffs, s, t) = *hd::FORMS.iter().find(|f| f.0 == "league_volibear").expect("Volibear grows in his form");
-        assert_eq!((s, t), (1.35, 1.25));
+        assert_eq!((s, t), (1.15, 1.25));
         for b in buffs {
             assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives him {b}");
         }

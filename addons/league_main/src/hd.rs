@@ -756,9 +756,10 @@ pub fn grow_count<'a>(names: impl IntoIterator<Item = &'a str>, buff: &str) -> u
 /// it and to shrink back), about the soles like GROWTH. Volibear's Stormbringer (the user, 2026-11-01: 「开大时候可以加大点
 /// 体型吧 我记得英雄联盟是这样的」): League's R makes him 35 % bigger, grown over 1.25 seconds from the cast and shrunk
 /// back when it ends - here from the leap (`league_volibear_r_air`, 1 s) through the 12 s storm form after the landing
-/// (`league_volibear_r_form`), main pack data both.
+/// (`league_volibear_r_form`), main pack data both. 1.35 at first; 1.15 at the user's word (2026-11-02: 「开大模型变的实在
+/// 太大了」 - 61 game px against Darius' and Garen's 42, his own 45 already the tallest of them; 1.15: 52)
 pub const FORMS: &[(&str, &[&str], f32, f32)] = &[
-    ("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.35, 1.25),
+    ("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25),
     // Gromp's Swamp Belch (tft_gromp, 2026-11-01 plan A: 「自身短时间变大」): the body 15 % bigger while the flag r_big
     // lasts (tools/kit/build_gromp.py r_grow), grown and shrunk in 0.5 s - 1.3 at first, lowered at the user's word since
     // the ult's own frames already blow its belly up to 1.6x (「Lower it to 1.15×」)
