@@ -402,6 +402,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read on 12 px squares at the user's 34 game px from the left tip to the bottom points, PPU 1.29 (「造型用这个」 =
     // A-3: 44 rows 1:1), and Codex's poses laid out from its three parts, posed by tools/art/rig_sentry.py, so no SIZES row
     ("tft_sentry", 1.29, include_str!("../../../tft/champions/tft_sentry#anim.fanim")),
+    // Brock (tft_brock, the tft pack): the stone golem standing at 3/4, step 0's A read on its 14 px squares at the
+    // user's 44 game px from the bonsai top to his soles, PPU 1.16 (「A-1 44格 PPU1.16」: 51 rows 1:1), and Codex's key
+    // poses after his own TFT clips, posed by tools/art/rig_brock.py, so no SIZES row
+    ("tft_brock", 1.16, include_str!("../../../tft/champions/tft_brock#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
