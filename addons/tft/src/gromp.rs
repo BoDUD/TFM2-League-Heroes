@@ -8,7 +8,7 @@
 //! - **死亡**：倒下时播 `tft_gromp_d`（数据没有死亡的时机）。
 //!
 //! 普攻的毒口水、打嗝泡泡（碰到第一个敌人停下炸开、周围中毒）、黏液沼泽和毒沼大嗝都是数据自己的；大招时身体变大由
-//! league.dll 的 hd::FORMS 按旗子 `tft_gromp_r_big` 画。
+//! tft.dll 的 hd::FORMS（addons/tft/src/hd.rs，hd_engine 画）按旗子 `tft_gromp_r_big` 画。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_gromp.log`，每次启动游戏重写，上一次的留在 .prev.log。
 

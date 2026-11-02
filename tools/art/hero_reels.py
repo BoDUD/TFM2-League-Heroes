@@ -19,7 +19,7 @@ in its own action. Per hero, and per form idle (c_idle, m_idle ... with that for
   row, the legs over the idle's legs, nothing wider than the idle +- 8 px or higher than its top + 12 (a raised
   weapon) - played in, held, played back out (a sword lifted and lowered, a gun checked); the first is near the idle
   (a cut, not a jump). Frame 0 stays the idle's frame 0 (portraits, face crops, the cards' measures read it).
-- `bp`: what the ban/pick grid card plays instead of the idle (league.dll src/lookup.rs): frame 0 (0.1 s), an action
+- `bp`: what the ban/pick grid card plays instead of the idle (hd_engine src/lookup.rs): frame 0 (0.1 s), an action
   (attack, skill, skill2, ult in turn, each hero starting at a different one so a page of cards does not strike at
   once), then frame 0, a snippet, ... Card math as tools/art/bp_card_audit.py (131 x 88 canvas, 2.2x, banpick_center;
   hd_ frames at the hero's UI size): an action frame that spills out of the card more than the idle does holds the
@@ -77,12 +77,17 @@ def lp(path):
 
 
 def hd_rs():
-    """league.dll's dense heroes {id: PPU} and UI_SIZES {id: size} (addons/league_main/src/hd.rs)."""
-    src = open(lp(os.path.join(REPO, "addons", "league_main", "src", "hd.rs")), encoding="utf-8").read()
-    ppu = {h: float(p) for h, p in re.findall(r'\("((?:league|tft)_\w+)", ([0-9.]+), include_str!\("[^"]*/champions/', src)}
-    body = src[src.index("pub const UI_SIZES"):]
-    body = body[:body.index("];")]
-    return ppu, {h: float(k) for h, k in re.findall(r'\("(\w+)", ([0-9.]+)\)', body)}
+    """The dense heroes {id: PPU} and UI_SIZES {id: size} of both dense-frame tables: league.dll's
+    (addons/league_main/src/hd.rs) and tft.dll's (addons/tft/src/hd.rs), drawn by addons/hd_engine."""
+    ppu, sizes = {}, {}
+    for crate in ("league_main", "tft"):
+        src = open(lp(os.path.join(REPO, "addons", crate, "src", "hd.rs")), encoding="utf-8").read()
+        ppu.update({h: float(p) for h, p in
+                    re.findall(r'\("((?:league|tft)_\w+)", ([0-9.]+), include_str!\("[^"]*/champions/', src)})
+        body = src[src.index("pub const UI_SIZES"):]
+        body = body[:body.index("];")]
+        sizes.update({h: float(k) for h, k in re.findall(r'\("(\w+)", ([0-9.]+)\)', body)})
+    return ppu, sizes
 
 
 PPU, UI_SIZES = hd_rs()

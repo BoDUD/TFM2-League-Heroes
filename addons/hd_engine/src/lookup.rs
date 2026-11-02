@@ -43,7 +43,6 @@ pub(crate) const FRAME: usize = 20;
 /// vtable entries copied for a texture proxy (drop, size, align and the methods).
 const VTABLE: usize = 48;
 
-static HEROES: LazyLock<hd::Heroes> = LazyLock::new(hd::Heroes::new);
 static MODULE: AtomicUsize = AtomicUsize::new(0);
 /// The game build found by src/build.rs (set before any hook goes in).
 static BUILD: OnceLock<&'static Build> = OnceLock::new();
@@ -54,6 +53,8 @@ pub(crate) fn build() -> &'static Build {
 static ORIG_ANIM: AtomicUsize = AtomicUsize::new(0);
 static ORIG_SHEET: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
+/// Both lookups hooked ([`install_once`]).
+static HOOKED: AtomicBool = AtomicBool::new(false);
 
 struct Probe {
     rvas: Vec<(usize, usize)>, // (kind 0 anim / 1 sheet, rva)
@@ -90,7 +91,8 @@ extern "system" {
     fn FlushInstructionCache(h: isize, base: *const c_void, size: usize) -> i32;
 }
 
-pub(crate) fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
+/// `len` bytes of this process at `addr` (None when unreadable; no fault either way).
+pub fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
     let mut buf = vec![0u8; len];
     let mut got = 0usize;
     let ok = unsafe {
@@ -99,7 +101,8 @@ pub(crate) fn read(addr: usize, len: usize) -> Option<Vec<u8>> {
     (ok != 0 && got == len).then_some(buf)
 }
 
-pub(crate) fn plausible(p: usize) -> bool {
+/// Whether `p` can be a user-mode pointer.
+pub fn plausible(p: usize) -> bool {
     (0x10000..0x7fff_ffff_ffff).contains(&p)
 }
 
@@ -107,9 +110,10 @@ pub(crate) unsafe fn q(addr: usize) -> usize {
     std::ptr::read_unaligned(addr as *const usize)
 }
 
-/// The registered hero a resource name is of: `.../league_yasuo#anim` -> league_yasuo.
+/// The registered hero a resource name is of: `.../league_yasuo#anim` -> league_yasuo (every pack's registered so far:
+/// src/hd.rs heroes).
 pub fn hero_of_name(name: &str) -> Option<&'static Hero> {
-    HEROES.of_name(name)
+    hd::heroes().of_name(name)
 }
 
 /// The probe's lines are all written (MAX_LINES): from then on a lookup does not take its lock.
@@ -767,7 +771,9 @@ unsafe fn hook_with(func: usize, detour: usize, orig_slot: &AtomicUsize, keep_r9
     Ok(())
 }
 
-pub fn install_once(b: &'static Build) {
+/// The two lookups hooked, once a process (and src/ui.rs's sinks when both went in) -> whether both did. The heroes
+/// listed are the host's own table; a guest's come in later (src/share.rs) and are looked up the same.
+pub fn install_once(b: &'static Build) -> bool {
     HOOK.call_once(|| {
         let module = unsafe { GetModuleHandleW(std::ptr::null()) };
         MODULE.store(module, Ordering::Release);
@@ -780,12 +786,14 @@ pub fn install_once(b: &'static Build) {
             hook(module + b.sheet,
                  sheet_detour as unsafe extern "system" fn(usize, usize, usize, usize) -> usize as usize, &ORIG_SHEET)
         };
-        let list: Vec<String> = HEROES.list.iter().map(|h| format!("{} x{}", h.id, h.ppu)).collect();
+        let list: Vec<String> = hd::heroes().list.iter().map(|h| format!("{} x{}", h.id, h.ppu)).collect();
         wlog(format!("resource lookups hooked: anim {a:?}, sheet {s:?}: dense frames everywhere for {}", list.join(", ")));
         if a.is_ok() && s.is_ok() {
+            HOOKED.store(true, Ordering::Release);
             super::ui::install(b, module);
         }
     });
+    HOOKED.load(Ordering::Acquire)
 }
 
 #[cfg(test)]
