@@ -627,6 +627,23 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // his old frame read onto it at the zoom between his height and his hair (tools/art/casts_viego_hd.py, rig_viego_hd.py;
     // nothing baked); 47 game px as his 1x sprite, so no SIZES row
     ("league_viego", 2.447, include_str!("../../../league/champions/league_viego#anim.fanim")),
+    // Diana (2026-11-02, 「接下来可以重做 戴安娜 易大师 瑞兹」, 「戴安娜1.81 剑圣2.23 瑞兹1.66」): Codex's diana-A read on its own ~15.7-px
+    // squares (49 x 78, tools/art/design_diana_hd.py: 78 rows / 43 = 1.814); every action Codex's whole-frame redraw of
+    // her old frame read onto it at the median of the zooms her height, head and area give
+    // (tools/art/casts_diana_hd.py, rig_diana_hd.py; the ult's moon ring and the third strike's slash left out; nothing
+    // baked); 43 game px as her 1x sprite, so no SIZES row
+    ("league_diana", 1.814, include_str!("../../../league/champions/league_diana#anim.fanim")),
+    // Master Yi (the same release): Codex's masteryi-A read on its own ~9.8-px squares (94 x 125,
+    // tools/art/design_masteryi_hd.py: 125 rows / 56 = 2.232); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the median of the zooms his height, head and area (ten frames set by eye against the helmet) give
+    // (tools/art/casts_masteryi_hd.py, rig_masteryi_hd.py; the outline 3 squares; nothing baked); 56 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_masteryi", 2.232, include_str!("../../../league/champions/league_masteryi#anim.fanim")),
+    // Ryze (the same release): Codex's ryze-A read on its own ~14.7-px squares (42 x 68, tools/art/design_ryze_hd.py:
+    // 68 rows / 41 = 1.659); every action Codex's whole-frame redraw of his old frame read onto it at the median of the
+    // zooms his height, head and area give (tools/art/casts_ryze_hd.py, rig_ryze_hd.py; the hand sparkles left out;
+    // nothing baked); 41 game px as his 1x sprite, so no SIZES row
+    ("league_ryze", 1.659, include_str!("../../../league/champions/league_ryze#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

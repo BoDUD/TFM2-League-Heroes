@@ -4,7 +4,7 @@ load).
 
     python tools/art/preview_masteryi.py [--out docs/preview]
 
-  league_masteryi_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_masteryi_frames.png    every animation's dense frames (hd_, PPU 2.23, as league.dll shows them)
   league_masteryi_effects.png   every effect animation, 3x
   league_masteryi_showcase.gif  a scripted fight against Darius, Garen and Ashe, timed like the kit: Alpha
                                 Strike blinks him onto Darius and on to the others, four strikes 0.2 s apart,
@@ -22,6 +22,7 @@ from PIL import Image
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_jinx import Follow  # noqa: E402
 from preview_leona import Held  # noqa: E402
@@ -49,7 +50,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, speed=1.0):
         nonlocal t
-        fr = frames_of(yi, tag)
+        fr = dense(yi, tag, "masteryi", z)
         if speed != 1.0:
             fr = [(f, ms / speed) for f, ms in fr]
         an = Anim(fr, t, x, gy, loop=loop, until=(t + dur) if dur else None)
@@ -81,10 +82,10 @@ def showcase(out, z=3, step=40):
     # invisible and invulnerable throughout, and back beside Darius on tick 48, where he reappears
     start = t
     fx_at("league_masteryi_fx", "q_vanish", start + tick(2), x, gy)
-    body.append(Anim(frames_of(yi, "skill")[:1], start, x, gy, until=start + tick(2)))
+    body.append(Anim(dense(yi, "skill", "masteryi", z)[:1], start, x, gy, until=start + tick(2)))
     for k, foe in enumerate((d, g, s, d)):
         when = start + tick(2 + 12 * k)
-        body.append(Anim(frames_of(yi, "skill"), when, foe.x - 12, foe.y, until=when + tick(12)))
+        body.append(Anim(dense(yi, "skill", "masteryi", z), when, foe.x - 12, foe.y, until=when + tick(12)))
         fx_at("league_masteryi_fx", "q_hit", when, foe.x, foe.y)
         foe.flinches.append(when)
     x = d.x - 24
@@ -114,8 +115,8 @@ def showcase(out, z=3, step=40):
             hit = start + tick(12) / speed
             strike_hit(d, hit)
             if double_next or stacks == 3:
-                body.append(Anim(frames_of(yi, "attack")[:3], start, x, gy, until=hit))
-                body.append(Anim(frames_of(yi, "attack2"), hit, x, gy))
+                body.append(Anim(dense(yi, "attack", "masteryi", z)[:3], start, x, gy, until=hit))
+                body.append(Anim(dense(yi, "attack2", "masteryi", z), hit, x, gy))
                 strike_hit(d, hit + tick(8), "ds_hit")
                 double_next, stacks = False, 0
                 t = hit + tick(16)
@@ -138,12 +139,12 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     order = sorted(foes.values(), key=lambda f: f.y)   # the one further back first
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -159,7 +160,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -177,7 +178,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_masteryi_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_masteryi_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

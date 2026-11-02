@@ -423,7 +423,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -5
       }
     },
     "league_taric": {
@@ -597,7 +597,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -10
+        "y": -8
       }
     },
     "league_kennen": {

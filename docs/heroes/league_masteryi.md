@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.23 |
 | 附加包 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](#附加包)（`league_takedowns`） |
 
 ![易演示](../preview/league_masteryi_showcase.gif)
@@ -84,10 +84,10 @@
 | 修正（0.15.0） | 冥想的治疗写在一个无目标（`None`）动作的 `WithSelf` 里（见迦娜一节后的说明），从来没有生效过。修好后易明显变强：SDK 对战模拟（打野位，对 5 个原版刺客打野，两边、三套队友阵容各 24 局）团队击杀差 +0.50 → +1.98。冥想治疗从 80 + 40% 降到 20 + 12% 是 +1.17（另一批种子 +1.13），再把无极剑道的真伤从 10 + 20% 降到 8 + 16%（阿尔法突袭每击 7 + 15% → 6 + 12%）是 +0.58，回到修正前的水平 |
 | 精灵图 | 9 个动作 46 帧：待机、跑步、普攻、双重打击第二刀、Q 闪斩、冥想、R、受击、死亡。头盔顶到脚底 34 px（高举的剑另算），22 色，动作全部取自英雄联盟原版动画 |
 | 特效 | 普攻斩光、双重打击 X 斩、无极剑道真伤金星、阿尔法突袭 X 闪斩和消失残影、无极剑道金色剑气、冥想莲花和上升光环、高原血统开启爆发和脚下加速光环 |
+| 高清帧（PPU 2.23） | 2026-11-02 用 PPU 重做，和黛安娜、瑞兹在同一个 PR（用户：「接下来可以重做 戴安娜 易大师 瑞兹」「戴安娜1.81 剑圣2.23 瑞兹1.66」「都通过」）。设计图：Codex 照旧精灵描密的原图；原图的描边约 9.8 像素一格，按原图自己的格子读回（94 × 125 格；剑尖到脚底 125 行，旧精灵 56 行，PPU 2.23），外描边加 3 格（用户：「剑圣得加点黑边吧 太高清了？」）。动作：Codex 照旧版同一帧整帧重画 39 帧（死亡第 8 帧和第 7 帧一样，只画一次），读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；他头盔的金色连着肩甲和胸口，转身、躺倒时按头量会偏大，冥想 5–6、死亡 1–2 / 4–5、R 1–2、Q 2、双重打击 2 这 10 帧按设计图的头盔目测定。待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 8 条技能音效和 3 条中文语音（Q、冥想、R；无极剑道没有语音）。不提交到仓库，按下面的命令在本地生成 |
 | 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。高原血统期间 Q 和技能 2 冷却加快 40%，大招自己的冷却也被压到 71%。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](../../tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +1.27 → +1.62（误差），每局开大 3.3 → 3.1 次 |
-| 高清帧（PPU 1.35） | 2026-10-23 用 PPU 重做（用户：「下个英雄可以重构维鲁斯」「设计通过，用 PPU 1.5（和现在一样高）」「动作帧你可以参考隔壁oppi 这样就不要依赖codex了」「做完美了喊我review」）。Codex 先画一张设计图（[`tools/art/pack_varus_ppu.py`](../../tools/art/pack_varus_ppu.py) / [`PICTURE_PROMPT_PPU.md`](../../assets/source/varus/PICTURE_PROMPT_PPU.md)），第二张（粗格）原图按它自己 17.65 × 17.28 px 的格子读回成 58 × 59（[`tools/art/design_varus_hd.py`](../../tools/art/design_varus_hd.py)），待机就是这张设计图。动作不再找 Codex，全部用设计图自己的格子摆（[`tools/art/rig_varus_hd.py`](../../tools/art/rig_varus_hd.py)，参考 oppi 的艾希和英雄联盟每帧的关节）：部件逐格切开（弓、持弓的爪和前臂是一整块，近侧手臂、两条腿、身体），站着拼回来和设计图逐格一样；拉弓时弓整块抬高 4 格，拉弦的手臂上臂照原样从肩膀垂下、前臂在肘部转平握弦（第一版整条手臂横过来，用户：「左手拉弓箭有点变形」）；弦和箭画在特效层（不加描边），上半根弦从头后面过、不挡脸，箭和弦在拉满弓时停在爪子上；Q 蓄力时上身沉一格（腿不动）。跑步的腿按设计图腿的每一行沿骨头重新排（大腿、小腿取那一段的行，左右取那一侧的格），靴子整块贴（近侧镜像，脚尖都朝前），两条腿从同一点出发，换腿时都是清楚的「人」字，远侧腿的亮色压暗一档；近侧手臂和腿反向摆，弓随手起伏。死亡照英雄联盟：被击中后仰、身体抬起，把弓甩在脚前（整块翻倒，弓尖朝下），捂住胸口跪下（两膝着地，靴子转 90° 踮在身后）。旧特效按新弓的箭位挪（`FX_AT`），普攻、Q、R 的箭从 3.8 px 高平着飞出（`y_offset` 1200）；塞拉斯偷到的 R 跟着改（league_sylas 0.2.4）。头像截取点 (1, −39)，选人卡片 −12。**修正（0.199.1）**：用户：「维鲁斯建模小了，展示建模快照的地方全看不见」。一是 PPU 1.5 时身体只有 35 px（旧版 39 px，当时按连弓带人的总高对齐，弓比旧版高），改成 PPU 1.35，像素一格不动、每格变大，头顶到脚底回到 39 px，箭的高度、特效位置随之重算（`y_offset` −500，league_sylas 0.2.5）；二是待机轮播的第 0 帧来自 `idle_base`，它的高清帧加外描边后 66 宽、1 倍帧 43 宽，不是 PPU 倍，`league.dll` 就不换这张动画表，图鉴、选人卡片画不出来、战场退回 1 倍帧——[`ppu_restyle.py`](../../tools/art/ppu_restyle.py) 现在对 `idle_base` 也按精确宽度对齐（`EXACT`）。预览里不再在身上另画一遍已经烘进帧里的放箭特效 |
 
 ```bash
 python tools/lol/extract_masteryi.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
@@ -96,6 +96,15 @@ python tools/art/restyle_native.py assets/source/masteryi/poses.json --renders <
 python tools/art/import_native.py --hero masteryi
 python tools/art/import_masteryi.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_masteryi.py
+# PPU 2.23 重做（2026-11-02）：
+python tools/art/pack_masteryi_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_masteryi_hd.py                      # Codex 的原图（hd/raw/masteryi-A.png）按原图约 9.8 像素一格读回 -> hd/design.png
+python tools/art/pack_masteryi_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_masteryi_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_masteryi_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero masteryi && python tools/art/ppu_hd.py --hero masteryi
+python tools/art/ppu_one.py --hero masteryi && python tools/art/rig_masteryi_hd.py --one-ground && python tools/art/hero_reels.py --hero masteryi
+python tools/art/review_masteryi_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/masteryi/PROMPTS.md`](../../assets/source/masteryi/PROMPTS.md)）：
@@ -107,4 +116,4 @@ python tools/art/preview_masteryi.py
 - 出手时刻和动画对齐：普攻第 12 tick 命中（挥剑落下那一帧），双重打击第二刀再过 8 tick；Q 每 12 tick 一下，每下重播 12 tick 的闪斩动作；技能2 的 45 tick 正好是 750 ms 的冥想动作。
 - 结果：22 色，和右边像素同色的比例 38%（原版英雄 18%–46%）。头像截取点 (0, −35)：原来找头顶的规则会把剑尖当成头顶，现在最上面 12 行都很细时往下多看 20 行（其他英雄结果不变）。
 
-逐帧预览：[`docs/preview/league_masteryi_frames.png`](../preview/league_masteryi_frames.png?v=1014g)，特效：[`docs/preview/league_masteryi_effects.png`](../preview/league_masteryi_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_masteryi_frames.png`](../preview/league_masteryi_frames.png?v=1102hd)，特效：[`docs/preview/league_masteryi_effects.png`](../preview/league_masteryi_effects.png?v=1014g)。
