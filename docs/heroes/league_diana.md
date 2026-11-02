@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AP / Magic / Melee / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.81 |
 | 附加包 | [目标标记附加包](#附加包)（`league_marks`） |
 
 ![黛安娜演示](../preview/league_diana_showcase.gif)
@@ -88,6 +88,7 @@
 | 亚索联动 | R 的拉人算亚索大招要的控制（和德莱厄斯的 E 一样）。亚索打上路、黛安娜打野时，亚索每局 R 到被控英雄 1.23 次（R 加宽后 1.19，没变）；同一批里贝蕾亚 2.27、李青 1.52，原版 `ninja` 0.65。没超过包里已有的打野，亚索不用调 |
 | 精灵图 | 10 个动作 65 帧：待机、移动、普攻、第三下顺劈、Q、E 冲刺、E 冲到时放出月球（苍白之瀑）、R、受击、死亡。造型按用户选的 A，由 Codex 照英雄联盟的黛安娜按游戏尺寸画：银白长发披在身后、额前一枚月亮额饰，紫色眼睛，深蓝盔甲、胸前金色月徽、银色护肩，青绿色的披风，金色护膝、银色护胫，身后高举一把淡青色的弯月刃。头顶到脚底 40 px，连高举的月刃 43 px、27 px 宽，26 色。每帧的时机和站位照英雄联盟原版动画渲染的参考帧；腰下后来换成原版那样的短尖角裙甲，露出大腿（原来是到膝盖的长外袍，见下面「短裙甲」） |
 | 特效 | 普攻斩痕、第三下顺劈的月牙弧光和命中、Q 新月（飞行）和命中、月光标记（头上）、E 落地的月光、苍白之瀑的聚光、三 / 二 / 一颗绕身的月球、飞出的月球和炸开、护盾、R 拉人的地面光环、落下砸地的满月、砸中的月光 |
+| 高清帧（PPU 1.81） | 2026-11-02 用 PPU 重做，和易、瑞兹在同一个 PR（用户：「接下来可以重做 戴安娜 易大师 瑞兹」「戴安娜1.81 剑圣2.23 瑞兹1.66」「都通过」）。设计图：Codex 照旧精灵描密的原图；原图的描边约 15.7 像素一格，按原图自己的格子读回（49 × 78 格；头发顶到脚底 78 行，旧精灵 43 行，PPU 1.81），外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 72 帧，读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；旧版画进去的大招光环和第三下顺劈的紫色刀光不画，量身体大小时也排除在外。待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 4 条中文语音（Q、W、E、R）。不提交到仓库，按下面的命令在本地生成 |
 
@@ -101,6 +102,15 @@ python tools/art/tidy_diana.py assets/source/diana/codex_strips --run assets/sou
 python tools/art/import_native.py --hero diana
 python tools/art/import_diana.py     # 特效；--raw <Codex 的特效交付文件夹> 先转成原尺寸条
 python tools/art/preview_diana.py
+# PPU 1.81 重做（2026-11-02）：
+python tools/art/pack_diana_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_diana_hd.py                      # Codex 的原图（hd/raw/diana-A.png）按原图约 15.7 像素一格读回 -> hd/design.png
+python tools/art/pack_diana_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_diana_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_diana_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero diana && python tools/art/ppu_hd.py --hero diana
+python tools/art/ppu_one.py --hero diana && python tools/art/rig_diana_hd.py --one-ground && python tools/art/hero_reels.py --hero diana
+python tools/art/review_diana_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（造型的提示词见 [`assets/source/diana/PICTURE_PROMPT.md`](../../assets/source/diana/PICTURE_PROMPT.md) 和 [`MODEL_PROMPTS.md`](../../assets/source/diana/MODEL_PROMPTS.md)，9 条动作的见 [`MODEL_STRIPS.md`](../../assets/source/diana/MODEL_STRIPS.md)，跑步返修的见 [`RUN_REDO.md`](../../assets/source/diana/RUN_REDO.md)、[`RUN_REDO2.md`](../../assets/source/diana/RUN_REDO2.md)、[`RUN_REDO3.md`](../../assets/source/diana/RUN_REDO3.md) 和 [`RUN_REDO4.md`](../../assets/source/diana/RUN_REDO4.md)，特效的见 [`PROMPTS.md`](../../assets/source/diana/PROMPTS.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/diana/codex_model)、[`codex_strips/`](../../assets/source/diana/codex_strips)、[`codex_run/`](../../assets/source/diana/codex_run)、[`codex_fx/`](../../assets/source/diana/codex_fx)）：
@@ -117,4 +127,4 @@ python tools/art/preview_diana.py
 - 月刃和头发（用户：「皎月的武器和头发重叠了」）：月刃在身后左侧、紧贴披下来的长发，两块都是浅色，1 倍和选人卡片上连成一片。做了三种改法给用户挑（月刃挪 1 格、挪 2 格、只加黑线），用户选「待机 A2 + 其他 B」：待机（站着、选人卡片、收藏界面都用它，6 帧都由定稿这一帧生成）把整把月刃连同它自己的描边往身后挪 2 格，和头发之间露出一道空隙；其他动作每帧月刃位置不同，整把挪会把月刃切断，只把碰到月刃的头发格改成描边色（`tidy_diana.py` 的 `move_blade` / `line_between`，19 帧共 69 格，R 举刀穿过头发的几帧最多）。定稿同样挪了月刃，和待机帧逐格一致。
 - 结果：26 色，和右边像素同色的比例 25%（原版英雄 18%–46%）。待机每帧 726–735 个不透明像素，和阿卡丽（787）、薇恩（835）相近。
 
-逐帧预览：[`docs/preview/league_diana_frames.png`](../preview/league_diana_frames.png?v=1014g)，特效：[`docs/preview/league_diana_effects.png`](../preview/league_diana_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_diana_frames.png`](../preview/league_diana_frames.png?v=1102hd)，特效：[`docs/preview/league_diana_effects.png`](../preview/league_diana_effects.png?v=1014g)。

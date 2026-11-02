@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.66 |
 | 附加包 | [游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![瑞兹演示](../preview/league_ryze_showcase.gif)
@@ -87,6 +87,7 @@
 | 数值 | 攻击 78（+6）、法强 35（+20）、生命 900（+105）、护甲 22（+7）、魔抗 22（+4）、移速 920（+10）。数值是自己设计的，用 SDK 对战模拟调：中路，对 5 个原版中单（`pyromancer`、`ice_mage`、`lightning_mage`、`wind_mage`、`white_mage`），三套队友阵容、两边各 24 局，一批 720 局。第一版 +2.09；R 的传送距离 45000 时 +2.24，30000 反而更强（+3.41，落地离战场近）；Q 降到 60 + 50% 还有 +2.59；最后连招冷却 9 秒、生命 900（+105）：两批 +1.65 / +2.01（同两批阿狸 +1.55 / +1.76、安妮 +1.65 / +1.36、拉克丝 +2.23 / +1.89、维迦 +3.23 / +3.75、乐芙兰 +0.78 / +0.34），定下这版。R 改成追人 / 逃跑后两批 +1.41 / +1.35（不再每场一进射程就朝人传、白送一发落地 E），在阿狸、安妮和乐芙兰之间。10 月 5 日连招加到 E → W → Q → E → Q：原数值 +5.12；Q 55 + 50%、E 45 + 45%、涌动弹射 35 + 35%（R 后 50 + 55%）、连招冷却 14 秒后两批 +1.63 / +1.61，每局击杀 3.1 → 4.2 |
 | 亚索联动 | 有涌动时 W 的禁锢是亚索大招要的控制：瑞兹打中路、亚索打上路同队时，亚索每局 R 到被控英雄 1.65 次（同一批阿狸 1.33、原版雷法 3.19），亚索不用调 |
 | 精灵图 | 9 个动作 60 帧：待机、移动、普攻、Q、E → W → Q 连招、R 引导、R 落地、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机），Codex 生图草稿 A 按自己的格子读回、整行整列删到 40 行（用户选 A40）：光头、蓝紫皮肤和符文纹、发光的眼睛、长胡子、背上的大卷轴。29 × 40 px，30 色；待机最高点 −28（卷轴顶），不设 `banpick_center`；头像截取点 (−4, −39)。第二版（2026-10-03，用户：「瑞兹看起来也做的有点胖了」）：Codex 重画的瘦身稿 B 读回到 41 行、接第一版的头，25 × 41 px，664 格，30 色 |
+| 高清帧（PPU 1.66） | 2026-11-02 用 PPU 重做，和黛安娜、易在同一个 PR（用户：「接下来可以重做 戴安娜 易大师 瑞兹」「戴安娜1.81 剑圣2.23 瑞兹1.66」「都通过」）。设计图：Codex 照旧精灵描密的原图；原图的描边约 14.7 像素一格，按原图自己的格子读回（42 × 68 格；头顶到脚底 68 行，旧精灵 41 行，PPU 1.66），外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 55 帧（旧版 Q 和连招里只差手边闪光的帧、R 落地第 1 帧、死亡第 7–8 帧共 19 帧和别的帧一样，只画一次），读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；旧版手边的闪光不画，量身体大小时也排除在外。待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_ryze.py`）：普攻法球和命中、Q 出手 / 命中 / 引爆涌动、W 出手和命中、E 出手和命中、R 引导和传送；Q、E、R 带中文配音 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -100,6 +101,15 @@ python tools/art/fix_ryze_strips_v2.py  # 动作（第二版）：站着的帧�
 python tools/art/import_native.py --hero ryze
 python tools/art/import_ryze.py         # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_ryze.py
+# PPU 1.66 重做（2026-11-02）：
+python tools/art/pack_ryze_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_ryze_hd.py                      # Codex 的原图（hd/raw/ryze-A.png）按原图约 14.7 像素一格读回 -> hd/design.png
+python tools/art/pack_ryze_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_ryze_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_ryze_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero ryze && python tools/art/ppu_hd.py --hero ryze
+python tools/art/ppu_one.py --hero ryze && python tools/art/rig_ryze_hd.py --one-ground && python tools/art/hero_reels.py --hero ryze
+python tools/art/review_ryze_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/ryze/PICTURE_PROMPT.md`](../../assets/source/ryze/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/ryze/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/ryze/MODEL_STRIPS.md)，重画跑步的见 [`RUN_REDO.md`](../../assets/source/ryze/RUN_REDO.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/ryze/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_picture/`](../../assets/source/ryze/codex_picture)、[`codex_model/`](../../assets/source/ryze/codex_model)、[`codex_strips/`](../../assets/source/ryze/codex_strips)、[`codex_run_redo/`](../../assets/source/ryze/codex_run_redo)、[`codex_fx/`](../../assets/source/ryze/codex_fx)）：
@@ -117,4 +127,4 @@ python tools/art/preview_ryze.py
 - 跑步重做（2026-10-05，用户：「感觉不对啊 这两个英雄 和英雄联盟不一样」「瑞兹走路也没那味 往上找个视频核对一下吧」「手臂做的很不好」「瑞兹右手臂还是有点小问题的」「手的形状也没有」「瑞兹这里有点色素丢失」）：英雄联盟里 `Run` 播的是 `Ryze_Run_Fast`（`tools/lol/anim_graph.py`），游戏尺寸下是小步颠着跑：后脚跟踢起、抬膝、身体前倾上下颠、两拳在腰前摆；我们的是 Codex 的腿（第 4、8 帧两脚叉开 29 格）加第一版的手臂关节（近侧手和近侧腿同时往前，第 7–8 帧小臂平伸）。现在逐帧照英雄联盟画在定稿自己的身体上（`fix_ryze_strips_v2.py` 的 `run_frame`）：腿按侧面看的角度（[`poses_run_profile.json`](../../assets/source/ryze/poses_run_profile.json) 导出的 [`lol_run_profile.json`](../../assets/source/ryze/lol_run_profile.json)，步子在屏幕上左右展开），骨头用定稿的长度，按定稿的裤子、护膝、靴子逐行画，左腿在前、各自描边，身体高度按最低的鞋底踩地；上半身是定稿去掉手臂，每行前倾 0.12 格、跟着原版的头上下颠；两只手臂各用前摆、经过、后摆 3 个固定姿势，按原版的节奏排（每帧都在原版的角度之间插值时，小臂一会长一格一会短一格、手一会挪一格，看着像虫子在扭：「右手臂还是奇怪看起来 在那晃动和个虫一样」），手肘一直弯着，往前摆时朝镜头，小臂缩短、拳头收在腰前（照原版自己的角度近侧手是一根斜直棍、平伸时护腕像一根带横纹的长条）；手臂是定稿自己的手臂像素（上臂、护腕、拳头）从肩膀整条摆（`ryze_arms.pose`：45° 以内逐行错开、再斜转 90°、朝镜头时去掉几行，不做非 90° 的旋转）：按关节画成的圆管手臂贴着身体时描边压进衣服边、身体看着窄了一圈（「右手臂是贴着身体的 还导致身体变形了」），只摆小臂又显得僵（「只有前臂晃动」）；右手和左手同一画法（「左手做的很好 右手不能按左手那样做吗」）：前摆时上臂竖直、护腕横平、拳头方正（斜着错位时护腕成了一条台阶），经过时接近待机的下垂，后摆时放到身体后面，远侧手往后时小臂朝后垂、不贴回胯部；手是拳头：定稿的手去掉下面那一格指尖，3×3 一块（之前画的圆拳头只是一团淡紫，带指尖的张开的手又像一根怪手指：「手指头做的是什么啊 你不然就做成拳头形状啊」）；被身体围住的空格补成旁边衣服的颜色；1 格宽的裂缝（手臂和身体之间、腰布下两腿之间）补成轮廓色，两条轮廓合成一条（和定稿一样；「这里也补补吧」）；更宽的空隙保留（补成衣服色时成了一块深色团：「你不觉得奇怪吗？」）。左手往后摆时整条手臂只稍微后倾（从肩膀斜着离开身体时会夹出一条上窄下宽的缝）。
 - 特效用 Codex 画的 19 张（102 帧，生图原稿，`import_ryze.py --raw` 同卡莎：每个游戏像素取覆盖的原稿像素里最多的颜色，四分之一以上不透明才画，颜色归到包里的蓝、紫两套色阶，光效外圈最暗的一档去掉；三种飞行物上下对称，游戏按飞行方向转；传送门每格和画一样宽，格边混进来的邻格碎片去掉）。位置：Q 和 E 的出手闪光在手掌 (24, −8) 和 (24, −15)，命中和引爆在上半身 (0, −8)，涌动绕胸口 (0, −7)，符文绕腰 (0, −2)，牢笼、减速锁链、加速风、传送门、光柱、落地都在脚底。时长：涌动 4 帧 × 50 ms（技能每 12 tick 重放一次），禁锢的牢笼立着保持到 75 tick 再消散，没有涌动时牢笼只一闪（减速的锁链留在脚下），传送门展开、转过 1 秒引导、他离开时收起。
 
-逐帧预览：[`docs/preview/league_ryze_frames.png`](../preview/league_ryze_frames.png?v=1014g)，特效：[`docs/preview/league_ryze_effects.png`](../preview/league_ryze_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_ryze_frames.png`](../preview/league_ryze_frames.png?v=1102hd)，特效：[`docs/preview/league_ryze_effects.png`](../preview/league_ryze_effects.png?v=1014g)。
