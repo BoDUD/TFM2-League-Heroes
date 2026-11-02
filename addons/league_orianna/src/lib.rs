@@ -5,7 +5,10 @@
 //! - 被动挂本包的 `league_orianna:ball`（参数在英雄数据的 `passive.params` 里）：每 tick 记下球真正在哪；
 //! - Q 扔球、E 送球、E 回到自己身上时先调本包（`:q` / `:e` / `:back`），数据自己的抛物线和追踪弹换成不显示的；
 //! - E 选队友改成对她身边的每个友方英雄调 `:e_pick`，被选中的那个让她身上出现 1 tick 的 `league_orianna_e_this`；
-//! - R 待命时对球附近的每个敌方英雄调 `:r_kill`，能击杀就算「两个英雄」（她身上 `league_orianna_c2`），不再有「落单目标」那条。
+//! - R 待命时对球附近的每个敌方英雄调 `:r_kill`，能击杀就算「两个英雄」（她身上 `league_orianna_c2`），不再有「落单目标」那条；
+//!   0.3.0 起副本的 R 只在这两种时候放（主包是球附近有一个敌方英雄就放）；
+//! - Q 的目标改成先对她 `q_range` 内的每个敌方英雄调 `:q_seen`、再调 `:q_pick`，选中的那个让她身上出现 1 tick 的
+//!   `league_orianna_q_this`（主包是随机一个）。
 //!
 //! - **球从它所在的位置飞出**：Q 的球从地上、队友身上或飞回来的半路飞向目标脚下（`league_orianna_q_ball` 的画面，飞 `q_travel` tick，
 //!   和数据不显示的抛物线同时落地）；E 的球从那里飞向队友（`league_orianna_e_ball`，和数据的追踪弹同时到），球不在她身上时路上的
@@ -14,6 +17,9 @@
 //! - **E 送给最危险的队友**：`e_range` 内、`e_near` 内有敌方英雄的友方英雄里，按「最近约一秒受到的伤害占最大生命的比例 × 2 +
 //!   已损失生命比例」挑最高的；她自己身边也有敌人而且比他们都危险时留给自己（数据 2 tick 后给自己加盾）。
 //! - **R 读血量**：球附近 2 个敌方英雄照旧放；只有 1 个时，`r_dmg` + `r_ap`% 法强按他的魔抗（伤害 × 100 / (100 + 魔抗)）算得死才放。
+//! - **Q+R 连招**（0.3.0，用户 2026-11-02：「奥莉安娜的大招让人感觉不够爽快，即使是团战也主要只对单体使用……有没有可能把它改成
+//!   Q+R 的主动连招，而不是像个陷阱一样等着别人走进去？」）：Q 扔给脚下 `CROWD` 内敌方英雄最多的那个（`crowd_pick`）；AI 钩子
+//!   `league_orianna:combo`（`combo.rs`）在 R 好着时按 R 待命、把 Q 扔进人堆，球落地数据就放冲击波。
 //! - **走上去补刀**（0.2.0，玩家反馈「Orianna doesn't walk up to farm」）：AI 钩子 `league_orianna:farm`（`farm.rs`），附近没有
 //!   敌方英雄时打普攻距离内的小兵（打得死的优先）、走上去打 60k 内的兵线。
 //!
@@ -32,6 +38,7 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod combo;
 pub mod farm;
 
 const ID: &str = "league_orianna";
@@ -54,6 +61,8 @@ pub const BACK_SPEED: f64 = 6_000.0;
 /// E 的球的速度限制（从球那里出发、和数据从她出发的追踪弹同时到）。
 pub const E_SPEED_MIN: f64 = 1_000.0;
 pub const E_SPEED_MAX: f64 = 12_000.0;
+/// 冲击波（`r_r` 42000）的落点这么近的敌方英雄算「在人堆里」：留出球飞过去、冲击波放出前（`r_delay`）他们走开的几步。
+pub const CROWD: f64 = 36_000.0;
 
 fn on(x: &str) -> String {
     format!("league_orianna_{x}")
@@ -286,6 +295,41 @@ pub fn kills(hp: usize, raw: usize, mr: usize) -> bool {
     hp > 0 && hp <= after_mr(raw, mr)
 }
 
+/// 一个敌方英雄：位置、生命比例、冲击波打得死他吗。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Foe {
+    pub id: usize,
+    pub at: (f64, f64),
+    pub hp: f64,
+    pub dies: bool,
+}
+
+/// 冲击波在 `at` 放出时人堆里（`CROWD` 内）有几个敌方英雄、有没有打得死的。
+pub fn crowd_at(at: (f64, f64), foes: &[Foe]) -> (usize, bool) {
+    let near: Vec<&Foe> = foes.iter().filter(|f| dist(at, f.at) <= CROWD).collect();
+    (near.len(), near.iter().any(|f| f.dies))
+}
+
+/// 球扔给谁：`cands`（她 Q 射程内的敌方英雄）里脚下（`CROWD` 内，`foes` 是所有敌方英雄）敌方英雄最多的；一样多的先冲击波打得死的，
+/// 再离那些人近的（到他们的距离加起来小），再生命比例低的、编号小的。返回（他，他脚下几个，连他自己）。
+pub fn crowd_pick(cands: &[Foe], foes: &[Foe]) -> Option<(usize, usize)> {
+    let score = |c: &Foe| {
+        let near = foes.iter().filter(|f| f.id != c.id && dist(c.at, f.at) <= CROWD);
+        (near.clone().count() + 1, near.map(|f| dist(c.at, f.at)).sum::<f64>())
+    };
+    cands
+        .iter()
+        .map(|c| (c, score(c)))
+        .min_by(|(a, (na, da)), (b, (nb, db))| {
+            nb.cmp(na)
+                .then(b.dies.cmp(&a.dies))
+                .then(da.total_cmp(db))
+                .then(a.hp.total_cmp(&b.hp))
+                .then(a.id.cmp(&b.id))
+        })
+        .map(|(c, (n, _))| (c.id, n))
+}
+
 // ===================== 小工具 =====================
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -313,6 +357,21 @@ fn champions(sim: &StableSim<'_>, team: usize, same: bool) -> Vec<(usize, (f64, 
         out.push((u.id(), (x as f64, y as f64)));
     }
     out
+}
+
+/// 她的敌方英雄（活着、能被选中）：冲击波（`r_dmg` + `r_ap`% 她的法强，按各自的魔抗）打不打得死。
+fn foes_of(sim: &StableSim<'_>, me: usize) -> Vec<Foe> {
+    let p = params_of(me);
+    let ap = sim.get_entity(me).map_or(0, |e| e.stat().magic_power);
+    let raw = p.r_dmg + p.r_ap * ap / 100;
+    champions(sim, team_of(sim, me), false)
+        .into_iter()
+        .filter_map(|(id, at)| {
+            let e = sim.get_entity(id)?;
+            let (hp, max) = e.hp();
+            Some(Foe { id, at, hp: hp as f64 / max.max(1) as f64, dies: kills(hp, raw, e.stat().magic_resistance) })
+        })
+        .collect()
 }
 
 fn ux(v: f64) -> u64 {
@@ -500,6 +559,96 @@ impl StableEffectType for Throw {
             wlog(format!("{} THROW #{k} from {from_what} {} ({:.0} from her) -> {} at {}: {:.0} in {} ticks{}",
                          head(sim, me), pt(from), dist(from, her), who(sim, target), pt(to), dist(from, to), p.q_travel,
                          if shown { "" } else { " (no picture)" }));
+        }
+    }
+}
+
+// ===================== Q 扔给人最多的地方 =====================
+
+/// 这一 tick 数据问过的 Q 目标（`:q_seen`），和选好的那个（同一 tick 每个都会来 `:q_pick` 问一次，只算一遍）。
+#[derive(Clone, Debug, Default)]
+struct Aim {
+    tick: usize,
+    seen: Vec<usize>,
+    pick: Option<usize>,
+}
+
+static AIMS: LazyLock<Mutex<HashMap<(u64, usize), Aim>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 这份模拟、这个奥莉安娜这一 tick 的记录（换了 tick 就重来）。
+fn aim_of(aims: &mut HashMap<(u64, usize), Aim>, key: (u64, usize), tick: usize) -> &mut Aim {
+    if aims.len() > 4096 {
+        aims.clear(); // finished sims
+    }
+    let a = aims.entry(key).or_default();
+    if a.tick != tick {
+        *a = Aim { tick, ..Aim::default() };
+    }
+    a
+}
+
+/// R 现在怎样（日志用）。
+fn r_state(sim: &StableSim<'_>, me: usize) -> &'static str {
+    if has_buff(sim, me, &on("r_arm")) {
+        return "armed";
+    }
+    match sim.get_entity(me).and_then(|e| e.cooldown(SkillSlotV1::Ult)) {
+        Some(c) if !c.unlocked => "locked",
+        Some(c) if c.remaining == 0 => "ready",
+        _ => "cooling down",
+    }
+}
+
+/// 数据先对她 `q_range` 内的每个敌方英雄调一次：记下来。
+struct QSeen;
+
+impl StableEffectType for QSeen {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        let Some(target) = input_target(&input) else { return };
+        let key = (sim_of(sim, me), me);
+        let mut aims = AIMS.lock().unwrap_or_else(|e| e.into_inner());
+        let a = aim_of(&mut aims, key, sim.tick());
+        if !a.seen.contains(&target) {
+            a.seen.push(target);
+        }
+    }
+}
+
+/// 数据接着对同样这些人一个个问：选中的那个（`crowd_pick`）让她身上出现 `q_this`，数据就把球扔给他。
+struct QPick;
+
+impl StableEffectType for QPick {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        let Some(target) = input_target(&input) else { return };
+        let (key, tick) = ((sim_of(sim, me), me), sim.tick());
+        let (seen, done) = {
+            let mut aims = AIMS.lock().unwrap_or_else(|e| e.into_inner());
+            let a = aim_of(&mut aims, key, tick);
+            (a.seen.clone(), a.pick)
+        };
+        let best = match done {
+            Some(id) => id,
+            None => {
+                let foes = foes_of(sim, me);
+                let cands: Vec<Foe> = seen.iter().filter_map(|id| foes.iter().find(|f| f.id == *id).copied()).collect();
+                // nobody heard (or none of them can be targeted now): the first one asked
+                let (id, n) = crowd_pick(&cands, &foes).unwrap_or((target, 1));
+                aim_of(&mut AIMS.lock().unwrap_or_else(|e| e.into_inner()), key, tick).pick = Some(id);
+                if let Some(k) = counted("aim") {
+                    let dies = foes.iter().any(|f| f.id == id && f.dies);
+                    let others: Vec<String> = cands.iter().filter(|c| c.id != id).take(4)
+                        .map(|c| format!("{} {}", who(sim, c.id), crowd_pick(std::slice::from_ref(c), &foes).map_or(1, |x| x.1)))
+                        .collect();
+                    wlog(format!("{} AIM #{k} -> {}: {n} enemy champions within {CROWD:.0} of him{}; {} in Q range{}; R {}",
+                                 head(sim, me), who(sim, id), if dies { ", the shockwave kills him" } else { "" },
+                                 cands.len(), if others.is_empty() { String::new() } else { format!(" (others: {})", others.join(", ")) },
+                                 r_state(sim, me)));
+                }
+                id
+            }
+        };
+        if best == target {
+            sim.add_buff(me, &BuffV1::timed(&on("q_this"), 2));
         }
     }
 }
@@ -860,7 +1009,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Orianna: the Ball flies from where it is, Command: Protect to the ally in danger, Command: Shockwave for two champions or a kill, walking up to farm) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Orianna: the Ball flies from where it is, Command: Protect to the ally in danger, Command: Shockwave for two champions or a kill, the Q+R combo into the crowd, walking up to farm) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -877,8 +1026,11 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:noop"), Noop);
     module.add_native_effect(format!("{ID}:e_cast"), ECast);
     module.add_native_effect(format!("{ID}:e_try"), ETry);
+    module.add_native_effect(format!("{ID}:q_seen"), QSeen);
+    module.add_native_effect(format!("{ID}:q_pick"), QPick);
     module.add_player_input_ai(farm::Farm::default());
-    host.log(LogLevel::Info, "league_orianna loaded (the Ball from where it is, Protect to the ally in danger, Shockwave for a kill, walking up to farm).");
+    module.add_player_input_ai(combo::Combo::default());
+    host.log(LogLevel::Info, "league_orianna loaded (the Ball from where it is, Protect to the ally in danger, Shockwave for two or a kill, the Q+R combo, walking up to farm).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -964,6 +1116,34 @@ mod tests {
         assert!(!kills(0, 500, 25));
     }
 
+    fn foe(id: usize, x: f64, y: f64, hp: f64, dies: bool) -> Foe {
+        Foe { id, at: (x, y), hp, dies }
+    }
+
+    #[test]
+    fn the_ball_goes_where_the_most_are() {
+        // a lone one near her, a pair and a trio farther off: the middle of the trio
+        let foes = [foe(1, 10_000.0, 0.0, 0.2, false), foe(2, 60_000.0, 0.0, 1.0, false), foe(3, 60_000.0, 30_000.0, 1.0, false),
+                    foe(4, -60_000.0, 0.0, 1.0, false), foe(5, -60_000.0, 20_000.0, 1.0, false), foe(6, -60_000.0, -20_000.0, 1.0, false)];
+        assert_eq!(crowd_pick(&foes, &foes), Some((4, 3)));
+        // only the pair and the lone one in Q range: the pair
+        assert_eq!(crowd_pick(&foes[..3], &foes), Some((2, 2)));
+        // but one beyond Q range still counts in the crowd round a target in it
+        assert_eq!(crowd_pick(&foes[3..5], &foes), Some((4, 3)));
+        // all alone: the one the shockwave kills, then the lowest
+        let spread = [foe(1, 0.0, 0.0, 0.5, false), foe(2, 50_000.0, 0.0, 0.9, true), foe(3, 0.0, 50_000.0, 0.3, false)];
+        assert_eq!(crowd_pick(&spread, &spread), Some((2, 1)));
+        let spread = [foe(1, 0.0, 0.0, 0.5, false), foe(3, 0.0, 50_000.0, 0.3, false)];
+        assert_eq!(crowd_pick(&spread, &spread), Some((3, 1)));
+        assert_eq!(crowd_pick(&[], &spread), None);
+        // as many round each: the tighter one
+        let two_pairs = [foe(1, 0.0, 0.0, 1.0, false), foe(2, 30_000.0, 0.0, 1.0, false), foe(3, 0.0, 200_000.0, 1.0, false),
+                         foe(4, 10_000.0, 200_000.0, 1.0, false)];
+        assert_eq!(crowd_pick(&two_pairs, &two_pairs), Some((3, 2)));
+        assert_eq!(crowd_at((0.0, 0.0), &spread), (1, false));
+        assert_eq!(crowd_at((0.0, 30_000.0), &spread), (2, false));
+    }
+
     #[test]
     fn towards() {
         assert_eq!(toward((0.0, 0.0), (3.0, 4.0), 10.0), ((3.0, 4.0), true));
@@ -991,7 +1171,7 @@ mod tests {
 
     #[test]
     fn the_names_fit() {
-        for x in ["home", "b_ret", "e_def", "e_this", "c2", "q_ball", "e_ball", "e_line", "b_back"] {
+        for x in ["home", "b_ret", "e_def", "e_this", "c2", "q_ball", "e_ball", "e_line", "b_back", "q_this", "r_arm"] {
             assert!(on(x).len() <= BUFF_NAME_CAP);
         }
         assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);

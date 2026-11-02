@@ -85,14 +85,17 @@ P = {
     "r_dmg": 250, "r_ap": 100, "r_pull": 2400, "r_pull_t": 12, "r_anim": 36,
     # when R fires (the user, 2026-10-16: 「发条的大招条件太苛刻」): 0 = two enemy champions within r_r of the ball, or one
     # his team is fighting with no second one within r_iso (0.122.0); 1 = two, or one his team is fighting; 2 = any enemy
-    # champion within r_r
+    # champion within r_r. The add-on's copy (native 1) fires for two or a kill whatever this says: its AI hook
+    # (league_orianna:combo) throws the Ball into the crowd first - the user 2026-11-02, 「即使是团战也主要只对单体使用」
     "r_rule": 2,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_orianna: the Ball's flights start where it really is (league_orianna:q / :e / :back
     # draw them, the data's own lob and homing fly hidden from her), E goes to the ally native picks (league_orianna:e_pick
     # raises e_this on him), E's line hits from where the ball was (league_orianna:e_hit; the data's line only from her),
-    # R also fires for a kill (league_orianna:r_kill raises c2; with r_rule 2 any champion near the ball already does)
+    # R fires only for two enemy champions near the ball or one the blow kills (league_orianna:r_kill raises c2), Q goes
+    # to the champion native names (league_orianna:q_seen / :q_pick: the one with the most enemy champions round him);
+    # the add-on's AI hook league_orianna:combo arms R and throws Q into such a crowd - the Q+R combo
     "native": 0,
 }
 
@@ -315,6 +318,8 @@ def build(p):
         rule = sw("ra", sw("i2", NONE, flag("r_go", 1)) if lone else flag("r_go", 1))
         if p["r_rule"] == 2:
             rule = sw("c1", flag("r_go", 1))
+        if nat:   # two, or the one league_orianna:r_kill says the blow kills (both raise c2): never one alone
+            rule = None
         go = lambda: [sw("c2", flag("r_go", 1), rule), *rm(*counts),
                       sw("r_go", combine(*rm("r_go"), r_fire(here)))]
         kill = [native("r_kill")] if nat else []
@@ -376,8 +381,18 @@ def build(p):
         return combine(native("q"), leave(), flag(gen, None), sfx("q"),
                        lob(q_name, p["q_travel"], "EnemyChampion", landing(gen)))
 
-    q_throw = sw("par", combine(*rm("par"), pick(p["q_range"], "EnemyChampion", throw("gB"))),
-                 combine(flag("par", None), pick(p["q_range"], "EnemyChampion", throw("gA"))))
+    def aim(gen):
+        """The champion the ball goes to: a random one within q_range, or, in the add-on's copy, the one in the middle of
+        the most enemy champions (the Q+R combo, the user 2026-11-02: 「把它改成 Q+R 的主动连招，而不是像个陷阱一样等着
+        别人走进去」): league_orianna:q_seen hears every champion in range first, then league_orianna:q_pick raises
+        q_this on the one it names among them, so one of them always gets the ball."""
+        if not nat:
+            return pick(p["q_range"], "EnemyChampion", throw(gen))
+        return combine(around(p["q_range"], "EnemyChampion", [native("q_seen")]),
+                       around(p["q_range"], "EnemyChampion", [native("q_pick"),
+                                                               sw("q_this", combine(*rm("q_this"), throw(gen)))]))
+
+    q_throw = sw("par", combine(*rm("par"), aim("gB")), combine(flag("par", None), aim("gA")))
 
     # the ball riding an ally (gen: eA / eB, so a ride the next E replaced stops)
     def ride(gen):
