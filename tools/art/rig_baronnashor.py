@@ -15,8 +15,9 @@ The pictures (tools/art/design_baronnashor_model.py, design_baronnashor_poses.py
                       d_down.
 Placing a pose: each pose stands by its pivot (its json: between its planted feet; the run's carried by its face) on
 the design's (design_baronnashor_poses.DESIGN_PIVOT), plus SHIFT[name] columns, its lowest row on the ground.
-The run is Codex's eight frames of T-Hex's run clip (one full 1.27 s cycle: the far foot's swing in run1-4, the near
-foot's in run5-8), the head steady over them.
+The run is Codex's redrawn eight frames (assets/source/baronnashor/codex_run, pack_baronnashor_run.py: the legs take
+turns - crossing in run1 and run5, the far leg ahead in run2-4, the near one in run6-8 - over one 1.27 s cycle, each frame
+its share of it, pack_baronnashor_run.MS), one upper body, the head within two rows of the idle's.
 Beyond the slots' tags the kit plays two of its own (CasterAnimation, tools/kit/build_baronnashor.py's Burrow Strike):
 `dig` while it travels under the ground (only its crest above it) and `rise` as it bursts out.
 """
@@ -34,6 +35,7 @@ sys.path.insert(0, HERE)
 import ppu_rig as R  # noqa: E402
 import pixel_down as PD  # noqa: E402
 from design_baronnashor_poses import DESIGN_PIVOT  # noqa: E402
+from pack_baronnashor_run import MS as RUN_MS  # noqa: E402
 
 HERO = "baronnashor"
 PPU = 2.04
@@ -107,8 +109,8 @@ class Canvas:
 # then the breath at q_st 18 (300 ms); Burrow Strike 667 ms = e_dur 40, crouching until it dives at e_st 12 (200 ms),
 # then `dig` (held while it travels: its crest shifting a column every 120 ms) and `rise` on arrival (e_rise 30 = 500
 # ms); Void's Wrath 3600 ms = 216 ticks (r_st 30 + 10 x r_every 18 + 6): it rears up, slams at r_st (500 ms), then
-# spits ten acid balls 300 ms apart, each a jolt forward and back. The run: T-Hex's 1.27 s cycle in eight steps.
-MS = {"idle": [1000], "run": [159, 159, 159, 159, 159, 159, 159, 159],
+# spits ten acid balls 300 ms apart, each a jolt forward and back. The run: its 1.27 s cycle in eight steps.
+MS = {"idle": [1000], "run": list(RUN_MS),
       "attack": [400, 267], "skill": [300, 300], "skill2": [200, 467], "dig": [120, 120], "rise": [250, 250],
       "ult": [500, 400] + [150, 150] * 9, "hit": [100, 100], "dead": [100, 250, 700]}
 

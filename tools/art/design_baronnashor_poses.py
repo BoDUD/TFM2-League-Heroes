@@ -10,8 +10,9 @@ Codex was asked the design at 9 px a square and drew each pose on its own square
 deal bigger, run6 smaller). BODY[name] raw px is the design's square: the square root of the pose's blue head pixels
 (its biggest sky-blue piece) over the design's, averaged with the same for the whole figure's area (the head alone
 shrinks when it turns; the area alone grows when it rears or spreads its claws), or BODY_DEFAULT where the head is out
-(under the ground). A run frame by its whole height (each its own: Codex drew them at 9-13 px squares), at
-RUN_ROWS: the idle's size, so starting to run does not jump.
+(under the ground). The run is the redrawn one (assets/source/baronnashor/codex_run, RUN_PROMPTS.md: the first run's
+legs never swapped - T-Hex's run at this camera keeps one foot ahead): one body for all eight, their median height at
+RUN_ROWS (the idle's size, so starting to run does not jump; Codex kept one upper body, so the head never changes size).
 Each drawing (the top-level PNGs, byte for byte the raws Codex chose: source-selection.json) is read on squares of
 BODY px (raw_read: the commonest design colour round each square's centre), the one-square cracks and small holes closed
 (design_silco_poses.close_gaps), loose specks dropped, and the design's own face (the blue head and its yellow eyes,
@@ -45,6 +46,7 @@ from design_silco_poses import close_gaps  # noqa: E402
 from design_sohm_poses import lab  # noqa: E402
 
 SRC = os.path.join(ROOT, "assets", "source", "baronnashor", "codex_poses", "baronnashor-poses")
+RUN_SRC = os.path.join(ROOT, "assets", "source", "baronnashor", "codex_run", "baronnashor-run")
 OUT = os.path.join(ROOT, "assets", "source", "baronnashor", "hd")
 SPECK = 6
 # the face (the user's rule: the idle's face in every frame): the blue head and its yellow eyes - rows / columns of
@@ -56,8 +58,9 @@ DARK_EYE = set()
 BODY_DEFAULT = 11.0
 RUNS = tuple(f"run{i}" for i in range(1, 9))
 # a run frame taller than RUN_TOP rows loses the extra rows from its shins (evenly spaced rows of the band LEG_BAND rows
-# above its soles), so the head bobs at most RUN_TOP - 94 rows
-RUN_TOP = 100
+# above its soles), so the head bobs at most RUN_TOP - 94 rows (the redrawn run5 put its planted foot 4 rows under the
+# others': its head hopped up at one crossing of the two)
+RUN_TOP = 96
 RUN_ROWS = 95                 # a run frame's height: the idle's 94 rows and one for the stride
 LEG_BAND = (30, 6)
 WIN = 5                       # raw pixels round each design square's centre that vote
@@ -81,6 +84,8 @@ def visor_px(a):
 
 
 def raw(name):
+    if name in RUNS:   # the redrawn run (pack_baronnashor_run.py: the legs taking turns)
+        return np.asarray(Image.open(lp(os.path.join(RUN_SRC, f"baronnashor-run-{name}.png"))).convert("RGBA")).copy()
     return np.asarray(Image.open(lp(os.path.join(SRC, f"baronnashor-pose-{name}.png"))).convert("RGBA")).copy()
 
 
@@ -96,15 +101,18 @@ def body_one(name):
 
 
 def body_of(name):
-    """The raw px a design square takes in this pose: the head's scale and the area's, averaged; a run frame by its whole
-    height, each its own (Codex drew them at 9-13 px squares: one shared body left run7 and run8 a size bigger; by the
-    head they came out 6-9% taller than the idle - Codex's heads are smaller than the design's)."""
+    """The raw px a design square takes in this pose: the head's scale and the area's, averaged; the run's by height, one
+    for all eight (the redrawn run, assets/source/baronnashor/codex_run: Codex kept one upper body, its tops on the same
+    row; only the feet differ - so the median height at RUN_ROWS, the idle's size, the head the same in every frame)."""
     if name not in BODY:
         if name in BODY_FIX:
             BODY[name] = BODY_FIX[name]
-        elif name in RUNS:   # its whole height (crest tips to soles) at RUN_ROWS: the idle's size, no jump
-            ys = np.nonzero((raw(name)[..., 3] >= 128).any(1))[0]
-            BODY[name] = round(float((ys.max() + 1 - ys.min()) / RUN_ROWS), 2)
+        elif name in RUNS:   # one body for all eight: their median height (crest tips to soles) at RUN_ROWS
+            hs = []
+            for n in RUNS:
+                ys = np.nonzero((raw(n)[..., 3] >= 128).any(1))[0]
+                hs.append(ys.max() + 1 - ys.min())
+            BODY.update({n: round(float(np.median(hs)) / RUN_ROWS, 2) for n in RUNS})
         else:
             BODY[name] = body_one(name)
     return BODY[name]
@@ -226,6 +234,32 @@ def raw_read(name):
     return out, sq
 
 
+# the redrawn run's near leg: Codex drew it a shade lighter than the design's legs (mostly #8336E4 / #6431BD where the
+# idle's are #5A117B / #390D57 with #8336E4 touches): it would brighten each time it starts to run. One shade down, the
+# idle's own; the far leg (#390D57 / #200B38) stays a shade under it.
+NEAR_DOWN = {(0x83, 0x36, 0xE4): (0x5A, 0x11, 0x7B), (0x64, 0x31, 0xBD): (0x39, 0x0D, 0x57),
+             (0x55, 0x37, 0xD3): (0x39, 0x0D, 0x57), (0xA7, 0x53, 0xF8): (0x83, 0x36, 0xE4)}
+LEG_REACH = 14                # a leg's piece reaches into its lowest rows (a lifted foot too); a claw's does not
+
+
+def near_leg_tone(g):
+    """The near leg one shade down: below the belly (its teal's lowest row), the pieces that reach the lowest LEG_REACH
+    rows (the legs, not the claws hanging beside them), outline apart."""
+    c = g[..., :3].astype(int)
+    op = g[..., 3] > 0
+    teal = op & (c[..., 1] > c[..., 0] + 20) & (c[..., 2] > c[..., 0])
+    top = np.nonzero(teal.any(1))[0].max() + 1
+    body = op & (c.sum(2) > 60)                             # the near-black outline parts the pieces
+    body[:top] = False
+    lb, n = ndimage.label(body)
+    legs = np.isin(lb, [j for j in range(1, n + 1) if (lb[-LEG_REACH:] == j).any()])
+    out = g.copy()
+    for src, dst in NEAR_DOWN.items():
+        m = legs & (c[..., 0] == src[0]) & (c[..., 1] == src[1]) & (c[..., 2] == src[2])
+        out[m, :3] = dst
+    return out
+
+
 def shorter_shins(g, k):
     """k rows dropped from the band LEG_BAND rows above the soles (evenly spaced): the body comes down k rows onto
     the same feet."""
@@ -266,6 +300,8 @@ def read(name):
     ys, xs = np.nonzero(g[..., 3] > 0)
     face = None if off is None else (int(off[0] - xs.min()), int(off[1] - ys.min()))
     g = g[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+    if name in RUNS:
+        g = near_leg_tone(g)
     if name in RUNS and g.shape[0] > RUN_TOP:
         g = shorter_shins(g, g.shape[0] - RUN_TOP)
     print(f"{name:9s} squares {sq:.1f} px -> body {body_of(name)}: {g.shape[1]}x{g.shape[0]}, face "

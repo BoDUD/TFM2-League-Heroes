@@ -1,0 +1,19 @@
+{
+  "selected": {
+    "run1": "run1-attempt2.png",
+    "run2": "run2-attempt3.png",
+    "run3": "run3-attempt3.png",
+    "run4": "run4-attempt3.png",
+    "run5": "run5-attempt4.png",
+    "run6": "run6-attempt4.png",
+    "run7": "run7-attempt4.png",
+    "run8": "run8-attempt4.png"
+  },
+  "notes": [
+    "8 帧均为本轮新生成或本轮生成稿的图像模型修改，没有复用或重排上一包旧帧。",
+    "run2 attempt4 将明暗腿身份反转，弃用。",
+    "run4 attempt4 改变上半身大小与摆放，弃用。",
+    "其他未选版本主要为脚位过宽、换腿时脚尖没有靠齐或上半身偏移。",
+    "selected 是视觉较完整且接近新循环的版本，不表示所有脚尖坐标/硬 alpha 检查通过。"
+  ]
+}
