@@ -44,7 +44,7 @@ FLYING = set(PK.FLYING)
 HIT = (0, -13)                  # a hit on the upper body of a 32-46 px unit
 FLY = (0, 0)                    # a projectile's own point
 SOLES = (0, 11)                 # on the ground under a unit (or under its own pivot)
-BACK = (0, -6)                  # T-Hex's back, where the pods open (the picture is symmetric: never off to one side)
+BACK = (-4, -18)                # T-Hex's back pods (29 px over its soles, 4 behind its pivot: hd/idle.png's crystal ridge)
 seq = J.seq
 
 

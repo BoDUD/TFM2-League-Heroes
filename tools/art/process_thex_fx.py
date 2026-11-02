@@ -122,8 +122,9 @@ def made(name, p):
     """The frames (full-size pictures, before the game-size shrink) of an effect; `p` = its panel's pieces."""
     if name in ("a_bullet", "a_crit", "e_slow"):
         return p
-    if name == "q_launch":   # the missiles lean right: turned to lean left, the mirror adds the right-hand ones (a V)
-        return [x[:, ::-1] for x in p]
+    if name == "q_launch":   # the missiles lean right: turned to lean left, the mirror adds the right-hand ones (a V);
+        # its grey smoke column off (a solid grey block over the body in game): the missiles and their fire trails
+        return [only(x, ~kind(x)[2])[:, ::-1] for x in p]
     if name == "r_beam":   # the second beam points left: flipped to point right
         return [p[0], p[1][:, ::-1]]
     one = max(p, key=lambda x: x.shape[0] * x.shape[1]) if name not in ("e_slow",) else p[0]
@@ -189,6 +190,9 @@ def specks(c, least=3):
     return out
 
 
+RIM = 3
+
+
 def build(sheet):
     out = {}
     for name, (W, H, where, sym, ncol) in SPEC.items():
@@ -207,6 +211,10 @@ def build(sheet):
                 cells.append(c)
         cells = PB.palette(cells, ncol)
         cells = [specks(PB.union_mirror(c, sym)) for c in cells]
+        if name == "q_launch":   # the smoke's last wisps (two dark dots under the missiles) off too
+            cells = [specks(c, 8) for c in cells]
+        if name == "r_shield":   # the sheet's bubble is solid blue and hid T-Hex inside it: hollowed to a RIM-px rim
+            cells = [PB.hollow(c, RIM) for c in cells]
         out[name] = cells
     return out
 
