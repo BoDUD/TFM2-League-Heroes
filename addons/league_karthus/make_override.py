@@ -25,13 +25,14 @@ TEXT_ID = "league_karthus_spirit"      # the text's key (the hero's own id is le
 HERO = "league_karthus"
 LEAD = {"zh-hans": "【附加包】", "zh-hant": "【附加包】", "en": "[Add-on] ", "ko": "[애드온] ", "ja": "【アドオン】"}
 O, A, E = setup.O, setup.A, setup.E
+# League's spirit stands where he fell and only casts (0.4.0, the user 2026-11-02: 「死歌死了后别人还在攻击灵体 英雄联盟里不是灵体吧」)
 PASSIVE = {
-    "zh-hans": O + "死亡契约" + E + "：受到致命伤害时化为灵体" + A + "{p_t}秒" + E + "，敌人选不中、不受伤害，照常放技能（安魂曲不会被打断），之后倒下。",
-    "zh-hant": O + "無視死亡！" + E + "：受到致命傷害時化為靈體" + A + "{p_t}秒" + E + "，敵人選不中、不受傷害，照常施放技能（安魂曲不會被打斷），之後倒下。",
+    "zh-hans": O + "死亡契约" + E + "：受到致命伤害时化为灵体" + A + "{p_t}秒" + E + "，敌人选不中、不受伤害，站着不动，只放技能和痛苦之墙（安魂曲不会被打断），之后倒下。",
+    "zh-hant": O + "無視死亡！" + E + "：受到致命傷害時化為靈體" + A + "{p_t}秒" + E + "，敵人選不中、不受傷害，站著不動，只施放技能和痛苦之牆（安魂曲不會被打斷），之後倒下。",
     "en": O + "Death Defied" + E + ": a lethal blow turns him into a spirit for " + A + "{p_t}s" + E +
-          " - untargetable, taking no damage, still casting (Requiem unbroken) - before he falls.",
-    "ko": O + "죽음 극복" + E + ": 치명상을 입으면 " + A + "{p_t}초" + E + " 동안 영혼이 되어 대상 지정 불가, 피해 없음, 스킬 사용 가능(진혼곡은 끊기지 않음). 이후 쓰러짐.",
-    "ja": O + "怨嗟の叫び" + E + "：致命傷を受けると" + A + "{p_t}秒" + E + "霊体になり、対象指定不可・ダメージ無効でスキルを使い続け（鎮魂歌は中断されない）、その後倒れる。",
+          " - untargetable, unhurt, rooted, still casting (Requiem unbroken) - before he falls.",
+    "ko": O + "죽음 극복" + E + ": 치명상을 입으면 " + A + "{p_t}초" + E + " 동안 영혼이 되어 대상 지정 불가, 피해 없음, 이동 불가, 스킬과 고통의 벽만 사용(진혼곡은 끊기지 않음). 이후 쓰러짐.",
+    "ja": O + "怨嗟の叫び" + E + "：致命傷を受けると" + A + "{p_t}秒" + E + "霊体になり、対象指定不可・ダメージ無効・移動不可でスキルと嘆きの壁を使い（鎮魂歌は中断されない）、後に倒れる。",
 }
 # the ult's text with the add-on's timing (the user 2026-11-01: 「最好改成死后放大 或者复活后在泉水放大 放大也要看敌方血量吧」)
 WHEN = {

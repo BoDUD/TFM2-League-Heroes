@@ -11,7 +11,7 @@ the manifest's frame size and placed as the kit plays it (import_chogath_fx.py's
 (x forward, y down); a unit's soles are 11 under it (his 11.5), a point's ground too. Times follow
 tools/kit/build_karthus.py: Lay Waste's mark lasts the lob's flight (q_delay), the wall its zone (w_t: frames 3-6
 looped), Requiem's souls the channel (r_ch: looped); the buffs loop (e_on, w_slow, w_shred, p_spirit) and the bolt too;
-the rest play once.
+the rest play once. Defile's vortex is redrawn for the kit's ring (e_r, [`grown`]).
 """
 import argparse
 import json
@@ -125,6 +125,61 @@ def dashed(c):
     out = c.copy()
     out[1::2] = 0
     return out
+
+
+# Defile's vortex drawn as big as its ring (the user 2026-11-02: 「E的范围要做大点啊 现在太小了吧 死歌的圈」): the delivered
+# oval is 60 squares across - e_r 30000 then, its outer edge - and 13 high; each frame is redrawn for the kit's e_r
+# (1000 a square) by [`grown`]. The delivered frames 3-4 sit 3 rows higher than 1-2 (the vortex bobbed): every grown frame
+# is centred on its own oval.
+GROWN = {"e_on": P["e_r"] / 1000}
+RING_A = 30.0           # the delivered oval's half-width to its outer edge, squares
+RING_B = 6.5            # its half-height (the band's top and bottom rows over the middle columns)
+FLAME_X = 15.0          # the flames rise by the oval's ends: off it and this far from its middle across
+
+
+def ring_centre(c):
+    """A delivered vortex frame's middle row (rows down, a row's top edge = its index): the mean row of the band over
+    its middle 24 columns."""
+    w = c.shape[1]
+    ys = np.nonzero(c[:, w // 2 - 12:w // 2 + 12, 3])[0]
+    return ys.mean() + 0.5
+
+
+def grown(c, a_t):
+    """A vortex frame redrawn for an oval a_t squares from its middle to its outer edge across (the height in the same
+    proportion): every square from the delivered square at the same angle round the oval and the same depth inside its
+    outer edge, so the band keeps its 3-6 squares and Codex's smoke and wisps go round the longer ring; the flames
+    outside it by its ends move out with the ends at their own height. Returns the cell (left to right symmetric) and
+    its oval's middle row counted up from the bottom row ("feet")."""
+    h, w = c.shape[:2]
+    k = RING_A / RING_B
+    b_t = a_t / k
+    cx_s, cy_s = w / 2, ring_centre(c)
+    W = int(np.ceil(a_t)) * 2 + 4
+    top = int(np.ceil(b_t)) + 2
+    H = top + int(np.ceil(b_t)) + 2
+    half = W // 2
+    out = np.zeros((H, W, 4), np.uint8)
+    jj, ii = np.mgrid[0:H, 0:half]
+    x, y = ii + 0.5 - W / 2, jj + 0.5 - top
+    depth = a_t - np.hypot(x, y * k)
+    rs = RING_A - depth
+    th = np.arctan2(y * k, x)
+    si = np.floor(cx_s + rs * np.cos(th)).astype(int)
+    sj = np.floor(cy_s + rs * np.sin(th) / k).astype(int)
+    ok = (depth >= -1.0) & (rs > 0) & (si >= 0) & (si < w // 2) & (sj >= 0) & (sj < h)
+    left = np.zeros((H, half, 4), np.uint8)
+    left[ok] = c[sj[ok], si[ok]]
+    for sy, sx in zip(*np.nonzero(c[:, :w // 2, 3])):
+        x0, y0 = sx + 0.5 - cx_s, sy + 0.5 - cy_s
+        if RING_A - np.hypot(x0, y0 * k) >= -1.0 or abs(x0) < FLAME_X:
+            continue
+        tx, ty = int(np.floor(W / 2 + x0 - (a_t - RING_A))), int(np.floor(top + y0))
+        if 0 <= tx < half and 0 <= ty < H:
+            left[ty, tx] = c[sy, sx]
+    out[:, :half] = left
+    out[:, half:] = left[:, ::-1]
+    return out, H - 1 - top
 STRAY = {}
 
 
@@ -180,12 +235,17 @@ def main():
     if set(meta) != set(FX):
         sys.exit(f"delivered {sorted(meta)} against the kit's {sorted(FX)}")
     allc = {n: cells(n, meta[n], a.src) for n in FX}
+    feet = {}
+    for name, a_t in GROWN.items():
+        done = [grown(c, a_t) for c in allc[name]]
+        allc[name] = [c for c, _ in done]
+        feet[name] = ("feet", done[0][1])
     tables = {"league_karthus_fx": {}, "league_karthus_big": {}}
     for name, (kind, frames, spots) in FX.items():
         cs = allc[name]
         if len(cs) < 1 + max(k for k, _ in frames):
             sys.exit(f"{name}: {len(cs)} frames delivered, the timing plays {1 + max(k for k, _ in frames)}")
-        anc = anchor(cs[0], kind)
+        anc = anchor(cs[0], feet.get(name, kind))
         out = [(J.place(cs[k], anc, spots), ms) for k, ms in frames]
         tables["league_karthus_big" if name in BIG else "league_karthus_fx"][name] = out
     for name, (src, kind, spots) in DERIVED.items():

@@ -22,7 +22,8 @@ Kit (the user's picks, 2026-10-20: mid, layout A, Death Defied in the add-on). T
           someone): he channels r_ch ticks (spell4 + spell4_loop), crowd control on him (checked every r_brk ticks)
           breaks it; then every enemy champion on the map takes r_dmg + r_ratio% AP (League: 200-500 + 75% AP after 3 s).
 The add-on copy (--native, addons/league_karthus): the passive league_karthus:death_defied - a lethal blow leaves him
-at 1 health as a spirit for p_t ticks, untargetable, casting on, then he falls (the kill to whoever struck it).
+at 1 health as a spirit for p_t ticks, untargetable, rooted, casting on (no plain attacks), then he falls (the kill to
+whoever struck it).
 """
 import argparse
 import json
@@ -56,8 +57,10 @@ P = {
     "w_slow_t": 45, "w_mr": 20, "w_mr_t": 240,
     # Q Lay Waste (League: 45-205 + 35% AP, x2 on one target, 0.53 s delay, radius 160 (+ 0.2 s cast), cd 1 s)
     "q_cd": 150, "q_range": 80000, "q_dur": 27, "q_rel": 8, "q_delay": 32, "q_r": 15000, "q_dmg": 45, "q_ratio": 30,
-    # E Defile (League: radius 550, 30-110 + 20% AP a second)
-    "e_cd": 600, "e_cast": 40000, "e_dur": 24, "e_rel": 2, "e_t": 300, "e_per": 15, "e_r": 30000, "e_dmg": 10,
+    # E Defile (League: radius 550, 30-110 + 20% AP a second); the ring League's 550 since 2026-11-02 (the user: 「E的范围要做
+    # 大点啊 现在太小了吧 死歌的圈」 - it was 30000, the delivered vortex's size; tools/art/import_karthus_fx.py redraws the
+    # vortex for e_r), cast once an enemy is inside it (e_cast)
+    "e_cd": 600, "e_cast": 55000, "e_dur": 24, "e_rel": 2, "e_t": 300, "e_per": 15, "e_r": 55000, "e_dmg": 10,
     "e_ratio": 5,
     # R Requiem (League: 3 s channel, 200-500 + 75% AP to every enemy champion, cd 200-160 s)
     "r_cd": 4200, "r_range": 960000, "r_rel": 2, "r_ch": 180, "r_brk": 15, "r_dmg": 200, "r_ratio": 75,
