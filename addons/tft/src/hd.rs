@@ -159,6 +159,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read on its own 10 px squares at the user's 40 game px from the ear spikes to its soles, PPU 1.9 (「A-1 40px PPU1.9」:
     // 76 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_thex.py, so no SIZES row
     ("tft_thex", 1.9, include_str!("../../../tft/champions/tft_thex#anim.fanim")),
+    // the Mighty Mech (tft_mightymech, the tft pack): the red super robot crouched at 3/4 with the giant sword gripped
+    // forward, step 0's B read on its own 7 px squares and brought to the user's 40 game px from the spike tips to its
+    // soles, PPU 2.0 (「B-1 40 PPU 2.0」: 80 rows), and Codex's key poses after its own TFT clips, posed by
+    // tools/art/rig_mightymech.py, so no SIZES row
+    ("tft_mightymech", 2.0, include_str!("../../../tft/champions/tft_mightymech#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the rects and the
