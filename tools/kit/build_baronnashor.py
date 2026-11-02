@@ -16,7 +16,7 @@ and knocks up with a tentacle. The kit is our own design from those (the user's 
           and everything else (no towers) in a line a_len long and a_w wide from it through the target takes a_line%
           AD (TFT's line; the target takes it too, the numbers count that).
   skill   Corrosive Breath (腐蚀吐息, League's acid), `Targeting` on `EnemyWithoutTower` (q_range: waves and camps too):
-          at q_st a cone of acid in front of it (q_r long, acos(q_cone / 1000) each side): q_dmg + q_ad% AD and
+          at q_st (the spray `q_spray` flying out of its mouth) a cone of acid in front of it (q_r long, acos(q_cone / 1000) each side): q_dmg + q_ad% AD and
           q_shred% less armour and magic resistance for q_t ticks (`q_acid`).
   skill2  Burrow Strike (钻地突袭, TFT's dash), `Targeting` on `EnemyWithoutTower` (e_range): it dives (crowd-control
           immune until it is up again, the `dig` frames), travels under the ground to the target (MoveToTarget e_speed)
@@ -152,6 +152,14 @@ def line(name, length, width, target, effects):
             "apply": 1, "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
+def spray(name, speed, rng, y):
+    """The breath's picture: a fast view-only spray from its mouth along the cone's middle, turned with its flight (a
+    caster picture is never mirrored on the red side; tft_thex's laser bolt)."""
+    return {"type": "LinearProjectile", "name": n(name), "penetrate": True, "applied_target": "EnemyWithoutTower",
+            "applied_effects": [], "end_effects": [], "speed": speed, "range": rng, "shape": circle(1000),
+            "y_offset": y}
+
+
 def rain(rng, target, effects):
     """One random unit of `target` within rng."""
     return {"type": "RandomTarget", "range": rng, "casting_target": target, "from_projectile": False,
@@ -186,7 +194,7 @@ def build(p, is_native=False):
     breath = [attack(p["q_dmg"], p["q_ad"]), acid(p), view("q_hit"), tsfx("q_hit")]
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(sfx("q"), None if is_native else tentacle(p),
-                           delayed(p["q_st"] - 1, sfx("q_breath"), cview("q_cone"),
+                           delayed(p["q_st"] - 1, sfx("q_breath"), spray("q_spray", 3000, p["q_r"], 16000),
                                    cone(p["q_r"], p["q_cone"], "EnemyWithoutTower", breath))))
 
     # ------------------------------------------------------------------ skill2: Burrow Strike
@@ -214,9 +222,9 @@ def build(p, is_native=False):
                                                              "tag": tag or name, "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=3, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    # the breath's cone, the burst's broken ground, the spikes and the falling acid stay where they struck; the
-    # tentacle rises where its prey stood (baronnashor.rs plays it there; --plain on the prey)
-    views_e = [E("a_hit"), E("q_cone", BIG, 2, False), E("q_hit"), E("e_burst", BIG, -1, False), E("e_hit"),
+    # the burst's broken ground, the spikes and the falling acid stay where they struck; the tentacle rises where its
+    # prey stood (baronnashor.rs plays it there; --plain on the prey); the breath flies (view_projectiles)
+    views_e = [E("a_hit"), E("q_hit"), E("e_burst", BIG, -1, False), E("e_hit"),
                E("r_spikes", BIG, -1, False), E("r_hit"), E("r_fall", BIG, 2, False), E("p_tent", BIG, 2, False)]
     views_b = [B_("q_acid")]
     kit = {
@@ -230,7 +238,7 @@ def build(p, is_native=False):
                    "magic_resistance": p["mr_g"], "move_speed": p["ms_g"], "hp_regen": 0, "stack": 0,
                    "crit_chance": 0},
         "attack": attack_a, "skill": skill, "skill2": skill2, "ult": ult,
-        "view_projectiles": [], "view_effects": views_e, "view_buffs": views_b,
+        "view_projectiles": [B_("q_spray", BIG, 2)], "view_effects": views_e, "view_buffs": views_b,
     }
     if is_native:   # tft.dll (addons/tft/src/baronnashor.rs): the Void Rift's tentacles
         kit = {"id": ID, "category": kit["category"], "tags": kit["tags"],

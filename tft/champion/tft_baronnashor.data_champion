@@ -139,8 +139,20 @@
               "name": "tft_baronnashor_q_breath"
             },
             {
-              "type": "CasterViewEffect",
-              "name": "tft_baronnashor_q_cone"
+              "type": "LinearProjectile",
+              "name": "tft_baronnashor_q_spray",
+              "penetrate": true,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [],
+              "speed": 3000,
+              "range": 46000,
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "y_offset": 16000
             },
             {
               "type": "RangeEffect",
@@ -842,7 +854,16 @@
       ]
     }
   },
-  "view_projectiles": [],
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_baronnashor_q_spray",
+      "anim": "asset/tft/effects/tft_baronnashor_big",
+      "tag": "q_spray",
+      "repeat": true,
+      "z": 2
+    }
+  ],
   "view_effects": [
     {
       "type": "Animation",
@@ -851,14 +872,6 @@
       "tag": "a_hit",
       "z": 2,
       "is_follow": true
-    },
-    {
-      "type": "Animation",
-      "name": "tft_baronnashor_q_cone",
-      "anim": "asset/tft/effects/tft_baronnashor_big",
-      "tag": "q_cone",
-      "z": 2,
-      "is_follow": false
     },
     {
       "type": "Animation",
