@@ -33,6 +33,7 @@ pub mod sohm;
 pub mod steb;
 pub mod syfen;
 pub mod terra;
+pub mod thex;
 pub mod vander;
 pub mod violet;
 pub mod zippy;
@@ -72,6 +73,7 @@ fn init(host: &StableHost) -> StableMod {
     steb::register(host, &mut module);
     syfen::register(host, &mut module);
     terra::register(host, &mut module);
+    thex::register(host, &mut module);
     vander::register(host, &mut module);
     violet::register(host, &mut module);
     zippy::register(host, &mut module);

@@ -1,0 +1,98 @@
+{
+ "a_bullet": {
+  "frames": 2,
+  "cell": [
+   10,
+   4
+  ],
+  "symmetry": "TB"
+ },
+ "a_hit": {
+  "frames": 3,
+  "cell": [
+   10,
+   10
+  ],
+  "symmetry": "LR"
+ },
+ "a_crit": {
+  "frames": 4,
+  "cell": [
+   20,
+   18
+  ],
+  "symmetry": "LR"
+ },
+ "q_launch": {
+  "frames": 3,
+  "cell": [
+   40,
+   44
+  ],
+  "symmetry": "LR"
+ },
+ "q_fall": {
+  "frames": 7,
+  "cell": [
+   24,
+   52
+  ],
+  "symmetry": "LR"
+ },
+ "e_dash": {
+  "frames": 4,
+  "cell": [
+   40,
+   12
+  ],
+  "symmetry": "LR"
+ },
+ "e_hit": {
+  "frames": 3,
+  "cell": [
+   24,
+   22
+  ],
+  "symmetry": "LR"
+ },
+ "e_slow": {
+  "frames": 2,
+  "cell": [
+   24,
+   8
+  ],
+  "symmetry": "LR"
+ },
+ "r_beam": {
+  "frames": 2,
+  "cell": [
+   56,
+   10
+  ],
+  "symmetry": "TB"
+ },
+ "r_hit": {
+  "frames": 3,
+  "cell": [
+   20,
+   20
+  ],
+  "symmetry": "LR"
+ },
+ "r_shield": {
+  "frames": 2,
+  "cell": [
+   64,
+   50
+  ],
+  "symmetry": "LR"
+ },
+ "p_blast": {
+  "frames": 5,
+  "cell": [
+   80,
+   56
+  ],
+  "symmetry": "LR"
+ }
+}
