@@ -53,6 +53,7 @@
 
 - [`tools/kit/build_powder.py`](../../tools/kit/build_powder.py)
 - [`tools/kit/setup_powder.py`](../../tools/kit/setup_powder.py)
+- [`tools/lol/extract_powder.py`](../../tools/lol/extract_powder.py)
 - [`tools/art/preview_powder.py`](../../tools/art/preview_powder.py)
 - [`tools/art/rig_powder.py`](../../tools/art/rig_powder.py)
 - [`assets/source/powder/`](../../assets/source/powder)
