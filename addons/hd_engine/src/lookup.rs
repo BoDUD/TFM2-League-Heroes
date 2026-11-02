@@ -772,12 +772,22 @@ unsafe fn hook_with(func: usize, detour: usize, orig_slot: &AtomicUsize, keep_r9
 }
 
 /// The two lookups hooked, once a process (and src/ui.rs's sinks when both went in) -> whether both did. The heroes
-/// listed are the host's own table; a guest's come in later (src/share.rs) and are looked up the same.
+/// listed are the host's own table; a guest's come in later (src/share.rs) and are looked up the same. Both or
+/// neither: with one of them hooked by another DLL already (another dense-frame mod), the other one hooked alone would
+/// hand the battlefield dense frames that nothing scales - lib.rs install puts src/view.rs in only when both went in -
+/// PPU times too big; neither hooked, every hero draws its 1x frames at its own size.
 pub fn install_once(b: &'static Build) -> bool {
     HOOK.call_once(|| {
         let module = unsafe { GetModuleHandleW(std::ptr::null()) };
         MODULE.store(module, Ordering::Release);
         let _ = BUILD.set(b);
+        let ours = |func: usize| read(func, PROLOGUE.len()).as_deref() == Some(&PROLOGUE[..]);
+        let (anim_ours, sheet_ours) = (ours(module + b.anim), ours(module + b.sheet));
+        if !(anim_ours && sheet_ours) {
+            wlog(format!("resource lookups: the game's own code at anim {anim_ours}, sheet {sheet_ours} - another DLL \
+                          hooked one already: neither hooked, every hero draws its 1x frames"));
+            return;
+        }
         let a = unsafe {
             hook(module + b.anim,
                  anim_detour as unsafe extern "system" fn(usize, usize, usize, usize) -> usize as usize, &ORIG_ANIM)

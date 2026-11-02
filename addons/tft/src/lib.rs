@@ -2,10 +2,10 @@
 //! all in the one tft mod (the user, 2026-10-26: 「诺拉和爆爆合并在一个mod啊」「tft的英雄都放一个mod里 参考英雄联盟」).
 //! A new hero: its module here, its `register` called from `init`.
 //!
-//! The heroes' dense (PPU) frames too (0.29.0, the pack going on the Workshop on its own): src/hd.rs is the pack's table,
+//! The heroes' dense (PPU) frames too (0.42.0, the pack going on the Workshop on its own): src/hd.rs is the pack's table,
 //! drawn by hd_engine - the same engine league.dll's are. `init` hands it the table first: the first pack DLL loaded in
 //! the game hooks it (tft.dll alone, or before league in the Mods menu), a later one hands its table to that one and
-//! hooks nothing (hd_engine src/share.rs). Before 0.29.0 league.dll drew these heroes' dense frames, only with both packs
+//! hooks nothing (hd_engine src/share.rs). Before 0.42.0 league.dll drew these heroes' dense frames, only with both packs
 //! enabled. The engine's lines: `%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`, new each start (the last one
 //! kept as tft.prev.log); each hero module keeps its own log.
 

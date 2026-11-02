@@ -331,7 +331,8 @@ pub mod checks {
     }
 
     /// Every hero and effect is the pack's and listed once (a second row of an id would never be registered:
-    /// [`Heroes::and`]); every other row is about one of them.
+    /// [`Heroes::and`]); every other row is about one of them (a growth or form row of another id is dropped there
+    /// without a word); a form row names at least one buff, each one word (the table's text: src/share.rs).
     pub fn ids_are_the_packs_once(t: &Table<'_>) {
         let mut seen = Vec::new();
         for &(id, ..) in t.heroes.iter().chain(t.effects.iter()) {
@@ -341,8 +342,13 @@ pub mod checks {
             seen.push(id);
         }
         let others = t.sizes.iter().map(|s| s.0).chain(t.ui_sizes.iter().map(|s| s.0)).chain(t.growth.iter().map(|g| g.0));
+        let others = others.chain(t.forms.iter().map(|f| f.0));
         for id in others.chain(t.drawn_effects.iter().copied()) {
             assert!(seen.contains(&id), "{id}: a row for an id the table does not register");
+        }
+        for (id, buffs, ..) in &t.forms {
+            assert!(!buffs.is_empty(), "{id}: a form row with no buff");
+            assert!(buffs.iter().all(|b| !b.is_empty() && !b.contains(char::is_whitespace)), "{id}: {buffs:?}");
         }
     }
 

@@ -271,4 +271,19 @@ mod tests {
     fn the_table_reaches_a_host_unchanged() {
         checks::the_table_goes_through_the_text_unchanged(&table());
     }
+
+    /// Gromp's and the Rift Herald's form rows (as league_main/src/hd.rs checks Volibear's): their buffs are this pack's
+    /// data's, a hero grows one way, and the rows reach the engine's registered heroes.
+    #[test]
+    fn the_forms_are_the_packs_own_buffs() {
+        for (id, buffs, ..) in FORMS {
+            let path = format!("{}/../../tft/champion/{id}.data_champion", env!("CARGO_MANIFEST_DIR"));
+            let data = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{path}: {e}"));
+            for b in *buffs {
+                assert!(data.contains(&format!("\"name\": \"{b}\"")), "the tft pack never gives {id} {b}");
+            }
+        }
+        assert!(FORMS.iter().all(|f| !GROWTH.iter().any(|g| g.0 == f.0)), "a hero grows one way");
+        assert_eq!(Heroes::of(&[&table()]).forms, FORMS.to_vec());
+    }
 }
