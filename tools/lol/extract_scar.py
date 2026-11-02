@@ -39,6 +39,9 @@ CLIPS = {
     C + "p_heal": ("tft13", [S13 + "Spell_heal"], 1.2, -10),
     C + "q": ("tft13", [S13 + "Spell_OnCast"], 1.0, -10),               # the throw
     C + "q_vo": ("tft13_vo", ["Play_vo_TFT13_FlyGuySpell_OnCast"], 2.0, -3),
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "e_vo": ("tft13_vo", ["Play_vo_TFT13_FlyGuySpell_OnCast"], 2.0, -3, 1),
+    C + "r_vo": ("tft13_vo", ["Play_vo_TFT13_FlyGuySpell_OnCast"], 2.0, -3, 2),
     C + "q_hit": ("tft13", [S13 + "Spell_hit"], 1.2, -6),               # a bomb going off
     C + "e": ("tft13", [S13 + "BasicAttack2_OnCast"], 0.7, -10),        # the sweep
     C + "e_hit": ("tft13", [S13 + "BasicAttack2_OnHit"], 0.8, -8),

@@ -134,6 +134,10 @@ SOUNDS = {f"{ID}_{x}": [(CLIP + x, v, 0.0)] for x, v in (
     ("q", 0.45), ("q_vo", 0.6), ("q_heal", 0.4), ("q_hit", 0.6),
     ("e", 0.45), ("e_mark", 0.5), ("e_hit", 0.5), ("e_kill", 0.5),
     ("r", 0.5), ("r_shield", 0.45), ("r_heal", 0.45))}
+# his voice on every cast (the user 2026-11-02: 「所有已经完成的tft英雄都要补」): q_vo on the skill, the set's
+# two other takes layered into the other casts
+SOUNDS[f"{ID}_e"].append((CLIP + "e_vo", 0.6, 0.0))
+SOUNDS[f"{ID}_r"].append((CLIP + "r_vo", 0.6, 0.0))
 # the sounds tft.dll plays itself (addons/tft/src/steb.rs: the shared heal, the mark, the bounty)
 DLL_SOUNDS = {f"{ID}_{x}" for x in ("p", "e_hit", "e_kill")}
 

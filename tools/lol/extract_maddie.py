@@ -6,11 +6,11 @@ Her own TFT sounds (the user: 「音效什么都要自己找」): set 13's Map22
 hold her rifle - the shot, the hit, the crit hit, the reload her attack clip plays (Play_sfx_TFT13_Shooter*; her
 animation bin names BasicAttack_reload, the rest found by the set's naming, 2026-10-27: BasicAttack(2)_OnCast /
 _OnMissileCast / _OnMissileLaunch / _OnHit, CritAttack_*, Spell_OnCast), and her voice is in MODE_TFT_Set13_Champs_VO
-(one event, Play_vo_TFT13_ShooterSpell_OnCast; the Riot client's en_US, as Silco's). Borrowed from League
+(one event, Play_vo_TFT13_ShooterSpell_OnCast; the Riot client's en_US, as Vander's). Borrowed from League
 (Champions/*.wad.client of --lol): the Wanted mark and the snipe are Caitlyn's - her captain, the same Piltover rifle -
 Ace in the Hole's lock-on (CaitlynR_OnBuffActivate), its shot and its hit (CaitlynRMissile_*).
-Read, never written; the base skin's / bank's Wwise events resolved to their media (the first variant), decoded with
-vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games).
+Read, never written; the base skin's / bank's Wwise events resolved to their media (the first variant unless given),
+decoded with vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games).
 """
 import argparse
 import os
@@ -37,6 +37,9 @@ CLIPS = {
     C + "q_hit": ("tft13", [S13 + "CritAttack_OnHit"], 0.6, -12),
     C + "e": ("Caitlyn", [CT + "R_OnBuffActivate"], 1.4, -10),
     C + "r": ("tft13_vo", ["Play_vo_TFT13_ShooterSpell_OnCast"], 3.0, -3, 1),   # her effort sounds: the longest (0.5 s)
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "q_vo": ("tft13_vo", ["Play_vo_TFT13_ShooterSpell_OnCast"], 3.0, -3, 0),
+    C + "e_vo": ("tft13_vo", ["Play_vo_TFT13_ShooterSpell_OnCast"], 3.0, -3, 2),
     C + "r_aim": ("Caitlyn", [CT + "R_OnCast"], 1.2, -10),
     C + "r_shot": ("Caitlyn", [CT + "RMissile_OnMissileLaunch"], 1.2, -7),
     C + "r_hit": ("Caitlyn", [CT + "RMissile_hit"], 1.2, -8),

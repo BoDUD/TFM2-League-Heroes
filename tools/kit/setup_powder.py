@@ -10,9 +10,11 @@ text's shown length against lint_mod's TOOLTIP_MAX.
 Names: TFT set 13 zh_CN 爆爆 (Powder), zh_TW 爆爆, ja パウダー, ko 파우더. Her skills are our own (TFT has one ability,
 the monkey bomb): 猴子炸弹 / 快跑，爆爆！/ 海克斯水晶炸弹, the passive 伏击者 (TFT's Ambusher trait) in the attack's text.
 
-Sounds: no audio file of ours. Every clip below is one of the base game's own sound effects, played by name from our
-.sound_info (asset/base/sound/sfx/<clip>, the way the base events play them), layered and mixed into her own events;
-League's audio is Riot's and never used for this pack. A clip name never equals an event name (vo-clip-names rule).
+Sounds: her effects are the base game's own sound effects, played by name from our .sound_info
+(asset/base/sound/sfx/<clip>, the way the base events play them), layered and mixed into her own events. Her voice is
+set 13's (the user 2026-11-02: 「所有已经完成的tft英雄都要补」): tools/lol/extract_powder.py's three takes of her cast voice
+in tft/sound/sfx/tft_powder_sfx_*_vo.wav (git-ignored), one a cast. A clip name never equals an event name
+(vo-clip-names rule).
 """
 import argparse
 import json
@@ -126,13 +128,15 @@ TEXT = {
 SOUNDS = {
     f"{ID}_a": [("alchemist_attack_cast_resource", 0.35, 0.0)],
     f"{ID}_a_hit": [("bomber_attack_hit_resource", 0.35, 0.0)],
-    f"{ID}_q": [("clown_skill_resource", 0.4, 0.0), ("alchemist_skill_cast_resource", 0.35, 0.05)],
+    f"{ID}_q": [("clown_skill_resource", 0.4, 0.0), ("alchemist_skill_cast_resource", 0.35, 0.05),
+                (f"{ID}_sfx_q_vo", 0.6, 0.0)],
     f"{ID}_q_blast": [("gambler_skill2_boom_resource", 0.5, 0.0), ("bomber_skill_hit_resource", 0.45, 0.02)],
     f"{ID}_q_hit": [("alchemist_skill2_hit_resource", 0.25, 0.0)],
-    f"{ID}_e": [("ninja_attack0", 0.3, 0.0)],
+    f"{ID}_e": [("ninja_attack0", 0.3, 0.0), (f"{ID}_sfx_e_vo", 0.6, 0.0)],
     f"{ID}_e_pop": [("ninja_skill2_resource2", 0.45, 0.0), ("bomber_skill2_resource", 0.35, 0.0)],
     f"{ID}_e_hit": [("illusionist_attack0", 0.25, 0.0)],
-    f"{ID}_r": [("strongman_ult_throw_resource", 0.45, 0.0), ("magic_knight_skill2_resource1", 0.35, 0.05)],
+    f"{ID}_r": [("strongman_ult_throw_resource", 0.45, 0.0), ("magic_knight_skill2_resource1", 0.35, 0.05),
+                (f"{ID}_sfx_r_vo", 0.6, 0.0)],
     f"{ID}_r_fuse": [("bomber_trap_on_resource", 0.45, 0.0), ("alchemist_skill_loop_resource", 0.3, 0.3)],
     f"{ID}_r_blast": [("dokkaebi_ult_explode_resource", 0.55, 0.0), ("exorcist_ult_explode_resource", 0.5, 0.0),
                       ("spirit_caller_ult_resource_explode", 0.45, 0.05)],
@@ -212,10 +216,15 @@ def main():
         i18n[lang].setdefault("skill_name", {})[ID] = names
     save(os.path.join(MOD, "text", "champion.i18n"), i18n)
 
+    own = set()   # her own clips (the voice), next to the .sound_info; every other clip is the base game's
     for name, plays in SOUNDS.items():
         for c, _, _ in plays:
             if c == name:
                 sys.exit(f"{name}: plays a clip of its own name")
+            if c.startswith(ID + "_"):
+                if not os.path.isfile(os.path.join(MOD, "sound", "sfx", c + ".wav")):
+                    print(f"warning: {c}.wav missing - run tools/lol/extract_powder.py")
+                own.add(c)
         save(os.path.join(MOD, "sound", "sfx", name + ".sound_info"),
              {"plays": [{"delay": d, "clip": c, "volume": v} for c, v, d in plays]})
 
@@ -225,7 +234,7 @@ def main():
                   {"remapping": f"asset/{MOD_ID}/style/champion_view", "type": "merge"})
     for k in [k for k in ov if ID + "_" in k]:      # her keys rebuilt (a renamed sound leaves none behind)
         del ov[k]
-    for name in SOUNDS:
+    for name in list(SOUNDS) + sorted(own):
         ov[f"asset/base/sound/sfx/{name}"] = {"remapping": f"asset/{MOD_ID}/sound/sfx/{name}", "type": "override"}
     save(os.path.join(MOD, "mod.override_info"), ov)
 

@@ -6,7 +6,7 @@ His own TFT sounds (the user: 「音效什么都要自己找」): set 13's Map22
 hold his gauntlet - the punch, its hits, the uppercut, the crit, the stance he drops into and its buff, and the HERO
 variant's stunning blow (Play_sfx_TFT13_Prime*, found by the set's naming 2026-10-27: BasicAttack(2)_OnCast / _OnHit,
 CritAttack_OnCast / _OnHit, Spell_cast, Spell_buffactivate, SpellHero_OnCast), and his voice is in
-MODE_TFT_Set13_Champs_VO (Play_vo_TFT13_PrimeSpell_OnCast, 3 variants; the Riot client's en_US, as Silco's). Borrowed
+MODE_TFT_Set13_Champs_VO (Play_vo_TFT13_PrimeSpell_OnCast, 3 variants; the Riot client's en_US, as Violet's). Borrowed
 from League (Champions/*.wad.client of --lol): the leap and the slam of his last stand are Vi's - his daughter's
 Cease and Desist, the jump (ViR_OnCast) and the dunk landing (ViRDunkTarget_land).
 Read, never written; the base skin's / bank's Wwise events resolved to their media (the first variant unless given),
@@ -38,6 +38,9 @@ CLIPS = {
     C + "e": ("tft13", [S13 + "BasicAttack2_OnCast", S13 + "CritAttack_OnCast"], 0.6, -10),
     C + "e_hit": ("tft13", [S13 + "SpellHero_OnCast"], 1.2, -7),
     C + "r": ("tft13_vo", ["Play_vo_TFT13_PrimeSpell_OnCast"], 2.0, -3, 1),   # his effort shout: the longest (0.43 s)
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "q_vo": ("tft13_vo", ["Play_vo_TFT13_PrimeSpell_OnCast"], 2.0, -3, 0),
+    C + "e_vo": ("tft13_vo", ["Play_vo_TFT13_PrimeSpell_OnCast"], 2.0, -3, 2),
     C + "r_jump": ("Vi", [VI + "R_OnCast"], 1.4, -8),
     C + "r_slam": ("Vi", [VI + "RDunkTarget_land"], 1.6, -4),
 }

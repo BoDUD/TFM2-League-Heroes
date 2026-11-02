@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "tft_maddie_sfx_q_cast",
       "volume": 0.4
+    },
+    {
+      "delay": 0.0,
+      "clip": "tft_maddie_sfx_q_vo",
+      "volume": 0.6
     }
   ]
 }

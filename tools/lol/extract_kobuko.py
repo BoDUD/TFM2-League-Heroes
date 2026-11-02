@@ -1,13 +1,14 @@
 r"""Pull Kobuko's sounds out of the local League of Legends install (the Riot client).
 
-    python tools/lol/extract_kobuko.py --riot "D:\Riot Games\League of Legends" --vgmstream path\vgmstream-cli.exe
+    python tools/lol/extract_kobuko.py --riot "D:\Riot Games\League of Legends" [--lol "D:\WeGameApps\lol"] --vgmstream path\vgmstream-cli.exe
 
 His own TFT sounds (the user: 「音效什么都要自己找」), all from the Riot client's Map22 banks, found by the sets' naming and
 the events his skin bins name (2026-10-27). Set 15 (MODE_TFT_Set15_Champs_SFX, the look we draw): his palm strike and its
 hit, the heavy crit strike, the golden shield (Play_sfx_TFT15_KobukoShield_buffactviate - Riot's spelling), the stun,
 the mentor knock-up and the mentor slam. Set 14 (MODE_TFT_Set14_Champs_SFX, his cyber-boss self): the "second phase"
 power-up (KobukoSpell_buffactivate), the leap's wind-up (Spell_buffcast) and the big hit (Spell_hit_big). His voice: set
-14's spell call in MODE_TFT_Set14_Champs_VO (the en_US variant 0, the longest; WeGame has no TFT voice banks).
+14's spell call in MODE_TFT_Set14_Champs_VO: the Chinese dub the WeGame client's zh_CN Map22 keeps under the en_us
+path (--lol; as Alune's), else the Riot client's en_US; three takes, one a cast.
 Read, never written; the bank's Wwise events resolved to their media (the first variant unless picked), decoded with
 vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games).
 """
@@ -39,7 +40,10 @@ CLIPS = {
     C + "r": ("tft14", [S14 + "Spell_buffcast"], 1.2, -10),               # the leap
     C + "r_slam": ("tft15", [S15 + "Spell_Mentor_slam"], 1.6, -7),
     C + "r_hit": ("tft14", [S14 + "Spell_hit_big"], 1.2, -8),
-    C + "vo": ("tft14_vo", ["Play_vo_TFT14_KobukoSpell_OnCast"], 3.0, -3, 0),   # his battle cry: the longest
+    C + "vo": ("tft14_vo", ["Play_vo_TFT14_KobukoSpell_OnCast"], 4.0, -3, 0),   # his cry: the longest, whole
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "q_vo": ("tft14_vo", ["Play_vo_TFT14_KobukoSpell_OnCast"], 4.0, -3, 1),
+    C + "e_vo": ("tft14_vo", ["Play_vo_TFT14_KobukoSpell_OnCast"], 4.0, -3, 2),
 }
 SFX = "assets/sounds/wwise2016/sfx/shared/mode_tft_set{set}_champs_sfx_"
 VO = "assets/sounds/wwise2016/vo/en_us/shared/mode_tft_set{set}_champs_vo_"
@@ -60,8 +64,13 @@ def banks_of(src, a, cache):
     if src in cache:
         return cache[src]
     if src.endswith("_vo"):
-        w = Wad(os.path.join(a.riot, *SHIPPING, "Map22.en_US.wad.client"))
-        cache[src] = map22_banks(w, VO.format(set=src[3:5]))
+        stem = VO.format(set=src[3:5])
+        wegame = os.path.join(a.lol, *SHIPPING, "Map22.zh_CN.wad.client") if a.lol else None
+        if wegame and os.path.isfile(lp(wegame)) and Wad(wegame).has(stem + "events.bnk"):
+            cache[src] = map22_banks(Wad(wegame), stem)        # the Chinese dub, under the en_us path
+            print("voice from the WeGame client's Map22.zh_CN (the Chinese dub)")
+        else:
+            cache[src] = map22_banks(Wad(os.path.join(a.riot, *SHIPPING, "Map22.en_US.wad.client")), stem)
     else:
         w = Wad(os.path.join(a.riot, *SHIPPING, "Map22.wad.client"))
         cache[src] = map22_banks(w, SFX.format(set=src[3:]))
@@ -71,6 +80,7 @@ def banks_of(src, a, cache):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--riot", required=True, help="the Riot client's League of Legends folder (Map22 with sets 14 / 15)")
+    ap.add_argument("--lol", help="the WeGame client's League of Legends folder (his voice's Chinese dub)")
     ap.add_argument("--vgmstream", required=True, help="vgmstream-cli.exe")
     a = ap.parse_args()
     out_dir = os.path.join(MOD, "sound", "sfx")

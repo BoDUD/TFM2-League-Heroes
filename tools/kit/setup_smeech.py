@@ -16,7 +16,7 @@ the user's pick, plan A 「废铁伏击手」).
 The texts are the rules he plays with tft.dll (addons/tft/src/smeech.rs): the skill crits, the leap at the lowest-health
 enemy and its re-leap on a kill, the hops to enemies not hit yet.
 Sounds: tools/lol/extract_smeech.py's clips in tft/sound/sfx/tft_smeech_sfx_*.wav (git-ignored) - his own set-13 TFT
-sounds (the two claws' swings and hits, the crit, the leap and the slashes, his voice on the leap), Kha'Zix's leap and
+sounds (the two claws' swings and hits, the crit, the leap and the slashes, his voice on each cast), Kha'Zix's leap and
 Taste Their Fear (the landing, the rip), Twitch's Expunge (the armour torn), Kha'Zix's Void Assault and leap, Master
 Yi's Alpha Strike and Rengar's empowered Savagery (the frenzy). A clip name never equals an event name (vo-clip-names
 rule): event tft_smeech_<x> plays clip tft_smeech_sfx_<x>. package_mod moves the clips to sound/bgm/ at install.
@@ -134,10 +134,10 @@ SOUNDS = {
     f"{ID}_q_vo": [(CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_land": [(CLIP + "q_land", 0.45, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.45, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.45, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.45, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_e_hit": [(CLIP + "e_hit", 0.5, 0.0)],
     f"{ID}_e_shred": [(CLIP + "e_shred", 0.4, 0.0)],
-    f"{ID}_r": [(CLIP + "r", 0.5, 0.0)],
+    f"{ID}_r": [(CLIP + "r", 0.5, 0.0), (CLIP + "r_vo", 0.6, 0.0)],
     f"{ID}_r_leap": [(CLIP + "r_leap", 0.4, 0.0)],
     f"{ID}_r_hit": [(CLIP + "r_hit", 0.5, 0.0)],
     f"{ID}_r_end": [(CLIP + "r_end", 0.5, 0.0)],

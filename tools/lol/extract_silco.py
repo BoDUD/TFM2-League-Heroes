@@ -5,12 +5,12 @@ r"""Pull Silco's sounds out of the local League of Legends installs.
 His own TFT sounds (the user: 「音效什么都要自己找」): set 13's Map22 banks MODE_TFT_Set13_Champs_SFX (Riot client: --riot)
 hold his whole kit - the attack's throw and hit, the canister's throw and burst (Play_sfx_TFT13_Silco*; his skin bin
 names Spell_missilelaunch / Spell_explosion / _Monstronsity_Buff_cast, the rest found by the set's naming), and his
-voice is in MODE_TFT_Set13_Champs_VO (one event, Play_vo_TFT13_SilcoSpell_OnCast; the WeGame client's zh_CN Map22 has
-no set-13 voice, so it is the Riot client's en_US). Borrowed from League (Champions/*.wad.client of --lol): the
+voice is in MODE_TFT_Set13_Champs_VO (one event, Play_vo_TFT13_SilcoSpell_OnCast; the WeGame client's zh_CN Map22
+keeps the Chinese dub under the en_us path, as Alune's - read first - else the Riot client's en_US). Borrowed from League (Champions/*.wad.client of --lol): the
 monstrosities' bites are Naafiri's packmates' (PackmateBasicAttack_OnHit), the Shimmer Shot is Renata Glasc's chemtech
 dose on an ally (RenataW_buffcast_others, Zaun's own), the giant canister's blast Gragas's Explosive Cask.
-Read, never written; the base skin's / bank's Wwise events resolved to their media (the first variant), decoded with
-vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games).
+Read, never written; the base skin's / bank's Wwise events resolved to their media (the first variant unless given),
+decoded with vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games).
 """
 import argparse
 import os
@@ -26,7 +26,7 @@ MOD = os.path.join(ROOT, "tft")
 C = "tft_silco_sfx_"
 S13 = "Play_sfx_TFT13_Silco"
 
-# clip name -> (source, [events to try, first that resolves], max seconds, peak dBFS)
+# clip name -> (source, [events to try, first that resolves], max seconds, peak dBFS[, variant, else the first])
 CLIPS = {
     C + "a": ("tft13", [S13 + "BasicAttack_OnCast", S13 + "BasicAttack_OnMissileLaunch"], 0.6, -12),
     C + "a_hit": ("tft13", [S13 + "BasicAttack_OnHit"], 0.6, -11),
@@ -34,7 +34,10 @@ CLIPS = {
     C + "q_hit": ("tft13", [S13 + "Spell_explosion"], 1.2, -8),
     C + "m_bite": ("Naafiri", ["Play_sfx_Naafiri_PackmateBasicAttack_OnHit"], 0.6, -15),
     C + "e": ("Renata", ["Play_sfx_Renata_RenataW_buffcast_others"], 1.2, -11),
-    C + "r": ("tft13_vo", ["Play_vo_TFT13_SilcoSpell_OnCast"], 3.0, -3),
+    C + "r": ("tft13_vo", ["Play_vo_TFT13_SilcoSpell_OnCast"], 4.0, -3),   # the dub's lines whole (2.1-3.5 s)
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "q_vo": ("tft13_vo", ["Play_vo_TFT13_SilcoSpell_OnCast"], 4.0, -3, 1),
+    C + "e_vo": ("tft13_vo", ["Play_vo_TFT13_SilcoSpell_OnCast"], 4.0, -3, 2),
     C + "r_hit": ("Gragas", ["Play_sfx_Gragas_GragasR_boom"], 1.8, -7),
 }
 SET13 = "assets/sounds/wwise2016/sfx/shared/mode_tft_set13_champs_sfx_"
@@ -50,8 +53,8 @@ def banks_of(src, a, cache):
         audio = w.read_path(SET13 + "audio.bnk")
         cache[src] = SoundBanks([w.read_path(SET13 + "events.bnk"), audio], dict(bnk_media(audio)))
     elif src == "tft13_vo":
-        tries = [(a.lol, "Map22.zh_CN.wad.client", "zh_cn"), (a.riot, "Map22.zh_CN.wad.client", "zh_cn"),
-                 (a.riot, "Map22.en_US.wad.client", "en_us")]
+        tries = [(a.lol, "Map22.zh_CN.wad.client", "zh_cn"), (a.lol, "Map22.zh_CN.wad.client", "en_us"),
+                 (a.riot, "Map22.zh_CN.wad.client", "zh_cn"), (a.riot, "Map22.en_US.wad.client", "en_us")]
         for base, wad, lang in tries:
             path = os.path.join(base, "Game", "DATA", "FINAL", "Maps", "Shipping", wad)
             if not os.path.isfile(lp(path)):
@@ -86,7 +89,7 @@ def main():
     out_dir = os.path.join(MOD, "sound", "sfx")
     os.makedirs(lp(out_dir), exist_ok=True)
     cache = {}
-    for name, (src, events, max_s, peak) in CLIPS.items():
+    for name, (src, events, max_s, peak, *pick) in CLIPS.items():
         banks = banks_of(src, a, cache)
         event, variants = None, []
         for ev in events:
@@ -96,7 +99,7 @@ def main():
                 break
         if not variants:
             sys.exit(f"{name}: none of {events} resolves in {src} - game patch changed the bank?")
-        sr, x = decode(banks.media[variants[0]], a.vgmstream)
+        sr, x = decode(banks.media[variants[pick[0] if pick else 0]], a.vgmstream)
         pcm = finish(x, sr, max_s, peak)
         with wave.open(lp(os.path.join(out_dir, name + ".wav")), "wb") as w:
             w.setnchannels(1)

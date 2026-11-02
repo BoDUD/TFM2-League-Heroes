@@ -38,6 +38,9 @@ CLIPS = {
     C + "e": ("Braum", ["Play_sfx_Braum_BraumE_OnCast"], 1.0, -9),       # the saw raised as a guard
     C + "r": ("tft13", [S13 + "Spell_OnCast"], 1.6, -9),                 # the heave
     C + "r_vo": ("tft13_vo", ["Play_vo_TFT13_ChainsawSpell_OnCast"], 2.0, -3),
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "q_vo": ("tft13_vo", ["Play_vo_TFT13_ChainsawSpell_OnCast"], 2.0, -3, 1),
+    C + "e_vo": ("tft13_vo", ["Play_vo_TFT13_ChainsawSpell_OnCast"], 2.0, -3, 2),
     C + "r_lift": ("tft13", [S13 + "SpellHero_OnCast"], 1.6, -9),        # held up overhead, the saw grinding
     C + "r_hit": ("tft13", [S13 + "Spell_OnHit"], 1.4, -6),              # the slam
     C + "r_slam": ("tft13", [S13 + "SpellHero_hit"], 1.4, -6),

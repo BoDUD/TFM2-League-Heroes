@@ -17,7 +17,7 @@ bonus. Gauntlet Rush (冲拳) and Undercity Fist (底城怒拳) are our own (TFT
 health once a life, the fury's attack speed per Family ally (Powder, Vander, Jinx).
 Sounds: tools/lol/extract_violet.py's clips in tft/sound/sfx/tft_violet_sfx_*.wav (git-ignored) - her own set-13 TFT
 sounds (the punch, its hits, the second punch for the jabs, the combo's small and large hits, the crit hit for the
-rush, her voice on the ult) and her grown-up self Vi's: Vault Breaker's launch for the rush, Cease and Desist's jump,
+rush, her voice on each cast) and her grown-up self Vi's: Vault Breaker's launch for the rush, Cease and Desist's jump,
 Relentless Force's blast for the slam, Denting Blows' proc for the fury, Blast Shield for the second wind (tft.dll plays
 that one). A clip name never equals an event name (vo-clip-names rule): event tft_violet_<x> plays clip
 tft_violet_sfx_<x>. package_mod moves the clips to sound/bgm/ at install.
@@ -129,10 +129,10 @@ TEXT = {
 SOUNDS = {
     f"{ID}_a": [(CLIP + "a", 0.4, 0.0)],
     f"{ID}_a_hit": [(CLIP + "a_hit", 0.4, 0.0)],
-    f"{ID}_q": [(CLIP + "q", 0.4, 0.0)],
+    f"{ID}_q": [(CLIP + "q", 0.4, 0.0), (CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.45, 0.0), (CLIP + "a2_hit", 0.35, 0.0)],
     f"{ID}_q_up": [(CLIP + "q_up", 0.55, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.45, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.45, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_e_hit": [(CLIP + "e_hit", 0.5, 0.0)],
     f"{ID}_p": [(CLIP + "p", 0.45, 0.0)],
     f"{ID}_r": [(CLIP + "r", 0.6, 0.0)],

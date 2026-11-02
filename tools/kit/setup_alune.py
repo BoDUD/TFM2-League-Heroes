@@ -15,7 +15,7 @@ Phase (月相, in the attack's text) are our own (TFT has one ability; the user'
 rules she plays with tft.dll (addons/tft/src/alune.rs): Moonfall on the nearest enemies, the full moon's damage shared,
 the ring's way back.
 Sounds: tools/lol/extract_alune.py's clips in tft/sound/sfx/tft_alune_sfx_*.wav (git-ignored) - her own set-11 TFT
-sounds (attack, Moonfall's cast and shards, her Chinese voice line on the ult) and Diana's Pale Cascade / Moonfall for
+sounds (attack, Moonfall's cast and shards, her Chinese voice, a line a cast) and Diana's Pale Cascade / Moonfall for
 Moonlight and the full moon. A clip name never equals an event name (vo-clip-names rule): event tft_alune_<x> plays
 clip tft_alune_sfx_<x>. package_mod moves the clips to sound/bgm/ at install.
 """
@@ -124,9 +124,9 @@ TEXT = {
 SOUNDS = {
     f"{ID}_a": [(CLIP + "a", 0.4, 0.0)],
     f"{ID}_a_hit": [(CLIP + "a_hit", 0.35, 0.0)],
-    f"{ID}_q": [(CLIP + "q", 0.45, 0.0)],
+    f"{ID}_q": [(CLIP + "q", 0.45, 0.0), (CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.35, 0.0)],
-    f"{ID}_e_cast": [(CLIP + "e_cast", 0.45, 0.0)],
+    f"{ID}_e_cast": [(CLIP + "e_cast", 0.45, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_e": [(CLIP + "e", 0.25, 0.0)],
     f"{ID}_r": [(CLIP + "r", 0.5, 0.0), (CLIP + "r_vo", 0.6, 0.0)],
     f"{ID}_r_blast": [(CLIP + "r_blast", 0.55, 0.0)],
