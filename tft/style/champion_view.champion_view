@@ -509,6 +509,20 @@
         "x": 0,
         "y": -10
       }
+    },
+    "tft_baronnashor": {
+      "face": {
+        "x": 5,
+        "y": -31
+      },
+      "center": {
+        "x": 0,
+        "y": -19
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -4
+      }
     }
   }
 }
