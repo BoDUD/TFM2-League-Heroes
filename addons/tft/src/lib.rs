@@ -5,6 +5,7 @@
 pub mod alune;
 pub mod aoshin;
 pub mod brambleback;
+pub mod cinderling;
 pub mod daeja;
 pub mod elderdragon;
 pub mod gromp;
@@ -42,6 +43,7 @@ fn init(host: &StableHost) -> StableMod {
     alune::register(host, &mut module);
     aoshin::register(host, &mut module);
     brambleback::register(host, &mut module);
+    cinderling::register(host, &mut module);
     daeja::register(host, &mut module);
     elderdragon::register(host, &mut module);
     gromp::register(host, &mut module);

@@ -231,6 +231,13 @@
         "skill": "对目标引导激光<#ffb900ff>2.5秒<>（可以边飘边照），共造成<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<><#a974ffff>魔法伤害<>，每<#ffb900ff>0.25秒<>魔抗<#ffb900ff>-4<>（可叠加，持续<#ffb900ff>2秒<>）。目标离开射程或自己被控时中断。",
         "skill2": "两块石头猛地分开再合拢，周围敌人受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法伤害<>并减速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己向后闪开。",
         "ult": "两块石头张开，蓝核射出光柱扫过前方扇形，造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<><#a974ffff>魔法伤害<>，魔抗<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_cinderling": {
+        "name": "绯红树怪",
+        "attack": "甩出余烬叶，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理伤害<>。<#ff9028ff>绯红霸符<>：每放一个技能攻击力<#ffb900ff>+6<>（最多<#ffb900ff>4层<>，<#ffb900ff>8秒<>不放技能清空）；满层时普攻灼烧英雄。",
+        "skill": "五片叶刃聚向目标，共造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理伤害<>，施加<#ffb900ff>3秒<>重伤（治疗<#ffb900ff>-40%<>）和灼烧（每秒<#ef5350ff>1%<>最大生命<#ef5350ff>真实伤害<>，<#ffb900ff>2秒<>）。",
+        "skill2": "钻进地里溅起泥土，周围敌人受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理伤害<>并减速<#ffb900ff>35%<>（<#ffb900ff>1.5秒<>），再从远离目标的地方钻出（地下受伤<#ffb900ff>-70%<>）。",
+        "ult": "站起来点燃叶子：<#ffb900ff>4秒<>内攻速<#ffb900ff>+40%<>，每<#ffb900ff>0.5秒<>向附近敌人射出<#ffb900ff>3片<>燃烧叶刃，各造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理伤害<>，英雄被灼烧。"
       }
     },
     "skill_name": {
@@ -398,6 +405,11 @@
         "skill1": "蔚蓝激光",
         "skill2": "裂石跃迁",
         "ult": "棱镜扫射"
+      },
+      "tft_cinderling": {
+        "skill1": "刃叶",
+        "skill2": "钻土突袭",
+        "ult": "燎原叶暴"
       }
     }
   },
@@ -633,6 +645,13 @@
         "skill": "對目標照射雷射<#ffb900ff>2.5秒<>（可以邊飄邊照），共造成<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<><#a974ffff>魔法傷害<>，每<#ffb900ff>0.25秒<>魔防<#ffb900ff>-4<>（可疊加，持續<#ffb900ff>2秒<>）。目標離開射程或自己被控時中斷。",
         "skill2": "兩塊石頭猛地分開再合攏，周圍敵軍受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<><#a974ffff>魔法傷害<>並緩速<#ffb900ff>40%<>（<#ffb900ff>1.5秒<>），自己向後閃開。",
         "ult": "兩塊石頭張開，藍核射出光柱掃過前方扇形，造成<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<><#a974ffff>魔法傷害<>，魔防<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_cinderling": {
+        "name": "樹精",
+        "attack": "甩出餘燼葉，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<><#ff9028ff>物理傷害<>。<#ff9028ff>緋紅增益<>：每施放一個技能物攻<#ffb900ff>+6<>（最多<#ffb900ff>4層<>，<#ffb900ff>8秒<>不施放技能清空）；滿層時普攻燃燒英雄。",
+        "skill": "五片葉刃匯聚向目標，共造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<><#ff9028ff>物理傷害<>，附加<#ffb900ff>3秒<>重創（治療<#ffb900ff>-40%<>）和燃燒（每秒<#ef5350ff>1%<>最大生命<#ef5350ff>真實傷害<>，<#ffb900ff>2秒<>）。",
+        "skill2": "鑽進地裡濺起泥土，周圍敵軍受到<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<><#ff9028ff>物理傷害<>並緩速<#ffb900ff>35%<>（<#ffb900ff>1.5秒<>），再從遠離目標的地方鑽出（地下受傷<#ffb900ff>-70%<>）。",
+        "ult": "站起來點燃葉子：<#ffb900ff>4秒<>內攻速<#ffb900ff>+40%<>，每<#ffb900ff>0.5秒<>向附近敵軍射出<#ffb900ff>3片<>燃燒葉刃，各造成<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<><#ff9028ff>物理傷害<>，英雄被燃燒。"
       }
     },
     "skill_name": {
@@ -800,6 +819,11 @@
         "skill1": "蒼藍雷射",
         "skill2": "裂石躍遷",
         "ult": "稜鏡掃射"
+      },
+      "tft_cinderling": {
+        "skill1": "飛葉快刀",
+        "skill2": "鑽土突襲",
+        "ult": "燎原葉暴"
       }
     }
   },
@@ -1035,6 +1059,13 @@
         "skill": "Channels a laser at its target for <#ffb900ff>2.5s<> (it can float while lasing), dealing <#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<> <#a974ffff>magic damage<> in all and <#ffb900ff>-4<> Magic Resist every <#ffb900ff>0.25s<> (stacking, <#ffb900ff>2s<>). Breaks if the target leaves range or it is crowd controlled.",
         "skill2": "Its two halves split apart and close again: nearby enemies take <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>magic damage<> and are slowed by <#ffb900ff>40%<> for <#ffb900ff>1.5s<>; it blinks back.",
         "ult": "Its halves open wide and its core sweeps a beam across a cone in front for <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<> <#a974ffff>magic damage<> and <#ffb900ff>-25<> Magic Resist for <#ffb900ff>3s<>."
+      },
+      "tft_cinderling": {
+        "name": "Cinderling",
+        "attack": "Flicks an ember leaf for <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>physical damage<>. <#ff9028ff>Scarlet Buff<>: each spell cast grants <#ffb900ff>+6<> Attack Damage (up to <#ffb900ff>4<> stacks, lost after <#ffb900ff>8s<> without a cast); at full stacks its attacks Burn champions.",
+        "skill": "Five razor leaves converge on its target for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>physical damage<> in all, applying Wound (<#ffb900ff>-40%<> healing, <#ffb900ff>3s<>) and Burn (<#ef5350ff>1%<> max Health <#ef5350ff>true damage<> a second, <#ffb900ff>2s<>).",
+        "skill2": "Burrows, kicking up earth: nearby enemies take <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> <#ff9028ff>physical damage<> and are slowed by <#ffb900ff>35%<> for <#ffb900ff>1.5s<>; it bursts out away from its target (<#ffb900ff>-70%<> damage taken underground).",
+        "ult": "Rears up and sets its leaves ablaze: for <#ffb900ff>4s<> it gains <#ffb900ff>+40%<> Attack Speed and every <#ffb900ff>0.5s<> fires <#ffb900ff>3<> burning leaves at nearby enemies for <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>physical damage<> each, Burning champions."
       }
     },
     "skill_name": {
@@ -1202,6 +1233,11 @@
         "skill1": "Azure Laser",
         "skill2": "Rift Leap",
         "ult": "Prism Sweep"
+      },
+      "tft_cinderling": {
+        "skill1": "Razor Leaves",
+        "skill2": "Burrow",
+        "ult": "Wildfire Leafstorm"
       }
     }
   },
@@ -1437,6 +1473,13 @@
         "skill": "대상에게 <#ffb900ff>2.5초<> 동안 레이저를 집중해(떠다니며 가능) 총 <#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<> <#a974ffff>마법 피해<>를 주고 <#ffb900ff>0.25초<>마다 마법 저항력 <#ffb900ff>-4<>(중첩, <#ffb900ff>2초<>). 대상이 사거리를 벗어나거나 군중 제어를 받으면 끊깁니다.",
         "skill2": "두 조각이 갈라졌다 다시 붙으며 주변 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> <#a974ffff>마법 피해<>와 <#ffb900ff>40%<> 둔화(<#ffb900ff>1.5초<>). 자신은 뒤로 순간이동합니다.",
         "ult": "두 조각이 활짝 열리고 핵이 전방 부채꼴로 광선을 휩쓸어 <#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<> <#a974ffff>마법 피해<>와 마법 저항력 <#ffb900ff>-25<>(<#ffb900ff>3초<>)."
+      },
+      "tft_cinderling": {
+        "name": "불타는 묘목",
+        "attack": "잿불 잎사귀를 던져 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<> <#ff9028ff>물리 피해<>. <#ff9028ff>진홍색 버프<>: 스킬을 쓸 때마다 공격력 <#ffb900ff>+6<>(최대 <#ffb900ff>4중첩<>, <#ffb900ff>8초<> 동안 스킬을 안 쓰면 초기화). 최대 중첩 시 기본 공격이 챔피언에게 화상.",
+        "skill": "날카로운 잎사귀 5개가 대상에게 모여 총 <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> <#ff9028ff>물리 피해<>를 주고 <#ffb900ff>3초<> 동안 상처(회복 <#ffb900ff>-40%<>)와 화상(매초 최대 체력 <#ef5350ff>1%<> <#ef5350ff>고정 피해<>, <#ffb900ff>2초<>).",
+        "skill2": "흙을 튀기며 땅속으로 파고들어 주변 적에게 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<> <#ff9028ff>물리 피해<>와 <#ffb900ff>35%<> 둔화(<#ffb900ff>1.5초<>). 대상에게서 먼 곳으로 솟아오릅니다(땅속 피해 <#ffb900ff>-70%<>).",
+        "ult": "일어서서 잎사귀에 불을 붙입니다: <#ffb900ff>4초<> 동안 공격 속도 <#ffb900ff>+40%<>, <#ffb900ff>0.5초<>마다 주변 적에게 불타는 잎사귀 <#ffb900ff>3개<>를 날려 각각 <#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<> <#ff9028ff>물리 피해<>, 챔피언은 화상."
       }
     },
     "skill_name": {
@@ -1604,6 +1647,11 @@
         "skill1": "하늘빛 레이저",
         "skill2": "균열 도약",
         "ult": "프리즘 휩쓸기"
+      },
+      "tft_cinderling": {
+        "skill1": "예리한 잎사귀",
+        "skill2": "땅굴 기습",
+        "ult": "들불 잎폭풍"
       }
     }
   },
@@ -1839,6 +1887,13 @@
         "skill": "対象に光線を<#ffb900ff>2.5秒<>照射し（浮遊しながら可）、合計<#a974ffff>460<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>250%<>の<#a974ffff>魔法ダメージ<>、<#ffb900ff>0.25秒<>ごとに魔法防御<#ffb900ff>-4<>（スタック、<#ffb900ff>2秒<>）。対象が射程外に出るか行動妨害で中断。",
         "skill2": "二つの石が割れて再び閉じ、周囲の敵に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の<#a974ffff>魔法ダメージ<>と<#ffb900ff>40%<>スロウ（<#ffb900ff>1.5秒<>）。自身は後方へ跳ぶ。",
         "ult": "二つの石が大きく開き、コアから光柱を前方扇形に薙ぎ払い<#a974ffff>320<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>160%<>の<#a974ffff>魔法ダメージ<>と魔法防御<#ffb900ff>-25<>（<#ffb900ff>3秒<>）。"
+      },
+      "tft_cinderling": {
+        "name": "シンダーリング",
+        "attack": "燃える葉を投げ<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>スカーレットバフ<>：スキル使用ごとに攻撃力<#ffb900ff>+6<>（最大<#ffb900ff>4<>スタック、<#ffb900ff>8秒<>使わないと消滅）。最大スタック時、通常攻撃がチャンピオンを燃焼。",
+        "skill": "5枚の鋭い葉が対象に収束し、合計<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>3秒<>の負傷（回復<#ffb900ff>-40%<>）と燃焼（毎秒最大体力の<#ef5350ff>1%<><#ef5350ff>確定ダメージ<>、<#ffb900ff>2秒<>）。",
+        "skill2": "土を跳ね上げて地中に潜り、周囲の敵に<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>35%<>の<#ff9028ff>物理ダメージ<>と<#ffb900ff>35%<>スロウ（<#ffb900ff>1.5秒<>）。対象から離れた所に飛び出す（地中で被ダメージ<#ffb900ff>-70%<>）。",
+        "ult": "立ち上がり葉に火をつける：<#ffb900ff>4秒<>間攻撃速度<#ffb900ff>+40%<>、<#ffb900ff>0.5秒<>ごとに近くの敵へ燃える葉を<#ffb900ff>3枚<>放ち各<#ff9028ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>の<#ff9028ff>物理ダメージ<>、チャンピオンは燃焼。"
       }
     },
     "skill_name": {
@@ -2006,6 +2061,11 @@
         "skill1": "蒼き光線",
         "skill2": "裂石跳躍",
         "ult": "プリズムスイープ"
+      },
+      "tft_cinderling": {
+        "skill1": "鋭葉カッター",
+        "skill2": "土潜り奇襲",
+        "ult": "燎原リーフストーム"
       }
     }
   }
