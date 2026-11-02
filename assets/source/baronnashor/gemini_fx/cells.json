@@ -1,0 +1,82 @@
+{
+ "a_hit": {
+  "frames": 4,
+  "cell": [
+   16,
+   16
+  ],
+  "symmetry": "LR"
+ },
+ "q_spray": {
+  "frames": 2,
+  "cell": [
+   48,
+   22
+  ],
+  "symmetry": "TB"
+ },
+ "q_hit": {
+  "frames": 3,
+  "cell": [
+   18,
+   18
+  ],
+  "symmetry": "LR"
+ },
+ "q_acid": {
+  "frames": 2,
+  "cell": [
+   34,
+   16
+  ],
+  "symmetry": "LR"
+ },
+ "e_burst": {
+  "frames": 4,
+  "cell": [
+   60,
+   40
+  ],
+  "symmetry": "LR"
+ },
+ "e_hit": {
+  "frames": 3,
+  "cell": [
+   18,
+   20
+  ],
+  "symmetry": "LR"
+ },
+ "r_spikes": {
+  "frames": 6,
+  "cell": [
+   96,
+   48
+  ],
+  "symmetry": "LR"
+ },
+ "r_hit": {
+  "frames": 4,
+  "cell": [
+   18,
+   22
+  ],
+  "symmetry": "LR"
+ },
+ "r_fall": {
+  "frames": 6,
+  "cell": [
+   24,
+   52
+  ],
+  "symmetry": "LR"
+ },
+ "p_tent": {
+  "frames": 10,
+  "cell": [
+   28,
+   60
+  ],
+  "symmetry": null
+ }
+}
