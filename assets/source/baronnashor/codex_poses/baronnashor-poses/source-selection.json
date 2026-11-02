@@ -1,0 +1,37 @@
+{
+  "selected": {
+    "a_rear": "a_rear-generated.png",
+    "a_bite": "a_bite-generated.png",
+    "q_breath": "q_breath_corrected-generated.png",
+    "e_dive": "e_dive-generated.png",
+    "e_dig": "e_dig_corrected-generated.png",
+    "e_rise": "e_rise-generated.png",
+    "r_rear": "r_rear-generated.png",
+    "r_slam": "r_slam_corrected-generated.png",
+    "r_spit": "r_spit-generated.png",
+    "run1": "run7-generated.png",
+    "run2": "run2-generated.png",
+    "run3": "run3-generated.png",
+    "run4": "run4-generated.png",
+    "run5": "run5-generated.png",
+    "run6": "run6-generated.png",
+    "run7": "run7_redraw-generated.png",
+    "run8": "run8_redraw-generated.png",
+    "d_fall": "d_fall-generated.png",
+    "d_down": "d_down_corrected-generated.png"
+  },
+  "run1_note": "原 run7 首稿重排到 run1：左侧近腿承重，右侧远腿抬起；抬脚幅度仍偏大，非严格原骨架早期摆腿阶段。run7 使用新重画，未重复文件。",
+  "rejected": {
+    "q_breath-generated.png": "多余第三手爪",
+    "q_breath-rejected-extra-arm.png": "与首稿相同，备份",
+    "e_dig-generated.png": "底部触边",
+    "r_slam-generated.png": "多余第三手爪",
+    "d_down-generated.png": "光晕、亮眼与横幅画布",
+    "run1-generated.png": "支撑脚阶段与 run5 重复",
+    "run1_redraw-generated.png": "重画后仍与 run5 同支撑阶段",
+    "run1_corrected-generated.png": "局部修订损坏手爪",
+    "run7_corrected-generated.png": "局部修订误删手爪",
+    "run8_corrected-generated.png": "局部修订误删手爪",
+    "run8-generated.png": "落脚方向不符，使用重画版本"
+  }
+}

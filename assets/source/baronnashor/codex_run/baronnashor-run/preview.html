@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>纳什男爵 · 跑步校对</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#14161d;color:#edf0f5;font:15px system-ui,sans-serif;padding:24px}main{max-width:900px;margin:auto}h1{font-size:22px}p{color:#b4bccb;line-height:1.6}.controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:16px 0}button,select{background:#303645;color:#fff;border:1px solid #596075;border-radius:6px;padding:9px 13px;font:inherit;cursor:pointer}button.active{background:#7551bd;border-color:#b394ed}.stage{position:relative;max-width:700px;aspect-ratio:1;background:repeating-conic-gradient(#d9dde4 0% 25%,#eff1f5 0% 50%) 50%/24px 24px;border-radius:8px;overflow:hidden}img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.off{display:none}output{font-variant-numeric:tabular-nums}.frames{display:flex;gap:7px;flex-wrap:wrap}a{color:#c3abff}#error{color:#ffb8b8}
+</style>
+<main><h1>纳什男爵 · 跑步校对</h1>
+<p>按参考节奏播放 8 帧。第 1、5 帧交错；第 2–4 帧暗色远腿在前；第 6–8 帧亮色近腿在前。此页只显示原 PNG，不改写图像。</p>
+<div class="controls"><button id="play">暂停</button><button id="prev">上一帧</button><button id="next">下一帧</button><label>速度 <select id="speed"><option value=".5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select></label><label><input type="checkbox" id="guides"> 显示参考脚尖位置</label><output id="label"></output></div>
+<div class="frames" id="frames"></div>
+<p id="error"></p><div class="stage"><img id="actor" alt="纳什男爵跑步帧"><svg id="overlay" class="off" viewBox="0 0 1254 1254"><line x1="0" y1="1176" x2="1254" y2="1176" stroke="#d23535" stroke-width="2"/><circle id="near" r="13" fill="none" stroke="#1675ff" stroke-width="5"/><circle id="far" r="13" fill="none" stroke="#e93434" stroke-width="5"/></svg></div>
+<p>蓝圈：亮色近腿的目标脚尖；红圈：暗色远腿的目标脚尖。圆圈是校对辅助，未画入 PNG。按左右方向键可逐帧查看。</p>
+<p>严格坐标、像素格和透明度检测见 <a href="validation.json">validation.json</a>；版本选择见 <a href="HANDOFF.md">交付说明</a>。</p></main>
+<script>
+const frames=Array.from({length:8},(_,i)=>'baronnashor-run-run'+(i+1)+'.png');
+const durations=[165,170,165,160,155,155,150,150];
+const targets=[[[78,128],[79,125]],[[74,130],[91,127]],[[73,125],[89,130]],[[68,130],[86,129]],[[80,130],[80,127]],[[88,128],[77,130]],[[86,130],[76,123]],[[83,130],[72,128]]];
+let current=0,playing=true,timer;
+const actor=document.getElementById('actor'),label=document.getElementById('label'),play=document.getElementById('play'),speed=document.getElementById('speed'),box=document.getElementById('frames');
+frames.forEach((src,i)=>{let b=document.createElement('button');b.textContent=i+1;b.onclick=()=>{playing=false;draw(i)};box.append(b);let im=new Image();im.src=src;im.onerror=()=>document.getElementById('error').textContent='无法读取 '+src+'。请把预览页与 PNG 放在同一目录。'});
+function draw(i){clearTimeout(timer);current=(i+8)%8;actor.src=frames[current];label.textContent='第 '+(current+1)+' / 8 帧 · '+durations[current]+' ms';[...box.children].forEach((b,n)=>b.classList.toggle('active',n===current));play.textContent=playing?'暂停':'播放';['near','far'].forEach((id,n)=>{let c=document.getElementById(id);c.setAttribute('cx',targets[current][n][0]*9);c.setAttribute('cy',targets[current][n][1]*9)});if(playing)timer=setTimeout(()=>draw(current+1),durations[current]/Number(speed.value))}
+play.onclick=()=>{playing=!playing;draw(current)};document.getElementById('prev').onclick=()=>{playing=false;draw(current-1)};document.getElementById('next').onclick=()=>{playing=false;draw(current+1)};speed.onchange=()=>draw(current);document.getElementById('guides').onchange=e=>document.getElementById('overlay').classList.toggle('off',!e.target.checked);document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key==='ArrowLeft'){playing=false;draw(current+(e.key==='ArrowRight'?1:-1));e.preventDefault()}});draw(0);
+</script></html>

@@ -1,0 +1,730 @@
+{
+  "summary": {
+    "count": 8,
+    "all_1254_square": true,
+    "all_unique": true,
+    "all_original_bytes": true,
+    "lead_order_all_pass": true,
+    "near_far_toe_brightness_all_pass": true,
+    "head_anchor_stability_all_pass": true,
+    "both_toe_targets_pass_count": 1,
+    "hard_alpha_pass_count": 0
+  },
+  "measurement_method": "Visually assigned near/far foot ROIs; detect ivory/tan clusters of >=35 pixels. Select the farthest-right digit and measure its lower sharp tip (these claws curve downward), rather than the right edge of its knuckle. Nominal square=floor(pixel/9). Approximate uncertainty one nominal square; dark outline excluded. No raster edits or resampling.",
+  "grid_9px": "requested; exact uniform block grid not proven",
+  "visual_notes": "All selected frames retain two snake heads, two claw arms and two legs. Lead identity and crossing were inspected; this is not an in-game animation acceptance.",
+  "frames": [
+    {
+      "frame": "run1",
+      "source": "run1-attempt2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "near_blue": {
+        "toe_px": [
+          695,
+          1169
+        ],
+        "toe_square_nominal_9px": [
+          77,
+          129
+        ],
+        "roi": [
+          610,
+          1120,
+          720,
+          1190
+        ],
+        "mean_toe_rgb": [
+          234.3,
+          196.5,
+          134.4
+        ],
+        "target_square": [
+          78,
+          128
+        ],
+        "delta_square": [
+          -1,
+          1
+        ],
+        "within_2_squares": true
+      },
+      "far_red": {
+        "toe_px": [
+          706,
+          1115
+        ],
+        "toe_square_nominal_9px": [
+          78,
+          123
+        ],
+        "roi": [
+          650,
+          1050,
+          730,
+          1120
+        ],
+        "mean_toe_rgb": [
+          196.9,
+          161.2,
+          104.8
+        ],
+        "target_square": [
+          79,
+          125
+        ],
+        "delta_square": [
+          -1,
+          -2
+        ],
+        "within_2_squares": true
+      },
+      "actual_lead": "pass",
+      "target_lead": "pass",
+      "lead_pass": true,
+      "passing_gap_squares": 1.22,
+      "near_toe_brighter_than_far": true,
+      "both_toe_targets_pass": true,
+      "head_eye_anchor_px": [
+        702.0,
+        599.9
+      ],
+      "hard_alpha_pass": false,
+      "partial_alpha_pixels": 250768,
+      "transparent_pixels": 1320151,
+      "sha256": "b7f8cd3dc308e60f037eedef76ebd24f12841f8fcb374916455b8a00cf5299a1",
+      "byte_identical_to_raw": true,
+      "head_anchor_delta_px": [
+        0.0,
+        0.0
+      ],
+      "head_anchor_within_2_squares": true
+    },
+    {
+      "frame": "run2",
+      "source": "run2-attempt3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "near_blue": {
+        "toe_px": [
+          628,
+          1161
+        ],
+        "toe_square_nominal_9px": [
+          69,
+          129
+        ],
+        "roi": [
+          530,
+          1100,
+          650,
+          1190
+        ],
+        "mean_toe_rgb": [
+          231.5,
+          192.6,
+          136.8
+        ],
+        "target_square": [
+          74,
+          130
+        ],
+        "delta_square": [
+          -5,
+          -1
+        ],
+        "within_2_squares": false
+      },
+      "far_red": {
+        "toe_px": [
+          849,
+          1088
+        ],
+        "toe_square_nominal_9px": [
+          94,
+          120
+        ],
+        "roi": [
+          780,
+          1020,
+          875,
+          1120
+        ],
+        "mean_toe_rgb": [
+          176.4,
+          139.6,
+          93.0
+        ],
+        "target_square": [
+          91,
+          127
+        ],
+        "delta_square": [
+          3,
+          -7
+        ],
+        "within_2_squares": false
+      },
+      "actual_lead": "far",
+      "target_lead": "far",
+      "lead_pass": true,
+      "passing_gap_squares": 24.56,
+      "near_toe_brighter_than_far": true,
+      "both_toe_targets_pass": false,
+      "head_eye_anchor_px": [
+        701.9,
+        600.1
+      ],
+      "hard_alpha_pass": false,
+      "partial_alpha_pixels": 258678,
+      "transparent_pixels": 1312399,
+      "sha256": "8e1153dbea5c0c9288189e93f5763540f6f88c2190589d69a2f17327aa8495dd",
+      "byte_identical_to_raw": true,
+      "head_anchor_delta_px": [
+        -0.1,
+        0.2
+      ],
+      "head_anchor_within_2_squares": true
+    },
+    {
+      "frame": "run3",
+      "source": "run3-attempt3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "near_blue": {
+        "toe_px": [
+          599,
+          1112
+        ],
+        "toe_square_nominal_9px": [
+          66,
+          123
+        ],
+        "roi": [
+          520,
+          1040,
+          630,
+          1130
+        ],
+        "mean_toe_rgb": [
+          237.4,
+          198.5,
+          144.2
+        ],
+        "target_square": [
+          73,
+          125
+        ],
+        "delta_square": [
+          -7,
+          -2
+        ],
+        "within_2_squares": false
+      },
+      "far_red": {
+        "toe_px": [
+          774,
+          1169
+        ],
+        "toe_square_nominal_9px": [
+          86,
+          129
+        ],
+        "roi": [
+          680,
+          1110,
+          810,
+          1190
+        ],
+        "mean_toe_rgb": [
+          183.3,
+          145.2,
+          93.9
+        ],
+        "target_square": [
+          89,
+          130
+        ],
+        "delta_square": [
+          -3,
+          -1
+        ],
+        "within_2_squares": false
+      },
+      "actual_lead": "far",
+      "target_lead": "far",
+      "lead_pass": true,
+      "passing_gap_squares": 19.44,
+      "near_toe_brighter_than_far": true,
+      "both_toe_targets_pass": false,
+      "head_eye_anchor_px": [
+        702.0,
+        600.0
+      ],
+      "hard_alpha_pass": false,
+      "partial_alpha_pixels": 264251,
+      "transparent_pixels": 1306553,
+      "sha256": "251faed4970a2f162efe27f167492a3bcfb6ec15956991d4c3d64c81d79c326c",
+      "byte_identical_to_raw": true,
+      "head_anchor_delta_px": [
+        0.0,
+        0.1
+      ],
+      "head_anchor_within_2_squares": true
+    },
+    {
+      "frame": "run4",
+      "source": "run4-attempt3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "near_blue": {
+        "toe_px": [
+          627,
+          1162
+        ],
+        "toe_square_nominal_9px": [
+          69,
+          129
+        ],
+        "roi": [
+          540,
+          1100,
+          660,
+          1190
+        ],
+        "mean_toe_rgb": [
+          237.3,
+          199.8,
+          143.7
+        ],
+        "target_square": [
+          68,
+          130
+        ],
+        "delta_square": [
+          1,
+          -1
+        ],
+        "within_2_squares": true
+      },
+      "far_red": {
+        "toe_px": [
+          817,
+          1120
+        ],
+        "toe_square_nominal_9px": [
+          90,
+          124
+        ],
+        "roi": [
+          740,
+          1060,
+          845,
+          1140
+        ],
+        "mean_toe_rgb": [
+          182.8,
+          146.3,
+          95.2
+        ],
+        "target_square": [
+          86,
+          129
+        ],
+        "delta_square": [
+          4,
+          -5
+        ],
+        "within_2_squares": false
+      },
+      "actual_lead": "far",
+      "target_lead": "far",
+      "lead_pass": true,
+      "passing_gap_squares": 21.11,
+      "near_toe_brighter_than_far": true,
+      "both_toe_targets_pass": false,
+      "head_eye_anchor_px": [
+        702.0,
+        599.5
+      ],
+      "hard_alpha_pass": false,
+      "partial_alpha_pixels": 270447,
+      "transparent_pixels": 1301333,
+      "sha256": "2e8972efb4ceadc498d38f317e188971a06e92843ba2c98ca50b146968f6e4a2",
+      "byte_identical_to_raw": true,
+      "head_anchor_delta_px": [
+        0.0,
+        -0.4
+      ],
+      "head_anchor_within_2_squares": true
+    },
+    {
+      "frame": "run5",
+      "source": "run5-attempt4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "near_blue": {
+        "toe_px": [
+          774,
+          1202
+        ],
+        "toe_square_nominal_9px": [
+          86,
+          133
+        ],
+        "roi": [
+          680,
+          1150,
+          810,
+          1220
+        ],
+        "mean_toe_rgb": [
+          233.7,
+          192.9,
+          134.8
+        ],
+        "target_square": [
+          80,
+          130
+        ],
+        "delta_square": [
+          6,
+          3
+        ],
+        "within_2_squares": false
+      },
+      "far_red": {
+        "toe_px": [
+          784,
+          1147
+        ],
+        "toe_square_nominal_9px": [
+          87,
+          127
+        ],
+        "roi": [
+          725,
+          1080,
+          810,
+          1150
+        ],
+        "mean_toe_rgb": [
+          187.7,
+          150.4,
+          101.5
+        ],
+        "target_square": [
+          80,
+          127
+        ],
+        "delta_square": [
+          7,
+          0
+        ],
+        "within_2_squares": false
+      },
+      "actual_lead": "pass",
+      "target_lead": "pass",
+      "lead_pass": true,
+      "passing_gap_squares": 1.11,
+      "near_toe_brighter_than_far": true,
+      "both_toe_targets_pass": false,
+      "head_eye_anchor_px": [
+        702.0,
+        600.0
+      ],
+      "hard_alpha_pass": false,
+      "partial_alpha_pixels": 263247,
+      "transparent_pixels": 1308297,
+      "sha256": "3a2e947fbf2a1099b159af00a5aa36229ebeb5fe517b83ac8532b68cd1dd5466",
+      "byte_identical_to_raw": true,
+      "head_anchor_delta_px": [
+        0.0,
+        0.1
+      ],
+      "head_anchor_within_2_squares": true
+    },
+    {
+      "frame": "run6",
+      "source": "run6-attempt4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "near_blue": {
+        "toe_px": [
+          798,
+          1164
+        ],
+        "toe_square_nominal_9px": [
+          88,
+          129
+        ],
+        "roi": [
+          710,
+          1105,
+          825,
+          1190
+        ],
+        "mean_toe_rgb": [
+          238.8,
+          197.3,
+          127.3
+        ],
+        "target_square": [
+          88,
+          128
+        ],
+        "delta_square": [
+          0,
+          1
+        ],
+        "within_2_squares": true
+      },
+      "far_red": {
+        "toe_px": [
+          661,
+          1131
+        ],
+        "toe_square_nominal_9px": [
+          73,
+          125
+        ],
+        "roi": [
+          560,
+          1080,
+          685,
+          1150
+        ],
+        "mean_toe_rgb": [
+          166.3,
+          137.3,
+          86.9
+        ],
+        "target_square": [
+          77,
+          130
+        ],
+        "delta_square": [
+          -4,
+          -5
+        ],
+        "within_2_squares": false
+      },
+      "actual_lead": "near",
+      "target_lead": "near",
+      "lead_pass": true,
+      "passing_gap_squares": 15.22,
+      "near_toe_brighter_than_far": true,
+      "both_toe_targets_pass": false,
+      "head_eye_anchor_px": [
+        702.8,
+        601.3
+      ],
+      "hard_alpha_pass": false,
+      "partial_alpha_pixels": 260824,
+      "transparent_pixels": 1309717,
+      "sha256": "44d65ad2797f1fd5d87b7a0beade844d842a5cf570bcfffbaf0c637b80938b8c",
+      "byte_identical_to_raw": true,
+      "head_anchor_delta_px": [
+        0.8,
+        1.4
+      ],
+      "head_anchor_within_2_squares": true
+    },
+    {
+      "frame": "run7",
+      "source": "run7-attempt4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "near_blue": {
+        "toe_px": [
+          755,
+          1170
+        ],
+        "toe_square_nominal_9px": [
+          83,
+          130
+        ],
+        "roi": [
+          660,
+          1118,
+          790,
+          1190
+        ],
+        "mean_toe_rgb": [
+          230.8,
+          188.5,
+          128.7
+        ],
+        "target_square": [
+          86,
+          130
+        ],
+        "delta_square": [
+          -3,
+          0
+        ],
+        "within_2_squares": false
+      },
+      "far_red": {
+        "toe_px": [
+          614,
+          1115
+        ],
+        "toe_square_nominal_9px": [
+          68,
+          123
+        ],
+        "roi": [
+          510,
+          1045,
+          640,
+          1130
+        ],
+        "mean_toe_rgb": [
+          166.1,
+          130.3,
+          85.0
+        ],
+        "target_square": [
+          76,
+          123
+        ],
+        "delta_square": [
+          -8,
+          0
+        ],
+        "within_2_squares": false
+      },
+      "actual_lead": "near",
+      "target_lead": "near",
+      "lead_pass": true,
+      "passing_gap_squares": 15.67,
+      "near_toe_brighter_than_far": true,
+      "both_toe_targets_pass": false,
+      "head_eye_anchor_px": [
+        702.5,
+        600.4
+      ],
+      "hard_alpha_pass": false,
+      "partial_alpha_pixels": 257661,
+      "transparent_pixels": 1313041,
+      "sha256": "9f36f3bacaa9915bcc246c9d61acb576bb1d25c17e37f48c3b48075840701942",
+      "byte_identical_to_raw": true,
+      "head_anchor_delta_px": [
+        0.5,
+        0.5
+      ],
+      "head_anchor_within_2_squares": true
+    },
+    {
+      "frame": "run8",
+      "source": "run8-attempt4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "near_blue": {
+        "toe_px": [
+          740,
+          1176
+        ],
+        "toe_square_nominal_9px": [
+          82,
+          130
+        ],
+        "roi": [
+          650,
+          1120,
+          770,
+          1200
+        ],
+        "mean_toe_rgb": [
+          233.2,
+          191.5,
+          131.3
+        ],
+        "target_square": [
+          83,
+          130
+        ],
+        "delta_square": [
+          -1,
+          0
+        ],
+        "within_2_squares": true
+      },
+      "far_red": {
+        "toe_px": [
+          613,
+          1114
+        ],
+        "toe_square_nominal_9px": [
+          68,
+          123
+        ],
+        "roi": [
+          530,
+          1045,
+          640,
+          1120
+        ],
+        "mean_toe_rgb": [
+          182.4,
+          148.3,
+          99.9
+        ],
+        "target_square": [
+          72,
+          128
+        ],
+        "delta_square": [
+          -4,
+          -5
+        ],
+        "within_2_squares": false
+      },
+      "actual_lead": "near",
+      "target_lead": "near",
+      "lead_pass": true,
+      "passing_gap_squares": 14.11,
+      "near_toe_brighter_than_far": true,
+      "both_toe_targets_pass": false,
+      "head_eye_anchor_px": [
+        702.5,
+        600.3
+      ],
+      "hard_alpha_pass": false,
+      "partial_alpha_pixels": 263766,
+      "transparent_pixels": 1307974,
+      "sha256": "2d7bf3e9dba4ff64f4020c10b09b343baba0388e36752eb8280d5ac49b411588",
+      "byte_identical_to_raw": true,
+      "head_anchor_delta_px": [
+        0.5,
+        0.4
+      ],
+      "head_anchor_within_2_squares": true
+    }
+  ]
+}

@@ -11,6 +11,7 @@
 
 pub mod alune;
 pub mod aoshin;
+pub mod baronnashor;
 pub mod brambleback;
 pub mod brock;
 pub mod cinderling;
@@ -152,6 +153,7 @@ fn init(host: &StableHost) -> StableMod {
     syfen::register(host, &mut module);
     terra::register(host, &mut module);
     thex::register(host, &mut module);
+    baronnashor::register(host, &mut module);
     vander::register(host, &mut module);
     violet::register(host, &mut module);
     zippy::register(host, &mut module);
