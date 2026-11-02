@@ -1,0 +1,106 @@
+{
+ "a_hit": {
+  "frames": 4,
+  "cell": [
+   18,
+   16
+  ],
+  "symmetry": "LR"
+ },
+ "a_quake": {
+  "frames": 4,
+  "cell": [
+   40,
+   14
+  ],
+  "symmetry": "LR"
+ },
+ "a_up": {
+  "frames": 4,
+  "cell": [
+   22,
+   10
+  ],
+  "symmetry": "LR"
+ },
+ "q_rock": {
+  "frames": 4,
+  "cell": [
+   20,
+   14
+  ],
+  "symmetry": "TB"
+ },
+ "q_hit": {
+  "frames": 4,
+  "cell": [
+   30,
+   22
+  ],
+  "symmetry": "LR"
+ },
+ "q_slow": {
+  "frames": 5,
+  "cell": [
+   24,
+   8
+  ],
+  "symmetry": "LR"
+ },
+ "e_vine": {
+  "frames": 5,
+  "cell": [
+   30,
+   30
+  ],
+  "symmetry": "LR"
+ },
+ "e_root": {
+  "frames": 6,
+  "cell": [
+   24,
+   16
+  ],
+  "symmetry": "LR"
+ },
+ "e_shield": {
+  "frames": 5,
+  "cell": [
+   72,
+   54
+  ],
+  "symmetry": "LR"
+ },
+ "r_jump": {
+  "frames": 4,
+  "cell": [
+   60,
+   16
+  ],
+  "symmetry": "LR"
+ },
+ "r_slam": {
+  "frames": 5,
+  "cell": [
+   110,
+   44
+  ],
+  "symmetry": "LR"
+ },
+ "r_hit": {
+  "frames": 5,
+  "cell": [
+   22,
+   26
+  ],
+  "symmetry": "LR"
+ },
+ "r_rock": {
+  "frames": 7,
+  "cell": [
+   22,
+   52
+  ],
+  "symmetry": "LR"
+ }
+}

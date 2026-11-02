@@ -157,6 +157,7 @@ pub const STEALABLE: &[&str] = &[
     "league_zyra",
     "tft_aoshin",
     "tft_brambleback",
+    "tft_brock",
     "tft_cinderling",
     "tft_daeja",
     "tft_elderdragon",

@@ -1,3 +1,61 @@
+<!-- 本页上半部分由 tools/docs/gen_hero_docs.py 按仓库里现在的数据生成，手改会被覆盖；「开发记录」以下是手写的，生成时原样保留。 -->
+
+# 绯红树怪 Cinderling
+
+<img src="img/tft_cinderling.png" alt="绯红树怪" width="64">
+
+| 项目 | 内容 |
+|---|---|
+| id | `tft_cinderling` |
+| 所属的包 | tft 包（金铲铲之战系列，mod_id `tft`） |
+| 分路 | ADC |
+| 分类 / 标签 | 射手（Range） · AD / Range / Dot |
+| 高清帧 | PPU 2.33 |
+| 附加包 | 无 |
+
+其他预览：[skills](../preview/tft_cinderling_skills.gif)、[逐帧预览](../preview/tft_cinderling_frames.png)、[特效表](../preview/tft_cinderling_effects.png)
+
+## 现在的技能
+
+下面是游戏里显示的技能说明（`tft/text/champion.i18n` 的简体中文，去掉了颜色和图标），冷却、距离来自 `tft/champion/tft_cinderling.data_champion`；1 秒 = 60 tick。
+
+### 普攻 / 被动
+
+*攻击间隔 1.17 秒 · 攻击距离 60000*
+
+甩出余烬叶，造成100% 攻击力物理伤害。绯红霸符：每放一个技能攻击力+6（最多4层，8秒不放技能清空）；满层时普攻灼烧英雄。
+
+### 技能1 · 刃叶
+
+*冷却 6 秒 · 施放距离 60000 · 施放：指定目标 · 敌人（不含防御塔）*
+
+五片叶刃聚向目标，共造成80 + 110% 攻击力物理伤害，施加3秒重伤（治疗-40%）和灼烧（每秒1%最大生命真实伤害，2秒）。
+
+### 技能2 · 钻土突袭
+
+*冷却 10 秒 · 施放距离 35000 · 施放：指定目标 · 敌方英雄*
+
+钻进地里溅起泥土，周围敌人受到30 + 35% 攻击力物理伤害并减速35%（1.5秒），再从远离目标的地方钻出（地下受伤-70%）。
+
+### 大招 · 燎原叶暴
+
+*冷却 40 秒 · 施放距离 60000 · 施放：指定目标 · 敌方英雄*
+
+站起来点燃叶子：4秒内攻速+40%，每0.5秒向附近敌人射出3片燃烧叶刃，各造成20 + 25% 攻击力物理伤害，英雄被灼烧。
+
+### 数值
+
+攻击力 92（每级 +18）、生命 820（每级 +85）、护甲 20（每级 +7）、魔抗 18（每级 +3）、移速 920（每级 +9）。
+
+## 相关脚本和素材
+
+- [`tools/kit/build_cinderling.py`](../../tools/kit/build_cinderling.py)
+- [`tools/kit/setup_cinderling.py`](../../tools/kit/setup_cinderling.py)
+- [`tools/lol/extract_cinderling.py`](../../tools/lol/extract_cinderling.py)
+- [`tools/art/preview_cinderling.py`](../../tools/art/preview_cinderling.py)
+- [`tools/art/rig_cinderling.py`](../../tools/art/rig_cinderling.py)
+- [`assets/source/cinderling/`](../../assets/source/cinderling)
+
 ## 开发记录
 
 | 部分 | 内容 |

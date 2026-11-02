@@ -1,0 +1,322 @@
+[
+  {
+    "file": "brock-pose-a_raise.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      322,
+      158,
+      1019,
+      1232
+    ],
+    "alpha_values": 256,
+    "sha256": "37b9ccf76a2c61a9cb5e8d003c6a9f51ace601b5d78f86ee6e74f25d1831ceda"
+  },
+  {
+    "file": "brock-pose-a_slam.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      157,
+      646,
+      1196,
+      1235
+    ],
+    "alpha_values": 256,
+    "sha256": "03fb02a6adfa92a5c4bac4208e5e53ca7acab60edbb71d8daaee4594a3241da7"
+  },
+  {
+    "file": "brock-pose-q_wind.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      128,
+      173,
+      1206,
+      1186
+    ],
+    "alpha_values": 256,
+    "sha256": "716df7536f9a91577fa98512b4a5a58a7c739f43974c4b67c54e293fd84935bc"
+  },
+  {
+    "file": "brock-pose-q_throw.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      79,
+      483,
+      1237,
+      1176
+    ],
+    "alpha_values": 256,
+    "sha256": "154fb17805dc5fc744538b10ec9459297e60bef685cd48e3846714082c965765"
+  },
+  {
+    "file": "brock-pose-e_plant.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      197,
+      427,
+      1067,
+      1178
+    ],
+    "alpha_values": 256,
+    "sha256": "dc446850f7f2a2282db21be8dfb28d9eaccd54424069c3ed852f7dc1fba4105f"
+  },
+  {
+    "file": "brock-pose-e_reach.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      69,
+      322,
+      1215,
+      1225
+    ],
+    "alpha_values": 256,
+    "sha256": "accb14a4b2bb2690448e1cb510b95c8bc74c0598b1d58ee59d2f1a1ed5c6954f"
+  },
+  {
+    "file": "brock-pose-r_crouch.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      191,
+      484,
+      1082,
+      1177
+    ],
+    "alpha_values": 256,
+    "sha256": "133f133051de9c13626c91dfc23719d0c14bc7c51d2b57d8e1826db448d9171a"
+  },
+  {
+    "file": "brock-pose-r_leap.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      10,
+      373,
+      1245,
+      1186
+    ],
+    "alpha_values": 256,
+    "sha256": "444688211caa681cf63f980d98e297bb03e8428b2d76576c6d39747563358094"
+  },
+  {
+    "file": "brock-pose-r_air.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      265,
+      118,
+      1049,
+      1156
+    ],
+    "alpha_values": 256,
+    "sha256": "7c7d2b19649088f41118fbd22f26a00b62de518592c3a2674c43fb0674ca5f0f"
+  },
+  {
+    "file": "brock-pose-r_land.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      274,
+      697,
+      1221,
+      1238
+    ],
+    "alpha_values": 256,
+    "sha256": "9c9ee3cb9c8a83d5a9e9c2eb81616b3e6d47f986a5dbb938b6998219d443e0fe"
+  },
+  {
+    "file": "brock-pose-run1.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      78,
+      370,
+      1198,
+      1178
+    ],
+    "alpha_values": 256,
+    "sha256": "467738dac28d5a88bae644cb3a47037c23a5de961d1574e6e99a426d0e5f85be"
+  },
+  {
+    "file": "brock-pose-run2.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      49,
+      241,
+      1205,
+      1166
+    ],
+    "alpha_values": 256,
+    "sha256": "553eb163385419d1ac0042db435beea904a40e2ce585b87781b8c48daf34e546"
+  },
+  {
+    "file": "brock-pose-run3.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      52,
+      150,
+      1224,
+      1185
+    ],
+    "alpha_values": 256,
+    "sha256": "f257360bef681aa322cb2581e08ed51ccff2dfa070cbb6d823da37b145f6274c"
+  },
+  {
+    "file": "brock-pose-run4.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      98,
+      424,
+      1177,
+      1179
+    ],
+    "alpha_values": 256,
+    "sha256": "30ff10627cdee25e319e9a546bfae51895fb0c9d15a29ad4136d4d5b1438c718"
+  },
+  {
+    "file": "brock-pose-run5.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      43,
+      319,
+      1230,
+      1191
+    ],
+    "alpha_values": 256,
+    "sha256": "097a7af4d9b50090f504bd3d2fd572a17d1af63fbdf50d24107aa15931a42565"
+  },
+  {
+    "file": "brock-pose-run6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      98,
+      343,
+      1176,
+      1186
+    ],
+    "alpha_values": 256,
+    "sha256": "87023c5a06aee34ec4b18305685de2b38151c9200a7313b82acba9dea40573c0"
+  },
+  {
+    "file": "brock-pose-run7.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      103,
+      322,
+      1168,
+      1194
+    ],
+    "alpha_values": 256,
+    "sha256": "fab0470bece1db4fcdfb8505e7773032bcf7b357c4c9369e9c12635a255b8a19"
+  },
+  {
+    "file": "brock-pose-run8.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      124,
+      367,
+      1222,
+      1181
+    ],
+    "alpha_values": 256,
+    "sha256": "d7703081f1264dd58619548778a25af6b2dec341f38fe8dd6b754b7f11d31526"
+  },
+  {
+    "file": "brock-pose-d_fall.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      118,
+      451,
+      1227,
+      1206
+    ],
+    "alpha_values": 256,
+    "sha256": "ab9b4af5da71bb67a8deac5f8b2f61f70df702f40c8f9ac36b85109788dcaa98"
+  },
+  {
+    "file": "brock-pose-d_down.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "unresampled_original": true,
+    "bbox_alpha128": [
+      59,
+      754,
+      1225,
+      1206
+    ],
+    "alpha_values": 256,
+    "sha256": "927a342069c0c6f06a3e350b94574b200c55caf1aa8defce636fa4ead8a80bca"
+  }
+]

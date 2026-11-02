@@ -1,0 +1,76 @@
+[
+  {
+    "file": "brock-A.png",
+    "canvas": [
+      1536,
+      1536
+    ],
+    "grid_px": 11,
+    "grid_origin": [
+      9,
+      4
+    ],
+    "logical_size": [
+      64,
+      50
+    ],
+    "bbox": [
+      416,
+      840,
+      1120,
+      1390
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colors": 23,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox_threshold128": [
+      126,
+      402,
+      1159,
+      1234
+    ]
+  },
+  {
+    "file": "brock-B.png",
+    "canvas": [
+      1536,
+      1536
+    ],
+    "grid_px": 11,
+    "grid_origin": [
+      9,
+      4
+    ],
+    "logical_size": [
+      46,
+      70
+    ],
+    "bbox": [
+      515,
+      620,
+      1021,
+      1390
+    ],
+    "alpha_values": [
+      0,
+      255
+    ],
+    "colors": 22,
+    "raw_size": [
+      1254,
+      1254
+    ],
+    "raw_bbox_threshold128": [
+      302,
+      89,
+      1078,
+      1236
+    ]
+  }
+]

@@ -402,6 +402,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read on 12 px squares at the user's 34 game px from the left tip to the bottom points, PPU 1.29 (「造型用这个」 =
     // A-3: 44 rows 1:1), and Codex's poses laid out from its three parts, posed by tools/art/rig_sentry.py, so no SIZES row
     ("tft_sentry", 1.29, include_str!("../../../tft/champions/tft_sentry#anim.fanim")),
+    // Brock (tft_brock, the tft pack): the stone golem standing at 3/4, step 0's A read on its 14 px squares at the
+    // user's 44 game px from the bonsai top to his soles, PPU 1.16 (「A-1 44格 PPU1.16」: 51 rows 1:1), and Codex's key
+    // poses after his own TFT clips, posed by tools/art/rig_brock.py, so no SIZES row
+    ("tft_brock", 1.16, include_str!("../../../tft/champions/tft_brock#anim.fanim")),
     // the Cinderling (tft_cinderling, the tft pack): the squat bark critter with its wooden mask and leaf spines at 3/4,
     // step 0's first A read on its own 8 px squares at the user's 30 game px from its tallest leaf to its claws, PPU 2.33
     // (「A 30 PPU 2.33」: 70 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_cinderling.py,

@@ -4108,6 +4108,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_brock",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_brock",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_brock_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_brock_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_cinderling",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_cinderling",

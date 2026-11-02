@@ -1,0 +1,502 @@
+[
+  {
+    "file": "brock-pose-a_raise.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "2_a_raise_ref.png",
+      "2_a_raise_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1232,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "37b9ccf76a2c61a9cb5e8d003c6a9f51ace601b5d78f86ee6e74f25d1831ceda"
+  },
+  {
+    "file": "brock-pose-a_slam.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "3_a_slam_ref.png",
+      "3_a_slam_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1235,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "03fb02a6adfa92a5c4bac4208e5e53ca7acab60edbb71d8daaee4594a3241da7"
+  },
+  {
+    "file": "brock-pose-q_wind.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "4_q_wind_ref.png",
+      "4_q_wind_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1186,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "716df7536f9a91577fa98512b4a5a58a7c739f43974c4b67c54e293fd84935bc"
+  },
+  {
+    "file": "brock-pose-q_throw.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "5_q_throw_ref.png",
+      "5_q_throw_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1176,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "154fb17805dc5fc744538b10ec9459297e60bef685cd48e3846714082c965765"
+  },
+  {
+    "file": "brock-pose-e_plant.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "6_e_plant_ref.png",
+      "6_e_plant_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1178,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "dc446850f7f2a2282db21be8dfb28d9eaccd54424069c3ed852f7dc1fba4105f"
+  },
+  {
+    "file": "brock-pose-e_reach.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "7_e_reach_ref.png",
+      "7_e_reach_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1225,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "accb14a4b2bb2690448e1cb510b95c8bc74c0598b1d58ee59d2f1a1ed5c6954f"
+  },
+  {
+    "file": "brock-pose-r_crouch.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "8_r_crouch_ref.png",
+      "8_r_crouch_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1177,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "133f133051de9c13626c91dfc23719d0c14bc7c51d2b57d8e1826db448d9171a"
+  },
+  {
+    "file": "brock-pose-r_leap.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "9_r_leap_ref.png",
+      "9_r_leap_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1186,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "444688211caa681cf63f980d98e297bb03e8428b2d76576c6d39747563358094"
+  },
+  {
+    "file": "brock-pose-r_air.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "10_r_air_ref.png",
+      "10_r_air_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1156,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "7c7d2b19649088f41118fbd22f26a00b62de518592c3a2674c43fb0674ca5f0f"
+  },
+  {
+    "file": "brock-pose-r_land.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "11_r_land_ref.png",
+      "11_r_land_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1238,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "9c9ee3cb9c8a83d5a9e9c2eb81616b3e6d47f986a5dbb938b6998219d443e0fe"
+  },
+  {
+    "file": "brock-pose-run1.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "12_run1_ref.png",
+      "12_run1_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1178,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "467738dac28d5a88bae644cb3a47037c23a5de961d1574e6e99a426d0e5f85be"
+  },
+  {
+    "file": "brock-pose-run2.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "13_run2_ref.png",
+      "13_run2_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1166,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "553eb163385419d1ac0042db435beea904a40e2ce585b87781b8c48daf34e546"
+  },
+  {
+    "file": "brock-pose-run3.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "14_run3_ref.png",
+      "14_run3_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1185,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "f257360bef681aa322cb2581e08ed51ccff2dfa070cbb6d823da37b145f6274c"
+  },
+  {
+    "file": "brock-pose-run4.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "15_run4_ref.png",
+      "15_run4_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1179,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "30ff10627cdee25e319e9a546bfae51895fb0c9d15a29ad4136d4d5b1438c718"
+  },
+  {
+    "file": "brock-pose-run5.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "16_run5_ref.png",
+      "16_run5_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1191,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "097a7af4d9b50090f504bd3d2fd572a17d1af63fbdf50d24107aa15931a42565"
+  },
+  {
+    "file": "brock-pose-run6.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "17_run6_ref.png",
+      "17_run6_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1186,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "87023c5a06aee34ec4b18305685de2b38151c9200a7313b82acba9dea40573c0"
+  },
+  {
+    "file": "brock-pose-run7.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "18_run7_ref.png",
+      "18_run7_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1194,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "fab0470bece1db4fcdfb8505e7773032bcf7b357c4c9369e9c12635a255b8a19"
+  },
+  {
+    "file": "brock-pose-run8.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "19_run8_ref.png",
+      "19_run8_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1181,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "d7703081f1264dd58619548778a25af6b2dec341f38fe8dd6b754b7f11d31526"
+  },
+  {
+    "file": "brock-pose-d_fall.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "20_d_fall_ref.png",
+      "20_d_fall_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1206,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "ab9b4af5da71bb67a8deac5f8b2f61f70df702f40c8f9ac36b85109788dcaa98"
+  },
+  {
+    "file": "brock-pose-d_down.png",
+    "status": "generated-source",
+    "source_refs": [
+      "0_design.png",
+      "1_head.png",
+      "21_d_down_ref.png",
+      "21_d_down_skeleton.png",
+      "0_design_skeleton.png"
+    ],
+    "requested_canvas": [
+      1254,
+      1254
+    ],
+    "requested_grid": 12,
+    "requested_ground_y": 1176,
+    "actual_canvas": [
+      1254,
+      1254
+    ],
+    "actual_ground_y_alpha128": 1206,
+    "raw_unresampled": true,
+    "strict_grid_and_ground_gate": "not-passed",
+    "sha256": "927a342069c0c6f06a3e350b94574b200c55caf1aa8defce636fa4ead8a80bca"
+  }
+]
