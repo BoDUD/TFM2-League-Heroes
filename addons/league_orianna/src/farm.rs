@@ -120,11 +120,11 @@ pub fn plan(s: &Scene<'_>, ready: bool, ai_move: Option<(f64, f64)>) -> Option<P
 /// 正在放技能（施法动作还在播）或被强制位移：不替 AI 下命令，按普攻会打断它（league_ult_press 的 `busy`）。
 const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
 
-fn busy(e: &StableEntity<'_, '_>) -> bool {
+pub(crate) fn busy(e: &StableEntity<'_, '_>) -> bool {
     (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| BUSY.iter().any(|k| k.code() == c.kind)))
 }
 
-fn at(e: &StableEntity<'_, '_>) -> (f64, f64) {
+pub(crate) fn at(e: &StableEntity<'_, '_>) -> (f64, f64) {
     let (x, y) = e.pos();
     (x as f64, y as f64)
 }
