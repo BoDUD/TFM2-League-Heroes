@@ -202,7 +202,11 @@ impl StablePlayerAi for Condemn {
             return None;
         }
         let player = ctx.player_id();
-        let (me, foes, grid, line, tick, names) = {
+        let ai_e = match want_of(base) {
+            Want::E(Some(t)) => Some(t),
+            _ => None,
+        };
+        let (me, foes, grid, line, tick, names, e_at) = {
             let sim = ctx.sim()?;
             let e = sim.get_player(player)?.champion()?;
             let (my_id, team, tick) = (e.id(), e.team(), sim.tick());
@@ -235,23 +239,39 @@ impl StablePlayerAi for Condemn {
                 return None;
             }
             let reach = |f: &Foe| dist((e.pos().0 as f64, e.pos().1 as f64), f.at) <= E_RANGE as f64 + e.radius() as f64 + f.r;
+            // the AI's own E target, wherever it stands (held below when nobody the push works on is in reach)
+            let e_at = ai_e.and_then(|t| sim.get_entity(t)).map(|u| (u.id(), (u.pos().0 as f64, u.pos().1 as f64)));
             // immune to crowd control: the push does nothing to them
             let foes: Vec<Foe> = seen.into_iter().filter(|(f, immune)| !immune && reach(f)).map(|(f, _)| f).collect();
-            if foes.is_empty() {
-                return None;
-            }
             let grids = Grid::builtin();
             let grid = current(&grids, &unit_points(&sim)).and_then(|i| grids.into_iter().nth(i))?;
             let (hp, max) = e.hp();
             let me = Me { at: (e.pos().0 as f64, e.pos().1 as f64), r: e.radius() as f64, ad: e.stat().attack,
                           hp_pct: hp * 100 / max.max(1) };
-            (me, foes, grid, head(&sim, my_id), tick, names)
+            (me, foes, grid, head(&sim, my_id), tick, names, e_at)
         };
         // the engine has the last word on the range: E only at those it takes
         let can_e = |ctx: &StableAiContext<'_>, id: usize| ctx.is_valid_input(&InputV1::action(InputKindV1::Skill2, InputTargetV1::target(id)));
         let foes: Vec<Foe> = foes.into_iter().filter(|f| can_e(ctx, f.id)).collect();
         if foes.is_empty() {
-            return None;
+            // nobody the push works on in reach (all immune to crowd control): the AI's own E would be thrown away (0.2.1,
+            // 11-02's logs: 100-199 "cc immune, not moved" a launch) - held like any other, an attack on its target
+            let (t, at) = e_at?;
+            let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+            let input = if ctx.is_valid_input(&attack) {
+                attack
+            } else {
+                InputV1::move_to(at.0.max(0.0) as u64, at.1.max(0.0) as u64)
+            };
+            let burst = self.last.is_some_and(|(k, at, t0)| k == "e held" && at == t && tick >= t0 && tick <= t0 + PRESS_FRESH);
+            self.last = Some(("e held", t, tick));
+            if !burst {
+                if let Some(k) = ctx.sim().and_then(|sim| tally(&sim, "e held")) {
+                    wlog(format!("{line} E HELD: nobody in reach the push works on (immune to crowd control) - attacking \
+                                  {}#{t} instead #{k}", names.get(&t).cloned().unwrap_or_default()));
+                }
+            }
+            return Some(input);
         }
         let c = call(&grid, &me, &foes, want_of(base))?;
         let name = |id: usize| names.get(&id).cloned().unwrap_or_default();

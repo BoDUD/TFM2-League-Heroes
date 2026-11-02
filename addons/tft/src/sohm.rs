@@ -28,6 +28,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+use crate::sim_tag::{Key, SimTag};
+
 const ID: &str = "tft_sohm";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const WAVE_HIT_FX: &str = "tft_sohm:wave_hit";
@@ -205,22 +207,59 @@ pub struct Mark {
     pub since: usize,
 }
 
-/// Each Sohm's params, flowers and waves still on their way (target, the tick the wave gets there), by her entity id
-/// (the effects run without the passive at hand).
+/// Each Sohm's params, by her entity id (the effects run without the passive at hand; the same in every simulation).
 static PARAMS: LazyLock<Mutex<HashMap<usize, Params>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-static MARKS: LazyLock<Mutex<HashMap<usize, Vec<Mark>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-static WAVES: LazyLock<Mutex<HashMap<usize, Vec<(usize, usize)>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 她的花和还在路上的水浪（目标、水浪到那里的 tick），按（这份模拟的编号 `SIM_TAG`、她）记（2026-11-03，tft 0.46.0）：以前只按
+/// 她的实体编号记，服务器并排跑的两份预模拟实体编号一样，共用一份——一份的水浪在另一份里开花，另一份的花和水浪丢了，一份出生
+/// 时还把另一份的清掉。
+const TAG: SimTag = SimTag("tft_sohm_sim:");
+static MARKS: LazyLock<Mutex<HashMap<Key, Vec<Mark>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static WAVES: LazyLock<Mutex<HashMap<Key, Vec<(usize, usize)>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied().unwrap_or_default()
 }
 
-fn marks_of(me: usize) -> Vec<Mark> {
-    MARKS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).cloned().unwrap_or_default()
+/// Her row in an effect (the passive not at hand): by the number hung on her.
+fn key(sim: &StableSim<'_>, me: usize) -> Key {
+    TAG.key(sim, me, me)
 }
 
-fn set_marks(me: usize, marks: Vec<Mark>) {
-    MARKS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, marks);
+fn marks_of(row: Key) -> Vec<Mark> {
+    MARKS.lock().unwrap_or_else(|e| e.into_inner()).get(&row).cloned().unwrap_or_default()
+}
+
+fn set_marks(row: Key, marks: Vec<Mark>) {
+    MARKS.lock().unwrap_or_else(|e| e.into_inner()).insert(row, marks);
+}
+
+/// A wave on its way to `target`, there on tick `due`.
+fn send_wave(row: Key, target: usize, due: usize) {
+    WAVES.lock().unwrap_or_else(|e| e.into_inner()).entry(row).or_default().push((target, due));
+}
+
+/// The wave passed over `target`: its wave to it taken off (true when one was going to it).
+fn wave_met(row: Key, target: usize) -> bool {
+    let mut waves = WAVES.lock().unwrap_or_else(|e| e.into_inner());
+    let list = waves.entry(row).or_default();
+    let found = list.iter().position(|w| w.0 == target);
+    found.map(|i| list.remove(i)).is_some()
+}
+
+/// The waves there by `now`, taken off: their targets.
+fn waves_due(row: Key, now: usize) -> Vec<usize> {
+    let mut waves = WAVES.lock().unwrap_or_else(|e| e.into_inner());
+    let Some(list) = waves.get_mut(&row) else { return Vec::new() };
+    let due = list.iter().filter(|w| w.1 <= now).map(|w| w.0).collect();
+    list.retain(|w| w.1 > now);
+    due
+}
+
+/// A new life: no flowers, no waves.
+fn new_life(row: Key) {
+    MARKS.lock().unwrap_or_else(|e| e.into_inner()).remove(&row);
+    WAVES.lock().unwrap_or_else(|e| e.into_inner()).remove(&row);
 }
 
 // ===================== 规则（单元测试用） =====================
@@ -359,22 +398,22 @@ fn put(sim: &mut StableSim<'_>, id: usize, buff: &BuffV1) {
     sim.add_buff(id, buff);
 }
 
-/// Her flower opens on `id` (or is renewed there).
-fn flower(sim: &mut StableSim<'_>, me: usize, id: usize, why: &str) {
+/// Her flower opens on `id` (or is renewed there), in her row `row`.
+fn flower(sim: &mut StableSim<'_>, me: usize, row: Key, id: usize, why: &str) {
     if !alive(sim, id) {
         return;
     }
     let p = params_of(me);
     put(sim, id, &BuffV1::timed(&sm("q_flower"), p.m_t));
     sim.play_sfx(&sm("q_mark"), me, &InputTargetV1::target(id));
-    let mut marks = marks_of(me);
+    let mut marks = marks_of(row);
     let now = sim.tick();
     match marks.iter_mut().find(|m| m.id == id) {
         Some(m) => m.since = now,
         None => marks.push(Mark { id, since: now }),
     }
     let n = marks.len();
-    set_marks(me, marks);
+    set_marks(row, marks);
     if let Some(k) = counted("flower") {
         wlog(format!("{} FLOWER #{k} ({why}): on {}, {n} flower(s)", head(sim, me), name_of(sim, id)));
     }
@@ -413,7 +452,8 @@ impl StableEffectType for Wave {
             return;
         };
         let p = params_of(me);
-        let marked: Vec<usize> = marks_of(me).iter().map(|m| m.id).collect();
+        let row = key(sim, me);
+        let marked: Vec<usize> = marks_of(row).iter().map(|m| m.id).collect();
         let cast = unit(&input).filter(|&id| alive(sim, id));
         let Some(target) = wave_target(&foes(sim, me), at, p.q_range, &marked, cast) else { return };
         let Some(to) = sim.get_entity(target).map(|e| e.pos()) else { return };
@@ -438,7 +478,7 @@ impl StableEffectType for Wave {
         let ok = sim.spawn_projectile(&sm("q_wave"), WAVE_HIT_FX, &spec);
         // the flower opens when the wave gets there, whether or not the wave touched it (wave_hit opens it sooner)
         let due = sim.tick() + travel(dist, p.q_speed);
-        WAVES.lock().unwrap_or_else(|e| e.into_inner()).entry(me).or_default().push((target, due));
+        send_wave(row, target, due);
         if let Some(k) = counted("wave") {
             wlog(format!(
                 "{} WAVE #{k}: at {} ({dist} away, cast on {}){}",
@@ -462,14 +502,9 @@ impl StableEffectType for WaveHit {
         let on = InputTargetV1::target(id);
         sim.play_view_effect(&sm("q_hit"), me, &on, 0, 0, 0);
         sim.play_sfx(&sm("q_hit"), me, &on);
-        let due = {
-            let mut waves = WAVES.lock().unwrap_or_else(|e| e.into_inner());
-            let list = waves.entry(me).or_default();
-            let found = list.iter().position(|w| w.0 == id);
-            found.map(|i| list.remove(i))
-        };
-        if due.is_some() {
-            flower(sim, me, id, "wave");
+        let row = key(sim, me);
+        if wave_met(row, id) {
+            flower(sim, me, row, id, "wave");
         }
         if let Some(k) = counted("wave hit") {
             wlog(format!("{} WAVE HIT #{k}: {} takes {d} magic", head(sim, me), name_of(sim, id)));
@@ -483,7 +518,8 @@ impl StableEffectType for FlowerLand {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
         let Some(id) = unit(&input) else { return };
         sim.play_sfx(&sm("q_jump_hit"), me, &InputTargetV1::target(id));
-        flower(sim, me, id, "jump");
+        let row = key(sim, me);
+        flower(sim, me, row, id, "jump");
     }
 }
 
@@ -522,7 +558,8 @@ struct Bloom;
 impl StableEffectType for Bloom {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
         let p = params_of(me);
-        let marks: Vec<usize> = marks_of(me).iter().map(|m| m.id).filter(|&id| alive(sim, id)).collect();
+        let row = key(sim, me);
+        let marks: Vec<usize> = marks_of(row).iter().map(|m| m.id).filter(|&id| alive(sim, id)).collect();
         let fallback = marks.is_empty();
         let at: Vec<usize> = if fallback { unit(&input).filter(|&id| alive(sim, id)).into_iter().collect() } else { marks };
         let centres: Vec<(u64, u64)> = at.iter().filter_map(|&id| sim.get_entity(id).map(|e| e.pos())).collect();
@@ -542,10 +579,10 @@ impl StableEffectType for Bloom {
         if let Some(&first) = victims.first() {
             sim.play_sfx(&sm("r_hit"), me, &InputTargetV1::target(first));
         }
-        for m in marks_of(me) {
+        for m in marks_of(row) {
             sim.entity_remove_buff(m.id, &sm("q_flower"));
         }
-        set_marks(me, Vec::new());
+        set_marks(row, Vec::new());
         if let Some(k) = counted("bloom") {
             wlog(format!(
                 "{} BLOOM #{k}: {} {} -> {} hit for {d} magic: {:?}",
@@ -566,27 +603,23 @@ struct Lagoon {
     /// The champion it belongs to (on_dead is given the player, not the unit).
     me: usize,
     p: Params,
+    /// This simulation's number (`SIM_TAG`), drawn at her first spawn.
+    sim: u64,
 }
 
 impl Lagoon {
     /// Waves that got there without touching their target open its flower now.
     fn land_waves(&self, sim: &mut StableSim<'_>, me: usize) {
-        let now = sim.tick();
-        let due: Vec<usize> = {
-            let mut waves = WAVES.lock().unwrap_or_else(|e| e.into_inner());
-            let Some(list) = waves.get_mut(&me) else { return };
-            let due = list.iter().filter(|w| w.1 <= now).map(|w| w.0).collect();
-            list.retain(|w| w.1 > now);
-            due
-        };
-        for id in due {
-            flower(sim, me, id, "wave arrived");
+        let row = (self.sim, me);
+        for id in waves_due(row, sim.tick()) {
+            flower(sim, me, row, id, "wave arrived");
         }
     }
 
     /// A flower on a fallen unit jumps on; a withered one (its time out, or its unit back alive without it) goes.
     fn tend(&self, sim: &mut StableSim<'_>, me: usize) {
-        let marks = marks_of(me);
+        let row = (self.sim, me);
+        let marks = marks_of(row);
         if marks.is_empty() {
             return;
         }
@@ -609,10 +642,10 @@ impl Lagoon {
         if keep.len() == marks.len() {
             return;
         }
-        set_marks(me, keep);
+        set_marks(row, keep);
         let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return };
         for (dead, from) in jumps {
-            let marked: Vec<usize> = marks_of(me).iter().map(|m| m.id).collect();
+            let marked: Vec<usize> = marks_of(row).iter().map(|m| m.id).collect();
             let Some(to) = jump_target(&foes(sim, me), from, self.p.j_r, &marked) else {
                 if let Some(k) = counted("jump lost") {
                     wlog(format!("{} JUMP #{k}: {} fell, nobody within {}", head(sim, me), name_of(sim, dead), self.p.j_r));
@@ -620,9 +653,9 @@ impl Lagoon {
                 continue;
             };
             // the flower is hers from now on (the jump's landing puts the picture on), so it is not sent twice
-            let mut list = marks_of(me);
+            let mut list = marks_of(row);
             list.push(Mark { id: to, since: now });
-            set_marks(me, list);
+            set_marks(row, list);
             let spec = ProjectileSpawnV1 {
                 caster_id: me,
                 team,
@@ -665,9 +698,9 @@ impl StablePassive for Lagoon {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.me = me;
+        TAG.spawn(sim, me, &mut self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
-        MARKS.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
-        WAVES.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
+        new_life((self.sim, me));
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
             wlog(format!("{} SPAWN #{k}: tft.dll's Sohm (player {player}, team {team}), {:?}", head(sim, me), self.p));
@@ -771,5 +804,27 @@ mod tests {
         assert_eq!(travel(35001, 3500), 11);
         assert_eq!(travel(0, 3500), 1);
         assert_eq!(line_end((0, 0), (3, 4), 10), (6, 8));
+    }
+
+    #[test]
+    fn each_sim_keeps_its_own_flowers_and_waves() {
+        // the tag her passive hangs is the one her effects read back, and it fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+        // the server's two presims of one set: Sohm is #7 in both, two numbers
+        let (a, b) = ((u64::MAX - 1, 7), (u64::MAX - 2, 7));
+        send_wave(a, 3, 100);
+        // b's wave passing over 3, or b's update, neither takes a's wave nor opens its flower
+        assert!(!wave_met(b, 3));
+        assert!(waves_due(b, 200).is_empty());
+        assert!(waves_due(a, 99).is_empty());
+        assert_eq!(waves_due(a, 100), vec![3]);
+        set_marks(a, vec![Mark { id: 3, since: 100 }]);
+        // b's spawn starts b's life over; a's flower stays
+        new_life(b);
+        assert_eq!(marks_of(a), vec![Mark { id: 3, since: 100 }]);
+        assert!(marks_of(b).is_empty());
+        new_life(a);
+        assert!(marks_of(a).is_empty());
     }
 }

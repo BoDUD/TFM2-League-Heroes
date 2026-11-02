@@ -23,6 +23,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+use crate::sim_tag::{Key, SimTag};
+
 const ID: &str = "tft_maddie";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const SHOT_FX: &str = "tft_maddie:shot";
@@ -204,8 +206,23 @@ fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied().unwrap_or_default()
 }
 
-/// Her Wanted enemy: Maddie's id -> (the enemy, the tick the mark ends).
-static WANTED: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// Her Wanted enemy: (this simulation's number `SIM_TAG`, Maddie) -> (the enemy, the tick the mark ends). 以前只按她的
+/// 实体编号记（2026-11-03 改，tft 0.46.0）：服务器并排跑的两份预模拟实体编号一样，一份的通缉令盖掉另一份的，一份领了赏金
+/// 或过了期就把另一份的也删了。
+const TAG: SimTag = SimTag("tft_maddie_sim:");
+static WANTED: LazyLock<Mutex<HashMap<Key, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn wanted_of(row: Key) -> Option<(usize, usize)> {
+    WANTED.lock().unwrap_or_else(|e| e.into_inner()).get(&row).copied()
+}
+
+fn set_wanted(row: Key, enemy: usize, until: usize) {
+    WANTED.lock().unwrap_or_else(|e| e.into_inner()).insert(row, (enemy, until));
+}
+
+fn drop_wanted(row: Key) {
+    WANTED.lock().unwrap_or_else(|e| e.into_inner()).remove(&row);
+}
 
 // ===================== 规则（单元测试用） =====================
 
@@ -426,7 +443,7 @@ impl StableEffectType for Wanted {
         sim.play_view_effect(&md("e_mark"), me, &on, 0, 0, 0);
         sim.play_sfx(SFX_WANTED, me, &on);
         let until = sim.tick() + p.e_t;
-        WANTED.lock().unwrap_or_else(|e| e.into_inner()).insert(me, (target, until));
+        set_wanted(TAG.key(sim, me, me), target, until);
         if let Some(k) = counted("wanted") {
             let hp = sim.get_entity(target).map_or(0, |e| e.hp().0);
             wlog(format!("{} WANTED #{k}: {} ({hp} health) until t={until}", head(sim, me), name_of(sim, target)));
@@ -484,6 +501,8 @@ struct Sniper {
     p: Params,
     /// Bounties of this life.
     bounties: usize,
+    /// This simulation's number (`SIM_TAG`), drawn at her first spawn.
+    sim: u64,
 }
 
 impl Sniper {
@@ -512,6 +531,7 @@ impl StablePassive for Sniper {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        TAG.spawn(sim, me, &mut self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -541,17 +561,17 @@ impl StablePassive for Sniper {
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).entry(me).or_insert(self.p);
-        let mark = WANTED.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied();
-        let Some((victim, until)) = mark else { return };
+        let row = (self.sim, me);
+        let Some((victim, until)) = wanted_of(row) else { return };
         let tick = sim.tick();
         let dead = sim.get_entity(victim).is_none_or(|e| !e.is_alive());
         if dead && tick <= until + 1 {
-            WANTED.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
+            drop_wanted(row);
             if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
                 self.bounty(sim, me, victim);
             }
         } else if tick > until {
-            WANTED.lock().unwrap_or_else(|e| e.into_inner()).remove(&me);
+            drop_wanted(row);
         }
     }
 
@@ -646,5 +666,22 @@ mod tests {
             assert!(n.starts_with("tft_maddie:"), "{n}");
         }
         assert_eq!(md("q_hit"), "tft_maddie_q_hit");
+    }
+
+    #[test]
+    fn each_sim_keeps_its_own_wanted() {
+        // the tag her passive hangs is the one her Wanted reads back, and it fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+        // the server's two presims of one set: Maddie is #4 in both, two numbers
+        let (a, b) = ((u64::MAX - 1, 4), (u64::MAX - 2, 4));
+        set_wanted(a, 9, 500);
+        set_wanted(b, 8, 520);
+        assert_eq!(wanted_of(a), Some((9, 500)));
+        // b's bounty (or b's mark running out) leaves a's mark
+        drop_wanted(b);
+        assert_eq!(wanted_of(a), Some((9, 500)));
+        assert_eq!(wanted_of(b), None);
+        drop_wanted(a);
     }
 }

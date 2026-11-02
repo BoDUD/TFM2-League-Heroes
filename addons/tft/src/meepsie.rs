@@ -24,6 +24,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+use crate::sim_tag::{Key, SimTag};
+
 const ID: &str = "tft_meepsie";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const MEND_FX: &str = "tft_meepsie:mend";
@@ -198,14 +200,40 @@ pub struct Mend {
     pub last: usize,
 }
 
-/// 按（种子、模拟来源、比赛、局、单位）分开：同一个进程里预演和观看的模拟各算各的（league_loris 的做法）。
-type Key = (u64, u32, u64, u64, usize);
+/// 按（这份模拟的编号 `SIM_TAG`、单位）分开：跳跃记在它自己名下，治疗记在它的编号、病人名下（2026-11-03，tft 0.46.0）。以前按
+/// （种子、模拟来源、比赛、局、单位），服务器并排跑的两份预模拟这几样全一样，共用一份：一份的木灵把另一份的治疗续上、
+/// 每拍的回血两份抢着算，一份的跳跃被另一份落地时删掉。
+const TAG: SimTag = SimTag("tft_meepsie_sim:");
 static LEAPS: LazyLock<Mutex<HashMap<Key, Leap>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 static MENDS: LazyLock<Mutex<HashMap<Key, Mend>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-fn key(sim: &StableSim<'_>, id: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, id)
+/// The row of `id` in the simulation of Meepsie `me` (by the number hung on it; an effect has no passive at hand).
+fn key(sim: &StableSim<'_>, me: usize, id: usize) -> Key {
+    TAG.key(sim, me, id)
+}
+
+/// A meep lands: the mend in `row` runs (again) until `now + t`, healed by `by`; true when it is a new one.
+fn renew_mend(row: Key, by: usize, now: usize, t: usize) -> bool {
+    let mut mends = MENDS.lock().unwrap_or_else(|e| e.into_inner());
+    let m = mends.entry(row).or_default();
+    let fresh = now > m.until;
+    if fresh {
+        m.last = now;   // the first heal a full period after the landing
+    }
+    m.by = by;
+    m.until = now + t;
+    fresh
+}
+
+/// A queued heal tick of `row` at `now`: whose heal it is when one is due this period (None: not now, or no mend).
+fn mend_due(row: Key, now: usize, every: usize) -> Option<usize> {
+    let mut mends = MENDS.lock().unwrap_or_else(|e| e.into_inner());
+    let m = mends.get_mut(&row)?;
+    if !mends_now(m, now, every) {
+        return None;
+    }
+    m.last = now;
+    Some(m.by)
 }
 
 // ===================== 规则（单元测试用） =====================
@@ -397,18 +425,7 @@ fn mend(sim: &mut StableSim<'_>, me: usize, id: usize) {
         return;
     }
     let p = params_of(me);
-    let now = sim.tick();
-    let fresh = {
-        let mut mends = MENDS.lock().unwrap_or_else(|e| e.into_inner());
-        let m = mends.entry(key(sim, id)).or_default();
-        let fresh = now > m.until;
-        if fresh {
-            m.last = now;   // the first heal a full period after the landing
-        }
-        m.by = me;
-        m.until = now + p.e_t;
-        fresh
-    };
+    let fresh = renew_mend(key(sim, me, id), me, sim.tick(), p.e_t);
     put(sim, id, &BuffV1::timed(&mp("e_hot"), p.e_t));
     let on = InputTargetV1::target(id);
     sim.play_sfx(&mp("e_heal"), me, &on);
@@ -428,22 +445,13 @@ impl StableEffectType for MendTick {
             return;
         }
         let id = input.target_id;
-        let k_ = key(sim, id);
+        let k_ = key(sim, me, id);
         if !sim.get_entity(id).is_some_and(|e| e.is_alive()) {
             MENDS.lock().unwrap_or_else(|e| e.into_inner()).remove(&k_);
             return;
         }
         let p = params_of(me);
-        let now = sim.tick();
-        let by = {
-            let mut mends = MENDS.lock().unwrap_or_else(|e| e.into_inner());
-            let Some(m) = mends.get_mut(&k_) else { return };
-            if !mends_now(m, now, p.e_every) {
-                return;
-            }
-            m.last = now;
-            m.by
-        };
+        let Some(by) = mend_due(k_, sim.tick(), p.e_every) else { return };
         if by != me {
             return;   // another Meepsie's meep: its own ticks heal it
         }
@@ -472,7 +480,7 @@ impl StableEffectType for BigBang {
         // nobody within the leap: it slams on its target (the cast's range let it start), else where it stands
         let to = landing(at, &foes, p.r_leap as u64, p.r_r as u64, aim).unwrap_or(aim);
         let now = sim.tick();
-        let k_ = key(sim, me);
+        let k_ = key(sim, me, me);
         LEAPS.lock().unwrap_or_else(|e| e.into_inner()).insert(k_, Leap { from: at, to, start: now, land: now + p.r_air });
         if let Some(k) = counted("leap") {
             wlog(format!("{} LEAP #{k}: from ({}, {}) to ({}, {}), {} away, {} ticks", head(sim, me), at.0, at.1, to.0,
@@ -486,7 +494,7 @@ impl StableEffectType for BigBang {
 struct Hop;
 impl StableEffectType for Hop {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
-        let k_ = key(sim, me);
+        let k_ = key(sim, me, me);
         let Some(l) = LEAPS.lock().unwrap_or_else(|e| e.into_inner()).get(&k_).copied() else { return };
         if !sim.get_entity(me).is_some_and(|e| e.is_alive()) {
             LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&k_);
@@ -551,6 +559,8 @@ struct Pilot {
     /// The champion it belongs to (on_dead is given the player, not the unit).
     me: usize,
     p: Params,
+    /// This simulation's number (`SIM_TAG`), drawn at its first spawn.
+    sim: u64,
 }
 
 impl StablePassive for Pilot {
@@ -564,6 +574,7 @@ impl StablePassive for Pilot {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.me = me;
+        TAG.spawn(sim, me, &mut self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -578,7 +589,7 @@ impl StablePassive for Pilot {
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
         let me = self.me;
         // it falls on its face (the data has no moment for it); a leap in the air ends there
-        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
+        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
         sim.play_sfx(&mp("d"), me, &InputTargetV1::target(me));
     }
 }
@@ -656,5 +667,23 @@ mod tests {
         assert_eq!(leap_at(&l, 25), (15000, 0));
         assert_eq!(leap_at(&l, 40), (30000, 0));
         assert_eq!(leap_at(&l, 99), (30000, 0));
+    }
+
+    #[test]
+    fn each_sim_keeps_its_own_mends() {
+        // the tag its passive hangs is the one its meeps read back, and it fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+        // the server's two presims of one set: Meepsie is #5 and its patient #9 in both, two numbers
+        let (a, b) = ((u64::MAX - 1, 9), (u64::MAX - 2, 9));
+        assert!(renew_mend(a, 5, 10, 180));
+        // b's queued heal finds no mend of a's to heal or to move on
+        assert_eq!(mend_due(b, 40, 30), None);
+        assert_eq!(mend_due(a, 40, 30), Some(5));
+        assert_eq!(mend_due(a, 50, 30), None);
+        // b's meep lands: a new mend in b, a's timing untouched
+        assert!(renew_mend(b, 5, 55, 180));
+        assert_eq!(mend_due(a, 70, 30), Some(5));
+        assert!(!renew_mend(a, 5, 80, 180));   // a's own second meep only renews it
     }
 }

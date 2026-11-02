@@ -8656,7 +8656,7 @@
             },
             {
               "type": "Delayed",
-              "tick": 360,
+              "tick": 357,
               "effects": [
                 {
                   "type": "SwitchByBuff",

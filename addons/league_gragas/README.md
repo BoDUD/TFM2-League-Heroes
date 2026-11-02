@@ -16,11 +16,13 @@
 1. 主包（League of Legends Heroes 0.96 以上）要装着并启用。
 2. 用合集 `league_addons`（推荐），或把整个 `league_gragas` 文件夹放进 `<游戏目录>\mods\`（两者不能同时启用）。
 3. 看古拉加斯大招的说明：开头是「【智能落点】」就说明副本生效了。
-4. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gragas.log`：`CASK at` 是选好的落点（目标、身后多远、够得着几个英雄），
-   `BOOM at` 是爆炸（打中几个敌人、每人多少伤害）。
+4. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gragas.log`：`CASK #n at` 是选好的落点（目标、身后多远、够得着几个英雄），
+   `BOOM #n at` 是爆炸（打中几个敌人、每人多少伤害）。
 
 ## 开发
 
 - `python addons/league_gragas/make_override.py`：从主包重新生成 `override/` 和 `text/`。主包的古拉加斯改了以后要重跑。
 - 在 `addons/` 下 `cargo test --release -p league_gragas`：单元测试（单个目标落在身后、连后排一起炸、英雄比一波兵重要、不超过射程、
-  数值和主包一致）。
+  落点在地图上、日志条数、数值和主包一致）。
+- 0.1.2（2026-11-03 的日志：每个 CASK、BOOM 都写，一次启动 940 行、126 KB）：服务器的预模拟每种先记 40 行、之后每 50 行一行（`#n` 是第几行），
+  你看的那场每行都记；落点先拉回地图上（0..960000）再打分——以前地图边上的目标身后那一点在地图外（`CASK at (-15810,300765)`），打分按地图外算，酒桶却落在地图边上。

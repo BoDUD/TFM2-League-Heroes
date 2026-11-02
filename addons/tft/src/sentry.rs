@@ -144,6 +144,21 @@ pub fn charges(start: usize, now: usize, every: usize) -> usize {
     now.saturating_sub(start) / every.max(1)
 }
 
+/// Ticks a channel may run before a lock must have been seen: the data's first wave leaves on q_rel - 1 (9) and its zap
+/// flies a few ticks to put the lock on (11-02's logs: every laser was folded after 3 ticks, "target gone", because the
+/// lock was looked for from the third tick - not one wave ever landed, Blue Buff never paid).
+pub const LOCK_WAIT: usize = 24;
+
+/// Why the laser folds now, if it does: the lit enemy out of q_break (`near` false), or the lock gone - once one was
+/// seen in this channel (`seen`), or never put on within `LOCK_WAIT` ticks.
+pub fn folds(locked: usize, near: bool, seen: bool, ran: usize) -> Option<&'static str> {
+    if locked > 0 {
+        (!near).then_some("out of range")
+    } else {
+        (seen || ran > LOCK_WAIT).then_some("target gone")
+    }
+}
+
 pub fn within(a: (u64, u64), b: (u64, u64), r: usize) -> bool {
     let dx = a.0 as i128 - b.0 as i128;
     let dy = a.1 as i128 - b.1 as i128;
@@ -187,8 +202,9 @@ fn ult_remaining(sim: &StableSim<'_>, me: usize) -> Option<usize> {
 struct Blue {
     p: Params,
     me: usize,
-    /// the tick the current channel began and the charges already paid (None: not channelling)
-    channel: Option<(usize, usize)>,
+    /// the tick the current channel began, the charges already paid and whether a lock was seen in it (None: not
+    /// channelling)
+    channel: Option<(usize, usize, bool)>,
 }
 
 impl Blue {
@@ -233,21 +249,21 @@ impl StablePassive for Blue {
             self.channel = None;
             return;
         }
-        let (start, paid) = *self.channel.get_or_insert((now, 0));
+        let (start, paid, seen) = *self.channel.get_or_insert((now, 0, false));
         // the lit enemy gone or out of q_break: the data's next wave sees no flag and folds the laser
         let (locked, near) = locked_near(sim, me, self.p.q_break);
-        if locked > 0 && !near || locked == 0 && now > start + 2 {
+        if let Some(why) = folds(locked, near, seen, now - start) {
             sim.entity_remove_buff(me, &gp("q_ch"));
             self.channel = None;
             if let Some(k) = counted("break") {
-                let why = if locked == 0 { "target gone" } else { "out of range" };
                 wlog(format!("{} BREAK #{k}: laser folded after {} ticks ({why})", head(sim, me), now - start));
             }
             return;
         }
+        let seen = seen || locked > 0;
         let due = charges(start, now, self.p.p_every);
+        self.channel = Some((start, due.max(paid), seen));
         if due > paid {
-            self.channel = Some((start, due));
             self.charge(sim, me);
         }
     }
@@ -320,5 +336,19 @@ mod tests {
     fn near_is_a_circle() {
         assert!(within((0, 0), (85000, 0), 85000));
         assert!(!within((0, 0), (61000, 61000), 85000));
+    }
+
+    #[test]
+    fn the_first_wave_is_waited_for() {
+        // no lock yet on the third tick: the first wave is still to leave (0.45 folded every laser here)
+        assert_eq!(folds(0, false, false, 3), None);
+        assert_eq!(folds(0, false, false, LOCK_WAIT), None);
+        // no lock ever put on: folded once the wait is over
+        assert_eq!(folds(0, false, false, LOCK_WAIT + 1), Some("target gone"));
+        // the lit enemy dead or the lock run out after it was seen
+        assert_eq!(folds(0, false, true, 40), Some("target gone"));
+        // lit and near: on; lit but beyond q_break: folded
+        assert_eq!(folds(1, true, true, 40), None);
+        assert_eq!(folds(1, false, true, 40), Some("out of range"));
     }
 }

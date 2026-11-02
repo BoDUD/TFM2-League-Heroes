@@ -92,8 +92,27 @@ struct Stats {
     buff_lines: usize,
 }
 
-/// Lines listing a Viego's display buffs when they change (the check that the look buff reaches the display world).
-const BUFF_LINES: usize = 400;
+/// Lines listing a Viego's own display buffs when they change (the check that the look buff reaches the display world), a
+/// launch: any change while fewer than BUFF_LINES / 2 are written, one with a possession's buffs on up to BUFF_LINES. Only
+/// his own buffs count ([`own_buffs`]): 2026-11-03, another mod's `sed_c:<hex>:<hex>:<hex>` renamed itself all the time
+/// and every rename was a line (416 lines, 86 KB of a 159 KB log, under the old cap of 400).
+const BUFF_LINES: usize = 40;
+
+/// His own buffs on his display entity (`league_viego…`): the ones the `display buffs` lines compare and list.
+pub fn own_buffs<'a>(buffs: &[&'a [u8]]) -> Vec<&'a [u8]> {
+    buffs.iter().copied().filter(|b| b.starts_with(HERO.as_bytes())).collect()
+}
+
+/// A possession's buffs among them: the look and the moves (`league_viego_soul…`), the borrowed stats and the rest of the
+/// passive's (`league_viego_p_…`), the data's shape buff - not his sim tag, which he carries all game.
+pub fn soulish(buffs: &[&[u8]]) -> bool {
+    buffs.iter().any(|b| b.starts_with(b"league_viego_soul") || b.starts_with(b"league_viego_p_") || *b == SHAPE)
+}
+
+/// One more `display buffs` line after `written` of them this launch ([`BUFF_LINES`]).
+pub fn buff_line_due(written: usize, soul: bool) -> bool {
+    written < if soul { BUFF_LINES } else { BUFF_LINES / 2 }
+}
 
 /// The data's possession buff on his display entity (the add-on copy adds it with the possession's pictures).
 const SHAPE: &[u8] = b"league_viego_shape";
@@ -167,6 +186,19 @@ struct Clock {
 static CLOCK: Mutex<Clock> = Mutex::new(Clock { secs: None, rate: 60.0, ticking: false, minute: None });
 const CLOCK_PATH: &str = "ingame.header.game_time.value";
 
+/// When the display hook last saw a Viego in a display world: the clock's `screen clock` lines are written only while one
+/// is on the screen (2026-11-03: a line a minute of every watched match, 33 of the launch's 40 from matches without him).
+static VIEGO_SEEN: Mutex<Option<std::time::Instant>> = Mutex::new(None);
+
+/// A Viego seen on the screen `ago` before now counts as on it still (the display hook and the clock run every frame).
+pub fn still_on_screen(ago: Option<std::time::Duration>) -> bool {
+    ago.is_some_and(|d| d.as_secs_f64() < 2.0)
+}
+
+fn viego_on_screen() -> bool {
+    still_on_screen(VIEGO_SEEN.lock().ok().and_then(|s| *s).map(|t| t.elapsed()))
+}
+
 /// "12:34" -> 754.
 pub fn clock_secs(text: &str) -> Option<usize> {
     let (m, s) = text.trim().split_once(':')?;
@@ -185,6 +217,7 @@ pub struct ClockReader;
 
 impl StableExtension for ClockReader {
     fn post_update(&self, ctx: &mut StableClient<'_>, _dt: u64) {
+        let viego = viego_on_screen();
         let Ok(mut c) = CLOCK.lock() else { return };
         if !ctx.is_in_game() {
             game_places::clock::observe(false, None);
@@ -215,7 +248,8 @@ impl StableExtension for ClockReader {
             }
             None => c.secs = Some((secs, now)),
         }
-        if c.ticking && c.minute != Some(secs / 60) {
+        // a line a minute while a Viego is on the screen (the minute he comes on at once)
+        if c.ticking && c.minute != Some(secs / 60) && viego {
             c.minute = Some(secs / 60);
             wlog(format!("screen clock {:02}:{:02} ({:.0} ticks a second)", secs / 60, secs % 60, c.rate));
         }
@@ -327,6 +361,9 @@ unsafe fn dress_viego(world: usize, ents: &[Ent]) {
             continue;
         }
         st.viegos += 1;
+        if let Ok(mut seen) = VIEGO_SEEN.lock() {
+            *seen = Some(now);
+        }
         let Some(res) = string_at(v + RES_CAP, 64) else { continue };
         let (bp, bn) = (q(v + BUFFS_PTR), q(v + BUFFS_LEN));
         let buffs: Vec<&[u8]> = if plausible(bp) && bn <= 256 {
@@ -340,12 +377,12 @@ unsafe fn dress_viego(world: usize, ents: &[Ent]) {
         } else {
             Vec::new()
         };
-        // the soul's buffs are logged whenever they change (the first BUFF_LINES other changes too) - not his sim tag,
-        // which he carries all game: with it every buff change was a line (2026-10-30: 1876 lines in two sets)
-        let soulish = buffs.iter().any(|b| b.starts_with(b"league_viego_soul") || b.starts_with(b"league_viego_p_")
-            || *b == SHAPE);
-        if st.buff_lines < BUFF_LINES || soulish {
-            let joined = buffs.join(&b", "[..]);
+        // his own buffs are logged when they change: a possession's up to BUFF_LINES a launch, any other change the first
+        // BUFF_LINES / 2 (2026-10-30: 1876 lines in two sets with his sim tag counted as the soul's; 2026-11-03: 416 lines
+        // of another mod's renaming buff)
+        let mine = own_buffs(&buffs);
+        if buff_line_due(st.buff_lines, soulish(&mine)) {
+            let joined = mine.join(&b", "[..]);
             if !st.buffsets.iter().any(|b| b.0 == world && b.1 == key && b.2 == joined) {
                 st.buffsets.retain(|b| !(b.0 == world && b.1 == key));
                 st.buffsets.push((world, key, joined.clone()));
@@ -534,6 +571,36 @@ mod tests {
         assert_eq!(wearing(&all, &ends, 592, 1, 24, 5600, 600), None);
         assert_eq!(clock_secs("15:48"), Some(948));
         assert_eq!(clock_secs("x"), None);
+    }
+
+    #[test]
+    fn only_his_own_display_buffs_are_logged() {
+        let b = |v: &[&'static str]| v.iter().map(|s| s.as_bytes()).collect::<Vec<&[u8]>>();
+        // the 2026-11-03 log: another mod's sed_c renamed itself, a line every time
+        let shown = b(&["league_viego_sim:27", "dagger", "sed_c:384:0:0", "sed_reward", "league_viego_q_cd"]);
+        assert_eq!(own_buffs(&shown), b(&["league_viego_sim:27", "league_viego_q_cd"]));
+        let renamed = b(&["league_viego_sim:27", "dagger", "sed_c:d7:7ecc:0", "sed_reward", "league_viego_q_cd"]);
+        assert_eq!(own_buffs(&shown), own_buffs(&renamed), "the rename is no change of his");
+        // a possession's buffs; his sim tag and Q cooldown are none
+        assert!(!soulish(&own_buffs(&shown)));
+        assert!(soulish(&b(&["league_viego_sim:27", "league_viego_soul:league_zeri"])));
+        assert!(soulish(&b(&["league_viego_p_go"])) && soulish(&b(&["league_viego_shape"])));
+    }
+
+    #[test]
+    fn display_buff_lines_are_capped() {
+        assert!(buff_line_due(0, false) && buff_line_due(BUFF_LINES / 2 - 1, false));
+        assert!(!buff_line_due(BUFF_LINES / 2, false), "other changes: the first half only");
+        assert!(buff_line_due(BUFF_LINES / 2, true) && buff_line_due(BUFF_LINES - 1, true));
+        assert!(!buff_line_due(BUFF_LINES, true), "a possession's too: BUFF_LINES in all");
+    }
+
+    #[test]
+    fn the_clock_is_logged_while_a_viego_is_on_the_screen() {
+        use std::time::Duration;
+        assert!(still_on_screen(Some(Duration::from_millis(16))));
+        assert!(!still_on_screen(Some(Duration::from_secs(3))), "the match on the screen has no Viego");
+        assert!(!still_on_screen(None), "no Viego seen yet");
     }
 
     #[test]

@@ -500,7 +500,10 @@ def build(p):
     # ------------------------------------------------------------------ ult: arms R (the controller fires it)
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
     ult = action("idle", 3, p["r_cd"], 1, p["r_slot"], "None", "EnemyChampion",
-                 combine(init, refresh("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"], reset))), key="ult")
+                 # the refund reads the arm flag 3 ticks before it ends (a flag of n ticks is seen on n - 1 of them,
+                 # champion-data §8): read on its last tick it was always gone, so an unused window never refunded
+                 # (11-02's logs: ult_press saw 0 refunds for Orianna, Ryze, Aphelios and Swain)
+                 combine(init, refresh("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"] - 3, reset))), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

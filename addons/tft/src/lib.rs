@@ -37,6 +37,7 @@ pub mod sentinel;
 pub mod sevika;
 pub mod shiohyu;
 pub mod silco;
+pub mod sim_tag;
 pub mod smeech;
 pub mod sohm;
 pub mod steb;

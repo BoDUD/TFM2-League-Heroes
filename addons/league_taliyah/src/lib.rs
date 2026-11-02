@@ -213,7 +213,7 @@ pub fn push_out(w: &Wall, (x, y): (u64, u64), r: u64) -> (u64, u64) {
 
 /// 这一 tick 单位该在哪（`None`：不用动）。进了墙：上一 tick 在墙外就退回去，只留顺着墙的那一半移动（竖墙留 y、横墙
 /// 留 x），留不住就整个退回；上一 tick 也在墙里（墙刚立起压着它、她刚跳下墙），就推出去（推到的地方又在另一块墙里，
-/// 就接着从那块推，最多推几次）。
+/// 就接着从那块推，最多推几次）；推完还在墙里，就找最近的出口（`push_clear`），找不到就不推。
 pub fn hold(walls: &[Wall], last: Option<(u64, u64)>, now: (u64, u64), r: u64) -> Option<(u64, u64)> {
     let w = walls.iter().find(|w| inside(w, now, r))?;
     if let Some(l) = last.filter(|&l| clear(walls, l, r)) {
@@ -230,7 +230,55 @@ pub fn hold(walls: &[Wall], last: Option<(u64, u64)>, now: (u64, u64), r: u64) -
             None => break,
         }
     }
-    Some(q)
+    if clear(walls, q, r) {
+        return Some(q);
+    }
+    push_clear(walls, now, r)
+}
+
+/// 出口找几层（从一块墙出来又进了另一块，再从那块出）。
+pub const PUSH_DEPTH: usize = 3;
+
+/// 单位在 `q`、压在墙 `w` 上时能从哪出去：竖墙只往她那一侧，横墙上下两边和两头。
+fn exits(w: &Wall, q: (u64, u64), r: u64) -> Vec<(u64, u64)> {
+    match w.side {
+        Side::Upright { .. } => vec![push_out(w, q, r)],
+        Side::Flat => {
+            let (ey, ex) = (w.hh + r + 1, w.hw + r + 1);
+            vec![(q.0, w.y.saturating_sub(ey)), (q.0, w.y + ey), (w.x.saturating_sub(ex), q.1), (w.x + ex, q.1)]
+        }
+    }
+}
+
+/// 推出所有墙：一段横墙往上推正好进了叠在上面的另一段、再推回来，照 `push_out` 一块块推会在两段之间来回（0.2.x，11-02 的
+/// 日志：小兵、阿兹尔、她自己被这样每 tick 推一次，一面墙推了几千次）。这里在压着它的墙的出口里找离 `now` 最近的空地，出口
+/// 还在别的墙里就从那块接着找，最多 `PUSH_DEPTH` 层；都不行就不推（None）。
+pub fn push_clear(walls: &[Wall], now: (u64, u64), r: u64) -> Option<(u64, u64)> {
+    let d2 = |q: (u64, u64)| (q.0 as f64 - now.0 as f64).powi(2) + (q.1 as f64 - now.1 as f64).powi(2);
+    let mut frontier = vec![now];
+    for _ in 0..PUSH_DEPTH {
+        let mut best: Option<(u64, u64)> = None;
+        let mut next = Vec::new();
+        for &q in &frontier {
+            for w in walls.iter().filter(|w| inside(w, q, r)) {
+                for e in exits(w, q, r) {
+                    if clear(walls, e, r) {
+                        if best.is_none_or(|b| d2(e) < d2(b)) {
+                            best = Some(e);
+                        }
+                    } else if !next.contains(&e) {
+                        next.push(e);
+                    }
+                }
+            }
+        }
+        if best.is_some() {
+            return best;
+        }
+        next.truncate(64);
+        frontier = next;
+    }
+    None
 }
 
 /// 横墙第 k 段算出来的墙心：从她脚下朝目标 k×`r_seg`（目标就在她脚下时朝右）。
@@ -585,5 +633,21 @@ mod tests {
         assert_eq!(snap((352000, 400000), &found, &[(352400, 400000)], 10000), None);
         // too far from where it should be
         assert_eq!(snap((378000, 400000), &found, &[], 10000), None);
+    }
+
+    #[test]
+    fn a_unit_between_two_flat_pieces_ends_clear_of_both() {
+        // 11-02, m=2343: three pieces of one lay 24688 apart down a steep line; minion #413 (radius 10000) was pushed up
+        // out of one piece into the next and back every tick, between (483854, 474860) and (483854, 467546)
+        let p = p();
+        let walls = [Wall::flat(&p, (476669, 508235), 999), Wall::flat(&p, (484823, 483547), 999),
+                     Wall::flat(&p, (492978, 458859), 999)];
+        let r = 10000;
+        for now in [(483854, 474860), (483854, 467546)] {
+            let q = hold(&walls, None, now, r).expect("pushed");
+            assert!(clear(&walls, q, r), "still inside a wall at {q:?} from {now:?}");
+            // the next tick it stands clear: nothing more to do
+            assert_eq!(hold(&walls, Some(q), q, r), None);
+        }
     }
 }
