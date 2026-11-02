@@ -39,8 +39,8 @@ CLIP = f"{ID}_sfx_"
 # Krug 0.11, Ao Shin 0.13, Scar 0.14, Renni 0.15, Smeech 0.16, Sevika 0.17, Steb 0.18, Nomsy 0.19, Idas 0.20, Daeja 0.21,
 # Shi Oh Yu 0.22, Sy'fen 0.23, Sohm 0.24, Terra 0.25, Zippy 0.26, the Blue Sentinel 0.27, the Brambleback 0.28, the Crimson
 # Raptor 0.29, the Elder Dragon 0.30, Meepsie 0.31, Murk Wolf 0.32, the Scuttle Crab 0.33, Gromp 0.34, the encyclopedia
-# centres 0.35 (PR #657), the log fixes 0.36 (PR #659), the Sentry 0.37, Brock 0.38, the Cinderling 0.39, T-Hex 0.40
-VERSION = "0.40.0"
+# centres 0.35 (PR #657), the log fixes 0.36 (PR #659), the Sentry 0.37, Brock 0.38, the Cinderling 0.39, the Rift Herald 0.40 (PR #663), T-Hex 0.41
+VERSION = "0.41.0"
 ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 AD = ADi + O + "100%" + E
