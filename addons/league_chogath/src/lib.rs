@@ -12,7 +12,8 @@
 //!   league.dll 按身上的层数把他画大，读到的永远是 1 层（2026-11-02：两层两分钟，画的一直是 x1.30），它也数这些记号。
 //! - **AI 钩子 feast**（诺手大招附加包的做法）：读射程内敌方英雄的生命、护盾、免死和受到伤害的增减，照主包的数字算这一口：
 //!   `R_DMG` + 他最大生命的 `R_HP`% 真实伤害，加法强 `R_AP`% 的魔法伤害（主包先挂 100% 魔抗穿透，等于真实）。有人一口吃得死：
-//!   放，几个时吃生命 + 护盾最少的，AI 没想放也放；AI 想放 R 却吃不死：改成普攻那个人（打不到就走过去）。
+//!   放，几个时吃生命 + 护盾最少的，AI 没想放也放；AI 想放 R 却吃不死：改成普攻那个人（打不到就走过去）。射程和游戏的 AI
+//!   一样算到两人的身体（`reach`：中心到中心 `R_RANGE` + 两个半径）；`FEAST HELD` 写出真正的原因（`held`）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_chogath.log`，每次启动游戏重写，上一次的留在 .prev.log；你看的
 //! 那场全记，服务端预模拟每种前 `PRESIM_FIRST` 行、之后每 `PRESIM_EVERY` 行记一行。
@@ -144,6 +145,18 @@ pub fn bite(max_hp: usize, ap: usize) -> usize {
     R_DMG + max_hp * R_HP / 100 + ap * R_AP / 100
 }
 
+/// Feast's reach, centre to centre: the game's AI starts an action at its `range` plus both units' radii
+/// (champion-data.md, league_garen E). 0.1.4 counted R_RANGE alone, so a champion the AI fed on from 30000-50000 was
+/// "out of range", the Feast held and turned into an attack.
+pub fn reach(my_radius: usize, their_radius: usize) -> u64 {
+    (R_RANGE + my_radius + their_radius) as u64
+}
+
+/// A squared centre-to-centre distance (`StableSim::distance_sq`) within `reach`.
+pub fn within(dist_sq: u64, reach: u64) -> bool {
+    dist_sq <= reach.saturating_mul(reach)
+}
+
 /// 一个敌方英雄：生命、护盾，身上 buff 的免死和受到伤害增减。
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct Foe {
@@ -175,6 +188,87 @@ impl Foe {
 /// 吃得死的人里生命 + 护盾最少的。
 pub fn best_kill(foes: &[Foe], d: usize) -> Option<Foe> {
     foes.iter().copied().filter(|f| f.dies_to(d)).min_by_key(|f| (f.ehp(), f.id))
+}
+
+/// The AI's Feast target as the hook reads it: the champion, how far he stands (centre to centre) against the reach
+/// (R_RANGE plus both bodies), and whether he can be targeted.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct Aimed {
+    pub foe: Foe,
+    pub dist: u64,
+    pub reach: u64,
+    pub targetable: bool,
+}
+
+/// Why the AI's Feast was held (the HELD line; 0.1.4 always said "hp + shield > a bite", even of a champion one bite
+/// killed who stood out of its range).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Held {
+    /// the AI's R has no unit target
+    NoTarget,
+    /// the target is no enemy champion alive
+    NotFoe(usize),
+    /// below ULT_LEVEL
+    Level(usize),
+    /// R's cooldown left (None: unread)
+    Cooldown(Option<usize>),
+    OutOfRange { id: usize, dist: u64, reach: u64 },
+    Untargetable(usize),
+    /// `is_valid_input` refuses the R on him
+    Invalid(usize),
+    Undying(usize),
+    /// one bite (after his damage-taken changes) leaves him alive
+    NoKill { id: usize, ehp: usize, bite: usize },
+}
+
+impl Held {
+    pub fn text(&self) -> String {
+        match *self {
+            Held::NoTarget => "no champion target".to_string(),
+            Held::NotFoe(x) => format!("#{x} is no enemy champion alive"),
+            Held::Level(l) => format!("level {l} < {ULT_LEVEL}"),
+            Held::Cooldown(Some(t)) => format!("R on cooldown ({t} ticks)"),
+            Held::Cooldown(None) => "R's cooldown unread".to_string(),
+            Held::OutOfRange { id, dist, reach } => format!("#{id} out of range ({dist} > {reach} centre to centre)"),
+            Held::Untargetable(x) => format!("#{x} untargetable"),
+            Held::Invalid(x) => format!("R on #{x} is no valid input"),
+            Held::Undying(x) => format!("#{x} cannot die"),
+            Held::NoKill { id, ehp, bite } => format!("#{id} hp + shield {ehp} > a bite of {bite}"),
+        }
+    }
+}
+
+/// Every reason the AI's Feast on `target` is held: his level, R's cooldown `cd`, then the target - out of range,
+/// untargetable, refused by the game (`valid`), cannot die, or one bite of `d` leaves him alive.
+pub fn held(target: Option<usize>, aimed: Option<Aimed>, level: usize, cd: Option<usize>, valid: bool, d: usize) -> Vec<Held> {
+    let mut why = Vec::new();
+    if level < ULT_LEVEL {
+        why.push(Held::Level(level));
+    }
+    if cd != Some(0) {
+        why.push(Held::Cooldown(cd));
+    }
+    match (target, aimed) {
+        (None, _) => why.push(Held::NoTarget),
+        (Some(x), None) => why.push(Held::NotFoe(x)),
+        (Some(x), Some(a)) => {
+            if a.dist > a.reach {
+                why.push(Held::OutOfRange { id: x, dist: a.dist, reach: a.reach });
+            }
+            if !a.targetable {
+                why.push(Held::Untargetable(x));
+            }
+            if !valid {
+                why.push(Held::Invalid(x));
+            }
+            if a.foe.undying {
+                why.push(Held::Undying(x));
+            } else if !a.foe.dies_to(d) {
+                why.push(Held::NoKill { id: x, ehp: a.foe.ehp(), bite: a.foe.damage_from(d) });
+            }
+        }
+    }
+    why
 }
 
 /// The mark of the `k`th stack (2 and up): a name of its own, which the game's display keeps.
@@ -313,26 +407,35 @@ impl StablePlayerAi for FeastAi {
             (|| {
                 let pl = sim.get_player(player)?;
                 let cd = pl.cooldowns().map(|c| c.3);
+                let level = pl.level();
                 let me = pl.champion().filter(|e| e.is_alive())?;
                 // `is_valid_input` does not look at cooldowns (league_pyke): an R order on cooldown holds him still
-                let free = pl.level() >= ULT_LEVEL && cd == Some(0);
-                let (id, team) = (me.id(), me.team());
-                let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
+                let free = level >= ULT_LEVEL && cd == Some(0);
+                let (id, team, body) = (me.id(), me.team(), me.radius());
                 let enemy = |e: &StableEntity<'_, '_>| e.is_champion() && e.is_alive() && e.team() != team;
+                // (centre to centre squared, R_RANGE plus both bodies): as far as the game's AI casts from
+                let span = |e: &StableEntity<'_, '_>| (sim.distance_sq(id, e.id()), reach(body, e.radius()));
                 let foes: Vec<Foe> = (0..sim.entity_count())
                     .filter_map(|i| sim.entity_at(i))
-                    .filter(|e| enemy(e) && e.is_targetable() && sim.distance_sq(id, e.id()) <= r2)
+                    .filter(|e| enemy(e) && e.is_targetable() && {
+                        let (d2, r) = span(e);
+                        within(d2, r)
+                    })
                     .map(|e| read_foe(&e))
                     .collect();
                 let target = ai_target.and_then(|t| sim.get_entity(t));
-                let ai_foe = target.as_ref().filter(|e| enemy(e)).map(|e| read_foe(e));
+                let aimed = target.as_ref().filter(|e| enemy(e)).map(|e| {
+                    let (d2, r) = span(e);
+                    // rounded up: past the reach by any fraction reads as past it, as `within` counts it
+                    Aimed { foe: read_foe(e), dist: (d2 as f64).sqrt().ceil() as u64, reach: r, targetable: e.is_targetable() }
+                });
                 let target_pos = target.as_ref().map(|e| e.pos());
                 let d = bite(me.hp().1, me.stat().magic_power);
                 let line = (head(&sim, id), on_screen(&sim));
-                Some((d, free, foes, ai_foe, target_pos, me.pos(), line, buffs_named(&sim, id, STACK).len()))
+                Some((d, (free, level, cd), foes, aimed, target_pos, me.pos(), line, buffs_named(&sim, id, STACK).len()))
             })()
         };
-        let (d, free, foes, ai_foe, target_pos, my_pos, (line, shown), stacks) = read?;
+        let (d, (free, level, cd), foes, aimed, target_pos, my_pos, (line, shown), stacks) = read?;
         let foes: Vec<Foe> = foes.into_iter().filter(|f| ctx.is_valid_input(&ult(f.id))).collect();
         if free && !busy {
             if let Some(f) = best_kill(&foes, d) {
@@ -350,16 +453,14 @@ impl StablePlayerAi for FeastAi {
         if !wants_ult {
             return None;
         }
-        // AI 想放 R 却吃不死：改普攻那个人（打不到就走过去），R 留着
+        // AI 想放 R 却吃不死（或够不着、冷却、等级、输入不合法）：改普攻那个人（打不到就走过去），R 留着
         if self.last_hold.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
             self.last_hold = Some(tick);
             if noted("feast_held", shown).is_some() {
-                let who = match (ai_target, ai_foe) {
-                    (Some(x), Some(f)) => format!("#{x} hp + shield {} > a bite of {}", f.ehp(), f.damage_from(d)),
-                    (Some(x), None) => format!("#{x} is no enemy champion alive"),
-                    _ => "no target".to_string(),
-                };
-                wlog(format!("{line} FEAST HELD: {who}, attacking instead"));
+                let valid = ai_target.is_some_and(|x| ctx.is_valid_input(&ult(x)));
+                let why: Vec<String> = held(ai_target, aimed, level, cd, valid, d).iter().map(Held::text).collect();
+                let why = if why.is_empty() { "no reason found".to_string() } else { why.join(", ") };
+                wlog(format!("{line} FEAST HELD: {why}, attacking instead"));
             }
         }
         if let Some(x) = ai_target {
@@ -442,5 +543,49 @@ mod tests {
         assert_eq!(best_kill(&[high, low, undying], d), Some(low));
         assert_eq!(best_kill(&[high, tough], d), None); // 450 x 80% = 360 < 400
         assert_eq!(best_kill(&[high], d), None);
+    }
+
+    #[test]
+    fn feast_reaches_as_far_as_the_ai_casts() {
+        // two champions of the game's 10000 radius: R_RANGE + both bodies, centre to centre
+        let r = reach(10_000, 10_000);
+        assert_eq!(r, 50_000);
+        // 0.1.4 held these: past R_RANGE alone, within the game's reach
+        assert!(within(45_000 * 45_000, r));
+        assert!(within(50_000 * 50_000, r));
+        assert!(!within(50_001 * 50_001, r));
+        // a bigger body (Feast stacks) reaches farther
+        assert!(within(55_000 * 55_000, reach(15_000, 10_000)));
+        // distance_sq's "no slot" answer
+        assert!(!within(u64::MAX, r));
+    }
+
+    #[test]
+    fn the_held_line_gives_the_real_reason() {
+        let d = 545;
+        // the 11-02 log: "#522 hp + shield 240 > a bite of 545" - one bite killed him, he stood out of reach
+        let low = Foe { id: 522, hp: 200, shield: 40, ..Foe::default() };
+        let far = Aimed { foe: low, dist: 52_000, reach: 50_000, targetable: true };
+        let why = held(Some(522), Some(far), 9, Some(0), true, d);
+        assert_eq!(why, vec![Held::OutOfRange { id: 522, dist: 52_000, reach: 50_000 }]);
+        assert!(!why.iter().any(|h| h.text().contains("a bite")));
+        // in reach and too healthy: the bite, truthfully
+        let high = Aimed { foe: Foe { id: 7, hp: 900, ..Foe::default() }, dist: 40_000, reach: 50_000, targetable: true };
+        assert_eq!(held(Some(7), Some(high), 9, Some(0), true, d), vec![Held::NoKill { id: 7, ehp: 900, bite: 545 }]);
+        assert_eq!(Held::NoKill { id: 7, ehp: 900, bite: 545 }.text(), "#7 hp + shield 900 > a bite of 545");
+        // killable and in reach, but R not ready or not his to press
+        let near = Aimed { foe: low, dist: 30_000, reach: 50_000, targetable: true };
+        assert_eq!(held(Some(522), Some(near), 9, Some(120), true, d), vec![Held::Cooldown(Some(120))]);
+        assert_eq!(held(Some(522), Some(near), 4, Some(0), true, d), vec![Held::Level(4)]);
+        assert_eq!(held(Some(522), Some(near), 9, Some(0), false, d), vec![Held::Invalid(522)]);
+        let hidden = Aimed { targetable: false, ..near };
+        assert_eq!(held(Some(522), Some(hidden), 9, Some(0), false, d), vec![Held::Untargetable(522), Held::Invalid(522)]);
+        let undying = Aimed { foe: Foe { undying: true, ..low }, ..near };
+        assert_eq!(held(Some(522), Some(undying), 9, Some(0), true, d), vec![Held::Undying(522)]);
+        // no champion to aim at
+        assert_eq!(held(None, None, 9, Some(0), true, d), vec![Held::NoTarget]);
+        assert_eq!(held(Some(3), None, 9, Some(0), true, d), vec![Held::NotFoe(3)]);
+        // every check passed: nothing to hold (the hook casts)
+        assert!(held(Some(522), Some(near), 9, Some(0), true, d).is_empty());
     }
 }

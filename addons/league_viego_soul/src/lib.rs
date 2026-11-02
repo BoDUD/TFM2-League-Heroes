@@ -53,6 +53,8 @@ pub const ON: &str = "league_viego_p_on";
 pub const SAFE: &str = "league_viego_p_safe";
 pub const CDR: &str = "league_viego_p_cdr";
 pub const GO: &str = "league_viego_p_go";
+/// `p_go`'s ticks: his next action takes it (the data plays the possession's show), or it runs out.
+pub const GO_T: u32 = 600;
 pub const OFF: &str = "league_viego_p_off";
 /// 每份模拟的佛耶戈一个编号（`league_viego_sim:<编号>`，没有数值、没有画面）：2v2 这类对局来历都是「未知」，游戏同时跑整轮
 /// 好几场、每场好几遍，日志里分不清屏幕放的是哪一遍（用户：「画面根本没附身啊」，别的模拟里附身 PPU 英雄很多次）；屏幕上
@@ -263,6 +265,8 @@ pub struct Possess {
     pub dash_until: usize,
     /// What the sim showed of the possession's data side (p_go taken, shape on), for the log: 0.1.6.
     pub seen: (bool, bool),
+    /// The tick p_go was put on him (its `GO_T` ticks run from there).
+    pub go_at: usize,
     /// This sim's number (`SIM_TAG`), drawn at the first update.
     pub sim_no: u64,
     /// The mist may rise again from this tick (0.2.0), and how many times it rose.
@@ -276,6 +280,12 @@ pub struct Possess {
 /// 破败之雾升不升：没在附身、冷却过了、最近的看得见的敌方英雄在 `trig` 以内（`nearest` = 距离）。
 pub fn mist_due(possessed: bool, now: usize, mist_at: usize, nearest: Option<u64>, trig: u64) -> bool {
     !possessed && now >= mist_at && nearest.is_some_and(|d| d <= trig)
+}
+
+/// `p_go`（`at` 挂上）在 `now` 不见了：是它自己的 `GO_T` tick 到了（差一 tick 也算），不是他的动作拿走的。2026-11-02 的日志：
+/// 21 行「p_go taken by his action (shape buff not yet)」里 11 行正好在附身后 600 tick，是 buff 到时间没了，他根本没出手。
+pub fn go_ran_out(at: usize, now: usize) -> bool {
+    now + 1 >= at + GO_T as usize
 }
 
 impl Possess {
@@ -378,7 +388,8 @@ impl Possess {
         cdr.ult_cooldown_mult = p.p_ult as i32 - p.p_skill as i32;
         sim.add_buff(me, &cdr);
         sim.entity_remove_buff(me, GO);
-        sim.add_buff(me, &timed(GO, 600));
+        sim.add_buff(me, &timed(GO, GO_T));
+        self.go_at = sim.tick();
         let atk = sim.get_entity(me).map_or(0, |e| e.stat().attack.max(0) as usize);
         let heal = p.p_heal as usize + atk * p.p_heal_ratio as usize / 100;
         sim.heal(me, me, heal);
@@ -543,7 +554,12 @@ impl StablePassive for Possess {
             let (go, shape) = (names.iter().any(|b| b == GO), names.iter().any(|b| b == "league_viego_shape"));
             if !go && !self.seen.0 {
                 self.seen.0 = true;
-                wlog(format!("{} p_go taken by his action (shape buff {})", head(sim, me), if shape { "on" } else { "not yet" }));
+                let how = if go_ran_out(self.go_at, now) {
+                    format!("expired after {GO_T} ticks, no action of his took it")
+                } else {
+                    "taken by his action".to_string()
+                };
+                wlog(format!("{} p_go {how} (shape buff {})", head(sim, me), if shape { "on" } else { "not yet" }));
             }
             if shape && !self.seen.1 {
                 self.seen.1 = true;
@@ -719,6 +735,16 @@ mod tests {
         let mut p = Possess::default();
         p.configure(r#"{"e_cd":480,"e_trig":80000,"e_hide":90}"#);
         assert_eq!((p.p.e_cd, p.p.e_trig, p.p.e_hide, p.p.e_ms), (480, 80000, 90, 30));
+    }
+
+    #[test]
+    fn p_go_running_out_is_told_from_his_action_taking_it() {
+        // the 2026-11-02 log: POSSESS at 29343, p_go gone at 29943 - its own 600 ticks, the possession's end too
+        assert!(go_ran_out(29_343, 29_343 + GO_T as usize));
+        assert!(go_ran_out(29_343, 29_343 + GO_T as usize - 1));
+        // gone 579 / 21 ticks in: his action took it
+        assert!(!go_ran_out(45_868, 46_447));
+        assert!(!go_ran_out(11_864, 11_885));
     }
 
     #[test]

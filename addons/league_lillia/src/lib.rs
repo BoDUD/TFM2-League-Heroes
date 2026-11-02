@@ -198,6 +198,12 @@ pub fn own_dust(landed: &[(usize, usize)], target: usize, data: usize) -> usize 
 
 // ===================== 被动 =====================
 
+/// WATCH 一行的计数（每个莉莉娅一份，复活后接着数）：梦尘跳了几次、大招几次、睡着几次、醒了几次、昏睡中掉的血是她自己的
+/// 梦尘几次。
+pub type Tally = [usize; 5];
+/// 每隔这么多 tick 看一次要不要写 WATCH。
+pub const WATCH_EVERY: usize = 1800;
+
 #[derive(Clone, Debug)]
 struct Dusted {
     target: usize,
@@ -234,6 +240,8 @@ struct Dream {
     /// 昏睡中掉的血超过主包数据那一跳、但在她自己落下的梦尘以内（0.1.1 会在这里把人叫醒）。
     slept_through: usize,
     next_report: usize,
+    /// 上一行 WATCH 写出去的计数（还没写过就是全 0）。
+    watched: Tally,
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -272,6 +280,25 @@ fn wake_from_sleep(sim: &mut StableSim<'_>, target: usize, left: u64) {
 }
 
 impl Dream {
+    fn tally(&self) -> Tally {
+        [self.ticks, self.lullabies, self.sleeps, self.wakes, self.slept_through]
+    }
+
+    /// 每 `WATCH_EVERY` tick 看一次：计数和上一行 WATCH 不一样才返回它（写一行）。2026-11-03 的日志：1745 行里 1174 行是
+    /// WATCH，595 行全是 0——以前每 30 秒都写一行，什么都没发生也写。
+    fn watch(&mut self, tick: usize) -> Option<Tally> {
+        if tick < self.next_report {
+            return None;
+        }
+        self.next_report = tick + WATCH_EVERY;
+        let now = self.tally();
+        if tick == 0 || now == self.watched {
+            return None;
+        }
+        self.watched = now;
+        Some(now)
+    }
+
     /// 梦尘：每个身上有 `league_lillia_dust` 的活着的敌方英雄按时跳伤害。返回这一 tick 打给每个目标的（减免前）：
     /// 只是排进了效果队列，下一次 on_update 之前才扣血。
     fn dust(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, ap: usize, tick: usize) -> Vec<(usize, usize)> {
@@ -440,19 +467,11 @@ impl StablePassive for Dream {
             self.lullaby(sim, me, tick);
         }
         self.sleep(sim, me, ap, tick, &landed);
-        if tick >= self.next_report {
-            self.next_report = tick + 1800;
-            if tick > 0 {
-                wlog(format!(
-                    "{} WATCH: dust ticks {}, lullabies {}, sleeps {}, wakes {}, slept through her dust {}",
-                    head(sim, me),
-                    self.ticks,
-                    self.lullabies,
-                    self.sleeps,
-                    self.wakes,
-                    self.slept_through
-                ));
-            }
+        if let Some([ticks, lullabies, sleeps, wakes, slept_through]) = self.watch(tick) {
+            wlog(format!(
+                "{} WATCH: dust ticks {ticks}, lullabies {lullabies}, sleeps {sleeps}, wakes {wakes}, slept through her dust {slept_through}",
+                head(sim, me)
+            ));
         }
     }
 }
@@ -618,6 +637,25 @@ mod tests {
         }
         assert_eq!(hp, 1500 - 21);
         assert!(woke_011 && !woke);
+    }
+
+    #[test]
+    fn watch_is_written_only_when_a_count_changed() {
+        let mut d = Dream::default();
+        assert_eq!(d.watch(0), None, "the start");
+        assert_eq!(d.watch(WATCH_EVERY), None, "nothing happened: no all-zero line");
+        d.ticks = 5;
+        assert_eq!(d.watch(WATCH_EVERY + 200), None, "not yet time");
+        assert_eq!(d.watch(2 * WATCH_EVERY), Some([5, 0, 0, 0, 0]));
+        assert_eq!(d.watch(3 * WATCH_EVERY), None, "the same counts again");
+        d.lullabies = 1;
+        d.sleeps = 1;
+        d.slept_through = 2;
+        // a respawn later than the next look: the look comes at once, then every WATCH_EVERY from there
+        assert_eq!(d.watch(4 * WATCH_EVERY + 619), Some([5, 1, 1, 0, 2]));
+        d.wakes = 1;
+        assert_eq!(d.watch(5 * WATCH_EVERY), None, "not yet time");
+        assert_eq!(d.watch(5 * WATCH_EVERY + 619), Some([5, 1, 1, 1, 2]));
     }
 
     #[test]

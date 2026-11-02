@@ -371,7 +371,10 @@ def build(p):
     # unused, it ends with the cooldown capped at 60 ticks (cooltime x 100 / (100 + mult), league_tahmkench's r_retry)
     retry = p["r_cd"] * 100 // 60 - 100
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_retry", 3, ult_cooldown_mult=retry)))
-    arm_r = combine(refresh("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"], reset)))
+    # the refund reads the arm flag 3 ticks before it ends (a flag of n ticks is seen on n - 1 of them, champion-data
+    # §8): read on its last tick it was always gone, so an unused window never refunded (11-02's logs: ult_press saw 0
+    # refunds for Orianna, Ryze, Aphelios and Swain)
+    arm_r = combine(refresh("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"] - 3, reset)))
     # league_orianna's x trick: the game's AI scores the branch the flags pick between ticks (a bare flag is worth
     # nothing to it) - r_x is never there between ticks, so the AI reads Demonflare's burst; when the slot runs, the
     # flag is up and the window opens

@@ -55,7 +55,7 @@
 
 ### 剑姬破绽附加包
 
-[剑姬破绽附加包](../../addons/league_fiora_duel/README.md)：`league_fiora_duel` v0.2.2
+[剑姬破绽附加包](../../addons/league_fiora_duel/README.md)：`league_fiora_duel` v0.2.3
 
 主包 `league` 保持纯数据。数据分不清一次攻击打中的是谁，所以主包里剑姬大招「无双挑战」的 4 处破绽记在剑姬自己身上：
 大招期间她打中**任何一个**敌方英雄都会刺掉一处（模拟里 42 次有 16 次刺在别人身上）。主包只保证胜利之地落在被挑战的人脚下

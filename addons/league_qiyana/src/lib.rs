@@ -16,6 +16,7 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_qiyana.log`，每次启动游戏重写。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -54,8 +55,12 @@ fn me_in_ivern_brush(sim: &StableSim<'_>, me: usize) -> bool {
     sim.get_entity(me).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == IVERN_BRUSH))
 }
 
-/// 同一类日志隔这么多 tick 才再写。
-const LOG_EVERY: usize = 120;
+/// 同一种元素隔这么多 tick 才再记一行 ELEMENT（每份模拟、每个她各算各的：[`element_news`]）。
+const LOG_SAME: usize = 120;
+/// 日志条数（2026-11-03 的日志：一次启动 0.68-0.71 MB，ELEMENT 约 3200 行、SPAWN 约 620 行都不限量）：每种整次启动一个计数，
+/// 服务器的预模拟先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条；你看的那场（画面、观战、回放）每条都写。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
 
 // ===================== 日志 =====================
 
@@ -105,6 +110,28 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     };
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
+}
+
+/// 这一类的第 `n` 行写不写：你看的那场（`shown`）每行都写，预模拟写前 `LOG_FIRST` 行，之后每 `LOG_EVERY` 行一行。
+pub fn logged(n: usize, shown: bool) -> bool {
+    shown || n <= LOG_FIRST || n % LOG_EVERY == 0
+}
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 这一类日志又来了一行：它是整次启动的第几行（不写就是 None，[`logged`]）。
+fn counted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    logged(*n, shown).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 // ===================== 参数 =====================
@@ -324,15 +351,39 @@ impl StableEffectType for Rock {
         if d > 0 {
             sim.deal_damage(caster, target, d, 0, AttackTypeV1::Skill);
             if champion {
-                wlog(format!("{} ROCK #{target}: hp {hp}/{max}, {d} more before armour", head(sim, caster)));
+                if let Some(n) = counted("rock", on_screen(sim)) {
+                    wlog(format!("{} ROCK #{n} on #{target}: hp {hp}/{max}, {d} more before armour", head(sim, caster)));
+                }
             }
         }
     }
 }
 
-struct Enchant {
-    last: Mutex<Option<(usize, Element)>>,
+/// (这份模拟的编号, 她) -> 上一次记下 ELEMENT 的 (tick, 元素)。以前整个附加包只有一个 `last`：服务器并排跑的两份预演
+/// 种子、局、实体号都一样，互相冲掉对方记的那一次（2026-11-03 复查）。
+static ELEMENT_LOGGED: Mutex<Vec<((u64, usize), (usize, Element))>> = Mutex::new(Vec::new());
+
+/// 这一次附魔值不值得记一行：这份模拟（`sim`，[`SIM_TAG`]）里她（`me`）上一次记的是别的元素，或者已经过了 `LOG_SAME`
+/// tick（值得的话记下这一次）。
+pub fn element_news(sim: u64, me: usize, tick: usize, el: Element) -> bool {
+    let key = (sim, me);
+    let mut all = ELEMENT_LOGGED.lock().unwrap_or_else(|e| e.into_inner());
+    if let Some(slot) = all.iter_mut().find(|(k, _)| *k == key) {
+        let (t0, e0) = slot.1;
+        if e0 == el && tick >= t0 && tick - t0 < LOG_SAME {
+            return false;
+        }
+        slot.1 = (tick, el);
+        return true;
+    }
+    all.push((key, (tick, el)));
+    if all.len() > 256 {
+        all.drain(..64);
+    }
+    true
 }
+
+struct Enchant;
 
 impl StableEffectType for Enchant {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
@@ -371,13 +422,13 @@ impl StableEffectType for Enchant {
         on.attack_speed_mult = p.w_as as i32;
         sim.add_buff(caster, &on);
         sim.add_buff(caster, &BuffV1::named(&qy(el.flag())));
-        let tick = sim.tick();
-        let mut last = self.last.lock().unwrap_or_else(|e| e.into_inner());
-        if last.is_none_or(|(t0, e0)| e0 != el || tick >= t0 + LOG_EVERY) {
-            *last = Some((tick, el));
+        if !element_news(sim_no(sim, caster), caster, sim.tick(), el) {
+            return;
+        }
+        if let Some(n) = counted("element", on_screen(sim)) {
             let d = |v: Option<f64>| v.map_or("-".to_string(), |d| format!("{d:.0}"));
-            wlog(format!("{} ELEMENT {el:?} by {why:?} at ({x}, {y}): grass {} rock {} river {}; {spot:?}", head(sim, caster),
-                         d(near.grass), d(near.rock), d(near.river)));
+            wlog(format!("{} ELEMENT #{n} {el:?} by {why:?} at ({x}, {y}): grass {} rock {} river {}; {spot:?}",
+                         head(sim, caster), d(near.grass), d(near.rock), d(near.river)));
         }
     }
 }
@@ -409,7 +460,9 @@ impl StablePassive for Empress {
         sim.add_buff(me, &BuffV1::named(&tag));
         keep_params(sim, me, &self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Qiyana (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        if let Some(n) = counted("spawn", on_screen(sim)) {
+            wlog(format!("{} SPAWN #{n}: the add-on's Qiyana (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        }
     }
 }
 
@@ -429,7 +482,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:empress"), Empress::default());
-    module.add_native_effect(format!("{ID}:element"), Enchant { last: Mutex::new(None) });
+    module.add_native_effect(format!("{ID}:element"), Enchant);
     module.add_native_effect(format!("{ID}:royal"), Royal);
     module.add_native_effect(format!("{ID}:rock"), Rock);
     host.log(LogLevel::Info, "league_qiyana loaded (Qiyana's elements by the terrain beside her, else by the situation, Royal Privilege per enemy, the rock execute).");
@@ -505,6 +558,28 @@ mod tests {
         assert_eq!(parse_params(r#"{"rp_rest":300,"q_exec":40,"x":1}"#),
                    Params { rp_rest: 300, q_exec: 40, ..Params::default() });
         assert_eq!(parse_params("{}"), Params::default());
+    }
+
+    #[test]
+    fn the_presims_log_the_first_lines_then_a_sample() {
+        assert!(logged(1, false) && logged(LOG_FIRST, false));
+        assert!(!logged(LOG_FIRST + 1, false) && !logged(LOG_EVERY - 1, false));
+        assert!(logged(LOG_EVERY, false) && logged(3 * LOG_EVERY, false));
+        // the match on screen: every line
+        assert!(logged(LOG_FIRST + 1, true) && logged(LOG_EVERY + 1, true));
+    }
+
+    #[test]
+    fn the_same_element_is_skipped_per_sim_and_qiyana() {
+        // sims 901 and 902: the server's twin presims (the same match, set, entity ids and ticks)
+        assert!(element_news(901, 20, 1000, Element::River));
+        assert!(element_news(902, 20, 1000, Element::River), "the twin keeps its own record");
+        assert!(!element_news(901, 20, 1060, Element::River), "the same element within LOG_SAME");
+        assert!(element_news(901, 21, 1060, Element::River), "another Qiyana");
+        assert!(element_news(901, 20, 1070, Element::Rock), "another element");
+        assert!(!element_news(902, 20, 1000 + LOG_SAME - 1, Element::River));
+        assert!(element_news(902, 20, 1000 + LOG_SAME, Element::River), "past LOG_SAME");
+        assert!(element_news(901, 20, 500, Element::Rock), "an earlier tick: another run");
     }
 
     #[test]

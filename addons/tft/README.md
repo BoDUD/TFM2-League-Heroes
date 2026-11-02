@@ -4,6 +4,8 @@ tft 包（mod_id `tft`，源文件在 [`tft/`](../../tft/)）是原生 mod：英
 
 **高清帧**（0.42.0 起，tft 包要单独上创意工坊）：[`src/hd.rs`](src/hd.rs) 是这个包的高清帧表（原来在 `league.dll` 的 [`addons/league_main/src/hd.rs`](../league_main/src/hd.rs) 里，只有两个包都开着时才画）。`init` 先把它交给两个包共用的高清帧引擎 [`addons/hd_engine`](../hd_engine/src/lib.rs)：`tft.dll` 是游戏进程里第一个加载的包 DLL（只开 tft 包，或者 Mods 菜单里排在 `league` 前面）就自己挂钩、画两个包的英雄；不是就把表交给先加载的 `league.dll`，自己不挂（[`src/share.rs`](../hd_engine/src/share.rs)）。新英雄有高清帧：在 `src/hd.rs` 的 `HEROES` 加一行（PPU 和 `tools/art/ppu_hd.py` 里的一致）。引擎的日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`（每次启动重写，上一次的留作 `tft.prev.log`）——挂钩时是挂钩、取表、缩放的行，交给 `league.dll` 时只有一行。
 
+**每份模拟的编号**（2026-11-03，tft 0.46.0）：服务器同一局并排跑两份预模拟，种子、来历（种类、比赛、局）和实体编号全都一样，只按实体编号、或按（种子、来历、实体）记的全局表两份共用，一份会拿走、改掉、清掉另一份的东西。[`src/sim_tag.rs`](src/sim_tag.rs) 是洛里斯、赛芬那套 `SIM_TAG` 的共用版：被动第一次出生时抽一个编号，每次出生挂在单位身上（buff `tft_<单位>_sim:<编号>`，没有数值、没有画面），效果从施法者身上读回来，表按（编号, 实体）记。这一版改过来的：索姆的花和水浪、麦迪的通缉（以前只按实体编号），小木灵的跳跃和治疗、苍蓝雕纹魔像裂隙的「每人一次」、绯红印记树怪的扑击和灼烧、远古巨龙的吐息和引燃、斯特卜的通缉、呲呲的跃起（以前按种子、来历、实体）；远古巨龙等下一拍看处决的「打中的人」只有被动自己用，改放在被动里。
+
 | 英雄 | 模块 | 做什么 |
 |---|---|---|
 | 爆爆 `tft_powder` | — | 纯数据 |

@@ -189,6 +189,30 @@ pub fn parse_params(json: &str) -> Params {
     p
 }
 
+/// The player whose champion `id` is (None: a tower, a minion, a monster).
+fn player_of(sim: &StableSim<'_>, id: usize) -> Option<usize> {
+    (0..sim.player_count()).filter_map(|i| sim.player_at(i)).find(|p| p.champion().is_some_and(|c| c.id() == id)).map(|p| p.id())
+}
+
+/// 灵体倒下时算谁的击杀：最后打他的还在就是他；他在灵体期间死了又复活（新的实体），算他玩家现在的英雄；都没有就算最近的
+/// 活着的敌方英雄——从不算卡尔萨斯自己（0.4.2，league_sion 一样的毛病：11-02 的日志里赛恩 1/6 的倒下算成了自杀）。
+fn killer(sim: &StableSim<'_>, me: usize, last: Option<usize>, player: Option<usize>) -> usize {
+    if let Some(a) = last.filter(|&a| sim.get_entity(a).is_some()) {
+        return a;
+    }
+    if let Some(c) = player.and_then(|p| sim.get_player(p)).and_then(|p| p.champion()).filter(|c| c.is_alive()) {
+        return c.id();
+    }
+    let Some(e) = sim.get_entity(me) else { return me };
+    let (team, here) = (e.team(), e.pos());
+    let d2 = |p: (u64, u64)| (p.0 as f64 - here.0 as f64).powi(2) + (p.1 as f64 - here.1 as f64).powi(2);
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.team() != team && u.is_champion() && u.is_alive())
+        .min_by(|a, b| d2(a.pos()).total_cmp(&d2(b.pos())))
+        .map_or(me, |u| u.id())
+}
+
 // ===================== 被动 =====================
 
 fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
@@ -236,6 +260,8 @@ struct DeathDefied {
     ready: bool,
     /// 最后一个打他的（倒下时算击杀）。
     last_hit: Option<usize>,
+    /// 最后一个打他的英雄的玩家：那个英雄在灵体期间死了又复活（新的实体），击杀算他的新英雄（`killer`）。
+    last_player: Option<usize>,
     next_guard: usize,
     /// 这条命里见过他 1 血以上：游戏 0.6.4 开局第 0 tick 读到的血量是 0，那不是致命伤（赛恩附加包的教训）。
     alive_seen: bool,
@@ -282,7 +308,7 @@ impl DeathDefied {
         sim.entity_remove_buff(me, &sn("p_spirit"));
         sim.entity_remove_buff(me, &sn("p_ward"));
         let (hp, _) = sim.get_entity(me).map_or((0, 0), |e| e.hp());
-        let killer = self.last_hit.filter(|&a| sim.get_entity(a).is_some()).unwrap_or(me);
+        let killer = killer(sim, me, self.last_hit, self.last_player);
         sim.deal_damage_typed(killer, me, hp + 1000, DamageTypeV1::Fixed, AttackTypeV1::Skill);
         if let Some(k) = counted("fall") {
             let h = self.hits;
@@ -307,6 +333,7 @@ impl StablePassive for DeathDefied {
         self.ready = true;
         self.spirit = None;
         self.last_hit = None;
+        self.last_player = None;
         self.next_guard = 0;
         self.alive_seen = false;
         self.hits = Hits::default();
@@ -374,6 +401,7 @@ impl StablePassive for DeathDefied {
             }
         } else if damage > 0 {
             self.last_hit = Some(attacker);
+            self.last_player = player_of(sim, attacker);
         }
     }
 
@@ -542,23 +570,29 @@ fn within<'a>(champs: &'a [(usize, f64)], others: &'a [(usize, f64)], r: f64) ->
     champs.iter().chain(others).filter(move |f| f.1 <= r).map(|f| f.0)
 }
 
-/// 灵体这一 tick 按什么（英雄联盟的灵体站在原地放技能、不能普攻）：R（值得时，全图，近的英雄先）> E（没开着：施法距离里
-/// 的英雄，没有就别的单位）> Q（射程里的英雄，没有就小兵、野怪）> 立痛苦之墙的普攻（墙好了、普攻够得着的英雄）；都没有
-/// 就是空的，他原地站着。`champs` / `others`：看得见的敌方英雄 / 别的单位 (实体, 距离)，近的在前。
-/// `ready`：[R 值得放, Q, E 好了且没开着, 墙好了]。返回 (格子, 目标)。
-pub fn spirit_pick(champs: &[(usize, f64)], others: &[(usize, f64)], ready: [bool; 4]) -> Vec<(InputKindV1, usize)> {
+/// 灵体挑目标时距离只用到施法距离的这么多（0.4.2）：他不能走，目标在边上一挪就够不着，那一招就一直按不出来
+/// （11-02 夜里 0.4.0 的日志：SPIRIT PRESS STUCK 里有 E、Q 和立墙的普攻）。
+pub const SPIRIT_REACH: f64 = 0.9;
+
+/// 灵体这一 tick 按什么（英雄联盟的灵体站在原地放技能、不能普攻）：R（值得时，全图）> E（没开着：施法距离里的英雄，没有
+/// 就别的单位）> Q（射程里的英雄，没有就小兵、野怪）> 立痛苦之墙的普攻（墙好了、普攻够得着的英雄）；距离都打 `SPIRIT_REACH`
+/// 的折扣；都没有就是空的，他原地站着。`r_order`：R 的目标，安魂曲打完剩血最少的先（安魂曲只放得到己方正在打的敌方英雄，
+/// 剩血少的多半正在打；0.4.0 按远近挑，挑中没在打的就按不出来）；`champs` / `others`：看得见的敌方英雄 / 别的单位
+/// (实体, 距离)，近的在前。`ready`：[R 值得放, Q, E 好了且没开着, 墙好了]。返回 (格子, 目标)。
+pub fn spirit_pick(r_order: &[usize], champs: &[(usize, f64)], others: &[(usize, f64)], ready: [bool; 4])
+                   -> Vec<(InputKindV1, usize)> {
     let mut out = Vec::new();
     if ready[0] {
-        out.extend(champs.iter().map(|f| (InputKindV1::Ult, f.0)));
+        out.extend(r_order.iter().map(|&t| (InputKindV1::Ult, t)));
     }
     if ready[2] {
-        out.extend(within(champs, others, E_RANGE).map(|t| (InputKindV1::Skill2, t)));
+        out.extend(within(champs, others, E_RANGE * SPIRIT_REACH).map(|t| (InputKindV1::Skill2, t)));
     }
     if ready[1] {
-        out.extend(within(champs, others, Q_RANGE).map(|t| (InputKindV1::Skill, t)));
+        out.extend(within(champs, others, Q_RANGE * SPIRIT_REACH).map(|t| (InputKindV1::Skill, t)));
     }
     if ready[3] {
-        out.extend(champs.iter().filter(|f| f.1 <= ATK_RANGE).map(|f| (InputKindV1::Attack, f.0)));
+        out.extend(champs.iter().filter(|f| f.1 <= ATK_RANGE * SPIRIT_REACH).map(|f| (InputKindV1::Attack, f.0)));
     }
     out
 }
@@ -599,7 +633,8 @@ enum Want {
 
 /// 灵体按下一招之后，游戏的 AI 没下新命令时隔这么多 tick 才再按（0.3.1 每 tick 都按）。
 pub const PRESS_EVERY: usize = 4;
-/// 同一招对同一个目标按了这么多 tick 还没放出来：记 `SPIRIT PRESS STUCK`，这个目标 `SKIP_T` tick 内不再挑。
+/// 同一招对同一个目标按了这么多 tick 还没放出来：记 `SPIRIT PRESS STUCK`，这个目标 `SKIP_T` tick 内不再挑；R 整招不再按
+/// （0.4.2：R 按不出来是目标没在打，换下一个多半也一样，0.4.0 一个个试过去最多白等 150 tick）。
 pub const PRESS_STUCK: usize = 30;
 pub const SKIP_T: usize = 60;
 
@@ -627,6 +662,8 @@ struct SpiritAi {
     press: Option<Press>,
     /// 按了没放出来的目标：(实体, 到这个 tick 为止不挑)。
     skip: Vec<(usize, usize)>,
+    /// R 按不出来：到这个 tick 为止不按 R。
+    skip_r: usize,
     /// 游戏的 AI 正在让他回城（`still_recalling`）。
     recalling: bool,
 }
@@ -700,8 +737,9 @@ impl StablePlayerAi for SpiritAi {
                 others.retain(|f| !self.skip.iter().any(|s| s.0 == f.0));
                 let e_free = qe[1] && !has_buff(&me, &sn("e_on"));
                 let wall = !has_buff(&me, &sn("w_cd"));
-                Want::Spirit(spirit_pick(&champs, &others,
-                                         [r_ready && r_worth(RWhen::Spirit, &hits, power), qe[0], e_free, wall]))
+                let r_go = r_ready && tick >= self.skip_r && r_worth(RWhen::Spirit, &hits, power);
+                let r_order: Vec<usize> = toll.iter().map(|f| f.0).collect();
+                Want::Spirit(spirit_pick(&r_order, &champs, &others, [r_go, qe[0], e_free, wall]))
             } else if in_home && r_ready && r_worth(RWhen::Fountain, &hits, power) {
                 Want::Fountain(toll.iter().map(|f| f.0).collect(), r_toll(&hits, power, FOUNTAIN_LOW))
             } else if was == Some(InputKindV1::Ult) {
@@ -745,11 +783,17 @@ impl StablePlayerAi for SpiritAi {
                 match self.press {
                     Some(p) if p.kind == kind && p.target == t => {
                         if tick >= p.since + PRESS_STUCK {
+                            let r = kind == InputKindV1::Ult;
                             if let Some(k) = counted("spirit_stuck") {
                                 wlog(format!("{line} SPIRIT PRESS STUCK #{k}: {kind:?} on {} pressed for {PRESS_STUCK} \
-                                              ticks did not go - another target for {SKIP_T} ticks", name(t)));
+                                              ticks did not go - {} for {SKIP_T} ticks", name(t),
+                                             if r { "no Requiem" } else { "another target" }));
                             }
-                            self.skip.push((t, tick + SKIP_T));
+                            if r {
+                                self.skip_r = tick + SKIP_T;
+                            } else {
+                                self.skip.push((t, tick + SKIP_T));
+                            }
                             self.press = None;
                             return stand;
                         }
@@ -1029,16 +1073,18 @@ mod tests {
                             InputKindV1::Attack.code());
         let champs = [(7, 20000.0), (8, 60000.0), (9, 500000.0)];
         let others = [(30, 10000.0), (31, 70000.0)];
-        // R on every champion, nearest first; E on what its cast range holds (champions first), Q the same in its own;
-        // the wall's attack only on a champion his attack reaches
-        assert_eq!(codes(spirit_pick(&champs, &others, [true; 4])),
-                   [(u, 7), (u, 8), (u, 9), (e, 7), (e, 30), (q, 7), (q, 8), (q, 30), (q, 31), (a, 7)]);
+        // R in Requiem's order (the lowest left first, wherever they stand); E on what 90% of its cast range holds
+        // (champions first), Q the same in its own; the wall's attack only on a champion 90% of his attack reaches
+        assert_eq!(codes(spirit_pick(&[9, 7, 8], &champs, &others, [true; 4])),
+                   [(u, 9), (u, 7), (u, 8), (e, 7), (e, 30), (q, 7), (q, 8), (q, 30), (q, 31), (a, 7)]);
         // nothing ready: nothing at all - he stands, never walks up to attack
-        assert!(spirit_pick(&champs, &others, [false; 4]).is_empty());
+        assert!(spirit_pick(&[9, 7, 8], &champs, &others, [false; 4]).is_empty());
         // no champion within his attack: no wall
-        assert!(spirit_pick(&[(8, 60000.0)], &others, [false, false, false, true]).is_empty());
+        assert!(spirit_pick(&[], &[(8, 60000.0)], &others, [false, false, false, true]).is_empty());
         // Q on minions and monsters when no champion is in range
-        assert_eq!(codes(spirit_pick(&[(9, 500000.0)], &others, [false, true, false, false])), [(q, 30), (q, 31)]);
+        assert_eq!(codes(spirit_pick(&[], &[(9, 500000.0)], &others, [false, true, false, false])), [(q, 30), (q, 31)]);
+        // inside Q's range but at its very edge: he cannot step up to it, so not pressed
+        assert!(spirit_pick(&[], &[(5, Q_RANGE - 4000.0)], &[], [false, true, false, false]).is_empty());
     }
 
     #[test]

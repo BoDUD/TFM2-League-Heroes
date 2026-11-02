@@ -25,6 +25,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+use crate::sim_tag::{Key, SimTag};
+
 const ID: &str = "tft_sentinel";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const CRACK_FX: &str = "tft_sentinel:crack";
@@ -161,14 +163,25 @@ fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied().unwrap_or_default()
 }
 
-/// 裂隙按（种子、模拟来源、比赛、局、它）分开：同一个进程里预演和观看的模拟各算各的（league_loris 的做法）。
-type Key = (u64, u32, u64, u64, usize);
+/// 裂隙按（这份模拟的编号 `SIM_TAG`、它）分开（2026-11-03，tft 0.46.0）：以前按（种子、模拟来源、比赛、局、它），服务器并排跑的
+/// 两份预模拟这几样全一样，共用一份「每人一次」：一份打过的人，另一份的裂隙就跳过了。
+const TAG: SimTag = SimTag("tft_sentinel_sim:");
 /// The units the current fissure has hit (each once).
 static HIT: LazyLock<Mutex<HashMap<Key, HashSet<usize>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
+/// Its row in an effect (the passive not at hand): by the number hung on it.
 fn key(sim: &StableSim<'_>, me: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+    TAG.key(sim, me, me)
+}
+
+/// A new fissure leaves: nobody hit yet.
+fn new_fissure(row: Key) {
+    HIT.lock().unwrap_or_else(|e| e.into_inner()).insert(row, HashSet::new());
+}
+
+/// The fissure reaches `id`: true the first time (each unit once a fissure).
+fn first_hit(row: Key, id: usize) -> bool {
+    HIT.lock().unwrap_or_else(|e| e.into_inner()).entry(row).or_default().insert(id)
 }
 
 // ===================== 规则（单元测试用） =====================
@@ -271,7 +284,7 @@ impl StableEffectType for Fissure {
         };
         let to = sim.get_entity(toward).map_or(at, |e| e.pos());
         let end = end_of(at, to, p.r_len as u64);
-        HIT.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), HashSet::new());
+        new_fissure(key(sim, me));
         let spec = ProjectileSpawnV1 {
             caster_id: me,
             team,
@@ -306,7 +319,7 @@ impl StableEffectType for Crack {
             return;
         }
         let id = input.target_id;
-        if !reachable(sim, id) || !HIT.lock().unwrap_or_else(|e| e.into_inner()).entry(key(sim, me)).or_default().insert(id) {
+        if !reachable(sim, id) || !first_hit(key(sim, me), id) {
             return;
         }
         let p = params_of(me);
@@ -335,6 +348,8 @@ struct Golem {
     /// The champion it belongs to (on_dead is given the player, not the unit).
     me: usize,
     p: Params,
+    /// This simulation's number (`SIM_TAG`), drawn at its first spawn.
+    sim: u64,
 }
 
 impl StablePassive for Golem {
@@ -348,6 +363,7 @@ impl StablePassive for Golem {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.me = me;
+        TAG.spawn(sim, me, &mut self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -383,7 +399,7 @@ impl StablePassive for Golem {
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
         let me = self.me;
         // its crumbling (the data has no moment for it)
-        HIT.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
+        HIT.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
         sim.play_sfx(&sn("d"), me, &InputTargetV1::target(me));
     }
 }
@@ -457,5 +473,24 @@ mod tests {
     fn damage_by_the_numbers() {
         let p = Params::default();
         assert_eq!(magic(p.r_dmg, p.r_ratio, 50, p.r_hp, 1500), 170 + 85 + 60);
+    }
+
+    #[test]
+    fn each_sim_hits_each_unit_once() {
+        // the tag its passive hangs is the one its fissure reads back, and it fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+        // the server's two presims of one set: the golem is #4 in both, two numbers
+        let (a, b) = ((u64::MAX - 1, 4), (u64::MAX - 2, 4));
+        new_fissure(a);
+        new_fissure(b);
+        assert!(first_hit(a, 9));
+        assert!(!first_hit(a, 9));
+        // b's fissure strikes 9 too (it used to skip one a had hit)
+        assert!(first_hit(b, 9));
+        // b's next fissure leaves a's tally alone
+        new_fissure(b);
+        assert!(!first_hit(a, 9));
+        assert!(first_hit(b, 9));
     }
 }

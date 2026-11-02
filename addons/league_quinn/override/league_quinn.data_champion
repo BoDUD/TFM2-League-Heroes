@@ -1418,7 +1418,7 @@
     "cooltime": 2400,
     "start_timing": 1,
     "cancelable": false,
-    "range": 60000,
+    "range": 960000,
     "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",

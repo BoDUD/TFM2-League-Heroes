@@ -55,7 +55,7 @@
 
 ### 尼菈附加包
 
-[尼菈附加包](../../addons/league_nilah/README.md)：`league_nilah` v0.1.1
+[尼菈附加包](../../addons/league_nilah/README.md)：`league_nilah` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

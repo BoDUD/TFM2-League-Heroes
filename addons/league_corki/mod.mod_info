@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Corki's Missile Barrage and Valkyrie as League's players use them (needs League of Legends Heroes): replaces the main pack's Corki so every missile flies at the line whose blast hits the most enemies (the Big One at low champions) and Valkyrie and the Package fly away from danger, clear of walls and enemy towers, toward his team. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-12",
+  "last_updated": "2026-11-03",
   "mod_id": "league_corki",
   "mod_type": "native",
   "name": "League Heroes: Corki's missiles aimed, Valkyrie escapes (test)",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

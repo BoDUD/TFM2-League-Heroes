@@ -55,7 +55,7 @@
 
 ### 薇恩附加包：圣银弩箭、恶魔审判撞墙
 
-[薇恩附加包：圣银弩箭、恶魔审判撞墙](../../addons/league_vayne_bolts/README.md)：`league_vayne_bolts` v0.2.0
+[薇恩附加包：圣银弩箭、恶魔审判撞墙](../../addons/league_vayne_bolts/README.md)：`league_vayne_bolts` v0.2.1
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|
