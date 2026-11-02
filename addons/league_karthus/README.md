@@ -1,4 +1,4 @@
-# 卡尔萨斯附加包（测试版 v0.4.0）
+# 卡尔萨斯附加包（测试版 v0.4.1）
 
 主包 `league` 保持纯数据。用户选了「被动做附加包」。这个附加包用原生代码做主包数据做不到的**死亡契约**：
 
@@ -7,10 +7,26 @@
   附加包的被动 `league_karthus:death_defied` 每 10 tick 给他挂一个 30 tick 的不死 buff `league_karthus_p_guard`，
   这样致命伤害只会把他打到 1 血。他到 1 血（并且身上没有别人给的不死，比如基兰的大招）时就**化成灵体** `p_t` tick（420 = 7 秒）：
   - 先放逐自己 `FLUSH_T`（12）tick：游戏里只有放逐让单位选不中，正在打他、追他的英雄、小兵、塔都丢了目标；
-  - 之后隐身（`entity_set_invisible`，每 30 tick 续一次：远处的敌人看不见他）；
-  - 敌方英雄的普攻、技能点向灵体时，挂在每个英雄上的钩子 `league_karthus:shun` 把它改到别的目标上（见下）；
-  - 不再受伤（`damaged_reduce` 100%）、放逐结束后免控（`league_karthus_p_ward`）、不能走动（移速 -100%）；
+  - 英雄的普攻、技能点向灵体时（敌方的，队友的治疗、护盾也一样），挂在每个英雄上的钩子 `league_karthus:shun` 把它改到
+    别的目标上（见下）；
+  - 不再受伤（`damaged_reduce` 100%）、放逐结束后免控（`league_karthus_p_ward`）、不能走动（移速 -100%）、不能回城；
   - 身上挂 `league_karthus_p_spirit`（附加包的副本里绑了灵体的画面），播灵体音效和台词。
+
+  - **灵体就是已经死了**（0.4.1，用户 2026-11-03：「灵体死了还能回城的？？？」「灵体出现就代表已经是死亡了 懂吗」「这死歌不是
+    还有bug 有时候 死了又没灵体」）：
+    - **不隐身**：英雄联盟的灵体谁都看得见，只是选不中。0.4.0 还给灵体挂着隐身，0.4.0 又把敌人从他身边引开了，没人贴着
+      看穿他，敌方那一边就整个看不见他，像是死了没有灵体（那晚的日志里每条命死后都有 SPIRIT）。
+    - **不能回城**：灵体钩子在他施法、刚化成灵体放逐的那 12 tick、按着一招等它出手时，会让游戏 AI 的命令照常通过；回城命令
+      落在这时候、或者他化成灵体前就在回城（之后游戏的 AI 不再下新命令，回城自己走完），灵体就回了泉水。现在照别的钩子
+      认「正在回城」（league_graves 的 `still_recalling`：下了回城命令，之后没有新命令时回城还在走），灵体期间回城命令一律换成
+      原地站着，回城到一半也打断（日志 `SPIRIT RECALL STOPPED`）。
+    - **队友也选不中**：队友的治疗、护盾点向自己这边的灵体时，改给 90000 内别的队友英雄；没有别的队友就照游戏的 AI
+      （让她站着发呆，比奶一下灵体更难看）。
+    - **复活倒计时算上灵体的时间**：英雄联盟的死亡计时从化成灵体就开始，这里要等灵体倒下才真正死，复活会晚 7 秒。倒下后
+      （`on_dead`）把游戏的剩余复活 tick 扣掉灵体待的时间（至少还剩 `BACK_MIN` 60 tick）。稳定接口里只能读复活时间，改它
+      照 league_akshan 的动态寻址（`src/life.rs`：从游戏的 `player_respawn_time` / `player_is_alive` 的机器码找出偏移，核对都过了
+      才写，只往小改，只读的模拟不写；日志 `RESPAWN`，没改成时写原因）。击杀和死亡的记数还是在灵体倒下时才算（接口里没有
+      别的办法）。
 
   - **敌人选不中灵体**（0.4.0，用户 2026-11-02：「死歌死亡后感觉有点不对 不能像塞恩那样吧 应该和英雄联盟一样吧？现在死歌死了后别人
     还在攻击灵体 英雄联盟里不是灵体吧」）：0.3.1 的灵体只是隐身，可游戏的隐身只挡远处的视野，贴着他的敌人照样看得见、选得中
@@ -26,6 +42,8 @@
     够得着的英雄：W 在普攻里）；只挑他的队伍看得见的目标（0.3.1 的日志里灵体对着射程里的英雄按了几十到上百 tick 的 Q 放不出来，
     那时目标多半在草里）。都没得放就原地站着，游戏的 AI 想逃、想回城、想普攻都换成站着。一招按下去，游戏的 AI 没下新命令时隔
     4 tick 才再按（0.3.1 每 tick 都按）；同一招按了 30 tick 还没放出来，记 `SPIRIT PRESS STUCK`，这个目标 60 tick 内不再挑。
+    0.4.0 那晚的日志：62 个灵体里 44 个还挨过英雄的打，一共 438 下，几乎都是范围、持续伤害（斯维因、提莫的毒、奥瑞利安·索尔、
+    兰博），每下 1 点；英雄点着灵体打的命令都改走了。
     0.3.1 为查这件事而现形 20 tick 的自诊断去掉了：现形时谁都能打他。
   - **安魂曲挑时机**（0.3.0，用户 2026-11-01：「最好改成死后放大 或者复活后在泉水放大 放大也要看敌方血量吧？不能乱放吧」
     「灵体状态下放大是不能被打断的」）：按他现在的法强和每个敌方英雄的生命 + 护盾、魔抗算出 R 打完剩多少血
@@ -57,21 +75,23 @@
    - `SPAWN #1: the add-on's Karthus (player 0, team 0), ...`：出生；
    - `SPIRIT #1: lethal damage caught at 1 hp (last hit by ...), a spirit for 420 ticks, banished 12 ticks first`：化成灵体
      （行尾有 `(entity_banish refused)` 就是放逐没成，告诉我）；
-   - `SHUN #1: Attack on the spirit league_karthus#20 -> Attack on league_ahri#22`：敌方英雄要打灵体，改打别人
-     （`-> out of Defile` 退出亵渎的圈，`-> a stand` 原地站着）；
+   - `SHUN #1: Attack on the enemy spirit league_karthus#20 -> Attack on league_ahri#22`：敌方英雄要打灵体，改打别人
+     （`-> out of Defile` 退出亵渎的圈，`-> a stand` 原地站着）；`on the allied spirit`：队友的技能改给了别的队友；
    - `SPIRIT AI #1: Skill on ... (the game's AI: Move)`：灵体时钩子替 AI 放了技能（立墙的普攻记成 Attack）；
-     `SPIRIT PRESS STUCK #1: ...`：同一招按了 30 tick 没放出来；
-   - `SPIRIT HIT #1: struck by ...`：灵体还是挨了打（谁打的）；
+     `SPIRIT PRESS STUCK #1: ...`：同一招按了 30 tick 没放出来；`SPIRIT RECALL STOPPED #1`：游戏的 AI 想让灵体回城，拦下了；
+   - `SPIRIT HIT #1: struck by ...`：灵体还是挨了打（谁打的，多是范围、持续伤害，每下 1 点）；
    - `SPIRIT KILL #1: ... killed by the spirit`：灵体击杀了英雄；
    - `FALL #1: the spirit's time is up, killed by ...; struck as a spirit by champions 0 times, minions 0, towers 0, others 0`：
-     灵体倒下，这次灵体挨了谁几下（英雄那一项应该是 0）。
+     灵体倒下，这次灵体挨了谁几下；
+   - `RESPAWN: 1500 -> 1080 ticks (the spirit's 420 counted)`：复活倒计时扣掉了灵体的时间；`LAYOUT found ...`：第一次找到游戏里
+     复活时间的位置；`RESPAWN NOT CUT (...)` 或 `LAYOUT NOT FOUND`：没改成（原因在括号里），告诉我。
 
 ## 开发
 
 - `python addons/league_karthus/make_override.py`：从参数表重新生成 `override/` 和 `text/`（先核对主包的卡尔萨斯和参数表一致）。
   主包的卡尔萨斯改了以后要重跑。
-- 在 `addons/` 下 `cargo test --release -p league_karthus`：单元测试（别人给的不死、隐身续期、参数、和参数表一致、灵体挑什么招、
-  拦下 R 时改按什么、敌人退出亵渎的圈、钩子的先后、挨打的计数）。
+- 在 `addons/` 下 `cargo test --release -p league_karthus`：单元测试（别人给的不死、参数、和参数表一致、灵体挑什么招、
+  拦下 R 时改按什么、敌人退出亵渎的圈、钩子的先后、挨打的计数、复活扣多少、回城的判断、复活时间的寻址解码）。
 - 在 `addons/` 下 `cargo build --release -p league_karthus`（Windows）得到 `target/release/league_karthus.dll`；
   `league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
