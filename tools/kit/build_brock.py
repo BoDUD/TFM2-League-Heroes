@@ -42,23 +42,30 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # placeholders until the strips are rigged (tools/art/rig_brock.py). Stats start from the pack's top tanks (tft_terra hp
 # 1380 / atk 84 every 66 / def 40, league_malphite, league_ornn): the 5-cost stone golem, slow and heavy, his skills
 # physical and scaled by his health like TFT's.
+# Numbers = the 10-min classic-SDK simulations (C:/t/br_sim/run.sh with C:/t/al_sim/kd.py: top lane 0 against the base
+# fighter, executioner, knight, berserker, lancer and pole warrior, three lineups, both sides; 2026-11-02), all --plain
+# (the stone heart from his first action, the slam three rings knocking every one up): the draft (atk 82, Q 60 + 120% + 3%
+# every 8 s, E root 1.25 s + 120 shield every 10 s, R 120 + 110% + 5%) +6.83 on seeds 1-8 against tft_terra --plain +0.94
+# - far too strong (14800 dealt: crowd-control immunity for good is worth a lot); toned down v2 +4.92; v3 = P (atk 72,
+# hp 1200, splash 25%, Q 30 + 80% + 2% every 10 s, E root 0.83 s + 60 + 50% shield every 13 s, R 90 + 80% + 3%) +1.60 /
+# +1.09 on seeds 1-8 / 9-16 (tft_terra +0.94 / +1.37); v4 (atk 70, root 0.75 s) +1.04 on 1-8.
 P = {
     # stats (Melee, a top fighter-tank)
-    "hp": 1320, "hp_g": 125, "atk": 82, "atk_g": 13, "apw": 20, "apw_g": 8, "def": 42, "def_g": 8, "mr": 34, "mr_g": 6,
+    "hp": 1200, "hp_g": 115, "atk": 72, "atk_g": 12, "apw": 20, "apw_g": 8, "def": 38, "def_g": 8, "mr": 30, "mr_g": 6,
     "ms": 940, "ms_g": 10,
     "atk_range": 27000, "atk_dur": 38, "atk_cd": 78, "atk_st": 20,
     # Quake Fist (TFT: attacks splash 50% within a hex and briefly knock up)
-    "a_off": 22000, "a_r": 18000, "a_splash": 40, "a_up": 30,
+    "a_off": 22000, "a_r": 18000, "a_splash": 25, "a_up": 20,
     # Boulder Toss
-    "q_cd": 480, "q_range": 50000, "q_dur": 32, "q_st": 18, "q_speed": 3000, "q_dmg": 60, "q_ratio": 120, "q_hp": 3,
+    "q_cd": 600, "q_range": 50000, "q_dur": 32, "q_st": 18, "q_speed": 3000, "q_dmg": 30, "q_ratio": 80, "q_hp": 2,
     "q_slow": 30, "q_slow_t": 90,
     # Moss Grip
-    "e_cd": 600, "e_range": 40000, "e_dur": 32, "e_st": 16, "e_dmg": 40, "e_ratio": 60, "e_root": 75, "e_sh": 120,
-    "e_sh_ad": 100, "e_sh_t": 180,
+    "e_cd": 780, "e_range": 40000, "e_dur": 32, "e_st": 16, "e_dmg": 20, "e_ratio": 30, "e_root": 50, "e_sh": 60,
+    "e_sh_ad": 50, "e_sh_t": 180,
     # Seismic Slam (TFT: health + AD damage, -15% a hex (40% at least), the first hit knocks up 1.75 s, 12 rocks)
-    "r_cd": 3000, "r_range": 60000, "r_dur": 84, "r_go": 22, "r_at": 54, "r_r": 50000, "r_dmg": 120, "r_ratio": 110,
-    "r_hp": 5, "r_hex": 18000, "r_fall": 15, "r_min": 40, "r_up": 75, "r_mark": 3600,
-    "r_rocks": 6, "r_rock_t": 10, "r_rock_gap": 8, "r_rock_r": 60000, "r_rock": 40, "r_rock_ratio": 50,
+    "r_cd": 3000, "r_range": 60000, "r_dur": 84, "r_go": 22, "r_at": 54, "r_r": 50000, "r_dmg": 90, "r_ratio": 80,
+    "r_hp": 3, "r_hex": 18000, "r_fall": 15, "r_min": 40, "r_up": 75, "r_mark": 3600,
+    "r_rocks": 6, "r_rock_t": 10, "r_rock_gap": 8, "r_rock_r": 60000, "r_rock": 25, "r_rock_ratio": 30,
 }
 # what tft.dll reads from passive.params (addons/tft/src/brock.rs)
 NATIVE_KEYS = ("r_r", "r_dmg", "r_ratio", "r_hp", "r_hex", "r_fall", "r_min", "r_up", "r_mark")

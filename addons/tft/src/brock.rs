@@ -118,9 +118,9 @@ impl Default for Params {
     fn default() -> Self {
         Self {
             r_r: 50000,
-            r_dmg: 120,
-            r_ratio: 110,
-            r_hp: 5,
+            r_dmg: 90,
+            r_ratio: 80,
+            r_hp: 3,
             r_hex: 18000,
             r_fall: 15,
             r_min: 40,
@@ -332,7 +332,7 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json = r#"{"r_r":50000,"r_dmg":120,"r_ratio":110,"r_hp":5,"r_hex":18000,"r_fall":15,"r_min":40,"r_up":75,"r_mark":3600}"#;
+        let json = r#"{"r_r":50000,"r_dmg":90,"r_ratio":80,"r_hp":3,"r_hex":18000,"r_fall":15,"r_min":40,"r_up":75,"r_mark":3600}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
@@ -355,6 +355,6 @@ mod tests {
 
     #[test]
     fn slam_damage_by_the_numbers() {
-        assert_eq!(slam_damage(&Params::default(), 100, 2000), 120 + 110 + 100);
+        assert_eq!(slam_damage(&Params::default(), 100, 2000), 90 + 80 + 60);
     }
 }
