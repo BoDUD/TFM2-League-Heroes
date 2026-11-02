@@ -315,7 +315,11 @@ def build(p):
         # take the spot (the rise, every checkpoint) and the unit stabbed
         native = lambda what: {"type": "Native", "effect_ref": f"{ID}:{what}_{s}"}
         told = [native("stab")] if p["native"] else []
-        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, combine(flag(f"k{s}", p["cmd_t"] + 1), *stab, *told))))
+        # the zones come from the landing's end_effects and outlive him, and a dead caster's flags freeze: killed inside
+        # the 2 ticks of `cmd` with a soldier that had nobody to stab, `k{s}` could not be set again and that soldier
+        # stabbed everyone near it every 2 ticks to its end (classic engine 2026-11-02: 44 stabs after one death) - so
+        # past the two flags it asks alive() (league_maokai's sapling)
+        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, alive(flag(f"k{s}", p["cmd_t"] + 1), *stab, *told))))
         rise_, stand_ = ((native("rise"), native("sold")) if p["native"] else
                          (view(f"sold_{s}_rise"), view(f"sold_{s}")))
         out = [view("s_spawn"), sfx("s_spawn"), gate(g, rise_)]   # out of the sand, then standing

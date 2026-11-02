@@ -584,9 +584,11 @@ pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_
 /// to it and to shrink back), about the soles like GROWTH, eased in and out (hd_engine's eased). Volibear's
 /// Stormbringer (the user, 2026-11-01: 「开大时候可以加大点体型吧 我记得英雄联盟是这样的」): League's R makes him 35 % bigger, grown over 1.25
 /// seconds from the cast and shrunk back when it ends - here from the leap (`league_volibear_r_air`, 1 s) through the
-/// 12 s storm form after the landing (`league_volibear_r_form`), main pack data both.
+/// 12 s storm form after the landing (`league_volibear_r_form`), main pack data both. 1.35 at first; 1.15 at the user's
+/// word (2026-11-02: 「开大模型变的实在太大了」 - 61 game px against Darius' and Garen's 42, his own 45 already the
+/// tallest of them; 1.15: 52)
 pub const FORMS: &[(&str, &[&str], f32, f32)] =
-    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.35, 1.25)];
+    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25)];
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
@@ -827,7 +829,7 @@ mod tests {
     fn volibear_grows_in_his_form() {
         let data = include_str!("../../../league/champion/league_volibear.data_champion");
         let (_, buffs, s, t) = *FORMS.iter().find(|f| f.0 == "league_volibear").expect("Volibear grows in his form");
-        assert_eq!((s, t), (1.35, 1.25));
+        assert_eq!((s, t), (1.15, 1.25));
         for b in buffs {
             assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives him {b}");
         }

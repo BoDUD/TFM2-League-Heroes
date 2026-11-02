@@ -24,8 +24,8 @@ League's four buttons: Thundering Smash is `skill`, Sky Splitter `skill2`, Storm
           ticks later the bolt (radius e_r): e_dmg + e_ap% AP magic, e_hp% of a champion's max health (true: ApAttack
           has no target-health field), e_slow% slow for e_slow_t; standing in it shields him e_sh + e_sh_ap% AP for
           e_sh_t ticks (League: 14% max health + 75% AP; a Shield has no health field).
-  ult     R Stormbringer (天声震落), `Targeting` on `EnemyChampion` (r_range): he leaps (cc_immune, MoveToTarget r_speed)
-          and lands on him: r_dmg + r_ratio% AD to every enemy within r_r, r_slow% slow for r_slow_t; for r_form ticks
+  ult     R Stormbringer (天声震落), `Targeting` on `EnemyChampion` (r_range): crouched r_crouch ticks, he leaps
+          (cc_immune, MoveToTarget r_speed; the ult strip lifts him about his height) and lands on him: r_dmg + r_ratio% AD to every enemy within r_r, r_slow% slow for r_slow_t; for r_form ticks
           he keeps r_hp more health and r_range_add more attack range (League's transformation). League also disables
           the towers near the landing: the add-on's.
 The add-on copy (--native, addons/league_volibear): the five-stack lightning is league_volibear:storm (the target and
@@ -69,8 +69,9 @@ P = {
     "e_cd": 900, "e_range": 100000, "e_dur": 30, "e_rel": 13, "e_delay": 90, "e_r": 30000, "e_dmg": 80, "e_ap": 70,
     "e_hp": 6, "e_slow": 40, "e_slow_t": 120, "e_sh": 120, "e_sh_ap": 75, "e_sh_t": 180,
     # R Stormbringer
-    "r_cd": 3600, "r_range": 70000, "r_speed": 2200, "r_up": 60, "r_land_t": 24, "r_rel": 4, "r_r": 32000,
-    "r_dmg": 200, "r_ratio": 120, "r_slow": 50, "r_slow_t": 60, "r_form": 720, "r_hp": 350, "r_range_add": 5000,
+    "r_cd": 3600, "r_range": 70000, "r_speed": 2200, "r_up": 60, "r_crouch": 6, "r_land_t": 24, "r_rel": 4,
+    "r_r": 32000, "r_dmg": 200, "r_ratio": 120, "r_slow": 50, "r_slow_t": 60, "r_form": 720, "r_hp": 350,
+    "r_range_add": 5000,
     # the add-on's towers (League: 1-7 s by rank)
     "r_tower_r": 55000, "r_tower_t": 240,
     "vo_gap": 600,
@@ -282,8 +283,11 @@ def build(p):
     land = [anim("ult_land", p["r_land_t"]), sfx("r_land"),
             delayed(p["r_rel"], cview("r_land"), around(p["r_r"], "EnemyWithoutTower", hit), *towers),
             refresh("r_form", p["r_form"], hp=p["r_hp"], range=p["r_range_add"]), on_me(stack)]
+    # crouched on all fours for r_crouch ticks (the ult strip's first frame), then the spring (League's
+    # Ground_Pound): a dead caster's Delayed effects run in the game, so the flight asks alive() first
     leap = combine(anim("ult", p["r_up"]), sfx("r"), voice("vo_r", p), flag("r_air", p["r_up"], cc_immune=True),
-                   {"type": "MoveToTarget", "speed": p["r_speed"], "range": 400000, "end_effects": land})
+                   delayed(p["r_crouch"], alive({"type": "MoveToTarget", "speed": p["r_speed"], "range": 400000,
+                                                 "end_effects": land})))
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", leap, key="ult")
 
     # ------------------------------------------------------------------ views

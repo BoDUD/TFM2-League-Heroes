@@ -1317,23 +1317,18 @@
                                                                           "type": "Combine",
                                                                           "effects": [
                                                                             {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_maokai_e_on"
-                                                                            },
-                                                                            {
-                                                                              "type": "Combine",
+                                                                              "type": "RandomTarget",
+                                                                              "range": 1,
+                                                                              "casting_target": "AllyOnlySelf",
+                                                                              "from_projectile": false,
                                                                               "effects": [
-                                                                                {
-                                                                                  "type": "RemoveCasterBuff",
-                                                                                  "name": "league_maokai_e_boom"
-                                                                                },
                                                                                 {
                                                                                   "type": "AddCasterBuff",
                                                                                   "buff_state": {
-                                                                                    "name": "league_maokai_e_boom",
+                                                                                    "name": "league_maokai_lives",
                                                                                     "duration": {
                                                                                       "Time": {
-                                                                                        "tick": 2
+                                                                                        "tick": 1
                                                                                       }
                                                                                     }
                                                                                   },
@@ -1342,12 +1337,54 @@
                                                                               ]
                                                                             },
                                                                             {
-                                                                              "type": "ViewEffect",
-                                                                              "name": "league_maokai_e_burst"
+                                                                              "type": "SwitchByBuff",
+                                                                              "buff_name": "league_maokai_lives",
+                                                                              "effect_buff": {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "RemoveCasterBuff",
+                                                                                    "name": "league_maokai_e_on"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Combine",
+                                                                                    "effects": [
+                                                                                      {
+                                                                                        "type": "RemoveCasterBuff",
+                                                                                        "name": "league_maokai_e_boom"
+                                                                                      },
+                                                                                      {
+                                                                                        "type": "AddCasterBuff",
+                                                                                        "buff_state": {
+                                                                                          "name": "league_maokai_e_boom",
+                                                                                          "duration": {
+                                                                                            "Time": {
+                                                                                              "tick": 2
+                                                                                            }
+                                                                                          }
+                                                                                        },
+                                                                                        "only_to_enemy": false
+                                                                                      }
+                                                                                    ]
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "ViewEffect",
+                                                                                    "name": "league_maokai_e_burst"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Sfx",
+                                                                                    "name": "league_maokai_e_burst"
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              "effect_none": {
+                                                                                "type": "Combine",
+                                                                                "effects": []
+                                                                              }
                                                                             },
                                                                             {
-                                                                              "type": "Sfx",
-                                                                              "name": "league_maokai_e_burst"
+                                                                              "type": "RemoveCasterBuff",
+                                                                              "name": "league_maokai_lives"
                                                                             }
                                                                           ]
                                                                         },
@@ -1389,51 +1426,88 @@
                                                                             "type": "Combine",
                                                                             "effects": [
                                                                               {
-                                                                                "type": "ApAttack",
-                                                                                "damage": 100,
-                                                                                "attack_ratio": 50,
-                                                                                "hp_ratio": 0
-                                                                              },
-                                                                              {
-                                                                                "type": "AddBuff",
-                                                                                "buff_state": {
-                                                                                  "name": "league_maokai_e_slow",
-                                                                                  "duration": {
-                                                                                    "Time": {
-                                                                                      "tick": 120
-                                                                                    }
-                                                                                  },
-                                                                                  "move_speed_mult": -35
-                                                                                }
-                                                                              },
-                                                                              {
-                                                                                "type": "ViewEffect",
-                                                                                "name": "league_maokai_e_hit"
-                                                                              },
-                                                                              {
-                                                                                "type": "TargetSfx",
-                                                                                "name": "league_maokai_e_hit"
-                                                                              },
-                                                                              {
-                                                                                "type": "Combine",
+                                                                                "type": "RandomTarget",
+                                                                                "range": 1,
+                                                                                "casting_target": "AllyOnlySelf",
+                                                                                "from_projectile": false,
                                                                                 "effects": [
-                                                                                  {
-                                                                                    "type": "RemoveCasterBuff",
-                                                                                    "name": "league_maokai_sap"
-                                                                                  },
                                                                                   {
                                                                                     "type": "AddCasterBuff",
                                                                                     "buff_state": {
-                                                                                      "name": "league_maokai_sap",
+                                                                                      "name": "league_maokai_lives",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 300
+                                                                                          "tick": 1
                                                                                         }
                                                                                       }
                                                                                     },
                                                                                     "only_to_enemy": false
                                                                                   }
                                                                                 ]
+                                                                              },
+                                                                              {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_maokai_lives",
+                                                                                "effect_buff": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "ApAttack",
+                                                                                      "damage": 100,
+                                                                                      "attack_ratio": 50,
+                                                                                      "hp_ratio": 0
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddBuff",
+                                                                                      "buff_state": {
+                                                                                        "name": "league_maokai_e_slow",
+                                                                                        "duration": {
+                                                                                          "Time": {
+                                                                                            "tick": 120
+                                                                                          }
+                                                                                        },
+                                                                                        "move_speed_mult": -35
+                                                                                      }
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "ViewEffect",
+                                                                                      "name": "league_maokai_e_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "TargetSfx",
+                                                                                      "name": "league_maokai_e_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "Combine",
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "RemoveCasterBuff",
+                                                                                          "name": "league_maokai_sap"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "AddCasterBuff",
+                                                                                          "buff_state": {
+                                                                                            "name": "league_maokai_sap",
+                                                                                            "duration": {
+                                                                                              "Time": {
+                                                                                                "tick": 300
+                                                                                              }
+                                                                                            }
+                                                                                          },
+                                                                                          "only_to_enemy": false
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                "effect_none": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_maokai_lives"
                                                                               }
                                                                             ]
                                                                           }
@@ -1472,51 +1546,88 @@
                                                                             "type": "Combine",
                                                                             "effects": [
                                                                               {
-                                                                                "type": "ApAttack",
-                                                                                "damage": 160,
-                                                                                "attack_ratio": 80,
-                                                                                "hp_ratio": 0
-                                                                              },
-                                                                              {
-                                                                                "type": "AddBuff",
-                                                                                "buff_state": {
-                                                                                  "name": "league_maokai_e_slow",
-                                                                                  "duration": {
-                                                                                    "Time": {
-                                                                                      "tick": 150
-                                                                                    }
-                                                                                  },
-                                                                                  "move_speed_mult": -45
-                                                                                }
-                                                                              },
-                                                                              {
-                                                                                "type": "ViewEffect",
-                                                                                "name": "league_maokai_e_hit"
-                                                                              },
-                                                                              {
-                                                                                "type": "TargetSfx",
-                                                                                "name": "league_maokai_e_hit"
-                                                                              },
-                                                                              {
-                                                                                "type": "Combine",
+                                                                                "type": "RandomTarget",
+                                                                                "range": 1,
+                                                                                "casting_target": "AllyOnlySelf",
+                                                                                "from_projectile": false,
                                                                                 "effects": [
-                                                                                  {
-                                                                                    "type": "RemoveCasterBuff",
-                                                                                    "name": "league_maokai_sap"
-                                                                                  },
                                                                                   {
                                                                                     "type": "AddCasterBuff",
                                                                                     "buff_state": {
-                                                                                      "name": "league_maokai_sap",
+                                                                                      "name": "league_maokai_lives",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 300
+                                                                                          "tick": 1
                                                                                         }
                                                                                       }
                                                                                     },
                                                                                     "only_to_enemy": false
                                                                                   }
                                                                                 ]
+                                                                              },
+                                                                              {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_maokai_lives",
+                                                                                "effect_buff": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "ApAttack",
+                                                                                      "damage": 160,
+                                                                                      "attack_ratio": 80,
+                                                                                      "hp_ratio": 0
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddBuff",
+                                                                                      "buff_state": {
+                                                                                        "name": "league_maokai_e_slow",
+                                                                                        "duration": {
+                                                                                          "Time": {
+                                                                                            "tick": 150
+                                                                                          }
+                                                                                        },
+                                                                                        "move_speed_mult": -45
+                                                                                      }
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "ViewEffect",
+                                                                                      "name": "league_maokai_e_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "TargetSfx",
+                                                                                      "name": "league_maokai_e_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "Combine",
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "RemoveCasterBuff",
+                                                                                          "name": "league_maokai_sap"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "AddCasterBuff",
+                                                                                          "buff_state": {
+                                                                                            "name": "league_maokai_sap",
+                                                                                            "duration": {
+                                                                                              "Time": {
+                                                                                                "tick": 300
+                                                                                              }
+                                                                                            }
+                                                                                          },
+                                                                                          "only_to_enemy": false
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                "effect_none": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_maokai_lives"
                                                                               }
                                                                             ]
                                                                           },
@@ -3998,23 +4109,18 @@
                                                                           "type": "Combine",
                                                                           "effects": [
                                                                             {
-                                                                              "type": "RemoveCasterBuff",
-                                                                              "name": "league_maokai_e_on"
-                                                                            },
-                                                                            {
-                                                                              "type": "Combine",
+                                                                              "type": "RandomTarget",
+                                                                              "range": 1,
+                                                                              "casting_target": "AllyOnlySelf",
+                                                                              "from_projectile": false,
                                                                               "effects": [
-                                                                                {
-                                                                                  "type": "RemoveCasterBuff",
-                                                                                  "name": "league_maokai_e_boom"
-                                                                                },
                                                                                 {
                                                                                   "type": "AddCasterBuff",
                                                                                   "buff_state": {
-                                                                                    "name": "league_maokai_e_boom",
+                                                                                    "name": "league_maokai_lives",
                                                                                     "duration": {
                                                                                       "Time": {
-                                                                                        "tick": 2
+                                                                                        "tick": 1
                                                                                       }
                                                                                     }
                                                                                   },
@@ -4023,12 +4129,54 @@
                                                                               ]
                                                                             },
                                                                             {
-                                                                              "type": "ViewEffect",
-                                                                              "name": "league_maokai_e_burst"
+                                                                              "type": "SwitchByBuff",
+                                                                              "buff_name": "league_maokai_lives",
+                                                                              "effect_buff": {
+                                                                                "type": "Combine",
+                                                                                "effects": [
+                                                                                  {
+                                                                                    "type": "RemoveCasterBuff",
+                                                                                    "name": "league_maokai_e_on"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Combine",
+                                                                                    "effects": [
+                                                                                      {
+                                                                                        "type": "RemoveCasterBuff",
+                                                                                        "name": "league_maokai_e_boom"
+                                                                                      },
+                                                                                      {
+                                                                                        "type": "AddCasterBuff",
+                                                                                        "buff_state": {
+                                                                                          "name": "league_maokai_e_boom",
+                                                                                          "duration": {
+                                                                                            "Time": {
+                                                                                              "tick": 2
+                                                                                            }
+                                                                                          }
+                                                                                        },
+                                                                                        "only_to_enemy": false
+                                                                                      }
+                                                                                    ]
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "ViewEffect",
+                                                                                    "name": "league_maokai_e_burst"
+                                                                                  },
+                                                                                  {
+                                                                                    "type": "Sfx",
+                                                                                    "name": "league_maokai_e_burst"
+                                                                                  }
+                                                                                ]
+                                                                              },
+                                                                              "effect_none": {
+                                                                                "type": "Combine",
+                                                                                "effects": []
+                                                                              }
                                                                             },
                                                                             {
-                                                                              "type": "Sfx",
-                                                                              "name": "league_maokai_e_burst"
+                                                                              "type": "RemoveCasterBuff",
+                                                                              "name": "league_maokai_lives"
                                                                             }
                                                                           ]
                                                                         },
@@ -4070,51 +4218,88 @@
                                                                             "type": "Combine",
                                                                             "effects": [
                                                                               {
-                                                                                "type": "ApAttack",
-                                                                                "damage": 100,
-                                                                                "attack_ratio": 50,
-                                                                                "hp_ratio": 0
-                                                                              },
-                                                                              {
-                                                                                "type": "AddBuff",
-                                                                                "buff_state": {
-                                                                                  "name": "league_maokai_e_slow",
-                                                                                  "duration": {
-                                                                                    "Time": {
-                                                                                      "tick": 120
-                                                                                    }
-                                                                                  },
-                                                                                  "move_speed_mult": -35
-                                                                                }
-                                                                              },
-                                                                              {
-                                                                                "type": "ViewEffect",
-                                                                                "name": "league_maokai_e_hit"
-                                                                              },
-                                                                              {
-                                                                                "type": "TargetSfx",
-                                                                                "name": "league_maokai_e_hit"
-                                                                              },
-                                                                              {
-                                                                                "type": "Combine",
+                                                                                "type": "RandomTarget",
+                                                                                "range": 1,
+                                                                                "casting_target": "AllyOnlySelf",
+                                                                                "from_projectile": false,
                                                                                 "effects": [
-                                                                                  {
-                                                                                    "type": "RemoveCasterBuff",
-                                                                                    "name": "league_maokai_sap"
-                                                                                  },
                                                                                   {
                                                                                     "type": "AddCasterBuff",
                                                                                     "buff_state": {
-                                                                                      "name": "league_maokai_sap",
+                                                                                      "name": "league_maokai_lives",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 300
+                                                                                          "tick": 1
                                                                                         }
                                                                                       }
                                                                                     },
                                                                                     "only_to_enemy": false
                                                                                   }
                                                                                 ]
+                                                                              },
+                                                                              {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_maokai_lives",
+                                                                                "effect_buff": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "ApAttack",
+                                                                                      "damage": 100,
+                                                                                      "attack_ratio": 50,
+                                                                                      "hp_ratio": 0
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddBuff",
+                                                                                      "buff_state": {
+                                                                                        "name": "league_maokai_e_slow",
+                                                                                        "duration": {
+                                                                                          "Time": {
+                                                                                            "tick": 120
+                                                                                          }
+                                                                                        },
+                                                                                        "move_speed_mult": -35
+                                                                                      }
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "ViewEffect",
+                                                                                      "name": "league_maokai_e_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "TargetSfx",
+                                                                                      "name": "league_maokai_e_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "Combine",
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "RemoveCasterBuff",
+                                                                                          "name": "league_maokai_sap"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "AddCasterBuff",
+                                                                                          "buff_state": {
+                                                                                            "name": "league_maokai_sap",
+                                                                                            "duration": {
+                                                                                              "Time": {
+                                                                                                "tick": 300
+                                                                                              }
+                                                                                            }
+                                                                                          },
+                                                                                          "only_to_enemy": false
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                "effect_none": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_maokai_lives"
                                                                               }
                                                                             ]
                                                                           }
@@ -4153,51 +4338,88 @@
                                                                             "type": "Combine",
                                                                             "effects": [
                                                                               {
-                                                                                "type": "ApAttack",
-                                                                                "damage": 160,
-                                                                                "attack_ratio": 80,
-                                                                                "hp_ratio": 0
-                                                                              },
-                                                                              {
-                                                                                "type": "AddBuff",
-                                                                                "buff_state": {
-                                                                                  "name": "league_maokai_e_slow",
-                                                                                  "duration": {
-                                                                                    "Time": {
-                                                                                      "tick": 150
-                                                                                    }
-                                                                                  },
-                                                                                  "move_speed_mult": -45
-                                                                                }
-                                                                              },
-                                                                              {
-                                                                                "type": "ViewEffect",
-                                                                                "name": "league_maokai_e_hit"
-                                                                              },
-                                                                              {
-                                                                                "type": "TargetSfx",
-                                                                                "name": "league_maokai_e_hit"
-                                                                              },
-                                                                              {
-                                                                                "type": "Combine",
+                                                                                "type": "RandomTarget",
+                                                                                "range": 1,
+                                                                                "casting_target": "AllyOnlySelf",
+                                                                                "from_projectile": false,
                                                                                 "effects": [
-                                                                                  {
-                                                                                    "type": "RemoveCasterBuff",
-                                                                                    "name": "league_maokai_sap"
-                                                                                  },
                                                                                   {
                                                                                     "type": "AddCasterBuff",
                                                                                     "buff_state": {
-                                                                                      "name": "league_maokai_sap",
+                                                                                      "name": "league_maokai_lives",
                                                                                       "duration": {
                                                                                         "Time": {
-                                                                                          "tick": 300
+                                                                                          "tick": 1
                                                                                         }
                                                                                       }
                                                                                     },
                                                                                     "only_to_enemy": false
                                                                                   }
                                                                                 ]
+                                                                              },
+                                                                              {
+                                                                                "type": "SwitchByBuff",
+                                                                                "buff_name": "league_maokai_lives",
+                                                                                "effect_buff": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "ApAttack",
+                                                                                      "damage": 160,
+                                                                                      "attack_ratio": 80,
+                                                                                      "hp_ratio": 0
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddBuff",
+                                                                                      "buff_state": {
+                                                                                        "name": "league_maokai_e_slow",
+                                                                                        "duration": {
+                                                                                          "Time": {
+                                                                                            "tick": 150
+                                                                                          }
+                                                                                        },
+                                                                                        "move_speed_mult": -45
+                                                                                      }
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "ViewEffect",
+                                                                                      "name": "league_maokai_e_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "TargetSfx",
+                                                                                      "name": "league_maokai_e_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "Combine",
+                                                                                      "effects": [
+                                                                                        {
+                                                                                          "type": "RemoveCasterBuff",
+                                                                                          "name": "league_maokai_sap"
+                                                                                        },
+                                                                                        {
+                                                                                          "type": "AddCasterBuff",
+                                                                                          "buff_state": {
+                                                                                            "name": "league_maokai_sap",
+                                                                                            "duration": {
+                                                                                              "Time": {
+                                                                                                "tick": 300
+                                                                                              }
+                                                                                            }
+                                                                                          },
+                                                                                          "only_to_enemy": false
+                                                                                        }
+                                                                                      ]
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                "effect_none": {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
+                                                                                }
+                                                                              },
+                                                                              {
+                                                                                "type": "RemoveCasterBuff",
+                                                                                "name": "league_maokai_lives"
                                                                               }
                                                                             ]
                                                                           },

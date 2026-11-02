@@ -646,6 +646,19 @@ harmful branch of a `Delayed` that runs after the caster may have died.
   her body fired another orb), league_amumu's Despair pulses, league_leona W's Eclipse burst, league_ekko R's rewind
   (a `Delayed` in the anchor's `end_effects`: the SDK runs it after his death too), league_garen E (no flag: six more
   spins), league_rakan R's later rushes, league_taric R; league_yone E's echoes read a flag his return adds (section 7).
+  Guarded on 2026-11-02 (the user heard a sound repeat without end on a champion fighting a dead league_maokai:
+  「挂在蔚奥莱身上的一个技能触发了一直无限音效 在打大树的时候」), each inside its flag so the search runs only while the
+  flag is up: league_maokai E's sapling (its trigger zone, period 1, reads the 750-tick `e_on` the landing sets, its
+  blasts the 2-tick `e_boom`; trace.exe, 40 SDK games: 502 bursts and 419 blasts after his death, 0 and 0 guarded),
+  league_zoe E's trap (`e_tdone` down when she died: it caught whoever stood in it every 3 ticks), league_azir's
+  soldiers (`cmd` up and the soldier's `k<slot>` down at his death: it stabbed every 2 ticks, 44 stabs after one death
+  in the SDK), league_gangplank's kegs (`ripe` with the 60-tick `q_fire` or a chain flag up: a blast every tick; and
+  `blew` in the picture links: the blast and its sound every 10 ticks, game only) and league_teemo R (`boom` in the
+  links: the burst sound every 15 ticks, `fire` in the cloud: poison every 2 ticks, game only;
+  tools/fix/fix_teemo_dead.py). Over every kit (tools/perf/dead_events.py: what each kit still does after a death in the
+  SDK; tools/kit/scan_dead_zones.py and scan_dead_links.py: zones and Delayed links behind an unguarded caster flag)
+  the rest of what runs on after a death is a summon or a field living out its time (turrets, Daisy, Tibbers, Shaco's
+  boxes), not a frozen flag.
 - Left: one effect League's own spell lets finish (league_kayle R's blades, league_taric R's invulnerability 2.5 s
   after it fired, league_zilean R on an ally, league_jhin's lotus blooms, league_fizz R's shark, league_annie's
   Tibbers), effects on the dead caster only (league_blitzcrank's barrier, league_evelynn's camouflage chain and its

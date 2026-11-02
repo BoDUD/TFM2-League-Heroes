@@ -823,31 +823,18 @@
                                           "type": "Combine",
                                           "effects": [
                                             {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_zoe_e_tdone",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 300
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            },
-                                            {
-                                              "type": "Combine",
+                                              "type": "RandomTarget",
+                                              "range": 1,
+                                              "casting_target": "AllyOnlySelf",
+                                              "from_projectile": false,
                                               "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_zoe_e_got"
-                                                },
                                                 {
                                                   "type": "AddCasterBuff",
                                                   "buff_state": {
-                                                    "name": "league_zoe_e_got",
+                                                    "name": "league_zoe_lives",
                                                     "duration": {
                                                       "Time": {
-                                                        "tick": 2
+                                                        "tick": 1
                                                       }
                                                     }
                                                   },
@@ -856,60 +843,110 @@
                                               ]
                                             },
                                             {
-                                              "type": "ApAttack",
-                                              "damage": 60,
-                                              "attack_ratio": 40,
-                                              "hp_ratio": 0,
-                                              "can_crit": false
-                                            },
-                                            {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_zoe_e_drowsy",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 84
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_zoe_lives",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "AddCasterBuff",
+                                                    "buff_state": {
+                                                      "name": "league_zoe_e_tdone",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 300
+                                                        }
+                                                      }
+                                                    },
+                                                    "only_to_enemy": false
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_zoe_e_got"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_zoe_e_got",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 2
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "ApAttack",
+                                                    "damage": 60,
+                                                    "attack_ratio": 40,
+                                                    "hp_ratio": 0,
+                                                    "can_crit": false
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_zoe_e_drowsy",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 84
+                                                        }
+                                                      },
+                                                      "move_speed_mult": -30
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "AddBuff",
+                                                    "buff_state": {
+                                                      "name": "league_zoe_e_mark",
+                                                      "duration": {
+                                                        "Time": {
+                                                          "tick": 84
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 84,
+                                                    "effects": [
+                                                      {
+                                                        "type": "Native",
+                                                        "effect_ref": "hypnotist_skill2",
+                                                        "radius": 3000,
+                                                        "delay": 1,
+                                                        "buff_duration": 135,
+                                                        "amplify": 100
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_zoe_e_hit"
+                                                  },
+                                                  {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_zoe_e_hit"
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_zoe_e_pop"
                                                   }
-                                                },
-                                                "move_speed_mult": -30
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
                                               }
                                             },
                                             {
-                                              "type": "AddBuff",
-                                              "buff_state": {
-                                                "name": "league_zoe_e_mark",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 84
-                                                  }
-                                                }
-                                              }
-                                            },
-                                            {
-                                              "type": "Delayed",
-                                              "tick": 84,
-                                              "effects": [
-                                                {
-                                                  "type": "Native",
-                                                  "effect_ref": "hypnotist_skill2",
-                                                  "radius": 3000,
-                                                  "delay": 1,
-                                                  "buff_duration": 135,
-                                                  "amplify": 100
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "type": "ViewEffect",
-                                              "name": "league_zoe_e_hit"
-                                            },
-                                            {
-                                              "type": "TargetSfx",
-                                              "name": "league_zoe_e_hit"
-                                            },
-                                            {
-                                              "type": "Sfx",
-                                              "name": "league_zoe_e_pop"
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_zoe_lives"
                                             }
                                           ]
                                         }
