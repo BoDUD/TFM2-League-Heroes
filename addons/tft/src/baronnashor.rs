@@ -39,10 +39,7 @@ fn log_path() -> PathBuf {
         return PathBuf::from(path);
     }
     if let Some(appdata) = std::env::var_os("APPDATA") {
-        let dir = PathBuf::from(appdata)
-            .join("TeamSamoyed")
-            .join("TeamfightManager2")
-            .join("data");
+        let dir = PathBuf::from(appdata).join("TeamSamoyed").join("TeamfightManager2").join("data");
         if dir.is_dir() {
             return dir.join("tft_baronnashor.log");
         }
@@ -57,11 +54,7 @@ fn wlog(msg: impl AsRef<str>) {
     // the file stays open (opening it for every line stalled the simulation thread in game, league_talon_vault)
     let mut file = LOG_FILE.lock().unwrap_or_else(|e| e.into_inner());
     if file.is_none() {
-        *file = OpenOptions::new()
-            .create(true)
-            .append(true)
-            .open(&*LOG_PATH)
-            .ok();
+        *file = OpenOptions::new().create(true).append(true).open(&*LOG_PATH).ok();
     }
     if let Some(f) = file.as_mut() {
         let _ = f.write_all(format!("{}\n", msg.as_ref()).as_bytes());
@@ -74,8 +67,7 @@ fn close_log() {
 
 const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 100;
-static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> =
-    LazyLock::new(|| Mutex::new(HashMap::new()));
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn counted(kind: &'static str) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
@@ -96,9 +88,7 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 }
 
 fn name_of(sim: &StableSim<'_>, id: usize) -> String {
-    sim.get_entity(id)
-        .and_then(|e| e.name())
-        .map_or_else(|| format!("#{id}"), |n| format!("{n} #{id}"))
+    sim.get_entity(id).and_then(|e| e.name()).map_or_else(|| format!("#{id}"), |n| format!("{n} #{id}"))
 }
 
 // ===================== 参数 =====================
@@ -131,12 +121,7 @@ impl Default for Params {
 
 pub fn parse_params(json: &str) -> Params {
     let mut p = Params::default();
-    for part in json
-        .trim()
-        .trim_start_matches('{')
-        .trim_end_matches('}')
-        .split(',')
-    {
+    for part in json.trim().trim_start_matches('{').trim_end_matches('}').split(',') {
         let mut kv = part.splitn(2, ':');
         let (Some(k), Some(v)) = (kv.next(), kv.next()) else {
             continue;
@@ -244,10 +229,8 @@ impl StablePassive for Rift {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, seed: u64, _: usize, me: usize) {
-        let Some((at, team, attack)) = sim
-            .get_entity(me)
-            .filter(|e| e.is_alive())
-            .map(|e| (e.pos(), e.team(), e.stat().attack))
+        let Some((at, team, attack)) =
+            sim.get_entity(me).filter(|e| e.is_alive()).map(|e| (e.pos(), e.team(), e.stat().attack))
         else {
             self.since = None;
             self.last = None;
@@ -312,10 +295,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:rift"), Rift::default());
-    host.log(
-        LogLevel::Info,
-        "tft.dll: Baron Nashor (the Void Rift's tentacles).",
-    );
+    host.log(LogLevel::Info, "tft.dll: Baron Nashor (the Void Rift's tentacles).");
 }
 
 #[cfg(test)]
@@ -324,24 +304,15 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let json =
-            r#"{"p_ad":60,"p_dmg":40,"p_every":360,"p_first":120,"p_range":60000,"p_up":45}"#;
+        let json = r#"{"p_ad":60,"p_dmg":40,"p_every":360,"p_first":120,"p_range":60000,"p_up":45}"#;
         assert_eq!(parse_params(json), Params::default());
     }
 
     #[test]
     fn tentacles_by_the_clock() {
         let p = Params::default();
-        assert_eq!(
-            next_tentacle(500, Some(500), None, &p),
-            620,
-            "the first one p_first into the fight"
-        );
-        assert_eq!(
-            next_tentacle(700, Some(500), Some(620), &p),
-            980,
-            "then every p_every"
-        );
+        assert_eq!(next_tentacle(500, Some(500), None, &p), 620, "the first one p_first into the fight");
+        assert_eq!(next_tentacle(700, Some(500), Some(620), &p), 980, "then every p_every");
         assert_eq!(next_tentacle(900, None, None, &p), 1020);
     }
 
@@ -354,10 +325,7 @@ mod tests {
     fn the_pick_stays_in_range_and_varies() {
         let picks: Vec<usize> = (0..60).map(|t| pick(3, 12345, t * 360)).collect();
         assert!(picks.iter().all(|&i| i < 3));
-        assert!(
-            (0..3).all(|i| picks.contains(&i)),
-            "every prey gets picked sometimes"
-        );
+        assert!((0..3).all(|i| picks.contains(&i)), "every prey gets picked sometimes");
         assert_eq!(pick(1, 7, 99), 0);
         assert_eq!(pick(0, 7, 99), 0);
     }
