@@ -236,12 +236,14 @@ def build(p, is_native=False):
                                                    "z": z, "is_follow": follow}
     B_ = lambda name, anim_=FX, z=3: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
                                       "z": z}
-    # the shockwave ring and the landing's crater lie where they happened (not following); the transform's flare and
-    # the blazing, growing blade ride on it; r_slash is the cut along the slash's line (a LineRangeProjectile's picture stands
-    # at its feet, turned with the cast)
+    # the shockwave ring and the landing's crater lie where they happened (not following); the transform's blades and
+    # the blazing pillar ride on it BEHIND it (z -1: the Gemini sheet drew them through the middle, where its body is),
+    # the gravity field under it (a flat hexagon disc); r_slash is the wave along the slash's line (a
+    # LineRangeProjectile's picture stands at its feet, turned with the cast)
     views_e = [E("a_hit"), E("a_crush"), E("q_taunt", FX, 3), E("q_wave", BIG, -1, False), E("q_hit"),
-               E("e_slam", BIG, -1, False), E("e_up", FX, 3), E("r_transform", BIG, 3), E("r_sword", BIG, 3), E("r_hit")]
-    views_b = [B_("a_slow"), B_("q_stance", BIG), B_("r_form", FX, 1), B_("p_shield")]
+               E("e_slam", BIG, -1, False), E("e_up", FX, 3), E("r_transform", BIG, -1), E("r_sword", BIG, -1),
+               E("r_hit")]
+    views_b = [B_("a_slow"), B_("q_stance", BIG, -1), B_("r_form", FX, 1), B_("p_shield")]
     views_p = [B_("r_slash", BIG, 1)]
     kit = {
         "id": ID, "category": "Util", "tags": ["AD", "Melee", "Tank", "CC", "Shield", "Heal"],

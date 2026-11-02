@@ -1,0 +1,122 @@
+{
+ "a_hit": {
+  "frames": 3,
+  "cell": [
+   18,
+   20
+  ],
+  "symmetry": "LR"
+ },
+ "a_crush": {
+  "frames": 4,
+  "cell": [
+   24,
+   22
+  ],
+  "symmetry": "LR"
+ },
+ "a_slow": {
+  "frames": 6,
+  "cell": [
+   24,
+   8
+  ],
+  "symmetry": "LR"
+ },
+ "q_stance": {
+  "frames": 4,
+  "cell": [
+   64,
+   26
+  ],
+  "symmetry": "LR"
+ },
+ "q_taunt": {
+  "frames": 4,
+  "cell": [
+   16,
+   14
+  ],
+  "symmetry": "LR"
+ },
+ "q_wave": {
+  "frames": 3,
+  "cell": [
+   90,
+   34
+  ],
+  "symmetry": "LR"
+ },
+ "q_hit": {
+  "frames": 3,
+  "cell": [
+   16,
+   16
+  ],
+  "symmetry": "LR"
+ },
+ "e_slam": {
+  "frames": 4,
+  "cell": [
+   60,
+   38
+  ],
+  "symmetry": "LR"
+ },
+ "e_up": {
+  "frames": 4,
+  "cell": [
+   16,
+   20
+  ],
+  "symmetry": "LR"
+ },
+ "r_transform": {
+  "frames": 3,
+  "cell": [
+   90,
+   44
+  ],
+  "symmetry": "LR"
+ },
+ "r_sword": {
+  "frames": 3,
+  "cell": [
+   64,
+   36
+  ],
+  "symmetry": "LR"
+ },
+ "r_slash": {
+  "frames": 3,
+  "cell": [
+   80,
+   20
+  ],
+  "symmetry": "TB"
+ },
+ "r_hit": {
+  "frames": 4,
+  "cell": [
+   22,
+   22
+  ],
+  "symmetry": "LR"
+ },
+ "r_form": {
+  "frames": 3,
+  "cell": [
+   70,
+   34
+  ],
+  "symmetry": "LR"
+ },
+ "p_shield": {
+  "frames": 6,
+  "cell": [
+   22,
+   40
+  ],
+  "symmetry": "LR"
+ }
+}

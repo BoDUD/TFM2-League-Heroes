@@ -749,7 +749,7 @@
       "name": "tft_mightymech_r_transform",
       "anim": "asset/tft/effects/tft_mightymech_big",
       "tag": "r_transform",
-      "z": 3,
+      "z": -1,
       "is_follow": true
     },
     {
@@ -757,7 +757,7 @@
       "name": "tft_mightymech_r_sword",
       "anim": "asset/tft/effects/tft_mightymech_big",
       "tag": "r_sword",
-      "z": 3,
+      "z": -1,
       "is_follow": true
     },
     {
@@ -784,7 +784,7 @@
       "anim": "asset/tft/effects/tft_mightymech_big",
       "tag": "q_stance",
       "repeat": true,
-      "z": 3
+      "z": -1
     },
     {
       "type": "Animated",
