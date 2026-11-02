@@ -48,6 +48,9 @@ CLIPS = {
     C + "e_stun": ("tft13", [S13 + "_Spell_Slam_hit"], 1.0, -8),         # knocked into the one behind
     C + "r": ("tft13", [S13 + "_Spell_Chomp_cast"], 1.2, -9),
     C + "r_vo": ("tft13_vo", ["Play_vo_TFT13_LieutenantSpell_OnCast"], 2.0, -3),
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "q_vo": ("tft13_vo", ["Play_vo_TFT13_LieutenantSpell_OnCast"], 2.0, -3, 1),
+    C + "e_vo": ("tft13_vo", ["Play_vo_TFT13_LieutenantSpell_OnCast"], 2.0, -3, 2),
     C + "r_dash": ("tft13", [S13 + "_Spell_Slam_dash"], 0.8, -10),
     C + "r_hit": ("tft13", [S13 + "_Spell_Chomp_hit"], 1.0, -7),         # each bite
     C + "r_kill": ("tft13", [S13 + "_Spell_Slam_explo"], 1.4, -7),       # the execute

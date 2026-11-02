@@ -4,6 +4,11 @@
       "delay": 0.0,
       "clip": "tft_alune_sfx_e_cast",
       "volume": 0.45
+    },
+    {
+      "delay": 0.0,
+      "clip": "tft_alune_sfx_e_vo",
+      "volume": 0.6
     }
   ]
 }

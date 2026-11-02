@@ -15,7 +15,7 @@ user calls her 伦妮), zh_TW 雷尼, ja レニー, ko 레니, en Renni; Sludger
 Guard (锯刃格挡) are our own (TFT has one ability; the user's pick, plan A 「泥奔者」). The texts are the rules she plays with
 tft.dll (addons/tft/src/renni.rs): the shimmer shot under p_line% health, both heals by her maximum health.
 Sounds: tools/lol/extract_renni.py's clips in tft/sound/sfx/tft_renni_sfx_*.wav (git-ignored) - her own set-13 TFT
-sounds (the saw's two revs and grinds, the heave, the lift's grind, the slam's two hits, her voice on the heave), Vi's
+sounds (the saw's two revs and grinds, the heave, the lift's grind, the slam's two hits, her voice on each cast), Vi's
 Vault Breaker launch for the charge, Braum's Unbreakable for the guard, Dr. Mundo's Maximum Dosage and Heart Zapper heal
 for the shimmer shot and the heals. A clip name never equals an event name (vo-clip-names rule): event tft_renni_<x>
 plays clip tft_renni_sfx_<x>. package_mod moves the clips to sound/bgm/ at install.
@@ -131,10 +131,10 @@ SOUNDS = {
     f"{ID}_a_hit": [(CLIP + "a_hit", 0.35, 0.0)],
     f"{ID}_p": [(CLIP + "p", 0.5, 0.0)],
     f"{ID}_p_heal": [(CLIP + "p_heal", 0.45, 0.0)],
-    f"{ID}_q": [(CLIP + "q", 0.5, 0.0)],
+    f"{ID}_q": [(CLIP + "q", 0.5, 0.0), (CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_saw": [(CLIP + "q_saw", 0.45, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.4, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.5, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.5, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_r": [(CLIP + "r", 0.5, 0.0)],
     f"{ID}_r_vo": [(CLIP + "r_vo", 0.6, 0.0)],
     f"{ID}_r_lift": [(CLIP + "r_lift", 0.5, 0.0)],

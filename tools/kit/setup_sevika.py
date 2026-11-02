@@ -132,6 +132,10 @@ SOUNDS = {f"{ID}_{x}": [(CLIP + x, v, 0.0)] for x, v in (
     ("q", 0.45), ("q_fire", 0.5), ("q_loop", 0.45),
     ("e", 0.5), ("e_launch", 0.5), ("e_hit", 0.6), ("e_stun", 0.55),
     ("r", 0.5), ("r_vo", 0.6), ("r_dash", 0.5), ("r_hit", 0.6), ("r_kill", 0.65))}
+# her voice on every cast (the user 2026-11-02: 「所有已经完成的tft英雄都要补」): the ult has r_vo, the skills
+# the set's two other takes layered into their casts
+SOUNDS[f"{ID}_q"].append((CLIP + "q_vo", 0.6, 0.0))
+SOUNDS[f"{ID}_e"].append((CLIP + "e_vo", 0.6, 0.0))
 # the sounds tft.dll plays itself (addons/tft/src/sevika.rs: the mods, the fist, the bites, the re-dash)
 DLL_SOUNDS = {f"{ID}_{x}" for x in ("p_rocket", "p_rocket_hit", "p_shield", "p_shimmer", "p_jackpot", "p_jackpot_fx",
                                      "e_launch", "e_hit", "e_stun", "r_dash", "r_hit", "r_kill")}

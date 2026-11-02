@@ -40,6 +40,9 @@ CLIPS = {
     C + "e_hit": ("tft13", [S13 + "CritAttack_OnHit"], 0.8, -7),
     C + "p": ("Vi", [VI + "PassiveBuff_OnBuffActivate"], 0.9, -10),
     C + "r": ("tft13_vo", ["Play_vo_TFT13_RedSpell_OnCast"], 2.0, -3),
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "q_vo": ("tft13_vo", ["Play_vo_TFT13_RedSpell_OnCast"], 2.0, -3, 1),
+    C + "e_vo": ("tft13_vo", ["Play_vo_TFT13_RedSpell_OnCast"], 2.0, -3, 2),
     C + "r_jump": ("Vi", [VI + "R_OnCast"], 1.4, -8),
     C + "r_slam": ("Vi", [VI + "EAttack_missilelaunch"], 1.4, -5),
     C + "r_buff": ("Vi", [VI + "WBuff_hit_champ"], 1.2, -9),

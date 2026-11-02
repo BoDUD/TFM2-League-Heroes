@@ -16,7 +16,7 @@ Snipe (执法狙杀) are our own (TFT has one ability; the user's pick, plan A �
 with tft.dll (addons/tft/src/maddie.rs): the Sniper bonus by distance, the bullets at the farthest enemy, the Wanted
 enemy with the most health and its bounty, the snipe at the weakest.
 Sounds: tools/lol/extract_maddie.py's clips in tft/sound/sfx/tft_maddie_sfx_*.wav (git-ignored) - her own set-13 TFT
-sounds (the rifle's shot, hit, reload, crit hit and spell, her voice on the ult) and Caitlyn's Ace in the Hole (the
+sounds (the rifle's shot, hit, reload, crit hit and spell, her voice on each cast) and Caitlyn's Ace in the Hole (the
 lock-on for the Wanted mark and the aim, its shot and its hit for the snipe). A clip name never equals an event name
 (vo-clip-names rule): event tft_maddie_<x> plays clip tft_maddie_sfx_<x>. package_mod moves the clips to sound/bgm/ at
 install.
@@ -118,10 +118,10 @@ SOUNDS = {
     f"{ID}_a": [(CLIP + "a", 0.4, 0.0)],
     f"{ID}_a_hit": [(CLIP + "a_hit", 0.3, 0.0)],
     f"{ID}_a_reload": [(CLIP + "a_reload", 0.25, 0.0)],
-    f"{ID}_q_cast": [(CLIP + "q_cast", 0.4, 0.0)],
+    f"{ID}_q_cast": [(CLIP + "q_cast", 0.4, 0.0), (CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q": [(CLIP + "q", 0.35, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.3, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.45, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.45, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_r": [(CLIP + "r", 0.6, 0.0)],
     f"{ID}_r_aim": [(CLIP + "r_aim", 0.45, 0.0)],
     f"{ID}_r_shot": [(CLIP + "r_shot", 0.6, 0.0)],

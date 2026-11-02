@@ -9,6 +9,11 @@
       "delay": 0.05,
       "clip": "magic_knight_skill2_resource1",
       "volume": 0.35
+    },
+    {
+      "delay": 0.0,
+      "clip": "tft_powder_sfx_r_vo",
+      "volume": 0.6
     }
   ]
 }

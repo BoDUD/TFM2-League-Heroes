@@ -16,7 +16,7 @@ ability; the user's pick, plan A 「统领·畸变体」). The texts are the rul
 the shield at every spawn, the monstrosities that leap on to the next enemy, the dose for the strongest ally nearby and
 its comedown, the fog.
 Sounds: tools/lol/extract_silco.py's clips in tft/sound/sfx/tft_silco_sfx_*.wav (git-ignored) - his own set-13 TFT sounds
-(the vial's throw and hit, the canister's throw and burst, his voice line on the ult), Naafiri's packmates' bite for the
+(the vial's throw and hit, the canister's throw and burst, his voice, a line a cast), Naafiri's packmates' bite for the
 monstrosities, Renata Glasc's chemtech dose for Shimmer Shot and Gragas's Explosive Cask for the giant canister. A clip
 name never equals an event name (vo-clip-names rule): event tft_silco_<x> plays clip tft_silco_sfx_<x>. package_mod moves
 the clips to sound/bgm/ at install.
@@ -130,10 +130,10 @@ TEXT = {
 SOUNDS = {
     f"{ID}_a": [(CLIP + "a", 0.4, 0.0)],
     f"{ID}_a_hit": [(CLIP + "a_hit", 0.35, 0.0)],
-    f"{ID}_q": [(CLIP + "q", 0.45, 0.0)],
+    f"{ID}_q": [(CLIP + "q", 0.45, 0.0), (CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.45, 0.0)],
     f"{ID}_m_bite": [(CLIP + "m_bite", 0.25, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.4, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.4, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_r": [(CLIP + "r", 0.6, 0.0)],
     f"{ID}_r_hit": [(CLIP + "r_hit", 0.55, 0.0)],
 }

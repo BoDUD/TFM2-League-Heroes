@@ -17,7 +17,7 @@ bonus. Iron Fist (铁拳突进) and Last Stand on the Bridge (桥头死守) are 
 strike's bonus per Family ally (Powder, Vi, Jinx), the stand's reduction per enemy champion round him.
 Sounds: tools/lol/extract_vander.py's clips in tft/sound/sfx/tft_vander_sfx_*.wav (git-ignored) - his own set-13 TFT
 sounds (the punch, its hits, the uppercut, the crit hit for the strike, the stance and its buff, the HERO blow, his
-voice on the ult) and Vi's Cease and Desist jump and dunk for the leap and the slam. A clip name never equals an event
+voice on each cast) and Vi's Cease and Desist jump and dunk for the leap and the slam. A clip name never equals an event
 name (vo-clip-names rule): event tft_vander_<x> plays clip tft_vander_sfx_<x>. package_mod moves the clips to
 sound/bgm/ at install.
 """
@@ -128,10 +128,10 @@ TEXT = {
 SOUNDS = {
     f"{ID}_a": [(CLIP + "a", 0.4, 0.0)],
     f"{ID}_a_hit": [(CLIP + "a_hit", 0.4, 0.0)],
-    f"{ID}_q": [(CLIP + "q", 0.45, 0.0)],
+    f"{ID}_q": [(CLIP + "q", 0.45, 0.0), (CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_buff": [(CLIP + "q_buff", 0.4, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.5, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.45, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.45, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_e_hit": [(CLIP + "e_hit", 0.45, 0.0), (CLIP + "a2_hit", 0.4, 0.0)],
     f"{ID}_r": [(CLIP + "r", 0.6, 0.0)],
     f"{ID}_r_jump": [(CLIP + "r_jump", 0.45, 0.0)],

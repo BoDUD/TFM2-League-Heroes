@@ -129,10 +129,10 @@ TEXT = {
 SOUNDS = {
     f"{ID}_a": [(CLIP + "a", 0.4, 0.0)],
     f"{ID}_a_hit": [(CLIP + "a_hit", 0.35, 0.0)],
-    f"{ID}_q": [(CLIP + "q", 0.45, 0.0)],
+    f"{ID}_q": [(CLIP + "q", 0.45, 0.0), (CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.45, 0.0)],
     f"{ID}_q_stun": [(CLIP + "q_stun", 0.35, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.45, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.45, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_e_hit": [(CLIP + "e_hit", 0.45, 0.0)],
     f"{ID}_r": [(CLIP + "r", 0.45, 0.0)],
     f"{ID}_vo": [(CLIP + "vo", 0.6, 0.0)],

@@ -37,6 +37,9 @@ CLIPS = {
     C + "p_hit": ("tft13", [S13 + "CritAttack_OnHit"], 0.8, -8),
     C + "q": ("tft13", [S13 + "Spell_OnCast"], 1.2, -9),               # the leap
     C + "q_vo": ("tft13_vo", ["Play_vo_TFT13_GremlinSpell_OnCast"], 2.0, -3),
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "e_vo": ("tft13_vo", ["Play_vo_TFT13_GremlinSpell_OnCast"], 2.0, -3, 1),
+    C + "r_vo": ("tft13_vo", ["Play_vo_TFT13_GremlinSpell_OnCast"], 2.0, -3, 2),
     C + "q_land": ("Khazix", ["Play_sfx_Khazix_KhazixE_hit"], 0.9, -10),
     C + "q_hit": ("tft13", [S13 + "Spell_OnHit"], 1.0, -8),            # each of the three slashes
     C + "e": ("Khazix", ["Play_sfx_Khazix_KhazixQ_OnCast"], 0.8, -10),  # the rip

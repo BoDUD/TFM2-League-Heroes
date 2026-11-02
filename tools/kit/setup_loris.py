@@ -16,7 +16,7 @@ ability, split here into the charge and the taunt; the user's pick, plan A ã€Œç¥
 he plays with tft.dll (addons/tft/src/loris.rs): the Warden shields at 75% / 25%, Bulwark's leap to the ally with the
 lowest share of health and the share of its damage he takes.
 Sounds: tools/lol/extract_loris.py's clips in tft/sound/sfx/tft_loris_sfx_*.wav (git-ignored) - his own set-16 TFT
-sounds (the bash, its hit, the crit hit, the cast, the charge, his voice on the ult), set 13's Beardy shield buff and
+sounds (the bash, its hit, the crit hit, the cast, the charge, his voice on each cast), set 13's Beardy shield buff and
 shockwave (the shields, the slam) and Braum's Stand Behind Me landing and Glacial Fissure hit. A clip name never equals
 an event name (vo-clip-names rule): event tft_loris_<x> plays clip tft_loris_sfx_<x>. package_mod moves the clips to
 sound/bgm/ at install.
@@ -122,10 +122,10 @@ TEXT = {
 SOUNDS = {
     f"{ID}_a": [(CLIP + "a", 0.4, 0.0)],
     f"{ID}_a_hit": [(CLIP + "a_hit", 0.35, 0.0)],
-    f"{ID}_q": [(CLIP + "q", 0.4, 0.0)],
+    f"{ID}_q": [(CLIP + "q", 0.4, 0.0), (CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_dash": [(CLIP + "q_dash", 0.45, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.4, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.45, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.45, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_e_shield": [(CLIP + "e_shield", 0.4, 0.0)],
     f"{ID}_r": [(CLIP + "r", 0.45, 0.0)],
     f"{ID}_vo": [(CLIP + "vo", 0.6, 0.0)],

@@ -17,7 +17,7 @@ The texts are the rules he plays with tft.dll (addons/tft/src/scar.rs): the dash
 last one, Watcher by health, the bombs at the nearest enemies.
 Sounds: tools/lol/extract_scar.py's clips in tft/sound/sfx/tft_scar_sfx_*.wav (git-ignored) - his own set-13 TFT
 sounds (the thrust and its hit, the second swing and its hit for the sweep, the crit hit for the dash's strike, the
-throw, the bomb going off, the heal, his voice on the throw), Firelight Ekko's hoverboard (the dash, the raid's boost,
+throw, the bomb going off, the heal, his voice on each cast), Firelight Ekko's hoverboard (the dash, the raid's boost,
 the guard's shield) and Ziggs's bombs (the fire bombs, the landing blast). A clip name never equals an event name
 (vo-clip-names rule): event tft_scar_<x> plays clip tft_scar_sfx_<x>. package_mod moves the clips to sound/bgm/ at
 install.
@@ -141,9 +141,9 @@ SOUNDS = {
     f"{ID}_q": [(CLIP + "q", 0.45, 0.0)],
     f"{ID}_q_vo": [(CLIP + "q_vo", 0.6, 0.0)],
     f"{ID}_q_hit": [(CLIP + "q_hit", 0.5, 0.0)],
-    f"{ID}_e": [(CLIP + "e", 0.45, 0.0)],
+    f"{ID}_e": [(CLIP + "e", 0.45, 0.0), (CLIP + "e_vo", 0.6, 0.0)],
     f"{ID}_e_hit": [(CLIP + "e_hit", 0.5, 0.0)],
-    f"{ID}_r": [(CLIP + "r", 0.5, 0.0)],
+    f"{ID}_r": [(CLIP + "r", 0.5, 0.0), (CLIP + "r_vo", 0.6, 0.0)],
     f"{ID}_r_bomb": [(CLIP + "r_bomb", 0.5, 0.0)],
     f"{ID}_r_mines": [(CLIP + "r_mines", 0.6, 0.0)],
     f"{ID}_r_guard": [(CLIP + "r_guard", 0.45, 0.0)],

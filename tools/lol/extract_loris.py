@@ -7,7 +7,7 @@ hold his shield bash and its hit, the heavy crit hit, the cast and the charge (P
 naming, 2026-10-27: BasicAttack(2)_OnCast / _OnHit, CritAttack_*, Spell_OnCast, Spell_dash). His shield buff and its
 shockwave (the two events his skin bin names, SpellBuff_buffactivate / _shockwave_buffactivate) resolve only in set 13's
 bank, under the same model's old name TFT13_Beardy (MODE_TFT_Set13_Champs_SFX). His voice is in MODE_TFT_Set16_Champs_VO
-(one event, Play_vo_TFT16_LorisSpell_OnCast; the Riot client's en_US: WeGame has no set-16 voice). Borrowed from League
+(one event, Play_vo_TFT16_LorisSpell_OnCast; the Riot client's en_US, the same takes as WeGame's). Borrowed from League
 (Champions/*.wad.client of --lol): Bulwark's leap to an ally is Braum's Stand Behind Me landing (BraumWDash_land), and the
 ground cracking under the Iron Line is Glacial Fissure's hit (BraumRMissile_OnHit) - the other shield-bearing support.
 Read, never written; the bank's Wwise events resolved to their media (the first variant unless picked), decoded with
@@ -43,6 +43,9 @@ CLIPS = {
     C + "r_slam": ("tft13", [S13 + "SpellBuff_shockwave_buffactivate"], 1.6, -7),
     C + "r_hit": ("Braum", [BR + "RMissile_OnHit"], 1.2, -9),
     C + "vo": ("tft16_vo", ["Play_vo_TFT16_LorisSpell_OnCast"], 3.0, -3, 2),   # his battle cry: the longest (0.53 s)
+    # the set's other two takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+    C + "q_vo": ("tft16_vo", ["Play_vo_TFT16_LorisSpell_OnCast"], 3.0, -3, 0),
+    C + "e_vo": ("tft16_vo", ["Play_vo_TFT16_LorisSpell_OnCast"], 3.0, -3, 1),
 }
 SFX = "assets/sounds/wwise2016/sfx/shared/mode_tft_set{set}_champs_sfx_"
 VO16 = "assets/sounds/wwise2016/vo/{lang}/shared/mode_tft_set16_champs_vo_"

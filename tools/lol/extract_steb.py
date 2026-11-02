@@ -102,6 +102,9 @@ def main():
     try:
         if banks_of(VO[0], a, cache).event_media(VO[1][0]):
             clips[C + "q_vo"] = VO
+            # the two other takes on the other casts (the user 2026-11-02: 「所有已经完成的tft英雄都要补」)
+            clips[C + "e_vo"] = VO + (1,)
+            clips[C + "r_vo"] = VO + (2,)
     except SystemExit:
         pass
     for name, (src, events, max_s, peak, *pick) in clips.items():
