@@ -411,6 +411,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // (「A 30 PPU 2.33」: 70 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_cinderling.py,
     // so no SIZES row
     ("tft_cinderling", 2.33, include_str!("../../../tft/champions/tft_cinderling#anim.fanim")),
+    // the Rift Herald (tft_riftherald, the tft pack): the void beast hunched under its domed shell at 3/4, step 0's first
+    // A read on its own 8 px squares at the user's 44 game px from the shell's top to its soles, PPU 2.0 (「A-1，44 像素，
+    // PPU 2.0」: 88 rows), and Codex's key poses after its own TFT clips, posed by tools/art/rig_riftherald.py, so no
+    // SIZES row
+    ("tft_riftherald", 2.0, include_str!("../../../tft/champions/tft_riftherald#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
