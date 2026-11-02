@@ -269,7 +269,7 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q alone
     skill = action("skill", p["q_dur"], p["q_cd"], p["q_st"], p["q_range"], "Direction", "EnemyWithoutTower", combine(
-        sfx("q_cast"), voice("vo_q", p), cview("q_cast"), bolt("q_bolt")))
+        sfx("q_cast"), voice("vo_q", p), bolt("q_bolt")))
 
     # ------------------------------------------------------------------ skill2: E -> W -> Q
     # W and Q go at the cast's target, queued on it (a Delayed on a unit that died runs only its pictures); each sets a
@@ -290,7 +290,7 @@ def build(p):
     dw, dq = p["c_w"] - p["c_e"], p["c_q"] - p["c_e"]
     de2, dq2 = p["c_e2"] - p["c_e"], p["c_q2"] - p["c_e"]
     skill2 = action("skill2", p["c_dur"], p["c_cd"], p["c_e"], p["c_range"], "Targeting", "EnemyWithoutTower", combine(
-        voice("vo_e", p), sfx("e_cast"), cview("e_cast"), spell_flux("c"),
+        voice("vo_e", p), sfx("e_cast"), spell_flux("c"),
         delayed(dw, w_hit, flag("c_w_ok", 3)),
         delayed(dq, bolt("q_bolt"), flag("c_q_ok", 3)),
         # the second E and Q only at the cast's target (a fallback for each put the tree at 515 nodes, copied every
@@ -300,11 +300,11 @@ def build(p):
             refresh("rune1", dq + 2),
             delayed(dw, sfx("w_cast"), *rm("rune1"), refresh("rune2", dq - dw + 2)),
             delayed(dw + 1, w_fb),
-            delayed(dq, sfx("q_cast"), cview("q_cast"), *rm("rune2"), cview("rune_out"),
+            delayed(dq, sfx("q_cast"), *rm("rune2"), cview("rune_out"),
                     refresh("q_haste", p["rune_t"], move_speed_mult=p["rune_ms"])),
             delayed(dq + 1, q_fb("c_q_ok")),
-            *([delayed(de2, sfx("e_cast"), cview("e_cast"), refresh("rune1", dq2 - de2 + 2)),
-               delayed(dq2, sfx("q_cast"), cview("q_cast"), *rm("rune1"), cview("rune_out"),
+            *([delayed(de2, sfx("e_cast"), refresh("rune1", dq2 - de2 + 2)),
+               delayed(dq2, sfx("q_cast"), *rm("rune1"), cview("rune_out"),
                        refresh("q_haste", p["rune_t"], move_speed_mult=p["rune_ms"]))] if p["c_two"] else []),
             )))
 
@@ -407,7 +407,10 @@ def build(p):
     poll = {"type": "AddCasted", "casted_type": "Bleed", "duration": p["r_arm"], "period": p["r_poll"], "effects": [r_try]}
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "None", "EnemyChampion", combine(
         *rm("r_armed"), flag("r_armed", p["r_arm"]), self_only(poll),
-        self_only(delayed(p["r_arm"], sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900)))))),
+        # the refund reads the arm flag 3 ticks before it ends (a flag of n ticks is seen on n - 1 of them,
+        # champion-data §8): read on its last tick it was always gone, so an unused window never refunded (11-02's
+        # logs: ult_press saw 0 refunds for Orianna, Ryze, Aphelios and Swain)
+        self_only(delayed(p["r_arm"] - 3, sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900)))))),
         key="ult")
 
     # ------------------------------------------------------------------ views
@@ -418,7 +421,8 @@ def build(p):
     ]
     E = lambda name, anim_, z=1, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
                                                  "z": z, "is_follow": follow}
-    views_e = [E("hit", FX), E("q_cast", FX, follow=False), E("q_hit", FX), E("q_pop", FX, 2), E("e_cast", FX), E("e_hit", FX),
+    # the Q and E cast flashes are drawn in his own frames (9de058e6b, 10-12): no cast views
+    views_e = [E("hit", FX), E("q_hit", FX), E("q_pop", FX, 2), E("e_hit", FX),
                E("flux", FX, 2), E("w_root", FX), E("w_cage", FX), E("rune_out", FX),
                E("r_portal", BIG, -1, False), E("r_dest", BIG, -1, False), E("r_out", BIG, 1, False),
                E("r_in", BIG, 1), E("r_ally", FX, 2)]

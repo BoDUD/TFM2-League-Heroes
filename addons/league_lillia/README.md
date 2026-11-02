@@ -36,15 +36,16 @@
      又在睡着后一跳梦尘（45 tick）以内、尤其是第 1、2 tick（`119`、`118 ticks left`）的，是梦尘自己被当成了被打（0.1.1 的毛病）；
    - `SLEEPS ON #3: #23 lost 21 while asleep, her own dust landing (up to 47) (88 ticks left)`：昏睡中掉的血是她自己的梦尘
      落下，没有叫醒（0.1.1 会在这里叫醒；前 8 次和之后每 20 次记一行）；
-   - `WATCH: dust ticks 120, lullabies 3, sleeps 6, wakes 4, slept through her dust 5`：每 30 秒一行的累计（最后一项是
-     `SLEEPS ON` 的次数）。
+   - `WATCH: dust ticks 120, lullabies 3, sleeps 6, wakes 4, slept through her dust 5`：累计（最后一项是 `SLEEPS ON` 的次数），
+     每 30 秒看一次，和她上一行 WATCH 比有变化才写。
+   - 0.1.5（2026-11-03 的日志：1745 行里 1174 行是 WATCH，595 行全是 0）：WATCH 以前每 30 秒都写一行，现在计数没变就不写。
 
 ## 开发
 
 - `python addons/league_lillia/make_override.py`：从参数表重新生成 `override/` 和 `text/`（先核对主包的莉莉娅和参数表一致）。
   主包的莉莉娅改了以后要重跑。
 - 在 `addons/` 下 `cargo test --release -p league_lillia`：单元测试（参数、梦尘伤害、只有梦尘以外的伤害才叫醒、梦尘下一 tick
-  才落下、buff 名字）。
+  才落下、WATCH 只在计数变了时写、buff 名字）。
 - 在 `addons/` 下 `cargo build --release -p league_lillia`（Windows）得到 `target/release/league_lillia.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，只能看游戏日志（v0.1.1、v0.1.2 都是照游戏日志改的）。
 - v0.1.1：游戏日志 `WAKE #1: #25 hit for 6 while asleep (100 ticks left)`——刚睡着 20 tick，三个人同时被主包数据里梦尘那一跳（4 + 3% 法强的魔法伤害，6 点）叫醒。每 tick 少掉的生命在这一跳以内不算被打（参数 `d_dmg`、`d_ratio` 从参数表写进副本）。

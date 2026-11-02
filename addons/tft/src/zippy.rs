@@ -22,6 +22,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+use crate::sim_tag::{Key, SimTag};
+
 const ID: &str = "tft_zippy";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const HOP_FX: &str = "tft_zippy:hop";
@@ -175,13 +177,19 @@ struct Leap {
     last: (u64, u64),
 }
 
-/// 跃起按（种子、模拟来源、比赛、局、它）分开：同一个进程里预演和观看的模拟各算各的（league_loris 的做法）。
-type Key = (u64, u32, u64, u64, usize);
+/// 跃起按（这份模拟的编号 `SIM_TAG`、它）分开（2026-11-03，tft 0.46.0）：以前按（种子、模拟来源、比赛、局、它），服务器并排跑的
+/// 两份预模拟这几样全一样，共用一份：一份起跳盖掉另一份正在跳的，一份落地或倒下把另一份的跳跃删掉、那一份半空中停住。
+const TAG: SimTag = SimTag("tft_zippy_sim:");
 static LEAPS: LazyLock<Mutex<HashMap<Key, Leap>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
+/// Its row in an effect (the passive not at hand): by the number hung on it.
 fn key(sim: &StableSim<'_>, me: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, me)
+    TAG.key(sim, me, me)
+}
+
+/// The leap on its way in `row` (None: not leaping).
+fn leap_of(row: Key) -> Option<Leap> {
+    LEAPS.lock().unwrap_or_else(|e| e.into_inner()).get(&row).cloned()
 }
 
 // ===================== 规则（单元测试用） =====================
@@ -319,7 +327,7 @@ impl StableEffectType for Hop {
 }
 
 fn hop(sim: &mut StableSim<'_>, me: usize, k_: Key) {
-    let Some(mut l) = LEAPS.lock().unwrap_or_else(|e| e.into_inner()).get(&k_).cloned() else { return };
+    let Some(mut l) = leap_of(k_) else { return };
     let Some(from) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.pos()) else {
         LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&k_);
         return;
@@ -371,6 +379,8 @@ struct Guild {
     p: Params,
     /// How many allies the last count gave armour for (a change is logged).
     last: usize,
+    /// This simulation's number (`SIM_TAG`), drawn at its first spawn.
+    sim: u64,
 }
 
 impl StablePassive for Guild {
@@ -384,6 +394,7 @@ impl StablePassive for Guild {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.me = me;
+        TAG.spawn(sim, me, &mut self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -419,7 +430,7 @@ impl StablePassive for Guild {
         let me = self.me;
         // its death cry (the data has no moment for it); the count starts again on the next life
         self.last = 0;
-        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
+        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
         sim.play_sfx(&zp("d"), me, &InputTargetV1::target(me));
     }
 }
@@ -487,5 +498,20 @@ mod tests {
     fn damage_by_the_numbers() {
         let p = Params::default();
         assert_eq!(physical(p.r_dmg, p.r_ad, 100), 300);
+    }
+
+    #[test]
+    fn each_sim_keeps_its_own_leap() {
+        // the tag its passive hangs is the one its leap reads back, and it fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+        // the server's two presims of one set: Zippy is #3 in both, two numbers
+        let (a, b) = ((u64::MAX - 1, 3), (u64::MAX - 2, 3));
+        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).insert(a, Leap { target: 8, until: 40, last: (0, 0) });
+        // b's hop finds no leap of a's to move it by; b landing or falling leaves a's leap in the air
+        assert!(leap_of(b).is_none());
+        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&b);
+        assert_eq!(leap_of(a).map(|l| (l.target, l.until)), Some((8, 40)));
+        LEAPS.lock().unwrap_or_else(|e| e.into_inner()).remove(&a);
     }
 }

@@ -29,6 +29,8 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+use crate::sim_tag::{Key, SimTag};
+
 const ID: &str = "tft_elderdragon";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
 const SCORCH_FX: &str = "tft_elderdragon:scorch";
@@ -185,8 +187,10 @@ fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied().unwrap_or_default()
 }
 
-/// 按（种子、模拟来源、比赛、局、单位）分开：同一个进程里预演和观看的模拟各算各的（league_loris 的做法）。
-type Key = (u64, u32, u64, u64, usize);
+/// 按（这份模拟的编号 `SIM_TAG`、单位）分开：吐息记在它自己名下，引燃记在它的编号、目标名下（2026-11-03，tft 0.46.0）。以前按
+/// （种子、模拟来源、比赛、局、单位），服务器并排跑的两份预模拟这几样全一样，共用一份：一份的吐息把另一份烧过的人算成烧过
+/// （跳过、或按后面的人衰减），引燃两份互相续、抢着烧。普攻和技能打中的人（等下一拍看处决）只有被动自己用，放在被动里。
+const TAG: SimTag = SimTag("tft_elderdragon_sim:");
 
 /// The current breath: how many it has burned so far and who (each once).
 #[derive(Default)]
@@ -204,12 +208,45 @@ pub struct Ignite {
 }
 static IGNITES: LazyLock<Mutex<HashMap<Key, Ignite>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-/// Units its attacks and skills struck (on_attack), with the tick: checked for the execute on its next update.
-static STRUCK: LazyLock<Mutex<HashMap<Key, Vec<(usize, usize)>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// The row of `id` in the simulation of the dragon `me` (by the number hung on it; an effect has no passive at hand).
+fn key(sim: &StableSim<'_>, me: usize, id: usize) -> Key {
+    TAG.key(sim, me, id)
+}
 
-fn key(sim: &StableSim<'_>, id: usize) -> Key {
-    let o = sim.sim_origin().unwrap_or_default();
-    (sim.seed(), o.kind, o.match_id, o.set_index, id)
+/// A new breath leaves: nobody burned yet.
+fn new_breath(row: Key) {
+    BREATHS.lock().unwrap_or_else(|e| e.into_inner()).insert(row, Breath::default());
+}
+
+/// The breath of `row` reaches `id`: how many it burned before (None: it burned `id` already).
+fn scorched(row: Key, id: usize) -> Option<usize> {
+    let mut all = BREATHS.lock().unwrap_or_else(|e| e.into_inner());
+    let b = all.entry(row).or_default();
+    b.hits.insert(id).then(|| b.hits.len() - 1)
+}
+
+/// A lighting: the Ignite in `row` burns (again) until `now + t`, lit by `by`; true when it is a new one.
+fn renew_ignite(row: Key, by: usize, now: usize, t: usize) -> bool {
+    let mut all = IGNITES.lock().unwrap_or_else(|e| e.into_inner());
+    let b = all.entry(row).or_default();
+    let fresh = now > b.until;
+    if fresh {
+        b.last = now;   // the first tick burns a full period after the lighting
+    }
+    b.by = by;
+    b.until = now + t;
+    fresh
+}
+
+/// A queued Ignite tick of `row` at `now`: whose Ignite it is when one is due this period (None: not now, or none lit).
+fn ignite_due(row: Key, now: usize, every: usize) -> Option<usize> {
+    let mut all = IGNITES.lock().unwrap_or_else(|e| e.into_inner());
+    let b = all.get_mut(&row)?;
+    if !ignites_now(b, now, every) {
+        return None;
+    }
+    b.last = now;
+    Some(b.by)
 }
 
 // ===================== 规则（单元测试用） =====================
@@ -339,19 +376,7 @@ fn ignite(sim: &mut StableSim<'_>, me: usize, id: usize) {
         return;
     }
     let p = params_of(me);
-    let now = sim.tick();
-    let k_ = key(sim, id);
-    let fresh = {
-        let mut all = IGNITES.lock().unwrap_or_else(|e| e.into_inner());
-        let b = all.entry(k_).or_default();
-        let fresh = now > b.until;
-        if fresh {
-            b.last = now;   // the first tick burns a full period after the lighting
-        }
-        b.by = me;
-        b.until = now + p.ig_t;
-        fresh
-    };
+    let fresh = renew_ignite(key(sim, me, id), me, sim.tick(), p.ig_t);
     put(sim, id, &BuffV1::timed(&ed("ig"), p.ig_t));
     let on = InputTargetV1::target(id);
     for k in 1..=p.ig_t / p.ig_every {
@@ -431,7 +456,7 @@ impl StableEffectType for BreathFx {
         };
         let end = end_of(at, to, p.q_len as u64);
         let (from, end) = ((at.0, at.1.saturating_sub(JAWS)), (end.0, end.1.saturating_sub(JAWS)));
-        BREATHS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), Breath::default());
+        new_breath(key(sim, me, me));
         let spec = ProjectileSpawnV1 {
             caster_id: me,
             team,
@@ -468,14 +493,7 @@ impl StableEffectType for Scorch {
         if !reachable(sim, id) {
             return;
         }
-        let k = {
-            let mut all = BREATHS.lock().unwrap_or_else(|e| e.into_inner());
-            let b = all.entry(key(sim, me)).or_default();
-            if !b.hits.insert(id) {
-                return;
-            }
-            b.hits.len() - 1
-        };
+        let Some(k) = scorched(key(sim, me, me), id) else { return };
         let p = params_of(me);
         let atk = sim.get_entity(me).map_or(0, |e| e.stat().attack);
         let dmg = decayed(physical(p.q_dmg, p.q_ad, atk), k, p.q_decay, p.q_min);
@@ -511,20 +529,11 @@ impl StableEffectType for IgniteTick {
         }
         let id = input.target_id;
         let Some(max_hp) = sim.get_entity(id).filter(|e| e.is_alive()).map(|e| e.hp().1) else {
-            IGNITES.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, id));
+            IGNITES.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me, id));
             return;
         };
         let p = params_of(me);
-        let now = sim.tick();
-        let by = {
-            let mut all = IGNITES.lock().unwrap_or_else(|e| e.into_inner());
-            let Some(b) = all.get_mut(&key(sim, id)) else { return };
-            if !ignites_now(b, now, p.ig_every) {
-                return;
-            }
-            b.last = now;
-            b.by
-        };
+        let Some(by) = ignite_due(key(sim, me, id), sim.tick(), p.ig_every) else { return };
         if by != me {
             return;   // another Elder Dragon's Ignite: its own ticks burn it
         }
@@ -544,6 +553,11 @@ struct Elder {
     /// The champion it belongs to (on_dead is given the player, not the unit).
     me: usize,
     p: Params,
+    /// This simulation's number (`SIM_TAG`), drawn at its first spawn.
+    sim: u64,
+    /// Units its attacks and skills struck this life (on_attack), with the tick: checked for the execute on its next
+    /// update.
+    struck: Vec<(usize, usize)>,
 }
 
 impl StablePassive for Elder {
@@ -557,6 +571,8 @@ impl StablePassive for Elder {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.me = me;
+        TAG.spawn(sim, me, &mut self.sim);
+        self.struck.clear();
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -564,22 +580,16 @@ impl StablePassive for Elder {
         }
     }
 
-    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, _: &mut usize) {
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, _: usize, target: usize, _: &mut usize) {
         // its attacks and skills: the execute is checked once the hit has landed (its next update)
-        let now = sim.tick();
-        STRUCK.lock().unwrap_or_else(|e| e.into_inner()).entry(key(sim, me)).or_default().push((target, now));
+        self.struck.push((target, sim.tick()));
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).entry(me).or_insert(self.p);
         let now = sim.tick();
-        let due: Vec<usize> = {
-            let mut all = STRUCK.lock().unwrap_or_else(|e| e.into_inner());
-            let Some(list) = all.get_mut(&key(sim, me)) else { return };
-            let due = list.iter().filter(|&&(_, t)| t < now).map(|&(id, _)| id).collect();
-            list.retain(|&(_, t)| t >= now);
-            due
-        };
+        let due: Vec<usize> = self.struck.iter().filter(|&&(_, t)| t < now).map(|&(id, _)| id).collect();
+        self.struck.retain(|&(_, t)| t >= now);
         for id in due.into_iter().collect::<HashSet<_>>() {
             execute(sim, me, id);
         }
@@ -588,8 +598,8 @@ impl StablePassive for Elder {
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
         let me = self.me;
         // its fall (the data has no moment for it)
-        BREATHS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
-        STRUCK.lock().unwrap_or_else(|e| e.into_inner()).remove(&key(sim, me));
+        BREATHS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
+        self.struck.clear();
         sim.play_sfx(&ed("d"), me, &InputTargetV1::target(me));
     }
 }
@@ -683,5 +693,30 @@ mod tests {
     fn damage_by_the_numbers() {
         let p = Params::default();
         assert_eq!(physical(p.q_dmg, p.q_ad, 100), 70 + 130);
+    }
+
+    #[test]
+    fn each_sim_keeps_its_own_breath_and_ignites() {
+        // the tag its passive hangs is the one its breath reads back, and it fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+        // the server's two presims of one set: the dragon is #6 in both, two numbers
+        let (a, b) = ((u64::MAX - 1, 6), (u64::MAX - 2, 6));
+        new_breath(a);
+        new_breath(b);
+        assert_eq!(scorched(a, 9), Some(0));
+        assert_eq!(scorched(a, 9), None);
+        assert_eq!(scorched(a, 10), Some(1));
+        // b's breath burns 10 as its first (it used to count a's, or skip 9)
+        assert_eq!(scorched(b, 10), Some(0));
+        assert_eq!(scorched(b, 9), Some(1));
+        // the Ignite on #9 in each presim
+        let (ia, ib) = ((a.0, 9), (b.0, 9));
+        assert!(renew_ignite(ia, 6, 10, 180));
+        assert_eq!(ignite_due(ib, 70, 60), None);
+        assert_eq!(ignite_due(ia, 70, 60), Some(6));
+        assert!(renew_ignite(ib, 6, 75, 180));
+        assert_eq!(ignite_due(ia, 80, 60), None);
+        assert_eq!(ignite_due(ia, 130, 60), Some(6));
     }
 }

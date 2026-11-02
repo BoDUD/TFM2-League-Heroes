@@ -59,6 +59,7 @@
    - `POSSESS league_jinx (range) for 600 ticks, heal ...` / `END possession of league_jinx (time | Heartbreaker | dead | a new soul)`；
    - `world 0x... Viego #...: possession 1 starts on the screen (1 noted for him ...) -> league_jinx`：屏幕放到附身，取到了模拟里记下的那个英雄；
    - `world 0x... Viego #...: drawn as league_jinx (soul league_jinx)`：画面上的佛耶戈换成了那个英雄的图。
+   - 0.2.54（2026-11-03 的日志：看的一局写了 416 行 `display buffs`，159 KB 里占 86 KB——别的 mod 的 buff `sed_c:…` 一直在改名）：`display buffs` 只比较、只列他自己的 buff（`league_viego…`），整次启动最多 40 行（附身以外的变化只记前 20 行）；`screen clock` 只在屏幕上有佛耶戈时每分钟一行；`p_go` 附身后 600 tick 到时间自己没了写 `p_go expired after 600 ticks`，不再写成 `taken by his action`。
 
 ## 游戏 0.6.5（0.2.2）
 

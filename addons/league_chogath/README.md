@@ -16,7 +16,8 @@
 - **按键**：R 只在 5 级以后、冷却好了的时候按（引擎的「输入合法」不看冷却，league_pyke 的教训）。
 - **日志**：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_chogath.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
   `STACK`（叠到第几层）、`DEAD` / `ALIVE` / `KEEP`（死亡、复活、补回几层）、`FEAST`（放了，目标的生命 + 护盾和这一口）、
-  `FEAST HELD`（AI 想放但吃不死，改普攻）。
+  `FEAST HELD`（AI 想放但没放，写出原因，改普攻）。
+- 0.1.5（2026-11-03 的日志：`FEAST HELD` 里约一成写着「吃不死」，其实一口吃得死、只是离得比 30000 远）：射程照游戏的 AI 算到两人的身体（中心到中心 30000 + 两个半径），`FEAST HELD` 写真正的原因（够不着 / 吃不死 / 冷却 / 等级 / 输入不合法）。
 
 ## 命令
 

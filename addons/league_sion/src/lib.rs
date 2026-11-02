@@ -137,6 +137,30 @@ pub fn other_undying(names_undying: &[(String, bool)]) -> bool {
     names_undying.iter().any(|(name, undying)| *undying && !ours(name))
 }
 
+/// The player whose champion `id` is (None: a tower, a minion, a monster).
+fn player_of(sim: &StableSim<'_>, id: usize) -> Option<usize> {
+    (0..sim.player_count()).filter_map(|i| sim.player_at(i)).find(|p| p.champion().is_some_and(|c| c.id() == id)).map(|p| p.id())
+}
+
+/// 倒下时算谁的击杀：最后打他的还在就是他；他在这期间死了又复活（新的实体），算他玩家现在的英雄；都没有就算最近的活着的
+/// 敌方英雄——从不算赛恩自己（0.1.4，11-02 的日志：42 次倒下里 8 次「killed by league_sion」，敌方丢了这个人头）。
+fn killer(sim: &StableSim<'_>, me: usize, last: Option<usize>, player: Option<usize>) -> usize {
+    if let Some(a) = last.filter(|&a| sim.get_entity(a).is_some()) {
+        return a;
+    }
+    if let Some(c) = player.and_then(|p| sim.get_player(p)).and_then(|p| p.champion()).filter(|c| c.is_alive()) {
+        return c.id();
+    }
+    let Some(e) = sim.get_entity(me) else { return me };
+    let (team, at) = (e.team(), e.pos());
+    let d2 = |p: (u64, u64)| (p.0 as f64 - at.0 as f64).powi(2) + (p.1 as f64 - at.1 as f64).powi(2);
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.team() != team && u.is_champion() && u.is_alive())
+        .min_by(|a, b| d2(a.pos()).total_cmp(&d2(b.pos())))
+        .map_or(me, |u| u.id())
+}
+
 // ===================== 参数 =====================
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -191,6 +215,8 @@ struct Glory {
     zombie: Option<usize>,
     /// 最后一个打他的（倒下时算击杀）。
     last_hit: Option<usize>,
+    /// 最后一个打他的英雄的玩家：那个英雄在亡灵期间死了又复活（新的实体），击杀算他的新英雄（`killer`）。
+    last_player: Option<usize>,
     next_guard: usize,
     /// 这条命里见过他 1 血以上：游戏 0.6.4 开局第 0 tick 读到的血量还是 0，那不是致命伤（每局第一条命都在 0 tick 变成亡灵、
     /// 9 秒后倒下，用户：「塞恩有bug吧 开局血掉光？」）。
@@ -244,7 +270,7 @@ impl Glory {
         self.zombie = None;
         sim.entity_remove_buff(me, &sn("p_zombie"));
         let (hp, _) = sim.get_entity(me).map_or((0, 0), |e| e.hp());
-        let killer = self.last_hit.filter(|&a| sim.get_entity(a).is_some()).unwrap_or(me);
+        let killer = killer(sim, me, self.last_hit, self.last_player);
         sim.deal_damage_typed(killer, me, hp + 1000, DamageTypeV1::Fixed, AttackTypeV1::Skill);
         if let Some(k) = counted("fall") {
             wlog(format!("{} FALL #{k}: the zombie's time is up, killed by {}", head(sim, me), who(sim, killer)));
@@ -266,6 +292,7 @@ impl StablePassive for Glory {
         self.ready = true;
         self.zombie = None;
         self.last_hit = None;
+        self.last_player = None;
         self.next_guard = 0;
         self.alive_seen = false;
         self.stack_buff(sim, me);
@@ -312,6 +339,7 @@ impl StablePassive for Glory {
     fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, _: usize, attacker: usize, damage: usize) {
         if damage > 0 && attacker != self.me && sim.get_entity(attacker).is_some() {
             self.last_hit = Some(attacker);
+            self.last_player = player_of(sim, attacker);
         }
     }
 
