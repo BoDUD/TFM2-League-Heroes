@@ -15,7 +15,7 @@ the outline closed where the read lost it. Its rows from the top of her hair to 
 the PPU (the user, 2026-11-02: 「接下来可以重做 戴安娜 易大师 瑞兹」).
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/diana_ppu_size*.png (the
 design beside Senna, Evelynn, Jinx and her sprite now, as the game draws them) and <dir>/diana_ppu_closeup*.png (the
-picture | the read).
+picture | the read). The user, 2026-11-02: 「戴安娜1.81」 - the raw on its own ~15.7-px squares, PPU 1.81.
 """
 import argparse
 import os
@@ -34,10 +34,10 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "diana", "hd")
-AH.RAW, AH.PITCH = "diana-A.png", (10.25, 10.65)    # its own outline squares (~10.45 px)
+AH.RAW, AH.PITCH = "diana-A.png", (15.5, 15.9)    # its own outline squares (~15.7 px)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"diana-A.png": {"15.7": ((15.5, 15.9), 6), "10.45": ((10.25, 10.65), 4), "7.85": ((7.7, 8.0), 3)}}
-DEFAULT = ("diana-A.png", "10.45")
+DEFAULT = ("diana-A.png", "15.7")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - the snapped lines
 # lean on the strong edges round the face there and lose the eyes and the mouth
 FACES = {"diana-A.png": (690, 190, 900, 420)}

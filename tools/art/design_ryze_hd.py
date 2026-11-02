@@ -15,7 +15,7 @@ closed where the read lost it. Its rows from the top of his head to his soles ov
 user, 2026-11-02: 「接下来可以重做 戴安娜 易大师 瑞兹」).
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/ryze_ppu_size*.png (the
 design beside Sett, Thresh, Jinx and his sprite now, as the game draws them) and <dir>/ryze_ppu_closeup*.png (the
-picture | the read).
+picture | the read). The user, 2026-11-02: 「瑞兹1.66」 - the raw on its own ~14.7-px squares, PPU 1.66.
 """
 import argparse
 import os
@@ -34,10 +34,10 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "ryze", "hd")
-AH.RAW, AH.PITCH = "ryze-A.png", (9.6, 10.0)    # its own outline squares (~9.8 px)
+AH.RAW, AH.PITCH = "ryze-A.png", (14.5, 14.9)    # its own outline squares (~14.7 px)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"ryze-A.png": {"14.7": ((14.5, 14.9), 6), "9.8": ((9.6, 10.0), 4), "7.35": ((7.2, 7.5), 3)}}
-DEFAULT = ("ryze-A.png", "9.8")
+DEFAULT = ("ryze-A.png", "14.7")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - the snapped lines
 # lean on the strong edges round the face there and lose the eyes and the mouth
 FACES = {"ryze-A.png": (560, 230, 780, 460)}

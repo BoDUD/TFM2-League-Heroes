@@ -15,7 +15,7 @@ most of its middle has, the outline closed where the read lost it. Its rows from
 1x sprite's 56 make the PPU (the user, 2026-11-02: 「接下来可以重做 戴安娜 易大师 瑞兹」).
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/masteryi_ppu_size*.png
 (the design beside Viego, Talon, Jinx and his sprite now, as the game draws them) and <dir>/masteryi_ppu_closeup*.png
-(the picture | the read).
+(the picture | the read). The user, 2026-11-02: 「剑圣2.23」 - the raw on its own ~9.8-px squares, PPU 2.23.
 """
 import argparse
 import os
