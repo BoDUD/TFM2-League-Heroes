@@ -260,6 +260,13 @@
         "skill2": "冲向目标一口咬住，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理伤害<>，<#ef5350ff>击退<>并减速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
         "ult": "获得<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>护盾（<#ffb900ff>4秒<>），导弹舱全开：每秒向目标射出贯穿激光，共<#ffb900ff>3<>道，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理伤害<>，每穿过一个敌人<#ffb900ff>-70%<>（最低<#ffb900ff>10%<>）；每道激光伴随<#ffb900ff>4<>枚导弹，每枚<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>。"
       },
+      "tft_baronnashor": {
+        "name": "纳什男爵",
+        "attack": "撕咬目标，并对从自己穿过目标的一条直线上的敌人造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<><#ff9028ff>物理伤害<>。<#ff9028ff>虚空裂隙<>：战斗中每<#ffb900ff>6秒<>，在附近随机一名敌方英雄脚下喷出触手，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.75秒<>。",
+        "skill": "向前方喷出扇形酸液，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>，并使敌人<#ef5350ff>护甲和魔抗降低20%<>（<#ffb900ff>4秒<>）。",
+        "skill2": "钻入地下冲向目标（期间免疫控制），破土而出，对周围敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.75秒<>。",
+        "ult": "施放期间免疫控制。猛击地面竖起尖刺，对周围敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>；随后连续吐出<#ffb900ff>10<>团酸液，落在附近随机敌人身上，每团造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>并腐蚀护甲和魔抗。"
+      },
       "tft_mightymech": {
         "name": "超级机甲",
         "attack": "每第三下<#ff9028ff>活塞重斩<>额外造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并减速<#ffb900ff>30%<>。<#ff9028ff>旅人护航<>：每次开战为生命最低的队友提供<#ffb900ff>80<>+最大生命<#ffb900ff>6%<>的护盾（<#ffb900ff>10秒<>），自己双倍。",
@@ -453,6 +460,11 @@
         "skill1": "追踪导弹",
         "skill2": "霸龙冲撞",
         "ult": "海克斯军械库"
+      },
+      "tft_baronnashor": {
+        "skill1": "腐蚀吐息",
+        "skill2": "钻地突袭",
+        "ult": "虚空之怒"
       },
       "tft_mightymech": {
         "skill1": "引力矩阵",
@@ -722,6 +734,13 @@
         "skill2": "衝向目標一口咬住，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<><#ff9028ff>物理傷害<>，<#ef5350ff>擊退<>並緩速<#ffb900ff>30%<>（<#ffb900ff>1.5秒<>）。",
         "ult": "獲得<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>護盾（<#ffb900ff>4秒<>），導彈艙全開：每秒向目標射出貫穿雷射，共<#ffb900ff>3<>道，造成<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<><#ff9028ff>物理傷害<>，每穿過一名敵軍<#ffb900ff>-70%<>（最低<#ffb900ff>10%<>）；每道雷射伴隨<#ffb900ff>4<>枚導彈，每枚<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>。"
       },
+      "tft_baronnashor": {
+        "name": "巴龍納什",
+        "attack": "撕咬目標，並對從自身穿過目標的一條直線上的敵軍造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<><#ff9028ff>物理傷害<>。<#ff9028ff>虛空裂隙<>：戰鬥中每<#ffb900ff>6秒<>，在附近隨機一名敵方英雄腳下噴出觸手，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.75秒<>。",
+        "skill": "向前方噴出扇形酸液，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>，並使敵軍<#ef5350ff>護甲和魔抗降低20%<>（<#ffb900ff>4秒<>）。",
+        "skill2": "鑽入地下衝向目標（期間免疫控制），破土而出，對周圍敵軍造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.75秒<>。",
+        "ult": "施放期間免疫控制。猛擊地面豎起尖刺，對周圍敵軍造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>；隨後連續吐出<#ffb900ff>10<>團酸液，落在附近隨機敵軍身上，每團造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>並腐蝕護甲和魔抗。"
+      },
       "tft_mightymech": {
         "name": "超能機甲",
         "attack": "每第三下<#ff9028ff>活塞重斬<>額外造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並緩速<#ffb900ff>30%<>。<#ff9028ff>星際旅人護航<>：每次開戰為生命最低的隊友提供<#ffb900ff>80<>+最大生命<#ffb900ff>6%<>的護盾（<#ffb900ff>10秒<>），自己雙倍。",
@@ -915,6 +934,11 @@
         "skill1": "追蹤導彈",
         "skill2": "暴龍衝撞",
         "ult": "海克斯科技軍火庫"
+      },
+      "tft_baronnashor": {
+        "skill1": "腐蝕吐息",
+        "skill2": "鑽地突襲",
+        "ult": "虛空之怒"
       },
       "tft_mightymech": {
         "skill1": "重力矩陣",
@@ -1184,6 +1208,13 @@
         "skill2": "Charges the target and bites for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>physical damage<>, <#ef5350ff>knocking it back<> and slowing it by <#ffb900ff>30%<> for <#ffb900ff>1.5s<>.",
         "ult": "Gains a <#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> shield for <#ffb900ff>4s<> and opens fire: <#ffb900ff>3<> piercing lasers at the target, one a second, for <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>physical damage<>, <#ffb900ff>70%<> less per enemy passed (<#ffb900ff>10%<> minimum); each with <#ffb900ff>4<> missiles of <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>."
       },
+      "tft_baronnashor": {
+        "name": "Baron Nashor",
+        "attack": "Bites the target and deals <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> <#ff9028ff>physical damage<> to every enemy in a line through it. <#ff9028ff>Void Rift<>: in a fight, every <#ffb900ff>6s<> a tentacle bursts up under a random nearby enemy champion for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>physical damage<>, <#ef5350ff>knocking it up for 0.75s<>.",
+        "skill": "Breathes a cone of acid ahead for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>physical damage<>, <#ef5350ff>lowering armor and magic resist by 20%<> for <#ffb900ff>4s<>.",
+        "skill2": "Burrows to the target (immune to crowd control) and bursts out, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> around it and <#ef5350ff>knocking up for 0.75s<>.",
+        "ult": "Immune to crowd control while casting. Slams the ground, raising spikes for <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> around it, then spits <#ffb900ff>10<> acid balls at random nearby enemies, each <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<> and corroding armor and magic resist."
+      },
       "tft_mightymech": {
         "name": "The Mighty Mech",
         "attack": "Every third swing, <#ff9028ff>Piston Slash<> deals <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> bonus <#ff9028ff>physical damage<> and slows by <#ffb900ff>30%<>. <#ff9028ff>Voyager Escort<>: as each fight starts, shields the lowest-health ally for <#ffb900ff>80<> + <#ffb900ff>6%<> of its max health (<#ffb900ff>10s<>), itself double.",
@@ -1377,6 +1408,11 @@
         "skill1": "Homing Missiles",
         "skill2": "Rex Charge",
         "ult": "Hextech Arsenal"
+      },
+      "tft_baronnashor": {
+        "skill1": "Corrosive Breath",
+        "skill2": "Burrow Strike",
+        "ult": "Wrath of the Void"
       },
       "tft_mightymech": {
         "skill1": "Gravity Matrix",
@@ -1646,6 +1682,13 @@
         "skill2": "대상에게 돌진해 물어뜯어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> <#ff9028ff>물리 피해<>, <#ef5350ff>밀쳐내기<>, <#ffb900ff>1.5초<> 동안 <#ffb900ff>30%<> 둔화.",
         "ult": "<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> 보호막(<#ffb900ff>4초<>)을 얻고 대상에게 매초 관통 레이저 <#ffb900ff>3<>발: <#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<> <#ff9028ff>물리 피해<>, 적을 지날 때마다 <#ffb900ff>-70%<>(최소 <#ffb900ff>10%<>); 레이저마다 미사일 <#ffb900ff>4<>발, 각각 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>."
       },
+      "tft_baronnashor": {
+        "name": "내셔 남작",
+        "attack": "대상을 물어뜯고, 대상을 지나는 직선 위의 모든 적에게 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<> <#ff9028ff>물리 피해<>. <#ff9028ff>공허 균열<>: 전투 중 <#ffb900ff>6초<>마다 주변 무작위 적 챔피언 아래에서 촉수가 솟아 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.75초 에어본<>.",
+        "skill": "앞쪽 부채꼴로 산성액을 뿜어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>, <#ffb900ff>4초<> 동안 <#ef5350ff>방어력과 마법 저항력 20% 감소<>.",
+        "skill2": "땅속으로 파고들어 대상에게 이동(군중 제어 면역)한 뒤 솟아올라 주변 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.75초 에어본<>.",
+        "ult": "시전 중 군중 제어 면역. 땅을 내리쳐 가시를 솟게 해 주변 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>; 이후 주변 무작위 적에게 산성 덩어리 <#ffb900ff>10<>개를 뱉어 각각 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>와 방어력·마법 저항력 부식."
+      },
       "tft_mightymech": {
         "name": "거대 메크 로봇",
         "attack": "세 번째 공격마다 <#ff9028ff>피스톤 베기<>로 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 <#ff9028ff>물리 피해<>, <#ffb900ff>30%<> 둔화. <#ff9028ff>여행자 호위<>: 전투가 시작될 때마다 체력이 가장 낮은 아군에게 <#ffb900ff>80<> + 최대 체력의 <#ffb900ff>6%<> 보호막(<#ffb900ff>10초<>), 자신은 두 배.",
@@ -1839,6 +1882,11 @@
         "skill1": "유도 미사일",
         "skill2": "렉스 돌진",
         "ult": "마법공학 무기고"
+      },
+      "tft_baronnashor": {
+        "skill1": "부식성 숨결",
+        "skill2": "땅굴 습격",
+        "ult": "공허의 분노"
       },
       "tft_mightymech": {
         "skill1": "중력 매트릭스",
@@ -2108,6 +2156,13 @@
         "skill2": "対象に突進して噛みつき<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>ノックバック<>し<#ffb900ff>30%<>スロウ（<#ffb900ff>1.5秒<>）。",
         "ult": "<#ff9028ff>300<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>のシールド（<#ffb900ff>4秒<>）を得て、対象へ毎秒貫通レーザーを<#ffb900ff>3<>本：<#ff9028ff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>130%<>の<#ff9028ff>物理ダメージ<>、敵を貫くごとに<#ffb900ff>-70%<>（最低<#ffb900ff>10%<>）。レーザーごとにミサイル<#ffb900ff>4<>発、各<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>25%<>。"
       },
+      "tft_baronnashor": {
+        "name": "バロンナッシャー",
+        "attack": "対象に噛みつき、対象を貫く直線上の敵すべてに<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>20%<>の<#ff9028ff>物理ダメージ<>。<#ff9028ff>ヴォイドの裂け目<>：戦闘中<#ffb900ff>6秒<>ごとに近くのランダムな敵チャンピオンの足元から触手が突き出し、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒のノックアップ<>。",
+        "skill": "前方扇状に酸を吐き、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>を与え、<#ef5350ff>物理防御と魔法防御を20%低下<>（<#ffb900ff>4秒<>）。",
+        "skill2": "地中に潜って対象へ移動し（行動妨害無効）、地上へ飛び出して周囲の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒のノックアップ<>。",
+        "ult": "詠唱中は行動妨害無効。地面を叩いてトゲを突き出し、周囲の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>。その後、近くのランダムな敵へ酸の塊を<#ffb900ff>10<>個吐き、各<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>と防御の腐食。"
+      },
       "tft_mightymech": {
         "name": "マイティーロボ",
         "attack": "3回目の攻撃ごとに<#ff9028ff>ピストンスラッシュ<>で<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の追加<#ff9028ff>物理ダメージ<>、<#ffb900ff>30%<>スロウ。<#ff9028ff>ボイジャーエスコート<>：戦闘開始のたびに体力が最も低い味方に<#ffb900ff>80<>+最大体力の<#ffb900ff>6%<>のシールド（<#ffb900ff>10秒<>）、自身は2倍。",
@@ -2301,6 +2356,11 @@
         "skill1": "ホーミングミサイル",
         "skill2": "レックスチャージ",
         "ult": "ヘクステック アーセナル"
+      },
+      "tft_baronnashor": {
+        "skill1": "腐食のブレス",
+        "skill2": "地中強襲",
+        "ult": "ヴォイドの激憤"
       },
       "tft_mightymech": {
         "skill1": "グラビティマトリックス",

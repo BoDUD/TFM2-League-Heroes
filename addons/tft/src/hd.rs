@@ -164,6 +164,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // soles, PPU 2.0 (「B-1 40 PPU 2.0」: 80 rows), and Codex's key poses after its own TFT clips, posed by
     // tools/art/rig_mightymech.py, so no SIZES row
     ("tft_mightymech", 2.0, include_str!("../../../tft/champions/tft_mightymech#anim.fanim")),
+    // Baron Nashor (tft_baronnashor, the tft pack): the void serpent rearing in an S on the two short legs the user had
+    // Codex add, step 0's A read on its own 11 px squares at the user's 46 game px from the crest tips to its soles, PPU
+    // 2.04 (「A1 46」: 94 rows 1:1), and Codex's key poses (its body on its own TFT clips, its legs on T-Hex's), posed by
+    // tools/art/rig_baronnashor.py, so no SIZES row
+    ("tft_baronnashor", 2.04, include_str!("../../../tft/champions/tft_baronnashor#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the rects and the

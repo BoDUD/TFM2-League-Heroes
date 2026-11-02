@@ -1,0 +1,502 @@
+{
+  "requested_count": 19,
+  "delivered_count": 19,
+  "all_unique": true,
+  "no_resampling": true,
+  "poses": [
+    {
+      "pose": "a_rear",
+      "file": "baronnashor-pose-a_rear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1083712,
+      "partial_alpha_pixels": 484594,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        332,
+        50,
+        1139,
+        1206
+      ],
+      "bottommost_visible_y": 1205,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "833111bf656ba760e8076fc724bc6d813f1e1d1265a1e9ae4245f3946a75539a",
+      "byte_identical_raw": [
+        "a_rear-generated.png"
+      ]
+    },
+    {
+      "pose": "a_bite",
+      "file": "baronnashor-pose-a_bite.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1114589,
+      "partial_alpha_pixels": 454526,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        255,
+        315,
+        1196,
+        1196
+      ],
+      "bottommost_visible_y": 1195,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "60f873ffd5ef99215f091b97fdcd15091b1edc11cf8c6b47a4e92e288b9d74ef",
+      "byte_identical_raw": [
+        "a_bite-generated.png"
+      ]
+    },
+    {
+      "pose": "q_breath",
+      "file": "baronnashor-pose-q_breath.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1157647,
+      "partial_alpha_pixels": 411917,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        177,
+        320,
+        1206,
+        1196
+      ],
+      "bottommost_visible_y": 1195,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "86e51e76294a234e1f8e1878a71e6ccff4df874a6d8ef8db90960d447649c417",
+      "byte_identical_raw": [
+        "q_breath_corrected-generated.png"
+      ]
+    },
+    {
+      "pose": "e_dive",
+      "file": "baronnashor-pose-e_dive.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1100281,
+      "partial_alpha_pixels": 469088,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        251,
+        358,
+        1191,
+        1212
+      ],
+      "bottommost_visible_y": 1211,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "9570b62047ab89f2b2673690e06f918597a0dcc0fca97305ac51dfc68c01be57",
+      "byte_identical_raw": [
+        "e_dive-generated.png"
+      ]
+    },
+    {
+      "pose": "e_dig",
+      "file": "baronnashor-pose-e_dig.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1535444,
+      "partial_alpha_pixels": 36578,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        461,
+        1006,
+        826,
+        1177
+      ],
+      "bottommost_visible_y": 1176,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "a5871397d44330333611435cfe17f00619d6c4d6ff1be8179ba58e97a9e05b13",
+      "byte_identical_raw": [
+        "e_dig_corrected-generated.png"
+      ]
+    },
+    {
+      "pose": "e_rise",
+      "file": "baronnashor-pose-e_rise.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1142532,
+      "partial_alpha_pixels": 427348,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        371,
+        80,
+        1020,
+        1206
+      ],
+      "bottommost_visible_y": 1205,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "ad3275d5fa7254632458eb9aadb2469914df26c80938de2e64b112c81e587a1f",
+      "byte_identical_raw": [
+        "e_rise-generated.png"
+      ]
+    },
+    {
+      "pose": "r_rear",
+      "file": "baronnashor-pose-r_rear.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1166287,
+      "partial_alpha_pixels": 403291,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        371,
+        27,
+        996,
+        1209
+      ],
+      "bottommost_visible_y": 1208,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "93f9503ba41e074f4260aadb609d1768d26e7f67f2194a659deb2fa1e57f35f3",
+      "byte_identical_raw": [
+        "r_rear-generated.png"
+      ]
+    },
+    {
+      "pose": "r_slam",
+      "file": "baronnashor-pose-r_slam.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1153798,
+      "partial_alpha_pixels": 416885,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        128,
+        401,
+        1207,
+        1176
+      ],
+      "bottommost_visible_y": 1175,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "eb4ba58fe072a81a6720c0b025d0ba4ed5f9514366546edd03d8b2d97d0a6b31",
+      "byte_identical_raw": [
+        "r_slam_corrected-generated.png"
+      ]
+    },
+    {
+      "pose": "r_spit",
+      "file": "baronnashor-pose-r_spit.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1041047,
+      "partial_alpha_pixels": 529118,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        185,
+        150,
+        1216,
+        1185
+      ],
+      "bottommost_visible_y": 1184,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "d72fee97652a3416cd360eb4059268ee6a840438392575c5c98974a0d0cd0c8c",
+      "byte_identical_raw": [
+        "r_spit-generated.png"
+      ]
+    },
+    {
+      "pose": "run1",
+      "file": "baronnashor-pose-run1.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1165846,
+      "partial_alpha_pixels": 404006,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        344,
+        160,
+        1051,
+        1188
+      ],
+      "bottommost_visible_y": 1187,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "39a44040d3b5549864c912f75d3a1597636779f61cd3e29aa8f7840c87af304d",
+      "byte_identical_raw": [
+        "run7-generated.png"
+      ]
+    },
+    {
+      "pose": "run2",
+      "file": "baronnashor-pose-run2.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1131965,
+      "partial_alpha_pixels": 437225,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        294,
+        117,
+        1039,
+        1195
+      ],
+      "bottommost_visible_y": 1194,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "25e9b4b1f29d56eeda4fa8b1afd64c56f02875dcf0a18d744a43fe0f6e04a0f1",
+      "byte_identical_raw": [
+        "run2-generated.png"
+      ]
+    },
+    {
+      "pose": "run3",
+      "file": "baronnashor-pose-run3.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1193059,
+      "partial_alpha_pixels": 377079,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        352,
+        184,
+        1004,
+        1177
+      ],
+      "bottommost_visible_y": 1176,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "9e9e23edc55a186d5168363fb24092908d5055e1472a790183285b3a0df76985",
+      "byte_identical_raw": [
+        "run3-generated.png"
+      ]
+    },
+    {
+      "pose": "run4",
+      "file": "baronnashor-pose-run4.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1236013,
+      "partial_alpha_pixels": 334071,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        393,
+        285,
+        1053,
+        1202
+      ],
+      "bottommost_visible_y": 1201,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "5b9ac2bb1712e462af88366993a6b6ae30fd8aecdaa9b2232bd7d481d7ebdc5e",
+      "byte_identical_raw": [
+        "run4-generated.png"
+      ]
+    },
+    {
+      "pose": "run5",
+      "file": "baronnashor-pose-run5.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1145772,
+      "partial_alpha_pixels": 423559,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        295,
+        117,
+        1030,
+        1186
+      ],
+      "bottommost_visible_y": 1185,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "94d28be66be8d9dc56fa794b9de30aa91b2ca5b9389cfb426f3b02d5758cea19",
+      "byte_identical_raw": [
+        "run5-generated.png"
+      ]
+    },
+    {
+      "pose": "run6",
+      "file": "baronnashor-pose-run6.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1189527,
+      "partial_alpha_pixels": 380446,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        363,
+        175,
+        1012,
+        1177
+      ],
+      "bottommost_visible_y": 1176,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "0f7c00fdc81a117a3c1e29c8e6591b08449537304576662d5b1e18a5412f21e7",
+      "byte_identical_raw": [
+        "run6-generated.png"
+      ]
+    },
+    {
+      "pose": "run7",
+      "file": "baronnashor-pose-run7.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1053046,
+      "partial_alpha_pixels": 515561,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        265,
+        80,
+        1019,
+        1238
+      ],
+      "bottommost_visible_y": 1237,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "df4f5b376068c1c869ba56d048b82cd82998fcd81d5429273e2d4e80d85f172a",
+      "byte_identical_raw": [
+        "run7_redraw-generated.png"
+      ]
+    },
+    {
+      "pose": "run8",
+      "file": "baronnashor-pose-run8.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1054424,
+      "partial_alpha_pixels": 513045,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        287,
+        87,
+        1046,
+        1239
+      ],
+      "bottommost_visible_y": 1238,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "58fd13f960a74f6391a4da4fc7795bd995008cdb28d159b2fe8b58246ed59af0",
+      "byte_identical_raw": [
+        "run8_redraw-generated.png"
+      ]
+    },
+    {
+      "pose": "d_fall",
+      "file": "baronnashor-pose-d_fall.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1111497,
+      "partial_alpha_pixels": 457535,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        138,
+        244,
+        1214,
+        1186
+      ],
+      "bottommost_visible_y": 1185,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "4fcfc3f0d230f6f2831afe2619d8010a466a4daa399f054a66e0d865267be1ed",
+      "byte_identical_raw": [
+        "d_fall-generated.png"
+      ]
+    },
+    {
+      "pose": "d_down",
+      "file": "baronnashor-pose-d_down.png",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "size_1254_pass": true,
+      "transparent_pixels": 1266552,
+      "partial_alpha_pixels": 304702,
+      "hard_alpha_pass": false,
+      "visible_bbox_alpha128": [
+        25,
+        627,
+        1239,
+        1106
+      ],
+      "bottommost_visible_y": 1105,
+      "ground_target_y": 1176,
+      "grid_9px": "not_proven; generated original retained without resampling",
+      "sha256": "a94930279f8c9c1eab62316817beacbfc3e796c636a9b3713c604944cea0e5b1",
+      "byte_identical_raw": [
+        "d_down_corrected-generated.png"
+      ]
+    }
+  ]
+}

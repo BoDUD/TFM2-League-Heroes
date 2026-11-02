@@ -243,6 +243,7 @@ pub const CLASSES_OF: &[(&str, &str)] = &[
     ("taoist", "util"),
     ("tft_alune", "mage"),
     ("tft_aoshin", "mage"),
+    ("tft_baronnashor", "melee"),
     ("tft_brambleback", "melee"),
     ("tft_brock", "melee"),
     ("tft_cinderling", "range"),

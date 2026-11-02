@@ -1,0 +1,34 @@
+[
+  {
+    "variant": "A",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 425019,
+    "visible_bbox_alpha128": [
+      355,
+      159,
+      1005,
+      1201
+    ]
+  },
+  {
+    "variant": "B",
+    "size": [
+      1254,
+      1254
+    ],
+    "mode": "RGBA",
+    "alpha_levels": 256,
+    "partial_alpha_pixels": 594181,
+    "visible_bbox_alpha128": [
+      225,
+      25,
+      1189,
+      1229
+    ]
+  }
+]

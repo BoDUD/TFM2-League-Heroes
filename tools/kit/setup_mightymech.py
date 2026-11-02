@@ -37,9 +37,9 @@ from setup_alune import load, save, secs, shown_length  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, MOD_ID)
 CLIP = f"{ID}_sfx_"
-# ... the Rift Herald 0.40 (PR #663), T-Hex 0.41 (PR #664), the log fixes up to 0.46 (PR #674), the Mighty Mech 0.47
-# (the next free on main 6dec6d6b8; raised over whatever lands first - the Baron is in flight too)
-VERSION = "0.47.0"
+# ... the Rift Herald 0.40 (PR #663), T-Hex 0.41 (PR #664), the log fixes up to 0.46 (PR #674), Baron Nashor 0.48
+# (PR #676, installed first), the Mighty Mech 0.49 (built on the Baron's branch, installed over it)
+VERSION = "0.49.0"
 ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from its soles' point, up negative): the face point on its yellow visor (ppu_restyle's

@@ -1,6 +1,6 @@
 [package]
 name = "league_sylas"
-version = "0.2.51"
+version = "0.2.53"
 edition = "2021"
 publish = false
 

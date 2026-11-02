@@ -1,0 +1,943 @@
+{
+  "id": "tft_baronnashor",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "tft_baronnashor:rift",
+    "params": {
+      "p_range": 60000,
+      "p_every": 360,
+      "p_first": 120,
+      "p_dmg": 40,
+      "p_ad": 60,
+      "p_up": 45
+    }
+  },
+  "sprite": "asset/tft/champions/tft_baronnashor",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_baronnashor_skill",
+    "asset/tft/icons/tft_baronnashor_skill2",
+    "asset/tft/icons/tft_baronnashor_ult"
+  ],
+  "stat": {
+    "attack": 82,
+    "magic_power": 0,
+    "hp": 1200,
+    "defence": 40,
+    "magic_resistance": 34,
+    "move_speed": 1000,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 15,
+    "magic_power": 0,
+    "hp": 115,
+    "defence": 8,
+    "magic_resistance": 6,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_baronnashor.attack",
+    "duration": 40,
+    "cooltime": 80,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 32000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_baronnashor_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 23,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_baronnashor_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_baronnashor_a_hit"
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "tft_baronnashor_a_line",
+              "width": 12000,
+              "length": 70000,
+              "delay": 2,
+              "apply": 1,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 20,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_baronnashor.skill",
+    "duration": 36,
+    "cooltime": 420,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_baronnashor_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_baronnashor_q_breath"
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "tft_baronnashor_q_spray",
+              "penetrate": true,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [],
+              "end_effects": [],
+              "speed": 3000,
+              "range": 46000,
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "y_offset": 16000
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "DirDot": {
+                  "radius": 46000,
+                  "range": 600
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 1000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 40,
+                  "attack_ratio": 70,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                },
+                {
+                  "type": "AddBuff",
+                  "buff_state": {
+                    "name": "tft_baronnashor_q_acid",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    },
+                    "defence_mult": -20,
+                    "magic_resistance_mult": -20
+                  }
+                },
+                {
+                  "type": "ViewEffect",
+                  "name": "tft_baronnashor_q_hit"
+                },
+                {
+                  "type": "TargetSfx",
+                  "name": "tft_baronnashor_q_hit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_baronnashor.skill2",
+    "duration": 40,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 75000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_baronnashor_e"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_baronnashor_e_dig",
+            "duration": {
+              "Time": {
+                "tick": 72
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 11,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "CasterAnimation",
+                  "name": "dig",
+                  "tick": 60
+                },
+                {
+                  "type": "MoveToTarget",
+                  "speed": 3500,
+                  "range": 115000,
+                  "end_effects": [
+                    {
+                      "type": "Sfx",
+                      "name": "tft_baronnashor_e_up"
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "tft_baronnashor_e_hit"
+                    },
+                    {
+                      "type": "CasterAnimation",
+                      "name": "rise",
+                      "tick": 30
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "tft_baronnashor_e_burst"
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 30000
+                        }
+                      },
+                      "target": "EnemyWithoutTower",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Attack",
+                          "damage": 50,
+                          "attack_ratio": 80,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "Airborne",
+                          "duration": 45
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_baronnashor_e_hit"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_baronnashor.ult",
+    "duration": 216,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_baronnashor_r_roar"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_baronnashor_r_wrath",
+            "duration": {
+              "Time": {
+                "tick": 218
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 29,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_baronnashor_r_spikes"
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 45000
+                    }
+                  },
+                  "target": "EnemyWithoutTower",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Attack",
+                      "damage": 100,
+                      "attack_ratio": 120,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 0,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 18,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 36,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 54,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 72,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 90,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 108,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 126,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 144,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Delayed",
+              "tick": 162,
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_baronnashor_r_acid"
+                },
+                {
+                  "type": "RandomTarget",
+                  "range": 60000,
+                  "casting_target": "EnemyWithoutTower",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_baronnashor_r_fall"
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 15,
+                      "attack_ratio": 30,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "AddBuff",
+                      "buff_state": {
+                        "name": "tft_baronnashor_q_acid",
+                        "duration": {
+                          "Time": {
+                            "tick": 240
+                          }
+                        },
+                        "defence_mult": -20,
+                        "magic_resistance_mult": -20
+                      }
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_baronnashor_r_hit"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_baronnashor_q_spray",
+      "anim": "asset/tft/effects/tft_baronnashor_big",
+      "tag": "q_spray",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_baronnashor_a_hit",
+      "anim": "asset/tft/effects/tft_baronnashor_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_baronnashor_q_hit",
+      "anim": "asset/tft/effects/tft_baronnashor_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_baronnashor_e_burst",
+      "anim": "asset/tft/effects/tft_baronnashor_big",
+      "tag": "e_burst",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_baronnashor_e_hit",
+      "anim": "asset/tft/effects/tft_baronnashor_fx",
+      "tag": "e_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_baronnashor_r_spikes",
+      "anim": "asset/tft/effects/tft_baronnashor_big",
+      "tag": "r_spikes",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_baronnashor_r_hit",
+      "anim": "asset/tft/effects/tft_baronnashor_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_baronnashor_r_fall",
+      "anim": "asset/tft/effects/tft_baronnashor_big",
+      "tag": "r_fall",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_baronnashor_p_tent",
+      "anim": "asset/tft/effects/tft_baronnashor_big",
+      "tag": "p_tent",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_baronnashor_q_acid",
+      "anim": "asset/tft/effects/tft_baronnashor_fx",
+      "tag": "q_acid",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
