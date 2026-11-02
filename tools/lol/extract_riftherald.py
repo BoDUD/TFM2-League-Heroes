@@ -6,7 +6,7 @@ All his own (the user: 「音效什么都要自己找」): set 16's Map22 bank M
 and Warp Armor (Play_sfx_tft16_RiftHerald*: SpinAttack_cast / _vox, Spell_chargeup, Spell_hit - the events his set-16
 skin and animation bins name); the Rift's own Herald (Map11 NPC_Map11_RiftHerald_SFX, event names read from
 data/characters/sru_riftherald/**.bin, 2026-11-02) holds his claw swings and their hits, the spin's hit, the charge
-(wind-up roar, the run, the sonic boom, the ram into a champion), the angry roar, the void spawn and his death.
+(wind-up roar, the sonic boom, the ram into a champion), the angry roar, the void spawn and his death.
 Read, never written; the bank's Wwise events resolved to their media (the first variant unless picked), decoded with
 vgmstream and written as mono 16-bit WAVs to tft/sound/sfx/ (git-ignored: audio (c) Riot Games).
 """
@@ -29,12 +29,10 @@ SRU = "Play_sfx_SRU_RiftHerald"
 CLIPS = {
     C + "a": ("sru", [SRU + "BasicAttack_OnCast"], 0.8, -11),             # the claw swing
     C + "a_hit": ("sru", [SRU + "BasicAttack_OnHit"], 0.8, -9),
-    C + "p": ("sru", [SRU + "_Eye_Vulnerable_buffactivate"], 1.2, -11),   # the eye on his back opens
     C + "q": ("tft16", [S16 + "_SpinAttack_cast"], 1.2, -9),              # the spin
     C + "q_vox": ("tft16", [S16 + "_SpinAttack_vox"], 1.2, -10),
     C + "q_hit": ("sru", [SRU + "_SpinAttack_hit"], 0.8, -10),
     C + "e": ("sru", [SRU + "_dash_windup_vox"], 1.4, -9),                # rears up before the charge
-    C + "e_run": ("sru", [SRU + "_dash_run_fs"], 0.8, -12),               # the charge's thundering steps
     C + "e_boom": ("sru", [SRU + "_dash_sonicboom"], 1.2, -10),
     C + "e_hit": ("sru", [SRU + "_charge_hit_champion"], 1.2, -7),        # rams a champion: stunned
     C + "r": ("tft16", [S16 + "Spell_chargeup"], 1.8, -9),                # Warp Armor: he swells

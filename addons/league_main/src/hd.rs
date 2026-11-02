@@ -742,6 +742,9 @@ pub const FORMS: &[(&str, &[&str], f32, f32)] = &[
     // lasts (tools/kit/build_gromp.py r_grow), grown and shrunk in 0.5 s - 1.3 at first, lowered at the user's word since
     // the ult's own frames already blow its belly up to 1.6x (「Lower it to 1.15×」)
     ("tft_gromp", &["tft_gromp_r_big"], 1.15, 0.5),
+    // the Rift Herald's Warp Armor (tft_riftherald, 2026-11-02, TFT's own 「获得最大生命值并且体型变大」): the body 25 % bigger
+    // while the flag r_big lasts (tools/kit/build_riftherald.py r_big_t, 8 s from the roar), grown and shrunk in 0.5 s
+    ("tft_riftherald", &["tft_riftherald_r_big"], 1.25, 0.5),
 ];
 
 /// Seconds a form's body may go undrawn and still ease on: past it the next draw is another unit at that address or a

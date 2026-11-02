@@ -49,6 +49,9 @@ BIG = f"asset/{MOD_ID}/effects/{ID}_big"
 # tft_brock --plain +1.60 and tft_terra --plain +0.94 (their sessions' numbers, the same games); v2 = P (atk 72, Q 40 + 90%
 # + 3%, E 40 + 4%, R 100 + 120% + 6%, shell 10%) +1.25; v3 (atk 76, hp 1350, Q 50 + 100% + 3% every 7 s, E 50 + 5%, R 120 +
 # 140% + 7%, shell 12%) +3.57 - too strong.
+# q_r 38000 -> 45000 after the skills preview (2026-11-02): 38000 + a body's 15000 fell short of the enemy it fights at its
+# own attack range (25000 + both bodies = 55000 centre to centre): the spin missed its own target; P with it +1.36 on
+# seeds 1-16.
 P = {
     # stats (Melee, a top fighter-tank)
     "hp": 1250, "hp_g": 120, "atk": 72, "atk_g": 11, "apw": 20, "apw_g": 8, "def": 40, "def_g": 8, "mr": 32, "mr_g": 6,
@@ -57,7 +60,7 @@ P = {
     # Void Shell (TFT: +1% durability for each enemy targeting it; ours per enemy champion near)
     "p_r": 45000, "p_dr": 4, "p_max": 5, "p_plain": 10,
     # Spin Sweep
-    "q_cd": 480, "q_range": 30000, "q_dur": 40, "q_st": 20, "q_r": 38000, "q_dmg": 40, "q_ratio": 90, "q_hp": 3,
+    "q_cd": 480, "q_range": 30000, "q_dur": 40, "q_st": 20, "q_r": 45000, "q_dmg": 40, "q_ratio": 90, "q_hp": 3,
     "q_slow": 30, "q_slow_t": 60,
     # Void Charge (League: the Herald rams; set 9: % max health damage and a stun)
     "e_cd": 900, "e_range": 70000, "e_dur": 60, "e_wind": 24, "e_speed": 5000, "e_len": 70000, "e_w": 14000,
