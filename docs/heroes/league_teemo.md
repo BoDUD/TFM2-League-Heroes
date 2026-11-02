@@ -88,7 +88,7 @@
 | 特效 | 毒镖、毒液命中、致盲飞镖、紫墨命中、致盲紫烟、起跑烟尘、伪装叶旋、中毒、飞在空中的蘑菇、蘑菇落地布置、潜伏的蘑菇、蘑菇毒云 |
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 10 条技能音效和 3 条中文语音（Q、W 借被动伪装的台词、R）。不提交到仓库，按下面的命令在本地生成 |
-| 修正（死后的蘑菇，0.295.0，2026-11-02） | 查[茂凯](league_maokai.md)树苗「死后无限音效」时一起查出来的：蘑菇每 15 tick 的画面链在 `boom`（踩爆后 30 tick）时放毒云的画面和声音、点 3 tick 的 `fire`，毒云区在 `fire` 时上毒、减速。正式游戏里死人的延时效果继续跑、标记冻住：蘑菇踩爆后半秒内他死掉，剩下的十几秒里每 15 tick 响一次爆炸声；死在 `fire` 那 3 tick 里，毒云每 2 tick 上一次毒。[`tools/fix/fix_teemo_dead.py`](../../tools/fix/fix_teemo_dead.py) 给 147 处 `boom` 和 3 处 `fire` 加上 `alive()`（找自己加 1 tick 的标记，死人找不到）。附加包 `league_teemo_shrooms` 用自己的蘑菇，不受影响；塞拉斯偷来的 R 用的是这一份 |
+| 修正（死后的蘑菇，0.296.0，2026-11-02） | 查[茂凯](league_maokai.md)树苗「死后无限音效」时一起查出来的：蘑菇每 15 tick 的画面链在 `boom`（踩爆后 30 tick）时放毒云的画面和声音、点 3 tick 的 `fire`，毒云区在 `fire` 时上毒、减速。正式游戏里死人的延时效果继续跑、标记冻住：蘑菇踩爆后半秒内他死掉，剩下的十几秒里每 15 tick 响一次爆炸声；死在 `fire` 那 3 tick 里，毒云每 2 tick 上一次毒。[`tools/fix/fix_teemo_dead.py`](../../tools/fix/fix_teemo_dead.py) 给 147 处 `boom` 和 3 处 `fire` 加上 `alive()`（找自己加 1 tick 的标记，死人找不到）。附加包 `league_teemo_shrooms` 用自己的蘑菇，不受影响；塞拉斯偷来的 R 用的是这一份 |
 
 ```bash
 python tools/lol/extract_teemo.py --lol "D:\WeGameApps\lol" --vgmstream "<vgmstream-cli.exe 路径>"
