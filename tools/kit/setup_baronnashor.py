@@ -35,8 +35,8 @@ from setup_alune import load, save, secs, shown_length  # noqa: E402
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD = os.path.join(REPO, MOD_ID)
 CLIP = f"{ID}_sfx_"
-# ... the Rift Herald 0.40 (PR #663), T-Hex 0.41, the voice lines 0.42-0.45, Baron Nashor 0.46
-VERSION = "0.46.0"
+# ... the Rift Herald 0.40 (PR #663), T-Hex 0.41, the voice lines 0.42-0.45, the log fixes 0.46 (PR #674), Baron Nashor 0.47
+VERSION = "0.47.0"
 ADi, APi, TOOLTIP_MAX = pack.ADi, pack.APi, pack.TOOLTIP_MAX
 M, O, A, R, E = pack.M, pack.O, pack.A, pack.R, pack.E
 # champion_view (game px from its soles' point, up negative): the face point on its middle eye (ppu_restyle's face_to:
