@@ -1,0 +1,734 @@
+{
+  "id": "tft_brock",
+  "category": "Melee",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC",
+    "Shield"
+  ],
+  "passive": {
+    "passive_ref": "tft_brock:stone",
+    "params": {
+      "r_r": 50000,
+      "r_dmg": 90,
+      "r_ratio": 80,
+      "r_hp": 3,
+      "r_hex": 18000,
+      "r_fall": 15,
+      "r_min": 40,
+      "r_up": 75,
+      "r_mark": 3600
+    }
+  },
+  "sprite": "asset/tft/champions/tft_brock",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_brock_skill",
+    "asset/tft/icons/tft_brock_skill2",
+    "asset/tft/icons/tft_brock_ult"
+  ],
+  "stat": {
+    "attack": 72,
+    "magic_power": 20,
+    "hp": 1200,
+    "defence": 38,
+    "magic_resistance": 30,
+    "move_speed": 940,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 12,
+    "magic_power": 8,
+    "hp": 115,
+    "defence": 8,
+    "magic_resistance": 6,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_brock.attack",
+    "duration": 38,
+    "cooltime": 78,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 27000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_brock_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 19,
+          "effects": [
+            {
+              "type": "Attack",
+              "damage": 0,
+              "attack_ratio": 100,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_brock_a_hit"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_brock_a_hit"
+            },
+            {
+              "type": "ViewEffect",
+              "name": "tft_brock_a_quake"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 18000
+                }
+              },
+              "target": "EnemyWithoutTower",
+              "apply_type": {
+                "Forward": {
+                  "offset": 22000
+                }
+              },
+              "effects": [
+                {
+                  "type": "Attack",
+                  "damage": 0,
+                  "attack_ratio": 25,
+                  "hp_ratio": 0,
+                  "target_hp_ratio": 0,
+                  "attack_effect_type": "Target"
+                }
+              ]
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_brock_a_n2",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Airborne",
+                        "duration": 20
+                      },
+                      {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "tft_brock_a_up",
+                          "duration": {
+                            "Time": {
+                              "tick": 20
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "tft_brock_a_up"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "tft_brock_a_n2"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "tft_brock_a_n1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_brock_a_n1"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_brock_a_n2",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "tft_brock_a_n1",
+                    "duration": "Permanent"
+                  },
+                  "only_to_enemy": false
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_brock.skill",
+    "duration": 32,
+    "cooltime": 600,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 17,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_brock_q"
+            },
+            {
+              "type": "TargetProjectile",
+              "name": "tft_brock_q_rock",
+              "speed": 3000,
+              "y_offset": 14000,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 30,
+                    "attack_ratio": 80,
+                    "hp_ratio": 2,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_brock_q_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 90
+                        }
+                      },
+                      "move_speed_mult": -30
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "tft_brock_q_hit"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "tft_brock_q_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_brock.skill2",
+    "duration": 32,
+    "cooltime": 780,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyWithoutTower",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_brock_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 15,
+          "effects": [
+            {
+              "type": "ViewEffect",
+              "name": "tft_brock_e_vine"
+            },
+            {
+              "type": "TargetSfx",
+              "name": "tft_brock_e_root"
+            },
+            {
+              "type": "Attack",
+              "damage": 20,
+              "attack_ratio": 30,
+              "hp_ratio": 0,
+              "target_hp_ratio": 0,
+              "attack_effect_type": "Target"
+            },
+            {
+              "type": "Bind",
+              "duration": 50
+            },
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "tft_brock_e_root",
+                "duration": {
+                  "Time": {
+                    "tick": 50
+                  }
+                }
+              }
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_brock_e_shield"
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Shield",
+                  "amount": 60,
+                  "attack_ratio": 50,
+                  "ap_ratio": 0,
+                  "tick": 180
+                }
+              ]
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "tft_brock_e_shield",
+                "duration": {
+                  "Time": {
+                    "tick": 180
+                  }
+                }
+              },
+              "only_to_enemy": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_brock.ult",
+    "duration": 84,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_brock_r"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_brock_r_jump"
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_brock_r_air",
+            "duration": {
+              "Time": {
+                "tick": 54
+              }
+            },
+            "damaged_reduce": 100,
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 21,
+          "effects": [
+            {
+              "type": "CasterInvisible",
+              "tick": 26
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 47,
+          "effects": [
+            {
+              "type": "Teleport"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 53,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Teleport"
+                },
+                {
+                  "type": "Sfx",
+                  "name": "tft_brock_r_slam"
+                },
+                {
+                  "type": "CasterViewEffect",
+                  "name": "tft_brock_r_slam"
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "tft_brock:slam"
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 10,
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 60000,
+                      "casting_target": "EnemyWithoutTower",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_brock_r_rock"
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 25,
+                          "attack_ratio": 30,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_brock_r_rock"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 18,
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 60000,
+                      "casting_target": "EnemyWithoutTower",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_brock_r_rock"
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 25,
+                          "attack_ratio": 30,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_brock_r_rock"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 26,
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 60000,
+                      "casting_target": "EnemyWithoutTower",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_brock_r_rock"
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 25,
+                          "attack_ratio": 30,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_brock_r_rock"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 34,
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 60000,
+                      "casting_target": "EnemyWithoutTower",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_brock_r_rock"
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 25,
+                          "attack_ratio": 30,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_brock_r_rock"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 42,
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 60000,
+                      "casting_target": "EnemyWithoutTower",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_brock_r_rock"
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 25,
+                          "attack_ratio": 30,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_brock_r_rock"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 50,
+                  "effects": [
+                    {
+                      "type": "RandomTarget",
+                      "range": 60000,
+                      "casting_target": "EnemyWithoutTower",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_brock_r_rock"
+                        },
+                        {
+                          "type": "Attack",
+                          "damage": 25,
+                          "attack_ratio": 30,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        },
+                        {
+                          "type": "TargetSfx",
+                          "name": "tft_brock_r_rock"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_brock_q_rock",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "q_rock",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_brock_a_hit",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brock_a_quake",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "a_quake",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brock_q_hit",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brock_e_vine",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "e_vine",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brock_r_jump",
+      "anim": "asset/tft/effects/tft_brock_big",
+      "tag": "r_jump",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brock_r_slam",
+      "anim": "asset/tft/effects/tft_brock_big",
+      "tag": "r_slam",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_brock_r_rock",
+      "anim": "asset/tft/effects/tft_brock_big",
+      "tag": "r_rock",
+      "z": 2,
+      "is_follow": false
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_brock_a_up",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "a_up",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_brock_q_slow",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "q_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_brock_e_root",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "e_root",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_brock_e_shield",
+      "anim": "asset/tft/effects/tft_brock_big",
+      "tag": "e_shield",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_brock_r_hit",
+      "anim": "asset/tft/effects/tft_brock_fx",
+      "tag": "r_hit",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}
