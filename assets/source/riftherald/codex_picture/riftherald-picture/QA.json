@@ -1,0 +1,44 @@
+{
+  "A": {
+    "size": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      462,
+      924,
+      1067,
+      1386
+    ],
+    "visible_width": 605,
+    "visible_height": 462,
+    "bottom_margin": 150,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "opaque_colors": 19,
+    "uniform_11px_cells": true
+  },
+  "B": {
+    "size": [
+      1536,
+      1536
+    ],
+    "bbox": [
+      484,
+      726,
+      1034,
+      1386
+    ],
+    "visible_width": 550,
+    "visible_height": 660,
+    "bottom_margin": 150,
+    "alpha_values": [
+      0,
+      255
+    ],
+    "opaque_colors": 17,
+    "uniform_11px_cells": true
+  }
+}

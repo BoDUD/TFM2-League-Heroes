@@ -4380,6 +4380,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_tft_riftherald",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_riftherald",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_riftherald_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_riftherald_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_tft_scar",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_scar",
@@ -4567,6 +4583,22 @@
       "name": "league_illaoi_soul_tft_terra_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "tft_terra_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_thex",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_thex",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_tft_thex_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "tft_thex_l",
       "z": 3,
       "is_follow": false
     },

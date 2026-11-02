@@ -481,6 +481,34 @@
         "x": 0,
         "y": -12
       }
+    },
+    "tft_riftherald": {
+      "face": {
+        "x": 13,
+        "y": -25
+      },
+      "center": {
+        "x": 0,
+        "y": -17
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -6
+      }
+    },
+    "tft_thex": {
+      "face": {
+        "x": 9,
+        "y": -34
+      },
+      "center": {
+        "x": 0,
+        "y": -13
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
+      }
     }
   }
 }

@@ -1,0 +1,96 @@
+{
+  "status": "all_18_source_poses_generated_with_quality_limitations",
+  "pose_count": 18,
+  "missing": [],
+  "selected_sources": [
+    {
+      "id": "a_raise",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-3245bed0-862a-4e97-b07c-aa35e6ac049e.png"
+    },
+    {
+      "id": "a_strike",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-41352698-74a7-475f-a277-aaa58af4697a.png"
+    },
+    {
+      "id": "q_wind",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-4d79e031-b67b-4768-8f2f-f0b2488fc012.png"
+    },
+    {
+      "id": "q_spin",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-f982ac60-bed7-437e-973a-93351e509e74.png"
+    },
+    {
+      "id": "q_end",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-b20820dd-d80c-46dc-a38c-f7cc03c912a9.png"
+    },
+    {
+      "id": "e_rear",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-417f0660-0823-4994-8d3c-e8b7a39b3a8f.png"
+    },
+    {
+      "id": "e_flip",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-faa9e8bf-ee8f-4024-b29b-03916548e61f.png"
+    },
+    {
+      "id": "e_charge",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-d2a54b79-cf7e-4234-b256-a457be40bc70.png"
+    },
+    {
+      "id": "r_crouch",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-dc0fab66-7e8d-4932-b272-6252e1dd69fe.png"
+    },
+    {
+      "id": "r_slam",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-53cd3f82-68f9-4695-bbc9-533f9c5703c7.png"
+    },
+    {
+      "id": "run1",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-370f8ce3-97b1-4ba6-9f3f-211ee1586fc2.png"
+    },
+    {
+      "id": "run3",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-39e1abbe-7759-4ff1-987a-ca9871fdd299.png"
+    },
+    {
+      "id": "run2",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-dc04ec5b-0b7c-4734-92b0-78efe9c8d57a.png"
+    },
+    {
+      "id": "run4",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-6a4bc8bc-6ba4-4236-894f-d7bd84ae8494.png"
+    },
+    {
+      "id": "run5",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-eb4765f7-963a-42ae-9038-fc2eb5747c58.png"
+    },
+    {
+      "id": "run6",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-85bdbef3-27dc-442c-8e27-3f8b55b67d78.png"
+    },
+    {
+      "id": "d_fall",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-9a16a3c8-5e3b-436f-b7be-b8737fcd3fc6.png"
+    },
+    {
+      "id": "d_down",
+      "source": "C:\\Users\\OWNER\\.codex\\generated_images\\01a19a1d-643d-70b0-ac36-7e661de5d611\\exec-67d616e8-805f-4232-b07f-54c09b13f134.png"
+    }
+  ],
+  "image_generation_tool": "native image_gen",
+  "postprocessing": "none",
+  "revision_frames": [
+    "q_spin",
+    "e_charge",
+    "e_flip",
+    "d_fall"
+  ],
+  "qa_limitations": [
+    "Strict 8px uniform aligned grid not met",
+    "Hard alpha 0/255 not met",
+    "Face and part scale not identical across all independently generated frames",
+    "Some standing baselines deviate from y1176",
+    "Run cycle continuity needs artist correction before game integration"
+  ],
+  "e_flip_airborne_bbox_bottom": 1094,
+  "not_game_ready": true
+}

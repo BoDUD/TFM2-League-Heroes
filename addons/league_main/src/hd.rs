@@ -411,6 +411,15 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // (「A 30 PPU 2.33」: 70 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_cinderling.py,
     // so no SIZES row
     ("tft_cinderling", 2.33, include_str!("../../../tft/champions/tft_cinderling#anim.fanim")),
+    // the Rift Herald (tft_riftherald, the tft pack): the void beast hunched under its domed shell at 3/4, step 0's first
+    // A read on its own 8 px squares at the user's 44 game px from the shell's top to its soles, PPU 2.0 (「A-1，44 像素，
+    // PPU 2.0」: 88 rows), and Codex's key poses after its own TFT clips, posed by tools/art/rig_riftherald.py, so no
+    // SIZES row
+    ("tft_riftherald", 2.0, include_str!("../../../tft/champions/tft_riftherald#anim.fanim")),
+    // T-Hex (tft_thex, the tft pack): the mech rex crouched at 3/4 with the gatling before its chest, step 0's first A
+    // read on its own 10 px squares at the user's 40 game px from the ear spikes to its soles, PPU 1.9 (「A-1 40px PPU1.9」:
+    // 76 rows 1:1), and Codex's key poses after its own TFT clips, posed by tools/art/rig_thex.py, so no SIZES row
+    ("tft_thex", 1.9, include_str!("../../../tft/champions/tft_thex#anim.fanim")),
     // 2026-10-16 redo from Codex's pictures, the actions posed from the designs (tools/art/rig_<hero>_hd.py; Nami's after
     // League's own clips, tools/lol/league_joints.py), PPU 1.5 at their old heights, so no SIZES rows
     ("league_morgana", 1.5, include_str!("../../../league/champions/league_morgana#anim.fanim")),
@@ -737,6 +746,9 @@ pub const FORMS: &[(&str, &[&str], f32, f32)] = &[
     // lasts (tools/kit/build_gromp.py r_grow), grown and shrunk in 0.5 s - 1.3 at first, lowered at the user's word since
     // the ult's own frames already blow its belly up to 1.6x (「Lower it to 1.15×」)
     ("tft_gromp", &["tft_gromp_r_big"], 1.15, 0.5),
+    // the Rift Herald's Warp Armor (tft_riftherald, 2026-11-02, TFT's own 「获得最大生命值并且体型变大」): the body 25 % bigger
+    // while the flag r_big lasts (tools/kit/build_riftherald.py r_big_t, 8 s from the roar), grown and shrunk in 0.5 s
+    ("tft_riftherald", &["tft_riftherald_r_big"], 1.25, 0.5),
 ];
 
 /// Seconds a form's body may go undrawn and still ease on: past it the next draw is another unit at that address or a
