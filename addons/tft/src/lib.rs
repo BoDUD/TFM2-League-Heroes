@@ -105,8 +105,8 @@ fn init(host: &StableHost) -> StableMod {
     close_log();
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
-    wlog(format!("=== tft.{} {VERSION} (the tft heroes' rules and dense frames) loaded: game {}.{}.{} abi {} log={} ===",
-        std::env::consts::DLL_EXTENSION, v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
+    wlog(format!("=== tft.dll {VERSION} (the tft heroes' rules and dense frames) loaded: game {}.{}.{} abi {} log={} ===",
+        v.major, v.minor, v.patch, host.abi_level(), LOG_PATH.display()));
     // the dense frames first: this pack's table to the engine, which hooks the game from here or hands the table to the
     // pack DLL that did (league.dll loaded first)
     #[cfg(windows)]
@@ -116,12 +116,6 @@ fn init(host: &StableHost) -> StableMod {
             host.log(LogLevel::Info, &format!("tft.dll: dense (PPU) frames for the tft heroes, drawn by {by}."))
         }
         Role::Off(why) => host.log(LogLevel::Info, &format!("tft.dll: the tft heroes' 1x frames - {why}.")),
-    }
-    // the hooks are made for the Windows EXE (league.dll's way): on a Mac the tft heroes draw their 1x frames
-    #[cfg(not(windows))]
-    {
-        wlog("not Windows: no hooks (dense frames, UI sheets) - every tft hero draws its 1x frames");
-        host.log(LogLevel::Info, "tft.dll: dense (PPU) frames are Windows-only - 1x frames.");
     }
     let mut module = StableMod::new("tft");
     alune::register(host, &mut module);
