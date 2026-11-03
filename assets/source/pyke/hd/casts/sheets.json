@@ -1,0 +1,435 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "5": "attack 4"
+  },
+  "skill": {
+   "4": "skill 2"
+  },
+  "skill2": {
+   "1": "skill_stab 1",
+   "2": "attack 4",
+   "3": "skill_stab 4",
+   "4": "skill_stab 5"
+  },
+  "ult": {
+   "4": "attack 4",
+   "5": "attack 4",
+   "6": "skill_stab 5"
+  },
+  "dead": {
+   "1": "hit 1",
+   "6": "dead 5",
+   "7": "dead 5",
+   "8": "dead 5"
+  }
+ },
+ "baked_body_frames": [
+  "skill"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched run, the harpoon held up over his back, the LEGS CHANGING OVER",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under his hips, its foot flat on the ground; the FAR leg (the darker one) kicked up and back behind him, bent, its foot high off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched run, the harpoon held up over his back, the LEGS CHANGING OVER",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes.",
+   "legs": "Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched run, the harpoon held up over his back, the LEGS CHANGING OVER",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes.",
+   "legs": "Frame 3: PASSING: both legs gathered under him, knees bent; the FAR leg passing forward close beside the planted near leg, its foot just off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched run, the harpoon held up over his back, the LEGS CHANGING OVER",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes.",
+   "legs": "Frame 4: STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched run, the harpoon held up over his back, the LEGS CHANGING OVER",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under his hips, its foot flat on the ground; the NEAR leg (the lighter one) kicked up and back behind him, bent, its foot high off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched run, the harpoon held up over his back, the LEGS CHANGING OVER",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes.",
+   "legs": "Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched run, the harpoon held up over his back, the LEGS CHANGING OVER",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes.",
+   "legs": "Frame 7: PASSING: both legs gathered under him, knees bent; the NEAR leg passing forward close beside the planted far leg, its foot just off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched run, the harpoon held up over his back, the LEGS CHANGING OVER",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes.",
+   "legs": "Frame 8: STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: he draws the harpoon up (frames 2-3) and drives it forward over his head, the blade pointing ahead (frame 4), then brings it back (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack: he draws the harpoon up (frames 2-3) and drives it forward over his head, the blade pointing ahead (frame 4), then brings it back (frame 6)",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: he draws the harpoon up (frames 2-3) and drives it forward over his head, the blade pointing ahead (frame 4), then brings it back (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: he draws the harpoon up (frames 2-3) and drives it forward over his head, the blade pointing ahead (frame 4), then brings it back (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "skill_stab",
+   "name": "skill_stab_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Bone Skewer, the stab (Q): he draws the harpoon up (frame 2) and drives it forward (frames 3-4), then brings it back (frame 5)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "skill_stab",
+   "name": "skill_stab_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Bone Skewer, the stab (Q): he draws the harpoon up (frame 2) and drives it forward (frames 3-4), then brings it back (frame 5)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "skill_stab",
+   "name": "skill_stab_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Bone Skewer, the stab (Q): he draws the harpoon up (frame 2) and drives it forward (frames 3-4), then brings it back (frame 5)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "skill_stab",
+   "name": "skill_stab_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Bone Skewer, the stab (Q): he draws the harpoon up (frame 2) and drives it forward (frames 3-4), then brings it back (frame 5)",
+   "ms": [
+    77
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Bone Skewer, the throw (Q): he draws the harpoon back, charging (frames 1-3), throws it (frame 5) and yanks it back, his arm pulled back behind him (frame 6) - once thrown, his hand is EMPTY",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Bone Skewer, the throw (Q): he draws the harpoon back, charging (frames 1-3), throws it (frame 5) and yanks it back, his arm pulled back behind him (frame 6) - once thrown, his hand is EMPTY",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Bone Skewer, the throw (Q): he draws the harpoon back, charging (frames 1-3), throws it (frame 5) and yanks it back, his arm pulled back behind him (frame 6) - once thrown, his hand is EMPTY",
+   "ms": [
+    120,
+    113
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Death from Below (R): crouched low, he raises the harpoon high, ready to strike (frames 1-3)",
+   "ms": [
+    150,
+    175
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Death from Below (R): crouched low, he raises the harpoon high, ready to strike (frames 1-3)",
+   "ms": [
+    175
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back (frames 1-2)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back (frames 1-2)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 2), he pitches forward (frames 3-4) and lies face down, the harpoon on the ground before him (frame 5)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 2), he pitches forward (frames 3-4) and lies face down, the harpoon on the ground before him (frame 5)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 2), he pitches forward (frames 3-4) and lies face down, the harpoon on the ground before him (frame 5)",
+   "ms": [
+    130
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 2), he pitches forward (frames 3-4) and lies face down, the harpoon on the ground before him (frame 5)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS HANDS AND THE HARPOON go where the pale figure has them, frame by frame (image 3 shows them in colour): the harpoon with its bone-white blade, orange grip, cyan gem, red ribbon and orange hook, as long as in image 1, raised over his back, drawn back, thrust or thrown as the pale figure holds it; where the pale figure's hand is empty (the harpoon thrown), draw the hand empty. The pale figure of his Q throw (skill) is the old frame's body without its charge glow: do NOT draw the glow. Only him: no water, no mist, no afterimages; the eyes' cyan stays inside the eyes."
+  }
+ ]
+}
