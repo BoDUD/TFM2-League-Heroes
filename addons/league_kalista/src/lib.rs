@@ -10,7 +10,9 @@
 //!   左右交替，跳完离它一样远（侧跳放后跳那套腾空的动作）。身边没有敌方英雄（打小兵、野怪、塔）时照最近的敌方单位原地前后交替跳，
 //!   先往前。0.2.0 之前（用户 11-01：「卡莉斯塔为什么只会往后滑？」）：其余一律往后，打小兵时两个标记都不挂、数据照主包往后跳。
 //! - **誓约者**：开局（每条命出生时重新看）绑定一名队友——辅助位优先，没有就离她最近的队友英雄；大招的 AI 钩子
-//!   （`league_kalista:fate`）把施放目标换成誓约者（在 `r_bind` 内、能选中时；不然留 AI 自己挑的队友）。
+//!   （`league_kalista:fate`）把施放目标换成誓约者（在 `r_bind` 内、能选中时）。0.2.1（11-03 夜里的日志：誓约者是蕾欧娜，
+//!   6 次大招里 2 次甩出去的是龙王、努努）：英雄联盟里这一招只能对誓约者放，他死了、太远、选不中时 AI 的大招不放
+//!   （`FATE HELD`），改成打最近的敌方英雄（远了走过去）。
 //! - **命运的召唤的飞行**：数据把队友拉进来、保护、定身，甩出时挂 `r_launch`；本包挑落点（离她最近的敌方英雄，`r_range` 内；
 //!   没有就 2 倍范围内最近的），逐 tick 把队友朝那个英雄现在的位置飞过去（`r_fly_v`），到 `r_catch` 内挂 `r_landed`，数据在队友脚下
 //!   击飞周围敌人。
@@ -338,6 +340,39 @@ pub fn pick_oath(me: Pt, mates: &[Mate]) -> Option<usize> {
     mates.iter().filter(|m| m.at.is_some()).min_by(|a, b| d(a).total_cmp(&d(b))).map(|m| m.player)
 }
 
+/// 誓约者这一 tick：他活着的英雄（死了是 None）、选不选得中、离她多远（中心到中心）、两人的身体半径加起来。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Sworn {
+    pub id: Option<usize>,
+    pub targetable: bool,
+    pub d: f64,
+    pub bodies: f64,
+}
+
+/// 游戏的 AI 要放命运的召唤时拉谁（0.2.1）：英雄联盟里这一招只能对誓约者放——他活着、选得中、在 `r_bind` 内（加两人的身体：
+/// 引擎和 AI 量施放距离都这么算）就对他放，不然这一下不放（`Err`：为什么）。0.2.0 这时留着 AI 自己挑的队友：11-03 夜里的日志
+/// 誓约者是蕾欧娜，6 次大招里 2 次甩出去的是龙王、努努。
+pub fn fate_target(sworn: Option<Sworn>, r_bind: f64) -> Result<usize, &'static str> {
+    let s = sworn.ok_or("no Oathsworn")?;
+    let id = s.id.ok_or("the Oathsworn is dead")?;
+    if !s.targetable {
+        return Err("the Oathsworn is untargetable");
+    }
+    if s.d > r_bind + s.bodies {
+        return Err("the Oathsworn is out of reach");
+    }
+    Ok(id)
+}
+
+/// 一串连着的只记一行（league_ult_press 的 `ORDER_FRESH`）：AI 留着的大招每 4 tick 都再按一次。
+pub const ORDER_FRESH: usize = 30;
+
+/// A line at `tick` starts a burst: none of its kind in the `ORDER_FRESH` ticks before (`last`: that kind's last tick;
+/// a tick before it is another match).
+pub fn new_burst(last: Option<usize>, tick: usize) -> bool {
+    last.is_none_or(|t0| tick < t0 || tick > t0 + ORDER_FRESH)
+}
+
 /// 甩出去的落点：r_range 内离她最近的敌方英雄，没有就 2 倍范围内最近的。
 pub fn landing_pick(me: Pt, foes: &[Foe], p: &Params) -> Option<Foe> {
     for k in [1.0, 2.0] {
@@ -606,8 +641,11 @@ impl Oath {
                 Some(f) => {
                     self.flight = Some(Flight { ally, foe: f.id, ticks: 0 });
                     if let Some(k) = counted("fate") {
-                        wlog(format!("{} FATE {} hurled at {} ({:.0} away, {}% hp) #{k}", head(sim, me), who(sim, ally),
-                                     who(sim, f.id), dist(at, f.at), f.hp_pct));
+                        // 0.2.1: only the Oathsworn should ever fly (the hook holds the AI's R on anyone else)
+                        let sworn = self.oath.and_then(|o| sim.get_player(o)).and_then(|pl| pl.champion()).map(|c| c.id());
+                        wlog(format!("{} FATE {} hurled at {} ({:.0} away, {}% hp){} #{k}", head(sim, me), who(sim, ally),
+                                     who(sim, f.id), dist(at, f.at), f.hp_pct,
+                                     if sworn == Some(ally) { "" } else { " - NOT the Oathsworn" }));
                     }
                 }
                 None => {
@@ -732,7 +770,27 @@ impl StablePassive for Oath {
 // ===================== AI 钩子：大招对誓约者施放 =====================
 
 #[derive(Clone, Default)]
-struct FateAi;
+struct FateAi {
+    /// 每种行最近一次的 tick（`new_burst`：一串只记一行）。
+    lines: Vec<(&'static str, usize)>,
+}
+
+impl FateAi {
+    /// One more line of `kind` at `tick`: true when it starts a burst (`new_burst`), the line to be written.
+    fn burst(&mut self, kind: &'static str, tick: usize) -> bool {
+        let last = self.lines.iter().find(|(k, _)| *k == kind).map(|&(_, t)| t);
+        self.lines.retain(|(k, _)| *k != kind);
+        self.lines.push((kind, tick));
+        new_burst(last, tick)
+    }
+}
+
+/// 大招不放时改做的（0.2.1）：最近的看得见的敌方英雄在射程里（加两人的身体）就打他，远了走过去，一个都没有就站一下。
+enum Instead {
+    Attack(usize),
+    Walk((u64, u64)),
+    Stand,
+}
 
 impl StablePlayerAi for FateAi {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
@@ -762,8 +820,9 @@ impl StablePlayerAi for FateAi {
         }
         let current = b.target.target_id;
         let player = ctx.player_id();
+        let tick = ctx.tick();
         let p = shared();
-        let (pick, line) = {
+        let (pick, head, names, instead, here) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
             if !me.is_alive() {
@@ -771,6 +830,7 @@ impl StablePlayerAi for FateAi {
             }
             let (mid, team) = (me.id(), me.team());
             let at = (me.pos().0 as f64, me.pos().1 as f64);
+            let my_r = me.radius() as f64;
             let mut mates = Vec::new();
             for i in 0..sim.player_count() {
                 let Some(pl) = sim.player_at(i) else { continue };
@@ -781,33 +841,76 @@ impl StablePlayerAi for FateAi {
                 if champ.as_ref().is_some_and(|c| c.id() == mid) {
                     continue;
                 }
+                // the live champion as it stands: (id, targetable, distance, radius)
+                let live = champ.as_ref().filter(|c| c.is_alive()).map(|c| {
+                    (c.id(), c.is_targetable(), dist(at, (c.pos().0 as f64, c.pos().1 as f64)), c.radius() as f64)
+                });
                 let c = champ.filter(|c| c.is_alive() && c.is_targetable());
                 mates.push((Mate { player: pl.id(), support: pl.lane() == Some(LaneV1::Support),
                                    at: c.as_ref().map(|c| (c.pos().0 as f64, c.pos().1 as f64)) },
-                            c.map(|c| c.id())));
+                            live));
             }
             let list: Vec<Mate> = mates.iter().map(|m| m.0).collect();
-            let oath = pick_oath(at, &list)?;
-            let (m, id) = mates.iter().find(|m| m.0.player == oath)?;
-            let id = (*id)?;
-            if dist(at, m.at?) > p.r_bind as f64 {
-                return None;
-            }
-            let line = format!("{} FATE target {} -> the Oathsworn {}", head(&sim, mid), who(&sim, current), who(&sim, id));
-            (id, line)
+            let oath = pick_oath(at, &list);
+            let sworn = oath.and_then(|o| mates.iter().find(|m| m.0.player == o)).map(|&(_, live)| Sworn {
+                id: live.map(|l| l.0),
+                targetable: live.is_some_and(|l| l.1),
+                d: live.map_or(f64::MAX, |l| l.2),
+                bodies: my_r + live.map_or(0.0, |l| l.3),
+            });
+            let oath_name = oath.and_then(|o| sim.get_player(o)).and_then(|pl| pl.champion())
+                .map_or_else(|| "nobody".to_string(), |c| who(&sim, c.id()));
+            let away = sworn.filter(|s| s.id.is_some()).map_or(String::new(), |s| format!(", {:.0} away", s.d));
+            // R held: the nearest enemy champion she can see - in her reach an attack, further a walk toward him
+            let foe = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .filter(|u| {
+                    u.team() != team && u.is_champion() && u.is_alive() && u.is_targetable() && sim.is_visible(team, u.id())
+                })
+                .map(|u| (u.id(), u.pos(), dist(at, (u.pos().0 as f64, u.pos().1 as f64)), u.radius() as f64))
+                .min_by(|a, b| a.2.total_cmp(&b.2));
+            let instead = match foe {
+                Some((id, _, d, r)) if d <= p.atk_range as f64 + my_r + r => Instead::Attack(id),
+                Some((_, pos, _, _)) => Instead::Walk(pos),
+                None => Instead::Stand,
+            };
+            let pick = fate_target(sworn, p.r_bind as f64);
+            let names = (who(&sim, current), pick.map_or_else(|_| format!("{oath_name}{away}"), |id| who(&sim, id)));
+            (pick, head(&sim, mid), names, instead, me.pos())
         };
-        if pick == current {
-            return None;
-        }
-        let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(pick));
-        if !ctx.is_valid_input(&input) {
-            if let Some(k) = counted("fate_ai") {
-                wlog(format!("{line} refused by the game, the AI's ally kept #{k}"));
+        let why = match pick {
+            Ok(id) if id == current => return None,
+            Ok(id) => {
+                let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(id));
+                if ctx.is_valid_input(&input) {
+                    if let Some(k) = counted("fate_ai") {
+                        wlog(format!("{head} FATE target {} -> the Oathsworn {} #{k}", names.0, names.1));
+                    }
+                    return Some(input);
+                }
+                "the game took no R on the Oathsworn"
             }
-            return None;
-        }
-        if let Some(k) = counted("fate_ai") {
-            wlog(format!("{line} #{k}"));
+            Err(why) => why,
+        };
+        // 0.2.1 (11-03 night logs: 2 of 6 Fate's Calls hurled Aurelion Sol and Nunu with Leona bound): in League R only
+        // takes the Oathsworn - dead, out of reach or untargetable, the AI's R is held and she fights on
+        let stand = InputV1::move_to(here.0, here.1);
+        let (input, did) = match instead {
+            Instead::Attack(t) => {
+                let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+                if ctx.is_valid_input(&attack) {
+                    (attack, format!("attacking #{t} instead"))
+                } else {
+                    (stand, "standing (the attack not taken)".to_string())
+                }
+            }
+            Instead::Walk((x, y)) => (InputV1::move_to(x, y), "walking toward the nearest enemy champion".to_string()),
+            Instead::Stand => (stand, "standing (no enemy champion in sight)".to_string()),
+        };
+        if self.burst("fate_held", tick) {
+            if let Some(k) = counted("fate_held") {
+                wlog(format!("{head} FATE HELD: the AI's R on {}, but {why} ({}) - {did} #{k}", names.0, names.1));
+            }
         }
         Some(input)
     }
@@ -863,7 +966,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:oath"), Oath::default());
-    module.add_player_input_ai(FateAi);
+    module.add_player_input_ai(FateAi::default());
     host.log(LogLevel::Info, "league_kalista loaded (hop forward / back / sideways, Oathsworn, Fate's Call flight, Rend execute).");
 }
 
@@ -1025,6 +1128,30 @@ mod tests {
         // a dead support is still the Oathsworn (bound for the game)
         let sup_dead = Mate { at: None, ..sup };
         assert_eq!(pick_oath(me, &[near, sup_dead]), Some(4));
+    }
+
+    #[test]
+    fn fates_call_takes_the_oathsworn_or_nobody() {
+        // 11-03 night logs: Leona bound, the AI's R hurled Aurelion Sol and Nunu (0.2.0 kept the AI's ally then)
+        let r_bind = Params::default().r_bind as f64;
+        let leona = |d: f64| Sworn { id: Some(22), targetable: true, d, bodies: 20_000.0 };
+        assert_eq!(fate_target(Some(leona(40_000.0)), r_bind), Ok(22));
+        // the reach counts both bodies, as the engine and the AI measure a cast
+        assert_eq!(fate_target(Some(leona(85_000.0)), r_bind), Ok(22));
+        assert!(fate_target(Some(leona(95_000.0)), r_bind).is_err(), "out of reach: held, not another ally");
+        assert!(fate_target(Some(Sworn { targetable: false, ..leona(10_000.0) }), r_bind).is_err(), "untargetable");
+        // the support bound for the game and dead (pick_oath keeps her): held
+        assert!(fate_target(Some(Sworn { id: None, targetable: false, d: f64::MAX, bodies: 10_000.0 }), r_bind).is_err());
+        assert!(fate_target(None, r_bind).is_err(), "no teammate at all");
+    }
+
+    #[test]
+    fn a_held_r_is_one_line_a_burst() {
+        let mut ai = FateAi::default();
+        assert!(ai.burst("fate_held", 9000));
+        assert!((9004..9030).step_by(4).all(|t| !ai.burst("fate_held", t)), "the AI presses again every 4 ticks");
+        assert!(ai.burst("fate_held", 9031 + ORDER_FRESH), "the next one");
+        assert!(new_burst(Some(9000), 100), "another match");
     }
 
     #[test]

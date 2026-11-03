@@ -6,7 +6,8 @@
 //! （`attack_speed_mult`，100 = 没加成），把高出 100 的部分用自己的 buff `BUFF`（攻速 −同样多、攻击力 +那么多 × 0.25%）
 //! 抵掉；攻速减益照常生效。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jhin_whisper.log`。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jhin_whisper.log`。`WHISPER`（换算的额外攻速每涨 10 点一行）
+//! 在下一次看时记（0.1.1），括号里的攻速倍率和攻击间隔是 buff 换上之后的，应该是 100% 和 72。
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -88,11 +89,19 @@ pub fn convert(bonus: i32) -> (i32, i32) {
     (-bonus, bonus / AD_PER_AS_DIV)
 }
 
+/// A WHISPER line: the converted bonus `bonus` is a new high, 10 points over the last one (`best`).
+pub fn new_high(best: i32, bonus: i32) -> bool {
+    bonus > best + 9
+}
+
 #[derive(Clone, Default)]
 struct Whisper {
     /// 现在挂着的 (攻速 %, 攻击力 %) 和挂上的 tick。
     on: Option<((i32, i32), usize)>,
     best: i32,
+    /// 新高的 (额外攻速 %, 攻击力 %)：下一次看（EVERY tick 后，buff 已经挂上）再记 WHISPER，括号里读的是抵掉之后的攻速和攻击间隔。
+    /// 0.1.1（2026-11-03 夜里的日志：x117% / x125%，说明里写的是 x100%）：以前在换 buff 之前读，读到的是换之前的。
+    report: Option<(i32, i32)>,
 }
 
 impl StablePassive for Whisper {
@@ -102,6 +111,7 @@ impl StablePassive for Whisper {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.on = None;
+        self.report = None;
         wlog(format!("{} SPAWN: the add-on's Jhin (player {player})", head(sim, me)));
     }
 
@@ -112,10 +122,18 @@ impl StablePassive for Whisper {
         }
         let Some(e) = sim.get_entity(me).filter(|e| e.is_alive()) else {
             self.on = None;
+            self.report = None;
             return;
         };
         let worn = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == BUFF).map(|b| b.attack_speed_mult);
         let (mult, interval) = (e.attack_speed_mult(), e.attack_interval());
+        // the last look's new high, now that its buff is on him: his attack speed and interval as they are with it
+        if worn.is_some() {
+            if let Some((plus, ad)) = self.report.take() {
+                wlog(format!("{} WHISPER: +{plus}% attack speed -> +{ad}% attack damage (attack speed x{mult}%, interval {interval})",
+                             head(sim, me)));
+            }
+        }
         let want = convert(bonus(mult, worn.unwrap_or(0)));
         let stale = self.on.is_none_or(|(v, t)| v != want || tick + EVERY * 2 >= t + TICKS) || worn.is_none();
         if !stale {
@@ -128,16 +146,16 @@ impl StablePassive for Whisper {
             b.attack_mult = want.1;
             sim.add_buff(me, &b);
         }
-        if -want.0 > self.best + 9 {
+        if new_high(self.best, -want.0) {
             self.best = -want.0;
-            wlog(format!("{} WHISPER: +{}% attack speed -> +{}% attack damage (attack speed x{mult}%, interval {interval})",
-                         head(sim, me), -want.0, want.1));
+            self.report = Some((-want.0, want.1));
         }
         self.on = Some((want, tick));
     }
 
     fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
         self.on = None;
+        self.report = None;
     }
 }
 
@@ -180,5 +198,19 @@ mod tests {
         assert_eq!(bonus(100, -40), 40);
         assert_eq!(bonus(80, 0), 0);
         assert_eq!(convert(40), (-40, 10));
+    }
+
+    #[test]
+    fn a_whisper_line_for_each_new_high_read_with_the_buff_on() {
+        assert!(!new_high(0, 9));
+        assert!(new_high(0, 10));
+        assert!(!new_high(25, 34));
+        assert!(new_high(25, 35));
+        // the 11-03 night logs' first line: +25% wanted while his old buff was -8 -> x117% read before the change;
+        // with the new buff on, the next look reads x100%
+        let (mult_before, ours_before) = (117usize, -8);
+        let want = convert(bonus(mult_before, ours_before));
+        assert_eq!(want, (-25, 6));
+        assert_eq!(mult_before as i32 - ours_before + want.0, 100);
     }
 }

@@ -30,6 +30,10 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+#[allow(dead_code)]
+#[path = "../../league_camille_wall/src/maps.rs"]
+mod maps;
+
 const ID: &str = "league_tahmkench";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
 /// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
@@ -54,6 +58,14 @@ pub const LANDING: f64 = 30_000.0;
 pub const WALK: f64 = 30_000.0;
 /// 吐出时离他多远。
 pub const SPIT: f64 = 9_000.0;
+/// 吐出的落点在墙里时往他身边退，每步这么多（0.1.6，[`spit_spot`]）。
+pub const SPIT_STEP: f64 = 1_000.0;
+/// 墙格的边长（世界单位，league_camille_wall 的内置地图，游戏的 5v5 和它一样）。
+pub const CELL: f64 = 32_000.0;
+/// 5v5 地图四边（上下的石墙、左右的石堆）以内的可走范围（league_camille_wall 的 `MOBA_BOUNDS`）。
+pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
+/// 地图边长（坐标 0..MAP）。
+const MAP: f64 = 960_000.0;
 /// 队友危险：生命低于这个 %，或 BURST_TICKS 里掉了 BURST % 以上。
 pub const LOW_PCT: usize = 35;
 pub const BURST: usize = 25;
@@ -201,6 +213,71 @@ pub fn dive_ok(allies: usize, held: bool, foes_at_landing: usize, my_pct: usize)
 /// 存进灰色生命多少（`store`%），不超过上限。
 pub fn stored(grey: usize, damage: usize, store: usize, cap: usize) -> usize {
     (grey + damage * store / 100).min(cap)
+}
+
+/// 地图的墙格（league_camille_wall 的内置地图，Poppy、Gnar 附加包同样用它）；5v5 地图另加四边。
+pub struct Grid {
+    pub cells: Vec<Vec<bool>>,
+    pub bounds: Option<(f64, f64, f64, f64)>,
+}
+
+impl Grid {
+    pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
+    }
+
+    /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
+    pub fn builtin() -> [Grid; 3] {
+        [
+            Grid::from_rows(&maps::MOBA, Some(MOBA_BOUNDS)),
+            Grid::from_rows(&maps::SINGLE_LANE, None),
+            Grid::from_rows(&maps::DEATH_MATCH, None),
+        ]
+    }
+
+    /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
+    pub fn is_wall(&self, x: f64, y: f64) -> bool {
+        if x < 0.0 || y < 0.0 {
+            return true;
+        }
+        if let Some((x0, y0, x1, y1)) = self.bounds {
+            if x < x0 || y < y0 || x > x1 || y > y1 {
+                return true;
+            }
+        }
+        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
+    }
+
+    pub fn walls(&self) -> usize {
+        self.cells.iter().flatten().filter(|w| **w).count()
+    }
+}
+
+/// 当前对局的地图：单位站进墙里最少的那张（同 Poppy、杰斯、巴德附加包）。
+pub fn current(grids: &[Grid], points: &[(f64, f64)]) -> Option<usize> {
+    grids
+        .iter()
+        .enumerate()
+        .min_by_key(|(_, g)| (points.iter().filter(|&&(x, y)| g.is_wall(x, y)).count(), std::cmp::Reverse(g.walls())))
+        .map(|(i, _)| i)
+}
+
+/// 吐出的落点放到能站的地方（0.1.6）：先收进地图（5v5 是四边的石墙、石堆以内），还在墙格里就从那里一步步往他身边退
+/// （`SPIT_STEP`），退到他脚下也不行就放在他脚下。11-03 夜里 47 次吐出有 1 次出了地图：
+/// `SPIT #19 ALLY league_braum#860 at (131327, -7960)`——他站在地图边上，背后 9000 已经在地图外（0.1.5 只把负数压成 0）。
+pub fn spit_spot(grid: &Grid, at: (f64, f64), spot: (f64, f64)) -> (f64, f64) {
+    let (x0, y0, x1, y1) = grid.bounds.unwrap_or((0.0, 0.0, MAP - 1.0, MAP - 1.0));
+    let first = (spot.0.clamp(x0, x1), spot.1.clamp(y0, y1));
+    let steps = (dist(first, at) / SPIT_STEP).ceil() as usize;
+    for k in 0..=steps {
+        let f = if steps == 0 { 0.0 } else { k as f64 / steps as f64 };
+        let q = (first.0 + (at.0 - first.0) * f, first.1 + (at.1 - first.1) * f);
+        if !grid.is_wall(q.0, q.1) {
+            return q;
+        }
+    }
+    at
 }
 
 // ===================== 小工具 =====================
@@ -541,10 +618,26 @@ impl Skin {
         let foes: Vec<(f64, f64)> = champions(sim, team, false).into_iter().map(|c| c.1).collect();
         let front = centre(&foes).unwrap_or((at.0 + 1.0, at.1));
         // an ally goes down behind him (away from the enemies), an enemy in front of him
-        let spot = if c.ally { step_away(at, front, SPIT) } else { step_away(at, front, -SPIT) };
-        let ok = sim.entity_set_pos(c.target, spot.0.max(0.0) as u64, spot.1.max(0.0) as u64);
+        let want = if c.ally { step_away(at, front, SPIT) } else { step_away(at, front, -SPIT) };
+        // 0.1.6: on the map and out of the walls (11-03 night logs: an ally put down at y -7960)
+        let points: Vec<(f64, f64)> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.is_alive())
+            .map(|u| (u.pos().0 as f64, u.pos().1 as f64))
+            .collect();
+        let grids = Grid::builtin();
+        let spot = match current(&grids, &points) {
+            Some(i) => spit_spot(&grids[i], at, want),
+            None => (want.0.clamp(0.0, MAP - 1.0), want.1.clamp(0.0, MAP - 1.0)),
+        };
+        let ok = sim.entity_set_pos(c.target, spot.0.max(0.0).round() as u64, spot.1.max(0.0).round() as u64);
         if let Some(n) = counted("spit") {
-            wlog(format!("{} SPIT #{n} {} {} at ({:.0}, {:.0}){}{}", head(sim, me), if c.ally { "ALLY" } else { "ENEMY" },
+            let moved = if dist(spot, want) >= 1.0 {
+                format!(" (moved in from ({:.0}, {:.0}): off the map or in a wall)", want.0, want.1)
+            } else {
+                String::new()
+            };
+            wlog(format!("{} SPIT #{n} {} {} at ({:.0}, {:.0}){moved}{}{}", head(sim, me), if c.ally { "ALLY" } else { "ENEMY" },
                          who(sim, c.target), spot.0, spot.1, if ok { "" } else { " (the host kept it where it was)" },
                          if now < c.release { format!(" early: out of the banish {} ticks in (Tenacity?)", now - c.since) }
                          else { String::new() }));
@@ -888,6 +981,30 @@ mod tests {
         assert!((p.0 - 15.0).abs() < 1e-9 && p.1.abs() < 1e-9);
         assert_eq!(centre(&[(0.0, 0.0), (4.0, 2.0)]), Some((2.0, 1.0)));
         assert_eq!(centre(&[]), None);
+    }
+
+    #[test]
+    fn the_spit_lands_on_the_map_and_out_of_the_walls() {
+        let [moba, lane, _] = Grid::builtin();
+        // 11-03 night logs: `SPIT #19 ALLY league_braum#860 at (131327, -7960)` - behind him was off the map
+        let at = (131_327.0, 30_000.0);
+        let q = spit_spot(&moba, at, step_away(at, (131_327.0, 200_000.0), SPIT));
+        assert_eq!(q, (131_327.0, MOBA_BOUNDS.1), "onto the stone wall's edge, not past it");
+        // behind him a wall cell (row 3, columns 15-16 of the 5v5): back toward him until clear of it
+        let at = (470_000.0, 110_000.0);
+        assert!(!moba.is_wall(at.0, at.1) && moba.is_wall(490_000.0, 110_000.0));
+        let q = spit_spot(&moba, at, (490_000.0, 110_000.0));
+        assert!(!moba.is_wall(q.0, q.1) && q.0 < 480_000.0 && q.0 >= 480_000.0 - SPIT_STEP && q.1 == 110_000.0, "{q:?}");
+        // an open spot stays where it was meant to be
+        assert_eq!(spit_spot(&moba, (300_000.0, 300_000.0), (309_000.0, 300_000.0)), (309_000.0, 300_000.0));
+        // the other maps: inside 0..MAP and never in a wall (him in a wall too: at his feet)
+        for want in [(-5_000.0, 300_000.0), (970_000.0, 970_000.0)] {
+            let q = spit_spot(&lane, (480_000.0, 480_000.0), want);
+            assert!((0.0..MAP).contains(&q.0) && (0.0..MAP).contains(&q.1) && !lane.is_wall(q.0, q.1), "{want:?} -> {q:?}");
+        }
+        // which map: the one with the fewest units in its walls
+        let grids = Grid::builtin();
+        assert_eq!(current(&grids, &[(300_000.0, 300_000.0), (131_327.0, 30_000.0), (470_000.0, 110_000.0)]), Some(0));
     }
 
     #[test]

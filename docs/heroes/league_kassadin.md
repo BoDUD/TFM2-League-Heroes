@@ -55,7 +55,7 @@
 
 ### 卡萨丁附加包
 
-[卡萨丁附加包](../../addons/league_kassadin/README.md)：`league_kassadin` v0.1.2
+[卡萨丁附加包](../../addons/league_kassadin/README.md)：`league_kassadin` v0.1.3
 
 主包 `league` 保持纯数据。用户问被动「看看rust能做吗」，附加包做哪几项「你看着办吧」——这个附加包用原生代码做主包数据做不到的三件事：
 
@@ -72,6 +72,12 @@
   挑射程里爆炸炸到最多小兵（至少 3 个、不在敌方塔下）的那个按 R，落点就是它；AI 自己对小兵放 R 而射程里有敌方英雄时改对英雄放。
   主包不改：主包对敌人放时 AI 放大招的次数不变、打架时有几次放在小兵身上（模拟 +1.49 -> +0.33）。日志 `FARM` / `RETARGET`。
   落在目标身前 6000，之后数据里的爆炸照常。
+- **清兵的 R 目标没了**（0.1.3，2026-11-03 夜里的日志：两次启动 13 行 `RIFT: no champion in reach and no target (kind 1)`）：R 按下到
+  出手有 6 tick，按给的小兵这时被打死，出手那一 tick 找不到它，R 白放。钩子按 R（或者留着 AI 自己对小兵放的 R）时记下目标和它的位置，
+  出手时目标没了就落在那里（`cast at a minion that died in the wind-up: where it stood`）。记录按模拟分开：被动出生时给他挂
+  `league_kassadin_sim:<编号>`（同一局并排跑的两份预模拟实体编号一样，league_galio 的做法）。
+- **日志**（0.1.3）：一次启动 4179 行、513 KB——RIFT、SPAWN 每条都记，VOID、CHARGE、FARM 每个被动自己数（预模拟一次启动几百份）。
+  现在每种行整个启动一起数：先写 40 条、之后每 50 条一条；画面里那场的 RIFT、FARM 每条都记；SPAWN 只在参数变了时写参数。
 
 ## 相关脚本和素材
 

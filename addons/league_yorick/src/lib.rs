@@ -5,7 +5,8 @@
 //!
 //! - **坟墓照英雄联盟挖**：主包读不到「这一铲打死了谁」，所以临终仪式打英雄挖一座坟、打别的每两下挖一座。副本的这一铲给
 //!   约里克挂几拍 `league_yorick_q_win`，本包在它还在时，每有一个小兵 / 野怪被他打死就挖一座坟（打英雄照旧由数据挖），
-//!   不再「每两下」。
+//!   不再「每两下」。0.1.1（2026-11-03 夜里的日志：6 条命一座坟都没挖）：`q_win` 和这一铲同一拍挂上——以前晚两拍才挂，
+//!   追踪的那一铲下一拍就落地打死了小兵，`q_win` 还没在。
 //! - **室女的加伤只打她的目标**：主包读不到「室女跟着谁」，所以室女在场时约里克普攻任何英雄都加伤。副本给室女的目标挂
 //!   `league_yorick_maiden`，普攻打中英雄时给它挂 3 拍 `league_yorick_hit`；本包看到同时有这两个的英雄，才造成它最大生命
 //!   `r_pct`% 的真实伤害。
@@ -288,5 +289,20 @@ mod tests {
         for n in [Q_WIN, MAIDEN, HIT].iter().chain(GRAVES.iter()) {
             assert!(n.starts_with("league_yorick_"), "{n}");
         }
+    }
+
+    /// 0.1.1 (2026-11-03 night logs: 6 lives, 0 GRAVE): the copy raised `q_win` from a Delayed 2 after the blow, and the
+    /// homing blow lands - and kills - on the next tick. Every blow (the slot's and the controller's) now raises it in its
+    /// own Combine, ahead of the projectile, and no late one is left.
+    #[test]
+    fn every_blow_raises_q_win_before_it_lands() {
+        let copy = include_str!("../override/league_yorick.data_champion");
+        let parts: Vec<&str> = copy.split("\"name\": \"league_yorick_q_blow\"").collect();
+        assert!(parts.len() > 1, "no Last Rites blow in the copy");
+        for (i, before) in parts[..parts.len() - 1].iter().enumerate() {
+            let at = before.rfind(Q_WIN).unwrap_or_else(|| panic!("blow {i}: no {Q_WIN} before it"));
+            assert!(!before[at..].contains("\"Delayed\""), "blow {i}: its {Q_WIN} waits in a Delayed");
+        }
+        assert!(!parts[parts.len() - 1].contains(Q_WIN), "a {Q_WIN} after the last blow (a late one)");
     }
 }

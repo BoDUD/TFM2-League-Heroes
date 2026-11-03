@@ -18,12 +18,12 @@
 `mod.override_info` 把主包的安蓓萨换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_ambessa.py` 的 `native=1` 生成）；`passive` 是本包的 `league_ambessa:matriarch`，参数来自主包参数表 P（`build_ambessa.ADDON_KEYS`）：
 
 - 横扫给扫中的挂 3 拍 `league_ambessa_q_edge`、给她挂 `league_ambessa_q_on`，副本里不再有最大生命的那部分；本包看到 `q_on` 就对带 `q_edge`、离她 `q_r × q_tip%` 以外的单位造成最大生命 `q_pct`% 的物理伤害（`deal_damage_typed`，`Ad`），播 `q_tip`；
-- 裂地重击的直线给打中的挂 `league_ambessa_q2_first`、给她挂 `q2_on`，副本里不再有对技能目标的加伤；本包把最大生命 `q2_pct`% 给其中离她最近的一个；
+- 裂地重击的直线给打中的挂 `league_ambessa_q2_first`、给她挂 `q2_on`，副本里不再有对技能目标的加伤；本包把最大生命 `q2_pct`% 给其中离她最近的一个（`q2_on` 和直线同一拍出来，直线 2～3 拍后才打中、挂标记：本包看到 `q2_on` 起最多等 8 拍，标记来了才打、才摘 `q2_on`）；
 - 拒斥格挡时给她挂 `league_ambessa_w_on`（格挡那几拍）；这期间 `on_damaged` 的攻击者是敌方英雄或野怪（`Champion` / `Jungle` / `Epic`）时本包给她挂 `league_ambessa_w_hit`，副本的砸地只在有 `w_hit` 时对打中的所有敌人加最大生命 `w_pct`%（播 `w_crit`）；
 - 大招到出手那一拍只给目标挂 `league_ambessa_r_aim`、给她挂 `league_ambessa_r_go`，副本里不再有数据的闪现、按住和砸下；本包找出线上最远的敌方英雄，把她放到它身边（`entity_set_pos`，两人半径之和那么远），眩晕 `r_sup` 拍（按住，播 `r_pin`），`r_slam` 拍后砸下：`r_dmg` + `r_ratio`% 攻击 + 最大生命 `r_pct`% 物理伤害、眩晕 `r_stun` 拍（播 `r_crash`），再接连招——摘掉 `q_cd`、`w_cd`，挂 `q_go`（数据的控制器读它马上横扫，横扫打中又接重击），挂强化普攻 `pw`（攻速 `pw_as`%，龙犬之步）；免控（`cc_immune`）的不眩晕；
 - 普攻（龙犬诡步和铁令写在里面）、暗袭和公开处刑的说明换成附加包自己的文字（`description.league_ambessa.attack` / `.skill` / `.ult`），游戏里看说明就知道副本有没有生效。
 
-状态都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。
+状态都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量；只有日志的条数是整次启动一个计数（见 0.1.1）。
 
 ## 接入（2026-10-25，主包 0.220.0）
 
@@ -35,6 +35,10 @@
 
 ## 检查
 
-- 在 `addons/` 下 `cargo test --release -p league_ambessa`：单元测试（参数、刀尖的距离、线上最远的英雄、落脚点、砸下的数、名字和数据一致）。
+- 在 `addons/` 下 `cargo test --release -p league_ambessa`：单元测试（参数、刀尖的距离、线上最远的英雄、落脚点、砸下的数、重击等直线的标记、日志条数、名字和数据一致）。
 - 主包的安蓓萨改了以后重新跑 `python addons/league_ambessa/make_override.py`（它先核对主包的 `league_ambessa.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只核对不写）。
-- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ambessa.log`：`SPAWN`、刀尖 `TIP`、第一个 `FIRST`、挨打 `BRACE`、大招 `R`（瞄的谁、线上最远的是谁、闪了多远）和 `SLAM`。
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ambessa.log`：`SPAWN`、刀尖 `TIP`、第一个 `FIRST`（`FIRST none`：直线谁也没打中）、挨打 `BRACE`、大招 `R`（瞄的谁、线上最远的是谁、闪了多远）和 `SLAM`。每种整次启动一个计数（`#k`）：服务器的预模拟先写 40 条、之后每 200 条一条，你看的那场每条都写；参数只在整次启动的第一条 `SPAWN` 里写。
+
+## 版本
+
+- 0.1.1（2026-11-04，11-03 晚的日志）：裂地重击的加伤从来没打出去（重击放了几百次，一行 `FIRST` 也没有）——0.1.0 看到 `q2_on` 当拍就摘掉、去找标记，那时直线还没打中任何人；现在等标记来（`q2_watch`）。日志的计数从每个被动每局重新数（每局都写前 40 条，一次启动 2411 行里 `TIP` 1418 行）改成整次启动一个计数。

@@ -15,7 +15,8 @@
 //! 开大的时机不归本包管：主包按场面判断（身边两个敌方英雄，或正在和敌方英雄交战），本包只在日志里记下每次变身时身边几个敌方英雄。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_nasus.log`，每次启动游戏重写，上一次的留在 .prev.log：`KEEP`（补回的
-//! 层数）、`STACK`（叠到多少层）、`RISE`（变身时身边的敌方英雄）、`QCD`（大招期间 Q 冷却加速）、`FORM`（画面里换形态），都限了条数。
+//! 层数）、`STACK`（叠到多少层）、`RISE`（变身时身边的敌方英雄）、`QCD`（每次大号形态结束一行：Q 冷却一共多减了几 tick；0.1.1
+//! 以前形态里每 tick 一行）、`FORM`（画面里换形态），都限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -170,6 +171,26 @@ pub fn q_extra(remaining: usize) -> usize {
     usize::from(remaining > 0)
 }
 
+/// 一次死神降临：持续了几 tick、Q 冷却一共多减了几 tick（0.1.1 起形态结束时记一行，以前每 tick 一行）。
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct QcdTally {
+    pub ticks: usize,
+    pub cut: usize,
+}
+
+impl QcdTally {
+    /// One tick of the form, `cut` ticks more off Q.
+    pub fn add(&mut self, cut: usize) {
+        self.ticks += 1;
+        self.cut += cut;
+    }
+
+    /// The form is over: its totals, and a fresh tally for the next one.
+    pub fn take(&mut self) -> QcdTally {
+        std::mem::take(self)
+    }
+}
+
 fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
     sim.get_entity(id).map_or_else(Vec::new, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect())
 }
@@ -183,6 +204,8 @@ struct SoulEater {
     /// 上一 tick 他活着（死了 / 复活的那一刻记一行日志）、身上有大号形态。
     was_alive: bool,
     r_on: bool,
+    /// 这次大号形态里 Q 冷却多减了多少（形态结束时记一行 `QCD`）。
+    qcd: QcdTally,
 }
 
 impl StablePassive for SoulEater {
@@ -253,10 +276,13 @@ impl StablePassive for SoulEater {
                 b.skill_cooldown_mult = 100;
                 sim.add_buff(me, &b);
             }
-            if done {
-                if let Some(k) = counted("qcd") {
-                    wlog(format!("{} QCD Q cools 2 ticks a tick ({remaining} left) #{k}", head(sim, me)));
-                }
+            self.qcd.add(if done { extra } else { 0 });
+        } else if self.r_on {
+            // one QCD line a form, at its end (2026-11-03 night logs: a line every tick of it, 1611 of 2077 lines)
+            let t = self.qcd.take();
+            if let Some(k) = counted("qcd") {
+                wlog(format!("{} QCD Fury of the Sands over after {} ticks: Q cooled {} ticks more #{k}", head(sim, me),
+                    t.ticks, t.cut));
             }
         }
         self.r_on = r_on;
@@ -340,5 +366,15 @@ mod tests {
         assert_eq!(q_extra(0), 0);
         assert_eq!(q_extra(1), 1);
         assert_eq!(q_extra(240), 1);
+    }
+
+    #[test]
+    fn one_qcd_total_a_form() {
+        let mut t = QcdTally::default();
+        for remaining in [131, 129, 1, 0, 0] {
+            t.add(q_extra(remaining));
+        }
+        assert_eq!(t.take(), QcdTally { ticks: 5, cut: 3 });
+        assert_eq!(t, QcdTally::default(), "the next form starts from nothing");
     }
 }

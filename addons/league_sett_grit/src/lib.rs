@@ -10,8 +10,10 @@
 //!   挨打的人各补 `true`% 豪意的真实伤害。数字在英雄数据的 `passive.params`。
 //!
 //! 头顶的豪意层数画面还是主包数据按次数挂的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_sett_grit.log`。
+//! 0.1.1：`W`、`SPAWN` 整个游戏一个计数（预模拟先记 40 行、之后每 200 行一行，你看的那场每行都记；以前每个被动自己数
+//! 「前 80 行」），正中的几行只跟着记了的那次 `W` 写，参数只在第一行 `SPAWN` 写。
 
-use std::collections::VecDeque;
+use std::collections::{HashMap, VecDeque};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -83,6 +85,46 @@ fn head(sim: &StableSim<'_>, me: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{me}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// Lines of each kind a launch (0.1.1, league_irelia's): the server's presims (hundreds a launch, each with new passives -
+/// a count in the passive counts one sim) the first `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all.
+/// 2026-11-03 night logs: the passive's own "first 80" let 596 W and 409 center lines through (95% of the log).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
+}
+
+/// The params the log showed last (the champion data's: the same in every sim of a launch).
+static PARAMS_SHOWN: Mutex<Option<Vec<(String, usize)>>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only if they ever differ (league_talon_vault's).
+fn params_new(p: &[(String, usize)]) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_deref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.to_vec());
+    true
+}
+
 fn params(json: &str) -> Vec<(String, usize)> {
     let body = json.trim().trim_start_matches('{').trim_end_matches('}');
     body.split(',')
@@ -143,9 +185,8 @@ fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
 struct GritPassive {
     p: Vec<(String, usize)>,
     grit: Grit,
-    /// 刚花掉的豪意和那一刻的 tick（正中的真实伤害按它算）。
-    spent: Option<(usize, usize)>,
-    n: usize,
+    /// 刚花掉的豪意、那一刻的 tick（正中的真实伤害按它算）、这次 W 那一行的编号（记了才有；正中的几行跟着它记）。
+    spent: Option<(usize, usize, Option<usize>)>,
 }
 
 impl StablePassive for GritPassive {
@@ -160,7 +201,11 @@ impl StablePassive for GritPassive {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.grit.reset();
         self.spent = None;
-        wlog(format!("{} SPAWN: the add-on's Sett (player {player}), {:?}", head(sim, me), self.p));
+        // the params in the first SPAWN line of a launch only; the line itself capped in the presims
+        let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
+        if tally(sim, "spawn").is_some() || params.is_some() {
+            wlog(format!("{} SPAWN: the add-on's Sett (player {player}){}", head(sim, me), params.unwrap_or_default()));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -181,13 +226,14 @@ impl StablePassive for GritPassive {
                 sim.entity_add_shield(me, grit, SHIELD_TICKS);
             }
             self.grit.clear();
-            self.spent = Some((grit, tick));
-            self.n += 1;
-            if self.n <= 80 || self.n % 25 == 0 {
-                wlog(format!("{} W #{}: grit {grit} (hp {hp}/{max}, cap {cap}) -> shield +{grit}", head(sim, me), self.n));
+            // counted for the launch, not the passive (2026-11-03 night logs: each Sett's own "first 80")
+            let k = tally(sim, "w");
+            if let Some(k) = k {
+                wlog(format!("{} W #{k}: grit {grit} (hp {hp}/{max}, cap {cap}) -> shield +{grit}", head(sim, me)));
             }
+            self.spent = Some((grit, tick, k));
         }
-        let Some((spent, at)) = self.spent else { return };
+        let Some((spent, at, line)) = self.spent else { return };
         if tick > at + HIT_WINDOW {
             self.spent = None;
             return;
@@ -200,8 +246,9 @@ impl StablePassive for GritPassive {
             sim.entity_remove_buff(id, HIT);
             if extra > 0 {
                 sim.deal_damage_typed(me, id, extra, DamageTypeV1::Fixed, AttackTypeV1::Skill);
-                if self.n <= 80 {
-                    wlog(format!("{} W #{} center on #{id}: +{extra} true damage", head(sim, me), self.n));
+                // the center lines of a W whose own line was written
+                if let Some(k) = line {
+                    wlog(format!("{} W #{k} center on #{id}: +{extra} true damage", head(sim, me)));
                 }
             }
         }
@@ -256,5 +303,21 @@ mod tests {
         assert_eq!(g.feed(250, 400, 500), 500); // the first 100 has gone, 550 left, capped
         assert_eq!(g.feed(275, 400, 900), 200);
         assert_eq!(g.feed(500, 400, 500), 0);
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    #[test]
+    fn the_params_are_logged_once() {
+        let p = params(r#"{"cap":50,"true":25}"#);
+        assert!(params_new(&p));
+        assert!(!params_new(&p));
+        assert!(params_new(&params(r#"{"cap":60,"true":25}"#)), "other params: again");
     }
 }

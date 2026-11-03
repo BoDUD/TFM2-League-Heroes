@@ -1,4 +1,4 @@
-# 诺提勒斯钩墙附加包（测试版 v0.1.1）
+# 诺提勒斯钩墙附加包（测试版 v0.1.4）
 
 主包 `league` 保持纯数据、全平台可用；钩墙要读地图的墙，只能用原生代码，所以放在这个附加包里（合集 `league_addons` 也带着它）。
 装上后，诺提勒斯的 Q「疏通航道」：锚沿路线**先碰到野区的墙**（引擎的碰撞墙，5v5 地图 90 格）时，把他拉到墙边，并**返还一半冷却**——
@@ -9,16 +9,20 @@
 - 墙比 12000 近不钩。锚按 6000/tick 飞到墙上时（`pull`）：强制位移把他拉到离墙 3000 处（速度 2500/tick，动作 `skill_pull`），
   播钩墙音效和钩中的水花；冷却：`skill_cooldown_mult` +100 的 3 tick buff——Q 剩下的冷却封顶到一半（W+E 若剩得更多也一起封顶：
   引擎没有只给一个技能的字段）。
-- 被硬控、死了就不拉；宿主没挪他时逐 tick 自己走一步（`watch`）。
+- 被硬控、死了就不拉；宿主没挪他时逐 tick 自己走一步（`watch`）。0.1.4（2026-11-04，11-03 夜里的日志复查）：`watch` 的起点和
+  截止 tick 以前塞在排队效果的输入里，排队只带回位置，截止读回来是 0，`watch` 第一 tick 就收手、从没替宿主走过一步（钩墙靠强制
+  位移照样拉过去了）；现在记在全局表里，按这份模拟的编号（第一次拉墙时挂在他身上的 `league_nautilus_sim:<编号>`）。
 
 ## 在游戏里测
 
 1. 主包（League of Legends Heroes 0.94 以上）要装着并启用。
 2. 用合集 `league_addons`（推荐），或把整个 `league_nautilus` 文件夹放进 `<游戏目录>\mods\`（两者不能同时启用）。
 3. 看诺提勒斯 Q 的说明：开头是「【钩墙版】」就说明副本生效了。
-4. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_nautilus.log`：`HOOK the wall` 是锚飞向墙，`PULL to the wall` 是拉过去。
+4. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_nautilus.log`：`HOOK the wall` 是锚飞向墙，`PULL to the wall` 是拉过去，
+   `WATCH: N steps of his own ...` 是宿主没挪他、本包替他走了几步（没走就没有这一行）。
 
 ## 开发
 
 - `python addons/league_nautilus/make_override.py`：从主包重新生成 `override/` 和 `text/`。主包的诺提勒斯改了以后要重跑。
-- 在 `addons/` 下 `cargo test --release -p league_nautilus`：单元测试（锚先咬墙、墙前的英雄归主包钩、墙太近或太远、地图、数值和主包一致）。
+- 在 `addons/` 下 `cargo test --release -p league_nautilus`：单元测试（锚先咬墙、墙前的英雄归主包钩、墙太近或太远、地图、数值和主包一致、
+  拉的途中宿主没挪他才走一步、两份模拟各记各的）。

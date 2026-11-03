@@ -26,7 +26,9 @@
 //!   tick 还不行就把血设成 0（`FALL FORCED`）。倒下前他什么命令都不下，回城也换成原地站着（`SPIRIT RECALL STOPPED`）；韧性缩短了
 //!   放逐、灵体中途能被选中时重新放逐（`REBANISH`）。复活倒计时：0.4.x 在 `on_dead` 里改（那时游戏还没把他记成阵亡）、0.5.0
 //!   由他自己的 AI 钩子在阵亡后改（阵亡后他自己的钩子都不跑了），都没改成过（11-03 的日志一条 `RESPAWN` 都没有）；现在
-//!   `on_dead` 记下要扣的时间，等游戏登记好阵亡，由任何还活着的英雄的钩子 `shun` 扣（`cut_respawns`）。
+//!   `on_dead` 记下要扣的时间，等游戏登记好阵亡再扣（`cut_respawns`）。0.5.2：0.5.1 由每个英雄的 AI 钩子 `shun` 扣、按模拟状态
+//!   指针配对，可 AI 钩子拿到的指针和被动的不一样，11-03 晚上 120 次全没扣成；现在由本包的比赛钩子（`Respawns`，每局每 tick）
+//!   扣，按「哪一局」（种类、比赛、小局）、玩家、阵亡 tick 配对，扣到同一个复活 tick（同一局并排的两份预演共用一条，扣不了两遍）。
 //! - **灵体照样放技能**（0.5.1，用户 2026-11-03：「灵体状态下会放其他技能吗 也检查下 我怎么感觉不会放」）：放逐的单位不给队伍
 //!   视野，0.5.0 的灵体只挑他队伍看得见的敌人，身边没队友时荒芜、亵渎什么都打不到（只有不看视野的安魂曲放得出来）；现在用灵体
 //!   自己的眼睛（射程里的都算，亵渎和荒芜的爆炸本来就不挑）。痛苦之墙主包挂在普攻上，灵体不能普攻，一面都没立过；现在 W 好了
@@ -64,9 +66,10 @@ pub const FALL_WAIT: usize = 10;
 pub const FALL_SLACK: usize = 60;
 /// 灵体开始这么多 tick 后，他又能被选中了（韧性缩短了放逐）就重新放逐（`rebanish`）。
 pub const REBANISH_AFTER: usize = 2;
-/// 复活倒计时（`cut_respawns`）：阵亡后最多等游戏这么多 tick 把他登记成阵亡；没扣成的记录放这么久（那份模拟早就结束了）就丢掉。
+/// 复活倒计时（`cut_respawns`）：阵亡后最多等游戏这么多 tick 把他登记成阵亡；记录放这么久就丢掉（同一局的两份预演几秒内都扣完，
+/// 画面上那一局当 tick 就扣；记录在的时候每局每 tick 都要锁一下，所以不久放）。
 pub const CUT_WAIT: usize = 30;
-const CUT_STALE: Duration = Duration::from_secs(120);
+const CUT_STALE: Duration = Duration::from_secs(30);
 // 0.4.0 只在化成灵体时放逐他 12 tick（`FLUSH_T`，正在打他、追他的单位丢了目标）、之后免控（`p_ward`）：游戏里只有放逐让单位
 // 选不中（tfm2-hero-mod 的 champion-data「Invisible is not untargetable」），放逐完小兵、塔、英雄又打上来。0.5.0 整个灵体放逐。
 
@@ -187,67 +190,75 @@ pub fn stage(k: usize, p_t: usize, laid_down: bool) -> Stage {
     }
 }
 
-/// 一次灵体倒下后要扣的复活时间：哪份模拟（`life::sim_key`）、哪个玩家、阵亡的 tick、灵体待了多少 tick、日志行头。
+/// 哪一局：`sim_origin` 的种类、比赛、小局（0.5.2）。被动、AI 钩子拿到的模拟状态指针不一样（0.5.1 按指针配，11-03 晚上的
+/// 日志 120 次全是 `RESPAWN NOT CUT (no living champion's hook saw him dead)`），这三样同一局到处都一样。
+fn origin_of(sim: &StableSim<'_>) -> (u32, u64, u64) {
+    sim.sim_origin().map_or((u32::MAX, SimOriginV1::NONE, SimOriginV1::NONE), |o| (o.kind, o.match_id, o.set_index))
+}
+
+/// 一次灵体倒下后要扣的复活时间：哪一局（`origin_of`）、哪个玩家、阵亡的 tick、灵体待了多少 tick；他该复活的 tick（`back_tick`，
+/// 第一次看到他登记成阵亡时算出：同一局并排跑的两份预演一模一样，共用这一条，各扣到这个 tick，扣不了两遍）；日志行头，记过没有。
 struct Cut {
-    sim: usize,
+    origin: (u32, u64, u64),
     player: usize,
     at: usize,
     spent: u64,
+    back: Option<usize>,
     line: String,
     made: Instant,
+    told: bool,
 }
 
-/// 被动在他阵亡时（`on_dead`）记下，游戏登记好阵亡以后由 `cut_respawns` 扣：游戏在 `on_dead` 之后才把他记成阵亡，那之后他
-/// 自己的钩子（被动、AI）都不跑了，所以由任何还活着的英雄的钩子 `shun` 来扣。
+/// 被动在他阵亡时（`on_dead`）记下，游戏登记好阵亡以后由 `cut_respawns` 扣。游戏在 `on_dead` 之后才把他记成阵亡，那之后他
+/// 自己的钩子都不跑了：扣的是本包的比赛钩子（`Respawns`，每局每 tick，0.5.2）；他阵亡后被动若还被叫到也扣一下。
 static CUTS: Mutex<Vec<Cut>> = Mutex::new(Vec::new());
 static CUTS_N: AtomicUsize = AtomicUsize::new(0);
 
-/// 扣这份模拟里到了的复活时间：已经登记阵亡的玩家，剩余复活 tick 扣掉灵体待的时间（`respawn_after_spirit`）；阵亡后 `CUT_WAIT`
-/// tick 还没登记就算了。每 tick 都有人叫：没有记录时一读就走。
+/// 他该复活的 tick：第一次看到他阵亡（`now`，复活倒计时还剩 `left`）时，倒计时扣掉灵体待的 `spent`（`respawn_after_spirit`）。
+pub fn back_tick(now: usize, left: u64, spent: u64) -> usize {
+    now + respawn_after_spirit(left, spent) as usize
+}
+
+/// 这一 tick 把剩余复活 tick 改成多少：不晚于 `back`；已经不晚于它就不改（同一局的另一份预演扣过，或这份上一 tick 扣过）。
+pub fn cut_to(back: usize, now: usize, left: u64) -> Option<u64> {
+    let want = back.saturating_sub(now).max(1) as u64;
+    (want < left).then_some(want)
+}
+
+/// 扣这一局里到了的复活时间。每局每 tick 都叫：没有记录时一读就走。
 fn cut_respawns(sim: &StableSim<'_>) {
     if CUTS_N.load(Ordering::Relaxed) == 0 {
         return;
     }
-    let key = life::sim_key(sim);
-    if key == 0 {
-        return;
-    }
+    let key = origin_of(sim);
     let now = sim.tick();
     let mut lines = Vec::new();
     {
         let mut cuts = CUTS.lock().unwrap_or_else(|e| e.into_inner());
-        cuts.retain(|c| {
-            if c.made.elapsed() > CUT_STALE {
-                // its simulation ended, or no hook of it ever ran with the same state
-                lines.push(format!("{} RESPAWN NOT CUT (no living champion's hook saw him dead)", c.line));
-                return false;
-            }
-            if c.sim != key {
-                return true;
-            }
-            if now < c.at {
-                return false; // a new simulation in the old one's place
-            }
-            let Some(p) = sim.get_player(c.player) else {
-                lines.push(format!("{} RESPAWN NOT CUT (no such player)", c.line));
-                return false;
-            };
+        drop_stale(&mut cuts, &mut lines);
+        for c in cuts.iter_mut().filter(|c| c.origin == key && now >= c.at) {
+            let Some(p) = sim.get_player(c.player) else { continue };
             if p.is_alive() {
-                if now <= c.at + CUT_WAIT {
-                    return true;
+                if c.back.is_none() && now > c.at + CUT_WAIT && !c.told {
+                    c.told = true;
+                    lines.push(format!("{} RESPAWN NOT CUT (not marked dead {} ticks after his death)", c.line, now - c.at));
                 }
-                lines.push(format!("{} RESPAWN NOT CUT (not marked dead {} ticks after his death)", c.line, now - c.at));
-                return false;
+                continue;
             }
             let left = p.respawn_time() as u64;
-            lines.push(match life::shorten_respawn(sim, c.player, respawn_after_spirit(left, c.spent)) {
-                Ok((was, to)) => format!("{} RESPAWN: {was} -> {to} ticks (the spirit's {} counted, {} ticks after his death)",
-                                         c.line, c.spent, now - c.at),
-                Err(why) => format!("{} RESPAWN NOT CUT ({why}): {left} ticks left, the spirit's {} not counted", c.line,
-                                    c.spent),
-            });
-            false
-        });
+            let back = *c.back.get_or_insert_with(|| back_tick(now, left, c.spent));
+            let Some(want) = cut_to(back, now, left) else { continue };
+            let res = life::shorten_respawn(sim, c.player, want);
+            if !c.told {
+                c.told = true;
+                lines.push(match res {
+                    Ok((was, to)) => format!("{} RESPAWN: {was} -> {to} ticks (the spirit's {} counted, {} ticks after his \
+                                              death)", c.line, c.spent, now - c.at),
+                    Err(why) => format!("{} RESPAWN NOT CUT ({why}): {left} ticks left, the spirit's {} not counted", c.line,
+                                        c.spent),
+                });
+            }
+        }
         CUTS_N.store(cuts.len(), Ordering::Relaxed);
     }
     for l in lines {
@@ -255,6 +266,19 @@ fn cut_respawns(sim: &StableSim<'_>) {
             wlog(format!("{l} #{k}"));
         }
     }
+}
+
+/// 放了 `CUT_STALE` 的记录丢掉；从没扣上的记一行（比赛钩子没跑到那一局，或者他一直没登记成阵亡）。
+fn drop_stale(cuts: &mut Vec<Cut>, lines: &mut Vec<String>) {
+    cuts.retain(|c| {
+        if c.made.elapsed() <= CUT_STALE {
+            return true;
+        }
+        if c.back.is_none() && !c.told {
+            lines.push(format!("{} RESPAWN NOT CUT (no match tick saw him dead)", c.line));
+        }
+        false
+    });
 }
 
 /// 灵体挨的打（倒下时记日志，看钩子 `shun` 管不管用）：谁打的。
@@ -702,6 +726,8 @@ impl StablePassive for DeathDefied {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         if !e.is_alive() {
+            // dead, should the game still run his passive: his respawn cut, as the match hook makes it
+            cut_respawns(sim);
             return;
         }
         let (hp, _) = e.hp();
@@ -788,11 +814,22 @@ impl StablePassive for DeathDefied {
             }
         }
         if let Some(t0) = self.rose_at.take() {
-            let cut = Cut { sim: life::sim_key(sim), player, at: now, spent: now.saturating_sub(t0) as u64,
-                            line: head(sim, self.me), made: Instant::now() };
+            let cut = Cut { origin: origin_of(sim), player, at: now, spent: now.saturating_sub(t0) as u64, back: None,
+                            line: head(sim, self.me), made: Instant::now(), told: false };
+            let mut lines = Vec::new();
             let mut cuts = CUTS.lock().unwrap_or_else(|e| e.into_inner());
-            cuts.push(cut);
+            drop_stale(&mut cuts, &mut lines);
+            // the other presim of the set died the same way: its note serves both
+            if !cuts.iter().any(|c| c.origin == cut.origin && c.player == player && c.at == now) {
+                cuts.push(cut);
+            }
             CUTS_N.store(cuts.len(), Ordering::Relaxed);
+            drop(cuts);
+            for l in lines {
+                if let Some(k) = counted("respawn") {
+                    wlog(format!("{l} #{k}"));
+                }
+            }
         }
         self.spirit = None;
         self.ready = false;
@@ -1209,12 +1246,6 @@ impl StablePlayerAi for Shun {
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
-        // a fallen Karthus's respawn timer (his own hooks stop with him): any living champion's hook cuts it (0.5.1)
-        if CUTS_N.load(Ordering::Relaxed) > 0 {
-            if let Some(sim) = ctx.sim() {
-                cut_respawns(&sim);
-            }
-        }
         let b = base?;
         let kind = InputKindV1::from_code(b.kind)?;
         if matches!(kind, InputKindV1::Move | InputKindV1::Return)
@@ -1294,7 +1325,27 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_passive(format!("{ID}:death_defied"), DeathDefied::default());
     module.add_player_input_ai(SpiritAi::default());
     module.add_player_input_ai(Shun);
+    module.set_match_hook(Respawns);
     host.log(LogLevel::Info, "league_karthus loaded (Death Defied's spirit: untargetable, rooted, casting).");
+}
+
+// ===================== 比赛钩子：阵亡后扣复活时间 =====================
+
+/// 每局每 tick（游戏的世界 tick 和输入之后）扣到了的复活时间（`cut_respawns`，0.5.2）：他阵亡后自己的钩子都不跑了，0.5.1 借每个
+/// 英雄的钩子 `shun` 扣，可 AI 钩子拿到的模拟状态和被动的配不上，一次都没扣成。一个模块只有一个比赛钩子
+/// （`StableMod::set_match_hook`）：附加包合集里只有本包设它，别的附加包要用就得改成转发。开局记一行，看它在不在跑。
+struct Respawns;
+
+impl StableMatchHook for Respawns {
+    fn on_match_start(&self, sim: &mut StableSim<'_>) {
+        if let Some(k) = counted("match_hook") {
+            wlog(format!("{} MATCH HOOK #{k}: running - it cuts a fallen spirit's respawn", head(sim, 0)));
+        }
+    }
+
+    fn on_match_tick(&self, sim: &mut StableSim<'_>, _rng_seed: u64) {
+        cut_respawns(sim);
+    }
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -1344,6 +1395,20 @@ mod tests {
         let last = 420 - R_CH - 1;
         assert!(r_in_time(last, 420) && !r_in_time(last + 1, 420));
         assert_eq!(stage(last + R_CH, 420, false), Stage::LayDown);
+    }
+
+    #[test]
+    fn the_respawn_cut_is_made_once_whoever_makes_it() {
+        // first seen dead with 25 s left, the spirit stood 7 s: back 18 s later
+        let back = back_tick(1000, 1500, 420);
+        assert_eq!(back, 1000 + 1080);
+        assert_eq!(cut_to(back, 1000, 1500), Some(1080));
+        // the same sim a tick later, cut and counting down: nothing more
+        assert_eq!(cut_to(back, 1001, 1079), None);
+        // the set's other presim, a few ticks behind and still uncut: to the same tick
+        assert_eq!(cut_to(back, 1003, 1497), Some(1077));
+        // a short death timer: back BACK_MIN after he was first seen dead
+        assert_eq!(cut_to(back_tick(1000, 300, 420), 1000, 300), Some(BACK_MIN));
     }
 
     #[test]

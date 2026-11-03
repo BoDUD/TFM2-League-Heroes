@@ -22,13 +22,21 @@
 //!   爆炸能炸到最多小兵（至少 `FARM_MIN` 个、不在敌方塔下）的那一个按 R，`rift` 就落在它身上；AI 自己对小兵放 R 而射程里有敌方
 //!   英雄时，改成对最近的英雄放。日志 `FARM` / `RETARGET`。
 //!
+//! - **清兵的 R 目标在出手前死了**（0.1.3，11-03 夜里的日志：两次启动 13 行 `RIFT: no champion in reach and no target`）：
+//!   R 按下到出手有 `r_at` 6 tick，按给的小兵这时被打死，出手那一 tick 找不到它，R 白放。钩子按 R（或者留着 AI 自己对
+//!   小兵放的 R）时记下目标和它的位置（按模拟分开记：被动出生时挂 `league_kassadin_sim:<编号>`，league_galio 的做法），
+//!   `rift` 找不到目标就落在那里。
+//!
 //! 数字：被动的参数从英雄数据来；R 的数字写在这里（`R_*`），`tests::the_numbers_match_the_kit` 读主包的参数表核对。
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kassadin.log`，每次启动游戏重写。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kassadin.log`，每次启动游戏重写。每种行一次启动先写 40 条、
+//! 之后每 50 条一条（0.1.3：以前 RIFT、SPAWN 每条都记，VOID、CHARGE、FARM 每个被动自己数，服务器的预模拟一次启动几百份——
+//! 11-03 夜里一次启动 4179 行、513 KB）；画面里那场的 RIFT、FARM 每条都记；SPAWN 只在参数变了时写参数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -77,6 +85,8 @@ pub const MR_EVERY: usize = 15;
 const VOID: &str = "league_kassadin_void";
 /// 给 E 减冷却的 2 tick buff。
 const CHARGE: &str = "league_kassadin_e_charge";
+/// 对小兵 / 野怪按下 R 后这么多 tick 内出手都认按下时记的位置（`r_at` 6 tick；引擎接下之前钩子每次都再按）。
+pub const PRESS_KEEP: usize = 60;
 
 // ===================== 日志 =====================
 
@@ -115,6 +125,34 @@ fn wlog(msg: impl AsRef<str>) {
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
+
+/// Lines of each kind a launch: the first `LOG_FIRST`, then every `LOG_EVERY`-th (0.1.3: the server's presims, hundreds a
+/// launch with a passive each, counted each its own and RIFT / SPAWN not at all - 4179 lines, 513 KB a launch).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 50;
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen, all written).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+fn counted(kind: &'static str) -> Option<usize> {
+    noted(kind, false)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// The params the last SPAWN line printed: printed again only when they change.
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
@@ -235,6 +273,37 @@ pub fn champ_in_range(me: (f64, f64), foes: &[Unit]) -> Option<usize> {
         .map(|f| f.0)
 }
 
+/// 对小兵 / 野怪按下的 R：(目标, 它当时的位置, 按下的 tick)。
+pub type Press = (usize, (f64, f64), usize);
+
+/// R 出手那一 tick 目标没了（0.1.3）：按下时记的（`rec`）是同一个目标、`PRESS_KEEP` 以内按的，就落在它当时的位置。
+pub fn pressed_spot(rec: Option<Press>, target: usize, now: usize) -> Option<(f64, f64)> {
+    rec.filter(|r| r.0 == target && now >= r.2 && now <= r.2 + PRESS_KEEP).map(|r| r.1)
+}
+
+// ===================== 按模拟分开的状态 =====================
+
+/// 这份模拟的编号：被动在他第一次出生时抽一个，每次出生挂在他身上（league_galio 的 `SIM_TAG`）。服务器同一局并排跑两份
+/// 预模拟，种子、局和实体编号都一样，按实体编号记的表会被另一份拿走、改掉。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+const SIM_TAG: &str = "league_kassadin_sim:";
+
+/// The number in a list of buff names (0: none).
+pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
+    names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
+}
+
+fn sim_of(sim: &StableSim<'_>, me: usize) -> u64 {
+    sim.get_entity(me).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string())))
+}
+
+/// (这份模拟的编号, 卡萨丁) -> 最近一次对小兵 / 野怪按的 R。
+static PRESSED: LazyLock<Mutex<HashMap<(u64, usize), Press>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn pressed() -> std::sync::MutexGuard<'static, HashMap<(u64, usize), Press>> {
+    PRESSED.lock().unwrap_or_else(|e| e.into_inner())
+}
+
 // ===================== 小工具 =====================
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -327,9 +396,8 @@ struct VoidStone {
     probe: Option<i32>,
     /// 各玩家上一 tick 的 (Q, E, R) 剩余冷却。
     last: HashMap<usize, (usize, usize, usize)>,
-    /// 日志计数。
-    mr_logs: usize,
-    charges: usize,
+    /// 这份模拟的编号（`SIM_TAG`），第一次出生时抽。
+    sim_no: u64,
 }
 
 impl VoidStone {
@@ -346,8 +414,10 @@ impl VoidStone {
             if let Some(before) = self.probe {
                 let counts = shown >= before + mine / 2;
                 self.counts_buffs = Some(counts);
-                wlog(format!("{} VOID stat() {} buffs ({before} -> {shown} with +{mine})", head(sim, me),
-                             if counts { "counts" } else { "leaves out" }));
+                if let Some(k) = counted("void_probe") {
+                    wlog(format!("{} VOID stat() {} buffs ({before} -> {shown} with +{mine}) #{k}", head(sim, me),
+                                 if counts { "counts" } else { "leaves out" }));
+                }
             }
         }
         if mine == 0 {
@@ -363,11 +433,9 @@ impl VoidStone {
         b.magic_resistance = want;
         sim.add_buff(me, &b);
         self.bonus = want;
-        self.mr_logs += 1;
-        if self.mr_logs <= 30 || self.mr_logs % 50 == 0 {
-            wlog(format!("{} VOID #{} resistance {} (shown {shown}, mine {mine}) -> +{want} = {}: magic damage x {:.3}",
-                         head(sim, me), self.mr_logs, base, base as i32 + want,
-                         100.0 / (100.0 + (base as i32 + want) as f64)));
+        if let Some(k) = counted("void") {
+            wlog(format!("{} VOID #{k} resistance {} (shown {shown}, mine {mine}) -> +{want} = {}: magic damage x {:.3}",
+                         head(sim, me), base, base as i32 + want, 100.0 / (100.0 + (base as i32 + want) as f64)));
         }
     }
 
@@ -412,11 +480,10 @@ impl VoidStone {
         b.skill_cooldown_mult = mult;
         b.ult_cooldown_mult = -mult;   // the engine caps R with skill + ult: the charge is E's alone
         sim.add_buff(me, &b);
-        self.charges += casts.len();
-        if self.charges <= 40 || self.charges % 25 == 0 {
+        if let Some(k) = counted("charge") {
             let list: Vec<String> = casts.iter().map(|(c, s)| format!("{} {s}", who(sim, *c))).collect();
-            wlog(format!("{} CHARGE #{} {}: E {e_rem} -> about {} (mult {mult}, Q {q_rem})", head(sim, me), self.charges,
-                         list.join(", "), e_rem.saturating_sub(cut)));
+            wlog(format!("{} CHARGE #{k} {}: E {e_rem} -> about {} (mult {mult}, Q {q_rem})", head(sim, me), list.join(", "),
+                         e_rem.saturating_sub(cut)));
         }
     }
 }
@@ -433,8 +500,27 @@ impl StablePassive for VoidStone {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.bonus = 0;
         self.last.clear();
+        // this sim's number on him (a respawn is a new entity without it): the hook and the rift read it back
+        if self.sim_no == 0 {
+            self.sim_no = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim_no);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
+        let no = self.sim_no;
+        pressed().retain(|k, _| k.0 != no);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Kassadin (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        let params = {
+            let mut last = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+            (last.as_ref() != Some(&self.p)).then(|| {
+                *last = Some(self.p);
+                format!(", {:?}", self.p)
+            })
+        };
+        if let Some(k) = noted("spawn", on_screen(sim) || params.is_some()) {
+            wlog(format!("{} SPAWN: the add-on's Kassadin (player {player}, team {team}, sim {}){} #{k}", head(sim, me),
+                         self.sim_no, params.unwrap_or_default()));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -447,6 +533,8 @@ impl StablePassive for VoidStone {
     fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
         self.bonus = 0;
         self.last.clear();
+        let no = self.sim_no;
+        pressed().retain(|k, _| k.0 != no);
     }
 }
 
@@ -461,17 +549,31 @@ fn rift(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let foes = foes_of(sim, team);
     let list: Vec<Foe> = foes.iter().map(|f| f.1).collect();
     let towers = enemy_towers(sim, team);
-    let target = (input.kind == InputTargetKindV1::Target.code()).then(|| alive_at(sim, input.target_id)).flatten();
+    let by_target = input.kind == InputTargetKindV1::Target.code();
+    let target = by_target.then(|| alive_at(sim, input.target_id)).flatten();
+    // 0.1.3: the minion the R was pressed on died in the r_at wind-up (11-03 night logs: 13x `RIFT: no champion in reach
+    // and no target (kind 1)`, the R spent for nothing) - where it stood when pressed
+    let lost = if by_target && target.is_none() {
+        let rec = pressed().get(&(sim_of(sim, caster), caster)).copied();
+        pressed_spot(rec, input.target_id, sim.tick() as usize)
+    } else {
+        None
+    };
     // cast at a minion or a monster (the user, 2026-10-23: 「卡萨丁的R能不能对小兵造成伤害」): onto it, clearing the wave
-    let at_minion = target.is_some() && sim.get_entity(input.target_id).is_some_and(|e| !e.is_champion());
+    let at_minion = lost.is_some() || (target.is_some() && sim.get_entity(input.target_id).is_some_and(|e| !e.is_champion()));
+    let target = target.or(lost);
     let best = if at_minion { None } else { best_spot(me, &list, &towers, dmg) };
+    let shown = on_screen(sim);
     let (spot, why) = match best {
         Some((spot, s, kill)) => (spot, format!("score {s:.1}{}", if kill { ", a kill" } else { "" })),
+        None if lost.is_some() => (target.unwrap_or(me), "cast at a minion that died in the wind-up: where it stood".to_string()),
         None if at_minion => (target.unwrap_or(me), "cast at a minion or a monster: on it".to_string()),
         None => match target {
             Some(t) => (t, "nothing outside the towers: on the target".to_string()),
             None => {
-                wlog(format!("{} RIFT: no champion in reach and no target (kind {})", head(sim, caster), input.kind));
+                if let Some(k) = noted("rift_lost", shown) {
+                    wlog(format!("{} RIFT: no champion in reach and no target (kind {}) #{k}", head(sim, caster), input.kind));
+                }
                 return;
             }
         },
@@ -480,9 +582,11 @@ fn rift(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let y = spot.1.round().max(0.0) as u64;
     let moved = sim.entity_set_pos(caster, x, y);
     let champs = list.iter().filter(|f| f.champion && dist(f.at, spot) <= R_R + BODY).count();
-    wlog(format!("{} RIFT {} -> {} ({:.0} away, {} stacks, {dmg} magic before resistance): {} champions in the blast, {why}{}",
-                 head(sim, caster), pt(me), pt(spot), dist(me, spot), stacks, champs,
-                 if moved { "" } else { " (entity_set_pos refused)" }));
+    if let Some(k) = noted("rift", shown) {
+        wlog(format!("{} RIFT {} -> {} ({:.0} away, {} stacks, {dmg} magic before resistance): {} champions in the blast, \
+                      {why}{} #{k}", head(sim, caster), pt(me), pt(spot), dist(me, spot), stacks, champs,
+                     if moved { "" } else { " (entity_set_pos refused)" }));
+    }
 }
 
 // ===================== AI 钩子：清兵的 R =====================
@@ -491,7 +595,6 @@ fn rift(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
 struct Farm {
     /// 正在回城（Return 开始、别的命令结束；游戏 0.6.5 的 AI 只在判断的那几 tick 下命令）。
     recalling: bool,
-    logs: usize,
 }
 
 impl StablePlayerAi for Farm {
@@ -526,7 +629,8 @@ impl StablePlayerAi for Farm {
             return None;
         }
         let player = ctx.player_id();
-        let (input, line) = {
+        let tick = ctx.tick();
+        let (input, line, press, shown) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
             if !me.is_alive() {
@@ -546,26 +650,39 @@ impl StablePlayerAi for Farm {
             if target.as_ref().is_none_or(|t| t.is_champion()) {
                 return None;
             }
+            let key = (sim_of(&sim, my_id), my_id);
             let foes: Vec<Unit> = foes_of(&sim, team).into_iter().map(|(id, f)| (id, f.at, f.champion)).collect();
             let towers = enemy_towers(&sim, team);
             let (t, text) = match kind {
-                InputKindV1::Ult => {
-                    let c = champ_in_range(here, &foes)?;
-                    (c, format!("RETARGET the AI's R at a minion -> {}", who(&sim, c)))
-                }
+                InputKindV1::Ult => match champ_in_range(here, &foes) {
+                    Some(c) => (c, format!("RETARGET the AI's R at a minion -> {}", who(&sim, c))),
+                    None => {
+                        // the AI's own R at a minion goes out as it is: where the minion stands, should it die in the
+                        // wind-up (0.1.3)
+                        if let Some(m) = target.as_ref() {
+                            pressed().insert(key, (m.id(), (m.pos().0 as f64, m.pos().1 as f64), tick));
+                        }
+                        return None;
+                    }
+                },
                 _ => {
                     let (t, n) = farm_target(here, &foes, &towers)?;
                     (t, format!("FARM R at {} ({n} minions or monsters in the blast)", who(&sim, t)))
                 }
             };
-            (InputV1::action(InputKindV1::Ult, InputTargetV1::target(t)), format!("{} {text}", head(&sim, my_id)))
+            // a press at a minion is remembered once the game takes it (0.1.3); a champion needs nothing
+            let press = foes.iter().find(|f| f.0 == t && !f.2).map(|f| (key, (t, f.1, tick)));
+            (InputV1::action(InputKindV1::Ult, InputTargetV1::target(t)), format!("{} {text}", head(&sim, my_id)), press,
+             on_screen(&sim))
         };
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        self.logs += 1;
-        if self.logs <= 60 || self.logs % 50 == 0 {
-            wlog(format!("{line} #{}", self.logs));
+        if let Some((key, p)) = press {
+            pressed().insert(key, p);
+        }
+        if let Some(k) = noted(if line.contains("RETARGET") { "retarget" } else { "farm" }, shown) {
+            wlog(format!("{line} #{k}"));
         }
         Some(input)
     }
@@ -636,6 +753,25 @@ mod tests {
         near.push((2, (30_000.0, 0.0), true));
         assert_eq!(champ_in_range((0.0, 0.0), &near), Some(2));
         assert_eq!(champ_in_range((0.0, 0.0), &wave), None);
+    }
+
+    #[test]
+    fn a_farm_r_whose_minion_died_lands_where_it_stood() {
+        // 11-03 night logs: `RIFT: no champion in reach and no target (kind 1)` 13x - the minion died in the 6-tick wind-up
+        let rec = Some((285, (401_000.0, 512_000.0), 8490));
+        assert_eq!(pressed_spot(rec, 285, 8496), Some((401_000.0, 512_000.0)));
+        assert_eq!(pressed_spot(rec, 286, 8496), None, "another target");
+        assert_eq!(pressed_spot(rec, 285, 8490 + PRESS_KEEP + 1), None, "an old press");
+        assert_eq!(pressed_spot(rec, 285, 100), None, "another match");
+        assert_eq!(pressed_spot(None, 285, 8496), None);
+    }
+
+    #[test]
+    fn the_sim_tag_reads_back() {
+        let names = vec![VOID.to_string(), format!("{SIM_TAG}7")];
+        assert_eq!(sim_tag(names.into_iter()), 7);
+        assert_eq!(sim_tag(vec!["league_galio_sim:3".to_string()].into_iter()), 0);
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
     }
 
     #[test]

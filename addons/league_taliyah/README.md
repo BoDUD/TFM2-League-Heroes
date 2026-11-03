@@ -28,9 +28,10 @@
 状态都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。
 
 - **0.2.1（2026-11-03 的日志：一面墙推人几千次）**：一面墙的几段横墙沿斜线排、上下叠在一起时，夹在中间的单位从一段推出去正好进了另一段、再推回来，每 tick 来回推（小兵、阿兹尔、她自己都被推过）；现在照原规则推完还在墙里，就在压着它的墙的出口里找离它最近的空地（`push_clear`，竖墙只往她那一侧、横墙上下两边和两头，最多三层），找不到就不推。
+- **0.2.2（2026-11-03 夜里的日志：单位贴着墙一站好几秒，队友也一样）**：墙不是引擎的地形，单位的寻路不知道它，正对着墙走的单位「顺着墙的那一半」是 0，每 tick 被放回同一个地方——墙立 300 tick，小兵在同一个坐标站了 281 tick，布隆 227、洛 212、赵信 205、永恩 202，她自己也有。现在挡了 20 tick（`STALL_T`）没挪出 1000，就每 tick 顺着挡住它的那块墙往近的那头挪（挪它自己想走的那么远，300–2000；那头被别的墙堵着就换另一头，地图边上停住），过了墙头它自己就绕过去（`unstick`）。`HOLD` 一个单位一块墙只记一行，墙倒的时候写：挡了几 tick、顺着墙挪了几 tick、是她自己 / 队友 / 敌人（以前每 tick 一行，一次启动 253 行、计数到 #10650）。
 
 ## 检查
 
 - 在 `addons/` 下 `cargo test --release -p league_taliyah`：单元测试（参数、进墙退回只留顺墙的一半、立墙时推出去、横墙每段的位置和铺下的 tick、只认停着不动的新区域）。
 - 主包的塔莉垭改了以后重新跑 `python addons/league_taliyah/make_override.py`（它先核对主包的 `league_taliyah.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只比较不写）。
-- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_taliyah.log`：`SPAWN`、立竖墙 `UPRIGHT`、开始铺横墙 `LAY`、每一段 `STRETCH`（`zone` 是对上了区域，`worked out` 是按算的位置）、挡住 `HOLD`、推出去 `PUSH`；找不到目标时 `UPRIGHT?` / `LAY?`。
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_taliyah.log`：`SPAWN`、立竖墙 `UPRIGHT`、开始铺横墙 `LAY`、每一段 `STRETCH`（`zone` 是对上了区域，`worked out` 是按算的位置）、挡住 `HOLD`（墙倒时一个单位一行：挡了几 tick、顺着墙挪了几 tick）、推出去 `PUSH`；找不到目标时 `UPRIGHT?` / `LAY?`。

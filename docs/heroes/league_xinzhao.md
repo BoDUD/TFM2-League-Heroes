@@ -55,7 +55,7 @@
 
 ### 赵信大招远程免伤附加包
 
-[赵信大招远程免伤附加包](../../addons/league_xinzhao_guard/README.md)：`league_xinzhao_guard` v0.1.0
+[赵信大招远程免伤附加包](../../addons/league_xinzhao_guard/README.md)：`league_xinzhao_guard` v0.1.1
 
 主包 `league` 保持纯数据。英雄联盟里赵信的 R「新月护卫」之后，他免疫 450 码外敌人的伤害；数据读不到伤害来自多远，
 所以主包里改成 R 之后 3 秒受到的伤害降低 40%（用户选的）。用户：「读不到多远就改rust源代码 看看能不能」——
@@ -63,7 +63,7 @@
 
 - **远处的伤害挡掉**：主包的护卫 buff `league_xinzhao_r_guard`（R 之后 3 秒，身后的金色护卫光）在附加包里去掉 40% 减伤，只留画面和计时；
   被动 `league_xinzhao_guard:guard`（挂在 `passive` 上）在他每次挨打时（`on_damaged`）看：护卫还在，攻击者离他**超过 36000**
-  （R 的横扫半径，英雄联盟的 450 码，中心到中心），这一下的伤害原样加回去（不超过最大生命）。
+  （R 的横扫半径，英雄联盟的 450 码，中心到中心），这一下的伤害原样加回去（最大生命放不下的那一截，这一下扣完血以后再加）。
 - **近身的照常吃**：被挑战的目标留在他身边，打他照常疼；36000 以内的敌人也一样。
 - 数字写在英雄数据的 `passive.params`（`{"far": 36000}`）里，由 `make_override.py` 从 `tools/kit/build_xinzhao.py` 的参数表 `P`
   （`r_far`）写入，本包不另记一份。

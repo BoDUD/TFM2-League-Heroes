@@ -56,8 +56,13 @@ pub const SHAKE_PCT: usize = 7;
 /// 12 种子对六个基础上单 −0.26：只在安全时去）。
 pub const CAN_PCT: usize = 85;
 pub const SAFE: f64 = 35_000.0;
-/// 已经站在药罐上（这么近）就不再「走过去」：药罐落地后 p_arm tick 才能捡，0.1.1 让他站在上面干等，和塔姆对打时看着像卡住。
-pub const ON_TANK: f64 = 4_000.0;
+/// 药罐的圈（p_can_r，单元测试核对）。圈也算他的身体（引擎的形状都算单位的碰撞半径），中心离药罐 CAN_R + 身体半径以内，
+/// 药罐落地 p_arm tick 生效那一刻就捡起来了。
+pub const CAN_R: f64 = 9_000.0;
+/// 读不到身体半径时按这么大算（game_setting 的 `champion_radius`）。
+pub const BODY: f64 = 10_000.0;
+/// 离圈边留这么多才算「已经站在药罐上」（游戏的 AI 两次命令之间 4 tick，他一 tick 走 ~1000）。
+pub const TANK_EDGE: f64 = 4_000.0;
 /// 诊断：他活着、STUCK_NEAR 以内有敌方英雄，却 STUCK_TICKS 没挪过 STUCK_MOVE、也没有任何动作或控制，就记一行 STUCK。
 pub const STUCK_TICKS: usize = 90;
 pub const STUCK_MOVE: f64 = 500.0;
@@ -194,9 +199,29 @@ pub fn shake_cost(hp: usize) -> usize {
     (hp * SHAKE_PCT / 100).min(hp.saturating_sub(1))
 }
 
-/// 去不去捡药罐：生命 %、离药罐多远、身边（SAFE 以内）的敌方英雄数（看不见、选不中的也算：潜进地下的塔姆、隐身的敌人）。
-pub fn tank_ok(hp_pct: usize, d: f64, foes_near: usize) -> bool {
-    hp_pct < CAN_PCT && d > ON_TANK && d <= CAN_REACH && foes_near == 0
+/// 「已经站在药罐上」的距离（0.1.8）：药罐落地后 p_arm tick 才能捡，0.1.1 让他站在上面干等，和塔姆对打时看着像卡住，0.1.2 起
+/// 站在上面就不走——可那时按 4000 算，药罐的圈却有 CAN_R 加上他的身体（`body`）那么大：11-03 夜里的日志 25 行 TANK、5 次「走过去」
+/// 都在 4.4k–6.4k 外，早就在圈里，药罐正好在生效那一 tick 捡起来，走不走都一样。现在中心离药罐 CAN_R + 身体 - TANK_EDGE 以内
+/// 不走；`walking`（已经在走）就走到中心进了画出来的圈（CAN_R）才停，不在圈边上一 tick 走、一 tick 停。
+pub fn on_tank(body: f64, walking: bool) -> f64 {
+    if walking { CAN_R } else { (CAN_R + body - TANK_EDGE).max(CAN_R) }
+}
+
+/// 去不去捡药罐：生命 %、离药罐多远、身边（SAFE 以内）的敌方英雄数（看不见、选不中的也算：潜进地下的塔姆、隐身的敌人）、
+/// 他是不是已经在走过去、他的身体半径。
+pub fn tank_ok(hp_pct: usize, d: f64, foes_near: usize, walking: bool, body: f64) -> bool {
+    hp_pct < CAN_PCT && d > on_tank(body, walking) && d <= CAN_REACH && foes_near == 0
+}
+
+/// 这一次 AI 命令走去捡（0.1.8）：`walking` 记下在走，`walks` 数这个药罐走过几回；true = 这个药罐第一回，记 `TANK:` 那一行。
+/// 0.1.7 每回都记：走进 ON_TANK（4000）那一 tick `tank_ok` 不成立就把 `walking` 清掉、把他交还游戏的 AI，AI 下一个命令（4 tick
+/// 后）又让他走回原处，再下一个命令又是「开始走」——11-03 夜里 `TANK:` 每 8 tick 一行，一个药罐最多 7 行。
+pub fn walk_start(walking: &mut bool, walks: &mut usize) -> bool {
+    if std::mem::replace(walking, true) {
+        return false;
+    }
+    *walks += 1;
+    *walks == 1
 }
 
 /// 药罐没了没有：`can` 在身上就还在；不在的话，落过地（`seen`）就是没了，没落过地的等 LAND_WAIT。
@@ -338,6 +363,8 @@ struct State {
     can_drop: usize,
     can_seen: bool,
     walking: bool,
+    /// 这个药罐他走过去几回（`walk_start`；只记第一回的 `TANK:` 行，`TANK GONE` 写回数）。
+    walks: usize,
     /// 上个 tick p_cd 还剩多少（捡起时数据把冷却重设成缩短后的，就不是正好少 1）。
     cd_left: usize,
     /// 诊断：上次挪动的位置和 tick、这段有没有记过 STUCK；AI 钩子最近一次的决定（tick、基础 AI 要做的、改成了什么）。
@@ -523,6 +550,7 @@ impl Pleases {
             s.can_drop = now;
             s.can_seen = false;
             s.walking = false;
+            s.walks = 0;
         });
         if let Some(n) = counted("shake") {
             wlog(format!("{} SHAKE #{n}: {cleared} controls cleared, {cost} hp paid, tank dropped", head(sim, me)));
@@ -553,9 +581,15 @@ impl Pleases {
                     } else {
                         "broken / expired"
                     };
-                    line = Some(("tank_gone", format!("TANK GONE: {how}{}", if s.walking { " (he walked to it)" } else { "" })));
+                    let walked = match s.walks {
+                        0 => String::new(),
+                        1 => " (he walked to it)".to_string(),
+                        n => format!(" (he walked to it, {n} times)"),
+                    };
+                    line = Some(("tank_gone", format!("TANK GONE: {how}{walked}")));
                     s.can_until = 0;
                     s.walking = false;
+                    s.walks = 0;
                 }
             }
             s.cd_left = cd;
@@ -759,15 +793,17 @@ impl Ai {
         // the AI gave no order: nothing else to change
         kind?;
         // the tank on the ground (landed, `can` on him), not full, nobody near: walk over it (the data picks it up)
-        let can = with_state(key, |s| (s.can_seen && s.can_until > now).then_some(s.can_at));
-        if let Some(c) = can.filter(|_| has(sim, me, &md("can"))) {
+        let can = with_state(key, |s| (s.can_seen && s.can_until > now).then_some((s.can_at, s.walking)));
+        if let Some((c, walking)) = can.filter(|_| has(sim, me, &md("can"))) {
             let d = dist(at, c);
             let foes_near = within(&champions_of(sim, team, false), at, SAFE);
-            if tank_ok(pct(hp, max), d, foes_near) {
-                let started = with_state(key, |s| !std::mem::replace(&mut s.walking, true));
-                let line = started.then(|| {
-                    ("tank", format!("TANK: walking to it at {}% hp, {d:.0} away, no enemy champion within {SAFE:.0}",
-                                     pct(hp, max)))
+            let body = match e.radius() { 0 => BODY, r => r as f64 };
+            if tank_ok(pct(hp, max), d, foes_near, walking, body) {
+                // one TANK line a tank (0.1.8): a walk stopped and started again is counted in TANK GONE
+                let first = with_state(key, |s| walk_start(&mut s.walking, &mut s.walks));
+                let line = first.then(|| {
+                    ("tank", format!("TANK: walking to it at {}% hp, {d:.0} away (in it within {:.0}), no enemy champion \
+                                      within {SAFE:.0}", pct(hp, max), on_tank(body, false)))
                 });
                 return Some(Plan::Instead(InputV1::move_to(c.0.max(0.0) as u64, c.1.max(0.0) as u64), line));
             }
@@ -848,7 +884,7 @@ impl StablePlayerAi for Ai {
                     return None;
                 }
                 if let Some((kind, why)) = why {
-                    // the R lines one a burst (pressed again every tick until the engine takes it); TANK is one a walk
+                    // the R lines one a burst (pressed again every tick until the engine takes it); TANK is one a tank
                     if kind == "tank" || self.burst(kind, ctx.tick()) {
                         if let Some(k) = counted(kind) {
                             wlog(format!("{line} {why} #{k}"));
@@ -964,11 +1000,34 @@ mod tests {
 
     #[test]
     fn when_to_walk_to_the_tank() {
-        assert!(tank_ok(70, 20_000.0, 0));
-        assert!(!tank_ok(70, 1_000.0, 0), "already on it: no standing still on it until it arms");
-        assert!(!tank_ok(70, 5_000.0, 1), "an enemy champion near: keep fighting");
-        assert!(!tank_ok(90, 0.0, 0), "nearly full");
-        assert!(!tank_ok(50, 50_000.0, 0), "too far");
+        assert!(tank_ok(70, 20_000.0, 0, false, BODY));
+        assert!(!tank_ok(70, 1_000.0, 0, false, BODY), "already on it: no standing still on it until it arms");
+        assert!(!tank_ok(70, 25_000.0, 1, false, BODY), "an enemy champion near: keep fighting");
+        assert!(!tank_ok(90, 20_000.0, 0, false, BODY), "nearly full");
+        assert!(!tank_ok(50, 50_000.0, 0, false, BODY), "too far");
+        // 11-03 night logs: sent to walk 4403, 5991, 6087 away - inside the tank's circle (p_can_r + his body) all along,
+        // picked up the tick it armed
+        for d in [4_403.0, 5_991.0, 6_087.0, 12_000.0] {
+            assert!(!tank_ok(56, d, 0, false, BODY), "{d} away: in the circle already");
+        }
+        // out of it: walked until his centre is inside the drawn circle, not stopped at its edge and started again
+        assert!(tank_ok(56, 16_000.0, 0, false, BODY));
+        assert!(tank_ok(56, 12_000.0, 0, true, BODY), "on his way: on to the drawn circle");
+        assert!(!tank_ok(56, CAN_R, 0, true, BODY), "arrived");
+        // no body read: the drawn circle alone
+        assert!(tank_ok(56, 9_500.0, 0, false, 0.0) && !tank_ok(56, 8_000.0, 0, false, 0.0));
+        assert!(on_tank(BODY, false) > on_tank(BODY, true));
+    }
+
+    #[test]
+    fn a_tank_is_one_tank_line() {
+        // 0.1.7 wrote `TANK:` at every start: walked in past ON_TANK, handed back, walked out by the AI, started again
+        let (mut walking, mut walks) = (false, 0);
+        assert!(walk_start(&mut walking, &mut walks), "the first walk: the line");
+        assert!(!walk_start(&mut walking, &mut walks), "on his way: nothing");
+        walking = false; // arrived (or a fight), then sent again
+        assert!(!walk_start(&mut walking, &mut walks), "a second walk to the same tank: counted, no line");
+        assert_eq!(walks, 2);
     }
 
     #[test]
@@ -996,7 +1055,8 @@ mod tests {
     fn the_numbers_match_the_kit() {
         let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_drmundo.py");
         let src = std::fs::read_to_string(path).expect("build_drmundo.py");
-        for (key, v) in [("r_range", R_RANGE as usize), ("r_n", R_NEAR as usize), ("p_can_t", CAN_TICKS)] {
+        for (key, v) in [("r_range", R_RANGE as usize), ("r_n", R_NEAR as usize), ("p_can_t", CAN_TICKS),
+                         ("p_can_r", CAN_R as usize)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_drmundo.P");
         }
         // the tank flies p_fly ticks after the data's 3-tick check: LAND_WAIT must outlast both

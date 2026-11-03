@@ -35,8 +35,9 @@ plays their pictures there; its death ends them.
           q_cd_r ticks instead of q_cd. Q -> walkers: the graves above.
   controller An AddCasted pulse on him every ctl_p ticks (league_sejuani's, hung by his attack and the ult, only for
           Yorick himself: `own`): the combos' casts.
-The add-on copy (--native, addons/league_yorick): the Q blow raises `q_win` on him (q_win ticks) - the add-on digs a
-grave for every unit that dies to it (League: a kill or a champion) instead of the main pack's every second blow; the
+The add-on copy (--native, addons/league_yorick): the Q blow raises `q_win` on him (q_win ticks from the tick it is
+thrown, so it is up when the blow lands on the next) - the add-on digs a grave for every unit that dies to it (League: a
+kill or a champion) instead of the main pack's every second blow; the
 ult puts `maiden` on her champion and his attacks a 3-tick `hit` on the champions they strike while she stands - the
 add-on deals r_pct% of its maximum health as true damage to her own target only (the main pack: any champion).
 Timings: frames by tools/art/rig_yorick.py (attack 500 ms, Q / the Awakening 500, E 433, R 567 ms).
@@ -261,12 +262,15 @@ def build(p):
         champ = homing("q_tw", "EnemyChampion", [refresh("q_ch", 3), grave])
         other = sw("q_ch", NONE, sw("q_half", combine(*rm("q_half"), pick(p["q_range"], "EnemyWithoutTower", grave)),
                                    flag("q_half", None)))
-        if p["native"]:      # the add-on digs a grave for each unit the blow kills (League), not every second blow
-            other = refresh("q_win", p["q_win"])
-        blow = combine(sfx("q_hit"), heal(p["q_heal"], p["q_heal_r"]),
+        win, late = None, delayed(2, alive(other))
+        if p["native"]:      # the add-on digs a grave for each unit the blow kills (League), not every second blow:
+            # `q_win` goes up with the blow, before it lands (the homing blow lands on the next tick; raised 2 ticks
+            # later, as the main pack's check, it came after the kill - 11-03 night logs: 6 lives, 0 GRAVE)
+            win, late = refresh("q_win", p["q_win"]), None
+        blow = combine(sfx("q_hit"), heal(p["q_heal"], p["q_heal_r"]), win,
                        homing("q_blow", "EnemyWithoutTower", [attack(p["q_dmg"], p["q_ratio"]), view("q_hit"),
                                                               tsfx("q_hit")]),
-                       awaken, champ, delayed(2, alive(other)))
+                       awaken, champ, late)
         return combine(sw("r_on", refresh("q_cd", p["q_cd_r"]), refresh("q_cd", p["q_cd"])), *rm("q_go", "q_ch"),
                        sw("g3", anim("awaken", p["q_dur"]), anim("skill", p["q_dur"])), sfx("q"), voice("vo_q", p),
                        delayed(p["q_hit"] - 1, alive(blow)))

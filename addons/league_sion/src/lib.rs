@@ -153,12 +153,30 @@ fn killer(sim: &StableSim<'_>, me: usize, last: Option<usize>, player: Option<us
     }
     let Some(e) = sim.get_entity(me) else { return me };
     let (team, at) = (e.team(), e.pos());
-    let d2 = |p: (u64, u64)| (p.0 as f64 - at.0 as f64).powi(2) + (p.1 as f64 - at.1 as f64).powi(2);
-    (0..sim.entity_count())
+    let foes: Vec<(usize, Option<EntityKindV1>, (u64, u64))> = (0..sim.entity_count())
         .filter_map(|i| sim.entity_at(i))
-        .filter(|u| u.team() != team && u.is_champion() && u.is_alive())
-        .min_by(|a, b| d2(a.pos()).total_cmp(&d2(b.pos())))
-        .map_or(me, |u| u.id())
+        .filter(|u| u.team() != team && u.is_alive())
+        .map(|u| (u.id(), if u.is_champion() { Some(EntityKindV1::Champion) } else { u.kind() }, u.pos()))
+        .collect();
+    fallback_killer(me, at, &foes)
+}
+
+/// The killer when neither the last hitter nor his player's champion is there: the nearest living enemy champion, else
+/// the nearest living unit of the other side - a tower, a minion, a summon, the nexus (League's "executed"); Sion himself
+/// only when nothing at all stands. `foes`: (id, kind, where) of the living units not on his team; neutral monsters do
+/// not count. 0.1.5, the 11-03 night logs: `FALL #3: ... killed by league_sion#23` - the last hitter (Kalista) had died
+/// to the zombie and no enemy champion was alive, so the kill went to him.
+pub fn fallback_killer(me: usize, at: (u64, u64), foes: &[(usize, Option<EntityKindV1>, (u64, u64))]) -> usize {
+    let d2 = |p: (u64, u64)| (p.0 as f64 - at.0 as f64).powi(2) + (p.1 as f64 - at.1 as f64).powi(2);
+    let nearest = |kinds: &[EntityKindV1]| {
+        foes.iter()
+            .filter(|f| f.1.is_some_and(|k| kinds.contains(&k)))
+            .min_by(|a, b| d2(a.2).total_cmp(&d2(b.2)))
+            .map(|f| f.0)
+    };
+    nearest(&[EntityKindV1::Champion])
+        .or_else(|| nearest(&[EntityKindV1::Tower, EntityKindV1::Minion, EntityKindV1::Summon, EntityKindV1::Nexus]))
+        .unwrap_or(me)
 }
 
 // ===================== 参数 =====================
@@ -437,6 +455,26 @@ mod tests {
     fn params_parse() {
         let p = parse_params(r#"{"k_c":15,"k_u":4,"z_as":60,"z_t":540,"z_vamp":100}"#);
         assert_eq!(p, Params::default());
+    }
+
+    #[test]
+    fn the_zombie_never_credits_himself_while_an_enemy_unit_stands() {
+        use EntityKindV1::*;
+        let (me, at) = (23, (100_000, 100_000));
+        let champ = (21, Some(Champion), (180_000, 100_000));
+        let minion = (634, Some(Minion), (110_000, 100_000));
+        let tower = (2, Some(Tower), (105_000, 100_000));
+        let nexus = (1, Some(Nexus), (400_000, 400_000));
+        let camp = (900, Some(Jungle), (100_500, 100_000));
+        // an enemy champion first, even farther than the minions
+        assert_eq!(fallback_killer(me, at, &[minion, champ, tower, camp]), 21);
+        // the 11-03 night logs: the last hitter (Kalista) died to the zombie, no enemy champion alive - `killed by
+        // league_sion#23`; now the nearest tower / minion / summon / nexus, never a neutral monster
+        assert_eq!(fallback_killer(me, at, &[minion, tower, camp, nexus]), 2);
+        assert_eq!(fallback_killer(me, at, &[minion, camp]), 634);
+        assert_eq!(fallback_killer(me, at, &[camp, nexus]), 1);
+        assert_eq!(fallback_killer(me, at, &[camp]), me);
+        assert_eq!(fallback_killer(me, at, &[]), me);
     }
 
     #[test]

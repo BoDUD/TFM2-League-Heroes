@@ -22,12 +22,16 @@
 - 副本的 `league_trundle_w_on` **不带属性**，只是记号，脚下也不跟着播冰面；它出现或被刷新时本包记下他脚下的位置，每 60 拍在那里播一次 `league_trundle_w_field`（冻地铺满的两帧），他在那一圈里时每拍挂 2 拍的 `league_trundle_w_in`（攻速 `w_as`%、移速 `w_ms`%、回血 `w_regen`），并把他这一拍多出来的血（治疗、回血）再放大 `w_amp`%；
 - 副本的冰柱**不定身**，也不播冰柱的画面，只给冰柱旁的英雄挂 3 拍 `league_trundle_e_at`；本包看到它就在那个英雄身后立柱（一次施法一根）、在柱子的位置播 `league_trundle_e_pillar`。冰柱立着时每拍看每个单位：中心进了柱子（`e_wall` + 单位半径）就退回上一拍的位置，只留下顺着柱边走的那一半（绕着走不会被粘住）；柱子立起时压在谁身上就推到柱外（`entity_set_pos`，奥恩的岩柱、塔莉垭的墙、艾尼维亚的冰墙一样的做法——它们的日志里能看到英雄被连续几拍挡在同一个坐标）；他死了冰柱照样立着；
 - 副本的 Q 不改攻击力，只给被咬的单位挂 3 拍 `league_trundle_q_mark`；本包读它的攻击力，挂 `league_trundle_q_take`（他）和 `league_trundle_q_lose`（它）；
-- 副本的大招不打伤害、不回血、不改属性，只给目标挂 `league_trundle_r_drain`；本包读它的护甲魔抗，挂 `league_trundle_r_lose` / `league_trundle_r_take`，并用 `deal_damage_typed`（`Ap`）按时打伤害、按打掉的血给他回血。
+- 副本的大招不打伤害、不回血、不改属性，只给目标挂 `league_trundle_r_drain`；本包读它的护甲魔抗，挂 `league_trundle_r_lose` / `league_trundle_r_take`，并用 `deal_damage_typed`（`Ap`）按时打伤害、按打掉的血给他回血（伤害这一拍结束才扣，下一拍读它掉了多少，见下面的 0.1.1）。
 
 计数都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。
 
 ## 检查
 
-- 在 `addons/` 下 `cargo test --release -p league_trundle`：单元测试（参数、贡品、偷攻击力、冰柱的位置、挡路（一路往柱子走 200 拍进不去、贴边能绕、立起时推出去）、冰面放大、名字和数据一致）。
+- 在 `addons/` 下 `cargo test --release -p league_trundle`：单元测试（参数、贡品、偷攻击力、冰柱的位置、挡路（一路往柱子走 200 拍进不去、贴边能绕、立起时推出去）、冰面放大、吸取下一拍才算回多少、名字和数据一致）。
 - 主包的特朗德尔改了以后重新跑 `python addons/league_trundle/make_override.py`（它先核对主包的 `league_trundle.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只核对不写；文字接入前用 `--draft`）。
-- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_trundle.log`：`SPAWN`、贡品回血 `TRIBUTE`、冻地 `DOMAIN`、立柱 `PILLAR`、推人 `WALL`、偷攻击力 `CHOMP`（挡路的 `HOLD` / `PUSH` 就是冰柱真的挡住了人）、大招 `SUBJUGATE`。
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_trundle.log`：`SPAWN`、贡品回血 `TRIBUTE`、冻地 `DOMAIN`、立柱 `PILLAR`、推人 `WALL`、偷攻击力 `CHOMP`（挡路的 `HOLD` / `PUSH` 就是冰柱真的挡住了人）、大招 `SUBJUGATE`（`drained 140 of 200 (+175)`：第一下打掉的血、这一下的伤害、他回的血）。
+
+## 版本
+
+- 0.1.1（2026-11-04，11-03 晚的日志：43 次 `SUBJUGATE` 全是 `drained 0 (+0)`，强权至上一口血也没回）：`deal_damage_typed` 只把伤害排进效果队列、这一拍结束才扣血，0.1.0 打出去马上读生命，差值永远是 0。现在每一下记下目标、打之前的生命和伤害，下一拍读它掉了多少血（不超过这一下的伤害；目标被打死、实体没了就算它剩的血）再给他回（league_lillia 0.1.2 的做法），`SUBJUGATE` 那一行等第一下落下再写。

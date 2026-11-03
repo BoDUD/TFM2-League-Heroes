@@ -36,3 +36,4 @@
 - 在 `addons/` 下 `cargo test --release -p league_aurora`：单元测试（参数、残血的界线、标记的名字、大招的四种时机、R 射程和领域半径与参数表一致）。
 - 主包的阿萝拉改了以后重新跑 `python addons/league_aurora/make_override.py`（它先核对主包的 `league_aurora.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurora.log`：`SPAWN`、生命掉到界线以下 `LOW`、回到界线以上 `UP`；大招 `R PEEL` / `R TRAP` / `R KILL` / `R HELD`（每种前 40 行，之后每 100 次一行）。
+  0.2.1：引擎接下 R 之前钩子每 tick 再按一次、AI 每次思考也再想按一次 R，以前每按一次记一行（2026-11-03 夜里的日志一次 `R KILL` 14 行、`R HELD` 100 tick 26 行）；现在同一种 30 tick 内连着按的只记一行（league_heimerdinger 的 `ORDER_FRESH`）。玩法不变。

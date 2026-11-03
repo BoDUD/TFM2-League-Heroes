@@ -19,8 +19,8 @@
 //!   AI 按的 E 改成普攻（逃命、追残血、够不着敌人时照放）；R 只在打得死路上第一个英雄、或他身后锥形里还有英雄、或自己残血
 //!   时放，有打得死的英雄就替 AI 按。
 //!
-//! 一次普攻：同一个格雷福斯（按这局的种子和他的编号分开）第一次 `hit` 起 `VOLLEY_T` tick 内的都算这一枪（扇形在开枪那
-//! tick 打中，正面那颗弹丸飞到目标最多几 tick）。
+//! 一次普攻：同一个格雷福斯（按这份模拟的编号 `SIM_TAG` 和他分开）第一次 `hit` 起 `VOLLEY_T` tick 内的都算这一枪（扇形在
+//! 开枪那 tick 打中，正面那颗弹丸飞到目标最多几 tick）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_graves.log`，每次启动游戏重写：`CUT` / `KNOCK` / `CONE`
 //! （上面三件事），`Q` / `Q BOOM` / `Q BACK`（撞墙的炮弹），`E PRESS` / `E VETO` / `R PRESS` / `R VETO`（连招），都限了条数。
@@ -29,6 +29,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -208,11 +209,39 @@ pub fn parse_params(json: &str) -> Params {
     p
 }
 
-/// 每个格雷福斯的参数（被动 configure 时存下，原生效果里读）：键是 (这局的种子, 他的编号)。
+/// 每份模拟的格雷福斯一个编号，出生时由被动挂在他身上（buff `league_graves_sim:<编号>`，没有数值、没有画面；加里奥附加包的
+/// 做法）。2026-11-04 起全局表都按（这个编号, 他）记（11-03 夜里的日志复查）：以前按（这局的种子, 他），服务器同一局并排跑的
+/// 两份预模拟种子、实体编号都一样，一份的一枪（`VOLLEYS`）、爆炸炸到的人（`BLASTED`）会算进另一份。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+const SIM_TAG: &str = "league_graves_sim:";
+
+/// The number the passive hung on him when he spawned in this sim (0: none).
+pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
+    names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
+}
+
+fn sim_of(sim: &StableSim<'_>, me: usize) -> u64 {
+    sim.get_entity(me).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i))
+        .map(|b| b.name().to_string())))
+}
+
+/// 每个格雷福斯的参数（被动出生时存下，原生效果里读）：键是 (这份模拟的编号, 他)。
 static PARAMS: LazyLock<Mutex<HashMap<(u64, usize), Params>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn params_of(sim: &StableSim<'_>, me: usize) -> Params {
-    PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim.seed(), me)).copied().unwrap_or_default()
+    PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim_of(sim, me), me)).copied().unwrap_or_default()
+}
+
+/// More rows than this in a table are finished sims' (a sim ends with its rows still there): all cleared.
+const MOST_ROWS: usize = 4096;
+
+/// The rows of the Graves numbered `no` in `rows` go (his new life is a new unit), and all of them past `MOST_ROWS`.
+fn forget<T>(rows: &Mutex<HashMap<(u64, usize), T>>, no: u64) {
+    let mut rows = rows.lock().unwrap_or_else(|e| e.into_inner());
+    rows.retain(|k, _| k.0 != no);
+    if rows.len() > MOST_ROWS {
+        rows.clear();
+    }
 }
 
 // ===================== 计算（单元测试用） =====================
@@ -249,6 +278,7 @@ impl Volley {
     }
 }
 
+/// 每个格雷福斯的这一枪：键是 (这份模拟的编号, 他)。
 static VOLLEYS: LazyLock<Mutex<HashMap<(u64, usize), Volley>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 /// 锥形：`me` 是格雷福斯，`hit` 是被爆弹打中的英雄，`p` 是另一个单位。它在 `hit` 身后（沿 me→hit 的方向）`len` 以内、
@@ -289,7 +319,7 @@ fn pellet(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let (cut, n) = VOLLEYS
         .lock()
         .unwrap_or_else(|e| e.into_inner())
-        .entry((sim.seed(), me))
+        .entry((sim_of(sim, me), me))
         .or_default()
         .hit(now, unit, p.e_cuts);
     if cut {
@@ -364,6 +394,8 @@ impl StableEffectType for ConeFx {
 #[derive(Clone, Default)]
 struct Grit {
     p: Params,
+    /// This sim's number (`SIM_TAG`), drawn at his first spawn.
+    sim_no: u64,
 }
 
 impl StablePassive for Grit {
@@ -376,7 +408,18 @@ impl StablePassive for Grit {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert((sim.seed(), me), self.p);
+        if self.sim_no == 0 {
+            self.sim_no = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim_no);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
+        // a new life (a new unit): the last one's rows go
+        forget(&PARAMS, self.sim_no);
+        forget(&VOLLEYS, self.sim_no);
+        forget(&shell::SHOTS, self.sim_no);
+        forget(&shell::BLASTED, self.sim_no);
+        PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert((self.sim_no, me), self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Graves (player {player}, team {team}), {:?}", head(sim, me), self.p));
@@ -470,5 +513,21 @@ mod tests {
         for x in ["r_hit2", "a_1", "q_blast_w", "q_shell"] {
             assert!(sn(x).len() <= BUFF_NAME_CAP);
         }
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn each_sim_finds_its_own_number() {
+        let names = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>().into_iter();
+        assert_eq!(sim_tag(names(&["league_graves_a_1", "league_graves_sim:7"])), 7);
+        assert_eq!(sim_tag(names(&["league_graves_a_1"])), 0);
+    }
+
+    #[test]
+    fn a_new_life_forgets_the_last_ones_rows() {
+        // twin presims: Graves #24 numbered 900001 and 900002; the first one's next life drops only his rows
+        let rows: Mutex<HashMap<(u64, usize), usize>> = Mutex::new(HashMap::from([((900_001, 24), 1), ((900_002, 24), 2)]));
+        forget(&rows, 900_001);
+        assert_eq!(rows.lock().unwrap().keys().copied().collect::<Vec<_>>(), vec![(900_002, 24)]);
     }
 }

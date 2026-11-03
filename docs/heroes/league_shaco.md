@@ -55,7 +55,7 @@
 
 ### 萨科背刺附加包
 
-[萨科背刺附加包](../../addons/league_shaco_backstab/README.md)：`league_shaco_backstab` v0.1.0
+[萨科背刺附加包](../../addons/league_shaco_backstab/README.md)：`league_shaco_backstab` v0.1.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

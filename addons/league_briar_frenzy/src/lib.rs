@@ -12,7 +12,9 @@
 //! - **血狂锁定（AI 钩子 `league_briar_frenzy:lock`）**：她身上有血莽 `FRENZY` 或 `HEMA` 时，AI 要普攻、走路、回城都改成普攻
 //!   ——彻底血狂时打猎物，否则打 `LOCK_R` 内最近的敌方英雄，没有就打最近的敌人；放技能不拦。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_briar_frenzy.log`。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_briar_frenzy.log`。0.1.1：`FRENZY LOCK` 带上
+//! `[kind m= s=]`，一次血狂换了目标才记一行，和 `SPAWN` 一样整个游戏一个计数（预模拟先记 40 行、之后每 200 行一行，你看的
+//! 那场每行都记）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -80,6 +82,29 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// `SPAWN` / `FRENZY LOCK` lines a launch (0.1.1): the server's presims (hundreds a launch, each with new passives and AI
+/// hooks - a count in them counts one sim) the first `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all.
+/// 2026-11-03 night logs: 6188 FRENZY LOCK lines of 7054 (14873 of 16959, 1.0 MB, the launch before), 397 SPAWN.
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
 fn head(sim: &StableSim<'_>, me: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
@@ -140,7 +165,9 @@ impl StablePassive for Frenzy {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.knocked.clear();
         self.hema_from = None;
-        wlog(format!("{} SPAWN: the add-on's Briar (player {player})", head(sim, me)));
+        if let Some(k) = noted("spawn", on_screen(sim)) {
+            wlog(format!("{} SPAWN: the add-on's Briar (player {player}) #{k}", head(sim, me)));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -199,7 +226,13 @@ impl StablePassive for Frenzy {
 
 #[derive(Clone, Default)]
 struct Lock {
-    last_log: Option<usize>,
+    /// the target this frenzy's last FRENZY LOCK line named (a line only when it changes; None: no frenzy)
+    locked: Option<usize>,
+}
+
+/// A FRENZY LOCK line for `pick`: a new target in this frenzy (0.1.1: a line every 120 ticks of every Briar before).
+pub fn new_lock(locked: Option<usize>, pick: usize) -> bool {
+    locked != Some(pick)
 }
 
 impl StablePlayerAi for Lock {
@@ -226,14 +259,14 @@ impl StablePlayerAi for Lock {
         if casting {
             return None;
         }
-        let tick = ctx.tick();
         let player = ctx.player_id();
-        let pick = {
+        let (pick, line, shown) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion().filter(|e| e.is_alive())?;
             let (id, team) = (me.id(), me.team());
             let hema = buff_left(&me, HEMA).is_some();
             if !hema && buff_left(&me, FRENZY).is_none() {
+                self.locked = None;
                 return None;
             }
             let units: Vec<(usize, bool, bool, u64)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
@@ -243,16 +276,19 @@ impl StablePlayerAi for Lock {
             let prey = units.iter().find(|u| u.2 && hema).map(|u| u.0);
             let champ = units.iter().filter(|u| u.1 && u.3 <= LOCK_R * LOCK_R).min_by_key(|u| u.3).map(|u| u.0);
             let unit = units.iter().filter(|u| u.3 <= UNIT_R * UNIT_R).min_by_key(|u| u.3).map(|u| u.0);
-            prey.or(champ).or(unit)
-        }?;
+            (prey.or(champ).or(unit)?, head(&sim, id), on_screen(&sim))
+        };
         let input = InputV1::action(InputKindV1::Attack, InputTargetV1::target(pick));
         let same = base.is_some_and(|b| b.kind == InputKindV1::Attack.code() && b.target.target_id == pick);
         if same || !ctx.is_valid_input(&input) {
             return None;
         }
-        if self.last_log.is_none_or(|t| tick >= t + 120) {
-            self.last_log = Some(tick);
-            wlog(format!("t={tick} player {player} FRENZY LOCK on #{pick} (the AI had {:?})", base.map(|b| (b.kind, b.target.target_id))));
+        // one line a new target, with the [kind m= s=] head, capped for the launch (2026-11-03 night logs: 85% of the log)
+        if new_lock(self.locked, pick) {
+            self.locked = Some(pick);
+            if let Some(k) = noted("lock", shown) {
+                wlog(format!("{line} FRENZY LOCK on #{pick} (the AI had {:?}) #{k}", base.map(|b| (b.kind, b.target.target_id))));
+            }
         }
         Some(input)
     }
@@ -296,5 +332,16 @@ mod tests {
         assert!(blocked(10_000.0));
         assert!(blocked(25_000.0));
         assert!(!blocked(39_000.0));
+    }
+
+    #[test]
+    fn lock_lines_once_a_target_and_capped_for_the_launch() {
+        assert!(new_lock(None, 50));
+        assert!(!new_lock(Some(50), 50), "the same target: no line");
+        assert!(new_lock(Some(50), 51));
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
     }
 }

@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Kassadin as in League (needs League of Legends Heroes): replaces the main pack's Kassadin so Void Stone takes exactly 10% off the magic damage he takes, every spell cast near him (either team) charges Force Pulse, and Riftwalk lands next to the enemy champion it can kill, else the one in the back line with the most champions round it, never under an enemy tower. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-12",
+  "last_updated": "2026-11-04",
   "mod_id": "league_kassadin",
   "mod_type": "native",
   "name": "League Heroes: Kassadin's Void Stone, Force Pulse charge and Riftwalk landing (test)",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }

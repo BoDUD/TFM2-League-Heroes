@@ -1,4 +1,4 @@
-# 赛恩附加包（测试版 v0.1.4）
+# 赛恩附加包（测试版 v0.1.5）
 
 主包 `league` 保持纯数据。用户选了「主包数据 + 附加包复活」。这个附加包用原生代码做主包数据做不到的两件事：
 
@@ -23,6 +23,8 @@
 由 `make_override.py` 从 `tools/kit/build_sion.py` 的参数表 `P` 写入；`GUARD_T`、`GUARD_EVERY` 写在 `src/lib.rs`，单元测试核对参数表。
 
 - **倒下时的击杀（0.1.4，2026-11-03 的日志：42 次倒下里 8 次「killed by league_sion」）**：最后打他的英雄在亡灵期间死了又复活（新的实体），原来就算成赛恩自己、敌方丢了这个人头；现在算那个玩家现在的英雄，都没有就算最近的活着的敌方英雄，从不算自己（`killer`）。
+  0.1.5（2026-11-03 晚的日志：`FALL #3: … killed by league_sion#23`——最后打他的卡莉丝塔被亡灵打死了，敌方英雄一个也没活着）：
+  连敌方英雄都没有时，算最近的活着的敌方防御塔、小兵、召唤物或水晶（英雄联盟的「被处决」），中立野怪不算；只有这些全都没有才算他自己（`fallback_killer`）。
 
 ## 在游戏里测
 
@@ -41,7 +43,7 @@
 
 - `python addons/league_sion/make_override.py`：从参数表重新生成 `override/` 和 `text/`（先核对主包的赛恩和参数表一致）。
   主包的赛恩改了以后要重跑。
-- 在 `addons/` 下 `cargo test --release -p league_sion`：单元测试（亡灵掉血、击杀加多少、别人给的不死、参数、和参数表一致）。
+- 在 `addons/` 下 `cargo test --release -p league_sion`：单元测试（亡灵掉血、击杀加多少、别人给的不死、倒下时算谁的击杀、参数、和参数表一致）。
 - 在 `addons/` 下 `cargo build --release -p league_sion`（Windows）得到 `target/release/league_sion.dll`；
   `league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。

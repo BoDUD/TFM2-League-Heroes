@@ -204,6 +204,14 @@ pub fn give_back(damage: usize, first: bool, red: usize) -> usize {
     }
 }
 
+/// 挡下 `back` 以后：(现在把生命设成多少, 这一下扣完以后再加回的)。`on_damaged` 在这一下扣血之前调（11-03 晚的日志，
+/// league_xinzhao_guard 0.1.1）：先加上 `back`，扣完正好少挨这么多；生命最多设到上限，超出的那一截等这一下扣完再加回
+/// （0.1.3；0.1.2 直接丢了它：满血、快满血时正面挡下的伤害照样扣）。
+pub fn refund(now: usize, max: usize, back: usize) -> (usize, usize) {
+    let want = now.saturating_add(back);
+    (want.min(max), want.saturating_sub(max))
+}
+
 // ===================== 小工具 =====================
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -396,9 +404,25 @@ struct Heart {
     blocked_first: bool,
     blocked: usize,
     covered: usize,
+    /// 挡下的伤害里生命上限放不下的那一截（0.1.3）：这一下扣完血以后加回去（下一下伤害来时或下一拍）。
+    owed: usize,
 }
 
 impl Heart {
+    /// 这之前挨的打都扣完了：加回挡下时生命上限放不下的那一截。
+    fn pay_back(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        if self.owed == 0 {
+            return;
+        }
+        let owed = std::mem::take(&mut self.owed);
+        let Some((now, max)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
+        let hp = now.saturating_add(owed).min(max);
+        sim.entity_set_hp(me, hp);
+        if let Some(n) = tally(sim, "back") {
+            wlog(format!("{} BACK #{n} {owed} the cap held back: hp {now} -> {hp}/{max}", head(sim, me)));
+        }
+    }
+
     fn ally_attacks(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize) {
         let mut hits = Vec::new();
         for i in 0..sim.player_count() {
@@ -492,6 +516,7 @@ impl StablePassive for Heart {
         self.last.clear();
         self.raised = false;
         self.dir = None;
+        self.owed = 0;
         if tally(sim, "spawn").is_some() {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
             wlog(format!("{} SPAWN: the add-on's Braum (player {player}, team {team}), {:?}", head(sim, me), self.p));
@@ -503,11 +528,15 @@ impl StablePassive for Heart {
             self.raised = false;
             return;
         };
+        // every hit of the last tick has landed by now
+        self.pay_back(sim, me);
         self.ally_attacks(sim, me, team);
         self.shield(sim, me, team);
     }
 
     fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, attacker: usize, damage: usize) {
+        // this runs before the hit's health comes off, after the hits before it landed
+        self.pay_back(sim, me);
         if !self.raised || damage == 0 {
             return;
         }
@@ -524,7 +553,9 @@ impl StablePassive for Heart {
         // 挡下的伤害直接把血加回去（和赵信的远程减伤一样，entity_set_hp）：游戏 0.6.4 起原生被动的 heal 会飘绿色数字、
         // 记进治疗量、吃重伤——每次正面挨打一个 +数字，像是在回血；英雄联盟的坚不可摧是减伤。
         let Some((hp, max)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
-        sim.entity_set_hp(me, (hp + back).min(max));
+        let (set, over) = refund(hp, max, back);
+        sim.entity_set_hp(me, set);
+        self.owed += over;
         self.blocked += back;
         if let Some(n) = tally(sim, "block") {
             wlog(format!("{} BLOCK #{n} {} hit {damage} from the front -> {back} back{}", head(sim, me),
@@ -536,6 +567,7 @@ impl StablePassive for Heart {
         self.last.clear();
         self.raised = false;
         self.dir = None;
+        self.owed = 0;
     }
 }
 
@@ -633,6 +665,15 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_blocked_hit_never_lands_even_at_full_health() {
+        // the refund comes before the hit: at full health the part above the cap is given back once the hit landed
+        assert_eq!(refund(500, 1000, 120), (620, 0));
+        assert_eq!(refund(950, 1000, 120), (1000, 70));
+        let (set, over) = refund(1000, 1000, 80);
+        assert_eq!(set - 80 + over, 1000, "full health before, full health after");
+    }
 
     #[test]
     fn front_and_back() {

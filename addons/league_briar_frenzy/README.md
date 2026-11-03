@@ -1,4 +1,4 @@
-# 贝蕾亚附加包（测试版 v0.1.0，可选）
+# 贝蕾亚附加包（测试版 v0.1.1，可选）
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -22,6 +22,7 @@
 2. 把 `league_briar_frenzy` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 贝蕾亚 E 的说明开头是「【附加包】」、写着「撞上墙或单位的英雄」就说明换上了。
 4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_briar_frenzy.log`：`E #n on #7: pushed 14000 of 40000 -> hit a wall, STUNNED`、`FRENZY LOCK on #9`。
+   v0.1.1：`FRENZY LOCK` 带上 `[presim m= s=] t= #id` 开头，一次血狂里换了目标才记一行；它和 `SPAWN` 整个游戏一个计数（预模拟先记 40 行、之后每 200 行一行，你看的那场每行都记）。2026-11-03 夜里的日志 7054 行里 6188 行是 `FRENZY LOCK`（前一次启动 1.0 MB 里 85%）。玩法不变。
 
 ## 开发
 
