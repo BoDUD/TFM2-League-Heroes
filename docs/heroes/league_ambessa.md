@@ -55,7 +55,7 @@
 
 ### 安蓓萨附加包
 
-[安蓓萨附加包](../../addons/league_ambessa/README.md)：`league_ambessa` v0.1.0
+[安蓓萨附加包](../../addons/league_ambessa/README.md)：`league_ambessa` v0.1.1
 
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|

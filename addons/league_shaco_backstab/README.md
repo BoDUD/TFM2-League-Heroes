@@ -1,4 +1,4 @@
-# 萨科背刺附加包（测试版 v0.1.0，可选）
+# 萨科背刺附加包（测试版 v0.1.1，可选）
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -23,7 +23,8 @@
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_shaco_backstab` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 萨科普攻的说明开头是「【附加包】」、写着「从背后」就说明换上了。
-4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_shaco_backstab.log`：`BACKSTAB #n on #7: +60 physical (12 of 40 hits from behind)`。
+4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_shaco_backstab.log`：`BACKSTAB #n on #7: +60 physical (12 of 40 hits from behind)`（`#n` 是整个游戏的第几次，括号里是这一局的）。
+   v0.1.1：`BACKSTAB`、`SPAWN` 整个游戏一个计数（预模拟先记 40 行、之后每 200 行一行，你看的那场每行都记），参数只在第一行 `SPAWN` 写；以前每个萨科自己数「前 80 行」，2026-11-03 夜里的日志 1339 行里 1131 行是 `BACKSTAB`。玩法不变。
 
 ## 开发
 

@@ -65,6 +65,22 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// `[kind m= s=] t= #id`: which sim (a server presim or the match on screen), match and set (0.1.1: the lines had only
+/// `t= player`, 2026-11-03 night logs).
+fn head(sim: &StableSim<'_>, id: usize) -> String {
+    let o = sim.sim_origin().unwrap_or_default();
+    let kind = match SimOriginKindV1::from_code(o.kind) {
+        Some(SimOriginKindV1::ServerPresim) => "presim",
+        Some(SimOriginKindV1::ClientMatchView) => "view",
+        Some(SimOriginKindV1::ClientSpectate) => "spectate",
+        Some(SimOriginKindV1::ClientReplay) => "replay",
+        Some(SimOriginKindV1::Tool) => "tool",
+        _ => "unknown",
+    };
+    let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
+    format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
+}
+
 // ===================== 挑目标 =====================
 
 /// An enemy champion in reach: id and how many enemy champions stand within the slam's radius of him (him included).
@@ -117,7 +133,7 @@ impl StablePlayerAi for Malphite {
         let busy = base.is_some_and(|b| {
             matches!(InputKindV1::from_code(b.kind), Some(InputKindV1::Skill | InputKindV1::Skill2 | InputKindV1::Return))
         });
-        let (spots, free) = {
+        let (spots, free, line) = {
             let sim = ctx.sim()?;
             let pl = sim.get_player(player)?;
             let free = pl.level() >= ULT_LEVEL && pl.cooldowns().map(|c| c.3) == Some(0);
@@ -135,7 +151,7 @@ impl StablePlayerAi for Malphite {
                 .filter(|&&f| sim.distance_sq(id, f) <= reach)
                 .map(|&f| Spot { id: f, around: foes.iter().filter(|&&g| sim.distance_sq(f, g) <= slam).count() })
                 .collect();
-            (spots, free)
+            (spots, free, head(&sim, id))
         };
         let spots: Vec<Spot> = spots.into_iter().filter(|s| ctx.is_valid_input(&ult(s.id))).collect();
         let pick = best(&spots, ai)?;
@@ -145,7 +161,7 @@ impl StablePlayerAi for Malphite {
         }
         if self.last_log.is_none_or(|t| tick >= t + LOG_EVERY) {
             self.last_log = Some(tick);
-            wlog(format!("t={tick} player {player} MALPHITE R -> #{} ({} champions around), the AI {}", pick.id, pick.around,
+            wlog(format!("{line} player {player} MALPHITE R -> #{} ({} champions around), the AI {}", pick.id, pick.around,
                          match ai { Some(x) => format!("had #{x}"), None => "had not cast it".to_string() }));
         }
         Some(ult(pick.id))

@@ -10,14 +10,15 @@
 //! - `boom`：终点 q_r 内的敌人受 q2_dmg + q2_ratio% 攻击力；再放一颗炮弹从终点沿原路飞回出手的地方（`back`：路上没被
 //!   爆炸炸到的敌人各受一次同样的伤害）——「弹回来」。
 //!
-//! 输入里带着这一发的信息：`x`/`y` 终点，`dir_x`/`dir_y` 出手的地方，`target_id` 1 = 撞了墙。
+//! 这一发（终点、出手的地方、撞墙了没有）记在 [`SHOTS`] 里，按（这份模拟的编号、格雷福斯）；排的 `bomb` / `boom` 只带终点
+//! （普通的位置输入），到时按终点找回这一发（2026-11-04：以前塞在输入的 `dir_x` / `dir_y` / `target_id` 里，排队后丢了）。
 
 use std::collections::HashMap;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
-use super::{counted, head, maps, params_of, sn, who, wlog, ID};
+use super::{counted, head, maps, params_of, sim_of, sn, who, wlog, ID};
 
 /// 墙格的边长（世界单位）。
 pub const CELL: f64 = 32_000.0;
@@ -120,11 +121,50 @@ fn alive_at(sim: &StableSim<'_>, id: usize) -> Option<Pt> {
     Some((x as f64, y as f64))
 }
 
-/// 这一发的信息塞进输入：终点、出手的地方、撞墙了没有。
-fn carry(end: Pt, from: Pt, wall: bool) -> InputTargetV1 {
-    let (x, y) = upos(end);
-    let (fx, fy) = upos(from);
-    InputTargetV1 { kind: InputTargetKindV1::Pos.code(), target_id: wall as usize, dir_x: fx as i64, dir_y: fy as i64, x, y }
+/// 一发炮弹：终点、出手的地方、撞墙了没有。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Shot {
+    pub end: (u64, u64),
+    pub from: (u64, u64),
+    pub wall: bool,
+}
+
+/// 还没炸完的炮弹，按（这份模拟的编号 `SIM_TAG`、格雷福斯）记。2026-11-04 修（11-03 夜里的日志：7 发「stopped by a wall」，
+/// 43 次 Q BOOM 全是「after the fuse」）：以前这一发塞在排队效果的输入里（出手的地方在 dir_x / dir_y，撞墙在 target_id），
+/// 排队只留下位置输入的 x、y——撞了墙的照样等满 q_fuse，炸完飞回来的炮弹飞向地图的 (0, 0)，不是出手的地方。
+pub static SHOTS: LazyLock<Mutex<HashMap<(u64, usize), Vec<Shot>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 一个格雷福斯最多记这么多发（Q 的冷却比飞行加引信长得多，一般只有一发）。
+const MOST_SHOTS: usize = 4;
+/// 按终点找回这一发：差这么多以内都算（排队把位置原样带回来，留一点余地）。
+pub const SAME_END: u64 = 1_000;
+
+/// A shot of `row` on its way.
+pub fn remember(row: (u64, usize), shot: Shot) {
+    let mut shots = SHOTS.lock().unwrap_or_else(|e| e.into_inner());
+    let list = shots.entry(row).or_default();
+    list.push(shot);
+    if list.len() > MOST_SHOTS {
+        list.remove(0);
+    }
+}
+
+/// The shot of `row` that ends at `end` (the nearest end within `SAME_END`); `take` takes it off.
+pub fn shot_at(row: (u64, usize), end: (u64, u64), take: bool) -> Option<Shot> {
+    let d2 = |a: (u64, u64)| {
+        let (dx, dy) = (a.0.abs_diff(end.0) as u128, a.1.abs_diff(end.1) as u128);
+        dx * dx + dy * dy
+    };
+    let mut shots = SHOTS.lock().unwrap_or_else(|e| e.into_inner());
+    let list = shots.get_mut(&row)?;
+    let i = (0..list.len()).filter(|&i| d2(list[i].end) <= (SAME_END as u128).pow(2)).min_by_key(|&i| d2(list[i].end))?;
+    let shot = list[i];
+    if take {
+        list.remove(i);
+        if list.is_empty() {
+            shots.remove(&row);
+        }
+    }
+    Some(shot)
 }
 
 fn queue(sim: &mut StableSim<'_>, stage: &str, caster: usize, input: InputTargetV1, delay: usize) {
@@ -156,8 +196,9 @@ fn fly(sim: &mut StableSim<'_>, caster: usize, from: Pt, to: Pt, width: usize, s
     sim.spawn_projectile(&sn("q_shell"), &format!("{ID}:{effect}"), &spec)
 }
 
-/// 爆炸炸到过的单位：飞回来的炮弹不再打它们（按这局的种子和格雷福斯的编号，记最近一次爆炸）。
-static BLASTED: LazyLock<Mutex<HashMap<(u64, usize), Vec<usize>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 爆炸炸到过的单位：飞回来的炮弹不再打它们（按这份模拟的编号和格雷福斯，记最近一次爆炸；2026-11-04 以前按这局的种子，
+/// 并排跑的两份预模拟共用一份）。
+pub static BLASTED: LazyLock<Mutex<HashMap<(u64, usize), Vec<usize>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 // ===================== 四步 =====================
 
@@ -186,7 +227,9 @@ fn launch(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let d = ((end.0 - here.0).powi(2) + (end.1 - here.1).powi(2)).sqrt();
     let flight = (d / p.q_speed as f64).ceil() as usize;
     let ok = fly(sim, caster, here, end, p.q_w, p.q_speed, "qhit");
-    queue(sim, "bomb", caster, carry(end, here, wall), flight);
+    let (x, y) = upos(end);
+    remember((sim_of(sim, caster), caster), Shot { end: (x, y), from: upos(here), wall });
+    queue(sim, "bomb", caster, InputTargetV1::pos(x, y), flight);
     if let Some(k) = counted("q") {
         wlog(format!("{} Q #{k}: the shell flies {d:.0} ({}){}", head(sim, caster),
                      if wall { "stopped by a wall" } else { "its full range" },
@@ -202,7 +245,8 @@ fn qhit(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, back: bool
     let t = input.target_id;
     let p = params_of(sim, caster);
     if back {
-        let done = BLASTED.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim.seed(), caster)).is_some_and(|v| v.contains(&t));
+        let row = (sim_of(sim, caster), caster);
+        let done = BLASTED.lock().unwrap_or_else(|e| e.into_inner()).get(&row).is_some_and(|v| v.contains(&t));
         if done {
             return;
         }
@@ -219,21 +263,25 @@ fn qhit(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, back: bool
     }
 }
 
-/// 炸弹落地：画面、引信音效，排爆炸。
+/// 炸弹落地：画面、引信音效，排爆炸（撞了墙的 q_wall 后就炸）。
 fn bomb(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let p = params_of(sim, caster);
-    let wall = input.target_id == 1;
+    let wall = shot_at((sim_of(sim, caster), caster), (input.x, input.y), false).is_some_and(|s| s.wall);
     let at = InputTargetV1::pos(input.x, input.y);
     sim.play_view_effect(&sn(if wall { "q_blast_w" } else { "q_blast" }), caster, &at, 0, 0, 0);
     sim.play_sfx(&sn("q_fuse"), caster, &at);
-    queue(sim, "boom", caster, input, if wall { p.q_wall } else { p.q_fuse });
+    queue(sim, "boom", caster, at, if wall { p.q_wall } else { p.q_fuse });
 }
 
 /// 爆炸：一圈，然后炮弹沿原路飞回去。
 fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let p = params_of(sim, caster);
+    let row = (sim_of(sim, caster), caster);
+    let shot = shot_at(row, (input.x, input.y), true);
+    let wall = shot.is_some_and(|s| s.wall);
     let end = (input.x as f64, input.y as f64);
-    let from = (input.dir_x as f64, input.dir_y as f64);
+    // back to where he shot from (his own spot when the shot is not found: his tag gone with him)
+    let from = shot.map(|s| (s.from.0 as f64, s.from.1 as f64)).or_else(|| alive_at(sim, caster));
     let at = InputTargetV1::pos(input.x, input.y);
     sim.play_sfx(&sn("q_boom"), caster, &at);
     let (team, ad) = sim.get_entity(caster).map_or((usize::MAX, 0), |e| (e.team(), e.stat().attack));
@@ -254,12 +302,13 @@ fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
         sim.deal_damage_typed(caster, id, amount, DamageTypeV1::Ad, AttackTypeV1::Skill);
         sim.play_view_effect(&sn("q_hit2"), caster, &InputTargetV1::target(id), 0, 0, 0);
     }
-    BLASTED.lock().unwrap_or_else(|e| e.into_inner()).insert((sim.seed(), caster), struck.clone());
-    let ok = fly(sim, caster, end, from, p.q_w, p.q_speed * 2, "qback");
+    BLASTED.lock().unwrap_or_else(|e| e.into_inner()).insert(row, struck.clone());
+    let ok = from.is_some_and(|from| fly(sim, caster, end, from, p.q_w, p.q_speed * 2, "qback"));
     if let Some(k) = counted("q boom") {
-        wlog(format!("{} Q BOOM #{k}: {} - the blast struck {} and the shell flies back{}", head(sim, caster),
-                     if input.target_id == 1 { "at the wall" } else { "after the fuse" }, struck.len(),
-                     if ok { "" } else { " (spawn_projectile refused)" }));
+        wlog(format!("{} Q BOOM #{k}: {} - the blast struck {} and the shell flies back{}{}", head(sim, caster),
+                     if wall { "at the wall" } else { "after the fuse" }, struck.len(),
+                     if ok { "" } else if from.is_none() { " (nowhere to fly back to)" } else { " (spawn_projectile refused)" },
+                     if shot.is_none() { " - its shot was not found" } else { "" }));
     }
 }
 
@@ -308,8 +357,23 @@ mod tests {
     }
 
     #[test]
-    fn the_input_carries_the_shot() {
-        let i = carry((100_000.0, 50_000.0), (30_000.0, 50_000.0), true);
-        assert_eq!((i.x, i.y, i.dir_x, i.dir_y, i.target_id), (100_000, 50_000, 30_000, 50_000, 1));
+    fn a_shot_waits_in_its_own_row_found_by_its_end() {
+        // the queue hands back only the position (11-03 night: the wall flag in target_id never arrived): the wall and
+        // where he shot from come back from the row, found by the end; twin presims (Graves #24 in both) keep their own
+        let (a, b) = ((900_001, 24), (900_002, 24));
+        let shot = Shot { end: (100_000, 50_000), from: (30_000, 50_000), wall: true };
+        remember(a, shot);
+        remember(b, Shot { wall: false, ..shot });
+        let plain = InputTargetV1::pos(100_000, 50_000);
+        assert_eq!((plain.dir_x, plain.dir_y, plain.target_id), (0, 0, 0));
+        assert_eq!(shot_at(a, (plain.x, plain.y), false), Some(shot));   // the bomb lands: a wall's fuse
+        assert_eq!(shot_at(a, (100_400, 49_800), true), Some(shot));     // the boom takes it
+        assert_eq!(shot_at(a, (100_000, 50_000), false), None);
+        assert_eq!(shot_at(b, (100_000, 50_000), true).map(|s| s.wall), Some(false));
+        assert!(!SHOTS.lock().unwrap().contains_key(&b), "an emptied row goes");
+        // another shot's end is not this one's
+        remember(a, shot);
+        assert_eq!(shot_at(a, (100_000 + SAME_END + 1, 50_000), true), None);
+        assert_eq!(shot_at(a, (100_000, 50_000), true), Some(shot));
     }
 }

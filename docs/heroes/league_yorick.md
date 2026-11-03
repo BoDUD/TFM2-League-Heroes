@@ -55,7 +55,7 @@
 
 ### 约里克附加包
 
-[约里克附加包](../../addons/league_yorick/README.md)：`league_yorick` v0.1.0
+[约里克附加包](../../addons/league_yorick/README.md)：`league_yorick` v0.1.1
 
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|

@@ -10,6 +10,8 @@
 //!   英雄联盟里这个护盾只挡魔法伤害；被动的受伤钩子（`on_damaged`）不带伤害类型，所以这里挡所有伤害（README 写明）。
 //! - **嘲讽按人数**：W 放开时，`w_r` 以内的敌方英雄越多，嘲讽越久（英雄联盟里蓄力越久嘲讽越久，人多时玩家会蓄满）：
 //!   1 个 `TAUNT_ONE`、2 个 `w_taunt`（主包的数）、3 个及以上 `TAUNT_MANY` tick；小兵野怪同样时长。
+//!   「以内」算两人的碰撞半径（数据的 W 是 RangeEffect 圆，打中谁就是这么算的），被嘲讽的英雄自己一定算一个（0.1.5，
+//!   2026-11-03 晚的日志：只量中心，被 W 打中的英雄常常一个也不算，`TAUNT` 里一半写着「0 enemy champions near」）。
 //! - **英雄登场选人**：在离加里奥至少 `r_far`、身边 `r_sur` 以内有敌方英雄的友方英雄里，选「被控着，或者血量比例最低」的那个，
 //!   身边 `r_r` 以内敌方英雄多的优先（每多一个当作血量少 10%）；只有一个敌人、没被控、血量 80% 以上的不算苦战，不飞。
 //!   选中的友方英雄让加里奥身上出现 1 tick 的 `league_galio_r_this`，数据接着走护盾、引导、飞过去。
@@ -103,6 +105,20 @@ fn counted(kind: &'static str) -> Option<usize> {
     (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
+/// The `Params` the log showed last (they come from the champion data: the same in every sim of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only if they ever differ (league_talon_vault's way; 0.1.5, the 11-03
+/// night logs: every Galio of every presim wrote them at every spawn, 761 SPAWN lines - 140 of a 184 KB log).
+fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(*p);
+    true
+}
+
 fn head(sim: &StableSim<'_>, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
@@ -134,6 +150,15 @@ pub fn taunt_ticks(n: usize, mid: usize) -> usize {
         2 => mid,
         _ => TAUNT_MANY,
     }
+}
+
+/// 嘲讽数的敌方英雄：中心距离不超过 `w_r` + 他的半径 `my_r` + 那个英雄的半径（数据的 W 是 RangeEffect 圆，算两人的碰撞
+/// 半径），被嘲讽的英雄（`taunted`，它就是被 W 打中的）不管量出来多远都算一个。`foes`：(id, 位置, 半径)。
+/// 0.1.4 只量中心到 `w_r`：贴着圈边被打中的英雄不算，一次 W 打中两个英雄也写「0 enemy champions near」。
+pub fn champions_near(at: (f64, f64), my_r: f64, w_r: f64, foes: &[(usize, (f64, f64), f64)], taunted: Option<usize>)
+                      -> usize {
+    let others = foes.iter().filter(|f| Some(f.0) != taunted && dist(at, f.1) <= w_r + my_r + f.2).count();
+    others + usize::from(taunted.is_some())
 }
 
 /// 一个友方英雄的情况。
@@ -267,8 +292,14 @@ impl StableEffectType for Taunt {
         }
         let target = input.target_id;
         let p = params_of(caster);
-        let (Some(at), Some(team)) = (alive_at(sim, caster), sim.get_entity(caster).map(|e| e.team())) else { return };
-        let n = champions(sim, team, false).iter().filter(|c| dist(at, c.1) <= p.w_r as f64).count();
+        let (Some(at), Some((team, my_r))) = (alive_at(sim, caster),
+                                              sim.get_entity(caster).map(|e| (e.team(), e.radius() as f64))) else { return };
+        // both bodies count, as in the data's circle, and the champion taunted is one (0.1.5)
+        let radius = |id: usize| sim.get_entity(id).map_or(0.0, |e| e.radius() as f64);
+        let foes: Vec<(usize, (f64, f64), f64)> =
+            champions(sim, team, false).into_iter().map(|(id, pos)| (id, pos, radius(id))).collect();
+        let taunted = sim.get_entity(target).is_some_and(|e| e.is_champion()).then_some(target);
+        let n = champions_near(at, my_r, p.w_r as f64, &foes, taunted);
         let ticks = taunt_ticks(n, p.w_taunt);
         let mut cc = CcV1::of_kind(CcKindV1::Taunt, ticks as u64);
         cc.target = caster;
@@ -501,8 +532,14 @@ impl StablePassive for Colossus {
         sim.entity_remove_buff(me, &tag);
         sim.add_buff(me, &BuffV1::named(&tag));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Galio (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        // the Params in the first SPAWN line of a launch only, the line itself counted like the others (0.1.5)
+        let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
+        let k = counted("spawn");
+        if k.is_some() || params.is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN{}: the add-on's Galio (player {player}, team {team}){}", head(sim, me),
+                         k.map_or_else(String::new, |k| format!(" #{k}")), params.unwrap_or_default()));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -601,6 +638,34 @@ mod tests {
         assert_eq!(taunt_ticks(1, 70), TAUNT_ONE);
         assert_eq!(taunt_ticks(2, 70), 70);
         assert_eq!(taunt_ticks(5, 70), TAUNT_MANY);
+    }
+
+    #[test]
+    fn the_taunt_counts_both_bodies_and_the_taunted_champion() {
+        let (at, my_r, w_r) = ((0.0, 0.0), 6_000.0, 26_000.0);
+        // the 11-03 night logs: `TAUNT #5 league_xinzhao#19 ... (0 enemy champions near)` and in the same tick
+        // `TAUNT #6 league_rell#22 ... (0 ...)` - both hit by the circle, both past 26000 centre to centre
+        let foes = [(19, (31_000.0, 0.0), 6_000.0), (22, (0.0, 33_000.0), 7_000.0)];
+        assert_eq!(foes.iter().filter(|f| dist(at, f.1) <= w_r).count(), 0, "0.1.4's count");
+        assert_eq!(champions_near(at, my_r, w_r, &foes, Some(19)), 2);
+        assert_eq!(champions_near(at, my_r, w_r, &foes, Some(22)), 2);
+        assert_eq!(taunt_ticks(champions_near(at, my_r, w_r, &foes, Some(19)), 70), 70);
+        // one past both bodies does not count; the taunted one always does, once, listed or not (untargetable)
+        let far = [(1, (39_000.0, 0.0), 6_000.0), (2, (20_000.0, 0.0), 6_000.0)];
+        assert_eq!(champions_near(at, my_r, w_r, &far, Some(2)), 1);
+        assert_eq!(champions_near(at, my_r, w_r, &far, Some(1)), 2);
+        assert_eq!(champions_near(at, my_r, w_r, &far, Some(7)), 2);
+        // a minion taunted (no champion): only the champions within reach
+        assert_eq!(champions_near(at, my_r, w_r, &far, None), 1);
+        assert_eq!(champions_near(at, my_r, w_r, &[], None), 0);
+    }
+
+    #[test]
+    fn the_params_are_logged_once() {
+        let p = Params::default();
+        assert!(params_new(&p));
+        assert!(!params_new(&p));
+        assert!(params_new(&Params { w_r: 1, ..Params::default() }), "other Params: again");
     }
 
     #[test]

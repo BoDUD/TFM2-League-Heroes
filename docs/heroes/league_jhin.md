@@ -55,7 +55,7 @@
 
 ### 烬低语附加包
 
-[烬低语附加包](../../addons/league_jhin_whisper/README.md)：`league_jhin_whisper` v0.1.0
+[烬低语附加包](../../addons/league_jhin_whisper/README.md)：`league_jhin_whisper` v0.1.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

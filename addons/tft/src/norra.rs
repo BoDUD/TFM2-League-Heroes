@@ -6,7 +6,8 @@
 //! - **寄情琐物一个一个撒、一个一个踩**（`tft_norra:drop`：琐物冷却好了的 Q / E 落地）：手游按等级撒 2/3/4 个，这里 3 个：
 //!   落点一个茶杯、左右 `TRINKET_DX` 各一个水晶（琐物那张图切成三块，各在各的位置播），`p_life` 拍内哪个敌方英雄先走到
 //!   哪个的 `p_tr` 以内，那个琐物就飞到他身上炸开：`p_dmg` + 法强 `p_ratio`% 魔法伤害和线缕，那个琐物没了，别的还在。
-//!   每个琐物是一个每拍重排一次的效果（`tft_norra:trinket`），位置、到期的拍、哪一块、撒下的拍、引爆了没有都记在它的输入里。
+//!   琐物（位置、到期的拍、哪一块、撒下的拍、引爆了没有）记在全局表里（按这份模拟的编号 `SIM_TAG` 和诺拉），每拍排一次
+//!   效果（`tft_norra:trinket`，普通的位置输入），到点时把这一行到点的琐物都看一遍。
 //! - **技能命中英雄缩短琐物冷却**：技能（Q、W、E）命中敌方英雄，琐物冷却减少总冷却的 20%：诺拉身上 `tft_norra_p_cd`
 //!   剩下的拍数减去 `p_cd` 的 `REFUND`%（E 的命中调用 `tft_norra:refund`，Q 的 `tft_norra:surge` 和奇异旅程自己减）。
 //! - **回忆涌现对线缕目标多打最大生命、引爆琐物**（`tft_norra:surge`：Q 的命中）：打中的是英雄：身上已经有线缕（这一发
@@ -21,7 +22,8 @@
 //!   都碰到也只算一次），第四波多 `r_last`%；每个球碰到的第一个英雄减速 `r_slow`% `r_slow_t` 拍。
 //!
 //! 数字从英雄数据的 `passive.params` 来（build_norra.py 从参数表 P 写进去），按诺拉的单位编号记一份给效果用（服务端
-//! 预模拟和你看的那场是同一份数字）；琐物、毛线球这些会变的东西都在模拟里（排着的效果、身上的状态），不用全局变量。
+//! 预模拟和你看的那场是同一份数字）；地上的琐物、还没放的毛线球按这份模拟的编号记在全局表里（2026-11-04：以前塞在排队
+//! 效果的输入里，排队只带回位置，琐物第一拍就没了、毛线球一波都不放），身上的状态在模拟里。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft_norra.log`，每次启动游戏重写。
 
 use std::collections::HashMap;
@@ -31,6 +33,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+use crate::sim_tag::{due, forget, wait, Key, Rows, SimTag};
 
 const ID: &str = "tft_norra";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -94,6 +98,13 @@ const NO_CAST: [CcKindV1; 8] = [
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 
+/// The tests log into the temp folder (lib.rs's way: the trinket and volley tests' lines must not land in the game's log).
+#[cfg(test)]
+fn log_path() -> PathBuf {
+    std::env::temp_dir().join("tft_norra_test.log")
+}
+
+#[cfg(not(test))]
 fn log_path() -> PathBuf {
     if let Some(path) = std::env::var_os("TFT_NORRA_LOG") {
         return PathBuf::from(path);
@@ -278,6 +289,20 @@ fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).cloned().unwrap_or_default()
 }
 
+/// 地上的琐物、还没放的毛线球（裂隙的中心、第几波），按（这份模拟的编号 `SIM_TAG`、诺拉）记（2026-11-04，11-03 夜里的日志：
+/// 希尔科的畸变体塞在排队效果的输入里，一口没咬——排队只带回位置的 x、y）。以前琐物也是这样塞的（到期的拍在 target_id，
+/// 哪一块和引爆在 dir_x，撒下的拍在 dir_y），取出来到期的拍是 0，第一拍就没了；毛线球的第几波在 target_id，取出来是 0，
+/// 一波都不放。现在排的效果只带位置，到点时把这一行里到点的都拿出来（sim_tag.rs 的 `Rows`）。
+const TAG: SimTag = SimTag("tft_norra_sim:");
+static TRINKETS: LazyLock<Rows<Trinket>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static VOLLEYS: LazyLock<Rows<((u64, u64), usize)>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// Her new life: the trinkets and volleys of the last one stopped with her.
+fn new_life(no: u64) {
+    forget(&TRINKETS, no);
+    forget(&VOLLEYS, no);
+}
+
 // ===================== 计算 =====================
 
 /// base + ratio% of the ability power.
@@ -323,8 +348,8 @@ pub fn yarn_line(c: (u64, u64), r: u64, through: Option<(u64, u64)>) -> ((u64, u
     ((c.0.saturating_sub(half), y), (c.0 + half, y))
 }
 
-/// A trinket on the ground: the queued effect's input carries it (a position; the tick it goes in `target_id`; its
-/// piece and whether a Memory Surge primed it in `dir_x`: side + 1, +4 when primed; the tick it was dropped in `dir_y`).
+/// A trinket on the ground (its row in [`TRINKETS`]): where, the tick it goes, its piece (-1 left, 0 the teacup, 1
+/// right), the tick it was dropped, whether a Memory Surge primed it.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Trinket {
     pub at: (u64, u64),
@@ -335,28 +360,6 @@ pub struct Trinket {
 }
 
 impl Trinket {
-    pub fn input(&self) -> InputTargetV1 {
-        InputTargetV1 {
-            kind: InputTargetKindV1::Pos.code(),
-            target_id: self.until,
-            dir_x: self.side + 1 + if self.primed { 4 } else { 0 },
-            dir_y: self.born as i64,
-            x: self.at.0,
-            y: self.at.1,
-        }
-    }
-
-    pub fn from_input(i: &InputTargetV1) -> Option<Self> {
-        let ok = i.kind == InputTargetKindV1::Pos.code() && (0..8).contains(&i.dir_x) && i.dir_x & 3 != 3 && i.dir_y >= 0;
-        ok.then(|| Self {
-            at: (i.x, i.y),
-            until: i.target_id,
-            side: (i.dir_x & 3) - 1,
-            born: i.dir_y as usize,
-            primed: i.dir_x & 4 != 0,
-        })
-    }
-
     pub fn piece(&self) -> &'static str {
         PIECES[(self.side + 1) as usize]
     }
@@ -424,6 +427,18 @@ fn put(sim: &mut StableSim<'_>, id: usize, buff: &BuffV1) {
     sim.add_buff(id, buff);
 }
 
+/// One of her effects queued `delay` ticks on with a plain position (the queue keeps a position's x and y, nothing
+/// more): whether it was taken; a refusal is logged (2026-11-04).
+fn queue(sim: &mut StableSim<'_>, fx: &str, me: usize, at: (u64, u64), delay: usize) -> bool {
+    let ok = sim.queue_effect(fx, AttackTypeV1::Skill, me, &InputTargetV1::pos(at.0, at.1), delay.max(1));
+    if !ok {
+        if let Some(k) = counted("refused") {
+            wlog(format!("{} REFUSED #{k}: queue_effect({fx})", head(sim, me)));
+        }
+    }
+    ok
+}
+
 fn slow(name: &str, pct: usize, ticks: usize) -> BuffV1 {
     let mut b = BuffV1::timed(name, ticks);
     b.move_speed_mult = -(pct as i32);
@@ -455,18 +470,24 @@ fn cut_cooldown(sim: &mut StableSim<'_>, me: usize, id: usize, by: &str) {
 
 // ===================== 寄情琐物 =====================
 
+/// Trinket `t` waits in her row for the next tick; its effect is queued for then.
+fn lay(sim: &mut StableSim<'_>, me: usize, row: Key, t: Trinket) -> bool {
+    wait(&TRINKETS, row, sim.tick() + 1, t);
+    queue(sim, TRINKET_FX, me, t.at, 1)
+}
+
 /// A Q or E with the trinkets ready landed (the copy's `when p_cd` has put the cooldown on): three trinkets.
 struct Drop;
 impl StableEffectType for Drop {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
         let Some(at) = point(sim, &input) else { return };
         let p = params_of(me);
-        let tick = sim.tick();
+        let (tick, row) = (sim.tick(), TAG.key(sim, me, me));
         let mut queued = 0;
         for (side, spot) in trinket_spots(at) {
             let t = Trinket { at: spot, until: tick + p.p_life, side, born: tick, primed: false };
             sim.play_view_effect(t.piece(), me, &InputTargetV1::pos(spot.0, spot.1), 0, 0, 0);
-            if sim.queue_effect(TRINKET_FX, AttackTypeV1::Skill, me, &t.input(), 1) {
+            if lay(sim, me, row, t) {
                 queued += 1;
             }
         }
@@ -480,40 +501,47 @@ impl StableEffectType for Drop {
 
 /// A trinket, every tick while it lies there: the first enemy champion on it (within p_tr; q_prime_r once a Memory
 /// Surge primed it) takes it.
+fn trinket(sim: &mut StableSim<'_>, me: usize, row: Key, t: Trinket) {
+    let tick = sim.tick();
+    if tick >= t.until || sim.get_entity(me).is_none() {
+        return;
+    }
+    let p = params_of(me);
+    let primed = t.primed || (tick >= t.born + PRIME_AGE && has(sim, me, Q_PRIME));
+    let reach = if primed { p.q_prime_r.max(p.p_tr) } else { p.p_tr };
+    if let Some(id) = nearest(&foes(sim, me), t.at, reach) {
+        let dmg = magic(p.p_dmg, p.p_ratio, ap_of(sim, me));
+        sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+        threads(sim, &p, id);
+        let on = InputTargetV1::target(id);
+        sim.play_view_effect(P_BURST, me, &on, 0, 0, 0);
+        sim.play_sfx(SFX_BURST, me, &on);
+        if let Some(k) = counted("burst") {
+            wlog(format!("{} TRINKET #{k} ({}{}) flies to {}: {dmg} magic + the Threads", head(sim, me), t.piece(),
+                         if primed { ", primed" } else { "" }, name_of(sim, id)));
+        }
+        return;
+    }
+    if primed && !t.primed {
+        if let Some(k) = counted("primed") {
+            wlog(format!("{} PRIMED #{k}: {} at ({}, {}) now flies to anyone within {}", head(sim, me), t.piece(),
+                         t.at.0, t.at.1, reach));
+        }
+    }
+    if (tick - t.born) % p.p_show == 0 {
+        sim.play_view_effect(t.piece(), me, &InputTargetV1::pos(t.at.0, t.at.1), 0, 0, 0);
+    }
+    lay(sim, me, row, Trinket { primed, ..t });
+}
+
+/// A trinket's tick came: every trinket of hers due by now is looked at.
 struct Trinkets;
 impl StableEffectType for Trinkets {
-    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
-        let Some(t) = Trinket::from_input(&input) else { return };
-        let tick = sim.tick();
-        if tick >= t.until || sim.get_entity(me).is_none() {
-            return;
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
+        let row = TAG.key(sim, me, me);
+        for t in due(&TRINKETS, row, sim.tick()) {
+            trinket(sim, me, row, t);
         }
-        let p = params_of(me);
-        let primed = t.primed || (tick >= t.born + PRIME_AGE && has(sim, me, Q_PRIME));
-        let reach = if primed { p.q_prime_r.max(p.p_tr) } else { p.p_tr };
-        if let Some(id) = nearest(&foes(sim, me), t.at, reach) {
-            let dmg = magic(p.p_dmg, p.p_ratio, ap_of(sim, me));
-            sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
-            threads(sim, &p, id);
-            let on = InputTargetV1::target(id);
-            sim.play_view_effect(P_BURST, me, &on, 0, 0, 0);
-            sim.play_sfx(SFX_BURST, me, &on);
-            if let Some(k) = counted("burst") {
-                wlog(format!("{} TRINKET #{k} ({}{}) flies to {}: {dmg} magic + the Threads", head(sim, me), t.piece(),
-                             if primed { ", primed" } else { "" }, name_of(sim, id)));
-            }
-            return;
-        }
-        if primed && !t.primed {
-            if let Some(k) = counted("primed") {
-                wlog(format!("{} PRIMED #{k}: {} at ({}, {}) now flies to anyone within {}", head(sim, me), t.piece(),
-                             t.at.0, t.at.1, reach));
-            }
-        }
-        if (tick - t.born) % p.p_show == 0 {
-            sim.play_view_effect(t.piece(), me, &InputTargetV1::pos(t.at.0, t.at.1), 0, 0, 0);
-        }
-        sim.queue_effect(TRINKET_FX, AttackTypeV1::Skill, me, &Trinket { primed, ..t }.input(), 1);
     }
 }
 
@@ -569,10 +597,11 @@ impl StableEffectType for Rift {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
         let Some(c) = point(sim, &input) else { return };
         let p = params_of(me);
+        let (tick, row) = (sim.tick(), TAG.key(sim, me, me));
         let mut queued = 0;
         for k in 1..=4 {
-            let v = InputTargetV1 { target_id: k, ..InputTargetV1::pos(c.0, c.1) };
-            if sim.queue_effect(VOLLEY_FX, AttackTypeV1::Skill, me, &v, p.r_gap * k) {
+            wait(&VOLLEYS, row, tick + p.r_gap * k, (c, k));
+            if queue(sim, VOLLEY_FX, me, c, p.r_gap * k) {
                 queued += 1;
             }
         }
@@ -583,14 +612,20 @@ impl StableEffectType for Rift {
     }
 }
 
-/// Volley `target_id` (1-4): a yarn ball from each end of the rift along a line through a champion inside.
+/// A volley's tick came: every volley of hers due by now flies.
 struct Volley;
 impl StableEffectType for Volley {
-    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
-        if input.kind != InputTargetKindV1::Pos.code() || !(1..=4).contains(&input.target_id) {
-            return;
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
+        let row = TAG.key(sim, me, me);
+        for (c, k) in due(&VOLLEYS, row, sim.tick()) {
+            self.fly(sim, me, c, k);
         }
-        let (c, k) = ((input.x, input.y), input.target_id);
+    }
+}
+
+impl Volley {
+    /// Volley `k` (1-4) of the rift at `c`: a yarn ball from each end of the rift along a line through a champion inside.
+    fn fly(&self, sim: &mut StableSim<'_>, me: usize, c: (u64, u64), k: usize) {
         let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return };
         let p = params_of(me);
         let r2 = p.r_r.saturating_mul(p.r_r);
@@ -676,6 +711,8 @@ impl StableEffectType for Yarn {
 #[derive(Clone, Default)]
 struct Journey {
     p: Params,
+    /// This simulation's number (`SIM_TAG`), drawn at her first spawn.
+    sim: u64,
 }
 
 impl Journey {
@@ -719,6 +756,9 @@ impl StablePassive for Journey {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        // her trinkets and volleys go by this number (2026-11-04); a new life starts without the last one's
+        TAG.spawn(sim, me, &mut self.sim);
+        new_life(self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p.clone());
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -764,6 +804,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::sim_tag::mock::{step, with_sim, Unit, World};
 
     #[test]
     fn params_come_from_the_champion_data() {
@@ -800,18 +841,67 @@ mod tests {
         assert!(TRINKET_DX as u64 > Params::default().p_tr);
     }
 
-    #[test]
-    fn a_trinket_rides_in_its_input() {
-        for side in -1..=1 {
-            for primed in [false, true] {
-                let t = Trinket { at: (123_456, 78_901), until: 9_999, side, born: 9_759, primed };
-                assert_eq!(Trinket::from_input(&t.input()), Some(t));
-            }
+    /// Her queued effects, as the game fires them.
+    fn fire(sim: &mut StableSim<'_>, name: &str, caster: usize, input: InputTargetV1) {
+        match name {
+            TRINKET_FX => Trinkets.apply(sim, 0, caster, input),
+            VOLLEY_FX => Volley.apply(sim, 0, caster, input),
+            other => panic!("{other} queued"),
         }
+    }
+
+    /// Norra #0 (team 0), an enemy champion #1 far off; her passive's spawn hangs her number.
+    fn world() -> (World, Journey) {
+        let mut x = World { units: vec![Unit::new(0, (0, 0)), Unit::new(1, (500_000, 0))], ..Default::default() };
+        let mut norra = Journey::default();
+        with_sim(&mut x, |sim| norra.on_spawn(sim, 0, 0));
+        (x, norra)
+    }
+
+    #[test]
+    fn trinkets_lie_there_through_a_queue_that_keeps_only_the_position() {
+        // the queue hands back only the position (11-03 night: tft_silco's monstrosities never bit): the trinkets ride in
+        // her row now, p_life ticks each; twin presims (Norra #0 in both) keep their own
+        let p = Params::default();
+        let ((mut a, na), (mut b, nb)) = (world(), world());
+        assert!(na.sim != nb.sim);
+        for x in [&mut a, &mut b] {
+            with_sim(x, |sim| Drop.apply(sim, 0, 0, InputTargetV1::pos(200_000, 100_000)));
+        }
+        for t in 0..p.p_life + 60 {
+            if t == 100 {
+                a.units[1].at = (160_000, 100_000);   // a: onto the left crystal
+            }
+            if t == p.p_life + 10 {
+                a.units[1].at = (200_000, 100_000);   // the teacup is gone by now
+            }
+            step(&mut a, fire);
+            step(&mut b, fire);
+        }
+        let burst = magic(p.p_dmg, p.p_ratio, 0);
+        assert_eq!(a.hits, vec![(1, burst)], "the left crystal flew to him at tick 100, the others ran out");
+        assert!(a.units[1].buffs.iter().any(|x| x.name() == T_MARK), "the Threads");
+        assert!(b.hits.is_empty() && a.queue.is_empty() && b.queue.is_empty());
+        assert!(due(&TRINKETS, (na.sim, 0), usize::MAX).is_empty());
         let t = Trinket { at: (0, 0), until: 1, side: -1, born: 0, primed: false };
         assert_eq!(t.piece(), "tft_norra_p_trinket_l");
-        assert_eq!(Trinket::from_input(&InputTargetV1::target(5)), None);
-        assert_eq!(Trinket::from_input(&InputTargetV1 { dir_x: 3, ..t.input() }), None);
+    }
+
+    #[test]
+    fn all_four_volleys_fly() {
+        // the volley's number rode in a position's target_id and came back 0: not one volley flew
+        let p = Params::default();
+        let (mut x, norra) = world();
+        x.units[1].at = (300_000, 210_000);
+        with_sim(&mut x, |sim| Rift.apply(sim, 0, 0, InputTargetV1::pos(300_000, 200_000)));
+        for _ in 0..4 * p.r_gap + 10 {
+            step(&mut x, fire);
+        }
+        let names: Vec<&str> = x.shots.iter().map(|s| s.0.as_str()).collect();
+        assert_eq!(names, [YARN_FX[0], YARN_FX[0], YARN_FX[0], YARN_FX[1]].concat());
+        // through the champion inside: the line at his height
+        assert!(x.shots.iter().all(|s| s.1.1 == 210_000));
+        assert!(due(&VOLLEYS, (norra.sim, 0), usize::MAX).is_empty());
     }
 
     #[test]

@@ -10,7 +10,8 @@
 //! - 是背刺就补 `base` + `ad`% 攻击力的物理伤害（数字在英雄数据的 `passive.params`，同主包），播主包的背刺画面和声音。
 //!
 //! Q 落地那一刀（必定暴击）、R 幻像的背刺都在主包数据里，不变。
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_shaco_backstab.log`。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_shaco_backstab.log`。0.1.1：`BACKSTAB`、`SPAWN` 整个游戏一个
+//! 计数（预模拟先记 40 行、之后每 200 行一行，你看的那场每行都记；以前每个被动自己数「前 80 行」），参数只在第一行 `SPAWN` 写。
 
 use std::collections::{HashMap, VecDeque};
 use std::fs::OpenOptions;
@@ -81,6 +82,46 @@ fn head(sim: &StableSim<'_>, me: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{me}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// Lines of each kind a launch (0.1.1, league_irelia's): the server's presims (hundreds a launch, each with new passives -
+/// a count in the passive counts one sim) the first `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all.
+/// 2026-11-03 night logs: the passive's own "first 80" let 1131 BACKSTAB lines through (84% of the log).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
+}
+
+/// The params the log showed last (the champion data's: the same in every sim of a launch).
+static PARAMS_SHOWN: Mutex<Option<Vec<(String, usize)>>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only if they ever differ (league_talon_vault's).
+fn params_new(p: &[(String, usize)]) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_deref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.to_vec());
+    true
+}
+
 fn params(json: &str) -> Vec<(String, usize)> {
     let body = json.trim().trim_start_matches('{').trim_end_matches('}');
     body.split(',')
@@ -149,7 +190,11 @@ impl StablePassive for Backstab {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        wlog(format!("{} SPAWN: the add-on's Shaco (player {player}), {:?}", head(sim, me), self.p));
+        // the params in the first SPAWN line of a launch only; the line itself capped in the presims
+        let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
+        if tally(sim, "spawn").is_some() || params.is_some() {
+            wlog(format!("{} SPAWN: the add-on's Shaco (player {player}){}", head(sim, me), params.unwrap_or_default()));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -189,9 +234,9 @@ impl StablePassive for Backstab {
             sim.play_view_effect(VIEW, me, &InputTargetV1::target(id), 0, 0, 0);
             sim.play_sfx(VIEW, me, &InputTargetV1::target(id));
             self.stabs += 1;
-            if self.stabs <= 80 || self.stabs % 25 == 0 {
-                wlog(format!("{} BACKSTAB #{} on #{id}: +{damage} physical ({} of {} hits from behind)", head(sim, me),
-                             self.stabs, self.stabs, self.asked));
+            if let Some(k) = tally(sim, "backstab") {
+                wlog(format!("{} BACKSTAB #{k} on #{id}: +{damage} physical ({} of {} hits from behind)", head(sim, me),
+                             self.stabs, self.asked));
             }
         }
     }
@@ -246,5 +291,21 @@ mod tests {
         assert!(behind((0.0, 0.0), f, (-8_000.0, 1_000.0)));
         assert!(!behind((0.0, 0.0), f, (8_000.0, 0.0)));
         assert_eq!(facing(&t, None), None);
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    #[test]
+    fn the_params_are_logged_once() {
+        let p = params(r#"{"ad":25,"base":15}"#);
+        assert!(params_new(&p));
+        assert!(!params_new(&p));
+        assert!(params_new(&params(r#"{"ad":30,"base":15}"#)), "other params: again");
     }
 }

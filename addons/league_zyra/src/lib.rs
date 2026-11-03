@@ -22,8 +22,10 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zyra.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SEED`（掉种子）、`GROW`（种子长成植物）、`STRIKE`（植物出手）、`RAGE`（激怒）、`TAKEDOWN`（参与击杀掉种子）、
-//! `WATCH`（每 30 秒的计数），都限了条数。
+//! `WATCH`（每 30 秒的计数，植物有动静才记），都限了条数。0.1.2：`SPAWN` 的参数一次启动只写一次，`SPAWN`、`WATCH` 整个
+//! 游戏一个计数（预模拟限量，你看的那场每行都记）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -79,6 +81,55 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// `SPAWN` / `WATCH` lines a launch (0.1.2): the server's presims (hundreds a launch, each with new passives - a count in
+/// the passive counts one sim) the first `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all of them.
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
+}
+
+/// The `Params` the log showed last (they come from the champion data: the same in every sim of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only if they ever differ (league_talon_vault's; 2026-11-03 night logs:
+/// 250 SPAWN lines, each with the whole Params).
+fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.clone());
+    true
+}
+
+/// What a `WATCH` line reports besides the seeds (which drop every `s_cd` ticks anyway): plants grown, strikes, rages,
+/// takedowns. A line only when one of them moved since the last (2026-11-03 night logs: 1399 WATCH lines of 3267, most
+/// of them only more seeds).
+pub type Watch = (usize, usize, usize, usize);
+
+pub fn watch_news(last: Watch, now: Watch) -> bool {
+    last != now
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -301,6 +352,8 @@ struct Garden {
     n_rage: usize,
     n_take: usize,
     next_report: usize,
+    /// what the last `WATCH` line said (`watch_news`)
+    watched: Watch,
 }
 
 struct Unit {
@@ -555,7 +608,13 @@ impl StablePassive for Garden {
         if self.next_seed == 0 {
             self.next_seed = sim.tick() + self.p.s_cd;
         }
-        wlog(format!("{} SPAWN: the add-on's Zyra (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        // the Params in the first SPAWN line of a launch only; the line itself capped in the presims (every respawn
+        // writes one)
+        let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
+        if tally(sim, "spawn").is_some() || params.is_some() {
+            wlog(format!("{} SPAWN: the add-on's Zyra (player {player}, team {team}){}", head(sim, me),
+                         params.unwrap_or_default()));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -581,10 +640,15 @@ impl StablePassive for Garden {
         self.strike(sim, me, team, level, ap);
         if tick >= self.next_report {
             self.next_report = tick + 1800;
-            if tick > 0 {
-                wlog(format!("{} WATCH: seeds {} ({} on the ground), grown {}, strikes {}, rages {}, takedowns {}",
-                             head(sim, me), self.n_seeds, self.seeds.len(), self.n_grow, self.n_strike, self.n_rage,
-                             self.n_take));
+            // only when her plants did something since the last line, and capped in the presims (0.1.2)
+            let now = (self.n_grow, self.n_strike, self.n_rage, self.n_take);
+            if tick > 0 && watch_news(self.watched, now) {
+                self.watched = now;
+                if let Some(k) = tally(sim, "watch") {
+                    wlog(format!("{} WATCH: seeds {} ({} on the ground), grown {}, strikes {}, rages {}, takedowns {} #{k}",
+                                 head(sim, me), self.n_seeds, self.seeds.len(), self.n_grow, self.n_strike, self.n_rage,
+                                 self.n_take));
+                }
             }
         }
     }
@@ -691,5 +755,23 @@ mod tests {
         for x in ["q_aim", "e_aim", "r_aim", "v_slow", "s_seed", "t_spit", "t_plant", "v_plant"] {
             assert!(zy(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    #[test]
+    fn the_params_are_logged_once_and_watch_only_with_news() {
+        let p = Params { s_cd: 7, ..Params::default() };
+        assert!(params_new(&p));
+        assert!(!params_new(&p));
+        assert!(!watch_news((1, 4, 0, 0), (1, 4, 0, 0)), "only more seeds: no line");
+        assert!(watch_news((1, 4, 0, 0), (1, 5, 0, 0)));
+        assert!(watch_news(Watch::default(), (0, 0, 0, 1)));
     }
 }

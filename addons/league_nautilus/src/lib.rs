@@ -9,15 +9,19 @@
 //! - `pull`：锚咬在墙上：他被拉到墙边（强制位移，速度 `q_dash`，停在离墙 `GAP` 处），播主包的 skill_pull 动作、钩墙音效和
 //!   钩中的水花，Q 冷却返还一半（`skill_cooldown_mult` +100 的 3 tick buff：剩下的冷却封顶到冷却时间的一半；W+E 若剩得更多
 //!   也一起封顶，引擎没有只给一个技能的字段；`ult_cooldown_mult` -100 让大招不跟着封顶，0.1.2）。之后每 tick 看一次（`watch`），宿主没挪他就逐 tick 自己走一步。
+//!   拉的途中（终点、上一 tick 在哪、看到哪一 tick）记在 [`WATCHES`] 里，按（这份模拟的编号、他），排的 `watch` 只带终点
+//!   （0.1.4：以前塞在排队输入里，排队后丢了，`watch` 第一 tick 就收手）。
 //! - 被硬控、死了就不拉。比 `HOOK_MIN` 近的墙不钩（拉不出样子）。
 //!
 //! 数字从英雄数据的 `passive.params` 来不了（这一招没有被动），所以和主包 P 表的值写在这里（`Q_*`），主包改了这里一起改
 //! （`tests::the_numbers_match_the_kit` 读主包的数据核对）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_nautilus.log`，每次启动游戏重写。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -270,6 +274,89 @@ fn queue(sim: &mut StableSim<'_>, stage: &str, caster: usize, input: InputTarget
     }
 }
 
+fn upos(p: (f64, f64)) -> InputTargetV1 {
+    InputTargetV1::pos(p.0.round().max(0.0) as u64, p.1.round().max(0.0) as u64)
+}
+
+// ===================== 拉的途中 =====================
+
+/// 一次拉：终点、上一 tick 他在哪（看宿主有没有挪他）、看到第几 tick 为止、自己走了几步。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Watch {
+    pub to: (f64, f64),
+    pub last: (f64, f64),
+    pub until: usize,
+    pub steps: usize,
+}
+
+/// 拉的途中按（这份模拟的编号、他）记在这里。2026-11-04 修（11-03 夜里的日志复查：希尔科的畸变体、格雷福斯的撞墙标记是
+/// 同一个原因）：`watch` 以前把起点塞在排队输入的 dir_x / dir_y、截止 tick 塞在 target_id 里，排队只留下位置的 x、y——
+/// 截止读回来是 0，`watch` 第一 tick 就收手，宿主没挪他时从来没自己走过一步（钩墙本身靠强制位移，照样拉过去了：日志里
+/// 21 次 HOOK 都有 PULL）。
+static WATCHES: LazyLock<Mutex<HashMap<(u64, usize), Watch>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// More rows than this are finished sims' (a sim that ended mid-pull leaves its row): all cleared.
+const MOST_ROWS: usize = 4096;
+
+/// 每份模拟的诺提勒斯一个编号（加里奥附加包的 `SIM_TAG`）：这一招没有被动，第一次拉墙时由效果抽一个，挂在他身上（buff
+/// `league_nautilus_sim:<编号>`，没有数值、没有画面；死了再出生是新的单位，下次拉墙再抽）。服务器同一局并排跑的两份预模拟
+/// 实体编号、tick 都一样，编号各是各的。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+const SIM_TAG: &str = "league_nautilus_sim:";
+
+/// The number hung on him in this sim (0: none).
+pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
+    names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
+}
+
+fn sim_of(sim: &StableSim<'_>, me: usize) -> u64 {
+    sim.get_entity(me).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i))
+        .map(|b| b.name().to_string())))
+}
+
+/// His number, drawn and hung on him at this unit's first pull.
+fn sim_no(sim: &mut StableSim<'_>, me: usize) -> u64 {
+    let no = sim_of(sim, me);
+    if no != 0 {
+        return no;
+    }
+    let no = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+    sim.add_buff(me, &BuffV1::named(&format!("{SIM_TAG}{no}")));
+    no
+}
+
+/// A pull begins: watched from now on.
+pub fn start_watch(row: (u64, usize), w: Watch) {
+    let mut rows = WATCHES.lock().unwrap_or_else(|e| e.into_inner());
+    if rows.len() > MOST_ROWS {
+        rows.clear();
+    }
+    rows.insert(row, w);
+}
+
+/// What the watch does this tick.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Watching {
+    /// There, or the time is up: the watch ends.
+    Over,
+    /// The host moves him: nothing to do.
+    Moving,
+    /// The host did not move him since the last tick: a step of his own to this point.
+    Step((f64, f64)),
+}
+
+/// The watch's call for him standing at `here` on tick `tick`.
+pub fn watching(w: &Watch, here: (f64, f64), tick: usize) -> Watching {
+    let d = dist(here, w.to);
+    if d <= ARRIVE || tick > w.until {
+        return Watching::Over;
+    }
+    if dist(w.last, here) >= 1.0 {
+        return Watching::Moving;
+    }
+    let s = Q_DASH.min(d);
+    Watching::Step((here.0 + (w.to.0 - here.0) / d * s, here.1 + (w.to.1 - here.1) / d * s))
+}
+
 // ===================== 三步 =====================
 
 /// 锚飞出去的那一 tick（主包 Q 的 `q_at`）：看路线上先碰到英雄还是墙。
@@ -336,31 +423,40 @@ fn pull(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     sim.play_sfx(&nt("q_wall"), caster, &at_wall);
     sim.play_view_effect(&nt("q_hit"), caster, &at_wall, 0, 0, 0);
     wlog(format!("{} PULL to the wall {} -> {} ({:.0}, {} ticks), Q cooldown halved", head(sim, caster), pt(here), pt(to), d, ticks));
-    let mut follow = input;
-    follow.dir_x = here.0.round() as i64;   // where he started: the watch tells whether the host moved him
-    follow.dir_y = here.1.round() as i64;
-    follow.target_id = sim.tick() + WATCH_MAX;
-    queue(sim, "watch", caster, follow, 1);
+    // where he started: the watch tells whether the host moved him (its row, not the queued input: 0.1.4)
+    let row = (sim_no(sim, caster), caster);
+    start_watch(row, Watch { to, last: here, until: sim.tick() + WATCH_MAX, steps: 0 });
+    queue(sim, "watch", caster, upos(to), 1);
 }
 
 /// 拉的每一 tick：到了就停；宿主没挪他（撞到别的东西停了）就自己走一步。
-fn watch(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
-    let (Some(to), Some(here)) = (input_pos(&input), alive_at(sim, caster)) else { return };
-    let last = (input.dir_x as f64, input.dir_y as f64);
-    let d = dist(here, to);
-    if d <= ARRIVE || sim.tick() > input.target_id || has_cc(sim, caster, &NO_PULL[..6]) {
-        return;
+fn watch(sim: &mut StableSim<'_>, caster: usize, _: InputTargetV1) {
+    let row = (sim_of(sim, caster), caster);
+    let Some(mut w) = WATCHES.lock().unwrap_or_else(|e| e.into_inner()).get(&row).copied() else { return };
+    let end = |sim: &StableSim<'_>, w: &Watch, why: &str| {
+        WATCHES.lock().unwrap_or_else(|e| e.into_inner()).remove(&row);
+        if w.steps > 0 {
+            wlog(format!("{} WATCH: {} steps of his own (the host did not move him), {why}", head(sim, caster), w.steps));
+        }
+    };
+    let Some(here) = alive_at(sim, caster) else { return end(sim, &w, "dead") };
+    if has_cc(sim, caster, &NO_PULL[..6]) {
+        return end(sim, &w, "held by crowd control");
     }
-    // 被放逐（巴德的 R 之类，不可选中）时不挪他：游戏 0.6.4 起放逐中的单位不动，宿主的强制位移也停下
-    if dist(last, here) < 1.0 && sim.get_entity(caster).is_some_and(|e| e.is_targetable()) {
-        let s = Q_DASH.min(d);
-        let next = (here.0 + (to.0 - here.0) / d * s, here.1 + (to.1 - here.1) / d * s);
-        sim.entity_set_pos(caster, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
+    match watching(&w, here, sim.tick()) {
+        Watching::Over => return end(sim, &w, if dist(here, w.to) <= ARRIVE { "there" } else { "time up" }),
+        Watching::Moving => {}
+        // 被放逐（巴德的 R 之类，不可选中）时不挪他：游戏 0.6.4 起放逐中的单位不动，宿主的强制位移也停下
+        Watching::Step(next) => {
+            if sim.get_entity(caster).is_some_and(|e| e.is_targetable()) {
+                sim.entity_set_pos(caster, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
+                w.steps += 1;
+            }
+        }
     }
-    let mut follow = input;
-    follow.dir_x = here.0.round() as i64;
-    follow.dir_y = here.1.round() as i64;
-    queue(sim, "watch", caster, follow, 1);
+    // where he stood this tick (before his own step): the next tick tells whether the host moved him
+    WATCHES.lock().unwrap_or_else(|e| e.into_inner()).insert(row, Watch { last: here, ..w });
+    queue(sim, "watch", caster, upos(w.to), 1);
 }
 
 // ===================== 注册 =====================
@@ -485,5 +581,35 @@ mod tests {
         for x in ["q_refund", "q_wall", "q_hit"] {
             assert!(nt(x).len() <= BUFF_NAME_CAP);
         }
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn each_sim_finds_its_own_number() {
+        let names = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>().into_iter();
+        assert_eq!(sim_tag(names(&["league_nautilus_q_refund", "league_nautilus_sim:12"])), 12);
+        assert_eq!(sim_tag(names(&["league_nautilus_q_refund"])), 0);
+    }
+
+    #[test]
+    fn the_watch_steps_only_where_the_host_left_him() {
+        // 11-03 night: the deadline packed into the queued input came back 0 and the watch ended on its first tick;
+        // from its row it runs to the wall
+        let to = (100_000.0, 50_000.0);
+        let w = Watch { to, last: (60_000.0, 50_000.0), until: 160, steps: 0 };
+        // the host moved him since the last tick: nothing to do
+        assert_eq!(watching(&w, (62_500.0, 50_000.0), 101), Watching::Moving);
+        // he stands where he stood: a step of Q_DASH toward the wall
+        assert_eq!(watching(&w, (60_000.0, 50_000.0), 101), Watching::Step((60_000.0 + Q_DASH, 50_000.0)));
+        // the last step stops on the spot; there, or past the deadline: over
+        let near = Watch { last: (97_600.0, 50_000.0), ..w };
+        assert_eq!(watching(&near, (97_600.0, 50_000.0), 101), Watching::Step(to));
+        assert_eq!(watching(&w, (99_000.0, 50_000.0), 101), Watching::Over);
+        assert_eq!(watching(&w, (60_000.0, 50_000.0), 161), Watching::Over);
+        // twin presims (Nautilus #27 in both) keep their own rows
+        start_watch((900_001, 27), w);
+        start_watch((900_002, 27), Watch { until: 999, ..w });
+        let rows = WATCHES.lock().unwrap();
+        assert_eq!((rows[&(900_001, 27)].until, rows[&(900_002, 27)].until), (160, 999));
     }
 }

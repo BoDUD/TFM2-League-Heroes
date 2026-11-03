@@ -1,4 +1,4 @@
-# 大招瞄准附加包（测试版 v0.1.0，可选）
+# 大招瞄准附加包（测试版 v0.1.1，可选）
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -18,6 +18,7 @@
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_ult_aim` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，重启游戏。
 3. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ult_aim.log`：`MALPHITE R -> #7 (3 champions around), the AI had #5`。
+   v0.1.1：每行开头是 `[presim m=… s=…] t=… #墨菲特的实体`（哪份模拟、哪场、哪局），以前只有 `t=… player …`（2026-11-03 夜里的日志）。玩法不变。
 
 ## 开发
 

@@ -749,7 +749,8 @@ impl StablePlayerAi for UltAi {
         let wants_ult = base.is_some_and(|b| b.kind == InputKindV1::Ult.code());
         enum Do {
             Keep,
-            Cast(Order),
+            /// the order, and the line's `[kind m= s=]` head (0.1.3: R ORDER had only `t= player`)
+            Cast(Order, String),
             /// the enemy champion to attack (in his reach), else the place to walk toward
             Hold(Option<usize>, Option<(u64, u64)>, String),
         }
@@ -860,7 +861,7 @@ impl StablePlayerAi for UltAi {
                     why,
                     target: t,
                     saved: who(&sim, a.id),
-                }),
+                }, line),
                 _ if wants_ult => match nearest {
                     // in reach: attack him (if the attack is not taken, step toward him - never let the R through)
                     Some((t, d, p)) if d <= ATTACK_RANGE => Do::Hold(Some(t), Some(p), line),
@@ -872,13 +873,13 @@ impl StablePlayerAi for UltAi {
         };
         match todo {
             Do::Keep => None,
-            Do::Cast(o) => {
+            Do::Cast(o, line) => {
                 let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(o.target));
                 if !ctx.is_valid_input(&input) {
                     return None;
                 }
                 if let Some(k) = counted("r_order") {
-                    wlog(format!("t={tick} player {player} R ORDER [{}] for {} (hp {:.0}%) #{k}", o.why.word(), o.saved, o.hp * 100.0));
+                    wlog(format!("{line} R ORDER [{}] for {} (hp {:.0}%) #{k}", o.why.word(), o.saved, o.hp * 100.0));
                 }
                 self.order = Some(o);
                 Some(input)

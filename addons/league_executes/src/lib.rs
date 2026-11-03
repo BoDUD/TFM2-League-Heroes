@@ -14,7 +14,8 @@
 //!
 //! 伊芙琳、阿卡丽补的是魔法伤害（`deal_damage_typed`，`Ap`），锐雯的是物理（`Ad`）。数字在英雄数据的 `passive.params`
 //! （`make_override.py` 从主包读）。
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_executes.log`。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_executes.log`。`RIVEN SLASH GO` 一串连着挂的只记一行，主包读走
+//! `RIVEN_GO` 时再记一行（0.2.1；以前每 tick 一行）。
 
 use std::fs::OpenOptions;
 use std::io::Write;
@@ -210,11 +211,33 @@ pub fn riven_go(foes: &[(usize, usize, usize)], damage: usize, full: usize, top:
         })
 }
 
+/// Ticks `RIVEN_GO` is hung for (hung again every tick while the moment lasts).
+pub const RIVEN_GO_T: usize = 4;
+/// GO ticks no further apart than this are one burst, one line: the data reads the flag only on its 30-tick checks or an
+/// attack (0.2.1, 2026-11-03 night logs: a GO line every tick, 115 of them for 4 slashes; league_heimerdinger's
+/// `ORDER_FRESH`).
+pub const GO_FRESH: usize = 30;
+
+/// A GO at `tick` starts a burst: none in the `GO_FRESH` ticks before (`last`: the last GO; a tick before it is another
+/// match).
+pub fn new_burst(last: Option<usize>, tick: usize) -> bool {
+    last.is_none_or(|t0| tick < t0 || tick > t0 + GO_FRESH)
+}
+
+/// The data took the flag (a check of it fired Wind Slash, or found no champion in its reach, and removed it): hung at
+/// `hung` and gone before its `RIVEN_GO_T` ticks were up.
+pub fn go_taken(hung: Option<usize>, has_go: bool, tick: usize) -> bool {
+    hung.is_some_and(|t| !has_go && tick > t && tick < t + RIVEN_GO_T)
+}
+
 #[derive(Clone, Default)]
 struct Riven {
     p: Vec<(String, usize)>,
     n: usize,
     gone: usize,
+    /// the tick `RIVEN_GO` was last hung; the burst's first tick and number (when its line was written)
+    hung: Option<usize>,
+    burst: Option<(usize, usize)>,
 }
 
 impl StablePassive for Riven {
@@ -231,10 +254,20 @@ impl StablePassive for Riven {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        let tick = sim.tick();
         let Some(e) = sim.get_entity(me) else { return };
         let (team, attack) = (e.team(), e.stat().attack);
         let damage = hit(get(&self.p, "base", 0), get(&self.p, "ad", 0), attack);
         let (full, top) = (get(&self.p, "full", 75), get(&self.p, "max", 200));
+        // the data took the flag: one line (0.2.1) - fired when its RandomTarget found her a champion (it takes
+        // RIVEN_READY off), else nobody in its reach
+        if e.is_alive() && go_taken(self.hung, buff_left(&e, RIVEN_GO).is_some(), tick) {
+            self.hung = None;
+            if let Some((from, k)) = self.burst.take() {
+                wlog(format!("{} RIVEN SLASH GO #{k} used {} ticks into the burst: {}", head(sim, me), tick - from,
+                             if buff_left(&e, RIVEN_READY).is_none() { "Wind Slash fired" } else { "no champion in its reach" }));
+            }
+        }
         // when to slash
         let ready = buff_left(&e, RIVEN_READY).is_some() && buff_left(&e, RIVEN_WAIT).is_none() && e.is_alive();
         if ready {
@@ -247,12 +280,15 @@ impl StablePassive for Riven {
                 .collect();
             if !foes.is_empty() && riven_go(&foes, damage, full, top, r_left) {
                 sim.entity_remove_buff(me, RIVEN_GO);
-                sim.add_buff(me, &BuffV1::timed(RIVEN_GO, 4));
-                if self.gone < 60 {
+                sim.add_buff(me, &BuffV1::timed(RIVEN_GO, RIVEN_GO_T));
+                // one line a burst (it is hung again every tick until a check reads it)
+                if new_burst(self.hung, tick) && self.gone < 60 {
                     self.gone += 1;
+                    self.burst = Some((tick, self.gone));
                     wlog(format!("{} RIVEN SLASH GO #{}: {} champions in reach, R left {r_left}", head(sim, me), self.gone,
                                  foes.len()));
                 }
+                self.hung = Some(tick);
             }
         }
         // the slash's execute share on each one it hit
@@ -333,6 +369,20 @@ mod tests {
         // 450 hp: 200 + (55% missing -> +146%) 292 = 492 kills
         assert!(riven_go(&[(450, 1000, 0)], 200, 75, 200, 600));
         assert!(riven_go(&[(900, 1000, 0)], 200, 75, 200, RIVEN_LAST));
+    }
+
+    #[test]
+    fn one_go_line_a_burst_and_one_when_the_data_takes_it() {
+        // the 11-03 night logs' first burst: GO every tick from 42261 to 42290 - one line
+        assert!(new_burst(None, 42_261));
+        assert!((42_262..=42_290).all(|t| !new_burst(Some(t - 1), t)));
+        assert!(new_burst(Some(42_290), 42_290 + GO_FRESH + 1), "a later moment: a new burst");
+        assert!(new_burst(Some(42_290), 100), "another match");
+        // hung at 42290: gone at 42291 means a check took it; at 42290 + RIVEN_GO_T it ran out by itself
+        assert!(go_taken(Some(42_290), false, 42_291));
+        assert!(!go_taken(Some(42_290), true, 42_291));
+        assert!(!go_taken(Some(42_290), false, 42_290 + RIVEN_GO_T));
+        assert!(!go_taken(None, false, 42_291));
     }
 
     #[test]

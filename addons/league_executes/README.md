@@ -1,4 +1,4 @@
-# 斩杀附加包（测试版 v0.2.0，可选）：伊芙琳、阿卡丽、锐雯
+# 斩杀附加包（测试版 v0.2.1，可选）：伊芙琳、阿卡丽、锐雯
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -23,6 +23,7 @@
 2. 把 `league_executes` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 三人 R 的说明开头是「【附加包】」就说明换上了。
 4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_executes.log`：`EXECUTE #n on #7: hp 210/1200, hit 300, +420 magic`；`RIVEN SLASH GO`（放疾风斩的那一刻）、`RIVEN SLASH #n on #7: ... +240 physical`。
+   v0.2.1：`ws_go` 每 tick 都重挂，可主包只在每 30 tick 的检查或普攻时读它，以前每挂一次记一行（2026-11-03 夜里的日志：4 次疾风斩 115 行 `GO`）；现在一串连着的只记一行 `RIVEN SLASH GO #n`，主包读走它时再记一行 `RIVEN SLASH GO #n used … ticks into the burst: Wind Slash fired`（或 `no champion in its reach`：读走了但 60000 内没有英雄可放）。没有 `used` 的那串就是没等到检查。玩法不变。
 
 ## 开发
 

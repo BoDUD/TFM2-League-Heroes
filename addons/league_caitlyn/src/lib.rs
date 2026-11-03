@@ -10,6 +10,11 @@
 //! - 她或目标在敌方塔下、她血量低于 35%、附近敌方英雄比我方多：不改。
 //! 8 个种子（下路对 4 个原版射手、3 套阵容、两边）：前 5 分钟击杀差 +0.38 → +0.74，10 分钟 +1.65 → +2.14。
 //!
+//! 0.1.2（11-03 夜里的日志：`Q POKE at league_lux` 连着 22 tick 每 tick 一行，`TALLY` 一分钟 `QPoke:27`，Q 的冷却 480 tick
+//! 一分钟最多 8 次）：她正在出招（游戏记成 `Animation`：E 的 24 tick、普攻的前摇）或被强制位移时游戏的 AI 每 tick 都下命令，
+//! 钩子每 tick 再按一次 Q——现在这时不改（league_ult_press 的规则，`TALLY` 记成 `Busy_kept`）；前 10 分钟过了钩子没事做，
+//! 写出最后一分钟就不再记 `TALLY`（以前每分钟一行 `Late_kept`）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_caitlyn.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `Q POKE`（Q 改打英雄）、`HARASS`（普攻改打英雄）、`TALLY`（每个凯特琳每分钟一行：改了几次、为什么没改），都限了条数。
 
@@ -123,6 +128,20 @@ impl Tally {
         *self.counts.entry(key).or_insert(0) += 1;
         done
     }
+
+    /// The minute being counted and its counts, once (0.1.2: the lane phase is over, nothing more is counted).
+    fn flush(&mut self) -> Option<(usize, BTreeMap<String, usize>)> {
+        let counts = std::mem::take(&mut self.counts);
+        self.minute.filter(|_| !counts.is_empty()).map(|m| (m, counts))
+    }
+}
+
+/// 正在出招（游戏记成 `Animation`：E 的 24 tick、普攻的前摇）或被强制位移：不替 AI 改（league_ult_press 的规则，0.1.2）。
+const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
+
+/// Any of these crowd-control kinds (codes) is `BUSY`.
+pub fn busy(kinds: impl IntoIterator<Item = u32>) -> bool {
+    kinds.into_iter().any(|k| BUSY.iter().any(|b| b.code() == k))
 }
 
 // ===================== AI 钩子 =====================
@@ -151,9 +170,20 @@ struct Lane {
 }
 
 impl Lane {
-    fn tally(&mut self, sim: &StableSim<'_>, me: usize, why: Why, changed: bool) {
+    fn tally(&mut self, sim: &StableSim<'_>, me: usize, key: String) {
         let minute = sim.tick() as usize / 3600;
-        if let Some((m, counts)) = self.tally.add(minute, format!("{why:?}{}", if changed { "" } else { "_kept" })) {
+        let done = self.tally.add(minute, key);
+        Self::write(sim, me, done);
+    }
+
+    /// After the lane phase: the last minute's line, once (0.1.2: every later think was tallied `Late_kept`).
+    fn flush(&mut self, sim: &StableSim<'_>, me: usize) {
+        let done = self.tally.flush();
+        Self::write(sim, me, done);
+    }
+
+    fn write(sim: &StableSim<'_>, me: usize, done: Option<(usize, BTreeMap<String, usize>)>) {
+        if let Some((m, counts)) = done {
             if let Some(k) = counted("tally") {
                 let list: Vec<String> = counts.iter().map(|(w, n)| format!("{w}:{n}")).collect();
                 wlog(format!("{} TALLY minute {m}: {} #{k}", head(sim, me), list.join(" ")));
@@ -194,6 +224,17 @@ impl StablePlayerAi for Lane {
                 return None;
             }
             let (my_id, team, here) = (me.id(), me.team(), at(&me));
+            // the lane phase over: nothing more to change or count (0.1.2: `TALLY minute 10: Late_kept:68` and on)
+            if sim.tick() as usize >= plan::LANE_T {
+                self.flush(&sim, my_id);
+                return None;
+            }
+            // casting (her E's 24 ticks, an attack's wind-up) or moved: the game's AI orders every tick then, and 0.1.1
+            // pressed Q again on each (11-03 night logs: `Q POKE at league_lux` 22 ticks running, QPoke:27 in a minute)
+            if busy((0..me.cc_count()).filter_map(|i| me.cc_at(i)).map(|c| c.kind)) {
+                self.tally(&sim, my_id, "Busy_kept".to_string());
+                return None;
+            }
             let base_kind = match kind {
                 InputKindV1::Skill => Base::Q,
                 _ => {
@@ -243,7 +284,7 @@ impl StablePlayerAi for Lane {
                 }
                 Plan::Attack(t) => Some(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t))),
             };
-            self.tally(&sim, my_id, why, input.is_some());
+            self.tally(&sim, my_id, format!("{why:?}{}", if input.is_some() { "" } else { "_kept" }));
             let line = input.map(|_| {
                 let t = match p {
                     Plan::Q(t) | Plan::Attack(t) => t,
@@ -324,6 +365,30 @@ mod tests {
         // an earlier minute: another match, started over
         assert_eq!(a.add(0, "Harass".into()), None);
         assert_eq!(a.add(1, "Harass".into()).map(|(m, c)| (m, c.get("Harass").copied())), Some((0, Some(1))));
+    }
+
+    #[test]
+    fn nothing_is_changed_while_she_casts_or_is_moved() {
+        // 11-03 night logs: Q re-pressed every tick through her E (`Q POKE at league_lux` 22 ticks running)
+        assert!(busy([CcKindV1::Animation.code()]));
+        assert!(busy([CcKindV1::Stun.code(), CcKindV1::ForceMove.code()]));
+        assert!(!busy([CcKindV1::Stun.code()]), "a stun is the game's AI's own business");
+        assert!(!busy(Vec::<u32>::new()));
+    }
+
+    #[test]
+    fn the_tally_stops_with_the_lane_phase() {
+        let mut a = Tally::default();
+        for _ in 0..3 {
+            assert_eq!(a.add(9, "QPoke".into()), None);
+        }
+        // minute 10: the last lane minute written once, nothing after it (0.1.1: `Late_kept:68` every minute)
+        let (m, counts) = a.flush().unwrap();
+        assert_eq!((m, counts.get("QPoke")), (9, Some(&3)));
+        assert_eq!(a.flush(), None, "written once");
+        // the next match starts over
+        assert_eq!(a.add(0, "Harass".into()), None);
+        assert_eq!(a.add(1, "Harass".into()).map(|(m, _)| m), Some(0));
     }
 
     #[test]

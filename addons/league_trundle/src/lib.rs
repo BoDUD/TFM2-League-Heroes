@@ -19,6 +19,11 @@
 //!   读它当时的护甲和魔抗，偷 `r_steal`%（`league_trundle_r_lose` / `league_trundle_r_take`，`r_t + r_keep` 拍），并且立刻造成它最大
 //!   生命 `r_pct0`% 的魔法伤害、之后每 `r_p` 拍 `r_pct`%（`r_t` 拍内），每一下打掉多少血就给特朗德尔回多少（冰面上再放大）。
 //!
+//! 强权至上的回血（0.1.1，2026-11-03 晚的日志：43 次 `SUBJUGATE` 全是 `drained 0 (+0)`）：`deal_damage_typed` 只把伤害排进
+//! 效果队列，这一拍结束才扣血，0.1.0 打出去马上读生命，差值永远是 0、一口血也没回。现在每一下记下（目标、打之前的生命、伤害），
+//! 下一拍读它掉了多少（`drained`：不超过这一下的伤害；它被打死了、实体没了就算它剩的全部），给他回这么多（league_lillia 0.1.2
+//! 的做法）；`SUBJUGATE` 那一行也等第一下落下再写。
+//!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
 //! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_trundle.log`，每次启动游戏重写。
 
@@ -210,6 +215,13 @@ pub fn amped(heal: usize, on_domain: bool, amp: usize) -> usize {
     if on_domain { heal + heal * amp / 100 } else { heal }
 }
 
+/// What a drain took, read on the update after it was dealt (the damage lands at the end of the tick it was queued in):
+/// the champion's health then (`hp0`) minus its health now, at most the drain's own `amount` (other hits that landed in
+/// the same tick are not his); a champion that died or is gone (`now` None) lost all it had.
+pub fn drained(hp0: usize, now: Option<usize>, amount: usize) -> usize {
+    hp0.saturating_sub(now.unwrap_or(0)).min(amount)
+}
+
 /// King's Tribute for a unit of `max_hp`: p_pct% of it, twice on the domain (the main pack's combo), amplified there.
 pub fn tribute(p: &Params, max_hp: usize, on_domain: bool) -> usize {
     let h = share(max_hp, p.p_pct) * if on_domain { 2 } else { 1 };
@@ -286,6 +298,16 @@ struct Drain {
     next: usize,
 }
 
+/// One drain dealt on the last update, healed on this one (0.1.1): the champion, its health before the drain, the damage
+/// dealt; for the first drain of a Subjugate also what it stole (its SUBJUGATE line waits for the drain to land).
+#[derive(Clone, Debug)]
+struct Queued {
+    id: usize,
+    hp0: usize,
+    amount: usize,
+    stole: Option<(i32, i32)>,
+}
+
 /// 每个特朗德尔一份：参数、冰面、冰柱、吸取，和日志计数。
 #[derive(Clone, Default)]
 struct Troll {
@@ -304,6 +326,8 @@ struct Troll {
     /// Where each unit stood last tick while a pillar stands (the terrain sends a unit that walks in back there).
     last_pos: Vec<(usize, Pt)>,
     drains: Vec<Drain>,
+    /// The drains dealt on the last update: they land at the end of that tick, he heals what they took on this one.
+    queued: Vec<Queued>,
     n_tribute: usize,
     n_domain: usize,
     n_pillar: usize,
@@ -488,20 +512,36 @@ impl Troll {
         self.last_pos = seen;
     }
 
-    /// One drain of Subjugate: pct% of the champion's maximum health as magic damage; he heals what it lost.
-    fn drain_once(&mut self, sim: &mut StableSim<'_>, me: usize, id: usize, pct: usize, inside: bool) -> (usize, usize) {
-        let Some(c) = sim.get_entity(id) else { return (0, 0) };
+    /// One drain of Subjugate: pct% of the champion's maximum health as magic damage. The damage is only queued (it lands
+    /// at the end of this tick: 0.1.0 read the health right after it and healed 0 every time), so the drain is kept and
+    /// healed on the next update (`settle`).
+    fn drain(&mut self, sim: &mut StableSim<'_>, me: usize, id: usize, pct: usize, stole: Option<(i32, i32)>) {
+        let Some(c) = sim.get_entity(id) else { return };
         let (hp0, max) = c.hp();
-        sim.deal_damage_typed(me, id, share(max, pct), DamageTypeV1::Ap, AttackTypeV1::Skill);
-        let hp1 = sim.get_entity(id).map_or(0, |c| c.hp().0);
-        let lost = hp0.saturating_sub(hp1);
-        let healed = self.heal_me(sim, me, lost, inside);
-        (lost, healed)
+        let amount = share(max, pct);
+        sim.deal_damage_typed(me, id, amount, DamageTypeV1::Ap, AttackTypeV1::Skill);
+        self.queued.push(Queued { id, hp0, amount, stole });
+    }
+
+    /// The drains dealt on the last update have landed: he heals what each took (`drained`, amplified on the domain).
+    fn settle(&mut self, sim: &mut StableSim<'_>, me: usize, inside: bool) {
+        for q in std::mem::take(&mut self.queued) {
+            let now = sim.get_entity(q.id).filter(|c| c.is_alive()).map(|c| c.hp().0);
+            let lost = drained(q.hp0, now, q.amount);
+            let healed = self.heal_me(sim, me, lost, inside);
+            if let Some((d, m)) = q.stole {
+                self.n_drain += 1;
+                if often(self.n_drain) {
+                    wlog(format!("{} SUBJUGATE {}: stole {d} defence / {m} magic resistance, drained {lost} of {} (+{healed}) \
+                                  ({} in all)", head(sim, me), name_of(sim, q.id), q.amount, self.n_drain));
+                }
+            }
+        }
     }
 
     /// Subjugate: a new `r_drain` steals the champion's own defence and magic resistance and drains it at once, then
     /// every r_p ticks for r_t.
-    fn subjugate(&mut self, sim: &mut StableSim<'_>, me: usize, tick: usize, inside: bool) {
+    fn subjugate(&mut self, sim: &mut StableSim<'_>, me: usize, tick: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         let team = e.team();
         let fresh: Vec<(usize, StatV1)> = (0..sim.champion_count())
@@ -523,13 +563,9 @@ impl Troll {
                 b.defence = d;
                 b.magic_resistance = m;
             }));
-            let (lost, healed) = self.drain_once(sim, me, id, self.p.r_pct0, inside);
+            // the SUBJUGATE line is written when this first drain lands (settle, next update)
+            self.drain(sim, me, id, self.p.r_pct0, Some((d, m)));
             self.drains.push(Drain { id, start: tick, next: tick + self.p.r_p });
-            self.n_drain += 1;
-            if often(self.n_drain) {
-                wlog(format!("{} SUBJUGATE {}: stole {d} defence / {m} magic resistance, drained {lost} (+{healed}) ({} in all)",
-                             head(sim, me), name_of(sim, id), self.n_drain));
-            }
         }
         let mut done = Vec::new();
         for k in 0..self.drains.len() {
@@ -540,7 +576,7 @@ impl Troll {
                 continue;
             }
             if alive && tick >= next && next <= start + self.p.r_t {
-                self.drain_once(sim, me, id, self.p.r_pct, inside);
+                self.drain(sim, me, id, self.p.r_pct, None);
                 self.drains[k].next = next + self.p.r_p;
             }
         }
@@ -565,6 +601,7 @@ impl StablePassive for Troll {
         self.w_left = 0;
         self.near.clear();
         self.drains.clear();
+        self.queued.clear();
         self.last_hp = sim.get_entity(me).map_or(0, |e| e.hp().0);
         wlog(format!("{} SPAWN: the add-on's Trundle (player {player}, team {team}), {:?}", head(sim, me), self.p));
     }
@@ -577,6 +614,7 @@ impl StablePassive for Troll {
             self.domain = None;
             self.w_left = 0;
             self.near.clear();
+            self.queued.clear(); // he fell before his last drain landed: no heal for it
             self.last_hp = 0;
             return;
         }
@@ -589,8 +627,11 @@ impl StablePassive for Troll {
                 sim.heal(me, me, extra);
             }
         }
+        // the drains dealt on the last update have landed by now: heal what they took (after the amplifier, which would
+        // otherwise read this heal as a rise and amplify it twice)
+        self.settle(sim, me, inside);
         self.around(sim, me, inside);
-        self.subjugate(sim, me, tick, inside);
+        self.subjugate(sim, me, tick);
         self.last_hp = sim.get_entity(me).map_or(0, |e| e.hp().0);
     }
 }
@@ -697,6 +738,28 @@ mod tests {
     fn the_domain_amplifies_heals() {
         assert_eq!(amped(100, true, 25), 125);
         assert_eq!(amped(100, false, 25), 100);
+    }
+
+    #[test]
+    fn a_drain_heals_what_it_took_once_it_landed() {
+        // the 11-03 night logs: 43 of 43 SUBJUGATE lines `drained 0 (+0)` - the damage is only queued and lands at the end
+        // of the tick, so the health read right after the call is the health before it
+        let p = Params::default();
+        let (hp0, max, mr_cut) = (1500usize, 2000usize, 30usize);
+        let amount = share(max, p.r_pct0);
+        assert_eq!(amount, 200);
+        assert_eq!(drained(hp0, Some(hp0), amount), 0, "0.1.0's read in the same tick");
+        // the host lands it (after magic resistance) before the next update reads it
+        let landed = hp0 - amount * (100 - mr_cut) / 100;
+        assert_eq!(drained(hp0, Some(landed), amount), 140);
+        assert_eq!(amped(drained(hp0, Some(landed), amount), true, p.w_amp), 175);
+        // another hit landed on it in the same tick: only the drain's own amount is his
+        assert_eq!(drained(hp0, Some(landed - 500), amount), amount);
+        // it died of it (its entity gone or dead by the next update): all it had, at most the amount
+        assert_eq!(drained(90, None, amount), 90);
+        assert_eq!(drained(900, None, amount), amount);
+        // healed in between: nothing taken
+        assert_eq!(drained(hp0, Some(hp0 + 50), amount), 0);
     }
 
     #[test]

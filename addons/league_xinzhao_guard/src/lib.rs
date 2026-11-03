@@ -6,7 +6,10 @@
 //! 被动在他挨打时（`on_damaged`）看：护卫 buff 还在、攻击者离他超过 `far`（36000，英雄联盟的 450 码），这一下的伤害原样加回去。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从 tools/kit/build_xinzhao.py 的参数表 P 写进去），本包不另记一份。
-//! 只有单元测试（经典 SDK 跑不了原生代码）：`on_damaged` 是在扣血之后调的，一下就致命的远程伤害可能来不及挡，要在游戏里看日志。
+//! 只有单元测试（经典 SDK 跑不了原生代码）。`on_damaged` 是在这一下扣血**之前**调的（0.1.1，2026-11-03 晚的日志：
+//! `BLOCK 6 ...: hp 2750 -> 2750/2750` 之后下一下读到 2744，挡掉的 6 照样扣了）：先把血加上这一下，扣完正好回到原来的血；
+//! 0.1.0 加到最大生命就停，满血、快满血时挡掉的伤害漏了进去（一次启动 230 下里 11 下、721 点）。超过上限的那一截（`refunded`
+//! 的第二个数）记下来，这一下扣完以后再加回去：同一拍的下一下伤害来的时候（那时上一下已经扣了），或者下一拍。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_xinzhao_guard.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
@@ -116,9 +119,16 @@ pub fn blocks(p: &Params, guarded: bool, damage: usize, self_hit: bool, dist_sq:
     guarded && damage > 0 && !self_hit && dist_sq > far.saturating_mul(far)
 }
 
-/// 挡掉以后的生命：加回这一下，不超过上限。
-pub fn refunded(now: usize, max: usize, damage: usize) -> usize {
-    now.saturating_add(damage).min(max)
+/// 挡掉这一下：(现在设成的生命, 之后再加回的)。`on_damaged` 在扣血之前调，生命设成现在 + 这一下，扣完正好是现在的；
+/// 生命最多设到上限，超出的那一截要等这一下扣完再加回去（0.1.0 直接丢了它：满血时挡掉的伤害照样扣）。
+pub fn refunded(now: usize, max: usize, damage: usize) -> (usize, usize) {
+    let want = now.saturating_add(damage);
+    (want.min(max), want.saturating_sub(max))
+}
+
+/// 这一下扣完以后加回超出的那一截：生命 `hp` 加上 `owed`，不超过上限。
+pub fn paid_back(hp: usize, max: usize, owed: usize) -> usize {
+    hp.saturating_add(owed).min(max)
 }
 
 fn guarded(sim: &StableSim<'_>, id: usize) -> bool {
@@ -130,6 +140,22 @@ fn guarded(sim: &StableSim<'_>, id: usize) -> bool {
 #[derive(Clone, Default)]
 struct Guard {
     p: Params,
+    /// 挡掉的伤害里生命上限放不下的那一截（0.1.1）：这一下扣完血以后加回去（下一下伤害来时或下一拍）。
+    owed: usize,
+}
+
+impl Guard {
+    /// The blocked hits before now have landed: give back what his maximum health could not hold when they were blocked.
+    fn pay_back(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        if self.owed == 0 {
+            return;
+        }
+        let owed = std::mem::take(&mut self.owed);
+        let Some((now, max)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
+        let hp = paid_back(now, max, owed);
+        sim.entity_set_hp(me, hp);
+        wlog(format!("{} BACK {owed} the cap held back: hp {now} -> {hp}/{max}", head(sim, me)));
+    }
 }
 
 impl StablePassive for Guard {
@@ -141,24 +167,42 @@ impl StablePassive for Guard {
         self.p = parse_params(params_json);
     }
 
+    fn on_spawn(&mut self, _: &mut StableSim<'_>, _: usize, _: usize) {
+        self.owed = 0;
+    }
+
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        // every hit of the last tick has landed by now
+        self.pay_back(sim, me);
+    }
+
     fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, attacker: usize, damage: usize) {
-        let Some(e) = sim.get_entity(me) else { return };
-        if !e.is_alive() {
+        if !sim.get_entity(me).is_some_and(|e| e.is_alive()) {
+            self.owed = 0;
             return;
         }
-        let (now, max) = e.hp();
+        // this runs before the hit's health is taken off, after the hits before it in this tick landed (the 11-03 night
+        // logs: two blocks in one tick, the second read the health the first left)
+        self.pay_back(sim, me);
+        let Some((now, max)) = sim.get_entity(me).map(|e| e.hp()) else { return };
         let dist_sq = sim.distance_sq(me, attacker);
         if !blocks(&self.p, guarded(sim, me), damage, attacker == me, dist_sq) {
             return;
         }
-        let hp = refunded(now, max, damage);
+        let (hp, over) = refunded(now, max, damage);
         sim.entity_set_hp(me, hp);
+        self.owed += over;
         wlog(format!(
-            "{} BLOCK {damage} from #{attacker} at {:.0} (far {}): hp {now} -> {hp}/{max}",
+            "{} BLOCK {damage} from #{attacker} at {:.0} (far {}): hp {now} -> {hp}/{max}{}",
             head(sim, me),
             (dist_sq as f64).sqrt(),
-            self.p.far
+            self.p.far,
+            if over > 0 { format!(", {over} back after the hit") } else { String::new() }
         ));
+    }
+
+    fn on_dead(&mut self, _: &mut StableSim<'_>, _: usize) {
+        self.owed = 0;
     }
 }
 
@@ -216,8 +260,48 @@ mod tests {
     }
 
     #[test]
-    fn the_refund_stops_at_full_health() {
-        assert_eq!(refunded(500, 1000, 120), 620);
-        assert_eq!(refunded(950, 1000, 120), 1000);
+    fn the_refund_stops_at_full_health_and_owes_the_rest() {
+        assert_eq!(refunded(500, 1000, 120), (620, 0));
+        assert_eq!(refunded(950, 1000, 120), (1000, 70));
+        assert_eq!(refunded(1000, 1000, 6), (1000, 6));
+        assert_eq!(paid_back(930, 1000, 70), 1000);
+        assert_eq!(paid_back(990, 1000, 70), 1000);
+    }
+
+    /// The host's order (the 11-03 night logs): `on_damaged` first, then the hit's health comes off; the next hit's
+    /// `on_damaged` (or the next update) reads what the last one left. `owed` is paid back first, as the passive does.
+    fn hit(hp: &mut usize, max: usize, owed: &mut usize, damage: usize, blocked: bool) {
+        *hp = paid_back(*hp, max, std::mem::take(owed));
+        if blocked {
+            let (set, over) = refunded(*hp, max, damage);
+            *hp = set;
+            *owed += over;
+        }
+        *hp = hp.saturating_sub(damage);
+    }
+
+    #[test]
+    fn blocked_damage_never_lands_even_at_full_health() {
+        // `BLOCK 6 ...: hp 2750 -> 2750/2750`, then the next block read 2744: 0.1.0 lost the 6
+        let (max, mut hp, mut owed) = (2750, 2750, 0);
+        hit(&mut hp, max, &mut owed, 6, true);
+        assert_eq!((hp, owed), (2744, 6), "the hit landed on the capped health");
+        hp = paid_back(hp, max, std::mem::take(&mut owed)); // the next update
+        assert_eq!(hp, 2750);
+        // `BLOCK 449 ...: hp 2195 -> 2546/2546` and in the same tick `BLOCK 9 ...: hp 2097 -> 2106/2546` (98 lost)
+        let (max, mut hp, mut owed) = (2546, 2195, 0);
+        hit(&mut hp, max, &mut owed, 449, true);
+        assert_eq!(hp, 2097);
+        hit(&mut hp, max, &mut owed, 9, true);
+        assert_eq!((hp, owed), (2195, 0), "the second block paid the first one's rest back before its own refund");
+        // a near hit after a capped block in the same tick takes only its own damage
+        let (max, mut hp, mut owed) = (2750, 2750, 0);
+        hit(&mut hp, max, &mut owed, 300, true);
+        hit(&mut hp, max, &mut owed, 100, false);
+        assert_eq!(paid_back(hp, max, owed), 2650);
+        // a far hit bigger than his health left is still blocked (the health is raised before it comes off)
+        let (max, mut hp, mut owed) = (2000, 300, 0);
+        hit(&mut hp, max, &mut owed, 500, true);
+        assert_eq!((hp, owed), (300, 0));
     }
 }

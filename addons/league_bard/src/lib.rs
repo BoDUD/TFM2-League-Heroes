@@ -146,6 +146,20 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// The `Params` the log showed last (they come from the champion data: the same in every sim of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only if they ever differ (league_talon_vault's; 0.6.4 - before, every
+/// respawn wrote them: 2026-11-03 night logs, 183 SPAWN lines, 67 of the log's 112 KB).
+fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.clone());
+    true
+}
+
 fn head(sim: &StableSim<'_>, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
@@ -865,7 +879,9 @@ impl StablePassive for Door {
         self.arrive = None;
         self.drake_at = None;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Bard (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        // the Params in the first SPAWN line of a launch only (0.6.4)
+        let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
+        wlog(format!("{} SPAWN: the add-on's Bard (player {player}, team {team}){}", head(sim, me), params.unwrap_or_default()));
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -1185,5 +1201,13 @@ mod tests {
         for x in ["e_cd", "e_haste", "e_ghost", "e_doorb", "e_outb", "e_rideb"] {
             assert!(bd(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    #[test]
+    fn the_params_are_logged_once() {
+        let p = Params { e_far: 1, ..Params::default() };
+        assert!(params_new(&p));
+        assert!(!params_new(&p));
+        assert!(params_new(&Params { e_far: 2, ..Params::default() }), "other Params: again");
     }
 }

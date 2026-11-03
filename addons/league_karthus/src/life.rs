@@ -152,16 +152,6 @@ fn raw_ctx(sim: &StableSim<'_>) -> *mut SimCtxV1 {
     unsafe { *(sim as *const StableSim<'_> as *const *mut SimCtxV1) }
 }
 
-/// 这份模拟是谁：游戏的模拟状态指针（被动和 AI 钩子拿到的 `SimCtxV1` 每次都是新的，状态是同一份）。卡尔萨斯阵亡时被动记下它，
-/// 别的英雄的钩子只扣同一份模拟里的复活时间：指针相同也保证了 `shorten_respawn` 读的是同一种状态。0 = 读不到。
-pub fn sim_key(sim: &StableSim<'_>) -> usize {
-    let ctx = raw_ctx(sim);
-    if ctx.is_null() {
-        return 0;
-    }
-    unsafe { (*ctx).state as usize }
-}
-
 fn layout(sim: &StableSim<'_>) -> Option<LifeLayout> {
     let ctx = raw_ctx(sim);
     if ctx.is_null() {

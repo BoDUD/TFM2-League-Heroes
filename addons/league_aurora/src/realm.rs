@@ -19,6 +19,15 @@ use super::{counted, dist, head, wlog, ID};
 
 /// 排在 league_ult_press（100）之后。
 pub const PRIORITY: i32 = 110;
+/// 一串连着按的只记一行（league_heimerdinger 的 `ORDER_FRESH`）：引擎接下 R 之前钩子每 tick 再按一次，AI 每次思考也再想按一次 R，
+/// 同一种决定离上一次不到这么多 tick 就算同一串（0.2.1：2026-11-03 夜里的日志一次 R KILL 记了 14 行，R HELD 100 tick 26 行）。
+pub const ORDER_FRESH: usize = 30;
+
+/// A press at `tick` starts a burst: none of its kind in the `ORDER_FRESH` ticks before (`last`: that kind's last press;
+/// a tick before it is another match).
+pub fn new_burst(last: Option<usize>, tick: usize) -> bool {
+    last.is_none_or(|t0| tick < t0 || tick > t0 + ORDER_FRESH)
+}
 /// 贴脸：这么近的敌方英雄。
 pub const PEEL_R: f64 = 22_000.0;
 /// 自保：她的生命比例不到这个。
@@ -134,6 +143,28 @@ fn pt(e: &StableEntity<'_, '_>) -> Pt {
 #[derive(Clone, Default)]
 pub struct Realm {
     recalling: bool,
+    /// the last press of each kind (peel, trap, kill, held): one line a burst
+    pressed: [Option<usize>; 4],
+}
+
+/// The `pressed` slot of a kind of call.
+fn slot(kind: &str) -> usize {
+    match kind {
+        "peel" => 0,
+        "trap" => 1,
+        "kill" => 2,
+        _ => 3,
+    }
+}
+
+impl Realm {
+    /// A press of `kind` at `tick`: the first of its burst (it gets a line); noted for the next.
+    fn fresh(&mut self, kind: &str, tick: usize) -> bool {
+        let last = &mut self.pressed[slot(kind)];
+        let first = new_burst(*last, tick);
+        *last = Some(tick);
+        first
+    }
 }
 
 impl StablePlayerAi for Realm {
@@ -222,8 +253,10 @@ impl StablePlayerAi for Realm {
                         InputV1::move_to(x, y)
                     }
                 };
-                if let Some(n) = counted("r held") {
-                    wlog(format!("{line} R HELD: no crowd, no kill, no peel - the AI's R kept #{n}"));
+                if self.fresh("held", ctx.tick()) {
+                    if let Some(n) = counted("r held") {
+                        wlog(format!("{line} R HELD: no crowd, no kill, no peel - the AI's R kept #{n}"));
+                    }
                 }
                 return Some(input);
             }
@@ -231,8 +264,10 @@ impl StablePlayerAi for Realm {
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        if let Some(n) = counted(kind) {
-            wlog(format!("{line} {why} #{n}"));
+        if self.fresh(kind, ctx.tick()) {
+            if let Some(n) = counted(kind) {
+                wlog(format!("{line} {why} #{n}"));
+            }
         }
         Some(input)
     }
@@ -289,6 +324,20 @@ mod tests {
     fn nothing_without_the_ult() {
         let m = Me { r_ready: false, ..me(0.3) };
         assert_eq!(call(&m, &[u(1, 10_000.0, 0.1)], &[], &[], None), None);
+    }
+
+    #[test]
+    fn one_line_a_burst_of_presses() {
+        let mut r = Realm::default();
+        // R KILL pressed every tick until the engine takes it (11-03 night logs: 57921..57929, one line now)
+        let kills: Vec<bool> = (57_921..=57_929).map(|t| r.fresh("kill", t)).collect();
+        assert_eq!(kills.iter().filter(|&&f| f).count(), 1);
+        // R HELD at every AI think (4 ticks) for 100 ticks: one line; a later hold is a new burst
+        assert_eq!((9_309..9_409).step_by(4).filter(|&t| r.fresh("held", t)).count(), 1);
+        assert!(r.fresh("held", 11_741));
+        // kinds apart: a peel right after a kill burst still gets its line
+        assert!(r.fresh("peel", 57_930));
+        assert!(new_burst(Some(57_929), 100), "another match");
     }
 
     #[test]

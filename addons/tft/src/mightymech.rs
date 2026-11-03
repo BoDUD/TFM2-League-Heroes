@@ -5,11 +5,12 @@
 //! - **旅人护航**（被动）：每条命第一次有敌方英雄进到 `p_see` 以内（开打），之后每过 `p_cd` 拍再有一次：`p_r` 以内生命比例
 //!   最低的 `p_n` 个友方英雄（不算自己）各得 `p_sh` + 自己最大生命 `p_sh_hp`% 的护盾 `p_t` 拍，自己得那份的 `p_self`%
 //!   （金铲铲旅人：开战时坦克得护盾，旅人双倍）。挂护盾时一直在的 `tft_mightymech_p_shield`。数据读不到生命，也没有"开打"的时机。
-//! - **引力矩阵的冲击波** `tft_mightymech:shockwave`（数据在防御姿态结束那一拍调用）：`q_r` 以内每个敌人受 `q_dmg` + 自己
-//!   （护甲 + 魔抗）的 `q_arm`% 物理伤害（金铲铲原样按双抗算）。数据读不到护甲。
+//! - **引力矩阵的冲击波** `tft_mightymech:shockwave`（数据在防御姿态结束那一拍调用）：`q_r` 以内（加两边的半径，和数据的
+//!   RangeEffect 一样）每个敌人受 `q_dmg` + 自己（护甲 + 魔抗）的 `q_arm`% 物理伤害（金铲铲原样按双抗算）。数据读不到护甲。
 //! - **机甲飞跃** `tft_mightymech:leap`（数据在技能2 出手那一拍调用）：`e_guard` 以内的友方英雄（不算自己）里，身边
 //!   `e_near` 以内有敌方英雄、生命比例最低的那个；跳到离那人最近的那个敌方英雄身上（`e_air` 拍，`tft_mightymech:hop`
-//!   一拍一拍挪），落地：`e_r` 以内每个敌人受 `e_dmg` + `e_ratio`% 攻击力的物理伤害，其中的敌方英雄击飞 `e_up` 拍。
+//!   一拍一拍挪），落地：`e_r` 以内（加两边的半径）每个敌人受 `e_dmg` + `e_ratio`% 攻击力的物理伤害，其中的敌方英雄击飞
+//!   `e_up` 拍。
 //!   没人被冲：跳向数据给的目标。数据挑不出"在冲我方后排的那个人"。
 //! - **死亡**：倒下时播 `tft_mightymech_d`（数据没有死亡的时机）。
 //!
@@ -225,6 +226,14 @@ fn dist(a: (u64, u64), b: (u64, u64)) -> u64 {
     (dist_sq(a, b) as f64).sqrt() as u64
 }
 
+/// A circle of radius `r` around it (body `my_r`) reaches a unit at `unit_at` (body `unit_r`): both bodies count, as in the
+/// data's RangeEffect. 2026-11-04 (11-03 night logs: 30 of 47 shockwaves, 14 of 18 earlier, `on 0 enemies`): the centres
+/// alone within q_r missed whoever stood at the stance's edge.
+pub fn reaches(at: (u64, u64), my_r: u64, r: u64, unit_at: (u64, u64), unit_r: u64) -> bool {
+    let reach = (r + my_r + unit_r) as u128;
+    dist_sq(at, unit_at) <= reach * reach
+}
+
 /// base + ratio% of a stat.
 pub fn scaled(base: usize, ratio: usize, stat: usize) -> usize {
     base + stat * ratio / 100
@@ -295,15 +304,19 @@ fn champs(sim: &StableSim<'_>, me: usize) -> Vec<(usize, (u64, u64), usize, bool
         .collect()
 }
 
-/// Live, targetable enemies of every kind but towers and the nexus: (id, where, champion).
-fn enemies(sim: &StableSim<'_>, me: usize) -> Vec<(usize, (u64, u64), bool)> {
+/// Live, targetable enemies of every kind but towers and the nexus: (id, where, champion, radius).
+fn enemies(sim: &StableSim<'_>, me: usize) -> Vec<(usize, (u64, u64), bool, u64)> {
     let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return Vec::new() };
     (0..sim.entity_count())
         .filter_map(|i| sim.entity_at(i))
         .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && !u.is_tower()
             && !matches!(u.kind(), Some(EntityKindV1::Nexus)))
-        .map(|u| (u.id(), u.pos(), u.is_champion()))
+        .map(|u| (u.id(), u.pos(), u.is_champion(), u.radius() as u64))
         .collect()
+}
+
+fn radius_of(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| e.radius() as u64)
 }
 
 // ===================== 引力矩阵的冲击波 =====================
@@ -315,8 +328,9 @@ impl StableEffectType for Shockwave {
         let Some((at, stat)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| (e.pos(), e.stat())) else { return };
         let p = params_of(me);
         let dmg = scaled(p.q_dmg, p.q_arm, stat.defence + stat.magic_resistance);
-        let r2 = (p.q_r as u128) * (p.q_r as u128);
-        let struck: Vec<usize> = enemies(sim, me).into_iter().filter(|e| dist_sq(at, e.1) <= r2).map(|e| e.0).collect();
+        let my_r = radius_of(sim, me);
+        let struck: Vec<usize> =
+            enemies(sim, me).into_iter().filter(|e| reaches(at, my_r, p.q_r as u64, e.1, e.3)).map(|e| e.0).collect();
         sim.play_sfx(&mm("q_hit"), me, &InputTargetV1::target(me));
         for &id in &struck {
             sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ad, AttackTypeV1::Skill);
@@ -385,13 +399,13 @@ fn land(sim: &mut StableSim<'_>, me: usize, at: (u64, u64)) {
     let p = params_of(me);
     let atk = sim.get_entity(me).map_or(0, |e| e.stat().attack);
     let dmg = scaled(p.e_dmg, p.e_ratio, atk);
-    let r2 = (p.e_r as u128) * (p.e_r as u128);
-    let struck: Vec<_> = enemies(sim, me).into_iter().filter(|e| dist_sq(at, e.1) <= r2).collect();
+    let my_r = radius_of(sim, me);
+    let struck: Vec<_> = enemies(sim, me).into_iter().filter(|e| reaches(at, my_r, p.e_r as u64, e.1, e.3)).collect();
     let here = InputTargetV1::pos(at.0, at.1);
     sim.play_view_effect(&mm("e_slam"), me, &here, 0, 0, 0);
     sim.play_sfx(&mm("e_hit"), me, &here);
     let mut up = Vec::new();
-    for &(id, _, champ) in &struck {
+    for &(id, _, champ, _) in &struck {
         sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ad, AttackTypeV1::Skill);
         if champ && sim.get_entity(id).is_some_and(|e| e.is_alive()) {
             sim.apply_cc(id, &CcV1::of_kind(CcKindV1::Airborne, p.e_up as u64));
@@ -564,6 +578,17 @@ mod tests {
         assert_eq!(diver(&allies[..1], &foes, 35000), Some((2, 10)));
         assert_eq!(diver(&allies[2..], &foes, 35000), None);         // nobody near the one alone
         assert_eq!(scaled(60, 60, 200), 180);
+    }
+
+    #[test]
+    fn the_shockwave_counts_both_bodies() {
+        // 11-03 night: 30 of 47 shockwaves on 0 enemies - an enemy at q_r + both radii is struck, one past it is not
+        let p = Params::default();
+        let (me_r, foe_r) = (5_000, 3_000);
+        let edge = (p.q_r + me_r + foe_r) as u64;
+        assert!(reaches((0, 0), me_r as u64, p.q_r as u64, (edge, 0), foe_r as u64));
+        assert!(!reaches((0, 0), me_r as u64, p.q_r as u64, (edge + 1, 0), foe_r as u64));
+        assert!(!reaches((0, 0), 0, p.q_r as u64, (p.q_r as u64 + 1, 0), 0));   // no bodies: the centres
     }
 
     #[test]

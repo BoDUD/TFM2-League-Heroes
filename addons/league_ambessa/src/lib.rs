@@ -6,7 +6,9 @@
 //! - **狡诈横扫只有刀尖加伤**：主包读不到「离她多远」，扫中的都吃最大生命 `q_pct`%。副本的横扫给扫中的挂 `league_ambessa_q_edge`、
 //!   给她挂 `league_ambessa_q_on`；本包只对离她 `q_tip`% 半径以外（刀尖）的造成最大生命 `q_pct`% 的物理伤害。
 //! - **裂地重击打第一个**：主包把加伤给技能的目标。副本的直线给打中的挂 `league_ambessa_q2_first`；本包把最大生命 `q2_pct`%
-//!   给离她最近的那个（直线上的第一个）。
+//!   给离她最近的那个（直线上的第一个）。0.1.1（2026-11-03 晚的日志：重击放了几百次，一行 `FIRST` 也没有）：副本在同一拍给她挂
+//!   `q2_on`、放出直线，直线 2 拍后才打中、挂上标记；0.1.0 看到 `q2_on` 当拍就摘掉、去找标记，一个也没有，加伤从来没打出去。
+//!   现在看到 `q2_on` 起等 `Q2_WAIT` 拍（`q2_watch`），标记来了才打、才摘 `q2_on`，没等到就记一行 `FIRST none`。
 //! - **拒斥挨打才强化**：主包读不到「她挨没挨打」，砸地总对英雄加伤。副本格挡时给她挂 `league_ambessa_w_on`；本包在这期间
 //!   她被敌方英雄或野怪打到时挂 `league_ambessa_w_hit`，砸地才对打中的所有敌人加伤（数据读它）。
 //! - **公开处决闪到一条线上最远的英雄**：主包只能闪到技能的目标。副本的大招只给目标挂 `league_ambessa_r_aim`、给她挂
@@ -14,9 +16,11 @@
 //!   （`r_sup` 拍眩晕），`r_slam` 拍后砸下（`r_dmg` + `r_ratio`% 攻击 + 最大生命 `r_pct`%，眩晕 `r_stun` 拍），再接连招：
 //!   狡诈横扫冷却清零并马上扫（`league_ambessa_q_go`，控制器读它）、拒斥就绪、强化普攻（龙犬之步）。
 //!
-//! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
-//! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ambessa.log`，每次启动游戏重写。
+//! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。玩法的状态不用全局变量，服务端
+//! 预模拟和你看的那场各算各的；只有日志的条数是整次启动一个计数（0.1.1：以前每局重新数，每局都写前 40 条，一次启动 2411 行里
+//! `TIP` 1418 行）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ambessa.log`，每次启动游戏重写。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -92,9 +96,45 @@ fn name_of(sim: &StableSim<'_>, id: usize) -> String {
     sim.get_entity(id).and_then(|e| e.name()).unwrap_or_else(|| format!("#{id}"))
 }
 
-/// The first 40 lines of a kind, then every 100th (the presim runs every match twice).
-fn often(count: usize) -> bool {
-    count <= 40 || count % 100 == 0
+/// 日志条数（0.1.1，2026-11-03 晚的日志：计数在每个安蓓萨的被动上，每局重新从 1 数，一次启动 2411 行里 `TIP` 1418 行）：
+/// 每种整次启动一个计数，服务器的预模拟先写 `LOG_FIRST` 条、之后每 `LOG_EVERY` 条一条；你看的那场每条都写。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 200;
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind` (the count of the whole launch, every sim): its number when it is to be written - the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th, and every one when `shown`.
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+/// Like `noted`, but every line of the match on screen: only the presims capped.
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
+}
+
+/// The `Params` the log showed last (they come from the champion data: the same in every sim of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only if they ever differ (league_talon_vault's way; every Ambessa of
+/// every presim wrote them at every spawn).
+fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.clone());
+    true
 }
 
 // ===================== 参数 =====================
@@ -181,6 +221,25 @@ pub fn slam_damage(p: &Params, attack: usize, max_hp: usize) -> usize {
     p.r_dmg + attack * p.r_ratio / 100 + max_hp * p.r_pct / 100
 }
 
+/// How long after her `q2_on` shows up Q2's marks are looked for. The copy adds the 4-tick `q2_on` and starts the line
+/// in the same tick; the line (delay 2, apply 1) marks what it hits 2-3 ticks later, the marks last 4 ticks.
+pub const Q2_WAIT: usize = 8;
+
+/// Q2's wait for the line's marks, one update: `wait` = the last tick it still looks (None: no Q2 pending), `on` = her
+/// `q2_on` is there, `marks` = an enemy carries `q2_first`. Returns the new wait and what came of it: Some(true) = the
+/// marks are in (deal the bonus, take `q2_on` off), Some(false) = none came in time (the line hit nobody).
+/// 0.1.0 took `q2_on` off and looked for the marks on the first update it saw it, before the line had hit anything.
+pub fn q2_watch(wait: Option<usize>, on: bool, marks: bool, tick: usize) -> (Option<usize>, Option<bool>) {
+    let Some(until) = wait.or(on.then_some(tick + Q2_WAIT)) else { return (None, None) };
+    if marks {
+        (None, Some(true))
+    } else if tick >= until {
+        (None, Some(false))
+    } else {
+        (Some(until), None)
+    }
+}
+
 /// The farthest of `foes` (id, position) on the line from `from` through `aim`: along it 0..=r_range, at most r_w off
 /// it. The aimed champion itself always counts (the AI cast on it within the ult's range).
 pub fn farthest_on_line(p: &Params, from: (u64, u64), aim: (usize, (u64, u64)), foes: &[(usize, (u64, u64))])
@@ -237,16 +296,14 @@ fn marked(sim: &StableSim<'_>, team: usize, mark: &str) -> Vec<usize> {
 
 // ===================== 被动 =====================
 
-/// 每个安蓓萨一份：参数、等着砸下的大招和日志计数。
+/// 每个安蓓萨一份：参数、等着砸下的大招、等着标记的重击。
 #[derive(Clone, Default)]
 struct Matriarch {
     p: Params,
     /// R: (the pinned champion, the tick of the slam).
     slam: Option<(usize, usize)>,
-    tips: usize,
-    firsts: usize,
-    braces: usize,
-    blinks: usize,
+    /// Q2: the last tick its marks are looked for (`q2_watch`; None: no Q2 pending).
+    q2_wait: Option<usize>,
 }
 
 impl Matriarch {
@@ -262,29 +319,50 @@ impl Matriarch {
             let dmg = share(max_hp, self.p.q_pct);
             sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ad, AttackTypeV1::Skill);
             sim.play_view_effect(&n("q_tip"), me, &InputTargetV1::target(id), 0, 0, 0);
-            self.tips += 1;
-            if often(self.tips) {
-                wlog(format!("{} TIP {} at the blade's edge: {dmg} ({} in all)", head(sim, me), name_of(sim, id),
-                             self.tips));
+            if let Some(k) = tally(sim, "tip") {
+                wlog(format!("{} TIP #{k} {} at the blade's edge: {dmg}", head(sim, me), name_of(sim, id)));
             }
         }
     }
 
-    /// Q2: the bonus on the first enemy on the line (the one nearest her).
-    fn first(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize) {
+    /// Q2 (Sundering Slam), once a `q2_on` showed up: waits for the line's marks (`q2_watch`); when they are in, the bonus
+    /// on the first enemy on the line (the one nearest her) and `q2_on` comes off.
+    fn sundering(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize) {
+        let on = has(sim, me, &n("q2_on"));
+        if !on && self.q2_wait.is_none() {
+            return;
+        }
         let mark = n("q2_first");
         let hit = marked(sim, team, &mark);
-        for &id in &hit {
+        let (wait, done) = q2_watch(self.q2_wait, on, !hit.is_empty(), sim.tick());
+        self.q2_wait = wait;
+        match done {
+            Some(true) => {
+                sim.entity_remove_buff(me, &n("q2_on"));
+                self.first(sim, me, &hit);
+            }
+            Some(false) => {
+                sim.entity_remove_buff(me, &n("q2_on"));
+                if let Some(k) = tally(sim, "first_none") {
+                    wlog(format!("{} FIRST none #{k}: no mark from the slam's line within {Q2_WAIT} ticks", head(sim, me)));
+                }
+            }
+            None => {}
+        }
+    }
+
+    /// Q2: the bonus on the first enemy on the line (the one nearest her) of the units it marked (`hit`).
+    fn first(&mut self, sim: &mut StableSim<'_>, me: usize, hit: &[usize]) {
+        let mark = n("q2_first");
+        for &id in hit {
             sim.entity_remove_buff(id, &mark);
         }
         let Some(&id) = hit.iter().min_by_key(|&&id| sim.distance_sq(me, id)) else { return };
         let Some(max_hp) = sim.get_entity(id).map(|e| e.hp().1) else { return };
         let dmg = share(max_hp, self.p.q2_pct);
         sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ad, AttackTypeV1::Skill);
-        self.firsts += 1;
-        if often(self.firsts) {
-            wlog(format!("{} FIRST {} first of {} on the slam: {dmg} ({} in all)", head(sim, me), name_of(sim, id),
-                         hit.len(), self.firsts));
+        if let Some(k) = tally(sim, "first") {
+            wlog(format!("{} FIRST #{k} {} first of {} on the slam: {dmg}", head(sim, me), name_of(sim, id), hit.len()));
         }
     }
 
@@ -302,7 +380,9 @@ impl Matriarch {
             sim.entity_remove_buff(id, &aim_mark);
         }
         let Some(aim) = aim else {
-            wlog(format!("{} R no aimed champion left (dead or gone): nothing", head(sim, me)));
+            if let Some(k) = tally(sim, "r_none") {
+                wlog(format!("{} R none #{k}: no aimed champion left (dead or gone): nothing", head(sim, me)));
+            }
             return;
         };
         let Some(from) = sim.get_entity(me).map(|e| e.pos()) else { return };
@@ -317,9 +397,8 @@ impl Matriarch {
         sim.play_view_effect(&n("r_pin"), me, &InputTargetV1::target(foe), 0, 0, 0);
         sim.play_sfx(&n("r_pin"), me, &InputTargetV1::target(foe));
         self.slam = Some((foe, sim.tick() + self.p.r_slam));
-        self.blinks += 1;
-        if often(self.blinks) {
-            wlog(format!("{} R aimed at {}, the farthest on the line {}{}: blinked {} -> {:?}", head(sim, me),
+        if let Some(k) = tally(sim, "r") {
+            wlog(format!("{} R #{k} aimed at {}, the farthest on the line {}{}: blinked {} -> {:?}", head(sim, me),
                          name_of(sim, aim.0), name_of(sim, foe), if foe == aim.0 { "" } else { " (another)" },
                          ((from.0 as f64 - to.0 as f64).hypot(from.1 as f64 - to.1 as f64)).round(), spot));
         }
@@ -348,8 +427,8 @@ impl Matriarch {
         let mut pw = BuffV1::timed(&n("pw"), self.p.pw_t);
         pw.attack_speed_mult = self.p.pw_as as i32;
         sim.add_buff(me, &pw);
-        if often(self.blinks) {
-            wlog(format!("{} SLAM {}: {dmg}, stunned {} ticks; Q and W ready", head(sim, me), name_of(sim, foe),
+        if let Some(k) = tally(sim, "slam") {
+            wlog(format!("{} SLAM #{k} {}: {dmg}, stunned {} ticks; Q and W ready", head(sim, me), name_of(sim, foe),
                          self.p.r_stun));
         }
     }
@@ -366,8 +445,14 @@ impl StablePassive for Matriarch {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.slam = None;
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Ambessa (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        self.q2_wait = None;
+        // the Params in the first SPAWN line of a launch only; the line itself capped in the presims (0.1.1)
+        let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
+        if tally(sim, "spawn").is_some() || params.is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Ambessa (player {player}, team {team}){}", head(sim, me),
+                         params.unwrap_or_default()));
+        }
     }
 
     fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, attacker: usize, _: usize) {
@@ -381,30 +466,28 @@ impl StablePassive for Matriarch {
             return;
         }
         sim.add_buff(me, &BuffV1::timed(&n("w_hit"), 60));
-        self.braces += 1;
-        if often(self.braces) {
-            wlog(format!("{} BRACE struck by {}: the slam is empowered ({} in all)", head(sim, me),
-                         name_of(sim, attacker), self.braces));
+        if let Some(k) = tally(sim, "brace") {
+            wlog(format!("{} BRACE #{k} struck by {}: the slam is empowered", head(sim, me), name_of(sim, attacker)));
         }
     }
 
     fn on_dead(&mut self, _: &mut StableSim<'_>, _: usize) {
         self.slam = None;
+        self.q2_wait = None;
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let Some((alive, team)) = sim.get_entity(me).map(|e| (e.is_alive(), e.team())) else { return };
         if !alive {
             self.slam = None;
+            self.q2_wait = None;
             return;
         }
         if has(sim, me, &n("q_on")) {
             self.sweep(sim, me, team);
         }
-        if has(sim, me, &n("q2_on")) {
-            sim.entity_remove_buff(me, &n("q2_on"));
-            self.first(sim, me, team);
-        }
+        // Q2's marks come 2-3 ticks after its q2_on (0.1.1: q2_on was taken off before they came, 0 FIRST lines)
+        self.sundering(sim, me, team);
         if has(sim, me, &n("r_go")) {
             sim.entity_remove_buff(me, &n("r_go"));
             self.execute(sim, me, team);
@@ -494,6 +577,65 @@ mod tests {
     fn the_slam_scales_with_attack_and_max_health() {
         let p = Params::default();
         assert_eq!(slam_damage(&p, 200, 2000), 115 + 170 + 100);
+    }
+
+    /// One Ambessa's Q2s over ticks 0..60: `casts` put the 4-tick `q2_on` on her, the line marks what it hit at each of
+    /// `marked_at` (4 ticks); an outcome takes `q2_on` off, a hit the marks too (as the passive does). The tick and the
+    /// outcome of each.
+    fn q2_run(casts: &[usize], marked_at: &[usize]) -> Vec<(usize, bool)> {
+        let (mut wait, mut on_until, mut marks_until) = (None, 0, 0);
+        let mut out = Vec::new();
+        for tick in 0..60 {
+            if casts.contains(&tick) {
+                on_until = tick + 4;
+            }
+            if marked_at.contains(&tick) {
+                marks_until = tick + 4;
+            }
+            let (w, done) = q2_watch(wait, tick < on_until, tick < marks_until, tick);
+            wait = w;
+            if let Some(d) = done {
+                on_until = 0;
+                if d {
+                    marks_until = 0;
+                }
+                out.push((tick, d));
+            }
+        }
+        out
+    }
+
+    #[test]
+    fn q2_waits_for_the_line_s_marks() {
+        // the 11-03 night logs: hundreds of Q2 casts, 0 FIRST lines - q2_on (4 ticks) shows up the tick the line starts,
+        // the line marks what it hits 2-3 ticks later; 0.1.0 took q2_on off and looked on the first tick
+        assert_eq!(q2_run(&[10], &[12]), [(12, true)]);
+        assert_eq!(q2_run(&[10], &[13]), [(13, true)]);
+        // marks that come after q2_on ran out still count, within Q2_WAIT of it
+        assert_eq!(q2_run(&[10], &[15]), [(15, true)]);
+        // the line hit nobody: one "none", when the wait runs out
+        assert_eq!(q2_run(&[10], &[]), [(10 + Q2_WAIT, false)]);
+        // marks with no Q2 pending are not this add-on's to take
+        assert_eq!(q2_run(&[], &[5]), []);
+        // two casts: each its own outcome
+        assert_eq!(q2_run(&[10, 40], &[13]), [(13, true), (40 + Q2_WAIT, false)]);
+        assert_eq!(q2_run(&[10, 40], &[12, 42]), [(12, true), (42, true)]);
+    }
+
+    #[test]
+    fn presim_lines_are_capped_for_the_launch_and_the_match_on_screen_is_not() {
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    #[test]
+    fn the_params_are_logged_once() {
+        let p = Params::default();
+        assert!(params_new(&p));
+        assert!(!params_new(&p));
+        assert!(params_new(&Params { q2_pct: 9, ..Params::default() }), "other Params: again");
     }
 
     #[test]

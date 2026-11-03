@@ -415,11 +415,12 @@ fn nearest_friend(sim: &StableSim<'_>, me: usize, team: usize, at: (f64, f64), r
 
 // ===================== 被动：杠杆（引爆、救难、狂暴） =====================
 
-/// 一次及时救难：队友、结束的 tick、上一 tick 他的击杀 + 助攻（致命一击那一 tick 的击杀也算参与），被救下后的流失（结束的 tick、
-/// 击杀 + 助攻、最大生命）。
-#[derive(Clone, Copy, Debug)]
+/// 一次及时救难：队友（和他的名字：他死后实体多半下一 tick 就没了，日志照样写得出是谁）、结束的 tick、上一 tick 他的击杀 + 助攻
+/// （致命一击那一 tick 的击杀也算参与），被救下后的流失（结束的 tick、击杀 + 助攻、最大生命）。
+#[derive(Clone, Debug)]
 struct Bail {
     ally: usize,
+    name: String,
     until: usize,
     td_last: usize,
     doom: Option<(usize, usize, usize)>,
@@ -498,7 +499,7 @@ impl Glasc {
 
     /// 及时救难：救着人时管流失和保命；没在救、W 好了时每 WATCH tick 找危急的队友。
     fn bailout(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, now: usize) {
-        if let Some(b) = self.bail {
+        if let Some(b) = self.bail.take() {
             self.bail = self.keep_bail(sim, me, b, now);
             return;
         }
@@ -539,7 +540,7 @@ impl Glasc {
         sim.apply_cc(me, &anim);
         self.w_ready = now + self.p.w_cd;
         let td_last = takedowns(sim, ally).map_or(0, |t| t.1);
-        self.bail = Some(Bail { ally, until: now + self.p.w_t, td_last, doom: None });
+        self.bail = Some(Bail { ally, name: who(sim, ally), until: now + self.p.w_t, td_last, doom: None });
         if let Some(k) = counted("bailout") {
             let a = allies.iter().find(|a| a.id == ally).copied().unwrap_or_default();
             wlog(format!("{} BAILOUT #{k} on {} (hp {:.0}%{})", head(sim, me), who(sim, ally), a.hp * 100.0,
@@ -550,20 +551,20 @@ impl Glasc {
     /// 一 tick 的救难：没出事到期就结束；受到致命伤害就回满、开始烧（不再不死）；烧的时候参与击杀就止住、生命定在 w_keep%，
     /// 被敌人打死就是打死了，到期没参与就阵亡。
     fn keep_bail(&mut self, sim: &mut StableSim<'_>, me: usize, mut b: Bail, now: usize) -> Option<Bail> {
-        let (alive, (hp, max), at, team) = match sim.get_entity(b.ally) {
-            Some(a) => (a.is_alive(), a.hp(), fpos(a.pos()), a.team()),
-            None => return None,
-        };
-        if !alive {
+        let ally = sim.get_entity(b.ally).map(|a| (a.is_alive(), a.hp(), fpos(a.pos()), a.team()));
+        let Some((true, (hp, max), at, team)) = ally else {
+            // dead, or gone: a dead champion's entity is usually gone by the next tick - that ended a bailout with no line
+            // at all (0.1.6, 2026-11-03 night logs: `REFILL #1: league_kindred caught at 1 hp ...` and then nothing)
+            let gone = if ally.is_none() { " (gone)" } else { "" };
             if b.doom.is_some() {
                 if let Some(k) = counted("burned") {
-                    wlog(format!("{} BURNED #{k}: {} was killed while burning", head(sim, me), who(sim, b.ally)));
+                    wlog(format!("{} BURNED #{k}: {} was killed while burning{gone}", head(sim, me), b.name));
                 }
             } else {
-                wlog(format!("{} BAILOUT ended: {} died anyway", head(sim, me), who(sim, b.ally)));
+                wlog(format!("{} BAILOUT ended: {} died anyway{gone}", head(sim, me), b.name));
             }
             return None;
-        }
+        };
         let on = InputTargetV1::target(b.ally);
         match b.doom {
             None => {
@@ -640,14 +641,13 @@ impl Glasc {
     /// 留着「不死」没人管，队友就白白不死到 5 秒结束）；在烧的，被救后参与过击杀就保住（生命定在 w_keep%），没有就当场阵亡。
     fn bail_ends_with_her(&mut self, sim: &mut StableSim<'_>, me: Option<usize>) {
         let Some(b) = self.bail.take() else { return };
-        let Some((alive, at, team, hp)) = sim.get_entity(b.ally).map(|a| (a.is_alive(), fpos(a.pos()), a.team(), a.hp().0))
-        else {
+        let line = me.map_or_else(|| format!("[t={}]", sim.tick()), |m| head(sim, m));
+        let ally = sim.get_entity(b.ally).map(|a| (a.is_alive(), fpos(a.pos()), a.team(), a.hp().0));
+        let Some((true, at, team, hp)) = ally else {
+            // dead too (or gone): one line, as when she lives (0.1.6)
+            wlog(format!("{line} BAILOUT ended: {} dead too (Renata died){}", b.name, if ally.is_none() { " (gone)" } else { "" }));
             return;
         };
-        let line = me.map_or_else(|| format!("[t={}]", sim.tick()), |m| head(sim, m));
-        if !alive {
-            return;
-        }
         let Some((_, td, full)) = b.doom else {
             let left = b.until.saturating_sub(sim.tick());
             sim.entity_remove_buff(b.ally, W_BUFF);

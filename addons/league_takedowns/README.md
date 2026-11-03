@@ -1,4 +1,4 @@
-# 参与击杀附加包（测试版 v0.5.0，可选）：金克丝、崔丝塔娜、易、图奇
+# 参与击杀附加包（测试版 v0.5.1，可选）：金克丝、崔丝塔娜、易、图奇
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -37,6 +37,7 @@
 2. 把 `league_takedowns` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 金克丝普攻、崔丝塔娜 E（火箭跳跃）、易 R 的说明开头是「【附加包】」就说明换上了。
 4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`：`JINX EXCITED #n (assist)`、`TRISTANA W RESET #n (killed #7)`、`YI TAKEDOWN #n (assist): Q 300 -> 90, W 400 -> 120, Highlander extended`、`TWITCH E GO #n`（标记挂上）和 `TWITCH E POP #n: stacks [..]`（真的引爆了）；开头一行 `SPRINT Jinx's Get Excited run on` 是冲刺跑挂上了，`SPRINT display world .. Jinx #..: Get Excited - runs as run_x` 是她开始冲刺。
+   v0.5.1：易每次普攻减 Q 的 `YI ATTACK #n: Q .. -> ..` 在你看的那场也限量（整个游戏先记 40 行、之后每 200 行一行；2026-11-03 夜里的日志一场就 488 行，占全文 39%），每条命死时另记一行合计 `YI ATTACK this life: 23 attacks took 1380 ticks off Q`。玩法不变。
 
 ## 开发
 

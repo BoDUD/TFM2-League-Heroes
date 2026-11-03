@@ -16,5 +16,5 @@
   "mod_id": "league_executes",
   "mod_type": "native",
   "name": "League Heroes: Evelynn's, Akali's and Riven's ults on the target's health (test)",
-  "version": "0.2.0"
+  "version": "0.2.1"
 }

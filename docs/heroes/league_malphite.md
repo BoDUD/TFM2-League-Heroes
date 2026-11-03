@@ -55,7 +55,7 @@
 
 ### 大招瞄准附加包
 
-[大招瞄准附加包](../../addons/league_ult_aim/README.md)：`league_ult_aim` v0.1.0（通用附加包，下面只列和墨菲特有关的部分）
+[大招瞄准附加包](../../addons/league_ult_aim/README.md)：`league_ult_aim` v0.1.1（通用附加包，下面只列和墨菲特有关的部分）
 
 | 英雄 | 主包（AI 自己挑） | 装了附加包 |
 |---|---|---|

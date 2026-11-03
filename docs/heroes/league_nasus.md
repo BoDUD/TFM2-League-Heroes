@@ -55,7 +55,7 @@
 
 ### 内瑟斯附加包
 
-[内瑟斯附加包](../../addons/league_nasus/README.md)：`league_nasus` v0.1.0
+[内瑟斯附加包](../../addons/league_nasus/README.md)：`league_nasus` v0.1.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

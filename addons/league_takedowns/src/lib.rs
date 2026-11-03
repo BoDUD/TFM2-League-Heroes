@@ -16,7 +16,8 @@
 //!   v0.3.2（用户 2026-10-26：「剑圣会无限Q？」）：「普攻」原来用 `on_attack` 数，可它连技能的每一下伤害都算（接口说明：
 //!   `on_attack` also fires for skills）——Q 的每一斩、E 的真实伤害、R 期间的每一下都在减 Q 的冷却，一次 Q 自己就把冷却
 //!   减没了。现在只认真正的普攻：每 tick 看普攻栏的冷却，冷却变长（刚打出一下普攻，`attack_went_out`）才减；
-//!   Q 在数据里是 BaseAttack 类型，也不算（它走的是技能栏的冷却）。每次减记一行 `YI ATTACK`（预模拟限量，见下面的日志）。
+//!   Q 在数据里是 BaseAttack 类型，也不算（它走的是技能栏的冷却）。每次减记一行 `YI ATTACK`（预模拟限量，见下面的日志；
+//!   v0.5.1 起你看的那场也限量——2026-11-03 夜里的日志一场就 488 行——每条命死时另记一行 `YI ATTACK this life` 的合计）。
 //!   v0.4.0（用户 2026-11-03：「剑圣的w满血时候会释放 这个也改一下」）：副本的技能 2 只剩无极剑道，W 冥想由本包照英雄联盟
 //!   单独放——身边有敌方英雄、生命低于一半或一秒内掉了四分之一时才盘腿（`should_meditate`），自己 20 秒冷却，画面和数字照主包。
 //!   每次记一行 `YI MEDITATE`。
@@ -418,6 +419,26 @@ struct MasterYi {
     med_ready: usize,
     med_heals: Vec<usize>,
     meds: usize,
+    /// this life's cuts (one `YI ATTACK` summary line when he dies) and his entity for its head
+    life: Cuts,
+    me: Option<usize>,
+}
+
+/// His auto attacks' cuts to Alpha Strike in one life: how many, and the ticks they took off in all. v0.5.1: a summary line
+/// a life, the per-attack `YI ATTACK` lines capped on screen too (2026-11-03 night logs: 488 lines from one match on
+/// screen, 39% of the log).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Cuts {
+    pub n: usize,
+    pub ticks: usize,
+}
+
+impl Cuts {
+    /// An attack cut Q, `q` ticks left on it before.
+    pub fn add(&mut self, q: usize) {
+        self.n += 1;
+        self.ticks += q.min(YI_ATTACK_CUT);
+    }
 }
 
 /// A real auto attack went out this tick: the attack slot's cooldown grew (it only shrinks otherwise).
@@ -542,8 +563,23 @@ impl StablePassive for MasterYi {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.life = Cuts::default();
         if tally(sim, "yi spawn").is_some() {
             wlog(format!("{} SPAWN: the add-on's Master Yi (player {player})", head(sim, me)));
+        }
+    }
+
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
+        // this life's cuts in one line (his passive stops while he is dead)
+        let life = std::mem::take(&mut self.life);
+        if life.n == 0 {
+            return;
+        }
+        let Some(me) = self.me.or_else(|| sim.get_player(player).and_then(|p| p.champion()).map(|e| e.id())) else {
+            return;
+        };
+        if let Some(k) = tally(sim, "yi attack life") {
+            wlog(format!("{} YI ATTACK this life: {} attacks took {} ticks off Q #{k}", head(sim, me), life.n, life.ticks));
         }
     }
 
@@ -558,6 +594,7 @@ impl StablePassive for MasterYi {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        self.me = Some(me);
         self.meditate(sim, me);
         // every real auto attack: Alpha Strike's cooldown YI_ATTACK_CUT shorter (not his skills' hits, v0.3.2)
         let atk = remaining(sim, me, SkillSlotV1::Attack);
@@ -566,7 +603,9 @@ impl StablePassive for MasterYi {
             if q > 0 {
                 sim.entity_reduce_cooldown(me, SkillSlotV1::Skill, YI_ATTACK_CUT);
                 self.cuts += 1;
-                if tally(sim, "yi attack").is_some() {
+                self.life.add(q);
+                // capped in the match on screen too (v0.5.1): the life's summary comes when he dies
+                if noted("yi attack", false).is_some() {
                     wlog(format!("{} YI ATTACK #{}: Q {q} -> {}", head(sim, me), self.cuts, q.saturating_sub(YI_ATTACK_CUT)));
                 }
             }
@@ -650,6 +689,17 @@ mod tests {
         assert!(attack_went_out(Some(3), 48), "swung again just before it was ready");
         assert!(!attack_went_out(Some(48), 47), "cooling down");
         assert!(!attack_went_out(Some(0), 0), "ready, no swing (his Q's and E's hits never touch the attack slot)");
+    }
+
+    #[test]
+    fn a_life_s_cuts_add_up_for_its_one_line() {
+        let mut life = Cuts::default();
+        life.add(200);
+        life.add(YI_ATTACK_CUT + 1);
+        life.add(25); // less left than a cut: only that comes off
+        assert_eq!(life, Cuts { n: 3, ticks: YI_ATTACK_CUT * 2 + 25 });
+        assert_eq!(std::mem::take(&mut life), Cuts { n: 3, ticks: YI_ATTACK_CUT * 2 + 25 });
+        assert_eq!(life, Cuts::default(), "the next life starts from nothing");
     }
 
     #[test]

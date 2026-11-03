@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Braum as in League (needs League of Legends Heroes): replaces the main pack's Braum so Concussive Blows stacks on each champion and his allies' attacks add stacks to a champion he marked, Unbreakable stops damage only from the side his shield faces and covers the allies behind him, and Glacial Fissure is aimed along the line with the most enemy champions. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-12",
+  "last_updated": "2026-11-04",
   "mod_id": "league_braum",
   "mod_type": "native",
   "name": "League Heroes: Braum's Concussive Blows, Unbreakable and Glacial Fissure (test)",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }

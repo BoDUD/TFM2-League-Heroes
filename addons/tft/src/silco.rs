@@ -8,9 +8,11 @@
 //!   `r_n` 只畸变体，扑向储罐附近的敌人（先英雄，几只分给不同的人），每只咬 `m_n` 口、每 `m_gap` 拍一口，每口 `m_dmg` +
 //!   法强 `m_ratio`% 魔法伤害；被咬的人死了 / 选不中了，就跳到 `m_reach` 以内最近的敌人身上接着咬，咬完或 `m_life` 拍后化掉。
 //!   畸变体是骑在被咬的人身上的画面（扑上去 `m_leap`、啃咬 `m_bite_l` / `m_bite_r` 分在他左右两边、化掉 `m_die`），像安妮的
-//!   提伯斯；每只是一个每口重排一次的效果（`tft_silco:monster`），被咬的人、剩几口、哪一边、到期的拍都记在它的输入里。
-//! - **巨型储罐留下微光毒雾**（`tft_silco:flood` 接着 `tft_silco:fog`）：`r_fog_t` 拍里，`r_fog_r` 以内的敌人减速
-//!   `r_slow`%（`tft_silco_r_slow`），每秒受到 `r_fog_dmg` + 法强 `r_fog_ratio`% 魔法伤害；毒雾的画面 `r_fog` 隔一会儿重播。
+//!   提伯斯；被咬的人、剩几口、哪一边、到期的拍记在全局表里（按这份模拟的编号 `SIM_TAG` 和希尔科），每口排一次效果
+//!   （`tft_silco:monster`，普通的位置输入），到点时把表里这一行到点的畸变体都处理掉。
+//! - **巨型储罐留下微光毒雾**（`tft_silco:flood` 接着 `tft_silco:fog`）：`r_fog_t` 拍里，`r_fog_r` 以内（加那人的半径）的敌人
+//!   减速 `r_slow`%（`tft_silco_r_slow`），每秒受到 `r_fog_dmg` + 法强 `r_fog_ratio`% 魔法伤害；毒雾的画面 `r_fog` 隔一会儿
+//!   重播。毒雾也记在表里（同上）。
 //! - **微光注射给身边的队友**（`tft_silco:inject`：技能2 出手）：`e_r` 以内攻击力最高的友方英雄（没有就他自己）攻速
 //!   +`e_as`%、移速 +`e_ms`%，`e_t` 拍（`tft_silco_e_shimmer`）；药效过去（`tft_silco:comedown`）扣掉当前生命的
 //!   `e_cost`%（不会扣死）。
@@ -26,6 +28,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+use crate::sim_tag::{due, forget, wait, Key, Rows, SimTag};
 
 const ID: &str = "tft_silco";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -47,6 +51,13 @@ fn sc(x: &str) -> String {
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 
+/// The tests log into the temp folder (lib.rs's way: the monstrosity test's lines must not land in the game's log).
+#[cfg(test)]
+fn log_path() -> PathBuf {
+    std::env::temp_dir().join("tft_silco_test.log")
+}
+
+#[cfg(not(test))]
 fn log_path() -> PathBuf {
     if let Some(path) = std::env::var_os("TFT_SILCO_LOG") {
         return PathBuf::from(path);
@@ -209,6 +220,23 @@ fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied().unwrap_or_default()
 }
 
+// ===================== 每份模拟的畸变体和毒雾 =====================
+
+/// 畸变体和毒雾按（这份模拟的编号 `SIM_TAG`、希尔科）记在这里（2026-11-04 修，11-03 夜里的日志：40 个储罐 39 次挑到了人，
+/// 一口 BITE、一次 LEAP 都没有）。以前每只畸变体塞在排队效果的输入里（被咬的人 + 1 在 target_id，剩几口和哪一边在 dir_x，
+/// 化掉的拍在 dir_y），毒雾的起止拍在 dir_x / dir_y；排队只留下位置输入的 x、y（格雷福斯附加包的撞墙标记一样丢了），
+/// 取出来剩 0 口，第一口就悄悄化掉，毒雾第一拍就散了。现在排的是普通的位置输入，效果到点时把这一行里到点的都处理掉
+/// （sim_tag.rs 的 `Rows`）。
+const TAG: SimTag = SimTag("tft_silco_sim:");
+static MONSTERS: LazyLock<Rows<Monster>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static FOGS: LazyLock<Rows<Cloud>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// His new life: the monstrosities and fogs of the last one stopped with him.
+fn new_life(no: u64) {
+    forget(&MONSTERS, no);
+    forget(&FOGS, no);
+}
+
 // ===================== 规则（单元测试用） =====================
 
 /// base + ratio% of the ability power.
@@ -250,8 +278,8 @@ pub fn comedown(hp: usize, cost: usize) -> usize {
     hp.saturating_sub(hp * cost / 100).max(1).min(hp)
 }
 
-/// One monstrosity, in the input of its queued effect: where it is, whom it bites (id + 1, 0 = nobody yet), how many
-/// bites are left, which side of its victim it is drawn on, the tick it melts.
+/// One monstrosity (its row in [`MONSTERS`]): where it is, whom it bites, how many bites are left, which side of its
+/// victim it is drawn on, the tick it melts.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Monster {
     pub at: (u64, u64),
@@ -262,33 +290,24 @@ pub struct Monster {
 }
 
 impl Monster {
-    pub fn input(&self) -> InputTargetV1 {
-        InputTargetV1 {
-            kind: InputTargetKindV1::Pos.code(),
-            target_id: self.victim.map_or(0, |v| v + 1),
-            dir_x: (self.bites * 2 + (self.side & 1)) as i64,
-            dir_y: self.until as i64,
-            x: self.at.0,
-            y: self.at.1,
-        }
-    }
-
-    pub fn from_input(i: &InputTargetV1) -> Option<Self> {
-        if i.kind != InputTargetKindV1::Pos.code() || i.dir_x < 0 || i.dir_y < 0 {
-            return None;
-        }
-        Some(Self {
-            at: (i.x, i.y),
-            victim: i.target_id.checked_sub(1),
-            bites: (i.dir_x / 2) as usize,
-            side: (i.dir_x & 1) as usize,
-            until: i.dir_y as usize,
-        })
-    }
-
     pub fn bite_picture(&self) -> String {
         sc(if self.side == 0 { "m_bite_l" } else { "m_bite_r" })
     }
+}
+
+/// The Shimmer fog of one giant canister (its row in [`FOGS`]): where, the tick it rose (its picture replays from it),
+/// the tick it goes.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Cloud {
+    pub at: (u64, u64),
+    pub born: usize,
+    pub until: usize,
+}
+
+/// `unit_at` (a body of radius `unit_r`) is in the circle of radius `r` around `at`: a shape counts the body it tests.
+pub fn in_circle(at: (u64, u64), r: u64, unit_at: (u64, u64), unit_r: u64) -> bool {
+    let reach = (r + unit_r) as u128;
+    dist_sq(at, unit_at) <= reach * reach
 }
 
 // ===================== 模拟里的小工具 =====================
@@ -334,18 +353,34 @@ fn put(sim: &mut StableSim<'_>, id: usize, buff: &BuffV1) {
     sim.add_buff(id, buff);
 }
 
+/// One of his effects queued `delay` ticks on, with a plain input (the queue keeps a position's x and y, nothing more);
+/// a refusal is logged (2026-11-04: it was dropped without a word).
+fn queue(sim: &mut StableSim<'_>, fx: &str, me: usize, input: InputTargetV1, delay: usize) {
+    if !sim.queue_effect(fx, AttackTypeV1::Skill, me, &input, delay.max(1)) {
+        if let Some(k) = counted("refused") {
+            wlog(format!("{} REFUSED #{k}: queue_effect({fx})", head(sim, me)));
+        }
+    }
+}
+
 // ===================== 畸变体 =====================
+
+/// Monstrosity `m` waits in his row for `delay` ticks; its effect is queued for then.
+fn send(sim: &mut StableSim<'_>, me: usize, row: Key, m: Monster, delay: usize) {
+    wait(&MONSTERS, row, sim.tick() + delay.max(1), m);
+    queue(sim, MONSTER_FX, me, InputTargetV1::pos(m.at.0, m.at.1), delay);
+}
 
 /// A canister landed at `at`: `n` monstrosities pounce on the enemies near it.
 fn release(sim: &mut StableSim<'_>, me: usize, at: (u64, u64), n: usize, what: &'static str) {
     let Some(team) = team_of(sim, me) else { return };
     let p = params_of(me);
-    let tick = sim.tick();
+    let (tick, row) = (sim.tick(), TAG.key(sim, me, me));
     let picked = victims(&foes(sim, team), at, p.m_reach, n);
     for (k, &id) in picked.iter().enumerate() {
         sim.play_view_effect(&sc("m_leap"), me, &InputTargetV1::target(id), 0, 0, 0);
         let m = Monster { at, victim: Some(id), bites: p.m_n, side: k & 1, until: tick + p.m_life };
-        sim.queue_effect(MONSTER_FX, AttackTypeV1::Skill, me, &m.input(), p.m_leap);
+        send(sim, me, row, m, p.m_leap);
     }
     if picked.is_empty() {
         sim.play_view_effect(&sc("m_die"), me, &InputTargetV1::pos(at.0, at.1), 0, 0, 0);
@@ -366,50 +401,56 @@ impl StableEffectType for Canister {
     }
 }
 
-/// A monstrosity, once a bite (or a leap): bite its victim, or leap to the nearest enemy when the victim is gone.
+/// One monstrosity's turn: bite its victim, or leap to the nearest enemy when the victim is gone.
+fn monster(sim: &mut StableSim<'_>, me: usize, row: Key, mut m: Monster) {
+    let (Some(team), tick) = (team_of(sim, me), sim.tick()) else { return };
+    let p = params_of(me);
+    let alive_victim = m.victim.filter(|&id| biteable(sim, id));
+    if let Some(id) = alive_victim {
+        m.at = sim.get_entity(id).map_or(m.at, |e| e.pos());
+    }
+    if m.bites == 0 || tick >= m.until {
+        sim.play_view_effect(&sc("m_die"), me, &InputTargetV1::pos(m.at.0, m.at.1), 0, 0, 0);
+        return;
+    }
+    let Some(id) = alive_victim else {
+        // the victim died or slipped away: the nearest enemy within reach, or it melts
+        match by_preference(&foes(sim, team), m.at, p.m_reach).first() {
+            Some(&next) => {
+                sim.play_view_effect(&sc("m_leap"), me, &InputTargetV1::target(next), 0, 0, 0);
+                if let Some(k) = counted("leap") {
+                    wlog(format!("{} LEAP #{k}: a monstrosity ({} bites left) to {}", head(sim, me), m.bites,
+                                 name_of(sim, next)));
+                }
+                send(sim, me, row, Monster { victim: Some(next), ..m }, p.m_leap);
+            }
+            None => {
+                sim.play_view_effect(&sc("m_die"), me, &InputTargetV1::pos(m.at.0, m.at.1), 0, 0, 0);
+            }
+        }
+        return;
+    };
+    let dmg = magic(p.m_dmg, p.m_ratio, ap_of(sim, me));
+    sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+    let on = InputTargetV1::target(id);
+    sim.play_view_effect(&m.bite_picture(), me, &on, 0, 0, 0);
+    sim.play_sfx(SFX_BITE, me, &on);
+    if let Some(k) = counted("bite") {
+        wlog(format!("{} BITE #{k}: {} takes {dmg} magic ({} bites left)", head(sim, me), name_of(sim, id),
+                     m.bites - 1));
+    }
+    m.bites -= 1;
+    send(sim, me, row, m, p.m_gap);
+}
+
+/// A monstrosity's tick came (a bite, a leap's landing): every monstrosity of his due by now takes its turn.
 struct Monstrosity;
 impl StableEffectType for Monstrosity {
-    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
-        let Some(mut m) = Monster::from_input(&input) else { return };
-        let (Some(team), tick) = (team_of(sim, me), sim.tick()) else { return };
-        let p = params_of(me);
-        let alive_victim = m.victim.filter(|&id| biteable(sim, id));
-        if let Some(id) = alive_victim {
-            m.at = sim.get_entity(id).map_or(m.at, |e| e.pos());
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
+        let row = TAG.key(sim, me, me);
+        for m in due(&MONSTERS, row, sim.tick()) {
+            monster(sim, me, row, m);
         }
-        if m.bites == 0 || tick >= m.until {
-            sim.play_view_effect(&sc("m_die"), me, &InputTargetV1::pos(m.at.0, m.at.1), 0, 0, 0);
-            return;
-        }
-        let Some(id) = alive_victim else {
-            // the victim died or slipped away: the nearest enemy within reach, or it melts
-            match by_preference(&foes(sim, team), m.at, p.m_reach).first() {
-                Some(&next) => {
-                    sim.play_view_effect(&sc("m_leap"), me, &InputTargetV1::target(next), 0, 0, 0);
-                    if let Some(k) = counted("leap") {
-                        wlog(format!("{} LEAP #{k}: a monstrosity ({} bites left) to {}", head(sim, me), m.bites,
-                                     name_of(sim, next)));
-                    }
-                    sim.queue_effect(MONSTER_FX, AttackTypeV1::Skill, me, &Monster { victim: Some(next), ..m }.input(),
-                                     p.m_leap);
-                }
-                None => {
-                    sim.play_view_effect(&sc("m_die"), me, &InputTargetV1::pos(m.at.0, m.at.1), 0, 0, 0);
-                }
-            }
-            return;
-        };
-        let dmg = magic(p.m_dmg, p.m_ratio, ap_of(sim, me));
-        sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
-        let on = InputTargetV1::target(id);
-        sim.play_view_effect(&m.bite_picture(), me, &on, 0, 0, 0);
-        sim.play_sfx(SFX_BITE, me, &on);
-        if let Some(k) = counted("bite") {
-            wlog(format!("{} BITE #{k}: {} takes {dmg} magic ({} bites left)", head(sim, me), name_of(sim, id),
-                         m.bites - 1));
-        }
-        m.bites -= 1;
-        sim.queue_effect(MONSTER_FX, AttackTypeV1::Skill, me, &m.input(), p.m_gap);
     }
 
     fn expected_damage(&self, caster_stat: &StatV1) -> (usize, usize) {
@@ -427,49 +468,55 @@ impl StableEffectType for Flood {
         let Some(at) = point(sim, &input) else { return };
         let p = params_of(me);
         release(sim, me, at, p.r_n, "flood");
-        let tick = sim.tick();
-        let fog = InputTargetV1 { dir_x: tick as i64, dir_y: (tick + p.r_fog_t) as i64, ..InputTargetV1::pos(at.0, at.1) };
+        let (tick, row) = (sim.tick(), TAG.key(sim, me, me));
         sim.play_view_effect(&sc("r_fog"), me, &InputTargetV1::pos(at.0, at.1), 0, 0, 0);
-        sim.queue_effect(FOG_FX, AttackTypeV1::Skill, me, &fog, FOG_GAP);
+        wait(&FOGS, row, tick + FOG_GAP, Cloud { at, born: tick, until: tick + p.r_fog_t });
+        queue(sim, FOG_FX, me, InputTargetV1::pos(at.0, at.1), FOG_GAP);
     }
 }
 
-/// The Shimmer fog, every FOG_GAP ticks while it lasts (born in dir_x, gone at dir_y).
+/// One fog's turn, every FOG_GAP ticks while it lasts.
+fn fog(sim: &mut StableSim<'_>, me: usize, row: Key, c: Cloud) {
+    let tick = sim.tick();
+    let Some(team) = team_of(sim, me) else { return };
+    if tick >= c.until {
+        return;
+    }
+    let p = params_of(me);
+    let dmg = magic(p.r_fog_dmg, p.r_fog_ratio, ap_of(sim, me)) * FOG_GAP / 60;
+    let mut slow = BuffV1::timed(&sc("r_slow"), FOG_GAP + 5);
+    slow.move_speed_mult = -p.r_slow;
+    let inside: Vec<usize> = foes(sim, team)
+        .into_iter()
+        .filter(|&(id, q, _)| in_circle(c.at, p.r_fog_r, q, sim.get_entity(id).map_or(0, |e| e.radius() as u64)))
+        .map(|(id, _, _)| id)
+        .collect();
+    for &id in &inside {
+        put(sim, id, &slow);
+        if dmg > 0 {
+            sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+        }
+    }
+    if (tick - c.born) % FOG_SHOW < FOG_GAP && tick - c.born >= FOG_SHOW {
+        sim.play_view_effect(&sc("r_fog"), me, &InputTargetV1::pos(c.at.0, c.at.1), 0, 0, 0);
+    }
+    if !inside.is_empty() {
+        if let Some(k) = counted("fog") {
+            wlog(format!("{} FOG #{k}: {} inside, {dmg} magic each", head(sim, me), inside.len()));
+        }
+    }
+    wait(&FOGS, row, tick + FOG_GAP, c);
+    queue(sim, FOG_FX, me, InputTargetV1::pos(c.at.0, c.at.1), FOG_GAP);
+}
+
+/// A fog's tick came: every fog of his due by now takes its turn.
 struct Fog;
 impl StableEffectType for Fog {
-    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
-        if input.kind != InputTargetKindV1::Pos.code() || input.dir_x < 0 || input.dir_y < 0 {
-            return;
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
+        let row = TAG.key(sim, me, me);
+        for c in due(&FOGS, row, sim.tick()) {
+            fog(sim, me, row, c);
         }
-        let (at, born, until, tick) = ((input.x, input.y), input.dir_x as usize, input.dir_y as usize, sim.tick());
-        let Some(team) = team_of(sim, me) else { return };
-        if tick >= until {
-            return;
-        }
-        let p = params_of(me);
-        let dmg = magic(p.r_fog_dmg, p.r_fog_ratio, ap_of(sim, me)) * FOG_GAP / 60;
-        let mut slow = BuffV1::timed(&sc("r_slow"), FOG_GAP + 5);
-        slow.move_speed_mult = -p.r_slow;
-        let inside: Vec<usize> = foes(sim, team)
-            .into_iter()
-            .filter(|&(_, q, _)| dist_sq(q, at) <= (p.r_fog_r as u128) * (p.r_fog_r as u128))
-            .map(|(id, _, _)| id)
-            .collect();
-        for &id in &inside {
-            put(sim, id, &slow);
-            if dmg > 0 {
-                sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
-            }
-        }
-        if (tick - born) % FOG_SHOW < FOG_GAP && tick - born >= FOG_SHOW {
-            sim.play_view_effect(&sc("r_fog"), me, &InputTargetV1::pos(at.0, at.1), 0, 0, 0);
-        }
-        if !inside.is_empty() {
-            if let Some(k) = counted("fog") {
-                wlog(format!("{} FOG #{k}: {} inside, {dmg} magic each", head(sim, me), inside.len()));
-            }
-        }
-        sim.queue_effect(FOG_FX, AttackTypeV1::Skill, me, &input, FOG_GAP);
     }
 }
 
@@ -540,6 +587,8 @@ struct Baron {
     /// The unit last shielded, and whether it was alive last tick (a respawn shields again).
     shielded: Option<usize>,
     was_alive: bool,
+    /// This simulation's number (`SIM_TAG`), drawn at his first spawn.
+    sim: u64,
 }
 
 impl Baron {
@@ -567,6 +616,9 @@ impl StablePassive for Baron {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        // his monstrosities and fogs go by this number (2026-11-04); a new life starts without the last one's
+        TAG.spawn(sim, me, &mut self.sim);
+        new_life(self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = team_of(sim, me).unwrap_or(0);
@@ -616,6 +668,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::sim_tag::mock::{step, with_sim, Unit, World};
 
     #[test]
     fn params_from_the_kit() {
@@ -640,16 +693,76 @@ mod tests {
     }
 
     #[test]
-    fn a_monstrosity_rides_in_its_input() {
-        for victim in [None, Some(0), Some(41)] {
-            for side in 0..2 {
-                let m = Monster { at: (123_456, 78_901), victim, bites: 5, side, until: 9_999 };
-                assert_eq!(Monster::from_input(&m.input()), Some(m));
-            }
-        }
-        assert_eq!(Monster::from_input(&InputTargetV1::target(5)), None);
+    fn a_shape_counts_the_body_it_tests() {
+        assert!(in_circle((0, 0), 40_000, (43_000, 0), 4_000));
+        assert!(!in_circle((0, 0), 40_000, (45_000, 0), 4_000));
+        assert!(in_circle((0, 0), 40_000, (40_000, 0), 0));
         let m = Monster { at: (0, 0), victim: None, bites: 1, side: 1, until: 1 };
         assert_eq!(m.bite_picture(), "tft_silco_m_bite_r");
+    }
+
+    /// His queued effects, as the game fires them.
+    fn fire(sim: &mut StableSim<'_>, name: &str, caster: usize, input: InputTargetV1) {
+        match name {
+            MONSTER_FX => Monstrosity.apply(sim, 0, caster, input),
+            FOG_FX => Fog.apply(sim, 0, caster, input),
+            other => panic!("{other} queued"),
+        }
+    }
+
+    /// Silco #0 (team 0), enemy champions #1 and #2 next to (105000, 0), #3 farther off.
+    fn world() -> World {
+        let units = vec![Unit::new(0, (0, 0)), Unit::new(1, (100_000, 0)), Unit::new(1, (110_000, 0)),
+                         Unit::new(1, (148_000, 0))];
+        World { units, ..Default::default() }
+    }
+
+    #[test]
+    fn monstrosities_bite_through_a_queue_that_keeps_only_the_position() {
+        // 11-03 night: 39 of 40 canisters picked victims, not one BITE - the queue handed back 0 bites
+        let p = Params::default();
+        let bite = magic(p.m_dmg, p.m_ratio, 0);
+        // the server's twin presims of one set: Silco is #0 in both, his canisters land on the same tick
+        let (mut a, mut b) = (world(), world());
+        let (mut pa, mut pb) = (Baron::default(), Baron::default());
+        with_sim(&mut a, |sim| pa.on_spawn(sim, 0, 0));
+        with_sim(&mut b, |sim| pb.on_spawn(sim, 0, 0));
+        assert!(pa.sim > 0 && pb.sim > 0 && pa.sim != pb.sim);
+        for x in [&mut a, &mut b] {
+            with_sim(x, |sim| Canister.apply(sim, 0, 0, InputTargetV1::pos(105_000, 0)));
+        }
+        // a: #1 dies after its first bite - its monstrosity leaps to the nearest enemy, #2
+        for t in 0..400 {
+            if t == 30 {
+                a.units[1].alive = false;
+            }
+            step(&mut a, fire);
+            step(&mut b, fire);
+        }
+        let on = |x: &World, id| x.hits.iter().filter(|h| h.0 == id && h.1 == bite).count();
+        assert_eq!((on(&b, 1), on(&b, 2), on(&b, 3)), (p.m_n, p.m_n, 0), "b: q_n monstrosities, m_n bites each");
+        assert_eq!((on(&a, 1), on(&a, 2)), (1, 2 * p.m_n - 1), "a: one bite on #1, the rest on #2");
+        assert!(a.queue.is_empty() && b.queue.is_empty(), "all melted: nothing queued any more");
+        assert!(due(&MONSTERS, (pa.sim, 0), usize::MAX).is_empty());
+    }
+
+    #[test]
+    fn the_fog_lasts_its_time_and_counts_the_body() {
+        let p = Params::default();
+        let mut x = world();
+        let mut silco = Baron::default();
+        with_sim(&mut x, |sim| silco.on_spawn(sim, 0, 0));
+        // the giant canister lands 43000 short of #3: only its body (4000) reaches into the fog (r_fog_r 40000)
+        with_sim(&mut x, |sim| Flood.apply(sim, 0, 0, InputTargetV1::pos(105_000, 0)));
+        for _ in 0..p.r_fog_t + 2 * FOG_GAP {
+            step(&mut x, fire);
+        }
+        let puff = magic(p.r_fog_dmg, p.r_fog_ratio, 0) * FOG_GAP / 60;
+        let turns = (p.r_fog_t - 1) / FOG_GAP;
+        let fogged = |id| x.hits.iter().filter(|h| h.0 == id && h.1 == puff).count();
+        assert_eq!((fogged(1), fogged(2), fogged(3)), (turns, turns, turns));
+        assert!(x.units[3].buffs.iter().any(|b| b.name() == sc("r_slow")));
+        assert!(due(&FOGS, (silco.sim, 0), usize::MAX).is_empty(), "the fog is gone");
     }
 
     #[test]

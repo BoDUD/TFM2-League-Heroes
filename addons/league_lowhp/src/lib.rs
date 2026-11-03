@@ -13,7 +13,8 @@
 //!
 //! 丽桑卓的被动「冰脉驱役」（v0.2.0）也在这里（她的副本只能有一份）：主包只认她自己打死的英雄（击杀检查）。英雄联盟里她身边
 //! 任何敌方英雄阵亡都化成冰仆。副本去掉数据里的那 7 处冰仆；被动每 tick 记下敌方英雄的位置和死活，有人在她 `THRALL_REACH`
-//! 内由活变死，就在他倒下的地方播主包的冰仆画面，`THRALL_TICKS` 后碎裂：播主包的碎裂画面和声音，`THRALL_R` 内的敌人（英雄、
+//! 内由活变死（或者上一拍还活着、这一拍实体就没了：阵亡英雄的实体一般下一拍就不在了，0.2.3），就在他倒下的地方（上一拍的
+//! 位置）播主包的冰仆画面，`THRALL_TICKS` 后碎裂：播主包的碎裂画面和声音，`THRALL_R` 内的敌人（英雄、
 //! 小兵、野怪）受到 150 + 70% 法强的魔法伤害、减速 25% 1.5 秒（同主包）。冰仆不会走（画面是挂在地上的，走了画面跟不上）；
 //! v0.2.1 起碎裂时扑向 `THRALL_LUNGE` 内最近的敌方英雄（没有英雄就最近的小兵、野怪），在他身上碎裂：原地碎裂 22 次只有 4 次
 //! 炸到人（1.5 秒后尸体边上没人了）。
@@ -117,10 +118,20 @@ fn dist(a: Pt, b: Pt) -> f64 {
 }
 
 /// Enemy champions who died this tick within `reach` of her at `me`: `before` (alive, where) last tick, `now` this tick.
+/// One alive last tick falls where it stood then if it is dead now - or no longer listed at all: a dead champion's
+/// entity is usually gone by the next tick (0.2.3, the 11-03 night logs: 7 spawns, 8 LOW, 0 THRALL - 0.2.2 waited for
+/// an enemy listed as dead and never saw one). The ones gone come after the ones listed dead, by id (the order the
+/// thralls rise in is the same in every sim of a match; a HashMap's is not).
 pub fn fallen(before: &HashMap<usize, (bool, Pt)>, now: &[(usize, bool, Pt)], me: Pt, reach: f64) -> Vec<Pt> {
+    let mut gone: Vec<(usize, Pt)> = before.iter()
+        .filter(|&(id, b)| b.0 && now.iter().all(|n| n.0 != *id))
+        .map(|(id, b)| (*id, b.1))
+        .collect();
+    gone.sort_by_key(|g| g.0);
     now.iter()
         .filter(|(id, alive, _)| !alive && before.get(id).is_some_and(|b| b.0))
         .map(|(id, _, _)| before[id].1)
+        .chain(gone.into_iter().map(|g| g.1))
         .filter(|p| dist(*p, me) <= reach)
         .collect()
 }
@@ -295,6 +306,26 @@ mod tests {
             [(1, (true, (10_000.0, 0.0))), (2, (true, (200_000.0, 0.0))), (3, (false, (0.0, 0.0)))].into();
         let now = [(1, false, (0.0, 0.0)), (2, false, (0.0, 0.0)), (3, false, (0.0, 0.0)), (4, false, (0.0, 0.0))];
         assert_eq!(fallen(&before, &now, (0.0, 0.0), THRALL_REACH), vec![(10_000.0, 0.0)]);
+    }
+
+    #[test]
+    fn a_champion_whose_entity_is_gone_fell_where_it_stood() {
+        // the 11-03 night logs: 0 THRALL in a game with Lissandra - the dead champion's entity is gone by the next tick,
+        // so 0.2.2 never saw it listed as dead
+        let before: HashMap<usize, (bool, Pt)> = [(9, (true, (30_000.0, 0.0))), (5, (true, (0.0, 20_000.0))),
+            (7, (true, (200_000.0, 0.0))), (8, (false, (1_000.0, 0.0))), (6, (true, (5_000.0, 0.0)))].into();
+        // 6 still alive, 8 was already dead last tick, 7 gone but too far, 5 and 9 gone near her
+        let now = [(6, true, (6_000.0, 0.0))];
+        assert_eq!(fallen(&before, &now, (0.0, 0.0), THRALL_REACH), vec![(0.0, 20_000.0), (30_000.0, 0.0)],
+                   "both, by id (the same order in every sim)");
+        // one listed dead comes first, then the ones gone
+        let now = [(6, false, (6_000.0, 0.0))];
+        assert_eq!(fallen(&before, &now, (0.0, 0.0), THRALL_REACH), vec![(5_000.0, 0.0), (0.0, 20_000.0), (30_000.0, 0.0)]);
+        // nothing seen before (her first update, or after her own death): nothing falls
+        assert!(fallen(&HashMap::new(), &now, (0.0, 0.0), THRALL_REACH).is_empty());
+        // everyone still there and alive: nothing
+        let all: Vec<(usize, bool, Pt)> = before.iter().map(|(id, b)| (*id, b.0, b.1)).collect();
+        assert!(fallen(&before, &all, (0.0, 0.0), THRALL_REACH).is_empty());
     }
 
     #[test]

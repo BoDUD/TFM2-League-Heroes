@@ -55,7 +55,7 @@
 
 ### 布隆附加包
 
-布隆附加包：`league_braum` v0.1.2
+布隆附加包：`league_braum` v0.1.3
 
 （这个附加包没有 README，下面是它 `mod.mod_info` 里的英文说明）
 

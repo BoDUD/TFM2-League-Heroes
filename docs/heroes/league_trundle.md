@@ -55,7 +55,7 @@
 
 ### 特朗德尔附加包
 
-[特朗德尔附加包](../../addons/league_trundle/README.md)：`league_trundle` v0.1.0
+[特朗德尔附加包](../../addons/league_trundle/README.md)：`league_trundle` v0.1.1
 
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|

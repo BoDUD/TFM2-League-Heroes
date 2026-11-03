@@ -359,6 +359,27 @@
                                                                 "heal_type": "Caster"
                                                               },
                                                               {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_yorick_q_win"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_yorick_q_win",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 4
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
                                                                 "type": "TargetProjectile",
                                                                 "name": "league_yorick_q_blow",
                                                                 "speed": 40000,
@@ -713,75 +734,6 @@
                                                                         }
                                                                       ]
                                                                     }
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
-                                                                "type": "Delayed",
-                                                                "tick": 2,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RandomTarget",
-                                                                        "range": 1,
-                                                                        "casting_target": "AllyOnlySelf",
-                                                                        "from_projectile": false,
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_yorick_lives",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              }
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "SwitchByBuff",
-                                                                        "buff_name": "league_yorick_lives",
-                                                                        "effect_buff": {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "Combine",
-                                                                              "effects": [
-                                                                                {
-                                                                                  "type": "RemoveCasterBuff",
-                                                                                  "name": "league_yorick_q_win"
-                                                                                },
-                                                                                {
-                                                                                  "type": "AddCasterBuff",
-                                                                                  "buff_state": {
-                                                                                    "name": "league_yorick_q_win",
-                                                                                    "duration": {
-                                                                                      "Time": {
-                                                                                        "tick": 4
-                                                                                      }
-                                                                                    }
-                                                                                  },
-                                                                                  "only_to_enemy": false
-                                                                                }
-                                                                              ]
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        "effect_none": {
-                                                                          "type": "Combine",
-                                                                          "effects": []
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_yorick_lives"
-                                                                      }
-                                                                    ]
                                                                   }
                                                                 ]
                                                               }
@@ -1483,6 +1435,27 @@
                                   "heal_type": "Caster"
                                 },
                                 {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_yorick_q_win"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_yorick_q_win",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 4
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
                                   "type": "TargetProjectile",
                                   "name": "league_yorick_q_blow",
                                   "speed": 40000,
@@ -1837,75 +1810,6 @@
                                           }
                                         ]
                                       }
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 2,
-                                  "effects": [
-                                    {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "RandomTarget",
-                                          "range": 1,
-                                          "casting_target": "AllyOnlySelf",
-                                          "from_projectile": false,
-                                          "effects": [
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_yorick_lives",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 1
-                                                  }
-                                                }
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_yorick_lives",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_yorick_q_win"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_yorick_q_win",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 4
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": []
-                                          }
-                                        },
-                                        {
-                                          "type": "RemoveCasterBuff",
-                                          "name": "league_yorick_lives"
-                                        }
-                                      ]
                                     }
                                   ]
                                 }
@@ -2591,6 +2495,27 @@
                                                                 "heal_type": "Caster"
                                                               },
                                                               {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "RemoveCasterBuff",
+                                                                    "name": "league_yorick_q_win"
+                                                                  },
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_yorick_q_win",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 4
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
                                                                 "type": "TargetProjectile",
                                                                 "name": "league_yorick_q_blow",
                                                                 "speed": 40000,
@@ -2945,75 +2870,6 @@
                                                                         }
                                                                       ]
                                                                     }
-                                                                  }
-                                                                ]
-                                                              },
-                                                              {
-                                                                "type": "Delayed",
-                                                                "tick": 2,
-                                                                "effects": [
-                                                                  {
-                                                                    "type": "Combine",
-                                                                    "effects": [
-                                                                      {
-                                                                        "type": "RandomTarget",
-                                                                        "range": 1,
-                                                                        "casting_target": "AllyOnlySelf",
-                                                                        "from_projectile": false,
-                                                                        "effects": [
-                                                                          {
-                                                                            "type": "AddCasterBuff",
-                                                                            "buff_state": {
-                                                                              "name": "league_yorick_lives",
-                                                                              "duration": {
-                                                                                "Time": {
-                                                                                  "tick": 1
-                                                                                }
-                                                                              }
-                                                                            },
-                                                                            "only_to_enemy": false
-                                                                          }
-                                                                        ]
-                                                                      },
-                                                                      {
-                                                                        "type": "SwitchByBuff",
-                                                                        "buff_name": "league_yorick_lives",
-                                                                        "effect_buff": {
-                                                                          "type": "Combine",
-                                                                          "effects": [
-                                                                            {
-                                                                              "type": "Combine",
-                                                                              "effects": [
-                                                                                {
-                                                                                  "type": "RemoveCasterBuff",
-                                                                                  "name": "league_yorick_q_win"
-                                                                                },
-                                                                                {
-                                                                                  "type": "AddCasterBuff",
-                                                                                  "buff_state": {
-                                                                                    "name": "league_yorick_q_win",
-                                                                                    "duration": {
-                                                                                      "Time": {
-                                                                                        "tick": 4
-                                                                                      }
-                                                                                    }
-                                                                                  },
-                                                                                  "only_to_enemy": false
-                                                                                }
-                                                                              ]
-                                                                            }
-                                                                          ]
-                                                                        },
-                                                                        "effect_none": {
-                                                                          "type": "Combine",
-                                                                          "effects": []
-                                                                        }
-                                                                      },
-                                                                      {
-                                                                        "type": "RemoveCasterBuff",
-                                                                        "name": "league_yorick_lives"
-                                                                      }
-                                                                    ]
                                                                   }
                                                                 ]
                                                               }

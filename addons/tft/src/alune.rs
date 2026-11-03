@@ -3,9 +3,10 @@
 //! 是这里的 `tft_alune:moon`，参数从数据的 `passive.params` 来（build_alune.py 从参数表 P 写进去，`NATIVE_KEYS`）：
 //!
 //! - **月之降临落在最近的敌人身上**：纯数据只能一枚落在目标身上、其余落在射程里随机的敌人身上（数据没有「最近」）。她放技能时
-//!   数据只给她挂 2 tick 的 `tft_alune_q_go`；被动看到它就去掉，挑离她最近的 `q_n` 个敌人（不含防御塔，射程 `q_range` 以内），
-//!   在每个人当时站的地方放碎片落下的画面 `q_drop`，`q_fall` tick 后砸地：`q_hit` 画面和声音，`q_r` 以内的敌人受到
-//!   `q_dmg` + `q_ratio`% 法强的魔法伤害、挂 `q_shred_t` tick 的月蚀印记（魔抗 -`q_shred`%，数据里同名的画面）。
+//!   数据只给她挂 2 tick 的 `tft_alune_q_go`；被动看到它就去掉，挑离她最近的 `q_n` 个敌人（不含防御塔，中心距离在射程
+//!   `q_range` 加两人的半径以内：AI 就在这个距离出手），在每个人当时站的地方放碎片落下的画面 `q_drop`，`q_fall` tick 后砸地：
+//!   `q_hit` 画面和声音，`q_r` 以内（加那人的半径）的敌人受到 `q_dmg` + `q_ratio`% 法强的魔法伤害、挂 `q_shred_t` tick 的
+//!   月蚀印记（魔抗 -`q_shred`%，数据里同名的画面）。
 //! - **满月的伤害由命中的敌人分摊**：数据的满月砸下来只给范围里的敌人挂 2 tick 的 `tft_alune_r_mark<k>`（k = 砸下时的月相，
 //!   0-3）和眩晕，不扣血。被动在同一 tick 收齐这些标记（去掉），算出整颗月亮的伤害：(`r_dmg` + `r_ratio`% 法强) × (100 +
 //!   k × `r_ph`)% × `r_split`%，n 个人平分，每人最多 (`r_dmg` + `r_ratio`% 法强) × (100 + k × `r_ph`)% × `r_cap`%
@@ -161,12 +162,15 @@ pub fn parse_params(json: &str) -> Params {
 
 // ===================== 规则（单元测试用） =====================
 
-/// 离 (x, y) 最近的 n 个（按距离，近的在前；距离一样按 id），只算 `reach` 以内的。
-pub fn nearest(from: (u64, u64), units: &[(usize, (u64, u64))], reach: u64, n: usize) -> Vec<usize> {
+/// 离 (x, y) 最近的 n 个（按中心的距离，近的在前；距离一样按 id），只算够得着的：(id, 位置, 半径) 的中心离她不超过
+/// `reach` + 她的半径 `my_r` + 那人的半径。2026-11-04 修（11-03 夜里的日志：月之降临 33 次里 16 次、更早一份 93 次里 17 次
+/// 一个人都没挑到，`0 shards on the nearest []`）：以前只按中心算 `reach`，可 AI 在射程加两人半径处就出手（数据的 Q 是
+/// `q_range` 的指向技能），`q_go` 还要 `q_rel` 拍后才到，站在射程边上的人常常一个都不在里面。
+pub fn nearest(from: (u64, u64), my_r: u64, units: &[(usize, (u64, u64), u64)], reach: u64, n: usize) -> Vec<usize> {
     let mut v: Vec<(u128, usize)> = units
         .iter()
-        .map(|&(id, p)| (dist_sq(from, p), id))
-        .filter(|&(d, _)| d <= (reach as u128) * (reach as u128))
+        .filter(|&&(_, p, r)| within(from, p, reach + my_r + r))
+        .map(|&(id, p, _)| (dist_sq(from, p), id))
         .collect();
     v.sort();
     v.into_iter().take(n).map(|(_, id)| id).collect()
@@ -176,6 +180,11 @@ pub fn dist_sq(a: (u64, u64), b: (u64, u64)) -> u128 {
     let dx = a.0 as i128 - b.0 as i128;
     let dy = a.1 as i128 - b.1 as i128;
     (dx * dx + dy * dy) as u128
+}
+
+/// `b` is at most `reach` from `a` (centre to centre).
+pub fn within(a: (u64, u64), b: (u64, u64), reach: u64) -> bool {
+    dist_sq(a, b) <= (reach as u128) * (reach as u128)
 }
 
 /// 满月整颗的伤害（月相 k 已算进去）。
@@ -226,12 +235,12 @@ fn marks(sim: &StableSim<'_>, team: usize) -> (Vec<(usize, usize)>, Vec<(usize, 
     (moon, ring)
 }
 
-/// 活着的、能打的敌方单位（不含防御塔）：(id, 位置)。
-fn foes(sim: &StableSim<'_>, team: usize) -> Vec<(usize, (u64, u64))> {
+/// 活着的、能打的敌方单位（不含防御塔）：(id, 位置, 半径)。
+fn foes(sim: &StableSim<'_>, team: usize) -> Vec<(usize, (u64, u64), u64)> {
     (0..sim.entity_count())
         .filter_map(|i| sim.entity_at(i))
         .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && !u.is_tower())
-        .map(|u| (u.id(), u.pos()))
+        .map(|u| (u.id(), u.pos(), u.radius() as u64))
         .collect()
 }
 
@@ -245,13 +254,13 @@ struct Moon {
 }
 
 impl Moon {
-    /// 月之降临：最近的 q_n 个敌人，各落一枚。
-    fn drop_shards(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, at: (u64, u64)) {
+    /// 月之降临：最近的 q_n 个敌人（射程加两人的半径以内），各落一枚。
+    fn drop_shards(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, at: (u64, u64), my_r: u64) {
         let list = foes(sim, team);
-        let picked = nearest(at, &list, self.p.q_range, self.p.q_n);
+        let picked = nearest(at, my_r, &list, self.p.q_range, self.p.q_n);
         let tick = sim.tick();
         for id in &picked {
-            let Some(&(_, (x, y))) = list.iter().find(|(i, _)| i == id) else { continue };
+            let Some(&(_, (x, y), _)) = list.iter().find(|(i, _, _)| i == id) else { continue };
             sim.play_view_effect(&al("q_drop"), me, &InputTargetV1::pos(x, y), 0, 0, 0);
             self.shards.push(Shard { x, y, land: tick + self.p.q_fall });
         }
@@ -279,10 +288,11 @@ impl Moon {
             let at = InputTargetV1::pos(s.x, s.y);
             sim.play_view_effect(&al("q_hit"), me, &at, 0, 0, 0);
             sim.play_sfx(&al("q_hit"), me, &at);
+            // the shard's circle counts the body it tests, as the data's shapes do (2026-11-04)
             let hit: Vec<usize> = foes(sim, team)
                 .into_iter()
-                .filter(|&(_, p)| dist_sq(p, (s.x, s.y)) <= (self.p.q_r as u128) * (self.p.q_r as u128))
-                .map(|(id, _)| id)
+                .filter(|&(_, p, r)| within(p, (s.x, s.y), self.p.q_r + r))
+                .map(|(id, _, _)| id)
                 .collect();
             for id in hit {
                 sim.deal_damage(me, id, 0, dmg, AttackTypeV1::Skill);
@@ -359,12 +369,14 @@ impl StablePassive for Moon {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
-        let Some((team, at, ap)) = sim.get_entity(me).map(|e| (e.team(), e.pos(), e.stat().magic_power)) else {
+        let Some((team, at, ap, my_r)) =
+            sim.get_entity(me).map(|e| (e.team(), e.pos(), e.stat().magic_power, e.radius() as u64))
+        else {
             return;
         };
         if has_buff(sim, me, &al("q_go")) {
             sim.entity_remove_buff(me, &al("q_go"));
-            self.drop_shards(sim, me, team, at);
+            self.drop_shards(sim, me, team, at, my_r);
         }
         if !self.shards.is_empty() {
             self.land_shards(sim, me, team, ap);
@@ -430,10 +442,22 @@ mod tests {
 
     #[test]
     fn the_nearest_three_within_reach() {
-        let units = [(1, (100, 0)), (2, (50, 0)), (3, (300, 0)), (4, (80, 60)), (5, (2000, 0))];
-        assert_eq!(nearest((0, 0), &units, 1000, 3), vec![2, 1, 4]);
-        assert_eq!(nearest((0, 0), &units, 90, 3), vec![2]);
-        assert!(nearest((0, 0), &units, 10, 3).is_empty());
+        let units = [(1, (100, 0), 0), (2, (50, 0), 0), (3, (300, 0), 0), (4, (80, 60), 0), (5, (2000, 0), 0)];
+        assert_eq!(nearest((0, 0), 0, &units, 1000, 3), vec![2, 1, 4]);
+        assert_eq!(nearest((0, 0), 0, &units, 90, 3), vec![2]);
+        assert!(nearest((0, 0), 0, &units, 10, 3).is_empty());
+    }
+
+    #[test]
+    fn her_reach_counts_both_bodies() {
+        // the AI casts from q_range + both radii (11-03 night: 16 of 33 Moonfalls picked nobody): who stands at that
+        // edge is hers, one a step farther is not; the nearest still goes by the centres
+        let p = Params::default();
+        let edge = p.q_range + 3_000 + 5_000;
+        let units = [(7, (edge, 0), 5_000), (8, (0, edge + 1), 5_000), (9, (60_000, 0), 1_000)];
+        assert_eq!(nearest((0, 0), 3_000, &units, p.q_range, p.q_n), vec![9, 7]);
+        assert_eq!(nearest((0, 0), 0, &units, p.q_range, p.q_n), vec![9]);
+        assert!(within((0, 0), (22_000, 0), p.q_r + 4_000) && !within((0, 0), (22_001, 0), p.q_r + 4_000));
     }
 
     #[test]

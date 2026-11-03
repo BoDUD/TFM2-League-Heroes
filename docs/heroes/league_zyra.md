@@ -55,7 +55,7 @@
 
 ### 婕拉附加包
 
-[婕拉附加包](../../addons/league_zyra/README.md)：`league_zyra` v0.1.1
+[婕拉附加包](../../addons/league_zyra/README.md)：`league_zyra` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

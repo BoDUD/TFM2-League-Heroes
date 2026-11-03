@@ -15,7 +15,7 @@
 
 `mod.override_info` 把主包的约里克换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_yorick.py` 的 `native=1` 生成）：
 
-- 临终仪式那一铲给约里克挂几拍（`q_win`）`league_yorick_q_win`，不再有「每两下」的规则；`passive` 是本包的 `league_yorick:shepherd`，参数 `r_pct g_t` 来自主包参数表 P：`q_win` 还在时每有一个小兵或野怪被他打死（`on_unit_kill`），就照数据的阶梯给他挂下一座坟（`league_yorick_g1` → `g2` → `g3`，各 `g_t` 拍，满了不再加）；
+- 临终仪式那一铲给约里克挂几拍（`q_win`）`league_yorick_q_win`，不再有「每两下」的规则（0.1.1：和这一铲同一拍挂上；0.1.0 晚两拍才挂，追踪的那一铲下一拍就落地打死了小兵，2026-11-03 夜里的日志 6 条命一座坟都没挖）；`passive` 是本包的 `league_yorick:shepherd`，参数 `r_pct g_t` 来自主包参数表 P：`q_win` 还在时每有一个小兵或野怪被他打死（`on_unit_kill`），就照数据的阶梯给他挂下一座坟（`league_yorick_g1` → `g2` → `g3`，各 `g_t` 拍，满了不再加）；
 - 大招给室女的目标挂 `league_yorick_maiden`（大招持续时间），室女在场时普攻打中英雄给它挂 3 拍 `league_yorick_hit`；本包每拍看同时有这两个的敌方英雄，造成它最大生命 `r_pct`% 的真实伤害（`deal_damage_typed`，`Fixed`），然后摘掉 `hit`；
 - 普攻（牧魂人写在里面）和海屿悼词的说明换成附加包自己的文字（`description.league_yorick.attack` / `.ult`），游戏里看说明就知道副本有没有生效。
 
@@ -23,6 +23,6 @@
 
 ## 检查
 
-- 在 `addons/` 下 `cargo test --release -p league_yorick`：单元测试（参数、坟墓阶梯、室女加伤的数、名字和数据一致）。
+- 在 `addons/` 下 `cargo test --release -p league_yorick`：单元测试（参数、坟墓阶梯、室女加伤的数、名字和数据一致、副本的每一铲在出手那一拍就挂上 `q_win`）。
 - 主包的约里克改了以后重新跑 `python addons/league_yorick/make_override.py`（它先核对主包的 `league_yorick.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只核对不写）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yorick.log`：`SPAWN`、打死单位挖坟 `GRAVE`、室女目标加伤 `MAIDEN`。
