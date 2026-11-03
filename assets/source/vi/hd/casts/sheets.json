@@ -1,0 +1,503 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [
+  "skill_dash"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop): a boxer's run, the gauntlets up in front of her, the LEGS CHANGING OVER",
+   "ms": [
+    105,
+    105
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under her hips, its foot flat on the ground; the FAR leg (the darker one) kicked up and back behind her, bent, its foot high off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under her hips, bending; the far leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop): a boxer's run, the gauntlets up in front of her, the LEGS CHANGING OVER",
+   "ms": [
+    105,
+    105
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores.",
+   "legs": "Frame 3: PASSING: both legs gathered under her, knees bent; the FAR leg passing forward close beside the planted near leg, its foot just off the ground. Frame 4: STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop): a boxer's run, the gauntlets up in front of her, the LEGS CHANGING OVER",
+   "ms": [
+    105,
+    105
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under her hips, its foot flat on the ground; the NEAR leg (the lighter one) kicked up and back behind her, bent, its foot high off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under her hips, bending; the near leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop): a boxer's run, the gauntlets up in front of her, the LEGS CHANGING OVER",
+   "ms": [
+    105,
+    105
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores.",
+   "legs": "Frame 7: PASSING: both legs gathered under her, knees bent; the NEAR leg passing forward close beside the planted far leg, its foot just off the ground. Frame 8: STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (a straight punch): she draws the gauntlet back (frames 1-2), punches it straight out (frames 3-4) and pulls it back to her guard (frames 5-6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (a straight punch): she draws the gauntlet back (frames 1-2), punches it straight out (frames 3-4) and pulls it back to her guard (frames 5-6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (a straight punch): she draws the gauntlet back (frames 1-2), punches it straight out (frames 3-4) and pulls it back to her guard (frames 5-6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (a straight punch): she draws the gauntlet back (frames 1-2), punches it straight out (frames 3-4) and pulls it back to her guard (frames 5-6)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "attack_e",
+   "name": "attack_e_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Relentless Force (E, the big punch): she swings the gauntlet up over her head (frames 1-3), smashes it forward and down in a long low lunge (frames 4-5) and comes back to her guard (frame 6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "attack_e",
+   "name": "attack_e_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Relentless Force (E, the big punch): she swings the gauntlet up over her head (frames 1-3), smashes it forward and down in a long low lunge (frames 4-5) and comes back to her guard (frame 6)",
+   "ms": [
+    50
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "attack_e",
+   "name": "attack_e_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Relentless Force (E, the big punch): she swings the gauntlet up over her head (frames 1-3), smashes it forward and down in a long low lunge (frames 4-5) and comes back to her guard (frame 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "attack_e",
+   "name": "attack_e_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Relentless Force (E, the big punch): she swings the gauntlet up over her head (frames 1-3), smashes it forward and down in a long low lunge (frames 4-5) and comes back to her guard (frame 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "attack_e",
+   "name": "attack_e_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Relentless Force (E, the big punch): she swings the gauntlet up over her head (frames 1-3), smashes it forward and down in a long low lunge (frames 4-5) and comes back to her guard (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Vault Breaker (Q), the charge: she crouches and draws a gauntlet back, charging (frames 1-4)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Vault Breaker (Q), the charge: she crouches and draws a gauntlet back, charging (frames 1-4)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "skill_dash",
+   "name": "skill_dash_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Vault Breaker (Q), the dash: she lunges forward low, a gauntlet thrust out in front of her",
+   "ms": [
+    90
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "skill_dash",
+   "name": "skill_dash_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Vault Breaker (Q), the dash: she lunges forward low, a gauntlet thrust out in front of her",
+   "ms": [
+    90
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "skill_dash",
+   "name": "skill_dash_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Vault Breaker (Q), the dash: she lunges forward low, a gauntlet thrust out in front of her",
+   "ms": [
+    87
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Cease and Desist (R), the start: she sets her stance and leans in (frames 1-2)",
+   "ms": [
+    66,
+    67
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cease and Desist (R), the charge: she rushes forward leaning low, one gauntlet ahead, the other back, the legs running (frames 1-6)",
+   "ms": [
+    125
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cease and Desist (R), the charge: she rushes forward leaning low, one gauntlet ahead, the other back, the legs running (frames 1-6)",
+   "ms": [
+    125
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cease and Desist (R), the charge: she rushes forward leaning low, one gauntlet ahead, the other back, the legs running (frames 1-6)",
+   "ms": [
+    125
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_4",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Cease and Desist (R), the charge: she rushes forward leaning low, one gauntlet ahead, the other back, the legs running (frames 1-6)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult_dash",
+   "name": "ult_dash_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cease and Desist (R), the charge: she rushes forward leaning low, one gauntlet ahead, the other back, the legs running (frames 1-6)",
+   "ms": [
+    125
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult_slam",
+   "name": "ult_slam_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Cease and Desist (R), the slam: she lands (frame 1), throws an uppercut with the gauntlet high over her head (frame 2), smashes it down to the ground in a crouch (frames 3-4) and rises to her guard (frame 5)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult_slam",
+   "name": "ult_slam_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Cease and Desist (R), the slam: she lands (frame 1), throws an uppercut with the gauntlet high over her head (frame 2), smashes it down to the ground in a crouch (frames 3-4) and rises to her guard (frame 5)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "ult_slam",
+   "name": "ult_slam_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cease and Desist (R), the slam: she lands (frame 1), throws an uppercut with the gauntlet high over her head (frame 2), smashes it down to the ground in a crouch (frames 3-4) and rises to her guard (frame 5)",
+   "ms": [
+    63
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "struck: jolted back in her guard",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frames 1-2), she sinks to her knees (frames 3-4) and slumps forward onto the ground over her gauntlets (frames 5-8)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frames 1-2), she sinks to her knees (frames 3-4) and slumps forward onto the ground over her gauntlets (frames 5-8)",
+   "ms": [
+    110,
+    120
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frames 1-2), she sinks to her knees (frames 3-4) and slumps forward onto the ground over her gauntlets (frames 5-8)",
+   "ms": [
+    130,
+    150
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frames 1-2), she sinks to her knees (frames 3-4) and slumps forward onto the ground over her gauntlets (frames 5-8)",
+   "ms": [
+    200,
+    500
+   ],
+   "weapons": "HER GAUNTLETS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big gold hextech gauntlets with their steel knuckles and blue cores, as big as in image 1, raised, punching or swung as the pale figure holds them. The pale figure's dust, sparks and blue light are the old frame's effects: do NOT draw them. Only her: no shockwaves, no trails, no dust; the blue light stays inside the gauntlet cores."
+  }
+ ]
+}
