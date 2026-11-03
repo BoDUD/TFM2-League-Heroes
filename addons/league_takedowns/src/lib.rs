@@ -15,6 +15,9 @@
 //!   `on_attack` also fires for skills）——Q 的每一斩、E 的真实伤害、R 期间的每一下都在减 Q 的冷却，一次 Q 自己就把冷却
 //!   减没了。现在只认真正的普攻：每 tick 看普攻栏的冷却，冷却变长（刚打出一下普攻，`attack_went_out`）才减；
 //!   Q 在数据里是 BaseAttack 类型，也不算（它走的是技能栏的冷却）。每次减记一行 `YI ATTACK`（预模拟限量，见下面的日志）。
+//!   v0.4.0（用户 2026-11-03：「剑圣的w满血时候会释放 这个也改一下」）：副本的技能 2 只剩无极剑道，W 冥想由本包照英雄联盟
+//!   单独放——身边有敌方英雄、生命低于一半或一秒内掉了四分之一时才盘腿（`should_meditate`），自己 20 秒冷却，画面和数字照主包。
+//!   每次记一行 `YI MEDITATE`。
 //!
 //! - **图奇 `league_takedowns:twitch`**：英雄联盟里身上有毒的敌方英雄死了就刷新埋伏。主包只认他自己的击杀（击杀检查留着），
 //!   本包补上助攻：清掉 Q 的剩余冷却（`entity_reduce_cooldown`），播主包的刷新画面和声音（`TWITCH_RESET`）。
@@ -74,6 +77,33 @@ pub const YI_HIGHLANDER: &str = "league_masteryi_highlander";
 pub const YI_CUT: usize = 70;
 pub const YI_EXTEND: usize = 240;
 pub const YI_ATTACK_CUT: usize = 60;
+/// 易的冥想（v0.4.0，用户 2026-11-03：「剑圣的w满血时候会释放 这个也改一下」）。主包把 W 冥想并进了 E 无极剑道（技能 2），
+/// 游戏的 AI 放给自己回血的技能不看生命、好了就放（champion-data：「A heal on the caster is cast whenever it is ready」），所以
+/// 一开打满血也先盘腿 0.75 秒；只按生命挡住冥想也不行，开打时技能 2 已经交了，真残血时它还在冷却。副本的技能 2 只剩无极剑道
+/// （立刻生效），冥想由本包照英雄联盟单独放：身边 `YI_MED_NEAR` 内有敌方英雄，生命低于 `YI_MED_HP` 或 `YI_MED_WINDOW` tick
+/// 内掉了最大生命的 `YI_MED_BURST`，冥想自己的冷却 `YI_MED_CD` 好了，没被控、不在出手中（参与击杀也减它剩余冷却的 `YI_CUT`%）。
+/// 画面、数字照主包（`make_override.py` 核对）：盘腿 `YI_MED_ANIM` tick（`skill2` 动作），`YI_MEDITATE` buff `YI_MED_T` tick
+/// 受到的伤害降低 `YI_MED_REDUCE`%，之后每 `YI_MED_PULSE` tick 回复 `YI_MED_HEAL` + `YI_MED_HEAL_AD`% 攻击力、共 `YI_MED_PULSES` 次。
+pub const YI_MEDITATE: &str = "league_masteryi_meditate";
+pub const YI_MED_ANIM: u64 = 45;
+pub const YI_MED_T: usize = 60;
+pub const YI_MED_REDUCE: usize = 40;
+pub const YI_MED_PULSE: usize = 30;
+pub const YI_MED_PULSES: usize = 4;
+pub const YI_MED_HEAL: usize = 5;
+pub const YI_MED_HEAL_AD: usize = 3;
+pub const YI_MED_HP: f64 = 0.5;
+pub const YI_MED_BURST: f64 = 0.25;
+pub const YI_MED_WINDOW: usize = 60;
+pub const YI_MED_NEAR: f64 = 60_000.0;
+pub const YI_MED_CD: usize = 1_200;
+/// 主包冥想的画面和声音。
+pub const YI_MED_VIEW: &str = "league_masteryi_w_aura";
+pub const YI_MED_SFX: &str = "league_masteryi_w_cast";
+/// 放不出技能的控制，和出手中（动作还在播、被强制位移）。
+const NO_CAST: [CcKindV1; 7] =
+    [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
+const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
 
 // ===================== 日志 =====================
 
@@ -378,11 +408,38 @@ struct MasterYi {
     /// the attack slot's remaining cooldown last tick (None: not read yet)
     atk_prev: Option<usize>,
     cuts: usize,
+    /// his health share over the last `YI_MED_WINDOW` ticks (tick, share); Meditate's own cooldown (the tick it is
+    /// ready); the ticks its heals are due; how many he meditated
+    hp_seen: std::collections::VecDeque<(usize, f64)>,
+    med_ready: usize,
+    med_heals: Vec<usize>,
+    meds: usize,
 }
 
 /// A real auto attack went out this tick: the attack slot's cooldown grew (it only shrinks otherwise).
 pub fn attack_went_out(prev: Option<usize>, now: usize) -> bool {
     prev.is_some_and(|p| now > p)
+}
+
+/// Meditate now: an enemy champion near (`foe_near`), its own cooldown over (`ready`), not controlled or in an action
+/// (`free`), and hurt - below `YI_MED_HP` of his health, or `YI_MED_BURST` of it lost since `peak` (his highest share
+/// over the last `YI_MED_WINDOW` ticks). At full health: never (the 11-03 report).
+pub fn should_meditate(hp: f64, peak: f64, foe_near: bool, ready: bool, free: bool) -> bool {
+    ready && free && foe_near && (hp < YI_MED_HP || peak - hp >= YI_MED_BURST)
+}
+
+fn has_cc(e: &StableEntity<'_, '_>, kinds: &[CcKindV1]) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| kinds.iter().any(|k| k.code() == c.kind)))
+}
+
+fn foe_champion_within(sim: &StableSim<'_>, me: usize, team: usize, at: (u64, u64), reach: f64) -> bool {
+    (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).any(|u| {
+        if u.id() == me || u.team() == team || !u.is_champion() || !u.is_alive() || !u.is_targetable() {
+            return false;
+        }
+        let (x, y) = u.pos();
+        ((x as f64 - at.0 as f64).powi(2) + (y as f64 - at.1 as f64).powi(2)).sqrt() <= reach
+    })
 }
 
 impl MasterYi {
@@ -393,6 +450,11 @@ impl MasterYi {
         }
         if w > 0 {
             sim.entity_reduce_cooldown(me, SkillSlotV1::Skill2, cut(w, YI_CUT));
+        }
+        // Meditate is his own W now (League: a takedown cuts every basic ability)
+        let now = sim.tick();
+        if self.med_ready > now {
+            self.med_ready -= cut(self.med_ready - now, YI_CUT);
         }
         let extended = match buff_left(sim, me, YI_HIGHLANDER) {
             Some(left) if left != usize::MAX => {
@@ -413,6 +475,59 @@ impl MasterYi {
         if tally(sim, "yi takedown").is_some() {
             wlog(format!("{} YI TAKEDOWN #{} ({why}): Q {q} -> {}, W {w} -> {}{}", head(sim, me), self.n, q - cut(q, YI_CUT),
                          w - cut(w, YI_CUT), if extended { ", Highlander extended" } else { "" }));
+        }
+    }
+
+    /// Meditate (League's W, the add-on's since v0.4.0): its heals as they fall due, then whether to sit down now
+    /// ([`should_meditate`]); the picture, the damage cut and the heals are the main pack's.
+    fn meditate(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let now = sim.tick();
+        let Some(e) = sim.get_entity(me) else { return };
+        let (alive, (hp, max), at, team, ad) = (e.is_alive(), e.hp(), e.pos(), e.team(), e.stat().attack);
+        let free = !has_cc(&e, &NO_CAST) && !has_cc(&e, &BUSY);
+        // a new match (the tick went back) or a death: nothing carries over
+        if !alive || self.hp_seen.back().is_some_and(|&(t, _)| t > now) {
+            self.hp_seen.clear();
+            self.med_heals.clear();
+            if alive {
+                self.med_ready = 0;
+            } else {
+                return;
+            }
+        }
+        let due = self.med_heals.iter().filter(|&&t| t <= now).count();
+        if due > 0 {
+            self.med_heals.retain(|&t| t > now);
+            sim.heal(me, me, (YI_MED_HEAL + ad * YI_MED_HEAL_AD / 100) * due);
+        }
+        let share = if max > 0 { hp as f64 / max as f64 } else { 1.0 };
+        self.hp_seen.push_back((now, share));
+        while self.hp_seen.front().is_some_and(|&(t, _)| t + YI_MED_WINDOW < now) {
+            self.hp_seen.pop_front();
+        }
+        let peak = self.hp_seen.iter().map(|&(_, s)| s).fold(share, f64::max);
+        // the enemy look only when the rest says yes
+        if !should_meditate(share, peak, true, now >= self.med_ready, free)
+            || !foe_champion_within(sim, me, team, at, YI_MED_NEAR)
+        {
+            return;
+        }
+        let mut sit = CcV1::of_kind(CcKindV1::Animation, YI_MED_ANIM);
+        sit.set_name("skill2");
+        sim.apply_cc(me, &sit);
+        let mut buff = BuffV1::timed(YI_MEDITATE, YI_MED_T);
+        buff.damaged_reduce = YI_MED_REDUCE;
+        sim.entity_remove_buff(me, YI_MEDITATE);
+        sim.add_buff(me, &buff);
+        let on = InputTargetV1::target(me);
+        sim.play_view_effect(YI_MED_VIEW, me, &on, 0, 0, 0);
+        sim.play_sfx(YI_MED_SFX, me, &on);
+        self.med_heals = (1..=YI_MED_PULSES).map(|k| now + k * YI_MED_PULSE).collect();
+        self.med_ready = now + YI_MED_CD;
+        self.meds += 1;
+        if tally(sim, "yi meditate").is_some() {
+            wlog(format!("{} YI MEDITATE #{}: health {:.0}% (highest {:.0}% in the last {YI_MED_WINDOW} ticks)",
+                         head(sim, me), self.meds, share * 100.0, peak * 100.0));
         }
     }
 }
@@ -439,6 +554,7 @@ impl StablePassive for MasterYi {
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+        self.meditate(sim, me);
         // every real auto attack: Alpha Strike's cooldown YI_ATTACK_CUT shorter (not his skills' hits, v0.3.2)
         let atk = remaining(sim, me, SkillSlotV1::Attack);
         if attack_went_out(self.atk_prev, atk) {
@@ -537,6 +653,35 @@ mod tests {
             assert!(n.len() <= BUFF_NAME_CAP);
         }
         assert!(YI_HIGHLANDER.len() <= BUFF_NAME_CAP);
+        assert!(YI_MEDITATE.len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn yi_meditates_only_when_hurt_in_a_fight() {
+        // 「剑圣的w满血时候会释放」: at full health, never
+        assert!(!should_meditate(1.0, 1.0, true, true, true));
+        assert!(!should_meditate(0.8, 0.9, true, true, true), "a scratch");
+        // low, or a burst
+        assert!(should_meditate(0.45, 0.45, true, true, true));
+        assert!(should_meditate(0.7, 0.95, true, true, true), "a quarter gone within the window");
+        // but only with an enemy champion near, its cooldown over, and free to sit down
+        assert!(!should_meditate(0.3, 0.3, false, true, true));
+        assert!(!should_meditate(0.3, 0.3, true, false, true));
+        assert!(!should_meditate(0.3, 0.3, true, true, false));
+    }
+
+    #[test]
+    fn meditate_matches_the_main_pack() {
+        // the copy's Meditate is the add-on's: the main pack's skill2 must still carry these numbers (make_override.py
+        // checks them too, against these constants)
+        let src = include_str!("../../../league/champion/league_masteryi.data_champion");
+        let s2 = &src[src.find("\"action_name\": \"skill2\"").expect("skill2")..];
+        let s2 = &s2[..s2.find("\"action_name\": \"ult\"").unwrap_or(s2.len())];
+        assert!(s2.contains(&format!("\"duration\": {YI_MED_ANIM}")));
+        assert!(s2.contains(&format!("\"name\": \"{YI_MEDITATE}\"")) && s2.contains(&format!("\"damaged_reduce\": {YI_MED_REDUCE}")));
+        assert!(s2.contains(&format!("\"period\": {YI_MED_PULSE}")) && s2.contains(&format!("\"duration\": {}", YI_MED_PULSE * YI_MED_PULSES)));
+        assert!(s2.contains(&format!("\"amount\": {YI_MED_HEAL}")) && s2.contains(&format!("\"attack_ratio\": {YI_MED_HEAL_AD}")));
+        assert!(s2.contains(YI_MED_VIEW) && s2.contains(YI_MED_SFX));
     }
 
     #[test]

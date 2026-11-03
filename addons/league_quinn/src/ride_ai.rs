@@ -26,6 +26,9 @@ pub const CHASE_LOW: f64 = 0.35;
 pub const MIN_HP: f64 = 0.5;
 /// 她的攻击距离（build_quinn.P 的 atk_range，测试核对）：够得着的就不用骑。
 pub const ATTACK_R: f64 = 52_500.0;
+/// 追残血至少要这么远（0.4.1）：上鸟要引导半秒，近一点的走两步就打得到。11-03 13:05 那局她对 57475 外的残血上鸟，引导完人已
+/// 进了射程，骑上 3 tick 就普攻落地放了鹰翼天翔，一步没骑，大招白交（用户：「奎因大招正常了吗」）。
+pub const CHASE_MIN: f64 = 100_000.0;
 
 /// 看得见的一个敌方英雄：位置和生命比例。
 #[derive(Clone, Copy, Debug)]
@@ -50,7 +53,7 @@ pub fn plan(me: Pt, hp: f64, walk_to: Option<Pt>, foes: &[Foe]) -> Option<Plan> 
             .iter()
             .filter(|f| f.hp <= CHASE_LOW)
             .map(|f| (f.id, dist(me, f.at)))
-            .filter(|f| f.1 > ATTACK_R && f.1 <= CHASE_R)
+            .filter(|f| f.1 >= CHASE_MIN && f.1 <= CHASE_R)
             .min_by(|a, b| a.1.total_cmp(&b.1));
         if let Some((target, d)) = low {
             if foes.iter().all(|o| o.id == target || dist(me, o.at) > FIGHT_R) {
@@ -231,6 +234,9 @@ mod tests {
         assert_eq!(plan(me, 0.8, None, &[low]), Some(Plan::Chase { target: 7, d: 120_000.0 }));
         // within her attack: no need
         assert_eq!(plan(me, 0.8, None, &[foe(7, (140_000.0, 100_000.0), 0.2)]), None);
+        // just past it (11-03: 57475 away, in range by the time she sat on Valor, Skystrike after 3 ticks): on foot
+        assert_eq!(plan(me, 0.8, None, &[foe(7, (157_475.0, 100_000.0), 0.2)]), None);
+        assert!(CHASE_MIN > ATTACK_R * 1.5);
         // she is low herself: no chase
         assert_eq!(plan(me, 0.3, None, &[low]), None);
         // someone else beside her: no chase (and no ride)

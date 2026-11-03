@@ -595,9 +595,9 @@
     }
   },
   "skill2": {
-    "action_name": "skill2",
-    "description": "#asset/base/text/champion?description.league_masteryi.skill2",
-    "duration": 45,
+    "action_name": "idle",
+    "description": "#asset/base/text/champion?description.league_takedowns.masteryi_skill2",
+    "duration": 4,
     "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
@@ -609,182 +609,128 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "league_masteryi_w_cast"
+          "type": "RemoveCasterBuff",
+          "name": "league_masteryi_ds_1"
         },
         {
-          "type": "CasterViewEffect",
-          "name": "league_masteryi_w_aura"
+          "type": "RemoveCasterBuff",
+          "name": "league_masteryi_ds_2"
         },
         {
           "type": "AddCasterBuff",
           "buff_state": {
-            "name": "league_masteryi_meditate",
+            "name": "league_masteryi_ds_3",
             "duration": {
               "Time": {
-                "tick": 60
+                "tick": 240
               }
-            },
-            "damaged_reduce": 40
+            }
           },
           "only_to_enemy": false
         },
         {
-          "type": "RangeEffect",
-          "shape": {
-            "Circle": {
-              "radius": 1000
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "league_masteryi_wuju",
+            "duration": {
+              "Time": {
+                "tick": 300
+              }
             }
           },
-          "target": "AllyOnlySelf",
-          "apply_type": "AroundCaster",
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "league_masteryi_e_cast"
+        },
+        {
+          "type": "Delayed",
+          "tick": 0,
           "effects": [
             {
-              "type": "AddCasted",
-              "casted_type": "Heal",
-              "duration": 120,
-              "period": 30,
-              "effects": [
-                {
-                  "type": "Heal",
-                  "amount": 5,
-                  "attack_ratio": 3,
-                  "ap_ratio": 0,
-                  "heal_type": "Caster"
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_masteryi_wuju",
+              "effect_buff": {
+                "type": "CasterViewEffect",
+                "name": "league_masteryi_wuju"
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
             }
           ]
         },
         {
           "type": "Delayed",
-          "tick": 44,
+          "tick": 60,
           "effects": [
             {
-              "type": "RemoveCasterBuff",
-              "name": "league_masteryi_ds_1"
-            },
-            {
-              "type": "RemoveCasterBuff",
-              "name": "league_masteryi_ds_2"
-            },
-            {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_masteryi_ds_3",
-                "duration": {
-                  "Time": {
-                    "tick": 240
-                  }
-                }
+              "type": "SwitchByBuff",
+              "buff_name": "league_masteryi_wuju",
+              "effect_buff": {
+                "type": "CasterViewEffect",
+                "name": "league_masteryi_wuju"
               },
-              "only_to_enemy": false
-            },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 120,
+          "effects": [
             {
-              "type": "AddCasterBuff",
-              "buff_state": {
-                "name": "league_masteryi_wuju",
-                "duration": {
-                  "Time": {
-                    "tick": 300
-                  }
-                }
+              "type": "SwitchByBuff",
+              "buff_name": "league_masteryi_wuju",
+              "effect_buff": {
+                "type": "CasterViewEffect",
+                "name": "league_masteryi_wuju"
               },
-              "only_to_enemy": false
-            },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 180,
+          "effects": [
             {
-              "type": "Sfx",
-              "name": "league_masteryi_e_cast"
-            },
+              "type": "SwitchByBuff",
+              "buff_name": "league_masteryi_wuju",
+              "effect_buff": {
+                "type": "CasterViewEffect",
+                "name": "league_masteryi_wuju"
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 240,
+          "effects": [
             {
-              "type": "Delayed",
-              "tick": 0,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_masteryi_wuju",
-                  "effect_buff": {
-                    "type": "CasterViewEffect",
-                    "name": "league_masteryi_wuju"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 60,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_masteryi_wuju",
-                  "effect_buff": {
-                    "type": "CasterViewEffect",
-                    "name": "league_masteryi_wuju"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 120,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_masteryi_wuju",
-                  "effect_buff": {
-                    "type": "CasterViewEffect",
-                    "name": "league_masteryi_wuju"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 180,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_masteryi_wuju",
-                  "effect_buff": {
-                    "type": "CasterViewEffect",
-                    "name": "league_masteryi_wuju"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
-            },
-            {
-              "type": "Delayed",
-              "tick": 240,
-              "effects": [
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "league_masteryi_wuju",
-                  "effect_buff": {
-                    "type": "CasterViewEffect",
-                    "name": "league_masteryi_wuju"
-                  },
-                  "effect_none": {
-                    "type": "Combine",
-                    "effects": []
-                  }
-                }
-              ]
+              "type": "SwitchByBuff",
+              "buff_name": "league_masteryi_wuju",
+              "effect_buff": {
+                "type": "CasterViewEffect",
+                "name": "league_masteryi_wuju"
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": []
+              }
             }
           ]
         }

@@ -92,9 +92,16 @@ def load(hero):
 def lib_consts():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
     excited = re.findall(r'\("(league_jinx_excited[a-z0-9_]*)", (\d+), (\d+), (\d+)\)', src)
+    num = lambda name: float(re.search(name + r": [a-z0-9]+ = ([0-9_.]+);", src).group(1).replace("_", ""))
     return {"excited": [(n, int(t), int(a), int(m)) for n, t, a, m in excited],
             "tris_w_cd": re.search(r'TRIS_W_CD: &str = "([^"]+)"', src).group(1),
             "yi_r": re.search(r'YI_HIGHLANDER: &str = "([^"]+)"', src).group(1),
+            "yi_med": re.search(r'YI_MEDITATE: &str = "([^"]+)"', src).group(1),
+            "yi_med_view": re.search(r'YI_MED_VIEW: &str = "([^"]+)"', src).group(1),
+            "yi_med_sfx": re.search(r'YI_MED_SFX: &str = "([^"]+)"', src).group(1),
+            **{k: num(k.upper()) for k in ("yi_med_anim", "yi_med_t", "yi_med_reduce", "yi_med_pulse", "yi_med_pulses",
+                                          "yi_med_heal", "yi_med_heal_ad", "yi_med_hp", "yi_med_burst", "yi_med_window",
+                                          "yi_med_cd")},
             "twitch_reset": re.search(r'TWITCH_RESET: &str = "([^"]+)"', src).group(1),
             "twitch_go": re.search(r'TWITCH_E_GO: &str = "([^"]+)"', src).group(1),
             "twitch_cd": re.search(r'TWITCH_E_CD: &str = "([^"]+)"', src).group(1)}
@@ -213,8 +220,67 @@ def masteryi(c):
         sys.exit("Master Yi's Highlander changed in the main pack: update this script")
     found[0].pop("skill_cooldown_mult", None)
     found[0].pop("ult_cooldown_mult", None)
+    # v0.4.0 (the user, 2026-11-03: 「剑圣的w满血时候会释放」): skill2 is Wuju Style alone, at once; Meditate (the main pack's
+    # opening of skill2) is the add-on's own W, cast only when he is hurt in a fight - checked against lib.rs's YI_MED_*
+    s2 = d["skill2"]
+    eff = s2["effect"]["effects"]
+    kinds = [e.get("type") for e in eff]
+    if kinds != ["Sfx", "CasterViewEffect", "AddCasterBuff", "RangeEffect", "Delayed"]:
+        sys.exit(f"Master Yi's skill2 changed in the main pack ({kinds}): update this script")
+    med, heal, wuju = eff[2]["buff_state"], eff[3]["effects"][0], eff[4]
+    casted = heal["effects"][0]
+    if (s2["duration"] != c["yi_med_anim"] or eff[0]["name"] != c["yi_med_sfx"] or eff[1]["name"] != c["yi_med_view"]
+            or med.get("name") != c["yi_med"] or med.get("damaged_reduce") != c["yi_med_reduce"]
+            or med["duration"]["Time"]["tick"] != c["yi_med_t"]
+            or heal.get("casted_type") != "Heal" or heal.get("period") != c["yi_med_pulse"]
+            or heal.get("duration") != c["yi_med_pulse"] * c["yi_med_pulses"]
+            or casted.get("amount") != c["yi_med_heal"] or casted.get("attack_ratio") != c["yi_med_heal_ad"]
+            or wuju.get("tick") != c["yi_med_anim"] - 1):
+        sys.exit("Master Yi's Meditate changed in the main pack (or lib.rs's YI_MED_*): update both")
+    s2["effect"] = {"type": "Combine", "effects": wuju["effects"]}
+    # a blink of an action (his idle frame), not 0.75 s sitting down in the meditation pose
+    s2["action_name"], s2["duration"] = "idle", 4
     d["passive"] = {"passive_ref": MOD_ID + ":masteryi", "params": {}}
-    return d, [("league_masteryi", "ult")]
+    return d, [("league_masteryi", "skill2"), ("league_masteryi", "ult")]
+
+
+# Master Yi's skill2 (v0.4.0): lang -> (the word before Wuju Style's part, Meditate's opening in the main pack, the add-on's
+# opening, formatted with lib.rs's numbers) - the new text is Wuju Style's part, then Meditate's with the new opening
+YI_W = {
+    "zh-hans": ("随后", "先" + O + "冥想" + E + Y + "0.75秒" + E + "：",
+                "战斗中生命低于" + Y + "{hp}%" + E + "或" + Y + "{win}秒" + E + "内损失" + Y + "{burst}%" + E + "时" + O + "冥想" + E + Y +
+                "0.75秒" + E + "（每" + Y + "{cd}秒" + E + "）："),
+    "zh-hant": ("隨後", "先" + O + "冥想" + E + Y + "0.75秒" + E + "：",
+                "戰鬥中生命低於" + Y + "{hp}%" + E + "或" + Y + "{win}秒" + E + "內損失" + Y + "{burst}%" + E + "時" + O + "冥想" + E + Y +
+                "0.75秒" + E + "（每" + Y + "{cd}秒" + E + "）："),
+    "en": ("Then f", "Master Yi first " + O + "meditates" + E + " for " + Y + "0.75s" + E + ": ",
+           " Below " + Y + "{hp}%" + E + " health, or " + Y + "{burst}%" + E + " lost in " + Y + "{win}s" + E + ", with an enemy champion "
+           "near, he " + O + "meditates" + E + " for " + Y + "0.75s" + E + " (every " + Y + "{cd}s" + E + "): "),
+    "ko": ("이후 ", "먼저 " + Y + "0.75초" + E + " 동안 " + O + "명상" + E + "합니다. ",
+           " 전투 중 체력 " + Y + "{hp}%" + E + " 미만이나 " + Y + "{win}초" + E + "에 " + Y + "{burst}%" + E + " 잃으면 " + Y + "0.75초" + E +
+           " " + O + "명상" + E + "(" + Y + "{cd}초" + E + "): "),
+    "ja": ("その後", "まず" + Y + "0.75秒" + E + "間" + O + "明鏡止水" + E + "：",
+           "体力" + Y + "{hp}%" + E + "未満か" + Y + "{win}秒" + E + "で" + Y + "{burst}%" + E + "失い敵が近い時、" + Y + "0.75秒" + E + O +
+           "明鏡止水" + E + "（" + Y + "{cd}秒" + E + "）："),
+}
+
+
+def yi_w_text(lang, t):
+    """Master Yi's skill2 tooltip in the add-on: Wuju Style first (cast at once), then Meditate, the add-on's own W."""
+    c = lib_consts()
+    mark, old, new = YI_W[lang]
+    if not t.startswith(old) or mark not in t:
+        sys.exit(f"{lang} league_masteryi.skill2: the main pack's text changed: update this script")
+    head, tail = t.split(mark, 1)
+    if lang == "en":
+        tail = "F" + tail
+    if lang == "ko":
+        tail = tail.replace(E + "이 됩니다.", E + ".")  # the length limit: Meditate's part is longer now
+    if lang == "ja":
+        tail = tail.replace(E + "になる。", E + "。")
+    nums = {"hp": round(c["yi_med_hp"] * 100), "burst": round(c["yi_med_burst"] * 100),
+            "win": f'{c["yi_med_window"] / 60:g}', "cd": f'{c["yi_med_cd"] / 60:g}'}
+    return (tail + new.format(**nums) + head[len(old):]).rstrip()
 
 
 def texts(changed):
@@ -225,11 +291,14 @@ def texts(changed):
         keys = {}
         for hero, slot in changed:
             t = tab["description"][hero][slot]
-            pairs = SWAPS[(hero, slot)][lang] if (hero, slot) in SWAPS else YI_TAIL[lang]
-            for old, new in pairs if isinstance(pairs, list) else [pairs]:
-                if old not in t:
-                    sys.exit(f"{lang} {hero}.{slot}: the main pack's text changed ({old!r} not found): update this script")
-                t = t.replace(old, new)
+            if (hero, slot) == ("league_masteryi", "skill2"):
+                t = yi_w_text(lang, t)
+            else:
+                pairs = SWAPS[(hero, slot)][lang] if (hero, slot) in SWAPS else YI_TAIL[lang]
+                for old, new in pairs if isinstance(pairs, list) else [pairs]:
+                    if old not in t:
+                        sys.exit(f"{lang} {hero}.{slot}: the main pack's text changed ({old!r} not found): update this script")
+                    t = t.replace(old, new)
             t = LEAD[lang] + t
             if shown_length(t) > TOOLTIP_MAX[lang]:
                 sys.exit(f"{lang} {hero}.{slot}: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")
