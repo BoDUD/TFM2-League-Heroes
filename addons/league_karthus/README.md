@@ -1,4 +1,4 @@
-# 卡尔萨斯附加包（测试版 v0.5.0）
+# 卡尔萨斯附加包（测试版 v0.5.1）
 
 主包 `league` 保持纯数据。用户选了「被动做附加包」。这个附加包用原生代码做主包数据做不到的**死亡契约**：
 
@@ -69,6 +69,28 @@
 的参数表 `P` 写入；`GUARD_T`、`GUARD_EVERY`、`HIDE_EVERY`、`FLUSH_T` 和钩子的距离写在 `src/lib.rs`，单元测试核对参数表
 （`q_range`、`e_cast`、`e_r`、`w_r`、`atk_range`、`r_dmg`、`r_ratio`、`r_ch`）。
 
+## 0.5.1：倒下就是真的死了，灵体照样放技能（2026-11-03）
+
+用户（看比赛时）：「不行死歌还是不对 灵体结束后还能回城 你修不好了？」「被人击杀后显示灵体就已经是死亡了啊」，又问「灵体状态下
+会放其他技能吗 也检查下 我怎么感觉不会放」。
+
+- **灵体结束后他还活着**：倒下那一下（`hp + 1000` 真实伤害）和摘掉灵体的 buff（不死、减伤 100%）在同一 tick，伤害要到这一 tick
+  结算时才扣，那时刚摘掉的 buff 还算数，只打出 1 点：他 1 血活下来，放逐一结束游戏的 AI 就让他回城。11-03 晚上的日志：倒下后同
+  一个他还在下命令；回城日志里第一场他 3:55 倒下，3:56 就 0% 血回城；身边有敌人时被随手补掉，看着像倒下了。0.4.2 倒下时不放逐
+  也一样，「灵体死了还能回城」从那时就是这个原因。
+- **现在**：灵体最后一 tick 先把 `p_spirit` 换成 `p_fall`（不死、减伤都没有，照样钉在原地、谁都不选、他什么命令都不下），放逐
+  正好在 7 秒到时结束，下一 tick 才补致命一击；再下一 tick 他还站着就再补（`FALL RETRY`），1 秒还不行就把血设成 0
+  （`FALL FORCED`）。灵体期间游戏的 AI 下的命令（回城最要紧，回城到一半也算）都换成原地站着（`SPIRIT RECALL STOPPED`）。
+  韧性把放逐缩短了、灵体中途又能被选中时，照剩下的时间重新放逐（`REBANISH`）。
+- **复活时间真的扣掉**：0.5.0 让他自己的 AI 钩子在阵亡后扣，可他阵亡后自己的钩子都不跑了，日志里一条 `RESPAWN` 都没有。现在他
+  阵亡时被动记下灵体待了多久，游戏登记好阵亡后由任何还活着的英雄的钩子 `shun` 扣（照阿克尚附加包的动态寻址，阿克尚在观看的那场
+  也改成过）。
+- **灵体的荒芜、亵渎打不到人**：放逐的单位不给队伍视野，0.5.0 的灵体只挑他队伍看得见的敌人，身边没队友时荒芜、亵渎什么都打不到
+  （只有不看视野的安魂曲放得出来，那晚的日志里 106 次）。现在用灵体自己的眼睛：射程里的都算，亵渎、荒芜的爆炸照范围打。
+- **灵体立痛苦之墙**：主包把 W 挂在普攻上，灵体不能普攻，一面墙都没立过。现在 W 好了（他身上没有 `w_cd` 标记）就立在 60000 内
+  最近的敌方英雄身上，立 300 tick，碰到的敌人减速 40%、魔抗 −20%，照主包的墙（灵体最后 60 tick 不立：他倒下墙就不再减速）。
+- `FALL` 记下这个灵体放了几次荒芜（炸到几个）、几面墙（碰到几次）、亵渎烫了几次、安魂曲几次。
+
 ## 0.5.0：灵体照英雄联盟（2026-11-03）
 
 用户（看比赛时）：「等等死歌灵体还是有bug」「死了灵体还能移动 还能有残血？」「这能和英雄联盟一样吗」「还有死了后为什么AI还攻击灵体
@@ -97,18 +119,18 @@
 4. 看卡尔萨斯的普攻说明：开头是「【附加包】」就说明换上了。
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_karthus.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `SPAWN #1: the add-on's Karthus (player 0, team 0), ...`：出生；
-   - `SPIRIT #1: lethal damage caught at 1 hp (last hit by ...), a spirit for 420 ticks, banished 12 ticks first`：化成灵体
-     （行尾有 `(entity_banish refused)` 就是放逐没成，告诉我）；
+   - `SPIRIT #1: lethal damage caught at 1 hp (last hit by ...), a spirit for 420 ticks, banished with his ghost facing l`：化成
+     灵体（行尾是 `entity_banish refused` 就是放逐没成，告诉我）；`REBANISH #1`：灵体中途又能被选中（韧性），重新放逐了；
    - `SHUN #1: Attack on the enemy spirit league_karthus#20 -> Attack on league_ahri#22`：敌方英雄要打灵体，改打别人
      （`-> out of Defile` 退出亵渎的圈，`-> a stand` 原地站着）；`on the allied spirit`：队友的技能改给了别的队友；
-   - `SPIRIT AI #1: Skill on ... (the game's AI: Move)`：灵体时钩子替 AI 放了技能（立墙的普攻记成 Attack）；
-     `SPIRIT PRESS STUCK #1: ...`：同一招按了 30 tick 没放出来；`SPIRIT RECALL STOPPED #1`：游戏的 AI 想让灵体回城，拦下了；
-   - `SPIRIT HIT #1: struck by ...`：灵体还是挨了打（谁打的，多是范围、持续伤害，每下 1 点）；
+   - `SPIRIT RECALL STOPPED #1`：游戏的 AI 想让灵体（或倒下前的他）回城，拦下了；
+   - `SPIRIT REQUIEM #1`：灵体引导安魂曲、打下来；`SPIRIT HIT #1: struck by ...`：灵体还是挨了打（多是范围、持续伤害，每下 1 点）；
    - `SPIRIT KILL #1: ... killed by the spirit`：灵体击杀了英雄；
-   - `FALL #1: the spirit's time is up, killed by ...; struck as a spirit by champions 0 times, minions 0, towers 0, others 0`：
-     灵体倒下，这次灵体挨了谁几下；
-   - `RESPAWN: 1500 -> 1080 ticks (the spirit's 420 counted)`：复活倒计时扣掉了灵体的时间；`LAYOUT found ...`：第一次找到游戏里
-     复活时间的位置；`RESPAWN NOT CUT (...)` 或 `LAYOUT NOT FOUND`：没改成（原因在括号里），告诉我。
+   - `FALL #1: the spirit's time is up, he fell 1 ticks after it laid down - blow 1 by ...; cast as a spirit: Q 3 (4 hit), W 1
+     (12 touches), E 27 burns, R 1; struck as a spirit by champions 0 times, ...`：灵体倒下（时间到后补了几下、算谁的），这个灵体放了
+     什么、挨了谁几下；`FALL RETRY` / `FALL FORCED` / `FALL BLOW REFUSED`：那一下没打死他、又补 / 把血设成 0 / 游戏不接那一下，告诉我；
+   - `RESPAWN: 1500 -> 1080 ticks (the spirit's 420 counted, 1 ticks after his death)`：复活倒计时扣掉了灵体的时间；`LAYOUT found ...`：
+     第一次找到游戏里复活时间的位置；`RESPAWN NOT CUT (...)` 或 `LAYOUT NOT FOUND`：没改成（原因在括号里），告诉我。
 
 ## 开发
 

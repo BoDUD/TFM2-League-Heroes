@@ -404,6 +404,15 @@ fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
 
+/// 已经死了的人（0.2.12，用户 2026-11-03：「死歌死了后悠米还能挂灵体 这也是bug吧」）：卡尔萨斯的灵体（league_karthus 的
+/// `p_spirit`）和他倒下前的那一两 tick（`p_fall`）在游戏里还活着（1 血、放逐着），可英雄联盟里那就是死人。悠米不往上跳、
+/// 不换过去，正骑着就下来（和宿主死了一样），他也不算附近的敌人（放逐着，打不到）。
+pub const DEAD_MEN: [&str; 2] = ["league_karthus_p_spirit", "league_karthus_p_fall"];
+
+fn dead_man(sim: &StableSim<'_>, id: usize) -> bool {
+    DEAD_MEN.iter().any(|b| has_buff(sim, id, b))
+}
+
 /// Her team's living champions but her, as `switch_pick` weighs them, and where they are.
 fn mates(sim: &StableSim<'_>, team: usize, me: usize) -> Vec<(Mate, (u64, u64))> {
     let foes = champions(sim, team, false);
@@ -423,13 +432,13 @@ fn mates(sim: &StableSim<'_>, team: usize, me: usize) -> Vec<(Mate, (u64, u64))>
     }).collect()
 }
 
-/// Living champions of `team` (`mates`) or of the other team: (id, position).
+/// Living champions of `team` (`mates`) or of the other team: (id, position). A Karthus spirit is no living one (`dead_man`).
 fn champions(sim: &StableSim<'_>, team: usize, mates: bool) -> Vec<(usize, (u64, u64))> {
     let mut out = Vec::new();
     for i in 0..sim.champion_count() {
         let id = sim.champion_id_at(i);
         let Some(e) = sim.get_entity(id) else { continue };
-        if (e.team() == team) == mates && e.is_alive() {
+        if (e.team() == team) == mates && e.is_alive() && !dead_man(sim, id) {
             out.push((id, e.pos()));
         }
     }
@@ -696,6 +705,10 @@ impl Bond {
         };
         if !alive {
             self.detach(sim, me, "the ally died", tick);
+            return;
+        }
+        if dead_man(sim, host) {
+            self.detach(sim, me, "the ally is a Karthus spirit - dead in League", tick);
             return;
         }
         let spot = beside(at, team);
@@ -1040,6 +1053,18 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn karthus_spirits_are_dead_men() {
+        // 「死歌死了后悠米还能挂灵体 这也是bug吧」: the buffs league_karthus puts on his spirit and on him the tick before he falls
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../league_karthus/src/lib.rs");
+        let src = std::fs::read_to_string(path).expect("league_karthus/src/lib.rs");
+        assert!(src.contains("format!(\"league_karthus_{x}\")"), "league_karthus's buff names changed their prefix");
+        for b in DEAD_MEN {
+            let x = b.strip_prefix("league_karthus_").expect("a Karthus buff");
+            assert!(src.contains(&format!("sn(\"{x}\")")), "league_karthus puts no {b} on him");
+        }
+    }
 
     #[test]
     fn beside_keeps_her_off_his_spot() {
