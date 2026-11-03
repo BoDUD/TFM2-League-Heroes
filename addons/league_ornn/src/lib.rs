@@ -15,10 +15,12 @@
 //! - **活体锻炉加强装备**（被动 `league_ornn:forge`，用户：「有装备系统吧 你可以加强装备属性吧」）：每 `FORGE_EVERY` tick 按他身上的
 //!   装备把主属性（攻击、法强、护甲、生命、魔抗、攻速）再加 `P_ITEM`%：装备的属性从他身上的装备 buff 读（`item_buff_stats`），
 //!   游戏的、数据 mod 的、原生 mod 的装备都一样（用户：「你也要能兼容mod的装备啊」）；一条都认不出来才退回游戏的装备表 `ITEMS`；`P_MASTER_LV` 级起锻造杰作
-//!   （英雄联盟 13 级）：他自己 +`P_MASTER`%，每个友方英雄的装备 +`P_ALLY`%。只补差额的永久 buff（重挂生命会掉血）。主包：
-//!   护甲、魔抗 +10%、生命 +6%（数据读不到装备）。
+//!   （英雄联盟 13 级）：**装备出完了（装备栏满 `FULL_BUILD` 件）的人**才锻造——他自己 +`P_MASTER`%，友方英雄的装备 +`P_ALLY`%
+//!   （0.3.0，用户 2026-11-03：「应该是所有装备出完了以后才开始锻造吧 现在造成几乎所有英雄的装备都能锻造」，以前一到这一级每个
+//!   队友都锻造）。只补差额的永久 buff（重挂生命会掉血）。主包：护甲、魔抗 +10%、生命 +6%（数据读不到装备）。
 //! - **锻造看得见**（`fx.rs`，用户 2026-11-01：「锻造后装备上加点特效？不然看不出啊」，选了样式 2）：比赛下方玩家栏里被锻造的装备
-//!   图标外一圈金色光晕、右下角一个小铁砧（他自己的亮，锻造杰作后队友的淡），刚锻造时闪一下金光；按屏幕上的比赛时钟画，
+//!   图标外一圈金色光晕、右下角一个小铁砧（他自己的亮、队友的淡；0.3.0 起只画锻造杰作过的，他自己活体锻炉的加成不发光），刚锻造时
+//!   闪一下金光；按屏幕上的比赛时钟画，
 //!   只画屏幕上那一场的（AI 钩子 `league_ornn:screen` 记屏幕在放哪一个模拟）。
 //! - **连招**（AI 钩子 `league_ornn:combo`，`combo.rs`）：AI 想放 E 而 Q 好着时先放 Q 立柱（Q → E）；柱子立着、E 好了、
 //!   柱子旁边有敌方英雄时替 AI 按 E 撞过去；身边有易碎的英雄时普攻改打他。
@@ -71,6 +73,10 @@ pub const P_ALLY: usize = 10;
 pub const P_MASTER_LV: usize = 9;
 /// 多久按装备重算一次。
 pub const FORGE_EVERY: usize = 30;
+/// 一套装备出完（装备栏满了）才锻造杰作（0.3.0，用户 2026-11-03：「奥恩的锻造逻辑有点问题 应该是所有装备出完了以后才开始锻造吧
+/// 现在造成几乎所有英雄的装备都能锻造」）：以前他一到 `P_MASTER_LV` 级每个队友的装备都锻造、都发光。日志里一个人最多 6 件装备
+/// （装备 mod 的 6 格）。
+pub const FULL_BUILD: usize = 6;
 
 /// 装备的主属性（攻击、法强、护甲、生命、魔抗、攻速 %），游戏 0.6.4 的 `asset/base/setting/item_setting`（字典的键和
 /// 装备自己的 `key` 都列上：铁剑的两个不一样）。吸血、暴击、穿透、减伤、韧性、冷却这些副属性不放大。
@@ -398,12 +404,16 @@ pub fn forged(sum: [i32; 6], pct: usize) -> [i32; 6] {
     sum.map(|v| v * pct as i32 / 100)
 }
 
-/// 他的等级下：他自己、友方英雄各放大多少 %。
-pub fn forge_pct(level: usize) -> (usize, usize) {
-    if level >= P_MASTER_LV {
-        (P_MASTER, P_ALLY)
-    } else {
-        (P_ITEM, 0)
+/// 这个英雄（`own`：奥恩自己）的装备放大多少 %、算不算锻造过（锻造过的装备图标才发光）。奥恩自己一直有活体锻炉的 `P_ITEM`%
+/// （被动的加成，不算锻造）；锻造杰作要他到 `P_MASTER_LV` 级，而且这个英雄的装备出完了（`items` 件，满 `FULL_BUILD`）：奥恩自己
+/// `P_MASTER`%，队友 `P_ALLY`%。
+pub fn forge_pct(level: usize, own: bool, items: usize) -> (usize, bool) {
+    let master = level >= P_MASTER_LV && items >= FULL_BUILD;
+    match (own, master) {
+        (true, true) => (P_MASTER, true),
+        (true, false) => (P_ITEM, false),
+        (false, true) => (P_ALLY, true),
+        (false, false) => (0, false),
     }
 }
 
@@ -664,33 +674,34 @@ impl Forge {
             }
             rows.push((id, c.is_alive(), sum, pl.lane(), items));
         }
-        let (mine, ally) = forge_pct(level);
-        if ally > 0 && !self.master_seen {
+        if level >= P_MASTER_LV && !self.master_seen {
             self.master_seen = true;
             if let Some(k) = counted("masterwork") {
-                wlog(format!("{} MASTERWORK at level {level}: his items +{mine}%, his allies' +{ally}% #{k}", head(sim, me)));
+                wlog(format!("{} MASTERWORK at level {level}: forging the items of whoever has a full build ({FULL_BUILD}): \
+                              his +{P_MASTER}%, an ally's +{P_ALLY}% #{k}", head(sim, me)));
             }
         }
-        // the match on screen: which item icons on the scoreboard glow, and when they were forged (fx.rs)
+        // the match on screen: which item icons on the scoreboard glow (forged ones only), and when (fx.rs)
         let now = sim.tick();
         if on_screen(sim) && now >= FORGE_EVERY {
             let gen = fx::screen_gen();
             for &(id, _, sum, lane, items) in &rows {
                 let Some(lane) = lane else { continue };
                 let own = id == me;
-                let pct = if own { mine } else { ally };
-                fx::publish(gen, now, (team, lane.code() as usize), items, pct, own, forged(sum, pct));
+                let (pct, done) = forge_pct(level, own, items);
+                let shown = if done { pct } else { 0 };
+                fx::publish(gen, now, (team, lane.code() as usize), items, shown, own, forged(sum, shown));
             }
             if now % fx::STATS_EVERY == 0 {
                 stats(sim, me);
             }
         }
-        for (id, alive, sum, _, _) in rows {
+        for (id, alive, sum, _, items) in rows {
             if !alive {
                 continue;
             }
             let own = id == me;
-            let want = forged(sum, if own { mine } else { ally });
+            let want = forged(sum, forge_pct(level, own, items).0);
             let name = n(if own { "forged" } else { "masterwork" });
             let have = if has_buff(sim, id, &name) { self.forged.get(&id).copied().unwrap_or([0; 6]) } else { [0; 6] };
             match change(have, want) {
@@ -940,8 +951,15 @@ mod tests {
         let s = item_stats(&["giants_horn_shard", "impregnable_fortress", "night_hood", "a_mod_item"]);
         assert_eq!(s, [0, 0, 130, 950, 60, 0]);
         assert_eq!(forged(s, P_ITEM), [0, 0, 26, 190, 12, 0]);
-        assert_eq!(forge_pct(1), (P_ITEM, 0));
-        assert_eq!(forge_pct(P_MASTER_LV), (P_MASTER, P_ALLY));
+        // his own Living Forge from the start (no glow); a masterwork only for a full build at his level 9
+        assert_eq!(forge_pct(1, true, FULL_BUILD), (P_ITEM, false));
+        assert_eq!(forge_pct(P_MASTER_LV, true, FULL_BUILD - 1), (P_ITEM, false));
+        assert_eq!(forge_pct(P_MASTER_LV, true, FULL_BUILD), (P_MASTER, true));
+        // an ally (「几乎所有英雄的装备都能锻造」): nothing until his items are all bought
+        assert_eq!(forge_pct(P_MASTER_LV, false, 3), (0, false));
+        assert_eq!(forge_pct(P_MASTER_LV, false, FULL_BUILD - 1), (0, false));
+        assert_eq!(forge_pct(P_MASTER_LV, false, FULL_BUILD), (P_ALLY, true));
+        assert_eq!(forge_pct(P_MASTER_LV - 1, false, FULL_BUILD), (0, false));
         // both spellings of the iron sword
         assert_eq!(item_stats(&["ironsword"]), item_stats(&["iron_blade"]));
         assert_eq!(ITEMS.len(), 31);

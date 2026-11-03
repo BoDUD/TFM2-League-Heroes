@@ -669,6 +669,10 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // frames over the light column at his own 1.75, facing right and left (tools/art/rig_zaahen.py --rise; the add-on
     // plays the side facing the nearest enemy champion: an effect picture is never mirrored)
     ("league_zaahen_rise", 1.75, include_str!("../../../league/effects/league_zaahen_rise#anim.fanim")),
+    // league_karthus's spirit (0.5.0, the user 2026-11-03: 「死了灵体还能移动 还能有残血？」「这能和英雄联盟一样吗」): the
+    // add-on banishes him for the whole of it, so his ghost is the banish's picture - his own idle_base squares at his
+    // 1.5 in a pale glowing green, facing right and left (tools/art/draw_karthus_ghost.py)
+    ("league_karthus_ghost", 1.5, include_str!("../../../league/effects/league_karthus_ghost#anim.fanim")),
 ];
 
 /// Effects whose pictures the view node draw (hd_engine/src/view.rs effect_detour) shrinks to 1 / PPU about their
@@ -678,10 +682,10 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
 /// league_zoe's stolen summoner spells and their icons too (0.9.3, the user, 2026-11-03: 「大橙圈是召唤师技能屏障特效 你
 /// 弄的太大了吧」「还有地上的召唤师技能图标也太大了吧」): registered at PPU 2 and 3 on 10-22 but never listed here, the
 /// game drew Barrier's shell 88 x 104 px (designed 44 x 52, three times her height) and a shard's icon 34 px (Zoe's
-/// own height, designed 11), each hanging right and down from its spot.
+/// own height, designed 11), each hanging right and down from its spot. league_karthus's ghost (0.9.5) from the start.
 pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
                                      "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side",
-                                     "league_zoe_spells", "league_zoe_spell_icons"];
+                                     "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost"];
 
 /// Tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): the card's canvas holds
 /// about 40 game px at 2.2x and these idles are 45-58 px from the head to the feet, so the knees and feet hid behind

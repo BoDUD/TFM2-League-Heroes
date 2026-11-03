@@ -5,15 +5,19 @@
 //!
 //! - **死亡契约**：英雄联盟里卡尔萨斯死后化成灵体，7 秒内照样放技能，然后才倒下；灵体选不中、不受伤害、免控，不能走动、
 //!   不能普攻。数据读不到血量，主包做不了。本包一直给他挂着「不死」`league_karthus_p_guard`，致命伤害只会把他打到 1 血；
-//!   到 1 血（身上没有别人给的不死）时**化成灵体** `p_t` tick：先放逐自己 `FLUSH_T` tick（正在打他的单位都丢了目标），
-//!   之后英雄点向灵体的普攻、技能（敌方的，队友的治疗、护盾也一样）由挂在每个英雄上的钩子 `shun` 改到别的目标上；不再
-//!   受伤（`damaged_reduce` 100%）、放逐之后免控、不能走动；灵体时 AI 钩子 `spirit_ai` 替游戏的逃跑 AI 放 R / E / Q、为
-//!   痛苦之墙普攻，别的时候原地站着；身上挂 `league_karthus_p_spirit`（画面）。时间到就倒下，击杀算最后打他的那个人。
-//!   每条命都有（英雄联盟每次死亡都会触发）。
+//!   到 1 血（身上没有别人给的不死）时**化成灵体** `p_t` tick。
+//! - **灵体照英雄联盟**（0.5.0，用户 2026-11-03：「死了灵体还能移动 还能有残血？」「这能和英雄联盟一样吗」「还有死了后为什么
+//!   AI还攻击灵体 很奇怪啊」）：0.4.x 的灵体是 1 血、活着的他——游戏只认放逐是选不中，它只放了开头 12 tick：之后小兵、塔照打
+//!   （1 血的英雄正是 AI 最想补的），挨每个英雄的钩子 `shun` 拦下的出手也照样飞来，头上挂着一条残血，移速 −100% 也挡不住位移。
+//!   现在**整个灵体放逐着**（`entity_banish` `p_t` tick，扎亨复活的做法）：谁都选不中、打不到，没有血条，不能走、不能回城；
+//!   放逐的锁定画面是他的灵体（`league_karthus_p_ghost_r` / `_l`，`tools/art/draw_karthus_ghost.py`，面朝最近的敌方英雄），
+//!   每 tick 钉在倒下的地方。放逐也锁住他自己出手，所以**灵体的技能由本包放**（`spirit_casts`，数字、画面照主包）：亵渎一直
+//!   烧（每 `E_PER` tick 圈里每个敌人），荒芜每 `Q_CD` tick 落在射程里最近的敌方英雄（没有就别的单位）脚下（`Q_DELAY` tick 后
+//!   炸开，只炸到一个两倍），安魂曲好了又值得（`r_worth`）时引导 `R_CH` tick 打每个敌方英雄。击杀照样算他的。
 //! - **灵体就是已经死了**（0.4.1，用户 2026-11-03：「灵体死了还能回城的？？？」「灵体出现就代表已经是死亡了 懂吗」「有时候
-//!   死了又没灵体」）：不隐身（英雄联盟的灵体谁都看得见，只是选不中；隐身让敌方那一边看不见他，像是死了没有灵体），不能回城
-//!   （游戏的 AI 想回城就换成原地站着，回城到一半也打断），倒下后复活倒计时扣掉灵体待的时间（英雄联盟从化成灵体就开始算，
-//!   `life.rs` 改游戏的剩余复活 tick）。
+//!   死了又没灵体」）：不能回城，倒下后复活倒计时扣掉灵体待的时间（英雄联盟从化成灵体就开始算，`life.rs` 改游戏的剩余复活
+//!   tick）。0.5.0：0.4.x 在 `on_dead` 里改，那时游戏还没把他记成阵亡（11-03 的日志全是 `RESPAWN NOT CUT (alive)`）；现在
+//!   由 AI 钩子 `spirit_ai` 在他阵亡后的第一 tick 改。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_karthus.log`，每次启动游戏重写。
 
@@ -38,13 +42,8 @@ pub const GUARD_T: usize = 30;
 pub const GUARD_EVERY: usize = 10;
 /// 灵体倒下后，复活倒计时扣掉灵体待了的 tick，至少还剩这么多（`respawn_after_spirit`）。
 pub const BACK_MIN: u64 = 60;
-/// 化成灵体时先放逐他这么多 tick（0.4.0，用户 2026-11-02：「死歌死了后别人还在攻击灵体 英雄联盟里不是灵体吧」）：游戏里
-/// 只有放逐让单位选不中，正在打他、追他的单位（英雄、小兵、塔）都丢了目标。隐身只挡远处的视野，贴着他的敌人照样看得见、
-/// 选得中（tfm2-hero-mod 的 champion-data「Invisible is not untargetable」），1 血的灵体又正是 AI 最想补的目标：那晚的 46
-/// 个灵体一直挨打。放逐也拦着他自己出手、看不见队友的视野，所以只放这一下；它被免控拦下（league_yuumi），免控
-/// （`p_ward`）在它之后才挂。0.3.1 为查放不出技能而现形的自诊断去掉了：那是目标在草里看不见（现在只打看得见的），
-/// 或者安魂曲正在引导。
-pub const FLUSH_T: usize = 12;
+// 0.4.0 只在化成灵体时放逐他 12 tick（`FLUSH_T`，正在打他、追他的单位丢了目标）、之后免控（`p_ward`）：游戏里只有放逐让单位
+// 选不中（tfm2-hero-mod 的 champion-data「Invisible is not untargetable」），放逐完小兵、塔、英雄又打上来。0.5.0 整个灵体放逐。
 
 pub mod life;
 
@@ -228,11 +227,25 @@ fn spirit_buff(t: usize) -> BuffV1 {
     s
 }
 
-/// 灵体放逐结束后的免控。
-fn ward(t: usize) -> BuffV1 {
-    let mut w = BuffV1::timed(&sn("p_ward"), t);
-    w.cc_immune = true;
-    w
+/// 灵体由本包放的技能（他放逐着自己出不了手）：钉住的位置，下一次荒芜、亵渎、亵渎圈画面的 tick，落下的荒芜（位置、炸开的
+/// tick），安魂曲打下来的 tick，这个灵体放过安魂曲没有。
+#[derive(Clone, Default)]
+struct Cast {
+    anchor: (u64, u64),
+    q_next: usize,
+    e_next: usize,
+    ring_next: usize,
+    booms: Vec<((u64, u64), usize)>,
+    requiem: Option<usize>,
+    r_used: bool,
+}
+
+/// 灵体的画面面朝哪边（效果图不会镜像，左右各画一张）：最近的敌方英雄在右边（或没有）就朝右。
+pub fn side(me_x: u64, foe_x: Option<u64>) -> &'static str {
+    match foe_x {
+        Some(x) if x < me_x => "l",
+        _ => "r",
+    }
 }
 
 /// 单位的种类（读不到时按英雄、小兵、塔的判断）。
@@ -267,8 +280,8 @@ struct DeathDefied {
     alive_seen: bool,
     /// 这次灵体挨的打。
     hits: Hits,
-    /// 灵体刚倒下：(倒下的 tick, 灵体待了多少 tick)，他死时（`on_dead`）复活倒计时扣掉后者。
-    fell: Option<(usize, usize)>,
+    /// 灵体由本包放的技能。
+    cast: Cast,
 }
 
 impl DeathDefied {
@@ -288,25 +301,114 @@ impl DeathDefied {
         self.spirit = Some(now);
         self.hits = Hits::default();
         sim.entity_remove_buff(me, &sn("p_guard"));
-        // the banish before anything cc_immune (it refuses a cc_immune unit): whoever strikes or chases him drops him
-        let flushed = sim.entity_banish(me, me, FLUSH_T, "", "");
+        let Some((pos, team)) = sim.get_entity(me).map(|e| (e.pos(), e.team())) else { return };
+        let nearest = foes_by_distance(sim, team, (pos.0 as f64, pos.1 as f64)).first().and_then(|f| sim.get_entity(f.0));
+        let face = side(pos.0, nearest.map(|e| e.pos().0));
+        // the whole spirit banished (0.5.0): untargetable for everyone, no health bar, rooted, recall-proof; the banish's
+        // lock picture is his ghost where he fell (league_zaahen's revive) - before anything cc_immune, which it refuses
+        let banished = sim.entity_banish(me, me, self.p.p_t + 2, &sn(&format!("p_ghost_{face}")), "");
         sim.add_buff(me, &spirit_buff(self.p.p_t + 2));
+        self.cast = Cast { anchor: pos, q_next: now + 1, e_next: now + 1, ..Cast::default() };
         sim.play_sfx(&sn("p"), me, &InputTargetV1::target(me));
         sim.play_sfx(&sn("vo_p"), me, &InputTargetV1::target(me));
         if let Some(k) = counted("spirit") {
-            wlog(format!("{} SPIRIT #{k}: lethal damage caught at 1 hp (last hit by {}), a spirit for {} ticks, banished \
-                          {FLUSH_T} ticks first{}", head(sim, me),
+            wlog(format!("{} SPIRIT #{k}: lethal damage caught at 1 hp (last hit by {}), a spirit for {} ticks{}", head(sim, me),
                          self.last_hit.map_or_else(|| "-".to_string(), |a| who(sim, a)), self.p.p_t,
-                         if flushed { "" } else { " (entity_banish refused)" }));
+                         if banished { format!(", banished with his ghost facing {face}") }
+                         else { " - entity_banish refused: he stays targetable".to_string() }));
+        }
+    }
+
+    /// 灵体放的技能（他放逐着出不了手，`Cast`）：亵渎一直烧，荒芜落在最近的敌人脚下，安魂曲在值得时引导。数字、画面照主包。
+    fn spirit_casts(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, k: usize) {
+        let Some((team, power, r_ready)) =
+            sim.get_entity(me).map(|e| (e.team(), e.stat().magic_power.max(0) as usize, ready(&e, SkillSlotV1::Ult)))
+        else {
+            return;
+        };
+        let at = self.cast.anchor;
+        let here = (at.0 as f64, at.1 as f64);
+        let here_t = InputTargetV1::pos(at.0, at.1);
+        // E Defile, burning the whole spirit (League's spirit keeps it on, free)
+        if now >= self.cast.e_next {
+            self.cast.e_next = now + E_PER;
+            let (champs, others) = seen_foes(sim, team, here, E_R);
+            for id in champs.iter().chain(&others).map(|f| f.0) {
+                sim.deal_damage_typed(me, id, e_damage(power), DamageTypeV1::Ap, AttackTypeV1::Skill);
+                sim.play_view_effect(&sn("e_hit"), me, &InputTargetV1::target(id), 0, 0, 0);
+            }
+            if now >= self.cast.ring_next {
+                self.cast.ring_next = now + E_RING_EVERY;
+                sim.play_view_effect(&sn("e_ring"), me, &here_t, 0, 0, 0);
+            }
+        }
+        // Q Lay Waste: the blasts that fall now, then a new one
+        let (due, keep): (Vec<_>, Vec<_>) = std::mem::take(&mut self.cast.booms).into_iter().partition(|b| b.1 <= now);
+        self.cast.booms = keep;
+        for (spot, _) in due {
+            let (champs, others) = seen_foes(sim, team, (spot.0 as f64, spot.1 as f64), Q_R);
+            let hit: Vec<usize> = champs.iter().chain(&others).map(|f| f.0).collect();
+            let dmg = q_damage(power, hit.len());
+            for &id in &hit {
+                sim.deal_damage_typed(me, id, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+                let view = if hit.len() == 1 { "q_lone" } else { "q_hit" };
+                sim.play_view_effect(&sn(view), me, &InputTargetV1::target(id), 0, 0, 0);
+            }
+            sim.play_view_effect(&sn("q_boom"), me, &InputTargetV1::pos(spot.0, spot.1), 0, 0, 0);
+            sim.play_sfx(&sn("q_boom"), me, &InputTargetV1::pos(spot.0, spot.1));
+        }
+        if now >= self.cast.q_next {
+            let (champs, others) = seen_foes(sim, team, here, Q_RANGE);
+            if let Some(spot) = champs.first().or(others.first()).and_then(|f| sim.get_entity(f.0)).map(|e| e.pos()) {
+                self.cast.q_next = now + Q_CD;
+                self.cast.booms.push((spot, now + Q_DELAY));
+                sim.play_view_effect(&sn("q_mark"), me, &InputTargetV1::pos(spot.0, spot.1), 0, 0, 0);
+                sim.play_sfx(&sn("q"), me, &here_t);
+            }
+        }
+        // R Requiem: one channel a spirit, when it is worth it and there is time to finish it
+        match self.cast.requiem {
+            Some(t) if now >= t => {
+                self.cast.requiem = None;
+                let foes = foes_by_distance(sim, team, here);
+                for &(id, _) in &foes {
+                    sim.deal_damage_typed(me, id, R_DMG + power * R_RATIO / 100, DamageTypeV1::Ap, AttackTypeV1::Skill);
+                    sim.play_view_effect(&sn("r_hit"), me, &InputTargetV1::target(id), 0, 0, 0);
+                }
+                sim.play_sfx(&sn("r_boom"), me, &here_t);
+                if let Some(c) = counted("spirit_r_hit") {
+                    wlog(format!("{} SPIRIT REQUIEM #{c}: {} enemy champions struck", head(sim, me), foes.len()));
+                }
+            }
+            None if r_ready && !self.cast.r_used && r_in_time(k, self.p.p_t) => {
+                let toll = foes_toll(sim, team, power);
+                let hits: Vec<(usize, usize, usize)> = toll.iter().map(|f| (f.1, f.2, f.3)).collect();
+                if r_worth(RWhen::Spirit, &hits, power) {
+                    self.cast.r_used = true;
+                    self.cast.requiem = Some(now + R_CH);
+                    for &(id, ..) in &toll {
+                        sim.add_buff(id, &BuffV1::timed(&sn("r_mark"), R_CH));
+                    }
+                    // seen by spirit_ai, which holds the game's AI's Requiem for R_CD after he is back
+                    sim.add_buff(me, &BuffV1::timed(&sn("r_used"), self.p.p_t + 2));
+                    sim.play_view_effect(&sn("r_cast"), me, &here_t, 0, 0, 0);
+                    sim.play_sfx(&sn("r"), me, &here_t);
+                    sim.play_sfx(&sn("vo_r"), me, &here_t);
+                    if let Some(c) = counted("spirit_r") {
+                        let (kills, low) = r_toll(&hits, power, SPIRIT_LOW);
+                        wlog(format!("{} SPIRIT REQUIEM #{c}: channelling {R_CH} ticks - {kills} would die, {low} left under \
+                                      {SPIRIT_LOW}%", head(sim, me)));
+                    }
+                }
+            }
+            _ => {}
         }
     }
 
     fn fall(&mut self, sim: &mut StableSim<'_>, me: usize) {
-        let now = sim.tick();
-        self.fell = Some((now, self.spirit.map_or(0, |t0| now.saturating_sub(t0))));
         self.spirit = None;
+        self.cast.booms.clear();
         sim.entity_remove_buff(me, &sn("p_spirit"));
-        sim.entity_remove_buff(me, &sn("p_ward"));
         let (hp, _) = sim.get_entity(me).map_or((0, 0), |e| e.hp());
         let killer = killer(sim, me, self.last_hit, self.last_player);
         sim.deal_damage_typed(killer, me, hp + 1000, DamageTypeV1::Fixed, AttackTypeV1::Skill);
@@ -337,7 +439,7 @@ impl StablePassive for DeathDefied {
         self.next_guard = 0;
         self.alive_seen = false;
         self.hits = Hits::default();
-        self.fell = None;
+        self.cast = Cast::default();
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Karthus (player {player}, team {team}), {:?}", head(sim, me),
@@ -351,28 +453,18 @@ impl StablePassive for DeathDefied {
             return;
         }
         let (hp, _) = e.hp();
+        let pos = e.pos();
         let now = sim.tick();
         if let Some(t0) = self.spirit {
             let k = now.saturating_sub(t0);
-            if k == FLUSH_T {
-                sim.add_buff(me, &ward(self.p.p_t.saturating_sub(k) + 2));
+            // a dead man does not walk: rooted where he fell (League's spirit stands and casts)
+            if pos != self.cast.anchor {
+                sim.entity_set_pos(me, self.cast.anchor.0, self.cast.anchor.1);
             }
-            // a Requiem begun as a spirit is not cut by the spirit's end (the user 2026-11-01: 「灵体状态下放大是不能被打断的」):
-            // the fall waits for its channel (`r_ch` on him, R_CH ticks at most), the spirit kept on meanwhile
-            let channel = buffs(sim, me).iter().any(|b| b.name() == sn("r_ch"));
-            if k >= self.p.p_t && channel && k < self.p.p_t + R_CH {
-                if k == self.p.p_t {
-                    if let Some(c) = counted("spirit_holds") {
-                        wlog(format!("{} SPIRIT HOLDS #{c}: Requiem still channelling as the spirit's time runs out",
-                                     head(sim, me)));
-                    }
-                }
-                sim.entity_remove_buff(me, &sn("p_spirit"));
-                sim.add_buff(me, &spirit_buff(3));
-                sim.entity_remove_buff(me, &sn("p_ward"));
-                sim.add_buff(me, &ward(3));
-            } else if k >= self.p.p_t {
+            if k >= self.p.p_t {
                 self.fall(sim, me);
+            } else {
+                self.spirit_casts(sim, me, now, k);
             }
             return;
         }
@@ -413,22 +505,11 @@ impl StablePassive for DeathDefied {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
+    fn on_dead(&mut self, _sim: &mut StableSim<'_>, _player: usize) {
+        // the respawn timer counts the spirit (League's death timer runs from its start): spirit_ai cuts it the first tick
+        // he is dead - here the game has not marked him dead yet (0.4.x: every try said `RESPAWN NOT CUT (alive)`)
         self.spirit = None;
         self.ready = false;
-        // the spirit was his death already (League's death timer runs from the spirit's start): the respawn counts it
-        let Some((at, spent)) = self.fell.take() else { return };
-        if sim.tick() > at + 2 {
-            return; // not the spirit's fall (someone else's undying held him up)
-        }
-        let left = sim.get_player(player).map_or(0, |p| p.respawn_time() as u64);
-        let line = match life::shorten_respawn(sim, player, respawn_after_spirit(left, spent as u64)) {
-            Ok((was, now)) => format!("RESPAWN: {was} -> {now} ticks (the spirit's {spent} counted)"),
-            Err(why) => format!("RESPAWN NOT CUT ({why}): {left} ticks left, the spirit's {spent} not counted"),
-        };
-        if let Some(k) = counted("respawn") {
-            wlog(format!("{} {line} #{k}", head(sim, self.me)));
-        }
     }
 }
 
@@ -457,6 +538,37 @@ pub const FOUNTAIN_LOW: usize = 20;
 pub const FOUNTAIN_LOW_N: usize = 2;
 /// 拦下 R 时改成普攻的敌方英雄最远多远（再远就照游戏的 AI 原来的走路命令走，不穿过半张地图去打人）。
 pub const HOLD_ATTACK_R: f64 = 70000.0;
+
+/// 灵体由本包放的技能（0.5.0，build_karthus.py 的 q_cd / q_delay / q_r / q_dmg / q_ratio、e_per / e_dmg / e_ratio、r_cd；
+/// 单元测试核对）：荒芜的冷却、标出落点后多久炸开、炸开的半径、伤害（只炸到一个两倍，英雄联盟的「孤立」）；亵渎每多少 tick
+/// 烧一次、每次的伤害；R 的冷却（灵体放过安魂曲，复活后 `spirit_ai` 在这之前照样拦下游戏的 AI 的 R）。
+pub const Q_CD: usize = 150;
+pub const Q_DELAY: usize = 32;
+pub const Q_R: f64 = 15000.0;
+pub const Q_DMG: usize = 45;
+pub const Q_RATIO: usize = 30;
+pub const E_PER: usize = 15;
+pub const E_DMG: usize = 10;
+pub const E_RATIO: usize = 5;
+pub const R_CD: usize = 4200;
+/// 亵渎的圈（`e_ring`：主包 `e_on` 的画面放在地上）多久在灵体脚下重放一次。
+pub const E_RING_EVERY: usize = 60;
+
+/// 灵体的荒芜：炸到 `hit` 个敌人时每人的魔法伤害（只炸到一个两倍）。
+pub fn q_damage(power: usize, hit: usize) -> usize {
+    let d = Q_DMG + power * Q_RATIO / 100;
+    if hit == 1 { d * 2 } else { d }
+}
+
+/// 灵体的亵渎：每 `E_PER` tick 每个敌人的魔法伤害。
+pub fn e_damage(power: usize) -> usize {
+    E_DMG + power * E_RATIO / 100
+}
+
+/// 灵体待到第 `k` tick（共 `p_t`）还来得及引导完安魂曲。
+pub fn r_in_time(k: usize, p_t: usize) -> bool {
+    k + R_CH + 1 <= p_t
+}
 
 /// R 打在魔抗 `mr` 的英雄身上的伤害（他的法强 `power`）。
 pub fn r_damage(power: usize, mr: usize) -> usize {
@@ -565,38 +677,6 @@ fn foes_by_distance(sim: &StableSim<'_>, team: usize, at: (f64, f64)) -> Vec<(us
     out
 }
 
-/// `r` 以内的英雄（近的先），再是别的单位。
-fn within<'a>(champs: &'a [(usize, f64)], others: &'a [(usize, f64)], r: f64) -> impl Iterator<Item = usize> + 'a {
-    champs.iter().chain(others).filter(move |f| f.1 <= r).map(|f| f.0)
-}
-
-/// 灵体挑目标时距离只用到施法距离的这么多（0.4.2）：他不能走，目标在边上一挪就够不着，那一招就一直按不出来
-/// （11-02 夜里 0.4.0 的日志：SPIRIT PRESS STUCK 里有 E、Q 和立墙的普攻）。
-pub const SPIRIT_REACH: f64 = 0.9;
-
-/// 灵体这一 tick 按什么（英雄联盟的灵体站在原地放技能、不能普攻）：R（值得时，全图）> E（没开着：施法距离里的英雄，没有
-/// 就别的单位）> Q（射程里的英雄，没有就小兵、野怪）> 立痛苦之墙的普攻（墙好了、普攻够得着的英雄）；距离都打 `SPIRIT_REACH`
-/// 的折扣；都没有就是空的，他原地站着。`r_order`：R 的目标，安魂曲打完剩血最少的先（安魂曲只放得到己方正在打的敌方英雄，
-/// 剩血少的多半正在打；0.4.0 按远近挑，挑中没在打的就按不出来）；`champs` / `others`：看得见的敌方英雄 / 别的单位
-/// (实体, 距离)，近的在前。`ready`：[R 值得放, Q, E 好了且没开着, 墙好了]。返回 (格子, 目标)。
-pub fn spirit_pick(r_order: &[usize], champs: &[(usize, f64)], others: &[(usize, f64)], ready: [bool; 4])
-                   -> Vec<(InputKindV1, usize)> {
-    let mut out = Vec::new();
-    if ready[0] {
-        out.extend(r_order.iter().map(|&t| (InputKindV1::Ult, t)));
-    }
-    if ready[2] {
-        out.extend(within(champs, others, E_RANGE * SPIRIT_REACH).map(|t| (InputKindV1::Skill2, t)));
-    }
-    if ready[1] {
-        out.extend(within(champs, others, Q_RANGE * SPIRIT_REACH).map(|t| (InputKindV1::Skill, t)));
-    }
-    if ready[3] {
-        out.extend(champs.iter().filter(|f| f.1 <= ATK_RANGE * SPIRIT_REACH).map(|f| (InputKindV1::Attack, f.0)));
-    }
-    out
-}
-
 /// 他活着、拦下游戏的 AI 想放的 R 时改按什么：Q > E（在施法距离内）> 普攻最近的英雄（够不着就走过去）。
 pub fn hold_pick(foes: &[(usize, f64)], ready: [bool; 2]) -> Vec<(InputKindV1, usize)> {
     let mut out = Vec::new();
@@ -623,34 +703,16 @@ fn foes_toll(sim: &StableSim<'_>, team: usize, power: usize) -> Vec<(usize, usiz
 
 /// 这一 tick 想怎么做（读 sim 时定好，读完再问游戏这些输入合不合法）。
 enum Want {
-    /// 灵体：按顺序试这些（R 只在值得时在里面）；一个都不行就原地站着。
-    Spirit(Vec<(InputKindV1, usize)>),
     /// 泉水里放 R：按顺序试这些目标；(打死几个, 打残几个)。
     Fountain(Vec<usize>, (usize, usize)),
     /// 游戏的 AI 想放 R，这时候不放：改按这些（Q、E、近处的普攻），都不行就照它原来的走路命令。
     Hold(Vec<(InputKindV1, usize)>),
 }
 
-/// 灵体按下一招之后，游戏的 AI 没下新命令时隔这么多 tick 才再按（0.3.1 每 tick 都按）。
-pub const PRESS_EVERY: usize = 4;
-/// 同一招对同一个目标按了这么多 tick 还没放出来：记 `SPIRIT PRESS STUCK`，这个目标 `SKIP_T` tick 内不再挑；R 整招不再按
-/// （0.4.2：R 按不出来是目标没在打，换下一个多半也一样，0.4.0 一个个试过去最多白等 150 tick）。
-pub const PRESS_STUCK: usize = 30;
-pub const SKIP_T: usize = 60;
-
-/// 灵体按着的一招。
-#[derive(Clone, Copy, Debug)]
-struct Press {
-    kind: InputKindV1,
-    target: usize,
-    /// 开始按的 tick。
-    since: usize,
-    /// 上一次按的 tick。
-    sent: usize,
-}
-
-/// 游戏的 AI 看他 1 血就跑（`run_away_input`）或回城，灵体 7 秒白白浪费：灵体时换成放技能，没得放就原地站着（英雄联盟的
-/// 灵体不能走动、不能普攻）。R 只在灵体或泉水里、敌方血量够低时放（`r_worth`），别的时候游戏的 AI 想放就拦下。
+/// R 只在泉水里、敌方血量够低时放（`r_worth`），别的时候游戏的 AI 想放就拦下（用户 2026-11-01：「最好改成死后放大 或者复活后在
+/// 泉水放大」）。灵体放逐着、自己出不了手，它的技能由被动放（`spirit_casts`，0.5.0），这里什么都不下；灵体放过安魂曲，复活回来
+/// `R_CD` tick 内照样拦下（技能格没见过那一招，冷却是好的）。阵亡后的第一 tick 把复活倒计时扣掉灵体待的时间（`life.rs`；
+/// 被动的 `on_dead` 那一刻游戏还没把他记成阵亡）。
 #[derive(Clone, Default)]
 struct SpiritAi {
     /// 他这条命出生的位置（泉水）：开局和每次复活后第一次看到他活着时记下。
@@ -658,14 +720,9 @@ struct SpiritAi {
     alive: bool,
     /// 游戏的 AI 最近一次下的走路命令：拦下它想放的 R 时照着走。
     last_move: Option<InputV1>,
-    /// 灵体按着的一招。
-    press: Option<Press>,
-    /// 按了没放出来的目标：(实体, 到这个 tick 为止不挑)。
-    skip: Vec<(usize, usize)>,
-    /// R 按不出来：到这个 tick 为止不按 R。
-    skip_r: usize,
-    /// 游戏的 AI 正在让他回城（`still_recalling`）。
-    recalling: bool,
+    /// 这次灵体开始的 tick（阵亡后扣复活时间用）；灵体放过安魂曲的 tick。
+    spirit_since: Option<usize>,
+    r_used_at: Option<usize>,
 }
 
 impl StablePlayerAi for SpiritAi {
@@ -677,7 +734,7 @@ impl StablePlayerAi for SpiritAi {
         format!("{ID}:spirit_ai")
     }
 
-    /// 在 league_ult_press（100）之后：灵体时由本钩子说了算。
+    /// 在 league_ult_press（100）之后：他的 R 由本钩子说了算。
     fn priority(&self) -> i32 {
         105
     }
@@ -693,54 +750,58 @@ impl StablePlayerAi for SpiritAi {
         if was == Some(InputKindV1::Move) {
             self.last_move = base;
         }
-        self.recalling = still_recalling(self.recalling, base);
-        self.skip.retain(|s| s.1 > tick);
         let (want, names, line, spot) = {
             let sim = ctx.sim()?;
-            let me = sim.get_player(player)?.champion()?;
+            let pl = sim.get_player(player)?;
+            if !pl.is_alive() {
+                // his first tick dead after a spirit: League's death timer ran from the spirit's start
+                if let Some(since) = self.spirit_since.take() {
+                    let spent = tick.saturating_sub(since) as u64;
+                    let left = pl.respawn_time() as u64;
+                    let line = match life::shorten_respawn(&sim, player, respawn_after_spirit(left, spent)) {
+                        Ok((was, now)) => format!("RESPAWN: {was} -> {now} ticks (the spirit's {spent} counted)"),
+                        Err(why) => format!("RESPAWN NOT CUT ({why}): {left} ticks left, the spirit's {spent} not counted"),
+                    };
+                    if let Some(k) = counted("respawn") {
+                        let at = pl.champion().map_or_else(|| format!("[t={tick}] player {player}"), |c| head(&sim, c.id()));
+                        wlog(format!("{at} {line} #{k}"));
+                    }
+                }
+                self.alive = false;
+                return None;
+            }
+            let me = pl.champion()?;
             if !me.is_alive() {
                 self.alive = false;
-                self.press = None;
                 return None;
             }
             let here = at(&me);
             if !self.alive || self.home.is_none() {
                 self.home = Some(here);
                 self.alive = true;
+                self.spirit_since = None;
             }
-            let spirit = spirit_on(&me);
-            let held = busy(&me);
-            if held {
-                self.press = None; // casting: what was pressed went
+            if spirit_on(&me) {
+                // banished: nothing goes from here (the passive casts); when it began, and a Requiem it channelled
+                self.spirit_since.get_or_insert(tick);
+                if has_buff(&me, &sn("r_used")) && self.r_used_at.is_none_or(|t| tick > t + R_CD) {
+                    self.r_used_at = Some(tick);
+                }
+                return None;
             }
-            if spirit && (held || !me.is_targetable()) {
-                // casting, or the banish at the spirit's start: nothing of ours goes now - but a dead man does not walk
-                // home (0.4.1, the user 2026-11-03: 「灵体死了还能回城的？？？」): the game's AI's recall becomes a stand
-                return (was == Some(InputKindV1::Return)).then(|| InputV1::move_to(me.pos().0, me.pos().1));
-            }
-            if held {
+            if busy(&me) {
                 return None;
             }
             let in_home = self.home.is_some_and(|h| dist(here, h) <= FOUNTAIN_R);
-            if !spirit && !in_home && was != Some(InputKindV1::Ult) {
-                self.press = None;
+            if !in_home && was != Some(InputKindV1::Ult) {
                 return None; // nothing of ours to decide this tick
             }
             let power = me.stat().magic_power.max(0) as usize;
             let toll = foes_toll(&sim, me.team(), power);
             let hits: Vec<(usize, usize, usize)> = toll.iter().map(|f| (f.1, f.2, f.3)).collect();
-            let r_ready = ready(&me, SkillSlotV1::Ult);
+            let r_ready = ready(&me, SkillSlotV1::Ult) && self.r_used_at.is_none_or(|t| tick >= t + R_CD);
             let qe = [ready(&me, SkillSlotV1::Skill), ready(&me, SkillSlotV1::Skill2)];
-            let want = if spirit {
-                let (mut champs, mut others) = seen_foes(&sim, me.team(), here, f64::MAX);
-                champs.retain(|f| !self.skip.iter().any(|s| s.0 == f.0));
-                others.retain(|f| !self.skip.iter().any(|s| s.0 == f.0));
-                let e_free = qe[1] && !has_buff(&me, &sn("e_on"));
-                let wall = !has_buff(&me, &sn("w_cd"));
-                let r_go = r_ready && tick >= self.skip_r && r_worth(RWhen::Spirit, &hits, power);
-                let r_order: Vec<usize> = toll.iter().map(|f| f.0).collect();
-                Want::Spirit(spirit_pick(&r_order, &champs, &others, [r_go, qe[0], e_free, wall]))
-            } else if in_home && r_ready && r_worth(RWhen::Fountain, &hits, power) {
+            let want = if in_home && r_ready && r_worth(RWhen::Fountain, &hits, power) {
                 Want::Fountain(toll.iter().map(|f| f.0).collect(), r_toll(&hits, power, FOUNTAIN_LOW))
             } else if was == Some(InputKindV1::Ult) {
                 let near: Vec<(usize, f64)> =
@@ -750,7 +811,7 @@ impl StablePlayerAi for SpiritAi {
                 return None;
             };
             let ids: Vec<usize> = match &want {
-                Want::Spirit(c) | Want::Hold(c) => c.iter().map(|x| x.1).collect(),
+                Want::Hold(c) => c.iter().map(|x| x.1).collect(),
                 Want::Fountain(t, _) => t.clone(),
             };
             let names: HashMap<usize, String> = ids.into_iter().map(|t| (t, who(&sim, t))).collect();
@@ -763,59 +824,8 @@ impl StablePlayerAi for SpiritAi {
                 ctx.is_valid_input(&input).then_some((k, t, input))
             })
         };
-        // over the game's AI's flight, recall or attack: League's spirit neither walks nor attacks (a walk to his own spot)
-        let stand = was.map(|_| InputV1::move_to(spot.0, spot.1));
         match want {
-            Want::Spirit(cands) => {
-                // a recall under way (begun while he cast, was banished or still lived; the game's AI sends nothing new while
-                // it runs) is broken off by whatever goes now
-                let recall = std::mem::take(&mut self.recalling);
-                if recall {
-                    if let Some(k) = counted("spirit_recall") {
-                        wlog(format!("{line} SPIRIT RECALL STOPPED #{k}: the game's AI was recalling the spirit"));
-                    }
-                }
-                let stand = if recall { Some(InputV1::move_to(spot.0, spot.1)) } else { stand };
-                let Some((kind, t, input)) = first_valid(ctx, cands) else {
-                    self.press = None;
-                    return stand;
-                };
-                match self.press {
-                    Some(p) if p.kind == kind && p.target == t => {
-                        if tick >= p.since + PRESS_STUCK {
-                            let r = kind == InputKindV1::Ult;
-                            if let Some(k) = counted("spirit_stuck") {
-                                wlog(format!("{line} SPIRIT PRESS STUCK #{k}: {kind:?} on {} pressed for {PRESS_STUCK} \
-                                              ticks did not go - {} for {SKIP_T} ticks", name(t),
-                                             if r { "no Requiem" } else { "another target" }));
-                            }
-                            if r {
-                                self.skip_r = tick + SKIP_T;
-                            } else {
-                                self.skip.push((t, tick + SKIP_T));
-                            }
-                            self.press = None;
-                            return stand;
-                        }
-                        // pressed again only every PRESS_EVERY ticks, or over a new order of the game's AI or a recall
-                        if was.is_none() && !recall && tick < p.sent + PRESS_EVERY {
-                            return None;
-                        }
-                        self.press = Some(Press { sent: tick, ..p });
-                    }
-                    _ => {
-                        self.press = Some(Press { kind, target: t, since: tick, sent: tick });
-                        let tag = if kind == InputKindV1::Attack { "spirit_wall" } else { "spirit_cast" };
-                        if let Some(k) = counted(tag) {
-                            wlog(format!("{line} SPIRIT AI #{k}: {:?} on {} (the game's AI: {})", kind, name(t),
-                                         was.map_or_else(|| "none".to_string(), |w| format!("{w:?}"))));
-                        }
-                    }
-                }
-                Some(input)
-            }
             Want::Fountain(targets, (kills, low)) => {
-                self.press = None;
                 let (_, t, input) = first_valid(ctx, targets.into_iter().map(|t| (InputKindV1::Ult, t)).collect())?;
                 if let Some(k) = counted("r_fountain") {
                     wlog(format!("{line} R FOUNTAIN #{k}: Requiem from the fountain on {} - {kills} would die, {low} left \
@@ -824,7 +834,6 @@ impl StablePlayerAi for SpiritAi {
                 Some(input)
             }
             Want::Hold(cands) => {
-                self.press = None;
                 let instead = first_valid(ctx, cands);
                 let input = instead.map(|i| i.2).or(self.last_move).filter(|i| ctx.is_valid_input(i));
                 if let Some(k) = counted("r_held") {
@@ -1038,6 +1047,11 @@ mod tests {
         assert!(src.contains(&format!("\"atk_range\": {}", ATK_RANGE as usize)), "atk_range is not {ATK_RANGE}");
         assert!(src.contains(&format!("\"r_dmg\": {R_DMG}, \"r_ratio\": {R_RATIO}")), "r_dmg / r_ratio are not {R_DMG} / {R_RATIO}");
         assert!(src.contains(&format!("\"r_ch\": {R_CH}")), "r_ch is not {R_CH}");
+        // the spirit's own casts (0.5.0)
+        for (k, v) in [("q_cd", Q_CD), ("q_delay", Q_DELAY), ("q_r", Q_R as usize), ("q_dmg", Q_DMG), ("q_ratio", Q_RATIO),
+                       ("e_per", E_PER), ("e_dmg", E_DMG), ("e_ratio", E_RATIO), ("r_cd", R_CD)] {
+            assert!(src.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in build_karthus.P");
+        }
     }
 
     #[test]
@@ -1068,23 +1082,20 @@ mod tests {
     }
 
     #[test]
-    fn the_spirit_casts_r_then_e_then_q_then_the_wall_and_never_attacks() {
-        let (u, q, e, a) = (InputKindV1::Ult.code(), InputKindV1::Skill.code(), InputKindV1::Skill2.code(),
-                            InputKindV1::Attack.code());
-        let champs = [(7, 20000.0), (8, 60000.0), (9, 500000.0)];
-        let others = [(30, 10000.0), (31, 70000.0)];
-        // R in Requiem's order (the lowest left first, wherever they stand); E on what 90% of its cast range holds
-        // (champions first), Q the same in its own; the wall's attack only on a champion 90% of his attack reaches
-        assert_eq!(codes(spirit_pick(&[9, 7, 8], &champs, &others, [true; 4])),
-                   [(u, 9), (u, 7), (u, 8), (e, 7), (e, 30), (q, 7), (q, 8), (q, 30), (q, 31), (a, 7)]);
-        // nothing ready: nothing at all - he stands, never walks up to attack
-        assert!(spirit_pick(&[9, 7, 8], &champs, &others, [false; 4]).is_empty());
-        // no champion within his attack: no wall
-        assert!(spirit_pick(&[], &[(8, 60000.0)], &others, [false, false, false, true]).is_empty());
-        // Q on minions and monsters when no champion is in range
-        assert_eq!(codes(spirit_pick(&[], &[(9, 500000.0)], &others, [false, true, false, false])), [(q, 30), (q, 31)]);
-        // inside Q's range but at its very edge: he cannot step up to it, so not pressed
-        assert!(spirit_pick(&[], &[(5, Q_RANGE - 4000.0)], &[], [false, true, false, false]).is_empty());
+    fn the_banished_spirit_casts_lay_waste_defile_and_requiem() {
+        // 「死了灵体还能移动 还能有残血？」「这能和英雄联盟一样吗」: the whole spirit is banished, its spells are the passive's
+        assert_eq!(q_damage(0, 3), Q_DMG);
+        assert_eq!(q_damage(100, 2), Q_DMG + Q_RATIO);
+        assert_eq!(q_damage(100, 1), 2 * (Q_DMG + Q_RATIO), "one alone: twice (League's isolation)");
+        assert_eq!(e_damage(200), E_DMG + 2 * E_RATIO);
+        // a Requiem only while there is time to finish it before the spirit falls
+        assert!(r_in_time(0, 420));
+        assert!(r_in_time(420 - R_CH - 1, 420));
+        assert!(!r_in_time(420 - R_CH, 420));
+        // his ghost faces the nearest enemy champion (an effect picture is never mirrored)
+        assert_eq!(side(500, Some(400)), "l");
+        assert_eq!(side(500, Some(600)), "r");
+        assert_eq!(side(500, None), "r");
     }
 
     #[test]

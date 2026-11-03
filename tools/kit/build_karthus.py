@@ -35,6 +35,8 @@ OUT = os.path.join(REPO, "league", "champion", "league_karthus.data_champion")
 ID = "league_karthus"
 FX = "asset/league/effects/league_karthus_fx"
 BIG = "asset/league/effects/league_karthus_big"
+# the add-on's ghost (the lock picture of the banish it puts on his spirit, tools/art/draw_karthus_ghost.py)
+GHOST = "asset/league/effects/league_karthus_ghost"
 
 # League units x 100 = ours (attack range 450 -> 45000; mids sit at 55000, his bolt reaches 50000); radii count the
 # unit's collision radius (~15000) on top. Timings from the strips (tools/art/rig_karthus.py MS): the attack's thrust
@@ -276,6 +278,14 @@ def build(p):
     extra = {}
     if native:          # the add-on's spirit
         views_b.append(B_("p_spirit", BIG, 3))
+        # 0.5.0 (the user 2026-11-03: 「死了灵体还能移动 还能有残血？」「这能和英雄联盟一样吗」): the add-on banishes him for the
+        # whole spirit, the banish's lock picture his ghost (tools/art/draw_karthus_ghost.py; an effect picture is never
+        # mirrored, one each way), and plays Defile's vortex on the ground where he stands (his buff view is not drawn while
+        # he is banished)
+        for side in ("r", "l"):
+            views_e.append({"type": "Animation", "name": n(f"p_ghost_{side}"), "anim": GHOST, "tag": f"ghost_{side}",
+                            "z": 2, "is_follow": True})
+        views_e.append({"type": "Animation", "name": n("e_ring"), "anim": BIG, "tag": "e_on", "z": -1, "is_follow": False})
         extra["passive"] = {"passive_ref": "league_karthus:death_defied", "params": {"p_t": p["p_t"]}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range"], **extra,
