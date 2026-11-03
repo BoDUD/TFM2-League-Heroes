@@ -33,7 +33,7 @@
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.304.0 以上：金克丝的冲刺帧）要装着并启用。
+1. 主包（League of Legends Heroes 0.305.0 以上：金克丝的冲刺帧）要装着并启用。
 2. 把 `league_takedowns` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 金克丝普攻、崔丝塔娜 E（火箭跳跃）、易 R 的说明开头是「【附加包】」就说明换上了。
 4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`：`JINX EXCITED #n (assist)`、`TRISTANA W RESET #n (killed #7)`、`YI TAKEDOWN #n (assist): Q 300 -> 90, W 400 -> 120, Highlander extended`、`TWITCH E GO #n`（标记挂上）和 `TWITCH E POP #n: stacks [..]`（真的引爆了）；开头一行 `SPRINT Jinx's Get Excited run on` 是冲刺跑挂上了，`SPRINT display world .. Jinx #..: Get Excited - runs as run_x` 是她开始冲刺。

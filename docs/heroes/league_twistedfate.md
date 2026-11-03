@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.68 |
 | 附加包 | [游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![崔斯特演示](../preview/league_twistedfate_showcase.gif)
@@ -85,6 +85,7 @@
 | 附加包 | 可选的附加包 [`addons/league_ult_press`](../../addons/league_ult_press/README.md)（在附加包合集里，原生代码，主包不装它也完整）：游戏 0.6.4 的 AI 几乎不按他「备好」的命运（每 10 分钟 0.7 次）。附加包只在主包会传送的局面替 AI 按（用户：「莎弥拉和卡牌用附加包在合适时机替AI按R，主包保持现在这样」）：他身边 75000 内没有敌方英雄、生命不低于 40%，而且离他 100000–340000 有队友 50000 内贴着敌方英雄；之后揭示、引导、传送全是主包的数据 |
 | 数值 | 攻击 85（+8）、法强 40（+20）、生命 920（+100）、护甲 24（+7）、魔抗 22（+3）、移速 920（+10）。数值是自己设计的，用 SDK 对战模拟调：中路，对 5 个原版法师（`pyromancer`、`ice_mage`、`lightning_mage`、`wind_mage`、`white_mage`），每批两边各 12 局。第一版 −3.2（Q 只有 15% 打到英雄，金牌扔到小兵身上，R 传进去送死）；Q 先锁定附近的英雄、金牌只留给英雄、红牌只在成群时选：−1.3；Q 120 + 100%、冷却 4 秒，牌和 E 加强：+0.6；R 落在战场 25 格外、冷却 90 秒（之前每局因为传送多死 0.9 次）：+0.4；再加生命和护甲、金牌眩晕加长、W 冷却 5 秒：三批 +1.36 / +1.85 / +1.30，和包里的中单持平（瑞兹 +1.50、安妮 +2.03），定下这版。亚索和他同队时，大招每局对英雄放 1.23 次（阿狸 1.27），亚索不用改 |
 | 精灵图 | 10 个动作 51 帧：待机、移动、普攻、Q、W、R 命运、R 传送引导、R 落地、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机，三色牌扇拿在腰间），Codex 的生图草稿按自己的格子读回、删到 40 行（`design_twistedfate.py`，用户：「4 原稿删到40行」）；每个动作都用造型自己的部件摆出（`rig_twistedfate.py`）。24 × 41 px，21 色；待机 6 帧同一张（不呼吸）；待机最高点 −29，`banpick_center` 设 −10；头像截取点 (−4, −40) |
+| 高清帧（PPU 2.68） | 2026-11-03 用 PPU 重做，和蔚、艾克、萨科在同一个 PR（用户：「下面重做蔚 崔斯特 艾克」「再加一个吧 萨科」「蔚1.82 卡牌2.7 艾克1.94 萨科2.12」「蔚 凯南 崔斯特 艾克没问题 可以单独开个pr 合并 并且安装进游戏」（凯南是笔误，确认指萨科））。设计图：Codex 照旧精灵描密的原图，按原图约 10.8 像素一格读回（65 × 110 格；帽顶到脚底 110 行，旧精灵 41 行（用户要 2.7，最接近的一档读成 110 行），PPU 2.68），脸那一块按格子取整格平均色、过半近黑记成黑线；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 29 帧（旧版普攻第 1、3 帧，Q 第 1–3 帧，R 传送引导第 3–6 帧，R 落地，受击，死亡第 1、8 帧共 16 帧和别的帧一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；Q 按旧版不带特效的原生身体格画，牌扇和 E 的出手光由 twistedfate_bake.json 重新叠上；拼帧画布四周多留 60 格，牌扇不被画布切掉（否则帧框会变窄）；量头用脸的肤色（帽檐挡住一部分脸，头的量法偏大，三种量法取中位数）。待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表跟着换成新帧。|
 | 音效 | 英雄联盟的音效和语音（`tools/lol/extract_twistedfate.py`）：扔牌和命中、E、Q、W 翻牌，锁定蓝 / 红 / 金牌（带语音），三色牌扔出和命中，R 施放和传送（带语音），落地，骰子 |
 | 修正（0.170.2） | 用户让查附加包日志时在芸阿娜身上发现：引擎给大招冷却封顶时，把 `skill_cooldown_mult` 也算进去（技能冷却削减同时压大招）。蓝牌返还 Q、W 冷却时把 90 秒的大招冷却也压到一半。同一个 buff 加上相同大小的负 `ult_cooldown_mult` 抵掉（[`tools/fix/ult_cooldown_offset.py`](../../tools/fix/ult_cooldown_offset.py) / 生成脚本），只减原本要减的技能。经典模拟（8 个种子，三套阵容两边各打） +0.60 → +1.41（误差），每局按大 5.6 → 5.4 次 |
 
@@ -97,6 +98,15 @@ python tools/art/rig_twistedfate.py         # 动作：全部用造型的部件�
 python tools/art/import_native.py --hero twistedfate
 python tools/art/import_twistedfate.py      # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_twistedfate.py
+# PPU 2.68 重做（2026-11-03）：
+python tools/art/pack_twistedfate_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_twistedfate_hd.py                      # Codex 的原图（hd/raw/twistedfate-A.png）按原图约 10.8 像素一格读回 -> hd/design.png
+python tools/art/pack_twistedfate_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_twistedfate_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_twistedfate_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero twistedfate && python tools/art/ppu_hd.py --hero twistedfate
+python tools/art/ppu_one.py --hero twistedfate && python tools/art/rig_twistedfate_hd.py --one-ground && python tools/art/hero_reels.py --hero twistedfate
+python tools/art/review_twistedfate_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/twistedfate/PICTURE_PROMPT.md`](../../assets/source/twistedfate/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/twistedfate/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/twistedfate/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/twistedfate/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_picture/`](../../assets/source/twistedfate/codex_picture)、[`codex_model/`](../../assets/source/twistedfate/codex_model)、[`codex_strips/`](../../assets/source/twistedfate/codex_strips)、[`codex_fx/`](../../assets/source/twistedfate/codex_fx)）：
@@ -106,4 +116,4 @@ python tools/art/preview_twistedfate.py
 - 导入：待机 6 帧同一张，不呼吸（同希维尔：选人卡片不晃）；按青色的眼睛定头的位置（`EYES`）；描边补齐（`COMPLETE`）。
 - 特效用 Codex 画的 29 张（135 帧生图原稿，`import_twistedfate.py --raw` 同希维尔：每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——蓝牌、红牌的火、金色、紫色牌背、牌面纸色和牌的墨色描边——光效外圈最暗的一档去掉，牌和骰子保留描边）。飞行的牌定在牌身上（不在拖尾上），E 和 Q 出手的闪光在扔牌的手上 (11, −12) / (11, −8)，选牌的三色牌、锁定的牌、骰子和命运之眼在帽子上方 2 格，红牌爆炸、传送门和目的地的圈心在脚下；传送门和目的地的循环帧排满 1.5 秒引导。骰子 2–6 点缩小后点糊在一起：骰子正面高一行，点按 3 × 3 的格子重新点上（每点 1 格，点间空 1 格，1 点是红色十字）。审核时用户问「卡牌眩晕后没记号的吗？敌方英雄」「蓝牌也没特效」：补了金牌眩晕的标记（三颗金星在被眩晕的人头顶转圈，持续 100 tick，按包里的金色画在导入脚本里）和蓝牌返还冷却时他胸口的蓝光（蓝牌命中水花的后几帧）。
 
-逐帧预览：[`docs/preview/league_twistedfate_frames.png`](../preview/league_twistedfate_frames.png?v=1014g)，特效：[`docs/preview/league_twistedfate_effects.png`](../preview/league_twistedfate_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_twistedfate_frames.png`](../preview/league_twistedfate_frames.png?v=1103hd)，特效：[`docs/preview/league_twistedfate_effects.png`](../preview/league_twistedfate_effects.png?v=1014g)。

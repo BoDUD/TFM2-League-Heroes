@@ -497,6 +497,28 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // zooms his height, head and area give (tools/art/casts_ryze_hd.py, rig_ryze_hd.py; the hand sparkles left out;
     // nothing baked); 41 game px as his 1x sprite, so no SIZES row
     ("league_ryze", 1.659, include_str!("../../../league/champions/league_ryze#anim.fanim")),
+    // Vi (2026-11-03, 「下面重做蔚 崔斯特 艾克」「再加一个吧 萨科」, 「蔚1.82 卡牌2.7 艾克1.94 萨科2.12」): Codex's vi-A read on its
+    // own ~16-px squares (52 x 73, tools/art/design_vi_hd.py: 73 rows / 40 = 1.825); every action Codex's whole-frame
+    // redraw of her old frame read onto it at the median of the zooms her height, hair and area give
+    // (tools/art/casts_vi_hd.py, rig_vi_hd.py; the Q dash drawn from its native body cells, its dust and the skill_fx1 /
+    // ult_fx1 copies baked on again by vi_bake.json); 40 game px as her 1x sprite, so no SIZES row
+    ("league_vi", 1.825, include_str!("../../../league/champions/league_vi#anim.fanim")),
+    // Twisted Fate (the same release): Codex's twistedfate-A read on ~10.8-px squares (65 x 110,
+    // tools/art/design_twistedfate_hd.py: 110 rows / 41 = 2.683, the nearest read to 2.7); every action Codex's whole-
+    // frame redraw of his old frame read onto it at the median of the zooms his height, face and area give
+    // (tools/art/casts_twistedfate_hd.py, rig_twistedfate_hd.py; Q drawn from its native body cells, its card fan and the
+    // attack_fx1 copy baked on again by twistedfate_bake.json); 41 game px as his 1x sprite, so no SIZES row
+    ("league_twistedfate", 2.683, include_str!("../../../league/champions/league_twistedfate#anim.fanim")),
+    // Ekko (the same release): Codex's ekko-A read on its own ~17-px squares (67 x 68, tools/art/design_ekko_hd.py: 68 rows
+    // / 35 = 1.943); every action Codex's whole-frame redraw of his old frame read onto it at the median of the zooms his
+    // height, hair crest and area give (tools/art/casts_ekko_hd.py, rig_ekko_hd.py; nothing baked); 35 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_ekko", 1.943, include_str!("../../../league/champions/league_ekko#anim.fanim")),
+    // Shaco (the same release): Codex's shaco-A read on its own ~13-px squares (75 x 91, tools/art/design_shaco_hd.py: 91
+    // rows / 43 = 2.116); every action Codex's whole-frame redraw of his old frame read onto it at the median of the zooms
+    // his height, hat and area give (tools/art/casts_shaco_hd.py, rig_shaco_hd.py; nothing baked); 43 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_shaco", 2.116, include_str!("../../../league/champions/league_shaco#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -660,7 +682,7 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
 /// league_zoe's stolen summoner spells and their icons too (0.9.3, the user, 2026-11-03: 「大橙圈是召唤师技能屏障特效 你
 /// 弄的太大了吧」「还有地上的召唤师技能图标也太大了吧」): registered at PPU 2 and 3 on 10-22 but never listed here, the
 /// game drew Barrier's shell 88 x 104 px (designed 44 x 52, three times her height) and a shard's icon 34 px (Zoe's
-/// own height, designed 11), each hanging right and down from its spot. league_karthus's ghost (0.9.4) from the start.
+/// own height, designed 11), each hanging right and down from its spot. league_karthus's ghost (0.9.5) from the start.
 pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
                                      "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side",
                                      "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost"];

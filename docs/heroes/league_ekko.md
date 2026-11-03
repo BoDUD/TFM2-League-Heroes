@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AP / Magic / Melee / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.94 |
 | 附加包 | [艾克时间倒转附加包](#附加包)（`league_ekko_rewind`） |
 
 ![艾克演示](../preview/league_ekko_showcase.gif)
@@ -88,6 +88,7 @@
 | 亚索联动 | 时光交错的眩晕算亚索大招要的控制。亚索打上路、艾克打野时，亚索每局放 R 1.12 次；同一批 48 局里打野换成原版 `ninja` 是 0.65 次，李青 1.50 次，阿木木 1.69 次。艾克在它们之间，亚索不用调 |
 | 精灵图 | 9 个动作 51 帧：待机、跑步、普攻、Q、E、R 起手、R 回溯落地、受击、死亡。发冠顶到脚底 34 px（头骨到脚底 28 px），40 色，动作全部取自英雄联盟原版动画 |
 | 特效 | 普攻命中（Q 命中共用）、Z型驱动共振的时间环、Q 装置和尽头的力场、E 冲刺残影和闪击、时光交错成形中的光环、时间球、破裂、眩晕、护盾、R 的全息残影、消散、回溯落地的冲击环和命中 |
+| 高清帧（PPU 1.94） | 2026-11-03 用 PPU 重做，和蔚、崔斯特、萨科在同一个 PR（用户：「下面重做蔚 崔斯特 艾克」「再加一个吧 萨科」「蔚1.82 卡牌2.7 艾克1.94 萨科2.12」「蔚 凯南 崔斯特 艾克没问题 可以单独开个pr 合并 并且安装进游戏」（凯南是笔误，确认指萨科））。设计图：Codex 照旧精灵描密的原图，按原图约 17 像素一格读回（67 × 68 格；发冠顶到脚底 68 行，旧精灵 35 行，PPU 1.94），脸那一块按格子取整格平均色、过半近黑记成黑线；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 45 帧，白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；死亡第 1 帧 Codex 画得比旧版高，只按身高会小一号，按头的大小定（8.9）；量头用白色发冠。待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 13 条技能音效和 3 条中文语音（Q、W、R）。不提交到仓库，按下面的命令在本地生成 |
 
@@ -98,6 +99,15 @@ python tools/art/restyle_native.py assets/source/ekko/poses.json --renders <渲�
 python tools/art/import_native.py --hero ekko
 python tools/art/import_ekko.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_ekko.py
+# PPU 1.94 重做（2026-11-03）：
+python tools/art/pack_ekko_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_ekko_hd.py                      # Codex 的原图（hd/raw/ekko-A.png）按原图约 17 像素一格读回 -> hd/design.png
+python tools/art/pack_ekko_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_ekko_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_ekko_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero ekko && python tools/art/ppu_hd.py --hero ekko
+python tools/art/ppu_one.py --hero ekko && python tools/art/rig_ekko_hd.py --one-ground && python tools/art/hero_reels.py --hero ekko
+python tools/art/review_ekko_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/ekko/PROMPTS.md`](../../assets/source/ekko/PROMPTS.md)）：
@@ -112,4 +122,4 @@ python tools/art/preview_ekko.py
 
 - 跑步重画（2026-09-30）：用户说"没有交叉步"——第二轮 Codex 重画的跑步 8 帧两条腿一直是同一个大跨步。Codex 照英雄联盟 `PunkGenius_Run1` 同样的 8 帧只重画腿和摆臂（头和上身逐格保留）：第 1–4 帧和第 5–8 帧交换支撑腿，第 3、7 帧是相反的两个大步，第 4、8 帧两腿收拢交叉，节奏仍是 8 × 133 ms；每帧照 `tidy_codex18.py` 的办法只留一圈描边（19–38 格），脚底线以下 0 格。
 
-逐帧预览：[`docs/preview/league_ekko_frames.png`](../preview/league_ekko_frames.png?v=1014g)，特效：[`docs/preview/league_ekko_effects.png`](../preview/league_ekko_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_ekko_frames.png`](../preview/league_ekko_frames.png?v=1103hd)，特效：[`docs/preview/league_ekko_effects.png`](../preview/league_ekko_effects.png?v=1014g)。
