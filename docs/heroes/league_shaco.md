@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.12 |
 | 附加包 | [萨科背刺附加包](#附加包)（`league_shaco_backstab`） |
 
 ![萨科演示](../preview/league_shaco_showcase.gif)
@@ -88,6 +88,7 @@
 | 亚索联动 | W 和小魔盒的恐惧是亚索大招要的控制：萨科打野、亚索同队时，亚索每局 R 到被控英雄 2.42 次（同一批阿木木 1.69、李青 1.52、艾克 0.90、原版忍者 0.65），和其他带控制的打野同一档，亚索不用调 |
 | 精灵图 | 10 个动作 58 帧：待机、移动、普攻、背刺、毒刃、Q、W、R、受击、死亡。造型是 Codex 按游戏尺寸一格一格画的 46 行 v4 A 版：双角小丑帽（深蓝的角往左卷、红角往上，两个金铃）、白面具、冰青色眼睛、咧嘴的大笑、金色褶领、银色尖刺护肩、红上衣、深蓝袖子和红色大袖口、黑白格子灯笼裤、带银刺的深蓝靴子、红色卷尖鞋，两只手各握一把锯齿匕首。帽尖到脚底 43 px（定稿 46 行，用户说「现在放游戏里有点大」，腿上去掉了 3 行），37 px 宽，17 色 |
 | 特效 | 普攻的银色刀光（14 px），背刺暴击的血红 X 和紫光（26 px），被动背刺的血红竖刀光（18 px），飞行的毒刃（12 px，上下对称，游戏会转到飞的方向）和绿色毒液（16 px），头顶的恐惧笑脸漩涡（16 px，1 秒），魔盒射中的紫色小爆点（10 px），Q 原地消失的烟和毛笔圈（30 px 宽）、身后现身的小烟（24 px），翻滚着飞出去的魔盒（10 px），落地弹一下的魔盒和尘土（24 px），弹开、晃着射击 5 秒、缩回化成烟的魔盒（24 × 32 px），R 施法的烟和紫红火星（32 px），分身爆炸的紫焰和冲击波（60 px，半径 30000），每个被炸到的敌人身上的紫焰（18 px），三个小魔盒（64 px 宽），以及幻像分身本身 |
+| 高清帧（PPU 2.12） | 2026-11-03 用 PPU 重做，和蔚、崔斯特、艾克在同一个 PR（用户：「下面重做蔚 崔斯特 艾克」「再加一个吧 萨科」「蔚1.82 卡牌2.7 艾克1.94 萨科2.12」「蔚 凯南 崔斯特 艾克没问题 可以单独开个pr 合并 并且安装进游戏」（凯南是笔误，确认指萨科））。设计图：Codex 照旧精灵描密的原图，按原图约 13 像素一格读回（75 × 91 格；帽顶到脚底 91 行，旧精灵 43 行，PPU 2.12），脸那一块按格子取整格平均色、过半近黑记成黑线；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 45 帧（每个动作回到待机的最后一帧和死亡第 8 帧共 7 帧和别的帧一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；白底抠图时他的白面具和格子裤的白格是被黑线围住的白，按描边规则保住了；面具的线条很细，中档读回只看得出眼睛（用户仍选 2.12）；量头用深蓝帽角。待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表跟着换成新帧。|
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 12 条技能音效和 2 条中文语音（背刺的笑声、R 的笑声），合成 14 个游戏音效。不提交到仓库，按下面的命令在本地生成 |
 
@@ -99,6 +100,15 @@ python tools/art/shrink_shaco.py     # 缩到 43 行：从 assets/source/shaco/n
 python tools/art/import_native.py --hero shaco
 python tools/art/import_shaco.py      # 特效和幻像分身；--raw <Codex 的特效交付文件夹> 先把生图原稿转成原尺寸条
 python tools/art/preview_shaco.py
+# PPU 2.12 重做（2026-11-03）：
+python tools/art/pack_shaco_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_shaco_hd.py                      # Codex 的原图（hd/raw/shaco-A.png）按原图约 13 像素一格读回 -> hd/design.png
+python tools/art/pack_shaco_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_shaco_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_shaco_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero shaco && python tools/art/ppu_hd.py --hero shaco
+python tools/art/ppu_one.py --hero shaco && python tools/art/rig_shaco_hd.py --one-ground && python tools/art/hero_reels.py --hero shaco
+python tools/art/review_shaco_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/shaco/PICTURE_PROMPT.md`](../../assets/source/shaco/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/shaco/MODEL_PROMPTS.md) 和 46 行的 [`MODEL_PROMPTS_46.md`](../../assets/source/shaco/MODEL_PROMPTS_46.md)，9 条动作的见 [`MODEL_STRIPS.md`](../../assets/source/shaco/MODEL_STRIPS.md)，修腿的见 [`LEGS_FIX.md`](../../assets/source/shaco/LEGS_FIX.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/shaco/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/shaco/codex_model)、[`codex_strips/`](../../assets/source/shaco/codex_strips)、[`codex_legs/`](../../assets/source/shaco/codex_legs)、[`codex_fx/`](../../assets/source/shaco/codex_fx)）：
@@ -113,6 +123,6 @@ python tools/art/preview_shaco.py
 - 出手时刻和动画对齐：普攻第 3 帧（第 8 tick），背刺第 3 帧（第 9 tick），毒刃第 4 帧（第 11 tick），Q 第 3 帧消失（第 7 tick），W 第 3 帧扔出（第 8 tick），R 第 2 帧施法（第 6 tick）；背刺、毒刃、Q、W、R 的帧时长按技能的长度压缩（24、24、18、20、24 tick）。
 - 演示 GIF：用户看到「怎么小丑本地会消失？」「不开隐身的时候也会莫名其妙消失」——演示脚本里普攻的动画只有 390 ms，下一刀在 867 ms 后，中间没接待机，他每砍完一刀就消失半秒（游戏本身没有这个问题）。补上待机后，脚本检查每一帧都画了萨科；只有 Q（1.5 秒）和 R（1 秒）隐身时画成半透明。
 
-逐帧预览：[`docs/preview/league_shaco_frames.png`](../preview/league_shaco_frames.png?v=1014g)，特效：[`docs/preview/league_shaco_effects.png`](../preview/league_shaco_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_shaco_frames.png`](../preview/league_shaco_frames.png?v=1103hd)，特效：[`docs/preview/league_shaco_effects.png`](../preview/league_shaco_effects.png?v=1014g)。
 
 大招的隐形检查弹（0.50.2）：基兰的 Q 照抄了萨科这套死亡检查，模拟发现在空中飞 6 tick 的隐形投射物会让敌方 AI 去躲，基兰因此少了 0.4 的击杀差和 9% 的伤害。萨科按同样的方法测了：打野位三批各 720 局，原来的写法 +1.08 / +1.27 / +0.90，改成下一 tick 落地、在落点等 6 tick 再检查 +1.16 / +0.80 / +1.17，去掉检查 +1.02 / +1.23，都在噪声里（一批约 ±0.30），伤害 −1% 到 +6% 来回变——萨科的投射物只在分身那 5 秒里飞，大招冷却 50 秒。但 AI 确实在躲：两版各 240 局的日志里，分身期间目标死亡 32.9%，改后 39.8%（目标不再走开），萨科先死 3.2% 对 5.1%；两版在目标死亡时都每次爆炸（379 次 / 470 次，改后晚 1 tick）。用户：「那就换」——被大的英雄照常打，不再躲看不见的东西。

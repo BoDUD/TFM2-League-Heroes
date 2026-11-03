@@ -3,7 +3,7 @@
 
     python tools/art/preview_shaco.py [--out docs/preview]
 
-  league_shaco_frames.png     every animation, frame by frame, 3x on the arena colour
+  league_shaco_frames.png     every animation's dense frames (hd_, PPU 2.12, as league.dll shows them)
   league_shaco_effects.png    every effect animation (the clone's too), 3x
   league_shaco_showcase.gif   a scripted fight against Darius and Garen, timed like the kit: he runs in and stabs
                               Darius; Two-Shiv Poison: the next attack throws the green shiv; Deceive: a puff where
@@ -25,6 +25,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -84,7 +85,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, to=None):
         nonlocal t
-        an = Anim(frames_of(sh, tag), t, at if at is not None else x, gy, loop=loop,
+        an = Anim(dense(sh, tag, "shaco", z), t, at if at is not None else x, gy, loop=loop,
                   until=(t + dur) if dur else None, x1=to, flip=face_left[0])
         body.append(an)
         t = an.until
@@ -219,7 +220,7 @@ def showcase(out, z=3, step=40):
         over.append(OnFoe(frames_of(fx, "bs_hit"), s + tick(7), d, z=2))      # the strike's backstab slash
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     # he is on screen in every frame: a gap between two of his animations would drop him (the first cut did after
     # every stab: the strip is 390 ms, the next stab 867 ms later)
@@ -229,7 +230,7 @@ def showcase(out, z=3, step=40):
     frames, tt = [], 0.0
     order = sorted((d, g), key=lambda f: f.y)          # the one further back first
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -247,7 +248,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                               # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -265,8 +266,8 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                            os.path.join(args.out, "league_shaco_frames.png")))
+    print("frames", contact(dense_rows(s),
+                            os.path.join(args.out, "league_shaco_frames.png"), z=1))
     sp, bp, cp = load(FX), load(BIG), load(CLONE)
     print("effects", contact([(sp, t["name"], t["name"]) for t in sp.tags] +
                              [(bp, t["name"], t["name"]) for t in bp.tags] +

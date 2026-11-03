@@ -1,0 +1,434 @@
+{
+ "square": 9,
+ "square_of": {
+  "skill2": 8,
+  "ult_arrive": 8
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): a quick crouched run, the bat held out in front, the scarf flying, the LEGS CHANGING OVER",
+   "ms": [
+    133,
+    134
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under his hips, its foot flat on the ground; the FAR leg (the darker one) kicked up and back behind him, bent, its foot high off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): a quick crouched run, the bat held out in front, the scarf flying, the LEGS CHANGING OVER",
+   "ms": [
+    133,
+    134
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines.",
+   "legs": "Frame 3: PASSING: both legs gathered under him, knees bent; the FAR leg passing forward close beside the planted near leg, its foot just off the ground. Frame 4: STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): a quick crouched run, the bat held out in front, the scarf flying, the LEGS CHANGING OVER",
+   "ms": [
+    133,
+    134
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under his hips, its foot flat on the ground; the NEAR leg (the lighter one) kicked up and back behind him, bent, its foot high off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): a quick crouched run, the bat held out in front, the scarf flying, the LEGS CHANGING OVER",
+   "ms": [
+    133,
+    133
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines.",
+   "legs": "Frame 7: PASSING: both legs gathered under him, knees bent; the NEAR leg passing forward close beside the planted far leg, its foot just off the ground. Frame 8: STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (a bat swing): the bat swung, raised and thrust frame by frame as the pale figure (frames 1-6)",
+   "ms": [
+    60,
+    50
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (a bat swing): the bat swung, raised and thrust frame by frame as the pale figure (frames 1-6)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (a bat swing): the bat swung, raised and thrust frame by frame as the pale figure (frames 1-6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (a bat swing): the bat swung, raised and thrust frame by frame as the pale figure (frames 1-6)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Timewinder (Q): he winds the bat back (frames 1-2) and swings it forward, throwing his device (frames 3-6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Timewinder (Q): he winds the bat back (frames 1-2) and swings it forward, throwing his device (frames 3-6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Timewinder (Q): he winds the bat back (frames 1-2) and swings it forward, throwing his device (frames 3-6)",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Timewinder (Q): he winds the bat back (frames 1-2) and swings it forward, throwing his device (frames 3-6)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Phase Dive (E): he dashes forward low, almost flat (frame 2), leaps up high, the bat raised over his head (frames 3-4), strikes down as he lands (frame 5) and recovers (frames 6-7)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Phase Dive (E): he dashes forward low, almost flat (frame 2), leaps up high, the bat raised over his head (frames 3-4), strikes down as he lands (frame 5) and recovers (frames 6-7)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Phase Dive (E): he dashes forward low, almost flat (frame 2), leaps up high, the bat raised over his head (frames 3-4), strikes down as he lands (frame 5) and recovers (frames 6-7)",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Phase Dive (E): he dashes forward low, almost flat (frame 2), leaps up high, the bat raised over his head (frames 3-4), strikes down as he lands (frame 5) and recovers (frames 6-7)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Chronobreak (R), the start: he steadies himself, the bat out (frames 1-3), and crouches (frame 4)",
+   "ms": [
+    70,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Chronobreak (R), the start: he steadies himself, the bat out (frames 1-3), and crouches (frame 4)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "ult_arrive",
+   "name": "ult_arrive_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Chronobreak (R), the return: he drops in curled up from above (frame 1), unfolds in the air (frames 2-4) and lands in a crouch, the bat out (frame 5)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "ult_arrive",
+   "name": "ult_arrive_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Chronobreak (R), the return: he drops in curled up from above (frame 1), unfolds in the air (frames 2-4) and lands in a crouch, the bat out (frame 5)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "ult_arrive",
+   "name": "ult_arrive_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Chronobreak (R), the return: he drops in curled up from above (frame 1), unfolds in the air (frames 2-4) and lands in a crouch, the bat out (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "struck: jolted back",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers (frames 2-4), sinks down (frame 5) and falls flat on his front (frames 6-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers (frames 2-4), sinks down (frame 5) and falls flat on his front (frames 6-7)",
+   "ms": [
+    100,
+    120
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers (frames 2-4), sinks down (frame 5) and falls flat on his front (frames 6-7)",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers (frames 2-4), sinks down (frame 5) and falls flat on his front (frames 6-7)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers (frames 2-4), sinks down (frame 5) and falls flat on his front (frames 6-7)",
+   "ms": [
+    400
+   ],
+   "weapons": "HIS HANDS AND THE BAT go where the pale figure has them, frame by frame (image 3 shows them in colour): the long dark bat with its cyan lines, as long as in image 1, held as the pale figure holds it - raised, swung or thrust; the Z-drive stays on his back. Only him: no time rings, no afterimages, no glow; the cyan light stays inside the bat's lines."
+  }
+ ]
+}

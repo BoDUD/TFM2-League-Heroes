@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.82 |
 | 附加包 | 无 |
 
 ![蔚演示](../preview/league_vi_showcase.gif)
@@ -73,6 +73,7 @@
 | 亚索联动 | R 的眩晕和击飞是亚索大招要的控制：蔚打野、亚索同队时，亚索每局 R 到被控英雄 2.59 次（同一批李青 1.88、阿木木 2.94、原版忍者 0.53），亚索不用调 |
 | 精灵图 | 11 个动作 56 帧：待机、移动、普攻、E 出拳、Q 蓄力、Q 冲刺、R 起步、R 冲锋、R 上勾拳砸地、受击、死亡。造型照隔壁 oppi 模组里蔚的结构画我们自己的（3/4 侧面朝右的拳击架势、头发盖住后颈接到肩上、身体干净）：Codex 生图的主稿，用户认可后读成 40 行，眼睛和远侧脸颊按用户挑的改。粉色短发、护目镜推在头上、蓝眼睛、红围巾、钢蓝胸甲、深蓝紫腿甲、两只金色海克斯拳套（仪表盘、钢灰指节、蓝水晶）。30 × 40 px，26 色；待机最高点 −28，不设 `banpick_center` |
 | 特效 | Codex 画的 15 张（85 帧）：普攻命中（白金星光、金色火花、一圈海克斯蓝）、爆弹重拳（两道蓝色冲击弧）、爆裂护盾（蓝色光环罩住全身，破碎）、Q 的蓄力光（拳套上的蓝白光球）、冲出的尘土和热橙火花、路过的命中、撞停的爆裂光环、E 的拳套充能、扇形冲击波、命中、R 起步的光柱、冲锋的蓝色尾迹、撞开的星光、上勾拳的光柱、砸地的裂纹 |
+| 高清帧（PPU 1.82） | 2026-11-03 用 PPU 重做，和崔斯特、艾克、萨科在同一个 PR（用户：「下面重做蔚 崔斯特 艾克」「再加一个吧 萨科」「蔚1.82 卡牌2.7 艾克1.94 萨科2.12」「蔚 凯南 崔斯特 艾克没问题 可以单独开个pr 合并 并且安装进游戏」（凯南是笔误，确认指萨科））。设计图：Codex 照旧精灵描密的原图，按原图约 16 像素一格读回（52 × 73 格；头发顶到脚底 73 行，旧精灵 40 行，PPU 1.82），脸那一块按格子取整格平均色、过半近黑记成黑线；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 50 帧，白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；Q 冲刺按旧版不带特效的原生身体格画，旧版脚下的尘土、Q 蓄力的光和 R 的拖尾由 vi_bake.json 重新叠上（ppu_restyle 的 fx）；量头用粉色头发。待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_vi.py`）：普攻命中、爆弹重拳、护盾、Q 蓄力 / 冲出 / 撞停 / 命中、E 充能 / 出拳 / 命中、R 起步 / 撞开 / 上勾拳；Q、E、R 带中文配音 |
 
@@ -86,6 +87,15 @@ python tools/art/strips_vi.py      # 动作：Codex 的 50 帧按造型的格子
 python tools/art/import_native.py --hero vi
 python tools/art/import_vi.py      # 特效：按技能需要的大小缩放，挂到拳头、目标、地面上
 python tools/art/preview_vi.py
+# PPU 1.82 重做（2026-11-03）：
+python tools/art/pack_vi_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_vi_hd.py                      # Codex 的原图（hd/raw/vi-A.png）按原图约 16 像素一格读回 -> hd/design.png
+python tools/art/pack_vi_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_vi_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_vi_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero vi && python tools/art/ppu_hd.py --hero vi
+python tools/art/ppu_one.py --hero vi && python tools/art/rig_vi_hd.py --one-ground && python tools/art/hero_reels.py --hero vi
+python tools/art/review_vi_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/vi/PICTURE_PROMPT.md`](../../assets/source/vi/PICTURE_PROMPT.md)，造型的见 [`MODEL_V2.md`](../../assets/source/vi/MODEL_V2.md)，动作的见 [`STRIPS_V4.md`](../../assets/source/vi/STRIPS_V4.md)，特效的见 [`PROMPTS.md`](../../assets/source/vi/PROMPTS.md)；Codex 的交接说明在 [`codex_picture/`](../../assets/source/vi/codex_picture)、[`codex_model_v2/`](../../assets/source/vi/codex_model_v2)、[`codex_strips_v4/`](../../assets/source/vi/codex_strips_v4)、[`codex_fx/`](../../assets/source/vi/codex_fx)）：
@@ -97,4 +107,4 @@ python tools/art/preview_vi.py
 - 跑步的腿（2026-10-03，用户：「蔚走路的时候没有明显交叉步」）：v4 的跑步 8 帧里带粉色护膝的那条腿一直在后面，第 5–8 帧是第 1–4 帧的重画，第 4、8 帧两只鞋相距约 26 格。给 Codex 的包（`assets/source/vi/RUN_LEGS.md`）照英雄联盟跑步的关节排好每帧两只鞋的位置，后 4 帧两腿对调，只重画腰带以下；Codex 交回的 8 帧（`codex_run_legs/`：上半身逐像素不变、只用原图已有的颜色）换进 `codex_strips_v4/frames`，两只鞋最多相距 8 格，近腿在前和在后各半个周期。
 - 特效（Codex 画的 15 张，`import_vi.py`）：原稿是 8 px 方块的像素画（每张约 30 格），按技能需要缩放（每个新像素取原稿那块里最亮的不透明像素，白芯和一格的线留得住）：命中类 0.7（缩一半时太小，用户：「命中类偏小恢复到0.7」）、拳头的光一半、爆弹重拳 0.7、撞停 0.8、护盾放大 1.5 倍（36 × 45，罩住 40 行的她）、砸地裂纹只横向拉 1.7 倍（约 75 px，原来被她砸地的身子挡住，用户：「往两边延伸出去就行」）。位置按新动作量拳套水晶：Q 蓄力在拉到身侧的近侧拳套 (−7, −5)，E 充能在脸旁的远侧拳头 (11, −15)（E 砸拳用这只手），冲击波从第 4 帧砸下的拳头往前 22–66 px，画在一条从她站位点朝目标的「只有画面的线」上（`league_vi_e_wave`，68000 长，和贝蕾亚 E 的声波一样）：原来是挂在她身上的特效，只会左右翻，目标在斜上斜下时和伤害的扇形对不上，红方还会朝反方向（用户：「蔚的E技能特效是歪的」「红方释放的释放是歪的」「之前剑姬的问题 E技能的特效没有跟随人物 反方向的」），现在冲击波总是朝着被打的人，朝左打时上下颠倒（Codex 的冲击波上下差不多，看不出来），R 尾迹的右端在她背后 (−4, −12)；命中在上半身 (0, −8)，上勾拳光柱、护盾、R 起步落在脚底，裂纹的中线在脚底上方 2 px。时长：Q 蓄力 5 × 100 ms（30 tick），护盾 3 秒（起、第 4–8 帧循环 5 次、碎），R 尾迹 6 × 70 ms 循环到落地。
 
-逐帧预览：[`docs/preview/league_vi_frames.png`](../preview/league_vi_frames.png?v=1014g)，特效：[`docs/preview/league_vi_effects.png`](../preview/league_vi_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_vi_frames.png`](../preview/league_vi_frames.png?v=1103hd)，特效：[`docs/preview/league_vi_effects.png`](../preview/league_vi_effects.png?v=1014g)。
