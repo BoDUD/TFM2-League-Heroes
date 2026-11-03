@@ -1,0 +1,456 @@
+{
+ "square": 7,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "run": {
+   "5": "run 4",
+   "7": "run 3",
+   "8": "run 1"
+  },
+  "attack_p": {
+   "6": "design 0"
+  },
+  "skill": {
+   "5": "attack 6"
+  },
+  "ult": {
+   "5": "ult 3"
+  },
+  "ult_hit": {
+   "3": "skill2 5"
+  }
+ },
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "floating forward (his move loop): leaning ahead, the arm blades swept back, the shadow tail streaming behind; no legs",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes.",
+   "legs": "Frame 1: NO LEGS: he floats; his shadow TAIL below him streams and sways as the pale figure's, frame by frame. Frame 2: NO LEGS: he floats; his shadow TAIL below him streams and sways as the pale figure's, frame by frame. He has no legs: only the shadow tail sways under him as the pale figure's (do not draw legs or feet)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "floating forward (his move loop): leaning ahead, the arm blades swept back, the shadow tail streaming behind; no legs",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes.",
+   "legs": "Frame 3: NO LEGS: he floats; his shadow TAIL below him streams and sways as the pale figure's, frame by frame. Frame 4: NO LEGS: he floats; his shadow TAIL below him streams and sways as the pale figure's, frame by frame. He has no legs: only the shadow tail sways under him as the pale figure's (do not draw legs or feet)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "floating forward (his move loop): leaning ahead, the arm blades swept back, the shadow tail streaming behind; no legs",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes.",
+   "legs": "Frame 6: NO LEGS: he floats; his shadow TAIL below him streams and sways as the pale figure's, frame by frame. He has no legs: only the shadow tail sways under him as the pale figure's (do not draw legs or feet)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack: he slashes with one arm blade, then the other, frame by frame as the pale figure (frames 1-6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: he slashes with one arm blade, then the other, frame by frame as the pale figure (frames 1-6)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack: he slashes with one arm blade, then the other, frame by frame as the pale figure (frames 1-6)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: he slashes with one arm blade, then the other, frame by frame as the pale figure (frames 1-6)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Umbra Blades (the passive's whirl): he spins, both blades swept wide round him (frames 1-5)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Umbra Blades (the passive's whirl): he spins, both blades swept wide round him (frames 1-5)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Umbra Blades (the passive's whirl): he spins, both blades swept wide round him (frames 1-5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Duskbringer (Q): he flings his blade arm forward, throwing the shadow blade (frames 1-4)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Duskbringer (Q): he flings his blade arm forward, throwing the shadow blade (frames 1-4)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Duskbringer (Q): he flings his blade arm forward, throwing the shadow blade (frames 1-4)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Unspeakable Horror (E): he reaches out with both blades, frame by frame as the pale figure (frames 1-5)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Unspeakable Horror (E): he reaches out with both blades, frame by frame as the pale figure (frames 1-5)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Unspeakable Horror (E): he reaches out with both blades, frame by frame as the pale figure (frames 1-5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Unspeakable Horror (E): he reaches out with both blades, frame by frame as the pale figure (frames 1-5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Paranoia (R): he gathers himself and rears up, the blades raised (frames 1-4, 6)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Paranoia (R): he gathers himself and rears up, the blades raised (frames 1-4, 6)",
+   "ms": [
+    155,
+    155
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Paranoia (R): he gathers himself and rears up, the blades raised (frames 1-4, 6)",
+   "ms": [
+    155
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "ult_hit",
+   "name": "ult_hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Paranoia (R), the strike on arrival: both blades swept wide (frames 1, 2, 4)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "ult_hit",
+   "name": "ult_hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Paranoia (R), the strike on arrival: both blades swept wide (frames 1, 2, 4)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "ult_hit",
+   "name": "ult_hit_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Paranoia (R), the strike on arrival: both blades swept wide (frames 1, 2, 4)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "struck: jolted back",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "death: struck (frames 1-2), he folds in (frames 3-4) and sinks into a flat shadow on the ground (frames 5-8)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "death: struck (frames 1-2), he folds in (frames 3-4) and sinks into a flat shadow on the ground (frames 5-8)",
+   "ms": [
+    100,
+    120
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "death: struck (frames 1-2), he folds in (frames 3-4) and sinks into a flat shadow on the ground (frames 5-8)",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "death: struck (frames 1-2), he folds in (frames 3-4) and sinks into a flat shadow on the ground (frames 5-8)",
+   "ms": [
+    200,
+    400
+   ],
+   "weapons": "HIS ARM BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the two big curved red-and-silver blades on his arms, as big as in image 1, raised, swung or swept wide as the pale figure holds them; the shadow tail below him, no legs. Only him: no shadow smoke, no trails, no afterimages; the white light stays in his eyes."
+  }
+ ]
+}

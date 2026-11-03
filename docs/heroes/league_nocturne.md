@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | [魔腾黑暗附加包](#附加包)（`league_nocturne_dark`） |
 
 ![魔腾演示](../preview/league_nocturne_showcase.gif)
@@ -103,6 +103,7 @@
 | 亚索联动 | E 的恐惧是亚索大招要的控制，但对英雄每局只吓到 1 次左右：魔腾打野、亚索同队时，亚索每局 R 到被控英雄 0.83 次（同一批原版忍者 0.65；之前一批萨科 2.04、李青 1.52），亚索不用调 |
 | 精灵图 | 10 个动作 56 帧：待机、移动、普攻、横扫、Q、E、R（起飞和飞扑）、R 落地斩、受击、死亡（移动、普攻、Q、E、R、落地斩按英雄联盟的动作重摆，见下）。造型是 Codex 按游戏尺寸画的 B 版，削到 40 行：深蓝的烟影身体弓着背，头顶向后卷的深蓝冠，两只白色的方眼，紫色的护肩上嵌着蓝眼，胸口一颗红色的眼形纹章，银边的红色刀刃从两条手臂垂下，下身是一条烟尾巴（英雄联盟的模型没有下半身）。头冠到尾巴尖 40 px，33 px 宽，20 色 |
 | 特效 | 普攻的红色刀弧（31 × 40 px）和打中时的刀痕（13 px），横扫绕身的红蓝光环（72 × 24 px）和每个被打中的敌人身上的刀痕（15 px），飞行的暗影之刃（35 px）和地上的黄昏之径（66 px 长，Q 的射程），刀穿过时的冒烟刀痕（16 px）和被打中的英雄脚下的影径（23 px），E 抓住目标的灵链（24 px）、飞回的锁链（一节 24 px，节节相接）和每次伤害的紫光（12 px），被吓到的单位头顶的眼睛漩涡（15 px），黑暗庇护的护罩（50 × 48 px，1.5 秒）和破盾时的爆发（32 × 36 px），R 施法时地上的黑暗冲击波（114 px 宽）、我方英雄隐身时的黑雾（28 px）、敌方英雄头上的黑雾（30 px，3 秒）、飞扑的拖影（52 px）和落地的十字斩（76 × 36 px） |
+| 高清帧（PPU 1.8） | 2026-11-03 用 PPU 重做，和凯南、剑魔、丽桑卓在同一个 PR（用户：「继续加四个 魔腾 凯南 剑魔 丽桑卓」「凯南1.81 梦魇1.8 剑魔2.27 丽桑卓1.81」「丽桑卓有模型一大一小的问题 剑魔的头看起来只看后面」「可以，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 16 像素一格读回（64 × 72 格；头冠顶到影子尾巴尖 72 行，旧精灵 40 行，PPU 1.8），脸那一块按格子取整格平均色、过半近黑记成黑线；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 28 帧（移动第 5、7、8 帧，横扫第 6 帧，Q 第 5 帧，R 第 5 帧，R 落地斩第 3 帧共 7 帧和别的帧或设计图一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；他没有腿、拖着影子尾巴飘，移动按尾巴的摆动画；白色的眼睛被深色围住，白底抠图会当成底色抠掉、整格取色也会抹掉，按被围住的白色小块补回眼睛；普攻刀弧和 R 拖尾（attack_fx1 / ult_fx1）由 nocturne_bake.json 重新叠上；量头用肩甲的暗紫色。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 的规则 -10 → -6；附身的灵魂表跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 13 条技能音效和 4 条中文语音（Q、E、黑暗庇护触发、R），合成 12 个游戏音效。不提交到仓库，按下面的命令在本地生成 |
 
@@ -115,6 +116,15 @@ python tools/art/rig_nocturne.py          # 移动、普攻、Q、E、R、落地
 python tools/art/import_native.py --hero nocturne
 python tools/art/import_nocturne.py       # 特效（两轮交付，导入时提亮）
 python tools/art/preview_nocturne.py
+# PPU 1.8 重做（2026-11-03）：
+python tools/art/pack_nocturne_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_nocturne_hd.py                      # Codex 的原图（hd/raw/nocturne-A.png）按原图约 16 像素一格读回 -> hd/design.png
+python tools/art/pack_nocturne_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_nocturne_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_nocturne_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero nocturne && python tools/art/ppu_hd.py --hero nocturne
+python tools/art/ppu_one.py --hero nocturne && python tools/art/rig_nocturne_hd.py --one-ground && python tools/art/hero_reels.py --hero nocturne
+python tools/art/review_nocturne_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/nocturne/PICTURE_PROMPT.md`](../../assets/source/nocturne/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/nocturne/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/nocturne/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/nocturne/PROMPTS_FX.md) 和补充的 [`PROMPTS_FX2.md`](../../assets/source/nocturne/PROMPTS_FX2.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/nocturne/codex_model)、[`codex_strips/`](../../assets/source/nocturne/codex_strips)、[`codex_fx/`](../../assets/source/nocturne/codex_fx)、[`codex_fx2/`](../../assets/source/nocturne/codex_fx2)）：
@@ -129,4 +139,4 @@ python tools/art/preview_nocturne.py
 - 提亮：两轮都只用定稿的 19 色，大部分是最暗的三种深蓝，整套是全包最暗的特效（平均亮度 36–42，最亮的一成也只有 72；同样走暗色的费德提克、莫甘娜、萨科都有 200 以上的高光），打中的特效叠到德莱厄斯身上就看不见了。导入时换色（`LIFT`）：最暗的三种深蓝各提一级（烟的暗色核心不变），其余的蓝提成亮蓝、浅蓝和近白的边，紫色和红色提两级（新加 7 个颜色），形状一格不动：小特效平均亮度 96、最亮的一成 193。所有颜色都只提一级时打中的特效还是看不清，都提两三级时黑暗变成了粉白色。
 - 出手时刻和动画对齐：普攻第 3 帧（第 8 tick），横扫第 3 帧（第 8 tick），Q 第 3 帧掷出（第 10 tick），E 第 3 帧（第 8 tick），R 第 3 帧起飞（第 8 tick）、飞扑的 4 帧循环到落地，落地斩第 1 帧出刀。
 
-逐帧预览：[`docs/preview/league_nocturne_frames.png`](../preview/league_nocturne_frames.png?v=1014g)，特效：[`docs/preview/league_nocturne_effects.png`](../preview/league_nocturne_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_nocturne_frames.png`](../preview/league_nocturne_frames.png?v=1103hd)，特效：[`docs/preview/league_nocturne_effects.png`](../preview/league_nocturne_effects.png?v=1014g)。

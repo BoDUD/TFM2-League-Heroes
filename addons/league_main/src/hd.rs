@@ -519,6 +519,31 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // his height, hat and area give (tools/art/casts_shaco_hd.py, rig_shaco_hd.py; nothing baked); 43 game px as his 1x
     // sprite, so no SIZES row
     ("league_shaco", 2.116, include_str!("../../../league/champions/league_shaco#anim.fanim")),
+    // Nocturne (2026-11-03, 「继续加四个 魔腾 凯南 剑魔 丽桑卓」, 「凯南1.81 梦魇1.8 剑魔2.27 丽桑卓1.81」): Codex's nocturne-A
+    // read on its own ~16-px squares (64 x 72, tools/art/design_nocturne_hd.py: 72 rows / 40 = 1.80); every action
+    // Codex's whole-frame redraw of his old frame read onto it at the median of the zooms his height, pauldrons and area
+    // give (tools/art/casts_nocturne_hd.py, rig_nocturne_hd.py; his white eyes kept where the dark walls them in, the
+    // attack_fx1 / ult_fx1 copies baked on again by nocturne_bake.json); 40 game px as his 1x sprite, so no SIZES row
+    ("league_nocturne", 1.80, include_str!("../../../league/champions/league_nocturne#anim.fanim")),
+    // Kennen (the same release): Codex's kennen-A read on its own ~17.2-px squares (62 x 65, tools/art/design_kennen_hd.py:
+    // 65 rows / 36 = 1.806); every action Codex's whole-frame redraw of his old frame read onto it at the median of the
+    // zooms his height, face and area give (tools/art/casts_kennen_hd.py, rig_kennen_hd.py; Q drawn from its native body
+    // cells, its cast and the attack_fx1 / attack_fx2 / skill2_fx1 copies baked on again by kennen_bake.json); 36 game px
+    // as his 1x sprite, so no SIZES row
+    ("league_kennen", 1.806, include_str!("../../../league/champions/league_kennen#anim.fanim")),
+    // Aatrox (the same release): Codex's aatrox-A read on ~12-px squares (97 x 91, tools/art/design_aatrox_hd.py: 91 rows
+    // / 40 = 2.275; his glowing eyes and mouth kept in their own red, the user: 「剑魔的头看起来只看后面」); every action
+    // Codex's whole-frame redraw of his old frame read onto it at the median of the zooms his height, chest core and area
+    // give (tools/art/casts_aatrox_hd.py, rig_aatrox_hd.py; eight tags drawn from their native body cells, their slashes,
+    // fire and chains and the *_fx copies baked on again by aatrox_bake.json); 40 game px as his 1x sprite, so no SIZES row
+    ("league_aatrox", 2.275, include_str!("../../../league/champions/league_aatrox#anim.fanim")),
+    // Lissandra (the same release): Codex's lissandra-A read on its own ~15-px squares (47 x 76,
+    // tools/art/design_lissandra_hd.py: 76 rows / 42 = 1.810); every action Codex's whole-frame redraw of her old frame
+    // read onto it at the zoom her crown's width gives (the user: 「丽桑卓有模型一大一小的问题」 - her old glide and death sink,
+    // so their heights shrank those frames; death 3-6 by her height, her hands reach the crown) (tools/art/casts_lissandra_hd.py,
+    // rig_lissandra_hd.py; Q drawn from its native body cells, its cast and the ult_fx1 / skill2_e_fx1 / skill2_e_fx2
+    // copies baked on again by lissandra_bake.json); 42 game px as her 1x sprite, so no SIZES row
+    ("league_lissandra", 1.810, include_str!("../../../league/champions/league_lissandra#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

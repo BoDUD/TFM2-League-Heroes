@@ -104,7 +104,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
-| <img src="docs/heroes/img/league_aatrox.png" width="32"> | [亚托克斯](docs/heroes/league_aatrox.md)<br>Aatrox | 上单 | 被动 赐死剑气 · 暗裔利刃 · 恶火束链 · 大招 大灭 | [剑魔 W 锁链附加包](addons/league_aatrox_chain/README.md) | — |
+| <img src="docs/heroes/img/league_aatrox.png" width="32"> | [亚托克斯](docs/heroes/league_aatrox.md)<br>Aatrox | 上单 | 被动 赐死剑气 · 暗裔利刃 · 恶火束链 · 大招 大灭 | [剑魔 W 锁链附加包](addons/league_aatrox_chain/README.md) | PPU 2.27 |
 | <img src="docs/heroes/img/league_ambessa.png" width="32"> | [安蓓萨](docs/heroes/league_ambessa.md)<br>Ambessa | 上单 | 暗袭 · 血戮 · 大招 公开处刑 | [安蓓萨附加包](addons/league_ambessa/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_camille.png" width="32"> | [卡蜜尔](docs/heroes/league_camille.md)<br>Camille | 上单 | 被动 适应性防御 · 战术横扫 · 钩索 · 大招 海克斯最后通牒 | [青钢影钩墙附加包](addons/league_camille_wall/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_chogath.png" width="32"> | [科加斯](docs/heroes/league_chogath.md)<br>Cho'Gath | 上单 | 破裂 · 野性尖叫 · 大招 盛宴 | [科加斯附加包](addons/league_chogath/README.md) | PPU 1.2 |
@@ -121,7 +121,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_jayce.png" width="32"> | [杰斯](docs/heroes/league_jayce.md)<br>Jayce | 上单 | 苍穹之跃 / 电能震荡 · 雷霆一击 / 超能电荷 · 大招 加速之门 | [杰斯附加包](addons/league_jayce/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_ksante.png" width="32"> | [奎桑提](docs/heroes/league_ksante.md)<br>K'Sante | 上单 | 无双陀斧 · 辟路先锋 · 大招 傲岸雄姿 | [奎桑提附加包](addons/league_ksante/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_kayle.png" width="32"> | [凯尔](docs/heroes/league_kayle.md)<br>Kayle | 上单 | 耀焰冲击 · 星火符刃 · 大招 圣裁之刻 | [凯尔升阶附加包：按真实等级升阶、死后不掉](addons/league_kayle/README.md) | PPU 2.29 |
-| <img src="docs/heroes/img/league_kennen.png" width="32"> | [凯南](docs/heroes/league_kennen.md)<br>Kennen | 上单 | 被动 雷缚印 · 奥义！千鸟 · 奥义！雷铠 · 大招 秘奥义！万雷天牢引 | [目标标记附加包](addons/league_marks/README.md) | — |
+| <img src="docs/heroes/img/league_kennen.png" width="32"> | [凯南](docs/heroes/league_kennen.md)<br>Kennen | 上单 | 被动 雷缚印 · 奥义！千鸟 · 奥义！雷铠 · 大招 秘奥义！万雷天牢引 | [目标标记附加包](addons/league_marks/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_kled.png" width="32"> | [克烈](docs/heroes/league_kled.md)<br>Kled | 上单 | 飞索捕熊器 · 比武 · 大招 冲啊——！！ | [克烈附加包](addons/league_kled/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_malphite.png" width="32"> | [墨菲特](docs/heroes/league_malphite.md)<br>Malphite | 上单 | 被动 花岗岩护盾 · 地震碎片 · 大地震颤 · 大招 势不可挡 | — | — |
 | <img src="docs/heroes/img/league_mordekaiser.png" width="32"> | [莫德凯撒](docs/heroes/league_mordekaiser.md)<br>Mordekaiser | 上单 | 破灭之锤 · 断魂一扼 · 大招 轮回绝境 | [莫德凯撒附加包](addons/league_mordekaiser/README.md) | PPU 2 |
@@ -179,7 +179,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_masteryi.png" width="32"> | [易](docs/heroes/league_masteryi.md)<br>Master Yi | 打野 | 被动 双重打击 · 阿尔法突袭 · 无极剑道 · 大招 高原血统 | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.23 |
 | <img src="docs/heroes/img/league_naafiri.png" width="32"> | [纳亚菲利](docs/heroes/league_naafiri.md)<br>Naafiri | 打野 | 暗裔犬牙 · 剔骨本能 · 大招 猎狗血性 | [纳亚菲利附加包](addons/league_naafiri/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_nidalee.png" width="32"> | [奈德丽](docs/heroes/league_nidalee.md)<br>Nidalee | 打野 | 标枪投掷 / 推倒 · 野性奔腾 / 猛扑 · 大招 美洲狮形态 | [奈德丽附加包](addons/league_nidalee/README.md) | PPU 2.2 |
-| <img src="docs/heroes/img/league_nocturne.png" width="32"> | [魔腾](docs/heroes/league_nocturne.md)<br>Nocturne | 打野 | 被动 暗影之刃 · 梦魇之径 · 无言恐惧 · 大招 鬼影重重 | [魔腾黑暗附加包](addons/league_nocturne_dark/README.md) | — |
+| <img src="docs/heroes/img/league_nocturne.png" width="32"> | [魔腾](docs/heroes/league_nocturne.md)<br>Nocturne | 打野 | 被动 暗影之刃 · 梦魇之径 · 无言恐惧 · 大招 鬼影重重 | [魔腾黑暗附加包](addons/league_nocturne_dark/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_nunu.png" width="32"> | [努努和威朗普](docs/heroes/league_nunu.md)<br>Nunu & Willump | 打野 | 史上最大雪球！ · 雪球飞射 · 大招 绝对零度 | — | PPU 1.37 |
 | <img src="docs/heroes/img/league_pantheon.png" width="32"> | [潘森](docs/heroes/league_pantheon.md)<br>Pantheon | 打野 | 贯星长枪 · 斗盾跃击 · 大招 大荒星陨 | [潘森附加包](addons/league_pantheon/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_qiyana.png" width="32"> | [奇亚娜](docs/heroes/league_qiyana.md)<br>Qiyana | 打野 | 以绪塔尔之锋 · 天纵之勇 · 大招 惊才绝景 | [奇亚娜附加包](addons/league_qiyana/README.md) | PPU 1.5 |
@@ -231,7 +231,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_kassadin.png" width="32"> | [卡萨丁](docs/heroes/league_kassadin.md)<br>Kassadin | 中单 | 虚无法球 · 能量脉冲 · 大招 虚空行走 | [卡萨丁附加包](addons/league_kassadin/README.md) | PPU 2.42 |
 | <img src="docs/heroes/img/league_katarina.png" width="32"> | [卡特琳娜](docs/heroes/league_katarina.md)<br>Katarina | 中单 | 弹射之刃 · 伺机待发 · 大招 死亡莲华 | [卡特琳娜附加包](addons/league_katarina/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_leblanc.png" width="32"> | [乐芙兰](docs/heroes/league_leblanc.md)<br>LeBlanc | 中单 | 被动 镜花水月 · 恶意魔印 · 魔影迷踪 · 大招 故技重施 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | PPU 2 |
-| <img src="docs/heroes/img/league_lissandra.png" width="32"> | [丽桑卓](docs/heroes/league_lissandra.md)<br>Lissandra | 中单 | 被动 冰脉驱役 · 寒冰碎片 · 冰霜之环 · 大招 冰封陵墓 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | — |
+| <img src="docs/heroes/img/league_lissandra.png" width="32"> | [丽桑卓](docs/heroes/league_lissandra.md)<br>Lissandra | 中单 | 被动 冰脉驱役 · 寒冰碎片 · 冰霜之环 · 大招 冰封陵墓 | [低血量附加包：布里茨、乐芙兰、丽桑卓](addons/league_lowhp/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_locke.png" width="32"> | [洛克](docs/heroes/league_locke.md)<br>Locke | 中单 | 伏魔三钉 · 灰猎无影 · 大招 万魔狱 | [洛克附加包](addons/league_locke/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_lux.png" width="32"> | [拉克丝](docs/heroes/league_lux.md)<br>Lux | 中单 | 被动 光芒四射 · 光之束缚 · 透光奇点 · 大招 终极闪光 | [目标标记附加包](addons/league_marks/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_malzahar.png" width="32"> | [玛尔扎哈](docs/heroes/league_malzahar.md)<br>Malzahar | 中单 | 被动 虚空穿越 · 煞星幻象 / 虚空虫群 · 虚空召唤 · 大招 冥府之握 | [玛尔扎哈附加包](addons/league_malzahar/README.md) | PPU 1.38 |
