@@ -624,7 +624,9 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
 /// puts them back. 15 % a stack (was 5 %: one bite put 2 game pixels on his 38, the user 2026-10-23: 「大虫子身体不变大」), then
 /// 30 % a stack and at most twice his size (the user 2026-10-26 after a game with one bite, x1.15:
 /// 「大虫子体型不变大？」「隔壁oppi的大虫子就会变大的」, picked 30 % / 2x), then the cap gone (the user 2026-10-31: 「大虫子体型应该可以无限变大吧」 - 4 of 45
-/// logged games reached the 4 bites of x2, 1 had 5): one bite x1.3, four x2.2, ten x4.
+/// logged games reached the 4 bites of x2, 1 had 5): one bite x1.3, four x2.2, ten x4. From the 5th bite half a step
+/// (hd_engine's GROW_KNEE / GROW_TAIL; the user 2026-11-03: 「大虫子在局内后期变的有点太大了 稍微可以缩小一点」 - the watched game had
+/// 9 bites, x3.7): five x2.35, nine x2.95, ten x3.1.
 pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_stack", 0.30)];
 
 /// Heroes drawn bigger while a buff of theirs is on them: (id, the buffs - any one of them, the size, seconds to grow

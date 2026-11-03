@@ -4843,7 +4843,7 @@
                                             "casting_type": "Targeting",
                                             "effect": {
                                               "type": "Airborne",
-                                              "duration": 50
+                                              "duration": 60
                                             }
                                           },
                                           {
@@ -4851,6 +4851,13 @@
                                             "effect": {
                                               "type": "ViewEffect",
                                               "name": "league_aurelionsol_r_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_aurelionsol_r_up"
                                             }
                                           },
                                           {
@@ -5128,7 +5135,7 @@
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "Airborne",
-                                                "duration": 50
+                                                "duration": 60
                                               }
                                             },
                                             {
@@ -5136,6 +5143,13 @@
                                               "effect": {
                                                 "type": "ViewEffect",
                                                 "name": "league_aurelionsol_r_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_aurelionsol_r_up"
                                               }
                                             },
                                             {
@@ -5413,7 +5427,7 @@
                                                 "casting_type": "Targeting",
                                                 "effect": {
                                                   "type": "Airborne",
-                                                  "duration": 50
+                                                  "duration": 60
                                                 }
                                               },
                                               {
@@ -5421,6 +5435,13 @@
                                                 "effect": {
                                                   "type": "ViewEffect",
                                                   "name": "league_aurelionsol_r_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_aurelionsol_r_up"
                                                 }
                                               },
                                               {
@@ -5698,7 +5719,7 @@
                                                   "casting_type": "Targeting",
                                                   "effect": {
                                                     "type": "Airborne",
-                                                    "duration": 50
+                                                    "duration": 60
                                                   }
                                                 },
                                                 {
@@ -5706,6 +5727,13 @@
                                                   "effect": {
                                                     "type": "ViewEffect",
                                                     "name": "league_aurelionsol_r_hit"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_aurelionsol_r_up"
                                                   }
                                                 },
                                                 {
@@ -5983,7 +6011,7 @@
                                                     "casting_type": "Targeting",
                                                     "effect": {
                                                       "type": "Airborne",
-                                                      "duration": 50
+                                                      "duration": 60
                                                     }
                                                   },
                                                   {
@@ -5991,6 +6019,13 @@
                                                     "effect": {
                                                       "type": "ViewEffect",
                                                       "name": "league_aurelionsol_r_hit"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_aurelionsol_r_up"
                                                     }
                                                   },
                                                   {
@@ -6268,7 +6303,7 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "Airborne",
-                                                        "duration": 50
+                                                        "duration": 60
                                                       }
                                                     },
                                                     {
@@ -6276,6 +6311,13 @@
                                                       "effect": {
                                                         "type": "ViewEffect",
                                                         "name": "league_aurelionsol_r_hit"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_aurelionsol_r_up"
                                                       }
                                                     },
                                                     {
@@ -6550,7 +6592,7 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "Airborne",
-                                                        "duration": 50
+                                                        "duration": 60
                                                       }
                                                     },
                                                     {
@@ -6558,6 +6600,13 @@
                                                       "effect": {
                                                         "type": "ViewEffect",
                                                         "name": "league_aurelionsol_r_hit"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_aurelionsol_r_up"
                                                       }
                                                     },
                                                     {
@@ -6836,7 +6885,7 @@
                                           {
                                             "casting_type": "Targeting",
                                             "effect": {
-                                              "type": "Stun",
+                                              "type": "Airborne",
                                               "duration": 60
                                             }
                                           },
@@ -6845,6 +6894,13 @@
                                             "effect": {
                                               "type": "ViewEffect",
                                               "name": "league_aurelionsol_r_hit"
+                                            }
+                                          },
+                                          {
+                                            "casting_type": "Targeting",
+                                            "effect": {
+                                              "type": "ViewEffect",
+                                              "name": "league_aurelionsol_r_up"
                                             }
                                           },
                                           {
@@ -7055,7 +7111,7 @@
                                             {
                                               "casting_type": "Targeting",
                                               "effect": {
-                                                "type": "Stun",
+                                                "type": "Airborne",
                                                 "duration": 60
                                               }
                                             },
@@ -7064,6 +7120,13 @@
                                               "effect": {
                                                 "type": "ViewEffect",
                                                 "name": "league_aurelionsol_r_hit"
+                                              }
+                                            },
+                                            {
+                                              "casting_type": "Targeting",
+                                              "effect": {
+                                                "type": "ViewEffect",
+                                                "name": "league_aurelionsol_r_up"
                                               }
                                             },
                                             {
@@ -7274,7 +7337,7 @@
                                               {
                                                 "casting_type": "Targeting",
                                                 "effect": {
-                                                  "type": "Stun",
+                                                  "type": "Airborne",
                                                   "duration": 60
                                                 }
                                               },
@@ -7283,6 +7346,13 @@
                                                 "effect": {
                                                   "type": "ViewEffect",
                                                   "name": "league_aurelionsol_r_hit"
+                                                }
+                                              },
+                                              {
+                                                "casting_type": "Targeting",
+                                                "effect": {
+                                                  "type": "ViewEffect",
+                                                  "name": "league_aurelionsol_r_up"
                                                 }
                                               },
                                               {
@@ -7493,7 +7563,7 @@
                                                 {
                                                   "casting_type": "Targeting",
                                                   "effect": {
-                                                    "type": "Stun",
+                                                    "type": "Airborne",
                                                     "duration": 60
                                                   }
                                                 },
@@ -7502,6 +7572,13 @@
                                                   "effect": {
                                                     "type": "ViewEffect",
                                                     "name": "league_aurelionsol_r_hit"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_aurelionsol_r_up"
                                                   }
                                                 },
                                                 {
@@ -7712,7 +7789,7 @@
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
-                                                      "type": "Stun",
+                                                      "type": "Airborne",
                                                       "duration": 60
                                                     }
                                                   },
@@ -7721,6 +7798,13 @@
                                                     "effect": {
                                                       "type": "ViewEffect",
                                                       "name": "league_aurelionsol_r_hit"
+                                                    }
+                                                  },
+                                                  {
+                                                    "casting_type": "Targeting",
+                                                    "effect": {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_aurelionsol_r_up"
                                                     }
                                                   },
                                                   {
@@ -7931,7 +8015,7 @@
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
-                                                        "type": "Stun",
+                                                        "type": "Airborne",
                                                         "duration": 60
                                                       }
                                                     },
@@ -7940,6 +8024,13 @@
                                                       "effect": {
                                                         "type": "ViewEffect",
                                                         "name": "league_aurelionsol_r_hit"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_aurelionsol_r_up"
                                                       }
                                                     },
                                                     {
@@ -8147,7 +8238,7 @@
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
-                                                        "type": "Stun",
+                                                        "type": "Airborne",
                                                         "duration": 60
                                                       }
                                                     },
@@ -8156,6 +8247,13 @@
                                                       "effect": {
                                                         "type": "ViewEffect",
                                                         "name": "league_aurelionsol_r_hit"
+                                                      }
+                                                    },
+                                                    {
+                                                      "casting_type": "Targeting",
+                                                      "effect": {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_aurelionsol_r_up"
                                                       }
                                                     },
                                                     {
@@ -9249,6 +9347,14 @@
       "name": "league_aurelionsol_sky_ready",
       "anim": "asset/league/effects/league_aurelionsol_fx",
       "tag": "sky_ready",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_aurelionsol_r_up",
+      "anim": "asset/league/effects/league_aurelionsol_fx",
+      "tag": "w_lift",
       "z": 2,
       "is_follow": true
     },

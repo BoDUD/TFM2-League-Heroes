@@ -20,10 +20,17 @@ use std::sync::{LazyLock, Mutex};
 /// Game pixels from a frame's centre (the unit's position) down to its soles (tools/art/ppu_rig.py FEET).
 pub const FEET: f32 = 11.5;
 
-/// The body's growth for `stacks` stacks of a growth row (1.0 for none, no cap: the user 2026-10-31, 「大虫子体型应该可以
-/// 无限变大吧」).
+/// The body's growth for `stacks` stacks of a growth row (1.0 for none): `per` a stack for the first `GROW_KNEE`, then
+/// `GROW_TAIL` of it a stack, with no cap (the user 2026-10-31, 「大虫子体型应该可以无限变大吧」; 2026-11-03, 「大虫子在局内后期
+/// 变的有点太大了 稍微可以缩小一点」 - the watched game's 9 bites drew Cho'Gath 3.7x, now 2.95x; one to four bites unchanged).
+/// Both packs' DLLs carry this engine and the host's draws: league.dll's in the user's game (it loads first).
+pub const GROW_KNEE: usize = 4;
+pub const GROW_TAIL: f32 = 0.5;
+
 pub fn grown(per: f32, stacks: usize) -> f32 {
-    1.0 + per * stacks as f32
+    let early = stacks.min(GROW_KNEE) as f32;
+    let late = stacks.saturating_sub(GROW_KNEE) as f32;
+    1.0 + per * (early + GROW_TAIL * late)
 }
 
 /// A growth row's stacks from the names of the buffs on a hero's display entity. The game's display world keeps one

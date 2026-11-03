@@ -174,7 +174,7 @@ def showcase(out, z=3, steps=FIGHT, W=300, H=150, gap=150, tail=1200):
             c.on_ground("slow", wave, until=wave + tick(P["r_wslow_t"]))
         else:
             c.at("r_impact", land, spot, gy, sheet=big, under=True)
-            d.flinches += [land + k * 100 for k in range(int(tick(P["r_stun"]) // 100))]
+            d.flinches += [land + k * 100 for k in range(int(tick(P["r_air"]) // 100))]
         gain(land + 100)
         return land, spot, rel
 
@@ -194,11 +194,11 @@ def showcase(out, z=3, steps=FIGHT, W=300, H=150, gap=150, tail=1200):
             breath()
         elif step == "r":               # Falling Star alone
             land, _, _ = star()
-            c.t = max(c.t, land + tick(P["r_stun"]))
+            c.t = max(c.t, land + tick(P["r_air"]))
         elif step == "re":              # Falling Star, then the black hole on its spot at once (R -> E)
             land, spot, _ = star()
             hole(land + tick(1), spot)
-            c.t = max(c.t, land + tick(P["r_stun"]))
+            c.t = max(c.t, land + tick(P["r_air"]))
             c.wait(600)
         elif step == "sky":             # the stardust full: the Skies charged, the stars over his head; The Skies Descend
             t_sky = c.t

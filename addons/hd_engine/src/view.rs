@@ -786,12 +786,15 @@ mod tests {
         assert_eq!(body_runs(&[0, 2, 0]), vec![]);
         assert_eq!(soles(100.0, 50.0, 1.2), (100.0, 50.0 + 11.5 * 1.2));
         assert_eq!(hd::grown(0.05, 0), 1.0);
-        assert!((hd::grown(0.05, 6) - 1.3).abs() < 1e-6);
-        // Cho'Gath: 30 % a bite (2026-10-26), with no cap (2026-10-31)
+        assert!((hd::grown(0.05, 4) - 1.2).abs() < 1e-6);
+        // Cho'Gath: 30 % a bite (2026-10-26), with no cap (2026-10-31); half that from the 5th bite (2026-11-03: 「大虫子在
+        // 局内后期变的有点太大了」 - 9 bites were 3.7x)
         assert!((hd::grown(0.30, 1) - 1.3).abs() < 1e-6);
         assert!((hd::grown(0.30, 3) - 1.9).abs() < 1e-6);
         assert!((hd::grown(0.30, 4) - 2.2).abs() < 1e-6);
-        assert!((hd::grown(0.30, 10) - 4.0).abs() < 1e-6);
+        assert!((hd::grown(0.30, 5) - 2.35).abs() < 1e-6);
+        assert!((hd::grown(0.30, 9) - 2.95).abs() < 1e-6);
+        assert!((hd::grown(0.30, 10) - 3.1).abs() < 1e-6);
         // Cho'Gath's growth row is league.dll's data: league_main/src/hd.rs tests it
     }
 
