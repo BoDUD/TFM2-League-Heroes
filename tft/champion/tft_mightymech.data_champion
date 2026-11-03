@@ -1,0 +1,806 @@
+{
+  "id": "tft_mightymech",
+  "category": "Util",
+  "tags": [
+    "AD",
+    "Melee",
+    "Tank",
+    "CC",
+    "Shield",
+    "Heal"
+  ],
+  "passive": {
+    "passive_ref": "tft_mightymech:escort",
+    "params": {
+      "p_see": 70000,
+      "p_r": 60000,
+      "p_n": 1,
+      "p_sh": 80,
+      "p_sh_hp": 6,
+      "p_self": 200,
+      "p_t": 600,
+      "p_cd": 1800,
+      "q_r": 45000,
+      "q_dmg": 60,
+      "q_arm": 60,
+      "e_guard": 70000,
+      "e_near": 35000,
+      "e_air": 24,
+      "e_r": 30000,
+      "e_dmg": 60,
+      "e_ratio": 80,
+      "e_up": 45
+    }
+  },
+  "sprite": "asset/tft/champions/tft_mightymech",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/tft/icons/tft_mightymech_skill",
+    "asset/tft/icons/tft_mightymech_skill2",
+    "asset/tft/icons/tft_mightymech_ult"
+  ],
+  "stat": {
+    "attack": 66,
+    "magic_power": 28,
+    "hp": 1250,
+    "defence": 46,
+    "magic_resistance": 42,
+    "move_speed": 930,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 7,
+    "magic_power": 14,
+    "hp": 120,
+    "defence": 8,
+    "magic_resistance": 7,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.tft_mightymech.attack",
+    "duration": 30,
+    "cooltime": 85,
+    "start_timing": 1,
+    "cancelable": true,
+    "range": 25000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_mightymech_a"
+        },
+        {
+          "type": "Delayed",
+          "tick": 14,
+          "effects": [
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "tft_mightymech_a_n2",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "tft_mightymech_a_n2"
+                  },
+                  {
+                    "type": "Attack",
+                    "damage": 0,
+                    "attack_ratio": 100,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_mightymech_a_hit"
+                  },
+                  {
+                    "type": "TargetSfx",
+                    "name": "tft_mightymech_a_hit"
+                  },
+                  {
+                    "type": "Attack",
+                    "damage": 30,
+                    "attack_ratio": 60,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  },
+                  {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "tft_mightymech_a_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      },
+                      "move_speed_mult": -30
+                    }
+                  },
+                  {
+                    "type": "ViewEffect",
+                    "name": "tft_mightymech_a_crush"
+                  }
+                ]
+              },
+              "effect_none": {
+                "type": "SwitchByBuff",
+                "buff_name": "tft_mightymech_a_n1",
+                "effect_buff": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_mightymech_a_n1"
+                    },
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_mightymech_a_n2",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_mightymech_a_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_mightymech_a_hit"
+                    }
+                  ]
+                },
+                "effect_none": {
+                  "type": "Combine",
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "tft_mightymech_a_n1",
+                        "duration": "Permanent"
+                      },
+                      "only_to_enemy": false
+                    },
+                    {
+                      "type": "Attack",
+                      "damage": 0,
+                      "attack_ratio": 100,
+                      "hp_ratio": 0,
+                      "target_hp_ratio": 0,
+                      "attack_effect_type": "Target"
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_mightymech_a_hit"
+                    },
+                    {
+                      "type": "TargetSfx",
+                      "name": "tft_mightymech_a_hit"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.tft_mightymech.skill",
+    "duration": 24,
+    "cooltime": 740,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "None",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_mightymech_q"
+        },
+        {
+          "type": "Delayed",
+          "tick": 9,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "Sfx",
+                  "name": "tft_mightymech_q_shield"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "tft_mightymech_q_stance",
+                    "duration": {
+                      "Time": {
+                        "tick": 240
+                      }
+                    },
+                    "damaged_reduce": 22
+                  },
+                  "only_to_enemy": false
+                },
+                {
+                  "type": "RangeEffect",
+                  "shape": {
+                    "Circle": {
+                      "radius": 40000
+                    }
+                  },
+                  "target": "EnemyChampion",
+                  "apply_type": "AroundCaster",
+                  "effects": [
+                    {
+                      "type": "Taunt",
+                      "duration": 40
+                    },
+                    {
+                      "type": "ViewEffect",
+                      "name": "tft_mightymech_q_taunt"
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 119,
+                  "effects": [
+                    {
+                      "type": "Sfx",
+                      "name": "tft_mightymech_q_shield"
+                    },
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 40000
+                        }
+                      },
+                      "target": "EnemyChampion",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Taunt",
+                          "duration": 40
+                        },
+                        {
+                          "type": "ViewEffect",
+                          "name": "tft_mightymech_q_taunt"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 29,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 15,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 59,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 15,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 89,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 15,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 119,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 15,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 149,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 15,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 179,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 15,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 209,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 15,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 239,
+                  "effects": [
+                    {
+                      "type": "RangeEffect",
+                      "shape": {
+                        "Circle": {
+                          "radius": 1000
+                        }
+                      },
+                      "target": "AllyOnlySelf",
+                      "apply_type": "AroundCaster",
+                      "effects": [
+                        {
+                          "type": "Heal",
+                          "amount": 20,
+                          "attack_ratio": 0,
+                          "ap_ratio": 15,
+                          "heal_type": "Caster"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Delayed",
+                  "tick": 239,
+                  "effects": [
+                    {
+                      "type": "RemoveCasterBuff",
+                      "name": "tft_mightymech_q_stance"
+                    },
+                    {
+                      "type": "CasterViewEffect",
+                      "name": "tft_mightymech_q_wave"
+                    },
+                    {
+                      "type": "Native",
+                      "effect_ref": "tft_mightymech:shockwave"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.tft_mightymech.skill2",
+    "duration": 40,
+    "cooltime": 720,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 70000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_mightymech_e"
+        },
+        {
+          "type": "Delayed",
+          "tick": 7,
+          "effects": [
+            {
+              "type": "Native",
+              "effect_ref": "tft_mightymech:leap"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.tft_mightymech.ult",
+    "duration": 90,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Sfx",
+          "name": "tft_mightymech_r"
+        },
+        {
+          "type": "CasterViewEffect",
+          "name": "tft_mightymech_r_transform"
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
+              "radius": 1000
+            }
+          },
+          "target": "AllyOnlySelf",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "Shield",
+              "amount": 150,
+              "attack_ratio": 0,
+              "ap_ratio": 80,
+              "tick": 300
+            }
+          ]
+        },
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "tft_mightymech_r_form",
+            "duration": {
+              "Time": {
+                "tick": 360
+              }
+            },
+            "defence_mult": 30,
+            "magic_resistance_mult": 30
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Delayed",
+          "tick": 29,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_mightymech_r_sword"
+            },
+            {
+              "type": "CasterViewEffect",
+              "name": "tft_mightymech_r_sword"
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 49,
+          "effects": [
+            {
+              "type": "Sfx",
+              "name": "tft_mightymech_r_swing"
+            },
+            {
+              "type": "Sfx",
+              "name": "tft_mightymech_r_hit"
+            },
+            {
+              "type": "LineRangeProjectile",
+              "name": "tft_mightymech_r_slash",
+              "width": 20000,
+              "length": 75000,
+              "delay": 2,
+              "apply": 1,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 125,
+                    "attack_ratio": 115,
+                    "hp_ratio": 0,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Airborne",
+                    "duration": 75
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "tft_mightymech_r_hit"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "tft_mightymech_r_slash",
+      "anim": "asset/tft/effects/tft_mightymech_big",
+      "tag": "r_slash",
+      "repeat": true,
+      "z": 1
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_a_hit",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "a_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_a_crush",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "a_crush",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_q_taunt",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "q_taunt",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_q_wave",
+      "anim": "asset/tft/effects/tft_mightymech_big",
+      "tag": "q_wave",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_q_hit",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "q_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_e_slam",
+      "anim": "asset/tft/effects/tft_mightymech_big",
+      "tag": "e_slam",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_e_up",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "e_up",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_r_transform",
+      "anim": "asset/tft/effects/tft_mightymech_big",
+      "tag": "r_transform",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_r_sword",
+      "anim": "asset/tft/effects/tft_mightymech_big",
+      "tag": "r_sword",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "tft_mightymech_r_hit",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "r_hit",
+      "z": 2,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "tft_mightymech_a_slow",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "a_slow",
+      "repeat": true,
+      "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "tft_mightymech_q_stance",
+      "anim": "asset/tft/effects/tft_mightymech_big",
+      "tag": "q_stance",
+      "repeat": true,
+      "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "tft_mightymech_r_form",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "r_form",
+      "repeat": true,
+      "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "tft_mightymech_p_shield",
+      "anim": "asset/tft/effects/tft_mightymech_fx",
+      "tag": "p_shield",
+      "repeat": true,
+      "z": 3
+    }
+  ]
+}

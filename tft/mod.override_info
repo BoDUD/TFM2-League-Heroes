@@ -4382,5 +4382,109 @@
   "asset/base/sound/sfx/tft_baronnashor_sfx_r_roar": {
     "remapping": "asset/tft/sound/sfx/tft_baronnashor_sfx_r_roar",
     "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_a": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_q": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_q_shield": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_q_shield",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_e": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_e_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_r": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_r_sword": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_r_sword",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_r_swing": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_r_swing",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_r_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_p": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_p",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_d": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_d",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_a": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_a",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_a_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_a_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_d": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_d",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_e": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_e",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_e_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_e_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_p": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_p",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_q": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_q",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_q_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_q_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_q_shield": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_q_shield",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_r": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_r",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_r_hit": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_r_hit",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_r_swing": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_r_swing",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/tft_mightymech_sfx_r_sword": {
+    "remapping": "asset/tft/sound/sfx/tft_mightymech_sfx_r_sword",
+    "type": "override"
   }
 }

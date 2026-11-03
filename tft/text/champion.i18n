@@ -266,6 +266,13 @@
         "skill": "向前方喷出扇形酸液，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理伤害<>，并使敌人<#ef5350ff>护甲和魔抗降低20%<>（<#ffb900ff>4秒<>）。",
         "skill2": "钻入地下冲向目标（期间免疫控制），破土而出，对周围敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞0.75秒<>。",
         "ult": "施放期间免疫控制。猛击地面竖起尖刺，对周围敌人造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理伤害<>；随后连续吐出<#ffb900ff>10<>团酸液，落在附近随机敌人身上，每团造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理伤害<>并腐蚀护甲和魔抗。"
+      },
+      "tft_mightymech": {
+        "name": "超级机甲",
+        "attack": "每第三下<#ff9028ff>活塞重斩<>额外造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理伤害<>并减速<#ffb900ff>30%<>。<#ff9028ff>旅人护航<>：每次开战为生命最低的队友提供<#ffb900ff>80<>+最大生命<#ffb900ff>6%<>的护盾（<#ffb900ff>10秒<>），自己双倍。",
+        "skill": "张开刃翼<#ffb900ff>4秒<>：受到伤害<#ffb900ff>-22%<>，<#ef5350ff>嘲讽<>附近敌人两次，每<#ffb900ff>0.5秒<>回复<#ffb900ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>；结束时冲击波造成<#ff9028ff>60<> + 双抗<#ff9028ff>60%<><#ff9028ff>物理伤害<>。",
+        "skill2": "跃向正在冲击我方后排的敌人，落地造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>，<#ef5350ff>击飞0.75秒<>。",
+        "ult": "究极变形：获得<#ffb900ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>护盾，双抗<#ffb900ff>+30%<>（<#ffb900ff>6秒<>）；剑核爆燃，向前劈出剑气，造成<#ff9028ff>125<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理伤害<>并<#ef5350ff>击飞1.25秒<>。"
       }
     },
     "skill_name": {
@@ -458,6 +465,11 @@
         "skill1": "腐蚀吐息",
         "skill2": "钻地突袭",
         "ult": "虚空之怒"
+      },
+      "tft_mightymech": {
+        "skill1": "引力矩阵",
+        "skill2": "机甲飞跃",
+        "ult": "究极变形·超级战刃"
       }
     }
   },
@@ -728,6 +740,13 @@
         "skill": "向前方噴出扇形酸液，造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<><#ff9028ff>物理傷害<>，並使敵軍<#ef5350ff>護甲和魔抗降低20%<>（<#ffb900ff>4秒<>）。",
         "skill2": "鑽入地下衝向目標（期間免疫控制），破土而出，對周圍敵軍造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛0.75秒<>。",
         "ult": "施放期間免疫控制。猛擊地面豎起尖刺，對周圍敵軍造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<><#ff9028ff>物理傷害<>；隨後連續吐出<#ffb900ff>10<>團酸液，落在附近隨機敵軍身上，每團造成<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<><#ff9028ff>物理傷害<>並腐蝕護甲和魔抗。"
+      },
+      "tft_mightymech": {
+        "name": "超能機甲",
+        "attack": "每第三下<#ff9028ff>活塞重斬<>額外造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<><#ff9028ff>物理傷害<>並緩速<#ffb900ff>30%<>。<#ff9028ff>星際旅人護航<>：每次開戰為生命最低的隊友提供<#ffb900ff>80<>+最大生命<#ffb900ff>6%<>的護盾（<#ffb900ff>10秒<>），自己雙倍。",
+        "skill": "張開刃翼<#ffb900ff>4秒<>：受到傷害<#ffb900ff>-22%<>，<#ef5350ff>嘲諷<>附近敵軍兩次，每<#ffb900ff>0.5秒<>回復<#ffb900ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>；結束時衝擊波造成<#ff9028ff>60<> + 雙抗<#ff9028ff>60%<><#ff9028ff>物理傷害<>。",
+        "skill2": "躍向正在衝擊我方後排的敵軍，落地造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>，<#ef5350ff>擊飛0.75秒<>。",
+        "ult": "究極變形：獲得<#ffb900ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>護盾，雙抗<#ffb900ff>+30%<>（<#ffb900ff>6秒<>）；劍核爆燃，向前劈出劍氣，造成<#ff9028ff>125<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<><#ff9028ff>物理傷害<>並<#ef5350ff>擊飛1.25秒<>。"
       }
     },
     "skill_name": {
@@ -920,6 +939,11 @@
         "skill1": "腐蝕吐息",
         "skill2": "鑽地突襲",
         "ult": "虛空之怒"
+      },
+      "tft_mightymech": {
+        "skill1": "重力矩陣",
+        "skill2": "機甲飛躍",
+        "ult": "究極變形·超級戰刃"
       }
     }
   },
@@ -1190,6 +1214,13 @@
         "skill": "Breathes a cone of acid ahead for <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>physical damage<>, <#ef5350ff>lowering armor and magic resist by 20%<> for <#ffb900ff>4s<>.",
         "skill2": "Burrows to the target (immune to crowd control) and bursts out, dealing <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> around it and <#ef5350ff>knocking up for 0.75s<>.",
         "ult": "Immune to crowd control while casting. Slams the ground, raising spikes for <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>physical damage<> around it, then spits <#ffb900ff>10<> acid balls at random nearby enemies, each <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>physical damage<> and corroding armor and magic resist."
+      },
+      "tft_mightymech": {
+        "name": "The Mighty Mech",
+        "attack": "Every third swing, <#ff9028ff>Piston Slash<> deals <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> bonus <#ff9028ff>physical damage<> and slows by <#ffb900ff>30%<>. <#ff9028ff>Voyager Escort<>: as each fight starts, shields the lowest-health ally for <#ffb900ff>80<> + <#ffb900ff>6%<> of its max health (<#ffb900ff>10s<>), itself double.",
+        "skill": "Spreads its wings for <#ffb900ff>4s<>: takes <#ffb900ff>22%<> less damage, <#ef5350ff>taunts<> nearby enemies twice and heals <#ffb900ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> every <#ffb900ff>0.5s<>; then a shockwave deals <#ff9028ff>60<> + <#ff9028ff>60%<> of its armor and magic resist as <#ff9028ff>physical damage<>.",
+        "skill2": "Leaps onto the enemy diving its back line, dealing <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<> on landing and <#ef5350ff>knocking up for 0.75s<>.",
+        "ult": "Transforms: gains a <#ffb900ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> shield and <#ffb900ff>+30%<> armor and magic resist (<#ffb900ff>6s<>); its blade blazes and cleaves forward for <#ff9028ff>125<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> <#ff9028ff>physical damage<>, <#ef5350ff>knocking up for 1.25s<>."
       }
     },
     "skill_name": {
@@ -1382,6 +1413,11 @@
         "skill1": "Corrosive Breath",
         "skill2": "Burrow Strike",
         "ult": "Wrath of the Void"
+      },
+      "tft_mightymech": {
+        "skill1": "Gravity Matrix",
+        "skill2": "Mecha Leap",
+        "ult": "Ultimate Form: Super Blade"
       }
     }
   },
@@ -1652,6 +1688,13 @@
         "skill": "앞쪽 부채꼴로 산성액을 뿜어 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> <#ff9028ff>물리 피해<>, <#ffb900ff>4초<> 동안 <#ef5350ff>방어력과 마법 저항력 20% 감소<>.",
         "skill2": "땅속으로 파고들어 대상에게 이동(군중 제어 면역)한 뒤 솟아올라 주변 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.75초 에어본<>.",
         "ult": "시전 중 군중 제어 면역. 땅을 내리쳐 가시를 솟게 해 주변 적에게 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> <#ff9028ff>물리 피해<>; 이후 주변 무작위 적에게 산성 덩어리 <#ffb900ff>10<>개를 뱉어 각각 <#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<> <#ff9028ff>물리 피해<>와 방어력·마법 저항력 부식."
+      },
+      "tft_mightymech": {
+        "name": "거대 메크 로봇",
+        "attack": "세 번째 공격마다 <#ff9028ff>피스톤 베기<>로 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> 추가 <#ff9028ff>물리 피해<>, <#ffb900ff>30%<> 둔화. <#ff9028ff>여행자 호위<>: 전투가 시작될 때마다 체력이 가장 낮은 아군에게 <#ffb900ff>80<> + 최대 체력의 <#ffb900ff>6%<> 보호막(<#ffb900ff>10초<>), 자신은 두 배.",
+        "skill": "<#ffb900ff>4초<> 동안 날개를 펼쳐 받는 피해 <#ffb900ff>-22%<>, 주변 적을 두 번 <#ef5350ff>도발<>, <#ffb900ff>0.5초<>마다 <#ffb900ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> 회복; 끝날 때 충격파로 <#ff9028ff>60<> + 방어력과 마법 저항력의 <#ff9028ff>60%<> <#ff9028ff>물리 피해<>.",
+        "skill2": "아군 후열을 덮치는 적에게 도약해 착지 시 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>물리 피해<>, <#ef5350ff>0.75초 띄워 올림<>.",
+        "ult": "변신: <#ffb900ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 보호막과 방어력·마법 저항력 <#ffb900ff>+30%<>(<#ffb900ff>6초<>); 검의 핵이 타오르며 전방을 베어 <#ff9028ff>125<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<> <#ff9028ff>물리 피해<>, <#ef5350ff>1.25초 띄워 올림<>."
       }
     },
     "skill_name": {
@@ -1844,6 +1887,11 @@
         "skill1": "부식성 숨결",
         "skill2": "땅굴 습격",
         "ult": "공허의 분노"
+      },
+      "tft_mightymech": {
+        "skill1": "중력 매트릭스",
+        "skill2": "메카 도약",
+        "ult": "궁극 형태: 슈퍼 블레이드"
       }
     }
   },
@@ -2114,6 +2162,13 @@
         "skill": "前方扇状に酸を吐き、<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の<#ff9028ff>物理ダメージ<>を与え、<#ef5350ff>物理防御と魔法防御を20%低下<>（<#ffb900ff>4秒<>）。",
         "skill2": "地中に潜って対象へ移動し（行動妨害無効）、地上へ飛び出して周囲の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>と<#ef5350ff>0.75秒のノックアップ<>。",
         "ult": "詠唱中は行動妨害無効。地面を叩いてトゲを突き出し、周囲の敵に<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の<#ff9028ff>物理ダメージ<>。その後、近くのランダムな敵へ酸の塊を<#ffb900ff>10<>個吐き、各<#ff9028ff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>30%<>の<#ff9028ff>物理ダメージ<>と防御の腐食。"
+      },
+      "tft_mightymech": {
+        "name": "マイティーロボ",
+        "attack": "3回目の攻撃ごとに<#ff9028ff>ピストンスラッシュ<>で<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>の追加<#ff9028ff>物理ダメージ<>、<#ffb900ff>30%<>スロウ。<#ff9028ff>ボイジャーエスコート<>：戦闘開始のたびに体力が最も低い味方に<#ffb900ff>80<>+最大体力の<#ffb900ff>6%<>のシールド（<#ffb900ff>10秒<>）、自身は2倍。",
+        "skill": "翼を広げて<#ffb900ff>4秒<>間、被ダメージ<#ffb900ff>-22%<>、周囲の敵を2回<#ef5350ff>挑発<>し、<#ffb900ff>0.5秒<>ごとに<#ffb900ff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>回復。終了時の衝撃波で<#ff9028ff>60<>+物理・魔法防御の<#ff9028ff>60%<>の<#ff9028ff>物理ダメージ<>。",
+        "skill2": "味方の後衛を狙う敵へ跳びかかり、着地で<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>0.75秒ノックアップ<>。",
+        "ult": "変形：<#ffb900ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>のシールドと物理・魔法防御<#ffb900ff>+30%<>（<#ffb900ff>6秒<>）。剣の核が燃え、前方を斬り裂き<#ff9028ff>125<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>115%<>の<#ff9028ff>物理ダメージ<>、<#ef5350ff>1.25秒ノックアップ<>。"
       }
     },
     "skill_name": {
@@ -2306,6 +2361,11 @@
         "skill1": "腐食のブレス",
         "skill2": "地中強襲",
         "ult": "ヴォイドの激憤"
+      },
+      "tft_mightymech": {
+        "skill1": "グラビティマトリックス",
+        "skill2": "メカリープ",
+        "ult": "アルティメットフォーム：スーパーブレード"
       }
     }
   }

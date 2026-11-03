@@ -98,7 +98,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 <!-- HEROES:BEGIN -->
 <!-- 这一段由 tools/docs/gen_hero_docs.py 生成，请不要手改。 -->
 
-共 211 位：主包 173 位、tft 包 38 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
+共 212 位：主包 173 位、tft 包 39 位。点名字看这位英雄现在的技能、附加包和开发记录；表格版见 [docs/heroes.xlsx](docs/heroes.xlsx)。
 
 ### 上单（49）
 
@@ -299,7 +299,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_raptor.png" width="32"> | [深红锋喙鸟](docs/heroes/tft_raptor.md)<br>Mama Beak（tft 包） | ADC | 羽刃扇射 · 惊飞跃退 · 大招 鸟群之家 | — | PPU 1.56 |
 | <img src="docs/heroes/img/tft_sentry.png" width="32"> | [苍蓝哨戒](docs/heroes/tft_sentry.md)<br>Pebbles（tft 包） | ADC | 蔚蓝激光 · 裂石跃迁 · 大招 棱镜扫射 | — | PPU 1.29 |
 
-### 辅助（32）
+### 辅助（33）
 
 | 头像 | 英雄 | 分路 | 技能 | 附加包 | 高清帧 |
 |---|---|---|---|---|---|
@@ -335,6 +335,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/tft_meepsie.png" width="32"> | [小木灵](docs/heroes/tft_meepsie.md)<br>Meepsie（tft 包） | 辅助 | 月尘震地 · 治疗木灵 · 大招 宇宙大爆炸 | — | PPU 2.88 |
 | <img src="docs/heroes/img/tft_scuttlecrab.png" width="32"> | [迅捷蟹](docs/heroes/tft_scuttlecrab.md)<br>Scuttle Crab（tft 包） | 辅助 | 疾行神龛 · 蟹壳护盾 · 大招 你挖得动吗？ | — | PPU 2.67 |
 | <img src="docs/heroes/img/tft_steb.png" width="32"> | [斯特卜](docs/heroes/tft_steb.md)<br>Steb（tft 包） | 辅助 | 战地医疗 · 通缉令 · 大招 医疗背包 | — | PPU 2.6 |
+| <img src="docs/heroes/img/tft_mightymech.png" width="32"> | [超级机甲](docs/heroes/tft_mightymech.md)<br>The Mighty Mech（tft 包） | 辅助 | 引力矩阵 · 机甲飞跃 · 大招 究极变形·超级战刃 | — | PPU 2 |
 
 <!-- HEROES:END -->
 
