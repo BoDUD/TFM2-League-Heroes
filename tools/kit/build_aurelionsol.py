@@ -36,12 +36,15 @@ the combos can cast them; a slot cast while its flag is up does nothing (a 3-tic
           champion's health - the add-on's league_aurelionsol:singularity executes below e_low% (+ e_low_d per stardust
           tier) in the core instead).
   ult     Falling Star (星落): a `Targeting` cast on `EnemyChampion` (r_range): r_fall ticks later the star crashes on the
-          target's spot: r_r wide, r_dmg + r_ratio% AP, stunned r_stun ticks.
+          target's spot: r_r wide, r_dmg + r_ratio% AP, knocked up r_air ticks (League's Falling Star stuns; the user
+          2026-11-03: 「龙王的大招没有起飞效果」「击飞效果」 - a knock-up, as long as the stun was).
           The Skies Descend (天瀑), with `sky` up: r_r2 wide, r_dmg2 + r_ratio2% AP, knocked up r_up ticks; r_wave_at
           ticks later the shockwave from its edge (r_wave wide): r_wdmg + r_wratio% AP and r_wslow% slower for r_wslow_t.
+          Everyone either form knocks up shows `r_up`: his own take-off swirl (the `w_lift` picture of Astral Flight)
+          under him, following him (the knock-up alone drew nothing).
   combos  E -> Q: the black hole's first champion caught has the controller breathe at it at once (if `q_cd` is off);
           while a black hole lasts (`e_on`) he has e_ap% ability power (the pulled ones take more).
-          R -> E: the star's impact drops the black hole on the same spot at once if `e_cd` is off (stunned, then pulled);
+          R -> E: the star's impact drops the black hole on the same spot at once if `e_cd` is off (knocked up, then pulled);
           only for Aurelion Sol himself (`own`: league_sylas's stolen ult brings the star alone).
           Stardust full -> The Skies Descend (sky_n stardust, above).
           Takedown -> flight with the breath unbound (above).
@@ -97,7 +100,7 @@ P = {
     "e_ap": 15, "e_low": 5, "e_low_d": 1, "e_low_n": 15,
     # ult: Falling Star / The Skies Descend
     "r_cd": 2100, "r_range": 125000, "r_dur": 36, "r_rel": 14, "r_fall": 30, "r_r": 22000, "r_dmg": 270,
-    "r_ratio": 85, "r_stun": 60, "r_r2": 30000, "r_dmg2": 350, "r_ratio2": 105, "r_up": 50, "r_wave_at": 12,
+    "r_ratio": 85, "r_air": 60, "r_r2": 30000, "r_dmg2": 350, "r_ratio2": 105, "r_up": 60, "r_wave_at": 12,
     "r_wave": 45000, "r_wdmg": 80, "r_wratio": 30, "r_wslow": 50, "r_wslow_t": 90,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -367,8 +370,8 @@ def build(p):
         k = grown(p, t)
         return combine(view(tier_tag("r_impact", t)), sfx("r_land"),
                        blast("r_blast", round(p["r_r"] * k), [ap(p["r_dmg"], p["r_ratio"]),
-                                                              {"type": "Stun", "duration": p["r_stun"]},
-                                                              view("r_hit"), tsfx("r_hit")]),
+                                                              {"type": "Airborne", "duration": p["r_air"]},
+                                                              view("r_hit"), view("r_up"), tsfx("r_hit")]),
                        blast("r_tw", round(p["r_r"] * k), [r_gain()], "EnemyChampion"))
 
     wave_hit = [ap(p["r_wdmg"], p["r_wratio"]), buff("r_slow", p["r_wslow_t"], move_speed_mult=-p["r_wslow"]),
@@ -379,7 +382,7 @@ def build(p):
         return combine(*rm("sky"), view(tier_tag("r_sky", t)), sfx("r_sky"),
                        blast("r_blast2", round(p["r_r2"] * k), [ap(p["r_dmg2"], p["r_ratio2"]),
                                                                 {"type": "Airborne", "duration": p["r_up"]},
-                                                                view("r_hit"), tsfx("r_hit")]),
+                                                                view("r_hit"), view("r_up"), tsfx("r_hit")]),
                        blast("r_tw2", round(p["r_r2"] * k), [r_gain()], "EnemyChampion"),
                        delayed(p["r_wave_at"], view(tier_tag("r_wave", t)), sfx("r_wave"),
                                blast("r_shock", round(p["r_wave"] * k), wave_hit)))
@@ -433,7 +436,9 @@ def build(p):
     views_p = [Pj("a_bolt"), Pj("q_beam"), Pj("e_orb")]   # r_star flies unseen: r_fall draws the star coming down
     views_e = [E("a_hit"), E("q_hit"), E("e_hole", BIG, -1, False), E("e_core"), E("r_call", FX, 3, False), E("r_fall", BIG, 3, False),
                E("r_impact", BIG, -1, False), E("r_sky", BIG, -1, False), E("r_wave", BIG, -1, False), E("r_hit"),
-               E("w_lift", FX, 3, False), E("d_gain"), E("sky_ready")]
+               E("w_lift", FX, 3, False), E("d_gain"), E("sky_ready"),
+               # the knock-up: his take-off swirl under each one the star throws up, following him
+               {**E("r_up"), "tag": "w_lift"}]
     views_e += [E(tier_tag(x, t), BIG, -1, False) for t in range(1, tiers(p) + 1)
                 for x in ("e_hole", "r_impact", "r_sky", "r_wave")]
     views_b = [B_("e_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"), B_("w_fly", FX, -1, "w_trail"),

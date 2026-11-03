@@ -65,7 +65,7 @@ TEXT = {
                  "魔法伤害，喷同一目标" + t("1秒") + "后每次额外{q_sec_dmg}；被控制打断。飞行中无冷却、引导更久。",
         "skill2": "在目标处召唤黑洞（" + t("{e_t}秒") + "），每" + t("{e_p}秒") + "造成" + mag("e_dmg", "e_ratio") +
                   "魔法伤害，把敌人拉向中心并" + cc("减速") + "{e_slow}%；中心每秒造成英雄最大生命值{e_exec}%的真实伤害。",
-        "ult": n("星落") + "：星星坠落在目标处，造成" + mag("r_dmg", "r_ratio") + "魔法伤害并" + cc("眩晕") + t("{r_stun}秒") +
+        "ult": n("星落") + "：星星坠落在目标处，造成" + mag("r_dmg", "r_ratio") + "魔法伤害并" + cc("击飞") + t("{r_air}秒") +
                "。" + n("天瀑") + "：范围更大，" + mag("r_dmg2", "r_ratio2") + "并" + cc("击飞") + t("{r_up}秒") +
                "，外圈冲击波再造成" + mag("r_wdmg", "r_wratio") + "并" + cc("减速") + "{r_wslow}%。" +
                "星尘每{grow_n}层，星落、天瀑和黑洞的范围大一档（满层{grow_k}倍）。",
@@ -79,8 +79,8 @@ TEXT = {
                  "魔法傷害，噴同一目標" + t("1秒") + "後每次額外{q_sec_dmg}；被控制打斷。飛行中無冷卻、引導更久。",
         "skill2": "在目標處召喚奇點（" + t("{e_t}秒") + "），每" + t("{e_p}秒") + "造成" + mag("e_dmg", "e_ratio") +
                   "魔法傷害，把敵人拉向中心並" + cc("緩速") + "{e_slow}%；中心每秒造成英雄最大生命{e_exec}%的真實傷害。",
-        "ult": n("降世星辰") + "：星辰墜落在目標處，造成" + mag("r_dmg", "r_ratio") + "魔法傷害並" + cc("暈眩") +
-               t("{r_stun}秒") + "。" + n("天界殞落") + "：範圍更大，" + mag("r_dmg2", "r_ratio2") + "並" + cc("擊飛") +
+        "ult": n("降世星辰") + "：星辰墜落在目標處，造成" + mag("r_dmg", "r_ratio") + "魔法傷害並" + cc("擊飛") +
+               t("{r_air}秒") + "。" + n("天界殞落") + "：範圍更大，" + mag("r_dmg2", "r_ratio2") + "並" + cc("擊飛") +
                t("{r_up}秒") + "，外圈衝擊波再造成" + mag("r_wdmg", "r_wratio") + "並" + cc("緩速") + "{r_wslow}%。" +
                "星塵每{grow_n}層，降世星辰、天界殞落和奇點的範圍大一檔（滿層{grow_k}倍）。",
         "names": ("星光吐息", "宇宙奇點", "降世星辰"),
@@ -98,7 +98,7 @@ TEXT = {
                   mag("e_dmg", "e_ratio") + " magic damage, pulling enemies toward its centre and " + cc("slowing") +
                   " them {e_slow}%; its centre deals {e_exec}% of a champion's maximum health as true damage each second.",
         "ult": n("Falling Star") + ": a star crashes on the target for " + mag("r_dmg", "r_ratio") + " magic damage and a " +
-               t("{r_stun}s") + " " + cc("stun") + ". " + n("The Skies Descend") + ": a wider impact, " +
+               t("{r_air}s") + " " + cc("knock-up") + ". " + n("The Skies Descend") + ": a wider impact, " +
                mag("r_dmg2", "r_ratio2") + " and a " + t("{r_up}s") + " " + cc("knock-up") + ", then a shockwave from its "
                "edge for " + mag("r_wdmg", "r_wratio") + " and a {r_wslow}% " + cc("slow") + "." +
                " Every {grow_n} Stardust widen the star, the Skies and the black hole a step ({grow_k}x when full).",
@@ -113,8 +113,8 @@ TEXT = {
                  " 마법 피해, 한 대상에 " + t("1초") + " 이상 시 매번 {q_sec_dmg} 추가; 군중 제어에 끊김. 비행 중 재사용 대기시간 없음.",
         "skill2": "대상 위치에 " + t("{e_t}초") + " 동안 블랙홀 소환: " + t("{e_p}초") + "마다 " + mag("e_dmg", "e_ratio") +
                   " 마법 피해, 적을 중심으로 끌어당기고 {e_slow}% " + cc("둔화") + "; 중심은 매초 챔피언 최대 체력의 {e_exec}% 고정 피해.",
-        "ult": n("유성") + ": 대상 위치에 별이 떨어져 " + mag("r_dmg", "r_ratio") + " 마법 피해와 " + t("{r_stun}초") + " " +
-               cc("기절") + ". " + n("천상 강림") + ": 더 넓게 " + mag("r_dmg2", "r_ratio2") + "와 " + t("{r_up}초") + " " +
+        "ult": n("유성") + ": 대상 위치에 별이 떨어져 " + mag("r_dmg", "r_ratio") + " 마법 피해와 " + t("{r_air}초") + " " +
+               cc("에어본") + ". " + n("천상 강림") + ": 더 넓게 " + mag("r_dmg2", "r_ratio2") + "와 " + t("{r_up}초") + " " +
                cc("에어본") + ", 이어서 가장자리 충격파 " + mag("r_wdmg", "r_wratio") + "와 {r_wslow}% " + cc("둔화") + "." +
                " 별무리 {grow_n}개마다 유성·천상 강림·특이점 범위 증가(최대 {grow_k}배).",
         "names": ("빛의 숨결", "특이점", "유성"),
@@ -128,8 +128,8 @@ TEXT = {
                  "の魔法ダメージ、同じ対象に" + t("1秒") + "以上で毎回+{q_sec_dmg}；行動妨害で中断。飛行中はクールダウンなし。",
         "skill2": "対象の位置に" + t("{e_t}秒") + "ブラックホールを召喚：" + t("{e_p}秒") + "ごとに" + mag("e_dmg", "e_ratio") +
                   "の魔法ダメージ、敵を中心へ引き寄せ{e_slow}%" + cc("スロウ") + "；中心は毎秒チャンピオンの最大体力{e_exec}%の確定ダメージ。",
-        "ult": n("星の邂逅") + "：対象の位置に星が落ち" + mag("r_dmg", "r_ratio") + "の魔法ダメージと" + t("{r_stun}秒") +
-               cc("スタン") + "。" + n("崩れ落つ天穹") + "：範囲が広く" + mag("r_dmg2", "r_ratio2") + "と" + t("{r_up}秒") +
+        "ult": n("星の邂逅") + "：対象の位置に星が落ち" + mag("r_dmg", "r_ratio") + "の魔法ダメージと" + t("{r_air}秒") +
+               cc("ノックアップ") + "。" + n("崩れ落つ天穹") + "：範囲が広く" + mag("r_dmg2", "r_ratio2") + "と" + t("{r_up}秒") +
                cc("ノックアップ") + "、続いて外縁の衝撃波" + mag("r_wdmg", "r_wratio") + "と{r_wslow}%" + cc("スロウ") + "。" +
                "星屑{grow_n}個ごとにウルトと特異点の範囲拡大（最大{grow_k}倍）。",
         "names": ("星炎の息吹", "特異点", "星の邂逅"),
@@ -153,7 +153,7 @@ def secs(tk):
 def values(p):
     v = {k: p[k] for k in ("d_ap", "d_ap_n", "d_max", "grow_n", "sky_n", "w_ms", "w_ap", "q_dmg", "q_ratio", "q_sec_dmg", "e_dmg", "e_ratio",
                            "e_slow", "e_exec", "r_dmg", "r_ratio", "r_dmg2", "r_ratio2", "r_wdmg", "r_wratio", "r_wslow")}
-    for k in ("w_t", "q_t", "q_p", "e_t", "e_p", "r_stun", "r_up"):
+    for k in ("w_t", "q_t", "q_p", "e_t", "e_p", "r_air", "r_up"):
         v[k] = secs(p[k])
     v["grow_k"] = f"{p['grow_x'] / 100:g}"
     return v
