@@ -1,4 +1,4 @@
-# 参与击杀附加包（测试版 v0.4.0，可选）：金克丝、崔丝塔娜、易、图奇
+# 参与击杀附加包（测试版 v0.5.0，可选）：金克丝、崔丝塔娜、易、图奇
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -6,7 +6,7 @@
 
 | 英雄 | 主包（纯数据） | 装了附加包 |
 |---|---|---|
-| 金克丝 | 罪恶快感：亲手击杀英雄后 | 每一次英雄击杀和助攻（几个人同时阵亡也各算一次） |
+| 金克丝 | 罪恶快感：亲手击杀英雄后；跑起来还是慢跑的步子 | 每一次英雄击杀和助攻（几个人同时阵亡也各算一次）；**冲刺跑**（v0.5.0）：前两档移速还在时（4 秒）她跑起来步频快 1.67 倍、上身前倾、身后两道残影 |
 | 崔丝塔娜 | 火箭跳跃：她击杀敌方英雄（或满层引爆炸弹）时刷新 | 每一次英雄击杀和助攻都刷新（满层引爆照旧） |
 | 易 | 无极剑道期间阿尔法突袭、冥想的冷却加快 40%（近似）；冥想和无极剑道是同一个技能，AI 一开打就放，满血也先盘腿 0.75 秒 | 每一次英雄击杀和助攻，阿尔法突袭、无极剑道和冥想的剩余冷却减 70%，无极剑道开着时再延长 4 秒；每次普攻阿尔法突袭冷却减 1 秒；无极剑道期间免疫减速；**冥想分出来**（v0.4.0）：技能 2 只剩无极剑道、立刻生效，冥想在打架中生命低于 50% 或 1 秒内掉了 25% 时才放（20 秒一次） |
 | 图奇 | 埋伏：他击杀敌方英雄时刷新；E 毒性爆发：最近打中英雄 3 次后、或毒桶落地后就引爆 | 埋伏助攻也刷新；E 等到有人满 6 层毒、或这一爆能毒死人才引爆（v0.3.0），条件一满足下一箭就爆（v0.3.1） |
@@ -28,16 +28,18 @@
     - 易的冥想（v0.4.0，`on_update`）：身边 60000 内有敌方英雄，生命低于 50% 或 60 tick 内掉了最大生命的 25%，冥想自己的冷却（1200 tick）好了，没被控、不在出手中（动作在播、被强制位移）：播 `skill2` 动作 45 tick（盘腿，期间不能动）、挂主包的 `league_masteryi_meditate`（受到的伤害降低 40%，60 tick），播主包的画面和声音，之后每 30 tick 回复 5 + 3% 攻击力、共 4 次。每次记一行 `YI MEDITATE`；
     - 图奇（只在 `on_assist`，击杀由主包自己刷新）：Q 还在冷却就清零，播主包的刷新画面和声音 `league_twitch_q_reset`；`on_update`：E 不在冷却时，120000 内有英雄满 6 层、或层数 × (6 + 16% 攻击力) 按护甲折算后打得死他（算上护盾），就挂 30 tick 的 `tw_e_go`；看到主包的爆发标记 `league_twitch_e_pop` 就把层数清零（引爆本身还是主包的，每层毒各结算一次），记一行 `TWITCH E POP`。
   - 易的普攻（v0.3.2：`on_update` 看普攻栏的冷却变长，才算打出一下真正的普攻；原来的 `on_attack` 连 Q、E 的每一下伤害都算，Q 自己就把冷却减没了，用户：「剑圣会无限Q？」）：阿尔法突袭冷却减 60 tick；`on_update`：无极剑道期间去掉他身上所有降低移速的 buff。
+- 金克丝的冲刺跑（v0.5.0，用户 2026-11-03：「金克丝刷新被动后少了点跑步的加速动作？」）：罪恶快感前 2 秒移速 +100%、再 2 秒 +60%，腿却还是慢跑的步子，看着像在地上滑。主包的图里多了慢跑的冲刺版 `run_x`（`hd_run_x`、`lo_run_x`，[`tools/art/jinx_excited_run.py`](../../tools/art/jinx_excited_run.py)）：同样 8 帧、每帧 0.07 秒（慢跑 0.117 秒），腰以上前倾约 11°（机枪、手臂和腿不动，辫子往后弯），身后两道青色残影（前一帧、前两帧的姿势，退后 5、10 格，远的更淡）；每帧两边各加宽 12 格（高清 26），帧中心（游戏的锚点）不变。游戏按名字自动播 `run`，数据换不了，`src/view.rs` 照沃利贝尔的风暴形态挂在 game_places 的显示钩子上：名字是 `league_jinx` 的实体正在播 `run`、身上有罪恶快感的第一档或第二档移速 buff（`league_jinx_excited_ms1` / `_ms2`）时换成 `run_x`，buff 没了换回来；两套帧数一样，跑到一半换也接得上。只在游戏 0.6.4 起的 Windows 版上生效，别的版本照旧慢跑。
 - 状态都在被动自己的对象里，游戏 0.6.4 同时跑的两份预模拟各算各的。
 
 ## 在游戏里测
 
-1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
+1. 主包（League of Legends Heroes 0.304.0 以上：金克丝的冲刺帧）要装着并启用。
 2. 把 `league_takedowns` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 金克丝普攻、崔丝塔娜 E（火箭跳跃）、易 R 的说明开头是「【附加包】」就说明换上了。
-4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`：`JINX EXCITED #n (assist)`、`TRISTANA W RESET #n (killed #7)`、`YI TAKEDOWN #n (assist): Q 300 -> 90, W 400 -> 120, Highlander extended`、`TWITCH E GO #n`（标记挂上）和 `TWITCH E POP #n: stacks [..]`（真的引爆了）。
+4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_takedowns.log`：`JINX EXCITED #n (assist)`、`TRISTANA W RESET #n (killed #7)`、`YI TAKEDOWN #n (assist): Q 300 -> 90, W 400 -> 120, Highlander extended`、`TWITCH E GO #n`（标记挂上）和 `TWITCH E POP #n: stacks [..]`（真的引爆了）；开头一行 `SPRINT Jinx's Get Excited run on` 是冲刺跑挂上了，`SPRINT display world .. Jinx #..: Get Excited - runs as run_x` 是她开始冲刺。
 
 ## 开发
 
 - `python addons/league_takedowns/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。三人在主包里改了就重跑。
+- `python tools/art/jinx_excited_run.py`：重做金克丝图里的冲刺帧（`--preview <文件夹>` 看慢跑和冲刺）；她的图用 `ppu_hd.py` 重新生成后要再跑一次。
 - `cargo test -p league_takedowns`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。

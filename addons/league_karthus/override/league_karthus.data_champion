@@ -4034,6 +4034,30 @@
       "tag": "r_hit",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_karthus_p_ghost_r",
+      "anim": "asset/league/effects/league_karthus_ghost",
+      "tag": "ghost_r",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_karthus_p_ghost_l",
+      "anim": "asset/league/effects/league_karthus_ghost",
+      "tag": "ghost_l",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_karthus_e_ring",
+      "anim": "asset/league/effects/league_karthus_big",
+      "tag": "e_on",
+      "z": -1,
+      "is_follow": false
     }
   ],
   "view_buffs": [

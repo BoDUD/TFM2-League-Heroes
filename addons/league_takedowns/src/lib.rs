@@ -6,6 +6,8 @@
 //!
 //! - **金克丝 `league_takedowns:jinx`**：每一次英雄击杀和助攻都给「罪恶快感」——主包的四个 buff（攻速、三段移速，名字和
 //!   数字照主包，`make_override.py` 核对），播主包的画面和音效。副本去掉数据里的击杀检查（不然她自己的击杀算两次）。
+//!   v0.5.0（用户 2026-11-03：「金克丝刷新被动后少了点跑步的加速动作？」）：罪恶快感的前两档移速还在时，她跑起来播图里的
+//!   冲刺跑 `run_x`（步频快 1.67 倍、上身前倾、身后两道残影），本包在显示世界里换动画名（`view.rs`）。
 //! - **崔丝塔娜 `league_takedowns:tristana`**：每一次英雄击杀和助攻都刷新火箭跳跃（去掉主包的冷却标记 `league_tristana_w_cd`，
 //!   播主包的「就绪」画面）。主包自己的击杀检查留着（同一个标记，去两次也一样）。
 //! - **易 `league_takedowns:masteryi`**：每一次英雄击杀和助攻，阿尔法突袭和冥想（无极剑道）的剩余冷却减 `YI_CUT`%；
@@ -39,6 +41,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+pub mod view;
 
 const ID: &str = "league_takedowns";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -604,6 +608,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_passive(format!("{ID}:masteryi"), MasterYi::default());
     module.add_native_passive(format!("{ID}:twitch"), Twitch::default());
     module.add_native_effect(format!("{ID}:twitch_venom"), Venom);
+    view::install_once();
     host.log(LogLevel::Info, "league_takedowns v1 loaded (Jinx, Tristana and Master Yi on every takedown).");
 }
 
