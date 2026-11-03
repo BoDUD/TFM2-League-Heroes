@@ -53,6 +53,9 @@ const ULT: &str = "the ult";
 const FLASH_TRAIL: usize = 4;
 /// 场上最多同时留几块碎片（多了丢最早的）。
 const MAX_SHARDS: usize = 3;
+/// 离她这么远以内放的大招才掉碎片（0.5.2，用户 2026-11-03：「还有这个召唤师技能为什么满屏幕有 佐伊的」）：以前地图上谁放
+/// 大招都掉，她去不了的远处也躺着，满屏都是；英雄联盟的碎片也只在她附近才有意义。
+pub const SHARD_NEAR: u64 = 150_000;
 /// 碎片的画面多少 tick 重放一次（画面 4 帧 x 约 100 ms）。
 const SHARD_VIEW: usize = 15;
 /// 飞星出手后多少 tick 内看打中（95000 / 4000 一 tick 不到 30 tick 就飞完）。
@@ -332,6 +335,8 @@ struct Sparkles {
     stars: usize,
     sleeps: usize,
     wakes: usize,
+    /// 困倦结束后没看见睡着的（日志里写下他当时身上的控制，看游戏的睡眠到底报成什么）。
+    misses: usize,
     picked: usize,
     dropped: usize,
     next_report: usize,
@@ -346,6 +351,13 @@ struct Sparkles {
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id)
         .map_or(false, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+}
+
+/// 他身上的控制：`种类代码:剩余 tick`（日志用）。
+fn cc_list(sim: &StableSim<'_>, id: usize) -> String {
+    sim.get_entity(id).map_or_else(String::new, |e| {
+        (0..e.cc_count()).filter_map(|i| e.cc_at(i)).map(|c| format!("{}:{}", c.kind, c.tick)).collect::<Vec<_>>().join(" ")
+    })
 }
 
 /// 身上有眩晕（游戏的睡眠在稳定接口里就是眩晕）。
@@ -562,7 +574,15 @@ impl Sparkles {
                     self.sleeps += 1;
                     keep.push(s);
                 }
-                Watch::Missed => {}
+                Watch::Missed => {
+                    // 0.5.2: 11-03 every WATCH said sleeps 0 - the game's sleep never read as a Stun here, or it never
+                    // landed: what he carries now tells the two apart in the next game
+                    self.misses += 1;
+                    if self.misses <= 8 || self.misses % 20 == 0 {
+                        wlog(format!("{} MISS #{}: #{} not held {} ticks after the drowsy ended; crowd control now [{}]",
+                                     head(sim, me), self.misses, s.target, tick - s.sleep_at, cc_list(sim, s.target)));
+                    }
+                }
                 Watch::Woke => {
                     sim.entity_remove_buff(s.target, &zz);
                     sim.play_view_effect(&zo("e_wake"), me, &InputTargetV1::target(s.target), 0, 0, 0);
@@ -586,7 +606,7 @@ impl Sparkles {
             let Some(cd) = sim.get_entity(id).and_then(|e| e.cooldown(SkillSlotV1::Ult)) else { continue };
             let now = cd.remaining;
             let was = self.ult_cd.iter().find(|c| c.0 == id).map(|c| c.1);
-            if was.is_some_and(|w| ult_cast(w, now)) {
+            if was.is_some_and(|w| ult_cast(w, now)) && dist(pos, at) <= SHARD_NEAR {
                 if self.shards.len() >= MAX_SHARDS {
                     self.shards.remove(0);
                 }
@@ -694,8 +714,8 @@ impl StablePassive for Sparkles {
         if tick >= self.next_report {
             self.next_report = tick + 1800;
             if tick > 0 {
-                wlog(format!("{} WATCH: stars {}, sleeps {}, wakes {}, shards dropped {} picked {}, summoner spells {}",
-                             head(sim, me), self.stars, self.sleeps, self.wakes, self.dropped, self.picked, self.summons));
+                wlog(format!("{} WATCH: stars {}, sleeps {}, wakes {}, missed sleeps {}, shards dropped {} picked {}, summoner spells {}",
+                             head(sim, me), self.stars, self.sleeps, self.wakes, self.misses, self.dropped, self.picked, self.summons));
             }
         }
     }
@@ -734,6 +754,14 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn shards_fall_only_near_her() {
+        // 「召唤师技能为什么满屏幕有」: a far ult drops nothing; a near one well beyond her pick-up reach still does
+        let p = Params::default();
+        assert!(SHARD_NEAR > 4 * p.s_r as u64 && SHARD_NEAR <= 200_000);
+        assert!(dist((0, 0), (SHARD_NEAR + 1, 0)) > SHARD_NEAR);
+    }
 
     #[test]
     fn the_zz_follows_the_games_sleep() {

@@ -251,7 +251,11 @@ def barrier():
     under her soles to over her hair, a sparse gold shimmer inside it drifting up, its shine sliding down a side,
     sparkles twinkling."""
     c = PAL["barrier"]
-    cy, rx, ry = SY - 26, 44, 52                    # 13 px up; 22 x 26 px: soles - 7 px .. 39 px over them, her mane in it
+    # 17 px up, 15 x 22 px half-axes: a shell hugging her (soles - 5 px .. 39 px over them, her mane in it), League's
+    # thin shell. It was 22 x 26 px (44 x 52 across) - and the game drew it twice that, 88 x 104 px, three times her
+    # height, until league_main's DRAWN_EFFECTS listed this sheet (the user, 2026-11-03: 「大橙圈是召唤师技能屏障特效
+    # 你弄的太大了吧」)
+    cy, rx, ry = SY - 34, 30, 44
     out = []
     for k in range(4):
         f = F()
@@ -479,11 +483,33 @@ def ground(spell):
     return out
 
 
+def badge(spell):
+    """The icon as a small round badge (the user, 2026-11-03: 「缩成小块外面用圆圈包裹着不是更美观吗」): League's icon cut
+    to a disc, in a ring of the spell's colour (lit on its upper half) and a dark rim - 38 squares, 12.7 game px."""
+    ic = icon(spell)[1:-1, 1:-1]                    # the 32 x 32 picture without its square frame
+    n, r = ICON + 6, ICON / 2
+    a = np.zeros((n, n, 4), np.uint8)
+    c = PAL[spell]
+    for y in range(n):
+        for x in range(n):
+            d = math.hypot(x + 0.5 - n / 2, y + 0.5 - n / 2)
+            if d <= r - 0.5:
+                a[y, x, :3] = ic[y - 3, x - 3, :3]
+                a[y, x, 3] = 255
+            elif d <= r + 1.5:
+                a[y, x] = (*(c["core"] if y < n / 2 - 2 else c["edge"]), 255)
+            elif d <= r + 2.6:
+                a[y, x] = (*OUTLINE, 255)
+    return a
+
+
 def shard(spell):
-    """ss_<spell>: the icon over a shard lying on the ground (its crystal is ~12 px tall)."""
+    """ss_<spell>: the spell's round badge over a shard lying on the ground (its crystal is ~12 px tall). Until 0.5.2 it
+    was the square icon, and the game drew it three times its size (34 px, Zoe's height: 「还有地上的召唤师技能图标也太大
+    了吧」) until league_main's DRAWN_EFFECTS listed this sheet."""
     f = F(PPU_I)
-    ic = icon(spell)
-    f.paste(ic, -ic.shape[1] // 2, SYI - 13 * PPU_I - ic.shape[0])
+    b = badge(spell)
+    f.paste(b, -b.shape[1] // 2, SYI - 13 * PPU_I - b.shape[0])
     return [(f.crop(), SHOW_MS + 20)]          # a little over the stamp's 15 ticks: no gap between two stamps
 
 

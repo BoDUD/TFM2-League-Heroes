@@ -653,8 +653,13 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
 /// top-left corner. Every other EFFECTS sheet is still drawn a square a game pixel (its frames' corners placed at
 /// 1 / PPU) - the way the user has seen them; Daisy and the sand soldiers were 76 / 54 game px that way (the user,
 /// 2026-10-27: 「给召唤物做真正的缩放，保留高清，大小按我看到的再缩一点」).
+/// league_zoe's stolen summoner spells and their icons too (0.9.3, the user, 2026-11-03: 「大橙圈是召唤师技能屏障特效 你
+/// 弄的太大了吧」「还有地上的召唤师技能图标也太大了吧」): registered at PPU 2 and 3 on 10-22 but never listed here, the
+/// game drew Barrier's shell 88 x 104 px (designed 44 x 52, three times her height) and a shard's icon 34 px (Zoe's
+/// own height, designed 11), each hanging right and down from its spot.
 pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
-                                     "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side"];
+                                     "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side",
+                                     "league_zoe_spells", "league_zoe_spell_icons"];
 
 /// Tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): the card's canvas holds
 /// about 40 game px at 2.2x and these idles are 45-58 px from the head to the feet, so the knees and feet hid behind
