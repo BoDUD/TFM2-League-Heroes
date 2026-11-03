@@ -34,10 +34,10 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "pyke", "hd")
-AH.RAW, AH.PITCH = "pyke-A.png", (12.8, 13.2)    # the default read (13 px) until the user picks
+AH.RAW, AH.PITCH = "pyke-A.png", (15.8, 16.2)    # 16 px, the user's pick: PPU 1.78 (「全部粗」)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"pyke-A.png": {"13": ((12.8, 13.2), 6), "10.5": ((10.3, 10.7), 5), "16": ((15.8, 16.2), 7)}}
-DEFAULT = ("pyke-A.png", "13")
+DEFAULT = ("pyke-A.png", "16")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - the snapped lines
 # lean on the strong edges round the face there and lose the eyes and the mouth
 FACES = {"pyke-A.png": (760, 570, 940, 650)}    # only the eye band: the mask's stripes read by their mean turn to

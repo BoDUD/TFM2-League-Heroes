@@ -34,10 +34,10 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "tryndamere", "hd")
-AH.RAW, AH.PITCH = "tryndamere-A.png", (11.1, 11.5)    # the default read (11.3 px) until the user picks
+AH.RAW, AH.PITCH = "tryndamere-A.png", (13.6, 14.0)    # 13.8 px, the user's pick: PPU 1.81 (「全部粗」)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"tryndamere-A.png": {"11.3": ((11.1, 11.5), 5), "9.8": ((9.6, 10.0), 4), "13.8": ((13.6, 14.0), 6)}}
-DEFAULT = ("tryndamere-A.png", "11.3")
+DEFAULT = ("tryndamere-A.png", "13.8")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - the snapped lines
 # lean on the strong edges round the face there and lose the eyes and the mouth
 FACES = {"tryndamere-A.png": (870, 340, 1010, 500)}
