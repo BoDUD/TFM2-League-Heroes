@@ -10,7 +10,10 @@ TFM2 has three active slots: League's Savagery (an empowered attack) runs on its
           attack is the pounce (the `leap` strip): a dash onto the target (MoveToTarget from tick leap_go) and the landing
           rake on tick leap_at, a Ferocity point. Nothing in data reads brush, so it readies at each life's start, after
           `quiet` ticks without an action of his (league_evelynn's shade: every action renews `fight` and queues a check
-          that finds it gone only after the last one) and from R. The add-on sets `ready` while he stands in a bush.
+          that finds it gone only after the last one) and from R. The add-on sets `ready` while he stands in a bush
+          (native=1 keeps all of the above too, 2026-11-03) and, through league_rengar_bush:aim at the head of the attack,
+          sets it aside as the range-less `ready_kept` while he swings at a tower or the nexus (the landing is on
+          EnemyWithoutTower: a pounce there hit nothing), giving it back for the next unit he attacks.
   Ferocity (凶残值): f1..f4 caster stacks (fero_t ticks, renewed by each gain): a point for each Savagery, roar, bola
           and pounce; at four the next Savagery / roar / bola is empowered and spends them.
   attack  The blade swing, the hit on tick a_st. Savagery (野蛮打击, automatic): the first attack after q_cd is the Q
@@ -92,8 +95,9 @@ P = {
     "k_hold": 40, "k_read": 4,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
-    # 1 = the copy for addons/league_rengar_bush: its native passive readies the pounce in brush; the out-of-combat
-    # stand-in goes (life start and R still ready it)
+    # 1 = the copy for addons/league_rengar_bush: its native passive readies the pounce in brush, its native effect keeps
+    # the pounce off towers; the life start, the out-of-combat stand-in and R still ready it (the stand-in came back
+    # 2026-11-03: without it a fight began with a leap only when the AI had just walked through a bush)
     "native": 0,
 }
 
@@ -228,9 +232,11 @@ def build(p):
 
     # ------------------------------------------------------------------ the passive's readiness
     ready = sw("ready", NONE, flag("ready", None, range=p["leap_range"]))
-    # an action of his renews `fight`; the check queued by the last one finds it gone (league_evelynn's shade)
-    act = NONE if p["native"] else combine(refresh("fight", p["quiet"]),
-                                           on_me(delayed(p["quiet"] + 2, sw("fight", NONE, ready))))
+    # an action of his renews `fight`; the check queued by the last one finds it gone (league_evelynn's shade). The add-on's
+    # copy keeps it as well (2026-11-03, the players: 「他的跳跃机制非常不稳定，有时候会跳，有时候不跳」 - with only bushes, R
+    # and the respawn a fight began with a leap only when the AI had just walked through a bush); its passive reads `fight`:
+    # out of combat a bush's readiness is this one and stays, in a fight it goes `grace` ticks after he leaves the bush
+    act = combine(refresh("fight", p["quiet"]), on_me(delayed(p["quiet"] + 2, sw("fight", NONE, ready))))
     life = sw("init", NONE, combine(flag("init", None), ready))
 
     # ------------------------------------------------------------------ the easter egg: the rivals
@@ -303,8 +309,12 @@ def build(p):
     # the triple Q: the Savagery that fills Ferocity keeps its cooldown on `q_hold`, which stops a plain Savagery only,
     # so the next attack is the empowered one
     choose = sw("ready", pounce, sw("q_cd", swing, sw("f4", savagery(True), sw("q_hold", swing, savagery(False)))))
+    # the add-on's copy: league_rengar_bush:aim (native, on the attack's target, just before `choose` reads `ready`) sets
+    # the readiness aside as `ready_kept` (no range) when the target is a tower or the nexus - the landing is on
+    # EnemyWithoutTower, so a pounce there dashed in and hit nothing - and gives it back for the next unit he attacks
+    aim = [{"type": "Native", "effect_ref": "league_rengar_bush:aim"}] if p["native"] else []
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(life, act, rival, choose,
+                      combine(life, act, rival, *aim, choose,
                               delayed(max(p["a_st"], p["q_rip_at"], p["leap_at"]) + p["k_read"], kill_read("a"))),
                       atype="BaseAttack", cancel=True)
 
@@ -367,7 +377,9 @@ def build(p):
     views_e = [E("a_hit"), E("l_hit"), E("l_dust", FX, -1, False), E("q_slam", FX, -1, False), E("q_rip"),
                E("w_roar", BIG, -1, False), E("w_heal", FX, 3, False), E("r_smoke", BIG, 3, False), E("r_hit", BIG),
                E("t_trophy", FX, 4, False), E("k_meet", FX, 4, False)]
-    views_b = [B_("ready", "p_ready", FX, 4), B_("f1", "f1", FX, 4), B_("f2", "f2", FX, 4), B_("f3", "f3", FX, 4),
+    # the add-on's copy shows the same eye while the readiness is set aside at a tower: the pounce is still his
+    kept = [B_("ready_kept", "p_ready", FX, 4)] if p["native"] else []
+    views_b = [B_("ready", "p_ready", FX, 4), *kept, B_("f1", "f1", FX, 4), B_("f2", "f2", FX, 4), B_("f3", "f3", FX, 4),
                B_("f4", "f4", FX, 4), B_("q_as", "q_buff", FX, -1), B_("qe_as", "q_emp", BIG, 3),
                B_("we_cc", "w_emp", BIG, 3), B_("e_slow", "e_slow", FX, 3), B_("e_root", "e_root", FX, 3),
                B_("r_mark", "r_mark", FX, 4)]

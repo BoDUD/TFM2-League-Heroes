@@ -62,7 +62,13 @@ P = {
     "bullet_speed": 8000, "bullet_y": -8000, "pm_reach": 8000,   # bullets 8 px up (the muzzles 11-13; higher, they slant)
     # passive: Style grades, melee bonus, the juggle
     "g_n": 6, "g_t": 540, "split_a": 1, "g_ms": 3, "pm_dmg": 15, "pm_ratio": 20, "j_cd": 360, "j_up": 30, "j_speed": 6000,
-    "k_hold": 40, "k_read": 4, "reset_mult": 10000, "a_climb": 18,
+    # a_climb: the attack's grade read, after its hit (2026-11-03, 「她的评分永远达不到S级」): the gun's bullet leaves on
+    # tick 10 at 8000 a tick and the AI shoots from up to ~73000 (range + both bodies), so it lands as late as tick ~20 -
+    # the read on 18 missed every long shot and its 30-tick mark was gone before the next attack's read, so an attack
+    # after a Q often added no grade; 26 waits for the longest flight. c_t: how long a champion hit's mark waits for its
+    # read - W's first slash (landing + 8) was gone by the read at landing + 42 with 30 ticks, so only the second slash
+    # ever counted.
+    "k_hold": 40, "k_read": 4, "reset_mult": 10000, "a_climb": 26, "c_t": 45,
     # skill: Q Flair (League: gun 0-? + 110% AD at 950 range, sword the same at 325, cd 6-2 s)
     "q_cd": 300, "q_range": 90000, "q_dur": 22, "q_close": 28000, "q_shot_at": 7, "q_slash_at": 8, "q_anim": 20,
     "q_speed": 9000, "q_len": 95000, "q_rad": 5000, "q_dmg": 30, "q_ratio": 130, "q_cone_r": 32000, "q_cone": 0,
@@ -259,7 +265,7 @@ def build(p):
                                                                      flag(f"l_{kind}", None), up()))))
 
     def hit(kind):
-        return refresh(f"c_{kind}", 30)
+        return refresh(f"c_{kind}", p["c_t"])
 
     def champ(src, kind):
         """The champion-only twin's effects: the kill check and the Style mark."""

@@ -36,9 +36,15 @@ inside the attack (league_rengar's Savagery way).
           ticks. The cast goes straight on (the pros' W-E-Q, 三影齐发): Shadow Slash if it is ready, then Razor
           Shuriken if it is ready - both copied by the shadow, as every later one while it stands. Within chase_t of the landing, one enemy champion near it and
           none near him: he swaps onto it (W2 chase).
-  skill2  Q Razor Shuriken (影奥义！诸刃): a shuriken thrown on tick q_at toward where the target stood 8 ticks before
-          (dodgeable, league_caitlyn's lock), through everything on the line: q_dmg + q_ratio% AD to the first unit,
-          q_pen% of that to the rest. A live shadow throws one too.
+  skill2  Q Razor Shuriken (影奥义！诸刃): a shuriken thrown on tick q_at at an enemy champion within q_range + 10000 (else
+          the cast's way), its whole q_len through everything on the line at q_speed a tick (dodged by stepping aside,
+          as League's): q_dmg + q_ratio% AD to the first unit, q_pen% of that to the rest. A live shadow throws one too.
+          2026-11-03 (the user: 「劫：他不会打连招，而且他的Q技能根本看不见。」): it was aimed with league_caitlyn's lock - a
+          hidden lob onto where the champion stood 6 ticks before, the shuriken started from the lob's end_effects - and
+          a line started there flies from him to that point and ends on it (champion-data.md, "Where a line ends"): at
+          10000 a tick, a melee Zed 5000-40000 from his target, it was on screen 1-4 ticks, the first of them the
+          picture's empty lead frame (its frames were cut for a 400 ms flight, tools/art/import_zed.py). Now no lock:
+          the line flies its whole q_len (on past the champion, as League's) at q_speed, about 20 ticks on screen.
   ult     R Death Mark (禁奥义！瞬狱影杀阵): on `EnemyChampionRecentlyAttacked` within r_range: untargetable, he dashes
           through the champion (`RushMoveToBack`), marks him and leaves a shadow where he stood (it copies his
           shurikens and slashes too). r_pop ticks later the
@@ -46,8 +52,10 @@ inside the attack (league_rengar's Savagery way).
           a share of the damage dealt; nothing reads damage, so it counts the hits, up to three; the add-on
           adds r_pct% of the damage he dealt). He swaps back to the shadow (R2) when the burst kills, when he is
           outnumbered as it bursts (two enemy champions within r_safe_r), whenever he is in crowd control while the
-          shadow stands, and (the add-on) under r_low% health. The pros' R-W-E-Q: under the
-          mark with W ready, Razor Shuriken's slot is an empty branch, so the AI opens Living Shadow's combo.
+          shadow stands, and (the add-on) under r_low% health. The pros' R-W-E-Q: for r_wq ticks from the dash, with
+          W ready, Razor Shuriken's slot is an empty branch, so the AI opens Living Shadow's combo (addons/league_zed_mark's
+          combo hook presses that W). Until 2026-11-03 the branch stayed empty the whole mark (r_on, 182 ticks): when
+          nobody pressed W - game 0.6.4's AI hardly does - he threw no Q for three seconds.
 """
 import argparse
 import json
@@ -74,8 +82,11 @@ P = {
     "cw_t": 240, "cw_pct": 6, "cw_cd": 600,
     # E Shadow Slash (League: 290 radius, 70-190 + 65% bonus AD, 20-40% slow 1.5 s, cd 5-4 s)
     "e_cd": 240, "e_dur": 24, "e_at": 8, "e_r": 24000, "e_dmg": 65, "e_ratio": 75, "e_slow": 25, "e_slow_t": 90,
-    # Q Razor Shuriken (League: 900 range, 1700 speed, 80-280 + 110% bonus AD, 60% to the next, cd 6 s)
-    "q_cd": 240, "q_dur": 26, "q_at": 10, "q_lock": 6, "q_range": 55000, "q_len": 70000, "q_speed": 10000, "q_rad": 5500,
+    # Q Razor Shuriken (League: 900 range, 1700 speed, 80-280 + 110% bonus AD, 60% to the next, cd 6 s). 2026-11-03: no
+    # lock (q_lock 6 went, see skill2 above), q_speed 10000 -> 3500 (the shadows' copies too) and q_rad 5500 -> 4500
+    # (mid, classic SDK, seeds 1-8: +1.76 before; no lock at 3500 +2.63, at 4500 a tick +2.95; radius 4500 +2.00,
+    # 4000 +2.09). A line is tested only where it stands at the end of each tick: keep q_speed <= 2 x q_rad
+    "q_cd": 240, "q_dur": 26, "q_at": 10, "q_range": 55000, "q_len": 70000, "q_speed": 3500, "q_rad": 4500,
     "q_y": 3000, "q_dmg": 75, "q_ratio": 100, "q_pen": 60,
     # W Living Shadow (League: 650 range, 5.25 s, cd 20-16 s)
     "w_cd": 720, "w_dur": 6, "w_at": 3, "w_fly": 4, "c_e": 8, "w_range": 55000, "w_life": 300, "swap_step": 45, "chase_t": 90,
@@ -87,6 +98,8 @@ P = {
     # R Death Mark (League: 625 range, 3 s mark, 25-55% of the damage dealt, cd 120-80 s; shadow 6 s)
     "r_cd": 3000, "r_dur": 24, "r_go": 6, "r_speed": 6000, "r_range": 60000, "r_pop": 180, "r_dmg": 110, "r_ratio": 100,
     "r_per": 35, "r_inv": 24, "r_life": 360, "r_safe_r": 40000,
+    # R-W-E-Q: Q's slot waits r_wq ticks from the dash for W (the ult's action runs to r_dur; then W is pressed)
+    "r_wq": 40,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_zed_mark: its native passive reads health (Contempt below cw_hp%, cw_lo/mid/hi% of
@@ -262,14 +275,15 @@ def build(p):
                 tsfx("q_hit")]
 
     def shuriken(lead, echo="q_echo"):
-        """Lock the aim q_lock ticks before the throw on tick lead + q_at; `echo` as slash()'s."""
+        """The throw on tick lead + q_at: at an enemy champion within q_range + 10000 where he stands then (the
+        RandomTarget's 1-tick q_aim, read later in the same tick, keeps the cast's way out), else the cast's way; the
+        line flies its whole q_len either way (morgana Q's pair). `echo` as slash()'s. No lock any more: a line
+        started from a lob's end_effects ends on the lob's point - next to a melee Zed, 1-4 ticks on screen."""
         star = line("q_star", p["q_speed"], p["q_len"], p["q_rad"], p["q_y"], "EnemyWithoutTower", True, q_hit())
         twin = [] if p["native"] else             [line("q_twin", p["q_speed"], p["q_len"], p["q_rad"], p["q_y"], "EnemyChampion", False, [spell_mark])]
         aimed = {"type": "RandomTarget", "range": p["q_range"] + 10000, "casting_target": "EnemyChampion",
-                 "from_projectile": False,
-                 "effects": [flag("q_aim", p["q_lock"] + 2), lob("q_aim", p["q_lock"], "EnemyChampion", [star, *twin])]}
-        return combine(delayed(lead + p["q_at"] - p["q_lock"] - 1, *rm("q_first"), aimed),
-                       delayed(lead + p["q_at"] - 1, sfx("q"), sw("q_aim", NONE, star),
+                 "from_projectile": False, "effects": [flag("q_aim", 1), star, *twin]}
+        return combine(delayed(lead + p["q_at"] - 1, sfx("q"), *rm("q_first"), aimed, sw("q_aim", NONE, star),
                                refresh(echo, p["echo_step"] + 1), refresh("qr_echo", p["r_echo_step"] + 1)),
                        flag("q_cd", p["q_cd"]))
 
@@ -391,11 +405,11 @@ def build(p):
                    combine(near, voice("vo_w", p), combo(0)))
 
     # ------------------------------------------------------------------ skill2: Q Razor Shuriken
-    # under his mark with W ready the slot is an empty branch (the AI does not cast it), so the AI opens Living
-    # Shadow's W-E-Q next: the pros' R-W-E-Q
+    # for r_wq ticks from his R's dash, with W ready, the slot is an empty branch (the AI does not cast it), so Living
+    # Shadow's W-E-Q comes next: the pros' R-W-E-Q. It was the whole mark (r_on) until 2026-11-03: no W, no Q for 3 s
     q_cast = combine(near, anim("skill2", p["q_dur"]), voice("vo_q", p), shuriken(0))
     skill2 = action("skill2", 3, p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                    sw("q_cd", NONE, sw("r_on", sw("w_cd", q_cast, NONE), q_cast)))
+                    sw("q_cd", NONE, sw("r_wq", sw("w_cd", q_cast, NONE), q_cast)))
 
     # ------------------------------------------------------------------ ult: R Death Mark
     def r_pieces():
@@ -463,7 +477,7 @@ def build(p):
                          delayed(p["r_go"] - 1, {"type": "RushMoveToBack", "speed": p["r_speed"], "applied_effects": [
                              buff("r_mark", p["r_pop"]), view("r_hit"), tsfx("r_hit"), attack(0, 100),
                              casted(p["r_pop"] + 1, p["r_pop"], sw("r_on", combine(pop, *rm("r_on", *([] if p["native"] else ["r_1", "r_2", "r_3"])))))]},
-                                 refresh("r_on", p["r_pop"] + 2), spell_mark),
+                                 refresh("r_on", p["r_pop"] + 2), refresh("r_wq", p["r_wq"]), spell_mark),
                          delayed(p["r_go"] + p["r_pop"] + 1, count),
                          delayed(p["r_go"] + p["r_pop"] + 2, sw("rn2", refresh("r_back", p["r_echo_step"] + 3)))))
 

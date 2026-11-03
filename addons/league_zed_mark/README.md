@@ -1,4 +1,4 @@
-# 劫读血附加包（测试版 v0.1.2）
+# 劫读血附加包（测试版 v0.2.0）
 
 主包 `league` 保持纯数据。数据读不到生命也读不到伤害，所以主包里劫的两处是替代做法：
 
@@ -17,6 +17,32 @@
 - 数字都写在英雄数据的 `passive.params` 里，由 `make_override.py` 从 `tools/kit/build_zed.py` 的参数表 `P` 写入
   （`cw_hp`、`cw_lo`、`cw_mid`、`cw_hi`、`cw_cd`、`r_pct`、`r_low`），本包不另记一份。
 
+## 连招（0.2.0）
+
+用户 2026-11-03：「劫：他不会打连招，而且他的Q技能根本看不见。」，要「参考LOL高手」。游戏 0.6.4 起的 AI 自己按 Q（好了就扔）和 R（很少），
+W 几乎不按：W 一次放出 W-E-Q，主包的 Q、E 标记在的时候 AI 读到的那一支没有伤害。以前 `league_ult_press` 在 Q 好着、不以少打多时
+替它按 W；0.2.0 起劫的 W、R、补的 Q 都由本包的 AI 钩子 `league_zed_mark:combo`（`src/combo.rs`，排在 `league_ult_press` 之后）按，
+每 tick 按下面的先后挑第一个引擎接的：
+
+1. **印记期间甩影子**（R-W-E-Q 的 W）：印记在（劫身上 `league_zed_r_on`）、W 好了：W 甩到带印记（`league_zed_r_mark`）的那个人脚下，
+   以少打多也甩（大招影子是退路）。主包接着鬼斩、诸刃，影子跟着放。
+2. **R 起手**：R 好了、劫生命不低于 40%；55000 内的敌方英雄，不在敌方塔下（生命 25% 以下的除外），那里的敌方英雄最多比劫身边的
+   我方英雄（含他）多一个；而且值得：W、Q 都好、目标生命不到 60%（R-W-E-Q），或目标生命不到 30%（补刀），或我方有人 40000 内贴着他在打
+   （接团）。生命比例最低的先；引擎只接最近被我方打过的英雄。
+3. **W-E-Q 起手**（`league_ult_press` 原来的规则）：W 好了、Q 好着、劫生命不低于 40%；50000 内、不在敌方塔下、那里不以少打多的敌方英雄，
+   生命比例最低的。
+4. **影子在场补 Q**：W 影子或大招影子在（`league_zed_w_live` / `w_live2` / `r_live`）、Q 好着：50000 内的敌方英雄（带印记的先），
+   影子在下一个检查点跟着扔。
+
+「Q 好着」是 Q 的格子好了、主包标记 `league_zed_q_cd` 不在（W 的连招扔过诸刃只挂标记），而且主包这时 Q 的格子不是空分支（大招冲刺后
+40 tick 内 W 好着时是，`league_zed_r_wq`）：空分支按下去只会白白进冷却；印记在、W 好着时不按 Q。正在回城、放技能或被位移、被控、
+劫自己的 W / Q / R 动作还在播时不管；AI 这一 tick 已经按了同一个格子不管，AI 自己按的 R 照放（接着第 1 条甩影子）；R 和起手的 W
+在 AI 正带他远离目标时不按。
+
+同一天主包的劫也改了（`tools/kit/build_zed.py`，本包的副本跟着重新生成）：Q 原来按凯特琳的锁定瞄准，手里剑由隐形抛物线落地时扔出，
+飞到落点就没了，近战的劫只看得到 1–4 tick，看着像没有 Q；现在不锁定、朝英雄当时的位置扔，飞满全程（穿过他、像英雄联盟一样继续往后飞），
+每 tick 3500（原来 10000）、半径 4500（原来 5500），影子模仿的手里剑也一样；大招后 Q 的格子只等 W 40 tick（原来整个印记 3 秒都等）。
+
 ## 在游戏里测
 
 1. 主包（League of Legends Heroes 0.82 以上）要装着并启用。
@@ -29,12 +55,19 @@
    - `MARK on #12: hp 1100` / `POP #1 on #12: stored 620 (hp drop 700), +217`：印记挂上时的生命，爆发时记下的伤害
      （`on_attack` 给的数，括号里是同期目标掉的血，用来核对 `on_attack` 是否包含技能伤害）和追加的伤害；
    - `BACK: hp 280/1100 (25%) under the R shadow -> r_back`：残血换回（每次大招影子只记一次）。
+   - `COMBO ...`（0.2.0）：钩子替 AI 按下的连招，行尾 `#n` 是这一种的第几次（每种先记 40 条，之后每 50 条记一条）：
+     `COMBO R on league_ahri#12 41000 away at 52%, W and Q ready (R-W-E-Q), his hp 80%`（R 起手）、
+     `COMBO W on the marked league_ahri#12 9000 away at 41% (R-W-E-Q), his hp 78%`（印记期间甩影子：应当紧跟在 R 之后 25–35 tick）、
+     `COMBO W on league_ahri#12 45000 away at 70% (W-E-Q), his hp 90%`（W-E-Q 起手）、
+     `COMBO Q on league_ahri#12 30000 away at 60%, the shadow throws too, his hp 90%`（影子在场补 Q）。
+     看劫的对局里这几种都有、R 后面跟着「W on the marked」；手里剑在画面上应当从劫手里飞出、穿过目标继续飞一段。
 
 ## 开发
 
 - `python addons/league_zed_mark/make_override.py`：从参数表重新生成 `override/` 和 `text/`（先核对主包的劫和参数表一致）。
   主包的劫改了以后要重跑。
-- 在 `addons/` 下 `cargo test --release -p league_zed_mark`：单元测试（触发线、等级百分比、爆发比例、残血线、参数读取）。
+- 在 `addons/` 下 `cargo test --release -p league_zed_mark`：单元测试（触发线、等级百分比、爆发比例、残血线、参数读取；连招的先后、
+  不冲进人堆和塔下、撤退时不起手、Q 的空分支、射程和主包参数表 `P` 一致、日志限条数）。
 - 在 `addons/` 下 `cargo build --release -p league_zed_mark`（Windows，长路径时用短的 `CARGO_TARGET_DIR`）得到
   `league_zed_mark.dll`；`league_addons` 合集也会编进本包。
-- 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试；触发和爆发要在游戏里看日志确认。
+- 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试；触发、爆发和连招要在游戏里看日志确认。

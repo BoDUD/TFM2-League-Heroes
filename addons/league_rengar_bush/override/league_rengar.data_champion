@@ -95,7 +95,72 @@
         },
         {
           "type": "Combine",
-          "effects": []
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_rengar_fight"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_rengar_fight",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 182,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rengar_fight",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rengar_ready",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rengar_ready",
+                            "duration": "Permanent",
+                            "range": 25000
+                          },
+                          "only_to_enemy": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "Combine",
@@ -192,6 +257,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league_rengar_bush:aim"
         },
         {
           "type": "SwitchByBuff",
@@ -1583,7 +1652,72 @@
       "effects": [
         {
           "type": "Combine",
-          "effects": []
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_rengar_fight"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_rengar_fight",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 182,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rengar_fight",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rengar_ready",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rengar_ready",
+                            "duration": "Permanent",
+                            "range": 25000
+                          },
+                          "only_to_enemy": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "Combine",
@@ -2064,7 +2198,72 @@
       "effects": [
         {
           "type": "Combine",
-          "effects": []
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_rengar_fight"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_rengar_fight",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 182,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rengar_fight",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rengar_ready",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rengar_ready",
+                            "duration": "Permanent",
+                            "range": 25000
+                          },
+                          "only_to_enemy": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "Combine",
@@ -2907,7 +3106,72 @@
       "effects": [
         {
           "type": "Combine",
-          "effects": []
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_rengar_fight"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_rengar_fight",
+                    "duration": {
+                      "Time": {
+                        "tick": 180
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "RangeEffect",
+              "shape": {
+                "Circle": {
+                  "radius": 1000
+                }
+              },
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Delayed",
+                  "tick": 182,
+                  "effects": [
+                    {
+                      "type": "SwitchByBuff",
+                      "buff_name": "league_rengar_fight",
+                      "effect_buff": {
+                        "type": "Combine",
+                        "effects": []
+                      },
+                      "effect_none": {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_rengar_ready",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": []
+                        },
+                        "effect_none": {
+                          "type": "AddCasterBuff",
+                          "buff_state": {
+                            "name": "league_rengar_ready",
+                            "duration": "Permanent",
+                            "range": 25000
+                          },
+                          "only_to_enemy": false
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "Combine",
@@ -3280,6 +3544,14 @@
     {
       "type": "Animated",
       "name": "league_rengar_ready",
+      "anim": "asset/league/effects/league_rengar_fx",
+      "tag": "p_ready",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "league_rengar_ready_kept",
       "anim": "asset/league/effects/league_rengar_fx",
       "tag": "p_ready",
       "repeat": true,

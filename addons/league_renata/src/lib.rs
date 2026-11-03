@@ -8,9 +8,10 @@
 //!   p_pop_ap% 法强的魔法伤害、最大生命 p_pop_hp% 的真实伤害，去掉印记。主包的数据版是「印记附近有两个她这边的英雄就引爆」。
 //! - **及时救难**（英雄联盟的规则）：她活着、W 不在冷却时每 WATCH tick 看一次，w_range 内的队友（不算她自己）身边 DANGER_NEAR 内
 //!   有敌方英雄、又被硬控或生命不到 DANGER_HP，就挑生命比例最低的那个：攻速 +w_as%、移速 +w_ms%、w_t tick 不死（主包的 buff
-//!   `league_renata_w_buff`，画面照主包）。期间受到致命伤害（生命到 1、身上没有别人的「不死」）就回满生命，再在 w_doom tick 内流失到
-//!   1；这期间他参与击杀（击杀或助攻数变多，和致命一击同一 tick 的也算）就保住、不再流失，没参与就阵亡（算离他最近的敌方英雄的，
-//!   附近没有敌方英雄才算最近的敌方单位）。主包的数据版是「不会阵亡、结束时回血」。
+//!   `league_renata_w_buff`，画面照主包）。期间受到致命伤害（生命到 1、身上没有别人的「不死」）就回满生命，再在 w_doom tick 内烧光；
+//!   烧的时候不再不死，敌人照样打得死他（0.1.5 起，英雄联盟就是这样；以前这 3 秒打不死，参与击杀后还留着几乎满的血，看着像复活）；
+//!   这期间他参与击杀（击杀或助攻数变多，和致命一击同一 tick 的也算）就止住，生命定在最大生命的 w_keep%（英雄联盟 20%），没参与就
+//!   阵亡（算离他最近的敌方英雄的，附近没有敌方英雄才算最近的敌方单位）。主包的数据版是「不会阵亡、结束时回血」。
 //! - **恶意收购**：被化学波扫中的敌方英雄（主包的 `league_renata_r_berserk`，数据已禁攻击、禁技能）真的转身打自己人：AI 钩子
 //!   （`league_renata:berserk`，所有玩家）让他走向最近的队友，到 LASH_REACH 内就站住；本包按他自己的攻击间隔、用他自己的攻击力打那个
 //!   队友，挥一下（Animation "attack"）、播主包的 r_lash_hit。这一下算烈娜塔出手（`deal_damage_typed` 的攻击者是她），和英雄联盟一样
@@ -23,10 +24,11 @@
 //! w_doom tick 来得及。
 //!
 //! 被动在玩家身上、每份模拟各一份。她死了被动就不再每 tick 跑（2026-10-30 的日志：DEAD 之后到她复活那一 tick 一行都没有），
-//! 所以及时救难在她阵亡时当场了结（`on_dead`）：还只是护着的，buff 自己到时间；已经在流失的，被救后参与过击杀就保住，没参与就
+//! 所以及时救难在她阵亡时当场了结（`on_dead`）：还只是护着的，换成不带「不死」的同名 buff 跑完剩下的时间（攻速、移速照给，
+//! 0.1.4 以前留着「不死」，她一死队友就白白不死到 5 秒结束）；已经在烧的，被救后参与过击杀就保住（生命定在 w_keep%），没参与就
 //! 当场阵亡（以前会冻住：队友白拿着回满的血，等她复活那一刻才被判死，算在身边的小兵头上）。狂暴的挥打同样停到她复活。日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_renata.log`，每次启动游戏重写，上一次的留在 .prev.log：`POP`、`BAILOUT`、
-//! `REVIVE`、`SAVED`、`DOOMED`、`LASH`，都限了条数。
+//! `REFILL`、`BURNED`、`SAVED`、`DOOMED`、`LASH`，都限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -165,6 +167,8 @@ pub struct Params {
     pub fight_r: usize,
     pub w_anim: usize,
     pub w_doom: usize,
+    /// 烧的时候参与击杀：生命定在最大生命的 w_keep%（英雄联盟 20%）。
+    pub w_keep: usize,
     /// 狂暴的时长（主包数据管；日志用）。
     pub r_t: usize,
     pub r_per: usize,
@@ -186,6 +190,7 @@ impl Default for Params {
             fight_r: 70000,
             w_anim: 18,
             w_doom: 180,
+            w_keep: 20,
             r_t: 105,
             r_per: 30,
         }
@@ -214,6 +219,7 @@ pub fn parse_params(json: &str) -> Params {
             "fight_r" => p.fight_r = v,
             "w_anim" => p.w_anim = v,
             "w_doom" => p.w_doom = v,
+            "w_keep" => p.w_keep = v,
             "r_t" => p.r_t = v,
             "r_per" => p.r_per = v,
             _ => {}
@@ -258,6 +264,20 @@ pub fn pick_bailout(me: (f64, f64), reach: f64, allies: &[Ally], enemies: &[(f64
 /// 危急流失：每 tick 掉多少（最大生命在 `doom` tick 内掉光，至少 1）。
 pub fn drain_step(max: usize, doom: usize) -> usize {
     (max / doom.max(1)).max(1)
+}
+
+/// 烧的时候参与击杀：生命定在最大生命的 `keep`%（至少 1）。英雄联盟是「设为」20%，不是回复 20%：烧得还多时也降到这里。
+pub fn kept_hp(max: usize, keep: usize) -> usize {
+    (max * keep / 100).max(1)
+}
+
+/// 及时救难的 buff（主包的名字，画面绑在它上面）：攻速、移速，`undying` 只在致命一击之前给（之后烧的时候敌人打得死他）。
+pub fn w_buff(p: &Params, ticks: usize, undying: bool) -> BuffV1 {
+    let mut buff = BuffV1::timed(W_BUFF, ticks);
+    buff.attack_speed_mult = p.w_as as i32;
+    buff.move_speed_mult = p.w_ms as i32;
+    buff.undying = undying;
+    buff
 }
 
 /// 流失到头、没参与击杀的人算谁打死的：候选 (id, 距离, 是不是英雄) 里最近的敌方英雄，没有英雄才是最近的单位。
@@ -504,11 +524,7 @@ impl Glasc {
             }
         }
         let Some(ally) = pick_bailout(at, self.p.w_range as f64, &allies, &enemies) else { return };
-        let mut buff = BuffV1::timed(W_BUFF, self.p.w_t);
-        buff.attack_speed_mult = self.p.w_as as i32;
-        buff.move_speed_mult = self.p.w_ms as i32;
-        buff.undying = true;
-        sim.add_buff(ally, &buff);
+        sim.add_buff(ally, &w_buff(&self.p, self.p.w_t, true));
         let on = InputTargetV1::target(ally);
         let at_me = InputTargetV1::target(me);
         sim.play_view_effect(&rn("w_cast"), me, &on, 0, 0, 0);
@@ -531,14 +547,21 @@ impl Glasc {
         }
     }
 
-    /// 一 tick 的救难：没出事到期就结束；受到致命伤害就回满、开始流失；流失中参与击杀就保住，到期没参与就阵亡。
+    /// 一 tick 的救难：没出事到期就结束；受到致命伤害就回满、开始烧（不再不死）；烧的时候参与击杀就止住、生命定在 w_keep%，
+    /// 被敌人打死就是打死了，到期没参与就阵亡。
     fn keep_bail(&mut self, sim: &mut StableSim<'_>, me: usize, mut b: Bail, now: usize) -> Option<Bail> {
         let (alive, (hp, max), at, team) = match sim.get_entity(b.ally) {
             Some(a) => (a.is_alive(), a.hp(), fpos(a.pos()), a.team()),
             None => return None,
         };
         if !alive {
-            wlog(format!("{} BAILOUT ended: {} died anyway", head(sim, me), who(sim, b.ally)));
+            if b.doom.is_some() {
+                if let Some(k) = counted("burned") {
+                    wlog(format!("{} BURNED #{k}: {} was killed while burning", head(sim, me), who(sim, b.ally)));
+                }
+            } else {
+                wlog(format!("{} BAILOUT ended: {} died anyway", head(sim, me), who(sim, b.ally)));
+            }
             return None;
         }
         let on = InputTargetV1::target(b.ally);
@@ -554,22 +577,20 @@ impl Glasc {
                     b.td_last = takedowns(sim, b.ally).map_or(b.td_last, |t| t.1);
                     return Some(b);
                 }
-                // the lethal hit: full health that drains away over w_doom ticks, still undying meanwhile
+                // the lethal hit: full health that burns away over w_doom ticks - no longer undying, so enemies can
+                // still finish him (League: "health is set back to full but they suffer a true damage burn")
                 sim.entity_set_hp(b.ally, max);
                 sim.entity_remove_buff(b.ally, W_BUFF);
-                let mut buff = BuffV1::timed(W_BUFF, self.p.w_doom + 2);
-                buff.attack_speed_mult = self.p.w_as as i32;
-                buff.move_speed_mult = self.p.w_ms as i32;
-                buff.undying = true;
-                sim.add_buff(b.ally, &buff);
+                sim.add_buff(b.ally, &w_buff(&self.p, self.p.w_doom + 2, false));
                 sim.play_view_effect(&rn("w_save"), me, &on, 0, 0, 0);
                 sim.play_sfx(&rn("w_save"), me, &on);
                 // the count before this tick: a takedown on the lethal tick itself (a trade) still saves him
                 let td = b.td_last;
                 let td_now = takedowns(sim, b.ally).map_or(td, |t| t.1);
                 b.doom = Some((now + self.p.w_doom, td, max));
-                if let Some(k) = counted("revive") {
-                    wlog(format!("{} REVIVE #{k}: {} caught at 1 hp -> {max}, drains over {} ticks ({td} takedowns before{})",
+                if let Some(k) = counted("refill") {
+                    wlog(format!("{} REFILL #{k}: {} caught at 1 hp -> {max}, burns over {} ticks, killable ({td} takedowns \
+                                  before{})",
                                  head(sim, me), who(sim, b.ally), self.p.w_doom,
                                  if td_now > td { ", one on this tick" } else { "" }));
                 }
@@ -585,12 +606,16 @@ impl Glasc {
             Some((until, td, full)) => {
                 let now_td = takedowns(sim, b.ally).map_or(0, |t| t.1);
                 if now_td > td {
-                    // a takedown: kept alive with what is left
+                    // a takedown stops the burn and sets his health to w_keep% (League: 20%) - not what was left of
+                    // the refill, which read as a revive
+                    let keep = kept_hp(full, self.p.w_keep);
                     sim.entity_remove_buff(b.ally, W_BUFF);
+                    sim.entity_set_hp(b.ally, keep);
                     sim.play_view_effect(&rn("w_save"), me, &on, 0, 0, 0);
                     sim.play_sfx(&rn("w_save"), me, &on);
                     if let Some(k) = counted("saved") {
-                        wlog(format!("{} SAVED #{k}: {} scored a takedown, keeps {hp}/{max}", head(sim, me), who(sim, b.ally)));
+                        wlog(format!("{} SAVED #{k}: {} scored a takedown, {hp} -> {keep}/{max}", head(sim, me),
+                                     who(sim, b.ally)));
                     }
                     return None;
                 }
@@ -611,8 +636,8 @@ impl Glasc {
         }
     }
 
-    /// 她阵亡：被动到她复活前不再跑，救难当场了结。还只是护着的，buff 自己到时间；在流失的，被救后参与过击杀就保住，没有就
-    /// 当场阵亡。
+    /// 她阵亡：被动到她复活前不再跑，救难当场了结。还只是护着的，换成不带「不死」的同名 buff 跑完剩下的时间（攻速、移速照给；
+    /// 留着「不死」没人管，队友就白白不死到 5 秒结束）；在烧的，被救后参与过击杀就保住（生命定在 w_keep%），没有就当场阵亡。
     fn bail_ends_with_her(&mut self, sim: &mut StableSim<'_>, me: Option<usize>) {
         let Some(b) = self.bail.take() else { return };
         let Some((alive, at, team, hp)) = sim.get_entity(b.ally).map(|a| (a.is_alive(), fpos(a.pos()), a.team(), a.hp().0))
@@ -623,16 +648,24 @@ impl Glasc {
         if !alive {
             return;
         }
-        let Some((_, td, _)) = b.doom else {
+        let Some((_, td, full)) = b.doom else {
+            let left = b.until.saturating_sub(sim.tick());
+            sim.entity_remove_buff(b.ally, W_BUFF);
+            if left > 0 {
+                sim.add_buff(b.ally, &w_buff(&self.p, left, false));
+            }
             if let Some(k) = counted("unused") {
-                wlog(format!("{line} BAILOUT #{k} on {}: Renata died, the buff runs out by itself", who(sim, b.ally)));
+                wlog(format!("{line} BAILOUT #{k} on {}: Renata died, the last {left} ticks keep the speed without the save",
+                             who(sim, b.ally)));
             }
             return;
         };
         sim.entity_remove_buff(b.ally, W_BUFF);
         if takedowns(sim, b.ally).map_or(0, |t| t.1) > td {
+            let keep = kept_hp(full, self.p.w_keep);
+            sim.entity_set_hp(b.ally, keep);
             if let Some(k) = counted("saved") {
-                wlog(format!("{line} SAVED #{k}: {} scored a takedown, keeps {hp} (Renata died)", who(sim, b.ally)));
+                wlog(format!("{line} SAVED #{k}: {} scored a takedown, {hp} -> {keep} (Renata died)", who(sim, b.ally)));
             }
             return;
         }
@@ -798,8 +831,8 @@ mod tests {
     #[test]
     fn params_from_the_main_pack() {
         assert_eq!(parse_params("{}"), Params::default());
-        let p = parse_params(r#"{"p_pop":40,"junk":7,"w_doom":120,"w_cd":900,"fight_r":65000}"#);
-        assert_eq!((p.p_pop, p.w_doom, p.w_cd, p.fight_r), (40, 120, 900, 65000));
+        let p = parse_params(r#"{"p_pop":40,"junk":7,"w_doom":120,"w_cd":900,"fight_r":65000,"w_keep":25}"#);
+        assert_eq!((p.p_pop, p.w_doom, p.w_cd, p.fight_r, p.w_keep), (40, 120, 900, 65000, 25));
     }
 
     #[test]
@@ -811,7 +844,7 @@ mod tests {
         for (k, v) in [("p_t", d.p_t), ("p_pop", d.p_pop), ("p_pop_ap", d.p_pop_ap), ("p_pop_hp", d.p_pop_hp),
                        ("w_cd", d.w_cd), ("w_t", d.w_t), ("w_as", d.w_as), ("w_ms", d.w_ms), ("w_range", d.w_range),
                        ("w_r2", d.w_r2), ("fight_r", d.fight_r), ("w_anim", d.w_anim), ("w_doom", d.w_doom),
-                       ("r_t", d.r_t), ("r_per", d.r_per)] {
+                       ("w_keep", d.w_keep), ("r_t", d.r_t), ("r_per", d.r_per)] {
             assert!(params.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in the copy's passive params");
         }
         for name in [MARK, W_BUFF, BERSERK] {
@@ -841,6 +874,26 @@ mod tests {
         assert_eq!(drain_step(1800, 180), 10);
         assert_eq!(drain_step(100, 180), 1);
         assert_eq!(drain_step(1000, 0), 1000);
+    }
+
+    #[test]
+    fn only_the_buff_before_the_lethal_hit_is_undying() {
+        // 11-03 report 「她的W技能直接就把英雄复活了」: the refill kept undying, so for 3 s nothing could kill him
+        let p = Params::default();
+        let guard = w_buff(&p, p.w_t, true);
+        let burn = w_buff(&p, p.w_doom + 2, false);
+        assert!(guard.undying && !burn.undying);
+        assert_eq!((burn.name(), burn.duration_tick), (W_BUFF, p.w_doom + 2));
+        assert_eq!((burn.attack_speed_mult, burn.move_speed_mult), (p.w_as as i32, p.w_ms as i32));
+    }
+
+    #[test]
+    fn a_takedown_sets_a_fifth_of_max_health() {
+        // League: the burn stops and health is set to 20% of max - not what was left of the refill
+        assert_eq!(kept_hp(1800, 20), 360);
+        assert_eq!(kept_hp(2400, Params::default().w_keep), 480);
+        assert_eq!(kept_hp(3, 20), 1);
+        assert_eq!(kept_hp(0, 20), 1);
     }
 
     #[test]

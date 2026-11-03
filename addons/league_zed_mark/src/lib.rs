@@ -15,6 +15,13 @@
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
 //! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zed_mark.log`，每次启动游戏重写。
+//!
+//! 0.2.0（用户 2026-11-03：「劫：他不会打连招，而且他的Q技能根本看不见。」）：AI 钩子 `league_zed_mark:combo`（[`combo`]）替游戏的
+//! AI 按连招——印记期间甩影子（R-W-E-Q）、值得的时候开 R、W-E-Q 起手、影子在场时补 Q；劫的 W 从 league_ult_press 挪到这里。
+//! Q 看不见是主包数据的事（手里剑由锁定瞄准的隐形抛物线落地时扔出、飞到落点就没了，近战的劫只看得到 1–4 tick）：主包同一天
+//! 起不锁定、飞满全程、慢下来（tools/kit/build_zed.py），本包的副本跟着重新生成。
+
+pub mod combo;
 
 use std::collections::BTreeMap;
 use std::fs::OpenOptions;
@@ -73,6 +80,19 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// 日志条数：每种最多先写 `LOG_FIRST` 条，之后每 `LOG_EVERY` 条一条（league_orianna 的 `counted`；服务端的预模拟一晚上几百局）。
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 50;
+static COUNTS: Mutex<BTreeMap<&'static str, usize>> = Mutex::new(BTreeMap::new());
+
+/// 这种日志的第几条，该写就是 Some。
+fn counted(kind: &'static str) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -321,7 +341,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Contempt for the Weak below 50% health, Death Mark from the damage dealt, R2 at low health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Contempt for the Weak below 50% health, Death Mark from the damage dealt, R2 at low health, his combos: R-W-E-Q, W-E-Q, the shadows' Q) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -329,7 +349,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:edge"), Edge::default());
-    host.log(LogLevel::Info, "league_zed_mark v1 loaded (Zed's Contempt for the Weak and Death Mark read health and damage).");
+    module.add_player_input_ai(combo::Combo::default());
+    host.log(LogLevel::Info, "league_zed_mark loaded (Zed's Contempt for the Weak and Death Mark read health and damage, his combos pressed for the AI).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -394,5 +415,14 @@ mod tests {
         for x in ["cw_probe", "cw_hit", "r_mark"] {
             assert!(zd(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    #[test]
+    fn the_log_keeps_the_first_lines_then_one_in_fifty() {
+        let logged: Vec<usize> = (0..200).filter_map(|_| counted("test kind")).collect();
+        assert_eq!(logged[..LOG_FIRST], (1..=LOG_FIRST).collect::<Vec<_>>()[..]);
+        assert_eq!(logged[LOG_FIRST..], [50, 100, 150, 200]);
+        // counted apart per kind
+        assert_eq!(counted("another kind"), Some(1));
     }
 }

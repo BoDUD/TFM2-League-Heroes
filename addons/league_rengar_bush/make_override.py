@@ -5,10 +5,14 @@
 Rebuilds Rengar with tools/kit/build_rengar.py (its parameter table P), checks that the plain build is the main pack's
 league/champion/league_rengar.data_champion byte for byte (so the copy never drifts from the shipped kit), and writes
 addons/league_rengar_bush/override/league_rengar.data_champion and .../text/champion.i18n: the build with native=1 -
-  * no "ready after quiet ticks" check in the actions (the respawn and R still ready the pounce);
+  * the main pack's readiness all kept: the respawn, R and the "ready after quiet ticks" check (`league_rengar_fight`,
+    back since 0.2.0, 2026-11-03: without it a fight began with a leap only when the AI had just walked through a bush,
+    the players: 「他的跳跃机制非常不稳定，有时候会跳，有时候不跳」);
   * passive = the add-on's league_rengar_bush:bush with {leap_range}: every tick it readies the pounce while he stands
-    in a bush and takes that readiness back when he leaves it;
-  * the attack's tooltip (the passive) points to description.league_rengar_bush.attack with a "test build" lead and the
+    in a bush and, in a fight, takes that readiness back when he leaves it;
+  * the attack runs the add-on's native league_rengar_bush:aim on its target just before it reads `ready`: at a tower or
+    the nexus the readiness is set aside (the pounce's landing never hit one) and comes back for the next unit;
+  * the attack's tooltip (the passive) points to description.league_rengar_bush.attack with a "bush build" lead and the
     bush wording, so the tooltip in game shows whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Rengar changes.
 """
@@ -24,14 +28,20 @@ import setup_rengar as setup  # noqa: E402
 
 MOD_ID = "league_rengar_bush"
 HERO = "league_rengar"
-# lang -> (the lead, the main pack's out-of-combat wording, the bush wording)
+# lang -> (the lead, the main pack's readiness wording, the same with the bush first). 0.2.0 keeps the out-of-combat
+# readiness, so the wording grew and the leads shrank ("test build" -> "bush build"): zh-hans 130/130, en 334/334 and
+# ja 147/147 sit at TOOLTIP_MAX
 NATIVE = {
-    "zh-hans": ("【草丛测试版】", "复活、脱战" + setup.A + "{quiet}秒" + setup.E + "或R后", "在草丛里、复活或R后"),
-    "zh-hant": ("【草叢測試版】", "復活、脫戰" + setup.A + "{quiet}秒" + setup.E + "或R後", "在草叢裡、復活或R後"),
-    "en": ("[Bush test build] ", "on respawn, after " + setup.A + "{quiet}s" + setup.E + " out of combat or after R",
-           "in a bush, on respawn or after R"),
-    "ko": ("[수풀 테스트판] ", "부활, " + setup.A + "{quiet}초" + setup.E + " 비전투 또는 R 후", "수풀 안, 부활 또는 R 후"),
-    "ja": ("【茂みテスト版】", "復活時、" + setup.A + "{quiet}秒" + setup.E + "非戦闘またはR後", "茂みの中、復活時またはR後"),
+    "zh-hans": ("【草丛版】", "复活、脱战" + setup.A + "{quiet}秒" + setup.E + "或R后",
+                "草丛里、复活、脱战" + setup.A + "{quiet}秒" + setup.E + "或R后"),
+    "zh-hant": ("【草叢版】", "復活、脫戰" + setup.A + "{quiet}秒" + setup.E + "或R後",
+                "草叢裡、復活、脫戰" + setup.A + "{quiet}秒" + setup.E + "或R後"),
+    "en": ("[Bush] ", "on respawn, after " + setup.A + "{quiet}s" + setup.E + " out of combat or after R",
+           "in brush, on respawn, " + setup.A + "{quiet}s" + setup.E + " out of combat or after R"),
+    "ko": ("[수풀] ", "부활, " + setup.A + "{quiet}초" + setup.E + " 비전투 또는 R 후",
+           "수풀 안, 부활, " + setup.A + "{quiet}초" + setup.E + " 비전투 또는 R 후"),
+    "ja": ("【茂み版】", "復活時、" + setup.A + "{quiet}秒" + setup.E + "非戦闘またはR後",
+           "茂みの中、復活時、" + setup.A + "{quiet}秒" + setup.E + "非戦闘またはR後"),
 }
 
 
@@ -53,10 +63,15 @@ def main():
         sys.exit("the main pack's league_rengar differs from build_rengar.P: rebuild it first")
     champion = kit.build(dict(p, native=1))
     text = json.dumps(champion)
-    if "league_rengar_fight" in text:
-        sys.exit("the copy still checks the quiet ticks: update this script")
+    if "league_rengar_fight" not in text:
+        sys.exit("the copy lost the quiet-ticks check (league_rengar_fight, which src/lib.rs reads): update this script")
     if champion.get("passive", {}).get("passive_ref") != MOD_ID + ":bush":
         sys.exit("the copy has no league_rengar_bush:bush passive: update this script")
+    effects = champion["attack"]["effect"]["effects"]
+    aim = [i for i, e in enumerate(effects) if e.get("effect_ref") == MOD_ID + ":aim"]
+    reads = [i for i, e in enumerate(effects) if e.get("type") == "SwitchByBuff" and e.get("buff_name") == HERO + "_ready"]
+    if len(aim) != 1 or len(reads) != 1 or aim[0] > reads[0]:
+        sys.exit("the copy's attack must run league_rengar_bush:aim once, before it reads league_rengar_ready")
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
 
     values = setup.values(p)
@@ -80,7 +95,7 @@ def main():
         main_text = json.load(f)
     missing = set(main_text) - set(texts)
     if missing:
-        sys.exit("no test-build text for %s" % sorted(missing))
+        sys.exit("no bush-build text for %s" % sorted(missing))
     out_text = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
