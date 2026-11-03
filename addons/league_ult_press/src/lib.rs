@@ -29,7 +29,7 @@
 //!   伊芙琳 1.5、卡特琳娜 1.5、费德提克 1.6、瑞兹 1.7（多数英雄 3.5–6 次）；格温 E、佛耶戈 E 一次都没放，奥莉安娜 E 0.8、
 //!   卡莉丝塔 E 1.6、希维尔 E 2.5、娑娜 W 3.0、基兰 E 5.0、劫 W 5.5（劫的 W 只有 Q、E 都好着时 AI 才看得到伤害）。
 //!   `plan` 按局面替 AI 按，按下去以后的事全是主包的数据：
-//!   - 冲上去的（劫 W 还要 Q 好着、格温 E、佛耶戈 E、卡特琳娜 W）：他生命不低于 `ENGAGE_HP`；目标不在敌方塔下（生命
+//!   - 冲上去的（格温 E、佛耶戈 E、卡特琳娜 W；劫的 W 0.6.0 起归 league_zed_mark 的连招钩子）：他生命不低于 `ENGAGE_HP`；目标不在敌方塔下（生命
 //!     `DIVE_HP` 以下的除外）、目标身边的敌方英雄不比他身边的我方英雄（含他）多，挑生命比例最低的。AI 正往远处撤时不按。
 //!   - 永恩 R（0.5.5，用户：「永恩还是不放大吗」）：冲上去的规则，再加上值得一刀——目标身边 `YONE_R_LINE` 内两个以上敌方英雄、
 //!     目标生命不到 `YONE_R_LOW`，或我方有人贴着他；一串的先斩。
@@ -69,7 +69,8 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ult_press.log`，每次启动游戏重写，上一次的留在 .prev.log。
 //! ORDER = 按了；CAST = 冷却真的开始走（按下去了，莎弥拉记下当时的评价）；FIRED = 莎弥拉的真大招放出（主包的
-//! `league_samira_r_on`）；TELEPORT = 崔斯特按下之后一 tick 内移动了 `TF_JUMP` 以上；STYLE = 莎弥拉这一局到过的最高评价；
+//! `league_samira_r_on`）；TELEPORT = 崔斯特按下之后一 tick 内移动了 `TF_JUMP` 以上；STYLE = 莎弥拉这一局到过的最高评价，
+//! STYLE S #n = 这一局第几次到 S；
 //! R ARMED = 备好式大招用掉了（kept）、退还了（refunded），或者等着的时候阵亡了、判断不了（died while armed）。
 //! ORDER 行开头也写是哪一场（`[presim m=.. s=..]`，不写 seed）。每种行整个游戏一个计数：你看的那场（画面、观战、回放）
 //! 每条都记，服务器的预模拟先记 `LOG_FIRST` 条、之后每 `LOG_EVERY` 条记一条（0.5.8：以前你看的那场也一样限，
@@ -115,6 +116,15 @@ pub const SAMIRA_E_PREY: f64 = 0.5;
 pub const SAMIRA_E_TEAM: f64 = 40_000.0;
 /// Q（`Direction`，主包射程 90000，枪弹打中第一个敌人就停）：这么近有敌方英雄才朝他放。
 pub const SAMIRA_Q_RANGE: f64 = 70_000.0;
+/// Q 打不打得到他（主包 build_samira.py 的 P）：她身边 `SAMIRA_Q_CLOSE`（q_close）内有敌人就是剑扫，扇形半径 `SAMIRA_Q_CONE`
+/// （q_cone_r）；不然开枪，枪弹（q_rad 5000 宽）打中第一个敌人就停，离直线 `SAMIRA_Q_LANE` 内、比他近的小兵、野怪会挡住。
+/// 0.6.0（玩家反馈「莎弥拉：她的评分永远达不到S级」）：Q 多半扫到、打到小兵，不算评价。
+pub const SAMIRA_Q_CLOSE: f64 = 28_000.0;
+pub const SAMIRA_Q_CONE: f64 = 32_000.0;
+pub const SAMIRA_Q_LANE: f64 = 10_000.0;
+/// 评价到了这一级（C）就不再只冲残血：E 冲过去、落地接 W，是攒评价最快的两下（0.6.0：11-02 后台一场 18.5 分钟只按了 12 次 E、
+/// 到过两次 S）。
+pub const SAMIRA_E_GRADE: usize = 3;
 /// 崔斯特：身边这么近有敌方英雄就不按（主包门槛 70000，多留一点）。
 pub const TF_ALONE: f64 = 75_000.0;
 /// 我方英雄这么近贴着敌方英雄算在打架（主包门槛：敌方英雄 60000 内有我方英雄）。
@@ -170,9 +180,8 @@ pub const YONE: &str = "league_yone";
 /// 冲上去的技能：他生命不低于这个才冲；目标在敌方塔下也冲的残血线。
 pub const ENGAGE_HP: f64 = 0.4;
 pub const DIVE_HP: f64 = 0.25;
-/// 劫 W：Q 不在冷却（主包标记 `league_zed_q_cd` 不在）才按，W-E-Q 一起出手（主包最初的设计「W 只在 Q 好着时」）。
-pub const ZED_W_RANGE: f64 = 55_000.0;
-pub const ZED_Q_CD: &str = "league_zed_q_cd";
+// 劫的 W（0.5.x：Q 好着才按，W-E-Q 一起出手）0.6.0 起不在这里：玩家反馈「劫：他不会打连招」（2026-11-03），劫的 W、E、Q、R
+// 整套连招归 league_zed_mark 的 AI 钩子（`league_zed_mark:combo`），两个钩子不抢同一个格子。
 pub const GWEN_E_RANGE: f64 = 45_000.0;
 pub const VIEGO_E_RANGE: f64 = 46_000.0;
 /// 卡特琳娜 W（`EnemyChampionRecentlyAttacked`：引擎只接最近被我方打过的）。
@@ -647,11 +656,40 @@ pub fn tf_fight(me: (f64, f64), hp: f64, allies: &[Unit], enemies: &[Unit]) -> O
     best.map(|(e, a, _)| (e, a))
 }
 
-/// 莎弥拉这一 tick 按什么（先后顺序，引擎接哪个就是哪个）：`ready` = Q、E、R 好了没有，`last_q` = 上一下打中英雄的是 Q。
-/// R：射程内最近的敌方英雄；E：`SAMIRA_E_RANGE` 内、她生命够、目标身边不挤、目标残血或身边有我方英雄在打的，生命最少的那个；
-/// Q：`SAMIRA_Q_RANGE` 内最近的、上一下不是 Q。
-pub fn samira_plan(me: (f64, f64), hp: f64, ready: [bool; 3], last_q: bool, allies: &[Unit], enemies: &[Unit])
-                   -> Vec<(char, usize)> {
+/// `p` 挡在 `a` 打向 `b` 的路上：在两人之间（比 `b` 近），离这条直线不到 `lane`。
+fn on_the_way(a: (f64, f64), b: (f64, f64), p: (f64, f64), lane: f64) -> bool {
+    let (dx, dy) = (b.0 - a.0, b.1 - a.1);
+    let len2 = dx * dx + dy * dy;
+    if len2 <= 0.0 {
+        return false;
+    }
+    let s = ((p.0 - a.0) * dx + (p.1 - a.1) * dy) / len2;
+    if !(0.0..1.0).contains(&s) {
+        return false;
+    }
+    dist(p, (a.0 + s * dx, a.1 + s * dy)) <= lane
+}
+
+/// 莎弥拉的 Q 打不打得到 `t` 处的敌方英雄（`blockers`：她身边的敌方小兵、野怪）。他在 `SAMIRA_Q_CLOSE` 内：是剑扫，扫得到他；
+/// 身边有小兵野怪：是剑扫，他在扇形半径 `SAMIRA_Q_CONE` 内才扫得到；不然是开枪：路上没有小兵野怪挡着才打得到。
+pub fn samira_q_reaches(me: (f64, f64), t: (f64, f64), blockers: &[(f64, f64)]) -> bool {
+    let d = dist(me, t);
+    if d <= SAMIRA_Q_CLOSE {
+        return true;
+    }
+    if blockers.iter().any(|&b| dist(me, b) <= SAMIRA_Q_CLOSE) {
+        return d <= SAMIRA_Q_CONE;
+    }
+    !blockers.iter().any(|&b| on_the_way(me, t, b, SAMIRA_Q_LANE))
+}
+
+/// 莎弥拉这一 tick 按什么（先后顺序，引擎接哪个就是哪个）：`ready` = Q、E、R 好了没有，`last_q` = 上一下打中英雄的是 Q，
+/// `grade` = 现在的评价（1..6 = E..S，0 = 没有），`blockers` = 她身边的敌方小兵、野怪。
+/// R：射程内最近的敌方英雄；E：`SAMIRA_E_RANGE` 内、她生命够、目标身边不挤、目标残血或身边有我方英雄在打的（评价到了
+/// `SAMIRA_E_GRADE` 就不挑残血，冲上去接着攒），生命最少的那个；Q：`SAMIRA_Q_RANGE` 内打得到（[`samira_q_reaches`]）的最近的、
+/// 上一下不是 Q；到了 S、R 又好着时不放 Q（R 放完评价清零，Q 留着重新攒）。
+pub fn samira_plan(me: (f64, f64), hp: f64, ready: [bool; 3], last_q: bool, allies: &[Unit], enemies: &[Unit],
+                   grade: usize, blockers: &[(f64, f64)]) -> Vec<(char, usize)> {
     let mut plan = Vec::new();
     if ready[2] {
         if let Some(t) = nearest_in(me, SAMIRA_RANGE, enemies) {
@@ -663,18 +701,36 @@ pub fn samira_plan(me: (f64, f64), hp: f64, ready: [bool; 3], last_q: bool, alli
             .iter()
             .filter(|t| dist(me, t.at) <= SAMIRA_E_RANGE)
             .filter(|t| enemies.iter().filter(|u| dist(t.at, u.at) <= SAMIRA_E_RANGE).count() <= SAMIRA_E_CROWD)
-            .filter(|t| t.hp <= SAMIRA_E_PREY || allies.iter().any(|a| dist(a.at, t.at) <= SAMIRA_E_TEAM))
+            .filter(|t| {
+                grade >= SAMIRA_E_GRADE || t.hp <= SAMIRA_E_PREY || allies.iter().any(|a| dist(a.at, t.at) <= SAMIRA_E_TEAM)
+            })
             .min_by(|a, b| a.hp.total_cmp(&b.hp));
         if let Some(t) = prey {
             plan.push(('E', t.id));
         }
     }
-    if ready[0] && !last_q {
-        if let Some(t) = nearest_in(me, SAMIRA_Q_RANGE, enemies) {
-            plan.push(('Q', t));
+    let at_s = grade >= SAMIRA_GRADES.len() && ready[2];
+    if ready[0] && !last_q && !at_s {
+        let target = enemies
+            .iter()
+            .filter(|u| dist(me, u.at) <= SAMIRA_Q_RANGE && samira_q_reaches(me, u.at, blockers))
+            .min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)));
+        if let Some(t) = target {
+            plan.push(('Q', t.id));
         }
     }
     plan
+}
+
+/// 莎弥拉身边（`reach` 内）活着、选得中的敌方小兵、野怪（不是英雄、不是塔）：Q 会被它们挡住或拿去扫。整表看一遍，只在她 Q 好着、
+/// 身边有敌方英雄时才找（`look` 平时只看英雄）。
+fn samira_blockers(sim: &StableSim<'_>, team: usize, me: (f64, f64), reach: f64) -> Vec<(f64, f64)> {
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|e| e.team() != team && e.is_alive() && e.is_targetable() && !e.is_champion() && !e.is_tower())
+        .map(|e| at(&e))
+        .filter(|&p| dist(me, p) <= reach)
+        .collect()
 }
 
 /// 克格莫：`KOG_RANGE` 内的敌方英雄，生命比例从低到高（前 `KOG_ASK` 个；引擎再看谁最近被我方打过）。
@@ -752,6 +808,29 @@ pub fn poke_target(me: (f64, f64), hp: f64, enemies: &[Unit], (reach, keep): (f6
     }
     let kept = engaged.filter(|t| enemies.iter().any(|u| u.id == *t && dist(me, u.at) <= keep));
     kept.or_else(|| nearest_in(me, reach, enemies))
+}
+
+/// 0.6.0（玩家反馈「伊芙琳、克格莫、德莱文：他们拒绝攻击敌方英雄」）：射程被拉长的人被停住时多看这么远。AI 把他们停在拉长的
+/// 射程外一点：只读观察包里伊芙琳带着魅影的射程（24000 + 20000）站着、普攻好着，最近的敌方英雄在 48–50k，AI 不下命令或下令
+/// 「走到自己脚下」；克格莫开着 W（55000 + 18000）也停在 73000 外。普攻命令下给这么远的人，AI 自己走过去打（近战一样：
+/// 射程 25000、看 `HOLD_REACH` 35000）。
+pub const STRETCH_LOOK: f64 = 10_000.0;
+
+/// 0.6.0（同上，德莱文；用户：「卡莎好像也不会A英雄？」）：远程（没有射程 buff）被停住时按 `poke_target` 打普攻距离内的英雄——站着就打得到，不往前走一步，所以不看
+/// 目标在不在敌方塔下、是不是以少打多（`hold_target` 这两条在对线时几乎总是不成立：敌方英雄站在自家塔的 75000 内）；只要他自己
+/// 不站在敌方塔下（离敌方塔 `TOWER_REACH` 以外）。
+pub fn ranged_poke(
+    me: (f64, f64),
+    hp: f64,
+    enemies: &[Unit],
+    towers: &[(f64, f64)],
+    reach: (f64, f64),
+    engaged: Option<usize>,
+) -> Option<usize> {
+    if towers.iter().any(|&w| dist(w, me) <= TOWER_REACH) {
+        return None;
+    }
+    poke_target(me, hp, enemies, reach, engaged)
 }
 
 /// AI 还在不在回城（0.5.0，游戏 0.6.5 改进了「什么时候回城买装备」：回城是它的决定，钩子不再打断）：回城命令开始，别的
@@ -996,11 +1075,10 @@ pub struct Plan {
     pub dive: bool,
 }
 
-/// 他身上的几个主包标记：劫的 Q 好着（没有 `ZED_Q_CD`）、卡莉丝塔能撕裂（`KALISTA_E_OK` 在、`KALISTA_E_CD` 不在）；
-/// 刚放了技能的敌方英雄（希维尔）。
+/// 他身上的几个主包标记：卡莉丝塔能撕裂（`KALISTA_E_OK` 在、`KALISTA_E_CD` 不在）；刚放了技能的敌方英雄（希维尔）。
+/// （劫的 W 0.6.0 起归 league_zed_mark 的连招钩子，`zed_q_ready` 去掉了。）
 #[derive(Clone, Debug, Default)]
 pub struct Marks {
-    pub zed_q_ready: bool,
     pub kalista_rend: bool,
     pub fresh: Vec<usize>,
 }
@@ -1008,14 +1086,13 @@ pub struct Marks {
 /// 这一 tick 替这位英雄按什么，先后顺序（引擎接哪个就是哪个）。`ready` 按 `SkillSlotV1` 的编号（普攻、技能1、技能2、大招）。
 /// 只管 `slots_of` 新加的这些英雄；莎弥拉、崔斯特、克格莫、卡密尔照旧在 `think` 里。
 pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
-    let (q, w, r) = (ready[1], ready[2], ready[3]);
+    let (w, r) = (ready[2], ready[3]);
     let mut out = Vec::new();
     let mut push = |key: &'static str, slot: SkillSlotV1, ids: Vec<usize>, why: &str, dive: bool| {
         out.extend(ids.into_iter().map(|t| Plan { key, slot, aim: Aim::Unit(t), why: why.to_string(), dive }));
     };
-    use SkillSlotV1::{Skill, Skill2, Ult};
+    use SkillSlotV1::{Skill2, Ult};
     match name {
-        ZED if q && m.zed_q_ready => push("W", Skill, engage_targets(s, ZED_W_RANGE), "W-E-Q (Q ready)", true),
         GWEN if w => push("E", Skill2, engage_targets(s, GWEN_E_RANGE), "dash in", true),
         VIEGO if w => push("E", Skill2, engage_targets(s, VIEGO_E_RANGE), "mist and dash in", true),
         KATARINA => {
@@ -1133,7 +1210,6 @@ pub struct PressSlot {
 const P_R: PressSlot = PressSlot { slot: SkillSlotV1::Ult, key: "R" };
 const P_E2: PressSlot = PressSlot { slot: SkillSlotV1::Skill2, key: "E" };
 const P_W2: PressSlot = PressSlot { slot: SkillSlotV1::Skill2, key: "W" };
-const P_W1: PressSlot = PressSlot { slot: SkillSlotV1::Skill, key: "W" };
 
 /// 每个英雄替 AI 按哪些格子（它们的冷却开始走就记一行 CAST）。
 pub fn slots_of(name: &str) -> &'static [PressSlot] {
@@ -1144,7 +1220,6 @@ pub fn slots_of(name: &str) -> &'static [PressSlot] {
         ORIANNA => &[P_R, P_E2],
         KATARINA => &[P_R, P_W2],
         SONA => &[P_W2],
-        ZED => &[P_W1],
         _ => &[],
     }
 }
@@ -1187,6 +1262,9 @@ struct UltPress {
     /// 莎弥拉这一局到过的最高评价、上一次看到的 tick（新的一局 tick 会变小）。
     best_grade: usize,
     last_tick: usize,
+    /// 莎弥拉上一 tick 的评价、这一局到 S 的次数（每次到 S 记一行，看评价攒不攒得起来）。
+    last_grade: usize,
+    s_times: usize,
     /// 上一次下的命令（哪个格子、哪一 tick）：一串连着按的只记一行日志。
     last_order: Option<(&'static str, usize)>,
     /// 克格莫开一轮的配额、上次算到的 tick、上一 tick 一轮开着没有。
@@ -1524,6 +1602,8 @@ impl UltPress {
             self.still_ticks = if still { self.still_ticks + 1 } else { 0 };
             if tick < self.last_tick || self.volley_tick > tick {
                 self.best_grade = 0;
+                self.last_grade = 0;
+                self.s_times = 0;
                 self.volleys = 1.0;
                 self.volley_tick = tick;
                 self.engage = None;
@@ -1564,6 +1644,14 @@ impl UltPress {
                     }
                 }
             }
+            if grade == SAMIRA_GRADES.len() && self.last_grade < grade {
+                self.s_times += 1;
+                if let Some(k) = counted(format!("{name} at S"), on_screen(&sim)) {
+                    wlog(format!("{} STYLE S #{} this match (from {}) #{k}", head(&sim, mid), self.s_times,
+                                 grade_name(self.last_grade)));
+                }
+            }
+            self.last_grade = grade;
             // a watched slot went out when its cooldown starts: the press behind it, or the AI's own
             for ps in slots {
                 let i = ps.slot.code() as usize;
@@ -1687,8 +1775,12 @@ impl UltPress {
             if holder && atk_ready {
                 let engaged = self.engage.filter(|&(_, until)| tick <= until).map(|(t, _)| t);
                 let reach = hold_reach_with(&name, buff_range(&me));
+                let stretched = buff_range(&me) > 0.0;
+                // held with a range buff: a champion a little past the stretched reach counts too (the AI parks them there)
+                let look_reach = if stretched { (reach.0 + STRETCH_LOOK, reach.1 + STRETCH_LOOK) } else { reach };
                 // walking with an enemy champion in reach and not away from him (Kha'Zix follows and never attacks)
-                let near = nearest_in(my_at, reach.0, &enemies).and_then(|t| enemies.iter().find(|u| u.id == t)).map(|u| u.at);
+                let near =
+                    nearest_in(my_at, look_reach.0, &enemies).and_then(|t| enemies.iter().find(|u| u.id == t)).map(|u| u.at);
                 let walking = match (base, near) {
                     (Some(b), Some(p)) if b.kind == InputKindV1::Move.code() => {
                         !walking_away(my_at, (b.x as f64, b.y as f64), p)
@@ -1706,7 +1798,6 @@ impl UltPress {
                     .filter(|b| InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target))
                     .and_then(|b| sim.get_entity(b.target.target_id))
                     .map(|t| (t.is_champion(), t.hp().0 <= me.stat().attack));
-                let stretched = buff_range(&me) > 0.0;
                 if swing.is_some_and(|(c, l)| stretched_retarget(stretched, c, l)) {
                     if let Some(t) = poke_target(my_at, hp_share(me.hp()), &enemies, reach, engaged) {
                         if engaged != Some(t) {
@@ -1722,8 +1813,11 @@ impl UltPress {
                         self.engage = None;
                     }
                 } else if still_held || walk_held || engaged.is_some() {
+                    let ranged = attack_range(&name).is_some_and(|r| r > MELEE_RANGE);
                     let pick = if stretched {
-                        poke_target(my_at, hp_share(me.hp()), &enemies, reach, engaged)
+                        poke_target(my_at, hp_share(me.hp()), &enemies, look_reach, engaged)
+                    } else if ranged {
+                        ranged_poke(my_at, hp_share(me.hp()), &enemies, &towers, reach, engaged)
                     } else {
                         hold_target(my_at, hp_share(me.hp()), &allies, &enemies, &towers, reach, engaged)
                     };
@@ -1759,7 +1853,15 @@ impl UltPress {
             let mut cands = match name.as_str() {
                 SAMIRA => {
                     let ready3 = [ready[1], ready[2], ready[3]];
-                    let plan = samira_plan(my_at, hp_share(me.hp()), ready3, has_buff(&me, SAMIRA_LAST_Q), &allies, &enemies);
+                    let last_q = has_buff(&me, SAMIRA_LAST_Q);
+                    // the minions and monsters round her only when a Q could go out (a whole scan of the table; `look`
+                    // sees champions only)
+                    let blockers = if ready3[0] && !last_q && nearest_in(my_at, SAMIRA_Q_RANGE, &enemies).is_some() {
+                        samira_blockers(&sim, team, my_at, SAMIRA_Q_RANGE + SAMIRA_Q_LANE)
+                    } else {
+                        Vec::new()
+                    };
+                    let plan = samira_plan(my_at, hp_share(me.hp()), ready3, last_q, &allies, &enemies, grade, &blockers);
                     let mut v = Vec::new();
                     for (k, t) in plan {
                         if away_from(t) || (k == 'E' && !dive_ok(t)) {
@@ -1827,9 +1929,8 @@ impl UltPress {
                     towers: &towers,
                     held: &held,
                 };
-                // only Zed's and Kalista's plans read these, and each walks all her buffs
+                // only Kalista's plan reads this, and it walks all her buffs
                 let marks = Marks {
-                    zed_q_ready: name == ZED && !has_buff(&me, ZED_Q_CD),
                     kalista_rend: name == KALISTA && has_buff(&me, KALISTA_E_OK) && !has_buff(&me, KALISTA_E_CD),
                     fresh,
                 };
@@ -2016,33 +2117,90 @@ mod tests {
     fn samira_weaves_r_then_e_then_q() {
         let one = [u(1, 40_000.0, 0.0, 0.4)];
         // all ready, one hurt champion at 40000: R first (fires at S, else arms), then E, then Q
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &one), vec![('R', 1), ('E', 1), ('Q', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &one, 0, &[]), vec![('R', 1), ('E', 1), ('Q', 1)]);
         // the last hit was a Q: another Q would not climb
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, false], true, &[], &one), vec![('E', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, false], true, &[], &one, 0, &[]), vec![('E', 1)]);
         // low on health: no dash in
-        assert_eq!(samira_plan((0.0, 0.0), 0.45, [true, true, false], false, &[], &one), vec![('Q', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.45, [true, true, false], false, &[], &one, 0, &[]), vec![('Q', 1)]);
         // three champions around the target: no dash into them
         let crowd = [u(1, 40_000.0, 0.0, 0.3), u(2, 60_000.0, 0.0, 1.0), u(3, 50_000.0, 20_000.0, 1.0)];
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [false, true, false], false, &[], &crowd), vec![]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [false, true, false], false, &[], &crowd, 0, &[]), vec![]);
         // out of E's reach (65000), in Q's (70000)
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &[u(1, 65_000.0, 0.0, 0.3)]), vec![('Q', 1)]);
-        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &[]), vec![]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &[u(1, 65_000.0, 0.0, 0.3)], 0, &[]), vec![('Q', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 0.9, [true, true, true], false, &[], &[], 0, &[]), vec![]);
     }
 
     #[test]
     fn samira_no_longer_dashes_alone_at_a_healthy_champion() {
         // 「莎米拉无脑乱上」: a full-health tank alone - no E (Q still pokes)
         let tank = [u(1, 40_000.0, 0.0, 1.0)];
-        assert_eq!(samira_plan((0.0, 0.0), 1.0, [true, true, false], false, &[], &tank), vec![('Q', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [true, true, false], false, &[], &tank, 0, &[]), vec![('Q', 1)]);
         // an ally already on him (30000 from him): she goes in
         let ally = [u(10, 70_000.0, 0.0, 1.0)];
-        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &ally, &tank), vec![('E', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &ally, &tank, 0, &[]), vec![('E', 1)]);
         // an ally far away (100000 from him) does not count
         let far = [u(10, -60_000.0, 0.0, 1.0)];
-        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &far, &tank), vec![]);
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &far, &tank, 0, &[]), vec![]);
         // two in reach: the weaker one, not the nearer one
         let two = [u(1, 20_000.0, 0.0, 0.45), u(2, 50_000.0, 10_000.0, 0.2)];
-        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &[], &two), vec![('E', 2)]);
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &[], &two, 0, &[]), vec![('E', 2)]);
+    }
+
+    #[test]
+    fn samira_q_waits_for_a_shot_that_reaches_a_champion() {
+        // 「莎弥拉：她的评分永远达不到S级」: her Q went into the minions (slashed them, or the bullet stopped on one)
+        let me = (0.0, 0.0);
+        let champ = (50_000.0, 0.0);
+        assert!(samira_q_reaches(me, champ, &[]), "nothing in the way: the bullet");
+        assert!(!samira_q_reaches(me, champ, &[(40_000.0, 3_000.0)]), "a minion on the line stops the bullet");
+        assert!(samira_q_reaches(me, champ, &[(40_000.0, 30_000.0)]), "one off the line does not");
+        assert!(samira_q_reaches(me, champ, &[(60_000.0, 0.0)]), "nor one behind him");
+        assert!(!samira_q_reaches(me, champ, &[(-20_000.0, 0.0)]), "a minion by her makes it a slash, he is out of the cone");
+        assert!(samira_q_reaches(me, (30_000.0, 0.0), &[(-20_000.0, 0.0)]), "a slash still reaches him at 30000");
+        assert!(samira_q_reaches(me, (20_000.0, 0.0), &[(10_000.0, 0.0)]), "he is close: the slash is his");
+        // the plan: Q at the one it reaches, not the nearest
+        let two = [u(1, 50_000.0, 0.0, 1.0), u(2, 0.0, 60_000.0, 1.0)];
+        let wave = [(40_000.0, 2_000.0)];
+        assert_eq!(samira_plan(me, 1.0, [true, false, false], false, &[], &two, 0, &wave), vec![('Q', 2)]);
+        assert_eq!(samira_plan(me, 1.0, [true, false, false], false, &[], &two[..1], 0, &wave), vec![]);
+    }
+
+    #[test]
+    fn samira_dashes_in_to_climb_and_keeps_q_for_after_r() {
+        let tank = [u(1, 40_000.0, 0.0, 1.0)];
+        // a full-health champion alone: no E below C, E from C on (E and its W are two grades)
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &[], &tank, 2, &[]), vec![]);
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [false, true, false], false, &[], &tank, SAMIRA_E_GRADE, &[]), vec![('E', 1)]);
+        // at S with R ready: R, and the Q waits for the climb after it
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [true, false, true], false, &[], &tank, 6, &[]), vec![('R', 1)]);
+        assert_eq!(samira_plan((0.0, 0.0), 1.0, [true, false, false], false, &[], &tank, 6, &[]), vec![('Q', 1)]);
+    }
+
+    #[test]
+    fn held_with_a_range_buff_looks_a_little_past_it() {
+        // 「伊芙琳、克格莫、德莱文：他们拒绝攻击敌方英雄」: Evelynn in Shade (24000 + 20000) parked 48-50k from champions
+        let reach = hold_reach_with(EVELYNN, 20_000.0);
+        assert_eq!(reach, (44_000.0, 54_000.0));
+        let look = (reach.0 + STRETCH_LOOK, reach.1 + STRETCH_LOOK);
+        let foes = [u(1, 49_000.0, 0.0, 1.0)];
+        assert_eq!(poke_target((0.0, 0.0), 0.9, &foes, reach, None), None, "the stretched reach alone misses him");
+        assert_eq!(poke_target((0.0, 0.0), 0.9, &foes, look, None), Some(1));
+        assert_eq!(poke_target((0.0, 0.0), 0.9, &[u(1, 60_000.0, 0.0, 1.0)], look, None), None, "too far still");
+    }
+
+    #[test]
+    fn a_held_marksman_trades_in_lane_but_not_under_their_tower() {
+        // Draven in lane: the enemy by his own tower (hold_target's tower rule never let him), Draven well out of its reach
+        let reach = hold_reach("league_draven");
+        let foe = [u(1, 50_000.0, 0.0, 0.9)];
+        let tower = [(110_000.0, 0.0)];
+        assert_eq!(hold_target((0.0, 0.0), 0.9, &[], &foe, &tower, reach, None), None, "the old rule");
+        assert_eq!(ranged_poke((0.0, 0.0), 0.9, &foe, &tower, reach, None), Some(1));
+        // he himself under their tower: no
+        assert_eq!(ranged_poke((40_000.0, 0.0), 0.9, &[u(1, 90_000.0, 0.0, 0.9)], &tower, reach, None), None);
+        // out of his own attack range: not his to poke (no walking in)
+        assert_eq!(ranged_poke((0.0, 0.0), 0.9, &[u(1, 60_000.0, 0.0, 0.9)], &tower, reach, None), None);
+        assert_eq!(ranged_poke((0.0, 0.0), 0.2, &foe, &tower, reach, None), None, "too hurt");
     }
 
     #[test]
@@ -2181,18 +2339,18 @@ mod tests {
         // #1 and #2 on either side of him (70k apart: each alone); #3 is out of W's range
         let foes = [u(1, 30_000.0, 0.0, 0.9), u(2, -40_000.0, 0.0, 0.5), u(3, 70_000.0, 0.0, 0.1)];
         // #2 is lower than #1
-        assert_eq!(engage_targets(&scene(0.8, &[], &foes[..2], &[], &[]), ZED_W_RANGE), vec![2, 1]);
-        assert_eq!(engage_targets(&scene(0.8, &[], &[foes[2]], &[], &[]), ZED_W_RANGE), Vec::<usize>::new());
+        assert_eq!(engage_targets(&scene(0.8, &[], &foes[..2], &[], &[]), KATARINA_W_RANGE), vec![2, 1]);
+        assert_eq!(engage_targets(&scene(0.8, &[], &[foes[2]], &[], &[]), KATARINA_W_RANGE), Vec::<usize>::new());
         // too hurt to go in
-        assert!(engage_targets(&scene(0.3, &[], &foes, &[], &[]), ZED_W_RANGE).is_empty());
+        assert!(engage_targets(&scene(0.3, &[], &foes, &[], &[]), KATARINA_W_RANGE).is_empty());
         // under his tower only when nearly dead
         let tower = [(40_000.0, 50_000.0)];
-        assert_eq!(engage_targets(&scene(0.8, &[], &[u(2, 40_000.0, 0.0, 0.5)], &tower, &[]), ZED_W_RANGE), Vec::<usize>::new());
-        assert_eq!(engage_targets(&scene(0.8, &[], &[u(2, 40_000.0, 0.0, 0.2)], &tower, &[]), ZED_W_RANGE), vec![2]);
+        assert_eq!(engage_targets(&scene(0.8, &[], &[u(2, 40_000.0, 0.0, 0.5)], &tower, &[]), KATARINA_W_RANGE), Vec::<usize>::new());
+        assert_eq!(engage_targets(&scene(0.8, &[], &[u(2, 40_000.0, 0.0, 0.2)], &tower, &[]), KATARINA_W_RANGE), vec![2]);
         // two of them together against him alone: no; with an ally by him: yes
         let pair = [u(1, 40_000.0, 0.0, 0.6), u(2, 45_000.0, 10_000.0, 0.7)];
-        assert!(engage_targets(&scene(0.8, &[], &pair, &[], &[]), ZED_W_RANGE).is_empty());
-        assert_eq!(engage_targets(&scene(0.8, &[u(9, 5_000.0, 0.0, 1.0)], &pair, &[], &[]), ZED_W_RANGE), vec![1, 2]);
+        assert!(engage_targets(&scene(0.8, &[], &pair, &[], &[]), KATARINA_W_RANGE).is_empty());
+        assert_eq!(engage_targets(&scene(0.8, &[u(9, 5_000.0, 0.0, 1.0)], &pair, &[], &[]), KATARINA_W_RANGE), vec![1, 2]);
     }
 
     #[test]
@@ -2305,48 +2463,46 @@ mod tests {
     fn plan_follows_readiness_and_the_main_packs_marks() {
         let foe = [u(1, 40_000.0, 0.0, 0.5)];
         let s = scene(0.8, &[], &foe, &[], &[]);
-        let marks = |zed_q_ready, kalista_rend| Marks { zed_q_ready, kalista_rend, fresh: Vec::new() };
+        let marks = |kalista_rend| Marks { kalista_rend, fresh: Vec::new() };
         let keys = |v: Vec<Plan>| v.into_iter().map(|p| (p.key, p.slot, p.aim)).collect::<Vec<_>>();
         let all = [true; 4];
-        // Zed's W only with Q ready, on his first skill slot
-        assert_eq!(keys(plan(ZED, &s, all, &marks(true, false))), vec![("W", SkillSlotV1::Skill, Aim::Unit(1))]);
-        assert!(plan(ZED, &s, all, &marks(false, false)).is_empty());
-        assert!(plan(ZED, &s, [true, false, true, true], &marks(true, false)).is_empty());
+        // Zed's W is league_zed_mark's combo hook since 0.6.0: nothing here
+        assert!(plan(ZED, &s, all, &marks(false)).is_empty());
         // Kalista's rend only with the spears' mark
-        assert!(plan(KALISTA, &s, all, &marks(false, false)).is_empty());
-        assert_eq!(keys(plan(KALISTA, &s, all, &marks(false, true))), vec![("E", SkillSlotV1::Skill2, Aim::Unit(1))]);
+        assert!(plan(KALISTA, &s, all, &marks(false)).is_empty());
+        assert_eq!(keys(plan(KALISTA, &s, all, &marks(true))), vec![("E", SkillSlotV1::Skill2, Aim::Unit(1))]);
         // Orianna: R before E (E needs a fight: the enemy is 40k from her, within FIGHT_CONTACT)
         assert_eq!(
-            keys(plan(ORIANNA, &s, all, &marks(false, false))),
+            keys(plan(ORIANNA, &s, all, &marks(false))),
             vec![("R", SkillSlotV1::Ult, Aim::Unit(1)), ("E", SkillSlotV1::Skill2, Aim::Unit(1))]
         );
         // armed ults press on anyone near; not when the slot is down
-        assert_eq!(keys(plan(EVELYNN, &scene(0.8, &[], &[u(1, 40_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false))).len(), 1);
-        assert!(plan(KARMA, &s, [true, true, true, false], &marks(false, false)).is_empty());
-        assert_eq!(keys(plan(APHELIOS, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        assert_eq!(keys(plan(EVELYNN, &scene(0.8, &[], &[u(1, 40_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false))).len(), 1);
+        assert!(plan(KARMA, &s, [true, true, true, false], &marks(false)).is_empty());
+        assert_eq!(keys(plan(APHELIOS, &s, all, &marks(false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
         // Swain arms the demon on anyone within the slot's range; not beyond it, not with R down
-        assert_eq!(keys(plan(SWAIN, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
-        assert!(plan(SWAIN, &scene(0.8, &[], &[u(1, 60_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false)).is_empty());
-        assert!(plan(SWAIN, &s, [true, true, true, false], &marks(false, false)).is_empty());
+        assert_eq!(keys(plan(SWAIN, &s, all, &marks(false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        assert!(plan(SWAIN, &scene(0.8, &[], &[u(1, 60_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false)).is_empty());
+        assert!(plan(SWAIN, &s, [true, true, true, false], &marks(false)).is_empty());
         // Renata arms the takeover the same way, within her slot's 75000
-        assert_eq!(keys(plan(RENATA, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
-        assert!(plan(RENATA, &scene(0.8, &[], &[u(1, 80_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false)).is_empty());
-        assert!(plan(RENATA, &s, [true, true, true, false], &marks(false, false)).is_empty());
+        assert_eq!(keys(plan(RENATA, &s, all, &marks(false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        assert!(plan(RENATA, &scene(0.8, &[], &[u(1, 80_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false)).is_empty());
+        assert!(plan(RENATA, &s, [true, true, true, false], &marks(false)).is_empty());
         // Wukong arms the cyclone on anyone within 40000 (the spin needs one within 28000 at an attack); not with R down
         // (still locked at a low level or on cooldown)
-        assert_eq!(keys(plan(WUKONG, &s, all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
-        assert!(plan(WUKONG, &scene(0.8, &[], &[u(1, 50_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false, false)).is_empty());
-        assert!(plan(WUKONG, &s, [true, true, true, false], &marks(false, false)).is_empty());
+        assert_eq!(keys(plan(WUKONG, &s, all, &marks(false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        assert!(plan(WUKONG, &scene(0.8, &[], &[u(1, 50_000.0, 0.0, 1.0)], &[], &[]), all, &marks(false)).is_empty());
+        assert!(plan(WUKONG, &s, [true, true, true, false], &marks(false)).is_empty());
         let low = [u(1, 40_000.0, 0.0, 0.4)];
-        assert_eq!(keys(plan(VLADIMIR, &scene(0.8, &[], &low, &[], &[]), all, &marks(false, false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
-        assert!(plan(VLADIMIR, &s, all, &marks(false, false)).is_empty()); // one at half health, alone: not yet
+        assert_eq!(keys(plan(VLADIMIR, &scene(0.8, &[], &low, &[], &[]), all, &marks(false))), vec![("R", SkillSlotV1::Ult, Aim::Unit(1))]);
+        assert!(plan(VLADIMIR, &s, all, &marks(false)).is_empty()); // one at half health, alone: not yet
         // Fiddlesticks aims at the spot first, then at the unit
         let pair = [u(1, 60_000.0, 0.0, 0.9), u(2, 70_000.0, 10_000.0, 0.8)];
-        let f = plan(FIDDLESTICKS, &scene(0.8, &[u(9, 40_000.0, 0.0, 1.0)], &pair, &[], &[]), all, &marks(false, false));
+        let f = plan(FIDDLESTICKS, &scene(0.8, &[u(9, 40_000.0, 0.0, 1.0)], &pair, &[], &[]), all, &marks(false));
         assert_eq!(f.iter().map(|p| p.aim).collect::<Vec<_>>(), vec![Aim::Spot((70_000.0, 10_000.0)), Aim::Unit(2)]);
         assert!(f.iter().all(|p| p.dive));
         // 0.5.0: what waits while the AI walks away - the attacks; shields, heals and the escape do not
-        let flag = |h: &str, sc: &Scene| plan(h, sc, all, &marks(false, true)).first().map(|p| p.dive);
+        let flag = |h: &str, sc: &Scene| plan(h, sc, all, &marks(true)).first().map(|p| p.dive);
         let near = [u(1, 20_000.0, 0.0, 0.4), u(2, 22_000.0, 3_000.0, 0.4)];
         assert_eq!(flag(KATARINA, &scene(0.8, &[], &near, &[], &[])), Some(true));
         for h in [SYNDRA, EVELYNN, APHELIOS, SWAIN, ORIANNA, WUKONG] {
@@ -2357,7 +2513,7 @@ mod tests {
         }
         assert_eq!(flag(RYZE, &scene(0.2, &[], &near, &[], &[])), Some(false)); // the escape
         // a hero this list does not know
-        assert!(plan("league_garen", &s, all, &marks(true, true)).is_empty());
+        assert!(plan("league_garen", &s, all, &marks(true)).is_empty());
     }
 
     #[test]
@@ -2402,7 +2558,7 @@ mod tests {
 
     #[test]
     fn each_pressed_hero_watches_its_slots() {
-        assert_eq!(slots_of(ZED), &[PressSlot { slot: SkillSlotV1::Skill, key: "W" }]);
+        assert!(slots_of(ZED).is_empty(), "Zed's W is league_zed_mark's combo hook");
         assert_eq!(slots_of(ORIANNA).len(), 2);
         assert_eq!(slots_of(KATARINA).iter().map(|p| p.slot).collect::<Vec<_>>(), vec![SkillSlotV1::Ult, SkillSlotV1::Skill2]);
         for h in [SAMIRA, TF, KOGMAW, JANNA, SYNDRA, XERATH, KAYLE, JHIN, KARMA, EVELYNN, FIDDLESTICKS, RYZE, APHELIOS, VLADIMIR, SWAIN, RENATA, WUKONG, YONE] {
@@ -2443,7 +2599,6 @@ mod tests {
     #[test]
     fn ranges_and_marks_match_the_data() {
         for (hero, slot, range) in [
-            (ZED, "skill", ZED_W_RANGE),
             (GWEN, "skill2", GWEN_E_RANGE),
             (VIEGO, "skill2", VIEGO_E_RANGE),
             (KATARINA, "skill2", KATARINA_W_RANGE),
@@ -2480,6 +2635,6 @@ mod tests {
             let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join(format!("../../league/champion/{hero}.data_champion"));
             std::fs::read_to_string(path).unwrap().contains(&format!("\"{mark}\""))
         };
-        assert!(has(ZED, ZED_Q_CD) && has(KALISTA, KALISTA_E_OK) && has(KALISTA, KALISTA_E_CD));
+        assert!(has(KALISTA, KALISTA_E_OK) && has(KALISTA, KALISTA_E_CD));
     }
 }

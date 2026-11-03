@@ -553,12 +553,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -732,12 +732,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -911,12 +911,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -1090,12 +1090,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -1269,12 +1269,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -1448,12 +1448,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -1627,12 +1627,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -1806,12 +1806,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -1985,12 +1985,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -2164,12 +2164,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -2343,12 +2343,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -2522,12 +2522,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -2701,12 +2701,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -2880,12 +2880,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -3059,12 +3059,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -3238,12 +3238,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -3417,12 +3417,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -3596,12 +3596,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -3775,12 +3775,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -3954,12 +3954,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -4133,12 +4133,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -4312,12 +4312,12 @@
                                             "effect_buff": {
                                               "type": "BackToCasterLinearProjectile",
                                               "name": "league_zed_sh_star",
-                                              "speed": 10000,
+                                              "speed": 3500,
                                               "range": 400000,
                                               "penetrate": true,
                                               "shape": {
                                                 "Circle": {
-                                                  "radius": 5500
+                                                  "radius": 4500
                                                 }
                                               },
                                               "applied_target": "EnemyWithoutTower",
@@ -4838,12 +4838,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -4992,12 +4992,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -5146,12 +5146,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -5300,12 +5300,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -5454,12 +5454,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -5608,12 +5608,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -5762,12 +5762,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -5916,12 +5916,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -6070,12 +6070,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -6224,12 +6224,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -6378,12 +6378,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -6532,12 +6532,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -6686,12 +6686,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -6840,12 +6840,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -6994,12 +6994,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -7148,12 +7148,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -7302,12 +7302,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -7456,12 +7456,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -7610,12 +7610,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -7764,12 +7764,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -7918,12 +7918,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -8072,12 +8072,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -8226,12 +8226,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -8380,12 +8380,12 @@
                                 "effect_buff": {
                                   "type": "BackToCasterLinearProjectile",
                                   "name": "league_zed_sh_star",
-                                  "speed": 10000,
+                                  "speed": 3500,
                                   "range": 400000,
                                   "penetrate": true,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 5500
+                                      "radius": 4500
                                     }
                                   },
                                   "applied_target": "EnemyWithoutTower",
@@ -9122,8 +9122,12 @@
                     "effects": [
                       {
                         "type": "Delayed",
-                        "tick": 9,
+                        "tick": 15,
                         "effects": [
+                          {
+                            "type": "Sfx",
+                            "name": "league_zed_q"
+                          },
                           {
                             "type": "RemoveCasterBuff",
                             "name": "league_zed_q_first"
@@ -9140,116 +9144,90 @@
                                   "name": "league_zed_q_aim",
                                   "duration": {
                                     "Time": {
-                                      "tick": 8
+                                      "tick": 1
                                     }
                                   }
                                 },
                                 "only_to_enemy": false
                               },
                               {
-                                "type": "ParabolicProjectile",
-                                "name": "league_zed_q_aim",
-                                "travel_time": 6,
-                                "range": 1000000,
-                                "range_effect_name": "",
+                                "type": "LinearProjectile",
+                                "name": "league_zed_q_star",
+                                "penetrate": true,
+                                "applied_target": "EnemyWithoutTower",
+                                "applied_effects": [
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_zed_q_first",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 45,
+                                            "attack_ratio": 60,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_zed_q_hit"
+                                          }
+                                        ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 75,
+                                            "attack_ratio": 100,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "league_zed_q_hit"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_zed_q_first",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 36
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "casting_type": "Targeting",
+                                    "effect": {
+                                      "type": "TargetSfx",
+                                      "name": "league_zed_q_hit"
+                                    }
+                                  }
+                                ],
+                                "end_effects": [],
+                                "speed": 3500,
+                                "range": 70000,
                                 "shape": {
                                   "Circle": {
-                                    "radius": 1
+                                    "radius": 4500
                                   }
                                 },
-                                "applied_target": "EnemyChampion",
-                                "applied_effects": [],
-                                "end_effects": [
-                                  {
-                                    "type": "LinearProjectile",
-                                    "name": "league_zed_q_star",
-                                    "penetrate": true,
-                                    "applied_target": "EnemyWithoutTower",
-                                    "applied_effects": [
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "SwitchByBuff",
-                                          "buff_name": "league_zed_q_first",
-                                          "effect_buff": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "Attack",
-                                                "damage": 45,
-                                                "attack_ratio": 60,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 0,
-                                                "attack_effect_type": "Target"
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_zed_q_hit"
-                                              }
-                                            ]
-                                          },
-                                          "effect_none": {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "Attack",
-                                                "damage": 75,
-                                                "attack_ratio": 100,
-                                                "hp_ratio": 0,
-                                                "target_hp_ratio": 0,
-                                                "attack_effect_type": "Target"
-                                              },
-                                              {
-                                                "type": "ViewEffect",
-                                                "name": "league_zed_q_hit"
-                                              },
-                                              {
-                                                "type": "AddCasterBuff",
-                                                "buff_state": {
-                                                  "name": "league_zed_q_first",
-                                                  "duration": {
-                                                    "Time": {
-                                                      "tick": 36
-                                                    }
-                                                  }
-                                                },
-                                                "only_to_enemy": false
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "TargetSfx",
-                                          "name": "league_zed_q_hit"
-                                        }
-                                      }
-                                    ],
-                                    "end_effects": [],
-                                    "speed": 10000,
-                                    "range": 70000,
-                                    "shape": {
-                                      "Circle": {
-                                        "radius": 5500
-                                      }
-                                    },
-                                    "y_offset": 3000
-                                  }
-                                ]
+                                "y_offset": 3000
                               }
                             ]
-                          }
-                        ]
-                      },
-                      {
-                        "type": "Delayed",
-                        "tick": 15,
-                        "effects": [
-                          {
-                            "type": "Sfx",
-                            "name": "league_zed_q"
                           },
                           {
                             "type": "SwitchByBuff",
@@ -9326,11 +9304,11 @@
                                 }
                               ],
                               "end_effects": [],
-                              "speed": 10000,
+                              "speed": 3500,
                               "range": 70000,
                               "shape": {
                                 "Circle": {
-                                  "radius": 5500
+                                  "radius": 4500
                                 }
                               },
                               "y_offset": 3000
@@ -9422,7 +9400,7 @@
       },
       "effect_none": {
         "type": "SwitchByBuff",
-        "buff_name": "league_zed_r_on",
+        "buff_name": "league_zed_r_wq",
         "effect_buff": {
           "type": "SwitchByBuff",
           "buff_name": "league_zed_w_cd",
@@ -9497,8 +9475,12 @@
                 "effects": [
                   {
                     "type": "Delayed",
-                    "tick": 3,
+                    "tick": 9,
                     "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "league_zed_q"
+                      },
                       {
                         "type": "RemoveCasterBuff",
                         "name": "league_zed_q_first"
@@ -9515,116 +9497,90 @@
                               "name": "league_zed_q_aim",
                               "duration": {
                                 "Time": {
-                                  "tick": 8
+                                  "tick": 1
                                 }
                               }
                             },
                             "only_to_enemy": false
                           },
                           {
-                            "type": "ParabolicProjectile",
-                            "name": "league_zed_q_aim",
-                            "travel_time": 6,
-                            "range": 1000000,
-                            "range_effect_name": "",
+                            "type": "LinearProjectile",
+                            "name": "league_zed_q_star",
+                            "penetrate": true,
+                            "applied_target": "EnemyWithoutTower",
+                            "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_zed_q_first",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 45,
+                                        "attack_ratio": 60,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_zed_q_hit"
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 75,
+                                        "attack_ratio": 100,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "league_zed_q_hit"
+                                      },
+                                      {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_zed_q_first",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 36
+                                            }
+                                          }
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "TargetSfx",
+                                  "name": "league_zed_q_hit"
+                                }
+                              }
+                            ],
+                            "end_effects": [],
+                            "speed": 3500,
+                            "range": 70000,
                             "shape": {
                               "Circle": {
-                                "radius": 1
+                                "radius": 4500
                               }
                             },
-                            "applied_target": "EnemyChampion",
-                            "applied_effects": [],
-                            "end_effects": [
-                              {
-                                "type": "LinearProjectile",
-                                "name": "league_zed_q_star",
-                                "penetrate": true,
-                                "applied_target": "EnemyWithoutTower",
-                                "applied_effects": [
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zed_q_first",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "Attack",
-                                            "damage": 45,
-                                            "attack_ratio": 60,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 0,
-                                            "attack_effect_type": "Target"
-                                          },
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_zed_q_hit"
-                                          }
-                                        ]
-                                      },
-                                      "effect_none": {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "Attack",
-                                            "damage": 75,
-                                            "attack_ratio": 100,
-                                            "hp_ratio": 0,
-                                            "target_hp_ratio": 0,
-                                            "attack_effect_type": "Target"
-                                          },
-                                          {
-                                            "type": "ViewEffect",
-                                            "name": "league_zed_q_hit"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_zed_q_first",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 36
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  {
-                                    "casting_type": "Targeting",
-                                    "effect": {
-                                      "type": "TargetSfx",
-                                      "name": "league_zed_q_hit"
-                                    }
-                                  }
-                                ],
-                                "end_effects": [],
-                                "speed": 10000,
-                                "range": 70000,
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 5500
-                                  }
-                                },
-                                "y_offset": 3000
-                              }
-                            ]
+                            "y_offset": 3000
                           }
                         ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "Delayed",
-                    "tick": 9,
-                    "effects": [
-                      {
-                        "type": "Sfx",
-                        "name": "league_zed_q"
                       },
                       {
                         "type": "SwitchByBuff",
@@ -9701,11 +9657,11 @@
                             }
                           ],
                           "end_effects": [],
-                          "speed": 10000,
+                          "speed": 3500,
                           "range": 70000,
                           "shape": {
                             "Circle": {
-                              "radius": 5500
+                              "radius": 4500
                             }
                           },
                           "y_offset": 3000
@@ -9847,8 +9803,12 @@
               "effects": [
                 {
                   "type": "Delayed",
-                  "tick": 3,
+                  "tick": 9,
                   "effects": [
+                    {
+                      "type": "Sfx",
+                      "name": "league_zed_q"
+                    },
                     {
                       "type": "RemoveCasterBuff",
                       "name": "league_zed_q_first"
@@ -9865,116 +9825,90 @@
                             "name": "league_zed_q_aim",
                             "duration": {
                               "Time": {
-                                "tick": 8
+                                "tick": 1
                               }
                             }
                           },
                           "only_to_enemy": false
                         },
                         {
-                          "type": "ParabolicProjectile",
-                          "name": "league_zed_q_aim",
-                          "travel_time": 6,
-                          "range": 1000000,
-                          "range_effect_name": "",
+                          "type": "LinearProjectile",
+                          "name": "league_zed_q_star",
+                          "penetrate": true,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_zed_q_first",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 45,
+                                      "attack_ratio": 60,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_zed_q_hit"
+                                    }
+                                  ]
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "Attack",
+                                      "damage": 75,
+                                      "attack_ratio": 100,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_zed_q_hit"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_zed_q_first",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 36
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_zed_q_hit"
+                              }
+                            }
+                          ],
+                          "end_effects": [],
+                          "speed": 3500,
+                          "range": 70000,
                           "shape": {
                             "Circle": {
-                              "radius": 1
+                              "radius": 4500
                             }
                           },
-                          "applied_target": "EnemyChampion",
-                          "applied_effects": [],
-                          "end_effects": [
-                            {
-                              "type": "LinearProjectile",
-                              "name": "league_zed_q_star",
-                              "penetrate": true,
-                              "applied_target": "EnemyWithoutTower",
-                              "applied_effects": [
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_zed_q_first",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Attack",
-                                          "damage": 45,
-                                          "attack_ratio": 60,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 0,
-                                          "attack_effect_type": "Target"
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_zed_q_hit"
-                                        }
-                                      ]
-                                    },
-                                    "effect_none": {
-                                      "type": "Combine",
-                                      "effects": [
-                                        {
-                                          "type": "Attack",
-                                          "damage": 75,
-                                          "attack_ratio": 100,
-                                          "hp_ratio": 0,
-                                          "target_hp_ratio": 0,
-                                          "attack_effect_type": "Target"
-                                        },
-                                        {
-                                          "type": "ViewEffect",
-                                          "name": "league_zed_q_hit"
-                                        },
-                                        {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_zed_q_first",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 36
-                                              }
-                                            }
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      ]
-                                    }
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "TargetSfx",
-                                    "name": "league_zed_q_hit"
-                                  }
-                                }
-                              ],
-                              "end_effects": [],
-                              "speed": 10000,
-                              "range": 70000,
-                              "shape": {
-                                "Circle": {
-                                  "radius": 5500
-                                }
-                              },
-                              "y_offset": 3000
-                            }
-                          ]
+                          "y_offset": 3000
                         }
                       ]
-                    }
-                  ]
-                },
-                {
-                  "type": "Delayed",
-                  "tick": 9,
-                  "effects": [
-                    {
-                      "type": "Sfx",
-                      "name": "league_zed_q"
                     },
                     {
                       "type": "SwitchByBuff",
@@ -10051,11 +9985,11 @@
                           }
                         ],
                         "end_effects": [],
-                        "speed": 10000,
+                        "speed": 3500,
                         "range": 70000,
                         "shape": {
                           "Circle": {
-                            "radius": 5500
+                            "radius": 4500
                           }
                         },
                         "y_offset": 3000
@@ -10323,12 +10257,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -10552,12 +10486,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -10781,12 +10715,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -11010,12 +10944,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -11239,12 +11173,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -11468,12 +11402,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -11697,12 +11631,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -11926,12 +11860,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -12155,12 +12089,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -12384,12 +12318,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -12613,12 +12547,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -12842,12 +12776,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -13071,12 +13005,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -13300,12 +13234,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -13529,12 +13463,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -13758,12 +13692,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -13987,12 +13921,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -14216,12 +14150,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -14445,12 +14379,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -14674,12 +14608,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -14903,12 +14837,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -15132,12 +15066,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -15361,12 +15295,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -15590,12 +15524,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -15819,12 +15753,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -16048,12 +15982,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -16277,12 +16211,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -16506,12 +16440,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -16735,12 +16669,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -16964,12 +16898,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -17193,12 +17127,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -17422,12 +17356,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -17651,12 +17585,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -17880,12 +17814,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -18109,12 +18043,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -18338,12 +18272,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -18567,12 +18501,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -18796,12 +18730,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -19025,12 +18959,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -19254,12 +19188,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -19483,12 +19417,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -19712,12 +19646,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -19941,12 +19875,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -20170,12 +20104,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -20399,12 +20333,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -20628,12 +20562,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -20857,12 +20791,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -21086,12 +21020,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -21315,12 +21249,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -21544,12 +21478,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -21773,12 +21707,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -22002,12 +21936,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -22231,12 +22165,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -22460,12 +22394,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -22689,12 +22623,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -22918,12 +22852,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -23147,12 +23081,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -23376,12 +23310,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -23605,12 +23539,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -23834,12 +23768,12 @@
                                       "effect_buff": {
                                         "type": "BackToCasterLinearProjectile",
                                         "name": "league_zed_sh_star",
-                                        "speed": 10000,
+                                        "speed": 3500,
                                         "range": 400000,
                                         "penetrate": true,
                                         "shape": {
                                           "Circle": {
-                                            "radius": 5500
+                                            "radius": 4500
                                           }
                                         },
                                         "applied_target": "EnemyWithoutTower",
@@ -24102,12 +24036,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -24432,12 +24366,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -24762,12 +24696,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -25092,12 +25026,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -25422,12 +25356,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -25752,12 +25686,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -26082,12 +26016,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -26412,12 +26346,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -26742,12 +26676,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -27072,12 +27006,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -27402,12 +27336,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -27732,12 +27666,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -28062,12 +27996,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -28392,12 +28326,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -28722,12 +28656,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -29052,12 +28986,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -29382,12 +29316,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -29712,12 +29646,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -30042,12 +29976,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -30372,12 +30306,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -30702,12 +30636,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -31032,12 +30966,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -31362,12 +31296,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -31692,12 +31626,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -32022,12 +31956,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -32352,12 +32286,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -32682,12 +32616,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -33012,12 +32946,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -33342,12 +33276,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -33672,12 +33606,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -34002,12 +33936,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -34332,12 +34266,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -34662,12 +34596,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -34992,12 +34926,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -35322,12 +35256,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -35652,12 +35586,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -35982,12 +35916,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -36312,12 +36246,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -36642,12 +36576,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -36972,12 +36906,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -37302,12 +37236,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -37632,12 +37566,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -37962,12 +37896,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -38292,12 +38226,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -38622,12 +38556,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -38952,12 +38886,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -39282,12 +39216,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -39612,12 +39546,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -39942,12 +39876,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -40272,12 +40206,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -40602,12 +40536,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -40932,12 +40866,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -41262,12 +41196,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -41592,12 +41526,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -41922,12 +41856,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -42252,12 +42186,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -42582,12 +42516,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -42912,12 +42846,12 @@
                           "effect_buff": {
                             "type": "BackToCasterLinearProjectile",
                             "name": "league_zed_sh_star",
-                            "speed": 10000,
+                            "speed": 3500,
                             "range": 400000,
                             "penetrate": true,
                             "shape": {
                               "Circle": {
-                                "radius": 5500
+                                "radius": 4500
                               }
                             },
                             "applied_target": "EnemyWithoutTower",
@@ -43479,6 +43413,27 @@
                     "duration": {
                       "Time": {
                         "tick": 182
+                      }
+                    }
+                  },
+                  "only_to_enemy": false
+                }
+              ]
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_zed_r_wq"
+                },
+                {
+                  "type": "AddCasterBuff",
+                  "buff_state": {
+                    "name": "league_zed_r_wq",
+                    "duration": {
+                      "Time": {
+                        "tick": 40
                       }
                     }
                   },
