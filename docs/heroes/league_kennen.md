@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / Range / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.81 |
 | 附加包 | [目标标记附加包](#附加包)（`league_marks`） |
 
 ![凯南演示](../preview/league_kennen_showcase.gif)
@@ -87,6 +87,7 @@
 | 数值 | 攻击 80（+6）、法强 40（+20）、生命 920（+100）、护甲 22（+7）、魔抗 22（+3）、移速 1000（+9）。数值是自己设计的，用 SDK 对战模拟调：上路，对 6 个原版上单（`fighter`、`executioner`、`lancer`、`pole_warrior`、`knight`、`berserker`），三套队友阵容、两边各 8 局，一批 288 局。第一版 −0.18（同一批提莫 +1.05）：大招半径 45000 时很少打到英雄，Q 被小兵挡住。大招半径 → 55000、Q 穿过小兵打英雄后各版 +1.4–2.2；伤害再调高一档 +2.64 / +2.25，回调到 Q 95 + 90%、W 80 + 80%、E 70 + 70%、R 52 + 30%、被动 48 + 70%：两批 +1.18 / +2.29，定下这版 |
 | 亚索联动 | 第三层雷缚印的眩晕是亚索大招要的控制：凯南打上路、亚索打中路同队时，亚索每局 R 到被控英雄 1.48 次（同一批原版战士 2.33），在之前控制英雄的范围内，亚索不用调 |
 | 精灵图 | 9 个动作 51 帧：待机、移动、普攻、Q、E 冲刺、W 电刃、R、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机），由 Codex 按游戏尺寸画，整行整列删到 37 行（用户：「约德尔人体型不能太大」），眼睛和手保持 Codex 原稿；进游戏后用户换成原画 B 的姿势（「姿势能换成这个吗 A版游戏里太丑了」）：手里剑从背上拿下来，远侧手臂把它举在头旁边（这条手臂由 Codex 画），袍子瘦两列（「凯南体型有点胖 稍微调瘦点」）。紫色忍者兜帽（两个耳尖、金色闪电纹）、蓝色大眼、紫色面罩和长袍、金色四角大手里剑。36 × 35 px，21 色；待机最高点 −24（举起的手里剑尖，兜帽顶 −20），不设 `banpick_center` |
+| 高清帧（PPU 1.81） | 2026-11-03 用 PPU 重做，和魔腾、剑魔、丽桑卓在同一个 PR（用户：「继续加四个 魔腾 凯南 剑魔 丽桑卓」「凯南1.81 梦魇1.8 剑魔2.27 丽桑卓1.81」「丽桑卓有模型一大一小的问题 剑魔的头看起来只看后面」「可以，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 17.2 像素一格读回（62 × 65 格；手里剑顶到脚底 65 行，旧精灵 36 行，PPU 1.81），脸很小，整格平均色会把它糊掉，和身体一样按对齐描边的格线读；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画 16 帧（普攻和 Q 的第 1、6 帧，W 第 4、5 帧，R 第 1、3–6 帧，受击第 2 帧，死亡第 1、6–8 帧共 16 帧和别的帧或设计图一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；Q 按旧版不带特效的原生身体格画，Q 的出手光和 attack_fx1 / attack_fx2 / skill2_fx1 由 kennen_bake.json 重新叠上；量头用脸的肤色。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 的规则 没有值（站得像 -12、头冒出卡顶）→ -9；附身的灵魂表跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_kennen.py`）：普攻手里剑和命中、第 5 下强化出手和命中、Q 出手和命中、W 放电、E 冲刺 / 命中 / 结束、眩晕、R 开启和每下雷击；Q、W、E、R 带中文配音 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -99,6 +100,15 @@ python tools/art/rig_kennen.py            # 动作：9 个动作都用造型的�
 python tools/art/import_native.py --hero kennen
 python tools/art/import_kennen.py         # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_kennen.py
+# PPU 1.81 重做（2026-11-03）：
+python tools/art/pack_kennen_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_kennen_hd.py                      # Codex 的原图（hd/raw/kennen-A.png）按原图约 17.2 像素一格读回 -> hd/design.png
+python tools/art/pack_kennen_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_kennen_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_kennen_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero kennen && python tools/art/ppu_hd.py --hero kennen
+python tools/art/ppu_one.py --hero kennen && python tools/art/rig_kennen_hd.py --one-ground && python tools/art/hero_reels.py --hero kennen
+python tools/art/review_kennen_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/kennen/PICTURE_PROMPT.md`](../../assets/source/kennen/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/kennen/MODEL_PROMPTS.md)，B 姿势的手臂见 [`ARM_PROMPT.md`](../../assets/source/kennen/ARM_PROMPT.md)，扔手里剑的手臂见 [`THROW_PROMPT.md`](../../assets/source/kennen/THROW_PROMPT.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/kennen/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_picture/`](../../assets/source/kennen/codex_picture)、[`codex_model/`](../../assets/source/kennen/codex_model)、[`codex_arm/`](../../assets/source/kennen/codex_arm)、[`codex_throw/`](../../assets/source/kennen/codex_throw)、[`codex_fx/`](../../assets/source/kennen/codex_fx)）：
@@ -108,4 +118,4 @@ python tools/art/preview_kennen.py
 - 动作：Codex 先按 A 姿势画了 8 条（手里剑背在背上），我修过移动的交叉步（「凯南走路没有交叉步」）、死亡缺的半个身子（「死亡后模型缺失右半身」）和普攻第 3 帧一根细长的手臂（「中间有一帧手臂突然伸的很长 有点诡异」）。换成 B 姿势后这些条都不能用了，`rig_kennen.py` 用造型的部件摆全部 9 个动作，自己不画手臂：待机是造型 6 次（导入时 `BOB` 呼吸）；移动是造型的上半身（头、举着的手臂和手里剑、袍子、近侧爪子是一整块）在袍子下面两条两格宽的小腿上，近处的鞋（画在前面，小腿的描边压住远处那条腿）先在前、再落到远处那只后面，每半个周期换一次领先的脚，摆动的脚抬 1–2 行，摆腿时身体高一行；E 冲刺是同一块压低 2–3 行、大步交替（闪电球是特效）；W 蹲 1、2 行，放电时起身；R 蹲下、跳起 3、4 行（鞋收起一行）、落地再蹲；受击后退一列、低一行；死亡先受击，再整个造型后仰 30 度，然后不带举着的手臂的身体在空中仰 60 度、仰面躺倒（90 度，先离地一行），手里剑飞出去、落在他头边。普攻和 Q 是扔手里剑：造型 → Codex 画的 4 个手臂姿势（后摆、前甩、出手、收手；`codex_throw/`，`THROW_PROMPT.md`：只画手臂和手里剑，底图一格不改，出手那张手里剑中心在 (24, −5)）→ 造型。用户：「凯南做的很好」。之后用户：「凯南平A时手的长度有点怪啊」——Codex 画的出手、收手两帧手臂伸出身体 13–15 格，和他身体一样宽（英雄联盟里爪子只伸出 4–6 格）；`rig_kennen.py` 的 `SHORTEN` 把这两帧的袖子删掉 6、4 列（手和手里剑跟着往里收），截短 4 / 6 / 8 格三个版本里用户选了 6 格。
 - 特效用 Codex 画的 19 张（96 帧，生图原稿，`import_kennen.py --raw` 每格缩到游戏尺寸：每个游戏像素取覆盖的原稿像素里最多的颜色，四分之一以上不透明才画，颜色归到包里各自的色阶——闪电的白到紫、青色的电边、手里剑的金色、雷暴的暗紫云，光效外圈的暗紫去掉）。眩晕原稿两道闪电柱画得只有高度的三分之一宽，按 24 × 38 拉开到英雄身体两边；Q 的手里剑上下对称（游戏按飞行方向转）。位置：普攻和 Q 出手都在第 4 帧手里剑离手的地方 (24, −5)，命中在上半身 (0, −8)，雷缚印在头顶上方 (0, −35)，眩晕、W 的电刃圈、R 的雷暴和雷击落在脚底那一行，E 的闪电球包住蹲低的他 (0, −5)，起点和终点的闪光留在原地。时长：印记 0.8 秒，眩晕 1.25 秒，闪电球 0.28 秒（到冲刺结束），雷暴 2.9 秒（成形、第 3–10 帧循环 4 次、消散；雷击 2.5 秒内打完，护甲 3 秒）。
 
-逐帧预览：[`docs/preview/league_kennen_frames.png`](../preview/league_kennen_frames.png?v=1023ct)，特效：[`docs/preview/league_kennen_effects.png`](../preview/league_kennen_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_kennen_frames.png`](../preview/league_kennen_frames.png?v=1103hd)，特效：[`docs/preview/league_kennen_effects.png`](../preview/league_kennen_effects.png?v=1014g)。

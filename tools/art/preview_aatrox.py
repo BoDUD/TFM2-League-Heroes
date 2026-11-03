@@ -3,7 +3,7 @@
 
     python tools/art/preview_aatrox.py [--out docs/preview]
 
-  league_aatrox_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_aatrox_frames.png    every animation's dense frames (hd_, PPU 2.27, as league.dll shows them)
   league_aatrox_effects.png   every effect animation, 3x
   league_aatrox_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit: Aatrox
                               walks in and swings twice; the empowered strike (Deathbringer Stance) thrusts a streak
@@ -32,6 +32,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -89,7 +90,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, slides=()):
         nonlocal t, x
-        an = Body(frames_of(aatrox, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, slides=slides)
+        an = Body(dense(aatrox, tag, "aatrox", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, slides=slides)
         body.append(an)
         t = an.until
         x = an.pos(t)[0]
@@ -124,7 +125,7 @@ def showcase(out, z=3, step=40):
             at(big, f"q{k}_{tag_}", q0 + tick(t_), hx + ahead, hy, ground=True)
 
     # he walks in; Darius and Garen wait
-    run_in = Body(frames_of(aatrox, "run"), 0.0, x - 50, gy, loop=True, until=1000, slides=[(0.0, 1000.0, 50)])
+    run_in = Body(dense(aatrox, "run", "aatrox", z), 0.0, x - 50, gy, loop=True, until=1000, slides=[(0.0, 1000.0, 50)])
     body.append(run_in)
     t = run_in.until
     a("idle", 300, loop=True)
@@ -251,11 +252,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -273,7 +274,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -299,7 +300,7 @@ def combos(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, slides=()):
         nonlocal t, x
-        an = Body(frames_of(aatrox, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, slides=slides)
+        an = Body(dense(aatrox, tag, "aatrox", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, slides=slides)
         body.append(an)
         t = an.until
         x = an.pos(t)[0]
@@ -458,12 +459,12 @@ def combos(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     font = ImageFont.truetype("msyh.ttc", 7 * z)
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         foe = next((s[2] for s in scenes if s[0] <= tt < s[1]), None)
         if foe is not None:
             for an in under:
@@ -483,7 +484,7 @@ def combos(out, z=3, step=40):
                 f = an.frame(tt)
                 if f is not None:
                     place(img, f, *an.pos(tt))
-        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        img = img.convert("RGB")
         name = [n for t0, n in labels if t0 <= tt]
         if foe is not None and name:
             ImageDraw.Draw(img).text((4 * z, 2 * z), name[-1], font=font, fill=(255, 236, 160),
@@ -506,7 +507,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_aatrox_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_aatrox_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

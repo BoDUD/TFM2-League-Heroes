@@ -1,0 +1,1137 @@
+{
+ "square": 7,
+ "square_of": {
+  "skill": 6,
+  "q2": 6,
+  "dead": 6,
+  "skill_r": 6,
+  "q2_r": 6,
+  "q3": 5,
+  "q3_r": 5
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "attack_p": {
+   "6": "design 0"
+  },
+  "q2": {
+   "8": "skill 8"
+  },
+  "q3": {
+   "8": "skill 8"
+  },
+  "skill2": {
+   "1": "design 0",
+   "5": "skill2 4",
+   "6": "design 0"
+  },
+  "dead": {
+   "1": "design 0",
+   "7": "dead 6",
+   "8": "dead 6"
+  },
+  "attack_r": {
+   "6": "ult 8"
+  },
+  "attack_p_r": {
+   "6": "ult 8"
+  },
+  "skill_r": {
+   "8": "ult 8"
+  },
+  "q2_r": {
+   "8": "ult 8"
+  },
+  "q3_r": {
+   "8": "ult 8"
+  },
+  "skill2_r": {
+   "1": "attack_r 1",
+   "6": "ult 8"
+  }
+ },
+ "baked_body_frames": [
+  "attack_p",
+  "attack_p_r",
+  "q3",
+  "q3_r",
+  "q2",
+  "q2_r",
+  "skill_r",
+  "skill2_r"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "running (his move loop): a heavy run, the greatsword held low, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under his hips, its foot flat on the ground; the FAR leg (the darker one) kicked up and back behind him, bent, its foot high off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "running (his move loop): a heavy run, the greatsword held low, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core.",
+   "legs": "Frame 3: PASSING: both legs gathered under him, knees bent; the FAR leg passing forward close beside the planted near leg, its foot just off the ground. Frame 4: STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "running (his move loop): a heavy run, the greatsword held low, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under his hips, its foot flat on the ground; the NEAR leg (the lighter one) kicked up and back behind him, bent, its foot high off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "running (his move loop): a heavy run, the greatsword held low, the LEGS CHANGING OVER",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core.",
+   "legs": "Frame 7: PASSING: both legs gathered under him, knees bent; the NEAR leg passing forward close beside the planted far leg, its foot just off the ground. Frame 8: STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: he swings the greatsword (frames 2-5)",
+   "ms": [
+    65
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack: he swings the greatsword (frames 2-5)",
+   "ms": [
+    65,
+    80
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack: he swings the greatsword (frames 2-5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Deathbringer Stance (the empowered strike): he raises the sword and swings it in a wide arc, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Deathbringer Stance (the empowered strike): he raises the sword and swings it in a wide arc, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Deathbringer Stance (the empowered strike): he raises the sword and swings it in a wide arc, frame by frame as the pale figure",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Deathbringer Stance (the empowered strike): he raises the sword and swings it in a wide arc, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "The Darkin Blade, first cast (Q1): he lifts the sword over his head, leaps and slams it down (frames 1-8)",
+   "ms": [
+    100,
+    150
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "The Darkin Blade, first cast (Q1): he lifts the sword over his head, leaps and slams it down (frames 1-8)",
+   "ms": [
+    150,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "The Darkin Blade, first cast (Q1): he lifts the sword over his head, leaps and slams it down (frames 1-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "The Darkin Blade, first cast (Q1): he lifts the sword over his head, leaps and slams it down (frames 1-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "The Darkin Blade, first cast (Q1): he lifts the sword over his head, leaps and slams it down (frames 1-8)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "The Darkin Blade, first cast (Q1): he lifts the sword over his head, leaps and slams it down (frames 1-8)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "The Darkin Blade, second cast (Q2): he winds up and sweeps the sword across low, frame by frame as the pale figure",
+   "ms": [
+    100,
+    150
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "The Darkin Blade, second cast (Q2): he winds up and sweeps the sword across low, frame by frame as the pale figure",
+   "ms": [
+    150,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "The Darkin Blade, second cast (Q2): he winds up and sweeps the sword across low, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "The Darkin Blade, second cast (Q2): he winds up and sweeps the sword across low, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2",
+   "name": "q2_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "The Darkin Blade, second cast (Q2): he winds up and sweeps the sword across low, frame by frame as the pale figure",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "The Darkin Blade, third cast (Q3): he leaps high, the sword raised over his head, and slams it into the ground, frame by frame as the pale figure",
+   "ms": [
+    100,
+    150
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "The Darkin Blade, third cast (Q3): he leaps high, the sword raised over his head, and slams it into the ground, frame by frame as the pale figure",
+   "ms": [
+    150,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "The Darkin Blade, third cast (Q3): he leaps high, the sword raised over his head, and slams it into the ground, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "The Darkin Blade, third cast (Q3): he leaps high, the sword raised over his head, and slams it into the ground, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "The Darkin Blade, third cast (Q3): he leaps high, the sword raised over his head, and slams it into the ground, frame by frame as the pale figure",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Infernal Chains (W): he flings his free hand forward, throwing the chains (frames 2-4)",
+   "ms": [
+    80,
+    73
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Infernal Chains (W): he flings his free hand forward, throwing the chains (frames 2-4)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "World Ender (R): he spreads his WINGS wide and rises up (frames 1-8), the wings opening more frame by frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "World Ender (R): he spreads his WINGS wide and rises up (frames 1-8), the wings opening more frame by frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "World Ender (R): he spreads his WINGS wide and rises up (frames 1-8), the wings opening more frame by frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "World Ender (R): he spreads his WINGS wide and rises up (frames 1-8), the wings opening more frame by frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "World Ender (R): he spreads his WINGS wide and rises up (frames 1-8), the wings opening more frame by frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "World Ender (R): he spreads his WINGS wide and rises up (frames 1-8), the wings opening more frame by frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "World Ender (R): he spreads his WINGS wide and rises up (frames 1-8), the wings opening more frame by frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "World Ender (R): he spreads his WINGS wide and rises up (frames 1-8), the wings opening more frame by frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "struck: jolted back",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "death: struck (frames 2-3), he falls back and lies flat, the sword on the ground (frames 4-6)",
+   "ms": [
+    100,
+    110
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck (frames 2-3), he falls back and lies flat, the sword on the ground (frames 4-6)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck (frames 2-3), he falls back and lies flat, the sword on the ground (frames 4-6)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck (frames 2-3), he falls back and lies flat, the sword on the ground (frames 4-6)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_r",
+   "name": "attack_r_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack in World Ender's form (his WINGS SPREAD WIDE): he swings the greatsword (frames 1-5)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_r",
+   "name": "attack_r_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack in World Ender's form (his WINGS SPREAD WIDE): he swings the greatsword (frames 1-5)",
+   "ms": [
+    65
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_r",
+   "name": "attack_r_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack in World Ender's form (his WINGS SPREAD WIDE): he swings the greatsword (frames 1-5)",
+   "ms": [
+    65
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_r",
+   "name": "attack_r_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack in World Ender's form (his WINGS SPREAD WIDE): he swings the greatsword (frames 1-5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_r",
+   "name": "attack_r_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack in World Ender's form (his WINGS SPREAD WIDE): he swings the greatsword (frames 1-5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p_r",
+   "name": "attack_p_r_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Deathbringer Stance in World Ender's form (WINGS SPREAD WIDE): the wide sword arc, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p_r",
+   "name": "attack_p_r_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Deathbringer Stance in World Ender's form (WINGS SPREAD WIDE): the wide sword arc, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p_r",
+   "name": "attack_p_r_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Deathbringer Stance in World Ender's form (WINGS SPREAD WIDE): the wide sword arc, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p_r",
+   "name": "attack_p_r_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Deathbringer Stance in World Ender's form (WINGS SPREAD WIDE): the wide sword arc, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "attack_p_r",
+   "name": "attack_p_r_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Deathbringer Stance in World Ender's form (WINGS SPREAD WIDE): the wide sword arc, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill_r",
+   "name": "skill_r_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q1 in World Ender's form (WINGS SPREAD WIDE): the sword lifted, the leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill_r",
+   "name": "skill_r_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Q1 in World Ender's form (WINGS SPREAD WIDE): the sword lifted, the leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill_r",
+   "name": "skill_r_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q1 in World Ender's form (WINGS SPREAD WIDE): the sword lifted, the leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill_r",
+   "name": "skill_r_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q1 in World Ender's form (WINGS SPREAD WIDE): the sword lifted, the leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill_r",
+   "name": "skill_r_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q1 in World Ender's form (WINGS SPREAD WIDE): the sword lifted, the leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill_r",
+   "name": "skill_r_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q1 in World Ender's form (WINGS SPREAD WIDE): the sword lifted, the leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2_r",
+   "name": "q2_r_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q2 in World Ender's form (WINGS SPREAD WIDE): the wind-up and the low sweep, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2_r",
+   "name": "q2_r_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Q2 in World Ender's form (WINGS SPREAD WIDE): the wind-up and the low sweep, frame by frame as the pale figure",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2_r",
+   "name": "q2_r_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q2 in World Ender's form (WINGS SPREAD WIDE): the wind-up and the low sweep, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2_r",
+   "name": "q2_r_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q2 in World Ender's form (WINGS SPREAD WIDE): the wind-up and the low sweep, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2_r",
+   "name": "q2_r_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q2 in World Ender's form (WINGS SPREAD WIDE): the wind-up and the low sweep, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q2_r",
+   "name": "q2_r_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Q2 in World Ender's form (WINGS SPREAD WIDE): the wind-up and the low sweep, frame by frame as the pale figure",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3_r",
+   "name": "q3_r_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Q3 in World Ender's form (WINGS SPREAD WIDE): the high leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    100,
+    150
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3_r",
+   "name": "q3_r_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Q3 in World Ender's form (WINGS SPREAD WIDE): the high leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    150,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3_r",
+   "name": "q3_r_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "Q3 in World Ender's form (WINGS SPREAD WIDE): the high leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3_r",
+   "name": "q3_r_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "Q3 in World Ender's form (WINGS SPREAD WIDE): the high leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "q3_r",
+   "name": "q3_r_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 5,
+   "action": "Q3 in World Ender's form (WINGS SPREAD WIDE): the high leap and the slam, frame by frame as the pale figure",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill2_r",
+   "name": "skill2_r_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Infernal Chains in World Ender's form (WINGS SPREAD WIDE): the free hand flung forward, frame by frame as the pale figure",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill2_r",
+   "name": "skill2_r_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Infernal Chains in World Ender's form (WINGS SPREAD WIDE): the free hand flung forward, frame by frame as the pale figure",
+   "ms": [
+    73
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill2_r",
+   "name": "skill2_r_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Infernal Chains in World Ender's form (WINGS SPREAD WIDE): the free hand flung forward, frame by frame as the pale figure",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  },
+  {
+   "tag": "skill2_r",
+   "name": "skill2_r_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Infernal Chains in World Ender's form (WINGS SPREAD WIDE): the free hand flung forward, frame by frame as the pale figure",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND THE GREATSWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the huge dark red greatsword, as long as in image 1, held, raised, swung or slammed as the pale figure holds it. HIS WINGS as the pale figure's: as in image 1 in his normal form, SPREAD WIDE in World Ender (the ult, and every action whose name ends in _r). The pale figure's fire, sparks, chains and eruptions are the old frame's effects: do NOT draw them. Only him: no fire, no blood mist, no afterimages; the red light stays in his chest core."
+  }
+ ]
+}

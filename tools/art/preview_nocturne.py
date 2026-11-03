@@ -3,7 +3,7 @@
 
     python tools/art/preview_nocturne.py [--out docs/preview]
 
-  league_nocturne_frames.png     every animation, frame by frame, 3x on the arena colour
+  league_nocturne_frames.png     every animation's dense frames (hd_, PPU 1.80, as league.dll shows them)
   league_nocturne_effects.png    every effect animation, 3x
   league_nocturne_showcase.gif   a scripted fight against Darius and Garen, timed like the kit: he glides in and strikes
                                  Darius (the slash in front of him); Duskbringer: the shadow blade flies through Darius
@@ -28,6 +28,7 @@ sys.path.insert(0, HERE)
 from preview_annie import OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_shaco import Fleer, faded  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -57,7 +58,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, to=None):
         nonlocal t
-        an = Anim(frames_of(nc, tag), t, at if at is not None else x, gy, loop=loop,
+        an = Anim(dense(nc, tag, "nocturne", z), t, at if at is not None else x, gy, loop=loop,
                   until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
@@ -170,8 +171,8 @@ def showcase(out, z=3, step=40):
     flight = tick(max(1.0, (land_x - x) / 3.5))
     hidden.append((launch, launch + max(tick(32), flight + tick(20))))
     mine(fx, "r_trail", launch, until=launch + flight)
-    body.append(Anim(frames_of(nc, "ult")[:2], r0, x, gy, loop=True, until=launch))
-    fly = frames_of(nc, "ult")[2:]
+    body.append(Anim(dense(nc, "ult", "nocturne", z)[:2], r0, x, gy, loop=True, until=launch))
+    fly = dense(nc, "ult", "nocturne", z)[2:]
     an = Anim(fly, launch, x, gy, loop=True, until=launch + flight, x1=land_x, y1=gyy)
     body.append(an)
     t = launch + flight
@@ -188,7 +189,7 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     gaps = [tt for tt in range(0, int(end), step) if not any(an.frame(tt) is not None for an in body)]
     assert not gaps, f"Nocturne missing at {gaps[:10]} ms"
@@ -196,7 +197,7 @@ def showcase(out, z=3, step=40):
     frames, tt = [], 0.0
     order = sorted((d, g), key=lambda f: f.y)          # the one further back first
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -214,7 +215,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                               # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -232,8 +233,8 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                            os.path.join(args.out, "league_nocturne_frames.png")))
+    print("frames", contact(dense_rows(s),
+                            os.path.join(args.out, "league_nocturne_frames.png"), z=1))
     sp, bp = load(FX), load(BIG)
     print("effects", contact([(sp, t["name"], t["name"]) for t in sp.tags] +
                              [(bp, t["name"], t["name"]) for t in bp.tags],

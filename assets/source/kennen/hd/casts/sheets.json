@@ -1,0 +1,298 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "skill": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "w": {
+   "4": "w 3",
+   "5": "design 0"
+  },
+  "ult": {
+   "1": "w 2",
+   "3": "ult 2",
+   "4": "w 2",
+   "5": "w 1",
+   "6": "design 0"
+  },
+  "hit": {
+   "2": "design 0"
+  },
+  "dead": {
+   "1": "hit 1",
+   "6": "dead 5",
+   "7": "dead 5",
+   "8": "dead 5"
+  }
+ },
+ "baked_body_frames": [
+  "skill"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): a quick little run, the big shuriken held up beside his shoulder, the LEGS CHANGING OVER",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) planted straight down under his hips, its foot flat on the ground; the FAR leg (the darker one) kicked up and back behind him, bent, its foot high off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): a quick little run, the big shuriken held up beside his shoulder, the LEGS CHANGING OVER",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages.",
+   "legs": "Frame 3: PASSING: both legs gathered under him, knees bent; the FAR leg passing forward close beside the planted near leg, its foot just off the ground. Frame 4: STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): a quick little run, the big shuriken held up beside his shoulder, the LEGS CHANGING OVER",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) planted straight down under his hips, its foot flat on the ground; the NEAR leg (the lighter one) kicked up and back behind him, bent, its foot high off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): a quick little run, the big shuriken held up beside his shoulder, the LEGS CHANGING OVER",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages.",
+   "legs": "Frame 7: PASSING: both legs gathered under him, knees bent; the NEAR leg passing forward close beside the planted far leg, its foot just off the ground. Frame 8: STRIDE: the NEAR leg reaching forward (image right) to land, its heel coming down; the FAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (a shuriken throw): he draws the shuriken back (frame 2) and flings it forward, his arm stretched out, the hand empty once it flies (frames 3-5)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (a shuriken throw): he draws the shuriken back (frame 2) and flings it forward, his arm stretched out, the hand empty once it flies (frames 3-5)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Thundering Shuriken (Q): he draws the shuriken back and hurls it forward, frame by frame as the pale figure",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Thundering Shuriken (Q): he draws the shuriken back and hurls it forward, frame by frame as the pale figure",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Lightning Rush (E): crouched low, ready to dash, frame by frame as the pale figure (frames 1-4)",
+   "ms": [
+    75,
+    75
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Lightning Rush (E): crouched low, ready to dash, frame by frame as the pale figure (frames 1-4)",
+   "ms": [
+    75,
+    75
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "w",
+   "name": "w_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Electrical Surge (W): a short bracing pose, the shuriken raised (frames 1-3)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "w",
+   "name": "w_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Electrical Surge (W): a short bracing pose, the shuriken raised (frames 1-3)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Slicing Maelstrom (R): he raises the shuriken high, bracing (frame 2)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: he tumbles back (frames 2-3) and lies curled on the ground, the shuriken beside him (frames 4-5)",
+   "ms": [
+    100,
+    110
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: he tumbles back (frames 2-3) and lies curled on the ground, the shuriken beside him (frames 4-5)",
+   "ms": [
+    110,
+    120
+   ],
+   "weapons": "HIS HANDS AND THE SHURIKEN go where the pale figure has them, frame by frame (image 3 shows them in colour): the big gold four-pointed shuriken, as big as in image 1, held up, drawn back or flung out as the pale figure holds it - where the pale figure's hand is empty, his hand is empty (the shuriken is flying). The pale figure's violet and white sparks are the old frame's effects: do NOT draw them. Only him: no lightning, no sparks, no afterimages."
+  }
+ ]
+}

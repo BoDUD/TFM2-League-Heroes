@@ -1,0 +1,425 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "run": {
+   "4": "run 3",
+   "5": "run 1"
+  },
+  "attack": {
+   "1": "design 0"
+  },
+  "skill2_e": {
+   "4": "skill2_e 3"
+  },
+  "ult_self": {
+   "3": "ult_self 1",
+   "5": "ult_self 1"
+  },
+  "hit": {
+   "2": "design 0"
+  },
+  "dead": {
+   "8": "dead 7"
+  }
+ },
+ "baked_body_frames": [
+  "skill"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "gliding forward (her move loop): leaning ahead, the gown's hem sweeping, the arms swaying; no legs seen",
+   "ms": [
+    250,
+    250
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages.",
+   "legs": "Frame 1: NO LEGS SEEN: she glides; her long gown's hem with its ice spikes sweeps as the pale figure's, frame by frame. Frame 2: NO LEGS SEEN: she glides; her long gown's hem with its ice spikes sweeps as the pale figure's, frame by frame. Her legs are hidden in her gown: only the hem sways as the pale figure's (do not draw legs or feet)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "gliding forward (her move loop): leaning ahead, the gown's hem sweeping, the arms swaying; no legs seen",
+   "ms": [
+    250,
+    250
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages.",
+   "legs": "Frame 3: NO LEGS SEEN: she glides; her long gown's hem with its ice spikes sweeps as the pale figure's, frame by frame. Frame 6: NO LEGS SEEN: she glides; her long gown's hem with its ice spikes sweeps as the pale figure's, frame by frame. Her legs are hidden in her gown: only the hem sways as the pale figure's (do not draw legs or feet)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "gliding forward (her move loop): leaning ahead, the gown's hem sweeping, the arms swaying; no legs seen",
+   "ms": [
+    250,
+    250
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages.",
+   "legs": "Frame 7: NO LEGS SEEN: she glides; her long gown's hem with its ice spikes sweeps as the pale figure's, frame by frame. Frame 8: NO LEGS SEEN: she glides; her long gown's hem with its ice spikes sweeps as the pale figure's, frame by frame. Her legs are hidden in her gown: only the hem sways as the pale figure's (do not draw legs or feet)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack: she raises her near hand and casts forward, the arm stretched out (frames 2-6)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack: she raises her near hand and casts forward, the arm stretched out (frames 2-6)",
+   "ms": [
+    80,
+    70
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: she raises her near hand and casts forward, the arm stretched out (frames 2-6)",
+   "ms": [
+    63
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Ice Shard (Q): she draws her hand in and thrusts it forward, casting, frame by frame as the pale figure",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Ice Shard (Q): she draws her hand in and thrusts it forward, casting, frame by frame as the pale figure",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Ice Shard (Q): she draws her hand in and thrusts it forward, casting, frame by frame as the pale figure",
+   "ms": [
+    80,
+    73
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Ring of Frost (W): she spreads her hands, frame by frame as the pale figure (frames 1-5)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Ring of Frost (W): she spreads her hands, frame by frame as the pale figure (frames 1-5)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Ring of Frost (W): she spreads her hands, frame by frame as the pale figure (frames 1-5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill2_e",
+   "name": "skill2_e_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Glacial Path (E): she thrusts a hand forward, casting (frames 1-3, 5-6)",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill2_e",
+   "name": "skill2_e_2",
+   "frames": [
+    3,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Glacial Path (E): she thrusts a hand forward, casting (frames 1-3, 5-6)",
+   "ms": [
+    90,
+    160
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "skill2_e",
+   "name": "skill2_e_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Glacial Path (E): she thrusts a hand forward, casting (frames 1-3, 5-6)",
+   "ms": [
+    223
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Frozen Tomb (R): she raises a hand high and brings it down at the target (frames 1-5)",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Frozen Tomb (R): she raises a hand high and brings it down at the target (frames 1-5)",
+   "ms": [
+    90,
+    100
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Frozen Tomb (R): she raises a hand high and brings it down at the target (frames 1-5)",
+   "ms": [
+    150
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "ult_self",
+   "name": "ult_self_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Frozen Tomb on herself (R): her hand raised, frame by frame as the pale figure (frames 1, 2, 4)",
+   "ms": [
+    500,
+    500
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "ult_self",
+   "name": "ult_self_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Frozen Tomb on herself (R): her hand raised, frame by frame as the pale figure (frames 1, 2, 4)",
+   "ms": [
+    500
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frames 1-2), she sinks as her gown freezes into ice spikes rising round her (frames 3-7)",
+   "ms": [
+    100,
+    110
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frames 1-2), she sinks as her gown freezes into ice spikes rising round her (frames 3-7)",
+   "ms": [
+    110,
+    120
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frames 1-2), she sinks as her gown freezes into ice spikes rising round her (frames 3-7)",
+   "ms": [
+    130,
+    150
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frames 1-2), she sinks as her gown freezes into ice spikes rising round her (frames 3-7)",
+   "ms": [
+    200
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): pale blue hands with icy cuffs, raised, thrust forward or spread as the pale figure holds them; the wide ice crown stays on her head. The pale figure's flying ice shards and frost are the old frame's effects: do NOT draw them (in the death the ice spikes rising round her gown ARE her body: draw them). Only her: no frost mist, no flying shards, no afterimages."
+  }
+ ]
+}
