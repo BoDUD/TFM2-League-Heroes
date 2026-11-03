@@ -55,7 +55,7 @@
 
 ### 悠米附加包
 
-[悠米附加包](../../addons/league_yuumi/README.md)：`league_yuumi` v0.2.10
+[悠米附加包](../../addons/league_yuumi/README.md)：`league_yuumi` v0.2.11
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -95,6 +95,7 @@
 | 平衡 | 10 分钟经典引擎模拟，辅助位对五个原版辅助（priest / monk / bard / pythoness / spirit_caller），三套阵容、两边各打，每档 8 个种子：初稿（生命 880、Q 70 + 40%、W 回血 15 + 6%、E 70 + 40%、R 60 + 25%、每 10 秒附身 4 秒）-3.11（同批米利欧 -0.56）；W 回血 30 + 10%、E 100 + 50%、攻速 35% -2.73；再加 Q 90 / 140、R 80、波纹回血 40、生命 950 -1.96；W 每 7 秒 -1.16；W 回血 45 + 15%、E 130 + 60%、每 6 秒、生命 1000 -0.86；Q 110 + 50% / 170 + 70%、R 110 + 35% 回血 60、攻击 82、被动 50 / 回血 60 -0.36 / +0.27（种子 9–16；同批米利欧 -1.74）；按动作条的时间（普攻、Q 的出手帧，W 第 4 帧离开，R 第 3 帧书立起来）-0.28 / -0.10；附身时能放 Q / R（分段放逐）-0.85 / -0.73（同批米利欧 -0.56；两段之间的空当她能挨打，场均输出从 2600 掉到 2190）；整个附身期间免伤免控 -0.68 / +0.18（场均输出 3140，K/D/A 0.8 / 2.2 / 4.5）；第一次进游戏后旺盛精力改成攻速 +20%、移速 +10% -0.54 / -0.55 |
 | 精灵图（高清帧 PPU 1.5，游戏里 75%） | Codex 第 0 步画了待机（A：坐在打开的书里）、附身（B：趴在摊平的书上）、合上的书（C）三张原画（[`tools/art/pack_yuumi_picture.py`](../../tools/art/pack_yuumi_picture.py)），[`tools/art/design_yuumi_hd.py`](../../tools/art/design_yuumi_hd.py) 按各自的格子读回，[`tools/art/review_yuumi_size.py`](../../tools/art/review_yuumi_size.py) 和辅助、小个子英雄按游戏大小并排，用户：「32 像素」「PPU 1.5」，附身的小猫「14」。第 1 步 Codex 在游戏格子上画了待机、侧面、扑出、大招扒书、附身、合书六种（[`tools/art/pack_yuumi_model.py`](../../tools/art/pack_yuumi_model.py)），[`tools/art/design_yuumi_model.py`](../../tools/art/design_yuumi_model.py) 按各自的格子读回、整行整列删到 48 行（脸的行列不删），用户选了 A-2、S-1、L-2、R-2、C-1。英雄联盟里她不用腿跑：跑是坐在书里飞，普攻和 Q 是从书里扑出去，R 是把书立起来扒在书边，死亡是钻进书里、书合上掉在地上——动作不找 Codex：[`tools/art/rig_yuumi.py`](../../tools/art/rig_yuumi.py) 用定稿造型整块摆（只整格平移），侧面、扑出、大招都换上待机的同一张脸（按下巴和脸的中线对齐，只清下巴以上的旧头，脖子和领口保留——第一版清到了下巴下面两行，扑出时头和身子之间留了一条缝，用户：「头和身体分离了？好好修吧」）；每个动作对照英雄联盟的动画（`tools/lol/anim_graph.py Yuumi`、`pose_ref.py`）。用户看完又说「还有模型太大」，选了 75%（24 像素）：`league.dll` 的大小表缩（`hd.rs` SIZES），帧往下移 6 格让书底还在地上，帧不重画。附身时附加包换上的空白 `a_*` 帧由 `rig_yuumi.py --ride-tags` 加进图表 |
 | 特效 | 第 3 步 19 张特效（[`tools/art/pack_yuumi_fx.py`](../../tools/art/pack_yuumi_fx.py)，颜色照英雄联盟：她的光是金色的星光和粉紫色的魔法，治疗是粉色的小爱心，大招的波纹是粉紫色带金边）。弹道图（光弹、飞弹、波纹）朝右画、上下对称（游戏按飞行方向转），其余全部左右对称（游戏不镜像特效图）。[`tools/art/import_yuumi_fx.py`](../../tools/art/import_yuumi_fx.py) 写成 `league_yuumi_fx` 和 `league_yuumi_big` |
+| 附身的小猫挡脸（2026-11-03） | 用户：「悠米还是会遮挡很多英雄的脸部」。小猫是用户定的 14 游戏像素（`league_yuumi_ride`，1.5 倍密度），附加包按宿主头顶高度挑 12 档抬高之一（10-28 起，用户：「附身在烬身上 烬的头部都被挡住了」）。可 `league.dll` 一直把这张图一格画一个游戏像素：21 × 26，底边比设计低 7 格、往右偏 4 格，正好压在脸上（和佐伊的召唤师技能图太大是同一个原因）。league.dll 0.9.6 把它放进 `DRAWN_EFFECTS`，按 14 格画在宿主正中；[`tools/art/yuumi_ride_lifts.py`](../../tools/art/yuumi_ride_lifts.py) 量头顶时乘上英雄在局内的大小（hd.rs SIZES），24 位英雄换了档（安蓓萨 12 → 6、悟空 −4 → 0、扎克 8 → 2、莫德凯撒 10 → 14、狼人 10 → 2……）。附加包 0.2.11，主包 0.306.0 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_yuumi.py`](../../tools/lol/extract_yuumi.py)，17 段）：普攻出手 / 打中，被动打中，Q 出手 / 打中 / 强化打中，W 起跳 / 附身 / 跳下，旺盛精力，R 出手 / 每道波纹 / 打中 / 治疗；Q、W、R 的配音（片段名 `league_yuumi_sfx_*`，和声音名不同） |
 | 图标 | 官方技能图标（摸鱼飞弹、悠米出动！、魔典终章，另有被动），从本地客户端取 |
 
@@ -110,6 +111,7 @@ python tools/art/ppu_restyle.py --hero yuumi        # 外描边、往下移 6 �
 python tools/art/ppu_hd.py --hero yuumi             # hd_ / lo_ 帧
 python tools/art/rig_yuumi.py --ride-tags           # 附加包的空白 a_* 帧
 python tools/art/import_yuumi_fx.py                 # 特效（和附身的小猫）
+python tools/art/yuumi_ride_lifts.py                # 附加包按宿主头顶给小猫挑抬高档的表（英雄的图或 hd.rs 的 SIZES 改了就重跑）
 python tools/art/preview_yuumi.py                   # 预览和演示 GIF
 python addons/league_yuumi/make_override.py         # 附加包的副本（主包的悠米改了就重跑）
 ```

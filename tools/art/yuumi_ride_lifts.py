@@ -4,11 +4,17 @@
 within 6 px either side of the frame's middle (the head, not a raised weapon or a wide hat brim), frames being centred on
 the pivot. Writes addons/league_yuumi/src/lifts.rs; the add-on lifts the picture by `lift_for(crown)` (its tests).
 
+A champion the battlefield draws at another size (the SIZES tables of league.dll and tft.dll, addons/league_main/src/hd.rs
+and addons/tft/src/hd.rs: scaled about his pivot, his frames lifted so his soles stay on the ground) has his crown that
+much higher or lower (2026-11-03, the user: 「悠米还是会遮挡很多英雄的脸部」 - Wukong at 115 % had the cat 3 px into
+his head, Ambessa at 85 % a lift 6 px too high).
+
     python tools/art/yuumi_ride_lifts.py
 """
 import glob
 import json
 import os
+import re
 import sys
 
 import numpy as np
@@ -21,6 +27,17 @@ from build_yuumi import RIDE_LIFTS  # noqa: E402
 
 OUT = os.path.join(ROOT, "addons", "league_yuumi", "src", "lifts.rs")
 BAND = 6
+SIZE_TABLES = [os.path.join(ROOT, "addons", "league_main", "src", "hd.rs"), os.path.join(ROOT, "addons", "tft", "src", "hd.rs")]
+
+
+def sizes():
+    """{champion: the size the battlefield draws him at} from the SIZES tables."""
+    out = {}
+    for path in SIZE_TABLES:
+        text = open(path, encoding="utf-8").read()
+        at = text.index("pub const SIZES")
+        out.update({n: float(k) for n, k in re.findall(r'\("([a-z0-9_]+)", ([0-9.]+)\)', text[at:text.index("];", at)])})
+    return out
 
 
 def crown(fanim):
@@ -38,16 +55,19 @@ def crown(fanim):
 
 
 def main():
+    drawn = sizes()
     rows = []
     for pack in ("league", "tft"):
         for f in sorted(glob.glob(os.path.join(ROOT, pack, "champions", "*#anim.fanim"))):
             c = crown(f)
             if c is not None:
-                rows.append((os.path.basename(f).split("#")[0], c))
+                name = os.path.basename(f).split("#")[0]
+                rows.append((name, int(round(c * drawn.get(name, 1.0)))))
     body = "\n".join(f'    ("{n}", {c}),' for n, c in rows)
     lifts = ", ".join(str(k) for k in RIDE_LIFTS)
     text = f"""//! Written by tools/art/yuumi_ride_lifts.py - do not edit. Each champion's crown: game px from his pivot up to the top
-//! of his head in his first idle frame; and the ride picture's lifts (tools/kit/build_yuumi.py RIDE_LIFTS).
+//! of his head in his first idle frame, at the size the battlefield draws him (hd.rs SIZES); and the ride picture's lifts
+//! (tools/kit/build_yuumi.py RIDE_LIFTS).
 
 pub const LIFTS: &[i32] = &[{lifts}];
 

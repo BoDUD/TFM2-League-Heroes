@@ -683,9 +683,13 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
 /// 弄的太大了吧」「还有地上的召唤师技能图标也太大了吧」): registered at PPU 2 and 3 on 10-22 but never listed here, the
 /// game drew Barrier's shell 88 x 104 px (designed 44 x 52, three times her height) and a shard's icon 34 px (Zoe's
 /// own height, designed 11), each hanging right and down from its spot. league_karthus's ghost (0.9.5) from the start.
+/// league_yuumi_ride too (0.9.6, the user, 2026-11-03: 「悠米还是会遮挡很多英雄的脸部」): the cat the user picked at 14 game px
+/// (「14」) was drawn 21 x 26 from 10-21 on, its bottom 7 px under the crown its lift was measured for and 4 px right of
+/// the host's middle - on the face of nearly every host.
 pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
                                      "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side",
-                                     "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost"];
+                                     "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost",
+                                     "league_yuumi_ride"];
 
 /// Tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): the card's canvas holds
 /// about 40 game px at 2.2x and these idles are 45-58 px from the head to the feet, so the knees and feet hid behind
