@@ -4,7 +4,7 @@
 # once in vendor/mod-api-stable (the game's mod-sdk-stable, ABI level 9). game_places (the game's places found at run
 # time) and hd_engine (the dense frames league.dll and tft.dll share) are libraries the DLLs link, no mods themselves.
 [workspace]
-members = ["league_*", "tft", "game_places", "hd_engine"]
+members = ["league_*", "tft", "game_places", "hd_engine", "lol_audio"]
 resolver = "2"
 
 [profile.release]

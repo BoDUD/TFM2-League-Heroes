@@ -1,0 +1,70 @@
+{
+  "asset/base/sound/bgm/banpick": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_draft",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/banpick2": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_draft",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/banpick_match5_lastgame": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_draft_final",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/dual_takedown": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_double_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/triple_takedown": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_triple_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/devastation": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_quadra_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/annihilation": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_penta_kill",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music1",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match2": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music2",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match3": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music3",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match4": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music1",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match5": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music2",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match6": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_first_blood": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_first_blood",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_first_blood": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_first_blood",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_executed": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_executed",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_executed": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_executed",
+    "type": "override"
+  }
+}
