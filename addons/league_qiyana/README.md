@@ -54,7 +54,7 @@ E → Q、R → E → Q 都在主包数据里。主包是纯数据：**读不到
 - `W #n Grass/River/Rock (fight / a monster / after E) at (x, y): grass … rock … river …; dash … toward (x, y); Q reset (… ticks were left) / was ready; Royal Privilege ready again on k; Spot {...}`：
   每次 W（同一份模拟里她同一种元素 2 秒内只记一次）；`W NO TERRAIN`：想放 W 而身边两格内没有地形。
 - `Q #n the plain line at #id: k hit (c champions), first #id`：没元素的 Q 打中英雄时。
-- `Q2 #n River/Rock/Grass: the blade thrown d toward #id - first #id / its end in t ticks`、`Q2 BLAST #n …: k hit (c champions), first #id, r rooted, rock under half: #id at h% +x`：元素之怒。
+- `Q2 #n River/Rock/Grass: the blade thrown d toward #id - first #id / its end in t ticks`、`Q2 BLAST #n …: k hit (c champions), first #id, r rooted, rock under half: #id at h% +x`：元素之怒（扔向英雄的那些；炸开的那行只记打中英雄或什么都没打中的）。
 - `FIELD #n: grass at (x, y)…`、`FIELD END #n: an attack / Q / E / R / she left it / its time is over (… ticks were left)`：草地。
 - `E #n: struck #id / MISSED #id (d away at the landing), then W`：E 落地（打英雄时）。
 - `R #n at #id: the wind stops at the wall cell (cx, cy) / the map's … edge / blows its whole length after d; brush k cells; river at (x, y) / no`：放 R。

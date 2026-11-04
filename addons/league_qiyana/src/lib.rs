@@ -680,9 +680,12 @@ fn q(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     BLADES.lock().unwrap_or_else(|e| e.into_inner()).insert((sim_no(sim, me), me), Blade { el, stop, first });
     let (x, y) = upos(stop);
     queue(sim, "q_blast", me, InputTargetV1::pos(x, y), flight);
-    note(sim, "q2", me, |n| format!("Q2 #{n} {el:?}: the blade thrown {:.0} toward #{} - {} in {flight} ticks{}", dist(here, stop),
-                                    aimed.unwrap_or(0), first.map_or("its end".to_string(), |f| format!("first #{f}")),
-                                    if flew { "" } else { " (spawn_projectile refused: no flying blade)" }));
+    // the throws at champions (a camp's would fill the log)
+    if aimed.is_some_and(|t| sim.get_entity(t).is_some_and(|e| e.is_champion())) || !flew {
+        note(sim, "q2", me, |n| format!("Q2 #{n} {el:?}: the blade thrown {:.0} toward #{} - {} in {flight} ticks{}", dist(here, stop),
+                                        aimed.unwrap_or(0), first.map_or("its end".to_string(), |f| format!("first #{f}")),
+                                        if flew { "" } else { " (spawn_projectile refused: no flying blade)" }));
+    }
 }
 
 /// 环刃停下：炸开（第一个人 100%，圈里其余的 `q_far`%），元素的效果。
