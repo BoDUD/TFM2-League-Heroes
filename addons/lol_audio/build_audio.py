@@ -2,6 +2,7 @@
 
     python -I addons/lol_audio/build_audio.py --lol "D:\\WeGameApps\\lol" --vgmstream path\\to\\vgmstream-cli.exe
     python -I addons/lol_audio/build_audio.py --lol ... --vgmstream ... --only lol_executed
+    python -I addons/lol_audio/build_audio.py --events      # sound events + mod.override_info only
 
 Reads (never writes) the League client and writes into addons/lol_audio/sound/ (git-ignored: audio (c) Riot Games):
 
@@ -16,9 +17,11 @@ Reads (never writes) the League client and writes into addons/lol_audio/sound/ (
   Media ids change between patches, lengths do not.
 - Announcer (Map11.zh_CN.wad.client: the zh_CN client keeps the en_us path but the Chinese clips):
   the spectator ("purple") multi-kill lines over the game's own multi-kill sounds (dual_takedown = double kill,
-  triple_takedown, devastation = quadra, annihilation = penta; the game's kill2..kill5 banners), and two lines the
-  game has no sound for, which lol_audio.dll plays: first blood (the lol_audio_first_blood event on the match's first
-  champion kill) and executed (the lol_audio_executed event when a champion dies to a tower, a minion or a monster).
+  triple_takedown, devastation = quadra, annihilation = penta; the game's kill2..kill5 banners), and the lines the
+  game has no sound for, which lol_audio.dll plays (see `VOICE`): first blood, executed, ace, shutdown, the spree
+  lines (killing spree .. legendary, ours and the enemy's), towers, dragon (the game's Serpen), Baron (Morgard),
+  victory / defeat. Each of those clips also gets its sound event (sound/sfx/lol_audio_<name>.sound_info) and both
+  remappings in mod.override_info (`write_events`): the game looks both up under asset/base/sound/sfx/.
 
 `--only CLIP ...` builds just those clips (file names without .mp3, e.g. lol_executed) and leaves every other file as
 it is: a full run rebuilds everything from the League client as it is now, which a League patch may have changed.
@@ -47,19 +50,43 @@ MAPS = "Game/DATA/FINAL/Maps/Shipping/"
 RIFT_MUSIC = "assets/sounds/wwise2016/sfx/shared/mus_map11_audio.wpk"
 TRACK_MIN = 200.0
 VO_BANK = "assets/sounds/wwise2016/vo/en_us/shared/announcer_global_female1_vo_"
-VO_EVENT = "Play_vo_Announcer_Female1_"
-
 DRAFT = ("lol_draft", "lol_draft_final")
 RIFT = re.compile(r"lol_rift_music(\d+)")
-# clip -> announcer event (spectator lines: no "your team" / "enemy team")
+# League's spree lines, three kills in one life on (lol_audio.dll's SPREES)
+SPREES = [("killing_spree", "KillingSpree"), ("rampage", "Rampage"), ("unstoppable", "Unstoppable"),
+          ("dominating", "Dominating"), ("godlike", "Godlike"), ("legendary", "Legendary")]
+VO_EVENT = "Play_vo_Announcer_"
+# clip -> announcer event. Multi-kills: the spectator ("purple") lines. The rest are the lines lol_audio.dll plays
+# (sound event lol_audio_<clip without lol_>): "YourTeam" / "EnemyTeam" = the player's view (used when lol_audio knows
+# which side is the user's), "Blue" / "Red" / "purple" = the spectator's (team colour / neutral).
 VOICE = {
-    "lol_double_kill": "ChampionDoubleKillpurple",
-    "lol_triple_kill": "ChampionTripleKillpurple",
-    "lol_quadra_kill": "ChampionQuadraKillpurple",
-    "lol_penta_kill": "ChampionPentaKillpurple",
-    "lol_first_blood": "FirstBloodHeroYourTeam",  # every first-blood event plays this one clip
+    "lol_double_kill": "Female1_ChampionDoubleKillpurple",
+    "lol_triple_kill": "Female1_ChampionTripleKillpurple",
+    "lol_quadra_kill": "Female1_ChampionQuadraKillpurple",
+    "lol_penta_kill": "Female1_ChampionPentaKillpurple",
+    "lol_first_blood": "Female1_FirstBloodHeroYourTeam",  # every first-blood event plays this one clip
     # executed: KillChampion{Turret,Minion}Hero{YourTeam,EnemyTeam} all play this one clip (media 9261738)
-    "lol_executed": "KillChampionTurretHeroYourTeam",
+    "lol_executed": "Female1_KillChampionTurretHeroYourTeam",
+    # 0.2.0: Ace{YourTeam,EnemyTeam} play the same two clips; Shutdown* all the same two
+    "lol_ace": "Female1_AceYourTeam",
+    "lol_shutdown": "Female1_ShutdownHeroYourTeam",
+    # sprees: HeroYourTeam = HeroBlue = HeroRed (a hero's own words), HeroEnemyTeam = the enemy's spree
+    **{f"lol_{clip}": f"Female1_{event}HeroYourTeam" for clip, event in SPREES},
+    **{f"lol_{clip}_enemy": f"Female1_{event}HeroEnemyTeam" for clip, event in SPREES},
+    "lol_turret_ours": "Female1_TurretLostYourTeam",
+    "lol_turret_theirs": "Female1_TurretLostEnemyTeam",
+    "lol_turret": "Female1_TurretDiepurple",
+    # the dragon / baron lines exist only as Blue / Red / purple ("Worm" = Baron Nashor)
+    "lol_dragon": "Female1_KillDragonpurple",
+    "lol_dragon_blue": "Female1_KillDragonBlue",
+    "lol_dragon_red": "Female1_KillDragonRed",
+    "lol_baron": "Female1_KillWormpurple",
+    "lol_baron_blue": "Female1_KillWormBlue",
+    "lol_baron_red": "Female1_KillWormRed",
+    "lol_victory": "Global_Female1_OnVictory",
+    "lol_defeat": "Global_Female1_OnDefeat",
+    "lol_victory_blue": "Female1_VictoryBlue",
+    "lol_victory_red": "Female1_VictoryRed",
 }
 # loudness: the game's own multi-kill sounds sit at about -15 dB RMS (peak -4), its BGM at about -14 dB RMS
 VOICE_RMS, VOICE_PEAK = -15.0, -2.0
@@ -138,6 +165,30 @@ def trim_tail(x, floor_db=-60.0, fade=0.05):
 
 
 
+# the clips the game plays itself (its own multi-kill events, remapped in mod.override_info by hand)
+OWN = {"lol_double_kill": "dual_takedown", "lol_triple_kill": "triple_takedown", "lol_quadra_kill": "devastation",
+       "lol_penta_kill": "annihilation"}
+
+
+def write_events(root=HERE):
+    """sound/sfx/lol_audio_<name>.sound_info for each clip lol_audio.dll plays, and the two remappings of each in
+    mod.override_info (the event and its clip, both looked up under asset/base/sound/sfx/). Other entries stay."""
+    import json
+    path = os.path.join(root, "mod.override_info")
+    with open(path, encoding="utf-8") as f:
+        info = json.load(f)
+    for clip in VOICE:
+        if clip in OWN:
+            continue
+        event = "lol_audio_" + clip[len("lol_"):]
+        with open(os.path.join(root, "sound", "sfx", event + ".sound_info"), "w", encoding="utf-8", newline="\n") as f:
+            f.write(json.dumps({"plays": [{"delay": 0.0, "clip": clip, "volume": 1.0}]}, separators=(",", ":")) + "\n")
+        for name in (event, clip):
+            info[f"asset/base/sound/sfx/{name}"] = {"remapping": f"asset/lol_audio/sound/sfx/{name}", "type": "override"}
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(info, indent=2, ensure_ascii=False) + "\n")
+
+
 def write(path, x):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     sf.write(path, np.clip(x, -1, 1), SR, format="MP3")
@@ -146,12 +197,19 @@ def write(path, x):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--lol", required=True, help="League of Legends install folder (has Game/ and LeagueClient/)")
-    ap.add_argument("--vgmstream", required=True)
+    ap.add_argument("--lol", help="League of Legends install folder (has Game/ and LeagueClient/)")
+    ap.add_argument("--vgmstream")
     ap.add_argument("--out", default=os.path.join(HERE, "sound"))
+    ap.add_argument("--events", action="store_true",
+                    help="only write the sound events and mod.override_info entries (no League install read)")
     ap.add_argument("--only", nargs="+", metavar="CLIP",
                     help="build only these clips (e.g. lol_executed); every other file stays as it is")
     a = ap.parse_args()
+    if a.events:
+        write_events()
+        return
+    if not a.lol or not a.vgmstream:
+        ap.error("--lol and --vgmstream are needed to build audio")
     only = set(a.only or ())
     unknown = sorted(c for c in only if c not in DRAFT and c not in VOICE and not RIFT.fullmatch(c))
     if unknown:
@@ -199,6 +257,7 @@ def main():
                 sys.exit(f"no media for {VO_EVENT + event}")
             x = trim_tail(wem(media[ids[0]], a.vgmstream)).mean(1, keepdims=True)  # mono, like the game's own
             write(os.path.join(a.out, "sfx", clip + ".mp3"), level(x, VOICE_RMS, VOICE_PEAK, limit=True))
+        write_events()
 
 
 if __name__ == "__main__":
