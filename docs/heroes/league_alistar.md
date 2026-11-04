@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Heal |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.73 |
 | 附加包 | 无 |
 
 ![阿利斯塔演示](../preview/league_alistar_showcase.gif)
@@ -74,6 +74,7 @@
 | 亚索联动 | Q、W→Q 的击飞和 E 的眩晕都是亚索大招要的控制：牛头辅助、亚索同队时，亚索每局 R 到被控英雄 2.23 次（同一批蕾欧娜 2.19、原版 `priest` 0.50），和蕾欧娜一样，亚索不用调 |
 | 精灵图 | 10 个动作 55 帧：待机 6、移动 9（9 × 111 ms，一秒一个循环）、普攻 6、Q（`skill`）6、W 冲撞（`skill2`）6、W 撞头（`butt`）2、W→Q 砸地（`slam`）4、R 6、受击 2、死亡 8。造型 41 × 44 px，25 色。头像截取点 (9, −32)，选人卡片 `banpick_center` y −7 |
 | 特效 | Codex 生图的 15 张（`import_alistar.py` 缩成游戏像素）：`league_alistar_fx` 普攻命中、击飞的尘土、撞头闪光和命中、践踏命中、锁链印记（满五次）、眩晕一拳的命中和头上的星星、怒吼回血；`league_alistar_big` 大地粉碎的地裂、W→Q 的地裂、冲撞的尘土、践踏的地面圈、凯旋怒吼的光圈、R 的怒吼爆发和身后的怒气光环（画在他身后） |
+| 高清帧（PPU 1.73） | 2026-11-04 用 PPU 重做，和蛮王、派克、布兰德在同一个 PR（用户：「接下来重做牛头 蛮王 派克 布兰德」「全部粗」「Codex交付了 你做到完美后喊我review」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 15 像素一格读回（71 × 76 格；鬃毛顶到蹄底 76 行，旧精灵 44 行，PPU 1.73），脸那一块按格子取整格平均色、过半近黑记成黑线，只有一两格的发光眼睛按它们自己的颜色单独取（红眼睛）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 34 张图（W 撞头 2 帧、W 接 Q 砸地 4 帧和死亡第 8 帧共 7 帧和别的帧一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；量头用牛角的米色；E 践踏的光（e_ready）由 alistar_bake.json 叠进 skill_fx1 / ult_fx1 两份拷贝；死亡第 7 帧一只角朝上、一只弯到下巴下，和旧第 7 帧一致。拼帧画布四周（脚下也算）多留 60 格，烘焙的特效不被截。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -7 → -1（R 怒吼那几帧鬃毛比站着高 5 格，-7 会把它裁平；腿多藏一些，和别的高个英雄一样）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_alistar.py`）：普攻命中，Q 出手和砸地，W 出手和撞上，践踏、印记满、眩晕，被动怒吼，R 怒吼；Q、W 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
 
@@ -90,6 +91,15 @@ python tools/art/run_alistar.py          # 移动：换皮交付按格子读回�
 python tools/art/import_native.py --hero alistar
 python tools/art/import_alistar.py       # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_alistar.py
+# PPU 1.73 重做（2026-11-04）：
+python tools/art/pack_alistar_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_alistar_hd.py                      # Codex 的原图（hd/raw/alistar-A.png）按原图约 15 像素一格读回 -> hd/design.png
+python tools/art/pack_alistar_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_alistar_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_alistar_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero alistar && python tools/art/ppu_hd.py --hero alistar
+python tools/art/ppu_one.py --hero alistar && python tools/art/rig_alistar_hd.py --one-ground && python tools/art/hero_reels.py --hero alistar
+python tools/art/review_alistar_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/alistar/PICTURE_PROMPT.md`](../../assets/source/alistar/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/alistar/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/alistar/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/alistar/PROMPTS_FX.md)，移动的换皮提示词见 [`codex_run_swap/pack/PROMPT.md`](../../assets/source/alistar/codex_run_swap/pack/PROMPT.md)；Codex 的交付说明在 [`codex_picture/`](../../assets/source/alistar/codex_picture)、[`codex_model/`](../../assets/source/alistar/codex_model)、[`codex_strips/`](../../assets/source/alistar/codex_strips)、[`codex_fx/`](../../assets/source/alistar/codex_fx)、[`codex_run_swap/`](../../assets/source/alistar/codex_run_swap)）：
@@ -100,4 +110,4 @@ python tools/art/preview_alistar.py
 - 移动：前几版都是待机的上半身不动、只换腿，用户：「牛头走路没有交叉步」「单脚走路的」「走路和待机的体型不一样」，Codex 只画腿的一版把远侧的拳头弄丢了、腿压成了细棍，按步态重排的一版用户还是觉得「不自然」。参考隔壁 oppi 的牛头跑步（拳头和腿反向摆、后腿弯膝往后踢、身体一起一伏），用「骨架 + 皮囊」换皮让 Codex 重画了 9 帧：图 1 是那套跑步动作（只当动作参考，原图不放进仓库），图 2 是我们的造型。`run_alistar.py` 抠掉绿底、按格子读回、颜色换成造型的 25 色、按站位点摆好；GPT 在肚子和兜裆布之间画了一条黑线、护腕和兜裆布之间留了一块黑，用户：「腰部一条横线很明显」「明显腰部和腿分离了」，改成兜裆布自己的深棕色和肚子下的深紫阴影（腿不动）。
 - 特效用 Codex 画的 15 张（`import_alistar.py --raw`：每张按格子等分，颜色归到包里给每张的色阶）。R 的怒气光环按宽高分别缩放、画在他身后（`z` −1），冲撞的尘土缩小到脚边。
 
-逐帧预览：[`docs/preview/league_alistar_frames.png`](../preview/league_alistar_frames.png?v=1014g)，特效：[`docs/preview/league_alistar_effects.png`](../preview/league_alistar_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_alistar_frames.png`](../preview/league_alistar_frames.png?v=1104hd)，特效：[`docs/preview/league_alistar_effects.png`](../preview/league_alistar_effects.png?v=1014g)。

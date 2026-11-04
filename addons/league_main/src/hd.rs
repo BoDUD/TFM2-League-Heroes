@@ -544,6 +544,31 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // rig_lissandra_hd.py; Q drawn from its native body cells, its cast and the ult_fx1 / skill2_e_fx1 / skill2_e_fx2
     // copies baked on again by lissandra_bake.json); 42 game px as her 1x sprite, so no SIZES row
     ("league_lissandra", 1.810, include_str!("../../../league/champions/league_lissandra#anim.fanim")),
+    // Alistar (2026-11-04, 「接下来重做牛头 蛮王 派克 布兰德」, 「全部粗」): Codex's alistar-A read on its own ~15-px squares
+    // (71 x 76, tools/art/design_alistar_hd.py: 76 rows / 44 = 1.727); every action Codex's whole-frame redraw of his old
+    // frame read onto it at the median of the zooms his height, horns and area give (tools/art/casts_alistar_hd.py,
+    // rig_alistar_hd.py; E's ready glow baked on again into the skill_fx1 / ult_fx1 copies by alistar_bake.json); 44
+    // game px as his 1x sprite, so no SIZES row
+    ("league_alistar", 1.727, include_str!("../../../league/champions/league_alistar#anim.fanim")),
+    // Tryndamere (the same release): Codex's tryndamere-A read on its own ~13.8-px squares (89 x 67,
+    // tools/art/design_tryndamere_hd.py: 67 rows / 37 = 1.811); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the median of the zooms his height, chest and area give (tools/art/casts_tryndamere_hd.py,
+    // rig_tryndamere_hd.py; his death's thrown sword moved to where the old frames have it; R drawn from its native body
+    // cells, its fire and the skill_fx1 / skill_q_fx1 copies' spin and heal baked on again by tryndamere_bake.json); 37
+    // game px as his 1x sprite, so no SIZES row
+    ("league_tryndamere", 1.811, include_str!("../../../league/champions/league_tryndamere#anim.fanim")),
+    // Pyke (the same release): Codex's pyke-A read on its own ~16-px squares (68 x 73, tools/art/design_pyke_hd.py: 73
+    // rows / 41 = 1.780); every action Codex's whole-frame redraw of his old frame read onto it at the median of the
+    // zooms his height, mask and area give (tools/art/casts_pyke_hd.py, rig_pyke_hd.py; Q drawn from its native body
+    // cells, its charge glow baked on again by pyke_bake.json; he stands as Codex drew his old idle pose, the design's
+    // head being 1.31 times smaller than in every action); 41 game px as his 1x sprite, so no SIZES row
+    ("league_pyke", 1.780, include_str!("../../../league/champions/league_pyke#anim.fanim")),
+    // Brand (the same release): Codex's brand-A read on its own ~15-px squares (59 x 77, tools/art/design_brand_hd.py: 77
+    // rows / 43 = 1.791); every action Codex's whole-frame redraw of his old frame read onto it at the median of the
+    // zooms his height, trousers and area give (tools/art/casts_brand_hd.py, rig_brand_hd.py; the attack, W and E into Q
+    // drawn from their native body cells, the flashes on his hands baked on again by brand_bake.json); 43 game px as his
+    // 1x sprite, so no SIZES row
+    ("league_brand", 1.791, include_str!("../../../league/champions/league_brand#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

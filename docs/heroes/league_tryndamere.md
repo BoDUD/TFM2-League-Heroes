@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.81 |
 | 附加包 | [蛮王残血开大附加包](#附加包)（`league_tryndamere_rage`） |
 
 ![泰达米尔演示](../preview/league_tryndamere_showcase.gif)
@@ -103,6 +103,7 @@ SDK 模拟里这样开大时他的生命中位数是 75%，一半的阵亡发生
 | 亚索联动 | 蛮王没有击飞或控制，W 只是减速，不算亚索大招要的控制，不用调 |
 | 精灵图 | 9 个动作 53 帧：待机、移动、普攻、E（`skill`）、W（`skill2`）、Q（`skill_q`）、R（`ult`）、受击、死亡。造型 53 × 37 px（含拖在身后的大剑；原来 57 × 40，用户在游戏里看：「蛮王还可以缩小点吧 在局内有点大 略微缩小就行了」），24 色。待机 6 帧同一张、不呼吸；头像截取点 (9, −35)，待机最高点 −25，不用选人卡片位置 |
 | 特效 | Codex 生图的 11 张（`import_tryndamere.py` 缩成游戏像素）：`league_tryndamere_fx` 普攻、E、W 的命中，Q 的回血红光，满怒气的红光，W 的减攻标记（头顶的断剑）和减速标记；`league_tryndamere_big` E 绕身转的刀光、W 的怒吼冲击波、R 爆发的火焰和不死期间身上的火 |
+| 高清帧（PPU 1.81） | 2026-11-04 用 PPU 重做，和牛头、派克、布兰德在同一个 PR（用户：「接下来重做牛头 蛮王 派克 布兰德」「全部粗」「Codex交付了 你做到完美后喊我review」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 13.8 像素一格读回（89 × 67 格；头盔的角尖到脚底 67 行，旧精灵 37 行，PPU 1.81），脸那一块按格子取整格平均色、过半近黑记成黑线，只有一两格的发光眼睛按它们自己的颜色单独取（白眼睛、红嘴，13.8 像素一格时不单独取就没了）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 32 张图（E 第 6 帧，W 第 1、2、6 帧，Q 第 1、3、5 帧，R 第 4、6 帧，受击第 2 帧，死亡第 1、2、8 帧共 13 帧和别的帧一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；量头用裸露胸口的肤色（他的脸大半是头盔和胡子）；死亡第 3–8 帧剑飞出去躺在一边，这几帧按身体量大小、摆位置，剑再整块挪到旧帧里剑的位置；R 按旧版不带特效的原生身体格画，R 的火焰由 tryndamere_bake.json 重新叠上，E 的旋风（skill_fx1）和 Q 的回血（skill_q_fx1）两份拷贝也由它叠；动作里的头比设计图大约 8%（描边差一格左右），保留。拼帧画布四周（脚下也算）多留 60 格，烘焙的特效不被截。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 不需要值（头顶在 -28 以下）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_tryndamere.py`）：普攻挥剑、命中，E、W、Q、R；E、W、R 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（E / W / R），从本地客户端提取，缩到 64×64 |
 
@@ -119,6 +120,15 @@ python tools/art/import_native.py --hero tryndamere
 python tools/art/import_tryndamere.py       # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_tryndamere.py
 python addons/league_tryndamere_rage/make_override.py   # 附加包的英雄数据和文字（主包的蛮王改了以后重跑）
+# PPU 1.81 重做（2026-11-04）：
+python tools/art/pack_tryndamere_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_tryndamere_hd.py                      # Codex 的原图（hd/raw/tryndamere-A.png）按原图约 13.8 像素一格读回 -> hd/design.png
+python tools/art/pack_tryndamere_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_tryndamere_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_tryndamere_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero tryndamere && python tools/art/ppu_hd.py --hero tryndamere
+python tools/art/ppu_one.py --hero tryndamere && python tools/art/rig_tryndamere_hd.py --one-ground && python tools/art/hero_reels.py --hero tryndamere
+python tools/art/review_tryndamere_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/tryndamere/PICTURE_PROMPT.md`](../../assets/source/tryndamere/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/tryndamere/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/tryndamere/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/tryndamere/PROMPTS_FX.md)；Codex 的交付说明在 [`codex_picture/`](../../assets/source/tryndamere/codex_picture)、[`codex_model/`](../../assets/source/tryndamere/codex_model)、[`codex_strips/`](../../assets/source/tryndamere/codex_strips)、[`codex_fx/`](../../assets/source/tryndamere/codex_fx)）：
@@ -129,4 +139,4 @@ python addons/league_tryndamere_rage/make_override.py   # 附加包的英雄数�
 - 动作：Codex 的动作条（[`codex_strips/`](../../assets/source/tryndamere/codex_strips)，它自己的交接写着「未通过视觉验收」）举剑时手臂是细木板、E 是一根棍、死亡时身体碎开。用户：「codex实在太笨了 ... 我们自己来修复」。改成全部用造型自己的像素摆（`rig_tryndamere.py`，通用的部分做成了 [`tools/art/rigkit.py`](../../tools/art/rigkit.py)，以后的英雄可以直接用）：握剑的手臂连同大剑从造型上整块切下，绕肩膀只做 90° 的整数倍旋转（举到身后、举过头顶、劈到身前；E 转一整圈）；另一只手臂也是造型自己的，Q、W、R 转上去举拳、W 翻过来往前伸；身体、头、腿每帧和待机一格不差，位移都是整个人一起动。先后被否的做法：镜像的剑（弧度反了）、只挪上半身（腰错位，「刀和身体 有点变形吧」「放技能还是受击打的时候变形」）、沿骨骼画的手臂和错切拉平的手臂（「左手右手释放技能都变形」）、死亡时删 7 行腿再左右平移（「死亡动画整个模型变形」）。现在的死亡：整个人后退一格，剑先甩到身后再脱手插在地上，膝盖只弯 4 行。跑步两腿从胯部交替迈步，脚收到胯下。之后用户在游戏里看：「蛮王在游戏里有点僵硬 和之前希维尔一个问题」——放技能时身体和待机一模一样。改成希维尔那样身体跟着动：上身沿胯部前倾、后仰（每行按离胯的高度错开，腰不断开；头整块跟着下巴那一行移，不错切），两只手臂跟着肩膀走，整个人前后挪步、离地起跳：普攻先后仰收剑、劈下时扑出两格，E 前倾着转、中间离地，W 先后仰再往前吼，Q、R 挺胸后仰。
 - 特效用 Codex 画的 11 张（生图原稿，`import_tryndamere.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——血红、余烬橙、暗红，断剑标记和灰烬保留描边、光效外圈最暗的一档去掉）。位置：E 的刀光以腰为中心（(7, −2)，跟着他冲过去），Q 的红光在胸口（(6, −8)），W 的冲击波、R 的火、满怒气的光按地上椭圆最宽的一行对在脚下，减攻的断剑在头顶。游戏里看（「特效盖不住身体」）：他连拖着的大剑约 57 格宽，火焰只有 35 格——不死的火焰、满怒气的光、R 的爆发按原高度画、横向拉宽 1.7–1.75 倍，盖住整个人；R 的爆发和 W 的冲击波对准躯干（站位点往前 6 格：他前倾，躯干在两脚中间的前面）。不死的火焰和满怒气的光是 buff 的画面，游戏不按朝向翻转，只能以站位点为中心左右对称。
 
-逐帧预览：[`docs/preview/league_tryndamere_frames.png`](../preview/league_tryndamere_frames.png?v=1014g)，特效：[`docs/preview/league_tryndamere_effects.png`](../preview/league_tryndamere_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_tryndamere_frames.png`](../preview/league_tryndamere_frames.png?v=1104hd)，特效：[`docs/preview/league_tryndamere_effects.png`](../preview/league_tryndamere_effects.png?v=1014g)。

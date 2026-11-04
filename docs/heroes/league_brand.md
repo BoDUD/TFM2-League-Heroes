@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.79 |
 | 附加包 | [布兰德被动层数附加包](#附加包)（`league_brand`） |
 
 ![布兰德演示](../preview/league_brand_showcase.gif)
@@ -100,6 +100,7 @@
 | 亚索联动 | Q 有晕眩：和布兰德同队时亚索的大招每局放 1.73 次（同一批原版雷法师 3.40、火法师 0.58、泽拉斯 1.17），不用调 |
 | 精灵图 | 8 个动作：待机（呼吸：小腿以上在第 3–5 帧沉一行）、移动（6 帧，一圈 1 秒；待机和移动时头顶的火焰和火焰手三帧一轮跳动：原样、火舌窜高一格、火亮一档——「火男移动时起码身上火焰要有点效果吧」）、普攻、W（`skill`）、E→Q（`skill2`）、R（`ult`）、受击、死亡。造型 37 × 43 px（连头顶的火焰），22 色。头像截取点 (4, −26)（光头和眼睛，不算头顶的火焰），选人卡片 `banpick_center` −8 |
 | 特效 | Codex 生图的 20 张（`import_brand.py` 缩成游戏像素）：`league_brand_fx` 普攻小火球、Q 火球、R 火种（飞行），普攻 / Q / W / R / 引爆的命中，E 点燃时窜起的火，R 弹跳时砸下来的火种，R 起跳时身边卷起的火，身上的灼烧、倒计时火圈、晕眩火星、减速余烬，头顶 1 / 2 / 3 个火苗；`league_brand_big` W 的火纹和火柱、E 的蔓延火环、被动的大爆炸；画进他自己动作帧里的：出手时火焰手上爆开的火光（普攻、E 张臂、Q 推掌、W 砸地） |
+| 高清帧（PPU 1.79） | 2026-11-04 用 PPU 重做，和牛头、蛮王、派克在同一个 PR（用户：「接下来重做牛头 蛮王 派克 布兰德」「全部粗」「Codex交付了 你做到完美后喊我review」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 15 像素一格读回（59 × 77 格；头顶火焰到脚底 77 行，旧精灵 43 行，PPU 1.79），脸那一块按格子取整格平均色、过半近黑记成黑线，只有一两格的发光眼睛按它们自己的颜色单独取（黄色眼睛）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 8 张图（普攻第 3–6 帧，W 第 1、3、5、6 帧，E 接 Q 第 1、3、5–8 帧，R 第 2–6 帧，受击第 1、2 帧，死亡第 1、2、5–8 帧共 27 帧和别的帧一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；量大小用裤子的棕色（他的皮肤和脸一样焦黑、火焰形状每帧都变，裤子每个姿势都一样大）；普攻、W、E 接 Q 按旧版不带特效的原生身体格画，手上的火光由 brand_bake.json 重新叠上。拼帧画布四周（脚下也算）多留 60 格，烘焙的特效不被截。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 保持 -6（已符合规则）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_brand.py`）：普攻扔火球、打中，W 火纹、火柱，E 点燃、蔓延，Q 火球、打中，R 起手、弹跳、打中，被动引爆；Q、W、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（W / E / R），从本地客户端提取，缩到 64×64 |
 
@@ -115,6 +116,15 @@ python tools/art/rig_brand.py            # 动作：每帧都是造型本身，�
 python tools/art/import_brand.py         # 特效；--raw <Codex 的 brand-fx 文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/import_native.py --hero brand   # 动作条 + 画进帧里的火光（assets/source/native/brand_bake.json）
 python tools/art/preview_brand.py
+# PPU 1.79 重做（2026-11-04）：
+python tools/art/pack_brand_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_brand_hd.py                      # Codex 的原图（hd/raw/brand-A.png）按原图约 15 像素一格读回 -> hd/design.png
+python tools/art/pack_brand_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_brand_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_brand_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero brand && python tools/art/ppu_hd.py --hero brand
+python tools/art/ppu_one.py --hero brand && python tools/art/rig_brand_hd.py --one-ground && python tools/art/hero_reels.py --hero brand
+python tools/art/review_brand_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/brand/PICTURE_PROMPT.md`](../../assets/source/brand/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/brand/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/brand/MODEL_STRIPS.md)，跑步换腿的见 [`RUN_SWAP.md`](../../assets/source/brand/RUN_SWAP.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/brand/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](../../assets/source/brand/codex_picture)、[`codex_model/`](../../assets/source/brand/codex_model)、[`codex_strips/`](../../assets/source/brand/codex_strips)、[`codex_run/`](../../assets/source/brand/codex_run)；附图包由 `tools/art/pack_brand_*.py` 在本地生成，英雄联盟的渲染和 oppi 的图不进仓库）：
@@ -125,4 +135,4 @@ python tools/art/preview_brand.py
 - 特效用 Codex 画的 20 张（生图原稿，`import_brand.py --raw`：每张按格子等分，每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色阶——火、熔岩、焦油烟；火外圈最暗的一档去掉，层数火苗保留描边）。R 身边的火和 W 的火柱按高度缩（按宽度缩出来太高），R 身边的火中间掏空不挡人；W 火柱打中的火花借用 Q 命中的图。
 - 红色方：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图，所以出手时火焰手上的火光画进他的动作帧（`brand_bake.json`）；三种飞行道具做成严格上下对称；R 身边的火（施放后才播放、不跟随）、身上的状态、地上的火纹、火柱、火环、爆炸做成严格左右对称。演示 GIF 后半段他转身朝左放大招，就是红色方的样子。
 
-逐帧预览：[`docs/preview/league_brand_frames.png`](../preview/league_brand_frames.png?v=1014g)，特效：[`docs/preview/league_brand_effects.png`](../preview/league_brand_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_brand_frames.png`](../preview/league_brand_frames.png?v=1104hd)，特效：[`docs/preview/league_brand_effects.png`](../preview/league_brand_effects.png?v=1014g)。

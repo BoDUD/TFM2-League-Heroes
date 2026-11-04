@@ -144,9 +144,10 @@ def main():
     D = design()
     cs = CA.placed()
     left, right, top, bottom = pad_for(D, cs)
-    # the baked effects reach past the body: FX_PAD more round the canvas so rig.bake lays them on whole (export
+    # the baked effects reach past the body: FX_PAD more round the canvas so rig.bake lays them on whole, under
+    # the soles too (till 2026-11-04 the canvas kept its few squares under them and cut what reached lower; export
     # crops each frame to what it holds)
-    rig = AatroxRig(D, pad=(left + FX_PAD, right + FX_PAD, top + FX_PAD, bottom))
+    rig = AatroxRig(D, pad=(left + FX_PAD, right + FX_PAD, top + FX_PAD, bottom + FX_PAD))
     acts = frames(rig, cs)
     if a.review:
         rig.review(acts, a.review)

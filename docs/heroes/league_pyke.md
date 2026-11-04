@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.78 |
 | 附加包 | [派克精确斩杀附加包](#附加包)（`league_pyke`） |
 
 ![派克演示](../preview/league_pyke_showcase.gif)
@@ -103,6 +103,7 @@ X形打击：英雄受到180 + 60% 攻击力真实伤害，低于此值被处决
 | 亚索联动 | E 的晕眩和 Q 的拉拽是亚索大招要的控制：派克在辅助位时亚索大招每局对英雄放 1.88 次（同批锤石 1.40、日女 2.33），不用调 |
 | 精灵图 | 9 个动作 51 帧：待机、移动、普攻、Q 戳刺（`skill_stab`）、Q 扔鱼叉（`skill`）、W→E（`skill2`）、R（`ult`）、受击、死亡。造型 62 × 53 px（连举起的鱼叉；光头顶到脚底 40 行），29 色。待机 6 帧同一张，呼吸的缝在靴口；头像截取点 (10, −38)，选人卡片 `banpick_center` 0（鱼叉尖高出画布） |
 | 特效 | Codex 生图的 16 张（`import_pyke.py` 缩成游戏像素）：`league_pyke_fx` 普攻、Q 戳刺、Q 钩中、E、R 的命中，Q 蓄力的光，飞出去和收回来的鱼叉，W 脚下炸开的幽水，晕眩和减速，R 处决后的赏金，灰血回复的幽水；`league_pyke_big` E 起点的水洼和飞回来的魅影，R 地上的 X 预警和 X 斩击 |
+| 高清帧（PPU 1.78） | 2026-11-04 用 PPU 重做，和牛头、蛮王、布兰德在同一个 PR（用户：「接下来重做牛头 蛮王 派克 布兰德」「全部粗」「Codex交付了 你做到完美后喊我review」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 16 像素一格读回（68 × 73 格；鱼叉尖到脚底 73 行，旧精灵 41 行，PPU 1.78），脸那一块按格子取整格平均色、过半近黑记成黑线，只有一两格的发光眼睛按它们自己的颜色单独取（青色眼睛；只按眼睛那一条读，面罩的条纹按平均色会碎成杂点）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 27 张图（普攻第 5 帧，Q 扔鱼叉第 4 帧，W 接 E 第 1–4 帧，R 第 4–6 帧，死亡第 1、6–8 帧共 13 帧和别的帧一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放取身高、头的大小、身体面积三种量法的中位数（只按一种，个别帧会一大一小）；量头用面罩的深红；Q 扔鱼叉按旧版不带特效的原生身体格画，蓄力的光由 pyke_bake.json 重新叠上；待机定格用 Codex 画的普攻第 1 帧（旧版的待机姿势，和旧待机重合 0.99），不用设计图：设计图的头（兜帽加面罩）比 Codex 所有动作里的头小约 1.31 倍（Codex 照旧帧的比例画动作），用设计图当待机，一播动作头就变大（用户在瑟提、丽桑卓上说过：「感觉模型会一大一小」），设计图只作调色板和格子（rig_pyke_hd.py 的 IDLE_FROM）。拼帧画布四周（脚下也算）多留 60 格，烘焙的特效不被截。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 保持 -11（顶到卡顶的是鱼叉尖，细道具按惯例让它被裁；-11 是用户说「派克在bp界面腿都看不到了」之后定的）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_pyke.py`）：挥砍、命中，Q 戳刺、蓄力、扔出、钩中，W 潜入，E 冲刺、魅影飞回、晕眩，R 起手、斩下、处决刷新，灰血回复；Q（扔鱼叉、戳刺各一句）、E、R 处决的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
 
@@ -119,6 +120,15 @@ python tools/art/import_pyke.py         # 特效；--raw assets/source/pyke/code
 python tools/art/import_native.py --hero pyke
 python tools/art/preview_pyke.py
 python addons/league_pyke/make_override.py   # 附加包的英雄数据和文字（主包的派克改了以后重跑）
+# PPU 1.78 重做（2026-11-04）：
+python tools/art/pack_pyke_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_pyke_hd.py                      # Codex 的原图（hd/raw/pyke-A.png）按原图约 16 像素一格读回 -> hd/design.png
+python tools/art/pack_pyke_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_pyke_hd.py --heights             # 每帧按身高的缩放；--heads 每帧头的大小（定 FRAME_ZOOM）
+python tools/art/rig_pyke_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero pyke && python tools/art/ppu_hd.py --hero pyke
+python tools/art/ppu_one.py --hero pyke && python tools/art/rig_pyke_hd.py --one-ground && python tools/art/hero_reels.py --hero pyke
+python tools/art/review_pyke_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/pyke/PICTURE_PROMPT.md`](../../assets/source/pyke/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/pyke/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/pyke/MODEL_STRIPS.md)，跑步换皮的见 [`RUN_SWAP.md`](../../assets/source/pyke/RUN_SWAP.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/pyke/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](../../assets/source/pyke/codex_picture)、[`codex_model/`](../../assets/source/pyke/codex_model)、[`codex_strips/`](../../assets/source/pyke/codex_strips)、[`codex_run/`](../../assets/source/pyke/codex_run)、[`codex_fx/`](../../assets/source/pyke/codex_fx)；附图包由 `tools/art/pack_pyke_*.py` 在本地生成，英雄联盟的渲染和 oppi 的图不进仓库）：
@@ -130,4 +140,4 @@ python addons/league_pyke/make_override.py   # 附加包的英雄数据和文字
 - 特效用 Codex 画的 16 张（`import_pyke.py --raw`：每张按格子等分，每个游戏像素取覆盖的像素里最多的颜色，颜色归到包里给每张的色阶——幽水的青绿、鱼叉的骨白和金红、大招的血红、赏金的金；水和血外圈最暗的一档去掉，飞出去的鱼叉保留描边）；收回的鱼叉是飞出去那张左右镜像（尾巴朝前）。
 - 红色方：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图。飞行的画面（鱼叉、魅影）做成严格上下对称；晚于动作第一 tick 播放的（处决赏金、灰血回复）不跟随、严格左右对称；头顶的晕眩、脚下的减速、地上的水洼和 X 也左右对称。演示 GIF 后半段他转身朝左打，就是红色方的样子。
 
-逐帧预览：[`docs/preview/league_pyke_frames.png`](../preview/league_pyke_frames.png?v=1014g)，特效：[`docs/preview/league_pyke_effects.png`](../preview/league_pyke_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_pyke_frames.png`](../preview/league_pyke_frames.png?v=1104hd)，特效：[`docs/preview/league_pyke_effects.png`](../preview/league_pyke_effects.png?v=1014g)。
