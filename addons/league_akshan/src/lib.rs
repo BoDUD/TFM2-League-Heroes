@@ -1239,6 +1239,17 @@ mod tests {
         assert!(decode(&hex(RESPAWN_TIME_065), &hex(IS_ALIVE)).is_none());
     }
 
+    // TeamfightManager2.exe 0.7.1 (94,043,136 bytes, 2026-11-04): player_respawn_time 0x143498fe0, player_is_alive
+    // 0x143497240 - 0.6.5's code and fields again (the 0.7.0 compiler's build of the same getters)
+    const RESPAWN_TIME_071: &str = "554883ec30488d6c243048c745f8feffffff4885d2742348ffca488b014c8b41084889c141ff9058010000904885c0740980b8b808000000740831c04883c4305dc3488b80c00800004883c4305dc3";
+    const IS_ALIVE_071: &str = "554883ec30488d6c243048c745f8feffffff4885d2742748ffca488b014c8b41084889c141ff9058010000904885c0740d0fb680b80800004883c4305dc331c04883c4305dc3";
+
+    #[test]
+    fn decodes_the_0_7_1_getters() {
+        let l = decode(&hex(RESPAWN_TIME_071), &hex(IS_ALIVE_071)).expect("layout");
+        assert_eq!(l, LifeLayout { getp: 0x158, tag: 0x8b8, val: 0x8c0 });
+    }
+
     #[test]
     fn refuses_mismatched_code() {
         // is_alive reading another field

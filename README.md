@@ -67,7 +67,7 @@ python addons/league_addons/assemble.py <输出文件夹>       # 全部附加�
 
 ## 游戏版本更新时
 
-高清帧引擎（`league.dll` / `tft.dll`）和整身变身的附加包要在游戏的 EXE 里找函数。[`build.rs`](addons/hd_engine/src/build.rs) 列着认得的游戏版本（现在是 0.7.0），逐字节核对每一处要改、要调用的代码；对不上（游戏更新了）就由 [`addons/game_places`](addons/game_places/src/lib.rs) 在运行时按特征码找（日志 `game build: found at run time in … ms`），找不到或不唯一才退回 1 倍帧。游戏改了代码形状时：
+高清帧引擎（`league.dll` / `tft.dll`）和整身变身的附加包要在游戏的 EXE 里找函数。[`build.rs`](addons/hd_engine/src/build.rs) 列着认得的游戏版本（现在是 0.7.1 和 0.7.0），逐字节核对每一处要改、要调用的代码；对不上（游戏更新了）就由 [`addons/game_places`](addons/game_places/src/lib.rs) 在运行时按特征码找（日志 `game build: found at run time in … ms`），找不到或不唯一才退回 1 倍帧。游戏改了代码形状时：
 
 ```bash
 python tools/re/find_build.py        # 从上一版 build.rs 在新 EXE 里重新找出地址，更新 build.rs
@@ -75,7 +75,7 @@ python tools/re/make_sigs.py         # 重新生成 addons/game_places/src/sigs.
 cargo test -p hd_engine              # 拿游戏目录里的 EXE 跑一遍：动态找出的每个地址都和 build.rs 一致
 ```
 
-结构体里的偏移没有做成动态的。0.6.4、0.6.5、0.7.0 三次更新改了什么（地址、新编译器、玩家结构体、官方 AI、放逐和韧性、睡眠、射程和定身修复、各英雄表）见 [docs/tech-notes.md](docs/tech-notes.md) 的「游戏 0.6.4」「动态寻址」「游戏 0.6.5」「游戏 0.7.0」四节。
+结构体里的偏移没有做成动态的。0.6.4、0.6.5、0.7.0、0.7.1 四次更新改了什么（地址、新编译器、玩家结构体、官方 AI、放逐和韧性、睡眠、射程和定身修复、各英雄表）见 [docs/tech-notes.md](docs/tech-notes.md) 的「游戏 0.6.4」「动态寻址」「游戏 0.6.5」「游戏 0.7.0」「游戏 0.7.1」五节。
 
 ## 持续集成
 

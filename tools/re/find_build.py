@@ -66,7 +66,9 @@ X86 = capstone.x86
 def old_build(path=BUILD_RS):
     src = open(path, encoding="utf-8").read()
     body = src[src.index("pub static BUILDS"):]
-    body = body[:body.index("}];")]
+    # the first build listed (the newest; the list may go on with older ones: `}, Build {`)
+    ends = [i for i in (body.find("}, Build {"), body.find("}];")) if i >= 0]
+    body = body[:min(ends)]
 
     def num(field):
         return int(re.search(rf"\b{field}: (0x[0-9a-f]+),", body).group(1), 16)
