@@ -8,9 +8,10 @@
   league_aurora_showcase.gif  a scripted fight against Darius in the mid lane, timed like the kit (tools/kit/build_aurora.py,
                               60 ticks a second): two spirit bolts (the spirit mark over his head); Twofold Hex - the hex
                               through him (the curse on his chest), its curse drawn back (the third hit exorcises his
-                              spirit: the bunny spirit rising, her heal); Between Worlds - the leap onto him, the
-                              shockwave and the realm under him, and at once The Weirding round her (the combo R -> E:
-                              the window, the hit, the hop back); he falls; 3x.
+                              spirit: the bunny spirit rising, her heal); Between Worlds (League's, 2026-11-04) - the
+                              short leap toward him, the shockwave and the rift r_ahead in front of where she lands
+                              (he is in it), and at once The Weirding's blast at him (the combo R -> E: the window, the
+                              hit, no hop back - it would carry her out of her rift); he falls; 3x.
 """
 import argparse
 import os
@@ -67,6 +68,11 @@ class Aurora(Clip):
     def on_ground(self, tag, when, sheet=None, until=None):
         """A picture on the ground under him (under the units)."""
         self.under.append(OnFoe(frames_of(sheet or self.small, tag), when, self.d, until=until))
+
+    def at_point(self, tag, when, x, y, sheet=None, until=None):
+        """A picture on the ground at a point (under the units): the shockwave's centre, where the rift stands."""
+        self.under.append(Anim(frames_of(sheet or self.small, tag), when, int(round(x)), y, loop=until is not None,
+                               until=until))
 
 
 def px_ms(speed):
@@ -128,17 +134,19 @@ def showcase(out, z=3):
     c.d.flinches.append(passed)
     mark(passed)
     c.wait(max(0, int(home) + 300 - c.t))
-    # Between Worlds: the leap onto him, the shockwave, the realm; R -> E: The Weirding round her, the hop back
+    # Between Worlds (League's): the leap r_leap toward him on the jump frame, the shockwave and the rift r_ahead in
+    # front of where she lands (he stands in it); R -> E: The Weirding's blast at him, no hop back (out of her rift)
     t = c.t
     c.a("ult", tick(P["r_dur"]))
     leap0 = t + tick(P["r_rel"] - 1)
-    land_x = far - 14
-    leap1 = leap0 + (land_x - x0) / px_ms(P["r_speed"])
+    leap1 = leap0 + tick(P["r_leap_t"])
+    land_x = x0 + P["r_leap"] / 1000.0
     me.moves.append((leap0, leap1, x0, land_x))
-    c.on_me("r_shock", leap1, sheet=big, under=True)
+    rift_x = land_x + P["r_ahead"] / 1000.0
+    c.at_point("r_shock", leap1, rift_x, gy, sheet=big)
     c.on("r_hit", leap1)
-    c.on_ground("r_zone", leap1, sheet=big, until=leap1 + tick(P["r_t"]))
-    c.on_ground("slow", leap1, until=leap1 + tick(P["r_t"]))
+    c.at_point("r_zone", leap1, rift_x, gy, sheet=big, until=leap1 + tick(P["r_t"]))
+    c.on_ground("slow", leap1, until=leap1 + tick(P["r_slow1_t"]))
     c.d.flinches.append(leap1)
     weird = leap1 + tick(P["re_gap"])
     c.wait(max(0, int(weird) - c.t))
@@ -146,10 +154,6 @@ def showcase(out, z=3):
     c.on_me("e_burst", weird)
     c.on("e_hit", weird)
     c.d.flinches.append(weird)
-    hop0 = weird + tick(2)
-    hop1 = hop0 + tick(P["e_back_t"])
-    back_x = land_x - P["e_back"] * P["e_back_t"] / 1000.0
-    me.moves.append((hop0, hop1, land_x, back_x))
     d.death = weird + 400
     end = d.death + 1600
     c.wait(end - c.t)

@@ -11,7 +11,9 @@ Names: Data Dragon 16.20.1 - zh_CN 阿萝拉 (双界灵兔): 驱灵奇术; 飞�
 世界の狭間; ko 오로라: 영혼 방호술; 이중 저주, 장막 너머로, 마법의 문, 세계의 경계.
 Slots: skill = Twofold Hex, skill2 = The Weirding, ult = Between Worlds; the passive (Across the Veil folded in) in the
 attack's text - the main pack's stand-in (an enemy champion on top of her); the add-on's text (addons/league_aurora
-make_override.py) says the low-health one it reads. No combo sentence in any text (the user's rule); the README says them.
+make_override.py) says the low-health one it reads. The ult (League's Between Worlds, 2026-11-04): the main pack's rift
+slows the enemies in it while she is inside; the add-on's text says League's border it keeps. No combo sentence in any
+text (the user's rule); the README says them.
 """
 import argparse
 import json
@@ -69,8 +71,8 @@ TEXT = {
         "skill": "放出咒弹穿过敌人，造成" + mag("q_dmg", "q_ratio") + "魔法伤害并留下诅咒；" + t("{q_hold}秒") + "后把诅咒抽回，回程再造成" +
                  mag("q2_dmg", "q2_ratio") + "魔法伤害。",
         "skill2": "向前喷出灵魂冲击，造成" + mag("e_dmg", "e_ratio") + "魔法伤害并" + cc("减速") + "{e_slow1}%（逐渐减弱），随后向后跳开。",
-        "ult": "跳到敌方英雄身上，冲击波造成" + mag("r_dmg", "r_ratio") + "魔法伤害并" + cc("减速") + "{r_slow1}%；张开领域" + t("{r_t}秒") + "，" +
-               cc("减速") + "其中敌人{r_slow}%，目标走开时她穿过领域追上去。",
+        "ult": "朝敌方英雄跃出一小段，加速{r_ms}%；前方的冲击波造成" + mag("r_dmg", "r_ratio") + "魔法伤害并" + cc("减速") + "{r_slow1}%，留下领域" +
+               t("{r_t}秒") + "：她在里面时" + cc("减速") + "其中敌人{r_slow}%，她离开或阵亡就关闭。",
         "names": ("飞去来咒", "怪奇喷涌", "双界合一"),
     },
     "zh-hant": {
@@ -81,8 +83,8 @@ TEXT = {
         "skill": "放出咒彈穿過敵人，造成" + mag("q_dmg", "q_ratio") + "魔法傷害並留下詛咒；" + t("{q_hold}秒") + "後把詛咒抽回，回程再造成" +
                  mag("q2_dmg", "q2_ratio") + "魔法傷害。",
         "skill2": "向前噴出靈魂衝擊，造成" + mag("e_dmg", "e_ratio") + "魔法傷害並" + cc("緩速") + "{e_slow1}%（逐漸減弱），隨後向後跳開。",
-        "ult": "跳到敵方英雄身上，衝擊波造成" + mag("r_dmg", "r_ratio") + "魔法傷害並" + cc("緩速") + "{r_slow1}%；張開領域" + t("{r_t}秒") + "，" +
-               cc("緩速") + "其中敵人{r_slow}%，目標走開時她穿過領域追上去。",
+        "ult": "朝敵方英雄躍出一小段，加速{r_ms}%；前方的衝擊波造成" + mag("r_dmg", "r_ratio") + "魔法傷害並" + cc("緩速") + "{r_slow1}%，留下領域" +
+               t("{r_t}秒") + "：她在裡面時" + cc("緩速") + "其中敵人{r_slow}%，她離開或陣亡就關閉。",
         "names": ("二重靈咒", "靈異逆躍", "雙界合一"),
     },
     "en": {
@@ -96,9 +98,9 @@ TEXT = {
                  "way home.",
         "skill2": "A blast of spirit magic before her: " + mag("e_dmg", "e_ratio") + " magic damage and a " + cc("slow") +
                   " of {e_slow1}% that fades; then she hops back.",
-        "ult": "Leaps onto an enemy champion: the shockwave deals " + mag("r_dmg", "r_ratio") + " magic damage and " + cc("slows") +
-               " {r_slow1}%; a realm opens for " + t("{r_t}s") + ", " + cc("slowing") + " the enemies in it {r_slow}%, and she "
-               "steps across it after her target when it walks away.",
+        "ult": "Leaps a short way toward an enemy champion, {r_ms}% faster; a shockwave in front of her deals " +
+               mag("r_dmg", "r_ratio") + " magic damage and " + cc("slows") + " {r_slow1}%, leaving a rift for " + t("{r_t}s") +
+               " that " + cc("slows") + " the enemies in it {r_slow}% while she is inside. It closes if she leaves it or dies.",
         "names": ("Twofold Hex", "The Weirding", "Between Worlds"),
     },
     "ko": {
@@ -110,8 +112,9 @@ TEXT = {
                  mag("q2_dmg", "q2_ratio") + " 마법 피해.",
         "skill2": "앞으로 영혼 충격파를 뿜어 " + mag("e_dmg", "e_ratio") + " 마법 피해와 점점 약해지는 {e_slow1}% " + cc("둔화") +
                   ", 이후 뒤로 뛴다.",
-        "ult": "적 챔피언에게 도약해 충격파로 " + mag("r_dmg", "r_ratio") + " 마법 피해와 {r_slow1}% " + cc("둔화") + "; " + t("{r_t}초") +
-               " 동안 영역을 열어 안의 적을 {r_slow}% " + cc("둔화") + ", 대상이 벗어나면 영역을 건너 쫓아간다.",
+        "ult": "적 챔피언 쪽으로 짧게 도약하며 이동 속도 +{r_ms}%; 앞쪽 충격파가 " + mag("r_dmg", "r_ratio") + " 마법 피해와 {r_slow1}% " +
+               cc("둔화") + ", " + t("{r_t}초") + " 동안 영역을 남겨 그녀가 안에 있는 동안 안의 적을 {r_slow}% " + cc("둔화") +
+               ". 그녀가 나가거나 죽으면 닫힌다.",
         "names": ("이중 저주", "마법의 문", "세계의 경계"),
     },
     "ja": {
@@ -122,8 +125,8 @@ TEXT = {
         "skill": "呪弾が敵を貫き" + mag("q_dmg", "q_ratio") + "の魔法ダメージと呪い、" + t("{q_hold}秒") + "後に呪いを引き戻し帰り道で" +
                  mag("q2_dmg", "q2_ratio") + "の魔法ダメージ。",
         "skill2": "前方へ霊の衝撃を放ち" + mag("e_dmg", "e_ratio") + "の魔法ダメージと弱まっていく{e_slow1}%" + cc("スロウ") + "、その後後ろへ跳ぶ。",
-        "ult": "敵英雄へ跳び衝撃波で" + mag("r_dmg", "r_ratio") + "の魔法ダメージと{r_slow1}%" + cc("スロウ") + "。" + t("{r_t}秒") +
-               "間領域を開き中の敵を{r_slow}%" + cc("スロウ") + "、対象が離れると領域を越えて追う。",
+        "ult": "敵英雄の方へ短く跳び移動速度+{r_ms}%。前方の衝撃波で" + mag("r_dmg", "r_ratio") + "の魔法ダメージと{r_slow1}%" + cc("スロウ") +
+               "、" + t("{r_t}秒") + "間領域を残し、彼女が中にいる間は中の敵を{r_slow}%" + cc("スロウ") + "。彼女が出るか倒れると閉じる。",
         "names": ("折れ重なる魔法", "ウィアーディング", "世界の狭間"),
     },
 }
@@ -144,7 +147,8 @@ def secs(tk):
 
 def values(p):
     v = {k: p[k] for k in ("p_dmg", "p_ratio", "p_hp", "p_heal", "p_heal_r", "w_ms", "q_dmg", "q_ratio", "q2_dmg",
-                           "q2_ratio", "e_dmg", "e_ratio", "e_slow1", "r_dmg", "r_ratio", "r_slow1", "r_slow")}
+                           "q2_ratio", "e_dmg", "e_ratio", "e_slow1", "r_dmg", "r_ratio", "r_slow1", "r_slow", "r_ms",
+                           "r_edge")}
     for k in ("w_inv", "w_cd", "q_hold", "r_t"):
         v[k] = secs(p[k])
     return v

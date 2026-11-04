@@ -3,7 +3,9 @@
     python tools/kit/build_aurora.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
 Kit (the user's picks, 2026-10-23: MID, layout A - Twofold Hex / The Weirding / Between Worlds, Across the Veil folded
-into the passive; combos E -> Q, R -> E, Q's two passes stacking the passive, the teleport across the zone; 「有连招要做连招」).
+into the passive; combos E -> Q, R -> E, Q's two passes stacking the passive; 「有连招要做连招」). The ult follows League's
+Between Worlds since 2026-11-04 (the user: 「阿罗拉的大招机制逻辑也是不太一样」): the teleport across the zone onto the ult's
+champion is gone, League's border (in the add-on) took its place.
 TFM2 has three active slots: Twofold Hex (Q) is `skill`, The Weirding (E) `skill2`, Between Worlds (R) the `ult`.
   passive Spirit Abjuration (驱灵奇术): every champion hit of hers (attack, Q out, Q back, E, R) counts on a caster ladder
           s_1 -> s_2 (p_t ticks, refreshed by every count; league_kennen's marks: the count is hers, not the target's),
@@ -24,24 +26,39 @@ TFM2 has three active slots: Twofold Hex (Q) is `skill`, The Weirding (E) `skill
   skill2  The Weirding (怪奇喷涌, cooldown e_cd, the flag `e_cd`): a `Targeting` cast on `EnemyWithoutTower` (e_range): a
           blast in a cone toward the target (e_len, cone e_cone), e_dmg + e_ratio% AP and a slow that decays (e_slow1%
           for e_slow1_t, e_slow2% for e_slow2_t), then she hops back e_back x e_back_t (League's 250 units).
-  ult     Between Worlds (双界合一): a `Targeting` cast on `EnemyChampion` (r_range): she leaps onto it (MoveToTarget) and
-          the shockwave round her lands r_dmg + r_ratio% AP and r_slow1% for r_slow1_t; the realm (r_zone) stays r_t
-          ticks on the target's spot, slowing r_slow% every r_per.
+  ult     Between Worlds (双界合一, League V26.21): a `Targeting` cast on `EnemyChampion` (r_range) - the champion gives the
+          direction. On the jump frame she leaps r_leap toward it (`RushTime`, r_leap_t ticks, through it when it is
+          nearer; League's 25-250 units), immune to crowd control for the leap (League: to displacement), and gains
+          Realm Hopper: r_ms% move speed for r_ms_t (League 15-40% for 4-5 s; no ghosting in TFM2). Landing, the
+          shockwave goes off r_ahead in front of her (League's 425; a `RangeEffect` `Forward`, radius r_r1 + both
+          bodies = the rift's ring): r_dmg + r_ratio% AP and r_slow1% for r_slow1_t (League 30% for 2 s). It leaves the
+          rift there: a hidden line r_ahead long ends on the shockwave's centre and starts the rift's picture (r_zone,
+          the ring League's 700) for r_t ticks (League 2.25-3.25 s).
+          Main pack (data cannot find the rift's border or move her across it): every r_per ticks the enemies in the
+          rift are slowed r_slow% - only while she stands in it and lives (a search from the zone, league_ekko W's);
+          the first check that misses her shuts it for good (`r_shut`, League: it closes when she leaves or dies).
+          The add-on's copy (league_aurora:rift on the line's end, the passive league_aurora:veil): League's border -
+          an enemy touching it is slowed r_edge% for r_edge_t once per crossing, she crosses to the opposite side over
+          r_wrap_t ticks when she touches it (so she cannot walk out; her own hops, marked `own_hop` in the copy, cross
+          it too, an enemy's knockback does not), it closes when she dies or gets out (a blink, carried out), and her
+          AI kites inside it (addons/league_aurora/src/rift.rs, realm.rs).
   combos  E -> Q (the user: E 命中 -> Q): a champion the blast hits gets the hex eq_gap ticks later if Twofold Hex is ready
           (its cooldown flag taken): a homing hex (q_dmg) and, q_hold ticks later, its curse drawn back (q2_dmg).
-          R -> E: the shockwave's first champion gets The Weirding re_gap ticks later if it is ready: the blast round her
-          (she is on top of them) and the hop back.
+          R -> E: re_gap ticks after the shockwave, if The Weirding is ready, its blast toward the ult's champion (the
+          ones the shockwave caught) - without the hop back: from r_ahead behind the rift's centre the hop (e_back x
+          e_back_t) would carry her out of her own rift (2026-11-04; it was the blast round her, landed on them).
           Q -> passive: the out pass and the return count separately, so one hex through a champion is two of the three.
-          Teleport across the realm (领域内传送追击): at r_tp_at, 2 x r_tp_at and 3 x r_tp_at ticks into the realm, with no
-          enemy champion within r_close of her, a hidden bolt seeks the ult's champion; if it is within r_tp_max of her
-          she steps through to it (Teleport) - League's crossing from one edge of the realm to the other.
-The add-on copy (--native, addons/league_aurora): w_gate 0 and the passive league_aurora:veil (params w_low) - the hop
-needs her real low health as well (the user's pick: 残血时跳开).
+The add-on copy (--native, addons/league_aurora): w_gate 0 and the passive league_aurora:veil (params w_low and the
+rift's r_t, r_edge, r_edge_t, r_wrap_t) - the hop needs her real low health as well (the user's pick: 残血时跳开); the
+rift's border as above.
 Action tags (the art): idle run attack hit dead skill skill2 ult veil.
 Numbers: League 16.20 (CommunityDragon aurora.bin) read into the Magician mid range (league_hwei, league_neeko); balanced on
 the classic-SDK simulations (kd.py --lane 2, C:/t/au_sim, 2026-10-23, w_gate 1 as the veil's stand-in): the draft -2.31
 on seeds 1-8 (league_hwei +1.16 on the same games); more damage, health and armour -0.05; the teleport across the realm
 cost about 0.8 (she stepped onto champions deep in their team: off +0.72), so it reaches only r_tp_max 45000: +0.93.
+2026-11-04 (League's Between Worlds, no simulation: the classic SDK runs no add-on): damage, cooldown, range and the
+main pack's rift slow kept; the shockwave's slow 40% 1 s -> League's 30% 2 s, the rift 3.5 s -> League's top 3.25 s,
+Realm Hopper (30% for 4.5 s) new - for the leap that no longer lands on the target and the teleport onto it gone.
 """
 import argparse
 import json
@@ -59,6 +76,10 @@ BIG = "asset/league/effects/league_aurora_big"
 # 45-145 back (+ up to 50% by missing health), 3.5 s mark, cd 9-7. W 300 hop, 1-1.6 s invisible, 20-40% speed, cd
 # 22-18. E 825 x 175 blast, 80-240, 80% slow decaying over 1 s, 250 hop back, cd 15-11. R 250 jump, 175-375, 30% slow,
 # a 700 realm for 3-4 s (she crosses its edges), cd 140-100.
+# V26.21 Between Worlds: a 25-250 leap (0.4 s, immune to displacement), Realm Hopper (ghosted, 15-40% move speed, 4-5 s),
+# the shockwave 425 in front of her expanding over 0.75 s (175/275/375 + 70% AP, 30% slow 2 s), a 700 rift for
+# 2.25/2.75/3.25 s: Aurora touching its border dashes to the opposite side over 0.4 s, enemies touching it are slowed 50%
+# for 1.5-2 s (once a crossing); it closes when she dies, leaves it or is not in it; a recast after 1 s closes it.
 P = {
     # stats (Magician mid: league_hwei 940 +94 hp, 70 +6 attack, 40 +20 ap, 20 +7 def)
     "hp": 960, "hp_g": 90, "atk": 68, "atk_g": 6, "apw": 40, "apw_g": 20, "def": 21, "def_g": 6, "mr": 26, "mr_g": 4,
@@ -73,11 +94,12 @@ P = {
     # skill2: The Weirding
     "e_cd": 780, "e_range": 70000, "e_dur": 30, "e_rel": 12, "e_len": 75000, "e_cone": 900, "e_dmg": 150,
     "e_ratio": 80, "e_slow1": 60, "e_slow1_t": 30, "e_slow2": 25, "e_slow2_t": 60, "e_back": 3000, "e_back_t": 8,
-    "e_wave_speed": 6000, "eq_gap": 6, "e_near_r": 30000,
-    # ult: Between Worlds
-    "r_cd": 2100, "r_range": 60000, "r_dur": 36, "r_rel": 14, "r_speed": 3500, "r_r1": 28000, "r_dmg": 260,
-    "r_ratio": 80, "r_slow1": 40, "r_slow1_t": 60, "r_zone": 38000, "r_t": 210, "r_per": 15, "r_slow": 30,
-    "re_gap": 8, "r_tp_at": 60, "r_close": 30000, "r_tp_max": 45000,
+    "e_wave_speed": 6000, "eq_gap": 6,
+    # ult: Between Worlds (the leap on the ult tag's jump frame, ticks 13-27 of 36; League's 425 / 700 x 60)
+    "r_cd": 2100, "r_range": 60000, "r_dur": 36, "r_rel": 14, "r_leap": 15000, "r_leap_t": 14, "r_ahead": 25500,
+    "r_r1": 28000, "r_dmg": 260, "r_ratio": 80, "r_slow1": 30, "r_slow1_t": 120, "r_ms": 30, "r_ms_t": 270,
+    "r_zone": 38000, "r_t": 195, "r_per": 15, "r_slow": 30, "r_edge": 50, "r_edge_t": 105, "r_wrap_t": 24,
+    "re_gap": 8,
     "vo_gap": 600,
 }
 
@@ -252,10 +274,15 @@ def build(p):
         return sw(f"lk_{src}", NONE, combine(flag(f"lk_{src}", 2), buff("p_mark", p["p_t"]),
                                              sw("s_2", spirit, count)))
 
+    def own(t):
+        """The add-on's copy marks her own hops (`own_hop`, the hop's ticks + 2): one that carries her into the rift's
+        border takes her across it, an enemy's knockback or pull does not (src/rift.rs)."""
+        return refresh("own_hop", t + 2) if p["native"] else None
+
     # Across the Veil: low (the add-on's flag, or w_gate 1's stand-in) and a champion within w_near
     def veil():
         hop = pick(p["w_near"], "EnemyChampion", flag("w_cd", p["w_cd"]), anim("veil", 12), sfx("w"), cview("w_veil"),
-                   {"type": "MoveBack", "speed": p["w_back"], "tick": p["w_back_t"]},
+                   own(p["w_back_t"]), {"type": "MoveBack", "speed": p["w_back"], "tick": p["w_back_t"]},
                    on_me({"type": "CasterInvisible", "tick": p["w_inv"]},
                          refresh("w_haste", p["w_ms_t"], move_speed_mult=p["w_ms"])))
         return sw("w_cd", NONE, hop if p["w_gate"] and not p["native"] else sw("low", hop))
@@ -294,12 +321,14 @@ def build(p):
              buff("e_slow2", p["e_slow2_t"], move_speed_mult=-p["e_slow2"])]
     blast_hit = [ap(p["e_dmg"], p["e_ratio"]), *slows, view("e_hit"), tsfx("e_hit")]
     hop_back = {"type": "MoveBack", "speed": p["e_back"], "tick": p["e_back_t"]}
-    weirding = combine(
-        cview("e_burst"), sfx("e"),
-        line("e_wave", p["e_wave_speed"], p["e_len"], 1000, "EnemyChampion", [], []),
-        cone(p["e_len"], p["e_cone"], "EnemyWithoutTower", blast_hit),
-        cone(p["e_len"], p["e_cone"], "EnemyChampion", [mark("e"), hex_on()]),
-        delayed(2, hop_back))
+
+    def blast(hex_too=True):
+        """The Weirding's blast toward the action's target: the E's own (with E -> Q) and R -> E's (without, as before)."""
+        return [cview("e_burst"), sfx("e"),
+                line("e_wave", p["e_wave_speed"], p["e_len"], 1000, "EnemyChampion", [], []),
+                cone(p["e_len"], p["e_cone"], "EnemyWithoutTower", blast_hit),
+                cone(p["e_len"], p["e_cone"], "EnemyChampion", [mark("e"), hex_on()] if hex_too else [mark("e")])]
+    weirding = combine(*blast(), delayed(2, own(p["e_back_t"]), hop_back))
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
                     combine(decoy(p["e_dmg"], p["e_ratio"], ap), veil(),
                             sw("e_cd", NONE, combine(refresh("e_cd", p["e_cd"]), voice("vo_e", p),
@@ -307,34 +336,42 @@ def build(p):
 
     # ------------------------------------------------------------------ ult: Between Worlds
     def weird_on():
-        """R -> E: The Weirding round her (she landed on them) if it is ready, then the hop back."""
-        return delayed(p["re_gap"], sw("e_cd", NONE, combine(
-            refresh("e_cd", p["e_cd"]), cview("e_burst"), sfx("e"),
-            around(p["e_near_r"], "EnemyWithoutTower", blast_hit),
-            around(p["e_near_r"], "EnemyChampion", [mark("e")]), delayed(2, hop_back))))
+        """R -> E: The Weirding's blast toward the ult's champion if it is ready - no hop back (from r_ahead behind the
+        rift's centre it would carry her out of her own rift); guarded, a dead caster's Delayed runs in the game."""
+        return delayed(p["re_gap"], alive(sw("e_cd", NONE, combine(refresh("e_cd", p["e_cd"]), *blast(False)))))
 
-    def cross(k):
-        """The teleport across the realm, k x r_tp_at ticks in: to the ult's champion when nobody is on top of her."""
-        step = homing("r_seek", "EnemyChampion", [
-            pick(p["r_tp_max"], "AllyOnlySelf", flag("r_ok", 1), from_projectile=True),
-            sw("r_ok", combine(*rm("r_ok"), view("r_blink"), tsfx("r_blink"), {"type": "Teleport"}))], 20000)
-        return delayed(k * p["r_tp_at"], alive(*rm("r_near"), pick(p["r_close"], "EnemyChampion", flag("r_near", 1)),
-                                               sw("r_near", combine(*rm("r_near")), step)))
+    def ahead(target, effects):
+        """The shockwave: a circle r_ahead in front of her toward the ult's champion (r_r1 + both bodies across)."""
+        return {"type": "RangeEffect", "shape": circle(p["r_r1"]), "target": target,
+                "apply_type": {"Forward": {"offset": p["r_ahead"]}}, "effects": list(effects)}
 
+    if p["native"]:
+        # the add-on's passive keeps the rift (League's border): it gets the centre from league_aurora:rift
+        rift_rule = [{"type": "Native", "effect_ref": f"{ID}:rift"}]
+    else:
+        # the data finds no border: the enemies in the rift slowed while she is in it (the search from the zone finds
+        # no dead caster either); the first check that misses her shuts it until the next cast
+        inside = combine(*rm("r_in"), pick(p["r_zone"] - 10000, "AllyOnlySelf", flag("r_in", 1), from_projectile=True))
+        slow = buff("r_slow", p["r_per"] + 5, move_speed_mult=-p["r_slow"])
+        held = sw("r_shut", NONE, combine(inside, sw("r_in", combine(*rm("r_in"), slow), flag("r_shut", p["r_t"]))))
+        rift_rule = [field("r_field", p["r_zone"], p["r_t"], p["r_per"], p["r_per"], [held])]
+    # a hidden line as fast as it is long from her pivot (y_offset 5000, league_draven's): it ends on the shockwave's
+    # centre the tick it starts, and its end_effects run on that point - the pictures, the rift
+    rift = {"type": "LinearProjectile", "name": n("r_rift"), "speed": p["r_ahead"], "range": p["r_ahead"],
+            "y_offset": 5000, "penetrate": True, "shape": circle(1), "applied_target": "EnemyChampion",
+            "applied_effects": [], "end_effects": [view("r_shock"), view("r_zone"), sfx("r_zone"), *rift_rule]}
     shock_hit = [ap(p["r_dmg"], p["r_ratio"]), buff("r_slow1", p["r_slow1_t"], move_speed_mult=-p["r_slow1"]),
                  view("r_hit"), tsfx("r_hit")]
-    realm = lob("r_anchor", 1, [view("r_zone"), sfx("r_zone"),
-                                field("r_field", p["r_zone"], p["r_t"], p["r_per"], p["r_per"],
-                                      [buff("r_slow", p["r_per"] + 5, move_speed_mult=-p["r_slow"])])])
-    landing = [cview("r_shock"), sfx("r_land"),
-               around(p["r_r1"], "EnemyWithoutTower", shock_hit),
-               around(p["r_r1"], "EnemyChampion", [mark("r")]),
-               weird_on(), realm]
+    landing = combine(sfx("r_land"), *([] if p["native"] else rm("r_shut")),
+                      ahead("EnemyWithoutTower", shock_hit), ahead("EnemyChampion", [mark("r")]), rift, weird_on())
+    leap = combine(refresh("r_hop", p["r_ms_t"], move_speed_mult=p["r_ms"]),
+                   refresh("r_leap", p["r_leap_t"] + 2, cc_immune=True),
+                   {"type": "RushTime", "speed": p["r_leap"] // p["r_leap_t"], "tick": p["r_leap_t"], "range": 20000,
+                    "casting_target": "EnemyWithoutTower", "penetrate": True, "applied_effects": []})
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
                  combine(decoy(p["r_dmg"], p["r_ratio"], ap), sfx("r"), voice("vo_r", p),
-                         delayed(p["r_rel"] - 1, alive({"type": "MoveToTarget", "speed": p["r_speed"],
-                                                        "range": p["r_range"], "end_effects": landing})),
-                         cross(1), cross(2), cross(3)))
+                         delayed(p["r_rel"] - 1, alive(leap)),
+                         delayed(p["r_rel"] - 1 + p["r_leap_t"], alive(landing))))
 
     # ------------------------------------------------------------------ views (the step-3 effects pack)
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -346,12 +383,19 @@ def build(p):
     views_p = [Pj("a_bolt"), Pj("q_out"), Pj("q_back"), Pj("q_ball", "q_out"), Pj("e_wave")]
     views_e = [E("a_hit"), E("q_hit"), E("q_back_hit"), E("p_spirit"), E("p_heal"), E("w_veil", FX, 3, False),
                E("e_burst", FX, 3, False), E("e_hit"), E("r_shock", BIG, -1, False), E("r_zone", BIG, -1, False),
-               E("r_hit"), E("r_blink")]
+               E("r_hit")]
+    # r_slow: the main pack's rift slow; r_hop: Realm Hopper under her feet (the veil's haste light)
     views_b = [B_("q_curse", FX, 3), B_("p_mark", FX, 3), B_("w_haste", FX, -1), B_("e_slow", FX, -1, "slow"),
-               B_("r_slow", FX, -1, "slow"), B_("r_slow1", FX, -1, "slow")]
+               *([] if p["native"] else [B_("r_slow", FX, -1, "slow")]), B_("r_slow1", FX, -1, "slow"),
+               B_("r_hop", FX, -1, "w_haste")]
+    if p["native"]:
+        # the add-on draws them itself: the doors at both ends of her crossing, the border's slow (src/rift.rs)
+        views_e.append(E("r_blink"))
+        views_b.append(B_("r_edge", FX, -1, "slow"))
     extra = {}
     if p["native"]:
-        extra["passive"] = {"passive_ref": f"{ID}:veil", "params": {"w_low": int(p["w_low"])}}
+        extra["passive"] = {"passive_ref": f"{ID}:veil",
+                            "params": {k: int(p[k]) for k in ("w_low", "r_t", "r_edge", "r_edge_t", "r_wrap_t")}}
     return {
         "id": ID, "category": "Magician", **extra, "tags": ["AP", "Magic", "Range", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

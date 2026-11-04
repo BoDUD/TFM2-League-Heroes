@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_aurora": {
-        "attack": "【附加包】魔杖点出灵光。<#ff9028ff>驱灵奇术<>：命中英雄叠层，第三层抽出灵物，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 目标2%最大生命值的伤害，<#66bb6aff>回复<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命并加速。<#ff9028ff>灵纱洞开<>：生命低于35%被贴身时后跳，隐身<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。"
+        "attack": "【附加包】魔杖点出灵光。<#ff9028ff>驱灵奇术<>：命中英雄叠层，第三层抽出灵物，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 目标2%最大生命值的伤害，<#66bb6aff>回复<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命并加速。<#ff9028ff>灵纱洞开<>：生命低于35%被贴身时后跳，隐身<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。",
+        "ult": "【附加包】朝敌方英雄跃出一小段，加速30%；前方的冲击波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>30%，留下领域<#ffb900ff>3.25秒<>：敌人碰到边界被<#ef5350ff>减速<>50%，她碰到边界就穿到对面；她离开或阵亡就关闭。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_aurora": {
-        "attack": "【附加包】魔杖點出靈光。<#ff9028ff>精靈附體<>：命中英雄疊層，第三層抽出精靈，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 目標2%最大生命值的傷害，<#66bb6aff>回復<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命並加速。<#ff9028ff>跨越兩界<>：生命低於35%被貼身時後跳，隱形<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。"
+        "attack": "【附加包】魔杖點出靈光。<#ff9028ff>精靈附體<>：命中英雄疊層，第三層抽出精靈，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 目標2%最大生命值的傷害，<#66bb6aff>回復<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命並加速。<#ff9028ff>跨越兩界<>：生命低於35%被貼身時後跳，隱形<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。",
+        "ult": "【附加包】朝敵方英雄躍出一小段，加速30%；前方的衝擊波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>30%，留下領域<#ffb900ff>3.25秒<>：敵人碰到邊界被<#ef5350ff>緩速<>50%，她碰到邊界就穿到對面；她離開或陣亡就關閉。"
       }
     }
   },
   "en": {
     "description": {
       "league_aurora": {
-        "attack": "[Add-on] A spirit bolt. <#ff9028ff>Spirit Abjuration<>: her hits on champions add up; the third exorcises a spirit for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of the target's max health, and it <#66bb6aff>heals<> her <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> and speeds her up. <#ff9028ff>Across the Veil<>: under 35% health with an enemy on her, she hops back, invisible <#ffb900ff>1.25s<>, 30% faster (every <#ffb900ff>20s<>)."
+        "attack": "[Add-on] A spirit bolt. <#ff9028ff>Spirit Abjuration<>: her hits on champions add up; the third exorcises a spirit for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of the target's max health, and it <#66bb6aff>heals<> her <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> and speeds her up. <#ff9028ff>Across the Veil<>: under 35% health with an enemy on her, she hops back, invisible <#ffb900ff>1.25s<>, 30% faster (every <#ffb900ff>20s<>).",
+        "ult": "[Add-on] Leaps a short way toward an enemy champion, 30% faster; a shockwave in front of her deals <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and <#ef5350ff>slows<> 30%, leaving a rift for <#ffb900ff>3.25s<>: enemies touching its border are <#ef5350ff>slowed<> 50%, and when she touches it she crosses to the far side. It closes if she leaves it or dies."
       }
     }
   },
   "ko": {
     "description": {
       "league_aurora": {
-        "attack": "[확장] 지팡이로 영혼 빛을 쏜다. <#ff9028ff>영혼 방호술<>: 챔피언 적중이 쌓여 세 번째에 영혼을 뽑아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 최대 체력의 2% 피해, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>과 이동 속도 증가. <#ff9028ff>장막 너머로<>: 체력 35% 미만에 적이 붙으면 뒤로 뛰어 <#ffb900ff>1.25초<> 투명, 이동 속도 +30% (<#ffb900ff>20초<>마다)."
+        "attack": "[확장] 지팡이로 영혼 빛을 쏜다. <#ff9028ff>영혼 방호술<>: 챔피언 적중이 쌓여 세 번째에 영혼을 뽑아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 최대 체력의 2% 피해, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>과 이동 속도 증가. <#ff9028ff>장막 너머로<>: 체력 35% 미만에 적이 붙으면 뒤로 뛰어 <#ffb900ff>1.25초<> 투명, 이동 속도 +30% (<#ffb900ff>20초<>마다).",
+        "ult": "[확장] 적 챔피언 쪽으로 짧게 도약하며 이동 속도 +30%; 앞쪽 충격파가 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 30% <#ef5350ff>둔화<>, <#ffb900ff>3.25초<> 동안 영역: 경계에 닿은 적은 50% <#ef5350ff>둔화<>, 그녀는 경계에 닿으면 반대편으로 건너간다. 그녀가 나가거나 죽으면 닫힌다."
       }
     }
   },
   "ja": {
     "description": {
       "league_aurora": {
-        "attack": "【拡張】杖から霊光を放つ。<#ff9028ff>精霊の解放<>：英雄への命中が重なり、3回目で精霊を引き出し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>＋最大体力の2%のダメージ、<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>し加速。<#ff9028ff>ベールを越えて<>：体力35%未満で敵に詰められると後ろへ跳び<#ffb900ff>1.25秒<>透明、移動速度+30%（<#ffb900ff>20秒<>ごと）。"
+        "attack": "【拡張】杖から霊光を放つ。<#ff9028ff>精霊の解放<>：英雄への命中が重なり、3回目で精霊を引き出し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>＋最大体力の2%のダメージ、<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>し加速。<#ff9028ff>ベールを越えて<>：体力35%未満で敵に詰められると後ろへ跳び<#ffb900ff>1.25秒<>透明、移動速度+30%（<#ffb900ff>20秒<>ごと）。",
+        "ult": "【拡張】敵英雄の方へ短く跳び移動速度+30%。前方の衝撃波で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと30%<#ef5350ff>スロウ<>、<#ffb900ff>3.25秒<>間の領域：境界に触れた敵は50%<#ef5350ff>スロウ<>、彼女は境界に触れると反対側へ渡る。彼女が出るか倒れると閉じる。"
       }
     }
   }

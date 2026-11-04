@@ -1,17 +1,22 @@
-//! 阿萝拉附加包：被动里的「灵纱洞开」按真实的生命触发（英雄联盟的用户要的「残血时跳开」）。
+//! 阿萝拉附加包：被动里的「灵纱洞开」按真实的生命触发（英雄联盟的用户要的「残血时跳开」），双界合一的领域按英雄联盟的规则。
 //!
-//! 主包保持纯数据：数据读不到生命，主包里阿萝拉的灵纱洞开是「有敌方英雄贴身」就后跳（隐身、加速，`w_cd` 一次）。
-//! `mod.override_info` 把主包的阿萝拉换成 `override/` 里的副本（tools/kit/build_aurora.py --native）：后跳还要她身上有
-//! `league_aurora_low`，`passive` 换成本包的 `league_aurora:veil`：
+//! 主包保持纯数据：数据读不到生命，主包里阿萝拉的灵纱洞开是「有敌方英雄贴身」就后跳（隐身、加速，`w_cd` 一次）；数据也找不到
+//! 领域的边界、挪不了她，主包的领域只在她站在里面时减速其中的敌人。`mod.override_info` 把主包的阿萝拉换成 `override/` 里的副本
+//! （tools/kit/build_aurora.py --native）：后跳还要她身上有 `league_aurora_low`，领域交给本包（冲击波中心那根线的 end_effects
+//! 调 `league_aurora:rift`），`passive` 换成本包的 `league_aurora:veil`：
 //!
 //! - 每 tick 读她的生命：低于最大生命的 `w_low`% 就挂上 3 tick 的 `league_aurora_low`（先摘再挂，只留一个），
 //!   回到 `w_low`% 以上就不再挂，3 tick 后自己消失。数据在普攻和怪奇喷涌的开头读它（还要敌方英雄在 `w_near` 内、
 //!   `w_cd` 已过）。
+//! - 领域（`rift.rs`，用户 2026-11-04：「阿罗拉的大招机制逻辑也是不太一样」）：敌人碰到边界减速 `r_edge`%（一次穿越一次），
+//!   她碰到边界就冲到对面（`r_wrap_t` tick），没碰边界就到了外面、死了就关。
 //!
-//! 大招的时机由 AI 钩子 `league_aurora:realm` 挑（`realm.rs`：开团关住一堆人、关住想跑的残血、被贴脸时砸下去，其余时候按住）。
+//! 大招的时机和领域里怎么走由 AI 钩子 `league_aurora:realm` 挑（`realm.rs`：开团把一堆人关进领域、关住想跑的残血、被贴脸时
+//! 砸下去，其余时候按住；领域开着时贴身的人来了就往边界走、冲到对面，不追出领域）。
 //!
-//! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
-//! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurora.log`，每次启动游戏重写。
+//! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量（只有日志的行数
+//! 是全局的），服务端预模拟和你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurora.log`，
+//! 每次启动游戏重写。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -21,7 +26,11 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+#[allow(dead_code)]
+#[path = "../../league_camille_wall/src/maps.rs"]
+mod maps;
 pub mod realm;
+pub mod rift;
 
 const ID: &str = "league_aurora";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -40,7 +49,7 @@ const LOW_TICKS: usize = 3;
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// The first this many lines of a kind, then every LOG_EVERY-th.
+/// The first this many lines of a kind, then every LOG_EVERY-th (the match on screen: every line).
 const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 100;
 
@@ -76,12 +85,25 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
-/// Counts a line of this kind; Some(n) when it is to be written.
-fn counted(kind: &'static str) -> Option<usize> {
+/// The `n`-th line of a kind is written: every one in the match on screen (`shown`), the presims' first `LOG_FIRST`,
+/// then every `LOG_EVERY`-th (league_qiyana's `logged`).
+pub fn logged(n: usize, shown: bool) -> bool {
+    shown || n <= LOG_FIRST || n % LOG_EVERY == 0
+}
+
+/// Counts a line of this kind (for the whole launch); Some(n) when it is to be written.
+fn counted(kind: &'static str, shown: bool) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
     let n = c.entry(kind).or_insert(0);
     *n += 1;
-    (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+    logged(*n, shown).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
 }
 
 pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
@@ -109,15 +131,22 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 pub struct Params {
     /// 生命低于最大生命的这个百分比算「残血」。
     pub w_low: usize,
+    /// 领域开多少 tick（英雄联盟 2.25–3.25 秒）。
+    pub r_t: usize,
+    /// 碰到边界的敌人减速多少 %、多少 tick（英雄联盟 50%、1.5–2 秒）。
+    pub r_edge: usize,
+    pub r_edge_t: usize,
+    /// 她冲到对面要多少 tick（英雄联盟 0.4 秒）。
+    pub r_wrap_t: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { w_low: 35 }
+        Self { w_low: 35, r_t: 195, r_edge: 50, r_edge_t: 105, r_wrap_t: 24 }
     }
 }
 
-/// `{"w_low":35}` -> 参数；缺的键用默认值，认不得的键忽略。
+/// `{"w_low":35,"r_t":195,...}` -> 参数；缺的键用默认值，认不得的键忽略。
 pub fn parse_params(json: &str) -> Params {
     let mut p = Params::default();
     let body = json.trim().trim_start_matches('{').trim_end_matches('}');
@@ -125,9 +154,15 @@ pub fn parse_params(json: &str) -> Params {
         let Some((k, v)) = pair.split_once(':') else { continue };
         let k = k.trim().trim_matches('"');
         let Ok(v) = v.trim().parse::<usize>() else { continue };
-        if k == "w_low" {
-            p.w_low = v;
-        }
+        let slot = match k {
+            "w_low" => &mut p.w_low,
+            "r_t" => &mut p.r_t,
+            "r_edge" => &mut p.r_edge,
+            "r_edge_t" => &mut p.r_edge_t,
+            "r_wrap_t" => &mut p.r_wrap_t,
+            _ => continue,
+        };
+        *slot = v;
     }
     p
 }
@@ -141,12 +176,15 @@ pub fn is_low(p: &Params, hp: usize, max: usize) -> bool {
 
 // ===================== 被动 =====================
 
-/// 每个阿萝拉一份：参数、上一 tick 是不是残血（只为日志）。
+/// 每个阿萝拉一份：参数、上一 tick 是不是残血（只为日志）、开着的领域。
 #[derive(Clone, Default)]
 struct Veil {
     p: Params,
     low: bool,
     turns: usize,
+    rift: Option<rift::Rift>,
+    /// 这条命的她（on_dead 只给玩家）。
+    me: usize,
 }
 
 impl StablePassive for Veil {
@@ -160,8 +198,12 @@ impl StablePassive for Veil {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.low = false;
+        self.rift = None;
+        self.me = me;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Aurora (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        if let Some(n) = counted("spawn", on_screen(sim)) {
+            wlog(format!("{} SPAWN: the add-on's Aurora (player {player}, team {team}), {:?} #{n}", head(sim, me), self.p));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -183,11 +225,16 @@ impl StablePassive for Veil {
             }
             self.low = low;
         }
+        self.me = me;
+        rift::update(&mut self.rift, sim, me, &self.p);
     }
 
-    fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
-        // death clears the buffs; the next life starts at full health
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
+        // death clears the buffs; the next life starts at full health; League's rift closes with her
         self.low = false;
+        if let Some(r) = self.rift.take() {
+            rift::died(sim, self.me, &r);
+        }
     }
 }
 
@@ -200,7 +247,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Across the Veil at low health, the realm's timing) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Across the Veil at low health, Between Worlds' rift as in League - its border slows, she crosses it - and its timing) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -208,8 +255,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:veil"), Veil::default());
+    module.add_native_effect(format!("{ID}:rift"), rift::Open);
     module.add_player_input_ai(realm::Realm::default());
-    host.log(LogLevel::Info, "league_aurora v2 loaded (Aurora's Across the Veil reads her health, her R waits for its moment).");
+    host.log(LogLevel::Info, "league_aurora loaded (Aurora's Across the Veil reads her health, her rift has League's border, her R waits for its moment).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -229,8 +277,17 @@ mod tests {
 
     #[test]
     fn params_come_from_the_champion_data() {
-        assert_eq!(parse_params(r#"{"w_low":30,"x":1}"#), Params { w_low: 30 });
+        assert_eq!(parse_params(r#"{"w_low":30,"x":1}"#), Params { w_low: 30, ..Params::default() });
         assert_eq!(parse_params("{}"), Params::default());
+        assert_eq!(parse_params(r#"{"w_low":35,"r_t":195,"r_edge":50,"r_edge_t":105,"r_wrap_t":24}"#), Params::default());
+        let p = parse_params(r#"{"r_t": 150, "r_edge": 40, "r_edge_t": 90, "r_wrap_t": 20}"#);
+        assert_eq!((p.r_t, p.r_edge, p.r_edge_t, p.r_wrap_t), (150, 40, 90, 20));
+    }
+
+    #[test]
+    fn the_match_on_screen_logs_every_line() {
+        assert!(logged(1, false) && logged(LOG_FIRST, false) && !logged(LOG_FIRST + 1, false));
+        assert!(logged(LOG_EVERY, false) && logged(LOG_FIRST + 1, true));
     }
 
     #[test]

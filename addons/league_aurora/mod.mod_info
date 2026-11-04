@@ -11,10 +11,10 @@
       "version": ">=0.199.0"
     }
   ],
-  "description": "Test build of Aurora's Across the Veil as in League (needs League of Legends Heroes): replaces the main pack's Aurora so her hop into the spirit realm (invisible, faster) comes when she is low on health with an enemy on top of her, instead of the data pack's stand-in (any enemy champion on top of her), which cannot read health; and picks the moment for her Between Worlds as a good Aurora player does (a crowd trapped with friends near, a low one trapped, a diver slammed - otherwise held). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-24",
+  "description": "Test build of Aurora's Across the Veil and Between Worlds as in League (needs League of Legends Heroes): replaces the main pack's Aurora so her hop into the spirit realm (invisible, faster) comes when she is low on health with an enemy on top of her, instead of the data pack's stand-in (any enemy champion on top of her), which cannot read health; gives her ult's rift League's border - enemies touching it are slowed 50% once a crossing, she dashes to the opposite side when she touches it, it closes when she dies or gets out - where the data pack only slows the enemies inside while she is in it; and picks the moment and the direction for her Between Worlds as a good Aurora player does (a crowd trapped with friends near, a low one trapped, a diver caught - otherwise held), kiting inside the rift. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-04",
   "mod_id": "league_aurora",
   "mod_type": "native",
-  "name": "League Heroes: Aurora's Across the Veil at low health, her R's timing (test)",
-  "version": "0.2.1"
+  "name": "League Heroes: Aurora's Across the Veil at low health, Between Worlds as in League (test)",
+  "version": "0.3.0"
 }

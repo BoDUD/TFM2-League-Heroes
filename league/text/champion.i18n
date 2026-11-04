@@ -1098,7 +1098,7 @@
         "attack": "魔杖点出灵光。<#ff9028ff>驱灵奇术<>：命中英雄叠层，第三层抽出灵物，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+2%最大生命值的伤害，<#66bb6aff>回复<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命并加速。<#ff9028ff>灵纱洞开<>：被敌方英雄贴身时后跳，隐身<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。",
         "skill": "放出咒弹穿过敌人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并留下诅咒；<#ffb900ff>0.67秒<>后把诅咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。",
         "skill2": "向前喷出灵魂冲击，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>60%（逐渐减弱），随后向后跳开。",
-        "ult": "跳到敌方英雄身上，冲击波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>40%；张开领域<#ffb900ff>3.5秒<>，<#ef5350ff>减速<>其中敌人30%，目标走开时她穿过领域追上去。"
+        "ult": "朝敌方英雄跃出一小段，加速30%；前方的冲击波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>30%，留下领域<#ffb900ff>3.25秒<>：她在里面时<#ef5350ff>减速<>其中敌人30%，她离开或阵亡就关闭。"
       },
       "league_nunu": {
         "name": "努努和威朗普",
@@ -3180,7 +3180,7 @@
         "attack": "魔杖點出靈光。<#ff9028ff>精靈附體<>：命中英雄疊層，第三層抽出精靈，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+2%最大生命值的傷害，<#66bb6aff>回復<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命並加速。<#ff9028ff>跨越兩界<>：被敵方英雄貼身時後跳，隱形<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。",
         "skill": "放出咒彈穿過敵人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並留下詛咒；<#ffb900ff>0.67秒<>後把詛咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。",
         "skill2": "向前噴出靈魂衝擊，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>60%（逐漸減弱），隨後向後跳開。",
-        "ult": "跳到敵方英雄身上，衝擊波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>40%；張開領域<#ffb900ff>3.5秒<>，<#ef5350ff>緩速<>其中敵人30%，目標走開時她穿過領域追上去。"
+        "ult": "朝敵方英雄躍出一小段，加速30%；前方的衝擊波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>30%，留下領域<#ffb900ff>3.25秒<>：她在裡面時<#ef5350ff>緩速<>其中敵人30%，她離開或陣亡就關閉。"
       },
       "league_nunu": {
         "name": "努努和威朗普",
@@ -5262,7 +5262,7 @@
         "attack": "A spirit bolt off her wand. <#ff9028ff>Spirit Abjuration<>: her hits on champions add up; the third exorcises a spirit for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of the target's max health, and it <#66bb6aff>heals<> her <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> and speeds her up. <#ff9028ff>Across the Veil<>: with an enemy champion on top of her, she hops back, invisible for <#ffb900ff>1.25s<> and 30% faster (once every <#ffb900ff>20s<>).",
         "skill": "A hex flies through her enemies for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage, cursing them; <#ffb900ff>0.67s<> later the curses are drawn back, dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage on the way home.",
         "skill2": "A blast of spirit magic before her: <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and a <#ef5350ff>slow<> of 60% that fades; then she hops back.",
-        "ult": "Leaps onto an enemy champion: the shockwave deals <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and <#ef5350ff>slows<> 40%; a realm opens for <#ffb900ff>3.5s<>, <#ef5350ff>slowing<> the enemies in it 30%, and she steps across it after her target when it walks away."
+        "ult": "Leaps a short way toward an enemy champion, 30% faster; a shockwave in front of her deals <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and <#ef5350ff>slows<> 30%, leaving a rift for <#ffb900ff>3.25s<> that <#ef5350ff>slows<> the enemies in it 30% while she is inside. It closes if she leaves it or dies."
       },
       "league_nunu": {
         "name": "Nunu & Willump",
@@ -7344,7 +7344,7 @@
         "attack": "지팡이로 영혼 빛을 쏜다. <#ff9028ff>영혼 방호술<>: 챔피언 적중이 쌓여 세 번째에 영혼을 뽑아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 최대 체력의 2% 피해, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>과 이동 속도 증가. <#ff9028ff>장막 너머로<>: 적 챔피언이 붙으면 뒤로 뛰어 <#ffb900ff>1.25초<> 투명, 이동 속도 +30% (<#ffb900ff>20초<>마다).",
         "skill": "주문 탄이 적을 꿰뚫어 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 저주; <#ffb900ff>0.67초<> 뒤 저주를 끌어당겨 돌아오는 길에 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해.",
         "skill2": "앞으로 영혼 충격파를 뿜어 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 점점 약해지는 60% <#ef5350ff>둔화<>, 이후 뒤로 뛴다.",
-        "ult": "적 챔피언에게 도약해 충격파로 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 40% <#ef5350ff>둔화<>; <#ffb900ff>3.5초<> 동안 영역을 열어 안의 적을 30% <#ef5350ff>둔화<>, 대상이 벗어나면 영역을 건너 쫓아간다."
+        "ult": "적 챔피언 쪽으로 짧게 도약하며 이동 속도 +30%; 앞쪽 충격파가 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 30% <#ef5350ff>둔화<>, <#ffb900ff>3.25초<> 동안 영역을 남겨 그녀가 안에 있는 동안 안의 적을 30% <#ef5350ff>둔화<>. 그녀가 나가거나 죽으면 닫힌다."
       },
       "league_nunu": {
         "name": "누누와 윌럼프",
@@ -9426,7 +9426,7 @@
         "attack": "杖から霊光を放つ。<#ff9028ff>精霊の解放<>：英雄への命中が重なり、3回目で精霊を引き出し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>＋最大体力の2%のダメージ、<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>し加速。<#ff9028ff>ベールを越えて<>：敵英雄に詰められると後ろへ跳び<#ffb900ff>1.25秒<>透明、移動速度+30%（<#ffb900ff>20秒<>ごと）。",
         "skill": "呪弾が敵を貫き<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと呪い、<#ffb900ff>0.67秒<>後に呪いを引き戻し帰り道で<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。",
         "skill2": "前方へ霊の衝撃を放ち<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと弱まっていく60%<#ef5350ff>スロウ<>、その後後ろへ跳ぶ。",
-        "ult": "敵英雄へ跳び衝撃波で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと40%<#ef5350ff>スロウ<>。<#ffb900ff>3.5秒<>間領域を開き中の敵を30%<#ef5350ff>スロウ<>、対象が離れると領域を越えて追う。"
+        "ult": "敵英雄の方へ短く跳び移動速度+30%。前方の衝撃波で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと30%<#ef5350ff>スロウ<>、<#ffb900ff>3.25秒<>間領域を残し、彼女が中にいる間は中の敵を30%<#ef5350ff>スロウ<>。彼女が出るか倒れると閉じる。"
       },
       "league_nunu": {
         "name": "ヌヌ＆ウィルンプ",
