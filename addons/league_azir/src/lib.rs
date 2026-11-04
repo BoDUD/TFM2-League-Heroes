@@ -42,6 +42,18 @@
 //!   `TETHER_LIFT`、各往里收 `TETHER_INSET`（身体盖住两头），游戏把图转向它飞的方向；离得超过 `TETHER_R`（660 x 100）不连。
 //!   沙粒每 `FLOW_T` tick 朝沙兵挪一像素。图是本包自己的 `effects/league_azir_tether`（tools/art/fx_azir_tether.py），主包不动。
 //!   线靠被动画：沙兵只有阿兹尔自己放（佛耶戈附身用的是五套通用招式，召不出沙兵）。
+//! - 0.2.0（用户 2026-11-04：「召唤的小兵和阿兹尔之间还是没有连接线」「和英雄不一样的话」）：
+//!   **线看不见的原因**：投射物在生成的那个 tick 就走第一步（投射物在效果、被动之后才动：经典引擎的画面事件里每个投射物的
+//!   `ProjectileSpawnData` 和第一个 `ProjectileMove` 在同一个 tick），`Linear` 的走到头的那一 tick 就删掉（同一份记录：每个都在
+//!   最后一步的 tick 删）；0.1.7 的每一段以每 tick 1000 飞 1000，生成、走完、删掉都在一个 tick 里，屏幕在同一帧收到生成、移动、
+//!   删除，什么都没画（剑魔 W「活了 0 tick」的锁链也从来没人看见；游戏里看得见的投射物都活过一个 tick）。现在每段飞
+//!   `TETHER_MOVES`（2）步、每步 `TETHER_STEP`（500）：从画的地方往回半步出发，第一步落到画的地方，这一 tick 结束时还在飞，
+//!   下一 tick 才到头（那时下一段已经接上）。被动每 tick 先看上一 tick 的几段还在不在（`TETHER LIVE` / `TETHER DIED`）。
+//!   **英雄联盟的 660**：牵引半径（`SoldierDeactivationRange` 660）外的沙兵不攻击、过一会儿塌掉。数据的刺击先问他在不在刺击区
+//!   中心 `s_tie` 内（从投射物量、再加他的半径：66000），本包按同一个距离连线；离开超过 `CRUMBLE_T` tick 的沙兵塌成一堆沙
+//!   （`s_spawn`），他身上挂 `league_azir_x<槽>`，数据不再让它刺、不让狂沙猛攻挪它、流沙移形不把它算作沙兵，这个槽位下一个
+//!   沙兵升起时数据摘掉。英雄联盟的沙兵在敌方塔的射程里老得快一倍：本包在塔下按两倍算，提前到 `s_life` 就塌。墙立 5 秒
+//!   （`r_hold` 300，英雄联盟 V10.1 起 5 秒）。太阳圆盘改成英雄联盟的 90 秒冷却（`d_cd`），敌方基地外倒下的敌方塔也能立。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -181,13 +193,23 @@ pub struct Params {
     pub r_half: usize,
     /// 冲锋的墙（数据那道线）的半径：本包扫墙的路线时用（v1.6）。
     pub r_w: usize,
+    /// 0.2.0：沙兵站多少 tick（数据的 `s_life`：落地起刺击区开这么久；本包按它算沙兵在敌方塔下老得多快）。
+    pub s_life: usize,
+    /// 0.2.0：英雄联盟沙兵现身的牵引半径 660（`SoldierDeactivationRange`）减去他的身体：数据的刺击问「他在不在刺击区中心
+    /// `s_tie` 内」（`RandomTarget` 从投射物量，再加他的半径），本包按同一个距离（`s_tie` + 他的半径）决定连不连线、沙兵塌不塌。
+    pub s_tie: usize,
+    /// 0.2.0：太阳圆盘的冷却（英雄联盟 90 秒），升起后这么多 tick 才能再立一个（原来一局一次）。
+    pub d_cd: usize,
+    /// 0.2.0：英雄数据里有没有 `s_tie`。没有就是 0.2.0 以前的数据（生涯存档里留着的旧副本：存档不刷新英雄定义），它的刺击
+    /// 不问半径、也不认塌掉的标记：本包就不让沙兵塌（不然看不见的沙兵还在刺），只照半径连线。
+    pub tied: bool,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Self { d_life: 2700, d_per: 60, d_range: 45000, d_dmg: 50, d_ap: 35, d_near: 60000, r_speed: 3000, r_len: 60000,
                r_stamps: 5, s_step: 40, ss_stand: 4, ss_rise: 20, ss_stab: 16, r_rush: 8000, r_behind: 15000,
-               r_hold: 180, r_half: 30000, r_w: 20000 }
+               r_hold: 300, r_half: 30000, r_w: 20000, s_life: 480, s_tie: 56000, d_cd: 5400, tied: false }
     }
 }
 
@@ -218,6 +240,12 @@ pub fn parse_params(json: &str) -> Params {
             "r_hold" => p.r_hold = v,
             "r_half" => p.r_half = v,
             "r_w" => p.r_w = v,
+            "s_life" => p.s_life = v.max(1),
+            "s_tie" => {
+                p.s_tie = v;
+                p.tied = true;
+            }
+            "d_cd" => p.d_cd = v,
             _ => {}
         }
     }
@@ -295,12 +323,17 @@ struct Up {
     next_stamp: usize,
 }
 
-/// 每个阿兹尔一份：参数、开局记下的我方塔（编号、位置）、这局用没用过、立着的圆盘。
+/// 0.2.0：敌方基地里的塔（离他们水晶这么近）倒了也不能立圆盘（英雄联盟：敌方基地外倒下的塔）。经典地图上水晶两座塔离水晶
+/// 约 81000，最近的一座路上的塔约 204000。
+pub const BASE_R: f64 = 120_000.0;
+
+/// 每个阿兹尔一份：参数、开局记下的塔（编号、位置、是不是我方的）、下一个圆盘最早哪个 tick 能立、立着的圆盘。
 #[derive(Clone, Default)]
 struct Disc {
     p: Params,
-    towers: Vec<(usize, (f64, f64))>,
-    used: bool,
+    towers: Vec<(usize, (f64, f64), bool)>,
+    /// 0.2.0: League's 90-second cooldown (d_cd) from a rise, in place of once a game.
+    next_ok: usize,
     up: Option<Up>,
     /// This simulation's number (`SIM_TAG`), drawn at his first spawn.
     sim: u64,
@@ -354,23 +387,44 @@ impl Disc {
         nearest(sim, team, at, self.p.d_range as f64).map(|(id, champ, _)| (id, champ))
     }
 
+    /// The towers whose ruins can hold a disc (League: an allied or enemy turret destroyed outside the enemy base): every
+    /// tower of his, and the enemy's farther than `BASE_R` from their nexus (0.2.0; before, his own only).
     fn snapshot(&mut self, sim: &StableSim<'_>, team: usize) {
-        self.towers = (0..sim.tower_count())
-            .filter_map(|k| sim.get_entity(sim.tower_id_at(k)))
-            .filter(|t| t.team() == team && t.is_alive())
-            .map(|t| (t.id(), at_of(&t)))
+        let nexus: Vec<(f64, f64)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.team() != team && matches!(u.kind(), Some(EntityKindV1::Nexus)))
+            .map(|u| at_of(&u))
             .collect();
+        let towers: Vec<(usize, (f64, f64), bool)> = (0..sim.tower_count())
+            .filter_map(|k| sim.get_entity(sim.tower_id_at(k)))
+            .filter(|t| t.is_alive())
+            .map(|t| (t.id(), at_of(&t), t.team() == team))
+            .collect();
+        self.towers = disc_towers(&towers, &nexus);
     }
 
-    /// A fallen tower of his whose ruin he stands by with an enemy in the disc's reach: where the disc rises.
-    fn ruin(&self, sim: &StableSim<'_>, team: usize, here: (f64, f64)) -> Option<(f64, f64)> {
+    /// A fallen tower (of the snapshot) whose ruin he stands by with an enemy in the disc's reach: where the disc rises,
+    /// and whether it was his.
+    fn ruin(&self, sim: &StableSim<'_>, team: usize, here: (f64, f64)) -> Option<((f64, f64), bool)> {
         self.towers
             .iter()
-            .filter(|(id, _)| sim.get_entity(*id).map_or(true, |t| !t.is_alive()))
-            .map(|(_, at)| *at)
-            .filter(|at| dist(*at, here) <= self.p.d_near as f64)
-            .find(|at| self.target(sim, team, *at).is_some())
+            .filter(|(id, _, _)| sim.get_entity(*id).map_or(true, |t| !t.is_alive()))
+            .map(|(_, at, his)| (*at, *his))
+            .filter(|(at, _)| dist(*at, here) <= self.p.d_near as f64)
+            .find(|(at, _)| self.target(sim, team, *at).is_some())
     }
+}
+
+/// The towers a disc may rise on (`(id, where, his)`): his, and the enemy's outside their base (farther than `BASE_R` from
+/// every nexus of theirs; no nexus found: all of theirs).
+pub fn disc_towers(towers: &[(usize, (f64, f64), bool)], enemy_nexus: &[(f64, f64)]) -> Vec<(usize, (f64, f64), bool)> {
+    towers.iter().copied()
+        .filter(|(_, at, his)| *his || enemy_nexus.iter().all(|n| dist(*at, *n) > BASE_R))
+        .collect()
+}
+
+/// May a disc rise on `tick`: League's cooldown `d_cd` from the last rise (`next_ok`, 0 before the first one).
+pub fn disc_ready(next_ok: usize, tick: usize) -> bool {
+    tick >= next_ok
 }
 
 impl StablePassive for Disc {
@@ -390,12 +444,20 @@ impl StablePassive for Disc {
         sim.entity_remove_buff(me, &tag);
         sim.add_buff(me, &BuffV1::named(&tag));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
+        let (team, body) = sim.get_entity(me).map_or((0, 0), |e| (e.team(), e.radius()));
         if self.towers.is_empty() {
             self.snapshot(sim, team);
         }
-        wlog(format!("{} SPAWN: the add-on's Azir (player {player}, team {team}), {} towers of his, disc {}, {:?}",
-                     head(sim, me), self.towers.len(), if self.used { "used" } else { "ready" }, self.p));
+        let his = self.towers.iter().filter(|t| t.2).count();
+        let disc = if disc_ready(self.next_ok, sim.tick()) { "ready".to_string() } else { format!("again from tick {}", self.next_ok) };
+        let old = if self.p.tied { "" } else {
+            "; WARNING: his data has no s_tie (an older copy - the career save's? tools/save/refresh_save_heroes.py): its \
+             stabs do not ask his reach, so no soldier crumbles"
+        };
+        wlog(format!("{} SPAWN: the add-on's Azir (player {player}, team {team}), ruins to raise the disc on: {his} towers of \
+                      his, {} of the enemy's outside their base; disc {disc}; soldiers within {} of him command (League's 660: \
+                      s_tie {} + his body {body}){old}, {:?}",
+                     head(sim, me), self.towers.len() - his, reach_of(&self.p, body), self.p.s_tie, self.p));
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -405,9 +467,16 @@ impl StablePassive for Disc {
         let here = at_of(&e);
         let alive = e.is_alive();
         let ap = e.stat().magic_power;
+        let reach = reach_of(&self.p, e.radius());
         walls_tick(sim, me, team, tick, &self.p);
         if alive {
-            tethers(sim, me, team, tick, here);
+            // 0.2.0: soldiers out of his reach stop (no line; the data's stab asks the same distance) and crumble, and
+            // age twice as fast by an enemy tower - only with data that knows (`tied`: an older copy would go on stabbing
+            // with a crumbled soldier); then the line to the ones that stand
+            if self.p.tied {
+                soldiers_tick(sim, me, team, tick, here, reach, &self.p);
+            }
+            tethers(sim, me, team, tick, here, reach);
         }
         if self.towers.is_empty() && tick < 600 {
             self.snapshot(sim, team);
@@ -439,22 +508,22 @@ impl StablePassive for Disc {
             self.up = Some(up);
             return;
         }
-        if self.used || !alive {
+        if !disc_ready(self.next_ok, tick) || !alive {
             return;
         }
-        if let Some(at) = self.ruin(sim, team, here) {
-            self.used = true;
+        if let Some((at, his)) = self.ruin(sim, team, here) {
+            self.next_ok = tick + self.p.d_cd;
             self.up = Some(Up { at, until: tick + self.p.d_life, next_shot: tick + RISE_TICKS, next_stamp: tick + RISE_TICKS });
             sim.play_view_effect(&az("d_rise"), me, &pos_input(at), 0, 0, 0);
             sim.play_view_effect(&az("disc_rise"), me, &pos_input(at), 0, 0, 0);
             sim.play_sfx(&az("d_rise"), me, &pos_input(at));
-            wlog(format!("{} DISC RISES on the ruin at {} ({:.0} from him), {} ticks", head(sim, me), pt(at),
-                         dist(at, here), self.p.d_life));
+            wlog(format!("{} DISC RISES on {} ruin at {} ({:.0} from him), {} ticks; the next one from tick {}", head(sim, me),
+                         if his { "his" } else { "the enemy's" }, pt(at), dist(at, here), self.p.d_life, self.next_ok));
         }
     }
 
     fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
-        // the disc stands on (League's does); `used` is the game's
+        // the disc stands on (League's does); its cooldown (`next_ok`) is the game's
     }
 }
 
@@ -944,10 +1013,78 @@ struct Soldier {
     last: usize,
     /// 0.1.7: the tick it stands, out of the sand (its line to him starts then).
     up: usize,
+    /// 0.2.0 (the user, 2026-11-04: 「和英雄不一样的话」): the tick it rose, how old it is (a tick a tick, two in an enemy
+    /// tower's range: League's soldiers expire twice as fast there), how many ticks running he has stood out of its reach
+    /// (League's 660: it does not stab - the data asks the same distance - and no line joins them), whether it is out of
+    /// reach now (for the log), and whether it crumbled (out of reach `CRUMBLE_T` ticks, or aged out by a tower): then no
+    /// picture, no line, and `league_azir_x<slot>` on him keeps the data's stabs, checkpoints and Q's move off it.
+    born: usize,
+    age: usize,
+    out: usize,
+    away: bool,
+    gone: bool,
+    /// times it went out of reach or back (only the first `FLIPS_LOGGED` are logged: he can stand on the edge)
+    flips: usize,
 }
+
+impl Soldier {
+    fn new(at: (f64, f64), right: bool, chain: usize, until: usize, next: usize, tick: usize, up: usize) -> Self {
+        Soldier { at, right, chain, stab: None, until, next, last: tick, up, born: tick, age: 0, out: 0, away: false,
+                  gone: false, flips: 0 }
+    }
+}
+
+/// A soldier's first few trips out of his reach and back are logged.
+const FLIPS_LOGGED: usize = 2;
 
 /// A checkpoint redraws a soldier nothing drew for this many ticks (its chain of stamps broken).
 pub const REDRAW: usize = 6;
+
+/// 0.2.0: a soldier he has stood out of reach of for more than this many ticks crumbles (League: out of his reach they
+/// stop attacking at once, then crumble: half a second here, so a soldier sent past the reach by Conquering Sands - its range
+/// 75000, League's 740 over the 660 too - lives if he follows it; the rise does not count).
+pub const CRUMBLE_T: usize = 30;
+/// 0.2.0: an enemy tower's reach for the soldiers' ageing (gs_moba's tower attack range 75000, from the tower's edge).
+pub const TOWER_R: f64 = 75_000.0;
+
+/// Is the soldier on `at` within his command reach (League's 660; `reach` = s_tie + his body, centre to centre)?
+pub fn in_reach(him: Pt, at: Pt, reach: f64) -> bool {
+    dist(him, at) <= reach
+}
+
+/// His command reach: what the data's stab asks (`RandomTarget` from the stab zone's centre: s_tie plus his body).
+pub fn reach_of(p: &Params, body: usize) -> f64 {
+    (p.s_tie + body) as f64
+}
+
+/// One tick of a soldier while he lives: `out` ticks he has stood out of its reach so far (counted once it stands, not
+/// while it rises: League's soldiers are not checked while they dash), its age (a tick a tick, two by an enemy tower),
+/// and whether it crumbles - out of reach more than `CRUMBLE_T` ticks, or aged to `s_life` faster than time ran (`lived`
+/// ticks since it rose, this one included: a tower took the rest; its natural end is the data's, and no picture of ours).
+/// -> (out, age, crumble)
+pub fn soldier_step(out: usize, age: usize, lived: usize, standing: bool, away: bool, by_tower: bool, s_life: usize)
+    -> (usize, usize, Option<Crumble>) {
+    let out = match (standing, away) {
+        (true, true) => out + 1,
+        (true, false) => 0,
+        (false, _) => out,
+    };
+    let age = age + if by_tower { 2 } else { 1 };
+    let why = if out > CRUMBLE_T {
+        Some(Crumble::OutOfReach)
+    } else if age >= s_life && age > lived {
+        Some(Crumble::Tower)
+    } else {
+        None
+    };
+    (out, age, why)
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Crumble {
+    OutOfReach,
+    Tower,
+}
 
 /// Is a stamp arriving at `tick` the one due (`next`)? Earlier ones are another chain's, a later one a late copy.
 pub fn stamp_due(tick: usize, next: usize) -> bool {
@@ -1027,6 +1164,10 @@ impl StableEffectType for SoldierFx {
                 let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
                 if !rising {
                     if let Some(s) = map.get_mut(&key).filter(|s| dist(s.at, at) <= 1_000.0) {
+                        if s.gone {
+                            // 0.2.0: it crumbled (the data's checkpoints are latched off it; never drawn again)
+                            return;
+                        }
                         s.until = until;
                         if tick.saturating_sub(s.last) <= REDRAW {
                             return;
@@ -1054,7 +1195,7 @@ impl StableEffectType for SoldierFx {
                 let chain = CHAINS.fetch_add(1, Ordering::Relaxed);
                 let first = if rising { p.ss_rise } else { 1 };
                 let up = if rising { tick + p.ss_rise } else { tick };
-                map.insert(key, Soldier { at, right, chain, stab: None, until, next: tick + first, last: tick, up });
+                map.insert(key, Soldier::new(at, right, chain, until, tick + first, tick, up));
                 drop(map);
                 if rising {
                     draw_soldier(sim, me, self.slot, at, "rise", right);
@@ -1068,17 +1209,31 @@ impl StableEffectType for SoldierFx {
             }
             Step::Stab => {
                 let target = spot_of(sim, &input);
-                if let Some(s) = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner()).get_mut(&key) {
+                let reach = reach_of(&p, sim.get_entity(me).map_or(0, |e| e.radius()));
+                // 0.2.0: how far he stood from the soldier when it stabbed (the data's stab asks him within s_tie + his
+                // body of its spot: never past `reach`) and whether it had crumbled (the data's latch: never)
+                let state = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner()).get_mut(&key).map(|s| {
                     s.stab = Some(target.unwrap_or(s.at));
+                    (from.map(|f| dist(f, s.at)), s.gone)
+                });
+                let (d, gone) = state.map_or((None, false), |(d, g)| (d, g));
+                let beyond = d.is_some_and(|d| d > reach + 1_000.0);
+                if beyond || gone {
+                    if let Some(k) = counted("stab check") {
+                        wlog(format!("{} SOLDIER {s_} STAB CHECK FAILED #{k}: it stabbed {} (the data should not let it)",
+                                     head(sim, me), if gone { "after it crumbled".to_string() } else {
+                                         format!("{:.0} from him, past his reach {reach:.0}", d.unwrap_or(0.0)) }));
+                    }
                 }
                 if let Some(k) = counted("stab") {
-                    wlog(format!("{} SOLDIER {s_} STABS #{k} toward {} (input kind {})", head(sim, me),
-                                 target.map_or("?".to_string(), pt), input.kind));
+                    wlog(format!("{} SOLDIER {s_} STABS #{k} toward {} (input kind {}), {} from him (reach {reach:.0})",
+                                 head(sim, me), target.map_or("?".to_string(), pt), input.kind,
+                                 d.map_or("?".to_string(), |d| format!("{d:.0}"))));
                 }
             }
             Step::Stamp => {
                 let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
-                let Some(s) = map.get(&key).copied().filter(|s| stamp_due(tick, s.next)) else { return };
+                let Some(s) = map.get(&key).copied().filter(|s| stamp_due(tick, s.next) && !s.gone) else { return };
                 if tick >= s.until {
                     map.remove(&key);
                     return;
@@ -1113,22 +1268,42 @@ pub const TETHER_LIFT: f64 = 5_000.0;
 /// It starts and ends this far inside him and the soldier, game units: the flow and the even lengths move each end up
 /// to 3 px, still behind the bodies (the line is drawn under the units, z -1).
 pub const TETHER_INSET: f64 = 3_000.0;
-/// The pieces drawn (tools/art/fx_azir_tether.py: `tether_<px>` for px in TETHER_MIN..=TETHER_MAX step 2).
+/// The pieces drawn (tools/art/fx_azir_tether.py: `tether_<px>` for px in TETHER_MIN..=TETHER_MAX step 2). 0.2.0: up to
+/// 80 (was 64): the reach is measured to the soldier's spot (the data's stab zone), its picture stands up to 8.5 px off it
+/// by its slot (`SLOT_AT`).
 pub const TETHER_MIN: usize = 8;
-pub const TETHER_MAX: usize = 64;
+pub const TETHER_MAX: usize = 80;
 /// The sand flows toward the soldier a px every FLOW_T ticks; its grains repeat every FLOW_P px.
 pub const FLOW_T: usize = 2;
 pub const FLOW_P: usize = 3;
+/// 0.2.0 - why 0.1.7's line never showed in game: a projectile moves on the tick it is spawned (the projectiles move
+/// after the effects and passives: in the classic engine's view events every projectile's `ProjectileSpawnData` and first
+/// `ProjectileMove` share a tick) and a `Linear` one is removed on the tick its flight ends (the classic trace: removed on
+/// its last move's tick, every one). 0.1.7's pieces flew 1000 at 1000 a tick: each was spawned, moved and removed inside
+/// one tick, so the screen got its Spawn, Move and Removed in one frame and drew nothing (league_aatrox W's chains that
+/// "lived 0 ticks" were never seen either; every picture of a projectile seen in game outlives a tick). Now a piece flies
+/// TETHER_MOVES steps of TETHER_STEP: it starts a step short of where it is drawn, lies there after its first move, and
+/// is still flying when its tick ends; it ends on the next tick, when that tick's piece has taken over. If the passives
+/// ran after the projectiles instead, two pieces would overlap for a tick (half a pixel apart) - still drawn.
+pub const TETHER_STEP: f64 = 500.0;
+pub const TETHER_MOVES: usize = 2;
+
+/// Where a piece drawn on `c` along `dir` (a unit vector) is spawned and where its flight ends: TETHER_MOVES steps of
+/// TETHER_STEP (its speed), the first one onto `c`.
+pub fn tether_flight(c: Pt, dir: Pt) -> (Pt, Pt) {
+    let rest = (TETHER_MOVES - 1) as f64 * TETHER_STEP;
+    ((c.0 - dir.0 * TETHER_STEP, c.1 - dir.1 * TETHER_STEP), (c.0 + dir.0 * rest, c.1 + dir.1 * rest))
+}
 
 /// The piece of the line drawn on `tick` between him at `a` and the soldier at `b` (both already raised): its length
-/// (px: the tag `tether_<px>`), its centre and the way it points (toward the soldier); None when they stand too far
-/// apart or on top of each other. Whatever the phase it covers a + INSET to b - INSET: it starts FLOW_P - 1 - phase px
-/// before a + INSET (the grains move a px toward the soldier a phase) and is the gap and FLOW_P - 1 px more, rounded up
-/// to an even length.
+/// (px: the tag `tether_<px>`), its centre and the way it points (toward the soldier); None when they stand on top of
+/// each other or farther apart than the longest piece (whether the soldier is in his reach is the caller's: `in_reach`).
+/// Whatever the phase it covers a + INSET to b - INSET: it starts FLOW_P - 1 - phase px before a + INSET (the grains move
+/// a px toward the soldier a phase) and is the gap and FLOW_P - 1 px more, rounded up to an even length.
 pub fn tether_piece(a: Pt, b: Pt, tick: usize) -> Option<(usize, Pt, Pt)> {
     let d = dist(a, b);
     let gap = d - 2.0 * TETHER_INSET;
-    if d > TETHER_R || gap < 2_000.0 {
+    if gap < 2_000.0 {
         return None;
     }
     let u = unit((b.0 - a.0, b.1 - a.1))?;
@@ -1148,51 +1323,214 @@ pub fn standing_up(up: usize, until: usize, next: usize, tick: usize) -> bool {
     tick >= up && tick < until && tick <= next + 2
 }
 
-/// One piece of the line: the projectile picture `tether_<len>` at `c` pointing along `dir` (the game turns a
-/// projectile's picture to its direction), gone after a tick (league_akshan's rope, league_illaoi's tether).
-fn tether_spawn(sim: &mut StableSim<'_>, me: usize, team: usize, len: usize, c: Pt, dir: Pt) -> bool {
-    let spec = ProjectileSpawnV1 {
+/// The spawn of one piece of the line: the projectile picture `tether_<len>` drawn on `c` pointing along `dir` (the game
+/// turns a projectile's picture to its direction), flying `tether_flight` (TETHER_MOVES ticks: see TETHER_STEP).
+pub fn tether_spec(me: usize, team: usize, c: Pt, dir: Pt) -> ProjectileSpawnV1 {
+    let (from, to) = tether_flight(c, dir);
+    ProjectileSpawnV1 {
         caster_id: me,
         team,
-        x: ux(c.0),
-        y: ux(c.1),
+        x: ux(from.0),
+        y: ux(from.1),
         radius: 1_000,
-        speed: 1_000,
+        speed: TETHER_STEP as u64,
         move_kind: ProjectileMoveKindV1::Linear.code(),
         target_id: 0,
-        target_x: ux(c.0 + dir.0 * 1_000.0),
-        target_y: ux(c.1 + dir.1 * 1_000.0),
+        target_x: ux(to.0),
+        target_y: ux(to.1),
         penetrate: true,
         attack_type: AttackTypeV1::Skill.code(),
         casting_type: CastingTypeV1::Position.code(),
         casting_target: CastingTargetV1::None.code(),
-    };
-    sim.spawn_projectile(&az(&format!("tether_{len}")), &format!("{ID}:noop"), &spec)
+    }
 }
 
-/// Every tick (his passive, while he lives): a piece of the line to each soldier of his standing within TETHER_R.
-fn tethers(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, here: Pt) {
+/// The pieces spawned last tick, and how many the next tick still found flying: each simulation's Azir (`SIM_TAG`,
+/// the entity) -> (the tick, where each piece lies after its first move, spawned and checked so far, found, the tick of
+/// the next `TETHER LIVE` line).
+#[derive(Clone, Debug, Default)]
+struct Live {
+    tick: usize,
+    at: Vec<Pt>,
+    checked: usize,
+    found: usize,
+    report: usize,
+}
+
+static LIVE: LazyLock<Mutex<HashMap<(u64, usize), Live>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// A piece counts as found within this of where it should lie.
+const LIVE_NEAR: f64 = 1_500.0;
+/// A `TETHER LIVE` line this often per Azir (and on his first second of pieces).
+const LIVE_EVERY: usize = 3_600;
+
+/// How many of last tick's pieces (`want`, where each lies after its first move) are still flying (`mine`: his
+/// projectiles not at their end): a piece found on the next tick outlived its own, so the screen drew it.
+pub fn pieces_found(want: &[Pt], mine: &[Pt]) -> usize {
+    want.iter().filter(|&&w| mine.iter().any(|&m| dist(w, m) <= LIVE_NEAR)).count()
+}
+
+/// Last tick's pieces still flying? (the log line that would have caught 0.1.7: `TETHER DIED`, none ever found)
+fn check_pieces(sim: &StableSim<'_>, me: usize, tick: usize) {
+    let key = (sim_no(sim, me), me);
+    let mut live = LIVE.lock().unwrap_or_else(|e| e.into_inner());
+    let Some(l) = live.get_mut(&key) else { return };
+    if l.at.is_empty() || l.tick + 1 != tick {
+        return;
+    }
+    let mine: Vec<Pt> = (0..sim.projectile_count()).filter_map(|i| sim.projectile_at(i))
+        .filter(|pr| pr.caster_id == me && !pr.is_end)
+        .map(|pr| (pr.x as f64, pr.y as f64))
+        .collect();
+    let found = pieces_found(&l.at, &mine);
+    let lost = l.at.len() - found;
+    l.checked += l.at.len();
+    l.found += found;
+    l.at.clear();
+    let report = tick >= l.report && l.checked >= 60;
+    if report {
+        l.report = tick + LIVE_EVERY;
+    }
+    let (checked, all) = (l.checked, l.found);
+    drop(live);
+    if lost > 0 {
+        let k = bump("tether died");
+        if k <= LOG_FIRST || k % 5_000 == 0 {
+            wlog(format!("{} TETHER DIED #{k}: {lost} of the pieces spawned on tick {} were gone on tick {tick} (they lived \
+                          inside their own tick: never drawn)", head(sim, me), tick - 1));
+        }
+    }
+    if report {
+        if let Some(k) = tally(sim, "tether live") {
+            wlog(format!("{} TETHER LIVE #{k}: {all} of {checked} pieces still flying a tick later (each drawn on the \
+                          screen), {} gone", head(sim, me), checked - all));
+        }
+    }
+}
+
+/// Every tick (his passive, while he lives): a piece of the line to each soldier of his standing within his reach
+/// (`in_reach`: the soldier's spot, as the data's stab measures it; a crumbled one has none).
+fn tethers(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, here: Pt, reach: f64) {
+    check_pieces(sim, me, tick);
     let a = (here.0, here.1 - TETHER_LIFT);
     let pieces: Vec<(usize, usize, Pt, Pt)> = {
         let map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
         (0..SLOTS.len())
             .filter_map(|slot| {
-                let s = map.get(&soldier_key(sim, me, slot)).filter(|s| standing_up(s.up, s.until, s.next, tick))?;
+                let s = map.get(&soldier_key(sim, me, slot))
+                    .filter(|s| !s.gone && standing_up(s.up, s.until, s.next, tick) && in_reach(here, s.at, reach))?;
                 let (ox, oy) = SLOT_AT[slot];
                 let (len, c, u) = tether_piece(a, (s.at.0 + ox, s.at.1 + oy - TETHER_LIFT), tick)?;
                 Some((slot, len, c, u))
             })
             .collect()
     };
+    let mut drawn = Vec::new();
     for (slot, len, c, u) in pieces {
-        if !tether_spawn(sim, me, team, len, c, u) {
+        if !sim.spawn_projectile(&az(&format!("tether_{len}")), &format!("{ID}:noop"), &tether_spec(me, team, c, u)) {
             if let Some(k) = counted("tether refused") {
                 wlog(format!("{} TETHER {} #{k}: spawn_projectile refused tether_{len}", head(sim, me), SLOTS[slot]));
             }
-        } else if let Some(k) = counted("tether") {
+            continue;
+        }
+        drawn.push(c);
+        if let Some(k) = counted("tether") {
             if k <= 6 || k % 5_000 == 0 {
-                wlog(format!("{} TETHER {} #{k}: tether_{len} at {} pointing ({:.2},{:.2})", head(sim, me), SLOTS[slot],
-                             pt(c), u.0, u.1));
+                wlog(format!("{} TETHER {} #{k}: tether_{len} drawn at {} pointing ({:.2},{:.2}), {} ticks in flight",
+                             head(sim, me), SLOTS[slot], pt(c), u.0, u.1, TETHER_MOVES));
+            }
+        }
+    }
+    if !drawn.is_empty() {
+        let mut live = LIVE.lock().unwrap_or_else(|e| e.into_inner());
+        if live.len() > MAX_SOLDIERS {
+            live.clear();
+        }
+        let l = live.entry((sim_no(sim, me), me)).or_default();
+        l.tick = tick;
+        l.at = drawn;
+    }
+}
+
+/// The latch on him that keeps the data off a crumbled soldier of `slot` (its stabs, checkpoints, Q's move, E's need of
+/// a soldier): `league_azir_x<slot>`; the data takes it off when the slot's next soldier rises.
+pub fn latch(slot: usize) -> String {
+    az(&format!("x{}", SLOTS[slot]))
+}
+
+/// A crumbled soldier's latch lasts this long past `s_life` at most (its zones are over by then; the next rise in the
+/// slot takes it off before).
+const LATCH_SPARE: usize = 60;
+
+/// Every tick while he lives (his passive, before the line): each soldier of his still standing ages (twice as fast in
+/// an enemy tower's range), goes out of his reach or back (the data's stab asks the same distance) and crumbles after
+/// `CRUMBLE_T` ticks out of it, or when a tower has aged it to `s_life` (`soldier_step`).
+fn soldiers_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, here: Pt, reach: f64, p: &Params) {
+    let towers: Vec<(Pt, f64)> = (0..sim.tower_count()).filter_map(|k| sim.get_entity(sim.tower_id_at(k)))
+        .filter(|t| t.team() != team && t.is_alive())
+        .map(|t| (at_of(&t), t.radius() as f64))
+        .collect();
+    // (slot, its spot, how far he is, out of reach now, it went out / came back this tick, crumbles, age, lived, out)
+    let mut seen = Vec::new();
+    {
+        let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
+        for slot in 0..SLOTS.len() {
+            let Some(s) = map.get_mut(&soldier_key(sim, me, slot)) else { continue };
+            if s.gone || tick >= s.until || tick < s.born {
+                continue;
+            }
+            let standing = tick >= s.up;
+            let d = dist(here, s.at);
+            let away = !in_reach(here, s.at, reach);
+            let by_tower = towers.iter().any(|(t, r)| dist(*t, s.at) <= TOWER_R + r);
+            let lived = tick - s.born + 1;
+            let (out, age, why) = soldier_step(s.out, s.age, lived, standing, away, by_tower, p.s_life);
+            let flipped = standing && away != s.away;
+            if flipped {
+                s.flips += 1;
+            }
+            let logged = flipped && s.flips <= FLIPS_LOGGED;
+            let was_out = s.out;
+            s.out = out;
+            s.age = age;
+            if standing {
+                s.away = away;
+            }
+            if why.is_some() {
+                s.gone = true;
+            }
+            if logged || why.is_some() {
+                seen.push((slot, s.at, d, away, why, age, lived, if away { out } else { was_out }));
+            }
+        }
+    }
+    for (slot, at, d, away, why, age, lived, out) in seen {
+        let s_ = SLOTS[slot];
+        match why {
+            Some(why) => {
+                let (ox, oy) = SLOT_AT[slot];
+                // it falls back into the sand (the rise's sand pile) where it is drawn; the data stays off it
+                sim.play_view_effect(&az("s_spawn"), me, &pos_input((at.0 + ox, at.1 + oy)), 0, 0, 0);
+                let name = latch(slot);
+                sim.entity_remove_buff(me, &name);
+                sim.add_buff(me, &BuffV1::timed(&name, p.s_life + LATCH_SPARE));
+                if let Some(k) = tally(sim, "crumble") {
+                    let because = match why {
+                        Crumble::OutOfReach => format!("out of his reach ({d:.0} > {reach:.0}) for {out} ticks"),
+                        Crumble::Tower => format!("aged {age} in {lived} ticks by an enemy tower"),
+                    };
+                    wlog(format!("{} SOLDIER {s_} CRUMBLES #{k} at {}: {because}; {name} on him", head(sim, me), pt(at)));
+                }
+            }
+            None if away => {
+                if let Some(k) = tally(sim, "out of reach") {
+                    wlog(format!("{} SOLDIER {s_} OUT OF REACH #{k} at {}: {d:.0} from him (reach {reach:.0}): no stab, no \
+                                  line; it crumbles after {CRUMBLE_T} ticks", head(sim, me), pt(at)));
+                }
+            }
+            None => {
+                if let Some(k) = tally(sim, "back in reach") {
+                    wlog(format!("{} SOLDIER {s_} BACK IN REACH #{k} after {out} ticks: {d:.0} from him", head(sim, me)));
+                }
             }
         }
     }
@@ -1213,7 +1551,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (the Sun Disc on a fallen tower, the guards facing the charge, soldiers redrawn, the R's timing, E only when it dashes, the wall stands and the insec kicks home, the wall sweeps its path and carries them past it, a line of sand to each soldier that outlives its tick, soldiers out of his reach stop and crumble, twice as fast by enemy towers, the wall stands 5 s, the disc every 90 s on any ruin outside the enemy base) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1268,6 +1606,14 @@ mod tests {
         let p = parse_params(r#"{"d_dmg":70,"d_life":1800,"r_stamps":4,"x":1}"#);
         assert_eq!((p.d_dmg, p.d_life, p.r_stamps), (70, 1800, 4));
         assert_eq!(parse_params("{}"), Params::default());
+        // 0.2.0: data that has s_tie asks his reach in its stabs and reads the crumble latch; an older copy (the career
+        // save keeps the old definition) does not: no crumbling then
+        assert!(!parse_params(r#"{"d_dmg":70}"#).tied);
+        assert!(parse_params(r#"{"s_tie":56000}"#).tied);
+        let copy = include_str!("../override/league_azir.data_champion");
+        let at = copy.find("\"params\": {").expect("the copy's passive params");
+        let params: String = copy[at + 10..].chars().take_while(|c| *c != '}').chain(std::iter::once('}')).collect();
+        assert!(parse_params(&params.replace(['\r', '\n', ' '], "")).tied, "the copy has s_tie");
     }
 
     #[test]
@@ -1493,10 +1839,155 @@ mod tests {
     #[test]
     fn no_tether_out_of_reach_or_on_top_of_him() {
         let a = (100_000.0, 100_000.0);
-        assert!(tether_piece(a, (a.0 + TETHER_R + 1.0, a.1), 0).is_none());
+        // the reach is League's 660 to the soldier's spot (the data's stab zone), checked before a piece is cut
+        assert!(!in_reach(a, (a.0 + TETHER_R + 1.0, a.1), TETHER_R));
+        assert!(in_reach(a, (a.0, a.1 - TETHER_R), TETHER_R));
         assert!(tether_piece(a, (a.0, a.1 - TETHER_R), 0).is_some());
         assert!(tether_piece(a, (a.0 + 7_000.0, a.1), 0).is_none());
         assert!(tether_piece(a, a, 0).is_none());
+        // longer than the longest piece of the sheet: none
+        assert!(tether_piece(a, (a.0 + (TETHER_MAX as f64 + 6.0) * 1_000.0, a.1), 0).is_none());
+    }
+
+    /// The root cause of 0.1.7's invisible line, as a rule: a piece must still be flying when the tick it is spawned on
+    /// ends (it moves on that tick and a Linear projectile goes on the tick its flight ends), so its flight is
+    /// TETHER_MOVES >= 2 steps of its speed, the first one onto the spot it is drawn on. 0.1.7 flew 1000 at 1000: one.
+    #[test]
+    fn a_tether_piece_outlives_its_tick() {
+        assert!(TETHER_MOVES >= 2);
+        for (c, u) in [((300_000.0, 400_000.0), (1.0, 0.0)), ((300_000.0, 400_000.0), (0.6, -0.8)),
+                       ((50_000.0, 900_000.0), (-0.28, 0.96))] {
+            let spec = tether_spec(21, 0, c, u);
+            let (from, to) = ((spec.x as f64, spec.y as f64), (spec.target_x as f64, spec.target_y as f64));
+            let flight = dist(from, to);
+            let moves = (flight / spec.speed as f64).round() as usize;
+            assert_eq!(moves, TETHER_MOVES, "{c:?} {u:?}: {flight} at {}", spec.speed);
+            assert!(flight > spec.speed as f64 * 1.5, "one move would end it on its own tick");
+            // its first move lands it on c (rounding: a unit)
+            let first = (from.0 + u.0 * spec.speed as f64, from.1 + u.1 * spec.speed as f64);
+            assert!(dist(first, c) <= 2.0, "{first:?} against {c:?}");
+            // it flies along the line, toward the soldier
+            assert!(((to.0 - from.0) * u.0 + (to.1 - from.1) * u.1) > 0.0);
+            assert_eq!(spec.move_kind, ProjectileMoveKindV1::Linear.code());
+        }
+    }
+
+    /// The pieces found a tick later count the line as drawn: within LIVE_NEAR of where they should lie.
+    #[test]
+    fn a_piece_found_a_tick_later_was_drawn() {
+        let want = [(100_000.0, 100_000.0), (200_000.0, 50_000.0)];
+        assert_eq!(pieces_found(&want, &[(100_400.0, 99_800.0), (200_000.0, 51_000.0), (5.0, 5.0)]), 2);
+        assert_eq!(pieces_found(&want, &[(100_000.0, 103_000.0)]), 0, "gone (0.1.7: every piece)");
+        assert_eq!(pieces_found(&[], &[(1.0, 1.0)]), 0);
+    }
+
+    /// Every soldier he can command gets a whole line: the longest one (his reach to the soldier's spot, its picture up
+    /// to SLOT_AT off it) is a piece of the sheet.
+    #[test]
+    fn the_longest_line_in_reach_has_a_piece() {
+        let reach = reach_of(&Params::default(), 10_000);
+        assert_eq!(reach, TETHER_R, "League's 660: s_tie + his body");
+        let a = (500_000.0, 500_000.0);
+        for (ox, oy) in SLOT_AT {
+            for k in 0..16 {
+                let t = k as f64 * std::f64::consts::PI / 8.0;
+                let spot = (a.0 + (reach - 1.0) * t.cos(), a.1 + (reach - 1.0) * t.sin());
+                assert!(in_reach(a, spot, reach));
+                let drawn = (spot.0 + ox, spot.1 + oy - TETHER_LIFT);
+                assert!(tether_piece((a.0, a.1 - TETHER_LIFT), drawn, 0).is_some(), "slot ({ox},{oy}) at {t}");
+            }
+        }
+    }
+
+    /// League: out of his reach a soldier stops at once (the data's stab asks the reach), and crumbles after
+    /// CRUMBLE_T ticks; the rise does not count; back in reach in time it stands on.
+    #[test]
+    fn a_soldier_out_of_his_reach_stops_then_crumbles() {
+        let life = Params::default().s_life;
+        // rising out of reach: nothing counted
+        assert_eq!(soldier_step(0, 0, 1, false, true, false, life), (0, 1, None));
+        // standing out of reach: counts up, crumbles past CRUMBLE_T
+        let (mut out, mut age) = (0, 20);
+        for k in 1..=CRUMBLE_T {
+            let (o, a, why) = soldier_step(out, age, 20 + k, true, true, false, life);
+            assert_eq!((o, why), (k, None));
+            (out, age) = (o, a);
+        }
+        assert_eq!(soldier_step(out, age, 21 + CRUMBLE_T, true, true, false, life).2, Some(Crumble::OutOfReach));
+        // back in reach: the count starts over
+        assert_eq!(soldier_step(CRUMBLE_T, age, 60, true, false, false, life).0, 0);
+        // a natural end is the data's (no crumble of ours): age = lived
+        assert_eq!(soldier_step(0, life - 1, life, true, false, false, life).2, None);
+    }
+
+    /// League's soldiers expire twice as fast in an enemy turret's range: one that stood there all along goes at half
+    /// its life.
+    #[test]
+    fn a_soldier_by_an_enemy_tower_ages_twice_as_fast() {
+        let life = Params::default().s_life;
+        let (mut age, mut gone) = (0, None);
+        for lived in 1..=life {
+            let (_, a, why) = soldier_step(0, age, lived, lived > 20, false, true, life);
+            age = a;
+            if why.is_some() {
+                gone = Some((lived, why));
+                break;
+            }
+        }
+        assert_eq!(gone, Some((life / 2, Some(Crumble::Tower))));
+        // a tower for a while only: the rest of its life ages one a tick
+        let (_, a, why) = soldier_step(0, 300, 299, true, false, false, life);
+        assert_eq!((a, why), (301, None));
+    }
+
+    /// The reach is the data's: P's s_tie (tools/kit/build_azir.py) plus his body is League's 660.
+    #[test]
+    fn the_reach_is_the_datas_s_tie() {
+        let kit = include_str!("../../../tools/kit/build_azir.py");
+        let at = kit.find("\"s_tie\": ").expect("s_tie in build_azir.P");
+        let v: usize = kit[at + 9..].split(|c: char| !c.is_ascii_digit()).next().unwrap().parse().unwrap();
+        assert_eq!(v, Params::default().s_tie);
+        assert_eq!(v as f64 + 10_000.0, TETHER_R);
+    }
+
+    /// The copy's every stab zone asks whether he stands within s_tie of the soldier (from the zone: the soldier's spot)
+    /// and whether the soldier crumbled; its every soldier rising takes the slot's latch off.
+    #[test]
+    fn the_copys_stabs_ask_his_reach_and_the_latch() {
+        let copy = include_str!("../override/league_azir.data_champion");
+        let picks = copy.matches("\"from_projectile\": true").count();
+        let stabs = copy.matches("\"effect_ref\": \"league_azir:stab_").count();
+        assert!(picks >= stabs && stabs > 0, "{picks} picks from the zone for {stabs} stabs");
+        for s in SLOTS {
+            let latch = format!("\"buff_name\": \"league_azir_x{s}\"");
+            assert!(copy.matches(&latch).count() >= copy.matches(&format!("\"effect_ref\": \"league_azir:stab_{s}\"")).count(),
+                    "every stab of slot {s} behind its latch");
+            assert!(copy.contains(&format!("\"name\": \"league_azir_x{s}\"")), "the rise takes the latch off");
+        }
+        assert_eq!(latch(1), "league_azir_xb");
+    }
+
+    /// League: a disc on the ruins of a turret destroyed outside the enemy base - his anywhere, theirs but their base's.
+    #[test]
+    fn a_disc_rises_on_his_ruins_and_the_enemys_outside_their_base() {
+        // the classic map's blue side (team 0): nexus (96000, 864000); red's nexus (864000, 96000)
+        let towers = [(2, (48_000.0, 272_000.0), true), (14, (111_000.0, 784_000.0), true),
+                      (3, (272_000.0, 48_000.0), false), (16, (784_000.0, 111_000.0), false),
+                      (17, (848_000.0, 176_000.0), false), (9, (720_000.0, 240_000.0), false)];
+        let ok: Vec<usize> = disc_towers(&towers, &[(864_000.0, 96_000.0)]).iter().map(|t| t.0).collect();
+        assert_eq!(ok, vec![2, 14, 3, 9], "their two nexus towers are in their base; his base towers count");
+        assert_eq!(disc_towers(&towers, &[]).len(), towers.len());
+    }
+
+    /// League's 90-second cooldown (d_cd 5400) in place of once a game.
+    #[test]
+    fn the_disc_comes_back_after_its_cooldown() {
+        let p = Params::default();
+        assert!(disc_ready(0, 0));
+        let next = 10_000 + p.d_cd;
+        assert!(!disc_ready(next, next - 1));
+        assert!(disc_ready(next, next));
+        assert!(p.d_cd > p.d_life, "one disc at a time");
     }
 
     /// Risen on tick 100 (ss_rise 20): up from 120, its next stamp due on 124, its checkpoints keeping it to 150.

@@ -14,7 +14,11 @@ defaults in src/lib.rs's Params are P's numbers, and writes addons/league_azir/o
     override took;
   * 0.1.7: view_projectiles for the line of sand from him to each soldier, `league_azir_tether_<px>` for px in
     TETHER_MIN..=TETHER_MAX step 2 (src/lib.rs), the add-on's own sheet effects/league_azir_tether
-    (tools/art/fx_azir_tether.py) under the units (z -1): his passive spawns one a soldier every tick.
+    (tools/art/fx_azir_tether.py) under the units (z -1): his passive spawns one a soldier every tick (0.2.0: each one
+    flies two ticks, or the screen never drew it; lengths up to 80 px);
+  * 0.2.0: the soldiers' stabs, Q's move and E's need of a soldier skip a soldier the add-on crumbled (`league_azir_x<s>`
+    on him, taken off by the slot's next rise); the passive's params add s_life, s_tie (League's 660 less his body) and
+    d_cd (the Sun Disc's 90-second cooldown, its sentence below).
 Every other champion stays untouched. Run it again whenever the main pack's Azir changes.
 """
 import json
@@ -34,15 +38,15 @@ TETHER = "league_azir_tether"   # the add-on's own sheet: the line of sand to th
 mag, t, n = setup.mag, setup.t, setup.n
 # lang -> the add-on's sentence after the main pack's attack text
 DISC = {
-    "zh-hans": "【附加包】" + n("太阳圆盘") + "：每局一次在倒下的我方塔旁立起，" + t("{d_life}秒") + "内每" + t("{d_per}秒") + "打最近敌人" +
-               mag("d_dmg", "d_ap") + "。",
-    "zh-hant": "【附加包】" + n("太陽圓盤") + "：每局一次在倒下的我方塔旁立起，" + t("{d_life}秒") + "內每" + t("{d_per}秒") + "打最近的敵人" +
-               mag("d_dmg", "d_ap") + "。",
-    "en": "[Add-on] " + n("Sun Disc") + ": once a game it rises by a fallen tower of his, for " + t("{d_life}s") +
+    "zh-hans": "【附加包】" + n("太阳圆盘") + "：倒下的塔旁每" + t("{d_cd}秒") + "可立一次，" + t("{d_life}秒") + "内每" + t("{d_per}秒") +
+               "打最近敌人" + mag("d_dmg", "d_ap") + "。",
+    "zh-hant": "【附加包】" + n("太陽圓盤") + "：倒下的塔旁每" + t("{d_cd}秒") + "可立一次，" + t("{d_life}秒") + "內每" + t("{d_per}秒") +
+               "打最近的敵人" + mag("d_dmg", "d_ap") + "。",
+    "en": "[Add-on] " + n("Sun Disc") + ": every " + t("{d_cd}s") + " one can rise by a fallen tower, for " + t("{d_life}s") +
           " striking the nearest enemy every " + t("{d_per}s") + ": " + mag("d_dmg", "d_ap") + ".",
-    "ko": "[확장] " + n("태양 원반") + ": 게임당 한 번 무너진 아군 포탑 옆에 솟아 " + t("{d_life}초") + "간 " + t("{d_per}초") +
+    "ko": "[확장] " + n("태양 원반") + ": " + t("{d_cd}초") + "마다 무너진 포탑 옆에 솟아 " + t("{d_life}초") + "간 " + t("{d_per}초") +
           "마다 가장 가까운 적에게 " + mag("d_dmg", "d_ap") + ".",
-    "ja": "【拡張】" + n("太陽の円盤") + "：1試合1回倒れた味方タワー跡に立ち" + t("{d_life}秒") + "間" + t("{d_per}秒") + "毎に最寄りの敵へ" +
+    "ja": "【拡張】" + n("太陽の円盤") + "：" + t("{d_cd}秒") + "毎に倒れたタワー跡に立ち" + t("{d_life}秒") + "間" + t("{d_per}秒") + "毎に最寄りの敵へ" +
           mag("d_dmg", "d_ap") + "。",
 }
 
@@ -100,8 +104,8 @@ def main():
         sys.exit("the main pack's Azir already has the tether's view names: update this script")
     champion["view_projectiles"] = champion["view_projectiles"] + tethers
 
-    values = dict(setup.values(p), d_life=setup.secs(p["d_life"]), d_per=setup.secs(p["d_per"]), d_dmg=p["d_dmg"],
-                  d_ap=p["d_ap"])
+    values = dict(setup.values(p), d_life=setup.secs(p["d_life"]), d_per=setup.secs(p["d_per"]), d_cd=setup.secs(p["d_cd"]),
+                  d_dmg=p["d_dmg"], d_ap=p["d_ap"])
     texts = {lang: {"attack": (setup.TEXT[lang]["attack"] + DISC[lang]).format(**values)} for lang in DISC}
     long = {f"{lang}.attack": setup.shown_length(setup.TEXT[lang]["attack"] + DISC[lang]) for lang in DISC
             if setup.shown_length(setup.TEXT[lang]["attack"] + DISC[lang]) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
