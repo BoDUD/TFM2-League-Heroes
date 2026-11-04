@@ -35,10 +35,10 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "lillia", "hd")
-AH.RAW, AH.PITCH = "lillia-A.png", (10.1, 10.5)    # the default read (10.3 px) until the user picks
+AH.RAW, AH.PITCH = "lillia-A.png", (8.3, 8.7)    # 8.5 px, the user's pick: PPU 2.62 (「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"lillia-A.png": {"10.3": ((10.1, 10.5), 5), "8.5": ((8.3, 8.7), 4), "12.5": ((12.3, 12.7), 6)}}
-DEFAULT = ("lillia-A.png", "10.3")
+DEFAULT = ("lillia-A.png", "8.5")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: tried on
 # (600, 360, 770, 500), each square's mean turned her cyan eyes, their lashes and the skin round them grey; the snapped
 # lines keep them (Kennen's and Lissandra's way)

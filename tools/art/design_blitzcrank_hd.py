@@ -35,10 +35,10 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "blitzcrank", "hd")
-AH.RAW, AH.PITCH = "blitzcrank-A.png", (11.6, 12.0)    # the default read (11.8 px) until the user picks
+AH.RAW, AH.PITCH = "blitzcrank-A.png", (14.2, 14.6)    # 14.4 px, the user's pick: PPU 1.80 (「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"blitzcrank-A.png": {"11.8": ((11.6, 12.0), 5), "9.8": ((9.6, 10.0), 4), "14.4": ((14.2, 14.6), 6)}}
-DEFAULT = ("blitzcrank-A.png", "11.8")
+DEFAULT = ("blitzcrank-A.png", "14.4")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: tried on
 # (550, 230, 740, 330), each square's mean blurred his pink eyes and their white lights into the gold round them; the
 # snapped lines keep them (Kennen's and Lissandra's way)

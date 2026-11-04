@@ -34,10 +34,10 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "jhin", "hd")
-AH.RAW, AH.PITCH = "jhin-A.png", (12.3, 12.7)    # the default read (12.5 px) until the user picks
+AH.RAW, AH.PITCH = "jhin-A.png", (15.1, 15.5)    # 15.3 px, the user's pick: PPU 1.80 (「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"jhin-A.png": {"12.5": ((12.3, 12.7), 6), "10.4": ((10.2, 10.6), 5), "15.3": ((15.1, 15.5), 7)}}
-DEFAULT = ("jhin-A.png", "12.5")
+DEFAULT = ("jhin-A.png", "15.3")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: tried on
 # (570, 160, 790, 320), each square's mean left dark specks on his white mask; the snapped lines keep them (Kennen's and
 # Lissandra's way)

@@ -36,7 +36,7 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "khazix", "hd")
-AH.RAW, AH.PITCH = "khazix-A.png", (13.6, 14.0)    # the default read (13.8 px) until the user picks
+AH.RAW, AH.PITCH = "khazix-A.png", (13.6, 14.0)    # 13.8 px, the user's pick: PPU 2.24 (「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」)
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"khazix-A.png": {"13.8": ((13.6, 14.0), 6), "11.3": ((11.1, 11.5), 5), "17": ((16.8, 17.2), 8)}}
 DEFAULT = ("khazix-A.png", "13.8")
