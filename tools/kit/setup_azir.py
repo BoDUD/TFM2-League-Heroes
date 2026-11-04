@@ -63,8 +63,8 @@ def cc(x):
 TEXT = {
     "zh-hans": {
         "name": "阿兹尔",
-        "attack": n("沙兵现身") + "：普攻每" + t("{p_cd}秒") + "在目标处召出一个黄沙士兵（最多" + t("3") + "个，存在" + t("{s_life}秒") +
-                  "），士兵代他刺击，造成" + mag("s_dmg", "s_ap") + "魔法伤害；士兵都够不着时他自己射出沙光。",
+        "attack": n("沙兵现身") + "：普攻每" + t("{p_cd}秒") + "在身前召出一个黄沙士兵（最多" + t("3") + "个，存在" + t("{s_life}秒") +
+                  "），他附近的士兵代他刺击，造成" + mag("s_dmg", "s_ap") + "魔法伤害；够不着时他自己射出沙光。",
         "skill": "所有黄沙士兵冲向目标，沿途造成" + mag("q_dmg", "q_ap") + "魔法伤害并" + cc("减速") + "{q_slow}%，落地马上刺击；没有士兵时在目标处召出一个。",
         "skill2": "身边有士兵才能施放：获得" + sh("e_sh", "e_ap") + "护盾，大招就绪时冲向敌方英雄，造成" + mag("e_dmg", "e_ratio") +
                   "魔法伤害并召出一个士兵；被敌方英雄贴身时改为后跳。",
@@ -73,8 +73,8 @@ TEXT = {
     },
     "zh-hant": {
         "name": "阿祈爾",
-        "attack": n("砂漠禁軍") + "：普攻每" + t("{p_cd}秒") + "在目標處召出一名砂兵（最多" + t("3") + "名，存在" + t("{s_life}秒") +
-                  "），砂兵代他刺擊，造成" + mag("s_dmg", "s_ap") + "魔法傷害；砂兵都搆不著時他自己射出砂光。",
+        "attack": n("砂漠禁軍") + "：普攻每" + t("{p_cd}秒") + "在身前召出一名砂兵（最多" + t("3") + "名，存在" + t("{s_life}秒") +
+                  "），他附近的砂兵代他刺擊，造成" + mag("s_dmg", "s_ap") + "魔法傷害；搆不著時他自己射出砂光。",
         "skill": "所有砂兵衝向目標，沿途造成" + mag("q_dmg", "q_ap") + "魔法傷害並" + cc("緩速") + "{q_slow}%，落地立刻刺擊；沒有砂兵時在目標處召出一名。",
         "skill2": "身邊有砂兵才能施放：獲得" + sh("e_sh", "e_ap") + "護盾，大絕就緒時衝向敵方英雄，造成" + mag("e_dmg", "e_ratio") +
                   "魔法傷害並召出一名砂兵；被敵方英雄貼身時改為後跳。",
@@ -83,8 +83,8 @@ TEXT = {
     },
     "en": {
         "name": "Azir",
-        "attack": n("Arise!") + ": every " + t("{p_cd}s") + " his attack raises a sand soldier at the target (" + t("3") + " at most, " +
-                  t("{s_life}s") + "); his soldiers stab for him, " + mag("s_dmg", "s_ap") + " magic damage. With none in "
+        "attack": n("Arise!") + ": every " + t("{p_cd}s") + " his attack raises a sand soldier before him (" + t("3") + " at most, " +
+                  t("{s_life}s") + "); the soldiers near him stab for him, " + mag("s_dmg", "s_ap") + " magic damage. With none in "
                   "reach he shoots a sand bolt himself.",
         "skill": "Every soldier charges at the target, " + mag("q_dmg", "q_ap") + " magic damage on the way and a {q_slow}% " +
                  cc("slow") + "; they stab at once on arrival. With none standing, one rises there.",
@@ -97,8 +97,8 @@ TEXT = {
     },
     "ko": {
         "name": "아지르",
-        "attack": n("일어나라!") + ": " + t("{p_cd}초") + "마다 기본 공격이 대상 위치에 모래 병사를 세운다(최대 " + t("3") + "명, " +
-                  t("{s_life}초") + "). 병사가 대신 찔러 " + mag("s_dmg", "s_ap") + " 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.",
+        "attack": n("일어나라!") + ": " + t("{p_cd}초") + "마다 기본 공격이 앞쪽에 모래 병사를 세운다(최대 " + t("3") + "명, " +
+                  t("{s_life}초") + "). 가까운 병사가 대신 찔러 " + mag("s_dmg", "s_ap") + " 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.",
         "skill": "모든 병사가 대상에게 돌진해 지나는 길에 " + mag("q_dmg", "q_ap") + " 마법 피해와 {q_slow}% " + cc("둔화") +
                  ", 도착하자마자 찌른다. 병사가 없으면 그곳에 하나를 세운다.",
         "skill2": "병사가 있을 때만: " + sh("e_sh", "e_ap") + " 보호막, 궁극기가 준비되면 적 챔피언에게 돌진해 " + mag("e_dmg", "e_ratio") +
@@ -109,8 +109,8 @@ TEXT = {
     },
     "ja": {
         "name": "アジール",
-        "attack": n("目覚めよ！") + "：通常攻撃が" + t("{p_cd}秒") + "ごとに対象の所に砂兵を呼ぶ（最大" + t("3") + "体、" + t("{s_life}秒") +
-                  "）。砂兵が代わりに突き" + mag("s_dmg", "s_ap") + "の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。",
+        "attack": n("目覚めよ！") + "：通常攻撃が" + t("{p_cd}秒") + "ごとに前方に砂兵を呼ぶ（最大" + t("3") + "体、" + t("{s_life}秒") +
+                  "）。近くの砂兵が代わりに突き" + mag("s_dmg", "s_ap") + "の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。",
         "skill": "全砂兵が対象へ突撃し、道中" + mag("q_dmg", "q_ap") + "の魔法ダメージと{q_slow}%" + cc("スロウ") + "、着くとすぐ突く。砂兵がいなければそこに1体呼ぶ。",
         "skill2": "砂兵がいる時だけ：" + sh("e_sh", "e_ap") + "のシールド、アルティメット準備時は敵英雄へ突進し" + mag("e_dmg", "e_ratio") +
                   "の魔法ダメージと砂兵1体。詰められると後ろへ跳ぶ。",

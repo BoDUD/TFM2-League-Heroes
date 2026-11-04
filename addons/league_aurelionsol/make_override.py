@@ -1,4 +1,5 @@
-"""Build the add-on's copy of Aurelion Sol from the main pack (stardust kept through death, the black hole's real execute).
+"""Build the add-on's copy of Aurelion Sol from the main pack (stardust kept through death, the black hole's real execute,
+Astral Flight as his own ability).
 
     python addons/league_aurelionsol/make_override.py
 
@@ -8,10 +9,13 @@ kit) and that the defaults in src/lib.rs's Params are P's numbers, and writes
 addons/league_aurelionsol/override/league_aurelionsol.data_champion and .../text/champion.i18n: the build with native=1 -
   * Singularity's centre also runs league_aurelionsol:core on every champion it strikes (it dies under e_low% of its
     maximum health + e_low_d% per stardust of the first e_low_n, by its real health);
-  * passive = league_aurelionsol:stardust (params: d_max, e_low, e_low_d, e_low_n), which puts his stardust stacks back
-    after a death (and with them his size step);
-  * the attack's and Singularity's tooltips (keys of the add-on's own id) say both rules, so the tooltip in game shows
-    whether the override took.
+  * passive = league_aurelionsol:stardust (params: d_max, e_low, e_low_d, e_low_n, q_range, q_t, q_cd and the flight's w_cd1,
+    w_cd12, w_len, w_len_d, w_v, w_start, w_refund), which puts his stardust stacks back after a death (and with them his
+    size step) and flies him (Astral Flight: when and where, the flight itself, Breath of Light's reset; its picture
+    `w_up` is a buff's here);
+  * a takedown no longer lifts him by data: it raises `league_aurelionsol_w_td` for the add-on (the 90% refund);
+  * the attack's and Singularity's tooltips (keys of the add-on's own id) say the add-on's rules (stardust kept, the
+    flight, the execute), so the tooltip in game shows whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Aurelion Sol changes.
 """
 import json
@@ -32,24 +36,24 @@ mag, t, n, cc = setup.mag, setup.t, setup.n, setup.cc
 NATIVE = {
     "zh-hans": {
         "attack": "【附加包】甩出一颗星星。" + n("星海焕然") + "：技能命中英雄收集星尘（最多{d_max}层，前{d_ap_n}层每层法强+{d_ap}%，"
-                  "死亡后保留），每{sky_n}层下一次大招变为天瀑。" + n("星穹流丽") + "：击杀英雄后起飞" + t("{w_t}秒") +
-                  "，移速+{w_ms}%、法强+{w_ap}%。",
+                  "死亡后保留），每{sky_n}层下一次大招变为天瀑。" + n("星穹流丽") + "（" + t("{w_cd1}-{w_cd12}秒") +
+                  "）：飞越地形追残血、进场或脱身，重置龙息，喷时飞速减半；击杀返还{w_refund}%冷却。",
         "skill2": "【附加包】在目标处召唤黑洞（" + t("{e_t}秒") + "），每" + t("{e_p}秒") + "造成" + mag("e_dmg", "e_ratio") +
                   "魔法伤害，把敌人拉向中心并" + cc("减速") + "{e_slow}%；中心" + cc("处决") + "生命低于{e_low}%（每层星尘+{e_low_d}%）的英雄。",
     },
     "zh-hant": {
         "attack": "【附加包】甩出一顆星星。" + n("宇宙創世") + "：技能命中英雄收集星塵（最多{d_max}層，前{d_ap_n}層每層魔攻+{d_ap}%，"
-                  "死亡後保留），每{sky_n}層下一次大絕變為天界殞落。" + n("星界翱翔") + "：擊殺英雄後起飛" + t("{w_t}秒") +
-                  "，移速+{w_ms}%、魔攻+{w_ap}%。",
+                  "死亡後保留），每{sky_n}層下一次大絕變為天界殞落。" + n("星界翱翔") + "（" + t("{w_cd1}-{w_cd12}秒") +
+                  "）：飛越地形追殘血、進場或脫身，重置吐息，噴時飛速減半；擊殺返還{w_refund}%冷卻。",
         "skill2": "【附加包】在目標處召喚奇點（" + t("{e_t}秒") + "），每" + t("{e_p}秒") + "造成" + mag("e_dmg", "e_ratio") +
                   "魔法傷害，把敵人拉向中心並" + cc("緩速") + "{e_slow}%；中心" + cc("處決") + "生命低於{e_low}%（每層星塵+{e_low_d}%）的英雄。",
     },
     "en": {
-        "attack": "[Add-on] Flings a star. " + n("Cosmic Creator") + ": his spells hitting champions gather Stardust "
-                  "(max {d_max}, kept through death; the first {d_ap_n} +{d_ap}% ability power each); every {sky_n} make "
-                  "his next ult "
-                  "The Skies Descend. " + n("Astral Flight") + ": after a takedown he flies for " + t("{w_t}s") +
-                  ", +{w_ms}% move speed and +{w_ap}% ability power.",
+        "attack": "[Add-on] Flings a star. " + n("Cosmic Creator") + ": spells on champions gather Stardust "
+                  "(max {d_max}, kept after death; the first {d_ap_n} +{d_ap}% AP each); every {sky_n} make his next ult "
+                  "The Skies Descend. " + n("Astral Flight") + " (" + t("{w_cd1}-{w_cd12}s") + "): flies over terrain to "
+                  "chase, engage or escape, resetting Breath of Light (half speed while breathing); takedowns refund "
+                  "{w_refund}%.",
         "skill2": "[Add-on] Summons a black hole at the target for " + t("{e_t}s") + ": every " + t("{e_p}s") + " " +
                   mag("e_dmg", "e_ratio") + " magic damage, pulling enemies toward its centre and " + cc("slowing") +
                   " them {e_slow}%; its centre " + cc("executes") + " champions under {e_low}% health (+{e_low_d}% per "
@@ -58,15 +62,17 @@ NATIVE = {
     "ko": {
         "attack": "[확장] 별을 던진다. " + n("우주의 창조자") + ": 스킬이 챔피언을 맞히면 별무리 획득(최대 {d_max}, 죽어도 유지; "
                   "{d_ap_n}개까지 중첩당 주문력 +{d_ap}%), {sky_n}개마다 다음 궁극기가 천상 강림이 됨. " + n("별의 비행") +
-                  ": 처치 관여 후 " + t("{w_t}초") + " 동안 비행, 이동 속도 +{w_ms}%, 주문력 +{w_ap}%.",
+                  "(" + t("{w_cd1}-{w_cd12}초") + "): 지형을 넘어 추격·진입·도주 비행, 빛의 숨결 초기화, 숨결 중 절반 속도; "
+                  "처치 관여 시 {w_refund}% 반환.",
         "skill2": "[확장] 대상 위치에 " + t("{e_t}초") + " 동안 블랙홀 소환: " + t("{e_p}초") + "마다 " +
                   mag("e_dmg", "e_ratio") + " 마법 피해, 적을 중심으로 끌어당기고 {e_slow}% " + cc("둔화") +
                   "; 중심은 체력 {e_low}%(별무리당 +{e_low_d}%) 미만 챔피언을 " + cc("처형") + ".",
     },
     "ja": {
         "attack": "【拡張】星を投げる。" + n("宇宙の創造者") + "：スキルがチャンピオンに当たると星屑獲得（最大{d_max}、死んでも残る；"
-                  "{d_ap_n}個まで1つにつき魔力+{d_ap}%）、{sky_n}個ごとに次のアルティメットが崩れ落つ天穹に。" +
-                  n("天空への飛翔") + "：キル関与後" + t("{w_t}秒") + "飛行、移動速度+{w_ms}%、魔力+{w_ap}%。",
+                  "{d_ap_n}個まで各魔力+{d_ap}%）、{sky_n}個ごとに次のウルトが崩れ落つ天穹に。" +
+                  n("天空への飛翔") + "（" + t("{w_cd1}-{w_cd12}秒") + "）：地形を越え追撃・突入・離脱、息吹をリセット、"
+                  "息吹中は半速；キル関与で{w_refund}%返還。",
         "skill2": "【拡張】対象の位置に" + t("{e_t}秒") + "ブラックホールを召喚：" + t("{e_p}秒") + "ごとに" +
                   mag("e_dmg", "e_ratio") + "の魔法ダメージ、敵を中心へ引き寄せ{e_slow}%" + cc("スロウ") +
                   "；中心は体力{e_low}%（星屑1つにつき+{e_low_d}%）未満のチャンピオンを" + cc("処刑") + "。",
@@ -106,6 +112,11 @@ def main():
         sys.exit("the copy has no league_aurelionsol:stardust passive: update this script")
     if '"league_aurelionsol:core"' not in json.dumps(champion):
         sys.exit("the copy's black hole does not run league_aurelionsol:core: update this script")
+    flight = ("q_range", "q_t", "q_cd", "w_cd1", "w_cd12", "w_len", "w_len_d", "w_v", "w_start", "w_refund")
+    if any(k not in champion["passive"]["params"] for k in flight):
+        sys.exit("the copy's passive lacks the flight's params: update build_aurelionsol.py")
+    if '"league_aurelionsol_w_td"' not in json.dumps(champion) or '"league_aurelionsol_w_up"' not in json.dumps(champion):
+        sys.exit("the copy's takedown does not tell the add-on (w_td) or its take-off has no picture (w_up)")
     for slot in ("attack", "skill2"):
         champion[slot]["description"] = "#asset/base/text/champion?description." + MOD_ID + "." + slot
 

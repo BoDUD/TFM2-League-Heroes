@@ -4,7 +4,8 @@
 
 Kit (the user's picks, 2026-10-24: MID, layout A - Q / E / R, Astral Flight (W) folded into the passive; combos the
 black hole -> the breath at once, the falling star's stun -> the black hole on the spot, stardust full -> The Skies
-Descend, a takedown -> flight with the breath unbound; 「有连招要做连招」).
+Descend, a takedown -> flight with the breath unbound; 「有连招要做连招」). 2026-11-04 (the user: 「龙王是不是不能边飞行边放Q
+和英雄联盟也不太一样？」): the add-on makes Astral Flight his own ability, as League's V26.21 W, and he breathes as he flies.
 TFM2 has three active slots for League's four buttons: Breath of Light (Q) is `skill`, Singularity (E) `skill2`, Falling
 Star / The Skies Descend (R) the `ult`. Q and E keep their cooldowns in flags (`q_cd`, `e_cd`; league_belveth's way) so
 the combos can cast them; a slot cast while its flag is up does nothing (a 3-tick idle). Flags die with him.
@@ -20,12 +21,22 @@ the combos can cast them; a slot cast while its flag is up does nothing (a 3-tic
           tools/art/import_aurelionsol_fx.py).
           Astral Flight (星穹流丽, W), folded in: a takedown of an enemy champion he damaged (within p_win ticks of his
           last hit on it, by anyone's hand: league_viego's window, league_belveth's watch) lifts him into flight for
-          w_t ticks: w_ms% move speed over walls, w_ap% ability power, and the breath's cooldown is q_cd_f (no cooldown
-          but its own channel) with a channel of q_t_f (no maximum); then w_cd ticks before the next flight. A takedown
-          while w_cd runs cuts it to w_cut (League: the cooldown refund).
+          w_t ticks: w_ms% move speed over walls and Breath of Light's cooldown reset (League's W resets it); in flight
+          the breath has no cooldown, channels q_t_f ticks and burns q_fdmg% as hard (League: no cooldown, no maximum
+          channel, x1.08-1.12 flat damage); then w_cd ticks before the next flight. A takedown while w_cd runs cuts it to
+          w_cut (League refunds 90% of what is left). The main pack's breath holds him where he is (its pose); League
+          flies on at half speed while he breathes - the add-on's flight does.
+          Why he never breathed in flight until 2026-11-04 (classic simulation, 7 games, 24 flights): the flight did not
+          reset the breath's cooldown, which ran at 22 take-offs (the takedown mostly came from a breath), so only 11
+          flights had a breath, 53-233 ticks after take-off, and its 90-tick pose pinned him (no flight while it lasted).
+          The add-on's copy (--native): no data flight; the takedown raises `w_td` for the add-on (its 90% refund), and
+          the add-on flies him itself - when (escape, chase, engage) and where, w_cd1 ticks at level 1 down to w_cd12 at
+          level 12, w_len + w_len_d a stardust, w_v a tick and half that while he breathes, not before w_start - with
+          `w_fly` (the breath's flight branch) and `w_up` (the take-off swirl as a buff picture) on him.
   attack  A star bolt (homing on `Enemy`, 100% AD) released on a_rel; a champion-only twin keeps the takedown watch.
   skill   Breath of Light (星河冲荡, `q_cd`): a `Targeting` cast on `EnemyWithoutTower` (q_range). He channels q_t ticks
-          (q_t_f in flight; crowd control breaks it): every q_p ticks the breath (a fast line through everything toward
+          (q_t_f in flight, no cooldown, q_fdmg% a pulse; crowd control breaks it; `q_live` keeps the next breath until
+          the last one's pulses are gone): every q_p ticks the breath (a fast line through everything toward
           the target, q_rad wide: the first hit and the splash behind it; q_speed slow enough that the segments
           overlap into one stream, at his mouth's height q_y) deals q_dmg + q_ratio% AP, after q_sec ticks
           of channel q_sec_dmg more (League: the bonus for each second on one enemy).
@@ -47,12 +58,13 @@ the combos can cast them; a slot cast while its flag is up does nothing (a 3-tic
           R -> E: the star's impact drops the black hole on the same spot at once if `e_cd` is off (knocked up, then pulled);
           only for Aurelion Sol himself (`own`: league_sylas's stolen ult brings the star alone).
           Stardust full -> The Skies Descend (sky_n stardust, above).
-          Takedown -> flight with the breath unbound (above).
+          Takedown -> flight with the breath unbound (above; the add-on: the flight's cooldown refunded).
   controller An AddCasted pulse on him every ctl_p ticks (league_belveth's, hung by his attack and the ult, only for
           Aurelion Sol himself: `own`): the takedown watch, the stardust counting (`g_q`, `g_e`, `g_r1..3` raised by the
           hits), E -> Q.
 The add-on copy (--native, addons/league_aurelionsol): the passive league_aurelionsol:stardust keeps the stardust stacks
-through death and executes in the black hole's core by real health.
+through death, executes in the black hole's core by real health and flies him (Astral Flight, above); its AI hook
+presses the breath in flight.
 Action tags (the art): idle run attack hit dead skill skill2 ult.
 Numbers: League 16.21 read into the Magician mid range (league_aurora, league_hwei); timings are drafts until the frames
 exist. Balanced on the classic-SDK simulations (kd.py --lane 2 against the five base mid mages, C:/t/as_sim, 2026-10-24;
@@ -61,7 +73,9 @@ E 14 + 8%, R 260 + 80%, 1000 health, 24 defence +0.35; Q 30 + 20%, E 18 + 10%, R
 every 300 ticks, the held bonus 30, E 16 + 9% every 630, the core 4%, R 270 + 85% / Skies 350 + 105% every 2100)
 +0.40 / +1.41; the breath slowed to 2500 a tick at his mouth's height (one stream on screen, its hits a little later) = P
 +0.54 / +1.02. Traced (seeds 1-3): every combo fires - E -> Q 2-16 a game, R -> E 1-5, The Skies Descend 1-4, flights
-1-3.
+1-3. 2026-11-04 (the main pack's flight: the breath reset and unbound, no AP, w_cut 300 -> 120; C:/t/al_sim, 600 s):
+before +1.32 / +1.03 (seeds 1-8 / 9-16; 6671 / 6304 damage a game), after +1.38 / +1.77 (6483 / 6675) - unchanged within
+the noise (s.e. about 0.4). The add-on's flight cannot be simulated (native code).
 """
 import argparse
 import json
@@ -90,9 +104,16 @@ P = {
     "d_max": 30, "d_ap": 3, "d_ap_n": 15, "d_lk": 60, "g_t": 30, "sky_n": 6, "p_win": 180,
     # stardust grows the star, the Skies, the shockwave and the black hole: a size step every grow_n, grow_x% at d_max
     "grow_n": 5, "grow_x": 200,
-    "w_t": 240, "w_ms": 60, "w_ap": 20, "w_cd": 1200, "w_cut": 300,
-    # skill: Breath of Light
-    "q_cd": 300, "q_cd_f": 150, "q_range": 75000, "q_t": 90, "q_t_f": 150, "q_p": 10, "q_rel": 8,
+    # Astral Flight (W). The main pack: a takedown lifts him for w_t ticks (w_ms% faster, over walls), then w_cd ticks
+    # before the next one; a takedown meanwhile cuts w_cd to w_cut (League refunds 90% of what is left: 10% of w_cd).
+    # The add-on's flight, his own ability: w_cd1 ticks at level 1 down to w_cd12 at level 12 (League 22 -> 14 s),
+    # w_len + w_len_d a stardust long (League 1500 + 7.5 a stardust, x100 like his other ranges), w_v a tick and half
+    # that while he breathes, never before w_start (League: not in the first 15 s); a takedown takes w_refund% off what
+    # is left of it.
+    "w_t": 240, "w_ms": 60, "w_cd": 1200, "w_cut": 120,
+    "w_cd1": 1320, "w_cd12": 840, "w_len": 150000, "w_len_d": 750, "w_v": 2000, "w_start": 900, "w_refund": 90,
+    # skill: Breath of Light (in flight: no cooldown, a q_t_f channel, q_fdmg% of q_dmg a pulse - League x1.08-1.12)
+    "q_cd": 300, "q_range": 75000, "q_t": 90, "q_t_f": 150, "q_fdmg": 110, "q_p": 10, "q_rel": 8,
     "q_len": 78000, "q_rad": 6000, "q_speed": 2500, "q_y": -13000, "q_dmg": 26, "q_ratio": 17, "q_sec": 60, "q_sec_dmg": 30,
     # skill2: Singularity
     "e_cd": 630, "e_range": 75000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 26000, "e_t": 300, "e_p": 15,
@@ -311,28 +332,46 @@ def build(p):
         """A hit that gathers stardust: g raised for the controller, once every d_lk ticks per source."""
         return sw(lock, NONE, combine(flag(lock, p["d_lk"]), refresh(g, p["g_t"]), track()))
 
-    # Astral Flight: a takedown lifts him (or cuts the flight's cooldown)
-    fly = combine(flag("w_cd", p["w_cd"]), refresh("w_fly", p["w_t"], move_speed_mult=p["w_ms"],
-                                                    magic_power_mult=p["w_ap"], ignore_wall=True),
-                  cview("w_lift"), sfx("w"), voice("vo_w", p))
-    takedown = combine(*rm("p_win_on"), refresh("p_lock", 6), sw("w_cd", refresh("w_cd", p["w_cut"]), fly))
+    # Astral Flight. The main pack: a takedown lifts him (or cuts the flight's cooldown), Breath of Light's cooldown reset.
+    # The add-on flies him itself, as his own ability (its passive picks when and where, moves him and hangs `w_fly`);
+    # the takedown only tells it (`w_td`: League's 90% refund of the flight's cooldown).
+    fly = combine(flag("w_cd", p["w_cd"]), refresh("w_fly", p["w_t"], move_speed_mult=p["w_ms"], ignore_wall=True),
+                  *rm("q_cd"), cview("w_lift"), sfx("w"), voice("vo_w", p))
+    if p["native"]:
+        takedown = combine(*rm("p_win_on"), refresh("p_lock", 6), refresh("w_td", 6))
+    else:
+        takedown = combine(*rm("p_win_on"), refresh("p_lock", 6), sw("w_cd", refresh("w_cd", p["w_cut"]), fly))
     watch = sw("p_win_on", sw("p_alive", NONE, sw("p_lock", NONE, takedown)))
 
     # ------------------------------------------------------------------ Q Breath of Light
     cc_break = pick(1, "AllyChampionInCC", *rm("q_ch"))
     def q_cast():
         """The channel: an AddCasted on the target (league_caitlyn R's: projectiles from him to it every q_p ticks while
-        `q_ch` holds), and from q_sec on a second one with the bonus for staying on it."""
-        breath = line("q_beam", p["q_speed"], p["q_len"], p["q_rad"], "EnemyWithoutTower",
-                      [ap(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")], p["q_y"])
+        `q_ch` holds), and from q_sec on a second one with the bonus for staying on it. In flight (`w_fly`, read at the
+        cast) the breath has no cooldown, channels q_t_f ticks and burns q_fdmg% as hard a pulse (read at each pulse).
+        Its pose holds him (CasterAnimation): the add-on flies him on meanwhile, at half the flight's speed, in that
+        pose; the main pack cannot move him while he channels (a data dash is forced movement, which ends the breath,
+        and letting the AI walk him - league_lucian R's way: only the draw's frames, disarmed - cost 18% of his damage
+        in the classic simulation, 5446 against 6483 a game on seeds 1-8: it walked him out of reach), so there he
+        hovers while he breathes. `q_live` lasts as long as the two AddCasteds: no breath starts before they are gone,
+        so one cut short by crowd control never fires again under the next one's `q_ch` (with no cooldown in flight
+        that could happen)."""
+        def breath(dmg):
+            return line("q_beam", p["q_speed"], p["q_len"], p["q_rad"], "EnemyWithoutTower",
+                        [ap(dmg, p["q_ratio"]), view("q_hit"), tsfx("q_hit")], p["q_y"])
         twin = line("q_twin", p["q_speed"], p["q_len"], p["q_rad"], "EnemyChampion", [gain("g_q", "q_lk")], p["q_y"])
         held = homing("q_held", "EnemyWithoutTower", [ap(p["q_sec_dmg"], 0)])
-        cd = sw("w_fly", combine(refresh("q_cd", p["q_cd_f"]), refresh("q_ch", p["q_t_f"])),
-                combine(refresh("q_cd", p["q_cd"]), refresh("q_ch", p["q_t"])))
-        return combine(cd, anim("skill", p["q_t"]), sfx("q"), voice("vo_q", p),
-                       delayed(p["q_rel"] - 1, casted(p["q_t_f"], p["q_p"], alive(cc_break, sw("q_ch", combine(breath, twin))))),
-                       delayed(p["q_rel"] - 1 + p["q_sec"], casted(p["q_t_f"] - p["q_sec"], p["q_p"],
-                                                                   alive(sw("q_ch", held)))))
+        pulse = combine(sw("w_fly", breath(round(p["q_dmg"] * p["q_fdmg"] / 100)), breath(p["q_dmg"])), twin)
+
+        def channel(t):
+            """A breath of t ticks: q_ch from the cast, the pulses from q_rel (their AddCasteds end with the channel)."""
+            rel = p["q_rel"] - 1
+            return [refresh("q_ch", t), refresh("q_live", t + 1),
+                    delayed(rel, casted(t - rel + 1, p["q_p"], alive(cc_break, sw("q_ch", pulse)))),
+                    delayed(rel + p["q_sec"], casted(t - rel - p["q_sec"] + 1, p["q_p"], alive(sw("q_ch", held))))]
+        ground = combine(refresh("q_cd", p["q_cd"]), anim("skill", p["q_t"]), *channel(p["q_t"]))
+        flown = combine(anim("skill", p["q_t_f"]), *channel(p["q_t_f"]))
+        return sw("q_live", NONE, combine(sw("w_fly", flown, ground), sfx("q"), voice("vo_q", p)))
 
     def sized(make):
         """make(t) for the size step his stardust has reached (stack d<t * grow_n> on him; the deepest one decides)."""
@@ -444,9 +483,13 @@ def build(p):
     views_b = [B_("e_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"), B_("w_fly", FX, -1, "w_trail"),
                B_("sky", FX, 3, "sky_glow")]
     extra = {}
-    if p["native"]:   # addons/league_aurelionsol: stardust kept through death, the core's real execute
+    if p["native"]:   # addons/league_aurelionsol: stardust kept through death, the core's real execute, the flight
+        # the take-off swirl as a buff's picture (the add-on hangs `w_up` for the 4 frames of w_lift: a picture played
+        # from native code is not seen in game, league_bard's door)
+        views_b.append(B_("w_up", FX, 3, "w_lift"))
         extra["passive"] = {"passive_ref": f"{ID}:stardust",
-                            "params": {k: p[k] for k in ("d_max", "e_low", "e_low_d", "e_low_n")}}
+                            "params": {k: p[k] for k in ("d_max", "e_low", "e_low_d", "e_low_n", "q_range", "q_t", "q_cd", "w_cd1",
+                                                         "w_cd12", "w_len", "w_len_d", "w_v", "w_start", "w_refund")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

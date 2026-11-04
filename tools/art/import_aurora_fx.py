@@ -12,7 +12,8 @@ Each frame is placed as the kit plays it (import_ivern_fx.py's way): spots are g
 down); a unit's soles are 11 under it (league.dll hd.rs FEET 11.5), a ground point's too. Anchors: "core" (the cell's
 middle), "bottom" (the lowest drawn row of all its frames), "mid" (the middle of all its frames' drawn rows). The buffs
 (the curse, the spirit mark, the haste, the slow) and the projectiles loop; the rest play once, timed to the kit
-(tools/kit/build_aurora.py): the realm opens on its first two frames and its last six loop over r_t (210 ticks = 3.5 s).
+(tools/kit/build_aurora.py): the realm opens on its first two frames and its last six loop over r_t (195 ticks = 3.25 s,
+League's Between Worlds at its top rank; 210 = 3.5 s until 2026-11-04).
 """
 import argparse
 import json
@@ -41,7 +42,7 @@ CHEST = (0, -7)                 # her chest: 18 px over her soles (the pivot 11 
 SOLES = (0, 11)                 # on the ground under a unit or a point
 GROUND = (0, 12)                # a picture's lowest row on the ground line
 LINE = (0, 0)                   # a projectile's point
-R_T_MS = 210 * 1000 // 60       # the realm's life (build_aurora.py r_t)
+R_T_MS = 195 * 1000 // 60       # the realm's life (build_aurora.py r_t)
 seq = J.seq
 
 

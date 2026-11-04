@@ -1067,10 +1067,10 @@
       },
       "league_qiyana": {
         "name": "奇亚娜",
-        "attack": "挥环攻击。<#ff9028ff>凌人贵气<>：每<#ffb900ff>4秒<>首次命中额外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害。武器附有元素时攻速+25%，攻击额外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<>魔法伤害。",
-        "skill": "挥环横扫前方，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害。附有元素时消耗元素：河流<#ef5350ff>定身<><#ffb900ff>0.5秒<>后减速25%；岩石额外造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>；草丛伪装<#ffb900ff>2.5秒<>并加速25%。",
+        "attack": "挥环攻击。<#ff9028ff>凌人贵气<>：普攻和Q、E每<#ffb900ff>4秒<>首次命中额外造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理伤害，换上新元素时重置。附有元素时攻速+25%、攻击距离+1500，普攻和Q、E额外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法伤害。",
+        "skill": "挥环斩向身前一条直线，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害（第一个之后75%）。附有元素时掷出环刃，在第一个敌人处炸开并消耗元素：河流<#ef5350ff>定身<><#ffb900ff>0.5秒<>后减速20%；岩石多<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>；草丛伪装<#ffb900ff>2.5秒<>并加速20%。",
         "skill2": "突进到敌人身上，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害；<#ff9028ff>方圆塑令<>：为武器附上元素（草丛、河流、岩石轮换），并刷新以绪塔尔之锋。",
-        "ult": "挥环放出冲击波，对路径上的敌人造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理伤害，将其<#ef5350ff>击退<>后<#ef5350ff>晕眩<><#ffb900ff>0.9秒<>。"
+        "ult": "挥环放出冲击波，对路径上的敌人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害（英雄另受最大生命10%），将其<#ef5350ff>击退<>后<#ef5350ff>晕眩<><#ffb900ff>0.9秒<>。"
       },
       "league_hwei": {
         "name": "彗",
@@ -1098,7 +1098,7 @@
         "attack": "魔杖点出灵光。<#ff9028ff>驱灵奇术<>：命中英雄叠层，第三层抽出灵物，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+2%最大生命值的伤害，<#66bb6aff>回复<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命并加速。<#ff9028ff>灵纱洞开<>：被敌方英雄贴身时后跳，隐身<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。",
         "skill": "放出咒弹穿过敌人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并留下诅咒；<#ffb900ff>0.67秒<>后把诅咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害。",
         "skill2": "向前喷出灵魂冲击，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>60%（逐渐减弱），随后向后跳开。",
-        "ult": "跳到敌方英雄身上，冲击波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>40%；张开领域<#ffb900ff>3.5秒<>，<#ef5350ff>减速<>其中敌人30%，目标走开时她穿过领域追上去。"
+        "ult": "朝敌方英雄跃出一小段，加速30%；前方的冲击波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>减速<>30%，留下领域<#ffb900ff>3.25秒<>：她在里面时<#ef5350ff>减速<>其中敌人30%，她离开或阵亡就关闭。"
       },
       "league_nunu": {
         "name": "努努和威朗普",
@@ -1109,7 +1109,7 @@
       },
       "league_azir": {
         "name": "阿兹尔",
-        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在目标处召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>8秒<>），士兵代他刺击，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法伤害；士兵都够不着时他自己射出沙光。",
+        "attack": "<#ff9028ff>沙兵现身<>：普攻每<#ffb900ff>2.5秒<>在身前召出一个黄沙士兵（最多<#ffb900ff>3<>个，存在<#ffb900ff>8秒<>），他附近的士兵代他刺击，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>魔法伤害；够不着时他自己射出沙光。",
         "skill": "所有黄沙士兵冲向目标，沿途造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害并<#ef5350ff>减速<>25%，落地马上刺击；没有士兵时在目标处召出一个。",
         "skill2": "身边有士兵才能施放：获得<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾，大招就绪时冲向敌方英雄，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法伤害并召出一个士兵；被敌方英雄贴身时改为后跳。",
         "ult": "一排禁军举盾冲锋，造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法伤害并<#ef5350ff>击退<>敌人；刚用流沙移形冲到英雄身上时，先绕到他身后，再把他推回己方。"
@@ -1144,8 +1144,8 @@
       },
       "league_aurelionsol": {
         "name": "奥瑞利安·索尔",
-        "attack": "甩出一颗星星。<#ff9028ff>星海焕然<>：技能命中英雄收集星尘（最多30层，前15层每层法强+3%），每6层下一次大招变为天瀑。<#ff9028ff>星穹流丽<>：击杀英雄后起飞<#ffb900ff>4秒<>，移速+60%、法强+20%。",
-        "skill": "引导龙息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>对一线上的敌人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法伤害，喷同一目标<#ffb900ff>1秒<>后每次额外30；被控制打断。飞行中无冷却、引导更久。",
+        "attack": "甩出一颗星星。<#ff9028ff>星海焕然<>：技能命中英雄收集星尘（最多30层，前15层每层法强+3%），每6层下一次大招变为天瀑。<#ff9028ff>星穹流丽<>：击杀英雄后起飞<#ffb900ff>4秒<>，移速+60%、飞越地形，龙息冷却重置。",
+        "skill": "引导龙息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>对一线上的敌人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法伤害，喷同一目标<#ffb900ff>1秒<>后每次额外30；被控制打断。飞行中无冷却、引导<#ffb900ff>2.5秒<>、伤害+10%。",
         "skill2": "在目标处召唤黑洞（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法伤害，把敌人拉向中心并<#ef5350ff>减速<>25%；中心每秒造成英雄最大生命值4%的真实伤害。",
         "ult": "<#ff9028ff>星落<>：星星坠落在目标处，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法伤害并<#ef5350ff>击飞<><#ffb900ff>1秒<>。<#ff9028ff>天瀑<>：范围更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>并<#ef5350ff>击飞<><#ffb900ff>1秒<>，外圈冲击波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>并<#ef5350ff>减速<>50%。星尘每5层，星落、天瀑和黑洞的范围大一档（满层2倍）。"
       },
@@ -3149,10 +3149,10 @@
       },
       "league_qiyana": {
         "name": "姬亞娜",
-        "attack": "揮環攻擊。<#ff9028ff>皇家特權<>：每<#ffb900ff>4秒<>首次命中額外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害。武器附有元素時攻速+25%，攻擊額外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<>魔法傷害。",
-        "skill": "揮環橫掃前方，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害。附有元素時消耗元素：河流<#ef5350ff>定身<><#ffb900ff>0.5秒<>後緩速25%；岩石額外造成<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>；草叢偽裝<#ffb900ff>2.5秒<>並加速25%。",
+        "attack": "揮環攻擊。<#ff9028ff>皇家特權<>：普攻和Q、E每<#ffb900ff>4秒<>首次命中額外造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理傷害，換上新元素時重置。附有元素時攻速+25%、攻擊距離+1500，普攻和Q、E額外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>魔法傷害。",
+        "skill": "揮環斬向身前一條直線，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害（第一個之後75%）。附有元素時擲出環刃，在第一個敵人處炸開並消耗元素：河流<#ef5350ff>定身<><#ffb900ff>0.5秒<>後緩速20%；岩石多<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>；草叢偽裝<#ffb900ff>2.5秒<>並加速20%。",
         "skill2": "突進到敵人身上，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害；<#ff9028ff>元素之形<>：為武器附上元素（草叢、河流、岩石輪換），並刷新伊克斯塔爾迴旋刀。",
-        "ult": "揮環放出衝擊波，對路徑上的敵人造成<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>物理傷害，將其<#ef5350ff>擊退<>後<#ef5350ff>暈眩<><#ffb900ff>0.9秒<>。"
+        "ult": "揮環放出衝擊波，對路徑上的敵人造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害（英雄另受最大生命10%），將其<#ef5350ff>擊退<>後<#ef5350ff>暈眩<><#ffb900ff>0.9秒<>。"
       },
       "league_hwei": {
         "name": "赫威",
@@ -3180,7 +3180,7 @@
         "attack": "魔杖點出靈光。<#ff9028ff>精靈附體<>：命中英雄疊層，第三層抽出精靈，造成<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>+2%最大生命值的傷害，<#66bb6aff>回復<><#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>生命並加速。<#ff9028ff>跨越兩界<>：被敵方英雄貼身時後跳，隱形<#ffb900ff>1.25秒<>、加速30%（<#ffb900ff>20秒<>一次）。",
         "skill": "放出咒彈穿過敵人，造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並留下詛咒；<#ffb900ff>0.67秒<>後把詛咒抽回，回程再造成<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害。",
         "skill2": "向前噴出靈魂衝擊，造成<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>60%（逐漸減弱），隨後向後跳開。",
-        "ult": "跳到敵方英雄身上，衝擊波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>40%；張開領域<#ffb900ff>3.5秒<>，<#ef5350ff>緩速<>其中敵人30%，目標走開時她穿過領域追上去。"
+        "ult": "朝敵方英雄躍出一小段，加速30%；前方的衝擊波造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>緩速<>30%，留下領域<#ffb900ff>3.25秒<>：她在裡面時<#ef5350ff>緩速<>其中敵人30%，她離開或陣亡就關閉。"
       },
       "league_nunu": {
         "name": "努努和威朗普",
@@ -3191,7 +3191,7 @@
       },
       "league_azir": {
         "name": "阿祈爾",
-        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在目標處召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>8秒<>），砂兵代他刺擊，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>魔法傷害；砂兵都搆不著時他自己射出砂光。",
+        "attack": "<#ff9028ff>砂漠禁軍<>：普攻每<#ffb900ff>2.5秒<>在身前召出一名砂兵（最多<#ffb900ff>3<>名，存在<#ffb900ff>8秒<>），他附近的砂兵代他刺擊，造成<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>魔法傷害；搆不著時他自己射出砂光。",
         "skill": "所有砂兵衝向目標，沿途造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害並<#ef5350ff>緩速<>25%，落地立刻刺擊；沒有砂兵時在目標處召出一名。",
         "skill2": "身邊有砂兵才能施放：獲得<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾，大絕就緒時衝向敵方英雄，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>魔法傷害並召出一名砂兵；被敵方英雄貼身時改為後跳。",
         "ult": "一排禁軍舉盾衝鋒，造成<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>魔法傷害並<#ef5350ff>擊退<>敵人；剛用護砂瞬身衝到英雄身上時，先繞到他身後，再把他推回己方。"
@@ -3226,8 +3226,8 @@
       },
       "league_aurelionsol": {
         "name": "翱銳龍獸",
-        "attack": "甩出一顆星星。<#ff9028ff>宇宙創世<>：技能命中英雄收集星塵（最多30層，前15層每層魔攻+3%），每6層下一次大絕變為天界殞落。<#ff9028ff>星界翱翔<>：擊殺英雄後起飛<#ffb900ff>4秒<>，移速+60%、魔攻+20%。",
-        "skill": "引導吐息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>對一線上的敵人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法傷害，噴同一目標<#ffb900ff>1秒<>後每次額外30；被控制打斷。飛行中無冷卻、引導更久。",
+        "attack": "甩出一顆星星。<#ff9028ff>宇宙創世<>：技能命中英雄收集星塵（最多30層，前15層每層魔攻+3%），每6層下一次大絕變為天界殞落。<#ff9028ff>星界翱翔<>：擊殺英雄後起飛<#ffb900ff>4秒<>，移速+60%、飛越地形，吐息冷卻重置。",
+        "skill": "引導吐息<#ffb900ff>1.5秒<>，每<#ffb900ff>0.17秒<>對一線上的敵人造成<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>魔法傷害，噴同一目標<#ffb900ff>1秒<>後每次額外30；被控制打斷。飛行中無冷卻、引導<#ffb900ff>2.5秒<>、傷害+10%。",
         "skill2": "在目標處召喚奇點（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法傷害，把敵人拉向中心並<#ef5350ff>緩速<>25%；中心每秒造成英雄最大生命4%的真實傷害。",
         "ult": "<#ff9028ff>降世星辰<>：星辰墜落在目標處，造成<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>魔法傷害並<#ef5350ff>擊飛<><#ffb900ff>1秒<>。<#ff9028ff>天界殞落<>：範圍更大，<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>並<#ef5350ff>擊飛<><#ffb900ff>1秒<>，外圈衝擊波再造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>並<#ef5350ff>緩速<>50%。星塵每5層，降世星辰、天界殞落和奇點的範圍大一檔（滿層2倍）。"
       },
@@ -5231,10 +5231,10 @@
       },
       "league_qiyana": {
         "name": "Qiyana",
-        "attack": "A swing of her ring blade. <#ff9028ff>Royal Privilege<>: her first hit every <#ffb900ff>4s<> deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage more. While her ring holds an element she has +25% attack speed and her attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<> magic damage more.",
-        "skill": "Sweeps the ring through the enemies before her for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> physical damage. With an element she spends it: river <#ef5350ff>roots<> for <#ffb900ff>0.5s<> then slows 25%; rock deals <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> more; grass camouflages her for <#ffb900ff>2.5s<> with +25% move speed.",
+        "attack": "A swing of her ring blade. <#ff9028ff>Royal Privilege<>: her first attack, Q or E hit every <#ffb900ff>4s<> deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> physical damage more; a new element resets it. While her ring holds an element she has +25% attack speed and +1500 range, and her attacks, Q and E deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> magic damage more.",
+        "skill": "Slashes a line before her for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> physical damage (75% beyond the first). With an element she hurls the ring, bursting on the first enemy and spending it: river <#ef5350ff>roots<> for <#ffb900ff>0.5s<> then slows 20%; rock deals <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> more; grass camouflages her for <#ffb900ff>2.5s<> with +20% move speed.",
         "skill2": "Dashes onto an enemy for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage. <#ff9028ff>Terrashape<>: the dash enchants her ring with an element (grass, river and rock in turn) and refreshes Edge of Ixtal.",
-        "ult": "Swings the ring and sends a shockwave that deals <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> physical damage to the enemies on its way, <#ef5350ff>knocking them back<> and <#ef5350ff>stunning<> them for <#ffb900ff>0.9s<>."
+        "ult": "Swings the ring and sends a shockwave that deals <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage to the enemies on its way (champions also lose 10% of their maximum health), <#ef5350ff>knocking them back<> and <#ef5350ff>stunning<> them for <#ffb900ff>0.9s<>."
       },
       "league_hwei": {
         "name": "Hwei",
@@ -5262,7 +5262,7 @@
         "attack": "A spirit bolt off her wand. <#ff9028ff>Spirit Abjuration<>: her hits on champions add up; the third exorcises a spirit for <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 2% of the target's max health, and it <#66bb6aff>heals<> her <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> and speeds her up. <#ff9028ff>Across the Veil<>: with an enemy champion on top of her, she hops back, invisible for <#ffb900ff>1.25s<> and 30% faster (once every <#ffb900ff>20s<>).",
         "skill": "A hex flies through her enemies for <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage, cursing them; <#ffb900ff>0.67s<> later the curses are drawn back, dealing <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage on the way home.",
         "skill2": "A blast of spirit magic before her: <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and a <#ef5350ff>slow<> of 60% that fades; then she hops back.",
-        "ult": "Leaps onto an enemy champion: the shockwave deals <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and <#ef5350ff>slows<> 40%; a realm opens for <#ffb900ff>3.5s<>, <#ef5350ff>slowing<> the enemies in it 30%, and she steps across it after her target when it walks away."
+        "ult": "Leaps a short way toward an enemy champion, 30% faster; a shockwave in front of her deals <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and <#ef5350ff>slows<> 30%, leaving a rift for <#ffb900ff>3.25s<> that <#ef5350ff>slows<> the enemies in it 30% while she is inside. It closes if she leaves it or dies."
       },
       "league_nunu": {
         "name": "Nunu & Willump",
@@ -5273,7 +5273,7 @@
       },
       "league_azir": {
         "name": "Azir",
-        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier at the target (<#ffb900ff>3<> at most, <#ffb900ff>8s<>); his soldiers stab for him, <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> magic damage. With none in reach he shoots a sand bolt himself.",
+        "attack": "<#ff9028ff>Arise!<>: every <#ffb900ff>2.5s<> his attack raises a sand soldier before him (<#ffb900ff>3<> at most, <#ffb900ff>8s<>); the soldiers near him stab for him, <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<> magic damage. With none in reach he shoots a sand bolt himself.",
         "skill": "Every soldier charges at the target, <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> magic damage on the way and a 25% <#ef5350ff>slow<>; they stab at once on arrival. With none standing, one rises there.",
         "skill2": "Only with a soldier up: a shield of <#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>, then, with his ultimate ready, a dash onto an enemy champion for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> magic damage and one more soldier. Dived by a champion, he hops back instead.",
         "ult": "A wall of guards charges out: <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> magic damage and <#ef5350ff>knocks back<> the enemies. Right after Shifting Sands onto a champion he steps behind it first and drives it toward his team."
@@ -5308,8 +5308,8 @@
       },
       "league_aurelionsol": {
         "name": "Aurelion Sol",
-        "attack": "Flings a star. <#ff9028ff>Cosmic Creator<>: his spells hitting champions gather Stardust (max 30; the first 15 +3% ability power each); every 6 make his next ult The Skies Descend. <#ff9028ff>Astral Flight<>: after a takedown he flies for <#ffb900ff>4s<>, +60% move speed and +20% ability power.",
-        "skill": "Channels his breath for <#ffb900ff>1.5s<>: every <#ffb900ff>0.17s<> it deals <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> magic damage to the enemies in a line, 30 more after <#ffb900ff>1s<> on one target; crowd control breaks it. In flight it has no cooldown and channels longer.",
+        "attack": "Flings a star. <#ff9028ff>Cosmic Creator<>: his spells hitting champions gather Stardust (max 30; the first 15 +3% ability power each); every 6 make his next ult The Skies Descend. <#ff9028ff>Astral Flight<>: after a takedown he flies for <#ffb900ff>4s<> over terrain, +60% move speed, and Breath of Light's cooldown resets.",
+        "skill": "Channels his breath for <#ffb900ff>1.5s<>: every <#ffb900ff>0.17s<> it deals <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> magic damage to the enemies in a line, 30 more after <#ffb900ff>1s<> on one target; crowd control breaks it. In flight it has no cooldown, channels <#ffb900ff>2.5s<> and deals 10% more.",
         "skill2": "Summons a black hole at the target for <#ffb900ff>5s<>: every <#ffb900ff>0.25s<> <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> magic damage, pulling enemies toward its centre and <#ef5350ff>slowing<> them 25%; its centre deals 4% of a champion's maximum health as true damage each second.",
         "ult": "<#ff9028ff>Falling Star<>: a star crashes on the target for <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> magic damage and a <#ffb900ff>1s<> <#ef5350ff>knock-up<>. <#ff9028ff>The Skies Descend<>: a wider impact, <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<> and a <#ffb900ff>1s<> <#ef5350ff>knock-up<>, then a shockwave from its edge for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> and a 50% <#ef5350ff>slow<>. Every 5 Stardust widen the star, the Skies and the black hole a step (2x when full)."
       },
@@ -7313,10 +7313,10 @@
       },
       "league_qiyana": {
         "name": "키아나",
-        "attack": "고리 칼날로 공격. <#ff9028ff>왕가의 특권<>: <#ffb900ff>4초<>마다 첫 적중이 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해 추가. 무기에 원소가 깃들면 공격 속도 +25%, 공격이 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<> 마법 피해 추가.",
-        "skill": "고리로 앞쪽을 베어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> 물리 피해. 원소가 있으면 소모: 강 <#ffb900ff>0.5초<> <#ef5350ff>속박<> 후 25% 둔화, 바위 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가 피해, 풀숲 <#ffb900ff>2.5초<> 위장과 이동 속도 +25%.",
+        "attack": "고리 칼날로 공격. <#ff9028ff>왕가의 특권<>: 기본 공격·Q·E가 <#ffb900ff>4초<>마다 첫 적중 시 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> 물리 피해 추가, 새 원소를 얻으면 초기화. 무기에 원소가 깃들면 공격 속도 +25%, 사거리 +1500, 기본 공격·Q·E가 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<> 마법 피해 추가.",
+        "skill": "앞쪽 직선을 베어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> 물리 피해(첫 대상 이후 75%). 원소가 있으면 고리를 던져 첫 적에게서 터지며 원소 소모: 강 <#ffb900ff>0.5초<> <#ef5350ff>속박<> 후 20% 둔화, 바위 <#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<> 추가 피해, 풀숲 <#ffb900ff>2.5초<> 위장과 이동 속도 +20%.",
         "skill2": "적에게 돌진해 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해. <#ff9028ff>대지창조<>: 무기에 원소를 깃들이고(풀숲, 강, 바위 순서) 이쉬탈의 칼날 초기화.",
-        "ult": "고리를 휘둘러 충격파를 날려 경로의 적에게 <#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<> 물리 피해를 주고 <#ef5350ff>밀쳐낸 뒤<> <#ffb900ff>0.9초<> <#ef5350ff>기절<>."
+        "ult": "고리를 휘둘러 충격파를 날려 경로의 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해(챔피언은 최대 체력 10% 추가)를 주고 <#ef5350ff>밀쳐낸 뒤<> <#ffb900ff>0.9초<> <#ef5350ff>기절<>."
       },
       "league_hwei": {
         "name": "흐웨이",
@@ -7344,7 +7344,7 @@
         "attack": "지팡이로 영혼 빛을 쏜다. <#ff9028ff>영혼 방호술<>: 챔피언 적중이 쌓여 세 번째에 영혼을 뽑아 <#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> + 최대 체력의 2% 피해, <#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#66bb6aff>회복<>과 이동 속도 증가. <#ff9028ff>장막 너머로<>: 적 챔피언이 붙으면 뒤로 뛰어 <#ffb900ff>1.25초<> 투명, 이동 속도 +30% (<#ffb900ff>20초<>마다).",
         "skill": "주문 탄이 적을 꿰뚫어 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 저주; <#ffb900ff>0.67초<> 뒤 저주를 끌어당겨 돌아오는 길에 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해.",
         "skill2": "앞으로 영혼 충격파를 뿜어 <#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 점점 약해지는 60% <#ef5350ff>둔화<>, 이후 뒤로 뛴다.",
-        "ult": "적 챔피언에게 도약해 충격파로 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 40% <#ef5350ff>둔화<>; <#ffb900ff>3.5초<> 동안 영역을 열어 안의 적을 30% <#ef5350ff>둔화<>, 대상이 벗어나면 영역을 건너 쫓아간다."
+        "ult": "적 챔피언 쪽으로 짧게 도약하며 이동 속도 +30%; 앞쪽 충격파가 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해와 30% <#ef5350ff>둔화<>, <#ffb900ff>3.25초<> 동안 영역을 남겨 그녀가 안에 있는 동안 안의 적을 30% <#ef5350ff>둔화<>. 그녀가 나가거나 죽으면 닫힌다."
       },
       "league_nunu": {
         "name": "누누와 윌럼프",
@@ -7355,7 +7355,7 @@
       },
       "league_azir": {
         "name": "아지르",
-        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 대상 위치에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>8초<>). 병사가 대신 찔러 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.",
+        "attack": "<#ff9028ff>일어나라!<>: <#ffb900ff>2.5초<>마다 기본 공격이 앞쪽에 모래 병사를 세운다(최대 <#ffb900ff>3<>명, <#ffb900ff>8초<>). 가까운 병사가 대신 찔러 <#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<> 마법 피해; 닿는 병사가 없으면 직접 모래 빛을 쏜다.",
         "skill": "모든 병사가 대상에게 돌진해 지나는 길에 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해와 25% <#ef5350ff>둔화<>, 도착하자마자 찌른다. 병사가 없으면 그곳에 하나를 세운다.",
         "skill2": "병사가 있을 때만: <#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> 보호막, 궁극기가 준비되면 적 챔피언에게 돌진해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<> 마법 피해와 병사 하나 추가. 챔피언이 붙으면 대신 뒤로 뛴다.",
         "ult": "근위대가 방패를 들고 돌격해 <#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<> 마법 피해와 <#ef5350ff>밀쳐내기<>. 신기루로 챔피언에게 막 붙었다면 먼저 그 뒤로 돌아가 아군 쪽으로 밀어 보낸다."
@@ -7390,8 +7390,8 @@
       },
       "league_aurelionsol": {
         "name": "아우렐리온 솔",
-        "attack": "별을 던진다. <#ff9028ff>우주의 창조자<>: 스킬이 챔피언을 맞히면 별무리 획득(최대 30, 15개까지 중첩당 주문력 +3%), 6개마다 다음 궁극기가 천상 강림이 됨. <#ff9028ff>별의 비행<>: 처치 관여 후 <#ffb900ff>4초<> 동안 비행, 이동 속도 +60%, 주문력 +20%.",
-        "skill": "<#ffb900ff>1.5초<> 동안 숨결을 정신 집중: <#ffb900ff>0.17초<>마다 일직선의 적에게 <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> 마법 피해, 한 대상에 <#ffb900ff>1초<> 이상 시 매번 30 추가; 군중 제어에 끊김. 비행 중 재사용 대기시간 없음.",
+        "attack": "별을 던진다. <#ff9028ff>우주의 창조자<>: 스킬이 챔피언을 맞히면 별무리 획득(최대 30, 15개까지 중첩당 주문력 +3%), 6개마다 다음 궁극기가 천상 강림이 됨. <#ff9028ff>별의 비행<>: 처치 관여 후 <#ffb900ff>4초<> 동안 지형을 넘어 비행, 이동 속도 +60%, 빛의 숨결 재사용 대기시간 초기화.",
+        "skill": "<#ffb900ff>1.5초<> 동안 숨결을 정신 집중: <#ffb900ff>0.17초<>마다 일직선의 적에게 <#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<> 마법 피해, 한 대상에 <#ffb900ff>1초<> 이상 시 매번 30 추가; 군중 제어에 끊김. 비행 중 재사용 대기시간 없음, <#ffb900ff>2.5초<> 집중, 피해 +10%.",
         "skill2": "대상 위치에 <#ffb900ff>5초<> 동안 블랙홀 소환: <#ffb900ff>0.25초<>마다 <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> 마법 피해, 적을 중심으로 끌어당기고 25% <#ef5350ff>둔화<>; 중심은 매초 챔피언 최대 체력의 4% 고정 피해.",
         "ult": "<#ff9028ff>유성<>: 대상 위치에 별이 떨어져 <#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> 마법 피해와 <#ffb900ff>1초<> <#ef5350ff>에어본<>. <#ff9028ff>천상 강림<>: 더 넓게 <#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>와 <#ffb900ff>1초<> <#ef5350ff>에어본<>, 이어서 가장자리 충격파 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>와 50% <#ef5350ff>둔화<>. 별무리 5개마다 유성·천상 강림·특이점 범위 증가(최대 2배)."
       },
@@ -9395,10 +9395,10 @@
       },
       "league_qiyana": {
         "name": "キヤナ",
-        "attack": "リングで攻撃。<#ff9028ff>女帝の威風<>：<#ffb900ff>4秒<>ごとの最初の命中が<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージを追加。武器にエレメントがある間、攻撃速度+25%、攻撃が<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<>の魔法ダメージを追加。",
-        "skill": "リングで前方を薙ぎ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の物理ダメージ。エレメントを消費：川は<#ffb900ff>0.5秒<><#ef5350ff>スネア<>後25%スロウ、岩は<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>追加、草むらは<#ffb900ff>2.5秒<>迷彩と移動速度+25%。",
+        "attack": "リングで攻撃。<#ff9028ff>女帝の威風<>：通常攻撃・Q・Eの<#ffb900ff>4秒<>ごとの最初の命中が<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の物理ダメージを追加、新しいエレメントでリセット。エレメントがある間、攻撃速度+25%・射程+1500、通常攻撃・Q・Eが<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>45%<>の魔法ダメージを追加。",
+        "skill": "前方の直線を薙ぎ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の物理ダメージ（2体目以降75%）。エレメントがあればリングを投げ、最初の敵で炸裂して消費：川は<#ffb900ff>0.5秒<><#ef5350ff>スネア<>後20%スロウ、岩は<#ff9028ff>25<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>40%<>追加、草むらは<#ffb900ff>2.5秒<>迷彩と移動速度+20%。",
         "skill2": "敵へ突進し<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージ。<#ff9028ff>大地の力<>：武器にエレメントを宿し（草むら・川・岩の順）、イシュタルの切先を再使用可能に。",
-        "ult": "リングを振るって衝撃波を放ち、道中の敵に<#ff9028ff>120<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>120%<>の物理ダメージと<#ef5350ff>ノックバック<>、<#ffb900ff>0.9秒<>の<#ef5350ff>スタン<>。"
+        "ult": "リングを振るって衝撃波を放ち、道中の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージ（チャンピオンは最大体力の10%も）と<#ef5350ff>ノックバック<>、<#ffb900ff>0.9秒<>の<#ef5350ff>スタン<>。"
       },
       "league_hwei": {
         "name": "フェイ",
@@ -9426,7 +9426,7 @@
         "attack": "杖から霊光を放つ。<#ff9028ff>精霊の解放<>：英雄への命中が重なり、3回目で精霊を引き出し<#a974ffff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>＋最大体力の2%のダメージ、<#a974ffff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#66bb6aff>回復<>し加速。<#ff9028ff>ベールを越えて<>：敵英雄に詰められると後ろへ跳び<#ffb900ff>1.25秒<>透明、移動速度+30%（<#ffb900ff>20秒<>ごと）。",
         "skill": "呪弾が敵を貫き<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと呪い、<#ffb900ff>0.67秒<>後に呪いを引き戻し帰り道で<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージ。",
         "skill2": "前方へ霊の衝撃を放ち<#a974ffff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと弱まっていく60%<#ef5350ff>スロウ<>、その後後ろへ跳ぶ。",
-        "ult": "敵英雄へ跳び衝撃波で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと40%<#ef5350ff>スロウ<>。<#ffb900ff>3.5秒<>間領域を開き中の敵を30%<#ef5350ff>スロウ<>、対象が離れると領域を越えて追う。"
+        "ult": "敵英雄の方へ短く跳び移動速度+30%。前方の衝撃波で<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと30%<#ef5350ff>スロウ<>、<#ffb900ff>3.25秒<>間領域を残し、彼女が中にいる間は中の敵を30%<#ef5350ff>スロウ<>。彼女が出るか倒れると閉じる。"
       },
       "league_nunu": {
         "name": "ヌヌ＆ウィルンプ",
@@ -9437,7 +9437,7 @@
       },
       "league_azir": {
         "name": "アジール",
-        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに対象の所に砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>8秒<>）。砂兵が代わりに突き<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。",
+        "attack": "<#ff9028ff>目覚めよ！<>：通常攻撃が<#ffb900ff>2.5秒<>ごとに前方に砂兵を呼ぶ（最大<#ffb900ff>3<>体、<#ffb900ff>8秒<>）。近くの砂兵が代わりに突き<#a974ffff>75<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>106%<>の魔法ダメージ、届く砂兵がいないと自ら砂光を放つ。",
         "skill": "全砂兵が対象へ突撃し、道中<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージと25%<#ef5350ff>スロウ<>、着くとすぐ突く。砂兵がいなければそこに1体呼ぶ。",
         "skill2": "砂兵がいる時だけ：<#66bb6aff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>のシールド、アルティメット準備時は敵英雄へ突進し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>55%<>の魔法ダメージと砂兵1体。詰められると後ろへ跳ぶ。",
         "ult": "近衛兵の壁が突撃し<#a974ffff>260<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>90%<>の魔法ダメージと<#ef5350ff>ノックバック<>。流砂の衝撃で英雄に寄った直後なら、背後へ回り味方側へ押し返す。"
@@ -9472,8 +9472,8 @@
       },
       "league_aurelionsol": {
         "name": "オレリオン・ソル",
-        "attack": "星を投げる。<#ff9028ff>宇宙の創造者<>：スキルがチャンピオンに当たると星屑獲得（最大30、15個まで1つにつき魔力+3%）、6個ごとに次のアルティメットが崩れ落つ天穹に。<#ff9028ff>天空への飛翔<>：キル関与後<#ffb900ff>4秒<>飛行、移動速度+60%、魔力+20%。",
-        "skill": "<#ffb900ff>1.5秒<>息吹を詠唱：<#ffb900ff>0.17秒<>ごとに直線上の敵に<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>の魔法ダメージ、同じ対象に<#ffb900ff>1秒<>以上で毎回+30；行動妨害で中断。飛行中はクールダウンなし。",
+        "attack": "星を投げる。<#ff9028ff>宇宙の創造者<>：スキルがチャンピオンに当たると星屑獲得（最大30、15個まで1つにつき魔力+3%）、6個ごとに次のアルティメットが崩れ落つ天穹に。<#ff9028ff>天空への飛翔<>：キル関与後<#ffb900ff>4秒<>地形を越えて飛行、移動速度+60%、星炎の息吹のクールダウンをリセット。",
+        "skill": "<#ffb900ff>1.5秒<>息吹を詠唱：<#ffb900ff>0.17秒<>ごとに直線上の敵に<#a974ffff>26<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>17%<>の魔法ダメージ、同じ対象に<#ffb900ff>1秒<>以上で毎回+30；行動妨害で中断。飛行中はクールダウンなし、<#ffb900ff>2.5秒<>詠唱、ダメージ+10%。",
         "skill2": "対象の位置に<#ffb900ff>5秒<>ブラックホールを召喚：<#ffb900ff>0.25秒<>ごとに<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>の魔法ダメージ、敵を中心へ引き寄せ25%<#ef5350ff>スロウ<>；中心は毎秒チャンピオンの最大体力4%の確定ダメージ。",
         "ult": "<#ff9028ff>星の邂逅<>：対象の位置に星が落ち<#a974ffff>270<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の魔法ダメージと<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>。<#ff9028ff>崩れ落つ天穹<>：範囲が広く<#a974ffff>350<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>105%<>と<#ffb900ff>1秒<><#ef5350ff>ノックアップ<>、続いて外縁の衝撃波<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>と50%<#ef5350ff>スロウ<>。星屑5個ごとにウルトと特異点の範囲拡大（最大2倍）。"
       },

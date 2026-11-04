@@ -189,7 +189,9 @@ impl StablePlayerAi for Shurima {
                 hp: share(e.hp()),
                 r_ready: ready(&e, SkillSlotV1::Ult) && !has(&e, &az("r_cd")),
                 e_ready: ready(&e, SkillSlotV1::Skill2) && !has(&e, &az("e_cd")),
-                soldier: ["ba", "bb", "bc"].iter().any(|s| has(&e, &az(s))),
+                // 0.2.0: a soldier that crumbled (out of his reach, or aged out by a tower: `league_azir_x<slot>` on him)
+                // still holds its slot `b<slot>` but is gone for E (the data's E needs one standing)
+                soldier: ["a", "b", "c"].iter().any(|s| has(&e, &az(&format!("b{s}"))) && !has(&e, &az(&format!("x{s}")))),
                 r_win: has(&e, &az("r_win")),
                 own_tower: false,
             };

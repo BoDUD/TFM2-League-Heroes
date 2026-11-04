@@ -12,7 +12,10 @@ Shifting Sands (E) `skill2`, Emperor's Divide (R) the `ult`.
           slots a-c (`b<s>`, s_life ticks): a new soldier takes the first free one, so at most three stand. His attack
           raises `cmd` for cmd_t ticks: every soldier with an enemy within s_r stabs ONE of them then (the slot's lock
           `k<s>`), s_dmg + s_ap% AP; when no soldier stabbed (`stabbed`) his own sand bolt flies instead (100% AD;
-          League: soldiers attack for him when the target is in their reach). An attack with p_cd off raises a soldier
+          League: soldiers attack for him when the target is in their reach). Only the soldiers he stands within League's
+          tether radius of stab (660, SoldierDeactivationRange: s_tie from the zone's centre plus his body; until
+          2026-11-04 a soldier 169000 off stabbed too - 19 of 130 stabs in one classic game came from past 66000). An
+          attack with p_cd off raises a soldier
           s_place toward its target (a hidden bolt's stop: League's W in front of him, the target in the spear's reach;
           on the target's own spot the soldier stood inside it) (League: W, two charges, 10 s soldiers).
           Generations: every soldier belongs to the generation that was up when it rose - gA, gB or neither (C) - and
@@ -55,7 +58,10 @@ tower), r_behind past it - in place of RushMoveToBack (away from where he came f
 side kicked them sideways or away, 7 of 21 insecs in the user's games of 2026-10-28);
 the soldiers' rise, checkpoints and stabs call league_azir:rise_<s> / sold_<s> / stab_<s> instead of the front pictures,
 and the add-on draws each soldier from the side, facing the nearest enemy and stabbing when it strikes (the user:
-「沙兵没攻击动作 ... 还有不面向敌人」; data cannot tell left from right, so the main pack keeps them facing the camera).
+「沙兵没攻击动作 ... 还有不面向敌人」; data cannot tell left from right, so the main pack keeps them facing the camera);
+0.2.0: a soldier he leaves out of reach for 30 ticks, or one an enemy tower aged out (League: twice as fast in a turret's
+range), crumbles - the add-on hangs `x<s>` on him and the copy's stabs, Q's move and E's need of a soldier skip it until
+the slot's next soldier rises (`kept`).
 Action tags (the art): idle run attack hit dead skill skill2 ult.
 Numbers: League 16.20 (CommunityDragon azir.bin) read into the Magician mid range (league_hwei, league_orianna);
 balanced on the classic-SDK simulations (kd.py --lane 2, C:/t/az_sim, 2026-10-23; league_hwei +1.16 on the same games): the
@@ -92,8 +98,14 @@ P = {
     "ms": 900, "ms_g": 9,
     "atk_range": 52500, "atk_dur": 27, "atk_cd": 80, "a_rel": 10, "a_speed": 4500, "a_y": -3000,
     # passive: the soldiers
-    "p_cd": 150, "s_life": 480, "s_step": 40, "s_r": 42000, "s_per": 2, "cmd_t": 2, "s_dmg": 75, "s_ap": 100,
+    "p_cd": 150, "s_life": 480, "s_step": 40, "s_r": 42000, "s_per": 2, "cmd_t": 2, "s_dmg": 75, "s_ap": 106,
     "s_place": 30000, "s_speed": 6000,
+    # s_ap 100 -> 106 with the tether (2026-11-04): the soldiers past 660 had dealt 6.5% of his damage (classic seeds 1-24,
+    # 720 games: kill difference +0.14 -> +0.06, back to +0.14 at 106)
+    # League's tether radius (Arise!'s 660, azir.bin SoldierDeactivationRange; 1 League unit = 100): a soldier stabs only
+    # while he stands within s_tie of its spot plus his body (the pick from the stab zone counts his radius, 10000:
+    # 66000 centre to centre); the add-on draws the line and crumbles the soldier by the same distance
+    "s_tie": 56000,
     # the add-on's soldiers from the side (addons/league_azir; tools/art/design_azir_side_soldier.py): ticks a standing
     # stamp, the rise and the stab last (a stamp every ss_stand ticks faces the nearest enemy; a stab starts on one)
     "ss_stand": 4, "ss_rise": 20, "ss_stab": 16,
@@ -108,20 +120,22 @@ P = {
     "win_r": 90,
     # ult: R Emperor's Divide
     "r_cd": 1800, "r_range": 40000, "r_dur": 36, "r_at": 16, "r_rush_at": 6, "r_rush": 8000, "r_speed": 3000,
-    "r_len": 60000, "r_w": 20000, "r_behind": 15000, "r_hold": 180, "r_half": 30000, "r_dmg": 260, "r_ratio": 90, "r_kb_speed": 3000, "r_kb": 18, "r_stamps": 5,
+    # r_hold: the add-on's wall stands 300 ticks where it stops (League's WallDuration 5 s since V10.1; 180 before 0.2.0)
+    "r_len": 60000, "r_w": 20000, "r_behind": 15000, "r_hold": 300, "r_half": 30000, "r_dmg": 260, "r_ratio": 90, "r_kb_speed": 3000, "r_kb": 18, "r_stamps": 5,
     "q_refund": 900,
     "vo_gap": 600,
-    # the Sun Disc (the add-on's passive league_azir:disc; League: Shurima's Legacy on a turret's ruins): once a game, with
-    # Azir within d_near of a fallen tower of his team's, it rises there for d_life ticks and strikes the nearest enemy
-    # (champions first) within d_range every d_per ticks for d_dmg + d_ap% AP magic damage
-    "d_life": 2700, "d_per": 60, "d_range": 45000, "d_dmg": 50, "d_ap": 35, "d_near": 60000,
+    # the Sun Disc (the add-on's passive league_azir:disc; League: Shurima's Legacy on a turret's ruins): with Azir within
+    # d_near of a fallen tower - his, or the enemy's outside their base (0.2.0; before, his only) - it rises there for
+    # d_life ticks and strikes the nearest enemy (champions first) within d_range every d_per ticks for d_dmg + d_ap% AP
+    # magic damage; again d_cd ticks after it rose (League's 90-second cooldown; before 0.2.0 once a game)
+    "d_life": 2700, "d_per": 60, "d_range": 45000, "d_dmg": 50, "d_ap": 35, "d_near": 60000, "d_cd": 5400,
     # 1 = the copy for addons/league_azir
     "native": 0,
 }
 SLOTS = "abc"
 GENS = "ABC"
 NATIVE_KEYS = ("d_life", "d_per", "d_range", "d_dmg", "d_ap", "d_near", "r_speed", "r_len", "r_stamps", "s_step",
-               "ss_stand", "ss_rise", "ss_stab", "r_rush", "r_behind", "r_hold", "r_half", "r_w")
+               "ss_stand", "ss_rise", "ss_stab", "r_rush", "r_behind", "r_hold", "r_half", "r_w", "s_life", "s_tie", "d_cd")
 
 
 def lp(path):
@@ -222,8 +236,8 @@ def casted(duration, period, *effects, kind="Heal"):
     return {"type": "AddCasted", "casted_type": kind, "duration": duration, "period": period, "effects": list(effects)}
 
 
-def pick(rng, target, *effects):
-    return {"type": "RandomTarget", "range": rng, "casting_target": target, "from_projectile": False,
+def pick(rng, target, *effects, from_projectile=False):
+    return {"type": "RandomTarget", "range": rng, "casting_target": target, "from_projectile": from_projectile,
             "effects": [e for e in effects if e is not None]}
 
 
@@ -231,6 +245,15 @@ def alive(*effects):
     """Run only while he lives (a dead caster's `Delayed` effects run in the game): league_vex's 1-tick flag."""
     return combine(pick(1, "AllyOnlySelf", flag("lives", 1)), sw("lives", combine(*rm("lives"), *effects)),
                    *rm("lives"))
+
+
+def tied(reach, *effects):
+    """In a stab zone's applied effects: run only while he stands within `reach` of the zone's centre - the soldier's
+    spot - plus his body (`RandomTarget AllyOnlySelf from_projectile`: champion-data, league_ekko W's measure). League's
+    Arise! commands only the soldiers within its tether radius (660, `SoldierDeactivationRange`): one farther off does
+    not attack."""
+    return combine(pick(reach, "AllyOnlySelf", flag("tie", 1), from_projectile=True),
+                   sw("tie", combine(*rm("tie"), *effects)), *rm("tie"))
 
 
 def decoy(dmg, ratio, kind=attack):
@@ -308,6 +331,11 @@ def build(p):
     # ------------------------------------------------------------------ passive: the soldiers
     stab = [ap(p["s_dmg"], p["s_ap"]), view("s_stab"), tsfx("s_stab"), refresh("stabbed", 6)]
 
+    def kept(s, effect):
+        """The add-on's copy: only while slot s's soldier has not crumbled (the add-on hangs `x<s>` on him when it does:
+        out of his reach too long, or aged out by an enemy tower; the slot's next soldier takes it off as it rises)."""
+        return sw(f"x{s}", NONE, effect) if p["native"] else effect
+
     def soldier(s, g):
         """Slot s's soldier of generation g on this spot (a landing's end_effects): its picture re-stamped every
         s_step ticks and two stab zones (champions first), all only while g is up."""
@@ -318,11 +346,17 @@ def build(p):
         # the zones come from the landing's end_effects and outlive him, and a dead caster's flags freeze: killed inside
         # the 2 ticks of `cmd` with a soldier that had nobody to stab, `k{s}` could not be set again and that soldier
         # stabbed everyone near it every 2 ticks to its end (classic engine 2026-11-02: 44 stabs after one death) - so
-        # past the two flags it asks alive() (league_maokai's sapling)
-        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, alive(flag(f"k{s}", p["cmd_t"] + 1), *stab, *told))))
+        # past the two flags it asks alive() (league_maokai's sapling); then whether he stands within League's tether
+        # radius of it (tied: s_tie from the zone's centre plus his body = 660), and in the add-on's copy whether it
+        # crumbled (kept)
+        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, kept(s, alive(tied(p["s_tie"], flag(f"k{s}", p["cmd_t"] + 1),
+                                                                               *stab, *told))))))
         rise_, stand_ = ((native("rise"), native("sold")) if p["native"] else
                          (view(f"sold_{s}_rise"), view(f"sold_{s}")))
-        out = [view("s_spawn"), sfx("s_spawn"), gate(g, rise_)]   # out of the sand, then standing
+        # a new soldier in the slot takes the crumbled one's latch off (only when it does rise: generation g still up);
+        # a crumbled one's checkpoints still call the add-on, which no longer draws it
+        up_ = combine(*rm(f"x{s}"), rise_) if p["native"] else rise_
+        out = [view("s_spawn"), sfx("s_spawn"), gate(g, up_)]   # out of the sand, then standing
         out += [delayed(t, gate(g, stand_)) for t in range(p["s_step"], p["s_life"], p["s_step"])]
         out += [field(f"s{s}_ch", p["s_r"], p["s_life"], p["s_per"], 1, [poke()], "EnemyChampion"),
                 field(f"s{s}_all", p["s_r"], p["s_life"], p["s_per"], 1, [poke()])]
@@ -337,8 +371,8 @@ def build(p):
         return sw(f"b{s}", NONE if i == len(SLOTS) - 1 else rise(where, g, i + 1), put(s, g, where))
 
     def any_up(name):
-        """`name` up for a tick when a soldier stands."""
-        return combine(*rm(name), *[sw(f"b{s}", refresh(name, 1)) for s in SLOTS])
+        """`name` up for a tick when a soldier stands (in the add-on's copy: one that has not crumbled)."""
+        return combine(*rm(name), *[sw(f"b{s}", kept(s, refresh(name, 1))) for s in SLOTS])
 
     on_spot = lambda target: (lambda effects: lob("s_lob", 1, effects, target))
 
@@ -349,7 +383,8 @@ def build(p):
         h = NEXT[g]
         land = [sw(f"m{s}", combine(*rm(f"m{s}"), *soldier(s, h))) for s in SLOTS]
         land += [view("q_land"), sfx("q_land"), delayed(2, refresh("cmd", p["cmd_t"]))]
-        marks = [sw(f"b{s}", combine(refresh(f"m{s}", p["q_travel"] + 4), refresh(f"b{s}", p["s_life"])))
+        # a crumbled soldier (the add-on's copy) is gone: Q moves only the ones standing
+        marks = [sw(f"b{s}", kept(s, combine(refresh(f"m{s}", p["q_travel"] + 4), refresh(f"b{s}", p["s_life"]))))
                  for s in SLOTS]
         none = combine(refresh("ma", p["q_travel"] + 4), refresh("ba", p["s_life"]))
         return combine(any_up("up"), sw("up", combine(*rm("up"), *marks), none), to_gen(h),
