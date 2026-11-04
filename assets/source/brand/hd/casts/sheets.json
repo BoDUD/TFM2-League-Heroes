@@ -1,0 +1,186 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "3": "attack 2",
+   "4": "attack 1",
+   "5": "attack 1",
+   "6": "attack 1"
+  },
+  "skill": {
+   "1": "attack 1",
+   "3": "skill 2",
+   "5": "skill 4",
+   "6": "attack 1"
+  },
+  "skill2": {
+   "1": "attack 1",
+   "3": "skill 2",
+   "5": "skill2 4",
+   "6": "attack 2",
+   "7": "attack 1",
+   "8": "attack 1"
+  },
+  "ult": {
+   "2": "skill2 2",
+   "3": "skill2 2",
+   "4": "skill 2",
+   "5": "skill 2",
+   "6": "attack 1"
+  },
+  "hit": {
+   "1": "attack 1",
+   "2": "attack 1"
+  },
+  "dead": {
+   "1": "attack 1",
+   "2": "skill 2",
+   "5": "dead 4",
+   "6": "dead 4",
+   "7": "dead 4",
+   "8": "dead 4"
+  }
+ },
+ "baked_body_frames": [
+  "attack",
+  "skill",
+  "skill2"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): his flaming hands swinging, the flames on his head flickering, the LEGS CHANGING OVER (6 frames)",
+   "ms": [
+    167,
+    167
+   ],
+   "weapons": "HIS HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): both hands ON FIRE as in image 1 (the flames are part of him, shaped as in the old frame), held low, thrust forward, spread wide or brought down as the pale figure holds them; the flames on his head as in image 1, flickering as the old frame's. The pale figures of his attack, W (skill) and E then Q (skill2) are the old frames' bodies without their casting flashes: do NOT draw those flashes. Only him: no fireballs, no pillars of flame, no flying sparks, no glow around him.",
+   "legs": "Frame 1: STRIDE: the NEAR leg (the lighter one) reaching forward (image right) to land, its heel coming down; the FAR leg (the darker one) behind (image left) pushing off, its toes on the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg planted straight down under his hips; the FAR leg kicked up and back behind him, bent, its foot off the ground. The two legs TAKE TURNS: in frames 1-3 the NEAR leg (the lighter one) carries him, in frames 4-6 the FAR leg (the darker one) - frames 2 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): his flaming hands swinging, the flames on his head flickering, the LEGS CHANGING OVER (6 frames)",
+   "ms": [
+    166,
+    167
+   ],
+   "weapons": "HIS HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): both hands ON FIRE as in image 1 (the flames are part of him, shaped as in the old frame), held low, thrust forward, spread wide or brought down as the pale figure holds them; the flames on his head as in image 1, flickering as the old frame's. The pale figures of his attack, W (skill) and E then Q (skill2) are the old frames' bodies without their casting flashes: do NOT draw those flashes. Only him: no fireballs, no pillars of flame, no flying sparks, no glow around him.",
+   "legs": "Frame 3: PASSING: both legs gathered under him, knees bent; the FAR leg passing forward close beside the planted near leg, its foot just off the ground. Frame 4: STRIDE: the FAR leg reaching forward (image right) to land, its heel coming down; the NEAR leg behind (image left) pushing off, its toes on the ground. The two legs TAKE TURNS: in frames 1-3 the NEAR leg (the lighter one) carries him, in frames 4-6 the FAR leg (the darker one) - frames 2 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): his flaming hands swinging, the flames on his head flickering, the LEGS CHANGING OVER (6 frames)",
+   "ms": [
+    167,
+    166
+   ],
+   "weapons": "HIS HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): both hands ON FIRE as in image 1 (the flames are part of him, shaped as in the old frame), held low, thrust forward, spread wide or brought down as the pale figure holds them; the flames on his head as in image 1, flickering as the old frame's. The pale figures of his attack, W (skill) and E then Q (skill2) are the old frames' bodies without their casting flashes: do NOT draw those flashes. Only him: no fireballs, no pillars of flame, no flying sparks, no glow around him.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg planted straight down under his hips; the NEAR leg kicked up and back behind him, bent, its foot off the ground. Frame 6: PASSING: both legs gathered under him, knees bent; the NEAR leg passing forward close beside the planted far leg, its foot just off the ground. The two legs TAKE TURNS: in frames 1-3 the NEAR leg (the lighter one) carries him, in frames 4-6 the FAR leg (the darker one) - frames 2 and 5 must look different: a different leg planted, the other one kicked back. Never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」)."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack: from his stance (frame 1) he throws his near hand forward, flinging a fireball (frame 2)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): both hands ON FIRE as in image 1 (the flames are part of him, shaped as in the old frame), held low, thrust forward, spread wide or brought down as the pale figure holds them; the flames on his head as in image 1, flickering as the old frame's. The pale figures of his attack, W (skill) and E then Q (skill2) are the old frames' bodies without their casting flashes: do NOT draw those flashes. Only him: no fireballs, no pillars of flame, no flying sparks, no glow around him."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    2,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Pillar of Flame (W): he spreads both arms wide (frame 2), then crouches and brings his hands down (frame 4)",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "HIS HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): both hands ON FIRE as in image 1 (the flames are part of him, shaped as in the old frame), held low, thrust forward, spread wide or brought down as the pale figure holds them; the flames on his head as in image 1, flickering as the old frame's. The pale figures of his attack, W (skill) and E then Q (skill2) are the old frames' bodies without their casting flashes: do NOT draw those flashes. Only him: no fireballs, no pillars of flame, no flying sparks, no glow around him."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    2,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Conflagration into Sear (E then Q): frame by frame as the pale figure (frames 2, 4)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): both hands ON FIRE as in image 1 (the flames are part of him, shaped as in the old frame), held low, thrust forward, spread wide or brought down as the pale figure holds them; the flames on his head as in image 1, flickering as the old frame's. The pale figures of his attack, W (skill) and E then Q (skill2) are the old frames' bodies without their casting flashes: do NOT draw those flashes. Only him: no fireballs, no pillars of flame, no flying sparks, no glow around him."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Pyroclasm (R): he gathers the fire in his hands (frame 1)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): both hands ON FIRE as in image 1 (the flames are part of him, shaped as in the old frame), held low, thrust forward, spread wide or brought down as the pale figure holds them; the flames on his head as in image 1, flickering as the old frame's. The pale figures of his attack, W (skill) and E then Q (skill2) are the old frames' bodies without their casting flashes: do NOT draw those flashes. Only him: no fireballs, no pillars of flame, no flying sparks, no glow around him."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: he collapses (frame 3) and lies burning on the ground (frame 4)",
+   "ms": [
+    110,
+    120
+   ],
+   "weapons": "HIS HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): both hands ON FIRE as in image 1 (the flames are part of him, shaped as in the old frame), held low, thrust forward, spread wide or brought down as the pale figure holds them; the flames on his head as in image 1, flickering as the old frame's. The pale figures of his attack, W (skill) and E then Q (skill2) are the old frames' bodies without their casting flashes: do NOT draw those flashes. Only him: no fireballs, no pillars of flame, no flying sparks, no glow around him."
+  }
+ ]
+}

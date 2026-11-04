@@ -3,7 +3,7 @@
 
     python tools/art/preview_tryndamere.py [--out docs/preview]
 
-  league_tryndamere_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_tryndamere_frames.png    every animation's dense frames (hd_, PPU 1.81, as league.dll shows them)
   league_tryndamere_effects.png   every effect animation, 3x
   league_tryndamere_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                                   (tools/kit/build_tryndamere.py, 60 ticks a second): Tryndamere runs in; Spinning Slash
@@ -23,6 +23,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_jinx import Follow  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -59,7 +60,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, to=None):
         nonlocal t, x
-        an = Anim(frames_of(me_sp, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
+        an = Anim(dense(me_sp, tag, "tryndamere", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, x1=to)
         body.append(an)
         t = an.until
         if to is not None:
@@ -93,7 +94,7 @@ def showcase(out, z=3, step=40):
     # Spinning Slash: 48 px in 12 ticks onto Darius (his attack range 25 px off), a Fury stack
     e0 = t
     mine(big, "e_spin", e0)
-    body.append(Anim(frames_of(me_sp, "skill"), e0, x, gy, until=e0 + tick(E_REL + E_TICKS), x1=x + 48))
+    body.append(Anim(dense(me_sp, "skill", "tryndamere", z), e0, x, gy, until=e0 + tick(E_REL + E_TICKS), x1=x + 48))
     hit = e0 + tick(E_REL + 10)
     on(d, small, "e_hit", hit)
     d.flinches.append(hit)
@@ -134,11 +135,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -156,7 +157,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -176,8 +177,8 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_tryndamere_frames.png")))
+        print("frames", contact(dense_rows(s),
+                                os.path.join(args.out, "league_tryndamere_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():
