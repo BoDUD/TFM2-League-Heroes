@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Karthus as in League (needs League of Legends Heroes 0.305.0): replaces the main pack's Karthus so Death Defied turns him into a spirit at a lethal blow for 7 seconds before he falls - as in League a dead man: banished the whole time (untargetable by champions, minions and towers, no health bar, rooted, never recalling), his ghost drawn where he fell, Lay Waste, Wall of Pain, Defile and Requiem cast for him on what the spirit itself sees; when the time is up he is dead for sure (never left standing at 1 hp) and his respawn counts the spirit's time. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-03",
+  "last_updated": "2026-11-04",
   "mod_id": "league_karthus",
   "mod_type": "native",
   "name": "League Heroes: Karthus's Death Defied (test)",
-  "version": "0.5.2"
+  "version": "0.5.3"
 }

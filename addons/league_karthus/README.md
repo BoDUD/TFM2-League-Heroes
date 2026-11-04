@@ -1,4 +1,4 @@
-# 卡尔萨斯附加包（测试版 v0.5.2）
+# 卡尔萨斯附加包（测试版 v0.5.3）
 
 主包 `league` 保持纯数据。用户选了「被动做附加包」。这个附加包用原生代码做主包数据做不到的**死亡契约**：
 
@@ -68,6 +68,18 @@
 数字：被动的参数写在英雄数据的 `passive.params`（`{"p_t": 420}`），由 `make_override.py` 从 `tools/kit/build_karthus.py`
 的参数表 `P` 写入；`GUARD_T`、`GUARD_EVERY`、`HIDE_EVERY`、`FLUSH_T` 和钩子的距离写在 `src/lib.rs`，单元测试核对参数表
 （`q_range`、`e_cast`、`e_r`、`w_r`、`atk_range`、`r_dmg`、`r_ratio`、`r_ch`）。
+
+## 0.5.3：灵体倒下后不再秒复活（2026-11-04）
+
+用户：「死歌灵体死了后秒复活？」。11-04 的日志 40 条 `RESPAWN` 里 18 条是 `2400 -> 1 ticks`，都是阵亡一两万 tick 之后扣的：
+0.5.2 扣复活时间的记录按真实时间放 30 秒，预演几秒就跑完上万 tick（你看的那局快进时也一样），他这期间又死一次，旧记录
+定下的复活 tick 早过了，新的复活倒计时就被扣成 1 tick。
+
+- 一条记录只管记它的那一次阵亡：阵亡后 `CUT_WAIT`（30）tick 内第一次看到他阵亡时扣，之后只扣到定下的复活 tick；再死一次
+  是另一条记录的事（`note_open`）。同一局并排跑的两份预演照样共用一条。
+- 游戏还没设复活倒计时（读到 0）时不拿 0 去算，下一 tick 再看（`first_back`）。
+- 日志：`RESPAWN: ... ticks after his death` 应该都是 0 或 1；`RESPAWN NOT CUT (not seen dead within 30 ticks of his death)`
+  多的话告诉我。
 
 ## 0.5.2：复活时间真的扣掉（2026-11-04）
 

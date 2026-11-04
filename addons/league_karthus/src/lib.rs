@@ -29,6 +29,8 @@
 //!   `on_dead` 记下要扣的时间，等游戏登记好阵亡再扣（`cut_respawns`）。0.5.2：0.5.1 由每个英雄的 AI 钩子 `shun` 扣、按模拟状态
 //!   指针配对，可 AI 钩子拿到的指针和被动的不一样，11-03 晚上 120 次全没扣成；现在由本包的比赛钩子（`Respawns`，每局每 tick）
 //!   扣，按「哪一局」（种类、比赛、小局）、玩家、阵亡 tick 配对，扣到同一个复活 tick（同一局并排的两份预演共用一条，扣不了两遍）。
+//!   0.5.3（用户 2026-11-04：「死歌灵体死了后秒复活？」）：0.5.2 的记录按真实时间放 30 秒，期间他再死一次就被旧记录扣成 1 tick；
+//!   现在一条记录只管它那一次阵亡（`note_open`）。
 //! - **灵体照样放技能**（0.5.1，用户 2026-11-03：「灵体状态下会放其他技能吗 也检查下 我怎么感觉不会放」）：放逐的单位不给队伍
 //!   视野，0.5.0 的灵体只挑他队伍看得见的敌人，身边没队友时荒芜、亵渎什么都打不到（只有不看视野的安魂曲放得出来）；现在用灵体
 //!   自己的眼睛（射程里的都算，亵渎和荒芜的爆炸本来就不挑）。痛苦之墙主包挂在普攻上，灵体不能普攻，一面都没立过；现在 W 好了
@@ -219,6 +221,22 @@ pub fn back_tick(now: usize, left: u64, spent: u64) -> usize {
     now + respawn_after_spirit(left, spent) as usize
 }
 
+/// 第一次看到他阵亡时他该复活的 tick（`back_tick`）；游戏还没设复活倒计时（`left` 为 0）就再等一 tick，不拿 0 去算（0.5.3）。
+pub fn first_back(now: usize, left: u64, spent: u64) -> Option<usize> {
+    (left > 0).then(|| back_tick(now, left, spent))
+}
+
+/// 一条记录在 `now` 这一 tick 还管不管用（0.5.3）：只管记它的那一次阵亡——阵亡后 `CUT_WAIT` tick 内第一次看到他阵亡时扣，之后扣到
+/// `back`（那时他已经复活，再死是另一条记录的事）。0.5.2 的记录按真实时间放 30 秒：预演几秒就跑完上万 tick、你看的那局快进时
+/// 也一样，他这期间再死一次，旧记录的 `back` 早过了，新的复活倒计时被扣成 1 tick——灵体倒下后秒复活（用户 2026-11-04：
+/// 「死歌灵体死了后秒复活？」；11-04 的日志 40 条 `RESPAWN` 里 18 条是 `2400 -> 1 ticks`，都是阵亡一两万 tick 之后扣的）。
+pub fn note_open(at: usize, back: Option<usize>, now: usize) -> bool {
+    match back {
+        None => now <= at + CUT_WAIT,
+        Some(b) => now < b,
+    }
+}
+
 /// 这一 tick 把剩余复活 tick 改成多少：不晚于 `back`；已经不晚于它就不改（同一局的另一份预演扣过，或这份上一 tick 扣过）。
 pub fn cut_to(back: usize, now: usize, left: u64) -> Option<u64> {
     let want = back.saturating_sub(now).max(1) as u64;
@@ -237,16 +255,27 @@ fn cut_respawns(sim: &StableSim<'_>) {
         let mut cuts = CUTS.lock().unwrap_or_else(|e| e.into_inner());
         drop_stale(&mut cuts, &mut lines);
         for c in cuts.iter_mut().filter(|c| c.origin == key && now >= c.at) {
-            let Some(p) = sim.get_player(c.player) else { continue };
-            if p.is_alive() {
-                if c.back.is_none() && now > c.at + CUT_WAIT && !c.told {
+            if !note_open(c.at, c.back, now) {
+                // its death is over (cut, and he is back by `back`) or he was never seen dead in time: a later death of his
+                // is another note's
+                if c.back.is_none() && !c.told {
                     c.told = true;
-                    lines.push(format!("{} RESPAWN NOT CUT (not marked dead {} ticks after his death)", c.line, now - c.at));
+                    lines.push(format!("{} RESPAWN NOT CUT (not seen dead within {CUT_WAIT} ticks of his death)", c.line));
                 }
                 continue;
             }
+            let Some(p) = sim.get_player(c.player) else { continue };
+            if p.is_alive() {
+                continue;
+            }
             let left = p.respawn_time() as u64;
-            let back = *c.back.get_or_insert_with(|| back_tick(now, left, c.spent));
+            let back = match c.back {
+                Some(b) => b,
+                None => match first_back(now, left, c.spent) {
+                    Some(b) => *c.back.insert(b),
+                    None => continue,
+                },
+            };
             let Some(want) = cut_to(back, now, left) else { continue };
             let res = life::shorten_respawn(sim, c.player, want);
             if !c.told {
@@ -1409,6 +1438,26 @@ mod tests {
         assert_eq!(cut_to(back, 1003, 1497), Some(1077));
         // a short death timer: back BACK_MIN after he was first seen dead
         assert_eq!(cut_to(back_tick(1000, 300, 420), 1000, 300), Some(BACK_MIN));
+    }
+
+    #[test]
+    fn a_note_serves_only_the_death_it_was_made_for() {
+        // the 11-04 log: died on tick 12665 (the timer then 1726, the spirit 422), cut once; died again on tick 38062 with
+        // 2400 left - 0.5.2's note, kept 30 wall-clock seconds, cut that one to 1 tick: up again at once
+        let back = first_back(12666, 1726, 422).unwrap();
+        assert_eq!(back, 12666 + 1304);
+        assert!(note_open(12665, Some(back), 12666));
+        assert!(note_open(12665, Some(back), back - 1), "until he is back");
+        assert!(!note_open(12665, Some(back), back));
+        assert!(!note_open(12665, Some(back), 38062), "a later death is not this note's");
+        // never seen dead in time: closed for good (a death seen later is another one)
+        assert!(note_open(12665, None, 12665 + CUT_WAIT));
+        assert!(!note_open(12665, None, 12665 + CUT_WAIT + 1));
+        assert!(!note_open(12665, None, 38062));
+        // the game has not set his timer yet: no back from a 0 (it gave 0.5.2's back BACK_MIN ticks on)
+        assert_eq!(first_back(12666, 0, 422), None);
+        // the set's twin presim a few ticks behind, still dead: the same back
+        assert_eq!(cut_to(back, 12668, 1724), Some((back - 12668) as u64));
     }
 
     #[test]
