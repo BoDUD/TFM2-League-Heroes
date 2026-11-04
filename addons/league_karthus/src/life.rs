@@ -253,11 +253,16 @@ mod tests {
     const IS_ALIVE: &str = "554883ec30488d6c243048c745f8feffffff4885d2742748ffca488b014c8b41084889c141ff9058010000904885c0740d0fb680980800004883c4305dc3";
     const RESPAWN_TIME_065: &str = "554883ec30488d6c243048c745f8feffffff4885d2742348ffca488b014c8b41084889c141ff9058010000904885c0740980b8b808000000740831c04883c4305dc3488b80c00800004883c4305dc3";
     const IS_ALIVE_065: &str = "554883ec30488d6c243048c745f8feffffff4885d2742748ffca488b014c8b41084889c141ff9058010000904885c0740d0fb680b80800004883c4305dc3";
+    // 0.7.1 (94,043,136 bytes, 2026-11-04): 0.6.5's code and fields
+    const RESPAWN_TIME_071: &str = "554883ec30488d6c243048c745f8feffffff4885d2742348ffca488b014c8b41084889c141ff9058010000904885c0740980b8b808000000740831c04883c4305dc3488b80c00800004883c4305dc3";
+    const IS_ALIVE_071: &str = "554883ec30488d6c243048c745f8feffffff4885d2742748ffca488b014c8b41084889c141ff9058010000904885c0740d0fb680b80800004883c4305dc331c04883c4305dc3";
 
     #[test]
     fn decodes_the_games_getters() {
         assert_eq!(decode(&hex(RESPAWN_TIME), &hex(IS_ALIVE)), Some(LifeLayout { getp: 0x158, tag: 0x898, val: 0x8a0 }));
         assert_eq!(decode(&hex(RESPAWN_TIME_065), &hex(IS_ALIVE_065)),
+                   Some(LifeLayout { getp: 0x158, tag: 0x8b8, val: 0x8c0 }));
+        assert_eq!(decode(&hex(RESPAWN_TIME_071), &hex(IS_ALIVE_071)),
                    Some(LifeLayout { getp: 0x158, tag: 0x8b8, val: 0x8c0 }));
         // one build's getter with the other's: refused, nothing written
         assert!(decode(&hex(RESPAWN_TIME_065), &hex(IS_ALIVE)).is_none());
