@@ -11,10 +11,10 @@
       "version": ">=0.193.0"
     }
   ],
-  "description": "Test build of Qiyana as in League (needs League of Legends Heroes): replaces the main pack's Qiyana so Terrashape takes her element from the terrain beside her where Audacity lands (brush - Ivern's too, with his add-on - gives grass, a wall or the map's edge rock, the river river; with none near, the fight picks: grass to slip away when she is low, rock on a wounded champion, river to hold any other, rock on monsters and minions), Royal Privilege's first-hit bonus counts each enemy on its own, and Edge of Ixtal's rock hits harder only on enemies under half health. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-03",
+  "description": "Test build of Qiyana as in League V26.21 (needs League of Legends Heroes): replaces the main pack's Qiyana. W Terrashape becomes her own ability, cast by itself in fights (every 7 s once E is learned): she dashes to the brush, wall or river beside her for its element (brush - Ivern's too - gives grass, a wall or the map's edge rock, the river river) and refreshes Edge of Ixtal; she respawns holding rock. Edge of Ixtal slashes a line (75% beyond the first, 160% to monsters); with an element she hurls the blade, which bursts on the first enemy: river roots then slows, rock hits harder under half health, grass leaves a field that camouflages her until she acts or leaves it. Audacity strikes only if the target is still beside her. Royal Privilege counts each enemy on its own (25 s), reset by another element. Supreme Display of Talent's windblast only knocks back and stops at the first wall; its shockwave runs along the brush and river it crossed and that wall's border (damage + 10% max health, 0.5-1 s stun by proximity), and her AI casts it only where the shockwave catches a champion. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-04",
   "mod_id": "league_qiyana",
   "mod_type": "native",
-  "name": "League Heroes: Qiyana's elements from the terrain, Royal Privilege per enemy and the rock execute (test)",
-  "version": "0.2.3"
+  "name": "League Heroes: Qiyana as in League - Terrashape from the terrain, Edge of Ixtal's line and thrown blade, Supreme Display of Talent by the terrain (test)",
+  "version": "0.3.0"
 }

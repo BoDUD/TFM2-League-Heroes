@@ -2,49 +2,65 @@
 
     python tools/kit/build_qiyana.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
-Kit (the user's picks, 2026-10-22: JUNGLE, layout A - Q / E+W / R, the element chosen by the add-on by the situation;
-「有连招要做连招」). TFM2 has three active slots: Edge of Ixtal (Q) is `skill`, Audacity (E) with Terrashape (W) folded in
-`skill2`, Supreme Display of Talent (R) the `ult`. TFM2 has no terrain, so her element is a caster flag (`el_g` grass,
+Kit (the user's picks, 2026-10-22: JUNGLE, layout A - Q / E+W / R; 「有连招要做连招」; 2026-11-04 reworked toward League
+V26.21: 「奇亚娜很多机制和英雄联盟不一样 你仔细对比看看怎么改吧」). TFM2 has three active slots: Edge of Ixtal (Q) is
+`skill`, Audacity (E) `skill2`, Supreme Display of Talent (R) the `ult`. Her element is a caster flag (`el_g` grass,
 `el_w` river, `el_r` rock, each with `el_on`, Permanent until her Q spends it; League's enchant lasts until it is used
-or changed), given by Terrashape.
-  passive Royal Privilege (凌人贵气): her first hit on an enemy deals rp_dmg + rp_ratio% AD more. `SwitchByBuff` reads
-          only the caster, so the main pack's rest is hers (league_ekko's way): a proc starts `rp_cd` (rp_cd ticks)
-          and no hit procs while it runs. The add-on copy (--native) keeps League's per-target rule natively
-          (league_qiyana:royal: each enemy once per rp_rest ticks).
-          Terrashape's passive: while an element is on (`el_on`) she has w_as% attack speed and her attacks deal
-          w_on + w_on_r% AD magic damage more.
+or changed). The main pack is data only (no terrain, no health, no 4th slot), so Terrashape (W) rides in E there; the
+add-on copy (--native, addons/league_qiyana) has W as its own ability and reads the map.
+  passive Royal Privilege (凌人贵气): her attacks and basic abilities (Q, E - not R) deal rp_dmg + rp_ratio% AD more to
+          a unit not hit lately. `SwitchByBuff` reads only the caster, so the main pack's rest is hers (league_ekko's
+          way): a proc starts `rp_cd` (rp_cd ticks) and no hit procs while it runs; a new element (Terrashape's enchant)
+          clears it (League: gathering an element resets the rest for enemies procced with another one - the main
+          pack's cycle always brings another). The add-on keeps League's rule natively: each enemy once per rp_rest
+          ticks, cleared for the ones last procced with an element other than the one gathered.
+          Terrashape's passive: while an element is on (`el_on`) she has w_as% attack speed and w_range more attack
+          range, and her attacks and abilities deal w_on magic damage more (main pack: ApAttack, its ratio w_on_ap% is
+          ability power; the add-on adds w_on_r% AD natively).
   attack  A swing of the ring blade (100% AD on `Enemy`, a hidden homing strike on a_hit), the passive's proc.
   skill   Q Edge of Ixtal (以绪塔尔之锋, cooldown flag `q_cd`): a `Targeting` cast on `EnemyWithoutTower` (q_range: camps
-          and waves too). The ring sweeps a cone in front of her (`DirDot` q_cone, `Forward`): q_dmg + q_ratio% AD to
-          every enemy in it. With an element it is Elemental Wrath and spends it: river - a q_root-tick root, then a
-          q_slow% slow for q_slow_t (League: 0.5 s root, then 20% 1 s); rock - q_rock + q_rock_r% AD more (League: more
-          damage to enemies under 50% health: the add-on copy's league_qiyana:rock gives twice that, only under q_exec%
-          health); grass - camouflage (`CasterInvisible` q_inv ticks) and q_ms% move speed (League: 3 s camouflage,
-          20% haste).
-  skill2  E Audacity (天纵之勇, cooldown flag `e_cd`) with W Terrashape (方圆塑令): a `Targeting` cast on
-          `EnemyWithoutTower` (e_range). She dashes onto the target (`MoveToTarget`): e_dmg + e_ratio% AD, and the
-          dash enchants her ring (League's W): the next element of the cycle grass -> river -> rock (pointer flags
-          `nx_w`, `nx_r`; the add-on copy's league_qiyana:element takes it from the terrain beside her instead, else by the situation) and Q's cooldown
-          is refreshed (League: W resets Q).
-  ult     R Supreme Display of Talent (惊才绝景): a `Targeting` cast on `EnemyChampion` (r_range). She swings the ring and
-          a shockwave runs at the champion (a hidden penetrating line, r_len, width r_w): r_dmg + r_ratio% AD to every
-          enemy on it, knocked back (`Knockback` r_kb_speed x r_kb_t) and then stunned r_stun ticks (League stuns the
-          ones that hit terrain or her elements; no terrain here, so every one).
-  combos  E -> Q (天纵之勇 + 方圆塑令 -> 以绪塔尔之锋): the dash's landing casts the enchanted Q at once (the element just given,
-          Q's cooldown just refreshed: League's E -> W -> Q). R -> E -> Q (惊才绝景 -> 天纵之勇 -> 以绪塔尔之锋): the shockwave's
-          champion hit dashes her onto the stunned champion if E is ready (and so the enchanted Q), else Q at once if it
-          is ready and the champion within reach.
+          and waves too). Plain: a line in front of her (`LineRangeProjectile` q_len, a band about q_hw + 10000 to
+          either side): q_far% of q_dmg + q_ratio% AD to every enemy on it, the rest on the action's target (League:
+          75% beyond the first). With an element it is Elemental Wrath and spends it: she hurls the blade (a
+          non-penetrating `LinearProjectile` q2_len, picture `q_blade`) that blasts where it stops - the first enemy or
+          its end - (a q2_blast circle: q_far% to all in it, the rest on the first): river - a q_root-tick root, then a
+          q_slow% slow for q_slow_t (League: 0.5 s root, then 20% 1 s); rock - q_rock + q_rock_r% AD more (League:
+          60% more under half health: the add-on reads health); grass - camouflage (`CasterInvisible` q_inv ticks)
+          and q_ms% move speed (League: a field of grass for 3 s that ends when she acts or leaves it: the add-on).
+  skill2  E Audacity (天纵之勇, cooldown flag `e_cd`): a `Targeting` cast on `EnemyWithoutTower` (e_range). She dashes onto
+          the target (`MoveToTarget`): e_dmg + e_ratio% AD. Main pack: the dash also enchants her ring (W Terrashape,
+          方圆塑令): the next element of the cycle grass -> river -> rock (pointer flags `nx_w`, `nx_r`) and Q's cooldown
+          is refreshed (League: W resets Q). Add-on: plain Audacity (damage only with the target within e_reach at the
+          landing), W by itself.
+  ult     R Supreme Display of Talent (惊才绝景): a `Targeting` cast on `EnemyChampion` (r_range). Main pack: she swings
+          the ring and a shockwave runs at the champion (a hidden penetrating line, r_len, width r_w): r_dmg +
+          r_ratio% AD to every enemy on it and r_hp% of their maximum health to champions (a champion-only twin; the
+          data cannot cap it on monsters), knocked back (`Knockback` r_kb_speed x r_kb_t) and then stunned r_stun ticks
+          (League stuns only along the terrain it reaches: no terrain here, so every one). Add-on: League's windblast -
+          knock-back only, stopped by the first wall, the shockwave along the brush and river it crossed and the wall's
+          border (league_qiyana:r), cast only where that catches a champion.
+  combos  E -> Q (天纵之勇 -> 以绪塔尔之锋): the dash's landing casts Q at once (main pack: the element just given, Q's
+          cooldown just refreshed: League's E -> W -> Q; add-on: W first when it is ready, Q when ready). R -> E -> Q
+          (惊才绝景 -> 天纵之勇 -> 以绪塔尔之锋): a champion struck (add-on: stunned by the shockwave) gets her dash if E is
+          ready (and so Q), else Q at once if it is ready and the champion within reach.
 Pictures: the step-3 effects pack (assets/source/qiyana/PROMPTS_FX.md; Gemini's, tools/art/import_qiyana_fx.py). The
 forward ones - Q's sweep in four looks (none / river / rock / grass) and R's swing and ground burst - are drawn into her
 frames (assets/source/native/qiyana_bake.json): the Q cast plays skill / skill_w / skill_r / skill_g by the element on
-her ring at the cast.
-The add-on copy (--native, addons/league_qiyana): the element by the terrain beside her (else by the situation), Royal Privilege per enemy, Edge of
-Ixtal's rock execute.
+her ring at the cast. The thrown blade flies with R's ring (`league_qiyana_big` r_swing, a round ring: the same turned).
+The add-on copy (--native, addons/league_qiyana): Q, E's hit, the attack's on-hit, W and R are native (league_qiyana:q,
+:e, :hit, :r and the passive :empress, which also runs W Terrashape); the numbers ride in passive.params.
 Timings: drafts until the frames exist (a frame's start in ticks = ms x 0.06): a_hit, q_at, e_at, r_at.
 Numbers: League 16.20 (CommunityDragon qiyana.bin) read into the Assassin jungle range; balanced on the classic-SDK
 simulations (kd.py --lane 1 against ninja, demon, hunter, werewolf and vampire, C:/t/qy_sim, 2026-10-22): candidate v2
 +1.54 on seeds 1-8 and +1.95 on 9-16 (league_naafiri +1.60 on 1-8 the same day). The draft v0 (attack 100, Q 40 + 85%,
-E 45 + 55%, R 90 + 90%, the passive 25 + 35% every 300 ticks) was -1.34, v1 (halfway) +0.34.
+E 45 + 55%, R 90 + 90%, the passive 25 + 35% every 300 ticks) was -1.34, v1 (halfway) +0.34. The 2026-11-04 rework
+(main pack: the line and the thrown blade, R 50 + 90% and 10% of a champion's health for 120 + 120% and no Royal
+Privilege on it, the element clearing the rest, the enchant's range and its magic on Q and E, river slow and grass haste
+20%) on the same simulations (C:/t/al_sim, the old kit +1.54 / +1.95 again): +1.59 on seeds 1-8, +1.93 on 9-16 with
+Royal Privilege still 40 + 50%; raised to 45 + 55% for the add-on's 25 s rest per enemy (League's rule, 10 s before) it is
++2.07 / +1.17, the same within the noise (+-0.5). The add-on (native code, not simulated) trades the 25 s rest, the line's
+75%, Audacity's reach and R's terrain for W's own Q resets, the enchant's magic scaling with AD on every hit and 160% on
+monsters.
 """
 import argparse
 import json
@@ -58,34 +74,55 @@ FX = "asset/league/effects/league_qiyana_fx"
 BIG = "asset/league/effects/league_qiyana_big"
 
 # League's Qiyana (16.20, CommunityDragon qiyana.bin): 590 +115 hp, 64 AD, 31 +4.5 armour, 32 +2.05 mr, 335 move, 150
-# range, attack speed 0.688. Passive: the first attack or ability on each enemy deals bonus damage. Q: 70-190 (+ bonus
-# AD), cd 7 s, 525; river root 0.5 s then 20% slow 1 s, rock more damage under 50% health, grass camouflage 3 s and
-# 20% haste. W: a 300 dash, Q's cooldown reset, while enchanted 15-35% attack speed and on-hit 8-40 + 20% bonus AD
-# magic; cd 7 s. E: a 650 dash onto an enemy, 50-210 + 50% bonus AD, cd 11-7 s. R: a 950 shockwave, knock back, 0.5-1 s
-# stun on terrain, 100-500 + 10% max health from the detonated terrain; cd 120 s.
+# range, attack speed 0.688. V26.21: Passive: her attacks and basic abilities deal 15-91 (+25% bonus AD) more to an enemy,
+# once per 25 s each (gathering another element resets it). Q: 70-190 (+90% bonus AD), cd 7 s, a 525 x 140 line (75%
+# beyond the first, 160% to monsters); with an element the blade is thrown 865 and blasts (250 wide) at the first enemy:
+# river root 0.5 s then 20% slow 1 s, rock 60% more under 50% health (35% beyond the first), grass a field of
+# camouflage and 20% haste for 3 s. W: a 300 dash gathering the element of the terrain targeted, Q's cooldown reset, cd
+# 7 s; while enchanted 15-35% attack speed, +25 range and 8-40 (+20% bonus AD) (+45% AP) magic on attacks and abilities.
+# E: a 650 dash at an enemy, 50-210 + 50% bonus AD if it is within 250 at the arrival, cd 11-7 s. R: an 875 windblast
+# knocks back 375 (no damage), stops at terrain and detonates the river and brush it crossed and the terrain's border:
+# 100-300 (+125% bonus AD) (+10% max health, capped on monsters) and a 0.5-1 s stun by proximity; cd 120 s.
 P = {
     # stats (Assassin jungle: league_naafiri 940 +88 hp, 100 +18 attack, 26 +8 def; the base assassins 120 +30, 900 +80)
     "hp": 980, "hp_g": 88, "atk": 110, "atk_g": 20, "def": 26, "def_g": 8, "mr": 18, "mr_g": 4, "ms": 1100, "ms_g": 13,
     "atk_range": 25000, "atk_dur": 25, "atk_cd": 58, "a_hit": 10, "a_speed": 20000,
-    # passive Royal Privilege; Terrashape's enchant
-    "rp_dmg": 40, "rp_ratio": 50, "rp_cd": 240, "rp_rest": 600,
-    "w_as": 25, "w_on": 15, "w_on_r": 25,
-    # skill: Q Edge of Ixtal
-    "s_cd": 60, "q_cd": 360, "q_range": 30000, "q_dur": 24, "q_at": 10, "q_cone": 500, "q_reach": 34000,
-    "q_dmg": 60, "q_ratio": 110,
-    "q_root": 30, "q_slow": 25, "q_slow_t": 60,
-    "q_rock": 25, "q_rock_r": 40, "q_exec": 50,
-    "q_inv": 150, "q_ms": 25, "q_ms_t": 150,
-    # skill2: E Audacity with W Terrashape
+    # passive Royal Privilege (main pack: her own rest rp_cd; add-on: each enemy once per rp_rest, 25 s)
+    "rp_dmg": 45, "rp_ratio": 55, "rp_cd": 240, "rp_rest": 1500,
+    # Terrashape's enchant (el_on): attack speed, attack range (League +25), magic on hits (+ w_on_r% AD in the add-on,
+    # + w_on_ap% AP: the main pack's ApAttack ratio)
+    "w_as": 25, "w_range": 1500, "w_on": 15, "w_on_r": 15, "w_on_ap": 45,
+    # W Terrashape, the add-on's own ability: cooldown, dash, terrain reach, dash speed, a fight this near, out-of-combat
+    # haste near the element held (League 3-11%)
+    "w_cd": 420, "w_dash": 18000, "w_reach": 64000, "w_speed": 4500, "w_fight": 60000, "w_oc_ms": 8,
+    # skill: Q Edge of Ixtal - the plain line (q_len; q_hw the half band beyond the body), Elemental Wrath's blade
+    # (q2_len, q2_speed, q2_bw its radius beyond the body, q2_blast the blast's circle) and the add-on's action range
+    "s_cd": 60, "q_cd": 360, "q_range": 30000, "q2_range": 46000, "q_dur": 24, "q_at": 10,
+    "q_len": 31500, "q_hw": 7000, "q2_len": 52000, "q2_speed": 9000, "q2_bw": 4000, "q2_blast": 10000,
+    "q_dmg": 60, "q_ratio": 110, "q_far": 75, "q_mon": 160,
+    "q_root": 30, "q_slow": 20, "q_slow_t": 60,
+    "q_rock": 25, "q_rock_r": 40, "q_exec": 50, "q_rock_pct": 60, "q_rock_far": 35,
+    "q_inv": 150, "q_ms": 20, "q_ms_t": 150, "q_field_t": 180, "q_field_r": 30000,
+    # skill2: E Audacity (with W Terrashape in the main pack)
     "s2_cd": 60, "e_cd": 540, "e_range": 42000, "e_dur": 20, "e_speed": 4500, "e_at": 3, "e_dmg": 60, "e_ratio": 70,
-    # ult: R Supreme Display of Talent
+    "e_reach": 15000,
+    # ult: R Supreme Display of Talent (r_stun the main pack's; the add-on's r_stun_min..r_stun_max by proximity, the
+    # shockwave r_det ticks after the windblast, r_border off the wall, r_span along the terrain)
     "r_cd": 2700, "r_range": 45000, "r_dur": 40, "r_at": 16, "r_speed": 9000, "r_len": 60000, "r_w": 13000,
-    "r_dmg": 120, "r_ratio": 120, "r_kb_speed": 2500, "r_kb_t": 10, "r_stun": 54, "r_q_reach": 33000,
+    "r_dmg": 50, "r_ratio": 90, "r_hp": 10, "r_mon_cap": 300, "r_kb_speed": 2500, "r_kb_t": 10, "r_stun": 54,
+    "r_stun_min": 30, "r_stun_max": 60, "r_det": 16, "r_border": 12000, "r_span": 96000, "r_q_reach": 33000,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
-    # 1 = the copy for addons/league_qiyana (Native effects for the element, Royal Privilege and the rock execute)
+    # 1 = the copy for addons/league_qiyana (Native Q, E's hit, the attack's on-hit, W and R; numbers in passive.params)
     "native": 0,
 }
+# the numbers the add-on's natives read (passive.params; src/lib.rs `params!` has the same defaults)
+NATIVE_PARAMS = ("rp_dmg", "rp_ratio", "rp_rest", "w_as", "w_range", "w_on", "w_on_r", "w_on_ap", "w_cd", "w_dash",
+                 "w_reach", "w_speed", "w_fight", "w_oc_ms", "q_len", "q_hw", "q2_len", "q2_speed", "q2_bw", "q2_blast",
+                 "q_dmg", "q_ratio", "q_far", "q_mon", "q_root", "q_slow", "q_slow_t", "q_exec", "q_rock_pct",
+                 "q_rock_far", "q_ms", "q_field_t", "q_field_r", "e_dmg", "e_ratio", "e_reach", "r_len", "r_w",
+                 "r_speed", "r_dmg", "r_ratio", "r_hp", "r_mon_cap", "r_kb_speed", "r_kb_t", "r_stun", "r_stun_min",
+                 "r_stun_max", "r_det", "r_border", "r_span")
 
 
 def lp(path):
@@ -163,8 +200,8 @@ def circle(r):
     return {"Circle": {"radius": r}}
 
 
-def attack(dmg, ratio):
-    return {"type": "Attack", "damage": dmg, "attack_ratio": ratio, "hp_ratio": 0, "target_hp_ratio": 0,
+def attack(dmg, ratio, thp=0):
+    return {"type": "Attack", "damage": dmg, "attack_ratio": ratio, "hp_ratio": 0, "target_hp_ratio": thp,
             "attack_effect_type": "Target"}
 
 
@@ -199,10 +236,23 @@ def homing(name, speed, target, effects):
             "applied_effects": [T(e) for e in effects]}
 
 
-def line(name, speed, rng, radius, target, effects):
-    return {"type": "LinearProjectile", "name": n(name), "penetrate": True, "applied_target": target,
-            "applied_effects": [T(e) for e in effects], "end_effects": [], "speed": speed, "range": rng,
+def line(name, speed, rng, radius, target, effects, penetrate=True, end=()):
+    return {"type": "LinearProjectile", "name": n(name), "penetrate": penetrate, "applied_target": target,
+            "applied_effects": [T(e) for e in effects], "end_effects": list(end), "speed": speed, "range": rng,
             "shape": circle(radius), "y_offset": 0}
+
+
+def band(name, length, width, target, effects):
+    """A line from her through the action's target, hitting once the tick it appears (a `LineRangeProjectile` in a
+    `Targeting` cast: a band about width + 15000 to either side of it, champion-data "Cone / fan")."""
+    return {"type": "LineRangeProjectile", "name": n(name), "width": width, "length": length, "delay": 2, "apply": 1,
+            "applied_target": target, "applied_effects": [T(e) for e in effects]}
+
+
+def zone(name, radius, target, effects):
+    """A circle hitting once where it appears (a `RangeProjectile` in a projectile's `end_effects`)."""
+    return {"type": "RangeProjectile", "name": n(name), "shape": circle(radius), "delay": 1, "apply": 1,
+            "applied_target": target, "applied_effects": [T(e) for e in effects]}
 
 
 def voice(name, p):
@@ -221,45 +271,57 @@ ELEMENTS = ("el_g", "el_w", "el_r")
 
 def build(p):
     nat = bool(p["native"])
+    far = p["q_far"]
+
+    def split(d, r):
+        """(the q_far% part every unit takes, the rest the first one takes)."""
+        d1, r1 = d * far // 100, r * far // 100
+        return (d1, r1), (d - d1, r - r1)
 
     # ------------------------------------------------------------------ passive: Royal Privilege
     def royal():
-        """The bonus on a unit already hit: once per rp_cd ticks (her own rest), the add-on copy per enemy."""
-        if nat:
-            return native("royal")
+        """The bonus on a unit not hit lately: once per rp_cd ticks (her own rest). The add-on's natives keep League's
+        rule (each enemy once per rp_rest)."""
         return sw("rp_cd", NONE, combine(refresh("rp_cd", p["rp_cd"]), attack(p["rp_dmg"], p["rp_ratio"]),
                                          view("p_hit"), tsfx("p_hit")))
 
-    # ------------------------------------------------------------------ Terrashape: the element (folded into E)
+    def w_magic():
+        """Terrashape's magic on a hit while an element is on (ApAttack: its ratio is ability power)."""
+        return sw("el_on", magic(p["w_on"], p["w_on_ap"]))
+
+    # ------------------------------------------------------------------ Terrashape: the element (in E, main pack)
     def element(fields):
-        return [*rm(*ELEMENTS, "el_on"), flag("el_on", None, attack_speed_mult=p["w_as"])] + fields
+        return [*rm(*ELEMENTS, "el_on"), flag("el_on", None, attack_speed_mult=p["w_as"], range=p["w_range"])] + fields
 
     def enchant():
-        """The next element on her ring; Q's cooldown refreshed (League: W resets Q)."""
-        if nat:
-            give = native("element")      # the add-on picks it (terrain, else situation) and adds the flags
-        else:   # the cycle grass -> river -> rock (pointer flags: Q spends the element, not the pointer)
-            give = sw("nx_w", combine(*element([flag("el_w", None)]), *rm("nx_w"), flag("nx_r", None)),
-                      sw("nx_r", combine(*element([flag("el_r", None)]), *rm("nx_r")),
-                         combine(*element([flag("el_g", None)]), flag("nx_w", None))))
-        return combine(give, *rm("q_cd"), cview("w_on"), sfx("w_on"))
+        """The next element on her ring (the cycle grass -> river -> rock; pointer flags: Q spends the element, not the
+        pointer); Q's cooldown refreshed (League: W resets Q) and Royal Privilege's rest cleared (a new element)."""
+        give = sw("nx_w", combine(*element([flag("el_w", None)]), *rm("nx_w"), flag("nx_r", None)),
+                  sw("nx_r", combine(*element([flag("el_r", None)]), *rm("nx_r")),
+                     combine(*element([flag("el_g", None)]), flag("nx_w", None))))
+        return combine(give, *rm("q_cd", "rp_cd"), cview("w_on"), sfx("w_on"))
 
     # ------------------------------------------------------------------ skill: Q Edge of Ixtal
-    cone = {"DirDot": {"radius": p["q_reach"], "range": p["q_cone"]}}
+    (q1d, q1r), (q0d, q0r) = split(p["q_dmg"], p["q_ratio"])
+    # plain: the line in front, q_far% to all on it and the rest to the action's target (League: 75% beyond the first)
+    plain = combine(band("q_line", p["q_len"], max(p["q_hw"] - 5000, 0), "EnemyWithoutTower",
+                         [attack(q1d, q1r), royal(), view("q_hit"), tsfx("q_hit")]),
+                    attack(q0d, q0r))
 
-    def sweep(*extra, hit="q_hit"):
-        return around(cone, "EnemyWithoutTower", [attack(p["q_dmg"], p["q_ratio"]), *extra, royal(), view(hit),
-                                                   tsfx(hit)], forward=1000)
+    def blade(hit, *extra):
+        """Elemental Wrath: the thrown blade stops on the first enemy (the rest of the damage) or at its end, and
+        blasts there (q_far% to all in the circle, the element's effects, the enchant's magic)."""
+        blast = zone("q_blast", p["q2_blast"], "EnemyWithoutTower",
+                     [attack(q1d, q1r), *extra, w_magic(), royal(), view(hit), tsfx(hit)])
+        return line("q_blade", p["q2_speed"], p["q2_len"], p["q2_bw"], "EnemyWithoutTower", [attack(q0d, q0r)],
+                    penetrate=False, end=[blast])
 
-    rock_hit = native("rock") if nat else attack(p["q_rock"], p["q_rock_r"])
-    wrath = sw("el_w", combine(sweep({"type": "Bind", "duration": p["q_root"]},
-                                     buff("q_slow", p["q_root"] + p["q_slow_t"], move_speed_mult=-p["q_slow"]),
-                                     hit="q_w_hit")),
-               sw("el_r", sweep(rock_hit, hit="q_r_hit"),
-                  sw("el_g", combine(sweep(hit="q_g_hit"),
-                                     on_me({"type": "CasterInvisible", "tick": p["q_inv"]}),
+    wrath = sw("el_w", blade("q_w_hit", {"type": "Bind", "duration": p["q_root"]},
+                             buff("q_slow", p["q_root"] + p["q_slow_t"], move_speed_mult=-p["q_slow"])),
+               sw("el_r", blade("q_r_hit", attack(p["q_rock"], p["q_rock_r"])),
+                  sw("el_g", combine(blade("q_g_hit"), on_me({"type": "CasterInvisible", "tick": p["q_inv"]}),
                                      refresh("q_haste", p["q_ms_t"], move_speed_mult=p["q_ms"])),
-                     sweep())))
+                     plain)))
     # the sweep in front of her is drawn into her frames (it points forward: the client never mirrors an effect
     # picture), one copy of the cast per element: skill (none), skill_w (river), skill_r (rock), skill_g (grass),
     # picked at the cast - the element is already on her ring (assets/source/native/qiyana_bake.json)
@@ -269,18 +331,25 @@ def build(p):
                      combine(anim("skill", p["q_dur"]), sfx("q")))))
 
     def q_cast():
+        # the add-on: league_qiyana:q reads the element and strikes (the line, or the blade and its blast)
+        hit = native("q") if nat else wrath
         return combine(refresh("q_cd", p["q_cd"]), swing, voice("vo_q", p),
-                       delayed(p["q_at"] - 1, alive(wrath, *rm(*ELEMENTS, "el_on"))))
+                       delayed(p["q_at"] - 1, alive(hit, *rm(*ELEMENTS, "el_on"))))
 
-    skill = action("idle", 3, p["s_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
+    # the add-on's range is Elemental Wrath's (its AI hook holds a plain Q until the target is in the line's reach)
+    skill = action("idle", 3, p["s_cd"], 1, p["q2_range"] if nat else p["q_range"], "Targeting", "EnemyWithoutTower",
                    sw("q_cd", NONE, q_cast()), key="skill")
 
-    # ------------------------------------------------------------------ skill2: E Audacity + W Terrashape
+    # ------------------------------------------------------------------ skill2: E Audacity (+ W Terrashape)
     def e_body():
-        land = [homing("e_hit", 100000, "EnemyWithoutTower",
-                       [attack(p["e_dmg"], p["e_ratio"]), royal(), view("e_hit"), tsfx("e_hit")]),
-                enchant(),
-                q_cast()]                                  # the combo: the enchanted Q at once (E -> W -> Q)
+        if nat:
+            # league_qiyana:e strikes (if the target is still in reach) and runs W when it is ready; Q if it is ready
+            land = [native("e"), sw("q_cd", NONE, q_cast())]
+        else:
+            land = [homing("e_hit", 100000, "EnemyWithoutTower",
+                           [attack(p["e_dmg"], p["e_ratio"]), w_magic(), royal(), view("e_hit"), tsfx("e_hit")]),
+                    enchant(),
+                    q_cast()]                              # the combo: the enchanted Q at once (E -> W -> Q)
         return combine(refresh("e_cd", p["e_cd"]), anim("skill2", p["e_dur"]), sfx("e"), voice("vo_e", p),
                        {"type": "MoveToTarget", "speed": p["e_speed"], "range": p["e_range"] + 20000,
                         "end_effects": [delayed(p["e_at"], alive(*land))]})
@@ -289,44 +358,59 @@ def build(p):
                     sw("e_cd", NONE, e_body()), key="skill2")
 
     # ------------------------------------------------------------------ attack
-    on_hit = sw("el_on", combine(magic(p["w_on"], p["w_on_r"]), view("w_hit")))
-    a_hit = homing("a_hit", p["a_speed"], "Enemy", [attack(0, 100), on_hit, royal(), view("a_hit"), tsfx("a_hit")])
+    if nat:     # league_qiyana:hit: the enchant's magic, Royal Privilege per enemy, the grass field broken
+        struck_a = [attack(0, 100), native("hit"), view("a_hit"), tsfx("a_hit")]
+    else:
+        struck_a = [attack(0, 100), sw("el_on", combine(magic(p["w_on"], p["w_on_ap"]), view("w_hit"))), royal(),
+                    view("a_hit"), tsfx("a_hit")]
+    a_hit = homing("a_hit", p["a_speed"], "Enemy", struck_a)
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
                       combine(sfx("a"), delayed(p["a_hit"] - 1, a_hit)), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ ult: R Supreme Display of Talent
-    struck = [attack(p["r_dmg"], p["r_ratio"]), {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb_t"]},
-              delayed(p["r_kb_t"], {"type": "Stun", "duration": p["r_stun"]}), royal(), view("r_hit"), tsfx("r_hit")]
-    # the combo R -> E -> Q: the champion struck gets her dash (and so the enchanted Q), else Q if it is in reach
-    follow = combine(refresh("r_go", 2),
-                     delayed(p["r_kb_t"], alive(sw("e_cd", sw("q_cd", NONE, pick(p["r_q_reach"], "EnemyChampionInCC",
-                                                                                 flag("r_near", 2))),
-                                                   e_body()))))
-    wave = line("r_wave", p["r_speed"], p["r_len"], p["r_w"], "EnemyWithoutTower", struck)
-    wave_c = line("r_wave_c", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion",
-                  [sw("r_go", NONE, follow)])
-    q_near = delayed(p["r_kb_t"] + 2, alive(sw("r_near", combine(*rm("r_near"), q_cast()))))
-    ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),       # the swing and the burst: in her frames
-                         delayed(p["r_at"] - 1, alive(wave, wave_c, sfx("r_burst"))),
-                         delayed(p["r_at"] + 1, q_near)), key="ult")
+    def follow_on():
+        """The combo R -> E -> Q: the champion struck gets her dash (and so Q), else Q if it is in reach."""
+        return sw("e_cd", sw("q_cd", NONE, pick(p["r_q_reach"], "EnemyChampionInCC", flag("r_near", 2))), e_body())
+
+    if nat:
+        # league_qiyana:r: the windblast (knock-back only, stopped by the first wall) and r_det ticks later the
+        # shockwave along the terrain; a champion it stuns lays r_go on her, read here a tick or two after it (r_near,
+        # a 2-tick flag, the tick after that)
+        t_go = p["r_at"] - 1 + p["r_det"] + 2
+        ult_eff = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),        # the swing and the burst: in her frames
+                          delayed(p["r_at"] - 1, alive(native("r"), sfx("r_burst"))),
+                          delayed(t_go, alive(sw("r_go", combine(*rm("r_go"), follow_on())))),
+                          delayed(t_go + 1, alive(sw("r_near", combine(*rm("r_near"), q_cast())))))
+    else:
+        struck = [attack(p["r_dmg"], p["r_ratio"]),
+                  {"type": "Knockback", "speed": p["r_kb_speed"], "tick": p["r_kb_t"]},
+                  delayed(p["r_kb_t"], {"type": "Stun", "duration": p["r_stun"]}), view("r_hit"), tsfx("r_hit")]
+        follow = combine(refresh("r_go", 2), delayed(p["r_kb_t"], alive(follow_on())))
+        wave = line("r_wave", p["r_speed"], p["r_len"], p["r_w"], "EnemyWithoutTower", struck)
+        # the champion-only twin: r_hp% of the champion's maximum health (none on monsters: the data cannot cap it)
+        wave_c = line("r_wave_c", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion",
+                      [attack(0, 0, p["r_hp"]), sw("r_go", NONE, follow)])
+        q_near = delayed(p["r_kb_t"] + 2, alive(sw("r_near", combine(*rm("r_near"), q_cast()))))
+        ult_eff = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),        # the swing and the burst: in her frames
+                          delayed(p["r_at"] - 1, alive(wave, wave_c, sfx("r_burst"))),
+                          delayed(p["r_at"] + 1, q_near))
+    ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", ult_eff, key="ult")
 
     # ------------------------------------------------------------------ views (the step-3 effects pack; drafts)
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
                                                    "z": z, "is_follow": follow}
-    P_ = lambda name, anim_=FX, z=1: {"type": "Animated", "name": n(name), "anim": anim_, "tag": name, "repeat": True,
-                                      "z": z}
+    P_ = lambda name, anim_=FX, z=1, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
+                                                "repeat": True, "z": z}
     B_ = lambda name, anim_=FX, z=2, tag=None: {"type": "Animated", "name": n(name), "anim": anim_, "tag": tag or name,
                                                 "repeat": True, "z": z}
-    views_p = [P_("r_wave", BIG, 0)]
+    # the thrown blade: R's ring (round, so the same turned any way)
+    views_p = [P_("r_wave", BIG, 0), P_("q_blade", BIG, 2, tag="r_swing")]
     views_e = [E("a_hit"), E("w_hit"), E("p_hit"), E("w_on", FX, 3), E("q_hit"), E("q_w_hit"), E("q_r_hit"),
                E("q_g_hit"), E("e_hit"), E("r_hit")]
     views_b = [B_("el_g", FX, 3), B_("el_w", FX, 3), B_("el_r", FX, 3), B_("q_slow", FX, 3), B_("q_haste", FX, -1)]
     extra = {}
     if nat:
-        extra["passive"] = {"passive_ref": f"{ID}:empress",
-                            "params": {k: int(p[k]) for k in ("rp_dmg", "rp_ratio", "rp_rest", "q_rock", "q_rock_r",
-                                                              "q_exec", "w_as")}}
+        extra["passive"] = {"passive_ref": f"{ID}:empress", "params": {k: int(p[k]) for k in NATIVE_PARAMS}}
     return {
         "id": ID, "category": "Assassin", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

@@ -2,45 +2,50 @@
   "zh-hans": {
     "description": {
       "league_qiyana": {
-        "attack": "【附加包】挥环攻击。<#ff9028ff>凌人贵气<>：对每个敌人<#ffb900ff>10秒<>内的首次命中额外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理伤害。武器附有元素时攻速+25%，攻击额外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<>魔法伤害。",
-        "skill": "【附加包】挥环横扫前方，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害。消耗元素：河流<#ef5350ff>定身<><#ffb900ff>0.5秒<>后减速25%；岩石对生命低于50%的敌人额外造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>；草丛伪装<#ffb900ff>2.5秒<>并加速25%。",
-        "skill2": "【附加包】突进到敌人身上，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害；<#ff9028ff>方圆塑令<>按身边地形附上元素：草丛选草丛，墙选岩石，河道选河流；身边都没有就按局势选（自己残血草丛，残血英雄岩石，其他英雄河流，野怪小兵岩石）；并刷新以绪塔尔之锋。"
+        "attack": "【附加包】挥环攻击。<#ff9028ff>凌人贵气<>：普攻和Q、E对每个敌人<#ffb900ff>25秒<>内的首次命中额外造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理伤害，换来别的元素时重置。附有元素时攻速+25%、攻击距离+1500，普攻和Q、E额外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>15%<>魔法伤害。",
+        "skill": "【附加包】挥环斩向身前一条直线，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理伤害，第一个之后75%，野怪160%。附有元素时掷出环刃在第一个敌人处炸开：河流<#ef5350ff>定身<><#ffb900ff>0.5秒<>后减速20%；岩石对生命低于50%的多60%；草丛留下草地，在里面伪装、加速20%。",
+        "skill2": "【附加包】突进到敌人身上，落地时他还在身边才造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理伤害。<#ff9028ff>方圆塑令<>（自动，<#ffb900ff>7秒<>）：冲向身边的草丛、墙或河，拿到对应的元素并刷新以绪塔尔之锋；复活时带着岩石。",
+        "ult": "【附加包】放出狂风<#ef5350ff>击退<>路上的敌人，碰到墙就停；冲击波沿路过的草丛、河道和那面墙的边扩散，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理伤害和最大生命10%，<#ef5350ff>晕眩<><#ffb900ff>0.5～1秒<>（越近越久）。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_qiyana": {
-        "attack": "【附加包】揮環攻擊。<#ff9028ff>皇家特權<>：對每個敵人<#ffb900ff>10秒<>內的首次命中額外造成<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>物理傷害。武器附有元素時攻速+25%，攻擊額外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<>魔法傷害。",
-        "skill": "【附加包】揮環橫掃前方，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害。消耗元素：河流<#ef5350ff>定身<><#ffb900ff>0.5秒<>後緩速25%；岩石對生命低於50%的敵人額外造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>；草叢偽裝<#ffb900ff>2.5秒<>並加速25%。",
-        "skill2": "【附加包】突進到敵人身上，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害；<#ff9028ff>元素之形<>依身邊地形附上元素：草叢選草叢，牆選岩石，河道選河流；身邊都沒有就依局勢選（自己殘血草叢，殘血英雄岩石，其他英雄河流，野怪小兵岩石）；並刷新伊克斯塔爾迴旋刀。"
+        "attack": "【附加包】揮環攻擊。<#ff9028ff>皇家特權<>：普攻和Q、E對每個敵人<#ffb900ff>25秒<>內的首次命中額外造成<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>物理傷害，換來別的元素時重置。附有元素時攻速+25%、攻擊距離+1500，普攻和Q、E額外造成<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>15%<>魔法傷害。",
+        "skill": "【附加包】揮環斬向身前一條直線，造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>物理傷害，第一個之後75%，野怪160%。附有元素時擲出環刃在第一個敵人處炸開：河流<#ef5350ff>定身<><#ffb900ff>0.5秒<>後緩速20%；岩石對生命低於50%的多60%；草叢留下草地，在裡面偽裝、加速20%。",
+        "skill2": "【附加包】突進到敵人身上，落地時他還在身邊才造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>物理傷害。<#ff9028ff>元素之形<>（自動，<#ffb900ff>7秒<>）：衝向身邊的草叢、牆或河，拿到對應的元素並刷新伊克斯塔爾迴旋刀；復活時帶著岩石。",
+        "ult": "【附加包】放出狂風<#ef5350ff>擊退<>路上的敵人，碰到牆就停；衝擊波沿路過的草叢、河道和那面牆的邊擴散，造成<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>物理傷害和最大生命10%，<#ef5350ff>暈眩<><#ffb900ff>0.5～1秒<>（越近越久）。"
       }
     }
   },
   "en": {
     "description": {
       "league_qiyana": {
-        "attack": "[Add-on] A swing of her ring blade. <#ff9028ff>Royal Privilege<>: her first hit on each enemy within <#ffb900ff>10s<> deals <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> physical damage more. While her ring holds an element she has +25% attack speed and her attacks deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<> magic damage more.",
-        "skill": "[Add-on] Sweeps the ring through the enemies before her for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> physical damage, spending her element: river <#ef5350ff>roots<> for <#ffb900ff>0.5s<> then slows 25%; rock deals <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> more to enemies under 50% health; grass camouflages her for <#ffb900ff>2.5s<> with +25% move speed.",
-        "skill2": "[Add-on] Dashes onto an enemy for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage. <#ff9028ff>Terrashape<> takes the element from the terrain beside her: brush gives grass, a wall rock, the river river; with none near, the fight picks: grass when she is low, rock on a wounded champion, a monster or a minion, river on any other champion; Edge of Ixtal refreshed."
+        "attack": "[Add-on] A swing of her ring blade. <#ff9028ff>Royal Privilege<>: her first attack, Q or E hit on each enemy within <#ffb900ff>25s<> deals <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> physical damage more; another element resets it. While her ring holds an element she has +25% attack speed and +1500 range, and her attacks, Q and E deal <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>15%<> magic damage more.",
+        "skill": "[Add-on] Slashes a line before her for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> physical damage (75% beyond the first, 160% to monsters). With an element she hurls the ring, bursting on the first enemy: river <#ef5350ff>roots<> <#ffb900ff>0.5s<> then slows 20%; rock deals 60% more under 50% health; grass leaves a field camouflaging her with +20% move speed.",
+        "skill2": "[Add-on] Dashes at an enemy for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> physical damage if it is still beside her on landing. <#ff9028ff>Terrashape<> (by itself, every <#ffb900ff>7s<>): she dashes to the brush, wall or river beside her for its element and refreshes Edge of Ixtal; she respawns holding rock.",
+        "ult": "[Add-on] A windblast <#ef5350ff>knocks back<> the enemies on its way and stops at the first wall; a shockwave runs along the brush and river it crossed and that wall's border: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> physical damage plus 10% of maximum health, <#ef5350ff>stunning<> <#ffb900ff>0.5-1s<> (nearer, longer)."
       }
     }
   },
   "ko": {
     "description": {
       "league_qiyana": {
-        "attack": "[확장] 고리 칼날로 공격. <#ff9028ff>왕가의 특권<>: 적마다 <#ffb900ff>10초<> 안의 첫 적중이 <#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<> 물리 피해 추가. 무기에 원소가 깃들면 공격 속도 +25%, 공격이 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<> 마법 피해 추가.",
-        "skill": "[확장] 고리로 앞쪽을 베어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> 물리 피해, 원소 소모: 강 <#ffb900ff>0.5초<> <#ef5350ff>속박<> 후 25% 둔화, 바위 체력 50% 미만의 적에게 <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 추가, 풀숲 <#ffb900ff>2.5초<> 위장과 이동 속도 +25%.",
-        "skill2": "[확장] 적에게 돌진해 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해. <#ff9028ff>대지창조<>가 주변 지형으로 원소 선택: 풀숲은 풀숲, 벽은 바위, 강은 강; 주변에 없으면 상황에 따라: 위험하면 풀숲, 약한 챔피언·몬스터·미니언에 바위, 다른 챔피언에 강; 이쉬탈의 칼날 초기화."
+        "attack": "[확장] 고리 칼날로 공격. <#ff9028ff>왕가의 특권<>: 기본 공격·Q·E가 적마다 <#ffb900ff>25초<> 안의 첫 적중 시 <#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<> 물리 피해 추가, 다른 원소를 얻으면 초기화. 원소가 깃들면 공격 속도 +25%, 사거리 +1500, 기본 공격·Q·E가 <#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>15%<> 마법 피해 추가.",
+        "skill": "[확장] 앞쪽 직선을 베어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<> 물리 피해(첫 대상 이후 75%, 몬스터 160%). 원소가 있으면 고리를 던져 첫 적에게서 터짐: 강 <#ffb900ff>0.5초<> <#ef5350ff>속박<> 후 20% 둔화, 바위 체력 50% 미만에 60% 추가, 풀숲은 위장과 이동 속도 +20%의 풀밭.",
+        "skill2": "[확장] 적에게 돌진해 착지 때 곁에 있으면 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> 물리 피해. <#ff9028ff>대지창조<>(자동, <#ffb900ff>7초<>): 주변 풀숲·벽·강으로 돌진해 그 원소를 얻고 이쉬탈의 칼날 초기화. 부활 시 바위.",
+        "ult": "[확장] 돌풍이 경로의 적을 <#ef5350ff>밀쳐내고<> 첫 벽에서 멈춤. 지나간 풀숲·강과 그 벽 가장자리를 따라 충격파: <#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<> 물리 피해와 최대 체력 10%, <#ffb900ff>0.5~1초<> <#ef5350ff>기절<>(가까울수록 길게)."
       }
     }
   },
   "ja": {
     "description": {
       "league_qiyana": {
-        "attack": "【拡張】リングで攻撃。<#ff9028ff>女帝の威風<>：敵ごとに<#ffb900ff>10秒<>以内の最初の命中が<#ff9028ff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>50%<>の物理ダメージを追加。武器にエレメントがある間、攻撃速度+25%、攻撃が<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>25%<>の魔法ダメージを追加。",
-        "skill": "【拡張】リングで前方を薙ぎ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の物理ダメージ、エレメントを消費：川は<#ffb900ff>0.5秒<><#ef5350ff>スネア<>後25%スロウ、岩は体力50%未満の敵に<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>追加、草むらは<#ffb900ff>2.5秒<>迷彩と移動速度+25%。",
-        "skill2": "【拡張】敵へ突進し<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージ。<#ff9028ff>大地の力<>が近くの地形でエレメントを選ぶ：草むらは草むら、壁は岩、川は川。近くに無ければ状況で：危ない時は草むら、弱った敵や中立・ミニオンには岩、他のチャンピオンには川。イシュタルの切先も再使用可能に。"
+        "attack": "【拡張】リングで攻撃。<#ff9028ff>女帝の威風<>：通常攻撃・Q・Eの敵ごと<#ffb900ff>25秒<>以内の最初の命中が<#ff9028ff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>55%<>の物理ダメージを追加、別のエレメントでリセット。エレメントがある間、攻撃速度+25%・射程+1500、通常攻撃・Q・Eが<#a974ffff>15<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#a974ffff>15%<>の魔法ダメージを追加。",
+        "skill": "【拡張】前方の直線を薙ぎ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>110%<>の物理ダメージ（2体目以降75%、モンスター160%）。エレメントがあればリングを投げ最初の敵で炸裂：川は<#ffb900ff>0.5秒<><#ef5350ff>スネア<>後20%スロウ、岩は体力50%未満に60%追加、草むらは迷彩と移動速度+20%の草地。",
+        "skill2": "【拡張】敵へ突進し、着地時に近くにいれば<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<>の物理ダメージ。<#ff9028ff>大地の力<>（自動、<#ffb900ff>7秒<>）：近くの草むら・壁・川へ突進してそのエレメントを得て、イシュタルの切先を再使用可能に。復活時は岩。",
+        "ult": "【拡張】突風で道中の敵を<#ef5350ff>ノックバック<>し最初の壁で止まる。通った草むら・川とその壁の縁に衝撃波：<#ff9028ff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>90%<>の物理ダメージと最大体力の10%、<#ffb900ff>0.5～1秒<><#ef5350ff>スタン<>（近いほど長い）。"
       }
     }
   }
