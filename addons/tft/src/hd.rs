@@ -175,7 +175,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// texture's reported size divided by PPU / size, the battlefield scale the game's / PPU x size, the frames drawn
 /// lower so the soles stay (league_main/src/hd.rs SIZES).
 /// Powder (tft_powder): 90 % (the user, 2026-10-19: 「人物模型太大 缩小一点」), her frames 2 squares lower (RESTYLE powder lift).
-pub const SIZES: &[(&str, f32)] = &[("tft_powder", 0.90)];
+/// Gromp (tft_gromp): 85 % (the user, 2026-11-04: 「魔沼蛙的尺寸感觉在局内有点大 整体需要缩小一点」 - 32 game px tall but
+/// 69 wide with its belly; 85 % = 27 x 59), its battlefield frames 3.5 squares lower (tools/art/lower_hd_frames.py --rows 7:
+/// soles 20.5 squares under the frame's centre, 2 x 20.5 x (1 / 0.85 - 1) = 7.2); the BP card's frames and UI size stay.
+pub const SIZES: &[(&str, f32)] = &[("tft_powder", 0.90), ("tft_gromp", 0.85)];
 
 /// Heroes whose body grows with a stack (league_main/src/hd.rs GROWTH: Cho'Gath's Feast): none in this pack yet.
 pub const GROWTH: &[(&str, &str, f32)] = &[];
