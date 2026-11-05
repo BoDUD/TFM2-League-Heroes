@@ -171,6 +171,24 @@ pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
+/// 0.1.9（11-04 的日志：25 行 STUCK，22 行 `base nothing -> kept`——游戏的 AI 在敌方英雄身边 90 tick 一个命令都不给）：
+/// 基础 AI 没给命令、他 `STUCK_TICKS` 没挪过、`STUCK_NEAR` 内有**看得见的**敌方英雄，就替它朝最近的那个走一步 `NUDGE_STEP`。
+pub const NUDGE_STEP: f64 = 8_000.0;
+
+/// Whether to nudge him: the base AI gave nothing, he has stood `still_for` ticks, `seen` visible enemy champions near.
+pub fn nudge_ok(base_nothing: bool, still_for: usize, seen: usize) -> bool {
+    base_nothing && still_for >= STUCK_TICKS && seen > 0
+}
+
+/// A step of `step` from `at` toward `to` (onto `to` when it is nearer).
+pub fn step_toward(at: (f64, f64), to: (f64, f64), step: f64) -> (f64, f64) {
+    let d = dist(at, to);
+    if d <= step || d < 1.0 {
+        return to;
+    }
+    (at.0 + (to.0 - at.0) * step / d, at.1 + (to.1 - at.1) * step / d)
+}
+
 pub fn pct(hp: usize, max: usize) -> usize {
     if max == 0 { 0 } else { hp * 100 / max }
 }
@@ -286,6 +304,11 @@ fn champions_of(sim: &StableSim<'_>, team: usize, targetable: bool) -> Vec<(usiz
 
 fn within(list: &[(usize, (f64, f64))], at: (f64, f64), r: f64) -> usize {
     list.iter().filter(|c| dist(c.1, at) <= r).count()
+}
+
+/// 敌队活着、他的队伍看得见的英雄（0.1.9：隐身的不算——STUCK 旁边的「敌方英雄」多半是看不见的）。
+fn visible_champions_of(sim: &StableSim<'_>, team: usize) -> Vec<(usize, (f64, f64))> {
+    champions_of(sim, team, false).into_iter().filter(|c| sim.is_visible(team, c.0)).collect()
 }
 
 // ===================== 参数 =====================
@@ -606,7 +629,7 @@ impl Pleases {
         let Some(e) = sim.get_entity(me) else { return };
         let now = sim.tick() as usize;
         let at = (e.pos().0 as f64, e.pos().1 as f64);
-        let near = within(&champions_of(sim, e.team(), false), at, STUCK_NEAR);
+        let near = within(&visible_champions_of(sim, e.team()), at, STUCK_NEAR);
         // any control, his own attack / cast animations included (game 0.6.4 records those as CcKindV1::Animation), is not stuck
         let busy = e.cc_count() > 0;
         let line = with_state(self.key(me), |s| {
@@ -620,7 +643,7 @@ impl Pleases {
                 return None;
             }
             s.still_logged = true;
-            Some(format!("STUCK: {} ticks without moving, {} enemy champions within {STUCK_NEAR:.0}, {}% hp; AI {} ticks ago: base {} -> {}",
+            Some(format!("STUCK: {} ticks without moving, {} visible enemy champions within {STUCK_NEAR:.0}, {}% hp; AI {} ticks ago: base {} -> {}",
                          now - s.still_since, near, pct(e.hp().0, e.hp().1), now.saturating_sub(s.ai_tick), s.ai_base, s.ai_did))
         });
         let Some(line) = line else { return };
@@ -790,7 +813,21 @@ impl Ai {
                 return Some(Plan::Instead(input, Some(("pressed", format!("R PRESSED {what}, the AI asked for {asked}")))));
             }
         }
-        // the AI gave no order: nothing else to change
+        // the AI gave no order for STUCK_TICKS beside a visible enemy champion (0.1.9): a step toward the nearest; else
+        // nothing else to change
+        if kind.is_none() {
+            let still = with_state(key, |s| (dist(at, s.still_at) <= STUCK_MOVE).then(|| now.saturating_sub(s.still_since)).unwrap_or(0));
+            let seen = visible_champions_of(sim, team);
+            let near_seen: Vec<&(usize, (f64, f64))> = seen.iter().filter(|f| dist(f.1, at) <= STUCK_NEAR).collect();
+            if nudge_ok(true, still, near_seen.len()) {
+                let f = near_seen.iter().min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at)))?;
+                let to = step_toward(at, f.1, NUDGE_STEP);
+                let input = InputV1::move_to(to.0.max(0.0) as u64, to.1.max(0.0) as u64);
+                let why = format!("NUDGE: the AI gave nothing for {still} ticks, {} visible enemy champions within {STUCK_NEAR:.0}: a step \
+                                   toward #{} {:.0} away", near_seen.len(), f.0, dist(at, f.1));
+                return Some(Plan::Instead(input, Some(("nudge", why))));
+            }
+        }
         kind?;
         // the tank on the ground (landed, `can` on him), not full, nobody near: walk over it (the data picks it up)
         let can = with_state(key, |s| (s.can_seen && s.can_until > now).then_some((s.can_at, s.walking)));
@@ -1076,6 +1113,19 @@ mod tests {
         for x in ["p_cd", "p_drop_n", "can", "w_full", "w_half", "e_bonus_ad"] {
             assert!(md(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    #[test]
+    fn a_nudge_when_the_ai_gives_nothing_beside_a_visible_enemy() {
+        // 11-04's logs: 22 STUCK "base nothing -> kept" - 90 ticks without an order next to an enemy champion
+        assert!(nudge_ok(true, STUCK_TICKS, 1));
+        assert!(!nudge_ok(true, STUCK_TICKS - 1, 1));
+        assert!(!nudge_ok(true, STUCK_TICKS, 0));      // only an invisible one near: the AI's call
+        assert!(!nudge_ok(false, STUCK_TICKS, 1));     // the AI gave an order
+        let to = step_toward((0.0, 0.0), (30_000.0, 0.0), NUDGE_STEP);
+        assert!((to.0 - NUDGE_STEP).abs() < 1e-9 && to.1.abs() < 1e-9, "{to:?}");
+        assert_eq!(step_toward((0.0, 0.0), (3_000.0, 4_000.0), NUDGE_STEP), (3_000.0, 4_000.0));
+        assert_eq!(step_toward((5.0, 5.0), (5.0, 5.0), NUDGE_STEP), (5.0, 5.0));
     }
 
     #[test]

@@ -306,7 +306,12 @@ def build(p, native=False):
                     lob("r_aim", p["r_aim"], [bullet]))
 
     def fire():
-        """One stored bullet: the champion he locked (the recently hurt one in reach), else any champion."""
+        """One stored bullet: the champion he locked (the recently hurt one in reach), else any champion. The add-on
+        (2026-11-05): league_akshan:aim fires it at the champion the channel locked (a random recently hurt one
+        before: 33 of 60 bullets went elsewhere), a native projectile with the same picture, line and hit."""
+        if native:
+            return combine({"type": "Native", "effect_ref": "league_akshan:aim"}, anim("ult_shot", p["r_gap"] + 2),
+                           sfx("r_shot"))
         return combine(*rm("r_aimed"), fire_one(),
                        sw("r_aimed", NONE, pick(p["r_reach"], "EnemyChampion", lob("r_aim", p["r_aim"], [bullet]))),
                        anim("ult_shot", p["r_gap"] + 2), sfx("r_shot"))

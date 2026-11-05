@@ -31,6 +31,9 @@ native add-on addons/league_sion):
           R's way) and a poll every r_poll ticks fires it to save an ally in crowd control (at an enemy champion beside
           that ally), in a teamfight (r_team allies round him) or to follow up a champion his team is hitting with an ally
           beside him - never alone in his lane; unused, the cooldown is capped (r_armed 0: the old cast on sight).
+          The cap is read 3 ticks before the window ends (2026-11-05, the user: 「塞恩是不是也不太放大？」: read on
+          the window's last tick the flag was already gone, so no lapsed window ever refunded and each cost the full
+          60 s - 48 traced games: 4.19 -> 4.69 charges a 600 s game, the lapse-to-rearm gap 3558 -> 877 ticks).
   combos  E -> Q, League's Roar of the Slayer into Decimating Smash (the user: 「有连招要做连招」「都要帮我补」): the roar
           hitting an enemy champion (a champion-only twin of it) opens e_combo (a caster flag, e_combo ticks = the
           slow); Q cast inside it charges only q_qc ticks (half), so the slam lands while the champion is still slowed,
@@ -370,9 +373,12 @@ def build(p):
                 pick(p["r_save"], "AllyChampionInCC", flag("r_cc", 1)),
                 sw("r_cc", combine(*rm("r_cc"), pick(p["r_save"], "AllyChampionInCC", save)), others)))))
         reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
+        # the refund reads the arm flag 3 ticks before it ends (a flag of n ticks is seen on n - 1 of them, league_ryze
+        # R): read on its last tick (2026-11-05, classic-SDK traces) it was always gone, so a lapsed window never
+        # refunded and every one cost the full cooldown - R was missing from the next fight
         ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "None", "EnemyChampion",
                      combine(refresh("r_arm", p["r_arm_t"]),
-                             on_me(casted(p["r_arm_t"], p["r_poll"], poll), delayed(p["r_arm_t"], reset))), key="ult")
+                             on_me(casted(p["r_arm_t"], p["r_poll"], poll), delayed(p["r_arm_t"] - 3, reset))), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

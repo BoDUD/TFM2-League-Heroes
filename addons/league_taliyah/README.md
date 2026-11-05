@@ -35,3 +35,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_taliyah`：单元测试（参数、进墙退回只留顺墙的一半、立墙时推出去、横墙每段的位置和铺下的 tick、只认停着不动的新区域）。
 - 主包的塔莉垭改了以后重新跑 `python addons/league_taliyah/make_override.py`（它先核对主包的 `league_taliyah.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只比较不写）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_taliyah.log`：`SPAWN`、立竖墙 `UPRIGHT`、开始铺横墙 `LAY`、每一段 `STRETCH`（`zone` 是对上了区域，`worked out` 是按算的位置）、挡住 `HOLD`（墙倒时一个单位一行：挡了几 tick、顺着墙挪了几 tick）、推出去 `PUSH`；找不到目标时 `UPRIGHT?` / `LAY?`。
+
+## 0.2.3：台阶状的横墙算一道墙（2026-11-05）
+
+11-04 的日志：43 行 `HOLD` 里 5 行超过 150 tick（她自己被第 2 段挡了 235 tick 只挪了 12 tick、奥莉安娜 173 tick、小兵 287 tick）。0.2.2 的 `unstick` 只顺着挡住它的那一段挪（横墙只改 x）：斜着铺下的横墙是台阶，一段的两头都被相邻的段堵着，单位卡在角里来回。现在把一次铺下的几段（相邻墙心相距不超过 3 个半宽）当一道墙（`line_of`：两头是相距最远的两个墙心各往外半段），顺着整道墙的线往近的那头挪；在角里挪不动就先往墙外错开最多 2 步再挪，再不行换另一头；竖墙还是顺着它的上下。加了台阶墙的单元测试（6 段斜墙、角里的单位往她走：不会在一个点站过 20 tick，300 tick 内绕到墙那边）。下一局看 `HOLD`：挡住的 tick 该都在百十来 tick 以内，`stepped along it` 的 tick 数接近挡住的 tick 数减 20。

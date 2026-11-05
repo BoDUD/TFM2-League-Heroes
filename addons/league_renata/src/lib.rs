@@ -8,10 +8,14 @@
 //!   p_pop_ap% 法强的魔法伤害、最大生命 p_pop_hp% 的真实伤害，去掉印记。主包的数据版是「印记附近有两个她这边的英雄就引爆」。
 //! - **及时救难**（英雄联盟的规则）：她活着、W 不在冷却时每 WATCH tick 看一次，w_range 内的队友（不算她自己）身边 DANGER_NEAR 内
 //!   有敌方英雄、又被硬控或生命不到 DANGER_HP，就挑生命比例最低的那个：攻速 +w_as%、移速 +w_ms%、w_t tick 不死（主包的 buff
-//!   `league_renata_w_buff`，画面照主包）。期间受到致命伤害（生命到 1、身上没有别人的「不死」）就回满生命，再在 w_doom tick 内烧光；
+//!   `league_renata_w_buff`，画面照主包）。期间受到致命伤害（生命到 1、身上没有别人有时限的「不死」——死歌、塞恩等一直挂着的被动护身
+//!   `*_p_guard` / `*_rv_guard` 和基兰的符文不算，它们等她，她先救；0.2.0）就回满生命，再在 w_doom tick 内烧光；
 //!   烧的时候不再不死，敌人照样打得死他（0.1.5 起，英雄联盟就是这样；以前这 3 秒打不死，参与击杀后还留着几乎满的血，看着像复活）；
 //!   这期间他参与击杀（击杀或助攻数变多，和致命一击同一 tick 的也算）就止住，生命定在最大生命的 w_keep%（英雄联盟 20%），没参与就
-//!   阵亡（算离他最近的敌方英雄的，附近没有敌方英雄才算最近的敌方单位）。主包的数据版是「不会阵亡、结束时回血」。
+//!   阵亡（算离他最近的敌方英雄的，附近没有敌方英雄才算最近的敌方单位；补刀照死歌的 FALL：清护盾、生命设 1、一刀 1001，再补，
+//!   DOOM_SLACK 后设 0，真倒下才记 DOOMED）。烧到 1 血时别人的被动 / 基兰的倒流接手就放手（BURN HANDED OVER）。已在死后形态、放逐、停在
+//!   1 血的队友不救。她阵亡时正在烧的：状态在他身上的 buff 名字里，效果队列的 `league_renata:burn` 接着烧（0.2.0）。主包的数据版是
+//!   「不会阵亡、结束时回血」。
 //! - **恶意收购**：被化学波扫中的敌方英雄（主包的 `league_renata_r_berserk`，数据已禁攻击、禁技能）真的转身打自己人：AI 钩子
 //!   （`league_renata:berserk`，所有玩家）让他走向最近的队友，到 LASH_REACH 内就站住；本包按他自己的攻击间隔、用他自己的攻击力打那个
 //!   队友，挥一下（Animation "attack"）、播主包的 r_lash_hit。这一下算烈娜塔出手（`deal_damage_typed` 的攻击者是她），和英雄联盟一样
@@ -54,7 +58,7 @@ pub const BERSERK: &str = "league_renata_r_berserk";
 
 /// 每隔几 tick 看一次要不要放 W（主包的看守也是 15）。
 const WATCH: usize = 15;
-/// 流失结束这么多 tick 后才看到它：中间没跑（她阵亡时被动停了），只撤掉，不判死。
+/// 烧到期这么多 tick 后才看到（中间没跑）：照样补刀，日志注明晚了多少（0.2.0；以前只撤掉不判死，她阵亡时被动停了——现在效果队列接着烧）。
 const STALE: usize = 30;
 /// 队友出手（冷却跳起）后多少 tick 算打中：普攻的前摇加飞行。
 const POP_WAIT: usize = 10;
@@ -310,9 +314,109 @@ fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     any_buff(sim, id, |b| b.name() == name)
 }
 
-/// 身上有不是及时救难给的「不死」吗（基兰的符文、凯尔的大招等：让它们自己管）。
+/// 基兰的时光符文（league_zilean_rewind）：它等别人的「不死」，本包不等它（0.2.0：两个真救命的不互相等；救难先回满，符文留着，
+/// 烧到 1 血时基兰再倒流）。
+pub const ZILEAN_RUNE: &str = "league_zilean_r_rune";
+/// 基兰倒流时的放逐 buff 的名字开头（`league_zilean_rw_hold:<heal>:<zilean>`）：不死、放逐，他已经被基兰接走了。
+pub const ZILEAN_HOLD: &str = "league_zilean_rw_hold";
+/// 别的附加包「死后变身」的形态（塞恩的尸体、死歌的灵体和倒下、艾尼维亚的蛋、扎克的一滩、扎恩的复活、石甲虫的碎块）：
+/// 身在其中的人不救（救了就是真复活：塞恩的尸体回满），烧的时候进了这些形态就是「死进被动里」，本包放手。
+pub const DEAD_FORMS: [&str; 7] = [
+    "league_sion_p_zombie",
+    "league_karthus_p_spirit",
+    "league_karthus_p_fall",
+    "league_anivia_egg_on",
+    "league_zac_split_form",
+    "league_zaahen_rv_hold",
+    "tft_krug_p_shatter",
+];
+
+/// 别的附加包一直挂着的被动护身「不死」（名字以 `_p_guard` / `_rv_guard` 结尾：死歌、塞恩、艾尼维亚、扎克、扎恩、tft 的石甲虫）。它们
+/// 自己的复活都等别人的「不死」先用掉，0.1.x 的救难也等它们：队友停在 1 血谁也不动，5 秒后救难「没用上」、他的被动才触发。
+/// 英雄联盟里及时救难先救，所以本包不等它们。
+pub fn passive_guard(name: &str) -> bool {
+    name.ends_with("_p_guard") || name.ends_with("_rv_guard")
+}
+
+/// 这个 buff 是不是让及时救难让路的「不死」：不是本包的 W、不是被动护身、不是基兰的符文的「不死」（凯尔的大招、千珏的大招、
+/// 索拉卡的护身等：让它们自己管，等它们过了再说）。
+pub fn yields_to(name: &str, undying: bool) -> bool {
+    undying && name != W_BUFF && !passive_guard(name) && name != ZILEAN_RUNE
+}
+
+/// 身上这些 buff（名字，带不带「不死」）里有没有让救难让路的。
+pub fn other_undying_in(names_undying: &[(String, bool)]) -> bool {
+    names_undying.iter().any(|(n, u)| yields_to(n, *u))
+}
+
+/// 这个 buff 是不是别人的「死后形态」（DEAD_FORMS，基兰的倒流）。
+pub fn dead_form(name: &str) -> bool {
+    DEAD_FORMS.contains(&name) || name.starts_with(ZILEAN_HOLD)
+}
+
+/// 烧的时候别人把他接走了吗：进了死后形态，或者挂上了让路的「不死」（基兰的倒流、死歌的灵体……他死进了别人的救命里，本包放手）。
+pub fn taken_over(names_undying: &[(String, bool)]) -> Option<&str> {
+    names_undying.iter().find(|(n, u)| dead_form(n) || yields_to(n, *u)).map(|(n, _)| n.as_str())
+}
+
+/// 这个队友救不救得了：选得中（放逐的不行）、生命在 1 以上（已经停在 1 血的是别人的「不死」在撑着）、不在死后形态里。
+pub fn can_bail(targetable: bool, hp: usize, buff_names: &[String]) -> bool {
+    targetable && hp > 1 && !buff_names.iter().any(|n| dead_form(n))
+}
+
+/// 身上有让救难让路的「不死」吗。
 fn other_undying(sim: &StableSim<'_>, id: usize) -> bool {
-    any_buff(sim, id, |b| b.undying && b.name() != W_BUFF)
+    any_buff(sim, id, |b| yields_to(b.name(), b.undying))
+}
+
+fn buffs_of(sim: &StableSim<'_>, id: usize) -> Vec<(String, bool)> {
+    sim.get_entity(id).map_or_else(Vec::new, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| (b.name().to_string(), b.undying)).collect()
+    })
+}
+
+/// 烧的状态，写在他身上的 buff 名字里（`league_renata_w_doom:<到期 tick>:<救下时的击杀 + 助攻>:<最大生命>:<补了几刀>:<算谁的>`）：
+/// 她阵亡被动停了，排进效果队列的 `league_renata:burn` 每 tick 照样接着烧（0.2.0）。
+pub const DOOM_STATE: &str = "league_renata_w_doom";
+/// 烧完补刀：补了这么多 tick 还站着就把生命设成 0（死歌的 FALL_SLACK 的做法）。
+pub const DOOM_SLACK: usize = 30;
+
+/// 一次烧：到期的 tick、救下时的击杀 + 助攻、回满时的最大生命、补了几刀、算谁的（第一刀时定下）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Burn {
+    pub until: usize,
+    pub td: usize,
+    pub full: usize,
+    pub tries: usize,
+    pub killer: usize,
+}
+
+impl Burn {
+    pub fn name(&self) -> String {
+        format!("{DOOM_STATE}:{}:{}:{}:{}:{}", self.until, self.td, self.full, self.tries, self.killer)
+    }
+
+    pub fn parse(name: &str) -> Option<Self> {
+        let rest = name.strip_prefix(DOOM_STATE)?.strip_prefix(':')?;
+        let mut it = rest.split(':').map(|x| x.parse::<usize>().ok());
+        let b = Self { until: it.next()??, td: it.next()??, full: it.next()??, tries: it.next()??, killer: it.next()?? };
+        it.next().is_none().then_some(b)
+    }
+}
+
+/// 他身上的烧的状态（名字和解析出来的）。
+fn burn_of(sim: &StableSim<'_>, id: usize) -> Option<(String, Burn)> {
+    sim.get_entity(id).and_then(|e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| Burn::parse(b.name()).map(|p| (b.name().to_string(), p)))
+    })
+}
+
+/// 把烧的状态写到他身上（旧的拿掉）。
+fn put_burn(sim: &mut StableSim<'_>, id: usize, old: Option<&str>, b: &Burn) {
+    if let Some(o) = old {
+        sim.entity_remove_buff(id, o);
+    }
+    sim.add_buff(id, &BuffV1::timed(&b.name(), DOOM_SLACK + 2));
 }
 
 fn cc_left(e: &StableEntity<'_, '_>, kinds: &[CcKindV1]) -> usize {
@@ -413,17 +517,141 @@ fn nearest_friend(sim: &StableSim<'_>, me: usize, team: usize, at: (f64, f64), r
     best.map(|b| (b.0, b.1, b.2))
 }
 
+// ===================== 烧（被动驱动；她阵亡后由效果队列驱动） =====================
+
+/// 一 tick 的烧（`me`：她活着时是她，日志和画面的出手人；她阵亡后 None，用他自己）。他死了：烧的时候被打死 `BURNED`，补刀之后死的
+/// `DOOMED`（0.2.0 起只在他真倒下时记）；参与击杀就止住，生命定在 w_keep%（`SAVED`）；别人把他接走了（进了死后形态、挂上让路的
+/// 「不死」、选不中了）就放手（`BURN HANDED OVER`：他死进了死歌 / 塞恩 / 艾尼维亚的被动、基兰的倒流里，英雄联盟也这样算）；到期没参与
+/// 就补刀：清护盾、生命设 1、算离他最近的敌方英雄的一刀 1001 真实伤害，下一 tick 还站着就再补（`DOOM RETRY`），`DOOM_SLACK` tick
+/// 还不行就把生命设成 0（`DOOM FORCED`，死歌 FALL 的做法）。没到期就每 tick 扣最大生命的 1/w_doom（最低 1）。
+/// 返回 None 就是结束了（状态 buff 已拿掉或他已不在）。
+fn burn_tick(sim: &mut StableSim<'_>, me: Option<usize>, ally: usize, name: &str, mut b: Burn, now: usize, p: &Params)
+             -> Option<Burn> {
+    let caster = me.unwrap_or(ally);
+    let line = head(sim, caster);
+    let state = sim.get_entity(ally).map(|a| (a.is_alive(), a.hp(), fpos(a.pos()), a.team(), a.is_targetable()));
+    let Some((true, (hp, max), at, team, targetable)) = state else {
+        let gone = if state.is_none() { " (gone)" } else { "" };
+        if b.tries > 0 {
+            if let Some(k) = counted("doomed") {
+                wlog(format!("{line} DOOMED #{k}: {name} got no takedown, killed by {} ({} blow{}){gone}", who(sim, b.killer),
+                             b.tries, if b.tries == 1 { "" } else { "s" }));
+            }
+        } else if let Some(k) = counted("burned") {
+            wlog(format!("{line} BURNED #{k}: {name} was killed while burning{gone}"));
+        }
+        return None;
+    };
+    let on = InputTargetV1::target(ally);
+    let old = b.name();
+    if takedowns(sim, ally).map_or(0, |t| t.1) > b.td {
+        // a takedown stops the burn and sets his health to w_keep% (League: 20%) - not what was left of the refill,
+        // which read as a revive
+        let keep = kept_hp(b.full, p.w_keep);
+        sim.entity_remove_buff(ally, W_BUFF);
+        sim.entity_remove_buff(ally, &old);
+        sim.entity_set_hp(ally, keep);
+        sim.play_view_effect(&rn("w_save"), caster, &on, 0, 0, 0);
+        sim.play_sfx(&rn("w_save"), caster, &on);
+        if let Some(k) = counted("saved") {
+            wlog(format!("{line} SAVED #{k}: {name} scored a takedown, {hp} -> {keep}/{max}"));
+        }
+        return None;
+    }
+    let list = buffs_of(sim, ally);
+    let by = taken_over(&list).map(str::to_string).or_else(|| (!targetable).then(|| "banished".to_string()));
+    if let Some(by) = by {
+        sim.entity_remove_buff(ally, W_BUFF);
+        sim.entity_remove_buff(ally, &old);
+        if let Some(k) = counted("handed") {
+            wlog(format!("{line} BURN HANDED OVER #{k}: {name} taken by {by} at {hp}/{max}{}", if b.tries > 0 {
+                format!(" after {} blow(s)", b.tries)
+            } else {
+                String::new()
+            }));
+        }
+        return None;
+    }
+    if now >= b.until {
+        if b.tries >= DOOM_SLACK {
+            let set = sim.entity_set_hp(ally, 0);
+            if b.tries == DOOM_SLACK {
+                if let Some(k) = counted("doom_forced") {
+                    wlog(format!("{line} DOOM FORCED #{k}: {} blows by {} left {name} at {hp} hp - hp set to 0{}", b.tries,
+                                 who(sim, b.killer), if set { "" } else { " (entity_set_hp refused)" }));
+                }
+            }
+        } else {
+            if b.tries == 0 {
+                b.killer = doom_killer(sim, team, at, 200000.0).unwrap_or(ally);
+                if now > b.until + STALE {
+                    wlog(format!("{line} DOOM on {name} is {} ticks late", now - b.until));
+                }
+            } else if let Some(k) = counted("doom_retry") {
+                wlog(format!("{line} DOOM RETRY #{k}: blow {} by {} did not take {name} - {hp} hp, undying {:?}", b.tries,
+                             who(sim, b.killer), list.iter().filter(|(_, u)| *u).map(|(n, _)| n.as_str()).collect::<Vec<_>>()));
+            }
+            // sure to kill, like Karthus's fall: no shield, 1 hp, then a blow of 1001 (a shield or a damage reduction
+            // used to absorb `hp + 1000`, and DOOMED was logged all the same)
+            sim.entity_clear_shield(ally);
+            sim.entity_set_hp(ally, 1);
+            if !sim.deal_damage_typed(b.killer, ally, 1001, DamageTypeV1::Fixed, AttackTypeV1::Skill) {
+                if let Some(k) = counted("doom_refused") {
+                    wlog(format!("{line} DOOM BLOW REFUSED #{k}: deal_damage_typed by {} on {name}", who(sim, b.killer)));
+                }
+            }
+        }
+        b.tries += 1;
+        put_burn(sim, ally, Some(&old), &b);
+        return Some(b);
+    }
+    sim.entity_set_hp(ally, hp.saturating_sub(drain_step(b.full, p.w_doom)).max(1));
+    put_burn(sim, ally, Some(&old), &b);
+    Some(b)
+}
+
+/// 把 `league_renata:burn` 排到下一 tick，出手人是他自己（她可能已经不在了）。
+fn queue_burn(sim: &mut StableSim<'_>, ally: usize) {
+    let name = format!("{ID}:burn");
+    if !sim.queue_effect(&name, AttackTypeV1::Skill, ally, &InputTargetV1::target(ally), 1) {
+        wlog(format!("{} queue_effect({name}) refused", head(sim, ally)));
+    }
+}
+
+/// 效果队列里的烧（她阵亡后）：读他身上的状态 buff，跑一 tick，没完就再排一次。参数读不到她的（她不在了），用默认的 w_doom / w_keep
+/// （主包的数字就是默认值，`the_copy_carries_the_default_params`）。
+struct BurnOn;
+
+impl StableEffectType for BurnOn {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, ally: usize, _: InputTargetV1) {
+        let now = sim.tick();
+        let Some((_, burn)) = burn_of(sim, ally) else {
+            let state = sim.get_entity(ally).map(|a| a.is_alive());
+            if state != Some(true) {
+                // he is dead or gone, and his buffs with him: the end of the burn, no more to say than that
+                wlog(format!("[t={now}] BURN ended: #{ally} is {} (Renata dead; killed while burning or by the doom)",
+                             if state.is_none() { "gone" } else { "dead" }));
+            }
+            return;
+        };
+        let who_ = who(sim, ally);
+        if burn_tick(sim, None, ally, &who_, burn, now, &Params::default()).is_some() {
+            queue_burn(sim, ally);
+        }
+    }
+}
+
 // ===================== 被动：杠杆（引爆、救难、狂暴） =====================
 
 /// 一次及时救难：队友（和他的名字：他死后实体多半下一 tick 就没了，日志照样写得出是谁）、结束的 tick、上一 tick 他的击杀 + 助攻
-/// （致命一击那一 tick 的击杀也算参与），被救下后的流失（结束的 tick、击杀 + 助攻、最大生命）。
+/// （致命一击那一 tick 的击杀也算参与），被救下后的烧（`Burn`，同时写在他身上的 buff 名字里）。
 #[derive(Clone, Debug)]
 struct Bail {
     ally: usize,
     name: String,
     until: usize,
     td_last: usize,
-    doom: Option<(usize, usize, usize)>,
+    doom: Option<Burn>,
 }
 
 #[derive(Clone, Default)]
@@ -521,6 +749,12 @@ impl Glasc {
             if u.team() != team {
                 enemies.push(fpos(u.pos()));
             } else if u.id() != me {
+                // not a zombie Sion, a Karthus spirit, an egg, a puddle, a banished man or one already held at 1 hp by
+                // someone else's undying (0.2.0: a Bailout on those read as a real revive, or was wasted)
+                let names: Vec<String> = buffs_of(sim, u.id()).into_iter().map(|(n, _)| n).collect();
+                if !can_bail(u.is_targetable(), u.hp().0, &names) {
+                    continue;
+                }
                 allies.push(Ally { id: u.id(), at: fpos(u.pos()), hp: hp_share(u.hp()), held: cc_left(&u, &HARD) > 0 });
             }
         }
@@ -548,133 +782,92 @@ impl Glasc {
         }
     }
 
-    /// 一 tick 的救难：没出事到期就结束；受到致命伤害就回满、开始烧（不再不死）；烧的时候参与击杀就止住、生命定在 w_keep%，
-    /// 被敌人打死就是打死了，到期没参与就阵亡。
+    /// 一 tick 的救难。护着的时候：生命到 1、身上没有让路的「不死」就回满、开始烧（先看生命再看到期：到期那一 tick 的致命一击也救）；
+    /// 到期没出事就结束。烧的时候交给 `burn_tick`（她阵亡后排进效果队列的 `league_renata:burn` 接着跑同一段）。
     fn keep_bail(&mut self, sim: &mut StableSim<'_>, me: usize, mut b: Bail, now: usize) -> Option<Bail> {
-        let ally = sim.get_entity(b.ally).map(|a| (a.is_alive(), a.hp(), fpos(a.pos()), a.team()));
-        let Some((true, (hp, max), at, team)) = ally else {
+        if let Some(burn) = b.doom {
+            return burn_tick(sim, Some(me), b.ally, &b.name, burn, now, &self.p).map(|burn| Bail { doom: Some(burn), ..b });
+        }
+        let ally = sim.get_entity(b.ally).map(|a| (a.is_alive(), a.hp().0));
+        let Some((true, hp)) = ally else {
             // dead, or gone: a dead champion's entity is usually gone by the next tick - that ended a bailout with no line
             // at all (0.1.6, 2026-11-03 night logs: `REFILL #1: league_kindred caught at 1 hp ...` and then nothing)
-            let gone = if ally.is_none() { " (gone)" } else { "" };
-            if b.doom.is_some() {
-                if let Some(k) = counted("burned") {
-                    wlog(format!("{} BURNED #{k}: {} was killed while burning{gone}", head(sim, me), b.name));
-                }
-            } else {
-                wlog(format!("{} BAILOUT ended: {} died anyway{gone}", head(sim, me), b.name));
-            }
+            wlog(format!("{} BAILOUT ended: {} died anyway{}", head(sim, me), b.name, if ally.is_none() { " (gone)" } else { "" }));
             return None;
         };
-        let on = InputTargetV1::target(b.ally);
-        match b.doom {
-            None => {
-                if now >= b.until {
-                    if let Some(k) = counted("unused") {
-                        wlog(format!("{} BAILOUT #{k} on {} ended unused", head(sim, me), who(sim, b.ally)));
-                    }
-                    return None;
-                }
-                if hp > 1 || other_undying(sim, b.ally) {
-                    b.td_last = takedowns(sim, b.ally).map_or(b.td_last, |t| t.1);
-                    return Some(b);
-                }
-                // the lethal hit: full health that burns away over w_doom ticks - no longer undying, so enemies can
-                // still finish him (League: "health is set back to full but they suffer a true damage burn")
-                sim.entity_set_hp(b.ally, max);
-                sim.entity_remove_buff(b.ally, W_BUFF);
-                sim.add_buff(b.ally, &w_buff(&self.p, self.p.w_doom + 2, false));
-                sim.play_view_effect(&rn("w_save"), me, &on, 0, 0, 0);
-                sim.play_sfx(&rn("w_save"), me, &on);
-                // the count before this tick: a takedown on the lethal tick itself (a trade) still saves him
-                let td = b.td_last;
-                let td_now = takedowns(sim, b.ally).map_or(td, |t| t.1);
-                b.doom = Some((now + self.p.w_doom, td, max));
-                if let Some(k) = counted("refill") {
-                    wlog(format!("{} REFILL #{k}: {} caught at 1 hp -> {max}, burns over {} ticks, killable ({td} takedowns \
-                                  before{})",
-                                 head(sim, me), who(sim, b.ally), self.p.w_doom,
-                                 if td_now > td { ", one on this tick" } else { "" }));
-                }
-                Some(b)
-            }
-            Some((until, _, _)) if now > until + STALE => {
-                // missed ticks (her passive was not run): over long ago, never a kill out of nowhere
-                sim.entity_remove_buff(b.ally, W_BUFF);
-                wlog(format!("{} BAILOUT on {} dropped: its drain ended {} ticks ago", head(sim, me), who(sim, b.ally),
-                             now - until));
-                None
-            }
-            Some((until, td, full)) => {
-                let now_td = takedowns(sim, b.ally).map_or(0, |t| t.1);
-                if now_td > td {
-                    // a takedown stops the burn and sets his health to w_keep% (League: 20%) - not what was left of
-                    // the refill, which read as a revive
-                    let keep = kept_hp(full, self.p.w_keep);
-                    sim.entity_remove_buff(b.ally, W_BUFF);
-                    sim.entity_set_hp(b.ally, keep);
-                    sim.play_view_effect(&rn("w_save"), me, &on, 0, 0, 0);
-                    sim.play_sfx(&rn("w_save"), me, &on);
-                    if let Some(k) = counted("saved") {
-                        wlog(format!("{} SAVED #{k}: {} scored a takedown, {hp} -> {keep}/{max}", head(sim, me),
-                                     who(sim, b.ally)));
-                    }
-                    return None;
-                }
-                if now >= until {
-                    sim.entity_remove_buff(b.ally, W_BUFF);
-                    let killer = doom_killer(sim, team, at, 200000.0).unwrap_or(b.ally);
-                    let left = sim.get_entity(b.ally).map_or(hp, |e| e.hp().0);
-                    let dealt = sim.deal_damage_typed(killer, b.ally, left + 1000, DamageTypeV1::Fixed, AttackTypeV1::Skill);
-                    if let Some(k) = counted("doomed") {
-                        wlog(format!("{} DOOMED #{k}: {} got no takedown, killed by {}{}", head(sim, me), who(sim, b.ally),
-                                     who(sim, killer), if dealt { "" } else { " (refused)" }));
-                    }
-                    return None;
-                }
-                sim.entity_set_hp(b.ally, hp.saturating_sub(drain_step(full, self.p.w_doom)).max(1));
-                Some(b)
-            }
+        if hp <= 1 && !other_undying(sim, b.ally) {
+            // the lethal hit (0.2.0: checked before the end of the 5 s, and another add-on's permanent passive guard no
+            // longer makes her wait - League's order is Bailout first, the passive keeps for later)
+            let burn = self.refill(sim, me, &b, now, "");
+            return Some(Bail { doom: Some(burn), ..b });
         }
+        if now >= b.until {
+            sim.entity_remove_buff(b.ally, W_BUFF);
+            if let Some(k) = counted("unused") {
+                wlog(format!("{} BAILOUT #{k} on {} ended unused{}", head(sim, me), who(sim, b.ally),
+                             if hp <= 1 { " (held at 1 hp by someone else's undying)" } else { "" }));
+            }
+            return None;
+        }
+        b.td_last = takedowns(sim, b.ally).map_or(b.td_last, |t| t.1);
+        Some(b)
     }
 
-    /// 她阵亡：被动到她复活前不再跑，救难当场了结。还只是护着的，换成不带「不死」的同名 buff 跑完剩下的时间（攻速、移速照给；
-    /// 留着「不死」没人管，队友就白白不死到 5 秒结束）；在烧的，被救后参与过击杀就保住（生命定在 w_keep%），没有就当场阵亡。
+    /// 致命一击：回满，buff 换成不带「不死」的（烧的时候敌人照样打得死他：League "health is set back to full but they suffer a
+    /// true damage burn"），烧的状态写到他身上。`note` 进日志（她阵亡那一 tick 救下的写明）。
+    fn refill(&self, sim: &mut StableSim<'_>, me: usize, b: &Bail, now: usize, note: &str) -> Burn {
+        let max = sim.get_entity(b.ally).map_or(0, |a| a.hp().1);
+        let on = InputTargetV1::target(b.ally);
+        sim.entity_set_hp(b.ally, max);
+        sim.entity_remove_buff(b.ally, W_BUFF);
+        sim.add_buff(b.ally, &w_buff(&self.p, self.p.w_doom + 2, false));
+        sim.play_view_effect(&rn("w_save"), me, &on, 0, 0, 0);
+        sim.play_sfx(&rn("w_save"), me, &on);
+        // the count before this tick: a takedown on the lethal tick itself (a trade) still saves him
+        let td = b.td_last;
+        let td_now = takedowns(sim, b.ally).map_or(td, |t| t.1);
+        let burn = Burn { until: now + self.p.w_doom, td, full: max, tries: 0, killer: b.ally };
+        put_burn(sim, b.ally, None, &burn);
+        if let Some(k) = counted("refill") {
+            wlog(format!("{} REFILL #{k}: {} caught at 1 hp -> {max}, burns over {} ticks, killable ({td} takedowns \
+                          before{}){note}",
+                         head(sim, me), who(sim, b.ally), self.p.w_doom, if td_now > td { ", one on this tick" } else { "" }));
+        }
+        burn
+    }
+
+    /// 她阵亡：被动到她复活前不再跑。还只是护着的：这一 tick 正好是致命一击就照样救下（回满、开始烧），不然换成不带「不死」的同名
+    /// buff 跑完剩下的时间（攻速、移速照给；留着「不死」没人管，队友就白白不死到 5 秒结束）。在烧的（和刚救下的）交给效果队列的
+    /// `league_renata:burn` 接着烧到底（0.2.0；以前她一死就当场判定，没参与的当场阵亡）。
     fn bail_ends_with_her(&mut self, sim: &mut StableSim<'_>, me: Option<usize>) {
-        let Some(b) = self.bail.take() else { return };
-        let line = me.map_or_else(|| format!("[t={}]", sim.tick()), |m| head(sim, m));
-        let ally = sim.get_entity(b.ally).map(|a| (a.is_alive(), fpos(a.pos()), a.team(), a.hp().0));
-        let Some((true, at, team, hp)) = ally else {
+        let Some(mut b) = self.bail.take() else { return };
+        let now = sim.tick();
+        let line = me.map_or_else(|| format!("[t={now}]"), |m| head(sim, m));
+        let ally = sim.get_entity(b.ally).map(|a| (a.is_alive(), a.hp().0));
+        let Some((true, hp)) = ally else {
             // dead too (or gone): one line, as when she lives (0.1.6)
             wlog(format!("{line} BAILOUT ended: {} dead too (Renata died){}", b.name, if ally.is_none() { " (gone)" } else { "" }));
             return;
         };
-        let Some((_, td, full)) = b.doom else {
-            let left = b.until.saturating_sub(sim.tick());
-            sim.entity_remove_buff(b.ally, W_BUFF);
-            if left > 0 {
-                sim.add_buff(b.ally, &w_buff(&self.p, left, false));
+        if b.doom.is_none() {
+            if hp <= 1 && !other_undying(sim, b.ally) {
+                let caster = me.unwrap_or(b.ally);
+                b.doom = Some(self.refill(sim, caster, &b, now, " (Renata died this tick)"));
+            } else {
+                let left = b.until.saturating_sub(now);
+                sim.entity_remove_buff(b.ally, W_BUFF);
+                if left > 0 {
+                    sim.add_buff(b.ally, &w_buff(&self.p, left, false));
+                }
+                if let Some(k) = counted("unused") {
+                    wlog(format!("{line} BAILOUT #{k} on {}: Renata died, the last {left} ticks keep the speed without the save",
+                                 who(sim, b.ally)));
+                }
+                return;
             }
-            if let Some(k) = counted("unused") {
-                wlog(format!("{line} BAILOUT #{k} on {}: Renata died, the last {left} ticks keep the speed without the save",
-                             who(sim, b.ally)));
-            }
-            return;
-        };
-        sim.entity_remove_buff(b.ally, W_BUFF);
-        if takedowns(sim, b.ally).map_or(0, |t| t.1) > td {
-            let keep = kept_hp(full, self.p.w_keep);
-            sim.entity_set_hp(b.ally, keep);
-            if let Some(k) = counted("saved") {
-                wlog(format!("{line} SAVED #{k}: {} scored a takedown, {hp} -> {keep} (Renata died)", who(sim, b.ally)));
-            }
-            return;
         }
-        let killer = doom_killer(sim, team, at, 200000.0).unwrap_or(b.ally);
-        let dealt = sim.deal_damage_typed(killer, b.ally, hp + 1000, DamageTypeV1::Fixed, AttackTypeV1::Skill);
-        if let Some(k) = counted("doomed") {
-            wlog(format!("{line} DOOMED #{k}: {} got no takedown, killed by {} (Renata died){}", who(sim, b.ally),
-                         who(sim, killer), if dealt { "" } else { " (refused)" }));
-        }
+        queue_burn(sim, b.ally);
+        wlog(format!("{line} BURN on {} goes on without her (Renata died)", b.name));
     }
 
     /// 狂暴的敌方英雄按自己的攻击间隔、用自己的攻击力打 LASH_REACH 内最近的自己人（走过去是 AI 钩子的事）；算她出手，击杀和助攻
@@ -810,6 +1003,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:glasc"), Glasc::default());
+    module.add_native_effect(format!("{ID}:burn"), BurnOn);
     module.add_player_input_ai(Frenzy::default());
     host.log(LogLevel::Info, "league_renata loaded (Leverage popped by allies' hits, League's Bailout, a real berserk).");
 }
@@ -912,5 +1106,61 @@ mod tests {
         assert_eq!(swung((0, 0, 0, 0), (0, 300, 0, 0)), Some(false));
         assert_eq!(swung((0, 0, 0, 4), (0, 0, 0, 3000)), Some(false));
         assert_eq!(swung((5, 5, 5, 5), (9, 9, 9, 9)), None);
+    }
+
+    #[test]
+    fn bailout_goes_first_before_the_passive_guards_and_the_rune() {
+        // 11-05 review: Karthus / Sion / Anivia / Zac / Zaahen / Krug keep a permanent *_p_guard / *_rv_guard whose own
+        // revive waits for other undying, and Zilean's rune waits too - waiting for them deadlocked the ally at 1 hp
+        let l = |xs: &[(&str, bool)]| xs.iter().map(|(n, u)| (n.to_string(), *u)).collect::<Vec<_>>();
+        for g in ["league_karthus_p_guard", "league_sion_p_guard", "league_anivia_p_guard", "league_zac_p_guard",
+                  "league_zaahen_rv_guard", "tft_krug_p_guard"] {
+            assert!(passive_guard(g), "{g}");
+            assert!(!other_undying_in(&l(&[(g, true), (W_BUFF, true)])), "{g} must not hold the Bailout back");
+        }
+        assert!(!other_undying_in(&l(&[(ZILEAN_RUNE, true)])), "the rune waits for her, not she for it");
+        // a real timed undying from someone else (Kindred's R, Kayle's R, Soraka's guard): hers waits for it
+        assert!(other_undying_in(&l(&[("league_kindred_r_on", true), (W_BUFF, true)])));
+        assert!(other_undying_in(&l(&[("league_soraka_w_guard", true)])));
+        assert!(!other_undying_in(&l(&[("league_kindred_r_on", false), (W_BUFF, true)])));
+        assert!(!passive_guard("league_renata_w_buff") && !passive_guard("league_sion_p_guardian"));
+    }
+
+    #[test]
+    fn no_bailout_on_the_dead_forms_the_banished_or_the_held() {
+        let n = |xs: &[&str]| xs.iter().map(|x| x.to_string()).collect::<Vec<_>>();
+        assert!(can_bail(true, 300, &n(&["league_karthus_p_guard", "league_renata_p_mark"])));
+        for f in DEAD_FORMS {
+            assert!(!can_bail(true, 300, &n(&[f])), "{f} is a dead form");
+            assert!(dead_form(f));
+        }
+        assert!(!can_bail(true, 300, &n(&["league_zilean_rw_hold:400:12"])));
+        assert!(!can_bail(false, 300, &n(&[])), "banished");
+        assert!(!can_bail(true, 1, &n(&[])), "already held at 1 hp by someone else's undying");
+        assert!(!can_bail(true, 0, &n(&[])));
+    }
+
+    #[test]
+    fn the_burn_lets_go_when_another_save_takes_him() {
+        let l = |xs: &[(&str, bool)]| xs.iter().map(|(n, u)| (n.to_string(), *u)).collect::<Vec<_>>();
+        assert_eq!(taken_over(&l(&[("league_karthus_p_guard", true), (W_BUFF, false)])), None);
+        assert_eq!(taken_over(&l(&[("league_karthus_p_spirit", true)])), Some("league_karthus_p_spirit"));
+        assert_eq!(taken_over(&l(&[("league_sion_p_zombie", false)])), Some("league_sion_p_zombie"));
+        assert_eq!(taken_over(&l(&[("league_zilean_rw_hold:400:12", true)])), Some("league_zilean_rw_hold:400:12"));
+        // the rune itself is not a takeover: it fires only when the burn (or an enemy) brings him to 1 hp
+        assert_eq!(taken_over(&l(&[(ZILEAN_RUNE, true), (W_BUFF, false)])), None);
+        assert_eq!(taken_over(&l(&[("league_kindred_r_on", true)])), Some("league_kindred_r_on"));
+    }
+
+    #[test]
+    fn the_burn_state_survives_in_a_buff_name() {
+        let b = Burn { until: 31095, td: 3, full: 2400, tries: 30, killer: 1234 };
+        let name = b.name();
+        assert!(name.len() <= BUFF_NAME_CAP, "{name}");
+        assert_eq!(Burn::parse(&name), Some(b));
+        assert_eq!(Burn::parse("league_renata_w_doom:1:2:3:4"), None);
+        assert_eq!(Burn::parse("league_renata_w_doom:1:2:3:4:5:6"), None);
+        assert_eq!(Burn::parse("league_renata_w_buff"), None);
+        assert_eq!(Burn::parse(&format!("{DOOM_STATE}x:1:2:3:4:5")), None);
     }
 }

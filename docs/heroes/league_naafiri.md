@@ -55,7 +55,7 @@
 
 ### 纳亚菲利附加包
 
-[纳亚菲利附加包](../../addons/league_naafiri/README.md)：`league_naafiri` v0.1.1
+[纳亚菲利附加包](../../addons/league_naafiri/README.md)：`league_naafiri` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

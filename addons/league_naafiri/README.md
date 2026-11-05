@@ -1,4 +1,4 @@
-# 纳亚菲利附加包（测试版 v0.1.0，可选）
+# 纳亚菲利附加包（测试版 v0.1.2，可选）
 
 **不装这个附加包，主包里的纳亚菲利也是完整的**：普攻和被动的狗群撕咬、Q 暗裔犬牙（两把匕首、流血、狗群扑上英雄）、E 剔骨本能、
 大招（暴吼起手 + 猎狗血性飞扑、参与击杀后再扑一次）和连招 R → Q → 第二把匕首 → E 都在主包数据里。主包是纯数据：**读不到目标的生命**
@@ -29,7 +29,7 @@
 ## 在游戏里测
 
 1. 主包（League of Legends Heroes 0.187.0 以上）要装着并启用；本包随附加包合集 `league_addons` 一起装，或单独装。
-2. 看日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_naafiri.log`：`SPAWN`（她出场和参数）、`Q2 #…`（第二把匕首的斩杀）、
+2. 看日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_naafiri.log`：`SPAWN`（她出场和参数；0.1.2，2026-11-05：参数只写一局的第一次出场，重生写 `SPAWN #n ... again`，11-04 的日志 146 行重生各带一份参数表）、`Q2 #…`（第二把匕首的斩杀）、
    `R POUNCE` / `R HELD`（开大 / 不开）、`RECAST`（参与击杀后再扑）、`FOUR hounds` / `two hounds`（显示钩子换了几次）。
 
 ## 游戏 0.6.5（0.1.1）

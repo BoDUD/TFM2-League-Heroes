@@ -676,7 +676,7 @@ impl Forge {
         }
         if level >= P_MASTER_LV && !self.master_seen {
             self.master_seen = true;
-            if let Some(k) = counted("masterwork") {
+            if let Some(k) = tally(sim, "masterwork") {
                 wlog(format!("{} MASTERWORK at level {level}: forging the items of whoever has a full build ({FULL_BUILD}): \
                               his +{P_MASTER}%, an ally's +{P_ALLY}% #{k}", head(sim, me)));
             }
@@ -715,7 +715,8 @@ impl Forge {
                 }
             }
             self.forged.insert(id, want);
-            if let Some(k) = counted(if own { "forge" } else { "forge ally" }) {
+            // 0.3.1: every one of the match on screen (11-04's logs: none in the watched sets, the presims used the cap up)
+            if let Some(k) = tally(sim, if own { "forge" } else { "forge ally" }) {
                 wlog(format!("{} FORGE {}: +{:?} (attack, AP, armour, health, MR, attack speed %) #{k}", head(sim, me),
                              who(sim, id), want));
             }

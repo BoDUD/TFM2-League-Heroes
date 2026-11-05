@@ -3213,7 +3213,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_d6",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "d6",
       "repeat": true,
       "z": 4
@@ -3221,7 +3221,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_d4",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "d4",
       "repeat": true,
       "z": 4
@@ -3229,7 +3229,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_d2",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "d2",
       "repeat": true,
       "z": 4
@@ -3237,7 +3237,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "idle",
       "repeat": true,
       "z": 4
@@ -3245,7 +3245,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_u2",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "u2",
       "repeat": true,
       "z": 4
@@ -3253,7 +3253,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_u4",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "u4",
       "repeat": true,
       "z": 4
@@ -3261,7 +3261,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_u6",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "u6",
       "repeat": true,
       "z": 4
@@ -3269,7 +3269,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_u8",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "u8",
       "repeat": true,
       "z": 4
@@ -3277,7 +3277,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_u10",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "u10",
       "repeat": true,
       "z": 4
@@ -3285,7 +3285,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_u12",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "u12",
       "repeat": true,
       "z": 4
@@ -3293,7 +3293,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_u14",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "u14",
       "repeat": true,
       "z": 4
@@ -3301,7 +3301,7 @@
     {
       "type": "Animated",
       "name": "league_yuumi_w_ride_u16",
-      "anim": "asset/league/effects/league_yuumi_ride",
+      "anim": "asset/league/effects/league_yuumi_ride_1x",
       "tag": "u16",
       "repeat": true,
       "z": 4

@@ -11,10 +11,10 @@
       "version": ">=0.109.0"
     }
   ],
-  "description": "Test build of Sion as in League (needs League of Legends Heroes): replaces the main pack's Sion so Glory in Death brings him back once a life as a zombie (full health draining away, faster attacks with full life steal, no abilities) and Soul Furnace grows his maximum health with every kill (champions more), kept through death. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-04",
+  "description": "Test build of Sion as in League (needs League of Legends Heroes): replaces the main pack's Sion so Glory in Death brings him back once a life as a zombie (full health draining away, faster attacks with full life steal, no abilities) and Soul Furnace grows his maximum health with every kill (champions more), kept through death. Other champions are untouched. Writes a log for testing (the zombie, the kills, and when Unstoppable Onslaught arms and charges).",
+  "last_updated": "2026-11-05",
   "mod_id": "league_sion",
   "mod_type": "native",
   "name": "League Heroes: Sion's Glory in Death (test)",
-  "version": "0.1.5"
+  "version": "0.2.0"
 }

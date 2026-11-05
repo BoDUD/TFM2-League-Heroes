@@ -28,7 +28,7 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod plan;
-use plan::{own_kill_refund, plan as decide, Foe, Me, Plan, Why, HEMO, HERO, MARK, MIGHT, R_KILL, R_LAND, R_RANGE};
+use plan::{holds_execute, own_kill_refund, plan as decide, Foe, Me, Plan, Why, HEMO, HERO, MARK, MIGHT, R_KILL, R_LAND, R_RANGE};
 
 const ID: &str = "league_darius_ult";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -138,7 +138,7 @@ fn read_me(e: &StableEntity<'_, '_>) -> Me {
 fn read_foe(e: &StableEntity<'_, '_>) -> Foe {
     let mut foe = Foe { id: e.id(), hp: e.hp().0, shield: e.shield(), ..Foe::default() };
     for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
-        foe.undying |= b.undying;
+        foe.undying |= holds_execute(b.name(), b.undying);
         foe.reduce += b.damaged_reduce;
         foe.amplify += b.damaged_amplify;
         foe.skill_reduce += b.skill_damaged_reduce;
@@ -304,7 +304,8 @@ impl StablePlayerAi for UltAi {
             if this.last_hold.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
                 this.last_hold = Some(tick);
                 let who = match (x, x.and_then(ehp_of)) {
-                    (Some(x), Some(ehp)) => format!("#{x} hp + shield {ehp} > {}", blow_on(x)),
+                    (Some(x), Some(ehp)) => format!("#{x} hp + shield {ehp} > {}{}", blow_on(x),
+                                                    if foe_of(x).is_some_and(|f| f.undying) { ", undying" } else { "" }),
                     (Some(x), None) => format!("#{x} is no enemy champion alive"),
                     (None, _) => "no target".to_string(),
                 };

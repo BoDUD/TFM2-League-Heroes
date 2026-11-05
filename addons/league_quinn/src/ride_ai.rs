@@ -18,6 +18,13 @@
 //! - 游戏的 AI 自己按的 R 只在 `plan` 说该骑时放出去（照钩子的目标骑），不然不放（`R HELD`，tryndamere_rage 的
 //!   `UltPlan::Hold`）：AI 的目标在 `FIGHT_R` 内就打他，不然接着走 AI 上一次让她走的路，再不然打 AI 的目标（走过去），
 //!   都没有就站一下。
+//!
+//! 0.5.0（11-04 夜里的日志：一次启动 16 场预演，**一次 R 都没有**——钩子按的 40 次 `RIDE AI` 全被引擎拒收，目标都在
+//! 100061–179834 外；AI 自己的 R 又全被 0.4.2 拦下）：副本的大招射程写着全图，引擎却不收 100000 外的 `Targeting` 输入
+//! （11-03 那次 57475 的收了；死歌全图的 R 是 `EnemyChampionRecentlyAttacked`，收）。副本的大招改成**不指定目标的施法**
+//! （`casting_type: None`，千珏、加里奥大招的写法，游戏的 AI 在全图任何距离都放得出），钩子按 R 不带目标——赶路时身边
+//! 一个看得见的敌方英雄都没有也按得出来（以前要有人在视野里）。`RIDE REFUSED` 记目标（或最近的敌方英雄）离她多远；
+//! 钩子的 R 一旦被引擎拒收，这条命里游戏 AI 自己的 R 不再拦（`R LET`）——它按的至少骑得上。
 
 use mod_api_stable::*;
 
@@ -94,8 +101,8 @@ pub fn new_burst(last: Option<usize>, tick: usize) -> bool {
     last.is_none_or(|t0| tick < t0 || tick > t0 + ORDER_FRESH)
 }
 
-/// 赶路的 R 按给谁（0.4.2）：游戏的 AI 自己按 R 时它的目标（它只点看得见的），不然离她最近的看得见的敌方英雄
-/// （`foes` 只收看得见、选得中的）；一个都没有就按不出来。
+/// 赶路的 R 是朝着谁的（0.4.2；0.5.0 起只为日志——R 不带目标）：游戏的 AI 自己按 R 时它的目标（它只点看得见的），不然
+/// 离她最近的看得见的敌方英雄（`foes` 只收看得见、选得中的）；一个都没有就没有。
 pub fn travel_target(me: Pt, ai_target: Option<usize>, foes: &[Foe]) -> Option<usize> {
     ai_target
         .filter(|t| foes.iter().any(|f| f.id == *t))
@@ -139,6 +146,11 @@ fn at(e: &StableEntity<'_, '_>) -> Pt {
 /// 骑着追的人：(实体, 到这个 tick 为止)。
 type Chase = Option<(usize, usize)>;
 
+/// 钩子的 R 被引擎拒收过（这条命里）：游戏 AI 自己的 R 该不该拦（0.5.0——拦了就一次都骑不上，11-04 夜里 16 场 0 次 R）。
+pub fn let_ais_r_through(refused_since: Option<usize>) -> bool {
+    refused_since.is_some()
+}
+
 #[derive(Clone, Default)]
 pub struct RideAi {
     /// 游戏的 AI 最近一次让她走去的地方（这条命里）。
@@ -148,20 +160,21 @@ pub struct RideAi {
     alive: bool,
     /// 每种行最近一次的 tick（`new_burst`：一串只记一行）。
     lines: Vec<(&'static str, usize)>,
+    /// 钩子的 R 从这一 tick 起被引擎拒收过（这条命里；骑成一次就清掉）。
+    refused_since: Option<usize>,
 }
 
 /// 这一 tick 钩子要做的。
 enum Todo {
-    /// 骑上华洛（对 `target` 按 R）；`chase`：追谁、追到哪一 tick。
-    Ride { target: usize, line: String, chase: Chase },
+    /// 骑上华洛（按 R，不带目标）；`target`：朝着谁（只为日志和追击），`d`：他（或最近的敌方英雄）离她多远；`chase`：
+    /// 追谁、追到哪一 tick。
+    Ride { target: Option<usize>, d: f64, line: String, chase: Chase },
     /// 骑着追残血：改成打他。
     Chase(InputV1, String),
     /// 游戏的 AI 自己按的 R 不放：改做 `Instead`（`line` 说为什么）。
     Hold(Instead, String),
-    /// 骑不成又没有 AI 的 R 要留：只记一行（为什么按不出来）。
-    Refused(String),
-    /// 该骑、钩子却没有看得见的目标：游戏的 AI 自己按的 R（它的目标它看得见）照放。
-    Keep,
+    /// 游戏的 AI 自己按的 R 照放（钩子的 R 被拒收过：它的至少骑得上），记一行。
+    Let(String),
 }
 
 impl RideAi {
@@ -225,6 +238,7 @@ impl StablePlayerAi for RideAi {
                 self.alive = true;
                 self.walk_to = None;
                 self.chase = None;
+                self.refused_since = None;
             }
             let here = at(&me);
             let line = head(&sim, me.id());
@@ -265,25 +279,34 @@ impl StablePlayerAi for RideAi {
                 let free = ready && !self.recalling && !busy(&me);
                 match free.then(|| plan(here, hp, self.walk_to, &foes)).flatten() {
                     Some(plan) => {
-                        // the ride's input needs an enemy champion as its target (the cast reaches the whole map): the prey,
-                        // else one she can see - 0.4.1 took the first one in the entity list, mostly in the fog, and the
-                        // game took no R on him (11-03 night logs: 0 RIDE AI in 8 matches)
+                        // the ride is a no-target cast (0.5.0): the prey, or the one the roam heads for, is for the log and
+                        // the chase only - 0.4.2 pressed a Targeting R on a champion in sight and the engine took none
+                        // beyond ~100000 (11-04 night: 40 RIDE AI, 40 REFUSED, 0 rides in 16 presims)
                         let target = match plan {
                             Plan::Chase { target, .. } => Some(target),
                             Plan::Travel { .. } => travel_target(here, ai_target, &foes),
                         };
+                        let d = target
+                            .and_then(|t| foes.iter().find(|f| f.id == t))
+                            .map_or(f64::NAN, |f| dist(here, f.at));
                         let (why, chase) = match plan {
-                            Plan::Travel { far } => (format!("a walk of {far:.0} (to {:?})", self.walk_to), None),
+                            Plan::Travel { far } => (
+                                format!("a walk of {far:.0} (to {:?}){}", self.walk_to,
+                                        match target {
+                                            Some(t) => format!(", #{t} in sight {d:.0} away"),
+                                            None => ", no enemy champion in sight".to_string(),
+                                        }),
+                                None,
+                            ),
                             Plan::Chase { target, d } => {
                                 (format!("after #{target}, {d:.0} away and low"), Some((target, tick + R_RIDE_T + 40)))
                             }
                         };
-                        match target {
-                            Some(target) => Todo::Ride { target, line: format!("{line} RIDE AI: {why}"), chase },
-                            None if ai_ult => Todo::Keep,
-                            None => Todo::Refused(format!("{line} RIDE REFUSED: {why}, but no enemy champion in sight to \
-                                                           press it on")),
-                        }
+                        Todo::Ride { target, d, line: format!("{line} RIDE AI: {why}"), chase }
+                    }
+                    None if ai_ult && let_ais_r_through(self.refused_since) => {
+                        Todo::Let(format!("{line} R LET: the AI's own R goes out, the hook's rides refused since t={}",
+                                          self.refused_since.unwrap_or(0)))
                     }
                     None if ai_ult => {
                         let near = foes.iter().map(|f| dist(here, f.at)).fold(f64::INFINITY, f64::min);
@@ -310,25 +333,31 @@ impl StablePlayerAi for RideAi {
                 self.note("chase", tick, &line);
                 Some(input)
             }
-            Todo::Ride { target, line, chase } => {
-                let input = InputV1::action(InputKindV1::Ult, InputTargetV1::target(target));
+            Todo::Ride { target, d, line, chase } => {
+                let input = InputV1::action(InputKindV1::Ult, InputTargetV1::NONE);
                 if !ctx.is_valid_input(&input) {
-                    // the game took no R on that target: the AI's own R (a ride all the same) goes out, else nothing
-                    self.note("refused", tick, &format!("{} -> RIDE REFUSED: the game took no R on #{target}{}", line,
-                                                        if ai_ult { ", the AI's own R kept" } else { "" }));
+                    // the game took no R: the AI's own R (a ride all the same) goes out, else nothing; from here on the
+                    // AI's own R is never held in this life (0.5.0)
+                    self.refused_since.get_or_insert(tick);
+                    self.note("refused", tick, &format!("{line} -> RIDE REFUSED: the game took no R ({}; the AI's own R {})",
+                                                        match target {
+                                                            Some(t) => format!("#{t} {d:.0} away"),
+                                                            None => "nobody in sight".to_string(),
+                                                        },
+                                                        if ai_ult { "kept" } else { "let through from now on" }));
                     return None;
                 }
+                self.refused_since = None;
                 if chase.is_some() {
                     self.chase = chase;
                 }
                 self.note("ride_ai", tick, &line);
                 Some(input)
             }
-            Todo::Refused(line) => {
-                self.note("refused", tick, &line);
+            Todo::Let(line) => {
+                self.note("r_let", tick, &line);
                 None
             }
-            Todo::Keep => None,
             Todo::Hold(what, line) => {
                 let stand = InputV1::move_to(here.0.max(0.0) as u64, here.1.max(0.0) as u64);
                 let walk = |w: Pt| InputV1::move_to(w.0.max(0.0) as u64, w.1.max(0.0) as u64);
@@ -399,14 +428,36 @@ mod tests {
     }
 
     #[test]
-    fn the_travel_ride_is_pressed_on_a_champion_she_can_see() {
-        // 11-03 night logs: 0.4.1 pressed it on the first enemy champion in the entity list, in the fog - never taken
+    fn the_travel_ride_names_a_champion_she_can_see_for_the_log() {
+        // 11-03 night logs: 0.4.1 pressed it on the first enemy champion in the entity list, in the fog - never taken;
+        // 0.5.0: the press carries no target at all (a None cast), the name is for the log only
         let me = (100_000.0, 100_000.0);
         let seen = [foe(4, (700_000.0, 700_000.0), 1.0), foe(9, (300_000.0, 100_000.0), 1.0)];
         assert_eq!(travel_target(me, None, &seen), Some(9), "the nearest one in sight");
         assert_eq!(travel_target(me, Some(4), &seen), Some(4), "the game's AI pressed R on one in sight: that one");
         assert_eq!(travel_target(me, Some(5), &seen), Some(9), "the AI's target out of sight: the nearest seen");
-        assert_eq!(travel_target(me, None, &[]), None, "nobody in sight: no press (RIDE REFUSED)");
+        assert_eq!(travel_target(me, None, &[]), None, "nobody in sight: the ride is pressed all the same");
+    }
+
+    #[test]
+    fn the_ride_is_a_no_target_cast() {
+        // 11-04 night: the engine took no Targeting R beyond ~100000 whatever the range (40 RIDE AI, 40 REFUSED, 0 rides)
+        let s = include_str!("../override/league_quinn.data_champion");
+        let at = s.find("\"action_name\": \"ult\"").expect("the copy has no ult");
+        let head: String = s[at..at + 600].chars().filter(|c| !c.is_whitespace()).collect();
+        assert!(head.contains("\"range\":960000"), "{head}");
+        assert!(head.contains("\"casting_type\":\"None\"") && head.contains("\"casting_target\":\"EnemyChampion\""), "{head}");
+        // the main pack's Quinn still dives at a champion
+        let main = include_str!("../../../league/champion/league_quinn.data_champion");
+        let at = main.find("\"action_name\": \"ult\"").expect("the main pack has no ult");
+        let head: String = main[at..at + 600].chars().filter(|c| !c.is_whitespace()).collect();
+        assert!(head.contains("\"casting_type\":\"Targeting\""), "{head}");
+    }
+
+    #[test]
+    fn once_refused_the_ais_own_r_goes_out() {
+        assert!(!let_ais_r_through(None), "nothing refused yet: the AI's R is held unless plan() rides");
+        assert!(let_ais_r_through(Some(5000)), "the hook's ride was refused: the AI's own R is the only ride left");
     }
 
     #[test]

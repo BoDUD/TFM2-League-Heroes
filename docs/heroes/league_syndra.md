@@ -55,18 +55,9 @@
 
 ### 辛德拉举小兵附加包
 
-[辛德拉举小兵附加包](../../addons/league_syndra/README.md)：`league_syndra` v0.1.1
+[辛德拉举小兵附加包](../../addons/league_syndra/README.md)：`league_syndra` v0.1.2
 
-这个附加包把主包的辛德拉换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_syndra.py` 的 `--native` 生成：技能
-一样，W 施放时在她身上挂 `league_syndra_w_grab`、在投掷目标身上挂 `league_syndra_w_at`；她身上有 `league_syndra_w_unit` 时掷出的是
-一个不显示的抛物线，落点照样伤害、减速，不留法球；W 的说明多了「没有时举起附近的小兵或野怪，大小龙除外」），被动
-`league_syndra:grab` 每 tick 看一次：
-
-- 看到 `w_grab`（一次施放只处理一次）：她身上还记着法球（主包的计数 `league_syndra_o1`–`o4`）就什么都不做，数据照常掷法球
-  （和英雄联盟一样法球优先）；
-- 没有法球：在她身边 60000 内找最近的一个敌方小兵或野怪（不要英雄、防御塔、投掷目标本身，也不要大龙 `epic_monster`、小龙
-  `serpen`），挂上 `w_unit`，把它击飞（期间不能行动），逐 tick 摆到位置上：先飞到她身前举着，第 12 tick（数据出手的那一刻）起
-  16 tick 飞到目标脚下（目标走动就跟着他的位置），和数据的抛物线同时落地。
+0.1.2（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（`tools/kit/build_syndra.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
 装上附加包后游戏里显示的说明（和主包不同的部分）：
 

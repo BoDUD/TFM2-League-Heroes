@@ -29,3 +29,13 @@
 2. 用附加包合集 `league_addons`（里面已经包含本包），或者把整个 `league_rammus` 文件夹放进 `<游戏目录>\mods\`（文件夹里要有 `league_rammus.dll`、`mod.mod_info`、
    `mod.override_info`、`override\`、`text\`）。
 3. 进游戏，鼠标停在拉莫斯的普攻或技能1 上，说明开头是【扩展包】就说明副本生效了；打一局后看日志里的 ROLL / SPIKES / FORM。
+
+## 0.1.1：球真的滚起来（2026-11-05）
+
+11-04 的日志：40 次 `ROLL hit` 里 38 次是「after 0 ticks」，每次 `ROLL over` 都是「0 rolled」——球从来没滚过。原因：`q_touch` 26000 是从他的中心量到对方身子的边（和普攻射程差不多），游戏的 AI 又正是在这个距离放 Q，蜷起的第一 tick 就算撞上了。改法：
+
+- 撞上 = 两个身子碰到（中心距离 − 两个半径 ≤ `q_touch`，现在是 3000 的空隙；半径读不到按 6000）。参数表 `P` 的 `q_touch` 改成 3000（只进副本的 `passive.params`，主包的数据没变，`make_override.py` 核对过）。
+- 蜷起那一 tick 已经贴着他的敌人（不是 Q 的目标）不算撞，离开过再贴上才算；Q 的目标由副本挂 `league_rammus_q_aim`（`q_curl` + 2 tick）认出来。
+- 新加 AI 钩子 `league_rammus:open`：他没在滚、没在施法 / 蜷着，Q 解锁且好了，AI 想普攻或走路（不在回城、放技能），最近的敌方英雄离他 30000 到 45000（Q 的射程）：改成对他放 Q，先滚过去。日志 `OPEN`。
+
+下一局看 `ROLL hit ... after N ticks`（N 该大于 0、`gap` 在 3000 以内）、`ROLL over ... rolled`（该大于 0）和 `OPEN`。

@@ -481,30 +481,20 @@ impl StablePassive for Disc {
         if self.towers.is_empty() && tick < 600 {
             self.snapshot(sim, team);
         }
+        // 0.2.1: the disc the pulse kept while he was dead comes back to the passive
+        if let Some(up) = DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).remove(&wall_key(sim, me)) {
+            if self.up.is_none() {
+                self.up = Some(up);
+                wlog(format!("{} DISC BACK with him at {}, {} ticks left", head(sim, me), pt(up.at), up.until.saturating_sub(tick)));
+            }
+        }
         if let Some(mut up) = self.up {
             if tick >= up.until {
                 wlog(format!("{} DISC GONE at {}", head(sim, me), pt(up.at)));
                 self.up = None;
                 return;
             }
-            if tick >= up.next_stamp {
-                sim.play_view_effect(&az("disc"), me, &pos_input(up.at), 0, 0, 0);
-                sim.play_view_effect(&az("d_glow"), me, &pos_input(up.at), 0, 0, 0);
-                up.next_stamp = tick + self.p.s_step;
-            }
-            if tick >= up.next_shot {
-                if let Some((t, champ)) = self.target(sim, team, up.at) {
-                    let dmg = disc_damage(&self.p, ap);
-                    sim.deal_damage_typed(me, t, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
-                    sim.play_view_effect(&az("d_beam"), me, &InputTargetV1::target(t), 0, 0, 0);
-                    sim.play_sfx(&az("d_beam"), me, &InputTargetV1::target(t));
-                    if let Some(k) = counted("shot") {
-                        wlog(format!("{} SHOT #{k} the disc at {} -> #{t} ({}) {dmg} magic", head(sim, me), pt(up.at),
-                                     if champ { "champion" } else { "unit" }));
-                    }
-                }
-                up.next_shot = tick + self.p.d_per;
-            }
+            disc_tick(sim, me, team, tick, ap, &self.p, &mut up, false);
             self.up = Some(up);
             return;
         }
@@ -522,8 +512,99 @@ impl StablePassive for Disc {
         }
     }
 
-    fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
-        // the disc stands on (League's does); its cooldown (`next_ok`) is the game's
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
+        // the disc stands on (League's does); its cooldown (`next_ok`) is the game's. 0.2.1: a dead champion's passive hooks
+        // do not run, so the disc and a standing wall froze till his respawn (11-04 logs: DISC GONE at his SPAWN, walls
+        // #8 / #16 without WALL DOWN): a queued native effect (`Pulse`) takes them over tick by tick while he is dead, and
+        // on_update takes the disc back when he lives.
+        let Some(me) = sim.get_player(player).and_then(|p| p.champion()).map(|e| e.id()) else { return };
+        let key = wall_key(sim, me);
+        let walls = WALLS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).map_or(0, |w| w.len());
+        if self.up.is_none() && walls == 0 {
+            return;
+        }
+        let tick = sim.tick();
+        let disc = self.up.map(|up| format!("the disc at {} ({} ticks left)", pt(up.at), up.until.saturating_sub(tick)));
+        let queued = pulse(sim, me);
+        if queued {
+            // the pulse drives it from DEAD_DISCS; refused, it stays with the passive and freezes as before
+            if let Some(up) = self.up.take() {
+                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).insert(key, up);
+            }
+        }
+        if let Some(k) = tally(sim, "dead") {
+            wlog(format!("{} DEAD #{k}: {}{}{} - the pulse {}", head(sim, me), disc.clone().unwrap_or_default(),
+                         if disc.is_some() && walls > 0 { " and " } else { "" },
+                         if walls > 0 { format!("{walls} standing walls") } else { String::new() },
+                         if queued { "keeps them running" } else { "was REFUSED (queue_effect): they freeze till he respawns" }));
+        }
+    }
+}
+
+/// 0.2.1: (sim, him) -> the disc he left standing when he died (the passive's on_update stops with him; [`Pulse`] drives it).
+static DEAD_DISCS: LazyLock<Mutex<HashMap<WallKey, Up>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One tick of a standing disc: its picture re-stamped every `s_step`, a shot at the nearest enemy every `d_per`.
+#[allow(clippy::too_many_arguments)]
+fn disc_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, ap: usize, p: &Params, up: &mut Up, dead: bool) {
+    if tick >= up.next_stamp {
+        sim.play_view_effect(&az("disc"), me, &pos_input(up.at), 0, 0, 0);
+        sim.play_view_effect(&az("d_glow"), me, &pos_input(up.at), 0, 0, 0);
+        up.next_stamp = tick + p.s_step;
+    }
+    if tick >= up.next_shot {
+        if let Some((t, champ, _)) = nearest(sim, team, up.at, p.d_range as f64) {
+            let dmg = disc_damage(p, ap);
+            sim.deal_damage_typed(me, t, dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+            sim.play_view_effect(&az("d_beam"), me, &InputTargetV1::target(t), 0, 0, 0);
+            sim.play_sfx(&az("d_beam"), me, &InputTargetV1::target(t));
+            if let Some(k) = counted("shot") {
+                wlog(format!("{} SHOT #{k} the disc at {} -> #{t} ({}) {dmg} magic{}", head(sim, me), pt(up.at),
+                             if champ { "champion" } else { "unit" }, if dead { " (he is dead)" } else { "" }));
+            }
+        }
+        up.next_shot = tick + p.d_per;
+    }
+}
+
+/// Queues the next `Pulse` a tick on (while he is dead).
+fn pulse(sim: &mut StableSim<'_>, me: usize) -> bool {
+    sim.queue_effect(&format!("{ID}:pulse"), AttackTypeV1::Skill, me, &pos_input((0.0, 0.0)), 1)
+}
+
+/// 0.2.1: while he is dead, a tick of the disc and the standing walls (queued effects run for a dead caster; his passive
+/// does not): queues the next one as long as either stands. Stops as soon as he lives (on_update takes over).
+struct Pulse;
+
+impl StableEffectType for Pulse {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
+        let tick = sim.tick();
+        let Some(e) = sim.get_entity(me) else { return };
+        if e.is_alive() {
+            return;
+        }
+        let (team, ap) = (e.team(), e.stat().magic_power);
+        let key = wall_key(sim, me);
+        let p = params_of(me);
+        if let Some(k) = counted("pulse") {
+            wlog(format!("{} PULSE #{k}: the disc and the walls run on while he is dead", head(sim, me)));
+        }
+        walls_tick(sim, me, team, tick, &p);
+        let mut more = WALLS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).is_some_and(|w| !w.is_empty());
+        let disc = DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied();
+        if let Some(mut up) = disc {
+            if tick >= up.until {
+                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key);
+                wlog(format!("{} DISC GONE at {} (he is dead)", head(sim, me), pt(up.at)));
+            } else {
+                disc_tick(sim, me, team, tick, ap, &p, &mut up, true);
+                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).insert(key, up);
+                more = true;
+            }
+        }
+        if more && !pulse(sim, me) {
+            wlog(format!("{} queue_effect({ID}:pulse) refused", head(sim, me)));
+        }
     }
 }
 
@@ -1461,6 +1542,29 @@ pub fn latch(slot: usize) -> String {
 /// slot takes it off before).
 const LATCH_SPARE: usize = 60;
 
+/// 0.2.1: the mark on him while slot `slot`'s soldier stands out of his reach right now (before it crumbles):
+/// `league_azir_o<slot>`, hung afresh every tick it is out (`OUT_MARK_T`), taken off when it comes back. The copy's stab
+/// skips it: the data's own `tied` check (RandomTarget s_tie from the zone, from_projectile) let 7 stabs a day through at
+/// 67157-75253 from him, all inside this window.
+pub fn out_mark(slot: usize) -> String {
+    az(&format!("o{}", SLOTS[slot]))
+}
+
+/// The out-of-reach mark's life a hanging (seen on OUT_MARK_T - 1 ticks; refreshed every tick while the soldier is out, so
+/// it lapses by itself when the passive stops - his death - or the soldier ends).
+pub const OUT_MARK_T: usize = 3;
+
+/// What to do with the out-of-reach mark this tick: `Some(true)` hang it afresh (the soldier stands out of reach),
+/// `Some(false)` take it off (it just came back), `None` nothing (in reach, or still rising: League does not check a
+/// dashing soldier).
+pub fn out_mark_step(standing: bool, away: bool, was_away: bool) -> Option<bool> {
+    match (standing, away, was_away) {
+        (true, true, _) => Some(true),
+        (true, false, true) => Some(false),
+        _ => None,
+    }
+}
+
 /// Every tick while he lives (his passive, before the line): each soldier of his still standing ages (twice as fast in
 /// an enemy tower's range), goes out of his reach or back (the data's stab asks the same distance) and crumbles after
 /// `CRUMBLE_T` ticks out of it, or when a tower has aged it to `s_life` (`soldier_step`).
@@ -1471,6 +1575,8 @@ fn soldiers_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, h
         .collect();
     // (slot, its spot, how far he is, out of reach now, it went out / came back this tick, crumbles, age, lived, out)
     let mut seen = Vec::new();
+    // (slot, the out-of-reach mark: hang / take off / nothing)
+    let mut marks = Vec::new();
     {
         let mut map = SOLDIERS.lock().unwrap_or_else(|e| e.into_inner());
         for slot in 0..SLOTS.len() {
@@ -1490,6 +1596,8 @@ fn soldiers_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, h
             }
             let logged = flipped && s.flips <= FLIPS_LOGGED;
             let was_out = s.out;
+            // 0.2.1: the mark the copy's stab asks while it stands out of reach (hung afresh every tick, off when back)
+            marks.push((slot, out_mark_step(standing, away, s.away)));
             s.out = out;
             s.age = age;
             if standing {
@@ -1503,6 +1611,19 @@ fn soldiers_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, h
             }
         }
     }
+    for (slot, step) in marks {
+        let name = out_mark(slot);
+        match step {
+            Some(true) => {
+                sim.entity_remove_buff(me, &name);
+                sim.add_buff(me, &BuffV1::timed(&name, OUT_MARK_T));
+            }
+            Some(false) => {
+                sim.entity_remove_buff(me, &name);
+            }
+            None => {}
+        }
+    }
     for (slot, at, d, away, why, age, lived, out) in seen {
         let s_ = SLOTS[slot];
         match why {
@@ -1510,6 +1631,7 @@ fn soldiers_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, h
                 let (ox, oy) = SLOT_AT[slot];
                 // it falls back into the sand (the rise's sand pile) where it is drawn; the data stays off it
                 sim.play_view_effect(&az("s_spawn"), me, &pos_input((at.0 + ox, at.1 + oy)), 0, 0, 0);
+                sim.entity_remove_buff(me, &out_mark(slot)); // 0.2.1: the latch takes over
                 let name = latch(slot);
                 sim.entity_remove_buff(me, &name);
                 sim.add_buff(me, &BuffV1::timed(&name, p.s_life + LATCH_SPARE));
@@ -1578,6 +1700,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     }
     // 0.1.7: the line of sand to each soldier (the passive spawns its pieces; they hit nothing)
     module.add_native_effect(format!("{ID}:noop"), Noop);
+    // 0.2.1: the disc and the standing walls run on while he is dead (his passive does not)
+    module.add_native_effect(format!("{ID}:pulse"), Pulse);
     host.log(LogLevel::Info, "league_azir v1 loaded (Azir's Sun Disc, his guards facing the charge).");
 }
 
@@ -1960,11 +2084,32 @@ mod tests {
         assert!(picks >= stabs && stabs > 0, "{picks} picks from the zone for {stabs} stabs");
         for s in SLOTS {
             let latch = format!("\"buff_name\": \"league_azir_x{s}\"");
-            assert!(copy.matches(&latch).count() >= copy.matches(&format!("\"effect_ref\": \"league_azir:stab_{s}\"")).count(),
-                    "every stab of slot {s} behind its latch");
+            let stabs = copy.matches(&format!("\"effect_ref\": \"league_azir:stab_{s}\"")).count();
+            assert!(copy.matches(&latch).count() >= stabs, "every stab of slot {s} behind its latch");
             assert!(copy.contains(&format!("\"name\": \"league_azir_x{s}\"")), "the rise takes the latch off");
+            // 0.2.1: and behind the out-of-reach mark of the tick
+            let mark = format!("\"buff_name\": \"league_azir_o{s}\"");
+            assert!(copy.matches(&mark).count() >= stabs, "every stab of slot {s} behind its out-of-reach mark");
         }
         assert_eq!(latch(1), "league_azir_xb");
+        assert_eq!(out_mark(2), "league_azir_oc");
+        // the main pack's data has neither (the flags are the copy's; `league_azir_x` alone is the decoy's)
+        let main = include_str!("../../../league/champion/league_azir.data_champion");
+        for s in SLOTS {
+            assert!(!main.contains(&format!("league_azir_o{s}")) && !main.contains(&format!("league_azir_x{s}")));
+        }
+    }
+
+    /// 0.2.1: the mark hangs every tick a standing soldier is out of reach, comes off when it is back; a rising soldier
+    /// is not checked.
+    #[test]
+    fn the_out_of_reach_mark_follows_the_soldier() {
+        assert_eq!(out_mark_step(true, true, false), Some(true), "just went out");
+        assert_eq!(out_mark_step(true, true, true), Some(true), "still out: hung afresh");
+        assert_eq!(out_mark_step(true, false, true), Some(false), "back in reach");
+        assert_eq!(out_mark_step(true, false, false), None);
+        assert_eq!(out_mark_step(false, true, false), None, "rising");
+        assert!(OUT_MARK_T >= 2, "seen on OUT_MARK_T - 1 ticks, hung every tick");
     }
 
     /// League: a disc on the ruins of a turret destroyed outside the enemy base - his anywhere, theirs but their base's.

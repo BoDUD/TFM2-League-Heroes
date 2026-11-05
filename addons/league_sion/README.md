@@ -1,4 +1,4 @@
-# 赛恩附加包（测试版 v0.1.5）
+# 赛恩附加包（测试版 v0.2.0）
 
 主包 `league` 保持纯数据。用户选了「主包数据 + 附加包复活」。这个附加包用原生代码做主包数据做不到的两件事：
 
@@ -25,6 +25,7 @@
 - **倒下时的击杀（0.1.4，2026-11-03 的日志：42 次倒下里 8 次「killed by league_sion」）**：最后打他的英雄在亡灵期间死了又复活（新的实体），原来就算成赛恩自己、敌方丢了这个人头；现在算那个玩家现在的英雄，都没有就算最近的活着的敌方英雄，从不算自己（`killer`）。
   0.1.5（2026-11-03 晚的日志：`FALL #3: … killed by league_sion#23`——最后打他的卡莉丝塔被亡灵打死了，敌方英雄一个也没活着）：
   连敌方英雄都没有时，算最近的活着的敌方防御塔、小兵、召唤物或水晶（英雄联盟的「被处决」），中立野怪不算；只有这些全都没有才算他自己（`fallback_killer`）。
+- **大招的日志 + 亡灵不冲（0.2.0，2026-11-05，用户：「塞恩是不是也不太放大？」）**：当天的日志里一行大招都没有——大招是主包的数据（`tools/kit/build_sion.py`：这一格只上膛 600 tick，每 10 tick 查救人 / 团战 / 追击），本包和 `league_ult_press` 都没记它。经典 SDK 的 48 局追踪找到了原因：窗口没用上时该退还冷却（`ult_cooldown_mult` 把剩余冷却压到 72 tick），可退还在窗口的最后一 tick 读上膛标记，那时标记已经没了（n tick 的标记只能看到 n−1 tick），**从来没退还过**，每个白开的窗口都花掉整整 60 秒冷却——游戏里的 AI 一有敌方英雄进 90000 就上膛（线上单挑也上），窗口一个个白开，真打团时大招总在冷却。主包改成提前 3 tick 读（瑞兹 R 11-02 的同一个修法）：模拟里每局冲 4.19 → 4.69 次，窗口过期到再上膛的间隔中位数 3558 → 877 tick，击杀差 +0.81 → +1.16（288 局，误差 ±0.42，同一个波动内）。放宽到「身边 1 名队友就冲向射程内任何敌方英雄」试过：4.96 次但没撞到的从 22% 升到 29%，没采用，救人 / 2 名队友的团战 / 追击的规则不变。本包现在每 tick 看他身上的标记记日志（`src/ult.rs`），并在变亡灵时摘掉上膛标记（亡灵不能放技能，可数据的轮询还在跑，窗口开着仍会冲出去）。
 
 ## 在游戏里测
 
@@ -38,6 +39,11 @@
    - `RISE #1: lethal damage caught at 1 hp (last hit by ...), zombie 540 ticks from ... hp`：变成亡灵；
    - `FALL #1: the zombie's time is up, killed by ...`：亡灵倒下；
    - `FURNACE #3: ... killed, max health +... in all`：击杀加生命。
+   - `R ARMED #1: window 600 ticks; hp 92%, enemy champions in reach 1 (nearest 61234), allies near 0`：大招上膛（格子放了，600 tick 内每 10 tick 查一次）；
+   - `R LAPSED #1: no charge in 597 ticks, 60 polls: enemy champion in reach 41 (alone 39, with an ally 2), nobody in reach 19; ult cooldown left 72 ticks (refund caps it at 72)`：窗口白开，退还了冷却（`left` 不是 72 左右就是退还没生效）；
+   - `R CHARGE #1: teamfight (2 allies near); hp 70%, ...` / `engage / follow-up (1 ally near)` / `save (an ally in crowd control)`：冲出去了和为什么；
+   - `R HIT after 26 ticks (tier 2) #1` / `R MISS: ran the full 50 ticks and hit nobody #2`：撞上了（跑得越远伤害档越高）还是跑满没撞到；
+   - `R this life #1 (dead): armed 3, charged 2`：一条命里上膛和冲撞的次数；`R window closed #1: he rose as the zombie while R was armed`：变亡灵时窗口还开着（摘掉了）。
 
 ## 开发
 

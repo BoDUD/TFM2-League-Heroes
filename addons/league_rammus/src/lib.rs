@@ -41,11 +41,23 @@ pub const RUSH: &str = "league_rammus_q_rush";
 pub const P_DMG: usize = 15;
 pub const P_AP: usize = 30;
 pub const P_ARM: usize = 15;
-/// 动力冲刺：一 tick 一 tick 加速的起点、终点（移速 %）、几 tick 加满；离敌人多近算撞上（P 的 q_ms0 / q_ms1 / q_ramp / q_touch）。
+/// 动力冲刺：一 tick 一 tick 加速的起点、终点（移速 %）、几 tick 加满；两个身子的边缘隔多近算撞上（P 的 q_ms0 / q_ms1 /
+/// q_ramp / q_touch）。0.1.1：q_touch 以前是 26000、从他的中心量到对方的边（≥ 普攻射程），AI 又在差不多这个距离放 Q，
+/// 11-04 的日志里 40 次撞击 38 次「after 0 ticks」、每次 ROLL over 都是「0 rolled」——球从来没滚过；现在量两个身子之间的空隙。
 pub const Q_MS0: usize = 30;
 pub const Q_MS1: usize = 100;
 pub const Q_RAMP: usize = 120;
-pub const Q_TOUCH: usize = 26_000;
+pub const Q_TOUCH: usize = 3_000;
+/// 单位半径读不到时用的值。
+pub const BODY: f64 = 6_000.0;
+/// Q 的目标（副本的 Q 给目标挂的，蜷起那一 tick 已经贴着他的敌人里只有它算撞上）。
+pub const AIM: &str = "league_rammus_q_aim";
+/// 副本 Q 的施法标记（AI 钩子不在它和尖刺防御期间开球）。
+pub const BUSY: &str = "league_rammus_busy";
+/// AI 钩子 `league_rammus:open`（0.1.1）：最近的敌方英雄在这么远到 Q 射程（`Q_RANGE`）之间、Q 好了就先滚过去，不等游戏的 AI
+/// 走到普攻距离才按。
+pub const Q_OPEN: u64 = 30_000;
+pub const Q_RANGE: u64 = 45_000;
 
 // ===================== 日志 =====================
 
@@ -127,6 +139,20 @@ pub fn rush(t: usize) -> i32 {
     (Q_MS0 + (Q_MS1 - Q_MS0) * k / Q_RAMP) as i32
 }
 
+/// 两个身子碰上了（0.1.1）：中心相距 `d`、半径 `r_me` / `r_u`，边缘的空隙不超过 Q_TOUCH。读不到的半径（0）按 `BODY`。
+pub fn body(r: u64) -> f64 {
+    if r == 0 { BODY } else { r as f64 }
+}
+
+pub fn contact(d: f64, r_me: f64, r_u: f64) -> bool {
+    d - r_me - r_u <= Q_TOUCH as f64
+}
+
+/// AI 钩子该从这个距离开球：Q_OPEN 到 Q_RANGE 之间（近的游戏 AI 自己会按、远的够不着）。
+pub fn open_from(d2: u64) -> bool {
+    d2 > Q_OPEN * Q_OPEN && d2 <= Q_RANGE * Q_RANGE
+}
+
 fn pos(sim: &StableSim<'_>, id: usize) -> Option<Pt> {
     sim.get_entity(id).map(|e| (e.pos().0 as f64, e.pos().1 as f64))
 }
@@ -169,24 +195,40 @@ struct Shell {
     rolling: Option<usize>,
     /// 缩成球时的位置（日志里记滚了多远）。
     from: Option<Pt>,
+    /// 蜷起那一 tick 就贴着他的敌人（不是 Q 的目标）：离开过才算撞（0.1.1）。
+    skip: Vec<usize>,
 }
 
 impl Shell {
-    /// 身边 Q_TOUCH 内最近的敌方单位（不算防御塔、要能被选中）。
-    fn touched(sim: &StableSim<'_>, me: usize) -> Option<(usize, f64)> {
-        let e = sim.get_entity(me)?;
-        let (team, at) = (e.team(), (e.pos().0 as f64, e.pos().1 as f64));
+    /// 贴着他的敌方单位（不算防御塔、要能被选中）：`skip` 以外空隙最小的 (id, 空隙)，和贴着的全部。
+    fn touching(sim: &StableSim<'_>, me: usize, skip: &[usize]) -> (Option<(usize, f64)>, Vec<usize>) {
+        let Some(e) = sim.get_entity(me) else { return (None, Vec::new()) };
+        let (team, at, r_me) = (e.team(), (e.pos().0 as f64, e.pos().1 as f64), body(e.radius() as u64));
         let mut best: Option<(usize, f64)> = None;
+        let mut all = Vec::new();
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
             if u.team() == team || !u.is_alive() || u.is_tower() || !u.is_targetable() {
                 continue;
             }
-            let d = dist((u.pos().0 as f64, u.pos().1 as f64), at) - u.radius() as f64;
-            if d <= Q_TOUCH as f64 && best.is_none_or(|b| d < b.1) {
-                best = Some((u.id(), d));
+            let r_u = body(u.radius() as u64);
+            let d = dist((u.pos().0 as f64, u.pos().1 as f64), at);
+            if !contact(d, r_me, r_u) {
+                continue;
+            }
+            all.push(u.id());
+            let gap = d - r_me - r_u;
+            if !skip.contains(&u.id()) && best.is_none_or(|b| gap < b.1) {
+                best = Some((u.id(), gap));
             }
         }
+        (best, all)
+    }
+
+    fn touched(&mut self, sim: &StableSim<'_>, me: usize) -> Option<(usize, f64)> {
+        let (best, all) = Self::touching(sim, me, &self.skip);
+        // the ones curled up against him count once they have been off him
+        self.skip.retain(|id| all.contains(id));
         best
     }
 }
@@ -220,8 +262,12 @@ impl StablePassive for Shell {
         let t = match self.rolling {
             None => {
                 self.from = pos(sim, me);
+                // the enemies against him as he curls up (not Q's target) are no hit until they have been off him
+                let (_, all) = Self::touching(sim, me, &[]);
+                self.skip = all.into_iter().filter(|&id| !has_buff(sim, id, AIM)).collect();
                 if let Some(k) = counted("roll") {
-                    wlog(format!("{} ROLL curled up #{k}", head(sim, me)));
+                    wlog(format!("{} ROLL curled up{} #{k}", head(sim, me),
+                                 if self.skip.is_empty() { String::new() } else { format!(", {} already against him", self.skip.len()) }));
                 }
                 0
             }
@@ -241,12 +287,78 @@ impl StablePassive for Shell {
         if has_buff(sim, me, GO) {
             return;
         }
-        if let Some((foe, d)) = Self::touched(sim, me) {
+        if let Some((foe, d)) = self.touched(sim, me) {
             sim.add_buff(me, &BuffV1::timed(GO, 2));
             if let Some(k) = counted("hit") {
-                wlog(format!("{} ROLL hit #{foe} after {t} ticks at +{}% speed ({d:.0} away) #{k}", head(sim, me), rush(t)));
+                wlog(format!("{} ROLL hit #{foe} after {t} ticks at +{}% speed (gap {d:.0}) #{k}", head(sim, me), rush(t)));
             }
         }
+    }
+}
+
+// ===================== AI 钩子：从远处开球 =====================
+
+/// 游戏的 AI 在普攻距离附近才放 Q（11-04 的日志：撞击全在 0 tick）。这个钩子（0.1.1）：他活着、没在滚、没在施法 / 蜷着、
+/// Q 解锁且冷却好了，AI 想普攻或走路（不在回城、放技能），最近的敌方英雄在 `Q_OPEN`..`Q_RANGE` 之间：改成对他放 Q。
+#[derive(Clone, Default)]
+struct Open {
+    recalling: bool,
+}
+
+impl StablePlayerAi for Open {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:open")
+    }
+
+    fn priority(&self) -> i32 {
+        100
+    }
+
+    fn matches(&self, init: &StableAiInit) -> bool {
+        init.champion_name == ID
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        // the AI's recall: ordered once, quiet until any other order (league_akshan's rule)
+        self.recalling = match base {
+            Some(b) => b.kind == InputKindV1::Return.code(),
+            None => self.recalling,
+        };
+        let walking = base.is_some_and(|b| matches!(InputKindV1::from_code(b.kind), Some(InputKindV1::Attack | InputKindV1::Move)));
+        if self.recalling || !walking {
+            return None;
+        }
+        let player = ctx.player_id();
+        let (pick, d2, line) = {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion().filter(|e| e.is_alive())?;
+            let (id, team) = (me.id(), me.team());
+            let ready = me.cooldown(SkillSlotV1::Skill).is_some_and(|c| c.unlocked && c.remaining == 0);
+            if !ready || has_buff(&sim, id, BALL) || has_buff(&sim, id, BUSY) || has_buff(&sim, id, CURL) {
+                return None;
+            }
+            let (pick, d2) = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+                .filter(|u| u.team() != team && u.is_champion() && u.is_alive() && u.is_targetable() && sim.is_visible(team, u.id()))
+                .map(|u| (u.id(), sim.distance_sq(id, u.id())))
+                .min_by_key(|u| u.1)?;
+            (pick, d2, head(&sim, id))
+        };
+        if !open_from(d2) {
+            return None;
+        }
+        let input = InputV1::action(InputKindV1::Skill, InputTargetV1::target(pick));
+        if !ctx.is_valid_input(&input) {
+            return None;
+        }
+        if let Some(k) = counted("open") {
+            wlog(format!("{line} OPEN: Powerball at #{pick} from {:.0} away (the AI had {:?}) #{k}", (d2 as f64).sqrt(),
+                         base.map(|b| b.kind)));
+        }
+        Some(input)
     }
 }
 
@@ -268,6 +380,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     view::install_once();
     module.add_native_effect(format!("{ID}:spikes"), Step(spikes_hit));
     module.add_native_passive(format!("{ID}:shell"), Shell::default());
+    module.add_player_input_ai(Open::default());
     host.log(LogLevel::Info, "league_rammus loaded (Spiked Shell by armour, the rolling Powerball, the ball / curl bodies).");
 }
 
@@ -302,10 +415,33 @@ mod tests {
     }
 
     #[test]
+    fn the_ball_hits_on_body_contact_only() {
+        // 11-04 logs: 38 of 40 hits after 0 ticks - the old 26000 from his centre to the enemy's edge was the attack
+        // range; the AI casts Q about there. Two champions (10000 each): touching at 20000, a 3000 gap still counts
+        assert!(contact(20_000.0, 10_000.0, 10_000.0));
+        assert!(contact(23_000.0, 10_000.0, 10_000.0));
+        assert!(!contact(23_001.0, 10_000.0, 10_000.0));
+        assert!(!contact(26_000.0, 10_000.0, 6_000.0), "the old reach is no contact");
+        assert_eq!(body(0), BODY);
+        assert_eq!(body(8_000), 8_000.0);
+        // the hook opens with Q between Q_OPEN and the range
+        assert!(!open_from(30_000 * 30_000));
+        assert!(open_from(30_001 * 30_001));
+        assert!(open_from(45_000 * 45_000));
+        assert!(!open_from(45_001 * 45_001));
+    }
+
+    #[test]
     fn the_copy_names_this_crates_effects() {
         let s = include_str!("../override/league_rammus.data_champion");
         assert!(s.contains("\"league_rammus:shell\""));
         assert!(s.contains("\"league_rammus:spikes\""));
         assert!(s.contains(&format!("\"{BALL}\"")) && s.contains(&format!("\"{GO}\"")) && s.contains(&format!("\"{CURL}\"")));
+        // 0.1.1: Q marks its target (`q_aim`), the touch is the gap between bodies, Q's range is the hook's Q_RANGE
+        assert!(s.contains(&format!("\"{AIM}\"")) && s.contains(&format!("\"{BUSY}\"")));
+        assert!(s.contains(&format!("\"q_touch\": {Q_TOUCH}")));
+        let flat: String = s.split_whitespace().collect();
+        assert!(flat.contains(&format!("\"range\":{Q_RANGE},\"casting_type\":\"Targeting\",\"casting_target\":\"EnemyWithoutTower\"")),
+                "Q's range is not {Q_RANGE}");
     }
 }

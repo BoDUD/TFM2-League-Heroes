@@ -28,6 +28,14 @@
 //! 比赛）用中立或蓝色方 / 红色方的说法。巨龙、男爵在英雄联盟的语音包里只有「蓝色方 / 红色方 / 中立」三种
 //! （`KillDragonBlue/Red/purple`、`KillWormBlue/Red/purple`），按拿下的那一队的颜色放。
 //!
+//! 0.2.1（2026-11-05 日志）：11-04 晚的每一局都丢了我方是哪一边：选人界面认出来了（「SIDE you are blue (team 0): you
+//! "Bark Knights", blue Some("Bark Knights")」），进了比赛画面顶上的队名带着地区和排名（「Bark Knights 中国 #4」、
+//! 「DN SOOPers 韩国 #7」），0.2.0 只认「队名」和「队名 #N」，认不出就把已经知道的那一边抹成「不知道」：548 句播报
+//! side None，胜利放了 16 次「蓝色方胜利」而不是「胜利 / 失败」。现在队名后面可以跟任何字再跟「#N」（队名得是整个词：
+//! 「Azubu Frost」不是「Azubu Frostbite #4」）；比赛画面上两个队名都对不上时留着上次认出的那一边（`settle`），离开比赛
+//! 画面才忘掉。巨龙 / 男爵照旧按颜色放：英雄联盟的语音包里只有蓝色方 / 红色方 / 中立三种，游戏的 team 0 = 蓝色方
+//! （顶上 `blue_info` 的那队，API 里 team 0 赢叫 `blue_win`）。
+//!
 //! 播报排队放：一条放完（`GAP` tick）才放下一条，等了 `EXPIRE` tick 还没轮到的扔掉（胜负那句插到最前面、清掉别的）。
 //!
 //! 只在看得见、听得见的比赛里放（观看、观战、回放）；后台预演的比赛（`ServerPresim`）和别的队伍在后台打的比赛
@@ -662,13 +670,24 @@ static BOOK: Mutex<Book> = Mutex::new(Book { keys: Vec::new() });
 /// The user's team in the match on screen (0 blue, 1 red), as the client extension last read it.
 static SIDE: Mutex<Option<usize>> = Mutex::new(None);
 
-/// A side label ("Azubu Frost #4": the name, then the standing) shows the team named `name`.
+/// A side label shows the team named `name`: the label is the name alone (the draft's "Bark Knights"), or the name,
+/// then anything (the match header's region, "中国" / "韩国"), then the standing "#N": "Bark Knights 中国 #4",
+/// "Azubu Frost #4". The name is a whole word: "Azubu Frost" is not "Azubu Frostbite #4".
 pub fn label_names(label: &str, name: &str) -> bool {
     let (label, name) = (label.trim(), name.trim());
     if name.is_empty() {
         return false;
     }
-    label == name || label.strip_prefix(name).is_some_and(|rest| rest.trim_start().starts_with('#'))
+    let Some(rest) = label.strip_prefix(name) else { return false };
+    if rest.is_empty() {
+        return true;
+    }
+    let whole_word = rest.starts_with(char::is_whitespace) || rest.starts_with('#');
+    let standing = rest
+        .trim_end()
+        .rsplit_once('#')
+        .is_some_and(|(_, n)| !n.is_empty() && n.chars().all(|c| c.is_ascii_digit()));
+    whole_word && standing
 }
 
 /// The user's side from the two labels: only when exactly one names his team.
@@ -679,6 +698,17 @@ pub fn side_of(blue: Option<&str>, red: Option<&str>, mine: &str) -> Option<usiz
         (true, false) => Some(0),
         (false, true) => Some(1),
         _ => None,
+    }
+}
+
+/// The side to hold after a read: `read` when the labels told it; else the side known before, while the match is
+/// still on screen (`in_match`: the labels named neither team this time, as the header did in 0.2.0); nothing between
+/// matches.
+pub fn settle(known: Option<usize>, read: Option<usize>, in_match: bool) -> Option<usize> {
+    match (read, in_match) {
+        (Some(s), _) => Some(s),
+        (None, true) => known,
+        (None, false) => None,
     }
 }
 
@@ -702,7 +732,8 @@ impl StableExtension for Sides {
         let scene = ctx.is_in_game().then(|| ctx.client_scene_kind()).flatten();
         let mut side = None;
         let mut what = format!("scene {scene:?}");
-        if matches!(scene, Some(ClientSceneKindV1::InGame | ClientSceneKindV1::Match)) {
+        let in_match = matches!(scene, Some(ClientSceneKindV1::InGame | ClientSceneKindV1::Match));
+        if in_match {
             // a default team's name may be an i18n key ("#asset/...")
             let mine = ctx.player_team_id().and_then(|id| ctx.team_name(id)).map(|n| {
                 let key = n.strip_prefix('#').map(str::to_string);
@@ -726,11 +757,17 @@ impl StableExtension for Sides {
                 }
             }
         }
-        let line = match side {
-            Some(s) => format!("SIDE you are {} (team {s}): {what}", if s == BLUE { "blue" } else { "red" }),
-            None => format!("SIDE not told: {what}"),
+        // 0.2.1: a read that tells nothing while the match is on screen keeps the side known (the header's labels did
+        // not parse in 0.2.0 and wiped the draft's read); between matches the side is forgotten
+        let mut held = SIDE.lock().unwrap_or_else(|e| e.into_inner());
+        let kept = settle(*held, side, in_match);
+        let line = match (side, kept) {
+            (Some(s), _) => format!("SIDE you are {} (team {s}): {what}", if s == BLUE { "blue" } else { "red" }),
+            (None, Some(k)) => format!("SIDE not told, keeping team {k}: {what}"),
+            (None, None) => format!("SIDE not told: {what}"),
         };
-        *SIDE.lock().unwrap_or_else(|e| e.into_inner()) = side;
+        *held = kept;
+        drop(held);
         if line != last.1 {
             wlog(&line);
             last.1 = line;
@@ -1390,7 +1427,17 @@ mod tests {
     fn the_side_labels() {
         assert!(label_names("Azubu Frost #4", "Azubu Frost"));
         assert!(label_names("Azubu Frost", "Azubu Frost"));
-        assert!(!label_names("Azubu Frost Blue #4", "Azubu Frost"));
+        // 0.2.1: the match header's region between the name and the standing
+        assert!(label_names("Bark Knights 中国 #4", "Bark Knights"));
+        assert!(label_names("DN SOOPers 韩国 #7", "DN SOOPers"));
+        assert!(label_names("Name #4", "Name"));
+        assert!(label_names("Name", "Name"));
+        assert!(label_names(" Bark Knights 中国 #12 ", "Bark Knights "));
+        assert!(label_names("Azubu Frost Blue #4", "Azubu Frost"));
+        assert!(!label_names("Azubu Frostbite #4", "Azubu Frost"));
+        assert!(!label_names("Azubu Frost 中国", "Azubu Frost"));
+        assert!(!label_names("Azubu Frost #", "Azubu Frost"));
+        assert!(!label_names("Azubu Frost #4a", "Azubu Frost"));
         assert!(!label_names("Azubu", "Azubu Frost"));
         assert!(!label_names("X #1", ""));
         assert_eq!(side_of(Some("A #1"), Some("B #2"), "B"), Some(1));
@@ -1398,6 +1445,18 @@ mod tests {
         assert_eq!(side_of(Some("A #1"), Some("B #2"), "C"), None);
         assert_eq!(side_of(Some("A"), Some("A"), "A"), None);
         assert_eq!(side_of(None, Some("A"), "A"), Some(1));
+        assert_eq!(side_of(Some("Bark Knights 中国 #4"), Some("DN SOOPers 韩国 #7"), "Bark Knights"), Some(0));
+        assert_eq!(side_of(Some("JD Gaming 中国 #5"), Some("Bark Knights 中国 #4"), "Bark Knights"), Some(1));
+        assert_eq!(side_of(Some("DN SOOPers 韩国 #7"), Some("JD Gaming 中国 #5"), "Bark Knights"), None);
+    }
+
+    #[test]
+    fn a_read_that_tells_nothing_keeps_the_side_in_a_match() {
+        assert_eq!(settle(Some(0), None, true), Some(0));
+        assert_eq!(settle(Some(0), Some(1), true), Some(1));
+        assert_eq!(settle(None, None, true), None);
+        // another scene (the result, the lineup): forgotten
+        assert_eq!(settle(Some(1), None, false), None);
     }
 
     #[test]

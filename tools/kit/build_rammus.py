@@ -30,9 +30,11 @@ slot - the watch curls him up in fights (league_jarvaniv's Golden Aegis the same
   watch   A life-long `AddCasted` started by his first attack or cast of each life (`init`), every watch_p ticks: casts W.
 The add-on copy (--native, addons/league_rammus): the attack's Spiked Shell is league_rammus:spikes (p_dmg + p_ap% AP +
 p_arm% of his real armour); skill only curls him up and sets `q_ball` for q_ball_t ticks - the passive
-league_rammus:shell speeds him up (q_ms0% -> q_ms1% over q_ramp ticks) and, the moment an enemy is within q_touch, lays
-the 1-tick `q_go` that a 1-tick watch of the cast turns into the impact (q_hit); his attack while rolling is the impact
-too; the add-on's display hook draws him as the ball (b_*) while `q_ball` is on and curled (c_*) while `w_on` is.
+league_rammus:shell speeds him up (q_ms0% -> q_ms1% over q_ramp ticks) and, the moment his body comes within q_touch of
+an enemy's (the gap between the two bodies; 26000 from his centre before 2026-11-05 - the ball never rolled), lays the
+1-tick `q_go` that a 1-tick watch of the cast turns into the impact (q_hit); the Q's target carries `q_aim` so that
+enemies already against him as he curls up are no hit until they have been off him; his attack while rolling is the
+impact too; the add-on's display hook draws him as the ball (b_*) while `q_ball` is on and curled (c_*) while `w_on` is.
 In both packs R cast while rolling (`q_ball`) ends the ball and counts as right after an impact (League: R during
 Powerball).
 """
@@ -66,7 +68,7 @@ P = {
     "p_dmg": 15, "p_ap": 30, "p_hp": 2,
     # the add-on's Spiked Shell from his armour (League: 15%) and League's rolling Powerball (League: rolls up to 6 s,
     # speeding up; we roll up to 4 s, +30% -> +100% move speed over 2 s, touching within an attack's reach)
-    "p_arm": 15, "q_ball_t": 240, "q_touch": 26000, "q_ms0": 30, "q_ms1": 100, "q_ramp": 120,
+    "p_arm": 15, "q_ball_t": 240, "q_touch": 3000, "q_ms0": 30, "q_ms1": 100, "q_ramp": 120,
     # W Defensive Ball Curl (League: +22-52 armour +22.5-67.5% bonus armour, the same in MR, 7 s, returns 15 + 10% armour
     # + 10% MR magic to attackers, cd 7 s after it ends)
     "w_cd": 840, "w_go": 30000, "w_dur": 16, "w_t": 420, "w_def": 60, "w_ref": 25,
@@ -267,8 +269,10 @@ def build(p):
     else:
         roll = [refresh("q_ball", p["q_roll"]), anim("skill_roll", p["q_roll"]), cview("q_dust"),
                 {"type": "MoveToTarget", "speed": p["q_speed"], "range": p["q_range"] + 60000, "end_effects": q_hit}]
+    # the add-on: the target carries q_aim through the curl (the passive reads it on the ball's first tick)
+    aim = [buff("q_aim", p["q_curl"] + 2)] if nat else []
     skill = action("skill", p["q_curl"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(life, refresh("busy", p["q_curl"] + 10), sfx("q"), voice("vo_q", p),
+                   combine(life, refresh("busy", p["q_curl"] + 10), sfx("q"), voice("vo_q", p), *aim,
                            delayed(p["q_curl"] - 1, alive(*roll))))
 
     # ------------------------------------------------------------------ skill2: E Frenzying Taunt

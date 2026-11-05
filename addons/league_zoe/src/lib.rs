@@ -1,14 +1,15 @@
 //! 佐伊附加包：照英雄联盟的规则做主包数据做不到的三件事。
 //!
-//! 主包保持纯数据：飞星按飞行时间分近 / 中 / 远三档伤害，窃法巧手只跟着大招射飞弹；昏睡从游戏 0.7.0 起是游戏自己的睡眠（主包、
-//! 副本都一样，见下）。`mod.override_info` 把主包的佐伊换成 `override/` 里的副本（`tools/kit/build_zoe.py --native`），被动
-//! `league_zoe:sparkles`：
+//! 主包保持纯数据：飞星按飞行时间分近 / 中 / 远三档伤害，窃法巧手只跟着大招射飞弹，昏睡是固定时长的眩晕（打不醒）。
+//! `mod.override_info` 把主包的佐伊换成 `override/` 里的副本（`tools/kit/build_zoe.py --native`），被动 `league_zoe:sparkles`：
 //!
-//! - **催眠气泡**（0.4.0，用户：「新控制"睡眠"……冲突就直接调用官方的」「这两个顺带一起改了」）：困倦结束时数据里落下
-//!   **游戏的官方睡眠**（催眠师 E 的原生效果 `hypnotist_skill2`，副本 `e_sleep_n` tick，英雄联盟 2.25 秒）：**任何伤害**都会
-//!   打醒，打醒的那一下伤害提高 `e_amp`%，画面和声音都是游戏的。副本里气泡打中英雄时另挂 `league_zoe_e_mark`（困倦那
-//!   `e_drowsy` tick）；被动看见新的标记，睡眠落下时给他挂睡泡 `league_zoe_e_zz`，醒了就摘掉，被打醒的放 `league_zoe_e_wake`
-//!   的画面（[`watch`]；稳定接口把睡眠报成眩晕）。以前自己的昏睡（原生眩晕）、自己打醒、补真实伤害（有封顶）都去掉了。
+//! - **催眠气泡**（0.6.0，用户 2026-11-05：「佐伊问题很大 好像不能催眠别人？」）：困倦结束时数据在被打中的英雄身上落下
+//!   `e_sleep_n` tick 的眩晕（英雄联盟 2.25 秒）。副本里气泡打中英雄时另挂 `league_zoe_e_mark`（困倦那 `e_drowsy` tick）；被动
+//!   看见新的标记，眩晕落下时给他挂睡泡 `league_zoe_e_zz`；睡着时生命 + 护盾少了（**任何伤害**，谁打的都算）就**叫醒**：
+//!   只解除这一份眩晕（[`kept_after_wake`]），那一下掉的血再来一遍真实伤害，最多 `e_cap` + `e_cap_ratio`% 法强（英雄联盟：
+//!   打醒的第一下双倍，有封顶），放 `league_zoe_e_wake` 的画面和声音（[`watch`]）。0.4.0～0.5.2 用的是游戏的官方睡眠（催眠师
+//!   E 的原生效果 `hypnotist_skill2`）：它按输入目标的**位置**放一个范围，被打中的英雄是单位、不是位置，范围落在佐伊自己
+//!   脚下（游戏 0.7.1 的 0x19f8726），一个人也没睡着；给它位置也会被拉回到她 E 的施法距离以内，困倦结束时多数目标在那之外。
 //! - **飞星乱入！**：副本里飞星打中的单位挂 `league_zoe_q_hit`（2 tick），伤害只算近的一档；她出手时身上有 `league_zoe_q_go`。
 //!   被动记下出手的位置，打中时按真实距离补上：`q_n0` 以内不加，到 `q_n1d` 加到 `q_far`%（中间线性）。
 //! - **窃法巧手**：敌方英雄放大招（大招冷却从 0 跳起来）时原地掉下一块法术碎片（`league_zoe_w_shard`，`s_t` tick），她走到 `s_r`
@@ -23,7 +24,8 @@
 //!   （`league_zoe_sg_<技能>`）；闪现在起点和落点各炸开一团星芒（`s_flash`），中间一串金色拖影（`s_flash_trail`），落点也亮
 //!   图标（0.5.0；大招里不挑闪现，传送门半秒后就把她送回原地），净化一道光环从脚扫到头（`s_cleanse`），屏障一个金色
 //!   气泡（`s_barrier`），治疗、点燃、虚弱、幽灵疾步是它们 buff 的画面；地上的碎片每次重画换一个图标（`ss_<技能>`，七个轮流），
-//!   捡起来才按局面定是哪个。图在 `league_zoe_spells`（tools/art/draw_zoe_spells.py）。
+//!   捡起来才按局面定是哪个。图在 `league_zoe_spells`（闪现，高清）、`league_zoe_spells_1x`（跟着人的那些，1 倍：0.6.0，
+//!   用户 2026-11-05：「捡起来的召唤师技能的技能特效完全错位」）和 `league_zoe_spell_icons`（tools/art/draw_zoe_spells.py）。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个佐伊自己的被动实例里，
 //! 服务端预模拟和你看的那场各算各的。
@@ -62,7 +64,7 @@ const SHARD_VIEW: usize = 15;
 const Q_WINDOW: usize = 60;
 /// 大招冷却从 0 跳到多少以上算放了大招。
 const ULT_JUMP: usize = 60;
-/// 困倦结束后多少 tick 内看见控制才算这一泡的睡眠（数据里官方睡眠在标记掉的那一 tick 之后一两 tick 落下）。
+/// 困倦结束后多少 tick 内看见眩晕才算这一泡的睡眠（数据里的眩晕在标记掉的那一 tick 前后落下）。
 pub const SLEEP_LATE: usize = 4;
 
 // 召唤师技能的数字（0.3.0 照创意工坊的 Summoner Spells 对齐，用户：「创意工坊里面有双召mod你直接参考」；它照英雄联盟）。
@@ -155,9 +157,11 @@ pub struct Params {
     pub q_far: usize,
     pub q_n0: usize,
     pub q_n1d: usize,
-    /// 催眠气泡：困倦的 tick，睡眠的 tick（数据里官方睡眠的时长）。
+    /// 催眠气泡：困倦的 tick，睡眠的 tick（数据里眩晕的时长），打醒那一下补的真实伤害的封顶（固定值、法强 %）。
     pub e_drowsy: usize,
     pub e_sleep_n: usize,
+    pub e_cap: usize,
+    pub e_cap_ratio: usize,
     /// 碎片的飞弹：每颗伤害（固定值、法强 %）、颗数、间隔 tick、找目标的距离；移速 % 和 tick。
     pub w_dmg: usize,
     pub w_ratio: usize,
@@ -181,6 +185,8 @@ impl Default for Params {
             q_n1d: 85000,
             e_drowsy: 84,
             e_sleep_n: 135,
+            e_cap: 100,
+            e_cap_ratio: 60,
             w_dmg: 45,
             w_ratio: 15,
             w_n: 3,
@@ -210,6 +216,8 @@ pub fn parse_params(json: &str) -> Params {
             "q_n1d" => &mut p.q_n1d,
             "e_drowsy" => &mut p.e_drowsy,
             "e_sleep_n" => &mut p.e_sleep_n,
+            "e_cap" => &mut p.e_cap,
+            "e_cap_ratio" => &mut p.e_cap_ratio,
             "w_dmg" => &mut p.w_dmg,
             "w_ratio" => &mut p.w_ratio,
             "w_n" => &mut p.w_n,
@@ -244,6 +252,11 @@ pub fn star_bonus(p: &Params, dist: u64, ap: usize) -> usize {
     base * (star_pct(p, dist) - 100) / 100
 }
 
+/// 打醒那一下补的真实伤害：那一下掉的生命 + 护盾，最多封顶。
+pub fn wake_bonus(p: &Params, drop: usize, ap: usize) -> usize {
+    drop.min(p.e_cap + p.e_cap_ratio * ap / 100)
+}
+
 /// 一颗碎片飞弹的魔法伤害（减免前）。
 pub fn shard_damage(p: &Params, ap: usize) -> usize {
     p.w_dmg + p.w_ratio * ap / 100
@@ -265,32 +278,36 @@ fn dist(a: (u64, u64), b: (u64, u64)) -> u64 {
 #[derive(Clone, Debug)]
 struct Sleeper {
     target: usize,
-    /// 困倦结束、官方睡眠落下的 tick。
+    /// 困倦结束、数据的眩晕落下的 tick。
     sleep_at: usize,
     /// 睡着后到这一 tick 自己醒；0 = 还没睡着。
     until: usize,
+    /// 上一 tick 的生命 + 护盾（睡着以后）。
+    guard: usize,
 }
 
 /// 这一 tick 对一个中了气泡的人做什么（[`watch`]）。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Watch {
-    /// 还困着，或睡眠还没落下。
+    /// 还困着，或眩晕还没落下。
     Wait,
-    /// 睡着了：挂上睡泡。
+    /// 睡着了：挂上睡泡，记下生命 + 护盾。
     Fell,
-    /// 没睡着（净化了、跳出了睡眠的范围）：不管了。
+    /// 没睡着（困倦时被净化、免疫控制）：不管了。
     Missed,
     /// 还睡着。
     Asleep,
-    /// 提前醒了（被打醒）：摘掉睡泡，放醒来的画面。
+    /// 睡着时挨了打：叫醒他（只解除这份眩晕），那一下再来一遍真实伤害，摘掉睡泡，放醒来的画面。
+    Hit,
+    /// 眩晕提前没了（净化）：摘掉睡泡，放醒来的画面。
     Woke,
     /// 到时间自己醒了：摘掉睡泡。
     Ended,
 }
 
 /// 中了气泡的人这一 tick 的样子：`sleep_at` 困倦结束的 tick，`until` 睡着后自己醒的 tick（还没睡着是 0），`held` 他身上有
-/// 眩晕（稳定接口把游戏的睡眠报成眩晕）。困倦时别人的眩晕不算睡着。
-pub fn watch(tick: usize, sleep_at: usize, until: usize, held: bool) -> Watch {
+/// 眩晕，`hurt` 睡着以后生命 + 护盾比上一 tick 少了。困倦时别人的眩晕不算睡着。
+pub fn watch(tick: usize, sleep_at: usize, until: usize, held: bool, hurt: bool) -> Watch {
     if until == 0 {
         if held && tick >= sleep_at {
             Watch::Fell
@@ -299,12 +316,16 @@ pub fn watch(tick: usize, sleep_at: usize, until: usize, held: bool) -> Watch {
         } else {
             Watch::Wait
         }
-    } else if held {
-        Watch::Asleep
-    } else if tick + 2 < until {
-        Watch::Woke
+    } else if !held {
+        if tick + 2 < until {
+            Watch::Woke
+        } else {
+            Watch::Ended
+        }
+    } else if hurt {
+        Watch::Hit
     } else {
-        Watch::Ended
+        Watch::Asleep
     }
 }
 
@@ -334,8 +355,10 @@ struct Sparkles {
     volleys: Vec<(usize, usize)>,
     stars: usize,
     sleeps: usize,
+    /// 挨打叫醒的、睡眠被净化掉的。
     wakes: usize,
-    /// 困倦结束后没看见睡着的（日志里写下他当时身上的控制，看游戏的睡眠到底报成什么）。
+    freed: usize,
+    /// 困倦结束后没看见睡着的（日志里写下他当时身上的控制）。
     misses: usize,
     picked: usize,
     dropped: usize,
@@ -360,10 +383,41 @@ fn cc_list(sim: &StableSim<'_>, id: usize) -> String {
     })
 }
 
-/// 身上有眩晕（游戏的睡眠在稳定接口里就是眩晕）。
+/// 身上有眩晕（气泡的睡眠是数据的眩晕；敌方催眠师的官方睡眠在稳定接口里也报成眩晕）。
 fn held(sim: &StableSim<'_>, id: usize) -> bool {
     sim.get_entity(id)
         .map_or(false, |e| (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| c.kind == CcKindV1::Stun.code()))
+}
+
+/// 生命 + 护盾（少了 = 挨了打）。
+fn guard_of(sim: &StableSim<'_>, id: usize) -> usize {
+    sim.get_entity(id).map_or(0, |e| e.hp().0 + e.shield())
+}
+
+/// The crowd control to put back after waking `target` from this bubble's sleep: every entry but the one Stun whose ticks
+/// left are nearest the sleep's own `left` (ours). The stable API can only clear every control at once
+/// (`entity_clear_cc`), so waking would wipe an ally's stun or knock-up landing with the waking hit as well (0.3.1, the
+/// game 0.7.0 audit).
+pub fn kept_after_wake(ccs: &[CcV1], left: u64) -> Vec<CcV1> {
+    let ours = ccs
+        .iter()
+        .enumerate()
+        .filter(|(_, c)| c.kind == CcKindV1::Stun.code())
+        .min_by_key(|(_, c)| c.tick.abs_diff(left))
+        .map(|(i, _)| i);
+    ccs.iter().enumerate().filter(|(i, _)| Some(*i) != ours).map(|(_, c)| *c).collect()
+}
+
+/// Wakes `target`: clears its crowd control and puts back everything but this bubble's sleep ([`kept_after_wake`]).
+fn wake_from_sleep(sim: &mut StableSim<'_>, target: usize, left: u64) {
+    let ccs: Vec<CcV1> = sim
+        .get_entity(target)
+        .map(|e| (0..e.cc_count()).filter_map(|i| e.cc_at(i)).collect())
+        .unwrap_or_default();
+    sim.entity_clear_cc(target);
+    for c in kept_after_wake(&ccs, left) {
+        sim.apply_cc(target, &c);
+    }
 }
 
 /// Living enemy champions of `team`: (id, position).
@@ -549,14 +603,14 @@ impl Sparkles {
         self.q_seen = now.into_iter().map(|(id, _)| id).collect();
     }
 
-    /// 催眠气泡：新标记 -> 困倦结束时游戏的睡眠落下，挂上睡泡；醒了（被打醒或到时间）摘掉。睡和醒都是游戏的：这里只管画面。
-    fn bubble(&mut self, sim: &mut StableSim<'_>, me: usize, foes: &[(usize, (u64, u64))], tick: usize) {
+    /// 催眠气泡：新标记 -> 困倦结束时数据的眩晕落下，挂上睡泡；睡着时挨了打就叫醒（补真实伤害），净化了或到时间摘掉睡泡。
+    fn bubble(&mut self, sim: &mut StableSim<'_>, me: usize, foes: &[(usize, (u64, u64))], ap: usize, tick: usize) {
         let mark = zo("e_mark");
         let now: Vec<usize> = foes.iter().map(|f| f.0).filter(|&id| has_buff(sim, id, &mark)).collect();
         for &id in &now {
             if !self.marked.contains(&id) {
                 self.sleepers.retain(|s| s.target != id);
-                self.sleepers.push(Sleeper { target: id, sleep_at: tick + self.p.e_drowsy, until: 0 });
+                self.sleepers.push(Sleeper { target: id, sleep_at: tick + self.p.e_drowsy, until: 0, guard: 0 });
             }
         }
         self.marked = now;
@@ -566,29 +620,60 @@ impl Sparkles {
             if !sim.get_entity(s.target).map_or(false, |e| e.is_alive()) {
                 continue;
             }
-            match watch(tick, s.sleep_at, s.until, held(sim, s.target)) {
-                Watch::Wait | Watch::Asleep => keep.push(s),
+            let guard = guard_of(sim, s.target);
+            let drop = s.guard.saturating_sub(guard);
+            let at = InputTargetV1::target(s.target);
+            match watch(tick, s.sleep_at, s.until, held(sim, s.target), s.until != 0 && drop > 0) {
+                Watch::Wait => keep.push(s),
+                Watch::Asleep => {
+                    s.guard = guard;
+                    keep.push(s);
+                }
                 Watch::Fell => {
                     sim.add_buff(s.target, &BuffV1::timed(&zz, self.p.e_sleep_n));
                     s.until = tick + self.p.e_sleep_n;
+                    s.guard = guard;
                     self.sleeps += 1;
+                    if self.sleeps <= 8 || self.sleeps % 25 == 0 {
+                        wlog(format!("{} SLEEP #{}: #{} asleep {} ticks after the drowsy ended, {} ticks", head(sim, me),
+                                     self.sleeps, s.target, tick - s.sleep_at, self.p.e_sleep_n));
+                    }
                     keep.push(s);
                 }
                 Watch::Missed => {
-                    // 0.5.2: 11-03 every WATCH said sleeps 0 - the game's sleep never read as a Stun here, or it never
-                    // landed: what he carries now tells the two apart in the next game
+                    // cleansed or immune while drowsy (0.5.2's line: 11-03 / 11-05 every one of them was the game's
+                    // sleep laid on Zoe's own feet - see the module's notes)
                     self.misses += 1;
                     if self.misses <= 8 || self.misses % 20 == 0 {
                         wlog(format!("{} MISS #{}: #{} not held {} ticks after the drowsy ended; crowd control now [{}]",
                                      head(sim, me), self.misses, s.target, tick - s.sleep_at, cc_list(sim, s.target)));
                     }
                 }
-                Watch::Woke => {
+                Watch::Hit => {
+                    // any damage wakes him: only this sleep's stun comes off, the hit lands again as true damage (capped);
+                    // the bonus is queued and lands after he is out of the list (no second wake)
+                    let left = s.until.saturating_sub(tick);
+                    wake_from_sleep(sim, s.target, left as u64);
                     sim.entity_remove_buff(s.target, &zz);
-                    sim.play_view_effect(&zo("e_wake"), me, &InputTargetV1::target(s.target), 0, 0, 0);
+                    sim.play_view_effect(&zo("e_wake"), me, &at, 0, 0, 0);
+                    sim.play_sfx(&zo("e_wake"), me, &at);
+                    let bonus = wake_bonus(&self.p, drop, ap);
+                    if bonus > 0 {
+                        sim.deal_damage_typed(me, s.target, bonus, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+                    }
                     self.wakes += 1;
                     if self.wakes <= 8 || self.wakes % 20 == 0 {
-                        wlog(format!("{} WAKE #{}: #{} woke {} ticks early", head(sim, me), self.wakes, s.target, s.until - tick));
+                        wlog(format!("{} WAKE #{}: #{} hit for {drop} asleep ({left} ticks left) -> +{bonus} true",
+                                     head(sim, me), self.wakes, s.target));
+                    }
+                }
+                Watch::Woke => {
+                    sim.entity_remove_buff(s.target, &zz);
+                    sim.play_view_effect(&zo("e_wake"), me, &at, 0, 0, 0);
+                    self.freed += 1;
+                    if self.freed <= 8 || self.freed % 20 == 0 {
+                        wlog(format!("{} FREED #{}: #{}'s sleep came off {} ticks early (cleansed)", head(sim, me),
+                                     self.freed, s.target, s.until - tick));
                     }
                 }
                 Watch::Ended => {
@@ -709,13 +794,14 @@ impl StablePassive for Sparkles {
         self.burn(sim, me, ap, tick);
         // the star flying and the sleepers go on after her death; only a living Zoe picks a shard up
         self.star(sim, me, team, pos, ap, tick);
-        self.bubble(sim, me, &foes, tick);
+        self.bubble(sim, me, &foes, ap, tick);
         self.shards(sim, me, &foes, pos, alive, ap, tick);
         if tick >= self.next_report {
             self.next_report = tick + 1800;
             if tick > 0 {
-                wlog(format!("{} WATCH: stars {}, sleeps {}, wakes {}, missed sleeps {}, shards dropped {} picked {}, summoner spells {}",
-                             head(sim, me), self.stars, self.sleeps, self.wakes, self.misses, self.dropped, self.picked, self.summons));
+                wlog(format!("{} WATCH: stars {}, sleeps {}, wakes {}, freed {}, missed sleeps {}, shards dropped {} picked {}, summoner spells {}",
+                             head(sim, me), self.stars, self.sleeps, self.wakes, self.freed, self.misses, self.dropped, self.picked,
+                             self.summons));
             }
         }
     }
@@ -729,7 +815,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (the Zz of the game's sleep, Paddle Star by distance, Spell Thief's shards) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (a sleep any damage breaks, Paddle Star by distance, Spell Thief's shards) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -737,7 +823,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:sparkles"), Sparkles::default());
-    host.log(LogLevel::Info, "league_zoe v1 loaded (the Zz of the game's sleep, Paddle Star by distance, Spell Thief's shards).");
+    host.log(LogLevel::Info, "league_zoe v1 loaded (a sleep any damage breaks, Paddle Star by distance, Spell Thief's shards).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -764,22 +850,64 @@ mod tests {
     }
 
     #[test]
-    fn the_zz_follows_the_games_sleep() {
-        // the bubble's mark came off at 100: the game's sleep lands a tick or two later and lasts 135
-        assert_eq!(watch(99, 100, 0, false), Watch::Wait);
-        assert_eq!(watch(90, 100, 0, true), Watch::Wait, "someone else's stun while he is only drowsy");
-        assert_eq!(watch(101, 100, 0, true), Watch::Fell);
-        assert_eq!(watch(100 + SLEEP_LATE, 100, 0, false), Watch::Wait);
-        assert_eq!(watch(101 + SLEEP_LATE, 100, 0, false), Watch::Missed, "cleansed, or out of the sleep's reach");
-        assert_eq!(watch(150, 100, 236, true), Watch::Asleep);
-        assert_eq!(watch(150, 100, 236, false), Watch::Woke, "hit: the game woke him");
-        assert_eq!(watch(234, 100, 236, false), Watch::Ended, "its own end");
+    fn the_sleep_falls_and_any_hit_wakes_him() {
+        // the bubble's mark came off at 100: the data's stun lands about then and lasts 135
+        assert_eq!(watch(99, 100, 0, false, false), Watch::Wait);
+        assert_eq!(watch(90, 100, 0, true, false), Watch::Wait, "someone else's stun while he is only drowsy");
+        assert_eq!(watch(100, 100, 0, true, false), Watch::Fell);
+        assert_eq!(watch(101, 100, 0, true, true), Watch::Fell, "a hit before he is asleep wakes nothing");
+        assert_eq!(watch(100 + SLEEP_LATE, 100, 0, false, false), Watch::Wait);
+        assert_eq!(watch(101 + SLEEP_LATE, 100, 0, false, false), Watch::Missed, "cleansed or immune while drowsy");
+        assert_eq!(watch(150, 100, 236, true, false), Watch::Asleep);
+        assert_eq!(watch(150, 100, 236, true, true), Watch::Hit, "any damage wakes him");
+        assert_eq!(watch(150, 100, 236, false, true), Watch::Woke, "cleansed (the hit came with it)");
+        assert_eq!(watch(234, 100, 236, false, false), Watch::Ended, "its own end");
+    }
+
+    #[test]
+    fn the_wake_up_hit_is_doubled_up_to_the_cap() {
+        let p = Params::default();
+        assert_eq!(wake_bonus(&p, 80, 100), 80);
+        assert_eq!(wake_bonus(&p, 500, 100), 160); // 100 + 60 % of 100 AP
+        assert_eq!(wake_bonus(&p, 0, 0), 0);
+    }
+
+    #[test]
+    fn waking_keeps_every_other_control() {
+        let stun = |t: u64| CcV1::stun(t);
+        let up = CcV1::of_kind(CcKindV1::Airborne, 40);
+        // our sleep has 90 ticks left; an ally's stun (30) and a knock-up (40) landed with the waking hit
+        let kept = kept_after_wake(&[stun(30), stun(90), up], 90);
+        assert_eq!(kept.iter().map(|c| (c.kind, c.tick)).collect::<Vec<_>>(),
+                   vec![(CcKindV1::Stun.code(), 30), (CcKindV1::Airborne.code(), 40)]);
+        // nothing but ours: nothing to put back; no Stun at all (already gone): everything back
+        assert!(kept_after_wake(&[stun(89)], 90).is_empty());
+        assert_eq!(kept_after_wake(&[up], 90).len(), 1);
+    }
+
+    #[test]
+    fn the_copy_lays_a_stun_not_the_hypnotists_native() {
+        // 0.4.0-0.5.2 laid the base Hypnotist's E (`hypnotist_skill2`) from the bubble's hit: the native takes its area's
+        // centre from a point, and the unit hit gave it none - the sleep fell on Zoe's own feet (2026-11-05 log: 24 MISS,
+        // crowd control [] on the target). The copy's bubble now stuns the champion hit for e_sleep_n, the Zz the add-on's
+        let copy = include_str!("../override/league_zoe.data_champion");
+        assert!(!copy.contains("hypnotist_skill2"), "the copy still calls the Hypnotist's native");
+        let p = Params::default();
+        assert!(copy.contains(&format!("\"duration\": {}", p.e_sleep_n)), "no e_sleep_n stun in the copy");
+        assert!(copy.contains("\"e_cap\": 100") && copy.contains("\"e_cap_ratio\": 60"), "the wake cap is not in the params");
+        // the pictures riding a unit come from the 1x sheet the game draws itself (a dense sheet's buff view is drawn PPU
+        // times big, hanging right and down)
+        for v in ["s_heal", "s_ignite", "s_exhaust", "s_ghost", "s_barrier", "s_cleanse"] {
+            let at = copy.find(&format!("\"name\": \"league_zoe_{v}\"")).expect(v);
+            let view = &copy[at..at + copy[at..].find('}').expect(v)];
+            assert!(view.contains("\"anim\": \"asset/league/effects/league_zoe_spells_1x\""), "{v} is not on the 1x sheet");
+        }
     }
 
     #[test]
     fn params_come_from_the_champion_data() {
-        let p = parse_params(r#"{"q_dmg":90,"q_far":220,"e_sleep_n":120,"w_n":2,"s_r":15000,"x":1}"#);
-        assert_eq!((p.q_dmg, p.q_far, p.e_sleep_n, p.w_n, p.s_r), (90, 220, 120, 2, 15000));
+        let p = parse_params(r#"{"q_dmg":90,"q_far":220,"e_sleep_n":120,"e_cap":80,"w_n":2,"s_r":15000,"x":1}"#);
+        assert_eq!((p.q_dmg, p.q_far, p.e_sleep_n, p.e_cap, p.w_n, p.s_r), (90, 220, 120, 80, 2, 15000));
         assert_eq!(p.q_ratio, Params::default().q_ratio);
         assert_eq!(parse_params("{}"), Params::default());
         assert_eq!(parse_params(r#"{"w_gap":0,"q_far":50}"#).w_gap, 1);

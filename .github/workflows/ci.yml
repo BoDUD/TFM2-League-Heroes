@@ -82,6 +82,8 @@ jobs:
           python -I addons/league_yasuo_wall/make_override.py --check
           python -I addons/league_kayle/make_override.py --check
           python -I addons/league_rumble/make_override.py --check
+      - name: Armed ults' refunds read a flag that is still up (a flag of n ticks is seen on n - 1 of them)
+        run: python -I tools/kit/check_arm_refund.py
       - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
         run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges

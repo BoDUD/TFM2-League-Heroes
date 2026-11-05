@@ -689,13 +689,12 @@ pub const FORMS: &[(&str, &[&str], f32, f32)] =
     &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25)];
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
-/// a game pixel, hd_idle PPU times as wide): league_yuumi_ride, the cat lying on her book on the head of the ally Yuumi rides (the user: 「1.5 倍（21 格）」
-/// for the 14-px picture; tools/art/import_yuumi_fx.py) and league_leblanc_clone (below; league_zyra_thicket was one
-/// until 2026-10-21, now a plain 1x sheet: 「婕拉的大招特效局内怎么这么模糊」). Looked up like the heroes
+/// a game pixel, hd_idle PPU times as wide): league_heimerdinger's turrets, league_leblanc_clone (below) and the rest
+/// (league_zyra_thicket was one until 2026-10-21, now a plain 1x sheet: 「婕拉的大招特效局内怎么这么模糊」; league_yuumi_ride,
+/// the cat on the head of the ally Yuumi rides, until 2026-11-05 - see DRAWN_EFFECTS). Looked up like the heroes
 /// (hd_engine/src/lookup.rs); the battlefield's entity scale (hd_engine/src/view.rs) never meets them - they are no
 /// entity's body.
 pub const EFFECTS: &[(&str, f32, &str)] = &[
-    ("league_yuumi_ride", 1.5, include_str!("../../../league/effects/league_yuumi_ride#anim.fanim")),
     // league_heimerdinger's two turrets (Q's and R's apex), one life each, drawn from their step-1 designs at his 1.5
     // (tools/art/import_heimerdinger_fx.py)
     ("league_heimerdinger_turret", 1.5, include_str!("../../../league/effects/league_heimerdinger_turret#anim.fanim")),
@@ -759,13 +758,17 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
 /// 弄的太大了吧」「还有地上的召唤师技能图标也太大了吧」): registered at PPU 2 and 3 on 10-22 but never listed here, the
 /// game drew Barrier's shell 88 x 104 px (designed 44 x 52, three times her height) and a shard's icon 34 px (Zoe's
 /// own height, designed 11), each hanging right and down from its spot. league_karthus's ghost (0.9.5) from the start.
-/// league_yuumi_ride too (0.9.6, the user, 2026-11-03: 「悠米还是会遮挡很多英雄的脸部」): the cat the user picked at 14 game px
-/// (「14」) was drawn 21 x 26 from 10-21 on, its bottom 7 px under the crown its lift was measured for and 4 px right of
-/// the host's middle - on the face of nearly every host.
+/// Only pictures the view node draw draws - played at a POINT - pass here: a BUFF's view (and an effect following a
+/// unit) is drawn elsewhere, the dense texels a square a game pixel about the 1 / PPU corner, PPU times too big and
+/// hanging right and down, whatever this table says. league_yuumi_ride (the cat on the head of the ally Yuumi rides, a
+/// buff's view) was listed here from 0.9.6 (the user, 2026-11-03: 「悠米还是会遮挡很多英雄的脸部」 - drawn 21 x 26 for the
+/// user's 14 game px, its bottom 7 px under the crown its lift was measured for and 4 px right of the host's middle) and
+/// changed nothing: the 11-05 log had the sheet loaded and Yuumi riding, and no "effect picture drawn" line for it.
+/// league_zoe's buff pictures the same (its 1x sheet league_zoe_spells_1x). So (0.9.12, 2026-11-05) the cat is a plain
+/// 1x sheet, league_yuumi_ride_1x, that the game draws itself, centred on the host: not registered at all.
 pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
                                      "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side",
-                                     "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost",
-                                     "league_yuumi_ride"];
+                                     "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost"];
 
 /// Tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): the card's canvas holds
 /// about 40 game px at 2.2x and these idles are 45-58 px from the head to the feet, so the knees and feet hid behind

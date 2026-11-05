@@ -14,7 +14,8 @@
 use mod_api_stable::*;
 
 use super::terrain::MapGrids;
-use super::{counted, current_map, dist, foe_of, has_buff, has_cc, head, on_screen, params_of, qy, ult, wlog, Foe, Params, HERO, ID};
+use super::{counted, current_map, dist, foe_of, has_buff, has_cc, head, on_screen, params_of, qy, sim_no, ult, unit, wlog, Foe,
+            Params, HERO, ID};
 
 /// 排在 league_ult_press（100）之后，同别的连招钩子。
 pub const PRIORITY: i32 = 110;
@@ -68,6 +69,12 @@ pub enum Call {
     RHeld(usize),
     /// AI 想放直线的 Q（对这个人），他还在多远：不放。
     QHeld(usize, f64),
+}
+
+/// 这个技能槽现在按得出来吗：学会了（引擎的 `is_valid_input` 不问；锁着的槽 league_unlock_guard 会改成站住），本包的冷却标记
+/// （`on_cd`）不在身上。读不到冷却（`None`）当没学会。
+pub fn slot_up(cd: Option<CooldownV1>, on_cd: bool) -> bool {
+    cd.is_some_and(|c| c.unlocked) && !on_cd
 }
 
 /// 直线的 Q 够得着 `t` 吗（中心之间）：`q_len` + `q_hw` + 他的身体 - `Q_MARGIN`。
@@ -135,7 +142,7 @@ impl StablePlayerAi for QiyanaAi {
         }
         let want = want_of(base);
         let player = ctx.player_id();
-        let (here, tick, line, map, champs, q_target, el_on, r_ready, p, q_up, e_up) = {
+        let (here, tick, line, map, champs, q_target, el_on, r_ready, p, q_up, e_up, key) = {
             let sim = ctx.sim()?;
             let e = sim.get_player(player)?.champion()?;
             if !e.is_alive() {
@@ -158,10 +165,13 @@ impl StablePlayerAi for QiyanaAi {
                 _ => None,
             };
             let map = if r_ready { current_map(&sim) } else { None };
-            // the slots' own cooldowns are the data's flags (the actions' are 1 s)
-            let (q_up, e_up) = (!has_buff(&sim, me, &qy("q_cd")), !has_buff(&sim, me, &qy("e_cd")));
+            // the slots' own cooldowns are the data's flags (the actions' are 1 s); 0.3.1: and the slot must be learned -
+            // `is_valid_input` does not ask, and a held Q turned into a locked E (levels 1-2) was turned into a STAND by
+            // league_unlock_guard: she stopped instead of walking up (40 GUARD lines a day, all hers)
+            let (q_up, e_up) = (slot_up(e.cooldown(SkillSlotV1::Skill), has_buff(&sim, me, &qy("q_cd"))),
+                                slot_up(e.cooldown(SkillSlotV1::Skill2), has_buff(&sim, me, &qy("e_cd"))));
             (here, tick, head(&sim, me), map, champs, q_target, has_buff(&sim, me, &qy("el_on")), r_ready, params_of(&sim, me),
-             q_up, e_up)
+             q_up, e_up, (sim_no(&sim, me), me))
         };
         // the engine has the last word on the range: R only at those it takes
         let cands: Vec<Foe> = champs
@@ -201,6 +211,11 @@ impl StablePlayerAi for QiyanaAi {
                     Want::R(Some(a)) if a != *t => format!(" (the AI aimed at #{a})"),
                     _ => String::new(),
                 };
+                // 0.3.1: the wind leaves r_at - 1 ticks after the engine takes the press, and he will have moved: launch()
+                // blows along this plan's line (the terrain it found), not at where he stands then
+                if let Some(dir) = at_of(*t).and_then(|at| unit((at.0 - here.0, at.1 - here.1))) {
+                    ult::remember(key, ult::Planned { tick, target: *t, dir, caught: caught.len() });
+                }
                 (InputV1::action(InputKindV1::Ult, InputTargetV1::target(*t)), if *own { "r terrain" } else { "r self" }, *t,
                  format!("R TERRAIN{} at #{t}{from}: the shockwave catches {} champions {caught:?}",
                          if *own { "" } else { " (on her own)" }, caught.len()))
@@ -289,6 +304,17 @@ mod tests {
         assert_eq!(q(&far, true), None);
         // 40000 off: in reach
         assert_eq!(q(&near, false), None);
+    }
+
+    #[test]
+    fn a_locked_slot_is_never_pressed() {
+        // 0.3.1: E locked at levels 1-2 (league_unlock_guard turned the press into a STAND)
+        let locked = CooldownV1 { unlocked: false, ..CooldownV1::default() };
+        let learned = CooldownV1 { unlocked: true, ..CooldownV1::default() };
+        assert!(!slot_up(Some(locked), false));
+        assert!(slot_up(Some(learned), false));
+        assert!(!slot_up(Some(learned), true), "on the data's cooldown flag");
+        assert!(!slot_up(None, false), "no cooldown read: not pressed");
     }
 
     #[test]

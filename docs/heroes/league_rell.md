@@ -55,7 +55,7 @@
 
 ### 芮尔附加包
 
-[芮尔附加包](../../addons/league_rell/README.md)：`league_rell` v0.1.2
+[芮尔附加包](../../addons/league_rell/README.md)：`league_rell` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

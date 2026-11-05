@@ -381,6 +381,8 @@ struct Flight {
     fell: usize,
     /// 这一口龙息（多半）是喷他的：开始喷时他活着、在龙息够得着的地方。
     on_aim: bool,
+    /// 截掉的龙息（0.3.1：逃生时对不残血的追兵喷的、够不着谁的、起飞时还在喷的地面龙息）。
+    cuts: usize,
 }
 
 /// 他看到的局面（`flight::Scene`）：看得见、选得中的敌方英雄，活着的队友英雄，两边活着的塔。
@@ -455,6 +457,10 @@ impl Stardust {
         let left = self.w_ready.saturating_sub(now);
         let after = flight::refunded(left, self.p.w_refund);
         self.w_ready = now + after;
+        // a takedown with Astral Flight ready already: nothing to refund, no line (0.3.1: 26 of 83 REFUND lines "0 -> 0")
+        if left == 0 {
+            return;
+        }
         if let Some(k) = counted("refund", on_screen(sim)) {
             wlog(format!("{} REFUND #{k}: a takedown, Astral Flight's cooldown {left} -> {after} ticks{}", head(sim, me),
                          if self.flight.is_some() { " (in flight)" } else { "" }));
@@ -511,7 +517,7 @@ impl Stardust {
         self.w_ready = now + cd;
         self.flight = Some(Flight { why: plan.why, aim: plan.why.target(), from: s.me, dir: plan.dir, len: plan.len,
                                     went: 0.0, ticks: 0, breaths: 0, breath_ticks: 0, breath_went: 0.0,
-                                    was_breathing: false, refused: 0, fell: 0, on_aim: false });
+                                    was_breathing: false, refused: 0, fell: 0, on_aim: false, cuts: 0 });
         if let Some(k) = counted("fly", on_screen(sim)) {
             let aim = plan.why.target().map_or_else(String::new, |t| {
                 let d = sim.get_entity(t).map(|u| (dist(s.me, pos_of(&u)), hp_of(&u)));
@@ -553,6 +559,40 @@ impl Stardust {
             if let Some(k) = counted("breath_cut", shown) {
                 wlog(format!("{} BREATH CUT #{k}: #{t}, the one he flew at, fell - the breath ends{}, on at full speed",
                              head(sim, me), if freed { " with its pose" } else { "" }));
+            }
+        }
+        // a breath beginning that the hook would never press (0.3.1: the game's own breath passed the hook, and a ground
+        // breath still running at take-off was carried into the flight - FLY #885 escape 28% hp, 136 of 143 ticks
+        // breathing at a healthy chaser; FLY #702 engage, 149 ticks at nobody within 75000): its channel ends, its pose
+        // too, and he flies on at full speed - the same rule as the hook's (`flight_ai::breath_target`)
+        if breathing && !f.was_breathing && !cut {
+            let (allowed, why) = match sim.get_entity(me) {
+                Some(e) => {
+                    let reach = self.p.q_range as f64 + flight_ai::BODIES;
+                    let foes = flight_ai::foes_in_reach(sim, &e, reach);
+                    let escape = f.why == Why::Escape;
+                    let ok = flight_ai::breath_target(&foes, f.aim, escape).is_some();
+                    let why = if f.ticks == 0 {
+                        "a ground breath carried into the flight".to_string()
+                    } else if escape {
+                        format!("the game's own breath on an escape (no chaser under {:.0}% hp)", flight_ai::ESC_BURN * 100.0)
+                    } else {
+                        format!("the game's own breath with no enemy champion within {reach:.0}")
+                    };
+                    (ok, why)
+                }
+                None => (true, String::new()),
+            };
+            if !allowed {
+                breathing = false;
+                f.cuts += 1;
+                self.fbreath = None;
+                sim.entity_remove_buff(me, Q_CH);
+                let freed = posed && sim.entity_clear_cc(me) > 0;
+                if let Some(k) = counted("breath_cut", shown) {
+                    wlog(format!("{} BREATH CUT #{k}: {why} - the breath ends{}, on at full speed ({} ticks into the {} flight)",
+                                 head(sim, me), if freed { " with its pose" } else { "" }, f.ticks, f.why.word()));
+                }
             }
         }
         let step = if cut {
@@ -641,8 +681,9 @@ impl Stardust {
         remove_prefixed(sim, me, W_AT);
         if let Some(k) = counted("land", on_screen(sim)) {
             wlog(format!("{} LAND #{k}: {} flight {how} after {} ticks, {:.0} of {:.0} flown; breathing {} ticks ({} breaths), \
-                          {:.0} flown while breathing{}{}", head(sim, me), f.why.word(), f.ticks, f.went, f.len, f.breath_ticks,
+                          {:.0} flown while breathing{}{}{}", head(sim, me), f.why.word(), f.ticks, f.went, f.len, f.breath_ticks,
                          f.breaths, f.breath_went, if f.fell > 0 { ", the one he flew at fell" } else { "" },
+                         if f.cuts > 0 { format!(", {} breaths cut", f.cuts) } else { String::new() },
                          if f.refused > 0 { format!(", {} steps refused", f.refused) } else { String::new() }));
         }
     }

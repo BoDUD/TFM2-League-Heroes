@@ -369,17 +369,25 @@ impl Scurvy {
         }
     }
 
+    /// 桶灭了（`k<s>_live` 没了）就忘掉它的位置（0.2.2：在 [`Scurvy::blown`] 读过炸开的桶的位置之后才忘）。
+    fn forget(&mut self, live: [bool; SLOTS]) {
+        for s in 0..SLOTS {
+            if !live[s] {
+                self.kegs[s] = None;
+                self.pending[s] = None;
+            }
+        }
+    }
+
     /// 桶落地时记下它的位置。
     fn track(&mut self, sim: &StableSim<'_>, me: usize, now: usize, mine: &[(u64, u64)]) {
+        let live: [bool; SLOTS] = std::array::from_fn(|s| has(sim, me, &sn(&format!("k{}_live", s + 1))));
+        self.forget(live);
         for s in 0..SLOTS {
-            let live = has(sim, me, &sn(&format!("k{}_live", s + 1)));
+            let live = live[s];
             if live && !self.had_live[s] {
                 self.pending[s] = Some((now, self.prev.clone()));
                 self.kegs[s] = None;
-            }
-            if !live {
-                self.kegs[s] = None;
-                self.pending[s] = None;
             }
             if let Some((t0, base)) = self.pending[s].take() {
                 match keg_point(&base, mine) {
@@ -403,21 +411,34 @@ impl Scurvy {
         }
     }
 
+    /// 这 tick 炸开的桶（`k<s>_now` 刚出现）和它们的位置。数据的爆炸在同一个 Delayed 里摘 `k<s>_live`、挂 `k<s>_now`：
+    /// 0.2.1 以前 `track()` 先跑、先把桶位忘了，连锁读到的总是 None（11-04 的日志：全天 0 CHAIN），所以这里要在
+    /// [`Scurvy::forget`] 之前读。
+    fn blown(&mut self, now: [bool; SLOTS]) -> Vec<(usize, (u64, u64))> {
+        let mut out = Vec::new();
+        for s in 0..SLOTS {
+            if now[s] && !self.had_now[s] {
+                if let Some(at) = self.kegs[s] {
+                    out.push((s, at));
+                }
+            }
+            self.had_now[s] = now[s];
+        }
+        out
+    }
+
     /// 一个桶炸开：别的点燃的桶在 e_chain 以内就连锁。
     fn chain(&mut self, sim: &mut StableSim<'_>, me: usize) {
-        for s in 0..SLOTS {
-            let blew = has(sim, me, &sn(&format!("k{}_now", s + 1)));
-            if blew && !self.had_now[s] {
-                self.chain_from(sim, me, s);
-            }
-            self.had_now[s] = blew;
+        let now: [bool; SLOTS] = std::array::from_fn(|s| has(sim, me, &sn(&format!("k{}_now", s + 1))));
+        for (s, from) in self.blown(now) {
+            self.chain_from(sim, me, s, from);
         }
     }
 
-    fn chain_from(&mut self, sim: &mut StableSim<'_>, me: usize, s: usize) {
+    fn chain_from(&mut self, sim: &mut StableSim<'_>, me: usize, s: usize, from: (u64, u64)) {
         for o in (0..SLOTS).filter(|&o| o != s) {
             let k = |x: &str| sn(&format!("k{}_{x}", o + 1));
-            let (Some(from), Some(at)) = (self.kegs[s], self.kegs[o]) else { continue };
+            let Some(at) = self.kegs[o] else { continue };
             if !has(sim, me, &k("ripe")) || !has(sim, me, &k("live")) || !within(from, at, self.p.e_chain) {
                 continue;
             }
@@ -435,9 +456,8 @@ impl Scurvy {
 
     /// 空炸的桶接着连锁（数据炸的桶由 `k<s>_now` 接着连）。
     fn chain_from_empty(&mut self, sim: &mut StableSim<'_>, me: usize, o: usize, at: (u64, u64)) {
-        self.kegs[o] = Some(at);
-        self.chain_from(sim, me, o);
         self.kegs[o] = None;
+        self.chain_from(sim, me, o, at);
     }
 
     /// 桶边 e_r + EMPTY_MARGIN 以内没有敌方单位就由本包空炸（画面、摘 p_cd、加速同数据的爆炸）；有人就留给数据。
@@ -591,8 +611,9 @@ impl StablePassive for Scurvy {
             self.cleanse(sim, me);
         }
         self.low_flag(sim, me, alive);
-        self.track(sim, me, now, &mine);
+        // chain before track: the blast takes k<s>_live off and raises k<s>_now in one tick (0.2.2)
         self.chain(sim, me);
+        self.track(sim, me, now, &mine);
         self.charges(sim, me, now);
         self.triple_barrel(sim, me, now);
         self.third_boom(sim, me, now);
@@ -698,6 +719,27 @@ mod tests {
         assert_eq!(triple(&p, &[a, b], &[(7, (180000, 100000))]), None);
         // too far from every keg
         assert_eq!(triple(&p, &[a, b], &[(7, (240000, 100000))]), None);
+    }
+
+    #[test]
+    fn a_keg_blown_by_the_data_is_still_placed_when_the_chain_reads_it() {
+        // 11-04 logs: 0 CHAIN all day. The blast takes k1_live off and raises k1_now in one Delayed: on that tick
+        // chain() must read keg 1's point before track() forgets it
+        let mut gp = Scurvy { kegs: [Some((100000, 100000)), Some((160000, 100000)), None], ..Scurvy::default() };
+        let (live, now) = ([false, true, false], [true, false, false]);
+        // 0.2.2's order: the blown keg's point first, then the slot is dropped
+        assert_eq!(gp.blown(now), vec![(0, (100000, 100000))]);
+        gp.forget(live);
+        assert_eq!(gp.kegs, [None, Some((160000, 100000)), None]);
+        // k1_now still up next tick: no second blast; the keg landing again later is a new one
+        assert_eq!(gp.blown(now), vec![]);
+        gp.kegs[0] = Some((300000, 300000));
+        assert_eq!(gp.blown([false, false, false]), vec![]);
+        assert_eq!(gp.blown([true, false, false]), vec![(0, (300000, 300000))]);
+        // the old order (0.2.1): forget first, nothing to chain from
+        let mut old = Scurvy { kegs: [Some((100000, 100000)), Some((160000, 100000)), None], ..Scurvy::default() };
+        old.forget(live);
+        assert_eq!(old.blown(now), vec![]);
     }
 
     #[test]

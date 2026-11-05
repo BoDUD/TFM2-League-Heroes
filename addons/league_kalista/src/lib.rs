@@ -411,6 +411,13 @@ pub fn add_spear(ticks: &mut Vec<usize>, tick: usize) -> bool {
     true
 }
 
+/// 这个 buff 算不算「杀不死」：带「不死」，但别的附加包一直挂着的被动护身（名字以 `_p_guard` / `_rv_guard` 结尾：死歌、塞恩、
+/// 艾尼维亚、扎克、扎恩、tft 的石甲虫）不算——英雄联盟里处决他们照样算击杀，他们死进自己的被动里（2026-11-05 复查：死歌被动
+/// 好着就一直「杀不死」）。千珏的大招、基兰的符文、凯尔的大招等真的杀不死，照样等。league_renata 的救难也是这个顺序。
+pub fn holds_execute(name: &str, undying: bool) -> bool {
+    undying && !name.ends_with("_p_guard") && !name.ends_with("_rv_guard")
+}
+
 pub fn rend_damage(n: usize, ad: usize, def: usize, p: &Params) -> usize {
     let raw = n * (p.e_dmg + p.e_ratio * ad / 100);
     raw * 100 / (100 + def)
@@ -698,8 +705,11 @@ impl Oath {
         let mut kill = None;
         for (&id, v) in &self.spears {
             let Some(e) = sim.get_entity(id) else { continue };
-            // 选不中的、挂着不死的（阿克尚复活前停在 1 血）拔了也杀不死（2026-11-01 复查：对 1 血的阿克尚报了 33 次）
-            if !e.is_alive() || !e.is_targetable() || (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.undying) {
+            // 选不中的、挂着不死的（阿克尚复活前停在 1 血）拔了也杀不死（2026-11-01 复查：对 1 血的阿克尚报了 33 次）；别的
+            // 附加包的被动护身（*_p_guard / *_rv_guard）不算，撕裂照样拔、他们死进被动里（0.2.2）
+            if !e.is_alive() || !e.is_targetable()
+                || (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| holds_execute(b.name(), b.undying))
+            {
                 continue;
             }
             let (hp, _) = e.hp();
@@ -1185,5 +1195,19 @@ mod tests {
         // 4 spears, 200 attack: 4 x (20 + 100) = 480, armour 50: 320
         assert_eq!(rend_damage(4, 200, 50, &p), 320);
         assert_eq!(rend_damage(0, 200, 50, &p), 0);
+    }
+
+    #[test]
+    fn a_passive_guard_does_not_make_him_unkillable() {
+        // 11-05 review: Karthus / Sion / Anivia / Zac / Zaahen / Krug keep a permanent *_p_guard / *_rv_guard; League
+        // counts an execute on them as a kill (they die into the passive)
+        for g in ["league_karthus_p_guard", "league_sion_p_guard", "league_anivia_p_guard", "league_zac_p_guard",
+                  "league_zaahen_rv_guard", "tft_krug_p_guard"] {
+            assert!(!holds_execute(g, true), "{g}");
+        }
+        assert!(holds_execute("league_kindred_r_on", true));
+        assert!(holds_execute("league_zilean_r_rune", true));
+        assert!(holds_execute("league_karthus_p_spirit", true));
+        assert!(!holds_execute("league_kindred_r_on", false));
     }
 }

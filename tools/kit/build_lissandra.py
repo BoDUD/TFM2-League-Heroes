@@ -311,7 +311,9 @@ def build(p):
     # ------------------------------------------------------------------ ult: arms the Frozen Tomb
     ult = action("idle", 3, p["r_cd"], 1, p["r_arm_range"], "None", "EnemyChampion", combine(
         *rm("r_armed"), flag("r_armed", p["r_arm"]),
-        on_me(delayed(p["r_arm"], sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900)))))),
+        # the refund reads the arm flag 3 ticks before the window ends: a flag of n ticks is seen on n - 1 of them, so read
+        # on its last tick it was always gone and a lapsed window never refunded (lr1105/fix_j, classic-SDK probe 2026-11-05)
+        on_me(delayed(p["r_arm"] - 3, sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900)))))),
         key="ult")
 
     # ------------------------------------------------------------------ views

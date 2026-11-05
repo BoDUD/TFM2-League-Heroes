@@ -201,8 +201,8 @@ impl Default for Params {
             e_haste: 30,
             e_haste_t: 90,
             e_low: 35,
-            e_reach: 16_000,
-            e_far: 64_000,
+            e_reach: 42_000,
+            e_far: 120_000,
             e_chase_r: 70_000,
             vo_gap: 600,
         }
@@ -392,8 +392,9 @@ pub fn plan_escape(p: &Params, g: &Grid, me: (f64, f64), foes: &[Foe]) -> Option
         .map(|(to, _)| Plan { to, chase: None })
 }
 
-/// 翻墙追击：隔着墙的敌方英雄（生命最低的先），翻过去离他更近，落点不在人堆里。
-pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[Foe]) -> Option<Plan> {
+/// 翻墙追击想追的人：`e_chase_r` 内、隔着墙（不贴身）、生命不高于 `PREY_HP`% 的敌方英雄，他自己生命不低于 `CHASE_HP`%；
+/// 生命最低的在前。
+pub fn chase_targets<'a>(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &'a [Foe]) -> Vec<&'a Foe> {
     let mut targets: Vec<&Foe> = foes
         .iter()
         .filter(|f| {
@@ -403,8 +404,29 @@ pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[F
         .filter(|f| hp_pct >= CHASE_HP && f.hp_pct <= PREY_HP)
         .collect();
     targets.sort_by_key(|f| f.hp_pct);
+    targets
+}
+
+/// 离他最近的墙（任何方向、`limit` 内）多远：没翻成时记进日志（0.1.6：5 局 0 次 VAULT，16000 的 `e_reach` 只有半格）。
+pub fn nearest_wall(g: &Grid, me: (f64, f64), limit: f64) -> Option<f64> {
+    rays()
+        .filter_map(|d| {
+            let mut t = STEP;
+            while t <= limit && !g.is_wall(me.0 + d.0 * t, me.1 + d.1 * t) {
+                t += STEP;
+            }
+            (t <= limit).then_some(t)
+        })
+        .min_by(|a, b| a.total_cmp(b))
+}
+
+/// `NO VAULT` 一条命里隔这么多 tick 才再记一行（想翻的那几秒每 3 tick 想一次）。
+pub const TALLY_GAP: usize = 300;
+
+/// 翻墙追击：隔着墙的敌方英雄（生命最低的先），翻过去离他更近，落点不在人堆里。
+pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[Foe]) -> Option<Plan> {
     let cos = CHASE_DEG.to_radians().cos();
-    for t in targets {
+    for t in chase_targets(p, g, me, hp_pct, foes) {
         let Some(toward) = unit((t.at.0 - me.0, t.at.1 - me.1)) else { continue };
         let now = dist(me, t.at);
         let best = rays()
@@ -485,6 +507,9 @@ struct Path {
     until: usize,
     haste_at: Option<usize>,
     vaults: usize,
+    /// 这条命里想翻墙撤离 / 追击而没翻成的次数，和上一行 `NO VAULT` 的 tick（0.1.6 的记账）。
+    wanted: (usize, usize),
+    tally_at: Option<usize>,
 }
 
 impl Path {
@@ -628,13 +653,42 @@ impl StablePassive for Path {
         let Some(gi) = current(&grids, &unit_points(sim)) else { return };
         let g = &grids[gi];
         let mine = hp_pct(sim, me);
-        let plan = if wants_out(&self.p, here, mine, &foes, allies) {
+        let out = wants_out(&self.p, here, mine, &foes, allies);
+        let plan = if out {
             plan_escape(&self.p, g, here, &foes)
         } else {
             plan_chase(&self.p, g, here, mine, &foes)
         };
-        if let Some(plan) = plan {
-            self.go(sim, me, here, plan);
+        match plan {
+            Some(plan) => self.go(sim, me, here, plan),
+            None => {
+                // wanted and not vaulted (0.1.6: 0 VAULT in 5 games): a tally line now and then with the nearest wall
+                let prey = (!out).then(|| chase_targets(&self.p, g, here, mine, &foes).first().map(|f| (f.id, dist(here, f.at)))).flatten();
+                if out || prey.is_some() {
+                    if out { self.wanted.0 += 1 } else { self.wanted.1 += 1 }
+                    let tick = sim.tick();
+                    if self.tally_at.is_none_or(|t| tick < t || tick >= t + TALLY_GAP) {
+                        self.tally_at = Some(tick);
+                        if tally(sim, "no_vault").is_some() {
+                            let wall = nearest_wall(g, here, 3.0 * CELL);
+                            wlog(format!(
+                                "{} NO VAULT: {} - nearest wall {} (reach {}), wanted {} escapes / {} chases this life",
+                                head(sim, me),
+                                match prey {
+                                    Some((t, d)) => format!("a chase of #{t} behind a wall {d:.0} away found no wall to vault"),
+                                    None => format!("an escape (hp {mine}%, {} enemy champions within {}) found no wall to vault",
+                                                    foes.iter().filter(|f| dist(here, f.at) <= self.p.e_safe_r as f64).count(),
+                                                    self.p.e_safe_r),
+                                },
+                                wall.map_or("none within 3 cells".to_string(), |w| format!("{w:.0} away")),
+                                self.p.e_reach,
+                                self.wanted.0,
+                                self.wanted.1
+                            ));
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -642,6 +696,8 @@ impl StablePassive for Path {
         self.goal = None;
         self.last = None;
         self.haste_at = None;
+        self.wanted = (0, 0);
+        self.tally_at = None;
     }
 }
 
@@ -722,6 +778,49 @@ mod tests {
         assert!(g.vault(at(4.7, 4.5), (1.0, 0.0), 16_000.0, 30_000.0).is_none());
         // off the map
         assert!(g.vault(at(9.8, 4.5), (1.0, 0.0), 16_000.0, 64_000.0).is_none());
+    }
+
+    #[test]
+    fn the_reach_is_leagues_650_units_not_half_a_cell() {
+        // 11-05: 0 VAULT in 5 games with e_reach 16000 (half a 32000 cell); League's E reaches terrain 650 units = 42900
+        let p = Params::default();
+        assert!(p.e_reach >= CELL as usize && p.e_reach <= 45_000, "{}", p.e_reach);
+        // the landing limit holds the reach, a two-cell wall and the margin
+        assert!(p.e_far as f64 >= p.e_reach as f64 + 2.0 * CELL + MARGIN, "{}", p.e_far);
+        let g = wall();
+        // a wall 1.2 cells away (38400): vaulted now, not with the old reach
+        let (to, start) = g.vault(at(3.8, 4.5), (1.0, 0.0), p.e_reach as f64, p.e_far as f64).unwrap();
+        assert!(start > 16_000.0 && start <= p.e_reach as f64 && to.0 > 6.0 * CELL, "{start} {to:?}");
+        assert!(g.vault(at(3.8, 4.5), (1.0, 0.0), 16_000.0, 64_000.0).is_none(), "the old reach never got there");
+        // 1.5 cells away (48000): still too far
+        assert!(g.vault(at(3.5, 4.5), (1.0, 0.0), p.e_reach as f64, p.e_far as f64).is_none());
+        // the kit carries the same numbers (make_override writes them into the copy)
+        let src = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_talon.py")).unwrap();
+        assert!(src.contains(&format!("\"e_reach\": {}", p.e_reach)) && src.contains(&format!("\"e_far\": {}", p.e_far)));
+    }
+
+    #[test]
+    fn the_nearest_wall_is_found_in_any_direction() {
+        let g = wall();
+        // 0.8 cell west of the wall column: 25600 (the wall's cell edge is at 5.0)
+        let d = nearest_wall(&g, at(4.2, 4.5), 3.0 * CELL).unwrap();
+        assert!((d - 0.8 * CELL).abs() <= STEP, "{d}");
+        // east of it: the same wall behind him
+        let d = nearest_wall(&g, at(6.5, 4.5), 3.0 * CELL).unwrap();
+        assert!((d - 0.5 * CELL).abs() <= STEP, "{d}");
+        assert_eq!(nearest_wall(&g, at(0.5, 0.5), 2.0 * CELL), None, "nothing within 2 cells");
+    }
+
+    #[test]
+    fn the_chase_targets_are_the_ones_behind_a_wall() {
+        let p = Params::default();
+        let g = wall();
+        let me = at(4.6, 4.5);
+        let behind = foe(at(6.7, 4.4), 40, 7);
+        let open = foe(at(3.0, 4.5), 40, 8);
+        let ids: Vec<usize> = chase_targets(&p, &g, me, 80, &[open, behind]).iter().map(|f| f.id).collect();
+        assert_eq!(ids, [7]);
+        assert!(chase_targets(&p, &g, me, 30, &[behind]).is_empty(), "hurt himself: no chase wanted");
     }
 
     #[test]

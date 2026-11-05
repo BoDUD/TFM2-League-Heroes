@@ -55,7 +55,7 @@
 
 ### 悠米附加包
 
-[悠米附加包](../../addons/league_yuumi/README.md)：`league_yuumi` v0.2.12
+[悠米附加包](../../addons/league_yuumi/README.md)：`league_yuumi` v0.2.13
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -97,6 +97,7 @@
 | 特效 | 第 3 步 19 张特效（[`tools/art/pack_yuumi_fx.py`](../../tools/art/pack_yuumi_fx.py)，颜色照英雄联盟：她的光是金色的星光和粉紫色的魔法，治疗是粉色的小爱心，大招的波纹是粉紫色带金边）。弹道图（光弹、飞弹、波纹）朝右画、上下对称（游戏按飞行方向转），其余全部左右对称（游戏不镜像特效图）。[`tools/art/import_yuumi_fx.py`](../../tools/art/import_yuumi_fx.py) 写成 `league_yuumi_fx` 和 `league_yuumi_big` |
 | 附身的小猫挡脸（2026-11-03） | 用户：「悠米还是会遮挡很多英雄的脸部」。小猫是用户定的 14 游戏像素（`league_yuumi_ride`，1.5 倍密度），附加包按宿主头顶高度挑 12 档抬高之一（10-28 起，用户：「附身在烬身上 烬的头部都被挡住了」）。可 `league.dll` 一直把这张图一格画一个游戏像素：21 × 26，底边比设计低 7 格、往右偏 4 格，正好压在脸上（和佐伊的召唤师技能图太大是同一个原因）。league.dll 0.9.6 把它放进 `DRAWN_EFFECTS`，按 14 格画在宿主正中；[`tools/art/yuumi_ride_lifts.py`](../../tools/art/yuumi_ride_lifts.py) 量头顶时乘上英雄在局内的大小（hd.rs SIZES），24 位英雄换了档（安蓓萨 12 → 6、悟空 −4 → 0、扎克 8 → 2、莫德凯撒 10 → 14、狼人 10 → 2……）。附加包 0.2.11，主包 0.306.0 |
 | 骑着卡尔萨斯的灵体（2026-11-03） | 用户：「死歌死了后悠米还能挂灵体 这也是bug吧」。卡尔萨斯附加包的灵体在游戏里还活着（1 血、放逐着），附加包原来只看「活着」：骑着他时他化成灵体，她就一直骑着；换人时灵体也能被挑上。附加包 0.2.12：灵体（`league_karthus_p_spirit`）和他倒下前的那一两 tick（`league_karthus_p_fall`）算死人，正骑着就下来（日志 `DETACH ... the ally is a Karthus spirit`），挑宿主、换人、数附近的敌人时都不算他 |
+| 小猫还是挡脸（2026-11-05） | 11-03 那条没生效：小猫是挂在宿主身上的 buff 画面，league.dll 的 `DRAWN_EFFECTS` 缩小只对画在点上的特效生效（`league.log` 里从没出现过 `league_yuumi_ride` 的缩小记录），所以仍是 1.5 倍、压在脸上偏右（烬：24 × 21，底边比发顶低 10 格）。改画在不登记进 league.dll 的 1 倍图 `league_yuumi_ride_1x`（原图的 12 个 1 倍帧原样搬过去，高清帧去掉），游戏自己居中：烬头上 16 × 14，居中、底边贴进发顶 2 格。附加包 0.2.13，主包 0.313.0 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_yuumi.py`](../../tools/lol/extract_yuumi.py)，17 段）：普攻出手 / 打中，被动打中，Q 出手 / 打中 / 强化打中，W 起跳 / 附身 / 跳下，旺盛精力，R 出手 / 每道波纹 / 打中 / 治疗；Q、W、R 的配音（片段名 `league_yuumi_sfx_*`，和声音名不同） |
 | 图标 | 官方技能图标（摸鱼飞弹、悠米出动！、魔典终章，另有被动），从本地客户端取 |
 

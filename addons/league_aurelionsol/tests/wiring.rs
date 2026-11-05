@@ -351,7 +351,19 @@ fn astral_flight_flies_and_breathes() {
         assert!(has(&world, "league_aurelionsol_w_esc") && named(&world, "league_aurelionsol_w_at:").is_none());
         assert!(think(&mut world, Some(InputV1::action(InputKindV1::Attack, InputTargetV1::target(1))))
             .is_some_and(|o| o.kind == InputKindV1::Move.code()), "the attack was not turned into the flight's way");
-        run(&mut world, &wing, 80);
+        // 0.3.1: the game AI's own breath at the healthy chaser is turned into the flight's way too (11-04 night: FLY #885)
+        assert!(think(&mut world, Some(InputV1::action(InputKindV1::Skill, InputTargetV1::target(1))))
+            .is_some_and(|o| o.kind == InputKindV1::Move.code()), "the game's own breath passed the hook on an escape");
+        // and a breath that begins all the same (the game took the Skill before the hook saw it) is cut at its start
+        run(&mut world, &wing, 2);
+        timed(&mut world, "league_aurelionsol_q_ch", 150);
+        timed(&mut world, "league_aurelionsol_q_live", 151);
+        world.units[0].ccs.push((CcV1::of_kind(CcKindV1::Animation, 150), 150));
+        let x3 = me(&world).0;
+        run(&mut world, &wing, 1);
+        assert!(!has(&world, "league_aurelionsol_q_ch") && world.units[0].ccs.is_empty(), "the escape's breath ran on");
+        assert!((x3 - me(&world).0 - 2_000.0).abs() < 1.0, "not full speed on the tick of the cut: {}", x3 - me(&world).0);
+        run(&mut world, &wing, 77);
         assert!(me(&world).0 < 300_000.0 - 140_000.0, "did not fly away from him: {:?}", me(&world));
 
         // 4. stunned in flight: he lands where he is
@@ -366,7 +378,7 @@ fn astral_flight_flies_and_breathes() {
         assert_eq!(me(&world), stunned);
 
         let text = std::fs::read_to_string(&log).expect("log written");
-        assert!(text.starts_with("=== league_aurelionsol v0.3.0"), "{text}");
+        assert!(text.starts_with("=== league_aurelionsol v0.3.1"), "{text}");
         for line in [
             "FLY #1: engage #1 (80% hp, 120000 away) from (300000, 480000) 70000 to (370000, 480000); his hp 100%",
             "Breath of Light reset (its cooldown was running)",
@@ -377,6 +389,8 @@ fn astral_flight_flies_and_breathes() {
             "REFUND #1: a takedown, Astral Flight's cooldown",
             "BREATH CUT #1: #1, the one he flew at, fell - the breath ends with its pose, on at full speed",
             "FLY #3: escape from (300000, 480000) 150000 to (150000, 480000) over a wall",
+            "BREATH CUT #2: the game's own breath on an escape (no chaser under 25% hp) - the breath ends with its pose, on at full speed (2 ticks into the escape flight)",
+            "LAND #2: escape flight arrived after 75 ticks, 150000 of 150000 flown; breathing 0 ticks (0 breaths), 0 flown while breathing, 1 breaths cut",
             "flight cut by crowd control",
         ] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");

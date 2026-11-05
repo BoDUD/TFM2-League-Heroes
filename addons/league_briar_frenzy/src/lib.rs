@@ -140,6 +140,19 @@ pub fn blocked(moved: f64) -> bool {
     moved * 100.0 < BLOCKED * KNOCK_DIST
 }
 
+/// 根本没被推动（0.1.2）：推了不到 `UNPUSHED`，是击退没生效（免控、不可位移），不是撞上了墙。11-04 的日志里 660 次 E 有 43 次
+/// 「pushed 0 of 40000 -> STUNNED」（布隆 E、免控的大招等）：主包的击退推不动他，本包却把他当撞墙晕了。
+pub const UNPUSHED: f64 = 1_000.0;
+
+pub fn unpushed(moved: f64) -> bool {
+    moved < UNPUSHED
+}
+
+/// 身上有免控的 buff（主包的击退、眩晕本来就推不动、晕不了他）。
+fn cc_immune(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.cc_immune))
+}
+
 fn hema_buff(ticks: usize) -> BuffV1 {
     let mut b = BuffV1::timed(HEMA, ticks);
     (b.attack_speed_mult, b.move_speed_mult, b.defence, b.magic_resistance, b.vamp) = HEMA_STATS;
@@ -188,14 +201,22 @@ impl StablePassive for Frenzy {
             let (from, _) = self.knocked.remove(&id).unwrap_or(((0.0, 0.0), 0));
             let Some(now) = foes.iter().find(|f| f.0 == id).map(|f| f.1) else { continue };
             let moved = dist(from, now);
-            let hit = blocked(moved) && sim.get_entity(id).is_some_and(|u| u.is_alive());
+            let alive = sim.get_entity(id).is_some_and(|u| u.is_alive());
+            // 0.1.2: never pushed at all (the knock-back took no hold: cc immune, unstoppable) is no wall
+            let immune = alive && (cc_immune(sim, id) || unpushed(moved));
+            let hit = blocked(moved) && alive && !immune;
             if hit {
                 sim.apply_cc(id, &CcV1::of_kind(CcKindV1::Stun, E_STUN));
                 sim.play_view_effect(E_STUN_FX, me, &InputTargetV1::target(id), 0, 0, 0);
                 sim.play_sfx(E_STUN_FX, me, &InputTargetV1::target(id));
             }
             self.n += 1;
-            if self.n <= 80 || self.n % 25 == 0 {
+            if immune {
+                if let Some(k) = noted("immune", on_screen(sim)) {
+                    wlog(format!("{} E #{} on #{id}: pushed {moved:.0} of {KNOCK_DIST:.0}: cc immune / not moved, no stun #{k}",
+                                 head(sim, me), self.n));
+                }
+            } else if self.n <= 80 || self.n % 25 == 0 {
                 wlog(format!("{} E #{} on #{id}: pushed {moved:.0} of {KNOCK_DIST:.0}{}", head(sim, me), self.n,
                              if hit { " -> hit a wall, STUNNED" } else { " (no wall)" }));
             }
@@ -332,6 +353,15 @@ mod tests {
         assert!(blocked(10_000.0));
         assert!(blocked(25_000.0));
         assert!(!blocked(39_000.0));
+    }
+
+    #[test]
+    fn a_push_that_never_moved_him_is_no_wall() {
+        // 11-04 logs: 43 of 660 "pushed 0 of 40000 -> STUNNED" (cc-immune targets, Braum's E)
+        assert!(unpushed(0.0));
+        assert!(unpushed(999.0));
+        assert!(!unpushed(1_000.0));
+        assert!(!unpushed(10_000.0) && blocked(10_000.0), "a short push is still a wall");
     }
 
     #[test]

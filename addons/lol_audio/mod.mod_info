@@ -12,5 +12,5 @@
   "mod_id": "lol_audio",
   "mod_type": "native",
   "name": "League of Legends audio: draft music, Rift music, kill announcer",
-  "version": "0.2.0"
+  "version": "0.2.1"
 }

@@ -12,7 +12,7 @@
 //!   1 个 `TAUNT_ONE`、2 个 `w_taunt`（主包的数）、3 个及以上 `TAUNT_MANY` tick；小兵野怪同样时长。
 //!   「以内」算两人的碰撞半径（数据的 W 是 RangeEffect 圆，打中谁就是这么算的），被嘲讽的英雄自己一定算一个（0.1.5，
 //!   2026-11-03 晚的日志：只量中心，被 W 打中的英雄常常一个也不算，`TAUNT` 里一半写着「0 enemy champions near」）。
-//! - **英雄登场选人**：在离加里奥至少 `r_far`、身边 `r_sur` 以内有敌方英雄的友方英雄里，选「被控着，或者血量比例最低」的那个，
+//! - **英雄登场选人**：在离加里奥至少 `r_far`、最多 `R_MAX`（0.1.6）、身边 `r_sur` 以内有敌方英雄的友方英雄里，选「被控着，或者血量比例最低」的那个，
 //!   身边 `r_r` 以内敌方英雄多的优先（每多一个当作血量少 10%）；只有一个敌人、没被控、血量 80% 以上的不算苦战，不飞。
 //!   选中的友方英雄让加里奥身上出现 1 tick 的 `league_galio_r_this`，数据接着走护盾、引导、飞过去。
 //! - **引导打断**：引导（身上有 `league_galio_r_ch`）时被硬控（击飞、眩晕、定身、嘲讽、恐惧、魅惑、强制位移）就摘掉 `r_ch`，
@@ -175,12 +175,16 @@ pub struct Ally {
     pub close: usize,
 }
 
-/// 该飞去谁身边：够远、身边有敌方英雄、确实在苦战的里面，被控的优先，再按「血量比例 - 0.1 x 落点敌方英雄数」最小。
+/// 0.1.6: 英雄登场最远飞这么远（中心距离）。英雄联盟的射程 4000-5500，本包的尺度约 66 单位一码（Q 55000 / 825、E 43000 / 650）：
+/// 5500 x 66。数据的 R 射程是整张地图（960000），以前没有上限：11-04 的日志里 41 次有 15 次飞过 363000，一次从 969931 外飞了 981256。
+pub const R_MAX: f64 = 363_000.0;
+
+/// 该飞去谁身边：够远（`r_far` 到 `R_MAX`）、身边有敌方英雄、确实在苦战的里面，被控的优先，再按「血量比例 - 0.1 x 落点敌方英雄数」最小。
 pub fn choose(allies: &[Ally], r_far: f64) -> Option<usize> {
     let key = |a: &Ally| (if a.in_cc { 0 } else { 1 }, a.hp - 0.1 * a.close as f64);
     allies
         .iter()
-        .filter(|a| a.far >= r_far && a.near >= 1)
+        .filter(|a| a.far >= r_far && a.far <= R_MAX && a.near >= 1)
         .filter(|a| a.in_cc || a.hp < CALM_HP || a.near >= 2)
         .min_by(|a, b| {
             let (ka, kb) = (key(a), key(b));
@@ -674,6 +678,9 @@ mod tests {
         assert_eq!(choose(&[ally(1, 30_000.0, 0.2, false, 2, 2)], 60_000.0), None);
         assert_eq!(choose(&[ally(1, 90_000.0, 0.2, false, 0, 0)], 60_000.0), None);
         assert_eq!(choose(&[ally(1, 90_000.0, 0.95, false, 1, 1)], 60_000.0), None);
+        // 0.1.6: beyond R_MAX (League's 5500): nobody, however hard the fight
+        assert_eq!(choose(&[ally(1, R_MAX + 1.0, 0.2, true, 3, 3)], 60_000.0), None);
+        assert_eq!(choose(&[ally(1, R_MAX, 0.2, true, 3, 3)], 60_000.0), Some(1));
         // crowd control first, then the lowest health share, enemies where he lands counting as 10% each
         let a = [ally(1, 90_000.0, 0.3, false, 1, 1), ally(2, 90_000.0, 0.7, true, 1, 0), ally(3, 90_000.0, 0.5, false, 3, 3)];
         assert_eq!(choose(&a, 60_000.0), Some(2));

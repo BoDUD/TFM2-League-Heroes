@@ -10,7 +10,7 @@
 //!   全部还回去（受伤后立刻把血加回来，布隆附加包的做法），背后来的、防御塔打的不挡（英雄联盟：「免疫来自该方向的非防御塔伤害」）。
 //! - **贯星长枪的斩杀**：命中时目标血量低于最大生命的 `Q_LOW`%，再造成一份 `q_dmg` + `q_ratio`% 攻击力的物理伤害
 //!   （英雄联盟里对 20% 以下的敌人伤害约翻一倍多；主包数据读不到当前血量）。
-//! - **大荒星陨挑落点**：离潘森至少 `r_min` 的敌方英雄里，身边（`r_sur`）有友方英雄在打、或者 `r_r` 以内还有别的敌方英雄的
+//! - **大荒星陨挑落点**：离潘森至少 `r_min`、最多 `R_MAX`（0.1.5）的敌方英雄里，身边（`r_sur`）有友方英雄在打、或者 `r_r` 以内还有别的敌方英雄的
 //!   才算；落点敌方英雄多的优先，再挑血量比例低的。选中的英雄让潘森身上出现 1 tick 的 `league_pantheon_r_this`，数据接着下蹲、
 //!   起跳、落下。
 //!
@@ -144,10 +144,15 @@ pub struct Spot {
 
 /// 落在谁那里：够远、身边有友军在打的里面，落点敌人多的优先，再挑血量比例低的。没有友军也跳（落点两个敌人就算）的
 /// 第一版：日志里 41 次有 35 次身边没有友军，几乎每次落地后半分钟内就死了（用户：「看一下附加包的日志对不对」）。
+/// 0.1.5: 大荒星陨最远落这么远（中心距离）。英雄联盟的射程 5500，本包的尺度约 66 单位一码（Q 75000 / 1200、W 45000 / 600）：5500 x 66。
+/// 数据的 R 射程是 960000，以前没有上限：11-04 的日志里落点 944458、813957，一个 994026 外的波比被挑中 5 次轮询都放不出去
+/// （数据不认，大招就一直待命）。
+pub const R_MAX: f64 = 363_000.0;
+
 pub fn choose(spots: &[Spot], r_min: f64) -> Option<usize> {
     spots
         .iter()
-        .filter(|s| s.far >= r_min && s.allies >= 1)
+        .filter(|s| s.far >= r_min && s.far <= R_MAX && s.allies >= 1)
         .max_by(|a, b| {
             a.foes.cmp(&b.foes).then(b.hp.partial_cmp(&a.hp).unwrap_or(std::cmp::Ordering::Equal))
         })
@@ -537,6 +542,9 @@ mod tests {
         // too near, or nobody fighting there and alone: nobody
         assert_eq!(choose(&[spot(1, 20_000.0, 0.2, 3, 2)], 35_000.0), None);
         assert_eq!(choose(&[spot(1, 90_000.0, 0.2, 1, 0)], 35_000.0), None);
+        // 0.1.5: beyond R_MAX (League's 5500; the data's 960000 refused a 994026 pick five polls running): nobody
+        assert_eq!(choose(&[spot(1, R_MAX + 1.0, 0.2, 3, 2)], 35_000.0), None);
+        assert_eq!(choose(&[spot(1, R_MAX, 0.2, 3, 2)], 35_000.0), Some(1));
         // allies fighting it; two enemies together and no ally is a fall into them alone: nobody
         assert_eq!(choose(&[spot(1, 90_000.0, 0.9, 1, 1)], 35_000.0), Some(1));
         assert_eq!(choose(&[spot(1, 90_000.0, 0.9, 2, 0)], 35_000.0), None);

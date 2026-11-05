@@ -55,7 +55,7 @@
 
 ### 辅助挑人附加包：迦娜、娑娜、璐璐
 
-[辅助挑人附加包：迦娜、娑娜、璐璐](../../addons/league_support_pick/README.md)：`league_support_pick` v0.1.0
+[辅助挑人附加包：迦娜、娑娜、璐璐](../../addons/league_support_pick/README.md)：`league_support_pick` v0.1.1
 
 | 英雄 | 主包（纯数据） | 装了附加包 |
 |---|---|---|

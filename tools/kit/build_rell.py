@@ -357,7 +357,9 @@ def build(p):
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
     ult = action("ult" if p["dbg"] else "idle", 3, p["r_cd"], 1, p["r_r"] + 30000, "None", "EnemyChampion",
                  combine(refresh("r_arm", p["r_arm"]), poll, *rm("w_now", "r_go"), refresh("r_tk", p["r_poll"]),
-                         on_me(casted(p["r_arm"], 1, tick_poll), delayed(p["r_arm"], reset))), key="ult")
+                         # the refund reads the arm flag 3 ticks before the window ends: a flag of n ticks is seen on n - 1 of them, so read
+                         # on its last tick it was always gone and a lapsed window never refunded (lr1105/fix_j, classic-SDK probe 2026-11-05)
+                         on_me(casted(p["r_arm"], 1, tick_poll), delayed(p["r_arm"] - 3, reset))), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,

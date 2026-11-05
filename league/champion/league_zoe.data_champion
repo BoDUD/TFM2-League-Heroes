@@ -761,12 +761,23 @@
                               "tick": 84,
                               "effects": [
                                 {
-                                  "type": "Native",
-                                  "effect_ref": "hypnotist_skill2",
-                                  "radius": 3000,
-                                  "delay": 1,
-                                  "buff_duration": 120,
-                                  "amplify": 100
+                                  "type": "Stun",
+                                  "duration": 120
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_zoe_e_zz",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 120
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_zoe_e_sleep"
                                 }
                               ]
                             }
@@ -910,12 +921,23 @@
                                                     "tick": 84,
                                                     "effects": [
                                                       {
-                                                        "type": "Native",
-                                                        "effect_ref": "hypnotist_skill2",
-                                                        "radius": 3000,
-                                                        "delay": 1,
-                                                        "buff_duration": 120,
-                                                        "amplify": 100
+                                                        "type": "Stun",
+                                                        "duration": 120
+                                                      },
+                                                      {
+                                                        "type": "AddBuff",
+                                                        "buff_state": {
+                                                          "name": "league_zoe_e_zz",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 120
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_zoe_e_sleep"
                                                       }
                                                     ]
                                                   },
