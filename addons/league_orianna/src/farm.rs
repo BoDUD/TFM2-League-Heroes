@@ -121,7 +121,34 @@ pub fn plan(s: &Scene<'_>, ready: bool, ai_move: Option<(f64, f64)>) -> Option<P
 const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
 
 pub(crate) fn busy(e: &StableEntity<'_, '_>) -> bool {
-    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| BUSY.iter().any(|k| k.code() == c.kind)))
+    under(e, &BUSY)
+}
+
+/// 放不了技能的控制（league_ult_press 的 `NO_CAST`；0.3.2，11-04 的日志：连招的 Q 连按 11 tick 一次都没放出去——`busy` 只看
+/// 施法动作和强制位移，眩晕、击飞这些挡着施法的控制没看）。
+pub const NO_CAST: [CcKindV1; 7] = [
+    CcKindV1::Airborne,
+    CcKindV1::Stun,
+    CcKindV1::Bind,
+    CcKindV1::Taunt,
+    CcKindV1::Fear,
+    CcKindV1::Charm,
+    CcKindV1::BlockSkill,
+];
+
+/// 出不了普攻的控制（定身还能打）。
+pub const NO_ATTACK: [CcKindV1; 6] =
+    [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockAttack];
+
+pub(crate) fn under(e: &StableEntity<'_, '_>, kinds: &[CcKindV1]) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| kinds.iter().any(|k| k.code() == c.kind)))
+}
+
+/// 她身上的控制，日志用。
+pub(crate) fn cc_names(e: &StableEntity<'_, '_>) -> String {
+    let v: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i))
+        .map(|c| CcKindV1::from_code(c.kind).map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}"))).collect();
+    v.join(", ")
 }
 
 pub(crate) fn at(e: &StableEntity<'_, '_>) -> (f64, f64) {
@@ -177,7 +204,7 @@ impl StablePlayerAi for Farm {
         let (input, kind, line) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
-            if !me.is_alive() || busy(&me) {
+            if !me.is_alive() || busy(&me) || under(&me, &NO_ATTACK) {
                 return None;
             }
             let (my_id, team, here) = (me.id(), me.team(), at(&me));

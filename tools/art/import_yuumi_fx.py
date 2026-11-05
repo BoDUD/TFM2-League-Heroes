@@ -10,10 +10,13 @@ symmetric top to bottom, everything else left to right - checked again here). Ea
 size and placed as the kit plays it (import_zoe_fx.py's way): spots are game px from the pivot (x forward, y down); a
 unit's soles are 11 under it, a point's ground too. Times from the kit (build_yuumi.P, 60 ticks a second).
 The ride picture (assets/source/yuumi/hd/ride.png, the ride pack's pick, 21 rows at 1.5 squares a game px) gets a sheet
-of its own, league_yuumi_ride, when it is there: tag idle = it brought to 14 game px by pixel_down, tag hd_idle = the 21
-rows themselves on a frame exactly 1.5 times as big (league.dll's hd.rs registers the sheet like a hero's and hands the
-battlefield the dense frame), its book's bottom on the host's crown in both; and the same lifted by each of build_yuumi's
-RIDE_LIFTS (tags u2 .. u16, d2 .. d6 and their hd_ twins) for hosts taller or shorter than 36 px.
+of its own, league_yuumi_ride_1x, when it is there: tag idle = it brought to 14 game px by pixel_down, its book's bottom
+on the host's crown, the frame centred on his pivot; and the same lifted by each of build_yuumi's RIDE_LIFTS (tags
+u2 .. u16, d2 .. d6) for hosts taller or shorter than 36 px. A plain 1x sheet the game draws itself: until 2026-11-05 it
+was league_yuumi_ride with an hd_ twin of every tag (the 21 rows on a frame 1.5 times as big), registered in league.dll's
+hd.rs like a hero's - but a buff's view never meets league.dll's shrink (hd_engine view.rs effect_detour: the view node
+draw only), so the game drew the dense texels a square a game px, 1.5 times too big and hanging right and down over the
+host's face.
 """
 import argparse
 import json
@@ -112,8 +115,9 @@ def anchor(cell, kind):
 
 
 def ride_frames():
-    """league_yuumi_ride's tags: idle (RIDE_PX game px) and hd_idle (ride.png's own squares, RIDE_PPU a game px), both
-    with the book's bottom on the host's crown; one frame each, held."""
+    """league_yuumi_ride_1x's tags: idle (RIDE_PX game px, ride.png brought down from its RIDE_PPU squares a game px) with
+    the book's bottom on the host's crown, and the lifted tags; one frame each, held. (No hd_ twins since 2026-11-05: a
+    buff's view is drawn by the game itself, a texel a game px, centred on the host.)"""
     import pixel_down as D
     d = np.asarray(Image.open(lp(RIDE)).convert("RGBA"))
     d = d[np.ix_(np.any(d[..., 3] > 0, 1), np.any(d[..., 3] > 0, 0))]
@@ -129,24 +133,10 @@ def ride_frames():
     ys, xs = np.nonzero(g[..., 3] > 0)
     g = g[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
     one = J.place(g, [(g.shape[1] - 1) / 2, book_bottom(g)], [CROWN])     # odd sizes, the pivot in the middle
-    # the dense frame: RIDE_PPU times the 1x frame, rounded (league.dll takes hd_idle within half a pixel of PPU times
-    # idle's width), the same pivot in its middle; the picture's book bottom on the crown at RIDE_PPU squares a game px
-    H, W = round(one.shape[0] * RIDE_PPU), round(one.shape[1] * RIDE_PPU)
-    dense = np.zeros((H, W, 4), np.uint8)
-    ax = (W - 1) / 2 + CROWN[0] * RIDE_PPU
-    ay = (H - 1) / 2 + CROWN[1] * RIDE_PPU
-    top = int(round(ay - book_bottom(d)))
-    left = int(round(ax - (d.shape[1] - 1) / 2))
-    for y in range(d.shape[0]):
-        for x in range(d.shape[1]):
-            if d[y, x, 3] and 0 <= top + y < H and 0 <= left + x < W:
-                dense[top + y, left + x] = d[y, x]
     out = {}
     for lift in RIDE_LIFTS:
         # lifted `lift` game px: rows added under it (over it for a negative lift), the pivot staying in the middle
-        t = ride_tag(lift)
-        out[t] = [(pad(one, 2 * lift), 1000)]
-        out["hd_" + t] = [(pad(dense, round(2 * lift * RIDE_PPU)), 1000)]
+        out[ride_tag(lift)] = [(pad(one, 2 * lift), 1000)]
     return out
 
 
@@ -178,9 +168,9 @@ def main():
         out = [(np.zeros((3, 3, 4), np.uint8) if k == J.EMPTY else J.place(cs[k], anc, spots), ms) for k, ms in frames]
         tables["league_yuumi_big" if name in BIG else "league_yuumi_fx"][name] = out
     if os.path.isfile(lp(RIDE)):
-        tables["league_yuumi_ride"] = ride_frames()
+        tables["league_yuumi_ride_1x"] = ride_frames()
     else:
-        print("no hd/ride.png yet: league_yuumi_ride left out (the ride pack is not in)")
+        print("no hd/ride.png yet: league_yuumi_ride_1x left out (the ride pack is not in)")
     for sheet, tags in tables.items():
         w, h = G.write_sheet(lp(os.path.join(MOD, "effects", sheet)), tags, share=True)
         print(f"league/effects/{sheet}#sheet.png {w}x{h}: " + ", ".join(

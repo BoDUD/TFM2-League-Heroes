@@ -103,6 +103,13 @@ impl Foe {
     }
 }
 
+/// 这个 buff 算不算「杀不死」：带「不死」，但别的附加包一直挂着的被动护身（名字以 `_p_guard` / `_rv_guard` 结尾：死歌、塞恩、
+/// 艾尼维亚、扎克、扎恩、tft 的石甲虫）不算——英雄联盟里处决他们照样算击杀，他们死进自己的被动里（2026-11-05 复查：死歌被动
+/// 好着就一直「杀不死」）。千珏的大招、基兰的符文、凯尔的大招等真的杀不死，照样等。league_renata 的救难也是这个顺序。
+pub fn holds_execute(name: &str, undying: bool) -> bool {
+    undying && !name.ends_with("_p_guard") && !name.ends_with("_rv_guard")
+}
+
 /// 砍得死的人里生命 + 护盾最少的。
 pub fn best_kill(foes: &[Foe], d: usize) -> Option<Foe> {
     foes.iter().copied().filter(|f| f.dies_to(d)).min_by_key(|f| (f.ehp(), f.id))
@@ -267,5 +274,19 @@ mod tests {
         assert_eq!(plan(None, None, &thick, &might, true), (Plan::Keep, Why::Pass));
         assert_eq!(plan(None, None, &tough, &none, true), (Plan::Keep, Why::Pass));
         assert_eq!(plan(None, None, &foes, &none, false), (Plan::Keep, Why::Pass));
+    }
+
+    #[test]
+    fn a_passive_guard_does_not_make_him_unkillable() {
+        // 11-05 review: Karthus / Sion / Anivia / Zac / Zaahen / Krug keep a permanent *_p_guard / *_rv_guard; League
+        // counts an execute on them as a kill (they die into the passive)
+        for g in ["league_karthus_p_guard", "league_sion_p_guard", "league_anivia_p_guard", "league_zac_p_guard",
+                  "league_zaahen_rv_guard", "tft_krug_p_guard"] {
+            assert!(!holds_execute(g, true), "{g}");
+        }
+        assert!(holds_execute("league_kindred_r_on", true));
+        assert!(holds_execute("league_zilean_r_rune", true));
+        assert!(holds_execute("league_karthus_p_spirit", true));
+        assert!(!holds_execute("league_kindred_r_on", false));
     }
 }

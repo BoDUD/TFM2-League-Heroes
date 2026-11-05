@@ -55,7 +55,7 @@
 
 ### 巴德「神奇旅程」穿墙门附加包
 
-[巴德「神奇旅程」穿墙门附加包](../../addons/league_bard/README.md)：`league_bard` v0.6.4
+[巴德「神奇旅程」穿墙门附加包](../../addons/league_bard/README.md)：`league_bard` v0.6.5
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

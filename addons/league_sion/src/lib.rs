@@ -13,6 +13,8 @@
 //!   技能击杀也算，阵亡后不丢（主包数据的版本只算普攻击杀，阵亡就没了）。
 //!
 //! - **亡灵不回城**（`zombie.rs`，0.1.1）：亡灵时 AI 要回城或撤退就改成普攻最近的敌人（用户：「塞恩的僵尸 死了还能跑回城的？」）。
+//! - **大招的日志**（`ult.rs`，0.2.0，用户：「塞恩是不是也不太放大？」）：大招是主包的数据，本包只看他身上的标记记日志
+//!   （`ARMED` / `LAPSED` / `CHARGE` / `HIT` / `MISS`，每条命一行小结）；变亡灵时摘掉上膛标记（亡灵不该冲出去）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_sion.log`，每次启动游戏重写。
 
@@ -24,6 +26,7 @@ use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
 
+pub mod ult;
 pub mod zombie;
 
 const ID: &str = "league_sion";
@@ -239,9 +242,81 @@ struct Glory {
     /// 这条命里见过他 1 血以上：游戏 0.6.4 开局第 0 tick 读到的血量还是 0，那不是致命伤（每局第一条命都在 0 tick 变成亡灵、
     /// 9 秒后倒下，用户：「塞恩有bug吧 开局血掉光？」）。
     alive_seen: bool,
+    /// 大招的日志状态（`ult.rs`）。
+    r: ult::Onslaught,
+}
+
+/// 大招轮询会看到的：r_range 内的敌方英雄数、r_near 内的队友数（圆心距离）、最近的敌方英雄有多远、他的血量百分比。
+fn r_context(sim: &StableSim<'_>, me: usize) -> String {
+    let Some(e) = sim.get_entity(me) else { return String::new() };
+    let (team, at) = (e.team(), e.pos());
+    let (hp, max) = e.hp();
+    let d = |p: (u64, u64)| (((p.0 as f64 - at.0 as f64).powi(2) + (p.1 as f64 - at.1 as f64).powi(2)).sqrt()) as u64;
+    let (mut enemies, mut allies, mut nearest) = (0usize, 0usize, u64::MAX);
+    for u in (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)) {
+        if !u.is_champion() || !u.is_alive() || u.id() == me {
+            continue;
+        }
+        let dist = d(u.pos());
+        if u.team() == team {
+            allies += (dist <= ult::R_NEAR) as usize;
+        } else {
+            nearest = nearest.min(dist);
+            enemies += (dist <= ult::R_RANGE) as usize;
+        }
+    }
+    let near = if nearest == u64::MAX { "-".to_string() } else { nearest.to_string() };
+    format!("hp {}%, enemy champions in reach {enemies} (nearest {near}), allies near {allies}",
+            if max > 0 { hp * 100 / max } else { 0 })
 }
 
 impl Glory {
+    /// 每 tick 看大招的标记，记下上膛、过期、冲撞、撞中。
+    fn watch_ult(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
+        let names: std::collections::HashSet<String> = buffs(sim, me).iter().map(|b| b.name().to_string()).collect();
+        for ev in self.r.step(now, &names) {
+            match ev {
+                ult::Event::Armed => {
+                    if let Some(k) = counted("armed") {
+                        wlog(format!("{} R ARMED #{k}: window {} ticks; {}", head(sim, me), ult::R_ARM_T, r_context(sim, me)));
+                    }
+                }
+                ult::Event::Poll => {
+                    let ctx = r_context(sim, me);
+                    let num = |key: &str| ctx.split(key).nth(1).and_then(|x| x.split(' ').next()).and_then(|x| x.parse().ok()).unwrap_or(0);
+                    self.r.seen.add(num("in reach "), num("allies near "));
+                }
+                ult::Event::Lapsed(ran) => {
+                    if let Some(k) = counted("lapsed") {
+                        let cd = sim.get_entity(me).and_then(|e| e.cooldown(SkillSlotV1::Ult)).map_or(0, |c| c.remaining);
+                        wlog(format!("{} R LAPSED #{k}: no charge in {ran} ticks, {}; ult cooldown left {cd} ticks (refund caps it at 72)",
+                                     head(sim, me), self.r.seen.summary()));
+                    }
+                }
+                ult::Event::Charge(why) => {
+                    if let Some(k) = counted("charge") {
+                        wlog(format!("{} R CHARGE #{k}: {why}; {}", head(sim, me), r_context(sim, me)));
+                    }
+                }
+                ult::Event::Done(ran) => {
+                    if let Some(k) = counted("done") {
+                        wlog(format!("{} R {} #{k}", head(sim, me), ult::outcome(ran)));
+                    }
+                }
+            }
+        }
+    }
+
+    /// 一条命结束（阵亡或变亡灵）：这条命大招上膛了几次、冲了几次。
+    fn r_life_line(&mut self, sim: &StableSim<'_>, me: usize, end: &str) {
+        if self.r.armed > 0 || self.r.charged > 0 {
+            if let Some(k) = counted("life") {
+                wlog(format!("{} R this life #{k} ({end}): armed {}, charged {}", head(sim, me), self.r.armed, self.r.charged));
+            }
+        }
+        self.r.reset();
+    }
+
     fn stack_buff(&self, sim: &mut StableSim<'_>, me: usize) {
         sim.entity_remove_buff(me, &sn("k_hp"));
         if self.stacks > 0 {
@@ -267,6 +342,13 @@ impl Glory {
         self.ready = false;
         self.zombie = Some(now);
         sim.entity_remove_buff(me, &sn("p_guard"));
+        // the zombie casts nothing, but the kit's poll keeps running on him: an open window would still charge (0.2.0)
+        if sim.entity_remove_buff(me, &sn("r_arm")) > 0 {
+            if let Some(k) = counted("zombie_arm") {
+                wlog(format!("{} R window closed #{k}: he rose as the zombie while R was armed", head(sim, me)));
+            }
+        }
+        self.r_life_line(sim, me, "zombie");
         // mortal (0.1.2, the user 2026-10-25: 「塞恩得尸体太变态 死了比活着的时候还能扛」): the zombie was undying for all
         // its z_t ticks - full health, 100% life steal and nothing could kill it before the time ran out; League's zombie
         // dies to damage, its health running down meanwhile
@@ -313,6 +395,7 @@ impl StablePassive for Glory {
         self.last_player = None;
         self.next_guard = 0;
         self.alive_seen = false;
+        self.r.reset();
         self.stack_buff(sim, me);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
@@ -345,6 +428,7 @@ impl StablePassive for Glory {
         if hp > 1 {
             self.alive_seen = true;
         }
+        self.watch_ult(sim, me, now);
         self.guard(sim, me, now);
         if hp <= 1 && self.alive_seen {
             let list: Vec<(String, bool)> = buffs(sim, me).iter().map(|b| (b.name().to_string(), b.undying)).collect();
@@ -385,9 +469,11 @@ impl StablePassive for Glory {
         }
     }
 
-    fn on_dead(&mut self, _: &mut StableSim<'_>, _: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
         self.zombie = None;
         self.ready = false;
+        let me = self.me;
+        self.r_life_line(sim, me, "dead");
     }
 }
 
@@ -489,7 +575,7 @@ mod tests {
 
     #[test]
     fn the_names_fit() {
-        for x in ["p_guard", "p_zombie", "k_hp", "p_rise", "vo_p"] {
+        for x in ["p_guard", "p_zombie", "k_hp", "p_rise", "vo_p", "r_arm"] {
             assert!(sn(x).len() <= BUFF_NAME_CAP);
         }
     }

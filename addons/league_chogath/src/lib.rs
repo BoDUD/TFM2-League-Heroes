@@ -185,6 +185,13 @@ impl Foe {
     }
 }
 
+/// 这个 buff 算不算「杀不死」：带「不死」，但别的附加包一直挂着的被动护身（名字以 `_p_guard` / `_rv_guard` 结尾：死歌、塞恩、
+/// 艾尼维亚、扎克、扎恩、tft 的石甲虫）不算——英雄联盟里处决他们照样算击杀，他们死进自己的被动里（2026-11-05 复查：死歌被动
+/// 好着就一直「杀不死」）。千珏的大招、基兰的符文、凯尔的大招等真的杀不死，照样等。league_renata 的救难也是这个顺序。
+pub fn holds_execute(name: &str, undying: bool) -> bool {
+    undying && !name.ends_with("_p_guard") && !name.ends_with("_rv_guard")
+}
+
 /// 吃得死的人里生命 + 护盾最少的。
 pub fn best_kill(foes: &[Foe], d: usize) -> Option<Foe> {
     foes.iter().copied().filter(|f| f.dies_to(d)).min_by_key(|f| (f.ehp(), f.id))
@@ -232,7 +239,7 @@ impl Held {
             Held::OutOfRange { id, dist, reach } => format!("#{id} out of range ({dist} > {reach} centre to centre)"),
             Held::Untargetable(x) => format!("#{x} untargetable"),
             Held::Invalid(x) => format!("R on #{x} is no valid input"),
-            Held::Undying(x) => format!("#{x} cannot die"),
+            Held::Undying(x) => format!("#{x} cannot die (undying)"),
             Held::NoKill { id, ehp, bite } => format!("#{id} hp + shield {ehp} > a bite of {bite}"),
         }
     }
@@ -298,7 +305,7 @@ fn buffs_named(sim: &StableSim<'_>, id: usize, name: &str) -> Vec<BuffV1> {
 fn read_foe(e: &StableEntity<'_, '_>) -> Foe {
     let mut foe = Foe { id: e.id(), hp: e.hp().0, shield: e.shield(), ..Foe::default() };
     for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
-        foe.undying |= b.undying;
+        foe.undying |= holds_execute(b.name(), b.undying);
         foe.reduce += b.damaged_reduce;
         foe.amplify += b.damaged_amplify;
         foe.skill_reduce += b.skill_damaged_reduce;
@@ -587,5 +594,19 @@ mod tests {
         assert_eq!(held(Some(3), None, 9, Some(0), true, d), vec![Held::NotFoe(3)]);
         // every check passed: nothing to hold (the hook casts)
         assert!(held(Some(522), Some(near), 9, Some(0), true, d).is_empty());
+    }
+
+    #[test]
+    fn a_passive_guard_does_not_make_him_unkillable() {
+        // 11-05 review: Karthus / Sion / Anivia / Zac / Zaahen / Krug keep a permanent *_p_guard / *_rv_guard; League
+        // counts an execute on them as a kill (they die into the passive)
+        for g in ["league_karthus_p_guard", "league_sion_p_guard", "league_anivia_p_guard", "league_zac_p_guard",
+                  "league_zaahen_rv_guard", "tft_krug_p_guard"] {
+            assert!(!holds_execute(g, true), "{g}");
+        }
+        assert!(holds_execute("league_kindred_r_on", true));
+        assert!(holds_execute("league_zilean_r_rune", true));
+        assert!(holds_execute("league_karthus_p_spirit", true));
+        assert!(!holds_execute("league_kindred_r_on", false));
     }
 }

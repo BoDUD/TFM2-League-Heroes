@@ -28,3 +28,7 @@
 
 - `python addons/league_briar_frenzy/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。主包里贝蕾亚改了就重跑。
 - `cargo test -p league_briar_frenzy`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。
+
+## 0.1.2：免控的人撞不了墙（2026-11-05）
+
+11-04 的日志：660 次 E 里 43 次「pushed 0 of 40000 -> hit a wall, STUNNED」——被推的人一步都没动（布隆的 E、开着免控大招的人）：主包的击退根本推不动他，本包却把「推了 0」当成撞墙，照样晕 60 tick（盖伦 / 斯卡纳 / 奥恩 / 杰斯的附加包都先查 `cc_immune`，这里没查）。现在他身上有免控的 buff、或者推了不到 `UNPUSHED`（1000）就不晕，只记一行 `cc immune / not moved, no stun`（预模拟按 SPAWN 一样的计数，你看的那场每行都记）。推得短（撞上墙、地图边、别的单位）照旧晕。

@@ -1,4 +1,4 @@
-# 塔姆附加包（测试版 v0.1.6，可选）
+# 塔姆附加包（测试版 v0.1.7，可选）
 
 **不装这个附加包，主包里的塔姆也是完整的**：舌头抽打、培养品味的三层标记、巨舌鞭笞（回血、减速、三层眩晕）、深渊潜航、
 厚实表皮的减伤和护盾、大快朵颐（救队友或吞敌人）都在主包数据里。主包是纯数据，有几件事做不到，这个附加包用原生代码补上
@@ -46,6 +46,11 @@ cargo test -p league_tahmkench
 cargo build --release -p league_tahmkench     # 单独的 DLL；合集 league_addons 也编进了它
 python league_tahmkench/make_override.py      # 主包的塔姆改了就重跑
 ```
+
+## 0.1.7：死时吐出的也记日志
+
+2026-11-04 的日志里有 `DEVOUR` 没有对应的 `SPIT`（#1、#4）：塔姆吞着人倒下时 `on_dead` 把人放在他倒下的地方，没写一行。
+现在也记 `SPIT #n ALLY/ENEMY x at (x, y): he died carrying it, n ticks in`（吐出的画面是数据的放逐结束，这里不另播）。
 
 ## 0.1.6：吐出的落点不出地图
 

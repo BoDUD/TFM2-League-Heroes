@@ -54,6 +54,10 @@ pub const STALL_MOVE: u64 = 1_000;
 /// 顺着墙挪时每 tick 挪它自己想走的那么远，夹在这两个数之间。
 pub const STEP_MIN: u64 = 300;
 pub const STEP_MAX: u64 = 2_000;
+/// 顺着墙挪不动时（卡在台阶的角里）再往墙外挪最多这么多个 step（0.2.3，[`unstick`]）。
+pub const OFF_STEPS: u64 = 2;
+/// 横墙相邻两段的墙心相距不超过半宽的这么多倍就是同一道墙（铺下时相距一段 = 2 个半宽）。
+pub const LINK_HW: u64 = 3;
 /// 地图边长（坐标 0..MAP）。
 const MAP: u64 = 960_000;
 
@@ -248,7 +252,7 @@ pub fn hold(walls: &[Wall], last: Option<(u64, u64)>, now: (u64, u64), r: u64) -
 }
 
 /// 一个被墙挡住的单位（0.2.2）：从哪开始算没挪动（`at`）、挡了几 tick 没挪出 `STALL_MOVE`（`ticks`）、正在顺着墙挪的方向
-/// （`dir`：true 往坐标大的那头）。
+/// （`dir`：true 往这道墙 [`line_of`] 的 b 头，x 大的那头，x 一样时 y 大的那头）。
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct Stall {
     pub at: (u64, u64),
@@ -256,30 +260,87 @@ pub struct Stall {
     pub dir: Option<bool>,
 }
 
-/// 墙 `w` 上离 `p` 近的那一头：竖墙看上下（y），横墙看左右（x）；true = 坐标大的那头。
-pub fn nearer_end(w: &Wall, p: (u64, u64)) -> bool {
-    match w.side {
-        Side::Upright { .. } => p.1 >= w.y,
-        Side::Flat => p.0 >= w.x,
-    }
+type F2 = (f64, f64);
+
+fn fdist(a: F2, b: F2) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 顺着墙 `w` 挪 `step`（竖墙改 y、横墙改 x；`plus` 往坐标大的那头），不出地图。
-pub fn along(w: &Wall, p: (u64, u64), plus: bool, step: u64) -> (u64, u64) {
-    let mv = |v: u64| if plus { (v + step).min(MAP - 1) } else { v.saturating_sub(step) };
-    match w.side {
-        Side::Upright { .. } => (p.0, mv(p.1)),
-        Side::Flat => (mv(p.0), p.1),
+fn unit(a: F2, b: F2) -> F2 {
+    let d = fdist(a, b);
+    if d < 1.0 { (1.0, 0.0) } else { ((b.0 - a.0) / d, (b.1 - a.1) / d) }
+}
+
+/// 一道墙的两头（0.2.3）：横墙的几段是一次铺下的台阶，相邻段的墙心相距不超过 `LINK_HW` 个半宽的连成一道，两头是相距最远的
+/// 两个墙心各往外半段（a 是 x 小的那头，x 一样时 y 小的）；只有一段就是它的左右两头；竖墙自成一道，两头是它的上下两头。
+/// 0.2.2 只顺着挡住它的那一段挪：台阶里一段的两头都被相邻的段堵着，单位在角里来回（11-04 的日志：43 次 HOLD 里 5 次超过 150 tick，
+/// 她自己 235 tick 只挪了 12 tick）。
+pub fn line_of(walls: &[Wall], w: &Wall) -> (F2, F2) {
+    if let Side::Upright { .. } = w.side {
+        return ((w.x as f64, (w.y - w.hh) as f64), (w.x as f64, (w.y + w.hh) as f64));
     }
+    let c = |w: &Wall| (w.x as f64, w.y as f64);
+    let link = (LINK_HW * w.hw) as f64;
+    let mut group = vec![c(w)];
+    let mut grew = true;
+    while grew {
+        grew = false;
+        for o in walls.iter().filter(|o| o.side == Side::Flat) {
+            let q = c(o);
+            if !group.contains(&q) && group.iter().any(|&g| fdist(g, q) <= link) {
+                group.push(q);
+                grew = true;
+            }
+        }
+    }
+    let mut ends = (group[0], group[0]);
+    for &a in &group {
+        for &b in &group {
+            if fdist(a, b) > fdist(ends.0, ends.1) {
+                ends = (a, b);
+            }
+        }
+    }
+    let (mut a, mut b) = ends;
+    if a == b {
+        a = (a.0 - w.hw as f64, a.1);
+        b = (b.0 + w.hw as f64, b.1);
+    }
+    if (a.0, a.1) > (b.0, b.1) {
+        std::mem::swap(&mut a, &mut b);
+    }
+    let (d, hw) = (unit(a, b), w.hw as f64);
+    ((a.0 - d.0 * hw, a.1 - d.1 * hw), (b.0 + d.0 * hw, b.1 + d.1 * hw))
+}
+
+/// 这道墙离 `p` 近的那一头：true = b 头（投到墙线上过了一半）。
+pub fn nearer_end(line: &(F2, F2), p: (u64, u64)) -> bool {
+    let d = unit(line.0, line.1);
+    let t = (p.0 as f64 - line.0 .0) * d.0 + (p.1 as f64 - line.0 .1) * d.1;
+    t * 2.0 >= fdist(line.0, line.1)
+}
+
+/// 顺着这道墙挪 `step`（`plus` 往 b 头），再往 `p` 这一侧、离开墙的方向挪 `off` 个 `step`；不出地图。
+pub fn step_off(line: &(F2, F2), p: (u64, u64), plus: bool, step: u64, off: u64) -> (u64, u64) {
+    let d = unit(line.0, line.1);
+    let (px, py) = (p.0 as f64, p.1 as f64);
+    let cross = (px - line.0 .0) * d.1 - (py - line.0 .1) * d.0;
+    let n = if cross > 0.0 { (d.1, -d.0) } else { (-d.1, d.0) };
+    let (sg, k) = (if plus { 1.0 } else { -1.0 }, step as f64 * off as f64);
+    let x = px + sg * d.0 * step as f64 + n.0 * k;
+    let y = py + sg * d.1 * step as f64 + n.1 * k;
+    let clampf = |v: f64| v.round().clamp(0.0, (MAP - 1) as f64) as u64;
+    (clampf(x), clampf(y))
 }
 
 /// 被挡住的单位这一 tick 在哪（0.2.2）：`held` 是 [`hold`] 把它放回的地方，`tried` 是它想走到的地方（在墙里），`step` 是它这一
 /// tick 想走多远。墙不是引擎的地形，单位的寻路不知道它，正对着墙走的单位只剩「顺着墙的那一半」= 0，每 tick 被放回原处：
 /// 11-03 夜里的日志，墙立 300 tick，小兵在同一个坐标站了 281 tick，布隆 227、洛 212、赵信 205、永恩 202（队友也一样）。
-/// 现在挡了 `STALL_T` tick 没挪出 `STALL_MOVE`，就每 tick 顺着挡住它的那块墙往近的那头挪（挪不过去换另一头），挪过墙头
-/// 它自己就绕过去了；挪着的时候不再等。
+/// 现在挡了 `STALL_T` tick 没挪出 `STALL_MOVE`，就每 tick 顺着整道墙（[`line_of`]，0.2.3：台阶状的横墙算一道）往近的那头挪，
+/// 挪不过去就先往墙外错开最多 `OFF_STEPS` 步再挪、再不行换另一头；挪过墙头它自己就绕过去了；挪着的时候不再等。
 pub fn unstick(walls: &[Wall], s: &mut Stall, held: (u64, u64), tried: (u64, u64), r: u64, step: u64) -> (u64, u64) {
     let Some(w) = walls.iter().find(|w| inside(w, tried, r)) else { return held };
+    let line = line_of(walls, w);
     if s.dir.is_none() {
         if s.ticks == 0 || held.0.abs_diff(s.at.0).max(held.1.abs_diff(s.at.1)) > STALL_MOVE {
             // getting somewhere along the wall on its own (or the first tick held): the count starts here
@@ -289,15 +350,17 @@ pub fn unstick(walls: &[Wall], s: &mut Stall, held: (u64, u64), tried: (u64, u64
         if s.ticks < STALL_T {
             return held;
         }
-        s.dir = Some(nearer_end(w, held));
+        s.dir = Some(nearer_end(&line, held));
     }
     let step = step.clamp(STEP_MIN, STEP_MAX);
     let d = s.dir.unwrap_or(true);
     for plus in [d, !d] {
-        let q = along(w, held, plus, step);
-        if q != held && clear(walls, q, r) {
-            s.dir = Some(plus);
-            return q;
+        for off in 0..=OFF_STEPS {
+            let q = step_off(&line, held, plus, step, off);
+            if q != held && clear(walls, q, r) {
+                s.dir = Some(plus);
+                return q;
+            }
         }
     }
     held
@@ -807,8 +870,55 @@ mod tests {
         }
         // along the map's edge: never past it
         let f = Wall::flat(&p, (10000, 500000), 300);
-        assert_eq!(along(&f, (300, 488000), false, 2000), (0, 488000));
-        assert!(!nearer_end(&f, (300, 488000)) && nearer_end(&w[0], (488000, 410000)));
+        let fl = line_of(&[f], &f);
+        assert_eq!(fl, ((-16000.0, 500000.0), (36000.0, 500000.0)));
+        assert_eq!(step_off(&fl, (300, 488000), false, 2000, 0), (0, 488000));
+        assert!(!nearer_end(&fl, (300, 488000)) && nearer_end(&line_of(&w, &w[0]), (488000, 410000)));
+        // the upright wall's line runs up its face
+        assert_eq!(line_of(&w, &w[0]), ((500000.0, 340000.0), (500000.0, 460000.0)));
+    }
+
+    #[test]
+    fn a_unit_in_the_corner_of_a_stair_stepped_wall_is_walked_along_the_whole_wall() {
+        // 11-04, m=2596: six pieces laid down a diagonal (STRETCH #1-#6); Taliyah herself held 235 of the wall's 300
+        // ticks by piece 1, Orianna 173 by piece 5 - each piece's ends are shut by its neighbours
+        let p = p();
+        let c0 = (580730i64, 384800i64);
+        let walls: Vec<Wall> = (0..6)
+            .map(|k| Wall::flat(&p, ((c0.0 - 17495 * k) as u64, (c0.1 + 19234 * k) as u64), 999))
+            .collect();
+        // one wall: from half a piece past the first centre to half a piece past the last
+        let line = line_of(&walls, &walls[1]);
+        assert!(line.0 .0 < 493256.0 && line.1 .0 > 580730.0, "{line:?}");
+        assert_eq!(line_of(&walls, &walls[4]), line);
+        let r = 6000;
+        // below and right of the wall, in the corner between pieces 1 and 2, walking up-left toward her
+        let mut at = (566000u64, 417000u64);
+        let side = |q: (u64, u64)| {
+            let d = unit(line.0, line.1);
+            ((q.0 as f64 - line.0 .0) * d.1 - (q.1 as f64 - line.0 .1) * d.0).signum()
+        };
+        let start_side = side(at);
+        let mut s = Stall::default();
+        let (mut still, mut longest, mut crossed) = (0, 0, None);
+        for t in 0..300 {
+            let tried = (at.0 - 600, at.1 - 600);
+            let to = match hold(&walls, Some(at), tried, r) {
+                Some(q) => unstick(&walls, &mut s, q, tried, r, 849),
+                None => tried,
+            };
+            assert!(clear(&walls, to, r), "t={t}: in the wall at {to:?}");
+            still = if to == at { still + 1 } else { 0 };
+            longest = longest.max(still);
+            at = to;
+            if side(at) != start_side {
+                crossed = Some(t);
+                break;
+            }
+        }
+        assert!(s.dir.is_some(), "never held long enough to be stepped");
+        assert!(longest <= STALL_T, "stood {longest} ticks on one spot");
+        assert!(crossed.is_some_and(|t| t < 300), "never got round the wall: at {at:?}");
     }
 
     #[test]

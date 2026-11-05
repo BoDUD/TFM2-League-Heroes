@@ -104,3 +104,8 @@
 - **刺击 75 + 100% → 75 + 106% 法强**（主包的参数表 P）：660 外的沙兵原来占他 6.5% 的伤害；经典引擎中路 720 局（种子 1–24）击杀差 +0.14 → 只加 660 时 +0.06 → 106% 时 +0.14，伤害 10399 → 9722 → 9980。
 - **墙立 5 秒**：英雄联盟 V10.1 起禁军之墙立 5 秒（`WallDuration` 5），以前的 3 秒是 V6.11 到 V10.1 的数；`r_hold` 180 → 300。
 - **太阳圆盘**：英雄联盟是 90 秒冷却、我方或敌方（基地外）倒下的塔都能立；以前一局一次、只认我方的塔。伤害、射程、立多久都没动（英雄联盟的圆盘是座有血量的塔，本作的立满 45 秒才消失）。
+
+## 0.2.1：够不着的沙兵这一 tick 就不刺；他死了圆盘和墙照样走（2026-11-05，11-04 的日志）
+
+- **`STAB CHECK FAILED` x7**（67157-75253，他的指挥距离 66000）：全在沙兵「出了指挥距离」到 30 tick 后塌掉之间（`OUT OF REACH` → `STAB CHECK FAILED` → `CRUMBLES`）。数据的刺击先用 `tied()`（刺击区中心 `RandomTarget` 56000 `from_projectile`）问他在不在，游戏里这一下量得比本包中心到中心的 66000 松。现在本包每 tick 算 `away` 时，沙兵站着、够不着就给他挂 `league_azir_o<槽>`（3 tick，每 tick 续；回到指挥距离里摘掉，塌掉时换成 `x<槽>`），副本的刺击（`tools/kit/build_azir.py` 的 `commanded`，只包刺击；狂沙猛攻的挪动、流沙移形要的沙兵照旧只看 `x<槽>`）在 `o<槽>` 上也跳过。主包的数据没变（`native=0` 时这层是空的，重建后逐字节一样），副本重新生成。
+- **他死了圆盘和墙冻住**：死人的被动钩子不跑，`Disc::on_update` 不跑，圆盘不转不打（`DISC GONE` 写在他复活那一刻）、立着的墙不撤（墙 #8、#16 没有 `WALL DOWN`）。现在 `on_dead` 排一个本包的原生效果 `league_azir:pulse`（`queue_effect`，排下的效果死人也跑：沙兵的检查点就是这样跑的），它每 tick 跑圆盘（存在 `DEAD_DISCS`）和墙，站着就再排下一 tick，他活了（`on_update` 又跑）就把圆盘接回去。日志：`DEAD #n: the disc at (x, y) (t ticks left) and k standing walls - the pulse keeps them running`（`was REFUSED` 的话还是像以前一样冻住）、`PULSE #n`（每次启动前 40 条）、`SHOT … (he is dead)`、`DISC GONE … (he is dead)`、`DISC BACK with him`。死人打出的伤害游戏认不认要看日志里 `SHOT … (he is dead)` 之后对方掉没掉血。

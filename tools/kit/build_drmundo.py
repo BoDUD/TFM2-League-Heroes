@@ -368,7 +368,9 @@ def build(p):
     # ------------------------------------------------------------------ ult: arm (and check at once)
     retry = p["r_cd"] * 100 // 60 - 100      # cooltime x 100 / (100 + mult) = 60 ticks
     arm = combine(life, refresh("r_armed", p["r_arm"]), r_check,
-                  delayed(p["r_arm"] - 1, sw("r_armed", combine(*rm("r_armed"),
+                  # the refund reads the arm flag 3 ticks before the window ends, not 1: a flag of n ticks is seen on n - 1 of them, but read
+                  # on that last tick the refund still missed 7 of 53 lapses (league_wukong, classic-SDK traces lr1105/fix_j, 2026-11-05)
+                  delayed(p["r_arm"] - 3, sw("r_armed", combine(*rm("r_armed"),
                                                                 flag("r_retry", 3, ult_cooldown_mult=retry)))))
     if nat:     # the hook casts it when his real health calls for it
         ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion", combine(life, dose), key="ult")

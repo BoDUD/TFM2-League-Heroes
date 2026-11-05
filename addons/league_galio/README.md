@@ -1,4 +1,6 @@
-# 加里奥附加包（测试版 v0.1.5）
+# 加里奥附加包（测试版 v0.1.6）
+
+0.1.6（2026-11-05）：待命式大招没用掉时的冷却退还从来没生效过：n tick 的待命标记只有 n - 1 tick 看得见（经典 SDK 探针 lr1105/fix_j：n - 1 之前 148/148 次看得见，第 n tick 0 次），退还在窗口最后一 tick 读它时已经没了，所以每次待命过期都要等完整冷却（塞恩追踪：过期到再待命 3558 tick，改读后 877）。现在在窗口结束前 3 tick 读（`tools/kit/build_galio.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
 主包 `league` 保持纯数据。用户选了「主包数据 + 附加包」。这个附加包用原生代码做主包数据做不到的三件事：
 
@@ -35,6 +37,8 @@
    - `CHANNEL #2: R channels (crowd control on him [11])`：开始引导（方括号里是他身上的控制种类）；
    - `BROKEN #1: hard crowd control [0] 40 ticks into the channel`：引导被硬控打断；
    - `LANDED #2: the channel ended after 120 ticks, moved 84000`：飞过去落地；`NO FLIGHT`：引导结束却没飞（要查）。
+
+0.1.6（2026-11-05，11-04 的日志）：英雄登场没有最远距离——数据的 R 射程是整张地图（960000），41 次登场里 15 次飞过 363000，一次从 969931 外飞了 981256（`galio.log` `ENTRANCE #1 … 969931 away` → `LANDED … moved 981256`）。`choose` 现在只在 `R_MAX`（`src/lib.rs`：363000 = 英雄联盟的 5500 x 本包的尺度 66）以内挑人，再远的队友不飞；日志照旧 `ENTRANCE`，`… away` 不会再超过 363000。
 
 ## 开发
 

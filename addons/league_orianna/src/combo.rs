@@ -20,7 +20,7 @@
 
 use mod_api_stable::*;
 
-use super::farm::{at, busy};
+use super::farm::{at, busy, cc_names, under, NO_CAST};
 use super::{ball_at, counted, crowd_at, crowd_pick, dist, foes_of, has_buff, head, on, pt, who, wlog, Ball, Foe, Where, CROWD, ID};
 
 /// league_ult_press（100）、`farm`（105）之后。
@@ -46,6 +46,32 @@ pub const MIN_HP: f64 = 0.3;
 pub const AWAY: f64 = 10_000.0;
 /// 连招的 Q 之后这么多 tick 内按的 R 在日志里算「Q 之后」。
 pub const AFTER_Q: usize = 90;
+/// 同一个按键连着按了这么多 tick 还没放出去（放出去了冷却就走、`playing` 会拦住下一次）：有东西挡着，歇 `BACKOFF` tick 再看
+/// （0.3.2，11-04 的日志：Q 连按 11 和 15 tick、R 连按 7 tick 都没放出去，待命的 R 到期退还了）。一串只记第一下和歇的那一下。
+pub const PRESS_MAX: usize = 3;
+pub const BACKOFF: usize = 30;
+
+/// 连按的记录：哪个键、第一下、上一下、连着几下。
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Presses {
+    pub kind: &'static str,
+    pub first: usize,
+    pub last: usize,
+    pub n: usize,
+}
+
+impl Presses {
+    /// One more press of `kind` at `tick`: how many in a row (the tick after the last of the same kind), 1 for a new run.
+    pub fn press(&mut self, kind: &'static str, tick: usize) -> usize {
+        if self.kind == kind && self.n > 0 && tick == self.last + 1 {
+            self.n += 1;
+        } else {
+            *self = Presses { kind, first: tick, last: tick, n: 1 };
+        }
+        self.last = tick;
+        self.n
+    }
+}
 
 /// 球在哪里能放冲击波：她身边（没有记录也算）、队友身上、地上，或 Q 的球正飞向的落点；E 送出去、飞回来的半路不算。
 pub fn ball_point(ball: Option<Ball>, me: (f64, f64)) -> Option<(f64, f64)> {
@@ -120,6 +146,9 @@ pub struct Combo {
     recalling: bool,
     /// 上一次连招的 Q 按下去的 tick（日志：R 在 Q 之后多久按的）。
     q_at: Option<usize>,
+    /// 连按的记录和歇到哪个 tick（`PRESS_MAX` / `BACKOFF`）。
+    presses: Presses,
+    hold_until: usize,
 }
 
 impl StablePlayerAi for Combo {
@@ -147,13 +176,18 @@ impl StablePlayerAi for Combo {
         if self.recalling {
             return None;
         }
+        // backing off after a run of presses nothing took (0.3.2)
+        if ctx.tick() < self.hold_until {
+            return None;
+        }
         let walk = base.filter(|b| b.kind == InputKindV1::Move.code()).map(|b| (b.x as f64, b.y as f64));
         let player = ctx.player_id();
         let q_at = self.q_at;
-        let (input, kind, line) = {
+        let (input, kind, line, state) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
-            if !me.is_alive() || busy(&me) {
+            // stunned, knocked up, silenced... (0.3.2): the press would be dropped
+            if !me.is_alive() || busy(&me) || under(&me, &NO_CAST) {
                 return None;
             }
             // her own Q or R still playing: a press now is dropped (the engine takes none until it ends)
@@ -205,7 +239,11 @@ impl StablePlayerAi for Combo {
                     }
                 }
             };
-            (input, kind, format!("{} COMBO {what}", head(&sim, my_id)))
+            // what might be blocking (the back-off line): her controls and the slots' cooldowns
+            let cd = |s: SkillSlotV1| me.cooldown(s).map_or("?".to_string(), |c| format!("{}/{}", c.remaining, c.cooltime));
+            let state = format!("cc [{}], cooldowns Q {} R {} attack {}", cc_names(&me), cd(SkillSlotV1::Skill), cd(SkillSlotV1::Ult),
+                                cd(SkillSlotV1::Attack));
+            (input, kind, format!("{} COMBO {what}", head(&sim, my_id)), state)
         };
         // the same slot pressed already (the AI's, or league_ult_press's R): it goes - the data asks :q_pick for Q's champion
         if base.is_some_and(|b| b.kind == input.kind) {
@@ -217,11 +255,24 @@ impl StablePlayerAi for Combo {
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        if kind == "combo q" {
-            self.q_at = Some(ctx.tick());
+        let tick = ctx.tick();
+        // a run of presses nothing took (a cast starts its cooldown and `playing` ends the run): back off, one line
+        let n = self.presses.press(kind, tick);
+        if n > PRESS_MAX {
+            self.hold_until = tick + BACKOFF;
+            if let Some(k) = counted("blocked") {
+                wlog(format!("{line}: pressed {n} ticks running since t={} and not taken ({state}) - backing off {BACKOFF} ticks #{k}",
+                             self.presses.first));
+            }
+            return None;
         }
-        if let Some(k) = counted(kind) {
-            wlog(format!("{line} #{k}"));
+        if kind == "combo q" {
+            self.q_at = Some(tick);
+        }
+        if n == 1 {
+            if let Some(k) = counted(kind) {
+                wlog(format!("{line} #{k}"));
+            }
         }
         Some(input)
     }
@@ -332,6 +383,19 @@ mod tests {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_orianna.P");
         }
         assert!(CROWD < R_R && Q_REACH < Q_RANGE && Q_RANGE <= R_SLOT);
+    }
+
+    #[test]
+    fn a_run_of_presses_nothing_took_is_counted() {
+        // 11-04's logs: COMBO Q pressed t=41160..41170, 11 ticks running, the cast never started
+        let mut p = Presses::default();
+        assert_eq!(p.press("combo q", 41160), 1);
+        assert_eq!((41161..=41163).map(|t| p.press("combo q", t)).last(), Some(4));
+        assert!(p.n > PRESS_MAX && p.first == 41160);
+        // another kind, or a gap, starts a new run
+        assert_eq!(p.press("combo r", 41164), 1);
+        assert_eq!(p.press("combo r", 41166), 1);
+        assert_eq!(p.press("combo r", 41167), 2);
     }
 
     #[test]

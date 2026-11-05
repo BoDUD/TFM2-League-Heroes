@@ -37,6 +37,63 @@ struct Shot {
 
 static SHOTS: LazyLock<Mutex<HashMap<(u64, usize), Shot>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
+/// 0.3.1: AI 钩子定下的那次 R（[`super::ai`] 的 R TERRAIN）：哪个 tick、对谁、风朝哪个方向、算出来打到几个。引擎接下按键后
+/// 风要到第 `r_at` - 1 tick 才放，这期间他走开了：以前 [`launch`] 重新朝他那时的位置吹，撞的墙不是算过的那面（2026-11-05 日志：
+/// 104 次有预测的 R 里 15 次谁都没打到，21 阵风对着人吹却没推到人）。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Planned {
+    pub tick: usize,
+    pub target: usize,
+    pub dir: Pt,
+    pub caught: usize,
+}
+
+/// 定下的 R 过了这么多 tick 还没放就作废（AI 的按键 30 tick 内算同一次，再加出手的 `r_at`）。
+pub const PLAN_FRESH: usize = 60;
+
+static PLANS: LazyLock<Mutex<HashMap<(u64, usize), Planned>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// AI 钩子记下这次 R 的打算（(这份模拟, 她)）。
+pub fn remember(key: (u64, usize), plan: Planned) {
+    let mut all = PLANS.lock().unwrap_or_else(|e| e.into_inner());
+    if all.len() > 256 {
+        all.clear();
+    }
+    all.insert(key, plan);
+}
+
+/// 她放 R 了：取出 `tick` 前 `PLAN_FRESH` tick 内定下的打算（更早的作废）。
+pub fn planned(key: (u64, usize), tick: usize) -> Option<Planned> {
+    let plan = PLANS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key)?;
+    (tick >= plan.tick && tick - plan.tick <= PLAN_FRESH).then_some(plan)
+}
+
+/// 风朝哪吹（[`launch`]）：定下的方向（`plan`）、目标现在的位置（`target`）、看得见的每个敌方英雄（`champs`）各算一次冲击波打到
+/// 几个敌方英雄，取最多的；一样多时先定下的方向、再目标。读不到地图（`m` None）时定下的方向，不然目标。
+/// 返回 (方向, 怎么选的, 算出来打到几个)。
+pub fn aim(m: Option<&MapGrids>, from: Pt, plan: Option<Pt>, target: Option<Pt>, champs: &[Foe], p: &Params)
+           -> Option<(Pt, &'static str, usize)> {
+    let toward = |at: Pt| unit((at.0 - from.0, at.1 - from.1));
+    let mut options: Vec<(Pt, &'static str)> = Vec::new();
+    if let Some(d) = plan {
+        options.push((d, "along the plan's line"));
+    }
+    if let Some(d) = target.and_then(toward) {
+        options.push((d, "at the target"));
+    }
+    let Some(m) = m else { return options.first().map(|(d, how)| (*d, *how, 0)) };
+    for f in champs {
+        if let Some(d) = toward(f.at) {
+            options.push((d, "re-aimed at another champion"));
+        }
+    }
+    let len = p.r_len as f64;
+    options
+        .into_iter()
+        .map(|(d, how)| (d, how, caught_by(m, from, (from.0 + d.0 * len, from.1 + d.1 * len), champs, p).len()))
+        .min_by_key(|(_, _, n)| std::cmp::Reverse(*n)) // the first of equals
+}
+
 /// 击退多远：`full`，路上撞墙就停在墙前（身体 `r` + 1000）。
 pub fn push_len(m: Option<&MapGrids>, at: Pt, dir: Pt, r: f64, full: f64) -> f64 {
     m.and_then(|m| terrain::wall_travel(m, at, dir, full, r)).map_or(full, |w| w.min(full))
@@ -113,18 +170,24 @@ pub fn launch(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let Some(here) = alive_at(sim, me) else { return };
     let p = params_of(sim, me);
     let target = (input.kind == InputTargetKindV1::Target.code()).then_some(input.target_id);
-    let toward = target.and_then(|t| alive_at(sim, t)).or_else(|| {
+    let target_at = target.and_then(|t| alive_at(sim, t));
+    let toward = target_at.or_else(|| {
         foes(sim, me)
             .into_iter()
             .filter(|f| f.champion)
             .min_by(|a, b| dist(a.at, here).total_cmp(&dist(b.at, here)))
             .map(|f| f.at)
     });
-    let Some(dir) = toward.and_then(|t| unit((t.0 - here.0, t.1 - here.1))) else {
+    let map = current_map(sim);
+    // 0.3.1: along the line the AI hook planned (its terrain), unless another direction catches more now
+    let key = (sim_no(sim, me), me);
+    let plan = planned(key, sim.tick()).filter(|pl| Some(pl.target) == target);
+    let team = sim.get_entity(me).map_or(0, |e| e.team());
+    let champs: Vec<Foe> = foes(sim, me).into_iter().filter(|f| f.champion && sim.is_visible(team, f.id)).collect();
+    let Some((dir, how, expect)) = aim(map.as_deref(), here, plan.map(|pl| pl.dir), toward, &champs, &p) else {
         note(sim, "r", me, |n| format!("R #{n}: no champion to blow at"));
         return;
     };
-    let map = current_map(sim);
     let blast = map.as_ref().map(|m| terrain::windblast(m, here, dir, p.r_len as f64));
     let stop = blast.as_ref().map_or((here.0 + dir.0 * p.r_len as f64, here.1 + dir.1 * p.r_len as f64), |b| b.stop);
     // the wind leaves from her front (nobody behind her is caught)
@@ -163,14 +226,26 @@ pub fn launch(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
                     let c = terrain::cell_of(w.0, w.1);
                     format!("stops at the wall cell ({}, {})", c.0, c.1)
                 }
-                (Some(w), Some(m)) => format!("stops at the map's {:?} edge", m.edge(w.0, w.1).map(|e| e.0)),
+                (Some(w), Some(m)) => format!("stops at the map's {} edge",
+                                              m.edge(w.0, w.1).map_or("?".to_string(), |e| format!("{:?}", e.0))),
                 _ => "blows its whole length".to_string(),
             };
             format!("{stop_said} after {:.0}; brush {} cells; river {}", dist(here, b.stop), b.brush.len(),
                     b.river.map_or("no".to_string(), |c| format!("at {}", pt(c))))
         }
     };
-    note(sim, "r", me, |n| format!("R #{n} at #{}: the wind {said}{}", target.unwrap_or(0),
+    // 0.3.1: how the line was chosen, and how far off it the target stands now (the wind is r_w wide)
+    let aimed = match (plan, target_at) {
+        (Some(pl), Some(at)) => {
+            let (off, along) = seg(at, start, stop);
+            format!("; {how} (planned {} ticks ago to catch {}, now {expect}): #{} is {off:.0} off the line{}", sim.tick() - pl.tick,
+                    pl.caught, pl.target, if along < 0.0 { ", behind her" } else { "" })
+        }
+        (Some(pl), None) => format!("; {how} (planned {} ticks ago, #{} gone)", sim.tick() - pl.tick, pl.target),
+        (None, Some(at)) => format!("; {how} (no plan): the target is {:.0} off the line", seg(at, start, stop).0),
+        (None, None) => format!("; {how} (no plan)"),
+    };
+    note(sim, "r", me, |n| format!("R #{n} at #{}: the wind {said}{aimed}{}", target.unwrap_or(0),
                                    if flew { "" } else { " (spawn_projectile refused: nobody pushed)" }));
 }
 
@@ -336,6 +411,40 @@ mod tests {
         // a wall beyond the wind's reach: nothing
         let short = (12.0 * CELL, 3.5 * CELL);
         assert_eq!(caught_by(&m, short, him.at, &[him], &p), Vec::<usize>::new());
+    }
+
+    #[test]
+    fn the_wind_keeps_the_plans_line() {
+        // 0.3.1: the AI planned the wind at the one by the wall; 15 ticks on he has stepped off the line's end into the
+        // open - the wind still blows along the plan's line (he is still on its path, pushed into the wall)
+        let m = map(&[(15, 1), (15, 2), (15, 3), (15, 4), (15, 5)]);
+        let p = Params::default();
+        let me = (13.2 * CELL, 3.5 * CELL);
+        let planned_dir = (1.0, 0.0);
+        let moved = champ(1, (14.0 * CELL, 3.7 * CELL));
+        let (dir, how, n) = aim(Some(&m), me, Some(planned_dir), Some(moved.at), &[moved], &p).unwrap();
+        assert_eq!((dir, how, n), (planned_dir, "along the plan's line", 1));
+        // he walked clear of the line (and the wall): another champion's direction catches more - re-aimed
+        let gone = champ(1, (13.2 * CELL, 8.0 * CELL));
+        let other = champ(2, (14.0 * CELL, 3.5 * CELL));
+        let (_, how, n) = aim(Some(&m), me, Some(planned_dir), Some(gone.at), &[gone, other], &p).unwrap();
+        assert_eq!((how, n), ("along the plan's line", 1), "the plan's line still catches the other one");
+        let (_, how, n) = aim(Some(&m), me, Some((0.0, 1.0)), Some(gone.at), &[gone, other], &p).unwrap();
+        assert_eq!((how, n), ("re-aimed at another champion", 1));
+        // nobody caught anywhere: the plan's line, else the target
+        let open = champ(3, (10.0 * CELL, 3.5 * CELL));
+        assert_eq!(aim(Some(&m), me, Some((0.0, 1.0)), Some(open.at), &[open], &p), Some(((0.0, 1.0), "along the plan's line", 0)));
+        assert_eq!(aim(Some(&m), me, None, Some(open.at), &[open], &p), Some(((-1.0, 0.0), "at the target", 0)));
+        // no map read: the plan's line, else the target; nothing at all: None
+        assert_eq!(aim(None, me, Some((0.0, 1.0)), Some(open.at), &[open], &p), Some(((0.0, 1.0), "along the plan's line", 0)));
+        assert_eq!(aim(None, me, None, None, &[], &p), None);
+        // the plan outlives PLAN_FRESH ticks: dropped
+        let key = (77, 1);
+        remember(key, Planned { tick: 100, target: 1, dir: planned_dir, caught: 1 });
+        assert_eq!(planned(key, 100 + PLAN_FRESH + 1), None);
+        remember(key, Planned { tick: 100, target: 1, dir: planned_dir, caught: 1 });
+        assert_eq!(planned(key, 115).map(|pl| pl.target), Some(1));
+        assert_eq!(planned(key, 116), None, "taken once");
     }
 
     #[test]

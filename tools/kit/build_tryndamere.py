@@ -261,7 +261,9 @@ def build(p, native=False):
     retry = p["r_cd"] * 100 // 60 - 100
     ult = action("idle", 3, p["r_cd"], 1, p["r_arm_range"], "None", "EnemyChampion",
                  combine(*rm("r_armed"), flag("r_armed", p["r_window"]),
-                         delayed(p["r_window"] - 1, sw("r_armed", combine(*rm("r_armed"),
+                         # the refund reads the arm flag 3 ticks before the window ends, not 1: a flag of n ticks is seen on n - 1 of them, but read
+                         # on that last tick the refund still missed 7 of 53 lapses (league_wukong, classic-SDK traces lr1105/fix_j, 2026-11-05)
+                         delayed(p["r_window"] - 3, sw("r_armed", combine(*rm("r_armed"),
                                                                        flag("r_retry", 3, ult_cooldown_mult=retry))))),
                  key="ult")
 

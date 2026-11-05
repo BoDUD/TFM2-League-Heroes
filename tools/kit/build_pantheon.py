@@ -35,8 +35,9 @@ recommended option - 「方案可以，全按推荐做（上单，做附加包�
           an allied champion within r_sur of it (a fight to join), and he not in crowd control. (Another enemy champion
           there was enough at first: the add-on's log, 2026-10-16, had 35 of 41 falls land with no ally near, mostly on
           two enemies, and he died within ~30 s of nearly every one - the user: 「看一下附加包的日志对不对」.)
-          Then he crouches r_ch ticks (unseen and immune to crowd control: League's first channel), leaps (banished
-          r_fall ticks: in the sky) and comes down where that champion stood at the leap, a ring marking it: on r_sp his
+          Then he crouches r_ch ticks (unseen and immune to crowd control: League's first channel), leaps (a burst of
+          light and a streak into the sky left on the spot he leaves, r_jump: League's R_Cas_Jump_Shockwave, the user
+          2026-11-05 「潘森大招飞起来也没有那个联盟里的特效」; banished r_fall ticks: in the sky) and comes down where that champion stood at the leap, a ring marking it: on r_sp his
           spear strikes it first (r_sp_dmg + r_sp_ratio% AD within r_r and an r_slow% slow for r_slow_t), then he lands
           (Teleport): r_dmg magic within r_rc, half of it out to r_r, and full Mortal Will. Unused, the window ends
           with the cooldown capped (r_reset).
@@ -51,6 +52,7 @@ OUT = os.path.join(REPO, "league", "champion", "league_pantheon.data_champion")
 ID = "league_pantheon"
 FX = "asset/league/effects/league_pantheon_fx"
 BIG = "asset/league/effects/league_pantheon_big"
+JUMP = "asset/league/effects/league_pantheon_jump"   # the takeoff (tools/art/fx_pantheon_jump.py)
 
 # Numbers: the first draft from League's ratios inside the base Melee ranges (champion-data 2); 10-min classic-SDK
 # simulations (Temp/pn_sim/sim/kd.py --lane 0 against fighter, executioner, lancer, pole_warrior, knight, berserker, three
@@ -342,8 +344,9 @@ def build(p):
                        zone("r_core", p["r_rc"], "EnemyWithoutTower", [magic(p["r_dmg"] // 2), view("r_hit")]),
                        zone("r_edge", p["r_r"], "EnemyWithoutTower", [magic(p["r_dmg"] // 2)])),
                refresh("pw", None), cview("p_ready")]
-    # the leap is seen (r_leap ticks), then he is gone into the sky until the landing
-    leap = combine(anim("ult_leap", p["r_leap"]), sfx("r_leap"), voice("vo_r_leap", p),
+    # the leap is seen (r_leap ticks), riding the takeoff's streak of light (r_jump, left where he took off), then he
+    # is gone into the sky until the landing
+    leap = combine(anim("ult_leap", p["r_leap"]), sfx("r_leap"), cview("r_jump"), voice("vo_r_leap", p),
                    on_me(delayed(p["r_leap"], {"type": "Banish", "duration": p["r_fall"] - p["r_leap"]})),
                    lob("r_spot", p["r_sp"], "EnemyChampion", spear_down, mark="r_mark"),
                    # the spear's fall plays on the landing spot from the leap (its third frame strikes at r_sp)
@@ -372,7 +375,9 @@ def build(p):
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
     ult = action("idle", 3, p["r_cd"], 1, 960000, "None", "EnemyChampion",
                  combine(init, refresh("r_arm", p["r_arm"]),
-                         on_me(casted(p["r_arm"], p["r_poll"], poll), delayed(p["r_arm"], reset))), key="ult")
+                         # the refund reads the arm flag 3 ticks before the window ends: a flag of n ticks is seen on n - 1 of them, so read
+                         # on its last tick it was always gone and a lapsed window never refunded (lr1105/fix_j, classic-SDK probe 2026-11-05)
+                         on_me(casted(p["r_arm"], p["r_poll"], poll), delayed(p["r_arm"] - 3, reset))), key="ult")
 
     # ------------------------------------------------------------------ views
     E = lambda name, anim_=FX, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": anim_, "tag": name,
@@ -384,7 +389,8 @@ def build(p):
     views_p = [P_("q_spear"), P_("q_thrust", BIG, 2)]
     views_e = [E("a_hit"), E("p_ready", FX, 3), E("q_hit"), E("w_hit"), E("e_shield", BIG, -1),
                E("e_stab"), E("e_bash", BIG, 3, False), E("e_hit"), E("r_cast", BIG, -1), E("r_mark", BIG, -1, False),
-               E("r_spear", BIG, 2, False), E("r_sp_hit"), E("r_land", BIG, -1, False), E("r_hit")]
+               E("r_spear", BIG, 2, False), E("r_sp_hit"), E("r_land", BIG, -1, False), E("r_hit"),
+               E("r_jump", JUMP, -1, False)]
     if nat:
         views_e.append(E("q_low"))
     views_b = [B_("r_slow", FX, -1), B_("e_def", FX, 3)]

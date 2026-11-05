@@ -16,6 +16,9 @@
 //! src/warm.rs（0.7.27）：标题画面出来以后，后台线程把主包 `sound/bgm/` 里的音频按盘上的顺序读一遍进系统缓存，
 //! 比赛里音频第一次播放就不用在主线程等读盘。
 //!
+//! src/diverge.rs（0.9.12）：比赛钩子每 600 tick 给每份模拟（屏幕上的比赛、服务器的两份预演）拍一张所有单位的快照算哈希，
+//! 同一场比赛的几份走到同一个 tick 就对一对，第一次不一样写一行 `DIVERGE`——找「屏幕上的比赛和预演从哪个 tick 起不同」。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 //! 挂钩、取表、缩放的行写在挂钩的那个 DLL 的日志里：tft.dll 先加载时在 tft.log，这里只有一行「交给了谁」。
 
@@ -30,12 +33,13 @@ use mod_api_stable::*;
 
 #[cfg(windows)]
 mod cache;
+pub mod diverge;
 pub mod hd;
 #[cfg(windows)]
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.11";
+const VERSION: &str = "0.9.12";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -103,6 +107,8 @@ fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new(ID);
     #[cfg(windows)]
     module.set_extension(warm::Warm);
+    // the only match hook this module may set: the per-600-tick simulation checksum (src/diverge.rs)
+    module.set_match_hook(diverge::Diverge);
     module
 }
 

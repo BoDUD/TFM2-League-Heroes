@@ -1,0 +1,286 @@
+{
+  "asset/base/sound/bgm/banpick": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_draft",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/banpick2": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_draft",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/banpick_match5_lastgame": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_draft_final",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/dual_takedown": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_double_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/triple_takedown": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_triple_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/devastation": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_quadra_kill",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/annihilation": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_penta_kill",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music1",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match2": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music2",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match3": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music3",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match4": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music1",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match5": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music2",
+    "type": "override"
+  },
+  "asset/base/sound/bgm/match6": {
+    "remapping": "asset/lol_audio/sound/bgm/lol_rift_music3",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_first_blood": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_first_blood",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_first_blood": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_first_blood",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_executed": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_executed",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_executed": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_executed",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_ace": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_ace",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_ace": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_ace",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_shutdown": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_shutdown",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_shutdown": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_shutdown",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_killing_spree": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_killing_spree",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_killing_spree": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_killing_spree",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_rampage": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_rampage",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_rampage": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_rampage",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_unstoppable": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_unstoppable",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_unstoppable": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_unstoppable",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_dominating": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_dominating",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_dominating": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_dominating",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_godlike": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_godlike",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_godlike": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_godlike",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_legendary": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_legendary",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_legendary": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_legendary",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_killing_spree_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_killing_spree_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_killing_spree_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_killing_spree_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_rampage_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_rampage_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_rampage_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_rampage_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_unstoppable_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_unstoppable_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_unstoppable_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_unstoppable_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_dominating_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_dominating_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_dominating_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_dominating_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_godlike_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_godlike_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_godlike_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_godlike_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_legendary_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_legendary_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_legendary_enemy": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_legendary_enemy",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_turret_ours": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_turret_ours",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_turret_ours": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_turret_ours",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_turret_theirs": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_turret_theirs",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_turret_theirs": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_turret_theirs",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_turret": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_turret",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_turret": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_turret",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_dragon": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_dragon",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_dragon": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_dragon",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_dragon_blue": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_dragon_blue",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_dragon_blue": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_dragon_blue",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_dragon_red": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_dragon_red",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_dragon_red": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_dragon_red",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_baron": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_baron",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_baron": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_baron",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_baron_blue": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_baron_blue",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_baron_blue": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_baron_blue",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_baron_red": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_baron_red",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_baron_red": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_baron_red",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_victory": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_victory",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_victory": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_victory",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_defeat": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_defeat",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_defeat": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_defeat",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_victory_blue": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_victory_blue",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_victory_blue": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_victory_blue",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_audio_victory_red": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_audio_victory_red",
+    "type": "override"
+  },
+  "asset/base/sound/sfx/lol_victory_red": {
+    "remapping": "asset/lol_audio/sound/sfx/lol_victory_red",
+    "type": "override"
+  }
+}

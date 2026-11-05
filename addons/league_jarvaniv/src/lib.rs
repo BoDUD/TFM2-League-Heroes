@@ -10,7 +10,7 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jarvaniv.log`，每次启动游戏重写。
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -191,6 +191,8 @@ struct Cataclysm {
     side: HashMap<usize, bool>,
     /// 每个单位上一 tick 的位置。
     last_pos: HashMap<usize, (u64, u64)>,
+    /// 这道墙已经记过 `KEPT` 的单位（0.1.2：一个单位一道墙一行，以前每 tick 一行）。
+    logged: HashSet<usize>,
 }
 
 impl Cataclysm {
@@ -201,6 +203,7 @@ impl Cataclysm {
             self.ring = Some(Ring { x, y, from: now });
             self.side.clear();
             self.last_pos.clear();
+            self.logged.clear();
             if let Some(k) = counted("ring") {
                 wlog(format!("{} RING #{k}: rock ring at ({x}, {y}), radius {}, {} ticks", head(sim, me), self.p.r_r,
                              self.p.r_t));
@@ -244,8 +247,12 @@ impl Cataclysm {
         }
         for (id, (x, y), inside) in moves {
             sim.entity_set_pos(id, x, y);
+            // one line a unit a ring (0.1.2; 11-04's logs: 976 lines for 42 rings, one every tick a held unit)
+            if !self.logged.insert(id) {
+                continue;
+            }
             if let Some(k) = counted(if inside { "kept_in" } else { "kept_out" }) {
-                wlog(format!("{} {} #{k}: {} held at ({x}, {y})", head(sim, self.me),
+                wlog(format!("{} {} #{k}: {} held at ({x}, {y}) (first of this ring)", head(sim, self.me),
                              if inside { "KEPT IN" } else { "KEPT OUT" }, who(sim, id)));
             }
         }

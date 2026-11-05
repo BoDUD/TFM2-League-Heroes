@@ -1,4 +1,4 @@
-# 蒙多附加包（测试版 v0.1.8，可选）
+# 蒙多附加包（测试版 v0.1.9，可选）
 
 **不装这个附加包，主包里的蒙多也是完整的**：被动的免控和药罐、病毒屠刀、电击疗法和灰色生命、大力行医打飞尸体、极限剂量都在
 主包数据里。主包是纯数据，**读不到生命**，蒙多的技能又几乎全按生命算，这个附加包用原生代码补上（用户 2026-10-16「方案可以，
@@ -61,6 +61,14 @@ cd addons && cargo test -p league_drmundo && cargo build --release -p league_drm
 
 单独装：`league_drmundo.dll` + `mod.mod_info` + `mod.override_info` + `override/` + `text/` 放进
 `<游戏>/mods/league_drmundo/`；一般随附加包合集（`league_addons`）一起装。
+
+## 0.1.9：AI 不给命令就推他一步
+
+2026-11-04 的日志（.prev）：25 行 `STUCK`（README 说正常对局里不该有），22 行是 `base nothing -> kept`——游戏的 AI 在「敌方英雄」身边
+90 tick 一个命令都不给，多半是那个英雄隐着身（雷恩加尔之类），AI 看不见也就不动。现在 `STUCK` 只数**看得见的**敌方英雄
+（`sim.is_visible`，`visible_champions_of`）；AI 没命令、他 90 tick 没挪、30000 内有看得见的敌方英雄，钩子替它朝最近的那个走一步
+`NUDGE_STEP` 8000（`nudge_ok` / `step_toward`，日志 `NUDGE`，一串一行）。「TANK GONE ... walked to it, 6 times」（走到 35000 安全
+边上一走一停）这次没动。
 
 ## 0.1.8：站在药罐的圈里就不走过去
 

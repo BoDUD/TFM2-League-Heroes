@@ -38,7 +38,7 @@ if os.name == "nt" and not ROOT.startswith(chr(92) * 2):
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_yuumi")
 FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_yuumi_fx", "league_yuumi_big")}
-RIDE = os.path.join(LEAGUE, "effects", "league_yuumi_ride")
+RIDE = os.path.join(LEAGUE, "effects", "league_yuumi_ride_1x")
 DARIUS = os.path.join(LEAGUE, "champions", "league_darius")
 JINX = os.path.join(LEAGUE, "champions", "league_jinx")
 

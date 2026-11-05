@@ -473,6 +473,8 @@ impl StablePlayerAi for UltAi {
 pub struct Pack {
     p: Params,
     resets: usize,
+    /// Her spawns in this simulation (the params go into the first one's line only, 0.1.2).
+    spawns: usize,
 }
 
 impl Pack {
@@ -516,7 +518,13 @@ impl StablePassive for Pack {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         keep_params(sim, me, &self.p);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Naafiri (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        self.spawns += 1;
+        // the params on her first spawn of a set only (0.1.2; 11-04's logs: 146 SPAWN lines, each with the whole table)
+        if self.spawns == 1 {
+            wlog(format!("{} SPAWN: the add-on's Naafiri (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        } else if self.spawns <= 40 {
+            wlog(format!("{} SPAWN #{}: the add-on's Naafiri again (player {player}, team {team})", head(sim, me), self.spawns));
+        }
     }
 
     fn on_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, victim: usize) {

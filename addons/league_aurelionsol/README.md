@@ -64,11 +64,13 @@
 0.3.0（2026-11-04）：星穹流丽做成他自己的技能、边飞边喷（上面）。主包同时改了：起飞重置龙息冷却、飞行中龙息没有冷却（`q_live`
 保证上一口的 AddCasted 没了才喷下一口）、引导 2.5 秒、每段 +10%，飞行不再加 20% 法强，击杀返还缩到 `w_cut` 120 tick。
 
+0.3.1（2026-11-05，11-04 夜里的日志）：逃生的飞行被龙息拖慢——游戏的 AI 自己按的龙息原样过了钩子（钩子只把走路、普攻改成飞），逃生时对着不残血的追兵喷（FLY #885：28% 逃生，143 tick 里喷了 136 tick，全速 75 tick 就到；7 次逃生 6 次被拖慢、多飞 227 tick），进场时对着够不着的人喷（FLY #702：149 tick 对着 75000 内一个都没有的空气）；起飞时还在喷的地面龙息也被带进飞行。现在飞行中游戏 AI 的龙息也改成朝落点飞（日志 `FLY AI STEER`，一串记一行），被动在每口龙息开始的那一 tick 按钩子同一条规矩再核对一次——逃生时追兵没有一个低于 25%、或 75000 + 两个身体内没有敌方英雄、或是起飞时带进来的地面龙息——不该喷的就截掉（`BREATH CUT`，和飞向的人倒下时一样：去掉 `q_ch`、清掉施法姿势，全速飞），`LAND` 里记「n breaths cut」。截掉后主包的 `q_live` 还在，下一口要等它过去。`REFUND` 只在真有冷却可返时记（以前 26/83 行是 0 -> 0）。
+
 ## 检查
 
 - 在 `addons/` 下 `cargo test --release -p league_aurelionsol`：单元测试（参数、层的名字、处决线、死后补回）。
 - 主包的奥瑞利安·索尔改了以后重新跑 `python addons/league_aurelionsol/make_override.py`（它先核对主包的 `league_aurelionsol.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_aurelionsol.log`：`SPAWN`、叠层 `STACK`、死亡 / 复活 `DEAD` / `ALIVE`、补回 `KEEP`、处决 `EXECUTE`（目标、生命、处决线、星尘层数）；
   星穹流丽：`FLY`（为什么飞、飞向谁、从哪到哪、过没过墙、龙息重置了没有、下次多久）、`BREATH`（飞行中开始喷，飞了多远、还剩多远）、
-  `FLY AI`（钩子对谁按的龙息）/ `FLY AI REFUSED`、`BREATH CUT`（飞向的那个倒下，龙息停）、`LAND`（怎么落地的、飞了多久多远、
+  `FLY AI`（钩子对谁按的龙息）/ `FLY AI REFUSED` / `FLY AI STEER`（游戏 AI 的龙息改成飞）、`BREATH CUT`（飞向的那个倒下、或不该喷的龙息，龙息停）、`LAND`（怎么落地的、飞了多久多远、
   喷了几 tick、喷着飞了多远）、`REFUND`（击杀返还）。每种前 40 行、之后每 100 行记一行，你看的那场每一行都记。

@@ -336,6 +336,12 @@ def build(p):
         out of his reach too long, or aged out by an enemy tower; the slot's next soldier takes it off as it rises)."""
         return sw(f"x{s}", NONE, effect) if p["native"] else effect
 
+    def commanded(s, effect):
+        """The add-on's copy (0.2.1): only while slot s's soldier stands within his reach this tick (the add-on hangs
+        `o<s>` on him every tick it is out, off when it is back): the tied() pick below is looser in the game than the
+        add-on's centre-to-centre measure (7 stabs a day at 67157-75253 from him, all in the window before the crumble)."""
+        return sw(f"o{s}", NONE, effect) if p["native"] else effect
+
     def soldier(s, g):
         """Slot s's soldier of generation g on this spot (a landing's end_effects): its picture re-stamped every
         s_step ticks and two stab zones (champions first), all only while g is up."""
@@ -348,9 +354,9 @@ def build(p):
         # stabbed everyone near it every 2 ticks to its end (classic engine 2026-11-02: 44 stabs after one death) - so
         # past the two flags it asks alive() (league_maokai's sapling); then whether he stands within League's tether
         # radius of it (tied: s_tie from the zone's centre plus his body = 660), and in the add-on's copy whether it
-        # crumbled (kept)
-        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, kept(s, alive(tied(p["s_tie"], flag(f"k{s}", p["cmd_t"] + 1),
-                                                                               *stab, *told))))))
+        # crumbled (kept) or stands out of his reach this tick (commanded)
+        poke = lambda: gate(g, sw("cmd", sw(f"k{s}", NONE, kept(s, commanded(s, alive(tied(p["s_tie"], flag(f"k{s}", p["cmd_t"] + 1),
+                                                                                             *stab, *told)))))))
         rise_, stand_ = ((native("rise"), native("sold")) if p["native"] else
                          (view(f"sold_{s}_rise"), view(f"sold_{s}")))
         # a new soldier in the slot takes the crumbled one's latch off (only when it does rise: generation g still up);

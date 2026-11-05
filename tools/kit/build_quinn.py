@@ -82,7 +82,8 @@ P = {
     "r_ratio": 100, "r_land": 29,
     # the add-on's ride (League: +40-220% ms, rides until she attacks or casts)
     "r_ride_t": 360, "r_ride_ms": 80,
-    # the add-on copy's R anywhere on the map: league_quinn's hook presses it to roam, to go back to lane and to chase
+    # the add-on copy's R anywhere on the map (a `None` cast since 11-05): league_quinn's hook presses it to roam, to go
+    # back to lane and to chase
     # (the user 2026-11-03: 「奎因参考LOL高手啊」; 11-02: the game's AI never cast the ride in 8 lives)
     "r_ride_range": 960000,
     "vo_gap": 600,
@@ -301,7 +302,9 @@ def build(p):
         land = [anim("ult_land", p["r_land"]), skystrike()]
         ride = [anim("ult_ride", 240), sfx("r_ride"),
                 {"type": "MoveToTarget", "speed": p["r_speed"], "range": 400000, "end_effects": land}]
-    ult = action("ult", p["r_mount"], p["r_cd"], 1, p["r_ride_range"] if nat else p["r_range"], "Targeting",
+    # the add-on's ride is a no-target cast (11-05: the engine took no Targeting R on a champion 100000+ away, however
+    # long the range, and the hook's roam has nobody in sight anyway - Kindred's / Galio's R: None on EnemyChampion)
+    ult = action("ult", p["r_mount"], p["r_cd"], 1, p["r_ride_range"] if nat else p["r_range"], "None" if nat else "Targeting",
                  "EnemyChampion",
                  combine(life, valor_off, anim("ult", p["r_mount"]), cview("r_call"), sfx("r"), voice("vo_r", p),
                          delayed(p["r_mount"] - 1, alive(*ride))))

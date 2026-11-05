@@ -286,6 +286,15 @@ pub fn choose_ally(mates: &[Mate], me: &Mate) -> Option<usize> {
 }
 
 /// R 打在魔抗 `mr` 的敌人身上还剩多少（`raw` × 100 / (100 + 魔抗)）。
+/// `R-ARMED` lines: the last one's (tick, target) per Orianna; one a new target, else one every `ARMED_EVERY` ticks.
+static ARMED_LINES: LazyLock<Mutex<HashMap<usize, (usize, usize)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+pub const ARMED_EVERY: usize = 60;
+
+/// Whether an `R-ARMED` line at `now` about `target` is due after the `last` one (tick, target).
+pub fn armed_line_due(last: Option<(usize, usize)>, target: usize, now: usize) -> bool {
+    last.is_none_or(|(t0, who)| who != target || now < t0 || now >= t0 + ARMED_EVERY)
+}
+
 pub fn after_mr(raw: usize, mr: usize) -> usize {
     raw * 100 / (100 + mr)
 }
@@ -851,9 +860,20 @@ impl StableEffectType for Kill {
         let ap = sim.get_entity(me).map_or(0, |e| e.stat().magic_power);
         let raw = p.r_dmg + p.r_ap * ap / 100;
         if !kills(hp, raw, mr) {
-            // R is armed and looking (the data asks only then): the first calls show it in the log
-            if let Some(k) = counted("armed") {
-                if k <= 20 {
+            // R is armed and looking (the data asks every 3 ticks): one line a new target, else one every ARMED_EVERY
+            // ticks (0.3.2; 11-04's logs: the 20 lines were one minute of the first game)
+            let now = sim.tick();
+            let due = {
+                let mut m = ARMED_LINES.lock().unwrap_or_else(|e| e.into_inner());
+                let last = m.get(&me).copied();
+                let due = armed_line_due(last, target, now);
+                if due {
+                    m.insert(me, (now, target));
+                }
+                due
+            };
+            if due {
+                if let Some(k) = counted("armed") {
                     wlog(format!("{} R-ARMED #{k} {} near the Ball at {hp}/{max}: the shockwave would deal {}, no kill",
                                  head(sim, me), who(sim, target), after_mr(raw, mr)));
                 }
@@ -1114,6 +1134,17 @@ mod tests {
         assert!(kills(400, 500, 25));
         assert!(!kills(401, 500, 25));
         assert!(!kills(0, 500, 25));
+    }
+
+    #[test]
+    fn one_r_armed_line_a_target_or_a_second() {
+        // 11-04's logs: R-ARMED every 3 ticks about the same K'Sante, 20 lines in a minute
+        assert!(armed_line_due(None, 23, 7311));
+        assert!(!armed_line_due(Some((7311, 23)), 23, 7314));
+        assert!(!armed_line_due(Some((7311, 23)), 23, 7311 + ARMED_EVERY - 1));
+        assert!(armed_line_due(Some((7311, 23)), 23, 7311 + ARMED_EVERY));
+        assert!(armed_line_due(Some((7311, 23)), 24, 7314));   // another one came near
+        assert!(armed_line_due(Some((7311, 23)), 23, 100));    // a new match
     }
 
     fn foe(id: usize, x: f64, y: f64, hp: f64, dies: bool) -> Foe {

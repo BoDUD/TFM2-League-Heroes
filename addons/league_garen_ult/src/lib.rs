@@ -20,7 +20,7 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod plan;
-use plan::{plan as decide, Foe, Plan, HERO, MARK, MARK_TO_LAND, R_MISSING, R_RANGE};
+use plan::{holds_execute, plan as decide, Foe, Plan, HERO, MARK, MARK_TO_LAND, R_MISSING, R_RANGE};
 
 const ID: &str = "league_garen_ult";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -89,7 +89,7 @@ fn read_foe(e: &StableEntity<'_, '_>) -> Foe {
     let (hp, max) = e.hp();
     let mut foe = Foe { id: e.id(), hp, max, shield: e.shield(), ..Foe::default() };
     for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
-        foe.undying |= b.undying;
+        foe.undying |= holds_execute(b.name(), b.undying);
         foe.reduce += b.damaged_reduce;
         foe.amplify += b.damaged_amplify;
         foe.skill_reduce += b.skill_damaged_reduce;
@@ -192,7 +192,8 @@ impl StablePlayerAi for UltAi {
                 if self.last_hold.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
                     self.last_hold = Some(tick);
                     let who = foe_of(x).map_or(format!("#{x} is no enemy champion alive"), |f| {
-                        format!("#{x} hp {}/{} + shield {} > {}", f.hp, f.max, f.shield, f.damage_from(f.r_damage(attack)))
+                        format!("#{x} hp {}/{} + shield {} > {}{}", f.hp, f.max, f.shield, f.damage_from(f.r_damage(attack)),
+                                if f.undying { ", undying" } else { "" })
                     });
                     wlog(format!("{line} R HELD: {who}, attacking instead"));
                 }

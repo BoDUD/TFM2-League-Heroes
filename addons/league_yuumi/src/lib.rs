@@ -1191,7 +1191,11 @@ mod tests {
     fn every_lift_has_its_view_and_tag() {
         let main = include_str!("../../../league/champion/league_yuumi.data_champion");
         let copy = include_str!("../override/league_yuumi.data_champion");
-        let fanim = include_str!("../../../league/effects/league_yuumi_ride#anim.fanim");
+        // the plain 1x sheet (0.2.13): a buff's view is drawn by the game itself, never by league.dll's effect shrink, so
+        // the cat has no dense twin any more and league.dll registers nothing of it
+        let fanim = include_str!("../../../league/effects/league_yuumi_ride_1x#anim.fanim");
+        let hd = include_str!("../../league_main/src/hd.rs");
+        assert!(!hd.contains("\"league_yuumi_ride"), "league.dll still registers the ride picture: it would draw it 1.5x");
         for &k in lifts::LIFTS {
             let name = ride_buff(k);
             assert!(name.len() <= BUFF_NAME_CAP);
@@ -1199,8 +1203,11 @@ mod tests {
             for text in [main, copy] {
                 assert!(text.contains(&format!("\"name\": \"{name}\"")), "no view for {name}");
                 assert!(text.contains(&format!("\"tag\": \"{tag}\"")), "no tag {tag}");
+                assert!(text.contains("\"asset/league/effects/league_yuumi_ride_1x\""), "the ride views are not on the 1x sheet");
+                assert!(!text.contains("\"asset/league/effects/league_yuumi_ride\""), "a ride view still on the dense sheet");
             }
-            assert!(fanim.contains(&format!("\"{tag}\"")) && fanim.contains(&format!("\"hd_{tag}\"")), "no tag {tag} in the sheet");
+            assert!(fanim.contains(&format!("\"{tag}\"")), "no tag {tag} in the sheet");
+            assert!(!fanim.contains(&format!("\"hd_{tag}\"")), "a dense twin of {tag} in the 1x sheet");
         }
     }
 

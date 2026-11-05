@@ -55,7 +55,7 @@
 
 ### 莎弥拉边走边射附加包
 
-[莎弥拉边走边射附加包](../../addons/league_samira_r/README.md)：`league_samira_r` v0.1.1
+[莎弥拉边走边射附加包](../../addons/league_samira_r/README.md)：`league_samira_r` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

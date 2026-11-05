@@ -103,13 +103,21 @@ impl StablePlayerAi for Screen {
     }
 }
 
-/// 屏幕时钟 `t` 时该画的那条（最近开始的一条）和它已经画了几 tick。
-pub fn showing(all: &[Banner], view: Option<(u64, u64)>, t: usize) -> Option<(&Banner, usize)> {
+/// 屏幕时钟 `t` 时该画的那些条（最近开始的那一 tick 的全部：0.2.6 同一 tick 复活两个人画一条、名字并列——11-04 m=2649 两个
+/// 队友同一 tick 站起来只画了一个）和它们已经画了几 tick。
+pub fn showing(all: &[Banner], view: Option<(u64, u64)>, t: usize) -> Option<(Vec<&Banner>, usize)> {
     let (m, s) = view?;
-    all.iter()
-        .filter(|b| (b.m, b.s) == (m, s) && b.tick <= t && t < b.tick + SHOW_T)
-        .max_by_key(|b| b.tick)
-        .map(|b| (b, t - b.tick))
+    let live = all.iter().filter(|b| (b.m, b.s) == (m, s) && b.tick <= t && t < b.tick + SHOW_T);
+    let tick = live.clone().map(|b| b.tick).max()?;
+    Some((live.filter(|b| b.tick == tick).collect(), t - tick))
+}
+
+/// 几个名字并列：中文、日文用顿号，韩文、英文用逗号。
+pub fn join(lang: Lang, names: &[String]) -> String {
+    names.join(match lang {
+        Lang::Hans | Lang::Hant | Lang::Ja => "、",
+        Lang::Ko | Lang::En => ", ",
+    })
 }
 
 /// 游戏的语言（按阿克尚第一个技能名的写法认：简体「去而复还」、繁体「復仇迴力鏢」，其他按文字）。
@@ -179,12 +187,14 @@ pub fn draw(ctx: &mut StableClient<'_>) {
     let view = VIEW.lock().ok().and_then(|v| *v);
     let shown = {
         let Ok(all) = BANNERS.lock() else { return };
-        showing(&all, view, t).map(|(b, age)| (b.clone(), age))
+        showing(&all, view, t).map(|(bs, age)| (bs.into_iter().cloned().collect::<Vec<Banner>>(), age))
     };
-    let Some((b, age)) = shown else { return };
+    let Some((bs, age)) = shown.filter(|(bs, _)| !bs.is_empty()) else { return };
+    let b = &bs[0];
     let Some((w, h)) = ctx.draw_map_size("UI").filter(|s| s.0 > 0.0 && s.1 > 0.0) else { return };
     let lang = lang_of(&text(ctx, "asset/base/text/champion?skill_name.league_akshan.skill1").unwrap_or_default());
-    let text = line(lang, &name(ctx, &b.akshan), &name(ctx, &b.ally));
+    let allies: Vec<String> = bs.iter().map(|b| name(ctx, &b.ally)).collect();
+    let text = line(lang, &name(ctx, &b.akshan), &join(lang, &allies));
     if let Ok(mut l) = LOGGED.lock() {
         if *l != Some((b.m, b.s, b.tick)) {
             *l = Some((b.m, b.s, b.tick));
@@ -240,13 +250,27 @@ mod tests {
     fn a_banner_shows_on_its_own_match_from_its_tick_for_show_t() {
         let all = vec![b(7, 1000), b(8, 1000)];
         assert!(showing(&all, Some((7, 0)), 999).is_none());
-        assert_eq!(showing(&all, Some((7, 0)), 1000).map(|x| (x.0.m, x.1)), Some((7, 0)));
+        assert_eq!(showing(&all, Some((7, 0)), 1000).map(|x| (x.0[0].m, x.1)), Some((7, 0)));
         assert_eq!(showing(&all, Some((7, 0)), 1000 + SHOW_T - 1).map(|x| x.1), Some(SHOW_T - 1));
         assert!(showing(&all, Some((7, 0)), 1000 + SHOW_T).is_none());
         assert!(showing(&all, None, 1000).is_none());
         // two close together: the later one
         let two = vec![b(7, 1000), b(7, 1050)];
-        assert_eq!(showing(&two, Some((7, 0)), 1100).map(|x| x.0.tick), Some(1050));
+        assert_eq!(showing(&two, Some((7, 0)), 1100).map(|x| (x.0.len(), x.0[0].tick)), Some((1, 1050)));
+    }
+
+    #[test]
+    fn two_revived_on_one_tick_share_the_banner() {
+        // 11-04 m=2649 s=4 t=32544: players 2 and 0 both stood up on one tick, one banner drawn
+        let mut second = b(7, 1000);
+        second.ally = "league_galio".into();
+        let both = vec![b(7, 900), b(7, 1000), second.clone()];
+        let (shown, age) = showing(&both, Some((7, 0)), 1010).expect("shown");
+        assert_eq!((shown.len(), age), (2, 10));
+        assert_eq!(shown.iter().map(|b| b.ally.as_str()).collect::<Vec<_>>(), ["league_garen", "league_galio"]);
+        assert_eq!(join(Lang::Hans, &["盖伦".into(), "加里奥".into()]), "盖伦、加里奥");
+        assert_eq!(join(Lang::En, &["Garen".into(), "Galio".into()]), "Garen, Galio");
+        assert_eq!(line(Lang::Hans, "阿克尚", &join(Lang::Hans, &["盖伦".into(), "加里奥".into()])), "阿克尚 复活了 盖伦、加里奥！");
     }
 
     #[test]

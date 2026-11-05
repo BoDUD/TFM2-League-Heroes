@@ -55,7 +55,7 @@
 
 ### 慎「秘奥义！慈悲度魂落」护盾按生命值附加包
 
-[慎「秘奥义！慈悲度魂落」护盾按生命值附加包](../../addons/league_shen_shield/README.md)：`league_shen_shield` v0.1.0
+[慎「秘奥义！慈悲度魂落」护盾按生命值附加包](../../addons/league_shen_shield/README.md)：`league_shen_shield` v0.1.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

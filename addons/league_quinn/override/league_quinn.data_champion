@@ -1419,7 +1419,7 @@
     "start_timing": 1,
     "cancelable": false,
     "range": 960000,
-    "casting_type": "Targeting",
+    "casting_type": "None",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {

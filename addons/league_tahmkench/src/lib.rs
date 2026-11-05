@@ -723,10 +723,17 @@ impl StablePassive for Skin {
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
         self.grey = 0;
-        // dying with someone in his belly spits them out where he fell
+        // dying with someone in his belly spits them out where he fell (0.1.7: logged - 11-04's logs had DEVOURs with no
+        // SPIT, his death the silent release)
         let c = CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, me));
         if let (Some(c), Some(at)) = (c, sim.get_entity(me).map(|e| e.pos())) {
-            sim.entity_set_pos(c.target, at.0, at.1);
+            let ok = sim.entity_set_pos(c.target, at.0, at.1);
+            let now = sim.tick() as usize;
+            if let Some(n) = counted("spit") {
+                wlog(format!("{} SPIT #{n} {} {} at ({}, {}): he died carrying it, {} ticks in{}", head(sim, me),
+                             if c.ally { "ALLY" } else { "ENEMY" }, who(sim, c.target), at.0, at.1, now.saturating_sub(c.since),
+                             if ok { "" } else { " (the host kept it where it was)" }));
+            }
         }
     }
 }

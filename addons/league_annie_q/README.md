@@ -1,4 +1,4 @@
-# 安妮附加包（测试版 v0.2.0，可选）：Q 返还、提伯斯换目标
+# 安妮附加包（测试版 v0.2.1，可选）：Q 返还、提伯斯换目标
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -16,6 +16,7 @@
 - 原生效果的 `input` 就是被打中的单位：他已经死了（不再活着或生命为 0），就 `entity_reduce_cooldown` 把 Q 的剩余冷却减 120 tick。
 
 - 提伯斯：副本的 R 保留召唤那一下（落地、130 + 70% 法强、嗜火眩晕），去掉挂在目标身上的跟随（目标身上的持续效果和 15 个定时检查），改成给目标挂 `league_annie_q_tib_mark`；被动 `league_annie_q:tibbers` 看到标记就开始：第 24 tick 起每 60 tick 在他身上播主包的站立挥爪 `league_annie_tibbers` 和火圈 `league_annie_r_ring`、声音，30000 内的敌人受到 14 + 8% 法强的魔法伤害（`Ap`），384 tick 后化烟（`league_annie_tibbers_vanish`）。数字由 `make_override.py` 对照主包检查。日志：`TIBBERS #n on #7`、`#7 is gone, on to #9`。
+- 0.2.1（2026-11-05，11-04 的日志）：安妮死时提伯斯悄悄没了——她重生时 `on_spawn` 直接丢掉记录，没有 `gone` 行、没有化烟的画面。现在她倒下（`on_dead`）就在他最后的位置播化烟（`league_annie_tibbers_vanish`），记 `TIBBERS #n gone (Annie died)`；万一没走到 `on_dead`，重生时补（`she respawned`）。英雄联盟里安妮死了提伯斯还在，这里**没有**做：死掉的英雄的被动不再跑，提伯斯的挥爪没人驱动。
 
 ## 在游戏里测
 

@@ -10,7 +10,7 @@
                                 (the thrust's light along its line); Darius backs off - the throw, the comet spear; Shield
                                 Vault onto him and the stun; the empowered attack's three thrusts; Aegis Assault - the
                                 shield's light, the stabs, the bash's shockwave; Grand Starfall - the crouch's gathering
-                                light, the leap, the landing ring and the spear falling on it, the landing's blast that
+                                light, the leap and its burst and streak into the sky, the landing ring and the spear falling on it, the landing's blast that
                                 kills him; 3x
 Projectiles fly as the kit flies them: lifted 5000 - y_offset over his pivot, at the target's pivot, turned to their
 way (champion-data section 6).
@@ -37,13 +37,13 @@ if os.name == "nt" and not ROOT.startswith(chr(92) * 2):
     ROOT = chr(92) * 2 + "?" + chr(92) + os.path.abspath(ROOT)   # the repo sits deep under the MSIX profile
 LEAGUE = os.path.join(ROOT, "league")
 CHAMP = os.path.join(LEAGUE, "champions", "league_pantheon")
-FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_pantheon_fx", "league_pantheon_big")}
+FX = {n: os.path.join(LEAGUE, "effects", n) for n in ("league_pantheon_fx", "league_pantheon_big", "league_pantheon_jump")}
 
 
 def showcase(out, z=3, step=40):
     sp = load(CHAMP)
     fx = {k: load(v) for k, v in FX.items()}
-    small, big = fx["league_pantheon_fx"], fx["league_pantheon_big"]
+    small, big, jump = fx["league_pantheon_fx"], fx["league_pantheon_big"], fx["league_pantheon_jump"]
     W, H = 300, 120
     gy = 86
     x0 = 90
@@ -146,6 +146,8 @@ def showcase(out, z=3, step=40):
     under.append(OnMe(frames_of(big, "r_cast"), r0, me))   # behind him (z -1)
     a("ult", tick(P["r_ch"]))
     leap = t
+    mx, my = me.pos(leap)
+    at_spot("r_jump", leap, mx, my, jump, under_=True)   # left on the spot he leaves, under him (z -1)
     a("ult_leap", tick(P["r_leap"]))
     dx, dy = d.pos(leap)
     at_spot("r_mark", leap, dx, dy, big, under_=True)

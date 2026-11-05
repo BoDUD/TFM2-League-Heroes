@@ -188,6 +188,20 @@ pub fn stake(p: &Params, hp: usize, max: usize) -> usize {
     if missing == 0 { 0 } else { share(missing, p.p_miss) }
 }
 
+/// The stake's most on a monster (a jungle camp, an epic monster, the serpent) a hit: League caps its percent-health
+/// damage against monsters; 11-04's logs had +371 on an epic monster against the +40..+70 on champions.
+pub const STAKE_MONSTER_CAP: usize = 60;
+
+/// Silver Stake's extra on a unit of `kind`: nothing on a structure (a tower, the nexus: League's on-hit spell
+/// damage does not touch them), at most `STAKE_MONSTER_CAP` on a monster, `stake` on the rest.
+pub fn stake_on(p: &Params, kind: Option<EntityKindV1>, hp: usize, max: usize) -> usize {
+    match kind {
+        Some(EntityKindV1::Tower | EntityKindV1::Nexus) => 0,
+        Some(EntityKindV1::Jungle | EntityKindV1::Epic | EntityKindV1::Serpen) => stake(p, hp, max).min(STAKE_MONSTER_CAP),
+        _ => stake(p, hp, max),
+    }
+}
+
 /// The execute line with `seals` held: (r_exec + seals x r_exec_step)% of the maximum health.
 pub fn exec_line(p: &Params, max: usize, seals: usize) -> usize {
     max * (p.r_exec + seals.min(SEALS) * p.r_exec_step) / 100
@@ -249,7 +263,8 @@ impl Exorcist {
             let Some(u) = sim.entity_at(i) else { continue };
             if u.is_alive() && has(&u, P_HIT) {
                 let (hp, max) = u.hp();
-                hit.push((u.id(), stake(&self.p, hp, max)));
+                // 0.1.3: nothing on structures, capped on monsters (11-04's logs: +142 on a tower, +371 on an epic monster)
+                hit.push((u.id(), stake_on(&self.p, u.kind(), hp, max)));
             }
         }
         for (id, dmg) in hit {
@@ -487,6 +502,20 @@ mod tests {
         assert_eq!(stake(&p, 500, 1000), 40);   // 8% of 500 missing
         assert_eq!(stake(&p, 100, 1000), 72);
         assert_eq!(stake(&p, 999, 1000), 1);
+    }
+
+    #[test]
+    fn the_stake_spares_structures_and_is_capped_on_monsters() {
+        // 11-04's logs: STAKE +142 on a tower, +371 on an epic monster (uncapped missing health)
+        let p = Params::default();
+        assert_eq!(stake_on(&p, Some(EntityKindV1::Tower), 2000, 4000), 0);
+        assert_eq!(stake_on(&p, Some(EntityKindV1::Nexus), 2000, 4000), 0);
+        assert_eq!(stake_on(&p, Some(EntityKindV1::Epic), 7000, 12000), STAKE_MONSTER_CAP);   // 400 before the cap
+        assert_eq!(stake_on(&p, Some(EntityKindV1::Serpen), 7000, 12000), STAKE_MONSTER_CAP);
+        assert_eq!(stake_on(&p, Some(EntityKindV1::Jungle), 1500, 2000), 40);                 // 40 < the cap
+        assert_eq!(stake_on(&p, Some(EntityKindV1::Champion), 100, 1000), 72);
+        assert_eq!(stake_on(&p, Some(EntityKindV1::Minion), 100, 1000), 72);
+        assert_eq!(stake_on(&p, None, 100, 1000), 72);
     }
 
     #[test]

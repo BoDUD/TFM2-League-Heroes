@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""Zoe's stolen summoner spells as the game shows them (tools/art/draw_zoe_spells.py's league_zoe_spells, the add-on
-league_zoe playing them), in ONE GIF for the user's review: every spell cast as her W goes off beside Darius, then a
-spell shard lying on the ground cycling its icons until she runs over it.
+"""Zoe's stolen summoner spells as the game shows them (tools/art/draw_zoe_spells.py's sheets, the add-on league_zoe
+playing them), in ONE GIF for the user's review: every spell cast as her W goes off beside Darius, then a spell shard
+lying on the ground cycling its icons until she runs over it.
 
     python tools/art/review_zoe_spells.py --out DIR [--z 6]
 
-Everything at its battlefield density: her hd_ frames (PPU 1.5), Darius's (1.45), the spells' (2), the shard's crystal
-(league_zoe_fx, 1x), the icons' (3). Writes DIR/zoe_spells.gif.
+Everything at its battlefield density: her hd_ frames (PPU 1.5), Darius's (1.45), Flash's (2), the pictures riding a
+unit (league_zoe_spells_1x, 1x since league_zoe 0.6.0: a dense sheet's buff view was drawn twice its size), the shard's
+crystal (league_zoe_fx, 1x), the icons' (3). Writes DIR/zoe_spells.gif.
 """
 import argparse
 import json
@@ -87,7 +88,7 @@ def put(img, im, ppu, x, y, z, mirror=False):
     img.alpha_composite(big, (round(x * z - big.width / 2), round(y * z - big.height / 2)))
 
 
-def scene(z, zoe, dar, fx, sp, ic, spell, font):
+def scene(z, zoe, dar, fx, sp, sp1, ic, spell, font):
     """One cast: her W, the spell; Darius across. Returns the frames."""
     W, H, gy = 150, 70, 60
     zx, dx0 = (85, 130) if spell == "flash" else (45, 105)     # Flash: room behind her for the blink
@@ -99,17 +100,17 @@ def scene(z, zoe, dar, fx, sp, ic, spell, font):
                   Shot(ic, "sg_flash", 0, ("at", zx - blink, gy - FEET), layer=-1)]
         shots += [Shot(sp, "s_flash_trail", 0, ("at", zx - blink * k / 5, gy - FEET)) for k in range(1, 5)]
     elif spell == "ignite":
-        shots.append(Shot(sp, "s_ignite", 0, ("him",), until=1700))
+        shots.append(Shot(sp1, "s_ignite", 0, ("him",), until=1700))
     elif spell == "exhaust":
-        shots.append(Shot(sp, "s_exhaust", 0, ("him",), until=1700))
+        shots.append(Shot(sp1, "s_exhaust", 0, ("him",), until=1700))
     elif spell == "heal":
-        shots.append(Shot(sp, "s_heal", 0, ("me",), until=1700))
+        shots.append(Shot(sp1, "s_heal", 0, ("me",), until=1700))
     elif spell == "barrier":
-        shots.append(Shot(sp, "s_barrier", 0, ("me",), until=1700))
+        shots.append(Shot(sp1, "s_barrier", 0, ("me",), until=1700))
     elif spell == "ghost":
-        shots.append(Shot(sp, "s_ghost", 0, ("me",), until=1700, layer=-1))
+        shots.append(Shot(sp1, "s_ghost", 0, ("me",), until=1700, layer=-1))
     elif spell == "cleanse":
-        shots.append(Shot(sp, "s_cleanse", 0, ("me",)))
+        shots.append(Shot(sp1, "s_cleanse", 0, ("me",)))
     w_ms = sum(ms for _, ms in zoe.frames("hd_skill_w"))
     frames = []
     t = -400
@@ -143,7 +144,7 @@ def scene(z, zoe, dar, fx, sp, ic, spell, font):
     return frames
 
 
-def shard_scene(z, zoe, fx, sp, ic, font):
+def shard_scene(z, zoe, fx, sp1, ic, font):
     """A shard lying on the ground, its icon cycling every stamp (15 ticks); she runs over it and casts Heal."""
     W, H, gy = 150, 70, 60
     at = (95, gy - FEET)
@@ -169,8 +170,8 @@ def shard_scene(z, zoe, fx, sp, ic, font):
         else:
             body = zoe.at("hd_idle_base", t % 800, loop=True)
         put(img, body, zoe.ppu, me_x, gy - FEET, z)
-        if pick <= t < pick + 1000 and (f := sp.at("s_heal", t - pick, loop=True)) is not None:
-            put(img, f, 2, me_x, gy - FEET, z)
+        if pick <= t < pick + 1000 and (f := sp1.at("s_heal", t - pick, loop=True)) is not None:
+            put(img, f, sp1.ppu, me_x, gy - FEET, z)
         d = ImageDraw.Draw(img)
         d.text((14, 8), "地上的法术碎片：图标轮流闪，捡起来才定是哪个", fill=(255, 240, 160), font=font)
         frames.append(img.convert("RGB"))
@@ -190,14 +191,15 @@ def main():
     dar = Sheet(os.path.join(LEAGUE, "champions", "league_darius"), 1.45)
     fx = Sheet(os.path.join(LEAGUE, "effects", "league_zoe_fx"), 1)
     sp = Sheet(os.path.join(LEAGUE, "effects", "league_zoe_spells"), 2)
+    sp1 = Sheet(os.path.join(LEAGUE, "effects", "league_zoe_spells_1x"), 1)
     ic = Sheet(os.path.join(LEAGUE, "effects", "league_zoe_spell_icons"), 3)
     for x in (sp, ic):              # the dense frames, as the battlefield draws them
         x.frames = (lambda f: lambda tag: f(tag if tag.startswith("hd_") else "hd_" + tag))(x.frames)
     frames = []
     for spell in (a.only.split(",") if a.only else S.SPELLS):
-        frames += scene(a.z, zoe, dar, fx, sp, ic, spell, font)
+        frames += scene(a.z, zoe, dar, fx, sp, sp1, ic, spell, font)
     if not a.only:
-        frames += shard_scene(a.z, zoe, fx, sp, ic, font)
+        frames += shard_scene(a.z, zoe, fx, sp1, ic, font)
     pal = [f.quantize(255, dither=Image.Dither.NONE) for f in frames]
     path = os.path.join(a.out, "zoe_spells.gif")
     pal[0].save(path, save_all=True, append_images=pal[1:], duration=STEP, loop=0)

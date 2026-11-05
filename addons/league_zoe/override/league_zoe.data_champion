@@ -17,6 +17,8 @@
       "q_n1d": 85000,
       "e_drowsy": 84,
       "e_sleep_n": 135,
+      "e_cap": 100,
+      "e_cap_ratio": 60,
       "w_dmg": 45,
       "w_ratio": 15,
       "w_ms": 40,
@@ -756,12 +758,12 @@
                               "tick": 84,
                               "effects": [
                                 {
-                                  "type": "Native",
-                                  "effect_ref": "hypnotist_skill2",
-                                  "radius": 3000,
-                                  "delay": 1,
-                                  "buff_duration": 135,
-                                  "amplify": 100
+                                  "type": "Stun",
+                                  "duration": 135
+                                },
+                                {
+                                  "type": "TargetSfx",
+                                  "name": "league_zoe_e_sleep"
                                 }
                               ]
                             }
@@ -916,12 +918,12 @@
                                                     "tick": 84,
                                                     "effects": [
                                                       {
-                                                        "type": "Native",
-                                                        "effect_ref": "hypnotist_skill2",
-                                                        "radius": 3000,
-                                                        "delay": 1,
-                                                        "buff_duration": 135,
-                                                        "amplify": 100
+                                                        "type": "Stun",
+                                                        "duration": 135
+                                                      },
+                                                      {
+                                                        "type": "TargetSfx",
+                                                        "name": "league_zoe_e_sleep"
                                                       }
                                                     ]
                                                   },
@@ -2469,7 +2471,7 @@
     {
       "type": "Animation",
       "name": "league_zoe_s_cleanse",
-      "anim": "asset/league/effects/league_zoe_spells",
+      "anim": "asset/league/effects/league_zoe_spells_1x",
       "tag": "s_cleanse",
       "z": 2,
       "is_follow": true
@@ -2503,7 +2505,7 @@
     {
       "type": "Animated",
       "name": "league_zoe_s_heal",
-      "anim": "asset/league/effects/league_zoe_spells",
+      "anim": "asset/league/effects/league_zoe_spells_1x",
       "tag": "s_heal",
       "repeat": true,
       "z": 2
@@ -2511,7 +2513,7 @@
     {
       "type": "Animated",
       "name": "league_zoe_s_ignite",
-      "anim": "asset/league/effects/league_zoe_spells",
+      "anim": "asset/league/effects/league_zoe_spells_1x",
       "tag": "s_ignite",
       "repeat": true,
       "z": 2
@@ -2519,7 +2521,7 @@
     {
       "type": "Animated",
       "name": "league_zoe_s_exhaust",
-      "anim": "asset/league/effects/league_zoe_spells",
+      "anim": "asset/league/effects/league_zoe_spells_1x",
       "tag": "s_exhaust",
       "repeat": true,
       "z": 3
@@ -2527,7 +2529,7 @@
     {
       "type": "Animated",
       "name": "league_zoe_s_ghost",
-      "anim": "asset/league/effects/league_zoe_spells",
+      "anim": "asset/league/effects/league_zoe_spells_1x",
       "tag": "s_ghost",
       "repeat": true,
       "z": -1
@@ -2535,7 +2537,7 @@
     {
       "type": "Animated",
       "name": "league_zoe_s_barrier",
-      "anim": "asset/league/effects/league_zoe_spells",
+      "anim": "asset/league/effects/league_zoe_spells_1x",
       "tag": "s_barrier",
       "repeat": true,
       "z": 2

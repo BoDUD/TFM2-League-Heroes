@@ -5,6 +5,11 @@
 //! - **远古巨龙霸符（处决）**：它造成伤害后，生命不高于最大生命 `p_exec`% 的敌方英雄直接被处决（补一下真实伤害，
 //!   `tft_elderdragon_p_exec` 画面、`tft_elderdragon_p` 声音）。它的普攻和技能伤害从 `on_attack` 记下目标，下一拍检查；
 //!   这里自己造成的伤害（吐息、引燃、溅射）当场检查。数据读不到目标剩多少血。
+//!   2026-11-05（0.53.0，11-04 的日志：EXECUTE #5200 一次启动，伊莉丝每 2 拍处决一次、死歌的灵体被打了 150 次、声音和
+//!   画面每次重播）：处决的真实伤害给「当前生命 + 最大生命」（护盾也打穿；以前 +1，一层护盾就挡下），不死的（`undying`
+//!   的 buff：死歌灵体、基兰大招）、免伤 100% 的、放逐中的（选不中）不处决（`spared`，日志 `EXECUTE SPARED`）；处决过的人
+//!   `EXEC_AGAIN` 拍内不再处决（它自己这一下也会经 `on_attack` 回来，以前就这样循环）；下一拍再看结果（伤害排队到拍末才结
+//!   算，以前每行都写 still alive），活着的记 `EXECUTE SURVIVED`。
 //! - **龙焰撕咬（溅射）** `tft_elderdragon:bite`：普攻咬中时，目标身边 `a_r` 以内的其他敌人（不含防御塔）挨 `a_splash`%
 //!   攻击力的物理伤害。数据的范围效果分不出主目标。
 //! - **烈焰吐息** `tft_elderdragon:breath`：朝**穿过目标、敌方英雄最多**的直线喷火。候选方向是朝 `q_len` 以内每个敌方
@@ -208,6 +213,9 @@ pub struct Ignite {
 }
 static IGNITES: LazyLock<Mutex<HashMap<Key, Ignite>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
+/// The executes of each dragon (its own row: `key(sim, me, me)`), the last `EXEC_AGAIN` ticks of them.
+static EXECS: LazyLock<Mutex<HashMap<Key, Vec<Exec>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
 /// The row of `id` in the simulation of the dragon `me` (by the number hung on it; an effect has no passive at hand).
 fn key(sim: &StableSim<'_>, me: usize, id: usize) -> Key {
     TAG.key(sim, me, id)
@@ -264,6 +272,47 @@ pub fn decayed(full: usize, k: usize, decay: usize, min: usize) -> usize {
 /// Whether `hp` of `max` is at or under the execute line (`pct`% of its maximum health).
 pub fn executable(hp: usize, max: usize, pct: usize) -> bool {
     hp > 0 && hp * 100 <= max * pct
+}
+
+/// Why a champion at the line is not executed: `undying` (a buff that keeps him at 1: Karthus's spirit, Zilean's R,
+/// a `*_p_guard`), `reduce`% damage reduction at 100 or over (takes nothing), or not `targetable` (banished).
+pub fn spared(undying: bool, reduce: usize, targetable: bool) -> Option<&'static str> {
+    if undying {
+        Some("undying")
+    } else if reduce >= 100 {
+        Some("takes no damage")
+    } else if !targetable {
+        Some("banished")
+    } else {
+        None
+    }
+}
+
+/// No second execute on one unit within this many ticks: its own blow comes back through `on_attack` (every 2 ticks
+/// on a survivor, 11-04's logs), and a survivor (shielded past hp + max, healed in the same tick) is left alone.
+pub const EXEC_AGAIN: usize = 30;
+
+/// One execute dealt (or spared): read a tick later for its outcome, and no second one within `EXEC_AGAIN`.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Exec {
+    pub id: usize,
+    pub tick: usize,
+    pub hp: usize,
+    pub max: usize,
+    /// The damage went out (false: spared).
+    pub dealt: bool,
+    /// Its outcome was read.
+    pub checked: bool,
+}
+
+/// Whether `id` was executed (or spared) within `EXEC_AGAIN` ticks of `now`.
+pub fn executed_lately(done: &[Exec], id: usize, now: usize) -> bool {
+    done.iter().any(|x| x.id == id && now < x.tick + EXEC_AGAIN)
+}
+
+/// Drops the executes `EXEC_AGAIN` ticks old (`now` jumps back: a new match).
+pub fn prune_execs(done: &mut Vec<Exec>, now: usize) {
+    done.retain(|x| x.tick <= now && now < x.tick + EXEC_AGAIN);
 }
 
 /// One Ignite tick: `per_mille` of the target's maximum health, at least 1, at most `cap`.
@@ -350,9 +399,14 @@ fn burnable(sim: &StableSim<'_>, id: usize) -> bool {
         .is_some_and(|e| e.is_alive() && !e.is_tower() && !matches!(e.kind(), Some(EntityKindV1::Nexus)))
 }
 
-/// The Elder buff: an enemy champion at or under the line dies (true damage for what it has left).
+/// The Elder buff: an enemy champion at or under the line dies (true damage for what it has left and its shields:
+/// hp + max). Not one that cannot die (`spared`), nor one executed within `EXEC_AGAIN` ticks; the outcome is read a
+/// tick later (`outcomes`).
 fn execute(sim: &mut StableSim<'_>, me: usize, id: usize) {
-    let Some((hp, max)) = sim.get_entity(id).filter(|e| e.is_alive() && e.is_champion()).map(|e| e.hp()) else { return };
+    let Some((hp, max, undying, reduce, targetable)) = sim.get_entity(id).filter(|e| e.is_alive() && e.is_champion()).map(|e| {
+        let bs: Vec<BuffV1> = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect();
+        (e.hp().0, e.hp().1, bs.iter().any(|b| b.undying), bs.iter().map(|b| b.damaged_reduce).sum::<usize>(), e.is_targetable())
+    }) else { return };
     let team = sim.get_entity(me).map(|e| e.team());
     if sim.get_entity(id).map(|e| e.team()) == team {
         return;
@@ -361,12 +415,50 @@ fn execute(sim: &mut StableSim<'_>, me: usize, id: usize) {
     if !executable(hp, max, p.p_exec) {
         return;
     }
-    sim.deal_damage_typed(me, id, hp + 1, DamageTypeV1::Fixed, AttackTypeV1::Skill);
+    let (row, now) = (key(sim, me, me), sim.tick());
+    {
+        let mut all = EXECS.lock().unwrap_or_else(|e| e.into_inner());
+        let done = all.entry(row).or_default();
+        if executed_lately(done, id, now) {
+            return;
+        }
+        let why = spared(undying, reduce, targetable);
+        done.push(Exec { id, tick: now, hp, max, dealt: why.is_none(), checked: why.is_some() });
+        if let Some(why) = why {
+            drop(all);
+            if let Some(k) = counted("spared") {
+                wlog(format!("{} EXECUTE SPARED #{k}: {} at {hp}/{max} is {why} (reduction {reduce}%)", head(sim, me),
+                             name_of(sim, id)));
+            }
+            return;
+        }
+    }
+    sim.deal_damage_typed(me, id, hp + max, DamageTypeV1::Fixed, AttackTypeV1::Skill);
     put(sim, id, &BuffV1::timed(&ed("p_exec"), 40));
     sim.play_sfx(&ed("p"), me, &InputTargetV1::target(id));
     if let Some(k) = counted("execute") {
-        wlog(format!("{} EXECUTE #{k}: {} at {hp}/{max} (line {}%){}", head(sim, me), name_of(sim, id), p.p_exec,
-                     if sim.get_entity(id).is_some_and(|e| e.is_alive()) { " - still alive" } else { "" }));
+        wlog(format!("{} EXECUTE #{k}: {} at {hp}/{max} (line {}%): {} true damage", head(sim, me), name_of(sim, id),
+                     p.p_exec, hp + max));
+    }
+}
+
+/// The executes of the last tick, read now that their damage has settled: the survivors are logged.
+fn outcomes(sim: &StableSim<'_>, me: usize) {
+    let (row, now) = (key(sim, me, me), sim.tick());
+    let due: Vec<Exec> = {
+        let mut all = EXECS.lock().unwrap_or_else(|e| e.into_inner());
+        let Some(done) = all.get_mut(&row) else { return };
+        prune_execs(done, now);
+        let due = done.iter().filter(|x| x.dealt && !x.checked && x.tick < now).copied().collect();
+        done.iter_mut().filter(|x| x.tick < now).for_each(|x| x.checked = true);
+        due
+    };
+    for x in due {
+        let Some((hp, max)) = sim.get_entity(x.id).filter(|e| e.is_alive()).map(|e| e.hp()) else { continue };
+        if let Some(k) = counted("survived") {
+            wlog(format!("{} EXECUTE SURVIVED #{k}: {} at {hp}/{max} after {} true damage at {}/{} on tick {}",
+                         head(sim, me), name_of(sim, x.id), x.hp + x.max, x.hp, x.max, x.tick));
+        }
     }
 }
 
@@ -580,14 +672,20 @@ impl StablePassive for Elder {
         }
     }
 
-    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, _: usize, target: usize, _: &mut usize) {
-        // its attacks and skills: the execute is checked once the hit has landed (its next update)
-        self.struck.push((target, sim.tick()));
+    fn on_attack(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, target: usize, _: &mut usize) {
+        // its attacks and skills: the execute is checked once the hit has landed (its next update); its own execute's
+        // blow comes back through here too - not looked at again (0.53.0: it executed a survivor every 2 ticks)
+        let row = key(sim, me, me);
+        let again = EXECS.lock().unwrap_or_else(|e| e.into_inner()).get(&row).is_some_and(|d| executed_lately(d, target, sim.tick()));
+        if !again {
+            self.struck.push((target, sim.tick()));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).entry(me).or_insert(self.p);
         let now = sim.tick();
+        outcomes(sim, me);
         let due: Vec<usize> = self.struck.iter().filter(|&&(_, t)| t < now).map(|&(id, _)| id).collect();
         self.struck.retain(|&(_, t)| t >= now);
         for id in due.into_iter().collect::<HashSet<_>>() {
@@ -599,6 +697,7 @@ impl StablePassive for Elder {
         let me = self.me;
         // its fall (the data has no moment for it)
         BREATHS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
+        EXECS.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me));
         self.struck.clear();
         sim.play_sfx(&ed("d"), me, &InputTargetV1::target(me));
     }
@@ -676,6 +775,34 @@ mod tests {
         assert!(executable(150, 1000, 15));
         assert!(!executable(151, 1000, 15));
         assert!(!executable(0, 1000, 15));   // already dead
+    }
+
+    #[test]
+    fn the_ones_that_cannot_die_are_spared() {
+        // 11-04's logs: Karthus's spirit (undying, banished) struck every 2 ticks, Elise at 297/1990 executed 50 times
+        assert_eq!(spared(true, 0, true), Some("undying"));
+        assert_eq!(spared(false, 100, true), Some("takes no damage"));
+        assert_eq!(spared(false, 40, false), Some("banished"));
+        assert_eq!(spared(false, 99, true), None);
+    }
+
+    #[test]
+    fn one_execute_a_unit_for_a_while() {
+        let x = |id, tick, dealt| Exec { id, tick, hp: 100, max: 1000, dealt, checked: false };
+        let mut done = vec![x(7, 100, true), x(8, 100, false)];
+        // its own blow back through on_attack 2 ticks later: not again; a spared one neither
+        assert!(executed_lately(&done, 7, 102));
+        assert!(executed_lately(&done, 8, 102));
+        assert!(!executed_lately(&done, 9, 102));
+        assert!(!executed_lately(&done, 7, 100 + EXEC_AGAIN));
+        prune_execs(&mut done, 100 + EXEC_AGAIN - 1);
+        assert_eq!(done.len(), 2);
+        prune_execs(&mut done, 100 + EXEC_AGAIN);
+        assert!(done.is_empty());
+        // a new match (the tick jumps back): the old rows go
+        let mut done = vec![x(7, 5000, true)];
+        prune_execs(&mut done, 10);
+        assert!(done.is_empty());
     }
 
     #[test]

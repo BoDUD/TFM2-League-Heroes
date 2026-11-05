@@ -16,8 +16,8 @@
       "e_haste": 30,
       "e_haste_t": 90,
       "e_low": 35,
-      "e_reach": 16000,
-      "e_far": 64000,
+      "e_reach": 42000,
+      "e_far": 120000,
       "e_chase_r": 70000,
       "vo_gap": 600
     }

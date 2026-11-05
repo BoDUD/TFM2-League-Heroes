@@ -1,4 +1,4 @@
-# 奇亚娜附加包（测试版 v0.3.0，可选）
+# 奇亚娜附加包（测试版 v0.3.1，可选）
 
 **不装这个附加包，主包里的奇亚娜也是完整的**：普攻和被动凌人贵气、Q 以绪塔尔之锋（身前一条直线；有元素时掷出环刃炸开：河流定身减速、
 岩石加伤、草丛伪装加速）、E 天纵之勇（突进时用方圆塑令给武器附上元素、刷新 Q）、大招惊才绝景（冲击波伤害、击退再晕眩）和连招
@@ -53,13 +53,21 @@ E → Q、R → E → Q 都在主包数据里。主包是纯数据：**读不到
 - `== map mode=…: walls …, bushes …, river … ==`：读到的地图（每种模式一行）。
 - `W #n Grass/River/Rock (fight / a monster / after E) at (x, y): grass … rock … river …; dash … toward (x, y); Q reset (… ticks were left) / was ready; Royal Privilege ready again on k; Spot {...}`：
   每次 W（同一份模拟里她同一种元素 2 秒内只记一次）；`W NO TERRAIN`：想放 W 而身边两格内没有地形。
-- `Q #n the plain line at #id: k hit (c champions), first #id`：没元素的 Q 打中英雄时。
+- `Q #n the plain line at #id: k hit (c champions), first #id`：没元素的 Q 打中英雄时；`Q #n: nobody to aim at`：Q 放出来时目标不在、身边也没有敌人（主包的 AI 对着死人或空位按的）。
 - `Q2 #n River/Rock/Grass: the blade thrown d toward #id - first #id / its end in t ticks`、`Q2 BLAST #n …: k hit (c champions), first #id, r rooted, rock under half: #id at h% +x`：元素之怒（扔向英雄的那些；炸开的那行只记打中英雄或什么都没打中的）。
 - `FIELD #n: grass at (x, y)…`、`FIELD END #n: an attack / Q / E / R / she left it / its time is over (… ticks were left)`：草地。
 - `E #n: struck #id / MISSED #id (d away at the landing), then W`：E 落地（打英雄时）。
-- `R #n at #id: the wind stops at the wall cell (cx, cy) / the map's … edge / blows its whole length after d; brush k cells; river at (x, y) / no`：放 R。
+- `R #n at #id: the wind stops at the wall cell (cx, cy) / the map's … edge / blows its whole length after d; brush k cells; river at (x, y) / no; along the plan's line / at the target / re-aimed at another champion (planned t ticks ago to catch c, now k): #id is d off the line`：放 R（0.3.1 起后半句：风朝哪吹是怎么定的，目标离风路多远）。
 - `R BOOM #n: c champions [#id 60t 1200 off, …] and k others caught; p pushed (c champions); wall k cells / the … edge, brush k cells, river yes/no`：冲击波（`no terrain reached: knock-back only` 是只击退）。
 - `R TERRAIN at #id (the AI aimed at #id): the shockwave catches c champions [...]`、`R TERRAIN (on her own) …`、`R HELD: … - Q / E / an attack / a walk up instead`、`Q HELD: no element, #id is d off …`：AI 钩子（一次按键只记一行）。
+
+## 0.3.1：锁着的 E、风沿算好的路吹、日志（2026-11-05）
+
+11-04 的日志：`league_unlock_guard.log` 一天 40 行 GUARD 全是奇亚娜——1、2 级 E 还没学会，AI 钩子把够不着的 Q（`Q HELD`）换成 E，守卫包把这下按键改成站住，她停在原地不走过去。钩子现在和 `w_ready` 一样先问技能槽学会了没有（`slot_up`：引擎的 `is_valid_input` 不问），没学会就普攻、走过去。
+
+R：104 次有预测（`R TERRAIN`）的 R 里 15 次谁都没打到、21 阵风对着人吹却没推到人。引擎接下按键后风到第 `r_at` - 1 tick 才放，这 15 tick 里他走开了，`launch` 重新朝他那时的位置吹，撞的墙不是算过的那面（`R TERRAIN … catches 1 [818]` → 15 tick 后 `the wind blows its whole length … no terrain reached`）。现在 AI 钩子把定下的方向记下来（`ult::remember`，60 tick 内有效），放的时候沿这条线、目标现在的位置、看得见的每个敌方英雄各算一次，取打到最多的（一样多时先定下的线），日志后半句写是怎么定的、目标离风路多远。
+
+日志：`W NO TERRAIN` 在空地上打架时每 3 tick 一行（一场 248 行），现在同一份模拟里 2 秒一行；`the map's Some(Bottom) edge` 改成 `Bottom`；`Q #n: nobody to aim at` 补进上面的说明。
 
 ## 构建
 

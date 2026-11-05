@@ -68,8 +68,10 @@ P = {
     "e_haste_t": 90,
     # 1 = the copy for addons/league_talon_vault: its native passive vaults over the map's walls (League's E) - out
     # when e_crowd enemy champions are within e_safe_r or he is below e_low% health with one near, after a champion
-    # within e_chase_r on the far side of a wall; a wall must start within e_reach and the landing lie within e_far
-    "native": 0, "e_low": 35, "e_reach": 16000, "e_far": 64000, "e_chase_r": 70000,
+    # within e_chase_r on the far side of a wall; a wall must start within e_reach (League's E reaches terrain 650 units
+    # = 42900 away; 16000 was half a wall cell and never fired, 11-05) and the landing lie within e_far (the reach, a
+    # two-cell wall and the margin)
+    "native": 0, "e_low": 35, "e_reach": 42000, "e_far": 120000, "e_chase_r": 70000,
     # R Shadow Assault (League: 550 radius, 90-270 + 100% bonus AD out and back, 2.5 s stealth, 40-60% haste, cd 100 s)
     "r_cd": 3000, "r_dur": 20, "r_at": 6, "r_range": 30000, "r_r": 30000, "r_dmg": 55, "r_ratio": 75, "r_inv": 150,
     "r_haste": 40,

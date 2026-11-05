@@ -933,7 +933,11 @@ pub(crate) fn try_w(sim: &mut StableSim<'_>, me: usize, foe: Option<usize>, why:
     }
     let (el, how) = pick(&near, &spot, p.q_exec);
     if map.is_some() && how == Why::Situation {
-        note(sim, "w none", me, |n| format!("W NO TERRAIN #{n} ({why}) at {}: nothing within {reach:.0}", pt(here)));
+        // 0.3.1: asked every W_EVERY ticks while she fights in the open: one line a LOG_SAME (248 view lines a game before)
+        if no_terrain_news(sim_no(sim, me), me, sim.tick()) {
+            note(sim, "w none", me, |n| format!("W NO TERRAIN #{n} ({why}) at {}: nothing within {reach:.0} (next line {LOG_SAME} \
+                                                  ticks on at the soonest)", pt(here)));
+        }
         return false;
     }
     let point = if ivern && el == Element::Grass {
@@ -996,6 +1000,28 @@ pub fn news(sim: u64, me: usize, tick: usize, el: Element) -> bool {
         return true;
     }
     all.push((key, (tick, el)));
+    if all.len() > 256 {
+        all.drain(..64);
+    }
+    true
+}
+
+/// 0.3.1: (这份模拟的编号, 她) -> 上一次记 `W NO TERRAIN` 的 tick。
+static NO_TERRAIN_LOGGED: Mutex<Vec<((u64, usize), usize)>> = Mutex::new(Vec::new());
+
+/// 「身边没有地形」这一行值不值得记：这份模拟里她上一行已经过了 `LOG_SAME` tick（值得的话记下这一次）。被动每 `W_EVERY` tick
+/// 问一次 W，在空地上打架时以前每 3 tick 一行。
+pub fn no_terrain_news(sim: u64, me: usize, tick: usize) -> bool {
+    let key = (sim, me);
+    let mut all = NO_TERRAIN_LOGGED.lock().unwrap_or_else(|e| e.into_inner());
+    if let Some(slot) = all.iter_mut().find(|(k, _)| *k == key) {
+        if tick >= slot.1 && tick - slot.1 < LOG_SAME {
+            return false;
+        }
+        slot.1 = tick;
+        return true;
+    }
+    all.push((key, tick));
     if all.len() > 256 {
         all.drain(..64);
     }
@@ -1283,6 +1309,18 @@ mod tests {
         assert!(!news(902, 20, 1000 + LOG_SAME - 1, Element::River));
         assert!(news(902, 20, 1000 + LOG_SAME, Element::River), "past LOG_SAME");
         assert!(news(901, 20, 500, Element::Rock), "an earlier tick: another run");
+    }
+
+    #[test]
+    fn no_terrain_is_said_once_a_while() {
+        // 0.3.1: asked every W_EVERY ticks in the open: one line a LOG_SAME per sim and Qiyana
+        assert!(no_terrain_news(903, 30, 2000));
+        assert!(!no_terrain_news(903, 30, 2000 + W_EVERY));
+        assert!(no_terrain_news(904, 30, 2000 + W_EVERY), "the twin keeps its own record");
+        assert!(no_terrain_news(903, 31, 2000 + W_EVERY), "another Qiyana");
+        assert!(!no_terrain_news(903, 30, 2000 + LOG_SAME - 1));
+        assert!(no_terrain_news(903, 30, 2000 + LOG_SAME), "past LOG_SAME");
+        assert!(no_terrain_news(903, 30, 100), "an earlier tick: another run");
     }
 
     #[test]

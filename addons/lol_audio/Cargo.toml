@@ -1,0 +1,11 @@
+[package]
+name = "lol_audio"
+version = "0.2.1"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }

@@ -4,11 +4,15 @@
 //!
 //! - **无所不用按目标计 3 下**（`league_akshan:hit`，打在每一枪、回旋镖、E 的每一枪、R 的每一发子弹上）：同一个目标第 3 下时给他
 //!   3 tick 的 `league_akshan_p_go`，数据读到就打出额外伤害（英雄时加护盾）。主包只能数他打中任何人的次数。
-//! - **恩怨相抵按已损失生命算**（`league_akshan:bullet`）：每发 `R_DMG + R_RATIO% AD`，目标每少 1% 生命多一点，到少了 `R_FULL`%
+//! - **恩怨相抵按已损失生命算**（`league_akshan:rhit`）：每发 `R_DMG + R_RATIO% AD`，目标每少 1% 生命多一点，到少了 `R_FULL`%
 //!   时是 `R_MAX` 倍（英雄联盟 0–200% 加成在 67% 封顶）。引导中（`r_chan`、还没开火）被动每 tick 看一眼：存的子弹打得死子弹要去的
 //!   那个英雄（数据锁定的 `R_SIGHT`，没有就是射程里血最少的），或者他快跑出射程，就给 `league_akshan_r_fire`，数据提前开火（英雄
 //!   联盟里玩家手动提前放）。打不打得死（`lethal`）按他的护甲减伤算；线上站着敌方单位时，它们先挨子弹（各挨到死），剩下的子弹
 //!   还要多打 `LETHAL_MARGIN`% 才算。
+//!   0.2.6：子弹由本包发（`league_akshan:aim`，副本里每一发的效果）：朝引导时锁定的那个英雄（记在他身上的 `r_lock:<id>`），
+//!   没有就射程里血最少的；以前数据的每一发在射程里「最近打过的敌方英雄」里随机挑一个，11-04 的日志里 60 发有 33 发没打在锁定的
+//!   身上、30 次 R 有 11 次一发没中。子弹是原生投射物（直线、不穿透、打到第一个敌方单位），打中走 `rhit`：伤害、命中画面和声音、
+//!   无所不用计数（第 3 下也由本包打出）。每次 R 引导结束、最后一发落地后记一行 `R DONE`（发了几发、几发打中锁定的、锁定的死没死）。
 //! - **放大招的时机**（AI 钩子 `league_akshan:ult`）：射程里有英雄生命 ≤ 50%（或存满能打死），自己身边 `R_SAFE` 内没有敌方英雄、
 //!   自己生命 ≥ 40% 才放；AI 想在别的时候放就改成普攻 / 走过去。只按已解锁、冷却好的 R（低等级按 R 会让游戏 AI 崩溃）。
 //! - **赴险夺人：恶徒和复活**（被动 `league_akshan:rogue`）：读游戏的击杀记录。敌方英雄杀了阿克尚的队友（不算他自己）就成为
@@ -55,6 +59,19 @@ pub const R_FIRE: &str = "league_akshan_r_fire";
 pub const R_SIGHT: &str = "league_akshan_r_sight";
 pub const STORED: [&str; 5] =
     ["league_akshan_r_s1", "league_akshan_r_s2", "league_akshan_r_s3", "league_akshan_r_s4", "league_akshan_r_s5"];
+/// 0.2.6, the add-on's own bullets: the lock kept on him through the firing as `r_lock:<id>` (the data's r_sight lasts the
+/// channel only), the bullet projectile (the data's picture), and on him one `r_shot` / `r_onlock` / `r_onother` buff a
+/// bullet fired / landed on the lock / landed elsewhere, read for the R DONE line.
+pub const R_LOCK: &str = "league_akshan_r_lock";
+pub const R_BULLET: &str = "league_akshan_r_bullet";
+pub const R_SHOT: &str = "league_akshan_r_shot";
+pub const R_ONLOCK: &str = "league_akshan_r_onlock";
+pub const R_ONOTHER: &str = "league_akshan_r_onother";
+const VIEW_R_HIT: &str = "league_akshan_r_hit";
+const VIEW_P_HIT: &str = "league_akshan_p_hit";
+/// Dirty Fighting's shield cooldown and shield flag (the data's p_scd / p_sh).
+pub const P_SCD: &str = "league_akshan_p_scd";
+pub const P_SH: &str = "league_akshan_p_sh";
 pub const MARK: &str = "league_akshan_w_mark";
 pub const W_HASTE: &str = "league_akshan_w_haste";
 // sounds of the main pack (league/sound/sfx) the add-on plays
@@ -80,8 +97,27 @@ pub const R_W: f64 = 6_000.0;
 /// With enemies on the line the bullets left over must kill with this much (%) to spare: the units walk, he steps aside
 /// from bullets aimed where he stood.
 pub const LETHAL_MARGIN: usize = 25;
+/// The bullets' flight (build_akshan r_speed) and the data's poll gap while R fires (r_gap).
+pub const R_SPEED: u64 = 20_000;
+pub const R_GAP: usize = 6;
+/// Dirty Fighting's third hit (build_akshan p_dmg / p_ratio / p_sh / p_sh_r / p_sh_t / p_scd): the add-on's bullets
+/// deal it themselves (0.2.6).
+pub const P_DMG: usize = 20;
+pub const P_RATIO: usize = 30;
+pub const P_SH_AMT: usize = 40;
+pub const P_SH_R: usize = 35;
+pub const P_SH_T: usize = 120;
+pub const P_SCD_T: usize = 600;
 const STACK: &str = "league_akshan_p_s";
 const FLAG_T: usize = 3;
+/// The early-fire flag must outlive one poll gap (0.2.6): FLAG_T is seen on 2 ticks and the data polls r_fire every
+/// R_GAP (11-04 logs: R FIRE doubled five times, lost once).
+pub const FIRE_T: usize = R_GAP + 1;
+/// The R DONE line waits this long after the channel (r_chan) ends: the last bullet still flies (reach / speed = 11).
+const R_DONE_WAIT: usize = 12;
+/// How long the lock and the bullet counters stay on him.
+const R_BOOK_T: usize = 300;
+const MAP_END: f64 = 960_000.0;
 const MARK_T: usize = 3600;
 const REVIVE_T: u64 = 60;
 const GOLD: i64 = 100;
@@ -580,10 +616,145 @@ fn bullet(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
 }
 
-struct BulletFx;
-impl StableEffectType for BulletFx {
+/// 他身上的 `r_lock:<id>`（0.2.6）：这次 R 锁定的英雄。
+fn lock_name(id: usize) -> String {
+    format!("{R_LOCK}:{id}")
+}
+
+fn locked_id(sim: &StableSim<'_>, me: usize) -> Option<usize> {
+    let e = sim.get_entity(me)?;
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| {
+        b.name().strip_prefix(R_LOCK)?.strip_prefix(':')?.parse().ok()
+    })
+}
+
+/// 子弹该去的英雄：锁定的那个（活着、能选中、射程里），不然射程里血最少的敌方英雄（`release` 一样）；(id, 是不是锁定的)。
+fn bullet_target(sim: &StableSim<'_>, me: usize) -> Option<(usize, bool)> {
+    let e = sim.get_entity(me)?;
+    let (team, my) = (e.team(), e.id());
+    let reach2 = R_REACH * R_REACH;
+    let ok = |t: &StableEntity<'_, '_>| {
+        t.is_champion() && t.is_alive() && t.is_targetable() && t.team() != team && sim.distance_sq(my, t.id()) <= reach2
+    };
+    if let Some(id) = locked_id(sim, me) {
+        if sim.get_entity(id).is_some_and(|t| ok(&t)) {
+            return Some((id, true));
+        }
+    }
+    (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|t| ok(t))
+        .min_by_key(|t| {
+            let (hp, max) = t.hp();
+            hp * 1000 / max.max(1)
+        })
+        .map(|t| (t.id(), false))
+}
+
+/// 子弹的终点：从他朝目标飞 R_REACH，到地图边就停在边上（方向不变）。
+pub fn bullet_end(from: (f64, f64), to: (f64, f64)) -> (u64, u64) {
+    let (dx, dy) = (to.0 - from.0, to.1 - from.1);
+    let d = (dx * dx + dy * dy).sqrt();
+    let (ux, uy) = if d < 1.0 { (1.0, 0.0) } else { (dx / d, dy / d) };
+    let r = R_REACH as f64;
+    let room = |p: f64, u: f64| if u > 0.0 { (MAP_END - p) / (u * r) } else if u < 0.0 { -p / (u * r) } else { 1.0 };
+    let t = room(from.0, ux).min(room(from.1, uy)).clamp(0.0, 1.0);
+    ((from.0 + ux * r * t).round().max(0.0) as u64, (from.1 + uy * r * t).round().max(0.0) as u64)
+}
+
+/// 一发恩怨相抵（0.2.6，副本里每一发的效果）：朝锁定的英雄放一个原生投射物（直线、R_W 的圆、R_SPEED、不穿透、打到第一个
+/// 敌方单位走 `rhit`），他身上记一个 `r_shot`。
+fn aim(sim: &mut StableSim<'_>, me: usize) {
+    let Some(e) = sim.get_entity(me).filter(|e| e.is_alive()) else { return };
+    let (team, at) = (e.team(), e.pos());
+    let Some((id, locked)) = bullet_target(sim, me) else {
+        if let Some(k) = counted("aim_none") {
+            wlog(format!("{} R AIM: no enemy champion in reach, the bullet is lost #{k}", head(sim, me)));
+        }
+        return;
+    };
+    let Some(to) = sim.get_entity(id).map(|t| t.pos()) else { return };
+    let end = bullet_end((at.0 as f64, at.1 as f64), (to.0 as f64, to.1 as f64));
+    let spec = ProjectileSpawnV1 {
+        caster_id: me,
+        team,
+        x: at.0,
+        y: at.1,
+        radius: R_W as u64,
+        speed: R_SPEED,
+        move_kind: ProjectileMoveKindV1::Linear.code(),
+        target_id: 0,
+        target_x: end.0,
+        target_y: end.1,
+        penetrate: false,
+        attack_type: AttackTypeV1::Skill.code(),
+        casting_type: CastingTypeV1::Targeting.code(),
+        casting_target: CastingTargetV1::Enemy.code(),
+    };
+    let ok = sim.spawn_projectile(R_BULLET, &format!("{ID}:rhit"), &spec);
+    if ok {
+        sim.add_buff(me, &BuffV1::timed(R_SHOT, R_BOOK_T));
+    }
+    if let Some(k) = counted("aim") {
+        wlog(format!("{} R AIM at #{id}{} ({}, {}) -> ({}, {}){} #{k}", head(sim, me),
+                     if locked { " (the lock)" } else { " (no lock in reach: the weakest)" }, to.0, to.1, end.0, end.1,
+                     if ok { "" } else { ", spawn_projectile refused" }));
+    }
+}
+
+/// 无所不用的第 3 下（数据的 `proc`，数据的命中里由 `p_go` 触发；本包的子弹自己打）：P_DMG + P_RATIO% AD，命中画面和声音；
+/// 打中英雄且 `p_scd` 不在：护盾 P_SH_AMT + P_SH_R% AD，P_SH_T tick，挂 `p_sh` 和 `p_scd`。
+fn dirty_proc(sim: &mut StableSim<'_>, me: usize, target: usize) {
+    let attack = sim.get_entity(me).map_or(0, |e| e.stat().attack);
+    sim.deal_damage_typed(me, target, P_DMG + P_RATIO * attack / 100, DamageTypeV1::Ad, AttackTypeV1::Skill);
+    let input = InputTargetV1::target(target);
+    sim.play_view_effect(VIEW_P_HIT, me, &input, 0, 0, 0);
+    sim.play_sfx(VIEW_P_HIT, me, &input);
+    let champ = sim.get_entity(target).is_some_and(|t| t.is_champion());
+    if champ && !has_buff(sim, me, P_SCD) {
+        sim.add_buff(me, &BuffV1::timed(P_SCD, P_SCD_T));
+        sim.entity_add_shield(me, P_SH_AMT + P_SH_R * attack / 100, P_SH_T);
+        sim.entity_remove_buff(me, P_SH);
+        sim.add_buff(me, &BuffV1::timed(P_SH, P_SH_T));
+    }
+}
+
+/// R 的子弹打中（0.2.6，以前是数据的 r_bullet）：恩怨相抵的伤害、命中画面和声音、无所不用计数，第 3 下由本包打出（数据的
+/// `p_go` 这里没人读）；他身上记一个 `r_onlock`（打中锁定的）或 `r_onother`。
+fn r_hit(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
+    if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+        if let Some(k) = counted("rhit_kind") {
+            wlog(format!("{} R HIT with an input of kind {} (no target): nothing dealt #{k}", head(sim, me), input.kind));
+        }
+        return;
+    }
+    let target = input.target_id;
+    if !sim.get_entity(target).is_some_and(|e| e.is_alive()) {
+        return;
+    }
+    bullet(sim, me, input);
+    sim.play_view_effect(VIEW_R_HIT, me, &input, 0, 0, 0);
+    sim.play_sfx(VIEW_R_HIT, me, &input);
+    hit(sim, me, input);
+    if has_buff(sim, me, P_GO) {
+        sim.entity_remove_buff(me, P_GO);
+        dirty_proc(sim, me, target);
+    }
+    let on_lock = locked_id(sim, me) == Some(target);
+    sim.add_buff(me, &BuffV1::timed(if on_lock { R_ONLOCK } else { R_ONOTHER }, R_BOOK_T));
+}
+
+struct AimFx;
+impl StableEffectType for AimFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
+        aim(sim, caster);
+    }
+}
+
+struct RHitFx;
+impl StableEffectType for RHitFx {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
-        bullet(sim, caster, input);
+        r_hit(sim, caster, input);
     }
 }
 
@@ -743,6 +914,9 @@ struct Rogue {
     marks: BTreeMap<usize, Scoundrel>,
     /// 刚复活的队友（玩家编号, 等到第几 tick）：他站起来的那一 tick 在他身上放复活的光。
     back: Vec<(usize, usize)>,
+    /// 上一 tick 在引导 R；引导结束后记 R DONE 的 tick（0.2.6）。
+    r_was: bool,
+    r_done_at: Option<usize>,
 }
 
 /// 击杀记录里的“位置”就是分路（LaneV1 的编号）：按队伍和分路找玩家编号。
@@ -881,6 +1055,54 @@ impl Rogue {
         }
     }
 
+    /// 这次 R 的账（0.2.6）：引导时把锁定的英雄（带 `R_SIGHT` 的敌方英雄）记在他身上（`r_lock:<id>`，子弹朝它飞）；引导结束
+    /// R_DONE_WAIT tick 后（最后一发也落了）记一行 R DONE：发了几发、几发打中锁定的、几发打中别人、锁定的还活着没，再把账摘掉。
+    fn r_book(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let now = sim.tick();
+        let chan = has_buff(sim, me, R_CHAN);
+        if chan {
+            if locked_id(sim, me).is_none() {
+                let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
+                let lock = (0..sim.entity_count())
+                    .filter_map(|i| sim.entity_at(i))
+                    .filter(|u| u.team() != team && u.is_champion() && u.is_alive() && has_buff(sim, u.id(), R_SIGHT))
+                    .map(|u| (u.id(), sim.distance_sq(me, u.id())))
+                    .min_by_key(|u| u.1);
+                if let Some((id, _)) = lock {
+                    sim.add_buff(me, &BuffV1::timed(&lock_name(id), R_BOOK_T));
+                }
+            }
+            self.r_done_at = None;
+        } else if self.r_was {
+            self.r_done_at = Some(now + R_DONE_WAIT);
+        }
+        self.r_was = chan;
+        if !self.r_done_at.is_some_and(|t| now >= t) {
+            return;
+        }
+        self.r_done_at = None;
+        let (shots, on, other) = (count_buff(sim, me, R_SHOT), count_buff(sim, me, R_ONLOCK), count_buff(sim, me, R_ONOTHER));
+        let lock = locked_id(sim, me);
+        let state = match lock.and_then(|id| sim.get_entity(id)) {
+            Some(t) if t.is_alive() => {
+                let (hp, max) = t.hp();
+                format!("alive {hp}/{max}")
+            }
+            Some(_) => "DEAD".to_string(),
+            None => "gone".to_string(),
+        };
+        if let Some(k) = counted("r_done") {
+            wlog(format!("{} R DONE #{k}: {shots} fired, {on} on the lock #{}, {other} on others, {} lost; the lock {state}",
+                         head(sim, me), lock.map_or("-".to_string(), |i| i.to_string()), shots.saturating_sub(on + other)));
+        }
+        for name in [R_SHOT, R_ONLOCK, R_ONOTHER] {
+            sim.entity_remove_buff(me, name);
+        }
+        if let Some(id) = lock {
+            sim.entity_remove_buff(me, &lock_name(id));
+        }
+    }
+
     /// The lock comes off the enemy champions once he fires (r_open) or the channel is over (no r_chan).
     fn sight_off(&self, sim: &mut StableSim<'_>, me: usize) {
         if has_buff(sim, me, R_CHAN) && !has_buff(sim, me, R_OPEN) {
@@ -950,7 +1172,7 @@ impl Rogue {
         let kill = lethal(attack, &him, n, &blockers);
         let leaving = d2 * 100 >= reach2 * 85;
         if kill || leaving {
-            sim.add_buff(me, &BuffV1::timed(R_FIRE, FLAG_T));
+            sim.add_buff(me, &BuffV1::timed(R_FIRE, FIRE_T));
             if let Some(k) = counted("fire") {
                 let why = if kill { "lethal" } else { "leaving" };
                 let dmg = armoured_volley(attack, &him, n);
@@ -1010,6 +1232,7 @@ impl StablePassive for Rogue {
         swing_tick(sim, me);
         self.read_kills(sim, player, me);
         self.haste(sim, me);
+        self.r_book(sim, me);
         self.release(sim, me);
         self.sight_off(sim, me);
     }
@@ -1182,7 +1405,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_effect(format!("{ID}:hit"), HitFx);
-    module.add_native_effect(format!("{ID}:bullet"), BulletFx);
+    module.add_native_effect(format!("{ID}:aim"), AimFx);
+    module.add_native_effect(format!("{ID}:rhit"), RHitFx);
     module.add_native_effect(format!("{ID}:swing"), SwingFx);
     module.add_native_effect(format!("{ID}:noop"), NoopFx);
     module.add_native_passive(format!("{ID}:rogue"), Rogue::default());
@@ -1387,20 +1611,46 @@ mod tests {
         for (k, v) in [("r_dmg", R_DMG), ("r_ratio", R_RATIO), ("r_max", R_MAX), ("r_full", R_FULL), ("p_t", P_T)] {
             assert!(copy.contains(&format!("\"{k}\": {v}")), "{k} is not {v} in the copy's passive params");
         }
-        for name in ["league_akshan:hit", "league_akshan:bullet", "league_akshan:rogue", "league_akshan:swing", ROPE] {
+        for name in ["league_akshan:hit", "league_akshan:aim", "league_akshan:rogue", "league_akshan:swing", ROPE] {
             assert!(copy.contains(name), "the copy never uses {name}");
         }
-        for name in [P_GO, R_CHAN, R_OPEN, R_FIRE, STORED[0], STORED[4]] {
+        for name in [P_GO, R_CHAN, R_OPEN, R_FIRE, STORED[0], STORED[4], P_SCD, P_SH] {
             assert!(copy.contains(&format!("\"{name}\"")), "the copy never names {name}");
         }
         assert!(copy.contains(&format!("\"range\": {R_RANGE}")), "R's range is not {R_RANGE}");
-        assert!(copy.contains(&format!("\"range\": {R_REACH}")), "the bullets' reach is not {R_REACH}");
-        // the bullet stops on the first enemy it meets (`on_line`), its circle r_w (the copy is built from build_akshan.P)
+        // 0.2.6: the add-on fires the bullets (no data bullet, no random pick in the copy); the main pack keeps the
+        // data's bullet that stops on the first enemy it meets (`on_line`)
+        assert!(!copy.contains("league_akshan_r_aim\""), "the copy still lobs the data's aim at a random champion");
         let flat: String = copy.split_whitespace().collect();
+        assert!(!flat.contains("\"name\":\"league_akshan_r_bullet\",\"penetrate\""), "the copy still has the data's bullet");
+        assert!(flat.contains("\"name\":\"league_akshan_r_bullet\""), "the copy lost the bullet's picture");
+        let main = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../league/champion/league_akshan.data_champion"))
+            .expect("the main pack's league_akshan");
+        let flat: String = main.split_whitespace().collect();
         assert!(flat.contains("\"name\":\"league_akshan_r_bullet\",\"penetrate\":false,\"applied_target\":\"Enemy\""),
-                "the bullet no longer stops on the first enemy");
+                "the main pack's bullet no longer stops on the first enemy");
         let kit = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_akshan.py"))
             .expect("build_akshan.py");
-        assert!(kit.contains(&format!("\"r_w\": {},", R_W as usize)), "r_w is not {R_W} in build_akshan.P");
+        for (k, v) in [("r_w", R_W as usize), ("r_speed", R_SPEED as usize), ("r_gap", R_GAP), ("r_reach", R_REACH as usize),
+                       ("p_dmg", P_DMG), ("p_ratio", P_RATIO), ("p_sh", P_SH_AMT), ("p_sh_r", P_SH_R), ("p_sh_t", P_SH_T),
+                       ("p_scd", P_SCD_T)] {
+            assert!(kit.contains(&format!("\"{k}\": {v},")), "{k} is not {v} in build_akshan.P");
+        }
+    }
+
+    #[test]
+    fn the_bullets_fly_their_reach_toward_the_lock_and_the_early_fire_outlives_a_poll() {
+        // 11-04 logs: 33 of the first 60 bullets went to other champions; FLAG_T 3 (seen 2 ticks) vs the 6-tick poll
+        assert!(FIRE_T > R_GAP);
+        assert_eq!(bullet_end((100_000.0, 100_000.0), (200_000.0, 100_000.0)), (320_000, 100_000));
+        // the diagonal keeps its direction
+        let (x, y) = bullet_end((100_000.0, 100_000.0), (130_000.0, 140_000.0));
+        assert!((x as f64 - 100_000.0 - 0.6 * R_REACH as f64).abs() < 2.0 && (y as f64 - 100_000.0 - 0.8 * R_REACH as f64).abs() < 2.0);
+        // short of the map's edge, still on the line
+        let (x, y) = bullet_end((900_000.0, 500_000.0), (930_000.0, 540_000.0));
+        assert_eq!(x, 960_000);
+        assert!((y as f64 - 580_000.0).abs() < 2.0, "{y}");
+        // the lock's name round-trips
+        assert_eq!(lock_name(427).strip_prefix(R_LOCK).and_then(|r| r.strip_prefix(':')).and_then(|r| r.parse::<usize>().ok()), Some(427));
     }
 }

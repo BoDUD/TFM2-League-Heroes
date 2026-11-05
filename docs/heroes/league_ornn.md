@@ -55,7 +55,7 @@
 
 ### 奥恩附加包
 
-[奥恩附加包](../../addons/league_ornn/README.md)：`league_ornn` v0.3.0
+[奥恩附加包](../../addons/league_ornn/README.md)：`league_ornn` v0.3.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

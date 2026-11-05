@@ -47,9 +47,12 @@ OUT = os.path.join(REPO, "league", "champion", "league_yuumi.data_champion")
 ID = "league_yuumi"
 FX = "asset/league/effects/league_yuumi_fx"
 BIG = "asset/league/effects/league_yuumi_big"
-# the ride picture's own sheet: tags idle (14 game px) and hd_idle (the same at 1.5 squares a game px), registered in
-# league.dll's hd.rs like a hero's so the battlefield draws the dense frame (the user's 「1.5 倍（21 格）」)
-RIDE = "asset/league/effects/league_yuumi_ride"
+# the ride picture's own sheet: tag idle (14 game px) and the lifted tags, a plain 1x sheet the game draws itself,
+# centred on the host. Until 2026-11-05 league_yuumi_ride, dense at 1.5 squares a game px (the user's 「1.5 倍（21 格）」)
+# and registered in league.dll's hd.rs like a hero's: but a buff's view never meets league.dll's shrink (hd_engine
+# view.rs effect_detour wraps the view node draw only - pictures played at a point), so the cat was drawn 1.5 times
+# too big, hanging right and down over the host's face (league_zoe's buff pictures the same day)
+RIDE = "asset/league/effects/league_yuumi_ride_1x"
 # The ride picture's lifts in game px (2026-10-28, the user: 「附身在烬身上 烬的头部都被挡住了」): drawn as it is (0) the
 # picture's lowest row is 23 px over the host's pivot, made for a 36-px champion whose crown is 25 px up - a taller host
 # (Jhin's crown 29, Hwei's 39) had his head under the cat. Each lift is a tag of league_yuumi_ride (ride_tag) and a buff

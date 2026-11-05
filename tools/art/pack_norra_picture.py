@@ -12,7 +12,8 @@ the unit "Norra & Yuumi" (TFT12_Norra, Yuumi = TFT12_Yuumi). The League client d
 clips: her renders are the bind pose, an A-pose with the arms down) and Yuumi's .skn, body and book maps. TFT12_Yuumi's
 mesh is skinned on League Yuumi's own skeleton (the bind pose matches Yuumi_base.skl to 1e-5), so League's local clips
 would pose her, but the book bones differ and stretch the book, and League's attach clips leap rather than lie: the pose
-of B is this repo's own league_yuumi_ride picture (style 15, the cat lying on her open book).
+of B is this repo's own league_yuumi_ride_1x picture (style 15, the cat lying on her open book; the 14-px frame - its
+dense original is assets/source/yuumi/hd/ride.png, in the pack as league_yuumi_ride until 2026-11-05).
 Two pictures at one square size: A = Norra standing, 3/4 front facing right (the design); B = TFT Yuumi lying on her
 open book, the picture that rides on an ally's head (her passive).
 """
@@ -63,7 +64,7 @@ CUT = {  # style pictures cut from a sheet: name -> (folder, sheet, tag)
     "12_style_poppy.png": (CHAMPS, "league_poppy", "hd_idle"),
     "13_style_ziggs.png": (CHAMPS, "league_ziggs", "hd_idle"),
     "14_style_powder.png": (TFT, "tft_powder", "hd_idle"),
-    "15_style_yuumi_ride.png": (EFFECTS, "league_yuumi_ride", "hd_idle"),
+    "15_style_yuumi_ride.png": (EFFECTS, "league_yuumi_ride_1x", "idle"),
 }
 
 

@@ -15,7 +15,7 @@
       "p_ap": 30,
       "p_arm": 15,
       "q_ball_t": 240,
-      "q_touch": 26000,
+      "q_touch": 3000,
       "q_ms0": 30,
       "q_ms1": 100,
       "q_ramp": 120
@@ -609,6 +609,17 @@
                 "name": "league_rammus_vo_q"
               }
             ]
+          }
+        },
+        {
+          "type": "AddBuff",
+          "buff_state": {
+            "name": "league_rammus_q_aim",
+            "duration": {
+              "Time": {
+                "tick": 14
+              }
+            }
           }
         },
         {

@@ -5,6 +5,10 @@
 //! - **羽刃扇射**：数据里的投射物不能带角度，所以出手那一 tick（`tft_raptor:fan`）由这里朝目标方向扇形发出 `q_n` 根羽刃，
 //!   相邻两根差 `q_spread` 度，每根各自直飞 `q_len`、碰到第一个敌人就停（`tft_raptor_q_feather`）；命中
 //!   （`tft_raptor:fan_hit`）受到 `q_dmg` + `q_ratio`% 攻击力的物理伤害，再挂一层橙霸符。近身时一个敌人会吃到好几根。
+//!   2026-11-05（0.53.0，11-04 的日志：十分之一的 Q `FAN: no aim (input kind 1)`，一根都没出——目标在 11 拍起手里死了，
+//!   出手那一拍已经查不到它）：被动每拍记下她 `q_len` 一倍半内每个敌人最后的位置（`SEEN`），目标没了就朝它最后的位置扇
+//!   （`aim_fallback`：`last place`），没记过就朝 `q_len` 内最近的、看得见的、不是塔的敌人（`nearest`），都没有才作罢
+//!   （SDK 读不到她的朝向）。日志 `FAN ... (aimed at X's last place / the nearest, Y)`。
 //! - **橙霸符**：她的每次物理命中（普攻、羽刃、小锋喙鸟的啄击）都调 `tft_raptor:shred`：目标护甲 -`p_arm`，持续 `p_t`
 //!   tick，最多 `p_max` 层，再中一下刷新时长（引擎的叠层 buff；数据的同名 buff 只会无限叠）。叠满那一下播 `tft_raptor_p`。
 //! - **死亡**：倒下时播 `tft_raptor_d`（数据没有死亡的时机）。
@@ -155,6 +159,32 @@ fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied().unwrap_or_default()
 }
 
+/// The enemies each raptor saw lately: id -> (where, the tick). Q's release aims at a target gone in the wind-up by
+/// its last place (the server's two presims of one set see the same places on the same tick: one row serves both).
+static SEEN: LazyLock<Mutex<HashMap<usize, HashMap<usize, ((u64, u64), usize)>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// A place is kept this many ticks after the unit was last seen.
+pub const SEEN_FOR: usize = 60;
+
+/// Where Q's fan goes when its target is gone at the release: the target's last place, else the nearest of `foes`
+/// (visible, no tower) within `reach`; None with neither (the SDK reads no facing).
+pub fn aim_fallback(from: (f64, f64), last: Option<(f64, f64)>, foes: &[(usize, (f64, f64))], reach: f64)
+    -> Option<((f64, f64), Fallback)> {
+    if let Some(p) = last.filter(|p| (p.0 - from.0).hypot(p.1 - from.1) > 1.0) {
+        return Some((p, Fallback::LastPlace));
+    }
+    foes.iter()
+        .map(|f| (f, (f.1 .0 - from.0).hypot(f.1 .1 - from.1)))
+        .filter(|(_, d)| *d > 1.0 && *d <= reach)
+        .min_by(|a, b| a.1.total_cmp(&b.1))
+        .map(|(f, _)| (f.1, Fallback::Nearest(f.0)))
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub enum Fallback {
+    LastPlace,
+    Nearest(usize),
+}
+
 // ===================== 规则（单元测试用） =====================
 
 /// The fan's directions (unit vectors): `n` feathers round `aim`, `spread` degrees apart, the middle one (an odd `n`)
@@ -213,8 +243,26 @@ fn shred(sim: &mut StableSim<'_>, me: usize, id: usize) {
 fn fan(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let Some((team, at)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| (e.team(), e.pos())) else { return };
     let from = (at.0 as f64, at.1 as f64);
+    let p = params_of(me);
+    let mut how = String::new();
     let aim = if input.kind == InputTargetKindV1::Target.code() {
-        sim.get_entity(input.target_id).map(|e| (e.pos().0 as f64, e.pos().1 as f64))
+        let target = sim.get_entity(input.target_id).filter(|e| e.is_alive()).map(|e| (e.pos().0 as f64, e.pos().1 as f64));
+        target.or_else(|| {
+            // the target died in the wind-up (0.53.0): its last place, else the nearest visible enemy in reach
+            let last = SEEN.lock().unwrap_or_else(|e| e.into_inner()).get(&me)
+                .and_then(|m| m.get(&input.target_id)).map(|&(p, _)| (p.0 as f64, p.1 as f64));
+            let foes: Vec<(usize, (f64, f64))> = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && !u.is_tower() && sim.is_visible(team, u.id()))
+                .map(|u| (u.id(), (u.pos().0 as f64, u.pos().1 as f64)))
+                .collect();
+            let (aim, by) = aim_fallback(from, last, &foes, p.q_len as f64)?;
+            how = match by {
+                Fallback::LastPlace => format!(" (aimed at the last place of #{})", input.target_id),
+                Fallback::Nearest(id) => format!(" (#{} gone: aimed at the nearest, {})", input.target_id, name_of(sim, id)),
+            };
+            Some(aim)
+        })
     } else if input.kind == InputTargetKindV1::Pos.code() {
         Some((input.x as f64, input.y as f64))
     } else {
@@ -222,11 +270,10 @@ fn fan(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     };
     let Some(aim) = aim.map(|a| (a.0 - from.0, a.1 - from.1)).filter(|d| d.0.hypot(d.1) > 1.0) else {
         if let Some(k) = counted("no aim") {
-            wlog(format!("{} FAN #{k}: no aim (input kind {})", head(sim, me), input.kind));
+            wlog(format!("{} FAN #{k}: no aim (input kind {}, nobody in reach)", head(sim, me), input.kind));
         }
         return;
     };
-    let p = params_of(me);
     let mut refused = 0;
     for d in fan_dirs(aim, p.q_n, p.q_spread) {
         let to = upos((from.0 + d.0 * p.q_len as f64, from.1 + d.1 * p.q_len as f64));
@@ -252,7 +299,7 @@ fn fan(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     if let Some(k) = counted("fan") {
         wlog(format!(
-            "{} FAN #{k}: {} feathers {} deg apart toward ({:.0}, {:.0}){}",
+            "{} FAN #{k}: {} feathers {} deg apart toward ({:.0}, {:.0}){how}{}",
             head(sim, me),
             p.q_n,
             p.q_spread,
@@ -332,8 +379,24 @@ impl StablePassive for Flock {
         }
     }
 
-    fn on_update(&mut self, _: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).entry(me).or_insert(self.p);
+        // the enemies near her, for a Q whose target dies in the wind-up (0.53.0)
+        let Some((team, at)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| (e.team(), e.pos())) else { return };
+        let now = sim.tick();
+        let reach = (self.p.q_len as f64) * 1.5;
+        let near: Vec<(usize, (u64, u64))> = (0..sim.entity_count())
+            .filter_map(|i| sim.entity_at(i))
+            .filter(|u| u.team() != team && u.is_alive() && !u.is_tower())
+            .filter(|u| (u.pos().0 as f64 - at.0 as f64).hypot(u.pos().1 as f64 - at.1 as f64) <= reach)
+            .map(|u| (u.id(), u.pos()))
+            .collect();
+        let mut all = SEEN.lock().unwrap_or_else(|e| e.into_inner());
+        let seen = all.entry(me).or_default();
+        seen.retain(|_, &mut (_, t)| t <= now && now < t + SEEN_FOR);
+        for (id, pos) in near {
+            seen.insert(id, (pos, now));
+        }
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
@@ -393,6 +456,22 @@ mod tests {
         // an even count has no middle feather
         let e = fan_dirs((0.0, 5.0), 4, 10);
         assert!((e[1].0.atan2(e[1].1).to_degrees().abs() - 5.0).abs() < 1e-9, "{e:?}");
+    }
+
+    #[test]
+    fn a_target_gone_in_the_wind_up_still_gets_the_fan() {
+        // 11-04's logs: FAN "no aim (input kind 1)" one Q in ten - the minion died in the 11-tick wind-up
+        let from = (100_000.0, 100_000.0);
+        let foes = [(5, (160_000.0, 100_000.0)), (6, (100_000.0, 130_000.0)), (7, (300_000.0, 100_000.0))];
+        // its last place first
+        assert_eq!(aim_fallback(from, Some((120_000.0, 90_000.0)), &foes, 70_000.0),
+                   Some(((120_000.0, 90_000.0), Fallback::LastPlace)));
+        // none recorded (or it stood on her): the nearest in reach
+        assert_eq!(aim_fallback(from, None, &foes, 70_000.0), Some(((100_000.0, 130_000.0), Fallback::Nearest(6))));
+        assert_eq!(aim_fallback(from, Some(from), &foes, 70_000.0), Some(((100_000.0, 130_000.0), Fallback::Nearest(6))));
+        // nobody within reach: nothing
+        assert_eq!(aim_fallback(from, None, &foes[2..], 70_000.0), None);
+        assert_eq!(aim_fallback(from, None, &[], 70_000.0), None);
     }
 
     #[test]

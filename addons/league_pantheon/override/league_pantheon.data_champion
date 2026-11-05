@@ -3332,6 +3332,10 @@
                                                             "name": "league_pantheon_r_leap"
                                                           },
                                                           {
+                                                            "type": "CasterViewEffect",
+                                                            "name": "league_pantheon_r_jump"
+                                                          },
+                                                          {
                                                             "type": "SwitchByBuff",
                                                             "buff_name": "league_pantheon_vo_cd",
                                                             "effect_buff": {
@@ -3590,6 +3594,10 @@
                                                           {
                                                             "type": "Sfx",
                                                             "name": "league_pantheon_r_leap"
+                                                          },
+                                                          {
+                                                            "type": "CasterViewEffect",
+                                                            "name": "league_pantheon_r_jump"
                                                           },
                                                           {
                                                             "type": "SwitchByBuff",
@@ -3862,7 +3870,7 @@
             },
             {
               "type": "Delayed",
-              "tick": 900,
+              "tick": 897,
               "effects": [
                 {
                   "type": "SwitchByBuff",
@@ -4031,6 +4039,14 @@
       "tag": "r_hit",
       "z": 2,
       "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "league_pantheon_r_jump",
+      "anim": "asset/league/effects/league_pantheon_jump",
+      "tag": "r_jump",
+      "z": -1,
+      "is_follow": false
     },
     {
       "type": "Animation",

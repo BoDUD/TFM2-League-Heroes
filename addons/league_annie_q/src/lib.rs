@@ -162,6 +162,8 @@ struct Bear {
 struct Tibbers {
     bear: Option<Bear>,
     n: usize,
+    /// Annie herself (on_dead is given the player, not the unit).
+    me: usize,
 }
 
 impl Tibbers {
@@ -183,8 +185,21 @@ impl StablePassive for Tibbers {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        self.bear = None;
+        self.me = me;
+        // Tibbers still out at her respawn (her death did not reach on_dead): gone with his picture (0.2.1; before,
+        // dropped without a line)
+        if let Some(b) = self.bear {
+            self.vanish(sim, me, b, "she respawned");
+        }
         wlog(format!("{} SPAWN: the add-on's Annie (player {player})", head(sim, me)));
+    }
+
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        // 0.2.1: Tibbers vanishes with her (11-04's logs: he went silently, no `gone` line, no picture). League keeps
+        // him up after her death; a dead champion's passive does not run, so that is not done here.
+        if let Some(b) = self.bear {
+            self.vanish(sim, self.me, b, "Annie died");
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {

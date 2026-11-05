@@ -52,6 +52,12 @@ pub const DANGER_HP: f64 = 0.30;
 pub const BURST: f64 = 0.30;
 pub const BURST_LEFT: f64 = 0.60;
 pub const BURST_T: usize = 60;
+/// 她自己的线高一点（0.1.2）：法阵落下前的 `WINDUP` tick 里她还在挨打——11-04 夜里 227 个结果 50 个 dead，几乎全是她自己
+/// 0–30% 时放的（31% 放、1 秒内掉了 41%，死在引导里）。
+pub const SELF_HP: f64 = 0.35;
+/// 从放出到法阵第一次给不死：落下的 `R_AT` tick 加主包法阵第一次 `r_per` 的 6 tick。危险也看这段时间里按最近 1 秒的
+/// 掉血速度会掉到哪（0.1.2）。
+pub const WINDUP: usize = R_AT + 6;
 /// 放出后隔多少 tick 看结果（法阵落下后再等几 tick）。
 pub const CHECK_AT: usize = R_AT + 10;
 
@@ -129,7 +135,7 @@ pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 一个己方英雄：id、位置、生命比例、`BURST_T` tick 内最多掉了多少（比例）、身上有没有别人给的不死。
+/// 一个己方英雄：id、位置、生命比例、`BURST_T` tick 内最多掉了多少（比例）、身上有没有别人给的不死、是不是她自己。
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct Ally {
     pub id: usize,
@@ -137,13 +143,21 @@ pub struct Ally {
     pub hp: f64,
     pub drop: f64,
     pub undying: bool,
+    pub herself: bool,
 }
 
-/// 快要阵亡吗：`DANGER_NEAR` 内有敌方英雄，生命不到 `DANGER_HP`，或刚被打掉一大截；别人的不死在身上时不算。
+/// 按最近 1 秒的掉血速度，法阵给到不死（`WINDUP` tick 后）时还剩多少。
+pub fn hp_at_landing(hp: f64, drop: f64) -> f64 {
+    hp - drop * WINDUP as f64 / BURST_T as f64
+}
+
+/// 快要阵亡吗：`DANGER_NEAR` 内有敌方英雄，生命不到 `DANGER_HP`（她自己 `SELF_HP`），或刚被打掉一大截，或照这个速度
+/// 法阵落下时就会低于那条线（0.1.2）；别人的不死在身上时不算。
 pub fn in_danger(a: &Ally, enemies: &[(f64, f64)]) -> bool {
+    let line = if a.herself { SELF_HP } else { DANGER_HP };
     !a.undying
         && enemies.iter().any(|e| dist(a.at, *e) <= DANGER_NEAR)
-        && (a.hp <= DANGER_HP || (a.drop >= BURST && a.hp <= BURST_LEFT))
+        && (a.hp <= line || (a.drop >= BURST && a.hp <= BURST_LEFT) || hp_at_landing(a.hp, a.drop) <= line)
 }
 
 /// 她在 `me`：`IN_CIRCLE` 内快要阵亡的己方英雄（含她）里生命比例最低的那个。
@@ -224,6 +238,8 @@ struct UltAi {
     /// 上一次看到的 R 冷却。
     last_cd: Option<usize>,
     told_no_sim: bool,
+    /// 上一次她活着想的 tick（她死了钩子不跑：结果要等复活才看得到，`R RESULT` 记晚了多少、她大约哪一 tick 死的）。
+    last_alive: Option<usize>,
 }
 
 /// 下令后这么多 tick 内 R 的冷却开始走，就算这道命令放出去的。
@@ -257,8 +273,8 @@ impl StablePlayerAi for UltAi {
             Keep,
             /// the order, and the line's `[kind m= s=]` head (0.1.1: R ORDER had only `t= player`)
             Cast(Order, String),
-            /// the enemy champion to attack (in her reach), else the place to walk toward
-            Hold(Option<usize>, Option<(u64, u64)>, String),
+            /// the enemy champion to attack (in her reach), else the place to walk toward (her own spot: stand)
+            Hold(Option<usize>, (u64, u64), String),
         }
         let todo = {
             let Some(sim) = ctx.sim() else {
@@ -312,7 +328,21 @@ impl StablePlayerAi for UltAi {
                     ),
                     _ => "dead".to_string(),
                 };
-                wlog(format!("{} R RESULT for {} (hp {:.0}% at the cast): {after}", head(&sim, c.me), who(&sim, c.ally), c.hp * 100.0));
+                // she was dead meanwhile (the hook does not think then): the result is this late, and she died about
+                // the tick after her last thought - in the windup or after the circle came down (0.1.2)
+                let late = tick.saturating_sub(c.tick + CHECK_AT);
+                let delay = if late > 0 {
+                    let died = self.last_alive.map_or(c.tick, |t| t + 1).max(c.tick);
+                    format!(
+                        ", settled {late} ticks late - she died about t={died}, {} ticks after the cast ({})",
+                        died - c.tick,
+                        if died < c.tick + R_AT { "in the windup, before the circle" } else { "after the circle came down" }
+                    )
+                } else {
+                    String::new()
+                };
+                wlog(format!("{} R RESULT for {}{} (hp {:.0}% at the cast): {after}{delay}", head(&sim, c.me), who(&sim, c.ally),
+                             if c.ally == c.me { " (herself)" } else { "" }, c.hp * 100.0));
             }
             // health history of her side's champions (every think, so the burst rule sees the last BURST_T ticks)
             let mut allies = Vec::new();
@@ -341,13 +371,14 @@ impl StablePlayerAi for UltAi {
                 past.push((tick, hp));
                 seen.insert(e.id(), past);
                 if e.is_targetable() {
-                    allies.push(Ally { id: e.id(), at, hp, drop, undying: undying(&e) });
+                    allies.push(Ally { id: e.id(), at, hp, drop, undying: undying(&e), herself: e.id() == mid });
                 }
             }
             self.seen = seen;
             if !me.is_alive() {
                 return None;
             }
+            self.last_alive = Some(tick);
             let ready = pl.level() >= ULT_LEVEL && cd == Some(0);
             let save = if ready && !controlled(&me) { pick_save(my_at, &allies, &enemies) } else { None };
             match (save, nearest) {
@@ -364,10 +395,11 @@ impl StablePlayerAi for UltAi {
                     }, line)
                 }
                 _ if wants_ult => match nearest {
-                    Some((t, d, _)) if d <= ATTACK_RANGE => Do::Hold(Some(t), None, line),
-                    Some((_, _, p)) => Do::Hold(None, Some(p), line),
+                    // the attack, or (the game refusing it: 0.1.2, one "R CAST by the AI itself") a tick in place
+                    Some((t, d, _)) if d <= ATTACK_RANGE => Do::Hold(Some(t), me.pos(), line),
+                    Some((_, _, p)) => Do::Hold(None, p, line),
                     // an enemy champion in R's reach the hook cannot see (untargetable): a tick in place, R kept
-                    None => Do::Hold(None, Some(me.pos()), line),
+                    None => Do::Hold(None, me.pos(), line),
                 },
                 _ => Do::Keep,
             }
@@ -385,7 +417,7 @@ impl StablePlayerAi for UltAi {
                 self.order = Some(o);
                 Some(input)
             }
-            Do::Hold(t, walk, line) => {
+            Do::Hold(t, (x, y), line) => {
                 if let Some(k) = counted("r_held") {
                     wlog(format!("{line} R HELD: nobody in her circle about to die, attacking instead #{k}"));
                 }
@@ -395,8 +427,9 @@ impl StablePlayerAi for UltAi {
                         return Some(attack);
                     }
                 }
-                // out of her reach (or the attack not taken): toward the nearest enemy champion, as the AI was going
-                walk.map(|(x, y)| InputV1::move_to(x, y))
+                // out of her reach (or the attack not taken): toward the nearest enemy champion, as the AI was going,
+                // or a tick in place - never None, which would let the AI's own R out (0.1.2)
+                Some(InputV1::move_to(x, y))
             }
         }
     }
@@ -437,7 +470,7 @@ mod tests {
     use super::*;
 
     fn ally(id: usize, x: f64, hp: f64, drop: f64) -> Ally {
-        Ally { id, at: (x, 0.0), hp, drop, undying: false }
+        Ally { id, at: (x, 0.0), hp, drop, undying: false, herself: false }
     }
 
     #[test]
@@ -449,6 +482,23 @@ mod tests {
         assert!(in_danger(&ally(1, 0.0, 0.55, 0.35), &near)); // a burst
         assert!(!in_danger(&ally(1, 0.0, 0.65, 0.35), &near)); // a burst, still above 60 %
         assert!(!in_danger(&Ally { undying: true, ..ally(1, 0.0, 0.10, 0.0) }, &near)); // someone else's save on him
+    }
+
+    #[test]
+    fn she_saves_herself_a_little_earlier_and_ahead_of_the_windup() {
+        // 11-04 night: 50 of 227 results dead, nearly all her own casts at 0-30% (31% at the cast, 41% lost in a second,
+        // dead inside the 20-tick windup)
+        let near = [(30_000.0, 0.0)];
+        let me = |hp, drop| Ally { herself: true, ..ally(9, 0.0, hp, drop) };
+        assert!(in_danger(&me(0.34, 0.0), &near), "herself at 34%: the higher line");
+        assert!(!in_danger(&ally(1, 0.0, 0.34, 0.0), &near), "an ally at 34%: not yet");
+        assert!(!in_danger(&me(0.40, 0.0), &near), "40% and not falling: R stays");
+        // 45% but losing 41% a second: under 30% / 35% by the time the circle gives undying - cast now
+        assert!((hp_at_landing(0.45, 0.41) - (0.45 - 0.41 * 26.0 / 60.0)).abs() < 1e-9);
+        assert!(in_danger(&me(0.45, 0.41), &near));
+        assert!(in_danger(&ally(1, 0.0, 0.42, 0.41), &near), "an ally falling as fast: 42% - 18% = 24% at the landing");
+        assert!(!in_danger(&ally(1, 0.0, 0.50, 0.20), &near), "50% losing 20% a second: 41% at the landing, no burst");
+        assert!(WINDUP > R_AT && WINDUP < CHECK_AT);
     }
 
     #[test]

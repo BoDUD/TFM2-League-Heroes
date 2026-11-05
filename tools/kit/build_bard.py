@@ -258,7 +258,9 @@ def build(p):
         pick(p["r_range"], "EnemyChampion", probe)))
     arm = flat(combine(
         *rm("r_armed"), flag("r_armed", p["r_arm"]), r_check,
-        delayed(p["r_arm"], sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900))))))
+        # the refund reads the arm flag 3 ticks before the window ends: a flag of n ticks is seen on n - 1 of them, so read
+        # on its last tick it was always gone and a lapsed window never refunded (lr1105/fix_j, classic-SDK probe 2026-11-05)
+        delayed(p["r_arm"] - 3, sw("r_armed", combine(*rm("r_armed"), flag("r_refund", 3, ult_cooldown_mult=4900))))))
     if p["native"]:
         # the add-on's drake stall (「给巴德加上争大小龙时主动对龙放大招拖时间」): its passive keeps r_drk on him while a
         # drake or Baron is being taken by enemies with no ally in the circle, its AI hook casts the ult then; the cast

@@ -301,7 +301,9 @@ def build(p):
     # unused, it ends with the cooldown capped at 60 ticks (cooltime x 100 / (100 + mult), league_tahmkench's r_retry)
     retry = p["r_cd"] * 100 // 60 - 100
     reset = sw("r_arm", combine(*rm("r_arm"), flag("r_retry", 3, ult_cooldown_mult=retry)))
-    arm_r = combine(refresh("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"], reset)))
+    # the refund reads the arm flag 3 ticks before the window ends: a flag of n ticks is seen on n - 1 of them, so read
+    # on its last tick it was always gone and a lapsed window never refunded (lr1105/fix_j, classic-SDK probe 2026-11-05)
+    arm_r = combine(refresh("r_arm", p["r_arm"]), on_me(delayed(p["r_arm"] - 3, reset)))
     # league_orianna's x trick: the AI scores the branch the flags pick between ticks - r_x is never there then, so it
     # reads a hit; when the slot runs, the flag is up and the window opens
     scored = combine(flag("r_x", 1), sw("r_x", combine(*rm("r_x"), arm_r), attack(100, 100)), *rm("r_x"))
