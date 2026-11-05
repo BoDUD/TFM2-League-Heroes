@@ -16,13 +16,16 @@
 //! - **绞杀之藤激怒植物**：副本里 R 出手时给目标挂 `league_zyra_r_aim`；落点 `r_r` 内本包的植物 `r_rage` tick 内出手间隔减半
 //!   （英雄联盟：密林里的植物攻速提高）。主包数据的植物照主包（伤害提高）。
 //!
+//! - **光合作用**（0.1.3，彩蛋，用户 2026-11-05「植物大战僵尸」）：比赛里有蕾欧娜时，她的技能落在婕拉的植物上（主包 Q、E 长的、
+//!   本包种子长的都算），植物在剩下的时间里画大一号（`sun.rs`）；玩法不变。
+//!
 //! 游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列，下一次 on_update 之前才扣血（莉莉娅 0.1.2 的教训）。
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个婕拉自己的被动实例里，
 //! 服务端预模拟和你看的那场各算各的。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zyra.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SEED`（掉种子）、`GROW`（种子长成植物）、`STRIKE`（植物出手）、`RAGE`（激怒）、`TAKEDOWN`（参与击杀掉种子）、
-//! `WATCH`（每 30 秒的计数，植物有动静才记），都限了条数。0.1.2：`SPAWN` 的参数一次启动只写一次，`SPAWN`、`WATCH` 整个
+//! `WATCH`（每 30 秒的计数，植物有动静才记）、`SUN`（蕾欧娜的阳光让植物变大），都限了条数。0.1.2：`SPAWN` 的参数一次启动只写一次，`SPAWN`、`WATCH` 整个
 //! 游戏一个计数（预模拟限量，你看的那场每行都记）。
 
 use std::collections::HashMap;
@@ -32,6 +35,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+mod sun;
 
 const ID: &str = "league_zyra";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -124,9 +129,9 @@ fn params_new(p: &Params) -> bool {
 }
 
 /// What a `WATCH` line reports besides the seeds (which drop every `s_cd` ticks anyway): plants grown, strikes, rages,
-/// takedowns. A line only when one of them moved since the last (2026-11-03 night logs: 1399 WATCH lines of 3267, most
-/// of them only more seeds).
-pub type Watch = (usize, usize, usize, usize);
+/// takedowns, plants grown in Leona's sunlight. A line only when one of them moved since the last (2026-11-03 night logs:
+/// 1399 WATCH lines of 3267, most of them only more seeds).
+pub type Watch = (usize, usize, usize, usize, usize);
 
 pub fn watch_news(last: Watch, now: Watch) -> bool {
     last != now
@@ -176,6 +181,10 @@ pub struct Params {
     /// 绞杀之藤：半径、激怒多久。
     pub r_r: usize,
     pub r_rage: usize,
+    /// 主包数据的植物几 tick 后长在落点：Q 的棘刺（平常 / E 定住人之后的快的）、E 的藤蔓（`sun.rs` 按它认是哪一种）。
+    pub q_delay: usize,
+    pub q_fast: usize,
+    pub e_grow: usize,
 }
 
 impl Default for Params {
@@ -201,6 +210,9 @@ impl Default for Params {
             pl_ratio: 12,
             r_r: 32000,
             r_rage: 300,
+            q_delay: 30,
+            q_fast: 4,
+            e_grow: 25,
         }
     }
 }
@@ -234,6 +246,9 @@ pub fn parse_params(json: &str) -> Params {
             "pl_ratio" => &mut p.pl_ratio,
             "r_r" => &mut p.r_r,
             "r_rage" => &mut p.r_rage,
+            "q_delay" => &mut p.q_delay,
+            "q_fast" => &mut p.q_fast,
+            "e_grow" => &mut p.e_grow,
             _ => continue,
         };
         *slot = v;
@@ -354,6 +369,8 @@ struct Garden {
     next_report: usize,
     /// what the last `WATCH` line said (`watch_news`)
     watched: Watch,
+    /// 光合作用（彩蛋）：她的植物在蕾欧娜的阳光里变大一号。
+    sun: sun::Sun,
 }
 
 struct Unit {
@@ -435,6 +452,7 @@ impl Garden {
             sim.play_sfx(&zy(snd), me, &at(s.pos));
             // the first strike as the data's plants: a third of a period after it grows
             self.plants.push(Plant { kind, pos: s.pos, until: tick + life, next: tick + self.p.t_per / 3, rage_until: 0 });
+            self.sun.seed_plant(kind, s.pos, tick);
             self.n_grow += 1;
             if self.n_grow <= 10 || self.n_grow % 25 == 0 {
                 wlog(format!("{} GROW #{}: a {kind:?} on a seed at ({:.0}, {:.0})", head(sim, me), self.n_grow, s.pos.0, s.pos.1));
@@ -464,9 +482,11 @@ impl Garden {
             match k {
                 0 => {
                     let r = self.p.s_r as f64;
+                    self.sun.landing(Kind::Spitter, land, tick);
                     self.grow(sim, me, Kind::Spitter, |s| dist(s, land) <= r);
                 }
                 1 => {
+                    self.sun.landing(Kind::Lasher, land, tick);
                     let d = dist(pos, land).max(1.0);
                     let over = self.p.e_over as f64 / d;
                     let end = (land.0 + (land.0 - pos.0) * over, land.1 + (land.1 - pos.1) * over);
@@ -636,18 +656,19 @@ impl StablePassive for Garden {
         // her seeds and plants stay after her death (League's)
         self.seeds(sim, me);
         self.casts(sim, me, team, pos);
+        self.sun.tick(sim, me, &self.p);
         self.land(sim, me);
         self.strike(sim, me, team, level, ap);
         if tick >= self.next_report {
             self.next_report = tick + 1800;
             // only when her plants did something since the last line, and capped in the presims (0.1.2)
-            let now = (self.n_grow, self.n_strike, self.n_rage, self.n_take);
+            let now = (self.n_grow, self.n_strike, self.n_rage, self.n_take, self.sun.n_sun);
             if tick > 0 && watch_news(self.watched, now) {
                 self.watched = now;
                 if let Some(k) = tally(sim, "watch") {
-                    wlog(format!("{} WATCH: seeds {} ({} on the ground), grown {}, strikes {}, rages {}, takedowns {} #{k}",
+                    wlog(format!("{} WATCH: seeds {} ({} on the ground), grown {}, strikes {}, rages {}, takedowns {}, sunlit {} #{k}",
                                  head(sim, me), self.n_seeds, self.seeds.len(), self.n_grow, self.n_strike, self.n_rage,
-                                 self.n_take));
+                                 self.n_take, self.sun.n_sun));
                 }
             }
         }
@@ -667,7 +688,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Zyra's seeds on the ground, seed plants striking champions first) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Zyra's seeds on the ground, seed plants striking champions first, plants one size bigger in Leona's sunlight) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -702,6 +723,7 @@ mod tests {
         assert_eq!(parse_params("{}"), Params::default());
         assert_eq!(parse_params(r#"{"t_per":0,"v_slow":200}"#).t_per, 2);
         assert_eq!(parse_params(r#"{"v_slow":200}"#).v_slow, 95);
+        assert_eq!(parse_params(r#"{"q_delay":31,"q_fast":5,"e_grow":26}"#).e_grow, 26);
     }
 
     #[test]
@@ -752,7 +774,7 @@ mod tests {
 
     #[test]
     fn buff_names_fit() {
-        for x in ["q_aim", "e_aim", "r_aim", "v_slow", "s_seed", "t_spit", "t_plant", "v_plant"] {
+        for x in ["q_aim", "e_aim", "r_aim", "v_slow", "s_seed", "t_spit", "t_plant", "v_plant", "sun_pop", "t_big_end"] {
             assert!(zy(x).len() <= BUFF_NAME_CAP);
         }
     }
@@ -770,8 +792,9 @@ mod tests {
         let p = Params { s_cd: 7, ..Params::default() };
         assert!(params_new(&p));
         assert!(!params_new(&p));
-        assert!(!watch_news((1, 4, 0, 0), (1, 4, 0, 0)), "only more seeds: no line");
-        assert!(watch_news((1, 4, 0, 0), (1, 5, 0, 0)));
-        assert!(watch_news(Watch::default(), (0, 0, 0, 1)));
+        assert!(!watch_news((1, 4, 0, 0, 0), (1, 4, 0, 0, 0)), "only more seeds: no line");
+        assert!(watch_news((1, 4, 0, 0, 0), (1, 5, 0, 0, 0)));
+        assert!(watch_news(Watch::default(), (0, 0, 0, 1, 0)));
+        assert!(watch_news(Watch::default(), (0, 0, 0, 0, 1)), "a plant grown in Leona's sunlight");
     }
 }

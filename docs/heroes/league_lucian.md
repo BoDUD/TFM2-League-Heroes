@@ -11,7 +11,7 @@
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
 | 高清帧 | PPU 1.5 |
-| 附加包 | [卢锡安附加包](#附加包)（`league_lucian`） |
+| 附加包 | [卢锡安附加包](#附加包)（`league_lucian`）、[英雄联盟彩蛋](#附加包)（`league_eggs`） |
 
 ![卢锡安演示](../preview/league_lucian_showcase.gif)
 
@@ -60,6 +60,14 @@
 （这个附加包没有 README，下面是它 `mod.mod_info` 里的英文说明）
 
 > Lucian walks firing The Culling (needs League of Legends Heroes): while his ult fires, his walk is drawn with both pistols levelled forward instead of his plain run. Picture only; his kit is the main pack's. Writes a log for testing.
+
+### 英雄联盟彩蛋
+
+[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.1.0（通用附加包，下面只列和卢锡安有关的部分）
+
+| 彩蛋 | 什么时候 | 效果 |
+|---|---|---|
+| 4 钓鱼执法（锤石 vs 赛娜 / 卢锡安） | 开局 | 大字公告；锤石**击杀**赛娜：吸收她的灵魂，护甲 +10、法强 +15；赛娜**击杀**锤石：解放灵魂，暴击 +10%、射程 +2000；卢锡安击杀锤石：一半（暴击 +5%、射程 +1000）。各最多 3 层，整局都在（死了补回），头像上是层数 |
 
 ## 相关脚本和素材
 

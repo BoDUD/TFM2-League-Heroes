@@ -351,6 +351,10 @@ def build(p):
                E("w_hit"), E("e_freeze"), E("sh_hit"), E("r_hit"),
                E("r_storm", BIG, -1, False)]
     views_b = [B_("fa", FX, -1, "fa_armour"), B_("w_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow")]
+    # the Queen of the Freljord's ice crown: addons/league_eggs hangs the buff on the War for the Freljord's winner for
+    # the rest of the match (the sheet: addons/league_eggs/make_fx.py, a tag a queen; tools/fix/eggs_crown_views.py)
+    views_b.append({"type": "Animated", "name": "league_eggs_crown_sejuani", "anim": "asset/league/effects/league_eggs_crown_1x",
+                    "tag": "sejuani", "repeat": True, "z": 4})
     extra = {}
     if p["native"]:   # addons/league_sejuani: the League rules the data cannot read
         views_b.append(B_("frost", FX, 3, "frost"))

@@ -1180,7 +1180,8 @@ mod tests {
         // a tie goes up
         assert_eq!(lift_for(26), 2);
         assert_eq!(lift_for(28), 4);
-        assert_eq!(lift_of("league_jhin"), 4);
+        // Jhin's PPU redo (11-05, #691) put his crown at 30 (tools/art/yuumi_ride_lifts.py, 0.2.14): 6 higher
+        assert_eq!(lift_of("league_jhin"), 6);
         assert_eq!(lift_of("some_other_mod_champion"), 0);
         assert_eq!(ride_buff(0), "league_yuumi_w_ride");
         assert_eq!(ride_buff(4), "league_yuumi_w_ride_u4");

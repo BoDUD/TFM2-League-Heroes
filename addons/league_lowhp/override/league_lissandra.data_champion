@@ -2813,6 +2813,14 @@
       "tag": "p_slow",
       "repeat": true,
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_eggs_crown_lissandra",
+      "anim": "asset/league/effects/league_eggs_crown_1x",
+      "tag": "lissandra",
+      "repeat": true,
+      "z": 4
     }
   ],
   "passive": {

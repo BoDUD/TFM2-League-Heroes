@@ -332,6 +332,11 @@ def build(p):
                E("p_thrall", BIG, 1, False), E("p_burst", BIG, 1, False)]
     views_b = [B_("q_slow", FX, -1), B_("w_root", FX, -1), B_("r_tomb", BIG, 2), B_("r_stasis", BIG, 2),
                B_("r_slow", FX, -1), B_("p_slow", FX, -1)]
+    # the Queen of the Freljord's ice crown: addons/league_eggs hangs the buff on the War for the Freljord's winner (the
+    # sheet: addons/league_eggs/make_fx.py). The shipped file is baked after this generator, so
+    # tools/fix/eggs_crown_views.py put the same entry there; it is here for the next rebuild.
+    views_b.append({"type": "Animated", "name": "league_eggs_crown_lissandra",
+                    "anim": "asset/league/effects/league_eggs_crown_1x", "tag": "lissandra", "repeat": True, "z": 4})
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
