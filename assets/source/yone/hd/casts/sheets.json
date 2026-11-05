@@ -1,0 +1,956 @@
+{
+ "square": 8,
+ "square_of": {
+  "attack": 7,
+  "attack2": 7,
+  "skill2": 7
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop, League's walk): striding forward, the red demon blade low behind him, the white katana low before him, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    136
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his black sandal flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hair, the arms and the blades follow the pale figure. The wide hakama swings with the legs: show each leg's shape through it, the sandals under its hems; the blades' tips hang near the ground but are NOT legs."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop, League's walk): striding forward, the red demon blade low behind him, the white katana low before him, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    136
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye.",
+   "legs": "Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hair, the arms and the blades follow the pale figure. The wide hakama swings with the legs: show each leg's shape through it, the sandals under its hems; the blades' tips hang near the ground but are NOT legs."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop, League's walk): striding forward, the red demon blade low behind him, the white katana low before him, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hair, the arms and the blades follow the pale figure. The wide hakama swings with the legs: show each leg's shape through it, the sandals under its hems; the blades' tips hang near the ground but are NOT legs."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop, League's walk): striding forward, the red demon blade low behind him, the white katana low before him, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    136
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye.",
+   "legs": "Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hair, the arms and the blades follow the pale figure. The wide hakama swings with the legs: show each leg's shape through it, the sandals under its hems; the blades' tips hang near the ground but are NOT legs."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop, League's walk): striding forward, the red demon blade low behind him, the white katana low before him, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    136
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hair, the arms and the blades follow the pale figure. The wide hakama swings with the legs: show each leg's shape through it, the sandals under its hems; the blades' tips hang near the ground but are NOT legs."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop, League's walk): striding forward, the red demon blade low behind him, the white katana low before him, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    135
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye.",
+   "legs": "Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hair, the arms and the blades follow the pale figure. The wide hakama swings with the legs: show each leg's shape through it, the sandals under its hems; the blades' tips hang near the ground but are NOT legs."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop, League's walk): striding forward, the red demon blade low behind him, the white katana low before him, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    136
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hair, the arms and the blades follow the pale figure. The wide hakama swings with the legs: show each leg's shape through it, the sandals under its hems; the blades' tips hang near the ground but are NOT legs."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "walking (his move loop, League's walk): striding forward, the red demon blade low behind him, the white katana low before him, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    136
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye.",
+   "legs": "Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hair, the arms and the blades follow the pale figure. The wide hakama swings with the legs: show each leg's shape through it, the sandals under its hems; the blades' tips hang near the ground but are NOT legs."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the steel katana): he stands ready (frame 1), raises the white katana high over his head (frame 2), cuts down across (frames 3-4) and follows through in a low lunge, both blades swept low and forward (frames 5-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the steel katana): he stands ready (frame 1), raises the white katana high over his head (frame 2), cuts down across (frames 3-4) and follows through in a low lunge, both blades swept low and forward (frames 5-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the steel katana): he stands ready (frame 1), raises the white katana high over his head (frame 2), cuts down across (frames 3-4) and follows through in a low lunge, both blades swept low and forward (frames 5-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the steel katana): he stands ready (frame 1), raises the white katana high over his head (frame 2), cuts down across (frames 3-4) and follows through in a low lunge, both blades swept low and forward (frames 5-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the steel katana): he stands ready (frame 1), raises the white katana high over his head (frame 2), cuts down across (frames 3-4) and follows through in a low lunge, both blades swept low and forward (frames 5-7)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the steel katana): he stands ready (frame 1), raises the white katana high over his head (frame 2), cuts down across (frames 3-4) and follows through in a low lunge, both blades swept low and forward (frames 5-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the steel katana): he stands ready (frame 1), raises the white katana high over his head (frame 2), cuts down across (frames 3-4) and follows through in a low lunge, both blades swept low and forward (frames 5-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the demon blade): he stands ready (frame 1), swings the red blade up behind him (frames 2-3), raises it straight up over his head (frame 4) and brings it down, back into his stance (frames 5-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the demon blade): he stands ready (frame 1), swings the red blade up behind him (frames 2-3), raises it straight up over his head (frame 4) and brings it down, back into his stance (frames 5-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the demon blade): he stands ready (frame 1), swings the red blade up behind him (frames 2-3), raises it straight up over his head (frame 4) and brings it down, back into his stance (frames 5-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the demon blade): he stands ready (frame 1), swings the red blade up behind him (frames 2-3), raises it straight up over his head (frame 4) and brings it down, back into his stance (frames 5-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the demon blade): he stands ready (frame 1), swings the red blade up behind him (frames 2-3), raises it straight up over his head (frame 4) and brings it down, back into his stance (frames 5-7)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the demon blade): he stands ready (frame 1), swings the red blade up behind him (frames 2-3), raises it straight up over his head (frame 4) and brings it down, back into his stance (frames 5-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "attack2",
+   "name": "attack2_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the demon blade): he stands ready (frame 1), swings the red blade up behind him (frames 2-3), raises it straight up over his head (frame 4) and brings it down, back into his stance (frames 5-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel (Q): he thrusts the white katana straight forward, level, in a lunge (frame 1), draws it back (frames 2-3) and thrusts again in a long low lunge, the katana level before him (frames 4-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel (Q): he thrusts the white katana straight forward, level, in a lunge (frame 1), draws it back (frames 2-3) and thrusts again in a long low lunge, the katana level before him (frames 4-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel (Q): he thrusts the white katana straight forward, level, in a lunge (frame 1), draws it back (frames 2-3) and thrusts again in a long low lunge, the katana level before him (frames 4-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel (Q): he thrusts the white katana straight forward, level, in a lunge (frame 1), draws it back (frames 2-3) and thrusts again in a long low lunge, the katana level before him (frames 4-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel (Q): he thrusts the white katana straight forward, level, in a lunge (frame 1), draws it back (frames 2-3) and thrusts again in a long low lunge, the katana level before him (frames 4-7)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel (Q): he thrusts the white katana straight forward, level, in a lunge (frame 1), draws it back (frames 2-3) and thrusts again in a long low lunge, the katana level before him (frames 4-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel (Q): he thrusts the white katana straight forward, level, in a lunge (frame 1), draws it back (frames 2-3) and thrusts again in a long low lunge, the katana level before him (frames 4-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel's third cast (Q3): he raises the white katana upright (frame 1), levels it (frame 2), raises it over his shoulder (frame 3), dashes forward low, almost lying along the ground, the blades trailing (frames 4-6), rises (frame 7) and stands ready (frame 8)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel's third cast (Q3): he raises the white katana upright (frame 1), levels it (frame 2), raises it over his shoulder (frame 3), dashes forward low, almost lying along the ground, the blades trailing (frames 4-6), rises (frame 7) and stands ready (frame 8)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel's third cast (Q3): he raises the white katana upright (frame 1), levels it (frame 2), raises it over his shoulder (frame 3), dashes forward low, almost lying along the ground, the blades trailing (frames 4-6), rises (frame 7) and stands ready (frame 8)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel's third cast (Q3): he raises the white katana upright (frame 1), levels it (frame 2), raises it over his shoulder (frame 3), dashes forward low, almost lying along the ground, the blades trailing (frames 4-6), rises (frame 7) and stands ready (frame 8)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel's third cast (Q3): he raises the white katana upright (frame 1), levels it (frame 2), raises it over his shoulder (frame 3), dashes forward low, almost lying along the ground, the blades trailing (frames 4-6), rises (frame 7) and stands ready (frame 8)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel's third cast (Q3): he raises the white katana upright (frame 1), levels it (frame 2), raises it over his shoulder (frame 3), dashes forward low, almost lying along the ground, the blades trailing (frames 4-6), rises (frame 7) and stands ready (frame 8)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel's third cast (Q3): he raises the white katana upright (frame 1), levels it (frame 2), raises it over his shoulder (frame 3), dashes forward low, almost lying along the ground, the blades trailing (frames 4-6), rises (frame 7) and stands ready (frame 8)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "q3",
+   "name": "q3_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Mortal Steel's third cast (Q3): he raises the white katana upright (frame 1), levels it (frame 2), raises it over his shoulder (frame 3), dashes forward low, almost lying along the ground, the blades trailing (frames 4-6), rises (frame 7) and stands ready (frame 8)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Spirit Cleave (W): he crouches low, both blades out (frame 1), swings the red blade up and over his head (frames 2-5), leaps, the red blade raised high (frame 6), and comes down cutting (frame 7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Spirit Cleave (W): he crouches low, both blades out (frame 1), swings the red blade up and over his head (frames 2-5), leaps, the red blade raised high (frame 6), and comes down cutting (frame 7)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Spirit Cleave (W): he crouches low, both blades out (frame 1), swings the red blade up and over his head (frames 2-5), leaps, the red blade raised high (frame 6), and comes down cutting (frame 7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Spirit Cleave (W): he crouches low, both blades out (frame 1), swings the red blade up and over his head (frames 2-5), leaps, the red blade raised high (frame 6), and comes down cutting (frame 7)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Spirit Cleave (W): he crouches low, both blades out (frame 1), swings the red blade up and over his head (frames 2-5), leaps, the red blade raised high (frame 6), and comes down cutting (frame 7)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Spirit Cleave (W): he crouches low, both blades out (frame 1), swings the red blade up and over his head (frames 2-5), leaps, the red blade raised high (frame 6), and comes down cutting (frame 7)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "e_dash",
+   "name": "e_dash_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Soul Unbound, the spirit's dash (E): he lunges forward low, both blades back (frames 1-2), rises upright, both blades held upright before him (frames 3-4), and thrusts the red blade straight forward, level (frame 5)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "e_dash",
+   "name": "e_dash_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Soul Unbound, the spirit's dash (E): he lunges forward low, both blades back (frames 1-2), rises upright, both blades held upright before him (frames 3-4), and thrusts the red blade straight forward, level (frame 5)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "e_dash",
+   "name": "e_dash_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Soul Unbound, the spirit's dash (E): he lunges forward low, both blades back (frames 1-2), rises upright, both blades held upright before him (frames 3-4), and thrusts the red blade straight forward, level (frame 5)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "e_dash",
+   "name": "e_dash_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Soul Unbound, the spirit's dash (E): he lunges forward low, both blades back (frames 1-2), rises upright, both blades held upright before him (frames 3-4), and thrusts the red blade straight forward, level (frame 5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "e_dash",
+   "name": "e_dash_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Soul Unbound, the spirit's dash (E): he lunges forward low, both blades back (frames 1-2), rises upright, both blades held upright before him (frames 3-4), and thrusts the red blade straight forward, level (frame 5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_9",
+   "frames": [
+    9
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Fate Sealed (R): he stands ready, the katana pointed forward (frame 1), raises both blades upright (frame 2), crouches into a low lunge, the white katana up, the red blade back (frames 3-4), spreads both blades - the red blade level behind him, the white katana up before him (frames 5-7), crouches low (frame 8) and stands ready (frame 9)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "e_body",
+   "name": "e_body_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "the body left behind (E): he stands upright, both blades held upright before him, still (frames 1-2)",
+   "ms": [
+    2000,
+    2000
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back, the blades swung out (frames 1-2)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back, the blades swung out (frames 1-2)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2) and sinks to his knees, the red blade planted upright beside him (frames 3-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2) and sinks to his knees, the red blade planted upright beside him (frames 3-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2) and sinks to his knees, the red blade planted upright beside him (frames 3-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2) and sinks to his knees, the red blade planted upright beside him (frames 3-7)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2) and sinks to his knees, the red blade planted upright beside him (frames 3-7)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, he staggers (frames 1-2) and sinks to his knees, the red blade planted upright beside him (frames 3-7)",
+   "ms": [
+    150,
+    500
+   ],
+   "weapons": "HIS TWO BLADES go where the pale figure has them, frame by frame (image 3 shows them in colour): the RED DEMON BLADE and the WHITE STEEL KATANA, as long as in image 1 - each in its own hand, raised, swung, thrust or held low as the pale figure holds them; the red horned mask stays on the side of his head. Only him: no spirit flames, no wind, no slash arcs, no trails, no glow; the eye's red stays inside the eye."
+  }
+ ]
+}

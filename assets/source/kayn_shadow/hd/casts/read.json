@@ -1,0 +1,429 @@
+{
+ "fits": {
+  "sh_attack_2": [
+   7.0,
+   0.91
+  ],
+  "sh_attack_3": [
+   7.0,
+   0.92
+  ],
+  "sh_attack_4": [
+   7.0,
+   0.96
+  ],
+  "sh_attack_5": [
+   7.0,
+   0.92
+  ],
+  "sh_attack_6": [
+   7.0,
+   0.87
+  ],
+  "sh_dead_2": [
+   7.84,
+   0.86
+  ],
+  "sh_dead_3": [
+   8.0,
+   0.89
+  ],
+  "sh_dead_4": [
+   8.0,
+   0.91
+  ],
+  "sh_dead_5": [
+   7.92,
+   0.87
+  ],
+  "sh_dead_6": [
+   7.92,
+   0.83
+  ],
+  "sh_hit_1": [
+   8.0,
+   0.83
+  ],
+  "sh_run_1": [
+   7.84,
+   0.77
+  ],
+  "sh_run_2": [
+   7.77,
+   0.81
+  ],
+  "sh_run_3": [
+   7.84,
+   0.84
+  ],
+  "sh_run_4": [
+   8.08,
+   0.78
+  ],
+  "sh_run_5": [
+   7.92,
+   0.82
+  ],
+  "sh_run_6": [
+   8.0,
+   0.85
+  ],
+  "sh_run_7": [
+   7.84,
+   0.78
+  ],
+  "sh_run_8": [
+   7.92,
+   0.82
+  ],
+  "sh_skill2_1": [
+   6.12,
+   0.88
+  ],
+  "sh_skill2_2": [
+   6.0,
+   0.93
+  ],
+  "sh_skill2_3": [
+   6.0,
+   0.92
+  ],
+  "sh_skill2_4": [
+   6.0,
+   0.9
+  ],
+  "sh_skill2_5": [
+   6.0,
+   0.91
+  ],
+  "sh_skill2_6": [
+   6.0,
+   0.93
+  ],
+  "sh_skill2_7": [
+   6.06,
+   0.8
+  ],
+  "sh_skill_1": [
+   8.0,
+   0.81
+  ],
+  "sh_skill_2": [
+   8.0,
+   0.9
+  ],
+  "sh_skill_3": [
+   8.0,
+   0.87
+  ],
+  "sh_skill_4": [
+   8.0,
+   0.89
+  ],
+  "sh_skill_5": [
+   7.92,
+   0.88
+  ],
+  "sh_skill_6": [
+   8.0,
+   0.89
+  ],
+  "sh_ult_exit_1": [
+   7.0,
+   0.95
+  ],
+  "sh_ult_exit_2": [
+   7.0,
+   0.93
+  ],
+  "sh_ult_exit_3": [
+   7.0,
+   0.93
+  ],
+  "sh_ult_exit_4": [
+   7.0,
+   0.89
+  ],
+  "sh_ult_exit_5": [
+   7.07,
+   0.81
+  ]
+ },
+ "heads": {
+  "sh_attack_2": [
+   0.9,
+   142.6,
+   0
+  ],
+  "sh_attack_3": [
+   1.15,
+   130.8,
+   0
+  ],
+  "sh_attack_4": [
+   0.88,
+   127.9,
+   0
+  ],
+  "sh_attack_5": [
+   0.88,
+   130.4,
+   0
+  ],
+  "sh_attack_6": [
+   0.87,
+   151.9,
+   0
+  ],
+  "sh_dead_1": [
+   1.07,
+   80.9,
+   0
+  ],
+  "sh_dead_2": [
+   1.1,
+   84.3,
+   0
+  ],
+  "sh_dead_3": [
+   1.08,
+   111.1,
+   0
+  ],
+  "sh_dead_4": [
+   1.06,
+   108.6,
+   0
+  ],
+  "sh_dead_5": [
+   1.08,
+   87.6,
+   0
+  ],
+  "sh_dead_6": [
+   1.1,
+   119.4,
+   0
+  ],
+  "sh_hit_1": [
+   1.07,
+   80.9,
+   0
+  ],
+  "sh_hit_2": [
+   1.07,
+   80.9,
+   0
+  ],
+  "sh_run_1": [
+   1.08,
+   115.4,
+   0
+  ],
+  "sh_run_2": [
+   1.07,
+   98.2,
+   0
+  ],
+  "sh_run_3": [
+   1.05,
+   89.4,
+   0
+  ],
+  "sh_run_4": [
+   1.0,
+   114.0,
+   0
+  ],
+  "sh_run_5": [
+   0.98,
+   101.6,
+   0
+  ],
+  "sh_run_6": [
+   0.95,
+   131.1,
+   0
+  ],
+  "sh_run_7": [
+   1.05,
+   97.4,
+   0
+  ],
+  "sh_run_8": [
+   1.08,
+   109.6,
+   0
+  ],
+  "sh_skill2_1": [
+   1.02,
+   105.4,
+   0
+  ],
+  "sh_skill2_2": [
+   0.87,
+   130.9,
+   0
+  ],
+  "sh_skill2_3": [
+   1.17,
+   121.8,
+   0
+  ],
+  "sh_skill2_4": [
+   0.95,
+   125.3,
+   0
+  ],
+  "sh_skill2_5": [
+   1.06,
+   120.8,
+   0
+  ],
+  "sh_skill2_6": [
+   0.87,
+   125.5,
+   0
+  ],
+  "sh_skill2_7": [
+   1.1,
+   84.8,
+   0
+  ],
+  "sh_skill_1": [
+   0.98,
+   129.4,
+   0
+  ],
+  "sh_skill_2": [
+   0.9,
+   138.7,
+   0
+  ],
+  "sh_skill_3": [
+   1.07,
+   100.7,
+   0
+  ],
+  "sh_skill_4": [
+   1.15,
+   116.7,
+   0
+  ],
+  "sh_skill_5": [
+   1.08,
+   142.0,
+   0
+  ],
+  "sh_skill_6": [
+   1.06,
+   116.1,
+   0
+  ],
+  "sh_ult_exit_1": [
+   0.87,
+   138.0,
+   0
+  ],
+  "sh_ult_exit_2": [
+   1.08,
+   113.5,
+   0
+  ],
+  "sh_ult_exit_3": [
+   1.15,
+   131.4,
+   0
+  ],
+  "sh_ult_exit_4": [
+   0.88,
+   129.1,
+   0
+  ],
+  "sh_ult_exit_5": [
+   1.05,
+   88.0,
+   0
+  ]
+ },
+ "heights": {
+  "sh_attack_2": 7.01,
+  "sh_attack_3": 7.01,
+  "sh_attack_4": 6.99,
+  "sh_attack_5": 6.9,
+  "sh_attack_6": 7.01,
+  "sh_dead_2": 8.02,
+  "sh_dead_3": 8.06,
+  "sh_dead_4": 8.04,
+  "sh_dead_5": 7.95,
+  "sh_dead_6": 8.0,
+  "sh_hit_1": 8.04,
+  "sh_run_1": 8.5,
+  "sh_run_2": 8.12,
+  "sh_run_3": 8.03,
+  "sh_run_4": 8.0,
+  "sh_run_5": 8.08,
+  "sh_run_6": 8.03,
+  "sh_run_7": 8.25,
+  "sh_run_8": 8.0,
+  "sh_skill2_1": 6.09,
+  "sh_skill2_2": 5.97,
+  "sh_skill2_3": 5.95,
+  "sh_skill2_4": 6.01,
+  "sh_skill2_5": 6.03,
+  "sh_skill2_6": 5.99,
+  "sh_skill2_7": 6.08,
+  "sh_skill_1": 7.96,
+  "sh_skill_2": 7.98,
+  "sh_skill_3": 7.99,
+  "sh_skill_4": 8.01,
+  "sh_skill_5": 7.97,
+  "sh_skill_6": 8.01,
+  "sh_ult_exit_1": 6.99,
+  "sh_ult_exit_2": 7.06,
+  "sh_ult_exit_3": 7.0,
+  "sh_ult_exit_4": 7.0,
+  "sh_ult_exit_5": 7.3
+ },
+ "pivot": 56,
+ "pivot_overlap": 0.74,
+ "sheet_of": {
+  "sh_attack_2": "sh_attack_1",
+  "sh_attack_3": "sh_attack_1",
+  "sh_attack_4": "sh_attack_2",
+  "sh_attack_5": "sh_attack_3",
+  "sh_attack_6": "sh_attack_4",
+  "sh_dead_2": "sh_dead_1",
+  "sh_dead_3": "sh_dead_2",
+  "sh_dead_4": "sh_dead_3",
+  "sh_dead_5": "sh_dead_4",
+  "sh_dead_6": "sh_dead_5",
+  "sh_hit_1": "sh_hit_1",
+  "sh_run_1": "sh_run_1",
+  "sh_run_2": "sh_run_2",
+  "sh_run_3": "sh_run_3",
+  "sh_run_4": "sh_run_4",
+  "sh_run_5": "sh_run_5",
+  "sh_run_6": "sh_run_6",
+  "sh_run_7": "sh_run_7",
+  "sh_run_8": "sh_run_8",
+  "sh_skill2_1": "sh_skill2_1",
+  "sh_skill2_2": "sh_skill2_2",
+  "sh_skill2_3": "sh_skill2_3",
+  "sh_skill2_4": "sh_skill2_4",
+  "sh_skill2_5": "sh_skill2_5",
+  "sh_skill2_6": "sh_skill2_6",
+  "sh_skill2_7": "sh_skill2_7",
+  "sh_skill_1": "sh_skill_1",
+  "sh_skill_2": "sh_skill_2",
+  "sh_skill_3": "sh_skill_3",
+  "sh_skill_4": "sh_skill_4",
+  "sh_skill_5": "sh_skill_5",
+  "sh_skill_6": "sh_skill_6",
+  "sh_ult_exit_1": "sh_ult_exit_1",
+  "sh_ult_exit_2": "sh_ult_exit_2",
+  "sh_ult_exit_3": "sh_ult_exit_3",
+  "sh_ult_exit_4": "sh_ult_exit_4",
+  "sh_ult_exit_5": "sh_ult_exit_5"
+ }
+}

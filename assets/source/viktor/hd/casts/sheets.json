@@ -1,0 +1,292 @@
+{
+ "square": 10,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "1": "design 0",
+   "4": "attack 3",
+   "5": "design 0"
+  },
+  "skill2": {
+   "4": "design 0"
+  },
+  "skill2_e": {
+   "4": "skill2_e 3",
+   "5": "design 0"
+  },
+  "ult": {
+   "4": "ult 3",
+   "5": "design 0"
+  },
+  "hit": {
+   "1": "design 0",
+   "2": "design 0"
+  },
+  "dead": {
+   "1": "design 0",
+   "5": "dead 4",
+   "6": "dead 4",
+   "7": "dead 4",
+   "8": "dead 4"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): striding forward, the tall staff upright in his far hand, the cape behind him, the near fist swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his dark boot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the cape, the arms and the staff follow the pale figure. The staff's foot hangs near the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): striding forward, the tall staff upright in his far hand, the cape behind him, the near fist swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the cape, the arms and the staff follow the pale figure. The staff's foot hangs near the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): striding forward, the tall staff upright in his far hand, the cape behind him, the near fist swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the cape, the arms and the staff follow the pale figure. The staff's foot hangs near the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): striding forward, the tall staff upright in his far hand, the cape behind him, the near fist swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the cape, the arms and the staff follow the pale figure. The staff's foot hangs near the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "attack: he raises the near hand to his chest (frame 2) and thrusts it forward, the arm straight, the fist pointing at the foe (frames 3-4; frames 1 and 5 = the design)",
+   "ms": [
+    84,
+    100
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Siphon Power (Q): he lifts the staff (frame 1), draws it back (frame 2), swings it forward and round before him (frames 3-4) and stands it upright again (frame 5)",
+   "ms": [
+    75,
+    75
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Siphon Power (Q): he lifts the staff (frame 1), draws it back (frame 2), swings it forward and round before him (frames 3-4) and stands it upright again (frame 5)",
+   "ms": [
+    83,
+    83
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Siphon Power (Q): he lifts the staff (frame 1), draws it back (frame 2), swings it forward and round before him (frames 3-4) and stands it upright again (frame 5)",
+   "ms": [
+    84
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Gravity Field (W): the gold head with the blue gem lifts off the top of his staff (frame 1), he raises the near hand (frame 2) and holds the head out before him in the near hand, the arm stretched forward (frame 3; frame 4 = the design)",
+   "ms": [
+    75,
+    75
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Gravity Field (W): the gold head with the blue gem lifts off the top of his staff (frame 1), he raises the near hand (frame 2) and holds the head out before him in the near hand, the arm stretched forward (frame 3; frame 4 = the design)",
+   "ms": [
+    75
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "skill2_e",
+   "name": "skill2_e_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Hextech Ray (E): the staff's gold head lifts off and rises over him (frames 1-2), he takes it in the near hand and aims it forward, the arm stretched out (frames 3-4; frame 5 = the design)",
+   "ms": [
+    83,
+    84
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "skill2_e",
+   "name": "skill2_e_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Hextech Ray (E): the staff's gold head lifts off and rises over him (frames 1-2), he takes it in the near hand and aims it forward, the arm stretched out (frames 3-4; frame 5 = the design)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Chaos Storm (R): he points the near hand forward, the arm stretched out (frames 1-2), the staff's gold head lifts off and floats high over the staff (frames 3-4; frame 5 = the design)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Chaos Storm (R): he points the near hand forward, the arm stretched out (frames 1-2), the staff's gold head lifts off and floats high over the staff (frames 3-4; frame 5 = the design)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "death: struck (frame 1 = the design), he topples backwards, the staff falling from his hand (frames 2-3), and lies on his back, the staff and its gold head on the ground beside him (frame 4; frames 5-8 = frame 4)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck (frame 1 = the design), he topples backwards, the staff falling from his hand (frames 2-3), and lies on his back, the staff and its gold head on the ground beside him (frame 4; frames 5-8 = frame 4)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the tall gold staff with its gold ring and, on top, the gold head holding the blue gem - as long as in image 1, upright in his far hand, swung or laid down as the pale figure holds it. Where the pale figure's gold head has LIFTED OFF the staff (floating over it, or held out in his near hand), draw the head there and the staff without it, its ring still on. His near hand is a dark armoured fist. Only him: no bolts, no rays, no gravity field, no storm, no glow; the eye's cyan stays inside the eye."
+  }
+ ]
+}
