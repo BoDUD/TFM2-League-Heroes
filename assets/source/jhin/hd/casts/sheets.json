@@ -1,0 +1,600 @@
+{
+ "square": 9,
+ "square_of": {
+  "skill2": 8
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "attack4": {
+   "6": "design 0"
+  },
+  "skill": {
+   "6": "design 0"
+  },
+  "skill2": {
+   "8": "design 0"
+  },
+  "ult_aim": {
+   "1": "ult 4"
+  },
+  "ult_shot": {
+   "4": "ult_shot 1"
+  },
+  "hit": {
+   "2": "design 0"
+  },
+  "dead": {
+   "7": "dead 6",
+   "8": "dead 6"
+  }
+ },
+ "baked_body_frames": [
+  "attack",
+  "attack4",
+  "skill",
+  "skill2",
+  "ult_shot"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): walking briskly, the cane gun in the gold-armoured hand and Whisper hanging in the other, the LEGS CHANGING OVER as the pale figure has them",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask.",
+   "legs": "Frame 1: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). Frame 2: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」). His old run takes crossing steps: follow the pale figure's feet frame by frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): walking briskly, the cane gun in the gold-armoured hand and Whisper hanging in the other, the LEGS CHANGING OVER as the pale figure has them",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask.",
+   "legs": "Frame 3: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). Frame 4: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」). His old run takes crossing steps: follow the pale figure's feet frame by frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): walking briskly, the cane gun in the gold-armoured hand and Whisper hanging in the other, the LEGS CHANGING OVER as the pale figure has them",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask.",
+   "legs": "Frame 5: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). Frame 6: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」). His old run takes crossing steps: follow the pale figure's feet frame by frame."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): walking briskly, the cane gun in the gold-armoured hand and Whisper hanging in the other, the LEGS CHANGING OVER as the pale figure has them",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask.",
+   "legs": "Frame 7: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). Frame 8: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」). His old run takes crossing steps: follow the pale figure's feet frame by frame."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (Whisper): he lifts Whisper (frame 2), aims it straight ahead, the arm stretched out (frame 3), and the recoil throws it up (frames 4-5)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (Whisper): he lifts Whisper (frame 2), aims it straight ahead, the arm stretched out (frame 3), and the recoil throws it up (frames 4-5)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (Whisper): he lifts Whisper (frame 2), aims it straight ahead, the arm stretched out (frame 3), and the recoil throws it up (frames 4-5)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "attack4",
+   "name": "attack4_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "the fourth shot (Whisper): he crouches, his cape swirling (frame 1), twirls Whisper high over his head (frame 2), drops low and aims (frame 3), and fires, the arm stretched straight out (frames 4-5)",
+   "ms": [
+    40,
+    60
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "attack4",
+   "name": "attack4_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "the fourth shot (Whisper): he crouches, his cape swirling (frame 1), twirls Whisper high over his head (frame 2), drops low and aims (frame 3), and fires, the arm stretched straight out (frames 4-5)",
+   "ms": [
+    50
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "attack4",
+   "name": "attack4_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "the fourth shot (Whisper): he crouches, his cape swirling (frame 1), twirls Whisper high over his head (frame 2), drops low and aims (frame 3), and fires, the arm stretched straight out (frames 4-5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "attack4",
+   "name": "attack4_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "the fourth shot (Whisper): he crouches, his cape swirling (frame 1), twirls Whisper high over his head (frame 2), drops low and aims (frame 3), and fires, the arm stretched straight out (frames 4-5)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Dancing Grenade (Q): he raises the gold-armoured fist with the grenade (frames 1-2), throws, the arm swung straight out ahead (frames 3-4), and draws it back (frame 5)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Dancing Grenade (Q): he raises the gold-armoured fist with the grenade (frames 1-2), throws, the arm swung straight out ahead (frames 3-4), and draws it back (frame 5)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Dancing Grenade (Q): he raises the gold-armoured fist with the grenade (frames 1-2), throws, the arm swung straight out ahead (frames 3-4), and draws it back (frame 5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Deadly Flourish (W, the cane gun): he crouches low (frame 1), rises swinging the cane gun up (frame 2), twirls it high over his head (frame 3), brings it down (frame 4) and aims it straight ahead, the long gun level at his shoulder (frames 5-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Deadly Flourish (W, the cane gun): he crouches low (frame 1), rises swinging the cane gun up (frame 2), twirls it high over his head (frame 3), brings it down (frame 4) and aims it straight ahead, the long gun level at his shoulder (frames 5-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Deadly Flourish (W, the cane gun): he crouches low (frame 1), rises swinging the cane gun up (frame 2), twirls it high over his head (frame 3), brings it down (frame 4) and aims it straight ahead, the long gun level at his shoulder (frames 5-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Deadly Flourish (W, the cane gun): he crouches low (frame 1), rises swinging the cane gun up (frame 2), twirls it high over his head (frame 3), brings it down (frame 4) and aims it straight ahead, the long gun level at his shoulder (frames 5-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Deadly Flourish (W, the cane gun): he crouches low (frame 1), rises swinging the cane gun up (frame 2), twirls it high over his head (frame 3), brings it down (frame 4) and aims it straight ahead, the long gun level at his shoulder (frames 5-7)",
+   "ms": [
+    130
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Deadly Flourish (W, the cane gun): he crouches low (frame 1), rises swinging the cane gun up (frame 2), twirls it high over his head (frame 3), brings it down (frame 4) and aims it straight ahead, the long gun level at his shoulder (frames 5-7)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Deadly Flourish (W, the cane gun): he crouches low (frame 1), rises swinging the cane gun up (frame 2), twirls it high over his head (frame 3), brings it down (frame 4) and aims it straight ahead, the long gun level at his shoulder (frames 5-7)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call (R): he drops low, setting up the great gun (frame 1), heaves it up over his head (frame 2) and kneels with it on his shoulder, aiming ahead (frames 3-4)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call (R): he drops low, setting up the great gun (frame 1), heaves it up over his head (frame 2) and kneels with it on his shoulder, aiming ahead (frames 3-4)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call (R): he drops low, setting up the great gun (frame 1), heaves it up over his head (frame 2) and kneels with it on his shoulder, aiming ahead (frames 3-4)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call (R): he drops low, setting up the great gun (frame 1), heaves it up over his head (frame 2) and kneels with it on his shoulder, aiming ahead (frames 3-4)",
+   "ms": [
+    200
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult_aim",
+   "name": "ult_aim_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call, aiming (R): kneeling, the great gun on his shoulder, aiming ahead (frames 2-4)",
+   "ms": [
+    250
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult_aim",
+   "name": "ult_aim_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call, aiming (R): kneeling, the great gun on his shoulder, aiming ahead (frames 2-4)",
+   "ms": [
+    250
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult_aim",
+   "name": "ult_aim_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call, aiming (R): kneeling, the great gun on his shoulder, aiming ahead (frames 2-4)",
+   "ms": [
+    250
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult_shot",
+   "name": "ult_shot_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call, a shot (R): kneeling, aiming (frame 1), the recoil kicks the gun up (frame 2), and it comes back down (frame 3)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult_shot",
+   "name": "ult_shot_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call, a shot (R): kneeling, aiming (frame 1), the recoil kicks the gun up (frame 2), and it comes back down (frame 3)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "ult_shot",
+   "name": "ult_shot_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Curtain Call, a shot (R): kneeling, aiming (frame 1), the recoil kicks the gun up (frame 2), and it comes back down (frame 3)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back (frame 1)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, hunched (frame 1), reeling back, Whisper flung from his hand (frame 2), falling to his knees (frames 3-4), slumping forward (frame 5) and lying face down (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, hunched (frame 1), reeling back, Whisper flung from his hand (frame 2), falling to his knees (frames 3-4), slumping forward (frame 5) and lying face down (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, hunched (frame 1), reeling back, Whisper flung from his hand (frame 2), falling to his knees (frames 3-4), slumping forward (frame 5) and lying face down (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, hunched (frame 1), reeling back, Whisper flung from his hand (frame 2), falling to his knees (frames 3-4), slumping forward (frame 5) and lying face down (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, hunched (frame 1), reeling back, Whisper flung from his hand (frame 2), falling to his knees (frames 3-4), slumping forward (frame 5) and lying face down (frame 6)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, hunched (frame 1), reeling back, Whisper flung from his hand (frame 2), falling to his knees (frames 3-4), slumping forward (frame 5) and lying face down (frame 6)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS HANDS AND GUNS go where the pale figure has them, frame by frame (image 3 shows them in colour): the gold-armoured arm with the cane gun (its teal-wrapped shaft), Whisper (ivory stock, dark grey barrel, gold fittings), the grenade in the gold fist, and in his R the great gun on his shoulder - each as long as in image 1 (R's great gun as in the pale figure), raised, aimed, twirled or thrown as the pale figure holds it. The pale figures of his attack, fourth shot, Q, W and R shot are the old frames' bodies without their muzzle flashes: do NOT draw the flashes. Only him: no petals, no smoke, no bullets; the eyes' pink stays on the mask."
+  }
+ ]
+}

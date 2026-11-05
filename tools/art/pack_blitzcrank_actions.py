@@ -1,14 +1,15 @@
-"""The Codex pack for league_blitzcrank's actions drawn whole at PPU 1.80 (assets/source/blitzcrank/ACTIONS_PROMPT_PPU.md):
-every frame of his actions - his attack, Q Rocket Grab (skill: the throw, q_pull: the pull - every frame of it is the
-throw's - and q_hold: the hand back, holding), E Power Fist (skill2), R Static Field (ult), run, hit and death - a new
-drawing of the approved design (hd/design.png: Codex's blitzcrank-A read on ~14.4-px squares, 80 x 79 - the user,
-2026-11-05: 「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」) in the pose of his OLD sheet's same frame, tools/art/pack_ryze_actions.py's
-way, one PR with the other three.
+"""The Codex pack for league_blitzcrank's actions drawn whole at PPU 1.80
+(assets/source/blitzcrank/ACTIONS_PROMPT_PPU.md): every frame of his actions - his attack, Q Rocket Grab (skill: the
+throw, q_pull: the pull - every frame of it is the throw's - and q_hold: the hand back, holding), E Power Fist (skill2),
+R Static Field (ult), run, hit and death - a new drawing of the approved design (hd/design.png: Codex's blitzcrank-A
+read on ~14.4-px squares, 80 x 79 - the user, 2026-11-05: 「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」) in the pose of his OLD sheet's
+same frame, tools/art/pack_ryze_actions.py's way, one PR with the other three.
 
     python tools/art/pack_blitzcrank_actions.py --out C:/t/blitzcrank_actions
+    python tools/art/pack_blitzcrank_actions.py --out C:/t/blitzcrank_run --only run --prompt RUN_REDO_PROMPT_PPU.md
 
 The weapon and hands go where the old frame has them (WEAPONS); the old frames' baked effects are not drawn. The run's
-legs change over (RUN_LEGS, named from the start).
+legs change over (RUN_LEGS: named frame by frame for the run's redo - the first run kept the same legs in all 8 frames).
 
 Not drawn: idle_base (the design, held still), idle and bp (tools/art/hero_reels.json cuts them from the actions). Old
 frames that are another frame pixel for pixel are drawn once (SAME). Nothing is baked. Each template sheet
@@ -61,38 +62,35 @@ ARMS = ("HIS ARMS AND FISTS go where the pale figure has them, frame by frame (i
         "fists are NOT legs: his two short piston legs with the golden feet carry him. Only him: no steam, no "
         "electric sparks or lightning, no chain; the eyes' pink stays inside the eyes.")
 WEAPONS = {t: ARMS for t in NAMES}
-# The run's legs, frame by frame - deferred to the pale figure, the old run taking its own steps (Talon's first run kept one leg in front in every frame: 「走路没有换腿」;
-# so did Codex's first run of Senna's: named here from the start); he runs to the right, "back" is the image's left
+# The run's legs frame by frame. First deferred to the pale figure (the old run's legs could not be read at 1x), but
+# Codex drew the same legs in all 8 frames - the front foot planted, the back foot kicked up (2026-11-05, read back:
+# the legs never change over; the user on Talon, 2026-10-31: 「走路没有换腿」) - so the redo (--only run --prompt
+# RUN_REDO_PROMPT_PPU.md) names each frame's legs, Talon's way: support, swing, passing, stride, the other leg from
+# frame 5; he runs to the right, "back" is the picture's left
 RUN_LEGS = {
-    1: "the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, "
-       "which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg"
-       " darker)",
-    2: "the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, "
-       "which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg"
-       " darker)",
-    3: "the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, "
-       "which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg"
-       " darker)",
-    4: "the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, "
-       "which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg"
-       " darker)",
-    5: "the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, "
-       "which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg"
-       " darker)",
-    6: "the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, "
-       "which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg"
-       " darker)",
-    7: "the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, "
-       "which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg"
-       " darker)",
-    8: "the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, "
-       "which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg"
-       " darker)",
+    1: "SUPPORT ON THE NEAR LEG: the NEAR piston leg (the lighter one) straight down under his hips, its big golden foot "
+       "flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground",
+    2: "SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from "
+       "behind, its foot low, just off the ground behind the planted one",
+    3: "PASSING: both short legs under his round body; the FAR leg passing forward right beside the planted near leg, "
+       "its foot just off the ground - the two golden feet side by side",
+    4: "STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the "
+       "picture's left) pushing off, its toes on the ground - the feet wide apart",
+    5: "SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the "
+       "ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground",
+    6: "SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from "
+       "behind, its foot low, just off the ground behind the planted one",
+    7: "PASSING: both short legs under his round body; the NEAR leg passing forward right beside the planted far leg, "
+       "its foot just off the ground - the two golden feet side by side",
+    8: "STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the "
+       "picture's left) pushing off, its toes on the ground - the feet wide apart",
 }
-RUN_SWAP = ("The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) "
-            "pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame "
-            "(Senna's first run did that, and Talon's: 「走路没有换腿」). His big fists swing down near the ground but are NOT "
-            "legs: his two short piston legs with the golden feet carry him.")
+RUN_SWAP = ("The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes "
+            "forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 "
+            "and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's "
+            "(the last run had the front foot planted and the back foot kicked up in all 8 frames: never the same legs "
+            "in every frame). The body, the head and the fists follow the pale figure; the big fists swing near the "
+            "ground but are NOT legs: his two short piston legs with the golden feet carry him.")
 # old frames that are another frame pixel for pixel (checked on the old sheet, cropped to the figure): drawn once,
 # here (tag, frame), 1-based; DESIGN: her idle pose itself (the old idle_base 1)
 DESIGN = ("design", 0)

@@ -1,0 +1,410 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "skill": {
+   "3": "attack 3",
+   "5": "skill 4",
+   "6": "attack 6"
+  },
+  "skill2": {
+   "4": "skill2 1",
+   "7": "attack 6"
+  },
+  "ult": {
+   "3": "attack 6"
+  },
+  "hit": {
+   "2": "attack 6"
+  },
+  "dead": {
+   "6": "dead 5",
+   "7": "dead 5",
+   "8": "dead 5"
+  }
+ },
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): crouched forward, the two scythe claws swinging with his steps, the LEGS CHANGING OVER as the pale figure has them",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid.",
+   "legs": "Frame 1: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). Frame 2: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」). His scythe claws swing down near the ground but are NOT legs: his two legs with the copper clawed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): crouched forward, the two scythe claws swinging with his steps, the LEGS CHANGING OVER as the pale figure has them",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid.",
+   "legs": "Frame 3: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). Frame 4: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」). His scythe claws swing down near the ground but are NOT legs: his two legs with the copper clawed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): crouched forward, the two scythe claws swinging with his steps, the LEGS CHANGING OVER as the pale figure has them",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid.",
+   "legs": "Frame 5: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). Frame 6: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」). His scythe claws swing down near the ground but are NOT legs: his two legs with the copper clawed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop): crouched forward, the two scythe claws swinging with his steps, the LEGS CHANGING OVER as the pale figure has them",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid.",
+   "legs": "Frame 7: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). Frame 8: the legs EXACTLY as the pale figure has them in this frame: which leg is in front and which behind, which foot is flat on the ground line and which is lifted (image 3: the near leg lighter, the far leg darker). The two legs TAKE TURNS as in the old run: the near leg (the lighter one) and the far leg (the darker one) pass each other, the leg in front changing over the 8 frames - never the same leg in front in every frame (Senna's first run did that, and Talon's: 「走路没有换腿」). His scythe claws swing down near the ground but are NOT legs: his two legs with the copper clawed feet carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: the near claw thrust forward (frame 1), raised high (frame 2), thrust forward again (frame 3), swept low and forward (frame 4) and drawn back down (frame 5); he stands ready (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: the near claw thrust forward (frame 1), raised high (frame 2), thrust forward again (frame 3), swept low and forward (frame 4) and drawn back down (frame 5); he stands ready (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: the near claw thrust forward (frame 1), raised high (frame 2), thrust forward again (frame 3), swept low and forward (frame 4) and drawn back down (frame 5); he stands ready (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: the near claw thrust forward (frame 1), raised high (frame 2), thrust forward again (frame 3), swept low and forward (frame 4) and drawn back down (frame 5); he stands ready (frame 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: the near claw thrust forward (frame 1), raised high (frame 2), thrust forward again (frame 3), swept low and forward (frame 4) and drawn back down (frame 5); he stands ready (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack: the near claw thrust forward (frame 1), raised high (frame 2), thrust forward again (frame 3), swept low and forward (frame 4) and drawn back down (frame 5); he stands ready (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Taste Their Fear (Q): he raises the near claw high (frames 1-2) and drives it down and forward into the prey (frames 3-5), then stands ready (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Taste Their Fear (Q): he raises the near claw high (frames 1-2) and drives it down and forward into the prey (frames 3-5), then stands ready (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Taste Their Fear (Q): he raises the near claw high (frames 1-2) and drives it down and forward into the prey (frames 3-5), then stands ready (frame 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Leap into Void Spike (E then W): he crouches low (frame 1), springs forward through the air, stretched long, his wings spread (frames 2-3), lands low (frame 4), rises and flings the void spike, the near claw thrown up (frames 5-6), and stands ready (frame 7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Leap into Void Spike (E then W): he crouches low (frame 1), springs forward through the air, stretched long, his wings spread (frames 2-3), lands low (frame 4), rises and flings the void spike, the near claw thrown up (frames 5-6), and stands ready (frame 7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Leap into Void Spike (E then W): he crouches low (frame 1), springs forward through the air, stretched long, his wings spread (frames 2-3), lands low (frame 4), rises and flings the void spike, the near claw thrown up (frames 5-6), and stands ready (frame 7)",
+   "ms": [
+    60
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Leap into Void Spike (E then W): he crouches low (frame 1), springs forward through the air, stretched long, his wings spread (frames 2-3), lands low (frame 4), rises and flings the void spike, the near claw thrown up (frames 5-6), and stands ready (frame 7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Leap into Void Spike (E then W): he crouches low (frame 1), springs forward through the air, stretched long, his wings spread (frames 2-3), lands low (frame 4), rises and flings the void spike, the near claw thrown up (frames 5-6), and stands ready (frame 7)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Void Assault (R): he crouches low, his wings spread wide (frame 1), rises (frame 2) and stands ready (frame 3) - drawn whole and solid, never see-through",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Void Assault (R): he crouches low, his wings spread wide (frame 1), rises (frame 2) and stands ready (frame 3) - drawn whole and solid, never see-through",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back, the claws flung out (frame 1); he stands ready again (frame 2)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers back (frame 2), topples backwards, his whole body tilted (frame 3), and lies on his back, the claws and the wings on the ground (frames 4-5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers back (frame 2), topples backwards, his whole body tilted (frame 3), and lies on his back, the claws and the wings on the ground (frames 4-5)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers back (frame 2), topples backwards, his whole body tilted (frame 3), and lies on his back, the claws and the wings on the ground (frames 4-5)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers back (frame 2), topples backwards, his whole body tilted (frame 3), and lies on his back, the claws and the wings on the ground (frames 4-5)",
+   "ms": [
+    130
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he staggers back (frame 2), topples backwards, his whole body tilted (frame 3), and lies on his back, the claws and the wings on the ground (frames 4-5)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS CLAWS go where the pale figure has them, frame by frame (image 3 shows them in colour): the two long scythe claws with their pale pink-white blades veined in dark red, as long as in image 1 - raised, thrust, swept or folded as the pale figure holds them; the wings on his back and the two teal antennae as in image 1, folded or spread as the pale figure has them. The claws are NOT legs: his two legs with the copper clawed feet carry him. Only him: no void glow, no afterimages, no camouflage shimmer (his R) - every frame shows him whole and solid."
+  }
+ ]
+}

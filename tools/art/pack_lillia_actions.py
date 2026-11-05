@@ -1,10 +1,14 @@
-"""The Codex pack for league_lillia's actions drawn whole at PPU 2.62 (assets/source/lillia/ACTIONS_PROMPT_PPU.md): every
-frame of her actions - her attack, Q Blooming Blows (skill), E Swirlseed (skill2) into W Watch Out! Eep! (skill2_w), R
-Lilting Lullaby (ult), run, hit and death - a new drawing of the approved design (hd/design.png: Codex's lillia-A read
-on ~8.5-px squares, 96 x 139 - the user, 2026-11-05: 「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」) in the pose of her OLD sheet's same
-frame, tools/art/pack_ryze_actions.py's way, one PR with the other three.
+"""The Codex pack for league_lillia's actions drawn whole at PPU 2.62 (assets/source/lillia/ACTIONS_PROMPT_PPU.md):
+every frame of her actions - her attack, Q Blooming Blows (skill), E Swirlseed (skill2) into W Watch Out! Eep!
+(skill2_w), R Lilting Lullaby (ult), run, hit and death - a new drawing of the approved design (hd/design.png: Codex's
+lillia-A read on ~8.5-px squares, 96 x 139 - the user, 2026-11-05: 「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」) in the pose of her OLD
+sheet's same frame, tools/art/pack_ryze_actions.py's way, one PR with the other three.
 
     python tools/art/pack_lillia_actions.py --out C:/t/lillia_actions
+    python tools/art/pack_lillia_actions.py --out C:/t/lillia_run --only run --sheets run_1 --style run_2 --prompt RUN_REDO_PROMPT_PPU.md
+
+The run_1 redo: Codex drew it coarser than her other runs (about 14 px a pixel against their 10-11) and hid her face
+under vines; refs/style.png (--style) is her delivered run_2 sheet, the pixel size and the face to match.
 
 The weapon and hands go where the old frame has them (WEAPONS); the old frames' baked effects are not drawn. The run's
 legs change over (RUN_LEGS, named from the start).
@@ -234,6 +238,8 @@ def main():
     ap.add_argument("--only", help="tags to pack, comma-separated (the redo of one action: --only run)")
     ap.add_argument("--sheets", help="of those, only these sheets, comma-separated (the redo: run_1,...,skill_1)")
     ap.add_argument("--prompt", default="ACTIONS_PROMPT_PPU.md", help="the prompt file in assets/source/lillia")
+    ap.add_argument("--style", help="a delivered sheet (hd/casts/<name>.png) shown as the style to match: refs/style.png "
+                                    "(the run_1 redo: run_2, at the pixel size of her other runs)")
     a = ap.parse_args()
     tpl, refs = os.path.join(a.out, "templates"), os.path.join(a.out, "refs")
     for d in (tpl, refs):
@@ -270,6 +276,8 @@ def main():
     with open(os.path.join(a.out, "sheets.json"), "w", encoding="utf-8") as f:
         json.dump({"square": SQ, "square_of": SQ_OF, "sheet": [SHEET_W, H], "ground": GROUND, "same": same, "baked_body_frames": BAKED,
                    "sheets": sheets}, f, indent=1, ensure_ascii=False)
+    if a.style:
+        shutil.copyfile(PR.lp(os.path.join(SRC, "hd", "casts", a.style + ".png")), os.path.join(refs, "style.png"))
     shutil.copyfile(PR.lp(os.path.join(SRC, a.prompt)), os.path.join(a.out, "ACTIONS_PROMPT.md"))
     zp = shutil.make_archive(a.out, "zip", a.out)
     print(len(sheets), "sheets,", sum(len(s["frames"]) for s in sheets), "frames; written", zp)

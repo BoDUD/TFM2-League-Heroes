@@ -1,0 +1,374 @@
+{
+ "square": 6,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "5": "design 0"
+  },
+  "skill": {
+   "2": "attack 2",
+   "3": "attack 3",
+   "6": "design 0"
+  },
+  "skill2": {
+   "4": "design 0"
+  },
+  "skill2_w": {
+   "1": "skill2 1",
+   "4": "skill2_w 3",
+   "7": "design 0"
+  },
+  "ult": {
+   "6": "design 0"
+  },
+  "hit": {
+   "2": "design 0"
+  },
+  "dead": {
+   "5": "dead 4",
+   "6": "dead 4",
+   "7": "dead 4",
+   "8": "dead 4"
+  }
+ },
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "running (her move loop): a fawn's canter, the branch held up, her FOUR LEGS stepping as the pale figure has them",
+   "ms": [
+    92,
+    92
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem.",
+   "legs": "Frame 1: her FOUR LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). Frame 2: her FOUR LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). Her four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs thin and as long as in image 1, the violet hooves on them."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "running (her move loop): a fawn's canter, the branch held up, her FOUR LEGS stepping as the pale figure has them",
+   "ms": [
+    92,
+    92
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem.",
+   "legs": "Frame 3: her FOUR LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). Frame 4: her FOUR LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). Her four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs thin and as long as in image 1, the violet hooves on them."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "running (her move loop): a fawn's canter, the branch held up, her FOUR LEGS stepping as the pale figure has them",
+   "ms": [
+    92,
+    92
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem.",
+   "legs": "Frame 5: her FOUR LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). Frame 6: her FOUR LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). Her four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs thin and as long as in image 1, the violet hooves on them."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "running (her move loop): a fawn's canter, the branch held up, her FOUR LEGS stepping as the pale figure has them",
+   "ms": [
+    92,
+    92
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem.",
+   "legs": "Frame 7: her FOUR LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). Frame 8: her FOUR LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). Her four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs thin and as long as in image 1, the violet hooves on them."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "attack: she swings the branch back over her shoulder (frame 1), raises it (frame 2), sweeps it out ahead of her, level, the flower bell at its end (frame 3), and strikes it down to the ground before her (frame 4)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "attack: she swings the branch back over her shoulder (frame 1), raises it (frame 2), sweeps it out ahead of her, level, the flower bell at its end (frame 3), and strikes it down to the ground before her (frame 4)",
+   "ms": [
+    80
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "attack: she swings the branch back over her shoulder (frame 1), raises it (frame 2), sweeps it out ahead of her, level, the flower bell at its end (frame 3), and strikes it down to the ground before her (frame 4)",
+   "ms": [
+    80
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    4
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Blooming Blows (Q): she spins the branch round her - held across her body, the bell behind her (frame 1), raised (frame 2), swept out ahead (frame 3), down before her (frame 4), across her body again (frame 5)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Blooming Blows (Q): she spins the branch round her - held across her body, the bell behind her (frame 1), raised (frame 2), swept out ahead (frame 3), down before her (frame 4), across her body again (frame 5)",
+   "ms": [
+    70
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Swirlseed (E): she draws the branch down across her body, the bell low behind her (frame 1), raises it (frame 2) and flings it up and forward, tossing the seed (frame 3)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Swirlseed (E): she draws the branch down across her body, the bell low behind her (frame 1), raises it (frame 2) and flings it up and forward, tossing the seed (frame 3)",
+   "ms": [
+    70
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "skill2_w",
+   "name": "skill2_w_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Watch Out! Eep! (W): the branch across her body (frame 1), she rears up on her hind legs, the branch held high (frames 2-4), and slams it down to the ground before her (frames 5-6)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "skill2_w",
+   "name": "skill2_w_2",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Watch Out! Eep! (W): the branch across her body (frame 1), she rears up on her hind legs, the branch held high (frames 2-4), and slams it down to the ground before her (frames 5-6)",
+   "ms": [
+    80
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "skill2_w",
+   "name": "skill2_w_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Watch Out! Eep! (W): the branch across her body (frame 1), she rears up on her hind legs, the branch held high (frames 2-4), and slams it down to the ground before her (frames 5-6)",
+   "ms": [
+    120
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Lilting Lullaby (R): she lifts the branch high and rocks it, the bell swinging - up (frames 1-2), tilted forward (frame 3), up again (frame 4), forward (frame 5)",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Lilting Lullaby (R): she lifts the branch high and rocks it, the bell swinging - up (frames 1-2), tilted forward (frame 3), up again (frame 4), forward (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Lilting Lullaby (R): she lifts the branch high and rocks it, the bell swinging - up (frames 1-2), tilted forward (frame 3), up again (frame 4), forward (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Lilting Lullaby (R): she lifts the branch high and rocks it, the bell swinging - up (frames 1-2), tilted forward (frame 3), up again (frame 4), forward (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "struck: jolted back (frame 1)",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "death: struck (frames 1-2), she topples over sideways, her legs kicking up (frame 3), and lies on her side, the branch on the ground before her (frame 4)",
+   "ms": [
+    100,
+    110
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck (frames 1-2), she topples over sideways, her legs kicking up (frame 3), and lies on her side, the branch on the ground before her (frame 4)",
+   "ms": [
+    110
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "death: struck (frames 1-2), she topples over sideways, her legs kicking up (frame 3), and lies on her side, the branch on the ground before her (frame 4)",
+   "ms": [
+    120
+   ],
+   "weapons": "HER HANDS AND THE BRANCH go where the pale figure has them, frame by frame (image 3 shows them in colour): the branch staff with its blue-violet gem, orange hook, flower bell and golden leaf, as long as in image 1 - held up, swung, spun, slammed down or rocked as the pale figure holds it, her hands on it where the pale figure has them. HER FOUR LEGS go where the pale figure has them: four thin orange fawn legs with violet hooves, as long as in image 1. Only her: no dream dust, no petals, no glow; the gem's light stays inside the gem."
+  }
+ ]
+}
