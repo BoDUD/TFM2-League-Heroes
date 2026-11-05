@@ -38,10 +38,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "nautilus", "hd")
-AH.RAW, AH.PITCH = "nautilus-A.png", (10.52, 10.64)    # the default read (10.58 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-05): 「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80 维克托 1.81 永恩2.20 泰坦1.80」
+AH.RAW, AH.PITCH = "nautilus-A.png", (12.79, 12.91)    # 12.85 px, the user's pick: PPU 1.80
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"nautilus-A.png": {"10.58": ((10.52, 10.64), 5), "8.75": ((8.69, 8.81), 4), "12.85": ((12.79, 12.91), 6)}}
-DEFAULT = ("nautilus-A.png", "10.58")
+DEFAULT = ("nautilus-A.png", "12.85")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

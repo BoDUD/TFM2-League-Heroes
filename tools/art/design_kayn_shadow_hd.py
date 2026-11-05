@@ -39,10 +39,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "kayn_shadow", "hd")
-AH.RAW, AH.PITCH = "kayn_shadow-A.png", (10.6, 10.72)    # the default read (10.66 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-05): 「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80 维克托 1.81 永恩2.20 泰坦1.80」
+AH.RAW, AH.PITCH = "kayn_shadow-A.png", (12.94, 13.06)    # 13 px, the user's pick: PPU 1.80
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"kayn_shadow-A.png": {"10.66": ((10.6, 10.72), 5), "8.8": ((8.74, 8.86), 4), "13": ((12.94, 13.06), 6)}}
-DEFAULT = ("kayn_shadow-A.png", "10.66")
+DEFAULT = ("kayn_shadow-A.png", "13")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

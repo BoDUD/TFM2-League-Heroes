@@ -37,7 +37,8 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "yone", "hd")
-AH.RAW, AH.PITCH = "yone-A.png", (12.44, 12.56)    # the default read (12.5 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-05): 「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80 维克托 1.81 永恩2.20 泰坦1.80」
+AH.RAW, AH.PITCH = "yone-A.png", (12.44, 12.56)    # 12.5 px, the user's pick: PPU 2.20
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"yone-A.png": {"12.5": ((12.44, 12.56), 6), "10.37": ((10.31, 10.43), 5), "15.3": ((15.24, 15.36), 7)}}
 DEFAULT = ("yone-A.png", "12.5")
