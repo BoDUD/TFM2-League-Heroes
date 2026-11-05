@@ -527,7 +527,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -7
+        "y": -4
       }
     },
     "league_camille": {
@@ -884,6 +884,10 @@
       "center": {
         "x": 1,
         "y": -11
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_brand": {
@@ -949,7 +953,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -6
+        "y": -5
       }
     },
     "league_viktor": {

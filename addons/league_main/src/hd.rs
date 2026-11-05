@@ -569,6 +569,30 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // drawn from their native body cells, the flashes on his hands baked on again by brand_bake.json); 43 game px as his
     // 1x sprite, so no SIZES row
     ("league_brand", 1.791, include_str!("../../../league/champions/league_brand#anim.fanim")),
+    // Kha'Zix (2026-11-05, 「接下来重做螳螂 机器人 莉莉娅 烬」, 「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」): Codex's khazix-A read
+    // on its own ~13.8-px squares (81 x 83, tools/art/design_khazix_hd.py: 83 rows / 37 = 2.243; his thin antennae laid
+    // along their skeletons); every action Codex's whole-frame redraw of his old frame read onto it at the zoom its fit
+    // over the old frame gives (tools/art/casts_khazix_hd.py, rig_khazix_hd.py; nothing baked); 37 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_khazix", 2.243, include_str!("../../../league/champions/league_khazix#anim.fanim")),
+    // Blitzcrank (the same release): Codex's blitzcrank-A read on its own ~14.4-px squares (80 x 79,
+    // tools/art/design_blitzcrank_hd.py: 79 rows / 44 = 1.795); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the zoom its fit over the old frame gives (tools/art/casts_blitzcrank_hd.py, rig_blitzcrank_hd.py;
+    // the run drawn again with its legs named frame by frame, Q's flying hand an empty socket; nothing baked); 44 game px
+    // as his 1x sprite, so no SIZES row
+    ("league_blitzcrank", 1.795, include_str!("../../../league/champions/league_blitzcrank#anim.fanim")),
+    // Lillia (the same release): Codex's lillia-A read on its own ~8.5-px squares (96 x 139,
+    // tools/art/design_lillia_hd.py: 139 rows / 53 = 2.623); every action Codex's whole-frame redraw of her old frame read
+    // onto it at the zoom its fit over the old frame gives (tools/art/casts_lillia_hd.py, rig_lillia_hd.py; four legs in
+    // the run; nothing baked); 53 game px as her 1x sprite, so no SIZES row
+    ("league_lillia", 2.623, include_str!("../../../league/champions/league_lillia#anim.fanim")),
+    // Jhin (the same release): Codex's jhin-A read on its own ~15.3-px squares (55 x 74, tools/art/design_jhin_hd.py: 74
+    // rows / 41 = 1.805); every action Codex's whole-frame redraw of his old frame read onto it at the zoom its fit over
+    // the old frame gives (tools/art/casts_jhin_hd.py, rig_jhin_hd.py; the attack, fourth shot, Q, W and R shot drawn from
+    // their native body cells, the muzzle flashes and Q's throw flash baked on again by jhin_bake.json, the attack's shot
+    // moved up to Codex's muzzle; his death's flung Whisper moved to where the old frames have it); 41 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_jhin", 1.805, include_str!("../../../league/champions/league_jhin#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
