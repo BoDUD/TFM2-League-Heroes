@@ -4381,6 +4381,14 @@
       "tag": "slow",
       "repeat": true,
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_eggs_crown_sejuani",
+      "anim": "asset/league/effects/league_eggs_crown_1x",
+      "tag": "sejuani",
+      "repeat": true,
+      "z": 4
     }
   ]
 }

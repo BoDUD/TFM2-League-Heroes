@@ -1969,6 +1969,20 @@
                                     {
                                       "casting_type": "Targeting",
                                       "effect": {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "league_fizz_r_eat",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 2
+                                            }
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
                                         "type": "ApAttack",
                                         "damage": 150,
                                         "attack_ratio": 70,
@@ -2079,6 +2093,20 @@
                                       {
                                         "casting_type": "Targeting",
                                         "effect": {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_fizz_r_eat",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 2
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
                                           "type": "ApAttack",
                                           "damage": 220,
                                           "attack_ratio": 90,
@@ -2186,6 +2214,20 @@
                                       {
                                         "casting_type": "Targeting",
                                         "effect": {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_fizz_r_eat",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 2
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "casting_type": "Targeting",
+                                        "effect": {
                                           "type": "ApAttack",
                                           "damage": 300,
                                           "attack_ratio": 110,
@@ -2272,6 +2314,20 @@
                             },
                             "applied_target": "EnemyWithoutTower",
                             "applied_effects": [
+                              {
+                                "casting_type": "Targeting",
+                                "effect": {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_fizz_r_eat",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 2
+                                      }
+                                    }
+                                  }
+                                }
+                              },
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
@@ -2408,6 +2464,14 @@
       "tag": "r_shark3",
       "z": 1,
       "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_fizz_r_gulp",
+      "anim": "asset/league/effects/league_fizz_gulp",
+      "tag": "gulp",
+      "z": -1,
+      "is_follow": true
     }
   ],
   "view_buffs": [

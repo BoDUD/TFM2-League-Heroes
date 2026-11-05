@@ -29,7 +29,10 @@
       "pl_hi": 100,
       "pl_ratio": 12,
       "r_r": 32000,
-      "r_rage": 300
+      "r_rage": 300,
+      "q_delay": 30,
+      "q_fast": 4,
+      "e_grow": 25
     }
   },
   "sprite": "asset/league/champions/league_zyra",
@@ -1500,6 +1503,110 @@
       "anim": "asset/league/effects/league_zyra_fx",
       "tag": "s_seed",
       "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_t_big0",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "t_big0",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_t_big1",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "t_big1",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_t_big2",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "t_big2",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_t_big3",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "t_big3",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_t_big4",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "t_big4",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_t_big_end",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "t_big_end",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_v_big0",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "v_big0",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_v_big1",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "v_big1",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_v_big2",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "v_big2",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_v_big3",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "v_big3",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_v_big4",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "v_big4",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_v_big_end",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "v_big_end",
+      "z": -1,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_zyra_sun_pop",
+      "anim": "asset/league_zyra/effects/league_zyra_sun",
+      "tag": "sun_pop",
+      "z": 1,
       "is_follow": false
     }
   ],
