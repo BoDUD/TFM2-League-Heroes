@@ -7,6 +7,11 @@ same frame, tools/art/pack_ryze_actions.py's way, one PR with the other three.
 
     python tools/art/pack_blitzcrank_actions.py --out C:/t/blitzcrank_actions
     python tools/art/pack_blitzcrank_actions.py --out C:/t/blitzcrank_run --only run --prompt RUN_REDO_PROMPT_PPU.md
+    python tools/art/pack_blitzcrank_actions.py --out C:/t/blitzcrank_run1 --only run --sheets run_1 --style run_2 --prompt RUN1_REDO_PROMPT_PPU.md
+
+The run_1 redo: the run's redo drew frame 1 facing the viewer (the head over the middle, the fists spread alike) where
+the old frame and the other seven are 3/4 to the right; refs/style.png (--style) is the delivered run_2, the view and
+size to match.
 
 The weapon and hands go where the old frame has them (WEAPONS); the old frames' baked effects are not drawn. The run's
 legs change over (RUN_LEGS: named frame by frame for the run's redo - the first run kept the same legs in all 8 frames).
@@ -233,6 +238,8 @@ def main():
     ap.add_argument("--only", help="tags to pack, comma-separated (the redo of one action: --only run)")
     ap.add_argument("--sheets", help="of those, only these sheets, comma-separated (the redo: run_1,...,skill_1)")
     ap.add_argument("--prompt", default="ACTIONS_PROMPT_PPU.md", help="the prompt file in assets/source/blitzcrank")
+    ap.add_argument("--style", help="a delivered sheet (hd/casts/<name>.png) shown as the view and size to match: "
+                                    "refs/style.png (the run_1 redo: run_2, 3/4 view)")
     a = ap.parse_args()
     tpl, refs = os.path.join(a.out, "templates"), os.path.join(a.out, "refs")
     for d in (tpl, refs):
@@ -269,6 +276,8 @@ def main():
     with open(os.path.join(a.out, "sheets.json"), "w", encoding="utf-8") as f:
         json.dump({"square": SQ, "square_of": SQ_OF, "sheet": [SHEET_W, H], "ground": GROUND, "same": same, "baked_body_frames": BAKED,
                    "sheets": sheets}, f, indent=1, ensure_ascii=False)
+    if a.style:
+        shutil.copyfile(PR.lp(os.path.join(SRC, "hd", "casts", a.style + ".png")), os.path.join(refs, "style.png"))
     shutil.copyfile(PR.lp(os.path.join(SRC, a.prompt)), os.path.join(a.out, "ACTIONS_PROMPT.md"))
     zp = shutil.make_archive(a.out, "zip", a.out)
     print(len(sheets), "sheets,", sum(len(s["frames"]) for s in sheets), "frames; written", zp)
