@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.79 |
 | 附加包 | [低血量附加包：布里茨、乐芙兰、丽桑卓](#附加包)（`league_lowhp`） |
 
 ![布里茨演示](../preview/league_blitzcrank_showcase.gif)
@@ -87,6 +87,7 @@
 | 亚索联动 | Q 的眩晕和 E 的击飞是亚索大招要的控制：布里茨打辅助、亚索打上路同队时，亚索每局 R 到被控英雄 1.98 次（同一批蕾欧娜 1.88、锤石 1.35、原版牧师 0.65），和带硬控的辅助同一档，亚索不用调 |
 | 精灵图 | 10 个动作 57 帧：待机、移动、普攻、Q、Q 拉拽、Q 爪子装回、E、R、受击、死亡。造型按用户在 Codex 里挑的原画（A：两拳垂在身侧），由 Codex 直接按游戏尺寸画：金色的圆身体、粉色的眼睛、胸口的银色仪表圈、两根钢烟囱、垂到地面的两只方块大拳、深色活塞腿和金色大脚。烟囱顶到脚底 44 px，46 px 宽，16 色 |
 | 特效 | 普攻命中的金色冲击（16 px），静电标记（18 px，1 秒）和从头顶劈下的闪电（20 × 44 px），Q 的金色机械爪（张开和合拢各 2 帧，16 × 14，Codex 重画）和钢链（一节 8 × 3，逐帧拼出），钩中英雄的金色电光圈（22 px），E 上勾拳的冲击和往上冲的火星（24 × 40 px），W 两根烟囱冒的蒸汽（48 × 56 px），R 浑身窜的电弧（60 × 56 px）、地上炸开的电场（132 × 72 px，半径 40000）、电到每个敌人的电光（18 px）、头顶的紫色沉默环（22 × 12 px），被动的金色能量罩（60 × 56 px） |
+| 高清帧（PPU 1.79） | 2026-11-05 用 PPU 重做，和螳螂、莉莉娅、烬在同一个 PR（用户：「接下来重做螳螂 机器人 莉莉娅 烬」「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」「codex交付了 做到完美后喊我review」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 14.4 像素一格读回（80 × 79 格；烟囱顶到脚底 79 行，旧精灵 44 行，PPU 1.79）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 42 张图，跑步又重画了两轮（普攻第 6 帧，Q 第 8 帧，Q 拉拽 3 帧，E 第 7 帧，R 第 7 帧，受击第 2 帧共 8 帧和别的帧一样或就是设计图，只画一次），白底原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（只有姿势和模板差太远、重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；只按身高或面积，更长的触角、张开的翅膀、举高的枝条会把人量小一成左右；量大小用胸前仪表圈连领圈的凸包（Codex 把圈画得更粗，凸包不受粗细影响）；Q 手飞出去的几帧是空的六角形腕口；跑步第一轮 8 帧都是前脚踩地、后脚往后翘（剪影一样，不换腿），重画时逐帧写明哪条腿撑地（第 1–4 帧近侧腿、第 5–8 帧远侧腿：后踢、落下、并拢、跨开），第 1 帧第二轮画成了正面、又补画一次。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -7 → -4（规则：烟囱顶离卡顶 1 格；-7 会裁掉 3 格烟囱）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 2 条语音（基础皮肤没有技能台词：W 用移动语音、R 用攻击语音），合成 11 个游戏音效。不提交到仓库，按下面的命令在本地生成 |
 
@@ -98,6 +99,17 @@ python tools/art/fix_blitzcrank_strips.py    # 动作：清理 Codex 的动作�
 python tools/art/import_native.py --hero blitzcrank
 python tools/art/import_blitzcrank.py        # 特效和飞爪；--native <Codex 的特效交付文件夹> 先把它的 1 倍成品转成原尺寸条
 python tools/art/preview_blitzcrank.py
+# PPU 1.79 重做（2026-11-05）：
+python tools/art/pack_blitzcrank_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_blitzcrank_hd.py                      # Codex 的原图（hd/raw/blitzcrank-A.png）按原图约 14.4 像素一格读回 -> hd/design.png
+python tools/art/pack_blitzcrank_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/pack_blitzcrank_actions.py --out <文件夹> --only run --prompt RUN_REDO_PROMPT_PPU.md   # 跑步重画包（逐帧写明哪条腿撑地）
+python tools/art/pack_blitzcrank_actions.py --out <文件夹> --only run --sheets run_1 --style run_2 --prompt RUN1_REDO_PROMPT_PPU.md   # 第 1 帧补画（照第 2 帧的朝向）
+python tools/art/casts_blitzcrank_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_blitzcrank_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero blitzcrank && python tools/art/ppu_hd.py --hero blitzcrank
+python tools/art/ppu_one.py --hero blitzcrank && python tools/art/rig_blitzcrank_hd.py --one-ground && python tools/art/hero_reels.py --hero blitzcrank
+python tools/art/review_blitzcrank_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/blitzcrank/PICTURE_PROMPT.md`](../../assets/source/blitzcrank/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/blitzcrank/MODEL_PROMPTS.md)、返修的见 [`MODEL_REDO.md`](../../assets/source/blitzcrank/MODEL_REDO.md)，9 条动作的见 [`MODEL_STRIPS.md`](../../assets/source/blitzcrank/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/blitzcrank/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/blitzcrank/codex_model)、[`codex_strips/`](../../assets/source/blitzcrank/codex_strips)、[`codex_fx/`](../../assets/source/blitzcrank/codex_fx)）：
@@ -110,4 +122,4 @@ python tools/art/preview_blitzcrank.py
 - 飞爪：Q 的手臂按英雄联盟举到肩高（腕口在支点上方约 16 px）。第一版飞拳沿锤石的高度飞（`y_offset` 2000），像从肚子前面飞出去，用户：「爪子应该从飞出去的那个手臂出去」「从上面勾 别从下面勾」。游戏会把投射物的画面转到它飞的方向，画面里加不了高度（往上画的部分向左扔时会翻到下面），所以把钩子本身抬到手臂高度：`y_offset` −11500，从他支点上方 16.5 px 出发，斜着往下飞到射程尽头的地面高度（约 12°），落在对方胸口一带；模拟 8 局抬高后钩中 76/144，原来 68/125，近处的英雄没有因此漏钩。之后用户：「要的是和联盟一样 从手臂飞出去的爪子勾人」，Codex 重画了出手的手臂和爪子（见上「动作」）。第一版拼法让收回的爪子飞向他的支点、画在单位下层：被抓的人挡住了爪子，链子和爪子钻进肚子、没回到手上，用户：「你装在手上拉回不是用手？」「lol里面机器人什么样你就什么样」。现在照英雄联盟：手带着钢链飞出去，抓到的人由手沿原路带回来，手装回手臂。钩子从掷出那一 tick 起每 tick 走 6 px，停在出发点外 6 (h + 1) px（h：停下时离掷出几 tick）。飞出每 tick 一帧：张开的爪子在钩子上（画在单位上层，走到 36 px、第 3 帧装在手臂上的位置前面才出现），钢链在同行的隐形分身上（画在单位下层，一直连回出发点）。收回不用飞回支点的投射物（`BackToCasterLinearProjectile` 不管 `y_offset` 都飞向支点），改用钩子 `end_effects` 里放出的直线投射物：模拟日志里它们和钩子从同一点出发、朝钩子停下的地方飞，正好在钩子的线上；两枚每 tick 1500 的投射物带着那个 h 的收回画面（`q_hc<h>`：合拢的爪子，上层；`q_hn<h>`：钢链，下层），爪子抓着人每 tick 退 1.5 px，钢链跟着缩短。掷出时设的 13 个标记（`q_f0`–`q_f12`）给出 h（4 局日志里每一钩都对上）；隐形分身按 h 把人拖 (6 (h + 1) + 12 − 33) / 1.5 tick（`Grab` 带 `tick`；钩子停在离人中心 12 px 处），人停在他身前约 33 px（E 够得着），同时爪子正好退回 32 px（第 3 帧装着它的位置），从人的前沿滑到人身上；那一刻身体换成「爪子装回」（`q_hold`，8 tick），然后回到待机。先试过把人停在手臂尽头（约 43 px）、装回 12 tick：他得先走一步才能接 E，两批 −0.23 / −0.15，低了约一分。他的身体只有朝左、朝右，钩子却多半斜着扔（模拟 4 局 80 钩，水平 ±15° 内只有 15 钩，60 钩向上 30–90°）：钢链画在单位下层、连回出发点，水平扔时被伸直的手臂挡住、正好从腕口伸出，斜着扔时从他头肩后面伸出，飞出和收回都在同一条线上。没钩中（或被黑暗之盾挡掉）时，张开的爪子带着钢链每 tick 9 px 沿原路收回，退到 32 px 消失，第 7 帧爪子回到手臂上。Q 动作条的时长跟着改：第 3 帧（爪子装在手上）留到第 16 tick 爪子飞到前面，第 4–6 帧的空腕口留到落空的爪子收回（第 32 tick），60 60 147 66 84 116 67 67 ms（原来 60 60 70 80 120 120 80 80，总长还是 40 tick），Q 音效里发射那一段也挪到第 16 tick（延迟 0.2 → 0.08 秒）。
 - 出手时刻和动画对齐：普攻第 3 帧（第 8 tick），Q 第 11 tick 掷出，第 3 帧爪子留在手上到第 16 tick（第 4 帧换成空腕口），钩中后播 Q 拉拽，爪子装回手臂时换「爪子装回」8 tick，E 第 4 帧（第 12 tick），R 第 6 帧电场炸开（第 23 tick）。
 
-逐帧预览：[`docs/preview/league_blitzcrank_frames.png`](../preview/league_blitzcrank_frames.png?v=1014g)，特效：[`docs/preview/league_blitzcrank_effects.png`](../preview/league_blitzcrank_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_blitzcrank_frames.png`](../preview/league_blitzcrank_frames.png?v=1105hd)，特效：[`docs/preview/league_blitzcrank_effects.png`](../preview/league_blitzcrank_effects.png?v=1014g)。

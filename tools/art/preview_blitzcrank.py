@@ -3,7 +3,7 @@
 
     python tools/art/preview_blitzcrank.py [--out docs/preview] [--frames-only]
 
-  league_blitzcrank_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_blitzcrank_frames.png    every animation's dense frames (hd_, PPU 1.80, as league.dll shows them)
   league_blitzcrank_effects.png   every effect animation, 3x
   league_blitzcrank_showcase.gif  a scripted fight with Darius and Garen, timed like the kit (60 ticks a second): Blitzcrank
                                   walks in and throws Rocket Grab at Darius 69 px off - thrown on tick 11, the claw
@@ -30,6 +30,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_yone import OnFoeFor, Path  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -72,7 +73,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, way=None):
         nonlocal t
-        an = Path(frames_of(bz, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or ())
+        an = Path(dense(bz, tag, "blitzcrank", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or ())
         body.append(an)
         t = an.until
 
@@ -177,11 +178,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (int(px) - f.width // 2, int(py) - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in sorted(under, key=lambda o: o.z):
             f = an.frame(tt)
             if f is not None:
@@ -199,7 +200,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -218,8 +219,8 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                            os.path.join(args.out, "league_blitzcrank_frames.png")))
+    print("frames", contact(dense_rows(s),
+                            os.path.join(args.out, "league_blitzcrank_frames.png"), z=1))
     if args.frames_only:
         return
     rows = []

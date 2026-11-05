@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | [烬低语附加包](#附加包)（`league_jhin_whisper`）、[游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![烬演示](../preview/league_jhin_showcase.gif)
@@ -96,6 +96,7 @@
 | 数值 | 攻击 125（+23）、生命 950（+90）、护甲 20（+7）、魔抗 15（+3）、移速 900（+9）。数值是自己设计的，用 SDK 对战模拟调：下路，对 5 个原版射手（`archer`、`gunner`、`boomerang_hunter`、`poison_dart_hunter`、`bomber`），三套队友阵容、两边各 24 局，一批 720 局。第一版 −0.57（攻击 112、四发间隔 80 tick、装弹 2.5 秒）；攻击 120、间隔 72、装弹 2.2 秒 +0.50；攻击成长 23、生命 950 +1.19；W 90 + 90%、定身 1.67 秒、莲花 60 + 120%、手雷的隐形线加宽到 25000 后 +1.59 / +1.23；再加攻击 125、R 90 + 55%：+1.46 / +1.66。精灵图导入后子弹改从各自开枪帧的枪口出发、W 在开枪帧开枪：两批 +2.03 / +1.96（只改出发高度 +1.78 / +1.77），和包里的 ADC 持平（卡莎约 +2.2、蔚 +2.0），定下这版 |
 | 亚索联动 | W 的定身是亚索大招要的控制：烬打下路、亚索打中路同队时，亚索每局 R 到被控英雄 1.44 次（同一批原版弓箭手 0.50、枪手 0.19；凯南 1.48），亚索不用调 |
 | 精灵图 | 11 个动作 62 帧：待机、移动、普攻、第四枪、Q、W、R 架炮、R 瞄准（循环）、R 开炮、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机：金色的左手扶着手杖枪，低语垂在右手），Codex 生图草稿 A 按自己的格子读回、整行整列删到 41 行（用户选「新41 头13」）：深紫兜帽、白色面具和粉色的眼睛、白金披风和玫红里衬、金色铠甲的左臂、青色缠柄的手杖枪、象牙柄的低语。29 × 41 px，23 色；待机最高点 −29（兜帽顶），`banpick_center` 设 −10；头像截取点 (−2, −40) |
+| 高清帧（PPU 1.8） | 2026-11-05 用 PPU 重做，和螳螂、机器人、莉莉娅在同一个 PR（用户：「接下来重做螳螂 机器人 莉莉娅 烬」「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」「codex交付了 做到完美后喊我review」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 15.3 像素一格读回（55 × 74 格；兜帽顶到脚底 74 行，旧精灵 41 行，PPU 1.8）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 38 张图（普攻第 1、6 帧，第四枪第 6 帧，Q 第 6 帧，W 第 8 帧，R 瞄准第 1 帧，R 开炮第 4 帧，受击第 2 帧，死亡第 7、8 帧共 10 帧和别的帧一样或就是设计图，只画一次），白底原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（只有姿势和模板差太远、重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；只按身高或面积，更长的触角、张开的翅膀、举高的枝条会把人量小一成左右；量头用面具的白和浅蓝灰；普攻、第四枪、Q、W、R 开炮按旧版不带特效的原生身体格画，枪口火光和 Q 的出手光由 jhin_bake.json 重新叠上；普攻瞄准那帧 Codex 把枪举高了 8 像素，开枪的火光和子弹挪到新枪口（rig_jhin_hd.py 的 FX_SHIFT；其余火光都在 Codex 的枪口上，差不到 1 像素）；死亡第 2–8 帧「低语」脱手，这几帧按身体量大小、摆位置，枪再整块挪到旧帧里枪的位置；死亡第 6 帧用 Codex 的第一版（第二版平躺在地，和旧版往前趴、面具贴地的姿势对不上）；动作里的头比设计图大约 8%，保留。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 保持 -10（举起的枪尖照惯例让它被裁，头顶离卡顶约 1 格）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_jhin.py`）：普攻开枪和命中、第四枪出手 / 开枪 / 命中、装弹、Q 出手 / 命中 / 弹跳、W 出手 / 开枪 / 命中、莲花扔出 / 落地 / 开花 / 爆炸、R 架炮、开炮和第四炮、命中和第四炮命中；第四枪、Q、W、R 带中文配音。开枪、扔手雷、开炮都是英雄联盟里同一刻播的几层叠在一起：开火声（`_OnMissileCast`，前 5 ms 就到最响）+ 出膛声（`_OnMissileLaunch`，250–530 ms 才最响）+ 扳机 / 甩手声（`_OnCast`）；第一版只取了出膛那层，开枪发虚（用户：「烬的技能音效…不太对」），普攻的开枪声还比开枪早 8 tick 响（在动作开始时），现在和枪口火同一 tick |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -108,6 +109,15 @@ python tools/art/rig_jhin.py            # 动作：走路用造型的像素重�
 python tools/art/import_native.py --hero jhin
 python tools/art/import_jhin.py         # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_jhin.py
+# PPU 1.8 重做（2026-11-05）：
+python tools/art/pack_jhin_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_jhin_hd.py                      # Codex 的原图（hd/raw/jhin-A.png）按原图约 15.3 像素一格读回 -> hd/design.png
+python tools/art/pack_jhin_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_jhin_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_jhin_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero jhin && python tools/art/ppu_hd.py --hero jhin
+python tools/art/ppu_one.py --hero jhin && python tools/art/rig_jhin_hd.py --one-ground && python tools/art/hero_reels.py --hero jhin
+python tools/art/review_jhin_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/jhin/PICTURE_PROMPT.md`](../../assets/source/jhin/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/jhin/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/jhin/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/jhin/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_picture/`](../../assets/source/jhin/codex_picture)、[`codex_model/`](../../assets/source/jhin/codex_model)、[`codex_strips/`](../../assets/source/jhin/codex_strips)、[`codex_fx/`](../../assets/source/jhin/codex_fx)）：
@@ -117,4 +127,4 @@ python tools/art/preview_jhin.py
 - 导入：待机 6 帧都用造型，第 3–5 帧下沉一格呼吸（`BOB`）：接缝最早在膝盖，手杖的箍和斜着的低语每次呼吸都错开一行（用户：「上下摆动导致模型变形 盖伦就没这问题」），四个方案里用户选了肩膀下面；肩膀的接缝又把手臂、披风和肩甲压扁一行（2026-10-04，用户：「烬是模型上下摆动导致有点微小的变形」），改成盖伦的做法：接缝在靴子里（站位点下 9/10 行：腿上只有 1 格不透明度、3 格颜色不同），鞋底那一行不动，手杖和低语跟着手整根下沉、不再被切（`BOB_CARRY`：站位点左边 −11 列以外、右边 +6 列以外整列一起动）；按眼睛的粉色定头的位置（`EYES`）；描边补齐（`COMPLETE`）。
 - 特效用 Codex 画的 27 张（146 帧，生图原稿整理成 8 倍方格，`import_jhin.py --raw` 同瑞兹：每个游戏像素取覆盖的原稿像素里最多的颜色，四分之一以上不透明才画，颜色归到包里给每张的色阶——金、玫红、紫、青、手雷的铁灰、烟——光效外圈最暗的一档去掉，手雷罐和莲花保留描边；四种子弹上下对称，游戏按飞行方向转）。位置：抬枪的闪光在低语上 (19, −21)，枪口火焰在普攻 (30, −7)、第四枪 (35, −8)、W (39, −9)、R (39, −8)（Codex 把枪口火的白芯登记在格子左边中点，按它对上），Q 的闪光在金拳头 (10, −10)，装弹的四颗子弹在兜帽上方 (−2, −36)，命中在上半身 (0, −8)，定身、莲花、减速在脚底。R 的开幕光幕 Codex 画成两根高光柱，按宽 36 会有 72 行高，改按身高 40 行。时长：子弹第一 tick 空着（出生那一 tick 画面朝上），飞行帧铺满最长飞行的两倍，最后一帧留 1 秒；装弹 2.2 秒；定身保持到 100 tick；莲花开花的 4–8 帧循环到 2 秒后的爆炸。之后用户：「攻击特效不太对」——抬枪的闪光在枪还垂着时就出现，枪口火持续 180–300 ms，枪一往上抬，火还挂在原来枪口的位置；现在抬枪闪光只在举枪那帧（51 ms），枪口火缩到 83–150 ms，普攻、W、R 开枪的那帧加长、前后帧缩短（`rig_jhin.py` 的 `RETIME`，每个动作总时长不变），子弹飞过枪口前不画（普攻、第四枪 4 tick，W、R 2 tick）。
 
-逐帧预览：[`docs/preview/league_jhin_frames.png`](../preview/league_jhin_frames.png?v=1014g)，特效：[`docs/preview/league_jhin_effects.png`](../preview/league_jhin_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_jhin_frames.png`](../preview/league_jhin_frames.png?v=1105hd)，特效：[`docs/preview/league_jhin_effects.png`](../preview/league_jhin_effects.png?v=1014g)。

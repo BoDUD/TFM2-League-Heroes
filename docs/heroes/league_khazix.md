@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.24 |
 | 附加包 | [卡兹克视野与进化附加包](#附加包)（`league_khazix`） |
 
 ![卡兹克演示](../preview/league_khazix_showcase.gif)
@@ -100,6 +100,7 @@
 | 亚索联动 | 卡兹克的技能只有减速，没有击飞和眩晕，亚索大招不受影响，不用调 |
 | 精灵图 | 8 个动作 46 帧：待机、移动、普攻、Q（`skill`）、E→W（`skill2`）、R（`ult`）、受击、死亡。造型 42 × 45 px 画、缩到 37 行（触角尖到脚底），23 色，是英雄联盟的最终形态（收割利爪、虫翼、背甲，没有 W 的背刺）。待机 6 帧同一张，呼吸的缝在小腿；头像截取点 (8, −26)（面甲顶；工具量的是触角尖），缩小后选人卡片装得下，不设 `banpick_center` |
 | 特效 | Codex 画的 16 张，按游戏尺寸交付，两张表 `league_khazix_fx` / `league_khazix_big`：普攻的爪痕、被动打出的洋红爆裂、Q 普通一击和孤立无援的重击、E 落地的冲击波和命中、W 飞出的虚空尖刺（朝目标飞，严格上下对称）和命中、回血、被动就绪的光、胸前的无形威胁火光、击杀刷新 E、R 隐身的虚空爆发和隐身时脚下的闪烁、减速、进化 |
+| 高清帧（PPU 2.24） | 2026-11-05 用 PPU 重做，和机器人、莉莉娅、烬在同一个 PR（用户：「接下来重做螳螂 机器人 莉莉娅 烬」「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」「codex交付了 做到完美后喊我review」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 13.8 像素一格读回（81 × 83 格；触角尖到脚底 83 行，旧精灵 37 行，PPU 2.24）；细的青色触角沿骨架线铺到格子上（不然在 13.8 像素一格时读成虚线）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 26 张图（Q 第 3、5、6 帧，E 接 W 第 4、7 帧，R 第 3 帧，受击第 2 帧，死亡第 6–8 帧共 10 帧和别的帧一样，只画一次），白底原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（只有姿势和模板差太远、重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；只按身高或面积，更长的触角、张开的翅膀、举高的枝条会把人量小一成左右；量头用翅膀的淡黄绿色；没有烘焙的特效。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 无值 → -10（举起的镰爪尖照惯例让它被裁，头顶离卡顶约 1 格；不设值会顶出卡片）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_khazix.py`）：挥爪、命中，被动就绪和打出，Q 出手、普通命中、孤立命中，E 起跳、落地，W 甩出、命中，R 隐身，进化，击杀刷新 E；Q、E、R 和三次进化的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
 
@@ -113,6 +114,15 @@ python tools/lol/native_pose.py assets/source/khazix/poses.json --out <渲染文
 python tools/art/fix_khazix_strips.py     # 动作：Codex 的动作条，跑步和死亡按造型重做
 python tools/art/import_native.py --hero khazix
 python addons/league_khazix/make_override.py   # 附加包的英雄数据和文字（主包的卡兹克改了以后重跑）
+# PPU 2.24 重做（2026-11-05）：
+python tools/art/pack_khazix_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_khazix_hd.py                      # Codex 的原图（hd/raw/khazix-A.png）按原图约 13.8 像素一格读回 -> hd/design.png
+python tools/art/pack_khazix_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_khazix_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_khazix_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero khazix && python tools/art/ppu_hd.py --hero khazix
+python tools/art/ppu_one.py --hero khazix && python tools/art/rig_khazix_hd.py --one-ground && python tools/art/hero_reels.py --hero khazix
+python tools/art/review_khazix_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/khazix/PICTURE_PROMPT.md`](../../assets/source/khazix/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/khazix/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/khazix/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/khazix/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](../../assets/source/khazix/codex_picture)、[`codex_model/`](../../assets/source/khazix/codex_model)、[`codex_strips/`](../../assets/source/khazix/codex_strips)；附图包由 `tools/art/pack_khazix_*.py` 在本地生成，英雄联盟的渲染不进仓库）：
@@ -124,4 +134,4 @@ python addons/league_khazix/make_override.py   # 附加包的英雄数据和文�
 - 特效：Codex 第 3 步把 16 张都按游戏尺寸画了一份（[`codex_fx/pixel_1x/`](../../assets/source/khazix/codex_fx/pixel_1x)，一格一个游戏像素，只用包里的颜色），不用再缩放：`tools/art/import_khazix.py` 每格切出、按锚点（中心、尖刺的尖、脚底）放到他身上或目标身上，导入时逐格检查对称
 - 红色方：游戏只会按朝向镜像英雄自己的动作帧、不镜像特效图。飞出去的尖刺做成严格上下对称；晚于动作第一 tick 播放的（回血、被动就绪、击杀刷新、进化）不跟随、严格左右对称；挂在他身上的被动火光、隐身闪烁、脚下的减速、地上的落地冲击也左右对称。挂在他身上的画面（被动火光、就绪、刷新 E）都放在站位点那一列：原来按朝右量的胸口、头顶、身体中间在站位点前 2–6 px，朝左时会落到他身后（用户：「查一下红色蓝色方技能有没有歪的问题」），现在全部 x = 0。演示 GIF 后半段他转身朝左打，就是红色方的样子。
 
-逐帧预览：[`docs/preview/league_khazix_frames.png`](../preview/league_khazix_frames.png?v=1014g)，特效：[`docs/preview/league_khazix_effects.png`](../preview/league_khazix_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_khazix_frames.png`](../preview/league_khazix_frames.png?v=1105hd)，特效：[`docs/preview/league_khazix_effects.png`](../preview/league_khazix_effects.png?v=1014g)。

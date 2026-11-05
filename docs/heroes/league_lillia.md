@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AP / Magic / Melee / CC / Heal / Dot |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.62 |
 | 附加包 | [莉莉娅梦尘与昏睡附加包](#附加包)（`league_lillia`） |
 
 ![莉莉娅演示](../preview/league_lillia_showcase.gif)
@@ -110,6 +110,7 @@
 | 亚索联动 | R 的昏睡（数据里是眩晕）算控制：莉莉娅在亚索队里打野时，亚索每局对英雄放 R 1.27 次（原版忍者 0.58，李青以前测的 1.67、凯隐 1.00），不用调 |
 | 精灵图 | 9 个动作 52 帧：待机、移动、普攻、Q（`skill`）、E 抛种子（`skill2`）、W 人立砸地（`skill2_w`）、R（`ult`）、受击、死亡。造型 32 × 46 px（连枝头到蹄子，小鹿身子四条腿），26 色。待机 6 帧同一张，腰以上轻轻呼吸；头像截取点 (3, −41)，选人卡片中心 −5（待机最高处是枝头，站位点上方 34 格；先设的 0 让卡片退回小图的默认画法，用户：「BP界面莉莉娅的位置要调一下」） |
 | 特效 | Codex 画的 17 张，按游戏尺寸交付，两张表 `league_lillia_fx` / `league_lillia_big`：普攻的花光，Q 脚下绽开的粉紫花环、命中的金色闪刺，E 飞行的橙色种子（严格上下对称）、落地炸开、命中、脚下减速的梦雾，W 地上的预警圈（甜点和往里收的倒计时圈）、砸地的冲击波、命中、甜点的金色暴击，R 身边升起的蓝色梦境光带、头顶的困倦梦雾和昏睡泡泡、被打醒破泡，腾跃时蹄下飘起的花瓣，附加包里敌人身上的梦尘 |
+| 高清帧（PPU 2.62） | 2026-11-05 用 PPU 重做，和螳螂、机器人、烬在同一个 PR（用户：「接下来重做螳螂 机器人 莉莉娅 烬」「卡兹克2.24 布里茨1.8 莉莉娅2.62 烬1.8」「codex交付了 做到完美后喊我review」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 8.5 像素一格读回（96 × 139 格；枝条顶到蹄底 139 行，旧精灵 53 行，PPU 2.62）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 22 张图，跑步第 1 张重画了一次（普攻第 5 帧，Q 第 2、3、6 帧，E 第 4 帧，W 第 1、4、7 帧，R 第 6 帧，受击第 2 帧，死亡第 5–8 帧共 14 帧和别的帧一样或就是设计图，只画一次），白底原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（只有姿势和模板差太远、重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；只按身高或面积，更长的触角、张开的翅膀、举高的枝条会把人量小一成左右；量头用头发的粉红；四条腿照浅色人影轮流迈步；跑步第 1 张（第 1、2 帧）第一轮像素块画粗了一倍、脸被藤蔓挡住，照她自己的第 3、4 帧（--style）重画。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -6 → -5（头上的花离卡顶 1 格；枝条顶照惯例让它被裁）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_lillia.py`）：挥枝、命中，Q 施放、命中、外圈，W 施放、甜点、命中，E 施放、命中，R 施放、困倦、昏睡、惊醒；Q、W、E、R 的中文配音（片段名 `league_lillia_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
 
@@ -126,6 +127,16 @@ python tools/art/import_lillia.py           # 特效
 python tools/art/import_native.py --hero lillia   # 精灵
 python tools/art/preview_lillia.py          # 逐帧预览、特效预览、演示 GIF
 python addons/league_lillia/make_override.py   # 附加包的英雄数据和文字（主包的莉莉娅改了以后重跑）
+# PPU 2.62 重做（2026-11-05）：
+python tools/art/pack_lillia_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_lillia_hd.py                      # Codex 的原图（hd/raw/lillia-A.png）按原图约 8.5 像素一格读回 -> hd/design.png
+python tools/art/pack_lillia_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/pack_lillia_actions.py --out <文件夹> --only run --sheets run_1 --style run_2 --prompt RUN_REDO_PROMPT_PPU.md   # 跑步第 1 张重画（照 run_2 的画法）
+python tools/art/casts_lillia_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_lillia_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero lillia && python tools/art/ppu_hd.py --hero lillia
+python tools/art/ppu_one.py --hero lillia && python tools/art/rig_lillia_hd.py --one-ground && python tools/art/hero_reels.py --hero lillia
+python tools/art/review_lillia_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/lillia/PICTURE_PROMPT.md`](../../assets/source/lillia/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/lillia/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/lillia/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/lillia/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](../../assets/source/lillia/codex_picture)、[`codex_model/`](../../assets/source/lillia/codex_model)、[`codex_strips/`](../../assets/source/lillia/codex_strips)、[`codex_fx/`](../../assets/source/lillia/codex_fx)；附图包由 `tools/art/pack_lillia_*.py` 在本地生成，英雄联盟的渲染不进仓库）：
@@ -143,4 +154,4 @@ python addons/league_lillia/make_override.py   # 附加包的英雄数据和文�
 - 特效：Codex 第 3 步把 17 张都按游戏尺寸画了一份（[`codex_fx/lillia-fx/pixel_1x/`](../../assets/source/lillia/codex_fx/lillia-fx/pixel_1x)），`tools/art/import_lillia.py` 每格切出、按锚点（中心、脚底）放好，导入时逐格检查对称。
 - 红色方：飞行的种子严格上下对称；命中、她身上的花环和梦境光带、挂着循环的减速 / 困倦 / 昏睡 / 梦尘 / 腾跃都严格左右对称；地上的花环、种子落地、预警圈、砸地上下左右都对称。没有特效画进动作帧。
 
-逐帧预览：[`docs/preview/league_lillia_frames.png`](../preview/league_lillia_frames.png?v=1014g)，特效：[`docs/preview/league_lillia_effects.png`](../preview/league_lillia_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_lillia_frames.png`](../preview/league_lillia_frames.png?v=1105hd)，特效：[`docs/preview/league_lillia_effects.png`](../preview/league_lillia_effects.png?v=1014g)。
