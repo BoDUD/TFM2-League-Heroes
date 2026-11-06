@@ -9,6 +9,7 @@ shadow step under him as he walks back); W winds up on Rhaast's eye and slashes 
 R dives into Garen (the mark over his head while Kayn is inside, unseen) and bursts out. Then the Darkin takes him
 (the transformation, the red aura): the Darkin attack, W with its spikes and R with the blood burst. Then the Shadow
 Assassin (the transformation, the shadow aura): the attack with the shadow strike, W's longer slash and R's burst.
+Kayn is drawn from his dense frames (hd_, PPU 1.8 - all three forms in his own sheet - as league.dll shows them).
 Writes a GIF (one palette) and a key frame PNG beside it.
 """
 import argparse
@@ -21,6 +22,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import tfm2_ase as T  # noqa: E402
+from preview_dense import dense, put  # noqa: E402
 
 ARENA = T.ARENA_BG
 LEAGUE = os.path.join(ROOT, "league")
@@ -79,7 +81,7 @@ def showcase(out, z=3, step=40):
 
     def act(tag, dur=None, loop=False, to=None):
         nonlocal t, x
-        a = Anim(frames_of(k, tag), t, x, GY, loop=loop, until=(t + dur) if dur else None, x1=to)
+        a = Anim(dense(k, tag, "kayn", z), t, x, GY, loop=loop, until=(t + dur) if dur else None, x1=to)
         a.tag = tag
         body.append(a)
         t = a.until
@@ -186,13 +188,13 @@ def showcase(out, z=3, step=40):
             dt -= ms
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (int(px - f.width // 2), int(py - f.height // 2)))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     key = []
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
-        ImageDraw.Draw(img).line([(0, GY + 12), (W, GY + 12)], fill=(120, 132, 100, 255))
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
+        ImageDraw.Draw(img).rectangle([0, (GY + 12) * z, W * z - 1, (GY + 13) * z - 1], fill=(120, 132, 100, 255))
         cur = next((a for a in body if a.frame(tt) is not None), None)
         for a in under:
             f = a.frame(tt)
@@ -214,7 +216,7 @@ def showcase(out, z=3, step=40):
             f = a.frame(tt)
             if f is not None:
                 place(img, f, a.at(tt), a.y)
-        big = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        big = img.convert("RGB")
         frames.append(big)
         tt += step
     sample = frames[::6]

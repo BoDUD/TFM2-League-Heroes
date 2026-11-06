@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.19 |
 | 附加包 | [永恩 R 附加包](#附加包)（`league_yone_r`） |
 
 ![永恩演示](../preview/league_yone_showcase.gif)
@@ -89,6 +89,7 @@
 | 亚索联动 | Q3 和 R 的击飞算亚索大招要的控制。亚索打上路、永恩打中路时，亚索每局放 R 2.15 次；同一批 48 局里中路换成原版 `lightning_mage` 是 3.19 次，`pyromancer` 0.65 次（之前测过安妮 2.19、拉克丝 1.04）。永恩和安妮差不多，亚索不用调 |
 | 精灵图 | 12 个动作 75 帧：待机、移动（英雄联盟的走路动作）、普攻（钢刀）、普攻（恶魔刀）、Q、Q3 冲刺、W、E 灵体冲刺、R、灵魂出窍时留在原地的身体、受击、死亡。连角 41 px（不算角约 37 px），30 色，动作全部取自英雄联盟原版动画 |
 | 特效 | 钢刀和恶魔刀的命中、Q 风之矛突刺和命中、风暴聚集（腰间的风）、Q3 冲刺旋风、击飞旋风、W 扇形顺劈和交叉斩痕、护盾、灵魂出窍的灵火、灵体光环、灵魂印记（留在敌人身上直到引爆）、印记引爆、拉回身体、R 直线斩（先出预警红线，再炸开） |
+| 高清帧（PPU 2.20） | 2026-11-06 用 PPU 重做，和凯隐、维克托、泰坦在同一个 PR（用户：「下面重做凯隐 维克托 永恩 泰坦」「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80 维克托 1.81 永恩2.20 泰坦1.80」「Codex全都交付了 你做到完美后喊我review」「可以了 没问题」）。设计图：Codex 照旧精灵描密的原图，按原图约 12.5 像素一格读回（96 × 90 格；头顶到脚底 90 行，旧精灵 41 行，PPU 2.20）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 66 张图、69 帧，白底原图读回到设计图的格子上；每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（全部重合 0.68 以上，没有退回别的量法）；待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。头发和面具挡住脸，量头改成在 0.8–1.2 倍之间匹配设计图的头；E 的起手特效按旧版烘焙回 `skill2_fx1` / `e_dash_fx1`（`yone_bake.json`）；选人卡偏移 -9 不变（头发离卡顶约 1 格，刀尖照惯例被裁）。|
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 17 条技能音效和 6 条中文语音（Q、Q3、W、E、E 返回、R）。不提交到仓库，按下面的命令在本地生成 |
 | 修正（0.128.1） | 用户：「永恩的确不放大」（玩家：「永恩一直不开大招是什么原因 放的打野位」）。游戏 0.6.4 里他的 R 一次都没放过：临时的只读观察包记了 5 局，R 好了、80 码内有敌方英雄的时间每局约 3600 tick，游戏的 AI 一次都没选 R，同时问游戏「对最近的敌人放 R」17880 次里 17843 次合法——是 AI 不想放；经典模拟每局放 3.7（打野）到 5.4 次（中路）。在游戏里一块块试出来：R 换成直接打目标一下每局放 2–17 次；只留延迟的直线斩击 + 击飞 1 局 10 次；再加上开头的预警线和冲到身后 12 局 0 次；**完整的 R 只去掉预警线 4 局 24 次**；预警线改成打友方 3 局 0 次；在 R 外面套奥莉安娜 Q / E 那样的打分分支 4 局 0 次。元凶是开头那条只画地上线的空效果直线（`league_yone_r_line`，等 34 tick、apply 999）：大招里有它，0.6.4 的 AI 就不选这个大招。[`tools/fix/fix_yone_r_line.py`](../../tools/fix/fix_yone_r_line.py) 把它从 R 的两支（普通、Q3 之后）里去掉，画面定义一起删；斩击、击飞、冲刺、印记、灵体分身、Q3 连招都不变，地上不再先出现那条预警线 |
@@ -101,6 +102,15 @@ python tools/art/import_native.py --hero yone
 python tools/art/import_yone.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/kit/yone_combos.py   # 连招写进技能数据（只跑一次，--check 查）
 python tools/art/preview_yone.py
+# PPU 2.20 重做（2026-11-06）：
+python tools/art/pack_yone_ppu.py --out <文件夹>            # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_yone_hd.py                        # Codex 的原图按约 12.5 像素一格读回 -> hd/design.png
+python tools/art/pack_yone_actions.py --out <文件夹>        # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_yone_hd.py --fits <模板文件夹>     # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）
+python tools/art/rig_yone_hd.py                           # 读回 -> 原始条和 1 倍图（E 的起手特效按 yone_bake.json 烘焙）
+python tools/art/ppu_restyle.py --hero yone && python tools/art/ppu_hd.py --hero yone
+python tools/art/ppu_one.py --hero yone && python tools/art/rig_yone_hd.py --one-ground && python tools/art/hero_reels.py --hero yone
+python tools/art/review_yone_actions.py --out <文件夹>      # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/yone/PROMPTS.md`](../../assets/source/yone/PROMPTS.md)）：

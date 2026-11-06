@@ -3,7 +3,7 @@
 
     python tools/art/preview_yone.py [--out docs/preview]
 
-  league_yone_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_yone_frames.png    every animation's dense frames (hd_, PPU 2.20, as league.dll shows them)
   league_yone_effects.png   every effect animation, 3x
   league_yone_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: Yone runs in and
                             thrusts Mortal Steel through Darius, cuts him with the steel katana and then the
@@ -30,6 +30,7 @@ from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
 from preview_jinx import Follow  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -86,7 +87,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, way=None):
         nonlocal t
-        an = Path(frames_of(yone, tag), t, at if at is not None else x, gy, loop=loop,
+        an = Path(dense(yone, tag, "yone", z), t, at if at is not None else x, gy, loop=loop,
                   until=(t + dur) if dur else None, way=way or ())
         body.append(an)
         t = an.until
@@ -147,7 +148,7 @@ def showcase(out, z=3, step=40):
     start = t
     home = x
     fx_at(small, "e_cast", start + tick(1), home, gy)
-    bodies.append(Anim(frames_of(yone, "e_body"), start + tick(1), home, gy, until=start + tick(240)))
+    bodies.append(Anim(dense(yone, "e_body", "yone", z), start + tick(1), home, gy, until=start + tick(240)))
     back = start + tick(240)
     on_yone("spirit", start + tick(1), back)
     gx = g.pos(start)[0]
@@ -202,11 +203,11 @@ def film(out, W, H, gy, end, foes, body, bodies, under, over, labels=(), z=3, st
     font = ImageFont.load_default(size=8 * z) if labels else None
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (int(px) - f.width // 2, int(py) - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -228,7 +229,7 @@ def film(out, W, H, gy, end, foes, body, bodies, under, over, labels=(), z=3, st
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        img = img.convert("RGB")
         for t0, t1, text in labels:
             if t0 <= tt < t1:
                 ImageDraw.Draw(img).text((4 * z, 2 * z), text, font=font, fill=(255, 236, 160),
@@ -262,7 +263,7 @@ def combos(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, at=None, way=None):
         nonlocal t
-        an = Path(frames_of(yone, tag), t, at if at is not None else x, gy, loop=loop,
+        an = Path(dense(yone, tag, "yone", z), t, at if at is not None else x, gy, loop=loop,
                   until=(t + dur) if dur else None, way=way or ())
         body.append(an)
         t = an.until
@@ -332,7 +333,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_yone_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_yone_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

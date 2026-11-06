@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 刺客（Assassin） · AD / Melee / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | [凯隐「暗裔魔镰」附加包](#附加包)（`league_kayn_form`） |
 
 ![凯隐演示](../preview/league_kayn_showcase.gif)
@@ -89,6 +89,7 @@
 | 数值 | 攻击 105（+24）、生命 940（+92）、护甲 28（+8）、魔抗 18（+4）、移速 1100（+13）。数值是自己设计的，用 SDK 对战模拟调：打野位，对 5 个原版打野（`demon`、`circus_blade`、`hunter`、`inquisitor`、`ninja`），两组种子各 600 局。第一版 +2.0 左右（回血太多）；门槛降到 2 / 1 后变身多了、又强到 +2.3；削形态（暗裔回血 20%、Q / R 的最大生命值 4% / 10%、影流追加 8 + 15%）、掠影步回血、Q、W、R 后 +1.70 / +0.88，和包里的打野差不多 |
 | 亚索联动 | 只有暗裔的 W 击飞：凯隐打野、亚索同队时亚索每局 R 到被控英雄 1.00 次（同一批原版忍者 0.50、李青 1.67、蔚 2.98、阿木木 2.83），亚索不用调 |
 | 精灵图 | 9 个本体动作 + 两种形态各 4 个出招（普攻、Q、W、R 破体）+ R 体内的空白帧，105 帧。造型是 Codex 画的三张（用户按截图选「40 44 40」：本体和暗裔是生图草稿按自己的格子读回、按众数缩到 40 / 44 行，影流用 Codex 自己的 40 行）：黑色刺头蓝挑染、长辫子、镰刀拉亚斯特；暗裔是红色恶魔、大角头盔；影流是苍白皮肤、长发、银柄青刃的镰刀。40 × 40 px，24 色；待机最高点 −28，不设 `banpick_center`；头像截取点 (−1, −37) |
+| 高清帧（PPU 1.80） | 2026-11-06 用 PPU 重做，和维克托、永恩、泰坦在同一个 PR（用户：「下面重做凯隐 维克托 永恩 泰坦」「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80 维克托 1.81 永恩2.20 泰坦1.80」「Codex全都交付了 你做到完美后喊我review」「可以了 没问题」）。设计图：三种形态各一张，Codex 照旧精灵描密的原图，按原图约 15.8 / 14.8 / 13 像素一格读回（本体 73 × 72、暗裔 71 × 77、影流 104 × 72 格）；一张图只能有一个 PPU，三种形态都按本体的 72 行 / 旧精灵 40 行 = 1.80（暗裔的 77 / 43 = 1.79，显示时小 0.5%）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 101 张图（本体 36、暗裔 29、影流 36），读回到各自形态设计图的格子上，都画进凯隐自己的图（`hd_` 接在 `rh_` / `sh_` 前；完整变身附加包换动画名后自动取对应的 `hd_` 帧）；Q 冲刺、W 的风、R 潜入的特效按旧版烘焙回去（`kayn_bake.json`）；死亡第 6–8 帧照旧版的有序抖动消散；墙里的暗影剪影 `w_` / `rw_` / `hw_` 从新的 1 倍帧生成；每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（全部重合 0.68 以上，没有退回别的量法）；待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。形态各自的 1 倍图 `league_kayn_darkin` / `_shadow` / `*_wall`（游戏 0.6.2 的改名方式用）不变；选人卡偏移 -10 → -7（-10 会裁掉头发顶，镰刀刃照惯例被裁）。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_kayn.py`）：普攻命中、Q 出手 / 旋转 / 命中、掠影步、W 出手（暗裔另一个）/ 命中、R 出手 / 钻入（扑入声叠在宿主身上的低鸣上：用户觉得只有低鸣时「音效不明显」）/ 破体 / 命中、两种变身；Q、W、R、变身带中文配音 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -102,6 +103,15 @@ python tools/art/import_native.py --hero kayn   # 也写变身图集 league_kayn
 python tools/art/import_kayn.py           # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸；--wall <文件夹> 读穿墙特效
 python tools/art/preview_kayn.py
 python tools/art/preview_kayn_forms.py    # 完整变身的演示
+# PPU 1.80 重做（2026-11-06，三种形态画在同一张图里）：
+python tools/art/pack_kayn_ppu.py --out <文件夹>            # 给 Codex 的设计图包（暗裔、影流：pack_kayn_darkin_ppu.py / pack_kayn_shadow_ppu.py）
+python tools/art/design_kayn_hd.py                        # 三种形态的原图读回（design_kayn_darkin_hd.py / design_kayn_shadow_hd.py）
+python tools/art/pack_kayn_actions.py --out <文件夹>        # 给 Codex 的动作包（pack_kayn_darkin_actions.py / pack_kayn_shadow_actions.py）
+python tools/art/casts_kayn_hd.py --fits <模板文件夹>     # 每帧的缩放（三种形态共用；casts_kayn_darkin_hd.py / casts_kayn_shadow_hd.py）
+python tools/art/rig_kayn_hd.py                           # 读回 -> 原始条和 1 倍图（Q / W / R 的特效按 kayn_bake.json 烘焙）
+python tools/art/ppu_restyle.py --hero kayn && python tools/art/ppu_hd.py --hero kayn
+python tools/art/ppu_one.py --hero kayn && python tools/art/rig_kayn_hd.py --one-ground && python tools/art/rig_kayn_hd.py --finish && python tools/art/hero_reels.py --hero kayn   # --finish：死亡消散、墙里的剪影、r_hidden
+python tools/art/review_kayn_actions.py --out <文件夹>      # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/kayn/PICTURE_PROMPT.md`](../../assets/source/kayn/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/kayn/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/kayn/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/kayn/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_picture/`](../../assets/source/kayn/codex_picture)、[`codex_model/`](../../assets/source/kayn/codex_model)、[`codex_fx/`](../../assets/source/kayn/codex_fx)）：

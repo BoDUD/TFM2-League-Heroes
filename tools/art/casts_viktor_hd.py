@@ -51,10 +51,11 @@ HEAD = (6, 32, 17, 48)         # the design's head: rows 6-31 (his crest's top t
 # drawing scaled until it overlaps the old frame Codex drew it on best); where it overlaps under 0.65 (another pose)
 # the median of that fit, the zoom its height gives against the old body's (heights()), the one its head gives
 # against the design's (heads()) and the one its area gives against the old body's (calibrated on the run) - the
+# (2026-11-06: Q 3-4 and R 1-3 from Codex's head redraw, HEAD_REDO_PROMPT_PPU.md: fits 9.9 / 9.8 / 9.52 / 9.71 / 10.0)
 # height and the area alone moved with longer claws, spread wings or a raised branch (the user, on Sett:
 # 「瑟提感觉模型会一大一小？」); a sheet's ZOOM is its frames' mean
-ZOOM = {'run_1': 9.95, 'run_2': 10.0, 'run_3': 9.95, 'run_4': 10.0, 'attack_1': 10.0, 'skill_1': 10.0, 'skill_2': 10.0, 'skill_3': 9.9, 'skill2_1': 10.0, 'skill2_2': 10.0, 'skill2_e_1': 10.0, 'skill2_e_2': 10.1, 'ult_1': 10.0, 'ult_2': 10.0, 'dead_1': 10.0, 'dead_2': 9.9}
-FRAME_ZOOM = {'run_1': 10.0, 'run_2': 9.9, 'run_3': 10.0, 'run_4': 10.0, 'run_5': 9.9, 'run_6': 10.0, 'run_7': 10.0, 'run_8': 10.0, 'attack_2': 10.0, 'attack_3': 10.0, 'skill_1': 10.0, 'skill_2': 10.0, 'skill_3': 10.0, 'skill_4': 10.0, 'skill_5': 9.9, 'skill2_1': 10.0, 'skill2_2': 10.0, 'skill2_3': 10.0, 'skill2_e_1': 10.0, 'skill2_e_2': 10.0, 'skill2_e_3': 10.1, 'ult_1': 10.0, 'ult_2': 10.0, 'ult_3': 10.0, 'dead_2': 10.0, 'dead_3': 10.0, 'dead_4': 9.9}
+ZOOM = {'run_1': 9.95, 'run_2': 10.0, 'run_3': 9.95, 'run_4': 10.0, 'attack_1': 10.0, 'skill_1': 10.0, 'skill_2': 9.85, 'skill_3': 9.9, 'skill2_1': 10.0, 'skill2_2': 10.0, 'skill2_e_1': 10.0, 'skill2_e_2': 10.1, 'ult_1': 9.62, 'ult_2': 10.0, 'dead_1': 10.0, 'dead_2': 9.9}
+FRAME_ZOOM = {'run_1': 10.0, 'run_2': 9.9, 'run_3': 10.0, 'run_4': 10.0, 'run_5': 9.9, 'run_6': 10.0, 'run_7': 10.0, 'run_8': 10.0, 'attack_2': 10.0, 'attack_3': 10.0, 'skill_1': 10.0, 'skill_2': 10.0, 'skill_3': 9.9, 'skill_4': 9.8, 'skill_5': 9.9, 'skill2_1': 10.0, 'skill2_2': 10.0, 'skill2_3': 10.0, 'skill2_e_1': 10.0, 'skill2_e_2': 10.0, 'skill2_e_3': 10.1, 'ult_1': 9.52, 'ult_2': 9.71, 'ult_3': 10.0, 'dead_2': 10.0, 'dead_3': 10.0, 'dead_4': 9.9}
 ZOOMS = np.arange(4.5, 9.01, 0.1)                       # the zooms the head is searched at (6-px templates)
 PIVOT = 27                      # the design's column on the old idle_base's pivot (overlap peak 0.85; pivot_search)
 

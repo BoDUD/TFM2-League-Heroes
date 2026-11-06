@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / Melee / Tank / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | [诺提勒斯钩墙附加包](#附加包)（`league_nautilus`） |
 
 ![诺提勒斯演示](../preview/league_nautilus_showcase.gif)
@@ -88,6 +88,7 @@
 | 数值 | 攻击 78（+6）、法术强度 25（+12）、生命 1120（+120）、护甲 40（+8）、魔抗 28（+5）、移速 990（+10），攻击间隔 80 tick，和本包的蕾欧娜、布里茨同类（坦克辅助）。数值是自己设计的，SDK 对战模拟：打辅助，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），两边、三套队友阵容各 12 局，一批 360 局。团队击杀差：种子 1–12 −1.14、13–24 −1.59（同两批蕾欧娜 +0.90 / +0.92、布里茨 −0.14 / +1.27）；伤害最高（每局约 4440，蕾欧娜约 3780、布里茨约 3240），但死得也多（每局约 3 次，她们约 2 次）。比另外两个坦克辅助弱一档，还没调 |
 | 精灵图 | 9 个动作 56 帧：待机 8（静止，用户要站直不晃：「待机时上下浮动模型还变形」）、移动 8（待机原地迈步）、普攻 6（第 4 帧砸下）、Q（`skill`）6（第 5 帧抛锚）、Q 拉过去（`skill_pull`）4、W+E（`skill2`）6（第 3 帧砸地）、R 8（第 5 帧砸地）、受击 2、死亡 8。头盔顶到鞋底 39 行，背后的锚尖到鞋底 51 行。头像截取点 (3, −37)，选人卡片 −5 |
 | 特效 | Codex 生图的 17 张（游戏尺寸版逐格切，`import_nautilus.py`；红色方的对称逐格检查：飞行的锚和冲击波上下对称，其余左右对称）：`league_nautilus_fx` 普攻命中的水花、被动的水柱和脚下水圈（禁锢）、Q 飞出的铁锚（带一截铁链）/ 钩中的水花、W 海绿色的护盾外壳 / 溅射光环、E 命中 / 脚下的水洼（减速）、R 砸地放出的深水炸弹 / 脚下的水刺（击飞）/ 头上的一圈泡泡（眩晕）；`league_nautilus_big` R 冲过去的冲击波 / 目标身上的大水柱、E 一圈比一圈大的三道地面浪。颜色照英雄联盟：海水泡沫的白和浅蓝绿、深水的蓝绿，W 是海绿光，锚是定稿的铁灰和铜锈箍 |
+| 高清帧（PPU 1.80） | 2026-11-06 用 PPU 重做，和凯隐、维克托、永恩在同一个 PR（用户：「下面重做凯隐 维克托 永恩 泰坦」「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80 维克托 1.81 永恩2.20 泰坦1.80」「Codex全都交付了 你做到完美后喊我review」「可以了 没问题」）。设计图：Codex 照旧精灵描密的原图，按原图约 12.9 像素一格读回（73 × 92 格；锚尖到脚底 92 行，旧精灵 51 行，PPU 1.80）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 31 张图、38 帧，白底原图读回到设计图的格子上；Codex 是照浅色人影原位描的，读回按模板的方格；横向按和旧帧身体重合最多的列对齐（锁链会把框的中点带偏）；Q 和拉回第 1–2 帧的锁链画到了画布边上，在旧帧锁链结束的地方剪断；每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（全部重合 0.68 以上，没有退回别的量法）；待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。没有烘焙的特效；选人卡偏移 -7 不变（锚尖照惯例被裁，头盔完整）。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_nautilus.py`）：挥锚 / 命中、被动、Q 抛锚 / 飞行 / 钩中 / 钩墙（附加包）、W 护盾、E 砸地、R 施放 / 冲击波 / 击飞；Q、E、R 的配音（片段名 `league_nautilus_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q 疏通航道 / W 泰坦之怒 / R 深海冲击），从本地客户端提取，缩到 64×64 |
 
@@ -103,6 +104,15 @@ python tools/art/import_native.py --hero nautilus
 python tools/art/import_nautilus.py        # 特效：游戏尺寸版逐格切，拼成特效表
 python tools/art/preview_nautilus.py       # 预览和演示 GIF
 python addons/league_nautilus/make_override.py   # 钩墙附加包的副本（主包的诺提勒斯改了就重跑）
+# PPU 1.80 重做（2026-11-06）：
+python tools/art/pack_nautilus_ppu.py --out <文件夹>        # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_nautilus_hd.py                    # Codex 的原图按约 12.9 像素一格读回 -> hd/design.png
+python tools/art/pack_nautilus_actions.py --out <文件夹>    # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_nautilus_hd.py --fits <模板文件夹> # 每帧的缩放；--pivot 支点列（锁链剪断 CHAIN_CUT、棋盘格底 CHECKER 在脚本里）
+python tools/art/rig_nautilus_hd.py                       # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero nautilus && python tools/art/ppu_hd.py --hero nautilus
+python tools/art/ppu_one.py --hero nautilus && python tools/art/rig_nautilus_hd.py --one-ground && python tools/art/hero_reels.py --hero nautilus
+python tools/art/review_nautilus_actions.py --out <文件夹>  # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/nautilus/`](../../assets/source/nautilus) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`REFINE_PROMPTS.md`、`MODEL_STRIPS.md`、`MODEL_STRIPS2.md`、`LEGS_PROMPT.md`、`PROMPTS_FX.md`）：
