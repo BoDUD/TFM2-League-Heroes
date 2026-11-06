@@ -65,7 +65,7 @@ SLOTS = [("attack", "普攻 / 被动"), ("skill", "技能1"), ("skill2", "技能
 SLOT_NAME = {"skill": "skill1", "skill2": "skill2", "ult": "ult"}
 TICKS = 60  # ticks a second
 # add-ons that are no hero's (the DLL, the bundle, shared code, diagnostics)
-NOT_HERO_ADDONS = {"league_main", "league_addons", "game_places", "hd_engine", "vendor", "league_recall_log", "league_macro_log",
+NOT_HERO_ADDONS = {"league_main", "league_addons", "game_places", "hd_engine", "vendor", "league_recall_log", "league_macro_log", "league_macro",
                    "league_unlock_guard"}
 
 

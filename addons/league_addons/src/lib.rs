@@ -148,6 +148,8 @@ mod milio;
 mod recall_log;
 #[path = "../../league_macro_log/src/lib.rs"]
 mod macro_log;
+#[path = "../../league_macro/src/lib.rs"]
+mod macro_hook;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_jayce/src/lib.rs"]
 mod jayce;
@@ -517,6 +519,7 @@ fn init(host: &StableHost) -> StableMod {
     milio::register(host, &mut module);
     recall_log::register(host, &mut module);
     macro_log::register(host, &mut module);
+    macro_hook::register(host, &mut module);
     jayce::register(host, &mut module);
     elise::register(host, &mut module);
     katarina::register(host, &mut module);
