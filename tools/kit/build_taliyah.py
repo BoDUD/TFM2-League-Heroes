@@ -279,7 +279,7 @@ def build(p):
         return alive(sfx("q_rock"), line("q_rock", p["q_speed"], rng, p["q_w"], "EnemyWithoutTower", hit))
     volley = [delayed(k * p["q_gap"], rock(k)) for k in range(p["q_n"])]
     ground = anchor("q_work", [field("q_ground", circle(p["q_gr"]), p["q_gt"], p["q_p"],
-                                     [refresh("on_ground", p["q_p"] + 1)], target="AllyOnlySelf", first=0)])
+                                     [refresh("on_ground", p["q_p"] + 1)], target="AllyOnlySelf", first=1)])
     boulder_hit = [ap(p["q_b_dmg"], p["q_b_ap"]), buff("q_slow", p["q_b_slow_t"], move_speed_mult=-p["q_b_slow"]),
                    view("q_big_hit"), tsfx("q_big_hit")]
     boulder = combine(refresh("q_used", p["q_gt"]), sfx("q_big"),
@@ -295,7 +295,7 @@ def build(p):
     # ------------------------------------------------------------------ skill2: W Seismic Shove + E Unraveled Earth
     def w_cast(target):
         mines = field("e_mines", circle(p["e_r"]), p["e_t"], p["e_p"],
-                      [buff("e_slow", p["e_p"] + 6, move_speed_mult=-p["e_slow"])], first=0)
+                      [buff("e_slow", p["e_p"] + 6, move_speed_mult=-p["e_slow"])], first=1)
         blast = [ap(p["e_dmg"], p["e_ap"]), {"type": "Stun", "duration": p["e_stun"]}, view("e_blast"),
                  tsfx("e_blast")]
         # thrown toward her through the mines, which blow up as they land

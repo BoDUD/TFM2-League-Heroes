@@ -55,7 +55,7 @@
 
 ### 卡西奥佩娅附加包
 
-[卡西奥佩娅附加包](../../addons/league_cassiopeia/README.md)：`league_cassiopeia` v0.1.2
+[卡西奥佩娅附加包](../../addons/league_cassiopeia/README.md)：`league_cassiopeia` v0.1.3
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

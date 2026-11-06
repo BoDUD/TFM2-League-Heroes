@@ -262,7 +262,8 @@ def build(p):
     shield = on_me(give, flag("p_shown", p["p_sh_t"]), delayed(p["p_sh_t"], *rm("p_shown")))
     grab = sw("p_got", NONE, combine(flag("p_got", p["p_lie"]), shield, cview("p_pick"), sfx("p_pick")))
     lying = [delayed(k, sw("p_got", NONE, view("p_lie"))) for k in range(0, p["p_lie"], 15)]
-    lands = [sfx("p_land"), field("p_ground", p["p_catch"], p["p_lie"], 3, [grab], target="AllyOnlySelf", first=0),
+    # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
+    lands = [sfx("p_land"), field("p_ground", p["p_catch"], p["p_lie"], 3, [grab], target="AllyOnlySelf", first=1),
              *lying]
     bounce = line("p_bounce", -(-p["p_far"] // p["p_fly"]), p["p_far"], 1000, "EnemyWithoutTower", True, [],
                   end=lands)
@@ -282,7 +283,7 @@ def build(p):
                 zone(name + "_z", p["q_r"], [attack(p["q_dmg"], p["q_ratio"]), view("q_hit"), tsfx("q_hit")]),
                 zone(name + "_c", p["q_r"], [attack(0, 0, p["q_hp"])], target="EnemyChampion")]
     crack = field("q_field", p["q_r"], p["q_t"], p["q_p"],
-                  [buff("q_slow", p["q_p"] + 2, move_speed_mult=-p["q_slow"])], first=0)
+                  [buff("q_slow", p["q_p"] + 2, move_speed_mult=-p["q_slow"])], first=1)
     cracks = [delayed(k, view("q_crack")) for k in range(0, p["q_t"], 15)]
     q_land = [*shock("q_slam"), crack, *cracks, delayed(p["q_t"], *shock("q_burst"))]
     # E -> Q (League's wall stun into Hammer Shock): inside e_combo (opened where the charge's carry ends, on the

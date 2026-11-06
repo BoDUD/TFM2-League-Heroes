@@ -55,7 +55,7 @@
 
 ### 扎克附加包
 
-[扎克附加包](../../addons/league_zac/README.md)：`league_zac` v0.1.1
+[扎克附加包](../../addons/league_zac/README.md)：`league_zac` v0.1.2
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

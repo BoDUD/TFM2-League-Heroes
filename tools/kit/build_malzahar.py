@@ -246,7 +246,7 @@ def build(p):
                                                {"type": "RemoveCasterAnimation", "name": "ult"},
                                                {"type": "RemoveCasterAnimation", "name": "ult_loop"}), kind="Heal")
     null_zone = {"type": "RangePeriodProjectile", "name": n("r_zone"), "shape": circle(p["r_zr"]), "tick": p["r_zone_t"],
-                 "period": p["r_zp"], "first_delay": 0, "applied_target": "EnemyWithoutTower",
+                 "period": p["r_zp"], "first_delay": 1, "applied_target": "EnemyWithoutTower",  # 0: a period late
                  "applied_effects": [T(magic(p["z_dmg"], p["z_ap"]))], "end_effects": []}
 
     # the beam: a link from his hands at the champion every r_lp ticks while he channels

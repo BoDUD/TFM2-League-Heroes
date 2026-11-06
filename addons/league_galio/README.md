@@ -1,4 +1,4 @@
-# 加里奥附加包（测试版 v0.1.7）
+# 加里奥附加包（测试版 v0.1.8）
 
 0.1.6（2026-11-05）：待命式大招没用掉时的冷却退还从来没生效过：n tick 的待命标记只有 n - 1 tick 看得见（经典 SDK 探针 lr1105/fix_j：n - 1 之前 148/148 次看得见，第 n tick 0 次），退还在窗口最后一 tick 读它时已经没了，所以每次待命过期都要等完整冷却（塞恩追踪：过期到再待命 3558 tick，改读后 877）。现在在窗口结束前 3 tick 读（`tools/kit/build_galio.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -54,3 +54,7 @@
 - 在 `addons/` 下 `cargo build --release -p league_galio`（Windows）得到 `target/release/league_galio.dll`；
   `league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+
+## 0.1.8：Q 的龙卷风多打第一下（2026-11-06）
+
+Q 的龙卷风（`q_tornado_zone`，每 30 tick 一次伤害，存在 120 tick）第一下晚 30 tick，只打了 3 下；现在落地下一 tick 打第一下，一共 4 下（伤害多三分之一）。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。

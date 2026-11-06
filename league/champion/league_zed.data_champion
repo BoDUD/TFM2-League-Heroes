@@ -5086,7 +5086,7 @@
                       },
                       "tick": 300,
                       "period": 6,
-                      "first_delay": 0,
+                      "first_delay": 1,
                       "applied_target": "EnemyChampion",
                       "applied_effects": [
                         {

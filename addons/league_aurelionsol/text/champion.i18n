@@ -3,7 +3,7 @@
     "description": {
       "league_aurelionsol": {
         "attack": "【附加包】甩出一颗星星。<#ff9028ff>星海焕然<>：技能命中英雄收集星尘（最多30层，前15层每层法强+3%，死亡后保留），每6层下一次大招变为天瀑。<#ff9028ff>星穹流丽<>（<#ffb900ff>22-14秒<>）：飞越地形追残血、进场或脱身，重置龙息，喷时飞速减半；击杀返还90%冷却。",
-        "skill2": "【附加包】在目标处召唤黑洞（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法伤害，把敌人拉向中心并<#ef5350ff>减速<>25%；中心<#ef5350ff>处决<>生命低于5%（每层星尘+1%）的英雄。"
+        "skill2": "【附加包】在目标处召唤黑洞（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>魔法伤害，把敌人拉向中心并<#ef5350ff>减速<>25%；中心<#ef5350ff>处决<>生命低于5%（每层星尘+1%）的英雄。"
       }
     }
   },
@@ -11,7 +11,7 @@
     "description": {
       "league_aurelionsol": {
         "attack": "【附加包】甩出一顆星星。<#ff9028ff>宇宙創世<>：技能命中英雄收集星塵（最多30層，前15層每層魔攻+3%，死亡後保留），每6層下一次大絕變為天界殞落。<#ff9028ff>星界翱翔<>（<#ffb900ff>22-14秒<>）：飛越地形追殘血、進場或脫身，重置吐息，噴時飛速減半；擊殺返還90%冷卻。",
-        "skill2": "【附加包】在目標處召喚奇點（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>魔法傷害，把敵人拉向中心並<#ef5350ff>緩速<>25%；中心<#ef5350ff>處決<>生命低於5%（每層星塵+1%）的英雄。"
+        "skill2": "【附加包】在目標處召喚奇點（<#ffb900ff>5秒<>），每<#ffb900ff>0.25秒<>造成<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>魔法傷害，把敵人拉向中心並<#ef5350ff>緩速<>25%；中心<#ef5350ff>處決<>生命低於5%（每層星塵+1%）的英雄。"
       }
     }
   },
@@ -19,7 +19,7 @@
     "description": {
       "league_aurelionsol": {
         "attack": "[Add-on] Flings a star. <#ff9028ff>Cosmic Creator<>: spells on champions gather Stardust (max 30, kept after death; the first 15 +3% AP each); every 6 make his next ult The Skies Descend. <#ff9028ff>Astral Flight<> (<#ffb900ff>22-14s<>): flies over terrain to chase, engage or escape, resetting Breath of Light (half speed while breathing); takedowns refund 90%.",
-        "skill2": "[Add-on] Summons a black hole at the target for <#ffb900ff>5s<>: every <#ffb900ff>0.25s<> <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> magic damage, pulling enemies toward its centre and <#ef5350ff>slowing<> them 25%; its centre <#ef5350ff>executes<> champions under 5% health (+1% per Stardust)."
+        "skill2": "[Add-on] Summons a black hole at the target for <#ffb900ff>5s<>: every <#ffb900ff>0.25s<> <#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<> magic damage, pulling enemies toward its centre and <#ef5350ff>slowing<> them 25%; its centre <#ef5350ff>executes<> champions under 5% health (+1% per Stardust)."
       }
     }
   },
@@ -27,7 +27,7 @@
     "description": {
       "league_aurelionsol": {
         "attack": "[확장] 별을 던진다. <#ff9028ff>우주의 창조자<>: 스킬이 챔피언을 맞히면 별무리 획득(최대 30, 죽어도 유지; 15개까지 중첩당 주문력 +3%), 6개마다 다음 궁극기가 천상 강림이 됨. <#ff9028ff>별의 비행<>(<#ffb900ff>22-14초<>): 지형을 넘어 추격·진입·도주 비행, 빛의 숨결 초기화, 숨결 중 절반 속도; 처치 관여 시 90% 반환.",
-        "skill2": "[확장] 대상 위치에 <#ffb900ff>5초<> 동안 블랙홀 소환: <#ffb900ff>0.25초<>마다 <#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<> 마법 피해, 적을 중심으로 끌어당기고 25% <#ef5350ff>둔화<>; 중심은 체력 5%(별무리당 +1%) 미만 챔피언을 <#ef5350ff>처형<>."
+        "skill2": "[확장] 대상 위치에 <#ffb900ff>5초<> 동안 블랙홀 소환: <#ffb900ff>0.25초<>마다 <#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<> 마법 피해, 적을 중심으로 끌어당기고 25% <#ef5350ff>둔화<>; 중심은 체력 5%(별무리당 +1%) 미만 챔피언을 <#ef5350ff>처형<>."
       }
     }
   },
@@ -35,7 +35,7 @@
     "description": {
       "league_aurelionsol": {
         "attack": "【拡張】星を投げる。<#ff9028ff>宇宙の創造者<>：スキルがチャンピオンに当たると星屑獲得（最大30、死んでも残る；15個まで各魔力+3%）、6個ごとに次のウルトが崩れ落つ天穹に。<#ff9028ff>天空への飛翔<>（<#ffb900ff>22-14秒<>）：地形を越え追撃・突入・離脱、息吹をリセット、息吹中は半速；キル関与で90%返還。",
-        "skill2": "【拡張】対象の位置に<#ffb900ff>5秒<>ブラックホールを召喚：<#ffb900ff>0.25秒<>ごとに<#a974ffff>16<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>9%<>の魔法ダメージ、敵を中心へ引き寄せ25%<#ef5350ff>スロウ<>；中心は体力5%（星屑1つにつき+1%）未満のチャンピオンを<#ef5350ff>処刑<>。"
+        "skill2": "【拡張】対象の位置に<#ffb900ff>5秒<>ブラックホールを召喚：<#ffb900ff>0.25秒<>ごとに<#a974ffff>8<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>5%<>の魔法ダメージ、敵を中心へ引き寄せ25%<#ef5350ff>スロウ<>；中心は体力5%（星屑1つにつき+1%）未満のチャンピオンを<#ef5350ff>処刑<>。"
       }
     }
   }

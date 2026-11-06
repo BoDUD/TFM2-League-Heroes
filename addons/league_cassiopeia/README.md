@@ -1,4 +1,4 @@
-# 卡西奥佩娅附加包（测试版 v0.1.2）
+# 卡西奥佩娅附加包（测试版 v0.1.3）
 
 0.1.2（2026-11-05，彩蛋「蛇女不需要鞋」）：英雄联盟的卡西奥佩娅没有脚、不能买鞋，移速随等级成长（主包一直给她更高的移速成长 `ms_g` 16，别的法师 9）。游戏本身不卖鞋，鞋来自第三方装备 mod（11-04 的日志里有 `boots`、`berserkers_greaves`、`plated_steelcaps`、`sorcerers_shoes`、`ionian_boots_of_lucidity`、`gluttonous_greaves`）。本包加了装备构筑钩子（`StableItemBuildHook`，游戏给每个 AI 选手定这一局出哪些成装时调用）：只管她，鞋（名字里有 boots / greaves / shoes / treads / steelcaps / soles / lucidity 等，`radiant_` 升级版也算）的分数压到最低；引擎挑的成装里还是有鞋，就换成同一档里还没出的别的装备（法强的先）。被动每半秒看一次她身上的装备：还是买了鞋（钩子被别的 mod 盖掉了），就把鞋的属性 buff 摘掉（没有脚穿不上；鞋还在装备栏里、钱也花了），第一次记一行 `BOOTS`。普攻说明里的「优雅蛇行」加上「不能买鞋」。看日志的 `BUILD`（成装里的鞋换掉了）和 `BOOTS`（摘了鞋的属性：应该一行都没有）。
 
@@ -30,3 +30,7 @@
   `src/lib.rs` 的常量和参数表一致）。
 - 在 `addons/` 下 `cargo test --release -p league_cassiopeia`：单元测试（毒牙数字、朝向、副本）。
 - 在 `addons/` 下 `cargo build --release -p league_cassiopeia`（Windows）得到 `league_cassiopeia.dll`；`league_addons` 合集也会编进本包。
+
+## 0.1.3：瘴气第一下不再晚 15 tick（2026-11-06）
+
+W 的毒雾（`w_cloud`，每 15 tick 一次：伤害、减速、禁锢位移）第一下晚 15 tick；现在落地下一 tick 就生效，每团多跳一次。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。

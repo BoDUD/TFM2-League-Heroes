@@ -1,4 +1,4 @@
-# 格温被动附加包（测试版 v0.1.2）
+# 格温被动附加包（测试版 v0.1.3）
 
 主包 `league` 保持纯数据。数据里能读目标最大生命值的只有真实伤害，读不到法强，所以主包格温的被动「千穿百孔」对英雄造成
 1% 最大生命值的**真实伤害**（用户：「这个可以改rust」）。这个附加包用原生代码做成英雄联盟的样子：
@@ -30,3 +30,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_gwen`：单元测试（比例、伤害、日志间隔和条数）。
 - 在 `addons/` 下 `cargo build --release -p league_gwen`（Windows）得到 `target/release/league_gwen.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，伤害要在游戏里看日志确认。
+
+## 0.1.3：W 圣灵雾开头不再漏 6 tick（2026-11-06）
+
+W 的雾（`w_zone`，每 6 tick 一次：在雾里、隐身）开头 6 tick 她既不算在雾里也不隐身；现在下一 tick 就生效。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。

@@ -1,4 +1,4 @@
-# 艾克时间倒转附加包（测试版 v0.1.0，可选）
+# 艾克时间倒转附加包（测试版 v0.1.1，可选）
 
 用户 2026-10-24：「查看现在没有做附加包的英雄有明显不一样的话全部补附加包」。
 
@@ -28,3 +28,7 @@
 
 - `python addons/league_ekko_rewind/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。主包里艾克改了就重跑。
 - `cargo test -p league_ekko_rewind`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。
+
+## 0.1.1：Q、W 的减速场第一下不再晚（2026-11-06）
+
+Q 末端的减速场（`q_field_zone`）和 W 的减速区（`w_slow_zone`），每 10 tick 一次，第一下晚 10 tick；现在落地下一 tick 就减速。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。

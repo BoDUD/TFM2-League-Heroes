@@ -1,4 +1,4 @@
-# 扎克附加包（测试版 v0.1.0）
+# 扎克附加包（测试版 v0.1.2）
 
 主包 `league` 保持纯数据。用户选了「粘液回血 + 扩展包复活」：主包的细胞分裂只有掉下的黏液（走过去吃掉回血），复活放在这个附加包里，
 用原生代码做主包数据做不到的那一件事；画面、声音仍然在主包的数据里（附加包只判断、只改生命）：
@@ -43,3 +43,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_zac`：单元测试（参数、一滩的生命、别人的不死、一滩的显示换图）。
 - 在 `addons/` 下 `cargo build --release -p league_zac`（Windows）得到 `target/release/league_zac.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+
+## 0.1.2：果冻落地下一 tick 就能吸（2026-11-06）
+
+掉出来的果冻的拾取区（`b_ground`，每 3 tick）开头 3 tick 吸不到；现在落地下一 tick 就能吸。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。

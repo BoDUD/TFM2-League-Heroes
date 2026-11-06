@@ -399,8 +399,18 @@ and airborne also cancels the target's dash.
 | ParabolicProjectile | travel_time, range, shape, range_effect_name, end_effects | lobbed to a spot |
 | LineRangeProjectile | width, length, delay, apply | line/rectangle: hits once `apply - 1` ticks after it appears, gone after `delay - 1` |
 | RangeProjectile | shape, delay, apply | circle at the target spot, timed like the line; it has no `end_effects` |
-| RangePeriodProjectile | shape, tick, period, first_delay, end_effects | persistent zone ticking every `period` |
+| RangePeriodProjectile | shape, tick, period, first_delay, end_effects | persistent zone ticking every `period` (first hit: below) |
 | ApplyInProjectile | shape, tick, follow_caster | aura / zone that can follow the caster |
+
+**A zone's first hit is `first_delay` ticks after it appears, and `first_delay` 0 is not "at once"**
+*(classic-SDK trace 2026-11-06, every zone of 25 kits probed: map-wide circle, caster-only target, one marker sound a
+hit)*. A zone started from a projectile's `end_effects` first hits `first_delay` ticks after its spawn event, then every
+`period`; with `first_delay` 0 the first hit comes a whole `period` later (Lux E's field: +10 at period 10, Galio Q's
+tornado +30 - 3 hits in its 120 ticks instead of 4). A zone made by a `Delayed` or straight in a skill's effect hits a tick
+sooner (`first_delay - 1`, `period - 1` for 0: Miss Fortune E +14 at period 15). So: `first_delay` 1 for a zone that should
+act when it appears (+1 from a landing, +0 from a Delayed). A one-shot zone (`period` longer than `tick`) with
+`first_delay` 0 never hits at all: Aurelion Sol's Falling Star (tick 2, period 30) struck nobody until 2026-11-06. The
+11-06 logs show the same gap in the game (0.7.1): Kindred died 22-25 ticks after her R, before her circle's first undying.
 
 `applied_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`, `Ally`,
 `AllyChampion`. RangeEffect `target` also accepts `AllyOnlySelf`, `AllyNotSelf`.
@@ -971,7 +981,8 @@ the +-60 px band it hits), 7 frames x 40 ms, view `repeat: false`.
 `ApplyInProjectile {follow_caster: true, tick}` for an aura around the hero.
 
 **Delayed detonation (Gragas Q, Lux E).** A `RangePeriodProjectile` whose `period` is longer than
-its `tick` hits once, at `first_delay`; its view (`repeat: false`) carries the fuse and the
+its `tick` hits once, at `first_delay` (at least 1: with 0 it never hits - see the zone timing note under the projectile
+table); its view (`repeat: false`) carries the fuse and the
 explosion, timed so the blast frame lands on `first_delay` (LoL Reborn Gragas: a
 `ParabolicProjectile` whose `end_effects` hold the zone with tick 106, first_delay 75, a 1.75 s
 view). A second zone with a short `period` and a short slow buff is the slow field

@@ -55,7 +55,7 @@
 
 ### 奥拉夫读血附加包
 
-[奥拉夫读血附加包](../../addons/league_olaf_rage/README.md)：`league_olaf_rage` v0.1.0
+[奥拉夫读血附加包](../../addons/league_olaf_rage/README.md)：`league_olaf_rage` v0.1.1
 
 主包 `league` 保持纯数据，不装本包也完整、平衡过。数据读不到生命，所以主包里奥拉夫的被动「狂战之怒」是替代做法：
 

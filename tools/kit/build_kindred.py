@@ -404,7 +404,7 @@ def build(p):
                      delayed(p["w_at"], cview("w_zone"),
                              anchor("w_anchor", [field("w_field", p["w_r"], p["w_t"], p["w_per"], p["w_first"],
                                                        "EnemyWithoutTower", [bite]),
-                                                 field("w_home", p["w_r"], p["w_t"], p["w_home"], 0, "AllyChampion",
+                                                 field("w_home", p["w_r"], p["w_t"], p["w_home"], 1, "AllyChampion",
                                                        [home])])))
     # W now: W ready and E spent, or both ready with an enemy champion within w_fight (the pros' W first); else E when
     # ready. One-tick flags pick the branch first, so each cast is written once (the game copies skill2 every tick).

@@ -290,7 +290,8 @@ def build(p):
     cloud_hit = [ap(p["w_dmg"], p["w_ratio"]), buff("w_slow", p["w_hold"], move_speed_mult=-p["w_slow"]),
                  {"type": "BlockMoveSkill", "tick": p["w_hold"]}, refresh("venom", p["w_hold"] + p["w_p"]),
                  *([buff("poison", p["w_hold"] + p["w_p"])] if nat else [])]
-    cloud = field("w_cloud", p["w_r"], p["w_t"], p["w_p"], cloud_hit, first=0)
+    # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
+    cloud = field("w_cloud", p["w_r"], p["w_t"], p["w_p"], cloud_hit, first=1)
     lying = [delayed(k, view("w_field")) for k in range(0, p["w_t"], p["w_show"])]
     bolt = lob("w_bolt", p["w_travel"], [sfx("w_land"), view("w_land"), cloud], target="EnemyChampion")
     skill2 = action("skill2", p["w_dur"], p["w_cd"], 1, p["w_range"], "Position", "EnemyChampion",

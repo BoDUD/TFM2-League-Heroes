@@ -1139,7 +1139,7 @@
                   },
                   "tick": 240,
                   "period": 6,
-                  "first_delay": 0,
+                  "first_delay": 1,
                   "applied_target": "AllyChampion",
                   "applied_effects": [
                     {

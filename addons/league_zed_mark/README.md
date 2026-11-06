@@ -1,4 +1,4 @@
-# 劫读血附加包（测试版 v0.2.1）
+# 劫读血附加包（测试版 v0.2.2）
 
 主包 `league` 保持纯数据。数据读不到生命也读不到伤害，所以主包里劫的两处是替代做法：
 
@@ -92,3 +92,7 @@ target ...) - backing off 30 ticks`（league_orianna 0.3.2 的做法）；一串
 - 在 `addons/` 下 `cargo build --release -p league_zed_mark`（Windows，长路径时用短的 `CARGO_TARGET_DIR`）得到
   `league_zed_mark.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试；触发、爆发和连招要在游戏里看日志确认。
+
+## 0.2.2：影子附近的敌人下一 tick 就算（2026-11-06）
+
+影子附近的敌方英雄判定（`sh_near`，每 6 tick）开头 6 tick 不算；现在下一 tick 就算。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。

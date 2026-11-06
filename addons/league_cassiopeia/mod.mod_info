@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Cassiopeia as in League (needs League of Legends Heroes): replaces the main pack's Cassiopeia so Twin Fang's bonus damage and heal go off on a target that is itself poisoned (the main pack: within 3 seconds of her Q or W poisoning anyone), and Petrifying Gaze petrifies the enemies facing her and slows those turned away (the main pack: the near ones petrified, the far ones slowed); like League's Serpentine Grace she buys no boots (a third-party item mod's boots are dropped from her item build; boots she gets anyway give her nothing). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-05",
+  "last_updated": "2026-11-06",
   "mod_id": "league_cassiopeia",
   "mod_type": "native",
   "name": "League Heroes: Cassiopeia's poisoned-target Twin Fang, facing gaze and no boots (test)",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }

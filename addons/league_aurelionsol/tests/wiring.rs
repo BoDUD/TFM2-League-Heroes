@@ -378,7 +378,7 @@ fn astral_flight_flies_and_breathes() {
         assert_eq!(me(&world), stunned);
 
         let text = std::fs::read_to_string(&log).expect("log written");
-        assert!(text.starts_with("=== league_aurelionsol v0.3.1"), "{text}");
+        assert!(text.starts_with(&format!("=== league_aurelionsol v{}", env!("CARGO_PKG_VERSION"))), "{text}");
         for line in [
             "FLY #1: engage #1 (80% hp, 120000 away) from (300000, 480000) 70000 to (370000, 480000); his hp 100%",
             "Breath of Light reset (its cooldown was running)",

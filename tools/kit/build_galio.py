@@ -217,8 +217,9 @@ def zone(name, radius, apply, target, effects):
 
 
 def pzone(name, r, tick, period, target, effects):
+    # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
     return {"type": "RangePeriodProjectile", "name": n(name), "shape": circle(r), "tick": tick, "period": period,
-            "first_delay": 0, "applied_target": target, "applied_effects": [T(e) for e in effects], "end_effects": []}
+            "first_delay": 1, "applied_target": target, "applied_effects": [T(e) for e in effects], "end_effects": []}
 
 
 def rush(speed, tick, target, effects):
