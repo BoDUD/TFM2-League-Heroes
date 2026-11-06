@@ -1362,8 +1362,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
 
 /// 每局每 tick（游戏的世界 tick 和输入之后）扣到了的复活时间（`cut_respawns`，0.5.2）：他阵亡后自己的钩子都不跑了，0.5.1 借每个
 /// 英雄的钩子 `shun` 扣，可 AI 钩子拿到的模拟状态和被动的配不上，一次都没扣成。一个模块只有一个比赛钩子
-/// （`StableMod::set_match_hook`）：附加包合集里只有本包设它，别的附加包要用就得改成转发。开局记一行，看它在不在跑。
-struct Respawns;
+/// （`StableMod::set_match_hook`）：单独装时本包设它；附加包合集里由 league_addons 的 `BundleMatch` 转发（0.5.4 起，和
+/// league_eggs 的彩蛋一起），所以是 `pub`。开局记一行，看它在不在跑。
+pub struct Respawns;
 
 impl StableMatchHook for Respawns {
     fn on_match_start(&self, sim: &mut StableSim<'_>) {

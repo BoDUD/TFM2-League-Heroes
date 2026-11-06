@@ -3345,6 +3345,14 @@
     },
     {
       "type": "Animated",
+      "name": "league_eggs_crown_sejuani",
+      "anim": "asset/league/effects/league_eggs_crown_1x",
+      "tag": "sejuani",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
       "name": "league_sejuani_frost",
       "anim": "asset/league/effects/league_sejuani_fx",
       "tag": "frost",

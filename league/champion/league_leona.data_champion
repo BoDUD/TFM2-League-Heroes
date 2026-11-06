@@ -564,6 +564,13 @@
       "anim": "asset/league/effects/league_leona_fx",
       "tag": "eclipse",
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_leona_shades",
+      "anim": "asset/league/effects/league_leona_shades",
+      "tag": "shades",
+      "z": 2
     }
   ]
 }

@@ -519,5 +519,14 @@
       "is_follow": true
     }
   ],
-  "view_buffs": []
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_eggs_crown_ashe",
+      "anim": "asset/league/effects/league_eggs_crown_1x",
+      "tag": "ashe",
+      "repeat": true,
+      "z": 4
+    }
+  ]
 }

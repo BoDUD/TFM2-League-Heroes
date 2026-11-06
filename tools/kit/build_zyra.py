@@ -33,6 +33,9 @@ every s_cd ticks, s_max at most, s_life ticks each; one at once on a takedown); 
 e_aim mark on the target as the lob leaves her) grows a native plant on every seed within s_r of it (E: of the vines'
 line) that strikes the nearest enemy champion first (else the nearest unit) every t_per ticks for pl_lo..pl_hi (by her
 level) + pl_ratio% AP, the Thorn Spitter with a visible spit (t_spit); R's mark (r_aim) enrages those within r_r.
+The copy also binds the easter egg's pictures (2026-11-05, 「植物大战僵尸」): a plant - hers from Q or E, or a seed's - that
+Leona's sunlight lands on is drawn one size bigger for the rest of its life (`t_big0..4`, `t_big_end`, the same for v, and
+the ray `sun_pop`; addons/league_zyra/src/sun.rs plays them). The main pack's kit is unchanged.
 """
 import argparse
 import json
@@ -42,6 +45,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 OUT = os.path.join(REPO, "league", "champion", "league_zyra.data_champion")
 ID = "league_zyra"
+SUN = "asset/league_zyra/effects/league_zyra_sun"       # the add-on's big plants in Leona's sunlight (tools/art/fx_zyra_sun.py)
 FX = "asset/league/effects/league_zyra_fx"
 BIG = "asset/league/effects/league_zyra_big"
 THICKET = "asset/league/effects/league_zyra_thicket"    # R's thicket, Codex's squares 1:1 (tag idle; tools/art/import_zyra_fx.py)
@@ -306,10 +310,14 @@ def build(p):
     extra = {}
     if native:
         views_e.append(E("s_seed", FX, -1, False))
+        # the easter egg (2026-11-05, 「植物大战僵尸」): a plant Leona's sunlight lands on is drawn one size bigger over its own
+        # picture, in step with it (the add-on's own sheet, tools/art/fx_zyra_sun.py), with a ray of her light as it grows
+        views_e += [E(f"{k}_big{j}", SUN, -1, False) for k in ("t", "v") for j in (*range(5), "_end")]
+        views_e.append(E("sun_pop", SUN, 1, False))
         extra["passive"] = {"passive_ref": "league_zyra:garden", "params": {
             k: p[k] for k in ("s_cd", "s_life", "s_max", "s_near", "s_seek", "s_r", "s_show", "e_over", "t_life", "t_per",
                               "t_r", "v_r", "spit_speed", "v_slow", "v_slow_t", "pl_lo", "pl_hi", "pl_ratio", "r_r",
-                              "r_rage")}}
+                              "r_rage", "q_delay", "q_fast", "e_grow")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

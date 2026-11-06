@@ -1,4 +1,6 @@
-# 低血量附加包（测试版 v0.2.4，可选）：布里茨、乐芙兰、丽桑卓
+# 低血量附加包（测试版 v0.2.5，可选）：布里茨、乐芙兰、丽桑卓
+
+0.2.5（2026-11-05）：丽桑卓的副本带上「弗雷尔卓德的女王」的冰冠冕（主包 `view_buffs` 里的 `league_eggs_crown_lissandra`，`tools/fix/eggs_crown_views.py`），副本跟着主包重新生成；英雄联盟彩蛋（`league_eggs`）在她赢下弗雷尔卓德之战时挂这个 buff。DLL 没变。
 
 0.2.4（2026-11-05）：待命式大招没用掉时的冷却退还从来没生效过：n tick 的待命标记只有 n - 1 tick 看得见（经典 SDK 探针 lr1105/fix_j：n - 1 之前 148/148 次看得见，第 n tick 0 次），退还在窗口最后一 tick 读它时已经没了，所以每次待命过期都要等完整冷却（塞恩追踪：过期到再待命 3558 tick，改读后 877）。现在在窗口结束前 3 tick 读（布里茨：`tools/fix/arm_refund_read.py`；丽桑卓：`tools/kit/build_lissandra.py` + 同一脚本），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 

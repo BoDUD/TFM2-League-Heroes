@@ -25,6 +25,10 @@
 //! （`casting_type: None`，千珏、加里奥大招的写法，游戏的 AI 在全图任何距离都放得出），钩子按 R 不带目标——赶路时身边
 //! 一个看得见的敌方英雄都没有也按得出来（以前要有人在视野里）。`RIDE REFUSED` 记目标（或最近的敌方英雄）离她多远；
 //! 钩子的 R 一旦被引擎拒收，这条命里游戏 AI 自己的 R 不再拦（`R LET`）——它按的至少骑得上。
+//!
+//! 0.5.1：不指定目标的大招，游戏的 AI 按 R 的输入里也就没有人，`R HELD` 拿不到「AI 的目标」——交战中它每次想放 R（留着的
+//! R 它每 4 tick 再按一次），她都改成走向 AI 上一次让她走的地方或站着，不打人。现在没有目标时用 `FIGHT_R` 内看得见的
+//! 最近的敌方英雄顶上（[`hold_target`]，千珏附加包的做法）：交战中照样打人；交战外接着走路或站一下。
 
 use mod_api_stable::*;
 
@@ -126,6 +130,19 @@ pub fn instead(me: Pt, target: Option<(usize, Pt)>, walk_to: Option<Pt>) -> Inst
         (Some((t, _)), _) => Instead::Attack(t),
         _ => Instead::Stand,
     }
+}
+
+/// `R HELD` 时的「AI 的目标」（0.5.1）：AI 自己按的 R 的目标（看得见的）；没有就是 `FIGHT_R` 内看得见的最近的敌方英雄
+/// （千珏附加包的做法）。0.5.0 起副本的大招不指定目标，AI 按 R 的输入里没有人，`instead` 拿到的目标总是空的——交战中
+/// AI 每次想放 R，她都改成走向 AI 上一次让她走的地方或站着，不打人。交战外不找人顶上：接着走路或站一下，不朝 AI 没挑的
+/// 远处英雄走。
+pub fn hold_target(me: Pt, ai_seen: Option<(usize, Pt)>, foes: &[Foe]) -> Option<(usize, Pt)> {
+    ai_seen.or_else(|| {
+        foes.iter()
+            .filter(|f| dist(me, f.at) <= FIGHT_R)
+            .min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)))
+            .map(|f| (f.id, f.at))
+    })
 }
 
 /// 正在出招（游戏记成 `Animation`）或被强制位移：不替 AI 按，按了会打断。
@@ -318,7 +335,9 @@ impl StablePlayerAi for RideAi {
                         } else {
                             format!("no ride planned (nearest enemy champion {near:.0}, the walk {walk})")
                         };
-                        Todo::Hold(instead(here, ai_seen, self.walk_to), format!("{line} R HELD: the AI's own R, {why}"))
+                        // the AI's R carries no target since 0.5.0 (a None cast): the nearest one in sight stands in
+                        let target = hold_target(here, ai_seen, &foes);
+                        Todo::Hold(instead(here, target, self.walk_to), format!("{line} R HELD: the AI's own R, {why}"))
                     }
                     None => return None,
                 }
@@ -470,6 +489,25 @@ mod tests {
                    "its target far: on with the walk");
         assert_eq!(instead(me, Some((7, (300_000.0, 100_000.0))), Some(me)), Instead::Attack(7), "walked already");
         assert_eq!(instead(me, None, None), Instead::Stand);
+    }
+
+    #[test]
+    fn a_held_r_with_no_target_fights_the_nearest_in_sight() {
+        // 0.5.0's ride is a None cast: the AI's own R carries no target, and the hold walked off or stood in fights
+        let me = (100_000.0, 100_000.0);
+        let lane = Some((400_000.0, 100_000.0));
+        let foes = [foe(4, (700_000.0, 700_000.0), 1.0), foe(9, (140_000.0, 100_000.0), 1.0)];
+        assert_eq!(hold_target(me, None, &foes), Some((9, (140_000.0, 100_000.0))), "the nearest one in the fight");
+        assert_eq!(instead(me, hold_target(me, None, &foes), lane), Instead::Attack(9), "in a fight: attack, not walk off");
+        assert_eq!(hold_target(me, Some((4, (700_000.0, 700_000.0))), &foes).map(|t| t.0), Some(4),
+                   "the AI's own target (a Targeting input) first");
+        // out of a fight nobody stands in for the AI's target: on with the walk, else a tick in place - never a walk
+        // toward a champion far off that the AI did not pick
+        let far = [foe(4, (300_000.0, 100_000.0), 1.0)];
+        assert_eq!(hold_target(me, None, &far), None);
+        assert_eq!(instead(me, hold_target(me, None, &far), lane), Instead::Walk((400_000.0, 100_000.0)));
+        assert_eq!(instead(me, hold_target(me, None, &far), Some(me)), Instead::Stand);
+        assert_eq!(instead(me, hold_target(me, None, &[]), None), Instead::Stand);
     }
 
     #[test]

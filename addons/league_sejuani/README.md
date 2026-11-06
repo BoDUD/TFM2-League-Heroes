@@ -29,3 +29,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_sejuani`：单元测试（参数、伤害、减速的判断、每个英雄的碎冰冷却）。
 - 主包的瑟庄妮改了以后重新跑 `python addons/league_sejuani/make_override.py`（它先核对主包的 `league_sejuani.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_sejuani.log`：`SPAWN`、冻住 `FREEZE`、碎冰 `SHATTER`、清掉减速 `SLOW`、Q 停下 `STOP`。
+
+## 0.1.2（2026-11-05）
+
+副本带上「弗雷尔卓德的女王」的冰冠冕：主包瑟庄妮的 `view_buffs` 多了 `league_eggs_crown_sejuani`（`tools/kit/build_sejuani.py`，画面是主包的 `league_eggs_crown_1x`），副本跟着主包重新生成。英雄联盟彩蛋（`league_eggs`）在她赢下弗雷尔卓德之战时挂这个 buff，头上就有冰冠冕；没装彩蛋包时没人挂，什么都不变。DLL 没变。

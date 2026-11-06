@@ -12,7 +12,8 @@ native=1 -
   * Q and W also hang the marker league_cassiopeia_poison on what they poison; the fang's bonus and heal are the native
     effect league_cassiopeia:fang (only on a target carrying the marker); the gaze's stun or slow is
     league_cassiopeia:gaze for each enemy in the cone;
-  * the attack's and the ult's tooltips point to description.league_cassiopeia.<slot> with the add-on's wording.
+  * the attack's and the ult's tooltips point to description.league_cassiopeia.<slot> with the add-on's wording (the
+    attack's Serpentine Grace also says she buys no boots: the add-on's item build hook, src/lib.rs).
 Every other champion stays untouched. Run it again whenever the main pack's Cassiopeia changes.
 """
 import json
@@ -34,20 +35,20 @@ mag, heal = setup.mag, setup.heal
 TEXT = {
     "zh-hans": {
         "attack": "【扩展包】" + O + "双生毒牙" + E + "：甩出毒牙，造成" + mag("e_dmg", "e_ratio") + "魔法伤害；目标中毒时多造成" +
-                  mag("e_bonus", "e_bratio") + "并" + G + "回复" + E + heal("e_heal") + "生命。" + O + "优雅蛇行" + E + "：移速成长更高。",
+                  mag("e_bonus", "e_bratio") + "并" + G + "回复" + E + heal("e_heal") + "生命。" + O + "优雅蛇行" + E + "：不能买鞋，移速成长更高。",
         "ult": "【扩展包】朝面前扇形石化凝视，造成" + mag("r_dmg", "r_ratio") + "魔法伤害：面朝她的敌人" + R + "石化{r_stun}秒" + E + "，背对她的" + R +
                "减速{r_slow}%" + E + "。前方有2个以上敌方英雄或被突进时才放。",
     },
     "zh-hant": {
         "attack": "【擴充包】" + O + "雙生毒牙" + E + "：甩出毒牙，造成" + mag("e_dmg", "e_ratio") + "魔法傷害；目標中毒時多造成" +
-                  mag("e_bonus", "e_bratio") + "並" + G + "回復" + E + heal("e_heal") + "生命。" + O + "致命節奏" + E + "：移速成長更高。",
+                  mag("e_bonus", "e_bratio") + "並" + G + "回復" + E + heal("e_heal") + "生命。" + O + "致命節奏" + E + "：不能買鞋，移速成長更高。",
         "ult": "【擴充包】朝面前扇形石化凝視，造成" + mag("r_dmg", "r_ratio") + "魔法傷害：面朝她的敵人" + R + "石化{r_stun}秒" + E + "，背對她的" + R +
                "緩速{r_slow}%" + E + "。前方有2個以上敵方英雄或被突進時才放。",
     },
     "en": {
         "attack": "[Add-on] " + O + "Twin Fang" + E + ": flings a fang for " + mag("e_dmg", "e_ratio") + " " + M + "magic damage" + E +
                   "; on a poisoned target it deals " + mag("e_bonus", "e_bratio") + " more and " + G + "heals her" + E + " " + heal("e_heal") +
-                  ". " + O + "Serpentine Grace" + E + ": more move speed per level.",
+                  ". " + O + "Serpentine Grace" + E + ": buys no boots, more move speed per level.",
         "ult": "[Add-on] Gazes in a cone in front of her: " + mag("r_dmg", "r_ratio") + " " + M + "magic damage" + E + "; enemies facing her "
                "are " + R + "petrified for {r_stun}s" + E + ", those turned away " + R + "slowed {r_slow}%" + E + ". Cast with 2+ enemy "
                "champions in front or when dived.",
@@ -55,13 +56,13 @@ TEXT = {
     "ko": {
         "attack": "[확장] " + O + "쌍독니" + E + ": 독니를 날려 " + mag("e_dmg", "e_ratio") + " 마법 피해; 중독된 대상에게 " +
                   mag("e_bonus", "e_bratio") + " 추가, " + G + "체력 회복" + E + " " + heal("e_heal") + ". " + O + "독사의 품격" + E +
-                  ": 레벨당 이동 속도 증가.",
+                  ": 신발을 살 수 없지만 레벨당 이동 속도 증가.",
         "ult": "[확장] 앞쪽 부채꼴로 응시: " + mag("r_dmg", "r_ratio") + " 마법 피해; 그녀를 바라보는 적은 " + R + "{r_stun}초 석화" + E +
                ", 등을 돌린 적은 " + R + "{r_slow}% 둔화" + E + ". 앞에 적 챔피언 2명 이상이거나 돌진당할 때 사용.",
     },
     "ja": {
         "attack": "【拡張】" + O + "ツインファング" + E + "：毒牙を放ち" + mag("e_dmg", "e_ratio") + "の魔法ダメージ；毒状態の対象には" +
-                  mag("e_bonus", "e_bratio") + "追加し" + G + "体力回復" + E + heal("e_heal") + "。" + O + "妖艶な蛇行" + E + "：移動速度の成長が高い。",
+                  mag("e_bonus", "e_bratio") + "追加し" + G + "体力回復" + E + heal("e_heal") + "。" + O + "妖艶な蛇行" + E + "：靴は買えないが、移動速度の成長が高い。",
         "ult": "【拡張】前方の扇形に魔眼：" + mag("r_dmg", "r_ratio") + "の魔法ダメージ；こちらを向く敵は" + R + "{r_stun}秒石化" + E +
                "、背を向けた敵は" + R + "{r_slow}%スロウ" + E + "。前方に敵2体以上か突進された時に使う。",
     },

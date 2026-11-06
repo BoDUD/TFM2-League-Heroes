@@ -1,4 +1,4 @@
-# 卡尔萨斯附加包（测试版 v0.5.3）
+# 卡尔萨斯附加包（测试版 v0.5.4）
 
 主包 `league` 保持纯数据。用户选了「被动做附加包」。这个附加包用原生代码做主包数据做不到的**死亡契约**：
 
@@ -68,6 +68,12 @@
 数字：被动的参数写在英雄数据的 `passive.params`（`{"p_t": 420}`），由 `make_override.py` 从 `tools/kit/build_karthus.py`
 的参数表 `P` 写入；`GUARD_T`、`GUARD_EVERY`、`HIDE_EVERY`、`FLUSH_T` 和钩子的距离写在 `src/lib.rs`，单元测试核对参数表
 （`q_range`、`e_cast`、`e_r`、`w_r`、`atk_range`、`r_dmg`、`r_ratio`、`r_ch`）。
+
+## 0.5.4：比赛钩子在合集里转发（2026-11-05）
+
+行为不变。游戏一个 mod 只有一个比赛钩子，附加包合集里本包的 `Respawns`（扣灵体倒下后的复活时间）以前是合集唯一的一个；
+英雄联盟彩蛋（league_eggs）也要每 tick 看一眼比赛，合集改成由 league_addons 的 `BundleMatch` 依次调用本包的 `Respawns`
+和彩蛋的钩子，所以 `Respawns` 改成 `pub`。单独装的 league_karthus.dll 照旧自己设。
 
 ## 0.5.3：灵体倒下后不再秒复活（2026-11-04）
 

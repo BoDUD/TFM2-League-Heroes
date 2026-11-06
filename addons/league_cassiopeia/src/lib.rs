@@ -12,10 +12,18 @@
 //!   英雄，横向走了至少 `MOVE_MIN` 就按走的方向记朝向；站着不动 `STILL` tick 以上就记成朝向离他最近的对手英雄（站着打人时
 //!   人物转向目标）。朝向记在那个英雄身上的隐藏 buff `league_cassiopeia_face_l`（朝左；没有 = 朝右）。
 //!
+//! - **优雅蛇行：蛇女不需要鞋**（0.1.2，用户 2026-11-05 的彩蛋「蛇女不需要鞋」）：英雄联盟的卡西奥佩娅没有脚、不能买鞋，
+//!   移速随等级成长（主包早就照这个给了更高的移速成长 `ms_g`）。游戏本身不卖鞋，鞋来自第三方装备 mod（日志里见过 `boots`、
+//!   `berserkers_greaves`、`plated_steelcaps`、`sorcerers_shoes`、`ionian_boots_of_lucidity`、`gluttonous_greaves`）。本包的装备
+//!   构筑钩子（`StableItemBuildHook`，游戏给每个 AI 选手定这一局要出的成装时调用）只管她：鞋（[`is_boots`] 按名字认）的分数压到
+//!   最低，引擎挑的成装里还是有鞋就换成同一档里还没出的别的装备（法强的先，[`without_boots`]）。被动每 `ITEMS_EVERY` tick 看她
+//!   身上的装备，还是买了鞋（钩子被别的 mod 盖掉了）就把鞋的属性 buff（名字就是装备的 key，league_ornn 认装备的办法）摘掉
+//!   ——没有脚穿不上；鞋还在装备栏里，钱也花了。第一次记一行 `BOOTS`。
+//!
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_cassiopeia.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `FANG`（毒牙加成）、`GAZE`（石化或减速、朝向），限了条数。
+//! `FANG`（毒牙加成）、`GAZE`（石化或减速、朝向）、`BUILD`（她的成装里的鞋换掉了）、`BOOTS`（她还是买了鞋，属性摘掉了），限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -47,6 +55,27 @@ pub const FACE_EVERY: usize = 3;
 pub const MOVE_MIN: u64 = 300;
 pub const STILL: usize = 30;
 pub const FRONT_SLACK: u64 = 3_000;
+/// 优雅蛇行：装备的名字里有这些就是鞋（英雄联盟的鞋：草鞋、狂战士胫甲、轻灵之靴、明朗之靴、水银之靴、铁板靴、法师之靴、
+/// 共生之靴，S14 的三级鞋，第三方装备 mod 的 `gluttonous_greaves`；`radiant_` 开头的升级版也算）。
+pub const BOOTS: [&str; 11] = [
+    "boots",
+    "greaves",
+    "shoes",
+    "treads",
+    "steelcaps",
+    "soles",
+    "lucidity",
+    "swiftmarch",
+    "armored_advance",
+    "chainlaced_crushers",
+    "forever_forward",
+];
+/// 她的成装里鞋的分数（引擎按分数挑成装；替换成这个就挑不上）。
+pub const BOOTS_SCORE: f32 = -1.0e6;
+/// 构筑钩子的优先级：只对她做决定，排在别的装备 mod 前面。
+pub const BUILD_PRIORITY: i32 = 100;
+/// 被动多久看一次她身上的装备（还是买了鞋：鞋的属性 buff 摘掉，第一次记一行）。
+pub const ITEMS_EVERY: usize = 30;
 
 // ===================== 日志 =====================
 
@@ -146,6 +175,40 @@ pub fn faces(left: bool, at_x: u64, her_x: u64) -> bool {
     }
 }
 
+/// 这件装备是不是鞋（按名字，大小写不论）。
+pub fn is_boots(key: &str) -> bool {
+    let k = key.to_ascii_lowercase();
+    BOOTS.iter().any(|b| k.contains(b))
+}
+
+/// 引擎给她挑的成装 `base`（`keys` 的下标）里有鞋：去掉鞋，每双换成一件同档（成装里最高那一档）、还没在成装里的别的装备，
+/// 法强的先，其余按引擎的顺序；找不到就少一件。没有鞋：`None`（照引擎的）。
+pub fn without_boots(
+    keys: &[&str],
+    cats: &[Option<ItemCategoryV1>],
+    tiers: &[Option<usize>],
+    base: &[usize],
+) -> Option<Vec<usize>> {
+    let boots = |i: usize| keys.get(i).is_some_and(|k| is_boots(k));
+    let n_boots = base.iter().filter(|&&i| boots(i)).count();
+    if n_boots == 0 {
+        return None;
+    }
+    let mut out: Vec<usize> = base.iter().copied().filter(|&i| !boots(i)).collect();
+    let tier = |i: usize| tiers.get(i).copied().flatten();
+    let top = out.iter().filter_map(|&i| tier(i)).max();
+    for _ in 0..n_boots {
+        let pick = (0..keys.len())
+            .filter(|&i| !boots(i) && !out.contains(&i) && (top.is_none() || tier(i) == top))
+            .min_by_key(|&i| (cats.get(i).copied().flatten() != Some(ItemCategoryV1::Magic), i));
+        match pick {
+            Some(i) => out.push(i),
+            None => break,
+        }
+    }
+    Some(out)
+}
+
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
@@ -216,6 +279,46 @@ impl StableEffectType for Step {
     }
 }
 
+// ===================== 优雅蛇行：不买鞋 =====================
+
+/// 装备构筑钩子：只管卡西奥佩娅（别的英雄照引擎的）。
+struct NoBoots;
+
+impl StableItemBuildHook for NoBoots {
+    fn id(&self) -> String {
+        format!("{ID}:no_boots")
+    }
+
+    fn priority(&self) -> i32 {
+        BUILD_PRIORITY
+    }
+
+    fn score_item(&self, ctx: &StableItemBuildContext<'_>, candidate: usize, _base: f32) -> StableDraftDecision {
+        if ctx.champion_key() == ID && ctx.item_key(candidate).is_some_and(is_boots) {
+            StableDraftDecision::Replace(BOOTS_SCORE)
+        } else {
+            StableDraftDecision::Pass
+        }
+    }
+
+    fn decide_build(&self, ctx: &StableItemBuildContext<'_>) -> Vec<usize> {
+        if ctx.champion_key() != ID {
+            return Vec::new();
+        }
+        let keys = ctx.item_keys();
+        let cats: Vec<_> = (0..keys.len()).map(|i| ctx.item_category(i)).collect();
+        let tiers: Vec<_> = (0..keys.len()).map(|i| ctx.item_tier(i)).collect();
+        let base = ctx.base_build();
+        let Some(out) = without_boots(&keys, &cats, &tiers, base) else { return Vec::new() };
+        if let Some(k) = counted("build") {
+            let names = |v: &[usize]| v.iter().filter_map(|&i| keys.get(i).copied()).collect::<Vec<_>>();
+            wlog(format!("BUILD team {} lane {:?}: the engine's build {:?} had boots -> {:?} #{k}", ctx.team(), ctx.lane(),
+                         names(base), names(&out)));
+        }
+        out
+    }
+}
+
 // ===================== 被动：记录敌方英雄的朝向 =====================
 
 #[derive(Clone, Copy, Default)]
@@ -229,6 +332,8 @@ struct Track {
 #[derive(Clone, Default)]
 struct Venom {
     seen: HashMap<usize, Track>,
+    /// 摘鞋的属性已经记过一行 `BOOTS`（每份模拟里的她一次）。
+    boots_told: bool,
 }
 
 impl Venom {
@@ -252,8 +357,24 @@ impl StablePassive for Venom {
         self.seen.clear();
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
         let t = sim.tick();
+        if t % ITEMS_EVERY == 0 {
+            // boots she owns anyway (another mod's build won over the hook): their stats come off her (no feet to wear them)
+            let boots: Vec<String> =
+                sim.get_player(player).map(|p| p.item_keys()).unwrap_or_default().into_iter().filter(|k| is_boots(k)).collect();
+            let worn: Vec<&String> = boots.iter().filter(|k| has_buff(sim, me, k)).collect();
+            for k in &worn {
+                sim.entity_remove_buff(me, k);
+            }
+            if !worn.is_empty() && !self.boots_told {
+                self.boots_told = true;
+                if let Some(k) = counted("boots") {
+                    wlog(format!("{} BOOTS: she owns {boots:?} - the build hook was overridden; their stats taken off her #{k}",
+                                 head(sim, me)));
+                }
+            }
+        }
         if t % FACE_EVERY != 0 {
             return;
         }
@@ -304,7 +425,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Cassiopeia: Twin Fang on the poisoned target, Petrifying Gaze by facing) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Cassiopeia: Twin Fang on the poisoned target, Petrifying Gaze by facing, no boots) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -314,7 +435,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:fang"), Step(fang));
     module.add_native_effect(format!("{ID}:gaze"), Step(gaze));
     module.add_native_passive(format!("{ID}:venom"), Venom::default());
-    host.log(LogLevel::Info, "league_cassiopeia loaded (Twin Fang on the poisoned target, Petrifying Gaze by facing).");
+    module.add_item_build_hook(NoBoots);
+    host.log(LogLevel::Info, "league_cassiopeia loaded (Twin Fang on the poisoned target, Petrifying Gaze by facing, no boots).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -358,6 +480,41 @@ mod tests {
         assert!(!faces(false, 100_000, 50_000));
         // right on top of her: in front either way
         assert!(faces(true, 100_000, 101_000));
+    }
+
+    #[test]
+    fn boots_by_name() {
+        // the third-party item mod's keys seen in the 11-04 logs, League's other boots, the radiant upgrades
+        for k in ["boots", "berserkers_greaves", "plated_steelcaps", "sorcerers_shoes", "ionian_boots_of_lucidity",
+                  "gluttonous_greaves", "mercurys_treads", "symbiotic_soles", "boots_of_swiftness", "swiftmarch",
+                  "crimson_lucidity", "radiant_plated_steelcaps", "Sorcerers_Shoes"] {
+            assert!(is_boots(k), "{k} is boots");
+        }
+        // what she builds, the base game's items, the rest of the mod's
+        for k in ["rylais_crystal_scepter", "liandrys_torment", "needlessly_large_rod", "rejuvenation_bead", "ironsword",
+                  "giants_horn_shard", "radiant_zhonyas_hourglass", "seekers_armguard", "spirit_visage", "steel_sigil",
+                  "runic_compass", "staff_of_rapture", "world_atlas", "bamis_cinder"] {
+            assert!(!is_boots(k), "{k} is not boots");
+        }
+    }
+
+    #[test]
+    fn boots_in_her_build_become_a_mage_item_of_the_same_tier() {
+        use ItemCategoryV1::{Ad, Hp, Magic};
+        let keys = ["ironsword", "boots", "sorcerers_shoes", "arcane_crystal", "rylais_crystal_scepter", "liandrys_torment",
+                    "zhonyas_hourglass", "infinity_edge", "sunfire"];
+        let cats = [Some(Ad), None, None, Some(Magic), Some(Magic), Some(Magic), Some(Magic), Some(Ad), Some(Hp)];
+        let tiers = [Some(1), Some(1), Some(2), Some(1), Some(3), Some(3), Some(3), Some(3), Some(3)];
+        // no boots: the engine's build stays
+        assert_eq!(without_boots(&keys, &cats, &tiers, &[4, 5]), None);
+        // boots out, the first top-tier mage item she has not got in
+        assert_eq!(without_boots(&keys, &cats, &tiers, &[4, 2, 5]), Some(vec![4, 5, 6]));
+        // every top-tier mage item in already: the next top-tier one in the engine's order
+        assert_eq!(without_boots(&keys, &cats, &tiers, &[4, 2, 5, 6]), Some(vec![4, 5, 6, 7]));
+        // two pairs out (a mod forcing them), two in
+        assert_eq!(without_boots(&keys, &cats, &tiers, &[1, 2, 4]), Some(vec![4, 5, 6]));
+        // nothing else to build: one item fewer rather than boots
+        assert_eq!(without_boots(&keys[..3], &cats[..3], &tiers[..3], &[0, 2]), Some(vec![0]));
     }
 
     #[test]
