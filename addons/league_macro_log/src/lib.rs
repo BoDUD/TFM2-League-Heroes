@@ -10,7 +10,7 @@
 //! - 大龙之后 `CONV` tick（90 秒）拿龙的一方做了什么（`EPIC` 段）：推了几座塔、击杀 / 阵亡、平均几个人抱在一起
 //!   （离本队活着英雄的中心 `GROUP` 以内）；
 //! - 到了对面基地又走掉（`NEXUS`）：一方 3 个以上英雄在对面基地 `NEAR_NEXUS` 内待了 `VISIT` tick 以上，又散开了、
-//!   基地还在——「不推基地」；
+//!   基地还在——「不推基地」；散开时本队活着的不到 3 个算「被打退」（`nexus_beaten`），否则算「走掉」（`nexus_left`）；
 //! - 5:00 以后双方活着的英雄离本队中心的平均距离（`spread`，越小越抱团）。
 //!
 //! 每 `SUMMARY_EVERY` 场再写一行 `SUM`（这一批的平均），对比改动前后看这一行。
@@ -52,6 +52,8 @@ pub const EARLY: usize = 36_000;
 pub const SPREAD_FROM: usize = 18_000;
 /// 每多少场写一行平均。
 pub const SUMMARY_EVERY: usize = 50;
+/// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
+pub const MAP_MAX: f64 = 1_200_000.0;
 /// 同时跟着的比赛最多几场（没结束就被丢掉的比赛不会一直占着）。
 const RUNS_KEPT: usize = 64;
 /// 一次启动最多写多少行。
@@ -153,6 +155,7 @@ pub struct Tracker {
     at_nexus: [usize; 2],
     pub visits: [u32; 2],
     pub left: [u32; 2],
+    pub beaten: [u32; 2],
     spread_sum: [f64; 2],
     spread_n: [u32; 2],
     pub kills: [usize; 2],
@@ -239,7 +242,11 @@ impl Tracker {
         if self.at_nexus[team] >= VISIT {
             self.visits[team] += 1;
             if s.nexus.iter().any(|n| n.0 == 1 - team && n.3) {
-                self.left[team] += 1;
+                if s.champs.iter().filter(|c| c.team == team).count() >= 3 {
+                    self.left[team] += 1;
+                } else {
+                    self.beaten[team] += 1;
+                }
             }
         }
         self.at_nexus[team] = 0;
@@ -272,7 +279,7 @@ impl Tracker {
             .collect();
         let spread = |t: usize| self.spread_sum[t] / self.spread_n[t].max(1) as f64 / 1000.0;
         format!(
-            "MATCH {head} len={} win={} kills={}-{} early_kills={}-{} towers={}-{} first_tower={} epics=[{}] serpens=[{}] after_epic=[{}] nexus_visits={}-{} nexus_left={}-{} spread={:.0}k-{:.0}k",
+            "MATCH {head} len={} win={} kills={}-{} early_kills={}-{} towers={}-{} first_tower={} epics=[{}] serpens=[{}] after_epic=[{}] nexus_visits={}-{} nexus_left={}-{} nexus_beaten={}-{} spread={:.0}k-{:.0}k",
             clock(self.last_tick),
             winner.map_or("-", |w| SIDE[w]),
             self.kills[0],
@@ -289,6 +296,8 @@ impl Tracker {
             self.visits[1],
             self.left[0],
             self.left[1],
+            self.beaten[0],
+            self.beaten[1],
             spread(0),
             spread(1)
         )
@@ -314,6 +323,8 @@ pub struct Batch {
     pub epic_grouped: f64,
     pub visits: u32,
     pub left: u32,
+    pub beaten: u32,
+    pub wins: [u32; 2],
     pub spread: f64,
 }
 
@@ -337,6 +348,7 @@ impl Batch {
         }
         self.visits += t.visits[0] + t.visits[1];
         self.left += t.left[0] + t.left[1];
+        self.beaten += t.beaten[0] + t.beaten[1];
         let spread = |i: usize| t.spread_sum[i] / t.spread_n[i].max(1) as f64;
         self.spread += (spread(0) + spread(1)) / 2.0;
     }
@@ -345,7 +357,7 @@ impl Batch {
         let m = self.matches.max(1) as f64;
         let e = self.epics.max(1) as f64;
         format!(
-            "SUM {} matches: len {} kills {:.1} (before 10:00 {:.1}) towers {:.1} first tower {} | epics {:.2} a match, in the 90 s after: towers {:.2} kills {:.2} deaths {:.2} grouped {:.2} | at the enemy nexus {:.2} a match, walked away {:.2} | spread {:.0}k",
+            "SUM {} matches: len {} kills {:.1} (before 10:00 {:.1}) towers {:.1} first tower {} | epics {:.2} a match, in the 90 s after: towers {:.2} kills {:.2} deaths {:.2} grouped {:.2} | at the enemy nexus {:.2} a match, walked away {:.2}, beaten back {:.2} | spread {:.0}k | blue won {}, red {}",
             self.matches,
             clock((self.ticks as f64 / m) as usize),
             self.kills as f64 / m,
@@ -359,7 +371,10 @@ impl Batch {
             self.epic_grouped / e,
             self.visits as f64 / m,
             self.left as f64 / m,
-            self.spread / m / 1000.0
+            self.beaten as f64 / m,
+            self.spread / m / 1000.0,
+            self.wins[0],
+            self.wins[1]
         )
     }
 }
@@ -383,8 +398,9 @@ fn sample(sim: &StableSim<'_>) -> (Sample, [usize; 2]) {
         let Some(e) = sim.entity_at(i) else { continue };
         let (x, y) = e.pos();
         let (x, y) = (x as f64, y as f64);
+        let on_map = x <= MAP_MAX && y <= MAP_MAX;
         match e.kind() {
-            Some(EntityKindV1::Champion) if e.is_alive() => s.champs.push(Champ { team: e.team(), x, y }),
+            Some(EntityKindV1::Champion) if e.is_alive() && on_map => s.champs.push(Champ { team: e.team(), x, y }),
             Some(EntityKindV1::Tower) if e.is_alive() => s.towers.push((e.id(), e.team())),
             Some(EntityKindV1::Epic) if e.is_alive() => s.monsters.push(Monster { id: e.id(), epic: true, x, y }),
             Some(EntityKindV1::Serpen) if e.is_alive() => s.monsters.push(Monster { id: e.id(), epic: false, x, y }),
@@ -411,11 +427,18 @@ fn head(o: SimOriginV1) -> String {
     format!("[m={} s={}]", m(o.match_id), m(o.set_index))
 }
 
-/// The team whose nexus fell: one down, else (at the end, where the last tick may still show it standing) the one with
-/// less health left.
+/// The team whose nexus fell: one down or gone from the entities, else (at the end, where the last tick may still show
+/// it standing) the one with less health left.
 pub fn loser(nexus: &[(usize, f64, f64, bool, usize)], end: bool) -> Option<usize> {
     if let Some(n) = nexus.iter().find(|n| !n.3) {
         return Some(n.0);
+    }
+    // a destroyed nexus leaves the entity list: the team whose nexus is missing
+    let has = |t: usize| nexus.iter().any(|n| n.0 == t);
+    match (has(0), has(1)) {
+        (true, false) => return Some(1),
+        (false, true) => return Some(0),
+        _ => {}
     }
     if !end {
         return None;
@@ -453,6 +476,9 @@ fn watch(sim: &StableSim<'_>) {
         let Some((_, t)) = book.runs.remove(&key) else { return };
         let line = t.line(&head(o), fallen.map(|f| 1 - f));
         book.batch.add(&t);
+        if let Some(f) = fallen {
+            book.batch.wins[1 - f] += 1;
+        }
         let sum = (book.batch.matches as usize >= SUMMARY_EVERY).then(|| std::mem::take(&mut book.batch).line());
         drop(book);
         wlog(line);
@@ -547,7 +573,7 @@ mod tests {
         s.champs = [champs(0, (500_000.0, 500_000.0), 5), champs(1, (400_000.0, 400_000.0), 4)].concat();
         t.step(&s, [0, 2]);
         assert_eq!((t.destroyed, t.first_tower), ([0, 1], Some((1, 90))));
-        assert_eq!((t.visits, t.left), ([0, 1], [0, 1]), "at blue's nexus and away again, the nexus standing");
+        assert_eq!((t.visits, t.left, t.beaten), ([0, 1], [0, 1], [0, 0]), "at blue's nexus and away again, the nexus standing");
         let a = &t.after[0];
         assert_eq!((a.towers, a.kills_to[1] - a.kills_from[1]), (1, 1));
         assert!(a.grouped_sum / a.samples as f64 > 3.9, "red grouped: {a:?}");
@@ -565,6 +591,8 @@ mod tests {
         assert_eq!(loser(&n((true, 100), (true, 3)), false), None, "not over yet");
         assert_eq!(loser(&n((true, 100), (true, 3)), true), Some(1), "the last tick still shows it");
         assert_eq!(loser(&n((true, 50), (true, 50)), true), None);
+        assert_eq!(loser(&n((true, 100), (true, 40))[..1], true), Some(1), "red's nexus gone from the entities");
+        assert_eq!(loser(&n((true, 100), (true, 40))[1..], false), Some(0));
     }
 
     #[test]

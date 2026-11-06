@@ -10,8 +10,9 @@
 //!   打小兵时改成打基地（`ctx.is_valid_input` 不收就走过去）；它在对英雄出手（普攻、技能打 `FIGHT` 内的敌方英雄）照旧。
 //! - **大龙后跟强化兵推进**（`Intent::Join`）：莫尔加德（大龙，`Epic`）的 buff 不给英雄，给拿龙一方的小兵
 //!   （`epic_minion_buff`，lol_audio 的 OBJECTIVE 行读到的）。我方有强化兵、自己生命 `JOIN_HP`% 以上、`FIGHT` 内没有敌方
-//!   英雄时，全队去跟离本队中心最近的那波强化兵：站到它身后 `WAVE_BEHIND`（朝自家基地那边）。已经跟上（`WITH_WAVE` 以内）
-//!   就让 AI 自己打兵、拆塔；AI 要走远、回城时改成走回兵线。
+//!   英雄时，全队去跟离本队中心最近的那波强化兵，站到兵线上。已经跟上（`WITH_WAVE` 以内）就让 AI 自己打兵、拆塔，
+//!   它往对面基地那边走也放行；只在它往回走（目的地比兵线离对面基地远 `BACK_OFF` 以上）、回城时拉回兵线。
+//!   0.1.0 站在兵线身后 25000、跟上后 AI 往哪走都拉回：大龙后 90 秒抱团 1.7 -> 3.1 人，推塔却 2.0 -> 1.3 座（830 场）。
 //!
 //! 每 `SCAN` tick 看一次场上（每个选手自己的钩子实例里，不共用状态：游戏会并行跑好几场），两次之间沿用上次的打算。
 //! 只看比赛的状态，没有随机数：服务器预演和客户端重演走的一样。优先级 `PRIORITY` 比英雄附加包低，所以先跑，
@@ -51,14 +52,14 @@ pub const FINISH_HP: usize = 25;
 pub const JOIN_HP: usize = 40;
 /// 这么近有敌方英雄就是在打架：不改去跟兵线。
 pub const FIGHT: f64 = 80_000.0;
-/// 站在强化兵身后多远（朝自家基地）。
-pub const WAVE_BEHIND: f64 = 25_000.0;
-/// 离站位这么近算跟上了兵线。
-pub const WITH_WAVE: f64 = 60_000.0;
+/// 离兵线这么近算跟上了。
+pub const WITH_WAVE: f64 = 90_000.0;
+/// 跟上兵线后 AI 的走路目的地比兵线离对面基地远这么多，算往回走。
+pub const BACK_OFF: f64 = 30_000.0;
 /// 前多少次改指令各写一行。
 const DETAIL_LINES: usize = 40;
 /// 之后每多少次写一行累计。
-const COUNT_EVERY: usize = 5_000;
+const COUNT_EVERY: usize = 2_000;
 /// 一次启动最多写多少行。
 const LOG_CAP: usize = 5_000;
 
@@ -66,8 +67,10 @@ const LOG_CAP: usize = 5_000;
 
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 static LINES: AtomicUsize = AtomicUsize::new(0);
+/// Champions that started following each order, and the ticks orders were changed.
 static FINISHES: AtomicUsize = AtomicUsize::new(0);
 static JOINS: AtomicUsize = AtomicUsize::new(0);
+static TICKS: AtomicUsize = AtomicUsize::new(0);
 
 fn log_path() -> PathBuf {
     if let Some(path) = std::env::var_os("LEAGUE_MACRO_HOOK_LOG") {
@@ -98,7 +101,7 @@ fn wlog(msg: impl AsRef<str>) {
     }
 }
 
-/// Counts one changed order; a line for the first few and every `COUNT_EVERY`.
+/// Counts a champion starting to follow an order; a line for the first few and every `COUNT_EVERY`.
 fn note(finish: bool, detail: impl FnOnce() -> String) {
     let (f, j) = if finish {
         (FINISHES.fetch_add(1, Ordering::Relaxed) + 1, JOINS.load(Ordering::Relaxed))
@@ -109,7 +112,10 @@ fn note(finish: bool, detail: impl FnOnce() -> String) {
     if n <= DETAIL_LINES {
         wlog(detail());
     } else if n % COUNT_EVERY == 0 {
-        wlog(format!("COUNT orders changed so far: finish the nexus {f}, join the baron waves {j}"));
+        wlog(format!(
+            "COUNT champions that took an order so far: finish the nexus {f}, join the baron waves {j}; ticks with a changed order {}",
+            TICKS.load(Ordering::Relaxed)
+        ));
     }
 }
 
@@ -145,7 +151,8 @@ pub struct View {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Intent {
     Finish { nexus: usize, at: Pos },
-    Join { at: Pos },
+    /// The baron wave to stand with, and the enemy nexus (where forward is).
+    Join { at: Pos, toward: Pos },
 }
 
 /// The order for this champion now, if any.
@@ -166,11 +173,8 @@ pub fn plan(v: &View) -> Option<Intent> {
     let centre = (v.allies.iter().map(|p| p.0).sum::<f64>() / n, v.allies.iter().map(|p| p.1).sum::<f64>() / n);
     let centre = if v.allies.is_empty() { v.me } else { centre };
     let wave = v.baron_minions.iter().copied().min_by(|a, b| dist(*a, centre).total_cmp(&dist(*b, centre)))?;
-    // behind it, toward our own nexus
-    let home = v.own_nexus.unwrap_or(v.me);
-    let d = dist(wave, home).max(1.0);
-    let back = (WAVE_BEHIND / d).min(1.0);
-    Some(Intent::Join { at: (wave.0 + (home.0 - wave.0) * back, wave.1 + (home.1 - wave.1) * back) })
+    let toward = v.enemy_nexus.map(|n| n.1)?;
+    Some(Intent::Join { at: wave, toward })
 }
 
 /// Whether the AI's own order is a hit on one of these enemy champions (a fight it is in).
@@ -198,19 +202,17 @@ pub fn order(intent: Intent, me: Pos, base: Option<&InputV1>, enemies: &[(usize,
             let hit = InputV1::action(InputKindV1::Attack, InputTargetV1::target(nexus));
             Some(if attack_ok(&hit) { hit } else { InputV1::move_to(at.0 as u64, at.1 as u64) })
         }
-        Intent::Join { at } => {
-            let with = dist(me, at) <= WITH_WAVE;
-            let wanders = base.is_none_or(|b| {
-                b.kind == InputKindV1::Return.code() || (b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), at) > WITH_WAVE)
+        Intent::Join { at, toward } => {
+            if dist(me, at) > WITH_WAVE {
+                return Some(InputV1::move_to(at.0 as u64, at.1 as u64));
+            }
+            // with the wave the AI farms, sieges and walks on toward the enemy base; only a recall or a walk back
+            // goes back to the wave
+            let back = base.is_some_and(|b| {
+                b.kind == InputKindV1::Return.code()
+                    || (b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), toward) > dist(at, toward) + BACK_OFF)
             });
-            // with the wave: the AI farms and sieges; away from it, or walking off: back to the wave
-            if with && !wanders {
-                return None;
-            }
-            if with && base.is_none() {
-                return None;
-            }
-            Some(InputV1::move_to(at.0 as u64, at.1 as u64))
+            back.then(|| InputV1::move_to(at.0 as u64, at.1 as u64))
         }
     }
 }
@@ -297,10 +299,14 @@ impl StablePlayerAi for Macro {
             let at = (champ.pos().0 as f64, champ.pos().1 as f64);
             (at, me_id, champ.name().unwrap_or_default())
         };
-        let intent = self.intent?;
+        let Some(intent) = self.intent else {
+            self.last_kind = None;
+            return None;
+        };
         let out = order(intent, me, base.as_ref(), &self.enemies, &|i| ctx.is_valid_input(i))?;
         let finish = matches!(intent, Intent::Finish { .. });
-        // one line when a champion starts following an order, not every tick
+        TICKS.fetch_add(1, Ordering::Relaxed);
+        // counted when a champion starts following an order, not every tick
         if self.last_kind != Some(finish) {
             self.last_kind = Some(finish);
             note(finish, || {
@@ -315,10 +321,6 @@ impl StablePlayerAi for Macro {
                     }
                 )
             });
-        } else if finish {
-            FINISHES.fetch_add(1, Ordering::Relaxed);
-        } else {
-            JOINS.fetch_add(1, Ordering::Relaxed);
         }
         Some(out)
     }
@@ -408,18 +410,20 @@ mod tests {
             own_nexus: Some((100_000.0, 860_000.0)),
             baron_minions: vec![(520_000.0, 440_000.0), (150_000.0, 200_000.0)],
         };
-        let Some(Intent::Join { at }) = plan(&v) else { panic!("{:?}", plan(&v)) };
-        assert!(dist(at, (520_000.0, 440_000.0)) < WAVE_BEHIND + 1.0 && dist(at, (100_000.0, 860_000.0)) < dist((520_000.0, 440_000.0), (100_000.0, 860_000.0)), "behind the wave nearest the team: {at:?}");
-        // in a fight, hurt, or no baron wave: no
+        let Some(Intent::Join { at, toward }) = plan(&v) else { panic!("{:?}", plan(&v)) };
+        assert_eq!((at, toward), ((520_000.0, 440_000.0), (860_000.0, 100_000.0)), "the wave nearest the team");
+        // in a fight, hurt, no baron wave, or no enemy nexus to push to: no
         assert_eq!(plan(&View { enemies: vec![(77, (310_000.0, 690_000.0))], ..v.clone() }), None);
+        assert_eq!(plan(&View { enemy_nexus: None, ..v.clone() }), None);
         assert_eq!(plan(&View { hp_pct: 30, ..v.clone() }), None);
         assert_eq!(plan(&View { baron_minions: vec![], ..v.clone() }), None);
-        // far from it: walk there; with it and farming: the AI's own; with it but walking off or recalling: back
-        let intent = Intent::Join { at };
+        // far from it: walk there; with it: the AI's own (farming, sieging, walking on); a walk back or a recall: back
+        let intent = Intent::Join { at, toward };
         let farm = InputV1::action(InputKindV1::Attack, InputTargetV1::target(500));
         assert!(order(intent, v.me, Some(&farm), &[], &|_| true).is_some(), "far from the wave");
         assert_eq!(order(intent, at, Some(&farm), &[], &|_| true), None, "with the wave, farming");
-        assert!(order(intent, at, Some(&InputV1::move_to(100_000, 100_000)), &[], &|_| true).is_some());
+        assert_eq!(order(intent, at, Some(&InputV1::move_to(700_000, 260_000)), &[], &|_| true), None, "on toward their base");
+        assert!(order(intent, at, Some(&InputV1::move_to(200_000, 750_000)), &[], &|_| true).is_some(), "back home");
         assert!(order(intent, at, Some(&InputV1::return_home()), &[], &|_| true).is_some());
         assert_eq!(order(intent, at, None, &[], &|_| true), None);
     }
