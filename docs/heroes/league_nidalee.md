@@ -55,7 +55,7 @@
 
 ### 奈德丽附加包
 
-[奈德丽附加包](../../addons/league_nidalee/README.md)：`league_nidalee` v0.1.1
+[奈德丽附加包](../../addons/league_nidalee/README.md)：`league_nidalee` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

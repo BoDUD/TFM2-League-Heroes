@@ -335,9 +335,36 @@ pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
     names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
 }
 
+/// The mark on a number borrowed by a caster without his tag (0.1.7): never one of a tagged Galio's own rows (drawn
+/// numbers never reach it).
+pub const BORROWED: u64 = 1 << 63;
+
+/// The number a caster without his tag goes by: the first of `tags` (the numbers on this sim's units in their order, 0 for
+/// one without) marked [`BORROWED`]; 0 when none has one. The units' order is the same in every run of a match and a
+/// number belongs to one sim, so the row stays that sim's.
+pub fn borrowed(tags: impl IntoIterator<Item = u64>) -> u64 {
+    tags.into_iter().find(|&n| n != 0).map_or(0, |n| n | BORROWED)
+}
+
+fn tag_on(e: &StableEntity<'_, '_>) -> u64 {
+    sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()))
+}
+
+/// The number `me` goes by in this sim: the one hung on him; a caster without it (another champion casting the copy's R,
+/// an earlier life's queued flight - a respawn is a new entity) borrows the first tagged unit's ([`borrowed`], 0.1.7;
+/// before, 0: one row (0, id) for every sim running); 0 when no unit of the sim has one.
 fn sim_of(sim: &StableSim<'_>, me: usize) -> u64 {
-    sim.get_entity(me).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i))
-        .map(|b| b.name().to_string())))
+    match sim.get_entity(me).map_or(0, |e| tag_on(&e)) {
+        0 => borrowed((0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).map(|e| tag_on(&e))),
+        n => n,
+    }
+}
+
+/// His new life (a respawn is a new entity): the rows his earlier lives left in `rows` go - this sim's only (0.1.7: past
+/// 4096 rows PICKS, AIM and FLEW were cleared whole, the rows of every sim running beside it too - a flight onto a dead
+/// ally found no last spot in one run and flew there in its twin).
+pub fn forget_lives<V>(rows: &mut HashMap<(u64, usize), V>, no: u64) {
+    rows.retain(|k, _| k.0 != no);
 }
 
 fn pick_for(sim: &StableSim<'_>, me: usize) -> Option<usize> {
@@ -373,12 +400,9 @@ fn pick_for(sim: &StableSim<'_>, me: usize) -> Option<usize> {
         });
     }
     let id = choose(&allies, p.r_far as f64);
-    let mut picks = PICKS.lock().unwrap_or_else(|e| e.into_inner());
-    if picks.len() > 4096 {
-        picks.clear(); // finished sims
-    }
-    picks.insert(key, (tick, id));
-    drop(picks);
+    // 0.1.7: no clear of the whole table past 4096 rows (the other sims' picks went with it); his earlier lives' rows go
+    // at his spawn (`forget_lives`)
+    PICKS.lock().unwrap_or_else(|e| e.into_inner()).insert(key, (tick, id));
     if let Some(id) = id {
         if let Some(a) = allies.iter().find(|a| a.id == id) {
             if let Some(k) = counted("entrance") {
@@ -405,15 +429,20 @@ impl StableEffectType for Entrance {
         if pick_for(sim, caster) == Some(input.target_id) {
             sim.add_buff(caster, &BuffV1::timed(&gl("r_this"), 1));
             if let Some(at) = sim.get_entity(input.target_id).map(|e| e.pos()) {
-                let mut aim = AIM.lock().unwrap_or_else(|e| e.into_inner());
-                if aim.len() > 4096 {
-                    aim.clear();
-                }
-                aim.insert((sim_of(sim, caster), caster), (input.target_id, at));
+                // 0.1.7: no clear past 4096 rows - it took the ally's last spot from every other sim mid-channel
+                let key = (sim_of(sim, caster), caster);
+                AIM.lock().unwrap_or_else(|e| e.into_inner()).insert(key, (input.target_id, at));
             }
         }
     }
 }
+
+/// Each Galio's last flight, keyed like PICKS (0.1.7, diagnostics): the tick, the spot, whether set_pos said yes. His
+/// passive logs where he stands the tick after (`AFTER FLY`): 11-06's log had a FLY onto Rengar that moved him 0 with no
+/// refusal, and three FLY lines with no LANDED / NO FLIGHT after them.
+static FLEW: LazyLock<Mutex<HashMap<(u64, usize), (usize, (u64, u64), bool)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// `AFTER FLY` only this many ticks after the flight at most (later: he was dead meanwhile).
+pub const AFTER_FLY_LATE: usize = 5;
 
 /// The flight at the channel's end (the copy's R, in place of the game's Teleport): onto the ally when he is alive,
 /// else where he was last seen; logged.
@@ -433,14 +462,18 @@ impl StableEffectType for Fly {
             return;
         };
         let from = sim.get_entity(caster).map(|e| e.pos());
+        let dead = sim.get_entity(caster).is_some_and(|e| !e.is_alive());
         let moved = sim.entity_set_pos(caster, x, y);
+        // no clear past 4096 rows (it took the other sims' rows too): read the tick after, at his death, his next spawn
+        FLEW.lock().unwrap_or_else(|e| e.into_inner()).insert(key, (sim.tick(), (x, y), moved));
         // every flight logged (0.1.4): 12 channels of 2026-10-30 ended where they began ("NO FLIGHT", most 0 moved)
-        // without one FLY line, so whether this ran, for whom and whether the host moved him is in the log now
+        // without one FLY line, so whether this ran, for whom and whether the host moved him is in the log now; a dead
+        // Galio's flight (the data's Delayed runs on for a dead caster) says so (0.1.7)
         if let Some(k) = counted("fly") {
             let whom = ally.map_or("-".to_string(), |id| who(sim, id));
             let to = if live.is_some() { "onto" } else { "to the last spot of" };
-            wlog(format!("{} FLY #{k}: {to} {whom} at ({x}, {y}) from {from:?}{}", head(sim, caster),
-                         if moved { "" } else { " - set_pos refused" }));
+            wlog(format!("{} FLY #{k}: {to} {whom} at ({x}, {y}) from {from:?}{}{}", head(sim, caster),
+                         if moved { "" } else { " - set_pos refused" }, if dead { " (he is dead)" } else { "" }));
         }
     }
 }
@@ -469,6 +502,31 @@ fn cc_kinds(e: &StableEntity<'_, '_>) -> String {
 }
 
 impl Colossus {
+    /// The tick after a flight (0.1.7, diagnostics): where he stands, how far from the spot he flew to, his crowd control
+    /// (11-06: a FLY onto Rengar "moved 0" with no refusal). A flight more than `AFTER_FLY_LATE` ticks old (he was dead
+    /// since: the FLY line says so) is dropped unlogged.
+    fn after_fly(&self, sim: &StableSim<'_>, me: usize, now: usize, at: (f64, f64)) {
+        let key = (self.sim_no, me);
+        let flight = {
+            let mut flew = FLEW.lock().unwrap_or_else(|e| e.into_inner());
+            match flew.get(&key).copied() {
+                Some((t, spot, moved)) if now > t => {
+                    flew.remove(&key);
+                    (now <= t + AFTER_FLY_LATE).then_some((t, spot, moved))
+                }
+                _ => None,
+            }
+        };
+        let Some((t, spot, moved)) = flight else { return };
+        let kinds = sim.get_entity(me).map_or_else(String::new, |e| cc_kinds(&e));
+        if let Some(k) = counted("after_fly") {
+            wlog(format!("{} AFTER FLY #{k}: {} tick(s) after the flight he stands at ({:.0}, {:.0}), {:.0} from the spot ({}, {}){}; \
+                          crowd control on him {kinds}", head(sim, me), now - t, at.0, at.1,
+                         dist(at, (spot.0 as f64, spot.1 as f64)), spot.0, spot.1,
+                         if moved { "" } else { " (set_pos had refused)" }));
+        }
+    }
+
     /// R 的引导：被硬控（击飞、眩晕……）就打断（摘掉 `r_ch`，数据到时不飞）；只有自己的施法动作不算。日志记下引导、打断、落地。
     fn channel(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, at: (f64, f64)) {
         let Some(e) = sim.get_entity(me) else { return };
@@ -536,6 +594,10 @@ impl StablePassive for Colossus {
         sim.entity_remove_buff(me, &tag);
         sim.add_buff(me, &BuffV1::named(&tag));
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
+        // a new life (a new entity): his earlier lives' picks, aims and flights in this sim go, nobody else's (0.1.7)
+        forget_lives(&mut PICKS.lock().unwrap_or_else(|e| e.into_inner()), self.sim_no);
+        forget_lives(&mut AIM.lock().unwrap_or_else(|e| e.into_inner()), self.sim_no);
+        forget_lives(&mut FLEW.lock().unwrap_or_else(|e| e.into_inner()), self.sim_no);
         // the Params in the first SPAWN line of a launch only, the line itself counted like the others (0.1.5)
         let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
         let k = counted("spawn");
@@ -550,6 +612,7 @@ impl StablePassive for Colossus {
         let Some(at) = alive_at(sim, me) else { return };
         let now = sim.tick();
         self.channel(sim, me, now, at);
+        self.after_fly(sim, me, now, at);
         if now < self.until || now < self.hurt + PS_IDLE {
             return;
         }
@@ -572,9 +635,31 @@ impl StablePassive for Colossus {
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
-        self.hurt = sim.tick();
+        let now = sim.tick();
+        // his death in R's channel or right after a flight has a line (0.1.7, diagnostics: three FLY lines of 11-06 had
+        // neither LANDED nor NO FLIGHT after them - a dead Galio's passive does not run)
+        let flew = FLEW.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, self.me));
+        if let Some(line) = death_line(self.chan.map(|c| c.0), flew.map(|f| f.0), now) {
+            if let Some(k) = counted("died") {
+                wlog(format!("{} {line} #{k}", head(sim, self.me)));
+            }
+        }
+        self.hurt = now;
         self.until = 0;
         self.chan = None;
+    }
+}
+
+/// His death's line (0.1.7): in R's channel (`chan`: the tick it began) or right after a flight (`flew`: its tick, the
+/// passive not run since); None otherwise.
+pub fn death_line(chan: Option<usize>, flew: Option<usize>, now: usize) -> Option<String> {
+    match (chan, flew) {
+        (Some(t0), None) => Some(format!("DIED IN CHANNEL: {} ticks into R's channel", now.saturating_sub(t0))),
+        (Some(t0), Some(t)) => Some(format!("DIED IN CHANNEL: {} ticks into R's channel, {} after the flight",
+                                            now.saturating_sub(t0), now.saturating_sub(t))),
+        (None, Some(t)) => Some(format!("DIED AFTER FLY: {} ticks after the flight, before his next update",
+                                        now.saturating_sub(t))),
+        (None, None) => None,
     }
 }
 
@@ -719,5 +804,35 @@ mod tests {
         let names = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>().into_iter();
         assert_eq!(sim_tag(names(&["league_galio_w_ps", "league_galio_sim:7"])), 7);
         assert_eq!(sim_tag(names(&["league_galio_r_this"])), 0);
+    }
+
+    #[test]
+    fn a_new_life_forgets_only_its_own_rows_and_an_untagged_caster_borrows() {
+        // 11-06's audit: past 4096 rows PICKS / AIM / FLEW were cleared whole - every sim running beside it lost its
+        // rows at another tick than its twin (a flight onto a dead ally found no last spot and stayed); a caster without
+        // the tag went by one row (0, id) for every sim
+        let mut aim: HashMap<(u64, usize), (usize, (u64, u64))> = HashMap::new();
+        for no in 1..=5_000u64 {
+            aim.insert((no, 30), (12, (1, 1)));
+        }
+        aim.insert((7, 412), (12, (2, 2)));   // his earlier life in sim 7
+        forget_lives(&mut aim, 7);
+        assert_eq!(aim.len(), 4_999);
+        assert!(!aim.contains_key(&(7, 30)) && !aim.contains_key(&(7, 412)));
+        assert!(aim.contains_key(&(8, 30)) && aim.contains_key(&(5_000, 30)));
+        // the untagged caster: the first tagged unit's number, marked - the twins' rows apart, never his own
+        assert_eq!((borrowed([0, 7]), borrowed([0, 8])), (7 | BORROWED, 8 | BORROWED));
+        assert_eq!(borrowed([0, 0]), 0);
+    }
+
+    #[test]
+    fn a_death_in_the_channel_or_after_the_flight_has_a_line() {
+        // 11-06's log: FLY #3, #7, #15 with no LANDED / NO FLIGHT after them - he died (his passive stops)
+        assert_eq!(death_line(Some(35_134), None, 35_200).as_deref(), Some("DIED IN CHANNEL: 66 ticks into R's channel"));
+        assert_eq!(death_line(Some(35_134), Some(35_253), 35_253).as_deref(),
+                   Some("DIED IN CHANNEL: 119 ticks into R's channel, 0 after the flight"));
+        assert_eq!(death_line(None, Some(42_752), 42_753).as_deref(),
+                   Some("DIED AFTER FLY: 1 ticks after the flight, before his next update"));
+        assert_eq!(death_line(None, None, 1), None);
     }
 }

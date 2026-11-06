@@ -1,8 +1,14 @@
 //! 地图的草丛格子（同 league_rengar_bush 的读法：地图自定义钩子读地图文档的 `bushes`，每种模式记一张，当前对局取站进
 //! 墙里的单位最少的那张）。本包单独编译时自己注册读图钩子；合集 `league_addons` 一个 mod 只能有一个，合集的 `MapReaders`
-//! 调用 [`BushReader::read`]。
+//! 调用 [`BushReader::read`]。league_maokai、league_teemo_shrooms 编进的是这同一个文件。
+//!
+//! 2026-11-06（league_nidalee 0.1.2，画面和预模拟分岔的排查）：读到的地图放在有序的表里（`BTreeMap`，按模式的编号），
+//! [`maps`] 按这个顺序给；一样合适时取墙多的（最「具体」的，卡密尔附加包的挑法），再一样取模式编号小的。以前从哈希表里
+//! 取、一样合适时谁先谁后看哈希表的顺序——服务器的预模拟和屏幕上的比赛在不同的时候挑，表里多了一种模式就可能换一个顺序，
+//! 两边用上不同的草丛。
 
-use std::collections::HashMap;
+use std::cmp::Reverse;
+use std::collections::BTreeMap;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -111,18 +117,23 @@ pub struct MapGrids {
     pub bushes: Option<Grid>,
 }
 
-static MAPS: LazyLock<Mutex<HashMap<u32, MapGrids>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 读过的地图，按模式的编号（有序：[`maps`] 每次都按同一个顺序给）。
+static MAPS: LazyLock<Mutex<BTreeMap<u32, MapGrids>>> = LazyLock::new(|| Mutex::new(BTreeMap::new()));
 static SEEN: Mutex<Vec<u32>> = Mutex::new(Vec::new());
 
-/// 当前对局的草丛：站进墙里的单位最少的那张地图（卡密尔附加包的挑法）；只有一张就用它。
+/// 当前对局的草丛：站进墙里的单位最少的那张地图（卡密尔附加包的挑法），一样少时取墙多的，再一样取 `maps` 里靠前的
+/// （[`maps`] 按模式编号给）；只有一张就用它。每次跑同一局都挑同一张，不看读图的先后、不看哈希表的顺序。
 pub fn pick_bushes(points: &[(f64, f64)], maps: &[MapGrids]) -> Option<Grid> {
     maps.iter()
         .filter(|m| m.bushes.is_some())
-        .min_by_key(|m| m.walls.as_ref().map_or(usize::MAX / 2, |w| points.iter().filter(|p| w.at(p.0, p.1)).count()))
+        .min_by_key(|m| {
+            let in_walls = m.walls.as_ref().map_or(usize::MAX / 2, |w| points.iter().filter(|p| w.at(p.0, p.1)).count());
+            (in_walls, Reverse(m.walls.as_ref().map_or(0, Grid::count)))
+        })
         .and_then(|m| m.bushes.clone())
 }
 
-/// 读过的地图（每种模式一张）。
+/// 读过的地图（每种模式一张），按模式的编号。
 pub fn maps() -> Vec<MapGrids> {
     MAPS.lock().unwrap_or_else(|e| e.into_inner()).values().cloned().collect()
 }
@@ -172,5 +183,23 @@ mod tests {
         let b = MapGrids { walls: Some(Grid::from_rows(&[".#", "##"])), bushes: Some(Grid::from_rows(&["#.", ".."])) };
         let here = [(CELL * 1.5, CELL * 1.5)];
         assert_eq!(pick_bushes(&here, &[b, a.clone()]), a.bushes);
+    }
+
+    #[test]
+    fn maps_that_fit_as_well_are_picked_the_same_way_every_time() {
+        // 11-06's audit: a tie went by the hash map's order - the server's presims and the match on screen pick at
+        // different times (one more mode read can reorder it): another bush grid on each side. Now the map with more walls
+        // (the more specific: a lane match stands in no wall of the 5v5 map either), then the lower mode number
+        let open = MapGrids { walls: Some(Grid::from_rows(&["..", ".."])), bushes: Some(Grid::from_rows(&["#.", ".."])) };
+        let lane = MapGrids { walls: Some(Grid::from_rows(&[".#", "##"])), bushes: Some(Grid::from_rows(&["..", "#."])) };
+        let here = [(CELL * 0.5, CELL * 0.5)];
+        assert_eq!(pick_bushes(&here, &[open.clone(), lane.clone()]), lane.bushes);
+        assert_eq!(pick_bushes(&here, &[lane.clone(), open.clone()]), lane.bushes);
+        // the same walls: the first in the list (maps() gives them by mode number)
+        let twin = MapGrids { bushes: Some(Grid::from_rows(&["..", ".#"])), ..open.clone() };
+        assert_eq!(pick_bushes(&here, &[open.clone(), twin.clone()]), open.bushes);
+        MAPS.lock().unwrap().insert(9, twin.clone());
+        MAPS.lock().unwrap().insert(2, open.clone());
+        assert_eq!(maps().iter().map(|m| m.bushes.clone()).collect::<Vec<_>>(), vec![open.bushes, twin.bushes]);
     }
 }

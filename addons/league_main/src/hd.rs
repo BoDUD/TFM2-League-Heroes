@@ -732,7 +732,8 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_heimerdinger_apex_r", 1.75, include_str!("../../../league/effects/league_heimerdinger_apex_r#anim.fanim")),
     ("league_heimerdinger_apex_l", 1.75, include_str!("../../../league/effects/league_heimerdinger_apex_l#anim.fanim")),
     // league_leblanc's passive clone (Mirror Image): her own dense idle where she stood, then the blink-out column - drawn
-    // at her PPU 2.0 like her body (the user: 「妖姬有点bug吧 分身怎么不是高清帧啊 被动的」; tools/fix/leblanc_clone_hd.py)
+    // at her PPU 2.0 like her body (the user: 「妖姬有点bug吧 分身怎么不是高清帧啊 被动的」; tools/fix/leblanc_clone_hd.py);
+    // at her size only since it is a DRAWN_EFFECTS row (0.9.14) - until then twice it
     // league_ivern's Daisy (R): her rise, punch, slam and goodbye, each its own dense sheet (one life a sheet, the
     // turrets' way), drawn from her step-1 design uncut at PPU 1.9 (the user: 「小菊用不裁的原样（D-full，PPU 1.9）」;
     // tools/art/rig_ivern.py). Drawn at 1 / PPU only since the effect draw shrinks her (DRAWN_EFFECTS, 2026-10-27): at 1.9
@@ -767,7 +768,8 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("league_zoe_spell_icons", 3.0, include_str!("../../../league/effects/league_zoe_spell_icons#anim.fanim")),
     // league_zaahen's revive (the add-on banishes him while he rises again, so his rising is an effect picture): his
     // frames over the light column at his own 1.75, facing right and left (tools/art/rig_zaahen.py --rise; the add-on
-    // plays the side facing the nearest enemy champion: an effect picture is never mirrored)
+    // plays the side facing the nearest enemy champion: an effect picture is never mirrored); at his size only since it
+    // is a DRAWN_EFFECTS row (0.9.14) - until then 1.75 times it
     ("league_zaahen_rise", 1.75, include_str!("../../../league/effects/league_zaahen_rise#anim.fanim")),
     // league_karthus's spirit (0.5.0, the user 2026-11-03: 「死了灵体还能移动 还能有残血？」「这能和英雄联盟一样吗」): the
     // add-on banishes him for the whole of it, so his ghost is the banish's picture - his own idle_base squares at his
@@ -783,17 +785,44 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
 /// 弄的太大了吧」「还有地上的召唤师技能图标也太大了吧」): registered at PPU 2 and 3 on 10-22 but never listed here, the
 /// game drew Barrier's shell 88 x 104 px (designed 44 x 52, three times her height) and a shard's icon 34 px (Zoe's
 /// own height, designed 11), each hanging right and down from its spot. league_karthus's ghost (0.9.5) from the start.
-/// Only pictures the view node draw draws - played at a POINT - pass here: a BUFF's view (and an effect following a
-/// unit) is drawn elsewhere, the dense texels a square a game pixel about the 1 / PPU corner, PPU times too big and
-/// hanging right and down, whatever this table says. league_yuumi_ride (the cat on the head of the ally Yuumi rides, a
-/// buff's view) was listed here from 0.9.6 (the user, 2026-11-03: 「悠米还是会遮挡很多英雄的脸部」 - drawn 21 x 26 for the
-/// user's 14 game px, its bottom 7 px under the crown its lift was measured for and 4 px right of the host's middle) and
-/// changed nothing: the 11-05 log had the sheet loaded and Yuumi riding, and no "effect picture drawn" line for it.
-/// league_zoe's buff pictures the same (its 1x sheet league_zoe_spells_1x). So (0.9.12, 2026-11-05) the cat is a plain
-/// 1x sheet, league_yuumi_ride_1x, that the game draws itself, centred on the host: not registered at all.
+/// Only pictures the view node draw draws pass here: the kits' view effects (`view_effects`), played at a point or
+/// following a unit. A following one passes too: Daisy's four pictures all follow the champion her R lands on
+/// (`"is_follow": true`) and the 11-06 log has an "effect picture drawn" line for each (league.prev.log 534.09-536.11);
+/// the body draw calls the node draw (hd_engine build.rs effect_draw), and inside a dense hero's body draw hd_engine's
+/// cmd_kind keeps the effect's own 1 / PPU (view.rs unshrink_extras brings the extras back to the game's size round it).
+/// A BUFF's view (`view_buffs`) is drawn elsewhere and never shrunk: the dense texels a square a game pixel about the
+/// 1 / PPU corner, PPU times too big and hanging right and down, whatever this table says. league_yuumi_ride (the cat on
+/// the head of the ally Yuumi rides, a buff's view) was listed here from 0.9.6 (the user, 2026-11-03: 「悠米还是会遮挡很多
+/// 英雄的脸部」 - drawn 21 x 26 for the user's 14 game px, its bottom 7 px under the crown its lift was measured for and 4 px
+/// right of the host's middle) and changed nothing: the 11-05 log had the sheet loaded and Yuumi riding, and no "effect
+/// picture drawn" line for it. league_zoe's buff pictures the same (its 1x sheet league_zoe_spells_1x). So (0.9.12,
+/// 2026-11-05) the cat is a plain 1x sheet, league_yuumi_ride_1x, that the game draws itself, centred on the host: not
+/// registered at all.
+/// league_leblanc_clone and league_zaahen_rise (0.9.14, 2026-11-06, found with Yone's left body): the hero himself on an
+/// effect sheet at his own PPU - LeBlanc's passive clone where she stood (the kit's league_leblanc_p_clone, a
+/// CasterViewEffect at a point: her own 31 x 63 idle, dense 62 x 128) and Zaahen rising again inside the add-on's banish
+/// (league_zaahen_rv_rise_r / _l, the banish's picture following him, Karthus's ghost's way: 73 x 117 with the light
+/// column, dense 128 x 205). Unlisted, both were drawn a square a game pixel: the clone twice her size, the risen Zaahen
+/// 1.75 times his, hanging right and down from the corner. Listed, they come out at the hero's size (neither hero has a
+/// SIZES row): test a_heros_figure_on_an_effect_sheet_is_drawn_at_his_size.
+/// league_yone - a hero's own sheet (the user, 2026-11-06: 「永恩有bug吧放完E技能后模型变大？」): Spirit Cleave leaves his
+/// body where he cast it, the kit's view league_yone_e_body - tag e_body of his own sheet, played at that point (the end
+/// of the anchor projectile) for its 4 s until the spirit snaps back. Dense since his PPU redo (#694), the node draw drew
+/// it a square a game pixel: a 59 x 145 game px frame for his 27 x 66 (the figure 100 px tall, he is 43-46), its
+/// top-left corner where the 1x frame's is, so hanging right and down, its feet 55 px under the ground. Listed here,
+/// every picture the node draw makes of his sheet is shrunk to 1 / PPU; his body never passes there (the body draw
+/// draws it itself, from the battlefield table). A hero's own sheet goes here only when its kit plays it at points
+/// alone (a view following his own unit is drawn inside his body draw, where unshrink_extras takes his own sheet for
+/// his body) and he has no SIZES row (the shrink is 1 / PPU, the table's rects / PPU x size): tests
+/// a_heros_own_sheet_is_a_drawn_effect_only_at_points, yones_left_body_is_drawn_at_his_size.
+/// league_reksai (0.9.14) the same way: the add-on's tunnel plays her own t_dig / t_up (and the mirrored _l) at the
+/// tunnel's mouths (the kit's league_reksai_t_dig ... views, not following), dense at 1.2 - drawn 1.2 times her size
+/// until now. Every kit's view of a dense hero's own sheet must be listed here: test
+/// every_view_of_a_dense_heros_own_sheet_is_drawn_at_his_size.
 pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
                                      "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side",
-                                     "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost"];
+                                     "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost",
+                                     "league_yone", "league_reksai", "league_leblanc_clone", "league_zaahen_rise"];
 
 /// Tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): the card's canvas holds
 /// about 40 game px at 2.2x and these idles are 45-58 px from the head to the feet, so the knees and feet hid behind
@@ -973,5 +1002,186 @@ mod tests {
             assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives him {b}");
         }
         assert!(FORMS.iter().all(|f| !GROWTH.iter().any(|g| g.0 == f.0)), "a hero grows one way");
+    }
+
+    /// The text of every flat object (no brace inside it: a view, a ViewEffect) of a .data_champion holding `needle`.
+    fn objects_with(data: &str, needle: &str) -> Vec<String> {
+        data.match_indices(needle)
+            .map(|(at, _)| {
+                let open = data[..at].rfind('{').expect("an object");
+                let close = at + data[at..].find('}').expect("an object");
+                data[open..=close].to_string()
+            })
+            .collect()
+    }
+
+    /// The views of `id`'s kit (`data`: its .data_champion) drawn from its own sheet.
+    fn own_sheet_views(id: &str, data: &str) -> Vec<String> {
+        objects_with(data, &format!("\"anim\": \"asset/league/champions/{id}\""))
+    }
+
+    /// A hero's own sheet in DRAWN_EFFECTS: the node draw shrinks every picture of it to 1 / PPU, so its kit plays it at
+    /// points only (a view following his own unit is drawn inside his body draw, where hd_engine's unshrink_extras takes
+    /// his own sheet for his body and the shrink pair for extras: PPU times big again) and the hero has no SIZES row (the
+    /// shrink is 1 / PPU, the table's rects are divided by PPU / size).
+    #[test]
+    fn a_heros_own_sheet_is_a_drawn_effect_only_at_points() {
+        for &id in DRAWN_EFFECTS.iter().filter(|id| HEROES.iter().any(|h| h.0 == **id)) {
+            assert!(!SIZES.iter().any(|s| s.0 == id), "{id}: a SIZES row - the node draw's 1 / PPU would miss it");
+            let path = format!("{}/../../league/champion/{id}.data_champion", env!("CARGO_MANIFEST_DIR"));
+            let data = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{path}: {e}"));
+            let views = own_sheet_views(id, &data);
+            assert!(!views.is_empty(), "{id}: no view of its kit drawn from its own sheet - nothing to shrink");
+            for v in &views {
+                assert!(!v.contains("\"is_follow\": true"), "{id}: a view of its own sheet follows a unit: {v}");
+            }
+        }
+    }
+
+    /// Yone's Spirit Cleave leaves his body behind as a picture of his own sheet played at a point (the kit's
+    /// league_yone_e_body, tag e_body): dense since #694, it was drawn a square a game pixel, 2.195 times his size (the
+    /// user, 2026-11-06: 「永恩有bug吧放完E技能后模型变大？」); listed in DRAWN_EFFECTS the node draw shrinks it to his size.
+    #[test]
+    fn yones_left_body_is_drawn_at_his_size() {
+        assert!(DRAWN_EFFECTS.contains(&"league_yone"));
+        let data = include_str!("../../../league/champion/league_yone.data_champion");
+        let views = own_sheet_views("league_yone", data);
+        assert_eq!(views.len(), 1, "{views:?}");
+        assert!(views[0].contains("\"name\": \"league_yone_e_body\"") && views[0].contains("\"tag\": \"e_body\""));
+        // played by E (a ViewEffect: at the anchor's end, a point) and his sheet has its dense frames
+        let plays = objects_with(data, "\"name\": \"league_yone_e_body\"");
+        assert!(plays.iter().any(|o| o.contains("\"type\": \"ViewEffect\"")), "{plays:?}");
+        let (_, ppu, fanim) = *HEROES.iter().find(|h| h.0 == "league_yone").unwrap();
+        assert!(hd_engine::hd::hd_tags(fanim).contains(&"hd_e_body".to_string()));
+        let h = Heroes::of(&[&table()]);
+        assert_eq!(h.get("league_yone").map(|x| x.shown()), Some(ppu));
+        assert!(h.drawn_effects.contains(&"league_yone"));
+        // the add-on's copy of him (league_yone_r, made from the main pack) plays the same picture
+        let addon = include_str!("../../league_yone_r/override/league_yone.data_champion");
+        assert_eq!(own_sheet_views("league_yone", addon), views);
+    }
+
+    /// The kit sections a view can sit in, and the one an anim at byte `at` of a .data_champion belongs to.
+    fn section_at(data: &str, at: usize) -> &'static str {
+        ["view_effects", "view_buffs", "view_projectiles"]
+            .into_iter()
+            .filter_map(|s| data[..at].rfind(&format!("\"{s}\"")).map(|p| (p, s)))
+            .max()
+            .map_or("?", |(_, s)| s)
+    }
+
+    /// Every kit the game can load (the main pack's and every add-on's override copy) with its path.
+    fn every_kit() -> Vec<(String, String)> {
+        let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let mut dirs = vec![root.join("league/champion")];
+        for addon in std::fs::read_dir(root.join("addons")).expect("addons/").flatten() {
+            dirs.push(addon.path().join("override"));
+        }
+        let mut kits = Vec::new();
+        for dir in dirs {
+            let Ok(files) = std::fs::read_dir(&dir) else { continue };
+            for f in files.flatten().map(|f| f.path()).filter(|p| p.extension().is_some_and(|e| e == "data_champion")) {
+                let text = std::fs::read_to_string(&f).unwrap_or_else(|e| panic!("{}: {e}", f.display()));
+                kits.push((f.display().to_string(), text));
+            }
+        }
+        assert!(kits.len() > 150, "{} kits found", kits.len());
+        kits
+    }
+
+    /// A view of a dense hero's own sheet is drawn by the view node draw a square a game pixel, PPU times his size, unless
+    /// the hero is in DRAWN_EFFECTS (Yone's left body, Rek'Sai's tunnel mouths, 2026-11-06); and only a view effect played
+    /// at a point gets there (a buff's view never does, a following one would be drawn in his own body draw).
+    #[test]
+    fn every_view_of_a_dense_heros_own_sheet_is_drawn_at_his_size() {
+        const NEEDLE: &str = "\"anim\": \"asset/league/champions/";
+        let mut seen = Vec::new();
+        for (path, data) in every_kit() {
+            for (at, _) in data.match_indices(NEEDLE) {
+                let rest = &data[at + NEEDLE.len()..];
+                let id = &rest[..rest.find('"').expect("a closed string")];
+                if !HEROES.iter().any(|h| h.0 == id) {
+                    continue;
+                }
+                let view = &data[data[..at].rfind('{').unwrap()..at + data[at..].find('}').unwrap()];
+                assert_eq!(section_at(&data, at), "view_effects", "{path}: {id}'s own sheet outside the view effects: {view}");
+                assert!(!view.contains("\"is_follow\": true"), "{path}: {id}'s own sheet following a unit: {view}");
+                assert!(DRAWN_EFFECTS.contains(&id), "{path}: {id}'s own sheet played as a view, {id} not in DRAWN_EFFECTS");
+                if !seen.iter().any(|s| s == id) {
+                    seen.push(id.to_string());
+                }
+            }
+        }
+        // the scan finds the two known ones (2026-11-06)
+        for id in ["league_reksai", "league_yone"] {
+            assert!(seen.iter().any(|s| s == id), "{id} not found among {seen:?}");
+        }
+    }
+
+    /// Rek'Sai's tunnel (the add-on league_reksai, 0.1.2): her own dig and rise frames played at the tunnel's mouths - at
+    /// points, from her dense sheet at 1.2; listed in DRAWN_EFFECTS they come out at her size (they were 1.2 times it).
+    #[test]
+    fn reksais_tunnel_mouths_are_drawn_at_her_size() {
+        assert!(DRAWN_EFFECTS.contains(&"league_reksai"));
+        assert!(!SIZES.iter().any(|s| s.0 == "league_reksai"));
+        let data = include_str!("../../../league/champion/league_reksai.data_champion");
+        let views = own_sheet_views("league_reksai", data);
+        let (_, ppu, fanim) = *HEROES.iter().find(|h| h.0 == "league_reksai").unwrap();
+        let hd = hd_engine::hd::hd_tags(fanim);
+        for tag in ["t_dig", "t_dig_l", "t_up", "t_up_l"] {
+            assert_eq!(views.iter().filter(|v| v.contains(&format!("\"tag\": \"{tag}\""))).count(), 1, "{tag}: {views:?}");
+            assert!(hd.contains(&format!("hd_{tag}")), "{tag}: no dense frames");
+        }
+        assert_eq!(views.len(), 4, "{views:?}");
+        assert!(views.iter().all(|v| v.contains("\"is_follow\": false")), "{views:?}");
+        assert_eq!(Heroes::of(&[&table()]).get("league_reksai").map(|x| x.shown()), Some(ppu));
+        // the add-on's copy plays the same pictures
+        let addon = include_str!("../../league_reksai/override/league_reksai.data_champion");
+        assert_eq!(own_sheet_views("league_reksai", addon), views);
+    }
+
+    /// The first frame's (w, h) of tag `t` in a .fanim.
+    fn first_frame(fanim: &str, t: &str) -> (f32, f32) {
+        let at = fanim.find(&format!("\"{t}\"")).unwrap_or_else(|| panic!("no {t}"));
+        let num = |key: &str| -> f32 {
+            let k = at + fanim[at..].find(&format!("\"{key}\"")).unwrap() + key.len() + 2;
+            let s = fanim[k..].trim_start().trim_start_matches(':').trim_start();
+            s[..s.find(|c: char| !(c.is_ascii_digit() || c == '.')).unwrap()].parse().unwrap()
+        };
+        (num("w"), num("h"))
+    }
+
+    /// A hero himself on an effect sheet at his own PPU - LeBlanc's passive clone, Zaahen rising again, Karthus's ghost -
+    /// is shrunk by the node draw to his size (none of them has a SIZES row): the sheet in DRAWN_EFFECTS at the hero's
+    /// PPU. Unlisted, the clone was drawn twice LeBlanc's size and the risen Zaahen 1.75 times his (2026-11-06).
+    #[test]
+    fn a_heros_figure_on_an_effect_sheet_is_drawn_at_his_size() {
+        for (sheet, hero) in [("league_leblanc_clone", "league_leblanc"), ("league_zaahen_rise", "league_zaahen"),
+                              ("league_karthus_ghost", "league_karthus")] {
+            let (_, ppu, _) = *EFFECTS.iter().find(|e| e.0 == sheet).unwrap_or_else(|| panic!("{sheet}"));
+            let (_, hero_ppu, _) = *HEROES.iter().find(|h| h.0 == hero).unwrap_or_else(|| panic!("{hero}"));
+            assert!(DRAWN_EFFECTS.contains(&sheet), "{sheet}: drawn PPU times big");
+            assert_eq!(ppu, hero_ppu, "{sheet}: not at {hero}'s density");
+            assert!(!SIZES.iter().any(|s| s.0 == hero), "{hero}: a SIZES row - 1 / PPU would not be his size");
+        }
+        // the clone is her own idle: the same 1x frame as hers
+        let clone = EFFECTS.iter().find(|e| e.0 == "league_leblanc_clone").unwrap().2;
+        let leblanc = HEROES.iter().find(|h| h.0 == "league_leblanc").unwrap().2;
+        assert_eq!(first_frame(clone, "idle"), first_frame(leblanc, "idle"));
+        // played at a point (her kit's passive, a CasterViewEffect) and inside a banish following him (the add-on's copy
+        // of Zaahen), like Karthus's ghost
+        let lb = include_str!("../../../league/champion/league_leblanc.data_champion");
+        let clone_view = objects_with(lb, "\"anim\": \"asset/league/effects/league_leblanc_clone\"");
+        assert_eq!(clone_view.len(), 1, "{clone_view:?}");
+        assert!(clone_view[0].contains("\"is_follow\": false"));
+        let plays = objects_with(lb, "\"name\": \"league_leblanc_p_clone\"");
+        assert!(plays.iter().any(|o| o.contains("\"type\": \"CasterViewEffect\"")), "{plays:?}");
+        let zaahen = include_str!("../../league_zaahen/override/league_zaahen.data_champion");
+        let rise = objects_with(zaahen, "\"anim\": \"asset/league/effects/league_zaahen_rise\"");
+        assert_eq!(rise.len(), 2, "{rise:?}");
+        assert!(rise.iter().all(|v| v.contains("\"is_follow\": true")), "{rise:?}");
+        let karthus = include_str!("../../league_karthus/override/league_karthus.data_champion");
+        let ghost = objects_with(karthus, "\"anim\": \"asset/league/effects/league_karthus_ghost\"");
+        assert!(ghost.len() == 2 && ghost.iter().all(|v| v.contains("\"is_follow\": true")), "{ghost:?}");
     }
 }

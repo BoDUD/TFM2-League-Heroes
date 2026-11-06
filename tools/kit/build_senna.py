@@ -79,7 +79,10 @@ P = {
     "e_cd": 1320, "e_near": 45000, "e_r": 40000, "e_t": 240, "e_ms": 20,
     # R Dawning Shadow (League: global, 1 s cast, core 320 wide 250-550 + 115% bonus AD, light 2400 wide, shield
     # 120-200 + 150% Mist 3 s, cd 140-100 s); r_len: the longest line the map's clamp leaves straight
-    "r_cd": 3000, "r_range": 250000, "r_dur": 60, "r_rel": 45, "r_speed": 30000, "r_len": 260000, "r_rad": 7500,
+    # r_rad: the engine tests the line only where it stands at each tick, the centre within the circle (no sweep, no body;
+    # game 0.7.1): 7500 at 30000 a tick stepped over half the champions on the line; League's 320-wide core plus a
+    # body: 15000 = 30000 / 2 (2026-11-06)
+    "r_cd": 3000, "r_range": 250000, "r_dur": 60, "r_rel": 45, "r_speed": 30000, "r_len": 260000, "r_rad": 15000,
     "r_wide": 100000, "r_dmg": 150, "r_ratio": 75, "r_sh": 120, "r_sratio": 40, "r_sh_t": 180,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

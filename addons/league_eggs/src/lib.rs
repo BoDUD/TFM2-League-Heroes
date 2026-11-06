@@ -26,7 +26,7 @@
 //! `BUFF`（第一次挂上）/ `KEEP`（复活后补回）、`PLANTS`、`CHARM`、`SHADES`（墨镜层数涨了）/ `SHADES REFUSED`、`EATEN`
 //! （吞掉一具尸体；宿主不收放逐时带 `REFUSED by the host`）、`END`（一局的汇总），屏幕上的 `VIEW`、`NOTE`、`BADGE`。
 
-use std::collections::{BTreeMap, HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -71,7 +71,8 @@ pub const COUGAR: &str = "league_nidalee_cg";
 const RECENT: usize = 120;
 /// 状态最多留这么多份（最久没跑的先丢）。
 const MOST: usize = 512;
-/// 状态在模拟开始这么久以后才建的（编号还在、状态丢了）：不再放开局公告。
+/// 开局后这么久以内找不到水晶和塔（它们在第 0 tick 之后才出现）：下一 tick 再找，不记日志；过了才按 `RETRY` 找、记 `NO ANCHOR`
+/// （0.1.1：0.1.0 在第 0 tick 一个都没找到就等 `RETRY`，每份有彩蛋的模拟都在第 600 tick 才编号、算作中途重建，开局公告一条都没放）。
 const LATE: usize = 120;
 /// 开局公告放在开局后这么久（屏幕时钟过了 0:01 才走）。
 const START_NOTE: usize = 120;
@@ -202,12 +203,31 @@ fn has_eggs(sim: &StableSim<'_>) -> Option<bool> {
     (sim.player_count() > 0).then(|| Active::of(&cast).any())
 }
 
-fn hush(origin: Origin) {
+/// The cast's fingerprint: every player's champion in player order (None while a player has none yet). The same for every
+/// simulation of one match's set (the presim twins, the screen's two runs); `DefaultHasher::new()` hashes alike in every run.
+fn cast_print(sim: &StableSim<'_>) -> Option<u64> {
+    use std::hash::{Hash, Hasher};
+    let mut h = std::collections::hash_map::DefaultHasher::new();
+    let n = sim.player_count();
+    for i in 0..n {
+        sim.player_at(i)?.champion()?.name()?.hash(&mut h);
+    }
+    (n > 0).then(|| h.finish())
+}
+
+fn hush(origin: Origin, cast: u64) {
     let mut q = QUIET.lock().unwrap_or_else(|e| e.into_inner());
     if q.len() > 4 * MOST {
         q.clear();
     }
-    q.insert(origin);
+    q.insert(origin, cast);
+}
+
+/// Quiet: its origin was found without eggs (`found`: that cast's print) with this very cast (0.1.1, 11-06's audit: the
+/// origin alone - a presim carries no set, so another set of the match differs only by its seed - could have silenced a
+/// simulation with eggs).
+pub fn quiet_for(found: Option<u64>, cast: Option<u64>) -> bool {
+    found.is_some() && found == cast
 }
 
 #[derive(Default)]
@@ -259,6 +279,11 @@ fn find(sim: &mut StableSim<'_>, origin: Origin) -> Option<u64> {
     let (nexus, towers) = anchors(sim);
     let all: Vec<usize> = nexus.iter().chain(&towers).copied().collect();
     if all.is_empty() {
+        // the buildings come after tick 0 (0.1.0's logs: NO ANCHOR at t=0 in every simulation, numbered at RETRY as
+        // late): every tick until LATE, quietly
+        if now < LATE {
+            return None;
+        }
         wait(origin, now + RETRY);
         if let Some(k) = counted("no anchor") {
             wlog(format!("{} NO ANCHOR: no nexus and no tower to number this simulation - no eggs, again in {RETRY} ticks #{k}",
@@ -273,7 +298,9 @@ fn find(sim: &mut StableSim<'_>, origin: Origin) -> Option<u64> {
             match has_eggs(sim) {
                 None => return None,
                 Some(false) => {
-                    hush(origin);
+                    if let Some(cast) = cast_print(sim) {
+                        hush(origin, cast);
+                    }
                     return None;
                 }
                 Some(true) => {}
@@ -301,7 +328,8 @@ fn find(sim: &mut StableSim<'_>, origin: Origin) -> Option<u64> {
             return None;
         }
     }
-    let late = !fresh || now > LATE;
+    // late = its number was there and its state was lost (0.1.0 also counted a new number past LATE: every egg simulation)
+    let late = !fresh;
     let read = if late { sim.kill_log_count() } else { 0 };
     let mut book = BOOK.lock().unwrap_or_else(|e| e.into_inner());
     let made = !book.sims.contains_key(&no);
@@ -317,8 +345,7 @@ fn find(sim: &mut StableSim<'_>, origin: Origin) -> Option<u64> {
     drop(book);
     if made && late {
         if let Some(k) = counted("rebuilt") {
-            wlog(format!("{} REBUILT sim #{no} (tag {}, kill log from {read}) #{k}", head(sim),
-                         if fresh { "new" } else { "found" }));
+            wlog(format!("{} REBUILT sim #{no} (tag found, kill log from {read}) #{k}", head(sim)));
         }
     }
     Some(no)
@@ -339,8 +366,9 @@ fn evict(book: &mut Book) {
     }
 }
 
-/// 来历 -> 这场没有彩蛋里的英雄（同一来历的模拟阵容都一样：并排的预演、屏幕上的两遍）：不再找编号，每 tick 只看一眼来历。
-static QUIET: LazyLock<Mutex<HashSet<Origin>>> = LazyLock::new(|| Mutex::new(HashSet::new()));
+/// 来历 -> 那时阵容的指纹（[`cast_print`]）：这场没有彩蛋里的英雄（同一来历的模拟阵容都一样：并排的预演、屏幕上的两遍）：不再找
+/// 编号，每 tick 只看一眼来历和阵容。0.1.1（11-06 的审查）：阵容也要一样才算，来历撞上了的另一场阵容不会被当成没有彩蛋。
+static QUIET: LazyLock<Mutex<HashMap<Origin, u64>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
 fn run(sim: &mut StableSim<'_>) {
     let o = sim.sim_origin().unwrap_or_default();
@@ -350,7 +378,9 @@ fn run(sim: &mut StableSim<'_>) {
     if let Some((m, s)) = screen {
         notice::note_view(m, s);
     }
-    if QUIET.lock().unwrap_or_else(|e| e.into_inner()).contains(&origin) {
+    let quiet = QUIET.lock().unwrap_or_else(|e| e.into_inner()).get(&origin).copied();
+    // (the cast is read only for an origin found quiet: every simulation without eggs, a glance at its champions a tick)
+    if quiet.is_some() && quiet_for(quiet, cast_print(sim)) {
         return;
     }
     let Some(no) = find(sim, origin) else { return };
@@ -370,7 +400,9 @@ fn run(sim: &mut StableSim<'_>) {
             }
         }
         drop(book);
-        hush(origin);
+        if let Some(cast) = cast_print(sim) {
+            hush(origin, cast);
+        }
         return;
     }
     book.sims.insert(no, st);
@@ -387,10 +419,11 @@ struct Sim {
     ended: bool,
     /// 击杀记录读到第几条。
     read: usize,
-    /// 彩蛋里的英雄；(队伍, 分路) -> 玩家；玩家 -> (队伍, 分路)。
+    /// 彩蛋里的英雄；(队伍, 分路) -> 玩家；玩家 -> (队伍, 分路)；玩家 -> 他的英雄 id（每个玩家，彩蛋以外的也有：公告里的名字）。
     cast: Vec<Seat>,
     lanes: HashMap<(usize, u32), usize>,
     seat_of: HashMap<usize, (usize, u32)>,
+    names: HashMap<usize, String>,
     active: Option<Active>,
     hunt_on: Option<usize>,
     hunt_won: Option<usize>,
@@ -426,6 +459,7 @@ impl Sim {
             cast: Vec::new(),
             lanes: HashMap::new(),
             seat_of: HashMap::new(),
+            names: HashMap::new(),
             active: None,
             hunt_on: None,
             hunt_won: None,
@@ -448,8 +482,13 @@ impl Sim {
         self.cast.iter().find(|s| s.player == player).map(|s| s.hero)
     }
 
+    /// The player's champion id: the egg hero's, else the one the simulation names (0.1.1: a non-egg ally in the cougar's
+    /// note was `player8` on screen - notice.rs shows an id's champion name, and `player8` is none), else `player<n>`.
     fn id(&self, player: usize) -> String {
-        self.hero(player).map_or_else(|| format!("player{player}"), |h| h.id().to_string())
+        match self.hero(player) {
+            Some(h) => h.id().to_string(),
+            None => self.names.get(&player).cloned().unwrap_or_else(|| format!("player{player}")),
+        }
     }
 
     fn who(&self, player: usize) -> String {
@@ -500,6 +539,7 @@ impl Sim {
         let mut cast = Vec::new();
         let mut lanes = HashMap::new();
         let mut seat_of = HashMap::new();
+        let mut names = HashMap::new();
         let n = sim.player_count();
         if n == 0 {
             return false;
@@ -514,9 +554,10 @@ impl Sim {
             if let Some(hero) = Hero::of(&name) {
                 cast.push(Seat { player: p.id(), team: p.team(), hero });
             }
+            names.insert(p.id(), name);
         }
         let active = Active::of(&cast);
-        (self.cast, self.lanes, self.seat_of) = (cast, lanes, seat_of);
+        (self.cast, self.lanes, self.seat_of, self.names) = (cast, lanes, seat_of, names);
         let now = sim.tick();
         if active.any() {
             let who: Vec<String> = self.cast.iter().map(|s| format!("{} t{}", self.who(s.player), s.team)).collect();
@@ -1051,8 +1092,24 @@ mod tests {
         let mut q = World::new(9002, SimOriginKindV1::ServerPresim, ["league_garen"; 10]);
         start(&mut q);
         tick(&mut q);
-        assert!(QUIET.lock().unwrap().contains(&origin(&q)));
+        assert!(QUIET.lock().unwrap().contains_key(&origin(&q)));
         assert!(q.units.iter().all(|u| u.buffs.is_empty()), "not a single buff in a match without eggs");
+        // ---- 0.1.1 (11-06's audit): the same origin with another cast (a presim carries no set: another set of the match
+        // differs only by its seed) is not taken for quiet - its own eggs
+        let mut q2 = World::new(9002, SimOriginKindV1::ServerPresim, [
+            "league_zilean", "league_garen", "league_garen", "league_garen", "league_garen",
+            "league_volibear", "league_garen", "league_garen", "league_garen", "league_garen",
+        ]);
+        assert_eq!(origin(&q2), origin(&q));
+        start(&mut q2);
+        tick(&mut q2);
+        assert!(q2.has(0, DISSIDENT).is_some(), "the bears' grudge in the other cast");
+        // and the quiet one stays quiet
+        let mut q3 = World::new(9002, SimOriginKindV1::ServerPresim, ["league_garen"; 10]);
+        start(&mut q3);
+        tick(&mut q3);
+        assert!(q3.units.iter().all(|u| u.buffs.is_empty()));
+        assert!(!quiet_for(None, Some(1)) && !quiet_for(Some(1), None) && !quiet_for(Some(1), Some(2)) && quiet_for(Some(3), Some(3)));
         // ---- nexuses that take no buff: the towers carry the number
         let mut t = World::new(9005, SimOriginKindV1::ServerPresim, [
             "league_zilean", "league_garen", "league_garen", "league_garen", "league_garen",
@@ -1119,6 +1176,69 @@ mod tests {
         let badges = notice::BADGES.lock().unwrap().clone();
         assert!(badges.iter().any(|b| b.kind == BadgeKind::Souls && (b.team, b.lane, b.value) == (0, 4, 3)));
         assert!(badges.iter().any(|b| b.kind == BadgeKind::Freed && (b.team, b.lane, b.value) == (1, 4, 1)));
+
+        // ---- 0.1.1: the buildings come a few ticks after the start (0.1.0: NO ANCHOR at t=0 in every simulation, numbered
+        // at RETRY 600 as late, no opening note on screen); the cougar's note names a non-egg ally by his champion (0.1.0:
+        // 「熟女的魅力：奈德丽 带着 player8」)
+        let mut c = World::new(9006, SimOriginKindV1::ClientMatchView, [
+            "league_garen", "league_nidalee", "league_jinx", "league_garen", "league_garen",
+            "league_caitlyn", "league_garen", "league_garen", "league_garen", "league_garen",
+        ]);
+        for u in &mut c.units[..4] {
+            u.alive = false;
+        }
+        start(&mut c);
+        for _ in 0..3 {
+            tick(&mut c);
+        }
+        assert!(c.units.iter().all(|u| u.buffs.is_empty()), "no number before the buildings stand");
+        assert!(WAIT.lock().unwrap().get(&origin(&c)).is_none(), "looked for again the next tick, quietly");
+        for u in &mut c.units[..4] {
+            u.alive = true;
+        }
+        tick(&mut c);
+        let no_c = number(&c);
+        assert!(BOOK.lock().unwrap().sims.get(&no_c).is_some_and(|s| !s.late && s.born == 3), "a new simulation, not a late one");
+        // the cougar: Nidalee (8) beside Garen (6), Jinx (9) beside her too but not lower
+        c.players[1].level = 8;
+        c.players[0].level = 6;
+        c.players[2].level = 9;
+        let her = c.players[1].champ;
+        c.units[her].buffs.push(BuffV1::named(COUGAR));
+        let her_at = c.units[her].at;
+        for (p, dx) in [(0, 10_000), (2, 20_000)] {
+            let u = c.players[p].champ;
+            c.units[u].at = (her_at.0 + dx, her_at.1);
+        }
+        while c.tick <= rules::CHARM_EVERY {
+            tick(&mut c);
+        }
+        assert_eq!((c.players[0].gold, c.players[2].gold), (5, 0));
+        let notes = notice::NOTES.lock().unwrap().clone();
+        let mine: Vec<&notice::Note> = notes.iter().filter(|n| (n.m, n.s) == (77, 2)).collect();
+        assert!(mine.iter().any(|n| matches!(n.what, What::CopsStart { .. }) && n.tick == 3 + START_NOTE),
+                "the opening note {START_NOTE} ticks after the number");
+        let charm = mine.iter().find_map(|n| match &n.what {
+            What::Charm { nidalee, allies } => Some((nidalee.clone(), allies.clone())),
+            _ => None,
+        });
+        assert_eq!(charm, Some(("league_nidalee".to_string(), vec!["league_garen".to_string()])));
+        assert_eq!(BOOK.lock().unwrap().sims.get(&no_c).map(|s| s.who(0)), Some("garen(p0)".to_string()));
+        // ---- no building at all past LATE: NO ANCHOR, looked for again RETRY ticks later
+        let mut d = World::new(9007, SimOriginKindV1::ServerPresim, [
+            "league_zilean", "league_garen", "league_garen", "league_garen", "league_garen",
+            "league_volibear", "league_garen", "league_garen", "league_garen", "league_garen",
+        ]);
+        for u in &mut d.units[..4] {
+            u.alive = false;
+        }
+        start(&mut d);
+        while d.tick < LATE {
+            tick(&mut d);
+        }
+        assert!(WAIT.lock().unwrap().get(&origin(&d)).is_none());
+        tick(&mut d);
+        assert_eq!(WAIT.lock().unwrap().get(&origin(&d)), Some(&(LATE + RETRY)));
     }
 
     /// Leona's shades and Fizz's shark through the whole hook, on presims only (the screen's notes are another test's).

@@ -1,4 +1,4 @@
-# 维克兹附加包（测试版 v0.1.0，可选）
+# 维克兹附加包（测试版 v0.1.3，可选）
 
 **不装这个附加包，主包里的维克兹也是完整的**：普攻发射虚空能量、每第 3 下撕开虚空裂隙；Q 等离子裂变打中后在命中点周围分裂爆炸；
 E 构造分解炸开一片地面击飞敌人；R 生命形态瓦解射线引导 2.5 秒，对被研究的英雄造成真实伤害；被动有机体解构技能叠 3 层造成真实伤害。
@@ -46,3 +46,12 @@ cd addons && cargo test -p league_velkoz && cargo build --release -p league_velk
 ## 游戏 0.6.5（0.1.1）
 
 连招钩子回城时不出手；R 的引导不朝 AI 正在远离的人放（站着引导，撤退时放会被追上），E 之后的 Q 照放（`league_ult_press` 0.5.0 的规则，0.6.5 的官方 AI 自己决定回城、撤退）。
+
+## 0.1.3：一串按键一行、没放出去就歇一会（2026-11-06，11-06 的日志）
+
+- 连招钩子在引擎接下之前每 tick 都按，每按一下记一行、`WATCH` 的 combos 也加一：`R ON STACKS` 对永恩连着 22 tick（t=10338-10359，
+  第一波射线在 10369）、另一串 6 行，`Q AFTER E` 14、11、7 行。现在同一类、同一个目标离上一次不到 30 tick（`ORDER_FRESH`）算同一串，
+  一串只记一行、combos 只加一（league_drmundo 0.1.7 的做法）。
+- 同一个技能键连着按了 `PRESS_MAX`（3）tick 还没放出去（放出去了冷却就走，不会再按）：歇 `BACKOFF`（30）tick 让 AI 自己来，记一行
+  `... pressed n ticks running since t=… and not taken (cc [...], cooldowns Q 剩余/总 E … R … attack …, the AI wanted …) - backing off 30 ticks`，
+  挡着的是什么看括号（league_orianna 0.3.2 的做法）。普攻（裂隙打英雄）不算：攻击命令本来就每 tick 都下。`WATCH` 多一项 `backed off`。

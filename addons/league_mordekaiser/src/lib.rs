@@ -298,23 +298,47 @@ static STATES: LazyLock<Mutex<HashMap<Key, State>>> = LazyLock::new(|| Mutex::ne
 static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
 const SIM_TAG: &str = "league_mordekaiser_sim:";
 
-/// The number the passive hung on `id` when he spawned in this sim (0: none - the shared slot of old).
+/// The number the passive hung on `id` when he spawned in this sim (0: none).
 pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
     names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
 }
 
+/// The mark on a number borrowed by a caster without his tag (0.1.6): never one of a tagged Mordekaiser's own rows (drawn
+/// numbers never reach it).
+pub const BORROWED: u64 = 1 << 63;
+
+/// The number a caster without his tag goes by: the first of `tags` (the numbers on this sim's units in their order, 0 for
+/// one without) marked [`BORROWED`]; 0 when none has one. The units' order is the same in every run of a match and a
+/// number belongs to one sim, so the row stays that sim's.
+pub fn borrowed(tags: impl IntoIterator<Item = u64>) -> u64 {
+    tags.into_iter().find(|&n| n != 0).map_or(0, |n| n | BORROWED)
+}
+
+fn tag_on(e: &StableEntity<'_, '_>) -> u64 {
+    sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()))
+}
+
+/// The row of `id`: (the number hung on him, him). A caster without it (Viego casting the realm or the shield, an earlier
+/// life's queued effect - a respawn is a new entity) borrows the first tagged unit's ([`borrowed`], 0.1.6; before, 0 -
+/// one slot (0, id) shared by every sim running).
 fn key(sim: &StableSim<'_>, id: usize) -> Key {
-    let tag = sim.get_entity(id).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i))
-        .map(|b| b.name().to_string())));
+    let tag = match sim.get_entity(id).map_or(0, |e| tag_on(&e)) {
+        0 => borrowed((0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).map(|e| tag_on(&e))),
+        n => n,
+    };
     (tag, id)
 }
 
+/// His new life (a respawn is a new entity) in sim `no`: the rows his earlier lives left go - this sim's only. 0.1.5
+/// cleared the whole state table past 4096 rows: every sim running beside it lost its potential (the W shield's size)
+/// and its realm at another tick than its twin.
+pub fn forget_lives<V>(rows: &mut HashMap<Key, V>, no: u64, me: usize) {
+    rows.retain(|k, _| k.0 != no || k.1 == me);
+}
+
 fn with_state<T>(sim: &StableSim<'_>, id: usize, f: impl FnOnce(&mut State) -> T) -> T {
-    let mut map = STATES.lock().unwrap_or_else(|e| e.into_inner());
-    if map.len() > 4096 {
-        map.clear();
-    }
-    f(map.entry(key(sim, id)).or_default())
+    let key = key(sim, id);
+    f(STATES.lock().unwrap_or_else(|e| e.into_inner()).entry(key).or_default())
 }
 
 fn alive_at(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
@@ -494,6 +518,9 @@ impl StablePassive for Revenant {
         // the early-exit watch only means something right after the realm; dead, he never ran it (it read his respawn)
         self.out = None;
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(key(sim, me), p);
+        // his earlier lives' rows in this sim go, nobody else's (0.1.6: the whole state table was cleared past 4096 rows)
+        forget_lives(&mut STATES.lock().unwrap_or_else(|e| e.into_inner()), self.sim_no, me);
+        forget_lives(&mut PARAMS.lock().unwrap_or_else(|e| e.into_inner()), self.sim_no, me);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Mordekaiser (player {player}, team {team}), {p:?}", head(sim, me)));
     }
@@ -762,5 +789,22 @@ mod tests {
         assert_eq!(sim_tag(names(&["league_mordekaiser_r_steal", "league_mordekaiser_sim:42"])), 42);
         assert_eq!(sim_tag(names(&["league_mordekaiser_r_keep"])), 0);
         assert_eq!(sim_tag(names(&["league_mordekaiser_sim:x"])), 0);
+    }
+
+    #[test]
+    fn a_new_life_forgets_only_its_own_rows_and_an_untagged_caster_borrows() {
+        // 11-06's audit: past 4096 rows the state table was cleared whole - the twins and the match on screen lost the
+        // shield's potential at different ticks; a caster without the tag shared one slot (0, id) with every sim
+        let mut states: HashMap<Key, State> = HashMap::new();
+        for no in 1..=5_000u64 {
+            states.insert((no, 20), State { pot: 40.0, ..State::default() });
+        }
+        states.insert((7, 600), State::default());   // his life now in sim 7
+        forget_lives(&mut states, 7, 600);
+        assert_eq!(states.len(), 5_000);
+        assert!(!states.contains_key(&(7, 20)) && states.contains_key(&(7, 600)));
+        assert_eq!(states[&(8, 20)].pot, 40.0, "the other sims keep their potential");
+        assert_eq!((borrowed([0, 7]), borrowed([0, 8])), (7 | BORROWED, 8 | BORROWED));
+        assert_eq!(borrowed([0, 0]), 0);
     }
 }

@@ -16,9 +16,11 @@
 //!   - **终结**：杀掉一名已经连杀 3 个及以上的英雄（Shutdown）。
 //!   - **团灭**：一队的英雄全部倒下（Ace）。
 //!   - **防御塔被摧毁**：游戏的塔（含水晶前的双塔）倒下。
-//!   - **巨龙 / 纳什男爵**：游戏的双角巨蛇（Serpen）、莫尔加德（Epic）被击杀。谁拿的：击杀后 `DECIDE` tick 里哪一队的
-//!     英雄或小兵整队多了一个新增益（双角巨蛇给英雄、莫尔加德给小兵），或者整队金钱多涨了；都看不出时算离它最近的英雄
-//!     那一队。日志 `OBJECTIVE` 行写着是怎么认出来的。
+//!   - **巨龙 / 纳什男爵**：游戏的双角巨蛇（Serpen）、莫尔加德（Epic）被击杀。谁拿的：看游戏自己的奖励（0.2.2 起）——
+//!     双角巨蛇给拿龙一方的英雄每人多一层 `serpen_permanent_buff`，莫尔加德给拿龙一方之后出的小兵挂 `epic_minion_buff`；
+//!     死前一 tick 记下每个英雄身上的 `serpen_*` 层数和带 `epic_*` 的单位数，之后每 tick 比，哪一队涨了（只有一队）就是哪一队，
+//!     巨龙最多等 `DECIDE`、男爵等 `DECIDE_EPIC`（下一波小兵）；都看不出时算整队金钱多涨的、再不行算离它最近的英雄那一队。
+//!     日志 `OBJECTIVE` 行写着是怎么认出来的、死后几 tick 认出来的。
 //!   - **胜利 / 失败**：水晶枢纽倒下（比赛结束时没看到枢纽倒下，就比两边枢纽剩下的生命）。
 //!
 //! **我方 / 敌方**：游戏的比赛画面顶上写着蓝色方、红色方的队名（`ingame.header.blue_info.team_name` /
@@ -35,6 +37,13 @@
 //! 「Azubu Frost」不是「Azubu Frostbite #4」）；比赛画面上两个队名都对不上时留着上次认出的那一边（`settle`），离开比赛
 //! 画面才忘掉。巨龙 / 男爵照旧按颜色放：英雄联盟的语音包里只有蓝色方 / 红色方 / 中立三种，游戏的 team 0 = 蓝色方
 //! （顶上 `blue_info` 的那队，API 里 team 0 赢叫 `blue_win`）。
+//!
+//! 0.2.2（2026-11-06 日志）：巨龙 / 男爵 27 次里 24 次是「nearest champion」猜的，3 次是别的模组的 `sed_refs1:…` buff 认的。
+//! 0.2.1 只认「死后 30 tick 一队多出一个新的 buff 名」：死的那一 tick 才读「之前」，双角巨蛇的 buff 那时已经挂上了；第一条龙之后
+//! `serpen_permanent_buff` 一直在（每条龙多一层），再拿龙不是新名字；莫尔加德的 buff 跟着下一波小兵出来，30 tick 里多半还没有；
+//! 别的模组的 buff 也算。现在只数游戏自己的奖励（上面），「之前」是死前一 tick 读的，`sed_*` 之类一概不算。被胜负那句清掉的
+//! 播报、第一遍结束时还没轮到的播报算进 dropped（0.2.1 哪里都没算：SET 行 queued 比 played + dropped 多 1–2 条），各记一行
+//! `DROPPED`。
 //!
 //! 播报排队放：一条放完（`GAP` tick）才放下一条，等了 `EXPIRE` tick 还没轮到的扔掉（胜负那句插到最前面、清掉别的）。
 //!
@@ -80,12 +89,19 @@ pub const SPREE: usize = 3;
 pub const GAP: usize = 240;
 /// A line still waiting after this many ticks is dropped.
 pub const EXPIRE: usize = 480;
-/// Ticks after an epic monster's death at which the team that took it is decided.
-pub const DECIDE: usize = 30;
+/// How long (ticks) after an epic monster's death its reward is looked for; the team that took it is told on the first
+/// tick the reward shows on one team. Serpen's (`serpen_*` on the takers' champions) comes with the kill; Morgard's
+/// (`epic_minion_buff`) rides the takers' next minion wave (one every 660 ticks), so the baron waits longer. Past it the
+/// gold, then the champion nearest to where it fell, tell.
+pub const DECIDE: usize = 60;
+pub const DECIDE_EPIC: usize = 720;
 /// A team's median gold gain over the other's from which the gold tells who took a monster.
 pub const GOLD_EDGE: usize = 25;
-/// Entities of one team that must have gained the same new buff for it to tell who took a monster.
-pub const BUFF_MIN: usize = 2;
+/// The game's own reward buffs (name prefixes): Serpen's on the takers' champions (`serpen_permanent_buff`, one more each
+/// dragon), Morgard's on the takers' minions (`epic_minion_buff`). Nothing else counts (0.2.2: 0.2.1 took any buff name new
+/// on one team - a third-party mod's `sed_refs1:…` told 3 dragons, and a repeat dragon added no new name).
+pub const SERPEN_BUFF: &str = "serpen_";
+pub const EPIC_BUFF: &str = "epic_";
 /// Team 0 is the blue side (the classic map's blue nexus is team 0's).
 pub const BLUE: usize = 0;
 
@@ -197,13 +213,21 @@ pub struct Queue {
 }
 
 impl Queue {
-    pub fn push(&mut self, line: Line) {
+    /// Queues `line`; the result goes before everything: the lines it clears are returned (never played: dropped).
+    pub fn push(&mut self, line: Line) -> Vec<Line> {
+        let mut cleared = Vec::new();
         if matches!(line.say, Say::Victory { .. }) {
             // the last word: before everything, and nothing after it
-            self.lines.clear();
+            cleared = std::mem::take(&mut self.lines);
             self.free_at = 0;
         }
         self.lines.push(line);
+        cleared
+    }
+
+    /// The lines still waiting (a run that ends before they play: dropped).
+    pub fn take_all(&mut self) -> Vec<Line> {
+        std::mem::take(&mut self.lines)
     }
 
     /// The line to play now, if its turn has come; lines waiting longer than `EXPIRE` are dropped (returned second).
@@ -295,13 +319,15 @@ pub struct Frame {
     pub monsters: Vec<Monster>,
 }
 
-/// What tells who took an epic monster, read when it died and `DECIDE` ticks later.
+/// What tells who took an epic monster: read the tick before it died (`before`) and every tick after until it is told.
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Evidence {
     /// Each team's players' gold.
     pub gold: [Vec<usize>; 2],
-    /// (team, buff name) -> how many of that team's champions and minions have it.
-    pub buffs: BTreeMap<(usize, String), usize>,
+    /// Each live champion (entity) -> (team, `SERPEN_BUFF` buffs on him, every stack counted).
+    pub serpen: BTreeMap<usize, (usize, usize)>,
+    /// Each team's live minions and champions with an `EPIC_BUFF` buff.
+    pub baron: [usize; 2],
 }
 
 fn median(v: &[usize]) -> usize {
@@ -310,24 +336,49 @@ fn median(v: &[usize]) -> usize {
     v.get(v.len() / 2).copied().unwrap_or(0)
 }
 
-/// Who took the monster, and by what: a buff new on `BUFF_MIN` entities of one team only, else a team's median gold
-/// gain `GOLD_EDGE` over the other's, else the team of the champion nearest to where it fell.
-pub fn decide(before: &Evidence, after: &Evidence, nearest: Option<usize>) -> (Option<usize>, String) {
-    let new_buffs = |team: usize| -> Vec<String> {
-        after
-            .buffs
-            .iter()
-            .filter(|((t, name), n)| *t == team && **n >= BUFF_MIN && !before.buffs.contains_key(&(team, name.clone())))
-            .map(|((_, name), n)| format!("{name} x{n}"))
-            .collect()
-    };
-    let (b0, b1) = (new_buffs(0), new_buffs(1));
-    match (b0.is_empty(), b1.is_empty()) {
-        (false, true) => return (Some(0), format!("buff on team 0: {}", b0.join(", "))),
-        (true, false) => return (Some(1), format!("buff on team 1: {}", b1.join(", "))),
+/// How long the reward of an epic monster (`epic`: Morgard, else Serpen) is looked for.
+pub fn decide_within(epic: bool) -> usize {
+    if epic { DECIDE_EPIC } else { DECIDE }
+}
+
+/// Each team's gain in the monster's own reward from `before` to `after`, and on how many units: Morgard's buff on
+/// minions and champions (holders); Serpen's buffs on the champions alive in both readings (a champion who died and came
+/// back is a new entity and brings his stacks back with him: not counted).
+pub fn gains(epic: bool, before: &Evidence, after: &Evidence) -> ([usize; 2], [usize; 2]) {
+    let (mut gain, mut on) = ([0; 2], [0; 2]);
+    if epic {
+        for t in 0..2 {
+            gain[t] = after.baron[t].saturating_sub(before.baron[t]);
+            on[t] = gain[t];
+        }
+        return (gain, on);
+    }
+    for (id, &(team, n)) in &after.serpen {
+        if let Some(&(was_team, was)) = before.serpen.get(id) {
+            if team == was_team && team < 2 && n > was {
+                gain[team] += n - was;
+                on[team] += 1;
+            }
+        }
+    }
+    (gain, on)
+}
+
+/// Who took the monster, and how it was told: its reward on one team only; or, once the time is up (`last`), a team's
+/// median gold gain `GOLD_EDGE` over the other's, else the team of the champion nearest to where it fell. None: not told
+/// yet (no reward seen, or on both teams), look again next tick.
+pub fn decide(epic: bool, before: &Evidence, after: &Evidence, nearest: Option<usize>, last: bool) -> Option<(Option<usize>, String)> {
+    let (gain, on) = gains(epic, before, after);
+    let (what, units) = if epic { ("Morgard's buff", "minions") } else { ("Serpen's buff", "champions") };
+    match (gain[0] > 0, gain[1] > 0) {
+        (true, false) => return Some((Some(0), format!("{what} on team 0: +{} on {} {units}", gain[0], on[0]))),
+        (false, true) => return Some((Some(1), format!("{what} on team 1: +{} on {} {units}", gain[1], on[1]))),
         _ => {}
     }
-    let gain = |t: usize| -> usize {
+    if !last {
+        return None;
+    }
+    let g = |t: usize| -> usize {
         let d: Vec<usize> = after.gold[t]
             .iter()
             .zip(&before.gold[t])
@@ -335,18 +386,18 @@ pub fn decide(before: &Evidence, after: &Evidence, nearest: Option<usize>) -> (O
             .collect();
         median(&d)
     };
-    let (g0, g1) = (gain(0), gain(1));
-    let why = format!("buffs {}/{} new, gold +{g0}/+{g1}", b0.len(), b1.len());
+    let (g0, g1) = (g(0), g(1));
+    let why = format!("{what} +{}/+{}, gold +{g0}/+{g1}", gain[0], gain[1]);
     if g0 >= g1 + GOLD_EDGE {
-        return (Some(0), format!("gold: {why}"));
+        return Some((Some(0), format!("gold: {why}")));
     }
     if g1 >= g0 + GOLD_EDGE {
-        return (Some(1), format!("gold: {why}"));
+        return Some((Some(1), format!("gold: {why}")));
     }
-    match nearest {
+    Some(match nearest {
         Some(t) => (Some(t), format!("nearest champion: {why}")),
         None => (None, format!("not told: {why}")),
-    }
+    })
 }
 
 /// A kill-log entry made by one player's champion on a champion of the other team. `champs`: every player.
@@ -399,7 +450,7 @@ pub struct Tally {
     pub dropped: usize,
 }
 
-/// A monster that died, waiting `DECIDE` ticks for who took it.
+/// A monster that died, waiting (up to `decide_within` ticks) for who took it; `before`: the evidence of the tick before.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Pending {
     pub monster: Monster,
@@ -447,9 +498,13 @@ pub struct Watch {
     monsters: Option<Vec<Monster>>,
     /// Monsters waiting for who took them.
     pub objectives: Vec<Pending>,
+    /// The last tick's evidence (read while a monster stands or waits): a monster's `before`.
+    pub reading: Option<(usize, Evidence)>,
     /// The match's result was said.
     won: bool,
     pub queue: Queue,
+    /// Lines the result cleared from the queue before they played (dropped; the hook logs them).
+    pub cleared: Vec<Line>,
     pub tally: Tally,
     /// The SET line was written.
     summed: bool,
@@ -472,7 +527,17 @@ impl Watch {
 
     fn say(&mut self, now: usize, say: Say, on: Option<usize>, at: (u64, u64)) {
         self.tally.queued += 1;
-        self.queue.push(Line { say, on, at, since: now });
+        // 0.2.2: the lines the result clears never play - dropped (0.2.1 counted them nowhere: 8 a launch)
+        let cleared = self.queue.push(Line { say, on, at, since: now });
+        self.tally.dropped += cleared.len();
+        self.cleared.extend(cleared);
+    }
+
+    /// The run is over before its lines played (the second run began): what still waits is dropped.
+    pub fn drop_waiting(&mut self) -> Vec<Line> {
+        let left = self.queue.take_all();
+        self.tally.dropped += left.len();
+        left
     }
 
     /// The champion of (team, lane), if any.
@@ -618,17 +683,28 @@ impl Watch {
         step
     }
 
-    /// A monster that just died, with the evidence of that tick.
+    /// A monster that just died, with the evidence of the tick before.
     pub fn pend(&mut self, monster: Monster, at: usize, before: Evidence) {
         self.objectives.push(Pending { monster, at, before });
     }
 
-    /// The monsters whose `DECIDE` ticks have passed.
-    pub fn due_objectives(&mut self, now: usize) -> Vec<Pending> {
-        let (due, wait): (Vec<_>, Vec<_>) =
-            std::mem::take(&mut self.objectives).into_iter().partition(|p| now >= p.at + DECIDE);
-        self.objectives = wait;
-        due
+    /// The monsters waiting for who took them, against this tick's evidence `after`: each one told now (its reward showed
+    /// on one team, or its `decide_within` ticks are up) gets its line and is returned with how it was told; the rest wait.
+    /// `nearest`: the team of the champion nearest to where a monster fell.
+    pub fn settle(&mut self, now: usize, after: &Evidence, nearest: impl Fn(&Monster) -> Option<usize>)
+        -> Vec<(Pending, Option<usize>, String)> {
+        let mut told = Vec::new();
+        for p in std::mem::take(&mut self.objectives) {
+            let last = now >= p.at + decide_within(p.monster.epic);
+            match decide(p.monster.epic, &p.before, after, nearest(&p.monster), last) {
+                Some((team, why)) => {
+                    self.objective(now, &p, team);
+                    told.push((p, team, why));
+                }
+                None => self.objectives.push(p),
+            }
+        }
+        told
     }
 
     /// Who took a monster is decided: its line.
@@ -814,11 +890,8 @@ fn world(sim: &StableSim<'_>) -> (Vec<Building>, Vec<Monster>) {
     (buildings, monsters)
 }
 
-fn buff_name(b: &BuffV1) -> String {
-    String::from_utf8_lossy(&b.name_buf[..b.name_len.min(b.name_buf.len())]).into_owned()
-}
-
-/// Gold of each team's players, buffs of each team's champions and minions.
+/// Gold of each team's players; the game's reward buffs on each team's champions and minions (`SERPEN_BUFF` stacks on
+/// each champion, `EPIC_BUFF` holders). Every other buff (the game's items, our heroes', a third-party mod's) is skipped.
 fn evidence(sim: &StableSim<'_>) -> Evidence {
     let mut ev = Evidence::default();
     for p in (0..sim.player_count()).filter_map(|i| sim.player_at(i)) {
@@ -828,14 +901,28 @@ fn evidence(sim: &StableSim<'_>) -> Evidence {
     }
     for i in 0..sim.entity_count() {
         let Some(e) = sim.entity_at(i) else { continue };
-        if !matches!(e.kind(), Some(EntityKindV1::Champion | EntityKindV1::Minion)) || !e.is_alive() || e.team() >= 2 {
+        let champion = match e.kind() {
+            Some(EntityKindV1::Champion) => true,
+            Some(EntityKindV1::Minion) => false,
+            _ => continue,
+        };
+        let team = e.team();
+        if !e.is_alive() || team >= 2 {
             continue;
         }
-        let mut names: Vec<String> = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).map(|b| buff_name(&b)).collect();
-        names.sort();
-        names.dedup();
-        for n in names {
-            *ev.buffs.entry((e.team(), n)).or_default() += 1;
+        let (mut serpen, mut epic) = (0, false);
+        for b in (0..e.buff_count()).filter_map(|j| e.buff_at(j)) {
+            let name = b.name();
+            if champion && name.starts_with(SERPEN_BUFF) {
+                serpen += 1;
+            }
+            epic |= name.starts_with(EPIC_BUFF);
+        }
+        if champion {
+            ev.serpen.insert(e.id(), (team, serpen));
+        }
+        if epic {
+            ev.baron[team] += 1;
         }
     }
     ev
@@ -921,14 +1008,22 @@ impl StableMatchHook for Announcer {
         match w.pass(now) {
             Pass::Live => {}
             Pass::Again { first: true } => {
-                let line = if w.summed {
+                // the first run is over: lines still waiting never play (0.2.2: dropped, not left out of the count)
+                let left = w.drop_waiting();
+                let mut lines: Vec<String> = left
+                    .iter()
+                    .map(|l| format!("DROPPED {} {:?} (waited since t={}): the run ended first", head(&o), l.say, l.since))
+                    .collect();
+                lines.push(if w.summed {
                     format!("AGAIN {} second run from t={now}: ignored", head(&o))
                 } else {
                     w.summed = true;
                     set_line(&o, w, &format!("second run from t={now} ignored"))
-                };
+                });
                 drop(book);
-                wlog(line);
+                for l in lines {
+                    wlog(l);
+                }
                 return;
             }
             Pass::Again { first: false } => return,
@@ -942,39 +1037,40 @@ impl StableMatchHook for Announcer {
         let new_kills: Vec<KillLogV1> = (from..n).filter_map(|i| sim.kill_log_at(i)).collect();
         let over = sim.is_end();
         let (buildings, monsters) = world(sim);
+        // the reward evidence, every tick a monster stands or waits for who took it: a monster's `before` is the tick
+        // before its death (0.2.1 read it on the tick it was seen gone - the dragon's buff was on by then)
+        let stood = w.monsters.as_ref().is_some_and(|m| !m.is_empty());
+        let ev = (!monsters.is_empty() || stood || !w.objectives.is_empty()).then(|| evidence(sim));
         let step = w.step(now, Frame { champs, new_kills, over, buildings, monsters });
         let mut logs = Vec::new();
 
-        // epic monsters: the evidence when they fall, the decision `DECIDE` ticks later
-        if !step.monsters_died.is_empty() {
-            let ev = evidence(sim);
-            for m in &step.monsters_died {
-                w.pend(*m, now, ev.clone());
+        // epic monsters: the evidence of the tick before they fell, then each tick until their reward shows
+        let prev = w.reading.take().filter(|(t, _)| *t + 1 == now).map(|(_, e)| e);
+        for m in &step.monsters_died {
+            if let Some(before) = prev.clone().or_else(|| ev.clone()) {
+                w.pend(*m, now, before);
             }
         }
-        let due = w.due_objectives(now);
-        if !due.is_empty() {
-            let after = evidence(sim);
-            for p in &due {
-                let nearest = w
-                    .last_champs()
-                    .iter()
-                    .filter(|c| c.alive)
-                    .min_by_key(|c| dist2(c.pos, p.monster.pos))
-                    .map(|c| c.team);
-                let (team, why) = decide(&p.before, &after, nearest);
+        if let Some(after) = &ev {
+            let champs = w.last_champs().to_vec();
+            let nearest = |m: &Monster| {
+                champs.iter().filter(|c| c.alive).min_by_key(|c| dist2(c.pos, m.pos)).map(|c| c.team)
+            };
+            for (p, team, why) in w.settle(now, after, nearest) {
                 logs.push(format!(
-                    "OBJECTIVE {} t={} {} #{} died t={} -> {} ({why})",
+                    "OBJECTIVE {} t={} {} #{} died t={} -> {} ({why}; {} ticks after it fell{})",
                     head(&o),
                     clock(now),
                     if p.monster.epic { "Morgard (baron)" } else { "Serpen (dragon)" },
                     p.monster.id,
                     p.at,
                     team.map_or("nobody told".to_string(), |t| format!("team {t}")),
+                    now - p.at,
+                    if prev.is_none() && p.at == now { ", no reading the tick before" } else { "" },
                 ));
-                w.objective(now, p, team);
             }
         }
+        w.reading = ev.map(|e| (now, e));
         for (&(at, c), near) in step.executed.iter().zip(step.executed.iter().map(|&(at, _)| {
             w.recent.iter().filter(|k| k.tick + WAIT >= at && k.tick <= at + WAIT).map(entry).collect::<Vec<_>>().join(", ")
         })) {
@@ -1006,6 +1102,11 @@ impl StableMatchHook for Announcer {
         w.tally.dropped += stale.len();
         for l in &stale {
             logs.push(format!("DROPPED {} t={} {:?} (waited since t={})", head(&o), clock(now), l.say, l.since));
+        }
+        // counted as dropped when the result cleared them (Watch::say)
+        for l in std::mem::take(&mut w.cleared) {
+            logs.push(format!("DROPPED {} t={} {:?} (waited since t={}): the result goes first", head(&o), clock(now), l.say,
+                              l.since));
         }
         if line.is_some() {
             w.tally.played += 1;
@@ -1354,6 +1455,20 @@ mod tests {
         assert_eq!(queued(&w), [Say::Victory { winner: 0 }]);
     }
 
+    /// Evidence: gold, each champion (entity, team, Serpen stacks), each team's holders of Morgard's buff.
+    fn ev(gold: [&[usize]; 2], champs: &[(usize, usize, usize)], baron: [usize; 2]) -> Evidence {
+        Evidence {
+            gold: [gold[0].to_vec(), gold[1].to_vec()],
+            serpen: champs.iter().map(|&(id, t, n)| (id, (t, n))).collect(),
+            baron,
+        }
+    }
+
+    /// Ten champions (entities 100-109, players 0-4 on team 0), each with these Serpen stacks.
+    fn stacks(n: [usize; 10]) -> Vec<(usize, usize, usize)> {
+        (0..10).map(|p| (100 + p, p / 5, n[p])).collect()
+    }
+
     #[test]
     fn a_monster_that_dies_waits_for_who_took_it() {
         let mut w = Watch::default();
@@ -1361,34 +1476,81 @@ mod tests {
         w.step(1, Frame { monsters: vec![m], ..frame(ten(&[]), &[]) });
         let s = w.step(2, frame(ten(&[]), &[]));
         assert_eq!(s.monsters_died, [m]);
-        w.pend(m, 2, Evidence::default());
-        assert!(w.due_objectives(2 + DECIDE - 1).is_empty());
-        let due = w.due_objectives(2 + DECIDE);
-        assert_eq!(due.len(), 1);
-        w.objective(2 + DECIDE, &due[0], Some(1));
+        let quiet = ev([&[100; 5], &[100; 5]], &stacks([0; 10]), [0, 0]);
+        w.pend(m, 2, quiet.clone());
+        // Morgard's buff not on anyone yet: it waits (0.2.1 decided by the nearest champion 30 ticks on)
+        assert!(w.settle(2 + DECIDE, &quiet, |_| Some(0)).is_empty());
+        // team 1's next wave comes out with it
+        let told = w.settle(2 + 400, &ev([&[100; 5], &[100; 5]], &stacks([0; 10]), [0, 4]), |_| Some(0));
+        assert_eq!(told.len(), 1);
+        assert_eq!(told[0].1, Some(1), "{}", told[0].2);
         assert_eq!(queued(&w), [Say::Objective { epic: true, team: Some(1) }]);
-    }
-
-    fn ev(gold: [&[usize]; 2], buffs: &[(usize, &str, usize)]) -> Evidence {
-        Evidence {
-            gold: [gold[0].to_vec(), gold[1].to_vec()],
-            buffs: buffs.iter().map(|(t, n, c)| ((*t, n.to_string()), *c)).collect(),
-        }
+        assert!(w.objectives.is_empty());
     }
 
     #[test]
-    fn who_took_it_by_buff_then_gold_then_nearest() {
-        let before = ev([&[100; 5], &[100; 5]], &[(0, "shield", 1)]);
-        // a buff new on three of team 1's
-        let (t, why) = decide(&before, &ev([&[110; 5], &[110; 5]], &[(1, "serpen_buff", 3), (0, "shield", 1)]), Some(0));
-        assert_eq!(t, Some(1), "{why}");
-        // a buff on one only does not count; team 0's gold went up 150 more
-        let (t, why) = decide(&before, &ev([&[260; 5], &[110; 5]], &[(1, "w", 1)]), Some(1));
+    fn a_repeat_dragon_is_told_by_one_more_stack() {
+        // team 0 has two dragons on every champion already: 0.2.1 looked for a buff name new on a team and found none
+        let before = ev([&[100; 5], &[100; 5]], &stacks([2, 2, 2, 2, 2, 0, 0, 0, 0, 0]), [0, 0]);
+        let after = ev([&[108; 5], &[108; 5]], &stacks([3, 3, 3, 2, 3, 0, 0, 0, 0, 0]), [0, 0]);
+        let (t, why) = decide(false, &before, &after, Some(1), false).expect("told");
         assert_eq!(t, Some(0), "{why}");
-        // nothing tells: the nearest champion's team
-        let (t, why) = decide(&before, &ev([&[110; 5], &[110; 5]], &[]), Some(1));
+        assert!(why.contains("+4 on 4 champions"), "{why}");
+        // the first dragon of team 1, two of them alive
+        let after = ev([&[108; 5], &[108; 5]], &stacks([2, 2, 2, 2, 2, 1, 1, 0, 0, 0]), [0, 0]);
+        assert_eq!(decide(false, &before, &after, Some(0), false).map(|d| d.0), Some(Some(1)));
+    }
+
+    #[test]
+    fn a_champion_back_from_death_brings_his_stacks_but_tells_nothing() {
+        // team 1's champion 107 died before the dragon; he comes back as entity 117 with his three stacks
+        let before = ev([&[100; 5], &[100; 5]], &stacks([1, 1, 1, 1, 1, 3, 3, 3, 3, 3]), [0, 0]);
+        let mut after = ev([&[100; 5], &[100; 5]], &stacks([2, 2, 2, 2, 2, 3, 3, 3, 3, 3]), [0, 0]);
+        after.serpen.remove(&107);
+        after.serpen.insert(117, (1, 3));
+        assert_eq!(gains(false, &before, &after), ([5, 0], [5, 0]));
+        let mut before2 = before.clone();
+        before2.serpen.remove(&107);
+        assert_eq!(gains(false, &before2, &after).0, [5, 0]);
+    }
+
+    #[test]
+    fn no_reward_seen_the_gold_then_the_nearest_tell_when_the_time_is_up() {
+        let before = ev([&[100; 5], &[100; 5]], &stacks([0; 10]), [0, 0]);
+        // nothing yet, time not up: wait
+        assert_eq!(decide(false, &before, &before, Some(1), false), None);
+        // team 0's gold went up 150 more
+        let (t, why) = decide(false, &before, &ev([&[260; 5], &[110; 5]], &stacks([0; 10]), [0, 0]), Some(1), true).unwrap();
+        assert_eq!((t, why.starts_with("gold")), (Some(0), true), "{why}");
+        // nothing tells: the nearest champion's team, or nobody
+        let (t, why) = decide(false, &before, &ev([&[110; 5], &[110; 5]], &stacks([0; 10]), [0, 0]), Some(1), true).unwrap();
         assert_eq!((t, why.starts_with("nearest")), (Some(1), true));
-        assert_eq!(decide(&before, &before, None).0, None);
+        assert_eq!(decide(false, &before, &before, None, true).map(|d| d.0), Some(None));
+        // the reward on both teams tells nothing: wait, then the fallbacks
+        let both = ev([&[100; 5], &[100; 5]], &stacks([1, 0, 0, 0, 0, 1, 0, 0, 0, 0]), [0, 0]);
+        assert_eq!(decide(false, &before, &both, Some(1), false), None);
+        // the other monster's reward does not count: Morgard's buff for a dragon, Serpen's stacks for the baron
+        let wave = ev([&[100; 5], &[100; 5]], &stacks([0; 10]), [4, 0]);
+        assert_eq!(decide(false, &before, &wave, Some(1), false), None);
+        let dragon = ev([&[100; 5], &[100; 5]], &stacks([1, 1, 1, 1, 1, 0, 0, 0, 0, 0]), [0, 0]);
+        assert_eq!(decide(true, &before, &dragon, Some(1), false), None);
+        assert_eq!((decide_within(false), decide_within(true)), (DECIDE, DECIDE_EPIC));
+    }
+
+    #[test]
+    fn lines_the_result_clears_or_the_run_outlives_are_dropped() {
+        let mut w = Watch::default();
+        w.say(10, Say::Ace, None, (0, 0));
+        w.say(10, Say::Shutdown, None, (0, 0));
+        w.say(10, Say::Victory { winner: 1 }, None, (0, 0));
+        assert_eq!((w.tally.queued, w.tally.dropped, w.cleared.len()), (3, 2, 2));
+        assert_eq!(queued(&w), [Say::Victory { winner: 1 }]);
+        // a run that ends with lines waiting
+        let mut w = Watch::default();
+        w.say(10, Say::Ace, None, (0, 0));
+        assert_eq!(w.drop_waiting().len(), 1);
+        assert_eq!((w.tally.queued, w.tally.dropped), (1, 1));
+        assert!(queued(&w).is_empty());
     }
 
     #[test]

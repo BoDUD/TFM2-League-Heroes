@@ -46,3 +46,9 @@ tools/art/fx_illaoi_tether.py 画灵魂线的一节（import_illaoi_fx.py 放进
 - 在 `addons/` 下 `cargo test --release -p league_illaoi`：单元测试（参数、墙边的位置、认地图、先抽谁、没墙时身前）。
 - 主包的俄洛伊改了以后重新跑 `python addons/league_illaoi/make_override.py`（它先核对主包的 `league_illaoi.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_illaoi.log`：`SPAWN`、每条触手 `GROW (attack / leap of faith / vessel): ... on a wall's edge / in the open`、`STRIKE (tentacle / marked / lesson)`、`LESSON`、`SPIRIT`、`ECHO`、`VESSEL (walked off its spirit / spirit ran out)`，每 30 秒一行 `WATCH` 汇总。
+
+## 0.2.52：日志行带上是哪一场（2026-11-06，11-06 的日志复查）
+
+复查说「`WATCH` 的计数像布兰德一样是全进程的」：不是——计数都在被动自己身上（每个俄洛伊、每份模拟一份，上面「怎么接上的」），
+复活也接着数。看起来像一个数一直往上涨，是因为行头只有 `[presim t=…]`，看不出是哪一场。现在行头和别的附加包一样写
+`[presim m=<场次> s=<局>] t=…`（回放写 `replay`），每一行都能分到自己的那一场。计数、玩法不变。

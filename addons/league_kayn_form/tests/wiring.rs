@@ -26,6 +26,9 @@ fn unit(name: &'static str, team: usize, x: f64) -> Unit {
 struct World {
     tick: usize,
     units: Vec<Unit>,
+    /// (kind, match, set); None: the screen's view of match 7, set 1.
+    origin: Option<(SimOriginKindV1, u64, u64)>,
+    seed: u64,
 }
 
 unsafe fn w<'a>(s: *const c_void) -> &'a mut World {
@@ -41,9 +44,13 @@ fn text<'a>(p: *const u8, n: usize) -> &'a str {
 unsafe extern "C" fn tick(s: *const c_void) -> usize {
     w(s).tick
 }
-unsafe extern "C" fn origin(_: *const c_void, out: *mut SimOriginV1) -> bool {
-    *out = SimOriginV1 { kind: SimOriginKindV1::ClientMatchView.code(), match_id: 7, set_index: 1, ..Default::default() };
+unsafe extern "C" fn origin(s: *const c_void, out: *mut SimOriginV1) -> bool {
+    let (kind, m, set) = w(s).origin.unwrap_or((SimOriginKindV1::ClientMatchView, 7, 1));
+    *out = SimOriginV1 { kind: kind.code(), match_id: m, set_index: set, ..Default::default() };
     true
+}
+unsafe extern "C" fn seed(s: *const c_void) -> u64 {
+    w(s).seed
 }
 unsafe extern "C" fn count(s: *const c_void) -> usize {
     w(s).units.len()
@@ -104,6 +111,7 @@ fn vtable() -> SimVtableV1 {
     vt.size = size_of::<SimVtableV1>();
     vt.tick = Some(tick);
     vt.sim_origin = Some(origin);
+    vt.seed = Some(seed);
     vt.entity_count = Some(count);
     vt.entity_at = Some(at);
     vt.entity_is_valid = Some(valid);
@@ -253,6 +261,30 @@ fn melee_hits_make_the_darkin_ranged_hits_the_shadow_and_the_form_stays() {
         hit(&mut w, 4);
         run(&mut w, &k, 1);
         assert!(has(&w, 0, READY_D), "a near unknown champion did not count as melee");
+
+        // 6. 0.3.7 (2026-11-06): a view takes the server's form from its own set only (the same match and seed). Set 1's
+        //    presim (match 9, seed 111) fills the Darkin; set 1's view, its own count lost, follows it; set 2's view
+        //    (seed 222, its presim never filled a side) does not take set 1's form (0.3.6 did: READY in the view only, the
+        //    view and the presims apart) and makes its own from its own hits
+        let at = |kind, set, seed| World { origin: Some((kind, 9, set)), seed, ..world() };
+        let presim = fresh(r#"{"darkin_need":2,"shadow_need":2}"#);
+        let mut p = at(SimOriginKindV1::ServerPresim, SimOriginV1::NONE, 111);
+        hit(&mut p, 1);
+        hit(&mut p, 1);
+        run(&mut p, &presim, 1);
+        assert!(has(&p, 0, READY_D), "the presim did not fill the Darkin");
+        let view1 = fresh(r#"{"darkin_need":2,"shadow_need":2}"#);
+        let mut v1 = at(SimOriginKindV1::ClientMatchView, 1, 111);
+        run(&mut v1, &view1, 1);
+        assert!(has(&v1, 0, READY_D), "set 1's view did not follow its own presim");
+        let view2 = fresh(r#"{"darkin_need":2,"shadow_need":2}"#);
+        let mut v2 = at(SimOriginKindV1::ClientMatchView, 2, 222);
+        run(&mut v2, &view2, 3);
+        assert!(!has(&v2, 0, READY_D) && !has(&v2, 0, READY_S), "set 2's view took set 1's form");
+        hit(&mut v2, 2);
+        hit(&mut v2, 3);
+        run(&mut v2, &view2, 1);
+        assert!(has(&v2, 0, READY_S) && !has(&v2, 0, READY_D), "set 2's view did not count for itself");
 
         let text = std::fs::read_to_string(&log).expect("log written");
         if std::env::var_os("KEEP_LOG").is_none() {

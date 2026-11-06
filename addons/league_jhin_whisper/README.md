@@ -20,10 +20,19 @@
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_jhin_whisper` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 烬普攻的说明开头是「【附加包】」就说明换上了。
-4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jhin_whisper.log`：`WHISPER: +40% attack speed -> +10% attack damage (attack speed x100%, interval 72)`——括号里是抵掉之后的倍率和攻击间隔，应该是 100% 和 72。
+4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jhin_whisper.log`：`WHISPER: +40% attack speed -> +10% attack damage (attack speed x100%, interval 72)`——括号里是抵掉之后的倍率和攻击间隔，倍率应该是 100%，间隔是他这一版的攻击间隔：主包数据里是 72，游戏按数据自动打的平衡补丁会改它（2026-11-06 的日志，游戏 0.7.1：66），所以看的是它不随攻速加成变短。
    v0.1.1：这一行等下一次看（6 tick 后，新的 buff 已经挂上）才写，括号里读的才是抵掉之后的；0.1.0 在换 buff 之前读，2026-11-03 夜里的日志写的是 x117%、x125%（换之前的）。玩法不变。
 
 ## 开发
 
 - `python addons/league_jhin_whisper/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。主包里烬改了就重跑。
 - `cargo test -p league_jhin_whisper`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。
+
+## 2026-11-06：说明里的攻击间隔；副本跟着主包重新生成（v0.1.2）
+
+11-06 的日志里 11 行 `WHISPER` 有 10 行是 `x100%, interval 66`（1 行 `x105%, interval 62`：读的那一刻他的攻速又变了，下一行又是 66），
+说明写的却是「应该是 72」。72 是主包数据里烬的攻击冷却（`attack.cooltime`），游戏 0.7.1 自己按数据打的平衡补丁把它改成了 66（游戏会按数据
+自动加强 / 削弱英雄）；+15% 到 +125% 攻速时都是 66，正说明额外攻速没有让他开枪变快。改的只是说明，玩法和 DLL 都没变。
+
+同一天主包里烬的 W（速度 16000，命中圈 7000 → 8000）和 R 的子弹（速度 20000，命中圈 7000 → 10000）加宽了：游戏只在每 tick 停下的位置判定命中，
+每 tick 飞的距离超过命中圈直径时会从人身上跳过去（阿克尚大招的日志量出来的）。副本用 `make_override.py` 重新生成，所以版本升到 0.1.2。

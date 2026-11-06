@@ -22,7 +22,13 @@
 //! 这时 Q 的格子不是空分支（冲刺后 `r_wq` tick 内、`league_zed_w_cd` 不在时是）：空分支按下去只会白白进冷却。印记在、W 好着时
 //! 不按 Q（先 W）。正在回城、放技能或被位移（`BUSY`）、被控（`NO_CAST`）、他自己的 W / Q / R 动作还在播时不管；AI 这一 tick
 //! 已经按了排在第一的那个格子也不管，AI 自己按的 R 照放（接着第 1 条甩影子）；进攻的（R、起手的 W）在 AI 正带他远离目标
-//! （`AWAY`）时不按。日志 `COMBO`（`counted` 限条数）。
+//! （`AWAY`）时不按。日志 `COMBO`（`counted` 限条数），一串连按只记第一下。
+//!
+//! 0.2.1（2026-11-06 的日志：`COMBO R on league_anivia` 连着 11 tick 每 tick 一行，一次都没放出去，也没有 MARK）：同一个键连按
+//! `PRESS_MAX` tick 还没放出去（放出去了冷却就走、`playing` 拦住下一次）就歇 `BACKOFF` tick，交给 AI，记一行「not taken」写出
+//! 他身上的控制、各格冷却和目标的状态（league_orianna 0.3.2 的做法）。同一天主包修好了印记（tools/kit/build_zed.py：`r_on` 从
+//! 冲刺一直在到爆发，以前落地那一下就爆、`r_on` 跟着没了），第 1 条的 R-W-E-Q 甩影子这才看得到印记；「印记在」现在是 `r_on` 而且
+//! 看得见的敌方英雄里有人带着印记（`mark_holds`）：被标记的人提前死了，`r_on` 还挂到原定的爆发，不该拦着别的起手和影子的 Q。
 
 use mod_api_stable::*;
 
@@ -65,6 +71,31 @@ pub const AWAY: f64 = 10_000.0;
 pub const W_ACT: usize = 31;
 pub const Q_ACT: usize = 26;
 pub const R_ACT: usize = 24;
+/// 同一个键连着按了这么多 tick 还没放出去：有东西挡着，歇 `BACKOFF` tick 再看（0.2.1，league_orianna 0.3.2 的数）。
+pub const PRESS_MAX: usize = 3;
+pub const BACKOFF: usize = 30;
+
+/// 连按的记录：哪种、第一下、上一下、连着几下（league_orianna 的 `Presses`）。
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Presses {
+    pub kind: &'static str,
+    pub first: usize,
+    pub last: usize,
+    pub n: usize,
+}
+
+impl Presses {
+    /// One more press of `kind` at `tick`: how many in a row (the tick after the last of the same kind), 1 for a new run.
+    pub fn press(&mut self, kind: &'static str, tick: usize) -> usize {
+        if self.kind == kind && self.n > 0 && tick == self.last + 1 {
+            self.n += 1;
+        } else {
+            *self = Presses { kind, first: tick, last: tick, n: 1 };
+        }
+        self.last = tick;
+        self.n
+    }
+}
 
 pub type Pt = (f64, f64);
 
@@ -210,6 +241,12 @@ pub fn plan(s: &Scene<'_>) -> Vec<Plan> {
     out
 }
 
+/// 印记在：他身上的 `r_on`，而且看得见的敌方英雄里有人带着印记（0.2.1：主包的 `r_on` 起从冲刺一直挂到爆发；被标记的人提前
+/// 死了、印记就没了，`r_on` 还要挂到原定的爆发——这时不该再拦着 W-E-Q 起手和影子的 Q）。
+pub fn mark_holds(r_on: bool, foes: &[Foe]) -> bool {
+    r_on && foes.iter().any(|f| f.marked)
+}
+
 /// 主包这一 tick Q 的格子是空分支吗：标记 `q_cd` 在（W 的连招扔过诸刃），或冲刺后 `r_wq` 在、W 的标记 `w_cd` 不在（等 W）。
 pub fn q_empty(q_cd: bool, r_wq: bool, w_cd: bool) -> bool {
     q_cd || (r_wq && !w_cd)
@@ -240,10 +277,37 @@ fn who(sim: &StableSim<'_>, id: usize) -> String {
     sim.get_entity(id).and_then(|e| e.name()).map_or_else(|| format!("#{id}"), |n| format!("{n}#{id}"))
 }
 
+/// 一个单位身上的控制，日志用（`Stun, Animation`）。
+fn cc_names(e: &StableEntity<'_, '_>) -> String {
+    let v: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i))
+        .map(|c| CcKindV1::from_code(c.kind).map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}"))).collect();
+    v.join(", ")
+}
+
+/// 「not taken」那一行写的：他身上的控制、各格冷却（剩下 / 满的），目标在不在、选不选得中、看不看得见、身上的控制和生命。
+fn blocker(ctx: &mut StableAiContext<'_>, player: usize, target: usize) -> String {
+    let Some(sim) = ctx.sim() else { return "no sim".to_string() };
+    let Some(me) = sim.get_player(player).and_then(|p| p.champion()) else { return "no champion".to_string() };
+    let cd = |s: SkillSlotV1| {
+        me.cooldown(s).map_or("?".to_string(), |c| format!("{}/{}{}", c.remaining, c.cooltime, if c.unlocked { "" } else { " locked" }))
+    };
+    let him = format!("his cc [{}], W {} Q {} R {} attack {}", cc_names(&me), cd(SkillSlotV1::Skill), cd(SkillSlotV1::Skill2),
+                      cd(SkillSlotV1::Ult), cd(SkillSlotV1::Attack));
+    let it = match sim.get_entity(target) {
+        Some(t) => format!("{}{}{}, cc [{}], hp {:.0}%", who(&sim, target), if t.is_targetable() { "" } else { " untargetable" },
+                           if sim.is_visible(me.team(), target) { "" } else { " unseen" }, cc_names(&t), share(t.hp()) * 100.0),
+        None => format!("#{target} gone"),
+    };
+    format!("{him}; target {it}")
+}
+
 #[derive(Clone, Default)]
 pub struct Combo {
     /// 正在回城（回城命令开始、别的命令结束；AI 只在判断的那几 tick 下命令）。
     recalling: bool,
+    /// 连按的记录和歇到哪个 tick（`PRESS_MAX` / `BACKOFF`，0.2.1）。
+    presses: Presses,
+    hold_until: usize,
 }
 
 impl StablePlayerAi for Combo {
@@ -271,6 +335,10 @@ impl StablePlayerAi for Combo {
         if self.recalling {
             return None;
         }
+        // backing off after a run of presses nothing took (0.2.1): the AI's own input goes
+        if ctx.tick() < self.hold_until {
+            return None;
+        }
         let walk = base.filter(|b| b.kind == InputKindV1::Move.code()).map(|b| (b.x as f64, b.y as f64));
         let player = ctx.player_id();
         // the candidates in order: the press, its log kind, its line
@@ -296,7 +364,7 @@ impl StablePlayerAi for Combo {
             }
             let [q_cd, w_cd, r_wq, r_on, w_live, w_live2, r_live] = on;
             let (my_id, team, here) = (me.id(), me.team(), at(&me));
-            let me_now = Me {
+            let mut me_now = Me {
                 at: here,
                 hp: share(me.hp()),
                 w: ready(SkillSlotV1::Skill),
@@ -328,6 +396,7 @@ impl StablePlayerAi for Combo {
             if foes.is_empty() {
                 return None;
             }
+            me_now.mark_on = mark_holds(r_on, &foes);
             let towers: Vec<Pt> = (0..sim.tower_count())
                 .filter_map(|k| sim.get_entity(sim.tower_id_at(k)))
                 .filter(|t| t.is_alive() && t.team() != team)
@@ -368,8 +437,24 @@ impl StablePlayerAi for Combo {
             return None;
         }
         let (input, kind, line) = cands.into_iter().find(|(i, _, _)| ctx.is_valid_input(i))?;
-        if let Some(k) = counted(kind) {
-            wlog(format!("{line} #{k}"));
+        // a run of presses nothing took (a cast starts its cooldown and `playing` ends the run): back off, one line
+        // naming what may block it (11-06: R on Anivia pressed 11 ticks running, never cast)
+        let tick = ctx.tick();
+        let n = self.presses.press(kind, tick);
+        if n > PRESS_MAX {
+            self.hold_until = tick + BACKOFF;
+            if let Some(k) = counted("blocked") {
+                let why = blocker(ctx, player, input.target.target_id);
+                wlog(format!("{line}: pressed {} ticks running since t={} and not taken ({why}) - backing off {BACKOFF} ticks #{k}",
+                             n - 1, self.presses.first));
+            }
+            return None;
+        }
+        // the first press of a run only (0.2.0 wrote every tick of it)
+        if n == 1 {
+            if let Some(k) = counted(kind) {
+                wlog(format!("{line} #{k}"));
+            }
         }
         Some(input)
     }
@@ -502,6 +587,45 @@ mod tests {
             assert!(zd(x).len() <= BUFF_NAME_CAP);
             assert!(src.contains(&format!("\"{x}\"")), "build_zed.py never names {x}");
         }
+    }
+
+    #[test]
+    fn a_run_of_presses_nothing_took_is_counted() {
+        // 11-06's logs: COMBO R on Anivia pressed t=6591..6601, 11 ticks running, never cast
+        let mut p = Presses::default();
+        assert_eq!(p.press("combo r", 6591), 1);
+        assert_eq!((6592..=6594).map(|t| p.press("combo r", t)).last(), Some(4));
+        assert!(p.n > PRESS_MAX && p.first == 6591);
+        // another kind, or a gap (the cast went out and `playing` held the next ticks), starts a new run
+        assert_eq!(p.press("combo w mark", 6595), 1);
+        assert_eq!(p.press("combo w mark", 6630), 1);
+        assert_eq!(p.press("combo w mark", 6631), 2);
+    }
+
+    #[test]
+    fn the_mark_holds_while_a_marked_one_is_in_sight() {
+        let marked = Foe { marked: true, ..foe(1, 10_000.0, 0.4) };
+        assert!(mark_holds(true, &[foe(2, 5_000.0, 0.9), marked]));
+        // the marked one died (or slipped out of sight) before the burst: r_on runs on, the W-E-Q opener is free again
+        assert!(!mark_holds(true, &[foe(2, 5_000.0, 0.9)]));
+        assert!(!mark_holds(false, &[marked]));
+        let s = Me { r: false, mark_on: mark_holds(true, &[foe(2, 20_000.0, 0.5)]), ..me() };
+        assert_eq!(plan(&scene(s, &[foe(2, 20_000.0, 0.5)], &[], &[])), vec![Plan::Open(2)]);
+    }
+
+    #[test]
+    fn the_mark_is_on_from_the_dash_to_the_burst() {
+        // 11-06: the burst's AddCasted ran on the landing tick (its first run) and took r_on away: 0 of 9 R-W-E-Q W's.
+        // The copy arms on that run (r_set, r_on kept r_pop + 3) and bursts on the next; r_safe is a caster flag
+        let copy = include_str!("../override/league_zed.data_champion").replace("\r\n", "\n");
+        let at = copy.find("\"name\": \"league_zed_r_safe\"").expect("no r_safe in the copy");
+        let kind = &copy[copy[..at].rfind("\"type\"").unwrap()..at];
+        assert!(kind.contains("\"AddCasterBuff\""), "r_safe is not his: {kind}");
+        assert_eq!(copy.matches("\"name\": \"league_zed_r_safe\"").count(), 1, "r_safe added more than once");
+        let set = copy.find("\"buff_name\": \"league_zed_r_set\"").expect("the burst is not armed by r_set");
+        assert!(copy[set..].find("\"name\": \"league_zed_r_on\"").is_some(), "no r_on after the arming switch");
+        let src = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_zed.py")).unwrap();
+        assert!(src.contains("flag(\"r_safe\"") && !src.contains("buff(\"r_safe\""), "build_zed.py puts r_safe on the target");
     }
 
     #[test]

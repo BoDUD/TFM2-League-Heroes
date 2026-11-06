@@ -39,7 +39,7 @@
 pub mod arena;
 pub mod maps;
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -347,10 +347,22 @@ impl Parser<'_> {
 
 const MODES: [GameModeKindV1; 3] = [GameModeKindV1::Moba, GameModeKindV1::SingleLane, GameModeKindV1::DeathMatch];
 
-/// 地图自定义钩子读到的墙格子，按模式存（同一模式的地图每局相同）。
-static DOC_GRIDS: LazyLock<Mutex<HashMap<u32, Grid>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 地图自定义钩子读到的墙格子，按模式存（同一模式的地图每局相同）。0.4.10（2026-11-06，画面和预模拟分岔的排查）：有序的表
+/// （`BTreeMap`），挑图照旧按 `MODES` 的顺序、只按键取，从不按哈希表的顺序；同一模式读到另一张墙（同一次启动里换了地图：
+/// 服务器的预模拟和屏幕上的比赛可能拿到不同的墙）记一行 `MAP CHANGED`。
+static DOC_GRIDS: LazyLock<Mutex<BTreeMap<u32, Grid>>> = LazyLock::new(|| Mutex::new(BTreeMap::new()));
 /// 已经把格子画进日志的模式（每种只画一次）。
 static DUMPED: LazyLock<Mutex<Vec<u32>>> = LazyLock::new(|| Mutex::new(Vec::new()));
+/// `MAP CHANGED` lines written (the first `CHANGES_LOGGED` only).
+static CHANGES: AtomicUsize = AtomicUsize::new(0);
+const CHANGES_LOGGED: usize = 8;
+
+/// The new grid read for a mode differs from the one kept (None: the first, or the same walls): the line to log.
+pub fn map_change(mode: &str, kept: Option<&Grid>, read: &Grid) -> Option<String> {
+    let kept = kept.filter(|k| k.cells != read.cells)?;
+    Some(format!("MAP CHANGED for mode={mode}: its walls were {} cells, now {} - the sims of the older matches still \
+                  running find the new walls (the walls are kept a mode, not a match)", kept.walls(), read.walls()))
+}
 
 const MODE_UNKNOWN: u32 = u32::MAX;
 
@@ -374,7 +386,8 @@ fn grid_for(mode: GameModeKindV1) -> Grid {
         .unwrap_or_else(|| Grid::builtin(mode))
 }
 
-/// 当前对局的地图：站进墙里的单位最少的那张，一样少时取墙最多的（最「具体」的）。
+/// 当前对局的地图：站进墙里的单位最少的那张，一样少时取墙最多的（最「具体」的），再一样取 `grids` 里靠前的（调用方按
+/// `MODES` 的固定顺序给：每次跑同一局都挑同一张）。
 pub fn pick_grid(points: &[(f64, f64)], grids: Vec<(GameModeKindV1, Grid)>) -> Option<(GameModeKindV1, Grid)> {
     grids
         .into_iter()
@@ -436,7 +449,13 @@ impl StableMapCustomizer for WallReader {
             wlog(out);
         }
         if let (Some(m), Some(g)) = (mode, grid) {
-            DOC_GRIDS.lock().unwrap_or_else(|e| e.into_inner()).insert(m.code(), g);
+            let mut grids = DOC_GRIDS.lock().unwrap_or_else(|e| e.into_inner());
+            if let Some(line) = map_change(mode_name(m.code()), grids.get(&m.code()), &g) {
+                if CHANGES.fetch_add(1, Ordering::Relaxed) < CHANGES_LOGGED {
+                    wlog(line);
+                }
+            }
+            grids.insert(m.code(), g);
         }
     }
 }
@@ -1519,6 +1538,22 @@ mod tests {
         // 站在 5v5 四边的墙面外（引擎让人走到那里）照样认得出 5v5
         let edge = [(10_000.0, 300_000.0), (48_000.0, 272_000.0), (96_000.0, 864_000.0)];
         assert_eq!(pick_grid(&edge, all()).unwrap().0, GameModeKindV1::Moba);
+        // 完全一样合适：取靠前的（MODES 的固定顺序），不看表的顺序
+        let same = vec![(GameModeKindV1::Moba, Grid::builtin(GameModeKindV1::Moba)),
+                        (GameModeKindV1::DeathMatch, Grid::builtin(GameModeKindV1::Moba))];
+        assert_eq!(pick_grid(&[(480_000.0, 480_000.0)], same).unwrap().0, GameModeKindV1::Moba);
+    }
+
+    #[test]
+    fn a_mode_read_with_other_walls_is_logged() {
+        // 0.4.10: the walls are kept a mode, not a match - a launch that reads another map for the same mode says so
+        let a = Grid::builtin(GameModeKindV1::Moba);
+        let mut b = a.clone();
+        b.cells[0][0] = 1;
+        assert_eq!(map_change("Moba", None, &a), None);
+        assert_eq!(map_change("Moba", Some(&a), &a.clone()), None);
+        let line = map_change("Moba", Some(&a), &b).expect("a line");
+        assert!(line.starts_with("MAP CHANGED for mode=Moba: its walls were 90 cells, now 91"), "{line}");
     }
 
     #[test]

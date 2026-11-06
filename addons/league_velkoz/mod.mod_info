@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Vel'Koz as in League (needs League of Legends Heroes): replaces the main pack's Vel'Koz so Organic Deconstruction counts its stacks on each enemy champion (the third deals true damage), Plasma Fission splits into two bolts at right angles where it strikes, Life Form Disintegration Ray deals true damage only to the champions he has researched, and his AI plays League's combos (E knock-up then Q, the rift onto the champion, the ray at the researched champion). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-10-20",
+  "last_updated": "2026-11-06",
   "mod_id": "league_velkoz",
   "mod_type": "native",
   "name": "League Heroes: Vel'Koz's research and split (test)",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }

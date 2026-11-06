@@ -177,6 +177,10 @@ pub const SWAIN: &str = "league_swain";
 pub const RENATA: &str = "league_renata";
 pub const WUKONG: &str = "league_wukong";
 pub const YONE: &str = "league_yone";
+/// Armed ults the hook does not press, their R slot watched for the `R ARMED` lines only (0.6.1).
+pub const RELL: &str = "league_rell";
+pub const LULU: &str = "league_lulu";
+pub const TRYNDAMERE: &str = "league_tryndamere";
 /// 冲上去的技能：他生命不低于这个才冲；目标在敌方塔下也冲的残血线。
 pub const ENGAGE_HP: f64 = 0.4;
 pub const DIVE_HP: f64 = 0.25;
@@ -1146,9 +1150,10 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
     out
 }
 
-/// 备好式的大招（主包待命一段时间等时机，没用上退还冷却）：按下以后看它退没退。
+/// 备好式的大招（主包待命一段时间等时机，没用上退还冷却）：按下以后看它退没退。只管 `R ARMED` 的日志（`armed_at` 只有日志读）。
+/// 0.6.1：芮尔、璐璐、泰达米尔（11-05 修好了退还的那几位，本包不替他们按 R，他们的 R 格只为这几行看着：`watched_slots`）。
 pub fn is_armed_ult(name: &str) -> bool {
-    matches!(name, ORIANNA | SYNDRA | KAYLE | KARMA | EVELYNN | RYZE | APHELIOS | SWAIN | RENATA | WUKONG)
+    matches!(name, ORIANNA | SYNDRA | KAYLE | KARMA | EVELYNN | RYZE | APHELIOS | SWAIN | RENATA | WUKONG | RELL | LULU | TRYNDAMERE)
 }
 
 /// 放不出技能的控制。
@@ -1222,6 +1227,17 @@ pub fn slots_of(name: &str) -> &'static [PressSlot] {
         SONA => &[P_W2],
         _ => &[],
     }
+}
+
+/// The slots whose cooldowns are watched for the `CAST` / `R ARMED` lines: the pressed ones (`slots_of`), and the R of an
+/// armed ult the hook does not press (0.6.1: Rell, Lulu, Tryndamere - their refunds were never read). Only the log reads
+/// them; what is pressed stays `slots_of`'s.
+pub fn watched_slots(name: &str) -> Vec<PressSlot> {
+    let mut v = slots_of(name).to_vec();
+    if is_armed_ult(name) && !v.iter().any(|s| s.slot == SkillSlotV1::Ult) {
+        v.push(P_R);
+    }
+    v
 }
 
 /// 格子 -> 引擎的命令种类。
@@ -1652,8 +1668,9 @@ impl UltPress {
                 }
             }
             self.last_grade = grade;
-            // a watched slot went out when its cooldown starts: the press behind it, or the AI's own
-            for ps in slots {
+            // a watched slot went out when its cooldown starts: the press behind it, or the AI's own (the watch only logs:
+            // an armed ult the hook never presses is watched too, 0.6.1)
+            for ps in &watched_slots(&name) {
                 let i = ps.slot.code() as usize;
                 let remaining = me.cooldown(ps.slot).map(|c| c.remaining);
                 if let (Some(prev), Some(c)) = (self.last_cds[i], remaining) {
@@ -2569,6 +2586,23 @@ mod tests {
         }
         assert!(slots_of("league_garen").is_empty());
         assert!(is_armed_ult(KAYLE) && is_armed_ult(APHELIOS) && is_armed_ult(SWAIN) && is_armed_ult(RENATA) && is_armed_ult(WUKONG) && !is_armed_ult(JANNA) && !is_armed_ult(VLADIMIR));
+    }
+
+    #[test]
+    fn armed_ults_the_hook_does_not_press_are_watched_only() {
+        // 0.6.1: Rell, Lulu, Tryndamere's refunds (fixed 11-05) had no R ARMED line - their R slot was never watched
+        for h in [RELL, LULU, TRYNDAMERE] {
+            assert!(is_armed_ult(h), "{h}");
+            assert!(slots_of(h).is_empty(), "{h}: nothing pressed");
+            assert_eq!(watched_slots(h), vec![P_R], "{h}");
+            assert!(is_holder(h), "{h}: the hook runs for every main-pack hero");
+        }
+        // the pressed ones watch what they press, an armed R once
+        assert_eq!(watched_slots(ORIANNA), slots_of(ORIANNA).to_vec());
+        assert_eq!(watched_slots(KAYLE), vec![P_R]);
+        assert_eq!(watched_slots(KATARINA), slots_of(KATARINA).to_vec());
+        assert_eq!(watched_slots(SIVIR), vec![P_E2]);
+        assert!(watched_slots("league_garen").is_empty());
     }
 
     #[test]

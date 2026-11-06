@@ -175,14 +175,20 @@ pub fn charges(name: &str, dist_from_kayn: f64) -> Form {
 
 // ===================== 两份模拟对齐 =====================
 
-/// 服务器那一侧（presim）定下的形态：(随机种子, 凯隐的单位 id) → (形态, 定下的 tick)，另记每个 (对局, 凯隐) 第一次定下的。
-/// 画面那一侧（实况、观战、回放）走到那个 tick 就照着变身——2026-10-06 门槛 40 时两局都只有 presim 攒满，画面那一侧的
-/// 计数中途丢了（日志里没有 `[view] … ready`），凯隐打到 12 级画面也没变身。按种子认是 2026-10-28（游戏 0.7.0 排查）：
-/// 三局两胜的每一局对局号一样、凯隐的单位 id 也一样，只按对局认时第二局的画面照着第一局定下的形态变；同一局的 presim 和
-/// 画面种子相同（0.6.5 的日志），presim 没有局号（s=-）。种子对不上（别的版本）才退回按对局认的那一条，和以前一样。
-type Decided = std::collections::HashMap<(u64, usize), (Form, usize)>;
-static DECIDED: LazyLock<Mutex<(Decided, Decided)>> =
-    LazyLock::new(|| Mutex::new((std::collections::HashMap::new(), std::collections::HashMap::new())));
+/// 服务器那一侧（presim）定下的形态：(对局, 随机种子, 凯隐的单位 id) → (形态, 定下的 tick)。画面那一侧（实况、观战、回放）
+/// 走到那个 tick 就照着变身——2026-10-06 门槛 40 时两局都只有 presim 攒满，画面那一侧的计数中途丢了（日志里没有
+/// `[view] … ready`），凯隐打到 12 级画面也没变身。同一局的两份 presim、画面的两遍种子都一样（11-06 league.log 每局第 1 tick
+/// 的 rng），每一局的种子都不同；presim 没有局号（s=-），所以「同一对局 + 同一种子」就是同一局。
+///
+/// 0.3.7（2026-11-06）：只认同一局的那一条。以前对不上种子就退回按 (对局, 凯隐) 认对局里第一次定下的：第二局以后的 presim
+/// 没攒满时，画面照着第一局的形态挂上准备标记（只有画面挂了，和 presim 分叉）。对不上就自己数（和 presim 一样的数法）。
+/// 记录按先来后到，满 [`DECIDED_MAX`] 条丢最早的一条（以前整张清掉）。
+static DECIDED: Mutex<Decisions> = Mutex::new(Vec::new());
+/// 最多记这么多条（每局每个凯隐一条：早打完的比赛的先丢）。
+pub const DECIDED_MAX: usize = 256;
+
+/// ((对局, 种子, 凯隐), (形态, tick))，先来的在前。
+pub type Decisions = Vec<((u64, u64, usize), (Form, usize))>;
 
 #[derive(Clone, Copy, PartialEq, Eq, Debug)]
 pub enum Side {
@@ -201,19 +207,29 @@ fn side(sim: &StableSim<'_>) -> (Side, u64) {
     (s, o.match_id)
 }
 
-fn decided_at(seed: u64, match_id: u64, me: usize) -> Option<(Form, usize)> {
-    let d = DECIDED.lock().unwrap_or_else(|e| e.into_inner());
-    d.0.get(&(seed, me)).or_else(|| d.1.get(&(match_id, me))).copied()
+/// What the server decided for Kayn `me` in this very set (the same match and seed); None: he decides by his own count.
+pub fn decision_in(d: &Decisions, match_id: u64, seed: u64, me: usize) -> Option<(Form, usize)> {
+    d.iter().find(|(k, _)| *k == (match_id, seed, me)).map(|(_, v)| *v)
 }
 
-fn decide(seed: u64, match_id: u64, me: usize, f: Form, tick: usize) {
-    let mut d = DECIDED.lock().unwrap_or_else(|e| e.into_inner());
-    if d.0.len() > 256 || d.1.len() > 256 {
-        d.0.clear(); // old matches
-        d.1.clear();
+/// The server's decision for a set into `d` (the first one stays: the twin presims decide the same); past
+/// [`DECIDED_MAX`] the oldest one goes, never the whole list.
+pub fn note_decision(d: &mut Decisions, match_id: u64, seed: u64, me: usize, f: Form, tick: usize) {
+    if decision_in(d, match_id, seed, me).is_some() {
+        return;
     }
-    d.0.entry((seed, me)).or_insert((f, tick));
-    d.1.entry((match_id, me)).or_insert((f, tick));
+    d.push(((match_id, seed, me), (f, tick)));
+    if d.len() > DECIDED_MAX {
+        d.remove(0); // the oldest set's (a long-finished match)
+    }
+}
+
+fn decided_at(match_id: u64, seed: u64, me: usize) -> Option<(Form, usize)> {
+    decision_in(&DECIDED.lock().unwrap_or_else(|e| e.into_inner()), match_id, seed, me)
+}
+
+fn decide(match_id: u64, seed: u64, me: usize, f: Form, tick: usize) {
+    note_decision(&mut DECIDED.lock().unwrap_or_else(|e| e.into_inner()), match_id, seed, me, f, tick);
 }
 
 // ===================== 被动 =====================
@@ -353,9 +369,10 @@ impl StablePassive for Orbs {
             hits.push((e.id(), e.name().unwrap_or_default(), d, n));
         }
         let (side, match_id) = side(sim);
-        // the shown side follows the server's decision when it gets to that tick (its own count may have been lost)
+        // the shown side follows the server's decision for this very set when it gets to that tick (its own count may
+        // have been lost); without one it counts for itself, as the server does
         if side == Side::Shown && self.form.is_none() {
-            if let Some((f, tick)) = decided_at(sim.seed(), match_id, me) {
+            if let Some((f, tick)) = decided_at(match_id, sim.seed(), me) {
                 if sim.tick() >= tick {
                     self.form = Some(f);
                     sim.add_buff(me, &BuffV1::timed(f.ready(), READY_T));
@@ -375,7 +392,7 @@ impl StablePassive for Orbs {
             for _ in 0..n {
                 if let Some(form) = self.count(f) {
                     if side == Side::Server {
-                        decide(sim.seed(), match_id, me, form, sim.tick());
+                        decide(match_id, sim.seed(), me, form, sim.tick());
                     }
                     sim.add_buff(me, &BuffV1::timed(form.ready(), READY_T));
                     wlog(format!(
@@ -442,13 +459,30 @@ mod tests {
     #[test]
     fn each_set_follows_its_own_presim() {
         // a Bo3 (match 7, Kayn #3 every set): set 1's server sim decides Darkin at 900, set 2's Shadow at 700
-        decide(111, 7, 3, Form::Darkin, 900);
-        decide(222, 7, 3, Form::Shadow, 700);
-        assert_eq!(decided_at(111, 7, 3), Some((Form::Darkin, 900)));
-        assert_eq!(decided_at(222, 7, 3), Some((Form::Shadow, 700))); // was set 1's Darkin
-        // a shown sim whose seed was never decided: the match's first decision, as before
-        assert_eq!(decided_at(333, 7, 3), Some((Form::Darkin, 900)));
-        assert_eq!(decided_at(333, 8, 3), None);
+        decide(7, 111, 3, Form::Darkin, 900);
+        decide(7, 222, 3, Form::Shadow, 700);
+        assert_eq!(decided_at(7, 111, 3), Some((Form::Darkin, 900)));
+        assert_eq!(decided_at(7, 222, 3), Some((Form::Shadow, 700))); // was set 1's Darkin
+        // set 3's presim never filled a side: its view counts for itself (0.3.6 took set 1's Darkin here - READY in the
+        // view only, 2026-11-06 audit)
+        assert_eq!(decided_at(7, 333, 3), None);
+        assert_eq!(decided_at(8, 111, 3), None, "another match");
+        // the twin presim of set 1 decides a moment later: the first decision stays
+        decide(7, 111, 3, Form::Shadow, 950);
+        assert_eq!(decided_at(7, 111, 3), Some((Form::Darkin, 900)));
+    }
+
+    #[test]
+    fn a_full_list_drops_only_its_oldest_set() {
+        let mut d = Decisions::new();
+        for seed in 0..DECIDED_MAX as u64 {
+            note_decision(&mut d, 1, seed, 3, Form::Darkin, 100);
+        }
+        note_decision(&mut d, 2, 5, 3, Form::Shadow, 200); // a set being played now
+        assert_eq!(d.len(), DECIDED_MAX, "one went, not all (0.3.6 cleared every match's decisions past 256)");
+        assert_eq!(decision_in(&d, 1, 0, 3), None, "the oldest set's went");
+        assert_eq!(decision_in(&d, 1, 1, 3), Some((Form::Darkin, 100)));
+        assert_eq!(decision_in(&d, 2, 5, 3), Some((Form::Shadow, 200)));
     }
 
     #[test]

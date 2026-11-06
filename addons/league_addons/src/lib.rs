@@ -445,18 +445,21 @@ impl StableExtension for BundleClient {
 }
 
 /// A mod has one match hook too (set_match_hook keeps only the last): Karthus's `Respawns` (a fallen spirit's respawn
-/// cut), the League easter eggs (league_eggs) and the read-only macro log (league_macro_log, last: it only reads) all
+/// cut), the League easter eggs (league_eggs), Lucian's `Aim` (the flag of the side his R fires to, read by his
+/// display hook) and the read-only macro log (league_macro_log, last: it only reads) all
 /// watch every tick of every simulation, called here one after the other, Karthus's first as it always ran. Set after every register, so it replaces the one karthus::register sets.
 struct BundleMatch;
 impl StableMatchHook for BundleMatch {
     fn on_match_start(&self, sim: &mut StableSim<'_>) {
         karthus::Respawns.on_match_start(sim);
         eggs::Eggs.on_match_start(sim);
+        lucian::Aim.on_match_start(sim);
     }
 
     fn on_match_tick(&self, sim: &mut StableSim<'_>, rng_seed: u64) {
         karthus::Respawns.on_match_tick(sim, rng_seed);
         eggs::Eggs.on_match_tick(sim, rng_seed);
+        lucian::Aim.on_match_tick(sim, rng_seed);
         macro_log::Watch.on_match_tick(sim, rng_seed);
     }
 

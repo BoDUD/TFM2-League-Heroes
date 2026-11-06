@@ -954,11 +954,11 @@
                                                                   }
                                                                 ],
                                                                 "end_effects": [],
-                                                                "speed": 30000,
+                                                                "speed": 23000,
                                                                 "range": 45000,
                                                                 "shape": {
                                                                   "Circle": {
-                                                                    "radius": 7000
+                                                                    "radius": 11500
                                                                   }
                                                                 },
                                                                 "y_offset": 0
@@ -1976,11 +1976,11 @@
                                     }
                                   ],
                                   "end_effects": [],
-                                  "speed": 30000,
+                                  "speed": 23000,
                                   "range": 45000,
                                   "shape": {
                                     "Circle": {
-                                      "radius": 7000
+                                      "radius": 11500
                                     }
                                   },
                                   "y_offset": 0
@@ -2894,11 +2894,11 @@
                                                                   }
                                                                 ],
                                                                 "end_effects": [],
-                                                                "speed": 30000,
+                                                                "speed": 23000,
                                                                 "range": 45000,
                                                                 "shape": {
                                                                   "Circle": {
-                                                                    "radius": 7000
+                                                                    "radius": 11500
                                                                   }
                                                                 },
                                                                 "y_offset": 0
@@ -3193,7 +3193,7 @@
                             "range": 80000,
                             "shape": {
                               "Circle": {
-                                "radius": 2000
+                                "radius": 8000
                               }
                             },
                             "y_offset": 0

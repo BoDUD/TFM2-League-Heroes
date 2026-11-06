@@ -528,14 +528,16 @@ impl StablePassive for Research {
         let Some(e) = sim.get_entity(me) else { return };
         let (alive, level, ap) = (e.is_alive(), e.level(), e.stat().magic_power);
         wlog(format!(
-            "{} WATCH: alive {alive}, level {level}, ap {ap}; stacks {}, bursts {}, splits {} (hits {}), ray waves {}, combos {}",
+            "{} WATCH: alive {alive}, level {level}, ap {ap}; stacks {}, bursts {}, splits {} (hits {}), ray waves {}, combos {} \
+             (backed off {})",
             head(sim, me),
             total("stack"),
             total("burst"),
             total("split"),
             total("split hit"),
             total("ray"),
-            combo::TOTAL.load(Ordering::Relaxed)
+            combo::TOTAL.load(Ordering::Relaxed),
+            combo::BACKED_OFF.load(Ordering::Relaxed)
         ));
     }
 }

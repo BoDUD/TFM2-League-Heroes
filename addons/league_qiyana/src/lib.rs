@@ -24,7 +24,7 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_qiyana.log`，每次启动游戏重写。
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -487,13 +487,37 @@ pub fn pick(near: &terrain::Near, s: &Spot, q_exec: usize) -> (Element, Why) {
 
 // ===================== 凌人贵气：每个敌人一次 =====================
 
-/// (这份模拟的编号, 她, 敌人) -> (上一次加伤的 tick, 那时手上的元素 [`Element::code`])。
-static ROYAL: LazyLock<Mutex<HashMap<(u64, usize, usize), (usize, u8)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// (这份模拟的编号 [`SIM_TAG`], 她, 敌人) -> (上一次加伤的 tick, 那时手上的元素 [`Element::code`])。
+///
+/// 0.3.2（2026-11-06）：每份模拟只删自己的。她每次触发时删掉她在这份模拟里过了 `rp_rest` 的行（按这份模拟自己的 tick：和没有
+/// 这一行一样）；全表超过 [`ROYAL_MOST`] 行时丢编号最小（最早开始、早已打完）的模拟的行，正在触发的这一份从不丢。以前从不删、
+/// 超过 4096 行整张清掉：别的模拟里还在冷却的敌人一下全都又能触发，两份本该一样的模拟在不同的 tick 被清，凌人贵气多打的那一下只
+/// 出现在其中一份（11-06 画面和预模拟分叉的排查）。
+pub type Royal = BTreeMap<(u64, usize, usize), (usize, u8)>;
+static ROYAL: Mutex<Royal> = Mutex::new(BTreeMap::new());
+/// 全表最多这么多行（每份模拟只留冷却里的几行；多出来的是打完的模拟的）。
+pub const ROYAL_MOST: usize = 4096;
 
-/// 这一 tick 对这个敌人加不加伤（加的话记下 tick 和元素）。
-pub fn royal_ready(seed: u64, me: usize, target: usize, tick: usize, rest: usize, el: u8) -> bool {
-    let key = (seed, me, target);
-    let mut all = ROYAL.lock().unwrap_or_else(|e| e.into_inner());
+/// 这一 tick 对这个敌人加不加伤（加的话记下 tick 和元素）。`sim`：这份模拟的编号。
+pub fn royal_ready(sim: u64, me: usize, target: usize, tick: usize, rest: usize, el: u8) -> bool {
+    royal_ready_in(&mut ROYAL.lock().unwrap_or_else(|e| e.into_inner()), sim, me, target, tick, rest, el)
+}
+
+/// [`royal_ready`] on the table `all`.
+pub fn royal_ready_in(all: &mut Royal, sim: u64, me: usize, target: usize, tick: usize, rest: usize, el: u8) -> bool {
+    // her rows in this simulation past their rest are the same as none: gone, by this simulation's own clock (rows without
+    // a number are shared by every simulation and have no clock of their own)
+    if sim != 0 {
+        let stale: Vec<_> = all
+            .range((sim, me, 0)..=(sim, me, usize::MAX))
+            .filter(|(_, v)| tick >= v.0 && tick - v.0 >= rest)
+            .map(|(k, _)| *k)
+            .collect();
+        for k in stale {
+            all.remove(&k);
+        }
+    }
+    let key = (sim, me, target);
     if let Some(slot) = all.get_mut(&key) {
         if tick >= slot.0 && tick - slot.0 < rest {
             return false;
@@ -501,18 +525,23 @@ pub fn royal_ready(seed: u64, me: usize, target: usize, tick: usize, rest: usize
         *slot = (tick, el);
         return true;
     }
-    if all.len() > 4096 {
-        all.clear();
-    }
     all.insert(key, (tick, el));
+    // past ROYAL_MOST: the oldest simulation's rows go (the smallest number: one that ended), never this one's
+    while all.len() > ROYAL_MOST {
+        let Some(old) = all.keys().next().map(|k| k.0).filter(|&s| s != sim) else { break };
+        let gone: Vec<_> = all.range((old, 0, 0)..=(old, usize::MAX, usize::MAX)).map(|(k, _)| *k).collect();
+        for k in gone {
+            all.remove(&k);
+        }
+    }
     true
 }
 
 /// W 拿到元素 `el`：上次带着别的元素（或没元素）触发的敌人可以再触发；返回清掉几个。
-pub fn royal_reset(seed: u64, me: usize, el: u8) -> usize {
+pub fn royal_reset(sim: u64, me: usize, el: u8) -> usize {
     let mut all = ROYAL.lock().unwrap_or_else(|e| e.into_inner());
     let before = all.len();
-    all.retain(|&(s, m, _), v| s != seed || m != me || v.1 == el);
+    all.retain(|&(s, m, _), v| s != sim || m != me || v.1 == el);
     before - all.len()
 }
 
@@ -1250,6 +1279,54 @@ mod tests {
         assert!(!royal_ready(7, 1, 11, 1700, 1500, 3));
         // another simulation's records stay
         assert!(!royal_ready(8, 1, 10, 300, 1500, 0));
+    }
+
+    /// 0.3.2 (2026-11-06): two simulations of one set (the same entity ids) run side by side, one far ahead of the other,
+    /// and old simulations fill the table: each keeps its own cooldowns - nothing of one is pruned by the other's clock,
+    /// and a full table drops finished simulations' rows, never a running one's (0.3.1 cleared the whole table past 4096).
+    #[test]
+    fn royal_privilege_rows_are_kept_and_pruned_per_simulation() {
+        let mut all = Royal::new();
+        // the twins drew their numbers after the finished simulations below
+        let (a, b) = (5_000, 5_001);
+        assert!(royal_ready_in(&mut all, a, 1, 10, 100, 1500, 0));
+        assert!(royal_ready_in(&mut all, b, 1, 10, 100, 1500, 0));
+        // A runs on to tick 5000 (its row from 100 goes by its own clock); B, at 900, still rests on enemy #10
+        assert!(royal_ready_in(&mut all, a, 1, 11, 5_000, 1500, 0));
+        assert!(!all.contains_key(&(a, 1, 10)), "A's rested row pruned by A's clock");
+        assert!(!royal_ready_in(&mut all, b, 1, 10, 900, 1500, 0), "B's cooldown stays");
+        // a thousand finished simulations' rows, more than the table holds
+        for old in 1..=1_000u64 {
+            for t in 0..5 {
+                all.insert((old, 1, 100 + t), (10, 0));
+            }
+        }
+        assert!(royal_ready_in(&mut all, a, 1, 12, 5_010, 1500, 0));
+        assert!(all.len() <= ROYAL_MOST, "{}", all.len());
+        assert!(!all.contains_key(&(1, 1, 100)), "the oldest simulation went first");
+        assert!(!royal_ready_in(&mut all, b, 1, 10, 950, 1500, 0), "B's cooldown survived the overflow");
+        assert!(!royal_ready_in(&mut all, a, 1, 11, 5_020, 1500, 0), "A's cooldown survived the overflow");
+        // B's own clock frees #10 at 1600, whatever A's says
+        assert!(royal_ready_in(&mut all, b, 1, 10, 1_600, 1500, 0));
+    }
+
+    #[test]
+    fn r_plans_are_kept_and_pruned_per_simulation() {
+        use ult::{remember_in, Plans, Planned, PLANS_MOST, PLAN_FRESH};
+        let plan = |tick| Planned { tick, target: 9, dir: (1.0, 0.0), caught: 1 };
+        let mut all = Plans::new();
+        let (a, b) = (5_000, 5_001);
+        remember_in(&mut all, (a, 3), plan(100));
+        remember_in(&mut all, (b, 3), plan(100));
+        // A's next life plans far later: its old plan (void past PLAN_FRESH) goes, B's (at its own tick 100) stays
+        remember_in(&mut all, (a, 40), plan(5_000));
+        assert!(!all.contains_key(&(a, 3)) && all.contains_key(&(b, 3)) && all.contains_key(&(a, 40)));
+        // finished simulations' plans past the cap: the oldest go, never the running ones'
+        for old in 1..=(PLANS_MOST as u64) {
+            all.insert((old, 3), plan(10));
+        }
+        remember_in(&mut all, (a, 40), plan(5_000 + PLAN_FRESH));
+        assert!(all.len() <= PLANS_MOST && all.contains_key(&(b, 3)) && !all.contains_key(&(1, 3)), "{}", all.len());
     }
 
     #[test]

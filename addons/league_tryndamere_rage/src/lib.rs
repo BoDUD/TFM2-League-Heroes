@@ -481,6 +481,22 @@ static READY: LazyLock<Mutex<HashMap<SimKey, usize>>> = LazyLock::new(|| Mutex::
 static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
 const SIM_TAG: &str = "league_tryndamere_sim:";
 
+/// A table holding this many rows: the oldest sims' rows go (each sim keeps one row per Tryndamere, his life now).
+pub const MOST_ROWS: usize = 4096;
+
+/// A new row for `key` comes in: this sim's rows of his earlier lives go (the same sim, another entity: a respawn is a new
+/// one), and while `rows` is full the oldest sim's rows go (the smallest number: one that ended long ago), never this
+/// sim's. 0.2.2 cleared the whole table past 4096 rows: every sim running beside it lost its "R ready" at another tick
+/// than its twin, so the guard there could drink Bloodlust with R ready (0.2.3, 11-06's audit).
+pub fn make_room(rows: &mut HashMap<SimKey, usize>, key: &SimKey) {
+    let same_sim = |k: &SimKey| (k.0, k.1, k.2, k.3, k.4, k.5) == (key.0, key.1, key.2, key.3, key.4, key.5);
+    rows.retain(|k, _| !same_sim(k) || k.6 == key.6);
+    while rows.len() >= MOST_ROWS {
+        let Some(old) = rows.keys().map(|k| k.0).filter(|&s| s != key.0).min() else { break };
+        rows.retain(|k, _| k.0 != old);
+    }
+}
+
 /// The number the passive hung on him when he spawned in this sim (0: none).
 pub fn sim_tag<'a>(names: impl Iterator<Item = &'a String>) -> u64 {
     names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
@@ -509,8 +525,8 @@ fn ready_saw(sim: &StableSim<'_>, id: usize, free: bool) {
     // drink Bloodlust in between (the fifth log: 193 of 262 presses, no drink with R ready)
     let mut map = READY.lock().unwrap_or_else(|e| e.into_inner());
     if free {
-        if map.len() > 4096 {
-            map.clear();
+        if !map.contains_key(&key) {
+            make_room(&mut map, &key);
         }
         map.insert(key, sim.tick());
     }
@@ -700,6 +716,31 @@ mod tests {
         assert_eq!(sim_tag(names.iter()), 12);
         assert_eq!(sim_tag(names[..1].iter()), 0);
         assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn a_new_row_makes_room_only_in_its_own_sim() {
+        // 11-06's audit: past 4096 rows the "R ready" table was cleared whole - the presim twins (the same seed, origin and
+        // entity ids, told apart by their numbers) and the match on screen lost it at different ticks
+        let mut rows: HashMap<SimKey, usize> = HashMap::new();
+        let key = |no: u64, id: usize| (no, 77, 1, SimOriginV1::NONE, SimOriginV1::NONE, SimOriginV1::NONE, id);
+        let (a, b) = (5_000, 5_001);
+        for no in [a, b] {
+            rows.insert(key(no, 21), 100);
+        }
+        // in A he died and is back as #90: A's #21 row goes, B's stays
+        make_room(&mut rows, &key(a, 90));
+        rows.insert(key(a, 90), 200);
+        assert!(!rows.contains_key(&key(a, 21)) && rows.contains_key(&key(b, 21)) && rows.contains_key(&key(a, 90)));
+        // finished sims fill the table: the oldest go first, never the sim making room, and the twins' rows stay
+        for old in 1..=(MOST_ROWS as u64) {
+            rows.insert(key(old, 21), 1);
+        }
+        make_room(&mut rows, &key(b, 22));
+        assert!(rows.len() < MOST_ROWS, "{}", rows.len());
+        assert!(!rows.contains_key(&key(1, 21)), "the oldest sim went first");
+        assert!(rows.contains_key(&key(a, 90)), "the twin's row went");
+        assert!(!rows.contains_key(&key(b, 21)), "B's earlier life stays only until B's new one comes in");
     }
 
     #[test]

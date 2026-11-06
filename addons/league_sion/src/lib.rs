@@ -15,6 +15,10 @@
 //! - **亡灵不回城**（`zombie.rs`，0.1.1）：亡灵时 AI 要回城或撤退就改成普攻最近的敌人（用户：「塞恩的僵尸 死了还能跑回城的？」）。
 //! - **大招的日志**（`ult.rs`，0.2.0，用户：「塞恩是不是也不太放大？」）：大招是主包的数据，本包只看他身上的标记记日志
 //!   （`ARMED` / `LAPSED` / `CHARGE` / `HIT` / `MISS`，每条命一行小结）；变亡灵时摘掉上膛标记（亡灵不该冲出去）。
+//! - **救人只救被硬控的**（0.3.0，2026-11-06 的日志：11 次冲撞全是「救人」）：游戏 0.7.0 起数据的 `AllyChampionInCC` 连施法
+//!   动作也算。上膛时被动每 tick 找 `r_save` 内被硬控、身边有敌方英雄的队友（`ult::held_pick`），有就给他续 `league_sion_r_cc`；
+//!   副本的轮询看到它才走「救人」，对每个队友调 `league_sion:held`，被选中的那个让他身上出现 1 tick 的 `league_sion_r_this`，
+//!   探针飞向这个队友。`CHARGE` 行写出救的是谁、什么控制；`LAPSED` 行过 4 tick 再读冷却（看得到退还）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_sion.log`，每次启动游戏重写。
 
@@ -244,6 +248,63 @@ struct Glory {
     alive_seen: bool,
     /// 大招的日志状态（`ult.rs`）。
     r: ult::Onslaught,
+    /// 这一 tick 救人的对象（被硬控的队友、控制种类、离他多远；上膛时才找）：`CHARGE` 行用前一 tick 的。
+    held: Option<Held>,
+    /// 过期的窗口等 `ult::LAPSE_READ` tick 再读冷却：到哪一 tick、跑了多久、窗口里看到的。
+    lapse: Option<(usize, usize, String)>,
+}
+
+/// 救人的对象（`ult::held_pick` 选的）。
+#[derive(Clone, Debug, PartialEq)]
+struct Held {
+    id: usize,
+    kinds: Vec<u32>,
+    far: f64,
+}
+
+/// 他上膛时该救的队友：`r_save` 内被硬控、身边 `r_peel` 内有看得见的敌方英雄、离他最近的那个（`ult::held_pick`），附上控制
+/// 种类和距离。被动和 `league_sion:held` 都用它，同一 tick 选出来的是同一个。
+fn held_ally(sim: &StableSim<'_>, me: usize) -> Option<Held> {
+    let e = sim.get_entity(me)?;
+    let (team, at, my_r) = (e.team(), e.pos(), e.radius() as f64);
+    let at = (at.0 as f64, at.1 as f64);
+    let (mut mates, mut foes) = (Vec::new(), Vec::new());
+    for u in (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)) {
+        if !u.is_champion() || !u.is_alive() || u.id() == me {
+            continue;
+        }
+        let pos = (u.pos().0 as f64, u.pos().1 as f64);
+        if u.team() == team {
+            if !u.is_targetable() {
+                continue; // banished, carried, in stasis: the probe cannot reach him, nor can anyone hurt him
+            }
+            let mut hard: Vec<u32> = (0..u.cc_count()).filter_map(|i| u.cc_at(i)).map(|c| c.kind).filter(|&k| ult::is_hard_cc(k)).collect();
+            hard.sort_unstable();
+            hard.dedup();
+            mates.push(ult::Mate { id: u.id(), at: pos, r: u.radius() as f64, hard });
+        } else if u.is_targetable() && sim.is_visible(team, u.id()) {
+            foes.push((pos, u.radius() as f64));
+        }
+    }
+    let id = ult::held_pick(at, my_r, &mates, &foes)?;
+    let m = mates.into_iter().find(|m| m.id == id)?;
+    let far = ((m.at.0 - at.0).powi(2) + (m.at.1 - at.1).powi(2)).sqrt();
+    Some(Held { id, kinds: m.hard, far })
+}
+
+/// `league_sion:held`：副本的轮询在 `r_cc` 在时对每个队友调它，`held_ally` 选中的那个让他身上出现 1 tick 的 `r_this`
+/// （league_galio:entrance 的做法），救人的探针飞向这个队友。
+struct HeldPick;
+
+impl StableEffectType for HeldPick {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            return;
+        }
+        if held_ally(sim, caster).is_some_and(|h| h.id == input.target_id) {
+            sim.add_buff(caster, &BuffV1::timed(ult::R_THIS, 1));
+        }
+    }
 }
 
 /// 大招轮询会看到的：r_range 内的敌方英雄数、r_near 内的队友数（圆心距离）、最近的敌方英雄有多远、他的血量百分比。
@@ -271,8 +332,37 @@ fn r_context(sim: &StableSim<'_>, me: usize) -> String {
 }
 
 impl Glory {
-    /// 每 tick 看大招的标记，记下上膛、过期、冲撞、撞中。
-    fn watch_ult(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
+    /// 救人（0.3.0）：上膛时找被硬控的队友（`held_ally`），有就给他续 `r_cc`（副本的轮询读它）；记下来给 `CHARGE` 行。
+    fn save_flag(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        self.held = None;
+        if !buffs(sim, me).iter().any(|b| b.name() == sn("r_arm")) {
+            return;
+        }
+        let Some(h) = held_ally(sim, me) else { return };
+        sim.entity_remove_buff(me, ult::R_CC);
+        sim.add_buff(me, &BuffV1::timed(ult::R_CC, ult::R_CC_T));
+        self.held = Some(h);
+    }
+
+    /// 过期窗口的那一行（0.3.0）：过 `LAPSE_READ` tick 再读冷却，退还已经生效（过期那一 tick 读的还是 3002）；`early`：
+    /// 等不到了（阵亡、变亡灵），现在读。
+    fn lapse_line(&mut self, sim: &StableSim<'_>, me: usize, now: usize, early: bool) {
+        let Some((due, ran, seen)) = self.lapse.take() else { return };
+        if now < due && !early {
+            self.lapse = Some((due, ran, seen));
+            return;
+        }
+        if let Some(k) = counted("lapsed") {
+            let cd = sim.get_entity(me).and_then(|e| e.cooldown(SkillSlotV1::Ult)).map_or(0, |c| c.remaining);
+            let when = if now >= due { format!("{} ticks on", ult::LAPSE_READ) } else { "read early".to_string() };
+            wlog(format!("{} R LAPSED #{k}: no charge in {ran} ticks, {seen}; ult cooldown left {cd} ticks ({when}; the refund caps it at 72)",
+                         head(sim, me)));
+        }
+    }
+
+    /// 每 tick 看大招的标记，记下上膛、过期、冲撞、撞中。`held`：前一 tick 救人的对象（救人的冲撞就是为了他）。
+    fn watch_ult(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, held: Option<&Held>) {
+        self.lapse_line(sim, me, now, false);
         let names: std::collections::HashSet<String> = buffs(sim, me).iter().map(|b| b.name().to_string()).collect();
         for ev in self.r.step(now, &names) {
             match ev {
@@ -287,15 +377,19 @@ impl Glory {
                     self.r.seen.add(num("in reach "), num("allies near "));
                 }
                 ult::Event::Lapsed(ran) => {
-                    if let Some(k) = counted("lapsed") {
-                        let cd = sim.get_entity(me).and_then(|e| e.cooldown(SkillSlotV1::Ult)).map_or(0, |c| c.remaining);
-                        wlog(format!("{} R LAPSED #{k}: no charge in {ran} ticks, {}; ult cooldown left {cd} ticks (refund caps it at 72)",
-                                     head(sim, me), self.r.seen.summary()));
-                    }
+                    // 0.3.0 (11-06: "ult cooldown left 3002 ticks" x3, re-armed 188 / 756 ticks later): the refund's flag
+                    // comes on this tick and caps the cooldown on the next ones - read it LAPSE_READ ticks on
+                    self.lapse_line(sim, me, now, true);
+                    self.lapse = Some((now + ult::LAPSE_READ, ran, self.r.seen.summary()));
                 }
                 ult::Event::Charge(why) => {
                     if let Some(k) = counted("charge") {
-                        wlog(format!("{} R CHARGE #{k}: {why}; {}", head(sim, me), r_context(sim, me)));
+                        let whom = match (why, held) {
+                            ("save", Some(h)) => format!(" {} in {} {:.0} away", who(sim, h.id), ult::cc_names(&h.kinds), h.far),
+                            ("save", None) => " (the ally is no longer held)".to_string(),
+                            _ => String::new(),
+                        };
+                        wlog(format!("{} R CHARGE #{k}: {why}{whom}; {}", head(sim, me), r_context(sim, me)));
                     }
                 }
                 ult::Event::Done(ran) => {
@@ -309,6 +403,9 @@ impl Glory {
 
     /// 一条命结束（阵亡或变亡灵）：这条命大招上膛了几次、冲了几次。
     fn r_life_line(&mut self, sim: &StableSim<'_>, me: usize, end: &str) {
+        let now = sim.tick();
+        self.lapse_line(sim, me, now, true);
+        self.held = None;
         if self.r.armed > 0 || self.r.charged > 0 {
             if let Some(k) = counted("life") {
                 wlog(format!("{} R this life #{k} ({end}): armed {}, charged {}", head(sim, me), self.r.armed, self.r.charged));
@@ -396,6 +493,8 @@ impl StablePassive for Glory {
         self.next_guard = 0;
         self.alive_seen = false;
         self.r.reset();
+        self.held = None;
+        self.lapse = None;
         self.stack_buff(sim, me);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
@@ -428,7 +527,11 @@ impl StablePassive for Glory {
         if hp > 1 {
             self.alive_seen = true;
         }
-        self.watch_ult(sim, me, now);
+        // this tick's save first (its r_cc is in the names watch_ult keeps for the next tick's CHARGE reason); the
+        // CHARGE line names the ally of the tick before, when the poll's probe went out
+        let before = self.held.clone();
+        self.save_flag(sim, me);
+        self.watch_ult(sim, me, now, before.as_ref());
         self.guard(sim, me, now);
         if hp <= 1 && self.alive_seen {
             let list: Vec<(String, bool)> = buffs(sim, me).iter().map(|b| (b.name().to_string(), b.undying)).collect();
@@ -484,7 +587,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Sion: Glory in Death's zombie, Soul Furnace's health from every kill) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Sion: Glory in Death's zombie, Soul Furnace's health from every kill, R's save only for an ally in hard crowd control) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -492,8 +595,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:glory"), Glory::default());
+    module.add_native_effect(format!("{ID}:held"), HeldPick);
     module.add_player_input_ai(zombie::Zombie);
-    host.log(LogLevel::Info, "league_sion loaded (Glory in Death's zombie, Soul Furnace from every kill).");
+    host.log(LogLevel::Info, "league_sion loaded (Glory in Death's zombie, Soul Furnace from every kill, Unstoppable Onslaught saving only allies in hard crowd control).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -575,7 +679,7 @@ mod tests {
 
     #[test]
     fn the_names_fit() {
-        for x in ["p_guard", "p_zombie", "k_hp", "p_rise", "vo_p", "r_arm"] {
+        for x in ["p_guard", "p_zombie", "k_hp", "p_rise", "vo_p", "r_arm", "r_cc", "r_this"] {
             assert!(sn(x).len() <= BUFF_NAME_CAP);
         }
     }

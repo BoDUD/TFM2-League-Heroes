@@ -12,9 +12,9 @@
     }
   ],
   "description": "League easter eggs between the champions of League of Legends Heroes: Rengar vs Kha'Zix and the War for the Freljord (Ashe, Sejuani, Lissandra) announce their hidden quests on screen and crown the Queen of the Freljord; Jinx vs Caitlyn / Vi count criminals caught and cops shaken off on the player panel, +1 gold a takedown; Thresh takes Senna's soul, Senna and Lucian free the souls; Zilean and Volibear carry their grudges, +11 gold for the kill; Zyra vs Sion +2 gold, Zyra and Maokai walk faster together; ninjas on one team lose max health; cougar Nidalee helps lower-level allies; Leona's Sunlight burns champions in sunglasses a little less; Fizz's shark swallows the small yordles it kills. Writes a log for testing.",
-  "last_updated": "2026-11-05",
+  "last_updated": "2026-11-06",
   "mod_id": "league_eggs",
   "mod_type": "native",
   "name": "League Heroes: League easter eggs (test)",
-  "version": "0.1.0"
+  "version": "0.1.1"
 }

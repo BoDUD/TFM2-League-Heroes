@@ -39,3 +39,7 @@
 - 新加 AI 钩子 `league_rammus:open`：他没在滚、没在施法 / 蜷着，Q 解锁且好了，AI 想普攻或走路（不在回城、放技能），最近的敌方英雄离他 30000 到 45000（Q 的射程）：改成对他放 Q，先滚过去。日志 `OPEN`。
 
 下一局看 `ROLL hit ... after N ticks`（N 该大于 0、`gap` 在 3000 以内）、`ROLL over ... rolled`（该大于 0）和 `OPEN`。
+
+## 0.1.2：AI 贴脸的 Q 改成普攻（2026-11-06）
+
+11-06 的日志：`OPEN` 好了（40 次开球里 27 次撞上，滚了 3–70 tick），可还有 20/41（.prev）和 16/42（.log）次 `ROLL hit ... after 0 ticks`（空隙 -509 到 -25000，身子早就叠在一起），每次后面都是 `ROLL over after 0 ticks, 0 rolled`——全是游戏的 AI 自己对已经贴着他的人放的 Q，没有一次在 `OPEN` 之后。`open_from` 只在 30000–45000 开球，近处的 Q 一直留给 AI。现在 `league_rammus:open` 看到 AI 的 Q 点的是一个已经贴着他的敌方英雄（两个身子的空隙在 `q_touch` 3000 以内，`point_blank`）：改成普攻他，Q 留着——等敌人离开 30000 以上再由 `OPEN`（或 AI 自己从远处）放出去滚过去，同这份 README 上面「先滚过去」的本意。对小兵、野怪的 Q 照旧（清野时贴脸 Q 也有伤害）。日志 `Q HELD: the AI's Powerball at #id against him (gap g) - attacking instead, Q kept for a run-up`（同一个人 60 tick 内一串一行）；`ROLL hit` 里注明撞上的是 `(champion)` 还是 `(unit)`。下一局看 `after 0 ticks` 该只剩 `(unit)`。

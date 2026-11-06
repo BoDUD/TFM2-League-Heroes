@@ -55,15 +55,15 @@
 
 ### 卢锡安附加包
 
-卢锡安附加包：`league_lucian` v0.1.0
+卢锡安附加包：`league_lucian` v0.2.0
 
 （这个附加包没有 README，下面是它 `mod.mod_info` 里的英文说明）
 
-> Lucian walks firing The Culling (needs League of Legends Heroes): while his ult fires, his walk is drawn with both pistols levelled forward instead of his plain run. Picture only; his kit is the main pack's. Writes a log for testing.
+> Lucian walks firing The Culling (needs League of Legends Heroes): while his ult fires, his walk is drawn with both pistols levelled forward instead of his plain run, he faces the enemy champion his shots fly at (the game would turn him to the way he walks: walking away he fired out of his back) and backs off with that walk played backwards. His kit is the main pack's; a hidden flag on him tells the screen which way the shots go. Writes a log for testing.
 
 ### 英雄联盟彩蛋
 
-[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.1.0（通用附加包，下面只列和卢锡安有关的部分）
+[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.1.1（通用附加包，下面只列和卢锡安有关的部分）
 
 | 彩蛋 | 什么时候 | 效果 |
 |---|---|---|

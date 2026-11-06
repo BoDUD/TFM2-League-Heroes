@@ -12,9 +12,9 @@
     }
   ],
   "description": "Shen's Stand United shield from his maximum health (needs League of Legends Heroes): the main pack's shield is a flat amount plus attack damage, because a data shield reads no health; with this add-on the ally gets 150 + 12% of Shen's maximum health instead. Everything else stays the main pack's. Writes a log for testing.",
-  "last_updated": "2026-11-05",
+  "last_updated": "2026-11-06",
   "mod_id": "league_shen_shield",
   "mod_type": "native",
   "name": "League Heroes: Shen ult shield from health",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

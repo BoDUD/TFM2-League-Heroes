@@ -22,8 +22,46 @@ use super::{counted, dist, head, params_of, research_name, stacks_name, vk, who,
 /// 排在 league_ult_press（100）之后：引擎按优先级从小到大跑 AI 钩子，每个拿到前一个的决定。
 pub const COMBO_PRIORITY: i32 = 110;
 
-/// 连招按过几次（所有对局合计，诊断用）。
+/// 连招按过几串（所有对局合计，诊断用；0.1.3 起一串算一次，以前每 tick 算一次）。
 pub static TOTAL: AtomicUsize = AtomicUsize::new(0);
+/// 连按没放出去、歇了几次（所有对局合计）。
+pub static BACKED_OFF: AtomicUsize = AtomicUsize::new(0);
+
+/// 同一类、同一个目标离上一次不到这么多 tick 就算同一串：一串只记一行、`TOTAL` 只加一（0.1.3，league_drmundo 0.1.7 的做法；
+/// 11-06 的日志：`R ON STACKS` 连着 22 tick 每 tick 一行，`Q AFTER E` 14、11、7 行）。
+pub const ORDER_FRESH: usize = 30;
+/// 同一个技能键连着按了这么多 tick 还没放出去（放出去了冷却就走、`call` 不再按）：有东西挡着，歇 `BACKOFF` tick 让 AI 自己来，
+/// 记一行挡着的是什么（league_orianna 0.3.2 的做法）。普攻（裂隙打英雄）不算：攻击命令本来就每 tick 都下。
+pub const PRESS_MAX: usize = 3;
+pub const BACKOFF: usize = 30;
+
+/// A line of `kind` on `target` at `tick` starts a run: none of that kind on that target in the `ORDER_FRESH` ticks before
+/// (`last`: that kind's last (target, tick); a tick before it is another match).
+pub fn new_run(last: Option<(usize, usize)>, target: usize, tick: usize) -> bool {
+    last.is_none_or(|(t, t0)| t != target || tick < t0 || tick > t0 + ORDER_FRESH)
+}
+
+/// Presses of one skill key on ticks in a row (league_orianna 0.3.2's).
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Presses {
+    pub kind: &'static str,
+    pub first: usize,
+    pub last: usize,
+    pub n: usize,
+}
+
+impl Presses {
+    /// One more press of `kind` at `tick`: how many in a row (the tick after the last of the same kind), 1 for a new run.
+    pub fn press(&mut self, kind: &'static str, tick: usize) -> usize {
+        if self.kind == kind && self.n > 0 && tick == self.last + 1 {
+            self.n += 1;
+        } else {
+            *self = Presses { kind, first: tick, last: tick, n: 1 };
+        }
+        self.last = tick;
+        self.n
+    }
+}
 
 /// 维克兹自己这一 tick。
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -216,10 +254,37 @@ pub fn walking_away(base: Option<InputV1>, me: Pt, to: Pt) -> bool {
     base.is_some_and(|b| b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), to) > dist(me, to) + AWAY)
 }
 
+/// What may keep a press from being taken (the back-off line): his controls, the slots' cooldowns, what the AI wanted.
+fn blocker(e: &StableEntity<'_, '_>, base: Option<InputV1>) -> String {
+    let cc: Vec<String> = (0..e.cc_count())
+        .filter_map(|i| e.cc_at(i))
+        .map(|c| CcKindV1::from_code(c.kind).map_or_else(|| format!("cc {}", c.kind), |k| format!("{k:?}")))
+        .collect();
+    let cd = |s: SkillSlotV1| e.cooldown(s).map_or("?".to_string(), |c| format!("{}/{}", c.remaining, c.cooltime));
+    let ai = base.and_then(|b| InputKindV1::from_code(b.kind)).map_or("nothing".to_string(), |k| format!("{k:?}"));
+    format!("cc [{}], cooldowns Q {} E {} R {} attack {}, the AI wanted {ai}", cc.join(", "), cd(SkillSlotV1::Skill),
+            cd(SkillSlotV1::Skill2), cd(SkillSlotV1::Ult), cd(SkillSlotV1::Attack))
+}
+
 #[derive(Clone, Default)]
 pub struct Combo {
     /// the AI is recalling (`still_recalling`)
     recalling: bool,
+    /// each kind's last line: (kind, target, tick) - one line a run (`new_run`)
+    runs: Vec<(&'static str, usize, usize)>,
+    /// the skill key pressed on ticks in a row, and the tick until which the hook stands back (`PRESS_MAX`, `BACKOFF`)
+    presses: Presses,
+    hold_until: usize,
+}
+
+impl Combo {
+    /// One more line of `kind` on `target` at `tick`: true when it starts a run (the line to write, the one to count).
+    fn run(&mut self, kind: &'static str, target: usize, tick: usize) -> bool {
+        let last = self.runs.iter().find(|(k, ..)| *k == kind).map(|&(_, t, t0)| (t, t0));
+        self.runs.retain(|(k, ..)| *k != kind);
+        self.runs.push((kind, target, tick));
+        new_run(last, target, tick)
+    }
 }
 
 impl StablePlayerAi for Combo {
@@ -245,8 +310,13 @@ impl StablePlayerAi for Combo {
         if self.recalling {
             return None;
         }
+        // standing back after a run of presses nothing took (a tick before the hold: another match in a reused hook)
+        let tick = ctx.tick();
+        if tick < self.hold_until && self.hold_until <= tick + BACKOFF {
+            return None;
+        }
         let player = ctx.player_id();
-        let (call, line, on) = {
+        let (call, line, on, state) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?.id();
             let (m, foes) = read(&sim, me)?;
@@ -261,7 +331,8 @@ impl StablePlayerAi for Combo {
             let t = match &c {
                 Call::Attack(t, ..) | Call::PressQ(t, ..) | Call::PressE(t, ..) | Call::PressR(t, ..) => *t,
             };
-            (c, head(&sim, me), who(&sim, t))
+            let state = sim.get_entity(me).map_or_else(String::new, |e| blocker(&e, base));
+            (c, head(&sim, me), who(&sim, t), state)
         };
         let (kind, slot, t, kind_log, why) = match call {
             Call::Attack(t, k, w) => ("attack", InputKindV1::Attack, t, k, w),
@@ -273,9 +344,26 @@ impl StablePlayerAi for Combo {
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        TOTAL.fetch_add(1, Ordering::Relaxed);
-        if let Some(n) = counted(kind_log) {
-            wlog(format!("{line} {why} - {kind} on {on} #{n}"));
+        // a skill pressed on ticks in a row and never taken (a cast starts its cooldown and `call` stops pressing it):
+        // stand back BACKOFF ticks, one line naming what may block it (0.1.3; 11-06: R ON STACKS pressed 22 ticks running)
+        if slot != InputKindV1::Attack {
+            let n = self.presses.press(kind_log, tick);
+            if n > PRESS_MAX {
+                self.hold_until = tick + BACKOFF;
+                BACKED_OFF.fetch_add(1, Ordering::Relaxed);
+                if let Some(k) = counted("not taken") {
+                    wlog(format!("{line} {why} - {kind} on {on}: pressed {n} ticks running since t={} and not taken ({state}) - \
+                                  backing off {BACKOFF} ticks #{k}", self.presses.first));
+                }
+                return None;
+            }
+        }
+        // one line and one count a run (the same kind on the same target within ORDER_FRESH ticks)
+        if self.run(kind_log, t, tick) {
+            TOTAL.fetch_add(1, Ordering::Relaxed);
+            if let Some(n) = counted(kind_log) {
+                wlog(format!("{line} {why} - {kind} on {on} #{n}"));
+            }
         }
         Some(input)
     }
@@ -284,6 +372,31 @@ impl StablePlayerAi for Combo {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_run_of_presses_is_one_line_and_one_count() {
+        // 11-06: R ON STACKS on Yone #345 every tick 10338-10359 (22 lines); Q AFTER E 14, 11, 7
+        let mut c = Combo::default();
+        let lines: Vec<usize> = (10_338..=10_359).filter(|&t| c.run("r on stacks", 345, t)).collect();
+        assert_eq!(lines, [10_338]);
+        // another target, a gap past ORDER_FRESH, an earlier tick (another match): a new run; kinds apart
+        assert!(c.run("r on stacks", 346, 10_360));
+        assert!(c.run("r on stacks", 346, 10_360 + ORDER_FRESH + 1));
+        assert!(c.run("r on stacks", 346, 50));
+        assert!(c.run("q after e", 346, 51) && !c.run("r on stacks", 346, 52));
+    }
+
+    #[test]
+    fn a_press_nothing_takes_backs_off_after_press_max() {
+        let mut p = Presses::default();
+        let n: Vec<usize> = (100..100 + PRESS_MAX + 1).map(|t| p.press("r on stacks", t)).collect();
+        assert_eq!(n, (1..=PRESS_MAX + 1).collect::<Vec<_>>());
+        assert!(*n.last().unwrap() > PRESS_MAX, "the press after PRESS_MAX backs off");
+        assert_eq!(p.first, 100);
+        // a skipped tick or another key starts over
+        assert_eq!(p.press("r on stacks", 110), 1);
+        assert_eq!(p.press("q after e", 111), 1);
+    }
 
     #[test]
     fn a_recall_or_a_retreat_is_the_ais() {

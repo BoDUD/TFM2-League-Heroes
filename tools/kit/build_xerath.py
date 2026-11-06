@@ -61,7 +61,9 @@ P = {
     "p_step": 210, "p_dmg": 40, "p_ap": 40, "p_cdr": 30, "k_hold": 40, "k_read": 4,
     # skill: Q Arcanopulse (League: 1.5 s charge, 750 -> 1450 range, width 145, 70-230 + 85% AP, cd 9-5 s)
     "q_cd": 300, "q_range": 100000, "q_full_t": 54, "q_quick_t": 22, "q_rec": 10, "q_aim_f": 140000,
-    "q_reach_f": 150000, "q_reach_q": 95000, "q_speed": 15000, "q_rad": 7000, "q_y": -10000,
+    # q_rad: the engine tests the beam only where it stands at each tick, the centre within the circle (game 0.7.1): 7000 at
+    # 15000 a tick left gaps; 7500 >= 15000 / 2 (League's 145-wide beam plus a body is wider still), 2026-11-06
+    "q_reach_f": 150000, "q_reach_q": 95000, "q_speed": 15000, "q_rad": 7500, "q_y": -10000,
     "q_dmg": 110, "q_ap": 85, "q_quick": 65,
     # skill2: E Shocking Orb (League: 1125 range at 1400/s, width 60, 80-240 + 45% AP, stun 0.75-2.25 s, cd 13.5-11 s)
     # -> W Eye of Destruction (League: 0.5 s delay, radius 275 / centre ~100, 60-200 + 60% AP, centre x1.667,

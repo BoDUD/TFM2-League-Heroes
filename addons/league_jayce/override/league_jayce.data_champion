@@ -2595,7 +2595,7 @@
               "range": 115000,
               "shape": {
                 "Circle": {
-                  "radius": 3500
+                  "radius": 8000
                 }
               },
               "y_offset": -6700

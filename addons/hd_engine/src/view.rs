@@ -53,6 +53,13 @@ const BUFFS_LEN: usize = 0xc0;
 const BUFF_SIZE: usize = 0x28;
 /// Growth lines a session (one for each change of a growing hero's stacks on screen).
 const GROW_LINES: usize = 400;
+/// Draw-scale lines a session: the display update's "draw scale" (one per hero and base, [`note_scale`]) and "drawn as
+/// ... again" lines.
+const SCALE_LINES: usize = 200;
+/// Body-draw lines a session, a budget of their own: each hero's first command list and each "drawn as ... at the body
+/// draw" pair. (2026-11-06: the 200 lines all three kinds shared were spent by 1858 s - every respawn is a new entity
+/// key, and a scale line went with each - and the heroes that came on screen later logged nothing.)
+const BODY_LINES: usize = 200;
 
 /// One entity's draw scale: the game's own value (base) and what the hook last wrote over it.
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -130,7 +137,12 @@ struct State {
     by_value: Vec<(usize, Scale)>,
     /// the scales the body draw wrote itself, by the entity value's address (a body swapped after the display update)
     drawn: Vec<(usize, Scale)>,
-    lines: usize,
+    /// draw-scale lines written ([`SCALE_LINES`])
+    scale_lines: usize,
+    /// (hero, base in hundredths) whose draw scale was logged
+    scaled: Vec<(&'static str, i32)>,
+    /// body-draw lines written ([`BODY_LINES`])
+    body_lines: usize,
     /// heroes whose first command list was logged
     seen: Vec<&'static str>,
     /// "id > hero" pairs whose first body-draw scale was logged
@@ -144,9 +156,14 @@ struct State {
     forms: Vec<(usize, f32, std::time::Instant)>,
 }
 
-static STATE: Mutex<State> = Mutex::new(State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), lines: 0,
-                                                seen: Vec::new(), noted: Vec::new(), grows: Vec::new(),
-                                                grow_lines: 0, forms: Vec::new() });
+impl State {
+    const fn new() -> Self {
+        State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), scale_lines: 0, scaled: Vec::new(),
+                body_lines: 0, seen: Vec::new(), noted: Vec::new(), grows: Vec::new(), grow_lines: 0, forms: Vec::new() }
+    }
+}
+
+static STATE: Mutex<State> = Mutex::new(State::new());
 static PREV: AtomicUsize = AtomicUsize::new(0);
 static HOOK: Once = Once::new();
 
@@ -250,8 +267,8 @@ unsafe fn shrink(world: usize) {
                 if ours {
                     std::ptr::write_unaligned((v + SCALE) as *mut f32, p.base);
                 }
-                if ours && st.lines < 200 {
-                    st.lines += 1;
+                if ours && st.scale_lines < SCALE_LINES {
+                    st.scale_lines += 1;
                     wlog(format!("world {world:#x} #{key} {}: drawn as {} again, draw scale back to {:.3}",
                         id.unwrap_or("?"), res.unwrap_or("?"), p.base));
                 }
@@ -286,12 +303,23 @@ unsafe fn shrink(world: usize) {
                 true
             }
         };
-        if changed && st.lines < 200 {
-            st.lines += 1;
+        if changed && note_scale(&mut st, hero.id, s.base) {
             wlog(format!("world {world:#x} #{key} {name}: draw scale {cur:.3} -> {:.3} (base {:.3})", s.wrote, s.base));
         }
     }
     keep_seen(&mut st.scales, world, &seen);
+}
+
+/// Whether the draw scale of `hero` from the game's value `base` is new to the log: one line per hero and base (to a
+/// hundredth) a session, within [`SCALE_LINES`] - not one per entity, which every respawn makes anew.
+fn note_scale(st: &mut State, hero: &'static str, base: f32) -> bool {
+    let key = (hero, (base * 100.0).round() as i32);
+    if st.scale_lines >= SCALE_LINES || st.scaled.contains(&key) {
+        return false;
+    }
+    st.scaled.push(key);
+    st.scale_lines += 1;
+    true
 }
 
 /// Draw command tags (the enum's niche values at +0) and layout (0xd0 bytes each). The sprite's tag stayed 0x…03; the
@@ -371,9 +399,10 @@ unsafe fn scale_at_draw(ent: usize) -> Option<(Scale, &'static Hero)> {
             }
             let updated = shrunk.is_some_and(|p| (cur - p.wrote).abs() <= 1e-6);
             // the pair's String only for a body the update did not shrink (not every dense body every frame)
-            let pair = if updated || st.lines >= 200 { None } else { Some(format!("{} > {}", id.unwrap_or("?"), hero.id)) };
+            let pair =
+                if updated || st.body_lines >= BODY_LINES { None } else { Some(format!("{} > {}", id.unwrap_or("?"), hero.id)) };
             if let Some(pair) = pair.filter(|p| !st.noted.contains(p)) {
-                st.lines += 1;
+                st.body_lines += 1;
                 wlog(format!("{}: drawn as {} at the body draw (the display update saw {}) - draw scale {cur:.3} -> {:.3}",
                     id.unwrap_or("?"), hero.id, res.unwrap_or("?"), s.wrote));
                 st.noted.push(pair);
@@ -461,9 +490,9 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         })
         .collect();
     let runs = extra_runs(&kinds);
-    if !st.seen.contains(&hero.id) && st.lines < 200 {
+    if !st.seen.contains(&hero.id) && st.body_lines < BODY_LINES {
         st.seen.push(hero.id);
-        st.lines += 1;
+        st.body_lines += 1;
         let list: Vec<String> = (0..len)
             .map(|i| {
                 let c = ptr + i * CMD;
@@ -835,6 +864,25 @@ mod tests {
         assert!((down - (size - 0.07)).abs() < 1e-6, "{down}");
         assert_eq!(hd::eased(Some((1.01, 0.1)), 1.0, size, secs), 1.0);
         // Volibear's form row is league.dll's data: league_main/src/hd.rs tests it
+    }
+
+    /// One draw-scale line per hero and base, not per entity (each respawn is a new one: 2026-11-06 the 200 lines were
+    /// gone by 1858 s); the body-draw lines keep a budget of their own.
+    #[test]
+    fn a_draw_scale_is_logged_once_per_hero_and_base() {
+        let mut st = State::new();
+        assert!(note_scale(&mut st, "league_karthus", 1.0));
+        for _ in 0..18 {
+            assert!(!note_scale(&mut st, "league_karthus", 1.0), "a respawn: the same hero and base");
+        }
+        assert!(!note_scale(&mut st, "league_karthus", 1.0001), "the same to a hundredth");
+        assert!(note_scale(&mut st, "league_karthus", 1.5), "a growth effect's base");
+        assert!(note_scale(&mut st, "tft_brock", 1.12) && note_scale(&mut st, "tft_brock", 1.13));
+        assert_eq!(st.scale_lines, 4);
+        // the budget runs out for new pairs only, and leaves the body-draw lines theirs
+        st.scale_lines = SCALE_LINES;
+        assert!(!note_scale(&mut st, "league_alistar", 1.0));
+        assert_eq!(st.body_lines, 0);
     }
 
     #[test]

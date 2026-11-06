@@ -104,6 +104,33 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// Lines a launch, each kind on its own count (0.1.2; 11-06's logs: 487 KB and 287 KB, every line written - 2882 BLOCKED,
+/// 1204 WALL, 794 SPAWN, 274 SAVED in one launch): the server's presims the first `LOG_FIRST`, then every `LOG_EVERY`-th;
+/// the match on screen all of them.
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
+}
+
 fn head(sim: &StableSim<'_>, me: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
@@ -328,9 +355,9 @@ impl WallPassive {
             shown += sim.play_view_effect(&format!("{PIECE_PIC}{k}"), me, &InputTargetV1::pos(x, y), 0, 0, 0) as usize;
         }
         self.walls += 1;
-        if self.walls <= 80 {
-            wlog(format!("{} WALL #{} at ({:.0}, {:.0}) facing ({:.2}, {:.2}): {n} missiles coming, {shown} of {PIECES} pieces shown",
-                         head(sim, me), self.walls, mid.0, mid.1, dir.0, dir.1));
+        if let Some(k) = tally(sim, "wall") {
+            wlog(format!("{} WALL #{} at ({:.0}, {:.0}) facing ({:.2}, {:.2}): {n} missiles coming, {shown} of {PIECES} pieces \
+                          shown #{k}", head(sim, me), self.walls, mid.0, mid.1, dir.0, dir.1));
         }
     }
 }
@@ -343,7 +370,10 @@ impl StablePassive for WallPassive {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.wall = None;
         self.blocked.clear();
-        wlog(format!("{} SPAWN: the add-on's Yasuo (player {player}), Wind Wall ready at t={}", head(sim, me), self.ready_at));
+        if let Some(k) = tally(sim, "spawn") {
+            wlog(format!("{} SPAWN: the add-on's Yasuo (player {player}), Wind Wall ready at t={} #{k}", head(sim, me),
+                         self.ready_at));
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
@@ -386,8 +416,8 @@ impl StablePassive for WallPassive {
             let (x, y) = upos(p);
             sim.play_view_effect(BLOCK_PIC, me, &InputTargetV1::pos(x, y), 0, 0, 0);
             self.stops += 1;
-            if self.stops <= 120 {
-                wlog(format!("{} BLOCKED #{}: a missile of #{c} at ({:.0}, {:.0})", head(sim, me), self.stops, p.0, p.1));
+            if let Some(k) = tally(sim, "blocked") {
+                wlog(format!("{} BLOCKED #{}: a missile of #{c} at ({:.0}, {:.0}) #{k}", head(sim, me), self.stops, p.0, p.1));
             }
             self.blocked.push(Stopped { caster: c, last: now_at, step: sub(now_at, from), gone: None });
         }
@@ -425,8 +455,8 @@ impl StablePassive for WallPassive {
                         sim.entity_clear_cc(id);
                     }
                     self.saved += lost;
-                    if self.stops <= 120 {
-                        wlog(format!("{} SAVED #{id}: {lost} damage given back{}{}", head(sim, me),
+                    if let Some(k) = tally(sim, "saved") {
+                        wlog(format!("{} SAVED #{id}: {lost} damage given back{}{} #{k}", head(sim, me),
                                      if gone { " (it had vanished)" } else { "" },
                                      if cc > cc0 { ", crowd control cleared" } else { "" }));
                     }
@@ -487,6 +517,15 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn presim_lines_are_capped_the_screen_s_are_not() {
+        // 0.1.1 wrote every line: 487 KB in one launch
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
 
     #[test]
     fn missiles_pair_by_caster_and_distance() {

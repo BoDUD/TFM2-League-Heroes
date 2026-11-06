@@ -9,6 +9,9 @@
 //!   出手那一拍已经查不到它）：被动每拍记下她 `q_len` 一倍半内每个敌人最后的位置（`SEEN`），目标没了就朝它最后的位置扇
 //!   （`aim_fallback`：`last place`），没记过就朝 `q_len` 内最近的、看得见的、不是塔的敌人（`nearest`），都没有才作罢
 //!   （SDK 读不到她的朝向）。日志 `FAN ... (aimed at X's last place / the nearest, Y)`。
+//!   2026-11-06（0.54.0，11-06 的日志：95 次扇射还有 25 次 `no aim`）：`SEEN` 原来是一张全局表、只按她的实体编号记，每份
+//!   模拟的被动都按自己的 tick 清它——同时跑的别的模拟里同一个编号的锋喙鸟（#21、#26 几乎每局都是）一清，这份的记录就没了。
+//!   现在按（这份模拟的编号 `SIM_TAG`，她）分行记（sim_tag.rs，洛里斯、赛芬的做法），每份只清自己那一行。
 //! - **橙霸符**：她的每次物理命中（普攻、羽刃、小锋喙鸟的啄击）都调 `tft_raptor:shred`：目标护甲 -`p_arm`，持续 `p_t`
 //!   tick，最多 `p_max` 层，再中一下刷新时长（引擎的叠层 buff；数据的同名 buff 只会无限叠）。叠满那一下播 `tft_raptor_p`。
 //! - **死亡**：倒下时播 `tft_raptor_d`（数据没有死亡的时机）。
@@ -24,6 +27,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+use crate::sim_tag::{Key, SimTag};
 
 const ID: &str = "tft_raptor";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -159,11 +164,41 @@ fn params_of(me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&me).copied().unwrap_or_default()
 }
 
-/// The enemies each raptor saw lately: id -> (where, the tick). Q's release aims at a target gone in the wind-up by
-/// its last place (the server's two presims of one set see the same places on the same tick: one row serves both).
-static SEEN: LazyLock<Mutex<HashMap<usize, HashMap<usize, ((u64, u64), usize)>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// Each simulation's number (`SIM_TAG`, 0.54.0): hung on her at every spawn, read back by Q's release (an effect).
+const TAG: SimTag = SimTag("tft_raptor_sim:");
+
+/// One raptor's row: the enemies she saw lately, id -> (where, the tick).
+pub type Seen = HashMap<usize, ((u64, u64), usize)>;
+
+/// The enemies each raptor saw lately, by (this simulation's number `SIM_TAG`, the raptor). Q's release aims at a target
+/// gone in the wind-up by its last place. 0.53.0 kept one row per entity id for every simulation, and every simulation's
+/// update purged it by its own clock: another match running at the same time with a raptor at the same id (#21 / #26
+/// nearly every match) wiped the rows - 25 of 95 fans of 11-06 still had no aim.
+static SEEN: LazyLock<Mutex<HashMap<Key, Seen>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 /// A place is kept this many ticks after the unit was last seen.
 pub const SEEN_FOR: usize = 60;
+
+/// One look round by the raptor of `row` at `now`: the places in her own row older than `SEEN_FOR` go (only hers - the
+/// other simulations' rows run on their own clocks), then the enemies `near` her now go in. Never a clear of the table:
+/// the first 0.54.0 build cleared it past 4096 rows, the rows of the simulations running beside it too (a finished
+/// simulation leaves one row a raptor; `forget_lives` takes her earlier lives').
+pub fn remember(all: &mut HashMap<Key, Seen>, row: Key, now: usize, near: &[(usize, (u64, u64))]) {
+    let seen = all.entry(row).or_default();
+    seen.retain(|_, &mut (_, t)| t <= now && now < t + SEEN_FOR);
+    for &(id, pos) in near {
+        seen.insert(id, (pos, now));
+    }
+}
+
+/// Where the raptor of `row` last saw `target` (None: not in her row).
+pub fn last_place(all: &HashMap<Key, Seen>, row: Key, target: usize) -> Option<(u64, u64)> {
+    all.get(&row).and_then(|m| m.get(&target)).map(|&(p, _)| p)
+}
+
+/// A new life of the raptor numbered `no` (a respawn is a new entity): the rows of her last ones go.
+pub fn forget_lives(all: &mut HashMap<Key, Seen>, no: u64) {
+    all.retain(|k, _| k.0 != no);
+}
 
 /// Where Q's fan goes when its target is gone at the release: the target's last place, else the nearest of `foes`
 /// (visible, no tower) within `reach`; None with neither (the SDK reads no facing).
@@ -248,9 +283,11 @@ fn fan(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let aim = if input.kind == InputTargetKindV1::Target.code() {
         let target = sim.get_entity(input.target_id).filter(|e| e.is_alive()).map(|e| (e.pos().0 as f64, e.pos().1 as f64));
         target.or_else(|| {
-            // the target died in the wind-up (0.53.0): its last place, else the nearest visible enemy in reach
-            let last = SEEN.lock().unwrap_or_else(|e| e.into_inner()).get(&me)
-                .and_then(|m| m.get(&input.target_id)).map(|&(p, _)| (p.0 as f64, p.1 as f64));
+            // the target died in the wind-up (0.53.0): its last place, else the nearest visible enemy in reach; the place
+            // from this simulation's own row (0.54.0)
+            let row = TAG.key(sim, me, me);
+            let last = last_place(&SEEN.lock().unwrap_or_else(|e| e.into_inner()), row, input.target_id)
+                .map(|p| (p.0 as f64, p.1 as f64));
             let foes: Vec<(usize, (f64, f64))> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && !u.is_tower() && sim.is_visible(team, u.id()))
@@ -359,6 +396,8 @@ struct Flock {
     /// The champion it belongs to (on_dead is given the player, not the unit).
     me: usize,
     p: Params,
+    /// This simulation's number (`SIM_TAG`), drawn at her first spawn (0.54.0).
+    sim: u64,
 }
 
 impl StablePassive for Flock {
@@ -372,6 +411,8 @@ impl StablePassive for Flock {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.me = me;
+        TAG.spawn(sim, me, &mut self.sim);
+        forget_lives(&mut SEEN.lock().unwrap_or_else(|e| e.into_inner()), self.sim);
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert(me, self.p);
         if let Some(k) = counted("spawn") {
             let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -391,12 +432,8 @@ impl StablePassive for Flock {
             .filter(|u| (u.pos().0 as f64 - at.0 as f64).hypot(u.pos().1 as f64 - at.1 as f64) <= reach)
             .map(|u| (u.id(), u.pos()))
             .collect();
-        let mut all = SEEN.lock().unwrap_or_else(|e| e.into_inner());
-        let seen = all.entry(me).or_default();
-        seen.retain(|_, &mut (_, t)| t <= now && now < t + SEEN_FOR);
-        for (id, pos) in near {
-            seen.insert(id, (pos, now));
-        }
+        // her own row only (0.54.0): another simulation's raptor at the same id purges its own
+        remember(&mut SEEN.lock().unwrap_or_else(|e| e.into_inner()), (self.sim, me), now, &near);
     }
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
@@ -472,6 +509,52 @@ mod tests {
         // nobody within reach: nothing
         assert_eq!(aim_fallback(from, None, &foes[2..], 70_000.0), None);
         assert_eq!(aim_fallback(from, None, &[], 70_000.0), None);
+    }
+
+    #[test]
+    fn each_simulation_keeps_its_own_places() {
+        // 11-06's logs: 25 of 95 fans "no aim (input kind 1)" - one table for every simulation, keyed by the raptor's
+        // id alone (#21 / #26 in nearly every match) and purged by each simulation's own clock
+        let mut all: HashMap<Key, Seen> = HashMap::new();
+        let (a, b) = ((7, 21), (8, 21));
+        remember(&mut all, a, 10_000, &[(84, (782_436, 863_235))]);
+        // another match's raptor #21, 20000 ticks further on, looks round: a's row stays
+        remember(&mut all, b, 30_000, &[(90, (100_000, 100_000))]);
+        assert_eq!(last_place(&all, a, 84), Some((782_436, 863_235)));
+        assert_eq!(last_place(&all, b, 90), Some((100_000, 100_000)));
+        assert_eq!(last_place(&all, b, 84), None, "a's target is not in b's row");
+        // the old way (one row for both): b's clock purges a's place at once
+        let mut one: HashMap<Key, Seen> = HashMap::new();
+        remember(&mut one, (0, 21), 10_000, &[(84, (782_436, 863_235))]);
+        remember(&mut one, (0, 21), 30_000, &[]);
+        assert_eq!(last_place(&one, (0, 21), 84), None);
+        // a's own clock still drops a place older than SEEN_FOR
+        remember(&mut all, a, 10_000 + SEEN_FOR - 1, &[]);
+        assert!(last_place(&all, a, 84).is_some());
+        remember(&mut all, a, 10_000 + SEEN_FOR, &[]);
+        assert_eq!(last_place(&all, a, 84), None);
+        assert!(last_place(&all, b, 90).is_some(), "b's row untouched by a's purge");
+        // a new life of the raptor numbered 8 (a new entity): her old rows go, a's stay
+        remember(&mut all, a, 20_000, &[(85, (5, 5))]);
+        forget_lives(&mut all, 8);
+        assert_eq!(last_place(&all, b, 90), None);
+        assert_eq!(last_place(&all, a, 85), Some((5, 5)));
+        // the tag fits a buff name
+        assert_eq!(TAG.parse(&TAG.name(42)), Some(42));
+        assert!(TAG.name(u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn a_new_row_never_clears_the_others() {
+        // a clear past 4096 rows took the rows of the simulations running beside it too (they lost their places at
+        // another tick than their twins)
+        let mut all: HashMap<Key, Seen> = HashMap::new();
+        for no in 1..=5_000u64 {
+            remember(&mut all, (no, 21), 5, &[(84, (1, 1))]);
+        }
+        remember(&mut all, (5_001, 21), 5, &[(84, (1, 1))]);
+        assert_eq!(all.len(), 5_001);
+        assert_eq!(last_place(&all, (1, 21), 84), Some((1, 1)));
     }
 
     #[test]

@@ -14,15 +14,18 @@
 //!
 //! 诊断（v0.1.1，游戏里看不到被动说明）：副本的被动是原生被动 `league_brand:watch`，布兰德每次出生写一行 `SPAWN`，
 //! 之后每 `WATCH_EVERY` tick 写一行他的状态和 `league_brand:blaze` 被调用过几次——有 SPAWN 就说明这局用的是附加包的布兰德。
+//! 0.1.2：次数是这一份模拟里这个布兰德的（被动第一次出生时抽一个编号挂在他身上，`league_brand_sim:<n>`，叠层按它记；league_velkoz
+//! 的做法），后面带上这次启动的合计。以前只有全进程一个数，并排跑的几份模拟的 WATCH 混在一起往上涨。
 //!
 //! 数字是主包 tools/kit/build_brand.py 参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_brand.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -54,8 +57,38 @@ pub const P_BURN_AP: usize = 4;
 /// 诊断：每这么多 tick 报一次布兰德的状态（30 秒）。
 const WATCH_EVERY: usize = 1800;
 
-/// `league_brand:blaze` 被调用的次数（所有对局合计，诊断用）。
+/// `league_brand:blaze` 被调用的次数（这次启动所有对局合计，诊断用）。
 static BLAZE_CALLS: AtomicUsize = AtomicUsize::new(0);
+
+/// 每份模拟的编号（0.1.2，league_velkoz 的做法）：被动第一次出生时抽一个，每次出生挂在布兰德身上（buff `SIM_TAG<n>`；
+/// league.dll 的分叉校验不看带 `_sim:` 的 buff）。服务器并排跑的两份预演种子、实体编号都一样，只能认这个。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_brand_sim:";
+/// 这一份模拟（编号）里 `league_brand:blaze` 被调用的次数（0：布兰德身上没有编号）。
+static BLAZES: LazyLock<Mutex<HashMap<u64, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// The simulation number on Brand `id` (0: none).
+fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| parse_tag(b.name())).unwrap_or(0)
+    })
+}
+
+pub fn parse_tag(buff: &str) -> Option<u64> {
+    buff.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())
+}
+
+/// One more blaze call in simulation `no`: its count there.
+fn blazed(no: u64) -> usize {
+    let mut b = BLAZES.lock().unwrap_or_else(|e| e.into_inner());
+    let n = b.entry(no).or_insert(0);
+    *n += 1;
+    *n
+}
+
+fn blazes(no: u64) -> usize {
+    BLAZES.lock().unwrap_or_else(|e| e.into_inner()).get(&no).copied().unwrap_or(0)
+}
 
 // ===================== 日志 =====================
 
@@ -190,6 +223,7 @@ fn magic_power(sim: &StableSim<'_>, id: usize) -> usize {
 /// 技能打中一个敌方英雄：在他身上叠一层。
 fn blaze(sim: &mut StableSim<'_>, brand: usize, input: InputTargetV1) {
     BLAZE_CALLS.fetch_add(1, Ordering::Relaxed);
+    blazed(sim_no(sim, brand));
     if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
         wlog(format!("{} BLAZE skipped: input kind {} is not a unit", head(sim, brand), input.kind));
         return;
@@ -274,9 +308,11 @@ fn burn(sim: &mut StableSim<'_>, brand: usize, input: InputTargetV1) {
     sim.deal_damage_typed(brand, target, d, DamageTypeV1::Ap, AttackTypeV1::Skill);
 }
 
-/// 诊断用的被动：证明这局的布兰德是附加包的副本，并定时报告。
+/// 诊断用的被动：证明这局的布兰德是附加包的副本，并定时报告。每个布兰德一份（`sim`：这一份模拟的编号）。
 #[derive(Clone, Default)]
-struct Watch;
+struct Watch {
+    sim: u64,
+}
 
 impl StablePassive for Watch {
     fn clone_box(&self) -> Box<dyn StablePassive> {
@@ -284,8 +320,15 @@ impl StablePassive for Watch {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, entity: usize) {
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        // every life: death takes a mod's buffs with it
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(entity, &tag);
+        sim.add_buff(entity, &BuffV1::named(&tag));
         let team = sim.get_entity(entity).map_or(usize::MAX, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Brand (player {player}, team {team})", head(sim, entity)));
+        wlog(format!("{} SPAWN: the add-on's Brand (player {player}, team {team}, sim #{})", head(sim, entity), self.sim));
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _player: usize, me: usize) {
@@ -296,8 +339,9 @@ impl StablePassive for Watch {
         let Some(e) = sim.get_entity(me) else { return };
         let (alive, level, ap) = (e.is_alive(), e.level(), e.stat().magic_power);
         wlog(format!(
-            "{} WATCH: alive {alive}, level {level}, ap {ap}; blaze calls so far {}",
+            "{} WATCH: alive {alive}, level {level}, ap {ap}; blaze calls this match {} (this launch {})",
             head(sim, me),
+            blazes(self.sim),
             BLAZE_CALLS.load(Ordering::Relaxed)
         ));
     }
@@ -328,7 +372,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:blaze"), Step(blaze));
     module.add_native_effect(format!("{ID}:boom"), Step(boom));
     module.add_native_effect(format!("{ID}:burn"), Step(burn));
-    module.add_native_passive(format!("{ID}:watch"), Watch);
+    module.add_native_passive(format!("{ID}:watch"), Watch::default());
     host.log(LogLevel::Info, "league_brand v1 loaded (Brand's passive: Blaze stacks on each enemy).");
 }
 
@@ -371,6 +415,21 @@ mod tests {
         assert!(within((100_000, 50_000), (126_000, 50_000), P_DET_R));
         assert!(!within((100_000, 50_000), (120_000, 70_000), P_DET_R));
         assert!(within((0, 0), (0, 0), P_DET_R));
+    }
+
+    #[test]
+    fn the_watch_counts_this_simulation_s_blazes() {
+        // 0.1.1 had one count for the whole launch: two presims' WATCH lines climbed together
+        let (a, b) = (NEXT_SIM.fetch_add(1, Ordering::Relaxed), NEXT_SIM.fetch_add(1, Ordering::Relaxed));
+        for _ in 0..3 {
+            blazed(a);
+        }
+        blazed(b);
+        assert_eq!((blazes(a), blazes(b)), (3, 1));
+        let tag = format!("{SIM_TAG}{a}");
+        assert_eq!(parse_tag(&tag), Some(a));
+        assert_eq!(parse_tag("league_brand_b_1"), None);
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP && tag.contains("_sim:"));
     }
 
     #[test]

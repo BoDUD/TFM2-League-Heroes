@@ -3830,7 +3830,7 @@
                     "range": 240000,
                     "shape": {
                       "Circle": {
-                        "radius": 8000
+                        "radius": 10000
                       }
                     },
                     "y_offset": -4000

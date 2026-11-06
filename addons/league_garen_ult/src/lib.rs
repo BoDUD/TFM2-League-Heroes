@@ -20,7 +20,7 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod plan;
-use plan::{holds_execute, plan as decide, Foe, Plan, HERO, MARK, MARK_TO_LAND, R_MISSING, R_RANGE};
+use plan::{holds_execute, plan as decide, quiet, watch_press, Foe, Plan, Press, HERO, MARK, MARK_TO_LAND, R_MISSING, R_RANGE};
 
 const ID: &str = "league_garen_ult";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -105,6 +105,26 @@ fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
 
+/// 放不出技能的控制（league_ult_press 的 NO_CAST）。
+const NO_CAST: [CcKindV1; 7] =
+    [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
+
+/// 正在放技能（施法动作还在播：E 的 3 秒旋转，游戏 0.6.4 记成 `Animation`）或被强制位移（league_ult_press 的 BUSY）。
+const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
+
+/// 他身上的控制里有 `kinds` 里的哪一种。
+fn under(e: &StableEntity<'_, '_>, kinds: &[CcKindV1]) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| kinds.iter().any(|k| k.code() == c.kind)))
+}
+
+/// 他身上的控制（日志用）。
+fn cc_names(e: &StableEntity<'_, '_>) -> String {
+    let v: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i))
+        .map(|c| CcKindV1::from_code(c.kind).map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}")))
+        .collect();
+    format!("[{}]", v.join(", "))
+}
+
 // ===================== AI 钩子 =====================
 
 #[derive(Clone, Default)]
@@ -112,6 +132,8 @@ struct UltAi {
     last_hold: Option<usize>,
     last_cast_log: Option<(usize, usize)>,
     told_no_sim: bool,
+    /// The hook's press of R the engine has not taken yet (0.1.2: `R NOT TAKEN` after `NOT_TAKEN` ticks).
+    press: Option<Press>,
 }
 
 impl StablePlayerAi for UltAi {
@@ -165,17 +187,32 @@ impl StablePlayerAi for UltAi {
                 let target = ai_target.and_then(|t| sim.get_entity(t));
                 let ai_foe = target.as_ref().filter(|e| enemy(e)).map(|e| read_foe(e));
                 let target_pos = target.as_ref().map(|e| e.pos());
-                Some((me.stat().attack, free, foes, ai_foe, target_pos, me.pos(), head(&sim, &format!("#{id}"))))
+                // casting (E's spin), moved or held: no press of his own (0.1.2); R's cooldown running: a press was taken
+                let held = under(&me, &BUSY) || under(&me, &NO_CAST);
+                let cooling = cd.is_some_and(|c| c > 0);
+                Some((me.stat().attack, free, foes, ai_foe, target_pos, me.pos(), head(&sim, &format!("#{id}")), held,
+                      cooling, cc_names(&me)))
             })()
         };
-        let (attack, free, foes, ai_foe, target_pos, my_pos, line) = read?;
+        let (attack, free, foes, ai_foe, target_pos, my_pos, line, held, cooling, ccs) = read?;
         let foes: Vec<Foe> = foes.into_iter().filter(|f| ctx.is_valid_input(&ult(f.id))).collect();
         let foe_of = |id: usize| foes.iter().chain(ai_foe.iter()).find(|f| f.id == id).copied();
-        match decide(ai_target, ai_foe, &foes, attack, free && !busy) {
+        let plan = decide(ai_target, ai_foe, &foes, attack, free && !busy && !held);
+        let plan = if held { quiet(plan, ai_target) } else { plan };
+        // a press the engine has not taken for NOT_TAKEN ticks: one line (0.1.2)
+        let pressing = match plan {
+            Plan::Ult(id) if ctx.is_valid_input(&ult(id)) => Some(id),
+            _ => None,
+        };
+        if let Some(n) = watch_press(&mut self.press, pressing, cooling, tick) {
+            wlog(format!("{line} R NOT TAKEN: #{} pressed for {n} ticks, R still ready (his crowd control {ccs}, the AI's \
+                          input {:?})", pressing.unwrap_or(0), base.map(|b| b.kind)));
+        }
+        match plan {
             Plan::Keep => None,
             Plan::Ult(id) => {
                 let input = ult(id);
-                if !ctx.is_valid_input(&input) {
+                if pressing.is_none() {
                     return None;
                 }
                 if self.last_cast_log.is_none_or(|(t0, i)| i != id || tick >= t0 + LOG_EVERY) {
@@ -215,6 +252,8 @@ struct Verdict {
     /// 看到标记的目标和那时的 tick。
     seen: Vec<(usize, usize)>,
     blows: usize,
+    /// 落剑前目标已经死了 / 没了的次数（0.1.2，`R GONE`）。
+    gone: usize,
 }
 
 impl StablePassive for Verdict {
@@ -246,10 +285,15 @@ impl StablePassive for Verdict {
         self.seen.retain(|s| tick < s.1 + MARK_TO_LAND);
         for (id, _) in due {
             sim.entity_remove_buff(id, MARK);
-            let Some(e) = sim.get_entity(id) else { continue };
-            if !e.is_alive() {
+            // the target gone before the sword landed (killed by another, his unit gone): a line of its own (0.1.2)
+            let Some(e) = sim.get_entity(id).filter(|e| e.is_alive()) else {
+                self.gone += 1;
+                if self.gone <= 40 || self.gone % 25 == 0 {
+                    wlog(format!("{} R GONE #{}: #{id} was dead or gone before the sword landed - no verdict",
+                                 head(sim, &format!("#{me}")), self.gone));
+                }
                 continue;
-            }
+            };
             let (hp, max) = e.hp();
             let extra = max.saturating_sub(hp) * R_MISSING / 100;
             if extra > 0 {

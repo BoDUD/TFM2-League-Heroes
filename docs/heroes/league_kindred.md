@@ -55,7 +55,7 @@
 
 ### 千珏附加包
 
-[千珏附加包](../../addons/league_kindred/README.md)：`league_kindred` v0.1.2
+[千珏附加包](../../addons/league_kindred/README.md)：`league_kindred` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

@@ -55,7 +55,7 @@
 
 ### 低血量附加包：布里茨、乐芙兰、丽桑卓
 
-[低血量附加包：布里茨、乐芙兰、丽桑卓](../../addons/league_lowhp/README.md)：`league_lowhp` v0.2.5
+[低血量附加包：布里茨、乐芙兰、丽桑卓](../../addons/league_lowhp/README.md)：`league_lowhp` v0.2.6
 
 | 英雄 | 主包（纯数据） | 装了附加包（英雄联盟） |
 |---|---|---|
@@ -63,7 +63,7 @@
 
 ### 英雄联盟彩蛋
 
-[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.1.0（通用附加包，下面只列和丽桑卓有关的部分）
+[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.1.1（通用附加包，下面只列和丽桑卓有关的部分）
 
 | 彩蛋 | 什么时候 | 效果 |
 |---|---|---|

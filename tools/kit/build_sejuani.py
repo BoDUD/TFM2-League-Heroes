@@ -83,11 +83,15 @@ P = {
     "q_cd": 420, "q_range": 45000, "q_dur": 24, "q_go": 6, "q_speed": 6000, "q_t": 8, "q_dmg": 80, "q_ap": 70,
     "q_up": 30,
     # skill2: W Winter's Wrath
+    # w_rad / w_speed and r_w: the engine tests a line only where it stands at each tick, the centre within the circle
+    # (no sweep, no body; game 0.7.1): the slam (7000 at 30000 a tick) missed everyone 7000-23000 from her, the bola (2000
+    # at 12000) two champions in three. League's slam line plus a champion's body is about 11500 (23000 a tick: still
+    # two ticks to its end), the 120-wide bola plus a body about 8000 (2026-11-06)
     "w_cd": 270, "w_range": 30000, "w_dur": 40, "w_rel1": 10, "w_rel2": 26, "w_r1": 22000, "w_len": 45000,
-    "w_rad": 7000, "w_speed": 30000, "w1_dmg": 40, "w1_ap": 40, "w2_dmg": 60, "w2_ap": 60, "w_slow": 40,
+    "w_rad": 11500, "w_speed": 23000, "w1_dmg": 40, "w1_ap": 40, "w2_dmg": 60, "w2_ap": 60, "w_slow": 40,
     "w_slow_t": 90,
     # ult: R Glacial Prison
-    "r_cd": 4200, "r_range": 70000, "r_dur": 30, "r_rel": 14, "r_speed": 12000, "r_len": 80000, "r_dmg": 170,
+    "r_cd": 4200, "r_range": 70000, "r_dur": 30, "r_rel": 14, "r_speed": 12000, "r_len": 80000, "r_w": 8000, "r_dmg": 170,
     "r_ap": 80, "r_stun": 75, "r_sr": 26000, "r_slow": 35, "r_storm": 120,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
@@ -318,7 +322,7 @@ def build(p):
     storm = [view("r_storm"), sfx("r_storm"),
              field("r_ice", p["r_sr"], p["r_storm"], 10,
                    [buff("r_slow", 20, move_speed_mult=-p["r_slow"])], first=1)]
-    bola = line("r_bola", p["r_speed"], p["r_len"], 2000, "EnemyChampion", prison, penetrate=False, end=storm)
+    bola = line("r_bola", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion", prison, penetrate=False, end=storm)
     r_cast = combine(fight(), anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                      delayed(p["r_rel"] - 1, alive(sfx("r_throw"), bola)))
 

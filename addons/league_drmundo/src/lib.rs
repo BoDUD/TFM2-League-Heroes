@@ -180,6 +180,13 @@ pub fn nudge_ok(base_nothing: bool, still_for: usize, seen: usize) -> bool {
     base_nothing && still_for >= STUCK_TICKS && seen > 0
 }
 
+/// STUCK is due (0.1.10): `STUCK_TICKS` without moving, counted from when he last stood still or - the remedy given -
+/// from the first NUDGE since then. 0.1.9 wrote STUCK in the very tick of the NUDGE (both at 90 ticks; the hook runs
+/// before the passive), so STUCK now says the nudge did not move him either.
+pub fn stuck_due(now: usize, still_since: usize, nudged: Option<usize>) -> bool {
+    now >= still_since.max(nudged.unwrap_or(0)) + STUCK_TICKS
+}
+
 /// A step of `step` from `at` toward `to` (onto `to` when it is nearer).
 pub fn step_toward(at: (f64, f64), to: (f64, f64), step: f64) -> (f64, f64) {
     let d = dist(at, to);
@@ -394,6 +401,8 @@ struct State {
     still_at: (f64, f64),
     still_since: usize,
     still_logged: bool,
+    /// 这次站着不动以来钩子第一次推他（NUDGE）的 tick（0.1.10：STUCK 从这里再数 STUCK_TICKS）。
+    nudged: Option<usize>,
     ai_tick: usize,
     ai_base: &'static str,
     ai_did: &'static str,
@@ -637,13 +646,16 @@ impl Pleases {
                 s.still_at = at;
                 s.still_since = now;
                 s.still_logged = false;
+                s.nudged = None;
                 return None;
             }
-            if s.still_logged || now < s.still_since + STUCK_TICKS {
+            // a NUDGE given: STUCK only if it did not move him either (0.1.10)
+            if s.still_logged || !stuck_due(now, s.still_since, s.nudged) {
                 return None;
             }
             s.still_logged = true;
-            Some(format!("STUCK: {} ticks without moving, {} visible enemy champions within {STUCK_NEAR:.0}, {}% hp; AI {} ticks ago: base {} -> {}",
+            let nudge = s.nudged.map_or(String::new(), |t| format!(", nudged {} ticks ago", now - t));
+            Some(format!("STUCK: {} ticks without moving{nudge}, {} visible enemy champions within {STUCK_NEAR:.0}, {}% hp; AI {} ticks ago: base {} -> {}",
                          now - s.still_since, near, pct(e.hp().0, e.hp().1), now.saturating_sub(s.ai_tick), s.ai_base, s.ai_did))
         });
         let Some(line) = line else { return };
@@ -903,6 +915,7 @@ impl StablePlayerAi for Ai {
             let plan = self.plan(&sim, me.id(), kind, current);
             let did = match &plan {
                 None | Some(Plan::Keep) => "kept",
+                Some(Plan::Instead(_, Some(("nudge", _)))) => "nudge",
                 Some(Plan::Instead(i, _)) if i.kind == InputKindV1::Move.code() => "move",
                 Some(Plan::Instead(..)) => "attack",
             };
@@ -911,6 +924,10 @@ impl StablePlayerAi for Ai {
                 s.ai_tick = now;
                 s.ai_base = kind.map_or("nothing", kind_name);
                 s.ai_did = did;
+                // the first nudge of this stand-still: STUCK waits STUCK_TICKS more for it (0.1.10)
+                if did == "nudge" && s.nudged.is_none() {
+                    s.nudged = Some(now);
+                }
             });
             (plan?, head(&sim, me.id()))
         };
@@ -1113,6 +1130,17 @@ mod tests {
         for x in ["p_cd", "p_drop_n", "can", "w_full", "w_half", "e_bonus_ad"] {
             assert!(md(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    #[test]
+    fn stuck_waits_for_the_nudge_to_fail() {
+        // 11-06's logs: "NUDGE ... #1" and "STUCK: 90 ticks without moving ... base nothing -> move" in the same tick
+        assert!(stuck_due(22_122, 22_122 - STUCK_TICKS, None), "no nudge: STUCK at 90 ticks as before");
+        assert!(!stuck_due(22_122, 22_122 - STUCK_TICKS, Some(22_122)), "nudged this very tick: not yet");
+        assert!(!stuck_due(22_122 + STUCK_TICKS - 1, 22_122 - STUCK_TICKS, Some(22_122)));
+        assert!(stuck_due(22_122 + STUCK_TICKS, 22_122 - STUCK_TICKS, Some(22_122)), "the nudge did not move him either");
+        // a nudge from before he last moved does not delay the next STUCK
+        assert!(stuck_due(30_000, 30_000 - STUCK_TICKS, Some(1_000)));
     }
 
     #[test]

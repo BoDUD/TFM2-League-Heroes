@@ -346,13 +346,32 @@ struct Disc {
 static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
 pub const SIM_TAG: &str = "league_azir_sim:";
 
-/// The simulation number hung on Azir (0: none yet).
+/// The mark on a number borrowed by a caster without his tag (0.2.2): never one of a tagged Azir's own rows (drawn numbers
+/// never reach it).
+pub const BORROWED: u64 = 1 << 63;
+
+/// The number a caster without his tag goes by: the first of `tags` (the numbers on this simulation's units in their
+/// order, 0 for one without) marked [`BORROWED`]; 0 when none has one. The units' order is the same in every run of a
+/// match and a number belongs to one simulation, so the row stays that simulation's.
+pub fn borrowed(tags: impl IntoIterator<Item = u64>) -> u64 {
+    tags.into_iter().find(|&n| n != 0).map_or(0, |n| n | BORROWED)
+}
+
+/// The number hung on a unit (0: none).
+fn tag_on(e: &StableEntity<'_, '_>) -> u64 {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i))
+        .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
+        .unwrap_or(0)
+}
+
+/// The simulation number `id` goes by: the one hung on him; a caster without it (an earlier life's queued stamp - a
+/// respawn is a new entity - or another champion casting the copy's skill) borrows the first tagged unit's ([`borrowed`]:
+/// 0.2.2; before, 0 - one row (0, id) for every simulation running); 0 when no unit of the simulation has one.
 fn sim_no(sim: &StableSim<'_>, id: usize) -> u64 {
-    sim.get_entity(id).map_or(0, |e| {
-        (0..e.buff_count()).filter_map(|i| e.buff_at(i))
-            .find_map(|b| b.name().strip_prefix(SIM_TAG).and_then(|v| v.parse().ok()))
-            .unwrap_or(0)
-    })
+    match sim.get_entity(id).map_or(0, |e| tag_on(&e)) {
+        0 => borrowed((0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).map(|e| tag_on(&e))),
+        n => n,
+    }
 }
 
 /// The nearest enemy of `team` within r of `at`: champions first, then minions and monsters (never a tower or the nexus):
@@ -1067,8 +1086,6 @@ const SLOT_AT: [(f64, f64); 3] = [(0.0, 0.0), (-8_000.0, -3_000.0), (8_000.0, 3_
 const FACE_R: f64 = 60_000.0;
 /// An enemy less than this to the side is straight above or below it: it keeps facing the way it faced.
 const FACE_DX: f64 = 2_000.0;
-/// More soldiers remembered than this (games that ended mid-life never removed theirs): start over.
-const MAX_SOLDIERS: usize = 4096;
 
 /// Which way a soldier at `at` faces: toward `enemy` unless that is straight above or below it, then `keep`.
 pub fn turn_to(at: (f64, f64), enemy: Option<(f64, f64)>, keep: bool) -> bool {
@@ -1182,6 +1199,15 @@ fn soldier_key(sim: &StableSim<'_>, caster: usize, slot: usize) -> SoldierKey {
     (sim_no(sim, caster), caster, slot)
 }
 
+/// A new soldier in simulation `no` at `now`: that simulation's soldiers whose checkpoints stopped more than `life` ticks
+/// ago (`until` + a soldier's whole life `s_life`: the data's soldier is long gone, nothing draws or finds it again) go -
+/// its own rows only, by its own clock. 0.2.1 cleared every simulation's soldiers past 4096 rows: the ones running beside
+/// it lost theirs at another tick than their twins (a soldier found again starts its age and out-of-reach count over -
+/// another crumble, another latch on him). A finished simulation leaves its last few rows.
+fn prune_soldiers(map: &mut HashMap<SoldierKey, Soldier>, no: u64, now: usize, life: usize) {
+    map.retain(|k, s| k.0 != no || s.until + life > now);
+}
+
 /// The spot a native in the soldier's landing gets: its position (a unit given instead: where it stands).
 fn spot_of(sim: &StableSim<'_>, input: &InputTargetV1) -> Option<(f64, f64)> {
     match InputTargetKindV1::from_code(input.kind) {
@@ -1267,9 +1293,8 @@ impl StableEffectType for SoldierFx {
                         return;
                     }
                 }
-                if map.len() > MAX_SOLDIERS {
-                    map.clear();
-                }
+                // 0.2.2: this simulation's long-gone soldiers only (was: every simulation's past 4096 rows)
+                prune_soldiers(&mut map, key.0, tick, p.s_life);
                 // a new soldier (or one this add-on lost): toward the nearest enemy, else away from him
                 let enemy = nearest(sim, team, at, FACE_R).map(|(_, _, e)| e);
                 let right = turn_to(at, enemy, from.map_or(true, |f| at.0 >= f.0));
@@ -1522,11 +1547,14 @@ fn tethers(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, here: P
         }
     }
     if !drawn.is_empty() {
+        let key = (sim_no(sim, me), me);
         let mut live = LIVE.lock().unwrap_or_else(|e| e.into_inner());
-        if live.len() > MAX_SOLDIERS {
-            live.clear();
+        if !live.contains_key(&key) {
+            // 0.2.2: a life's first pieces - his earlier lives' rows in this simulation go, no other simulation's (was:
+            // every simulation's rows cleared past 4096)
+            live.retain(|k, _| k.0 != key.0);
         }
-        let l = live.entry((sim_no(sim, me), me)).or_default();
+        let l = live.entry(key).or_default();
         l.tick = tick;
         l.at = drawn;
     }
@@ -1723,6 +1751,37 @@ mod tests {
     #[test]
     fn the_sim_tag_fits_a_buff_name() {
         assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn a_caster_without_his_tag_borrows_his_simulations_number() {
+        // 11-06's audit: a caster without the tag (an earlier life's queued stamp, another champion casting the copy's
+        // skill) went by 0 - one row (0, id) for both of the server's twin presims and every other simulation; now the
+        // first tagged unit's number, marked, still that simulation's alone
+        let (a, b) = (borrowed([0, 7, 9]), borrowed([0, 8, 10]));
+        assert_eq!((a, b), (7 | BORROWED, 8 | BORROWED));
+        assert_ne!(a, 7, "never the tagged Azir's own rows");
+        assert_eq!(borrowed([0, 0]), 0);
+        assert_eq!(borrowed(Vec::new()), 0);
+    }
+
+    #[test]
+    fn a_new_soldier_prunes_only_its_own_simulations_long_gone_ones() {
+        // 0.2.1 cleared every simulation's soldiers past 4096 rows: the twins and the match on screen lost theirs at
+        // different ticks (a soldier found again starts its age and out-of-reach count over)
+        let s = |until| Soldier::new((0.0, 0.0), true, 1, until, 0, 0, 0);
+        let mut map: HashMap<SoldierKey, Soldier> = HashMap::new();
+        for no in 1..=5_000u64 {
+            map.insert((no, 20, 0), s(100));
+        }
+        map.insert((7, 581, 1), s(100));   // his earlier life's soldier, 480 ticks past its checkpoints at 580
+        map.insert((7, 581, 2), s(200));   // checkpoints stopped 380 ticks ago: kept (it could still be found)
+        map.insert((7, 1029, 0), s(700));  // his soldier now
+        prune_soldiers(&mut map, 7, 580, 480);
+        assert!(!map.contains_key(&(7, 20, 0)) && !map.contains_key(&(7, 581, 1)));
+        assert!(map.contains_key(&(7, 581, 2)) && map.contains_key(&(7, 1029, 0)));
+        assert_eq!(map.len(), 5_000 - 1 + 2, "the other simulations' rows all stay");
+        assert!(map.contains_key(&(8, 20, 0)) && map.contains_key(&(5_000, 20, 0)));
     }
 
     #[test]

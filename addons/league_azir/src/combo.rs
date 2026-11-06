@@ -47,6 +47,15 @@ pub const BODIES: f64 = 12_000.0;
 pub const HOP_MARGIN: f64 = 5_000.0;
 /// 按了 E 以后这么多 tick 内反推窗口没开，就记一行 E MISSED。
 pub const E_WATCH: usize = 60;
+/// 同一类、同一个目标离上一次不到这么多 tick 就算同一串，一串只记一行（0.2.2，league_drmundo 0.1.7 的做法；11-06 的日志：
+/// 引擎接下之前每 tick 都按，`E INSEC` 一串 11 行、`R PEEL` 一串 10 行，AI 留着 R 时每 4 tick 一行 `R HELD`）。
+pub const ORDER_FRESH: usize = 30;
+
+/// A line of `kind` on `target` at `tick` starts a run: none of that kind on that target in the `ORDER_FRESH` ticks before
+/// (`last`: that kind's last (target, tick); a tick before it is another match).
+pub fn new_run(last: Option<(Option<usize>, usize)>, target: Option<usize>, tick: usize) -> bool {
+    last.is_none_or(|(t, t0)| t != target || tick < t0 || tick > t0 + ORDER_FRESH)
+}
 
 pub type Pt = (f64, f64);
 
@@ -149,6 +158,18 @@ pub struct Shurima {
     recalling: bool,
     /// the E INSEC pressed: (tick, target), until the window opens or `E_WATCH` ticks pass
     e_pressed: Option<(usize, usize)>,
+    /// each kind's last line: (kind, target, tick) - one line a run (`new_run`)
+    runs: Vec<(&'static str, Option<usize>, usize)>,
+}
+
+impl Shurima {
+    /// One more line of `kind` on `target` at `tick`: true when it starts a run (the line to write).
+    fn run(&mut self, kind: &'static str, target: Option<usize>, tick: usize) -> bool {
+        let last = self.runs.iter().find(|(k, ..)| *k == kind).map(|&(_, t, t0)| (t, t0));
+        self.runs.retain(|(k, ..)| *k != kind);
+        self.runs.push((kind, target, tick));
+        new_run(last, target, tick)
+    }
 }
 
 impl StablePlayerAi for Shurima {
@@ -258,8 +279,11 @@ impl StablePlayerAi for Shurima {
                         InputV1::move_to(x, y)
                     }
                 };
-                if let Some(n) = counted("r held") {
-                    wlog(format!("{line} R HELD: no insec, no peel - the AI's R kept #{n}"));
+                // one line a run: the AI asks again every few ticks while it wants its R
+                if self.run("r held", t, ctx.tick()) {
+                    if let Some(n) = counted("r held") {
+                        wlog(format!("{line} R HELD: no insec, no peel - the AI's R kept #{n}"));
+                    }
                 }
                 return Some(input);
             }
@@ -272,8 +296,15 @@ impl StablePlayerAi for Shurima {
                 self.e_pressed = Some((ctx.tick(), t));
             }
         }
-        if let Some(n) = counted(kind) {
-            wlog(format!("{line} {why} #{n}"));
+        // one line a run: pressed every tick until the engine takes it
+        let on = match c {
+            Call::R(t, _) | Call::E(t) => Some(t),
+            Call::Hold(t) => t,
+        };
+        if self.run(kind, on, ctx.tick()) {
+            if let Some(n) = counted(kind) {
+                wlog(format!("{line} {why} #{n}"));
+            }
         }
         Some(input)
     }
@@ -336,6 +367,21 @@ mod tests {
         let allies = [u(10, -30_000.0, 1.0)];
         let foes = [u(1, 50_000.0, 0.8), u(2, 62_000.0, 0.3)];
         assert_eq!(call(&me(0.9), &foes, &allies, &[], None), Some(Call::E(1)));
+    }
+
+    #[test]
+    fn a_run_of_presses_writes_one_line() {
+        // 11-06: E INSEC on #24 every tick 14261-14271 wrote 11 lines; R HELD every 4 ticks
+        let mut s = Shurima::default();
+        let lines: Vec<usize> = (14_261..=14_271).filter(|&t| s.run("e insec", Some(24), t)).collect();
+        assert_eq!(lines, [14_261]);
+        assert!((13_669..=13_693).step_by(4).filter(|&t| s.run("r held", Some(24), t)).eq([13_669]));
+        // another target, a gap past ORDER_FRESH, an earlier tick (another match): a new run
+        assert!(s.run("e insec", Some(25), 14_272));
+        assert!(s.run("e insec", Some(25), 14_272 + ORDER_FRESH + 1));
+        assert!(s.run("e insec", Some(25), 100));
+        // the kinds count apart
+        assert!(s.run("peel", Some(25), 101) && !s.run("e insec", Some(25), 102));
     }
 
     #[test]

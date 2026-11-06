@@ -31,3 +31,9 @@
 python addons/league_senna_mist/make_override.py      # 主包的赛娜或她的说明改了就重跑
 cd addons && cargo test --release -p league_senna_mist && cargo build --release -p league_senna_mist
 ```
+
+## R 的暗影核心不再跨过一半的人（0.1.1，2026-11-06）
+
+游戏 0.7.1 的投射物判定（拿 11-05 阿克尚 R 的子弹对出来的，见 league_akshan 0.2.7）：投射物每 tick 跳 `speed` 那么远，只打圆心在它这一 tick 位置 `radius` 以内的单位——不扫两个 tick 中间，也不算单位的体型。`speed` 大于两倍 `radius` 时，站在两 tick 之间的人整个被跨过去；圆比英雄的体型（10000）小很多时，要几乎正中才打得到。
+
+主包 R 的核心 `league_senna_r_core` 圆 7500、每 tick 飞 30000：线上一半的地方是空当，站在那里的英雄不挨伤害。主包 `build_senna` 的 `r_rad` 改 15000（英雄联盟 320 宽的核心加体型，= 速度的一半），副本重新生成；护盾那条宽光（100000）不变。

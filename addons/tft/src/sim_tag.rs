@@ -4,6 +4,12 @@
 //! （死了的施法者身上的 buff 留到他重生）。全局表按（编号, 实体）记（[`Key`]）：服务器同一局并排跑两份预模拟，种子、来历
 //! （种类、比赛、局）和实体编号全都一样，只按实体编号、或按（种子、来历、实体）记的表两份共用，一份会拿走、改掉、清掉另一份
 //! 的东西；同时跑的几场比赛实体编号也会撞上。
+//!
+//! 2026-11-06（tft 0.54.0，11-06 的日志：看的每一局画面都在 1–5 分钟里和服务器的预模拟分了岔）：还有两处会让一份模拟碰到
+//! 另一份的行。表超过 4096 行时 `forget` 把整张表清空——同时在跑的别的模拟的行也一起没了，各份在不同的 tick 丢东西；施法者
+//! 身上没有编号时（上一条命排下的效果：重生是新的实体；或者别的英雄放了这个技能）按 (0, 实体) 记，所有模拟共用这一行。现在
+//! `forget` 只清这个编号的行；没有编号的施法者借这份模拟里（按单位的顺序）第一个挂着这个编号的单位的编号，打上 [`BORROWED`]
+//! 的记号（不会和那个单位自己的行撞上），仍然只是这份模拟自己的。
 
 use std::collections::HashMap;
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -11,7 +17,8 @@ use std::sync::Mutex;
 
 use mod_api_stable::*;
 
-/// A row of global state: (the simulation's number, the entity it is about). 0 is no number: a unit without its tag.
+/// A row of global state: (the simulation's number - its unit's own, or borrowed: [`SimTag::of`] - the entity it is about).
+/// 0 is no number: no unit of that simulation has the tag.
 pub type Key = (u64, usize);
 
 /// 等着到点的东西，按 [`Key`] 一行一行记：(到点的 tick, 那个东西)。2026-11-04（11-03 夜里的日志，tft 0.50.0）：排队效果的
@@ -19,9 +26,6 @@ pub type Key = (u64, usize);
 /// league_graves 的撞墙标记没到，tft_loris 10-27 遇到过）——希尔科的畸变体和毒雾、诺拉的琐物和毛线球改记在这里，排的效果只带
 /// 位置，到点时把这一行里到点的都拿出来处理。
 pub type Rows<T> = Mutex<HashMap<Key, Vec<(usize, T)>>>;
-
-/// More rows than this in a table are finished simulations' (one that ended with things still waiting): all cleared.
-pub const MOST_ROWS: usize = 4096;
 
 /// `x` waits in `row` for tick `due`.
 pub fn wait<T>(rows: &Rows<T>, row: Key, due: usize, x: T) {
@@ -40,18 +44,26 @@ pub fn due<T: Copy>(rows: &Rows<T>, row: Key, now: usize) -> Vec<T> {
     ready
 }
 
-/// The rows of the unit numbered `no` cleared (its new life: what the last one left stopped with it), and all of them past
-/// [`MOST_ROWS`].
+/// The rows of the unit numbered `no` cleared (its new life: what the last one left stopped with it) - its own only. 0.53.0
+/// also cleared the whole table past 4096 rows: the rows of every simulation running beside it went too, each losing its
+/// things at another tick (0.54.0). A finished simulation's leftovers (things still waiting when it ended) stay: a few rows
+/// a match.
 pub fn forget<T>(rows: &Rows<T>, no: u64) {
-    let mut rows = rows.lock().unwrap_or_else(|e| e.into_inner());
-    rows.retain(|k, _| k.0 != no);
-    if rows.len() > MOST_ROWS {
-        rows.clear();
-    }
+    rows.lock().unwrap_or_else(|e| e.into_inner()).retain(|k, _| k.0 != no);
 }
 
-/// The numbers drawn so far, one counter for every unit of the pack (0 is never drawn).
+/// The numbers drawn so far, one counter for every unit of the pack (0 is never drawn; they never reach [`BORROWED`]).
 static NEXT: AtomicU64 = AtomicU64::new(1);
+
+/// The mark on a number borrowed by a unit without its own tag (0.54.0): never one of a unit's own rows.
+pub const BORROWED: u64 = 1 << 63;
+
+/// The number a unit without its own tag goes by: the first of `tags` (the numbers on the units of its simulation in their
+/// order, 0 for one without) marked [`BORROWED`]; 0 when none has one. The units' order is the same in every run of a
+/// match, and a number belongs to one simulation: the row stays that simulation's.
+pub fn borrowed(tags: impl IntoIterator<Item = u64>) -> u64 {
+    tags.into_iter().find(|&n| n != 0).map_or(0, |n| n | BORROWED)
+}
 
 /// One unit's tag: the buff `<prefix><number>` its passive hangs on it (`tft_<unit>_sim:`).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -68,11 +80,24 @@ impl SimTag {
         buff.strip_prefix(self.0).and_then(|v| v.parse().ok())
     }
 
-    /// The number hung on `id` (0: none - not hung, or no such unit).
+    /// The number on a unit (0: none).
+    fn on(&self, e: &StableEntity<'_, '_>) -> u64 {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| self.parse(b.name())).unwrap_or(0)
+    }
+
+    /// The number hung on `id` itself (0: none - not hung, or no such unit).
+    pub fn own(&self, sim: &StableSim<'_>, id: usize) -> u64 {
+        sim.get_entity(id).map_or(0, |e| self.on(&e))
+    }
+
+    /// The number `id` goes by in its simulation: its own; else - a caster without it: an earlier life's queued effect (a
+    /// respawn is a new entity), another champion casting the skill - the first tagged unit's there, [`borrowed`] (0.54.0:
+    /// one row (0, id) served every simulation before); 0 when no unit of the simulation has the tag.
     pub fn of(&self, sim: &StableSim<'_>, id: usize) -> u64 {
-        sim.get_entity(id).map_or(0, |e| {
-            (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| self.parse(b.name())).unwrap_or(0)
-        })
+        match self.own(sim, id) {
+            0 => borrowed((0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).map(|e| self.on(&e))),
+            n => n,
+        }
     }
 
     /// A passive's spawn: its number (`no`, drawn at the first spawn and kept for the whole simulation) hung on `me`
@@ -86,8 +111,8 @@ impl SimTag {
         sim.add_buff(me, &BuffV1::named(&tag));
     }
 
-    /// The row of `id` in the simulation of `me` (by the number hung on `me`): for an effect, which has no passive at
-    /// hand. A passive uses its own number.
+    /// The row of `id` in the simulation of `me` (by the number `me` goes by: [`SimTag::of`]): for an effect, which has no
+    /// passive at hand. A passive uses its own number.
     pub fn key(&self, sim: &StableSim<'_>, me: usize, id: usize) -> Key {
         (self.of(sim, me), id)
     }
@@ -288,6 +313,47 @@ mod tests {
         forget(&rows, 7);
         assert!(due(&rows, a, 1_000).is_empty());
         assert_eq!(due(&rows, b, 1_000), vec!['w']);
+    }
+
+    #[test]
+    fn a_new_life_never_clears_the_other_simulations_rows() {
+        // 0.53.0 cleared the whole table past 4096 rows: the things of every simulation running beside it went too
+        let rows: Rows<usize> = Mutex::new(HashMap::new());
+        for no in 1..=5_000u64 {
+            wait(&rows, (no, 20), 100, no as usize);
+        }
+        forget(&rows, 7);
+        let left = rows.lock().unwrap();
+        assert_eq!(left.len(), 4_999);
+        assert!(!left.contains_key(&(7, 20)));
+        assert!(left.contains_key(&(1, 20)) && left.contains_key(&(5_000, 20)));
+    }
+
+    #[test]
+    fn a_caster_without_its_tag_borrows_its_simulations_number() {
+        // the server's twin presims: unit #1 tagged in both; an effect of #2 (its earlier life gone with the tag, or
+        // another champion casting the skill) went by one row (0, 2) shared by both - and by every other simulation
+        let twin = || mock::World { units: vec![mock::Unit::new(0, (0, 0)); 3], ..Default::default() };
+        let (mut a, mut b) = (twin(), twin());
+        let (mut na, mut nb) = (0, 0);
+        mock::with_sim(&mut a, |sim| T.spawn(sim, 1, &mut na));
+        mock::with_sim(&mut b, |sim| T.spawn(sim, 1, &mut nb));
+        let ka = mock::with_sim(&mut a, |sim| T.key(sim, 2, 2));
+        let kb = mock::with_sim(&mut b, |sim| T.key(sim, 2, 2));
+        assert_eq!((ka, kb), ((na | BORROWED, 2), (nb | BORROWED, 2)));
+        assert_ne!(ka, kb);
+        assert_ne!(ka.0, na, "never one of the tagged unit's own rows");
+        assert_eq!(mock::with_sim(&mut a, |sim| T.of(sim, 1)), na, "a tagged unit goes by its own");
+        assert_eq!(mock::with_sim(&mut a, |sim| T.own(sim, 2)), 0);
+        assert_eq!(mock::with_sim(&mut a, |sim| T.of(sim, 9)), na | BORROWED, "a unit gone: borrowed as well");
+        // nobody tagged in the simulation: 0
+        let mut c = twin();
+        assert_eq!(mock::with_sim(&mut c, |sim| T.of(sim, 2)), 0);
+        // the first tagged unit in the units' order lends its number; drawn numbers never carry the mark
+        assert_eq!(borrowed([0, 0, 7, 5]), 7 | BORROWED);
+        assert_eq!(borrowed([0, 0]), 0);
+        assert_eq!(borrowed(Vec::new()), 0);
+        assert!(na < BORROWED && nb < BORROWED);
     }
 
     /// A simulation of one's own: each unit's buffs, by its id.

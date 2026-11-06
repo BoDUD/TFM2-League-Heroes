@@ -99,6 +99,11 @@ P = {
     # (q2_len, q2_speed, q2_bw its radius beyond the body, q2_blast the blast's circle) and the add-on's action range
     "s_cd": 60, "q_cd": 360, "q_range": 30000, "q2_range": 46000, "q_dur": 24, "q_at": 10,
     "q_len": 31500, "q_hw": 7000, "q2_len": 52000, "q2_speed": 9000, "q2_bw": 4000, "q2_blast": 10000,
+    # the main pack's thrown blade: the engine hits a unit only when its CENTRE is within the circle at a tick (no body,
+    # no sweep; game 0.7.1), so its circle is q2_bw plus a body - 4000 at 9000 a tick stepped over a champion between two
+    # ticks and burst at its far end; League's 140-wide blade plus a body: 8000 (2026-11-06; the add-on's native blade
+    # adds the body itself)
+    "q2_hit": 8000,
     "q_dmg": 60, "q_ratio": 110, "q_far": 75, "q_mon": 160,
     "q_root": 30, "q_slow": 20, "q_slow_t": 60,
     "q_rock": 25, "q_rock_r": 40, "q_exec": 50, "q_rock_pct": 60, "q_rock_far": 35,
@@ -313,7 +318,7 @@ def build(p):
         blasts there (q_far% to all in the circle, the element's effects, the enchant's magic)."""
         blast = zone("q_blast", p["q2_blast"], "EnemyWithoutTower",
                      [attack(q1d, q1r), *extra, w_magic(), royal(), view(hit), tsfx(hit)])
-        return line("q_blade", p["q2_speed"], p["q2_len"], p["q2_bw"], "EnemyWithoutTower", [attack(q0d, q0r)],
+        return line("q_blade", p["q2_speed"], p["q2_len"], p["q2_hit"], "EnemyWithoutTower", [attack(q0d, q0r)],
                     penetrate=False, end=[blast])
 
     wrath = sw("el_w", blade("q_w_hit", {"type": "Bind", "duration": p["q_root"]},

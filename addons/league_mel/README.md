@@ -23,7 +23,7 @@
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_mel.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `SPAWN #1: the add-on's Mel (player 3, team 0), ...`：出生；
    - `EXECUTE #1: ... - 12 stacks worth 432 >= health 410 + shield 0 (dealt 2810, reduced 0%)`：残影处决（打出的伤害、他的减伤）；
-   - `EXECUTE HELD #1: ... takes no damage now (reduced 100%)`：这一下打不动，层数留着；
+   - `EXECUTE HELD #1: ... takes no damage now (reduced 100%)` / `... cannot die (undying)`：这一下打不动或杀不死，层数留着（同一个人连着拦下的只记一行，0.1.5）；
    - `W UP #1: a projectile of ... 21000 away - the barrier for 75 ticks`、`REFLECT #1: a projectile of ... sent back (140 magic in 9 ticks)`：屏障和反弹；
    - `E FIRST`、`Q ON ROOT`、`R KILL`、`R MANY`、`R HELD`：替 AI 按的连招（方括号里是每名英雄身上的残影层数）。
 
@@ -43,3 +43,7 @@
 用户 2026-10-23：「梅尔有时候会直接放大」。残影不够时本包拦下 AI 的 R、改成普攻 R 的目标；可 R 的距离（70000）比普攻（55000）
 长，目标站在两者之间时那下普攻不合法，0.1.2 就什么都不改，AI 的 R 照样放了出去（一层残影都没有也放）。现在打不到就走向他，
 没有目标就原地站着，R 一律不放，等残影够了再按（R KILL / R MANY）。
+
+## 杀不死的人不再一遍遍处决（0.1.5）
+
+2026-11-06 的日志：千珏开着自己的大招（`league_kindred_r_safe`，「不死」）1 血时，梅尔 141 tick 里对她「处决」了 17 次（`EXECUTE ... 1 stacks worth 100 >= health 1 + shield 0 (dealt 1953)`，预模拟限了条数，记到 #40 为止）——她死不了，每挂一层残影就再来一次，层数每次都被消耗掉。原因：处决只看减伤 100%，不看「不死」。现在照科加斯附加包的规则（`holds_execute`：带「不死」的 buff，名字以 `_p_guard` / `_rv_guard` 结尾的被动护身不算——死歌、塞恩那些照样处决）：身上有真的「不死」就不处决，层数留着，日志 `EXECUTE HELD ... cannot die (undying) - the n stacks stay`，同一个人连着拦下的 60 tick 内只记一行。连招的 `R KILL` / `R MANY` 也不把杀不死的人算进去。

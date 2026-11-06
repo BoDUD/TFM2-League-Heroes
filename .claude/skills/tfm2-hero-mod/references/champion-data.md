@@ -444,6 +444,12 @@ How they behave *(measured in the SDK simulation for league_jinx, 3-12 ten-minut
   step). Keep `speed <= 2 x radius`, and when the end matters only on a hit, flag the caster in `applied_effects`
   (`{"casting_type": "Targeting", "effect": AddCasterBuff}`) and switch the `end_effects` on that flag
   (`tools/fix/warp_beacon.py`).
+  *(2026-11-06, game 0.7.1)* league_akshan's R bullets (spawned by the add-on, radius 6000 at speed 20000) fitted a
+  test of the target's CENTRE alone (38 of 42 replayed aims) better than one that adds its body (24 of 42), while the
+  classic sim still adds the body (league_zeri's attack hit 85% of bursts at radius 1). Until a data projectile is
+  measured in 0.7.1, size `radius` as if no body is added and keep `speed <= 2 x radius` with the radius alone: the
+  fast projectiles of 19 heroes were widened to that rule on 11-06 (akshan_r_bullet 6000 -> 11000, sejuani_r_bola
+  2000 -> 8000, senna_r_core 7500 -> 15000, ...).
 - `end_effects` of a `LinearProjectile` or `ParabolicProjectile` run on a position (the stop or landing
   point), and a `Delayed` among them keeps it, like a `Position` cast: a `ViewEffect` there plays on that
   point, a zone or another projectile starts there, and a `Teleport` puts the caster there *(measured for

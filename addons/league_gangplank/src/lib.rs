@@ -13,7 +13,8 @@
 //!   那就是桶的位置。一个桶炸开（`k<s>_now` 出现），另一个桶已点燃（`k<o>_ripe`）、两桶相距不超过 `e_chain`：挂 3 tick 的
 //!   `k<o>_cn`，桶边有敌人时数据的触发区下一 tick 就把它炸开（伤害、减速都是数据）；桶边 `e_r` + 20000 以内一个敌方单位都没有
 //!   时由本包空炸：挂 `k<o>_blew`（数据的下一次贴图画爆炸）、摘掉 `k<o>_live` / `k<o>_ripe`，和数据的爆炸一样摘 `p_cd`、给被动
-//!   加速。空炸的桶也接着往下连锁（v0.2.0 起三个桶位）。
+//!   加速。空炸的桶也接着往下连锁（v0.2.0 起三个桶位）。交给数据的桶 `RECHECK` tick 后数据还没炸（人在 e_r 外、e_r + 20000
+//!   内），也由本包空炸、接着连锁（v0.2.3，`CHAIN LATE`）。
 //! - **火药桶能存 3 次**（v0.2.0，英雄联盟：E 有充能）：数据里 E 只有一个冷却。本包自己记充能（`e_stock` 个，每过一轮 E 的
 //!   冷却回一个）：E 放出去后手里还有桶，就把 E 的冷却减到只剩 `e_gap`（`entity_reduce_cooldown`），AI 很快能再扔。
 //! - **三连桶**（v0.2.0，英雄联盟：两个连着的桶，开枪打第一个，子弹飞的时候往敌人脚下扔第三个）：枪火谈判打中（`q_fire`
@@ -39,8 +40,14 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_gangplank") {
     Some(v) => v,
     None => env!("CARGO_PKG_VERSION"),
 };
-/// 桶边「没有敌人」要比数据的触发区再宽这么多才算（数据看得到的边上的敌人留给数据炸）。
+/// 桶边「没有敌人」要比数据的触发区再宽这么多才算（数据看得到的边上的敌人留给数据炸）。0.2.3 起数据没炸的由 [`RECHECK`]
+/// 接手，这个宽度只决定先交给谁，桶不会再留在原地。
 const EMPTY_MARGIN: u64 = 20000;
+/// 交给数据炸的桶（连锁的 `k<o>_cn` 挂 3 tick、数据看得到其中 2 tick；三连桶靠 `q_fire`）过这么多 tick 再看一眼（0.2.3）：
+/// 数据炸开的桶下一 tick 就摘掉 `k<o>_live`；这时它还亮着、还点着、还是那个桶，就是数据的触发区里一个人都没有——数据的圈只量
+/// e_r 内的单位，本包按 e_r + EMPTY_MARGIN 判「边上有人」（11-06 的日志：交给数据的 keg 3 44 tick 后还在，又被连锁一次）。由本包
+/// 空炸、接着连锁，同英雄联盟（连到的桶一定炸）。
+pub const RECHECK: usize = 4;
 /// 桶落地后最多等这么多 tick 找它的两个区域。
 const KEG_LOOK: usize = 4;
 /// 桶位（和 build_gangplank.P 的 e_slots 一样）。
@@ -290,6 +297,38 @@ pub fn triple(p: &Params, ripe: &[(usize, (u64, u64))], foes: &[(usize, (u64, u6
         .map(|(k, f)| (k.0, f.0, f.1))
 }
 
+/// 交给数据炸的一个桶（0.2.3）：再看一眼的 tick、桶位、位置。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Handed {
+    pub due: usize,
+    pub slot: usize,
+    pub at: (u64, u64),
+}
+
+/// 把桶位 `slot` 上 `at` 的桶交给数据，[`RECHECK`] tick 后再看；同一个桶已经在等就不再记。
+pub fn hand(handed: &mut Vec<Handed>, now: usize, slot: usize, at: (u64, u64)) {
+    if !handed.iter().any(|h| h.slot == slot && h.at == at) {
+        handed.push(Handed { due: now + RECHECK, slot, at });
+    }
+}
+
+/// 到 `now` 该再看的桶（都从 `handed` 里拿走）里，还是那个桶（`kegs` 里还记着它的位置：数据炸了或换了新桶就不是）、还亮着
+/// 还点着（`lit`）的：本包空炸。晚了 RECHECK 以上的不算——他死了（死人的被动不跑），复活时不去炸一个早就交出去的桶。
+pub fn late_blows(handed: &mut Vec<Handed>, now: usize, kegs: &[Option<(u64, u64)>; SLOTS], lit: [bool; SLOTS])
+    -> Vec<(usize, (u64, u64))> {
+    let mut out: Vec<(usize, (u64, u64))> = Vec::new();
+    handed.retain(|h| {
+        if h.due > now {
+            return true;
+        }
+        if now <= h.due + RECHECK && kegs[h.slot] == Some(h.at) && lit[h.slot] && !out.iter().any(|o| o.0 == h.slot) {
+            out.push((h.slot, h.at));
+        }
+        false
+    });
+    out
+}
+
 // ===================== 被动 =====================
 
 /// 算「被控」的硬控（游戏 0.6.4 把施法动作也记成一种控制 Animation，不能用 cc_count() > 0）。
@@ -313,11 +352,16 @@ fn hard_cc(sim: &StableSim<'_>, id: usize) -> bool {
     })
 }
 
-/// 桶边 r 以内有没有活着的敌方单位（防御塔不算，数据的触发区是 EnemyWithoutTower）。
-fn enemy_near(sim: &StableSim<'_>, team: usize, at: (u64, u64), r: u64) -> bool {
-    (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).any(|e| {
-        e.is_alive() && e.team() != team && e.kind() != Some(EntityKindV1::Tower) && within(e.pos(), at, r)
-    })
+/// 离桶最近的活着的敌方单位有多远（防御塔不算，数据的触发区是 EnemyWithoutTower）；没有就是 None。
+fn nearest_enemy(sim: &StableSim<'_>, team: usize, at: (u64, u64)) -> Option<f64> {
+    (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+        .filter(|e| e.is_alive() && e.team() != team && e.kind() != Some(EntityKindV1::Tower))
+        .map(|e| (e.pos().0 as f64 - at.0 as f64).hypot(e.pos().1 as f64 - at.1 as f64))
+        .min_by(|a, b| a.total_cmp(b))
+}
+
+fn far(d: Option<f64>) -> String {
+    d.map_or("no enemy".to_string(), |d| format!("{d:.0} away"))
 }
 
 fn refresh(sim: &mut StableSim<'_>, me: usize, buff: &BuffV1) {
@@ -338,6 +382,8 @@ struct Scurvy {
     had_q: bool,
     /// 三连桶的第三个桶：炸开的 tick、位置。
     third: Vec<(usize, (u64, u64))>,
+    /// 交给数据炸、等着再看一眼的桶（0.2.3）。
+    handed: Vec<Handed>,
 }
 
 impl Scurvy {
@@ -443,10 +489,14 @@ impl Scurvy {
                 continue;
             }
             refresh(sim, me, &BuffV1::timed(&k("cn"), 3));
-            let empty = self.blow_if_empty(sim, me, o);
+            let (empty, near) = self.blow_if_empty(sim, me, o);
             if let Some(n) = counted("chain") {
-                wlog(format!("{} CHAIN #{n}: keg {} blew, keg {} at ({}, {}) {}", head(sim, me), s + 1, o + 1, at.0, at.1,
-                             if empty { "blown empty here" } else { "left to the data (an enemy beside it)" }));
+                let how = if empty {
+                    "blown empty here".to_string()
+                } else {
+                    format!("left to the data (an enemy beside it, {})", far(near))
+                };
+                wlog(format!("{} CHAIN #{n}: keg {} blew, keg {} at ({}, {}) {how}", head(sim, me), s + 1, o + 1, at.0, at.1));
             }
             if empty {
                 self.chain_from_empty(sim, me, o, at);
@@ -460,20 +510,51 @@ impl Scurvy {
         self.chain_from(sim, me, o, at);
     }
 
-    /// 桶边 e_r + EMPTY_MARGIN 以内没有敌方单位就由本包空炸（画面、摘 p_cd、加速同数据的爆炸）；有人就留给数据。
-    fn blow_if_empty(&mut self, sim: &mut StableSim<'_>, me: usize, o: usize) -> bool {
-        let Some(at) = self.kegs[o] else { return false };
+    /// 桶边 e_r + EMPTY_MARGIN 以内没有敌方单位就由本包空炸（画面、摘 p_cd、加速同数据的爆炸）：true；有人就留给数据，
+    /// [`RECHECK`] tick 后再看一眼（0.2.3）。另外给离桶最近的敌方单位多远（日志）。
+    fn blow_if_empty(&mut self, sim: &mut StableSim<'_>, me: usize, o: usize) -> (bool, Option<f64>) {
+        let Some(at) = self.kegs[o] else { return (false, None) };
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        if enemy_near(sim, team, at, self.p.e_r + EMPTY_MARGIN) {
-            return false;
+        let near = nearest_enemy(sim, team, at);
+        if near.is_some_and(|d| d <= (self.p.e_r + EMPTY_MARGIN) as f64) {
+            hand(&mut self.handed, sim.tick(), o, at);
+            return (false, near);
         }
+        self.blow_empty(sim, me, o);
+        (true, near)
+    }
+
+    /// 本包把桶位 `o` 的桶空炸：`k<o>_blew`（数据的下一次贴图画爆炸）、摘掉 `live` / `ripe`，和数据的爆炸一样摘 `p_cd`、加速。
+    fn blow_empty(&mut self, sim: &mut StableSim<'_>, me: usize, o: usize) {
         let k = |x: &str| sn(&format!("k{}_{x}", o + 1));
         refresh(sim, me, &BuffV1::timed(&k("blew"), self.p.e_link + 1));
         sim.entity_remove_buff(me, &k("live"));
         sim.entity_remove_buff(me, &k("ripe"));
         self.fired_up(sim, me);
         self.kegs[o] = None;
-        true
+    }
+
+    /// 交给数据的桶再看一眼（0.2.3）：数据没炸（还亮着、还点着、还是那个桶）就由本包空炸、接着连锁。在 [`Scurvy::track`]
+    /// 之后跑：数据炸掉的桶那时已经被忘掉。
+    fn recheck(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
+        if self.handed.is_empty() {
+            return;
+        }
+        let lit: [bool; SLOTS] = std::array::from_fn(|s| {
+            has(sim, me, &sn(&format!("k{}_live", s + 1))) && has(sim, me, &sn(&format!("k{}_ripe", s + 1)))
+        });
+        let kegs = self.kegs;
+        let team = sim.get_entity(me).map_or(0, |e| e.team());
+        for (o, at) in late_blows(&mut self.handed, now, &kegs, lit) {
+            let near = nearest_enemy(sim, team, at);
+            self.blow_empty(sim, me, o);
+            if let Some(n) = counted("late") {
+                wlog(format!("{} CHAIN LATE #{n}: keg {} at ({}, {}) still lit {RECHECK} ticks after it was left to the data \
+                              (nearest enemy {}, the data's zone {}) - blown empty here",
+                             head(sim, me), o + 1, at.0, at.1, far(near), self.p.e_r));
+            }
+            self.chain_from_empty(sim, me, o, at);
+        }
     }
 
     /// 桶炸开时他身上的变化（同数据）：摘被动的冷却 `p_cd`，被动加速。
@@ -533,14 +614,15 @@ impl Scurvy {
         sim.play_sfx(&sn("e_land"), me, &input);
         self.third.push((now + THIRD_FUSE, at));
         let first = self.kegs[s];
-        let empty = self.blow_if_empty(sim, me, s);
+        // an enemy beside it: the data's on q_fire, looked at again RECHECK ticks on (0.2.3)
+        let (empty, near) = self.blow_if_empty(sim, me, s);
         if let (true, Some(from)) = (empty, first) {
             self.chain_from_empty(sim, me, s, from);
         }
         if let Some(k) = counted("triple") {
-            wlog(format!("{} TRIPLE #{k}: kegs {:?} lit, the third thrown at #{foe} ({}, {}), keg {} goes first ({}), {} in hand",
-                         head(sim, me), ripe.iter().map(|k| k.0 + 1).collect::<Vec<_>>(), at.0, at.1, s + 1,
-                         if empty { "blown empty here" } else { "the data's, an enemy beside it" }, self.stock.n));
+            let how = if empty { "blown empty here".to_string() } else { format!("the data's, an enemy beside it, {}", far(near)) };
+            wlog(format!("{} TRIPLE #{k}: kegs {:?} lit, the third thrown at #{foe} ({}, {}), keg {} goes first ({how}), {} in hand",
+                         head(sim, me), ripe.iter().map(|k| k.0 + 1).collect::<Vec<_>>(), at.0, at.1, s + 1, self.stock.n));
         }
     }
 
@@ -614,6 +696,10 @@ impl StablePassive for Scurvy {
         // chain before track: the blast takes k<s>_live off and raises k<s>_now in one tick (0.2.2)
         self.chain(sim, me);
         self.track(sim, me, now, &mine);
+        // after track: a keg the data blew is forgotten by now; one it left lit is blown here (0.2.3)
+        if alive {
+            self.recheck(sim, me, now);
+        }
         self.charges(sim, me, now);
         self.triple_barrel(sim, me, now);
         self.third_boom(sim, me, now);
@@ -740,6 +826,39 @@ mod tests {
         let mut old = Scurvy { kegs: [Some((100000, 100000)), Some((160000, 100000)), None], ..Scurvy::default() };
         old.forget(live);
         assert_eq!(old.blown(now), vec![]);
+    }
+
+    #[test]
+    fn a_keg_left_to_the_data_is_blown_when_the_data_did_not() {
+        // 11-06's logs: m=2848 keg 3 "left to the data (an enemy beside it)" at t=20202, still lit and chained again at
+        // 20246 - the enemy stood within e_r + 20000 but outside the data's e_r
+        let at = (26555, 270358);
+        let mut handed = Vec::new();
+        hand(&mut handed, 20202, 2, at);
+        hand(&mut handed, 20203, 2, at); // chained again before the look: still one look, at the first one's tick
+        assert_eq!(handed, vec![Handed { due: 20202 + RECHECK, slot: 2, at }]);
+        let kegs = [None, Some((1, 1)), Some(at)];
+        let lit = [false, true, true];
+        assert!(late_blows(&mut handed, 20202 + RECHECK - 1, &kegs, lit).is_empty(), "the data's ticks first");
+        assert_eq!(handed.len(), 1);
+        assert_eq!(late_blows(&mut handed, 20202 + RECHECK, &kegs, lit), vec![(2, at)]);
+        assert!(handed.is_empty(), "looked at once");
+        // the data blew it: its slot forgotten (track) or no longer lit - nothing to do
+        hand(&mut handed, 100, 2, at);
+        assert!(late_blows(&mut handed, 100 + RECHECK, &[None, None, None], lit).is_empty());
+        hand(&mut handed, 100, 2, at);
+        assert!(late_blows(&mut handed, 100 + RECHECK, &kegs, [false, true, false]).is_empty());
+        // a new keg in the slot by then is not the one handed over
+        hand(&mut handed, 200, 2, at);
+        assert!(late_blows(&mut handed, 200 + RECHECK, &[None, None, Some((5, 5))], lit).is_empty());
+        // he died meanwhile (his passive did not run): a look long overdue is dropped at his respawn
+        hand(&mut handed, 300, 2, at);
+        assert!(late_blows(&mut handed, 300 + 3 * RECHECK, &kegs, lit).is_empty());
+        assert!(handed.is_empty());
+        // two slots due together: both
+        hand(&mut handed, 400, 1, (1, 1));
+        hand(&mut handed, 400, 2, at);
+        assert_eq!(late_blows(&mut handed, 400 + RECHECK, &kegs, lit), vec![(1, (1, 1)), (2, at)]);
     }
 
     #[test]

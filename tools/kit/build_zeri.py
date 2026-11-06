@@ -61,12 +61,15 @@ P = {
     # attack: Burst Fire leaves the rifle on a_st (the action's start timing: attack speed shortens it); the rounds, the
     # spark and W's pulse start 5000 - a_y over her pivot: 11 px, the dense frames' levelled muzzle as league.dll shows
     # them at 105% (tools/art/ppu_zeri.py SCALE; the user: 「挪到高清枪口」 - the 1x rifle's was 6 px over it, a_y -1000)
-    "atk_range": 60000, "atk_dur": 24, "atk_cd": 56, "a_st": 8, "burst_speed": 9000, "burst_r": 3000, "a_y": -6000,
+    # burst_r / w_r: the engine hits a unit only when its centre is within the circle at a tick (no sweep, no body; game
+    # 0.7.1): 3000 at 9000 a tick stepped over a third of the champions standing on the line; 6000 >= 9000 / 2 (League's
+    # rounds plus a body), 2026-11-06
+    "atk_range": 60000, "atk_dur": 24, "atk_cd": 56, "a_st": 8, "burst_speed": 9000, "burst_r": 6000, "a_y": -6000,
     # passive: Living Battery (League: charged attack 90-200 + 110% AP + 1-11% max hp; shield steal 45% 3 s; haste 10% 1.5 s)
     "p_need": 5, "p_speed": 8000, "p_dmg": 40, "p_ap": 100, "p_hp": 4, "p_slow": 40, "p_slow_t": 30,
     "p_sh": 40, "p_sh_r": 30, "p_sh_t": 180, "p_haste": 10, "p_haste_t": 90, "p_steal": 45,
     # skill: W Ultrashock Laser (League: 30-230 + 120% AD, slow 25-55% 2 s, 1200 range, laser 1500, cd 12-8 s)
-    "w_cd": 600, "w_range": 90000, "w_dur": 30, "w_rel": 16, "w_speed": 9000, "w_len": 110000, "w_r": 4000,
+    "w_cd": 600, "w_range": 90000, "w_dur": 30, "w_rel": 16, "w_speed": 9000, "w_len": 110000, "w_r": 6000,
     "w_dmg": 60, "w_ratio": 110, "w_slow": 35, "w_slow_t": 120, "w_laser": 100000, "w_cos": 990, "w_lw": 9000,
     "w_lapply": 3, "w_ldelay": 14,
     # skill2: E Spark Surge (League: dash 300, 5 s, pierce 75-105%, 20-32 + 20% AP magic on hit, cd 24-18 s,

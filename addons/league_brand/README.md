@@ -1,4 +1,4 @@
-# 布兰德被动层数附加包（测试版 v0.1.1）
+# 布兰德被动层数附加包（测试版 v0.1.2）
 
 主包 `league` 保持纯数据。数据只读得到施法者自己身上的 buff，所以主包布兰德的被动「炽热之焰」把层数记在**布兰德身上**：
 技能连中不同的英雄也会叠到第 3 层，第 3 下打中的那个英雄爆炸。这个附加包用原生代码做成英雄联盟的样子：
@@ -19,9 +19,10 @@
 3. 进游戏，在 MOD 菜单里启用它（含代码的 mod 会弹一次确认），确认排在主包后面，重启游戏。
 4. 让布兰德上场打一局，日志里有 `SPAWN` 一行就说明换上了（选人界面的说明开头是「【层数测试版】」）。
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_brand.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
-   - `SPAWN: the add-on's Brand (player 3, team 0)`：这局的布兰德是附加包的副本（游戏里看不到被动说明，靠这行确认；副本的被动是
+   - `SPAWN: the add-on's Brand (player 3, team 0, sim #5)`：这局的布兰德是附加包的副本（游戏里看不到被动说明，靠这行确认；副本的被动是
      诊断用的原生被动 `league_brand:watch`）；
-   - `WATCH: alive true, level 9, ap 230; blaze calls so far 12`：每 30 秒一行，叠层被调用过几次；
+   - `WATCH: alive true, level 9, ap 230; blaze calls this match 12 (this launch 340)`：每 30 秒一行，这一局（这一份模拟）里这个布兰德的叠层
+     被调用过几次，括号里是这次启动所有对局的合计；
    - `BLAZE #7: 2 stack(s)`：技能打中英雄 #7，他身上现在 2 层；
    - `BLAZE #7: 3 stacks, detonates in 120 ticks`：第 3 层，2 秒后爆炸；
    - `BOOM #7: 3 enemies within 26000, ap 230 -> 119 + 4% max health magic each`：爆炸打中几个敌人、每人的伤害（减免前）；
@@ -36,3 +37,10 @@
 - 在 `addons/` 下 `cargo test --release -p league_brand`：单元测试（三层引爆、等爆炸时不叠、伤害、点燃、爆炸半径、buff 名字长度）。
 - 在 `addons/` 下 `cargo build --release -p league_brand`（Windows）得到 `target/release/league_brand.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码。游戏里确认过（2026-10-07，v0.1.1 装进合集后约 30 分钟的日志：12 场对局里叠层 13107 次，1 层 6787、2 层 3980、第 3 层 2179 次；爆炸 2171 次，其中 375 次目标在爆炸前死了；爆炸多数只打到他本人（1293 次），最多打到 10 个；`BLAZE skipped` 0 次，Q 和 R 弹跳在「随机目标」效果里也拿得到被打中的英雄）。
+
+## 0.1.2（2026-11-06，11-06 的日志）
+
+`WATCH` 的「blaze calls so far」是全进程一个数：并排跑的两场预演（m=3340、m=3436）的布兰德每 30 秒各写一行，两边的数混在一起往上涨，
+看不出哪一场叠了几层。现在副本的被动第一次出生时抽一个这一份模拟的编号，每次出生挂在布兰德身上（`league_brand_sim:<n>`，league.dll
+的分叉校验不看带 `_sim:` 的 buff；league_velkoz 的做法：并排的两份预演种子、实体编号都一样，只能认这个），`league_brand:blaze` 按他身上的
+编号记次数；`WATCH` 写这一份模拟里的次数（`blaze calls this match`），括号里是这次启动的合计，`SPAWN` 带上编号。玩法不变。

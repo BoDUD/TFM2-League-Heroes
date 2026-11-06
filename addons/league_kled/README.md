@@ -29,3 +29,9 @@
 - 在 `addons/` 下 `cargo test --release -p league_kled`：单元测试（参数、斯嘎尔的血、绳子断的距离、下马的动作名）。
 - 主包的克烈改了以后重新跑 `python addons/league_kled/make_override.py`（它先核对主包的 `league_kled.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只核对不写）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kled.log`：`SPAWN`、骑上 `MOUNT`、斯嘎尔跑掉 `FLEE`、绳子断 `BREAK`，整身步行的显示 `ON FOOT` / `riding`。
+
+## 飞索和手枪不再跨过人（0.1.2，2026-11-06）
+
+游戏 0.7.1 的投射物判定（拿 11-05 阿克尚 R 的子弹对出来的，见 league_akshan 0.2.7）：投射物每 tick 跳 `speed` 那么远，只打圆心在它这一 tick 位置 `radius` 以内的单位——不扫两个 tick 中间，也不算单位的体型。`speed` 大于两倍 `radius` 时，站在两 tick 之间的人整个被跨过去；圆比英雄的体型（10000）小很多时，要几乎正中才打得到。
+
+主包的 Q 飞索 `league_kled_q_trap` 圆 3000、每 tick 飞 9000（要几乎正中，线上还留 3000 的空当），徒步 Q 的手枪 `league_kled_p_blast` 圆 9000、每 tick 20000（留 2000 的空当）。主包 `build_kled` 改 `q_rad` 7000（英雄联盟的捕熊器加体型）、`p_rad` 10000（≥ 速度的一半），副本重新生成。下一局看飞索拴住英雄的次数。

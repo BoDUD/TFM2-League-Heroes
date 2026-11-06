@@ -55,7 +55,7 @@
 
 ### 奥莉安娜附加包
 
-[奥莉安娜附加包](../../addons/league_orianna/README.md)：`league_orianna` v0.3.2
+[奥莉安娜附加包](../../addons/league_orianna/README.md)：`league_orianna` v0.3.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -74,7 +74,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.0（通用附加包，下面只列和奥莉安娜有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.1（通用附加包，下面只列和奥莉安娜有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

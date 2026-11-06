@@ -82,7 +82,9 @@ P = {
     "e_miss": 100, "e_bonus": 25,
     # Q Infected Bonesaw (League: 1050 range, speed 2000, 20% current hp magic, min 80-280, max 350-550 to monsters,
     # slow 40% 2 s, cost 50 hp refunded 50% / 100% on a champion; cd 4 s)
-    "q_cd": 260, "q_range": 70000, "q_dur": 26, "q_at": 11, "q_speed": 6500, "q_w": 3200, "q_dmg": 140, "q_ap": 0,
+    # q_w: the engine hits a unit only when its centre is within the circle at a tick (no body, game 0.7.1): 3200 needed a
+    # dead-centre pass; League's 120-wide saw plus a champion's body is about 8000 (2026-11-06)
+    "q_cd": 260, "q_range": 70000, "q_dur": 26, "q_at": 11, "q_speed": 6500, "q_w": 8000, "q_dmg": 140, "q_ap": 0,
     "q_thp": 9, "q_pct": 20, "q_slow": 40, "q_slow_t": 120, "q_heal": 20, "q_heal_c": 40,
     # W Heart Zapper (League: 4 s, 20-80 + 7% bonus hp... a second round him, 75% of damage taken stored as grey
     # health, healed 100% if the end zap hits a champion, else 50%; cd 17-13 s)

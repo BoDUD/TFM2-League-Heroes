@@ -85,10 +85,13 @@ P = {
     # W Violent Tendencies (in the attack)
     "w_cd": 600, "w_t": 240, "w_as": 150, "w_dmg": 50, "w_ratio": 30, "w_pct": 6,
     # skill: Q Bear Trap on a Rope / Pocket Pistol
-    "q_cd": 480, "q_range": 55000, "q_dur": 24, "q_rel": 8, "q_speed": 9000, "q_rad": 3000, "q_dmg": 60,
+    # q_rad / p_rad: the engine hits a unit only when its centre is within the circle at a tick (no sweep, no body; game
+    # 0.7.1): 3000 at 9000 a tick and 9000 at 20000 left gaps on the line; League's trap plus a champion's body is
+    # about 7000, the pistol needs 10000 >= 20000 / 2 (2026-11-06)
+    "q_cd": 480, "q_range": 55000, "q_dur": 24, "q_rel": 8, "q_speed": 9000, "q_rad": 7000, "q_dmg": 60,
     "q_ratio": 60, "q_teth": 90, "q_slow": 40, "q2_dmg": 90, "q2_ratio": 140, "q_pull": 2500, "q_pull_t": 8,
     "q_break": 60000,
-    "p_dur": 24, "p_rel": 8, "p_len": 45000, "p_rad": 9000, "p_speed": 20000, "p_dmg": 40, "p_ratio": 100,
+    "p_dur": 24, "p_rel": 8, "p_len": 45000, "p_rad": 10000, "p_speed": 20000, "p_dmg": 40, "p_ratio": 100,
     "p_back": 2000, "p_back_t": 6,
     # skill2: E Jousting
     "e_cd": 540, "e_range": 40000, "e_range2": 60000, "e_dur": 24, "e_go": 5, "e_speed": 3500, "e_dmg": 60,

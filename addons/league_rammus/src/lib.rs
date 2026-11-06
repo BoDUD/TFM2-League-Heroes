@@ -290,7 +290,9 @@ impl StablePassive for Shell {
         if let Some((foe, d)) = self.touched(sim, me) {
             sim.add_buff(me, &BuffV1::timed(GO, 2));
             if let Some(k) = counted("hit") {
-                wlog(format!("{} ROLL hit #{foe} after {t} ticks at +{}% speed (gap {d:.0}) #{k}", head(sim, me), rush(t)));
+                let what = if sim.get_entity(foe).is_some_and(|e| e.is_champion()) { "champion" } else { "unit" };
+                wlog(format!("{} ROLL hit #{foe} ({what}) after {t} ticks at +{}% speed (gap {d:.0}) #{k}", head(sim, me),
+                             rush(t)));
             }
         }
     }
@@ -298,11 +300,62 @@ impl StablePassive for Shell {
 
 // ===================== AI 钩子：从远处开球 =====================
 
+/// The AI's Powerball at an enemy champion already against him (0.1.2): the gap between their bodies within `Q_TOUCH`.
+/// The ball would hit him on the tick it curls up and never roll (11-06's logs: 36 "ROLL hit ... after 0 ticks", each
+/// followed by "ROLL over after 0 ticks, 0 rolled" - all the game AI's own Q, none after OPEN): an attack instead, Q kept
+/// for a run-up (OPEN from `Q_OPEN`..`Q_RANGE`, or the AI's own Q from further off).
+pub fn point_blank(champion: bool, d: f64, r_me: f64, r_u: f64) -> bool {
+    champion && contact(d, r_me, r_u)
+}
+
+/// A Q HELD line at `now` for `target` starts a streak (`last`: the last hold's target and tick): one line a streak.
+pub fn new_hold(last: Option<(usize, usize)>, target: usize, now: usize) -> bool {
+    last.is_none_or(|(t, at)| t != target || now < at || now > at + HOLD_GAP)
+}
+
+/// Holds of the AI's Q at the same champion within this many ticks of the last are one streak (the AI asks again on its
+/// judgement ticks).
+pub const HOLD_GAP: usize = 60;
+
 /// 游戏的 AI 在普攻距离附近才放 Q（11-04 的日志：撞击全在 0 tick）。这个钩子（0.1.1）：他活着、没在滚、没在施法 / 蜷着、
 /// Q 解锁且冷却好了，AI 想普攻或走路（不在回城、放技能），最近的敌方英雄在 `Q_OPEN`..`Q_RANGE` 之间：改成对他放 Q。
+/// 0.1.2：AI 自己对已经贴着他的敌方英雄放 Q（`point_blank`）改成普攻他，Q 留着助跑用。
 #[derive(Clone, Default)]
 struct Open {
     recalling: bool,
+    /// The last held Q: (its target, the tick) - the Q HELD line one a streak.
+    held: Option<(usize, usize)>,
+}
+
+impl Open {
+    /// The AI's Q at `target`: an attack on him instead when he is a champion against Rammus already (None: the AI's Q goes).
+    fn hold_q(&mut self, ctx: &mut StableAiContext<'_>, target: usize) -> Option<InputV1> {
+        let player = ctx.player_id();
+        let (gap, line) = {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion().filter(|e| e.is_alive())?;
+            let u = sim.get_entity(target).filter(|u| u.is_alive() && u.team() != me.team())?;
+            let (r_me, r_u) = (body(me.radius() as u64), body(u.radius() as u64));
+            let d = dist((me.pos().0 as f64, me.pos().1 as f64), (u.pos().0 as f64, u.pos().1 as f64));
+            if !point_blank(u.is_champion(), d, r_me, r_u) {
+                return None;
+            }
+            (d - r_me - r_u, head(&sim, me.id()))
+        };
+        let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(target));
+        if !ctx.is_valid_input(&attack) {
+            return None;
+        }
+        let now = ctx.tick();
+        if new_hold(self.held, target, now) {
+            if let Some(k) = counted("q held") {
+                wlog(format!("{line} Q HELD: the AI's Powerball at #{target} against him (gap {gap:.0}) - attacking instead, \
+                              Q kept for a run-up #{k}"));
+            }
+        }
+        self.held = Some((target, now));
+        Some(attack)
+    }
 }
 
 impl StablePlayerAi for Open {
@@ -328,6 +381,13 @@ impl StablePlayerAi for Open {
             Some(b) => b.kind == InputKindV1::Return.code(),
             None => self.recalling,
         };
+        // the AI's own Q at a champion already against him: an attack, Q kept for a run-up (0.1.2)
+        let q_at = base.filter(|b| b.kind == InputKindV1::Skill.code())
+            .filter(|b| InputTargetKindV1::from_code(b.target.kind) == Some(InputTargetKindV1::Target))
+            .map(|b| b.target.target_id);
+        if let Some(t) = q_at {
+            return self.hold_q(ctx, t);
+        }
         let walking = base.is_some_and(|b| matches!(InputKindV1::from_code(b.kind), Some(InputKindV1::Attack | InputKindV1::Move)));
         if self.recalling || !walking {
             return None;
@@ -429,6 +489,21 @@ mod tests {
         assert!(open_from(30_001 * 30_001));
         assert!(open_from(45_000 * 45_000));
         assert!(!open_from(45_001 * 45_001));
+    }
+
+    #[test]
+    fn the_ais_point_blank_q_at_a_champion_is_held() {
+        // 11-06's logs: 36 Powerball hits "after 0 ticks" (gap -509 .. -25000), each "ROLL over after 0 ticks, 0 rolled":
+        // the game AI's own Q at a champion against him. An attack instead, Q kept for a run-up
+        assert!(point_blank(true, 20_000.0 - 11_269.0, 10_000.0, 10_000.0), "gap -11269");
+        assert!(point_blank(true, 23_000.0, 10_000.0, 10_000.0), "a 3000 gap still touches");
+        assert!(!point_blank(true, 23_001.0, 10_000.0, 10_000.0), "a run-up's worth away: the AI's Q goes");
+        assert!(!point_blank(false, 5_000.0, 10_000.0, 6_000.0), "a minion or monster: the AI's Q goes (farming)");
+        // one Q HELD line a streak
+        assert!(new_hold(None, 25, 1_000));
+        assert!(!new_hold(Some((25, 1_000)), 25, 1_000 + HOLD_GAP));
+        assert!(new_hold(Some((25, 1_000)), 25, 1_000 + HOLD_GAP + 1));
+        assert!(new_hold(Some((25, 1_000)), 26, 1_001), "another champion");
     }
 
     #[test]

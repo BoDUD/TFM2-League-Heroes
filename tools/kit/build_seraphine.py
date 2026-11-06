@@ -301,8 +301,12 @@ def build(p):
                      tsfx("r_charm")])
 
     def encore():
+        # the probe: the engine tests a line only where it stands at each tick, the centre within the circle (no sweep, no
+        # body; game 0.7.1) - 18000 at 60000 a tick found no ally 18000-42000 ahead. 45000 a tick still ends on tick 2
+        # (the wave reads r_ext then) and r_w + 4500 (the wave plus an ally's body, League's extension) >= 45000 / 2
+        # (2026-11-06)
         return combine(*rm("r_ext"), sfx("r_wave"),
-                       line("r_probe", 60000, p["r_len"], p["r_w"], 0, "AllyChampion", True,
+                       line("r_probe", 45000, p["r_len"], p["r_w"] + 4500, 0, "AllyChampion", True,
                             [on_me(refresh("r_ext", 4))]),
                        delayed(2, sw("r_ext", r_wave(p["r_len2"]), r_wave(p["r_len"]))))
 

@@ -2869,7 +2869,7 @@
                       "range": 170000,
                       "shape": {
                         "Circle": {
-                          "radius": 5000
+                          "radius": 7000
                         }
                       },
                       "y_offset": -3000

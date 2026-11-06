@@ -2235,7 +2235,7 @@
           "range": 90000,
           "shape": {
             "Circle": {
-              "radius": 14000
+              "radius": 15000
             }
           },
           "penetrate": true,

@@ -33,3 +33,9 @@
 - `python addons/league_fiora_duel/make_override.py`：从主包的剑姬生成 `override/` 和 `text/`（主包的剑姬改了要重跑）。
 - 在 `addons/` 下 `cargo test --release -p league_fiora_duel`；`cargo build --release -p league_fiora_duel` 或 `-p league_addons`。
 - 经典 SDK 的模拟器跑不了原生代码：数据这一半用「把 Native 换成立同样的标志」在模拟器里测过（被挑战的人 -> 大招破绽，别人 -> 被动破绽）。
+
+## W 反击的刺不再跨过人（0.2.5，2026-11-06）
+
+游戏 0.7.1 的投射物判定（拿 11-05 阿克尚 R 的子弹对出来的，见 league_akshan 0.2.7）：投射物每 tick 跳 `speed` 那么远，只打圆心在它这一 tick 位置 `radius` 以内的单位——不扫两个 tick 中间，也不算单位的体型。`speed` 大于两倍 `radius` 时，站在两 tick 之间的人整个被跨过去；圆比英雄的体型（10000）小很多时，要几乎正中才打得到。
+
+主包 W 的刺 `league_fiora_w_first` 圆 8000、每 tick 飞 20000：线上留着 4000 的空当。主包数据改成圆 10000（英雄联盟的刺加一个英雄的体型，≥ 速度的一半），副本重新生成（只改了这个圆）。
