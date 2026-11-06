@@ -14,8 +14,13 @@ itself on (League's W has no cast time) and Icathian Surprise watches for his de
           enemy within p_r. League's form walks at the nearest enemy for 4 s; a dead body cannot walk in data, so it
           bursts where he fell (the burst's ring shows from the start, so enemies can step out).
   attack  A glob of spit (homing, physical 100% AD). Every attack turns Bio-Arcane Barrage on when it is ready.
-  W       Bio-Arcane Barrage (生化弹幕, automatic): w_t ticks of +w_range attack range and w_hp% of the target's maximum
-          health on every attack (`base_attack_enemy_max_hp_damage`), then w_cd. Its glow is a view buff.
+  W       Bio-Arcane Barrage (生化弹幕, automatic): w_t ticks of w_hp% of the target's maximum health on every attack
+          (`base_attack_enemy_max_hp_damage`), then w_cd. Its glow is a view buff. League's +130-210 range is not a
+          `range` buff here but the attack's own longer range (atk_range, 2026-11-07): with the buff (+18000 until
+          then) the live game's AI parked him at the stretched reach and attacked only within the attack's own 55000 -
+          held at a median 77000 from champions, most often exactly 78000 (55000 + 18000 + both bodies), 60 of 82 holds
+          past his range in league_ult_press.log, against 0 of 210 for Jinx, 0 of 104 for Vayne and 0 of 93 for Sivir
+          (no range buff); the add-on's attack orders only cut that short. The players: 「大嘴很少普攻」.
   skill   Q Caustic Spittle (腐蚀唾液): a `Targeting` cast on `EnemyWithoutTower` (q_range); at the release a straight
           shot at where the target stands then (a skillshot: it stops on the first enemy it meets): q_dmg + q_ratio% AD
           and q_shred% less armour and magic resistance for q_shred_t ticks. Passive: q_as% attack speed while he lives.
@@ -31,8 +36,8 @@ itself on (League's W has no cast time) and Icathian Surprise watches for his de
   combos  (「加入高手连招」)
           E -> R (减速接大炮): a champion the ooze hits gets a shell e_r_wait ticks later, slowed, while a volley
                   is open (a shell more).
-          W -> Q (开W接Q破甲): when the barrage turns on with an enemy champion within its reach and Q is ready, the
-                  spittle follows the attack at that champion (its armour shred then feeds the barrage).
+          W -> Q (开W接Q破甲): when the barrage turns on with an enemy champion within his attack range and Q is
+                  ready, the spittle follows the attack at that champion (its armour shred then feeds the barrage).
           R execute (大炮收割): R's execute share (above).
 """
 import argparse
@@ -52,18 +57,22 @@ BIG = "asset/league/effects/league_kogmaw_big"
 # (league_twitch +1.79, league_varus +1.51 on the same seeds). The first draft was -1.01 (deal 7274 against ~11000):
 # attack 90 -> 106, Q's attack speed 15 -> 35%, W every 12 s (17) with 5% (4), Q / E / R +20 base, 950 health and
 # the pack's 55000 range.
+# 2026-11-07: W's +18000 range folded into the attack (55000 -> 65000, no `range` buff; see W above). Same games
+# (C:/t/dk_sim/kd.py --lane 3 against archer, gunner, boomerang_hunter and poison_dart_hunter, 288 a run): with the
+# buff +2.92 / +2.82 on seeds 1-12 / 13-24 (deal 11885, 190 attacks a game); 65000 without it +3.07 / +2.98 (11547,
+# 188); 55000 without it +2.08, 60000 +2.68, 55000 with 7% on-hit +2.60.
 # Timings from the strips (rig_kogmaw.py MS): the glob leaves on tick 7 (attack frame 3), the spittle on 16 (skill
 # frame 5), the ooze on 13 (skill2 frame 4), the shell on 17 (ult frame 5); the casts last 37 / 39 / 37 ticks.
 P = {
     # stats (Range base: attack 100 +20, hp 900 +90, defence 20 +7, mr 15 +3, move 900 +9); League's Kog'Maw: 500
     # range, 61 AD +3.1, 635 +99 hp, 32 armour, 330 move (slow), attack speed 0.665
     "hp": 950, "hp_g": 88, "atk": 106, "atk_g": 18, "def": 20, "def_g": 7, "mr": 15, "mr_g": 3, "ms": 870, "ms_g": 9,
-    # attack: the glob leaves the mouth on a_st (retimed to the strips later)
-    "atk_range": 55000, "atk_dur": 24, "atk_cd": 54, "a_st": 7, "glob_speed": 6500, "glob_y": 0,
+    # attack: the glob leaves the mouth on a_st (retimed to the strips later); the range holds W's reach (above)
+    "atk_range": 65000, "atk_dur": 24, "atk_cd": 54, "a_st": 7, "glob_speed": 6500, "glob_y": 0,
     # passive: Icathian Surprise (League: 4 s, 125 + 25 a level true damage, radius ~?)
     "p_watch": 6, "p_life": 216000, "p_seek": 70000, "p_speed": 1800, "p_r": 12000, "p_dmg": 80, "p_ratio": 100,
-    # W Bio-Arcane Barrage (League: 8 s, +130-210 range, 3-7% max health on-hit, cd 17 s)
-    "w_t": 480, "w_cd": 720, "w_range": 18000, "w_hp": 5,
+    # W Bio-Arcane Barrage (League: 8 s, +130-210 range - here in atk_range -, 3-7% max health on-hit, cd 17 s)
+    "w_t": 480, "w_cd": 720, "w_hp": 5,
     # skill: Q Caustic Spittle (League: 1200 range, 90-290 + 70% AP magic, shred 16-24% 4 s, cd 8 s; passive
     # +15-35% attack speed)
     "q_cd": 480, "q_range": 95000, "q_dur": 37, "q_rel": 16, "q_speed": 5000, "q_len": 105000, "q_rad": 5000,
@@ -279,11 +288,11 @@ def build(p):
     # ------------------------------------------------------------------ W Bio-Arcane Barrage (automatic)
     def w_on(combo):
         out = [refresh("w_cd", p["w_cd"]),
-               refresh("w_on", p["w_t"], range=p["w_range"], base_attack_enemy_max_hp_damage=p["w_hp"]),
+               # no `range` here: the live AI would park him at the stretched reach (W in the docstring)
+               refresh("w_on", p["w_t"], base_attack_enemy_max_hp_damage=p["w_hp"]),
                cview("w_cast"), sfx("w_cast"), voice("vo_w", p)]
-        if combo:   # W -> Q: the spittle follows this attack at a champion within the barrage's reach
-            out.append(sw("q_cd", NONE, delayed(p["atk_dur"], pick(p["atk_range"] + p["w_range"], "EnemyChampion",
-                                                                     q_fire()))))
+        if combo:   # W -> Q: the spittle follows this attack at a champion within his attack range
+            out.append(sw("q_cd", NONE, delayed(p["atk_dur"], pick(p["atk_range"], "EnemyChampion", q_fire()))))
         return combine(*out)
 
     # ------------------------------------------------------------------ R Living Artillery: one shell a cast

@@ -103,6 +103,17 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   from level 1, `skill2` from level 3, `ult` from level 5.
 - A `range` caster buff (attack range) also stretches the distance at which the AI starts attacking
   *(SDK simulation, league_kayle Arisen: melee at levels 1-4, she fought from 52500 after it)*.
+  **Not in the live game (0.7.x): there a `range` buff parks the champion out of reach.** The live AI stands him
+  at the stretched reach but starts his attack only within the attack action's own `range`, so he waits there
+  doing nothing *(league_ult_press.log, two launches, 2026-11-07)*: league_kogmaw with W's +18000 was held at a
+  median 77000 from champions and most often exactly 78000 (55000 + 18000 + both bodies), 60 of 82 holds past his
+  range; marksmen without a range buff never were (Jinx 0 of 210, Vayne 0 of 104, Sivir 0 of 93); league_twitch's
+  R (+30000) parked him at 90000; players: 「大嘴很少普攻」, and on league_kayle (10-21) 「只有当敌方到达默认攻击
+  范围才会进行攻击」. Put the reach in the attack's own `range` instead (league_kogmaw 2026-11-07: W's +18000 folded
+  into a 65000 attack, the classic SDK's kill difference unchanged, +3.07 against +2.92 with the buff). The same
+  logs show the band past the base range for the other `range` buffs too (league_tristana's levels, the human
+  forms of league_elise / league_nidalee, league_jayce's cannon, league_poppy's ready buckler, league_rengar's
+  ready leap): a new kit should not lean on one for its attack.
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).

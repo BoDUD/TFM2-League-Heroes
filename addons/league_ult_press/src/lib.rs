@@ -357,7 +357,7 @@ pub const ATTACK_RANGE: [(&str, u64); 173] = [
     ("league_kennen", 55000),
     ("league_khazix", 23000),
     ("league_kindred", 55000),
-    ("league_kogmaw", 55000),
+    ("league_kogmaw", 65000),
     ("league_ksante", 25000),
     ("league_leblanc", 52500),
     ("league_leesin", 23000),
@@ -818,6 +818,10 @@ pub fn poke_target(me: (f64, f64), hp: f64, enemies: &[Unit], (reach, keep): (f6
 /// 射程外一点：只读观察包里伊芙琳带着魅影的射程（24000 + 20000）站着、普攻好着，最近的敌方英雄在 48–50k，AI 不下命令或下令
 /// 「走到自己脚下」；克格莫开着 W（55000 + 18000）也停在 73000 外。普攻命令下给这么远的人，AI 自己走过去打（近战一样：
 /// 射程 25000、看 `HOLD_REACH` 35000）。
+/// 0.6.2（2026-11-07，工坊「KogMaw auto attacking very rarely」）：病根就是射程 buff——游戏的 AI 按拉长的射程站位、却只在
+/// 普攻动作自己的射程内出手，这里的命令只能在他被停住 8–15 tick 后补救。日志里大嘴被停住时离英雄中位数 77000、最常见正好
+/// 78000（55000 + 18000 + 两人的体积），82 次里 60 次在射程外；没有射程 buff 的射手一次也没有（金克丝 0/210、薇恩 0/104、
+/// 希维尔 0/93）。主包把 W 的射程并进了他的普攻（65000，W 不再加射程），大嘴不再归这里管；图奇 R、崔丝塔娜、凯尔等还在。
 pub const STRETCH_LOOK: f64 = 10_000.0;
 
 /// 0.6.0（同上，德莱文；用户：「卡莎好像也不会A英雄？」）：远程（没有射程 buff）被停住时按 `poke_target` 打普攻距离内的英雄——站着就打得到，不往前走一步，所以不看
@@ -2117,12 +2121,13 @@ mod tests {
 
     #[test]
     fn a_stretched_reach_pokes_champions_by_their_tower_and_outnumbered() {
-        // 「大嘴W只打小兵塔这问题不解决吗」: the enemy carry by her tower with her support, his own support away
+        // 「大嘴W只打小兵塔这问题不解决吗」: the enemy carry by her tower with her support, his own support away. Kog'Maw's W
+        // has no range buff since 2026-11-07 (the main pack folded it into his attack): Twitch's R (+30000) stands in
         let me = (0.0, 0.0);
-        let enemies = [Unit { id: 7, at: (70_000.0, 0.0), hp: 0.9 }, Unit { id: 8, at: (80_000.0, 5_000.0), hp: 0.9 }];
-        let towers = [(110_000.0, 0.0)];
-        let reach = hold_reach_with("league_kogmaw", 18_000.0);
-        assert_eq!(reach.0, 73_000.0);
+        let enemies = [Unit { id: 7, at: (80_000.0, 0.0), hp: 0.9 }, Unit { id: 8, at: (90_000.0, 5_000.0), hp: 0.9 }];
+        let towers = [(120_000.0, 0.0)];
+        let reach = hold_reach_with("league_twitch", 30_000.0);
+        assert_eq!(reach.0, 85_000.0);
         assert_eq!(hold_target(me, 0.9, &[], &enemies, &towers, reach, None), None, "the old rule: by her tower");
         assert_eq!(poke_target(me, 0.9, &enemies, reach, None), Some(7));
         assert_eq!(poke_target(me, 0.2, &enemies, reach, None), None, "too hurt");

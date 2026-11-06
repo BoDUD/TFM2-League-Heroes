@@ -42,7 +42,7 @@
     "cooltime": 54,
     "start_timing": 1,
     "cancelable": true,
-    "range": 55000,
+    "range": 65000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
@@ -335,7 +335,6 @@
                           "tick": 480
                         }
                       },
-                      "range": 18000,
                       "base_attack_enemy_max_hp_damage": 5
                     },
                     "only_to_enemy": false
@@ -392,7 +391,7 @@
                   "effects": [
                     {
                       "type": "RandomTarget",
-                      "range": 73000,
+                      "range": 65000,
                       "casting_target": "EnemyChampion",
                       "from_projectile": false,
                       "effects": [

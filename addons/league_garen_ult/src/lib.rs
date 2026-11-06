@@ -9,6 +9,9 @@
 //!   砍不死，改成普攻那个人（打不到就走过去）。AI 钩子自己看 R 的冷却和等级。
 //! - **被动 `league_garen_ult:verdict`**：副本的 R 不再有 12% 最大生命，出手时给目标挂 `league_garen_ult_mark`；本包看到
 //!   标记，`MARK_TO_LAND` tick 后（主包的巨剑落下的那一刻）按他那时的已损失生命补 30% 的真实伤害。
+//! - 0.2.0（工坊 2026-11-07）：拦下的 R 不再一律「走过去打」——目标在敌方塔下、他血不够、以少打多时后撤（`plan::hold_move`，
+//!   「Constantly dies diving tower vs full health enemy」）；**原生效果 `league_garen_ult:spin_as`**：副本 E 的每一圈打中
+//!   每个人时按额外攻速补伤害（英雄联盟每 25% 额外攻速多转一圈，`plan::spin_extra`）。
 //!
 //! 画面、声音、主包那份伤害都在数据里。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_garen_ult.log`。
 
@@ -20,7 +23,10 @@ use std::sync::{LazyLock, Mutex};
 use mod_api_stable::*;
 
 pub mod plan;
-use plan::{holds_execute, plan as decide, quiet, watch_press, Foe, Plan, Press, HERO, MARK, MARK_TO_LAND, R_MISSING, R_RANGE};
+use plan::{
+    hold_move, holds_execute, plan as decide, quiet, spin_extra, watch_press, Foe, HoldMove, Plan, Press, HERO, MARK,
+    MARK_TO_LAND, R_MISSING, R_RANGE,
+};
 
 const ID: &str = "league_garen_ult";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -127,6 +133,15 @@ fn cc_names(e: &StableEntity<'_, '_>) -> String {
 
 // ===================== AI 钩子 =====================
 
+/// 拦下的 R 要看的场面（0.2.0）：他的生命比例、我方英雄（不含他）、看得见的敌方英雄、敌方还立着的塔。
+#[derive(Clone, Default)]
+struct Scene {
+    hp: f64,
+    allies: Vec<(f64, f64)>,
+    foes: Vec<(f64, f64)>,
+    towers: Vec<(f64, f64)>,
+}
+
 #[derive(Clone, Default)]
 struct UltAi {
     last_hold: Option<usize>,
@@ -190,11 +205,31 @@ impl StablePlayerAi for UltAi {
                 // casting (E's spin), moved or held: no press of his own (0.1.2); R's cooldown running: a press was taken
                 let held = under(&me, &BUSY) || under(&me, &NO_CAST);
                 let cooling = cd.is_some_and(|c| c > 0);
+                // the AI's R at someone: what a held R may become (0.2.0) - only then is the whole field read
+                let scene = ai_target.map(|_| {
+                    let (now, max) = me.hp();
+                    let mut s = Scene { hp: if max > 0 { now as f64 / max as f64 } else { 1.0 }, ..Scene::default() };
+                    for e in (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)) {
+                        if !e.is_alive() || e.id() == id {
+                            continue;
+                        }
+                        let p = e.pos();
+                        let at = (p.0 as f64, p.1 as f64);
+                        if e.is_tower() && e.team() != team {
+                            s.towers.push(at);
+                        } else if e.is_champion() && e.team() == team {
+                            s.allies.push(at);
+                        } else if enemy(&e) && e.is_targetable() {
+                            s.foes.push(at);
+                        }
+                    }
+                    s
+                });
                 Some((me.stat().attack, free, foes, ai_foe, target_pos, me.pos(), head(&sim, &format!("#{id}")), held,
-                      cooling, cc_names(&me)))
+                      cooling, cc_names(&me), scene))
             })()
         };
-        let (attack, free, foes, ai_foe, target_pos, my_pos, line, held, cooling, ccs) = read?;
+        let (attack, free, foes, ai_foe, target_pos, my_pos, line, held, cooling, ccs, scene) = read?;
         let foes: Vec<Foe> = foes.into_iter().filter(|f| ctx.is_valid_input(&ult(f.id))).collect();
         let foe_of = |id: usize| foes.iter().chain(ai_foe.iter()).find(|f| f.id == id).copied();
         let plan = decide(ai_target, ai_foe, &foes, attack, free && !busy && !held);
@@ -226,13 +261,27 @@ impl StablePlayerAi for UltAi {
                 Some(input)
             }
             Plan::Hold(x) => {
+                // 0.2.0: no walk under a tower, into a crowd or while hurt - he backs off instead
+                let f64s = |p: (u64, u64)| (p.0 as f64, p.1 as f64);
+                let how = match (&scene, target_pos) {
+                    (Some(s), Some(t)) => hold_move(f64s(my_pos), s.hp, f64s(t), &s.allies, &s.foes, &s.towers),
+                    _ => HoldMove::Attack,
+                };
                 if self.last_hold.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
                     self.last_hold = Some(tick);
                     let who = foe_of(x).map_or(format!("#{x} is no enemy champion alive"), |f| {
                         format!("#{x} hp {}/{} + shield {} > {}{}", f.hp, f.max, f.shield, f.damage_from(f.r_damage(attack)),
                                 if f.undying { ", undying" } else { "" })
                     });
-                    wlog(format!("{line} R HELD: {who}, attacking instead"));
+                    let instead = match how {
+                        HoldMove::Attack => "attacking instead".to_string(),
+                        HoldMove::Back(why) => format!("backing off ({why})"),
+                    };
+                    wlog(format!("{line} R HELD: {who}, {instead}"));
+                }
+                let stay = InputV1::move_to(my_pos.0, my_pos.1);
+                if let HoldMove::Back(_) = how {
+                    return Some(ctx.run_away_without_skill_input().filter(|i| ctx.is_valid_input(i)).unwrap_or(stay));
                 }
                 let atk = InputV1::action(InputKindV1::Attack, InputTargetV1::target(x));
                 if ctx.is_valid_input(&atk) {
@@ -241,6 +290,35 @@ impl StablePlayerAi for UltAi {
                 let (x, y) = target_pos.unwrap_or(my_pos);
                 Some(InputV1::move_to(x, y))
             }
+        }
+    }
+}
+
+// ===================== 原生效果：E 的每一圈按额外攻速补伤害（0.2.0） =====================
+
+/// 补过伤害的次数（日志：前 `SPIN_LOG` 次每次一行，之后每 200 次一行）。
+static SPINS: std::sync::atomic::AtomicUsize = std::sync::atomic::AtomicUsize::new(0);
+const SPIN_LOG: usize = 30;
+
+/// 副本 E 每一圈的范围伤害里、主包那份 `Attack` 后面：打中的这个人再吃 `plan::spin_extra` 的物理伤害。
+struct SpinAs;
+
+impl StableEffectType for SpinAs {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+            return;
+        }
+        let target = input.target_id;
+        let Some((attack, mult)) = sim.get_entity(caster).map(|e| (e.stat().attack, e.attack_speed_mult())) else { return };
+        let extra = spin_extra(attack, mult);
+        if extra == 0 || !sim.get_entity(target).is_some_and(|e| e.is_alive()) {
+            return;
+        }
+        sim.deal_damage_typed(caster, target, extra, DamageTypeV1::Ad, AttackTypeV1::Skill);
+        let n = SPINS.fetch_add(1, std::sync::atomic::Ordering::Relaxed) + 1;
+        if n <= SPIN_LOG || n % 200 == 0 {
+            wlog(format!("{} SPIN #{n}: attack speed {mult}%, attack {attack}: +{extra} on #{target}",
+                         head(sim, &format!("#{caster}"))));
         }
     }
 }
@@ -319,7 +397,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Garen's R an execute on missing health, cast only for a kill) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Garen's R an execute on missing health, cast only for a kill; a held R backs off from towers, crowds and low health; E spins more with bonus attack speed) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -328,7 +406,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_player_input_ai(UltAi::default());
     module.add_native_passive(format!("{ID}:verdict"), Verdict::default());
-    host.log(LogLevel::Info, "league_garen_ult v1 loaded (Garen's R: an execute on missing health, only for a kill).");
+    module.add_native_effect(format!("{ID}:spin_as"), SpinAs);
+    host.log(LogLevel::Info, "league_garen_ult v2 loaded (Garen's R: an execute on missing health, only for a kill; E with attack speed).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

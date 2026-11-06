@@ -230,7 +230,7 @@
   },
   "skill2": {
     "action_name": "spin",
-    "description": "#asset/base/text/champion?description.league_garen.skill2",
+    "description": "#asset/base/text/champion?description.league_garen_ult.skill2",
     "duration": 20,
     "cooltime": 540,
     "start_timing": 2,
@@ -513,6 +513,10 @@
                   "type": "Attack",
                   "damage": 25,
                   "attack_ratio": 55
+                },
+                {
+                  "type": "Native",
+                  "effect_ref": "league_garen_ult:spin_as"
                 }
               ]
             }
@@ -744,6 +748,10 @@
                       "type": "Attack",
                       "damage": 25,
                       "attack_ratio": 55
+                    },
+                    {
+                      "type": "Native",
+                      "effect_ref": "league_garen_ult:spin_as"
                     }
                   ]
                 }
@@ -981,6 +989,10 @@
                       "type": "Attack",
                       "damage": 25,
                       "attack_ratio": 55
+                    },
+                    {
+                      "type": "Native",
+                      "effect_ref": "league_garen_ult:spin_as"
                     }
                   ]
                 }
@@ -1214,6 +1226,10 @@
                       "type": "Attack",
                       "damage": 25,
                       "attack_ratio": 55
+                    },
+                    {
+                      "type": "Native",
+                      "effect_ref": "league_garen_ult:spin_as"
                     }
                   ]
                 }
@@ -1451,6 +1467,10 @@
                       "type": "Attack",
                       "damage": 25,
                       "attack_ratio": 55
+                    },
+                    {
+                      "type": "Native",
+                      "effect_ref": "league_garen_ult:spin_as"
                     }
                   ]
                 }
@@ -1684,6 +1704,10 @@
                       "type": "Attack",
                       "damage": 25,
                       "attack_ratio": 55
+                    },
+                    {
+                      "type": "Native",
+                      "effect_ref": "league_garen_ult:spin_as"
                     }
                   ]
                 }
@@ -1921,6 +1945,10 @@
                       "type": "Attack",
                       "damage": 25,
                       "attack_ratio": 55
+                    },
+                    {
+                      "type": "Native",
+                      "effect_ref": "league_garen_ult:spin_as"
                     },
                     {
                       "type": "AddBuff",
