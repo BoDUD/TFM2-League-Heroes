@@ -13,6 +13,8 @@
 //!   英雄时，全队去跟离本队中心最近的那波强化兵，站到兵线上。已经跟上（`WITH_WAVE` 以内）就让 AI 自己打兵、拆塔，
 //!   它往对面基地那边走也放行；只在它往回走（目的地比兵线离对面基地远 `BACK_OFF` 以上）、回城时拉回兵线。
 //!   0.1.0 站在兵线身后 25000、跟上后 AI 往哪走都拉回：大龙后 90 秒抱团 1.7 -> 3.1 人，推塔却 2.0 -> 1.3 座（830 场）。
+//!   0.1.1 压到兵线上：抱团 3.0、推塔 1.6，但拿龙一方之后 90 秒击杀 2.9 / 阵亡 2.9（没有钩子时 3.3 / 2.6）——人少也被拉去
+//!   对面塔下。0.1.2 起只在人数不吃亏时推：我方活着的英雄不少于对面，而且至少 `JOIN_MIN_ALIVE` 个。
 //!
 //! 每 `SCAN` tick 看一次场上（每个选手自己的钩子实例里，不共用状态：游戏会并行跑好几场），两次之间沿用上次的打算。
 //! 只看比赛的状态，没有随机数：服务器预演和客户端重演走的一样。优先级 `PRIORITY` 比英雄附加包低，所以先跑，
@@ -46,6 +48,8 @@ pub const BARON_BUFF: &str = "epic_minion_buff";
 pub const FINISH_REACH: f64 = 180_000.0;
 /// 推基地：数基地这么近的双方英雄。
 pub const BASE_NEAR: f64 = 200_000.0;
+/// 跟强化兵推进：我方至少活着几个（而且不少于对面）。
+pub const JOIN_MIN_ALIVE: usize = 3;
 /// 推基地：自己的生命至少多少（%）。
 pub const FINISH_HP: usize = 25;
 /// 跟强化兵：自己的生命至少多少（%）。
@@ -166,6 +170,10 @@ pub fn plan(v: &View) -> Option<Intent> {
         }
     }
     if v.baron_minions.is_empty() || v.hp_pct < JOIN_HP || v.enemies.iter().any(|e| dist(e.1, v.me) <= FIGHT) {
+        return None;
+    }
+    // only with the numbers: not into a 4 v 5 under their towers
+    if v.allies.len() < JOIN_MIN_ALIVE || v.allies.len() < v.enemies.len() {
         return None;
     }
     // the baron wave nearest the team: everyone goes to the same one
@@ -415,6 +423,11 @@ mod tests {
         // in a fight, hurt, no baron wave, or no enemy nexus to push to: no
         assert_eq!(plan(&View { enemies: vec![(77, (310_000.0, 690_000.0))], ..v.clone() }), None);
         assert_eq!(plan(&View { enemy_nexus: None, ..v.clone() }), None);
+        // down in numbers (3 of ours alive, 4 of theirs), or too few of us: no
+        let far = |i: usize| (70 + i, (900_000.0, 50_000.0 + i as f64));
+        assert_eq!(plan(&View { enemies: (0..4).map(far).collect(), ..v.clone() }), None);
+        assert!(plan(&View { enemies: (0..3).map(far).collect(), ..v.clone() }).is_some(), "3 v 3");
+        assert_eq!(plan(&View { allies: v.allies[..2].to_vec(), enemies: vec![], ..v.clone() }), None);
         assert_eq!(plan(&View { hp_pct: 30, ..v.clone() }), None);
         assert_eq!(plan(&View { baron_minions: vec![], ..v.clone() }), None);
         // far from it: walk there; with it: the AI's own (farming, sieging, walking on); a walk back or a recall: back
