@@ -822,22 +822,22 @@ RESTYLE = {
     # (design_yone_hd.py: 90 rows / 2.20 = his 41); every action Codex's whole-frame redraw of the old frame read onto it
     # (tools/art/casts_yone_hd.py), so no density change; fx: E's cast laid on again into skill2_fx1 / e_dash_fx1
     # (rig_yone_hd, Rig.bake: yone_bake.json); the outline grown by 2
-    "yone": dict(ppu=90 / 41, edge=2, fx=True),
+    "yone": dict(ppu=90 / 41, edge=2, fx=True, face_to=(3, -33)),   # 2026-11-07 face: (2,-30) framed his chin and collar on the new model
     # Viktor (2026-11-06, 「下面重做凯隐 维克托 永恩 泰坦」, 「维克托 1.81」): Codex's viktor-A read on its own squares
     # (design_viktor_hd.py: 76 rows / 1.81 = his 42); every action Codex's whole-frame redraw of the old frame read onto
     # it (tools/art/casts_viktor_hd.py), so no density change; his old sheet bakes no effects; the outline grown by 2
-    "viktor": dict(ppu=76 / 42, edge=2),
+    "viktor": dict(ppu=76 / 42, edge=2, face_to=(5, -33)),   # 2026-11-07 face: (6,-37) framed his crest, the eye in a corner
     # Nautilus (2026-11-06, 「下面重做凯隐 维克托 永恩 泰坦」, 「泰坦1.80」): Codex's nautilus-A read on its own squares
     # (design_nautilus_hd.py: 92 rows / 1.80 = his 51); every action Codex's whole-frame redraw of the old frame read
     # onto it at the template's squares (tools/art/casts_nautilus_hd.py), so no density change; his old sheet bakes no
     # effects (the anchor's chain is his own drawing); the outline grown by 2
-    "nautilus": dict(ppu=92 / 51, edge=2),
+    "nautilus": dict(ppu=92 / 51, edge=2, face_to=(4, -32)),   # 2026-11-07 face: (3,-37) framed only the helmet dome
     # Kayn (2026-11-06, 「下面重做凯隐 维克托 永恩 泰坦」, 「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80」): Codex's kayn-A, kayn_darkin-A and
     # kayn_shadow-A read on their own squares (design_kayn*_hd.py: 72 rows / 1.80 = his 40, the Darkin's 77 / 43 and the
     # Shadow's 72 / 40) - one sheet, one PPU: all three at his 72 / 40 (rig_kayn_hd); every action Codex's whole-frame
     # redraw of the old frame read onto its form's design (tools/art/casts_kayn_hd.py), so no density change; fx: Q's
     # dash, W's winds and R's dive laid on again (rig_kayn_hd, Rig.bake: kayn_bake.json); the outline grown by 2
-    "kayn": dict(ppu=72 / 40, edge=2, fx=True),
+    "kayn": dict(ppu=72 / 40, edge=2, fx=True, face_to=(1, -34)),   # 2026-11-07 face: (-1,-37) framed hair and mark, the chin cut off
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2
