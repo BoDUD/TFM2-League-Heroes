@@ -1,4 +1,4 @@
-# 千珏附加包（测试版 v0.1.2，可选）
+# 千珏附加包（测试版 v0.1.3，可选）
 
 **不装这个附加包，主包里的千珏也是完整的**：羊灵射箭和千珏之印、Q 乱箭之舞、E 横生惧意 / W 狼灵狂热、R 羊灵生息（4 秒法阵里的
 友方英雄不会阵亡，结束时回血）都在主包数据里。主包是纯数据，**读不到当前生命**，所以 R 只能按数据看得见的「危险」去猜什么时候放；
@@ -34,12 +34,14 @@
    - `R ORDER for 某人#id (hp 22%)`：钩子下令放 R（她正忙时会连着下几次，这一行限量记）；
    - `R CAST for 某人#id (hp 22%, lost 35% in 60 ticks; R target #…, … from him; ordered … ticks before)`：R 真的放出去了，为谁、他当时多危险；
    - `R CAST by the AI itself`：AI 自己放了 R（钩子没拦住，不应该出现）；
-   - `R RESULT for 某人#id (hp …% at the cast): alive, hp …%, in the circle (undying)`：放出后 30 tick 他怎么样了；
+   - `R RESULT for 某人#id (hp …% at the cast): alive, hp …%, in the circle (undying)`：放出后 30 tick 他怎么样了；死了的（v0.1.3）写 `dead at t=…, n ticks after the cast (in the windup, before the circle's first undying / after the circle's first undying); last seen t=… (+n): hp …%, r_safe on / no r_safe, … from the circle's centre; killed by 英雄#id`（时刻和凶手来自击杀记录）；
    - `R HELD: nobody in her circle about to die, attacking instead`：AI 想放、没人危险，留着，改成普攻 / 走过去。
 
    每行开头是 `[presim m=… s=…] t=… #千珏的实体`（哪份模拟、哪场、哪局）。v0.1.1：`R ORDER` 也带上这个开头（以前只有 `t=… player …`，2026-11-03 夜里的日志）；玩法不变。
 
    v0.1.2（2026-11-05，11-04 夜里的日志）：227 个 `R RESULT` 有 50 个 dead，几乎全是她给自己放的——0–30% 时放，法阵落下要 20 tick，人死在引导里（31% 放、1 秒内掉了 41%）；而且她死了钩子就不跑，结果要等复活才记（晚 1400–2400 tick，看着像法阵没救到）。现在：她自己的线提到 **35%**，另外谁按最近 1 秒的掉血速度在法阵给到不死（26 tick 后）时会掉到线下，也算快要阵亡（提前放）；`R RESULT` 记晚了的写 `settled n ticks late - she died about t=…, m ticks after the cast (in the windup / after the circle came down)`，她自己的结果标 `(herself)`。AI 想放 R、改成的普攻被游戏拒收时原来会放过 AI 的 R（`.prev` 里一次 `R CAST by the AI itself`），现在改成原地站一 tick。
+
+   v0.1.3（2026-11-06，11-06 的日志）：88 个 `R RESULT` 里 14 个 dead（16%），12 个是她自己，多半死在放出后 6–25 tick；其中 4 次写着「after the circle came down」（22–25 tick），可那时法阵还没给过不死。查数据：法阵的区域 `first_delay` 是 0，引擎把 0 当成「过一整个 `r_per`（6 tick）才第一次给」——经典 SDK 的追踪：动作后 +22 法阵落下、+28 才第一次挂 `league_kindred_r_safe`，中间 6 tick 没有保护；改成 1 后 +23。所以 `tools/kit/build_kindred.py` 的法阵改成 `first_delay` 1（主包和副本一起，副本已重新生成），钩子的 `WINDUP`（放出到第一次不死）从 26 改成 22（`FIRST_SAFE` = `R_AT` + 2），`R RESULT` 的分界也改成第一次不死（`in the windup, before the circle's first undying` / `after the circle's first undying`）。死了的结果再记最后一次看到他的样子（生命、有没有法阵的不死、离法阵中心多远）和击杀记录里的凶手，下一局看死在第一次不死之后的那些是走出了法阵还是别的原因。
 
 ## 开发
 

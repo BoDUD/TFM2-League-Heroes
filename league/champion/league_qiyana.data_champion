@@ -506,7 +506,7 @@
                             "range": 52000,
                             "shape": {
                               "Circle": {
-                                "radius": 4000
+                                "radius": 8000
                               }
                             },
                             "y_offset": 0
@@ -659,7 +659,7 @@
                               "range": 52000,
                               "shape": {
                                 "Circle": {
-                                  "radius": 4000
+                                  "radius": 8000
                                 }
                               },
                               "y_offset": 0
@@ -804,7 +804,7 @@
                                     "range": 52000,
                                     "shape": {
                                       "Circle": {
-                                        "radius": 4000
+                                        "radius": 8000
                                       }
                                     },
                                     "y_offset": 0
@@ -1695,7 +1695,7 @@
                                                   "range": 52000,
                                                   "shape": {
                                                     "Circle": {
-                                                      "radius": 4000
+                                                      "radius": 8000
                                                     }
                                                   },
                                                   "y_offset": 0
@@ -1848,7 +1848,7 @@
                                                     "range": 52000,
                                                     "shape": {
                                                       "Circle": {
-                                                        "radius": 4000
+                                                        "radius": 8000
                                                       }
                                                     },
                                                     "y_offset": 0
@@ -1993,7 +1993,7 @@
                                                           "range": 52000,
                                                           "shape": {
                                                             "Circle": {
-                                                              "radius": 4000
+                                                              "radius": 8000
                                                             }
                                                           },
                                                           "y_offset": 0
@@ -3147,7 +3147,7 @@
                                                                                               "range": 52000,
                                                                                               "shape": {
                                                                                                 "Circle": {
-                                                                                                  "radius": 4000
+                                                                                                  "radius": 8000
                                                                                                 }
                                                                                               },
                                                                                               "y_offset": 0
@@ -3300,7 +3300,7 @@
                                                                                                 "range": 52000,
                                                                                                 "shape": {
                                                                                                   "Circle": {
-                                                                                                    "radius": 4000
+                                                                                                    "radius": 8000
                                                                                                   }
                                                                                                 },
                                                                                                 "y_offset": 0
@@ -3445,7 +3445,7 @@
                                                                                                       "range": 52000,
                                                                                                       "shape": {
                                                                                                         "Circle": {
-                                                                                                          "radius": 4000
+                                                                                                          "radius": 8000
                                                                                                         }
                                                                                                       },
                                                                                                       "y_offset": 0
@@ -4057,7 +4057,7 @@
                                                       "range": 52000,
                                                       "shape": {
                                                         "Circle": {
-                                                          "radius": 4000
+                                                          "radius": 8000
                                                         }
                                                       },
                                                       "y_offset": 0
@@ -4210,7 +4210,7 @@
                                                         "range": 52000,
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 4000
+                                                            "radius": 8000
                                                           }
                                                         },
                                                         "y_offset": 0
@@ -4355,7 +4355,7 @@
                                                               "range": 52000,
                                                               "shape": {
                                                                 "Circle": {
-                                                                  "radius": 4000
+                                                                  "radius": 8000
                                                                 }
                                                               },
                                                               "y_offset": 0

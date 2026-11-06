@@ -497,6 +497,21 @@ struct Track {
 
 static TRACKS: LazyLock<Mutex<HashMap<(u64, usize), Track>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
+/// A table holding this many rows: the oldest sims' rows go (each sim keeps one row per Orianna, her life now).
+pub const MOST_ROWS: usize = 4096;
+
+/// Her new life in sim `no` (a respawn is a new entity): this sim's rows of her earlier lives go, and while `rows` is
+/// full the oldest sim's rows go (the smallest number: one that ended long ago), never `no`'s. 0.3.2 cleared the whole
+/// table past 4096 rows: every sim running beside it lost the Ball's place (`TRACKS`) or the tick's Q pick (`AIMS`) at
+/// another tick than its twin (0.3.3, 11-06's audit).
+pub fn make_room<V>(rows: &mut HashMap<(u64, usize), V>, no: u64, me: usize) {
+    rows.retain(|k, _| k.0 != no || k.1 == me);
+    while rows.len() >= MOST_ROWS {
+        let Some(old) = rows.keys().map(|k| k.0).filter(|&s| s != no).min() else { break };
+        rows.retain(|k, _| k.0 != old);
+    }
+}
+
 /// 球现在在哪（没有记录：在她身边）。
 fn ball_at(sim: &StableSim<'_>, me: usize) -> Option<Ball> {
     TRACKS.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim_of(sim, me), me)).map(|t| t.ball)
@@ -584,11 +599,9 @@ struct Aim {
 
 static AIMS: LazyLock<Mutex<HashMap<(u64, usize), Aim>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
-/// 这份模拟、这个奥莉安娜这一 tick 的记录（换了 tick 就重来）。
+/// 这份模拟、这个奥莉安娜这一 tick 的记录（换了 tick 就重来）。她每次出生时 [`make_room`] 删掉这份模拟里她前几条命的行
+/// （0.3.3：以前超过 4096 行整张清掉，别的模拟这一 tick 记下的 Q 目标跟着没了）。
 fn aim_of(aims: &mut HashMap<(u64, usize), Aim>, key: (u64, usize), tick: usize) -> &mut Aim {
-    if aims.len() > 4096 {
-        aims.clear(); // finished sims
-    }
     let a = aims.entry(key).or_default();
     if a.tick != tick {
         *a = Aim { tick, ..Aim::default() };
@@ -966,10 +979,10 @@ impl StablePassive for Keeper {
         sim.entity_remove_buff(me, &on("home"));
         sim.add_buff(me, &home);
         let at = alive_at(sim, me).unwrap_or_default();
+        // her earlier lives' rows in this sim go, nobody else's (0.3.3: past 4096 rows both tables were cleared whole)
+        make_room(&mut AIMS.lock().unwrap_or_else(|e| e.into_inner()), self.sim_no, me);
         let mut tracks = TRACKS.lock().unwrap_or_else(|e| e.into_inner());
-        if tracks.len() > 4096 {
-            tracks.clear(); // finished sims
-        }
+        make_room(&mut tracks, self.sim_no, me);
         tracks.insert((self.sim_no, me), Track { ball: Ball::new(at), hurt: HashMap::new(), pick: None });
         drop(tracks);
         let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -1213,5 +1226,30 @@ mod tests {
         let names = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>().into_iter();
         assert_eq!(sim_tag(names(&["league_orianna_home", "league_orianna_sim:7"])), 7);
         assert_eq!(sim_tag(names(&["league_orianna_home"])), 0);
+    }
+
+    #[test]
+    fn a_new_life_makes_room_only_in_its_own_sim() {
+        // 11-06's audit: past 4096 rows the Ball table was cleared whole - the presim twins (the same entity ids) and the
+        // match on screen lost the Ball's place at different ticks
+        let mut rows: HashMap<(u64, usize), usize> = HashMap::new();
+        let (a, b) = (5_000, 5_001);
+        for no in [a, b] {
+            rows.insert((no, 21), 1);
+        }
+        // in A she died and is back as #90: A's #21 row goes, B's stays
+        make_room(&mut rows, a, 90);
+        rows.insert((a, 90), 2);
+        assert!(!rows.contains_key(&(a, 21)) && rows.contains_key(&(b, 21)) && rows.contains_key(&(a, 90)));
+        // finished sims fill the table: the oldest go first, never the sim making room, and the twins' rows stay
+        for old in 1..=(MOST_ROWS as u64) {
+            rows.insert((old, 21), 0);
+        }
+        make_room(&mut rows, b, 21);
+        assert!(rows.len() < MOST_ROWS, "{}", rows.len());
+        assert!(!rows.contains_key(&(1, 21)), "the oldest sim went first");
+        for k in [(a, 90), (b, 21)] {
+            assert!(rows.contains_key(&k), "{k:?} went");
+        }
     }
 }

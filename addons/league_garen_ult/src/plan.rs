@@ -101,6 +101,46 @@ pub fn plan(ai: Option<usize>, ai_foe: Option<Foe>, foes: &[Foe], attack: usize,
     }
 }
 
+/// While he casts (E's 3-second spin: the cast animation, game 0.6.4's `Animation`), is moved (`ForceMove`) or held by
+/// crowd control that stops a cast, the engine takes no R (0.1.2; the 11-06 log: one press pressed for 120+ ticks): the hook
+/// presses none of its own. The AI's own R is still held when it would not kill: `Ult` of another becomes a hold of the
+/// AI's target.
+pub fn quiet(p: Plan, ai: Option<usize>) -> Plan {
+    match p {
+        Plan::Ult(_) => ai.map_or(Plan::Keep, Plan::Hold),
+        p => p,
+    }
+}
+
+/// A press of R the engine has not taken for this many ticks gets its line (0.1.2).
+pub const NOT_TAKEN: usize = 30;
+
+/// The hook's press of R (0.1.2): since when, at whom, whether its `R NOT TAKEN` line is out.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Press {
+    pub since: usize,
+    pub target: usize,
+    pub told: bool,
+}
+
+/// One think of the press watch: `pressing` = the hook presses R at this champion now, `cooling` = R's cooldown runs (the
+/// press was taken). Some(ticks pressed) once a press has gone `NOT_TAKEN` ticks untaken - its line, once.
+pub fn watch_press(press: &mut Option<Press>, pressing: Option<usize>, cooling: bool, now: usize) -> Option<usize> {
+    let Some(t) = pressing.filter(|_| !cooling) else {
+        *press = None;
+        return None;
+    };
+    let p = press.get_or_insert(Press { since: now, target: t, told: false });
+    if p.target != t {
+        *p = Press { since: now, target: t, told: false };
+    }
+    if !p.told && now >= p.since + NOT_TAKEN {
+        p.told = true;
+        return Some(now - p.since);
+    }
+    None
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -140,6 +180,30 @@ mod tests {
         assert_eq!(plan(None, None, &foes, 200, true), Plan::Ult(2));
         assert_eq!(plan(None, None, &thick, 200, true), Plan::Keep);
         assert_eq!(plan(None, None, &foes, 200, false), Plan::Keep);
+    }
+
+    #[test]
+    fn no_press_while_he_spins_and_an_untaken_press_is_told() {
+        // 11-06's logs: R KILL at t=16698 and again at 16818 (LOG_EVERY 120), R still ready - not taken for 120+ ticks,
+        // likely inside E's 180-tick spin
+        assert_eq!(quiet(Plan::Ult(2), None), Plan::Keep, "nothing of his own pressed");
+        assert_eq!(quiet(Plan::Ult(2), Some(1)), Plan::Hold(1), "the AI's R at one it would not kill: still held");
+        assert_eq!(quiet(Plan::Keep, Some(1)), Plan::Keep, "the AI's R that kills goes");
+        assert_eq!(quiet(Plan::Hold(1), Some(1)), Plan::Hold(1));
+        let mut p = None;
+        assert_eq!(watch_press(&mut p, Some(21), false, 16_698), None);
+        assert_eq!(watch_press(&mut p, Some(21), false, 16_698 + NOT_TAKEN - 1), None);
+        assert_eq!(watch_press(&mut p, Some(21), false, 16_698 + NOT_TAKEN), Some(NOT_TAKEN), "told once");
+        assert_eq!(watch_press(&mut p, Some(21), false, 16_818), None);
+        // taken: R's cooldown runs - the watch ends
+        assert_eq!(watch_press(&mut p, None, true, 16_819), None);
+        assert_eq!(p, None);
+        // another target starts a new press; a tick without a press ends it
+        assert_eq!(watch_press(&mut p, Some(21), false, 20_000), None);
+        assert_eq!(watch_press(&mut p, Some(454), false, 20_010), None);
+        assert_eq!(p.map(|x| (x.since, x.target)), Some((20_010, 454)));
+        assert_eq!(watch_press(&mut p, None, false, 20_011), None);
+        assert_eq!(p, None);
     }
 
     #[test]

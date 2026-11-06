@@ -165,6 +165,13 @@ fn shared() -> Params {
 
 pub type Pt = (f64, f64);
 
+/// The data's Magnet Storm takes this enemy (`d` centre to centre): its pull and hits are `RangeEffect`s round her
+/// (`AroundCaster` circles of `r_r`), and such a circle counts the radius of the unit tested and the caster's
+/// (champion-data.md, "Shapes"). 0.1.3's RFIRE counted centre to centre: "0 enemy champions within 34000" on 11 of 19 casts.
+pub fn in_storm(d: f64, r_r: usize, mine: usize, theirs: usize) -> bool {
+    d <= (r_r + mine + theirs) as f64
+}
+
 pub fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
@@ -350,16 +357,21 @@ impl StablePassive for Iron {
         }
         let r_on = has_buff(sim, me, R_ON);
         if r_on && !self.r_on {
-            let (team, at) = match sim.get_entity(me) {
-                Some(e) => (e.team(), (e.pos().0 as f64, e.pos().1 as f64)),
+            let (team, at, mine) = match sim.get_entity(me) {
+                Some(e) => (e.team(), (e.pos().0 as f64, e.pos().1 as f64), e.radius()),
                 None => return,
             };
-            let n = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| {
-                u.team() != team && u.is_alive() && u.is_champion() && dist(at, (u.pos().0 as f64, u.pos().1 as f64)) <= p.r_r as f64
-            }).count();
+            // as the data's storm takes them: her radius and theirs on top of r_r (0.1.4)
+            let foes: Vec<(f64, usize)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+                .filter(|u| u.team() != team && u.is_alive() && u.is_champion())
+                .map(|u| (dist(at, (u.pos().0 as f64, u.pos().1 as f64)), u.radius()))
+                .collect();
+            let n = foes.iter().filter(|&&(d, r)| in_storm(d, p.r_r, mine, r)).count();
+            let nearest = foes.iter().map(|f| f.0).min_by(|a, b| a.total_cmp(b));
             if let Some(k) = counted("rfire") {
-                wlog(format!("{} RFIRE Magnet Storm with {n} enemy champion{} within {} #{k}", head(sim, me),
-                    if n == 1 { "" } else { "s" }, p.r_r));
+                wlog(format!("{} RFIRE Magnet Storm with {n} enemy champion{} within {} and the bodies (nearest {}) #{k}",
+                    head(sim, me), if n == 1 { "" } else { "s" }, p.r_r,
+                    nearest.map_or_else(|| "none".to_string(), |d| format!("{d:.0} centre to centre"))));
             }
         }
         self.r_on = r_on;
@@ -499,6 +511,15 @@ mod tests {
         assert_eq!(steal_total(&[(5, (100, 40)), (2, (200, 200))], 3), (15 + 12, 10 + 12));
         assert_eq!(steal_total(&[(9, (100, 100))], 3), (15, 15)); // never past five stacks
         assert_eq!(steal_total(&[], 3), (0, 0));
+    }
+
+    #[test]
+    fn the_storm_counts_the_bodies() {
+        // two champions' 10000 bodies on top of r_r 34000: one 50000 away is in (0.1.3 counted him out)
+        assert!(in_storm(50_000.0, 34_000, 10_000, 10_000));
+        assert!(in_storm(54_000.0, 34_000, 10_000, 10_000));
+        assert!(!in_storm(54_001.0, 34_000, 10_000, 10_000));
+        assert!(in_storm(34_000.0, 34_000, 0, 0) && !in_storm(34_001.0, 34_000, 0, 0));
     }
 
     #[test]

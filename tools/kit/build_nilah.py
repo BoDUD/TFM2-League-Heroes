@@ -59,7 +59,9 @@ P = {
     "atk_range": 30000, "atk_dur": 24, "atk_cd": 56, "a_st": 13,
     # Q Formless Blade (League: 600 line, -10..50 + 100% AD, cd 4 s; then 4 s +125 range, the attacks cut a cone and heal
     # (20% crit-scaled); after E a spin round her)
-    "q_cd": 300, "q_range": 60000, "q_dur": 24, "q_at": 12, "q_len": 62000, "q_w": 6000, "q_speed": 15000,
+    # q_w: the engine tests the line only where it stands at each tick, the centre within the circle (game 0.7.1): 6000
+    # at 15000 a tick left gaps; 7500 >= 15000 / 2 (League's 150-wide whip plus a body is wider still), 2026-11-06
+    "q_cd": 300, "q_range": 60000, "q_dur": 24, "q_at": 12, "q_len": 62000, "q_w": 7500, "q_speed": 15000,
     "q_dmg": 40, "q_ratio": 100, "q_t": 240, "q_add": 12500, "q_vamp": 10, "q_spl": 25, "q_cone": 700,
     "q_spin_dur": 22, "q_spin_at": 9, "q_spin_r": 28000, "eq_t": 90,
     # E Slipstream (League: 2 charges, 26-16 s each, 550 range, dash 600 through the target at 2200, 50-110 + 20% AD)

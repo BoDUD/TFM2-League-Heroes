@@ -9,7 +9,15 @@
 //! - `league_sion_r_go` 没了：不到 `R_TICK` tick 是撞上了（`HIT`，按跑了多久分三档），跑满就是没撞到（`MISS`）；
 //! - 每条命结束（阵亡、变亡灵）记一行 `R this life: armed N, charged M`。
 //! 变成亡灵时把 `r_arm` 摘掉：亡灵不能放技能，可数据的轮询还在跑，窗口开着就还会冲出去。
+//!
+//! 0.3.0（2026-11-06 的日志：11 次冲撞全是「救人」，7 次在上膛后的第一次轮询，5 次身边一个队友都没有，一次冲向 107525 外的
+//! 英雄落空）：游戏 0.7.0 起数据的 `AllyChampionInCC` 把放技能的动作也算成被控（加里奥附加包查出的），哪个队友在出招都算
+//! 「被控」。救人改由本包判断：`held_pick` 只认**硬控**（`HARD_CC`：击飞、晕眩、定身、嘲讽、恐惧、魅惑、禁止位移技能；不算施法
+//! 动作和强制位移），`r_save` 内（加两个身体）、身边 `r_peel` 内有敌方英雄的队友（不含他自己），离他最近的那个；被动在上膛时
+//! 每 tick 给他续 `league_sion_r_cc`（3 tick），副本的轮询看它走「救人」，`league_sion:held` 让探针飞向这个队友。
 use std::collections::HashSet;
+
+use mod_api_stable::*;
 
 /// 主包参数表的数字（单元测试核对 build_sion.P）：冲最多 R_TICK tick，R_B1 / R_B2 分三档伤害，窗口 R_ARM_T tick，轮询 R_POLL。
 pub const R_TICK: usize = 50;
@@ -20,15 +28,68 @@ pub const R_POLL: usize = 10;
 /// 轮询看的范围（主包：r_range 90000 内的敌方英雄，r_near 50000 内的队友；都按圆心算，引擎还会加上两个身体）。
 pub const R_RANGE: u64 = 90000;
 pub const R_NEAR: u64 = 50000;
+/// 救人（主包 r_save、r_peel）：他身边这么远内被硬控的队友，那个队友身边这么远内要有敌方英雄（都加两个身体）。
+pub const R_SAVE: u64 = 60000;
+pub const R_PEEL: u64 = 30000;
+/// 被动在上膛时给他续的「有队友被硬控」标记（副本的轮询读它），和 `league_sion:held` 挂的「就是这个队友」标记。
+pub const R_CC: &str = "league_sion_r_cc";
+pub const R_THIS: &str = "league_sion_r_this";
+/// `R_CC` 每 tick 续多久（n tick 的标记只看得到 n−1 tick，续 3 tick 一直都在，条件没了 2 tick 内就没了）。
+pub const R_CC_T: usize = 3;
+/// 窗口过期后过这么多 tick 再读大招冷却：退还是过期那一 tick 挂上的 3 tick `ult_cooldown_mult`，当 tick 读还是 3002。
+pub const LAPSE_READ: usize = 4;
 
-/// 冲撞的原因，照冲出去前一 tick 身上的标记。
+/// 硬控：救人只认这些（加里奥附加包的 `is_hard_cc` 去掉强制位移——队友自己冲刺也记成它——加上禁止位移技能）。
+/// 不是 `cc_count() > 0`：游戏把正在播的施法动作也记成一种控制（`CcKindV1::Animation`）。
+pub const HARD_CC: [CcKindV1; 7] = [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear,
+                                    CcKindV1::Charm, CcKindV1::BlockMoveSkill];
+
+/// One crowd-control entry's kind is hard (not a cast animation, a forced move, a silence or a disarm).
+pub fn is_hard_cc(kind: u32) -> bool {
+    HARD_CC.iter().any(|k| k.code() == kind)
+}
+
+/// The kinds' names for the log (`Stun`, `Airborne` ...).
+pub fn cc_names(kinds: &[u32]) -> String {
+    let v: Vec<String> = kinds.iter().map(|&k| CcKindV1::from_code(k).map_or_else(|| format!("kind {k}"), |c| format!("{c:?}"))).collect();
+    v.join("+")
+}
+
+/// 一个队友：编号、位置、身体半径、身上的硬控种类。
+#[derive(Clone, Debug, PartialEq)]
+pub struct Mate {
+    pub id: usize,
+    pub at: (f64, f64),
+    pub r: f64,
+    pub hard: Vec<u32>,
+}
+
+fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 救谁：被硬控、离他 `R_SAVE` 内、身边 `R_PEEL` 内有敌方英雄的队友（不含他自己，距离都加两个身体，和数据的范围一样），
+/// 离他最近的（一样近的编号小的）。`foes`：活着的敌方英雄的位置和身体半径。
+pub fn held_pick(me: (f64, f64), my_r: f64, mates: &[Mate], foes: &[((f64, f64), f64)]) -> Option<usize> {
+    mates
+        .iter()
+        .filter(|m| !m.hard.is_empty() && dist(me, m.at) <= R_SAVE as f64 + my_r + m.r)
+        .filter(|m| foes.iter().any(|&(at, r)| dist(m.at, at) <= R_PEEL as f64 + m.r + r))
+        .min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)).then(a.id.cmp(&b.id)))
+        .map(|m| m.id)
+}
+
+/// 冲撞的原因，照冲出去前一 tick 身上的标记：数数的标记（`r_n3` / `r_n2`）只在没走「救人」时才有，所以先看它们；
+/// 本包的 `r_cc` 是救人。都没有：主包的数据（不走本包）或看漏了。
 pub fn reason(prev: &HashSet<String>) -> &'static str {
     if prev.contains("league_sion_r_n3") {
         "teamfight (2 allies near)"
     } else if prev.contains("league_sion_r_n2") {
         "engage / follow-up (1 ally near)"
+    } else if prev.contains(R_CC) {
+        "save"
     } else {
-        "save (an ally in crowd control)"
+        "unknown (no count or save flag the tick before)"
     }
 }
 
@@ -153,8 +214,44 @@ mod tests {
     fn the_reason_follows_the_count_flags() {
         assert_eq!(reason(&names(&["r_arm", "r_n1", "r_n2", "r_n3"])), "teamfight (2 allies near)");
         assert_eq!(reason(&names(&["r_arm", "r_n1", "r_n2"])), "engage / follow-up (1 ally near)");
-        assert_eq!(reason(&names(&["r_arm", "r_n1"])), "save (an ally in crowd control)");
-        assert_eq!(reason(&names(&[])), "save (an ally in crowd control)");
+        // 0.3.0: a save only with the add-on's r_cc (11-06: every charge read "save", the fallback)
+        assert_eq!(reason(&names(&["r_arm", "r_cc"])), "save");
+        // the count flags come only from the poll that did not save: they win over an r_cc raised after it
+        assert_eq!(reason(&names(&["r_arm", "r_cc", "r_n1", "r_n2"])), "engage / follow-up (1 ally near)");
+        assert!(reason(&names(&["r_arm", "r_n1"])).starts_with("unknown"));
+        assert!(reason(&names(&[])).starts_with("unknown"));
+    }
+
+    #[test]
+    fn a_cast_animation_or_a_dash_is_no_save() {
+        // 11-06: game 0.7.0's AllyChampionInCC takes cast animations - 11 of 11 charges were "saves"
+        for k in [CcKindV1::Animation, CcKindV1::ForceMove, CcKindV1::BlockSkill, CcKindV1::BlockAttack] {
+            assert!(!is_hard_cc(k.code()), "{k:?}");
+        }
+        for k in HARD_CC {
+            assert!(is_hard_cc(k.code()), "{k:?}");
+        }
+        assert_eq!(cc_names(&[CcKindV1::Stun.code(), CcKindV1::Airborne.code()]), "Stun+Airborne");
+    }
+
+    #[test]
+    fn the_save_is_for_the_nearest_ally_held_with_an_enemy_beside_him() {
+        let stun = vec![CcKindV1::Stun.code()];
+        let mate = |id: usize, x: f64, hard: &Vec<u32>| Mate { id, at: (x, 0.0), r: 10_000.0, hard: hard.clone() };
+        let foe = |x: f64, y: f64| ((x, y), 10_000.0);
+        let me = (0.0, 0.0);
+        // stunned 50000 off with an enemy 25000 from him: him
+        assert_eq!(held_pick(me, 10_000.0, &[mate(7, 50_000.0, &stun)], &[foe(75_000.0, 0.0)]), Some(7));
+        // casting only (no hard crowd control): nobody
+        assert_eq!(held_pick(me, 10_000.0, &[mate(7, 50_000.0, &vec![])], &[foe(75_000.0, 0.0)]), None);
+        // held but no enemy champion near him: no one to peel
+        assert_eq!(held_pick(me, 10_000.0, &[mate(7, 50_000.0, &stun)], &[foe(150_000.0, 0.0)]), None);
+        // beyond r_save and both bodies (60000 + 20000)
+        assert_eq!(held_pick(me, 10_000.0, &[mate(7, 81_000.0, &stun)], &[foe(100_000.0, 0.0)]), None);
+        assert_eq!(held_pick(me, 10_000.0, &[mate(7, 79_000.0, &stun)], &[foe(100_000.0, 0.0)]), Some(7));
+        // two held: the nearer one
+        let two = [mate(7, 60_000.0, &stun), mate(8, -30_000.0, &stun)];
+        assert_eq!(held_pick(me, 10_000.0, &two, &[foe(70_000.0, 0.0), foe(-50_000.0, 0.0)]), Some(8));
     }
 
     #[test]
@@ -212,8 +309,15 @@ mod tests {
         let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_sion.py");
         let src = std::fs::read_to_string(path).expect("build_sion.py");
         for (key, v) in [("r_tick", R_TICK), ("r_b1", R_B1), ("r_b2", R_B2), ("r_arm_t", R_ARM_T), ("r_poll", R_POLL),
-                         ("r_range", R_RANGE as usize), ("r_near", R_NEAR as usize)] {
+                         ("r_range", R_RANGE as usize), ("r_near", R_NEAR as usize), ("r_save", R_SAVE as usize),
+                         ("r_peel", R_PEEL as usize)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_sion.P");
         }
+        // the copy reads the passive's flag and asks league_sion:held (make_override.py writes it from the kit)
+        let copy = include_str!("../override/league_sion.data_champion");
+        for s in [format!("\"{R_CC}\""), format!("\"{R_THIS}\""), "\"league_sion:held\"".to_string()] {
+            assert!(copy.contains(&s), "the copy has no {s}");
+        }
+        assert!(R_CC.len() <= BUFF_NAME_CAP && R_THIS.len() <= BUFF_NAME_CAP);
     }
 }

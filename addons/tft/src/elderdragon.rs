@@ -10,6 +10,8 @@
 //!   的 buff：死歌灵体、基兰大招）、免伤 100% 的、放逐中的（选不中）不处决（`spared`，日志 `EXECUTE SPARED`）；处决过的人
 //!   `EXEC_AGAIN` 拍内不再处决（它自己这一下也会经 `on_attack` 回来，以前就这样循环）；下一拍再看结果（伤害排队到拍末才结
 //!   算，以前每行都写 still alive），活着的记 `EXECUTE SURVIVED`。
+//!   2026-11-06（0.54.0，画面和预模拟分岔的排查）：一拍里打中的人按打中的先后处决（`once_each`）；以前过一个 HashSet，
+//!   它的顺序每份模拟都不一样（各有各的随机键），几个人同时到线时处决、击杀的先后在每份里不同。
 //! - **龙焰撕咬（溅射）** `tft_elderdragon:bite`：普攻咬中时，目标身边 `a_r` 以内的其他敌人（不含防御塔）挨 `a_splash`%
 //!   攻击力的物理伤害。数据的范围效果分不出主目标。
 //! - **烈焰吐息** `tft_elderdragon:breath`：朝**穿过目标、敌方英雄最多**的直线喷火。候选方向是朝 `q_len` 以内每个敌方
@@ -313,6 +315,18 @@ pub fn executed_lately(done: &[Exec], id: usize, now: usize) -> bool {
 /// Drops the executes `EXEC_AGAIN` ticks old (`now` jumps back: a new match).
 pub fn prune_execs(done: &mut Vec<Exec>, now: usize) {
     done.retain(|x| x.tick <= now && now < x.tick + EXEC_AGAIN);
+}
+
+/// Each id once, where it first stands (the units its attacks and skills struck, in the order struck): the order the
+/// executes go out in, the same in every run of a match.
+pub fn once_each(ids: Vec<usize>) -> Vec<usize> {
+    let mut out = Vec::with_capacity(ids.len());
+    for id in ids {
+        if !out.contains(&id) {
+            out.push(id);
+        }
+    }
+    out
 }
 
 /// One Ignite tick: `per_mille` of the target's maximum health, at least 1, at most `cap`.
@@ -688,7 +702,9 @@ impl StablePassive for Elder {
         outcomes(sim, me);
         let due: Vec<usize> = self.struck.iter().filter(|&&(_, t)| t < now).map(|&(id, _)| id).collect();
         self.struck.retain(|&(_, t)| t >= now);
-        for id in due.into_iter().collect::<HashSet<_>>() {
+        // each unit once, in the order struck (0.54.0: a HashSet's order - its own random keys in every simulation - put
+        // the executes of several champions under the line in one tick in another order in each run: another kill order)
+        for id in once_each(due) {
             execute(sim, me, id);
         }
     }
@@ -803,6 +819,15 @@ mod tests {
         let mut done = vec![x(7, 5000, true)];
         prune_execs(&mut done, 10);
         assert!(done.is_empty());
+    }
+
+    #[test]
+    fn the_struck_are_executed_in_the_order_struck() {
+        // 11-06's audit: the struck went through a HashSet - its own random keys in every simulation - so two champions
+        // under the line in one tick were executed in another order in each run of the match
+        assert_eq!(once_each(vec![9, 4, 9, 7, 4]), vec![9, 4, 7]);
+        assert_eq!(once_each(vec![4, 9]), vec![4, 9]);
+        assert!(once_each(Vec::new()).is_empty());
     }
 
     #[test]

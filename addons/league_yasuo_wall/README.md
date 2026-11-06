@@ -1,4 +1,4 @@
-# 亚索风之障壁附加包（测试版 v0.1.0，可选）
+# 亚索风之障壁附加包（测试版 v0.1.2，可选）
 
 用户 2026-10-24：「还有个亚索风墙吧？但是亚索风墙要智能点放啊」「你要做风墙的特效也一起把压缩包整理了」。
 
@@ -16,9 +16,15 @@
 1. 主包（League of Legends Heroes 0.210.0 以上）要装着并启用。
 2. 把 `league_yasuo_wall` 文件夹放进 `<游戏目录>\mods\`，或者用附加包合集 `league_addons`（已经包含本包）。在 MOD 菜单里启用，排在主包后面，重启游戏。
 3. 亚索普攻的说明开头是「【附加包】」、末尾有「风之障壁」就说明换上了。
-4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yasuo_wall.log`：`WALL #n at (x, y) facing (1.00, 0.00): 2 missiles coming, 7 of 7 pieces shown`、`BLOCKED #n: a missile of #7`、`SAVED #3: 85 damage given back`。
+4. 日志 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yasuo_wall.log`：`WALL #n at (x, y) facing (1.00, 0.00): 2 missiles coming, 7 of 7 pieces shown #k`、`BLOCKED #n: a missile of #7 #k`、`SAVED #3: 85 damage given back #k`（`#n` 是这个亚索的第几面墙 / 第几个，末尾的 `#k` 是这次启动这一种行的第几行）。
 
 ## 开发
 
 - `python tools/art/import_yasuo_wall.py [--preview DIR]`：重新切墙的画面；`python addons/league_yasuo_wall/make_override.py`：重新生成副本（`--check` 只比较）。
 - `cargo test -p league_yasuo_wall`（在 `addons/` 下）。
+
+## 0.1.2：日志限条数（2026-11-06，11-06 的日志）
+
+日志一行都不限：一次启动 487 KB（`BLOCKED` 2882 行、`WALL` 1204、`SPAWN` 794、`SAVED` 274）、另一次 287 KB；0.1.1 只按每个亚索限
+（每局 80 面墙、120 个飞行物），服务器每次启动跑几百场预演，加起来就没有上限。现在和别的附加包一样每种行整个启动一个计数：预演先记
+40 行、之后每 100 行记一行，你看的那场（画面、观战、回放）每行都记；行末多一个 `#k`（这一种行的第几行）。玩法不变。

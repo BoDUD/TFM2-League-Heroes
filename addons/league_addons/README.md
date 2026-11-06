@@ -11,8 +11,8 @@
   等），各附加包的英雄数据原样可用。
 - 只能有一个的三样由合集自己设、在 `src/lib.rs` 里转发，设在所有 `register` 之后：地图读取 `MapReaders`、客户端扩展 `BundleClient`
   （佛耶戈的时钟、阿克尚的复活大字、奥恩的锻造光晕、英雄联盟彩蛋的公告和头像计数）、比赛钩子 `BundleMatch`（2026-11-05 起：先卡尔萨斯的
-  `Respawns`，再英雄联盟彩蛋 league_eggs 的 `Eggs`）。哪个附加包要用这三样，加进转发里，别在 `register` 里自己设（后设的会把前面的
-  整个换掉，不报错）。
+  `Respawns`，再英雄联盟彩蛋 league_eggs 的 `Eggs`，2026-11-06 起再卢锡安开大朝向子弹的 `Aim`）。哪个附加包要用这三样，加进转发里，
+  别在 `register` 里自己设（后设的会把前面的整个换掉，不报错）。
 - `build.rs` 打开 `league_bundle`：各附加包源码里的 `declare_stable_mod!` 只在单独编译时生效，合集只导出自己的入口。
   单独编译每个附加包还是它自己的 DLL（`cargo build --release` 一次全编）。
 - 数据由 `assemble.py` 合成：复制各附加包的 `override/`、`effects/`，里面和 `mod.override_info` 里的 `asset/<附加包>/` 改成

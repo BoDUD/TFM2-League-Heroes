@@ -150,15 +150,25 @@ const MAX_PLANTED: usize = 4096;
 /// own show up there).
 type FieldKey = (u64, usize);
 static FIELDS: LazyLock<Mutex<HashMap<FieldKey, Vec<Shroom>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// More fields remembered than this (matches that ended): start over.
-const MAX_FIELDS: usize = 4096;
+/// A table holding this many fields: the oldest sims' go (each sim keeps one per Teemo).
+pub const MAX_FIELDS: usize = 4096;
 
 fn publish(sim_no: u64, player: usize, field: &[Shroom]) {
     let mut f = FIELDS.lock().unwrap_or_else(|e| e.into_inner());
-    if f.len() > MAX_FIELDS {
-        f.clear();
+    if !f.contains_key(&(sim_no, player)) {
+        make_room(&mut f, sim_no);
     }
     f.insert((sim_no, player), field.to_vec());
+}
+
+/// A new field for sim `no` comes in: while `fields` is full the oldest sim's fields go (the smallest number: one that
+/// ended long ago), never `no`'s. 0.2.2 cleared the whole table past 4096 fields: in every sim running beside it the sowing
+/// hook saw no shrooms in the ground for a tick, at another tick than its twin (0.2.3, 11-06's audit).
+pub fn make_room<V>(fields: &mut HashMap<FieldKey, V>, no: u64) {
+    while fields.len() >= MAX_FIELDS {
+        let Some(old) = fields.keys().map(|k| k.0).filter(|&s| s != no).min() else { break };
+        fields.retain(|k, _| k.0 != old);
+    }
 }
 
 /// The player's Teemo's shrooms in the ground (`me`: his champion now; none before his passive has run).
@@ -358,6 +368,27 @@ mod tests {
     #[test]
     fn the_sim_tag_fits_a_buff_name() {
         assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
+    fn a_full_table_drops_only_the_oldest_sims() {
+        // 11-06's audit: past 4096 fields the table was cleared whole - the sowing hook of every sim running beside it saw an
+        // empty field for a tick, at another tick than its twin
+        let mut fields: HashMap<FieldKey, usize> = HashMap::new();
+        let (a, b) = (9_000, 9_001);
+        for no in 1..=(MAX_FIELDS as u64 - 2) {
+            fields.insert((no, 3), 0);
+        }
+        fields.insert((a, 3), 1);
+        fields.insert((b, 3), 1);
+        make_room(&mut fields, b);
+        assert!(fields.len() < MAX_FIELDS, "{}", fields.len());
+        assert!(!fields.contains_key(&(1, 3)), "the oldest sim went first");
+        assert!(fields.contains_key(&(a, 3)) && fields.contains_key(&(b, 3)) && fields.contains_key(&(2, 3)));
+        // room enough: nothing goes
+        let n = fields.len();
+        make_room(&mut fields, a);
+        assert_eq!(fields.len(), n);
     }
 
     #[test]

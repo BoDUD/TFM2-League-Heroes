@@ -348,9 +348,10 @@ impl Foe {
     }
 }
 
-/// 电炮的宽（主包 r_w），挡路的英雄身体没读到时按这么宽算。
-pub const GATE_W: f64 = 3_500.0;
-pub const BODY: f64 = 6_000.0;
+/// 电炮的圆（主包 r_w）。0.1.3（2026-11-06）：游戏的投射物每 tick 跳 `speed`、只打圆心在这一 tick 的圆里的单位（不扫中间、
+/// 不算体型），3500 的圆每 tick 飞 9000 会从英雄身上跨过去、飞到头才炸（离他 25000 以外，炸不到）：主包改 8000；挡路也只看
+/// 圆心离线多远（以前加上身体，13500 以内都算挡）。
+pub const GATE_W: f64 = 8_000.0;
 /// 生命低于这么多 % 算受了伤（都不低于就挑最远的）。
 pub const WOUNDED: usize = 90;
 
@@ -359,12 +360,10 @@ pub fn gate_damage(ad: usize, def: usize, p: &Params) -> usize {
     (p.gate_dmg + ad * p.gate_ad / 100) * 100 / (100 + def)
 }
 
-/// 从 `me` 到 `to` 的线上，比 `to` 近的别的敌方英雄挡着吗（电炮碰到第一个英雄就停）。
+/// 从 `me` 到 `to` 的线上，比 `to` 近的别的敌方英雄挡着吗（电炮碰到第一个英雄就停；圆心离线 GATE_W 以内才算，0.1.3）。
 pub fn blocked(me: Pt, to: &Foe, foes: &[Foe]) -> bool {
     let d = dist(me, to.at);
-    foes.iter().any(|f| {
-        f.id != to.id && dist(me, f.at) < d && seg_dist(me, to.at, f.at) <= GATE_W + if f.r > 0.0 { f.r } else { BODY }
-    })
+    foes.iter().any(|f| f.id != to.id && dist(me, f.at) < d && seg_dist(me, to.at, f.at) <= GATE_W)
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -724,5 +723,27 @@ mod tests {
         assert_eq!(gate_pick(me, 200, &[behind, front], &pp).map(|(f, w)| (f.id, w)), Some((2, GateWhy::Far)));
         let aside = Foe { at: (40_000.0, 30_000.0), ..front };
         assert_eq!(gate_pick(me, 200, &[behind, aside], &pp).map(|(f, w)| (f.id, w)), Some((1, GateWhy::Kill)));
+        // 0.1.3: the engine reads the centre only - a champion 10000 off the line (body 6000) lets the orb by
+        let off = Foe { at: (40_000.0, 10_000.0), ..front };
+        assert_eq!(gate_pick(me, 200, &[behind, off], &pp).map(|(f, w)| (f.id, w)), Some((1, GateWhy::Kill)));
+    }
+
+    #[test]
+    fn the_gate_orb_steps_over_nobody() {
+        // the main pack's orb: r_w = GATE_W, and 2 x r_w >= r_speed (a projectile tests its circle only where it stands
+        // at each tick: 3500 at 9000 stepped over a champion between two ticks, game 0.7.1)
+        let kit = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_jayce.py"))
+            .expect("build_jayce.py");
+        let num = |k: &str| -> f64 {
+            let at = kit.find(&format!("\"{k}\": ")).unwrap_or_else(|| panic!("{k} not in build_jayce.P")) + k.len() + 4;
+            kit[at..].split(|c: char| !c.is_ascii_digit()).next().unwrap().parse().unwrap()
+        };
+        assert_eq!(num("r_w"), GATE_W);
+        assert!(2.0 * num("r_w") >= num("r_speed"));
+        let copy = include_str!("../override/league_jayce.data_champion");
+        let flat: String = copy.split_whitespace().collect();
+        assert!(flat.contains("\"name\":\"league_jayce_gq_orb\",\"penetrate\":false,\"applied_target\":\"EnemyChampion\",\"applied_effects\":[],\"end_effects\":"),
+                "the copy's gate orb moved");
+        assert!(flat.contains(&format!("\"Circle\":{{\"radius\":{}}}}},\"y_offset\":{}", GATE_W as u64, -6700)), "the copy's gate orb is not GATE_W");
     }
 }

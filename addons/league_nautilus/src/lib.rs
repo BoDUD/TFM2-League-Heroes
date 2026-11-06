@@ -294,8 +294,6 @@ pub struct Watch {
 /// 截止读回来是 0，`watch` 第一 tick 就收手，宿主没挪他时从来没自己走过一步（钩墙本身靠强制位移，照样拉过去了：日志里
 /// 21 次 HOOK 都有 PULL）。
 static WATCHES: LazyLock<Mutex<HashMap<(u64, usize), Watch>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
-/// More rows than this are finished sims' (a sim that ended mid-pull leaves its row): all cleared.
-const MOST_ROWS: usize = 4096;
 
 /// 每份模拟的诺提勒斯一个编号（加里奥附加包的 `SIM_TAG`）：这一招没有被动，第一次拉墙时由效果抽一个，挂在他身上（buff
 /// `league_nautilus_sim:<编号>`，没有数值、没有画面；死了再出生是新的单位，下次拉墙再抽）。服务器同一局并排跑的两份预模拟
@@ -324,12 +322,11 @@ fn sim_no(sim: &mut StableSim<'_>, me: usize) -> u64 {
     no
 }
 
-/// A pull begins: watched from now on.
+/// A pull begins: watched from now on. A watch's row goes when it ends (there, time up, held, dead - his death mid-pull
+/// ends it on the next tick); only a sim that ended mid-pull leaves one. 0.1.4 cleared the whole table past 4096 rows:
+/// every sim running beside it lost its pull's watch at another tick than its twin (no steps of his own there) (0.1.5).
 pub fn start_watch(row: (u64, usize), w: Watch) {
     let mut rows = WATCHES.lock().unwrap_or_else(|e| e.into_inner());
-    if rows.len() > MOST_ROWS {
-        rows.clear();
-    }
     rows.insert(row, w);
 }
 
@@ -611,5 +608,18 @@ mod tests {
         start_watch((900_002, 27), Watch { until: 999, ..w });
         let rows = WATCHES.lock().unwrap();
         assert_eq!((rows[&(900_001, 27)].until, rows[&(900_002, 27)].until), (160, 999));
+    }
+
+    #[test]
+    fn a_new_pull_never_clears_the_other_sims_watches() {
+        // 0.1.4 cleared the whole table past 4096 rows: the sims running beside it lost their pulls' watches at another
+        // tick than their twins
+        let w = Watch { to: (1.0, 1.0), last: (0.0, 0.0), until: 50, steps: 0 };
+        for no in 1..=5_000u64 {
+            start_watch((no, 1_000_000), w);
+        }
+        start_watch((5_001, 1_000_000), w);
+        let rows = WATCHES.lock().unwrap();
+        assert!((1..=5_001u64).all(|no| rows.contains_key(&(no, 1_000_000))));
     }
 }

@@ -1,4 +1,4 @@
-# 赛恩附加包（测试版 v0.2.0）
+# 赛恩附加包（测试版 v0.3.0）
 
 主包 `league` 保持纯数据。用户选了「主包数据 + 附加包复活」。这个附加包用原生代码做主包数据做不到的两件事：
 
@@ -26,6 +26,8 @@
   0.1.5（2026-11-03 晚的日志：`FALL #3: … killed by league_sion#23`——最后打他的卡莉丝塔被亡灵打死了，敌方英雄一个也没活着）：
   连敌方英雄都没有时，算最近的活着的敌方防御塔、小兵、召唤物或水晶（英雄联盟的「被处决」），中立野怪不算；只有这些全都没有才算他自己（`fallback_killer`）。
 - **大招的日志 + 亡灵不冲（0.2.0，2026-11-05，用户：「塞恩是不是也不太放大？」）**：当天的日志里一行大招都没有——大招是主包的数据（`tools/kit/build_sion.py`：这一格只上膛 600 tick，每 10 tick 查救人 / 团战 / 追击），本包和 `league_ult_press` 都没记它。经典 SDK 的 48 局追踪找到了原因：窗口没用上时该退还冷却（`ult_cooldown_mult` 把剩余冷却压到 72 tick），可退还在窗口的最后一 tick 读上膛标记，那时标记已经没了（n tick 的标记只能看到 n−1 tick），**从来没退还过**，每个白开的窗口都花掉整整 60 秒冷却——游戏里的 AI 一有敌方英雄进 90000 就上膛（线上单挑也上），窗口一个个白开，真打团时大招总在冷却。主包改成提前 3 tick 读（瑞兹 R 11-02 的同一个修法）：模拟里每局冲 4.19 → 4.69 次，窗口过期到再上膛的间隔中位数 3558 → 877 tick，击杀差 +0.81 → +1.16（288 局，误差 ±0.42，同一个波动内）。放宽到「身边 1 名队友就冲向射程内任何敌方英雄」试过：4.96 次但没撞到的从 22% 升到 29%，没采用，救人 / 2 名队友的团战 / 追击的规则不变。本包现在每 tick 看他身上的标记记日志（`src/ult.rs`），并在变亡灵时摘掉上膛标记（亡灵不能放技能，可数据的轮询还在跑，窗口开着仍会冲出去）。
+- **救人只救被硬控的队友（0.3.0，2026-11-06）**：日志里 11 次冲撞全是「救人（队友被控）」，7 次就在上膛后的第一次轮询（10 tick），5 次身边一个队友都没有，一次冲向 107525 外的英雄、跑满没撞到。原因：数据的救人条件 `AllyChampionInCC` 从游戏 0.7.0 起把施法动作也算成被控（加里奥附加包 `is_hard_cc` 那次查出的），哪个队友在放技能、普攻都算「被控」，小打小闹一开始就冲。现在副本的救人由本包判断：上膛时被动每 tick 找**被硬控**（击飞、晕眩、定身、嘲讽、恐惧、魅惑、禁止位移技能；施法动作、强制位移不算）、离他 `r_save`（60000，加两个身体）内、身边 `r_peel`（30000）内有看得见的敌方英雄的队友（不含他自己），离他最近的那个，有就给他续 3 tick 的 `league_sion_r_cc`；副本的轮询看到它才走「救人」，对每个队友调本包的 `league_sion:held`，选中的那个让他身上出现 1 tick 的 `league_sion_r_this`（加里奥 `league_galio:entrance` 的做法），救人的探针就飞向这个队友。没有被硬控的队友时轮询照旧看团战（身边 2 名队友）和追击（1 名队友 + 刚被我方打过的英雄）。主包的赛恩（不装附加包时）没变。
+  `LAPSED` 行以前在窗口过期的那一 tick 就读大招冷却（3 次都是「还剩 3002」，可之后 188、756 tick 就又上膛了——退还其实生效了，只是读早了：退还的 `ult_cooldown_mult` 是那一 tick 才挂上的），现在过 4 tick 再读。
 
 ## 在游戏里测
 
@@ -40,8 +42,8 @@
    - `FALL #1: the zombie's time is up, killed by ...`：亡灵倒下；
    - `FURNACE #3: ... killed, max health +... in all`：击杀加生命。
    - `R ARMED #1: window 600 ticks; hp 92%, enemy champions in reach 1 (nearest 61234), allies near 0`：大招上膛（格子放了，600 tick 内每 10 tick 查一次）；
-   - `R LAPSED #1: no charge in 597 ticks, 60 polls: enemy champion in reach 41 (alone 39, with an ally 2), nobody in reach 19; ult cooldown left 72 ticks (refund caps it at 72)`：窗口白开，退还了冷却（`left` 不是 72 左右就是退还没生效）；
-   - `R CHARGE #1: teamfight (2 allies near); hp 70%, ...` / `engage / follow-up (1 ally near)` / `save (an ally in crowd control)`：冲出去了和为什么；
+   - `R LAPSED #1: no charge in 597 ticks, 60 polls: enemy champion in reach 41 (alone 39, with an ally 2), nobody in reach 19; ult cooldown left 68 ticks (4 ticks on; the refund caps it at 72)`：窗口白开，退还了冷却（过期后 4 tick 读；`left` 不是 72 以下就是退还没生效）；
+   - `R CHARGE #1: teamfight (2 allies near); hp 70%, ...` / `engage / follow-up (1 ally near)` / `save league_lux#21 in Stun 41230 away`（救的是谁、什么硬控、多远）：冲出去了和为什么；`unknown ...`：前一 tick 身上没有数数或救人的标记；
    - `R HIT after 26 ticks (tier 2) #1` / `R MISS: ran the full 50 ticks and hit nobody #2`：撞上了（跑得越远伤害档越高）还是跑满没撞到；
    - `R this life #1 (dead): armed 3, charged 2`：一条命里上膛和冲撞的次数；`R window closed #1: he rose as the zombie while R was armed`：变亡灵时窗口还开着（摘掉了）。
 
@@ -49,7 +51,7 @@
 
 - `python addons/league_sion/make_override.py`：从参数表重新生成 `override/` 和 `text/`（先核对主包的赛恩和参数表一致）。
   主包的赛恩改了以后要重跑。
-- 在 `addons/` 下 `cargo test --release -p league_sion`：单元测试（亡灵掉血、击杀加多少、别人给的不死、倒下时算谁的击杀、参数、和参数表一致）。
+- 在 `addons/` 下 `cargo test --release -p league_sion`：单元测试（亡灵掉血、击杀加多少、别人给的不死、倒下时算谁的击杀、参数、和参数表一致、救人只认硬控和救谁）。
 - 在 `addons/` 下 `cargo build --release -p league_sion`（Windows）得到 `target/release/league_sion.dll`；
   `league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。

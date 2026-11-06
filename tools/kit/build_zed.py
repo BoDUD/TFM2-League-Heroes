@@ -56,6 +56,11 @@ inside the attack (league_rengar's Savagery way).
           W ready, Razor Shuriken's slot is an empty branch, so the AI opens Living Shadow's combo (addons/league_zed_mark's
           combo hook presses that W). Until 2026-11-03 the branch stayed empty the whole mark (r_on, 182 ticks): when
           nobody pressed W - game 0.6.4's AI hardly does - he threw no Q for three seconds.
+          2026-11-06 (league_zed_mark's logs, the classic SDK trace): until then the mark burst on the landing - the
+          burst's AddCasted runs on the tick it is added - inside r_safe, which an `AddBuff` had put on the marked
+          champion (immune to damage and crowd control for r_inv ticks; Zed was not), so it dealt 1-3 damage and r_on
+          was gone for the R-W-E-Q's W. Now r_safe is his (a caster flag), the casted's first run arms the burst (r_set)
+          and keeps r_on up, and the burst comes r_pop ticks after the landing.
 """
 import argparse
 import json
@@ -246,10 +251,12 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 def build(p):
     # ------------------------------------------------------------------ the passive and the mark's count
-    # a spell hit on a champion: Contempt readies; under the mark (r_on) each hit climbs r_1..r_5
-    climb = sw("r_on", sw("r_3", NONE, sw("r_2", combine(*rm("r_2"), flag("r_3", p["r_pop"] + 10)),
-                                         sw("r_1", combine(*rm("r_1"), flag("r_2", p["r_pop"] + 10)),
-                                            flag("r_1", p["r_pop"] + 10)))))
+    # a spell hit on a champion: Contempt readies; under the mark (r_on) each hit climbs r_1..r_3. A step lasts to the
+    # burst r_pop ticks after the landing even when it came at the dash's start (the dash takes up to ~15 ticks)
+    step_t = p["r_pop"] + 30
+    climb = sw("r_on", sw("r_3", NONE, sw("r_2", combine(*rm("r_2"), flag("r_3", step_t)),
+                                         sw("r_1", combine(*rm("r_1"), flag("r_2", step_t)),
+                                            flag("r_1", step_t)))))
     spell_mark = NONE if p["native"] else on_me(sw("cw_cd", NONE, refresh("cw_ready", p["cw_t"])), climb)
 
     # ------------------------------------------------------------------ Shadow Slash
@@ -465,18 +472,29 @@ def build(p):
     kill = [{"type": "Delayed", "tick": 1, "effects": [casted(3, 1, *rm("r_kill"))]},
             on_me(delayed(4, sw("r_kill", combine(*rm("r_kill"), refresh("r_back", p["r_echo_step"] + 3)))))]
     pop = combine(*rm("r_kill"), flag("r_kill", 40), view("r_pop"), tsfx("r_pop"), *pop_dmg, *kill)
+    # The burst comes r_pop ticks after the landing, as League's (2026-11-06, league_zed_mark's logs: Naafiri at 4%
+    # lived through the landing and died 24 ticks later; 0 of 9 R-W-E-Q openers threw W on the marked one). An
+    # AddCasted runs on the tick it is added here and then every `period` (champion-data.md; classic SDK trace: the
+    # burst came on the landing tick, 1-3 damage inside the target's r_safe, and r_on went with it). Its first run now
+    # only arms it - r_set, and r_on kept up to the burst (set at the dash, up to ~15 ticks before the landing) - and
+    # the run r_pop ticks later bursts. A dead Zed's flags stay as they were, so the mark still bursts after his death
+    # (League's does).
+    arm = combine(refresh("r_on", p["r_pop"] + 3), refresh("r_set", p["r_pop"] + 3))
+    burst = combine(*rm("r_set"), sw("r_on", combine(pop, *rm("r_on", *([] if p["native"] else ["r_1", "r_2", "r_3"])))))
+    mark_pop = casted(p["r_pop"] + 1, p["r_pop"], sw("r_set", burst, arm))
     count = combine(*rm("rn1", "rn2"), around(p["r_safe_r"], "EnemyChampion",
                                              [on_me(sw("rn1", flag("rn2", 2), flag("rn1", 2)))]))
+    # r_safe on HIM (a caster flag; until 2026-11-06 an AddBuff put it on the marked champion: 24 ticks immune to
+    # damage and crowd control, the burst on the landing included, while Zed took every hit)
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampionRecentlyAttacked",
                  combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
-                         buff("r_safe", p["r_inv"], damaged_reduce=100, cc_immune=True),
+                         flag("r_safe", p["r_inv"], damaged_reduce=100, cc_immune=True),
                          {"type": "CasterInvisible", "tick": p["r_inv"]},
                          on_me(refresh("r_live", p["r_life"]), *rm("r_moved")), moved_r(),
                          line("r_anchor", 1, 1, 1, 5000, "EnemyWithoutTower", True, [],
                               [view("sh_in_r")] + r_pieces()),
                          delayed(p["r_go"] - 1, {"type": "RushMoveToBack", "speed": p["r_speed"], "applied_effects": [
-                             buff("r_mark", p["r_pop"]), view("r_hit"), tsfx("r_hit"), attack(0, 100),
-                             casted(p["r_pop"] + 1, p["r_pop"], sw("r_on", combine(pop, *rm("r_on", *([] if p["native"] else ["r_1", "r_2", "r_3"])))))]},
+                             buff("r_mark", p["r_pop"]), view("r_hit"), tsfx("r_hit"), attack(0, 100), mark_pop]},
                                  refresh("r_on", p["r_pop"] + 2), refresh("r_wq", p["r_wq"]), spell_mark),
                          delayed(p["r_go"] + p["r_pop"] + 1, count),
                          delayed(p["r_go"] + p["r_pop"] + 2, sw("rn2", refresh("r_back", p["r_echo_step"] + 3)))))

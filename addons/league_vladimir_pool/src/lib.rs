@@ -89,6 +89,20 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// The `Params` the log showed last (they come from the champion data: the same in every simulation of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only should they ever differ (league_zyra 0.1.2's; 0.2.1: 11-06's log had
+/// 321 of its 1283 lines `SPAWN ... Params {...}`, one each life).
+fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.clone());
+    true
+}
+
 // ===================== 参数 =====================
 
 /// 主包参数表 P 里本包用到的数字（`passive.params`，全是非负整数）。
@@ -237,7 +251,9 @@ impl StablePassive for Guard {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.was_in = false;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Vladimir (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        // the Params in the first SPAWN line of a launch only (0.2.1)
+        let params = if params_new(&self.p) { format!(", {:?}", self.p) } else { String::new() };
+        wlog(format!("{} SPAWN: the add-on's Vladimir (player {player}, team {team}){params}", head(sim, me)));
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -291,6 +307,17 @@ mod tests {
     fn params_come_from_the_champion_data() {
         assert_eq!(parse_params(r#"{"hp":30,"near":50000,"cost":15,"x":1}"#), Params { hp: 30, near: 50_000, cost: 15 });
         assert_eq!(parse_params("{}"), Params::default());
+    }
+
+    #[test]
+    fn the_params_are_logged_once_a_launch() {
+        // 11-06: every SPAWN line carried the whole Params (321 of 1283 lines)
+        let p = Params { hp: 1, near: 2, cost: 3 };
+        assert!(params_new(&p));
+        assert!(!params_new(&p) && !params_new(&p.clone()));
+        // changed (should a launch ever see two tables): shown again
+        let q = Params { hp: 4, ..p.clone() };
+        assert!(params_new(&q) && !params_new(&q));
     }
 
     #[test]

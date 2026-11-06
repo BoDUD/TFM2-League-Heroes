@@ -272,6 +272,21 @@ pub fn step(t: &Throw, k: u64) -> (f64, f64) {
 
 static STATE: LazyLock<Mutex<HashMap<(u64, usize), Legs>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
 
+/// A table holding this many rows: the oldest sims' rows go (each sim keeps one row per Urgot, his life now).
+pub const MOST_ROWS: usize = 4096;
+
+/// His new life in sim `no` (a respawn is a new entity): this sim's rows of his earlier lives go, and while `rows` is
+/// full the oldest sim's rows go (the smallest number: one that ended long ago), never `no`'s. 0.2.2 cleared the whole
+/// table past 4096 rows: every sim running beside it lost its legs' timers and a throw in flight at another tick than its
+/// twin (0.2.3, 11-06's audit).
+pub fn make_room<V>(rows: &mut HashMap<(u64, usize), V>, no: u64, me: usize) {
+    rows.retain(|k, _| k.0 != no || k.1 == me);
+    while rows.len() >= MOST_ROWS {
+        let Some(old) = rows.keys().map(|k| k.0).filter(|&s| s != no).min() else { break };
+        rows.retain(|k, _| k.0 != old);
+    }
+}
+
 fn pos_of(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
     let e = sim.get_entity(id)?;
     if !e.is_alive() {
@@ -411,9 +426,8 @@ impl StablePassive for Passive {
         sim.entity_remove_buff(me, &tag);
         sim.add_buff(me, &BuffV1::named(&tag));
         let mut st = STATE.lock().unwrap_or_else(|e| e.into_inner());
-        if st.len() > 4096 {
-            st.clear(); // finished sims
-        }
+        // his earlier lives' rows in this sim go, nobody else's (0.2.3: past 4096 rows the table was cleared whole)
+        make_room(&mut st, self.sim_no, me);
         st.insert((self.sim_no, me), Legs { p: self.p, ..Legs::default() });
         drop(st);
         // every spawn of every presim's Urgot: the launch's count (0.2.2; 212 lines on 11-01)
@@ -573,5 +587,30 @@ mod tests {
         let names = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<Vec<_>>().into_iter();
         assert_eq!(sim_tag(names(&["league_urgot_leg_go", "league_urgot_sim:7"])), 7);
         assert_eq!(sim_tag(names(&["league_urgot_r_low"])), 0);
+    }
+
+    #[test]
+    fn a_new_life_makes_room_only_in_its_own_sim() {
+        // 11-06's audit: past 4096 rows the legs' table was cleared whole - the presim twins (the same entity ids) and the
+        // match on screen lost the legs' timers at different ticks
+        let mut rows: HashMap<(u64, usize), u64> = HashMap::new();
+        let (a, b) = (5_000, 5_001);
+        for no in [a, b] {
+            rows.insert((no, 21), 1);
+        }
+        // in A he died and is back as #90: A's #21 row goes, B's stays
+        make_room(&mut rows, a, 90);
+        rows.insert((a, 90), 2);
+        assert!(!rows.contains_key(&(a, 21)) && rows.contains_key(&(b, 21)) && rows.contains_key(&(a, 90)));
+        // finished sims fill the table: the oldest go first, never the sim making room, and the twins' rows stay
+        for old in 1..=(MOST_ROWS as u64) {
+            rows.insert((old, 21), 0);
+        }
+        make_room(&mut rows, b, 21);
+        assert!(rows.len() < MOST_ROWS, "{}", rows.len());
+        assert!(!rows.contains_key(&(1, 21)), "the oldest sim went first");
+        for k in [(a, 90), (b, 21)] {
+            assert!(rows.contains_key(&k), "{k:?} went");
+        }
     }
 }

@@ -55,7 +55,7 @@
 
 ### 劫读血附加包
 
-[劫读血附加包](../../addons/league_zed_mark/README.md)：`league_zed_mark` v0.2.0
+[劫读血附加包](../../addons/league_zed_mark/README.md)：`league_zed_mark` v0.2.1
 
 主包 `league` 保持纯数据。数据读不到生命也读不到伤害，所以主包里劫的两处是替代做法：
 
@@ -64,7 +64,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.0（通用附加包，下面只列和劫有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.1（通用附加包，下面只列和劫有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

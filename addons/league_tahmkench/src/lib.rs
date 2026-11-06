@@ -578,6 +578,14 @@ struct Skin {
     mended: usize,
     /// This sim's number (`SIM_TAG`), drawn at his first spawn.
     sim_no: u64,
+    /// His champion, as of his last spawn (a respawn is a new entity).
+    me: Option<usize>,
+}
+
+/// The champion whose death `on_dead` reports: the game names the player, not his champion (0.1.8) - the player's
+/// champion, or the one this passive last spawned when the player shows none.
+pub fn dead_champion(of_player: Option<usize>, spawned: Option<usize>) -> Option<usize> {
+    of_player.or(spawned)
 }
 
 impl Skin {
@@ -692,6 +700,7 @@ impl StablePassive for Skin {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.grey = 0;
         self.ready_at = 0;
+        self.me = Some(me);
         if self.sim_no == 0 {
             self.sim_no = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
         }
@@ -721,10 +730,13 @@ impl StablePassive for Skin {
         }
     }
 
-    fn on_dead(&mut self, sim: &mut StableSim<'_>, me: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, player: usize) {
         self.grey = 0;
         // dying with someone in his belly spits them out where he fell (0.1.7: logged - 11-04's logs had DEVOURs with no
-        // SPIT, his death the silent release)
+        // SPIT, his death the silent release). 0.1.8 (11-06's audit): the hook's number is the player, not his champion -
+        // 0.1.7 looked the carry up under the player's number, never found it, and the death spit never ran
+        let of_player = sim.get_player(player).and_then(|p| p.champion()).map(|e| e.id());
+        let Some(me) = dead_champion(of_player, self.me) else { return };
         let c = CARRY.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, me));
         if let (Some(c), Some(at)) = (c, sim.get_entity(me).map(|e| e.pos())) {
             let ok = sim.entity_set_pos(c.target, at.0, at.1);
@@ -953,6 +965,16 @@ mod tests {
         let names = vec!["league_tahmkench_t_mark".to_string(), format!("{SIM_TAG}7")];
         assert_eq!(sim_tag(names.into_iter()), 7);
         assert_eq!(sim_tag(vec!["league_mordekaiser_sim:3".to_string()].into_iter()), 0);
+    }
+
+    #[test]
+    fn his_death_finds_his_carry() {
+        // 11-06's audit: on_dead names the player (here 3), 0.1.7 looked the carry up as (sim, 3) - never his row
+        let mut carry: HashMap<(u64, usize), usize> = HashMap::from([((7, 640), 55)]);
+        let me = dead_champion(Some(640), Some(612)).unwrap();
+        assert_eq!(carry.remove(&(7, me)), Some(55), "the player's champion is the one that died");
+        assert_eq!(dead_champion(None, Some(612)), Some(612), "no champion to show: the last one spawned");
+        assert_eq!(dead_champion(None, None), None);
     }
 
     #[test]

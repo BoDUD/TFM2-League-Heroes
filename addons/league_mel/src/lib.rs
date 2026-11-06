@@ -219,6 +219,49 @@ pub fn executes(stacks: usize, ap: usize, hp: usize, shield: usize, p: &Params) 
     stacks > 0 && stacks_worth(stacks, p.x_st, p.x_ratio, ap) >= hp + shield
 }
 
+/// 这个 buff 算不算「杀不死」（league_chogath 的规则）：带「不死」，但别的附加包一直挂着的被动护身（名字以 `_p_guard` /
+/// `_rv_guard` 结尾：死歌、塞恩、艾尼维亚、扎克、扎恩、tft 的石甲虫）不算——英雄联盟里处决他们照样算击杀，他们死进自己的被动里。
+/// 千珏的大招、基兰的符文、凯尔的大招等真的杀不死。
+pub fn holds_execute(name: &str, undying: bool) -> bool {
+    undying && !name.ends_with("_p_guard") && !name.ends_with("_rv_guard")
+}
+
+/// 他身上有真的「不死」吗（`holds_execute`）。
+pub fn cannot_die(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| holds_execute(b.name(), b.undying))
+}
+
+/// 这一下为什么不处决（None：处决）：杀不死（0.1.5，11-06 的日志：千珏的法阵里她 1 血，141 tick 被处决了 17 次，每次都
+/// 「dealt 1953」）——层数留着，法阵过了再算；或减伤到 100%（什么都打不动）。
+pub fn execute_held(undying: bool, reduce: usize) -> Option<String> {
+    if undying {
+        Some("cannot die (undying)".to_string())
+    } else if reduce >= 100 {
+        Some(format!("takes no damage now (reduced {reduce}%)"))
+    } else {
+        None
+    }
+}
+
+/// 同一个梅尔、同一个人连着拦下的处决，离上一次不到这么多 tick 算同一串，只记一行（杀不死的人每挂一层残影都会再来问一次）。
+pub const HELD_GAP: usize = 60;
+
+/// 这一次拦下是不是新的一串：`last` 是上一次拦下的 tick（比现在还晚的是另一份模拟的）。
+pub fn new_streak(last: Option<usize>, now: usize) -> bool {
+    last.is_none_or(|t| now < t || now > t + HELD_GAP)
+}
+
+/// (这局的种子, 梅尔, 目标) -> 上一次拦下处决的 tick（日志一串一行）。
+static HELD: LazyLock<Mutex<HashMap<(u64, usize, usize), usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+fn held_streak(key: (u64, usize, usize), now: usize) -> bool {
+    let mut held = HELD.lock().unwrap_or_else(|e| e.into_inner());
+    if held.len() > 4096 {
+        held.clear(); // finished matches
+    }
+    new_streak(held.insert(key, now), now)
+}
+
 /// 反弹回去的光弹的伤害。
 pub fn back_damage(ap: usize, p: &Params) -> usize {
     p.w_back_dmg + p.w_back_r * ap / 100
@@ -252,16 +295,23 @@ fn overwhelm(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let shield = u.shield();
     let stacks = count_buff(&u, &mark);
     let reduce = reduction(&u);
+    let undying = cannot_die(&u);
     if !executes(stacks, ap, hp, shield, &p) {
         return;
     }
     let worth = stacks_worth(stacks, p.x_st, p.x_ratio, ap);
-    let Some(dmg) = execute_damage(hp, shield, max, reduce) else {
-        if let Some(k) = counted("execute held", on_screen(sim)) {
-            wlog(format!("{} EXECUTE HELD #{k}: {} takes no damage now (reduced {reduce}%) - the {stacks} stacks stay",
-                         head(sim, me), who(sim, t)));
+    // he cannot die (undying, 0.1.5) or takes nothing: no execute, the stacks stay - one line a streak
+    let dmg = match (execute_held(undying, reduce), execute_damage(hp, shield, max, reduce)) {
+        (None, Some(dmg)) => dmg,
+        (why, _) => {
+            if held_streak((sim.seed(), me, t), sim.tick()) {
+                if let Some(k) = counted("execute held", on_screen(sim)) {
+                    wlog(format!("{} EXECUTE HELD #{k}: {} {} - the {stacks} stacks stay", head(sim, me), who(sim, t),
+                                 why.unwrap_or_else(|| format!("takes no damage now (reduced {reduce}%)"))));
+                }
+            }
+            return;
         }
-        return;
     };
     sim.deal_damage_typed(me, t, dmg, DamageTypeV1::Fixed, AttackTypeV1::Skill);
     sim.entity_remove_buff(t, &mark);
@@ -476,6 +526,27 @@ mod tests {
         assert_eq!(execute_damage(300, 0, 2000, 25), Some(3066));
         assert!(execute_damage(300, 0, 2000, 40).unwrap() * 60 / 100 > 300);
         assert_eq!(execute_damage(300, 0, 2000, 100), None, "Alpha Strike: nothing to execute through");
+    }
+
+    #[test]
+    fn one_who_cannot_die_is_not_executed_again_and_again() {
+        // 11-06's logs: Kindred under her R (league_kindred_r_safe, undying) at 1 health, 17 EXECUTEs in 141 ticks
+        assert!(holds_execute("league_kindred_r_safe", true));
+        assert!(holds_execute("league_zilean_r_rune", true));
+        assert!(!holds_execute("league_kindred_r_safe", false));
+        // a passive guard another add-on keeps up for good is no hold (league_chogath's rule)
+        for g in ["league_karthus_p_guard", "league_sion_p_guard", "league_zaahen_rv_guard", "tft_krug_p_guard"] {
+            assert!(!holds_execute(g, true), "{g}");
+        }
+        assert_eq!(execute_held(true, 0).as_deref(), Some("cannot die (undying)"));
+        assert_eq!(execute_held(false, 100).as_deref(), Some("takes no damage now (reduced 100%)"));
+        assert_eq!(execute_held(false, 40), None);
+        // one HELD line a streak: a hold within HELD_GAP of the last is the same streak
+        assert!(new_streak(None, 48_523));
+        assert!(!new_streak(Some(48_523), 48_525));
+        assert!(!new_streak(Some(48_649), 48_664));
+        assert!(new_streak(Some(48_664), 48_664 + HELD_GAP + 1));
+        assert!(new_streak(Some(60_000), 48_523), "a later tick is another simulation's");
     }
 
     #[test]

@@ -8,9 +8,9 @@
     }
   ],
   "description": "League of Legends audio: the draft (champion select) music on the ban/pick screen, Summoner's Rift's in-game music in matches, and the Chinese announcer: first blood, double to penta kills, killing sprees (killing spree to legendary), shutdowns, aces, executions, towers destroyed, dragon (Serpen) and Baron (Morgard) slain, victory and defeat - in your own matches from your team's side (ally / enemy lines). Works with any champions. The audio is built from your own League of Legends install by build_audio.py. Non-commercial fan project; League of Legends (c) Riot Games.",
-  "last_updated": "2026-11-05",
+  "last_updated": "2026-11-06",
   "mod_id": "lol_audio",
   "mod_type": "native",
   "name": "League of Legends audio: draft music, Rift music, kill announcer",
-  "version": "0.2.1"
+  "version": "0.2.2"
 }

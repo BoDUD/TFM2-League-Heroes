@@ -55,7 +55,7 @@
 
 ### 弗拉基米尔残血血池附加包
 
-[弗拉基米尔残血血池附加包](../../addons/league_vladimir_pool/README.md)：`league_vladimir_pool` v0.2.0
+[弗拉基米尔残血血池附加包](../../addons/league_vladimir_pool/README.md)：`league_vladimir_pool` v0.2.1
 
 主包 `league` 保持纯数据。数据读不到当前生命，主包里弗拉基米尔的 W「血红之池」是自动的：他身上一直跑着一个每 3 tick 看一次的轮询，
 看到 `league_vladimir_w_go` 就化成血池（2 秒不可选取、脚下敌人减速吸血、20 秒冷却）；`w_go` 由普攻里的**危险信号**加上——
@@ -71,7 +71,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.0（通用附加包，下面只列和弗拉基米尔有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.1（通用附加包，下面只列和弗拉基米尔有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

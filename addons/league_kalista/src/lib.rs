@@ -27,7 +27,7 @@
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kalista.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `OATH`（绑了谁）、`HOP`（往哪跳、为什么）、`FATE`（拉谁、飞到谁身边、几 tick）、`REND`（斩杀判定），都限了条数。
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -423,6 +423,16 @@ pub fn rend_damage(n: usize, ad: usize, def: usize, p: &Params) -> usize {
     raw * 100 / (100 + def)
 }
 
+/// 斩杀拔谁：`spears` 里按实体编号从小到大第一个拔得死的（每次跑同一局都是同一个；0.2.3 以前从 HashMap 里按它的顺序找，
+/// 每份模拟的顺序都不一样，两个人都拔得死时各份拔的不是同一个）。`rend(id, 矛数)` 给拔得了的人 (伤害, 当前生命)（不在了、死了、
+/// 选不中、杀不死的是 None）。-> (id, 矛数, 伤害, 生命)
+pub fn rend_target(spears: &BTreeMap<usize, Vec<usize>>, rend: impl Fn(usize, usize) -> Option<(usize, usize)>)
+    -> Option<(usize, usize, usize, usize)> {
+    spears.iter().find_map(|(&id, v)| {
+        rend(id, v.len()).filter(|&(dmg, hp)| dmg >= hp).map(|(dmg, hp)| (id, v.len(), dmg, hp))
+    })
+}
+
 // ===================== 被动：誓约 =====================
 
 #[derive(Clone, Copy)]
@@ -455,8 +465,8 @@ struct Oath {
     turns: Turns,
     last_wave: usize,
     flight: Option<Flight>,
-    /// 敌方英雄 -> 她每根矛插上的 tick。
-    spears: HashMap<usize, Vec<usize>>,
+    /// 敌方英雄 -> 她每根矛插上的 tick（按实体编号排：斩杀按这个顺序找，`rend_target`）。
+    spears: BTreeMap<usize, Vec<usize>>,
     /// 敌方英雄 -> (取样的 tick, 那时它在哪, 上一段 FLEE_WINDOW 里它自己挪了多少)。
     gaps: HashMap<usize, (usize, Pt, Pt)>,
 }
@@ -702,23 +712,18 @@ impl Oath {
             return;
         }
         let Some(ad) = sim.get_entity(me).map(|e| e.stat().attack) else { return };
-        let mut kill = None;
-        for (&id, v) in &self.spears {
-            let Some(e) = sim.get_entity(id) else { continue };
+        // the first one (by entity id: the same in every run, 0.2.3) the spears kill now
+        let kill = rend_target(&self.spears, |id, n| {
+            let e = sim.get_entity(id)?;
             // 选不中的、挂着不死的（阿克尚复活前停在 1 血）拔了也杀不死（2026-11-01 复查：对 1 血的阿克尚报了 33 次）；别的
             // 附加包的被动护身（*_p_guard / *_rv_guard）不算，撕裂照样拔、他们死进被动里（0.2.2）
             if !e.is_alive() || !e.is_targetable()
                 || (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| holds_execute(b.name(), b.undying))
             {
-                continue;
+                return None;
             }
-            let (hp, _) = e.hp();
-            let dmg = rend_damage(v.len(), ad, e.stat().defence, p);
-            if dmg >= hp {
-                kill = Some((id, v.len(), dmg, hp));
-                break;
-            }
-        }
+            Some((rend_damage(n, ad, e.stat().defence, p), e.hp().0))
+        });
         if let Some((id, n, dmg, hp)) = kill {
             set_flag(sim, me, E_OK, 6);
             set_flag(sim, id, E_AIM, 6);
@@ -783,6 +788,53 @@ impl StablePassive for Oath {
 struct FateAi {
     /// 每种行最近一次的 tick（`new_burst`：一串只记一行）。
     lines: Vec<(&'static str, usize)>,
+    /// 拔矛连按的记录和歇到哪个 tick（`PRESS_MAX` / `BACKOFF`，0.2.3）。
+    presses: Presses,
+    hold_until: usize,
+}
+
+/// 拔矛（技能 2）连着按了这么多 tick 还没放出去（放出去了格子进冷却，下一 tick 就不按了）：有东西挡着，歇 `BACKOFF` tick
+/// 再看（0.2.3，league_orianna 0.3.2 的数）。
+pub const PRESS_MAX: usize = 3;
+pub const BACKOFF: usize = 30;
+
+/// 连按的记录：第一下、上一下、连着几下（league_orianna 的 `Presses`，这里只有拔矛一种）。
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Presses {
+    pub first: usize,
+    pub last: usize,
+    pub n: usize,
+}
+
+impl Presses {
+    /// One more press at `tick`: how many in a row (the tick after the last one), 1 for a new run.
+    pub fn press(&mut self, tick: usize) -> usize {
+        if self.n > 0 && tick == self.last + 1 {
+            self.n += 1;
+        } else {
+            *self = Presses { first: tick, last: tick, n: 1 };
+        }
+        self.last = tick;
+        self.n
+    }
+}
+
+/// 放不出技能的控制（league_ult_press 的 `NO_CAST`）。
+const NO_CAST: [CcKindV1; 7] =
+    [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::BlockSkill];
+/// 正在出招（普攻的前摇、跳的动作，游戏记成 `Animation`）或被强制位移：这时按的技能游戏不收（league_ult_press 的 `BUSY`）。
+const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
+
+/// Any of `kinds` among the crowd-control codes.
+pub fn any_cc(codes: impl IntoIterator<Item = u32>, kinds: &[CcKindV1]) -> bool {
+    codes.into_iter().any(|c| kinds.iter().any(|k| k.code() == c))
+}
+
+/// 一个单位身上的控制，日志用（`Stun, Animation`）。
+fn cc_names(e: &StableEntity<'_, '_>) -> String {
+    let v: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i))
+        .map(|c| CcKindV1::from_code(c.kind).map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}"))).collect();
+    v.join(", ")
 }
 
 impl FateAi {
@@ -822,7 +874,7 @@ impl StablePlayerAi for FateAi {
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let was = base.and_then(|b| InputKindV1::from_code(b.kind));
         if was != Some(InputKindV1::Ult) {
-            return rend_now(ctx, was);
+            return self.rend_now(ctx, was);
         }
         let b = base?;
         if InputTargetKindV1::from_code(b.target.kind) != Some(InputTargetKindV1::Target) {
@@ -926,39 +978,81 @@ impl StablePlayerAi for FateAi {
     }
 }
 
-/// 「拔了能杀」（被动在她身上挂 `E_OK`、在那个敌人身上挂 `E_AIM`）时自己按技能 2：数据只在矛打中英雄、或游戏的 AI 按技能 2
-/// 的时候看 `e_ok`，游戏的 AI 一两分钟才按一次，「立刻拔」常常等到下一矛（2026-11-01 复查：18 次 rip now 都没拔）。
-fn rend_now(ctx: &mut StableAiContext<'_>, was: Option<InputKindV1>) -> Option<InputV1> {
-    if was == Some(InputKindV1::Skill2) {
-        return None;
+impl FateAi {
+    /// 「拔了能杀」（被动在她身上挂 `E_OK`、在那个敌人身上挂 `E_AIM`）时自己按技能 2：数据只在矛打中英雄、或游戏的 AI 按技能 2
+    /// 的时候看 `e_ok`，游戏的 AI 一两分钟才按一次，「立刻拔」常常等到下一矛（2026-11-01 复查：18 次 rip now 都没拔）。
+    /// 0.2.3（2026-11-06 的日志：`REND PRESS` 每 tick 一行、一串 5–10 tick，目标的血一点没掉；REND PRESS 记到 #1150，rip now
+    /// 才 #450）：正在出招（普攻的前摇、跳的动作）、被强制位移、被控时不按——这时按的游戏不收；连按 `PRESS_MAX` tick 还没放出去
+    /// 就歇 `BACKOFF` tick，记一行「not taken」写出她身上的控制、技能 2 和普攻的冷却、目标的状态；一串只记第一下。
+    fn rend_now(&mut self, ctx: &mut StableAiContext<'_>, was: Option<InputKindV1>) -> Option<InputV1> {
+        if was == Some(InputKindV1::Skill2) {
+            return None;
+        }
+        let tick = ctx.tick();
+        if tick < self.hold_until {
+            return None;
+        }
+        let player = ctx.player_id();
+        let (target, line) = {
+            let sim = ctx.sim()?;
+            let me = sim.get_player(player)?.champion()?;
+            let mid = me.id();
+            if !me.is_alive() || !has_buff(&sim, mid, E_OK) || has_buff(&sim, mid, E_CD) {
+                return None;
+            }
+            // 技能 2 解锁了（3 级）、试拔的格子好了（引擎的「输入合法」不看冷却和解锁）
+            if !me.cooldown(SkillSlotV1::Skill2).is_some_and(|c| c.unlocked && c.remaining == 0) {
+                return None;
+            }
+            // casting (an attack's wind-up, the hop's pose), moved, or held: the game takes no cast then (0.2.3)
+            let codes: Vec<u32> = (0..me.cc_count()).filter_map(|i| me.cc_at(i)).map(|c| c.kind).collect();
+            if any_cc(codes.iter().copied(), &BUSY) || any_cc(codes, &NO_CAST) {
+                return None;
+            }
+            let team = me.team();
+            let t = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .find(|u| u.team() != team && u.is_alive() && u.is_champion() && has_buff(&sim, u.id(), E_AIM))?
+                .id();
+            (t, format!("{} REND PRESS: Skill2 on {}", head(&sim, mid), who(&sim, t)))
+        };
+        let input = InputV1::action(InputKindV1::Skill2, InputTargetV1::target(target));
+        if !ctx.is_valid_input(&input) {
+            return None;
+        }
+        // a run of presses nothing took (a rip that goes out starts the slot's cooldown: no press the next tick): back off
+        let n = self.presses.press(tick);
+        if n > PRESS_MAX {
+            self.hold_until = tick + BACKOFF;
+            if let Some(k) = counted("rend_blocked") {
+                let state = rend_blocker(ctx, player, target);
+                wlog(format!("{line}: pressed {} ticks running since t={} and not taken ({state}) - backing off {BACKOFF} ticks #{k}",
+                             n - 1, self.presses.first));
+            }
+            return None;
+        }
+        if n == 1 {
+            if let Some(k) = counted("rend_press") {
+                wlog(format!("{line} #{k}"));
+            }
+        }
+        Some(input)
     }
-    let player = ctx.player_id();
-    let (target, line) = {
-        let sim = ctx.sim()?;
-        let me = sim.get_player(player)?.champion()?;
-        let mid = me.id();
-        if !me.is_alive() || !has_buff(&sim, mid, E_OK) || has_buff(&sim, mid, E_CD) {
-            return None;
-        }
-        // 技能 2 解锁了（3 级）、试拔的格子好了（引擎的「输入合法」不看冷却和解锁）
-        if !me.cooldown(SkillSlotV1::Skill2).is_some_and(|c| c.unlocked && c.remaining == 0) {
-            return None;
-        }
-        let team = me.team();
-        let t = (0..sim.entity_count())
-            .filter_map(|i| sim.entity_at(i))
-            .find(|u| u.team() != team && u.is_alive() && u.is_champion() && has_buff(&sim, u.id(), E_AIM))?
-            .id();
-        (t, format!("{} REND PRESS: Skill2 on {}", head(&sim, mid), who(&sim, t)))
+}
+
+/// 拔矛「not taken」那一行写的：她身上的控制和标记、技能 2 和普攻的冷却，目标选不选得中、看不看得见、身上的控制和生命。
+fn rend_blocker(ctx: &mut StableAiContext<'_>, player: usize, target: usize) -> String {
+    let Some(sim) = ctx.sim() else { return "no sim".to_string() };
+    let Some(me) = sim.get_player(player).and_then(|p| p.champion()) else { return "no champion".to_string() };
+    let cd = |s: SkillSlotV1| me.cooldown(s).map_or("?".to_string(), |c| format!("{}/{}", c.remaining, c.cooltime));
+    let flags: Vec<&str> = [HOP_GO, E_OK, E_CD, E_POP].into_iter().filter(|f| ent_has(&me, f)).map(|f| &f[15..]).collect();
+    let it = match sim.get_entity(target) {
+        Some(t) => format!("{}{}{}, cc [{}], hp {}/{}", who(&sim, target), if t.is_targetable() { "" } else { " untargetable" },
+                           if sim.is_visible(me.team(), target) { "" } else { " unseen" }, cc_names(&t), t.hp().0, t.hp().1),
+        None => format!("#{target} gone"),
     };
-    let input = InputV1::action(InputKindV1::Skill2, InputTargetV1::target(target));
-    if !ctx.is_valid_input(&input) {
-        return None;
-    }
-    if let Some(k) = counted("rend_press") {
-        wlog(format!("{line} #{k}"));
-    }
-    Some(input)
+    format!("her cc [{}], flags [{}], E {} attack {}; target {it}", cc_names(&me), flags.join(" "), cd(SkillSlotV1::Skill2),
+            cd(SkillSlotV1::Attack))
 }
 
 // ===================== 注册 =====================
@@ -993,6 +1087,24 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn rend_waits_while_she_casts_and_backs_off_a_run_nothing_took() {
+        // 11-06's logs: REND PRESS every tick for 5-10 ticks while the target's health did not move
+        assert!(any_cc([CcKindV1::Animation.code()], &BUSY), "an attack's wind-up or the hop's pose");
+        assert!(any_cc([CcKindV1::ForceMove.code()], &BUSY));
+        assert!(any_cc([CcKindV1::Stun.code(), CcKindV1::BlockSkill.code()], &NO_CAST));
+        assert!(!any_cc([CcKindV1::Stun.code()], &BUSY));
+        assert!(!any_cc(Vec::<u32>::new(), &NO_CAST));
+        let mut p = Presses::default();
+        assert_eq!(p.press(15625), 1);
+        assert_eq!((15626..=15628).map(|t| p.press(t)).last(), Some(4));
+        assert!(p.n > PRESS_MAX && p.first == 15625);
+        // a gap (the rip went out, or she was busy) starts a new run
+        assert_eq!(p.press(15700), 1);
+        assert_eq!(p.press(15701), 2);
+        assert_eq!(&HOP_GO[15..], "hop_go");
+    }
 
     #[test]
     fn hits_of_one_tick_are_one_spear() {
@@ -1195,6 +1307,19 @@ mod tests {
         // 4 spears, 200 attack: 4 x (20 + 100) = 480, armour 50: 320
         assert_eq!(rend_damage(4, 200, 50, &p), 320);
         assert_eq!(rend_damage(0, 200, 50, &p), 0);
+    }
+
+    #[test]
+    fn rend_picks_by_id_in_every_run() {
+        // 11-06's audit: the spears went through a HashMap (each simulation's own random order) and the first killable
+        // one in that order was ripped - two champions both killable got another rip in each run of the match
+        let spears = BTreeMap::from([(41, vec![1, 2, 3]), (7, vec![1]), (19, vec![1, 2, 3, 4])]);
+        // (damage, hp): #7 lives (100 < 300), #19 and #41 both die
+        let rend = |id: usize, n: usize| Some((n * 100, if id == 7 { 300 } else { 250 }));
+        assert_eq!(rend_target(&spears, rend), Some((19, 4, 400, 250)));
+        // one Rend may not kill (dead, banished, undying): the next by id
+        assert_eq!(rend_target(&spears, |id, n| (id != 19).then_some((n * 100, 250))), Some((41, 3, 300, 250)));
+        assert_eq!(rend_target(&spears, |_, _| None), None);
     }
 
     #[test]

@@ -97,15 +97,20 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
+/// The line's head: which simulation (kind, match, set - 0.2.52: without them the presims' `WATCH` lines, each its own
+/// Illaoi's counts, read as one count climbing), the tick, the unit.
 fn head(sim: &StableSim<'_>, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
         Some(SimOriginKindV1::ServerPresim) => "presim",
         Some(SimOriginKindV1::ClientMatchView) => "view",
         Some(SimOriginKindV1::ClientSpectate) => "spectate",
+        Some(SimOriginKindV1::ClientReplay) => "replay",
+        Some(SimOriginKindV1::Tool) => "tool",
         _ => "unknown",
     };
-    format!("[{kind} t={}] #{id}", sim.tick())
+    let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
+    format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
 // ===================== 参数 =====================

@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Orianna as in League (needs League of Legends Heroes): replaces the main pack's Orianna so the Ball flies from where it really is (on the ground, on an ally or on its way back) for Command: Attack and Command: Protect, Command: Protect goes to the ally in the most danger, Command: Attack throws the Ball into the thickest group of enemy champions in range, Command: Shockwave goes off only for two enemy champions near the Ball or one it kills, and her AI arms the Shockwave and throws the Ball into a crowd first (the Q+R combo); with no enemy champion near she walks up to the lane minions and last-hits them instead of waiting by her tower. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-03",
+  "last_updated": "2026-11-06",
   "mod_id": "league_orianna",
   "mod_type": "native",
   "name": "League Heroes: Orianna's Ball from where it is, Protect to the ally in danger, the Q+R combo (test)",
-  "version": "0.3.2"
+  "version": "0.3.3"
 }

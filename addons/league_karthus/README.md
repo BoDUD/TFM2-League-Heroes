@@ -1,4 +1,4 @@
-# 卡尔萨斯附加包（测试版 v0.5.4）
+# 卡尔萨斯附加包（测试版 v0.5.5）
 
 主包 `league` 保持纯数据。用户选了「被动做附加包」。这个附加包用原生代码做主包数据做不到的**死亡契约**：
 
@@ -68,6 +68,28 @@
 数字：被动的参数写在英雄数据的 `passive.params`（`{"p_t": 420}`），由 `make_override.py` 从 `tools/kit/build_karthus.py`
 的参数表 `P` 写入；`GUARD_T`、`GUARD_EVERY`、`HIDE_EVERY`、`FLUSH_T` 和钩子的距离写在 `src/lib.rs`，单元测试核对参数表
 （`q_range`、`e_cast`、`e_r`、`w_r`、`atk_range`、`r_dmg`、`r_ratio`、`r_ch`）。
+
+## 0.5.5：倒下的一击不算灵体挨打，重新放逐一串一行，复活时间每份模拟各扣各的（2026-11-06）
+
+前两条只改日志；第三条改的是复活时间由哪份模拟扣（扣多少不变）。11-06 的日志：
+
+- **`SPIRIT HIT` 一半是他自己倒下的那一击**：99 行里 47 行是 1000 以上的伤害。`strike` 补的致命一击（`hp + 1000` 真实伤害，记在最后
+  打他的人头上）结算时也走 `on_damaged`，那时他还算灵体，就记成「灵体挨了打」，`FALL` 行的「struck as a spirit by champions」每次也多 1。
+  现在补了第一击以后（`fall` 的 `tries` > 0）`on_damaged` 不记（`spirit_hit_counts`）。
+- **`REBANISH` 每 tick 一行**：#722 灵体免控（薇恩的 E 打上去时记着 `CONDEMN cc immune`），重新放逐不成，t=28699-28704 连着 6 行
+  `REBANISH #1..#6`。现在下一 tick 又要重新放逐算同一串，一串只记第一行（`rebanish_run`），`FALL` 行末尾多一项 `re-banished n times`
+  （每一次都数）。
+- **复活时间的记录跨模拟共用**（画面和预模拟分叉的排查：11-06 每一局看的比赛，画面都在开局 1-5 分钟和服务器的预模拟分开，三局换了
+  赢家）：灵体倒下后要扣的复活时间按「哪一局」（种类、比赛、小局）记，可服务器的预模拟没有局号（`s=-`），同一场比赛别的小局的预模拟
+  里同一个玩家碰巧那几 tick 阵亡，也会被这条扣；同一局并排的两份预演、画面的两遍共用一条（谁先看到他阵亡谁定复活的 tick）；记录按
+  真实时间放 30 秒就丢（暂停或卡顿久了，还没扣的那一份就不扣了）。
+  现在被动在他第一次出生时抽一个这份模拟的编号，每次出生挂在他身上（`league_karthus_sim:<编号>`，没有数值、没有画面；league.dll 的
+  分叉校验不看带 `_sim:` 的 buff）；阵亡时记录记下编号和他的身体，比赛钩子只扣尸体上编号对得上的那一条（死去的单位 buff 停在阵亡
+  那一刻、留到复活），按这份模拟自己的 tick 删（扣过、到了复活的 tick，或者 30 tick 内没看到他阵亡）；他复活时删掉上一条。比赛在他
+  阵亡期间打完的那几条留着，超过 256 条丢最早的。
+  测试 `respawn_notes_are_each_simulations_own`（同一局两份预演一快一慢、另一小局的预模拟同一个玩家同时阵亡：各扣各的）、
+  `one_note_per_simulation_and_player`、`a_note_is_owned_by_the_number_on_his_body`。下一局看：`SPAWN … sim #n`；`RESPAWN: … 1 ticks
+  after his death` 照旧；`RESPAWN NOT CUT (no match tick found this simulation's number on his body)` 就是尸体上读不到编号，告诉我。
 
 ## 0.5.4：比赛钩子在合集里转发（2026-11-05）
 

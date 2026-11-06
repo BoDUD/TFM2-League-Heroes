@@ -15,6 +15,12 @@
 //! 钩子每 tick 再按一次 Q——现在这时不改（league_ult_press 的规则，`TALLY` 记成 `Busy_kept`）；前 10 分钟过了钩子没事做，
 //! 写出最后一分钟就不再记 `TALLY`（以前每分钟一行 `Late_kept`）。
 //!
+//! 0.1.3（2026-11-06 的日志：`Q POKE at league_mel` 连着 11 tick、24 tick 每 tick 一行，`TALLY` 一分钟 `QPoke:33`；两串都从
+//! league_ult_press 记「A ORDER: held 39/40 ticks」那一 tick 开始——它替站着不动的她下普攻命令，本包（排在它后面）每 tick 把这个
+//! 普攻换成 Q，Q 一次都没放出去，它的普攻也就一直没出去）：同一种改法连着 `PRESS_MAX` tick 还没放出去（放出去了 Q 进冷却、
+//! 普攻进前摇 `Animation`，下一 tick 就不会再改）就歇 `BACKOFF` tick，这期间 AI 和 league_ult_press 的命令原样放行（`TALLY` 记成
+//! `Backoff_kept`），记一行「not taken」写出她身上的控制、Q 和普攻的冷却、目标的状态（league_orianna 0.3.2 的做法）；一串只记第一下。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_caitlyn.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `Q POKE`（Q 改打英雄）、`HARASS`（普攻改打英雄）、`TALLY`（每个凯特琳每分钟一行：改了几次、为什么没改），都限了条数。
 
@@ -144,6 +150,56 @@ pub fn busy(kinds: impl IntoIterator<Item = u32>) -> bool {
     kinds.into_iter().any(|k| BUSY.iter().any(|b| b.code() == k))
 }
 
+/// 同一种改法连着这么多 tick 还没放出去：有东西挡着，歇 `BACKOFF` tick，AI 和 league_ult_press 的命令照走（0.1.3，
+/// league_orianna 0.3.2 的数）。
+pub const PRESS_MAX: usize = 3;
+pub const BACKOFF: usize = 30;
+
+/// 连按的记录：哪种、第一下、上一下、连着几下（league_orianna 的 `Presses`）。
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Presses {
+    pub kind: &'static str,
+    pub first: usize,
+    pub last: usize,
+    pub n: usize,
+}
+
+impl Presses {
+    /// One more press of `kind` at `tick`: how many in a row (the tick after the last of the same kind), 1 for a new run.
+    pub fn press(&mut self, kind: &'static str, tick: usize) -> usize {
+        if self.kind == kind && self.n > 0 && tick == self.last + 1 {
+            self.n += 1;
+        } else {
+            *self = Presses { kind, first: tick, last: tick, n: 1 };
+        }
+        self.last = tick;
+        self.n
+    }
+}
+
+/// 一个单位身上的控制，日志用（`Stun, Animation`）。
+fn cc_names(e: &StableEntity<'_, '_>) -> String {
+    let v: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i))
+        .map(|c| CcKindV1::from_code(c.kind).map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}"))).collect();
+    v.join(", ")
+}
+
+/// 「not taken」那一行写的：她身上的控制、Q 和普攻的冷却（剩下 / 满的、充能），目标选不选得中、看不看得见、身上的控制。
+fn blocker(ctx: &mut StableAiContext<'_>, player: usize, target: usize) -> String {
+    let Some(sim) = ctx.sim() else { return "no sim".to_string() };
+    let Some(me) = sim.get_player(player).and_then(|p| p.champion()) else { return "no champion".to_string() };
+    let cd = |s: SkillSlotV1| {
+        me.cooldown(s).map_or("?".to_string(), |c| format!("{}/{} charges {}{}", c.remaining, c.cooltime, c.charges,
+                                                          if c.unlocked { "" } else { " locked" }))
+    };
+    let it = match sim.get_entity(target) {
+        Some(t) => format!("{}{}{}, cc [{}]", who(&sim, target), if t.is_targetable() { "" } else { " untargetable" },
+                           if sim.is_visible(me.team(), target) { "" } else { " unseen" }, cc_names(&t)),
+        None => format!("#{target} gone"),
+    };
+    format!("her cc [{}], Q {} attack {}; target {it}", cc_names(&me), cd(SkillSlotV1::Skill), cd(SkillSlotV1::Attack))
+}
+
 // ===================== AI 钩子 =====================
 
 /// 她这一枪对这个单位（护甲按 100 / (100 + 护甲)）。
@@ -167,6 +223,9 @@ fn at(e: &StableEntity<'_, '_>) -> Pt {
 struct Lane {
     /// her `TALLY` (each sim's Caitlyn her own)
     tally: Tally,
+    /// the run of changes nothing took and the back-off's end (`PRESS_MAX` / `BACKOFF`, 0.1.3)
+    presses: Presses,
+    hold_until: usize,
 }
 
 impl Lane {
@@ -235,6 +294,11 @@ impl StablePlayerAi for Lane {
                 self.tally(&sim, my_id, "Busy_kept".to_string());
                 return None;
             }
+            // backing off after a run of changes nothing took (0.1.3): the AI's / league_ult_press's order goes as it is
+            if (sim.tick() as usize) < self.hold_until {
+                self.tally(&sim, my_id, "Backoff_kept".to_string());
+                return None;
+            }
             let base_kind = match kind {
                 InputKindV1::Skill => Base::Q,
                 _ => {
@@ -291,8 +355,8 @@ impl StablePlayerAi for Lane {
                     Plan::Keep => 0,
                 };
                 let d = sim.get_entity(t).map_or(0.0, |e| plan::d(at(&e), here));
-                (why, format!("{} {} {} ({d:.0} away, the AI wanted {:?})", head(&sim, my_id),
-                              if why == Why::QPoke { "Q POKE at" } else { "HARASS" }, who(&sim, t), kind))
+                (why, t, format!("{} {} {} ({d:.0} away, the AI wanted {:?})", head(&sim, my_id),
+                                 if why == Why::QPoke { "Q POKE at" } else { "HARASS" }, who(&sim, t), kind))
             });
             (input, line)
         };
@@ -300,8 +364,25 @@ impl StablePlayerAi for Lane {
         if !ctx.is_valid_input(&input) {
             return None;
         }
-        if let Some((why, text)) = line {
-            if let Some(k) = counted(if why == Why::QPoke { "q" } else { "harass" }) {
+        let Some((why, target, text)) = line else { return Some(input) };
+        let what = if why == Why::QPoke { "q" } else { "harass" };
+        // a run of changes nothing took (a Q that goes out starts its cooldown, a shot its wind-up: the next tick changes
+        // nothing): back off, the AI's / league_ult_press's order goes, one line naming what may block it (11-06: Q at
+        // Mel every tick for 11 and 24 ticks while league_ult_press ordered her attack)
+        let tick = ctx.tick();
+        let n = self.presses.press(what, tick);
+        if n > PRESS_MAX {
+            self.hold_until = tick + BACKOFF;
+            if let Some(k) = counted("blocked") {
+                let state = blocker(ctx, player, target);
+                wlog(format!("{text}: changed {} ticks running since t={} and not taken ({state}) - backing off {BACKOFF} ticks, the AI's orders go #{k}",
+                             n - 1, self.presses.first));
+            }
+            return None;
+        }
+        // the first of a run only (0.1.2 wrote every tick of it)
+        if n == 1 {
+            if let Some(k) = counted(what) {
                 wlog(format!("{text} #{k}"));
             }
         }
@@ -374,6 +455,20 @@ mod tests {
         assert!(busy([CcKindV1::Stun.code(), CcKindV1::ForceMove.code()]));
         assert!(!busy([CcKindV1::Stun.code()]), "a stun is the game's AI's own business");
         assert!(!busy(Vec::<u32>::new()));
+    }
+
+    #[test]
+    fn a_run_of_changes_nothing_took_backs_off() {
+        // 11-06's logs: Q POKE at Mel t=8257..8267 and 30197..30221, each tick, while league_ult_press ordered her attack
+        let mut p = Presses::default();
+        assert_eq!(p.press("q", 8257), 1);
+        assert_eq!((8258..=8260).map(|t| p.press("q", t)).last(), Some(4));
+        assert!(p.n > PRESS_MAX && p.first == 8257);
+        // another kind, or a gap, starts a new run
+        assert_eq!(p.press("harass", 8261), 1);
+        assert_eq!(p.press("q", 8300), 1);
+        assert_eq!(p.press("q", 8301), 2);
+        assert!(BACKOFF > PRESS_MAX);
     }
 
     #[test]

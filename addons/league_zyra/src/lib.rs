@@ -88,8 +88,10 @@ fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
 }
 
-/// `SPAWN` / `WATCH` lines a launch (0.1.2): the server's presims (hundreds a launch, each with new passives - a count in
-/// the passive counts one sim) the first `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all of them.
+/// `SPAWN` / `WATCH` lines a launch (0.1.2), and `SEED` / `GROW` / `STRIKE` / `RAGE` / `TAKEDOWN` too (0.1.4: they were capped
+/// in each Zyra's passive - 11-06's presim log 441 KB, SEED 1792, STRIKE 1482, GROW 1403, TAKEDOWN 811 lines): the server's
+/// presims (hundreds a launch, each with new passives - a count in the passive counts one sim) the first `LOG_FIRST`, then
+/// every `LOG_EVERY`-th; the match on screen all of them.
 const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 100;
 
@@ -421,8 +423,8 @@ impl Garden {
         self.seeds.push(Seed { pos: spot, until: tick + self.p.s_life, next_show: tick });
         sim.play_sfx(&zy("s_drop"), me, &at(spot));
         self.n_seeds += 1;
-        if self.n_seeds <= 8 || self.n_seeds % 25 == 0 {
-            wlog(format!("{} SEED #{} ({why}) at ({:.0}, {:.0}), {} on the ground", head(sim, me), self.n_seeds, spot.0,
+        if let Some(k) = tally(sim, "seed") {
+            wlog(format!("{} SEED #{} ({why}) at ({:.0}, {:.0}), {} on the ground #{k}", head(sim, me), self.n_seeds, spot.0,
                          spot.1, self.seeds.len()));
         }
     }
@@ -454,8 +456,9 @@ impl Garden {
             self.plants.push(Plant { kind, pos: s.pos, until: tick + life, next: tick + self.p.t_per / 3, rage_until: 0 });
             self.sun.seed_plant(kind, s.pos, tick);
             self.n_grow += 1;
-            if self.n_grow <= 10 || self.n_grow % 25 == 0 {
-                wlog(format!("{} GROW #{}: a {kind:?} on a seed at ({:.0}, {:.0})", head(sim, me), self.n_grow, s.pos.0, s.pos.1));
+            if let Some(k) = tally(sim, "grow") {
+                wlog(format!("{} GROW #{}: a {kind:?} on a seed at ({:.0}, {:.0}) #{k}", head(sim, me), self.n_grow, s.pos.0,
+                             s.pos.1));
             }
         }
     }
@@ -503,8 +506,9 @@ impl Garden {
                     }
                     if n > 0 {
                         self.n_rage += 1;
-                        if self.n_rage <= 8 {
-                            wlog(format!("{} RAGE #{}: {n} of her seed plants round #{id}'s spot", head(sim, me), self.n_rage));
+                        if let Some(k) = tally(sim, "rage") {
+                            wlog(format!("{} RAGE #{}: {n} of her seed plants round #{id}'s spot #{k}", head(sim, me),
+                                         self.n_rage));
                         }
                     }
                 }
@@ -532,8 +536,8 @@ impl Garden {
             pl.next = tick + strike_period(&self.p, pl.rage_until > tick);
             let Some(u) = choose(&units, pl.pos, reach) else { continue };
             self.n_strike += 1;
-            if self.n_strike <= 10 || self.n_strike % 100 == 0 {
-                wlog(format!("{} STRIKE #{}: {:?} -> #{} ({}) for {dmg}{}", head(sim, me), self.n_strike, pl.kind, u.id,
+            if let Some(k) = tally(sim, "strike") {
+                wlog(format!("{} STRIKE #{}: {:?} -> #{} ({}) for {dmg}{} #{k}", head(sim, me), self.n_strike, pl.kind, u.id,
                              if u.champion { "champion" } else { "unit" }, if pl.rage_until > tick { ", enraged" } else { "" }));
             }
             match pl.kind {
@@ -643,8 +647,8 @@ impl StablePassive for Garden {
         let tick = sim.tick();
         if self.takedowns(sim) && alive {
             self.n_take += 1;
-            if self.n_take <= 6 {
-                wlog(format!("{} TAKEDOWN #{}: a seed now", head(sim, me), self.n_take));
+            if let Some(k) = tally(sim, "takedown") {
+                wlog(format!("{} TAKEDOWN #{}: a seed now #{k}", head(sim, me), self.n_take));
             }
             self.drop_seed(sim, me, team, pos, "takedown");
             self.next_seed = tick + self.p.s_cd;

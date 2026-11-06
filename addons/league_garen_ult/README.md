@@ -21,6 +21,7 @@ R 写成 150 + 120% 攻击力 + 12% **最大**生命的真实伤害，AI 一好�
 - **被动**：看到标记，10 tick 后（主包的巨剑落下的那一刻）按目标那时的已损失生命补 30% 的真实伤害（`deal_damage_typed`，`Fixed`）。画面、声音、主包那份伤害都在数据里。
 
 - 0.1.1（2026-11-05 复查 11-03 夜里的日志：5 次 `R HELD` 的目标远在 R 伤害以下，死歌 4 次、塞恩 1 次，因为 `dies_to` 把身上任何「不死」都当砍不死）：别的附加包一直挂着的被动护身「不死」（名字以 `_p_guard` / `_rv_guard` 结尾：死歌、塞恩、艾尼维亚、扎克、扎恩、tft 的石甲虫）不再算「杀不死」——英雄联盟里处决他们照样算击杀，他们死进自己的被动里（死歌化灵体、塞恩起尸、艾尼维亚进蛋）；千珏、基兰、凯尔等的「不死」照样等。`R HELD` 的目标真带「不死」时注明 `undying`。
+- 0.1.2（2026-11-06 的日志）：6 次 `R KILL` 有 4 次后面没有 `VERDICT`；t=16698 和 t=16818 是同一次按 R（`R KILL` 每 120 tick 才记一行），R 一直是好的——引擎 120 tick 以上没接。多半是他正在 E 的 3 秒旋转里（施法动作，游戏 0.6.4 记成 `Animation`），钩子只看 AI 的输入是不是技能。现在照 league_ult_press：他在放技能（`Animation`）、被强制位移（`ForceMove`）或被放不出技能的控制住时，钩子不自己按 R；AI 自己要放的 R 砍不死照样拦（`quiet`）。按了 30 tick 引擎还没接，记一行 `R NOT TAKEN: #id pressed for n ticks, R still ready (his crowd control [...], the AI's input ...)`；R 放出去了、落剑时目标已经死了或没了，记 `R GONE #n: #id was dead or gone before the sword landed - no verdict`。下一局看这两行还有没有、`R KILL` 后面是不是都有 `VERDICT`。
 
 ## 在游戏里测
 

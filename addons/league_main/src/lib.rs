@@ -11,13 +11,16 @@
 //! 认不得的游戏版本、Mac / Linux（没有 DLL）什么都不改，英雄照旧画 1 倍的帧。
 //!
 //! src/cache.rs（0.8.16）：游戏的 GPU 图片缓存（Skia 的 GrResourceCache，默认 256 MiB）放大到 1 GiB——一屏英雄多的界面
-//! 不再因为装不下而每帧清掉、重新上传贴图。
+//! 不再因为装不下而每帧清掉、重新上传贴图；0.9.14 起 1.5 GiB（物理内存不到 8 GiB 的机器仍 1 GiB），用到 90%、到顶清图时
+//! 写日志。
 //!
 //! src/warm.rs（0.7.27）：标题画面出来以后，后台线程把主包 `sound/bgm/` 里的音频按盘上的顺序读一遍进系统缓存，
 //! 比赛里音频第一次播放就不用在主线程等读盘。
 //!
-//! src/diverge.rs（0.9.12）：比赛钩子每 600 tick 给每份模拟（屏幕上的比赛、服务器的两份预演）拍一张所有单位的快照算哈希，
-//! 同一场比赛的几份走到同一个 tick 就对一对，第一次不一样写一行 `DIVERGE`——找「屏幕上的比赛和预演从哪个 tick 起不同」。
+//! src/diverge.rs（0.9.12；0.9.14 重写）：比赛钩子每 600 tick 给每份模拟（屏幕上的比赛、服务器的两份预演、启动时成对跑的
+//! 原版模拟）拍一张快照——每个玩家的金币、等级、复活、冷却、装备、属性，每个活着的单位的位置、血量、buff 名——算哈希；只有
+//! 同一小局的几份（第一个 tick 的 rng 相同）互相比，走到同一个 tick 就对一对：不一样写 `DIVERGE`，说出第一处不同的行（任何
+//! 种类）和字段，之后接着比（`EQUAL` 又一样了）——找「屏幕上的比赛和预演从哪里起不同」。只写有配对的 run。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 //! 挂钩、取表、缩放的行写在挂钩的那个 DLL 的日志里：tft.dll 先加载时在 tft.log，这里只有一行「交给了谁」。
@@ -39,7 +42,7 @@ pub mod hd;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.13";
+const VERSION: &str = "0.9.14";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);

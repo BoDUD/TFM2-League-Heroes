@@ -11,7 +11,8 @@
 //!   最近的敌方单位，照样和射程内每个敌方英雄的线比分。
 //!   火箭（主包的 `r_missile` / `r_big_missile` 画面）沿直线飞过去，到了那一 tick 排一个 `boom` / `big_boom`。
 //! - `boom` / `big_boom`：落点播主包的爆炸画面和音效；`R_R`（大火箭 `R_BIG_R`）内每个敌人（塔除外）受到
-//!   `R_DMG` + `R_AP`% 法强魔法、`R_AD`% 攻击力物理伤害（大火箭 x `R_BIG`%），走引擎的伤害流程。他死了就不炸。
+//!   `R_DMG` + `R_AP`% 法强魔法、`R_AD`% 攻击力物理伤害（大火箭 x `R_BIG`%），走引擎的伤害流程。伤害按出手时的法强、攻击力
+//!   算好记下（`FLIGHTS`，0.1.3）：火箭飞着时他死了照样落地爆炸（英雄联盟一样；0.1.2 他死了就不炸）。
 //! - `escape`（瓦尔基里俯冲）/ `package`（弹药包）：24 个方向里找落点——路上没墙、在地图里、能飞满 `W_SPEED` x `W_TICK`
 //!   （弹药包 `PK_SPEED` x `PK_TICK`）的点，按「离最近的敌方英雄多远」打分，朝队友的方向加分（`ALLY_SCORE`），落在敌方塔
 //!   `TOWER_R` 内扣分；然后用强制位移（`ForceMove`）把他送过去。主包的火焰带照常每隔几 tick 落在他身后。
@@ -367,6 +368,50 @@ fn queue(sim: &mut StableSim<'_>, stage: &str, caster: usize, input: InputTarget
 
 // ===================== 火箭 =====================
 
+/// 一发火箭的伤害：(魔法, 物理)，大火箭 x `R_BIG`%。
+pub fn missile_damage(ap: usize, ad: usize, big: bool) -> (usize, usize) {
+    let mult = if big { R_BIG } else { 100 };
+    ((R_DMG + R_AP * ap / 100) * mult / 100, R_AD * ad / 100 * mult / 100)
+}
+
+/// 一发飞着的火箭（0.1.3）：落地的 tick、他的队伍、出手时按他的法强、攻击力算好的伤害。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Flight {
+    pub due: usize,
+    pub team: usize,
+    pub magic: usize,
+    pub phys: usize,
+}
+
+/// 飞着的火箭：(他, 落点 x, 落点 y) -> 这些火箭。排队的效果只带回落点，所以按落点找回出手时记下的伤害；他死了火箭照样落地
+/// 爆炸（英雄联盟；0.1.2 读他活着时的属性，死了就不炸——11-06 的日志 14 + 2 次 `boom: he is dead, no blast`）。服务器并排跑的
+/// 两份预模拟实体编号、落点、tick 都一样：各记一发、各取一发。
+pub type Flights = HashMap<(usize, u64, u64), Vec<Flight>>;
+
+static FLIGHTS: LazyLock<Mutex<Flights>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 落地前后差几 tick 也认（排队的延迟和这里算的落地 tick 对不上时）。
+pub const LAND_SLACK: usize = 2;
+
+/// 出手：记下这发火箭（行太多是结束了的模拟留下的：全清）。
+pub fn launch(flights: &mut Flights, key: (usize, u64, u64), f: Flight) {
+    if flights.len() > 4096 && !flights.contains_key(&key) {
+        flights.clear();
+    }
+    flights.entry(key).or_default().push(f);
+}
+
+/// 落地：取走这个落点在 `now` 前后 `LAND_SLACK` tick 内落地的一发（None：没记过——被清掉了，或别的模拟取走了）。
+pub fn landing(flights: &mut Flights, key: (usize, u64, u64), now: usize) -> Option<Flight> {
+    let list = flights.get_mut(&key)?;
+    let i = list.iter().position(|f| f.due.abs_diff(now) <= LAND_SLACK)?;
+    let f = list.remove(i);
+    if list.is_empty() {
+        flights.remove(&key);
+    }
+    Some(f)
+}
+
 /// 出手那一 tick（主包 R 的 `r_at`）：挑一条线，火箭飞过去，到了那一 tick 爆炸。
 fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool) {
     let Some(me) = alive_at(sim, caster) else { return };
@@ -436,26 +481,36 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
             if flew { "" } else { " (spawn_projectile refused: no flying missile)" }
         ));
     }
+    // the damage by his AP / AD now: the missile lands with it even if he dies meanwhile (0.1.3)
+    let stat = sim.get_entity(caster).map(|e| e.stat()).unwrap_or_default();
+    let (magic, phys) = missile_damage(stat.magic_power, stat.attack, big);
+    let due = sim.tick() + ticks.max(1);
+    launch(&mut FLIGHTS.lock().unwrap_or_else(|e| e.into_inner()), (caster, tx, ty), Flight { due, team, magic, phys });
     queue(sim, stage, caster, InputTargetV1::pos(tx, ty), ticks);
 }
 
 /// 火箭飞过的单位：什么都不做（伤害在停下的地方）。
 fn pass(_: &mut StableSim<'_>, _: usize, _: InputTargetV1) {}
 
-/// 爆炸：魔法 + 物理伤害。
+/// 爆炸：魔法 + 物理伤害，按出手时记下的（0.1.3：他死了也炸，同英雄联盟）。
 fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool) {
     let Some(spot) = input_pos(&input) else { return };
-    if alive_at(sim, caster).is_none() {
-        if tally(sim, "dead").is_some() {
-            wlog(format!("{} boom: he is dead, no blast", head(sim, caster)));
+    let dead = alive_at(sim, caster).is_none();
+    let flight = landing(&mut FLIGHTS.lock().unwrap_or_else(|e| e.into_inner()), (caster, input.x, input.y), sim.tick());
+    let (team, magic, phys) = match flight {
+        Some(f) => (f.team, f.magic, f.phys),
+        // not recorded (cleared): his unit as it is now, a dead one too (the game keeps it until he respawns)
+        None => {
+            let Some((team, stat)) = sim.get_entity(caster).map(|e| (e.team(), e.stat())) else {
+                if tally(sim, "gone").is_some() {
+                    wlog(format!("{} boom: no launch recorded and his unit is gone, no blast", head(sim, caster)));
+                }
+                return;
+            };
+            let (magic, phys) = missile_damage(stat.magic_power, stat.attack, big);
+            (team, magic, phys)
         }
-        return;
-    }
-    let team = sim.get_entity(caster).map_or(0, |e| e.team());
-    let stat = sim.get_entity(caster).map(|e| e.stat()).unwrap_or_default();
-    let mult = if big { R_BIG } else { 100 };
-    let magic = (R_DMG + R_AP * stat.magic_power / 100) * mult / 100;
-    let phys = R_AD * stat.attack / 100 * mult / 100;
+    };
     let (r, k) = if big { (R_BIG_R, "r_big") } else { (R_R, "r") };
     sim.play_view_effect(&ck(&format!("{k}_boom")), caster, &input, 0, 0, 0);
     sim.play_sfx(&ck(&format!("{k}_boom")), caster, &input);
@@ -471,9 +526,17 @@ fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool)
             n.1 += 1;
         }
     }
-    if tally(sim, if big { "big_boom" } else { "boom" }).is_some() {
-        wlog(format!("{} {} at {}: {} enemies hit ({} champions), {} magic + {} physical each", head(sim, caster),
-                     if big { "BIG BOOM" } else { "BOOM" }, pt(spot), n.0, n.1, magic, phys));
+    // a dead Corki's blast has lines of its own (rare: the presims' first LOG_FIRST), so the next game shows them
+    let kind = match (dead, big) {
+        (true, _) => "dead_boom",
+        (false, true) => "big_boom",
+        (false, false) => "boom",
+    };
+    if tally(sim, kind).is_some() {
+        wlog(format!("{} {} at {}: {} enemies hit ({} champions), {} magic + {} physical each{}{}", head(sim, caster),
+                     if big { "BIG BOOM" } else { "BOOM" }, pt(spot), n.0, n.1, magic, phys,
+                     if flight.is_none() { " (no launch recorded: his stats now)" } else { "" },
+                     if dead { " - he is dead, the missile lands as in League" } else { "" }));
     }
 }
 
@@ -642,6 +705,32 @@ mod tests {
         assert_eq!(aim, (0.0, 60_000.0));
         // the body as far as the AI casts (R_RANGE + both bodies) and a few ticks' walk still counts
         assert_eq!(dead_aim(me, Some((R_RANGE + 30_000.0, 0.0)), &[]).map(|x| x.1), Some(Aim::Corpse));
+    }
+
+    #[test]
+    fn a_missile_in_flight_lands_after_he_dies() {
+        // 11-06's logs: "boom: he is dead, no blast" x 16 - the blast read his stats alive; League lands the missiles.
+        // The damage is taken at the launch and found again by the landing spot (the queue hands back only that)
+        assert_eq!(missile_damage(100, 200, false), (75 + 42, 104));
+        assert_eq!(missile_damage(100, 200, true), ((75 + 42) * 2, 208));
+        let mut fl = Flights::new();
+        let key = (401, 300_000, 400_000);
+        let f = Flight { due: 14_426, team: 1, magic: 117, phys: 104 };
+        // the server's twin presims: the same id, spot and tick - one launch each, one landing each
+        launch(&mut fl, key, f);
+        launch(&mut fl, key, f);
+        assert_eq!(landing(&mut fl, key, 14_425), Some(f), "a tick early still counts");
+        assert_eq!(landing(&mut fl, key, 14_426), Some(f));
+        assert_eq!(landing(&mut fl, key, 14_426), None);
+        assert!(fl.is_empty());
+        // another spot, or long after: nothing
+        launch(&mut fl, key, f);
+        assert_eq!(landing(&mut fl, (401, 300_000, 400_001), 14_426), None);
+        assert_eq!(landing(&mut fl, key, 14_426 + LAND_SLACK + 1), None);
+        // two missiles at one spot: the one due now
+        let later = Flight { due: 14_440, ..f };
+        launch(&mut fl, key, later);
+        assert_eq!(landing(&mut fl, key, 14_440), Some(later));
     }
 
     #[test]

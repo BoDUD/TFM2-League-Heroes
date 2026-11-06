@@ -55,7 +55,7 @@
 
 ### 盖伦大招斩杀附加包
 
-[盖伦大招斩杀附加包](../../addons/league_garen_ult/README.md)：`league_garen_ult` v0.1.1
+[盖伦大招斩杀附加包](../../addons/league_garen_ult/README.md)：`league_garen_ult` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

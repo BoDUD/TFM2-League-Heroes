@@ -12,7 +12,7 @@
 //! - **AI 钩子**（[`super::ai`]）用 [`best`] 挑目标：朝每个够得着的敌方英雄吹一次，风路上的人先按击退挪过去，看冲击波打到几个
 //!   敌方英雄。
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -51,15 +51,37 @@ pub struct Planned {
 /// 定下的 R 过了这么多 tick 还没放就作废（AI 的按键 30 tick 内算同一次，再加出手的 `r_at`）。
 pub const PLAN_FRESH: usize = 60;
 
-static PLANS: LazyLock<Mutex<HashMap<(u64, usize), Planned>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// (这份模拟, 她) -> 打算。0.3.2（2026-11-06）：每份模拟记新的打算时删掉自己作废了的（过了 `PLAN_FRESH`，按这份模拟的 tick），
+/// 超过 [`PLANS_MOST`] 行丢编号最小（早已打完）的模拟的，以前超过 256 行整张清掉（别的模拟刚定下、还没放的 R 也没了）。
+pub type Plans = BTreeMap<(u64, usize), Planned>;
+static PLANS: Mutex<Plans> = Mutex::new(BTreeMap::new());
+pub const PLANS_MOST: usize = 256;
 
 /// AI 钩子记下这次 R 的打算（(这份模拟, 她)）。
 pub fn remember(key: (u64, usize), plan: Planned) {
-    let mut all = PLANS.lock().unwrap_or_else(|e| e.into_inner());
-    if all.len() > 256 {
-        all.clear();
+    remember_in(&mut PLANS.lock().unwrap_or_else(|e| e.into_inner()), key, plan);
+}
+
+/// [`remember`] in the table `all`.
+pub fn remember_in(all: &mut Plans, key: (u64, usize), plan: Planned) {
+    // this simulation's plans past PLAN_FRESH (another life of hers, never cast) are void: gone, by its own clock
+    let stale: Vec<_> = all
+        .range((key.0, 0)..=(key.0, usize::MAX))
+        .filter(|(_, p)| p.tick + PLAN_FRESH < plan.tick)
+        .map(|(k, _)| *k)
+        .collect();
+    for k in stale {
+        all.remove(&k);
     }
     all.insert(key, plan);
+    // past PLANS_MOST: the oldest simulation's (the smallest number: one that ended), never this one's
+    while all.len() > PLANS_MOST {
+        let Some(old) = all.keys().next().map(|k| k.0).filter(|&s| s != key.0) else { break };
+        let gone: Vec<_> = all.range((old, 0)..=(old, usize::MAX)).map(|(k, _)| *k).collect();
+        for k in gone {
+            all.remove(&k);
+        }
+    }
 }
 
 /// 她放 R 了：取出 `tick` 前 `PLAN_FRESH` tick 内定下的打算（更早的作废）。

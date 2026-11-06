@@ -55,7 +55,7 @@
 
 ### 赛娜黑雾常驻附加包
 
-[赛娜黑雾常驻附加包](../../addons/league_senna_mist/README.md)：`league_senna_mist` v0.1.0
+[赛娜黑雾常驻附加包](../../addons/league_senna_mist/README.md)：`league_senna_mist` v0.1.1
 
 这个附加包把主包的赛娜换成 `override/` 里的副本（`make_override.py` 用 `tools/kit/build_senna.py` 的 `--native` 生成：技能
 一字不改，只加被动 `league_senna_mist:keep`，普攻说明里的「（死亡清空）」换成「（扩展包保留）」），被动每 tick 看一次：

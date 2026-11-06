@@ -40,7 +40,10 @@ into Lamb's frames; his bites and his pounce are pictures on the targets.
           last r_fight champion hits each within f_t ticks of the one before), a random allied champion within r_reach
           (her too) with r_need or more enemy champions within r_near of him (r_probe / r_count / r_n1 -> r_n2). The save:
           the zone round her on r_at (r_r, r_t ticks): every r_per ticks the allied champions in it get r_per + 2 ticks
-          of `undying` (League: health stops at 10%); when it ends, every allied champion in it heals r_heal +
+          of `undying` (League: health stops at 10%), the first the tick after it lands (first_delay 1: a zone's
+          first_delay 0 gives its first one a whole period late - classic-SDK trace 2026-11-06: the circle 22 ticks
+          after the cast, the first undying at 28 with 0, 23 with 1; 11-06's logs had Kindred die 22-25 ticks after
+          her R in that gap); when it ends, every allied champion in it heals r_heal +
           r_heal_ad% AD. Unused, the cooldown is refunded. r_now=1 is addons/league_kindred's copy, whose hook casts R
           when someone in the circle is about to die (it reads health): the slot saves at once - no arming, no refund,
           no check in her attack.
@@ -303,7 +306,8 @@ def build(p):
                      on_me(delayed(4, sw("k_a", combine(*rm("k_a"), sw("p_lock", NONE, mark(gain, "p_kill")))))))
 
     # ------------------------------------------------------------------ R Lamb's Respite (the save; armed or at once)
-    safe = field("r_field", p["r_r"], p["r_t"], p["r_per"], 0, "AllyChampion",
+    # first_delay 1: the first undying the tick after the circle lands (0 meant a whole r_per later, 2026-11-06)
+    safe = field("r_field", p["r_r"], p["r_t"], p["r_per"], 1, "AllyChampion",
                  [buff("r_safe", p["r_per"] + 2, undying=True)],
                  end=[heal_ally(p["r_heal"], p["r_heal_ad"]), view("r_heal"), tsfx("r_heal")])
     save = on_me(anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),

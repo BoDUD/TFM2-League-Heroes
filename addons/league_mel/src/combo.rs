@@ -7,6 +7,7 @@
 //! 3. **残影 → R**：鎏金蚀日打所有带残影的敌方英雄，伤害按层数算，所以 R 要等残影叠起来：
 //!    - **R KILL**：有一名敌方英雄身上的残影（本包的 `m_mark` 层数 × (`r_st` + `r_ratio`% 法强)）够打掉他的生命 + 护盾：按 R；
 //!    - **R MANY**：两名以上敌方英雄的残影都够打掉他们 `MANY_SHARE` 的生命：按 R；
+//!    - 身上有真的「不死」的英雄（千珏的法阵、基兰的符文……，`holds_execute`）两样都不算（0.1.5：1 血的人也杀不死）；
 //!    - **R HELD**：AI 自己想按 R，但两样都不够：不放，改成普攻它的目标（打不到就走过去），残影接着叠。0.1.3（用户
 //!      2026-10-23：「梅尔有时候会直接放大」）：R 的距离（`r_range`）比普攻长，目标在普攻够不着的地方时那下普攻不合法，
 //!      0.1.2 就什么都不改、AI 的 R 照样放了出去；现在够不着就走向他，没有目标就原地站着（`held_input`），R 一律不放。
@@ -16,7 +17,7 @@
 
 use mod_api_stable::*;
 
-use super::{count_buff, counted, head, on_screen, params_of, sn, stacks_worth, who, wlog, Params, ID};
+use super::{cannot_die, count_buff, counted, head, on_screen, params_of, sn, stacks_worth, who, wlog, Params, ID};
 
 /// 排在 league_ult_press（100）之后：引擎按优先级从小到大跑 AI 钩子，每个拿到前一个的决定。
 pub const COMBO_PRIORITY: i32 = 110;
@@ -62,6 +63,8 @@ pub struct Unit {
     pub stacks: usize,
     /// 被 E 禁锢着（`e_bound`）。
     pub rooted: bool,
+    /// 身上有真的「不死」（`holds_execute`，0.1.5）：R 杀不死他。
+    pub undying: bool,
 }
 
 /// AI 这一 tick 想做的（钩子拿到的决定）。
@@ -94,7 +97,8 @@ fn worth(me: &Me, u: &Unit, p: &Params) -> usize {
 
 /// R 该不该放：(为什么, 日志的种类)；不该是 None。
 pub fn r_reason(me: &Me, foes: &[Unit], p: &Params) -> Option<(&'static str, &'static str)> {
-    let champs = foes.iter().filter(|u| u.champion && u.stacks > 0);
+    // one who cannot die is worth no R (0.1.5)
+    let champs = foes.iter().filter(|u| u.champion && u.stacks > 0 && !u.undying);
     if champs.clone().any(|u| worth(me, u, p) >= u.hp + u.shield) {
         return Some(("r kill", "R KILL: the stacks on a champion are worth his health"));
     }
@@ -200,7 +204,7 @@ fn read(sim: &StableSim<'_>, me: usize) -> Option<(Me, Vec<Unit>)> {
         let champion = u.is_champion();
         let (stacks, rooted) = if champion { (count_buff(&u, &mark), count_buff(&u, &bound) > 0) } else { (0, false) };
         foes.push(Unit { id: u.id(), at: (x as f64, y as f64), r: u.radius() as f64, hp, shield: u.shield(), champion,
-                         stacks, rooted });
+                         stacks, rooted, undying: champion && cannot_die(&u) });
     }
     Some((m, foes))
 }
@@ -329,11 +333,25 @@ mod tests {
     }
 
     fn champ(id: usize, x: f64, hp: usize, stacks: usize) -> Unit {
-        Unit { id, at: (x, 0.0), r: 3000.0, hp, shield: 0, champion: true, stacks, rooted: false }
+        Unit { id, at: (x, 0.0), r: 3000.0, hp, shield: 0, champion: true, stacks, rooted: false, undying: false }
     }
 
     fn minion(id: usize, x: f64) -> Unit {
-        Unit { id, at: (x, 0.0), r: 2000.0, hp: 300, shield: 0, champion: false, stacks: 0, rooted: false }
+        Unit { id, at: (x, 0.0), r: 2000.0, hp: 300, shield: 0, champion: false, stacks: 0, rooted: false, undying: false }
+    }
+
+    #[test]
+    fn no_r_for_one_who_cannot_die() {
+        // 11-06's logs: Kindred under her own R at 1 health - stacks "worth" her health, no kill possible
+        let p = Params::default();
+        let kindred = Unit { undying: true, ..champ(1, 40_000.0, 1, 3) };
+        assert_eq!(call(&me(), &[kindred], &p, Want::Move), None);
+        assert_eq!(call(&me(), &[kindred], &p, Want::R(Some(1))), Some(Call::HoldR(Some(1))));
+        // she does not make two for R MANY either; a mortal one beside her still can be killed
+        let two = [Unit { undying: true, ..champ(1, 40_000.0, 600, 10) }, champ(2, 50_000.0, 500, 8)];
+        assert_eq!(call(&me(), &two, &p, Want::Move), None);
+        let kill = [kindred, champ(2, 50_000.0, 250, 10)];
+        assert!(matches!(call(&me(), &kill, &p, Want::Move), Some(Call::PressR(1 | 2, "r kill", _))));
     }
 
     #[test]

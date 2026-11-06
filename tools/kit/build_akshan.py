@@ -73,9 +73,11 @@ P = {
     # W Going Rogue (League: camouflage 2 s, +80-120 ms toward Scoundrels, cd 18-2 s)
     "w_rad": 40000, "w_inv": 120, "w_ms": 40, "w_cd": 1080,
     # ult: R Comeuppance (League: 2500 range, 2.5 s channel, 5/6/7 bullets, 25-45 +15% AD to 3x on missing health,
-    # cd 100-70 s)
+    # cd 100-70 s). r_w: a projectile hits a unit only when the unit's centre is within r_w of where it is on a tick (no
+    # sweep between ticks, no body radius - game 0.7.1, 2026-11-06): 6000 at 20000 a tick stepped over half the bullets;
+    # 11000 >= r_speed / 2 leaves no gap on the line (League's bullet plus a champion's body)
     "r_cd": 3000, "r_range": 160000, "r_dur": 6, "r_ch": 30, "r_store": 6, "r_n": 5, "r_gap": 6, "r_aim": 6,
-    "r_speed": 20000, "r_reach": 220000, "r_w": 6000, "r_dmg": 35, "r_ratio": 25, "r_up": 30,
+    "r_speed": 20000, "r_reach": 220000, "r_w": 11000, "r_dmg": 35, "r_ratio": 25, "r_up": 30,
     # the add-on (addons/league_akshan): bullets from min to r_max x min as the target's missing health goes 0 -> r_full%
     "r_max": 3, "r_full": 67,
 }

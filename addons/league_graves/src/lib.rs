@@ -220,9 +220,29 @@ pub fn sim_tag(names: impl Iterator<Item = String>) -> u64 {
     names.into_iter().find_map(|n| n.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())).unwrap_or(0)
 }
 
+/// The mark on a number borrowed by a caster without his tag (0.2.4): never one of a tagged Graves's own rows (drawn
+/// numbers never reach it).
+pub const BORROWED: u64 = 1 << 63;
+
+/// The number a caster without his tag goes by: the first of `tags` (the numbers on this sim's units in their order, 0 for
+/// one without) marked [`BORROWED`]; 0 when none has one. The units' order is the same in every run of a match and a
+/// number belongs to one sim, so the row stays that sim's.
+pub fn borrowed(tags: impl IntoIterator<Item = u64>) -> u64 {
+    tags.into_iter().find(|&n| n != 0).map_or(0, |n| n | BORROWED)
+}
+
+fn tag_on(e: &StableEntity<'_, '_>) -> u64 {
+    sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()))
+}
+
+/// The number `me` goes by in this sim: the one hung on him; a caster without it (an earlier life's shell - a respawn is
+/// a new unit - or another champion casting the copy's skills) borrows the first tagged unit's ([`borrowed`], 0.2.4;
+/// before, 0: one row (0, id) for every sim running - one volley's hits and one blast's victims for all of them).
 fn sim_of(sim: &StableSim<'_>, me: usize) -> u64 {
-    sim.get_entity(me).map_or(0, |e| sim_tag((0..e.buff_count()).filter_map(|i| e.buff_at(i))
-        .map(|b| b.name().to_string())))
+    match sim.get_entity(me).map_or(0, |e| tag_on(&e)) {
+        0 => borrowed((0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).map(|e| tag_on(&e))),
+        n => n,
+    }
 }
 
 /// 每个格雷福斯的参数（被动出生时存下，原生效果里读）：键是 (这份模拟的编号, 他)。
@@ -232,16 +252,11 @@ fn params_of(sim: &StableSim<'_>, me: usize) -> Params {
     PARAMS.lock().unwrap_or_else(|e| e.into_inner()).get(&(sim_of(sim, me), me)).copied().unwrap_or_default()
 }
 
-/// More rows than this in a table are finished sims' (a sim ends with its rows still there): all cleared.
-const MOST_ROWS: usize = 4096;
-
-/// The rows of the Graves numbered `no` in `rows` go (his new life is a new unit), and all of them past `MOST_ROWS`.
+/// The rows of the Graves numbered `no` in `rows` go (his new life is a new unit) - his own only. 0.2.3 also cleared the
+/// whole table past 4096 rows: every sim running beside it lost its volley, shell and blast at another tick than its
+/// twin (0.2.4). A finished sim leaves its last few rows.
 fn forget<T>(rows: &Mutex<HashMap<(u64, usize), T>>, no: u64) {
-    let mut rows = rows.lock().unwrap_or_else(|e| e.into_inner());
-    rows.retain(|k, _| k.0 != no);
-    if rows.len() > MOST_ROWS {
-        rows.clear();
-    }
+    rows.lock().unwrap_or_else(|e| e.into_inner()).retain(|k, _| k.0 != no);
 }
 
 // ===================== 计算（单元测试用） =====================
@@ -529,5 +544,28 @@ mod tests {
         let rows: Mutex<HashMap<(u64, usize), usize>> = Mutex::new(HashMap::from([((900_001, 24), 1), ((900_002, 24), 2)]));
         forget(&rows, 900_001);
         assert_eq!(rows.lock().unwrap().keys().copied().collect::<Vec<_>>(), vec![(900_002, 24)]);
+    }
+
+    #[test]
+    fn a_new_life_never_clears_the_other_sims_rows() {
+        // 0.2.3 cleared the whole table past 4096 rows: the sims running beside it lost their volley / shell / blast at
+        // another tick than their twins
+        let rows: Mutex<HashMap<(u64, usize), usize>> = Mutex::new(HashMap::new());
+        for no in 1..=5_000u64 {
+            rows.lock().unwrap().insert((no, 24), 1);
+        }
+        forget(&rows, 7);
+        let left = rows.lock().unwrap();
+        assert_eq!(left.len(), 4_999);
+        assert!(!left.contains_key(&(7, 24)) && left.contains_key(&(5_000, 24)));
+    }
+
+    #[test]
+    fn an_untagged_caster_borrows_his_sims_number() {
+        // a caster without the tag shared one row (0, id) with every sim running (one volley's cuts and knock-backs, one
+        // blast's victims for all of them); now the first tagged unit's number, marked: the twins apart, never his own
+        assert_eq!((borrowed([0, 7, 9]), borrowed([0, 8, 10])), (7 | BORROWED, 8 | BORROWED));
+        assert_ne!(borrowed([7]), 7);
+        assert_eq!(borrowed([0, 0]), 0);
     }
 }

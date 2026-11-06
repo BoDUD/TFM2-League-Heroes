@@ -10111,7 +10111,7 @@
           }
         },
         {
-          "type": "AddBuff",
+          "type": "AddCasterBuff",
           "buff_state": {
             "name": "league_zed_r_safe",
             "duration": {
@@ -10121,7 +10121,8 @@
             },
             "damaged_reduce": 100,
             "cc_immune": true
-          }
+          },
+          "only_to_enemy": false
         },
         {
           "type": "CasterInvisible",
@@ -43269,8 +43270,145 @@
                   "effects": [
                     {
                       "type": "SwitchByBuff",
-                      "buff_name": "league_zed_r_on",
+                      "buff_name": "league_zed_r_set",
                       "effect_buff": {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_zed_r_set"
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_zed_r_on",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_zed_r_kill"
+                                    },
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_zed_r_kill",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 40
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_zed_r_pop"
+                                    },
+                                    {
+                                      "type": "TargetSfx",
+                                      "name": "league_zed_r_pop"
+                                    },
+                                    {
+                                      "type": "Attack",
+                                      "damage": 110,
+                                      "attack_ratio": 100,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 0,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    {
+                                      "type": "Delayed",
+                                      "tick": 1,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasted",
+                                          "casted_type": "Heal",
+                                          "duration": 3,
+                                          "period": 1,
+                                          "effects": [
+                                            {
+                                              "type": "RemoveCasterBuff",
+                                              "name": "league_zed_r_kill"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "RangeEffect",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1000
+                                        }
+                                      },
+                                      "target": "AllyOnlySelf",
+                                      "apply_type": "AroundCaster",
+                                      "effects": [
+                                        {
+                                          "type": "Delayed",
+                                          "tick": 4,
+                                          "effects": [
+                                            {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_zed_r_kill",
+                                              "effect_buff": {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_zed_r_kill"
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_zed_r_back"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_zed_r_back",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 9
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              },
+                                              "effect_none": {
+                                                "type": "Combine",
+                                                "effects": []
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_zed_r_on"
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          }
+                        ]
+                      },
+                      "effect_none": {
                         "type": "Combine",
                         "effects": [
                           {
@@ -43278,121 +43416,44 @@
                             "effects": [
                               {
                                 "type": "RemoveCasterBuff",
-                                "name": "league_zed_r_kill"
+                                "name": "league_zed_r_on"
                               },
                               {
                                 "type": "AddCasterBuff",
                                 "buff_state": {
-                                  "name": "league_zed_r_kill",
+                                  "name": "league_zed_r_on",
                                   "duration": {
                                     "Time": {
-                                      "tick": 40
+                                      "tick": 183
                                     }
                                   }
                                 },
                                 "only_to_enemy": false
-                              },
-                              {
-                                "type": "ViewEffect",
-                                "name": "league_zed_r_pop"
-                              },
-                              {
-                                "type": "TargetSfx",
-                                "name": "league_zed_r_pop"
-                              },
-                              {
-                                "type": "Attack",
-                                "damage": 110,
-                                "attack_ratio": 100,
-                                "hp_ratio": 0,
-                                "target_hp_ratio": 0,
-                                "attack_effect_type": "Target"
-                              },
-                              {
-                                "type": "Delayed",
-                                "tick": 1,
-                                "effects": [
-                                  {
-                                    "type": "AddCasted",
-                                    "casted_type": "Heal",
-                                    "duration": 3,
-                                    "period": 1,
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zed_r_kill"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "type": "RangeEffect",
-                                "shape": {
-                                  "Circle": {
-                                    "radius": 1000
-                                  }
-                                },
-                                "target": "AllyOnlySelf",
-                                "apply_type": "AroundCaster",
-                                "effects": [
-                                  {
-                                    "type": "Delayed",
-                                    "tick": 4,
-                                    "effects": [
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_zed_r_kill",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_zed_r_kill"
-                                            },
-                                            {
-                                              "type": "Combine",
-                                              "effects": [
-                                                {
-                                                  "type": "RemoveCasterBuff",
-                                                  "name": "league_zed_r_back"
-                                                },
-                                                {
-                                                  "type": "AddCasterBuff",
-                                                  "buff_state": {
-                                                    "name": "league_zed_r_back",
-                                                    "duration": {
-                                                      "Time": {
-                                                        "tick": 9
-                                                      }
-                                                    }
-                                                  },
-                                                  "only_to_enemy": false
-                                                }
-                                              ]
-                                            }
-                                          ]
-                                        },
-                                        "effect_none": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
                               }
                             ]
                           },
                           {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_zed_r_on"
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_zed_r_set"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_zed_r_set",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 183
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              }
+                            ]
                           }
                         ]
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
                       }
                     }
                   ]

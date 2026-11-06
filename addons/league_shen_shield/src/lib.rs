@@ -7,8 +7,11 @@
 //! 英雄，谁身上刚出现 `league_shen_r_shield`，就给他 `r_sh_base` + 慎最大生命值的 `r_sh_hp`% 的护盾，`r_sh_t` tick
 //! （英雄联盟：固定值 + 17.5% 额外生命值）。数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_shen_shield.log`，每次启动游戏重写。
+//!
+//! 0.1.2（2026-11-06，画面和预模拟分岔的排查）：刚挂上护盾画面的队友按实体编号从小到大给护盾（`new_marks`）；以前是两个
+//! HashSet 的差，顺序每份模拟都不一样（各有各的随机键），同一 tick 两个队友一起上盾时先后不定。
 
-use std::collections::HashSet;
+use std::collections::BTreeSet;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -121,11 +124,17 @@ fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
 
+/// The allies marked now and not on the last tick, by entity id from the smallest (0.1.2: the difference of two HashSets
+/// came in each simulation's own random order).
+pub fn new_marks(now: &BTreeSet<usize>, marked: &BTreeSet<usize>) -> Vec<usize> {
+    now.difference(marked).copied().collect()
+}
+
 /// 每个慎一份：参数、这 tick 身上有护盾画面的队友（看新出现的）、给过几次。
 #[derive(Clone, Default)]
 struct Shield {
     p: Params,
-    marked: HashSet<usize>,
+    marked: BTreeSet<usize>,
     given: usize,
 }
 
@@ -146,7 +155,7 @@ impl StablePassive for Shield {
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         let (team, max_hp) = (e.team(), e.hp().1);
-        let mut now = HashSet::new();
+        let mut now = BTreeSet::new();
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
             if u.is_champion() && u.team() == team && u.is_alive() {
@@ -154,7 +163,7 @@ impl StablePassive for Shield {
             }
         }
         now.retain(|&id| has_buff(sim, id, MARK));
-        for &id in now.difference(&self.marked).copied().collect::<Vec<_>>().iter() {
+        for &id in new_marks(&now, &self.marked).iter() {
             let n = amount(&self.p, max_hp);
             let ok = sim.entity_add_shield(id, n, self.p.r_sh_t);
             self.given += 1;
@@ -213,5 +222,15 @@ mod tests {
         let p = parse_params(r#"{"r_sh_base": 140, "r_sh_hp": 15, "r_sh_t": 280}"#);
         assert_eq!(p, Params { r_sh_base: 140, r_sh_hp: 15, r_sh_t: 280 });
         assert_eq!(parse_params("{}"), Params::default());
+    }
+
+    #[test]
+    fn new_marks_come_by_id_in_every_run() {
+        // 11-06's audit: two HashSets' difference came in each simulation's own random order (two allies shielded in
+        // one tick in another order in each run of the match)
+        let now = BTreeSet::from([31, 7, 19, 2]);
+        let marked = BTreeSet::from([19]);
+        assert_eq!(new_marks(&now, &marked), vec![2, 7, 31]);
+        assert!(new_marks(&marked, &now).is_empty());
     }
 }

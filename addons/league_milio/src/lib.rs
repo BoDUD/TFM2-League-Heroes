@@ -40,7 +40,7 @@
 
 pub mod rules;
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -244,8 +244,32 @@ struct Orders {
 }
 
 /// (这份模拟的编号, 友方英雄的实体) -> 他的 AI 最近的命令。
-static ORDERS: LazyLock<Mutex<HashMap<(u64, usize), Orders>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+///
+/// 0.1.4（2026-11-06）：每份模拟只删自己的。新的一行进来时（友方英雄这条命第一道命令）删掉这份模拟里已经不活着的单位的行
+/// （上一条命的实体，再也读不到）；全表到 [`ORDERS_MOST`] 行丢编号最小（最早开始、早已打完）的模拟的行，从不丢这一份的。以前超过
+/// 4096 行整张清掉：别的模拟里队友最近的命令没了，被动认他这一下打谁时认成别人（灼烧打到哪个单位），同一局的两份模拟就不一样了。
+type OrderBook = BTreeMap<(u64, usize), Orders>;
+static ORDERS: Mutex<OrderBook> = Mutex::new(BTreeMap::new());
+/// 全表最多这么多行（每份模拟只留活着的队友那几行；多出来的是打完的模拟的）。
+const ORDERS_MOST: usize = 4096;
 static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+
+/// A new row comes into `map` for simulation `n`: its rows of units no longer alive there go (`alive`: asked of this
+/// simulation's world - an ally's earlier life, never read again), and while the table is full the oldest simulation's rows
+/// (the smallest number: one that ended) go, never `n`'s.
+fn make_room(map: &mut OrderBook, n: u64, alive: impl Fn(usize) -> bool) {
+    let gone: Vec<_> = map.range((n, 0)..=(n, usize::MAX)).map(|(k, _)| *k).filter(|k| !alive(k.1)).collect();
+    for k in gone {
+        map.remove(&k);
+    }
+    while map.len() >= ORDERS_MOST {
+        let Some(old) = map.keys().next().map(|k| k.0).filter(|&s| s != n) else { break };
+        let gone: Vec<_> = map.range((old, 0)..=(old, usize::MAX)).map(|(k, _)| *k).collect();
+        for k in gone {
+            map.remove(&k);
+        }
+    }
+}
 /// 技能命令下了以后这么多 tick 内冷却跳了，才算这道命令放出来的。
 const SKILL_ORDER_FRESH: usize = 30;
 
@@ -328,8 +352,8 @@ impl StablePlayerAi for Watch {
             _ => Aim::Place,
         };
         let mut map = ORDERS.lock().unwrap_or_else(|e| e.into_inner());
-        if map.len() > 4096 {
-            map.clear();
+        if !map.contains_key(&(n, mid)) {
+            make_room(&mut map, n, |id| sim.get_entity(id).is_some_and(|e| e.is_alive()));
         }
         let o = map.entry((n, mid)).or_default();
         match kind {
@@ -960,6 +984,35 @@ mod tests {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_milio.P");
         }
         assert!(src.contains("R_ANIM, R_REL = 36, 20") && R_REL == 20, "R_REL is not build_milio's");
+    }
+
+    /// 0.1.4 (2026-11-06): the twin presims of a set (numbers 5000 and 5001, the same entity ids) and a flood of finished
+    /// simulations: a new row prunes only its own simulation's dead allies, and a full table drops the oldest simulations,
+    /// never a running one's orders (0.1.3 cleared the whole table past 4096 rows).
+    #[test]
+    fn orders_are_kept_and_pruned_per_simulation() {
+        let mut map = OrderBook::new();
+        let (a, b) = (5_000, 5_001);
+        let order = |t| Orders { attack: Some((t, 40)), ..Orders::default() };
+        for n in [a, b] {
+            map.insert((n, 21), order(100));
+            map.insert((n, 22), order(100));
+        }
+        // in A, ally #21 died and comes back as #90: A's #21 row goes, B's (#21 alive there) stays
+        make_room(&mut map, a, |id| id != 21);
+        map.insert((a, 90), order(200));
+        assert!(!map.contains_key(&(a, 21)) && map.contains_key(&(a, 22)) && map.contains_key(&(b, 21)));
+        // finished simulations fill the table
+        for old in 1..=(ORDERS_MOST as u64) {
+            map.insert((old, 21), order(1));
+        }
+        make_room(&mut map, b, |_| true);
+        map.insert((b, 91), order(300));
+        assert!(map.len() <= ORDERS_MOST, "{}", map.len());
+        assert!(!map.contains_key(&(1, 21)), "the oldest simulation went first");
+        for k in [(a, 22), (a, 90), (b, 21), (b, 22), (b, 91)] {
+            assert!(map.contains_key(&k), "{k:?} went");
+        }
     }
 
     #[test]

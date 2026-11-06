@@ -7226,7 +7226,7 @@
                           "range": 55000,
                           "shape": {
                             "Circle": {
-                              "radius": 8000
+                              "radius": 10000
                             }
                           },
                           "penetrate": false,
@@ -8833,7 +8833,7 @@
                             "range": 55000,
                             "shape": {
                               "Circle": {
-                                "radius": 8000
+                                "radius": 10000
                               }
                             },
                             "penetrate": false,

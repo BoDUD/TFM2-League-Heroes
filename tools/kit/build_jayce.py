@@ -106,7 +106,9 @@ P = {
     # cannon W Hyper Charge (League: 3 shots in 3.6 s at 62-110% AD, attack speed to the maximum, cd 14.6-5 s)
     "cw_cd": 600, "cw_near": 55000, "cw_anim": 26, "hc_t": 216, "hc_as": 120, "hc_ad": 120,
     # ult 「加速电炮」 (League E -> Q: gate ms 30-60% 3 s, the orb at 2350 to 2000 range, x1.4 damage)
-    "r_cd": 1500, "r_range": 90000, "r_anim": 40, "r_at": 26, "r_speed": 9000, "r_len": 115000, "r_w": 3500, "r_y": -6700,
+    # r_w: 3500 at 9000 a tick stepped over a champion between two ticks (the engine tests the centre at each tick, game
+    # 0.7.1) and the missed orb burst 25000+ behind him; League's orb plus a champion's body: 8000 (2026-11-06)
+    "r_cd": 1500, "r_range": 90000, "r_anim": 40, "r_at": 26, "r_speed": 9000, "r_len": 115000, "r_w": 8000, "r_y": -6700,
     "r_rad": 21000, "r_amp": 140, "g_ms": 40, "g_t": 180,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,

@@ -55,7 +55,7 @@
 
 ### 瑟庄妮附加包
 
-[瑟庄妮附加包](../../addons/league_sejuani/README.md)：`league_sejuani` v0.1.2
+[瑟庄妮附加包](../../addons/league_sejuani/README.md)：`league_sejuani` v0.1.3
 
 | 技能 | 主包（纯数据） | 附加包 |
 |---|---|---|
@@ -71,7 +71,7 @@
 
 ### 英雄联盟彩蛋
 
-[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.1.0（通用附加包，下面只列和瑟庄妮有关的部分）
+[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.1.1（通用附加包，下面只列和瑟庄妮有关的部分）
 
 | 彩蛋 | 什么时候 | 效果 |
 |---|---|---|

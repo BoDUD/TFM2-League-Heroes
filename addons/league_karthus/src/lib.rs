@@ -30,7 +30,9 @@
 //!   指针配对，可 AI 钩子拿到的指针和被动的不一样，11-03 晚上 120 次全没扣成；现在由本包的比赛钩子（`Respawns`，每局每 tick）
 //!   扣，按「哪一局」（种类、比赛、小局）、玩家、阵亡 tick 配对，扣到同一个复活 tick（同一局并排的两份预演共用一条，扣不了两遍）。
 //!   0.5.3（用户 2026-11-04：「死歌灵体死了后秒复活？」）：0.5.2 的记录按真实时间放 30 秒，期间他再死一次就被旧记录扣成 1 tick；
-//!   现在一条记录只管它那一次阵亡（`note_open`）。
+//!   现在一条记录只管它那一次阵亡（`note_open`）。0.5.5（2026-11-06，画面和预模拟分叉的排查）：每份模拟一条记录，按这份模拟的
+//!   编号（被动挂在他身上的 `league_karthus_sim:<n>`，尸体上留到复活）认，只由这份模拟扣、按它自己的 tick 删；以前按「哪一局」
+//!   配，预模拟没有局号，同一场比赛别的小局的预模拟也会被它扣，记录还按真实时间丢。
 //! - **灵体照样放技能**（0.5.1，用户 2026-11-03：「灵体状态下会放其他技能吗 也检查下 我怎么感觉不会放」）：放逐的单位不给队伍
 //!   视野，0.5.0 的灵体只挑他队伍看得见的敌人，身边没队友时荒芜、亵渎什么都打不到（只有不看视野的安魂曲放得出来）；现在用灵体
 //!   自己的眼睛（射程里的都算，亵渎和荒芜的爆炸本来就不挑）。痛苦之墙主包挂在普攻上，灵体不能普攻，一面都没立过；现在 W 好了
@@ -43,9 +45,8 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
-use std::time::{Duration, Instant};
 
 use mod_api_stable::*;
 
@@ -68,10 +69,8 @@ pub const FALL_WAIT: usize = 10;
 pub const FALL_SLACK: usize = 60;
 /// 灵体开始这么多 tick 后，他又能被选中了（韧性缩短了放逐）就重新放逐（`rebanish`）。
 pub const REBANISH_AFTER: usize = 2;
-/// 复活倒计时（`cut_respawns`）：阵亡后最多等游戏这么多 tick 把他登记成阵亡；记录放这么久就丢掉（同一局的两份预演几秒内都扣完，
-/// 画面上那一局当 tick 就扣；记录在的时候每局每 tick 都要锁一下，所以不久放）。
+/// 复活倒计时（`cut_respawns`）：阵亡后最多等游戏这么多 tick 把他登记成阵亡（按这份模拟的 tick；0.5.5 起不再按真实时间丢记录）。
 pub const CUT_WAIT: usize = 30;
-const CUT_STALE: Duration = Duration::from_secs(30);
 // 0.4.0 只在化成灵体时放逐他 12 tick（`FLUSH_T`，正在打他、追他的单位丢了目标）、之后免控（`p_ward`）：游戏里只有放逐让单位
 // 选不中（tfm2-hero-mod 的 champion-data「Invisible is not untargetable」），放逐完小兵、塔、英雄又打上来。0.5.0 整个灵体放逐。
 
@@ -192,29 +191,70 @@ pub fn stage(k: usize, p_t: usize, laid_down: bool) -> Stage {
     }
 }
 
-/// 哪一局：`sim_origin` 的种类、比赛、小局（0.5.2）。被动、AI 钩子拿到的模拟状态指针不一样（0.5.1 按指针配，11-03 晚上的
-/// 日志 120 次全是 `RESPAWN NOT CUT (no living champion's hook saw him dead)`），这三样同一局到处都一样。
-fn origin_of(sim: &StableSim<'_>) -> (u32, u64, u64) {
-    sim.sim_origin().map_or((u32::MAX, SimOriginV1::NONE, SimOriginV1::NONE), |o| (o.kind, o.match_id, o.set_index))
+/// 每份模拟的编号（0.5.5，league_galio / league_brand 的做法）：被动第一次出生时抽一个，每次出生挂在他身上（buff
+/// `league_karthus_sim:<编号>`，没有数值、没有画面；league.dll 的分叉校验不看带 `_sim:` 的 buff）。他阵亡后尸体身上的 buff
+/// 停在阵亡那一刻、留到复活（champion-data「A dead caster」），比赛钩子从尸体上读回编号，认出这份模拟自己的记录。
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+pub const SIM_TAG: &str = "league_karthus_sim:";
+
+/// The number in a buff name of this add-on's tag (None: another buff).
+pub fn parse_tag(buff: &str) -> Option<u64> {
+    buff.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())
 }
 
-/// 一次灵体倒下后要扣的复活时间：哪一局（`origin_of`）、哪个玩家、阵亡的 tick、灵体待了多少 tick；他该复活的 tick（`back_tick`，
-/// 第一次看到他登记成阵亡时算出：同一局并排跑的两份预演一模一样，共用这一条，各扣到这个 tick，扣不了两遍）；日志行头，记过没有。
+/// The simulation number on unit `id` - his living body or his corpse (0: none).
+fn tag_of(sim: &StableSim<'_>, id: usize) -> u64 {
+    sim.get_entity(id).map_or(0, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| parse_tag(b.name())).unwrap_or(0))
+}
+
+/// 一次灵体倒下后要扣的复活时间：哪份模拟（[`SIM_TAG`] 的编号）、他的身体（阵亡后是尸体，编号在上面）、哪个玩家、阵亡的 tick、
+/// 灵体待了多少 tick；他该复活的 tick（`back_tick`，这份模拟第一次看到他登记成阵亡时算出）；日志行头，记过没有。
+///
+/// 0.5.5（2026-11-06）：每份模拟一条、只由这份模拟扣和删。0.5.2-0.5.4 按「哪一局」（种类、比赛、小局）配：服务器的预模拟没有
+/// 局号（s=-），同一场比赛不同小局的预模拟共用记录（另一局里同一个玩家碰巧阵亡就被扣），同一局并排的两份预演、画面的两遍也共用
+/// 一条（谁先看到谁定 `back`）；记录按真实时间放 30 秒就丢（暂停、卡顿久了，没扣的那份就不扣了）。
+#[derive(Clone, Debug)]
 struct Cut {
-    origin: (u32, u64, u64),
+    sim: u64,
+    body: usize,
     player: usize,
     at: usize,
     spent: u64,
     back: Option<usize>,
     line: String,
-    made: Instant,
     told: bool,
 }
 
 /// 被动在他阵亡时（`on_dead`）记下，游戏登记好阵亡以后由 `cut_respawns` 扣。游戏在 `on_dead` 之后才把他记成阵亡，那之后他
 /// 自己的钩子都不跑了：扣的是本包的比赛钩子（`Respawns`，每局每 tick，0.5.2）；他阵亡后被动若还被叫到也扣一下。
+/// 一条记录由它那份模拟删：扣过、他该复活了（`note_open` 关了），或者他复活（`on_spawn`）、再阵亡（新的一条换掉旧的）；比赛在他
+/// 阵亡期间打完的那几条留着，超过 [`CUTS_MOST`] 条丢最早的。
 static CUTS: Mutex<Vec<Cut>> = Mutex::new(Vec::new());
 static CUTS_N: AtomicUsize = AtomicUsize::new(0);
+/// 最多留这么多条（正在用的几条都是刚记的；多出来的是打完的比赛里的）。
+pub const CUTS_MOST: usize = 256;
+
+/// A note `c` is this simulation's: the number on the body it is about is the note's (another simulation's body with the same
+/// entity id carries its own number, or none).
+fn owns(sim: &StableSim<'_>, c: &Cut) -> bool {
+    c.sim != 0 && tag_of(sim, c.body) == c.sim
+}
+
+/// The note of `sim`'s Karthus of `player` goes into `cuts` (the one of his last death, if still there, gives way); past
+/// [`CUTS_MOST`] the oldest note goes.
+fn add_cut(cuts: &mut Vec<Cut>, cut: Cut) {
+    cuts.retain(|c| !(c.sim == cut.sim && c.player == cut.player));
+    cuts.push(cut);
+    if cuts.len() > CUTS_MOST {
+        cuts.remove(0);
+    }
+}
+
+/// The note of simulation `sim` and `player`, taken off (his respawn: that death is over).
+fn take_cut(cuts: &mut Vec<Cut>, sim: u64, player: usize) -> Option<Cut> {
+    let i = cuts.iter().position(|c| c.sim == sim && c.player == player)?;
+    Some(cuts.remove(i))
+}
 
 /// 他该复活的 tick：第一次看到他阵亡（`now`，复活倒计时还剩 `left`）时，倒计时扣掉灵体待的 `spent`（`respawn_after_spirit`）。
 pub fn back_tick(now: usize, left: u64, spent: u64) -> usize {
@@ -243,49 +283,80 @@ pub fn cut_to(back: usize, now: usize, left: u64) -> Option<u64> {
     (want < left).then_some(want)
 }
 
-/// 扣这一局里到了的复活时间。每局每 tick 都叫：没有记录时一读就走。
+/// What a match tick does with a note.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Step {
+    /// Another simulation's note, or nothing to do this tick.
+    Skip,
+    /// This simulation's note, done by its own clock: it goes.
+    Drop,
+    /// Cut the respawn to `want` ticks (`left` were left).
+    Cut { want: u64, left: u64 },
+}
+
+/// What a match tick at `now` does with note `c`: `mine` says whether it is this simulation's (asked only when it matters: it
+/// reads the body), `dead_left` the player's respawn ticks left when he is dead in this simulation (None: alive, no such
+/// player). The first tick this simulation sees him dead sets the note's `back`.
+fn step(c: &mut Cut, now: usize, mine: &dyn Fn(&Cut) -> bool, dead_left: &dyn Fn() -> Option<u64>) -> Step {
+    if now < c.at {
+        return Step::Skip;
+    }
+    if !note_open(c.at, c.back, now) {
+        return if mine(c) { Step::Drop } else { Step::Skip };
+    }
+    let Some(left) = dead_left() else { return Step::Skip };
+    if !mine(c) {
+        return Step::Skip;
+    }
+    let back = match c.back {
+        Some(b) => b,
+        None => match first_back(now, left, c.spent) {
+            Some(b) => *c.back.insert(b),
+            None => return Step::Skip,
+        },
+    };
+    cut_to(back, now, left).map_or(Step::Skip, |want| Step::Cut { want, left })
+}
+
+/// 扣这份模拟里到了的复活时间。每局每 tick 都叫：没有记录时一读就走。只碰这份模拟自己的记录（[`owns`]：尸体上的编号），
+/// 关了的（`note_open`，按这份模拟的 tick）就删。
 fn cut_respawns(sim: &StableSim<'_>) {
     if CUTS_N.load(Ordering::Relaxed) == 0 {
         return;
     }
-    let key = origin_of(sim);
     let now = sim.tick();
     let mut lines = Vec::new();
     {
         let mut cuts = CUTS.lock().unwrap_or_else(|e| e.into_inner());
-        drop_stale(&mut cuts, &mut lines);
-        for c in cuts.iter_mut().filter(|c| c.origin == key && now >= c.at) {
-            if !note_open(c.at, c.back, now) {
-                // its death is over (cut, and he is back by `back`) or he was never seen dead in time: a later death of his
-                // is another note's
-                if c.back.is_none() && !c.told {
-                    c.told = true;
-                    lines.push(format!("{} RESPAWN NOT CUT (not seen dead within {CUT_WAIT} ticks of his death)", c.line));
+        let mut i = 0;
+        while i < cuts.len() {
+            let player = cuts[i].player;
+            // the player first (one call): the body's number is read only when he is dead here or the note is done
+            let dead_left = || sim.get_player(player).filter(|p| !p.is_alive()).map(|p| p.respawn_time() as u64);
+            match step(&mut cuts[i], now, &|c| owns(sim, c), &dead_left) {
+                Step::Skip => i += 1,
+                Step::Drop => {
+                    // its death is over (cut, and he is back by `back`) or he was never seen dead in time: a later death of
+                    // his is another note's
+                    let c = cuts.remove(i);
+                    if c.back.is_none() && !c.told {
+                        lines.push(format!("{} RESPAWN NOT CUT (not seen dead within {CUT_WAIT} ticks of his death)", c.line));
+                    }
                 }
-                continue;
-            }
-            let Some(p) = sim.get_player(c.player) else { continue };
-            if p.is_alive() {
-                continue;
-            }
-            let left = p.respawn_time() as u64;
-            let back = match c.back {
-                Some(b) => b,
-                None => match first_back(now, left, c.spent) {
-                    Some(b) => *c.back.insert(b),
-                    None => continue,
-                },
-            };
-            let Some(want) = cut_to(back, now, left) else { continue };
-            let res = life::shorten_respawn(sim, c.player, want);
-            if !c.told {
-                c.told = true;
-                lines.push(match res {
-                    Ok((was, to)) => format!("{} RESPAWN: {was} -> {to} ticks (the spirit's {} counted, {} ticks after his \
-                                              death)", c.line, c.spent, now - c.at),
-                    Err(why) => format!("{} RESPAWN NOT CUT ({why}): {left} ticks left, the spirit's {} not counted", c.line,
-                                        c.spent),
-                });
+                Step::Cut { want, left } => {
+                    let c = &mut cuts[i];
+                    i += 1;
+                    let res = life::shorten_respawn(sim, c.player, want);
+                    if !c.told {
+                        c.told = true;
+                        lines.push(match res {
+                            Ok((was, to)) => format!("{} RESPAWN: {was} -> {to} ticks (the spirit's {} counted, {} ticks after \
+                                                      his death)", c.line, c.spent, now - c.at),
+                            Err(why) => format!("{} RESPAWN NOT CUT ({why}): {left} ticks left, the spirit's {} not counted",
+                                                c.line, c.spent),
+                        });
+                    }
+                }
             }
         }
         CUTS_N.store(cuts.len(), Ordering::Relaxed);
@@ -295,19 +366,6 @@ fn cut_respawns(sim: &StableSim<'_>) {
             wlog(format!("{l} #{k}"));
         }
     }
-}
-
-/// 放了 `CUT_STALE` 的记录丢掉；从没扣上的记一行（比赛钩子没跑到那一局，或者他一直没登记成阵亡）。
-fn drop_stale(cuts: &mut Vec<Cut>, lines: &mut Vec<String>) {
-    cuts.retain(|c| {
-        if c.made.elapsed() <= CUT_STALE {
-            return true;
-        }
-        if c.back.is_none() && !c.told {
-            lines.push(format!("{} RESPAWN NOT CUT (no match tick saw him dead)", c.line));
-        }
-        false
-    });
 }
 
 /// 灵体挨的打（倒下时记日志，看钩子 `shun` 管不管用）：谁打的。
@@ -439,6 +497,8 @@ struct Tally {
     w_hits: usize,
     e_hits: usize,
     r: usize,
+    /// re-banished (targetable again mid-spirit), every try (0.5.5)
+    rebanish: usize,
 }
 
 /// 单位（中心 `at`、半径 `r`）碰到立在 `wall` 的痛苦之墙没有（0.5.1）：墙是 `W_HW` 宽、`W_HH` 高的竖直长方形（游戏的 `Rect`：
@@ -493,6 +553,22 @@ struct DeathDefied {
     rose_at: Option<usize>,
     /// 倒下：灵体的最后一 tick 起到他真倒下（None = 还没到）。
     fall: Option<Falling>,
+    /// 上一次重新放逐的 tick：下一 tick 又要重新放逐（放逐没成，比如他免控）算同一串，一串只记一行（0.5.5）。
+    rebanished: Option<usize>,
+    /// 这份模拟的编号（[`SIM_TAG`]），第一次出生时抽（0.5.5）。
+    sim: u64,
+}
+
+/// A try to re-banish at `now` after the last one at `last`: the same run when it is the very next tick (the banish did not
+/// take - a cc-immune spirit refuses it: 11-06, `REBANISH #1..#6` on ticks 28699-28704).
+pub fn rebanish_run(last: Option<usize>, now: usize) -> bool {
+    last.is_some_and(|t| now == t + 1)
+}
+
+/// What `on_damaged` reports while he is a spirit: not his own fall blow (0.5.5: `strike` deals hp + 1000 credited to the
+/// last hitter, and every blow showed up as `SPIRIT HIT ... (1000+ damage)` and one more champion hit in `FALL`).
+pub fn spirit_hit_counts(fall_tries: Option<usize>) -> bool {
+    fall_tries.is_none_or(|n| n == 0)
 }
 
 impl DeathDefied {
@@ -523,6 +599,7 @@ impl DeathDefied {
         self.cast = Cast { anchor: pos, face, q_next: now + 1, e_next: now + 1, ..Cast::default() };
         self.rose_at = Some(now);
         self.fall = None;
+        self.rebanished = None;
         sim.play_sfx(&sn("p"), me, &InputTargetV1::target(me));
         sim.play_sfx(&sn("vo_p"), me, &InputTargetV1::target(me));
         if let Some(k) = counted("spirit") {
@@ -663,6 +740,14 @@ impl DeathDefied {
     fn rebanish(&mut self, sim: &mut StableSim<'_>, me: usize, k: usize) {
         let left = self.p.p_t.saturating_sub(k);
         let ok = sim.entity_banish(me, me, left, &sn(&format!("p_ghost_{}", self.cast.face)), "");
+        let now = sim.tick();
+        self.cast.tally.rebanish += 1;
+        // one line a run: targetable again the very next tick means the banish did not take (0.5.5; the tries in FALL)
+        let run = rebanish_run(self.rebanished, now);
+        self.rebanished = Some(now);
+        if run {
+            return;
+        }
         if let Some(c) = counted("rebanish") {
             wlog(format!("{} REBANISH #{c}: targetable again {k} ticks into the spirit - banished for the last {left}{}",
                          head(sim, me), if ok { "" } else { " (entity_banish refused)" }));
@@ -745,10 +830,25 @@ impl StablePassive for DeathDefied {
         self.cast = Cast::default();
         self.rose_at = None;
         self.fall = None;
+        self.rebanished = None;
+        // this simulation's number, on him every life (a respawn is a new entity); his corpse keeps it for the match hook
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
+        let tag = format!("{SIM_TAG}{}", self.sim);
+        sim.entity_remove_buff(me, &tag);
+        sim.add_buff(me, &BuffV1::named(&tag));
+        // back: the note of his last death is done with (one no match tick of this simulation ever claimed is said)
+        let left = take_cut(&mut CUTS.lock().unwrap_or_else(|e| e.into_inner()), self.sim, player);
+        if let Some(c) = left.filter(|c| c.back.is_none() && !c.told) {
+            if let Some(k) = counted("respawn") {
+                wlog(format!("{} RESPAWN NOT CUT (no match tick found this simulation's number on his body) #{k}", c.line));
+            }
+        }
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
-            wlog(format!("{} SPAWN #{k}: the add-on's Karthus (player {player}, team {team}), {:?}", head(sim, me),
-                         self.p));
+            wlog(format!("{} SPAWN #{k}: the add-on's Karthus (player {player}, team {team}, sim #{}), {:?}", head(sim, me),
+                         self.sim, self.p));
         }
     }
 
@@ -801,6 +901,10 @@ impl StablePassive for DeathDefied {
     }
 
     fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, _: usize, attacker: usize, damage: usize) {
+        // his own fall blow (credited to the last hitter) is no hit on the spirit (0.5.5)
+        if !spirit_hit_counts(self.fall.as_ref().map(|f| f.tries)) {
+            return;
+        }
         let Some(kind) = sim.get_entity(attacker).filter(|_| attacker != self.me).map(|a| kind_of(&a)) else { return };
         if self.spirit.is_some() {
             // nothing should reach the spirit: who still does
@@ -832,10 +936,10 @@ impl StablePassive for DeathDefied {
                 let (h, c) = (self.hits, self.cast.tally);
                 wlog(format!("{} FALL #{k}: the spirit's time is up, he fell {} ticks after it laid down - blow {} by {}{}; \
                               cast as a spirit: Q {} ({} hit), W {} ({} touches), E {} burns, R {}; struck as a spirit by \
-                              champions {} times, minions {}, towers {}, others {}", head(sim, self.me),
+                              champions {} times, minions {}, towers {}, others {}; re-banished {} times", head(sim, self.me),
                              now.saturating_sub(f.since), f.tries, f.killer.map_or_else(|| "-".to_string(), |a| who(sim, a)),
                              if f.forced { ", hp set to 0 first" } else { "" }, c.q, c.q_hits, c.w, c.w_hits, c.e_hits, c.r,
-                             h.champions, h.minions, h.towers, h.others));
+                             h.champions, h.minions, h.towers, h.others, c.rebanish));
             }
         } else if self.spirit.is_some() {
             if let Some(k) = counted("spirit_died") {
@@ -843,22 +947,13 @@ impl StablePassive for DeathDefied {
             }
         }
         if let Some(t0) = self.rose_at.take() {
-            let cut = Cut { origin: origin_of(sim), player, at: now, spent: now.saturating_sub(t0) as u64, back: None,
-                            line: head(sim, self.me), made: Instant::now(), told: false };
-            let mut lines = Vec::new();
+            // this simulation's own note (0.5.5: the twin presim, the view's other run and another set's presim each have
+            // theirs), found again by the number on his body
+            let cut = Cut { sim: self.sim, body: self.me, player, at: now, spent: now.saturating_sub(t0) as u64, back: None,
+                            line: head(sim, self.me), told: false };
             let mut cuts = CUTS.lock().unwrap_or_else(|e| e.into_inner());
-            drop_stale(&mut cuts, &mut lines);
-            // the other presim of the set died the same way: its note serves both
-            if !cuts.iter().any(|c| c.origin == cut.origin && c.player == player && c.at == now) {
-                cuts.push(cut);
-            }
+            add_cut(&mut cuts, cut);
             CUTS_N.store(cuts.len(), Ordering::Relaxed);
-            drop(cuts);
-            for l in lines {
-                if let Some(k) = counted("respawn") {
-                    wlog(format!("{l} #{k}"));
-                }
-            }
         }
         self.spirit = None;
         self.ready = false;
@@ -1394,6 +1489,130 @@ mod tests {
     use super::*;
 
     #[test]
+    fn a_run_of_rebanishes_is_one_line() {
+        // 11-06: #722 cc-immune, REBANISH #1..#6 on ticks 28699-28704
+        let mut last = None;
+        let lines: Vec<usize> = (28_699..=28_704)
+            .filter(|&t| {
+                let run = rebanish_run(last, t);
+                last = Some(t);
+                !run
+            })
+            .collect();
+        assert_eq!(lines, [28_699]);
+        // targetable again later in the same spirit: a new line
+        assert!(!rebanish_run(Some(28_704), 28_760));
+        assert!(!rebanish_run(None, 5));
+    }
+
+    #[test]
+    fn his_own_fall_blow_is_no_spirit_hit() {
+        // 11-06: 47 of 99 SPIRIT HIT lines were the blow (1000+), each one more champion hit in FALL
+        assert!(spirit_hit_counts(None));
+        assert!(spirit_hit_counts(Some(0)), "laid down, no blow yet");
+        assert!(!spirit_hit_counts(Some(1)) && !spirit_hit_counts(Some(3)));
+    }
+
+    fn note(sim: u64, at: usize) -> Cut {
+        Cut { sim, body: 5, player: 2, at, spent: 422, back: None, line: String::new(), told: false }
+    }
+
+    /// 0.5.5 (2026-11-06): the twin presims of a set (sims 7 and 8: the same body #5, player 2, death tick) and another set's
+    /// presim (sim 9, the same match and no set either) run interleaved, one far ahead: each cuts only by its own note and
+    /// its own clock (before, one note per (kind, match, set) was shared: presims carry no set, and the first to see him dead set
+    /// `back` for all).
+    #[test]
+    fn respawn_notes_are_each_simulations_own() {
+        let mut a = note(7, 12_000);
+        let mut b = note(8, 12_000);
+        let dead = |left: u64| move || Some(left);
+        let alive = || None;
+        let of = |sim: u64| move |c: &Cut| c.sim == sim;
+        // A sees him dead first (2400 left): its own back, B's note untouched
+        assert_eq!(step(&mut a, 12_001, &of(7), &dead(2_400)), Step::Cut { want: 1_978, left: 2_400 });
+        assert_eq!(step(&mut b, 12_001, &of(7), &dead(2_400)), Step::Skip);
+        assert_eq!((a.back, b.back), (Some(12_001 + 1_978), None));
+        // set 2's presim (sim 9) has player 2 dead at that tick too: neither note is its
+        assert_eq!(step(&mut a, 12_001, &of(9), &dead(900)), Step::Skip);
+        assert_eq!(step(&mut b, 12_001, &of(9), &dead(900)), Step::Skip);
+        // A runs on past its back: its note goes by its clock; B's (no back yet) does not
+        assert_eq!(step(&mut a, 14_000, &of(7), &alive), Step::Drop);
+        assert_eq!(step(&mut b, 14_000, &of(7), &alive), Step::Skip);
+        // B gets there later, with what it sees (he took longer to be marked dead there: 2 ticks)
+        assert_eq!(step(&mut b, 12_001, &of(8), &alive), Step::Skip, "not marked dead yet");
+        assert_eq!(step(&mut b, 12_002, &of(8), &dead(2_399)), Step::Cut { want: 1_977, left: 2_399 });
+        assert_eq!(step(&mut b, 12_003, &of(8), &dead(1_976)), Step::Skip, "cut already (the game counts down)");
+        assert_eq!(step(&mut b, 12_002 + 1_977, &of(8), &alive), Step::Drop);
+        // a note no tick of its simulation ever saw dead closes after CUT_WAIT of its own ticks
+        let mut c = note(7, 30_000);
+        assert_eq!(step(&mut c, 30_000 + CUT_WAIT, &of(7), &alive), Step::Skip);
+        assert_eq!(step(&mut c, 30_001 + CUT_WAIT, &of(8), &alive), Step::Skip, "not by another simulation's clock");
+        assert_eq!(step(&mut c, 30_001 + CUT_WAIT, &of(7), &alive), Step::Drop);
+    }
+
+    #[test]
+    fn one_note_per_simulation_and_player() {
+        let mut cuts = Vec::new();
+        add_cut(&mut cuts, note(7, 100));
+        add_cut(&mut cuts, note(8, 100));
+        add_cut(&mut cuts, note(7, 900)); // his next death in sim 7: the old note gives way
+        assert_eq!(cuts.iter().map(|c| (c.sim, c.at)).collect::<Vec<_>>(), [(8, 100), (7, 900)]);
+        assert_eq!(take_cut(&mut cuts, 7, 2).map(|c| c.at), Some(900));
+        assert_eq!(take_cut(&mut cuts, 7, 2).map(|c| c.at), None);
+        // finished matches' notes past the cap: the oldest goes, not all
+        for s in 100..100 + CUTS_MOST as u64 {
+            add_cut(&mut cuts, note(s, 5));
+        }
+        assert_eq!(cuts.len(), CUTS_MOST);
+        assert!(!cuts.iter().any(|c| c.sim == 8), "the oldest went");
+        assert!(cuts.iter().any(|c| c.sim == 100 + CUTS_MOST as u64 - 1));
+    }
+
+    /// `owns` reads the number on the body: in each twin the same entity #5 carries its own simulation's number.
+    #[test]
+    fn a_note_is_owned_by_the_number_on_his_body() {
+        use std::ffi::c_void;
+        use std::mem::{size_of, zeroed};
+        type World = HashMap<usize, Vec<BuffV1>>;
+        unsafe fn w<'a>(s: *const c_void) -> &'a mut World {
+            &mut *(s as *mut World)
+        }
+        unsafe extern "C" fn valid(s: *const c_void, h: EntityHandleV1) -> bool {
+            h.id().is_some_and(|id| w(s).contains_key(&id))
+        }
+        unsafe extern "C" fn count(s: *const c_void, h: EntityHandleV1) -> usize {
+            h.id().and_then(|id| w(s).get(&id)).map_or(0, Vec::len)
+        }
+        unsafe extern "C" fn at(s: *const c_void, h: EntityHandleV1, i: usize, out: *mut BuffV1) -> bool {
+            let Some(b) = h.id().and_then(|id| w(s).get(&id)).and_then(|v| v.get(i)) else { return false };
+            *out = *b;
+            true
+        }
+        fn with_sim<R>(world: &mut World, f: impl FnOnce(&StableSim<'_>) -> R) -> R {
+            let mut vt: SimVtableV1 = unsafe { zeroed() };
+            vt.size = size_of::<SimVtableV1>();
+            vt.entity_is_valid = Some(valid);
+            vt.entity_buff_count = Some(count);
+            vt.entity_buff_at = Some(at);
+            let mut ctx = SimCtxV1 { size: size_of::<SimCtxV1>(), sim: &vt, frame: std::ptr::null(),
+                                     state: world as *mut World as *mut c_void };
+            let sim = unsafe { StableSim::from_raw(&mut ctx) }.expect("a simulation context");
+            f(&sim)
+        }
+        let corpse = |n: u64| vec![BuffV1::named(&sn("p_fall")), BuffV1::named(&format!("{SIM_TAG}{n}"))];
+        let mut twin_a = World::from([(5, corpse(7))]);
+        let mut twin_b = World::from([(5, corpse(8))]);
+        let mut other = World::from([(5, vec![BuffV1::named("league_mordekaiser_sim:7")])]);
+        assert!(with_sim(&mut twin_a, |s| owns(s, &note(7, 1)) && !owns(s, &note(8, 1))));
+        assert!(with_sim(&mut twin_b, |s| owns(s, &note(8, 1)) && !owns(s, &note(7, 1))));
+        assert!(with_sim(&mut other, |s| !owns(s, &note(7, 1))), "another add-on's number");
+        assert!(with_sim(&mut twin_a, |s| !owns(s, &Cut { body: 6, ..note(7, 1) })), "no such body");
+        assert!(with_sim(&mut twin_a, |s| !owns(s, &note(0, 1))), "no number");
+        assert_eq!(parse_tag(&format!("{SIM_TAG}{}", u64::MAX)), Some(u64::MAX));
+        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
     fn only_someone_elses_undying_holds_the_spirit_back() {
         let l = |v: &[(&str, bool)]| v.iter().map(|(n, u)| (n.to_string(), *u)).collect::<Vec<_>>();
         assert!(!other_undying(&l(&[("league_karthus_p_guard", true)])));
@@ -1435,7 +1654,7 @@ mod tests {
         assert_eq!(cut_to(back, 1000, 1500), Some(1080));
         // the same sim a tick later, cut and counting down: nothing more
         assert_eq!(cut_to(back, 1001, 1079), None);
-        // the set's other presim, a few ticks behind and still uncut: to the same tick
+        // a few ticks on and still uncut (until the 11-06 fix the set's other presim, which shared the note): to the same tick
         assert_eq!(cut_to(back, 1003, 1497), Some(1077));
         // a short death timer: back BACK_MIN after he was first seen dead
         assert_eq!(cut_to(back_tick(1000, 300, 420), 1000, 300), Some(BACK_MIN));

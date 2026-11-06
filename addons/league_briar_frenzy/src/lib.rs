@@ -15,8 +15,11 @@
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_briar_frenzy.log`。0.1.1：`FRENZY LOCK` 带上
 //! `[kind m= s=]`，一次血狂换了目标才记一行，和 `SPAWN` 一样整个游戏一个计数（预模拟先记 40 行、之后每 200 行一行，你看的
 //! 那场每行都记）。
+//!
+//! 0.1.3（2026-11-06，画面和预模拟分岔的排查）：击退结束的英雄按实体编号从小到大判撞墙、眩晕（`knocks_due`）；以前从
+//! HashMap 里按它的顺序取，每份模拟都不一样（各有各的随机键），同一 tick 两个人一起结束时眩晕的先后不定。
 
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -161,10 +164,17 @@ fn hema_buff(ticks: usize) -> BuffV1 {
 
 // ===================== 被动 =====================
 
+/// The champions whose knock-back is over at `tick` (`KNOCK` ticks since the mark), by entity id from the smallest: the
+/// order their walls are judged and their stuns go out, the same in every run (0.1.3: a HashMap's order, each
+/// simulation's own).
+pub fn knocks_due(knocked: &BTreeMap<usize, (Pt, usize)>, tick: usize) -> Vec<usize> {
+    knocked.iter().filter(|(_, v)| tick >= v.1 + KNOCK).map(|(k, _)| *k).collect()
+}
+
 #[derive(Clone, Default)]
 struct Frenzy {
-    /// E 击退中的英雄：起点、挂上的 tick。
-    knocked: HashMap<usize, (Pt, usize)>,
+    /// E 击退中的英雄：起点、挂上的 tick（按实体编号排，0.1.3）。
+    knocked: BTreeMap<usize, (Pt, usize)>,
     /// 彻底血狂开始的 tick。
     hema_from: Option<usize>,
     n: usize,
@@ -196,8 +206,7 @@ impl StablePassive for Frenzy {
             sim.entity_remove_buff(f.0, E_MARK);
             self.knocked.insert(f.0, (f.1, tick));
         }
-        let due: Vec<usize> = self.knocked.iter().filter(|(_, v)| tick >= v.1 + KNOCK).map(|(k, _)| *k).collect();
-        for id in due {
+        for id in knocks_due(&self.knocked, tick) {
             let (from, _) = self.knocked.remove(&id).unwrap_or(((0.0, 0.0), 0));
             let Some(now) = foes.iter().find(|f| f.0 == id).map(|f| f.1) else { continue };
             let moved = dist(from, now);
@@ -373,5 +382,15 @@ mod tests {
         assert_eq!(logged.len(), LOG_FIRST + 3);
         assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
         assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    #[test]
+    fn knock_backs_end_by_id_in_every_run() {
+        // 11-06's audit: the knocked went through a HashMap (each simulation's own random order): two knock-backs ending
+        // in one tick were judged and stunned in another order in each run of the match
+        let knocked = BTreeMap::from([(44, ((0.0, 0.0), 100)), (9, ((0.0, 0.0), 100)), (21, ((0.0, 0.0), 110))]);
+        assert_eq!(knocks_due(&knocked, 100 + KNOCK - 1), Vec::<usize>::new());
+        assert_eq!(knocks_due(&knocked, 100 + KNOCK), vec![9, 44]);
+        assert_eq!(knocks_due(&knocked, 110 + KNOCK), vec![9, 21, 44]);
     }
 }

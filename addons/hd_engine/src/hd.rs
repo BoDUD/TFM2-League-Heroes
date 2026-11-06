@@ -107,7 +107,9 @@ pub struct Table<'a> {
     /// its hd_ twin): looked up like the heroes, no entity's body
     pub effects: Vec<(&'a str, f32, &'a str)>,
     /// effects whose pictures the view node draw (src/view.rs effect_detour) shrinks to 1 / PPU about their top-left
-    /// corner; every other effect is drawn a square a game pixel
+    /// corner - a kit's view effects, at a point or following a unit (the body draw calls the node draw; cmd_kind keeps
+    /// the shrink inside a dense hero's extras); a buff's view never passes there. Every other effect is drawn a square a
+    /// game pixel
     pub drawn_effects: Vec<&'a str>,
     /// tall heroes drawn smaller wherever the UI draws lo_ frames (the ban/pick card above all): id, size
     pub ui_sizes: Vec<(&'a str, f32)>,

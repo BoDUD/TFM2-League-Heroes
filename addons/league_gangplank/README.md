@@ -1,4 +1,4 @@
-# 普朗克附加包（测试版 v0.2.1）
+# 普朗克附加包（测试版 v0.2.3）
 
 0.2.2（2026-11-05）：待命式大招没用掉时的冷却退还从来没生效过：n tick 的待命标记只有 n - 1 tick 看得见（经典 SDK 探针 lr1105/fix_j：n - 1 之前 148/148 次看得见，第 n tick 0 次），退还在窗口最后一 tick 读它时已经没了，所以每次待命过期都要等完整冷却（塞恩追踪：过期到再待命 3558 tick，改读后 877）。现在在窗口结束前 3 tick 读（`tools/kit/build_gangplank.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -42,7 +42,7 @@
 4. 看普朗克的普攻说明：开头是「【附加包】」就说明换上了。
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gangplank.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `SPAWN`：出生；`CLEANSE`：吃橘子清掉了几个控制；`LOW`：生命低于线、挂上 `w_low`；`KEG`：桶的位置找到了；`KEG?`：桶落地后没找到
-     它的两个区域；`CHAIN`：连锁（交给数据，或本包空炸）；`STOCK`：扔了一个桶、手里还剩几个；`TRIPLE`：三连桶（哪两个桶、
+     它的两个区域；`CHAIN`：连锁（交给数据——带离桶最近的敌人多远，或本包空炸）；`CHAIN LATE`：交给数据的桶 4 tick 后还亮着，本包空炸（0.2.3）；`STOCK`：扔了一个桶、手里还剩几个；`TRIPLE`：三连桶（哪两个桶、
      第三个扔给谁）；`THIRD`：第三个桶炸开，炸到几个人。
 
 ## 开发
@@ -61,3 +61,7 @@
 ## 0.2.2：桶终于会连锁了（2026-11-05）
 
 11-04 一整天的日志：`KEG` 记到 #3500、`TRIPLE` 7 次，`CHAIN` 一次都没有（0.1.0 起就这样）。原因：`on_update` 先跑 `track()` 再跑 `chain()`，而数据的爆炸在同一个 Delayed 里摘掉 `k<s>_live`、挂上 `k<s>_now`——`track()` 看到 live 没了就把这个桶的位置忘掉，紧接着的 `chain()` 读到的位置是 None，什么都连不上（三连桶由本包空炸的那一半能连，数据炸的那一半不能）。现在先 `chain()` 再 `track()`：炸开的桶的位置先读出来（`blown`），再忘（`forget`）。加了单元测试（一 tick 内 live 灭、now 起）。下一局看 `CHAIN`：数据炸开的桶边上点燃的桶该跟着炸。
+
+## 0.2.3：交给数据的桶没炸就本包炸（2026-11-06）
+
+11-06 的日志：`CHAIN` 41 + 42 次，连锁本身好了，但「left to the data (an enemy beside it)」的桶有时一直不炸——m=2848 的 keg 3 t=20202 交给数据，t=20246 另一个桶炸开时它还亮着、又被连锁一次。原因：本包判「桶边有人」量的是 `e_r` + 20000（`EMPTY_MARGIN`），数据的触发区只量 `e_r`（30000）以内的单位；人站在两者之间，本包不空炸、数据也不炸，桶就留在原地。现在交给数据的桶（连锁的 `k<o>_cn`、三连桶的第一个桶）记下来，`RECHECK` 4 tick 后再看一眼：数据炸了的桶那时已经灭了（`k<o>_live` 摘掉、位置忘掉）；还亮着、还点着、还是那个桶，就是数据的圈里一个人都没有，本包空炸并接着连锁，同英雄联盟（连到的桶一定炸）。用的是数据自己的结果，不用猜它的圈量不量身子，所以 `EMPTY_MARGIN` 不改（只决定先交给谁）。日志 `CHAIN LATE #n: keg o at (x, y) still lit 4 ticks after it was left to the data (nearest enemy D away, the data's zone 30000) - blown empty here`；`CHAIN ... left to the data` 和 `TRIPLE ... the data's` 也写上最近的敌人多远。他死在这 4 tick 里（死人的被动不跑）就不补炸。单元测试 `a_keg_left_to_the_data_is_blown_when_the_data_did_not`。下一局看 `CHAIN LATE` 里的距离：都在 30000 以外就说明数据的圈只量中心。

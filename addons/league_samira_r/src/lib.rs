@@ -132,6 +132,13 @@ fn hard_cc(e: &StableEntity<'_, '_>) -> bool {
     (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| HARD_CC.iter().any(|k| k.code() == c.kind)))
 }
 
+/// The R DONE line's text after its head: the n-th spin, (steps, how far, refused), her step, and whether she died in it
+/// (0.1.3: a spin her death ended had no line at all).
+pub fn done_text(n: usize, (steps, far, refused): (usize, f64, usize), step: f64, died: bool) -> String {
+    format!("R #{n} DONE: walked {far:.0} in {steps} steps ({refused} refused), step {step:.0}{}",
+            if died { " - she died mid-spin" } else { "" })
+}
+
 #[derive(Clone, Default)]
 struct Walk {
     last: Option<Pt>,
@@ -139,6 +146,19 @@ struct Walk {
     /// 这一次 R：走了几步、多远、几步被拒（撞墙）。
     spin: Option<(usize, f64, usize)>,
     n: usize,
+    /// Her unit (on_dead is given the player).
+    me: usize,
+}
+
+impl Walk {
+    /// The spin over: its R DONE line (0.1.3: also when she dies in it).
+    fn done(&mut self, sim: &StableSim<'_>, me: usize, died: bool) {
+        let Some(spin) = self.spin.take() else { return };
+        self.n += 1;
+        if self.n <= 80 || self.n % 25 == 0 {
+            wlog(format!("{} {}", head(sim, me), done_text(self.n, spin, step_of(&self.moves), died)));
+        }
+    }
 }
 
 impl StablePassive for Walk {
@@ -147,6 +167,7 @@ impl StablePassive for Walk {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        self.me = me;
         self.last = None;
         self.spin = None;
         wlog(format!("{} SPAWN: the add-on's Samira (player {player})", head(sim, me)));
@@ -156,19 +177,13 @@ impl StablePassive for Walk {
         let Some(e) = sim.get_entity(me) else { return };
         if !e.is_alive() {
             self.last = None;
-            self.spin = None;
+            self.done(sim, me, true);
             return;
         }
         let at = (e.pos().0 as f64, e.pos().1 as f64);
         let (team, spinning, held) = (e.team(), has_buff(&e, R_ON), hard_cc(&e));
         if !spinning {
-            if let Some((steps, far, refused)) = self.spin.take() {
-                self.n += 1;
-                if self.n <= 80 || self.n % 25 == 0 {
-                    wlog(format!("{} R #{} DONE: walked {far:.0} in {steps} steps ({refused} refused), step {:.0}",
-                                 head(sim, me), self.n, step_of(&self.moves)));
-                }
-            }
+            self.done(sim, me, false);
             if let Some(l) = self.last {
                 let d = dist(l, at);
                 if d > 0.5 && d < DASH {
@@ -201,9 +216,11 @@ impl StablePassive for Walk {
         }
     }
 
-    fn on_dead(&mut self, _sim: &mut StableSim<'_>, _: usize) {
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
         self.last = None;
-        self.spin = None;
+        // a spin her death ends still gets its R DONE line (0.1.3; her update does not run once she is dead)
+        let me = self.me;
+        self.done(sim, me, true);
     }
 }
 
@@ -248,6 +265,14 @@ mod tests {
         assert_eq!(toward((40_000.0, 0.0), (60_000.0, 0.0), 550.0), None);
         let n = toward((29_800.0, 0.0), (60_000.0, 0.0), 550.0).unwrap();
         assert!((n.0 - 30_000.0).abs() < 1e-6);
+    }
+
+    #[test]
+    fn a_spin_ended_by_her_death_still_has_its_line() {
+        // 11-06's review: R DONE was missing when she died mid-spin (the spin was dropped without a line)
+        assert_eq!(done_text(3, (40, 22_000.4, 2), 550.0, false), "R #3 DONE: walked 22000 in 40 steps (2 refused), step 550");
+        assert_eq!(done_text(4, (7, 3_850.0, 0), 550.0, true),
+                   "R #4 DONE: walked 3850 in 7 steps (0 refused), step 550 - she died mid-spin");
     }
 
     #[test]

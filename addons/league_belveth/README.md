@@ -26,3 +26,9 @@
 - 在 `addons/` 下 `cargo test --release -p league_belveth`：单元测试（参数、残血的界线、层的名字、死后补回）。
 - 主包的卑尔维斯改了以后重新跑 `python addons/league_belveth/make_override.py`（它先核对主包的 `league_belveth.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致）。
 - 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_belveth.log`：`SPAWN`、生命掉到界线以下 `LOW`、回到界线以上 `UP`、叠层 `STACK`、死亡 / 复活 `DEAD` / `ALIVE`、补回 `KEEP`。
+
+## W 尾击不再漏掉身前的人（0.1.1，2026-11-06）
+
+游戏 0.7.1 的投射物判定（拿 11-05 阿克尚 R 的子弹对出来的，见 league_akshan 0.2.7）：投射物每 tick 跳 `speed` 那么远，只打圆心在它这一 tick 位置 `radius` 以内的单位——不扫两个 tick 中间，也不算单位的体型。`speed` 大于两倍 `radius` 时，站在两 tick 之间的人整个被跨过去；圆比英雄的体型（10000）小很多时，要几乎正中才打得到。
+
+主包的 W `league_belveth_w_tail` 圆 7000、每 tick 飞 30000、长 55000：只在 0、30000、55000 三处判定，离她 7000～23000 和 37000～48000 的人都打不到（W 射程 45000 的大半段）。主包 `build_belveth` 改成圆 14000、每 tick 28000（英雄联盟约 200 宽的尾击加一个英雄的体型；还是两 tick 到头），副本重新生成。下一局看 W 有没有把身前的人击飞。

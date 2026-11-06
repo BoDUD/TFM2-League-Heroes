@@ -1,4 +1,4 @@
-# 蒙多附加包（测试版 v0.1.9，可选）
+# 蒙多附加包（测试版 v0.1.10，可选）
 
 **不装这个附加包，主包里的蒙多也是完整的**：被动的免控和药罐、病毒屠刀、电击疗法和灰色生命、大力行医打飞尸体、极限剂量都在
 主包数据里。主包是纯数据，**读不到生命**，蒙多的技能又几乎全按生命算，这个附加包用原生代码补上（用户 2026-10-16「方案可以，
@@ -61,6 +61,10 @@ cd addons && cargo test -p league_drmundo && cargo build --release -p league_drm
 
 单独装：`league_drmundo.dll` + `mod.mod_info` + `mod.override_info` + `override/` + `text/` 放进
 `<游戏>/mods/league_drmundo/`；一般随附加包合集（`league_addons`）一起装。
+
+## 0.1.10：推过他一步再算卡住（2026-11-06）
+
+11-06 的日志（.prev 71–72、100–101 行）：`NUDGE: the AI gave nothing for 90 ticks ...` 和 `STUCK: 90 ticks without moving ... base nothing -> move` 在同一个 tick 各记一行——两条都在 90 tick 时到点，钩子先推了他一步，被动紧接着又说他卡住了，自相矛盾。现在 `STUCK` 从这次站着不动以来钩子第一次 `NUDGE` 的那一 tick 再数 90 tick（`stuck_due`）：推过还是没挪才记，行里写 `nudged n ticks ago`；他一挪就重新数。没推过（附近没有看得见的敌方英雄、或 AI 给了命令）照旧 90 tick 记。玩法没变。
 
 ## 0.1.9：AI 不给命令就推他一步
 

@@ -13,6 +13,9 @@
 //!   没有就射程里血最少的；以前数据的每一发在射程里「最近打过的敌方英雄」里随机挑一个，11-04 的日志里 60 发有 33 发没打在锁定的
 //!   身上、30 次 R 有 11 次一发没中。子弹是原生投射物（直线、不穿透、打到第一个敌方单位），打中走 `rhit`：伤害、命中画面和声音、
 //!   无所不用计数（第 3 下也由本包打出）。每次 R 引导结束、最后一发落地后记一行 `R DONE`（发了几发、几发打中锁定的、锁定的死没死）。
+//!   0.2.7：游戏的投射物每 tick 走 `speed`、只打圆心在它这一 tick 位置 `radius` 内的单位（不扫中间、不算体型），6000 的圆
+//!   每 tick 飞 20000 会从人身上跨过去（11-05 的日志一半子弹没中）：圆改 11000（≥ 速度的一半）；子弹朝他走到的地方飞（被动
+//!   每 tick 量他的速度，`lead`）；丢了子弹时记一行 `R MISS`（每发离锁定的人最近多远）。
 //! - **放大招的时机**（AI 钩子 `league_akshan:ult`）：射程里有英雄生命 ≤ 50%（或存满能打死），自己身边 `R_SAFE` 内没有敌方英雄、
 //!   自己生命 ≥ 40% 才放；AI 想在别的时候放就改成普攻 / 走过去。只按已解锁、冷却好的 R（低等级按 R 会让游戏 AI 崩溃）。
 //! - **赴险夺人：恶徒和复活**（被动 `league_akshan:rogue`）：读游戏的击杀记录。敌方英雄杀了阿克尚的队友（不算他自己）就成为
@@ -28,7 +31,8 @@
 //! 等级装备不变）。比赛会被重算好几遍（预演、观看、回放）：只在模拟里的被动钩子里写，用的都是模拟里的数据，结果每遍一样。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_akshan.log`，每次启动游戏重写，上一次的留在 .prev.log：`LAYOUT`
-//! （找到的偏移）、`MARK`、`REVIVE`、`VIEW`、`BANNER`、`REFRESH`、`R FIRE`、`R HELD` / `R CAST`，限了条数。
+//! （找到的偏移）、`MARK`、`REVIVE`、`VIEW`、`BANNER`、`REFRESH`、`R FIRE`、`R HELD` / `R CAST`、`R AIM`、`BULLET`、`R DONE`、
+//! `R MISS`、`SWING`（开始；被打断时带上身上的控制种类），限了条数；屏幕上放的那一场不限（0.2.7，`logged`）。
 
 use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
@@ -67,6 +71,16 @@ pub const R_BULLET: &str = "league_akshan_r_bullet";
 pub const R_SHOT: &str = "league_akshan_r_shot";
 pub const R_ONLOCK: &str = "league_akshan_r_onlock";
 pub const R_ONOTHER: &str = "league_akshan_r_onother";
+/// 0.2.7: on him while R is on, `r_v:<id>:<vx>:<vy>` - the walk per tick of the champion the next bullet goes to, which
+/// the passive measures and the bullet leads by (`lead`) - and one `r_b:<tick>:<x>:<y>:<end x>:<end y>` a bullet fired,
+/// its path, for the R MISS line.
+pub const R_VEL: &str = "league_akshan_r_v";
+pub const R_PATH: &str = "league_akshan_r_b";
+/// The walk is measured over the last TRACK_T ticks; a step faster than V_MAX a tick is a dash or a blink (over before the
+/// bullet arrives: no lead); the lead is at most LEAD_CAP.
+const TRACK_T: usize = 4;
+pub const V_MAX: f64 = 2_500.0;
+pub const LEAD_CAP: f64 = 30_000.0;
 const VIEW_R_HIT: &str = "league_akshan_r_hit";
 const VIEW_P_HIT: &str = "league_akshan_p_hit";
 /// Dirty Fighting's shield cooldown and shield flag (the data's p_scd / p_sh).
@@ -92,8 +106,10 @@ pub const R_MAX: usize = 3;
 pub const R_FULL: usize = 67;
 pub const R_REACH: u64 = 220_000;
 pub const R_RANGE: u64 = 160_000;
-/// The bullet's circle (build_akshan r_w): a unit within this plus its body of the line takes the bullet.
-pub const R_W: f64 = 6_000.0;
+/// The bullet's circle (build_akshan r_w): the engine hits a unit only when its CENTRE is within this of the bullet's
+/// position on a tick - no sweep between ticks, no body radius (game 0.7.1, fitted on the 11-05 bullets). 0.2.6's 6000
+/// at R_SPEED 20000 left 8000-unit gaps on the line between ticks and lost half the bullets: 2 x R_W >= R_SPEED (0.2.7).
+pub const R_W: f64 = 11_000.0;
 /// With enemies on the line the bullets left over must kill with this much (%) to spare: the units walk, he steps aside
 /// from bullets aimed where he stood.
 pub const LETHAL_MARGIN: usize = 25;
@@ -196,6 +212,21 @@ pub(crate) fn counted(kind: &'static str) -> Option<usize> {
     (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
 }
 
+static VIEW_COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// `counted` for a line of `sim` (0.2.7): the sims on screen (the match he watches, spectates or replays) are never capped
+/// and keep their own count; the presims and the background matches keep LOG_FIRST / LOG_EVERY. The 11-05 presims used
+/// up the first 60 R lines before the screen's set began, so the set on screen had none.
+pub(crate) fn logged(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    if on_screen(sim).is_none() {
+        return counted(kind);
+    }
+    let mut c = VIEW_COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    Some(*n)
+}
+
 fn head(sim: &StableSim<'_>, id: usize) -> String {
     let o = sim.sim_origin().unwrap_or_default();
     let kind = match SimOriginKindV1::from_code(o.kind) {
@@ -250,7 +281,8 @@ pub fn volley(attack: usize, mut hp: usize, max_hp: usize, n: usize) -> usize {
     sum
 }
 
-/// A unit the bullets may hit: where it stands, its body, health, shield, max health and armour.
+/// A unit the bullets may hit: where it stands, its body (for the log; the bullets go by the centre), health, shield, max
+/// health and armour.
 #[derive(Clone, Copy, Debug, Default, PartialEq)]
 pub struct Body {
     pub id: usize,
@@ -292,8 +324,9 @@ pub fn bullets_to_drop(attack: usize, u: &Body, n: usize, keep: usize) -> Option
     rain(attack, u, n, keep).iter().position(|x| x.1 == 0).map(|k| k + 1)
 }
 
-/// The units standing on the bullets' line from `me` to `to` - between the two, within the bullet's R_W plus their own
-/// body of it (a shape counts the unit's radius) - nearest first: the bullets stop on the first enemy they meet.
+/// The units standing on the bullets' line from `me` to `to` - between the two, their centre within the bullet's R_W of
+/// it - nearest first: the bullets stop on the first enemy they meet. 0.2.7: the engine counts the centre only (no body
+/// radius); 0.2.6 added the unit's body (13000-21000 off the line) and held early fires for units the bullets pass by.
 pub fn on_line(me: (f64, f64), to: (f64, f64), units: &[Body]) -> Vec<Body> {
     let (dx, dy) = (to.0 - me.0, to.1 - me.1);
     let len = (dx * dx + dy * dy).sqrt();
@@ -307,7 +340,7 @@ pub fn on_line(me: (f64, f64), to: (f64, f64), units: &[Body]) -> Vec<Body> {
             let v = (b.at.0 - me.0, b.at.1 - me.1);
             let along = v.0 * u.0 + v.1 * u.1;
             let off = (v.0 * u.1 - v.1 * u.0).abs();
-            (along > 0.0 && along < len && off <= R_W + b.r).then_some((along, *b))
+            (along > 0.0 && along < len && off <= R_W).then_some((along, *b))
         })
         .collect();
     on.sort_by(|a, b| a.0.total_cmp(&b.0));
@@ -611,7 +644,7 @@ fn bullet(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let attack = sim.get_entity(me).map_or(0, |e| e.stat().attack);
     let d = bullet_damage(attack, hp, max);
     sim.deal_damage_typed(me, target, d, DamageTypeV1::Ad, AttackTypeV1::Skill);
-    if let Some(k) = counted("bullet") {
+    if let Some(k) = logged(sim, "bullet") {
         wlog(format!("{} BULLET on #{target} {hp}/{max}: {d} before armour (attack {attack}) #{k}", head(sim, me)));
     }
 }
@@ -662,19 +695,95 @@ pub fn bullet_end(from: (f64, f64), to: (f64, f64)) -> (u64, u64) {
     ((from.0 + ux * r * t).round().max(0.0) as u64, (from.1 + uy * r * t).round().max(0.0) as u64)
 }
 
+/// 预判（0.2.7）：子弹以 `speed` 从 `me` 飞，目标在 `to`、每 tick 走 `v`：子弹到的时候他在哪（飞多久按距离算，迭代三次；
+/// 最多往前算 LEAD_CAP；一 tick 走得比 V_MAX 还快是位移技能 / 闪现，子弹到之前就停了，不预判）。11-05 的日志：锁定的人
+/// 68-74k 外每 tick 走 ~400，子弹朝他站的地方飞。
+pub fn lead(me: (f64, f64), to: (f64, f64), v: (f64, f64), speed: f64) -> (f64, f64) {
+    if speed <= 0.0 || v.0.hypot(v.1) > V_MAX {
+        return to;
+    }
+    let mut p = to;
+    for _ in 0..3 {
+        let t = dist(me, p) / speed;
+        let (mut dx, mut dy) = (v.0 * t, v.1 * t);
+        let n = dx.hypot(dy);
+        if n > LEAD_CAP {
+            (dx, dy) = (dx * LEAD_CAP / n, dy * LEAD_CAP / n);
+        }
+        p = (to.0 + dx, to.1 + dy);
+    }
+    p
+}
+
+/// 一发子弹离锁定的人最近的一次（R MISS，0.2.7）：子弹 `t0` 那个 tick 从 `from` 出发朝 `end` 每 tick 飞 R_SPEED（出发那
+/// tick 算第 0 步），每一步和他那个 tick 的位置（`track`：tick, 位置）比圆心距离；飞行中一个 tick 都没记到就是 None。
+pub fn closest_pass(t0: usize, from: (f64, f64), end: (f64, f64), track: &[(usize, (f64, f64))]) -> Option<f64> {
+    let len = dist(from, end);
+    let u = if len < 1.0 { (0.0, 0.0) } else { ((end.0 - from.0) / len, (end.1 - from.1) / len) };
+    let speed = R_SPEED as f64;
+    let steps = (len / speed).ceil() as usize;
+    (0..=steps)
+        .filter_map(|k| {
+            let s = (speed * k as f64).min(len);
+            let b = (from.0 + u.0 * s, from.1 + u.1 * s);
+            track.iter().find(|x| x.0 == t0 + k).map(|x| dist(b, x.1))
+        })
+        .min_by(f64::total_cmp)
+}
+
+fn vel_name(id: usize, v: (f64, f64)) -> String {
+    format!("{R_VEL}:{id}:{}:{}", v.0.round() as i64, v.1.round() as i64)
+}
+
+fn parse_vel(name: &str) -> Option<(usize, (f64, f64))> {
+    let mut it = name.strip_prefix(R_VEL)?.strip_prefix(':')?.split(':');
+    let id = it.next()?.parse().ok()?;
+    let vx: f64 = it.next()?.parse().ok()?;
+    let vy: f64 = it.next()?.parse().ok()?;
+    it.next().is_none().then_some((id, (vx, vy)))
+}
+
+fn path_name(t0: usize, from: (u64, u64), end: (u64, u64)) -> String {
+    format!("{R_PATH}:{t0}:{}:{}:{}:{}", from.0, from.1, end.0, end.1)
+}
+
+/// (tick, from, end) of a bullet's `r_b` buff.
+fn parse_path(name: &str) -> Option<(usize, (f64, f64), (f64, f64))> {
+    let v: Vec<f64> = name.strip_prefix(R_PATH)?.strip_prefix(':')?.split(':').map(|x| x.parse().ok()).collect::<Option<_>>()?;
+    (v.len() == 5).then(|| (v[0] as usize, (v[1], v[2]), (v[3], v[4])))
+}
+
+/// Buff names on him that start with `prefix:`.
+fn names_on(sim: &StableSim<'_>, me: usize, prefix: &str) -> Vec<String> {
+    let Some(e) = sim.get_entity(me) else { return Vec::new() };
+    (0..e.buff_count())
+        .filter_map(|i| e.buff_at(i))
+        .map(|b| b.name().to_string())
+        .filter(|n| n.strip_prefix(prefix).is_some_and(|r| r.starts_with(':')))
+        .collect()
+}
+
+/// The walk the passive measured for `id` (his `r_v` buff), nothing for anyone else.
+fn walk_of(sim: &StableSim<'_>, me: usize, id: usize) -> (f64, f64) {
+    names_on(sim, me, R_VEL).iter().filter_map(|n| parse_vel(n)).find(|x| x.0 == id).map_or((0.0, 0.0), |x| x.1)
+}
+
 /// 一发恩怨相抵（0.2.6，副本里每一发的效果）：朝锁定的英雄放一个原生投射物（直线、R_W 的圆、R_SPEED、不穿透、打到第一个
-/// 敌方单位走 `rhit`），他身上记一个 `r_shot`。
+/// 敌方单位走 `rhit`），他身上记一个 `r_shot`。0.2.7：朝他走到的地方（`lead`，被动量的速度），再记一个 `r_b`（子弹的路线）。
 fn aim(sim: &mut StableSim<'_>, me: usize) {
     let Some(e) = sim.get_entity(me).filter(|e| e.is_alive()) else { return };
     let (team, at) = (e.team(), e.pos());
     let Some((id, locked)) = bullet_target(sim, me) else {
-        if let Some(k) = counted("aim_none") {
+        if let Some(k) = logged(sim, "aim_none") {
             wlog(format!("{} R AIM: no enemy champion in reach, the bullet is lost #{k}", head(sim, me)));
         }
         return;
     };
     let Some(to) = sim.get_entity(id).map(|t| t.pos()) else { return };
-    let end = bullet_end((at.0 as f64, at.1 as f64), (to.0 as f64, to.1 as f64));
+    let from = (at.0 as f64, at.1 as f64);
+    let v = walk_of(sim, me, id);
+    let ahead = lead(from, (to.0 as f64, to.1 as f64), v, R_SPEED as f64);
+    let end = bullet_end(from, ahead);
     let spec = ProjectileSpawnV1 {
         caster_id: me,
         team,
@@ -694,9 +803,15 @@ fn aim(sim: &mut StableSim<'_>, me: usize) {
     let ok = sim.spawn_projectile(R_BULLET, &format!("{ID}:rhit"), &spec);
     if ok {
         sim.add_buff(me, &BuffV1::timed(R_SHOT, R_BOOK_T));
+        sim.add_buff(me, &BuffV1::timed(&path_name(sim.tick(), at, end), R_BOOK_T));
     }
-    if let Some(k) = counted("aim") {
-        wlog(format!("{} R AIM at #{id}{} ({}, {}) -> ({}, {}){} #{k}", head(sim, me),
+    if let Some(k) = logged(sim, "aim") {
+        let led = if v == (0.0, 0.0) {
+            String::new()
+        } else {
+            format!(", he walks ({:.0}, {:.0}) a tick: led to ({:.0}, {:.0})", v.0, v.1, ahead.0, ahead.1)
+        };
+        wlog(format!("{} R AIM at #{id}{} ({}, {}) -> ({}, {}){led}{} #{k}", head(sim, me),
                      if locked { " (the lock)" } else { " (no lock in reach: the weakest)" }, to.0, to.1, end.0, end.1,
                      if ok { "" } else { ", spawn_projectile refused" }));
     }
@@ -723,7 +838,7 @@ fn dirty_proc(sim: &mut StableSim<'_>, me: usize, target: usize) {
 /// `p_go` 这里没人读）；他身上记一个 `r_onlock`（打中锁定的）或 `r_onother`。
 fn r_hit(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
-        if let Some(k) = counted("rhit_kind") {
+        if let Some(k) = logged(sim, "rhit_kind") {
             wlog(format!("{} R HIT with an input of kind {} (no target): nothing dealt #{k}", head(sim, me), input.kind));
         }
         return;
@@ -843,9 +958,11 @@ fn swing_start(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     let name = sw_name(a, a0, dir, sim.tick());
     sim.add_buff(me, &BuffV1::timed(&name, SWING_T + 30));
-    if let Some(k) = counted("swing") {
+    if let Some(k) = logged(sim, "swing") {
+        // 0.2.7: already held as the swing starts (the E cast into a root / a grounding / a knock-back)?
+        let held = if hard_cc(sim, me) { format!(", already held: {}", cc_text(sim, me)) } else { String::new() };
         wlog(format!(
-            "{} SWING round ({:.0}, {:.0}) from ({}, {}) toward #{} #{k}",
+            "{} SWING round ({:.0}, {:.0}) from ({}, {}) toward #{}{held} #{k}",
             head(sim, me),
             a.0,
             a.1,
@@ -871,6 +988,28 @@ impl StableEffectType for NoopFx {
 fn hard_cc(sim: &StableSim<'_>, id: usize) -> bool {
     let Some(e) = sim.get_entity(id) else { return false };
     (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| HARD.iter().any(|k| k.code() == c.kind))
+}
+
+/// One crowd-control entry for the log: its kind and ticks left, a ForceMove's speed, a taunt's taunter, an animation's
+/// name ("ForceMove 10 speed 3000", "Animation 6 skill2").
+pub fn cc_entry(c: &CcV1) -> String {
+    let kind = CcKindV1::from_code(c.kind);
+    let name = kind.map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}"));
+    let more = match kind {
+        Some(CcKindV1::ForceMove) => format!(" speed {}", c.speed),
+        Some(CcKindV1::Taunt) => format!(" by #{}", c.target),
+        Some(CcKindV1::Animation) => format!(" {}", c.name()),
+        _ => String::new(),
+    };
+    format!("{name} {}{more}", c.tick)
+}
+
+/// Every crowd-control entry on `id` (0.2.7, for SWING: the 11-05 logs cut 221 swings, 78 of them 0-3 ticks in -
+/// an enemy's or his own?).
+fn cc_text(sim: &StableSim<'_>, id: usize) -> String {
+    let Some(e) = sim.get_entity(id) else { return "-".to_string() };
+    let all: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i)).map(|c| cc_entry(&c)).collect();
+    if all.is_empty() { "-".to_string() } else { all.join(", ") }
 }
 
 /// 一节绳子：在他手的高度、他和钩点的正中，朝钩点（游戏把图转向它飞的方向），1 tick 就到头。
@@ -917,6 +1056,22 @@ struct Rogue {
     /// 上一 tick 在引导 R；引导结束后记 R DONE 的 tick（0.2.6）。
     r_was: bool,
     r_done_at: Option<usize>,
+    /// 0.2.7, while R is on: where the champion the next bullet goes to stood over the last TRACK_T ticks (tick, id, at) -
+    /// his walk, written on Akshan as `r_v` for the bullets to lead by - and the lock's every position (tick, at), for the
+    /// R MISS line.
+    aim_track: Vec<(usize, usize, (f64, f64))>,
+    lock_track: Vec<(usize, (f64, f64))>,
+}
+
+/// The walk per tick over a track (oldest first) of one unit: (newest - oldest) / ticks between; none over less than a tick.
+pub fn walk(track: &[(usize, usize, (f64, f64))]) -> (f64, f64) {
+    match (track.first(), track.last()) {
+        (Some(a), Some(b)) if b.0 > a.0 => {
+            let dt = (b.0 - a.0) as f64;
+            ((b.2 .0 - a.2 .0) / dt, (b.2 .1 - a.2 .1) / dt)
+        }
+        _ => (0.0, 0.0),
+    }
 }
 
 /// 击杀记录里的“位置”就是分路（LaneV1 的编号）：按队伍和分路找玩家编号。
@@ -939,7 +1094,7 @@ impl Rogue {
             let killer_team = k.killer_team;
             let victim_team = 1 - killer_team.min(1);
             let Some(victim) = player_by_lane(sim, victim_team, k.killed_position) else {
-                if let Some(c) = counted("nolane") {
+                if let Some(c) = logged(sim, "nolane") {
                     wlog(format!("{} kill log #{}: no player in lane {} of team {victim_team} #{c}", head(sim, me), self.seen - 1, k.killed_position));
                 }
                 continue;
@@ -981,7 +1136,7 @@ impl Rogue {
                 if let Some(cd) = sim.get_entity(me).and_then(|e| e.cooldown(SkillSlotV1::Skill2)) {
                     if cd.remaining > E_LEFT {
                         sim.entity_reduce_cooldown(me, SkillSlotV1::Skill2, cd.remaining - E_LEFT);
-                        if let Some(c) = counted("refresh") {
+                        if let Some(c) = logged(sim, "refresh") {
                             wlog(format!("{} REFRESH E {} -> {E_LEFT} (takedown of player {victim}) #{c}", head(sim, me), cd.remaining));
                         }
                     }
@@ -1077,11 +1232,15 @@ impl Rogue {
             self.r_done_at = Some(now + R_DONE_WAIT);
         }
         self.r_was = chan;
+        if chan || self.r_done_at.is_some() {
+            self.track(sim, me, now);
+        }
         if !self.r_done_at.is_some_and(|t| now >= t) {
             return;
         }
         self.r_done_at = None;
         let (shots, on, other) = (count_buff(sim, me, R_SHOT), count_buff(sim, me, R_ONLOCK), count_buff(sim, me, R_ONOTHER));
+        let lost = shots.saturating_sub(on + other);
         let lock = locked_id(sim, me);
         let state = match lock.and_then(|id| sim.get_entity(id)) {
             Some(t) if t.is_alive() => {
@@ -1091,15 +1250,85 @@ impl Rogue {
             Some(_) => "DEAD".to_string(),
             None => "gone".to_string(),
         };
-        if let Some(k) = counted("r_done") {
-            wlog(format!("{} R DONE #{k}: {shots} fired, {on} on the lock #{}, {other} on others, {} lost; the lock {state}",
-                         head(sim, me), lock.map_or("-".to_string(), |i| i.to_string()), shots.saturating_sub(on + other)));
+        let lock_txt = lock.map_or("-".to_string(), |i| i.to_string());
+        if let Some(k) = logged(sim, "r_done") {
+            wlog(format!("{} R DONE #{k}: {shots} fired, {on} on the lock #{lock_txt}, {other} on others, {lost} lost; the lock {state}",
+                         head(sim, me)));
+        }
+        let paths = names_on(sim, me, R_PATH);
+        // 0.2.7: a bullet lost - how near each came to the lock, centre to centre on a tick (rare: only with a loss)
+        if lost > 0 && lock.is_some() {
+            if let Some(k) = logged(sim, "r_miss") {
+                let mut flights: Vec<(usize, (f64, f64), (f64, f64))> = paths.iter().filter_map(|n| parse_path(n)).collect();
+                flights.sort_by_key(|f| f.0);
+                let passes: Vec<String> = flights
+                    .iter()
+                    .map(|&(t0, from, end)| closest_pass(t0, from, end, &self.lock_track).map_or("-".to_string(), |d| format!("{d:.0}")))
+                    .collect();
+                wlog(format!("{} R MISS #{k}: {lost} of {shots} lost; each bullet's closest pass to the lock #{lock_txt} [{}] \
+                              (a hit needs {R_W:.0}; the lock {state})", head(sim, me), passes.join(", ")));
+            }
         }
         for name in [R_SHOT, R_ONLOCK, R_ONOTHER] {
             sim.entity_remove_buff(me, name);
         }
+        for name in paths.iter().chain(names_on(sim, me, R_VEL).iter()) {
+            sim.entity_remove_buff(me, name);
+        }
         if let Some(id) = lock {
             sim.entity_remove_buff(me, &lock_name(id));
+        }
+        self.aim_track.clear();
+        self.lock_track.clear();
+    }
+
+    /// While R is on (0.2.7): the lock's position this tick (for R MISS), and the walk of the champion the next bullet
+    /// goes to over the last TRACK_T ticks, on Akshan as `r_v:<id>:<vx>:<vy>` (`aim` leads by it, `release` too).
+    fn track(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
+        // a reused passive in a new match: nothing from the last one
+        self.aim_track.retain(|x| x.0 <= now);
+        self.lock_track.retain(|x| x.0 <= now);
+        let at = |sim: &StableSim<'_>, id: usize| {
+            sim.get_entity(id).filter(|t| t.is_alive()).map(|t| {
+                let p = t.pos();
+                (p.0 as f64, p.1 as f64)
+            })
+        };
+        if let Some(p) = locked_id(sim, me).and_then(|id| at(sim, id)) {
+            if self.lock_track.last().is_none_or(|x| x.0 < now) {
+                self.lock_track.push((now, p));
+            }
+        }
+        let next = bullet_target(sim, me).and_then(|(id, _)| at(sim, id).map(|p| (id, p)));
+        let name = match next {
+            Some((id, p)) => {
+                self.aim_track.retain(|x| x.1 == id && now - x.0 <= TRACK_T && x.0 < now);
+                self.aim_track.push((now, id, p));
+                Some(vel_name(id, walk(&self.aim_track)))
+            }
+            None => {
+                self.aim_track.clear();
+                None
+            }
+        };
+        let old = names_on(sim, me, R_VEL);
+        if old.len() == 1 && name.as_ref() == old.first() {
+            return;
+        }
+        for n in old {
+            sim.entity_remove_buff(me, &n);
+        }
+        if let Some(n) = name {
+            sim.add_buff(me, &BuffV1::timed(&n, R_BOOK_T));
+        }
+    }
+
+    /// The walk this passive measured for `id` (none for anyone else).
+    fn walk_of(&self, id: usize) -> (f64, f64) {
+        if self.aim_track.last().is_some_and(|x| x.1 == id) {
+            walk(&self.aim_track)
+        } else {
+            (0.0, 0.0)
         }
     }
 
@@ -1162,18 +1391,20 @@ impl Rogue {
                    armor: u.stat().defence }
         };
         let Some(him) = sim.get_entity(id).map(|t| body(&t)) else { return };
-        // every enemy unit on the way takes a bullet first: minions, monsters, towers, other champions
+        // every enemy unit on the way takes a bullet first: minions, monsters, towers, other champions - on the line to
+        // where the bullets meet him (0.2.7: they lead him)
         let others: Vec<Body> = (0..sim.entity_count())
             .filter_map(|i| sim.entity_at(i))
             .filter(|u| u.id() != id && u.is_alive() && u.team() != team && u.is_targetable())
             .map(|u| body(&u))
             .collect();
-        let blockers = on_line((at.0 as f64, at.1 as f64), him.at, &others);
+        let from = (at.0 as f64, at.1 as f64);
+        let blockers = on_line(from, lead(from, him.at, self.walk_of(id), R_SPEED as f64), &others);
         let kill = lethal(attack, &him, n, &blockers);
         let leaving = d2 * 100 >= reach2 * 85;
         if kill || leaving {
             sim.add_buff(me, &BuffV1::timed(R_FIRE, FIRE_T));
-            if let Some(k) = counted("fire") {
+            if let Some(k) = logged(sim, "fire") {
                 let why = if kill { "lethal" } else { "leaving" };
                 let dmg = armoured_volley(attack, &him, n);
                 let line = if blockers.is_empty() {
@@ -1205,16 +1436,20 @@ fn swing_tick(sim: &mut StableSim<'_>, me: usize) {
     };
     let age = sim.tick().saturating_sub(t0);
     if age > SWING_T || hard_cc(sim, me) {
+        // 0.2.7: which crowd control (221 cuts in the 11-05 logs, 78 of them 0-3 ticks in), capped like the other lines
+        let cut = (age <= SWING_T).then(|| cc_text(sim, me));
         sim.entity_remove_buff(me, &name);
-        if age <= SWING_T {
-            wlog(format!("{} SWING cut by crowd control at {age}", head(sim, me)));
+        if let Some(cc) = cut {
+            if let Some(k) = logged(sim, "swing_cut") {
+                wlog(format!("{} SWING cut by crowd control at {age}: {cc} #{k}", head(sim, me)));
+            }
         }
         return;
     }
     let p = swing_at(a, a0, dir, age);
     sim.entity_set_pos(me, p.0.round() as u64, p.1.round() as u64);
     if !rope(sim, me, p, a) {
-        if let Some(k) = counted("rope_refused") {
+        if let Some(k) = logged(sim, "rope_refused") {
             wlog(format!("{} ROPE refused by spawn_projectile #{k}", head(sim, me)));
         }
     }
@@ -1652,5 +1887,107 @@ mod tests {
         assert!((y as f64 - 580_000.0).abs() < 2.0, "{y}");
         // the lock's name round-trips
         assert_eq!(lock_name(427).strip_prefix(R_LOCK).and_then(|r| r.strip_prefix(':')).and_then(|r| r.parse::<usize>().ok()), Some(427));
+    }
+
+    /// The engine's rule (game 0.7.1, fitted on the 11-05 bullets): a bullet from `from` toward `end` at `speed` a tick
+    /// (step 0 on its spawn tick) hits a unit at `at` walking `v` a tick when his centre is within `w` of it on a tick.
+    fn meets(from: (f64, f64), end: (f64, f64), at: (f64, f64), v: (f64, f64), w: f64) -> bool {
+        let track: Vec<(usize, (f64, f64))> = (0..=20).map(|k| (k, (at.0 + v.0 * k as f64, at.1 + v.1 * k as f64))).collect();
+        closest_pass(0, from, end, &track).is_some_and(|d| d <= w)
+    }
+
+    fn end_f(from: (f64, f64), to: (f64, f64)) -> (f64, f64) {
+        let e = bullet_end(from, to);
+        (e.0 as f64, e.1 as f64)
+    }
+
+    #[test]
+    fn the_bullet_steps_no_longer_over_a_champion_on_its_line() {
+        // 2 x R_W >= R_SPEED: a unit standing anywhere on the line is within R_W of a tick
+        assert!(2.0 * R_W >= R_SPEED as f64);
+        let me = (100_000.0, 500_000.0);
+        let end = end_f(me, (300_000.0, 500_000.0));
+        for d in (10_000..215_000).step_by(1_000) {
+            let at = (me.0 + d as f64, me.1);
+            assert!(meets(me, end, at, (0.0, 0.0), R_W), "{d}");
+        }
+        // 0.2.6's 6000 at 20000 a tick: a unit between two ticks was stepped over (11-05 .log R DONE #12: the lock 68,220
+        // away, the ticks 8,220 and 11,780 from him: 4 of 5 lost)
+        let to = (587_474.0, 341_171.0);
+        let old_end = (437_161.0, 362_222.0);
+        let u = ((old_end.0 - to.0) / dist(to, old_end), (old_end.1 - to.1) / dist(to, old_end));
+        let back = R_REACH as f64 - dist(to, old_end);
+        let from = (to.0 - u.0 * back, to.1 - u.1 * back);
+        assert!((back - 68_220.0).abs() < 10.0, "{back}");
+        let v = (-211.0, 206.0);
+        assert!(!meets(from, old_end, to, v, 6_000.0));
+        assert!(meets(from, end_f(from, lead(from, to, v, R_SPEED as f64)), to, v, R_W));
+    }
+
+    #[test]
+    fn the_bullets_lead_a_walking_lock() {
+        // 11-05 (.prev R DONE #11, 5 of 5 lost; R AIM #45): the lock #1194 196,275 away walking (1289, -197) a tick
+        let to = (435_223.0, 52_418.0);
+        let old_end = (445_772.0, 31_167.0);
+        let u = ((old_end.0 - to.0) / dist(to, old_end), (old_end.1 - to.1) / dist(to, old_end));
+        let back = R_REACH as f64 - dist(to, old_end);
+        let from = (to.0 - u.0 * back, to.1 - u.1 * back);
+        assert!((back - 196_275.0).abs() < 10.0, "{back}");
+        let v = (1_289.0, -197.0);
+        // at where he stood: missed with either circle
+        assert!(!meets(from, old_end, to, v, 6_000.0));
+        assert!(!meets(from, old_end, to, v, R_W));
+        // led by his walk x the flight
+        let ahead = lead(from, to, v, R_SPEED as f64);
+        assert!(meets(from, end_f(from, ahead), to, v, R_W));
+        let flight = dist(from, ahead) / R_SPEED as f64;
+        assert!(dist(ahead, (to.0 + v.0 * flight, to.1 + v.1 * flight)) < 50.0, "{ahead:?}");
+        // standing still: no lead; a dash or a blink (faster than V_MAX): none either; a long lead is capped
+        assert_eq!(lead(from, to, (0.0, 0.0), R_SPEED as f64), to);
+        assert_eq!(lead(from, to, (V_MAX + 1.0, 0.0), R_SPEED as f64), to);
+        let far = lead((0.0, 0.0), (200_000.0, 0.0), (0.0, 2_400.0), 5_000.0);
+        assert!((dist(far, (200_000.0, 0.0)) - LEAD_CAP).abs() < 1.0, "{far:?}");
+    }
+
+    #[test]
+    fn the_walk_the_miss_and_the_names() {
+        // the walk over the last ticks: (newest - oldest) / ticks between
+        let track = [(10, 7, (1_000.0, 0.0)), (11, 7, (1_400.0, 300.0)), (13, 7, (2_200.0, 900.0))];
+        assert_eq!(walk(&track), (400.0, 300.0));
+        assert_eq!(walk(&track[..1]), (0.0, 0.0));
+        // the closest pass: ticks at 0, 20000, ... ; the lock standing 5000 off the line at 100000 -> 5000 (tick 5)
+        let lock: Vec<(usize, (f64, f64))> = (100..120).map(|t| (t, (100_000.0, 5_000.0))).collect();
+        assert_eq!(closest_pass(100, (0.0, 0.0), (220_000.0, 0.0), &lock), Some(5_000.0));
+        // his position is read at the bullet's tick: walking off the line 5000 a tick, 30000 from it as the bullet passes
+        let walking: Vec<(usize, (f64, f64))> = (100..120).map(|t| (t, (100_000.0, 5_000.0 * (t - 99) as f64))).collect();
+        assert_eq!(closest_pass(100, (0.0, 0.0), (220_000.0, 0.0), &walking), Some(30_000.0));
+        assert_eq!(closest_pass(100, (0.0, 0.0), (220_000.0, 0.0), &[]), None);
+        // the buffs' names fit the game's 64 bytes and read back
+        let v = vel_name(1_234, (-985.4, 390.6));
+        assert!(v.len() <= BUFF_NAME_CAP, "{v}");
+        assert_eq!(parse_vel(&v), Some((1_234, (-985.0, 391.0))));
+        let p = path_name(123_456, (959_999, 958_888), (960_000, 0));
+        assert!(p.len() <= BUFF_NAME_CAP, "{p}");
+        assert_eq!(parse_path(&p), Some((123_456, (959_999.0, 958_888.0), (960_000.0, 0.0))));
+        assert_eq!(parse_vel(&p), None);
+        assert_eq!(parse_path(&v), None);
+        // crowd control in the log
+        let mut c = CcV1::of_kind(CcKindV1::ForceMove, 10);
+        c.speed = 3_000;
+        assert_eq!(cc_entry(&c), "ForceMove 10 speed 3000");
+        let mut a = CcV1::of_kind(CcKindV1::Animation, 6);
+        a.set_name("skill2");
+        assert_eq!(cc_entry(&a), "Animation 6 skill2");
+        assert_eq!(cc_entry(&CcV1::of_kind(CcKindV1::Bind, 37)), "Bind 37");
+    }
+
+    #[test]
+    fn the_line_counts_the_centre_only() {
+        // 0.2.6 counted a unit within R_W + its body; the engine reads the centre: a minion 15000 off the line (body
+        // 7000) lets the bullets by
+        let him = champ(1, (100_000.0, 0.0), 300, 0, 1_000, 0);
+        let minion = |id: usize, off: f64| Body { id, at: (50_000.0, off), r: 7_000.0, hp: 468, shield: 0, max: 468, armor: 0 };
+        assert!(on_line((0.0, 0.0), him.at, &[minion(2, 15_000.0)]).is_empty());
+        assert_eq!(on_line((0.0, 0.0), him.at, &[minion(3, R_W - 1.0)]).len(), 1);
     }
 }

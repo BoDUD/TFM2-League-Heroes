@@ -11,8 +11,8 @@
 //! - [`shockwave`] / [`Shock::caught`]：风停下后冲击波沿它路过的草丛（连着的那一片）、河道（交点前后 `span`）和撞上的那面墙
 //!   （连着的墙格子里离停点 `span` 内的，墙边 `border` 内；地图四边是停点前后 `span` 的一段）走，谁在里面、离起点多远。
 
-use std::collections::HashMap;
-use std::sync::{Arc, LazyLock, Mutex};
+use std::collections::BTreeMap;
+use std::sync::{Arc, Mutex};
 
 use mod_api_stable::*;
 
@@ -293,15 +293,17 @@ impl MapGrids {
     }
 }
 
-static MAPS: LazyLock<Mutex<HashMap<u32, Arc<MapGrids>>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 读过的地图，按模式（0.3.2：按模式号排好；以前是 HashMap，平手时挑哪张看它的遍历顺序）。
+static MAPS: Mutex<BTreeMap<u32, Arc<MapGrids>>> = Mutex::new(BTreeMap::new());
 static SEEN: Mutex<Vec<u32>> = Mutex::new(Vec::new());
 
-/// 读过的地图（每种模式一张）。
+/// 读过的地图（每种模式一张），按模式号排（5v5 在前）。
 pub fn maps() -> Vec<Arc<MapGrids>> {
     MAPS.lock().unwrap_or_else(|e| e.into_inner()).values().cloned().collect()
 }
 
-/// 当前对局的地图：站进墙里的单位最少的那张（卡密尔附加包的挑法）；只有一张就用它。
+/// 当前对局的地图：站进墙里的单位最少的那张（卡密尔附加包的挑法）；只有一张就用它；平手时 `maps` 里在前的那张（[`maps`]
+/// 按模式号排好，同样的几张地图每份模拟挑的都一样）。
 pub fn pick_map(points: &[Pt], maps: &[Arc<MapGrids>]) -> Option<Arc<MapGrids>> {
     maps.iter()
         .min_by_key(|m| m.walls.as_ref().map_or(usize::MAX / 2, |w| points.iter().filter(|p| w.at(p.0, p.1)).count()))
@@ -741,5 +743,22 @@ mod tests {
         assert_eq!(pick_map(&[(CELL * 1.5, CELL * 1.5)], &[b, a.clone()]), Some(a));
         assert_eq!(top_keys(r#"{"walls":[[0,1]],"bushes":[[1]],"towers":[{"pos":[1,2],"ty":"Top"}]}"#),
                    vec!["walls", "bushes", "towers"]);
+    }
+
+    /// 0.3.2 (2026-11-06): the maps read come back by mode number (5v5 first), so a tie (nobody in either map's walls)
+    /// picks the same map in every simulation; 0.3.1 kept them in a HashMap, whose order broke the tie.
+    #[test]
+    fn a_tie_picks_the_same_map_every_time() {
+        let map = |mode: GameModeKindV1, row: &str| MapGrids { mode: mode.code(), walls: Some(Grid::from_rows(&[row])), bushes: None, river: None };
+        {
+            let mut m = MAPS.lock().unwrap_or_else(|e| e.into_inner());
+            m.insert(GameModeKindV1::DeathMatch.code(), Arc::new(map(GameModeKindV1::DeathMatch, "#.")));
+            m.insert(GameModeKindV1::SingleLane.code(), Arc::new(map(GameModeKindV1::SingleLane, ".#")));
+            m.insert(GameModeKindV1::Moba.code(), Arc::new(map(GameModeKindV1::Moba, "..#")));
+        }
+        let all = maps();
+        assert_eq!(all.iter().map(|m| m.mode).collect::<Vec<_>>(), [0, 1, 2]);
+        let picked = pick_map(&[(CELL * 5.5, CELL * 5.5)], &all).expect("a map");
+        assert!(picked.moba(), "picked mode {}", picked.mode);
     }
 }

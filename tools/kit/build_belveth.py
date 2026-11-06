@@ -77,7 +77,10 @@ P = {
     "q_cd": 240, "q_cd_r": 120, "q_range": 40000, "q_dur": 18, "q_go": 3, "q_speed": 6000, "q_t": 7, "q_t_r": 10,
     "q_dmg": 65, "q_ratio": 125,
     # skill2: W Above and Below
-    "w_cd": 600, "w_range": 45000, "w_dur": 30, "w_rel": 12, "w_len": 55000, "w_rad": 7000, "w_speed": 30000,
+    # w_rad / w_speed: the engine tests a line only where it stands at each tick, the centre within the circle (no sweep,
+    # no body; game 0.7.1): 7000 at 30000 a tick missed everyone 7000-23000 and 37000-48000 from her; League's ~200-wide
+    # slam plus a champion's body is about 14000, and 28000 a tick still leaves no gap (2026-11-06)
+    "w_cd": 600, "w_range": 45000, "w_dur": 30, "w_rel": 12, "w_len": 55000, "w_rad": 14000, "w_speed": 28000,
     "w_dmg": 75, "w_ratio": 115, "w_up": 50, "w_slow": 40, "w_slow_t": 90,
     # ult: R Endless Banquet
     "r_cd": 4800, "r_range": 35000, "r_dur": 40, "r_hit": 20, "r_r": 22000, "r_dmg": 130, "r_ratio": 80,

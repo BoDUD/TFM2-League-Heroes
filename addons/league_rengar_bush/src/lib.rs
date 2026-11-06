@@ -25,8 +25,10 @@
 //! 改的 buff 数据同一 tick 就读得到（加里奥附加包 0.7.0 的日志：`entrance` 加的 1 tick 标记，数据紧接着读到、引导、落地）。
 //!
 //! 草丛格子从地图自定义钩子读（地图文档的 `bushes`，和卡密尔附加包读 `walls` 一样；每种模式记一张，当前对局取站进墙里的
-//! 单位最少的那张，一样少取最后读到的）。那张地图没有草丛就没有草丛给的扑击（0.1.x 会借别的模式地图的格子）；哪张地图都
-//! 读不到草丛时退回「敌方队伍看不见他」（草丛之外战争迷雾里也算，日志里写明）。
+//! 单位最少的那张，一样少取墙多的，再一样取模式编号小的）。那张地图没有草丛就没有草丛给的扑击（0.1.x 会借别的模式地图的
+//! 格子）；哪张地图都读不到草丛时退回「敌方队伍看不见他」（草丛之外战争迷雾里也算，日志里写明）。
+//! 0.2.1（2026-11-06，画面和预模拟分岔的排查）：0.2.0 一样合适时取「最后读到的」——服务器的预模拟和屏幕上的比赛在不同的
+//! 时候挑，中间别的比赛建图读了另一种模式，两边就用上不同的草丛；现在只看地图本身，每次跑同一局都挑同一张。
 //! 合集 `league_addons` 里一个 mod 只能有一个地图钩子：合集用 [`BushReader::read`] 和卡密尔的读墙一起调用。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
@@ -36,11 +38,10 @@
 //! 这一场的累计）。
 
 use std::cmp::Reverse;
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -279,18 +280,18 @@ pub fn parse_grid(json: &str) -> Option<Grid> {
     (!rows.is_empty()).then_some(Grid { cells: rows })
 }
 
-/// 一种模式的地图：墙（挑当前对局用）、草丛，和它是第几次读到的（地图钩子在每场建好时跑，一样合适时取最后读到的）。
+/// 一种模式的地图：墙（挑当前对局用）、草丛，和它的模式编号（一样合适时的最后一道比较；0.2.0 是第几次读到的，见
+/// [`pick_bushes`]）。
 #[derive(Clone, Debug, Default)]
 pub struct MapGrids {
     pub walls: Option<Grid>,
     pub bushes: Option<Grid>,
-    pub seq: u64,
+    pub mode: u32,
 }
 
-static MAPS: LazyLock<Mutex<HashMap<u32, MapGrids>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 读过的地图，按模式的编号（有序的表：取出来每次都是同一个顺序）。
+static MAPS: LazyLock<Mutex<BTreeMap<u32, MapGrids>>> = LazyLock::new(|| Mutex::new(BTreeMap::new()));
 static DUMPED: Mutex<Vec<u32>> = Mutex::new(Vec::new());
-/// 读过几次地图（[`MapGrids::seq`]）。
-static READS: AtomicU64 = AtomicU64::new(0);
 
 /// 这一场的草丛。
 #[derive(Clone, Debug, PartialEq)]
@@ -303,12 +304,15 @@ pub enum Bushes {
     Vision,
 }
 
-/// 当前对局的地图：站进墙里的单位最少的那张（卡密尔附加包的挑法，没有墙的地图排最后），一样少取最后读到的；用它的草丛。
-/// 它没有草丛就是没有——不借别的模式的（0.1.x 只在有草丛的地图里挑，没有草丛的地图上会用 5v5 的格子）。
+/// 当前对局的地图：站进墙里的单位最少的那张（卡密尔附加包的挑法，没有墙的地图排最后），一样少取墙多的（最「具体」的：
+/// 单线的比赛也没人站在 5v5 地图的墙里），再一样取模式编号小的；用它的草丛。它没有草丛就是没有——不借别的模式的（0.1.x 只在
+/// 有草丛的地图里挑，没有草丛的地图上会用 5v5 的格子）。0.2.1：0.2.0 一样少时取最后读到的，服务器的预模拟和屏幕上的比赛
+/// 在不同的时候挑（中间别的比赛读了另一种模式的地图）就会用上不同的草丛；现在只看地图本身。
 pub fn pick_bushes(points: &[(f64, f64)], maps: &[MapGrids]) -> Bushes {
     let in_walls =
         |m: &MapGrids| m.walls.as_ref().map_or(usize::MAX / 2, |w| points.iter().filter(|p| w.at(p.0, p.1)).count());
-    match maps.iter().min_by_key(|m| (in_walls(m), Reverse(m.seq))) {
+    let walls = |m: &MapGrids| m.walls.as_ref().map_or(0, Grid::count);
+    match maps.iter().min_by_key(|m| (in_walls(m), Reverse(walls(m)), m.mode)) {
         Some(MapGrids { bushes: Some(g), .. }) => Bushes::Grid(g.clone()),
         Some(_) if maps.iter().any(|m| m.bushes.is_some()) => Bushes::Absent,
         _ => Bushes::Vision,
@@ -355,8 +359,7 @@ impl BushReader {
             }
             wlog(out);
         }
-        let seq = READS.fetch_add(1, Ordering::Relaxed) + 1;
-        MAPS.lock().unwrap_or_else(|e| e.into_inner()).insert(code, MapGrids { walls, bushes: found.map(|f| f.1), seq });
+        MAPS.lock().unwrap_or_else(|e| e.into_inner()).insert(code, MapGrids { walls, bushes: found.map(|f| f.1), mode: code });
     }
 }
 
@@ -828,8 +831,8 @@ mod tests {
 
     #[test]
     fn the_match_map_is_the_one_nobody_stands_in_walls() {
-        let a = MapGrids { walls: Some(Grid::from_rows(&["#.", ".."])), bushes: Some(Grid::from_rows(&["..", "#."])), seq: 1 };
-        let b = MapGrids { walls: Some(Grid::from_rows(&[".#", "##"])), bushes: Some(Grid::from_rows(&["#.", ".."])), seq: 2 };
+        let a = MapGrids { walls: Some(Grid::from_rows(&["#.", ".."])), bushes: Some(Grid::from_rows(&["..", "#."])), mode: 1 };
+        let b = MapGrids { walls: Some(Grid::from_rows(&[".#", "##"])), bushes: Some(Grid::from_rows(&["#.", ".."])), mode: 2 };
         let here = [(CELL * 1.5, CELL * 1.5)];
         assert_eq!(pick_bushes(&here, &[b.clone(), a.clone()]), Bushes::Grid(a.bushes.clone().unwrap()));
         // no map read, or none with bushes (the key unknown): the vision fallback
@@ -840,14 +843,27 @@ mod tests {
     #[test]
     fn a_map_without_bushes_borrows_none() {
         // the match is on `c` (nobody in its walls), which has no bushes: 0.1.x took `a`'s grid there
-        let a = MapGrids { walls: Some(Grid::from_rows(&["##", "#."])), bushes: Some(Grid::from_rows(&["#.", ".#"])), seq: 1 };
-        let c = MapGrids { walls: Some(Grid::from_rows(&["..", ".."])), bushes: None, seq: 2 };
+        let a = MapGrids { walls: Some(Grid::from_rows(&["##", "#."])), bushes: Some(Grid::from_rows(&["#.", ".#"])), mode: 1 };
+        let c = MapGrids { walls: Some(Grid::from_rows(&["..", ".."])), bushes: None, mode: 2 };
         let here = [(CELL * 0.5, CELL * 0.5)];
         assert_eq!(pick_bushes(&here, &[a.clone(), c.clone()]), Bushes::Absent);
-        // two maps that fit as well: the one read last (the map hook runs as each match is made)
-        let d = MapGrids { walls: c.walls.clone(), bushes: Some(Grid::from_rows(&["..", ".#"])), seq: 3 };
-        assert_eq!(pick_bushes(&here, &[c.clone(), d.clone()]), Bushes::Grid(d.bushes.clone().unwrap()));
-        assert_eq!(pick_bushes(&here, &[MapGrids { seq: 4, ..c }, d]), Bushes::Absent);
+        // two maps that fit as well and have as many walls: the lower mode number, in whatever order they come or were
+        // read (0.2.0 took the one read last: the presims and the screen pick at different times)
+        let d = MapGrids { walls: c.walls.clone(), bushes: Some(Grid::from_rows(&["..", ".#"])), mode: 3 };
+        assert_eq!(pick_bushes(&here, &[c.clone(), d.clone()]), Bushes::Absent);
+        assert_eq!(pick_bushes(&here, &[d.clone(), c.clone()]), Bushes::Absent);
+        assert_eq!(pick_bushes(&here, &[MapGrids { mode: 4, ..c.clone() }, d.clone()]), Bushes::Grid(d.bushes.clone().unwrap()));
+    }
+
+    #[test]
+    fn maps_that_fit_as_well_pick_the_one_with_more_walls() {
+        // a lane match stands in no wall of the 5v5 map either: the more specific map wins (league_camille_wall's pick),
+        // whichever was read last
+        let moba = MapGrids { walls: Some(Grid::from_rows(&["..", ".."])), bushes: Some(Grid::from_rows(&["#.", ".."])), mode: 0 };
+        let lane = MapGrids { walls: Some(Grid::from_rows(&[".#", "##"])), bushes: Some(Grid::from_rows(&["..", "#."])), mode: 1 };
+        let here = [(CELL * 0.5, CELL * 0.5)];
+        assert_eq!(pick_bushes(&here, &[moba.clone(), lane.clone()]), Bushes::Grid(lane.bushes.clone().unwrap()));
+        assert_eq!(pick_bushes(&here, &[lane.clone(), moba.clone()]), Bushes::Grid(lane.bushes.clone().unwrap()));
     }
 
     #[test]

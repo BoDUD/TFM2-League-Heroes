@@ -34,6 +34,9 @@ native add-on addons/league_sion):
           The cap is read 3 ticks before the window ends (2026-11-05, the user: 「塞恩是不是也不太放大？」: read on
           the window's last tick the flag was already gone, so no lapsed window ever refunded and each cost the full
           60 s - 48 traced games: 4.19 -> 4.69 charges a 600 s game, the lapse-to-rearm gap 3558 -> 877 ticks).
+          The save (native=1, 2026-11-06): game 0.7.0's `AllyChampionInCC` also takes cast animations, so every
+          skirmish read as "an ally in crowd control" (11 of 11 charges in the logs); the add-on's copy saves only an
+          ally held by hard crowd control (its passive's r_cc flag, league_sion:held picks the ally).
   combos  E -> Q, League's Roar of the Slayer into Decimating Smash (the user: 「有连招要做连招」「都要帮我补」): the roar
           hitting an enemy champion (a champion-only twin of it) opens e_combo (a caster flag, e_combo ticks = the
           slow); Q cast inside it charges only q_qc ticks (half), so the slam lands while the champion is still slowed,
@@ -367,11 +370,24 @@ def build(p):
         team = sw(f"r_n{p['r_team'] + 1}", pick(p["r_range"], "EnemyChampion", sw("r_arm", fire())))
         follow = sw("r_n2", pick(p["r_range"], "EnemyChampionRecentlyAttacked", sw("r_arm", fire())))
         others = combine(*rm("r_n1", "r_n2", "r_n3"), count, delayed(1, team, follow, *rm("r_n1", "r_n2", "r_n3")))
-        poll = sw("r_arm", combine(
-            pick(1, "AllyChampionInCC", flag("r_me", 1)),
-            sw("r_me", combine(*rm("r_me")), combine(
-                pick(p["r_save"], "AllyChampionInCC", flag("r_cc", 1)),
-                sw("r_cc", combine(*rm("r_cc"), pick(p["r_save"], "AllyChampionInCC", save)), others)))))
+        if native:
+            # Game 0.7.0's `AllyChampionInCC` also takes a cast animation (build_galio.py, league_galio's is_hard_cc):
+            # 11 of 11 charges of 2026-11-06 were "saves", 7 on the first poll, one at a champion 107525 away. The
+            # add-on reads the crowd control instead: its passive keeps r_cc on him while an allied champion (not
+            # him) within r_save is held by hard crowd control (airborne, stunned, rooted, taunted, feared, charmed,
+            # grounded) with an enemy champion within r_peel of that ally, and league_sion:held, asked for every
+            # ally, raises the 1-tick r_this on him for that one (league_galio:entrance's way) - the probe goes there.
+            held = around(960000, "AllyNotSelf", [{"type": "Native", "effect_ref": "league_sion:held"},
+                                                  sw("r_this", combine(*rm("r_this"), save))])
+            poll = sw("r_arm", combine(
+                pick(1, "AllyChampionInCC", flag("r_me", 1)),
+                sw("r_me", combine(*rm("r_me")), sw("r_cc", held, others))))
+        else:
+            poll = sw("r_arm", combine(
+                pick(1, "AllyChampionInCC", flag("r_me", 1)),
+                sw("r_me", combine(*rm("r_me")), combine(
+                    pick(p["r_save"], "AllyChampionInCC", flag("r_cc", 1)),
+                    sw("r_cc", combine(*rm("r_cc"), pick(p["r_save"], "AllyChampionInCC", save)), others)))))
         reset = sw("r_arm", combine(*rm("r_arm"), flag("r_reset", 3, ult_cooldown_mult=p["r_reset"])))
         # the refund reads the arm flag 3 ticks before it ends (a flag of n ticks is seen on n - 1 of them, league_ryze
         # R): read on its last tick (2026-11-05, classic-SDK traces) it was always gone, so a lapsed window never

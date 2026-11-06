@@ -15,7 +15,8 @@
 //!   league_pyke 的教训）。
 //!
 //! 法阵、不死、结束时的回血、画面和声音全是主包的数据；原生代码只挑时机。放出后 `CHECK_AT` tick 记一笔：危险的那个人
-//! 还活着没有、身上有没有主包法阵给的不死（`league_kindred_r_safe`）。
+//! 还活着没有、身上有没有主包法阵给的不死（`league_kindred_r_safe`）；死了的（0.1.3）再记他最后一次被看到时的生命、有没有
+//! 法阵的不死、离法阵中心多远，和击杀记录里杀他的人。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kindred.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
 use std::collections::HashMap;
@@ -55,9 +56,13 @@ pub const BURST_T: usize = 60;
 /// 她自己的线高一点（0.1.2）：法阵落下前的 `WINDUP` tick 里她还在挨打——11-04 夜里 227 个结果 50 个 dead，几乎全是她自己
 /// 0–30% 时放的（31% 放、1 秒内掉了 41%，死在引导里）。
 pub const SELF_HP: f64 = 0.35;
-/// 从放出到法阵第一次给不死：落下的 `R_AT` tick 加主包法阵第一次 `r_per` 的 6 tick。危险也看这段时间里按最近 1 秒的
-/// 掉血速度会掉到哪（0.1.2）。
-pub const WINDUP: usize = R_AT + 6;
+/// 从放出（钩子看到 R 的冷却开始走的那一 tick，动作的下一 tick）到法阵第一次给不死：法阵在动作后第 `R_AT` + 2 tick 落下
+/// （效果在动作的第 2 tick 跑、Delayed `R_AT`），不死紧跟着下一 tick——0.1.3 起副本和主包的法阵 `first_delay` 是 1。以前是 0，
+/// 引擎把 0 当成「过一整个 r_per 再给」：经典 SDK 的追踪（2026-11-06）里动作后 +22 法阵落下、+28 才第一次给不死，中间 6 tick
+/// 没有保护（11-06 的日志：她死在放出后 22–25 tick 的 4 次，日志却写着「after the circle came down」）。改成 1 后 +23。
+pub const FIRST_SAFE: usize = R_AT + 2;
+/// 危险也看放出到第一次不死这段时间里按最近 1 秒的掉血速度会掉到哪（0.1.2；0.1.3 起就是 `FIRST_SAFE`，以前按 26 算）。
+pub const WINDUP: usize = FIRST_SAFE;
 /// 放出后隔多少 tick 看结果（法阵落下后再等几 tick）。
 pub const CHECK_AT: usize = R_AT + 10;
 
@@ -203,15 +208,78 @@ fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
     (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
 }
 
+/// 她（或救的人）死在放出后第 `after` tick：法阵第一次给不死之前（引导里）还是之后（0.1.3：以前以法阵落下的 `R_AT` 为界、
+/// 写「after the circle came down」，可那时还没有不死）。
+pub fn when_died(after: usize) -> &'static str {
+    if after < FIRST_SAFE {
+        "in the windup, before the circle's first undying"
+    } else {
+        "after the circle's first undying"
+    }
+}
+
+/// 救的那个人在一次 R 里最后一次被看到的样子（0.1.3，死了的 `R RESULT` 用）：哪一 tick、生命比例、身上有没有法阵的不死
+/// （`SAFE`）、别的「不死」（buff 名）、离法阵中心多远（法阵落下以后才有）。
+#[derive(Clone, Debug, PartialEq)]
+pub struct Seen {
+    pub tick: usize,
+    pub hp: f64,
+    pub safe: bool,
+    pub undying: Vec<String>,
+    pub from_centre: Option<f64>,
+}
+
+/// `R RESULT` 里死了的人最后一次被看到的那一段（`cast`：放出的 tick）。
+pub fn last_seen(s: &Seen, cast: usize) -> String {
+    format!(
+        "last seen t={} (+{}): hp {:.0}%, {}{}, {}",
+        s.tick,
+        s.tick.saturating_sub(cast),
+        s.hp * 100.0,
+        if s.safe { "r_safe on" } else { "no r_safe" },
+        if s.undying.is_empty() { String::new() } else { format!(", undying {}", s.undying.join(" ")) },
+        s.from_centre.map_or("the circle not down yet".to_string(), |d| format!("{d:.0} from the circle's centre"))
+    )
+}
+
+/// 击杀记录里放出（`from`）以后队伍 `team`、分路 `lane` 的人阵亡的那一条（最新的；记录按时间排）。
+pub fn kill_of(log: &[KillLogV1], (team, lane): (usize, u32), from: usize) -> Option<KillLogV1> {
+    log.iter().rev().take_while(|k| k.tick >= from).find(|k| k.killed_position == lane && k.killer_team != team).copied()
+}
+
+/// 这个实体是哪个玩家的英雄：(队伍, 分路的编号)（击杀记录按队伍和分路记人）。
+fn team_lane(sim: &StableSim<'_>, entity: usize) -> Option<(usize, u32)> {
+    (0..sim.player_count())
+        .filter_map(|i| sim.player_at(i))
+        .find(|p| p.champion().is_some_and(|e| e.id() == entity))
+        .and_then(|p| Some((p.team(), p.lane()?.code())))
+}
+
+/// 放出以后杀了 `whom`（队伍、分路）的人：(阵亡的 tick, 凶手的英雄)。
+fn killer_of(sim: &StableSim<'_>, whom: (usize, u32), from: usize) -> Option<(usize, String)> {
+    let log: Vec<KillLogV1> = (0..sim.kill_log_count()).filter_map(|i| sim.kill_log_at(i)).collect();
+    let k = kill_of(&log, whom, from)?;
+    let killer = (0..sim.player_count())
+        .filter_map(|i| sim.player_at(i))
+        .find(|p| p.team() == k.killer_team && p.lane().map(|l| l.code()) == Some(k.killer_position))
+        .and_then(|p| p.champion())
+        .map_or_else(|| format!("team {} lane {}", k.killer_team, k.killer_position), |e| who(sim, e.id()));
+    Some((k.tick, killer))
+}
+
 // ===================== AI 钩子：R 只在有人快要阵亡时放 =====================
 
-/// 放出去的一次 R：哪一 tick、为谁、他当时的生命比例。
-#[derive(Clone, Copy, Debug)]
+/// 放出去的一次 R：哪一 tick、为谁、他当时的生命比例；0.1.3 起还有他的（队伍, 分路）（找击杀记录）、法阵的中心（落下时她
+/// 站的地方）、最后一次看到他的样子。
+#[derive(Clone, Debug)]
 struct Cast {
     tick: usize,
     me: usize,
     ally: usize,
     hp: f64,
+    whom: Option<(usize, u32)>,
+    centre: Option<(f64, f64)>,
+    last: Option<Seen>,
 }
 
 /// 钩子下令的一次 R（她正忙时引擎几 tick 后才接，期间每 tick 再下一次）：哪一 tick、为谁、他当时的生命比例和
@@ -305,7 +373,8 @@ impl StablePlayerAi for UltAi {
                                     tick - o.tick
                                 ));
                             }
-                            self.pending.push(Cast { tick, me: mid, ally: o.ally, hp: o.hp });
+                            self.pending.push(Cast { tick, me: mid, ally: o.ally, hp: o.hp, whom: team_lane(&sim, o.ally),
+                                                     centre: None, last: None });
                         }
                         None => {
                             if let Some(k) = counted("r_cast_ai") {
@@ -316,30 +385,56 @@ impl StablePlayerAi for UltAi {
                 }
             }
             self.last_cd = cd;
+            // how the one each R is for looks now (0.1.3): the circle's centre (where she stands as it lands) and his last
+            // sight alive go into a dead R RESULT
+            for c in self.pending.iter_mut() {
+                if c.centre.is_none() && tick > c.tick + R_AT {
+                    c.centre = sim.get_entity(c.me).filter(|e| e.is_alive()).map(|e| (e.pos().0 as f64, e.pos().1 as f64));
+                }
+                if let Some(a) = sim.get_entity(c.ally).filter(|a| a.is_alive()) {
+                    let at = (a.pos().0 as f64, a.pos().1 as f64);
+                    let undying = (0..a.buff_count()).filter_map(|i| a.buff_at(i)).filter(|b| b.undying && b.name() != SAFE)
+                        .map(|b| b.name().to_string()).collect();
+                    c.last = Some(Seen { tick, hp: hp_share(a.hp()), safe: has_buff(&a, SAFE), undying,
+                                         from_centre: c.centre.map(|o| dist(o, at)) });
+                }
+            }
             // the casts waiting for their result, even when she died since
             let (due, wait): (Vec<Cast>, Vec<Cast>) = self.pending.drain(..).partition(|c| tick >= c.tick + CHECK_AT);
             self.pending = wait;
             for c in due {
-                let after = match sim.get_entity(c.ally) {
-                    Some(a) if a.is_alive() => format!(
-                        "alive, hp {:.0}%{}",
-                        hp_share(a.hp()) * 100.0,
-                        if has_buff(&a, SAFE) { ", in the circle (undying)" } else { ", NOT in the circle" }
-                    ),
-                    _ => "dead".to_string(),
-                };
+                let alive = sim.get_entity(c.ally).filter(|a| a.is_alive()).map(|a| {
+                    format!("alive, hp {:.0}%{}", hp_share(a.hp()) * 100.0,
+                            if has_buff(&a, SAFE) { ", in the circle (undying)" } else { ", NOT in the circle" })
+                });
+                // dead (0.1.3): when (the kill log), how he looked last, who killed him
+                let killed = if alive.is_none() { c.whom.and_then(|w| killer_of(&sim, w, c.tick)) } else { None };
+                let after = alive.unwrap_or_else(|| {
+                    let mut s = "dead".to_string();
+                    if let Some((t, _)) = &killed {
+                        let n = t.saturating_sub(c.tick);
+                        s += &format!(" at t={t}, {n} ticks after the cast ({})", when_died(n));
+                    }
+                    if let Some(l) = &c.last {
+                        s += &format!("; {}", last_seen(l, c.tick));
+                    }
+                    if let Some((_, k)) = &killed {
+                        s += &format!("; killed by {k}");
+                    }
+                    s
+                });
                 // she was dead meanwhile (the hook does not think then): the result is this late, and she died about
-                // the tick after her last thought - in the windup or after the circle came down (0.1.2)
+                // the tick after her last thought - before or after the circle's first undying (her own kill-log entry,
+                // when found, is in `after` already)
                 let late = tick.saturating_sub(c.tick + CHECK_AT);
-                let delay = if late > 0 {
-                    let died = self.last_alive.map_or(c.tick, |t| t + 1).max(c.tick);
-                    format!(
-                        ", settled {late} ticks late - she died about t={died}, {} ticks after the cast ({})",
-                        died - c.tick,
-                        if died < c.tick + R_AT { "in the windup, before the circle" } else { "after the circle came down" }
-                    )
-                } else {
+                let delay = if late == 0 {
                     String::new()
+                } else if c.ally == c.me && killed.is_some() {
+                    format!(", settled {late} ticks late")
+                } else {
+                    let died = self.last_alive.map_or(c.tick, |t| t + 1).max(c.tick);
+                    format!(", settled {late} ticks late - she died about t={died}, {} ticks after the cast ({})", died - c.tick,
+                            when_died(died - c.tick))
                 };
                 wlog(format!("{} R RESULT for {}{} (hp {:.0}% at the cast): {after}{delay}", head(&sim, c.me), who(&sim, c.ally),
                              if c.ally == c.me { " (herself)" } else { "" }, c.hp * 100.0));
@@ -493,12 +588,48 @@ mod tests {
         assert!(in_danger(&me(0.34, 0.0), &near), "herself at 34%: the higher line");
         assert!(!in_danger(&ally(1, 0.0, 0.34, 0.0), &near), "an ally at 34%: not yet");
         assert!(!in_danger(&me(0.40, 0.0), &near), "40% and not falling: R stays");
-        // 45% but losing 41% a second: under 30% / 35% by the time the circle gives undying - cast now
-        assert!((hp_at_landing(0.45, 0.41) - (0.45 - 0.41 * 26.0 / 60.0)).abs() < 1e-9);
+        // 45% but losing 41% a second: under 30% / 35% by the time the circle gives undying (22 ticks on) - cast now
+        assert!((hp_at_landing(0.45, 0.41) - (0.45 - 0.41 * 22.0 / 60.0)).abs() < 1e-9);
         assert!(in_danger(&me(0.45, 0.41), &near));
-        assert!(in_danger(&ally(1, 0.0, 0.42, 0.41), &near), "an ally falling as fast: 42% - 18% = 24% at the landing");
-        assert!(!in_danger(&ally(1, 0.0, 0.50, 0.20), &near), "50% losing 20% a second: 41% at the landing, no burst");
+        assert!(in_danger(&ally(1, 0.0, 0.42, 0.41), &near), "an ally falling as fast: 42% - 15% = 27% at the landing");
+        assert!(!in_danger(&ally(1, 0.0, 0.50, 0.20), &near), "50% losing 20% a second: 43% at the landing, no burst");
         assert!(WINDUP > R_AT && WINDUP < CHECK_AT);
+    }
+
+    #[test]
+    fn the_first_undying_comes_right_after_the_circle() {
+        // classic-SDK trace 2026-11-06: the action at A, the circle at A+22, the first undying at A+28 with the zone's
+        // first_delay 0 (a whole r_per late) and at A+23 with 1; the hook sees the cooldown at A+1
+        assert_eq!(FIRST_SAFE, R_AT + 2);
+        assert_eq!(WINDUP, FIRST_SAFE);
+        // 11-06's logs: she died 22-25 ticks after the cast - "after the circle came down", but before any undying
+        assert_eq!(when_died(17), "in the windup, before the circle's first undying");
+        assert_eq!(when_died(FIRST_SAFE - 1), "in the windup, before the circle's first undying");
+        assert_eq!(when_died(FIRST_SAFE), "after the circle's first undying");
+        assert_eq!(when_died(25), "after the circle's first undying");
+        // the kit's zone is the add-on copy's: its first undying the tick after it lands
+        let s = include_str!("../override/league_kindred.data_champion");
+        let flat: String = s.split_whitespace().collect();
+        let zone = flat.find("\"name\":\"league_kindred_r_field\"").expect("the circle's zone");
+        assert!(flat[zone..].starts_with("\"name\":\"league_kindred_r_field\",\"shape\":{\"Circle\":{\"radius\":50000}},\
+                 \"tick\":240,\"period\":6,\"first_delay\":1,"), "{}", &flat[zone..zone + 160]);
+    }
+
+    #[test]
+    fn a_death_under_r_names_its_killer_and_the_last_sight() {
+        let k = |tick, killer_team, killer_position, killed_position| KillLogV1 { tick, killer_team, killer_position,
+                                                                                 killed_position, ..KillLogV1::default() };
+        // she (team 1, lane 1) cast at 57010; the log: an old kill of hers, an ally's death, then hers
+        let log = [k(50_000, 0, 2, 1), k(57_020, 0, 3, 4), k(57_027, 0, 2, 1), k(57_030, 1, 1, 2)];
+        assert_eq!(kill_of(&log, (1, 1), 57_010).map(|x| (x.tick, x.killer_position)), Some((57_027, 2)));
+        assert_eq!(kill_of(&log, (1, 4), 57_010).map(|x| x.tick), Some(57_020));
+        assert_eq!(kill_of(&log, (1, 1), 57_028), None, "only deaths since the cast");
+        assert_eq!(kill_of(&log, (0, 2), 57_010).map(|x| x.tick), Some(57_030), "the other side's lane 2");
+        let seen = Seen { tick: 57_026, hp: 0.04, safe: false, undying: vec![], from_centre: None };
+        assert_eq!(last_seen(&seen, 57_010), "last seen t=57026 (+16): hp 4%, no r_safe, the circle not down yet");
+        let seen = Seen { tick: 57_034, hp: 0.0, safe: true, undying: vec!["league_zilean_r_rune".into()], from_centre: Some(12_345.6) };
+        assert_eq!(last_seen(&seen, 57_010),
+                   "last seen t=57034 (+24): hp 0%, r_safe on, undying league_zilean_r_rune, 12346 from the circle's centre");
     }
 
     #[test]
