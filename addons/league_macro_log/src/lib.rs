@@ -117,14 +117,14 @@ pub struct Monster {
 }
 
 /// One sample of a match: the living champions, the standing towers (id, team), the living monsters and the nexuses
-/// (team, x, y, alive).
+/// (team, x, y, alive, health %).
 #[derive(Clone, Debug, Default)]
 pub struct Sample {
     pub tick: usize,
     pub champs: Vec<Champ>,
     pub towers: Vec<(usize, usize)>,
     pub monsters: Vec<Monster>,
-    pub nexus: Vec<(usize, f64, f64, bool)>,
+    pub nexus: Vec<(usize, f64, f64, bool, usize)>,
 }
 
 /// After an epic monster: what the team that took it did in the next `CONV` ticks.
@@ -227,7 +227,7 @@ impl Tracker {
             }
             // at the enemy nexus
             match s.nexus.iter().find(|n| n.0 == 1 - team && n.3) {
-                Some(&(_, nx, ny, _)) if mine.iter().filter(|p| dist((p.x, p.y), (nx, ny)) <= NEAR_NEXUS).count() >= 3 => {
+                Some(&(_, nx, ny, _, _)) if mine.iter().filter(|p| dist((p.x, p.y), (nx, ny)) <= NEAR_NEXUS).count() >= 3 => {
                     self.at_nexus[team] += SAMPLE;
                 }
                 _ => self.leave_nexus(team, s),
@@ -388,7 +388,10 @@ fn sample(sim: &StableSim<'_>) -> (Sample, [usize; 2]) {
             Some(EntityKindV1::Tower) if e.is_alive() => s.towers.push((e.id(), e.team())),
             Some(EntityKindV1::Epic) if e.is_alive() => s.monsters.push(Monster { id: e.id(), epic: true, x, y }),
             Some(EntityKindV1::Serpen) if e.is_alive() => s.monsters.push(Monster { id: e.id(), epic: false, x, y }),
-            Some(EntityKindV1::Nexus) => s.nexus.push((e.team(), x, y, e.is_alive() && e.hp().0 > 0)),
+            Some(EntityKindV1::Nexus) => {
+                let (hp, max) = e.hp();
+                s.nexus.push((e.team(), x, y, e.is_alive() && hp > 0, if max == 0 { 0 } else { hp * 100 / max }));
+            }
             _ => {}
         }
     }
@@ -408,6 +411,20 @@ fn head(o: SimOriginV1) -> String {
     format!("[m={} s={}]", m(o.match_id), m(o.set_index))
 }
 
+/// The team whose nexus fell: one down, else (at the end, where the last tick may still show it standing) the one with
+/// less health left.
+pub fn loser(nexus: &[(usize, f64, f64, bool, usize)], end: bool) -> Option<usize> {
+    if let Some(n) = nexus.iter().find(|n| !n.3) {
+        return Some(n.0);
+    }
+    if !end {
+        return None;
+    }
+    let low = nexus.iter().min_by_key(|n| n.4)?;
+    let high = nexus.iter().max_by_key(|n| n.4)?;
+    (low.4 < high.4).then_some(low.0)
+}
+
 /// Watches a presim run; writes its line when its nexus falls or the match ends.
 fn watch(sim: &StableSim<'_>) {
     let Some(o) = sim.sim_origin() else { return };
@@ -421,7 +438,7 @@ fn watch(sim: &StableSim<'_>) {
     }
     let key: RunKey = (o.kind, o.match_id, o.replay_id, o.set_index);
     let (s, kills) = sample(sim);
-    let fallen = s.nexus.iter().find(|n| !n.3).map(|n| n.0);
+    let fallen = loser(&s.nexus, end);
     let mut book = BOOK.lock().unwrap_or_else(|e| e.into_inner());
     book.clock += 1;
     let now = book.clock;
@@ -505,7 +522,7 @@ mod tests {
     #[test]
     fn a_match_seen_through() {
         let mut t = Tracker::default();
-        let nexus = vec![(0usize, 100_000.0, 860_000.0, true), (1usize, 860_000.0, 100_000.0, true)];
+        let nexus = vec![(0usize, 100_000.0, 860_000.0, true, 100), (1usize, 860_000.0, 100_000.0, true, 100)];
         let towers = vec![(10usize, 0usize), (11, 1), (12, 1)];
         let baron = Monster { id: 50, epic: true, x: 300_000.0, y: 300_000.0 };
         // red's champions at the baron, blue's away
@@ -539,6 +556,15 @@ mod tests {
         let mut b = Batch::default();
         b.add(&t);
         assert!(b.line().starts_with("SUM 1 matches"), "{}", b.line());
+    }
+
+    #[test]
+    fn the_loser_is_the_nexus_down_or_the_weaker_at_the_end() {
+        let n = |b: (bool, usize), r: (bool, usize)| vec![(0usize, 0.0, 0.0, b.0, b.1), (1usize, 0.0, 0.0, r.0, r.1)];
+        assert_eq!(loser(&n((true, 100), (false, 0)), false), Some(1));
+        assert_eq!(loser(&n((true, 100), (true, 3)), false), None, "not over yet");
+        assert_eq!(loser(&n((true, 100), (true, 3)), true), Some(1), "the last tick still shows it");
+        assert_eq!(loser(&n((true, 50), (true, 50)), true), None);
     }
 
     #[test]

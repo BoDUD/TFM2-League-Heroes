@@ -53,7 +53,7 @@ python addons/league_addons/assemble.py <输出文件夹>       # 全部附加�
 把输出文件夹改名 `league_addons` 放进 `<游戏目录>\mods\`（先关掉单独的附加包），在 MOD 菜单里启用并排在主包后面，重启游戏。合集和单独的附加包不能同时启用。
 
 - 每位英雄有哪些附加包、改了什么，见下面英雄一览的「附加包」一列和英雄页里的「附加包」一节（从各附加包的 `mod.override_info`、`README.md` 和文字生成）。
-- 不属于某一位英雄的：[`league_ult_press`](addons/league_ult_press/README.md)（游戏 AI 不按或很少按的技能替它按、被 AI 停住时替英雄平 A）、[`league_ult_aim`](addons/league_ult_aim/README.md)（大招挑英雄联盟玩家会挑的目标）、[`league_unlock_guard`](addons/league_unlock_guard/README.md)（兜底：哪个 AI 钩子在技能 2 / 大招解锁前按了，换成普攻或原地站一下并记日志，免得过日卡死）、`league_recall_log`（回城日志，诊断用）、`league_macro_log`（运营日志，诊断用：每场写塔、大小龙、大龙后干了什么、到了对面基地又走掉），以及共用的 [`addons/game_places`](addons/game_places/src/lib.rs)（运行时在 EXE 里找地址，见下）。`league_ult_press`、`league_ult_aim` 管到的英雄，英雄页的「附加包」一节也列出了和他有关的几行。
+- 不属于某一位英雄的：[`league_ult_press`](addons/league_ult_press/README.md)（游戏 AI 不按或很少按的技能替它按、被 AI 停住时替英雄平 A）、[`league_ult_aim`](addons/league_ult_aim/README.md)（大招挑英雄联盟玩家会挑的目标）、[`league_unlock_guard`](addons/league_unlock_guard/README.md)（兜底：哪个 AI 钩子在技能 2 / 大招解锁前按了，换成普攻或原地站一下并记日志，免得过日卡死）、`league_recall_log`（回城日志，诊断用）、[`league_macro`](addons/league_macro/src/lib.rs)（比赛 AI 的运营：到了能打的对面基地就推掉，大龙后全队跟强化兵推进）、`league_macro_log`（运营日志，诊断用：每场写塔、大小龙、大龙后干了什么、到了对面基地又走掉），以及共用的 [`addons/game_places`](addons/game_places/src/lib.rs)（运行时在 EXE 里找地址，见下）。`league_ult_press`、`league_ult_aim` 管到的英雄，英雄页的「附加包」一节也列出了和他有关的几行。
 - 附加包里的英雄副本由各自的 `make_override.py` 从主包生成：**主包改了英雄就要重跑**，CI 会用 `--check` 核对（见 [持续集成](#持续集成)）。
 
 ## 高清帧（PPU）和界面

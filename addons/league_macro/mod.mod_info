@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.113.1"
+    }
+  ],
+  "description": "Macro for the match AI of every champion: three or more allies at an attackable enemy nexus (and more than its defenders) hit it instead of walking away; while our minions carry the baron buff (epic_minion_buff) the team joins the baron wave nearest it and pushes. Fights and skills stay the game AI's and the hero add-ons'. Log: league_macro.log.\n\n比赛 AI 的运营：3 个以上我方英雄到了能打的对面基地（而且比守的人多）就打基地，不再走开；我方小兵带着大龙 buff 时全队去跟离本队最近的那波强化兵推进。打架、放技能照旧是游戏 AI 和英雄附加包的。日志 league_macro.log。",
+  "last_updated": "2026-11-06",
+  "mod_id": "league_macro",
+  "mod_type": "native",
+  "name": "League Heroes: macro (finish the nexus, push with the baron waves)",
+  "version": "0.1.0"
+}
