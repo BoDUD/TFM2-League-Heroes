@@ -1,0 +1,471 @@
+{
+ "square": 8,
+ "square_of": {
+  "rh_attack": 6,
+  "rh_skill2": 7
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "rh_attack": {
+   "1": "design 0"
+  },
+  "rh_hit": {
+   "2": "rh_hit 1"
+  },
+  "rh_dead": {
+   "1": "rh_hit 1"
+  }
+ },
+ "dissolve": {
+  "rh_dead": {
+   "6": [
+    6,
+    0.25
+   ],
+   "7": [
+    6,
+    0.5
+   ],
+   "8": [
+    6,
+    0.75
+   ]
+  }
+ },
+ "baked_body_frames": [
+  "rh_skill",
+  "rh_skill2"
+ ],
+ "sheets": [
+  {
+   "tag": "rh_run",
+   "name": "rh_run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (the Darkin's move loop): crouched forward, Rhaast low before him in his claws, the LEGS CHANGING OVER as written for each frame (the old run played frames 4, 3, 2 again as 6, 7, 8: draw all 8)",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his crimson clawed foot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms and the scythe follow the pale figure. The scythe's blade hangs near the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "rh_run",
+   "name": "rh_run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (the Darkin's move loop): crouched forward, Rhaast low before him in his claws, the LEGS CHANGING OVER as written for each frame (the old run played frames 4, 3, 2 again as 6, 7, 8: draw all 8)",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms and the scythe follow the pale figure. The scythe's blade hangs near the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "rh_run",
+   "name": "rh_run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (the Darkin's move loop): crouched forward, Rhaast low before him in his claws, the LEGS CHANGING OVER as written for each frame (the old run played frames 4, 3, 2 again as 6, 7, 8: draw all 8)",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms and the scythe follow the pale figure. The scythe's blade hangs near the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "rh_run",
+   "name": "rh_run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (the Darkin's move loop): crouched forward, Rhaast low before him in his claws, the LEGS CHANGING OVER as written for each frame (the old run played frames 4, 3, 2 again as 6, 7, 8: draw all 8)",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms and the scythe follow the pale figure. The scythe's blade hangs near the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "rh_attack",
+   "name": "rh_attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "attack (a scythe swing): (frame 1 = the design) he heaves the scythe up over his head, the blade high (frame 2), swings it over and forward (frame 3), lunges low, the scythe thrust out in front of him, the blade at the far right (frames 4-5), and raises it over his head again (frame 6)",
+   "ms": [
+    55,
+    62
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_attack",
+   "name": "rh_attack_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "attack (a scythe swing): (frame 1 = the design) he heaves the scythe up over his head, the blade high (frame 2), swings it over and forward (frame 3), lunges low, the scythe thrust out in front of him, the blade at the far right (frames 4-5), and raises it over his head again (frame 6)",
+   "ms": [
+    70,
+    65
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_attack",
+   "name": "rh_attack_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "attack (a scythe swing): (frame 1 = the design) he heaves the scythe up over his head, the blade high (frame 2), swings it over and forward (frame 3), lunges low, the scythe thrust out in front of him, the blade at the far right (frames 4-5), and raises it over his head again (frame 6)",
+   "ms": [
+    65
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill",
+   "name": "rh_skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    50
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill",
+   "name": "rh_skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    67
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill",
+   "name": "rh_skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    66
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill",
+   "name": "rh_skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    84
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill",
+   "name": "rh_skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill",
+   "name": "rh_skill_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    133
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill2",
+   "name": "rh_skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Blade's Reach (W): he lunges low, the scythe thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), raises it high (frame 6) and holds it out before him, level (frame 7)",
+   "ms": [
+    100
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill2",
+   "name": "rh_skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Blade's Reach (W): he lunges low, the scythe thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), raises it high (frame 6) and holds it out before him, level (frame 7)",
+   "ms": [
+    140
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill2",
+   "name": "rh_skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Blade's Reach (W): he lunges low, the scythe thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), raises it high (frame 6) and holds it out before him, level (frame 7)",
+   "ms": [
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill2",
+   "name": "rh_skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Blade's Reach (W): he lunges low, the scythe thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), raises it high (frame 6) and holds it out before him, level (frame 7)",
+   "ms": [
+    160
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill2",
+   "name": "rh_skill2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Blade's Reach (W): he lunges low, the scythe thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), raises it high (frame 6) and holds it out before him, level (frame 7)",
+   "ms": [
+    117
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill2",
+   "name": "rh_skill2_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Blade's Reach (W): he lunges low, the scythe thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), raises it high (frame 6) and holds it out before him, level (frame 7)",
+   "ms": [
+    83
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_skill2",
+   "name": "rh_skill2_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Blade's Reach (W): he lunges low, the scythe thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), raises it high (frame 6) and holds it out before him, level (frame 7)",
+   "ms": [
+    50
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_ult_exit",
+   "name": "rh_ult_exit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    67
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_ult_exit",
+   "name": "rh_ult_exit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    67
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_ult_exit",
+   "name": "rh_ult_exit_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    90
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_ult_exit",
+   "name": "rh_ult_exit_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    88
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_ult_exit",
+   "name": "rh_ult_exit_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    88
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_hit",
+   "name": "rh_hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back (frame 1; frame 2 = frame 1)",
+   "ms": [
+    100
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_dead",
+   "name": "rh_dead_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck (frame 1 = rh_hit 1), he crouches (frame 2), sinks to his knees (frame 3), bows forward (frame 4), bows down (frame 5) and sinks lowest, bowed down to the ground (frame 6: DRAW HIM WHOLE - the old frame is already dissolving, pixels missing in a checker; frames 7-8 are its dissolve, made later)",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_dead",
+   "name": "rh_dead_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck (frame 1 = rh_hit 1), he crouches (frame 2), sinks to his knees (frame 3), bows forward (frame 4), bows down (frame 5) and sinks lowest, bowed down to the ground (frame 6: DRAW HIM WHOLE - the old frame is already dissolving, pixels missing in a checker; frames 7-8 are its dissolve, made later)",
+   "ms": [
+    140,
+    160
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "rh_dead",
+   "name": "rh_dead_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1 = rh_hit 1), he crouches (frame 2), sinks to his knees (frame 3), bows forward (frame 4), bows down (frame 5) and sinks lowest, bowed down to the ground (frame 6: DRAW HIM WHOLE - the old frame is already dissolving, pixels missing in a checker; frames 7-8 are its dissolve, made later)",
+   "ms": [
+    160
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the crimson crescent blade with its red eye on the dark shaft, as big as in image 1 - held in his crimson claws, raised, swung, thrust or planted as the pale figure holds it. The huge horns stay on his helm, the same size as in image 1. Only him and Rhaast: no red mist, no blood trails, no afterimages; the eyes' red stays inside the eyes."
+  }
+ ]
+}

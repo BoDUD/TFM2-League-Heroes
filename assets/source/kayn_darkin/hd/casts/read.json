@@ -1,0 +1,429 @@
+{
+ "fits": {
+  "rh_attack_2": [
+   6.0,
+   0.88
+  ],
+  "rh_attack_3": [
+   6.06,
+   0.85
+  ],
+  "rh_attack_4": [
+   6.0,
+   0.9
+  ],
+  "rh_attack_5": [
+   6.0,
+   0.89
+  ],
+  "rh_attack_6": [
+   6.06,
+   0.85
+  ],
+  "rh_dead_2": [
+   8.0,
+   0.87
+  ],
+  "rh_dead_3": [
+   8.0,
+   0.87
+  ],
+  "rh_dead_4": [
+   8.0,
+   0.8
+  ],
+  "rh_dead_5": [
+   8.16,
+   0.78
+  ],
+  "rh_dead_6": [
+   8.0,
+   0.85
+  ],
+  "rh_hit_1": [
+   7.92,
+   0.75
+  ],
+  "rh_run_1": [
+   8.08,
+   0.77
+  ],
+  "rh_run_2": [
+   8.08,
+   0.79
+  ],
+  "rh_run_3": [
+   8.0,
+   0.78
+  ],
+  "rh_run_4": [
+   8.25,
+   0.81
+  ],
+  "rh_run_5": [
+   7.92,
+   0.8
+  ],
+  "rh_run_6": [
+   8.0,
+   0.84
+  ],
+  "rh_run_7": [
+   7.84,
+   0.83
+  ],
+  "rh_run_8": [
+   7.92,
+   0.77
+  ],
+  "rh_skill2_1": [
+   7.0,
+   0.92
+  ],
+  "rh_skill2_2": [
+   7.07,
+   0.89
+  ],
+  "rh_skill2_3": [
+   6.93,
+   0.89
+  ],
+  "rh_skill2_4": [
+   7.0,
+   0.86
+  ],
+  "rh_skill2_5": [
+   7.07,
+   0.82
+  ],
+  "rh_skill2_6": [
+   7.07,
+   0.87
+  ],
+  "rh_skill2_7": [
+   7.0,
+   0.89
+  ],
+  "rh_skill_1": [
+   8.0,
+   0.91
+  ],
+  "rh_skill_2": [
+   8.0,
+   0.92
+  ],
+  "rh_skill_3": [
+   8.0,
+   0.89
+  ],
+  "rh_skill_4": [
+   8.0,
+   0.91
+  ],
+  "rh_skill_5": [
+   8.0,
+   0.93
+  ],
+  "rh_skill_6": [
+   8.08,
+   0.9
+  ],
+  "rh_ult_exit_1": [
+   8.0,
+   0.93
+  ],
+  "rh_ult_exit_2": [
+   8.0,
+   0.91
+  ],
+  "rh_ult_exit_3": [
+   8.0,
+   0.85
+  ],
+  "rh_ult_exit_4": [
+   8.0,
+   0.88
+  ],
+  "rh_ult_exit_5": [
+   8.0,
+   0.84
+  ]
+ },
+ "heads": {
+  "rh_attack_2": [
+   0.95,
+   109.8,
+   0
+  ],
+  "rh_attack_3": [
+   0.91,
+   114.2,
+   0
+  ],
+  "rh_attack_4": [
+   0.95,
+   121.1,
+   0
+  ],
+  "rh_attack_5": [
+   0.9,
+   133.9,
+   0
+  ],
+  "rh_attack_6": [
+   1.0,
+   104.9,
+   0
+  ],
+  "rh_dead_1": [
+   1.0,
+   88.7,
+   0
+  ],
+  "rh_dead_2": [
+   0.91,
+   117.7,
+   0
+  ],
+  "rh_dead_3": [
+   0.93,
+   123.1,
+   0
+  ],
+  "rh_dead_4": [
+   0.97,
+   126.0,
+   0
+  ],
+  "rh_dead_5": [
+   0.93,
+   126.3,
+   0
+  ],
+  "rh_dead_6": [
+   0.91,
+   110.2,
+   0
+  ],
+  "rh_hit_1": [
+   1.0,
+   88.7,
+   0
+  ],
+  "rh_hit_2": [
+   1.0,
+   88.7,
+   0
+  ],
+  "rh_run_1": [
+   0.93,
+   113.0,
+   0
+  ],
+  "rh_run_2": [
+   0.99,
+   116.1,
+   0
+  ],
+  "rh_run_3": [
+   0.95,
+   112.6,
+   0
+  ],
+  "rh_run_4": [
+   0.92,
+   117.2,
+   0
+  ],
+  "rh_run_5": [
+   0.97,
+   120.7,
+   0
+  ],
+  "rh_run_6": [
+   0.93,
+   113.4,
+   0
+  ],
+  "rh_run_7": [
+   1.0,
+   108.4,
+   0
+  ],
+  "rh_run_8": [
+   0.93,
+   111.1,
+   0
+  ],
+  "rh_skill2_1": [
+   0.93,
+   128.6,
+   0
+  ],
+  "rh_skill2_2": [
+   0.93,
+   107.4,
+   0
+  ],
+  "rh_skill2_3": [
+   0.8,
+   143.5,
+   0
+  ],
+  "rh_skill2_4": [
+   1.02,
+   146.2,
+   0
+  ],
+  "rh_skill2_5": [
+   0.97,
+   119.6,
+   0
+  ],
+  "rh_skill2_6": [
+   0.95,
+   117.4,
+   0
+  ],
+  "rh_skill2_7": [
+   0.96,
+   120.2,
+   0
+  ],
+  "rh_skill_1": [
+   0.91,
+   130.0,
+   0
+  ],
+  "rh_skill_2": [
+   0.97,
+   124.1,
+   0
+  ],
+  "rh_skill_3": [
+   0.91,
+   120.7,
+   0
+  ],
+  "rh_skill_4": [
+   0.97,
+   132.6,
+   0
+  ],
+  "rh_skill_5": [
+   0.92,
+   138.4,
+   0
+  ],
+  "rh_skill_6": [
+   0.91,
+   119.3,
+   0
+  ],
+  "rh_ult_exit_1": [
+   0.93,
+   137.4,
+   0
+  ],
+  "rh_ult_exit_2": [
+   0.9,
+   135.8,
+   0
+  ],
+  "rh_ult_exit_3": [
+   0.91,
+   121.0,
+   0
+  ],
+  "rh_ult_exit_4": [
+   0.92,
+   120.6,
+   0
+  ],
+  "rh_ult_exit_5": [
+   0.91,
+   133.0,
+   0
+  ]
+ },
+ "heights": {
+  "rh_attack_2": 6.0,
+  "rh_attack_3": 5.96,
+  "rh_attack_4": 5.99,
+  "rh_attack_5": 6.07,
+  "rh_attack_6": 6.04,
+  "rh_dead_2": 8.18,
+  "rh_dead_3": 8.17,
+  "rh_dead_4": 8.63,
+  "rh_dead_5": 8.86,
+  "rh_dead_6": 8.01,
+  "rh_hit_1": 8.06,
+  "rh_run_1": 8.16,
+  "rh_run_2": 8.13,
+  "rh_run_3": 8.36,
+  "rh_run_4": 8.32,
+  "rh_run_5": 8.1,
+  "rh_run_6": 8.03,
+  "rh_run_7": 8.05,
+  "rh_run_8": 7.99,
+  "rh_skill2_1": 7.02,
+  "rh_skill2_2": 7.03,
+  "rh_skill2_3": 7.01,
+  "rh_skill2_4": 7.06,
+  "rh_skill2_5": 7.17,
+  "rh_skill2_6": 7.0,
+  "rh_skill2_7": 7.01,
+  "rh_skill_1": 7.97,
+  "rh_skill_2": 7.97,
+  "rh_skill_3": 8.02,
+  "rh_skill_4": 7.98,
+  "rh_skill_5": 7.95,
+  "rh_skill_6": 8.1,
+  "rh_ult_exit_1": 8.05,
+  "rh_ult_exit_2": 7.98,
+  "rh_ult_exit_3": 8.07,
+  "rh_ult_exit_4": 8.07,
+  "rh_ult_exit_5": 8.04
+ },
+ "pivot": 36,
+ "pivot_overlap": 0.69,
+ "sheet_of": {
+  "rh_attack_2": "rh_attack_1",
+  "rh_attack_3": "rh_attack_1",
+  "rh_attack_4": "rh_attack_2",
+  "rh_attack_5": "rh_attack_2",
+  "rh_attack_6": "rh_attack_3",
+  "rh_dead_2": "rh_dead_1",
+  "rh_dead_3": "rh_dead_1",
+  "rh_dead_4": "rh_dead_2",
+  "rh_dead_5": "rh_dead_2",
+  "rh_dead_6": "rh_dead_3",
+  "rh_hit_1": "rh_hit_1",
+  "rh_run_1": "rh_run_1",
+  "rh_run_2": "rh_run_1",
+  "rh_run_3": "rh_run_2",
+  "rh_run_4": "rh_run_2",
+  "rh_run_5": "rh_run_3",
+  "rh_run_6": "rh_run_3",
+  "rh_run_7": "rh_run_4",
+  "rh_run_8": "rh_run_4",
+  "rh_skill2_1": "rh_skill2_1",
+  "rh_skill2_2": "rh_skill2_2",
+  "rh_skill2_3": "rh_skill2_3",
+  "rh_skill2_4": "rh_skill2_4",
+  "rh_skill2_5": "rh_skill2_5",
+  "rh_skill2_6": "rh_skill2_6",
+  "rh_skill2_7": "rh_skill2_7",
+  "rh_skill_1": "rh_skill_1",
+  "rh_skill_2": "rh_skill_2",
+  "rh_skill_3": "rh_skill_3",
+  "rh_skill_4": "rh_skill_4",
+  "rh_skill_5": "rh_skill_5",
+  "rh_skill_6": "rh_skill_6",
+  "rh_ult_exit_1": "rh_ult_exit_1",
+  "rh_ult_exit_2": "rh_ult_exit_2",
+  "rh_ult_exit_3": "rh_ult_exit_3",
+  "rh_ult_exit_4": "rh_ult_exit_4",
+  "rh_ult_exit_5": "rh_ult_exit_5"
+ }
+}

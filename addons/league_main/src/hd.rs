@@ -593,6 +593,31 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // moved up to Codex's muzzle; his death's flung Whisper moved to where the old frames have it); 41 game px as his 1x
     // sprite, so no SIZES row
     ("league_jhin", 1.805, include_str!("../../../league/champions/league_jhin#anim.fanim")),
+    // Kayn (2026-11-06, 「下面重做凯隐 维克托 永恩 泰坦」, 「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80 维克托 1.81 永恩2.20
+    // 泰坦1.80」): Codex's kayn-A, kayn_darkin-A and kayn_shadow-A read on their own ~15.8 / 14.8 / 13-px squares (73 x 72,
+    // 71 x 77, 104 x 72; tools/art/design_kayn*_hd.py); one sheet, one PPU: his three forms (rh_ Darkin, sh_ Shadow, the
+    // wall shades w_ / rw_ / hw_) all at his 72 rows / 40 = 1.8 (the Darkin's 77 / 43 = 1.79 drawn 0.5 % small);
+    // league_kayn_form renames the playing tag (rh_run ...) and the lookup takes its hd_ frames like any other; every
+    // action Codex's whole-frame redraw of his old frame read onto its form's design at the zoom its fit over the old
+    // frame gives (tools/art/casts_kayn_hd.py, rig_kayn_hd.py; Q's dash, W's winds and R's dive baked on again by
+    // kayn_bake.json, the death's frames 6-8 dissolved with the old ordered dither); 40 game px as his 1x sprite, so no
+    // SIZES row (the forms' own 1x sheets league_kayn_darkin / _shadow / *_wall are left as they are)
+    ("league_kayn", 1.8, include_str!("../../../league/champions/league_kayn#anim.fanim")),
+    // Viktor (the same release): Codex's viktor-A read on its own ~14.8-px squares (49 x 76, tools/art/design_viktor_hd.py:
+    // 76 rows / 42 = 1.81); every action Codex's whole-frame redraw of his old frame read onto it at the zoom its fit
+    // over the old frame gives (tools/art/casts_viktor_hd.py, rig_viktor_hd.py; nothing baked); 42 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_viktor", 1.81, include_str!("../../../league/champions/league_viktor#anim.fanim")),
+    // Yone (the same release): Codex's yone-A read on its own ~12.5-px squares (96 x 90, tools/art/design_yone_hd.py: 90
+    // rows / 41 = 2.195); every action Codex's whole-frame redraw of his old frame read onto it at the zoom its fit over
+    // the old frame gives (tools/art/casts_yone_hd.py, rig_yone_hd.py; E's cast baked on again into skill2_fx1 /
+    // e_dash_fx1 by yone_bake.json); 41 game px as his 1x sprite, so no SIZES row
+    ("league_yone", 2.195, include_str!("../../../league/champions/league_yone#anim.fanim")),
+    // Nautilus (the same release): Codex's nautilus-A read on its own ~12.9-px squares (73 x 92,
+    // tools/art/design_nautilus_hd.py: 92 rows / 51 = 1.804); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the template's squares (tools/art/casts_nautilus_hd.py, rig_nautilus_hd.py; the anchor's chain cut
+    // where the old frames end it; nothing baked); 51 game px as his 1x sprite, so no SIZES row
+    ("league_nautilus", 1.804, include_str!("../../../league/champions/league_nautilus#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

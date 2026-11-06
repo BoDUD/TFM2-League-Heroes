@@ -1,0 +1,491 @@
+{
+ "square": 8,
+ "square_of": {
+  "skill": 7
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "6": "attack 1"
+  },
+  "skill_pull": {
+   "4": "attack 1"
+  },
+  "skill2": {
+   "1": "attack 1"
+  },
+  "ult": {
+   "1": "attack 1",
+   "3": "skill 3",
+   "5": "attack 4",
+   "6": "attack 4",
+   "7": "attack 5"
+  },
+  "hit": {
+   "2": "hit 1"
+  },
+  "dead": {
+   "8": "dead 7"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): stomping forward, the anchor over his shoulder as in image 1, the big iron fists swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    116,
+    116
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his bronze-orange boot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the helmet, the fists and the anchor follow the pale figure. The big fists swing low but are NOT legs: his two heavy legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): stomping forward, the anchor over his shoulder as in image 1, the big iron fists swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    116,
+    116
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the helmet, the fists and the anchor follow the pale figure. The big fists swing low but are NOT legs: his two heavy legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): stomping forward, the anchor over his shoulder as in image 1, the big iron fists swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    116,
+    116
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the helmet, the fists and the anchor follow the pale figure. The big fists swing low but are NOT legs: his two heavy legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): stomping forward, the anchor over his shoulder as in image 1, the big iron fists swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    116,
+    116
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the helmet, the fists and the anchor follow the pale figure. The big fists swing low but are NOT legs: his two heavy legs carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the anchor smash): he stands ready, the anchor upright on his back behind his head (frame 1), swings it back behind him (frame 2), heaves it forward on its chain (frame 3), smashes it down in front of him at the end of the chain (frame 4) and swings it back up over his shoulder (frame 5; frame 6 = frame 1)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the anchor smash): he stands ready, the anchor upright on his back behind his head (frame 1), swings it back behind him (frame 2), heaves it forward on its chain (frame 3), smashes it down in front of him at the end of the chain (frame 4) and swings it back up over his shoulder (frame 5; frame 6 = frame 1)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the anchor smash): he stands ready, the anchor upright on his back behind his head (frame 1), swings it back behind him (frame 2), heaves it forward on its chain (frame 3), smashes it down in front of him at the end of the chain (frame 4) and swings it back up over his shoulder (frame 5; frame 6 = frame 1)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the anchor smash): he stands ready, the anchor upright on his back behind his head (frame 1), swings it back behind him (frame 2), heaves it forward on its chain (frame 3), smashes it down in front of him at the end of the chain (frame 4) and swings it back up over his shoulder (frame 5; frame 6 = frame 1)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (the anchor smash): he stands ready, the anchor upright on his back behind his head (frame 1), swings it back behind him (frame 2), heaves it forward on its chain (frame 3), smashes it down in front of him at the end of the chain (frame 4) and swings it back up over his shoulder (frame 5; frame 6 = frame 1)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Dredge Line (Q): he swings the anchor low behind him (frame 1), heaves it up over his head (frames 2-3), hurls it forward on its chain (frame 4), the chain stretched out level before him (frames 5-6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Dredge Line (Q): he swings the anchor low behind him (frame 1), heaves it up over his head (frames 2-3), hurls it forward on its chain (frame 4), the chain stretched out level before him (frames 5-6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Dredge Line (Q): he swings the anchor low behind him (frame 1), heaves it up over his head (frames 2-3), hurls it forward on its chain (frame 4), the chain stretched out level before him (frames 5-6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Dredge Line (Q): he swings the anchor low behind him (frame 1), heaves it up over his head (frames 2-3), hurls it forward on its chain (frame 4), the chain stretched out level before him (frames 5-6)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Dredge Line (Q): he swings the anchor low behind him (frame 1), heaves it up over his head (frames 2-3), hurls it forward on its chain (frame 4), the chain stretched out level before him (frames 5-6)",
+   "ms": [
+    140
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill_pull",
+   "name": "skill_pull_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Dredge Line, the pull (Q): he hauls on the chain, leaning back, the chain level before him (frames 1-2), and drags the anchor back in low (frame 3; frame 4 = attack 1)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill_pull",
+   "name": "skill_pull_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Dredge Line, the pull (Q): he hauls on the chain, leaning back, the chain level before him (frames 1-2), and drags the anchor back in low (frame 3; frame 4 = attack 1)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill_pull",
+   "name": "skill_pull_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Dredge Line, the pull (Q): he hauls on the chain, leaning back, the chain level before him (frames 1-2), and drags the anchor back in low (frame 3; frame 4 = attack 1)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Titan's Wraith (W + E): he heaves the anchor up (frame 2), slams it down, crouching low, a fist to the ground (frame 3), rises, the anchor swung up (frame 4), and stands ready, the anchor upright on his back (frames 5-6; frame 1 = attack 1)",
+   "ms": [
+    70,
+    100
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Titan's Wraith (W + E): he heaves the anchor up (frame 2), slams it down, crouching low, a fist to the ground (frame 3), rises, the anchor swung up (frame 4), and stands ready, the anchor upright on his back (frames 5-6; frame 1 = attack 1)",
+   "ms": [
+    90,
+    90
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Titan's Wraith (W + E): he heaves the anchor up (frame 2), slams it down, crouching low, a fist to the ground (frame 3), rises, the anchor swung up (frame 4), and stands ready, the anchor upright on his back (frames 5-6; frame 1 = attack 1)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Depth Charge (R): he raises the anchor high behind him (frame 2), swings it forward on its chain (frame 4) and stands ready (frame 8); frame 1 = attack 1, frame 3 = skill 3, frames 5-6 = attack 4 (the smash), frame 7 = attack 5",
+   "ms": [
+    70
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Depth Charge (R): he raises the anchor high behind him (frame 2), swings it forward on its chain (frame 4) and stands ready (frame 8); frame 1 = attack 1, frame 3 = skill 3, frames 5-6 = attack 4 (the smash), frame 7 = attack 5",
+   "ms": [
+    70
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Depth Charge (R): he raises the anchor high behind him (frame 2), swings it forward on its chain (frame 4) and stands ready (frame 8); frame 1 = attack 1, frame 3 = skill 3, frames 5-6 = attack 4 (the smash), frame 7 = attack 5",
+   "ms": [
+    90
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "struck: jolted back, the anchor upright on his back (frame 1; frame 2 = frame 1)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the anchor swung up behind him (frame 1), the anchor drops to the ground behind him (frame 2), he sinks (frame 3), crouches low (frame 4) and falls forward onto his hands and knees, the anchor on the ground beside him (frames 5-7; frame 8 = frame 7)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the anchor swung up behind him (frame 1), the anchor drops to the ground behind him (frame 2), he sinks (frame 3), crouches low (frame 4) and falls forward onto his hands and knees, the anchor on the ground beside him (frames 5-7; frame 8 = frame 7)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the anchor swung up behind him (frame 1), the anchor drops to the ground behind him (frame 2), he sinks (frame 3), crouches low (frame 4) and falls forward onto his hands and knees, the anchor on the ground beside him (frames 5-7; frame 8 = frame 7)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the anchor swung up behind him (frame 1), the anchor drops to the ground behind him (frame 2), he sinks (frame 3), crouches low (frame 4) and falls forward onto his hands and knees, the anchor on the ground beside him (frames 5-7; frame 8 = frame 7)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the anchor swung up behind him (frame 1), the anchor drops to the ground behind him (frame 2), he sinks (frame 3), crouches low (frame 4) and falls forward onto his hands and knees, the anchor on the ground beside him (frames 5-7; frame 8 = frame 7)",
+   "ms": [
+    200
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the anchor swung up behind him (frame 1), the anchor drops to the ground behind him (frame 2), he sinks (frame 3), crouches low (frame 4) and falls forward onto his hands and knees, the anchor on the ground beside him (frames 5-7; frame 8 = frame 7)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the anchor swung up behind him (frame 1), the anchor drops to the ground behind him (frame 2), he sinks (frame 3), crouches low (frame 4) and falls forward onto his hands and knees, the anchor on the ground beside him (frames 5-7; frame 8 = frame 7)",
+   "ms": [
+    200
+   ],
+   "weapons": "THE ANCHOR goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge grey anchor with its two curved hooks, the red mark and the brown-wrapped shaft, as big as in image 1 - held in his fists, swung, hurled on its iron chain (draw the chain's links where the pale figure has them) or carried upright on his back behind his head, as the pale figure has it. His two massive iron fists as big as in image 1. Only him: no water, no bubbles, no shockwaves, no shield glow; the eyes' red stays inside the visor."
+  }
+ ]
+}

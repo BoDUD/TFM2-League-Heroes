@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.81 |
 | 附加包 | 无 |
 
 ![维克托演示](../preview/league_viktor_showcase.gif)
@@ -74,6 +74,7 @@
 | 亚索联动 | W 的晕眩算控制：维克托在亚索队里打中路时，亚索每局对英雄放 R 1.35 次（原版闪电法师 3.40、布兰德 1.58），不用调 |
 | 精灵图 | 9 个动作 48 帧：待机、移动、普攻、Q（`skill`）、W（`skill2`）、E（`skill2_e`）、R（`ult`）、受击、死亡。造型 30 × 42 px（连收在肩后的机械臂金爪），29 色。待机 6 帧同一张；头像截取点 (−1, −38)，选人卡片中心 −8 |
 | 特效 | Codex 画的 23 张，按游戏尺寸交付，两张表 `league_viktor_fx` / `league_viktor_big`：普攻的蓝紫光弹，Q 的金色海克斯光弹、命中、青色护盾泡、强化普攻的金色光点和光弹、升级后的加速圈，W 地上的引力场（持续 4 秒，往里收）、晕眩爆发、头顶的引力环、减速圈，E 的射线和余波（画在落点往外的半边）、命中，R 的落地爆发、跟着英雄的风暴（升级后的大风暴）、每秒的闪电，进化的金光和减速圈 |
+| 高清帧（PPU 1.81） | 2026-11-06 用 PPU 重做，和凯隐、永恩、泰坦在同一个 PR（用户：「下面重做凯隐 维克托 永恩 泰坦」「凯隐本体 1.80 凯隐暗裔 1.79 凯隐影流 1.80 维克托 1.81 永恩2.20 泰坦1.80」「Codex全都交付了 你做到完美后喊我review」「可以了 没问题」「等一等吧维克托 我让codex重画」「codex交付了」）。设计图：Codex 照旧精灵描密的原图，按原图约 14.8 像素一格读回（49 × 76 格；法杖头到脚底 76 行，旧精灵 42 行，PPU 1.81）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 16 张图、27 帧，白底原图读回到设计图的格子上；Q 第 3–4 帧、R 第 1–3 帧第一版头画大了一号，按 `HEAD_REDO_PROMPT_PPU.md` 重画了一次；每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（全部重合 0.68 以上，没有退回别的量法）；待机和选人卡轮播是 hero_reels 从新动作剪的；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。旧版没有烘焙的特效；选人卡偏移 -8 不变（法杖头和头冠都在卡里）。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_viktor.py`）：光弹、命中，Q 施放、命中、护盾、强化普攻，W 施放、落地、晕眩，E 射线、余波，R 施放、爆发、每秒、风暴，进化；Q、W、E、R 的中文配音（片段名 `league_viktor_sfx_vo_*`，和声音名不同；W 自己的配音在这个版本没有媒体，用晕眩那句）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
 
@@ -89,6 +90,15 @@ python tools/art/fix_viktor_strips.py       # 动作：Codex 的动作帧，法�
 python tools/art/import_viktor.py           # 特效
 python tools/art/import_native.py --hero viktor   # 精灵
 python tools/art/preview_viktor.py          # 逐帧预览、特效预览、演示 GIF
+# PPU 1.81 重做（2026-11-06）：
+python tools/art/pack_viktor_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_viktor_hd.py                      # Codex 的原图按约 14.8 像素一格读回 -> hd/design.png
+python tools/art/pack_viktor_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）；头的重画包见 assets/source/viktor/HEAD_REDO_PROMPT_PPU.md
+python tools/art/casts_viktor_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heads 量头
+python tools/art/rig_viktor_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero viktor && python tools/art/ppu_hd.py --hero viktor
+python tools/art/ppu_one.py --hero viktor && python tools/art/rig_viktor_hd.py --one-ground && python tools/art/hero_reels.py --hero viktor
+python tools/art/review_viktor_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/viktor/PICTURE_PROMPT.md`](../../assets/source/viktor/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/viktor/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/viktor/MODEL_STRIPS.md)，跑步换腿的见 [`RUN_SWAP.md`](../../assets/source/viktor/RUN_SWAP.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/viktor/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](../../assets/source/viktor/codex_picture)、[`codex_model/`](../../assets/source/viktor/codex_model)、[`codex_strips/`](../../assets/source/viktor/codex_strips)、[`codex_run/`](../../assets/source/viktor/codex_run)、[`codex_fx/`](../../assets/source/viktor/codex_fx)；附图包由 `tools/art/pack_viktor_*.py` 在本地生成，英雄联盟的渲染不进仓库）：

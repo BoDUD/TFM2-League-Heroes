@@ -1,0 +1,557 @@
+{
+ "square": 8,
+ "square_of": {
+  "ult_exit": 7
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "skill2": {
+   "7": "design 0"
+  },
+  "dead": {
+   "8": "dead 7"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [
+  "skill"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): leaning forward, Rhaast held behind him - its crimson crescent blade over his back on the picture's left, the shaft running down to the right - the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his purple boot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms and Rhaast follow the pale figure. Rhaast's blade and its spear point hang near the ground but are NOT legs: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): leaning forward, Rhaast held behind him - its crimson crescent blade over his back on the picture's left, the shaft running down to the right - the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms and Rhaast follow the pale figure. Rhaast's blade and its spear point hang near the ground but are NOT legs: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): leaning forward, Rhaast held behind him - its crimson crescent blade over his back on the picture's left, the shaft running down to the right - the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms and Rhaast follow the pale figure. Rhaast's blade and its spear point hang near the ground but are NOT legs: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "running (his move loop): leaning forward, Rhaast held behind him - its crimson crescent blade over his back on the picture's left, the shaft running down to the right - the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    150,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms and Rhaast follow the pale figure. Rhaast's blade and its spear point hang near the ground but are NOT legs: his two legs carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (a scythe swing): he stands ready (frame 1), heaves Rhaast up over his head, the blade high (frame 2), swings it over and forward (frame 3), lunges low, the scythe thrust out in front of him, the blade at the far right (frames 4-5), and raises it over his head again (frame 6)",
+   "ms": [
+    50,
+    55
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a scythe swing): he stands ready (frame 1), heaves Rhaast up over his head, the blade high (frame 2), swings it over and forward (frame 3), lunges low, the scythe thrust out in front of him, the blade at the far right (frames 4-5), and raises it over his head again (frame 6)",
+   "ms": [
+    62
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a scythe swing): he stands ready (frame 1), heaves Rhaast up over his head, the blade high (frame 2), swings it over and forward (frame 3), lunges low, the scythe thrust out in front of him, the blade at the far right (frames 4-5), and raises it over his head again (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a scythe swing): he stands ready (frame 1), heaves Rhaast up over his head, the blade high (frame 2), swings it over and forward (frame 3), lunges low, the scythe thrust out in front of him, the blade at the far right (frames 4-5), and raises it over his head again (frame 6)",
+   "ms": [
+    65
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a scythe swing): he stands ready (frame 1), heaves Rhaast up over his head, the blade high (frame 2), swings it over and forward (frame 3), lunges low, the scythe thrust out in front of him, the blade at the far right (frames 4-5), and raises it over his head again (frame 6)",
+   "ms": [
+    65
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    50
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    67
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    66
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    84
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Reaping Slash (Q): he leans forward, the scythe swung up behind him (frame 1), dashes forward low, the scythe trailing behind (frame 2), drops into a long lunge, the scythe thrust far forward along the ground (frame 3), then spins it round him in a crouch: the blade in front (frame 4), swept low behind him (frame 5) and round to his back, the shaft across him (frame 6)",
+   "ms": [
+    133
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Blade's Reach (W): he lunges low, Rhaast thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), and raises it high (frame 6; frame 7 = the design)",
+   "ms": [
+    100
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Blade's Reach (W): he lunges low, Rhaast thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), and raises it high (frame 6; frame 7 = the design)",
+   "ms": [
+    140,
+    150
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Blade's Reach (W): he lunges low, Rhaast thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), and raises it high (frame 6; frame 7 = the design)",
+   "ms": [
+    160
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Blade's Reach (W): he lunges low, Rhaast thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), and raises it high (frame 6; frame 7 = the design)",
+   "ms": [
+    117
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Blade's Reach (W): he lunges low, Rhaast thrust forward level (frame 1), swings it upright before him, the blade down by his feet (frame 2), lifts it over his head level in both hands (frames 3-4), slams it down forward in a lunge, the blade on the ground in front (frame 5), and raises it high (frame 6; frame 7 = the design)",
+   "ms": [
+    83
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Umbral Trespass, the dive (R): he crouches, Rhaast low and level before him (frame 1), leaps up, the legs tucked, the scythe swung down (frame 2), and dives, the scythe raised high over his head (frame 3)",
+   "ms": [
+    67,
+    67
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Umbral Trespass, the dive (R): he crouches, Rhaast low and level before him (frame 1), leaps up, the legs tucked, the scythe swung down (frame 2), and dives, the scythe raised high over his head (frame 3)",
+   "ms": [
+    66
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "ult_exit",
+   "name": "ult_exit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    67
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "ult_exit",
+   "name": "ult_exit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    67
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "ult_exit",
+   "name": "ult_exit_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    90,
+    88
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "ult_exit",
+   "name": "ult_exit_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Umbral Trespass, the exit (R): he bursts out of the foe crouched low, the scythe swung forward (frames 1-2), springs up, the scythe raised straight up over him (frame 3), swings it down forward (frame 4) and lands in his stance (frame 5)",
+   "ms": [
+    88
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "transform",
+   "name": "transform_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "the transformation: he kneels, Rhaast planted upright beside him (frame 1), rises holding it upright, the blade over his head (frames 2-3), thrusts it forward (frame 4) and holds it out before him, the blade up (frame 5)",
+   "ms": [
+    100,
+    120
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "transform",
+   "name": "transform_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the transformation: he kneels, Rhaast planted upright beside him (frame 1), rises holding it upright, the blade over his head (frames 2-3), thrusts it forward (frame 4) and holds it out before him, the blade up (frame 5)",
+   "ms": [
+    120
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "transform",
+   "name": "transform_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the transformation: he kneels, Rhaast planted upright beside him (frame 1), rises holding it upright, the blade over his head (frames 2-3), thrusts it forward (frame 4) and holds it out before him, the blade up (frame 5)",
+   "ms": [
+    130
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "transform",
+   "name": "transform_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the transformation: he kneels, Rhaast planted upright beside him (frame 1), rises holding it upright, the blade over his head (frames 2-3), thrusts it forward (frame 4) and holds it out before him, the blade up (frame 5)",
+   "ms": [
+    130
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "struck: jolted back in his stance (frames 1-2)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, he staggers, leaning on Rhaast planted upright (frames 1-2), sinks to his knees holding it (frames 3-4), slumps forward (frame 5), falls low (frame 6) and lies on his front, the scythe on the ground beside him (frame 7; frame 8 = frame 7)",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck, he staggers, leaning on Rhaast planted upright (frames 1-2), sinks to his knees holding it (frames 3-4), slumps forward (frame 5), falls low (frame 6) and lies on his front, the scythe on the ground beside him (frame 7; frame 8 = frame 7)",
+   "ms": [
+    120,
+    140
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, leaning on Rhaast planted upright (frames 1-2), sinks to his knees holding it (frames 3-4), slumps forward (frame 5), falls low (frame 6) and lies on his front, the scythe on the ground beside him (frame 7; frame 8 = frame 7)",
+   "ms": [
+    160
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, leaning on Rhaast planted upright (frames 1-2), sinks to his knees holding it (frames 3-4), slumps forward (frame 5), falls low (frame 6) and lies on his front, the scythe on the ground beside him (frame 7; frame 8 = frame 7)",
+   "ms": [
+    160
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, he staggers, leaning on Rhaast planted upright (frames 1-2), sinks to his knees holding it (frames 3-4), slumps forward (frame 5), falls low (frame 6) and lies on his front, the scythe on the ground beside him (frame 7; frame 8 = frame 7)",
+   "ms": [
+    200
+   ],
+   "weapons": "RHAAST goes where the pale figure has it, frame by frame (image 3 shows it in colour): the living scythe - the crimson crescent blade with its steel-blue edge and red eye at one end of the long violet-blue shaft, the red spear point at the other - as big as in image 1, held in his hands, raised, swung, thrust or planted as the pale figure holds it. Only him and Rhaast: no shadow mist, no dark trails, no afterimages; the eyes' red stays inside the eyes."
+  }
+ ]
+}
