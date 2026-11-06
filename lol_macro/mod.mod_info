@@ -1,0 +1,15 @@
+{
+  "author": "BoDUD",
+  "contains_code": false,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.7.0"
+    }
+  ],
+  "description": "LoL-style macro priorities for the match AI: the game's macro weights (what the AI's team plan values: gold, exp, kills, deaths, towers, the epic monster, the serpent, the nexus) set closer to League of Legends - structures and the nexus count more, a death costs more, the epic monster a little more. Data only (asset/base/setting/macro_weights); turn it off in the mod list to compare.\n\n比赛 AI 的运营优先级按英雄联盟调：游戏的「宏观权重」（AI 队伍计划里金钱、经验、击杀、阵亡、防御塔、大龙、小龙、基地各值多少）——塔和基地更值钱、阵亡代价更大、大龙略高。只改数据，在 Mod 列表里关掉就能对比。",
+  "last_updated": "2026-11-06",
+  "mod_id": "lol_macro",
+  "name": "LoL Macro Priorities / LOL 运营优先级",
+  "version": "0.1.0"
+}
