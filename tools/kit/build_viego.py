@@ -395,7 +395,7 @@ def build(p):
     inside = {"type": "RandomTarget", "range": p["e_r"], "casting_target": "AllyOnlySelf", "from_projectile": True,
               "effects": [{"type": "CasterInvisible", "tick": p["e_period"] + 2}]}
     zone = {"type": "RangePeriodProjectile", "name": n("e_zone"), "shape": circle(p["e_r"]), "tick": p["e_zt"],
-            "period": p["e_period"], "first_delay": 0, "applied_target": "AllyChampion",
+            "period": p["e_period"], "first_delay": 1, "applied_target": "AllyChampion",  # 0: a period late
             "applied_effects": [T(inside)], "end_effects": []}
     anchor = {"type": "LinearProjectile", "name": n("e_anchor"), "speed": 1, "range": 1, "y_offset": 5000,
               "penetrate": True, "shape": circle(1000), "applied_target": "EnemyChampion", "applied_effects": [],

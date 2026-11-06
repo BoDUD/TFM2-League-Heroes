@@ -1,4 +1,4 @@
-# 波比附加包（测试版 v0.1.0）
+# 波比附加包（测试版 v0.1.3）
 
 用户：「波比放辅助，技能按方案 A 做（带扩展包 league_poppy）」。主包 `league` 的波比是纯数据，不装这个包也完整可玩；这个附加包用
 原生代码补数据做不到的五件事（都照英雄联盟）：
@@ -29,3 +29,7 @@
   `src/lib.rs` 的常量和参数表一致）。
 - 在 `addons/` 下 `cargo test --release -p league_poppy`：单元测试（突进的判定、护盾、墙、水晶、副本）。
 - 在 `addons/` 下 `cargo build --release -p league_poppy`（Windows）得到 `league_poppy.dll`；`league_addons` 合集也会编进本包。
+
+## 0.1.3：盾牌拾取和 Q 的减速场不再晚（2026-11-06）
+
+被动盾牌的拾取区（`p_ground`，每 3 tick）开头 3 tick 捡不到；Q 的减速场（`q_field`，每 10 tick）第一下晚 10 tick。现在都是落地下一 tick 就生效。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。

@@ -1,4 +1,4 @@
-# 辛吉德附加包（测试版 v0.1.0）
+# 辛吉德附加包（测试版 v0.1.2）
 
 主包 `league` 保持纯数据。用户 2026-10-23 说「这个做附加包啊」：主包过肩摔的两处近似放到这个附加包里，用原生代码按英雄联盟的规则做；
 画面、声音仍然在主包的数据里：
@@ -27,3 +27,7 @@
    （要有 `league_singed.dll`、`mod.mod_info`、`mod.override_info`、`override\`、`text\`）。
 3. 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_singed.log`——`FLING`（从哪摔到哪、有没有墙）、`ROOT`（落进胶里）、
    `MISS`（没落进胶里）。
+
+## 0.1.2：毒雾和胶水第一下不再晚（2026-11-06）
+
+Q 的毒雾（`q_cloud`，每 30 tick 一次伤害）第一下晚 30 tick；他在毒雾里的标记（`q_me`，每 3 tick）晚 3 tick；W 的胶水（`w_glue`，每 6 tick 减速 + 禁锢位移）晚 6 tick。现在都是下一 tick 就生效，每团毒雾多一跳。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。

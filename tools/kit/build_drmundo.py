@@ -290,7 +290,8 @@ def build(p):
     def link(first):
         return [pzone("p_tank_z", p["p_can_r"], p["p_link"], 6, first, "AllyOnlySelf", [can_pick]),
                 pzone("p_tank_e", p["p_can_r"], p["p_link"], 6, first, "EnemyChampion", [can_break])]
-    links = [delayed(k * p["p_link"], sw("can", combine(view("p_tank"), *link(0))))
+    # the later links act the tick they appear (first_delay 1; 0 left a gap of a period - 2026-11-06)
+    links = [delayed(k * p["p_link"], sw("can", combine(view("p_tank"), *link(1))))
              for k in range(1, p["p_can_t"] // p["p_link"])]
     canister = [refresh("can", p["p_can_t"]), view("p_land"), view("p_tank"), sfx("p_land"), *link(p["p_arm"]), *links]
     shake = combine(flag("p_cd", p["p_cd"]), flag("p_imm", p["p_imm"], cc_immune=True), cview("p_shake"), sfx("p_shake"),

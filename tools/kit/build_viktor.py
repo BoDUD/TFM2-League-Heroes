@@ -318,7 +318,8 @@ def build(p):
         w_q = on_me(delayed(p["w_stun_at"] + p["wq_wait"],
                             sw("q_cd", NONE, pick(p["q_range"], "EnemyChampionInCC", q_combo))))
         land = [view("w_field"), sfx("w_field"),
-                zone("w_zone", p["w_r"], p["w_t"], p["w_period"], 0, "EnemyWithoutTower",
+                # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
+                zone("w_zone", p["w_r"], p["w_t"], p["w_period"], 1, "EnemyWithoutTower",
                      [buff("w_slow", p["w_period"], move_speed_mult=-p["w_slow"])]),
                 delayed(p["w_stun_at"], view("w_burst"), sfx("w_stun"), burst("w_stun", p["w_r"], "EnemyWithoutTower", stun))]
         return combine(lob("w_lay", 1, 1000, "EnemyChampion", [], end=land), w_q)

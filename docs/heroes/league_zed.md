@@ -55,7 +55,7 @@
 
 ### 劫读血附加包
 
-[劫读血附加包](../../addons/league_zed_mark/README.md)：`league_zed_mark` v0.2.1
+[劫读血附加包](../../addons/league_zed_mark/README.md)：`league_zed_mark` v0.2.2
 
 主包 `league` 保持纯数据。数据读不到生命也读不到伤害，所以主包里劫的两处是替代做法：
 

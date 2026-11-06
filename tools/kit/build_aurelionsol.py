@@ -76,6 +76,15 @@ every 300 ticks, the held bonus 30, E 16 + 9% every 630, the core 4%, R 270 + 85
 1-3. 2026-11-04 (the main pack's flight: the breath reset and unbound, no AP, w_cut 300 -> 120; C:/t/al_sim, 600 s):
 before +1.32 / +1.03 (seeds 1-8 / 9-16; 6671 / 6304 damage a game), after +1.38 / +1.77 (6483 / 6675) - unchanged within
 the noise (s.e. about 0.4). The add-on's flight cannot be simulated (native code).
+2026-11-06/07: the star never struck before - its zones (tick 2, period 30) had first_delay 0, and a zone's first hit
+comes first_delay ticks after it appears (0: a period later, long after a 2-tick zone is gone; classic-SDK trace: 9 of 9
+Falling Stars hit nobody, so every balance run above had R doing nothing and Q/E carried him). Fixed (first_delay 1),
+the old numbers gave +8.29 (240 games, s.e. 0.34; 15290 damage a game, was 6483 at +1.38). R back to League's (150 +
+65% / Skies 187 + 81%, shockwave 40 + 15%) and cooldown 4200 like the other mages' ults (Malzahar, Galio, Orianna,
+Syndra, Viktor; League 120-100 s): +4.90; Q/E back to the draft (14 + 9%, 8 + 5%: they had been raised to make up for
+the dead R) = P: +3.29 (s.e. 0.43). Tried on top: R x0.8 +3.12, knock-up 45 ticks +3.40, no knock-up +3.71 (on +4.90),
+no stardust from R +5.01, R cooldown 6000 +4.98, R area x0.75 +4.75 - the working knock-up (the user 2026-11-03) and
+the R -> E combo carry him.
 """
 import argparse
 import json
@@ -114,15 +123,15 @@ P = {
     "w_cd1": 1320, "w_cd12": 840, "w_len": 150000, "w_len_d": 750, "w_v": 2000, "w_start": 900, "w_refund": 90,
     # skill: Breath of Light (in flight: no cooldown, a q_t_f channel, q_fdmg% of q_dmg a pulse - League x1.08-1.12)
     "q_cd": 300, "q_range": 75000, "q_t": 90, "q_t_f": 150, "q_fdmg": 110, "q_p": 10, "q_rel": 8,
-    "q_len": 78000, "q_rad": 6000, "q_speed": 2500, "q_y": -13000, "q_dmg": 26, "q_ratio": 17, "q_sec": 60, "q_sec_dmg": 30,
+    "q_len": 78000, "q_rad": 6000, "q_speed": 2500, "q_y": -13000, "q_dmg": 14, "q_ratio": 9, "q_sec": 60, "q_sec_dmg": 30,
     # skill2: Singularity
     "e_cd": 630, "e_range": 75000, "e_dur": 30, "e_rel": 12, "e_fly": 18, "e_r": 26000, "e_t": 300, "e_p": 15,
-    "e_dmg": 16, "e_ratio": 9, "e_pull": 250, "e_pull_t": 4, "e_slow": 25, "e_core": 9000, "e_cp": 60, "e_exec": 4,
+    "e_dmg": 8, "e_ratio": 5, "e_pull": 250, "e_pull_t": 4, "e_slow": 25, "e_core": 9000, "e_cp": 60, "e_exec": 4,
     "e_ap": 15, "e_low": 5, "e_low_d": 1, "e_low_n": 15,
     # ult: Falling Star / The Skies Descend
-    "r_cd": 2100, "r_range": 125000, "r_dur": 36, "r_rel": 14, "r_fall": 30, "r_r": 22000, "r_dmg": 270,
-    "r_ratio": 85, "r_air": 60, "r_r2": 30000, "r_dmg2": 350, "r_ratio2": 105, "r_up": 60, "r_wave_at": 12,
-    "r_wave": 45000, "r_wdmg": 80, "r_wratio": 30, "r_wslow": 50, "r_wslow_t": 90,
+    "r_cd": 4200, "r_range": 125000, "r_dur": 36, "r_rel": 14, "r_fall": 30, "r_r": 22000, "r_dmg": 150,
+    "r_ratio": 65, "r_air": 60, "r_r2": 30000, "r_dmg2": 187, "r_ratio2": 81, "r_up": 60, "r_wave_at": 12,
+    "r_wave": 45000, "r_wdmg": 40, "r_wratio": 15, "r_wslow": 50, "r_wslow_t": 90,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     "native": 0,
@@ -265,8 +274,10 @@ def field(name, radius, tick, period, effects, target="EnemyWithoutTower", first
 
 
 def blast(name, radius, effects, target="EnemyWithoutTower"):
-    """One hit on everything within radius of a lob's landing spot (a zone that strikes once, on its first tick)."""
-    return field(name, radius, 2, 30, effects, target, first=0)
+    """One hit on everything within radius of a lob's landing spot (a zone that strikes once, on its first tick).
+    first_delay 1: with 0 the zone (2 ticks long, period 30) never struck - its first hit would have come a period
+    after it appeared, long after it was gone (classic-SDK trace 2026-11-06: 9 of 9 Falling Stars hit nobody)."""
+    return field(name, radius, 2, 30, effects, target, first=1)
 
 
 def native(name):

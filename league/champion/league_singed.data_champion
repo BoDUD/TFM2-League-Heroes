@@ -240,7 +240,7 @@
                                                   },
                                                   "tick": 180,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
@@ -288,7 +288,7 @@
                                                   },
                                                   "tick": 180,
                                                   "period": 3,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "AllyOnlySelf",
                                                   "applied_effects": [
                                                     {
@@ -366,7 +366,7 @@
                                                   },
                                                   "tick": 180,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
@@ -399,7 +399,7 @@
                                                   },
                                                   "tick": 180,
                                                   "period": 3,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "AllyOnlySelf",
                                                   "applied_effects": [
                                                     {
@@ -982,7 +982,7 @@
                                                                     },
                                                                     "tick": 180,
                                                                     "period": 6,
-                                                                    "first_delay": 0,
+                                                                    "first_delay": 1,
                                                                     "applied_target": "EnemyWithoutTower",
                                                                     "applied_effects": [
                                                                       {
@@ -1772,7 +1772,7 @@
                                   },
                                   "tick": 180,
                                   "period": 6,
-                                  "first_delay": 0,
+                                  "first_delay": 1,
                                   "applied_target": "EnemyWithoutTower",
                                   "applied_effects": [
                                     {
@@ -2107,7 +2107,7 @@
                                                   },
                                                   "tick": 180,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
@@ -2155,7 +2155,7 @@
                                                   },
                                                   "tick": 180,
                                                   "period": 3,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "AllyOnlySelf",
                                                   "applied_effects": [
                                                     {
@@ -2233,7 +2233,7 @@
                                                   },
                                                   "tick": 180,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
@@ -2266,7 +2266,7 @@
                                                   },
                                                   "tick": 180,
                                                   "period": 3,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "AllyOnlySelf",
                                                   "applied_effects": [
                                                     {
@@ -2849,7 +2849,7 @@
                                                                     },
                                                                     "tick": 180,
                                                                     "period": 6,
-                                                                    "first_delay": 0,
+                                                                    "first_delay": 1,
                                                                     "applied_target": "EnemyWithoutTower",
                                                                     "applied_effects": [
                                                                       {

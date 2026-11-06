@@ -55,7 +55,7 @@
 
 ### 卡特琳娜附加包
 
-[卡特琳娜附加包](../../addons/league_katarina/README.md)：`league_katarina` v0.1.1
+[卡特琳娜附加包](../../addons/league_katarina/README.md)：`league_katarina` v0.1.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

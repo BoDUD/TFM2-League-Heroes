@@ -233,7 +233,7 @@
                     },
                     "tick": 90,
                     "period": 10,
-                    "first_delay": 0,
+                    "first_delay": 1,
                     "applied_target": "EnemyWithoutTower",
                     "applied_effects": [
                       {

@@ -1083,8 +1083,8 @@
                                                                                         "casting_type": "Targeting",
                                                                                         "effect": {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 29,
-                                                                                          "attack_ratio": 17,
+                                                                                          "damage": 15,
+                                                                                          "attack_ratio": 9,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         }
@@ -1124,8 +1124,8 @@
                                                                                         "casting_type": "Targeting",
                                                                                         "effect": {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 26,
-                                                                                          "attack_ratio": 17,
+                                                                                          "damage": 14,
+                                                                                          "attack_ratio": 9,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         }
@@ -1560,8 +1560,8 @@
                                                                                         "casting_type": "Targeting",
                                                                                         "effect": {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 29,
-                                                                                          "attack_ratio": 17,
+                                                                                          "damage": 15,
+                                                                                          "attack_ratio": 9,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         }
@@ -1601,8 +1601,8 @@
                                                                                         "casting_type": "Targeting",
                                                                                         "effect": {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 26,
-                                                                                          "attack_ratio": 17,
+                                                                                          "damage": 14,
+                                                                                          "attack_ratio": 9,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         }
@@ -2196,8 +2196,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 156,
-                "attack_ratio": 102,
+                "damage": 84,
+                "attack_ratio": 54,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -2348,8 +2348,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 29,
-                                                        "attack_ratio": 17,
+                                                        "damage": 15,
+                                                        "attack_ratio": 9,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -2389,8 +2389,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 26,
-                                                        "attack_ratio": 17,
+                                                        "damage": 14,
+                                                        "attack_ratio": 9,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -2825,8 +2825,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 29,
-                                                        "attack_ratio": 17,
+                                                        "damage": 15,
+                                                        "attack_ratio": 9,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -2866,8 +2866,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 26,
-                                                        "attack_ratio": 17,
+                                                        "damage": 14,
+                                                        "attack_ratio": 9,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -3245,8 +3245,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 160,
-                "attack_ratio": 90,
+                "damage": 80,
+                "attack_ratio": 50,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -3407,8 +3407,8 @@
                                                 "casting_type": "Targeting",
                                                 "effect": {
                                                   "type": "ApAttack",
-                                                  "damage": 16,
-                                                  "attack_ratio": 9,
+                                                  "damage": 8,
+                                                  "attack_ratio": 5,
                                                   "hp_ratio": 0,
                                                   "can_crit": false
                                                 }
@@ -3468,8 +3468,8 @@
                                                   "casting_type": "Targeting",
                                                   "effect": {
                                                     "type": "ApAttack",
-                                                    "damage": 16,
-                                                    "attack_ratio": 9,
+                                                    "damage": 8,
+                                                    "attack_ratio": 5,
                                                     "hp_ratio": 0,
                                                     "can_crit": false
                                                   }
@@ -3529,8 +3529,8 @@
                                                     "casting_type": "Targeting",
                                                     "effect": {
                                                       "type": "ApAttack",
-                                                      "damage": 16,
-                                                      "attack_ratio": 9,
+                                                      "damage": 8,
+                                                      "attack_ratio": 5,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
                                                     }
@@ -3590,8 +3590,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 16,
-                                                        "attack_ratio": 9,
+                                                        "damage": 8,
+                                                        "attack_ratio": 5,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -3651,8 +3651,8 @@
                                                         "casting_type": "Targeting",
                                                         "effect": {
                                                           "type": "ApAttack",
-                                                          "damage": 16,
-                                                          "attack_ratio": 9,
+                                                          "damage": 8,
+                                                          "attack_ratio": 5,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         }
@@ -3712,8 +3712,8 @@
                                                           "casting_type": "Targeting",
                                                           "effect": {
                                                             "type": "ApAttack",
-                                                            "damage": 16,
-                                                            "attack_ratio": 9,
+                                                            "damage": 8,
+                                                            "attack_ratio": 5,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           }
@@ -3770,8 +3770,8 @@
                                                           "casting_type": "Targeting",
                                                           "effect": {
                                                             "type": "ApAttack",
-                                                            "damage": 16,
-                                                            "attack_ratio": 9,
+                                                            "damage": 8,
+                                                            "attack_ratio": 5,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           }
@@ -4127,7 +4127,7 @@
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_aurelionsol.ult",
     "duration": 36,
-    "cooltime": 2100,
+    "cooltime": 4200,
     "start_timing": 1,
     "cancelable": false,
     "range": 125000,
@@ -4166,8 +4166,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 270,
-                "attack_ratio": 85,
+                "damage": 150,
+                "attack_ratio": 65,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -5134,8 +5134,8 @@
                                                                                         "casting_type": "Targeting",
                                                                                         "effect": {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 29,
-                                                                                          "attack_ratio": 17,
+                                                                                          "damage": 15,
+                                                                                          "attack_ratio": 9,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         }
@@ -5175,8 +5175,8 @@
                                                                                         "casting_type": "Targeting",
                                                                                         "effect": {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 26,
-                                                                                          "attack_ratio": 17,
+                                                                                          "damage": 14,
+                                                                                          "attack_ratio": 9,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         }
@@ -5611,8 +5611,8 @@
                                                                                         "casting_type": "Targeting",
                                                                                         "effect": {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 29,
-                                                                                          "attack_ratio": 17,
+                                                                                          "damage": 15,
+                                                                                          "attack_ratio": 9,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         }
@@ -5652,8 +5652,8 @@
                                                                                         "casting_type": "Targeting",
                                                                                         "effect": {
                                                                                           "type": "ApAttack",
-                                                                                          "damage": 26,
-                                                                                          "attack_ratio": 17,
+                                                                                          "damage": 14,
+                                                                                          "attack_ratio": 9,
                                                                                           "hp_ratio": 0,
                                                                                           "can_crit": false
                                                                                         }
@@ -6137,15 +6137,15 @@
                                         },
                                         "tick": 2,
                                         "period": 30,
-                                        "first_delay": 0,
+                                        "first_delay": 1,
                                         "applied_target": "EnemyWithoutTower",
                                         "applied_effects": [
                                           {
                                             "casting_type": "Targeting",
                                             "effect": {
                                               "type": "ApAttack",
-                                              "damage": 350,
-                                              "attack_ratio": 105,
+                                              "damage": 187,
+                                              "attack_ratio": 81,
                                               "hp_ratio": 0,
                                               "can_crit": false
                                             }
@@ -6191,7 +6191,7 @@
                                         },
                                         "tick": 2,
                                         "period": 30,
-                                        "first_delay": 0,
+                                        "first_delay": 1,
                                         "applied_target": "EnemyChampion",
                                         "applied_effects": [
                                           {
@@ -6359,15 +6359,15 @@
                                             },
                                             "tick": 2,
                                             "period": 30,
-                                            "first_delay": 0,
+                                            "first_delay": 1,
                                             "applied_target": "EnemyWithoutTower",
                                             "applied_effects": [
                                               {
                                                 "casting_type": "Targeting",
                                                 "effect": {
                                                   "type": "ApAttack",
-                                                  "damage": 80,
-                                                  "attack_ratio": 30,
+                                                  "damage": 40,
+                                                  "attack_ratio": 15,
                                                   "hp_ratio": 0,
                                                   "can_crit": false
                                                 }
@@ -6429,15 +6429,15 @@
                                           },
                                           "tick": 2,
                                           "period": 30,
-                                          "first_delay": 0,
+                                          "first_delay": 1,
                                           "applied_target": "EnemyWithoutTower",
                                           "applied_effects": [
                                             {
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 350,
-                                                "attack_ratio": 105,
+                                                "damage": 187,
+                                                "attack_ratio": 81,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
                                               }
@@ -6483,7 +6483,7 @@
                                           },
                                           "tick": 2,
                                           "period": 30,
-                                          "first_delay": 0,
+                                          "first_delay": 1,
                                           "applied_target": "EnemyChampion",
                                           "applied_effects": [
                                             {
@@ -6651,15 +6651,15 @@
                                               },
                                               "tick": 2,
                                               "period": 30,
-                                              "first_delay": 0,
+                                              "first_delay": 1,
                                               "applied_target": "EnemyWithoutTower",
                                               "applied_effects": [
                                                 {
                                                   "casting_type": "Targeting",
                                                   "effect": {
                                                     "type": "ApAttack",
-                                                    "damage": 80,
-                                                    "attack_ratio": 30,
+                                                    "damage": 40,
+                                                    "attack_ratio": 15,
                                                     "hp_ratio": 0,
                                                     "can_crit": false
                                                   }
@@ -6721,15 +6721,15 @@
                                             },
                                             "tick": 2,
                                             "period": 30,
-                                            "first_delay": 0,
+                                            "first_delay": 1,
                                             "applied_target": "EnemyWithoutTower",
                                             "applied_effects": [
                                               {
                                                 "casting_type": "Targeting",
                                                 "effect": {
                                                   "type": "ApAttack",
-                                                  "damage": 350,
-                                                  "attack_ratio": 105,
+                                                  "damage": 187,
+                                                  "attack_ratio": 81,
                                                   "hp_ratio": 0,
                                                   "can_crit": false
                                                 }
@@ -6775,7 +6775,7 @@
                                             },
                                             "tick": 2,
                                             "period": 30,
-                                            "first_delay": 0,
+                                            "first_delay": 1,
                                             "applied_target": "EnemyChampion",
                                             "applied_effects": [
                                               {
@@ -6943,15 +6943,15 @@
                                                 },
                                                 "tick": 2,
                                                 "period": 30,
-                                                "first_delay": 0,
+                                                "first_delay": 1,
                                                 "applied_target": "EnemyWithoutTower",
                                                 "applied_effects": [
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
                                                       "type": "ApAttack",
-                                                      "damage": 80,
-                                                      "attack_ratio": 30,
+                                                      "damage": 40,
+                                                      "attack_ratio": 15,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
                                                     }
@@ -7013,15 +7013,15 @@
                                               },
                                               "tick": 2,
                                               "period": 30,
-                                              "first_delay": 0,
+                                              "first_delay": 1,
                                               "applied_target": "EnemyWithoutTower",
                                               "applied_effects": [
                                                 {
                                                   "casting_type": "Targeting",
                                                   "effect": {
                                                     "type": "ApAttack",
-                                                    "damage": 350,
-                                                    "attack_ratio": 105,
+                                                    "damage": 187,
+                                                    "attack_ratio": 81,
                                                     "hp_ratio": 0,
                                                     "can_crit": false
                                                   }
@@ -7067,7 +7067,7 @@
                                               },
                                               "tick": 2,
                                               "period": 30,
-                                              "first_delay": 0,
+                                              "first_delay": 1,
                                               "applied_target": "EnemyChampion",
                                               "applied_effects": [
                                                 {
@@ -7235,15 +7235,15 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 80,
-                                                        "attack_ratio": 30,
+                                                        "damage": 40,
+                                                        "attack_ratio": 15,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -7305,15 +7305,15 @@
                                                 },
                                                 "tick": 2,
                                                 "period": 30,
-                                                "first_delay": 0,
+                                                "first_delay": 1,
                                                 "applied_target": "EnemyWithoutTower",
                                                 "applied_effects": [
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
                                                       "type": "ApAttack",
-                                                      "damage": 350,
-                                                      "attack_ratio": 105,
+                                                      "damage": 187,
+                                                      "attack_ratio": 81,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
                                                     }
@@ -7359,7 +7359,7 @@
                                                 },
                                                 "tick": 2,
                                                 "period": 30,
-                                                "first_delay": 0,
+                                                "first_delay": 1,
                                                 "applied_target": "EnemyChampion",
                                                 "applied_effects": [
                                                   {
@@ -7527,15 +7527,15 @@
                                                     },
                                                     "tick": 2,
                                                     "period": 30,
-                                                    "first_delay": 0,
+                                                    "first_delay": 1,
                                                     "applied_target": "EnemyWithoutTower",
                                                     "applied_effects": [
                                                       {
                                                         "casting_type": "Targeting",
                                                         "effect": {
                                                           "type": "ApAttack",
-                                                          "damage": 80,
-                                                          "attack_ratio": 30,
+                                                          "damage": 40,
+                                                          "attack_ratio": 15,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         }
@@ -7597,15 +7597,15 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 350,
-                                                        "attack_ratio": 105,
+                                                        "damage": 187,
+                                                        "attack_ratio": 81,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -7651,7 +7651,7 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyChampion",
                                                   "applied_effects": [
                                                     {
@@ -7819,15 +7819,15 @@
                                                       },
                                                       "tick": 2,
                                                       "period": 30,
-                                                      "first_delay": 0,
+                                                      "first_delay": 1,
                                                       "applied_target": "EnemyWithoutTower",
                                                       "applied_effects": [
                                                         {
                                                           "casting_type": "Targeting",
                                                           "effect": {
                                                             "type": "ApAttack",
-                                                            "damage": 80,
-                                                            "attack_ratio": 30,
+                                                            "damage": 40,
+                                                            "attack_ratio": 15,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           }
@@ -7886,15 +7886,15 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 350,
-                                                        "attack_ratio": 105,
+                                                        "damage": 187,
+                                                        "attack_ratio": 81,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -7940,7 +7940,7 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyChampion",
                                                   "applied_effects": [
                                                     {
@@ -8108,15 +8108,15 @@
                                                       },
                                                       "tick": 2,
                                                       "period": 30,
-                                                      "first_delay": 0,
+                                                      "first_delay": 1,
                                                       "applied_target": "EnemyWithoutTower",
                                                       "applied_effects": [
                                                         {
                                                           "casting_type": "Targeting",
                                                           "effect": {
                                                             "type": "ApAttack",
-                                                            "damage": 80,
-                                                            "attack_ratio": 30,
+                                                            "damage": 40,
+                                                            "attack_ratio": 15,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           }
@@ -8180,15 +8180,15 @@
                                         },
                                         "tick": 2,
                                         "period": 30,
-                                        "first_delay": 0,
+                                        "first_delay": 1,
                                         "applied_target": "EnemyWithoutTower",
                                         "applied_effects": [
                                           {
                                             "casting_type": "Targeting",
                                             "effect": {
                                               "type": "ApAttack",
-                                              "damage": 270,
-                                              "attack_ratio": 85,
+                                              "damage": 150,
+                                              "attack_ratio": 65,
                                               "hp_ratio": 0,
                                               "can_crit": false
                                             }
@@ -8234,7 +8234,7 @@
                                         },
                                         "tick": 2,
                                         "period": 30,
-                                        "first_delay": 0,
+                                        "first_delay": 1,
                                         "applied_target": "EnemyChampion",
                                         "applied_effects": [
                                           {
@@ -8406,15 +8406,15 @@
                                           },
                                           "tick": 2,
                                           "period": 30,
-                                          "first_delay": 0,
+                                          "first_delay": 1,
                                           "applied_target": "EnemyWithoutTower",
                                           "applied_effects": [
                                             {
                                               "casting_type": "Targeting",
                                               "effect": {
                                                 "type": "ApAttack",
-                                                "damage": 270,
-                                                "attack_ratio": 85,
+                                                "damage": 150,
+                                                "attack_ratio": 65,
                                                 "hp_ratio": 0,
                                                 "can_crit": false
                                               }
@@ -8460,7 +8460,7 @@
                                           },
                                           "tick": 2,
                                           "period": 30,
-                                          "first_delay": 0,
+                                          "first_delay": 1,
                                           "applied_target": "EnemyChampion",
                                           "applied_effects": [
                                             {
@@ -8632,15 +8632,15 @@
                                             },
                                             "tick": 2,
                                             "period": 30,
-                                            "first_delay": 0,
+                                            "first_delay": 1,
                                             "applied_target": "EnemyWithoutTower",
                                             "applied_effects": [
                                               {
                                                 "casting_type": "Targeting",
                                                 "effect": {
                                                   "type": "ApAttack",
-                                                  "damage": 270,
-                                                  "attack_ratio": 85,
+                                                  "damage": 150,
+                                                  "attack_ratio": 65,
                                                   "hp_ratio": 0,
                                                   "can_crit": false
                                                 }
@@ -8686,7 +8686,7 @@
                                             },
                                             "tick": 2,
                                             "period": 30,
-                                            "first_delay": 0,
+                                            "first_delay": 1,
                                             "applied_target": "EnemyChampion",
                                             "applied_effects": [
                                               {
@@ -8858,15 +8858,15 @@
                                               },
                                               "tick": 2,
                                               "period": 30,
-                                              "first_delay": 0,
+                                              "first_delay": 1,
                                               "applied_target": "EnemyWithoutTower",
                                               "applied_effects": [
                                                 {
                                                   "casting_type": "Targeting",
                                                   "effect": {
                                                     "type": "ApAttack",
-                                                    "damage": 270,
-                                                    "attack_ratio": 85,
+                                                    "damage": 150,
+                                                    "attack_ratio": 65,
                                                     "hp_ratio": 0,
                                                     "can_crit": false
                                                   }
@@ -8912,7 +8912,7 @@
                                               },
                                               "tick": 2,
                                               "period": 30,
-                                              "first_delay": 0,
+                                              "first_delay": 1,
                                               "applied_target": "EnemyChampion",
                                               "applied_effects": [
                                                 {
@@ -9084,15 +9084,15 @@
                                                 },
                                                 "tick": 2,
                                                 "period": 30,
-                                                "first_delay": 0,
+                                                "first_delay": 1,
                                                 "applied_target": "EnemyWithoutTower",
                                                 "applied_effects": [
                                                   {
                                                     "casting_type": "Targeting",
                                                     "effect": {
                                                       "type": "ApAttack",
-                                                      "damage": 270,
-                                                      "attack_ratio": 85,
+                                                      "damage": 150,
+                                                      "attack_ratio": 65,
                                                       "hp_ratio": 0,
                                                       "can_crit": false
                                                     }
@@ -9138,7 +9138,7 @@
                                                 },
                                                 "tick": 2,
                                                 "period": 30,
-                                                "first_delay": 0,
+                                                "first_delay": 1,
                                                 "applied_target": "EnemyChampion",
                                                 "applied_effects": [
                                                   {
@@ -9310,15 +9310,15 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 270,
-                                                        "attack_ratio": 85,
+                                                        "damage": 150,
+                                                        "attack_ratio": 65,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -9364,7 +9364,7 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyChampion",
                                                   "applied_effects": [
                                                     {
@@ -9533,15 +9533,15 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyWithoutTower",
                                                   "applied_effects": [
                                                     {
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 270,
-                                                        "attack_ratio": 85,
+                                                        "damage": 150,
+                                                        "attack_ratio": 65,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -9587,7 +9587,7 @@
                                                   },
                                                   "tick": 2,
                                                   "period": 30,
-                                                  "first_delay": 0,
+                                                  "first_delay": 1,
                                                   "applied_target": "EnemyChampion",
                                                   "applied_effects": [
                                                     {
@@ -9814,8 +9814,8 @@
                                                       "casting_type": "Targeting",
                                                       "effect": {
                                                         "type": "ApAttack",
-                                                        "damage": 16,
-                                                        "attack_ratio": 9,
+                                                        "damage": 8,
+                                                        "attack_ratio": 5,
                                                         "hp_ratio": 0,
                                                         "can_crit": false
                                                       }
@@ -9875,8 +9875,8 @@
                                                         "casting_type": "Targeting",
                                                         "effect": {
                                                           "type": "ApAttack",
-                                                          "damage": 16,
-                                                          "attack_ratio": 9,
+                                                          "damage": 8,
+                                                          "attack_ratio": 5,
                                                           "hp_ratio": 0,
                                                           "can_crit": false
                                                         }
@@ -9936,8 +9936,8 @@
                                                           "casting_type": "Targeting",
                                                           "effect": {
                                                             "type": "ApAttack",
-                                                            "damage": 16,
-                                                            "attack_ratio": 9,
+                                                            "damage": 8,
+                                                            "attack_ratio": 5,
                                                             "hp_ratio": 0,
                                                             "can_crit": false
                                                           }
@@ -9997,8 +9997,8 @@
                                                             "casting_type": "Targeting",
                                                             "effect": {
                                                               "type": "ApAttack",
-                                                              "damage": 16,
-                                                              "attack_ratio": 9,
+                                                              "damage": 8,
+                                                              "attack_ratio": 5,
                                                               "hp_ratio": 0,
                                                               "can_crit": false
                                                             }
@@ -10058,8 +10058,8 @@
                                                               "casting_type": "Targeting",
                                                               "effect": {
                                                                 "type": "ApAttack",
-                                                                "damage": 16,
-                                                                "attack_ratio": 9,
+                                                                "damage": 8,
+                                                                "attack_ratio": 5,
                                                                 "hp_ratio": 0,
                                                                 "can_crit": false
                                                               }
@@ -10119,8 +10119,8 @@
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
                                                                   "type": "ApAttack",
-                                                                  "damage": 16,
-                                                                  "attack_ratio": 9,
+                                                                  "damage": 8,
+                                                                  "attack_ratio": 5,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
                                                                 }
@@ -10177,8 +10177,8 @@
                                                                 "casting_type": "Targeting",
                                                                 "effect": {
                                                                   "type": "ApAttack",
-                                                                  "damage": 16,
-                                                                  "attack_ratio": 9,
+                                                                  "damage": 8,
+                                                                  "attack_ratio": 5,
                                                                   "hp_ratio": 0,
                                                                   "can_crit": false
                                                                 }

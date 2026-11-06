@@ -269,7 +269,8 @@ def build(p):
         return [field(name + "_cc", r, life, per, first, [fire(beam)], "EnemyChampionInCC"),
                 field(name + "_ch", r, life, per, first, [fire(cannon)], "EnemyChampion"),
                 field(name + "_all", r, life, per, first, [fire(cannon)]),
-                field(name + "_aura", p["p_r"], life, p["p_per"], 0,
+                # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
+                field(name + "_aura", p["p_r"], life, p["p_per"], 1,
                       [pick(p["p_r"], "AllyOnlySelf", buff("haste", p["p_t"], move_speed_mult=p["p_ms"]), here=True)],
                       "AllyChampion")]
 

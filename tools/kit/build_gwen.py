@@ -261,7 +261,7 @@ def build(p):
                   {"type": "CasterInvisible", "tick": p["w_period"] + 2},
                   refresh("w_in", p["w_period"] + 2, defence=p["w_def"], magic_resistance=p["w_def"]), fp=True)
     zone = {"type": "RangePeriodProjectile", "name": n("w_zone"), "shape": circle(p["w_r"]), "tick": p["w_t"],
-            "period": p["w_period"], "first_delay": 0, "applied_target": "AllyChampion",
+            "period": p["w_period"], "first_delay": 1, "applied_target": "AllyChampion",  # 0: a period late
             "applied_effects": [T(inside)], "end_effects": []}
     anchor = {"type": "LinearProjectile", "name": n("w_anchor"), "speed": 1, "range": 1, "y_offset": 5000,
               "penetrate": True, "shape": circle(1000), "applied_target": "EnemyChampion", "applied_effects": [],

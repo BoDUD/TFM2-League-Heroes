@@ -253,9 +253,10 @@ def build(p):
     # ------------------------------------------------------------------ passive: Poison Trail's clouds
     def cloud(r, k):
         hit = [ap(p["q_dmg"] * k // 100, p["q_ap"] * k // 100), tsfx("q_hit")]
-        return [field("q_cloud", r, p["q_t"], p["q_p"], hit, first=0),
+        # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
+        return [field("q_cloud", r, p["q_t"], p["q_p"], hit, first=1),
                 field("q_me", p["q_gap"], p["q_t"], p["ctl_p"], [refresh("in_cloud", p["ctl_p"] + 1)],
-                      target="AllyOnlySelf", first=0)]
+                      target="AllyOnlySelf", first=1)]
     strong = cloud(p["r_q_r"], p["r_q"])
     strong[0]["applied_effects"].append(T(buff("q_gw", p["q_p"] + 6, heal_reduce=p["r_gw"])))
     drop = sw("in_cloud", NONE, combine(refresh("in_cloud", p["ctl_p"] + 1),
@@ -280,7 +281,7 @@ def build(p):
     def w_cast(target):
         glue = field("w_glue", p["w_r"], p["w_t"], p["w_p"],
                      [buff("w_slow", p["w_p"] + 6, move_speed_mult=-p["w_slow"]),
-                      {"type": "BlockMoveSkill", "tick": p["w_p"] + 6}], first=0)
+                      {"type": "BlockMoveSkill", "tick": p["w_p"] + 6}], first=1)
         land = [glue, view("w_glue"), sfx("w_land")]
         return combine(refresh("w_cd", p["w_cd"]), anim("skill2", p["w_dur"]), sfx("w"), voice("vo_w", p),
                        delayed(p["w_rel"] - 1, alive(

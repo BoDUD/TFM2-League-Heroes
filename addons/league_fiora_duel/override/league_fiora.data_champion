@@ -2037,7 +2037,7 @@
                                         },
                                         "tick": 180,
                                         "period": 30,
-                                        "first_delay": 0,
+                                        "first_delay": 1,
                                         "applied_target": "AllyChampion",
                                         "applied_effects": [
                                           {
@@ -2225,7 +2225,7 @@
                                                 },
                                                 "tick": 180,
                                                 "period": 30,
-                                                "first_delay": 0,
+                                                "first_delay": 1,
                                                 "applied_target": "AllyChampion",
                                                 "applied_effects": [
                                                   {
@@ -12213,7 +12213,7 @@
                                 },
                                 "tick": 180,
                                 "period": 30,
-                                "first_delay": 0,
+                                "first_delay": 1,
                                 "applied_target": "AllyChampion",
                                 "applied_effects": [
                                   {
@@ -12401,7 +12401,7 @@
                                         },
                                         "tick": 180,
                                         "period": 30,
-                                        "first_delay": 0,
+                                        "first_delay": 1,
                                         "applied_target": "AllyChampion",
                                         "applied_effects": [
                                           {

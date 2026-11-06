@@ -1009,7 +1009,7 @@
                               },
                               "tick": 240,
                               "period": 3,
-                              "first_delay": 0,
+                              "first_delay": 1,
                               "applied_target": "AllyChampion",
                               "applied_effects": [
                                 {
@@ -1374,7 +1374,7 @@
                                 },
                                 "tick": 240,
                                 "period": 3,
-                                "first_delay": 0,
+                                "first_delay": 1,
                                 "applied_target": "AllyChampion",
                                 "applied_effects": [
                                   {
@@ -1732,7 +1732,7 @@
                                 },
                                 "tick": 240,
                                 "period": 3,
-                                "first_delay": 0,
+                                "first_delay": 1,
                                 "applied_target": "AllyChampion",
                                 "applied_effects": [
                                   {
@@ -3049,7 +3049,7 @@
                             },
                             "tick": 240,
                             "period": 3,
-                            "first_delay": 0,
+                            "first_delay": 1,
                             "applied_target": "AllyChampion",
                             "applied_effects": [
                               {
@@ -3270,7 +3270,7 @@
                               },
                               "tick": 240,
                               "period": 3,
-                              "first_delay": 0,
+                              "first_delay": 1,
                               "applied_target": "AllyChampion",
                               "applied_effects": [
                                 {
@@ -3484,7 +3484,7 @@
                               },
                               "tick": 240,
                               "period": 3,
-                              "first_delay": 0,
+                              "first_delay": 1,
                               "applied_target": "AllyChampion",
                               "applied_effects": [
                                 {

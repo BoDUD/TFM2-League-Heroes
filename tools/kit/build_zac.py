@@ -265,7 +265,8 @@ def build(p):
         absorb = sw(got, NONE, combine(flag(got, p["b_lie"]), heal(p["b_heal"], p["b_heal_ap"]), cview("b_pick"),
                                        sfx("b_pick")))
         lying = [delayed(k, sw(got, NONE, view("b_lie"))) for k in range(0, p["b_lie"], 15)]
-        lands = [field("b_ground", p["b_catch"], p["b_lie"], 3, [absorb], target="AllyOnlySelf", first=0), *lying]
+        # first_delay 1, not 0: a zone acts first_delay ticks after it appears, and 0 meant a whole period later (classic-SDK trace 2026-11-06)
+        lands = [field("b_ground", p["b_catch"], p["b_lie"], 3, [absorb], target="AllyOnlySelf", first=1), *lying]
         return combine(*rm(got), flag(f"bs{s}", p["b_lie"] + p["b_fly"]),
                        line("b_fly", -(-p["b_far"] // p["b_fly"]), p["b_far"], 1000, "EnemyWithoutTower", True, [],
                             end=lands))
