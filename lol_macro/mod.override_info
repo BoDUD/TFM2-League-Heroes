@@ -1,0 +1,6 @@
+{
+  "asset/base/setting/macro_weights": {
+    "remapping": "asset/lol_macro/setting/macro_weights",
+    "type": "override"
+  }
+}
