@@ -7,8 +7,8 @@
 //!
 //! - **无形威胁**：他活着、敌方队伍看不见他（`is_visible`，草丛、战争迷雾、R 的隐身都算）、身上还没有 `league_khazix_ut`
 //!   时加上它（永久，下一次攻击英雄时由数据打出伤害和减速并去掉）。
-//! - **进化**：等级到 `lv_q` / `lv_e` / `lv_r` 而身上没有对应的 `league_khazix_s1` / `s2` / `s3` 时加上（s1 带
-//!   `q_evo_range` 攻击距离），播放进化的画面和声音；复活后第一次补回已有的进化时不播（主包也是静默重读）。
+//! - **进化**：等级到 `lv_q` / `lv_e` / `lv_r` 而身上没有对应的 `league_khazix_s1` / `s2` / `s3` 时加上（s1 的
+//!   `q_evo_range` 攻击距离 2026-11-07 起由主包 league.dll 的 `league:range` 读这个标记加，buff 不带 range），播放进化的画面和声音；复活后第一次补回已有的进化时不播（主包也是静默重读）。
 //!
 //! 孤立无援仍用主包的数据判定（目标身边数人头，已经是英雄联盟的意思）。数字从英雄数据的 `passive.params` 来。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
@@ -177,11 +177,8 @@ impl StablePassive for Void {
             if !want || has_buff(sim, me, &names[k]) {
                 continue;
             }
-            let mut b = BuffV1::named(&names[k]);
-            if k == 0 {
-                b.range = self.p.q_evo_range;
-            }
-            sim.add_buff(me, &b);
+            // s1's attack range is league.dll's league:range reading the marker (2026-11-07), not a `range` here
+            sim.add_buff(me, &BuffV1::named(&names[k]));
             if !quiet {
                 sim.play_view_effect(&n("evo"), me, &on_me, 0, 0, 0);
                 sim.play_sfx(&n("evo"), me, &on_me);

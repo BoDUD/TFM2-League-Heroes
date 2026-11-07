@@ -109,11 +109,20 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   median 77000 from champions and most often exactly 78000 (55000 + 18000 + both bodies), 60 of 82 holds past his
   range; marksmen without a range buff never were (Jinx 0 of 210, Vayne 0 of 104, Sivir 0 of 93); league_twitch's
   R (+30000) parked him at 90000; players: 「大嘴很少普攻」, and on league_kayle (10-21) 「只有当敌方到达默认攻击
-  范围才会进行攻击」. Put the reach in the attack's own `range` instead (league_kogmaw 2026-11-07: W's +18000 folded
-  into a 65000 attack, the classic SDK's kill difference unchanged, +3.07 against +2.92 with the buff). The same
-  logs show the band past the base range for the other `range` buffs too (league_tristana's levels, the human
-  forms of league_elise / league_nidalee, league_jayce's cannon, league_poppy's ready buckler, league_rengar's
-  ready leap): a new kit should not lean on one for its attack.
+  范围才会进行攻击」. The same logs show it for the other `range` buffs (league_tristana's levels, the human forms of
+  league_elise / league_nidalee, league_jayce's cannon, league_poppy's buckler, league_rengar's leap, league_senna's
+  Mist: 81 of 130 holds past her range). **Never give attack range with a `range` buff; use the official ways,
+  which every range check reads, the AI's included:** the action's `growth_range` (range per level above 1;
+  league_tristana's Draw a Bead) or `range_adjust` on the action's effect (stable API 0.6.4+; the base game's
+  poison dart hunter and crossbowman lengthen their reach that way, never with a buff). A data kit gets
+  `range_adjust` through league.dll's native `league:range` (main 0.319.0, 2026-11-07): its range_adjust is the
+  sum of `tools/kit/range_buffs.py`'s RANGE_BUFFS over the caster's buffs (each instance counts: league_senna's
+  Mist, league_kindred's marks), so the buff stays the marker without a `range` field and the attack carries
+  `{"type": "Native", "effect_ref": "league:range"}` as an effect of its top `Combine` (game_core's
+  CombineEffect answers range_adjust with the largest of its effects'; put it last, the first effect is what the
+  game's balance patches read). A kit script does `build = range_buffs.wrap(build)`; a new marker goes into
+  RANGE_BUFFS (`--write` regenerates league.dll's table, `--check` in CI fails on any buff left with `range`).
+  #702 had folded league_kogmaw's W into a 65000 attack for a day; W is League's again (55000, +18000).
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
@@ -731,7 +740,7 @@ as League's Annie does (section 7).
 `hp_regen` is health per second (the base UI: "HP Regen per Second"). `undying: true` keeps the
 unit alive while the buff lasts (Touhou Mokou's ult, LoL Reborn Sion's R).
 
-Fields seen (count across packs): `range` (attack range bonus, 278), `move_speed_mult` (235),
+Fields seen (count across packs): `range` (attack range bonus, 278; not in this pack since 2026-11-07: section 3), `move_speed_mult` (235),
 `attack_speed_mult` (160), `magic_power_mult` (122), `attack_mult` (115), `hp_mult` (115),
 `base_attack_enemy_max_hp_damage` (on-hit % max HP, 111), `skill_cooldown_mult` (110),
 `damaged_reduce` (% less damage taken, 74), `defence_mult` (72), `magic_resistance_mult` (70),

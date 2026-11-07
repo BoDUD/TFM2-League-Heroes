@@ -55,7 +55,7 @@
 
 ### 沃利贝尔附加包
 
-[沃利贝尔附加包](../../addons/league_volibear/README.md)：`league_volibear` v0.3.1
+[沃利贝尔附加包](../../addons/league_volibear/README.md)：`league_volibear` v0.3.2
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

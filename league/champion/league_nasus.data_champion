@@ -347,7 +347,6 @@
                                                 "hp": 300,
                                                 "defence": 40,
                                                 "magic_resistance": 40,
-                                                "range": 4000,
                                                 "skill_cooldown_mult": 100,
                                                 "ult_cooldown_mult": -100
                                               },
@@ -773,6 +772,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -1616,7 +1619,6 @@
                                                 "hp": 300,
                                                 "defence": 40,
                                                 "magic_resistance": 40,
-                                                "range": 4000,
                                                 "skill_cooldown_mult": 100,
                                                 "ult_cooldown_mult": -100
                                               },

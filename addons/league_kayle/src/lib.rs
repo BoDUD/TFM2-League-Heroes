@@ -109,14 +109,10 @@ pub fn missing_flags(level: u32, has: &dyn Fn(&str) -> bool) -> Vec<String> {
 /// 第 k 阶要补上的 buff：和主包 `AddCasterBuff` 的一样（12 级的 form3 是另一条，只带翅膀）。
 pub fn rank_buff(k: usize) -> BuffV1 {
     let mut b = BuffV1::named(&ky(RANKS[k]));
-    match k {
-        0 => b.range = 27_500,
-        2 => {
-            b.attack_speed_mult = 30;
-            b.move_speed_mult = 10;
-            b.range = 10_000;
-        }
-        _ => {}
+    // rank5 / rank12's attack range is league.dll's league:range reading these markers (2026-11-07), not a `range` here
+    if k == 2 {
+        b.attack_speed_mult = 30;
+        b.move_speed_mult = 10;
     }
     b
 }
@@ -279,9 +275,10 @@ mod tests {
 
     #[test]
     fn same_numbers_as_the_main_pack() {
-        assert_eq!(rank_buff(0).range, 27_500);
+        // the ranks' attack range (27500, then 10000 more) is league.dll's league:range reading the markers (2026-11-07)
+        assert_eq!(rank_buff(0).range, 0);
         assert_eq!((rank_buff(1).range, rank_buff(1).attack_speed_mult), (0, 0));
         let b = rank_buff(2);
-        assert_eq!((b.attack_speed_mult, b.move_speed_mult, b.range), (30, 10, 10_000));
+        assert_eq!((b.attack_speed_mult, b.move_speed_mult, b.range), (30, 10, 0));
     }
 }

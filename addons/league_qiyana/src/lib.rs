@@ -429,7 +429,7 @@ pub(crate) fn set_element(sim: &mut StableSim<'_>, me: usize, el: Element, p: &P
     }
     let mut on = BuffV1::named(&qy("el_on"));
     on.attack_speed_mult = p.w_as as i32;
-    on.range = p.w_range;
+    // the +w_range attack range is league.dll's league:range reading el_on (2026-11-07), not a `range` here
     sim.add_buff(me, &on);
     sim.add_buff(me, &BuffV1::named(&qy(el.flag())));
 }

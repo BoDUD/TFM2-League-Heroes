@@ -42,7 +42,7 @@
     "cooltime": 54,
     "start_timing": 1,
     "cancelable": true,
-    "range": 65000,
+    "range": 55000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
@@ -391,7 +391,7 @@
                   "effects": [
                     {
                       "type": "RandomTarget",
-                      "range": 65000,
+                      "range": 73000,
                       "casting_target": "EnemyChampion",
                       "from_projectile": false,
                       "effects": [
@@ -583,6 +583,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }

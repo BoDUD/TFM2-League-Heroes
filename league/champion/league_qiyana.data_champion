@@ -171,6 +171,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -1242,8 +1246,7 @@
                                         "buff_state": {
                                           "name": "league_qiyana_el_on",
                                           "duration": "Permanent",
-                                          "attack_speed_mult": 25,
-                                          "range": 1500
+                                          "attack_speed_mult": 25
                                         },
                                         "only_to_enemy": false
                                       },
@@ -1296,8 +1299,7 @@
                                           "buff_state": {
                                             "name": "league_qiyana_el_on",
                                             "duration": "Permanent",
-                                            "attack_speed_mult": 25,
-                                            "range": 1500
+                                            "attack_speed_mult": 25
                                           },
                                           "only_to_enemy": false
                                         },
@@ -1339,8 +1341,7 @@
                                           "buff_state": {
                                             "name": "league_qiyana_el_on",
                                             "duration": "Permanent",
-                                            "attack_speed_mult": 25,
-                                            "range": 1500
+                                            "attack_speed_mult": 25
                                           },
                                           "only_to_enemy": false
                                         },
@@ -2694,8 +2695,7 @@
                                                                                     "buff_state": {
                                                                                       "name": "league_qiyana_el_on",
                                                                                       "duration": "Permanent",
-                                                                                      "attack_speed_mult": 25,
-                                                                                      "range": 1500
+                                                                                      "attack_speed_mult": 25
                                                                                     },
                                                                                     "only_to_enemy": false
                                                                                   },
@@ -2748,8 +2748,7 @@
                                                                                       "buff_state": {
                                                                                         "name": "league_qiyana_el_on",
                                                                                         "duration": "Permanent",
-                                                                                        "attack_speed_mult": 25,
-                                                                                        "range": 1500
+                                                                                        "attack_speed_mult": 25
                                                                                       },
                                                                                       "only_to_enemy": false
                                                                                     },
@@ -2791,8 +2790,7 @@
                                                                                       "buff_state": {
                                                                                         "name": "league_qiyana_el_on",
                                                                                         "duration": "Permanent",
-                                                                                        "attack_speed_mult": 25,
-                                                                                        "range": 1500
+                                                                                        "attack_speed_mult": 25
                                                                                       },
                                                                                       "only_to_enemy": false
                                                                                     },

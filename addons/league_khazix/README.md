@@ -1,4 +1,4 @@
-# 卡兹克视野与进化附加包（测试版 v0.1.0）
+# 卡兹克视野与进化附加包（测试版 v0.1.1）
 
 主包 `league` 保持纯数据。数据读不到视野和等级，主包里卡兹克的被动「无形威胁」在 R 隐身、复活和约 4 秒没出手后就绪；
 进化靠「法强探测」（每级 +1 法强，自伤打护盾）在 5/8/11 级后一两秒内认出等级（用户：「数据读不到就用rust 改写源码」）。
@@ -29,3 +29,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_khazix`：单元测试（参数、按等级进化、被动就绪的条件）。
 - 在 `addons/` 下 `cargo build --release -p league_khazix`（Windows）得到 `target/release/league_khazix.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+
+## 射程 buff 改成主包 league.dll 的 league:range（v0.1.1，2026-11-07）
+
+带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。本包原生代码补回 / 挂上的 buff 也不再带 `range`。

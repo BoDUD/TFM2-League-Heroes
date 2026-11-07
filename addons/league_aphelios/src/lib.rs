@@ -166,12 +166,10 @@ pub fn parse_params(json: &str) -> Params {
     p
 }
 
-/// 主手武器 buff（和主包数据加的同名同属性：通碧射程、断魄吸血和攻速）。
+/// 主手武器 buff（和主包数据加的同名同属性：断魄吸血和攻速；通碧的 `c_range` 不在 buff 上——2026-11-07 起 buff 只是标记，
+/// 射程由主包 league.dll 的 `league:range` 按 `league_aphelios_mw_cal` 加，AI 的出手判断也认）。
 pub fn weapon_buff(w: usize, p: &Params) -> BuffV1 {
     let mut b = BuffV1::named(&main_buff(w));
-    if w == CAL {
-        b.range = p.c_range;
-    }
     if w == SEV {
         b.vamp = p.sev_vamp;
         b.attack_speed_mult = p.sev_as;
@@ -648,8 +646,9 @@ mod tests {
     #[test]
     fn the_weapon_buffs_carry_the_main_packs_stats() {
         let p = Params::default();
+        // Calibrum's reach is league.dll's league:range reading the marker (2026-11-07): no `range` on the buff
         let c = weapon_buff(CAL, &p);
-        assert_eq!((c.name(), c.range), ("league_aphelios_mw_cal", 10000));
+        assert_eq!((c.name(), c.range), ("league_aphelios_mw_cal", 0));
         let s = weapon_buff(SEV, &p);
         assert_eq!((s.vamp, s.attack_speed_mult), (10, 20));
         assert_eq!(weapon_buff(2, &p).range, 0);

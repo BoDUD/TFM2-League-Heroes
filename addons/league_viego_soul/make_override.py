@@ -27,6 +27,7 @@ ADDON = os.path.join(ROOT, "addons", "league_viego_soul")
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import build_viego as kit  # noqa: E402
+import range_buffs  # noqa: E402  (league.dll's league:range)
 import setup_viego as setup  # noqa: E402
 import generated  # noqa: E402  --check
 
@@ -131,6 +132,9 @@ def main():
                  "league_viego_p_on", "league_viego_shape"):
         if name not in json.dumps(champion):
             sys.exit(f"{name} is gone from the copy: update src/lib.rs")
+    # a ranged soul gives +25000 attack range: league.dll's league:range reads league_viego_soul_<cat>, so the
+    # attack carries the node (tools/kit/range_buffs.py; src/lib.rs puts no `range` on league_viego_p_on)
+    range_buffs.apply(champion, force=True)
     champion["attack"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.attack"
     champion["skill2"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.skill2"
 

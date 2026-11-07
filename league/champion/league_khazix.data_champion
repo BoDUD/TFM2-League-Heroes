@@ -789,8 +789,7 @@
                                                                                           "type": "AddCasterBuff",
                                                                                           "buff_state": {
                                                                                             "name": "league_khazix_s1",
-                                                                                            "duration": "Permanent",
-                                                                                            "range": 6000
+                                                                                            "duration": "Permanent"
                                                                                           },
                                                                                           "only_to_enemy": false
                                                                                         }
@@ -4720,8 +4719,7 @@
                                                                                                 "type": "AddCasterBuff",
                                                                                                 "buff_state": {
                                                                                                   "name": "league_khazix_s1",
-                                                                                                  "duration": "Permanent",
-                                                                                                  "range": 6000
+                                                                                                  "duration": "Permanent"
                                                                                                 },
                                                                                                 "only_to_enemy": false
                                                                                               },
@@ -5048,8 +5046,7 @@
                                                 "type": "AddCasterBuff",
                                                 "buff_state": {
                                                   "name": "league_khazix_s1",
-                                                  "duration": "Permanent",
-                                                  "range": 6000
+                                                  "duration": "Permanent"
                                                 },
                                                 "only_to_enemy": false
                                               }
@@ -5091,6 +5088,10 @@
               }
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -5780,8 +5781,7 @@
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
                                                       "name": "league_khazix_s1",
-                                                      "duration": "Permanent",
-                                                      "range": 6000
+                                                      "duration": "Permanent"
                                                     },
                                                     "only_to_enemy": false
                                                   }
@@ -6097,8 +6097,7 @@
                                                             "type": "AddCasterBuff",
                                                             "buff_state": {
                                                               "name": "league_khazix_s1",
-                                                              "duration": "Permanent",
-                                                              "range": 6000
+                                                              "duration": "Permanent"
                                                             },
                                                             "only_to_enemy": false
                                                           }
@@ -6631,8 +6630,7 @@
                                                       "type": "AddCasterBuff",
                                                       "buff_state": {
                                                         "name": "league_khazix_s1",
-                                                        "duration": "Permanent",
-                                                        "range": 6000
+                                                        "duration": "Permanent"
                                                       },
                                                       "only_to_enemy": false
                                                     }
@@ -7015,8 +7013,7 @@
                                                             "type": "AddCasterBuff",
                                                             "buff_state": {
                                                               "name": "league_khazix_s1",
-                                                              "duration": "Permanent",
-                                                              "range": 6000
+                                                              "duration": "Permanent"
                                                             },
                                                             "only_to_enemy": false
                                                           }
@@ -7345,8 +7342,7 @@
                                                             "type": "AddCasterBuff",
                                                             "buff_state": {
                                                               "name": "league_khazix_s1",
-                                                              "duration": "Permanent",
-                                                              "range": 6000
+                                                              "duration": "Permanent"
                                                             },
                                                             "only_to_enemy": false
                                                           }
@@ -8151,8 +8147,7 @@
                                                             "type": "AddCasterBuff",
                                                             "buff_state": {
                                                               "name": "league_khazix_s1",
-                                                              "duration": "Permanent",
-                                                              "range": 6000
+                                                              "duration": "Permanent"
                                                             },
                                                             "only_to_enemy": false
                                                           }

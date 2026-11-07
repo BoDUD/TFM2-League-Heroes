@@ -13,8 +13,9 @@ changes:
      WithShield flag `probe_shielded` to the `SwitchByBuff probe_amp` that gives the stage - is replaced by
      `SwitchByBuff league_kayle_lv5 / lv8 / lv12` with the same two branches, so the stage, its ascent picture and
      voice and the next probe come as before, only at the level and 6 ticks sooner (no shields, no hits on herself).
-Checks first that the main pack's rank buffs carry the numbers the add-on puts back (rank5 range 27500; rank12 attack
-speed 30, move speed 10, range 10000; rank8 and form3 nothing), that every action still reads the once-a-life flag
+Checks first that the main pack's rank buffs carry the numbers the add-on puts back (rank12 attack speed 30, move
+speed 10; rank5, rank8 and form3 nothing: the ranks' attack range, 27500 and 10000 more, is league.dll's league:range
+reading the rank5 / rank12 markers since 2026-11-07, tools/kit/range_buffs.py), that every action still reads the once-a-life flag
 league_kayle_life the add-on sets and that no probe is left after the rewrite. The tooltip stays the main pack's (it
 is at the details panel's length limit), so text/champion.i18n is empty. Run it again whenever the main pack's Kayle
 changes.
@@ -34,9 +35,9 @@ import generated  # noqa: E402  --check
 MOD_ID = "league_kayle"
 # the buffs src/lib.rs puts back, as the main pack adds them
 RANKS = {
-    "league_kayle_rank5": {"range": 27500},
+    "league_kayle_rank5": {},
     "league_kayle_rank8": {},
-    "league_kayle_rank12": {"attack_speed_mult": 30, "move_speed_mult": 10, "range": 10000},
+    "league_kayle_rank12": {"attack_speed_mult": 30, "move_speed_mult": 10},
     "league_kayle_form3": {},
 }
 # the probe's shield -> the level flag src/lib.rs lays (LEVEL_FLAGS there)

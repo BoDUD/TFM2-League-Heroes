@@ -440,6 +440,10 @@
               }
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -1229,8 +1233,7 @@
                         "tick": 240
                       }
                     },
-                    "attack_speed_mult": 25,
-                    "range": 7500
+                    "attack_speed_mult": 25
                   },
                   "only_to_enemy": false
                 }

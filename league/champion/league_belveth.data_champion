@@ -357,7 +357,6 @@
                                                       }
                                                     },
                                                     "hp_mult": 20,
-                                                    "range": 6000,
                                                     "attack_speed_mult": 40,
                                                     "move_speed_mult": 15
                                                   },
@@ -1937,6 +1936,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -3364,7 +3367,6 @@
                                                       }
                                                     },
                                                     "hp_mult": 20,
-                                                    "range": 6000,
                                                     "attack_speed_mult": 40,
                                                     "move_speed_mult": 15
                                                   },
@@ -4915,7 +4917,6 @@
                                     }
                                   },
                                   "hp_mult": 20,
-                                  "range": 6000,
                                   "attack_speed_mult": 40,
                                   "move_speed_mult": 15
                                 },

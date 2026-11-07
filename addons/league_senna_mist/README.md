@@ -1,4 +1,4 @@
-# 赛娜黑雾常驻附加包（测试版 v0.1.0）
+# 赛娜黑雾常驻附加包（测试版 v0.1.2）
 
 用户：「灵魂层数 这个可以做扩展包吧」。主包 `league` 保持纯数据：赛娜被动「赦除」收集的每一层黑雾（灵魂）是她身上一个永久的
 `league_senna_mist`（攻击 +1、攻击距离 +100，每第二层再带 1% 暴击），叠层靠一个永久的单双开关 `league_senna_m_odd`。引擎在她
@@ -37,3 +37,7 @@ cd addons && cargo test --release -p league_senna_mist && cargo build --release 
 游戏 0.7.1 的投射物判定（拿 11-05 阿克尚 R 的子弹对出来的，见 league_akshan 0.2.7）：投射物每 tick 跳 `speed` 那么远，只打圆心在它这一 tick 位置 `radius` 以内的单位——不扫两个 tick 中间，也不算单位的体型。`speed` 大于两倍 `radius` 时，站在两 tick 之间的人整个被跨过去；圆比英雄的体型（10000）小很多时，要几乎正中才打得到。
 
 主包 R 的核心 `league_senna_r_core` 圆 7500、每 tick 飞 30000：线上一半的地方是空当，站在那里的英雄不挨伤害。主包 `build_senna` 的 `r_rad` 改 15000（英雄联盟 320 宽的核心加体型，= 速度的一半），副本重新生成；护盾那条宽光（100000）不变。
+
+## 射程 buff 改成主包 league.dll 的 league:range（v0.1.2，2026-11-07）
+
+带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。本包原生代码补回 / 挂上的 buff 也不再带 `range`。

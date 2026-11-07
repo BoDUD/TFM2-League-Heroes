@@ -11,7 +11,8 @@
 //! - **附身** p_t tick：身上挂 `league_viego_soul:<英雄 id>`（给显示钩子看：整个身体画成那个英雄，src/view.rs）、
 //!   `league_viego_soul_<类别>`（数据副本的普攻 / Q / W 按它换成五套招式之一：近战、射手、法师、辅助、刺客，类别按英雄 id 查
 //!   src/souls.rs，查不到按攻击距离猜）、`league_viego_p_on`（借来的攻击 / 攻速 / 移速；远程三类再加 s_range 25000 攻击距离——2026-10-21 起曾是 0：游戏 0.6.x 的 AI 被原生加的攻击距离
-//!   拉到远处站着不打人，「佛耶戈有bug 会无限期停在原地不动」；0.7.0 官方修了「mod 改了射程后来回走、不按改过的射程攻击」，恢复）、
+//!   拉到远处站着不打人，「佛耶戈有bug 会无限期停在原地不动」；0.7.0 官方修了「mod 改了射程后来回走、不按改过的射程攻击」，恢复；可 0.7.1 的日志里带 `range` buff 的英雄仍被停在射程外，
+//!   2026-11-07 起这份射程由主包 league.dll 的 `league:range` 读远程三类的类别 buff 加，`league_viego_p_on` 不带 range）、
 //!   `league_viego_p_safe`（p_inv tick 无敌、免控）、一下技能冷却（p_skill：Q、W 刷新；大招按 p_ult）、回血，
 //!   再挂 `league_viego_p_go` 让数据在他下一个动作里播吸魂的画面、动作和声音；
 //! - **结束**：时间到、他阵亡、或数据的大招拿掉了 `league_viego_p_on`（英雄联盟：放 R 回到本体）——拿掉外形和类别 buff，
@@ -373,9 +374,7 @@ impl Possess {
         on.attack_mult = p.p_ad as i32;
         on.attack_speed_mult = p.p_as as i32;
         on.move_speed_mult = p.p_ms as i32;
-        if ranged(soul.cat) && p.s_range > 0 {
-            on.range = p.s_range as usize;
-        }
+        // a ranged soul's +s_range is league.dll's league:range reading league_viego_soul_<cat> (2026-11-07)
         sim.entity_remove_buff(me, ON);
         sim.add_buff(me, &on);
         let mut safe = timed(SAFE, p.p_inv);

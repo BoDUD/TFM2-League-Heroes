@@ -176,7 +176,10 @@ def no_lasting_reach(o):
     league_rengar's `ready` +25000, league_khazix's evolved `s1` +6000) - in Sylas's hands nothing ever did, so a stolen
     Jayce / Rengar / Kha'Zix R left him that reach until he died. 0.6.x's AI stood him off at it; 0.7.0 fixed the
     engine's stretched reach ("a champion whose attacks were changed by a mod ... moved back and forth"), so he would
-    really chain from it. Timed range buffs (Twitch R, Akali, Seraphine's notes ...) end with the steal and are kept."""
+    really chain from it. Timed range buffs (Twitch R, Akali, Seraphine's notes ...) end with the steal and are kept.
+    Since 2026-11-07 no buff of the pack carries `range` (league.dll's `league:range` reads them as markers, through
+    the node in the owner's attack - tools/kit/range_buffs.py): Sylas's attack has no node, so a stolen ult lends him
+    none of that reach and the AI does not stand him off at it."""
     if isinstance(o, dict):
         o = {k: no_lasting_reach(v) for k, v in o.items()}
         st = o.get("buff_state")

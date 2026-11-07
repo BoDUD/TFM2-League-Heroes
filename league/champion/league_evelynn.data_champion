@@ -150,8 +150,7 @@
                                     "type": "AddCasterBuff",
                                     "buff_state": {
                                       "name": "league_evelynn_e_range",
-                                      "duration": "Permanent",
-                                      "range": 20000
+                                      "duration": "Permanent"
                                     },
                                     "only_to_enemy": false
                                   }
@@ -1226,8 +1225,7 @@
                                                           "type": "AddCasterBuff",
                                                           "buff_state": {
                                                             "name": "league_evelynn_e_range",
-                                                            "duration": "Permanent",
-                                                            "range": 20000
+                                                            "duration": "Permanent"
                                                           },
                                                           "only_to_enemy": false
                                                         }
@@ -2446,6 +2444,10 @@
               }
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -2565,8 +2567,7 @@
                                     "type": "AddCasterBuff",
                                     "buff_state": {
                                       "name": "league_evelynn_e_range",
-                                      "duration": "Permanent",
-                                      "range": 20000
+                                      "duration": "Permanent"
                                     },
                                     "only_to_enemy": false
                                   }

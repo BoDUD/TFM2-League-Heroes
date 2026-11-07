@@ -1,4 +1,4 @@
-# 纳尔附加包（测试版 v0.1.0）
+# 纳尔附加包（测试版 v0.1.4）
 
 用户：附加包「要」；「还有r墙眩晕别人的机制也要做」。主包 `league` 的纳尔是纯数据，不装这个包也完整可玩；这个附加包用原生代码补
 数据做不到的两件事（都照英雄联盟）：
@@ -25,3 +25,7 @@
   `src/lib.rs` 的常量和参数表一致）。
 - 在 `addons/` 下 `cargo test --release -p league_gnar`：单元测试（挑方向、英雄权重、撞墙伤害、副本）。
 - 在 `addons/` 下 `cargo build --release -p league_gnar`（Windows）得到 `league_gnar.dll`；`league_addons` 合集也会编进本包。
+
+## 射程 buff 改成主包 league.dll 的 league:range（v0.1.4，2026-11-07）
+
+带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。

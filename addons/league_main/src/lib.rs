@@ -1,6 +1,6 @@
 //! 主包 `league` 自己的 DLL（league.dll）：用户 2026-10-12「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」。
 //!
-//! 主包的英雄还是纯数据；这个 DLL 只做数据做不到的画面：**高清帧（PPU）**——登记在 src/hd.rs 的英雄（先是亚索，PPU 3：
+//! 主包的英雄还是数据（只有一处借这个 DLL：下面的 `league:range`）；这个 DLL 主要做数据做不到的画面：**高清帧（PPU）**——登记在 src/hd.rs 的英雄（先是亚索，PPU 3：
 //! 身体 1 倍图整 3 倍，Codex 画的头每格 2×2）在战场、卡牌、图鉴、头像上都画自己图里 PPU 倍密的 `hd_` 帧，大小不变、
 //! 像素更细；界面（BP 格子、图鉴 / 头像、选人位、选中特写、记分板头像）画每个英雄自己的小图集（0.7.140）。
 //!
@@ -13,6 +13,11 @@
 //! src/cache.rs（0.8.16）：游戏的 GPU 图片缓存（Skia 的 GrResourceCache，默认 256 MiB）放大到 1 GiB——一屏英雄多的界面
 //! 不再因为装不下而每帧清掉、重新上传贴图；0.9.14 起 1.5 GiB（物理内存不到 8 GiB 的机器仍 1 GiB），用到 90%、到顶清图时
 //! 写日志。
+//!
+//! src/range.rs（0.9.15）：原生效果 `league:range`。英雄的攻击距离 buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，
+//! 英雄停在够不着的地方），改成官方的 `range_adjust`：这个效果的 range_adjust 是施放者身上标记 buff 的射程之和
+//! （表在 src/range_table.rs，由 tools/kit/range_buffs.py 生成），数据把它放在普攻最外层的 Combine 里。引擎每一处射程判断都读它，
+//! AI 的也是。没有这个 DLL 时（Mac / Linux）这个效果找不到，经典 SDK 的引擎对此只记一条警告，英雄只是没有那份射程。
 //!
 //! src/warm.rs（0.7.27）：标题画面出来以后，后台线程把主包 `sound/bgm/` 里的音频按盘上的顺序读一遍进系统缓存，
 //! 比赛里音频第一次播放就不用在主线程等读盘。
@@ -38,11 +43,13 @@ use mod_api_stable::*;
 mod cache;
 pub mod diverge;
 pub mod hd;
+pub mod range;
+mod range_table;
 #[cfg(windows)]
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.14";
+const VERSION: &str = "0.9.15";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -110,6 +117,8 @@ fn init(host: &StableHost) -> StableMod {
     let mut module = StableMod::new(ID);
     #[cfg(windows)]
     module.set_extension(warm::Warm);
+    // `league:range`: the attack range of the pack's marker buffs, read by every range check (src/range.rs)
+    module.add_native_effect(range::NODE, range::Range);
     // the only match hook this module may set: the per-600-tick simulation checksum (src/diverge.rs)
     module.set_match_hook(diverge::Diverge);
     module

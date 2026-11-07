@@ -55,7 +55,7 @@
 
 ### 斩杀附加包：伊芙琳、阿卡丽、锐雯
 
-[斩杀附加包：伊芙琳、阿卡丽、锐雯](../../addons/league_executes/README.md)：`league_executes` v0.2.2
+[斩杀附加包：伊芙琳、阿卡丽、锐雯](../../addons/league_executes/README.md)：`league_executes` v0.2.3
 
 | 英雄 | 主包（纯数据） | 装了附加包 |
 |---|---|---|

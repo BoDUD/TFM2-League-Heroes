@@ -55,7 +55,7 @@
 
 ### 米利欧附加包
 
-[米利欧附加包](../../addons/league_milio/README.md)：`league_milio` v0.1.4
+[米利欧附加包](../../addons/league_milio/README.md)：`league_milio` v0.1.5
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

@@ -55,13 +55,13 @@
 
 ### 凯尔升阶附加包：按真实等级升阶、死后不掉
 
-[凯尔升阶附加包：按真实等级升阶、死后不掉](../../addons/league_kayle/README.md)：`league_kayle` v0.2.1
+[凯尔升阶附加包：按真实等级升阶、死后不掉](../../addons/league_kayle/README.md)：`league_kayle` v0.2.2
 
 0.2.1（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（`tools/fix/arm_refund_read.py`（凯尔是手写的 JSON）），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.1（通用附加包，下面只列和凯尔有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.3（通用附加包，下面只列和凯尔有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

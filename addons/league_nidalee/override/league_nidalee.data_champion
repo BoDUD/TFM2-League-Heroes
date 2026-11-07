@@ -69,8 +69,7 @@
               "type": "AddCasterBuff",
               "buff_state": {
                 "name": "league_nidalee_hu",
-                "duration": "Permanent",
-                "range": 27000
+                "duration": "Permanent"
               },
               "only_to_enemy": false
             }
@@ -283,8 +282,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "league_nidalee_hu",
-                    "duration": "Permanent",
-                    "range": 27000
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 },
@@ -672,6 +670,10 @@
               ]
             }
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -708,8 +710,7 @@
               "type": "AddCasterBuff",
               "buff_state": {
                 "name": "league_nidalee_hu",
-                "duration": "Permanent",
-                "range": 27000
+                "duration": "Permanent"
               },
               "only_to_enemy": false
             }
@@ -1091,8 +1092,7 @@
               "type": "AddCasterBuff",
               "buff_state": {
                 "name": "league_nidalee_hu",
-                "duration": "Permanent",
-                "range": 27000
+                "duration": "Permanent"
               },
               "only_to_enemy": false
             }

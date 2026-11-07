@@ -41,6 +41,7 @@ FX = "asset/league/effects/league_gwen_fx"
 BIG = "asset/league/effects/league_gwen_big"
 sys.path.insert(0, os.path.join(REPO, "tools", "fix"))
 import mirror_union_fx  # noqa: E402
+import range_buffs  # noqa: E402  (league.dll's league:range: the range buffs as markers)
 
 # Numbers = candidate g4 of the 10-min classic-SDK simulations (tr_sim's kd.py copied to Temp/gw_sim, top lane against
 # fighter, executioner, lancer, pole_warrior, knight and berserker, three lineups, both sides, 24 seeds a batch,
@@ -337,6 +338,11 @@ def nodes(o):
     if isinstance(o, list):
         return sum(nodes(v) for v in o)
     return 0
+
+
+# every kit with a range buff: the buffs carry no `range`, the attack reads them through league:range
+# (tools/kit/range_buffs.py, 2026-11-07)
+build = range_buffs.wrap(build)
 
 
 def main():
