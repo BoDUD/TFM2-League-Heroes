@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.113.1"
+    }
+  ],
+  "description": "Read-only fight log for League of Legends Heroes: for every match the server plays it writes how the teams fight to league_fight_log.log - deaths by position (top, jungle, mid, bottom, support; before 10:00 too) and where they happened (under the victim's own tower, under the enemy's, outnumbered, solo kills), the fights and teamfights and who died first in them, how often the ADC is dived and whether a teammate came to help, how long each position spends next to an enemy, and who takes the damage - with an average every 50 matches that also goes to league_fight_log.sum.log, which no launch rewrites. Changes nothing in the game.\n\n只读的打架记录器：每场服务器预演的比赛写一行双方怎么打架——各位置（上单、打野、中单、射手、辅助）的阵亡（10:00 前另记）和死在哪（自己塔下、对面塔下、被多打少、被单杀）、几场架和团战、团战谁先死、射手被贴脸几次、有没有队友来救、各位置贴着敌人的时间、谁在挨打；每 50 场一行平均，也追加到不随启动重写的 league_fight_log.sum.log。不改游戏里的任何东西。",
+  "last_updated": "2026-11-08",
+  "mod_id": "league_fight_log",
+  "mod_type": "native",
+  "name": "League Heroes: fight log (diagnostic)",
+  "version": "0.1.0"
+}

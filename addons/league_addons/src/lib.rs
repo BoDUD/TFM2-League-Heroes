@@ -148,6 +148,8 @@ mod milio;
 mod recall_log;
 #[path = "../../league_macro_log/src/lib.rs"]
 mod macro_log;
+#[path = "../../league_fight_log/src/lib.rs"]
+mod fight_log;
 #[path = "../../league_macro/src/lib.rs"]
 mod macro_hook;
 #[allow(dead_code)] // items public in the add-on's own crate
@@ -446,7 +448,7 @@ impl StableExtension for BundleClient {
 
 /// A mod has one match hook too (set_match_hook keeps only the last): Karthus's `Respawns` (a fallen spirit's respawn
 /// cut), the League easter eggs (league_eggs), Lucian's `Aim` (the flag of the side his R fires to, read by his
-/// display hook) and the read-only macro log (league_macro_log, last: it only reads) all
+/// display hook) and the read-only macro and fight logs (league_macro_log, league_fight_log, last: they only read) all
 /// watch every tick of every simulation, called here one after the other, Karthus's first as it always ran. Set after every register, so it replaces the one karthus::register sets.
 struct BundleMatch;
 impl StableMatchHook for BundleMatch {
@@ -461,6 +463,7 @@ impl StableMatchHook for BundleMatch {
         eggs::Eggs.on_match_tick(sim, rng_seed);
         lucian::Aim.on_match_tick(sim, rng_seed);
         macro_log::Watch.on_match_tick(sim, rng_seed);
+        fight_log::Watch.on_match_tick(sim, rng_seed);
     }
 
     fn check_match_end(&self, sim: &mut StableSim<'_>) -> Option<bool> {
@@ -522,6 +525,7 @@ fn init(host: &StableHost) -> StableMod {
     milio::register(host, &mut module);
     recall_log::register(host, &mut module);
     macro_log::register(host, &mut module);
+    fight_log::register(host, &mut module);
     macro_hook::register(host, &mut module);
     jayce::register(host, &mut module);
     elise::register(host, &mut module);
