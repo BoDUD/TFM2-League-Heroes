@@ -38,10 +38,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "fiddlesticks", "hd")
-AH.RAW, AH.PITCH = "fiddlesticks-A.png", (10.73, 10.85)    # 10.79 px, the default read (PPU ~2.2) until the user picks
+# the user's picks (2026-11-07): 「1.8 for all four」(四位都用 1.8)
+AH.RAW, AH.PITCH = "fiddlesticks-A.png", (13.03, 13.15)    # 13.09 px, the user's pick: PPU 1.80
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"fiddlesticks-A.png": {"10.79": ((10.73, 10.85), 5), "8.86": ((8.8, 8.92), 4), "13.09": ((13.03, 13.15), 6)}}
-DEFAULT = ("fiddlesticks-A.png", "10.79")
+DEFAULT = ("fiddlesticks-A.png", "13.09")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

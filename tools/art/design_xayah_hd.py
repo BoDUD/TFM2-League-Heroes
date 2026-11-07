@@ -37,10 +37,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "xayah", "hd")
-AH.RAW, AH.PITCH = "xayah-A.png", (11.64, 11.76)    # 11.7 px, the default read (PPU ~2.2) until the user picks
+# the user's picks (2026-11-07): 「1.8 for all four」(四位都用 1.8)
+AH.RAW, AH.PITCH = "xayah-A.png", (14.19, 14.31)    # 14.25 px, the user's pick: PPU 1.80
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"xayah-A.png": {"11.7": ((11.64, 11.76), 5), "9.73": ((9.67, 9.79), 4), "14.25": ((14.19, 14.31), 6)}}
-DEFAULT = ("xayah-A.png", "11.7")
+DEFAULT = ("xayah-A.png", "14.25")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

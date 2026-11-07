@@ -37,10 +37,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "rakan", "hd")
-AH.RAW, AH.PITCH = "rakan-A.png", (10.52, 10.64)    # 10.58 px, the default read (PPU ~2.2) until the user picks
+# the user's picks (2026-11-07): 「1.8 for all four」(四位都用 1.8)
+AH.RAW, AH.PITCH = "rakan-A.png", (12.93, 13.05)    # 12.99 px, the user's pick: PPU 1.80
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"rakan-A.png": {"10.58": ((10.52, 10.64), 5), "8.78": ((8.72, 8.84), 4), "12.99": ((12.93, 13.05), 6)}}
-DEFAULT = ("rakan-A.png", "10.58")
+DEFAULT = ("rakan-A.png", "12.99")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)
