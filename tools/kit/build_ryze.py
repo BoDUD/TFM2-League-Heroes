@@ -32,6 +32,10 @@ Kit (the user's picks, 2026-10-02, all A):
           through to him (Grab), and on landing he throws a free Spell Flux at an enemy champion in reach. Left
           unused, the window refunds the cooldown. R's passive: after his first R in a life the Flux burst of Q is
           stronger (League: Overload's bonus against Flux rises with R).
+          2026-11-07 (the user: 「瑞兹的大招逻辑有问题吧」 - 传进敌人堆里送死, 该逃时不逃): below 35% health (league.dll's
+          `league:low_hp` flag, the data reads no health) an enemy champion within r_flee sends him away and he never
+          chases; a chase first counts the champions where its line stopped and opens no portal where two or more enemy
+          champions outnumber his allies (R stays armed, no more chases this window).
 Flux is a mark per unit: two AddCasted on each enemy the E zone reaches (one plays the rune mark picture while the
 generation flag holds, one checks every pop_period ticks for the caster flag q_pop and bursts). Three generations
 (fx_c from the combo's first E, fx_d from its second, fx_r from R's landing E): a new E switches the other generation off, so a unit never carries
@@ -94,6 +98,12 @@ P = {
     "r_crowd": 3, "r_chase_mates": 25000, "r_crowd_r": 100000, "r_need_seen": 0,
     "r_far": 360000, "r_far_min": 60000, "r_far_safe": 30000, "r_far_try": 3,
     "r_portal": 25000, "r_grab": 15000, "r_carry": 30000, "r_land": 16, "r_e_range": 70000,
+    # 2026-11-07 (the user: 「瑞兹的大招逻辑有问题吧」, picked 传进敌人堆里送死 and 该逃时不逃): r_flee - below 35% health
+    # (league.dll's `league:low_hp` flag; the data reads no health) an enemy champion within r_flee sends him away and
+    # nothing else: no chase. r_land_r / r_land_check - the chase's landing spot counted before the channel starts: two
+    # or more enemy champions within r_land_r of it and fewer allied champions -> no warp (R stays armed, no more chases
+    # this window, the refund stands).
+    "r_flee": 60000, "r_land_r": 60000, "r_land_check": 1,
     # his spoken lines: one every vo_gap ticks at most
     "vo_gap": 600,
 }
@@ -202,6 +212,9 @@ def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel
 
 
 GENS = ("c", "d", "r")
+# league.dll's native check (addons/league_main/src/low_hp.rs): below 35% health the caster gets LOW_HP for 3 ticks
+LOW_HP_NODE = "league:low_hp"
+LOW_HP = "league_low_hp"
 
 
 def build(p):
@@ -332,10 +345,14 @@ def build(p):
                 "penetrate": True, "y_offset": 5000, "applied_target": "EnemyChampion", "applied_effects": [],
                 "end_effects": [delayed(after, sw("r_go", pull))]}
 
-    def start():
-        """The channel: his portal, the cast animation, the crowd-control checks (queued on him)."""
-        return [*rm("r_armed", "r_cut", "r_go", "r_hit"), anim("ult", ch), sfx("r_cast"), sfx("vo_r"), cview("r_portal"),
+    def channel():
+        """The channel's sights and checks: his portal, the cast animation, the crowd-control checks (queued on him)."""
+        return [anim("ult", ch), sfx("r_cast"), sfx("vo_r"), cview("r_portal"),
                 self_only(*[delayed(t, cc_check) for t in range(15, ch, 15)])]
+
+    def start():
+        """The channel, its flags cleared first."""
+        return [*rm("r_armed", "r_cut", "r_go", "r_hit"), *channel()]
 
     def arrive(go_t):
         return [flag("r_go", go_t), sw("r_pass", NONE, flag("r_pass", "Permanent")), cview("r_out"), sfx("r_warp")]
@@ -351,12 +368,43 @@ def build(p):
     # line that touched an enemy champion (r_hit) shows the far portal and takes him there; a miss warps nowhere.
     step = min(p["r_step"], 2 * p["r_stop"])
     fly = -(-p["r_move"] // step)
-    beacon = {"type": "LinearProjectile", "name": n("r_beacon"), "speed": step, "range": p["r_move"],
-              "shape": circle(p["r_stop"]), "penetrate": False, "y_offset": 5000, "applied_target": "EnemyChampion",
-              "applied_effects": [T(flag("r_hit", ch + 2))], "end_effects": [
-                  delayed(1, sw("r_hit", view("r_dest"))), delayed(ch - fly, sw("r_hit", sw("r_cut", NONE, combine(
-                      *arrive(8), {"type": "Teleport"}, *land()))))]}
-    chase = combine(*start(), beacon, anchor(ch + 1))
+    go_now = combine(*arrive(8), {"type": "Teleport"}, *land())
+    if p["r_land_check"]:
+        # 2026-11-07 (the user: 「传进敌人堆里送死」): the line flies first, unseen; where it stops, two zones count the
+        # enemy and the allied champions within r_land_r (league_leesin W's count: a zone's every hit climbs a caster flag
+        # ladder), and 3 ticks later the channel starts only if the spot is not theirs - at most one enemy champion, or as
+        # many allied champions as enemy ones. Otherwise no channel at all: R stays armed (an escape may still come, the
+        # unused window refunds) and no more chases this window. A line that touched nobody warps nowhere (before, it
+        # played the whole channel for nothing).
+        def ladder(pre, k=3):
+            e = flag(f"{pre}1", 6)
+            for i in range(2, k + 1):
+                e = sw(f"{pre}{i - 1}", flag(f"{pre}{i}", 6), e)
+            return sw(f"{pre}{k}", NONE, e)
+
+        def count(pre, target):
+            return {"type": "RangeProjectile", "name": n(f"r_count_{pre[-1]}"), "shape": circle(p["r_land_r"]),
+                    "delay": 1, "apply": 1, "applied_target": target, "applied_effects": [T(ladder(pre))]}
+
+        def theirs(go, stop):
+            return sw("r_le3", sw("r_la3", go, stop), sw("r_le2", sw("r_la2", go, stop), go))
+        stop = combine(refresh("r_armed", p["r_arm"]), refresh("r_nohunt", p["r_arm"]))
+        go = combine(flag("r_lok", ch + 6), *channel(), view("r_dest"))
+        beacon = {"type": "LinearProjectile", "name": n("r_beacon"), "speed": step, "range": p["r_move"],
+                  "shape": circle(p["r_stop"]), "penetrate": False, "y_offset": 5000, "applied_target": "EnemyChampion",
+                  "applied_effects": [T(flag("r_hit", ch + 2))], "end_effects": [
+                      count("r_le", "EnemyChampion"), count("r_la", "AllyNotSelf"),
+                      delayed(3, sw("r_hit", theirs(go, stop), stop)),
+                      delayed(3 + ch, sw("r_lok", sw("r_cut", NONE, go_now)))]}
+        # the anchor's pull comes a tick or four after he lands (the line stops 1-4 ticks out, the channel 3 ticks later)
+        chase = combine(*rm("r_armed", "r_cut", "r_go", "r_hit", "r_lok", *[f"r_l{s}{i}" for s in "ea" for i in (1, 2, 3)]),
+                        beacon, anchor(ch + fly + 4))
+    else:
+        beacon = {"type": "LinearProjectile", "name": n("r_beacon"), "speed": step, "range": p["r_move"],
+                  "shape": circle(p["r_stop"]), "penetrate": False, "y_offset": 5000, "applied_target": "EnemyChampion",
+                  "applied_effects": [T(flag("r_hit", ch + 2))], "end_effects": [
+                      delayed(1, sw("r_hit", view("r_dest"))), delayed(ch - fly, sw("r_hit", sw("r_cut", NONE, go_now)))]}
+        chase = combine(*start(), beacon, anchor(ch + 1))
     # the escape (on the champion right on him): at the end of the channel a jump straight away from it
     bt = p["r_back_t"]
     # the far escape: a 1-tick lob onto an allied champion (league_annie R's way to a unit's spot); where it lands it
@@ -393,20 +441,28 @@ def build(p):
     hunt = rand("EnemyChampionRecentlyAttacked", p["r_chase"], [sw("r_armed", chase)])
     # never into a teamfight: r_crowd enemy champions within r_chase round him -> no chase
     hunt = sw(f"r_c{p['r_crowd']}", NONE, hunt)
+    if p["r_land_check"]:
+        hunt = sw("r_nohunt", NONE, hunt)
     if p["r_chase_mate"]:
         hunt = sw("r_mate2", hunt)
+    # below 35% health (league.dll's `league:low_hp` sets LOW_HP on him: the data reads no health; without the DLL the flag
+    # never comes and the rules below are the old ones): only the escape, from an enemy champion within r_flee - never a
+    # chase (2026-11-07: league_ult_press pressed R at low health and the check, blind to it, did nothing or warped him on)
+    low = lambda yes, no: {"type": "SwitchByBuff", "buff_name": LOW_HP, "effect_buff": yes, "effect_none": no}
+    flee = rand("EnemyChampion", p["r_flee"], [sw("r_armed", escape)])
     r_try = sw("r_armed", combine(
         *rm("r_n1", "r_n2", "r_near", "r_mate", "r_mate2", *[f"r_c{i}" for i in range(1, p["r_crowd"] + 1)]),
+        {"type": "Native", "effect_ref": LOW_HP_NODE},
         around(p["r_crowd_r"], "EnemyChampion", [crowd(p["r_crowd"])]),
         rand("AllyNotSelf", p["r_chase_mates"], [flag("r_mate2", 2)]),
         around(p["r_esc"], "EnemyChampion", [sw("r_n1", flag("r_n2", 2), flag("r_n1", 2))]),
         rand("AllyNotSelf", p["r_mates"], [flag("r_mate", 2)]), *alone,
         rand("EnemyChampion", p["r_reach"], [flag("r_near", 2), refresh("r_seen", p["r_seen"])]),
-        delayed(1, sw("r_armed", sw("r_n2", rand("EnemyChampion", p["r_esc"], [sw("r_armed", escape)]),
-                                    sw("r_near", NONE, sw("r_seen", hunt) if p["r_need_seen"] else hunt))))))
+        delayed(1, sw("r_armed", low(flee, sw("r_n2", rand("EnemyChampion", p["r_esc"], [sw("r_armed", escape)]),
+                                    sw("r_near", NONE, sw("r_seen", hunt) if p["r_need_seen"] else hunt)))))))
     poll = {"type": "AddCasted", "casted_type": "Bleed", "duration": p["r_arm"], "period": p["r_poll"], "effects": [r_try]}
     ult = action("idle", 3, p["r_cd"], 1, p["r_range"], "None", "EnemyChampion", combine(
-        *rm("r_armed"), flag("r_armed", p["r_arm"]), self_only(poll),
+        *rm("r_armed", "r_nohunt"), flag("r_armed", p["r_arm"]), self_only(poll),
         # the refund reads the arm flag 3 ticks before it ends (a flag of n ticks is seen on n - 1 of them,
         # champion-data §8): read on its last tick it was always gone, so an unused window never refunded (11-02's
         # logs: ult_press saw 0 refunds for Orianna, Ryze, Aphelios and Swain)

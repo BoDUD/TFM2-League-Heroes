@@ -55,7 +55,7 @@
 
 ### 参与击杀附加包：金克丝、崔丝塔娜、易、图奇
 
-[参与击杀附加包：金克丝、崔丝塔娜、易、图奇](../../addons/league_takedowns/README.md)：`league_takedowns` v0.5.2
+[参与击杀附加包：金克丝、崔丝塔娜、易、图奇](../../addons/league_takedowns/README.md)：`league_takedowns` v0.5.3
 
 | 英雄 | 主包（纯数据） | 装了附加包 |
 |---|---|---|
