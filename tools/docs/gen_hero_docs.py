@@ -66,7 +66,7 @@ SLOT_NAME = {"skill": "skill1", "skill2": "skill2", "ult": "ult"}
 TICKS = 60  # ticks a second
 # add-ons that are no hero's (the DLL, the bundle, shared code, diagnostics)
 NOT_HERO_ADDONS = {"league_main", "league_addons", "game_places", "hd_engine", "vendor", "league_recall_log", "league_macro_log", "league_macro",
-                   "league_fight_log", "league_unlock_guard"}
+                   "league_fight_log", "league_peel", "league_unlock_guard"}
 
 
 # ---------------------------------------------------------------- reading the repo (working tree, else git HEAD)
