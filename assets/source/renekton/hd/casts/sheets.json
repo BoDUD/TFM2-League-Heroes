@@ -1,0 +1,489 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "5": "attack 1"
+  },
+  "skill": {
+   "6": "skill 1"
+  },
+  "skill2": {
+   "4": "attack 1"
+  },
+  "skill2_w": {
+   "3": "skill2_w 1",
+   "4": "skill2_w 2",
+   "5": "skill2_w 1",
+   "6": "skill2_w 2"
+  },
+  "ult": {
+   "4": "ult 3",
+   "5": "ult 3",
+   "6": "ult 1"
+  },
+  "hit": {
+   "2": "hit 1"
+  },
+  "dead": {
+   "5": "dead 4",
+   "6": "dead 4",
+   "7": "dead 4",
+   "8": "dead 4"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [
+  "attack",
+  "skill2"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched, heavy run, leaning forward, the great glaive held low behind him on the picture's left, the tail swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    96
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his clawed foot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms, the tail and the glaive follow the pale figure. The tail reaches down to the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched, heavy run, leaning forward, the great glaive held low behind him on the picture's left, the tail swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    96
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood.",
+   "legs": "Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms, the tail and the glaive follow the pale figure. The tail reaches down to the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched, heavy run, leaning forward, the great glaive held low behind him on the picture's left, the tail swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    96
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms, the tail and the glaive follow the pale figure. The tail reaches down to the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched, heavy run, leaning forward, the great glaive held low behind him on the picture's left, the tail swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    96
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood.",
+   "legs": "Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms, the tail and the glaive follow the pale figure. The tail reaches down to the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched, heavy run, leaning forward, the great glaive held low behind him on the picture's left, the tail swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    96
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms, the tail and the glaive follow the pale figure. The tail reaches down to the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched, heavy run, leaning forward, the great glaive held low behind him on the picture's left, the tail swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    96
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood.",
+   "legs": "Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms, the tail and the glaive follow the pale figure. The tail reaches down to the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched, heavy run, leaning forward, the great glaive held low behind him on the picture's left, the tail swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    96
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms, the tail and the glaive follow the pale figure. The tail reaches down to the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a hunched, heavy run, leaning forward, the great glaive held low behind him on the picture's left, the tail swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    96
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood.",
+   "legs": "Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the arms, the tail and the glaive follow the pale figure. The tail reaches down to the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the glaive slash): he stands hunched, the glaive low behind him (frame 1), raises it high behind his head, the blade at the picture's upper left (frame 2), swings it over and forward, the blade out in front of his snout at the picture's right (frame 3), and sweeps it down low in front of him (frame 4); frame 5 = frame 1",
+   "ms": [
+    60
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the glaive slash): he stands hunched, the glaive low behind him (frame 1), raises it high behind his head, the blade at the picture's upper left (frame 2), swings it over and forward, the blade out in front of his snout at the picture's right (frame 3), and sweeps it down low in front of him (frame 4); frame 5 = frame 1",
+   "ms": [
+    60
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the glaive slash): he stands hunched, the glaive low behind him (frame 1), raises it high behind his head, the blade at the picture's upper left (frame 2), swings it over and forward, the blade out in front of his snout at the picture's right (frame 3), and sweeps it down low in front of him (frame 4); frame 5 = frame 1",
+   "ms": [
+    80
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the glaive slash): he stands hunched, the glaive low behind him (frame 1), raises it high behind his head, the blade at the picture's upper left (frame 2), swings it over and forward, the blade out in front of his snout at the picture's right (frame 3), and sweeps it down low in front of him (frame 4); frame 5 = frame 1",
+   "ms": [
+    80
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cull the Meek (Q): he stands hunched (frame 1), raises the glaive high behind his head (frame 2), swings it forward, the blade out at the picture's right (frame 3), sweeps it down low in front (frame 4), and carries it on round behind him, his body twisting with the spin, the blade at the picture's left (frame 5); frame 6 = frame 1",
+   "ms": [
+    60
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cull the Meek (Q): he stands hunched (frame 1), raises the glaive high behind his head (frame 2), swings it forward, the blade out at the picture's right (frame 3), sweeps it down low in front (frame 4), and carries it on round behind him, his body twisting with the spin, the blade at the picture's left (frame 5); frame 6 = frame 1",
+   "ms": [
+    60
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cull the Meek (Q): he stands hunched (frame 1), raises the glaive high behind his head (frame 2), swings it forward, the blade out at the picture's right (frame 3), sweeps it down low in front (frame 4), and carries it on round behind him, his body twisting with the spin, the blade at the picture's left (frame 5); frame 6 = frame 1",
+   "ms": [
+    70
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cull the Meek (Q): he stands hunched (frame 1), raises the glaive high behind his head (frame 2), swings it forward, the blade out at the picture's right (frame 3), sweeps it down low in front (frame 4), and carries it on round behind him, his body twisting with the spin, the blade at the picture's left (frame 5); frame 6 = frame 1",
+   "ms": [
+    70
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Cull the Meek (Q): he stands hunched (frame 1), raises the glaive high behind his head (frame 2), swings it forward, the blade out at the picture's right (frame 3), sweeps it down low in front (frame 4), and carries it on round behind him, his body twisting with the spin, the blade at the picture's left (frame 5); frame 6 = frame 1",
+   "ms": [
+    70
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Slice and Dice (E): he dashes forward low, the body stretched out, the glaive raised behind him, the blade at the upper left (frame 1), slashes it forward, the blade out in front at the picture's right (frame 2), and gathers up, the glaive low behind him again (frame 3); frame 4 = the attack's frame 1",
+   "ms": [
+    60
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Slice and Dice (E): he dashes forward low, the body stretched out, the glaive raised behind him, the blade at the upper left (frame 1), slashes it forward, the blade out in front at the picture's right (frame 2), and gathers up, the glaive low behind him again (frame 3); frame 4 = the attack's frame 1",
+   "ms": [
+    60
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Slice and Dice (E): he dashes forward low, the body stretched out, the glaive raised behind him, the blade at the upper left (frame 1), slashes it forward, the blade out in front at the picture's right (frame 2), and gathers up, the glaive low behind him again (frame 3); frame 4 = the attack's frame 1",
+   "ms": [
+    60
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill2_w",
+   "name": "skill2_w_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Ruthless Predator (W): he raises the glaive high behind his head (frame 1) and slashes it forward, the blade out at the picture's right (frame 2) - twice more: frames 3-6 = frames 1, 2, 1, 2 - and stands hunched, the glaive low behind him (frame 7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill2_w",
+   "name": "skill2_w_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Ruthless Predator (W): he raises the glaive high behind his head (frame 1) and slashes it forward, the blade out at the picture's right (frame 2) - twice more: frames 3-6 = frames 1, 2, 1, 2 - and stands hunched, the glaive low behind him (frame 7)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "skill2_w",
+   "name": "skill2_w_3",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Ruthless Predator (W): he raises the glaive high behind his head (frame 1) and slashes it forward, the blade out at the picture's right (frame 2) - twice more: frames 3-6 = frames 1, 2, 1, 2 - and stands hunched, the glaive low behind him (frame 7)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Dominus (R): he stands hunched (frame 1), rears up, the glaive raised up behind his back, the arms spread (frame 2), and holds it, roaring, taller still (frame 3); frames 4-5 = frame 3, frame 6 = frame 1",
+   "ms": [
+    80
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Dominus (R): he stands hunched (frame 1), rears up, the glaive raised up behind his back, the arms spread (frame 2), and holds it, roaring, taller still (frame 3); frames 4-5 = frame 3, frame 6 = frame 1",
+   "ms": [
+    80
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Dominus (R): he stands hunched (frame 1), rears up, the glaive raised up behind his back, the arms spread (frame 2), and holds it, roaring, taller still (frame 3); frames 4-5 = frame 3, frame 6 = frame 1",
+   "ms": [
+    100
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back a little, the glaive low behind him (frame 1; frame 2 = frame 1)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he rears back, the glaive flung up behind him (frame 2), topples over backwards, twisting, the glaive falling at the picture's left (frame 3), and lies on his back as the pale figure has him - the body tipped up on end, the snout pointing up, the claws in the air, the glaive on the ground (frame 4; frames 5-8 = frame 4)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he rears back, the glaive flung up behind him (frame 2), topples over backwards, twisting, the glaive falling at the picture's left (frame 3), and lies on his back as the pale figure has him - the body tipped up on end, the snout pointing up, the claws in the air, the glaive on the ground (frame 4; frames 5-8 = frame 4)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he rears back, the glaive flung up behind him (frame 2), topples over backwards, twisting, the glaive falling at the picture's left (frame 3), and lies on his back as the pale figure has him - the body tipped up on end, the snout pointing up, the claws in the air, the glaive on the ground (frame 4; frames 5-8 = frame 4)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), he rears back, the glaive flung up behind him (frame 2), topples over backwards, twisting, the glaive falling at the picture's left (frame 3), and lies on his back as the pale figure has him - the body tipped up on end, the snout pointing up, the claws in the air, the glaive on the ground (frame 4; frames 5-8 = frame 4)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE GREAT GLAIVE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the huge curved blade and its gold hilt, as big as in image 1, in his near clawed hand - held low behind him, raised high, swung forward, swept round or dropped, as the pale figure has it. THE TAIL where the pale figure has it. Only him: no slashes, no dash streaks, no sand, no red fury glow, no blood."
+  }
+ ]
+}
