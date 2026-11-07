@@ -112,6 +112,87 @@ pub fn quiet(p: Plan, ai: Option<usize>) -> Plan {
     }
 }
 
+// ===================== 0.2.0：拦下的 R 改成什么（工坊 2026-11-07） =====================
+
+/// 目标离敌方塔这么近就算在塔下（league_ult_press 的 `TOWER_REACH`）。
+pub const TOWER_REACH: f64 = 75_000.0;
+/// 数人数看这么远（league_ult_press 的 `CROWD_R`）。
+pub const CROWD_R: f64 = 60_000.0;
+/// 走过去打要的生命比例（league_ult_press 的 `HOLD_MIN_HP`）。
+pub const CHASE_MIN_HP: f64 = 0.5;
+/// 普攻够得着（中心距离：主包普攻 25000 加两人的体积）。
+pub const ATTACK_REACH: f64 = 30_000.0;
+/// 塔下的人也打：他身边的我方英雄（含他）比目标身边的敌方英雄（含目标）至少多这么多（越塔的人数优势）。
+pub const DIVE_AHEAD: usize = 2;
+
+/// 拦下 AI 的 R 之后做什么。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum HoldMove {
+    /// 打 AI 想砍的那个人（够不着就走过去，0.1.x 一律这样）。
+    Attack,
+    /// 不追：后撤（引擎自己的撤退走法），理由记日志。
+    Back(&'static str),
+}
+
+/// 0.2.0（工坊 2026-11-07：「Garen is very very aggressive (both on my players and enemy). Constantly dies diving tower vs
+/// full health enemy (suicide)」）：AI 想对一个砍不死的人放 R 时，0.1.x 一律改成「打他，打不到就走过去」——不看塔、不看
+/// 人数、不看自己的血；AI 在这一阵里每 tick 都想放，他就一路追着满血的人进塔（日志 11-06：R HELD 的目标 1728/1728、
+/// 2320/2320、2512/2512……，一局 4–14 次）。现在：
+/// - 目标在敌方塔下：不打，除非人数占优 `DIVE_AHEAD` 以上；
+/// - 普攻够得着：打（站着就打得到，不往前走）；
+/// - 要走过去：他的生命不低于 `CHASE_MIN_HP`、目标身边的敌方英雄不比他身边的我方英雄多，才走过去打；
+/// - 别的都后撤。
+///
+/// `me` / `target`：位置；`hp`：他的生命比例；`allies`：我方英雄（不含他）；`foes`：敌方英雄（含目标）；`towers`：敌方的塔。
+pub fn hold_move(
+    me: (f64, f64),
+    hp: f64,
+    target: (f64, f64),
+    allies: &[(f64, f64)],
+    foes: &[(f64, f64)],
+    towers: &[(f64, f64)],
+) -> HoldMove {
+    let theirs = foes.iter().filter(|&&p| dist(p, target) <= CROWD_R).count().max(1);
+    let ours = 1 + allies.iter().filter(|&&p| dist(p, me) <= CROWD_R).count();
+    if towers.iter().any(|&w| dist(w, target) <= TOWER_REACH) && ours < theirs + DIVE_AHEAD {
+        return HoldMove::Back("under its tower");
+    }
+    if dist(me, target) <= ATTACK_REACH {
+        return HoldMove::Attack;
+    }
+    if hp < CHASE_MIN_HP {
+        return HoldMove::Back("too hurt to chase");
+    }
+    if theirs > ours {
+        return HoldMove::Back("outnumbered");
+    }
+    HoldMove::Attack
+}
+
+pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+// ===================== 0.2.0：E 吃攻速（工坊 2026-11-07） =====================
+
+/// 主包 E「审判」：转 `E_SPINS` 圈，每圈 `E_BASE` + `E_AD`% 攻击力的物理伤害（`make_override.py` 核对）。
+pub const E_SPINS: usize = 7;
+pub const E_BASE: usize = 25;
+pub const E_AD: usize = 55;
+/// 英雄联盟：每 25% 额外攻速多转一圈。
+pub const AS_PER_SPIN: usize = 25;
+/// 最多多转这么多圈（英雄联盟攻速上限附近：+150% 额外攻速）。
+pub const MAX_EXTRA_SPINS: usize = 6;
+
+/// 0.2.0（工坊 2026-11-07：「Would also be nice if his E scaled on attack speed (like LoL) for his attack speed/crit builds」）：
+/// 数据里 E 的圈数是死的（七个 `Delayed`），本包在每圈打中的每个人身上补一份：多出来的圈数（额外攻速 / 25%，可以是
+/// 小数）摊到七圈里，即每圈 `E_BASE + E_AD% 攻击力` 再乘 额外攻速 / (25% x 7)。`as_mult`：引擎的攻速倍率（100 = 没加成）。
+/// 物理伤害照常吃护甲。
+pub fn spin_extra(attack: usize, as_mult: usize) -> usize {
+    let bonus = as_mult.saturating_sub(100).min(AS_PER_SPIN * MAX_EXTRA_SPINS);
+    (E_BASE + attack * E_AD / 100) * bonus / (AS_PER_SPIN * E_SPINS)
+}
+
 /// A press of R the engine has not taken for this many ticks gets its line (0.1.2).
 pub const NOT_TAKEN: usize = 30;
 
@@ -204,6 +285,44 @@ mod tests {
         assert_eq!(p.map(|x| (x.since, x.target)), Some((20_010, 454)));
         assert_eq!(watch_press(&mut p, None, false, 20_011), None);
         assert_eq!(p, None);
+    }
+
+    #[test]
+    fn a_held_r_never_walks_him_under_a_tower_or_into_a_crowd() {
+        // the Workshop, 2026-11-07: 「Constantly dies diving tower vs full health enemy (suicide)」
+        let me = (0.0, 0.0);
+        let far = (40_000.0, 0.0);
+        let near = (25_000.0, 0.0);
+        // the target by its tower: no chase, not even in reach
+        let tower = [(100_000.0, 0.0)];
+        assert_eq!(hold_move(me, 1.0, far, &[], &[far], &tower), HoldMove::Back("under its tower"));
+        assert_eq!(hold_move(me, 1.0, near, &[], &[near], &[(90_000.0, 0.0)]), HoldMove::Back("under its tower"));
+        // ... unless his side is two ahead there (a dive with the team)
+        let mates = [(-5_000.0, 0.0), (0.0, 8_000.0)];
+        assert_eq!(hold_move(me, 1.0, far, &mates, &[far], &tower), HoldMove::Attack);
+        assert_eq!(hold_move(me, 1.0, far, &mates[..1], &[far], &tower), HoldMove::Back("under its tower"));
+        // a tower far from the target does not count
+        assert_eq!(hold_move(me, 1.0, far, &[], &[far], &[(200_000.0, 0.0)]), HoldMove::Attack);
+        // in reach: he hits, hurt or not
+        assert_eq!(hold_move(me, 0.2, near, &[], &[near], &[]), HoldMove::Attack);
+        // a walk: not hurt and not outnumbered
+        assert_eq!(hold_move(me, 0.4, far, &[], &[far], &[]), HoldMove::Back("too hurt to chase"));
+        let crowd = [far, (60_000.0, 10_000.0)];
+        assert_eq!(hold_move(me, 1.0, far, &[], &crowd, &[]), HoldMove::Back("outnumbered"));
+        assert_eq!(hold_move(me, 1.0, far, &mates[..1], &crowd, &[]), HoldMove::Attack);
+    }
+
+    #[test]
+    fn e_spins_more_with_bonus_attack_speed() {
+        // League: a spin more every 25% bonus attack speed, folded into the 7 spins the data plays
+        assert_eq!(spin_extra(200, 100), 0, "no bonus");
+        assert_eq!(spin_extra(200, 80), 0, "slowed: nothing taken off");
+        // 25 + 110 = 135 a spin; +25% -> 1/7 of it on each spin
+        assert_eq!(spin_extra(200, 125), 135 / 7);
+        assert_eq!(spin_extra(200, 150), 135 * 2 / 7);
+        // capped at six spins more (+150%)
+        assert_eq!(spin_extra(200, 400), spin_extra(200, 250));
+        assert_eq!(spin_extra(200, 250), 135 * 6 / 7);
     }
 
     #[test]

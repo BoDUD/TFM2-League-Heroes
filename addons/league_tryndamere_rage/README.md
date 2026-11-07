@@ -1,4 +1,4 @@
-# 蛮王残血开大附加包（测试版 v0.2.3）
+# 蛮王残血开大附加包（测试版 v0.3.0）
 
 0.2.2（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（`tools/kit/build_tryndamere.py`，主包和副本的 JSON 由 `tools/fix/arm_refund_read.py` 改（蛮王的烘焙表在 assets/ 里，这里重建不了）），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -49,3 +49,12 @@ SDK 模拟里这样开大时他的生命中位数是 75%，一半的阵亡发生
 别的模拟里刚记下的「R 好了」没了，那一 tick 被动以为 R 没好，残血先喝了 Q，同一局的两份模拟喝的 tick 不一样。现在新的一行进来时
 只删这份模拟里他前几条命的行；表满 4096 行时丢编号最小（最早开始、早已打完）的模拟的行，正在跑的这一份从不丢。测试
 `a_new_row_makes_room_only_in_its_own_sim`。
+
+## 0.3.0：不死里、R 好着的残血时接着打（2026-11-07）
+
+工坊：「Tryndamere doesn't seem to play like its League version. Doesn't auto-attack a lot and backs off when low health/full rage. Crit builds don't really work well with him since he almost never autos.」
+游戏的 AI 按血量撤，不知道他有「不死」：开了 R（满怒气、5 秒死不了）它照样带着他跑，R 好着的残血也先跑掉，本包快死才按的 R 就用不上。英雄联盟的蛮王这两种时候都在砍人。AI 钩子现在在 AI 撤（走路的目的地离最近的敌方英雄远 10000 以上）、回城或发呆（没命令、走到自己脚下）时接手（`fight_on`）：
+- 不死里：打 50000（参数 `near`）内最近的敌方英雄；
+- R 好着、生命低于 50%：打 35000 内最近的敌方英雄（够得着的，不追远处的人）；快死时照旧按 R，R 之后喝 Q。
+都不打敌方塔下（75000 内）的人，也不以少打多（目标身边 60000 内的敌方英雄不比他身边的我方英雄多，不死里可以多一个）。AI 自己在打（普攻、技能、往前走）照旧。日志 `FIGHT ON (raging | R ready at hp N%): the AI WalksAway|Recalls|Idles, attacking #id d away`（每 120 tick 一行）。
+同一条评论说盖伦追着满血的人越塔：AI 想放 R、被本包拦下时「走过去打」也不再走向敌方塔下的人（够得着就照旧打）。测试 `what_the_ai_does`、`he_fights_on_while_undying_and_with_r_up_when_hurt`。

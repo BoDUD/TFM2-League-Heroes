@@ -16,6 +16,8 @@
 //!   （打不到就走过去）；到了危险、R 冷却好、身边有敌方英雄时由它按下 R，下一 tick 被动就爆发——显示的「开大」就是爆发那一刻。
 //! - 嗜血杀戮：按身上的怒气层数回血（`q_heal` + `q_per` x 层数，加 `q_heal_ratio` + `q_per_ratio` x 层数 % 攻击力），
 //!   怒气清空，播 Q 的动作、画面和声音。
+//! - 接着打（0.3.0，工坊「backs off when low health/full rage」）：不死里、R 好着且生命低于 `FIGHT_HP`% 时，AI 要撤、回城或发呆，
+//!   钩子改成打身边（不在敌方塔下、不以少打多）的敌方英雄（`fight_on`）；AI 想放 R 被拦下时也不再走向敌方塔下的人。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从 tools/kit/build_tryndamere.py 的参数表 P 写进去），
 //! 本包不另记一份。生命历史记在每个蛮王自己的被动实例里；不用全局变量，服务端预模拟和你看的那场各算各的。
@@ -559,12 +561,112 @@ pub fn ult_plan(wants_ult: bool, danger: bool, free: bool) -> UltPlan {
     }
 }
 
+// ===================== 0.3.0：不死里、R 好着的残血时接着打（工坊 2026-11-07） =====================
+
+/// 塔下（目标离敌方塔这么近）、数人数的范围：同 league_ult_press 的 `TOWER_REACH`、`CROWD_R`。
+pub const TOWER_REACH: f64 = 75_000.0;
+pub const CROWD_R: f64 = 60_000.0;
+/// R 好着时，生命低于这个 % 才由本包接着打（这以上 AI 停住他时由 league_ult_press 的站桩规则管）；只打这么近的
+/// （近战普攻 25000 加两人体积，再多一点：不去追远处的人）。
+pub const FIGHT_HP: f64 = 50.0;
+pub const FIGHT_REACH: f64 = 35_000.0;
+/// 不死里多这么多敌方英雄也打（死不了；再多就让 AI 撤）。
+pub const RAGE_SLACK: usize = 1;
+/// 走路的目的地比现在离最近的敌方英雄远这么多以上就是在撤；离自己这么近就是站着（league_ult_press 的 HOLD_AWAY / HOLD_HERE）。
+pub const AWAY: f64 = 10_000.0;
+pub const HERE: f64 = 3_000.0;
+
+/// AI 这一 tick 在做什么（「接着打」只接手撤、回城和发呆）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum AiDoes {
+    /// 普攻、放技能、往前或往旁边走：它自己的打法，照旧。
+    Fights,
+    WalksAway,
+    Recalls,
+    /// 没下命令，或下令走到自己脚下。
+    Idles,
+}
+
+pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// AI 的输入算哪一种：`walk_to` 是走路命令的目的地（不是走路就 None），`foe` 最近的敌方英雄的位置。
+pub fn ai_does(kind: Option<InputKindV1>, walk_to: Option<(f64, f64)>, me: (f64, f64), foe: Option<(f64, f64)>) -> AiDoes {
+    match kind {
+        None => AiDoes::Idles,
+        Some(InputKindV1::Return) => AiDoes::Recalls,
+        Some(InputKindV1::Move) => match walk_to {
+            Some(to) if dist(to, me) <= HERE => AiDoes::Idles,
+            Some(to) if foe.is_some_and(|f| dist(to, f) > dist(me, f) + AWAY) => AiDoes::WalksAway,
+            _ => AiDoes::Fights,
+        },
+        _ => AiDoes::Fights,
+    }
+}
+
+/// 0.3.0（工坊 2026-11-07：「Tryndamere doesn't seem to play like its League version. Doesn't auto-attack a lot and backs off
+/// when low health/full rage. Crit builds don't really work well with him since he almost never autos.」）：游戏的 AI 按血量撤，
+/// 不知道他有「不死」——开了 R（满怒气、死不了的 5 秒）它照样带着他跑，R 好着的残血也先跑掉，本包快死才按的 R 就用不上。
+/// 英雄联盟的蛮王这两种时候都在砍人。AI 撤、回城或发呆（`AiDoes`）时：
+/// - 不死里（`raging`）：打 `near` 内最近的敌方英雄；
+/// - R 好着（`r_up`）、生命低于 `FIGHT_HP`%：打 `FIGHT_REACH` 内最近的敌方英雄（够得着的，不追远处的人）；
+/// 都不打敌方塔下（`TOWER_REACH`）的人，也不以少打多：目标身边 `CROWD_R` 内的敌方英雄不比他身边的我方英雄（含他）多，
+/// 不死里可以多 `RAGE_SLACK` 个。返回要打的人在 `foes` 里的下标。
+#[allow(clippy::too_many_arguments)]
+pub fn fight_on(
+    raging: bool,
+    r_up: bool,
+    hp: f64,
+    does: AiDoes,
+    me: (f64, f64),
+    allies: &[(f64, f64)],
+    foes: &[(f64, f64)],
+    towers: &[(f64, f64)],
+    near: f64,
+) -> Option<usize> {
+    if does == AiDoes::Fights {
+        return None;
+    }
+    let (reach, slack) = if raging {
+        (near, RAGE_SLACK)
+    } else if r_up && hp < FIGHT_HP {
+        (FIGHT_REACH, 0)
+    } else {
+        return None;
+    };
+    let ours = 1 + allies.iter().filter(|&&a| dist(a, me) <= CROWD_R).count();
+    foes.iter()
+        .enumerate()
+        .filter(|(_, &f)| dist(f, me) <= reach)
+        .filter(|(_, &f)| !towers.iter().any(|&w| dist(w, f) <= TOWER_REACH))
+        .filter(|(_, &f)| foes.iter().filter(|&&o| dist(o, f) <= CROWD_R).count() <= ours + slack)
+        .min_by(|a, b| dist(*a.1, me).total_cmp(&dist(*b.1, me)))
+        .map(|(i, _)| i)
+}
+
+/// 他身边的场面（0.3.0，只在要看时读）：我方英雄（不含他）、看得见的敌方英雄（编号和位置）、敌方立着的塔。
+#[derive(Clone, Default)]
+struct Scene {
+    allies: Vec<(f64, f64)>,
+    foes: Vec<(usize, (f64, f64))>,
+    towers: Vec<(f64, f64)>,
+}
+
+impl Scene {
+    fn under_tower(&self, id: usize) -> bool {
+        self.foes.iter().find(|f| f.0 == id).is_some_and(|f| self.towers.iter().any(|&w| dist(w, f.1) <= TOWER_REACH))
+    }
+}
+
 #[derive(Clone, Default)]
 struct UltAi {
     p: Params,
     seen: Vec<(usize, f64)>,
     last_hold: Option<usize>,
     last_cast: Option<usize>,
+    /// 「接着打」上次记日志的 tick（0.3.0）。
+    last_fight: Option<usize>,
 }
 
 impl StablePlayerAi for UltAi {
@@ -598,7 +700,7 @@ impl StablePlayerAi for UltAi {
             let (x, y) = sim.get_player(player)?.champion()?.pos();
             Some(InputV1::move_to(x, y))
         };
-        let Some((hp, free, danger_near, cc, target, target_pos, near_pos, line)) = (|| {
+        let Some((hp, free, danger_near, cc, target, target_pos, near_pos, line, raging, my_at, scene)) = (|| {
             let sim = ctx.sim()?;
             let pl = sim.get_player(player)?;
             let me = pl.champion()?;
@@ -608,7 +710,8 @@ impl StablePlayerAi for UltAi {
             let (now, max) = me.hp();
             let hp = if max > 0 { now as f64 * 100.0 / max as f64 } else { 100.0 };
             let names = buff_names(&sim, me.id());
-            let busy = names.iter().any(|b| *b == tr("r_armed") || *b == tr("r_rage"));
+            let raging = names.iter().any(|b| *b == tr("r_rage"));
+            let busy = raging || names.iter().any(|b| *b == tr("r_armed"));
             // `is_valid_input` does not look at cooldowns (league_pyke): the slot's own state decides
             let free = !busy && pl.level() >= 5 && pl.cooldowns().is_some_and(|c| c.3 == 0);
             let (id, team) = (me.id(), me.team());
@@ -621,7 +724,26 @@ impl StablePlayerAi for UltAi {
                 .map(|e| e.id());
             let target_pos = base_target.and_then(|t| sim.get_entity(t)).map(|e| e.pos());
             let near_pos = target.and_then(|t| sim.get_entity(t)).map(|e| e.pos());
-            Some((hp, free, enemy_near(&sim, id, team, self.p.near), controlled(&sim, id), target, target_pos, near_pos, head(&sim, id)))
+            let f64s = |p: (u64, u64)| (p.0 as f64, p.1 as f64);
+            // the field (0.3.0): only while it can matter - the AI's R held, raging, or R up while hurt
+            let scene = (wants_ult || raging || (free && hp < FIGHT_HP)).then(|| {
+                let mut s = Scene::default();
+                for e in (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)) {
+                    if !e.is_alive() || e.id() == id {
+                        continue;
+                    }
+                    if e.is_tower() && e.team() != team {
+                        s.towers.push(f64s(e.pos()));
+                    } else if e.is_champion() && e.team() == team {
+                        s.allies.push(f64s(e.pos()));
+                    } else if e.is_champion() && e.team() != team && e.is_targetable() {
+                        s.foes.push((e.id(), f64s(e.pos())));
+                    }
+                }
+                s
+            });
+            Some((hp, free, enemy_near(&sim, id, team, self.p.near), controlled(&sim, id), target, target_pos, near_pos,
+                  head(&sim, id), raging, f64s(me.pos()), scene))
         })() else {
             self.seen.clear();
             return if wants_ult { stay(ctx) } else { None };
@@ -638,7 +760,30 @@ impl StablePlayerAi for UltAi {
             plan => plan,
         };
         match plan {
-            UltPlan::Keep => None,
+            UltPlan::Keep => {
+                // 0.3.0: raging, or R up while hurt - he fights on where the AI would walk away, recall or stand
+                let s = scene.as_ref()?;
+                if cc {
+                    return None;
+                }
+                let kind = base.and_then(|b| InputKindV1::from_code(b.kind));
+                let walk_to = base.filter(|b| b.kind == InputKindV1::Move.code()).map(|b| (b.x as f64, b.y as f64));
+                let nearest = s.foes.iter().map(|f| f.1).min_by(|a, b| dist(*a, my_at).total_cmp(&dist(*b, my_at)));
+                let does = ai_does(kind, walk_to, my_at, nearest);
+                let spots: Vec<(f64, f64)> = s.foes.iter().map(|f| f.1).collect();
+                let pick = fight_on(raging, free, hp, does, my_at, &s.allies, &spots, &s.towers, self.p.near as f64)?;
+                let (t, at) = s.foes[pick];
+                if self.last_fight.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
+                    self.last_fight = Some(tick);
+                    let why = if raging { "raging".to_string() } else { format!("R ready at hp {hp:.0}%") };
+                    wlog(format!("{line} FIGHT ON ({why}): the AI {does:?}, attacking #{t} {:.0} away", dist(at, my_at)));
+                }
+                let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
+                if ctx.is_valid_input(&attack) {
+                    return Some(attack);
+                }
+                Some(InputV1::move_to(at.0 as u64, at.1 as u64))
+            }
             UltPlan::Cast => {
                 if self.last_cast.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
                     self.last_cast = Some(tick);
@@ -651,14 +796,18 @@ impl StablePlayerAi for UltAi {
                     self.last_hold = Some(tick);
                     wlog(format!("{line} R HELD: hp {hp:.0}%, not about to die"));
                 }
-                // attack the AI's target, else the nearest enemy champion; else walk to one; else stand
+                // attack the AI's target, else the nearest enemy champion; else walk to one - not one under an enemy
+                // tower (0.3.0, the same Workshop comment's Garen: 「Constantly dies diving tower vs full health enemy」);
+                // else stand
                 for t in [base_target, target].into_iter().flatten() {
                     let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(t));
                     if ctx.is_valid_input(&attack) {
                         return Some(attack);
                     }
                 }
-                for (x, y) in [target_pos, near_pos].into_iter().flatten() {
+                let towered = |t: Option<usize>| t.is_some_and(|t| scene.as_ref().is_some_and(|s| s.under_tower(t)));
+                for (t, at) in [(base_target, target_pos), (target, near_pos)] {
+                    let Some((x, y)) = at.filter(|_| !towered(t)) else { continue };
                     let walk = InputV1::move_to(x, y);
                     if ctx.is_valid_input(&walk) {
                         return Some(walk);
@@ -678,7 +827,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Undying Rage at low health, R pressed only then) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Undying Rage at low health, R pressed only then; fights on while undying and with R up when hurt) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -688,7 +837,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:rage_end"), RageEnd);
     module.add_native_passive(format!("{ID}:guard"), Guard::default());
     module.add_player_input_ai(UltAi::default());
-    host.log(LogLevel::Info, "league_tryndamere_rage v2 loaded (Tryndamere's R pressed and fired at low health, Q when hurt).");
+    host.log(LogLevel::Info, "league_tryndamere_rage v3 loaded (Tryndamere's R pressed and fired at low health, Q when hurt, fights on while undying).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -708,6 +857,48 @@ mod tests {
 
     fn now(hp: f64) -> Now {
         Now { hp, top: hp, enemy_near: true, armed: true, r_free: false, raging: false, q_cd: false, fury: 3, controlled: false }
+    }
+
+    #[test]
+    fn what_the_ai_does() {
+        let me = (0.0, 0.0);
+        let foe = Some((30_000.0, 0.0));
+        assert_eq!(ai_does(None, None, me, foe), AiDoes::Idles);
+        assert_eq!(ai_does(Some(InputKindV1::Return), None, me, foe), AiDoes::Recalls);
+        assert_eq!(ai_does(Some(InputKindV1::Move), Some((1_000.0, 0.0)), me, foe), AiDoes::Idles, "to his own feet");
+        assert_eq!(ai_does(Some(InputKindV1::Move), Some((-40_000.0, 0.0)), me, foe), AiDoes::WalksAway);
+        assert_eq!(ai_does(Some(InputKindV1::Move), Some((20_000.0, 10_000.0)), me, foe), AiDoes::Fights, "at him");
+        assert_eq!(ai_does(Some(InputKindV1::Attack), None, me, foe), AiDoes::Fights);
+        assert_eq!(ai_does(Some(InputKindV1::Skill), None, me, foe), AiDoes::Fights);
+    }
+
+    #[test]
+    fn he_fights_on_while_undying_and_with_r_up_when_hurt() {
+        // the Workshop, 2026-11-07: 「Doesn't auto-attack a lot and backs off when low health/full rage」
+        let me = (0.0, 0.0);
+        let foes = [(30_000.0, 0.0), (45_000.0, 0.0)];
+        let near = 50_000.0;
+        // raging: the nearest within `near`, whatever his health
+        assert_eq!(fight_on(true, false, 5.0, AiDoes::WalksAway, me, &[], &foes[..1], &[], near), Some(0));
+        assert_eq!(fight_on(true, false, 5.0, AiDoes::Recalls, me, &[], &foes[1..], &[], near), Some(0));
+        assert_eq!(fight_on(true, false, 5.0, AiDoes::Idles, me, &[], &[(60_000.0, 0.0)], &[], near), None, "too far");
+        // the AI's own fighting stays
+        assert_eq!(fight_on(true, true, 5.0, AiDoes::Fights, me, &[], &foes, &[], near), None);
+        // R up and hurt: only the ones in reach
+        assert_eq!(fight_on(false, true, 40.0, AiDoes::WalksAway, me, &[], &foes[..1], &[], near), Some(0));
+        assert_eq!(fight_on(false, true, 40.0, AiDoes::WalksAway, me, &[], &foes[1..], &[], near), None, "out of reach");
+        // not hurt enough (the hold rules of league_ult_press), or R not up: the AI's retreat
+        assert_eq!(fight_on(false, true, 60.0, AiDoes::WalksAway, me, &[], &foes[..1], &[], near), None);
+        assert_eq!(fight_on(false, false, 40.0, AiDoes::WalksAway, me, &[], &foes[..1], &[], near), None);
+        // never one under an enemy tower
+        let tower = [(90_000.0, 0.0)];
+        assert_eq!(fight_on(true, false, 5.0, AiDoes::WalksAway, me, &[], &foes[..1], &tower, near), None);
+        // the crowd: two by the target and him alone - not with R up; raging, one more is all right
+        assert_eq!(fight_on(false, true, 40.0, AiDoes::WalksAway, me, &[], &foes, &[], near), None);
+        assert_eq!(fight_on(true, false, 5.0, AiDoes::WalksAway, me, &[], &foes, &[], near), Some(0));
+        let three = [(30_000.0, 0.0), (45_000.0, 0.0), (40_000.0, 10_000.0)];
+        assert_eq!(fight_on(true, false, 5.0, AiDoes::WalksAway, me, &[], &three, &[], near), None);
+        assert_eq!(fight_on(true, false, 5.0, AiDoes::WalksAway, me, &[(-10_000.0, 0.0)], &three, &[], near), Some(0));
     }
 
     #[test]
