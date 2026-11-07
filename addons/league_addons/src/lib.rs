@@ -152,6 +152,8 @@ mod macro_log;
 mod fight_log;
 #[path = "../../league_macro/src/lib.rs"]
 mod macro_hook;
+#[path = "../../league_peel/src/lib.rs"]
+mod peel;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_jayce/src/lib.rs"]
 mod jayce;
@@ -527,6 +529,7 @@ fn init(host: &StableHost) -> StableMod {
     macro_log::register(host, &mut module);
     fight_log::register(host, &mut module);
     macro_hook::register(host, &mut module);
+    peel::register(host, &mut module);
     jayce::register(host, &mut module);
     elise::register(host, &mut module);
     katarina::register(host, &mut module);
