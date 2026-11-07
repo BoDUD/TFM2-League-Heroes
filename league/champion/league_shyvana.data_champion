@@ -2200,6 +2200,10 @@
               }
             }
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -5464,8 +5468,7 @@
                         },
                         "hp_mult": 30,
                         "defence_mult": 30,
-                        "magic_resistance_mult": 30,
-                        "range": 10000
+                        "magic_resistance_mult": 30
                       },
                       "only_to_enemy": false
                     },

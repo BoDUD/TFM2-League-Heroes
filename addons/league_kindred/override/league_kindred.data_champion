@@ -324,7 +324,6 @@
                                     "buff_state": {
                                       "name": "league_kindred_p_mark",
                                       "duration": "Permanent",
-                                      "range": 1500,
                                       "attack_speed_mult": 4,
                                       "magic_power": 1
                                     },
@@ -465,7 +464,6 @@
                                         "buff_state": {
                                           "name": "league_kindred_p_mark",
                                           "duration": "Permanent",
-                                          "range": 1500,
                                           "attack_speed_mult": 4,
                                           "magic_power": 1
                                         },
@@ -525,6 +523,10 @@
               }
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }

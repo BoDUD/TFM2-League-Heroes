@@ -84,8 +84,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "league_gnar_mi",
-                    "duration": "Permanent",
-                    "range": 17000
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 },
@@ -1155,6 +1154,10 @@
               }
             }
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -1194,8 +1197,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "league_gnar_mi",
-                    "duration": "Permanent",
-                    "range": 17000
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 },
@@ -2455,8 +2457,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "league_gnar_mi",
-                    "duration": "Permanent",
-                    "range": 17000
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 },
@@ -3502,8 +3503,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "league_gnar_mi",
-                    "duration": "Permanent",
-                    "range": 17000
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 },

@@ -515,6 +515,10 @@
               }
             }
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }

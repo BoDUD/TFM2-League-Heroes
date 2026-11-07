@@ -354,8 +354,7 @@
                                                 },
                                                 "hp": 300,
                                                 "defence": 40,
-                                                "magic_resistance": 40,
-                                                "range": 4000
+                                                "magic_resistance": 40
                                               },
                                               "only_to_enemy": false
                                             }
@@ -779,6 +778,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -1621,8 +1624,7 @@
                                                 },
                                                 "hp": 300,
                                                 "defence": 40,
-                                                "magic_resistance": 40,
-                                                "range": 4000
+                                                "magic_resistance": 40
                                               },
                                               "only_to_enemy": false
                                             }

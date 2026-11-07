@@ -246,8 +246,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "league_poppy_p_rdy",
-                    "duration": "Permanent",
-                    "range": 30000
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 }
@@ -302,8 +301,7 @@
                             "type": "AddCasterBuff",
                             "buff_state": {
                               "name": "league_poppy_p_rdy",
-                              "duration": "Permanent",
-                              "range": 30000
+                              "duration": "Permanent"
                             },
                             "only_to_enemy": false
                           }
@@ -792,6 +790,10 @@
               }
             ]
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }

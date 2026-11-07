@@ -55,7 +55,7 @@
 
 ### 斩杀附加包：伊芙琳、阿卡丽、锐雯
 
-[斩杀附加包：伊芙琳、阿卡丽、锐雯](../../addons/league_executes/README.md)：`league_executes` v0.2.2
+[斩杀附加包：伊芙琳、阿卡丽、锐雯](../../addons/league_executes/README.md)：`league_executes` v0.2.3
 
 | 英雄 | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -63,7 +63,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.1（通用附加包，下面只列和伊芙琳有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.3（通用附加包，下面只列和伊芙琳有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

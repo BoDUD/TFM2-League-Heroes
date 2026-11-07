@@ -180,7 +180,6 @@
                               "name": "league_senna_mist",
                               "duration": "Permanent",
                               "attack": 1,
-                              "range": 100,
                               "crit_chance": 1
                             },
                             "only_to_enemy": false
@@ -203,8 +202,7 @@
                             "buff_state": {
                               "name": "league_senna_mist",
                               "duration": "Permanent",
-                              "attack": 1,
-                              "range": 100
+                              "attack": 1
                             },
                             "only_to_enemy": false
                           }
@@ -309,7 +307,6 @@
                                           "name": "league_senna_mist",
                                           "duration": "Permanent",
                                           "attack": 1,
-                                          "range": 100,
                                           "crit_chance": 1
                                         },
                                         "only_to_enemy": false
@@ -332,8 +329,7 @@
                                         "buff_state": {
                                           "name": "league_senna_mist",
                                           "duration": "Permanent",
-                                          "attack": 1,
-                                          "range": 100
+                                          "attack": 1
                                         },
                                         "only_to_enemy": false
                                       }
@@ -402,7 +398,6 @@
                         "name": "league_senna_mist",
                         "duration": "Permanent",
                         "attack": 1,
-                        "range": 100,
                         "crit_chance": 1
                       },
                       "only_to_enemy": false
@@ -425,8 +420,7 @@
                       "buff_state": {
                         "name": "league_senna_mist",
                         "duration": "Permanent",
-                        "attack": 1,
-                        "range": 100
+                        "attack": 1
                       },
                       "only_to_enemy": false
                     }
@@ -595,6 +589,10 @@
               }
             ]
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }

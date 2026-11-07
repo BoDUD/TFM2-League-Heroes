@@ -43,6 +43,7 @@ plus the pro combos):
 import argparse
 import json
 import os
+import range_buffs  # noqa: E402  (league.dll's league:range: the range buffs as markers)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -389,6 +390,11 @@ def nodes(o):
     if isinstance(o, list):
         return sum(nodes(v) for v in o)
     return 0
+
+
+# every kit with a range buff: the buffs carry no `range`, the attack reads them through league:range
+# (tools/kit/range_buffs.py, 2026-11-07)
+build = range_buffs.wrap(build)
 
 
 def main():

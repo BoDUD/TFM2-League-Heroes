@@ -1265,7 +1265,6 @@
                                     "tick": 360
                                   }
                                 },
-                                "range": 30000,
                                 "attack": 15
                               },
                               "only_to_enemy": false
@@ -1645,7 +1644,6 @@
                                             "tick": 360
                                           }
                                         },
-                                        "range": 30000,
                                         "attack": 15
                                       },
                                       "only_to_enemy": false
@@ -3283,6 +3281,10 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "Native",
+              "effect_ref": "league:range"
             }
           ]
         }
@@ -5008,7 +5010,6 @@
                           "tick": 360
                         }
                       },
-                      "range": 30000,
                       "attack": 15
                     },
                     "only_to_enemy": false

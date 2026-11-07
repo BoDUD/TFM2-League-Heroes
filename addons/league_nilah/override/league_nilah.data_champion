@@ -48,144 +48,153 @@
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
     "effect": {
-      "type": "SwitchByBuff",
-      "buff_name": "league_nilah_q_on",
-      "effect_buff": {
-        "type": "Combine",
-        "effects": [
-          {
-            "type": "CasterAnimation",
-            "name": "attack_q",
-            "tick": 24
-          },
-          {
-            "type": "Sfx",
-            "name": "league_nilah_qa_swing"
-          },
-          {
-            "type": "Delayed",
-            "tick": 12,
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "league_nilah_q_on",
+          "effect_buff": {
+            "type": "Combine",
             "effects": [
               {
-                "type": "TargetProjectile",
-                "name": "league_nilah_qa_whip",
-                "speed": 100000,
-                "y_offset": 0,
-                "applied_target": "Enemy",
-                "applied_effects": [
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Attack",
-                      "damage": 0,
-                      "attack_ratio": 100,
-                      "hp_ratio": 0,
-                      "target_hp_ratio": 0,
-                      "attack_effect_type": "Target"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_nilah_a_hit"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "TargetSfx",
-                      "name": "league_nilah_a_hit"
-                    }
-                  }
-                ]
+                "type": "CasterAnimation",
+                "name": "attack_q",
+                "tick": 24
               },
               {
-                "type": "RangeEffect",
-                "shape": {
-                  "DirDot": {
-                    "radius": 48500,
-                    "range": 700
-                  }
-                },
-                "target": "EnemyWithoutTower",
-                "apply_type": {
-                  "Forward": {
-                    "offset": 1000
-                  }
-                },
+                "type": "Sfx",
+                "name": "league_nilah_qa_swing"
+              },
+              {
+                "type": "Delayed",
+                "tick": 12,
                 "effects": [
                   {
-                    "type": "Attack",
-                    "damage": 0,
-                    "attack_ratio": 25,
-                    "hp_ratio": 0,
-                    "target_hp_ratio": 0,
-                    "attack_effect_type": "Target"
+                    "type": "TargetProjectile",
+                    "name": "league_nilah_qa_whip",
+                    "speed": 100000,
+                    "y_offset": 0,
+                    "applied_target": "Enemy",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 100,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_nilah_a_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_nilah_a_hit"
+                        }
+                      }
+                    ]
                   },
                   {
-                    "type": "ViewEffect",
-                    "name": "league_nilah_qa_hit"
-                  },
-                  {
-                    "type": "TargetSfx",
-                    "name": "league_nilah_qa_hit"
+                    "type": "RangeEffect",
+                    "shape": {
+                      "DirDot": {
+                        "radius": 48500,
+                        "range": 700
+                      }
+                    },
+                    "target": "EnemyWithoutTower",
+                    "apply_type": {
+                      "Forward": {
+                        "offset": 1000
+                      }
+                    },
+                    "effects": [
+                      {
+                        "type": "Attack",
+                        "damage": 0,
+                        "attack_ratio": 25,
+                        "hp_ratio": 0,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      },
+                      {
+                        "type": "ViewEffect",
+                        "name": "league_nilah_qa_hit"
+                      },
+                      {
+                        "type": "TargetSfx",
+                        "name": "league_nilah_qa_hit"
+                      }
+                    ]
                   }
                 ]
               }
             ]
-          }
-        ]
-      },
-      "effect_none": {
-        "type": "Combine",
-        "effects": [
-          {
-            "type": "Sfx",
-            "name": "league_nilah_a_swing"
           },
-          {
-            "type": "Delayed",
-            "tick": 12,
+          "effect_none": {
+            "type": "Combine",
             "effects": [
               {
-                "type": "TargetProjectile",
-                "name": "league_nilah_a_whip",
-                "speed": 100000,
-                "y_offset": 0,
-                "applied_target": "Enemy",
-                "applied_effects": [
+                "type": "Sfx",
+                "name": "league_nilah_a_swing"
+              },
+              {
+                "type": "Delayed",
+                "tick": 12,
+                "effects": [
                   {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Attack",
-                      "damage": 0,
-                      "attack_ratio": 100,
-                      "hp_ratio": 0,
-                      "target_hp_ratio": 0,
-                      "attack_effect_type": "Target"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "league_nilah_a_hit"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "TargetSfx",
-                      "name": "league_nilah_a_hit"
-                    }
+                    "type": "TargetProjectile",
+                    "name": "league_nilah_a_whip",
+                    "speed": 100000,
+                    "y_offset": 0,
+                    "applied_target": "Enemy",
+                    "applied_effects": [
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "Attack",
+                          "damage": 0,
+                          "attack_ratio": 100,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 0,
+                          "attack_effect_type": "Target"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "ViewEffect",
+                          "name": "league_nilah_a_hit"
+                        }
+                      },
+                      {
+                        "casting_type": "Targeting",
+                        "effect": {
+                          "type": "TargetSfx",
+                          "name": "league_nilah_a_hit"
+                        }
+                      }
+                    ]
                   }
                 ]
               }
             ]
           }
-        ]
-      }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
+        }
+      ]
     }
   },
   "skill": {
@@ -257,7 +266,6 @@
                         "tick": 240
                       }
                     },
-                    "range": 12500,
                     "vamp": 10
                   },
                   "only_to_enemy": false
@@ -369,7 +377,6 @@
                         "tick": 240
                       }
                     },
-                    "range": 12500,
                     "vamp": 10
                   },
                   "only_to_enemy": false
@@ -761,7 +768,6 @@
                                     "tick": 240
                                   }
                                 },
-                                "range": 12500,
                                 "vamp": 10
                               },
                               "only_to_enemy": false
@@ -997,7 +1003,6 @@
                                   "tick": 240
                                 }
                               },
-                              "range": 12500,
                               "vamp": 10
                             },
                             "only_to_enemy": false
@@ -1437,7 +1442,6 @@
                               "tick": 240
                             }
                           },
-                          "range": 12500,
                           "vamp": 10
                         },
                         "only_to_enemy": false

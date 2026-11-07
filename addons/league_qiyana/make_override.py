@@ -28,6 +28,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 ADDON = os.path.join(ROOT, "addons", "league_qiyana")
 sys.path.insert(0, os.path.join(ROOT, "tools", "kit"))
 import build_qiyana as kit  # noqa: E402
+import range_buffs  # noqa: E402  (league.dll's league:range)
 import setup_qiyana as setup  # noqa: E402
 
 MOD_ID = "league_qiyana"
@@ -142,6 +143,9 @@ def outputs():
     if wrong:
         sys.exit("src/lib.rs params! defaults differ from build_qiyana.P (rust, P): %s" % wrong)
     champion = kit.build(dict(p, native=1))
+    # the add-on's W lays el_on natively (no AddCasterBuff of it is left in the copy), so the attack carries
+    # league:range whatever the data lays (tools/kit/range_buffs.py)
+    range_buffs.apply(champion, force=True)
     if champion.get("passive", {}).get("passive_ref") != MOD_ID + ":empress":
         sys.exit("the copy has no league_qiyana:empress passive: update this script")
     text = json.dumps(champion)

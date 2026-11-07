@@ -4302,8 +4302,7 @@
                             "Time": {
                               "tick": 1200
                             }
-                          },
-                          "range": 12000
+                          }
                         },
                         "only_to_enemy": false
                       },
@@ -5368,6 +5367,10 @@
               }
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }

@@ -1,4 +1,4 @@
-# 沃利贝尔附加包（测试版 v0.3.1）
+# 沃利贝尔附加包（测试版 v0.3.2）
 
 用户：「上单，方案 A，做附加包」。主包 `league` 的沃利贝尔是纯数据，不装这个包也完整可玩；这个附加包用原生代码补数据做不到的五件事
 （都照英雄联盟）：
@@ -42,3 +42,7 @@
 - 在 `addons/` 下 `cargo test --release -p league_volibear`：单元测试（闪电找最近的 4 个、R 跳进人堆、第二口的伤害和回复、buff 名长度、
   副本、风暴形态换的动作名、这些动作和它们的 `r_` / `hd_r_` 帧都在图里）。
 - 在 `addons/` 下 `cargo build --release -p league_volibear`（Windows）得到 `league_volibear.dll`；`league_addons` 合集也会编进本包。
+
+## 射程 buff 改成主包 league.dll 的 league:range（v0.3.2，2026-11-07）
+
+带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。

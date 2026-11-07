@@ -94,8 +94,7 @@
                     "type": "AddCasterBuff",
                     "buff_state": {
                       "name": "league_aphelios_mw_cal",
-                      "duration": "Permanent",
-                      "range": 10000
+                      "duration": "Permanent"
                     },
                     "only_to_enemy": false
                   }
@@ -1572,8 +1571,7 @@
                                     "type": "AddCasterBuff",
                                     "buff_state": {
                                       "name": "league_aphelios_mw_cal",
-                                      "duration": "Permanent",
-                                      "range": 10000
+                                      "duration": "Permanent"
                                     },
                                     "only_to_enemy": false
                                   },
@@ -1693,8 +1691,7 @@
                                       "type": "AddCasterBuff",
                                       "buff_state": {
                                         "name": "league_aphelios_mw_cal",
-                                        "duration": "Permanent",
-                                        "range": 10000
+                                        "duration": "Permanent"
                                       },
                                       "only_to_enemy": false
                                     },
@@ -1844,6 +1841,10 @@
               }
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -3615,8 +3616,7 @@
                             "type": "AddCasterBuff",
                             "buff_state": {
                               "name": "league_aphelios_mw_cal",
-                              "duration": "Permanent",
-                              "range": 10000
+                              "duration": "Permanent"
                             },
                             "only_to_enemy": false
                           },

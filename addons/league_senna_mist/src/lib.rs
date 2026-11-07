@@ -197,7 +197,6 @@ mod tests {
     fn mist(crit: i32) -> BuffV1 {
         let mut b = BuffV1::named(MIST);
         b.attack = 1;
-        b.range = 100;
         b.crit_chance = crit;
         b
     }

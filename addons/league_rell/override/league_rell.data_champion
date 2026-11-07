@@ -173,6 +173,10 @@
         {
           "type": "TargetSfx",
           "name": "league_rell_a_hit"
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -1457,7 +1461,6 @@
                                                                       "defence_mult": 15,
                                                                       "magic_resistance_mult": 15,
                                                                       "attack_speed_mult": 20,
-                                                                      "range": 6000,
                                                                       "move_speed_mult": -8
                                                                     },
                                                                     "only_to_enemy": false
@@ -1611,7 +1614,6 @@
                                                                       "defence_mult": 15,
                                                                       "magic_resistance_mult": 15,
                                                                       "attack_speed_mult": 20,
-                                                                      "range": 6000,
                                                                       "move_speed_mult": -8
                                                                     },
                                                                     "only_to_enemy": false
@@ -1868,7 +1870,6 @@
                                                                     "defence_mult": 15,
                                                                     "magic_resistance_mult": 15,
                                                                     "attack_speed_mult": 20,
-                                                                    "range": 6000,
                                                                     "move_speed_mult": -8
                                                                   },
                                                                   "only_to_enemy": false

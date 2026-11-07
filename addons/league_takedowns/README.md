@@ -1,4 +1,4 @@
-# 参与击杀附加包（测试版 v0.5.2，可选）：金克丝、崔丝塔娜、易、图奇
+# 参与击杀附加包（测试版 v0.5.3，可选）：金克丝、崔丝塔娜、易、图奇
 
 0.5.2（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（图奇：`tools/kit/build_twitch.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -46,3 +46,7 @@
 - `python addons/league_takedowns/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。三人在主包里改了就重跑。
 - `python tools/art/jinx_excited_run.py`：重做金克丝图里的冲刺帧（`--preview <文件夹>` 看慢跑和冲刺）；她的图用 `ppu_hd.py` 重新生成后要再跑一次。
 - `cargo test -p league_takedowns`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。
+
+## 射程 buff 改成主包 league.dll 的 league:range（v0.5.3，2026-11-07）
+
+主包 0.319.0 的射程改成官方的办法——崔丝塔娜「瞄准」是普攻的 `growth_range`（每级 +850，6、9、12 级的生命探测去掉），图奇 R 的射程由 league.dll 的 `league:range` 读 `league_twitch_r_on` 加（buff 不带 `range`，游戏的 AI 不再把他停在够不着的地方）；两人的副本跟着重新生成，DLL 没变。

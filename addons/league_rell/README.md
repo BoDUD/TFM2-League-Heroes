@@ -1,4 +1,4 @@
-# 芮尔附加包（测试版 v0.1.0，可选）
+# 芮尔附加包（测试版 v0.1.5，可选）
 
 0.1.4（2026-11-06）：11-06 的两份日志里 19 次 `RFIRE` 有 11 次写「0 enemy champions within 34000」，可极涌拉人、打人都是数据里她身边的范围（`RangeEffect` 的圆），这种圆把被测的单位和施法者的半径都算上（champion-data.md「Shapes」），本包却按中心到中心数。现在 `RFIRE` 和数据一样数：中心距离不超过 `r_r` + 她的半径 + 对方的半径，行里再写最近的敌方英雄中心到中心多远。只改日志，玩法不变。
 
@@ -37,3 +37,7 @@
 2. 用附加包合集 `league_addons`（里面已经包含本包），或者把整个 `league_rell` 文件夹放进 `<游戏目录>\mods\`（文件夹里要有 `league_rell.dll`、`mod.mod_info`、
    `mod.override_info`、`override\`、`text\`）。
 3. 进游戏，鼠标停在芮尔的技能上，说明开头是【附加包】就说明副本生效了；打一局后看日志里的 FORM / MOLD / SHATTER / TILT / RFIRE。
+
+## 射程 buff 改成主包 league.dll 的 league:range（v0.1.5，2026-11-07）
+
+带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。

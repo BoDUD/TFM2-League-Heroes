@@ -55,7 +55,7 @@
 
 ### 波比附加包
 
-[波比附加包](../../addons/league_poppy/README.md)：`league_poppy` v0.1.3
+[波比附加包](../../addons/league_poppy/README.md)：`league_poppy` v0.1.4
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

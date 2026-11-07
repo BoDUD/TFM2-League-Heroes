@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Nilah as in League (needs League of Legends Heroes): replaces the main pack's Nilah so Joy Unending makes every heal and shield on her and nearby allied champions 15% stronger, Jubilant Veil waits until an enemy champion is hitting her, Slipstream dashes through the lowest enemy champion and Apotheosis waits until it can catch several. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-06",
+  "last_updated": "2026-11-07",
   "mod_id": "league_nilah",
   "mod_type": "native",
   "name": "League Heroes: Nilah's Joy Unending heals and shields, smart veil and spin (test)",
-  "version": "0.1.3"
+  "version": "0.1.4"
 }

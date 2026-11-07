@@ -261,8 +261,7 @@
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
                                                       "name": "league_kayle_rank5",
-                                                      "duration": "Permanent",
-                                                      "range": 27500
+                                                      "duration": "Permanent"
                                                     },
                                                     "only_to_enemy": false
                                                   },
@@ -656,7 +655,6 @@
                                                                                                                                     "buff_state": {
                                                                                                                                       "name": "league_kayle_rank12",
                                                                                                                                       "duration": "Permanent",
-                                                                                                                                      "range": 10000,
                                                                                                                                       "attack_speed_mult": 30,
                                                                                                                                       "move_speed_mult": 10
                                                                                                                                     },
@@ -982,7 +980,6 @@
                                                             "buff_state": {
                                                               "name": "league_kayle_rank12",
                                                               "duration": "Permanent",
-                                                              "range": 10000,
                                                               "attack_speed_mult": 30,
                                                               "move_speed_mult": 10
                                                             },
@@ -1434,7 +1431,6 @@
                                                                                                     "buff_state": {
                                                                                                       "name": "league_kayle_rank12",
                                                                                                       "duration": "Permanent",
-                                                                                                      "range": 10000,
                                                                                                       "attack_speed_mult": 30,
                                                                                                       "move_speed_mult": 10
                                                                                                     },
@@ -1699,8 +1695,7 @@
                                                           "type": "AddCasterBuff",
                                                           "buff_state": {
                                                             "name": "league_kayle_rank5",
-                                                            "duration": "Permanent",
-                                                            "range": 27500
+                                                            "duration": "Permanent"
                                                           },
                                                           "only_to_enemy": false
                                                         },
@@ -2110,7 +2105,6 @@
                                                                                                                                           "buff_state": {
                                                                                                                                             "name": "league_kayle_rank12",
                                                                                                                                             "duration": "Permanent",
-                                                                                                                                            "range": 10000,
                                                                                                                                             "attack_speed_mult": 30,
                                                                                                                                             "move_speed_mult": 10
                                                                                                                                           },
@@ -3249,6 +3243,10 @@
             "type": "Combine",
             "effects": []
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -3478,8 +3476,7 @@
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
                                                       "name": "league_kayle_rank5",
-                                                      "duration": "Permanent",
-                                                      "range": 27500
+                                                      "duration": "Permanent"
                                                     },
                                                     "only_to_enemy": false
                                                   },
@@ -3873,7 +3870,6 @@
                                                                                                                                     "buff_state": {
                                                                                                                                       "name": "league_kayle_rank12",
                                                                                                                                       "duration": "Permanent",
-                                                                                                                                      "range": 10000,
                                                                                                                                       "attack_speed_mult": 30,
                                                                                                                                       "move_speed_mult": 10
                                                                                                                                     },
@@ -4199,7 +4195,6 @@
                                                             "buff_state": {
                                                               "name": "league_kayle_rank12",
                                                               "duration": "Permanent",
-                                                              "range": 10000,
                                                               "attack_speed_mult": 30,
                                                               "move_speed_mult": 10
                                                             },
@@ -4651,7 +4646,6 @@
                                                                                                     "buff_state": {
                                                                                                       "name": "league_kayle_rank12",
                                                                                                       "duration": "Permanent",
-                                                                                                      "range": 10000,
                                                                                                       "attack_speed_mult": 30,
                                                                                                       "move_speed_mult": 10
                                                                                                     },
@@ -4916,8 +4910,7 @@
                                                           "type": "AddCasterBuff",
                                                           "buff_state": {
                                                             "name": "league_kayle_rank5",
-                                                            "duration": "Permanent",
-                                                            "range": 27500
+                                                            "duration": "Permanent"
                                                           },
                                                           "only_to_enemy": false
                                                         },
@@ -5327,7 +5320,6 @@
                                                                                                                                           "buff_state": {
                                                                                                                                             "name": "league_kayle_rank12",
                                                                                                                                             "duration": "Permanent",
-                                                                                                                                            "range": 10000,
                                                                                                                                             "attack_speed_mult": 30,
                                                                                                                                             "move_speed_mult": 10
                                                                                                                                           },
@@ -6132,8 +6124,7 @@
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
                                                       "name": "league_kayle_rank5",
-                                                      "duration": "Permanent",
-                                                      "range": 27500
+                                                      "duration": "Permanent"
                                                     },
                                                     "only_to_enemy": false
                                                   },
@@ -6527,7 +6518,6 @@
                                                                                                                                     "buff_state": {
                                                                                                                                       "name": "league_kayle_rank12",
                                                                                                                                       "duration": "Permanent",
-                                                                                                                                      "range": 10000,
                                                                                                                                       "attack_speed_mult": 30,
                                                                                                                                       "move_speed_mult": 10
                                                                                                                                     },
@@ -6853,7 +6843,6 @@
                                                             "buff_state": {
                                                               "name": "league_kayle_rank12",
                                                               "duration": "Permanent",
-                                                              "range": 10000,
                                                               "attack_speed_mult": 30,
                                                               "move_speed_mult": 10
                                                             },
@@ -7305,7 +7294,6 @@
                                                                                                     "buff_state": {
                                                                                                       "name": "league_kayle_rank12",
                                                                                                       "duration": "Permanent",
-                                                                                                      "range": 10000,
                                                                                                       "attack_speed_mult": 30,
                                                                                                       "move_speed_mult": 10
                                                                                                     },
@@ -7570,8 +7558,7 @@
                                                           "type": "AddCasterBuff",
                                                           "buff_state": {
                                                             "name": "league_kayle_rank5",
-                                                            "duration": "Permanent",
-                                                            "range": 27500
+                                                            "duration": "Permanent"
                                                           },
                                                           "only_to_enemy": false
                                                         },
@@ -7981,7 +7968,6 @@
                                                                                                                                           "buff_state": {
                                                                                                                                             "name": "league_kayle_rank12",
                                                                                                                                             "duration": "Permanent",
-                                                                                                                                            "range": 10000,
                                                                                                                                             "attack_speed_mult": 30,
                                                                                                                                             "move_speed_mult": 10
                                                                                                                                           },
@@ -8933,8 +8919,7 @@
                                                     "type": "AddCasterBuff",
                                                     "buff_state": {
                                                       "name": "league_kayle_rank5",
-                                                      "duration": "Permanent",
-                                                      "range": 27500
+                                                      "duration": "Permanent"
                                                     },
                                                     "only_to_enemy": false
                                                   },
@@ -9328,7 +9313,6 @@
                                                                                                                                     "buff_state": {
                                                                                                                                       "name": "league_kayle_rank12",
                                                                                                                                       "duration": "Permanent",
-                                                                                                                                      "range": 10000,
                                                                                                                                       "attack_speed_mult": 30,
                                                                                                                                       "move_speed_mult": 10
                                                                                                                                     },

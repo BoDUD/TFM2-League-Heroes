@@ -1,4 +1,4 @@
-# 悟空附加包（测试版 v0.1.3）
+# 悟空附加包（测试版 v0.1.6）
 
 0.1.5（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（`tools/kit/build_wukong.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -36,3 +36,7 @@
 - `python addons/league_wukong/make_override.py`：从参数表重新生成 `override/` 和 `text/`（先核对主包的悟空和参数表一致）。
 - 在 `addons/` 下 `cargo test --release -p league_wukong`：单元测试（参数、英雄联盟的回血速度、副本、分身的交接和每格画面、W 打谁）。
 - 在 `addons/` 下 `cargo build --release -p league_wukong`（Windows）得到 `league_wukong.dll`；`league_addons` 合集也会编进本包。
+
+## 射程 buff 改成主包 league.dll 的 league:range（v0.1.6，2026-11-07）
+
+带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。

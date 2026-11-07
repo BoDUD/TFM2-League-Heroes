@@ -577,9 +577,8 @@ fn aim(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         Aim::Back { dup } => {
             sim.entity_remove_buff(me, KEPT);
             if !dup {
-                let mut b = BuffV1::named(READY);
-                b.range = Params::default().leap_range;
-                sim.add_buff(me, &b);
+                // the leap's reach is league.dll's league:range reading `ready` (2026-11-07), not a `range` here
+                sim.add_buff(me, &BuffV1::named(READY));
             }
             if let Some(k) = counted("aim", on_screen(sim)) {
                 wlog(format!("{} AIM {what}: the pounce kept at a tower goes out #{k}", head(sim, me)));
@@ -710,9 +709,7 @@ impl StablePassive for Bush {
         let now = step(&self.p, alive, in_bush, has_ready, self.mine, self.out_for, m.fighting);
         match now {
             Step::Ready => {
-                let mut b = BuffV1::named(READY);
-                b.range = self.p.leap_range;
-                sim.add_buff(me, &b);
+                sim.add_buff(me, &BuffV1::named(READY));
                 self.mine = true;
                 self.source = if in_map_bush { Source::Bush } else { Source::Ivern };
                 if in_map_bush {

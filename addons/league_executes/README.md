@@ -1,4 +1,4 @@
-# 斩杀附加包（测试版 v0.2.2，可选）：伊芙琳、阿卡丽、锐雯
+# 斩杀附加包（测试版 v0.2.3，可选）：伊芙琳、阿卡丽、锐雯
 
 0.2.2（2026-11-05）：待命式大招没用掉时的冷却退还从来没生效过：n tick 的待命标记只有 n - 1 tick 看得见（经典 SDK 探针 lr1105/fix_j：n - 1 之前 148/148 次看得见，第 n tick 0 次），退还在窗口最后一 tick 读它时已经没了，所以每次待命过期都要等完整冷却（塞恩追踪：过期到再待命 3558 tick，改读后 877）。现在在窗口结束前 3 tick 读（伊芙琳、锐雯：`tools/fix/arm_refund_read.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -31,3 +31,7 @@
 
 - `python addons/league_executes/make_override.py`：重新生成 `override/` 和 `text/`；`--check` 只比较。三人在主包里改了就重跑。
 - `cargo test -p league_executes`（在 `addons/` 下；仓库在很深的路径里时设 `CARGO_TARGET_DIR` 到短路径）。
+
+## 射程 buff 改成主包 league.dll 的 league:range（v0.2.3，2026-11-07）
+
+带攻击距离的 buff 改成主包 league.dll 的 `league:range` 标记——buff 不再带 `range`（游戏的 AI 按它站位、却不按它出手，英雄停在够不着的地方），射程由官方的 `range_adjust` 加，AI 的出手判断也认；副本跟着主包 0.319.0 重新生成。

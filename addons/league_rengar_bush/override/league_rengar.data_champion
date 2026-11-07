@@ -84,8 +84,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "league_rengar_ready",
-                    "duration": "Permanent",
-                    "range": 25000
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 }
@@ -149,8 +148,7 @@
                           "type": "AddCasterBuff",
                           "buff_state": {
                             "name": "league_rengar_ready",
-                            "duration": "Permanent",
-                            "range": 25000
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
                         }
@@ -1632,6 +1630,10 @@
               }
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -1706,8 +1708,7 @@
                           "type": "AddCasterBuff",
                           "buff_state": {
                             "name": "league_rengar_ready",
-                            "duration": "Permanent",
-                            "range": 25000
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
                         }
@@ -2252,8 +2253,7 @@
                           "type": "AddCasterBuff",
                           "buff_state": {
                             "name": "league_rengar_ready",
-                            "duration": "Permanent",
-                            "range": 25000
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
                         }
@@ -3160,8 +3160,7 @@
                           "type": "AddCasterBuff",
                           "buff_state": {
                             "name": "league_rengar_ready",
-                            "duration": "Permanent",
-                            "range": 25000
+                            "duration": "Permanent"
                           },
                           "only_to_enemy": false
                         }
@@ -3368,8 +3367,7 @@
                   "type": "AddCasterBuff",
                   "buff_state": {
                     "name": "league_rengar_ready",
-                    "duration": "Permanent",
-                    "range": 25000
+                    "duration": "Permanent"
                   },
                   "only_to_enemy": false
                 },

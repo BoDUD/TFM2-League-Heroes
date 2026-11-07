@@ -357,7 +357,7 @@ pub const ATTACK_RANGE: [(&str, u64); 173] = [
     ("league_kennen", 55000),
     ("league_khazix", 23000),
     ("league_kindred", 55000),
-    ("league_kogmaw", 65000),
+    ("league_kogmaw", 55000),
     ("league_ksante", 25000),
     ("league_leblanc", 52500),
     ("league_leesin", 23000),
@@ -822,6 +822,9 @@ pub fn poke_target(me: (f64, f64), hp: f64, enemies: &[Unit], (reach, keep): (f6
 /// 普攻动作自己的射程内出手，这里的命令只能在他被停住 8–15 tick 后补救。日志里大嘴被停住时离英雄中位数 77000、最常见正好
 /// 78000（55000 + 18000 + 两人的体积），82 次里 60 次在射程外；没有射程 buff 的射手一次也没有（金克丝 0/210、薇恩 0/104、
 /// 希维尔 0/93）。主包把 W 的射程并进了他的普攻（65000，W 不再加射程），大嘴不再归这里管；图奇 R、崔丝塔娜、凯尔等还在。
+/// 0.6.3（同日）：主包 0.319.0 改用官方的办法——buff 不再带 `range`，射程由主包 league.dll 的原生效果 `league:range` 的
+/// `range_adjust` 加（「每一处射程判断都读它，AI 的也是」），大嘴的 W 又是 55000 + 18000；主包英雄身上不再有射程 buff，
+/// 这里拉长射程的几条（`STRETCH_LOOK`、`hold_reach_with`、`stretched_retarget`）只对别的 mod 的英雄还有用。
 pub const STRETCH_LOOK: f64 = 10_000.0;
 
 /// 0.6.0（同上，德莱文；用户：「卡莎好像也不会A英雄？」）：远程（没有射程 buff）被停住时按 `poke_target` 打普攻距离内的英雄——站着就打得到，不往前走一步，所以不看

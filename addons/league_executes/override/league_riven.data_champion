@@ -323,8 +323,7 @@
                                   "tick": 900
                                 }
                               },
-                              "attack_mult": 20,
-                              "range": 8000
+                              "attack_mult": 20
                             },
                             "only_to_enemy": false
                           },
@@ -613,6 +612,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league:range"
         }
       ]
     }
@@ -2113,8 +2116,7 @@
                         "tick": 900
                       }
                     },
-                    "attack_mult": 20,
-                    "range": 8000
+                    "attack_mult": 20
                   },
                   "only_to_enemy": false
                 },
