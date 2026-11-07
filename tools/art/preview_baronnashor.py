@@ -45,7 +45,7 @@ OTHERS = [os.path.join(ROOT, "league", "champions", n) for n in ("league_garen",
 REACH = (P["atk_range"] + 2 * 15000) // 1000   # game px between its pivot and Darius's when it attacks: the range
                                                 # plus both units' collision radii
 SPOTS = ((22, -5), (40, 6))      # Garen behind Darius (in the bite's line and the breath's cone), Ashe further on
-MOUTH = (5, -27)                 # its mouth from its pivot (hd/idle.png's (37, 38) from (28, 94) at PPU 2.04)
+MOUTH = (5, -27)                 # its mouth from its pivot (hd/idle.png's (47, 38) from (38, 94) at PPU 2.04)
 UP = 10                          # game px a knock-up throws a unit (the picture's height, not the engine's)
 SEED = 3
 

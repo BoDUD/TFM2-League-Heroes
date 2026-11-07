@@ -1176,7 +1176,7 @@ RESTYLE = {
     # design's head and eyes where they match: design_baronnashor_poses.py), posed by tools/art/rig_baronnashor.py, so no
     # proportion or density change here; the outer outline grown a square like the others, its one-square cracks closed
     # and the small holes filled; the face point on its middle eye (5 game px ahead of its standing point, 31 over the
-    # ground: hd/idle.png's eye (37.5, 30) from the pivot (28, 94) at PPU 2.04)
+    # ground: hd/idle.png's eye (47.5, 30) from the pivot (38, 94) at PPU 2.04)
     "baronnashor": dict(ppu=2.04, edge=1, face_to=(5, -31), cracks=True, fill_holes=15),
 }
 NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounce": 6, "c_swipe": 4, "c_transform": 3,

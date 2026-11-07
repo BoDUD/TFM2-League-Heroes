@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Baron Nashor's Codex poses (assets/source/baronnashor/codex_poses: POSE_PROMPTS.md, 19 poses - its body on its own TFT
-clips, its legs on T-Hex's - on its design, 2026-11-03) at the design's body size, on the design's palette, gaps closed,
-the design's face on each.
+clips, its legs on T-Hex's - on its design, 2026-11-03), on the spider legs since 2026-11-08 (codex_legs2), at the
+design's body size, on the design's palette, gaps closed, the design's face on each.
 
     python tools/art/design_baronnashor_poses.py --sheet DIR      # all poses beside the design (4x), pivots marked
     python tools/art/design_baronnashor_poses.py                  # writes assets/source/baronnashor/hd/pose_<name>.png (+ .json)
@@ -13,17 +13,26 @@ shrinks when it turns; the area alone grows when it rears or spreads its claws),
 (under the ground). The run is the redrawn one (assets/source/baronnashor/codex_run, RUN_PROMPTS.md: the first run's
 legs never swapped - T-Hex's run at this camera keeps one foot ahead): one body for all eight, their median height at
 RUN_ROWS (the idle's size, so starting to run does not jump; Codex kept one upper body, so the head never changes size).
-Each drawing (the top-level PNGs, byte for byte the raws Codex chose: source-selection.json) is read on squares of
-BODY px (raw_read: the commonest design colour round each square's centre), the one-square cracks and small holes closed
-(design_silco_poses.close_gaps), loose specks dropped, and the design's own face (the blue head and its yellow eyes,
-FACE_ROWS x FACE_COLS of hd/idle.png; the mouth left out, it opens and shuts with the pose) pasted where it matches best
-(the user's rule: one face in every frame), only where at least FACE_MIN of its squares already match and its blue
-lands on the pose's own head.
-Each pose's json keeps its pivot (the point between its feet, on the ground): between its two feet (feet_mid: the two
-biggest pieces in its lowest rows, the design's own DESIGN_PIVOT likewise), so the planted feet stay put while the body
-rears or lunges over them; the run frames take the design's pivot carried by where the face landed (the head runs
-steady, the feet step under it); PIVOT[name] where neither tells (under the ground, lying). The ground is the
-figure's lowest row.
+
+The spider legs (2026-11-07 the user: 「大龙的腿应该是这样的」, TFT's Baron on six thin legs; L6 picked, the idle is L6:
+design_baronnashor_model.py): Codex put L6's legs on every pose and run frame but e_dig (assets/source/baronnashor/
+codex_legs2, LEGS2_PROMPT.md: its composites keep the old drawings' pixels outside its edit masks, checked pixel for
+pixel). The body is the old drawing, so everything about it is measured on the old drawing (OLD_SRC, OLD_RUN_SRC): its
+scale (against A-1, the idle before the legs, whose body L6 keeps), the phase its squares are read on (cells laid from
+its leftmost pixel and its soles, as before: the body reads square for square as it did, the cells only run on as far
+as the new legs reach) and its pivot (between the old two feet: the body stands where it stood). Where the mask cut the
+old thighs away and left the old body's colour against the ground (seal_cuts), that square takes the outline.
+
+Each drawing (the top-level PNGs) is read on squares of BODY px (raw_read: the commonest design colour round each
+square's centre), the one-square cracks and small holes closed (design_silco_poses.close_gaps), loose specks dropped,
+and the design's own face (the blue head and its yellow eyes, FACE_ROWS x FACE_COLS of hd/idle.png; the mouth left out,
+it opens and shuts with the pose) pasted where it matches best (the user's rule: one face in every frame), only where
+at least FACE_MIN of its squares already match and its blue lands on the pose's own head.
+Each pose's json keeps its pivot (the point between its feet, on the ground): the old drawing's, between its two feet
+(feet_mid: the two biggest pieces in its lowest rows, the design's own DESIGN_PIVOT likewise on A-1), so the body rears
+or lunges over the same point; the run frames take the design's pivot carried by where the face landed (the head runs
+steady, the legs step under it); PIVOT[name] where neither tells (under the ground, lying). The ground is the figure's
+lowest row.
 """
 import argparse
 import json
@@ -42,18 +51,23 @@ import pack_baronnashor_poses as PK  # noqa: E402
 import pixel_down as PD  # noqa: E402
 import regrid as RG  # noqa: E402
 from design_baronnashor_hd import lp  # noqa: E402
+from design_baronnashor_model import L6_LEFT  # noqa: E402
 from design_silco_poses import close_gaps  # noqa: E402
 from design_sohm_poses import lab  # noqa: E402
 
-SRC = os.path.join(ROOT, "assets", "source", "baronnashor", "codex_poses", "baronnashor-poses")
-RUN_SRC = os.path.join(ROOT, "assets", "source", "baronnashor", "codex_run", "baronnashor-run")
-OUT = os.path.join(ROOT, "assets", "source", "baronnashor", "hd")
+BN = os.path.join(ROOT, "assets", "source", "baronnashor")
+SRC = os.path.join(BN, "codex_legs2", "baronnashor-legs2")              # the poses and the run on the spider legs
+MASKS = os.path.join(SRC, "edit-masks")                                 # white: the squares Codex redrew
+OLD_SRC = os.path.join(BN, "codex_poses", "baronnashor-poses")          # the drawings before the legs changed
+OLD_RUN_SRC = os.path.join(BN, "codex_run", "baronnashor-run")
+OUT = os.path.join(BN, "hd")
 SPECK = 6
 # the face (the user's rule: the idle's face in every frame): the blue head and its yellow eyes - rows / columns of
-# hd/idle.png (the mouth left out: it opens and shuts with the pose)
-FACE_ROWS, FACE_COLS = (18, 35), (24, 47)
+# hd/idle.png (the mouth left out: it opens and shuts with the pose); A-1's columns 24-47, L6_LEFT on in L6
+FACE_ROWS, FACE_COLS = (18, 35), (24 + L6_LEFT, 47 + L6_LEFT)
 FACE_MIN = 0.4
 NO_FACE = {"d_down", "e_dig"}  # lying with its eyes gone dark (Codex's own); under the ground
+NO_LEGS = {"e_dig"}            # under the ground: its old drawing as it was
 DARK_EYE = set()
 BODY_DEFAULT = 11.0
 RUNS = tuple(f"run{i}" for i in range(1, 9))
@@ -64,10 +78,11 @@ RUN_TOP = 96
 RUN_ROWS = 95                 # a run frame's height: the idle's 94 rows and one for the stride
 LEG_BAND = (30, 6)
 WIN = 5                       # raw pixels round each design square's centre that vote
-BODY = {}                     # filled by body_of() from the raws (head + area), printed with every read
+BODY = {}                     # filled by body_of() from the old raws (head + area), printed with every read
 # where neither tells: lying, its head foreshortened and dark (head alone 6.1) and its whole length on show (area alone
 # 9.4) - the other poses' measure is ~0.93 of their area's, and Codex's squares there (8 px) are 0.84 of d_fall's (9.5)
 BODY_FIX = {"d_down": 8.9}
+DARK = 90                     # a colour this dark (r + g + b) is outline
 
 
 def blue(px):
@@ -83,15 +98,36 @@ def visor_px(a):
     return int(ndimage.sum(m, lb, range(1, n + 1)).max()) if n else 0
 
 
+def png(path):
+    return np.asarray(Image.open(lp(path)).convert("RGBA")).copy()
+
+
+def old_raw(name):
+    """Codex's drawing before the spider legs (the redrawn run: pack_baronnashor_run.py, the legs taking turns)."""
+    if name in RUNS:
+        return png(os.path.join(OLD_RUN_SRC, f"baronnashor-run-{name}.png"))
+    return png(os.path.join(OLD_SRC, f"baronnashor-pose-{name}.png"))
+
+
 def raw(name):
-    if name in RUNS:   # the redrawn run (pack_baronnashor_run.py: the legs taking turns)
-        return np.asarray(Image.open(lp(os.path.join(RUN_SRC, f"baronnashor-run-{name}.png"))).convert("RGBA")).copy()
-    return np.asarray(Image.open(lp(os.path.join(SRC, f"baronnashor-pose-{name}.png"))).convert("RGBA")).copy()
+    """The drawing read: on the spider legs (codex_legs2), e_dig as it was."""
+    if name in NO_LEGS:
+        return old_raw(name)
+    return png(os.path.join(SRC, f"baronnashor-legs2-{name}.png"))
+
+
+def mask(name):
+    """Codex's edit mask (True: redrawn), none for e_dig."""
+    if name in NO_LEGS:
+        return None
+    return np.asarray(Image.open(lp(os.path.join(MASKS, f"baronnashor-legs2-{name}.png"))).convert("L")) > 127
 
 
 def body_one(name):
-    d = design()
-    a = raw(name)
+    """Measured on the old drawing against A-1 (the idle it was drawn on; L6 keeps A-1's body, but its legs would
+    count in the area)."""
+    d = design("A-1.png")
+    a = old_raw(name)
     op = a[..., 3] >= 128
     area = np.sqrt(op.sum() / (d[..., 3] > 0).sum())
     v = visor_px(a)
@@ -110,7 +146,7 @@ def body_of(name):
         elif name in RUNS:   # one body for all eight: their median height (crest tips to soles) at RUN_ROWS
             hs = []
             for n in RUNS:
-                ys = np.nonzero((raw(n)[..., 3] >= 128).any(1))[0]
+                ys = np.nonzero((old_raw(n)[..., 3] >= 128).any(1))[0]
                 hs.append(ys.max() + 1 - ys.min())
             BODY.update({n: round(float(np.median(hs)) / RUN_ROWS, 2) for n in RUNS})
         else:
@@ -199,31 +235,42 @@ def design(name="idle.png"):
     return np.asarray(Image.open(lp(os.path.join(OUT, name))).convert("RGBA"))
 
 
-DESIGN_PIVOT = feet_mid(design())   # hd/idle.png: between its two feet
+DESIGN_PIVOT = feet_mid(design("A-1.png")) + L6_LEFT   # between A-1's two feet: the body stands where it stood
 
 
-def raw_read(name):
-    """Codex's raw drawing at the design's body, on the design's palette -> (figure, its own square size).
+def raw_read(name, old=False):
+    """Codex's drawing at the design's body, on the design's palette -> (figure, its own square size, where its
+    top-left square is on the old drawing's cells (column from the old leftmost, row up from the old soles), the
+    cells inside Codex's edit mask).
     Every design square takes the commonest design colour among the raw pixels round its centre (WIN x WIN, each
-    snapped to the design's palette in Lab)."""
+    snapped to the design's palette in Lab). The cells are the old drawing's (laid from its leftmost pixel and up from
+    its soles), on both sides as far as this drawing goes."""
     d = design()
     pal = np.unique(d[d[..., 3] > 0][:, :3], axis=0)
-    a = raw(name)
+    a = old_raw(name) if old else raw(name)
+    m = None if old else mask(name)
+    o = old_raw(name)[..., 3] >= 128
+    oys, oxs = np.nonzero(o)
     op = a[..., 3] >= 128
     ys, xs = np.nonzero(op)
     sq = RG.square_size(RG.profile(a, op, 1), xs.min(), xs.max())
     body = body_of(name)
-    x0, y1 = xs.min(), ys.max() + 1                      # cells laid from the left edge and the soles up
-    nw, nh = int(np.ceil((xs.max() + 1 - x0) / body)), int(np.ceil((y1 - ys.min()) / body))
-    cx = x0 + (np.arange(nw) + 0.5) * body
-    cy = y1 - (nh - np.arange(nh) - 0.5) * body
+    x0, y1 = oxs.min(), oys.max() + 1
+    k0, k1 = int(np.floor((xs.min() - x0) / body)), int(np.ceil((xs.max() + 1 - x0) / body))
+    j0, j1 = int(np.floor((y1 - ys.max() - 1) / body)), int(np.ceil((y1 - ys.min()) / body))
+    cx = x0 + (np.arange(k0, k1) + 0.5) * body
+    cy = y1 - (np.arange(j1 - 1, j0 - 1, -1) + 0.5) * body
     r = WIN // 2
-    out = np.zeros((nh, nw, 4), np.uint8)
+    out = np.zeros((len(cy), len(cx), 4), np.uint8)
+    cut = np.zeros((len(cy), len(cx)), bool)
     lab_p = PD._lab(pal.astype(float))
     for j, y in enumerate(cy):
         for i, x in enumerate(cx):
             yi, xi = int(y), int(x)
-            win = a[max(0, yi - r):yi + r + 1, max(0, xi - r):xi + r + 1].reshape(-1, 4)
+            box = (slice(max(0, yi - r), yi + r + 1), slice(max(0, xi - r), xi + r + 1))
+            if m is not None:
+                cut[j, i] = m[box].mean() >= 0.5
+            win = a[box].reshape(-1, 4)
             on = win[win[:, 3] >= 128]
             if len(on) * 2 < len(win):
                 continue
@@ -231,33 +278,84 @@ def raw_read(name):
             idx = np.argmin(((lab_w[:, None, :] - lab_p[None]) ** 2).sum(-1), axis=1)
             out[j, i, :3] = pal[np.bincount(idx).argmax()]
             out[j, i, 3] = 255
-    return out, sq
+    return out, sq, (k0, j1 - 1), cut
 
 
-# the redrawn run's near leg: Codex drew it a shade lighter than the design's legs (mostly #8336E4 / #6431BD where the
-# idle's are #5A117B / #390D57 with #8336E4 touches): it would brighten each time it starts to run. One shade down, the
-# idle's own; the far leg (#390D57 / #200B38) stays a shade under it.
-NEAR_DOWN = {(0x83, 0x36, 0xE4): (0x5A, 0x11, 0x7B), (0x64, 0x31, 0xBD): (0x39, 0x0D, 0x57),
-             (0x55, 0x37, 0xD3): (0x39, 0x0D, 0x57), (0xA7, 0x53, 0xF8): (0x83, 0x36, 0xE4)}
-LEG_REACH = 14                # a leg's piece reaches into its lowest rows (a lifted foot too); a claw's does not
+OLD = {}
 
 
-def near_leg_tone(g):
-    """The near leg one shade down: below the belly (its teal's lowest row), the pieces that reach the lowest LEG_REACH
-    rows (the legs, not the claws hanging beside them), outline apart."""
-    c = g[..., :3].astype(int)
-    op = g[..., 3] > 0
-    teal = op & (c[..., 1] > c[..., 0] + 20) & (c[..., 2] > c[..., 0])
-    top = np.nonzero(teal.any(1))[0].max() + 1
-    body = op & (c.sum(2) > 60)                             # the near-black outline parts the pieces
-    body[:top] = False
-    lb, n = ndimage.label(body)
-    legs = np.isin(lb, [j for j in range(1, n + 1) if (lb[-LEG_REACH:] == j).any()])
+def old_read(name):
+    """The old drawing read (close_gaps'd) on its own cells -> (figure, where its top-left square is)."""
+    if name not in OLD:
+        g, _, at, _ = raw_read(name, old=True)
+        OLD[name] = close_gaps(g, design()), at
+    return OLD[name]
+
+
+SLIT = 2                      # a clear run this short between two opaque squares, where the old body was, is closed
+
+
+def slits(gone, op):
+    """The squares of `gone` in a clear run of at most SLIT squares (across or up and down) with opaque squares at
+    both ends: the slits the cut leaves between the old body and a new leg."""
+    out = np.zeros_like(gone)
+    for t, (gn, o, res) in enumerate(((gone, op, out), (gone.T, op.T, out.T))):
+        for r in range(o.shape[0]):
+            row, x = o[r], 0
+            while x < len(row):
+                if row[x]:
+                    x += 1
+                    continue
+                x0 = x
+                while x < len(row) and not row[x]:
+                    x += 1
+                if 0 < x0 and x < len(row) and x - x0 <= SLIT and gn[r, x0:x].any():
+                    res[r, x0:x] = True
+    return out & ~op
+
+
+def seal_cuts(name, g, at, cut, d):
+    """Where Codex's mask took the old body away and left the ground (a square the old drawing had, clear now): the
+    slits it leaves (slits) are closed and the old body's light squares beside it take the design's outline colour, the
+    cut edge outlined like the rest of the figure."""
+    if cut is None:
+        return g, 0
+    og, oat = old_read(name)
+    was = np.zeros(g.shape[:2], bool)
+    ys, xs = np.nonzero(og[..., 3] > 0)
+    ty, tx = ys + at[1] - oat[1], xs + oat[0] - at[0]
+    ok = (ty >= 0) & (ty < g.shape[0]) & (tx >= 0) & (tx < g.shape[1])
+    was[ty[ok], tx[ok]] = True
+    ink = tuple(PD.edge_colour(d))[:3] + (255,)
     out = g.copy()
-    for src, dst in NEAR_DOWN.items():
-        m = legs & (c[..., 0] == src[0]) & (c[..., 1] == src[1]) & (c[..., 2] == src[2])
-        out[m, :3] = dst
+    op = out[..., 3] > 0
+    shut = slits(was & ~op, op)
+    out[shut] = ink
+    op = out[..., 3] > 0
+    gone = was & ~op
+    light = op & (out[..., :3].astype(int).sum(-1) > DARK)
+    seal = light & ~cut & ndimage.binary_dilation(gone, structure=ndimage.generate_binary_structure(2, 1))
+    out[seal] = ink
+    return out, int(seal.sum() + shut.sum())
+
+
+def drop_specks(g):
+    op = g[..., 3] > 0
+    lb, n = ndimage.label(op, structure=np.ones((3, 3), bool))
+    sizes = ndimage.sum(op, lb, range(1, n + 1))
+    out = g.copy()
+    for j in range(1, n + 1):
+        if sizes[j - 1] < SPECK:
+            out[lb == j] = 0
     return out
+
+
+def old_feet(name):
+    """Between the old drawing's two feet, as a column of its cells (column 0: its leftmost)."""
+    g = drop_specks(old_read(name)[0])
+    ys, xs = np.nonzero(g[..., 3] > 0)
+    f = feet_mid(g[ys.min():ys.max() + 1, xs.min():xs.max() + 1])
+    return None if f is None else f + xs.min()
 
 
 def shorter_shins(g, k):
@@ -269,44 +367,43 @@ def shorter_shins(g, k):
     return g[[r for r in range(h) if r not in drop]]
 
 
-def pivot_of(name, g, face):
-    """The run: the design's pivot carried by the face (the head runs steady, the feet step under it); the rest: PIVOT[name],
-    else between its own feet (planted: the attack's recoil rears the head back over them), else the figure's middle."""
+def pivot_of(name, g, face, left):
+    """The run: the design's pivot carried by the face (the head runs steady, the legs step under it); the rest:
+    PIVOT[name], else between the old drawing's two feet (`left`: the cut figure's first column on the old drawing's
+    cells), else between its own feet, else the figure's middle."""
     h, w = g.shape[:2]
     if name in RUNS and face is not None:
         return int(round(DESIGN_PIVOT + face[0])), h
     if name in PIVOT:
         return PIVOT[name], h
+    f = old_feet(name)
+    if f is not None:
+        return int(f - left), h
     f = feet_mid(g)
     return (w // 2 if f is None else f), h
 
 
 def read(name):
     d = design()
-    g, sq = raw_read(name)
+    g, sq, at, cut = raw_read(name)
     g = close_gaps(g, d)
+    g, sealed = seal_cuts(name, g, at, cut, d)
     if name in DARK_EYE:
         g = dark_eye(g, d)
     if name in NO_FACE:
         off, share = None, 0.0
     else:
         g, off, share = put_face(g, d)
-    op = g[..., 3] > 0
-    lb, n = ndimage.label(op, structure=np.ones((3, 3), bool))
-    sizes = ndimage.sum(op, lb, range(1, n + 1))
-    for j in range(1, n + 1):
-        if sizes[j - 1] < SPECK:
-            g[lb == j] = 0
+    g = drop_specks(g)
     ys, xs = np.nonzero(g[..., 3] > 0)
     face = None if off is None else (int(off[0] - xs.min()), int(off[1] - ys.min()))
     g = g[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
-    if name in RUNS:
-        g = near_leg_tone(g)
     if name in RUNS and g.shape[0] > RUN_TOP:
         g = shorter_shins(g, g.shape[0] - RUN_TOP)
+    piv = pivot_of(name, g, face, at[0] + xs.min())
     print(f"{name:9s} squares {sq:.1f} px -> body {body_of(name)}: {g.shape[1]}x{g.shape[0]}, face "
-          f"{face}, {share:.0%} matched")
-    return g, pivot_of(name, g, face), face
+          f"{face}, {share:.0%} matched, {sealed} cut squares sealed, pivot {piv}")
+    return g, piv, face
 
 
 def big(a, z):
