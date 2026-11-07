@@ -40,7 +40,9 @@ into Lamb's frames; his bites and his pounce are pictures on the targets.
           last r_fight champion hits each within f_t ticks of the one before), a random allied champion within r_reach
           (her too) with r_need or more enemy champions within r_near of him (r_probe / r_count / r_n1 -> r_n2). The save:
           the zone round her on r_at (r_r, r_t ticks): every r_per ticks the allied champions in it get r_per + 2 ticks
-          of `undying` (League: health stops at 10%), the first the tick after it lands (first_delay 1: a zone's
+          of `undying` (League: health stops at 10%) - and the cast itself gives the allied champions within r_r of
+          her undying until then (2026-11-07: 12% of the saves died in the windup) - the first the tick after it
+          lands (first_delay 1: a zone's
           first_delay 0 gives its first one a whole period late - classic-SDK trace 2026-11-06: the circle 22 ticks
           after the cast, the first undying at 28 with 0, 23 with 1; 11-06's logs had Kindred die 22-25 ticks after
           her R in that gap); when it ends, every allied champion in it heals r_heal +
@@ -311,8 +313,12 @@ def build(p):
     safe = field("r_field", p["r_r"], p["r_t"], p["r_per"], 1, "AllyChampion",
                  [buff("r_safe", p["r_per"] + 2, undying=True)],
                  end=[heal_ally(p["r_heal"], p["r_heal_ad"]), view("r_heal"), tsfx("r_heal")])
-    save = on_me(anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
-                 delayed(p["r_at"], cview("r_zone"), anchor("r_anchor", [safe])))
+    # 2026-11-07's logs: 59 of ~480 saves came too late - the champion died 0-21 ticks after the cast, in her windup
+    # before the circle lands on r_at (League's Lamb's Respite holds at once). The cast itself gives every allied
+    # champion within r_r of her (her too) undying until the circle's own first one; the circle still lands on r_at.
+    bridge = around(p["r_r"], "AllyChampion", [buff("r_safe", p["r_at"] + p["r_per"] + 2, undying=True)])
+    save = combine(bridge, on_me(anim("ult", p["r_anim"]), sfx("r"), voice("vo_r", p),
+                                 delayed(p["r_at"], cview("r_zone"), anchor("r_anchor", [safe]))))
     go = combine(*rm("r_armed"), save)
 
     def danger(lob, zone, count, need_flag, name):
