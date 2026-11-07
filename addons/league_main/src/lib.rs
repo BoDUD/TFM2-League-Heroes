@@ -19,6 +19,9 @@
 //! （表在 src/range_table.rs，由 tools/kit/range_buffs.py 生成），数据把它放在普攻最外层的 Combine 里。引擎每一处射程判断都读它，
 //! AI 的也是。没有这个 DLL 时（Mac / Linux）这个效果找不到，经典 SDK 的引擎对此只记一条警告，英雄只是没有那份射程。
 //!
+//! 0.9.16：hd_engine 给列进 DRAWN_EFFECTS 的特效图记绘制日志（league.log 里 `PIC` 开头的行），查永恩 E 留在原地的身体
+//! 看不见（hd_engine src/view.rs）。
+//!
 //! src/warm.rs（0.7.27）：标题画面出来以后，后台线程把主包 `sound/bgm/` 里的音频按盘上的顺序读一遍进系统缓存，
 //! 比赛里音频第一次播放就不用在主线程等读盘。
 //!
@@ -49,7 +52,7 @@ mod range_table;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.15";
+const VERSION: &str = "0.9.16";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
