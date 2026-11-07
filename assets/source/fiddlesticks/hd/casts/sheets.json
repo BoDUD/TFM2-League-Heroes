@@ -1,0 +1,508 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (its move loop): a stalking stride on the stilt legs, hunched forward, the scythe held upright behind it with the blade over its head, the claw arm swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    108,
+    109
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under its hips, its hooked claw foot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind it, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under its hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries it and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries it and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the sack head, the saw disc, the arms and the scythe follow the pale figure. The scythe's shaft reaches down to the ground but is NOT a leg: its two thin stilt legs carry it."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (its move loop): a stalking stride on the stilt legs, hunched forward, the scythe held upright behind it with the blade over its head, the claw arm swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    108,
+    109
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries it and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries it and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the sack head, the saw disc, the arms and the scythe follow the pale figure. The scythe's shaft reaches down to the ground but is NOT a leg: its two thin stilt legs carry it."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (its move loop): a stalking stride on the stilt legs, hunched forward, the scythe held upright behind it with the blade over its head, the claw arm swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    108,
+    109
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under its hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind it, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under its hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries it and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries it and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the sack head, the saw disc, the arms and the scythe follow the pale figure. The scythe's shaft reaches down to the ground but is NOT a leg: its two thin stilt legs carry it."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (its move loop): a stalking stride on the stilt legs, hunched forward, the scythe held upright behind it with the blade over its head, the claw arm swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    108,
+    108
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries it and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries it and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the sack head, the saw disc, the arms and the scythe follow the pale figure. The scythe's shaft reaches down to the ground but is NOT a leg: its two thin stilt legs carry it."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (the claw bolt): it stands ready (frame 1), thrusts its thin black claw arm straight out to the picture's right at shoulder height, the claws open (frames 2-5), and draws it back (frame 6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (the claw bolt): it stands ready (frame 1), thrusts its thin black claw arm straight out to the picture's right at shoulder height, the claws open (frames 2-5), and draws it back (frame 6)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "attack (the claw bolt): it stands ready (frame 1), thrusts its thin black claw arm straight out to the picture's right at shoulder height, the claws open (frames 2-5), and draws it back (frame 6)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Terrify (Q): it stands hunched (frame 1), bends forward and curls up, the head drooping lower and lower (frames 2-4, lowest at frame 4), and straightens again (frames 5-8)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Terrify (Q): it stands hunched (frame 1), bends forward and curls up, the head drooping lower and lower (frames 2-4, lowest at frame 4), and straightens again (frames 5-8)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Terrify (Q): it stands hunched (frame 1), bends forward and curls up, the head drooping lower and lower (frames 2-4, lowest at frame 4), and straightens again (frames 5-8)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Terrify (Q): it stands hunched (frame 1), bends forward and curls up, the head drooping lower and lower (frames 2-4, lowest at frame 4), and straightens again (frames 5-8)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Reap (E): it swings the scythe far back and up behind it, the blade at the picture's upper left (frame 1), lowers it behind it (frame 2), holds it out level behind it at full stretch, the blade at the far left (frames 3-4), heaves it up high overhead (frame 5), sweeps it down and round in front of it (frame 6) and holds it upright at its side again (frame 7)",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Reap (E): it swings the scythe far back and up behind it, the blade at the picture's upper left (frame 1), lowers it behind it (frame 2), holds it out level behind it at full stretch, the blade at the far left (frames 3-4), heaves it up high overhead (frame 5), sweeps it down and round in front of it (frame 6) and holds it upright at its side again (frame 7)",
+   "ms": [
+    60,
+    50
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Reap (E): it swings the scythe far back and up behind it, the blade at the picture's upper left (frame 1), lowers it behind it (frame 2), holds it out level behind it at full stretch, the blade at the far left (frames 3-4), heaves it up high overhead (frame 5), sweeps it down and round in front of it (frame 6) and holds it upright at its side again (frame 7)",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Reap (E): it swings the scythe far back and up behind it, the blade at the picture's upper left (frame 1), lowers it behind it (frame 2), holds it out level behind it at full stretch, the blade at the far left (frames 3-4), heaves it up high overhead (frame 5), sweeps it down and round in front of it (frame 6) and holds it upright at its side again (frame 7)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "w_loop",
+   "name": "w_loop_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Bountiful Harvest (W): an 8-frame loop - it leans back a little, the claw arm raised up and forward, the claws open towards the foe, the scythe upright behind it, swaying a little from frame to frame",
+   "ms": [
+    250,
+    250
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "w_loop",
+   "name": "w_loop_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Bountiful Harvest (W): an 8-frame loop - it leans back a little, the claw arm raised up and forward, the claws open towards the foe, the scythe upright behind it, swaying a little from frame to frame",
+   "ms": [
+    250,
+    250
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "w_loop",
+   "name": "w_loop_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Bountiful Harvest (W): an 8-frame loop - it leans back a little, the claw arm raised up and forward, the claws open towards the foe, the scythe upright behind it, swaying a little from frame to frame",
+   "ms": [
+    250,
+    250
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "w_loop",
+   "name": "w_loop_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Bountiful Harvest (W): an 8-frame loop - it leans back a little, the claw arm raised up and forward, the claws open towards the foe, the scythe upright behind it, swaying a little from frame to frame",
+   "ms": [
+    250,
+    250
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Crowstorm, the channel (R): it crouches low, gathering (frames 1-4, lowest at frame 4), reaches the claw forward (frame 5), and rises tall onto its toes, the claw arm and the scythe raised high, about to blink (frames 6-8)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Crowstorm, the channel (R): it crouches low, gathering (frames 1-4, lowest at frame 4), reaches the claw forward (frame 5), and rises tall onto its toes, the claw arm and the scythe raised high, about to blink (frames 6-8)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Crowstorm, the channel (R): it crouches low, gathering (frames 1-4, lowest at frame 4), reaches the claw forward (frame 5), and rises tall onto its toes, the claw arm and the scythe raised high, about to blink (frames 6-8)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Crowstorm, the channel (R): it crouches low, gathering (frames 1-4, lowest at frame 4), reaches the claw forward (frame 5), and rises tall onto its toes, the claw arm and the scythe raised high, about to blink (frames 6-8)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "ult_land",
+   "name": "ult_land_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Crowstorm, the landing (R): it lands in a low crouch, the knees bent (frame 1), and rises a little each frame back to standing (frames 2-4)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "ult_land",
+   "name": "ult_land_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Crowstorm, the landing (R): it lands in a low crouch, the knees bent (frame 1), and rises a little each frame back to standing (frames 2-4)",
+   "ms": [
+    125,
+    125
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "struck: jolted back by the blow, the claw raised (frame 1), recovering (frame 2)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frame 1), it staggers (frame 2), sags, the head dropping (frame 3), and falls apart into a heap of sticks and burlap on the ground, the scythe lying beside it (frames 4-8)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frame 1), it staggers (frame 2), sags, the head dropping (frame 3), and falls apart into a heap of sticks and burlap on the ground, the scythe lying beside it (frames 4-8)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frame 1), it staggers (frame 2), sags, the head dropping (frame 3), and falls apart into a heap of sticks and burlap on the ground, the scythe lying beside it (frames 4-8)",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), it staggers (frame 2), sags, the head dropping (frame 3), and falls apart into a heap of sticks and burlap on the ground, the scythe lying beside it (frames 4-8)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck (frame 1), it staggers (frame 2), sags, the head dropping (frame 3), and falls apart into a heap of sticks and burlap on the ground, the scythe lying beside it (frames 4-8)",
+   "ms": [
+    400
+   ],
+   "weapons": "THE SCYTHE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long black wooden shaft and the rusty red-brown curved blade, as long as in image 1, in its burlap-wrapped hand - upright behind it, swung back, held out level, raised overhead or swept down, as the pale figure has it. Its thin black wooden claw arm and its claws where the pale figure has them. Only it: no crows, no smoke, no dark bolts, no glow; the eyes' light stays inside the eyes."
+  }
+ ]
+}

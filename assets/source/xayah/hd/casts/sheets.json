@@ -1,0 +1,185 @@
+{
+ "square": 9,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "1": "design 0",
+   "2": "design 0",
+   "4": "attack 3",
+   "5": "design 0",
+   "6": "design 0"
+  },
+  "skill": {
+   "1": "design 0",
+   "2": "design 0",
+   "3": "attack 3",
+   "4": "design 0"
+  },
+  "skill_e": {
+   "1": "attack 3",
+   "3": "design 0",
+   "4": "design 0"
+  },
+  "skill2": {
+   "1": "design 0",
+   "3": "design 0",
+   "4": "design 0"
+  },
+  "ult": {
+   "1": "design 0",
+   "2": "design 0",
+   "3": "design 0",
+   "4": "design 0",
+   "5": "design 0",
+   "6": "attack 3",
+   "7": "skill_e 2",
+   "8": "design 0"
+  },
+  "hit": {
+   "1": "design 0",
+   "2": "design 0"
+  },
+  "dead": {
+   "1": "design 0",
+   "2": "design 0",
+   "3": "design 0",
+   "5": "dead 4",
+   "6": "dead 4",
+   "7": "dead 4",
+   "8": "dead 4"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop): darting forward, the magenta feather blade low in her near hand, the great feather cloak trailing behind her as in image 1, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    109,
+    109
+   ],
+   "weapons": "THE FEATHER BLADE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the magenta feather blade in her near hand, as big as in image 1; her far hand empty. Her great feather cloak as big as in image 1, where the pale figure has it. Only her: no flying feathers, no glow, no trails.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under her hips, her bird-claw foot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind her, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under her hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the hood, the cloak and the feather blade follow the pale figure. The cloak trails low behind her but is NOT a leg: her two striped legs carry her."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop): darting forward, the magenta feather blade low in her near hand, the great feather cloak trailing behind her as in image 1, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    109,
+    109
+   ],
+   "weapons": "THE FEATHER BLADE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the magenta feather blade in her near hand, as big as in image 1; her far hand empty. Her great feather cloak as big as in image 1, where the pale figure has it. Only her: no flying feathers, no glow, no trails.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the hood, the cloak and the feather blade follow the pale figure. The cloak trails low behind her but is NOT a leg: her two striped legs carry her."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop): darting forward, the magenta feather blade low in her near hand, the great feather cloak trailing behind her as in image 1, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    109,
+    109
+   ],
+   "weapons": "THE FEATHER BLADE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the magenta feather blade in her near hand, as big as in image 1; her far hand empty. Her great feather cloak as big as in image 1, where the pale figure has it. Only her: no flying feathers, no glow, no trails.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under her hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind her, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under her hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the hood, the cloak and the feather blade follow the pale figure. The cloak trails low behind her but is NOT a leg: her two striped legs carry her."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop): darting forward, the magenta feather blade low in her near hand, the great feather cloak trailing behind her as in image 1, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    109,
+    109
+   ],
+   "weapons": "THE FEATHER BLADE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the magenta feather blade in her near hand, as big as in image 1; her far hand empty. Her great feather cloak as big as in image 1, where the pale figure has it. Only her: no flying feathers, no glow, no trails.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries her and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries her and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the hood, the cloak and the feather blade follow the pale figure. The cloak trails low behind her but is NOT a leg: her two striped legs carry her."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (a flung feather): she flicks her near hand forward, the arm straight out to the picture's right at chest height, the feather leaving her fingers (frame 3); frames 1-2 and 5-6 are the design, frame 4 = frame 3",
+   "ms": [
+    80
+   ],
+   "weapons": "THE FEATHER BLADE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the magenta feather blade in her near hand, as big as in image 1; her far hand empty. Her great feather cloak as big as in image 1, where the pale figure has it. Only her: no flying feathers, no glow, no trails."
+  },
+  {
+   "tag": "skill_e",
+   "name": "skill_e_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Bladecaller (E): she pulls her near hand back in to her hip, the feather blade low, calling her feathers home (frame 2); frame 1 = attack 3, frames 3-4 are the design",
+   "ms": [
+    80
+   ],
+   "weapons": "THE FEATHER BLADE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the magenta feather blade in her near hand, as big as in image 1; her far hand empty. Her great feather cloak as big as in image 1, where the pale figure has it. Only her: no flying feathers, no glow, no trails."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Deadly Plumage (W): she sweeps the magenta feather blade forward and low at arm's length, pointing it at the foe (frame 2); frames 1, 3 and 4 are the design",
+   "ms": [
+    100
+   ],
+   "weapons": "THE FEATHER BLADE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the magenta feather blade in her near hand, as big as in image 1; her far hand empty. Her great feather cloak as big as in image 1, where the pale figure has it. Only her: no flying feathers, no glow, no trails."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: she has collapsed forward onto the ground and lies low, her head to the picture's right, the great feather cloak spread out over her (frame 4); frames 1-3 are the design, frames 5-8 = frame 4",
+   "ms": [
+    120
+   ],
+   "weapons": "THE FEATHER BLADE goes where the pale figure has it, frame by frame (image 3 shows it in colour): the magenta feather blade in her near hand, as big as in image 1; her far hand empty. Her great feather cloak as big as in image 1, where the pale figure has it. Only her: no flying feathers, no glow, no trails."
+  }
+ ]
+}
