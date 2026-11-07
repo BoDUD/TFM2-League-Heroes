@@ -7,7 +7,14 @@ pointed at his design (the user, 2026-11-07: 「接下来利用PPU重做霞 洛 
 
 hd/casts holds Codex's 46 sheets (each its chosen raw generation, raw/<sheet>-generated.png, byte for byte; its
 palette-snapped top-level exports left out), drawn on a TRANSPARENT ground with soft edges (alpha 0-254, not the
-near-white ground casts_rengar_hd.figure keys off): figure() keys them at half alpha. Each frame's zoom is the one its fit over its template's pale figure gives
+near-white ground casts_rengar_hd.figure keys off): figure() keys them at half alpha. Four sheets - e_dash_1, e_land_1,
+dead_4, dead_6 - are Codex's head redraw (assets/source/rakan/HEAD_REDO_PROMPT_PPU.md, delivered 2026-11-07,
+outputs/rakan-head: its raw/<sheet>-composited-source.png, the official sheets byte for byte - the head drawn again a
+size smaller and laid into the previous drawing, every other pixel kept): those are on pure white, keyed the
+casts_rengar_hd way (the user: 「洛的不太对吧 怎么模型会突然变大变小」「还是很奇怪啊 感觉有的地方突然变大很多」 - the
+heads Codex drew a size too big there), read at their first drawings' zooms (the body is the same pixels). skill2_1's
+redraw came back with the head 0.83 x the design's box (his other frames ~1.0; the first drawing's +4 %): its first
+drawing stays. Each frame's zoom is the one its fit over its template's pale figure gives
 (--fits DIR, DIR the pack's templates, pack_rakan_actions.py --out: Codex drew every frame on the old frame shown
 pale at SQ px a square; the drawing scaled until it overlaps the pale figure best); where it overlaps under 0.65
 (another pose), the median of that, the zoom its HEIGHT gives (--heights: the drawing's box over the old frame's body),
@@ -114,7 +121,10 @@ def old_box(tag, k, off=False):
 
 def figure(a):
     """The drawing's mask: every pixel of half alpha up (Codex's raws come on a transparent ground with soft edges,
-    alpha 0-254)."""
+    alpha 0-254); a sheet with no transparency at all (the head redraws, composited on pure white) is keyed off its
+    white ground and the white it walls in (casts_rengar_hd.figure)."""
+    if (a[..., 3] == 255).all():
+        return CS.figure(a)
     return a[..., 3] >= 128
 
 
