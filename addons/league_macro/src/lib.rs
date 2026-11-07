@@ -21,6 +21,10 @@
 //!   AI（钩子不拉他），另外四个跟离他们最近的那波强化兵；「1-3-1 分推」`position1` / `position2` 两个位置的选手各带一路
 //!   边线，交给游戏的 AI，另外三个跟中路的强化兵（离两边基地连线 `MID_NEAR` 以内的几波里离他们最近的，中路没有就近的）。
 //!   战术只在有强化兵时才读（`strategy_get_json`）。
+//!   0.1.3 的 540 场：三种用法大龙后推塔差不多（1.6～1.7 座），1-3-1 击杀−阵亡 −0.41，全员抱团 +0.47。教练指派的分推人
+//!   常是辅助、射手、中单（1-4 让超级机甲单带，1-3-1 让斯维因 + 波比、赛娜 + 泽丽），单带打不过人。0.1.4 起只有上单、打野
+//!   （`SPLIT_LANES`，能单挑的边路）被指派时才去分推（`BaronPlan::played`），中单、射手、辅助跟大部队：1-3-1 只剩一个
+//!   上单 / 打野时按 1-4 打，一个都没有就全员抱团（用户 2026-11-07「只让上单打野分推」）。
 //!
 //! 每 `SCAN` tick 看一次场上（每个选手自己的钩子实例里，不共用状态：游戏会并行跑好几场），两次之间沿用上次的打算。
 //! 只看比赛的状态，没有随机数：服务器预演和客户端重演走的一样。优先级 `PRIORITY` 比英雄附加包低，所以先跑，
@@ -70,6 +74,8 @@ pub const BACK_OFF: f64 = 30_000.0;
 pub const MORGARD_USE: &str = "morgard_use";
 /// 1-3-1：离两边基地连线这么近的强化兵算中路。
 pub const MID_NEAR: f64 = 120_000.0;
+/// 被指派分推时真去分推的位置（`LaneV1` 的 Top、Jungle）：能单挑的边路，和 LOL 一样；中单、射手、辅助跟大部队。
+pub const SPLIT_LANES: [u32; 2] = [0, 1];
 /// 前多少次改指令各写一行。
 const DETAIL_LINES: usize = 40;
 /// 前多少个「分推的人交给游戏 AI」各写一行。
@@ -190,6 +196,23 @@ impl BaronPlan {
         }
     }
 
+    /// The plan the team plays: a split pusher must be a Top or Jungle player (`SPLIT_LANES`, a side laner who can
+    /// duel, as in League); a Mid, Bottom or Support player named to split groups with the rest. A 1-3-1 left with
+    /// one side laner is a 1-4, with none it is all together.
+    pub fn played(self) -> BaronPlan {
+        let side = |l: u32| SPLIT_LANES.contains(&l);
+        match self {
+            BaronPlan::Split14(a) if side(a) => self,
+            BaronPlan::Split131(a, b) => match (side(a), side(b)) {
+                (true, true) => self,
+                (true, false) => BaronPlan::Split14(a),
+                (false, true) => BaronPlan::Split14(b),
+                (false, false) => BaronPlan::Gather,
+            },
+            _ => BaronPlan::Gather,
+        }
+    }
+
     pub fn label(self) -> String {
         let name = |l: u32| LANES.get(l as usize).copied().unwrap_or("?");
         match self {
@@ -197,6 +220,15 @@ impl BaronPlan {
             BaronPlan::Split14(a) => format!("Split14 {}", name(a)),
             BaronPlan::Split131(a, b) => format!("Split131 {}+{}", name(a), name(b)),
         }
+    }
+}
+
+/// The plan played, and the one the strategy named when it differs.
+fn plan_label(played: BaronPlan, named: BaronPlan) -> String {
+    if played == named {
+        played.label()
+    } else {
+        format!("{} (named {})", played.label(), named.label())
     }
 }
 
@@ -239,8 +271,10 @@ pub struct View {
     pub own_nexus: Option<Pos>,
     /// Our minions carrying the baron buff.
     pub baron_minions: Vec<Pos>,
-    /// Our team's Morgard plan (read only while a baron wave is up).
+    /// The Morgard plan our team plays (read only while a baron wave is up): `named.played()`.
     pub plan: BaronPlan,
+    /// The Morgard plan our team's strategy names.
+    pub named: BaronPlan,
     /// I am one of the plan's split pushers: the game's AI takes me to my side lane.
     pub i_split: bool,
     /// The living allies who push with the waves: all but the plan's split pushers (empty: all of `allies`).
@@ -371,7 +405,8 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
     }
     // the Morgard plan matters only while a baron wave is up: read it then
     if !v.baron_minions.is_empty() {
-        v.plan = sim.strategy_get_json(team, MORGARD_USE).map_or(BaronPlan::Gather, |j| baron_plan(&j));
+        v.named = sim.strategy_get_json(team, MORGARD_USE).map_or(BaronPlan::Gather, |j| baron_plan(&j));
+        v.plan = v.named.played();
         let splitters: Vec<usize> = (0..sim.player_count())
             .filter_map(|i| sim.player_at(i))
             .filter(|p| p.team() == team && v.plan.splits(p.lane().map(|l| l.code())))
@@ -390,8 +425,10 @@ pub struct Macro {
     intent: Option<Intent>,
     enemies: Vec<(usize, Pos)>,
     last_kind: Option<bool>,
-    /// The team's Morgard plan at the last look, and whether this champion is left to the game's AI as its split pusher.
+    /// The team's Morgard plan at the last look (played, named), and whether this champion is left to the game's AI as
+    /// its split pusher.
     plan: BaronPlan,
+    named: BaronPlan,
     splitting: bool,
 }
 
@@ -425,7 +462,7 @@ impl StablePlayerAi for Macro {
                 match look(&sim, me_id, team) {
                     Some(v) => {
                         self.intent = plan(&v);
-                        self.plan = v.plan;
+                        (self.plan, self.named) = (v.plan, v.named);
                         splitting = v.i_split && self.intent.is_none();
                         self.enemies = v.enemies;
                     }
@@ -439,12 +476,12 @@ impl StablePlayerAi for Macro {
         if splitting != self.splitting {
             self.splitting = splitting;
             if splitting {
-                let plan = self.plan;
+                let (plan, named) = (self.plan, self.named);
                 note_split(|| {
                     format!(
                         "SPLIT t={} {now_head} #{me_id} T{team}: {}, a split pusher - left to the game's AI on its side lane",
                         clock(tick),
-                        plan.label()
+                        plan_label(plan, named)
                     )
                 });
             }
@@ -459,13 +496,13 @@ impl StablePlayerAi for Macro {
         // counted when a champion starts following an order, not every tick
         if self.last_kind != Some(finish) {
             self.last_kind = Some(finish);
-            let plan = self.plan;
+            let (plan, named) = (self.plan, self.named);
             note(finish, || {
                 format!(
                     "{} t={} {now_head} #{me_id} T{team}: {} ({})",
                     if finish { "FINISH" } else { "JOIN" },
                     clock(tick),
-                    if finish { "hits the nexus".to_string() } else { format!("goes to the baron wave, plan {}", plan.label()) },
+                    if finish { "hits the nexus".to_string() } else { format!("goes to the baron wave, plan {}", plan_label(plan, named)) },
                     match base {
                         None => "the AI gave no order".to_string(),
                         Some(b) => format!("the AI's order was kind {} at ({}, {})", b.kind, b.x, b.y),
@@ -564,6 +601,22 @@ mod tests {
         assert!(BaronPlan::Split14(1).splits(Some(1)) && !BaronPlan::Split14(1).splits(Some(4)));
         assert!(!BaronPlan::Gather.splits(Some(0)));
         assert_eq!((p.label(), BaronPlan::Split14(4).label()), ("Split131 Top+Bottom".to_string(), "Split14 Support".to_string()));
+    }
+
+    #[test]
+    fn only_top_and_jungle_split() {
+        let (top, jungle, mid, bot, sup) = (0, 1, 2, 3, 4);
+        assert_eq!(BaronPlan::Split14(top).played(), BaronPlan::Split14(top));
+        assert_eq!(BaronPlan::Split14(jungle).played(), BaronPlan::Split14(jungle));
+        assert_eq!(BaronPlan::Split14(sup).played(), BaronPlan::Gather, "a support never pushes a side lane alone");
+        assert_eq!(BaronPlan::Split14(bot).played(), BaronPlan::Gather);
+        assert_eq!(BaronPlan::Split131(top, jungle).played(), BaronPlan::Split131(top, jungle));
+        assert_eq!(BaronPlan::Split131(top, bot).played(), BaronPlan::Split14(top), "the bottom laner groups: a 1-4");
+        assert_eq!(BaronPlan::Split131(mid, jungle).played(), BaronPlan::Split14(jungle));
+        assert_eq!(BaronPlan::Split131(mid, sup).played(), BaronPlan::Gather, "Swain + Poppy: all together");
+        assert_eq!(BaronPlan::Gather.played(), BaronPlan::Gather);
+        assert_eq!(plan_label(BaronPlan::Split14(top), BaronPlan::Split131(top, bot)), "Split14 Top (named Split131 Top+Bottom)");
+        assert_eq!(plan_label(BaronPlan::Gather, BaronPlan::Gather), "Gather");
     }
 
     #[test]
