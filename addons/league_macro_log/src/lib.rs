@@ -14,6 +14,9 @@
 //!   其中待着的时候基地能打（`is_targetable`：前面的塔倒了）的另记 `nexus_left_open`（能打没打）；
 //! - 5:00 以后双方活着的英雄离本队中心的平均距离（`spread`，越小越抱团）。
 //! - 0.1.4 起每段 `EPIC` 还记下拿龙一方战术里的「莫尔加德 buff 用法」（`morgard_use`：`PLANS`，读不到是 `-`）。
+//!   0.1.5 起记的是实际的打法（`plans_of`，和 league_macro 0.1.4 同一条规则：只有上单、打野被指派时才分推，1-3-1 只剩
+//!   一个上单 / 打野按 1-4，一个都没有按全员抱团），和战术指派的不一样时后面写 `(named …)`；SUM 按实际打法分开，
+//!   每种后面写其中有几次是改判来的（`named otherwise`）。
 //!
 //! 每 `SUMMARY_EVERY` 场再写一行 `SUM`（这一批的平均），对比改动前后看这一行；0.1.4 起后面按大龙 buff 用法分开平均
 //! （`by plan`：运营钩子 0.1.3 按战术分推之后，抱团和分推各自推得怎么样），而且每行 SUM 还追加到
@@ -141,13 +144,32 @@ pub fn civil(days: u64) -> (i64, u32, u32) {
     (yoe + era * 400 + i64::from(m <= 2), m, d)
 }
 
-/// The Morgard plan named in the strategy document's `morgard_use` (one of `PLANS`; `-`: not read).
-pub fn plan_name(json: Option<&str>) -> &'static str {
-    match json {
-        Some(j) if j.contains("Split131") => "Split131",
-        Some(j) if j.contains("Split14") => "Split14",
-        Some(j) if j.contains("Gather") => "Gather",
-        _ => "-",
+/// The positions league_macro 0.1.4 lets split (`SPLIT_LANES` there): side laners who can duel.
+const SPLIT_LANES: [&str; 2] = ["Top", "Jungle"];
+
+/// The text of `"key": "value"` in a small JSON object.
+fn field<'a>(json: &'a str, key: &str) -> Option<&'a str> {
+    let rest = &json[json.find(&format!("\"{key}\""))? + key.len() + 2..];
+    let rest = &rest[rest.find(':')? + 1..];
+    let start = rest.find('"')? + 1;
+    let len = rest[start..].find('"')?;
+    Some(&rest[start..start + len])
+}
+
+/// The Morgard plan the strategy document's `morgard_use` names, and the one the team plays by league_macro 0.1.4's
+/// rule (`BaronPlan::played` there: only a Top or Jungle player splits; a 1-3-1 left with one of them is a 1-4, with
+/// none all together). Both are one of `PLANS`; `-`: not read.
+pub fn plans_of(json: Option<&str>) -> (&'static str, &'static str) {
+    let Some(j) = json else { return ("-", "-") };
+    let side = |key: &str| field(j, key).is_some_and(|v| SPLIT_LANES.contains(&v));
+    if j.contains("Split131") {
+        ("Split131", ["Gather", "Split14", "Split131"][side("position1") as usize + side("position2") as usize])
+    } else if j.contains("Split14") {
+        ("Split14", if side("position") { "Split14" } else { "Gather" })
+    } else if j.contains("Gather") {
+        ("Gather", "Gather")
+    } else {
+        ("-", "-")
     }
 }
 
@@ -187,8 +209,9 @@ pub struct Sample {
     pub nexus: Vec<(usize, f64, f64, bool, usize)>,
     /// The teams whose nexus can be hit now (its towers down).
     pub nexus_open: Vec<usize>,
-    /// Each team's Morgard plan (one of `PLANS`; empty: not read).
+    /// Each team's Morgard plan as played, and as its strategy names it (one of `PLANS`; empty: not read).
     pub plans: [&'static str; 2],
+    pub named: [&'static str; 2],
 }
 
 /// After an epic monster: what the team that took it did in the next `CONV` ticks.
@@ -202,8 +225,9 @@ pub struct After {
     /// The team's kills / the other team's kills when the window opened (kills and deaths come from the ends).
     pub kills_from: [usize; 2],
     pub kills_to: [usize; 2],
-    /// The taker's Morgard plan when it took it (empty: not read).
+    /// The taker's Morgard plan when it took it, as played and as named (empty: not read).
     pub plan: &'static str,
+    pub named: &'static str,
 }
 
 impl After {
@@ -213,6 +237,11 @@ impl After {
         } else {
             self.plan
         }
+    }
+
+    /// Whether the strategy named another plan than the one played.
+    fn renamed(&self) -> bool {
+        !self.named.is_empty() && self.named != self.plan()
     }
 }
 
@@ -283,7 +312,15 @@ impl Tracker {
             let team = if b > r { 0 } else if r > b { 1 } else { 2 };
             self.takes.push((team, m.epic, s.tick));
             if m.epic && team < 2 {
-                self.after.push(After { team, from: s.tick, kills_from: kills, kills_to: kills, plan: s.plans[team], ..After::default() });
+                self.after.push(After {
+                    team,
+                    from: s.tick,
+                    kills_from: kills,
+                    kills_to: kills,
+                    plan: s.plans[team],
+                    named: s.named[team],
+                    ..After::default()
+                });
             }
         }
         self.monsters = alive;
@@ -351,13 +388,14 @@ impl Tracker {
             .iter()
             .map(|a| {
                 format!(
-                    "{} towers {} kills {} deaths {} grouped {:.1} plan {}",
+                    "{} towers {} kills {} deaths {} grouped {:.1} plan {}{}",
                     ["B", "R"][a.team],
                     a.towers,
                     a.kills_to[a.team] - a.kills_from[a.team],
                     a.kills_to[1 - a.team] - a.kills_from[1 - a.team],
                     a.grouped_sum / a.samples.max(1) as f64,
-                    a.plan()
+                    a.plan(),
+                    if a.renamed() { format!(" (named {})", a.named) } else { String::new() }
                 )
             })
             .collect();
@@ -400,6 +438,8 @@ pub struct PlanSum {
     pub kills: u64,
     pub deaths: u64,
     pub grouped: f64,
+    /// Of `n`, the windows whose strategy named another plan.
+    pub renamed: u32,
 }
 
 /// What the `SUM` line averages over a batch of matches.
@@ -450,6 +490,7 @@ impl Batch {
             p.kills += (a.kills_to[a.team] - a.kills_from[a.team]) as u64;
             p.deaths += (a.kills_to[1 - a.team] - a.kills_from[1 - a.team]) as u64;
             p.grouped += a.grouped_sum / a.samples.max(1) as f64;
+            p.renamed += u32::from(a.renamed());
         }
         self.visits += t.visits[0] + t.visits[1];
         self.left += t.left[0] + t.left[1];
@@ -469,8 +510,9 @@ impl Batch {
             .map(|(name, p)| {
                 let n = p.n as f64;
                 format!(
-                    "{name} n={} towers {:.2} kills {:.2} deaths {:.2} grouped {:.2}",
+                    "{name} n={}{} towers {:.2} kills {:.2} deaths {:.2} grouped {:.2}",
                     p.n,
+                    if p.renamed > 0 { format!(" (named otherwise {})", p.renamed) } else { String::new() },
                     p.towers as f64 / n,
                     p.kills as f64 / n,
                     p.deaths as f64 / n,
@@ -538,8 +580,8 @@ fn sample(sim: &StableSim<'_>) -> (Sample, [usize; 2]) {
             _ => {}
         }
     }
-    for (team, plan) in s.plans.iter_mut().enumerate() {
-        *plan = plan_name(sim.strategy_get_json(team, MORGARD_USE).as_deref());
+    for team in 0..2 {
+        (s.named[team], s.plans[team]) = plans_of(sim.strategy_get_json(team, MORGARD_USE).as_deref());
     }
     let mut kills = [0usize; 2];
     for i in 0..sim.player_count() {
@@ -683,7 +725,7 @@ mod tests {
         let towers = vec![(10usize, 0usize), (11, 1), (12, 1)];
         let baron = Monster { id: 50, epic: true, x: 300_000.0, y: 300_000.0 };
         // red's champions at the baron, blue's away
-        let mut s = Sample { tick: 30, champs: [champs(0, (100_000.0, 800_000.0), 5), champs(1, (300_000.0, 300_000.0), 5)].concat(), towers: towers.clone(), monsters: vec![baron], nexus: nexus.clone(), nexus_open: vec![], plans: ["Gather", "Split131"] };
+        let mut s = Sample { tick: 30, champs: [champs(0, (100_000.0, 800_000.0), 5), champs(1, (300_000.0, 300_000.0), 5)].concat(), towers: towers.clone(), monsters: vec![baron], nexus: nexus.clone(), nexus_open: vec![], plans: ["Gather", "Split14"], named: ["Gather", "Split131"] };
         t.step(&s, [0, 0]);
         // the baron dies with red round it
         s.tick = 60;
@@ -691,7 +733,7 @@ mod tests {
         t.step(&s, [0, 1]);
         assert_eq!(t.takes, vec![(1, true, 60)]);
         assert_eq!(t.after.len(), 1);
-        assert_eq!(t.after[0].plan, "Split131", "red's plan");
+        assert_eq!((t.after[0].plan, t.after[0].named), ("Split14", "Split131"), "red's plan, played and named");
         // a blue tower falls in the next 90 s; red stands at blue's nexus for 10 s, then walks away
         s.tick = 90;
         s.towers = vec![(11, 1), (12, 1)];
@@ -712,22 +754,30 @@ mod tests {
         assert!(a.grouped_sum / a.samples as f64 > 3.9, "red grouped: {a:?}");
         let line = t.line("[m=1 s=0]", None);
         assert!(line.contains("epics=[R@0:01]") && line.contains("towers=0-1") && line.contains("nexus_left=0-1"), "{line}");
-        assert!(line.contains("after_epic=[R towers 1 kills 1 deaths 0 grouped 4.0 plan Split131]"), "{line}");
+        assert!(line.contains("after_epic=[R towers 1 kills 1 deaths 0 grouped 4.0 plan Split14 (named Split131)]"), "{line}");
         let mut b = Batch::default();
         b.add(&t);
         let sum = b.line();
         assert!(sum.starts_with("SUM 1 matches"), "{sum}");
-        assert!(sum.ends_with("| after the epic by plan: Split131 n=1 towers 1.00 kills 1.00 deaths 0.00 grouped 4.04"), "{sum}");
+        assert!(
+            sum.ends_with("| after the epic by plan: Split14 n=1 (named otherwise 1) towers 1.00 kills 1.00 deaths 0.00 grouped 4.04"),
+            "{sum}"
+        );
         assert!(Batch::default().line().ends_with("by plan: -"));
     }
 
     #[test]
     fn plans_and_dates() {
-        assert_eq!(plan_name(Some("\"Gather\"")), "Gather");
-        assert_eq!(plan_name(Some(r#"{"Split14":{"position":"Top"}}"#)), "Split14");
-        assert_eq!(plan_name(Some(r#"{"Split131":{"position1":"Top","position2":"Bottom"}}"#)), "Split131");
-        assert_eq!((plan_name(Some("null")), plan_name(None)), ("-", "-"));
+        // (named, played): only a Top or Jungle player splits
+        assert_eq!(plans_of(Some("\"Gather\"")), ("Gather", "Gather"));
+        assert_eq!(plans_of(Some(r#"{"Split14":{"position":"Top"}}"#)), ("Split14", "Split14"));
+        assert_eq!(plans_of(Some(r#"{"Split14": {"position": "Support"}}"#)), ("Split14", "Gather"));
+        assert_eq!(plans_of(Some(r#"{"Split131":{"position1":"Top","position2":"Jungle"}}"#)), ("Split131", "Split131"));
+        assert_eq!(plans_of(Some(r#"{"Split131":{"position1":"Top","position2":"Bottom"}}"#)), ("Split131", "Split14"));
+        assert_eq!(plans_of(Some(r#"{"Split131":{"position1":"Mid","position2":"Support"}}"#)), ("Split131", "Gather"));
+        assert_eq!((plans_of(Some("null")), plans_of(None)), (("-", "-"), ("-", "-")));
         assert_eq!(After::default().plan(), "-", "not read");
+        assert!(!After::default().renamed());
         assert_eq!(civil(0), (1970, 1, 1));
         assert_eq!(civil(11_016), (2000, 2, 29));
         assert_eq!(civil(20_764), (2026, 11, 7));
