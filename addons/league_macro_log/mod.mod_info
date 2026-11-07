@@ -11,10 +11,10 @@
       "version": ">=0.113.1"
     }
   ],
-  "description": "Read-only macro log for League of Legends Heroes: for every match the server plays it writes what the teams did on the map (towers, the epic monster and the serpent and who took them, what the taker did in the 90 s after an epic, teams that reached the enemy nexus and walked away, how grouped they stood) to league_macro_log.log, with an average every 50 matches. Changes nothing in the game.",
-  "last_updated": "2026-11-06",
+  "description": "Read-only macro log for League of Legends Heroes: for every match the server plays it writes what the teams did on the map (towers, the epic monster and the serpent and who took them, what the taker did in the 90 s after an epic, teams that reached the enemy nexus and walked away, how grouped they stood, the taker's Morgard buff usage) to league_macro_log.log, with an average every 50 matches (split by the Morgard buff usage too) that also goes to league_macro_log.sum.log, which no launch rewrites. Changes nothing in the game.",
+  "last_updated": "2026-11-07",
   "mod_id": "league_macro_log",
   "mod_type": "native",
   "name": "League Heroes: macro log (diagnostic)",
-  "version": "0.1.3"
+  "version": "0.1.4"
 }

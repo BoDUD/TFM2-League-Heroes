@@ -13,8 +13,11 @@
 //!   基地还在——「不推基地」；散开时本队活着的不到 3 个算「被打退」（`nexus_beaten`），否则算「走掉」（`nexus_left`），
 //!   其中待着的时候基地能打（`is_targetable`：前面的塔倒了）的另记 `nexus_left_open`（能打没打）；
 //! - 5:00 以后双方活着的英雄离本队中心的平均距离（`spread`，越小越抱团）。
+//! - 0.1.4 起每段 `EPIC` 还记下拿龙一方战术里的「莫尔加德 buff 用法」（`morgard_use`：`PLANS`，读不到是 `-`）。
 //!
-//! 每 `SUMMARY_EVERY` 场再写一行 `SUM`（这一批的平均），对比改动前后看这一行。
+//! 每 `SUMMARY_EVERY` 场再写一行 `SUM`（这一批的平均），对比改动前后看这一行；0.1.4 起后面按大龙 buff 用法分开平均
+//! （`by plan`：运营钩子 0.1.3 按战术分推之后，抱团和分推各自推得怎么样），而且每行 SUM 还追加到
+//! `league_macro_log.sum.log`（不随启动重写；每次启动的第一行前先写时间和两个包的版本），对比不用再赶在日志被覆盖前复制。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_macro_log.log`，每次启动游戏重写，上一次的留在 .prev.log；
 //! 一次启动最多 `LOG_CAP` 行。
@@ -23,7 +26,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -53,6 +56,10 @@ pub const EARLY: usize = 36_000;
 pub const SPREAD_FROM: usize = 18_000;
 /// 每多少场写一行平均。
 pub const SUMMARY_EVERY: usize = 50;
+/// 战术里大龙 buff 的用法（`strategy_get_json` 的路径）。
+pub const MORGARD_USE: &str = "morgard_use";
+/// 大龙 buff 的几种用法（SUM 行按这几种分开平均；读不到是 `-`）。
+pub const PLANS: [&str; 4] = ["Gather", "Split14", "Split131", "-"];
 /// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 同时跟着的比赛最多几场（没结束就被丢掉的比赛不会一直占着）。
@@ -94,6 +101,56 @@ fn wlog(msg: impl AsRef<str>) {
     }
 }
 
+/// Whether this launch's first SUM line already went to the summary file (after its header).
+static SUM_HEADER: AtomicBool = AtomicBool::new(false);
+
+/// `league_macro_log.sum.log` beside the log: every launch's SUM lines, never rewritten.
+fn sum_path() -> PathBuf {
+    LOG_PATH.with_extension("sum.log")
+}
+
+/// Appends a SUM line to the summary file; a launch's first comes after a line with the time and both packs' versions.
+fn sum_log(line: &str) {
+    let Ok(mut f) = OpenOptions::new().create(true).append(true).open(sum_path()) else { return };
+    let mut text = String::new();
+    if !SUM_HEADER.swap(true, Ordering::Relaxed) {
+        let secs = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_secs());
+        let (y, m, d) = civil(secs / 86_400);
+        text.push_str(&format!(
+            "=== {y}-{m:02}-{d:02} {:02}:{:02} UTC: {ID} v{VERSION}, league_macro v{} ===\n",
+            secs / 3600 % 24,
+            secs / 60 % 60,
+            option_env!("ADDON_VERSION_league_macro").unwrap_or("?")
+        ));
+    }
+    text.push_str(line);
+    text.push('\n');
+    let _ = f.write_all(text.as_bytes());
+}
+
+/// The date (year, month, day) of a count of days since 1970-01-01.
+pub fn civil(days: u64) -> (i64, u32, u32) {
+    let z = days as i64 + 719_468;
+    let era = z.div_euclid(146_097);
+    let doe = z.rem_euclid(146_097);
+    let yoe = (doe - doe / 1460 + doe / 36_524 - doe / 146_096) / 365;
+    let doy = doe - (365 * yoe + yoe / 4 - yoe / 100);
+    let mp = (5 * doy + 2) / 153;
+    let d = (doy - (153 * mp + 2) / 5 + 1) as u32;
+    let m = (if mp < 10 { mp + 3 } else { mp - 9 }) as u32;
+    (yoe + era * 400 + i64::from(m <= 2), m, d)
+}
+
+/// The Morgard plan named in the strategy document's `morgard_use` (one of `PLANS`; `-`: not read).
+pub fn plan_name(json: Option<&str>) -> &'static str {
+    match json {
+        Some(j) if j.contains("Split131") => "Split131",
+        Some(j) if j.contains("Split14") => "Split14",
+        Some(j) if j.contains("Gather") => "Gather",
+        _ => "-",
+    }
+}
+
 fn clock(t: usize) -> String {
     format!("{}:{:02}", t / 3600, t / 60 % 60)
 }
@@ -130,6 +187,8 @@ pub struct Sample {
     pub nexus: Vec<(usize, f64, f64, bool, usize)>,
     /// The teams whose nexus can be hit now (its towers down).
     pub nexus_open: Vec<usize>,
+    /// Each team's Morgard plan (one of `PLANS`; empty: not read).
+    pub plans: [&'static str; 2],
 }
 
 /// After an epic monster: what the team that took it did in the next `CONV` ticks.
@@ -143,6 +202,18 @@ pub struct After {
     /// The team's kills / the other team's kills when the window opened (kills and deaths come from the ends).
     pub kills_from: [usize; 2],
     pub kills_to: [usize; 2],
+    /// The taker's Morgard plan when it took it (empty: not read).
+    pub plan: &'static str,
+}
+
+impl After {
+    fn plan(&self) -> &'static str {
+        if self.plan.is_empty() {
+            "-"
+        } else {
+            self.plan
+        }
+    }
 }
 
 /// A match being watched.
@@ -212,7 +283,7 @@ impl Tracker {
             let team = if b > r { 0 } else if r > b { 1 } else { 2 };
             self.takes.push((team, m.epic, s.tick));
             if m.epic && team < 2 {
-                self.after.push(After { team, from: s.tick, kills_from: kills, kills_to: kills, ..After::default() });
+                self.after.push(After { team, from: s.tick, kills_from: kills, kills_to: kills, plan: s.plans[team], ..After::default() });
             }
         }
         self.monsters = alive;
@@ -280,12 +351,13 @@ impl Tracker {
             .iter()
             .map(|a| {
                 format!(
-                    "{} towers {} kills {} deaths {} grouped {:.1}",
+                    "{} towers {} kills {} deaths {} grouped {:.1} plan {}",
                     ["B", "R"][a.team],
                     a.towers,
                     a.kills_to[a.team] - a.kills_from[a.team],
                     a.kills_to[1 - a.team] - a.kills_from[1 - a.team],
-                    a.grouped_sum / a.samples.max(1) as f64
+                    a.grouped_sum / a.samples.max(1) as f64,
+                    a.plan()
                 )
             })
             .collect();
@@ -320,6 +392,16 @@ impl Tracker {
 
 // ===================== 平均 =====================
 
+/// The 90 s after the epic monsters taken with one Morgard plan.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct PlanSum {
+    pub n: u32,
+    pub towers: u64,
+    pub kills: u64,
+    pub deaths: u64,
+    pub grouped: f64,
+}
+
 /// What the `SUM` line averages over a batch of matches.
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Batch {
@@ -341,6 +423,8 @@ pub struct Batch {
     pub beaten: u32,
     pub wins: [u32; 2],
     pub spread: f64,
+    /// The epic windows by the taker's Morgard plan, in `PLANS` order.
+    pub plans: [PlanSum; 4],
 }
 
 impl Batch {
@@ -360,6 +444,12 @@ impl Batch {
             self.epic_kills += (a.kills_to[a.team] - a.kills_from[a.team]) as u64;
             self.epic_deaths += (a.kills_to[1 - a.team] - a.kills_from[1 - a.team]) as u64;
             self.epic_grouped += a.grouped_sum / a.samples.max(1) as f64;
+            let p = &mut self.plans[PLANS.iter().position(|name| *name == a.plan()).unwrap_or(PLANS.len() - 1)];
+            p.n += 1;
+            p.towers += a.towers as u64;
+            p.kills += (a.kills_to[a.team] - a.kills_from[a.team]) as u64;
+            p.deaths += (a.kills_to[1 - a.team] - a.kills_from[1 - a.team]) as u64;
+            p.grouped += a.grouped_sum / a.samples.max(1) as f64;
         }
         self.visits += t.visits[0] + t.visits[1];
         self.left += t.left[0] + t.left[1];
@@ -372,8 +462,24 @@ impl Batch {
     pub fn line(&self) -> String {
         let m = self.matches.max(1) as f64;
         let e = self.epics.max(1) as f64;
+        let by_plan: Vec<String> = PLANS
+            .iter()
+            .zip(&self.plans)
+            .filter(|(_, p)| p.n > 0)
+            .map(|(name, p)| {
+                let n = p.n as f64;
+                format!(
+                    "{name} n={} towers {:.2} kills {:.2} deaths {:.2} grouped {:.2}",
+                    p.n,
+                    p.towers as f64 / n,
+                    p.kills as f64 / n,
+                    p.deaths as f64 / n,
+                    p.grouped / n
+                )
+            })
+            .collect();
         format!(
-            "SUM {} matches: len {} kills {:.1} (before 10:00 {:.1}) towers {:.1} first tower {} | epics {:.2} a match, in the 90 s after: towers {:.2} kills {:.2} deaths {:.2} grouped {:.2} | at the enemy nexus {:.2} a match, walked away {:.2} (the nexus open {:.2}), beaten back {:.2} | spread {:.0}k | blue won {}, red {}",
+            "SUM {} matches: len {} kills {:.1} (before 10:00 {:.1}) towers {:.1} first tower {} | epics {:.2} a match, in the 90 s after: towers {:.2} kills {:.2} deaths {:.2} grouped {:.2} | at the enemy nexus {:.2} a match, walked away {:.2} (the nexus open {:.2}), beaten back {:.2} | spread {:.0}k | blue won {}, red {} | after the epic by plan: {}",
             self.matches,
             clock((self.ticks as f64 / m) as usize),
             self.kills as f64 / m,
@@ -391,7 +497,8 @@ impl Batch {
             self.beaten as f64 / m,
             self.spread / m / 1000.0,
             self.wins[0],
-            self.wins[1]
+            self.wins[1],
+            if by_plan.is_empty() { "-".to_string() } else { by_plan.join("; ") }
         )
     }
 }
@@ -430,6 +537,9 @@ fn sample(sim: &StableSim<'_>) -> (Sample, [usize; 2]) {
             }
             _ => {}
         }
+    }
+    for (team, plan) in s.plans.iter_mut().enumerate() {
+        *plan = plan_name(sim.strategy_get_json(team, MORGARD_USE).as_deref());
     }
     let mut kills = [0usize; 2];
     for i in 0..sim.player_count() {
@@ -503,6 +613,7 @@ fn watch(sim: &StableSim<'_>) {
         drop(book);
         wlog(line);
         if let Some(sum) = sum {
+            sum_log(&sum);
             wlog(sum);
         }
         return;
@@ -572,7 +683,7 @@ mod tests {
         let towers = vec![(10usize, 0usize), (11, 1), (12, 1)];
         let baron = Monster { id: 50, epic: true, x: 300_000.0, y: 300_000.0 };
         // red's champions at the baron, blue's away
-        let mut s = Sample { tick: 30, champs: [champs(0, (100_000.0, 800_000.0), 5), champs(1, (300_000.0, 300_000.0), 5)].concat(), towers: towers.clone(), monsters: vec![baron], nexus: nexus.clone(), nexus_open: vec![] };
+        let mut s = Sample { tick: 30, champs: [champs(0, (100_000.0, 800_000.0), 5), champs(1, (300_000.0, 300_000.0), 5)].concat(), towers: towers.clone(), monsters: vec![baron], nexus: nexus.clone(), nexus_open: vec![], plans: ["Gather", "Split131"] };
         t.step(&s, [0, 0]);
         // the baron dies with red round it
         s.tick = 60;
@@ -580,6 +691,7 @@ mod tests {
         t.step(&s, [0, 1]);
         assert_eq!(t.takes, vec![(1, true, 60)]);
         assert_eq!(t.after.len(), 1);
+        assert_eq!(t.after[0].plan, "Split131", "red's plan");
         // a blue tower falls in the next 90 s; red stands at blue's nexus for 10 s, then walks away
         s.tick = 90;
         s.towers = vec![(11, 1), (12, 1)];
@@ -600,9 +712,25 @@ mod tests {
         assert!(a.grouped_sum / a.samples as f64 > 3.9, "red grouped: {a:?}");
         let line = t.line("[m=1 s=0]", None);
         assert!(line.contains("epics=[R@0:01]") && line.contains("towers=0-1") && line.contains("nexus_left=0-1"), "{line}");
+        assert!(line.contains("after_epic=[R towers 1 kills 1 deaths 0 grouped 4.0 plan Split131]"), "{line}");
         let mut b = Batch::default();
         b.add(&t);
-        assert!(b.line().starts_with("SUM 1 matches"), "{}", b.line());
+        let sum = b.line();
+        assert!(sum.starts_with("SUM 1 matches"), "{sum}");
+        assert!(sum.ends_with("| after the epic by plan: Split131 n=1 towers 1.00 kills 1.00 deaths 0.00 grouped 4.04"), "{sum}");
+        assert!(Batch::default().line().ends_with("by plan: -"));
+    }
+
+    #[test]
+    fn plans_and_dates() {
+        assert_eq!(plan_name(Some("\"Gather\"")), "Gather");
+        assert_eq!(plan_name(Some(r#"{"Split14":{"position":"Top"}}"#)), "Split14");
+        assert_eq!(plan_name(Some(r#"{"Split131":{"position1":"Top","position2":"Bottom"}}"#)), "Split131");
+        assert_eq!((plan_name(Some("null")), plan_name(None)), ("-", "-"));
+        assert_eq!(After::default().plan(), "-", "not read");
+        assert_eq!(civil(0), (1970, 1, 1));
+        assert_eq!(civil(11_016), (2000, 2, 29));
+        assert_eq!(civil(20_764), (2026, 11, 7));
     }
 
     #[test]
