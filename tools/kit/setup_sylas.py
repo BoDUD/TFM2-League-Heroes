@@ -56,7 +56,7 @@ TEXT = {
                  "后交叉点爆炸，造成" + mag("q2_dmg", "q2_ratio") + "魔法伤害。",
         "skill2": "朝敌方英雄突进，再甩出锁链：命中的第一个敌方英雄受到" + mag("e_dmg", "e_ratio") + "魔法伤害、被" + R + "击飞" + E + A +
                   "{e_up}秒" + E + "，塞拉斯把自己拉过去。",
-        "ult": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招；" + A + "{r_keep}秒" + E + "内再放，在目标处爆发，" +
+        "ult": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招，一直留着，随时再放：在目标处爆发，" +
                mag("r2_dmg", "r2_ratio") + "魔法伤害并" + R + "击飞" + E + "周围敌人。",
         "names": ("锁链鞭击", "潜掠/强掳", "其人之道"),
     },
@@ -69,7 +69,7 @@ TEXT = {
                  "後交叉點爆炸，造成" + mag("q2_dmg", "q2_ratio") + "魔法傷害。",
         "skill2": "朝敵方英雄突進，再甩出鎖鍊：命中的第一個敵方英雄受到" + mag("e_dmg", "e_ratio") + "魔法傷害、被" + R + "擊飛" + E + A +
                   "{e_up}秒" + E + "，賽勒斯把自己拉過去。",
-        "ult": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招；" + A + "{r_keep}秒" + E + "內再放，在目標處爆發，" +
+        "ult": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招，一直留著，隨時再放：在目標處爆發，" +
                mag("r2_dmg", "r2_ratio") + "魔法傷害並" + R + "擊飛" + E + "周圍敵人。",
         "names": ("鍊斬", "逆罪突進/罪獄鍊罰", "盜技禁鍊"),
     },
@@ -84,8 +84,8 @@ TEXT = {
                  " magic damage.",
         "skill2": "Dashes toward an enemy champion, then throws a chain: the first enemy champion hit takes " + mag("e_dmg", "e_ratio") +
                   " magic damage, is " + R + "knocked up" + E + " for " + A + "{e_up}s" + E + " and Sylas pulls himself to it.",
-        "ult": "His chain hits an enemy champion, " + R + "stuns" + E + " it for " + A + "{r_stun}s" + E + " and steals its ultimate; cast "
-               "again within " + A + "{r_keep}s" + E + " to unleash it at the target: " + mag("r2_dmg", "r2_ratio") + " magic damage and "
+        "ult": "His chain hits an enemy champion, " + R + "stuns" + E + " it for " + A + "{r_stun}s" + E + " and steals its ultimate, kept until "
+               "he casts it again to unleash it at the target: " + mag("r2_dmg", "r2_ratio") + " magic damage and "
                "nearby enemies " + R + "knocked up" + E + ".",
         "names": ("Chain Lash", "Abscond / Abduct", "Hijack"),
     },
@@ -98,8 +98,8 @@ TEXT = {
                  "{q_wait}초" + E + " 후 교차점이 폭발해 " + mag("q2_dmg", "q2_ratio") + " 마법 피해.",
         "skill2": "적 챔피언 쪽으로 돌진한 뒤 사슬을 던져 처음 맞은 적 챔피언에게 " + mag("e_dmg", "e_ratio") + " 마법 피해, " + A +
                   "{e_up}초" + E + " " + R + "공중에 띄움" + E + ", 그쪽으로 자신을 끌어당김.",
-        "ult": "사슬이 적 챔피언을 맞혀 " + A + "{r_stun}초" + E + " " + R + "기절" + E + "시키고 궁극기를 빼앗음. " + A + "{r_keep}초" + E +
-               " 안에 다시 쓰면 대상 위치에서 폭발해 " + mag("r2_dmg", "r2_ratio") + " 마법 피해, 주변 적 " + R + "공중에 띄움" + E + ".",
+        "ult": "사슬이 적 챔피언을 맞혀 " + A + "{r_stun}초" + E + " " + R + "기절" + E + "시키고 궁극기를 빼앗아 쓸 때까지 지님. " +
+               "다시 쓰면 대상 위치에서 폭발해 " + mag("r2_dmg", "r2_ratio") + " 마법 피해, 주변 적 " + R + "공중에 띄움" + E + ".",
         "names": ("사슬 후려치기", "도주 / 억압", "강탈"),
     },
     "ja": {
@@ -111,8 +111,8 @@ TEXT = {
                  "後に交差点が爆発し" + mag("q2_dmg", "q2_ratio") + "の魔法ダメージ。",
         "skill2": "敵チャンピオンへ突進し、鎖を投げる：最初に当たった敵チャンピオンに" + mag("e_dmg", "e_ratio") + "の魔法ダメージ、" + A + "{e_up}秒" +
                   E + R + "ノックアップ" + E + "、自身を引き寄せる。",
-        "ult": "鎖が敵チャンピオンに当たると" + A + "{r_stun}秒" + E + R + "スタン" + E + "させアルティメットを奪う。" + A + "{r_keep}秒" + E +
-               "以内に再使用で対象の位置で炸裂、" + mag("r2_dmg", "r2_ratio") + "の魔法ダメージと周囲の敵を" + R + "ノックアップ" + E + "。",
+        "ult": "鎖が敵チャンピオンに当たると" + A + "{r_stun}秒" + E + R + "スタン" + E + "させアルティメットを奪い、使うまで保持。" +
+               "再使用で対象の位置で炸裂、" + mag("r2_dmg", "r2_ratio") + "の魔法ダメージと周囲の敵を" + R + "ノックアップ" + E + "。",
         "names": ("鎖の鞭", "逃亡 / 拉致", "乗っ取り"),
     },
 }
@@ -151,7 +151,7 @@ def secs(t):
 def values(p):
     v = {k: p[k] for k in ("p_as", "p_dmg", "p_ratio", "w_dmg", "w_ratio", "w_heal", "w_heal_r", "q_dmg", "q_ratio",
                            "q_slow", "q2_dmg", "q2_ratio", "e_dmg", "e_ratio", "r2_dmg", "r2_ratio")}
-    for k in ("w_cd", "q_wait", "e_up", "r_stun", "r_keep"):
+    for k in ("w_cd", "q_wait", "e_up", "r_stun"):
         v[k] = secs(p[k])
     return v
 

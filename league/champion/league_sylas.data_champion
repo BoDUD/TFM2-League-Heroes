@@ -1991,11 +1991,7 @@
                                             "type": "AddCasterBuff",
                                             "buff_state": {
                                               "name": "league_sylas_r_have",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 600
-                                                }
-                                              }
+                                              "duration": "Permanent"
                                             },
                                             "only_to_enemy": false
                                           }
