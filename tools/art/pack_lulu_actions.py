@@ -1,0 +1,320 @@
+"""The Codex pack for league_lulu's actions drawn whole at PPU 1.79 (assets/source/lulu/ACTIONS_PROMPT_PPU.md): every
+frame of her actions - her attack, Q Glitterlance (skill), W + E Whimsy / Help, Pix! (skill2), R Wild Growth (ult), run,
+hit and death - a new drawing of the approved design (hd/design.png: Codex's lulu-A read on ~16.26-px squares, 69 x 70 -
+the user, 2026-11-07: 「1.8 for all four」（四位都用 1.8）) in the pose of the OLD sheet's same frame,
+tools/art/pack_ryze_actions.py's way (pack_blitzcrank_actions.py's latest), one PR with the rest of batch 6 (霞 / 洛 / 稻草人
+/ 璐璐).
+
+    python tools/art/pack_lulu_actions.py --out C:/t/lulu_actions
+
+The weapon and hands go where the old frame has them (WEAPONS); the old frames' baked effects are not drawn. The run's
+legs change over (RUN_LEGS: named frame by frame from the start - deferred to the pale figure, Codex's runs kept the
+same legs in all 8 frames).
+
+Not drawn: idle_base (the design, held still), idle and bp (tools/art/hero_reels.json cuts them from the actions). Old
+frames that are another frame pixel for pixel are drawn once (SAME). Nothing is baked. Each template sheet
+(templates/<tag>_<k>.png, 1536 x 1024) holds ONE or TWO frames: in each cell the old 1x frame scaled to her height (PPU
+squares a pixel, SQ px a square), faded, as the pose to follow, standing on the ground line at the standing point, and a
+bar as tall as her standing height. refs/design_picture.png is Codex's own lulu-A, the picture the design was read from
+(its fine detail). Then <out>.zip.
+"""
+import argparse
+import json
+import os
+import shutil
+import sys
+
+import numpy as np
+from PIL import Image, ImageDraw
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
+sys.path.insert(0, HERE)
+import pack_riven_actions as PR  # noqa: E402
+
+SRC = os.path.join(REPO, "assets", "source", "lulu")
+OLD_SRC = os.path.join(REPO, "assets", "source", "lulu")   # the old sheet (hd/old)
+NATIVE = os.path.join(REPO, "assets", "source", "native")
+NATIVE_HERO = "lulu"                    # the native cells of BAKED tags: <hero>_<tag>.png, <hero>_cells.json
+DESIGN_TAG = "idle_base"                  # the old sheet's idle pose (the design): its first frame
+RUN_TAG = "run"
+TAGS = ["run", "attack", "skill", "skill2", "ult", "hit", "dead"]
+BAKED = []                              # (nothing baked into the body tags)
+NAMES = {
+    "run": ("running (her move loop, 7 frames): skipping forward on her little feet, the staff held upright in her "
+        "near hand, Pix floating at the picture's upper left as in image 1, the hat bobbing, the FEET CHANGING "
+        "OVER as written for each frame"),
+    "attack": ("attack (the magic bolt): she stands ready, the staff upright (frame 1), swings it down and points it"
+        " straight out to the picture's right, level at chest height (frames 2-5), and raises it upright "
+        "again (frame 6)"),
+    "skill": ("Glitterlance (Q): she points the staff straight out level to the picture's right - crouched low "
+        "(frame 1), level at chest height (frames 2-5) - and raises it upright again (frame 6)"),
+    "skill2": ("Whimsy / Help, Pix! (W + E): she stands ready (frame 1), raises the staff high overhead, her arm up "
+        "straight (frames 2-3), points it out level to the picture's right (frames 4-5) and holds it upright "
+        "again (frame 6)"),
+    "ult": ("Wild Growth (R): she stands ready (frame 1), points the staff out level to the picture's right (frame "
+        "2), raises it high overhead, her arm up straight (frames 3-4), points it out again (frame 5) and holds "
+        "it upright (frame 6)"),
+    "hit": ("struck: she flinches back, the staff upright (frames 1-2)"),
+    "dead": ("death: struck (frame 1), she staggers back (frame 2) and slumps to the ground (frame 3); then she is "
+        "gone - only her big red hat is left, fallen flat on the ground over her staff (frames 4-6; frames 7-8 "
+        "= frame 6)"),
+}
+ARMS = ("THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden"
+        " staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out "
+        "level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale "
+        "figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no "
+        "stars, no glow.")
+WEAPONS = {t: ARMS for t in NAMES}
+# The run's legs frame by frame, named from the start (the Blitzcrank redo's way, 2026-11-05: deferred to the pale
+# figure, Codex drew the same legs in all 8 frames - the user on Talon, 2026-10-31: 「走路没有换腿」): support, swing, passing,
+# stride, the other leg from frame 5 (Lulu's 7-frame run: from frame 4); the run goes to the right, "back" is the
+# picture's left
+RUN_LEGS = {
+    1: "SUPPORT ON THE NEAR FOOT: the NEAR little black boot (the lighter one) flat on the ground line under her "
+       "robe; the FAR boot (the darker one) lifted behind it, off the ground",
+    2: "PASSING: the FAR boot passing forward right beside the planted near one, just off the ground - the two feet "
+       "side by side under the robe",
+    3: "STRIDE: the FAR boot forward (the picture's right), about to land; the NEAR boot behind (the picture's "
+       "left), its toes on the ground - the feet apart",
+    4: "SUPPORT ON THE FAR FOOT: now the FAR boot flat on the ground line under her robe; the NEAR boot lifted "
+       "behind it, off the ground",
+    5: "SUPPORT ON THE FAR FOOT: the far boot still planted; the near boot swinging forward low, just off the ground"
+       " behind the planted one",
+    6: "PASSING: the NEAR boot passing forward right beside the planted far one, just off the ground - the two feet "
+       "side by side",
+    7: "STRIDE: the NEAR boot forward (the picture's right), about to land; the FAR boot behind (the picture's "
+       "left), its toes on the ground - the feet apart",
+}
+RUN_SWAP = ("The two feet TAKE TURNS: in frames 1-3 the NEAR boot (the lighter one) carries her and the FAR boot "
+            "comes forward, in frames 4-7 the FAR boot (the darker one) carries her and the NEAR boot comes forward -"
+            " frames 1 and 4 must show a different foot planted. Draw the feet AS WRITTEN for each frame, not the "
+            "pale figure's (the old 1x feet are too small to read; runs drawn after them kept the same legs in all "
+            "frames: 「走路没有换腿」). The robe, the hat, the hair, the staff and Pix follow the pale figure; her long robe "
+            "hides her legs - only the little boots show under it.")
+# old frames that are another frame pixel for pixel (checked on the old sheet, cropped to the figure): drawn once, here
+# (tag, frame), 1-based; DESIGN: her idle pose itself (the old idle_base 1)
+DESIGN = ("design", 0)
+SAME = {"dead": {7: ('dead', 6), 8: ('dead', 6)}}
+DISSOLVE = {}
+SOLID = set()
+SQ = 9                                    # px a design square in the templates (her 70 rows in the sheet)
+SQ_OF = {"skill2": 8, "ult": 8}   # (her staff raised overhead reaches 63 old px over her soles)
+PPU = 70 / 39                            # design squares an old pixel (hd/design.png: 70 rows, her 1x 39)
+H = 1024
+SHEET_W = 1536
+GROUND = H - 100
+STAND = 70                               # design rows from the top of her staff to her soles
+OLD_SOLES = 11.5                         # old frames: the soles this many pixels under the frame's centre (its pivot)
+CELL_SOLES = 12                          # native cells: the soles 12 px under the cell's pivot
+MARGIN = 30
+GREY = (225, 225, 225)
+
+
+def solid(a):
+    """A dissolving old frame (an ordered dither took pixels out: tools/art/rig_kayn_forms.py's death) made whole for
+    the template: the holes inside its closed shape take the colour of the nearest pixel left."""
+    from scipy import ndimage
+    op = a[..., 3] > 0
+    shut = ndimage.binary_fill_holes(ndimage.binary_closing(op, structure=np.ones((3, 3)), iterations=2) | op)
+    _, (iy, ix) = ndimage.distance_transform_edt(~op, return_indices=True)
+    out = a.copy()
+    hole = shut & ~op
+    out[hole] = a[iy[hole], ix[hole]]
+    return out
+
+
+def old_frames(sheet_png, fanim):
+    """{tag: [(frame, ms, (pivot x, soles y))]}: the old sheet's frames (pivot: the frame's centre, the soles OLD_SOLES
+    under it), BAKED tags from their native body cells at 1x (each cell's own pivot, NATIVE_HERO's cells, the soles
+    CELL_SOLES under it), SOLID frames made whole."""
+    px = np.asarray(Image.open(sheet_png).convert("RGBA"))
+    with open(fanim, encoding="utf-8-sig") as f:
+        anims = json.load(f)["anims"]
+    cells = None
+    if BAKED:
+        with open(os.path.join(NATIVE, f"{NATIVE_HERO}_cells.json"), encoding="utf-8") as f:
+            cells = json.load(f)
+    out = {}
+    for tag in TAGS:
+        fr = []
+        if tag in BAKED:
+            strip = Image.open(PR.lp(os.path.join(NATIVE, f"{NATIVE_HERO}_{tag}.png"))).convert("RGBA")
+            cw, ch = (v * cells["scale"] for v in cells["cell"])
+            per_row = strip.width // cw
+            for k, c in enumerate(cells["tags"][tag]):
+                r, q = divmod(k, per_row)
+                a = np.asarray(strip.crop((q * cw, r * ch, (q + 1) * cw, (r + 1) * ch))
+                               .resize(tuple(cells["cell"]), Image.BOX)).copy()
+                a[..., 3] = np.where(a[..., 3] >= 128, 255, 0)
+                a[a[..., 3] == 0] = 0
+                fr.append((a, c["ms"], (c["pivot"][0], c["pivot"][1] + CELL_SOLES)))
+        else:
+            for k, f_ in enumerate(anims[tag]["frames"], 1):
+                d = f_["data"]
+                x, y, w, h = (int(d[q]) for q in ("x", "y", "w", "h"))
+                a = px[y:y + h, x:x + w].copy()
+                if (tag, k) in SOLID:
+                    a = solid(a)
+                fr.append((a, round(f_["duration"] * 1000), (w / 2, h / 2 + OLD_SOLES)))
+        out[tag] = fr
+    return out
+
+
+def cell_fit(frame, sq):
+    xs = np.nonzero(frame[0][..., 3].any(0))[0]
+    return (xs.max() + 1 - xs.min()) * PPU * sq + 2 * MARGIN <= SHEET_W / 2
+
+
+def placed(frame, x0, cw, sq):
+    """The old frame scaled to his height in a cell [x0, x0 + cw): its pivot on the standing point (the cell's middle),
+    its soles on the ground line, kept inside the cell. -> (RGBA image, left, top)."""
+    a, _, (pvx, pvy) = frame
+    k = PPU * sq
+    h, w = a.shape[:2]
+    im = Image.fromarray(a).resize((round(w * k), round(h * k)), Image.NEAREST)
+    left = round(x0 + cw / 2 - pvx * k)
+    top = round(GROUND - pvy * k)
+    bb = im.getbbox()
+    if bb:
+        lo, hi = left + bb[0], left + bb[2]
+        if lo < x0 + MARGIN:
+            left += x0 + MARGIN - lo
+        elif hi > x0 + cw - 14:
+            left -= hi - (x0 + cw - 14)
+        if top + bb[1] < 8:
+            raise SystemExit(f"a frame reaches {8 - top - bb[1]} px over the template's top: lower SQ_OF")
+    return im, left, top
+
+
+def template(path, frames, nums, sq):
+    cw = SHEET_W // len(frames)
+    can = Image.new("RGBA", (SHEET_W, H), (255, 255, 255, 255))
+    for i, fr in enumerate(frames):
+        im, left, top = placed(fr, i * cw, cw, sq)
+        a = np.asarray(im).astype(float)
+        faded = a.copy()
+        faded[..., :3] = a[..., :3] * 0.35 + 255 * 0.65                  # a pale picture of the pose
+        can.alpha_composite(Image.fromarray(faded.astype(np.uint8)), (left, top))
+    dr = ImageDraw.Draw(can)
+    for i in range(len(frames)):
+        x0 = i * cw
+        cx = x0 + cw / 2
+        dr.rectangle([x0, 0, x0 + cw - 1, H - 1], outline=(60, 60, 60), width=2)
+        dr.line([(x0, GROUND), (x0 + cw - 1, GROUND)], fill=(90, 90, 90), width=3)
+        dr.line([(cx, GROUND - 12), (cx, GROUND + 12)], fill=(90, 90, 90), width=3)
+        bx = x0 + 16
+        dr.line([(bx, GROUND), (bx, GROUND - STAND * sq)], fill=(160, 160, 160), width=4)
+        dr.text((bx + 8, GROUND - STAND * sq - 4), "her height standing (the top of her staff)",
+                fill=(120, 120, 120), font=PR.font(16))
+        dr.text((x0 + 14, 12), f"frame {nums[i]}", fill=(0, 0, 0), font=PR.font(26))
+    can.convert("RGB").save(path)
+
+
+def old_ref(frames, nums, out, sq):
+    cw = SHEET_W // len(frames)
+    can = Image.new("RGBA", (SHEET_W, H), GREY + (255,))
+    dr = ImageDraw.Draw(can)
+    for i, fr in enumerate(frames):
+        im, left, top = placed(fr, i * cw, cw, sq)
+        can.alpha_composite(im, (left, top))
+        dr.text((i * cw + 14, 12), f"old frame {nums[i]}", fill=(0, 0, 0), font=PR.font(26))
+    can.convert("RGB").save(out)
+
+
+def groups(frs, skip, sq):
+    """[([numbers], [frames])] of the frames to draw (none in `skip`): two to a sheet while both fit a half."""
+    todo = [(k + 1, f) for k, f in enumerate(frs) if k + 1 not in skip]
+    out, k = [], 0
+    while k < len(todo):
+        if k + 1 < len(todo) and cell_fit(todo[k][1], sq) and cell_fit(todo[k + 1][1], sq):
+            pair = todo[k:k + 2]
+            k += 2
+        else:
+            pair = todo[k:k + 1]
+            k += 1
+        out.append(([n for n, _ in pair], [f for _, f in pair]))
+    return out
+
+
+def figure(a):
+    ys, xs = np.nonzero(a[..., 3])
+    return a[ys.min():ys.max() + 1, xs.min():xs.max() + 1]
+
+
+def idle_sheet():
+    """Her idle pose on the old sheet: DESIGN_TAG 1."""
+    px = np.asarray(Image.open(PR.lp(os.path.join(OLD_SRC, "hd", "old", "sheet.png"))).convert("RGBA"))
+    with open(PR.lp(os.path.join(OLD_SRC, "hd", "old", "anim.fanim")), encoding="utf-8-sig") as f:
+        d = json.load(f)["anims"][DESIGN_TAG]["frames"][0]["data"]
+    x, y, w, h = (int(d[k]) for k in ("x", "y", "w", "h"))
+    return px[y:y + h, x:x + w]
+
+
+def check_same(old):
+    """Every SAME pair is the same picture on the old sheet - a later edit of SAME must not join two poses."""
+    for tag, m in SAME.items():
+        for k, (t2, k2) in m.items():
+            a = figure(old[tag][k - 1][0])
+            bs = [figure(idle_sheet())] if (t2, k2) == DESIGN else [figure(old[t2][k2 - 1][0])]
+            if not any(a.shape == b.shape and (a == b).all() for b in bs):
+                sys.exit(f"SAME {tag} {k} = {t2} {k2}: not the same old frame")
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--out", required=True)
+    ap.add_argument("--old-sheet", default=os.path.join(OLD_SRC, "hd", "old", "sheet.png"))
+    ap.add_argument("--old-fanim", default=os.path.join(OLD_SRC, "hd", "old", "anim.fanim"))
+    ap.add_argument("--only", help="tags to pack, comma-separated (the redo of one action: --only run)")
+    ap.add_argument("--sheets", help="of those, only these sheets, comma-separated (the redo: run_1,...,skill_1)")
+    ap.add_argument("--prompt", default="ACTIONS_PROMPT_PPU.md", help="the prompt file in assets/source/lulu")
+    ap.add_argument("--style", help="a delivered sheet (hd/casts/<name>.png) shown as the view and size to match: "
+                                    "refs/style.png (a redo of one sheet)")
+    a = ap.parse_args()
+    tpl, refs = os.path.join(a.out, "templates"), os.path.join(a.out, "refs")
+    for d in (tpl, refs):
+        os.makedirs(d, exist_ok=True)
+    old = old_frames(PR.lp(a.old_sheet), PR.lp(a.old_fanim))
+    check_same(old)
+    des = Image.open(PR.lp(os.path.join(SRC, "hd", "design.png"))).convert("RGBA")
+    bg = Image.new("RGBA", (des.width + 4, des.height + 4), GREY + (255,))
+    bg.alpha_composite(des, (2, 2))
+    bg.convert("RGB").resize((bg.width * 6, bg.height * 6), Image.NEAREST).save(os.path.join(refs, "design.png"))
+    shutil.copyfile(PR.lp(os.path.join(SRC, "hd", "design.png")), os.path.join(refs, "design_1x.png"))
+    pic = Image.open(PR.lp(os.path.join(SRC, "hd", "raw", "lulu-A.png"))).convert("RGBA")
+    pic.putalpha(pic.getchannel("A").point(lambda v: 255 if v >= 128 else 0))
+    pic = pic.crop(pic.getbbox())
+    bg = Image.new("RGBA", (pic.width + 40, pic.height + 40), GREY + (255,))
+    bg.alpha_composite(pic, (20, 20))
+    bg.convert("RGB").save(os.path.join(refs, "design_picture.png"))
+    a_ = np.asarray(des)
+    PR.palette(np.unique(a_[a_[..., 3] > 0][:, :3], axis=0), os.path.join(refs, "design_palette.png"))
+    sheets = []
+    for tag in (a.only.split(",") if a.only else TAGS):
+        sq = SQ_OF.get(tag, SQ)
+        skip = set(SAME.get(tag, {})) | {k for k, (src, _) in DISSOLVE.get(tag, {}).items() if src != k}
+        for n, (nums, part) in enumerate(groups(old[tag], skip, sq)):
+            name = f"{tag}_{n + 1}"
+            if a.sheets and name not in a.sheets.split(","):
+                continue
+            template(os.path.join(tpl, name + ".png"), part, nums, sq)
+            old_ref(part, nums, os.path.join(refs, f"old_{name}.png"), sq)
+            sheets.append(dict(tag=tag, name=name, frames=nums, cells=len(part), square=sq, action=NAMES[tag],
+                               ms=[ms for _, ms, _ in part], weapons=WEAPONS[tag]))
+            if tag == RUN_TAG:
+                sheets[-1]["legs"] = " ".join(f"Frame {k}: {RUN_LEGS[k]}." for k in nums) + " " + RUN_SWAP
+    same = {t: {str(k): f"{t2} {k2}" for k, (t2, k2) in m.items()} for t, m in SAME.items()}
+    with open(os.path.join(a.out, "sheets.json"), "w", encoding="utf-8") as f:
+        json.dump({"square": SQ, "square_of": SQ_OF, "sheet": [SHEET_W, H], "ground": GROUND, "same": same,
+                   "dissolve": {t: {str(k): list(v) for k, v in m.items()} for t, m in DISSOLVE.items()},
+                   "baked_body_frames": BAKED, "sheets": sheets}, f, indent=1, ensure_ascii=False)
+    if a.style:
+        shutil.copyfile(PR.lp(os.path.join(SRC, "hd", "casts", a.style + ".png")), os.path.join(refs, "style.png"))
+    shutil.copyfile(PR.lp(os.path.join(SRC, a.prompt)), os.path.join(a.out, "ACTIONS_PROMPT.md"))
+    zp = shutil.make_archive(a.out, "zip", a.out)
+    print(len(sheets), "sheets,", sum(len(s["frames"]) for s in sheets), "frames; written", zp)
+
+
+if __name__ == "__main__":
+    main()

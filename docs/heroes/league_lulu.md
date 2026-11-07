@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / Range / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.79 |
 | 附加包 | [辅助挑人附加包：迦娜、娑娜、璐璐](#附加包)（`league_support_pick`） |
 
 ![璐璐演示](../preview/league_lulu_showcase.gif)
@@ -87,6 +87,7 @@
 | 亚索联动 | R 的击飞算控制：璐璐在亚索队里打辅助时，亚索每局对英雄放 R 0.65 次（原版 `priest` 0.58、迦娜 1.27、蕾欧娜 2.12），不用调 |
 | 精灵图 | 8 个动作 49 帧：待机 8、移动 7、普攻 6、Q（`skill`）6、W+E（`skill2`）6、R（`ult`）6、受击 2、死亡 8（她消失，帽子落在法杖上）。约德尔人，按用户要求整体缩到 90%：待机 39 行（原来 44 行）。头像截取点 (2, −22) |
 | 特效 | Codex 画的 21 张（`import_lulu.py` 缩成游戏像素），两张表：`league_lulu_fx` 普攻魔法弹和命中、皮克斯的小弹和命中，Q 的两道长枪、命中、减速光圈，W 的魔法球、变身烟雾和小松鼠（出现 / 循环 / 散开三段），E 皮克斯的光球、落到队友身上的闪光、护盾光环（皮克斯在上面）、金色加速；`league_lulu_big` R 的绿色光柱和地面生长光环（三段） |
+| 高清帧（PPU 1.79） | 2026-11-07 用 PPU 重做，和霞、洛、稻草人在同一个 PR（用户：「接下来利用PPU重做霞 洛 稻草人 璐璐 在一个pr里」「1.8 for all four」「Codex交付了你做到完美后喊我review」「洛的不太对吧 怎么模型会突然变大变小」「还是很奇怪啊 感觉有的地方突然变大很多 你看不出来吗」「codex交付了」「可以，继续登记」）。设计图：Codex 照旧精灵描密的原图，按原图约 16.3 像素一格读回（69 × 70 格；法杖顶到脚底 70 行（皮克斯在同一行），旧精灵 39 行，PPU 1.79）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 30 张图、39 帧（另外 2 帧和别的帧一样，只画一次），透明底的原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；皮克斯是单独的一块：旧帧里它分开的 31 帧按她的身体定位，皮克斯整块挪到旧帧里它的位置，飞的路线和旧版一样；跑步只有 7 帧，第 1–3 帧近侧脚、第 4–7 帧远侧脚撑地；E 第 2 帧和模板只重合 0.64，取四种量法的中位数；量头用脸的淡紫。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 不设值，不变（法杖和皮克斯照旧顶出卡片上沿）；头像截取点按新脸挪到 (2,-22) → (4,-17)（旧点框在帽檐上）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_lulu.py`）：普攻、Q、W、E、R 和变身、护盾、变大的声音，W、R 各一句中文配音。版权属于 Riot Games，**不提交到仓库**，本机用脚本重新生成 |
 | 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
 
@@ -100,6 +101,15 @@ python tools/art/slim_lulu.py            # 瘦身和五官（已经做过，再�
 python tools/art/import_native.py --hero lulu
 python tools/art/import_lulu.py          # 特效；--raw <Codex 交付目录> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_lulu.py
+# PPU 1.79 重做（2026-11-07）：
+python tools/art/pack_lulu_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_lulu_hd.py                      # Codex 的原图（hd/raw/lulu-A.png）按原图约 16.3 像素一格读回 -> hd/design.png
+python tools/art/pack_lulu_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_lulu_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_lulu_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero lulu && python tools/art/ppu_hd.py --hero lulu
+python tools/art/ppu_one.py --hero lulu && python tools/art/rig_lulu_hd.py --one-ground && python tools/art/hero_reels.py --hero lulu
+python tools/art/review_lulu_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（动作的提示词见 [`assets/source/lulu/MODEL_STRIPS.md`](../../assets/source/lulu/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/lulu/PROMPTS_FX.md)；Codex 的动作交付说明在 [`codex_strips/`](../../assets/source/lulu/codex_strips)）：
@@ -114,4 +124,4 @@ python tools/art/preview_lulu.py
   - 挑列时排除了会把卷边和帽檐之间的缝封成小透明洞的列，和 main 比没有一帧多出洞或断开。死亡第 4–8 帧只剩地上的帽子，没改。
 - 特效：Codex 第 3 步的 21 张（`import_lulu.py --raw`：按交付清单切帧，颜色归到每张的色阶）；原地播放的特效整条用一个锚点（不然每帧会滑），小松鼠单独按 18 px 宽取样、描边优先，脸才看得清。魔法弹按出手帧法杖的高度抬起，在她身前出现、沿着法杖飞出去。
 
-逐帧预览：[`docs/preview/league_lulu_frames.png`](../preview/league_lulu_frames.png?v=1014g)，特效：[`docs/preview/league_lulu_effects.png`](../preview/league_lulu_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_lulu_frames.png`](../preview/league_lulu_frames.png?v=1107hd)，特效：[`docs/preview/league_lulu_effects.png`](../preview/league_lulu_effects.png?v=1014g)。

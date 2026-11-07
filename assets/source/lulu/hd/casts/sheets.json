@@ -1,0 +1,464 @@
+{
+ "square": 9,
+ "square_of": {
+  "skill2": 8,
+  "ult": 8
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "dead": {
+   "7": "dead 6",
+   "8": "dead 6"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop, 7 frames): skipping forward on her little feet, the staff held upright in her near hand, Pix floating at the picture's upper left as in image 1, the hat bobbing, the FEET CHANGING OVER as written for each frame",
+   "ms": [
+    143,
+    143
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR FOOT: the NEAR little black boot (the lighter one) flat on the ground line under her robe; the FAR boot (the darker one) lifted behind it, off the ground. Frame 2: PASSING: the FAR boot passing forward right beside the planted near one, just off the ground - the two feet side by side under the robe. The two feet TAKE TURNS: in frames 1-3 the NEAR boot (the lighter one) carries her and the FAR boot comes forward, in frames 4-7 the FAR boot (the darker one) carries her and the NEAR boot comes forward - frames 1 and 4 must show a different foot planted. Draw the feet AS WRITTEN for each frame, not the pale figure's (the old 1x feet are too small to read; runs drawn after them kept the same legs in all frames: 「走路没有换腿」). The robe, the hat, the hair, the staff and Pix follow the pale figure; her long robe hides her legs - only the little boots show under it."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop, 7 frames): skipping forward on her little feet, the staff held upright in her near hand, Pix floating at the picture's upper left as in image 1, the hat bobbing, the FEET CHANGING OVER as written for each frame",
+   "ms": [
+    143,
+    143
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow.",
+   "legs": "Frame 3: STRIDE: the FAR boot forward (the picture's right), about to land; the NEAR boot behind (the picture's left), its toes on the ground - the feet apart. Frame 4: SUPPORT ON THE FAR FOOT: now the FAR boot flat on the ground line under her robe; the NEAR boot lifted behind it, off the ground. The two feet TAKE TURNS: in frames 1-3 the NEAR boot (the lighter one) carries her and the FAR boot comes forward, in frames 4-7 the FAR boot (the darker one) carries her and the NEAR boot comes forward - frames 1 and 4 must show a different foot planted. Draw the feet AS WRITTEN for each frame, not the pale figure's (the old 1x feet are too small to read; runs drawn after them kept the same legs in all frames: 「走路没有换腿」). The robe, the hat, the hair, the staff and Pix follow the pale figure; her long robe hides her legs - only the little boots show under it."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (her move loop, 7 frames): skipping forward on her little feet, the staff held upright in her near hand, Pix floating at the picture's upper left as in image 1, the hat bobbing, the FEET CHANGING OVER as written for each frame",
+   "ms": [
+    143,
+    143
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow.",
+   "legs": "Frame 5: SUPPORT ON THE FAR FOOT: the far boot still planted; the near boot swinging forward low, just off the ground behind the planted one. Frame 6: PASSING: the NEAR boot passing forward right beside the planted far one, just off the ground - the two feet side by side. The two feet TAKE TURNS: in frames 1-3 the NEAR boot (the lighter one) carries her and the FAR boot comes forward, in frames 4-7 the FAR boot (the darker one) carries her and the NEAR boot comes forward - frames 1 and 4 must show a different foot planted. Draw the feet AS WRITTEN for each frame, not the pale figure's (the old 1x feet are too small to read; runs drawn after them kept the same legs in all frames: 「走路没有换腿」). The robe, the hat, the hair, the staff and Pix follow the pale figure; her long robe hides her legs - only the little boots show under it."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (her move loop, 7 frames): skipping forward on her little feet, the staff held upright in her near hand, Pix floating at the picture's upper left as in image 1, the hat bobbing, the FEET CHANGING OVER as written for each frame",
+   "ms": [
+    142
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow.",
+   "legs": "Frame 7: STRIDE: the NEAR boot forward (the picture's right), about to land; the FAR boot behind (the picture's left), its toes on the ground - the feet apart. The two feet TAKE TURNS: in frames 1-3 the NEAR boot (the lighter one) carries her and the FAR boot comes forward, in frames 4-7 the FAR boot (the darker one) carries her and the NEAR boot comes forward - frames 1 and 4 must show a different foot planted. Draw the feet AS WRITTEN for each frame, not the pale figure's (the old 1x feet are too small to read; runs drawn after them kept the same legs in all frames: 「走路没有换腿」). The robe, the hat, the hair, the staff and Pix follow the pale figure; her long robe hides her legs - only the little boots show under it."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the magic bolt): she stands ready, the staff upright (frame 1), swings it down and points it straight out to the picture's right, level at chest height (frames 2-5), and raises it upright again (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the magic bolt): she stands ready, the staff upright (frame 1), swings it down and points it straight out to the picture's right, level at chest height (frames 2-5), and raises it upright again (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the magic bolt): she stands ready, the staff upright (frame 1), swings it down and points it straight out to the picture's right, level at chest height (frames 2-5), and raises it upright again (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the magic bolt): she stands ready, the staff upright (frame 1), swings it down and points it straight out to the picture's right, level at chest height (frames 2-5), and raises it upright again (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the magic bolt): she stands ready, the staff upright (frame 1), swings it down and points it straight out to the picture's right, level at chest height (frames 2-5), and raises it upright again (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "attack (the magic bolt): she stands ready, the staff upright (frame 1), swings it down and points it straight out to the picture's right, level at chest height (frames 2-5), and raises it upright again (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Glitterlance (Q): she points the staff straight out level to the picture's right - crouched low (frame 1), level at chest height (frames 2-5) - and raises it upright again (frame 6)",
+   "ms": [
+    55
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Glitterlance (Q): she points the staff straight out level to the picture's right - crouched low (frame 1), level at chest height (frames 2-5) - and raises it upright again (frame 6)",
+   "ms": [
+    55
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Glitterlance (Q): she points the staff straight out level to the picture's right - crouched low (frame 1), level at chest height (frames 2-5) - and raises it upright again (frame 6)",
+   "ms": [
+    57
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Glitterlance (Q): she points the staff straight out level to the picture's right - crouched low (frame 1), level at chest height (frames 2-5) - and raises it upright again (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Glitterlance (Q): she points the staff straight out level to the picture's right - crouched low (frame 1), level at chest height (frames 2-5) - and raises it upright again (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Glitterlance (Q): she points the staff straight out level to the picture's right - crouched low (frame 1), level at chest height (frames 2-5) - and raises it upright again (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Whimsy / Help, Pix! (W + E): she stands ready (frame 1), raises the staff high overhead, her arm up straight (frames 2-3), points it out level to the picture's right (frames 4-5) and holds it upright again (frame 6)",
+   "ms": [
+    55,
+    55
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Whimsy / Help, Pix! (W + E): she stands ready (frame 1), raises the staff high overhead, her arm up straight (frames 2-3), points it out level to the picture's right (frames 4-5) and holds it upright again (frame 6)",
+   "ms": [
+    57
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Whimsy / Help, Pix! (W + E): she stands ready (frame 1), raises the staff high overhead, her arm up straight (frames 2-3), points it out level to the picture's right (frames 4-5) and holds it upright again (frame 6)",
+   "ms": [
+    55
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Whimsy / Help, Pix! (W + E): she stands ready (frame 1), raises the staff high overhead, her arm up straight (frames 2-3), points it out level to the picture's right (frames 4-5) and holds it upright again (frame 6)",
+   "ms": [
+    55
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Whimsy / Help, Pix! (W + E): she stands ready (frame 1), raises the staff high overhead, her arm up straight (frames 2-3), points it out level to the picture's right (frames 4-5) and holds it upright again (frame 6)",
+   "ms": [
+    56
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Wild Growth (R): she stands ready (frame 1), points the staff out level to the picture's right (frame 2), raises it high overhead, her arm up straight (frames 3-4), points it out again (frame 5) and holds it upright (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Wild Growth (R): she stands ready (frame 1), points the staff out level to the picture's right (frame 2), raises it high overhead, her arm up straight (frames 3-4), points it out again (frame 5) and holds it upright (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Wild Growth (R): she stands ready (frame 1), points the staff out level to the picture's right (frame 2), raises it high overhead, her arm up straight (frames 3-4), points it out again (frame 5) and holds it upright (frame 6)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Wild Growth (R): she stands ready (frame 1), points the staff out level to the picture's right (frame 2), raises it high overhead, her arm up straight (frames 3-4), points it out again (frame 5) and holds it upright (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Wild Growth (R): she stands ready (frame 1), points the staff out level to the picture's right (frame 2), raises it high overhead, her arm up straight (frames 3-4), points it out again (frame 5) and holds it upright (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "struck: she flinches back, the staff upright (frames 1-2)",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frame 1), she staggers back (frame 2) and slumps to the ground (frame 3); then she is gone - only her big red hat is left, fallen flat on the ground over her staff (frames 4-6; frames 7-8 = frame 6)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frame 1), she staggers back (frame 2) and slumps to the ground (frame 3); then she is gone - only her big red hat is left, fallen flat on the ground over her staff (frames 4-6; frames 7-8 = frame 6)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "death: struck (frame 1), she staggers back (frame 2) and slumps to the ground (frame 3); then she is gone - only her big red hat is left, fallen flat on the ground over her staff (frames 4-6; frames 7-8 = frame 6)",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "THE STAFF goes where the pale figure has it, frame by frame (image 3 shows it in colour): the twisted wooden staff with its curled top, as long as in image 1, in her near white-gloved hand - upright, pointed out level or raised overhead, as the pale figure has it. PIX, the little violet fairy, floats where the pale figure has him (the picture's upper left), as big as in image 1. Only her: no sparkles, no magic bolts, no stars, no glow."
+  }
+ ]
+}

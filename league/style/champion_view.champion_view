@@ -250,8 +250,8 @@
     },
     "league_fiddlesticks": {
       "face": {
-        "x": 9,
-        "y": -30
+        "x": 10,
+        "y": -25
       },
       "center": {
         "x": 2,
@@ -714,8 +714,8 @@
     },
     "league_rakan": {
       "face": {
-        "x": -2,
-        "y": -35
+        "x": 1,
+        "y": -29
       },
       "center": {
         "x": 0,
@@ -723,7 +723,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -10
+        "y": -6
       }
     },
     "league_evelynn": {
@@ -972,8 +972,8 @@
     },
     "league_xayah": {
       "face": {
-        "x": 5,
-        "y": -34
+        "x": 7,
+        "y": -29
       },
       "center": {
         "x": 0,
@@ -981,13 +981,13 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -7
+        "y": -5
       }
     },
     "league_lulu": {
       "face": {
-        "x": 2,
-        "y": -22
+        "x": 4,
+        "y": -17
       },
       "center": {
         "x": 0,
