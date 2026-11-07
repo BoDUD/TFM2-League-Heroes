@@ -15,6 +15,12 @@
 //!   0.1.0 站在兵线身后 25000、跟上后 AI 往哪走都拉回：大龙后 90 秒抱团 1.7 -> 3.1 人，推塔却 2.0 -> 1.3 座（830 场）。
 //!   0.1.1 压到兵线上：抱团 3.0、推塔 1.6，但拿龙一方之后 90 秒击杀 2.9 / 阵亡 2.9（没有钩子时 3.3 / 2.6）——人少也被拉去
 //!   对面塔下。0.1.2 起只在人数不吃亏时推：我方活着的英雄不少于对面，而且至少 `JOIN_MIN_ALIVE` 个。
+//!   0.1.2 不管队伍的战术，一律拉全队跟同一波兵；可游戏的战术里有「莫尔加德 buff 用法」（`morgard_use`），七成队伍选的是
+//!   分推（1-3-1 / 1-4），都被改成了抱团：880 场大龙后 90 秒推塔 1.66 座，没有钩子时 2.0（用户 2026-11-07「现在做 0.1.3」）。
+//!   0.1.3 起照队伍的 `BaronPlan` 来：「全员抱团」照旧；「1-4 分推」`position` 那个位置的选手去带物件对面那一路，交给游戏的
+//!   AI（钩子不拉他），另外四个跟离他们最近的那波强化兵；「1-3-1 分推」`position1` / `position2` 两个位置的选手各带一路
+//!   边线，交给游戏的 AI，另外三个跟中路的强化兵（离两边基地连线 `MID_NEAR` 以内的几波里离他们最近的，中路没有就近的）。
+//!   战术只在有强化兵时才读（`strategy_get_json`）。
 //!
 //! 每 `SCAN` tick 看一次场上（每个选手自己的钩子实例里，不共用状态：游戏会并行跑好几场），两次之间沿用上次的打算。
 //! 只看比赛的状态，没有随机数：服务器预演和客户端重演走的一样。优先级 `PRIORITY` 比英雄附加包低，所以先跑，
@@ -60,8 +66,14 @@ pub const FIGHT: f64 = 80_000.0;
 pub const WITH_WAVE: f64 = 90_000.0;
 /// 跟上兵线后 AI 的走路目的地比兵线离对面基地远这么多，算往回走。
 pub const BACK_OFF: f64 = 30_000.0;
+/// 战术里大龙 buff 的用法（`strategy_get_json` 的路径）。
+pub const MORGARD_USE: &str = "morgard_use";
+/// 1-3-1：离两边基地连线这么近的强化兵算中路。
+pub const MID_NEAR: f64 = 120_000.0;
 /// 前多少次改指令各写一行。
 const DETAIL_LINES: usize = 40;
+/// 前多少个「分推的人交给游戏 AI」各写一行。
+const SPLIT_LINES: usize = 20;
 /// 之后每多少次写一行累计。
 const COUNT_EVERY: usize = 2_000;
 /// 一次启动最多写多少行。
@@ -75,6 +87,8 @@ static LINES: AtomicUsize = AtomicUsize::new(0);
 static FINISHES: AtomicUsize = AtomicUsize::new(0);
 static JOINS: AtomicUsize = AtomicUsize::new(0);
 static TICKS: AtomicUsize = AtomicUsize::new(0);
+/// Split pushers of a Morgard plan left to the game's AI (counted when one starts).
+static SPLITS: AtomicUsize = AtomicUsize::new(0);
 
 fn log_path() -> PathBuf {
     if let Some(path) = std::env::var_os("LEAGUE_MACRO_HOOK_LOG") {
@@ -117,9 +131,17 @@ fn note(finish: bool, detail: impl FnOnce() -> String) {
         wlog(detail());
     } else if n % COUNT_EVERY == 0 {
         wlog(format!(
-            "COUNT champions that took an order so far: finish the nexus {f}, join the baron waves {j}; ticks with a changed order {}",
+            "COUNT champions that took an order so far: finish the nexus {f}, join the baron waves {j}, split pushers left to the AI {}; ticks with a changed order {}",
+            SPLITS.load(Ordering::Relaxed),
             TICKS.load(Ordering::Relaxed)
         ));
+    }
+}
+
+/// Counts a split pusher left to the game's AI; a line for the first few.
+fn note_split(detail: impl FnOnce() -> String) {
+    if SPLITS.fetch_add(1, Ordering::Relaxed) < SPLIT_LINES {
+        wlog(detail());
     }
 }
 
@@ -133,6 +155,74 @@ pub type Pos = (f64, f64);
 
 fn dist(a: Pos, b: Pos) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// Distance from `p` to the segment `a`-`b`.
+fn seg_dist(p: Pos, a: Pos, b: Pos) -> f64 {
+    let (dx, dy) = (b.0 - a.0, b.1 - a.1);
+    let len2 = dx * dx + dy * dy;
+    let t = if len2 == 0.0 { 0.0 } else { (((p.0 - a.0) * dx + (p.1 - a.1) * dy) / len2).clamp(0.0, 1.0) };
+    dist(p, (a.0 + t * dx, a.1 + t * dy))
+}
+
+/// The team's Morgard (baron) buff plan: `morgard_use` in its strategy.
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub enum BaronPlan {
+    /// Everyone pushes together (also when the setting can't be read).
+    #[default]
+    Gather,
+    /// The player of this lane (a `LaneV1` code) pushes the lane opposite the objective; the other four group.
+    Split14(u32),
+    /// Three push mid; the players of these two lanes push a side lane each.
+    Split131(u32, u32),
+}
+
+/// `LaneV1` names by code, as the strategy document writes them.
+const LANES: [&str; 5] = ["Top", "Jungle", "Mid", "Bottom", "Support"];
+
+impl BaronPlan {
+    /// Whether the player of this lane is one of the plan's split pushers.
+    pub fn splits(self, lane: Option<u32>) -> bool {
+        match (self, lane) {
+            (BaronPlan::Split14(a), Some(l)) => l == a,
+            (BaronPlan::Split131(a, b), Some(l)) => l == a || l == b,
+            _ => false,
+        }
+    }
+
+    pub fn label(self) -> String {
+        let name = |l: u32| LANES.get(l as usize).copied().unwrap_or("?");
+        match self {
+            BaronPlan::Gather => "Gather".to_string(),
+            BaronPlan::Split14(a) => format!("Split14 {}", name(a)),
+            BaronPlan::Split131(a, b) => format!("Split131 {}+{}", name(a), name(b)),
+        }
+    }
+}
+
+/// The text of `"key": "value"` in a small JSON object.
+fn field<'a>(json: &'a str, key: &str) -> Option<&'a str> {
+    let rest = &json[json.find(&format!("\"{key}\""))? + key.len() + 2..];
+    let rest = &rest[rest.find(':')? + 1..];
+    let start = rest.find('"')? + 1;
+    let len = rest[start..].find('"')?;
+    Some(&rest[start..start + len])
+}
+
+/// The plan in the strategy document's `morgard_use`: `"Gather"`, `{"Split14":{"position":"Top"}}` or
+/// `{"Split131":{"position1":"Top","position2":"Bottom"}}`; anything else (a lane missing too): Gather.
+pub fn baron_plan(json: &str) -> BaronPlan {
+    let lane = |key: &str| field(json, key).and_then(|v| LANES.iter().position(|l| *l == v)).map(|i| i as u32);
+    if json.contains("\"Split131\"") {
+        if let (Some(a), Some(b)) = (lane("position1"), lane("position2")) {
+            return BaronPlan::Split131(a, b);
+        }
+    } else if json.contains("\"Split14\"") {
+        if let Some(a) = lane("position") {
+            return BaronPlan::Split14(a);
+        }
+    }
+    BaronPlan::Gather
 }
 
 /// What one look at the match saw, from one champion's side.
@@ -149,6 +239,12 @@ pub struct View {
     pub own_nexus: Option<Pos>,
     /// Our minions carrying the baron buff.
     pub baron_minions: Vec<Pos>,
+    /// Our team's Morgard plan (read only while a baron wave is up).
+    pub plan: BaronPlan,
+    /// I am one of the plan's split pushers: the game's AI takes me to my side lane.
+    pub i_split: bool,
+    /// The living allies who push with the waves: all but the plan's split pushers (empty: all of `allies`).
+    pub group: Vec<Pos>,
 }
 
 /// A macro order this champion follows until the next look.
@@ -176,12 +272,24 @@ pub fn plan(v: &View) -> Option<Intent> {
     if v.allies.len() < JOIN_MIN_ALIVE || v.allies.len() < v.enemies.len() {
         return None;
     }
-    // the baron wave nearest the team: everyone goes to the same one
-    let n = v.allies.len().max(1) as f64;
-    let centre = (v.allies.iter().map(|p| p.0).sum::<f64>() / n, v.allies.iter().map(|p| p.1).sum::<f64>() / n);
-    let centre = if v.allies.is_empty() { v.me } else { centre };
-    let wave = v.baron_minions.iter().copied().min_by(|a, b| dist(*a, centre).total_cmp(&dist(*b, centre)))?;
+    // a split pusher of the team's Morgard plan: the game's AI takes it to its side lane
+    if v.i_split {
+        return None;
+    }
+    // the group (all but the split pushers) goes to one baron wave: the one nearest it - in 1-3-1 the nearest in mid
+    let group = if v.group.is_empty() { &v.allies } else { &v.group };
+    let n = group.len().max(1) as f64;
+    let centre = (group.iter().map(|p| p.0).sum::<f64>() / n, group.iter().map(|p| p.1).sum::<f64>() / n);
+    let centre = if group.is_empty() { v.me } else { centre };
     let toward = v.enemy_nexus.map(|n| n.1)?;
+    let nearest = |waves: &mut dyn Iterator<Item = Pos>| waves.min_by(|a, b| dist(*a, centre).total_cmp(&dist(*b, centre)));
+    let mid = match (v.plan, v.own_nexus) {
+        (BaronPlan::Split131(..), Some(own)) => {
+            nearest(&mut v.baron_minions.iter().copied().filter(|p| seg_dist(*p, own, toward) <= MID_NEAR))
+        }
+        _ => None,
+    };
+    let wave = mid.or_else(|| nearest(&mut v.baron_minions.iter().copied()))?;
     Some(Intent::Join { at: wave, toward })
 }
 
@@ -232,6 +340,8 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
     let (hp, max) = me.hp();
     let pos = |e: &StableEntity<'_, '_>| (e.pos().0 as f64, e.pos().1 as f64);
     let mut v = View { me: pos(&me), hp_pct: if max == 0 { 100 } else { hp * 100 / max }, ..View::default() };
+    // living allied champions by entity id: the group leaves out the Morgard plan's split pushers
+    let mut mates: Vec<(usize, Pos)> = Vec::new();
     for i in 0..sim.entity_count() {
         let Some(e) = sim.entity_at(i) else { continue };
         let ours = e.team() == team;
@@ -239,6 +349,7 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
             Some(EntityKindV1::Champion) if e.is_alive() => {
                 if ours {
                     v.allies.push(pos(&e));
+                    mates.push((e.id(), pos(&e)));
                 } else {
                     v.enemies.push((e.id(), pos(&e)));
                 }
@@ -258,6 +369,17 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
             _ => {}
         }
     }
+    // the Morgard plan matters only while a baron wave is up: read it then
+    if !v.baron_minions.is_empty() {
+        v.plan = sim.strategy_get_json(team, MORGARD_USE).map_or(BaronPlan::Gather, |j| baron_plan(&j));
+        let splitters: Vec<usize> = (0..sim.player_count())
+            .filter_map(|i| sim.player_at(i))
+            .filter(|p| p.team() == team && v.plan.splits(p.lane().map(|l| l.code())))
+            .filter_map(|p| p.champion().map(|c| c.id()))
+            .collect();
+        v.i_split = splitters.contains(&me_id);
+        v.group = mates.iter().filter(|m| !splitters.contains(&m.0)).map(|m| m.1).collect();
+    }
     Some(v)
 }
 
@@ -268,6 +390,9 @@ pub struct Macro {
     intent: Option<Intent>,
     enemies: Vec<(usize, Pos)>,
     last_kind: Option<bool>,
+    /// The team's Morgard plan at the last look, and whether this champion is left to the game's AI as its split pusher.
+    plan: BaronPlan,
+    splitting: bool,
 }
 
 impl StablePlayerAi for Macro {
@@ -286,6 +411,7 @@ impl StablePlayerAi for Macro {
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         let tick = ctx.tick();
         let (player, team) = (ctx.player_id(), ctx.team());
+        let mut splitting = self.splitting;
         let (me, me_id, now_head) = {
             let sim = ctx.sim()?;
             let champ = sim.get_player(player)?.champion()?;
@@ -299,6 +425,8 @@ impl StablePlayerAi for Macro {
                 match look(&sim, me_id, team) {
                     Some(v) => {
                         self.intent = plan(&v);
+                        self.plan = v.plan;
+                        splitting = v.i_split && self.intent.is_none();
                         self.enemies = v.enemies;
                     }
                     None => self.intent = None,
@@ -307,6 +435,20 @@ impl StablePlayerAi for Macro {
             let at = (champ.pos().0 as f64, champ.pos().1 as f64);
             (at, me_id, champ.name().unwrap_or_default())
         };
+        // a split pusher left to the game's AI: noted when it starts
+        if splitting != self.splitting {
+            self.splitting = splitting;
+            if splitting {
+                let plan = self.plan;
+                note_split(|| {
+                    format!(
+                        "SPLIT t={} {now_head} #{me_id} T{team}: {}, a split pusher - left to the game's AI on its side lane",
+                        clock(tick),
+                        plan.label()
+                    )
+                });
+            }
+        }
         let Some(intent) = self.intent else {
             self.last_kind = None;
             return None;
@@ -317,12 +459,13 @@ impl StablePlayerAi for Macro {
         // counted when a champion starts following an order, not every tick
         if self.last_kind != Some(finish) {
             self.last_kind = Some(finish);
+            let plan = self.plan;
             note(finish, || {
                 format!(
                     "{} t={} {now_head} #{me_id} T{team}: {} ({})",
                     if finish { "FINISH" } else { "JOIN" },
                     clock(tick),
-                    if finish { "hits the nexus" } else { "goes to the baron wave" },
+                    if finish { "hits the nexus".to_string() } else { format!("goes to the baron wave, plan {}", plan.label()) },
                     match base {
                         None => "the AI gave no order".to_string(),
                         Some(b) => format!("the AI's order was kind {} at ({}, {})", b.kind, b.x, b.y),
@@ -375,6 +518,7 @@ mod tests {
             enemy_nexus: Some((9, (860_000.0, 100_000.0), true)),
             own_nexus: Some((100_000.0, 860_000.0)),
             baron_minions: vec![],
+            ..View::default()
         }
     }
 
@@ -408,6 +552,53 @@ mod tests {
     }
 
     #[test]
+    fn the_baron_plan_from_the_strategy() {
+        assert_eq!(baron_plan("\"Gather\""), BaronPlan::Gather);
+        assert_eq!(baron_plan(r#"{"Split14":{"position":"Top"}}"#), BaronPlan::Split14(0));
+        assert_eq!(baron_plan(r#"{"Split131": {"position1": "Top", "position2": "Bottom"}}"#), BaronPlan::Split131(0, 3));
+        assert_eq!(baron_plan(r#"{"Split131":{"position1":"Top"}}"#), BaronPlan::Gather, "a lane missing");
+        assert_eq!(baron_plan(r#"{"Split14":{"position":"Somewhere"}}"#), BaronPlan::Gather, "not a lane");
+        assert_eq!(baron_plan("null"), BaronPlan::Gather);
+        let p = BaronPlan::Split131(0, 3);
+        assert!(p.splits(Some(0)) && p.splits(Some(3)) && !p.splits(Some(2)) && !p.splits(None));
+        assert!(BaronPlan::Split14(1).splits(Some(1)) && !BaronPlan::Split14(1).splits(Some(4)));
+        assert!(!BaronPlan::Gather.splits(Some(0)));
+        assert_eq!((p.label(), BaronPlan::Split14(4).label()), ("Split131 Top+Bottom".to_string(), "Split14 Support".to_string()));
+    }
+
+    #[test]
+    fn split_pushers_are_the_game_ais_and_the_rest_groups() {
+        // blue's base bottom left, red's top right: mid is the line between them; baron waves top, mid, bottom
+        let (top, mid, bot) = ((150_000.0, 150_000.0), (480_000.0, 480_000.0), (820_000.0, 820_000.0));
+        let four = vec![(750_000.0, 780_000.0), (760_000.0, 770_000.0), (740_000.0, 790_000.0), (750_000.0, 780_000.0)];
+        let splitter = (150_000.0, 200_000.0);
+        let v = View {
+            me: four[0],
+            hp_pct: 90,
+            allies: [four.clone(), vec![splitter]].concat(),
+            enemies: vec![(77, (900_000.0, 60_000.0))],
+            enemy_nexus: Some((9, (860_000.0, 100_000.0), false)),
+            own_nexus: Some((100_000.0, 860_000.0)),
+            baron_minions: vec![top, mid, bot],
+            ..View::default()
+        };
+        let at = |v: &View| match plan(v) {
+            Some(Intent::Join { at, .. }) => Some(at),
+            _ => None,
+        };
+        // all together: the wave nearest the whole team (the top laner far away pulls the centre to mid)
+        assert_eq!(at(&v), Some(mid));
+        // 1-4 with the top laner on its own: the four take the wave nearest them, the top laner is the game's AI's
+        let one_four = View { plan: BaronPlan::Split14(0), group: four.clone(), ..v.clone() };
+        assert_eq!(at(&one_four), Some(bot));
+        assert_eq!(plan(&View { i_split: true, me: splitter, ..one_four.clone() }), None);
+        // 1-3-1: the three take mid though the bottom wave is nearer; with no wave in mid, the nearest
+        let one_three_one = View { plan: BaronPlan::Split131(0, 3), group: four[..3].to_vec(), ..v.clone() };
+        assert_eq!(at(&one_three_one), Some(mid));
+        assert_eq!(at(&View { baron_minions: vec![top, bot], ..one_three_one }), Some(bot));
+    }
+
+    #[test]
     fn the_baron_waves_gather_the_team() {
         let v = View {
             me: (300_000.0, 700_000.0),
@@ -417,6 +608,7 @@ mod tests {
             enemy_nexus: Some((9, (860_000.0, 100_000.0), false)),
             own_nexus: Some((100_000.0, 860_000.0)),
             baron_minions: vec![(520_000.0, 440_000.0), (150_000.0, 200_000.0)],
+            ..View::default()
         };
         let Some(Intent::Join { at, toward }) = plan(&v) else { panic!("{:?}", plan(&v)) };
         assert_eq!((at, toward), ((520_000.0, 440_000.0), (860_000.0, 100_000.0)), "the wave nearest the team");
