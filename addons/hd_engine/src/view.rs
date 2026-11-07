@@ -27,10 +27,18 @@
 //! 它照常画完，组里不是这个英雄自己那张图（`…/league_<英雄>#sheet`）的命令，连着的一段段各套一对「放大 PPU 倍」的
 //! 缩放 / 恢复命令（和游戏自己的一样：绕同一个点、平移 (1 - k) × 点、x y 都乘 k），外面那层 ÷ PPU 一抵消，就是游戏
 //! 原来的大小；身体照旧 ÷ PPU。别处读 +0x1b4 的画法不受影响。
+//!
+//! 特效图的绘制日志（league.dll 0.9.16，用户 2026-11-07「永恩的灵体现在在游戏里好像不显示了」：0.9.14 把 league_yone 列进
+//! DRAWN_EFFECTS 以后，E 留在原地的身体看不见，而游戏的代码看绕左上角缩小是对的）：league.log 里 `PIC` 开头的行。列进
+//! DRAWN_EFFECTS 的图每出现一次，记它头两次和一秒后的一次绘制——世界的特效节点画的，还是某个单位的身体绘制里画的；节点；
+//! 游戏要执行的每条命令——消失时记画了多少次、多久；每分钟一行这些图和同一英雄别的特效动画各出现了几次（永恩 E 回来了却
+//! 没有身体，在这里看得出）。每张图、整个日志各有行数上限，用完就不再读节点。
 
+use std::cell::Cell;
 use std::ffi::c_void;
-use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
 use std::sync::{Mutex, Once};
+use std::time::Instant;
 
 use super::build::Build;
 use super::hd::{self, Hero};
@@ -364,7 +372,9 @@ unsafe extern "system" fn body_detour(out: usize, ent: usize, a3: usize, _sp: us
                                       a8: usize) -> usize {
     let f: BodyDraw = std::mem::transmute(ORIG_BODY.load(Ordering::Acquire));
     let sc = std::panic::catch_unwind(|| unsafe { scale_at_draw(ent) }).ok().flatten();
+    let was = IN_BODY.with(|c| c.replace(ent));
     let r = f(out, ent, a3, 0, a5, a6, a7, a8);
+    IN_BODY.with(|c| c.set(was));
     if let Some((s, hero)) = sc {
         let _ = std::panic::catch_unwind(|| unsafe { unshrink_extras(out, ent, s, hero) });
     }
@@ -490,6 +500,13 @@ unsafe fn unshrink_extras(out: usize, ent: usize, sc: Scale, hero: &Hero) {
         })
         .collect();
     let runs = extra_runs(&kinds);
+    // the draw log: an effect of this unit drawn in its body draw, with the pair this pack put round it
+    if !PIC_DONE.load(Ordering::Relaxed) {
+        let ours: Vec<bool> = (0..len).map(|i| q(ptr + i * CMD + OURS_AT) as u64 == OURS).collect();
+        if ours.contains(&true) {
+            note_body_list(hero.id, &kinds, &ours, &runs, k);
+        }
+    }
     if !st.seen.contains(&hero.id) && st.body_lines < BODY_LINES {
         st.seen.push(hero.id);
         st.body_lines += 1;
@@ -609,6 +626,9 @@ unsafe extern "system" fn effect_detour(out: usize, node: usize, a3: usize, a4: 
     let f: EffectDraw = std::mem::transmute(ORIG_EFFECT.load(Ordering::Acquire));
     let r = f(out, node, a3, a4);
     let _ = std::panic::catch_unwind(|| unsafe { shrink_effects(out) });
+    if !PIC_DONE.load(Ordering::Relaxed) {
+        let _ = std::panic::catch_unwind(|| unsafe { note_picture(out, node) });
+    }
     r
 }
 
@@ -642,6 +662,300 @@ unsafe fn shrink_effects(out: usize) {
             }
         }
     }
+}
+
+/// The drawn effects' draw log, `PIC` lines (league.dll 0.9.16; the module's notes say why): lines in all a session.
+const PIC_LINES: usize = 600;
+/// Appearances of one drawn effect logged in full (their first two draws and the first a second in), and summed up
+/// (draws, seconds) when they are gone.
+const PIC_FULL: usize = 6;
+const PIC_SUMS: usize = 16;
+/// A picture not drawn for this long has gone: its next draw starts a new appearance.
+const PIC_GAP: f64 = 0.5;
+/// The tally of appearances: at most once a minute, written when one of them is drawn.
+const PIC_TALLY: f64 = 60.0;
+/// Body-draw command lists with an effect's own pair inside, logged a session (one line a new shape).
+const PIC_BODY_LISTS: usize = 24;
+/// Commands shown of one node's list.
+const PIC_CMDS: usize = 16;
+
+static PIC_DONE: AtomicBool = AtomicBool::new(false);
+static PICS: Mutex<PicLog> = Mutex::new(PicLog::new());
+
+thread_local! {
+    /// The entity value whose body the game is drawing on this thread (0 outside the body draw): an effect drawn inside
+    /// it is one of that unit's own view nodes.
+    static IN_BODY: Cell<usize> = const { Cell::new(0) };
+}
+
+/// One picture's (or animation's) appearances: `key` is `<sheet>:<tag>`.
+#[derive(Debug)]
+struct Shown {
+    key: String,
+    shows: usize,
+    first: f64,
+    last: f64,
+    draws: usize,
+    in_body: usize,
+    /// the draw a second in was met in this appearance
+    mid: bool,
+    /// this appearance is logged in full
+    full: bool,
+    /// appearances since the last tally
+    tally: usize,
+}
+
+/// What a draw is to its picture's appearances.
+#[derive(Debug, PartialEq)]
+enum Step {
+    /// the first draw of appearance `show`; `gone`: the last appearance's (show, draws, of them in a body draw, seconds)
+    New { show: usize, gone: Option<(usize, usize, usize, f64)> },
+    /// the `draw`-th draw of appearance `show`; `mid`: the first a second or more in
+    Again { show: usize, draw: usize, mid: bool },
+}
+
+/// A draw of `key` at `now` (seconds) in the list of appearances -> its entry and what the draw is.
+fn step(list: &mut Vec<Shown>, key: &str, now: f64, in_body: bool) -> (usize, Step) {
+    let i = match list.iter().position(|s| s.key == key) {
+        Some(i) => i,
+        None => {
+            list.push(Shown { key: key.to_string(), shows: 0, first: now, last: f64::NEG_INFINITY, draws: 0, in_body: 0,
+                              mid: false, full: false, tally: 0 });
+            list.len() - 1
+        }
+    };
+    let s = &mut list[i];
+    let what = if now - s.last > PIC_GAP {
+        let gone = (s.shows > 0).then_some((s.shows, s.draws, s.in_body, s.last - s.first));
+        s.shows += 1;
+        s.tally += 1;
+        (s.first, s.draws, s.in_body, s.mid, s.full) = (now, 0, 0, false, false);
+        Step::New { show: s.shows, gone }
+    } else {
+        let mid = !s.mid && now - s.first >= 1.0;
+        s.mid |= mid;
+        Step::Again { show: s.shows, draw: s.draws + 1, mid }
+    };
+    s.draws += 1;
+    s.in_body += usize::from(in_body);
+    s.last = now;
+    (i, what)
+}
+
+struct PicLog {
+    t0: Option<Instant>,
+    lines: usize,
+    shown: Vec<Shown>,
+    /// (drawn effect, appearances logged in full, summed up)
+    budget: Vec<(&'static str, usize, usize)>,
+    tallied: f64,
+    /// body-draw list shapes logged
+    lists: Vec<String>,
+}
+
+impl PicLog {
+    const fn new() -> Self {
+        PicLog { t0: None, lines: 0, shown: Vec::new(), budget: Vec::new(), tallied: 0.0, lists: Vec::new() }
+    }
+
+    /// `line` in the log while the budget lasts (false once it is spent: the log is over).
+    fn write(&mut self, line: String) -> bool {
+        if self.lines >= PIC_LINES {
+            PIC_DONE.store(true, Ordering::Relaxed);
+            return false;
+        }
+        self.lines += 1;
+        wlog(line);
+        if self.lines == PIC_LINES {
+            wlog(format!("PIC: the draw log's {PIC_LINES} lines are spent for this session"));
+            PIC_DONE.store(true, Ordering::Relaxed);
+        }
+        true
+    }
+}
+
+/// The drawn effect a sheet or sprite name is (`asset/league/champions/league_yone#sheet` -> league_yone).
+fn drawn_of(heroes: &hd::Heroes, name: &str) -> Option<&'static str> {
+    heroes.of_name(name).filter(|h| heroes.drawn_effects.contains(&h.id)).map(|h| h.id)
+}
+
+/// Whether an effect sheet goes with a drawn effect's hero (`league_yone_sym` with `league_yone`): the tally's other
+/// animations.
+pub fn related(drawn: &[&str], sheet: &str) -> bool {
+    drawn.iter().any(|d| sheet.len() > d.len() + 1 && sheet.starts_with(d) && sheet.as_bytes()[d.len()] == b'_')
+}
+
+unsafe fn rf(addr: usize) -> f32 {
+    std::ptr::read_unaligned(addr as *const f32)
+}
+
+/// The command Vec {cap, ptr, len} at `out` as (ptr, len); None for the caller's None (cap usize::MAX) or a list that
+/// does not look like one.
+unsafe fn cmd_list(out: usize) -> Option<(usize, usize)> {
+    if !plausible(out) {
+        return None;
+    }
+    let (cap, ptr, len) = (q(out), q(out + 8), q(out + 0x10));
+    (cap != usize::MAX && len <= 256 && cap >= len && plausible(ptr)).then_some((ptr, len))
+}
+
+/// A command as the log shows it (`c`: its 0xd0 bytes, `name` the sprite's texture): a sprite's sheet, top-left corner
+/// (+0x78 / +0x7c), layer (+0x80, the node's) and the four numbers before the corner; a scale's translation (+8 / +0xc),
+/// factors (+0x24 / +0x28) and what lies between; `*` marks the pair this pack put round an effect.
+pub fn cmd_text(c: &[u8], name: Option<&str>) -> String {
+    let u = |at: usize| u64::from_le_bytes(c[at..at + 8].try_into().unwrap());
+    let f = |at: usize| f32::from_le_bytes(c[at..at + 4].try_into().unwrap());
+    let ours = if u(OURS_AT) == OURS { "*" } else { "" };
+    match u(0) {
+        CMD_SPRITE => format!("sprite {} corner ({:.1}, {:.1}) layer {} [{:.3} {:.3} {:.3} {:.3}]{ours}",
+            name.and_then(|n| n.rsplit('/').next()).unwrap_or("?"), f(0x78), f(0x7c),
+            i32::from_le_bytes(c[0x80..0x84].try_into().unwrap()), f(0x68), f(0x6c), f(0x70), f(0x74)),
+        t if t == scale_tag() => format!("scale{ours} +({:.1}, {:.1}) x({:.3}, {:.3}) [{:.3} {:.3} {:.3} {:.3} {:.3}]",
+            f(8), f(0xc), f(0x24), f(0x28), f(0x10), f(0x14), f(0x18), f(0x1c), f(0x20)),
+        t if t == restore_tag() => format!("restore{ours}"),
+        t => format!("cmd {:#x}{ours}", t & 0xff),
+    }
+}
+
+/// Where a node is drawn: the world's view nodes, or the body draw of the entity value `ent`.
+unsafe fn path_text(ent: usize) -> String {
+    if ent == 0 || !plausible(ent) {
+        return "world's view nodes".to_string();
+    }
+    format!("in the body draw of {} (drawn as {}) at ({:.1}, {:.1}), draw scale {:.3}",
+        string_at(ent + NAME_PTR, ent + NAME_LEN_AT).unwrap_or("?"), string_at(ent + RES_PTR, ent + RES_LEN_AT).unwrap_or("?"),
+        rf(ent + POS_X), rf(ent + POS_Y) - rf(ent + POS_LIFT), rf(ent + SCALE))
+}
+
+/// A node draw for the draw log: `out` the commands the game made (shrink_effects's pair already round a drawn
+/// effect), `node` the view node (0.7.1: the kind at +0; a delayed one (2) holds its node at +8 and draws nothing while
+/// +4 > 0; an Animation (3, 4) has its flip at +1, point at +4 / +8, time at +0xc, layer at +0x10, sheet String at
+/// +0x18 and tag String at +0x30).
+unsafe fn note_picture(out: usize, node: usize) {
+    if !plausible(node) {
+        return;
+    }
+    let heroes = hd::heroes();
+    if heroes.drawn_effects.is_empty() {
+        return;
+    }
+    let (mut n, mut waits) = (node, false);
+    for _ in 0..4 {
+        if *(n as *const u8) != 2 {
+            break;
+        }
+        if rf(n + 4) > 0.0 {
+            waits = true;
+            break;
+        }
+        let inner = q(n + 8);
+        if !plausible(inner) {
+            return;
+        }
+        n = inner;
+    }
+    let kind = *(n as *const u8);
+    let animation = !waits && (kind == 3 || kind == 4);
+    let anim = if animation { string_at(n + 0x20, n + 0x28) } else { None };
+    let list = cmd_list(out);
+    // the picture: a drawn effect's sprite among the commands, else the node's own sheet
+    let picture = list
+        .and_then(|(p, len)| (0..len).find_map(|i| sprite_name(p + i * CMD).and_then(|nm| drawn_of(heroes, nm))))
+        .or_else(|| anim.and_then(|a| drawn_of(heroes, a)));
+    let sheet = anim.and_then(|a| a.rsplit('/').next()).and_then(|l| l.split('#').next());
+    if picture.is_none() && !sheet.is_some_and(|s| related(&heroes.drawn_effects, s)) {
+        return;
+    }
+    let Ok(mut pl) = PICS.try_lock() else { return };
+    let now = pl.t0.get_or_insert_with(Instant::now).elapsed().as_secs_f64();
+    let ent = IN_BODY.with(Cell::get);
+    let tag = if animation { string_at(n + 0x38, n + 0x40) } else { None };
+    let key = format!("{}:{}", picture.or(sheet).unwrap_or("?"), tag.unwrap_or("?"));
+    let (i, what) = step(&mut pl.shown, &key, now, ent != 0);
+    let mut lines = Vec::new();
+    if let Some(id) = picture {
+        let b = match pl.budget.iter().position(|b| b.0 == id) {
+            Some(b) => b,
+            None => {
+                pl.budget.push((id, 0, 0));
+                pl.budget.len() - 1
+            }
+        };
+        let label = match what {
+            Step::New { show, gone } => {
+                if let Some((s, d, inb, secs)) = gone {
+                    if pl.budget[b].2 < PIC_SUMS {
+                        pl.budget[b].2 += 1;
+                        lines.push(format!("PIC {key} #{s} gone: drawn {d} times over {secs:.2} s, {inb} of them in a body draw"));
+                    }
+                }
+                let full = pl.budget[b].1 < PIC_FULL;
+                pl.budget[b].1 += usize::from(full);
+                pl.shown[i].full = full;
+                full.then(|| format!("#{show} first draw"))
+            }
+            Step::Again { show, draw, mid } if pl.shown[i].full && (draw == 2 || mid) => {
+                Some(format!("#{show} draw {draw}{}", if mid { ", a second in" } else { "" }))
+            }
+            Step::Again { .. } => None,
+        };
+        if let Some(label) = label {
+            let node_text = if waits {
+                "node delayed, nothing drawn yet".to_string()
+            } else if animation {
+                format!("node kind {kind} flip {} at ({:.1}, {:.1}) time {:.2} layer {}", *((n + 1) as *const u8), rf(n + 4),
+                    rf(n + 8), rf(n + 0xc), std::ptr::read_unaligned((n + 0x10) as *const i32))
+            } else {
+                format!("node kind {kind}")
+            };
+            let cmds = match list {
+                Some((p, len)) => {
+                    let shown: Vec<String> = (0..len.min(PIC_CMDS))
+                        .map(|j| {
+                            let c = p + j * CMD;
+                            cmd_text(std::slice::from_raw_parts(c as *const u8, CMD), sprite_name(c))
+                        })
+                        .collect();
+                    format!("{len} commands [{}]", shown.join(", "))
+                }
+                None => "no commands".to_string(),
+            };
+            lines.push(format!("PIC {key} {label}: {} | {node_text} | {cmds}", path_text(ent)));
+        }
+    }
+    if now - pl.tallied >= PIC_TALLY {
+        let since = now - pl.tallied;
+        let counts: Vec<String> = pl.shown.iter_mut().filter(|s| s.tally > 0)
+            .map(|s| {
+                let c = format!("{} x{}", s.key, s.tally);
+                s.tally = 0;
+                c
+            })
+            .collect();
+        pl.tallied = now;
+        if !counts.is_empty() {
+            lines.push(format!("PIC appearances in the last {since:.0} s: {}", counts.join(", ")));
+        }
+    }
+    for l in lines {
+        if !pl.write(l) {
+            break;
+        }
+    }
+}
+
+/// A body draw's command list with an effect's own pair inside (`ours`), as unshrink_extras sorted it: one line for
+/// each new shape (0 an extra, 1 the hero's sheet, 2 the game's scale or restore, o this pack's pair).
+fn note_body_list(hero: &str, kinds: &[u8], ours: &[bool], runs: &[(usize, usize)], k: f32) {
+    let shape: String = kinds.iter().zip(ours).map(|(&kd, &o)| if o { 'o' } else { char::from(b'0' + kd) }).collect();
+    let Ok(mut pl) = PICS.try_lock() else { return };
+    let key = format!("{hero} {shape}");
+    if pl.lists.len() >= PIC_BODY_LISTS || pl.lists.contains(&key) {
+        return;
+    }
+    pl.lists.push(key);
+    pl.write(format!("PIC {hero}: body draw commands {shape} (0 extra, 1 his sheet, 2 the game's scale, o this pack's pair \
+                      round an effect), the extras back to the game's size in runs {runs:?} (x{k:.3})"));
 }
 
 /// The instances of the buff `name` on the entity value `ent` (its buff list: {ptr, len} at +0xb8, 0x28 bytes an entry,
@@ -790,6 +1104,49 @@ mod tests {
         let f = |at: usize| f32::from_le_bytes(ours[at..at + 4].try_into().unwrap());
         assert_eq!((f(8), f(12), f(0x24), f(0x28)), (2.5, -5.0, 0.75, 0.75));
         assert_eq!(&scale_cmd(2.0, 1.0, 1.0, false)[OURS_AT..], &[0u8; 8]);
+    }
+
+    /// The draw log (league.dll 0.9.16): a picture's appearances told apart by a gap, each counted on its own.
+    #[test]
+    fn a_pictures_appearances_are_told_apart() {
+        let mut l = Vec::new();
+        let body = "league_yone:e_body";
+        assert_eq!(step(&mut l, body, 10.0, false), (0, Step::New { show: 1, gone: None }));
+        assert_eq!(step(&mut l, body, 10.016, false).1, Step::Again { show: 1, draw: 2, mid: false });
+        assert_eq!(step(&mut l, body, 10.5, false).1, Step::Again { show: 1, draw: 3, mid: false });
+        assert_eq!(step(&mut l, body, 11.0, true).1, Step::Again { show: 1, draw: 4, mid: true });
+        assert_eq!(step(&mut l, body, 11.4, false).1, Step::Again { show: 1, draw: 5, mid: false }, "one line a second in");
+        // not drawn for more than PIC_GAP: a new appearance, with the last one's numbers
+        match step(&mut l, body, 14.0, false).1 {
+            Step::New { show: 2, gone: Some((1, 5, 1, secs)) } => assert!((secs - 1.4).abs() < 1e-9, "{secs}"),
+            other => panic!("{other:?}"),
+        }
+        assert_eq!(step(&mut l, body, 14.4, false).1, Step::Again { show: 2, draw: 2, mid: false });
+        assert_eq!(step(&mut l, body, 14.8, false).1, Step::Again { show: 2, draw: 3, mid: false });
+        assert_eq!(step(&mut l, body, 15.1, false).1, Step::Again { show: 2, draw: 4, mid: true });
+        // another picture keeps its own count; the tally counts appearances
+        assert_eq!(step(&mut l, "league_leblanc_clone:idle", 15.1, false), (1, Step::New { show: 1, gone: None }));
+        assert_eq!(l.iter().map(|s| s.tally).collect::<Vec<_>>(), vec![2, 1]);
+    }
+
+    #[test]
+    fn the_draw_log_shows_the_commands() {
+        assert_eq!(cmd_text(&scale_cmd(0.5, 10.0, 20.0, true), None),
+                   "scale* +(5.0, 10.0) x(0.500, 0.500) [0.000 0.000 0.000 0.000 0.000]");
+        assert_eq!(cmd_text(&restore_cmd(true), None), "restore*");
+        assert_eq!(cmd_text(&restore_cmd(false), None), "restore");
+        let mut c = [0u8; CMD];
+        c[..8].copy_from_slice(&CMD_SPRITE.to_le_bytes());
+        c[0x78..0x7c].copy_from_slice(&279.21f32.to_le_bytes());
+        c[0x7c..0x80].copy_from_slice(&664.73f32.to_le_bytes());
+        c[0x80..0x84].copy_from_slice(&1i32.to_le_bytes());
+        assert_eq!(cmd_text(&c, Some("asset/league/champions/league_yone#sheet")),
+                   "sprite league_yone#sheet corner (279.2, 664.7) layer 1 [0.000 0.000 0.000 0.000]");
+        // the tally's other animations: the hero's other effect sheets
+        let drawn = ["league_yone", "league_azir_soldier"];
+        assert!(related(&drawn, "league_yone_sym") && related(&drawn, "league_yone_fx"));
+        assert!(!related(&drawn, "league_yone") && !related(&drawn, "league_yonex") && !related(&drawn, "league_yon"));
+        assert!(!related(&drawn, "league_yone_"));
     }
 
     #[test]
