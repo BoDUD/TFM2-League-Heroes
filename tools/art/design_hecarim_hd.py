@@ -38,10 +38,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "hecarim", "hd")
-AH.RAW, AH.PITCH = "hecarim-A.png", (8.71, 8.83)    # 8.77 px, the default read (PPU ~2.2) until the user picks
+# the user's picks (2026-11-08): 「伊泽瑞尔2.19 其他都1.8」
+AH.RAW, AH.PITCH = "hecarim-A.png", (10.69, 10.81)    # 10.75 px, the user's pick: PPU 1.80
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"hecarim-A.png": {"8.77": ((8.71, 8.83), 4), "7.29": ((7.23, 7.35), 3), "10.75": ((10.69, 10.81), 5)}}
-DEFAULT = ("hecarim-A.png", "8.77")
+DEFAULT = ("hecarim-A.png", "10.75")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)
