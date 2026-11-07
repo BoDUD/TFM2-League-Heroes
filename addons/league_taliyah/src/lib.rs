@@ -19,6 +19,10 @@
 //!   挡了 `STALL_T` tick 没挪动，就顺着墙往近的那头挪（[`unstick`]），过了墙头它自己就绕过去；`HOLD` 一个单位一块墙只记一行
 //!   （墙倒的时候：挡了几 tick、顺着墙挪了几 tick），以前每 tick 一行。
 //!
+//! - **她死了墙照挡**（0.2.5，用户 2026-11-07：「岩雀的墙卡不住人」）：死了的英雄的被动不运行，墙的画面还立着、挡人却停了。
+//!   她死时有墙立着，墙交给排在她身上的原生效果 `league_taliyah:pulse`（死了也照跑），每 tick 挡一次，墙都倒了为止；日志
+//!   `DEAD`（交出去几块墙）、`PULSE`（替她挡了几 tick）。
+//!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态都在被动自己身上（每局一份）。
 //! - **脱战骑石头**（0.2.0，[`view`]）：没在打架时把移动动画 `run`（用脚跑）换成 `surf`（冲浪），打起来换回来。
 //!
@@ -28,6 +32,7 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -468,6 +473,9 @@ struct Pending {
 struct Weave {
     p: Params,
     me: usize,
+    /// 这份模拟的编号（0.2.5，照 league_azir）：她第一次出生时取一个，她死后立着的墙按（编号, 她）交给 [`Pulse`]。
+    /// 服务器的两份预演并排跑，种子、比赛、单位编号都一样，只靠它分开。
+    sim: u64,
     had_wall_up: bool,
     had_lay_up: bool,
     /// 上一 tick 她的投射物在哪、铺横墙那一 tick 之前她的投射物在哪。
@@ -476,6 +484,13 @@ struct Weave {
     pending: Vec<Pending>,
     /// 这次横墙已经对上的区域（别的段不再用）。
     taken: Vec<(u64, u64)>,
+    /// 立着的墙和挡人的账。
+    b: Blocker,
+}
+
+/// 立着的墙和挡人要记的东西（0.2.5 单独拿出来：她死了，[`Pulse`] 接着用它挡人）。
+#[derive(Clone, Default)]
+struct Blocker {
     walls: Vec<Wall>,
     /// 墙立着时每个单位上一 tick 的位置。
     last_pos: HashMap<usize, (u64, u64)>,
@@ -483,6 +498,16 @@ struct Weave {
     stalls: HashMap<usize, Stall>,
     /// (单位, 墙心) -> 这块墙挡了它几 tick、其中顺着墙挪了几 tick、它是谁这边的；墙倒了每个单位记一行 HOLD。
     held: HashMap<(usize, (u64, u64)), Held>,
+}
+
+impl Blocker {
+    /// 收回 [`Pulse`] 替她挡着的墙（她又活了：同一个单位复活）。
+    fn take_back(&mut self, o: Blocker) {
+        self.walls.extend(o.walls);
+        self.last_pos.extend(o.last_pos);
+        self.stalls.extend(o.stalls);
+        self.held.extend(o.held);
+    }
 }
 
 /// 一块墙挡一个单位的账（0.2.2：一个单位一块墙一行 HOLD，0.2.1 每 tick 一行——11-03 夜里 253 行、计数到 #10650）。
@@ -519,7 +544,7 @@ impl Weave {
             match self.target(sim, me_pos, team) {
                 Some((t, at)) => {
                     let left = me_pos.0 < at.0;
-                    self.walls.push(Wall::upright(&p, at, left, now + p.r_t + 1));
+                    self.b.walls.push(Wall::upright(&p, at, left, now + p.r_t + 1));
                     if let Some(k) = counted("upright") {
                         wlog(format!("{} UPRIGHT #{k}: the wall at ({}, {}) behind {}, she on its {} side, {} ticks",
                                      head(sim, me), at.0, at.1, who(sim, t), if left { "left" } else { "right" }, p.r_t));
@@ -573,7 +598,7 @@ impl Weave {
                 };
                 match at {
                     Some((q, how)) => {
-                        self.walls.push(Wall::flat(&p, q, now + p.r_t));
+                        self.b.walls.push(Wall::flat(&p, q, now + p.r_t));
                         if let Some(k) = counted("stretch") {
                             wlog(format!("{} STRETCH #{k}: {} at ({}, {}) ({how}; worked out ({}, {}), due t={})",
                                          head(sim, me), s.k, q.0, q.1, s.at.0, s.at.1, s.due));
@@ -586,27 +611,29 @@ impl Weave {
         }
         self.prev_proj = mine;
     }
+}
 
-    /// 倒了的墙（墙心 `fallen`）挡过的每个单位记一行 HOLD：挡了几 tick、顺着墙挪了几 tick。
-    fn report(&mut self, sim: &StableSim<'_>, fallen: &[(u64, u64)]) {
+impl Blocker {
+    /// 倒了的墙（墙心 `fallen`）挡过的每个单位记一行 HOLD：挡了几 tick、顺着墙挪了几 tick。`me`：立墙的塔莉垭。
+    fn report(&mut self, sim: &StableSim<'_>, me: usize, fallen: &[(u64, u64)]) {
         let mut done: Vec<((usize, (u64, u64)), Held)> =
             self.held.iter().filter(|(k, _)| fallen.contains(&k.1)).map(|(k, h)| (*k, *h)).collect();
         done.sort_by_key(|(k, _)| *k);
         for ((id, at), h) in done {
             self.held.remove(&(id, at));
             if let Some(k) = counted("hold") {
-                wlog(format!("{} HOLD #{k}: {} ({}) held {} ticks by the wall at ({}, {}){}", head(sim, self.me), who(sim, id),
+                wlog(format!("{} HOLD #{k}: {} ({}) held {} ticks by the wall at ({}, {}){}", head(sim, me), who(sim, id),
                              h.side, h.ticks, at.0, at.1,
                              if h.stepped > 0 { format!(", stepped along it {} ticks", h.stepped) } else { String::new() }));
             }
         }
     }
 
-    /// 墙立着时：每个单位进墙就放回去（她骑墙时不管她）。
-    fn block(&mut self, sim: &mut StableSim<'_>, now: usize) {
+    /// 墙立着时：每个单位进墙就放回去（她骑墙时不管她）。`me`：立墙的塔莉垭，`team`：她那一队，`riding`：她正骑在墙上。
+    fn block(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, riding: bool, team: usize) {
         let fallen: Vec<(u64, u64)> = self.walls.iter().filter(|w| now >= w.until).map(|w| (w.x, w.y)).collect();
         if !fallen.is_empty() {
-            self.report(sim, &fallen);
+            self.report(sim, me, &fallen);
         }
         self.walls.retain(|w| now < w.until);
         if self.walls.is_empty() {
@@ -614,8 +641,6 @@ impl Weave {
             self.stalls.clear();
             return;
         }
-        let riding = has(sim, self.me, &sn("riding"));
-        let team = sim.get_entity(self.me).map_or(usize::MAX, |e| e.team());
         let mut moves = Vec::new();
         let mut seen = HashMap::new();
         for i in 0..sim.entity_count() {
@@ -629,7 +654,7 @@ impl Weave {
             }
             let id = e.id();
             let now_pos = e.pos();
-            if riding && id == self.me {
+            if riding && id == me {
                 seen.insert(id, now_pos);
                 continue;
             }
@@ -643,7 +668,7 @@ impl Weave {
                         let step = last.map_or(0, |l| l.0.abs_diff(now_pos.0).max(l.1.abs_diff(now_pos.1)));
                         let to = unstick(&self.walls, self.stalls.entry(id).or_default(), q, now_pos, r, step);
                         if let Some(w) = self.walls.iter().find(|w| inside(w, now_pos, r)) {
-                            let side = if id == self.me { "herself" } else if e.team() == team { "her ally" } else { "an enemy" };
+                            let side = if id == me { "herself" } else if e.team() == team { "her ally" } else { "an enemy" };
                             let h = self.held.entry((id, (w.x, w.y))).or_insert(Held { side, ..Held::default() });
                             h.ticks += 1;
                             h.stepped += usize::from(to != q);
@@ -668,7 +693,7 @@ impl Weave {
             // HOLD: one line a unit a wall when the wall falls (`report`)
             if !held {
                 if let Some(k) = counted("push") {
-                    wlog(format!("{} PUSH #{k}: {} kept out of the wall at ({x}, {y})", head(sim, self.me), who(sim, id)));
+                    wlog(format!("{} PUSH #{k}: {} kept out of the wall at ({x}, {y})", head(sim, me), who(sim, id)));
                 }
             }
         }
@@ -686,6 +711,9 @@ impl StablePassive for Weave {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
+        if self.sim == 0 {
+            self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
+        }
         self.me = me;
         self.had_wall_up = false;
         self.had_lay_up = false;
@@ -699,12 +727,87 @@ impl StablePassive for Weave {
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
         let now = sim.tick();
+        // walls a pulse kept up while she was dead: hers again (a revive - the same unit lives again)
+        if let Some(d) = DEAD.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me)) {
+            self.b.take_back(d.b);
+        }
         if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
             self.watch(sim, me, now);
         } else {
             self.pending.clear();
         }
-        self.block(sim, now);
+        let riding = has(sim, me, &sn("riding"));
+        let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
+        self.b.block(sim, me, now, riding, team);
+    }
+
+    /// 0.2.5（用户 2026-11-07：「岩雀的墙卡不住人」）：死了的英雄的被动不再运行（league_azir 0.2.1 在 11-04 的日志里查到的），
+    /// 墙的画面还立着、挡人却停了。她死时有墙立着，就把墙交给 [`Pulse`]：排在她身上的原生效果，死了也照跑，每 tick 挡一次、
+    /// 排下一次，墙都倒了为止。
+    fn on_dead(&mut self, sim: &mut StableSim<'_>, _player: usize) {
+        if self.b.walls.is_empty() {
+            return;
+        }
+        let me = self.me;
+        let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
+        let n = self.b.walls.len();
+        let key = (self.sim, me);
+        DEAD.lock().unwrap_or_else(|e| e.into_inner()).insert(key, Dead { b: std::mem::take(&mut self.b), team, ticks: 0 });
+        let queued = pulse(sim, me, self.sim);
+        if !queued {
+            // refused: the walls stay with her passive and stop till she lives again, as before 0.2.5
+            if let Some(d) = DEAD.lock().unwrap_or_else(|e| e.into_inner()).remove(&key) {
+                self.b = d.b;
+            }
+        }
+        if let Some(k) = counted("dead") {
+            wlog(format!("{} DEAD #{k}: {n} standing walls - {}", head(sim, me),
+                         if queued { "a pulse keeps them blocking while she is dead" }
+                         else { "the pulse was REFUSED (queue_effect): they stop blocking till she lives" }));
+        }
+    }
+}
+
+/// 她死时立着的墙（0.2.5）：（这份模拟的编号, 她）-> 墙和挡人的账、她那一队、替她挡了几 tick。
+struct Dead {
+    b: Blocker,
+    team: usize,
+    ticks: usize,
+}
+
+static DEAD: LazyLock<Mutex<HashMap<(u64, usize), Dead>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
+
+/// 一 tick 后在她身上排下一次 [`Pulse`]；这份模拟的编号放在输入的 x 里。
+fn pulse(sim: &mut StableSim<'_>, me: usize, no: u64) -> bool {
+    sim.queue_effect(&format!("{ID}:pulse"), AttackTypeV1::Skill, me, &InputTargetV1::pos(no, 0), 1)
+}
+
+/// 0.2.5：她死着的时候替她挡一 tick（排下的效果在死了的施放者身上照跑，被动不跑；league_azir 的 `Pulse` 也这样），
+/// 墙还有立着的就排下一次。她又活了就停，墙由她的被动收回（`on_update`）。
+struct Pulse;
+
+impl StableEffectType for Pulse {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
+        if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
+            return;
+        }
+        let key = (input.x, me);
+        let Some(mut d) = DEAD.lock().unwrap_or_else(|e| e.into_inner()).remove(&key) else { return };
+        let now = sim.tick();
+        d.ticks += 1;
+        d.b.block(sim, me, now, false, d.team);
+        if d.b.walls.is_empty() {
+            if let Some(k) = counted("pulse") {
+                wlog(format!("{} PULSE #{k}: her walls blocked {} ticks while she was dead, all down now", head(sim, me),
+                             d.ticks));
+            }
+            return;
+        }
+        DEAD.lock().unwrap_or_else(|e| e.into_inner()).insert(key, d);
+        if !pulse(sim, me, key.0) {
+            wlog(format!("{} queue_effect({ID}:pulse) refused: her walls stop blocking till she lives", head(sim, me)));
+        }
     }
 }
 
@@ -723,6 +826,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:wall"), Weave::default());
+    module.add_native_effect(format!("{ID}:pulse"), Pulse);
     view::install_once();
     host.log(LogLevel::Info, "league_taliyah loaded (Weaver's Wall as real terrain).");
 }
@@ -741,6 +845,24 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// 0.2.5：她死时交给 Pulse 的墙和挡人的账，她又活了一样收回来，原来手上的不丢。
+    #[test]
+    fn a_dead_taliyahs_walls_come_back_whole() {
+        let p = Params::default();
+        let mut mine = Blocker::default();
+        mine.walls.push(Wall::upright(&p, (400_000, 300_000), true, 500));
+        mine.last_pos.insert(7, (380_000, 300_000));
+        let mut handed = std::mem::take(&mut mine);
+        assert!(mine.walls.is_empty() && mine.last_pos.is_empty(), "her passive keeps nothing while the pulse runs");
+        handed.walls.push(Wall::flat(&p, (420_000, 330_000), 520));
+        handed.held.insert((7, (400_000, 300_000)), Held { ticks: 12, stepped: 0, side: "an enemy" });
+        mine.walls.push(Wall::flat(&p, (100_000, 100_000), 900));
+        mine.take_back(handed);
+        assert_eq!(mine.walls.len(), 3);
+        assert_eq!(mine.last_pos.get(&7), Some(&(380_000, 300_000)));
+        assert_eq!(mine.held.get(&(7, (400_000, 300_000))).map(|h| h.ticks), Some(12));
+    }
 
     fn p() -> Params {
         Params::default()

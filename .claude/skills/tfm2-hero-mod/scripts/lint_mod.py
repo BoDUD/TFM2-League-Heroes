@@ -20,6 +20,10 @@ import re
 import struct
 import sys
 
+# Caster buffs that a native effect of the main pack's league.dll adds (addons/league_main): a kit that calls the native may
+# branch on the buff without adding it itself (league_ryze R: `league:low_hp` -> `league_low_hp` below 35% health).
+NATIVE_FLAGS = {"league_low_hp": "league:low_hp"}
+
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 KNOWN_EFFECTS = {
@@ -916,8 +920,12 @@ def main(argv=None):
                         f"nothing will be drawn")
         for nm in sorted(found["projectiles"] - vp - ve):
             rep.info(W, f"projectile '{nm}' has no view_projectiles entry (invisible; fine for hidden helpers)")
+        natives = json.dumps(d)
         for nm in sorted(found["switch_buffs"] - found["buffs"]):
-            if nm in added_by and added_by[nm] != cid:
+            ref = NATIVE_FLAGS.get(nm)
+            if ref and f'"effect_ref": "{ref}"' in natives:
+                rep.info(W, f"SwitchByBuff checks '{nm}', which league.dll's {ref} adds (the kit calls it)")
+            elif nm in added_by and added_by[nm] != cid:
                 rep.info(W, f"SwitchByBuff checks '{nm}', which {added_by[nm]}'s kit adds (a duo: a buff another "
                             f"hero puts on this one)")
             else:
