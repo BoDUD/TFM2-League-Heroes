@@ -251,7 +251,7 @@
     "league_fiddlesticks": {
       "face": {
         "x": 10,
-        "y": -25
+        "y": -31
       },
       "center": {
         "x": 2,
@@ -715,7 +715,7 @@
     "league_rakan": {
       "face": {
         "x": 1,
-        "y": -29
+        "y": -33
       },
       "center": {
         "x": 0,
@@ -973,7 +973,7 @@
     "league_xayah": {
       "face": {
         "x": 7,
-        "y": -29
+        "y": -33
       },
       "center": {
         "x": 0,
@@ -987,7 +987,7 @@
     "league_lulu": {
       "face": {
         "x": 4,
-        "y": -17
+        "y": -24
       },
       "center": {
         "x": 0,
