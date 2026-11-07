@@ -191,6 +191,26 @@ def no_lasting_reach(o):
     return o
 
 
+# Native effects of the main pack's own league.dll (addons/league_main): loaded with the main pack Sylas belongs to, so a
+# stolen ult may call them - league_ryze R's `league:low_hp` (2026-11-07: below 35% health his R only flees; in Sylas's
+# hands it reads Sylas's health). Any other native is a tft.dll's or an add-on's code and stays out (BY_CLASS / STOLEN).
+MAIN_DLL_NATIVES = {"league:low_hp", "league:range"}
+
+
+def foreign_natives(o, out=None):
+    """The `effect_ref`s of the Native effects in `o` that league.dll does not register."""
+    out = set() if out is None else out
+    if isinstance(o, dict):
+        if o.get("type") == "Native" and o.get("effect_ref") not in MAIN_DLL_NATIVES:
+            out.add(str(o.get("effect_ref")))
+        for v in o.values():
+            foreign_natives(v, out)
+    elif isinstance(o, list):
+        for v in o:
+            foreign_natives(v, out)
+    return out
+
+
 # a TFT hero's effect sheets: tft/effects/<sheet> -> the add-on's own copy (asset/league_sylas/effects/<sheet>)
 TFT_FX = "asset/tft/effects/"
 OWN_FX = "asset/league_sylas/effects/"
@@ -223,8 +243,9 @@ def own_ults():
             tree = no_lasting_reach(retag(getattr(importlib.import_module(mod), fn)()))
         else:
             tree = no_lasting_reach(retag(c["ult"]["effect"]))
-        if '"Native"' in json.dumps(tree):
-            sys.exit(f"{c['id']}: its ult calls native code - put it in BY_CLASS or make the add-on carry it")
+        if foreign_natives(tree):
+            sys.exit(f"{c['id']}: its ult calls native code {sorted(foreign_natives(tree))} - put it in BY_CLASS or make "
+                     "the add-on carry it")
         used = names_in(tree, set())
         for kind in views:
             for v in c.get(kind, []):

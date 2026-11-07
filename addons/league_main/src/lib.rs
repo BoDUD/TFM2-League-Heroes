@@ -1,6 +1,6 @@
 //! 主包 `league` 自己的 DLL（league.dll）：用户 2026-10-12「PPU 可以先改一版亚索试试」「这个要装进主包里 不是附加包」。
 //!
-//! 主包的英雄还是数据（只有一处借这个 DLL：下面的 `league:range`）；这个 DLL 主要做数据做不到的画面：**高清帧（PPU）**——登记在 src/hd.rs 的英雄（先是亚索，PPU 3：
+//! 主包的英雄还是数据（只有两处借这个 DLL：下面的 `league:range` 和 `league:low_hp`）；这个 DLL 主要做数据做不到的画面：**高清帧（PPU）**——登记在 src/hd.rs 的英雄（先是亚索，PPU 3：
 //! 身体 1 倍图整 3 倍，Codex 画的头每格 2×2）在战场、卡牌、图鉴、头像上都画自己图里 PPU 倍密的 `hd_` 帧，大小不变、
 //! 像素更细；界面（BP 格子、图鉴 / 头像、选人位、选中特写、记分板头像）画每个英雄自己的小图集（0.7.140）。
 //!
@@ -21,6 +21,9 @@
 //!
 //! 0.9.16：hd_engine 给列进 DRAWN_EFFECTS 的特效图记绘制日志（league.log 里 `PIC` 开头的行），查永恩 E 留在原地的身体
 //! 看不见（hd_engine src/view.rs）。
+//!
+//! src/low_hp.rs（0.9.17）：原生效果 `league:low_hp`。数据读不到当前生命值，施放者生命低于 35% 时它给他挂 3 tick 的
+//! `league_low_hp`，数据用 `SwitchByBuff` 分支（瑞兹的 R：残血只逃不追）。没有这个 DLL 时标记不出现，数据照旧。
 //!
 //! src/warm.rs（0.7.27）：标题画面出来以后，后台线程把主包 `sound/bgm/` 里的音频按盘上的顺序读一遍进系统缓存，
 //! 比赛里音频第一次播放就不用在主线程等读盘。
@@ -46,6 +49,7 @@ use mod_api_stable::*;
 mod cache;
 pub mod diverge;
 pub mod hd;
+pub mod low_hp;
 pub mod range;
 mod range_table;
 #[cfg(windows)]
@@ -122,6 +126,8 @@ fn init(host: &StableHost) -> StableMod {
     module.set_extension(warm::Warm);
     // `league:range`: the attack range of the pack's marker buffs, read by every range check (src/range.rs)
     module.add_native_effect(range::NODE, range::Range);
+    // `league:low_hp`: a flag for the data when the caster's health is low - the data reads no health (src/low_hp.rs)
+    module.add_native_effect(low_hp::NODE, low_hp::LowHp);
     // the only match hook this module may set: the per-600-tick simulation checksum (src/diverge.rs)
     module.set_match_hook(diverge::Diverge);
     module
