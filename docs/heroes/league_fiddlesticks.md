@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / CC / Heal |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | [游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![费德提克演示](../preview/league_fiddlesticks_showcase.gif)
@@ -55,7 +55,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.1（通用附加包，下面只列和费德提克有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.3（通用附加包，下面只列和费德提克有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|
@@ -86,6 +86,7 @@
 | 亚索联动 | Q、被动和 R 的恐惧都算亚索大招要的控制。亚索打上路、费德提克打野时，亚索每局放 R 2.81 次（打野换成原版 `ninja` 是 0.65；之前测过：李青 1.50、阿木木 1.69、艾克 1.12，永恩那次中路原版 `lightning_mage` 3.19）。没超过原版英雄带来的次数，亚索不用调 |
 | 精灵图 | 10 个动作 65 帧：待机、移动、普攻、Q、技能2（夜割）、W 引导、R 引导、R 落地、受击、死亡。Codex 按方案 B 重画：麻袋头约占身高 1/3，镰刀竖着举在身后，刀刃弧在头顶上方；头上的枝角到脚底约 35 px，连举起的镰刀 47 px，15 色。每帧的时机和站位照英雄联盟原版动画渲染的参考帧 |
 | 特效 | 普攻弯刃和命中、Q 乌鸦和尖叫的幽灵稻草人、恐惧之眼（头顶）、沉默缝嘴（头顶）、夜割新月、吸魂引导（绕着他）、被吸出的魂、飞回他身上的魂链、最后的收割、R 落点印记、化鸦飞走、鸦群风暴 |
+| 高清帧（PPU 1.8） | 2026-11-07 用 PPU 重做，和霞、洛、璐璐在同一个 PR（用户：「接下来利用PPU重做霞 洛 稻草人 璐璐 在一个pr里」「1.8 for all four」「Codex交付了你做到完美后喊我review」「洛的不太对吧 怎么模型会突然变大变小」「还是很奇怪啊 感觉有的地方突然变大很多 你看不出来吗」「codex交付了」「可以，继续登记」）。设计图：Codex 照旧精灵描密的原图，按原图约 13.1 像素一格读回（52 × 83 格；镰刀尖到脚底 83 行，旧精灵 46 行，PPU 1.8）；外描边加 1 格。动作：Codex 照旧版同一帧整帧重画，交了 31 张图、59 帧（没有重复帧），透明底的原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；外描边只加 1 格：他四肢和镰刀柄细，加 2 格会糊成一团黑；E 第 7 帧和模板只重合 0.59，取四种量法的中位数；量头用麻袋的棕褐色（Codex 的麻袋阴影多，这把尺偏小，按眼睛比对过）。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -7 不变（镰刀尖照惯例被裁，和旧版一样）；头像截取点按新脸挪到 (9,-30) → (10,-25)（旧点框在麻袋上沿）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 11 条技能音效和 2 条中文语音（夜割、R）。不提交到仓库，按下面的命令在本地生成 |
 
@@ -96,6 +97,15 @@ python tools/art/tidy_fiddlesticks.py <Codex 的模型交付文件夹>   # 角�
 python tools/art/import_native.py --hero fiddlesticks
 python tools/art/import_fiddlesticks.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_fiddlesticks.py
+# PPU 1.8 重做（2026-11-07）：
+python tools/art/pack_fiddlesticks_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_fiddlesticks_hd.py                      # Codex 的原图（hd/raw/fiddlesticks-A.png）按原图约 13.1 像素一格读回 -> hd/design.png
+python tools/art/pack_fiddlesticks_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_fiddlesticks_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_fiddlesticks_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero fiddlesticks && python tools/art/ppu_hd.py --hero fiddlesticks
+python tools/art/ppu_one.py --hero fiddlesticks && python tools/art/rig_fiddlesticks_hd.py --one-ground && python tools/art/hero_reels.py --hero fiddlesticks
+python tools/art/review_fiddlesticks_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（模型重画的提示词见 [`assets/source/fiddlesticks/MODEL_PROMPTS.md`](../../assets/source/fiddlesticks/MODEL_PROMPTS.md)，特效的见 [`PROMPTS.md`](../../assets/source/fiddlesticks/PROMPTS.md)）：
@@ -110,4 +120,4 @@ python tools/art/preview_fiddlesticks.py
 - 出手时刻和动画对齐：普攻第 8 tick（弯刃甩出的那一帧）、Q 第 13 tick（乌鸦出手）、技能2 第 13 tick 挥出夜割、5 tick 后（新月画满）命中，第 25 tick 起吸魂（`Spell2_channel`），R 引导 1 秒后传送。
 - 结果：15 色，和右边像素同色的比例 25%（原版英雄 18%–46%）。
 
-逐帧预览：[`docs/preview/league_fiddlesticks_frames.png`](../preview/league_fiddlesticks_frames.png?v=1014g)，特效：[`docs/preview/league_fiddlesticks_effects.png`](../preview/league_fiddlesticks_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_fiddlesticks_frames.png`](../preview/league_fiddlesticks_frames.png?v=1107hd)，特效：[`docs/preview/league_fiddlesticks_effects.png`](../preview/league_fiddlesticks_effects.png?v=1014g)。

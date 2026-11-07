@@ -52,7 +52,7 @@ mod range_table;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.16";
+const VERSION: &str = "0.9.18";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);

@@ -843,10 +843,10 @@ RESTYLE = {
     # Fiddlesticks 83 / 46, Lulu 70 / 39); every action Codex's whole-frame redraw of the old frame read onto it
     # (tools/art/casts_<hero>_hd.py), so no density change; fx (Xayah): Q's, E's, W's and R's casts laid on again into
     # the *_fx1 copies (rig_xayah_hd, Rig.bake: xayah_bake.json); the outline grown by 2 (Fiddlesticks by 1)
-    "xayah": dict(ppu=79 / 44, edge=2, fx=True),
-    "rakan": dict(ppu=72 / 40, edge=2),
-    "fiddlesticks": dict(ppu=83 / 46, edge=1),   # (by 1: his thin limbs and scythe shaft run into black at 2)
-    "lulu": dict(ppu=70 / 39, edge=2),
+    "xayah": dict(ppu=79 / 44, edge=2, fx=True, face_to=(7, -29)),
+    "rakan": dict(ppu=72 / 40, edge=2, face_to=(1, -29)),
+    "fiddlesticks": dict(ppu=83 / 46, edge=1, face_to=(10, -25)),   # (by 1: his thin limbs and scythe shaft run into black at 2)
+    "lulu": dict(ppu=70 / 39, edge=2, face_to=(4, -17)),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2

@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / CC / Shield / Heal |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | 无 |
 
 ![洛演示](../preview/league_rakan_showcase.gif)
@@ -73,6 +73,7 @@
 | 亚索联动 | W 的击飞和 R 的魅惑是亚索大招要的控制：洛辅助、亚索同队时，亚索每局 R 到被控英雄 2.10 次（同一批蕾欧娜 2.19、迦娜 0.98），亚索不用调 |
 | 霞联动 | 霞（`league_xayah`）在附近时（她的普攻、W 在洛身上挂的 buff，`tools/fix/rakan_xayah_duo.py`）：霞的 W 「致死羽衣」也给洛攻速和移速，他的普攻多甩一根羽毛；E「轻舞成双」找不到其他队友时，飞到 130000 外的霞身边（英雄联盟 700 → 1000 码），飞向霞时说霞那句台词。没有霞时洛的对局不变 |
 | 精灵图 | 11 个动作 60 帧：待机、移动、普攻、Q、W 冲刺、W 落地旋升、E 飞向队友、E 落地、R、受击、死亡。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机：金羽毛在下巴边，羽毛披风拖在地上），Codex 的游戏尺寸草稿按自己的格子读回、删到 40 行（`design_rakan.py`，用户：「40 行（我删的）」，脸「原样」）；动作是 Codex 照英雄联盟的动作画的，不对的地方 Claude 修（`fix_rakan_strips.py`，用户：「不对的地方你帮我修复 codex太笨了 不想让他返工了」）。32 × 40 px，22 色；待机 6 帧同一张，膝下红带下面的接缝呼吸；待机最高点 −28，`banpick_center` 不设；头像截取点 (−2, −39) |
+| 高清帧（PPU 1.8） | 2026-11-07 用 PPU 重做，和霞、稻草人、璐璐在同一个 PR（用户：「接下来利用PPU重做霞 洛 稻草人 璐璐 在一个pr里」「1.8 for all four」「Codex交付了你做到完美后喊我review」「洛的不太对吧 怎么模型会突然变大变小」「还是很奇怪啊 感觉有的地方突然变大很多 你看不出来吗」「codex交付了」「可以，继续登记」）。设计图：Codex 照旧精灵描密的原图，按原图约 13.0 像素一格读回（57 × 72 格；羽冠尖到脚底 72 行，旧精灵 40 行，PPU 1.8）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 46 张图、51 帧（受击 2 帧就是设计图，死亡第 8 帧同第 7 帧），透明底的原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；E 的飞行和落地照旧版朝左；E 起跳、E 落地第 1 帧和死亡第 5、7 帧第一版把头画成正脸、大一号，用户看出「怎么模型会突然变大变小」，按 `HEAD_REDO_PROMPT_PPU.md` 只重画了头（Codex 把新头合成进上一版，身体像素不变，缩放照上一版）；W 冲刺第 1 帧的重画头又小了一号（设计图外框的 0.83），保留第一版；R 第 6 帧 Codex 画大了两成，叠合缩回；量头用白发。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -10 → -6（-10 会裁掉羽冠）；头像截取点按新脸挪到 (-2,-35) → (1,-29)（旧点框在羽冠和头发上）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_rakan.py`）：普攻甩羽和命中，Q 射出、命中、带上治疗、治疗放出，W 冲出、旋升，E 起飞、落地，被动护盾，R 施放、魅惑命中；Q、W、E、R 施放时各一句配音 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -84,6 +85,16 @@ python tools/art/fix_rakan_strips.py      # 动作：Codex 的动作条加上修
 python tools/art/import_native.py --hero rakan
 python tools/art/import_rakan.py          # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_rakan.py
+# PPU 1.8 重做（2026-11-07）：
+python tools/art/pack_rakan_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_rakan_hd.py                      # Codex 的原图（hd/raw/rakan-A.png）按原图约 13.0 像素一格读回 -> hd/design.png
+python tools/art/pack_rakan_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+# 头部重画包：assets/source/rakan/HEAD_REDO_PROMPT_PPU.md（5 张模板，附上一版原画和头大小正确的样张）
+python tools/art/casts_rakan_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_rakan_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero rakan && python tools/art/ppu_hd.py --hero rakan
+python tools/art/ppu_one.py --hero rakan && python tools/art/rig_rakan_hd.py --one-ground && python tools/art/hero_reels.py --hero rakan
+python tools/art/review_rakan_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（动作的提示词见 [`assets/source/rakan/MODEL_STRIPS.md`](../../assets/source/rakan/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/rakan/PROMPTS_FX.md)；Codex 的提示词和交接说明在 [`codex_picture/`](../../assets/source/rakan/codex_picture)、[`codex_model/`](../../assets/source/rakan/codex_model)、[`codex_strips/`](../../assets/source/rakan/codex_strips)、[`codex_fx/`](../../assets/source/rakan/codex_fx)）：
@@ -95,4 +106,4 @@ python tools/art/preview_rakan.py
 - E 的朝向（用户：「看看洛E回来的方向能不能面向队友 红色方好像不对」）：游戏在整个 W → E 施放里都让他朝着 W 的目标（他冲上去的敌人），Codex 画的 E 飞行是朝他面向的方向飞，所以飞回队友时一直是倒着飞的（两边都这样）。`fix_rakan_strips.py` 把 E 的飞行和落地帧以站位点为轴左右翻转：他朝背离敌人、自己队友那边飞（E 找的是最近的队友，几乎总在那边），落地最后一帧转回面向敌人。
 - 特效用 Codex 画的 15 张（79 帧，生图原稿），`import_rakan.py --raw` 同凯隐：每个游戏像素取覆盖的原稿像素里最多的颜色，颜色归到包里给每张的色带——金、虹彩（青蓝紫）、治疗的黄绿、魅惑的爱心——光效外圈最暗的一档去掉；E 的护盾、护盾持续、W 的旋升和击飞里 Codex 用不透明的深棕色填的辉光去掉（不然叠在队友身上是一块深红）。大小按技能范围：Q 的治疗放出时椭圆 84 格宽（治疗半径 40000）；W 的旋升 Codex 画成细高的柱子，按高度缩只有 12 格宽、画在他身后会被挡住，宽高分开缩：地面的圈 26 格（击飞半径 12000）、柱高 44 格；被动护盾 34 × 46 格、画在他身后（画在前面时护罩的边从他脸上穿过）；魅惑的爱心 6 格，往上飘的距离缩到原稿的 45%。英雄联盟的 R 地上没有圈：R 的加速 buff 画身后金、青、紫三条波浪光带（buff 画面跟着朝向翻转，往左跑时光带在右边），碰撞圈不画。待发治疗的光圈画在脚下（`z` −1）。
 
-逐帧预览：[`docs/preview/league_rakan_frames.png`](../preview/league_rakan_frames.png?v=1014g)，特效：[`docs/preview/league_rakan_effects.png`](../preview/league_rakan_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_rakan_frames.png`](../preview/league_rakan_frames.png?v=1107hd)，特效：[`docs/preview/league_rakan_effects.png`](../preview/league_rakan_effects.png?v=1014g)。

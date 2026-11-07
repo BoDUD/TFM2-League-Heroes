@@ -618,6 +618,29 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // read onto it at the template's squares (tools/art/casts_nautilus_hd.py, rig_nautilus_hd.py; the anchor's chain cut
     // where the old frames end it; nothing baked); 51 game px as his 1x sprite, so no SIZES row
     ("league_nautilus", 1.804, include_str!("../../../league/champions/league_nautilus#anim.fanim")),
+    // Xayah (2026-11-07, 「接下来利用PPU重做霞 洛 稻草人 璐璐 在一个pr里」, picked 「1.8 for all four」): Codex's xayah-A read on
+    // its own ~14.3-px squares (57 x 79, tools/art/design_xayah_hd.py: 79 rows / 44 = 1.795); every action Codex's
+    // whole-frame redraw of her old frame read onto it at the zoom its fit over the old frame gives
+    // (tools/art/casts_xayah_hd.py, rig_xayah_hd.py; Q's, E's, W's and R's casts baked on again into the *_fx1 copies by
+    // xayah_bake.json, her red side's casting pictures); 44 game px as her 1x sprite, so no SIZES row
+    ("league_xayah", 1.795, include_str!("../../../league/champions/league_xayah#anim.fanim")),
+    // Rakan (the same release): Codex's rakan-A read on its own ~13-px squares (57 x 72, tools/art/design_rakan_hd.py:
+    // 72 rows / 40 = 1.8); every action Codex's whole-frame redraw of his old frame read onto it at the zoom its fit over
+    // the old frame gives (tools/art/casts_rakan_hd.py, rig_rakan_hd.py; E's flight and landing face left as the old
+    // frames; E's leap and landing and death 5 / 7 with Codex's head redraw - their heads had come out a size too big;
+    // nothing baked); 40 game px as his 1x sprite, so no SIZES row
+    ("league_rakan", 1.8, include_str!("../../../league/champions/league_rakan#anim.fanim")),
+    // Fiddlesticks (the same release): Codex's fiddlesticks-A read on its own ~13.1-px squares (52 x 83,
+    // tools/art/design_fiddlesticks_hd.py: 83 rows / 46 = 1.804); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the zoom its fit over the old frame gives (tools/art/casts_fiddlesticks_hd.py,
+    // rig_fiddlesticks_hd.py; the outline grown by 1, not 2: his thin limbs and the scythe's shaft; nothing baked); 46 game
+    // px as his 1x sprite, so no SIZES row
+    ("league_fiddlesticks", 1.804, include_str!("../../../league/champions/league_fiddlesticks#anim.fanim")),
+    // Lulu (the same release): Codex's lulu-A read on its own ~16.3-px squares (69 x 70, tools/art/design_lulu_hd.py: 70
+    // rows / 39 = 1.795); every action Codex's whole-frame redraw of her old frame read onto it at the zoom its fit over
+    // the old frame gives (tools/art/casts_lulu_hd.py, rig_lulu_hd.py; Pix measured apart and moved to where the old
+    // frames have him; nothing baked); 39 game px as her 1x sprite, so no SIZES row
+    ("league_lulu", 1.795, include_str!("../../../league/champions/league_lulu#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and

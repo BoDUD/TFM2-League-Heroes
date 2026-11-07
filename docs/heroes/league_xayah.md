@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.79 |
 | 附加包 | [霞羽毛附加包](#附加包)（`league_xayah_feathers`） |
 
 ![霞演示](../preview/league_xayah_showcase.gif)
@@ -90,6 +90,7 @@
 | 亚索联动 | E 的定身算控制：霞在亚索队里打下路时，亚索每局对英雄放 R 0.25 次（韦鲁斯 0.67、原版 `gunner` 0.35），不用调 |
 | 精灵图 | 9 个动作 52 帧：待机 8、移动 8、普攻 6、Q（`skill`）4、E 收回（`skill_e`）4、W（`skill2`）4、R（`ult`）8、受击 2、死亡 8。造型 34 × 44 px，28 色。头像截取点 (1, −41)，选人卡片 `banpick_center` y −7 |
 | 特效 | Codex 画的 21 张（`import_xayah.py` 缩成游戏像素），两张表：`league_xayah_fx` 普攻羽刃、强化普攻的穿透羽刃、命中，W 的第二片羽刃，Q 的匕首、出手闪光和命中，飞回的羽毛、落地和插在地上的羽毛，E 收回的光、命中、定身的羽刃和缠绕，W 的风暴、脚下的风暴圈、加速羽流，R 的羽翼和命中；`league_xayah_big` R 的匕首雨。被动的光在 `league_xayah_sym` |
+| 高清帧（PPU 1.79） | 2026-11-07 用 PPU 重做，和洛、稻草人、璐璐在同一个 PR（用户：「接下来利用PPU重做霞 洛 稻草人 璐璐 在一个pr里」「1.8 for all four」「Codex交付了你做到完美后喊我review」「洛的不太对吧 怎么模型会突然变大变小」「还是很奇怪啊 感觉有的地方突然变大很多 你看不出来吗」「codex交付了」「可以，继续登记」）。设计图：Codex 照旧精灵描密的原图，按原图约 14.3 像素一格读回（57 × 79 格；羽毛耳朵尖到脚底 79 行，旧精灵 44 行，PPU 1.79）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 8 张图、12 帧（另外 32 帧和别的帧一样或就是设计图，只画一次：她旧版的普攻、Q、E、W、R、受击大多是待机姿势原样），透明底的原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；Q、E、W、R 的出手特效照 `xayah_bake.json` 烘回 `skill_fx1` / `skill_e_fx1` / `skill2_fx1` / `ult_fx1`（红色方的出手图画在她身上）；量头用脸的肤色。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -7 → -5（耳尖离卡顶 1 格）；头像截取点按新脸挪到 (5,-34) → (7,-29)（旧点框在兜帽顶，框里没有脸）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_xayah.py`）：普攻出手、命中，强化普攻，羽毛，Q、W、W 的羽刃、E、E 命中、定身，R 和匕首雨；Q、E、R、定身各一句中文配音，加上拿到洛护盾的那句（联动）。洛那边加了 E 飞向霞的那句（`tools/lol/extract_rakan.py`）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / W / R），从本地客户端提取，缩到 64×64 |
 
@@ -106,6 +107,15 @@ python tools/art/rig_xayah.py            # 动作：造型自己的零件无损�
 python tools/art/import_native.py --hero xayah
 python tools/art/import_xayah.py         # 特效；--raw assets/source/xayah/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_xayah.py
+# PPU 1.79 重做（2026-11-07）：
+python tools/art/pack_xayah_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_xayah_hd.py                      # Codex 的原图（hd/raw/xayah-A.png）按原图约 14.3 像素一格读回 -> hd/design.png
+python tools/art/pack_xayah_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_xayah_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_xayah_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero xayah && python tools/art/ppu_hd.py --hero xayah
+python tools/art/ppu_one.py --hero xayah && python tools/art/rig_xayah_hd.py --one-ground && python tools/art/hero_reels.py --hero xayah
+python tools/art/review_xayah_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（动作的提示词见 [`assets/source/xayah/MODEL_STRIPS.md`](../../assets/source/xayah/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/xayah/PROMPTS_FX.md)；Codex 的交付说明在 [`codex_picture/`](../../assets/source/xayah/codex_picture)、[`codex_model/`](../../assets/source/xayah/codex_model)、[`codex_strips/`](../../assets/source/xayah/codex_strips)、[`codex_fx/`](../../assets/source/xayah/codex_fx)）：
@@ -116,4 +126,4 @@ python tools/art/preview_xayah.py
 - 特效：Codex 第 3 步的 21 张（`import_xayah.py --raw`：每张按格子等分，颜色归到包里给每张的色阶，飞行物锚在刀尖，命中锚在亮核，地上的东西锚在最低一行），按动作帧量出的手、胸口、脚底的位置放好，时长按技能。
 - 红色方（用户：「蓝色方红色方特效不要颠倒」）：Q、W、E、R 出手时有前后之分的画面（Q 手上的闪光，E、W、R 胸前的光）画进她自己的动作帧，跟着她一起翻转（`bake_caster_fx.py`，`build_xayah.py` 每次生成都会重新套上）；W 第二片羽刃出手时手上的小闪光去掉了：它要在普攻中途插一段动作帧，模拟里这让她的击杀差两批都低了约 0.5（其余画进帧的画面对模拟没有任何影响）；被动的光在每个技能的五档层数里都会播，画进帧要复制太多动作，改成放在身体中间、左右对称；飞行的羽刃、匕首、羽毛和匕首雨（画面跟着方向转）严格上下对称；命中、插在地上的羽毛、定身、风暴圈、加速羽流严格左右对称。
 
-逐帧预览：[`docs/preview/league_xayah_frames.png`](../preview/league_xayah_frames.png?v=1014g)，特效：[`docs/preview/league_xayah_effects.png`](../preview/league_xayah_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_xayah_frames.png`](../preview/league_xayah_frames.png?v=1107hd)，特效：[`docs/preview/league_xayah_effects.png`](../preview/league_xayah_effects.png?v=1014g)。

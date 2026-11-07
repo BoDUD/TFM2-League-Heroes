@@ -3,7 +3,7 @@
 
     python tools/art/preview_xayah.py [--out docs/preview]
 
-  league_xayah_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_xayah_frames.png    every animation's dense frames (hd_, PPU 1.80, as league.dll shows them)
   league_xayah_effects.png   every effect animation, 3x
   league_xayah_showcase.gif  a scripted fight against Darius with Garen behind him, Rakan at her back, timed like
                              the kit (tools/kit/build_xayah.py): Xayah runs in; two blades at Darius; Double Daggers
@@ -24,6 +24,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_varus import At  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -41,7 +42,7 @@ def showcase(out, z=3, step=40):
     x0 = 92
     d = Held(load(os.path.join(LEAGUE, "champions", "league_darius")), x0 + 56, gy + 4)     # 57.5 px: her range
     g = Held(load(os.path.join(LEAGUE, "champions", "league_garen")), x0 + 84, gy - 8)      # behind him
-    rakan = Anim(frames_of(load(os.path.join(LEAGUE, "champions", "league_rakan")), "idle"), 0.0, x0 - 34, gy - 12,
+    rakan = Anim(dense(load(os.path.join(LEAGUE, "champions", "league_rakan")), "idle", "rakan", z), 0.0, x0 - 34, gy - 12,
                  loop=True, until=10 ** 9)
     body, under, over = [], [], []
     t = 0.0
@@ -51,7 +52,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(me_sp, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(me_sp, tag, "xayah", z), t, x, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
         return an
@@ -130,7 +131,7 @@ def showcase(out, z=3, step=40):
         a("attack")
 
     # she runs in; Rakan beside her, Darius and Garen wait
-    walk = Anim(frames_of(me_sp, "run"), 0.0, x - 44, gy, loop=True, until=1300, x1=x)
+    walk = Anim(dense(me_sp, "run", "xayah", z), 0.0, x - 44, gy, loop=True, until=1300, x1=x)
     body.append(walk)
     t = walk.until
     a("idle", 300, loop=True)
@@ -186,11 +187,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -209,7 +210,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -229,8 +230,8 @@ def main():
     os.makedirs(T.long_path(args.out), exist_ok=True)
     if args.only in (None, "frames"):
         s = load(CHAMP)
-        print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                                os.path.join(args.out, "league_xayah_frames.png")))
+        print("frames", contact(dense_rows(s),
+                                os.path.join(args.out, "league_xayah_frames.png"), z=1))
     if args.only in (None, "effects"):
         rows = []
         for name, path in FX.items():
