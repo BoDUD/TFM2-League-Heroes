@@ -1,0 +1,128 @@
+[
+  {
+    "key": "a_rear",
+    "file": "baronnashor-legs2-a_rear.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\01_a_rear.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-bb288f85-ca29-4874-b4f6-6c2b844dc1c0.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-bb288f85-ca29-4874-b4f6-6c2b844dc1c0.png"
+  },
+  {
+    "key": "e_dive",
+    "file": "baronnashor-legs2-e_dive.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\04_e_dive.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-1072625b-d815-4eaf-a24f-4f88ef2844c1.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-1072625b-d815-4eaf-a24f-4f88ef2844c1.png"
+  },
+  {
+    "key": "q_breath",
+    "file": "baronnashor-legs2-q_breath.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\03_q_breath.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-f64009d3-3ff4-4a5c-9b40-9992c83abf00.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-f64009d3-3ff4-4a5c-9b40-9992c83abf00.png"
+  },
+  {
+    "key": "e_rise",
+    "file": "baronnashor-legs2-e_rise.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\05_e_rise.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-f26c4177-570d-4c33-8e81-3eac26dc96f2.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-f26c4177-570d-4c33-8e81-3eac26dc96f2.png"
+  },
+  {
+    "key": "a_bite",
+    "file": "baronnashor-legs2-a_bite.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\02_a_bite.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-1c7d4b2d-df03-497e-919a-18b723ffe7a1.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-1c7d4b2d-df03-497e-919a-18b723ffe7a1.png"
+  },
+  {
+    "key": "r_rear",
+    "file": "baronnashor-legs2-r_rear.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\06_r_rear.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-670971dd-f1d6-4001-94ee-34664cf86659.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-513469e5-5d45-48b8-9dc6-a0cfa8325fcc.png"
+  },
+  {
+    "key": "r_slam",
+    "file": "baronnashor-legs2-r_slam.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\07_r_slam.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-6f0c1aba-40ab-4226-ae0a-ddc8c43c90bd.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-6f0c1aba-40ab-4226-ae0a-ddc8c43c90bd.png"
+  },
+  {
+    "key": "d_fall",
+    "file": "baronnashor-legs2-d_fall.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\09_d_fall.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-450e1ab7-3700-4f6b-9430-51b28d2b2b4f.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-450e1ab7-3700-4f6b-9430-51b28d2b2b4f.png"
+  },
+  {
+    "key": "d_down",
+    "file": "baronnashor-legs2-d_down.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\10_d_down.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-d6a9b311-6ccb-4c23-aa5f-45682b1e0169.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-71052d6c-0bde-45bf-acb6-3d9ebb4bec0d.png"
+  },
+  {
+    "key": "r_spit",
+    "file": "baronnashor-legs2-r_spit.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\poses\\08_r_spit.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-61cf48f4-2548-472d-aa2d-045db5de1f64.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-61cf48f4-2548-472d-aa2d-045db5de1f64.png"
+  },
+  {
+    "key": "run1",
+    "file": "baronnashor-legs2-run1.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\run\\run1.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-69de7794-2eb1-45db-a8ec-4ece375ec83c.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-69de7794-2eb1-45db-a8ec-4ece375ec83c.png"
+  },
+  {
+    "key": "run2",
+    "file": "baronnashor-legs2-run2.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\run\\run2.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-d16e776e-70c8-4c36-96ca-521756ef402f.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-d16e776e-70c8-4c36-96ca-521756ef402f.png"
+  },
+  {
+    "key": "run4",
+    "file": "baronnashor-legs2-run4.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\run\\run4.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-af167b30-75a7-4c0b-adb0-fc1d64125706.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-af167b30-75a7-4c0b-adb0-fc1d64125706.png"
+  },
+  {
+    "key": "run3",
+    "file": "baronnashor-legs2-run3.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\run\\run3.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-5b5f4dde-b085-4cb9-b3fb-fc044ed9c620.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-5b5f4dde-b085-4cb9-b3fb-fc044ed9c620.png"
+  },
+  {
+    "key": "run5",
+    "file": "baronnashor-legs2-run5.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\run\\run5.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-cd8b3dc0-3978-46be-a134-eb5aacdb1bf3.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-cd8b3dc0-3978-46be-a134-eb5aacdb1bf3.png"
+  },
+  {
+    "key": "run6",
+    "file": "baronnashor-legs2-run6.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\run\\run6.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-6b796b9c-21ea-4cc2-bdfd-5f7ba4b4179a.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-6b796b9c-21ea-4cc2-bdfd-5f7ba4b4179a.png"
+  },
+  {
+    "key": "run7",
+    "file": "baronnashor-legs2-run7.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\run\\run7.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-e43bcd50-44a0-4932-9c27-ff5186268a2c.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-e43bcd50-44a0-4932-9c27-ff5186268a2c.png"
+  },
+  {
+    "key": "run8",
+    "file": "baronnashor-legs2-run8.png",
+    "source": "C:\\Users\\OWNER\\Documents\\Codex\\2026-11-01\\new-chat-5\\work\\baronnashor-legs2\\run\\run8.png",
+    "first_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-ddf1e563-825d-42d2-a1c2-2578279cc0c0.png",
+    "accepted_generation": "C:\\Users\\OWNER\\.codex\\generated_images\\01a195d8-6b82-7c70-b710-f92d47f86b1a\\exec-ddf1e563-825d-42d2-a1c2-2578279cc0c0.png"
+  }
+]

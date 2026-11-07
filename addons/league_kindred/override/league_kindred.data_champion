@@ -1810,6 +1810,30 @@
           "type": "RangeEffect",
           "shape": {
             "Circle": {
+              "radius": 50000
+            }
+          },
+          "target": "AllyChampion",
+          "apply_type": "AroundCaster",
+          "effects": [
+            {
+              "type": "AddBuff",
+              "buff_state": {
+                "name": "league_kindred_r_safe",
+                "duration": {
+                  "Time": {
+                    "tick": 28
+                  }
+                },
+                "undying": true
+              }
+            }
+          ]
+        },
+        {
+          "type": "RangeEffect",
+          "shape": {
+            "Circle": {
               "radius": 1000
             }
           },

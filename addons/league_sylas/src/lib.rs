@@ -10,7 +10,7 @@
 //!   被动给塞拉斯挂 `steal_<英雄>` 和 `r_real`），放的时候数据挂 `r_power_go`，被动给他加法强 `r2_ad`% 的攻击（`r2_ad_t` tick），
 //!   照英雄联盟把攻击力系数换成法强。偷到原版英雄和别的 mod 的英雄时照佛耶戈附加包的做法分五类：被动每 tick 找
 //!   身上有 `r_mark` 的敌方英雄，按它的 id 查 `classes.rs`（原版英雄和本包英雄的类别，`make_override.py` 生成；查不到的别的
-//!   mod 英雄算近战），给塞拉斯挂 `cls_<类别>`（`r_keep` tick），第二次 R 放出对应的那一套：近战 = 跃起重砸眩晕、
+//!   mod 英雄算近战），给塞拉斯挂 `cls_<类别>`（0.2.58 起一直留到放出，同英雄联盟；`r_keep` 不为 0 时挂那么多 tick），第二次 R 放出对应的那一套：近战 = 跃起重砸眩晕、
 //!   射手 = 贯穿长箭减速、法师 = 原地爆发击飞（主包那一套）、辅助 = 治疗和护盾周围友方英雄并减速敌人、刺客 = 闪到目标身边重击并隐身。
 //! - **弑君突刺**：英雄联盟里回血随已损失生命最多多 150%。`kingslayer` 回 (`w_heal` + `w_heal_r`% 法强) × (1 + `w_miss`% × 已损失
 //!   生命比例)。
@@ -136,7 +136,7 @@ pub struct Params {
 impl Default for Params {
     fn default() -> Self {
         Params { w_heal: 40, w_heal_r: 35, w_miss: 150, w_r: 34000, w_cd: 540, atk_range: 26000, q_range: 60000,
-                 e_range: 70000, e_dur: 34, r_range: 70000, r_keep: 600, r2_r: 32000, r_cd: 2700, r_dur: 30,
+                 e_range: 70000, e_dur: 34, r_range: 70000, r_keep: 0, r2_r: 32000, r_cd: 2700, r_dur: 30,
                  r2_ad: 60, r2_ad_t: 300 }
     }
 }
@@ -297,14 +297,17 @@ impl Hijack {
             sim.entity_remove_buff(me, &n);
         }
         sim.entity_remove_buff(me, &sn("r_real"));
+        // 0.2.58 (the user: 「偷到大招只能保存10秒 和英雄联盟不太一样啊」): kept until he casts it, as the kit's `r_have`;
+        // a set r_keep still times it
+        let keep = |name: &str| if self.p.r_keep == 0 { BuffV1::named(name) } else { BuffV1::timed(name, self.p.r_keep) };
         let kind = match own_ult(&name) {
             Some(hero) => {
-                sim.entity_stack_buff(me, &BuffV1::timed(&sn(&format!("steal_{hero}")), self.p.r_keep), 1, true);
-                sim.entity_stack_buff(me, &BuffV1::timed(&sn("r_real"), self.p.r_keep), 1, true);
+                sim.entity_stack_buff(me, &keep(&sn(&format!("steal_{hero}"))), 1, true);
+                sim.entity_stack_buff(me, &keep(&sn("r_real")), 1, true);
                 "his own ult".to_string()
             }
             None => {
-                sim.entity_stack_buff(me, &BuffV1::timed(&sn(&format!("cls_{cls}")), self.p.r_keep), 1, true);
+                sim.entity_stack_buff(me, &keep(&sn(&format!("cls_{cls}"))), 1, true);
                 format!("by class: {cls}")
             }
         };
@@ -453,7 +456,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        assert_eq!(parse_params(r#"{"w_heal":40,"w_heal_r":35,"w_miss":150,"w_r":34000,"w_cd":540,"atk_range":26000,"q_range":60000,"e_range":70000,"e_dur":34,"r_range":70000,"r_keep":600,"r2_r":32000,"r_cd":2700,"r_dur":30,"r2_ad":60,"r2_ad_t":300}"#), Params::default());
+        assert_eq!(parse_params(r#"{"w_heal":40,"w_heal_r":35,"w_miss":150,"w_r":34000,"w_cd":540,"atk_range":26000,"q_range":60000,"e_range":70000,"e_dur":34,"r_range":70000,"r_keep":0,"r2_r":32000,"r_cd":2700,"r_dur":30,"r2_ad":60,"r2_ad_t":300}"#), Params::default());
         assert_eq!(parse_params(r#"{"w_heal":30}"#).w_heal, 30);
     }
 

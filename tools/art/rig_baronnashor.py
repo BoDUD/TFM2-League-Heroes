@@ -8,8 +8,8 @@ body) and T-Hex's (its legs) (the user, 2026-11-03: sprites by Codex from writte
                                                          # --hero baronnashor
 
 The pictures (tools/art/design_baronnashor_model.py, design_baronnashor_poses.py):
-  hd/idle.png         the serpent on its two legs, 3/4 facing right, 58 x 94 at PPU 2.04 (46 game px, the crest tips to
-                      its soles): the idle and the hit;
+  hd/idle.png         the serpent on its six spider legs (L6), 3/4 facing right, 80 x 94 at PPU 2.04 (46 game px, the
+                      crest tips to the leg tips): the idle and the hit;
   hd/pose_<name>.png  Codex's key poses at the design's body size with the design's face (assets/source/baronnashor/
                       POSE_PROMPTS.md): a_rear a_bite q_breath e_dive e_dig e_rise r_rear r_slam r_spit run1-8 d_fall
                       d_down.

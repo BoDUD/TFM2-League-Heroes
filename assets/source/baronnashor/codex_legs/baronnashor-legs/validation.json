@@ -1,0 +1,68 @@
+[
+  {
+    "file": "baronnashor-legs-L6.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "alpha": [
+      0,
+      255
+    ],
+    "upper_preserved_except_user_requested_old_hips": true,
+    "edited_old_hip_boxes": [
+      [
+        539,
+        836,
+        638,
+        880
+      ],
+      [
+        748,
+        836,
+        825,
+        880
+      ]
+    ],
+    "source_lower_bbox": [
+      0,
+      880,
+      1254,
+      1149
+    ]
+  },
+  {
+    "file": "baronnashor-legs-L8.png",
+    "size": [
+      1254,
+      1254
+    ],
+    "grid_px": 11,
+    "alpha": [
+      0,
+      255
+    ],
+    "upper_preserved_except_user_requested_old_hips": true,
+    "edited_old_hip_boxes": [
+      [
+        539,
+        836,
+        638,
+        880
+      ],
+      [
+        748,
+        836,
+        825,
+        880
+      ]
+    ],
+    "source_lower_bbox": [
+      0,
+      880,
+      1254,
+      1186
+    ]
+  }
+]

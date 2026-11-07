@@ -1000,7 +1000,7 @@
         "attack": "甩链。<#ff9028ff>破敌禁法<>：每放一个技能存一层（最多2层），有层时攻速+40%，下次普攻挥链横扫周围，<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害。<#ff9028ff>弑君突刺<>：每<#ffb900ff>9秒<>对英雄的普攻变成突刺，<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害，回复<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>生命。",
         "skill": "甩出两条锁链交叉于目标处，沿途敌人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并减速25%；<#ffb900ff>0.6秒<>后交叉点爆炸，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法伤害。",
         "skill2": "朝敌方英雄突进，再甩出锁链：命中的第一个敌方英雄受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法伤害、被<#ef5350ff>击飞<><#ffb900ff>0.5秒<>，塞拉斯把自己拉过去。",
-        "ult": "锁链命中敌方英雄，<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>并夺走大招；<#ffb900ff>10秒<>内再放，在目标处爆发，<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>击飞<>周围敌人。"
+        "ult": "锁链命中敌方英雄，<#ef5350ff>眩晕<><#ffb900ff>0.5秒<>并夺走大招，一直留着，随时再放：在目标处爆发，<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法伤害并<#ef5350ff>击飞<>周围敌人。"
       },
       "league_mel": {
         "name": "梅尔",
@@ -3082,7 +3082,7 @@
         "attack": "甩鍊。<#ff9028ff>反魔法英石衝擊<>：每放一個技能存一層（最多2層），有層時攻速+40%，下次普攻揮鍊橫掃周圍，<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害。<#ff9028ff>弒君之道<>：每<#ffb900ff>9秒<>對英雄的普攻變成突刺，<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害，回復<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>生命。",
         "skill": "甩出兩條鎖鍊交叉於目標處，沿途敵人受到<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並緩速25%；<#ffb900ff>0.6秒<>後交叉點爆炸，造成<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>魔法傷害。",
         "skill2": "朝敵方英雄突進，再甩出鎖鍊：命中的第一個敵方英雄受到<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>魔法傷害、被<#ef5350ff>擊飛<><#ffb900ff>0.5秒<>，賽勒斯把自己拉過去。",
-        "ult": "鎖鍊命中敵方英雄，<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>並奪走大招；<#ffb900ff>10秒<>內再放，在目標處爆發，<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>擊飛<>周圍敵人。"
+        "ult": "鎖鍊命中敵方英雄，<#ef5350ff>暈眩<><#ffb900ff>0.5秒<>並奪走大招，一直留著，隨時再放：在目標處爆發，<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>魔法傷害並<#ef5350ff>擊飛<>周圍敵人。"
       },
       "league_mel": {
         "name": "梅爾",
@@ -5164,7 +5164,7 @@
         "attack": "A chain swing. <#ff9028ff>Petricite Burst<>: each spell he casts stores a charge (2 at most); with one he attacks 40% faster and his next attack whirls his chains round him for <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage. <#ff9028ff>Kingslayer<>: every <#ffb900ff>9s<> his attack on a champion becomes a stab for <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage, healing <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>.",
         "skill": "Lashes two chains that cross at the target: enemies along them take <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> magic damage and are slowed 25%; after <#ffb900ff>0.6s<> the crossing explodes for <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> magic damage.",
         "skill2": "Dashes toward an enemy champion, then throws a chain: the first enemy champion hit takes <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> magic damage, is <#ef5350ff>knocked up<> for <#ffb900ff>0.5s<> and Sylas pulls himself to it.",
-        "ult": "His chain hits an enemy champion, <#ef5350ff>stuns<> it for <#ffb900ff>0.5s<> and steals its ultimate; cast again within <#ffb900ff>10s<> to unleash it at the target: <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and nearby enemies <#ef5350ff>knocked up<>."
+        "ult": "His chain hits an enemy champion, <#ef5350ff>stuns<> it for <#ffb900ff>0.5s<> and steals its ultimate, kept until he casts it again to unleash it at the target: <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> magic damage and nearby enemies <#ef5350ff>knocked up<>."
       },
       "league_mel": {
         "name": "Mel",
@@ -7246,7 +7246,7 @@
         "attack": "사슬 휘두르기. <#ff9028ff>페트리사이트 폭발<>: 스킬을 쓸 때마다 1회 충전(최대 2), 충전 시 공격 속도 +40%, 다음 기본 공격이 주변에 <#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해. <#ff9028ff>국왕시해자<>: <#ffb900ff>9초<>마다 챔피언 공격이 찌르기로 바뀌어 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, 체력 <#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<> 회복.",
         "skill": "사슬 두 개를 대상 위치에서 교차시켜 경로의 적에게 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 25% 둔화, <#ffb900ff>0.6초<> 후 교차점이 폭발해 <#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> 마법 피해.",
         "skill2": "적 챔피언 쪽으로 돌진한 뒤 사슬을 던져 처음 맞은 적 챔피언에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> 마법 피해, <#ffb900ff>0.5초<> <#ef5350ff>공중에 띄움<>, 그쪽으로 자신을 끌어당김.",
-        "ult": "사슬이 적 챔피언을 맞혀 <#ffb900ff>0.5초<> <#ef5350ff>기절<>시키고 궁극기를 빼앗음. <#ffb900ff>10초<> 안에 다시 쓰면 대상 위치에서 폭발해 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, 주변 적 <#ef5350ff>공중에 띄움<>."
+        "ult": "사슬이 적 챔피언을 맞혀 <#ffb900ff>0.5초<> <#ef5350ff>기절<>시키고 궁극기를 빼앗아 쓸 때까지 지님. 다시 쓰면 대상 위치에서 폭발해 <#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<> 마법 피해, 주변 적 <#ef5350ff>공중에 띄움<>."
       },
       "league_mel": {
         "name": "멜",
@@ -9328,7 +9328,7 @@
         "attack": "鎖を振るう。<#ff9028ff>ペトリサイトバースト<>：スキルごとに1チャージ（最大2）、チャージ中は攻撃速度+40%、次の通常攻撃で周囲に<#a974ffff>20<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージ。<#ff9028ff>王殺し<>：<#ffb900ff>9秒<>ごとにチャンピオンへの攻撃が突きになり<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ、体力<#66bb6aff>40<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>35%<>回復。",
         "skill": "2本の鎖を対象の位置で交差させ、経路の敵に<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージと25%スロウ。<#ffb900ff>0.6秒<>後に交差点が爆発し<#a974ffff>90<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の魔法ダメージ。",
         "skill2": "敵チャンピオンへ突進し、鎖を投げる：最初に当たった敵チャンピオンに<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>の魔法ダメージ、<#ffb900ff>0.5秒<><#ef5350ff>ノックアップ<>、自身を引き寄せる。",
-        "ult": "鎖が敵チャンピオンに当たると<#ffb900ff>0.5秒<><#ef5350ff>スタン<>させアルティメットを奪う。<#ffb900ff>10秒<>以内に再使用で対象の位置で炸裂、<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと周囲の敵を<#ef5350ff>ノックアップ<>。"
+        "ult": "鎖が敵チャンピオンに当たると<#ffb900ff>0.5秒<><#ef5350ff>スタン<>させアルティメットを奪い、使うまで保持。再使用で対象の位置で炸裂、<#a974ffff>200<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80%<>の魔法ダメージと周囲の敵を<#ef5350ff>ノックアップ<>。"
       },
       "league_mel": {
         "name": "メル",

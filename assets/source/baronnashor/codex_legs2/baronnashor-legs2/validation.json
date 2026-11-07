@@ -1,0 +1,416 @@
+[
+  {
+    "file": "baronnashor-legs2-a_rear.png",
+    "raw": "baronnashor-legs2-a_rear.png",
+    "ground_requested": 1206,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 120480,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 404232,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1067,
+    "generated_abdomen_bottom": 1031,
+    "leg_horizontal_scale": 1.1085,
+    "source_sha256": "d699531779ec810b289076601877713bafc2d40c7129eb76f87f72eb9837d09c",
+    "raw_sha256": "a3c78fce7a4dfb9d401276e2489467a4c5ebdbded06155ff8cf4f42dec541107"
+  },
+  {
+    "file": "baronnashor-legs2-a_bite.png",
+    "raw": "baronnashor-legs2-a_bite.png",
+    "ground_requested": 1196,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 145620,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 377013,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1061,
+    "generated_abdomen_bottom": 1058,
+    "leg_horizontal_scale": 1.2,
+    "source_sha256": "c8e71c6dc623f53b56f7cffdad4134a3b0c69dd21ab290331bc738d96cc5f4ad",
+    "raw_sha256": "466396dd715299c9cf28405f83917f1ac2a0c0b8a7feacfd6cd1ad7fab70ec50"
+  },
+  {
+    "file": "baronnashor-legs2-q_breath.png",
+    "raw": "baronnashor-legs2-q_breath.png",
+    "ground_requested": 1196,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 130816,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 343072,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1079,
+    "generated_abdomen_bottom": 1079,
+    "leg_horizontal_scale": 1.2,
+    "source_sha256": "e2254101017df4c31afb9898bc5c6303cc330d47bea844d6cafd597a489c6699",
+    "raw_sha256": "ca08256b9d2ef672574de6cfe761779917af8dfc08b223cb6d71e8cfe5022a65"
+  },
+  {
+    "file": "baronnashor-legs2-e_dive.png",
+    "raw": "baronnashor-legs2-e_dive.png",
+    "ground_requested": 1212,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 83759,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 400683,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1150,
+    "generated_abdomen_bottom": 1095,
+    "leg_horizontal_scale": 1.2,
+    "source_sha256": "31d624f87496f9e08105873dc058a69ae5ed78f975de48f54767e01537472e38",
+    "raw_sha256": "e05eecb1657051058d3106698364a1a4ecdafc051adcfa06c8fc845ee9167746"
+  },
+  {
+    "file": "baronnashor-legs2-e_rise.png",
+    "raw": "baronnashor-legs2-e_rise.png",
+    "ground_requested": 1206,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 132154,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 338966,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1045,
+    "generated_abdomen_bottom": 1073,
+    "leg_horizontal_scale": 1.0442,
+    "source_sha256": "9beb7977442e14b01df17b1e82ceb5bd0bc316b0900ad61fa90018842072a82f",
+    "raw_sha256": "5db64f9deba1b4ea22666ff405e687c1575c57e5d55eb97fc155e37eaf42654e"
+  },
+  {
+    "file": "baronnashor-legs2-r_rear.png",
+    "raw": "baronnashor-legs2-r_rear.png",
+    "ground_requested": 1209,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 101714,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 330292,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1083,
+    "generated_abdomen_bottom": 1018,
+    "leg_horizontal_scale": 0.85,
+    "source_sha256": "9e8bd9c0d5325b593450f6f0c99bf5e7ec47468510feb35b847f7b5598fef651",
+    "raw_sha256": "db4cea8a2e4327e845f820f896f38979056cab45f89ec1cacdd962761ddf3675"
+  },
+  {
+    "file": "baronnashor-legs2-r_slam.png",
+    "raw": "baronnashor-legs2-r_slam.png",
+    "ground_requested": 1176,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 112614,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 341785,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1066,
+    "generated_abdomen_bottom": 1114,
+    "leg_horizontal_scale": 0.85,
+    "source_sha256": "776a89f7fb151ecf8788fb32c468940d89815f120948559770b415ae31a54987",
+    "raw_sha256": "5fe06d4be3806449831780aa1917cc71b0d8cc663010ab537fc98b5edf9346c7"
+  },
+  {
+    "file": "baronnashor-legs2-r_spit.png",
+    "raw": "baronnashor-legs2-r_spit.png",
+    "ground_requested": 1185,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 150090,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 428856,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1048,
+    "generated_abdomen_bottom": 1014,
+    "leg_horizontal_scale": 1.2,
+    "source_sha256": "8dff4ae5fe83008e6dbfc41ebac4d6feb978b08c26d9a5134d9d018805ca7054",
+    "raw_sha256": "2860745d54e7aa199ecdd988c787d8f1c9a5cb06e9b90a2c3e7064a8651a955d"
+  },
+  {
+    "file": "baronnashor-legs2-d_fall.png",
+    "raw": "baronnashor-legs2-d_fall.png",
+    "ground_requested": 1186,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 132888,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 368431,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1054,
+    "generated_abdomen_bottom": 1058,
+    "leg_horizontal_scale": 1.2,
+    "source_sha256": "f5e7d058e7f0dd8036913dea060859fe2356dd831b99d3478e414b0b34e12322",
+    "raw_sha256": "8c563d89dffc677b6889344382944701a13a12b20baa12c913dabb3880730b66"
+  },
+  {
+    "file": "baronnashor-legs2-d_down.png",
+    "raw": "baronnashor-legs2-d_down.png",
+    "ground_requested": 1106,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 91725,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 236770,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 1067,
+    "generated_abdomen_bottom": 1018,
+    "leg_horizontal_scale": 1.0,
+    "source_sha256": "6edb10825400456140ed232e74ebb45b65b8683c52bf08c695693e12a0439324",
+    "raw_sha256": "aad3f66a4ac3d3ec577db232f09f1514fa31e53f4d9bf5e4111d0a74a0a93fcb"
+  },
+  {
+    "file": "baronnashor-legs2-run1.png",
+    "raw": "baronnashor-legs2-run1.png",
+    "ground_requested": 1181,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 77507,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 216864,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 974,
+    "generated_abdomen_bottom": 1041,
+    "leg_horizontal_scale": 0.9506,
+    "source_sha256": "853ff5ee0ed5106b68e3a54ca3771643e7a09e9bf2881dfc817e2d30efd14ba6",
+    "raw_sha256": "70fe9422a977f1858e00a03f1c0e4fc75c6af2056e820b60816957da65aa8c66"
+  },
+  {
+    "file": "baronnashor-legs2-run2.png",
+    "raw": "baronnashor-legs2-run2.png",
+    "ground_requested": 1173,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 82863,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 218216,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 974,
+    "generated_abdomen_bottom": 1044,
+    "leg_horizontal_scale": 0.9327,
+    "source_sha256": "a7c8c4aa5f7990ed3f34ef657a80cd52701a0bf414d078906ccf0ce4b53f8b92",
+    "raw_sha256": "9450ca4542cb7ae5fdf3fff4dadd1cb0765ac08d244a9d529af17fdba8d40803"
+  },
+  {
+    "file": "baronnashor-legs2-run3.png",
+    "raw": "baronnashor-legs2-run3.png",
+    "ground_requested": 1181,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 85205,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 220783,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 975,
+    "generated_abdomen_bottom": 1043,
+    "leg_horizontal_scale": 0.9346,
+    "source_sha256": "0f503a12e3dfb37a55659dc8f2cbd40d3213af4e2ad43ab532c253020fc162c8",
+    "raw_sha256": "4447f3982c1693a8cedf79d1eb44280ac6da186bca9a7aeda7c99ee76bf65b7b"
+  },
+  {
+    "file": "baronnashor-legs2-run4.png",
+    "raw": "baronnashor-legs2-run4.png",
+    "ground_requested": 1180,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 81686,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 224982,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 975,
+    "generated_abdomen_bottom": 1046,
+    "leg_horizontal_scale": 1.0018,
+    "source_sha256": "12a5223e29192c9b613662dd3bd7d71ac01fa17f441baf22d3b7361b5e9b8d6a",
+    "raw_sha256": "25d95d84c85b10147a34cf1b4f9c6ba80bcb2f1c163ba863b6db0aa00d96e0dc"
+  },
+  {
+    "file": "baronnashor-legs2-run5.png",
+    "raw": "baronnashor-legs2-run5.png",
+    "ground_requested": 1215,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 86527,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 223052,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 974,
+    "generated_abdomen_bottom": 1046,
+    "leg_horizontal_scale": 0.9769,
+    "source_sha256": "de689511ade39571133b7a2b7dccc39294a0293921ad2ef51a5a01887272bcb8",
+    "raw_sha256": "bd95f6f9ebecb957d87d67cb1143859c051c918ccbdf361c6eea8dd83842f1c4"
+  },
+  {
+    "file": "baronnashor-legs2-run6.png",
+    "raw": "baronnashor-legs2-run6.png",
+    "ground_requested": 1177,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 91643,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 219774,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 975,
+    "generated_abdomen_bottom": 1054,
+    "leg_horizontal_scale": 0.9359,
+    "source_sha256": "c34a0f7d2b64bfd94232dcaaa2a8de40f7267c56f1a84b15b7e03236a1cb0ba8",
+    "raw_sha256": "f8dc9f31b3ee8a80bcfd8f29de391b231a57f7c109bace3fcb8acc38ad596cf6"
+  },
+  {
+    "file": "baronnashor-legs2-run7.png",
+    "raw": "baronnashor-legs2-run7.png",
+    "ground_requested": 1183,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 84697,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 216261,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 971,
+    "generated_abdomen_bottom": 1046,
+    "leg_horizontal_scale": 0.9072,
+    "source_sha256": "1f0ae84c5ce7d71295dbb783589f431e5f758f98973318e5c47adab9306278c6",
+    "raw_sha256": "c430a93b6bb82f12153ac66d1340eb5cf13bd362d4069fb761778b8d86861edf"
+  },
+  {
+    "file": "baronnashor-legs2-run8.png",
+    "raw": "baronnashor-legs2-run8.png",
+    "ground_requested": 1189,
+    "source_size": [
+      1254,
+      1254
+    ],
+    "upper_and_nonleg_exact": true,
+    "changed_pixels": 75258,
+    "edited_alpha_values": [
+      0,
+      255
+    ],
+    "original_partial_alpha_preserved": 224405,
+    "requested_new_leg_grid": 9,
+    "source_global_grid_certified": false,
+    "source_abdomen_bottom": 974,
+    "generated_abdomen_bottom": 1041,
+    "leg_horizontal_scale": 0.9614,
+    "source_sha256": "7397ded93561da65f168c3470b3b191e629081192b336b5e54075b05f328bb31",
+    "raw_sha256": "3b82c9837d3ebf0ba33e25bf246a93d19fd88559430a63ee177ae092d95c2486"
+  }
+]

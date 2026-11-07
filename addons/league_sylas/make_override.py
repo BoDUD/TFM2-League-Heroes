@@ -46,18 +46,18 @@ O, M, A, R, G, E = setup.O, setup.M, setup.A, setup.R, setup.G, setup.E
 mag, hl = setup.mag, setup.hl
 # the ult's whole text in the add-on (the stolen ult by class)
 ULT = {
-    "zh-hans": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招；" + A + "{r_keep}秒" + E + "内再放：英雄联盟英雄放出他自己的大招（攻击加成按法强换算），"
+    "zh-hans": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招，一直留着，随时再放：英雄联盟英雄放出他自己的大招（攻击加成按法强换算），"
                "其他英雄按类别放出" + mag("r2_dmg", "r2_ratio") + "魔法伤害的大招。",
-    "zh-hant": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招；" + A + "{r_keep}秒" + E + "內再放：英雄聯盟英雄放出他自己的大招（攻擊加成按法強換算），"
+    "zh-hant": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招，一直留著，隨時再放：英雄聯盟英雄放出他自己的大招（攻擊加成按法強換算），"
                "其他英雄按類別放出" + mag("r2_dmg", "r2_ratio") + "魔法傷害的大招。",
-    "en": "His chain hits an enemy champion, " + R + "stuns" + E + " it for " + A + "{r_stun}s" + E + " and steals its ultimate; cast again "
-          "within " + A + "{r_keep}s" + E + ": a League champion's own ultimate (its attack ratios paid from his ability power), "
+    "en": "His chain hits an enemy champion, " + R + "stuns" + E + " it for " + A + "{r_stun}s" + E + " and steals its ultimate, kept until "
+          "he casts it again: a League champion's own ultimate (its attack ratios paid from his ability power), "
           "any other champion's one by its class for " + mag("r2_dmg", "r2_ratio") + " magic damage.",
-    "ko": "사슬이 적 챔피언을 맞혀 " + A + "{r_stun}초" + E + " " + R + "기절" + E + "시키고 궁극기를 빼앗음. " + A + "{r_keep}초" + E +
-          " 안에 다시 쓰면 리그 오브 레전드 챔피언은 그 챔피언의 궁극기(공격력 계수는 주문력으로), 다른 챔피언은 계열별로 " +
+    "ko": "사슬이 적 챔피언을 맞혀 " + A + "{r_stun}초" + E + " " + R + "기절" + E + "시키고 궁극기를 빼앗아 쓸 때까지 지님. " +
+          "다시 쓰면 리그 오브 레전드 챔피언은 그 챔피언의 궁극기(공격력 계수는 주문력으로), 다른 챔피언은 계열별로 " +
           mag("r2_dmg", "r2_ratio") + " 마법 피해 궁극기.",
-    "ja": "鎖が敵チャンピオンに当たると" + A + "{r_stun}秒" + E + R + "スタン" + E + "させアルティメットを奪う。" + A + "{r_keep}秒" + E +
-          "以内に再使用：LoLのチャンピオンはその本人のアルティメット（攻撃力の係数は魔力で）、他はクラス別に" + mag("r2_dmg", "r2_ratio") +
+    "ja": "鎖が敵チャンピオンに当たると" + A + "{r_stun}秒" + E + R + "スタン" + E + "させアルティメットを奪い、使うまで保持。" +
+          "再使用：LoLのチャンピオンはその本人のアルティメット（攻撃力の係数は魔力で）、他はクラス別に" + mag("r2_dmg", "r2_ratio") +
           "の魔法ダメージ。",
 }
 # Kingslayer's heal grows with missing health: the attack's text with that ending

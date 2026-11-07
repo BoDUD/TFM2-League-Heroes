@@ -25,7 +25,8 @@ then cast), an add-on with the stolen ult by the victim's class and the AI's com
           on a minion. COMBO E -> W: landing with Kingslayer ready, he stabs at once (the stab and its cooldown).
   ult     R Hijack (其人之道), two steps (no data effect copies another champion's ult):
           1. the steal: `Targeting` on `EnemyChampion` (r_range): a chain flies at the champion (r_dmg + r_ratio% AP,
-             stunned r_stun ticks) and he holds "a stolen ult" (`r_have`, r_keep ticks); r_dur + 1 ticks later a
+             stunned r_stun ticks) and he holds "a stolen ult" (`r_have`: until he casts it, League's way, or r_keep
+             ticks when r_keep is set); r_dur + 1 ticks later a
              3-tick `ult_cooldown_mult` caps the ult's cooldown at r_recast (league_khazix R's recast way), so it is
              ready again 1-2 s later;
           2. the stolen ult: with `r_have`, R hurls the stolen power at the champion's spot - every enemy within r2_r
@@ -75,7 +76,9 @@ P = {
     "e_speed": 6000, "e_w": 7000, "e_dmg": 80, "e_ratio": 70, "e_up": 30, "e_fly": 4500, "e_pull_dur": 18,
     # R Hijack (League: 950 range; steals the ult, cd 80-30 s, the stolen ult's own cooldown after)
     "r_cd": 2700, "r_range": 70000, "r_dur": 30, "r_rel": 7, "r_speed": 6000, "r_dmg": 40, "r_ratio": 20,
-    "r_stun": 30, "r_keep": 600, "r_recast": 90,
+    # r_keep: how long he keeps a stolen ult; 0 = until he casts it (League keeps a hijacked ult until used; 2026-11-07, the
+    # user: 「偷到大招只能保存10秒 和英雄联盟不太一样啊」 - it was 600, 10 s)
+    "r_stun": 30, "r_keep": 0, "r_recast": 90,
     "r2_dur": 36, "r2_rel": 17, "r2_fly": 12, "r2_r": 32000, "r2_dmg": 200, "r2_ratio": 80, "r2_up": 40,
     # the add-on's stolen ults by class (melee: a leap and a stunning slam; range: a long piercing arrow that slows;
     # util: a song that heals and shields the allies round him and slows the enemies; assassin: a blink onto the
@@ -296,7 +299,7 @@ def build(p, native=False, own=()):
     refund = refresh("r_ref", 3, ult_cooldown_mult=p["r_cd"] * 100 // p["r_recast"] - 100)
     stolen = [ap(p["r_dmg"], p["r_ratio"]), {"type": "Stun", "duration": p["r_stun"]}, view("r_steal"), tsfx("r_steal"),
               *([buff("r_mark", 3)] if native else []),
-              on_me(refresh("r_have", p["r_keep"]), cview("r_got"))]
+              on_me(refresh("r_have", p["r_keep"] or None), cview("r_got"))]   # None: Permanent (flag())
     steal = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                     delayed(p["r_rel"] - 1, alive(homing("r_hook", p["r_speed"], "EnemyChampion", stolen))),
                     delayed(p["r_dur"] + 1, sw("r_have", refund)))

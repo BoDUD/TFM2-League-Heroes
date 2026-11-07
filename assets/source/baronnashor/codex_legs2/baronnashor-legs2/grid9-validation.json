@@ -1,0 +1,326 @@
+[
+  {
+    "file": "baronnashor-legs2-a_rear.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1478
+  },
+  {
+    "file": "baronnashor-legs2-a_bite.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1792
+  },
+  {
+    "file": "baronnashor-legs2-q_breath.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1595
+  },
+  {
+    "file": "baronnashor-legs2-e_dive.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1010
+  },
+  {
+    "file": "baronnashor-legs2-e_rise.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1596
+  },
+  {
+    "file": "baronnashor-legs2-r_rear.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1241
+  },
+  {
+    "file": "baronnashor-legs2-r_slam.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1403
+  },
+  {
+    "file": "baronnashor-legs2-r_spit.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1816
+  },
+  {
+    "file": "baronnashor-legs2-d_fall.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1636
+  },
+  {
+    "file": "baronnashor-legs2-d_down.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1159
+  },
+  {
+    "file": "baronnashor-legs2-run1.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 957
+  },
+  {
+    "file": "baronnashor-legs2-run2.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1014
+  },
+  {
+    "file": "baronnashor-legs2-run3.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1041
+  },
+  {
+    "file": "baronnashor-legs2-run4.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1000
+  },
+  {
+    "file": "baronnashor-legs2-run5.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1063
+  },
+  {
+    "file": "baronnashor-legs2-run6.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1130
+  },
+  {
+    "file": "baronnashor-legs2-run7.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 1034
+  },
+  {
+    "file": "baronnashor-legs2-run8.png",
+    "canvas": [
+      1254,
+      1254
+    ],
+    "grid_px": 9,
+    "grid_origin": [
+      0,
+      0
+    ],
+    "alpha": [
+      0,
+      255
+    ],
+    "source_grid_readback_outside_leg_cells": "identical",
+    "changed_grid_cells": 921
+  }
+]

@@ -1,0 +1,237 @@
+{
+  "frames": 18,
+  "actions": 10,
+  "run_frames": 8,
+  "checks": [
+    {
+      "file": "baronnashor-legs2-a_rear.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "a3c78fce7a4dfb9d401276e2489467a4c5ebdbded06155ff8cf4f42dec541107"
+    },
+    {
+      "file": "baronnashor-legs2-a_bite.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "466396dd715299c9cf28405f83917f1ac2a0c0b8a7feacfd6cd1ad7fab70ec50"
+    },
+    {
+      "file": "baronnashor-legs2-q_breath.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "ca08256b9d2ef672574de6cfe761779917af8dfc08b223cb6d71e8cfe5022a65"
+    },
+    {
+      "file": "baronnashor-legs2-e_dive.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "e05eecb1657051058d3106698364a1a4ecdafc051adcfa06c8fc845ee9167746"
+    },
+    {
+      "file": "baronnashor-legs2-e_rise.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "5db64f9deba1b4ea22666ff405e687c1575c57e5d55eb97fc155e37eaf42654e"
+    },
+    {
+      "file": "baronnashor-legs2-r_rear.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "db4cea8a2e4327e845f820f896f38979056cab45f89ec1cacdd962761ddf3675"
+    },
+    {
+      "file": "baronnashor-legs2-r_slam.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "5fe06d4be3806449831780aa1917cc71b0d8cc663010ab537fc98b5edf9346c7"
+    },
+    {
+      "file": "baronnashor-legs2-r_spit.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "2860745d54e7aa199ecdd988c787d8f1c9a5cb06e9b90a2c3e7064a8651a955d"
+    },
+    {
+      "file": "baronnashor-legs2-d_fall.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "8c563d89dffc677b6889344382944701a13a12b20baa12c913dabb3880730b66"
+    },
+    {
+      "file": "baronnashor-legs2-d_down.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "aad3f66a4ac3d3ec577db232f09f1514fa31e53f4d9bf5e4111d0a74a0a93fcb"
+    },
+    {
+      "file": "baronnashor-legs2-run1.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "70fe9422a977f1858e00a03f1c0e4fc75c6af2056e820b60816957da65aa8c66",
+      "old_white_feet_near_ground": 0
+    },
+    {
+      "file": "baronnashor-legs2-run2.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "9450ca4542cb7ae5fdf3fff4dadd1cb0765ac08d244a9d529af17fdba8d40803",
+      "old_white_feet_near_ground": 0
+    },
+    {
+      "file": "baronnashor-legs2-run3.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "4447f3982c1693a8cedf79d1eb44280ac6da186bca9a7aeda7c99ee76bf65b7b",
+      "old_white_feet_near_ground": 0
+    },
+    {
+      "file": "baronnashor-legs2-run4.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "25d95d84c85b10147a34cf1b4f9c6ba80bcb2f1c163ba863b6db0aa00d96e0dc",
+      "old_white_feet_near_ground": 0
+    },
+    {
+      "file": "baronnashor-legs2-run5.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "bd95f6f9ebecb957d87d67cb1143859c051c918ccbdf361c6eea8dd83842f1c4",
+      "old_white_feet_near_ground": 0
+    },
+    {
+      "file": "baronnashor-legs2-run6.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "f8dc9f31b3ee8a80bcfd8f29de391b231a57f7c109bace3fcb8acc38ad596cf6",
+      "old_white_feet_near_ground": 0
+    },
+    {
+      "file": "baronnashor-legs2-run7.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "c430a93b6bb82f12153ac66d1340eb5cf13bd362d4069fb761778b8d86861edf",
+      "old_white_feet_near_ground": 0
+    },
+    {
+      "file": "baronnashor-legs2-run8.png",
+      "outside_edit_mask_changed": 0,
+      "teal_changed": 0,
+      "identity_color_changed": 0,
+      "rgba_size": [
+        1254,
+        1254
+      ],
+      "edited_alpha": "hard 0/255",
+      "raw_sha256": "3b82c9837d3ebf0ba33e25bf246a93d19fd88559430a63ee177ae092d95c2486",
+      "old_white_feet_near_ground": 0
+    }
+  ],
+  "source_findings": "Original PNGs have partial alpha and are not an exact uniform 9px raster. Original non-leg pixels retained byte-for-byte.",
+  "limits": [
+    "New legs are sampled on a 9px grid; clipping at original body edges can subdivide cells.",
+    "Six-leg count, exact contact of every tip, and named near/far gait grouping require visual/import review.",
+    "No game import or runtime test performed."
+  ]
+}
