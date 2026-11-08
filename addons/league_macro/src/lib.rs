@@ -25,6 +25,13 @@
 //!   常是辅助、射手、中单（1-4 让超级机甲单带，1-3-1 让斯维因 + 波比、赛娜 + 泽丽），单带打不过人。0.1.4 起只有上单、打野
 //!   （`SPLIT_LANES`，能单挑的边路）被指派时才去分推（`BaronPlan::played`），中单、射手、辅助跟大部队：1-3-1 只剩一个
 //!   上单 / 打野时按 1-4 打，一个都没有就全员抱团（用户 2026-11-07「只让上单打野分推」）。
+//! - **抢龙集结**（`Intent::Gather`，0.1.5，用户 2026-11-08「这两个也一起修一修」）：1189 场里每场 28.5 次小规模交火，
+//!   双方各 3 人以上的团战只有 3.8 次，团战里的阵亡只占 21%——没有英雄联盟中后期围着小龙、大龙的 5 打 5。`GATHER_FROM`
+//!   （10:00，对线纪律管到这时）以后，大龙（`Epic`）或小龙（`Serpen`）活着时，全队到龙坑我方这一侧 `STAGE` 处集结：
+//!   我方活着的不少于对面、至少 `JOIN_MIN_ALIVE` 个，自己生命 `GATHER_HP`% 以上，`FIGHT` 内没有敌方英雄；大龙先于小龙，
+//!   几条小龙挑离本队最近的。到了龙坑边（`WITH_PIT` 以内）打龙、打人都是游戏 AI 的事，只在它回城、往远处走时拉回来。
+//!   两边都这样就会在龙坑前碰上。一条龙每个人最多集结 `GATHER_MAX` tick，之后歇 `GATHER_REST` tick（不一直对峙丢线）。
+//!   推基地、跟大龙兵线先于集结。
 //!
 //! 每 `SCAN` tick 看一次场上（每个选手自己的钩子实例里，不共用状态：游戏会并行跑好几场），两次之间沿用上次的打算。
 //! 只看比赛的状态，没有随机数：服务器预演和客户端重演走的一样。优先级 `PRIORITY` 比英雄附加包低，所以先跑，
@@ -76,6 +83,18 @@ pub const MORGARD_USE: &str = "morgard_use";
 pub const MID_NEAR: f64 = 120_000.0;
 /// 被指派分推时真去分推的位置（`LaneV1` 的 Top、Jungle）：能单挑的边路，和 LOL 一样；中单、射手、辅助跟大部队。
 pub const SPLIT_LANES: [u32; 2] = [0, 1];
+/// 抢龙集结：从几点起（tick，10:00）。
+pub const GATHER_FROM: usize = 36_000;
+/// 抢龙集结：自己的生命至少多少（%）。
+pub const GATHER_HP: usize = 50;
+/// 集结点：龙坑往我方基地那边多远。
+pub const STAGE: f64 = 35_000.0;
+/// 离集结点这么近算到了龙坑边。
+pub const WITH_PIT: f64 = 70_000.0;
+/// 一条龙每个人最多集结多久（tick，40 秒）……
+pub const GATHER_MAX: usize = 2_400;
+/// ……之后歇多久（tick，60 秒）。
+pub const GATHER_REST: usize = 3_600;
 /// 前多少次改指令各写一行。
 const DETAIL_LINES: usize = 40;
 /// 前多少个「分推的人交给游戏 AI」各写一行。
@@ -89,10 +108,17 @@ const LOG_CAP: usize = 5_000;
 
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 static LINES: AtomicUsize = AtomicUsize::new(0);
-/// Champions that started following each order, and the ticks orders were changed.
-static FINISHES: AtomicUsize = AtomicUsize::new(0);
-static JOINS: AtomicUsize = AtomicUsize::new(0);
+/// Champions that started following each order (`Kind as usize`), and the ticks orders were changed.
+static COUNTS: [AtomicUsize; 3] = [AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0)];
 static TICKS: AtomicUsize = AtomicUsize::new(0);
+
+/// The kinds of order, for the counts and the log.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Kind {
+    Finish = 0,
+    Join = 1,
+    Gather = 2,
+}
 /// Split pushers of a Morgard plan left to the game's AI (counted when one starts).
 static SPLITS: AtomicUsize = AtomicUsize::new(0);
 
@@ -126,18 +152,18 @@ fn wlog(msg: impl AsRef<str>) {
 }
 
 /// Counts a champion starting to follow an order; a line for the first few and every `COUNT_EVERY`.
-fn note(finish: bool, detail: impl FnOnce() -> String) {
-    let (f, j) = if finish {
-        (FINISHES.fetch_add(1, Ordering::Relaxed) + 1, JOINS.load(Ordering::Relaxed))
-    } else {
-        (FINISHES.load(Ordering::Relaxed), JOINS.fetch_add(1, Ordering::Relaxed) + 1)
-    };
-    let n = f + j;
+fn note(kind: Kind, detail: impl FnOnce() -> String) {
+    COUNTS[kind as usize].fetch_add(1, Ordering::Relaxed);
+    let c: Vec<usize> = COUNTS.iter().map(|c| c.load(Ordering::Relaxed)).collect();
+    let n: usize = c.iter().sum();
     if n <= DETAIL_LINES {
         wlog(detail());
     } else if n % COUNT_EVERY == 0 {
         wlog(format!(
-            "COUNT champions that took an order so far: finish the nexus {f}, join the baron waves {j}, split pushers left to the AI {}; ticks with a changed order {}",
+            "COUNT champions that took an order so far: finish the nexus {}, join the baron waves {}, gather at an objective {}, split pushers left to the AI {}; ticks with a changed order {}",
+            c[0],
+            c[1],
+            c[2],
             SPLITS.load(Ordering::Relaxed),
             TICKS.load(Ordering::Relaxed)
         ));
@@ -279,6 +305,12 @@ pub struct View {
     pub i_split: bool,
     /// The living allies who push with the waves: all but the plan's split pushers (empty: all of `allies`).
     pub group: Vec<Pos>,
+    /// The match's tick.
+    pub tick: usize,
+    /// Living objectives: (entity id, epic (else a serpent), position).
+    pub objectives: Vec<(usize, bool, Pos)>,
+    /// Objectives this champion rests from (it gathered for them long enough).
+    pub resting: Vec<usize>,
 }
 
 /// A macro order this champion follows until the next look.
@@ -287,6 +319,18 @@ pub enum Intent {
     Finish { nexus: usize, at: Pos },
     /// The baron wave to stand with, and the enemy nexus (where forward is).
     Join { at: Pos, toward: Pos },
+    /// Where to gather (our side of the pit), the pit, and the objective (entity id, epic).
+    Gather { at: Pos, pit: Pos, id: usize, epic: bool },
+}
+
+impl Intent {
+    pub fn kind(self) -> Kind {
+        match self {
+            Intent::Finish { .. } => Kind::Finish,
+            Intent::Join { .. } => Kind::Join,
+            Intent::Gather { .. } => Kind::Gather,
+        }
+    }
 }
 
 /// The order for this champion now, if any.
@@ -299,7 +343,10 @@ pub fn plan(v: &View) -> Option<Intent> {
             return Some(Intent::Finish { nexus, at });
         }
     }
-    if v.baron_minions.is_empty() || v.hp_pct < JOIN_HP || v.enemies.iter().any(|e| dist(e.1, v.me) <= FIGHT) {
+    if v.baron_minions.is_empty() {
+        return gather(v);
+    }
+    if v.hp_pct < JOIN_HP || v.enemies.iter().any(|e| dist(e.1, v.me) <= FIGHT) {
         return None;
     }
     // only with the numbers: not into a 4 v 5 under their towers
@@ -325,6 +372,29 @@ pub fn plan(v: &View) -> Option<Intent> {
     };
     let wave = mid.or_else(|| nearest(&mut v.baron_minions.iter().copied()))?;
     Some(Intent::Join { at: wave, toward })
+}
+
+/// Gathering at an objective: the epic monster first, else the serpent nearest the team; our side of its pit.
+fn gather(v: &View) -> Option<Intent> {
+    if v.tick < GATHER_FROM || v.hp_pct < GATHER_HP || v.enemies.iter().any(|e| dist(e.1, v.me) <= FIGHT) {
+        return None;
+    }
+    // only with the numbers: not 3 v 5 at their pit
+    if v.allies.len() < JOIN_MIN_ALIVE || v.allies.len() < v.enemies.len() {
+        return None;
+    }
+    let n = v.allies.len().max(1) as f64;
+    let centre = (v.allies.iter().map(|p| p.0).sum::<f64>() / n, v.allies.iter().map(|p| p.1).sum::<f64>() / n);
+    let (id, epic, pit) = v
+        .objectives
+        .iter()
+        .copied()
+        .filter(|o| !v.resting.contains(&o.0))
+        .min_by(|a, b| b.1.cmp(&a.1).then(dist(a.2, centre).total_cmp(&dist(b.2, centre))))?;
+    let home = v.own_nexus.unwrap_or(v.me);
+    let d = dist(pit, home).max(1.0);
+    let k = (STAGE / d).min(1.0);
+    Some(Intent::Gather { at: (pit.0 + (home.0 - pit.0) * k, pit.1 + (home.1 - pit.1) * k), pit, id, epic })
 }
 
 /// Whether the AI's own order is a hit on one of these enemy champions (a fight it is in).
@@ -364,6 +434,17 @@ pub fn order(intent: Intent, me: Pos, base: Option<&InputV1>, enemies: &[(usize,
             });
             back.then(|| InputV1::move_to(at.0 as u64, at.1 as u64))
         }
+        Intent::Gather { at, pit, .. } => {
+            if dist(me, at) > WITH_PIT {
+                return Some(InputV1::move_to(at.0 as u64, at.1 as u64));
+            }
+            // at the pit the AI takes the objective and fights; a recall or a walk away goes back to the pit
+            let away = base.is_some_and(|b| {
+                b.kind == InputKindV1::Return.code()
+                    || (b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), pit) > WITH_PIT + BACK_OFF)
+            });
+            away.then(|| InputV1::move_to(at.0 as u64, at.1 as u64))
+        }
     }
 }
 
@@ -400,6 +481,9 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
                     v.baron_minions.push(pos(&e));
                 }
             }
+            Some(k @ (EntityKindV1::Epic | EntityKindV1::Serpen)) if e.is_alive() => {
+                v.objectives.push((e.id(), k == EntityKindV1::Epic, pos(&e)));
+            }
             _ => {}
         }
     }
@@ -424,7 +508,10 @@ pub struct Macro {
     next_look: usize,
     intent: Option<Intent>,
     enemies: Vec<(usize, Pos)>,
-    last_kind: Option<bool>,
+    last_kind: Option<Kind>,
+    /// The objective this champion gathers for and since when, and the ones it rests from (id, until).
+    gathering: Option<(usize, usize)>,
+    resting: Vec<(usize, usize)>,
     /// The team's Morgard plan at the last look (played, named), and whether this champion is left to the game's AI as
     /// its split pusher.
     plan: BaronPlan,
@@ -460,8 +547,25 @@ impl StablePlayerAi for Macro {
             if tick >= self.next_look || tick + SCAN < self.next_look {
                 self.next_look = tick + SCAN;
                 match look(&sim, me_id, team) {
-                    Some(v) => {
+                    Some(mut v) => {
+                        // a match started over (the tick went back): no rests from the old one
+                        self.resting.retain(|r| r.1 > tick && r.1 <= tick + GATHER_REST);
+                        v.tick = tick;
+                        v.resting = self.resting.iter().map(|r| r.0).collect();
                         self.intent = plan(&v);
+                        // gathered long enough for this objective: rest from it
+                        match self.intent {
+                            Some(Intent::Gather { id, .. }) => match self.gathering {
+                                Some((g, since)) if g == id && tick >= since + GATHER_MAX => {
+                                    self.resting.push((id, tick + GATHER_REST));
+                                    self.gathering = None;
+                                    self.intent = None;
+                                }
+                                Some((g, since)) if g == id && since <= tick => {}
+                                _ => self.gathering = Some((id, tick)),
+                            },
+                            _ => self.gathering = None,
+                        }
                         (self.plan, self.named) = (v.plan, v.named);
                         splitting = v.i_split && self.intent.is_none();
                         self.enemies = v.enemies;
@@ -491,18 +595,27 @@ impl StablePlayerAi for Macro {
             return None;
         };
         let out = order(intent, me, base.as_ref(), &self.enemies, &|i| ctx.is_valid_input(i))?;
-        let finish = matches!(intent, Intent::Finish { .. });
+        let kind = intent.kind();
         TICKS.fetch_add(1, Ordering::Relaxed);
         // counted when a champion starts following an order, not every tick
-        if self.last_kind != Some(finish) {
-            self.last_kind = Some(finish);
+        if self.last_kind != Some(kind) {
+            self.last_kind = Some(kind);
             let (plan, named) = (self.plan, self.named);
-            note(finish, || {
+            note(kind, || {
                 format!(
                     "{} t={} {now_head} #{me_id} T{team}: {} ({})",
-                    if finish { "FINISH" } else { "JOIN" },
+                    ["FINISH", "JOIN", "GATHER"][kind as usize],
                     clock(tick),
-                    if finish { "hits the nexus".to_string() } else { format!("goes to the baron wave, plan {}", plan_label(plan, named)) },
+                    match intent {
+                        Intent::Finish { .. } => "hits the nexus".to_string(),
+                        Intent::Join { .. } => format!("goes to the baron wave, plan {}", plan_label(plan, named)),
+                        Intent::Gather { epic, pit, .. } => format!(
+                            "gathers at the {} pit ({:.0}k, {:.0}k)",
+                            if epic { "baron" } else { "dragon" },
+                            pit.0 / 1000.0,
+                            pit.1 / 1000.0
+                        ),
+                    },
                     match base {
                         None => "the AI gave no order".to_string(),
                         Some(b) => format!("the AI's order was kind {} at ({}, {})", b.kind, b.x, b.y),
@@ -521,7 +634,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (macro: finish the nexus, push with the baron waves) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (macro: finish the nexus, push with the baron waves, gather at objectives) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -529,7 +642,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_player_input_ai(Macro::default());
-    host.log(LogLevel::Info, "league_macro loaded (macro: finish the nexus, push with the baron waves).");
+    host.log(LogLevel::Info, "league_macro loaded (macro: finish the nexus, push with the baron waves, gather at objectives).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -545,6 +658,60 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// After 10:00, our four alive in our half, the baron alive at (350k, 300k) and a dragon at (650k, 650k).
+    fn pit_view() -> View {
+        View {
+            me: (300_000.0, 600_000.0),
+            hp_pct: 90,
+            allies: vec![(300_000.0, 600_000.0), (320_000.0, 640_000.0), (280_000.0, 700_000.0), (250_000.0, 650_000.0)],
+            enemies: vec![(77, (800_000.0, 200_000.0)), (78, (820_000.0, 220_000.0))],
+            enemy_nexus: Some((9, (860_000.0, 100_000.0), false)),
+            own_nexus: Some((100_000.0, 860_000.0)),
+            tick: 40_000,
+            objectives: vec![(60, false, (650_000.0, 650_000.0)), (61, true, (350_000.0, 300_000.0))],
+            ..View::default()
+        }
+    }
+
+    #[test]
+    fn the_team_gathers_at_the_baron_first() {
+        let v = pit_view();
+        let Some(Intent::Gather { at, pit, id, epic }) = plan(&v) else { panic!("{:?}", plan(&v)) };
+        assert_eq!((id, epic, pit), (61, true, (350_000.0, 300_000.0)), "the baron before the dragon");
+        assert!((dist(at, pit) - STAGE).abs() < 1.0 && dist(at, (100_000.0, 860_000.0)) < dist(pit, (100_000.0, 860_000.0)), "our side of the pit: {at:?}");
+        // resting from the baron: the dragon; none alive: nothing
+        let Some(Intent::Gather { id, .. }) = plan(&View { resting: vec![61], ..v.clone() }) else { panic!() };
+        assert_eq!(id, 60);
+        assert_eq!(plan(&View { objectives: vec![], ..v.clone() }), None);
+        // before 10:00, hurt, in a fight, down in numbers: no
+        assert_eq!(plan(&View { tick: 30_000, ..v.clone() }), None);
+        assert_eq!(plan(&View { hp_pct: 40, ..v.clone() }), None);
+        assert_eq!(plan(&View { enemies: vec![(77, (320_000.0, 610_000.0))], ..v.clone() }), None);
+        let five: Vec<(usize, Pos)> = (0..5).map(|i| (70 + i, (800_000.0, 200_000.0 + i as f64))).collect();
+        assert_eq!(plan(&View { enemies: five, ..v.clone() }), None);
+        // baron waves up: pushing with them comes first
+        assert!(matches!(plan(&View { baron_minions: vec![(500_000.0, 450_000.0)], ..v }), Some(Intent::Join { .. })));
+    }
+
+    #[test]
+    fn at_the_pit_the_ai_fights_and_takes_it() {
+        let v = pit_view();
+        let intent = plan(&v).unwrap();
+        let Intent::Gather { at, pit, .. } = intent else { panic!() };
+        // far: walk there
+        assert!(order(intent, v.me, None, &[], &|_| true).is_some());
+        // at the pit: hitting the monster or anything is the AI's; a recall or a walk away comes back
+        let smite = InputV1::action(InputKindV1::Attack, InputTargetV1::target(61));
+        assert_eq!(order(intent, at, Some(&smite), &[], &|_| true), None);
+        assert_eq!(order(intent, at, None, &[], &|_| true), None);
+        assert!(order(intent, at, Some(&InputV1::return_home()), &[], &|_| true).is_some());
+        assert!(order(intent, at, Some(&InputV1::move_to(900_000, 900_000)), &[], &|_| true).is_some());
+        assert_eq!(order(intent, at, Some(&InputV1::move_to(pit.0 as u64, pit.1 as u64)), &[], &|_| true), None);
+        // a fight on the way: the AI's own
+        let fight = InputV1::action(InputKindV1::Attack, InputTargetV1::target(77));
+        assert_eq!(order(intent, v.me, Some(&fight), &[(77, (310_000.0, 590_000.0))], &|_| true), None);
+    }
 
     fn view() -> View {
         View {
