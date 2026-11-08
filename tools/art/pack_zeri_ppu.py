@@ -2,7 +2,7 @@
 grid at PPU 3, REDESIGNED from League's Zeri (the spark of Zaun: the two spiky green-and-yellow hair buns, the green
 eyes, the teal jacket with its white fur collar, the yellow top with the lightning bolt, the maroon leggings and knee
 pads, the brown boots, the green electric rifle) in the pose and at the size of her sprite now, whose look the user
-rejected (the user, 2026-11-09: 「最后重做提莫 菲兹 泽丽吧 泽丽虽然是高清帧了 但是模型我不满意」, then 「照英雄联盟原版重新设计」).
+rejected (the user, 2026-11-09: 「泽丽虽然是高清帧了 但是模型我不满意」, then 「照英雄联盟原版重新设计」).
 
     python tools/art/pack_zeri_ppu.py --out C:/t/zr_pack [--lol D:/WeGameApps/lol]
 
@@ -43,10 +43,10 @@ SQ = 6
 PPU = 3.0
 
 
-def render(lol, name, spec, out, chibi=("1.0", "1.0")):
+def render(lol, name, spec, out, chibi=("1.0", "1.0", "1.0")):
     yaw, size, width, crop, frame = spec
     cmd = [sys.executable, os.path.join(REPO, "tools", "lol", "pose_ref.py"), "--lol", lol, "--champ", "Zeri",
-           "--hq", "--head", chibi[0], "--legs", chibi[1], "--mirror"] + FLAGS
+           "--hq", "--head", chibi[0], "--legs", chibi[1], "--hair", chibi[2], "--mirror"] + FLAGS
     for m in HIDE:
         cmd += ["--hide-submesh", m]
     for m, t in SUBTEX.items():
@@ -113,7 +113,8 @@ def main():
     for name, spec in RENDERS.items():
         render(a.lol, name, spec, refs)
     splash(a.lol, os.path.join(refs, "4_zeri_splash.png"))
-    render(a.lol, "5_zeri_chibi", (30, 1000, 1.4, "box", IDLE), refs, chibi=("1.6", "0.9"))   # (poses.json chibi)
+    render(a.lol, "5_zeri_chibi", (30, 1000, 1.4, "box", IDLE), refs,
+           chibi=("1.6", "0.9", "1.0"))   # (this game's chibi proportions)
     now = SP.sheet_frame(os.path.join(CHAMPS, "league_zeri"), "idle_base")
     SP.sheet_frame(os.path.join(CHAMPS, "league_zeri"), "hd_idle_base", 3).save(   # (the pose and the size only)
         os.path.join(refs, "6_zeri_now.png"))
