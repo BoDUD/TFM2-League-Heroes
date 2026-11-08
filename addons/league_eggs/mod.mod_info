@@ -11,10 +11,10 @@
       "version": ">=0.314.0"
     }
   ],
-  "description": "League easter eggs between the champions of League of Legends Heroes: Rengar vs Kha'Zix and the War for the Freljord (Ashe, Sejuani, Lissandra) announce their hidden quests on screen and crown the Queen of the Freljord; Jinx vs Caitlyn / Vi count criminals caught and cops shaken off on the player panel, +1 gold a takedown; Thresh takes Senna's soul, Senna and Lucian free the souls; Zilean and Volibear carry their grudges, +11 gold for the kill; Zyra vs Sion +2 gold, Zyra and Maokai walk faster together; ninjas on one team lose max health; cougar Nidalee helps lower-level allies; Leona's Sunlight burns champions in sunglasses a little less; Fizz's shark swallows the small yordles it kills. Writes a log for testing.",
-  "last_updated": "2026-11-06",
+  "description": "League easter eggs between the champions of League of Legends Heroes: Rengar vs Kha'Zix and the War for the Freljord (Ashe, Sejuani, Lissandra) announce their hidden quests on screen and crown the Queen of the Freljord; Jinx vs Caitlyn / Vi count criminals caught and cops shaken off on the player panel, +1 gold a takedown; Thresh takes Senna's soul, Senna and Lucian free the souls; Zilean and Volibear carry their grudges, +11 gold for the kill; Zyra vs Sion +2 gold, Zyra and Maokai walk faster together; ninjas on one team lose max health; cougar Nidalee helps lower-level allies; Leona's Sunlight burns champions in sunglasses a little less; Fizz's shark swallows the small yordles it kills. Every egg shows a notice on screen, also those played by the champions' own kits and add-ons: Rengar and Kha'Zix spotting each other and their trophy and extra evolution, Zyra's plants growing in Leona's sunlight, Cassiopeia's bare feet, Xayah and Rakan's duo. Writes a log for testing.",
+  "last_updated": "2026-11-09",
   "mod_id": "league_eggs",
   "mod_type": "native",
   "name": "League Heroes: League easter eggs (test)",
-  "version": "0.1.1"
+  "version": "0.2.0"
 }

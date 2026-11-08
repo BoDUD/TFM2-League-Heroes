@@ -17,6 +17,11 @@
 //! 烈阳配一层 `league_leona_shades`（少受 1%：太阳镜防晒）；菲兹的鲨鱼咬死的小约德尔人尸体 15 tick 后被吞掉（放逐，鲨鱼吃小
 //! 矮子）——这两个的数据那一半在主包的莱昂娜、菲兹里，钩子这一半在 `shades_shark.rs`。
 //!
+//! 三、玩法在别处、本包只放提示的（0.2.0，用户 2026-11-09：「我需要所有彩蛋都要有提示 你看看哪些没有的补进去」）：雷恩加尔 /
+//! 卡兹克第一次看见对方、战利品和额外进化（主包他们的数据挂的 buff）；光合作用（league_zyra 挂在婕拉身上的标记）；蛇女不需要鞋
+//! （开局：主包和 league_cassiopeia）；霞洛联动（开局，洛第一次分到霞的 W、他的 E 第一次落在霞身上：主包的数据挂的 buff）；
+//! 6、9 也各有提示。别的附加包不用自己画提示：本包从 buff、击杀记录、阵容里认出来。
+//!
 //! 谁杀了谁读游戏的击杀记录（league_akshan 的读法：位置就是分路）。每份模拟的状态按 `SIM_TAG`（`league_eggs_sim:<编号>`，挂在
 //! 两边的水晶上，水晶不收时挂在防御塔上；阵容里没有彩蛋英雄的那一场什么都不挂）记：服务器同一局并排跑两份预演，种子、来历、实体
 //! 编号全都一样，只按这些记会串。屏幕上的公告和头像上的计数见 `notice.rs`。
@@ -24,7 +29,8 @@
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_eggs.log`，每次启动游戏重写，上一次的留在 .prev.log。屏幕上那一场
 //! 每行都记，预演限了条数：`EGGS`（开局有哪些彩蛋）、`HUNT ON` / `HUNT WON`、`QUEENS ON` / `QUEEN`、`COPS`、`SOUL`、`BOUNTY`、
 //! `BUFF`（第一次挂上）/ `KEEP`（复活后补回）、`PLANTS`、`CHARM`、`SHADES`（墨镜层数涨了）/ `SHADES REFUSED`、`EATEN`
-//! （吞掉一具尸体；宿主不收放逐时带 `REFUSED by the host`）、`END`（一局的汇总），屏幕上的 `VIEW`、`NOTE`、`BADGE`。
+//! （吞掉一具尸体；宿主不收放逐时带 `REFUSED by the host`）、`SIGHT`（第一次看见对方）、`TROPHY` / `EVOLVED`、`SUNLIT`、
+//! `DUO W` / `DUO E`、`END`（一局的汇总），屏幕上的 `VIEW`、`NOTE`、`BADGE`。
 
 use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
@@ -66,6 +72,21 @@ pub const PLANTS: &str = "league_eggs_plants";
 pub const NINJA: &str = "league_eggs_ninja";
 /// 主包奈德丽的美洲狮形态（tools/kit/build_nidalee.py 的 `cg`）。
 pub const COUGAR: &str = "league_nidalee_cg";
+
+// ---- 别处挂的 buff，本包只读，认出来放提示（0.2.0；测试 `the_buffs_read_from_elsewhere_are_there` 核对它们还在）
+/// 1 第一次碰面：主包雷恩加尔 / 卡兹克看见对方时自己挂上的 `met`（永久，每条命一次：愤怒标记和台词，tools/kit/build_rengar.py /
+/// build_khazix.py 的 `rival`）。
+pub const RENGAR_MET: &str = "league_rengar_met";
+pub const KHAZIX_MET: &str = "league_khazix_met";
+/// 1 的奖励（主包的数据，每条命一次）：雷恩加尔击杀卡兹克的战利品（攻击力 `t_bonus`%）、卡兹克击杀雷恩加尔的额外进化
+/// （攻击力 `rv_bonus`%，还有下一阶的进化）。
+pub const TROPHY: &str = "league_rengar_trophy";
+pub const RIVAL_EVO: &str = "league_khazix_rv_evo";
+/// 7 光合作用：league_zyra（0.1.6 起）的 sun.rs 让一株植物变大时挂在婕拉身上的标记（只有名字，60 tick）。
+pub const SUN_GREW: &str = "league_zyra_sun_grew";
+/// 霞洛联动（主包，tools/fix/rakan_xayah_duo.py）：洛带着霞 W 的标记普攻时挂上的 W 加成；洛的 E 给护盾时挂在目标身上的标记。
+pub const RAKAN_DUO_W: &str = "league_rakan_duo_w";
+pub const RAKAN_E: &str = "league_rakan_e_on";
 
 /// 第一次读到时已经过去这么久的击杀不算（状态中途重建时不把旧的再给一遍）。
 const RECENT: usize = 120;
@@ -408,6 +429,13 @@ fn run(sim: &mut StableSim<'_>) {
     book.sims.insert(no, st);
 }
 
+/// 这个玩家现在的英雄（死了还没复活时是他的尸体）身上的这个 buff：(英雄的实体, 那个 buff)。
+fn worn(sim: &StableSim<'_>, player: usize, name: &str) -> Option<(usize, BuffV1)> {
+    let e = sim.get_player(player)?.champion()?;
+    let id = e.id();
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == name).map(|b| (id, b))
+}
+
 /// 一份模拟里的彩蛋。
 struct Sim {
     no: u64,
@@ -443,6 +471,14 @@ struct Sim {
     /// 6 太阳镜防晒：一局里新挂上的墨镜层数；9 鲨鱼吃小矮子：这份模拟里的鲨鱼（排着要吞的尸体、吞掉的）。
     shades: usize,
     shark: shades_shark::Shark,
+    /// 0.2.0 的提示：放过「太阳镜防晒」的戴墨镜的人；第一次碰面、光合作用、霞洛联动的 W / E 在哪个 tick（一局一条）；
+    /// 放过的战利品 / 额外进化（英雄的实体, buff）：每条命一条。
+    shaded: Vec<usize>,
+    sighted: Option<usize>,
+    sunlit: Option<usize>,
+    duo_w: Option<usize>,
+    duo_e: Option<usize>,
+    rewards: Vec<(usize, &'static str)>,
 }
 
 impl Sim {
@@ -475,6 +511,12 @@ impl Sim {
             keeps: 0,
             shades: 0,
             shark: shades_shark::Shark::default(),
+            shaded: Vec::new(),
+            sighted: None,
+            sunlit: None,
+            duo_w: None,
+            duo_e: None,
+            rewards: Vec::new(),
         }
     }
 
@@ -520,11 +562,27 @@ impl Sim {
             self.keep(sim, &active, now, screen);
             self.charm(sim, &active, now, screen);
             if !active.shades.is_empty() {
-                self.shades += shades_shark::shades_tick(sim, &active.shades, screen.is_some());
+                for (p, n) in shades_shark::shades_tick(sim, &active.shades, screen.is_some()) {
+                    self.shades += n;
+                    // 6: one toast a wearer a match, the first time his shades go on
+                    if !self.shaded.contains(&p) {
+                        self.shaded.push(p);
+                        if let Some(l) = rules::leona_across(&self.cast, p) {
+                            self.note(screen, now, What::Shades { wearer: self.id(p), leona: self.id(l) });
+                        }
+                    }
+                }
             }
             if !active.prey.is_empty() {
+                let before = self.shark.eaten.len();
                 self.shark.tick(sim, screen.is_some());
+                // 9: a toast for every body swallowed (a banish the host refused swallowed nothing)
+                let gulped: Vec<String> = self.shark.eaten[before..].iter().filter(|e| e.1).map(|e| e.0.clone()).collect();
+                for yordle in gulped {
+                    self.note(screen, now, What::Swallowed { fizz: shades_shark::FIZZ.to_string(), yordle });
+                }
             }
+            self.watch(sim, &active, now, screen);
         }
         if sim.is_end() {
             self.ended = true;
@@ -571,8 +629,8 @@ impl Sim {
         true
     }
 
-    /// 开局的公告：一里的警察抓小偷、钓鱼执法、时光老头与装甲熊是大字，二里的忍者是小提示（另外两个任务到了时候才公告）。
-    /// 开局 `START_NOTE` tick 后才放：屏幕时钟走过 0:01 才开始算（game_places::clock）。
+    /// 开局的公告：一里的警察抓小偷、钓鱼执法、时光老头与装甲熊是大字，二里的忍者、三里的蛇女不需要鞋和霞洛联动是小提示
+    /// （另外两个任务到了时候才公告）。开局 `START_NOTE` tick 后才放：屏幕时钟走过 0:01 才开始算（game_places::clock）。
     fn start_notes(&self, a: &Active, now: usize, screen: Option<(u64, u64)>) {
         if screen.is_none() {
             return;
@@ -598,6 +656,13 @@ impl Sim {
             if let Some(&&(_, hp)) = mine.first() {
                 self.note(screen, now, What::Ninjas { ninjas: mine.iter().map(|(p, _)| self.id(*p)).collect(), hp });
             }
+        }
+        // 10 Cassiopeia's bare feet; Xayah and Rakan on one team
+        for &c in &a.barefoot {
+            self.note(screen, now, What::Barefoot { cassiopeia: self.id(c) });
+        }
+        if let Some((x, r)) = a.duo {
+            self.note(screen, now, What::DuoStart { xayah: self.id(x), rakan: self.id(r) });
         }
     }
 
@@ -900,6 +965,76 @@ impl Sim {
         }
     }
 
+    /// 别处做的彩蛋（主包的数据、league_zyra）挂的 buff，第一次看见时放提示（0.2.0）：1 雷恩加尔 / 卡兹克第一次看见对方
+    /// （先挂上 `met` 的那个看见了另一个；同一 tick 算雷恩加尔），战利品 / 额外进化（每条命一条）；7 婕拉身上 league_zyra 的
+    /// 光合作用标记；霞洛联动：洛身上的 W 加成、霞身上洛的 E 的标记。状态中途重建（late）的第一眼看见的是以前的事：只记下、不提示。
+    fn watch(&mut self, sim: &StableSim<'_>, a: &Active, now: usize, screen: Option<(u64, u64)>) {
+        let quiet = self.late && now <= self.born + 1;
+        let on = screen.is_some();
+        let late = if quiet { " (late: no notice)" } else { "" };
+        if let Some((r, k)) = a.hunt {
+            if self.sighted.is_none() {
+                let (rm, km) = (worn(sim, r, RENGAR_MET).is_some(), worn(sim, k, KHAZIX_MET).is_some());
+                if rm || km {
+                    self.sighted = Some(now);
+                    let (seer, seen) = if rm { (r, k) } else { (k, r) };
+                    say(on, "sight", format!("{} SIGHT {} spotted {} ({}){late}", head(sim), self.who(seer), self.who(seen),
+                                             if rm && km { "both marks at once" } else { "the anger mark" }));
+                    if !quiet {
+                        self.note(screen, now, What::HuntSighted { seer: self.id(seer), seen: self.id(seen) });
+                    }
+                }
+            }
+            for (p, other, buff) in [(r, k, TROPHY), (k, r, RIVAL_EVO)] {
+                let Some((e, b)) = worn(sim, p, buff) else { continue };
+                if self.rewards.contains(&(e, buff)) {
+                    continue;
+                }
+                self.rewards.push((e, buff));
+                let pct = b.attack_mult;
+                let trophy = buff == TROPHY;
+                say(on, "reward", format!("{} {} {} #{e} on {}: attack +{pct}%{late}", head(sim),
+                                          if trophy { "TROPHY" } else { "EVOLVED" }, self.who(p), self.who(other)));
+                if !quiet {
+                    let (me, them) = (self.id(p), self.id(other));
+                    self.note(screen, now, if trophy {
+                        What::Trophy { rengar: me, khazix: them, pct }
+                    } else {
+                        What::Evolved { khazix: me, rengar: them, pct }
+                    });
+                }
+            }
+        }
+        if let (Some((z, l)), None) = (a.sun, self.sunlit) {
+            if worn(sim, z, SUN_GREW).is_some() {
+                self.sunlit = Some(now);
+                say(on, "sunlit", format!("{} SUNLIT {}'s plant grew in {}'s sunlight ({SUN_GREW}){late}", head(sim),
+                                          self.who(z), self.who(l)));
+                if !quiet {
+                    self.note(screen, now, What::Sunlit { leona: self.id(l), zyra: self.id(z) });
+                }
+            }
+        }
+        if let Some((x, r)) = a.duo {
+            if self.duo_w.is_none() && worn(sim, r, RAKAN_DUO_W).is_some() {
+                self.duo_w = Some(now);
+                say(on, "duo", format!("{} DUO W {} shares {}'s Deadly Plumage ({RAKAN_DUO_W}){late}", head(sim), self.who(r),
+                                       self.who(x)));
+                if !quiet {
+                    self.note(screen, now, What::DuoW { rakan: self.id(r), xayah: self.id(x) });
+                }
+            }
+            if self.duo_e.is_none() && worn(sim, x, RAKAN_E).is_some() {
+                self.duo_e = Some(now);
+                say(on, "duo", format!("{} DUO E {}'s Battle Dance reached {} ({RAKAN_E}){late}", head(sim), self.who(r),
+                                       self.who(x)));
+                if !quiet {
+                    self.note(screen, now, What::DuoE { rakan: self.id(r), xayah: self.id(x) });
+                }
+            }
+        }
+    }
+
     fn end(&mut self, sim: &StableSim<'_>, screen: Option<(u64, u64)>) {
         let a = self.active.clone().unwrap_or_default();
         let mut parts = vec![format!("eggs {:?}", a.names())];
@@ -926,6 +1061,16 @@ impl Sim {
                 .map(|(n, ok)| format!("{}{}", n.trim_start_matches("league_"), if *ok { "" } else { " REFUSED" }))
                 .collect();
             parts.push(format!("eaten [{}]", e.join(", ")));
+        }
+        if a.hunt.is_some() {
+            let r: Vec<&str> = self.rewards.iter().map(|(_, b)| if *b == TROPHY { "trophy" } else { "evolution" }).collect();
+            parts.push(format!("sighted {:?} rewards [{}]", self.sighted, r.join(", ")));
+        }
+        if a.sun.is_some() {
+            parts.push(format!("photosynthesis {:?}", self.sunlit));
+        }
+        if a.duo.is_some() {
+            parts.push(format!("duo W {:?} E {:?}", self.duo_w, self.duo_e));
         }
         parts.push(format!("gold given {}", self.gold));
         parts.push(format!("buffs put back {}", self.keeps));
@@ -956,7 +1101,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (League easter eggs: rivalry quests, cops and robbers, souls, bounties, ninjas, plants, the cougar, Leona vs sunglasses, Fizz's shark) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (League easter eggs: rivalry quests, cops and robbers, souls, bounties, ninjas, plants, the cougar, Leona vs sunglasses, Fizz's shark; notices for every egg, also the hunt's first sight and rewards, photosynthesis, Cassiopeia's bare feet and Xayah and Rakan) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1332,6 +1477,158 @@ mod tests {
                    Some(vec![("league_annie".to_string(), false)]));
     }
 
+    /// 0.2.0's notices on the screen's match (77, 2, as every mock's view: another view would wipe the other screen
+    /// test's notes): the eggs played elsewhere (the main pack's kits, league_zyra, league_cassiopeia) and shades_shark.rs
+    /// each get their toast with the right names, once - the screen's second run adds nothing - and a presim draws none.
+    #[test]
+    fn every_egg_has_its_notice_once_on_screen() {
+        use shades_shark::{EAT, GULP_AFTER, SUNLIGHT};
+        std::env::set_var("LEAGUE_EGGS_LOG", std::env::temp_dir().join("league_eggs_test.log"));
+        // Rengar vs Kha'Zix; Xayah and Rakan; Leona across Vayne; Fizz across Tristana; Zyra in Leona's match; Cassiopeia
+        let cast = [
+            "league_rengar", "league_xayah", "league_rakan", "league_leona", "league_fizz",
+            "league_khazix", "league_vayne", "league_tristana", "league_zyra", "league_cassiopeia",
+        ];
+        let sun = || {
+            let mut b = BuffV1::timed(SUNLIGHT, 90);
+            b.damaged_amplify = 10;
+            b
+        };
+        let reward = |name: &str, pct: i32| {
+            let mut b = BuffV1::named(name);
+            b.attack_mult = pct;
+            b
+        };
+        // the same marks at the same ticks in every run
+        let script = |w: &mut World| {
+            start(w);
+            tick(w);
+            // Kha'Zix spots Rengar first (his kit's anger mark), Rengar him a tick later: one toast
+            w.push(5, BuffV1::named(KHAZIX_MET));
+            tick(w);
+            w.push(0, BuffV1::named(RENGAR_MET));
+            tick(w);
+            tick(w);
+            // Rengar takes Kha'Zix's head (kept on him: one toast), Kha'Zix evolves on Rengar
+            w.push(0, reward(TROPHY, 15));
+            tick(w);
+            tick(w);
+            w.push(5, reward(RIVAL_EVO, 10));
+            tick(w);
+            // two of Leona's Sunlight on Vayne: her shades go on; gone, then on again: no second toast
+            w.push(6, sun());
+            w.push(6, sun());
+            tick(w);
+            let v = w.players[6].champ;
+            w.units[v].buffs.retain(|b| b.name() != SUNLIGHT);
+            tick(w);
+            w.push(6, sun());
+            tick(w);
+            // the shark: Tristana dies bitten and is swallowed
+            w.push(7, BuffV1::timed(EAT, 2));
+            w.die(7);
+            for _ in 0..=GULP_AFTER {
+                tick(w);
+            }
+            // league_zyra's photosynthesis marker on Zyra, twice: one toast
+            w.push(8, BuffV1::timed(SUN_GREW, 60));
+            tick(w);
+            w.push(8, BuffV1::timed(SUN_GREW, 60));
+            tick(w);
+            // the duo: Rakan's share of her W, his E's shield on her
+            w.push(2, BuffV1::timed(RAKAN_DUO_W, 90));
+            tick(w);
+            w.push(1, BuffV1::named(RAKAN_E));
+            tick(w);
+            tick(w);
+            // Rengar's next life: nothing until he takes the head again
+            w.respawn(0);
+            tick(w);
+            w.push(0, reward(TROPHY, 15));
+            tick(w);
+        };
+        let ours = || -> Vec<Note> {
+            notice::NOTES
+                .lock()
+                .unwrap()
+                .iter()
+                .filter(|n| {
+                    (n.m, n.s) == (77, 2)
+                        && matches!(n.what, What::HuntSighted { .. } | What::Trophy { .. } | What::Evolved { .. }
+                            | What::Shades { .. } | What::Sunlit { .. } | What::Swallowed { .. } | What::Barefoot { .. }
+                            | What::DuoStart { .. } | What::DuoW { .. } | What::DuoE { .. })
+                })
+                .cloned()
+                .collect()
+        };
+        let base = World::new(9201, SimOriginKindV1::ClientMatchView, cast);
+        let mut a = base.clone();
+        script(&mut a);
+        let first = ours();
+        let s = |x: &str| x.to_string();
+        assert_eq!(first.iter().map(|n| n.what.clone()).collect::<Vec<_>>(), vec![
+            What::Barefoot { cassiopeia: s("league_cassiopeia") },
+            What::DuoStart { xayah: s("league_xayah"), rakan: s("league_rakan") },
+            What::HuntSighted { seer: s("league_khazix"), seen: s("league_rengar") },
+            What::Trophy { rengar: s("league_rengar"), khazix: s("league_khazix"), pct: 15 },
+            What::Evolved { khazix: s("league_khazix"), rengar: s("league_rengar"), pct: 10 },
+            What::Shades { wearer: s("league_vayne"), leona: s("league_leona") },
+            What::Swallowed { fizz: s("league_fizz"), yordle: s("league_tristana") },
+            What::Sunlit { leona: s("league_leona"), zyra: s("league_zyra") },
+            What::DuoW { rakan: s("league_rakan"), xayah: s("league_xayah") },
+            What::DuoE { rakan: s("league_rakan"), xayah: s("league_xayah") },
+            What::Trophy { rengar: s("league_rengar"), khazix: s("league_khazix"), pct: 15 },
+        ]);
+        // the opening toasts START_NOTE after the start, the sighting the tick Kha'Zix's mark was there
+        assert_eq!((first[0].tick, first[1].tick, first[2].tick), (START_NOTE, START_NOTE, 1));
+        assert!(first.iter().all(|n| !n.what.big()), "toasts, no banner");
+        // the screen's second run: the same notes, kept once
+        let mut a2 = base.clone();
+        script(&mut a2);
+        assert_ne!(number(&a2), number(&a));
+        assert_eq!(ours(), first, "the second run adds nothing");
+        // a presim of the same cast: the eggs are seen (the log), nothing is drawn
+        let mut p = World::new(9202, SimOriginKindV1::ServerPresim, cast);
+        script(&mut p);
+        assert_eq!(ours(), first, "a presim draws nothing");
+        let book = BOOK.lock().unwrap();
+        let st = book.sims.get(&number(&p)).expect("the presim's state");
+        assert_eq!((st.sighted, st.sunlit.is_some(), st.duo_w.is_some(), st.duo_e.is_some()), (Some(1), true, true, true));
+        assert_eq!(st.rewards.iter().map(|r| r.1).collect::<Vec<_>>(), vec![TROPHY, RIVAL_EVO, TROPHY]);
+        assert_eq!((st.shaded.clone(), st.shark.eaten.clone()), (vec![6], vec![("league_tristana".to_string(), true)]));
+    }
+
+    /// The marks 0.2.0's notices read are still put there: the main pack's kits (and the add-ons' copies of them) and
+    /// league_zyra's photosynthesis.
+    #[test]
+    fn the_buffs_read_from_elsewhere_are_there() {
+        let read = |path: &str| {
+            std::fs::read_to_string(format!("{}/../{path}", env!("CARGO_MANIFEST_DIR"))).unwrap_or_else(|e| panic!("{path}: {e}"))
+        };
+        for (path, names) in [
+            ("../league/champion/league_rengar.data_champion", [RENGAR_MET, TROPHY]),
+            ("league_rengar_bush/override/league_rengar.data_champion", [RENGAR_MET, TROPHY]),
+            ("../league/champion/league_khazix.data_champion", [KHAZIX_MET, RIVAL_EVO]),
+            ("league_khazix/override/league_khazix.data_champion", [KHAZIX_MET, RIVAL_EVO]),
+            ("../league/champion/league_rakan.data_champion", [RAKAN_DUO_W, RAKAN_E]),
+        ] {
+            let kit = read(path);
+            for n in names {
+                assert!(kit.contains(&format!("\"{n}\"")), "{n} not in {path}");
+            }
+        }
+        // the rewards carry their attack bonus (the number in the toast)
+        let rengar = read("../league/champion/league_rengar.data_champion");
+        let at = rengar.find(&format!("\"name\": \"{TROPHY}\"")).expect("the trophy's buff");
+        assert!(rengar[at..].chars().take(200).collect::<String>().contains("\"attack_mult\""));
+        // league_zyra hangs the photosynthesis marker on her
+        let sun = include_str!("../../league_zyra/src/sun.rs");
+        assert!(sun.contains(&format!("pub const GREW: &str = \"{SUN_GREW}\";")), "league_zyra's marker");
+        for n in [RENGAR_MET, KHAZIX_MET, TROPHY, RIVAL_EVO, SUN_GREW, RAKAN_DUO_W, RAKAN_E] {
+            assert!(n.len() <= BUFF_NAME_CAP && !n.contains("_sim:"), "{n}");
+        }
+    }
+
     #[test]
     fn the_sim_tag_reads_back_and_is_skipped_by_the_divergence_check() {
         assert_eq!(parse_tag(&tag(42)), Some(42));
@@ -1355,7 +1652,7 @@ mod tests {
 
     #[test]
     fn buff_names_fit() {
-        for name in [SOUL, FREED, DISSIDENT, GRUDGE, PLANTS, NINJA, "league_eggs_crown_lissandra"] {
+        for name in [SOUL, FREED, DISSIDENT, GRUDGE, PLANTS, NINJA, "league_eggs_crown_lissandra", SUN_GREW, RAKAN_DUO_W] {
             assert!(name.len() <= BUFF_NAME_CAP && !name.contains("_sim:"), "{name}");
         }
         for q in rules::QUEENS {

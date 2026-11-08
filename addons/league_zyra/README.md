@@ -1,4 +1,4 @@
-# 婕拉附加包（测试版 v0.1.4，可选）
+# 婕拉附加包（测试版 v0.1.6，可选）
 
 **不装这个附加包，主包里的婕拉也是完整的**：普攻甩出荆棘种子；Q 致命棘刺在目标点炸出棘刺，落点长出荆棘喷射者；E 缠绕之根禁锢一条线上的
 敌人，落点长出藤蔓鞭击者；R 绞杀之藤召唤密林，2 秒后击飞还在里面的敌人，并激怒她的植物。主包是纯数据：**数据不能在地上留东西**，所以
@@ -41,6 +41,7 @@
   一整轮、最后放抖动和枯萎；后放的画在上面，大的盖住小的；变大时一道她的金光（`sun_pop`）。只变大一次，已经在枯萎的不变；植物的出手、
   伤害都不变。日志 `SUN #n: her R's sunlight landed on a Spitter (Q/E's) at (x, y), 120 ticks old: one size bigger from tick t`，`WATCH`
   多一项 `sunlit`（变大过几株）。没在游戏里看过：大的盖不盖得住小的、两段之间会不会闪一下，要看画面。
+  v0.1.6：变大时给婕拉挂一个只有名字的 `league_zyra_sun_grew`（60 tick），league_eggs 读到了在屏幕上放提示「光合作用」。
 
 ## 在游戏里测
 
@@ -56,6 +57,16 @@ python tools/kit/build_zyra.py                 # 主包的婕拉（参数表 P�
 python addons/league_zyra/make_override.py     # 本包的副本和说明
 cargo build --release -p league_zyra           # 在 addons/ 下
 ```
+
+## 0.1.6：光合作用的提示交给 league_eggs（2026-11-09）
+
+用户：「我需要所有彩蛋都要有提示 你看看哪些没有的补进去」。光合作用（植物在蕾欧娜的阳光里变大一号）一直没有屏幕上的提示，而提示
+统一由 league_eggs 画（它认 buff、击杀记录、阵容，别的附加包不用自己画）。可植物不是单位、变大只是本包放的画面，两个附加包单独装时
+又是两个 DLL，league_eggs 什么也读不到。所以 `src/sun.rs` 在植物变大的那一 tick 给婕拉挂一个 `league_zyra_sun_grew`（`GREW`）：
+只有名字、`GREW_T` 60 tick、同时只有一层（`entity_stack_buff` 最多 1 层，再长一株就续上时长），一项属性都没有，玩法不变。
+league_eggs 0.2.0 每 tick 看婕拉身上有没有它，第一次看见时放「光合作用：蕾欧娜 的阳光照在 婕拉 的植物上，植物长大了一号」（一局一条）。
+测试 `the_marker_only_tells_league_eggs`：名字、时长、除此之外全是默认值，league_eggs 读的就是这个名字（league_eggs 那边也有
+测试核对本包还挂着它）。日志照旧是 `SUN`。
 
 ## 0.1.4：每种行整个启动一个计数（2026-11-06，11-06 的日志）
 

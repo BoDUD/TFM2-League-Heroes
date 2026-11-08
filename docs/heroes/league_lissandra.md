@@ -63,7 +63,7 @@
 
 ### 英雄联盟彩蛋
 
-[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.1.1（通用附加包，下面只列和丽桑卓有关的部分）
+[英雄联盟彩蛋](../../addons/league_eggs/README.md)：`league_eggs` v0.2.0（通用附加包，下面只列和丽桑卓有关的部分）
 
 | 彩蛋 | 什么时候 | 效果 |
 |---|---|---|

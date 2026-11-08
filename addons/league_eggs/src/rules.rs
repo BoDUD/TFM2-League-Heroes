@@ -76,9 +76,13 @@ pub enum Hero {
     Veigar,
     Vex,
     Yuumi,
+    // 0.2.0：玩法在别处、本包只放提示的——10 卡西奥佩娅（主包和 league_cassiopeia）、霞洛联动（主包的霞和洛）
+    Cassiopeia,
+    Xayah,
+    Rakan,
 }
 
-pub const HEROES: [Hero; 40] = [
+pub const HEROES: [Hero; 43] = [
     Hero::Rengar,
     Hero::Khazix,
     Hero::Ashe,
@@ -119,6 +123,9 @@ pub const HEROES: [Hero; 40] = [
     Hero::Veigar,
     Hero::Vex,
     Hero::Yuumi,
+    Hero::Cassiopeia,
+    Hero::Xayah,
+    Hero::Rakan,
 ];
 
 pub const QUEENS: [Hero; 3] = [Hero::Ashe, Hero::Sejuani, Hero::Lissandra];
@@ -191,6 +198,9 @@ impl Hero {
             Hero::Veigar => "league_veigar",
             Hero::Vex => "league_vex",
             Hero::Yuumi => "league_yuumi",
+            Hero::Cassiopeia => "league_cassiopeia",
+            Hero::Xayah => "league_xayah",
+            Hero::Rakan => "league_rakan",
         }
     }
 
@@ -425,6 +435,31 @@ pub fn prey(cast: &[Seat]) -> Vec<usize> {
     cast.iter().filter(|s| SWALLOWED.contains(&s.hero) && fizz.iter().any(|f| f.team != s.team)).map(|s| s.player).collect()
 }
 
+/// 6 一个戴墨镜的人对面的莱昂娜（提示里的名字）。
+pub fn leona_across(cast: &[Seat], wearer: usize) -> Option<usize> {
+    let w = hero_of(cast, wearer)?;
+    seats(cast, Hero::Leona).into_iter().find(|l| l.team != w.team).map(|l| l.player)
+}
+
+/// 7 光合作用：(婕拉, 蕾欧娜)，哪一边都算（league_zyra 的 sun.rs：她的阳光落在植物上就长，同队、对面都一样）。
+pub fn sun_pair(cast: &[Seat]) -> Option<(usize, usize)> {
+    let z = seats(cast, Hero::Zyra);
+    let l = seats(cast, Hero::Leona);
+    Some((z.first()?.player, l.first()?.player))
+}
+
+/// 10 蛇女不需要鞋：卡西奥佩娅（玩家；不穿鞋是 league_cassiopeia 的装备钩子，移速成长在主包她的数据里）。
+pub fn barefoot(cast: &[Seat]) -> Vec<usize> {
+    seats(cast, Hero::Cassiopeia).into_iter().map(|s| s.player).collect()
+}
+
+/// 霞洛联动：同队的 (霞, 洛)（主包的数据：她的普攻、W 给身边的队友挂标记，洛的数据读到了才有联动）。
+pub fn duo(cast: &[Seat]) -> Option<(usize, usize)> {
+    let x = seats(cast, Hero::Xayah);
+    let r = seats(cast, Hero::Rakan);
+    x.iter().find_map(|a| r.iter().find(|b| b.team == a.team).map(|b| (a.player, b.player)))
+}
+
 /// 这一局开了哪些彩蛋（开局按阵容定）。
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct Active {
@@ -440,6 +475,10 @@ pub struct Active {
     /// 6 对面有莱昂娜的戴墨镜的玩家；9 对面有菲兹的小约德尔人。
     pub shades: Vec<usize>,
     pub prey: Vec<usize>,
+    /// 0.2.0，玩法在别处、本包只放提示：7 光合作用的 (婕拉, 蕾欧娜)；10 卡西奥佩娅；霞洛联动的 (霞, 洛)。
+    pub sun: Option<(usize, usize)>,
+    pub barefoot: Vec<usize>,
+    pub duo: Option<(usize, usize)>,
 }
 
 impl Active {
@@ -456,6 +495,9 @@ impl Active {
             nidalee: seats(cast, Hero::Nidalee),
             shades: shaded(cast),
             prey: prey(cast),
+            sun: sun_pair(cast),
+            barefoot: barefoot(cast),
+            duo: duo(cast),
         }
     }
 
@@ -498,6 +540,15 @@ impl Active {
         }
         if !self.prey.is_empty() {
             v.push("shark");
+        }
+        if self.sun.is_some() {
+            v.push("sun");
+        }
+        if !self.barefoot.is_empty() {
+            v.push("barefoot");
+        }
+        if self.duo.is_some() {
+            v.push("duo");
         }
         v
     }
@@ -682,5 +733,29 @@ mod tests {
         assert_eq!(b.names(), vec!["shades", "shark"]);
         // a wearer or a yordle alone turns nothing on
         assert!(!Active::of(&[s(5, 1, Hero::Vayne), s(6, 1, Hero::Tristana)]).any());
+    }
+
+    #[test]
+    fn the_eggs_played_elsewhere_read_the_cast_too() {
+        // 6: the Leona across names the wearer's notice; her own team's wearer has none
+        let cast = [s(0, 0, Hero::Leona), s(1, 0, Hero::Vayne), s(6, 1, Hero::LeeSin)];
+        assert_eq!(leona_across(&cast, 6), Some(0));
+        assert_eq!(leona_across(&cast, 1), None);
+        assert_eq!(leona_across(&cast, 9), None, "not in the cast");
+        // 7 photosynthesis: Zyra and Leona on either side
+        assert_eq!(sun_pair(&[s(2, 0, Hero::Zyra), s(7, 1, Hero::Leona)]), Some((2, 7)));
+        assert_eq!(sun_pair(&[s(2, 0, Hero::Zyra), s(3, 0, Hero::Leona)]), Some((2, 3)));
+        assert_eq!(sun_pair(&[s(2, 0, Hero::Zyra)]), None);
+        // 10: every Cassiopeia
+        assert_eq!(barefoot(&[s(4, 0, Hero::Cassiopeia), s(5, 1, Hero::Zyra)]), vec![4]);
+        // the duo: Xayah and Rakan on one team only
+        assert_eq!(duo(&[s(3, 0, Hero::Xayah), s(4, 0, Hero::Rakan)]), Some((3, 4)));
+        assert_eq!(duo(&[s(3, 0, Hero::Xayah), s(9, 1, Hero::Rakan)]), None);
+        let a = Active::of(&[s(3, 0, Hero::Xayah), s(4, 0, Hero::Rakan), s(5, 1, Hero::Cassiopeia), s(6, 1, Hero::Zyra),
+                             s(1, 0, Hero::Leona)]);
+        assert_eq!(a.names(), vec!["sun", "barefoot", "duo"]);
+        // Cassiopeia alone is an egg (her opening notice); Xayah alone is none
+        assert!(Active::of(&[s(5, 1, Hero::Cassiopeia)]).any());
+        assert!(!Active::of(&[s(3, 0, Hero::Xayah)]).any());
     }
 }

@@ -13,6 +13,10 @@
 //!   （`sun_pop`）。只变大一次（一号），玩法不变（植物出手、伤害都照旧）。
 //!
 //! 状态记在每个婕拉自己的被动实例里（服务端预模拟和你看的那场各算各的）。日志 `SUN`（哪一招、哪株、多大了）。
+//!
+//! 0.1.6（2026-11-09，用户：「我需要所有彩蛋都要有提示」）：变大时在婕拉身上挂 [`GREW`]（只有名字，`GREW_T` tick，同时只有
+//! 一层，再长一株就续上；玩法不变）。屏幕上的提示「光合作用」由 league_eggs 放：植物不是单位、画面别人读不到，两个附加包单独装时
+//! 又是两个 DLL，buff 是两边都看得见的地方。
 
 use mod_api_stable::*;
 
@@ -49,6 +53,15 @@ pub const LOOK_EVERY: usize = 300;
 pub const LEONA: &str = "league_leona";
 pub const SUNLIGHT: &str = "league_leona_sunlight";
 pub const ECLIPSE_HOLD: &str = "league_leona_eclipse_hold";
+
+/// 光合作用的标记（0.1.6）：一株植物变大时挂在婕拉身上，league_eggs 读到了放提示（它的 `SUN_GREW`）。
+pub const GREW: &str = "league_zyra_sun_grew";
+pub const GREW_T: usize = 60;
+
+/// 标记本身：只有名字和时长，一项属性都没有。
+pub fn grew_marker() -> BuffV1 {
+    BuffV1::timed(GREW, GREW_T)
+}
 
 /// 放哪一段大的：一轮从第 `j` 帧放起，或者最后的抖动和枯萎。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -296,6 +309,8 @@ impl Sun {
             pl.next = Some((from, seg));
             let (kind, pos, data) = (pl.kind, pl.pos, pl.data);
             sim.play_view_effect(&zy("sun_pop"), me, &at(pos), 0, 0, 0);
+            // league_eggs' notice: one marker on her, renewed by every plant that grows meanwhile
+            sim.entity_stack_buff(me, &grew_marker(), 1, true);
             self.n_sun += 1;
             if let Some(k) = tally(sim, "sun") {
                 wlog(format!("{} SUN #{}: {how} landed on a {kind:?} ({}) at ({:.0}, {:.0}), {age} ticks old: one size bigger from \
@@ -425,6 +440,21 @@ mod tests {
         assert_eq!(zones, vec![(500_000, 400_000)]);
         assert_eq!(blades, vec![(300_000, 300_000), (300_000, 301_000)]);
         assert_eq!(split_fresh(&[], &now), (vec![], vec![]));
+    }
+
+    #[test]
+    fn the_marker_only_tells_league_eggs() {
+        let b = grew_marker();
+        assert_eq!((b.name(), b.duration_kind, b.duration_tick), (GREW, BuffDurationV1::Time.code(), GREW_T));
+        // a name and a time only: every stat is the default's (zero)
+        let plain = BuffV1 { name_buf: b.name_buf, name_len: b.name_len, duration_kind: b.duration_kind,
+                             duration_tick: b.duration_tick, ..BuffV1::default() };
+        assert_eq!(b, plain);
+        assert!(GREW.len() <= BUFF_NAME_CAP && !GREW.contains("_sim:"));
+        // league_eggs reads this very name
+        assert!(include_str!("../../league_eggs/src/lib.rs").contains(&format!("\"{GREW}\"")));
+        // seen for a good second by a hook that looks every tick
+        assert!(GREW_T >= 30);
     }
 
     #[test]
