@@ -17,7 +17,10 @@
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
 //! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_sejuani.log`，每次启动游戏重写。
+//! 0.1.4：每种行整个启动一个计数（league_yasuo_wall 0.1.2 的做法：服务器的预演先记 40 行、之后每 100 行记一行，你看的那场每行都记，
+//! 行末 `#k`）；`SPAWN` 的参数一次启动只写一次（league_vladimir_pool 0.2.1 的做法）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -80,6 +83,46 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// Lines a launch, each kind on its own count (0.1.4; 11-08's log: 1.72 MB - 5174 STOP, 5086 SHATTER, 2209 FREEZE,
+/// 1365 SLOW, 870 SPAWN - the caps were per Sejuani and a launch runs hundreds of presims): the server's presims the first
+/// `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all of them (league_yasuo_wall 0.1.2's).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
+}
+
+/// The `Params` the log showed last (they come from the champion data: the same in every simulation of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only should they ever differ (league_vladimir_pool 0.2.1's).
+fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.clone());
+    true
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -216,8 +259,8 @@ impl Frost {
                 let (x, y) = e.pos();
                 self.pin = Some((x, y, tick + self.p.q_t));
                 self.stops += 1;
-                if self.stops <= 40 || self.stops % 100 == 0 {
-                    wlog(format!("{} STOP Arctic Assault at its first champion ({x}, {y}), held {} ticks ({} stops)",
+                if let Some(k) = tally(sim, "stop") {
+                    wlog(format!("{} STOP Arctic Assault at its first champion ({x}, {y}), held {} ticks ({} stops) #{k}",
                                  head(sim, me), self.p.q_t, self.stops));
                 }
             }
@@ -247,8 +290,8 @@ impl Frost {
         for name in &slows {
             sim.entity_remove_buff(me, name);
             self.slows += 1;
-            if self.slows <= 40 || self.slows % 100 == 0 {
-                wlog(format!("{} SLOW {name} cleared by the Frost Armour ({} in all)", head(sim, me), self.slows));
+            if let Some(k) = tally(sim, "slow") {
+                wlog(format!("{} SLOW {name} cleared by the Frost Armour ({} in all) #{k}", head(sim, me), self.slows));
             }
         }
     }
@@ -279,8 +322,8 @@ impl Frost {
                     sim.play_sfx(&format!("{ID}_sh_hit"), me, &on);
                     self.set_shatter_cd(id, tick + self.p.sh_cd);
                     self.shatters += 1;
-                    if self.shatters <= 60 || self.shatters % 100 == 0 {
-                        wlog(format!("{} SHATTER {} ({dmg} magic before resistance, max hp {max}; {} in all)",
+                    if let Some(k) = tally(sim, "shatter") {
+                        wlog(format!("{} SHATTER {} ({dmg} magic before resistance, max hp {max}; {} in all) #{k}",
                                      head(sim, me), name_of(sim, id), self.shatters));
                     }
                 }
@@ -294,8 +337,8 @@ impl Frost {
                 sim.play_view_effect(&format!("{ID}_e_freeze"), me, &on, 0, 0, 0);
                 sim.play_sfx(&format!("{ID}_e_freeze"), me, &on);
                 self.freezes += 1;
-                if self.freezes <= 60 || self.freezes % 100 == 0 {
-                    wlog(format!("{} FREEZE {} ({frost} Frost, stunned {} ticks, {dmg} magic before resistance; {} in all)",
+                if let Some(k) = tally(sim, "freeze") {
+                    wlog(format!("{} FREEZE {} ({frost} Frost, stunned {} ticks, {dmg} magic before resistance; {} in all) #{k}",
                                  head(sim, me), name_of(sim, id), self.p.e_stun, self.freezes));
                 }
             }
@@ -315,7 +358,11 @@ impl StablePassive for Frost {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.pin = None;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Sejuani (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        if let Some(k) = tally(sim, "spawn") {
+            // the Params in the first SPAWN line of a launch only (0.1.4: 870 lines carried them, one each life)
+            let params = if params_new(&self.p) { format!(", {:?}", self.p) } else { String::new() };
+            wlog(format!("{} SPAWN: the add-on's Sejuani (player {player}, team {team}){params} #{k}", head(sim, me)));
+        }
     }
 
     fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, _attacker: usize, damage: usize) {
@@ -416,6 +463,24 @@ mod tests {
         assert!(f.shatter_ready(8, 10));
         f.set_shatter_cd(7, 500);
         assert_eq!(f.sh_ready.len(), 1);
+    }
+
+    #[test]
+    fn presim_lines_are_capped_a_launch_the_screen_s_are_not() {
+        // 0.1.3 capped each Sejuani (40-60 lines of a kind a match): 1.72 MB over a launch's presims
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
+
+    #[test]
+    fn the_params_are_logged_once_a_launch() {
+        let p = Params { f_n: 9, ..Params::default() };
+        assert!(params_new(&p));
+        assert!(!params_new(&p) && !params_new(&p.clone()));
+        let q = Params { e_stun: 1, ..p.clone() };
+        assert!(params_new(&q) && !params_new(&q));
     }
 
     #[test]

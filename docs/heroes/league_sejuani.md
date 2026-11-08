@@ -55,7 +55,7 @@
 
 ### 瑟庄妮附加包
 
-[瑟庄妮附加包](../../addons/league_sejuani/README.md)：`league_sejuani` v0.1.3
+[瑟庄妮附加包](../../addons/league_sejuani/README.md)：`league_sejuani` v0.1.4
 
 | 技能 | 主包（纯数据） | 附加包 |
 |---|---|---|

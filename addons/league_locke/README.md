@@ -30,8 +30,10 @@
 
 0.1.3（2026-11-05，11-04 的日志）：圣银穿心的已损失生命部分打到了塔（`STAKE +142`）和史诗野怪（`+371`，英雄身上只有 +40 到 +70）——`p_hit` 标记谁挨了普攻就给谁。主包的参数表没说野怪、建筑，按英雄联盟的惯例：建筑（塔、水晶）不吃这一下，野怪（野区、史诗、巨蛇）每下最多 `STAKE_MONSTER_CAP` 60（`stake_on`）；小兵、英雄照旧。
 
+0.1.4（2026-11-08，11-08 夜里的日志）：13 次 `EXECUTE` 里 5 次 `survived`，全是弗拉基米尔——他在血之池沼里（数据：隐身、受到伤害降低 100%、免疫控制），处决的真实伤害被减到 0，大招标记却已经摘了，人出来也不会再处决、不掉法器。现在处决前先看他：选不中、或受到的伤害被减到 0（身上 buff 的 `damaged_reduce` 减 `damaged_amplify` 到 100 以上，或技能伤害降低 `skill_damaged_reduce` 到 100 以上，算法同诺手附加包）就先不处决、标记留着，他出了池子、标记还在、血还在线下就照常处决（`execute_held`）。等的时候记一行 `EXECUTE HELD 名字 at hp/max: 原因 - it waits while his mark lasts`，一段只记一次（`newly_held`，再按条数限）。只减一部分伤害的照旧处决（打的是生命 + 最大生命，减八成也打得死线下的人）。
+
 ## 检查
 
-- 在 `addons/` 下 `cargo test --release -p league_locke`：单元测试（参数、圣银穿心随已损失生命变大、处决线随封印变高且最多 3 层、捡法器减冷却、W 换图的名字、名字和数据一致）。
+- 在 `addons/` 下 `cargo test --release -p league_locke`：单元测试（参数、圣银穿心随已损失生命变大、处决线随封印变高且最多 3 层、捡法器减冷却、池子里 / 选不中的先不处决、W 换图的名字、名字和数据一致）。
 - 主包的洛克改了以后重新跑 `python addons/league_locke/make_override.py`（它先核对主包的 `league_locke.data_champion` 和参数表一致、`src/lib.rs` 的默认参数和 P 一致；`--check` 只核对不写；文字接入前用 `--draft`）。
-- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_locke.log`：`SPAWN`、圣银穿心 `STAKE`、灵焰仪式 `IGNITION over`、处决 `EXECUTE`（`SEALED` = 掉了法器）、捡法器 `PICKUP`、参与击杀 `TAKEDOWN`、换图 `W LOOK`。
+- 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_locke.log`：`SPAWN`、圣银穿心 `STAKE`、灵焰仪式 `IGNITION over`、处决 `EXECUTE`（`SEALED` = 掉了法器）、处决先等 `EXECUTE HELD`（0.1.4：选不中、伤害减到 0）、捡法器 `PICKUP`、参与击杀 `TAKEDOWN`、换图 `W LOOK`。

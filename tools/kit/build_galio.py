@@ -39,6 +39,8 @@ addons/league_galio, the pros' combos):
           lowest share of health among those far enough with an enemy champion near, more enemies round it first;
           the add-on also breaks the channel, on hard crowd control on him only (from game 0.7.0 on players saw
           no R; the game's crowd-control list also holds his own cast animation, which `AllyChampionInCC` may count).
+          Its flight (league_galio:fly) moves him only while he lives and then hangs r_flew, which the copy's landing
+          waits for (2026-11-08: a dead caster's queued R ran on - his corpse flew and landed).
 """
 import argparse
 import json
@@ -307,6 +309,10 @@ def build(p):
     # with native=1 the flight is the add-on's (league_galio:fly): onto the ally, or where the ally was if he died or is
     # gone - the game's Teleport finds no ally then and Galio stayed put (10-29 games: ~10 % of his Rs, 「加里奥的确有问题」)
     FLY = {"type": "Native", "effect_ref": "league_galio:fly"}
+    # with native=1 the landing waits for the add-on's word that he flew alive (league_galio:fly hangs r_flew only then,
+    # league_galio 0.1.9): the data's Delayed runs on for a dead caster - a Galio killed in the channel flew as a corpse
+    # and landed (2026-11-08 logs: ~31 of ~600 channels)
+    land_go = sw("r_flew", combine(*rm("r_flew"), land)) if native else land
 
     def save():
         """On the ally (the probe's hit): the shield now, the channel on him, the flight onto it at the end."""
@@ -315,7 +321,7 @@ def build(p):
                        on_me(anim("ult", p["r_wind"]), delayed(p["r_wind"], anim("ult_loop", p["r_ch"] - p["r_wind"])),
                              cview("r_cast"), sfx("r"), voice("vo_r", p), *breaks),
                        delayed(p["r_ch"], sw("r_ch", combine(*rm("r_ch"), FLY if native else {"type": "Teleport"},
-                                                              on_me(delayed(1, land))))))
+                                                              on_me(delayed(1, land_go))))))
 
     def probe(cc):
         """A homing probe at the ally picked: far enough from him, and in crowd control or held in a fight."""

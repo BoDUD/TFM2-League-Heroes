@@ -15,14 +15,18 @@
 //! - **英雄登场选人**：在离加里奥至少 `r_far`、最多 `R_MAX`（0.1.6）、身边 `r_sur` 以内有敌方英雄的友方英雄里，选「被控着，或者血量比例最低」的那个，
 //!   身边 `r_r` 以内敌方英雄多的优先（每多一个当作血量少 10%）；只有一个敌人、没被控、血量 80% 以上的不算苦战，不飞。
 //!   选中的友方英雄让加里奥身上出现 1 tick 的 `league_galio_r_this`，数据接着走护盾、引导、飞过去。
-//! - **引导打断**：引导（身上有 `league_galio_r_ch`）时被硬控（击飞、眩晕、定身、嘲讽、恐惧、魅惑、强制位移）就摘掉 `r_ch`，
-//!   数据到时不飞。以前是数据每 15 tick 用 `AllyChampionInCC` 查他自己；游戏 0.7.0 起玩家说加里奥不开大，游戏的控制列表里
-//!   也有他自己正在播的施法动作，那个查法可能把引导动作当成被控、每次都打断，所以副本去掉数据的查法，改由本包只看硬控。
-//!   自己被硬控时也不选人（以前是数据查）。
+//! - **引导打断**：引导（身上有 `league_galio_r_ch`）时被打断引导的硬控（击飞、眩晕、嘲讽、恐惧、魅惑、强制位移；0.1.9 起
+//!   定身不算：英雄联盟的定身不打断引导）就摘掉 `r_ch`，数据到时不飞。以前是数据每 15 tick 用 `AllyChampionInCC` 查他自己；
+//!   游戏 0.7.0 起玩家说加里奥不开大，游戏的控制列表里也有他自己正在播的施法动作，那个查法可能把引导动作当成被控、每次都打断，
+//!   所以副本去掉数据的查法，改由本包只看硬控。自己被硬控（定身也算）时也不选人（以前是数据查）。
+//! - **死了不飞**（0.1.9）：数据的延时效果对死人照样跑，他死在引导里，到时尸体照样飞到队友身边、落地击飞。现在他阵亡时
+//!   （`on_dead`）摘掉 `r_ch`，数据到时不飞；飞行（`league_galio:fly`）先看他活着没有，死了不挪；活着才挂 1 个短标记
+//!   `league_galio_r_flew`，副本的落地（击飞、伤害、护盾）等这个标记才放。
 //!
 //! 数字：`PS_IDLE`、`TAUNT_*` 写在这里，`tests::the_numbers_match_the_kit` 读主包的参数表核对；其余从英雄数据来。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_galio.log`，每次启动游戏重写；R 的引导：`CHANNEL`（开始引导）、`BROKEN`（被硬控打断）、
-//! `LANDED`（飞过去落地）、`NO FLIGHT`（引导结束却没飞）。
+//! `LANDED`（飞过去落地）、`NO FLIGHT`（引导结束却没飞）——0.1.9 起按这次引导的飞行记录（`FLEW`）判断，写出落点和
+//! `set_pos` 的回答（以前按「离引导开始的地方挪了 10000 以上」，队友走到他身边时落地了也记成 NO FLIGHT）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -208,6 +212,17 @@ pub fn is_hard_cc(kind: u32) -> bool {
 
 fn hard_cc(e: &StableEntity<'_, '_>) -> bool {
     (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| is_hard_cc(c.kind)))
+}
+
+/// 0.1.9: the hard crowd control that breaks R's channel - all of `HARD_CC` but the root (`Bind`): League's roots stop
+/// movement, not channels (the 11-08 logs: 3 of 41 `BROKEN` were a root alone, `[2]`). A root still counts as an ally's
+/// crowd control and still keeps him from starting R.
+pub fn breaks_channel(kind: u32) -> bool {
+    kind != CcKindV1::Bind.code() && is_hard_cc(kind)
+}
+
+fn channel_held(e: &StableEntity<'_, '_>) -> bool {
+    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| breaks_channel(c.kind)))
 }
 
 fn alive_at(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
@@ -444,8 +459,14 @@ static FLEW: LazyLock<Mutex<HashMap<(u64, usize), (usize, (u64, u64), bool)>>> =
 /// `AFTER FLY` only this many ticks after the flight at most (later: he was dead meanwhile).
 pub const AFTER_FLY_LATE: usize = 5;
 
+/// 0.1.9: the flag the flight hangs on him when he flies alive - the copy's landing (knock-up, damage, the allies'
+/// shield) one tick later waits for it (`tools/kit/build_galio.py`, native=1), so a dead Galio's queued R never lands.
+pub const R_FLEW: &str = "league_galio_r_flew";
+/// Its life: seen on `FLEW_FLAG - 1` ticks, the landing reads it the tick after the flight and takes it off.
+pub const FLEW_FLAG: usize = 4;
+
 /// The flight at the channel's end (the copy's R, in place of the game's Teleport): onto the ally when he is alive,
-/// else where he was last seen; logged.
+/// else where he was last seen; logged. A dead caster stays where he fell (0.1.9).
 struct Fly;
 
 impl StableEffectType for Fly {
@@ -454,6 +475,16 @@ impl StableEffectType for Fly {
         let live = ally.and_then(|id| sim.get_entity(id).filter(|e| e.is_alive()).map(|e| e.pos()));
         let key = (sim_of(sim, caster), caster);
         let kept = AIM.lock().unwrap_or_else(|e| e.into_inner()).remove(&key);
+        // 0.1.9 (the 11-08 logs: ~31 deaths in R's channel, each followed by `FLY ... (he is dead)`): the data's Delayed
+        // runs on for a dead caster; his corpse no longer flies, and without `R_FLEW` the copy does not land
+        if !sim.get_entity(caster).is_some_and(|e| e.is_alive()) {
+            if let Some(k) = counted("fly_dead") {
+                wlog(format!("{} FLY #{k}: he is dead - no flight, no landing", head(sim, caster)));
+            }
+            return;
+        }
+        sim.entity_remove_buff(caster, R_FLEW);
+        sim.add_buff(caster, &BuffV1::timed(R_FLEW, FLEW_FLAG));
         let spot = live.or_else(|| kept.filter(|&(id, _)| ally.is_none_or(|a| a == id)).map(|(_, at)| at));
         let Some((x, y)) = spot else {
             if let Some(k) = counted("fly_none") {
@@ -462,18 +493,40 @@ impl StableEffectType for Fly {
             return;
         };
         let from = sim.get_entity(caster).map(|e| e.pos());
-        let dead = sim.get_entity(caster).is_some_and(|e| !e.is_alive());
         let moved = sim.entity_set_pos(caster, x, y);
-        // no clear past 4096 rows (it took the other sims' rows too): read the tick after, at his death, his next spawn
+        // no clear past 4096 rows (it took the other sims' rows too): read at the channel's end (LANDED / NO FLIGHT,
+        // 0.1.9), the tick after, at his death, his next spawn
         FLEW.lock().unwrap_or_else(|e| e.into_inner()).insert(key, (sim.tick(), (x, y), moved));
         // every flight logged (0.1.4): 12 channels of 2026-10-30 ended where they began ("NO FLIGHT", most 0 moved)
-        // without one FLY line, so whether this ran, for whom and whether the host moved him is in the log now; a dead
-        // Galio's flight (the data's Delayed runs on for a dead caster) says so (0.1.7)
+        // without one FLY line, so whether this ran, for whom and whether the host moved him is in the log now
         if let Some(k) = counted("fly") {
             let whom = ally.map_or("-".to_string(), |id| who(sim, id));
             let to = if live.is_some() { "onto" } else { "to the last spot of" };
-            wlog(format!("{} FLY #{k}: {to} {whom} at ({x}, {y}) from {from:?}{}{}", head(sim, caster),
-                         if moved { "" } else { " - set_pos refused" }, if dead { " (he is dead)" } else { "" }));
+            wlog(format!("{} FLY #{k}: {to} {whom} at ({x}, {y}) from {from:?}{}", head(sim, caster),
+                         if moved { "" } else { " - set_pos refused" }));
+        }
+    }
+}
+
+/// 0.1.9: how far from the spot he flew to he may stand at the channel's end and count as landed (the tick after a
+/// flight the 11-08 logs had him 110-2220 from it).
+pub const LAND_NEAR: f64 = 10_000.0;
+
+/// How R's channel (begun on `t0`) ended, by this channel's flight (`flew`: its tick, the spot, set_pos's answer) and
+/// where he stands now: (landed, what the line says). 0.1.9: 0.1.8 went by how far he had moved from where the channel
+/// began (10000 or more: LANDED) - an ally who walked up to him meanwhile made a landing "NO FLIGHT" (8 of 14 on 11-08),
+/// and the 6 "moved 0" never said whether a flight ran or set_pos had refused it.
+pub fn channel_end(t0: usize, flew: Option<(usize, (u64, u64), bool)>, at: (f64, f64)) -> (bool, String) {
+    match flew.filter(|f| f.0 >= t0) {
+        None => (false, "no flight on record (no FLY ran, or it found no spot)".to_string()),
+        Some((_, (x, y), false)) => (false, format!("the flight to ({x}, {y}) was refused by set_pos")),
+        Some((_, (x, y), true)) => {
+            let off = dist(at, (x as f64, y as f64));
+            if off <= LAND_NEAR {
+                (true, format!("flew to ({x}, {y}) (set_pos yes), stands {off:.0} from it"))
+            } else {
+                (false, format!("set_pos took ({x}, {y}) but he stands {off:.0} from it"))
+            }
         }
     }
 }
@@ -527,12 +580,13 @@ impl Colossus {
         }
     }
 
-    /// R 的引导：被硬控（击飞、眩晕……）就打断（摘掉 `r_ch`，数据到时不飞）；只有自己的施法动作不算。日志记下引导、打断、落地。
+    /// R 的引导：被打断引导的硬控（击飞、眩晕……，0.1.9 起定身不算）就打断（摘掉 `r_ch`，数据到时不飞）；只有自己的施法
+    /// 动作不算。日志记下引导、打断、落地（0.1.9：按这次引导的飞行记录判断落没落地）。
     fn channel(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, at: (f64, f64)) {
         let Some(e) = sim.get_entity(me) else { return };
         let r_ch = gl("r_ch");
         let on = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == r_ch);
-        let held = hard_cc(&e);
+        let held = channel_held(&e);
         let kinds = cc_kinds(&e);
         drop(e);
         if on {
@@ -563,9 +617,12 @@ impl Colossus {
             (Some((t0, from)), false) => {
                 self.chan = None;
                 let moved = dist(from, at);
-                let what = if moved >= 10_000.0 { "LANDED" } else { "NO FLIGHT" };
-                if let Some(k) = counted(if moved >= 10_000.0 { "landed" } else { "no_flight" }) {
-                    wlog(format!("{} {what} #{k}: the channel ended after {} ticks, moved {moved:.0}", head(sim, me),
+                // 0.1.9: this channel's flight decides (the record stays till the tick after it: `after_fly`)
+                let flew = FLEW.lock().unwrap_or_else(|e| e.into_inner()).get(&(self.sim_no, me)).copied();
+                let (landed, how) = channel_end(t0, flew, at);
+                let what = if landed { "LANDED" } else { "NO FLIGHT" };
+                if let Some(k) = counted(if landed { "landed" } else { "no_flight" }) {
+                    wlog(format!("{} {what} #{k}: the channel ended after {} ticks, {how}, moved {moved:.0}", head(sim, me),
                                  now - t0));
                 }
             }
@@ -636,17 +693,40 @@ impl StablePassive for Colossus {
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
         let now = sim.tick();
+        let me = self.me;
+        // 0.1.9: R's channel ends with him (the 11-08 logs: ~31 of ~600 channels ended in his death and the data's queued
+        // flight still flew his corpse onto the ally): r_ch off his body, the data's check at the channel's end finds
+        // nothing; whether the host took it off a dying unit goes in the line (the flight and the landing are gated as well)
+        let r_ch = gl("r_ch");
+        let carries = |sim: &StableSim<'_>| sim.get_entity(me).is_some_and(|e| (0..e.buff_count())
+            .filter_map(|i| e.buff_at(i)).any(|b| b.name() == r_ch));
+        let had = carries(sim);
+        let off = if had { sim.entity_remove_buff(me, &r_ch) } else { 0 };
+        let stays = had && carries(sim);
         // his death in R's channel or right after a flight has a line (0.1.7, diagnostics: three FLY lines of 11-06 had
-        // neither LANDED nor NO FLIGHT after them - a dead Galio's passive does not run)
-        let flew = FLEW.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, self.me));
-        if let Some(line) = death_line(self.chan.map(|c| c.0), flew.map(|f| f.0), now) {
+        // neither LANDED nor NO FLIGHT after them - a dead Galio's passive does not run); a channel begun this very tick
+        // (r_ch on him, his passive not run since) counts as one
+        let flew = FLEW.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim_no, me));
+        let chan = self.chan.map(|c| c.0).or(had.then_some(now));
+        if let Some(line) = death_line(chan, flew.map(|f| f.0), now) {
             if let Some(k) = counted("died") {
-                wlog(format!("{} {line} #{k}", head(sim, self.me)));
+                wlog(format!("{} {line}{} #{k}", head(sim, me), channel_off(had, off, stays)));
             }
         }
         self.hurt = now;
         self.until = 0;
         self.chan = None;
+    }
+}
+
+/// What became of R's channel at his death (0.1.9), for the `DIED` line: `had` r_ch on him, `off` buffs the host took off,
+/// whether it `stays` on him after that.
+pub fn channel_off(had: bool, off: usize, stays: bool) -> String {
+    match (had, stays) {
+        (false, _) => String::new(),
+        (true, false) => format!("; R's channel taken off his body ({off} removed): no flight, no landing"),
+        (true, true) => format!("; r_ch STAYS on his body ({off} removed by the host): the flight finds him dead, the \
+                                 landing has no r_flew"),
     }
 }
 
@@ -715,6 +795,55 @@ mod tests {
                   CcKindV1::ForceMove] {
             assert!(is_hard_cc(k.code()));
         }
+    }
+
+    /// 0.1.9: League's roots do not interrupt channels (the 11-08 logs: 3 of 41 `BROKEN` were a root alone); a rooted ally
+    /// is still in crowd control for the choice, and a rooted Galio still starts no R (`hard_cc`).
+    #[test]
+    fn a_root_does_not_break_the_channel() {
+        assert!(!breaks_channel(CcKindV1::Bind.code()));
+        assert!(is_hard_cc(CcKindV1::Bind.code()), "still an ally's crowd control");
+        for k in [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm, CcKindV1::ForceMove] {
+            assert!(breaks_channel(k.code()), "{k:?} breaks it");
+        }
+        for k in [CcKindV1::Animation, CcKindV1::BlockSkill, CcKindV1::BlockAttack, CcKindV1::BlockMoveSkill] {
+            assert!(!breaks_channel(k.code()), "{k:?} does not");
+        }
+    }
+
+    /// 0.1.9: the channel's end goes by its flight, not by how far he moved from where it began.
+    #[test]
+    fn the_channel_ends_by_its_flight() {
+        // 11-08 `NO FLIGHT #1`: the channel from 53207 at (498808, 717908); `FLY #15` onto Rakan at (508145, 721544) on
+        // 53326, set_pos yes; he stood 1000 from the spot the tick after - "moved 7710", a landing all the same
+        let flight = Some((53_326, (508_145, 721_544), true));
+        let (landed, how) = channel_end(53_207, flight, (508_145.0, 721_544.0));
+        assert!(landed, "{how}");
+        assert_eq!(how, "flew to (508145, 721544) (set_pos yes), stands 0 from it");
+        assert!(channel_end(53_207, flight, (507_214.0, 721_180.0)).0, "a step off the spot (1000) still landed");
+        // no flight in this channel: none at all, or one of an earlier channel
+        assert_eq!(channel_end(53_207, None, (498_808.0, 717_908.0)),
+                   (false, "no flight on record (no FLY ran, or it found no spot)".to_string()));
+        assert!(!channel_end(53_207, Some((50_000, (1, 1), true)), (1.0, 1.0)).0, "an older flight is not this one's");
+        // the host said no, or said yes and he is not there: the 0.1.7 "moved 0" mystery, now told apart
+        assert_eq!(channel_end(10, Some((129, (500_000, 400_000), false)), (300_000.0, 400_000.0)),
+                   (false, "the flight to (500000, 400000) was refused by set_pos".to_string()));
+        assert_eq!(channel_end(10, Some((129, (500_000, 400_000), true)), (300_000.0, 400_000.0)),
+                   (false, "set_pos took (500000, 400000) but he stands 200000 from it".to_string()));
+    }
+
+    /// 0.1.9: a dead Galio's R neither flies nor lands - the copy's landing waits for the flag only a live flight hangs,
+    /// and his death line says whether R's channel came off his body.
+    #[test]
+    fn a_dead_galio_does_not_land() {
+        let copy = include_str!("../override/league_galio.data_champion");
+        assert!(copy.contains(&format!("\"buff_name\": \"{R_FLEW}\"")), "the copy's landing does not wait for {R_FLEW}");
+        let main = include_str!("../../../league/champion/league_galio.data_champion");
+        assert!(!main.contains(R_FLEW), "the main pack (the game's Teleport) has no add-on to hang it");
+        assert!(R_FLEW.len() <= BUFF_NAME_CAP && FLEW_FLAG >= 2, "seen on FLEW_FLAG - 1 ticks: the next tick must see it");
+        assert_eq!(channel_off(false, 0, false), "");
+        assert_eq!(channel_off(true, 1, false), "; R's channel taken off his body (1 removed): no flight, no landing");
+        assert!(channel_off(true, 0, true).starts_with("; r_ch STAYS on his body"));
     }
 
     fn ally(id: usize, far: f64, hp: f64, in_cc: bool, near: usize, close: usize) -> Ally {
@@ -793,9 +922,10 @@ mod tests {
 
     #[test]
     fn the_names_fit() {
-        for x in ["w_taunt", "r_this", "w_ps"] {
+        for x in ["w_taunt", "r_this", "w_ps", "r_flew"] {
             assert!(gl(x).len() <= BUFF_NAME_CAP);
         }
+        assert_eq!(gl("r_flew"), R_FLEW);
         assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
     }
 

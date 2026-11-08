@@ -47,3 +47,14 @@ Q 的「用过的地面」（`q_ground`，每 3 tick）开头 3 tick 不算；E 
 ## 0.2.5：她死了墙照挡（2026-11-07）
 
 用户：「岩雀的墙卡不住人」。挡人是她被动每 tick 做的，可死了的英雄的被动不运行（league_azir 0.2.1 在 11-04 的日志里查到：圆盘和墙在他死后定住，到复活才走），所以她立墙后一死，墙的画面还在、剩下的几秒却谁都挡不住。现在她死时有墙立着，就把墙和挡人的账交给排在她身上的原生效果 `league_taliyah:pulse`：排下的效果在死了的施放者身上照跑，每 tick 挡一次、排下一次，墙都倒了为止；她又活了（同一个单位复活）就由被动收回。两份并排跑的预演按她第一次出生时取的编号分开（照 league_azir）。日志：`DEAD`（她死时交出去几块墙）、`PULSE`（替她挡了几 tick，墙都倒了时一行）。
+
+## 0.2.6：被墙挡住的账记到它离开墙为止（2026-11-08）
+
+11-08 夜里的日志：她死后墙照挡（`DEAD` / `PULSE` 41 / 41），可 0.2.3 的「顺着墙挪」很少起作用：235 行 `HOLD` 里 45 行挡了 100 tick 以上，其中只有
+8 行顺着墙挪了一半以上（夏亚挡 274 tick 只挪 13、芸阿娜 237 / 11、她自己 247 / 18）。原因：挪之前要数满 20 tick（`STALL_T`），可被放回的地方挪出
+1000（`STALL_MOVE`，还不到一步，它的路一歪就有）就从头数，每个被推的 tick、每个没往墙里走的 tick（停下来普攻、转身）也把账删了。现在账一直记到它
+离开所有的墙（墙的四边各加它的半径再加 `CLEAR` 8000），被推、停一下、晃一下都不重数；数满 20 tick 时它自己顺着墙一 tick 走了半步以上（`going`，
+它在绕）才从那里重数，不然顺着它自己挪的方向（挪得不到 1000 就往近的那头）每 tick 挪一步。`HOLD` 行末写上重数过几次、为什么
+（`count restarted N (a clear of the walls, b walking along it)`）。单元测试 `a_unit_that_stops_jitters_and_is_pushed_is_still_stepped_round`、
+`the_count_starts_again_only_clear_of_every_wall`。下一局看：挡了 100 tick 以上的 `HOLD` 少了、`stepped along it` 占挡的大半；`count restarted`
+多半是 `clear of the walls`。

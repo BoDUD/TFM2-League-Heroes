@@ -23,6 +23,7 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -51,6 +52,26 @@ const CAST_JUMP: usize = 1000;
 const RESET: &str = "league_darius_r_reset";
 
 // ===================== 日志 =====================
+
+/// 0.1.4: `R HELD` lines by the launch's count - the match on screen every one, the server's presims the first
+/// `HELD_FIRST`, then every `HELD_EVERY`-th (the 11-08 night logs: 3664 lines, 3604 of them presims, 34 a match; the
+/// 120-tick spacing per hook stays).
+pub const HELD_FIRST: usize = 40;
+pub const HELD_EVERY: usize = 100;
+static HELD_N: AtomicUsize = AtomicUsize::new(0);
+
+/// The `n`-th `R HELD` of the launch is written: every one on screen (`shown`), else the first `HELD_FIRST` and every
+/// `HELD_EVERY`-th.
+pub fn held_logged(n: usize, shown: bool) -> bool {
+    shown || n <= HELD_FIRST || n % HELD_EVERY == 0
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
@@ -284,10 +305,10 @@ impl StablePlayerAi for UltAi {
                 let target = ai_target.and_then(|t| sim.get_entity(t));
                 let ai_foe = target.as_ref().filter(|e| enemy(e)).map(|e| read_foe(e));
                 let target_pos = target.as_ref().map(|e| e.pos());
-                Some((read_me(&me), free, foes, ai_foe, target_pos, me.pos(), line))
+                Some((read_me(&me), free, foes, ai_foe, target_pos, me.pos(), line, on_screen(&sim)))
             })()
         };
-        let (me, free, foes, ai_foe, target_pos, my_pos, line) = read?;
+        let (me, free, foes, ai_foe, target_pos, my_pos, line, shown) = read?;
         // 主动放只放给现在能被 R 选中的人（施放目标、距离）
         let foes: Vec<Foe> = foes.into_iter().filter(|f| ctx.is_valid_input(&ult(f.id))).collect();
         let (d, stacks) = (me.r_damage(), me.stacks_at_blow());
@@ -303,13 +324,17 @@ impl StablePlayerAi for UltAi {
         let hold = |this: &mut Self, ctx: &mut StableAiContext<'_>, x: Option<usize>| -> Option<InputV1> {
             if this.last_hold.is_none_or(|t0| tick >= t0 + LOG_EVERY) {
                 this.last_hold = Some(tick);
-                let who = match (x, x.and_then(ehp_of)) {
-                    (Some(x), Some(ehp)) => format!("#{x} hp + shield {ehp} > {}{}", blow_on(x),
-                                                    if foe_of(x).is_some_and(|f| f.undying) { ", undying" } else { "" }),
-                    (Some(x), None) => format!("#{x} is no enemy champion alive"),
-                    (None, _) => "no target".to_string(),
-                };
-                wlog(format!("{line} R HELD: {who} ({stacks} stacks, attack {}), attacking instead", me.attack));
+                // 0.1.4: and by the launch's count - the presims capped, the match on screen in full
+                let n = HELD_N.fetch_add(1, Ordering::Relaxed) + 1;
+                if held_logged(n, shown) {
+                    let who = match (x, x.and_then(ehp_of)) {
+                        (Some(x), Some(ehp)) => format!("#{x} hp + shield {ehp} > {}{}", blow_on(x),
+                                                        if foe_of(x).is_some_and(|f| f.undying) { ", undying" } else { "" }),
+                        (Some(x), None) => format!("#{x} is no enemy champion alive"),
+                        (None, _) => "no target".to_string(),
+                    };
+                    wlog(format!("{line} R HELD: {who} ({stacks} stacks, attack {}), attacking instead #{n}", me.attack));
+                }
             }
             if let Some(x) = x {
                 let attack = InputV1::action(InputKindV1::Attack, InputTargetV1::target(x));
@@ -477,3 +502,18 @@ fn init(host: &StableHost) -> StableMod {
 // league_addons compiles this file as one of its modules and registers it with the others
 #[cfg(not(league_bundle))]
 declare_stable_mod!(init, requires = 9);
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    /// 0.1.4 (the 11-08 night logs: 3664 `R HELD`, 3604 of them presims): the presims' lines capped by the launch's count,
+    /// the match on screen in full.
+    #[test]
+    fn r_held_is_capped_in_the_presims_only() {
+        let presim: Vec<usize> = (1..=3_664).filter(|&n| held_logged(n, false)).collect();
+        assert_eq!(&presim[..HELD_FIRST], &(1..=HELD_FIRST).collect::<Vec<_>>()[..]);
+        assert_eq!(presim.len(), HELD_FIRST + 3_664 / HELD_EVERY, "40 + every 100th: 76 lines, was 3664");
+        assert!((1..=3_664).all(|n| held_logged(n, true)), "on screen: every one");
+    }
+}

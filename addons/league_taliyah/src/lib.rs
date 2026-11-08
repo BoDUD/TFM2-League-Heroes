@@ -53,14 +53,22 @@ pub const BODY: u64 = 6000;
 pub const LATE: usize = 3;
 /// 两个投射物位置这么近算同一处。
 pub const SAME: u64 = 200;
-/// 被墙挡住、这么多 tick 自己没挪出 `STALL_MOVE` 就顺着墙往近的那头挪（0.2.2，[`unstick`]）。
+/// 被墙挡住（往墙里走）这么多 tick 就顺着墙挪（0.2.2，[`unstick`]）：往它自己顺着墙挪的那个方向，挪得不到 `STALL_MOVE` 就往近的那头。
 pub const STALL_T: usize = 20;
 pub const STALL_MOVE: u64 = 1_000;
+/// 数满 `STALL_T` tick 时它自己顺着墙走了这么远（这一阵平均每 tick 走了它一步的一半以上，`step` 夹在 `STEP_MIN`..`STEP_MAX`）：
+/// 它在绕，不用帮，从这里重数（0.2.6）。
+pub fn going(step: u64) -> f64 {
+    ((STALL_T as u64 - 1) * step.clamp(STEP_MIN, STEP_MAX)) as f64 / 2.0
+}
 /// 顺着墙挪时每 tick 挪它自己想走的那么远，夹在这两个数之间。
 pub const STEP_MIN: u64 = 300;
 pub const STEP_MAX: u64 = 2_000;
 /// 顺着墙挪不动时（卡在台阶的角里）再往墙外挪最多这么多个 step（0.2.3，[`unstick`]）。
 pub const OFF_STEPS: u64 = 2;
+/// 离所有的墙都这么远（墙的四边各加单位半径再加这么多）才算离开了墙，被挡的账（[`Stall`]）才清（0.2.6，[`walls_tick`]）：
+/// 比 [`unstick`] 一次能把它挪离墙面的（顺着墙一步、往外 `OFF_STEPS` 步）远。
+pub const CLEAR: u64 = (OFF_STEPS + 2) * STEP_MAX;
 /// 横墙相邻两段的墙心相距不超过半宽的这么多倍就是同一道墙（铺下时相距一段 = 2 个半宽）。
 pub const LINK_HW: u64 = 3;
 /// 地图边长（坐标 0..MAP）。
@@ -256,13 +264,17 @@ pub fn hold(walls: &[Wall], last: Option<(u64, u64)>, now: (u64, u64), r: u64) -
     push_clear(walls, now, r)
 }
 
-/// 一个被墙挡住的单位（0.2.2）：从哪开始算没挪动（`at`）、挡了几 tick 没挪出 `STALL_MOVE`（`ticks`）、正在顺着墙挪的方向
-/// （`dir`：true 往这道墙 [`line_of`] 的 b 头，x 大的那头，x 一样时 y 大的那头）。
+/// 一个被墙挡住的单位（0.2.2）：这次从哪开始数（`at`）、往墙里走了几 tick（`ticks`）、正在顺着墙挪的方向（`dir`：true 往这道墙
+/// [`line_of`] 的 b 头，x 大的那头，x 一样时 y 大的那头）。0.2.6：账一直记到它离开所有的墙（`CLEAR`），重数过几次、为什么：
+/// `clear` 离开了墙，`along` 数满时它自己顺着墙走了 [`going`] 以上。她同时只有一道墙（R 冷却 4200 tick、墙立 300 tick），
+/// 按单位记就是按（单位, 墙）。
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
 pub struct Stall {
     pub at: (u64, u64),
     pub ticks: usize,
     pub dir: Option<bool>,
+    pub clear: usize,
+    pub along: usize,
 }
 
 type F2 = (f64, f64);
@@ -318,6 +330,12 @@ pub fn line_of(walls: &[Wall], w: &Wall) -> (F2, F2) {
     ((a.0 - d.0 * hw, a.1 - d.1 * hw), (b.0 + d.0 * hw, b.1 + d.1 * hw))
 }
 
+/// 从 `a` 到 `b` 顺着这道墙走了多远（往 b 头为正）。
+pub fn along(line: &(F2, F2), a: (u64, u64), b: (u64, u64)) -> f64 {
+    let d = unit(line.0, line.1);
+    (b.0 as f64 - a.0 as f64) * d.0 + (b.1 as f64 - a.1 as f64) * d.1
+}
+
 /// 这道墙离 `p` 近的那一头：true = b 头（投到墙线上过了一半）。
 pub fn nearer_end(line: &(F2, F2), p: (u64, u64)) -> bool {
     let d = unit(line.0, line.1);
@@ -341,21 +359,33 @@ pub fn step_off(line: &(F2, F2), p: (u64, u64), plus: bool, step: u64, off: u64)
 /// 被挡住的单位这一 tick 在哪（0.2.2）：`held` 是 [`hold`] 把它放回的地方，`tried` 是它想走到的地方（在墙里），`step` 是它这一
 /// tick 想走多远。墙不是引擎的地形，单位的寻路不知道它，正对着墙走的单位只剩「顺着墙的那一半」= 0，每 tick 被放回原处：
 /// 11-03 夜里的日志，墙立 300 tick，小兵在同一个坐标站了 281 tick，布隆 227、洛 212、赵信 205、永恩 202（队友也一样）。
-/// 现在挡了 `STALL_T` tick 没挪出 `STALL_MOVE`，就每 tick 顺着整道墙（[`line_of`]，0.2.3：台阶状的横墙算一道）往近的那头挪，
-/// 挪不过去就先往墙外错开最多 `OFF_STEPS` 步再挪、再不行换另一头；挪过墙头它自己就绕过去了；挪着的时候不再等。
+/// 现在挡了 `STALL_T` tick，就每 tick 顺着整道墙（[`line_of`]，0.2.3：台阶状的横墙算一道）挪：往它自己这一阵顺着墙挪的方向，
+/// 挪得不到 `STALL_MOVE` 就往近的那头；挪不过去就先往墙外错开最多 `OFF_STEPS` 步再挪、再不行换另一头；挪过墙头它自己就绕过去了；
+/// 挪着的时候不再等。
+/// 0.2.6（11-08 的日志：235 次 HOLD 里 45 次超过 100 tick，只有 8 次顺着墙挪了一半以上，夏亚 274 tick 只挪 13、她自己 247 只挪 18）：
+/// 以前被放回的地方挪出 `STALL_MOVE`（1000，一步都不到）就从头数，挡人的那一段每个被推的 tick、每个没往墙里走的 tick 也把账删了，
+/// 数满 20 tick 的很少。现在账记到它离开所有的墙（[`walls_tick`]）；数满时它自己顺着墙走了 [`going`] 以上（在绕）才从这里重数。
 pub fn unstick(walls: &[Wall], s: &mut Stall, held: (u64, u64), tried: (u64, u64), r: u64, step: u64) -> (u64, u64) {
     let Some(w) = walls.iter().find(|w| inside(w, tried, r)) else { return held };
     let line = line_of(walls, w);
     if s.dir.is_none() {
-        if s.ticks == 0 || held.0.abs_diff(s.at.0).max(held.1.abs_diff(s.at.1)) > STALL_MOVE {
-            // getting somewhere along the wall on its own (or the first tick held): the count starts here
-            *s = Stall { at: held, ticks: 0, dir: None };
+        if s.ticks == 0 {
+            // the first tick held (or the first after a restart): the count starts here
+            s.at = held;
         }
         s.ticks += 1;
         if s.ticks < STALL_T {
             return held;
         }
-        s.dir = Some(nearer_end(&line, held));
+        let drift = along(&line, s.at, held);
+        if drift.abs() >= going(step) {
+            // walking along the wall on its own: it gets round by itself, count again from here
+            s.ticks = 0;
+            s.along += 1;
+            return held;
+        }
+        // the way it has been sliding (never against it), else the nearer end
+        s.dir = Some(if drift.abs() > STALL_MOVE as f64 { drift > 0.0 } else { nearer_end(&line, held) });
     }
     let step = step.clamp(STEP_MIN, STEP_MAX);
     let d = s.dir.unwrap_or(true);
@@ -369,6 +399,42 @@ pub fn unstick(walls: &[Wall], s: &mut Stall, held: (u64, u64), tried: (u64, u64
         }
     }
     held
+}
+
+/// 墙对一个单位这一 tick 做了什么（[`walls_tick`]）：它该在哪（None：不用动）、是往墙里走被挡（不是被推）、[`unstick`] 挪了它。
+#[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub struct Moved {
+    pub to: Option<(u64, u64)>,
+    pub held: bool,
+    pub stepped: bool,
+}
+
+/// 一个单位这一 tick 碰到墙（挡人那一段的单位部分，0.2.6 拿出来测）：`last` 它上一 tick 在哪，`now` 它这一 tick 走到哪，
+/// `stalls` 被挡的账（按单位）。往墙里走：[`hold`] 放回、[`unstick`] 数着挪；墙立起压着它：推出去。账一直留着（被推、某一 tick
+/// 没往墙里走都不删），直到它这一 tick 落脚的地方离所有的墙都在 `CLEAR` 外，才重数（`clear` 加一）。
+pub fn walls_tick(walls: &[Wall], stalls: &mut HashMap<usize, Stall>, id: usize, last: Option<(u64, u64)>, now: (u64, u64),
+                  r: u64) -> Moved {
+    let mut out = Moved::default();
+    if let Some(q) = hold(walls, last, now, r) {
+        out.held = last.is_some_and(|l| clear(walls, l, r));
+        let mut to = q;
+        if out.held {
+            // walking into the wall: held, and stepped along it after STALL_T ticks
+            let step = last.map_or(0, |l| l.0.abs_diff(now.0).max(l.1.abs_diff(now.1)));
+            to = unstick(walls, stalls.entry(id).or_default(), q, now, r, step);
+            out.stepped = to != q;
+        }
+        out.to = Some(to);
+    }
+    let at = out.to.unwrap_or(now);
+    if let Some(s) = stalls.get_mut(&id) {
+        if (s.ticks > 0 || s.dir.is_some()) && walls.iter().all(|w| !inside(w, at, r + CLEAR)) {
+            s.ticks = 0;
+            s.dir = None;
+            s.clear += 1;
+        }
+    }
+    out
 }
 
 /// 出口找几层（从一块墙出来又进了另一块，再从那块出）。
@@ -622,7 +688,15 @@ impl Blocker {
         for ((id, at), h) in done {
             self.held.remove(&(id, at));
             if let Some(k) = counted("hold") {
-                wlog(format!("{} HOLD #{k}: {} ({}) held {} ticks by the wall at ({}, {}){}", head(sim, me), who(sim, id),
+                // why its count started again (0.2.6): it got clear of the walls, or walked along the wall on its own
+                let again = match self.stalls.get(&id) {
+                    Some(s) if s.clear + s.along > 0 => {
+                        format!(", count restarted {} ({} clear of the walls, {} walking along it)", s.clear + s.along, s.clear,
+                                s.along)
+                    }
+                    _ => String::new(),
+                };
+                wlog(format!("{} HOLD #{k}: {} ({}) held {} ticks by the wall at ({}, {}){}{again}", head(sim, me), who(sim, id),
                              h.side, h.ticks, at.0, at.1,
                              if h.stepped > 0 { format!(", stepped along it {} ticks", h.stepped) } else { String::new() }));
             }
@@ -660,33 +734,20 @@ impl Blocker {
             }
             let r = match e.radius() as u64 { 0 => BODY, r => r };
             let last = self.last_pos.get(&id).copied();
-            let at = match hold(&self.walls, last, now_pos, r) {
-                Some(q) => {
-                    let held = last.is_some_and(|l| clear(&self.walls, l, r));
-                    let q = if held {
-                        // walking into the wall: held, and stepped along it after STALL_T ticks without getting anywhere
-                        let step = last.map_or(0, |l| l.0.abs_diff(now_pos.0).max(l.1.abs_diff(now_pos.1)));
-                        let to = unstick(&self.walls, self.stalls.entry(id).or_default(), q, now_pos, r, step);
-                        if let Some(w) = self.walls.iter().find(|w| inside(w, now_pos, r)) {
-                            let side = if id == me { "herself" } else if e.team() == team { "her ally" } else { "an enemy" };
-                            let h = self.held.entry((id, (w.x, w.y))).or_insert(Held { side, ..Held::default() });
-                            h.ticks += 1;
-                            h.stepped += usize::from(to != q);
-                        }
-                        to
-                    } else {
-                        self.stalls.remove(&id);
-                        q
-                    };
-                    moves.push((id, q, held));
-                    q
+            // held / pushed / free, and the stall kept till it is clear of every wall (0.2.6)
+            let m = walls_tick(&self.walls, &mut self.stalls, id, last, now_pos, r);
+            if m.held {
+                if let Some(w) = self.walls.iter().find(|w| inside(w, now_pos, r)) {
+                    let side = if id == me { "herself" } else if e.team() == team { "her ally" } else { "an enemy" };
+                    let h = self.held.entry((id, (w.x, w.y))).or_insert(Held { side, ..Held::default() });
+                    h.ticks += 1;
+                    h.stepped += usize::from(m.stepped);
                 }
-                None => {
-                    self.stalls.remove(&id);
-                    now_pos
-                }
-            };
-            seen.insert(id, at);
+            }
+            if let Some(q) = m.to {
+                moves.push((id, q, m.held));
+            }
+            seen.insert(id, m.to.unwrap_or(now_pos));
         }
         for (id, (x, y), held) in moves {
             sim.entity_set_pos(id, x, y);
@@ -976,20 +1037,34 @@ mod tests {
         let r = 6000;
         let at = (488000, 410000);
         assert!(clear(&w, at, r));
-        let mut s = Stall { at, ticks: STALL_T - 1, dir: None };
+        let mut s = Stall { at, ticks: STALL_T - 1, ..Stall::default() };
         let to = unstick(&w, &mut s, at, (488400, 410000), r, 400);
         assert_eq!((to, s.dir), ((488000, 409600), Some(false)));
         // boxed in both ways: it stays
-        let mut s = Stall { at, ticks: 0, dir: Some(true) };
+        let mut s = Stall { at, dir: Some(true), ..Stall::default() };
         let box_ = [w[0], w[1], Wall::flat(&p, (480000, 397900), 300)];
         assert!(clear(&box_, at, r));
         assert_eq!(unstick(&box_, &mut s, at, (488400, 410000), r, 400), at);
-        // a slide along the wall on its own (it gets somewhere): no count
+        // a slide along the wall on its own (it gets somewhere): no step, the count starts again each STALL_T ticks
         let mut s = Stall::default();
         for k in 0..STALL_T * 2 {
             let here = (488000, 410000 + 1500 * k as u64);
             assert_eq!(unstick(&w[..1], &mut s, here, (488400, here.1), r, 1500), here);
         }
+        // (once: past the wall's end at k = 38 nothing holds it, the second count never fills)
+        assert_eq!((s.along, s.clear, s.dir), (1, 0, None));
+        // a slow slide down (1900 in the count, short of going(400) = 3800): stepped the way it slides, not to the nearer end (up)
+        let mut s = Stall::default();
+        let mut stepped = None;
+        for k in 0..STALL_T as u64 {
+            let here = (488000, 410000 - 100 * k);
+            let to = unstick(&w[..1], &mut s, here, (488400, here.1), r, 400);
+            if to != here {
+                stepped = Some(to);
+            }
+        }
+        assert_eq!(s.dir, Some(false));
+        assert_eq!(stepped, Some((488000, 410000 - 100 * (STALL_T as u64 - 1) - 400)));
         // along the map's edge: never past it
         let f = Wall::flat(&p, (10000, 500000), 300);
         let fl = line_of(&[f], &f);
@@ -1041,6 +1116,75 @@ mod tests {
         assert!(s.dir.is_some(), "never held long enough to be stepped");
         assert!(longest <= STALL_T, "stood {longest} ticks on one spot");
         assert!(crossed.is_some_and(|t| t < 300), "never got round the wall: at {at:?}");
+    }
+
+    #[test]
+    fn a_unit_that_stops_jitters_and_is_pushed_is_still_stepped_round() {
+        // 11-08: 45 of 235 HOLDs over 100 ticks, 8 stepped half of it (Xayah held 274 ticks, stepped 13). The count began
+        // again whenever the held spot moved 1000 (a step's jitter along the wall) and was dropped on every push and every
+        // tick the unit did not walk into the wall - now it lasts till the unit is clear of every wall
+        let w = [Wall::upright(&p(), (500000, 400000), true, 300)];
+        let r = 6000;
+        let mut stalls = HashMap::new();
+        let mut at = (488000u64, 410000u64);
+        let (mut first_step, mut round) = (None, None);
+        for t in 0..300usize {
+            let (last, tried) = match t % 10 {
+                // the wall's own push (as when it rises on the unit): pushed back to her side
+                9 => (None, (at.0 + 3000, at.1)),
+                // a tick it walks back from the wall
+                5 => (Some(at), (at.0 - 400, at.1)),
+                // walking at its target behind the wall, its path wobbling 1500 up and down
+                _ => (Some(at), (at.0 + 400, if t % 2 == 0 { at.1 + 1500 } else { at.1 - 1500 })),
+            };
+            let m = walls_tick(&w, &mut stalls, 7, last, tried, r);
+            let to = m.to.unwrap_or(tried);
+            assert!(clear(&w, to, r), "t={t}: in the wall at {to:?}");
+            if m.stepped && first_step.is_none() {
+                first_step = Some(t);
+            }
+            at = to;
+            if at.1 >= 400000 + 60000 + r {
+                round = Some(t);
+                break;
+            }
+        }
+        // stepped after STALL_T held ticks (7 of every 10 ticks hold it), up to its nearer end and round it
+        assert!(first_step.is_some_and(|t| t < STALL_T * 2), "first step at {first_step:?}");
+        assert!(round.is_some_and(|t| t < 200), "never got round the wall: at {at:?}");
+        let s = stalls[&7];
+        assert_eq!((s.clear, s.along, s.dir), (0, 0, Some(true)), "{s:?}");
+    }
+
+    #[test]
+    fn the_count_starts_again_only_clear_of_every_wall() {
+        let w = [Wall::upright(&p(), (500000, 400000), true, 300)];
+        let r = 6000;
+        let mut stalls = HashMap::new();
+        let mut at = (488000u64, 410000u64);
+        for _ in 0..10 {
+            let m = walls_tick(&w, &mut stalls, 3, Some(at), (at.0 + 400, at.1), r);
+            at = m.to.expect("held");
+        }
+        assert_eq!(stalls[&3].ticks, 10);
+        // a few steps back: still at the wall, the count stays
+        let back = (500000 - (r + 6000) - 5000, at.1);
+        assert_eq!(walls_tick(&w, &mut stalls, 3, Some(at), back, r), Moved::default());
+        assert_eq!((stalls[&3].ticks, stalls[&3].clear), (10, 0));
+        // beyond CLEAR of its face: clear of the walls, the count starts again (and the HOLD line says why)
+        let away = (500000 - (r + 6000) - CLEAR - 1, at.1);
+        walls_tick(&w, &mut stalls, 3, Some(back), away, r);
+        assert_eq!((stalls[&3].ticks, stalls[&3].dir, stalls[&3].clear), (0, None, 1));
+        // once: clear again the next tick is no new restart
+        walls_tick(&w, &mut stalls, 3, Some(away), away, r);
+        assert_eq!(stalls[&3].clear, 1);
+        // a unit never held has no account at all
+        walls_tick(&w, &mut stalls, 4, Some(away), away, r);
+        assert!(!stalls.contains_key(&4));
+        // CLEAR is past anything one unstick step can put between the unit and the wall
+        assert!(CLEAR > (OFF_STEPS + 1) * STEP_MAX);
+        // walking along at half its step a tick or more is its own way round
+        assert_eq!((going(400), going(100), going(9000)), (3800.0, 2850.0, 19000.0));
     }
 
     #[test]
