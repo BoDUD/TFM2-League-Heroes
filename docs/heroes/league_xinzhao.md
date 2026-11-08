@@ -55,7 +55,7 @@
 
 ### 赵信大招远程免伤附加包
 
-[赵信大招远程免伤附加包](../../addons/league_xinzhao_guard/README.md)：`league_xinzhao_guard` v0.1.1
+[赵信大招远程免伤附加包](../../addons/league_xinzhao_guard/README.md)：`league_xinzhao_guard` v0.1.2
 
 主包 `league` 保持纯数据。英雄联盟里赵信的 R「新月护卫」之后，他免疫 450 码外敌人的伤害；数据读不到伤害来自多远，
 所以主包里改成 R 之后 3 秒受到的伤害降低 40%（用户选的）。用户：「读不到多远就改rust源代码 看看能不能」——

@@ -1,4 +1,4 @@
-# 劫读血附加包（测试版 v0.2.2）
+# 劫读血附加包（测试版 v0.2.3）
 
 主包 `league` 保持纯数据。数据读不到生命也读不到伤害，所以主包里劫的两处是替代做法：
 
@@ -96,3 +96,11 @@ target ...) - backing off 30 ticks`（league_orianna 0.3.2 的做法）；一串
 ## 0.2.2：影子附近的敌人下一 tick 就算（2026-11-06）
 
 影子附近的敌方英雄判定（`sh_near`，每 6 tick）开头 6 tick 不算；现在下一 tick 就算。经典 SDK 实测（2026-11-06，`trace.exe` 逐 tick 看每个区域第一次生效）：区域出现后第 `first_delay` tick 才第一次生效，写 0 等于晚整整一个周期（从飞行物落点生成的晚 `period` tick，从延迟或技能里直接生成的晚 `period - 1` tick）。改成 1 后，从落点生成的落地下一 tick 就生效，从延迟里生成的出现当 tick 就生效。主包的数据跟着改，本包的副本用 `make_override.py` 重新生成；DLL 没变。
+
+## 0.2.3：他自己普攻的时候不按连招（2026-11-08）
+
+11-08 夜里的日志：`not taken ... backing off 30 ticks` 一次启动 19 行（前一次 3 行），全在他自己的普攻开始后 4-23 tick（行里的 `attack 22/36`
+= 普攻冷却还剩 22）；m=4753 t=7679 对着被晕住、只剩 26% 的杰斯按 R 没放出去，歇了 30 tick，33 tick 后才放出。原因：游戏在他播普攻动作
+（`atk_dur` 25 tick）时不收技能键，`playing` 只看了 W、Q、R 的动作。现在普攻也算：普攻冷却从满开始走了不到 `attack_act` tick 就不按，动作播完的
+那一 tick 再按；攻速把动作和冷却一起缩短，`attack_act` = 25 x 这次的普攻冷却 / 55（`atk_cd`），`atk_dur`、`atk_cd` 由单元测试对着
+tools/kit/build_zed.py 核对（`no_press_while_his_attack_plays`）。下一局看：`not taken` 少了。

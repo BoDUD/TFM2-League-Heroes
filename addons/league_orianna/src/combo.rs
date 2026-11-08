@@ -15,7 +15,8 @@
 //!   - 否则 Q 好着、她生命不低于 `MIN_HP`、`Q_REACH` 内有个敌方英雄脚下 `CROWD` 内有 2 个以上（或冲击波打得死他）、AI 也没在
 //!     带她远离他（`AWAY`）：R 还没待命先按 R 待命，待命了按 Q 扔给他（`Plan::Throw`）——球一落地数据就放；
 //!   - 别的都交给 AI 和 league_ult_press。
-//! 正在回城、放技能或被位移（`farm::busy`，R 待命的 3 tick 动作也算）时不管；AI（或 league_ult_press）这一 tick 已经按了同一个格子
+//! 正在回城、放技能或被位移（`farm::busy`，R 待命的 3 tick 动作也算）时不管，她自己的 Q、R、普攻动作还在播（`playing`、
+//! [`attack_playing`]，0.3.4 起算上普攻）时也不按、动作一播完就按；AI（或 league_ult_press）这一 tick 已经按了同一个格子
 //! 也不管（Q 扔给谁由数据问 `:q_pick`）。日志 `COMBO`。
 
 use mod_api_stable::*;
@@ -36,6 +37,11 @@ pub const ARM_REACH: f64 = 52_000.0;
 /// 一次都没放出来，两次能击杀的冲击波都错过了）。冷却从满开始走了不到这么多 tick 就算还在播。
 pub const Q_ACT: usize = 20;
 pub const R_ACT: usize = 3;
+/// 她自己的普攻也一样（0.3.4，11-08 的日志：退避 40 次，「not taken」多半在普攻开始后 4-27 tick——R 在球边 4 个敌方英雄时没放出去，
+/// 歇了 30 tick 再按时只剩 2 个）：普攻动作 `ATK_DUR` tick（atk_dur），冷却 `ATK_CD`（atk_cd）。攻速把动作和冷却一起缩短
+/// （champion-data.md 第 3 节），所以按普攻栏这次的冷却折算（[`attack_act`]）；动作播完那一 tick 就按。
+pub const ATK_DUR: usize = 28;
+pub const ATK_CD: usize = 90;
 /// R 格的射程（r_slot）：按 R 要有个这么近的敌方英雄当目标。
 pub const R_SLOT: f64 = 90_000.0;
 /// 冲击波的半径（r_r），`CROWD` 比它小一点。
@@ -50,6 +56,16 @@ pub const AFTER_Q: usize = 90;
 /// （0.3.2，11-04 的日志：Q 连按 11 和 15 tick、R 连按 7 tick 都没放出去，待命的 R 到期退还了）。一串只记第一下和歇的那一下。
 pub const PRESS_MAX: usize = 3;
 pub const BACKOFF: usize = 30;
+
+/// 普攻动作这次播多少 tick：`ATK_DUR` 按普攻栏的冷却（攻速缩短过的）对 `ATK_CD` 折算，向上取整。
+pub fn attack_act(cooltime: usize) -> usize {
+    (ATK_DUR * cooltime).div_ceil(ATK_CD)
+}
+
+/// 普攻还在播：冷却从满开始走了不到 [`attack_act`] tick（游戏这时不收技能键）。
+pub fn attack_playing(remaining: usize, cooltime: usize) -> bool {
+    remaining > 0 && cooltime.saturating_sub(remaining) < attack_act(cooltime)
+}
 
 /// 连按的记录：哪个键、第一下、上一下、连着几下。
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -190,11 +206,13 @@ impl StablePlayerAi for Combo {
             if !me.is_alive() || busy(&me) || under(&me, &NO_CAST) {
                 return None;
             }
-            // her own Q or R still playing: a press now is dropped (the engine takes none until it ends)
+            // her own Q, R or basic attack still playing: a press now is dropped (the engine takes none until it ends) - the
+            // press goes on the first free tick (0.3.4: the attack too, 11-08's 40 back-offs)
             let playing = |s: SkillSlotV1, act: usize| {
                 me.cooldown(s).is_some_and(|c| c.remaining > 0 && c.cooltime.saturating_sub(c.remaining) < act)
             };
-            if playing(SkillSlotV1::Skill, Q_ACT) || playing(SkillSlotV1::Ult, R_ACT) {
+            let attacking = me.cooldown(SkillSlotV1::Attack).is_some_and(|c| attack_playing(c.remaining, c.cooltime));
+            if playing(SkillSlotV1::Skill, Q_ACT) || playing(SkillSlotV1::Ult, R_ACT) || attacking {
                 return None;
             }
             let (my_id, here, tick) = (me.id(), at(&me), sim.tick());
@@ -379,10 +397,30 @@ mod tests {
     fn the_numbers_match_the_kit() {
         let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_orianna.py");
         let src = std::fs::read_to_string(path).expect("build_orianna.py");
-        for (key, v) in [("q_range", Q_RANGE as usize), ("r_slot", R_SLOT as usize), ("r_r", R_R as usize)] {
+        for (key, v) in [("q_range", Q_RANGE as usize), ("r_slot", R_SLOT as usize), ("r_r", R_R as usize), ("q_dur", Q_ACT),
+                         ("atk_dur", ATK_DUR), ("atk_cd", ATK_CD)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_orianna.P");
         }
         assert!(CROWD < R_R && Q_REACH < Q_RANGE && Q_RANGE <= R_SLOT);
+        // her attack is the kit's action of atk_dur ticks
+        assert!(src.contains("attack_a = action(\"attack\", p[\"atk_dur\"], p[\"atk_cd\"]"), "the attack is not atk_dur / atk_cd");
+    }
+
+    #[test]
+    fn no_press_while_her_attack_plays() {
+        // 11-08, m=4742 t=40485: R with 4 enemy champions by the ball, attack 78/80 -> 75/80, pressed 3 ticks, not taken
+        assert!(attack_playing(78, 80) && attack_playing(75, 80));
+        // at base speed the whole atk_dur, then free on the first tick after it
+        assert_eq!(attack_act(ATK_CD), ATK_DUR);
+        assert!(attack_playing(ATK_CD - (ATK_DUR - 1), ATK_CD));
+        assert!(!attack_playing(ATK_CD - ATK_DUR, ATK_CD));
+        // attack speed shortens it with the cooldown: 80 -> 25 ticks, 70 -> 22
+        assert_eq!((attack_act(80), attack_act(70)), (25, 22));
+        assert!(attack_playing(80 - 24, 80) && !attack_playing(80 - 25, 80));
+        // every 11-08 "not taken" line with her attack 4-27 ticks in sat inside the window (attack 57/84, 50/70, 59/70)
+        assert!(attack_playing(57 + 2, 84) && attack_playing(50 + 2, 70) && attack_playing(59 + 2, 70));
+        // ready (0 left) or long done: no hold
+        assert!(!attack_playing(0, 84) && !attack_playing(28, 84));
     }
 
     #[test]

@@ -13,8 +13,8 @@
 //!   朝她）跑，就再加 `e_toward`% 移速（英雄联盟：朝敌人或彼此时加速翻倍）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_rell.log`，每次启动游戏重写，上一次的留在 .prev.log：`FORM`（模拟里
-//! 下马 / 上马、画面里换形态）、`MOLD`（叠层）、`STEAL`（她拿到的双抗）、`SHATTER`（破了谁的盾、多少）、`TILT`（E 的朝向加速）、
-//! `RFIRE`（极涌放出时身边几个敌方英雄），都限了条数。
+//! 下马 / 上马、画面里换形态）、`MOLD`（叠层）、`STEAL`（她拿到的双抗）、`SHATTER`（破了谁的盾、多少）、`TILT`（E 的朝向加速，
+//! 0.1.6 起一次朝着跑只记开始那一下）、`RFIRE`（极涌放出时身边几个敌方英雄），都限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -50,6 +50,8 @@ pub const STEAL_MIN: i32 = 2;
 /// 朝着跑：移动方向和到对方的方向夹角的余弦至少这么大；最近的敌方英雄在这么远内才算。
 pub const TOWARD_COS: f64 = 0.7;
 pub const TOWARD_R: f64 = 120_000.0;
+/// 朝向加速 buff 的长度（每 tick 朝着跑就续）；隔了这么多 tick 没朝着跑（buff 掉了）再朝着跑，算新的一次（`TILT` 只记这一下，0.1.6）。
+pub const TOWARD_T: usize = 3;
 
 // ===================== 日志 =====================
 
@@ -202,6 +204,12 @@ pub fn steal_total(targets: &[(usize, (i32, i32))], shred: usize) -> (i32, i32) 
     })
 }
 
+/// 这一 tick 朝着跑是不是新的一次：这个单位上一次朝着跑在 `last` tick（没有就是新的），隔了 `TOWARD_T` tick 以上（buff 已经掉了）
+/// 也是新的（0.1.6，11-08 的日志：每 tick 续 buff 都记一行，一次启动计数到 110350、记下 2222 行）。
+pub fn run_starts(last: Option<usize>, tick: usize) -> bool {
+    last.is_none_or(|t0| tick > t0 + TOWARD_T)
+}
+
 /// 从 `from` 移到 `to`（这一 tick 的位移）是不是朝着 `goal`。
 pub fn heading_to(from: Pt, to: Pt, goal: Pt) -> bool {
     let (mx, my) = (to.0 - from.0, to.1 - from.1);
@@ -238,6 +246,8 @@ struct Iron {
     steal: (i32, i32),
     /// 有全速冲锋加速的单位上一 tick 的位置。
     last: HashMap<usize, Pt>,
+    /// 每个单位上一次朝着跑的 tick（`run_starts`：`TILT` 只记一次朝着跑的开始，0.1.6）。
+    runs: HashMap<usize, usize>,
 }
 
 impl Iron {
@@ -291,6 +301,7 @@ impl Iron {
                 hasted.push((u.id(), at));
             }
         }
+        let tick = sim.tick();
         let mut seen = HashMap::new();
         for &(id, at) in &hasted {
             seen.insert(id, at);
@@ -306,11 +317,15 @@ impl Iron {
                 None
             };
             if let Some(why) = why {
-                let mut b = BuffV1::timed(TOWARD, 3);
+                let mut b = BuffV1::timed(TOWARD, TOWARD_T);
                 b.move_speed_mult = p.e_toward as i32;
                 sim.entity_stack_buff(id, &b, 1, true);
-                if let Some(k) = counted("tilt") {
-                    wlog(format!("{} TILT {} runs toward {why}: +{}% move speed #{k}", head(sim, me), who(sim, id), p.e_toward));
+                // one line a run, at its start (the buff is renewed every tick of it)
+                if run_starts(self.runs.insert(id, tick), tick) {
+                    if let Some(k) = counted("tilt") {
+                        wlog(format!("{} TILT {} runs toward {why}: +{}% move speed #{k}", head(sim, me), who(sim, id),
+                                     p.e_toward));
+                    }
                 }
             }
         }
@@ -336,6 +351,7 @@ impl StablePassive for Iron {
         self.foot = None;
         self.steal = (0, 0);
         self.last.clear();
+        self.runs.clear();
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN {} (mounted) #{k}", head(sim, entity), who(sim, entity)));
         }
@@ -527,5 +543,19 @@ mod tests {
         assert!(heading_to((0.0, 0.0), (100.0, 0.0), (10_000.0, 500.0)));
         assert!(!heading_to((0.0, 0.0), (100.0, 0.0), (0.0, 10_000.0)));
         assert!(!heading_to((0.0, 0.0), (0.0, 0.0), (10_000.0, 0.0))); // standing still
+    }
+
+    #[test]
+    fn one_tilt_line_a_run() {
+        // 11-08: a line every renewal (counter 110350, 2222 lines); now one at a run's start
+        let mut last = None;
+        let mut lines = 0;
+        // runs 30 ticks, a tick off now and then (the buff lasts), stops 10, runs again 5
+        for t in (100..130).filter(|t| t % 7 != 0).chain(140..145) {
+            lines += usize::from(run_starts(last, t));
+            last = Some(t);
+        }
+        assert_eq!(lines, 2);
+        assert!(run_starts(Some(100), 100 + TOWARD_T + 1) && !run_starts(Some(100), 100 + TOWARD_T));
     }
 }

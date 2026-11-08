@@ -12,7 +12,10 @@
 //! 的第二个数）记下来，这一下扣完以后再加回去：同一拍的下一下伤害来的时候（那时上一下已经扣了），或者下一拍。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_xinzhao_guard.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//! 0.1.2：每种行整个启动一个计数（league_yasuo_wall 0.1.2 的做法：服务器的预演先记 40 行、之后每 100 行记一行，你看的那场每行都记，
+//! 行末 `#k`）；以前一行都不限（11-08 一次启动 4303 行 BLOCK、519 行 BACK）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -65,6 +68,33 @@ fn wlog(msg: impl AsRef<str>) {
 /// Lets go of the log file: each load starts a fresh one (renamed to .prev.log first), the tests delete it between runs.
 fn close_log() {
     *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+}
+
+/// Lines a launch, each kind on its own count (0.1.2; 11-08's logs: 466 KB and 210 KB, every line written - 4303 BLOCK and
+/// 519 BACK in one launch): the server's presims the first `LOG_FIRST`, then every `LOG_EVERY`-th; the match on screen all
+/// of them (league_yasuo_wall 0.1.2's).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// The match on screen (the client's view, spectating, a replay), not a server presim.
+fn on_screen(sim: &StableSim<'_>) -> bool {
+    sim.sim_origin().and_then(|o| SimOriginKindV1::from_code(o.kind)).is_some_and(|k| {
+        matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
+    })
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim))
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -154,7 +184,9 @@ impl Guard {
         let Some((now, max)) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp()) else { return };
         let hp = paid_back(now, max, owed);
         sim.entity_set_hp(me, hp);
-        wlog(format!("{} BACK {owed} the cap held back: hp {now} -> {hp}/{max}", head(sim, me)));
+        if let Some(k) = tally(sim, "back") {
+            wlog(format!("{} BACK {owed} the cap held back: hp {now} -> {hp}/{max} #{k}", head(sim, me)));
+        }
     }
 }
 
@@ -192,13 +224,15 @@ impl StablePassive for Guard {
         let (hp, over) = refunded(now, max, damage);
         sim.entity_set_hp(me, hp);
         self.owed += over;
-        wlog(format!(
-            "{} BLOCK {damage} from #{attacker} at {:.0} (far {}): hp {now} -> {hp}/{max}{}",
-            head(sim, me),
-            (dist_sq as f64).sqrt(),
-            self.p.far,
-            if over > 0 { format!(", {over} back after the hit") } else { String::new() }
-        ));
+        if let Some(k) = tally(sim, "block") {
+            wlog(format!(
+                "{} BLOCK {damage} from #{attacker} at {:.0} (far {}): hp {now} -> {hp}/{max}{} #{k}",
+                head(sim, me),
+                (dist_sq as f64).sqrt(),
+                self.p.far,
+                if over > 0 { format!(", {over} back after the hit") } else { String::new() }
+            ));
+        }
     }
 
     fn on_dead(&mut self, _: &mut StableSim<'_>, _: usize) {
@@ -239,6 +273,15 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn presim_lines_are_capped_a_launch_the_screen_s_are_not() {
+        // 0.1.1 wrote every BLOCK and BACK: 4822 lines in one launch
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+    }
 
     #[test]
     fn params_come_from_the_champion_data() {

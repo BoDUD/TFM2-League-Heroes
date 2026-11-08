@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Xin Zhao's Crescent Guard as in League (needs League of Legends Heroes): replaces the main pack's Xin Zhao so for 3 s after his R he takes no damage from enemies beyond the sweep's reach, read from the attacker's distance, instead of the data pack's 40% less damage from everyone. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-04",
+  "last_updated": "2026-11-08",
   "mod_id": "league_xinzhao_guard",
   "mod_type": "native",
   "name": "League Heroes: Xin Zhao Crescent Guard blocks far damage (test)",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

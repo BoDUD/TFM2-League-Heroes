@@ -8,6 +8,8 @@
 //!
 //! - 活着、没被控住、身边 `near` 内有敌方英雄、血池不在冷却（`w_cd`）、不在池里（`w_in`）、生命低于 `hp`%——
 //!   加上 `w_go`（30 tick），数据的轮询最多 3 tick 后开池（每 tick 看一次，挨打时 `on_damaged` 当场再看一次）。
+//! - 只在数据的轮询在跑（他身上有 `league_vladimir_polling`）时才叫（0.2.2）：轮询由他的普攻和技能开起来、随他一起死，
+//!   复活后到他第一次出手之前没人看 `w_go`。没在跑就不加 `w_go`、不扣血，每条命记一行 `GO WAIT: no poll`，等轮询开起来再叫。
 //! - 血池的代价按英雄联盟：扣**当前**生命的 `cost`%（默认 20），在加上 `w_go` 的同一刻扣（还没进池，不受池里的 100% 减伤），
 //!   永远不会扣死。主包的数据读不到当前生命，只能扣 5% 最大生命值——第一份日志里 3% 血开池被扣到 1 点（用户：「改吧」），
 //!   所以本包的副本去掉了数据里的那一下，由这里来扣。
@@ -151,11 +153,33 @@ pub struct Now {
     pub controlled: bool,
     /// 血池在冷却、已经在池里，或已经叫过（`w_go` 还在）。
     pub busy: bool,
+    /// 数据的轮询在跑（`league_vladimir_polling`）：只有它看 `w_go`（0.2.2）。
+    pub polling: bool,
 }
 
 /// 现在该不该开池。
 pub fn want_pool(p: &Params, n: &Now) -> bool {
     !n.busy && !n.controlled && n.enemy_near && n.hp < p.hp as f64
+}
+
+/// 这一 tick 做什么（0.2.2）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Step {
+    /// 不开。
+    Idle,
+    /// 开：加上 `w_go`、扣代价。
+    Go,
+    /// 该开，可数据的轮询没在跑：`w_go` 没人看（11-08 的日志：复活 758 tick 后 90 tick 里叫了 3 次、生命 18% -> 9%，一次池都没开），
+    /// 不加、不扣，等他的普攻或技能把轮询开起来。
+    Wait,
+}
+
+pub fn step(p: &Params, n: &Now) -> Step {
+    match (want_pool(p, n), n.polling) {
+        (false, _) => Step::Idle,
+        (true, true) => Step::Go,
+        (true, false) => Step::Wait,
+    }
 }
 
 /// 开池扣的血：当前生命的 `cost`%，至少留 1 点。
@@ -188,12 +212,15 @@ fn enemy_near(sim: &StableSim<'_>, me: usize, team: usize, near: usize) -> bool 
 
 // ===================== 被动 =====================
 
-/// 每个弗拉基米尔一份：参数，上一 tick 是否在池里（记日志用）、叫过几次。
+/// 每个弗拉基米尔一份：参数，上一 tick 是否在池里（记日志用）、叫过几次，这条命从哪个 tick 起在等轮询（`GO WAIT`，0.2.2）。
 #[derive(Clone, Default)]
 struct Guard {
     p: Params,
     was_in: bool,
     calls: usize,
+    wait_from: Option<usize>,
+    /// 这条命已经记过 `GO WAIT`（每条命一行）。
+    waited: bool,
 }
 
 impl Guard {
@@ -218,23 +245,43 @@ impl Guard {
             enemy_near: enemy_near(sim, me, team, self.p.near),
             controlled: controlled(sim, me),
             busy: inside || has("w_cd") || has("w_go"),
+            polling: has("polling"),
         };
-        if want_pool(&self.p, &n) {
-            // the flag first: the cost below is damage, and on_damaged looks again (busy by then)
-            let mut go = BuffV1::timed(&vl("w_go"), 30);
-            go.duration_kind = BuffDurationV1::Time.code();
-            sim.add_buff(me, &go);
-            let cost = cost_of(&self.p, now);
-            if cost > 0 {
-                sim.deal_damage_raw(me, me, cost, 0, AttackTypeV1::Skill);
+        let tick = sim.tick();
+        match step(&self.p, &n) {
+            // no longer wanted (healed, no enemy near, controlled): a wait for the poll ends without a call
+            Step::Idle => self.wait_from = None,
+            Step::Wait => {
+                self.wait_from.get_or_insert(tick);
+                if !self.waited {
+                    self.waited = true;
+                    wlog(format!("{} GO WAIT: no poll - hp {hp:.0}%, an enemy champion near; no w_go and no cost till his \
+                                  next attack or spell starts the data's poll", head(sim, me)));
+                }
             }
-            let after = sim.get_entity(me).map_or(now, |e| e.hp().0);
-            let left = if max > 0 { after as f64 * 100.0 / max as f64 } else { 100.0 };
-            self.calls += 1;
-            if self.calls <= 20 || self.calls % 50 == 0 {
-                wlog(format!("{} GO #{}: hp {hp:.0}% -> {left:.0}% (cost {cost} of {now}){}", head(sim, me), self.calls,
-                             if from_hit { " on a hit" } else { "" }));
-            }
+            Step::Go => self.go(sim, me, now, max, hp, from_hit, tick),
+        }
+    }
+
+    /// Calls the pool: `w_go` for the data's poll and the cost (the poll runs: `step`).
+    #[allow(clippy::too_many_arguments)]
+    fn go(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, max: usize, hp: f64, from_hit: bool, tick: usize) {
+        // the flag first: the cost below is damage, and on_damaged looks again (busy by then)
+        let mut go = BuffV1::timed(&vl("w_go"), 30);
+        go.duration_kind = BuffDurationV1::Time.code();
+        sim.add_buff(me, &go);
+        let cost = cost_of(&self.p, now);
+        if cost > 0 {
+            sim.deal_damage_raw(me, me, cost, 0, AttackTypeV1::Skill);
+        }
+        let after = sim.get_entity(me).map_or(now, |e| e.hp().0);
+        let left = if max > 0 { after as f64 * 100.0 / max as f64 } else { 100.0 };
+        self.calls += 1;
+        // the first call after a GO WAIT is always written (how long the wait for the poll was)
+        let waited = self.wait_from.take().map_or(String::new(), |t0| format!(", {} ticks after GO WAIT", tick - t0));
+        if self.calls <= 20 || self.calls % 50 == 0 || !waited.is_empty() {
+            wlog(format!("{} GO #{}: hp {hp:.0}% -> {left:.0}% (cost {cost} of {now}){}{waited}", head(sim, me), self.calls,
+                         if from_hit { " on a hit" } else { "" }));
         }
     }
 }
@@ -250,6 +297,9 @@ impl StablePassive for Guard {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.was_in = false;
+        // a new life: its poll starts with his first attack or spell (the last one died with him)
+        self.wait_from = None;
+        self.waited = false;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         // the Params in the first SPAWN line of a launch only (0.2.1)
         let params = if params_new(&self.p) { format!(", {:?}", self.p) } else { String::new() };
@@ -300,7 +350,7 @@ mod tests {
     use super::*;
 
     fn now(hp: f64) -> Now {
-        Now { hp, enemy_near: true, controlled: false, busy: false }
+        Now { hp, enemy_near: true, controlled: false, busy: false, polling: true }
     }
 
     #[test]
@@ -344,6 +394,30 @@ mod tests {
         assert_eq!(cost_of(&p, 4), 0);
         assert_eq!(cost_of(&p, 1), 0);
         assert_eq!(cost_of(&Params { cost: 100, ..p }, 50), 49);
+    }
+
+    #[test]
+    fn no_call_and_no_cost_while_the_poll_is_down() {
+        // 11-08, m=4458: 758 ticks after a respawn, 3 GOs in 90 ticks (hp 18 -> 15 -> 12 -> 9%) and no pool - the poll
+        // that reads w_go had died with him and only his attacks and spells start it again
+        let p = Params::default();
+        assert_eq!(step(&p, &now(18.0)), Step::Go);
+        assert_eq!(step(&p, &Now { polling: false, ..now(18.0) }), Step::Wait);
+        // nothing to wait for above the line, busy or controlled
+        assert_eq!(step(&p, &Now { polling: false, ..now(80.0) }), Step::Idle);
+        assert_eq!(step(&p, &Now { polling: false, busy: true, ..now(10.0) }), Step::Idle);
+        assert_eq!(step(&p, &Now { polling: false, controlled: true, ..now(10.0) }), Step::Idle);
+        assert_eq!(step(&p, &Now { polling: true, enemy_near: false, ..now(10.0) }), Step::Idle);
+    }
+
+    #[test]
+    fn the_poll_flag_is_the_kits() {
+        // the data's poll keeps `polling` up while it runs (build_vladimir.py: flag("polling", ...) / refresh("polling", ...))
+        let src = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_vladimir.py"))
+            .expect("build_vladimir.py");
+        assert!(src.contains("flag(\"polling\"") && src.contains("refresh(\"polling\""), "the kit's poll flag is not `polling`");
+        assert_eq!(vl("polling"), "league_vladimir_polling");
+        assert!(vl("polling").len() <= BUFF_NAME_CAP);
     }
 
     #[test]

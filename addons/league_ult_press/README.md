@@ -1,6 +1,18 @@
-# 游戏 AI 不按的技能替它按（测试版 v0.6.3，可选）
+# 游戏 AI 不按的技能替它按（测试版 v0.6.4，可选）
 
 用户：「莎弥拉和卡牌用附加包在合适时机替AI按R，主包保持现在这样」；之后看日志发现克格莫的 R、卡蜜尔的 E 也一样，莎弥拉的 R 按下去也攒不到 S（用户选「帮她连招攒评价」）。
+
+## v0.6.4（2026-11-08 日志）
+
+- **骑着的悠米不再收到 A ORDER**：你看的那场（m=4156 第 2 局）悠米从 t=8418 骑在队友身上起，10 次 `A ORDER` 里 8 次是下给骑着的她的（「held
+  19 ticks, league_rakan 48604 away」）。骑着时 AI 让她「待着」，站桩规则当成被停住不打；league_yuumi 的钩子和本包同一优先级（100），本包先注册先跑。
+  现在身上有 `league_yuumi_w_on` 的英雄不归站桩规则管（`holds`）。
+- **泰达米尔的 R 不再误记「refunded」**：他真开了大（league_tryndamere_rage 的 `RAGE`）4 tick、12 tick 后冷却也掉过一截，被记成
+  `R ARMED … refunded (not used)`。退还是数据的一个 3 tick buff 做的（`ult_cooldown_mult` 300 以上：厄斐琉斯 300，别的 4900 或 r_cd x 100 / 60 - 100），
+  现在冷却一下少了 10 tick 以上、他身上又有这样的 buff 才算退还（`refund_seen`）；别的东西缩短的冷却写在 `kept (used)` 那一行末尾
+  （`its cooldown cut by N K ticks in, no refund buff`），好查是什么在缩。只是日志。
+- 单元测试 `a_riding_yuumi_is_no_holder`、`only_the_datas_refund_buff_is_a_refund`。下一局看：悠米骑着时没有 `A ORDER`；泰达米尔的 `R ARMED`
+  是 `kept (used)`，`refunded` 只出现在窗口到头（897 tick）。
 
 ## v0.6.2 / v0.6.3（2026-11-07，射程 buff）
 

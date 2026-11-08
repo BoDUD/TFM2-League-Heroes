@@ -22,6 +22,8 @@
 //!   0.1.2（2026-10-26，剑圣无限 Q 时查到：`on_attack` 连技能的每一下伤害都会触发）：一根矛打中时同一 tick 还会有
 //!   W 灵魂绑定的追加伤害等，原来每一下都记一根，计数比她身上真实的矛多，估出来的拔矛伤害偏高、打不死就提前拔了 E。
 //!   现在同一个目标同一个 tick 只记一根（`add_spear`）；E 拔矛那几下照旧在 `e_pop` 亮着时清掉。
+//!   0.2.5（2026-11-08 夜里的日志）：`e_ok` 也是数据阶梯的标记（3 根矛打中英雄就挂 240 tick），斩杀判定以前等身上的 `e_ok`
+//!   下去才再算，阶梯一挂就停 240 tick；现在只等本包自己上次挂的（`rend_until`），数据挂着的 `e_ok` 也不去缩短。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kalista.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -469,6 +471,25 @@ struct Oath {
     spears: BTreeMap<usize, Vec<usize>>,
     /// 敌方英雄 -> (取样的 tick, 那时它在哪, 上一段 FLEE_WINDOW 里它自己挪了多少)。
     gaps: HashMap<usize, (usize, Pt, Pt)>,
+    /// 0.2.5：本包上次判定「拔了能杀」挂的标记到哪个 tick（`REND_FLAG`）。斩杀判定只等这个，不再等身上的 `E_OK`——数据的
+    /// 阶梯（3 根矛打中英雄）也挂 `E_OK`，一挂 240 tick，以前这段时间本包的斩杀判定整个停住。
+    rend_until: usize,
+}
+
+/// 「拔了能杀」时她身上的 `E_OK`、那个敌人身上的 `E_AIM` 挂多少 tick；本包的斩杀判定也歇这么久（`rend_until`）。
+pub const REND_FLAG: usize = 6;
+
+/// 0.2.5: the lethal check rests while E is cooling (`e_cd`) or the add-on's own last call still stands (`own_until`) -
+/// not on `E_OK`, which the data's ladder also hangs (three spears on a champion: 240 ticks, build_kalista.py `step_to`).
+pub fn rend_rests(tick: usize, own_until: usize, e_cd: bool) -> bool {
+    e_cd || tick < own_until
+}
+
+/// 0.2.5: the `REND WAITS` timer (`rip`: since when, told) at `tick` - armed only while an enemy champion carries the aim
+/// mark (`aimed`: the add-on's lethal call); the data's ladder's `E_OK` marks nobody (11-08: all 48 REND WAITS said
+/// "target none").
+pub fn rip_timer(rip: Option<(usize, bool)>, aimed: bool, tick: usize) -> Option<(usize, bool)> {
+    if aimed { Some(rip.unwrap_or((tick, false))) } else { None }
 }
 
 fn ent_has(e: &StableEntity<'_, '_>, name: &str) -> bool {
@@ -708,7 +729,8 @@ impl Oath {
             v.retain(|t| tick < t + p.sp_t);
             !v.is_empty()
         });
-        if has_buff(sim, me, E_CD) || has_buff(sim, me, E_OK) {
+        // 0.2.5: rests on its own call only (the data's ladder hangs E_OK as well, 240 ticks: the lethal check stood still)
+        if rend_rests(tick, self.rend_until, has_buff(sim, me, E_CD)) {
             return;
         }
         let Some(ad) = sim.get_entity(me).map(|e| e.stat().attack) else { return };
@@ -725,8 +747,12 @@ impl Oath {
             Some((rend_damage(n, ad, e.stat().defence, p), e.hp().0))
         });
         if let Some((id, n, dmg, hp)) = kill {
-            set_flag(sim, me, E_OK, 6);
-            set_flag(sim, id, E_AIM, 6);
+            // the data's ladder may hold E_OK already (240 ticks): left as it is, not cut to REND_FLAG
+            if !has_buff(sim, me, E_OK) {
+                set_flag(sim, me, E_OK, REND_FLAG);
+            }
+            set_flag(sim, id, E_AIM, REND_FLAG);
+            self.rend_until = tick + REND_FLAG;
             if let Some(k) = counted("rend") {
                 wlog(format!("{} REND {} spears in {} would deal {dmg} against {hp} hp: rip now #{k}", head(sim, me), n,
                              who(sim, id)));
@@ -756,6 +782,7 @@ impl StablePassive for Oath {
         self.last_wave = 0;
         self.flight = None;
         self.spears.clear();
+        self.rend_until = 0;
         self.oath = None;
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN {} (the add-on's Kalista) #{k}", head(sim, entity), who(sim, entity)));
@@ -996,6 +1023,8 @@ impl FateAi {
     /// 0.2.4（2026-11-08 的日志：一段 rip now 挂了 300 tick 没按、没拔，目标的血也几乎没掉）：每道门挡住时不再悄悄返回，
     /// 一段 E_OK 挂过 `RIP_QUIET` tick 还没按出去就记一行 `REND WAITS`（哪道门、她身上的控制和引擎记的 tick、目标多远、离他的塔
     /// 多远），下次的日志看清是谁挡的再改。
+    /// 0.2.5（2026-11-08 夜里的日志：48 条 REND WAITS 全是 `target none`）：`E_OK` 也是数据阶梯的标记（3 根矛打中英雄就挂 240
+    /// tick），那时没人身上有 `E_AIM`、本包也不按；等的计时只在有敌方英雄挂着 `E_AIM` 时才开始（`rip_timer`）。
     fn rend_now(&mut self, ctx: &mut StableAiContext<'_>, was: Option<InputKindV1>) -> Option<InputV1> {
         if was == Some(InputKindV1::Skill2) {
             return None;
@@ -1010,14 +1039,16 @@ impl FateAi {
                 self.rip = None;
                 return None;
             }
-            if self.rip.is_none() {
-                self.rip = Some((tick, false));
-            }
             let team = me.team();
             let target = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .find(|u| u.team() != team && u.is_alive() && u.is_champion() && has_buff(&sim, u.id(), E_AIM))
                 .map(|u| u.id());
+            // the data's ladder's E_OK marks nobody: nothing for the hook to press, nothing to wait for (0.2.5)
+            self.rip = rip_timer(self.rip, target.is_some(), tick);
+            if target.is_none() {
+                return None;
+            }
             let codes: Vec<u32> = (0..me.cc_count()).filter_map(|i| me.cc_at(i)).map(|c| c.kind).collect();
             // 技能 2 解锁了（3 级）、试拔的格子好了（引擎的「输入合法」不看冷却和解锁）；正在出招（普攻的前摇、跳的动作）、
             // 被强制位移、被控时不按——这时按的游戏不收（0.2.3）
@@ -1029,8 +1060,6 @@ impl FateAi {
                 Some("busy: an attack's wind-up, the hop's pose or a push")
             } else if any_cc(codes, &NO_CAST) {
                 Some("held by crowd control")
-            } else if target.is_none() {
-                Some("no enemy champion carries the aim mark")
             } else {
                 None
             };
@@ -1157,6 +1186,24 @@ mod tests {
         assert_eq!(p.press(15700), 1);
         assert_eq!(p.press(15701), 2);
         assert_eq!(&HOP_GO[15..], "hop_go");
+    }
+
+    /// 0.2.5 (the 11-08 night logs: all 48 REND WAITS said "target none" - the data's ladder hangs E_OK on three spears
+    /// for 240 ticks, marking nobody): the wait is timed only while an enemy champion carries the aim mark, and the
+    /// lethal check rests on the add-on's own call, not on E_OK.
+    #[test]
+    fn the_ladders_e_ok_neither_starts_the_wait_nor_pauses_the_lethal_check() {
+        // `t=1345 REND WAITS 30 ticks: skill 2 locked ... flags [e_ok] ... target none`: no aim mark, no timer
+        assert_eq!(rip_timer(None, false, 1_315), None);
+        assert_eq!(rip_timer(Some((1_315, false)), false, 1_345), None, "the ladder's E_OK: the timer goes");
+        // the add-on's call marks him: timed from the first tick, kept (and its told flag) while he stays marked
+        assert_eq!(rip_timer(None, true, 2_000), Some((2_000, false)));
+        assert_eq!(rip_timer(Some((2_000, true)), true, 2_040), Some((2_000, true)));
+        // the lethal check: E cooling rests it; so does its own last call for REND_FLAG ticks - and nothing else
+        assert!(rend_rests(500, 0, true));
+        assert!(rend_rests(500, 500 + 1, false) && rend_rests(500, 500 + REND_FLAG, false));
+        assert!(!rend_rests(500 + REND_FLAG, 500 + REND_FLAG, false), "its own call over: checked again");
+        assert!(!rend_rests(1_400, 0, false), "the data's ladder E_OK up 240 ticks: the check still runs");
     }
 
     #[test]

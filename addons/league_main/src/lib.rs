@@ -33,6 +33,13 @@
 //! 同一小局的几份（第一个 tick 的 rng 相同）互相比，走到同一个 tick 就对一对：不一样写 `DIVERGE`，说出第一处不同的行（任何
 //! 种类）和字段，之后接着比（`EQUAL` 又一样了）——找「屏幕上的比赛和预演从哪里起不同」。只写有配对的 run。
 //!
+//! 0.9.21（2026-11-08 的日志）：src/diverge.rs 的名字表跟着留着的行走（以前只增不减，开局 15 分钟就满了，之后 DIVERGE 说不出
+//! 哪里不同、汇总里英雄读成「?」）；每 60 tick 给每个玩家一个细哈希，DIVERGE 写第一处不同在哪 60 tick 之间、哪些玩家
+//! （`first differs between t A and t B, player N …`）；没列出的塔 / 水晶的不同行总是接在后面（`| structures: …`）；END 在
+//! 比分差旁边写两队玩家的击杀数（`(kills 17:4)`，和 log.log 的 live_score 比；比分差是 server_score 那种，处决也算）。
+//! hd_engine src/view.rs：妮蔻假扮（和高清的佛耶戈附身高清英雄）时身体的绘制缩放不再除两次（`league_neeko 0.400 -> 0.160`）。
+//! 0.9.20（科加斯 BP 格，没装过）一起带上。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 //! 挂钩、取表、缩放的行写在挂钩的那个 DLL 的日志里：tft.dll 先加载时在 tft.log，这里只有一行「交给了谁」。
 
@@ -56,7 +63,7 @@ mod range_table;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.20";
+const VERSION: &str = "0.9.21";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);

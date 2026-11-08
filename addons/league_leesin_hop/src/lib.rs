@@ -45,6 +45,9 @@
 //!   定死，方向输入引擎不收，一直悄悄退回了内置 AI 的 Q。现在只决定放不放：朝他现在的位置飞、他照现在的速度走，波飞到时
 //!   还在波的宽度里（`Q_RADIUS` + 他的半径）就放（`QPlan::Keep`），会走出波就先不放（`Skip`）。
 //! - `Q LANDED` / `Q MISSED` 不再每行都写（一次启动 4660 行，占日志六成）：走 `noted`。
+//!
+//! 0.1.15（2026-11-08 夜里的日志）：看的那场 360 行里 252 行是 `Q SKIP … no Q on minions`——以前按单位去重，AI 在几个小兵之间
+//! 来回挑，每换一个就是一行；现在按理由和 `SKIP_QUIET`（120）tick 去重（`skip_news`）。
 
 pub mod maps;
 
@@ -924,13 +927,23 @@ pub fn plan_q(input: &InputTargetV1, me: (f64, f64), marks: &[Mark]) -> (QPlan, 
     (plan, Some(t))
 }
 
+/// 0.1.15: a `Q SKIP` for the same reason within this many ticks of the last one written is the same run (one line).
+pub const SKIP_QUIET: usize = 120;
+
+/// 0.1.15: a `Q SKIP` for `why` at `tick` is news - another reason than the last written (`last`: its reason and tick), or
+/// `SKIP_QUIET` ticks past it (a tick before it is another match). 0.1.12-0.1.14 went by the unit: the AI alternates
+/// between minions, and 252 of the 360 view lines of 11-08 were "no Q on minions".
+pub fn skip_news(last: Option<(&'static str, usize)>, why: &'static str, tick: usize) -> bool {
+    last.is_none_or(|(w, t0)| w != why || tick < t0 || tick >= t0 + SKIP_QUIET)
+}
+
 /// 每个李青一份：上次看到的敌方单位（算速度）。
 #[derive(Clone, Default)]
 struct LeeAi {
     seen: HashMap<usize, (f64, f64, usize)>,
-    /// The last unit a Q was skipped on: logged once per unit, not every time the AI asks again (the 10-29 log was 63 %
+    /// The last `Q SKIP` written: its reason and tick (0.1.15, `skip_news`; before, the unit: the 10-29 log was 63 %
     /// "Q SKIP ... no Q on minions", every 4 ticks on the same minion); the lines also go by the launch's count (`noted`).
-    skipped: Option<usize>,
+    skipped: Option<(&'static str, usize)>,
 }
 
 impl LeeAi {
@@ -1034,8 +1047,9 @@ impl StablePlayerAi for LeeAi {
                 } else {
                     InputV1::move_to(t.at.0.round().max(0.0) as u64, t.at.1.round().max(0.0) as u64)
                 };
-                if self.skipped != Some(t.id) {
-                    self.skipped = Some(t.id);
+                // 0.1.15: one line per reason and SKIP_QUIET ticks, whichever unit the AI picked this time
+                if skip_news(self.skipped, why, tick) {
+                    self.skipped = Some((why, tick));
                     if noted("q skip", shown).is_some() {
                         wlog(format!("{head_line} Q SKIP #{} {:?} at {}: {why}", t.id, t.kind, pt(t.at)));
                     }
@@ -1252,6 +1266,20 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// 0.1.15 (the 11-08 logs: 252 of 360 view lines "no Q on minions" - the AI alternates between minions, and the line
+    /// was deduped by the unit): one line per reason and `SKIP_QUIET` ticks.
+    #[test]
+    fn q_skips_dedupe_by_reason_and_window() {
+        let minions = "no Q on minions";
+        assert!(skip_news(None, minions, 9_000));
+        // the AI picks minion #40, #41, #40 ... every 4 ticks: one line
+        let last = Some((minions, 9_000));
+        assert!((9_004..9_000 + SKIP_QUIET).step_by(4).all(|t| !skip_news(last, minions, t)));
+        assert!(skip_news(last, minions, 9_000 + SKIP_QUIET), "a new window");
+        assert!(skip_news(last, "he will be out of reach", 9_004), "another reason is news");
+        assert!(skip_news(last, minions, 100), "an earlier tick: another match");
+    }
 
     #[test]
     fn the_insec_dash_lands_behind_the_target() {
