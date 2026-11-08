@@ -24,6 +24,10 @@
 //! 一秒开始退好几次）。现在撤退一旦开始就退完：`RETREAT_HOLD` 里所有往别处去的指令都改成往回走；到了塔后还要打英雄时往家里
 //! 再退 `STEP_BACK`（不原地僵住），补兵照旧。日志按「一次撤退」（隔 `RETREAT_HOLD` 以上算新的一次）计数。
 //!
+//! 0.1.5（用户 2026-11-08「还有bug吧 双方英雄在塔下盘旋 啥事不干 一直转圈圈」）：想打站在他们塔下的英雄（`Rule::Dive`）时一路退回自家塔后（`retreat`），游戏的 AI
+//! 又走回线上、又想打那个人，又被送回去——双方在两座塔之间来回走、什么都不干。现在只是不打那个人：改打身边 `FARM_R` 内最近的
+//! 敌方小兵（补刀，英雄联盟里对线就是这样），身边没兵才往家退一小步（`STEP_BACK`）。残血 / 以少打多照旧退回塔后。
+//!
 //! 0.1.4（用户 2026-11-08「还是有卡回城的BUG啊」）：回城引导时游戏的 AI 大多数 tick 不下指令，那些空 tick 在残血 / 以少打多时被改成往塔下走，
 //! 回城断掉、AI 再按。现在放行了的回城（身边 `RECALL_SAFE` 内没有敌人）一直算到 AI 下别的命令为止（`still_recalling`），中间的
 //! 空 tick 不管；不安全、被改成往塔下走的那一下不算回城。
@@ -85,6 +89,8 @@ pub const HOMEWARD: f64 = 20_000.0;
 pub const RECALL_SAFE: f64 = 45_000.0;
 /// 到了塔后还要打英雄时往家里再退多远。
 pub const STEP_BACK: f64 = 8_000.0;
+/// 想打塔下的英雄时改打这么近的敌方小兵（0.1.5）。
+pub const FARM_R: f64 = 60_000.0;
 /// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 前多少次开始退各写一行。
@@ -184,6 +190,8 @@ pub struct View {
     pub home: Option<Pos>,
     /// A buff keeps the champion from dying (Tryndamere's Undying Rage, Kindred's Lamb's Respite): no danger.
     pub undying: bool,
+    /// Enemy minions within `FARM_R` (id, position): farmed instead of a champion under his tower (0.1.5).
+    pub minions: Vec<(usize, Pos)>,
 }
 
 /// Why a champion backs off.
@@ -231,6 +239,12 @@ impl View {
         (dist(self.me, safe) > ARRIVED).then(|| InputV1::move_to(safe.0 as u64, safe.1 as u64))
     }
 
+    /// The nearest enemy minion to hit instead of a champion under his tower (0.1.5).
+    fn farm(&self) -> Option<InputV1> {
+        let (id, _) = self.minions.iter().min_by(|a, b| dist(a.1, self.me).total_cmp(&dist(b.1, self.me)))?;
+        Some(InputV1::action(InputKindV1::Attack, InputTargetV1::target(*id)))
+    }
+
     /// A step of `STEP_BACK` toward home (behind the tower already, still asked to hit a champion); standing still when
     /// there is no home to step to.
     fn step_back(&self) -> InputV1 {
@@ -274,6 +288,8 @@ pub fn decide(v: &View, base: Option<&InputV1>, holding: bool) -> (Option<InputV
         }
         let rule = danger.or(holding.then_some(Rule::Low)).or(dive.then_some(Rule::Dive));
         return match rule {
+            // only the hit is wrong: farm the wave (0.1.5; walking back behind our tower sent both sides to and fro)
+            Some(Rule::Dive) => (Some(v.farm().unwrap_or_else(|| v.step_back())), Some(Rule::Dive)),
             // already behind the tower: a step further back rather than walking into the fight
             Some(r) => (Some(v.retreat().unwrap_or_else(|| v.step_back())), Some(r)),
             None => (None, None),
@@ -348,6 +364,7 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
                 }
             }
             Some(EntityKindV1::Nexus) if ours => own_nexus = Some(at),
+            Some(EntityKindV1::Minion) if !ours && e.is_alive() && dist(at, v.me) <= FARM_R => v.minions.push((e.id(), at)),
             _ => {}
         }
     }
@@ -430,6 +447,8 @@ impl StablePlayerAi for Calm {
             self.hold_until = tick + RETREAT_HOLD;
         }
         let Some(out) = out else { return None };
+        // the minion farmed instead of a dive: a hit the engine takes, else a step back (0.1.5)
+        let out = if out.kind == InputKindV1::Attack.code() && !ctx.is_valid_input(&out) { v.step_back() } else { out };
         TICKS.fetch_add(1, Ordering::Relaxed);
         // a new retreat: the first changed order after a gap (or a match that started over)
         let fresh = self.last_out.is_none_or(|t| tick < t || tick > t + RETREAT_HOLD);
@@ -519,6 +538,7 @@ mod tests {
             safe: Some((370_000.0, 590_000.0)),
             home: Some((100_000.0, 860_000.0)),
             undying: false,
+            minions: Vec::new(),
         }
     }
 
@@ -610,7 +630,22 @@ mod tests {
         v.foes[0].at = (630_000.0, 330_000.0);
         let (out, rule) = decide(&v, Some(&hit(7)), false);
         assert_eq!(rule, Some(Rule::Dive));
-        assert!(out.is_some());
+        // no minion near: a small step back home, not the walk back behind our tower (0.1.5)
+        let out = out.unwrap();
+        assert_eq!(out.kind, InputKindV1::Move.code());
+        assert!((dist((out.x as f64, out.y as f64), v.me) - STEP_BACK).abs() < 2.0, "{out:?}");
+        // a minion near: farm it instead
+        v.minions = vec![(501, (520_000.0, 470_000.0)), (502, (500_000.0, 470_000.0))];
+        let (out, rule) = decide(&v, Some(&hit(7)), false);
+        assert_eq!(rule, Some(Rule::Dive));
+        assert_eq!(out.map(|o| (o.kind, o.target.target_id)), Some((InputKindV1::Attack.code(), 502)));
+        // low and outnumbered still back off behind the tower, minions or not
+        let mut low = View { hp: 20, ..v.clone() };
+        low.foes[0].at = (500_000.0, 470_000.0);
+        let (out, rule) = decide(&low, Some(&hit(7)), false);
+        assert_eq!(rule, Some(Rule::Low));
+        assert_eq!(out.map(|o| (o.x, o.y)), Some((370_000, 590_000)));
+        v.minions.clear();
         // a kill at 20% under the tower is not worth it; at 8% it is
         v.foes[0].hp = 20;
         assert_eq!(decide(&v, Some(&hit(7)), false).1, Some(Rule::Dive));

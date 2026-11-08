@@ -19,6 +19,11 @@
 //! 优先级 `PRIORITY` 在英雄附加包和 league_macro / league_peel / league_focus 之后、league_lane（10:00 前的对线纪律）之前。只看
 //! 比赛状态，没有随机数，每个选手自己的钩子实例：服务器预演和客户端重演走的一样。
 //!
+//! 0.1.3（用户 2026-11-08「还有bug吧 双方英雄在塔下盘旋 啥事不干 一直转圈圈」）：0.1.0 把「游戏的 AI 没下指令」当成站着挨打——那种时刻占 85%，多半根本没在打架：开局在塔下
+//! 等兵、对面英雄朝这边走，就往后退，AI 马上又走回来（一半的拉扯走 1–3 tick 就被 AI 自己的命令打断，三成「卡住」）；双方都这样，
+//! 就在塔下来回转。现在只在打架时拉扯：游戏的 AI 这一 tick 让他普攻敌方英雄，或者 `FIGHT_MEMORY` tick 内让他普攻过、之后没下别的
+//! 命令（`fight_until`）。普攻开始后 `WINDUP` tick 内也不走（普攻在第 1–18 tick 才出手，0.1.2 前可能把还没出手的普攻走没了）。
+//!
 //! 0.1.2（同一晚的日志：符合条件的 424 万个时刻里游戏的 AI 自己往外走的只有 6%，85% 没下指令；这个钩子走了 123 万 tick、
 //! 分成 35 万次，平均一次 3.5 tick；射手被贴脸后死的还是 27–29%，和没有它时差不多）：每次拉扯结束记一行 `KITE END`（走了几 tick、
 //! 挪开多远、为什么停：普攻好了、目标到了射程边上、没人压上来、被控、卡住、AI 自己下了命令、回城……），`COUNT` 行加上各种停法
@@ -87,6 +92,10 @@ pub const HELD: [CcKindV1; 8] = [
     CcKindV1::Charm,
     CcKindV1::Animation,
 ];
+/// 普攻开始（冷却重新计时）后这么多 tick 不走：英雄数据里普攻在第 1–18 tick 出手，走早了把普攻取消掉（0.1.3）。
+pub const WINDUP: usize = 20;
+/// 游戏的 AI 让他普攻敌方英雄后这么多 tick 内（没下别的命令）还算在打架（0.1.3）。
+pub const FIGHT_MEMORY: usize = 120;
 /// 不管的英雄：卡莉丝塔的数据每投一矛都跳（league_kalista）。
 pub const NO_KITE: [&str; 1] = ["league_kalista"];
 /// 前多少次拉扯各写一行。
@@ -106,7 +115,8 @@ static ORDERS: [AtomicUsize; 5] =
     [AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0)];
 static STEPS: AtomicUsize = AtomicUsize::new(0);
 /// 拉扯怎么停的，各几次（`Stop` 的顺序；只管日志，0.1.2）。
-static STOPS: [AtomicUsize; 10] = [
+static STOPS: [AtomicUsize; 11] = [
+    AtomicUsize::new(0),
     AtomicUsize::new(0),
     AtomicUsize::new(0),
     AtomicUsize::new(0),
@@ -190,6 +200,8 @@ pub struct Moment {
     pub cooling: usize,
     /// crowd control keeps him from walking his own way (`HELD`): an attack's wind-up, a push, a stun
     pub busy: bool,
+    /// his attack started less than `WINDUP` ticks ago: it may not be out yet (0.1.3)
+    pub winding: bool,
     /// where the unit the AI has him attack stands (None: no attack order)
     pub target: Option<Pos>,
     /// the enemy champions within `THREAT_R`
@@ -231,6 +243,8 @@ pub enum Stop {
     Refused,
     Recall,
     Dead,
+    /// not in a fight: the game's AI has not had him attack an enemy champion lately (0.1.3)
+    NoFight,
 }
 
 impl Stop {
@@ -246,6 +260,7 @@ impl Stop {
             "the walk refused",
             "recalling",
             "dead",
+            "not in a fight",
         ][self as usize]
     }
 }
@@ -253,7 +268,7 @@ impl Stop {
 /// The kite: the spot to walk toward this tick and whom he steps away from (Err: why the AI's order stands).
 pub fn kite_step(m: &Moment) -> Result<(Pos, Threat), Stop> {
     let reach = m.reach.filter(|r| *r > RANGED_MIN).ok_or(Stop::Melee)?;
-    if m.busy {
+    if m.busy || m.winding {
         return Err(Stop::Busy);
     }
     if m.cooling <= LEAD {
@@ -341,7 +356,21 @@ fn pos(e: &StableEntity<'_, '_>) -> Pos {
 }
 
 /// Short names of the stops for the COUNT line (the order of `Stop`).
-const STOP_NAMES: [&str; 10] = ["not ranged", "held", "ready", "nobody pressing", "edge", "stuck", "AI's order", "refused", "recall", "dead"];
+const STOP_NAMES: [&str; 11] =
+    ["not ranged", "held", "ready", "nobody pressing", "edge", "stuck", "AI's order", "refused", "recall", "dead", "no fight"];
+
+/// Until which tick he is in a fight (0.1.3): the game's AI's attack on an enemy champion now (`on_champ`) starts
+/// `FIGHT_MEMORY` ticks of it; any other order (`ordered`: a walk, a hit on a minion, a cast, a recall) ends it; a tick
+/// without an order keeps `prev`.
+pub fn fight_until(prev: usize, tick: usize, ordered: bool, on_champ: bool) -> usize {
+    if on_champ {
+        tick + FIGHT_MEMORY
+    } else if ordered {
+        0
+    } else {
+        prev
+    }
+}
 
 /// One kite going on: since when, from where, how many ticks stepped, its number (0.1.2).
 #[derive(Clone, Copy, Debug)]
@@ -398,6 +427,9 @@ pub struct Kite {
     skip: Option<bool>,
     /// the game's AI is recalling ([`still_recalling`], 0.1.1)
     recalling: bool,
+    /// when his attack last started, and until when he is in a fight ([`fight_until`], 0.1.3)
+    attack_at: Option<usize>,
+    fight_until: usize,
 }
 
 /// The game's AI recalling (league_ult_press 0.5.0's rule): a Return starts it, the ticks it gives no order go on with it
@@ -446,7 +478,7 @@ impl StablePlayerAi for Kite {
         let attack_on = base
             .filter(|b| b.kind == InputKindV1::Attack.code() && b.target.kind == InputTargetKindV1::Target.code())
             .map(|b| b.target.target_id);
-        let (m, name) = {
+        let (m, name, fight) = {
             let sim = ctx.sim()?;
             let champ = sim.get_player(player)?.champion()?;
             if !champ.is_alive() {
@@ -469,6 +501,7 @@ impl StablePlayerAi for Kite {
                 }
                 self.stuck = false;
                 self.run = None;
+                self.attack_at = Some(tick);
             }
             self.last_cd = cd;
             self.last_target = attack_on;
@@ -485,6 +518,7 @@ impl StablePlayerAi for Kite {
                     .map(|e| pos(&e));
             }
             let mut threats = Vec::new();
+            let mut foe_ids = Vec::new();
             for i in 0..sim.player_count() {
                 let Some(p) = sim.player_at(i) else { continue };
                 if p.team() == team {
@@ -496,6 +530,7 @@ impl StablePlayerAi for Kite {
                     continue;
                 }
                 let id = c.id();
+                foe_ids.push(id);
                 let walk = match self.track.iter().position(|t| t.0 == id) {
                     Some(k) => {
                         let (_, t0, p0, last) = self.track[k];
@@ -523,17 +558,26 @@ impl StablePlayerAi for Kite {
             // the dead and the long unseen (a respawn is a new entity) drop out
             self.track.retain(|t| t.1 <= tick && tick < t.1 + 100 * SAMPLE);
             let target = attack_on.and_then(|t| sim.get_entity(t)).map(|e| pos(&e));
+            // in a fight: the game's AI has him hit an enemy champion now or did lately (0.1.3)
+            let on_champ = attack_on.is_some_and(|t| foe_ids.contains(&t));
+            self.fight_until = fight_until(self.fight_until, tick, base.is_some(), on_champ);
+            let fight = tick < self.fight_until;
             let m = Moment {
                 me,
                 home: self.home,
                 reach: self.reach.get(),
                 cooling: cd,
                 busy: (0..champ.cc_count()).filter_map(|i| champ.cc_at(i)).any(|c| HELD.iter().any(|k| k.code() == c.kind)),
+                winding: self.attack_at.is_some_and(|t| tick < t + WINDUP),
                 target,
                 threats,
             };
-            (m, name)
+            (m, name, fight)
         };
+        if !fight {
+            self.end_run(Some(m.me), Stop::NoFight);
+            return None;
+        }
         let (to, from) = match kite_step(&m) {
             Ok(step) => step,
             Err(stop) => {
@@ -647,7 +691,7 @@ mod tests {
     const HOME: Pos = (100_000.0, 900_000.0);
 
     fn moment(threats: Vec<Threat>) -> Moment {
-        Moment { me: ME, home: Some(HOME), reach: Some(55_000.0), cooling: 20, busy: false, target: None, threats }
+        Moment { me: ME, home: Some(HOME), reach: Some(55_000.0), cooling: 20, busy: false, winding: false, target: None, threats }
     }
 
     fn diver(d: f64, closing: f64) -> Threat {
@@ -717,7 +761,19 @@ mod tests {
         assert_eq!(super::kite_step(&edge).err(), Some(Stop::Edge));
         assert!(super::kite_step(&moment(near)).is_ok());
         assert_eq!(Stop::Dead.label(), "dead");
-        assert_eq!(STOP_NAMES.len(), Stop::Dead as usize + 1);
+        assert_eq!(STOP_NAMES.len(), Stop::NoFight as usize + 1);
+        // the attack not out yet (0.1.3): held too
+        assert_eq!(super::kite_step(&Moment { winding: true, ..moment(vec![diver(40_000.0, 900.0)]) }).err(), Some(Stop::Busy));
+    }
+
+    #[test]
+    fn a_fight_is_an_attack_on_a_champion_lately() {
+        // his attack on an enemy champion starts it; ticks without an order keep it; any other order ends it
+        assert_eq!(fight_until(0, 1000, true, true), 1000 + FIGHT_MEMORY);
+        assert_eq!(fight_until(1120, 1050, false, false), 1120);
+        assert_eq!(fight_until(1120, 1060, true, false), 0);
+        // waiting at the tower with no order since the game began: no fight
+        assert_eq!(fight_until(0, 840, false, false), 0);
     }
 
     #[test]
