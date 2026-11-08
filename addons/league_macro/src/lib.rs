@@ -32,6 +32,8 @@
 //!   几条小龙挑离本队最近的。到了龙坑边（`WITH_PIT` 以内）打龙、打人都是游戏 AI 的事，只在它回城、往远处走时拉回来。
 //!   两边都这样就会在龙坑前碰上。一条龙每个人最多集结 `GATHER_MAX` tick，之后歇 `GATHER_REST` tick（不一直对峙丢线）。
 //!   推基地、跟大龙兵线先于集结。
+//! - 0.1.6（用户 2026-11-08「辅助想回家 想游走全被限制住了」）：集结和跟大龙兵线时，AI 回城、往自家基地走（目的地离自家
+//!   基地 `HOME_NEAR` 以内）都放行（`going_home`），以前离得远就一律拉去龙坑 / 兵线。
 //!
 //! 每 `SCAN` tick 看一次场上（每个选手自己的钩子实例里，不共用状态：游戏会并行跑好几场），两次之间沿用上次的打算。
 //! 只看比赛的状态，没有随机数：服务器预演和客户端重演走的一样。优先级 `PRIORITY` 比英雄附加包低，所以先跑，
@@ -95,6 +97,8 @@ pub const WITH_PIT: f64 = 70_000.0;
 pub const GATHER_MAX: usize = 2_400;
 /// ……之后歇多久（tick，60 秒）。
 pub const GATHER_REST: usize = 3_600;
+/// 走路的目的地离自家基地这么近 = 回家（补给、回城路上）：集结、跟兵线时不拦。
+pub const HOME_NEAR: f64 = 120_000.0;
 /// 前多少次改指令各写一行。
 const DETAIL_LINES: usize = 40;
 /// 前多少个「分推的人交给游戏 AI」各写一行。
@@ -397,6 +401,14 @@ fn gather(v: &View) -> Option<Intent> {
     Some(Intent::Gather { at: (pit.0 + (home.0 - pit.0) * k, pit.1 + (home.1 - pit.1) * k), pit, id, epic })
 }
 
+/// Whether the AI's order takes the champion home: a recall, or a walk to within `HOME_NEAR` of our nexus.
+pub fn going_home(base: Option<&InputV1>, home: Option<Pos>) -> bool {
+    base.is_some_and(|b| {
+        b.kind == InputKindV1::Return.code()
+            || (b.kind == InputKindV1::Move.code() && home.is_some_and(|h| dist((b.x as f64, b.y as f64), h) <= HOME_NEAR))
+    })
+}
+
 /// Whether the AI's own order is a hit on one of these enemy champions (a fight it is in).
 fn at_champion(base: Option<&InputV1>, enemies: &[(usize, Pos)]) -> bool {
     base.is_some_and(|b| {
@@ -512,6 +524,8 @@ pub struct Macro {
     /// The objective this champion gathers for and since when, and the ones it rests from (id, until).
     gathering: Option<(usize, usize)>,
     resting: Vec<(usize, usize)>,
+    /// Our nexus at the last look.
+    home: Option<Pos>,
     /// The team's Morgard plan at the last look (played, named), and whether this champion is left to the game's AI as
     /// its split pusher.
     plan: BaronPlan,
@@ -552,6 +566,7 @@ impl StablePlayerAi for Macro {
                         self.resting.retain(|r| r.1 > tick && r.1 <= tick + GATHER_REST);
                         v.tick = tick;
                         v.resting = self.resting.iter().map(|r| r.0).collect();
+                        self.home = v.own_nexus;
                         self.intent = plan(&v);
                         // gathered long enough for this objective: rest from it
                         match self.intent {
@@ -594,6 +609,10 @@ impl StablePlayerAi for Macro {
             self.last_kind = None;
             return None;
         };
+        // gathering or pushing with the baron waves: a recall or a walk home goes through
+        if !matches!(intent, Intent::Finish { .. }) && going_home(base.as_ref(), self.home) {
+            return None;
+        }
         let out = order(intent, me, base.as_ref(), &self.enemies, &|i| ctx.is_valid_input(i))?;
         let kind = intent.kind();
         TICKS.fetch_add(1, Ordering::Relaxed);
@@ -692,6 +711,15 @@ mod tests {
         assert_eq!(plan(&View { enemies: five, ..v.clone() }), None);
         // baron waves up: pushing with them comes first
         assert!(matches!(plan(&View { baron_minions: vec![(500_000.0, 450_000.0)], ..v }), Some(Intent::Join { .. })));
+    }
+
+    #[test]
+    fn a_recall_or_a_walk_home_is_going_home() {
+        let home = Some((100_000.0, 860_000.0));
+        assert!(going_home(Some(&InputV1::return_home()), home));
+        assert!(going_home(Some(&InputV1::move_to(150_000, 800_000)), home));
+        assert!(!going_home(Some(&InputV1::move_to(500_000, 500_000)), home));
+        assert!(!going_home(None, home) && !going_home(Some(&InputV1::move_to(150_000, 800_000)), None));
     }
 
     #[test]

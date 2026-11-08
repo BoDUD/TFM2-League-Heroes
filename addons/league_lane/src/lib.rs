@@ -16,6 +16,9 @@
 //! AI 在做别的事（没下新指令、打兵、回城）也先退，往安全的方向走的照旧，到了塔后就不再管。危险过去后再退 `RETREAT_HOLD`
 //! tick，不来回抖。
 //!
+//! 0.1.1（用户 2026-11-08「辅助想回家 想游走全被限制住了」）：往自家基地走（目的地比现在离自家基地近 `HOMEWARD` 以上）
+//! 也算往安全的地方走，`RECALL_SAFE` 内没有敌方英雄时回城照旧——以前只认往塔后走，走回家、回城都被改成先退到塔后。
+//!
 //! 优先级 `PRIORITY` 排在所有英雄附加包和运营钩子之后（只低于兜底的 league_unlock_guard）：它们下的出手也一样拦。
 //! 只看比赛的状态，没有随机数，每个选手自己的钩子实例：服务器预演和客户端重演走的一样。只下走路，不按技能。
 //!
@@ -61,6 +64,10 @@ pub const BEHIND: f64 = 15_000.0;
 pub const ARRIVED: f64 = 12_000.0;
 /// 危险过去后还退多久（tick）。
 pub const RETREAT_HOLD: usize = 120;
+/// 往自家基地走：目的地比现在离自家基地近这么多以上。
+pub const HOMEWARD: f64 = 20_000.0;
+/// 这么近没有敌方英雄时，残血 / 以少打多也照常回城。
+pub const RECALL_SAFE: f64 = 45_000.0;
 /// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 前多少次开始退各写一行。
@@ -156,6 +163,8 @@ pub struct View {
     pub enemy_towers: Vec<Pos>,
     /// Where to back off to: behind our nearest standing tower, else our nexus.
     pub safe: Option<Pos>,
+    /// Our nexus.
+    pub home: Option<Pos>,
 }
 
 /// Why a champion backs off.
@@ -236,9 +245,16 @@ pub fn decide(v: &View, base: Option<&InputV1>, holding: bool) -> (Option<InputV
     if !v.foe_near() {
         return (None, None);
     }
-    // walking toward safety already: fine
-    if let (Some(b), Some(safe)) = (base, v.safe) {
-        if b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), safe) < dist(v.me, safe) {
+    if let Some(b) = base {
+        // walking toward safety already - behind the tower or home: fine
+        let to = (b.x as f64, b.y as f64);
+        if b.kind == InputKindV1::Move.code()
+            && (v.safe.is_some_and(|s| dist(to, s) < dist(v.me, s)) || v.home.is_some_and(|h| dist(to, h) + HOMEWARD < dist(v.me, h)))
+        {
+            return (None, None);
+        }
+        // a recall with no foe close: it goes
+        if b.kind == InputKindV1::Return.code() && !v.foes.iter().any(|f| dist(f.at, v.me) <= RECALL_SAFE) {
             return (None, None);
         }
     }
@@ -293,6 +309,7 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
             _ => {}
         }
     }
+    v.home = own_nexus;
     let nearest = own_towers.iter().copied().min_by(|a, b| dist(*a, v.me).total_cmp(&dist(*b, v.me)));
     v.safe = match (nearest, own_nexus) {
         (Some(t), Some(n)) => {
@@ -432,6 +449,7 @@ mod tests {
             foes: vec![Foe { id: 7, at: (510_000.0, 450_000.0), hp: 60 }],
             enemy_towers: vec![(650_000.0, 310_000.0)],
             safe: Some((370_000.0, 590_000.0)),
+            home: Some((100_000.0, 860_000.0)),
         }
     }
 
@@ -457,8 +475,21 @@ mod tests {
         assert_eq!(decide(&v, Some(&farm), false).1, Some(Rule::Low));
         assert_eq!(decide(&v, Some(&InputV1::move_to(400_000, 560_000)), false), (None, None));
         // nobody near: carry on
-        let alone = View { foes: vec![Foe { at: (900_000.0, 100_000.0), ..lane().foes[0] }], ..v };
+        let alone = View { foes: vec![Foe { at: (900_000.0, 100_000.0), ..lane().foes[0] }], ..v.clone() };
         assert_eq!(decide(&alone, Some(&farm), false), (None, None));
+    }
+
+    #[test]
+    fn going_home_is_safe_too() {
+        let v = View { hp: 30, ..lane() };
+        // walking home past the tower, or to the fountain: fine
+        assert_eq!(decide(&v, Some(&InputV1::move_to(120_000, 840_000)), false), (None, None));
+        // a recall with the foe 42k away: walk off first; with it 60k away (beyond RECALL_SAFE): recall
+        assert_eq!(decide(&v, Some(&InputV1::return_home()), false).1, Some(Rule::Low));
+        let farther = View { foes: vec![Foe { at: (520_000.0, 440_000.0), ..lane().foes[0] }], ..v.clone() };
+        assert_eq!(decide(&farther, Some(&InputV1::return_home()), false), (None, None));
+        // walking somewhere else (toward the enemy): back off
+        assert_eq!(decide(&v, Some(&InputV1::move_to(600_000, 350_000)), false).1, Some(Rule::Low));
     }
 
     #[test]
