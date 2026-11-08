@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | 无 |
 
 ![赫卡里姆演示](../preview/league_hecarim_showcase.gif)
@@ -76,6 +76,7 @@
 | 亚索联动 | E 的击退不是击飞，亚索大招不受影响，不用调 |
 | 精灵图 | 9 个动作 57 帧：待机 8（呼吸）、移动 8（定稿的身体每帧不变、只颠一格，四条腿按奔跑的落蹄顺序错开，85 ms 一帧）、普攻 6、Q（`skill`）7、E 冲锋（`skill2`）7、E 砸下（`skill2_hit`）4、R（`ult`）7（扬蹄 + 冲锋）、受击 2、死亡 8。45×67 px（含长戟和尾巴），16 色。第一版造型的头盔是大头 Q 版（用户：「学别人那种画法啊 头这么大干嘛」），照 oppi 的赫卡里姆改成小头盔（头盔约 8 行）。头像截取点 (9, −36)，选人卡片 −6（角尖在 −33） |
 | 特效 | Codex 生图的 17 张原稿（没有游戏尺寸版），`import_hecarim.py` 按格读回、按技能范围定大小：`league_hecarim_fx` 普攻刀光、Q 命中、暴走层数（马身两侧的幽灵火）、W 抽魂、E 起步尘土 / 冲锋蹄下幽灵火 / 砸中 / 加速、R 骑兵刀光、恐惧骷髅；`league_hecarim_big` Q 的一圈刀光、W 炸开的幽灵圈和持续的幽灵圈、R 起手的暗影、幽灵骑兵、落地冲击波。配色照英雄联盟的技能图标：幽灵青绿 + 白芯，暗影烟和尘土点缀。骑兵从上往下看画（会转到冲锋方向，上下对称），其余左右对称；R 的暗影和骑兵画在人物下面，不挡住他 |
+| 高清帧（PPU 1.8） | 2026-11-08 用 PPU 重做，和奥拉夫、伊泽瑞尔、雷克顿在同一个 PR（用户：「接下来重做奥拉夫 EZ 人马 鳄鱼」「codex交付了」「伊泽瑞尔2.19 其他都1.8」「Codex交付了你做到完美后喊我review」「有问题的地方你帮忙修改」「没问题」）。设计图：Codex 照旧精灵描密的原图，按原图约 10.75 像素一格读回（131 × 81 格；头盔角尖到蹄底 81 行，旧精灵 45 行，PPU 1.8）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 44 张图、46 帧（另外 3 帧和别的帧一样，只画一次），纯白底的原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；他 66 像素宽，设计图和动作包用 1536 × 1024 的宽画布；四条腿逐帧照旧版画，死亡时长戟插地、倒地也照旧版；E 冲锋第 5 帧（重合 0.51）和 R 第 5 帧（0.63）取四种量法的中位数；E 第 5 帧照旧版缩成一团；量大小用长戟的银色刃（每帧一样大的硬件）。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -6 → -5（-6 会裁掉头盔角尖；举起的长戟照旧被裁）；头像截取点按新脸挪到 (9,-36) → (12,-32)（旧点框在头盔上，框里没有脸）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_hecarim.py`）：挥戟和命中、Q 出手 / 命中、W、E 出手 / 撞击、R 出手 / 落地 / 骑兵穿过；Q、W、R 的中文配音（原版 E 没有配音）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
 
@@ -90,6 +91,15 @@ python tools/art/fix_hecarim_strips.py    # 动作：Codex 照英雄联盟原版
 python tools/art/import_native.py --hero hecarim
 python tools/art/import_hecarim.py --raw assets/source/hecarim/codex_fx   # 特效：原稿读回成游戏尺寸，再拼成特效表
 python tools/art/preview_hecarim.py       # 预览和演示 GIF
+# PPU 1.8 重做（2026-11-08）：
+python tools/art/pack_hecarim_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_hecarim_hd.py                      # Codex 的原图（hd/raw/hecarim-A.png）按原图约 10.75 像素一格读回 -> hd/design.png
+python tools/art/pack_hecarim_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_hecarim_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_hecarim_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero hecarim && python tools/art/ppu_hd.py --hero hecarim
+python tools/art/ppu_one.py --hero hecarim && python tools/art/rig_hecarim_hd.py --one-ground && python tools/art/hero_reels.py --hero hecarim
+python tools/art/review_hecarim_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（特效的提示词见 [`PROMPTS_FX.md`](../../assets/source/hecarim/PROMPTS_FX.md)；Codex 的交付在 [`codex_model_v2/`](../../assets/source/hecarim/codex_model_v2)、[`codex_strips_v2/`](../../assets/source/hecarim/codex_strips_v2)、[`codex_fx/`](../../assets/source/hecarim/codex_fx)）：
@@ -100,4 +110,4 @@ python tools/art/preview_hecarim.py       # 预览和演示 GIF
 - 跑步：照原版逐帧重画的奔跑每帧形状都不一样（用户：「人马移动有点不自然啊 参考下oppi怎么移动的」「而且移动时模型有点变形」「四个脚都要有明显错开并且自然的感觉」），Codex 另画的侧面奔跑接上来又成了另一匹马（「模型变形了啊」「武器断了啊」「这腿对吗 残疾了？」）。现在照 oppi 的思路一点都不重画：身体就是定稿（和待机逐像素相同，只颠一格，尾巴摆一下），四条腿也是定稿自己的腿，每条按大腿、小腿、马蹄三段整块移动；按奔跑的落蹄顺序（后、后、前、前）各差两帧，着地 5 帧往后滑、腾空 3 帧收蹄往前迈（抬 2 → 5 → 2 格）；中间两条腿挨着，步子小一点，蹄子不会叠成一块（`fix_hecarim_strips.py` 的 run_rig）。
 - 特效：Codex 第 3 步的 17 张生图原稿，读回成游戏尺寸；暴走层数的火苗画得太大，只取每帧左半边的一团放在马身侧面，翻转补出另一边。
 
-逐帧预览：[`docs/preview/league_hecarim_frames.png`](../preview/league_hecarim_frames.png?v=1014g)，特效：[`docs/preview/league_hecarim_effects.png`](../preview/league_hecarim_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_hecarim_frames.png`](../preview/league_hecarim_frames.png?v=1108hd)，特效：[`docs/preview/league_hecarim_effects.png`](../preview/league_hecarim_effects.png?v=1014g)。

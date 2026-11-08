@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / Heal |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.81 |
 | 附加包 | [雷克顿低血怒气附加包](#附加包)（`league_renekton`） |
 
 ![雷克顿演示](../preview/league_renekton_showcase.gif)
@@ -89,6 +89,7 @@
 | 亚索联动 | W 的眩晕算控制：雷克顿在亚索队里打上单时，亚索每局对英雄放 R 2.40 次（原版斗士 2.12、德莱厄斯 1.31，闪电法师以前测的 3.40），不用调 |
 | 精灵图 | 9 个动作 52 帧：待机、移动、普攻、Q（`skill`）、E 冲刺（`skill2`）、W 连砍（`skill2_w`）、R（`ult`）、受击、死亡。造型 57 × 41 px（大月牙刀和尾巴在身后，蛮王 53 × 37），23 色。待机 6 帧同一张；头像截取点 (12, −24)（眼睛和长嘴），选人卡片中心 −10。原来是 65 × 41，用户在 BP 画面看到「雷克顿在BP画面里太大了」「都显示不完整」（选人格子约露 49 × 42 格，光身体就 51 格宽），选了只把刀和尾巴缩短：身体、头、腿逐格不变 |
 | 特效 | Codex 画的 15 张，按游戏尺寸交付，两张表 `league_renekton_fx` / `league_renekton_big`：普攻、Q、E、W、R 光环的命中，Q 的刀光圈（强化版更大更红），W 强化的怒气、眩晕金星、削甲标记，满怒气的红光，R 的沙暴爆发和沙暴光环；普攻刀光和 E 的冲刺风痕画进动作帧里 |
+| 高清帧（PPU 1.81） | 2026-11-08 用 PPU 重做，和奥拉夫、伊泽瑞尔、赫卡里姆在同一个 PR（用户：「接下来重做奥拉夫 EZ 人马 鳄鱼」「codex交付了」「伊泽瑞尔2.19 其他都1.8」「Codex交付了你做到完美后喊我review」「有问题的地方你帮忙修改」「没问题」）。设计图：Codex 照旧精灵描密的原图，按原图约 11.24 像素一格读回（121 × 67 格；头冠顶到脚底 67 行，旧精灵 37 行，PPU 1.81）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 31 张图、31 帧（另外 15 帧和别的帧一样，只画一次），纯白底的原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；他 63 像素宽，设计图和动作包用 1536 × 1024 的宽画布；普攻和 E 的旧帧带着刀光和冲刺拖影，模板用不带特效的原生格，Codex 照它画身体，刀光（120 毫秒起）和拖影（在他身下）再照 `renekton_bake.json` 烘回；普攻第 4 帧、Q 第 3、4 帧和模板重合不到 0.65，取四种量法的中位数；配色照选定的设计图：银灰盔甲配骨白刃（英雄联盟原皮的颜色，旧版是金橙色）；量大小用骨白色。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -14 → -13（-14 会裁掉头冠顶；举起的大刀照旧被裁）；头像截取点按新脸挪到 (17,-30) → (18,-29)（框到眼睛和吻部）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_renekton.py`）：挥刀、命中，Q 施放、命中，W 普通 / 强化、眩晕，E 冲刺、命中，R 施放、怒吼；Q、W、E、R 的中文配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
 
@@ -106,6 +107,15 @@ python tools/art/import_renekton.py         # 特效
 python tools/art/import_native.py --hero renekton   # 精灵（刀光、冲刺风痕按 renekton_bake.json 画进动作）
 python tools/art/preview_renekton.py        # 逐帧预览、特效预览、演示 GIF
 python addons/league_renekton/make_override.py   # 附加包的英雄数据和文字（主包的雷克顿改了以后重跑）
+# PPU 1.81 重做（2026-11-08）：
+python tools/art/pack_renekton_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_renekton_hd.py                      # Codex 的原图（hd/raw/renekton-A.png）按原图约 11.24 像素一格读回 -> hd/design.png
+python tools/art/pack_renekton_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_renekton_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_renekton_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero renekton && python tools/art/ppu_hd.py --hero renekton
+python tools/art/ppu_one.py --hero renekton && python tools/art/rig_renekton_hd.py --one-ground && python tools/art/hero_reels.py --hero renekton
+python tools/art/review_renekton_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/renekton/PICTURE_PROMPT.md`](../../assets/source/renekton/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/renekton/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/renekton/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/renekton/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](../../assets/source/renekton/codex_picture)、[`codex_model/`](../../assets/source/renekton/codex_model)、[`codex_strips/`](../../assets/source/renekton/codex_strips)、[`codex_fx/`](../../assets/source/renekton/codex_fx)；附图包由 `tools/art/pack_renekton_*.py` 在本地生成，英雄联盟的渲染不进仓库）：
@@ -116,4 +126,4 @@ python addons/league_renekton/make_override.py   # 附加包的英雄数据和�
 - 特效：Codex 第 3 步把 15 张都按游戏尺寸画了一份（[`codex_fx/pixel_1x/`](../../assets/source/renekton/codex_fx/pixel_1x)），`tools/art/import_renekton.py` 每格切出、按锚点（中心、脚底、风痕起点）放好，导入时逐格检查对称。
 - 红色方：命中、他身上的刀光圈 / 怒气 / 沙暴爆发、挂着循环的满怒气 / 眩晕 / 削甲 / 沙暴光环都严格左右对称；只有普攻刀光和 E 的冲刺风痕有朝向，画进动作帧里（`renekton_bake.json`），跟着他一起翻转。
 
-逐帧预览：[`docs/preview/league_renekton_frames.png`](../preview/league_renekton_frames.png?v=1014g)，特效：[`docs/preview/league_renekton_effects.png`](../preview/league_renekton_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_renekton_frames.png`](../preview/league_renekton_frames.png?v=1108hd)，特效：[`docs/preview/league_renekton_effects.png`](../preview/league_renekton_effects.png?v=1014g)。

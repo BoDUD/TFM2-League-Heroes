@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.19 |
 | 附加包 | 无 |
 
 ![伊泽瑞尔演示](../preview/league_ezreal_showcase.gif)
@@ -72,6 +72,7 @@
 | 亚索联动 | 他没有控制，亚索不用调 |
 | 精灵图 | 9 个动作 62 帧：待机、跑步、普攻、Q、W+Q 连招、E、R、受击、死亡。护目镜顶到脚底 34 px，40 色，动作全部取自英雄联盟原版动画 |
 | 特效 | 普攻光弹和命中、Q 能量箭和命中、W 精华球、粘住、印记、引爆、E 闪走和落地的光柱、追踪箭和命中、R 蓄力、能量波和命中、咒能高涨满层的光环 |
+| 高清帧（PPU 2.19） | 2026-11-08 用 PPU 重做，和奥拉夫、赫卡里姆、雷克顿在同一个 PR（用户：「接下来重做奥拉夫 EZ 人马 鳄鱼」「codex交付了」「伊泽瑞尔2.19 其他都1.8」「Codex交付了你做到完美后喊我review」「有问题的地方你帮忙修改」「没问题」）。设计图：Codex 照旧精灵描密的原图，按原图约 10.2 像素一格读回（41 × 79 格；头发和护目镜顶到脚底 79 行，旧精灵 36 行，PPU 2.19）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 25 张图、48 帧（另外 8 帧和别的帧一样，只画一次：W 和 E 的结尾就是 Q 的第 2、3、4、6 帧），纯白底的原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；R 的旧帧带着蓄力光球，模板用不带特效的原生格，Codex 照它画身体，光球再照 `ezreal_bake.json` 从 50 毫秒起烘回；旧版普攻、Q、R 的脚陷进地面 2–5 像素，读回时把脚放回地面；普攻第 1–2 帧头往前低，按护目镜量窄一成，看着和别的帧一样大，没改；量头用脸的肤色。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 不设值，不变（头离卡顶还有 6 像素）；头像截取点按新脸挪到 (3,-35) → (4,-28)（旧点框在头发和护目镜上）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 13 条技能音效和 3 条中文语音（W、E、R）。普攻命中的声音不在任何音频包里，用 Q 的命中声降 10 dB、截 0.4 秒代替。不提交到仓库，按下面的命令在本地生成 |
 
@@ -82,6 +83,15 @@ python tools/art/restyle_native.py assets/source/ezreal/poses.json --renders <�
 python tools/art/import_native.py --hero ezreal
 python tools/art/import_ezreal.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_ezreal.py
+# PPU 2.19 重做（2026-11-08）：
+python tools/art/pack_ezreal_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_ezreal_hd.py                      # Codex 的原图（hd/raw/ezreal-A.png）按原图约 10.2 像素一格读回 -> hd/design.png
+python tools/art/pack_ezreal_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_ezreal_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_ezreal_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero ezreal && python tools/art/ppu_hd.py --hero ezreal
+python tools/art/ppu_one.py --hero ezreal && python tools/art/rig_ezreal_hd.py --one-ground && python tools/art/hero_reels.py --hero ezreal
+python tools/art/review_ezreal_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/ezreal/PROMPTS.md`](../../assets/source/ezreal/PROMPTS.md)）：
@@ -93,4 +103,4 @@ python tools/art/preview_ezreal.py
 - 特效用 Codex 画的 15 张（生图原稿，透明底，共 77 帧）：`import_ezreal.py --raw` 按交付清单切帧，每张 16 色以内、硬透明，按技能范围定大小：普攻光弹 12 px 长、命中 14 px，Q 能量箭 22 px 长、命中 22 px，W 精华球 16 px 高（半径 8000）、粘住 22 px、印记 18 px、引爆 40 px，追踪箭 16 px 长、命中 20 px，R 蓄力 26 px、能量波 36 px 高（半径 18000）、命中 26 px，E 闪光和被动光环按地上的光圈定大小（26 px、22 px）。飞行的画面上下镜像成严格对称（游戏按飞行方向转动，往左飞时整张翻过来），箭头固定在投射物位置；E 的闪光在起点正着播、在落点倒着播；R 的蓄力放在手甲前方（施法者身上的特效会跟着朝向镜像）；W 的印记每 15 tick 播一次 0.25 秒的循环，直到引爆。
 - 结果：40 色，和右边像素同色的比例 28%（原版英雄 18%–46%）。头像截取点 (3, −35)。
 
-逐帧预览：[`docs/preview/league_ezreal_frames.png`](../preview/league_ezreal_frames.png?v=1014g)，特效：[`docs/preview/league_ezreal_effects.png`](../preview/league_ezreal_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_ezreal_frames.png`](../preview/league_ezreal_frames.png?v=1108hd)，特效：[`docs/preview/league_ezreal_effects.png`](../preview/league_ezreal_effects.png?v=1014g)。

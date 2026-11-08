@@ -852,10 +852,10 @@ RESTYLE = {
     # Hecarim 81 / 45, Renekton 67 / 37); every action Codex's whole-frame redraw of the old frame read onto it
     # (tools/art/casts_<hero>_hd.py), so no density change; fx (Ezreal, Renekton): R's charge, the attack's slash and
     # E's dash streak laid on again (rig_<hero>_hd, Rig.bake: <hero>_bake.json); the outline grown by 2
-    "olaf": dict(ppu=77 / 43, edge=2),
-    "ezreal": dict(ppu=79 / 36, edge=2, fx=True),
-    "hecarim": dict(ppu=81 / 45, edge=2),
-    "renekton": dict(ppu=67 / 37, edge=2, fx=True),
+    "olaf": dict(ppu=77 / 43, edge=2, face_to=(7, -28)),
+    "ezreal": dict(ppu=79 / 36, edge=2, fx=True, face_to=(4, -28)),
+    "hecarim": dict(ppu=81 / 45, edge=2, face_to=(12, -32)),
+    "renekton": dict(ppu=67 / 37, edge=2, fx=True, face_to=(18, -29)),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2

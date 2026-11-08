@@ -641,6 +641,30 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // the old frame gives (tools/art/casts_lulu_hd.py, rig_lulu_hd.py; Pix measured apart and moved to where the old
     // frames have him; nothing baked); 39 game px as her 1x sprite, so no SIZES row
     ("league_lulu", 1.795, include_str!("../../../league/champions/league_lulu#anim.fanim")),
+    // Olaf (2026-11-08, 「接下来重做奥拉夫 EZ 人马 鳄鱼」, picked 「伊泽瑞尔2.19 其他都1.8」): Codex's olaf-A read on its own ~14.6-px squares
+    // (67 x 77, tools/art/design_olaf_hd.py: 77 rows / 43 = 1.791); every action Codex's whole-frame redraw of his old
+    // frame read onto it at the zoom its fit over the old frame gives (tools/art/casts_olaf_hd.py, rig_olaf_hd.py;
+    // nothing baked); 43 game px as his 1x sprite, so no SIZES row
+    ("league_olaf", 1.791, include_str!("../../../league/champions/league_olaf#anim.fanim")),
+    // Ezreal (the same release, his own pick 2.19): Codex's ezreal-A read on its own ~10.2-px squares (41 x 79,
+    // tools/art/design_ezreal_hd.py: 79 rows / 36 = 2.194); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the zoom its fit over the old frame gives (tools/art/casts_ezreal_hd.py, rig_ezreal_hd.py; his
+    // feet set on the ground where the old casts sank 2-5 px under it; R's body from its native cells and R's charge
+    // baked on again by ezreal_bake.json); 36 game px as his 1x sprite, so no SIZES row
+    ("league_ezreal", 2.194, include_str!("../../../league/champions/league_ezreal#anim.fanim")),
+    // Hecarim (the same release): Codex's hecarim-A read on its own ~10.75-px squares (131 x 81,
+    // tools/art/design_hecarim_hd.py: 81 rows / 45 = 1.8); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the zoom its fit over the old frame gives (tools/art/casts_hecarim_hd.py, rig_hecarim_hd.py; E's
+    // 5th gallop frame and R's 5th at the median of four measures, their fits low; nothing baked); 45 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_hecarim", 1.8, include_str!("../../../league/champions/league_hecarim#anim.fanim")),
+    // Renekton (the same release): Codex's renekton-A read on its own ~11.24-px squares (121 x 67,
+    // tools/art/design_renekton_hd.py: 67 rows / 37 = 1.811); every action Codex's whole-frame redraw of his old frame
+    // read onto it at the zoom its fit over the old frame gives (tools/art/casts_renekton_hd.py, rig_renekton_hd.py;
+    // the attack's 4th frame and Q's 3rd and 4th at the median of four measures; the attack's and E's bodies from their
+    // native cells, the slash and E's dash streak baked on again by renekton_bake.json); 37 game px as his 1x sprite,
+    // so no SIZES row
+    ("league_renekton", 1.811, include_str!("../../../league/champions/league_renekton#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
