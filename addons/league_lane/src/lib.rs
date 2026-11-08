@@ -19,6 +19,17 @@
 //! 0.1.1（用户 2026-11-08「辅助想回家 想游走全被限制住了」）：往自家基地走（目的地比现在离自家基地近 `HOMEWARD` 以上）
 //! 也算往安全的地方走，`RECALL_SAFE` 内没有敌方英雄时回城照旧——以前只认往塔后走，走回家、回城都被改成先退到塔后。
 //!
+//! 0.1.2（用户 2026-11-08「BUG挺多的 你好好修复吧」）：267 场里一次撤退会断断续续：危险过去后的 `RETREAT_HOLD` 里只拦
+//! 对英雄出手、别的指令放行，到了塔后又原地站住，英雄在「往回走」和「去补兵 / 打人」之间每几 tick 换一次（日志里同一个人
+//! 一秒开始退好几次）。现在撤退一旦开始就退完：`RETREAT_HOLD` 里所有往别处去的指令都改成往回走；到了塔后还要打英雄时往家里
+//! 再退 `STEP_BACK`（不原地僵住），补兵照旧。日志按「一次撤退」（隔 `RETREAT_HOLD` 以上算新的一次）计数。
+//!
+//! 0.1.3（同一天的日志审查）：拦下的不只是普攻——技能、大招指着敌方英雄也被改成往回走，残血时别的技能（自保、加盾、治疗、
+//! 位移）也一样：千珏 10:00 前的「羊灵生息」自救下了 3100 次只放出 150 次（她快死时指着最近的敌人按 R，被改成走回塔下，一路
+//! 走到死），薇恩贴脸时的 E、厄斐琉斯的 Q 被拦下（Q 每 tick 重按）。现在只管普攻：技能、大招不论指着谁都照旧（游戏的 AI 和
+//! 英雄附加包自己判断），残血 / 以少打多时被改成往回走的只有走路、普攻、没有指令和不安全的回城。泰达米尔、千珏等身上有「不死」
+//! 的增益（`undying`）时不算危险：「无尽怒火」开着时他照打（之前 10:00 前的大招只有 9% 放得出去，放出去后的普攻也被拦）。
+//!
 //! 优先级 `PRIORITY` 排在所有英雄附加包和运营钩子之后（只低于兜底的 league_unlock_guard）：它们下的出手也一样拦。
 //! 只看比赛的状态，没有随机数，每个选手自己的钩子实例：服务器预演和客户端重演走的一样。只下走路，不按技能。
 //!
@@ -68,6 +79,8 @@ pub const RETREAT_HOLD: usize = 120;
 pub const HOMEWARD: f64 = 20_000.0;
 /// 这么近没有敌方英雄时，残血 / 以少打多也照常回城。
 pub const RECALL_SAFE: f64 = 45_000.0;
+/// 到了塔后还要打英雄时往家里再退多远。
+pub const STEP_BACK: f64 = 8_000.0;
 /// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 前多少次开始退各写一行。
@@ -165,6 +178,8 @@ pub struct View {
     pub safe: Option<Pos>,
     /// Our nexus.
     pub home: Option<Pos>,
+    /// A buff keeps the champion from dying (Tryndamere's Undying Rage, Kindred's Lamb's Respite): no danger.
+    pub undying: bool,
 }
 
 /// Why a champion backs off.
@@ -192,6 +207,9 @@ impl View {
 
     /// The danger this champion is in, if any: outnumbered first, then low.
     pub fn danger(&self) -> Option<Rule> {
+        if self.undying {
+            return None;
+        }
         let foes = self.foes.iter().filter(|f| dist(f.at, self.me) <= NEAR).count();
         let friends = self.allies.iter().filter(|a| dist(**a, self.me) <= NEAR).count().max(1);
         if foes > friends {
@@ -203,29 +221,46 @@ impl View {
         None
     }
 
-    fn foe_near(&self) -> bool {
-        self.foes.iter().any(|f| dist(f.at, self.me) <= DANGER)
-    }
-
     /// The way back, or `None` when already there (or nowhere to go).
     fn retreat(&self) -> Option<InputV1> {
         let safe = self.safe?;
         (dist(self.me, safe) > ARRIVED).then(|| InputV1::move_to(safe.0 as u64, safe.1 as u64))
     }
+
+    /// A step of `STEP_BACK` toward home (behind the tower already, still asked to hit a champion); standing still when
+    /// there is no home to step to.
+    fn step_back(&self) -> InputV1 {
+        let to = match self.home {
+            Some(h) if dist(h, self.me) > 1.0 => {
+                let k = (STEP_BACK / dist(h, self.me)).min(1.0);
+                (self.me.0 + (h.0 - self.me.0) * k, self.me.1 + (h.1 - self.me.1) * k)
+            }
+            _ => self.me,
+        };
+        InputV1::move_to(to.0 as u64, to.1 as u64)
+    }
 }
 
-/// The enemy champion an order is aimed at (an attack, a skill or an ult with a champion target).
+/// The enemy champion a basic attack is aimed at (skills and ults are never stopped: see [`is_cast`]).
 fn aimed_at(base: Option<&InputV1>, foes: &[Foe]) -> Option<Foe> {
     let b = base?;
-    if b.kind == InputKindV1::Move.code() || b.kind == InputKindV1::Return.code() || b.target.kind != InputTargetKindV1::Target.code() {
+    if b.kind != InputKindV1::Attack.code() || b.target.kind != InputTargetKindV1::Target.code() {
         return None;
     }
     foes.iter().copied().find(|f| f.id == b.target.target_id)
 }
 
+/// A skill, a second skill or an ult: saves, shields, heals, escapes, crowd control - the game's AI's and the hero
+/// add-ons' own call, never turned into a walk.
+fn is_cast(b: &InputV1) -> bool {
+    [InputKindV1::Skill, InputKindV1::Skill2, InputKindV1::Ult].iter().any(|k| k.code() == b.kind)
+}
+
 /// What the discipline makes of the AI's order: the order to give instead (`None`: keep it) and why. `holding`: a
 /// retreat started a moment ago is still on.
 pub fn decide(v: &View, base: Option<&InputV1>, holding: bool) -> (Option<InputV1>, Option<Rule>) {
+    // undying (the rage pressed at 15% right after a retreat began): the hold is over too
+    let holding = holding && !v.undying;
     let danger = v.danger();
     if let Some(target) = aimed_at(base, &v.foes) {
         let dive = v.under_their_tower(target.at);
@@ -235,14 +270,16 @@ pub fn decide(v: &View, base: Option<&InputV1>, holding: bool) -> (Option<InputV
         }
         let rule = danger.or(holding.then_some(Rule::Low)).or(dive.then_some(Rule::Dive));
         return match rule {
-            // already behind the tower: stand there rather than walk into the fight
-            Some(r) => (Some(v.retreat().unwrap_or_else(|| InputV1::move_to(v.me.0 as u64, v.me.1 as u64))), Some(r)),
+            // already behind the tower: a step further back rather than walking into the fight
+            Some(r) => (Some(v.retreat().unwrap_or_else(|| v.step_back())), Some(r)),
             None => (None, None),
         };
     }
-    // not a hit on a champion: only a champion in danger with a foe near backs off first
+    // not a hit on a champion: a champion in danger, or still backing off from it, keeps going back
+    // (a danger always has its foes near: low within DANGER, outnumbered within NEAR)
     let Some(rule) = danger.or(holding.then_some(Rule::Low)) else { return (None, None) };
-    if !v.foe_near() {
+    // a cast goes: a save, a shield, an escape
+    if base.is_some_and(is_cast) {
         return (None, None);
     }
     if let Some(b) = base {
@@ -280,7 +317,8 @@ fn pct((hp, max): (usize, usize)) -> usize {
 
 fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
     let me = sim.get_entity(me_id)?;
-    let mut v = View { me: pos(&me), hp: pct(me.hp()), ..View::default() };
+    let undying = (0..me.buff_count()).filter_map(|i| me.buff_at(i)).any(|b| b.undying);
+    let mut v = View { me: pos(&me), hp: pct(me.hp()), undying, ..View::default() };
     let mut own_towers = Vec::new();
     let mut own_nexus = None;
     for i in 0..sim.entity_count() {
@@ -329,7 +367,8 @@ pub struct Calm {
     next_look: usize,
     view: Option<View>,
     hold_until: usize,
-    backing: bool,
+    /// The last tick an order was changed (a retreat more than `RETREAT_HOLD` after it is a new one).
+    last_out: Option<usize>,
 }
 
 impl StablePlayerAi for Calm {
@@ -356,7 +395,6 @@ impl StablePlayerAi for Calm {
             let champ = sim.get_player(player)?.champion()?;
             if !champ.is_alive() {
                 self.view = None;
-                self.backing = false;
                 return None;
             }
             if tick >= self.next_look || tick + LOOK < self.next_look {
@@ -371,13 +409,12 @@ impl StablePlayerAi for Calm {
         if v.danger().is_some() {
             self.hold_until = tick + RETREAT_HOLD;
         }
-        let Some(out) = out else {
-            self.backing = false;
-            return None;
-        };
+        let Some(out) = out else { return None };
         TICKS.fetch_add(1, Ordering::Relaxed);
-        if !self.backing {
-            self.backing = true;
+        // a new retreat: the first changed order after a gap (or a match that started over)
+        let fresh = self.last_out.is_none_or(|t| tick < t || tick > t + RETREAT_HOLD);
+        self.last_out = Some(tick);
+        if fresh {
             if let Some(rule) = rule {
                 let near = |r: f64| v.foes.iter().filter(|f| dist(f.at, v.me) <= r).count();
                 note(rule, || {
@@ -450,7 +487,25 @@ mod tests {
             enemy_towers: vec![(650_000.0, 310_000.0)],
             safe: Some((370_000.0, 590_000.0)),
             home: Some((100_000.0, 860_000.0)),
+            undying: false,
         }
+    }
+
+    #[test]
+    fn undying_is_no_danger() {
+        // Tryndamere raging at 5% (undying 5 s, league_tryndamere_rage FIGHT ON): he hits on, even outnumbered
+        let mut v = View { hp: 5, undying: true, ..lane() };
+        assert_eq!(decide(&v, Some(&hit(7)), false), (None, None));
+        assert_eq!(decide(&v, Some(&hit(7)), true), (None, None), "a retreat begun just before the rage ends with it");
+        v.foes.push(Foe { id: 8, at: (450_000.0, 520_000.0), hp: 100 });
+        assert_eq!(decide(&v, Some(&hit(7)), false), (None, None));
+        // a foe under its tower is still not dived
+        let mut dive = View { hp: 5, undying: true, ..lane() };
+        dive.foes[0].at = (630_000.0, 330_000.0);
+        assert_eq!(decide(&dive, Some(&hit(7)), false).1, Some(Rule::Dive));
+        // the rage over (no undying buff): the same hit backs off
+        let after = View { hp: 5, ..lane() };
+        assert_eq!(decide(&after, Some(&hit(7)), false).1, Some(Rule::Low));
     }
 
     #[test]
@@ -477,6 +532,20 @@ mod tests {
         // nobody near: carry on
         let alone = View { foes: vec![Foe { at: (900_000.0, 100_000.0), ..lane().foes[0] }], ..v.clone() };
         assert_eq!(decide(&alone, Some(&farm), false), (None, None));
+    }
+
+    #[test]
+    fn a_retreat_goes_on_through_the_hold() {
+        // the danger just passed (the foe 65k away, beyond DANGER) but the hold is on: farming or walking up waits
+        let v = View { hp: 30, foes: vec![Foe { at: (530_000.0, 440_000.0), ..lane().foes[0] }], ..lane() };
+        assert_eq!(decide(&v, Some(&hit(500)), true).1, Some(Rule::Low), "a farm order in the hold: still backing off");
+        assert_eq!(decide(&v, None, true).1, Some(Rule::Low));
+        // and once the hold is over too: the AI's own
+        assert_eq!(decide(&v, Some(&hit(500)), false), (None, None));
+        // outnumbered with the foes 65k away (beyond DANGER, inside NEAR): backing off, not flipping
+        let mut crowd = lane();
+        crowd.foes = vec![Foe { id: 7, at: (530_000.0, 440_000.0), hp: 90 }, Foe { id: 8, at: (440_000.0, 530_000.0), hp: 90 }];
+        assert_eq!(decide(&crowd, Some(&hit(500)), false).1, Some(Rule::Outnumbered));
     }
 
     #[test]
@@ -523,16 +592,39 @@ mod tests {
     }
 
     #[test]
+    fn casts_always_go() {
+        // low and outnumbered: a save ult on the nearest enemy (Kindred), a condemn on the diver (Vayne), a self shield,
+        // a skill on a champion under his tower - all the caster's own call
+        let mut v = View { hp: 20, ..lane() };
+        v.foes.push(Foe { id: 8, at: (470_000.0, 500_000.0), hp: 100 });
+        for cast in [
+            InputV1::action(InputKindV1::Ult, InputTargetV1::target(7)),
+            InputV1::action(InputKindV1::Skill2, InputTargetV1::target(8)),
+            InputV1::action(InputKindV1::Skill, InputTargetV1::NONE),
+        ] {
+            assert_eq!(decide(&v, Some(&cast), false), (None, None), "{cast:?}");
+            assert_eq!(decide(&v, Some(&cast), true), (None, None), "in the hold too");
+        }
+        // the basic attack is still stopped, and farming backs off
+        assert!(decide(&v, Some(&hit(7)), false).0.is_some());
+        assert!(decide(&v, Some(&hit(500)), false).0.is_some());
+        let mut dive = lane();
+        dive.foes[0].at = (630_000.0, 330_000.0);
+        assert_eq!(decide(&dive, Some(&InputV1::action(InputKindV1::Skill, InputTargetV1::target(7))), false), (None, None));
+    }
+
+    #[test]
     fn a_retreat_holds_a_moment_and_stops_behind_the_tower() {
         // the danger is over but the retreat still holds: no hit yet
         let v = lane();
         assert_eq!(decide(&v, Some(&hit(7)), true).1, Some(Rule::Low));
-        // behind our tower already: stand rather than walk up to hit
+        // behind our tower already: a step further home rather than walk up to hit
         let home = View { me: (372_000.0, 588_000.0), hp: 30, foes: vec![Foe { at: (400_000.0, 560_000.0), ..lane().foes[0] }], ..lane() };
         let (out, rule) = decide(&home, Some(&hit(7)), false);
         assert_eq!(rule, Some(Rule::Low));
-        let stand = out.unwrap();
-        assert_eq!((stand.x, stand.y), (372_000, 588_000));
+        let step = out.unwrap();
+        let to = (step.x as f64, step.y as f64);
+        assert!((dist(to, home.me) - STEP_BACK).abs() < 2.0 && dist(to, (100_000.0, 860_000.0)) < dist(home.me, (100_000.0, 860_000.0)), "{to:?}");
         // and when not hitting a champion there, the AI does as it likes
         assert_eq!(decide(&home, Some(&hit(500)), false), (None, None));
     }

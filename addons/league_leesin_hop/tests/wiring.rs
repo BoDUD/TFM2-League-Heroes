@@ -304,7 +304,8 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
             run(&mut world, &fx, None, 12);
             assert!(dist(me(&world), (495_000.0, 480_000.0)) < 1_500.0, "ForceMove works {works}: {:?}", me(&world));
         }
-        // 0. 选手 AI：李青按 Q 时——对走动的英雄往预判的位置打，对小兵不放（改成平 A 它）
+        // 0. 选手 AI：李青按 Q 时——英雄横着快走、波飞到时已经走出波的宽度就先不放（改成平 A 他），站着的照原样放
+        //    （主包的 Q 是指向技能，方向按下时就定了，不能改方向）；对小兵不放（改成平 A 它）
         let ais = std::slice::from_raw_parts(ex.player_ai_ptr, ex.player_ai_len);
         assert_eq!(ais.len(), 1);
         let ai = ais[0];
@@ -335,9 +336,15 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
             run(&mut world, &fx, None, 1);
         }
         let q_at_him = InputV1::action(InputKindV1::Skill, InputTargetV1::dir(50_000, 0));
-        let out = think(&mut world, Some(q_at_him)).expect("re-aimed");
-        assert_eq!(out.kind, InputKindV1::Skill.code());
-        assert!(out.target.dir_y < -15_000 && out.target.dir_x > 45_000, "aimed {:?}", (out.target.dir_x, out.target.dir_y));
+        let out = think(&mut world, Some(q_at_him)).expect("he walks out of the wave");
+        assert_eq!((out.kind, out.target.target_id), (InputKindV1::Attack.code(), 1));
+        // 他停下：照原样放
+        world.units[1].walk = (0.0, 0.0);
+        for _ in 0..6 {
+            assert!(think(&mut world, None).is_none());
+            run(&mut world, &fx, None, 1);
+        }
+        assert!(think(&mut world, Some(q_at_him)).is_none(), "thrown as it is");
         // 不按 Q 时不管
         assert!(think(&mut world, Some(InputV1::move_to(1, 1))).is_none());
         // 对小兵按 Q：改成平 A 它
@@ -519,7 +526,8 @@ fn w_dashes_for_the_insec_the_escape_and_the_chase() {
             "ENGAGE FOUGHT #1 after 9 ticks",
             "ENGAGE WASTED #1: no hit in 90 ticks",
             "running 900/tick",
-            "Q AIM at #1 Champion at (450000,474000) walking 1000/tick: thrown at (450000,",
+            "Q SKIP #1 Champion at (450000,474000): he walks out of the wave",
+            "Q THROW at #1 at (450000,474000) walking 0/tick: the wave meets him #1",
             "Q SKIP #1 Minion at (450000,474000): no Q on minions",
         ] {
             assert!(text.contains(line), "missing {line:?} in the log:\n{text}");

@@ -37,6 +37,14 @@
 //!   不放时改成平 A（或走向）原来那个目标。R 里自带的 Q 不经过这里。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_leesin_hop.log`，每次启动游戏重写，上一次的留在 .prev.log。
+//!
+//! 2026-11-08 日志审查：
+//! - 10:00 前的 W 开团 24% 白冲（10:00 后 4%）：league_lane 在对线期拦下他落地后的普攻（目标在他们塔下 80000 内、李青以少
+//!   打多）。对线期 `engage_target` 照 league_lane 的规则挑目标（`LANE_*`），它会拦的就不冲。
+//! - Q 的「预判」从来没放出去过（两次启动 0 行 `Q AIM`）：主包的 Q 是指向技能（Targeting），方向在按下那一刻朝目标站的地方
+//!   定死，方向输入引擎不收，一直悄悄退回了内置 AI 的 Q。现在只决定放不放：朝他现在的位置飞、他照现在的速度走，波飞到时
+//!   还在波的宽度里（`Q_RADIUS` + 他的半径）就放（`QPlan::Keep`），会走出波就先不放（`Skip`）。
+//! - `Q LANDED` / `Q MISSED` 不再每行都写（一次启动 4660 行，占日志六成）：走 `noted`。
 
 pub mod maps;
 
@@ -82,6 +90,16 @@ pub const LOW_HP: f64 = 0.3;
 pub const DANGER_R: f64 = 40_000.0;
 /// 追击：敌人血量比例、至少离多远（近了直接打）、停在他身前多远。
 pub const CHASE_HP: f64 = 0.25;
+/// league_lane（对线纪律）管到几点（tick，10:00）：之前的开团照它的规则挑目标，它会拦下落地后的普攻就不冲。
+pub const LANE_END: usize = 36_000;
+/// league_lane：目标离他们的塔这么近就不打（塔射程 75000 加余量）……
+pub const LANE_TOWER_R: f64 = 80_000.0;
+/// ……除非他只剩这么多生命。
+pub const LANE_DIVE_HP: f64 = 0.10;
+/// league_lane：这么近的敌方英雄比我方多就是以少打多……
+pub const LANE_NEAR: f64 = 70_000.0;
+/// ……除非目标只剩这么多生命（而且不在塔下）。
+pub const LANE_KILL_HP: f64 = 0.25;
 pub const CHASE_MIN: f64 = 25_000.0;
 pub const CHASE_STOP: f64 = 8_000.0;
 /// 被动每隔几 tick 看一次。
@@ -657,7 +675,10 @@ pub fn walking_at(lee: (f64, f64), v_lee: (f64, f64), foes: &[Foe]) -> Vec<usize
 /// 突进开团的目标和落点：李青这次和上次（`before`）看都正对着他走（`walking_at`）、他离 `ENGAGE_MIN` 以外、
 /// 他站着或横着走（朝李青走过来的不用冲；跑开的是追击，只追残血的）、W 够得着（`chase_spot`：落在他身前 `CHASE_STOP`）、
 /// 不在他们自己的塔下（`ENGAGE_TOWER_R`，他残血时照冲）、他身边 `ENGAGE_CROWD_R` 内的敌方英雄不到三个
-/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。
+/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。`lane`：对线期（10:00 前），照 league_lane 的
+/// 规则：目标在他们塔下 `LANE_TOWER_R` 内（生命 `LANE_DIVE_HP` 以上）、落点 `LANE_NEAR` 内敌方英雄比我方多（目标残血、
+/// 不在塔下的除外）都不冲——落地后的普攻会被它拦下，W 白交。
+#[allow(clippy::too_many_arguments)]
 pub fn engage_target(
     walls: bool,
     lee: (f64, f64),
@@ -666,12 +687,23 @@ pub fn engage_target(
     before: &[usize],
     allies: &[(f64, f64)],
     their_towers: &[(f64, f64)],
+    lane: bool,
 ) -> Option<(usize, (f64, f64))> {
     let now = walking_at(lee, v_lee, foes);
+    let (tower_r, dive_hp) = if lane { (LANE_TOWER_R, LANE_DIVE_HP) } else { (ENGAGE_TOWER_R, CHASE_HP) };
+    let under = |at: (f64, f64)| their_towers.iter().any(|t| dist(*t, at) <= tower_r);
     foes.iter()
         .filter(|f| now.contains(&f.id) && before.contains(&f.id) && dist(lee, f.at) >= ENGAGE_MIN)
         .filter(|f| !moving_away(lee, f.v, f.at) && !moving_away(f.at, f.v, lee))
-        .filter(|f| f.hp <= CHASE_HP || their_towers.iter().all(|t| dist(*t, f.at) > ENGAGE_TOWER_R))
+        .filter(|f| f.hp <= dive_hp || !under(f.at))
+        .filter(|f| {
+            if !lane || (f.hp <= LANE_KILL_HP && !under(f.at)) {
+                return true;
+            }
+            let theirs = foes.iter().filter(|o| dist(o.at, f.at) <= LANE_NEAR).count();
+            let ours = allies.iter().filter(|a| dist(**a, f.at) <= LANE_NEAR).count() + 1;
+            theirs <= ours
+        })
         .filter(|f| {
             let crowd = foes.iter().filter(|o| dist(o.at, f.at) <= ENGAGE_CROWD_R).count();
             crowd < 3 || allies.iter().any(|a| dist(*a, f.at) <= ENGAGE_CROWD_R + 15_000.0)
@@ -715,7 +747,8 @@ fn hop(
             Some((_, w)) => (Some(w), "CHASE", None),
             None if mine.hp >= ENGAGE_HP => {
                 let allies: Vec<(f64, f64)> = champs.iter().filter(|c| c.team == team && c.id != lee).map(|c| c.at).collect();
-                let hit = engage_target(walls, here, v_lee, foes, before, &allies, &towers(sim, team, false));
+                let lane = sim.tick() < LANE_END;
+                let hit = engage_target(walls, here, v_lee, foes, before, &allies, &towers(sim, team, false), lane);
                 (hit.map(|(_, w)| w), "ENGAGE", hit.map(|(id, _)| id))
             }
             None => (None, "CHASE", None),
@@ -779,7 +812,6 @@ pub struct Mark {
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum QPlan {
     Keep,
-    Aim((f64, f64)),
     Skip(&'static str),
     Wander((f64, f64)),
 }
@@ -871,13 +903,18 @@ pub fn plan_q(input: &InputTargetV1, me: (f64, f64), marks: &[Mark]) -> (QPlan, 
     };
     let plan = match t.kind {
         Kind::Champion => {
+            // the Q flies toward where he stands now (a Targeting skill: its direction is set at the press)
             let p = lead(me, &t);
+            let n = dist(me, t.at).max(1.0);
+            let d = ((t.at.0 - me.0) / n, (t.at.1 - me.1) / n);
             if dist(me, p) > Q_RANGE + t.r {
                 QPlan::Skip("he will be out of reach")
-            } else if blocked(me, p, t.id, marks).is_some() {
+            } else if blocked(me, t.at, t.id, marks).is_some() {
                 QPlan::Skip("a minion or monster is in the way")
+            } else if along_off(me, d, p).1 > Q_RADIUS + t.r {
+                QPlan::Skip("he walks out of the wave")
             } else {
-                QPlan::Aim(p)
+                QPlan::Keep
             }
         }
         Kind::Monster if t.hp <= Q_MONSTER_LOW => QPlan::Skip("the monster dies before the wave lands"),
@@ -967,31 +1004,27 @@ impl StablePlayerAi for LeeAi {
             (plan, t, me, head(&sim, lee_id), on_screen(&sim))
         };
         match plan {
-            QPlan::Keep => None,
+            QPlan::Keep => {
+                // a throw ends a skip: the next skip on him is news
+                self.skipped = None;
+                if let Some(t) = t.filter(|t| t.kind == Kind::Champion) {
+                    if let Some(n) = noted("q throw", shown) {
+                        wlog(format!(
+                            "{head_line} Q THROW at #{} at {} walking {:.0}/tick: the wave meets him #{n}",
+                            t.id,
+                            pt(t.at),
+                            t.v.0.hypot(t.v.1)
+                        ));
+                    }
+                }
+                None
+            }
             QPlan::Wander(d) => {
                 let to = (me.0 + d.0 * WANDER, me.1 + d.1 * WANDER);
                 if noted("q wander", shown).is_some() {
                     wlog(format!("{head_line} Q SKIP: nothing on that line, walks on toward {}", pt(to)));
                 }
                 Some(InputV1::move_to(to.0.round().max(0.0) as u64, to.1.round().max(0.0) as u64))
-            }
-            QPlan::Aim(p) => {
-                let t = t?;
-                let (dx, dy) = ((p.0 - me.0).round() as i64, (p.1 - me.1).round() as i64);
-                let input = InputV1::action(InputKindV1::Skill, InputTargetV1::dir(dx, dy));
-                if !ctx.is_valid_input(&input) {
-                    return None;
-                }
-                wlog(format!(
-                    "{head_line} Q AIM at #{} {:?} at {} walking {:.0}/tick: thrown at {} ({:.0} lead)",
-                    t.id,
-                    t.kind,
-                    pt(t.at),
-                    t.v.0.hypot(t.v.1),
-                    pt(p),
-                    dist(p, t.at)
-                ));
-                Some(input)
             }
             QPlan::Skip(why) => {
                 let t = t?;
@@ -1135,10 +1168,14 @@ impl StablePassive for Hop {
         if let Some(t0) = self.q_cast {
             if anim_playing(sim, entity, "q2") {
                 self.q_cast = None;
-                wlog(format!("{} Q LANDED (Q2 after {} ticks)", head(sim, entity), tick - t0));
+                if let Some(n) = noted("q landed", false) {
+                    wlog(format!("{} Q LANDED (Q2 after {} ticks) #{n}", head(sim, entity), tick - t0));
+                }
             } else if tick > t0 + Q_VERDICT {
                 self.q_cast = None;
-                wlog(format!("{} Q MISSED", head(sim, entity)));
+                if let Some(n) = noted("q missed", false) {
+                    wlog(format!("{} Q MISSED #{n}", head(sim, entity)));
+                }
             }
         }
         // 突进之后：李青在他身边出手了就算打上了，`ENGAGE_WATCH` tick 还没有就是白冲了
@@ -1185,7 +1222,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (W dash, no ward, aimed Q) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (W dash, no ward, Q timing) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1236,25 +1273,44 @@ mod tests {
     }
 
     #[test]
-    fn q_aims_where_he_will_be() {
+    fn q_is_thrown_when_the_wave_still_meets_him() {
         let me = (400_000.0, 480_000.0);
-        // 他在东边 50000、往北走（每 tick 1000）：往北边预判的位置打
-        let him = Mark { v: (0.0, -1_000.0), ..mark(7, 450_000.0, 480_000.0, Kind::Champion) };
-        let (plan, t) = plan_q(&InputTargetV1::dir(50_000, 0), me, &[him]);
-        assert_eq!(t.unwrap().id, 7);
-        let QPlan::Aim(p) = plan else { panic!("{plan:?}") };
-        let t_hit = Q_WIND + dist(me, p) / Q_SPEED;
-        assert!((p.1 - (480_000.0 - 1_000.0 * t_hit)).abs() < 1_500.0 && (p.0 - 450_000.0).abs() < 1.0, "{p:?}");
-        // 站着不动：照原样打他
-        let (plan, _) = plan_q(&InputTargetV1::dir(50_000, 0), me, &[mark(7, 450_000.0, 480_000.0, Kind::Champion)]);
-        assert_eq!(plan, QPlan::Aim((450_000.0, 480_000.0)));
-        // 中间有个小兵挡着：不放
+        // standing still 50000 east: throw
+        let (plan, t) = plan_q(&InputTargetV1::dir(50_000, 0), me, &[mark(7, 450_000.0, 480_000.0, Kind::Champion)]);
+        assert_eq!((plan, t.unwrap().id), (QPlan::Keep, 7));
+        // walking straight at Lee (along the line): the wave meets him, throw
+        let toward = Mark { v: (-600.0, 0.0), ..mark(7, 450_000.0, 480_000.0, Kind::Champion) };
+        assert_eq!(plan_q(&InputTargetV1::target(7), me, &[toward]).0, QPlan::Keep);
+        // walking across the line fast (north 1000 a tick): he walks out of the wave, wait
+        let across = Mark { v: (0.0, -1_000.0), ..mark(7, 450_000.0, 480_000.0, Kind::Champion) };
+        assert_eq!(plan_q(&InputTargetV1::target(7), me, &[across]).0, QPlan::Skip("he walks out of the wave"));
+        // a minion on the line to him: no
         let minion = mark(9, 425_000.0, 482_000.0, Kind::Minion);
         let (plan, _) = plan_q(&InputTargetV1::dir(50_000, 0), me, &[mark(7, 450_000.0, 480_000.0, Kind::Champion), minion]);
-        assert!(matches!(plan, QPlan::Skip(_)), "{plan:?}");
-        // 跑得太快、预判后出了射程：不放
+        assert_eq!(plan, QPlan::Skip("a minion or monster is in the way"));
+        // running away too fast: out of reach
         let runner = Mark { v: (2_000.0, 0.0), ..mark(7, 465_000.0, 480_000.0, Kind::Champion) };
         assert!(matches!(plan_q(&InputTargetV1::target(7), me, &[runner]).0, QPlan::Skip(_)));
+    }
+
+    #[test]
+    fn before_ten_minutes_lee_does_not_leap_where_league_lane_stops_his_hits() {
+        let lee = (480_000.0, 480_000.0);
+        let him = Foe { id: 7, at: (520_000.0, 480_000.0), v: (0.0, 0.0), hp: 1.0 };
+        let go = |foes: &[Foe], allies: &[(f64, f64)], towers: &[(f64, f64)], lane: bool| {
+            engage_target(true, lee, (900.0, 0.0), foes, &[7], allies, towers, lane)
+        };
+        // his tower 60000 behind him: beyond ENGAGE_TOWER_R, inside LANE_TOWER_R
+        let tower = [(580_000.0, 480_000.0)];
+        assert!(go(&[him], &[], &tower, false).is_some());
+        assert!(go(&[him], &[], &tower, true).is_none(), "league_lane would stop the hits");
+        assert!(go(&[Foe { hp: 0.08, ..him }], &[], &tower, true).is_some(), "at 8% it is worth it");
+        // a second enemy beside him and nobody of ours: outnumbered there
+        let mate = Foe { id: 8, at: (530_000.0, 470_000.0), v: (0.0, 0.0), hp: 1.0 };
+        assert!(go(&[him, mate], &[], &[], true).is_none());
+        assert!(go(&[him, mate], &[(500_000.0, 490_000.0)], &[], true).is_some(), "2 v 2 with our jungler near");
+        assert!(go(&[him, mate], &[], &[], false).is_some(), "after 10:00: as before");
+        assert!(go(&[Foe { hp: 0.2, ..him }, mate], &[], &[], true).is_some(), "a kill at 20%");
     }
 
     #[test]
@@ -1348,7 +1404,7 @@ mod tests {
         let lee = (480_000.0, 480_000.0);
         let him = Foe { id: 7, at: (520_000.0, 480_000.0), v: (0.0, 0.0), hp: 1.0 };
         let go = |foes: &[Foe], before: &[usize], allies: &[(f64, f64)], towers: &[(f64, f64)]| {
-            engage_target(true, lee, (900.0, 0.0), foes, before, allies, towers)
+            engage_target(true, lee, (900.0, 0.0), foes, before, allies, towers, false)
         };
         // 李青一直往东走、他站着、40000：冲到他身前 8000
         let (id, w) = go(&[him], &[7], &[], &[]).unwrap();
@@ -1359,9 +1415,9 @@ mod tests {
         // 上次看时还没朝他走（刚转过来 / 路过）：不冲
         assert!(go(&[him], &[], &[], &[]).is_none());
         // 站着不动 / 往回走 / 斜着走（偏 45°）：不冲
-        assert!(engage_target(true, lee, (0.0, 0.0), &[him], &[7], &[], &[]).is_none());
-        assert!(engage_target(true, lee, (-900.0, 0.0), &[him], &[7], &[], &[]).is_none());
-        assert!(engage_target(true, lee, (700.0, 700.0), &[him], &[7], &[], &[]).is_none());
+        assert!(engage_target(true, lee, (0.0, 0.0), &[him], &[7], &[], &[], false).is_none());
+        assert!(engage_target(true, lee, (-900.0, 0.0), &[him], &[7], &[], &[], false).is_none());
+        assert!(engage_target(true, lee, (700.0, 700.0), &[him], &[7], &[], &[], false).is_none());
         // 他朝李青走过来（不冲也碰上）/ 他跑开（满血的不追）：不冲
         assert!(go(&[Foe { v: (-900.0, 0.0), ..him }], &[7], &[], &[]).is_none());
         assert!(go(&[Foe { v: (900.0, 0.0), ..him }], &[7], &[], &[]).is_none());

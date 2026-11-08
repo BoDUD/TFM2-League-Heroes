@@ -15,6 +15,11 @@
 //! 「被控」。救人改由本包判断：`held_pick` 只认**硬控**（`HARD_CC`：击飞、晕眩、定身、嘲讽、恐惧、魅惑、禁止位移技能；不算施法
 //! 动作和强制位移），`r_save` 内（加两个身体）、身边 `r_peel` 内有敌方英雄的队友（不含他自己），离他最近的那个；被动在上膛时
 //! 每 tick 给他续 `league_sion_r_cc`（3 tick），副本的轮询看它走「救人」，`league_sion:held` 让探针飞向这个队友。
+//!
+//! 0.3.1（2026-11-08 的日志检查：两次启动 8 次冲撞的原因全是 `unknown`，其中 4 次「allies near 0」）：数数的标记 `r_n2` /
+//! `r_n3` 在轮询那一 tick 挂上，下一 tick 由冲出去的那个 `delayed(1, team, follow, 摘掉 r_n*)` 一起摘掉，被动的快照里
+//! 大概一次也看不到（没有实证）。`reason` 认不出时，`CHARGE` 行在冲出去这一 tick 自己数（`counted_reason`）：前一 tick 救人的
+//! 队友还在是救人，`R_NEAR` 内（加两个身体，`allies_near`）的队友 2 名以上是团战、1 名是开团 / 追击、没有就是哪条都不符。
 use std::collections::HashSet;
 
 use mod_api_stable::*;
@@ -79,8 +84,11 @@ pub fn held_pick(me: (f64, f64), my_r: f64, mates: &[Mate], foes: &[((f64, f64),
         .map(|m| m.id)
 }
 
+/// 前一 tick 的标记看不出原因（`reason`）。
+pub const UNKNOWN: &str = "unknown (no count or save flag the tick before)";
+
 /// 冲撞的原因，照冲出去前一 tick 身上的标记：数数的标记（`r_n3` / `r_n2`）只在没走「救人」时才有，所以先看它们；
-/// 本包的 `r_cc` 是救人。都没有：主包的数据（不走本包）或看漏了。
+/// 本包的 `r_cc` 是救人。都没有：`UNKNOWN`（0.3.1 起 `CHARGE` 行改用 `counted_reason`）。
 pub fn reason(prev: &HashSet<String>) -> &'static str {
     if prev.contains("league_sion_r_n3") {
         "teamfight (2 allies near)"
@@ -89,8 +97,28 @@ pub fn reason(prev: &HashSet<String>) -> &'static str {
     } else if prev.contains(R_CC) {
         "save"
     } else {
-        "unknown (no count or save flag the tick before)"
+        UNKNOWN
     }
+}
+
+/// `reason` 认不出时，冲出去这一 tick 本包自己数（0.3.1）：救人的队友还在（`held`）是救人；`allies`（`allies_near`）2 名以上
+/// 是团战（数据的 `r_team`），1 名是开团 / 追击，一个都没有就是哪条规则都不符。
+pub fn counted_reason(held: bool, allies: usize) -> &'static str {
+    if held {
+        "save"
+    } else if allies >= 2 {
+        "teamfight (counted at the charge: 2+ allies near)"
+    } else if allies == 1 {
+        "engage / follow-up (counted at the charge: 1 ally near)"
+    } else {
+        "no rule matched (counted at the charge: no ally near)"
+    }
+}
+
+/// 他身边的队友数，照数据的 `around(r_near, AllyChampion)`：`R_NEAR` 内，加上两个身体。`mates`：活着的友方英雄（不含他）的
+/// 位置和身体半径。
+pub fn allies_near(me: (f64, f64), my_r: f64, mates: &[((f64, f64), f64)]) -> usize {
+    mates.iter().filter(|&&(at, r)| dist(me, at) <= R_NEAR as f64 + my_r + r).count()
 }
 
 /// 冲了 `ran` tick 后 `r_go` 没了：撞上（第几档）还是跑满没撞到。
@@ -220,6 +248,22 @@ mod tests {
         assert_eq!(reason(&names(&["r_arm", "r_cc", "r_n1", "r_n2"])), "engage / follow-up (1 ally near)");
         assert!(reason(&names(&["r_arm", "r_n1"])).starts_with("unknown"));
         assert!(reason(&names(&[])).starts_with("unknown"));
+        assert_eq!(reason(&names(&["r_arm"])), UNKNOWN);
+    }
+
+    #[test]
+    fn an_unknown_reason_is_counted_at_the_charge() {
+        // 0.3.1, the 11-08 logs: 8 of 8 charges "unknown" - the count flags come with the poll and go with the charge
+        assert_eq!(counted_reason(true, 0), "save");
+        assert_eq!(counted_reason(true, 2), "save");
+        assert!(counted_reason(false, 2).starts_with("teamfight"));
+        assert!(counted_reason(false, 4).starts_with("teamfight"));
+        assert!(counted_reason(false, 1).starts_with("engage / follow-up"));
+        assert!(counted_reason(false, 0).starts_with("no rule matched"));
+        // allies within r_near plus both bodies (50000 + 3000 + 3000), as the data's `around`
+        let mate = |x: f64| ((x, 0.0), 3_000.0);
+        assert_eq!(allies_near((0.0, 0.0), 3_000.0, &[mate(55_000.0), mate(-20_000.0), mate(57_000.0)]), 2);
+        assert_eq!(allies_near((0.0, 0.0), 3_000.0, &[]), 0);
     }
 
     #[test]

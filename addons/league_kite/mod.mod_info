@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.113.1"
+    }
+  ],
+  "description": "Kiting for the match AI of every ranged champion: while his attack cools down after it went out, an enemy champion in melee reach or walking at him makes him step away (bent toward his own base) instead of standing still, and he keeps the target at the edge of his reach; the attack is given back just before it is ready. Only fills the ticks the game's AI stands (an attack order) or gives no order: its own walking, kiting, casts and recalls are left alone. Ranged is read from his own attacks. Log: league_kite.log (also counts how often the game's AI kites by itself).\n\n拉扯：远程英雄普攻出手后、冷却还没好时，有敌方英雄贴脸或正朝他走过来，就往离那人远、偏向自家基地的方向退一步，不再站着挨打，普攻目标拉在最远射程上；普攻快好时把游戏 AI 的普攻还回去。只补游戏 AI 站着普攻或没下指令的那几 tick，它自己在走（它的拉扯、逃跑、追人）、放技能、回城都不管。远程看他自己的普攻打多远。日志 league_kite.log（也统计游戏 AI 自己拉扯了多少）。",
+  "last_updated": "2026-11-08",
+  "mod_id": "league_kite",
+  "mod_type": "native",
+  "name": "League Heroes: kiting (ranged champions step back between attacks)",
+  "version": "0.1.0"
+}

@@ -7,11 +7,11 @@
 //!   `league_yuumi_w_on`、给他挂 `league_yuumi_w_ride`（头上趴在书上的小猫），每 tick 把她摆到他的位置（`entity_set_pos`），一段一段
 //!   地放逐她（每段 `w_chunk` tick，快结束时续上：谁都选不中、看不见她，防御塔也打不到）；每 `w_p` tick 给他回 `w_heal` + `w_hap`%
 //!   法强生命（`league_yuumi_w_heal` 的画面）。他死了她就跳下来（`w_land` 的画面和声音）。
-//! - **出招时现身**：她的 Q、R 好了且他身边（Q `q_range`、R `r_range`）有敌方英雄，或者 W 好了、他身边 `e_range` 内有敌方英雄
-//!   （再给他一次旺盛精力），就不再续放逐：这一段放逐结束后她能出招，AI 钩子让她对最近的敌方英雄出这一招（不普攻、不走开）；
-//!   出招期间挂 `league_yuumi_w_safe`（受到的伤害 -100%、免控）。冷却从 0 跳起来算出了招，这一招的动作（`q_dur` / `w_dur` / `r_dur`
-//!   tick）放完就接着放逐；等了 `w_wait` tick 还没出招也接着放逐。出招时她的动作画成空白（`view.rs`，游戏 0.6.4 起的 Windows 版），头上的
-//!   小猫一直在。
+//! - **出招时现身**：她的 Q、R 好了且她身边（Q `q_range`、R `r_range`）有敌方英雄，或者 W 好了、她身边 `e_range` 内有敌方英雄
+//!   （再给他一次旺盛精力），就不再续放逐：这一段放逐结束后她能出招，AI 钩子让她对离她最近的敌方英雄出这一招（不普攻、不走开）；
+//!   距离都从她骑着的地方（他身后 `BESIDE`，`beside`）量。出招期间挂 `league_yuumi_w_safe`（受到的伤害 -100%、免控）。冷却从 0
+//!   跳起来算出了招，这一招的动作（`q_dur` / `w_dur` / `r_dur` tick）放完就接着放逐；等了 `w_wait` tick 还没出招也接着放逐。出招时
+//!   她的动作画成空白（`view.rs`，游戏 0.6.4 起的 Windows 版），头上的小猫一直在。
 //! - **骑着再放 W，旺盛精力给他**（0.2.0，用户 2026-11-01：「悠米的W的护盾现在给上了吗」）：副本只在她身边 `W_ON_R` 内找队友给
 //!   旺盛精力（0.1.0 她就坐在他身上），10-20 起她骑在他身后 `BESIDE`，够不着，11-01 的日志里她在他头上放了 19 次 W 都落空。现在
 //!   看见她出了 W，`ZOOM_T` tick 后本包给他：护盾 `E_SH` + `E_AP`% 法强（`E_T` tick）、`league_yuumi_e_haste`（攻速、移速）、
@@ -21,6 +21,12 @@
 //!   两次换人隔 `SWITCH_CD`），在他 `SWITCH_R` 内的队友里照英雄联盟悠米的习惯挑（`switch_pick`）：他身边没有敌方英雄而别人在打，
 //!   跳去打得最凶的；他血量好、旁边打架的队友快死了，跳去救；他不是中单 / 下路而中单 / 下路打得不比他少，跳去跟大哥。猫从他头上
 //!   跳到新宿主头上（起跳的画面、附身的声音），她仍在放逐里，回血跟着换人。W 的冷却加不了，用 `SWITCH_CD` 代替。
+//! - **射程从她站的地方量**（0.2.15，2026-11-08 日志审查：没出招就关掉的窗口 B 组约 2200/9000、A 组约 4000/14200，四分之一
+//!   以上；钩子自己按了（`AI casts`）也落空：Q 26 次里 8 次、W/E 21 次里 4 次）：开窗和 AI 钩子挑目标都从他的位置量，
+//!   可她站在他身后 `BESIDE`（每 tick 摆回去）：他前面 60-80k 的敌人她够不着，引擎让她走过去、又被摆回来，`w_wait` tick 后窗口
+//!   关掉。现在都从她站的地方量（`in_reach`、`cast_target`）；`closed without a cast` 行写出离她最近的敌方英雄多远、这一招的射程。
+//!   换人（`SWITCH_R`）、谁在打架（`FIGHT_R`）不是她出招的射程，照旧从各人的位置量。游戏的 AI 自己按了同一招时，也只在它
+//!   指着的人在她够得着的地方（或没指着人）才照它的（`base_stands`），不然换成钩子从她那儿挑的目标。
 //! - **AI**：附身时她不普攻、不回城、不自己走（都换成「站在他身上」），只在出招的那一小段放技能。
 //!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个悠米自己的被动实例里（服务端预模拟和
@@ -231,7 +237,7 @@ pub struct Params {
     pub w_heal: usize,
     pub w_hap: usize,
     pub w_p: usize,
-    /// Q、W、R 的施放距离（他身边这么近有敌方英雄才为这一招解除放逐）。
+    /// Q、W、R 的施放距离（她骑着的地方这么近有敌方英雄才为这一招解除放逐）。
     pub q_range: usize,
     pub e_range: usize,
     pub r_range: usize,
@@ -354,7 +360,7 @@ pub fn cast_seen(was: usize, now: usize) -> bool {
     was == 0 && now > CAST_JUMP
 }
 
-/// 想出的招：三个技能各自好没好（冷却 0）、他身边各自的距离里有没有敌方英雄 -> 先 R、再 Q、再 W（旺盛精力）。
+/// 想出的招：三个技能各自好没好（冷却 0）、她身边各自的距离里有没有敌方英雄（`in_reach`）-> 先 R、再 Q、再 W（旺盛精力）。
 pub fn wanted(ready: [bool; 3], foe_in: [bool; 3]) -> Option<InputKindV1> {
     // [skill (Q), skill2 (W/E), ult (R)]
     if ready[2] && foe_in[2] {
@@ -398,6 +404,40 @@ pub fn beside(at: (u64, u64), team: usize) -> (u64, u64) {
     };
     let clamp = |v: f64| v.clamp(0.0, 960000.0).round() as u64;
     (clamp(x + ux * BESIDE), clamp(y + uy * BESIDE))
+}
+
+/// The cast range of a window's cast: Q (`Skill`), W/E (`Skill2`), R (`Ult`).
+pub fn range_of(p: &Params, kind: InputKindV1) -> usize {
+    match kind {
+        InputKindV1::Ult => p.r_range,
+        InputKindV1::Skill => p.q_range,
+        _ => p.e_range,
+    }
+}
+
+/// Q, W/E, R: an enemy champion (`foes`: id, position) within each range of `spot`, where she rides (`beside` him) - her
+/// casts start there, not on him (2026-11-08 log review: measured from him, a foe 60-80k in front of him was out of her
+/// reach, the engine walked her toward him, she was put back beside him every tick, and the window ran out uncast).
+pub fn in_reach(spot: (u64, u64), foes: &[(usize, (u64, u64))], p: &Params) -> [bool; 3] {
+    let near = |r: usize| foes.iter().any(|f| dist(spot, f.1) <= r as f64);
+    [near(p.q_range), near(p.e_range), near(p.r_range)]
+}
+
+/// The game's own cast of the window's kind stands (0.2.15): aimed at no one in particular (`None`), or at a unit still there
+/// within `range` of her spot (`Some(Some(at))`); at a unit gone (`Some(None)`) or out of her reach the hook's own pick goes
+/// instead (the engine would walk her toward it and she is put back beside him every tick).
+pub fn base_stands(aimed: Option<Option<(u64, u64)>>, spot: (u64, u64), range: usize) -> bool {
+    match aimed {
+        None => true,
+        Some(Some(at)) => dist(spot, at) <= range as f64,
+        Some(None) => false,
+    }
+}
+
+/// Whom she casts at from `spot`: the enemy champion nearest to her within `range`.
+pub fn cast_target(spot: (u64, u64), foes: &[(usize, (u64, u64))], range: usize) -> Option<usize> {
+    foes.iter().filter(|f| dist(spot, f.1) <= range as f64)
+        .min_by(|a, b| dist(spot, a.1).total_cmp(&dist(spot, b.1))).map(|f| f.0)
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -754,10 +794,10 @@ impl Bond {
         let cd = ready_of(sim, me);
         match self.window {
             None => {
+                // her reach from where she stands (BESIDE behind him), not from him
                 let foes = champions(sim, team, false);
-                let near = |r: usize| foes.iter().any(|f| dist(at, f.1) <= r as f64);
                 let ready = [cd[0] == 0, cd[1] == 0, cd[2] == 0];
-                let foe_in = [near(self.p.q_range), near(self.p.e_range), near(self.p.r_range)];
+                let foe_in = in_reach(spot, &foes, &self.p);
                 if let Some(kind) = wanted(ready, foe_in) {
                     let free_at = self.banished_until.max(tick);
                     let until = free_at + self.p.w_wait;
@@ -771,8 +811,8 @@ impl Bond {
                     sim.add_buff(me, &safe);
                     self.record(me, Some(kind));
                     if let Some(k) = tally(sim, "window") {
-                        wlog(format!("{} WINDOW #{k} opens for {} in {} ticks ({} enemy champions near {})",
-                                     head(sim, me), kind_name(kind), free_at - tick, foes.iter().filter(|f| dist(at, f.1)
+                        wlog(format!("{} WINDOW #{k} opens for {} in {} ticks ({} enemy champions in her reach, beside {})",
+                                     head(sim, me), kind_name(kind), free_at - tick, foes.iter().filter(|f| dist(spot, f.1)
                                          <= self.p.r_range.max(self.p.q_range) as f64).count(), who(sim, host)));
                     }
                 } else {
@@ -832,7 +872,14 @@ impl Bond {
                     sim.entity_remove_buff(me, &yu("w_safe"));
                     if w.cast_at.is_none() {
                         if let Some(k) = tally(sim, "nocast") {
-                            wlog(format!("{} WINDOW #{k} closed without a cast ({})", head(sim, me), kind_name(w.kind)));
+                            // how far the nearest foe is from where she stands, against the cast's range
+                            let range = range_of(&self.p, w.kind);
+                            let nearest = champions(sim, team, false).iter().map(|f| dist(spot, f.1)).min_by(f64::total_cmp);
+                            let far = match nearest {
+                                Some(d) => format!("the nearest enemy champion {d:.0} from her, range {range}"),
+                                None => "no enemy champion alive".to_string(),
+                            };
+                            wlog(format!("{} WINDOW #{k} closed without a cast ({}): {far}", head(sim, me), kind_name(w.kind)));
                         }
                     }
                     self.banish(sim, me, tick);
@@ -977,28 +1024,25 @@ impl StablePlayerAi for Ai {
             let stay = InputV1::move_to(spot.0, spot.1);
             let input = match ride.cast {
                 Some(kind) => {
-                    let p = params();
-                    let range = match kind {
-                        InputKindV1::Ult => p.r_range,
-                        InputKindV1::Skill => p.q_range,
-                        _ => p.e_range,
-                    };
-                    let team = me.team();
-                    let near = champions(&sim, team, false).into_iter().filter(|f| dist(at, f.1) <= range as f64)
-                        .min_by(|a, b| dist(at, a.1).partial_cmp(&dist(at, b.1)).unwrap_or(std::cmp::Ordering::Equal));
-                    match near {
-                        Some((t, _)) => InputV1::action(kind, InputTargetV1::target(t)),
+                    // the nearest within reach of her spot: the cast starts there (from him a foe in front was out of
+                    // her reach, the engine walked her and she was put back - 2026-11-08 log review)
+                    let foes = champions(&sim, me.team(), false);
+                    let range = range_of(&params(), kind);
+                    // the game's own choice stands when it is the cast she is out for, at someone in her reach
+                    if let Some(b) = base.filter(|b| b.kind == kind.code()) {
+                        let aimed = (b.target.kind == InputTargetKindV1::Target.code())
+                            .then(|| sim.get_entity(b.target.target_id).map(|t| t.pos()));
+                        if base_stands(aimed, spot, range) {
+                            return None;
+                        }
+                    }
+                    match cast_target(spot, &foes, range) {
+                        Some(t) => InputV1::action(kind, InputTargetV1::target(t)),
                         None => stay,
                     }
                 }
                 None => stay,
             };
-            // the game's own choice stands when it is the cast she is out for
-            if let (Some(b), Some(kind)) = (base, ride.cast) {
-                if b.kind == kind.code() {
-                    return None;
-                }
-            }
             (input, head(&sim, id), key, ride.told, on_screen(&sim))
         };
         if input.kind != InputKindV1::Move.code() {
@@ -1157,6 +1201,46 @@ mod tests {
                      format!("\"attack_speed_mult\": {E_AS}")] {
             assert!(branch.contains(&want), "{want} is not in the copy's riding W");
         }
+    }
+
+    #[test]
+    fn the_games_own_cast_stands_only_within_her_reach() {
+        let spot = (400_000, 400_000);
+        assert!(base_stands(None, spot, 60_000), "aimed at no one: the game's");
+        assert!(base_stands(Some(Some((450_000, 400_000))), spot, 60_000));
+        assert!(!base_stands(Some(Some((470_000, 400_000))), spot, 60_000), "out of her reach: the hook's pick");
+        assert!(!base_stands(Some(None), spot, 60_000), "at someone gone");
+    }
+
+    #[test]
+    fn her_reach_starts_where_she_rides() {
+        // 2026-11-08 log review: a quarter of the windows closed uncast - the foe was in range of him, not of her
+        let p = Params::default();
+        let at = (480_000, 480_000);
+        for team in [0, 1] {
+            let spot = beside(at, team);
+            // `d` straight ahead of him (away from her, toward the enemy), or behind him (-d)
+            let ahead = |d: f64| {
+                let (ux, uy) = ((at.0 as f64 - spot.0 as f64) / BESIDE, (at.1 as f64 - spot.1 as f64) / BESIDE);
+                ((at.0 as f64 + ux * d).round() as u64, (at.1 as f64 + uy * d).round() as u64)
+            };
+            let far = ahead(70_000.0);
+            assert!(dist(at, far) <= p.q_range.min(p.e_range).min(p.r_range) as f64, "in every range of him");
+            assert_eq!(in_reach(spot, &[(9, far)], &p), [false; 3], "team {team}: out of her reach, {:.0} from her",
+                       dist(spot, far));
+            assert_eq!(cast_target(spot, &[(9, far)], p.q_range), None);
+            let near = ahead(50_000.0);
+            assert_eq!(in_reach(spot, &[(9, far), (8, near)], &p), [true; 3]);
+            assert_eq!(cast_target(spot, &[(9, far), (8, near)], p.q_range), Some(8));
+            // one behind him is nearer to her than to him
+            let behind = ahead(-85_000.0);
+            assert!(dist(at, behind) > p.q_range as f64);
+            assert_eq!(in_reach(spot, &[(7, behind)], &p), [true; 3]);
+            assert_eq!(cast_target(spot, &[(9, far), (7, behind)], p.r_range), Some(7));
+        }
+        assert_eq!(range_of(&p, InputKindV1::Skill), p.q_range);
+        assert_eq!(range_of(&p, InputKindV1::Skill2), p.e_range);
+        assert_eq!(range_of(&p, InputKindV1::Ult), p.r_range);
     }
 
     #[test]

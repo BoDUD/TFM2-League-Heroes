@@ -5,6 +5,8 @@
 //!    按 Q——锁链交叉在落点，爆炸接在击飞后面。（E → 弑君突刺在主包数据里：落地时突刺好了就马上刺。）
 //! 2. **夺来的大招挑时机**：身上有夺来的大招（`r_have`）、R 好了：
 //!    - `r_range` 内有一名敌方英雄身边 `r2_r` 内还有另一名敌方英雄（能炸到两个），或者有生命低于 `LOW`% 的敌方英雄：替 AI 朝他按 R；
+//!    - 他自己生命低于 `LOW`%（0.2.60，2026-11-08 的日志：留着大招一路掉到 15% 血、到死都没放）：AI 想放就照放，不想放也替他
+//!      朝 `r_range` 内最近的敌方英雄按 R（`STOLEN R LOW`）；
 //!    - AI 自己想放，但只炸得到一个满血的人、夺来的大招也还没快过期：改成普攻那个人，留着大招；
 //!    - 快过期（他身上的 `r_have` 剩不到 `LAPSE` tick）就照 AI 的放。0.2.58 起夺来的大招一直留到放出（同英雄联盟），不会过期：
 //!      等到能炸到两个人或有人残血再放。
@@ -129,6 +131,16 @@ pub fn call(me: &Me, foes: &[Unit], p: &Params, want: Want) -> Option<Call> {
                     return Some(Call::PressR(u.id, "stolen r", "STOLEN R: two champions in the blast or a wounded one"));
                 }
                 return None;
+            }
+            // he is low himself: used now - since 0.2.58 it never lapses, so the lapse exit below never came and he died
+            // holding it (the 11-08 logs: HOLD R down to 15% hp); the AI's own cast goes, else at the nearest champion
+            if me.hp < LOW as f64 / 100.0 {
+                if let Want::R(Some(_)) = want {
+                    return None;
+                }
+                if let Some(u) = nearest(me, foes, p.r_range) {
+                    return Some(Call::PressR(u.id, "stolen r low", "STOLEN R LOW: he is low - thrown before he dies holding it"));
+                }
             }
             if let Want::R(Some(t)) = want {
                 if left > LAPSE {
@@ -354,6 +366,31 @@ mod tests {
         holding.stolen = Some(400);
         let low = [champ(1, 50_000.0, 0.0, 300)];
         assert!(matches!(call(&holding, &low, &p, Want::Move), Some(Call::PressR(1, ..))));
+    }
+
+    #[test]
+    fn a_low_sylas_throws_the_stolen_ult_before_he_dies() {
+        // the 11-08 logs: HOLD R down to 15% hp, lives ended with the ult unused - since 0.2.58 it never lapses
+        let p = Params::default();
+        let mut low = me();
+        low.stolen = Some(usize::MAX);
+        low.q_ready = false;
+        low.hp = 0.3;
+        let one = [champ(1, 20_000.0, 0.0, 900)];
+        assert!(matches!(call(&low, &one, &p, Want::Move), Some(Call::PressR(1, ..))));
+        assert!(matches!(call(&low, &one, &p, Want::Attack(Some(1))), Some(Call::PressR(1, ..))));
+        // the AI's own cast goes through: no hold
+        assert_eq!(call(&low, &one, &p, Want::R(Some(1))), None);
+        // nobody in R range, or R cooling: nothing
+        let far = [champ(1, 200_000.0, 0.0, 900)];
+        assert_eq!(call(&low, &far, &p, Want::Move), None);
+        low.r_ready = false;
+        assert_eq!(call(&low, &one, &p, Want::Move), None);
+        // healthy enough: the hold as before
+        low.r_ready = true;
+        low.hp = 0.5;
+        assert!(matches!(call(&low, &one, &p, Want::R(Some(1))), Some(Call::Attack(1, ..))));
+        assert_eq!(call(&low, &one, &p, Want::Move), None);
     }
 
     #[test]

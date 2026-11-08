@@ -11,12 +11,17 @@
 //! - **参与击杀**：她的每一次英雄击杀（`on_kill`）和助攻（`on_assist`）都挂一次 `league_ahri_tk_go`，监视器看到就回血、
 //!   灵魄突袭的窗口开着时再给一次、窗口至少再开 10 秒。几个人同时阵亡就排队，上一个被监视器取走了再挂下一个。
 //!
-//! 数字都从英雄数据的 `passive.params` 来。不用全局变量，服务端预模拟和你看的那场各算各的。
+//! 数字都从英雄数据的 `passive.params` 来。不用全局变量，服务端预模拟和你看的那场各算各的（只有日志的行数是这次启动合计的，
+//! 只管写不写那一行）。
+//!
+//! 0.1.1（2026-11-08 日志审查）：日志每个阿狸各记前 120 行，每场 115 行左右，是合集里最大的日志（一次启动 8453 行 / 683 KB）；
+//! 改成这次启动所有阿狸合计前 `LOG_FIRST` 行，之后每 `LOG_EVERY` 行记一行。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ahri.log`，每次启动游戏重写。
 
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -161,19 +166,23 @@ fn timed(sim: &mut StableSim<'_>, id: usize, name: &str, ticks: usize) {
     sim.add_buff(id, &BuffV1::timed(name, ticks));
 }
 
-/// 每个阿狸一份：参数、计数、日志用的编号。
+/// 这次启动所有阿狸一共记了几行：前 `LOG_FIRST` 行都写，之后每 `LOG_EVERY` 行写一行（只管日志，0.1.1）。
+static LOGGED: AtomicUsize = AtomicUsize::new(0);
+const LOG_FIRST: usize = 120;
+const LOG_EVERY: usize = 50;
+
+/// 每个阿狸一份：参数、计数。
 #[derive(Clone, Default)]
 struct Essence {
     p: Params,
     c: Count,
-    logged: usize,
 }
 
 impl Essence {
-    fn note(&mut self, sim: &StableSim<'_>, me: usize, what: &str) {
-        self.logged += 1;
-        if self.logged <= 120 || self.logged % 50 == 0 {
-            wlog(format!("{} {what} (essence {}, queued: takedowns {}, heals {})", head(sim, me), self.c.essence,
+    fn note(&self, sim: &StableSim<'_>, me: usize, what: &str) {
+        let n = LOGGED.fetch_add(1, Ordering::Relaxed) + 1;
+        if n <= LOG_FIRST || n % LOG_EVERY == 0 {
+            wlog(format!("{} {what} (essence {}, queued: takedowns {}, heals {}) #{n}", head(sim, me), self.c.essence,
                          self.c.takedowns, self.c.heals));
         }
     }

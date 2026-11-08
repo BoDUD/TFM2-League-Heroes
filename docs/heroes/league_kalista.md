@@ -55,7 +55,7 @@
 
 ### 卡莉丝塔附加包
 
-[卡莉丝塔附加包](../../addons/league_kalista/README.md)：`league_kalista` v0.2.3
+[卡莉丝塔附加包](../../addons/league_kalista/README.md)：`league_kalista` v0.2.4
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

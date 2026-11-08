@@ -19,6 +19,9 @@
 //!   动作也算。上膛时被动每 tick 找 `r_save` 内被硬控、身边有敌方英雄的队友（`ult::held_pick`），有就给他续 `league_sion_r_cc`；
 //!   副本的轮询看到它才走「救人」，对每个队友调 `league_sion:held`，被选中的那个让他身上出现 1 tick 的 `league_sion_r_this`，
 //!   探针飞向这个队友。`CHARGE` 行写出救的是谁、什么控制；`LAPSED` 行过 4 tick 再读冷却（看得到退还）。
+//! - **冲撞的原因自己数**（0.3.1，2026-11-08 的日志检查：8 次冲撞的原因全是 unknown）：数数的标记 `r_n2` / `r_n3` 在轮询那一
+//!   tick 挂上、下一 tick 冲出去时一起摘掉，被动看不到；前一 tick 的标记看不出原因时，`CHARGE` 行在冲出去这一 tick 自己数
+//!   `R_NEAR` 内（加两个身体）的队友：2 名以上「团战」、1 名「开团 / 追击」、没有「哪条规则都不符」（`ult::counted_reason`）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_sion.log`，每次启动游戏重写。
 
@@ -331,6 +334,18 @@ fn r_context(sim: &StableSim<'_>, me: usize) -> String {
             if max > 0 { hp * 100 / max } else { 0 })
 }
 
+/// 他身边的队友数（`ult::allies_near`：`R_NEAR` 内，加两个身体），`CHARGE` 行认不出原因时用（0.3.1）。
+fn mates_near(sim: &StableSim<'_>, me: usize) -> usize {
+    let Some(e) = sim.get_entity(me) else { return 0 };
+    let (team, at, my_r) = (e.team(), e.pos(), e.radius() as f64);
+    let mates: Vec<((f64, f64), f64)> = (0..sim.entity_count())
+        .filter_map(|i| sim.entity_at(i))
+        .filter(|u| u.is_champion() && u.is_alive() && u.id() != me && u.team() == team)
+        .map(|u| ((u.pos().0 as f64, u.pos().1 as f64), u.radius() as f64))
+        .collect();
+    ult::allies_near((at.0 as f64, at.1 as f64), my_r, &mates)
+}
+
 impl Glory {
     /// 救人（0.3.0）：上膛时找被硬控的队友（`held_ally`），有就给他续 `r_cc`（副本的轮询读它）；记下来给 `CHARGE` 行。
     fn save_flag(&mut self, sim: &mut StableSim<'_>, me: usize) {
@@ -384,6 +399,8 @@ impl Glory {
                 }
                 ult::Event::Charge(why) => {
                     if let Some(k) = counted("charge") {
+                        // 0.3.1 (the 11-08 logs: 8 of 8 "unknown"): the count flags never reach the snapshot - counted here
+                        let why = if why == ult::UNKNOWN { ult::counted_reason(held.is_some(), mates_near(sim, me)) } else { why };
                         let whom = match (why, held) {
                             ("save", Some(h)) => format!(" {} in {} {:.0} away", who(sim, h.id), ult::cc_names(&h.kinds), h.far),
                             ("save", None) => " (the ally is no longer held)".to_string(),

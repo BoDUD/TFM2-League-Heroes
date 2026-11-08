@@ -55,7 +55,7 @@
 
 ### 沃里克附加包
 
-[沃里克附加包](../../addons/league_warwick/README.md)：`league_warwick` v0.1.1
+[沃里克附加包](../../addons/league_warwick/README.md)：`league_warwick` v0.1.2
 
 主包 `league` 保持纯数据。用户选了「做附加包」，又要求「有连招要做连招」。主包的数据读不到当前生命，英雄联盟里沃里克最核心的两件事——**残血吸血**和**鲜血追猎**——都看生命，所以放在这个附加包里用原生代码做，外加连招：
 

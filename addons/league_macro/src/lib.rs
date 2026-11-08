@@ -32,6 +32,9 @@
 //!   几条小龙挑离本队最近的。到了龙坑边（`WITH_PIT` 以内）打龙、打人都是游戏 AI 的事，只在它回城、往远处走时拉回来。
 //!   两边都这样就会在龙坑前碰上。一条龙每个人最多集结 `GATHER_MAX` tick，之后歇 `GATHER_REST` tick（不一直对峙丢线）。
 //!   推基地、跟大龙兵线先于集结。
+//! - 0.1.7（用户 2026-11-08「BUG挺多的 你好好修复吧」）：大龙 10:00 一刷新双方十个人就同时冲过去，每局都在 10:00 整开大龙团。
+//!   现在大龙只在人数占优（我方活着的比对面多）或对面在抢（`CONTEST_NEAR` 内有 `CONTEST_MIN` 个以上敌方英雄）时集结，
+//!   不然去小龙（还是人数不吃亏就行）。
 //! - 0.1.6（用户 2026-11-08「辅助想回家 想游走全被限制住了」）：集结和跟大龙兵线时，AI 回城、往自家基地走（目的地离自家
 //!   基地 `HOME_NEAR` 以内）都放行（`going_home`），以前离得远就一律拉去龙坑 / 兵线。
 //!
@@ -93,6 +96,9 @@ pub const GATHER_HP: usize = 50;
 pub const STAGE: f64 = 35_000.0;
 /// 离集结点这么近算到了龙坑边。
 pub const WITH_PIT: f64 = 70_000.0;
+/// 大龙：坑边这么近有这么多敌方英雄 = 对面在抢，人数不占优也去。
+pub const CONTEST_NEAR: f64 = 100_000.0;
+pub const CONTEST_MIN: usize = 2;
 /// 一条龙每个人最多集结多久（tick，40 秒）……
 pub const GATHER_MAX: usize = 2_400;
 /// ……之后歇多久（tick，60 秒）。
@@ -389,11 +395,14 @@ fn gather(v: &View) -> Option<Intent> {
     }
     let n = v.allies.len().max(1) as f64;
     let centre = (v.allies.iter().map(|p| p.0).sum::<f64>() / n, v.allies.iter().map(|p| p.1).sum::<f64>() / n);
+    // the epic monster only with more of us alive, or when they are taking it; a serpent with even numbers
+    let ahead = v.allies.len() > v.enemies.len();
+    let contested = |pit: Pos| v.enemies.iter().filter(|e| dist(e.1, pit) <= CONTEST_NEAR).count() >= CONTEST_MIN;
     let (id, epic, pit) = v
         .objectives
         .iter()
         .copied()
-        .filter(|o| !v.resting.contains(&o.0))
+        .filter(|o| !v.resting.contains(&o.0) && (!o.1 || ahead || contested(o.2)))
         .min_by(|a, b| b.1.cmp(&a.1).then(dist(a.2, centre).total_cmp(&dist(b.2, centre))))?;
     let home = v.own_nexus.unwrap_or(v.me);
     let d = dist(pit, home).max(1.0);
@@ -702,6 +711,15 @@ mod tests {
         // resting from the baron: the dragon; none alive: nothing
         let Some(Intent::Gather { id, .. }) = plan(&View { resting: vec![61], ..v.clone() }) else { panic!() };
         assert_eq!(id, 60);
+        // even numbers (4 v 4, theirs far): the dragon, not the baron; theirs at the baron pit: contest it
+        let four: Vec<(usize, Pos)> = (0..4).map(|i| (70 + i, (800_000.0, 200_000.0 + i as f64))).collect();
+        let Some(Intent::Gather { id, .. }) = plan(&View { enemies: four.clone(), ..v.clone() }) else { panic!() };
+        assert_eq!(id, 60, "even numbers: the dragon");
+        let mut taking = four;
+        taking[0].1 = (360_000.0, 320_000.0);
+        taking[1].1 = (340_000.0, 280_000.0);
+        let Some(Intent::Gather { id, .. }) = plan(&View { enemies: taking, ..v.clone() }) else { panic!() };
+        assert_eq!(id, 61, "they are taking the baron: contest it");
         assert_eq!(plan(&View { objectives: vec![], ..v.clone() }), None);
         // before 10:00, hurt, in a fight, down in numbers: no
         assert_eq!(plan(&View { tick: 30_000, ..v.clone() }), None);

@@ -32,7 +32,10 @@
 //!   0.5.3（用户 2026-11-04：「死歌灵体死了后秒复活？」）：0.5.2 的记录按真实时间放 30 秒，期间他再死一次就被旧记录扣成 1 tick；
 //!   现在一条记录只管它那一次阵亡（`note_open`）。0.5.5（2026-11-06，画面和预模拟分叉的排查）：每份模拟一条记录，按这份模拟的
 //!   编号（被动挂在他身上的 `league_karthus_sim:<n>`，尸体上留到复活）认，只由这份模拟扣、按它自己的 tick 删；以前按「哪一局」
-//!   配，预模拟没有局号，同一场比赛别的小局的预模拟也会被它扣，记录还按真实时间丢。
+//!   配，预模拟没有局号，同一场比赛别的小局的预模拟也会被它扣，记录还按真实时间丢。0.5.6（2026-11-08 的日志检查）：0.5.5 起
+//!   一次都没扣成（11-08 的日志一条 `RESPAWN:` 都没有，全是 `RESPAWN NOT CUT (no match tick found …)`）——游戏在他阵亡时清掉
+//!   尸体身上的 buff（尸体留着 buff 只是 SDK 里的事），比赛钩子从尸体上读不到编号。现在编号也挂在水晶上（水晶不收就挂防御塔，
+//!   league_eggs 的做法；开局第 1 tick 挂，每 `ANCHOR_RETRY` tick 看一眼还在不在），记录带着这些建筑，比赛钩子认建筑上的编号。
 //! - **灵体照样放技能**（0.5.1，用户 2026-11-03：「灵体状态下会放其他技能吗 也检查下 我怎么感觉不会放」）：放逐的单位不给队伍
 //!   视野，0.5.0 的灵体只挑他队伍看得见的敌人，身边没队友时荒芜、亵渎什么都打不到（只有不看视野的安魂曲放得出来）；现在用灵体
 //!   自己的眼睛（射程里的都算，亵渎和荒芜的爆炸本来就不挑）。痛苦之墙主包挂在普攻上，灵体不能普攻，一面都没立过；现在 W 好了
@@ -192,23 +195,64 @@ pub fn stage(k: usize, p_t: usize, laid_down: bool) -> Stage {
 }
 
 /// 每份模拟的编号（0.5.5，league_galio / league_brand 的做法）：被动第一次出生时抽一个，每次出生挂在他身上（buff
-/// `league_karthus_sim:<编号>`，没有数值、没有画面；league.dll 的分叉校验不看带 `_sim:` 的 buff）。他阵亡后尸体身上的 buff
-/// 停在阵亡那一刻、留到复活（champion-data「A dead caster」），比赛钩子从尸体上读回编号，认出这份模拟自己的记录。
+/// `league_karthus_sim:<编号>`，没有数值、没有画面；league.dll 的分叉校验不看带 `_sim:` 的 buff）。0.5.5 以为尸体身上的 buff
+/// 留到复活、比赛钩子能从尸体上读回编号——那只是 SDK 里的事：游戏在阵亡时清掉 buff（league_nidalee、league_kayn_form 的画面
+/// 也这么写），11-08 的日志里一次都没认出来。0.5.6 起编号也挂在建筑上（[`hang_tag`]：水晶，水晶不收时防御塔；league_eggs 的
+/// 做法，它的 `EGGS sim #n` 说明预模拟里水晶留着 `_sim:` buff），记录带着这些建筑（`Cut::anchors`），比赛钩子认建筑上的编号。
 static NEXT_SIM: AtomicU64 = AtomicU64::new(1);
 pub const SIM_TAG: &str = "league_karthus_sim:";
+/// 编号挂不上（没有建筑收下）时隔这么多 tick 再挂；挂上了也每这么多 tick 看一眼还在不在（塔倒了、这份模拟从头再跑）（0.5.6）。
+pub const ANCHOR_RETRY: usize = 60;
+
+/// This add-on's tag of simulation `no`.
+pub fn sim_tag(no: u64) -> String {
+    format!("{SIM_TAG}{no}")
+}
 
 /// The number in a buff name of this add-on's tag (None: another buff).
 pub fn parse_tag(buff: &str) -> Option<u64> {
     buff.strip_prefix(SIM_TAG).and_then(|v| v.parse().ok())
 }
 
-/// The simulation number on unit `id` - his living body or his corpse (0: none).
+/// The simulation number on unit `id` - his living body, or his corpse in the SDK (the game clears a corpse's buffs) (0: none).
 fn tag_of(sim: &StableSim<'_>, id: usize) -> u64 {
     sim.get_entity(id).map_or(0, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find_map(|b| parse_tag(b.name())).unwrap_or(0))
 }
 
-/// 一次灵体倒下后要扣的复活时间：哪份模拟（[`SIM_TAG`] 的编号）、他的身体（阵亡后是尸体，编号在上面）、哪个玩家、阵亡的 tick、
-/// 灵体待了多少 tick；他该复活的 tick（`back_tick`，这份模拟第一次看到他登记成阵亡时算出）；日志行头，记过没有。
+/// Unit `id` carries the buff `name` - the exact name (a nexus also carries league_eggs' `league_eggs_sim:<n>`).
+fn carries(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
+    sim.get_entity(id).is_some_and(|e| has_buff(&e, name))
+}
+
+/// Hangs `tag` on the living nexuses, or on the living towers when no nexus takes it (league_eggs' anchors, 0.5.6): the buildings
+/// that carry it now (none: refused), which kind they are, and how many buildings stand (0 at tick 0: they come after it).
+fn hang_tag(sim: &mut StableSim<'_>, tag: &str) -> (Vec<usize>, &'static str, usize) {
+    let (mut nexus, mut towers) = (Vec::new(), Vec::new());
+    for e in (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|e| e.is_alive()) {
+        match kind_of(&e) {
+            Some(EntityKindV1::Nexus) => nexus.push(e.id()),
+            Some(EntityKindV1::Tower) => towers.push(e.id()),
+            _ => {}
+        }
+    }
+    let stand = nexus.len() + towers.len();
+    for (group, what) in [(nexus, "nexus"), (towers, "towers")] {
+        for &a in &group {
+            // once on each (hung again when a run starts over)
+            sim.entity_remove_buff(a, tag);
+            sim.add_buff(a, &BuffV1::named(tag));
+        }
+        let took: Vec<usize> = group.into_iter().filter(|&a| carries(sim, a, tag)).collect();
+        if !took.is_empty() {
+            return (took, what, stand);
+        }
+    }
+    (Vec::new(), "", stand)
+}
+
+/// 一次灵体倒下后要扣的复活时间：哪份模拟（[`SIM_TAG`] 的编号）、他的身体（阵亡后是尸体；SDK 里编号在上面，游戏里不在）、
+/// 挂着这份模拟编号的建筑（0.5.6）、哪个玩家、阵亡的 tick、灵体待了多少 tick；他该复活的 tick（`back_tick`，这份模拟第一次
+/// 看到他登记成阵亡时算出）；日志行头，记过没有。
 ///
 /// 0.5.5（2026-11-06）：每份模拟一条、只由这份模拟扣和删。0.5.2-0.5.4 按「哪一局」（种类、比赛、小局）配：服务器的预模拟没有
 /// 局号（s=-），同一场比赛不同小局的预模拟共用记录（另一局里同一个玩家碰巧阵亡就被扣），同一局并排的两份预演、画面的两遍也共用
@@ -217,6 +261,8 @@ fn tag_of(sim: &StableSim<'_>, id: usize) -> u64 {
 struct Cut {
     sim: u64,
     body: usize,
+    /// the buildings carrying this simulation's number when he died (0.5.6: the game clears his corpse's buffs)
+    anchors: Vec<usize>,
     player: usize,
     at: usize,
     spent: u64,
@@ -234,10 +280,15 @@ static CUTS_N: AtomicUsize = AtomicUsize::new(0);
 /// 最多留这么多条（正在用的几条都是刚记的；多出来的是打完的比赛里的）。
 pub const CUTS_MOST: usize = 256;
 
-/// A note `c` is this simulation's: the number on the body it is about is the note's (another simulation's body with the same
-/// entity id carries its own number, or none).
+/// A note `c` is this simulation's: a building it names carries the note's number, the exact tag (0.5.6; another simulation's
+/// building with the same entity id carries its own number, or none) - or, in the SDK, where a corpse keeps its buffs, the body
+/// it is about does (0.5.5 went by that alone, and in the game never owned a note: the corpse's buffs are cleared at death).
 fn owns(sim: &StableSim<'_>, c: &Cut) -> bool {
-    c.sim != 0 && tag_of(sim, c.body) == c.sim
+    if c.sim == 0 {
+        return false;
+    }
+    let tag = sim_tag(c.sim);
+    c.anchors.iter().any(|&a| carries(sim, a, &tag)) || tag_of(sim, c.body) == c.sim
 }
 
 /// The note of `sim`'s Karthus of `player` goes into `cuts` (the one of his last death, if still there, gives way); past
@@ -295,7 +346,7 @@ pub enum Step {
 }
 
 /// What a match tick at `now` does with note `c`: `mine` says whether it is this simulation's (asked only when it matters: it
-/// reads the body), `dead_left` the player's respawn ticks left when he is dead in this simulation (None: alive, no such
+/// reads the buildings), `dead_left` the player's respawn ticks left when he is dead in this simulation (None: alive, no such
 /// player). The first tick this simulation sees him dead sets the note's `back`.
 fn step(c: &mut Cut, now: usize, mine: &dyn Fn(&Cut) -> bool, dead_left: &dyn Fn() -> Option<u64>) -> Step {
     if now < c.at {
@@ -318,8 +369,8 @@ fn step(c: &mut Cut, now: usize, mine: &dyn Fn(&Cut) -> bool, dead_left: &dyn Fn
     cut_to(back, now, left).map_or(Step::Skip, |want| Step::Cut { want, left })
 }
 
-/// 扣这份模拟里到了的复活时间。每局每 tick 都叫：没有记录时一读就走。只碰这份模拟自己的记录（[`owns`]：尸体上的编号），
-/// 关了的（`note_open`，按这份模拟的 tick）就删。
+/// 扣这份模拟里到了的复活时间。每局每 tick 都叫：没有记录时一读就走。只碰这份模拟自己的记录（[`owns`]：建筑上的编号，
+/// 0.5.6），关了的（`note_open`，按这份模拟的 tick）就删。
 fn cut_respawns(sim: &StableSim<'_>) {
     if CUTS_N.load(Ordering::Relaxed) == 0 {
         return;
@@ -331,7 +382,7 @@ fn cut_respawns(sim: &StableSim<'_>) {
         let mut i = 0;
         while i < cuts.len() {
             let player = cuts[i].player;
-            // the player first (one call): the body's number is read only when he is dead here or the note is done
+            // the player first (one call): the number on the buildings is read only when he is dead here or the note is done
             let dead_left = || sim.get_player(player).filter(|p| !p.is_alive()).map(|p| p.respawn_time() as u64);
             match step(&mut cuts[i], now, &|c| owns(sim, c), &dead_left) {
                 Step::Skip => i += 1,
@@ -557,6 +608,12 @@ struct DeathDefied {
     rebanished: Option<usize>,
     /// 这份模拟的编号（[`SIM_TAG`]），第一次出生时抽（0.5.5）。
     sim: u64,
+    /// 挂着这份模拟编号的建筑（0.5.6，`keep_anchored`）：开局第 1 tick 起挂，复活时不清（建筑整局都在）。
+    anchored: Vec<usize>,
+    /// 挂不上时这一 tick 前不再挂（隔 `ANCHOR_RETRY` tick）。
+    anchor_next: usize,
+    /// `ANCHOR REFUSED` 记过了（每份模拟一行）。
+    anchor_told: bool,
 }
 
 /// A try to re-banish at `now` after the last one at `last`: the same run when it is the very next tick (the banish did not
@@ -572,6 +629,50 @@ pub fn spirit_hit_counts(fall_tries: Option<usize>) -> bool {
 }
 
 impl DeathDefied {
+    /// 这份模拟的编号挂在建筑上（0.5.6）：游戏清掉尸体的 buff，比赛钩子按记录里的建筑认记录（[`owns`]）。他活着时从第 1 tick
+    /// 起挂（第 0 tick 还没有建筑，开局一会儿还没有就下一 tick 再找）；建筑都不收就每 `ANCHOR_RETRY` tick 再挂，
+    /// `ANCHOR REFUSED` 只记一行。挂上了也每 `ANCHOR_RETRY` tick 看一眼：一个都不带了（塔倒了、这份模拟从头再跑）就重挂。
+    fn keep_anchored(&mut self, sim: &mut StableSim<'_>, now: usize) {
+        if self.sim == 0 || now == 0 {
+            return;
+        }
+        let tag = if !self.anchored.is_empty() {
+            if !now.is_multiple_of(ANCHOR_RETRY) {
+                return;
+            }
+            let tag = sim_tag(self.sim);
+            if self.anchored.iter().any(|&a| carries(sim, a, &tag)) {
+                return;
+            }
+            tag
+        } else if now < self.anchor_next {
+            return;
+        } else {
+            sim_tag(self.sim)
+        };
+        let lost = std::mem::take(&mut self.anchored);
+        let (took, what, stand) = hang_tag(sim, &tag);
+        self.anchored = took;
+        if !self.anchored.is_empty() {
+            if let Some(k) = counted("anchor") {
+                wlog(format!("{} ANCHOR #{k}: sim #{} hung on {what} {:?} (of {stand} buildings standing){}", head(sim, self.me),
+                             self.sim, self.anchored,
+                             if lost.is_empty() { String::new() } else { format!(" - again: none of {lost:?} carried it") }));
+            }
+        } else if stand > 0 || now >= ANCHOR_RETRY {
+            self.anchor_next = now + ANCHOR_RETRY;
+            if !self.anchor_told {
+                self.anchor_told = true;
+                if let Some(k) = counted("anchor_refused") {
+                    wlog(format!("{} ANCHOR REFUSED #{k}: {} - sim #{}'s respawn cuts wait for it, tried again every \
+                                  {ANCHOR_RETRY} ticks", head(sim, self.me),
+                                 if stand == 0 { "no nexus or tower stands".to_string() }
+                                 else { format!("none of {stand} nexus / towers took {tag}") }, self.sim));
+                }
+            }
+        }
+    }
+
     fn guard(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
         if now < self.next_guard {
             return;
@@ -831,18 +932,23 @@ impl StablePassive for DeathDefied {
         self.rose_at = None;
         self.fall = None;
         self.rebanished = None;
-        // this simulation's number, on him every life (a respawn is a new entity); his corpse keeps it for the match hook
+        // this simulation's number, on him every life (a respawn is a new entity); the game clears it off his corpse, so the
+        // match hook goes by the buildings carrying it (`keep_anchored`, 0.5.6; `anchored` stays: they stand all match)
         if self.sim == 0 {
             self.sim = NEXT_SIM.fetch_add(1, Ordering::Relaxed);
         }
-        let tag = format!("{SIM_TAG}{}", self.sim);
+        let tag = sim_tag(self.sim);
         sim.entity_remove_buff(me, &tag);
         sim.add_buff(me, &BuffV1::named(&tag));
-        // back: the note of his last death is done with (one no match tick of this simulation ever claimed is said)
+        // back: the note of his last death is done with (one no match tick of this simulation ever claimed is said, with what
+        // the match hook had to go by: the corpse, the buildings still carrying the number)
         let left = take_cut(&mut CUTS.lock().unwrap_or_else(|e| e.into_inner()), self.sim, player);
         if let Some(c) = left.filter(|c| c.back.is_none() && !c.told) {
             if let Some(k) = counted("respawn") {
-                wlog(format!("{} RESPAWN NOT CUT (no match tick found this simulation's number on his body) #{k}", c.line));
+                let corpse = sim.get_entity(c.body).map_or_else(|| "gone".to_string(), |e| format!("with {} buffs", e.buff_count()));
+                let carry = c.anchors.iter().filter(|&&a| carries(sim, a, &tag)).count();
+                wlog(format!("{} RESPAWN NOT CUT (no match tick found this simulation's number: corpse #{} {corpse}, {carry} of \
+                              the buildings {:?} carry it) #{k}", c.line, c.body, c.anchors));
             }
         }
         let team = sim.get_entity(me).map_or(0, |e| e.team());
@@ -863,6 +969,7 @@ impl StablePassive for DeathDefied {
         let pos = e.pos();
         let targetable = e.is_targetable();
         let now = sim.tick();
+        self.keep_anchored(sim, now);
         if let Some(t0) = self.spirit {
             let k = now.saturating_sub(t0);
             // a dead man does not walk: rooted where he fell (League's spirit stands and casts)
@@ -948,9 +1055,9 @@ impl StablePassive for DeathDefied {
         }
         if let Some(t0) = self.rose_at.take() {
             // this simulation's own note (0.5.5: the twin presim, the view's other run and another set's presim each have
-            // theirs), found again by the number on his body
-            let cut = Cut { sim: self.sim, body: self.me, player, at: now, spent: now.saturating_sub(t0) as u64, back: None,
-                            line: head(sim, self.me), told: false };
+            // theirs), found again by the number on the buildings it names (0.5.6: his corpse keeps no buff in the game)
+            let cut = Cut { sim: self.sim, body: self.me, anchors: self.anchored.clone(), player, at: now,
+                            spent: now.saturating_sub(t0) as u64, back: None, line: head(sim, self.me), told: false };
             let mut cuts = CUTS.lock().unwrap_or_else(|e| e.into_inner());
             add_cut(&mut cuts, cut);
             CUTS_N.store(cuts.len(), Ordering::Relaxed);
@@ -1514,7 +1621,7 @@ mod tests {
     }
 
     fn note(sim: u64, at: usize) -> Cut {
-        Cut { sim, body: 5, player: 2, at, spent: 422, back: None, line: String::new(), told: false }
+        Cut { sim, body: 5, anchors: Vec::new(), player: 2, at, spent: 422, back: None, line: String::new(), told: false }
     }
 
     /// 0.5.5 (2026-11-06): the twin presims of a set (sims 7 and 8: the same body #5, player 2, death tick) and another set's
@@ -1568,48 +1675,131 @@ mod tests {
         assert!(cuts.iter().any(|c| c.sim == 100 + CUTS_MOST as u64 - 1));
     }
 
-    /// `owns` reads the number on the body: in each twin the same entity #5 carries its own simulation's number.
-    #[test]
-    fn a_note_is_owned_by_the_number_on_his_body() {
+    /// One unit of a fake simulation: its kind, alive or not, its buffs; a `deaf` one refuses buffs.
+    #[derive(Clone)]
+    struct Unit {
+        kind: EntityKindV1,
+        alive: bool,
+        buffs: Vec<BuffV1>,
+        deaf: bool,
+    }
+
+    type World = std::collections::BTreeMap<usize, Unit>;
+
+    fn unit(kind: EntityKindV1, names: &[&str]) -> Unit {
+        Unit { kind, alive: true, buffs: names.iter().map(|n| BuffV1::named(n)).collect(), deaf: false }
+    }
+
+    /// `f` run on `world` through the host's simulation vtable (only the slots `owns` and `hang_tag` use).
+    fn with_sim<R>(world: &mut World, f: impl FnOnce(&mut StableSim<'_>) -> R) -> R {
         use std::ffi::c_void;
         use std::mem::{size_of, zeroed};
-        type World = HashMap<usize, Vec<BuffV1>>;
         unsafe fn w<'a>(s: *const c_void) -> &'a mut World {
             &mut *(s as *mut World)
         }
+        unsafe fn one<'a>(s: *const c_void, h: EntityHandleV1) -> Option<&'a mut Unit> {
+            h.id().and_then(|id| w(s).get_mut(&id))
+        }
+        unsafe extern "C" fn count(s: *const c_void) -> usize {
+            w(s).len()
+        }
+        unsafe extern "C" fn nth(s: *const c_void, i: usize) -> EntityHandleV1 {
+            w(s).keys().nth(i).map_or(EntityHandleV1::NULL, |&id| EntityHandleV1::from_id(id))
+        }
         unsafe extern "C" fn valid(s: *const c_void, h: EntityHandleV1) -> bool {
-            h.id().is_some_and(|id| w(s).contains_key(&id))
+            one(s, h).is_some()
         }
-        unsafe extern "C" fn count(s: *const c_void, h: EntityHandleV1) -> usize {
-            h.id().and_then(|id| w(s).get(&id)).map_or(0, Vec::len)
+        unsafe extern "C" fn alive(s: *const c_void, h: EntityHandleV1) -> bool {
+            one(s, h).is_some_and(|u| u.alive)
         }
-        unsafe extern "C" fn at(s: *const c_void, h: EntityHandleV1, i: usize, out: *mut BuffV1) -> bool {
-            let Some(b) = h.id().and_then(|id| w(s).get(&id)).and_then(|v| v.get(i)) else { return false };
-            *out = *b;
+        unsafe extern "C" fn kind(s: *const c_void, h: EntityHandleV1) -> u32 {
+            one(s, h).map_or(u32::MAX, |u| u.kind.code())
+        }
+        unsafe extern "C" fn buffs(s: *const c_void, h: EntityHandleV1) -> usize {
+            one(s, h).map_or(0, |u| u.buffs.len())
+        }
+        unsafe extern "C" fn buff(s: *const c_void, h: EntityHandleV1, i: usize, out: *mut BuffV1) -> bool {
+            let Some(b) = one(s, h).and_then(|u| u.buffs.get(i).copied()) else { return false };
+            *out = b;
             true
         }
-        fn with_sim<R>(world: &mut World, f: impl FnOnce(&StableSim<'_>) -> R) -> R {
-            let mut vt: SimVtableV1 = unsafe { zeroed() };
-            vt.size = size_of::<SimVtableV1>();
-            vt.entity_is_valid = Some(valid);
-            vt.entity_buff_count = Some(count);
-            vt.entity_buff_at = Some(at);
-            let mut ctx = SimCtxV1 { size: size_of::<SimCtxV1>(), sim: &vt, frame: std::ptr::null(),
-                                     state: world as *mut World as *mut c_void };
-            let sim = unsafe { StableSim::from_raw(&mut ctx) }.expect("a simulation context");
-            f(&sim)
+        unsafe extern "C" fn add(s: *mut c_void, id: usize, b: *const BuffV1) {
+            if let Some(u) = w(s).get_mut(&id).filter(|u| !u.deaf) {
+                u.buffs.push(*b);
+            }
         }
-        let corpse = |n: u64| vec![BuffV1::named(&sn("p_fall")), BuffV1::named(&format!("{SIM_TAG}{n}"))];
-        let mut twin_a = World::from([(5, corpse(7))]);
-        let mut twin_b = World::from([(5, corpse(8))]);
-        let mut other = World::from([(5, vec![BuffV1::named("league_mordekaiser_sim:7")])]);
-        assert!(with_sim(&mut twin_a, |s| owns(s, &note(7, 1)) && !owns(s, &note(8, 1))));
-        assert!(with_sim(&mut twin_b, |s| owns(s, &note(8, 1)) && !owns(s, &note(7, 1))));
+        unsafe extern "C" fn remove(s: *mut c_void, h: EntityHandleV1, name: *const u8, len: usize) -> usize {
+            let name = std::str::from_utf8(std::slice::from_raw_parts(name, len)).unwrap_or("");
+            let Some(u) = one(s, h) else { return 0 };
+            let was = u.buffs.len();
+            u.buffs.retain(|b| b.name() != name);
+            was - u.buffs.len()
+        }
+        let mut vt: SimVtableV1 = unsafe { zeroed() };
+        vt.size = size_of::<SimVtableV1>();
+        vt.entity_count = Some(count);
+        vt.entity_at = Some(nth);
+        vt.entity_is_valid = Some(valid);
+        vt.entity_is_alive = Some(alive);
+        vt.entity_kind = Some(kind);
+        vt.entity_buff_count = Some(buffs);
+        vt.entity_buff_at = Some(buff);
+        vt.add_buff = Some(add);
+        vt.entity_remove_buff = Some(remove);
+        let mut ctx = SimCtxV1 { size: size_of::<SimCtxV1>(), sim: &vt, frame: std::ptr::null(),
+                                 state: world as *mut World as *mut c_void };
+        let mut sim = unsafe { StableSim::from_raw(&mut ctx) }.expect("a simulation context");
+        f(&mut sim)
+    }
+
+    /// 0.5.6 (2026-11-08): the game clears his corpse's buffs at death (0.5.5 read its number off the corpse and never cut a
+    /// respawn: 0 `RESPAWN:` in the 11-08 logs), so a note goes by the buildings carrying its simulation's number - in each twin
+    /// the same nexus #1 carries its own.
+    #[test]
+    fn a_note_is_owned_by_the_number_on_the_buildings() {
+        let (t7, t8) = (sim_tag(7), sim_tag(8));
+        let corpse = unit(EntityKindV1::Champion, &[]);
+        let mut twin_a = World::from([(1, unit(EntityKindV1::Nexus, &[t7.as_str()])), (5, corpse.clone())]);
+        // league_eggs' number on the same nexus, with the same digits: not ours
+        let mut twin_b = World::from([(1, unit(EntityKindV1::Nexus, &["league_eggs_sim:7", t8.as_str()])), (5, corpse)]);
+        let mine = |n: u64| Cut { anchors: vec![1], ..note(n, 1) };
+        assert!(with_sim(&mut twin_a, |s| owns(s, &mine(7)) && !owns(s, &mine(8))));
+        assert!(with_sim(&mut twin_b, |s| owns(s, &mine(8)) && !owns(s, &mine(7))));
+        assert!(with_sim(&mut twin_a, |s| !owns(s, &note(7, 1))), "no building named, nothing on the corpse");
+        assert!(with_sim(&mut twin_a, |s| !owns(s, &Cut { anchors: vec![9], ..note(7, 1) })), "no such building");
+        assert!(with_sim(&mut twin_a, |s| !owns(s, &mine(0))), "no number");
+        // the SDK, where a corpse keeps its buffs: the number on his body still counts
+        let fall = sn("p_fall");
+        let mut sdk = World::from([(5, unit(EntityKindV1::Champion, &[fall.as_str(), t7.as_str()]))]);
+        assert!(with_sim(&mut sdk, |s| owns(s, &note(7, 1)) && !owns(s, &note(8, 1))));
+        let mut other = World::from([(5, unit(EntityKindV1::Champion, &["league_mordekaiser_sim:7"]))]);
         assert!(with_sim(&mut other, |s| !owns(s, &note(7, 1))), "another add-on's number");
-        assert!(with_sim(&mut twin_a, |s| !owns(s, &Cut { body: 6, ..note(7, 1) })), "no such body");
-        assert!(with_sim(&mut twin_a, |s| !owns(s, &note(0, 1))), "no number");
-        assert_eq!(parse_tag(&format!("{SIM_TAG}{}", u64::MAX)), Some(u64::MAX));
-        assert!(format!("{SIM_TAG}{}", u64::MAX).len() <= BUFF_NAME_CAP);
+        assert_eq!(parse_tag(&sim_tag(u64::MAX)), Some(u64::MAX));
+        assert!(sim_tag(u64::MAX).len() <= BUFF_NAME_CAP);
+    }
+
+    /// 0.5.6: the number goes on the living nexuses - on the living towers only when no nexus takes it - once each, and on
+    /// nothing else.
+    #[test]
+    fn the_number_hangs_on_the_buildings() {
+        let tag = sim_tag(7);
+        let b = |k: EntityKindV1| unit(k, &[]);
+        let fallen = Unit { alive: false, ..b(EntityKindV1::Tower) };
+        let mut rift = World::from([(1, unit(EntityKindV1::Nexus, &["league_eggs_sim:3"])), (2, b(EntityKindV1::Nexus)),
+                                    (3, b(EntityKindV1::Tower)), (4, fallen.clone()), (5, b(EntityKindV1::Champion))]);
+        assert_eq!(with_sim(&mut rift, |s| hang_tag(s, &tag)), (vec![1, 2], "nexus", 3));
+        // hung again (a run started over): still one on each
+        assert_eq!(with_sim(&mut rift, |s| hang_tag(s, &tag)), (vec![1, 2], "nexus", 3));
+        let names = |w: &World, id: usize| w[&id].buffs.iter().map(|b| b.name().to_string()).collect::<Vec<_>>();
+        assert_eq!(names(&rift, 1), ["league_eggs_sim:3", tag.as_str()]);
+        assert!(names(&rift, 3).is_empty() && names(&rift, 4).is_empty() && names(&rift, 5).is_empty());
+        // the nexus refuses it: the standing towers
+        let deaf = Unit { deaf: true, ..b(EntityKindV1::Nexus) };
+        let mut keep = World::from([(1, deaf), (3, b(EntityKindV1::Tower)), (4, fallen), (6, b(EntityKindV1::Tower))]);
+        assert_eq!(with_sim(&mut keep, |s| hang_tag(s, &tag)), (vec![3, 6], "towers", 3));
+        // no building yet (tick 0): nothing
+        let mut bare = World::from([(5, b(EntityKindV1::Champion))]);
+        assert_eq!(with_sim(&mut bare, |s| hang_tag(s, &tag)), (vec![], "", 0));
     }
 
     #[test]
