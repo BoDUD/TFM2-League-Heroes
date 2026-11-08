@@ -28,6 +28,7 @@ import argparse
 import glob
 import json
 import os
+import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -46,18 +47,18 @@ O, M, A, R, G, E = setup.O, setup.M, setup.A, setup.R, setup.G, setup.E
 mag, hl = setup.mag, setup.hl
 # the ult's whole text in the add-on (the stolen ult by class)
 ULT = {
-    "zh-hans": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招，一直留着，随时再放：英雄联盟英雄放出他自己的大招（攻击加成按法强换算），"
+    "zh-hans": "锁链命中敌方英雄，" + R + "眩晕" + E + A + "{r_stun}秒" + E + "并夺走大招，一直留着，随时再放：英雄联盟和云顶英雄放出他自己的大招（攻击加成按法强换算），"
                "其他英雄按类别放出" + mag("r2_dmg", "r2_ratio") + "魔法伤害的大招。",
-    "zh-hant": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招，一直留著，隨時再放：英雄聯盟英雄放出他自己的大招（攻擊加成按法強換算），"
+    "zh-hant": "鎖鍊命中敵方英雄，" + R + "暈眩" + E + A + "{r_stun}秒" + E + "並奪走大招，一直留著，隨時再放：英雄聯盟和雲頂英雄放出他自己的大招（攻擊加成按法強換算），"
                "其他英雄按類別放出" + mag("r2_dmg", "r2_ratio") + "魔法傷害的大招。",
     "en": "His chain hits an enemy champion, " + R + "stuns" + E + " it for " + A + "{r_stun}s" + E + " and steals its ultimate, kept until "
-          "he casts it again: a League champion's own ultimate (its attack ratios paid from his ability power), "
+          "he casts it again: a League or TFT champion's own ultimate (its attack ratios paid from his ability power), "
           "any other champion's one by its class for " + mag("r2_dmg", "r2_ratio") + " magic damage.",
     "ko": "사슬이 적 챔피언을 맞혀 " + A + "{r_stun}초" + E + " " + R + "기절" + E + "시키고 궁극기를 빼앗아 쓸 때까지 지님. " +
-          "다시 쓰면 리그 오브 레전드 챔피언은 그 챔피언의 궁극기(공격력 계수는 주문력으로), 다른 챔피언은 계열별로 " +
+          "다시 쓰면 리그 오브 레전드·TFT 챔피언은 그 챔피언의 궁극기(공격력 계수는 주문력으로), 다른 챔피언은 계열별로 " +
           mag("r2_dmg", "r2_ratio") + " 마법 피해 궁극기.",
     "ja": "鎖が敵チャンピオンに当たると" + A + "{r_stun}秒" + E + R + "スタン" + E + "させアルティメットを奪い、使うまで保持。" +
-          "再使用：LoLのチャンピオンはその本人のアルティメット（攻撃力の係数は魔力で）、他はクラス別に" + mag("r2_dmg", "r2_ratio") +
+          "再使用：LoLとTFTのチャンピオンはその本人のアルティメット（攻撃力の係数は魔力で）、他はクラス別に" + mag("r2_dmg", "r2_ratio") +
           "の魔法ダメージ。",
 }
 # Kingslayer's heal grows with missing health: the attack's text with that ending
@@ -191,6 +192,117 @@ def no_lasting_reach(o):
     return o
 
 
+
+def skills_named(o, cid):
+    """The skills `o` names among its champion's own names (`<id>_<name>`): R (r, r_*, c_r*, vo_r), Q / W / E (and their
+    vo_ lines), P (the passive: p_*, and any other name that is not a shared context flag c_* or a plain state)."""
+    out = set()
+    for n in set(re.findall(r'"%s_([a-z0-9_]+)"' % re.escape(cid), json.dumps(o))):
+        if re.match(r"(r|vo_r|c_r)(_|$|[0-9])", n):
+            out.add("R")
+        elif re.match(r"(q|w|e)(_|$)|vo_(q|w|e)", n):
+            out.add(n.split("_")[1][0].upper() if n.startswith("vo_") else n[0].upper())
+        elif not re.match(r"(c_|init$|busy$|fight$|lives?$|near$|ally$|vo_cd$|vo_p$)", n):
+            out.add("P")
+    return out
+
+
+def only_ult_passives(o, cid):
+    """The robbed champion's first-action setup (a SwitchByBuff on his `..._init` flag) cut to what his ult needs (0.2.59,
+    the user: 「这些也修」 - a stolen ult should be the ult): data has no spawn hook, so a champion's first action lays his
+    passive and his watchers (a lasting AddCasted round him), and Sylas ran that the first time he cast the ult - so a stolen
+    Kog'Maw R left him Kog'Maw's death bomb, Annie's R her Pyromania, Maokai's R the sapling E, Renata's / Swain's /
+    Ziggs's R their W watchers, for the rest of his life (sylas_steal_check.py counted those pictures). A setup that names
+    nothing of the ult goes (as if done: the initialized branch); one that holds the ult's own watcher (Anivia, Nasus,
+    Ziggs, Jarvan IV, Maokai, Renata, Swain, Rek'Sai: their R arms a flag the watcher fires) keeps it, without the blocks
+    for another skill (gated on its _q_cd / _w_cd / _e_cd, or naming another skill or the passive and nothing of the R)."""
+    def trim(lst):
+        out = []
+        for x in lst:
+            gate = x.get("buff_name", "") if isinstance(x, dict) else ""
+            k = skills_named(x, cid)
+            if re.fullmatch(re.escape(cid) + r"_(q|w|e)_cd", str(gate)) or (k - {"R"} and "R" not in k):
+                continue
+            if isinstance(x, dict) and x.get("type") == "Delayed" and isinstance(x.get("effects"), list):
+                x = dict(x, effects=trim(x["effects"]))
+            out.append(x)
+        return out
+
+    def watchers(t):
+        if isinstance(t, dict):
+            t = {k: watchers(v) for k, v in t.items()}
+            if t.get("type") == "AddCasted" and isinstance(t.get("effects"), list):
+                t["effects"] = trim(t["effects"])
+            return t
+        if isinstance(t, list):
+            return [watchers(v) for v in t]
+        return t
+
+    if isinstance(o, dict):
+        o = {k: only_ult_passives(v, cid) for k, v in o.items()}
+        b = o.get("buff_name", "")
+        if o.get("type") == "SwitchByBuff" and b == cid + "_init" or (isinstance(b, str) and b.startswith(cid + "_") and b.endswith("_init")):
+            if "R" not in skills_named(o.get("effect_none"), cid):
+                return o.get("effect_buff") or {"type": "Combine", "effects": []}
+            o["effect_none"] = watchers(o.get("effect_none"))
+        return o
+    if isinstance(o, list):
+        return [only_ult_passives(v, cid) for v in o]
+    return o
+
+
+def no_lasting_gains(o):
+    """The tree with the stats taken off every Permanent buff it lays on the caster (0.2.59, the user, 2026-11-08: a stolen
+    Feast left Sylas a Cho'Gath stack, 「这些也修」): those buffs are the robbed champion's own lasting gains - a passive his
+    data lays at his first action (tft_brock's crowd-control immunity, league_nasus' lifesteal, league_kogmaw's
+    attack speed, league_ornn's forge, league_veigar's power ...) or what his ult stacks on him (league_chogath's Feast,
+    +70 health a stack) - and in Sylas's hands they stayed with him until he died. The buff stays (the tree's own
+    checks may read its name), its stats go; timed buffs (the ult's own effect on him: Olaf's, Jax's ...) are kept."""
+    if isinstance(o, dict):
+        o = {k: no_lasting_gains(v) for k, v in o.items()}
+        st = o.get("buff_state")
+        if o.get("type") == "AddCasterBuff" and isinstance(st, dict) and st.get("duration", "Permanent") == "Permanent":
+            o["buff_state"] = {k: v for k, v in st.items() if k in ("name", "duration")}
+        return o
+    if isinstance(o, list):
+        return [no_lasting_gains(v) for v in o]
+    return o
+
+
+# the add-on's own native: one tick of attack worth r2_ad% of his ability power (src/lib.rs `power`)
+POWER = {"type": "Native", "effect_ref": "league_sylas:power"}
+
+
+def ad_scaled(e):
+    """An effect that reads the caster's attack damage: physical and true damage, healing and shields with attack_ratio
+    (ApAttack's attack_ratio is ability power)."""
+    return isinstance(e, dict) and e.get("type") in ("Attack", "FixedAttack", "Heal", "Shield") \
+        and (e.get("attack_ratio") or 0) > 0
+
+
+def pay_from_ap(o):
+    """The tree with league_sylas:power right before every effect that reads his attack damage (0.2.59, the user: 「放出偷来的
+    大招后有 5 秒攻击加成，这期间普攻也吃到加成 … 也修」): League pays a hijacked ult's attack ratios from Sylas's ability
+    power; the passive used to give him r2_ad% of it as attack for r2_ad_t ticks after the cast, so his basic attacks got
+    it too. A buff counts for the hit in the tick it is added and is gone the next one (champion-data.md, true damage that
+    scales with ability power), so each hit of the stolen ult gets it and nothing else does."""
+    if isinstance(o, dict):
+        o = {k: pay_from_ap(v) for k, v in o.items()}
+        for k, v in list(o.items()):
+            if isinstance(v, list) and any(ad_scaled(x) for x in v):
+                out = []
+                for x in v:
+                    if ad_scaled(x):
+                        out.append(dict(POWER))
+                    out.append(x)
+                o[k] = out
+            elif ad_scaled(v):
+                o[k] = {"type": "Combine", "effects": [dict(POWER), v]}
+        return o
+    if isinstance(o, list):
+        return [pay_from_ap(v) for v in o]
+    return o
+
 # Native effects of the main pack's own league.dll (addons/league_main): loaded with the main pack Sylas belongs to, so a
 # stolen ult may call them - league_ryze R's `league:low_hp` (2026-11-07: below 35% health his R only flees; in Sylas's
 # hands it reads Sylas's health). Any other native is a tft.dll's or an add-on's code and stays out (BY_CLASS / STOLEN).
@@ -246,6 +358,7 @@ def own_ults():
         if foreign_natives(tree):
             sys.exit(f"{c['id']}: its ult calls native code {sorted(foreign_natives(tree))} - put it in BY_CLASS or make "
                      "the add-on carry it")
+        tree = pay_from_ap(no_lasting_gains(only_ult_passives(tree, c["id"])))
         used = names_in(tree, set())
         for kind in views:
             for v in c.get(kind, []):
@@ -315,7 +428,7 @@ def main():
     text = json.dumps(champion)
     for name in ("league_sylas_r_mark", "league_sylas_cls_melee", "league_sylas_cls_assassin", "league_sylas:kingslayer",
                  "league_sylas_r_have", "league_sylas_w_cd", "league_sylas_r_real", "league_sylas_r_power_go",
-                 "league_sylas_steal_jinx"):
+                 "league_sylas_steal_jinx", "league_sylas:power"):
         if name not in text:
             sys.exit(f"{name} is gone from the copy: update src/")
     champion["attack"]["description"] = f"#asset/base/text/champion?description.{TEXT_ID}.attack"
