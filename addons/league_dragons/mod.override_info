@@ -1,0 +1,14 @@
+{
+  "asset/base/text/object": {
+    "remapping": "asset/league_dragons/text/object",
+    "type": "merge"
+  },
+  "asset/base/text/ui": {
+    "remapping": "asset/league_dragons/text/ui",
+    "type": "merge"
+  },
+  "asset/base/text/strategy": {
+    "remapping": "asset/league_dragons/text/strategy",
+    "type": "merge"
+  }
+}

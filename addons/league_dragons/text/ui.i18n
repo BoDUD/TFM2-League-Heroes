@@ -1,0 +1,119 @@
+{
+  "zh-hans": {
+    "database_edit": {
+      "number_field": {
+        "epic_jungle": "纳什男爵",
+        "serpen_jungle": "元素亚龙",
+        "epic_minion_buff_duration": "纳什男爵小兵增益持续时间",
+        "epic_minion_buff_range": "纳什男爵小兵增益范围"
+      },
+      "number_morgard_buff_section": "纳什男爵小兵增益",
+      "number_morgard_buff_increase_section": "纳什男爵增益成长",
+      "number_serpen_buff_section": "元素亚龙英雄增益"
+    },
+    "training": {
+      "comp_test": {
+        "history_objects": "纳什男爵 {Morgard} / 元素亚龙 {Serpen} / 防御塔 {BlueTower}/{RedTower}",
+        "summary_objects": "纳什男爵 {Morgard} / 元素亚龙 {Serpen}\n摧毁防御塔 蓝方 {BlueTower} / 红方 {RedTower}"
+      }
+    },
+    "match": {
+      "log": {
+        "red_epic": "<#f7b1b8ff>红方<>击杀了纳什男爵！",
+        "blue_epic": "<#adb9ffff>蓝方<>击杀了纳什男爵！",
+        "red_serpen": "<#f7b1b8ff>红方<>击杀了元素亚龙！",
+        "blue_serpen": "<#adb9ffff>蓝方<>击杀了元素亚龙！"
+      }
+    },
+    "ingame": {
+      "epic": "纳什男爵击杀",
+      "serpen": "元素亚龙击杀"
+    },
+    "set_result": {
+      "epic": "纳什男爵",
+      "serpen": "元素亚龙",
+      "graph_blue_epic": "蓝方击杀纳什男爵",
+      "graph_red_epic": "红方击杀纳什男爵",
+      "graph_blue_serpen": "蓝方击杀元素亚龙",
+      "graph_red_serpen": "红方击杀元素亚龙"
+    }
+  },
+  "zh-hant": {
+    "database_edit": {
+      "number_field": {
+        "epic_jungle": "巴龍",
+        "serpen_jungle": "元素亞龍",
+        "epic_minion_buff_duration": "巴龍小兵增益持續時間",
+        "epic_minion_buff_range": "巴龍小兵增益範圍"
+      },
+      "number_morgard_buff_section": "巴龍小兵增益",
+      "number_morgard_buff_increase_section": "巴龍增益成長",
+      "number_serpen_buff_section": "元素亞龍英雄增益"
+    },
+    "training": {
+      "comp_test": {
+        "history_objects": "巴龍 {Morgard} / 元素亞龍 {Serpen} / 防禦塔 {BlueTower}/{RedTower}",
+        "summary_objects": "巴龍 {Morgard} / 元素亞龍 {Serpen}\n摧毀防禦塔 藍方 {BlueTower} / 紅方 {RedTower}"
+      }
+    },
+    "match": {
+      "log": {
+        "red_epic": "<#f7b1b8ff>紅方<>擊殺了巴龍！",
+        "blue_epic": "<#adb9ffff>藍方<>擊殺了巴龍！",
+        "red_serpen": "<#f7b1b8ff>紅方<>擊殺了元素亞龍！",
+        "blue_serpen": "<#adb9ffff>藍方<>擊殺了元素亞龍！"
+      }
+    },
+    "ingame": {
+      "epic": "巴龍擊殺",
+      "serpen": "元素亞龍擊殺"
+    },
+    "set_result": {
+      "epic": "巴龍",
+      "serpen": "元素亞龍",
+      "graph_blue_epic": "藍方擊殺巴龍",
+      "graph_red_epic": "紅方擊殺巴龍",
+      "graph_blue_serpen": "藍方擊殺元素亞龍",
+      "graph_red_serpen": "紅方擊殺元素亞龍"
+    }
+  },
+  "en": {
+    "database_edit": {
+      "number_field": {
+        "epic_jungle": "Baron Nashor",
+        "serpen_jungle": "Elemental Drake",
+        "epic_minion_buff_duration": "Baron Nashor Minion Buff Duration",
+        "epic_minion_buff_range": "Baron Nashor Minion Buff Range"
+      },
+      "number_morgard_buff_section": "Baron Nashor Minion Buff",
+      "number_morgard_buff_increase_section": "Baron Nashor Buff Growth",
+      "number_serpen_buff_section": "Elemental Drake Champion Buff"
+    },
+    "training": {
+      "comp_test": {
+        "history_objects": "Baron Nashor {Morgard} / Drake {Serpen} / Towers {BlueTower}/{RedTower}",
+        "summary_objects": "Baron Nashor {Morgard} / Drake {Serpen}\nTowers destroyed Blue {BlueTower} / Red {RedTower}"
+      }
+    },
+    "match": {
+      "log": {
+        "red_epic": "<#f7b1b8ff>Red Team<> has slain Baron Nashor!",
+        "blue_epic": "<#adb9ffff>Blue Team<> has slain Baron Nashor!",
+        "red_serpen": "<#f7b1b8ff>Red Team<> has slain an Elemental Drake!",
+        "blue_serpen": "<#adb9ffff>Blue Team<> has slain an Elemental Drake!"
+      }
+    },
+    "ingame": {
+      "epic": "Baron Nashor Slain",
+      "serpen": "Elemental Drake Slain"
+    },
+    "set_result": {
+      "epic": "Baron Nashor",
+      "serpen": "Elemental Drake",
+      "graph_blue_epic": "Blue Team Baron Nashor Kill",
+      "graph_red_epic": "Red Team Baron Nashor Kill",
+      "graph_blue_serpen": "Blue Team Elemental Drake Kill",
+      "graph_red_serpen": "Red Team Elemental Drake Kill"
+    }
+  }
+}

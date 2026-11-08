@@ -8,9 +8,12 @@ For each add-on folder in --src (default: every addons/league_* but this one; --
 already released): its override/ and effects/ files are copied (a champion copy's effect trees through
 tools/kit/slim.py, the same exact rewrites tools/package_mod.py makes), every `asset/<add-on>/` path inside them and in its
 mod.override_info becomes `asset/league_addons/`, the champion remaps are merged into one mod.override_info and the
-text files into one text/champion.i18n (their keys are the add-ons' own ids - `description.league_leesin_hop` - so
-none collide; a clash stops the script). mod.mod_info: mod_id league_addons, native code, and the highest `league`
-version any of them needs. --src can be the Workshop release folders (texts already prefixed), not only the repo's.
+text files into one of the same name each: every add-on's text/champion.i18n into one text/champion.i18n (their keys
+are the add-ons' own ids - `description.league_leesin_hop` - so none collide; a clash stops the script), and any other
+game text an add-on merges (league_dragons' text/object.i18n, text/ui.i18n, text/strategy.i18n: the game's names of its
+epic monsters) into text/<name>.i18n with an `asset/base/text/<name>` merge remap. mod.mod_info: mod_id league_addons,
+native code, and the highest `league` version any of them needs. --src can be the Workshop release folders (texts
+already prefixed), not only the repo's.
 """
 import argparse
 import json
@@ -23,7 +26,7 @@ ADDONS = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(os.path.dirname(ADDONS), "tools", "kit"))
 import slim  # noqa: E402  the exact effect-tree rewrites (fewer nodes for the trees the game copies every tick)
 ID = "league_addons"
-TEXT = "asset/base/text/champion"
+TEXTS = "asset/base/text/"
 
 
 def load(p):
@@ -63,7 +66,7 @@ def main():
         and os.path.isfile(os.path.join(a.src, d, "mod.override_info")))
     if os.path.exists(a.out):
         sys.exit(f"{a.out} already exists")
-    override, text, need = {}, {}, ">=0.0.0"
+    override, texts, need = {}, {"champion": {}}, ">=0.0.0"
     for name in names:
         src = os.path.join(a.src, name)
         old, new = f"asset/{name}/", f"asset/{ID}/"
@@ -83,19 +86,22 @@ def main():
                     with open(dst, "w", encoding="utf-8", newline="\n") as f:
                         f.write(s)
         for k, v in load(os.path.join(src, "mod.override_info")).items():
-            if k == TEXT:
+            if k.startswith(TEXTS):      # the game texts it merges: its text/<name>.i18n, merged below into one each
                 continue
             if k in override:
                 sys.exit(f"{name}: {k} is remapped by another add-on too")
             override[k] = {**v, "remapping": v["remapping"].replace(old, new)}
-        if os.path.isfile(os.path.join(src, "text", "champion.i18n")):     # league_irelia keeps the main pack's texts
-            merge(text, load(os.path.join(src, "text", "champion.i18n")))
+        tdir = os.path.join(src, "text")    # league_irelia has none: it keeps the main pack's texts
+        for fn in sorted(os.listdir(tdir)) if os.path.isdir(tdir) else []:
+            if fn.endswith(".i18n"):
+                merge(texts.setdefault(fn[:-len(".i18n")], {}), load(os.path.join(tdir, fn)), fn)
         for dep in load(os.path.join(src, "mod.mod_info"))["dependencies"]:
             if dep["mod_id"] == "league" and version_key(dep["version"]) > version_key(need):
                 need = dep["version"]
-    override[TEXT] = {"remapping": f"asset/{ID}/text/champion", "type": "merge"}
     os.makedirs(os.path.join(a.out, "text"), exist_ok=True)
-    dump(text, os.path.join(a.out, "text", "champion.i18n"))
+    for stem in sorted(texts, key=lambda s: (s == "champion", s)):     # the champion text last, as it always was
+        override[TEXTS + stem] = {"remapping": f"asset/{ID}/text/{stem}", "type": "merge"}
+        dump(texts[stem], os.path.join(a.out, "text", f"{stem}.i18n"))
     dump(override, os.path.join(a.out, "mod.override_info"))
     dump({"author": "BoDUD", "contains_code": True,
           "dependencies": [{"mod_id": "base", "version": ">=0.4.11"}, {"mod_id": "league", "version": need}],
@@ -108,7 +114,8 @@ def main():
     if left:
         sys.exit(f"paths of the add-ons' own folders left in {left}")
     print(f"{a.out}: {len(names)} add-ons ({', '.join(names)}), league {need}, "
-          f"{len(override) - 1} remaps, {sum(len(fs) for _, _, fs in os.walk(a.out))} files")
+          f"{len(override) - len(texts)} remaps, texts {', '.join(sorted(texts))}, "
+          f"{sum(len(fs) for _, _, fs in os.walk(a.out))} files")
 
 
 if __name__ == "__main__":
