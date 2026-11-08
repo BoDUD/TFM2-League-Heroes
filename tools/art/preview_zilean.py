@@ -3,7 +3,7 @@
 
     python tools/art/preview_zilean.py [--out docs/preview]
 
-  league_zilean_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_zilean_frames.png    every animation's dense frames (hd_, PPU 1.8, as league.dll shows them)
   league_zilean_effects.png   every effect animation, 3x
   league_zilean_showcase.gif  a scripted fight with Lucian in front of him against Darius and Garen, timed like the
                               kit: Zilean floats in and throws a time orb at Darius; Time Bomb: the bomb is lobbed at
@@ -27,6 +27,7 @@ sys.path.insert(0, HERE)
 from preview_annie import OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 LEAGUE = os.path.join(ROOT, "league")
@@ -135,7 +136,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(zl, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(zl, tag, "zilean", z), t, x, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
 
@@ -189,7 +190,7 @@ def showcase(out, z=3, step=40):
             foe.holds.append((when, when + tick(75)))
 
     # he floats in, Lucian beside him; Garen walks up behind Darius
-    run_in = Anim(frames_of(zl, "run"), 0.0, x - 40, gy, loop=True, until=1000, x1=x)
+    run_in = Anim(dense(zl, "run", "zilean", z), 0.0, x - 40, gy, loop=True, until=1000, x1=x)
     body.append(run_in)
     lucian.moves.append((0.0, 1000.0, lucian.x, lucian.y))
     lucian.x -= 40
@@ -267,11 +268,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in sorted(under, key=lambda a_: a_.z):
             f = an.frame(tt)
             if f is not None:
@@ -289,7 +290,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -307,8 +308,8 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags],
-                            os.path.join(args.out, "league_zilean_frames.png")))
+    print("frames", contact(dense_rows(s),
+                            os.path.join(args.out, "league_zilean_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

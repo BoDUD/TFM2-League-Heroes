@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / Range / CC / Heal |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | [基兰复活附加包](#附加包)（`league_zilean_rewind`）、[游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![基兰演示](../preview/league_zilean_showcase.gif)
@@ -92,6 +92,7 @@
 | 数值 | 攻击 80（+6）、法强 30（+15）、生命 900（+95）、护甲 22（+7）、魔抗 24（+4）、移速 1000（+10）。数值是自己设计的，用 SDK 对战模拟调：辅助位，对 5 个原版辅助（`priest`、`bard`、`enchanter`、`monk`、`taoist`），三套队友阵容、两边各 24 局，一批 720 局。第一版 +1.12（同一批娑娜 +1.52）：大招很少放、E 每局只放 8 次；大招检查范围 90000 / 40000、E 射程 70000 后两批 +2.16 / +2.28（同一批娑娜 +1.92、娜美 +1.21、迦娜 +0.31）；Q 提高到 90 + 75% 时 +2.74，太强没用；大招回血改成 400 + 150% 后两批 +2.25 / +2.36。之后 Q 加上携带者死亡时当场爆炸（同英雄联盟）：照搬萨科大招的探测（每 4 tick 一颗飞 6 tick 的隐形探测弹）时，同种子从 +2.44 掉到 +2.01、对英雄的伤害少 9%，探测弹不引爆也一样（+1.97）——空中一直飞着隐形弹会改变 AI 的打法（作用对象改成友方时反而 +3.06）；探测弹改成 1 tick 落地后两批 +2.40 / +2.40（对英雄伤害 7558 / 7424），定下这版。 |
 | 亚索联动 | QWQ 双炸弹的眩晕是亚索大招要的控制：基兰打辅助、亚索打中路同队时，亚索每局 R 到被控英雄 1.40 次（同一批蕾欧娜 2.19、原版牧师 0.50），亚索不用调 |
 | 精灵图 | 8 个动作 47 帧：待机、移动（飘着走）、普攻、Q、W、E、受击、死亡（大招用 Q 的动作，英雄联盟的 R 也是 Q 的动作）。造型按用户在 Codex 里挑的原画 A（英雄联盟的待机：浮在空中、两手掌心朝上、背后金色大钟、没拿法杖），Codex 生图草稿 A_draft_02 按自己的格子读回、整行整列删到 40 行（用户选 A2_40）：蓝色长胡子和头发、蓝眼睛、红黑长袍、背后的金色大钟。35 × 40 px，33 色；待机最高点 −28（钟顶），不设 `banpick_center`；头像截取点 (−2, −35) |
+| 高清帧（PPU 1.8） | 2026-11-08 用 PPU 重做，和维迦、克格莫、萨勒芬妮在同一个 PR（用户：「下一组重做 维迦 基兰 克格莫 萨勒芬妮」「萨勒芬尼2.2 其他都1.8」「codex交付了 如果你觉得有问题的地方麻烦帮我忙修复 做到完美后喊我review」「一定要注意模型不要变大变小」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 16.4 像素一格读回（53 × 72 格；背后的钟顶到脚底 72 行，旧精灵 40 行，PPU 1.8）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 21 张图、29 帧（普攻、Q、W、E 的第 3 帧同第 2 帧，普攻第 6 帧、Q 第 6 帧、W 第 5 帧、E 第 6 帧、受击第 2 帧是设计图，死亡第 6–8 帧同第 5 帧），透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧退回身高、头、面积、叠合四者的中位数）；普攻、W、E 按旧版不带特效的原生身体格画，时光弹、W 的回溯光环（垫在身下）和 E 的施法光由 zilean_bake.json 重新叠上，Q 的特效复制成 skill_fx1；Codex 为了填满旧帧的浅色轮廓把整个人（头和身子一起）画大了，只用叠合法时整身比设计图大 1–27%（多数 7–19%，头和钟一起大）；读回时每帧再按头发和胡子的大小校正到设计图那么大（casts_zilean_hd.py 的 FRAME_ZOOM，叠合法的值留在 FIT_ZOOM），校正后相差都在 3% 以内；长袍遮住腿，跑步和旧版一样是拖着步飘。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -10 → -9（外描边加 2 格后钟顶抬高了约 1 像素，-10 会贴着卡顶）；头像截取点按新脸挪到 (1,-30) → (2,-23)（旧点框在头发上，脸在框下面）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_zilean.py`）：普攻法球和命中、Q 出手 / 粘上 / 倒计时滴答 / 落地 / 爆炸 / 双炸弹爆炸、W 倒转、E 出手 / 减速 / 加速、瓶中时光、R 施放 / 符文 / 倒流；R 带中文配音 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -104,6 +105,15 @@ python tools/art/fix_zilean_strips.py     # 动作：四个技能的第 3 帧、
 python tools/art/import_native.py --hero zilean
 python tools/art/import_zilean.py         # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿缩成游戏尺寸的原尺寸条
 python tools/art/preview_zilean.py
+# PPU 1.8 重做（2026-11-08）：
+python tools/art/pack_zilean_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_zilean_hd.py                      # Codex 的原图（hd/raw/zilean-A.png）按原图约 16.4 像素一格读回 -> hd/design.png
+python tools/art/pack_zilean_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_zilean_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FRAME_ZOOM 的起点）；--heights / --heads 另两种量法
+python tools/art/rig_zilean_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero zilean && python tools/art/ppu_hd.py --hero zilean
+python tools/art/ppu_one.py --hero zilean && python tools/art/rig_zilean_hd.py --one-ground && python tools/art/hero_reels.py --hero zilean
+python tools/art/review_zilean_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/zilean/PICTURE_PROMPT.md`](../../assets/source/zilean/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/zilean/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/zilean/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/zilean/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_picture/`](../../assets/source/zilean/codex_picture)、[`codex_model/`](../../assets/source/zilean/codex_model)、[`codex_strips/`](../../assets/source/zilean/codex_strips)、[`codex_fx/`](../../assets/source/zilean/codex_fx)）：
@@ -113,4 +123,4 @@ python tools/art/preview_zilean.py
 - 导入：待机 6 帧都用定稿，第 3–5 帧从第 94/95 行的接缝往下沉一格呼吸（`BOB`）；按眼白定头的位置（`EYES`）；描边补齐（`COMPLETE`）。
 - 特效用 Codex 画的 19 种（110 帧，生图原稿，`import_zilean.py --raw` 同瑞兹：每个游戏像素取覆盖的原稿像素里最多的颜色，四分之一以上不透明才画，颜色归到包里的青、金、紫三套色阶，光效外圈最暗的一档去掉；炸弹、瓶子、符文是实物，保留自己的暗边）。Codex 自己按 8 px 网格读回的条图格数太少（双炸弹爆炸只有 38 格宽，要 64），所以从原稿重读；4 × 2 排版的原稿格边混进来的邻格碎片去掉；大招符文原稿每格往左漂，按钟面逐帧对齐。位置：普攻、Q、E 的出手闪光在手上 (18, −6)、举起的手 (16, −21)、(15, −5)，命中和粘着的炸弹在上半身 (0, −8)，眩晕的三只小钟在头顶 (0, −33)，减速的钟圈在腰上，加速圈、大招的符文钟和地上的炸弹在脚下，W 倒转的钟面在他身后 (−1, −9)，爆炸的闪光在地面圈正上方（地面圈落在脚下），瓶子的光流落到头顶 (0, −27)，符文的钟在头顶上方 (0, −23)，回溯的光柱从脚下升起。时长：粘着的炸弹 4 帧 × 125 ms（技能每 30 tick 重放一次），地上的炸弹 3 秒（前 10 帧转两圈，最后两帧变亮），单炸弹爆炸 0.49 秒、双炸弹 0.6 秒，眩晕 1.25 秒，减速、加速、符文跟着状态循环。
 
-逐帧预览：[`docs/preview/league_zilean_frames.png`](../preview/league_zilean_frames.png?v=1014g)，特效：[`docs/preview/league_zilean_effects.png`](../preview/league_zilean_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_zilean_frames.png`](../preview/league_zilean_frames.png?v=1109hd)，特效：[`docs/preview/league_zilean_effects.png`](../preview/league_zilean_effects.png?v=1014g)。

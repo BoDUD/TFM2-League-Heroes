@@ -244,7 +244,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_taliyah.png" width="32"> | [塔莉垭](docs/heroes/league_taliyah.md)<br>Taliyah | 中单 | 石穿 · 岩突 · 大招 墙幔 | [塔莉垭附加包](addons/league_taliyah/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_talon.png" width="32"> | [泰隆](docs/heroes/league_talon.md)<br>Talon | 中单 | 斩草除根 · 诺克萨斯式外交 · 大招 暗影突袭 | [泰隆「刺客之道」翻墙附加包](addons/league_talon_vault/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_twistedfate.png" width="32"> | [崔斯特](docs/heroes/league_twistedfate.md)<br>Twisted Fate | 中单 | 被动 灌铅骰子 · 万能牌 · 选牌 · 大招 命运 | — | PPU 2.68 |
-| <img src="docs/heroes/img/league_veigar.png" width="32"> | [维迦](docs/heroes/league_veigar.md)<br>Veigar | 中单 | 被动 超凡邪力 · 黑暗祭祀 · 扭曲空间 · 大招 能量爆裂 | [维迦法强常驻附加包](addons/league_veigar_power/README.md) | — |
+| <img src="docs/heroes/img/league_veigar.png" width="32"> | [维迦](docs/heroes/league_veigar.md)<br>Veigar | 中单 | 被动 超凡邪力 · 黑暗祭祀 · 扭曲空间 · 大招 能量爆裂 | [维迦法强常驻附加包](addons/league_veigar_power/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_velkoz.png" width="32"> | [维克兹](docs/heroes/league_velkoz.md)<br>Vel'Koz | 中单 | 等离子裂变 · 构造分解 · 大招 生命形态瓦解射线 | [维克兹附加包](addons/league_velkoz/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_vex.png" width="32"> | [薇古丝](docs/heroes/league_vex.md)<br>Vex | 中单 | 寒心波云 · 溟濛渐染 · 大招 愁煞 | [薇古丝附加包](addons/league_vex/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_viktor.png" width="32"> | [维克托](docs/heroes/league_viktor.md)<br>Viktor | 中单 | 被动 光荣进化 · 虹吸能量 · 海克斯射线 · 大招 奥术风暴 | — | PPU 1.81 |
@@ -277,7 +277,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_jinx.png" width="32"> | [金克丝](docs/heroes/league_jinx.md)<br>Jinx | ADC | 震荡电磁波！ · 嚼火者手雷！ · 大招 超究极死神飞弹！ | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_kaisa.png" width="32"> | [卡莎](docs/heroes/league_kaisa.md)<br>Kai'Sa | ADC | 艾卡西亚暴雨 · 虚空索敌 · 大招 猎手本能 | [目标标记附加包](addons/league_marks/README.md) | PPU 1.45 |
 | <img src="docs/heroes/img/league_kalista.png" width="32"> | [卡莉丝塔](docs/heroes/league_kalista.md)<br>Kalista | ADC | 穿刺 · 撕裂 · 大招 命运的召唤 | [卡莉丝塔附加包](addons/league_kalista/README.md) | PPU 1.4 |
-| <img src="docs/heroes/img/league_kogmaw.png" width="32"> | [克格莫](docs/heroes/league_kogmaw.md)<br>Kog'Maw | ADC | 腐蚀唾液 · 虚空淤泥 · 大招 活体大炮 | — | — |
+| <img src="docs/heroes/img/league_kogmaw.png" width="32"> | [克格莫](docs/heroes/league_kogmaw.md)<br>Kog'Maw | ADC | 腐蚀唾液 · 虚空淤泥 · 大招 活体大炮 | — | PPU 1.79 |
 | <img src="docs/heroes/img/league_lucian.png" width="32"> | [卢锡安](docs/heroes/league_lucian.md)<br>Lucian | ADC | 被动 圣光银弹 · 透体圣光 · 冷酷追击 · 大招 圣枪洗礼 | 卢锡安附加包 | PPU 1.5 |
 | <img src="docs/heroes/img/league_mel.png" width="32"> | [梅尔](docs/heroes/league_mel.md)<br>Mel | ADC | 耀光齐射 · 阳炎涡旋 · 大招 鎏金蚀日 | [梅尔附加包](addons/league_mel/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_missfortune.png" width="32"> | [厄运小姐](docs/heroes/league_missfortune.md)<br>Miss Fortune | ADC | 被动 厄运的眷顾 · 一箭双雕 · 枪林弹雨 · 大招 弹幕时间 | [目标标记附加包](addons/league_marks/README.md) | PPU 2.76 |
@@ -322,14 +322,14 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_rell.png" width="32"> | [芮尔](docs/heroes/league_rell.md)<br>Rell | 辅助 | 裂阵 · 驭铁术：轰落 · 大招 极涌 | [芮尔附加包](addons/league_rell/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_renata.png" width="32"> | [烈娜塔](docs/heroes/league_renata.md)<br>Renata | 辅助 | 忠诚激励 · 铁腕竞合 · 大招 恶意收购 | [烈娜塔附加包](addons/league_renata/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_senna.png" width="32"> | [赛娜](docs/heroes/league_senna.md)<br>Senna | 辅助 | 黑暗洞灭 · 无尽厮守 · 大招 暗影燎原 | [赛娜黑雾常驻附加包](addons/league_senna_mist/README.md) | PPU 1.87 |
-| <img src="docs/heroes/img/league_seraphine.png" width="32"> | [萨勒芬妮](docs/heroes/league_seraphine.md)<br>Seraphine | 辅助 | 被动 星光漫射 · 清籁穿云 · 增幅节拍 · 大招 炫音返场 | — | — |
+| <img src="docs/heroes/img/league_seraphine.png" width="32"> | [萨勒芬妮](docs/heroes/league_seraphine.md)<br>Seraphine | 辅助 | 被动 星光漫射 · 清籁穿云 · 增幅节拍 · 大招 炫音返场 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_sona.png" width="32"> | [娑娜](docs/heroes/league_sona.md)<br>Sona | 辅助 | 被动 能量和弦 · 英勇赞美诗 · 坚毅咏叹调 · 大招 狂舞终乐章 | [辅助挑人附加包：迦娜、娑娜、璐璐](addons/league_support_pick/README.md) | PPU 3.88 |
 | <img src="docs/heroes/img/league_soraka.png" width="32"> | [索拉卡](docs/heroes/league_soraka.md)<br>Soraka | 辅助 | 流星坠落 · 星之灌注 · 大招 祈愿 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_tahmkench.png" width="32"> | [塔姆](docs/heroes/league_tahmkench.md)<br>Tahm Kench | 辅助 | 巨舌鞭笞 · 深渊潜航 · 大招 大快朵颐 | [塔姆附加包](addons/league_tahmkench/README.md) | PPU 1.2 |
 | <img src="docs/heroes/img/league_taric.png" width="32"> | [塔里克](docs/heroes/league_taric.md)<br>Taric | 辅助 | 被动 正气凌人 · 炫光 · 星光之触 · 大招 宇宙之辉 | — | PPU 1.55 |
 | <img src="docs/heroes/img/league_thresh.png" width="32"> | [锤石](docs/heroes/league_thresh.md)<br>Thresh | 辅助 | 被动 厄运钟摆 · 死亡判决 · 厄运钟摆 · 大招 幽冥监牢 | [锤石灯笼附加包](addons/league_thresh_lantern/README.md) | PPU 2.48 |
 | <img src="docs/heroes/img/league_yuumi.png" width="32"> | [悠米](docs/heroes/league_yuumi.md)<br>Yuumi | 辅助 | 摸鱼飞弹 · 悠米出动！ · 大招 魔典终章 | [悠米附加包](addons/league_yuumi/README.md) | PPU 1.5 |
-| <img src="docs/heroes/img/league_zilean.png" width="32"> | [基兰](docs/heroes/league_zilean.md)<br>Zilean | 辅助 | 被动 瓶中时光 · 定时炸弹 · 时光发条 · 大招 时光倒流 | [基兰复活附加包](addons/league_zilean_rewind/README.md) | — |
+| <img src="docs/heroes/img/league_zilean.png" width="32"> | [基兰](docs/heroes/league_zilean.md)<br>Zilean | 辅助 | 被动 瓶中时光 · 定时炸弹 · 时光发条 · 大招 时光倒流 | [基兰复活附加包](addons/league_zilean_rewind/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/tft_idas.png" width="32"> | [艾达丝](docs/heroes/tft_idas.md)<br>Idas（tft 包） | 辅助 | 黄金龙息 · 龙威振翅 · 大招 黄金龙鳞 | — | PPU 2.45 |
 | <img src="docs/heroes/img/tft_loris.png" width="32"> | [洛里斯](docs/heroes/tft_loris.md)<br>Loris（tft 包） | 辅助 | 皮城争斗 · 盾卫 · 大招 钢铁防线 | — | PPU 2 |
 | <img src="docs/heroes/img/tft_meepsie.png" width="32"> | [小木灵](docs/heroes/tft_meepsie.md)<br>Meepsie（tft 包） | 辅助 | 月尘震地 · 治疗木灵 · 大招 宇宙大爆炸 | — | PPU 2.88 |

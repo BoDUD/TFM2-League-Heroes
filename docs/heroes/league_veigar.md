@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / Range / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.8 |
 | 附加包 | [维迦法强常驻附加包](#附加包)（`league_veigar_power`） |
 
 ![维迦演示](../preview/league_veigar_showcase.gif)
@@ -88,6 +88,7 @@
 | 亚索联动 | E 牢笼的眩晕算亚索大招要的控制：维迦在队里时亚索每局 R 到被控英雄 2.40 次（同一批原版闪电法师 3.19、火法 0.65），亚索不用调 |
 | 精灵图 | 8 个动作 50 帧：待机、移动、普攻、Q、E、R、受击、死亡。造型按 Codex 画的原画、由 Codex 直接按游戏尺寸画（用户选的 B）：高高的紫蓝尖顶巫师帽（帽尖是品红色，往左卷，帽上有银扣），帽檐下一团黑影里两只黄眼睛；深蓝长袍、银灰的领口和护肩，锯齿状的袍摆，品红的腰带垂布；远侧手举着银色爪形护手，近侧手拄着法杖（灰色爪头抓着橙色水晶）。帽尖到脚底 40 px、37 px 宽，23 色。每帧的时机和站位照英雄联盟原版动画渲染的参考帧 |
 | 特效 | 普攻的暗能量弹和命中、超凡邪力叠层时汇入他身上的紫光和金色火花、Q 的暗能量束和命中、E 的牢笼（地面椭圆立起一圈能量柱、柱上闪金色符文，3 秒）、被晕敌人头顶的紫色星环、W 黑暗物质（落点圈、从天而降的黑紫色球、砸地的闪光和冲击波、焦痕）和砸中敌人的碎块、R 法杖尖聚能的光球、原始魔法球、目标身上的爆炸 |
+| 高清帧（PPU 1.8） | 2026-11-08 用 PPU 重做，和基兰、克格莫、萨勒芬妮在同一个 PR（用户：「下一组重做 维迦 基兰 克格莫 萨勒芬妮」「萨勒芬尼2.2 其他都1.8」「codex交付了 如果你觉得有问题的地方麻烦帮我忙修复 做到完美后喊我review」「一定要注意模型不要变大变小」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 15.9 像素一格读回（61 × 72 格；帽尖到脚底 72 行，旧精灵 40 行，PPU 1.8）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 26 张图、36 帧（普攻第 1、6 帧，Q 第 1、6 帧，E 第 1、7 帧，受击第 2 帧，死亡第 1 帧就是设计图），透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧退回身高、头、面积、叠合四者的中位数）；R 按旧版不带特效的原生身体格画，施法光由 veigar_bake.json 重新叠上；跑步第 4–6 帧 Codex 把亮的近侧腿画成撑地、在前，前后两半是同一条腿在迈（「走路没有换腿」），读回时把这三帧两只靴子的明暗对调（casts_veigar_hd.LEG_SWAP，按亮度排名互换颜色），现在第 1–4 帧近侧腿撑地、第 5–8 帧远侧腿撑地；死亡第 3、7、8 帧和模板重合不到 0.65；帽子和整身每帧都和设计图一样大，缩放没再校正。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 保持 -10（帽尖离卡顶约 1.5 像素）；头像截取点按新脸挪到 (-2,-29) → (1,-24)（旧点框在帽带上，眼睛在框下面）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 13 条技能音效和 2 条中文语音（E 用最短的一句攻击台词，R 用他的笑声：基础皮肤的语音库里没有技能台词）。不提交到仓库，按下面的命令在本地生成 |
 
@@ -98,6 +99,15 @@ python tools/art/rig_veigar.py        # 动作：用定稿自己的像素按 Cod
 python tools/art/import_native.py --hero veigar
 python tools/art/import_veigar.py     # 特效；--raw <Codex 的特效交付文件夹> 先把生图原稿转成原尺寸条
 python tools/art/preview_veigar.py
+# PPU 1.8 重做（2026-11-08）：
+python tools/art/pack_veigar_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_veigar_hd.py                      # Codex 的原图（hd/raw/veigar-A.png）按原图约 15.9 像素一格读回 -> hd/design.png
+python tools/art/pack_veigar_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_veigar_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FRAME_ZOOM 的起点）；--heights / --heads 另两种量法
+python tools/art/rig_veigar_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero veigar && python tools/art/ppu_hd.py --hero veigar
+python tools/art/ppu_one.py --hero veigar && python tools/art/rig_veigar_hd.py --one-ground && python tools/art/hero_reels.py --hero veigar
+python tools/art/review_veigar_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/veigar/PICTURE_PROMPT.md`](../../assets/source/veigar/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/veigar/MODEL_PROMPTS.md)，8 条动作的见 [`MODEL_STRIPS.md`](../../assets/source/veigar/MODEL_STRIPS.md)，特效的见 [`PROMPTS.md`](../../assets/source/veigar/PROMPTS.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/veigar/codex_model)、[`codex_strips/`](../../assets/source/veigar/codex_strips)、[`codex_fx/`](../../assets/source/veigar/codex_fx)）：
@@ -110,4 +120,4 @@ python tools/art/preview_veigar.py
 - 出手时刻和动画对齐：普攻第 4 帧（第 12 tick）射出，Q 第 4 帧（第 12 tick），E 第 4 帧（第 12 tick），R 第 2 tick 起跳时开始聚能、第 4 帧跳到最高点（第 12 tick）射出：R 从第 2 tick 开始，魔法球由延迟 10 tick 的 `Delayed` 射出（阿卡丽 E 的手里剑的做法），聚能光球的闪光正好在出手那一刻；魔法球的 `y_offset` 设 −15000，画面比站位点高 20 px，和举起的法杖差不多高，不从腰部飞出；爆炸放在胸口。
 - 结果：23 色，和右边像素同色的比例 33%（原版英雄 18%–46%）。待机每帧 798 个不透明像素（补描边前 778），和阿卡丽（787）相近。
 
-逐帧预览：[`docs/preview/league_veigar_frames.png`](../preview/league_veigar_frames.png?v=1014g)，特效：[`docs/preview/league_veigar_effects.png`](../preview/league_veigar_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_veigar_frames.png`](../preview/league_veigar_frames.png?v=1109hd)，特效：[`docs/preview/league_veigar_effects.png`](../preview/league_veigar_effects.png?v=1014g)。

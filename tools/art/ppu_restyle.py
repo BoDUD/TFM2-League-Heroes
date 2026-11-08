@@ -861,10 +861,10 @@ RESTYLE = {
     # Kog'Maw 61 / 34, Seraphine 101 / 46); every action Codex's whole-frame redraw of the old frame read onto it
     # (tools/art/casts_<hero>_hd.py), so no density change; fx (Veigar, Zilean): R's cast flash and the attack's, W's and
     # E's flashes laid on again (rig_<hero>_hd, Rig.bake: <hero>_bake.json); the outline grown by 2
-    "veigar": dict(ppu=72 / 40, edge=2, fx=True),
-    "zilean": dict(ppu=72 / 40, edge=2, fx=True),
-    "kogmaw": dict(ppu=61 / 34, edge=2),
-    "seraphine": dict(ppu=101 / 46, edge=2),
+    "veigar": dict(ppu=72 / 40, edge=2, fx=True, face_to=(1, -24)),
+    "zilean": dict(ppu=72 / 40, edge=2, fx=True, face_to=(2, -23)),
+    "kogmaw": dict(ppu=61 / 34, edge=2, face_to=(9, -18)),
+    "seraphine": dict(ppu=101 / 46, edge=2, face_to=(4, -33)),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2
