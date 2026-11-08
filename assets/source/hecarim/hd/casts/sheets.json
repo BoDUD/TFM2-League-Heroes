@@ -1,0 +1,656 @@
+{
+ "square": 9,
+ "square_of": {
+  "attack": 6,
+  "skill": 7,
+  "skill2": 8,
+  "skill2_hit": 8,
+  "ult": 6
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "hit": {
+   "2": "hit 1"
+  },
+  "dead": {
+   "7": "dead 6",
+   "8": "dead 6"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a gallop on his four armoured legs, the halberd held up in front of him with its blade at the picture's upper right, the cyan ghost-fire tail streaming behind, the FOUR LEGS as the pale figure has them, frame by frame",
+   "ms": [
+    85
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes.",
+   "legs": "Frame 1: his FOUR ARMOURED LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). His four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs armoured and as long and as thick as in image 1, the dark hooves on them. The body, the helmet, the arms, the halberd and the tail follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a gallop on his four armoured legs, the halberd held up in front of him with its blade at the picture's upper right, the cyan ghost-fire tail streaming behind, the FOUR LEGS as the pale figure has them, frame by frame",
+   "ms": [
+    85
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes.",
+   "legs": "Frame 2: his FOUR ARMOURED LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). His four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs armoured and as long and as thick as in image 1, the dark hooves on them. The body, the helmet, the arms, the halberd and the tail follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a gallop on his four armoured legs, the halberd held up in front of him with its blade at the picture's upper right, the cyan ghost-fire tail streaming behind, the FOUR LEGS as the pale figure has them, frame by frame",
+   "ms": [
+    85
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes.",
+   "legs": "Frame 3: his FOUR ARMOURED LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). His four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs armoured and as long and as thick as in image 1, the dark hooves on them. The body, the helmet, the arms, the halberd and the tail follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a gallop on his four armoured legs, the halberd held up in front of him with its blade at the picture's upper right, the cyan ghost-fire tail streaming behind, the FOUR LEGS as the pale figure has them, frame by frame",
+   "ms": [
+    85
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes.",
+   "legs": "Frame 4: his FOUR ARMOURED LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). His four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs armoured and as long and as thick as in image 1, the dark hooves on them. The body, the helmet, the arms, the halberd and the tail follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a gallop on his four armoured legs, the halberd held up in front of him with its blade at the picture's upper right, the cyan ghost-fire tail streaming behind, the FOUR LEGS as the pale figure has them, frame by frame",
+   "ms": [
+    85
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes.",
+   "legs": "Frame 5: his FOUR ARMOURED LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). His four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs armoured and as long and as thick as in image 1, the dark hooves on them. The body, the helmet, the arms, the halberd and the tail follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a gallop on his four armoured legs, the halberd held up in front of him with its blade at the picture's upper right, the cyan ghost-fire tail streaming behind, the FOUR LEGS as the pale figure has them, frame by frame",
+   "ms": [
+    85
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes.",
+   "legs": "Frame 6: his FOUR ARMOURED LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). His four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs armoured and as long and as thick as in image 1, the dark hooves on them. The body, the helmet, the arms, the halberd and the tail follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a gallop on his four armoured legs, the halberd held up in front of him with its blade at the picture's upper right, the cyan ghost-fire tail streaming behind, the FOUR LEGS as the pale figure has them, frame by frame",
+   "ms": [
+    85
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes.",
+   "legs": "Frame 7: his FOUR ARMOURED LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). His four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs armoured and as long and as thick as in image 1, the dark hooves on them. The body, the helmet, the arms, the halberd and the tail follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop): a gallop on his four armoured legs, the halberd held up in front of him with its blade at the picture's upper right, the cyan ghost-fire tail streaming behind, the FOUR LEGS as the pale figure has them, frame by frame",
+   "ms": [
+    85
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes.",
+   "legs": "Frame 8: his FOUR ARMOURED LEGS exactly as the pale figure has them in this frame: in the front pair and in the hind pair, which leg is in front and which behind, which hooves are on the ground line and which are lifted (image 3: the near legs lighter, the far legs darker). His four legs TAKE TURNS as in the old run: in the front pair and in the hind pair the near and the far leg change over during the 8 frames - never the same legs forward in every frame; all four legs armoured and as long and as thick as in image 1, the dark hooves on them. The body, the helmet, the arms, the halberd and the tail follow the pale figure."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "attack (the halberd chop): he raises the halberd in front of him, the blade high at the picture's upper right (frame 1), lifts it straight up over his head (frame 2), swings it back over his head, the shaft level, the blade pointing back to the picture's left (frame 3), lunges forward, the whole body stretched low and long, chopping the halberd down to the lower right with its blade near the ground far in front of him, the tail flying up behind (frame 4), gathers up low, the halberd back over his shoulder (frame 5), and stands, the halberd up in front of him (frame 6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "attack (the halberd chop): he raises the halberd in front of him, the blade high at the picture's upper right (frame 1), lifts it straight up over his head (frame 2), swings it back over his head, the shaft level, the blade pointing back to the picture's left (frame 3), lunges forward, the whole body stretched low and long, chopping the halberd down to the lower right with its blade near the ground far in front of him, the tail flying up behind (frame 4), gathers up low, the halberd back over his shoulder (frame 5), and stands, the halberd up in front of him (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "attack (the halberd chop): he raises the halberd in front of him, the blade high at the picture's upper right (frame 1), lifts it straight up over his head (frame 2), swings it back over his head, the shaft level, the blade pointing back to the picture's left (frame 3), lunges forward, the whole body stretched low and long, chopping the halberd down to the lower right with its blade near the ground far in front of him, the tail flying up behind (frame 4), gathers up low, the halberd back over his shoulder (frame 5), and stands, the halberd up in front of him (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "attack (the halberd chop): he raises the halberd in front of him, the blade high at the picture's upper right (frame 1), lifts it straight up over his head (frame 2), swings it back over his head, the shaft level, the blade pointing back to the picture's left (frame 3), lunges forward, the whole body stretched low and long, chopping the halberd down to the lower right with its blade near the ground far in front of him, the tail flying up behind (frame 4), gathers up low, the halberd back over his shoulder (frame 5), and stands, the halberd up in front of him (frame 6)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Rampage (Q): he spins the halberd round him - swung back over his shoulder, the blade at the upper left (frame 1), held out level behind him to the picture's left (frames 2-3), swept round in front of him level to the picture's right (frame 4), swung up to the upper right (frame 5), back over his head, the blade at the upper left (frame 6) - and stands, the halberd upright at his side (frame 7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Rampage (Q): he spins the halberd round him - swung back over his shoulder, the blade at the upper left (frame 1), held out level behind him to the picture's left (frames 2-3), swept round in front of him level to the picture's right (frame 4), swung up to the upper right (frame 5), back over his head, the blade at the upper left (frame 6) - and stands, the halberd upright at his side (frame 7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Rampage (Q): he spins the halberd round him - swung back over his shoulder, the blade at the upper left (frame 1), held out level behind him to the picture's left (frames 2-3), swept round in front of him level to the picture's right (frame 4), swung up to the upper right (frame 5), back over his head, the blade at the upper left (frame 6) - and stands, the halberd upright at his side (frame 7)",
+   "ms": [
+    55
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Rampage (Q): he spins the halberd round him - swung back over his shoulder, the blade at the upper left (frame 1), held out level behind him to the picture's left (frames 2-3), swept round in front of him level to the picture's right (frame 4), swung up to the upper right (frame 5), back over his head, the blade at the upper left (frame 6) - and stands, the halberd upright at his side (frame 7)",
+   "ms": [
+    55
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Rampage (Q): he spins the halberd round him - swung back over his shoulder, the blade at the upper left (frame 1), held out level behind him to the picture's left (frames 2-3), swept round in front of him level to the picture's right (frame 4), swung up to the upper right (frame 5), back over his head, the blade at the upper left (frame 6) - and stands, the halberd upright at his side (frame 7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Rampage (Q): he spins the halberd round him - swung back over his shoulder, the blade at the upper left (frame 1), held out level behind him to the picture's left (frames 2-3), swept round in front of him level to the picture's right (frame 4), swung up to the upper right (frame 5), back over his head, the blade at the upper left (frame 6) - and stands, the halberd upright at his side (frame 7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "Rampage (Q): he spins the halberd round him - swung back over his shoulder, the blade at the upper left (frame 1), held out level behind him to the picture's left (frames 2-3), swept round in front of him level to the picture's right (frame 4), swung up to the upper right (frame 5), back over his head, the blade at the upper left (frame 6) - and stands, the halberd upright at his side (frame 7)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the gallop (E): a long low charge, his body stretched forward, the halberd held level in front of him like a lance, its blade at the picture's right, the tail streaming behind, the four legs galloping as the pale figure has them, frame by frame",
+   "ms": [
+    60
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the gallop (E): a long low charge, his body stretched forward, the halberd held level in front of him like a lance, its blade at the picture's right, the tail streaming behind, the four legs galloping as the pale figure has them, frame by frame",
+   "ms": [
+    75
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the gallop (E): a long low charge, his body stretched forward, the halberd held level in front of him like a lance, its blade at the picture's right, the tail streaming behind, the four legs galloping as the pale figure has them, frame by frame",
+   "ms": [
+    75
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the gallop (E): a long low charge, his body stretched forward, the halberd held level in front of him like a lance, its blade at the picture's right, the tail streaming behind, the four legs galloping as the pale figure has them, frame by frame",
+   "ms": [
+    75
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the gallop (E): a long low charge, his body stretched forward, the halberd held level in front of him like a lance, its blade at the picture's right, the tail streaming behind, the four legs galloping as the pale figure has them, frame by frame",
+   "ms": [
+    75
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the gallop (E): a long low charge, his body stretched forward, the halberd held level in front of him like a lance, its blade at the picture's right, the tail streaming behind, the four legs galloping as the pale figure has them, frame by frame",
+   "ms": [
+    75
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the gallop (E): a long low charge, his body stretched forward, the halberd held level in front of him like a lance, its blade at the picture's right, the tail streaming behind, the four legs galloping as the pale figure has them, frame by frame",
+   "ms": [
+    75
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2_hit",
+   "name": "skill2_hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the blow (E): he rears up, the halberd raised back over his head (frame 1), rears higher on his hind legs, the front hooves up, the halberd held level overhead (frame 2), crashes down forward, thrusting the halberd down to the lower right (frame 3), and stands, the halberd pointing down in front of him (frame 4)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2_hit",
+   "name": "skill2_hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the blow (E): he rears up, the halberd raised back over his head (frame 1), rears higher on his hind legs, the front hooves up, the halberd held level overhead (frame 2), crashes down forward, thrusting the halberd down to the lower right (frame 3), and stands, the halberd pointing down in front of him (frame 4)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2_hit",
+   "name": "skill2_hit_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the blow (E): he rears up, the halberd raised back over his head (frame 1), rears higher on his hind legs, the front hooves up, the halberd held level overhead (frame 2), crashes down forward, thrusting the halberd down to the lower right (frame 3), and stands, the halberd pointing down in front of him (frame 4)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "skill2_hit",
+   "name": "skill2_hit_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Devastating Charge, the blow (E): he rears up, the halberd raised back over his head (frame 1), rears higher on his hind legs, the front hooves up, the halberd held level overhead (frame 2), crashes down forward, thrusting the halberd down to the lower right (frame 3), and stands, the halberd pointing down in front of him (frame 4)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Onslaught of Shadows (R): he crouches, the halberd held low in front, its blade near the ground at the picture's right (frames 1-2), rears up tall on his hind legs, the halberd thrust straight up over his head (frame 3), and charges forward, galloping, the halberd level in front of him, the tail streaming (frames 4-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Onslaught of Shadows (R): he crouches, the halberd held low in front, its blade near the ground at the picture's right (frames 1-2), rears up tall on his hind legs, the halberd thrust straight up over his head (frame 3), and charges forward, galloping, the halberd level in front of him, the tail streaming (frames 4-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Onslaught of Shadows (R): he crouches, the halberd held low in front, its blade near the ground at the picture's right (frames 1-2), rears up tall on his hind legs, the halberd thrust straight up over his head (frame 3), and charges forward, galloping, the halberd level in front of him, the tail streaming (frames 4-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Onslaught of Shadows (R): he crouches, the halberd held low in front, its blade near the ground at the picture's right (frames 1-2), rears up tall on his hind legs, the halberd thrust straight up over his head (frame 3), and charges forward, galloping, the halberd level in front of him, the tail streaming (frames 4-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Onslaught of Shadows (R): he crouches, the halberd held low in front, its blade near the ground at the picture's right (frames 1-2), rears up tall on his hind legs, the halberd thrust straight up over his head (frame 3), and charges forward, galloping, the halberd level in front of him, the tail streaming (frames 4-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Onslaught of Shadows (R): he crouches, the halberd held low in front, its blade near the ground at the picture's right (frames 1-2), rears up tall on his hind legs, the halberd thrust straight up over his head (frame 3), and charges forward, galloping, the halberd level in front of him, the tail streaming (frames 4-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 6,
+   "action": "Onslaught of Shadows (R): he crouches, the halberd held low in front, its blade near the ground at the picture's right (frames 1-2), rears up tall on his hind legs, the halberd thrust straight up over his head (frame 3), and charges forward, galloping, the halberd level in front of him, the tail streaming (frames 4-7)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back a little (frame 1; frame 2 = frame 1)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: his halberd stands planted upright in the ground beside him while he sags (frame 1), rears up in pain, the arms flung up (frame 2) and rears higher, the head thrown back (frame 3); the halberd falls flat on the ground in front of him as he stumbles (frame 4), he sinks down, the legs folding (frame 5) and lies collapsed on the ground, the legs folded under him, the halberd beside him (frame 6; frames 7-8 = frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: his halberd stands planted upright in the ground beside him while he sags (frame 1), rears up in pain, the arms flung up (frame 2) and rears higher, the head thrown back (frame 3); the halberd falls flat on the ground in front of him as he stumbles (frame 4), he sinks down, the legs folding (frame 5) and lies collapsed on the ground, the legs folded under him, the halberd beside him (frame 6; frames 7-8 = frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: his halberd stands planted upright in the ground beside him while he sags (frame 1), rears up in pain, the arms flung up (frame 2) and rears higher, the head thrown back (frame 3); the halberd falls flat on the ground in front of him as he stumbles (frame 4), he sinks down, the legs folding (frame 5) and lies collapsed on the ground, the legs folded under him, the halberd beside him (frame 6; frames 7-8 = frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: his halberd stands planted upright in the ground beside him while he sags (frame 1), rears up in pain, the arms flung up (frame 2) and rears higher, the head thrown back (frame 3); the halberd falls flat on the ground in front of him as he stumbles (frame 4), he sinks down, the legs folding (frame 5) and lies collapsed on the ground, the legs folded under him, the halberd beside him (frame 6; frames 7-8 = frame 6)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: his halberd stands planted upright in the ground beside him while he sags (frame 1), rears up in pain, the arms flung up (frame 2) and rears higher, the head thrown back (frame 3); the halberd falls flat on the ground in front of him as he stumbles (frame 4), he sinks down, the legs folding (frame 5) and lies collapsed on the ground, the legs folded under him, the halberd beside him (frame 6; frames 7-8 = frame 6)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: his halberd stands planted upright in the ground beside him while he sags (frame 1), rears up in pain, the arms flung up (frame 2) and rears higher, the head thrown back (frame 3); the halberd falls flat on the ground in front of him as he stumbles (frame 4), he sinks down, the legs folding (frame 5) and lies collapsed on the ground, the legs folded under him, the halberd beside him (frame 6; frames 7-8 = frame 6)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE HALBERD goes where the pale figure has it, frame by frame (image 3 shows it in colour): the long dark shaft and the curved silver blade, as long as in image 1, in his near hand - held up, swung, spun, thrust, raised overhead or lying on the ground as the pale figure has it. THE CYAN GHOST-FIRE TAIL and the dark crimson cloth where the pale figure has them. Only him: no ghost riders, no shadows, no slashes, no dust; the cyan light stays inside his armour's seams and his eyes."
+  }
+ ]
+}

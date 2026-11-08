@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.79 |
 | 附加包 | [奥拉夫读血附加包](#附加包)（`league_olaf_rage`） |
 
 ![奥拉夫演示](../preview/league_olaf_showcase.gif)
@@ -91,6 +91,7 @@
 | 亚索联动 | 奥拉夫只有减速，没有击飞，亚索大招不受影响，不用调 |
 | 精灵图 | 8 个动作 50 帧：待机 8（身体在靴子上呼吸）、移动 8（英雄联盟原版 0.97 秒一圈，8 × 120 毫秒）、普攻 6、Q（`skill`）6、E（`skill2`）6、R（`ult`）6、受击 2、死亡 8。高 43 px、宽 36 px，21 色。头像截取点 (3, −41)，选人卡片 −8（待机最高点在站位点上方 31.5 px） |
 | 特效 | Codex 生图的 13 张（`import_olaf.py --raw`，按技能范围缩到游戏尺寸、颜色归到包里给的色阶）：`league_olaf_fx` 普攻劈痕、翻滚的飞斧、斧头落地的冲击、插在地上的斧头（每 0.25 秒重放，等他来捡）、Q 命中和脚下寒气减速、捡斧的冰蓝光环、挺过去开启和身后的血气、满层狂怒的红色怒气；`league_olaf_big` E 双斧砸中的 X 形劈痕和闪电、R 怒吼和脚下的怒火。配色照英雄联盟的技能图标：冰蓝钢光 + 白芯，怒火红橙。飞斧随飞行方向转，插地的斧头是地上的实物，其余左右对称 |
+| 高清帧（PPU 1.79） | 2026-11-08 用 PPU 重做，和伊泽瑞尔、赫卡里姆、雷克顿在同一个 PR（用户：「接下来重做奥拉夫 EZ 人马 鳄鱼」「codex交付了」「伊泽瑞尔2.19 其他都1.8」「Codex交付了你做到完美后喊我review」「有问题的地方你帮忙修改」「没问题」）。设计图：Codex 照旧精灵描密的原图，按原图约 14.6 像素一格读回（67 × 77 格；头盔角尖到脚底 77 行，旧精灵 43 行，PPU 1.79）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 30 张图、43 帧（没有重复帧），纯白底的原图读回到设计图的格子上：每帧的缩放按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧才退回身高、头、面积、叠合四者的中位数）；跑步 7 帧，前后脚每半个周期换一次；R 第 3 帧 Codex 把双斧交叉在胸前（旧版举过头），大小照叠合；量头用头发和胡子的橙色。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -8 → -7（描边加粗后待机顶高了约 1 像素，-8 会裁掉头盔角尖；举起的斧头照旧被裁）；头像截取点按新脸挪到 (3,-41) → (7,-28)（旧点框在头盔顶，框里没有脸）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_olaf.py`）：挥斧和命中、Q 掷出 / 命中 / 斧头落地 / 捡斧、W、E 出手和命中、R；Q、W、E、R 的配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
 
@@ -105,6 +106,15 @@ python tools/art/fix_olaf_strips.py     # 动作：Codex 改回待机大小的�
 python tools/art/import_native.py --hero olaf
 python tools/art/import_olaf.py         # 特效（--raw assets/source/olaf/codex_fx：从 Codex 的原稿重做）
 python tools/art/preview_olaf.py        # 逐帧预览、特效表、演示 GIF
+# PPU 1.79 重做（2026-11-08）：
+python tools/art/pack_olaf_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_olaf_hd.py                      # Codex 的原图（hd/raw/olaf-A.png）按原图约 14.6 像素一格读回 -> hd/design.png
+python tools/art/pack_olaf_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_olaf_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（定 FRAME_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_olaf_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero olaf && python tools/art/ppu_hd.py --hero olaf
+python tools/art/ppu_one.py --hero olaf && python tools/art/rig_olaf_hd.py --one-ground && python tools/art/hero_reels.py --hero olaf
+python tools/art/review_olaf_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（动作的提示词见 [`assets/source/olaf/MODEL_STRIPS_v2.md`](../../assets/source/olaf/MODEL_STRIPS_v2.md)，瘦身见 [`SLIM_PACK.md`](../../assets/source/olaf/SLIM_PACK.md) 和 [`SLIM_STRIPS.md`](../../assets/source/olaf/SLIM_STRIPS.md)，大小和跑步见 [`SIZE_RUN.md`](../../assets/source/olaf/SIZE_RUN.md) 和 [`RUN_CROSS.md`](../../assets/source/olaf/RUN_CROSS.md)，普攻过渡帧见 [`ATTACK_TWEEN.md`](../../assets/source/olaf/ATTACK_TWEEN.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/olaf/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](../../assets/source/olaf/codex_model)、[`codex_strips_v2/`](../../assets/source/olaf/codex_strips_v2)、[`codex_slim/`](../../assets/source/olaf/codex_slim)、[`codex_strips_slim/`](../../assets/source/olaf/codex_strips_slim)、[`codex_strips_size/`](../../assets/source/olaf/codex_strips_size)、[`codex_run_cross/`](../../assets/source/olaf/codex_run_cross)、[`codex_attack_tween/`](../../assets/source/olaf/codex_attack_tween)、[`codex_fx/`](../../assets/source/olaf/codex_fx)）：
@@ -114,6 +124,6 @@ python tools/art/preview_olaf.py        # 逐帧预览、特效表、演示 GIF
 - 动作：Codex 第一版的身体比造型大、头整块贴上去带着一条肩毛；用造型零件重摆的版本被退回（用户：「身体太奇怪了吧。。。和英雄联盟也不一样啊」）。第二版让 Codex 照英雄联盟原版逐帧把整个人一起画（提示词按原版骨骼量了每帧的腿、胯、身体、手：跑步弓身冲锋后脚高踢、普攻右手举斧下劈、Q 左手高举再弓步掷斧、E 下蹲跃起双斧砸地、R 仰头怒吼双斧交叉、死亡跪下再向前扑倒），`fix_olaf_strips.py` 在 Codex 画头的位置换上定稿的头、把用描边色画的黑靴子和背心改回深棕皮革、补掉漏光的小孔；瘦身后 Codex 再拿通过的动作条当骨架换成新身材（`codex_strips_slim`），头沿用通过那版每帧的位置。用户：「非常好」。进游戏后用户：「奥拉夫跑动时为什么变大一圈 好违和」「还有跑动姿势太浮夸了吧」——Codex 把所有动作照待机的大小重画（`codex_strips_size`）；仍偏大的 R、死亡缩到 85%、E 到 90%，画瘦了的受击改用瘦身版缩到 80%（整行整列删除，不重新采样，头不动：`import_native.py` 的 `SHRINK_TAGS`）。跑步先是两只脚都钉在原地（「感觉像在平移」），再让 Codex 照逐帧的腿部引导图画交叉步（`codex_run_cross`：着地的脚往后蹬，另一条腿后踢再越过去）；它第 6 帧把刚落地的脚又抬起来，去掉这帧，跑步 7 帧；每帧落到地面线上，头跟着躯干起伏。之后用户：「奥拉夫战斗时有很强的顿挫感」——查下来节奏、技能树都正常，是普攻每一刀都从正面待机一下切到侧身大开步、最后从低位前冲一下弹回站直；用户选了「首尾各补一帧过渡，其余帧不动」，Codex 画了两帧（[`ATTACK_TWEEN.md`](../../assets/source/olaf/ATTACK_TWEEN.md)，交付在 `codex_attack_tween/`）：起手半转身抬斧，接在待机和普攻 1 之间；收招从前冲起身一半，接在普攻 5 和 6 之间。整段仍是 400 毫秒、第 4 帧（第 12 tick）出伤，帧时长 40 / 50 / 50 / 60 / 70 / 50 / 40 / 40（`fix_olaf_strips.py` 的 `TWEEN`）。
 - 特效：Codex 第 3 步的 13 张生图原稿；挺过去的血气光环原稿是一整圈很厚的火，和大招的火分不开，只留亮边。
 
-逐帧预览：[`docs/preview/league_olaf_frames.png`](../preview/league_olaf_frames.png?v=1015t)，特效：[`docs/preview/league_olaf_effects.png`](../preview/league_olaf_effects.png?v=1015t)。
+逐帧预览：[`docs/preview/league_olaf_frames.png`](../preview/league_olaf_frames.png?v=1108hd)，特效：[`docs/preview/league_olaf_effects.png`](../preview/league_olaf_effects.png?v=1015t)。
 
 可选的扩展包 [`addons/league_olaf_rage`](../../addons/league_olaf_rage/README.md)（原生代码，主包不装它也完整）：读真实的生命，已损失 15% 起一层狂怒，之后每多 17% 再一层，和英雄联盟一样按血量给攻速和吸血。

@@ -1,0 +1,468 @@
+{
+ "square": 9,
+ "square_of": {
+  "attack": 7,
+  "skill": 7,
+  "skill2": 7
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop, 7 frames): a hunched charge, an axe in each hand, the arms pumping, the beard and the hair bouncing, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his brown fur-topped boot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. Frame 2: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-3 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 4-7 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 4 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all frames: 「走路没有换腿」). The body, the head, the arms and the axes follow the pale figure. The fur round his boots is NOT a third foot: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop, 7 frames): a hunched charge, an axe in each hand, the arms pumping, the beard and the hair bouncing, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost.",
+   "legs": "Frame 3: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. Frame 4: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-3 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 4-7 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 4 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all frames: 「走路没有换腿」). The body, the head, the arms and the axes follow the pale figure. The fur round his boots is NOT a third foot: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "running (his move loop, 7 frames): a hunched charge, an axe in each hand, the arms pumping, the beard and the hair bouncing, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. Frame 6: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-3 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 4-7 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 4 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all frames: 「走路没有换腿」). The body, the head, the arms and the axes follow the pale figure. The fur round his boots is NOT a third foot: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "running (his move loop, 7 frames): a hunched charge, an axe in each hand, the arms pumping, the beard and the hair bouncing, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost.",
+   "legs": "Frame 7: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-3 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 4-7 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 4 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all frames: 「走路没有换腿」). The body, the head, the arms and the axes follow the pale figure. The fur round his boots is NOT a third foot: his two legs carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the overhead chop): he half-turns, lifting his near axe forward at shoulder height (frame 1), steps out wide, the axe drawn back out to the picture's right (frame 2), raises it high over his head, the arm straight up (frame 3), brings it down over his head, crouching forward (frame 4), chops it down low in front of him in a wide lunge (frame 5), swings through in a deep lunge, one axe up behind his shoulder and the other low behind him (frames 6-7), and stands again, the axes at his sides (frame 8)",
+   "ms": [
+    40
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 7,
+   "action": "attack (the overhead chop): he half-turns, lifting his near axe forward at shoulder height (frame 1), steps out wide, the axe drawn back out to the picture's right (frame 2), raises it high over his head, the arm straight up (frame 3), brings it down over his head, crouching forward (frame 4), chops it down low in front of him in a wide lunge (frame 5), swings through in a deep lunge, one axe up behind his shoulder and the other low behind him (frames 6-7), and stands again, the axes at his sides (frame 8)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack (the overhead chop): he half-turns, lifting his near axe forward at shoulder height (frame 1), steps out wide, the axe drawn back out to the picture's right (frame 2), raises it high over his head, the arm straight up (frame 3), brings it down over his head, crouching forward (frame 4), chops it down low in front of him in a wide lunge (frame 5), swings through in a deep lunge, one axe up behind his shoulder and the other low behind him (frames 6-7), and stands again, the axes at his sides (frame 8)",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack (the overhead chop): he half-turns, lifting his near axe forward at shoulder height (frame 1), steps out wide, the axe drawn back out to the picture's right (frame 2), raises it high over his head, the arm straight up (frame 3), brings it down over his head, crouching forward (frame 4), chops it down low in front of him in a wide lunge (frame 5), swings through in a deep lunge, one axe up behind his shoulder and the other low behind him (frames 6-7), and stands again, the axes at his sides (frame 8)",
+   "ms": [
+    70,
+    50
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "attack (the overhead chop): he half-turns, lifting his near axe forward at shoulder height (frame 1), steps out wide, the axe drawn back out to the picture's right (frame 2), raises it high over his head, the arm straight up (frame 3), brings it down over his head, crouching forward (frame 4), chops it down low in front of him in a wide lunge (frame 5), swings through in a deep lunge, one axe up behind his shoulder and the other low behind him (frames 6-7), and stands again, the axes at his sides (frame 8)",
+   "ms": [
+    40,
+    40
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Undertow (Q): he stands ready, crouched (frame 1), raises his far arm high, an axe over his head (frame 2), swings it forward over his head into a lunge (frame 3), throws it - a deep lunge to the picture's right, the throwing arm flung forward, its hand now empty (frames 4-5) - and stands again, one axe left in his near hand (frame 6)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Undertow (Q): he stands ready, crouched (frame 1), raises his far arm high, an axe over his head (frame 2), swings it forward over his head into a lunge (frame 3), throws it - a deep lunge to the picture's right, the throwing arm flung forward, its hand now empty (frames 4-5) - and stands again, one axe left in his near hand (frame 6)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Undertow (Q): he stands ready, crouched (frame 1), raises his far arm high, an axe over his head (frame 2), swings it forward over his head into a lunge (frame 3), throws it - a deep lunge to the picture's right, the throwing arm flung forward, its hand now empty (frames 4-5) - and stands again, one axe left in his near hand (frame 6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Reckless Swing (E): he crouches low, the axes down (frame 1), leaps up, his near axe raised high (frame 2), tucks in the air at the top, both axes raised over his head (frame 3), drops, both axes still high over his helmet (frame 4), lands in a deep crouch slamming both axes down to the ground in front of him (frame 5) and rises, crouched, the axes low at his sides (frame 6)",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Reckless Swing (E): he crouches low, the axes down (frame 1), leaps up, his near axe raised high (frame 2), tucks in the air at the top, both axes raised over his head (frame 3), drops, both axes still high over his helmet (frame 4), lands in a deep crouch slamming both axes down to the ground in front of him (frame 5) and rises, crouched, the axes low at his sides (frame 6)",
+   "ms": [
+    57,
+    70
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Reckless Swing (E): he crouches low, the axes down (frame 1), leaps up, his near axe raised high (frame 2), tucks in the air at the top, both axes raised over his head (frame 3), drops, both axes still high over his helmet (frame 4), lands in a deep crouch slamming both axes down to the ground in front of him (frame 5) and rises, crouched, the axes low at his sides (frame 6)",
+   "ms": [
+    70,
+    60
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Ragnarok (R): he crouches ready (frame 1), stands wide and throws his arms open, an axe low in each hand (frame 2), crosses the two axes in front of his chest (frame 3), throws his head back and roars, the crossed axes high in front of his face (frame 4), lowers them (frame 5) and stands ready (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Ragnarok (R): he crouches ready (frame 1), stands wide and throws his arms open, an axe low in each hand (frame 2), crosses the two axes in front of his chest (frame 3), throws his head back and roars, the crossed axes high in front of his face (frame 4), lowers them (frame 5) and stands ready (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Ragnarok (R): he crouches ready (frame 1), stands wide and throws his arms open, an axe low in each hand (frame 2), crosses the two axes in front of his chest (frame 3), throws his head back and roars, the crossed axes high in front of his face (frame 4), lowers them (frame 5) and stands ready (frame 6)",
+   "ms": [
+    70,
+    80
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Ragnarok (R): he crouches ready (frame 1), stands wide and throws his arms open, an axe low in each hand (frame 2), crosses the two axes in front of his chest (frame 3), throws his head back and roars, the crossed axes high in front of his face (frame 4), lowers them (frame 5) and stands ready (frame 6)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Ragnarok (R): he crouches ready (frame 1), stands wide and throws his arms open, an axe low in each hand (frame 2), crosses the two axes in front of his chest (frame 3), throws his head back and roars, the crossed axes high in front of his face (frame 4), lowers them (frame 5) and stands ready (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back, both arms flung out to the sides with the axes (frame 1), recovering (frame 2)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "struck: jolted back, both arms flung out to the sides with the axes (frame 1), recovering (frame 2)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, he sags (frame 1), staggers back, the arms spread wide (frame 2), drops to his knees, both axes raised high (frame 3), slumps forward on his knees, the axes low (frame 4), topples forward, one axe flung up behind him (frame 5) and lies face down on the ground, the axes beside him (frames 6-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, he sags (frame 1), staggers back, the arms spread wide (frame 2), drops to his knees, both axes raised high (frame 3), slumps forward on his knees, the axes low (frame 4), topples forward, one axe flung up behind him (frame 5) and lies face down on the ground, the axes beside him (frames 6-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, he sags (frame 1), staggers back, the arms spread wide (frame 2), drops to his knees, both axes raised high (frame 3), slumps forward on his knees, the axes low (frame 4), topples forward, one axe flung up behind him (frame 5) and lies face down on the ground, the axes beside him (frames 6-8)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, he sags (frame 1), staggers back, the arms spread wide (frame 2), drops to his knees, both axes raised high (frame 3), slumps forward on his knees, the axes low (frame 4), topples forward, one axe flung up behind him (frame 5) and lies face down on the ground, the axes beside him (frames 6-8)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, he sags (frame 1), staggers back, the arms spread wide (frame 2), drops to his knees, both axes raised high (frame 3), slumps forward on his knees, the axes low (frame 4), topples forward, one axe flung up behind him (frame 5) and lies face down on the ground, the axes beside him (frames 6-8)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, he sags (frame 1), staggers back, the arms spread wide (frame 2), drops to his knees, both axes raised high (frame 3), slumps forward on his knees, the axes low (frame 4), topples forward, one axe flung up behind him (frame 5) and lies face down on the ground, the axes beside him (frames 6-8)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, he sags (frame 1), staggers back, the arms spread wide (frame 2), drops to his knees, both axes raised high (frame 3), slumps forward on his knees, the axes low (frame 4), topples forward, one axe flung up behind him (frame 5) and lies face down on the ground, the axes beside him (frames 6-8)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "death: struck, he sags (frame 1), staggers back, the arms spread wide (frame 2), drops to his knees, both axes raised high (frame 3), slumps forward on his knees, the axes low (frame 4), topples forward, one axe flung up behind him (frame 5) and lies face down on the ground, the axes beside him (frames 6-8)",
+   "ms": [
+    500
+   ],
+   "weapons": "THE TWO AXES go where the pale figure has them, frame by frame (image 3 shows them in colour): a silver-headed axe in each hand, as big as in image 1 - raised overhead, swung, slammed down, crossed or flung out as the pale figure holds them; where the pale figure's hand is empty (after Q's throw), draw no axe in it. Only him: no flying axe, no slashes, no red rage glow, no frost."
+  }
+ ]
+}

@@ -126,10 +126,10 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_malphite.png" width="32"> | [墨菲特](docs/heroes/league_malphite.md)<br>Malphite | 上单 | 被动 花岗岩护盾 · 地震碎片 · 大地震颤 · 大招 势不可挡 | — | — |
 | <img src="docs/heroes/img/league_mordekaiser.png" width="32"> | [莫德凯撒](docs/heroes/league_mordekaiser.md)<br>Mordekaiser | 上单 | 破灭之锤 · 断魂一扼 · 大招 轮回绝境 | [莫德凯撒附加包](addons/league_mordekaiser/README.md) | PPU 2 |
 | <img src="docs/heroes/img/league_nasus.png" width="32"> | [内瑟斯](docs/heroes/league_nasus.md)<br>Nasus | 上单 | 汲魂痛击 · 灵魂烈焰 · 大招 死神降临 | [内瑟斯附加包](addons/league_nasus/README.md) | PPU 1.2 |
-| <img src="docs/heroes/img/league_olaf.png" width="32"> | [奥拉夫](docs/heroes/league_olaf.md)<br>Olaf | 上单 | 逆流投掷 · 鲁莽挥击 · 大招 诸神黄昏 | [奥拉夫读血附加包](addons/league_olaf_rage/README.md) | — |
+| <img src="docs/heroes/img/league_olaf.png" width="32"> | [奥拉夫](docs/heroes/league_olaf.md)<br>Olaf | 上单 | 逆流投掷 · 鲁莽挥击 · 大招 诸神黄昏 | [奥拉夫读血附加包](addons/league_olaf_rage/README.md) | PPU 1.79 |
 | <img src="docs/heroes/img/league_ornn.png" width="32"> | [奥恩](docs/heroes/league_ornn.md)<br>Ornn | 上单 | 火山突堑 · 炽烈冲锋 · 大招 熔铸之神的召唤 | [奥恩附加包](addons/league_ornn/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_quinn.png" width="32"> | [奎因](docs/heroes/league_quinn.md)<br>Quinn | 上单 | 炫目攻势 · 旋翔掠杀 · 大招 深入敌后 | [奎因附加包](addons/league_quinn/README.md) | PPU 2 |
-| <img src="docs/heroes/img/league_renekton.png" width="32"> | [雷克顿](docs/heroes/league_renekton.md)<br>Renekton | 上单 | 被动 怒之领域 · 巨鳄狂袭 · 横冲直撞 · 大招 终极统治 | [雷克顿低血怒气附加包](addons/league_renekton/README.md) | — |
+| <img src="docs/heroes/img/league_renekton.png" width="32"> | [雷克顿](docs/heroes/league_renekton.md)<br>Renekton | 上单 | 被动 怒之领域 · 巨鳄狂袭 · 横冲直撞 · 大招 终极统治 | [雷克顿低血怒气附加包](addons/league_renekton/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_riven.png" width="32"> | [锐雯](docs/heroes/league_riven.md)<br>Riven | 上单 | 被动 符文之刃 · 折翼之舞 · 勇往直前 · 大招 放逐之锋 | [斩杀附加包：伊芙琳、阿卡丽、锐雯](addons/league_executes/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_rumble.png" width="32"> | [兰博](docs/heroes/league_rumble.md)<br>Rumble | 上单 | 纵火盛宴 · 电子鱼叉 · 大招 恒温灼烧 | [兰博附加包](addons/league_rumble/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_sett.png" width="32"> | [瑟提](docs/heroes/league_sett.md)<br>Sett | 上单 | 被动 沙场豪情 · 强手裂颅 · 蓄意轰拳 · 大招 叹为观止 | [瑟提豪意附加包](addons/league_sett_grit/README.md) | PPU 1.79 |
@@ -168,7 +168,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_fiddlesticks.png" width="32"> | [费德提克](docs/heroes/league_fiddlesticks.md)<br>Fiddlesticks | 打野 | 被动 巫骇草人 · 恐惧 · 五骨丰登 · 大招 群鸦风暴 | — | PPU 1.8 |
 | <img src="docs/heroes/img/league_gragas.png" width="32"> | [古拉加斯](docs/heroes/league_gragas.md)<br>Gragas | 打野 | 滚动酒桶 · 肉弹冲击 · 大招 爆破酒桶 | [古拉加斯大招智能落点附加包](addons/league_gragas/README.md) | PPU 1.45 |
 | <img src="docs/heroes/img/league_graves.png" width="32"> | [格雷福斯](docs/heroes/league_graves.md)<br>Graves | 打野 | 穷途末路 · 快速拔枪 · 大招 终极爆弹 | [格雷福斯附加包](addons/league_graves/README.md) | PPU 1.5 |
-| <img src="docs/heroes/img/league_hecarim.png" width="32"> | [赫卡里姆](docs/heroes/league_hecarim.md)<br>Hecarim | 打野 | 暴走 · 毁灭冲锋 · 大招 暗影冲击 | — | — |
+| <img src="docs/heroes/img/league_hecarim.png" width="32"> | [赫卡里姆](docs/heroes/league_hecarim.md)<br>Hecarim | 打野 | 暴走 · 毁灭冲锋 · 大招 暗影冲击 | — | PPU 1.8 |
 | <img src="docs/heroes/img/league_ivern.png" width="32"> | [艾翁](docs/heroes/league_ivern.md)<br>Ivern | 打野 | 种豆得瓜 · 根深敌固 · 大招 小菊！ | [艾翁附加包](addons/league_ivern/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_jarvaniv.png" width="32"> | [嘉文四世](docs/heroes/league_jarvaniv.md)<br>Jarvan IV | 打野 | 德邦军旗 · 巨龙撞击 · 大招 天崩地裂 | [嘉文四世附加包](addons/league_jarvaniv/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_kayn.png" width="32"> | [凯隐](docs/heroes/league_kayn.md)<br>Kayn | 打野 | 巨镰横扫 · 利刃纵贯 · 大招 裂舍影 | [凯隐「暗裔魔镰」附加包](addons/league_kayn_form/README.md) | PPU 1.8 |
@@ -272,7 +272,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_ashe.png" width="32"> | [艾希](docs/heroes/league_ashe.md)<br>Ashe | ADC | 被动 冰霜射击 · 射手的专注 · 万箭齐发 · 大招 魔法水晶箭 | — | PPU 2.2 |
 | <img src="docs/heroes/img/league_caitlyn.png" width="32"> | [凯特琳](docs/heroes/league_caitlyn.md)<br>Caitlyn | ADC | 被动 爆头 · 和平使者 · 约德尔诱捕器 · 大招 让子弹飞 | [凯特琳附加包](addons/league_caitlyn/README.md) | PPU 1.45 |
 | <img src="docs/heroes/img/league_draven.png" width="32"> | [德莱文](docs/heroes/league_draven.md)<br>Draven | ADC | 旋转飞斧 · 开道利斧 · 大招 冷血追命 | — | PPU 2.2 |
-| <img src="docs/heroes/img/league_ezreal.png" width="32"> | [伊泽瑞尔](docs/heroes/league_ezreal.md)<br>Ezreal | ADC | 被动 咒能高涨 · 秘术射击 · 奥术跃迁 · 大招 精准弹幕 | — | — |
+| <img src="docs/heroes/img/league_ezreal.png" width="32"> | [伊泽瑞尔](docs/heroes/league_ezreal.md)<br>Ezreal | ADC | 被动 咒能高涨 · 秘术射击 · 奥术跃迁 · 大招 精准弹幕 | — | PPU 2.19 |
 | <img src="docs/heroes/img/league_jhin.png" width="32"> | [烬](docs/heroes/league_jhin.md)<br>Jhin | ADC | 被动 低语 · 曼舞手雷 · 致命华彩 · 大招 完美谢幕 | [烬低语附加包](addons/league_jhin_whisper/README.md) | PPU 1.8 |
 | <img src="docs/heroes/img/league_jinx.png" width="32"> | [金克丝](docs/heroes/league_jinx.md)<br>Jinx | ADC | 震荡电磁波！ · 嚼火者手雷！ · 大招 超究极死神飞弹！ | [参与击杀附加包：金克丝、崔丝塔娜、易、图奇](addons/league_takedowns/README.md) | PPU 2.2 |
 | <img src="docs/heroes/img/league_kaisa.png" width="32"> | [卡莎](docs/heroes/league_kaisa.md)<br>Kai'Sa | ADC | 艾卡西亚暴雨 · 虚空索敌 · 大招 猎手本能 | [目标标记附加包](addons/league_marks/README.md) | PPU 1.45 |
