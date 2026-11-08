@@ -24,6 +24,12 @@
 //! 一秒开始退好几次）。现在撤退一旦开始就退完：`RETREAT_HOLD` 里所有往别处去的指令都改成往回走；到了塔后还要打英雄时往家里
 //! 再退 `STEP_BACK`（不原地僵住），补兵照旧。日志按「一次撤退」（隔 `RETREAT_HOLD` 以上算新的一次）计数。
 //!
+//! 0.1.3（同一天的日志审查）：拦下的不只是普攻——技能、大招指着敌方英雄也被改成往回走，残血时别的技能（自保、加盾、治疗、
+//! 位移）也一样：千珏 10:00 前的「羊灵生息」自救下了 3100 次只放出 150 次（她快死时指着最近的敌人按 R，被改成走回塔下，一路
+//! 走到死），薇恩贴脸时的 E、厄斐琉斯的 Q 被拦下（Q 每 tick 重按）。现在只管普攻：技能、大招不论指着谁都照旧（游戏的 AI 和
+//! 英雄附加包自己判断），残血 / 以少打多时被改成往回走的只有走路、普攻、没有指令和不安全的回城。泰达米尔、千珏等身上有「不死」
+//! 的增益（`undying`）时不算危险：「无尽怒火」开着时他照打（之前 10:00 前的大招只有 9% 放得出去，放出去后的普攻也被拦）。
+//!
 //! 优先级 `PRIORITY` 排在所有英雄附加包和运营钩子之后（只低于兜底的 league_unlock_guard）：它们下的出手也一样拦。
 //! 只看比赛的状态，没有随机数，每个选手自己的钩子实例：服务器预演和客户端重演走的一样。只下走路，不按技能。
 //!
@@ -172,6 +178,8 @@ pub struct View {
     pub safe: Option<Pos>,
     /// Our nexus.
     pub home: Option<Pos>,
+    /// A buff keeps the champion from dying (Tryndamere's Undying Rage, Kindred's Lamb's Respite): no danger.
+    pub undying: bool,
 }
 
 /// Why a champion backs off.
@@ -199,6 +207,9 @@ impl View {
 
     /// The danger this champion is in, if any: outnumbered first, then low.
     pub fn danger(&self) -> Option<Rule> {
+        if self.undying {
+            return None;
+        }
         let foes = self.foes.iter().filter(|f| dist(f.at, self.me) <= NEAR).count();
         let friends = self.allies.iter().filter(|a| dist(**a, self.me) <= NEAR).count().max(1);
         if foes > friends {
@@ -230,18 +241,26 @@ impl View {
     }
 }
 
-/// The enemy champion an order is aimed at (an attack, a skill or an ult with a champion target).
+/// The enemy champion a basic attack is aimed at (skills and ults are never stopped: see [`is_cast`]).
 fn aimed_at(base: Option<&InputV1>, foes: &[Foe]) -> Option<Foe> {
     let b = base?;
-    if b.kind == InputKindV1::Move.code() || b.kind == InputKindV1::Return.code() || b.target.kind != InputTargetKindV1::Target.code() {
+    if b.kind != InputKindV1::Attack.code() || b.target.kind != InputTargetKindV1::Target.code() {
         return None;
     }
     foes.iter().copied().find(|f| f.id == b.target.target_id)
 }
 
+/// A skill, a second skill or an ult: saves, shields, heals, escapes, crowd control - the game's AI's and the hero
+/// add-ons' own call, never turned into a walk.
+fn is_cast(b: &InputV1) -> bool {
+    [InputKindV1::Skill, InputKindV1::Skill2, InputKindV1::Ult].iter().any(|k| k.code() == b.kind)
+}
+
 /// What the discipline makes of the AI's order: the order to give instead (`None`: keep it) and why. `holding`: a
 /// retreat started a moment ago is still on.
 pub fn decide(v: &View, base: Option<&InputV1>, holding: bool) -> (Option<InputV1>, Option<Rule>) {
+    // undying (the rage pressed at 15% right after a retreat began): the hold is over too
+    let holding = holding && !v.undying;
     let danger = v.danger();
     if let Some(target) = aimed_at(base, &v.foes) {
         let dive = v.under_their_tower(target.at);
@@ -259,6 +278,10 @@ pub fn decide(v: &View, base: Option<&InputV1>, holding: bool) -> (Option<InputV
     // not a hit on a champion: a champion in danger, or still backing off from it, keeps going back
     // (a danger always has its foes near: low within DANGER, outnumbered within NEAR)
     let Some(rule) = danger.or(holding.then_some(Rule::Low)) else { return (None, None) };
+    // a cast goes: a save, a shield, an escape
+    if base.is_some_and(is_cast) {
+        return (None, None);
+    }
     if let Some(b) = base {
         // walking toward safety already - behind the tower or home: fine
         let to = (b.x as f64, b.y as f64);
@@ -294,7 +317,8 @@ fn pct((hp, max): (usize, usize)) -> usize {
 
 fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
     let me = sim.get_entity(me_id)?;
-    let mut v = View { me: pos(&me), hp: pct(me.hp()), ..View::default() };
+    let undying = (0..me.buff_count()).filter_map(|i| me.buff_at(i)).any(|b| b.undying);
+    let mut v = View { me: pos(&me), hp: pct(me.hp()), undying, ..View::default() };
     let mut own_towers = Vec::new();
     let mut own_nexus = None;
     for i in 0..sim.entity_count() {
@@ -463,7 +487,25 @@ mod tests {
             enemy_towers: vec![(650_000.0, 310_000.0)],
             safe: Some((370_000.0, 590_000.0)),
             home: Some((100_000.0, 860_000.0)),
+            undying: false,
         }
+    }
+
+    #[test]
+    fn undying_is_no_danger() {
+        // Tryndamere raging at 5% (undying 5 s, league_tryndamere_rage FIGHT ON): he hits on, even outnumbered
+        let mut v = View { hp: 5, undying: true, ..lane() };
+        assert_eq!(decide(&v, Some(&hit(7)), false), (None, None));
+        assert_eq!(decide(&v, Some(&hit(7)), true), (None, None), "a retreat begun just before the rage ends with it");
+        v.foes.push(Foe { id: 8, at: (450_000.0, 520_000.0), hp: 100 });
+        assert_eq!(decide(&v, Some(&hit(7)), false), (None, None));
+        // a foe under its tower is still not dived
+        let mut dive = View { hp: 5, undying: true, ..lane() };
+        dive.foes[0].at = (630_000.0, 330_000.0);
+        assert_eq!(decide(&dive, Some(&hit(7)), false).1, Some(Rule::Dive));
+        // the rage over (no undying buff): the same hit backs off
+        let after = View { hp: 5, ..lane() };
+        assert_eq!(decide(&after, Some(&hit(7)), false).1, Some(Rule::Low));
     }
 
     #[test]
@@ -547,6 +589,28 @@ mod tests {
         let throw = InputV1::action(InputKindV1::Skill, InputTargetV1::pos(630_000, 330_000));
         v.foes[0].hp = 60;
         assert_eq!(decide(&v, Some(&throw), false), (None, None));
+    }
+
+    #[test]
+    fn casts_always_go() {
+        // low and outnumbered: a save ult on the nearest enemy (Kindred), a condemn on the diver (Vayne), a self shield,
+        // a skill on a champion under his tower - all the caster's own call
+        let mut v = View { hp: 20, ..lane() };
+        v.foes.push(Foe { id: 8, at: (470_000.0, 500_000.0), hp: 100 });
+        for cast in [
+            InputV1::action(InputKindV1::Ult, InputTargetV1::target(7)),
+            InputV1::action(InputKindV1::Skill2, InputTargetV1::target(8)),
+            InputV1::action(InputKindV1::Skill, InputTargetV1::NONE),
+        ] {
+            assert_eq!(decide(&v, Some(&cast), false), (None, None), "{cast:?}");
+            assert_eq!(decide(&v, Some(&cast), true), (None, None), "in the hold too");
+        }
+        // the basic attack is still stopped, and farming backs off
+        assert!(decide(&v, Some(&hit(7)), false).0.is_some());
+        assert!(decide(&v, Some(&hit(500)), false).0.is_some());
+        let mut dive = lane();
+        dive.foes[0].at = (630_000.0, 330_000.0);
+        assert_eq!(decide(&dive, Some(&InputV1::action(InputKindV1::Skill, InputTargetV1::target(7))), false), (None, None));
     }
 
     #[test]

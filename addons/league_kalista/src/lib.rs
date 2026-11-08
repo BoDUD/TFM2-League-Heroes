@@ -791,7 +791,12 @@ struct FateAi {
     /// 拔矛连按的记录和歇到哪个 tick（`PRESS_MAX` / `BACKOFF`，0.2.3）。
     presses: Presses,
     hold_until: usize,
+    /// 这一段「拔了能杀」（E_OK）从哪个 tick 起、为什么没按记过没有（`waits`，0.2.4）。
+    rip: Option<(usize, bool)>,
 }
+
+/// 「拔了能杀」挂了这么多 tick 还没按出去，记一行是哪道门挡着（0.2.4）。
+pub const RIP_QUIET: usize = 30;
 
 /// 拔矛（技能 2）连着按了这么多 tick 还没放出去（放出去了格子进冷却，下一 tick 就不按了）：有东西挡着，歇 `BACKOFF` tick
 /// 再看（0.2.3，league_orianna 0.3.2 的数）。
@@ -830,10 +835,14 @@ pub fn any_cc(codes: impl IntoIterator<Item = u32>, kinds: &[CcKindV1]) -> bool 
     codes.into_iter().any(|c| kinds.iter().any(|k| k.code() == c))
 }
 
-/// 一个单位身上的控制，日志用（`Stun, Animation`）。
+/// 一个单位身上的控制，日志用（`Stun 30, Animation hop_b 5`：种类、动作名、引擎记的 tick）。
 fn cc_names(e: &StableEntity<'_, '_>) -> String {
     let v: Vec<String> = (0..e.cc_count()).filter_map(|i| e.cc_at(i))
-        .map(|c| CcKindV1::from_code(c.kind).map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}"))).collect();
+        .map(|c| {
+            let kind = CcKindV1::from_code(c.kind).map_or_else(|| format!("kind {}", c.kind), |k| format!("{k:?}"));
+            if c.kind == CcKindV1::Animation.code() { format!("{kind} {} {}", c.name(), c.tick) } else { format!("{kind} {}", c.tick) }
+        })
+        .collect();
     v.join(", ")
 }
 
@@ -984,40 +993,58 @@ impl FateAi {
     /// 0.2.3（2026-11-06 的日志：`REND PRESS` 每 tick 一行、一串 5–10 tick，目标的血一点没掉；REND PRESS 记到 #1150，rip now
     /// 才 #450）：正在出招（普攻的前摇、跳的动作）、被强制位移、被控时不按——这时按的游戏不收；连按 `PRESS_MAX` tick 还没放出去
     /// 就歇 `BACKOFF` tick，记一行「not taken」写出她身上的控制、技能 2 和普攻的冷却、目标的状态；一串只记第一下。
+    /// 0.2.4（2026-11-08 的日志：一段 rip now 挂了 300 tick 没按、没拔，目标的血也几乎没掉）：每道门挡住时不再悄悄返回，
+    /// 一段 E_OK 挂过 `RIP_QUIET` tick 还没按出去就记一行 `REND WAITS`（哪道门、她身上的控制和引擎记的 tick、目标多远、离他的塔
+    /// 多远），下次的日志看清是谁挡的再改。
     fn rend_now(&mut self, ctx: &mut StableAiContext<'_>, was: Option<InputKindV1>) -> Option<InputV1> {
         if was == Some(InputKindV1::Skill2) {
             return None;
         }
         let tick = ctx.tick();
-        if tick < self.hold_until {
-            return None;
-        }
         let player = ctx.player_id();
-        let (target, line) = {
+        let (target, gate, head_line, line) = {
             let sim = ctx.sim()?;
             let me = sim.get_player(player)?.champion()?;
             let mid = me.id();
             if !me.is_alive() || !has_buff(&sim, mid, E_OK) || has_buff(&sim, mid, E_CD) {
+                self.rip = None;
                 return None;
             }
-            // 技能 2 解锁了（3 级）、试拔的格子好了（引擎的「输入合法」不看冷却和解锁）
-            if !me.cooldown(SkillSlotV1::Skill2).is_some_and(|c| c.unlocked && c.remaining == 0) {
-                return None;
-            }
-            // casting (an attack's wind-up, the hop's pose), moved, or held: the game takes no cast then (0.2.3)
-            let codes: Vec<u32> = (0..me.cc_count()).filter_map(|i| me.cc_at(i)).map(|c| c.kind).collect();
-            if any_cc(codes.iter().copied(), &BUSY) || any_cc(codes, &NO_CAST) {
-                return None;
+            if self.rip.is_none() {
+                self.rip = Some((tick, false));
             }
             let team = me.team();
-            let t = (0..sim.entity_count())
+            let target = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
-                .find(|u| u.team() != team && u.is_alive() && u.is_champion() && has_buff(&sim, u.id(), E_AIM))?
-                .id();
-            (t, format!("{} REND PRESS: Skill2 on {}", head(&sim, mid), who(&sim, t)))
+                .find(|u| u.team() != team && u.is_alive() && u.is_champion() && has_buff(&sim, u.id(), E_AIM))
+                .map(|u| u.id());
+            let codes: Vec<u32> = (0..me.cc_count()).filter_map(|i| me.cc_at(i)).map(|c| c.kind).collect();
+            // 技能 2 解锁了（3 级）、试拔的格子好了（引擎的「输入合法」不看冷却和解锁）；正在出招（普攻的前摇、跳的动作）、
+            // 被强制位移、被控时不按——这时按的游戏不收（0.2.3）
+            let gate = if tick < self.hold_until {
+                Some("backing off after presses nothing took")
+            } else if !me.cooldown(SkillSlotV1::Skill2).is_some_and(|c| c.unlocked && c.remaining == 0) {
+                Some("skill 2 locked or its try slot cooling")
+            } else if any_cc(codes.iter().copied(), &BUSY) {
+                Some("busy: an attack's wind-up, the hop's pose or a push")
+            } else if any_cc(codes, &NO_CAST) {
+                Some("held by crowd control")
+            } else if target.is_none() {
+                Some("no enemy champion carries the aim mark")
+            } else {
+                None
+            };
+            let line = target.map(|t| format!("{} REND PRESS: Skill2 on {}", head(&sim, mid), who(&sim, t)));
+            (target, gate, head(&sim, mid), line)
         };
+        if let Some(why) = gate {
+            self.waits(ctx, player, target, tick, why, &head_line);
+            return None;
+        }
+        let (target, line) = (target?, line?);
         let input = InputV1::action(InputKindV1::Skill2, InputTargetV1::target(target));
         if !ctx.is_valid_input(&input) {
+            self.waits(ctx, player, Some(target), tick, "the engine refuses the press (is_valid_input)", &head_line);
             return None;
         }
         // a run of presses nothing took (a rip that goes out starts the slot's cooldown: no press the next tick): back off
@@ -1025,7 +1052,7 @@ impl FateAi {
         if n > PRESS_MAX {
             self.hold_until = tick + BACKOFF;
             if let Some(k) = counted("rend_blocked") {
-                let state = rend_blocker(ctx, player, target);
+                let state = rend_blocker(ctx, player, Some(target));
                 wlog(format!("{line}: pressed {} ticks running since t={} and not taken ({state}) - backing off {BACKOFF} ticks #{k}",
                              n - 1, self.presses.first));
             }
@@ -1038,18 +1065,44 @@ impl FateAi {
         }
         Some(input)
     }
+
+    /// 「拔了能杀」挂了 `RIP_QUIET` tick 还没按出去：这一段只记一次是哪道门挡着、她和目标的状态（0.2.4）。
+    fn waits(&mut self, ctx: &mut StableAiContext<'_>, player: usize, target: Option<usize>, tick: usize, why: &str, head_line: &str) {
+        let Some((since, told)) = self.rip else { return };
+        if told || tick < since + RIP_QUIET {
+            return;
+        }
+        self.rip = Some((since, true));
+        if let Some(k) = counted("rend_waits") {
+            let state = rend_blocker(ctx, player, target);
+            wlog(format!("{head_line} REND WAITS {} ticks: {why} ({state}) #{k}", tick - since));
+        }
+    }
 }
 
 /// 拔矛「not taken」那一行写的：她身上的控制和标记、技能 2 和普攻的冷却，目标选不选得中、看不看得见、身上的控制和生命。
-fn rend_blocker(ctx: &mut StableAiContext<'_>, player: usize, target: usize) -> String {
+fn rend_blocker(ctx: &mut StableAiContext<'_>, player: usize, target: Option<usize>) -> String {
     let Some(sim) = ctx.sim() else { return "no sim".to_string() };
     let Some(me) = sim.get_player(player).and_then(|p| p.champion()) else { return "no champion".to_string() };
     let cd = |s: SkillSlotV1| me.cooldown(s).map_or("?".to_string(), |c| format!("{}/{}", c.remaining, c.cooltime));
     let flags: Vec<&str> = [HOP_GO, E_OK, E_CD, E_POP].into_iter().filter(|f| ent_has(&me, f)).map(|f| &f[15..]).collect();
-    let it = match sim.get_entity(target) {
-        Some(t) => format!("{}{}{}, cc [{}], hp {}/{}", who(&sim, target), if t.is_targetable() { "" } else { " untargetable" },
-                           if sim.is_visible(me.team(), target) { "" } else { " unseen" }, cc_names(&t), t.hp().0, t.hp().1),
-        None => format!("#{target} gone"),
+    let at = pos_of(&sim, me.id()).unwrap_or((0.0, 0.0));
+    let it = match target.and_then(|t| sim.get_entity(t).map(|e| (t, e))) {
+        Some((t, e)) => {
+            let ta = pos_of(&sim, t).unwrap_or((0.0, 0.0));
+            // the nearest of his towers (the spear's twin hits `EnemyWithoutTower`: does a champion under his tower count?)
+            let tower = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .filter(|u| u.team() == e.team() && u.is_alive() && u.kind() == Some(EntityKindV1::Tower))
+                .filter_map(|u| pos_of(&sim, u.id()))
+                .map(|p| dist(p, ta))
+                .fold(f64::INFINITY, f64::min);
+            format!("{}{}{}, cc [{}], hp {}/{}, {:.0} from her, his tower {:.0} from him", who(&sim, t),
+                    if e.is_targetable() { "" } else { " untargetable" },
+                    if sim.is_visible(me.team(), t) { "" } else { " unseen" }, cc_names(&e), e.hp().0, e.hp().1,
+                    dist(at, ta), tower)
+        }
+        None => "none".to_string(),
     };
     format!("her cc [{}], flags [{}], E {} attack {}; target {it}", cc_names(&me), flags.join(" "), cd(SkillSlotV1::Skill2),
             cd(SkillSlotV1::Attack))
