@@ -52,7 +52,9 @@ def test_copy(base, hero):
             return
         for i, e in enumerate(effs):
             if isinstance(e, dict) and e.get("type") == "Native":
-                effs[i] = {"type": "Heal", "amount": 60, "attack_ratio": 0, "ap_ratio": 35, "heal_type": "Caster"}
+                # league_sylas:power (0.2.59, before each hit of the stolen ult that reads attack) does nothing here
+                effs[i] = ({"type": "Combine", "effects": []} if e.get("effect_ref") == "league_sylas:power" else
+                           {"type": "Heal", "amount": 60, "attack_ratio": 0, "ap_ratio": 35, "heal_type": "Caster"})
         if any(isinstance(e, dict) and e.get("type") == "AddCasterBuff" and e["buff_state"]["name"] == "league_sylas_r_have"
                for e in effs):
             for n in ("league_sylas_steal_" + hero, "league_sylas_r_real"):

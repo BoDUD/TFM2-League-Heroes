@@ -7,10 +7,14 @@
 //!
 //! - **其人之道**：英雄联盟里塞拉斯偷走对方的大招。0.2.0 起偷到本包的英雄联盟英雄时，副本的第二段 R 放的就是那名英雄自己的大招
 //!   （`make_override.py` 把主包每个英雄的大招效果树整棵抄进来，动作标签换成塞拉斯的 ult_cast / ult_dash，用到的画面条目一并抄来；
-//!   被动给塞拉斯挂 `steal_<英雄>` 和 `r_real`），放的时候数据挂 `r_power_go`，被动给他加法强 `r2_ad`% 的攻击（`r2_ad_t` tick），
-//!   照英雄联盟把攻击力系数换成法强。偷到原版英雄和别的 mod 的英雄时照佛耶戈附加包的做法分五类：被动每 tick 找
+//!   被动给塞拉斯挂 `steal_<英雄>` 和 `r_real`）。照英雄联盟把攻击力系数换成法强：副本在偷来的大招里每一下按攻击力算的伤害
+//!   （物理、真实，和按攻击力算的治疗、护盾）前面先调本包的 `league_sylas:power`，只在那一 tick 给他加法强 `r2_ad`% 的攻击
+//!   （0.2.59 起；以前放的时候给 `r2_ad_t` tick，他的普攻也吃到）；被偷英雄的被动在大招里挂的永久属性（科加斯盛宴的层数、
+//!   布洛克的免控、维迦的法强之类）副本里去掉了（make_override.py `no_lasting_gains`）。偷到原版英雄和别的 mod 的英雄时照
+//!   佛耶戈附加包的做法分五类：被动每 tick 找
 //!   身上有 `r_mark` 的敌方英雄，按它的 id 查 `classes.rs`（原版英雄和本包英雄的类别，`make_override.py` 生成；查不到的别的
-//!   mod 英雄算近战），给塞拉斯挂 `cls_<类别>`（0.2.58 起一直留到放出，同英雄联盟；`r_keep` 不为 0 时挂那么多 tick），第二次 R 放出对应的那一套：近战 = 跃起重砸眩晕、
+//!   mod 英雄算近战），给塞拉斯挂 `cls_<类别>`（0.2.58 起一直留到放出，同英雄联盟；`r_keep` 不为 0 时挂那么多 tick；0.2.59 起阵亡也不丢：引擎在他死亡时清掉全部 buff，
+//!   被动活着时记下手里的那一招——套件的 `r_have` 和选好的那一套——复活时原样补回），第二次 R 放出对应的那一套：近战 = 跃起重砸眩晕、
 //!   射手 = 贯穿长箭减速、法师 = 原地爆发击飞（主包那一套）、辅助 = 治疗和护盾周围友方英雄并减速敌人、刺客 = 闪到目标身边重击并隐身。
 //! - **弑君突刺**：英雄联盟里回血随已损失生命最多多 150%。`kingslayer` 回 (`w_heal` + `w_heal_r`% 法强) × (1 + `w_miss`% × 已损失
 //!   生命比例)。
@@ -246,31 +250,111 @@ impl StableEffectType for KingslayerFx {
     }
 }
 
+/// `league_sylas:power`：副本在偷来的大招里每一下按攻击力算的伤害（Attack、FixedAttack，按攻击力算的 Heal、Shield）前面调它
+/// （make_override.py `pay_from_ap`）：给他加法强 `r2_ad`% 的攻击，只有这一 tick——同一 tick 里加的 buff 算进这一下，下一 tick
+/// 就没了，所以他的普攻吃不到（0.2.59，用户：「放出偷来的大招后有 5 秒攻击加成，这期间普攻也吃到加成 … 也修」；以前放的时候
+/// 给 `r2_ad_t` tick）。
+fn power(sim: &mut StableSim<'_>, me: usize) {
+    let Some(e) = sim.get_entity(me) else { return };
+    let ap = e.stat().magic_power;
+    let p = params_of(sim, me);
+    let mut b = BuffV1::timed(&sn("r_power"), 1);
+    b.attack = power_of(ap, &p);
+    sim.entity_stack_buff(me, &b, 1, true);
+}
+
+struct PowerFx;
+impl StableEffectType for PowerFx {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
+        power(sim, caster);
+    }
+}
+
 // ===================== 被动：其人之道 =====================
 
 #[derive(Clone, Default)]
 struct Hijack {
     p: Params,
+    /// 手里留着的夺来的大招（活着时在他身上看到的，`holding`）：阵亡时引擎清掉全部 buff，复活时原样补回。
+    held: Vec<BuffV1>,
+    /// 上一 tick 他活着：复活的那一刻补回 `held`。
+    was_alive: bool,
+}
+
+/// 手里留着夺来的大招时身上的那几个 buff：套件自己的 `r_have`（第二段 R 放夺来的大招），本包选好的 `steal_<英雄>` + `r_real`
+/// 或 `cls_<类别>`。
+pub fn is_held(name: &str) -> bool {
+    name == "league_sylas_r_have" || name == "league_sylas_r_real" || name.starts_with("league_sylas_steal_")
+        || name.starts_with("league_sylas_cls_")
+}
+
+/// 他现在手里留着的那一招（没有 `r_have` 就是没有：放出去时套件去掉它，选好的那一套留在身上直到下一次偷）。
+fn holding(sim: &StableSim<'_>, me: usize) -> Vec<BuffV1> {
+    let Some(e) = sim.get_entity(me) else { return Vec::new() };
+    let all: Vec<BuffV1> = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).collect();
+    if !all.iter().any(|b| b.name() == sn("r_have")) {
+        return Vec::new();
+    }
+    all.into_iter().filter(|b| is_held(b.name())).collect()
+}
+
+fn names(bs: &[BuffV1]) -> String {
+    bs.iter().map(|b| b.name().trim_start_matches("league_sylas_")).collect::<Vec<_>>().join(" ")
 }
 
 impl Hijack {
     fn tick(&mut self, sim: &mut StableSim<'_>, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
-        if !e.is_alive() {
-            return;
-        }
-        if has_buff(&e, &sn("r_power_go")) {
-            let ap = e.stat().magic_power;
-            let mut b = BuffV1::timed(&sn("r_power"), self.p.r2_ad_t);
-            b.attack = power_of(ap, &self.p);
-            sim.entity_remove_buff(me, &sn("r_power_go"));
-            sim.entity_remove_buff(me, &sn("r_power"));
-            sim.entity_stack_buff(me, &b, 1, true);
-            if let Some(k) = counted("power") {
-                wlog(format!("{} POWER #{k}: a stolen ult cast - attack +{} for {} ticks (ap {ap})", head(sim, me),
-                             b.attack, self.p.r2_ad_t));
+        let alive = e.is_alive();
+        if alive != self.was_alive {
+            self.was_alive = alive;
+            if !self.held.is_empty() {
+                if alive {
+                    self.put_back(sim, me);
+                } else if let Some(k) = counted("dead") {
+                    wlog(format!("{} DEAD #{k}: holding {}", head(sim, me), names(&self.held)));
+                }
             }
         }
+        if !alive {
+            return;
+        }
+        self.cast(sim, me);
+        self.steal(sim, me);
+        self.held = holding(sim, me);
+    }
+
+    /// 复活：阵亡时被引擎清掉的那一招原样补回（0.2.59，用户：「塞拉斯阵亡时手里留着的大招会丢 … 这个得修」）。
+    fn put_back(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let have: Vec<String> = sim.get_entity(me).map_or_else(Vec::new, |e| {
+            (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()).collect()
+        });
+        let back: Vec<BuffV1> = self.held.iter().filter(|b| !have.iter().any(|n| n == b.name())).cloned().collect();
+        for b in &back {
+            sim.add_buff(me, b);
+        }
+        if let Some(k) = counted("keep") {
+            wlog(format!("{} KEEP #{k}: {} put back after his death", head(sim, me), names(&back)));
+        }
+    }
+
+    /// 放出夺来的大招（数据挂 `r_power_go`）：记一行就去掉；攻击力系数换成法强在副本里那一招每一下伤害前面的
+    /// `league_sylas:power`（0.2.59 起，以前这里给 `r2_ad_t` tick 的攻击）。
+    fn cast(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let Some(e) = sim.get_entity(me) else { return };
+        if !has_buff(&e, &sn("r_power_go")) {
+            return;
+        }
+        let ap = e.stat().magic_power;
+        sim.entity_remove_buff(me, &sn("r_power_go"));
+        if let Some(k) = counted("power") {
+            wlog(format!("{} POWER #{k}: a stolen ult cast - each of its hits that scale with attack gets +{} attack in its \
+                          own tick (ap {ap})", head(sim, me), power_of(ap, &self.p)));
+        }
+    }
+
+    /// 锁链打中的敌方英雄（身上有 `r_mark`）：偷他的大招。
+    fn steal(&mut self, sim: &mut StableSim<'_>, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         let team = e.team();
         let mark = sn("r_mark");
@@ -354,6 +438,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_effect(format!("{ID}:kingslayer"), KingslayerFx);
+    module.add_native_effect(format!("{ID}:power"), PowerFx);
     module.add_native_passive(format!("{ID}:hijack"), Hijack::default());
     module.add_player_input_ai(combo::Combo::default());
     host.log(LogLevel::Info, "league_sylas loaded (Hijack by class, Kingslayer by missing health, the combos).");
@@ -406,6 +491,19 @@ mod tests {
         assert_eq!(own_ult("tft_norra"), None);
         assert!(stealable::STEALABLE.windows(2).all(|w| w[0] < w[1]));
         assert!(stealable::STEALABLE.iter().all(|n| sn(&format!("steal_{}", steal_key(n))).len() <= BUFF_NAME_CAP));
+    }
+
+    #[test]
+    fn what_he_holds_is_the_kit_flag_and_the_choice() {
+        assert!(is_held("league_sylas_r_have"));
+        assert!(is_held("league_sylas_r_real"));
+        assert!(is_held("league_sylas_steal_jinx"));
+        assert!(is_held("league_sylas_steal_tft_powder"));
+        assert!(is_held("league_sylas_cls_mage"));
+        assert!(!is_held("league_sylas_r_power"));
+        assert!(!is_held("league_sylas_r_power_go"));
+        assert!(!is_held("league_sylas_r_mark"));
+        assert!(!is_held("league_sylas_vo_cd"));
     }
 
     #[test]
