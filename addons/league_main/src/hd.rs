@@ -665,6 +665,32 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // native cells, the slash and E's dash streak baked on again by renekton_bake.json); 37 game px as his 1x sprite,
     // so no SIZES row
     ("league_renekton", 1.811, include_str!("../../../league/champions/league_renekton#anim.fanim")),
+    // Veigar (2026-11-08, 「下一组重做 维迦 基兰 克格莫 萨勒芬妮」, picked 「萨勒芬尼2.2 其他都1.8」): Codex's veigar-A read
+    // on its own ~15.9-px squares (61 x 72, tools/art/design_veigar_hd.py: 72 rows / 40 = 1.8); every action Codex's
+    // whole-frame redraw of his old frame read onto it at the zoom its fit over the old frame gives
+    // (tools/art/casts_veigar_hd.py, rig_veigar_hd.py; the run's boots shaded to take turns in frames 4-6 - Codex had the
+    // same leg step in both halves; R's body from its native cells, its cast flash baked on again by veigar_bake.json);
+    // 40 game px as his 1x sprite, so no SIZES row
+    ("league_veigar", 1.8, include_str!("../../../league/champions/league_veigar#anim.fanim")),
+    // Zilean (the same release): Codex's zilean-A read on its own ~16.4-px squares (53 x 72,
+    // tools/art/design_zilean_hd.py: 72 rows / 40 = 1.8); every action Codex's whole-frame redraw of his old frame read
+    // onto it, each frame at the zoom that makes his hair and beard the design's size (tools/art/casts_zilean_hd.py,
+    // rig_zilean_hd.py - Codex drew the whole hero up to a fifth bigger to fill the old outline); the attack's, W's and
+    // E's bodies from their native cells, the time bolt, the rewind ring and E's cast baked on again by
+    // zilean_bake.json; 40 game px as his 1x sprite, so no SIZES row
+    ("league_zilean", 1.8, include_str!("../../../league/champions/league_zilean#anim.fanim")),
+    // Kog'Maw (the same release): Codex's kogmaw-A read on its own ~16.3-px squares (67 x 61,
+    // tools/art/design_kogmaw_hd.py: 61 rows / 34 = 1.794); every action Codex's whole-frame redraw of his old frame read
+    // onto it, each frame at the zoom that makes his eyes and skull the design's size (tools/art/casts_kogmaw_hd.py,
+    // rig_kogmaw_hd.py); his mouth stretched into a tube in the attack, Q, E and R; nothing baked; 34 game px as his 1x
+    // sprite, so no SIZES row
+    ("league_kogmaw", 1.794, include_str!("../../../league/champions/league_kogmaw#anim.fanim")),
+    // Seraphine (the same release, her own pick 2.2): Codex's seraphine-A read on its own ~11.2-px squares (67 x 101,
+    // tools/art/design_seraphine_hd.py: 101 rows / 46 = 2.196); every action Codex's whole-frame redraw of her old frame
+    // read onto it, each frame at the zoom that makes her floating stage the design's width
+    // (tools/art/casts_seraphine_hd.py, rig_seraphine_hd.py); she glides on the stage; nothing baked; 46 game px (the
+    // curl on her head to the stage's bottom) as her 1x sprite, so no SIZES row
+    ("league_seraphine", 2.196, include_str!("../../../league/champions/league_seraphine#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
