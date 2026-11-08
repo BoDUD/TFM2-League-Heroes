@@ -953,6 +953,11 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // 2026-10-27: 「奎桑提在BP格太大了吧 学学其他英雄怎么缩放的」); 0.82 with -10 as Ambessa's / Trundle's / Bel'Veth's:
     // hair to soles on the card with 4 px over him, only the raised Ntofo of the reel's attack snippet over the top
     ("league_ksante", 0.82),
+    // Cho'Gath: 40 game px from his spikes to his soles crouched at PPU 1.2, 65 when he rears up in the reels' skill2
+    // snippet (the spikes 53 over the frame centre) - with no card value the rear-up stuck 25 px out over the card's
+    // top; 39 / 65 = 0.60 with the card value bp_card_audit.py gives (-7): the spikes 1 px under the canvas top, the
+    // soles on its bottom (crouched or reared up)
+    ("league_chogath", 0.60),
 ];
 
 /// This pack's table, as league.dll hands it to hd_engine at init (src/lib.rs).

@@ -1782,6 +1782,10 @@
       "center": {
         "x": 0,
         "y": -10
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -7
       }
     },
     "league_karthus": {
