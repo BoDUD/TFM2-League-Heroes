@@ -6,10 +6,14 @@
 //!   把她挪过去（`re_v` x `re_t`）。最近的敌方英雄残血（35% 以下）又在攻击距离 80% 以外，就往前冲把它拉进射程；它贴身（`e_close` 内）
 //!   或她自己残血（40% 以下）就往后冲、背离它。身边没有敌方英雄时两个标记都不挂，数据照主包：贴身往后冲，不然加速。
 //! - **明踪步朝英雄跑时更快**：主包副本里明踪步只给 `e_ms`%；她身上有明踪步的加速、而且实际在朝最近的敌方英雄移动（3 tick 里走了 300 以上，
-//!   方向和指向它的方向夹角小于 45°）时，本包挂 `e_toward`（移速再加 `e_ms2 - e_ms`%），不朝它跑了就摘掉（英雄联盟的 1.5 倍）。
+//!   方向和指向它的方向夹角小于 45°）时，本包挂 `e_toward`（移速再加 `e_ms2 - e_ms`%），连着 `TOWARD_GRACE` tick 不朝它跑才摘掉
+//!   （`toward_grace`；普攻前摇站一下不算），明踪步的加速没了立刻摘（英雄联盟的 1.5 倍）。
 //! - **定圣诀按真实血量开**：主包只看人数（附近 2 个以上敌方英雄）和控制；本包另外在大招射程内有敌方英雄残血（40% 以下），或她自己残血
 //!   （50% 以下）而且有敌方英雄在攻击距离内时挂 `r_ok`，数据看到就开。
 //! - **超凡形态整身换待机 / 跑步**（view.rs）：大招期间（身上有 `league_yunara_r_on`）站着、跑着都画成带金边和光环的 `r_idle` / `r_run`。
+//!
+//! 0.1.2（2026-11-08 日志审查：`TOWARD` 隔 1-20 tick 就一开一关，B 组 20 场数到 #550——她一 tick 没朝英雄跑（普攻前摇就够）
+//! 加成就摘）：开着时没朝它跑先数着，连着 `TOWARD_GRACE` tick 才摘，这期间照样续 `e_toward`；`TOWARD off` 行写出为什么摘。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yunara.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -43,6 +47,8 @@ pub const R_OK: &str = "league_yunara_r_ok";
 pub const R_ON: &str = "league_yunara_r_on";
 /// 地图边长（坐标 0..MAP）。
 const MAP: f64 = 960_000.0;
+/// 明踪步朝英雄跑的加成：连着这么多 tick 没朝它跑才摘（2026-11-08 的日志里普攻前摇站一下就摘，1-20 tick 一开一关）。
+pub const TOWARD_GRACE: usize = 6;
 
 // ===================== 日志 =====================
 
@@ -240,6 +246,19 @@ pub fn moving_toward(before: Pt, now: Pt, foe: Pt, min_step: f64) -> bool {
     (mx * fx + my * fy) / (ml * fl) > std::f64::consts::FRAC_1_SQRT_2
 }
 
+/// 明踪步的加成开不开：`was` 现在开着没有，`quick` 她身上有明踪步的加速，`running` 这一 tick 在朝最近的敌方英雄跑
+/// （`moving_toward`），`away` 开着时已经连着几 tick 没朝它跑。朝它跑就开（从 0 数）；开着时没朝它跑先数着，连着
+/// `TOWARD_GRACE` tick 才关；加速没了立刻关。返回 (开不开, 新的 `away`)。
+pub fn toward_grace(was: bool, quick: bool, running: bool, away: usize) -> (bool, usize) {
+    if quick && running {
+        (true, 0)
+    } else if quick && was && away + 1 < TOWARD_GRACE {
+        (true, away + 1)
+    } else {
+        (false, 0)
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum RiseWhy {
     /// 大招射程内有残血（40% 以下）的敌方英雄。
@@ -278,6 +297,8 @@ struct Faith {
     /// 最近几 tick 的位置（明踪步判断朝哪跑）。
     trail: Vec<(usize, Pt)>,
     toward: bool,
+    /// 明踪步的加成开着时连着几 tick 没朝它跑（`toward_grace`）。
+    away: usize,
     /// r_ok 上次挂的 tick、为什么。
     rise: Option<(usize, RiseWhy)>,
     /// 上一 tick 她身上有没有 r_on（大招刚开时记一行 RISE）。
@@ -395,9 +416,11 @@ impl Faith {
         let before = self.trail.first().map(|(_, b)| *b).unwrap_or(at);
         let quick = has_buff(sim, me, E_MS);
         let near = nearest(at, fs, p.atk_range as f64 * 2.0);
-        let on = quick && near.is_some_and(|f| moving_toward(before, at, f.at, 300.0));
+        let running = near.is_some_and(|f| moving_toward(before, at, f.at, 300.0));
+        let (on, away) = toward_grace(self.toward, quick, running, self.away);
+        self.away = away;
         if on {
-            // a few ticks at a time, refreshed while she keeps running at it
+            // a few ticks at a time, refreshed while she keeps running at it (and through the grace)
             let mut b = BuffV1::timed(E_TOWARD, 4);
             b.move_speed_mult = p.e_ms2.saturating_sub(p.e_ms) as i32;
             sim.entity_remove_buff(me, E_TOWARD);
@@ -408,7 +431,14 @@ impl Faith {
         if on != self.toward {
             if let Some(k) = counted("toward") {
                 let f = near.map_or("-".into(), |f| who(sim, f.id));
-                wlog(format!("{} TOWARD {} ({f}) #{k}", head(sim, me), if on { "on: +speed" } else { "off" }));
+                let why = if on {
+                    String::new()
+                } else if quick {
+                    format!(" - {TOWARD_GRACE} ticks not running at a champion")
+                } else {
+                    " - Kanmei's Steps' haste ended".to_string()
+                };
+                wlog(format!("{} TOWARD {} ({f}){why} #{k}", head(sim, me), if on { "on: +speed" } else { "off" }));
             }
             self.toward = on;
         }
@@ -566,6 +596,29 @@ mod tests {
         assert!(!moving_toward((0.0, 0.0), (1_000.0, 1_200.0), foe_at, 300.0)); // 50 degrees off
         assert!(!moving_toward((0.0, 0.0), (-1_000.0, 0.0), foe_at, 300.0)); // away
         assert!(!moving_toward((0.0, 0.0), (100.0, 0.0), foe_at, 300.0)); // standing
+    }
+
+    #[test]
+    fn toward_holds_through_a_wind_up() {
+        // 2026-11-08 log: on at 5795, off at 5801, on at 5802, off at 5821 - an attack's wind-up was enough to drop it
+        let (mut on, mut away) = (false, 0);
+        let mut seen = Vec::new();
+        // runs at him 3 ticks, stands 5 (a wind-up), runs again 2, then stands TOWARD_GRACE ticks
+        for running in [true, true, true, false, false, false, false, false, true, true, false, false, false, false, false,
+                        false] {
+            (on, away) = toward_grace(on, true, running, away);
+            seen.push(on);
+        }
+        let n = seen.len();
+        assert!(seen[..n - 1].iter().all(|&o| o), "dropped during a stop shorter than the grace: {seen:?}");
+        assert!(!seen[n - 1], "still on after {TOWARD_GRACE} ticks not running at him");
+        assert_eq!(toward_grace(true, true, false, TOWARD_GRACE - 2), (true, TOWARD_GRACE - 1));
+        assert_eq!(toward_grace(true, true, false, TOWARD_GRACE - 1), (false, 0), "the grace's end");
+        // not running at him from the start: never on
+        assert_eq!(toward_grace(false, true, false, 0), (false, 0));
+        // Kanmei's Steps' haste gone: off at once, whatever the grace
+        assert_eq!(toward_grace(true, false, true, 0), (false, 0));
+        assert_eq!(toward_grace(true, false, false, 1), (false, 0));
     }
 
     #[test]

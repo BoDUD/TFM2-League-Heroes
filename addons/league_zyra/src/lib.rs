@@ -18,13 +18,17 @@
 //!
 //! - **光合作用**（0.1.3，彩蛋，用户 2026-11-05「植物大战僵尸」）：比赛里有蕾欧娜时，她的技能落在婕拉的植物上（主包 Q、E 长的、
 //!   本包种子长的都算），植物在剩下的时间里画大一号（`sun.rs`）；玩法不变。
+//! - **大招落点的日志**（0.1.5，2026-11-08 的日志检查：两次启动 0 行 `RAGE`，80 行 `WATCH` 全是 rages 0，种子植物照常长、照常打）：
+//!   副本里 R 的 `r_aim` 和 E 的 `e_aim` 接法一样（E 的认得到），读代码没找到认不到 R 的地方；植物只活 `t_life` tick，也可能只是
+//!   R 落点旁边很少有植物。所以每认到一次 R 记一行 `R AIM`：打谁、落点、她活着的种子植物几株、最近的一株离落点多远（激怒要在
+//!   `r_r` 内）、激怒了几株；`WATCH` 行加上认到 R 的次数（`R seen`）。
 //!
 //! 游戏 0.6.4 的 `deal_damage_typed` 只把伤害排进效果队列，下一次 on_update 之前才扣血（莉莉娅 0.1.2 的教训）。
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态记在每个婕拉自己的被动实例里，
 //! 服务端预模拟和你看的那场各算各的。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zyra.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `SEED`（掉种子）、`GROW`（种子长成植物）、`STRIKE`（植物出手）、`RAGE`（激怒）、`TAKEDOWN`（参与击杀掉种子）、
+//! `SEED`（掉种子）、`GROW`（种子长成植物）、`STRIKE`（植物出手）、`R AIM`（认到她的 R）、`RAGE`（激怒）、`TAKEDOWN`（参与击杀掉种子）、
 //! `WATCH`（每 30 秒的计数，植物有动静才记）、`SUN`（蕾欧娜的阳光让植物变大），都限了条数。0.1.2：`SPAWN` 的参数一次启动只写一次，`SPAWN`、`WATCH` 整个
 //! 游戏一个计数（预模拟限量，你看的那场每行都记）。
 
@@ -295,6 +299,11 @@ pub fn seg_dist(p: (f64, f64), a: (f64, f64), b: (f64, f64)) -> f64 {
     dist(p, (a.0 + t * dx, a.1 + t * dy))
 }
 
+/// R 的落点旁边她的植物（0.1.5 的 `R AIM` 行）：活着的几株、最近的一株离落点多远（一株都没有是 None）。
+pub fn round_spot(plants: &[(f64, f64)], spot: (f64, f64)) -> (usize, Option<f64>) {
+    (plants.len(), plants.iter().map(|&p| dist(p, spot)).min_by(|a, b| a.total_cmp(b)))
+}
+
 /// 掉种子的位置：朝 `toward`（有的话）`near` 远处、最多到一半的路；没有就在她身边按 `turn`（0..8）绕一圈。
 pub fn seed_spot(me: (f64, f64), toward: Option<(f64, f64)>, near: f64, turn: usize) -> (f64, f64) {
     match toward {
@@ -367,6 +376,8 @@ struct Garden {
     n_grow: usize,
     n_strike: usize,
     n_rage: usize,
+    /// 认到她的 R 几次（0.1.5 的 `R AIM`）。
+    n_raim: usize,
     n_take: usize,
     next_report: usize,
     /// what the last `WATCH` line said (`watch_news`)
@@ -499,10 +510,22 @@ impl Garden {
                 _ => {
                     let r = self.p.r_r as f64;
                     let mut n = 0;
-                    for pl in self.plants.iter_mut().filter(|pl| dist(pl.pos, land) <= r) {
+                    // (a plant whose time is up goes in strike() this tick)
+                    for pl in self.plants.iter_mut().filter(|pl| pl.until > tick && dist(pl.pos, land) <= r) {
                         pl.rage_until = tick + self.p.r_rage;
                         pl.next = pl.next.min(tick + 1);
                         n += 1;
+                    }
+                    // 0.1.5 (the 11-08 logs: no RAGE line in two launches): every R seen, with her plants round its spot
+                    self.n_raim += 1;
+                    let alive: Vec<(f64, f64)> = self.plants.iter().filter(|pl| pl.until > tick).map(|pl| pl.pos).collect();
+                    let (count, nearest) = round_spot(&alive, land);
+                    if let Some(k) = tally(sim, "r aim") {
+                        let name = sim.get_entity(id).and_then(|e| e.name()).unwrap_or_default();
+                        let near = nearest.map_or_else(|| "-".to_string(), |d| format!("{d:.0}"));
+                        wlog(format!("{} R AIM #{}: Stranglethorns on {name}#{id} at ({:.0}, {:.0}) - her seed plants alive {count}, \
+                                      the nearest {near} from the spot (rage reach {}), enraged {n} #{k}", head(sim, me),
+                                     self.n_raim, land.0, land.1, self.p.r_r));
                     }
                     if n > 0 {
                         self.n_rage += 1;
@@ -670,9 +693,9 @@ impl StablePassive for Garden {
             if tick > 0 && watch_news(self.watched, now) {
                 self.watched = now;
                 if let Some(k) = tally(sim, "watch") {
-                    wlog(format!("{} WATCH: seeds {} ({} on the ground), grown {}, strikes {}, rages {}, takedowns {}, sunlit {} #{k}",
+                    wlog(format!("{} WATCH: seeds {} ({} on the ground), grown {}, strikes {}, rages {} (R seen {}), takedowns {}, sunlit {} #{k}",
                                  head(sim, me), self.n_seeds, self.seeds.len(), self.n_grow, self.n_strike, self.n_rage,
-                                 self.n_take, self.sun.n_sun));
+                                 self.n_raim, self.n_take, self.sun.n_sun));
                 }
             }
         }
@@ -756,6 +779,14 @@ mod tests {
         let a = seed_spot((50_000.0, 50_000.0), None, 30_000.0, 0);
         let b = seed_spot((50_000.0, 50_000.0), None, 30_000.0, 2);
         assert!(dist(a, b) > 10_000.0);
+    }
+
+    #[test]
+    fn the_r_aim_line_sees_her_plants_round_the_spot() {
+        assert_eq!(round_spot(&[], (0.0, 0.0)), (0, None));
+        let (n, near) = round_spot(&[(40_000.0, 0.0), (0.0, 30_000.0), (-90_000.0, 0.0)], (0.0, 0.0));
+        assert_eq!(n, 3);
+        assert!(near.is_some_and(|d| (d - 30_000.0).abs() < 1e-6));
     }
 
     #[test]

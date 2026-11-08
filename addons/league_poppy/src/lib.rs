@@ -3,9 +3,10 @@
 //! 只有下面几处换成本包的原生效果），本包补数据做不到的五件事（英雄联盟的规则）：
 //!
 //! - **坚定风采打断突进**（被动 `league_poppy:steadfast`）：她身上有坚定风采的光环（主包的 `league_poppy_w_on`）时，每 tick 看
-//!   光环（`W_R` + 他的身体）里的每个敌方英雄：一 tick 里移动了至少 `DASH_STEP`（远超走路，不到 `BLINK_MAX`：闪现、传送不算）
-//!   就是在突进——击飞 `W_UP` tick（击飞会打断突进）、`W_DMG` + `W_AP`% 法强魔法伤害，然后缚地（不能位移）并减速 `W_SLOW`%
-//!   `W_GROUND` tick；每次光环每人只挡一次（他身上的 `league_poppy_w_hit`）。被她自己推着飞的（E、R，`league_poppy_push`）不算。
+//!   光环（`W_R` + 他的身体）里的每个敌方英雄：一 tick 里移动了至少 `DASH_STEP`、也超过他自己移速的 `DASH_WALK` 倍（远超
+//!   走路，不到 `BLINK_MAX`：闪现、传送不算）就是在突进——击飞 `W_UP` tick（击飞会打断突进）、`W_DMG` + `W_AP`% 法强魔法
+//!   伤害，然后缚地（不能位移）并减速 `W_SLOW`% `W_GROUND` tick；每次光环每人只挡一次（他身上的 `league_poppy_w_hit`）。
+//!   被她自己推着飞的（E、R，`league_poppy_push`）不算。
 //!   主包：光环里的敌方英雄放不出新的位移技能。
 //! - **坚定风采低血翻倍**：生命低于 `W_LOW`% 时护甲、魔抗再 +`W_DEF`%（`league_poppy_w_low`）。主包：一直 +`W_DEF`%。
 //! - **英勇冲锋撞墙才晕**（原生效果 `league_poppy:charge`，撞上目标时）：沿推的方向查墙（卡蜜尔附加包的墙格、5v5 地图的四边）：
@@ -18,6 +19,11 @@
 //!   `P_SH_MAX`%（18 级），`P_SH_T` tick。主包：固定值 + 攻击力加成。
 //!
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。本包不按任何技能键。
+//!
+//! 0.1.5（2026-11-08 日志审查：83 次 `BLOCK` 里 24 次只是一 tick 走了 2213-2599，刚过 `DASH_STEP`，13 次在 10:00 以后——后期
+//! 走路一 tick 就有 1766-1995，加一点速就过线）：一 tick 的位移还要超过他这时的移速（`stat().move_speed`，每 tick 走多远、
+//! buff 算在内，取上一 tick 和这一 tick 大的那个）的 `DASH_WALK` 倍才算突进，跑得快的人走过光环不再被当成突进挡下；
+//! `BLOCK` 行写出他的移速。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_poppy.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `BLOCK`（挡下突进）、`CHARGE`（撞墙 / 没墙）、`WALL`（撞墙眩晕）、`VERDICT`（往哪打飞）、`PICK`（护盾），限了条数。
@@ -69,9 +75,12 @@ pub const R_AIR: usize = 25;
 pub const R_FAR: usize = 150_000;
 pub const R_FAR_SPEED: usize = 6_000;
 
-/// 一 tick 里至少走这么远算突进（走路约 1000，加速后 1500；冲刺 2500 起），超过这么远算闪现 / 传送（英雄联盟不挡）。
+/// 一 tick 里至少走这么远算突进（前期走路约 1000，加速后 1500；冲刺 2500 起），超过这么远算闪现 / 传送（英雄联盟不挡）。
 pub const DASH_STEP: f64 = 2_200.0;
 pub const BLINK_MAX: f64 = 20_000.0;
+/// 还要超过他自己移速（每 tick 走多远）的这么多倍才算突进：后期走路一 tick 就有 1766-1995，加一点速就过了 `DASH_STEP`
+/// （2026-11-08 日志审查：83 次 `BLOCK` 里 24 次是 2213-2599 的走路）。
+pub const DASH_WALK: f64 = 1.3;
 /// 推到墙边时离墙留的距离（身体半径另算）。
 pub const WALL_GAP: f64 = 1_000.0;
 /// 5v5 地图四边的可走范围（卡蜜尔附加包量的）和两边的水晶。
@@ -223,9 +232,9 @@ pub fn wall_travel(grid: &Grid, at: Pt, dir: Pt, reach: f64, body: f64) -> Optio
     None
 }
 
-/// 一 tick 走了 `step` 算不算突进（闪现、传送那么远的不算）。
-pub fn is_dash(step: f64) -> bool {
-    (DASH_STEP..=BLINK_MAX).contains(&step)
+/// 一 tick 走了 `step` 算不算突进：他走路一 tick 走 `walk`（移速，buff 算在内），走得再快也只是走路；闪现、传送那么远的不算。
+pub fn is_dash(step: f64, walk: f64) -> bool {
+    (DASH_STEP.max(walk * DASH_WALK)..=BLINK_MAX).contains(&step)
 }
 
 /// 钢铁大使的护盾：等级 `level`、最大生命 `max_hp`。
@@ -385,8 +394,8 @@ impl StableEffectType for Step {
 
 #[derive(Clone, Default)]
 struct Steadfast {
-    /// 上一 tick 光环附近的敌方英雄在哪（id -> (tick, 位置)）。
-    seen: HashMap<usize, (usize, Pt)>,
+    /// 上一 tick 光环附近的敌方英雄在哪、移速多少（id -> (tick, 位置, 每 tick 走多远)）。
+    seen: HashMap<usize, (usize, Pt, f64)>,
 }
 
 impl Steadfast {
@@ -405,7 +414,7 @@ impl Steadfast {
         }
     }
 
-    fn block(sim: &mut StableSim<'_>, me: usize, foe: usize, step: f64) {
+    fn block(sim: &mut StableSim<'_>, me: usize, foe: usize, step: f64, walk: f64) {
         sim.apply_cc(foe, &CcV1::of_kind(CcKindV1::Airborne, W_UP as u64));
         let ap = sim.get_entity(me).map_or(0, |e| e.stat().magic_power);
         sim.deal_damage_typed(me, foe, W_DMG + W_AP * ap / 100, DamageTypeV1::Ap, AttackTypeV1::Skill);
@@ -419,7 +428,8 @@ impl Steadfast {
         let hold = left.map_or(W_UP + W_GROUND, |b| b.duration_tick);
         sim.add_buff(foe, &BuffV1::timed(&n("w_hit"), hold + 2));
         if let Some(k) = counted("block") {
-            wlog(format!("{} BLOCK #{foe}: {step:.0} in a tick inside her aura - knocked up, grounded #{k}", head(sim, me)));
+            wlog(format!("{} BLOCK #{foe}: {step:.0} in a tick (he walks {walk:.0}) inside her aura - knocked up, grounded #{k}",
+                         head(sim, me)));
         }
     }
 
@@ -461,29 +471,32 @@ impl StablePassive for Steadfast {
         }
         let Some((my_team, her)) = sim.get_entity(me).map(|e| (e.team(), (e.pos().0 as f64, e.pos().1 as f64))) else { return };
         let aura = has_buff(sim, me, &n("w_on"));
-        let foes: Vec<(usize, Pt, f64)> = (0..sim.champion_count())
+        // his move speed is a step a tick, buffs included (league_yuumi's WATCH: the host's longest step = his move speed)
+        let foes: Vec<(usize, Pt, f64, f64)> = (0..sim.champion_count())
             .map(|i| sim.champion_id_at(i))
             .filter_map(|id| {
-                sim.get_entity(id)
-                    .filter(|e| e.team() != my_team && e.is_alive())
-                    .map(|e| (id, (e.pos().0 as f64, e.pos().1 as f64), e.radius() as f64))
+                sim.get_entity(id).filter(|e| e.team() != my_team && e.is_alive()).map(|e| {
+                    (id, (e.pos().0 as f64, e.pos().1 as f64), e.radius() as f64, e.stat().move_speed as f64)
+                })
             })
             .collect();
-        for &(foe, at, body) in &foes {
+        for &(foe, at, body, speed) in &foes {
             Self::walls(sim, me, foe);
             let near = dist(at, her) <= W_R as f64 + body + BLINK_MAX;
             let before = self.seen.get(&foe).copied();
             if near {
-                self.seen.insert(foe, (t, at));
+                self.seen.insert(foe, (t, at, speed));
             } else {
                 self.seen.remove(&foe);
             }
-            let Some((t0, from)) = before else { continue };
+            let Some((t0, from, speed0)) = before else { continue };
             if !aura || t0 + 1 != t || dist(at, her) > W_R as f64 + body {
                 continue;
             }
             let step = dist(from, at);
-            if !is_dash(step)
+            // a haste that just ran out (or just came) still counts: the faster of the two ticks
+            let walk = speed.max(speed0);
+            if !is_dash(step, walk)
                 || has_buff(sim, foe, &n("w_hit"))
                 || has_buff(sim, foe, &n("push"))
                 || cc_immune(sim, foe)
@@ -491,7 +504,7 @@ impl StablePassive for Steadfast {
             {
                 continue;
             }
-            Self::block(sim, me, foe, step);
+            Self::block(sim, me, foe, step, walk);
         }
     }
 }
@@ -535,11 +548,25 @@ mod tests {
 
     #[test]
     fn dashes_not_walks_nor_blinks() {
-        assert!(!is_dash(1_000.0));
-        assert!(!is_dash(1_600.0));
-        assert!(is_dash(2_500.0));
-        assert!(is_dash(3_500.0));
-        assert!(!is_dash(60_000.0));
+        assert!(!is_dash(1_000.0, 1_000.0));
+        assert!(!is_dash(1_600.0, 1_000.0));
+        assert!(is_dash(2_500.0, 1_000.0));
+        assert!(is_dash(3_500.0, 1_000.0));
+        assert!(!is_dash(60_000.0, 1_000.0));
+    }
+
+    #[test]
+    fn fast_walkers_are_no_dashers() {
+        // 2026-11-08 log review: late-game walks of 2213-2599 a tick were blocked as dashes
+        assert!(!is_dash(2_300.0, 2_000.0));
+        assert!(!is_dash(2_599.0, 2_000.0));
+        assert!(is_dash(2_700.0, 2_000.0));
+        assert!(is_dash(3_000.0, 1_000.0));
+        // a slow (or unknown) walker: DASH_STEP is still the floor
+        assert!(!is_dash(2_000.0, 0.0));
+        assert!(is_dash(2_300.0, 0.0));
+        // however fast he walks, a blink is no dash
+        assert!(!is_dash(BLINK_MAX + 1.0, 20_000.0));
     }
 
     #[test]

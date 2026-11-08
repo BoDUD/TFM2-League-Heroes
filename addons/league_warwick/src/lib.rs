@@ -7,10 +7,15 @@
 //! - **血之饥渴**：英雄联盟里沃里克的普攻附带魔法伤害；生命低于 50% 时回复同样多的生命，低于 25% 时回三倍。`hunger`
 //!   在他生命低于 `p_half`% 时回 `p_dmg`，低于 `p_quarter`% 时回 `p_dmg` × `p_triple`（魔法伤害本身仍在数据里）。
 //! - **鲜血追猎**：英雄联盟里他嗅到生命低于 50% 的敌方英雄，朝他们跑得更快、打他们打得更快，低于 25% 时加成三倍。被动每
-//!   `HUNT_EVERY` tick 看一次：`w_reach` 内有看得见的、生命低于 `w_half`% 的敌方英雄，就给他挂 `w_hunt`（攻速 +`w_as`%、
-//!   移速 +`w_ms`%，`HUNT_HOLD` tick，下次看时续上），那人低于 `w_quarter`% 时三倍。
+//!   `HUNT_EVERY` tick 看一次：`w_reach` 内有看得见的、生命低于 `w_half`% 的敌方英雄（低于 `w_quarter`% 的看不见也算，
+//!   `sensed`），就给他挂 `w_hunt`（攻速 +`w_as`%、移速 +`w_ms`%，`HUNT_HOLD` tick，下次看时续上），那人低于 `w_quarter`%
+//!   时三倍；猎物不见了档位再留 `HUNT_LINGER` tick（`hunt_linger`）。
 //! - **连招**（用户：「有连招要做连招」；`combo.rs`）：AI 钩子 `league_warwick:combo` 替游戏的 AI 按 E、Q、R——
 //!   E → Q（先开远祖嗥叫的减伤再扑咬，咬中时立刻嚎叫，主包数据做的）、R → Q（压制结束接一口撕咬）、残血英雄优先 Q / R 追。
+//!
+//! 0.1.2（2026-11-08 日志审查：`HUNT` 约 12 tick 一次在 0 和 1 之间来回跳，A 组 42 场数到 #2600、一场约 60 次——猎物一走出
+//! 视野（`is_visible`）档位就掉，每 `HUNT_EVERY` tick 看一次、加成只挂 `HUNT_HOLD` tick）：生命低于 `w_quarter`% 的猎物不看
+//! 视野（英雄联盟里鲜血足迹把他们显出来）；档位往下掉之前留 `HUNT_LINGER` tick，进草丛、出视野一下又出来不再来回跳。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_warwick.log`，每次启动游戏重写：`SPAWN`、`HEAL`、`HUNT`（追猎
 //! 开始、换成三倍、结束）、`E FIRST` / `R THEN Q` / `Q TO PREY` / `R HUNT`（连招），都限了条数。
@@ -35,8 +40,10 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_warwick") {
 
 /// 鲜血追猎每隔几 tick 看一次。
 pub const HUNT_EVERY: usize = 6;
-/// 追猎的加成每次挂多久（比 `HUNT_EVERY` 长一点，看不到猎物后很快消失）。
+/// 追猎的加成每次挂多久（比 `HUNT_EVERY` 长一点，档位掉到 0 后很快消失）。
 pub const HUNT_HOLD: usize = 10;
+/// 猎物不见了（进草丛、走出视野或 `w_reach`）后档位再留多久（tick）：2026-11-08 的日志里它约 12 tick 一次在 0 和 1 之间跳。
+pub const HUNT_LINGER: usize = 30;
 
 fn sn(x: &str) -> String {
     format!("league_warwick_{x}")
@@ -208,6 +215,22 @@ pub fn hunt_level(prey: &[f64], p: &Params) -> usize {
     }
 }
 
+/// 闻得到这个敌方英雄吗（生命比例 `share`，`visible` 他这一队看得见他）：看得见的都算；生命低于 `w_quarter`% 的看不见也算
+/// （英雄联盟里鲜血足迹把他们显出来）。
+pub fn sensed(share: f64, visible: bool, p: &Params) -> bool {
+    visible || share < p.w_quarter as f64 / 100.0
+}
+
+/// 档位的滞后：这次算出的 `now` 不比挂着的 `held` 低就用 `now`；低了，`held` 最后一次够得上（`since`）还不到
+/// `HUNT_LINGER` tick 就留着 `held`（猎物进草丛、走出视野一下又出来，档位不再来回跳）。返回 (档位, 它最后一次够得上的 tick)。
+pub fn hunt_linger(now: usize, held: usize, since: usize, tick: usize) -> (usize, usize) {
+    if now >= held || tick >= since + HUNT_LINGER {
+        (now, tick)
+    } else {
+        (held, since)
+    }
+}
+
 fn share(e: &StableEntity<'_, '_>) -> f64 {
     let (hp, max) = e.hp();
     if max == 0 { 1.0 } else { hp as f64 / max as f64 }
@@ -250,6 +273,8 @@ impl StableEffectType for HungerFx {
 struct Hunt {
     p: Params,
     level: usize,
+    /// 最后一次有够得上 `level` 的猎物的 tick（`hunt_linger`）。
+    since: usize,
 }
 
 impl Hunt {
@@ -257,24 +282,32 @@ impl Hunt {
         let Some(e) = sim.get_entity(me) else { return };
         if !e.is_alive() {
             self.level = 0;
+            self.since = 0;
             return;
         }
+        let tick = sim.tick();
         let team = e.team();
         let (x, y) = e.pos();
         let reach = self.p.w_reach as f64;
         let mut prey = Vec::new();
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
-            if u.team() == team || !u.is_alive() || !u.is_champion() || !sim.is_visible(team, u.id()) {
+            if u.team() == team || !u.is_alive() || !u.is_champion() {
+                continue;
+            }
+            let s = share(&u);
+            if !sensed(s, sim.is_visible(team, u.id()), &self.p) {
                 continue;
             }
             let (ux, uy) = u.pos();
             let d = ((ux as f64 - x as f64).powi(2) + (uy as f64 - y as f64).powi(2)).sqrt();
             if d <= reach {
-                prey.push(share(&u));
+                prey.push(s);
             }
         }
-        let level = hunt_level(&prey, &self.p);
+        let was_seen = self.since;
+        let (level, since) = hunt_linger(hunt_level(&prey, &self.p), self.level, self.since, tick);
+        self.since = since;
         if level > 0 {
             let mut b = BuffV1::timed(&sn("w_hunt"), HUNT_HOLD);
             b.attack_speed_mult = (self.p.w_as * level) as i32;
@@ -287,7 +320,12 @@ impl Hunt {
         if level != self.level {
             if let Some(k) = counted("hunt") {
                 let low = prey.iter().cloned().fold(1.0f64, f64::min);
-                wlog(format!("{} HUNT #{k}: level {} -> {level} (the weakest champion in reach at {:.0}%)", head(sim, me),
+                let gone = if level < self.level {
+                    format!(", level {} last had prey {} ticks ago", self.level, tick.saturating_sub(was_seen))
+                } else {
+                    String::new()
+                };
+                wlog(format!("{} HUNT #{k}: level {} -> {level} (the weakest champion in reach at {:.0}%{gone})", head(sim, me),
                              self.level, low * 100.0));
             }
             self.level = level;
@@ -307,6 +345,7 @@ impl StablePassive for Hunt {
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         PARAMS.lock().unwrap_or_else(|e| e.into_inner()).insert((sim.seed(), me), self.p);
         self.level = 0;
+        self.since = 0;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Warwick (player {player}, team {team}), {:?}", head(sim, me), self.p));
@@ -372,6 +411,34 @@ mod tests {
         assert_eq!(hunt_level(&[0.9, 0.6], &p), 0);
         assert_eq!(hunt_level(&[0.9, 0.4], &p), 1);
         assert_eq!(hunt_level(&[0.4, 0.2], &p), 3);
+    }
+
+    #[test]
+    fn blood_trail_shows_the_quarter() {
+        let p = Params::default();
+        assert!(sensed(0.9, true, &p));
+        assert!(!sensed(0.4, false, &p), "half health in the fog: not smelled");
+        assert!(sensed(0.2, false, &p), "under the quarter line: smelled in the fog too");
+        assert!(!sensed(0.25, false, &p));
+    }
+
+    #[test]
+    fn the_hunt_lingers_after_the_prey_vanishes() {
+        // 2026-11-08 log: t=12612 0 -> 1, 12636 1 -> 0, 12648 0 -> 1, 12660 1 -> 0 - the prey in and out of sight
+        let mut held = (0, 0);
+        let mut levels = Vec::new();
+        for (t, now) in [(12612, 1), (12618, 1), (12624, 1), (12630, 1), (12636, 0), (12642, 0), (12648, 1), (12654, 1),
+                         (12660, 0), (12666, 0), (12672, 0), (12678, 0), (12684, 0), (12690, 0)] {
+            held = hunt_linger(now, held.0, held.1, t);
+            levels.push(held.0);
+        }
+        // held through the 12-tick gap, dropped HUNT_LINGER ticks after the last prey (12654 + 30 = 12684)
+        assert_eq!(levels, [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0]);
+        // up at once, triple held too, then down a step
+        assert_eq!(hunt_linger(3, 1, 100, 106), (3, 106));
+        assert_eq!(hunt_linger(1, 3, 106, 130), (3, 106));
+        assert_eq!(hunt_linger(1, 3, 106, 106 + HUNT_LINGER), (1, 106 + HUNT_LINGER));
+        assert_eq!(hunt_linger(0, 0, 0, 5), (0, 5));
     }
 
     #[test]
