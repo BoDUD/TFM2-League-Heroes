@@ -19,6 +19,9 @@
 //! 优先级 `PRIORITY` 在英雄附加包和 league_macro / league_peel / league_focus 之后、league_lane（10:00 前的对线纪律）之前。只看
 //! 比赛状态，没有随机数，每个选手自己的钩子实例：服务器预演和客户端重演走的一样。
 //!
+//! 0.1.1（用户 2026-11-08「还是有卡回城的BUG啊」）：回城引导时游戏的 AI 大多数 tick 不下指令，0.1.0 把那些 tick 当成「没下指令」照样拉扯，
+//! 有人压上来时把回城打断。现在从回城命令到 AI 下别的命令为止都不管（`still_recalling`）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kite.log`，每次启动游戏重写，上一次的留在 .prev.log：前
 //! `DETAIL_LINES` 次拉扯各一行；每 `COUNT_EVERY` 个「该拉扯的 tick」一行累计——这些 tick 里游戏的 AI 自己在往外走（它自己的
 //! Kiting / 逃跑）、朝他走、站着普攻、没下指令、放技能各多少，这个钩子走了多少 tick、几次。效果看 league_fight_log 的 SUM
@@ -314,7 +317,19 @@ pub struct Kite {
     stuck: bool,
     /// a champion this hook leaves alone (`NO_KITE`), read once
     skip: Option<bool>,
+    /// the game's AI is recalling ([`still_recalling`], 0.1.1)
+    recalling: bool,
 }
+
+/// The game's AI recalling (league_ult_press 0.5.0's rule): a Return starts it, the ticks it gives no order go on with it
+/// (while the recall runs it orders only now and then), any other order ends it.
+pub fn still_recalling(was: bool, base: Option<&InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
 
 impl StablePlayerAi for Kite {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
@@ -330,6 +345,12 @@ impl StablePlayerAi for Kite {
     }
 
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        // the game's AI recalling: its ticks without an order are the recall, never a moment to kite (0.1.1)
+        self.recalling = still_recalling(self.recalling, base.as_ref());
+        if self.recalling {
+            self.run = None;
+            return None;
+        }
         let (player, team, tick) = (ctx.player_id(), ctx.team(), ctx.tick());
         let attack_on = base
             .filter(|b| b.kind == InputKindV1::Attack.code() && b.target.kind == InputTargetKindV1::Target.code())
@@ -502,6 +523,17 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_recall_lasts_until_the_ai_orders_something_else() {
+        let ret = InputV1::return_home();
+        assert!(still_recalling(false, Some(&ret)));
+        // the ticks between its orders: still recalling
+        assert!(still_recalling(true, None));
+        assert!(!still_recalling(false, None));
+        assert!(!still_recalling(true, Some(&InputV1::move_to(1, 1))));
+        assert!(!still_recalling(true, Some(&InputV1::action(InputKindV1::Attack, InputTargetV1::target(3)))));
+    }
 
     const ME: Pos = (500_000.0, 500_000.0);
     /// our nexus to the south-west

@@ -10,6 +10,11 @@
 //! `RECALL [来历 m=比赛 s=第几局] t=分:秒 <英雄> T<队> <位置> hp=<现在>% low=<窗口里最低>% near=[<敌方英雄> <最近距离>k <几秒前>, ...]`，
 //! 窗口里有敌方英雄、而且血量一直没低于 `SUSPECT_HP`% 的回城再标 `SUSPECT`（不像是被打残了回家）。
 //!
+//! 0.1.2（用户 2026-11-08「还是有卡回城的BUG啊」）：每次回城还记它怎么结束（`RECALL END`）——传送回家了没有（一 tick 挪了
+//! `TELEPORT` 以上），到家 `SHOP_WAIT` tick 后金币和装备有没有变（买了东西没有）；回家前游戏的 AI 自己下了别的命令（它改主意）；
+//! AI 一直没下别的命令、`GIVE_UP` tick 还没到家（中间有没有被挪开 `MOVED_R` 以上：回城要站着，挪开就是钩子的走路或位移）；
+//! 半路阵亡。每结束 `COUNT_EVERY` 次一行 `COUNT` 累计。`RECALL` 行加上那一刻的金币、装备数。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_recall_log.log`，每次启动游戏重写，上一次的留在 .prev.log；
 //! 你看的那场全记，其余（服务端的预模拟）一次启动最多 `LOG_CAP` 行。
 
@@ -40,11 +45,24 @@ const SCAN: usize = 10;
 pub const SUSPECT_HP: usize = 60;
 /// 一次启动最多写多少行不在屏幕上的（服务端的预模拟；你看的那场不算）：2 万行在 10-30 一次启动的第 4 分钟就满了，2.3 MB。
 const LOG_CAP: usize = 2_000;
+/// 一次回城走完没有（0.1.2）：一 tick 挪了这么远 = 传送回家了（回城读完）……
+pub const TELEPORT: f64 = 60_000.0;
+/// ……回城期间离按下回城的地方超过这么远 = 有别的东西让他走开了（钩子的走路、位移）：回城引导要站着……
+pub const MOVED_R: f64 = 3_000.0;
+/// ……按下回城这么多 tick（20 秒）还没到家、游戏的 AI 也没下别的命令 = 回城没读完。
+pub const GIVE_UP: usize = 1_200;
+/// 到家后这么多 tick 再看金币和装备（买了没有）。
+pub const SHOP_WAIT: usize = 60;
+/// 每结束多少次回城写一行累计。
+const COUNT_EVERY: usize = 100;
 
 // ===================== 日志 =====================
 
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 static LINES: AtomicUsize = AtomicUsize::new(0);
+/// 回城怎么结束的，各几次（`End` 的顺序；只管日志）。
+static ENDS: [AtomicUsize; 6] =
+    [AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0)];
 
 fn log_path() -> PathBuf {
     if let Some(path) = std::env::var_os("LEAGUE_RECALL_LOG") {
@@ -177,6 +195,116 @@ impl Recent {
     }
 }
 
+// ===================== 回城怎么结束 =====================
+
+fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// How a recall ended (0.1.2).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum End {
+    /// home (teleported) and something bought
+    Bought,
+    /// home, nothing bought
+    Nothing,
+    /// the game's AI gave another order before he got home
+    Broken,
+    /// not home in `GIVE_UP` ticks though the AI never gave another order, after something moved him off the spot
+    Moved,
+    /// the same, never moved off the spot (damage, a stun, or an order that kept him busy)
+    Stuck,
+    Died,
+}
+
+/// One recall under way: when the game's AI pressed it, where he stood, his gold and items then, the first time he was
+/// found `MOVED_R` from there while the AI still recalled (tick, how far), and when he got home.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct Trip {
+    pub start: usize,
+    pub at: (f64, f64),
+    pub gold: usize,
+    pub items: usize,
+    pub moved: Option<(usize, f64)>,
+    pub home_at: Option<usize>,
+}
+
+/// What one tick tells about the recall `t`: how it ended and the line to write, if it did. `last_at`: where he stood the
+/// tick before; `order`: the game's AI's order this tick (None: none).
+#[allow(clippy::too_many_arguments)]
+pub fn follow(
+    t: &mut Trip,
+    tick: usize,
+    at: (f64, f64),
+    last_at: Option<(f64, f64)>,
+    alive: bool,
+    order: Option<InputKindV1>,
+    gold: usize,
+    items: usize,
+) -> Option<(End, String)> {
+    let n = tick.saturating_sub(t.start);
+    let moved = |t: &Trip| {
+        t.moved.map_or_else(
+            || "never moved off the spot".to_string(),
+            |(k, d)| format!("moved {:.0}k off the spot at +{} ticks", d / 1000.0, k.saturating_sub(t.start)),
+        )
+    };
+    if !alive {
+        return Some((End::Died, format!("died after {n} ticks ({})", moved(t))));
+    }
+    if let Some(h) = t.home_at {
+        if tick < h + SHOP_WAIT {
+            return None;
+        }
+        let bought = items > t.items || gold + 100 < t.gold;
+        return Some((
+            if bought { End::Bought } else { End::Nothing },
+            format!(
+                "home after {} ticks: gold {} -> {gold}, items {} -> {items}{}",
+                h.saturating_sub(t.start),
+                t.gold,
+                t.items,
+                if bought { "" } else { " - nothing bought" }
+            ),
+        ));
+    }
+    if let Some(k) = order.filter(|k| *k != InputKindV1::Return) {
+        return Some((End::Broken, format!("broken off by the game's AI after {n} ticks (its order: {k:?}; {})", moved(t))));
+    }
+    if last_at.is_some_and(|p| dist(p, at) >= TELEPORT) {
+        t.home_at = Some(tick);
+        return None;
+    }
+    if t.moved.is_none() && dist(t.at, at) > MOVED_R {
+        t.moved = Some((tick, dist(t.at, at)));
+    }
+    if n >= GIVE_UP {
+        let end = if t.moved.is_some() { End::Moved } else { End::Stuck };
+        return Some((end, format!("not home after {n} ticks though the game's AI never ordered anything else ({})", moved(t))));
+    }
+    None
+}
+
+/// The running count of how recalls ended, every `COUNT_EVERY` ends.
+fn count_line() -> Option<String> {
+    let e: Vec<usize> = ENDS.iter().map(|c| c.load(Ordering::Relaxed)).collect();
+    let total: usize = e.iter().sum();
+    (total > 0 && total.is_multiple_of(COUNT_EVERY)).then(|| {
+        format!(
+            "COUNT recalls ended {total}: home {} (bought {}, nothing bought {}), broken off by the game's AI {}, not home though \
+             the AI kept recalling {} (moved off the spot {}, never moved {}), died {}",
+            e[0] + e[1],
+            e[0],
+            e[1],
+            e[2],
+            e[3] + e[4],
+            e[3],
+            e[4],
+            e[5]
+        )
+    })
+}
+
 // ===================== 观察钩子 =====================
 
 #[derive(Clone, Default)]
@@ -185,6 +313,9 @@ struct Watch {
     next_scan: usize,
     /// The AI is in a recall order (no new line until it gives another order).
     returning: bool,
+    /// The recall under way, and where he stood the tick before (0.1.2).
+    trip: Option<Trip>,
+    last_at: Option<(f64, f64)>,
 }
 
 /// Distance in map units from a squared distance.
@@ -229,13 +360,30 @@ impl StablePlayerAi for Watch {
         let tick = ctx.tick();
         let (player, team, lane) = (ctx.player_id(), ctx.team(), ctx.lane());
         let sim = ctx.sim()?;
-        let me = sim.get_player(player)?.champion()?;
+        let pl = sim.get_player(player)?;
+        let me = pl.champion()?;
         let (me_id, me_name, hp_now) = (me.id(), me.name().unwrap_or_default(), percent(me.hp()));
         if tick >= self.next_scan {
             self.next_scan = tick + SCAN;
             self.scan(&sim, me_id, team, tick);
         }
-        let kind = InputKindV1::from_code(base?.kind)?;
+        let at = (me.pos().0 as f64, me.pos().1 as f64);
+        let order = base.and_then(|b| InputKindV1::from_code(b.kind));
+        let (gold, items) = (pl.gold(), pl.item_count());
+        // the recall under way: how it ends (0.1.2)
+        let ended = self.trip.as_mut().and_then(|t| follow(t, tick, at, self.last_at, me.is_alive(), order, gold, items));
+        if let Some((end, what)) = ended {
+            self.trip = None;
+            ENDS[end as usize].fetch_add(1, Ordering::Relaxed);
+            if room(&sim) {
+                wlog(format!("RECALL END {} {me_name} T{team}: {what}", head(&sim)));
+            }
+            if let Some(line) = count_line() {
+                wlog(line);
+            }
+        }
+        self.last_at = Some(at);
+        let kind = order?;
         if kind != InputKindV1::Return {
             self.returning = false;
             return None;
@@ -244,6 +392,7 @@ impl StablePlayerAi for Watch {
             return None;
         }
         self.returning = true;
+        self.trip = Some(Trip { start: tick, at, gold, items, moved: None, home_at: None });
         if !room(&sim) {
             return None;
         }
@@ -254,7 +403,7 @@ impl StablePlayerAi for Watch {
             .map(|s| format!("{} {}k {:.1}s", s.name, s.closest / 1000, tick.saturating_sub(s.last) as f64 / 60.0))
             .collect();
         wlog(format!(
-            "RECALL {} {me_name} T{team} {} hp={hp_now}% low={}% near=[{}]{}",
+            "RECALL {} {me_name} T{team} {} hp={hp_now}% low={}% gold={gold} items={items} near=[{}]{}",
             head(&sim),
             lane_name(lane),
             self.recent.low(),
@@ -298,6 +447,52 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_recall_that_gets_home_and_buys() {
+        let spot = (500_000.0, 500_000.0);
+        let fountain = (60_000.0, 940_000.0);
+        let mut t = Trip { start: 100, at: spot, gold: 1300, items: 2, ..Trip::default() };
+        assert_eq!(follow(&mut t, 200, spot, Some(spot), true, None, 1320, 2), None);
+        // the teleport home: a jump in one tick (the AI's Return now and then on the way)
+        assert_eq!(follow(&mut t, 580, fountain, Some(spot), true, Some(InputKindV1::Return), 1350, 2), None);
+        assert_eq!(t.home_at, Some(580));
+        // a little later an item bought (its orders at home do not matter)
+        assert_eq!(follow(&mut t, 600, fountain, Some(fountain), true, Some(InputKindV1::Move), 250, 3), None);
+        let (end, line) = follow(&mut t, 640, fountain, Some(fountain), true, Some(InputKindV1::Move), 250, 3).unwrap();
+        assert_eq!(end, End::Bought);
+        assert!(line.starts_with("home after 480 ticks: gold 1300 -> 250, items 2 -> 3"), "{line}");
+        // home with nothing bought
+        let mut t = Trip { start: 0, at: spot, gold: 300, items: 4, home_at: Some(500), ..Trip::default() };
+        let (end, line) = follow(&mut t, 560, fountain, Some(fountain), true, None, 340, 4).unwrap();
+        assert_eq!(end, End::Nothing);
+        assert!(line.ends_with("nothing bought"), "{line}");
+    }
+
+    #[test]
+    fn a_recall_broken_off_moved_stuck_or_cut_by_death() {
+        let spot = (500_000.0, 500_000.0);
+        let start = Trip { start: 100, at: spot, gold: 500, items: 1, ..Trip::default() };
+        // the game's AI walks off: broken off by itself
+        let mut t = start.clone();
+        let got = follow(&mut t, 150, spot, Some(spot), true, Some(InputKindV1::Move), 500, 1);
+        assert_eq!(got.map(|e| e.0), Some(End::Broken));
+        // walked off the spot while the AI still recalled (a hook's walk), then not home in time
+        let mut t = start.clone();
+        assert_eq!(follow(&mut t, 160, (505_000.0, 500_000.0), Some((504_000.0, 500_000.0)), true, None, 500, 1), None);
+        assert_eq!(t.moved, Some((160, 5_000.0)));
+        let (end, line) = follow(&mut t, 100 + GIVE_UP, (520_000.0, 500_000.0), Some((519_000.0, 500_000.0)), true, None, 520, 1)
+            .unwrap();
+        assert_eq!(end, End::Moved);
+        assert!(line.contains("moved 5k off the spot at +60 ticks"), "{line}");
+        // standing on the spot and never home
+        let mut t = start.clone();
+        let got = follow(&mut t, 100 + GIVE_UP, spot, Some(spot), true, Some(InputKindV1::Return), 520, 1);
+        assert_eq!(got.map(|e| e.0), Some(End::Stuck));
+        // died on the way
+        let mut t = start;
+        assert_eq!(follow(&mut t, 300, spot, None, false, None, 520, 1).map(|e| e.0), Some(End::Died));
+    }
 
     #[test]
     fn a_recall_with_an_enemy_near_at_full_health_is_suspect() {

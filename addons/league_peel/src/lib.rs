@@ -24,6 +24,9 @@
 //! 优先级 `PRIORITY` 在 league_macro（大龙后抱团 / 推基地 / 抢龙）之后、英雄附加包之前：英雄的钩子（替 AI 放大招之类）
 //! 还能在它之后改。只看比赛状态，没有随机数：服务器预演和客户端重演走的一样。每个选手自己的钩子实例，不共用状态。
 //!
+//! 0.2.2（用户 2026-11-08「还是有卡回城的BUG啊」）：回城引导时游戏的 AI 大多数 tick 不下指令，那些空 tick 被当成「没事干」，射手挨打时把正在
+//! 回城的辅助拉去射手身边，回城断掉、AI 再按。现在从回城命令到 AI 下别的命令为止都不管（`still_recalling`）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_peel.log`（每次启动重写，上一次的留在 .prev.log）。
 //! 只记服务器预演：射手每被贴脸一次（同一个保镖 `GAP` 内算一次）记下游戏 AI 原本让保镖做什么——这就是看游戏 AI 自己
 //! 会不会保护射手；前 `DETAIL_LINES` 次各一行，每 `SUM_EVERY` 次一行汇总，汇总也追加到不随启动重写的 league_peel.sum.log。
@@ -442,6 +445,17 @@ struct Peel {
     /// 自家基地，和上次看的 tick（tick 倒回去 = 新的一场，重找）。
     home: Option<Pos>,
     last_tick: usize,
+    /// 游戏的 AI 正在回城（[`still_recalling`]，0.2.2）。
+    recalling: bool,
+}
+
+/// The game's AI recalling (league_ult_press 0.5.0's rule): a Return starts it, the ticks it gives no order go on with it
+/// (while the recall runs it orders only now and then), any other order ends it.
+pub fn still_recalling(was: bool, base: Option<&InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
 }
 
 impl Peel {
@@ -480,6 +494,12 @@ impl StablePlayerAi for Peel {
     fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
         // 中单、射手从不当保镖：不看场上
         if !matches!(ctx.lane().map(|l| l.code()), Some(TOP | JUNGLE | SUPPORT)) {
+            return None;
+        }
+        // the game's AI recalling: all of it is left alone, its ticks without an order too (0.2.2)
+        self.recalling = still_recalling(self.recalling, base.as_ref());
+        if self.recalling {
+            self.escorting = false;
             return None;
         }
         let tick = ctx.tick();
@@ -566,6 +586,17 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_recall_lasts_until_the_ai_orders_something_else() {
+        let ret = InputV1::return_home();
+        assert!(still_recalling(false, Some(&ret)));
+        // the ticks between its orders: still recalling
+        assert!(still_recalling(true, None));
+        assert!(!still_recalling(false, None));
+        assert!(!still_recalling(true, Some(&InputV1::move_to(1, 1))));
+        assert!(!still_recalling(true, Some(&InputV1::action(InputKindV1::Attack, InputTargetV1::target(3)))));
+    }
 
     const CARRY: Pos = (500_000.0, 700_000.0);
     const DIVER: usize = 77;

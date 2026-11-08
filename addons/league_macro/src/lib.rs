@@ -32,6 +32,9 @@
 //!   几条小龙挑离本队最近的。到了龙坑边（`WITH_PIT` 以内）打龙、打人都是游戏 AI 的事，只在它回城、往远处走时拉回来。
 //!   两边都这样就会在龙坑前碰上。一条龙每个人最多集结 `GATHER_MAX` tick，之后歇 `GATHER_REST` tick（不一直对峙丢线）。
 //!   推基地、跟大龙兵线先于集结。
+//! - 0.1.8（用户 2026-11-08「还是有卡回城的BUG啊」）：回城引导时游戏的 AI 大多数 tick 不下指令（隔一阵才再发一次回城，league_ult_press
+//!   0.5.0 早就照这个改过），这些空 tick 被当成「没事干」：集结、跟大龙兵线时把他拉去龙坑 / 兵线，回城断掉，AI 再按、又被
+//!   拉走——卡在回城上。现在从回城命令到 AI 下别的命令为止都算在回城（`still_recalling`），推基地（Finish）以外整段放行。
 //! - 0.1.7（用户 2026-11-08「BUG挺多的 你好好修复吧」）：大龙 10:00 一刷新双方十个人就同时冲过去，每局都在 10:00 整开大龙团。
 //!   现在大龙只在人数占优（我方活着的比对面多）或对面在抢（`CONTEST_NEAR` 内有 `CONTEST_MIN` 个以上敌方英雄）时集结，
 //!   不然去小龙（还是人数不吃亏就行）。
@@ -418,6 +421,15 @@ pub fn going_home(base: Option<&InputV1>, home: Option<Pos>) -> bool {
     })
 }
 
+/// The game's AI recalling (league_ult_press 0.5.0's rule): a Return starts it, the ticks it gives no order go on with it
+/// (while the recall runs it orders only now and then), any other order ends it.
+pub fn still_recalling(was: bool, base: Option<&InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
 /// Whether the AI's own order is a hit on one of these enemy champions (a fight it is in).
 fn at_champion(base: Option<&InputV1>, enemies: &[(usize, Pos)]) -> bool {
     base.is_some_and(|b| {
@@ -540,6 +552,8 @@ pub struct Macro {
     plan: BaronPlan,
     named: BaronPlan,
     splitting: bool,
+    /// The game's AI is recalling ([`still_recalling`], 0.1.8).
+    recalling: bool,
 }
 
 impl StablePlayerAi for Macro {
@@ -614,15 +628,19 @@ impl StablePlayerAi for Macro {
                 });
             }
         }
+        self.recalling = still_recalling(self.recalling, base.as_ref());
         let Some(intent) = self.intent else {
             self.last_kind = None;
             return None;
         };
-        // gathering or pushing with the baron waves: a recall or a walk home goes through
-        if !matches!(intent, Intent::Finish { .. }) && going_home(base.as_ref(), self.home) {
+        // gathering or pushing with the baron waves: a recall (all of it: its ticks without an order too, 0.1.8) or a walk
+        // home goes through
+        if !matches!(intent, Intent::Finish { .. }) && (self.recalling || going_home(base.as_ref(), self.home)) {
             return None;
         }
         let out = order(intent, me, base.as_ref(), &self.enemies, &|i| ctx.is_valid_input(i))?;
+        // (finishing the nexus: a recall is broken off)
+        self.recalling = false;
         let kind = intent.kind();
         TICKS.fetch_add(1, Ordering::Relaxed);
         // counted when a champion starts following an order, not every tick
@@ -686,6 +704,17 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_recall_lasts_until_the_ai_orders_something_else() {
+        let ret = InputV1::return_home();
+        assert!(still_recalling(false, Some(&ret)));
+        // the ticks between its orders: still recalling
+        assert!(still_recalling(true, None));
+        assert!(!still_recalling(false, None));
+        assert!(!still_recalling(true, Some(&InputV1::move_to(1, 1))));
+        assert!(!still_recalling(true, Some(&InputV1::action(InputKindV1::Attack, InputTargetV1::target(3)))));
+    }
 
     /// After 10:00, our four alive in our half, the baron alive at (350k, 300k) and a dragon at (650k, 650k).
     fn pit_view() -> View {
