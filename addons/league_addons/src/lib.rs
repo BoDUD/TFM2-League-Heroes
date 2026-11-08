@@ -158,6 +158,8 @@ mod peel;
 mod lane;
 #[path = "../../league_focus/src/lib.rs"]
 mod focus;
+#[path = "../../league_kite/src/lib.rs"]
+mod kite;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_jayce/src/lib.rs"]
 mod jayce;
@@ -536,6 +538,7 @@ fn init(host: &StableHost) -> StableMod {
     peel::register(host, &mut module);
     lane::register(host, &mut module);
     focus::register(host, &mut module);
+    kite::register(host, &mut module);
     jayce::register(host, &mut module);
     elise::register(host, &mut module);
     katarina::register(host, &mut module);
