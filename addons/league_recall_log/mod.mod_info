@@ -12,9 +12,9 @@
     }
   ],
   "description": "Read-only recall log for League of Legends Heroes: every time a champion's AI starts a recall it writes the champion, its health and the enemy champions that came within 150000 of it in the 10 s before, to league_recall_log.log. Changes nothing in the game.",
-  "last_updated": "2026-10-15",
+  "last_updated": "2026-11-08",
   "mod_id": "league_recall_log",
   "mod_type": "native",
   "name": "League Heroes: recall log (diagnostic)",
-  "version": "0.1.1"
+  "version": "0.1.2"
 }

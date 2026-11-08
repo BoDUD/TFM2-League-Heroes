@@ -24,6 +24,10 @@
 //! 一秒开始退好几次）。现在撤退一旦开始就退完：`RETREAT_HOLD` 里所有往别处去的指令都改成往回走；到了塔后还要打英雄时往家里
 //! 再退 `STEP_BACK`（不原地僵住），补兵照旧。日志按「一次撤退」（隔 `RETREAT_HOLD` 以上算新的一次）计数。
 //!
+//! 0.1.4（用户 2026-11-08「还是有卡回城的BUG啊」）：回城引导时游戏的 AI 大多数 tick 不下指令，那些空 tick 在残血 / 以少打多时被改成往塔下走，
+//! 回城断掉、AI 再按。现在放行了的回城（身边 `RECALL_SAFE` 内没有敌人）一直算到 AI 下别的命令为止（`still_recalling`），中间的
+//! 空 tick 不管；不安全、被改成往塔下走的那一下不算回城。
+//!
 //! 0.1.3（同一天的日志审查）：拦下的不只是普攻——技能、大招指着敌方英雄也被改成往回走，残血时别的技能（自保、加盾、治疗、
 //! 位移）也一样：千珏 10:00 前的「羊灵生息」自救下了 3100 次只放出 150 次（她快死时指着最近的敌人按 R，被改成走回塔下，一路
 //! 走到死），薇恩贴脸时的 E、厄斐琉斯的 Q 被拦下（Q 每 tick 重按）。现在只管普攻：技能、大招不论指着谁都照旧（游戏的 AI 和
@@ -369,7 +373,19 @@ pub struct Calm {
     hold_until: usize,
     /// The last tick an order was changed (a retreat more than `RETREAT_HOLD` after it is a new one).
     last_out: Option<usize>,
+    /// A recall it let through is under way ([`still_recalling`], 0.1.4).
+    recalling: bool,
 }
+
+/// The game's AI recalling (league_ult_press 0.5.0's rule): a Return starts it, the ticks it gives no order go on with it
+/// (while the recall runs it orders only now and then), any other order ends it.
+pub fn still_recalling(was: bool, base: Option<&InputV1>) -> bool {
+    match base {
+        Some(b) => b.kind == InputKindV1::Return.code(),
+        None => was,
+    }
+}
+
 
 impl StablePlayerAi for Calm {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
@@ -405,7 +421,11 @@ impl StablePlayerAi for Calm {
         };
         let v = self.view.as_ref()?;
         let holding = tick < self.hold_until;
-        let (out, rule) = decide(v, base.as_ref(), holding);
+        // a recall under way (one this discipline let through): its ticks without an order are the recall too (0.1.4)
+        let recall_on = still_recalling(self.recalling, base.as_ref());
+        let (out, rule) = if recall_on && base.is_none() { (None, None) } else { decide(v, base.as_ref(), holding) };
+        // a Return turned into a walk to the tower is no recall
+        self.recalling = recall_on && out.is_none();
         if v.danger().is_some() {
             self.hold_until = tick + RETREAT_HOLD;
         }
@@ -472,6 +492,17 @@ declare_stable_mod!(init, requires = 9);
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn a_recall_lasts_until_the_ai_orders_something_else() {
+        let ret = InputV1::return_home();
+        assert!(still_recalling(false, Some(&ret)));
+        // the ticks between its orders: still recalling
+        assert!(still_recalling(true, None));
+        assert!(!still_recalling(false, None));
+        assert!(!still_recalling(true, Some(&InputV1::move_to(1, 1))));
+        assert!(!still_recalling(true, Some(&InputV1::action(InputKindV1::Attack, InputTargetV1::target(3)))));
+    }
 
     fn hit(id: usize) -> InputV1 {
         InputV1::action(InputKindV1::Attack, InputTargetV1::target(id))
