@@ -35,7 +35,7 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing
 E = "<>"
 # champion_view: provisional until the sprite (tfm2_ase.py face)
-VIEW = {"face": {"x": 1, "y": -26}, "center": {"x": 0, "y": -13}}
+VIEW = {"face": {"x": 2, "y": -37}, "center": {"x": 0, "y": -13}}
 
 
 def mag(d, r):

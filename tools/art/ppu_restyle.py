@@ -136,7 +136,7 @@ RESTYLE = {
     # skin is blue - pixel_down KEEP "soraka": the light blue skin in the top third) and her thin gold staff (the
     # lines pass turned its 2-3 squares wide shaft black)
     "soraka": dict(body_only=True, head=1.0, wide=1.25, short=0.92, edge=1, ppu=2.2, lift=3 * 3 / 2.2,
-                   face_to=(5, -32), crisp=dict(keep="soraka")),   # face point on her restyled face (#257)
+                   face_to=(3, -32), crisp=dict(keep="soraka")),   # face point on her restyled face (#257)
     # league_nidalee (#97, 「按泽丽标准」): the huntress's head up, her body wider and shorter (Karma's way); the cougar keeps
     # its shape (FRAMES "none": already chunky) and only comes to the coarser grid
     # picked from three (「A 头 1.2 / 宽 1.3 / 矮 0.9」); max_err 8000: her Codex-drawn heads differ a little from the design's
@@ -200,7 +200,7 @@ RESTYLE = {
     # tools/art/import_drmundo_strips.py) brought to the user's PPU 1.5 by tools/art/rig_drmundo.py (「选 A，42 行，PPU
     # 1.5」), so no proportion or density change here; the outer outline grown a square like the others; the face point
     # by tfm2_ase.py face (his crown, a little ahead of the head centre)
-    "drmundo": dict(ppu=1.5, edge=1, face_to=(-1, -38)),
+    "drmundo": dict(ppu=1.5, edge=1, face_to=(2, -44)),
     # league_pantheon (#112): Codex's strips drawn on the design's own grid at the user's 1.5 squares a game pixel
     # (「选A 40尺寸 PPU1.5」), ordered and moved by whole squares by tools/art/rig_pantheon.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at his helmet's crown
@@ -208,7 +208,7 @@ RESTYLE = {
     # league_orianna (#113): the chibi redesign (2026-10-22) posed by tools/art/rig_orianna.py at 2.25 squares a game
     # pixel (86 squares bun to soles = the old 38 game rows), so no proportion or density change here; the outer
     # outline grown a square like the others; the face point at her crown (tfm2_ase.py face)
-    "orianna": dict(ppu=2.25, edge=1, face_to=(0, -35)),
+    "orianna": dict(ppu=2.25, edge=1, face_to=(2, -33)),
     # league_aphelios (#114): posed from the design's own squares at the user's 1.5 squares a game pixel (「选 A，40 行」,
     # Codex's step-1 take cut to 60 rows) by tools/art/rig_aphelios.py, so no proportion or density change here; the
     # outer outline grown a square like the others; drawn 90 % by league.dll (hd.rs SIZES, 「缩到 90%」) round the
@@ -260,7 +260,7 @@ RESTYLE = {
     # Nami after League's own clips (tools/lol/league_joints.py): only the outer outline grown a square, the face point
     # at the new head
     "morgana": dict(ppu=1.5, edge=1, face_to=(1, -34)),     # #310: framed on her face (was chin to chest)
-    "nami": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(1, -38)),   # #310; 90 % in game (hd.rs SIZES): 2 squares lower, the face x 0.9 about the soles
+    "nami": dict(ppu=1.5, edge=1, lift_sq=-2, face_to=(1, -42)),   # #310; 90 % in game (hd.rs SIZES): 2 squares lower, the face x 0.9 about the soles
     "janna": dict(ppu=1.5, edge=1, face_to=(1, -27)),       # #309: her eyes no longer on the frame's top edge
     # Jax: his glowing eyes in the hood (he looks front-right): (4, -32), as champion_view has had it since 8b34c700b -
     # (6, -29) put his eyes in the box's top-left corner and came back with every rerun of this table
@@ -372,7 +372,7 @@ RESTYLE = {
     # Codex's step-1 take 2 cut to 60 rows, her beads apart) by tools/art/rig_yunara.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point at her ornaments' crown
     # (tfm2_ase.py face)
-    "yunara": dict(ppu=1.5, edge=1, face_to=(1, -39)),
+    "yunara": dict(ppu=1.5, edge=1, face_to=(1, -37)),
     # league_jarvaniv (#122): posed from the design's own squares at the user's 1.5 squares a game pixel (「身体 40」,
     # Codex's step-1 take A-2 cut to 60 rows) by tools/art/rig_jarvaniv.py, so no proportion or density change here;
     # the outer outline grown a square like the others; the face point between his eyes under the helmet's brim
@@ -413,19 +413,19 @@ RESTYLE = {
     # league_cassiopeia (#128): posed from the design's own squares at the user's 1.3 squares a game pixel (「44 ppu1.3 A」:
     # Codex's step-1 take A-2 cut to 57 rows crest to ground) by tools/art/rig_cassiopeia.py, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point between her eyes
-    "cassiopeia": dict(ppu=1.2, edge=1, face_to=(2, -29)),
+    "cassiopeia": dict(ppu=1.2, edge=1, face_to=(1, -36)),
     # league_akshan (#129): posed from the design's own squares at the user's 1.5 squares a game pixel (「用 A，游戏里 38
     # 像素高，PPU 1.5」: Codex's step-1 round-2 take A-1 cut to 57 rows hair to soles) by tools/art/rig_akshan.py, the
     # forward gun arm from Codex's pose and the walk from Codex's skin swap read on the same grid, so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes
-    "akshan": dict(ppu=1.2, edge=1, face_to=(4, -31)),   # 10-18 redo: the slim design and Codex's actions (rig_frames_1018.py)
+    "akshan": dict(ppu=1.2, edge=1, face_to=(-1, -37)),   # 10-18 redo: the slim design and Codex's actions (rig_frames_1018.py)
     # league_poppy (#130): posed from the design's own squares at the user's 1.3 squares a game pixel (「用 B（锤子竖着），
     # 游戏里 36 像素高，PPU 1.3」: Codex's step-1 take B-2 cut to 47 rows pigtails to soles) by tools/art/rig_poppy.py, so no
     # proportion or density change here; the outer outline grown a square like the others; the face point between her eyes
     # 2026-10-19 the user: 「波比在游戏里体型也太大 需要缩小」 -> drawn 85 % by league.dll (hd.rs SIZES) round the frame's
     # centre (44 game px with the standing hammer against the yordles' 32-40), so every frame lowered
     # 11.5 x 1.2 x (1 / 0.85 - 1) = 2.4 -> 2 squares (league_aphelios's way); the face point (5, -22) taken with it
-    "poppy": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(4, -17)),
+    "poppy": dict(ppu=1.2, edge=1, lift_sq=-2, face_to=(3, -24)),
     # league_volibear (#131): posed by tools/art/rig_volibear.py at the user's 1.2 squares a game pixel (「44 像素，PPU 1.2」:
     # Codex's step-1 take B-2, 54 rows ear top to soles; Codex's arm poses, walk and Q on the same grid), so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes. rim: R's storm
@@ -447,7 +447,7 @@ RESTYLE = {
     # like the others. The user then: 「还有模型太大」 -> 「75%（24 像素）」: drawn 75 % by league.dll (hd.rs SIZES) round the
     # frame's centre, so every frame lowered 11.5 x 1.5 x (1 / 0.75 - 1) = 5.75 -> 6 squares (league_poppy's way); the
     # face point between her eyes, (7.5, -19) at full size, taken with it: 0.75 x (7.5, -19 + 11.5 + 4) - (0, 11.5)
-    "yuumi": dict(ppu=1.5, edge=1, lift_sq=-6, face_to=(6, -14)),
+    "yuumi": dict(ppu=1.5, edge=1, lift_sq=-6, face_to=(5, -20)),
     # league_quinn (#134): posed by tools/art/rig_quinn.py at 2.0 squares a game pixel (38 game px crest to soles: the
     # user's 1.3 picks redrawn by Codex on the finer grid, 「像素有点太低了 太多模糊的了 调一下PPU」, A-1 cut to 75 rows,
     # tools/art/design_quinn_grid.py), her legs drawn on League's bones in her own leg squares (tools/art/quinn_legs.py),
@@ -458,7 +458,7 @@ RESTYLE = {
     # Codex's step-1 take A-1 cut to 46 rows, the side view redrawn on the grid, Codex's poses read back at its scale),
     # so no proportion or density change here; the outer outline grown a square like the others; the face point between
     # his eyes (his head hangs low: 16 game px over his soles)
-    "chogath": dict(ppu=1.2, edge=1, face_to=(11, -5)),
+    "chogath": dict(ppu=1.2, edge=1, face_to=(15, -23)),
     # league_karthus (#137): posed by tools/art/rig_karthus.py from Codex's step-1 takes at the user's 1.5 squares a game
     # pixel (「40 像素，PPU 1.5」: A-1 / side-1 cut to 60 rows crown to soles, one head, one staff), so no proportion or
     # density change here; the outer outline grown a square like the others; the face point on his skull (the 9x9 face
@@ -479,7 +479,7 @@ RESTYLE = {
     # side design's scale), so no proportion or density change here; the outer outline grown a square like the others;
     # the face point between his eyes; the muzzle blasts baked into his shot frames (orig/graves_<tag>.over.png, rig_graves
     # with_blasts) laid on after the outline (fx)
-    "graves": dict(ppu=1.5, edge=1, face_to=(1, -31), fx=True),
+    "graves": dict(ppu=1.5, edge=1, face_to=(-1, -36), fx=True),
     # league_warwick (#142): posed by tools/art/rig_warwick.py on Codex's step-1 take A-1, drawn at the count (the user:
     # 「选大一号的那个」 46 game px spike top to soles, 「PPU 1.5」: 69 rows; 「不做侧面 只做四分之三的侧面」「动作帧按照英雄联盟的自己做」:
     # posed by rig_warwick.py on the design and Codex's skeleton poses at 1.5), brought down to 1.2 squares a game pixel
@@ -499,12 +499,12 @@ RESTYLE = {
     # step-1 take A-1 read back to 46 rows; 3/4 only; Codex's sixteen skeleton poses read back at the design's scale with
     # the design's head), so no proportion or density change here; the outer outline grown a square like the others; the
     # face point between his eyes (31 game px over his soles, 2 ahead of his standing point)
-    "sylas": dict(ppu=1.2, edge=1, face_to=(2, -31)),
+    "sylas": dict(ppu=1.2, edge=1, face_to=(2, -37)),
     # league_mel (#144): posed by tools/art/rig_mel.py on Codex's step-1 take A-3 at the user's 1.5 squares a game pixel
     # (「44」「PPU 1.5」: A-3's own 65 rows bun top to soles, Codex's own face: 「不用重画了…之前的」; 3/4 only, every action
     # posed after League's clips by me: 「我自己照英雄联盟摆」), so no proportion or density change here; the outer outline
     # grown a square like the others; the face point between her eyes
-    "mel": dict(ppu=1.5, edge=1, face_to=(0, -30)),
+    "mel": dict(ppu=1.5, edge=1, face_to=(0, -36)),
     # league_velkoz (#145): posed by tools/art/rig_velkoz.py on Codex's step-1 take A-2 at the user's 1.5 squares a game
     # pixel (「36」「PPU 1.5」: 54 rows crest top to the lowest tentacle, Codex's own eyes; 3/4 only, every action rigged after
     # League's clips), so no proportion or density change here; the outer outline grown a square like the others; the face
@@ -515,7 +515,7 @@ RESTYLE = {
     # design's face), so no proportion or density change here; the outer outline grown a square like the others; the face
     # point between his eyes (28 game px over his soles, 2 ahead of his standing point); W's fire drawn into his breath
     # frames (orig/ornn_skill_w.over.png, rig_ornn with_fire) laid on after the outline (fx)
-    "ornn": dict(ppu=1.5, edge=1, face_to=(2, -28), fx=True),
+    "ornn": dict(ppu=1.5, edge=1, face_to=(2, -30), fx=True),
     # league_shyvana: posed by tools/art/rig_shyvana.py on Codex's step-1 takes at the user's 1.5 squares a game
     # pixel (「人42 龙48 PPU1.5」: A-2's 63 rows horn tips to soles, the dragon D-1 as drawn, 64 rows: 「龙就按画的大小」; 3/4
     # only; the dragon's actions rigged on its design, hers on Codex's fourteen skeleton poses with the design's head),
@@ -572,7 +572,7 @@ RESTYLE = {
     # Willump's size set pose by pose) posed by tools/art/rig_nunu.py after League's clips, so no proportion or density
     # change here; the outer outline grown a square like the others; the face point between Nunu's eyes (the cards and
     # portraits show the boy, league_gnar's Mini the same way: 3 game px ahead of the standing point, 36 over the ground)
-    "nunu": dict(ppu=1.37, edge=1, face_to=(3, -36)),
+    "nunu": dict(ppu=1.37, edge=1, face_to=(3, -42)),
     # league_azir (group H mid): the design (Codex's step-1 A-2, 57 rows crest to soles at the user's 1.5 squares a game
     # pixel: 「38」「PPU 1.5」, 3/4 only; the sceptre straightened: 「法杖要做直了啊 下面有点歪」) with Codex's key poses (the
     # design's helmet put back, the bodies read at their skeletons' heights, the runs' passing legs cut to the contact
@@ -852,10 +852,10 @@ RESTYLE = {
     # Hecarim 81 / 45, Renekton 67 / 37); every action Codex's whole-frame redraw of the old frame read onto it
     # (tools/art/casts_<hero>_hd.py), so no density change; fx (Ezreal, Renekton): R's charge, the attack's slash and
     # E's dash streak laid on again (rig_<hero>_hd, Rig.bake: <hero>_bake.json); the outline grown by 2
-    "olaf": dict(ppu=77 / 43, edge=2, face_to=(7, -28)),
-    "ezreal": dict(ppu=79 / 36, edge=2, fx=True, face_to=(4, -28)),
-    "hecarim": dict(ppu=81 / 45, edge=2, face_to=(12, -32)),
-    "renekton": dict(ppu=67 / 37, edge=2, fx=True, face_to=(18, -29)),
+    "olaf": dict(ppu=77 / 43, edge=2, face_to=(7, -35)),
+    "ezreal": dict(ppu=79 / 36, edge=2, fx=True, face_to=(4, -32)),
+    "hecarim": dict(ppu=81 / 45, edge=2, face_to=(12, -36)),
+    "renekton": dict(ppu=67 / 37, edge=2, fx=True, face_to=(19, -37)),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2
@@ -883,7 +883,7 @@ RESTYLE = {
     # 2.5 squares a game pixel (「40」, then 「1.5也挺糊的 还得往上调整吧」 -> 2.5: 100 rows quill tips to soles; 3/4 only), so
     # no proportion or density change here; the outer outline grown a square like the others; the face point between
     # her eyes (1 game px ahead of her standing point, 27 over the ground)
-    "neeko": dict(ppu=2.5, edge=1, face_to=(1, -27)),
+    "neeko": dict(ppu=2.5, edge=1, face_to=(1, -34)),
     # league_ksante (group G top): posed by tools/art/rig_ksante.py on Codex's step-1 takes A-2 (base) / O-1 (All Out, cut to
     # 56 rows: 「全盛裁到 56 格，和普通姿态身体一样大」) at the user's 1.5 squares a game pixel (「陀斧顶到脚底 48 游戏像素，PPU 1.5，
     # 只做四分之三侧面」: 72 rows ntofo tops to soles) and Codex's 27 skeleton poses with the design's head, so no proportion

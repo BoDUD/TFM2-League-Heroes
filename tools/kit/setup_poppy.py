@@ -40,7 +40,7 @@ E = "<>"
 # champion_view: the face point between her eyes (ppu_restyle face_to); banpick_center -12: the card rule (-39 - top)
 # measured her hammer's pommel (-31.3, 6 game px over her pigtails); on the pigtails (-25.1) it gives -14, which left
 # them touching the card's top - -12 keeps two px over them (the pommel clipped, league_wukong's tail the same way)
-VIEW = {"face": {"x": 5, "y": -22}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 3, "y": -24}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

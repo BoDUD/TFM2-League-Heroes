@@ -39,7 +39,7 @@ E = "<>"
 # harpoon over his head for the crown); banpick: the card's canvas shows 40 px, -40 - y to -y round the pivot; at 0
 # (base's -39 - top rule for the harpoon's tip) his legs were all under it (「派克在bp界面腿都看不到了」): -11 shows
 # him whole, the harpoon's tip at -28 to the soles at +11 (after rig_pyke.SHRINK)
-VIEW = {"face": {"x": 8, "y": -26}, "center": {"x": 0, "y": -6}, "banpick_center": {"x": 0, "y": -11}}
+VIEW = {"face": {"x": 8, "y": -28}, "center": {"x": 0, "y": -6}, "banpick_center": {"x": 0, "y": -11}}
 
 
 def phy(d, r):

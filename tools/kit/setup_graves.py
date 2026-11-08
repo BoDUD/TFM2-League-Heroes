@@ -36,7 +36,7 @@ E = "<>"
 # champion_view: the face point between his eyes (the idle's eyes 46 design rows over his soles at PPU 1.5: 31 game px;
 # tfm2_ase.py face suggests the crown, -36); no banpick_center: his idle's top is 27.3 px over the frame centre, under
 # base's -28 (tools/art/bp_card_audit.py: he stands like -12 unclipped)
-VIEW = {"face": {"x": 1, "y": -31}, "center": {"x": 0, "y": -14}}
+VIEW = {"face": {"x": -1, "y": -36}, "center": {"x": 0, "y": -14}}
 
 
 def phys(d, r):

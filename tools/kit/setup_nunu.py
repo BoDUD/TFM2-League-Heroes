@@ -38,7 +38,7 @@ E = "<>"
 # champion_view: the face point between Nunu's eyes (ppu_restyle.py RESTYLE face_to: the cards and portraits show the
 # boy, league_gnar's Mini the same way) and the ban/pick card (bp_card_audit.py: at UI size 0.85, hd.rs UI_SIZES, the
 # rule's -7 keeps the pompom under the canvas top and the soles on its bottom)
-VIEW = {"face": {"x": 3, "y": -36}, "center": {"x": 0, "y": -19}, "banpick_center": {"x": 0, "y": -7}}
+VIEW = {"face": {"x": 3, "y": -42}, "center": {"x": 0, "y": -19}, "banpick_center": {"x": 0, "y": -7}}
 
 
 def mag(d, r):
