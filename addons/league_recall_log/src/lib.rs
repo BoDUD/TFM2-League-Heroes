@@ -15,6 +15,11 @@
 //! AI 一直没下别的命令、`GIVE_UP` tick 还没到家（中间有没有被挪开 `MOVED_R` 以上：回城要站着，挪开就是钩子的走路或位移）；
 //! 半路阵亡。每结束 `COUNT_EVERY` 次一行 `COUNT` 累计。`RECALL` 行加上那一刻的金币、装备数。
 //!
+//! 0.1.3（同一晚的日志：12 万次回城里「到家」69%、「被游戏 AI 取消」31%、「阵亡」0）：传送回家的那一 tick 常常同时带着 AI 的下一个
+//! 命令（走出泉水），0.1.2 先看命令、把这些算成了「取消」——现在先看传送；阵亡时拿不到英雄、钩子直接返回，一次都没记到——现在
+//! 按玩家的存活和英雄的实体编号（复活是新实体）看；读条里 AI 又按了几次回城也记下（重按会不会让 120 tick 的读条重来：
+//! 决定能不能用「再按一次回城」顶掉 AI 半路改主意的走路）；取消的那一刻最近的敌方英雄多远；`RECALL` 行加上离自家水晶多远。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_recall_log.log`，每次启动游戏重写，上一次的留在 .prev.log；
 //! 你看的那场全记，其余（服务端的预模拟）一次启动最多 `LOG_CAP` 行。
 
@@ -60,6 +65,12 @@ const COUNT_EVERY: usize = 100;
 
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 static LINES: AtomicUsize = AtomicUsize::new(0);
+/// 到家的回城里：读条中 AI 又按过回城的、其中读条超过 120 tick 的，以及所有读条超过 120 tick 的（0.1.3：重按会不会重来）。
+static PRESSED: AtomicUsize = AtomicUsize::new(0);
+static PRESSED_LONG: AtomicUsize = AtomicUsize::new(0);
+static LONG: AtomicUsize = AtomicUsize::new(0);
+/// 读条的长度（tick）：多过这么多算「重来过」。
+pub const CHANNEL: usize = 125;
 /// 回城怎么结束的，各几次（`End` 的顺序；只管日志）。
 static ENDS: [AtomicUsize; 6] =
     [AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0)];
@@ -217,30 +228,36 @@ pub enum End {
     Died,
 }
 
-/// One recall under way: when the game's AI pressed it, where he stood, his gold and items then, the first time he was
-/// found `MOVED_R` from there while the AI still recalled (tick, how far), and when he got home.
+/// One recall under way: when the game's AI pressed it, his entity and name (a respawn is a new entity: he died on the way),
+/// where he stood, his gold and items then, the first time he was found `MOVED_R` from there while the AI still recalled
+/// (tick, how far), when he got home, and the AI's Returns after the first while it ran (0.1.3).
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Trip {
     pub start: usize,
+    pub who: usize,
+    pub name: String,
     pub at: (f64, f64),
     pub gold: usize,
     pub items: usize,
     pub moved: Option<(usize, f64)>,
     pub home_at: Option<usize>,
+    pub presses: usize,
 }
 
-/// What one tick tells about the recall `t`: how it ended and the line to write, if it did. `last_at`: where he stood the
-/// tick before; `order`: the game's AI's order this tick (None: none).
+/// What one tick tells about the recall `t`: how it ended and the line to write, if it did. `who`: his living champion's
+/// entity now (None: dead); `last_at`: where he stood the tick before; `order`: the game's AI's order this tick (None:
+/// none); `near_now`: the nearest enemy champion now (looked up only for an order that breaks it off).
 #[allow(clippy::too_many_arguments)]
 pub fn follow(
     t: &mut Trip,
     tick: usize,
+    who: Option<usize>,
     at: (f64, f64),
     last_at: Option<(f64, f64)>,
-    alive: bool,
     order: Option<InputKindV1>,
     gold: usize,
     items: usize,
+    near_now: Option<u64>,
 ) -> Option<(End, String)> {
     let n = tick.saturating_sub(t.start);
     let moved = |t: &Trip| {
@@ -249,7 +266,8 @@ pub fn follow(
             |(k, d)| format!("moved {:.0}k off the spot at +{} ticks", d / 1000.0, k.saturating_sub(t.start)),
         )
     };
-    if !alive {
+    // dead, or a new entity (he respawned): he died on the way (0.1.3; 0.1.2 never saw one)
+    if who != Some(t.who) {
         return Some((End::Died, format!("died after {n} ticks ({})", moved(t))));
     }
     if let Some(h) = t.home_at {
@@ -260,20 +278,30 @@ pub fn follow(
         return Some((
             if bought { End::Bought } else { End::Nothing },
             format!(
-                "home after {} ticks: gold {} -> {gold}, items {} -> {items}{}",
+                "home after {} ticks{}: gold {} -> {gold}, items {} -> {items}{}",
                 h.saturating_sub(t.start),
+                if t.presses > 0 { format!(" ({} more Returns on the way)", t.presses) } else { String::new() },
                 t.gold,
                 t.items,
                 if bought { "" } else { " - nothing bought" }
             ),
         ));
     }
-    if let Some(k) = order.filter(|k| *k != InputKindV1::Return) {
-        return Some((End::Broken, format!("broken off by the game's AI after {n} ticks (its order: {k:?}; {})", moved(t))));
-    }
+    // home first: the teleport's tick often carries the AI's next order too (0.1.2 counted those as broken off)
     if last_at.is_some_and(|p| dist(p, at) >= TELEPORT) {
         t.home_at = Some(tick);
         return None;
+    }
+    match order {
+        Some(InputKindV1::Return) => t.presses += 1,
+        Some(k) => {
+            let near = near_now.map_or_else(|| "none alive".to_string(), |d| format!("{}k", d / 1000));
+            return Some((
+                End::Broken,
+                format!("broken off by the game's AI after {n} ticks (its order: {k:?}; nearest enemy champion {near}; {})", moved(t)),
+            ));
+        }
+        None => {}
     }
     if t.moved.is_none() && dist(t.at, at) > MOVED_R {
         t.moved = Some((tick, dist(t.at, at)));
@@ -292,7 +320,8 @@ fn count_line() -> Option<String> {
     (total > 0 && total.is_multiple_of(COUNT_EVERY)).then(|| {
         format!(
             "COUNT recalls ended {total}: home {} (bought {}, nothing bought {}), broken off by the game's AI {}, not home though \
-             the AI kept recalling {} (moved off the spot {}, never moved {}), died {}",
+             the AI kept recalling {} (moved off the spot {}, never moved {}), died {} | home trips with more Returns on the way {} \
+             (longer than {CHANNEL} ticks {}), all home trips longer than {CHANNEL} ticks {}",
             e[0] + e[1],
             e[0],
             e[1],
@@ -300,7 +329,10 @@ fn count_line() -> Option<String> {
             e[3] + e[4],
             e[3],
             e[4],
-            e[5]
+            e[5],
+            PRESSED.load(Ordering::Relaxed),
+            PRESSED_LONG.load(Ordering::Relaxed),
+            LONG.load(Ordering::Relaxed)
         )
     })
 }
@@ -316,6 +348,18 @@ struct Watch {
     /// The recall under way, and where he stood the tick before (0.1.2).
     trip: Option<Trip>,
     last_at: Option<(f64, f64)>,
+    /// Our nexus, and when to look for it again while none is found (0.1.3).
+    home: Option<(f64, f64)>,
+    home_next: usize,
+}
+
+/// The nearest living enemy champion to `me` (0.1.3).
+fn nearest_enemy(sim: &StableSim<'_>, me: usize, team: usize) -> Option<u64> {
+    (0..sim.champion_count())
+        .map(|i| sim.champion_id_at(i))
+        .filter(|&id| sim.get_entity(id).is_some_and(|e| e.team() != team && e.is_alive()))
+        .map(|id| root(sim.distance_sq(me, id)))
+        .min()
 }
 
 /// Distance in map units from a squared distance.
@@ -361,27 +405,61 @@ impl StablePlayerAi for Watch {
         let (player, team, lane) = (ctx.player_id(), ctx.team(), ctx.lane());
         let sim = ctx.sim()?;
         let pl = sim.get_player(player)?;
-        let me = pl.champion()?;
-        let (me_id, me_name, hp_now) = (me.id(), me.name().unwrap_or_default(), percent(me.hp()));
-        if tick >= self.next_scan {
-            self.next_scan = tick + SCAN;
-            self.scan(&sim, me_id, team, tick);
-        }
-        let at = (me.pos().0 as f64, me.pos().1 as f64);
         let order = base.and_then(|b| InputKindV1::from_code(b.kind));
         let (gold, items) = (pl.gold(), pl.item_count());
-        // the recall under way: how it ends (0.1.2)
-        let ended = self.trip.as_mut().and_then(|t| follow(t, tick, at, self.last_at, me.is_alive(), order, gold, items));
+        let me = pl.champion().filter(|c| pl.is_alive() && c.is_alive());
+        // the recall under way: how it ends (0.1.2; 0.1.3: a death seen, home before the order)
+        let ended = match self.trip.as_mut() {
+            Some(t) => {
+                let who = me.as_ref().map(|m| m.id());
+                let at = me.as_ref().map_or(t.at, |m| (m.pos().0 as f64, m.pos().1 as f64));
+                let near_now = match (order, who) {
+                    (Some(k), Some(id)) if k != InputKindV1::Return => nearest_enemy(&sim, id, team),
+                    _ => None,
+                };
+                follow(t, tick, who, at, self.last_at, order, gold, items, near_now)
+            }
+            None => None,
+        };
         if let Some((end, what)) = ended {
-            self.trip = None;
+            let tr = self.trip.take().unwrap_or_default();
             ENDS[end as usize].fetch_add(1, Ordering::Relaxed);
+            if matches!(end, End::Bought | End::Nothing) {
+                let long = tr.home_at.is_some_and(|h| h > tr.start + CHANNEL);
+                if tr.presses > 0 {
+                    PRESSED.fetch_add(1, Ordering::Relaxed);
+                    if long {
+                        PRESSED_LONG.fetch_add(1, Ordering::Relaxed);
+                    }
+                }
+                if long {
+                    LONG.fetch_add(1, Ordering::Relaxed);
+                }
+            }
             if room(&sim) {
-                wlog(format!("RECALL END {} {me_name} T{team}: {what}", head(&sim)));
+                wlog(format!("RECALL END {} {} T{team}: {what}", head(&sim), tr.name));
             }
             if let Some(line) = count_line() {
                 wlog(line);
             }
         }
+        let Some(me) = me else {
+            self.last_at = None;
+            return None;
+        };
+        let (me_id, me_name, hp_now) = (me.id(), me.name().unwrap_or_default(), percent(me.hp()));
+        if tick >= self.next_scan {
+            self.next_scan = tick + SCAN;
+            self.scan(&sim, me_id, team, tick);
+        }
+        if self.home.is_none() && tick >= self.home_next {
+            self.home_next = tick + 600;
+            self.home = (0..sim.entity_count())
+                .filter_map(|i| sim.entity_at(i))
+                .find(|e| e.team() == team && e.kind() == Some(EntityKindV1::Nexus))
+                .map(|e| (e.pos().0 as f64, e.pos().1 as f64));
+        }
+        let at = (me.pos().0 as f64, me.pos().1 as f64);
         self.last_at = Some(at);
         let kind = order?;
         if kind != InputKindV1::Return {
@@ -392,7 +470,7 @@ impl StablePlayerAi for Watch {
             return None;
         }
         self.returning = true;
-        self.trip = Some(Trip { start: tick, at, gold, items, moved: None, home_at: None });
+        self.trip = Some(Trip { start: tick, who: me_id, name: me_name.clone(), at, gold, items, ..Trip::default() });
         if !room(&sim) {
             return None;
         }
@@ -403,10 +481,11 @@ impl StablePlayerAi for Watch {
             .map(|s| format!("{} {}k {:.1}s", s.name, s.closest / 1000, tick.saturating_sub(s.last) as f64 / 60.0))
             .collect();
         wlog(format!(
-            "RECALL {} {me_name} T{team} {} hp={hp_now}% low={}% gold={gold} items={items} near=[{}]{}",
+            "RECALL {} {me_name} T{team} {} hp={hp_now}% low={}% gold={gold} items={items} home={} near=[{}]{}",
             head(&sim),
             lane_name(lane),
             self.recent.low(),
+            self.home.map_or_else(|| "?".to_string(), |h| format!("{:.0}k", dist(h, at) / 1000.0)),
             near.join(", "),
             if self.recent.suspect(tick, hp_now) { " SUSPECT" } else { "" }
         ));
@@ -448,23 +527,30 @@ declare_stable_mod!(init, requires = 9);
 mod tests {
     use super::*;
 
+    const ME: Option<usize> = Some(7);
+
+    fn trip(start: usize, at: (f64, f64), gold: usize, items: usize) -> Trip {
+        Trip { start, who: 7, name: "league_jinx".to_string(), at, gold, items, ..Trip::default() }
+    }
+
     #[test]
     fn a_recall_that_gets_home_and_buys() {
         let spot = (500_000.0, 500_000.0);
         let fountain = (60_000.0, 940_000.0);
-        let mut t = Trip { start: 100, at: spot, gold: 1300, items: 2, ..Trip::default() };
-        assert_eq!(follow(&mut t, 200, spot, Some(spot), true, None, 1320, 2), None);
-        // the teleport home: a jump in one tick (the AI's Return now and then on the way)
-        assert_eq!(follow(&mut t, 580, fountain, Some(spot), true, Some(InputKindV1::Return), 1350, 2), None);
-        assert_eq!(t.home_at, Some(580));
-        // a little later an item bought (its orders at home do not matter)
-        assert_eq!(follow(&mut t, 600, fountain, Some(fountain), true, Some(InputKindV1::Move), 250, 3), None);
-        let (end, line) = follow(&mut t, 640, fountain, Some(fountain), true, Some(InputKindV1::Move), 250, 3).unwrap();
+        let mut t = trip(100, spot, 1300, 2);
+        assert_eq!(follow(&mut t, 200, ME, spot, Some(spot), None, 1320, 2, None), None);
+        // the AI presses recall again on the way: counted
+        assert_eq!(follow(&mut t, 210, ME, spot, Some(spot), Some(InputKindV1::Return), 1320, 2, None), None);
+        // the teleport home, with the AI's next order (a walk out) on the same tick: home, not broken off (0.1.3)
+        assert_eq!(follow(&mut t, 220, ME, fountain, Some(spot), Some(InputKindV1::Move), 1350, 2, None), None);
+        assert_eq!(t.home_at, Some(220));
+        assert_eq!(follow(&mut t, 260, ME, fountain, Some(fountain), Some(InputKindV1::Move), 250, 3, None), None);
+        let (end, line) = follow(&mut t, 280, ME, fountain, Some(fountain), Some(InputKindV1::Move), 250, 3, None).unwrap();
         assert_eq!(end, End::Bought);
-        assert!(line.starts_with("home after 480 ticks: gold 1300 -> 250, items 2 -> 3"), "{line}");
+        assert!(line.starts_with("home after 120 ticks (1 more Returns on the way): gold 1300 -> 250, items 2 -> 3"), "{line}");
         // home with nothing bought
-        let mut t = Trip { start: 0, at: spot, gold: 300, items: 4, home_at: Some(500), ..Trip::default() };
-        let (end, line) = follow(&mut t, 560, fountain, Some(fountain), true, None, 340, 4).unwrap();
+        let mut t = Trip { home_at: Some(500), ..trip(0, spot, 300, 4) };
+        let (end, line) = follow(&mut t, 560, ME, fountain, Some(fountain), None, 340, 4, None).unwrap();
         assert_eq!(end, End::Nothing);
         assert!(line.ends_with("nothing bought"), "{line}");
     }
@@ -472,26 +558,30 @@ mod tests {
     #[test]
     fn a_recall_broken_off_moved_stuck_or_cut_by_death() {
         let spot = (500_000.0, 500_000.0);
-        let start = Trip { start: 100, at: spot, gold: 500, items: 1, ..Trip::default() };
-        // the game's AI walks off: broken off by itself
+        let start = trip(100, spot, 500, 1);
+        // the game's AI walks off: broken off by itself, with the nearest enemy then
         let mut t = start.clone();
-        let got = follow(&mut t, 150, spot, Some(spot), true, Some(InputKindV1::Move), 500, 1);
-        assert_eq!(got.map(|e| e.0), Some(End::Broken));
+        let (end, line) = follow(&mut t, 150, ME, spot, Some(spot), Some(InputKindV1::Move), 500, 1, Some(41_500)).unwrap();
+        assert_eq!(end, End::Broken);
+        assert!(line.contains("nearest enemy champion 41k"), "{line}");
         // walked off the spot while the AI still recalled (a hook's walk), then not home in time
         let mut t = start.clone();
-        assert_eq!(follow(&mut t, 160, (505_000.0, 500_000.0), Some((504_000.0, 500_000.0)), true, None, 500, 1), None);
+        assert_eq!(follow(&mut t, 160, ME, (505_000.0, 500_000.0), Some((504_000.0, 500_000.0)), None, 500, 1, None), None);
         assert_eq!(t.moved, Some((160, 5_000.0)));
-        let (end, line) = follow(&mut t, 100 + GIVE_UP, (520_000.0, 500_000.0), Some((519_000.0, 500_000.0)), true, None, 520, 1)
-            .unwrap();
+        let got = follow(&mut t, 100 + GIVE_UP, ME, (520_000.0, 500_000.0), Some((519_000.0, 500_000.0)), None, 520, 1, None);
+        let (end, line) = got.unwrap();
         assert_eq!(end, End::Moved);
         assert!(line.contains("moved 5k off the spot at +60 ticks"), "{line}");
         // standing on the spot and never home
         let mut t = start.clone();
-        let got = follow(&mut t, 100 + GIVE_UP, spot, Some(spot), true, Some(InputKindV1::Return), 520, 1);
+        let got = follow(&mut t, 100 + GIVE_UP, ME, spot, Some(spot), Some(InputKindV1::Return), 520, 1, None);
         assert_eq!(got.map(|e| e.0), Some(End::Stuck));
-        // died on the way
+        // dead (no living champion), or back as a new entity after a respawn: died on the way
+        let mut t = start.clone();
+        assert_eq!(follow(&mut t, 300, None, spot, None, None, 520, 1, None).map(|e| e.0), Some(End::Died));
         let mut t = start;
-        assert_eq!(follow(&mut t, 300, spot, None, false, None, 520, 1).map(|e| e.0), Some(End::Died));
+        let fountain = (60_000.0, 940_000.0);
+        assert_eq!(follow(&mut t, 900, Some(31), fountain, None, None, 520, 1, None).map(|e| e.0), Some(End::Died));
     }
 
     #[test]
