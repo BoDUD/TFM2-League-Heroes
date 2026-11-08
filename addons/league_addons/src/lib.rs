@@ -156,6 +156,8 @@ mod macro_hook;
 mod peel;
 #[path = "../../league_lane/src/lib.rs"]
 mod lane;
+#[path = "../../league_focus/src/lib.rs"]
+mod focus;
 #[allow(dead_code)] // items public in the add-on's own crate
 #[path = "../../league_jayce/src/lib.rs"]
 mod jayce;
@@ -533,6 +535,7 @@ fn init(host: &StableHost) -> StableMod {
     macro_hook::register(host, &mut module);
     peel::register(host, &mut module);
     lane::register(host, &mut module);
+    focus::register(host, &mut module);
     jayce::register(host, &mut module);
     elise::register(host, &mut module);
     katarina::register(host, &mut module);
