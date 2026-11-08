@@ -15,8 +15,11 @@
 //! 站位，辅助被拉去打人；射手被贴脸时辅助在 60k 内的只有 35%。现在
 //!
 //! - 贴脸还要射手真的在挨打：最近 `HURT_WINDOW` tick 里掉了 `HURT_PCT`% 以上的血（`Peel::hurt`）；
-//! - **辅助跟着射手**（`escort`）：辅助离射手 `ESCORT_FAR` 以上、自己生命 `ESCORT_HP`% 以上、`ESCORT_CALM` 内没有看得见的
-//!   敌方英雄时，走回射手身边，走到 `ESCORT_NEAR` 以内为止；回城、在打敌方英雄、已经往射手那边走的不动。
+//! - **射手挨打时辅助赶过去**（`escort`，0.2.1）：射手在挨打（同上）、身边 `ESCORT_THREAT` 内有敌方英雄，辅助离射手
+//!   `ESCORT_NEAR` 到 `ESCORT_REACH` 之间、自己生命 `ESCORT_HP`% 以上、`ESCORT_CALM` 内没有自己的对手时，走到射手身边；
+//!   回城、走回自家基地（目的地离自家基地 `HOME_NEAR` 以内）、在打敌方英雄、已经往射手那边走的不动。
+//!   0.2.0 是辅助离射手 70k 以上、身边没敌人就拉回去：413 场里改了 1322 万 tick 的指令，辅助三分之一的时间被拴在射手身边，
+//!   想游走、想走回家都被拉回（用户 2026-11-08「辅助想回家 想游走全被限制住了」）。现在射手不挨打时辅助随便走。
 //!
 //! 优先级 `PRIORITY` 在 league_macro（大龙后抱团 / 推基地 / 抢龙）之后、英雄附加包之前：英雄的钩子（替 AI 放大招之类）
 //! 还能在它之后改。只看比赛状态，没有随机数：服务器预演和客户端重演走的一样。每个选手自己的钩子实例，不共用状态。
@@ -62,14 +65,18 @@ pub const GAP: usize = 120;
 pub const HURT_WINDOW: usize = 60;
 /// ……掉了这么多（% 最大生命）以上的血。
 pub const HURT_PCT: usize = 5;
-/// 辅助离射手这么远以上就走回去……
-pub const ESCORT_FAR: f64 = 70_000.0;
-/// ……走到这么近为止。
+/// 射手挨打时，这么近有敌方英雄（打它的人）辅助才赶过去……
+pub const ESCORT_THREAT: f64 = 70_000.0;
+/// ……辅助离射手这么近就不用赶了……
 pub const ESCORT_NEAR: f64 = 40_000.0;
-/// 辅助跟回去时自己的生命下限（%）。
-pub const ESCORT_HP: usize = 30;
-/// 辅助这么近有看得见的敌方英雄就在打架：不拉它走。
+/// ……这么远（游走去了）也不拉回来。
+pub const ESCORT_REACH: f64 = 150_000.0;
+/// 辅助赶过去时自己的生命下限（%）。
+pub const ESCORT_HP: usize = 40;
+/// 辅助这么近有看得见的敌方英雄就在打自己的架：不拉它走。
 pub const ESCORT_CALM: f64 = 60_000.0;
+/// 走路的目的地离自家基地这么近 = 回家（补给、回城路上）：不拦。
+pub const HOME_NEAR: f64 = 120_000.0;
 /// 地图外的坐标（死了、在泉水外面之类）不算。
 pub const MAP_MAX: f64 = 1_200_000.0;
 const TOP: u32 = 0;
@@ -149,6 +156,8 @@ pub struct View {
     pub diver: Option<(usize, Pos)>,
     /// 看得见的敌方英雄（实体 id，位置）。
     pub enemies: Vec<(usize, Pos)>,
+    /// 自家基地。
+    pub home: Option<Pos>,
 }
 
 /// 保镖这次要管就给出贴脸的人：射手在挨打、位置对、血量够、够得着。
@@ -187,25 +196,39 @@ pub fn order(v: &View, base: Option<&InputV1>, valid: &dyn Fn(&InputV1) -> bool)
     valid(&out).then_some(out)
 }
 
-/// 辅助跟着射手：离得远、没在打架时走回射手身边（`escorting`：已经在往回走，走到 `ESCORT_NEAR` 以内为止）。
-pub fn escort(v: &View, base: Option<&InputV1>, escorting: bool) -> Option<InputV1> {
+/// 射手挨打时辅助赶过去：射手在掉血、身边有敌方英雄，辅助不远不近、没在打自己的架时走到射手身边。射手不挨打时不管。
+pub fn escort(v: &View, base: Option<&InputV1>) -> Option<InputV1> {
     let carry = v.carry?;
-    if v.lane != SUPPORT || v.hp_pct < ESCORT_HP || v.enemies.iter().any(|e| dist(e.1, v.me) <= ESCORT_CALM) {
+    if v.lane != SUPPORT || !v.hurt || v.hp_pct < ESCORT_HP {
+        return None;
+    }
+    if !v.enemies.iter().any(|e| dist(e.1, carry) <= ESCORT_THREAT) || v.enemies.iter().any(|e| dist(e.1, v.me) <= ESCORT_CALM) {
         return None;
     }
     let d = dist(v.me, carry);
-    if d <= if escorting { ESCORT_NEAR } else { ESCORT_FAR } {
+    if d <= ESCORT_NEAR || d > ESCORT_REACH {
         return None;
     }
     if let Some(b) = base {
-        // recalling, already walking to the ADC, or hitting an enemy champion: its own
-        let walking_to = b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), carry) <= ESCORT_NEAR;
+        // recalling, walking home, already walking to the ADC, or hitting an enemy champion: its own
+        let to = (b.x as f64, b.y as f64);
+        let moving = b.kind == InputKindV1::Move.code();
+        let walking_to = moving && dist(to, carry) <= ESCORT_NEAR;
+        let home = moving && v.home.is_some_and(|h| dist(to, h) <= HOME_NEAR);
         let fighting = b.target.kind == InputTargetKindV1::Target.code() && v.enemies.iter().any(|e| e.0 == b.target.target_id);
-        if b.kind == InputKindV1::Return.code() || walking_to || fighting {
+        if b.kind == InputKindV1::Return.code() || walking_to || home || fighting {
             return None;
         }
     }
     Some(InputV1::move_to(carry.0 as u64, carry.1 as u64))
+}
+
+/// Our nexus (it never moves: looked up once a match).
+fn own_nexus(sim: &StableSim<'_>, team: usize) -> Option<Pos> {
+    (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).find(|e| e.kind() == Some(EntityKindV1::Nexus) && e.team() == team).map(|e| {
+        let (x, y) = e.pos();
+        (x as f64, y as f64)
+    })
 }
 
 fn look(sim: &StableSim<'_>, player: usize, team: usize) -> Option<View> {
@@ -414,8 +437,11 @@ struct Peel {
     last_dive: Option<usize>,
     /// 射手最近的生命（tick，%），最长 `HURT_WINDOW`。
     carry_hp: std::collections::VecDeque<(usize, usize)>,
-    /// 辅助正在走回射手身边。
+    /// 辅助正在赶去射手身边。
     escorting: bool,
+    /// 自家基地，和上次看的 tick（tick 倒回去 = 新的一场，重找）。
+    home: Option<Pos>,
+    last_tick: usize,
 }
 
 impl Peel {
@@ -463,12 +489,17 @@ impl StablePlayerAi for Peel {
             let presim = sim
                 .sim_origin()
                 .is_some_and(|o| SimOriginKindV1::from_code(o.kind) == Some(SimOriginKindV1::ServerPresim));
+            if self.home.is_none() || tick < self.last_tick {
+                self.home = own_nexus(&sim, team);
+            }
+            self.last_tick = tick;
             (look(&sim, player, team)?, presim)
         };
+        v.home = self.home;
         v.hurt = self.hurt(tick, v.carry.map(|_| v.carry_hp));
         let Some((diver, at)) = guarding(&v) else {
-            // no dive: the support walks back to the ADC when it strayed
-            let out = escort(&v, base.as_ref(), self.escorting);
+            // no dive: the support comes over when the ADC is being hit nearby
+            let out = escort(&v, base.as_ref());
             let started = out.is_some() && !self.escorting;
             self.escorting = out.is_some();
             if out.is_some() && presim {
@@ -549,6 +580,7 @@ mod tests {
             hurt: true,
             diver: Some((DIVER, (510_000.0, 690_000.0))),
             enemies: vec![(DIVER, (510_000.0, 690_000.0)), (78, (530_000.0, 680_000.0)), (79, (900_000.0, 100_000.0))],
+            home: Some((100_000.0, 860_000.0)),
         }
     }
 
@@ -620,23 +652,33 @@ mod tests {
     }
 
     #[test]
-    fn the_support_walks_back_to_its_adc() {
-        // far from the ADC, nobody near: walk to it
-        let far = View { me: (300_000.0, 900_000.0), diver: None, hurt: false, enemies: vec![(79, (900_000.0, 100_000.0))], ..view(SUPPORT) };
-        let go = escort(&far, None, false).expect("walks back");
+    fn the_support_comes_only_when_its_adc_is_being_hit() {
+        // the ADC hurt with an enemy 50k from it, the support 100k away and nobody near the support: it comes
+        let far = View {
+            me: (400_000.0, 760_000.0),
+            diver: None,
+            hurt: true,
+            enemies: vec![(79, (540_000.0, 670_000.0))],
+            ..view(SUPPORT)
+        };
+        let go = escort(&far, None).expect("comes over");
         assert_eq!((go.kind, go.x, go.y), (InputKindV1::Move.code(), 500_000, 700_000));
-        // already escorting: until ESCORT_NEAR; not yet: only beyond ESCORT_FAR
-        let mid = View { me: (550_000.0, 700_000.0), ..far.clone() };
-        assert!(escort(&mid, None, true).is_some() && escort(&mid, None, false).is_none());
-        // recalling, walking to the ADC, fighting, an enemy near, hurt, not the support: left alone
-        assert_eq!(escort(&far, Some(&InputV1::return_home()), false), None);
-        assert_eq!(escort(&far, Some(&InputV1::move_to(510_000, 700_000)), false), None);
-        assert_eq!(escort(&far, Some(&attack(79)), false), None);
-        assert!(escort(&View { enemies: vec![(78, (320_000.0, 880_000.0))], ..far.clone() }, None, false).is_none());
-        assert!(escort(&View { hp_pct: 20, ..far.clone() }, None, false).is_none());
-        assert!(escort(&View { lane: TOP, ..far.clone() }, None, false).is_none());
-        // a farm order far from the ADC: walk back instead
-        assert!(escort(&far, Some(&attack(5_000)), false).is_some());
+        // the ADC not hurt (laning, roaming, shopping): the support goes where it likes
+        assert_eq!(escort(&View { hurt: false, ..far.clone() }, None), None);
+        // nobody near the ADC, the support close already, or off roaming beyond ESCORT_REACH: no
+        assert_eq!(escort(&View { enemies: vec![(79, (900_000.0, 100_000.0))], ..far.clone() }, None), None);
+        assert_eq!(escort(&View { me: (520_000.0, 710_000.0), ..far.clone() }, None), None);
+        assert_eq!(escort(&View { me: (300_000.0, 900_000.0), ..far.clone() }, None), None, "220k away: roaming");
+        // recalling, walking home, walking to the ADC, fighting, its own foe near, hurt itself, not the support: left alone
+        assert_eq!(escort(&far, Some(&InputV1::return_home())), None);
+        assert_eq!(escort(&far, Some(&InputV1::move_to(150_000, 820_000))), None, "on its way home");
+        assert_eq!(escort(&far, Some(&InputV1::move_to(510_000, 700_000))), None);
+        assert_eq!(escort(&far, Some(&attack(79))), None);
+        assert_eq!(escort(&View { enemies: vec![(79, (540_000.0, 670_000.0)), (78, (410_000.0, 750_000.0))], ..far.clone() }, None), None);
+        assert_eq!(escort(&View { hp_pct: 30, ..far.clone() }, None), None);
+        assert_eq!(escort(&View { lane: TOP, ..far.clone() }, None), None);
+        // walking somewhere else while its ADC is being hit: comes instead
+        assert!(escort(&far, Some(&InputV1::move_to(450_000, 450_000))).is_some());
     }
 
     #[test]
