@@ -38,10 +38,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "veigar", "hd")
-AH.RAW, AH.PITCH = "veigar-A.png", (12.98, 13.1)    # the default read (13.04 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-08): 「萨勒芬尼2.2 其他都1.8」
+AH.RAW, AH.PITCH = "veigar-A.png", (15.82, 15.94)    # 15.88 px, the user's pick: PPU 1.80
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"veigar-A.png": {"13.04": ((12.98, 13.1), 6), "10.63": ((10.57, 10.69), 5), "15.88": ((15.82, 15.94), 7)}}
-DEFAULT = ("veigar-A.png", "13.04")
+DEFAULT = ("veigar-A.png", "15.88")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

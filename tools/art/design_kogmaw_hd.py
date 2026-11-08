@@ -38,10 +38,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "kogmaw", "hd")
-AH.RAW, AH.PITCH = "kogmaw-A.png", (13.33, 13.45)    # the default read (13.39 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-08): 「萨勒芬尼2.2 其他都1.8」
+AH.RAW, AH.PITCH = "kogmaw-A.png", (16.28, 16.4)    # 16.34 px, the user's pick: PPU 1.79
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"kogmaw-A.png": {"13.39": ((13.33, 13.45), 6), "11.12": ((11.06, 11.18), 5), "16.34": ((16.28, 16.4), 7)}}
-DEFAULT = ("kogmaw-A.png", "13.39")
+DEFAULT = ("kogmaw-A.png", "16.34")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

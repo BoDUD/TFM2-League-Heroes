@@ -38,7 +38,8 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "seraphine", "hd")
-AH.RAW, AH.PITCH = "seraphine-A.png", (11.12, 11.24)    # the default read (11.18 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-08): 「萨勒芬尼2.2 其他都1.8」
+AH.RAW, AH.PITCH = "seraphine-A.png", (11.12, 11.24)    # 11.18 px, the user's pick: PPU 2.20
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"seraphine-A.png": {"11.18": ((11.12, 11.24), 5), "9.32": ((9.26, 9.38), 4), "13.67": ((13.61, 13.73), 6)}}
 DEFAULT = ("seraphine-A.png", "11.18")
