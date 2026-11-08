@@ -9,7 +9,8 @@
 //!   只带攻速；本包在它挂着时每 60 拍烧他**当前生命 `w_cost`%**（真实伤害），记下烧掉多少，`w_on` 没了时回其中的 `w_back`%。
 //! - **万魔狱真正处决、封印留一整局**：主包用「打阈值那么多真实伤害、下一拍补回去」近似处决，封印层数死了就没。副本只给大招命中的
 //!   英雄挂 `league_locke_r_mark`；本包每拍看挂着它的敌方英雄，**当前生命低于最大生命 `r_exec`%（每层封印 +`r_exec_step`%）**
-//!   就处决（真实伤害打掉剩下的血），在它倒下的地方放下法器（`league_locke_r_land` 的画面）；洛克走到法器 `pick_r` 以内就捡起来：
+//!   就处决（真实伤害打掉剩下的血；0.1.4 起选不中、受到的伤害被减到 0 的——弗拉基米尔的血池——先不处决、标记留着），
+//!   在它倒下的地方放下法器（`league_locke_r_land` 的画面）；洛克走到法器 `pick_r` 以内就捡起来：
 //!   封印 +1（最多 3 层，整局都在，死了也不掉），大招**剩下的冷却少 `r_cap`%**（`league_locke_r_seal` 的画面）。法器放 `r_drop`
 //!   拍没人捡就消失。
 //! - **参与击杀刷新灰猎无影**：主包用一个击杀窗口（数据只能看到「被他打过的英雄的记号断了」）。副本不带窗口；本包记下每个敌方英雄
@@ -212,6 +213,32 @@ pub fn refund(p: &Params, remaining: usize) -> usize {
     remaining * p.r_cap / 100
 }
 
+/// 0.1.4: why Purgatory's execute waits on a marked champion below the line, or None (it goes): one who cannot be
+/// targeted, or whose damage taken is cut to nothing - his buffs' `damaged_reduce` less `damaged_amplify` at 100 or more,
+/// or `skill_damaged_reduce` (the execute is a skill's damage) at 100 or more (league_darius_ult's `damage_from`).
+/// Vladimir's Sanguine Pool (invisible, damaged_reduce 100, crowd-control immune) "survived" 5 of 13 executes on 11-08 -
+/// the mark taken off, no seal; waiting keeps the mark for when he comes out.
+pub fn execute_held(targetable: bool, reduce: usize, amplify: usize, skill_reduce: usize) -> Option<&'static str> {
+    if !targetable {
+        Some("he cannot be targeted")
+    } else if (100 + amplify).saturating_sub(reduce) == 0 || skill_reduce >= 100 {
+        Some("he takes no damage (100% damage reduction)")
+    } else {
+        None
+    }
+}
+
+/// `execute_held` for a champion as he stands.
+fn held_now(c: &StableEntity<'_, '_>) -> Option<&'static str> {
+    let (mut reduce, mut amplify, mut skill) = (0, 0, 0);
+    for b in (0..c.buff_count()).filter_map(|i| c.buff_at(i)) {
+        reduce += b.damaged_reduce;
+        amplify += b.damaged_amplify;
+        skill += b.skill_damaged_reduce;
+    }
+    execute_held(c.is_targetable(), reduce, amplify, skill)
+}
+
 fn dist2(a: (u64, u64), b: (u64, u64)) -> u64 {
     let dx = a.0.abs_diff(b.0);
     let dy = a.1.abs_diff(b.1);
@@ -248,11 +275,20 @@ struct Exorcist {
     /// Purgatory's executes waiting for their damage: (id, where, the tick, hp, max). The game lands damage on the next
     /// tick, so whether one died is read then (0.1.1: read at once, every execute "survived" - no artifact, no seal).
     pending: Vec<(usize, (u64, u64), usize, usize, usize)>,
+    /// 0.1.4: the marked champions below the line whose execute waits now (`execute_held`): a `HELD` line once a stretch.
+    held: Vec<usize>,
     n_stake: usize,
     n_burn: usize,
     n_exec: usize,
     n_pick: usize,
     n_reset: usize,
+    n_held: usize,
+}
+
+/// 0.1.4: the champions held this tick (`now`: id, why, hp, max) whose stretch is new against last tick's (`was`) - the
+/// ones a `HELD` line goes for.
+pub fn newly_held(was: &[usize], now: &[(usize, &'static str, usize, usize)]) -> Vec<(usize, &'static str, usize, usize)> {
+    now.iter().filter(|h| !was.contains(&h.0)).copied().collect()
 }
 
 impl Exorcist {
@@ -317,6 +353,7 @@ impl Exorcist {
         let (team, mine) = (e.team(), e.pos());
         let mut fallen = Vec::new();
         let mut execute = Vec::new();
+        let mut held = Vec::new();
         // last tick's executes: dead now (or gone) - sealed, the artifact left where he fell
         for (id, at, t0, hp, max) in std::mem::take(&mut self.pending) {
             if t0 >= tick {
@@ -359,10 +396,22 @@ impl Exorcist {
             if has(&c, R_MARK) {
                 let (hp, max) = c.hp();
                 if hp > 0 && hp < exec_line(&self.p, max, self.seals) {
-                    execute.push((id, hp, max, c.pos()));
+                    // 0.1.4: untargetable or taking no damage (Vladimir's pool): the execute waits, the mark stays
+                    match held_now(&c) {
+                        Some(why) => held.push((id, why, hp, max)),
+                        None => execute.push((id, hp, max, c.pos())),
+                    }
                 }
             }
         }
+        for (id, why, hp, max) in newly_held(&self.held, &held) {
+            self.n_held += 1;
+            if often(self.n_held) {
+                wlog(format!("{} EXECUTE HELD {} at {hp}/{max}: {why} - it waits while his mark lasts ({} in all)",
+                             head(sim, me), name_of(sim, id), self.n_held));
+            }
+        }
+        self.held = held.iter().map(|h| h.0).collect();
         for (id, hp, max, at) in execute {
             sim.entity_remove_buff(id, R_MARK);
             // through any shield, heal or regeneration before it lands next tick (league_pyke's way): exactly his health
@@ -532,6 +581,25 @@ mod tests {
         let p = Params::default();
         assert_eq!(refund(&p, 3000), 1500);
         assert_eq!(refund(&p, 0), 0);
+    }
+
+    /// 0.1.4 (the 11-08 night logs: 5 of 13 EXECUTEs "survived", all on Vladimir - his Sanguine Pool, damaged_reduce 100):
+    /// the execute waits on an untargetable champion or one taking no damage, and says so once a stretch.
+    #[test]
+    fn the_execute_waits_on_the_pool_and_the_untargetable() {
+        assert_eq!(execute_held(true, 100, 0, 0), Some("he takes no damage (100% damage reduction)"), "Vladimir's pool");
+        assert_eq!(execute_held(true, 150, 30, 0), Some("he takes no damage (100% damage reduction)"));
+        assert_eq!(execute_held(true, 0, 0, 100), Some("he takes no damage (100% damage reduction)"), "skill damage off");
+        assert_eq!(execute_held(false, 0, 0, 0), Some("he cannot be targeted"));
+        // a partial cut still dies to hp + max: the execute goes
+        assert_eq!(execute_held(true, 80, 0, 0), None);
+        assert_eq!(execute_held(true, 100, 20, 0), None, "an amplify on top leaves 20%");
+        assert_eq!(execute_held(true, 0, 0, 99), None);
+        // the HELD line: once as a stretch starts, not again while it lasts, again after it ended
+        let now = [(7, "he takes no damage (100% damage reduction)", 171, 2455)];
+        assert_eq!(newly_held(&[], &now).len(), 1);
+        assert!(newly_held(&[7], &now).is_empty(), "still in the pool: no line");
+        assert_eq!(newly_held(&[3], &now)[0].0, 7);
     }
 
     #[test]

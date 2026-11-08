@@ -6,14 +6,18 @@
 //!   把她挪过去（`re_v` x `re_t`）。最近的敌方英雄残血（35% 以下）又在攻击距离 80% 以外，就往前冲把它拉进射程；它贴身（`e_close` 内）
 //!   或她自己残血（40% 以下）就往后冲、背离它。身边没有敌方英雄时两个标记都不挂，数据照主包：贴身往后冲，不然加速。
 //! - **明踪步朝英雄跑时更快**：主包副本里明踪步只给 `e_ms`%；她身上有明踪步的加速、而且实际在朝最近的敌方英雄移动（3 tick 里走了 300 以上，
-//!   方向和指向它的方向夹角小于 45°）时，本包挂 `e_toward`（移速再加 `e_ms2 - e_ms`%），连着 `TOWARD_GRACE` tick 不朝它跑才摘掉
-//!   （`toward_grace`；普攻前摇站一下不算），明踪步的加速没了立刻摘（英雄联盟的 1.5 倍）。
+//!   方向和指向它的方向夹角小于 45°）时，本包挂 `e_toward`（移速再加 `e_ms2 - e_ms`%），连着 `TOWARD_GRACE` tick 在走、却不是朝它
+//!   走才摘掉（`toward_grace`；站着的 tick——普攻前摇、两下普攻之间站着等、被定住——不算，0.1.3），明踪步的加速没了立刻摘
+//!   （英雄联盟的 1.5 倍）。
 //! - **定圣诀按真实血量开**：主包只看人数（附近 2 个以上敌方英雄）和控制；本包另外在大招射程内有敌方英雄残血（40% 以下），或她自己残血
 //!   （50% 以下）而且有敌方英雄在攻击距离内时挂 `r_ok`，数据看到就开。
 //! - **超凡形态整身换待机 / 跑步**（view.rs）：大招期间（身上有 `league_yunara_r_on`）站着、跑着都画成带金边和光环的 `r_idle` / `r_run`。
 //!
 //! 0.1.2（2026-11-08 日志审查：`TOWARD` 隔 1-20 tick 就一开一关，B 组 20 场数到 #550——她一 tick 没朝英雄跑（普攻前摇就够）
 //! 加成就摘）：开着时没朝它跑先数着，连着 `TOWARD_GRACE` tick 才摘，这期间照样续 `e_toward`；`TOWARD off` 行写出为什么摘。
+//! 0.1.3（2026-11-08 夜里的日志：还是每场预演开关 ~33 次，开着的中位数 8 tick，45 次关里 37 次是「6 tick not running」——她的普攻
+//! 动作 24 tick，6 tick 的宽限在一次前摇里就数完了）：站着的 tick 不数，只数「在走、却不是朝它走」的 tick（移速加成只在走的时候
+//! 有用，站着时开着关着都一样）；她往别处走 `TOWARD_GRACE` tick 照旧摘。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yunara.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -47,8 +51,11 @@ pub const R_OK: &str = "league_yunara_r_ok";
 pub const R_ON: &str = "league_yunara_r_on";
 /// 地图边长（坐标 0..MAP）。
 const MAP: f64 = 960_000.0;
-/// 明踪步朝英雄跑的加成：连着这么多 tick 没朝它跑才摘（2026-11-08 的日志里普攻前摇站一下就摘，1-20 tick 一开一关）。
+/// 明踪步朝英雄跑的加成：连着这么多 tick 在走、却不是朝它走才摘（2026-11-08 的日志里普攻前摇站一下就摘，1-20 tick 一开一关；
+/// 0.1.3 起站着的 tick 不数）。
 pub const TOWARD_GRACE: usize = 6;
+/// 这几 tick 走了这么远以上算「在走」（`moving_toward` 的 `min_step`）。
+pub const STEP_MIN: f64 = 300.0;
 
 // ===================== 日志 =====================
 
@@ -234,6 +241,11 @@ pub fn dash_dir(me: Pt, dash: Dash) -> Pt {
     (sign * dx / l, sign * dy / l)
 }
 
+/// 「在走」：从 `before` 到 `now` 走了 `min_step` 以上（往哪都算）。
+pub fn moving(before: Pt, now: Pt, min_step: f64) -> bool {
+    dist(before, now) >= min_step
+}
+
 /// 「朝它跑」：从 `before` 到 `now` 走了 `min_step` 以上，方向和指向 `foe` 的方向夹角小于 45°。
 pub fn moving_toward(before: Pt, now: Pt, foe: Pt, min_step: f64) -> bool {
     let (mx, my) = (now.0 - before.0, now.1 - before.1);
@@ -247,12 +259,17 @@ pub fn moving_toward(before: Pt, now: Pt, foe: Pt, min_step: f64) -> bool {
 }
 
 /// 明踪步的加成开不开：`was` 现在开着没有，`quick` 她身上有明踪步的加速，`running` 这一 tick 在朝最近的敌方英雄跑
-/// （`moving_toward`），`away` 开着时已经连着几 tick 没朝它跑。朝它跑就开（从 0 数）；开着时没朝它跑先数着，连着
-/// `TOWARD_GRACE` tick 才关；加速没了立刻关。返回 (开不开, 新的 `away`)。
-pub fn toward_grace(was: bool, quick: bool, running: bool, away: usize) -> (bool, usize) {
-    if quick && running {
+/// （`moving_toward`），`walking` 这一 tick 在走（`moving`，往哪都算），`away` 开着时已经数了几 tick。朝它跑就开（从 0 数）；
+/// 开着时站着（普攻前摇、等下一下普攻、被定住：加成本来就没用）不数，在走却不是朝它走才数，连着 `TOWARD_GRACE` tick 才关；
+/// 加速没了立刻关。返回 (开不开, 新的 `away`)。
+pub fn toward_grace(was: bool, quick: bool, running: bool, walking: bool, away: usize) -> (bool, usize) {
+    if !quick {
+        (false, 0)
+    } else if running {
         (true, 0)
-    } else if quick && was && away + 1 < TOWARD_GRACE {
+    } else if was && !walking {
+        (true, away)
+    } else if was && away + 1 < TOWARD_GRACE {
         (true, away + 1)
     } else {
         (false, 0)
@@ -416,8 +433,8 @@ impl Faith {
         let before = self.trail.first().map(|(_, b)| *b).unwrap_or(at);
         let quick = has_buff(sim, me, E_MS);
         let near = nearest(at, fs, p.atk_range as f64 * 2.0);
-        let running = near.is_some_and(|f| moving_toward(before, at, f.at, 300.0));
-        let (on, away) = toward_grace(self.toward, quick, running, self.away);
+        let running = near.is_some_and(|f| moving_toward(before, at, f.at, STEP_MIN));
+        let (on, away) = toward_grace(self.toward, quick, running, moving(before, at, STEP_MIN), self.away);
         self.away = away;
         if on {
             // a few ticks at a time, refreshed while she keeps running at it (and through the grace)
@@ -434,7 +451,7 @@ impl Faith {
                 let why = if on {
                     String::new()
                 } else if quick {
-                    format!(" - {TOWARD_GRACE} ticks not running at a champion")
+                    format!(" - {TOWARD_GRACE} ticks walking, not at a champion")
                 } else {
                     " - Kanmei's Steps' haste ended".to_string()
                 };
@@ -603,22 +620,50 @@ mod tests {
         // 2026-11-08 log: on at 5795, off at 5801, on at 5802, off at 5821 - an attack's wind-up was enough to drop it
         let (mut on, mut away) = (false, 0);
         let mut seen = Vec::new();
-        // runs at him 3 ticks, stands 5 (a wind-up), runs again 2, then stands TOWARD_GRACE ticks
+        // runs at him 3 ticks, walks off 5, runs again 2, then walks off TOWARD_GRACE ticks
         for running in [true, true, true, false, false, false, false, false, true, true, false, false, false, false, false,
                         false] {
-            (on, away) = toward_grace(on, true, running, away);
+            (on, away) = toward_grace(on, true, running, true, away);
             seen.push(on);
         }
         let n = seen.len();
-        assert!(seen[..n - 1].iter().all(|&o| o), "dropped during a stop shorter than the grace: {seen:?}");
-        assert!(!seen[n - 1], "still on after {TOWARD_GRACE} ticks not running at him");
-        assert_eq!(toward_grace(true, true, false, TOWARD_GRACE - 2), (true, TOWARD_GRACE - 1));
-        assert_eq!(toward_grace(true, true, false, TOWARD_GRACE - 1), (false, 0), "the grace's end");
+        assert!(seen[..n - 1].iter().all(|&o| o), "dropped during a turn shorter than the grace: {seen:?}");
+        assert!(!seen[n - 1], "still on after {TOWARD_GRACE} ticks walking elsewhere");
+        assert_eq!(toward_grace(true, true, false, true, TOWARD_GRACE - 2), (true, TOWARD_GRACE - 1));
+        assert_eq!(toward_grace(true, true, false, true, TOWARD_GRACE - 1), (false, 0), "the grace's end");
         // not running at him from the start: never on
-        assert_eq!(toward_grace(false, true, false, 0), (false, 0));
+        assert_eq!(toward_grace(false, true, false, true, 0), (false, 0));
+        assert_eq!(toward_grace(false, true, false, false, 0), (false, 0));
         // Kanmei's Steps' haste gone: off at once, whatever the grace
-        assert_eq!(toward_grace(true, false, true, 0), (false, 0));
-        assert_eq!(toward_grace(true, false, false, 1), (false, 0));
+        assert_eq!(toward_grace(true, false, true, true, 0), (false, 0));
+        assert_eq!(toward_grace(true, false, false, false, 1), (false, 0));
+    }
+
+    #[test]
+    fn standing_ticks_are_not_counted() {
+        // 11-08 night: still ~33 flips a presim match, 37 of 45 offs "6 ticks not running" - her attack plays 24 ticks
+        // (atk_dur), the 6-tick grace ran out inside one wind-up. Run at him, stand through two attacks and the wait
+        // between them (60 ticks), run at him again: on all along
+        let (mut on, mut away) = (false, 0);
+        let mut flips = 0;
+        let ticks = std::iter::repeat_n((true, true), 3)
+            .chain(std::iter::repeat_n((false, false), 60))
+            .chain(std::iter::repeat_n((true, true), 2));
+        for (running, walking) in ticks {
+            let (now, a) = toward_grace(on, true, running, walking, away);
+            flips += usize::from(now != on);
+            (on, away) = (now, a);
+        }
+        assert_eq!((on, flips), (true, 1), "the stand dropped it");
+        // standing does not reset the count either: two ticks off, a stand, then the rest of the grace walking off
+        let mut st = (true, 0);
+        for walking in [true, true, false, false, false, true, true, true] {
+            st = toward_grace(st.0, true, false, walking, st.1);
+        }
+        assert_eq!(st, (true, TOWARD_GRACE - 1));
+        assert_eq!(toward_grace(st.0, true, false, true, st.1), (false, 0));
+        // "walking" is any way at all, past STEP_MIN in the trail
+        assert!(moving((0.0, 0.0), (-300.0, 0.0), STEP_MIN) && !moving((0.0, 0.0), (200.0, 100.0), STEP_MIN));
     }
 
     #[test]

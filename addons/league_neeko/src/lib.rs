@@ -15,8 +15,11 @@
 //! 那场模拟里把每次变身 / 现形的 tick 和队友的英雄 id 记下来，显示钩子按屏幕上的比赛时钟（game_places::clock，由
 //! league_addons 里佛耶戈的读时钟扩展喂）把她的身体资源名换成那名队友的、动作名换成他图里有的。
 //!
-//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_neeko.log`，每次启动游戏重写。
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_neeko.log`，每次启动游戏重写。0.1.12：每种行整个启动一个计数
+//! （league_yasuo_wall 0.1.2 的做法：服务器的预演先记 40 行、之后每 100 行记一行，你看的那场每行都记，行末 `#k`）；`SPAWN` 的参数
+//! 一次启动只写一次（league_vladimir_pool 0.2.1 的做法）。
 
+use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -98,6 +101,39 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
     let t = sim.tick();
     format!("[{kind} m={} s={}] t={t} ({}:{:02}) #{id}", m(o.match_id), m(o.set_index), t / 3600, t / 60 % 60)
+}
+
+/// Lines a launch, each kind on its own count (0.1.12; 11-08's log: 657 KB - 3195 DISGUISE, 3184 REVEAL, 288 SPAWN with the
+/// whole Params: the cap was 200 a Neeko and a match, ~51 a presim match): the server's presims the first `LOG_FIRST`,
+/// then every `LOG_EVERY`-th; the match on screen all of them (league_yasuo_wall 0.1.2's).
+const LOG_FIRST: usize = 40;
+const LOG_EVERY: usize = 100;
+
+static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// One more line of `kind`: its count this launch when it is to be written (`shown`: the match on screen).
+fn noted(kind: &'static str, shown: bool) -> Option<usize> {
+    let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
+    let n = c.entry(kind).or_insert(0);
+    *n += 1;
+    (shown || *n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
+    noted(kind, on_screen(sim).is_some())
+}
+
+/// The `Params` the log showed last (they come from the champion data: the same in every simulation of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only should they ever differ (league_vladimir_pool 0.2.1's).
+fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.clone());
+    true
 }
 
 /// The sims the screen replays (the client's match view, spectating, a replay): the screen draws their disguises.
@@ -218,8 +254,8 @@ impl Glamour {
             sim.entity_remove_buff(me, PEN);
             sim.add_buff(me, &b);
         }
-        if self.count <= 200 {
-            wlog(format!("{} REVEAL from {} ({why}{}; {} damage taken in disguise)", head(sim, me), on.name,
+        if let Some(k) = tally(sim, "reveal") {
+            wlog(format!("{} REVEAL from {} ({why}{}; {} damage taken in disguise) #{k}", head(sim, me), on.name,
                          if pen { ", magic pen" } else { "" }, on.taken));
         }
         if let Some((m, s)) = on_screen(sim) {
@@ -231,8 +267,8 @@ impl Glamour {
         let t = sim.tick();
         Self::poof(sim, me, "p_on");
         self.count += 1;
-        if self.count <= 200 {
-            wlog(format!("{} DISGUISE {} as {name} (#{ally})", head(sim, me), self.count));
+        if let Some(k) = tally(sim, "disguise") {
+            wlog(format!("{} DISGUISE {} as {name} (#{ally}) #{k}", head(sim, me), self.count));
         }
         if let Some((m, s)) = on_screen(sim) {
             view::note_on(m, s, me, t, &name);
@@ -266,7 +302,11 @@ impl StablePassive for Glamour {
         self.me = Some(me);
         self.on = None; // a new life starts undisguised
         let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Neeko (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        if let Some(k) = tally(sim, "spawn") {
+            // the Params in the first SPAWN line of a launch only (0.1.12)
+            let params = if params_new(&self.p) { format!(", {:?}", self.p) } else { String::new() };
+            wlog(format!("{} SPAWN: the add-on's Neeko (player {player}, team {team}){params} #{k}", head(sim, me)));
+        }
     }
 
     fn on_damaged(&mut self, sim: &mut StableSim<'_>, _: usize, _me: usize, _attacker: usize, damage: usize) {
@@ -377,6 +417,18 @@ mod tests {
         assert_eq!(p.p_cd, 300);
         assert_eq!(p.p_hp, 40);
         assert_eq!(p.p_pen, Params::default().p_pen);
+    }
+
+    #[test]
+    fn presim_lines_are_capped_a_launch_the_screen_s_are_not() {
+        // 0.1.11 capped each Neeko at 200 lines a match: 6777 lines over a launch's presims
+        let logged: Vec<usize> = (0..LOG_EVERY * 3).filter_map(|_| noted("test presim", false)).collect();
+        assert_eq!(logged.len(), LOG_FIRST + 3);
+        assert_eq!(logged[LOG_FIRST..], [LOG_EVERY, LOG_EVERY * 2, LOG_EVERY * 3]);
+        assert!((0..LOG_EVERY * 2).all(|_| noted("test shown", true).is_some()));
+        // the Params once a launch
+        let p = Params { p_cd: 1, ..Params::default() };
+        assert!(params_new(&p) && !params_new(&p.clone()));
     }
 
     #[test]

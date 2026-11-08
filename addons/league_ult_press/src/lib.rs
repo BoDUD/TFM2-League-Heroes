@@ -251,6 +251,12 @@ pub const YONE_R_LINE: f64 = 30_000.0;
 pub const YONE_R_LOW: f64 = 0.5;
 /// 备好式大招按下后看这么久：冷却一下掉了很多就是退还了，没掉就是用掉了（最长的凯尔待命 900 tick）。
 pub const ARM_WATCH: usize = 960;
+/// 退还的样子（0.6.4）：数据退还冷却靠一个 3 tick 的 buff，`ult_cooldown_mult` 至少这么多（最小的是厄斐琉斯的 r_reset 300，
+/// 别的 4900 或 r_cd x 100 / 60 - 100），冷却跟着缩到剩 1 秒左右。冷却一下少了 10 tick 以上、他身上又有这样的 buff，才是退还：
+/// 11-08 的日志里泰达米尔真的开了大（RAGE）4 tick、12 tick 后冷却也掉过一截，被记成了「refunded」。
+pub const REFUND_MULT: i32 = 300;
+/// 骑在队友身上的悠米（league_yuumi 挂的 buff）：她的「待着别动」是骑着，站桩规则不管她（0.6.4）。
+pub const YUUMI_RIDE: &str = "league_yuumi_w_on";
 /// 两次 think 隔了这么多 tick 以上（平时每 tick 一次；阵亡期间没有），冷却自己走掉的就比「退还」的门槛（一下少 10 tick 以上）
 /// 还多：备好式大招的观察就此作废（只是日志）。
 const THINK_GAP: usize = 10;
@@ -479,6 +485,18 @@ pub fn attack_range(name: &str) -> Option<u64> {
 /// 交给站桩规则管的英雄：主包所有英雄。
 pub fn is_holder(name: &str) -> bool {
     attack_range(name).is_some()
+}
+
+/// 这一 tick 归不归站桩规则管：主包的英雄，骑在队友身上的悠米（`YUUMI_RIDE`）除外（0.6.4，11-08 的日志：她骑着时 AI 让她
+/// 「待着」，被当成站住不打，10 次 A ORDER 里 8 次下给了骑着的她——league_yuumi 的钩子和本包同一优先级、本包先跑）。
+pub fn holds(name: &str, riding: bool) -> bool {
+    is_holder(name) && !riding
+}
+
+/// 备好式大招的冷却是不是被数据退还了（0.6.4）：一下少了 10 tick 以上，而且他身上有退还的 buff（`ult_cooldown_mult` 不少于
+/// `REFUND_MULT`）；别的东西缩短的冷却不算。
+pub fn refund_seen(prev: usize, now: usize, cut_mult: i32) -> bool {
+    prev > now + 10 && cut_mult >= REFUND_MULT
 }
 
 /// 被停住时打多远内的敌方英雄、盯住以后走出多远就不追：近战 `HOLD_REACH` / `HOLD_KEEP`；远程是自己的普攻距离、再加 `RANGED_KEEP`。
@@ -1188,6 +1206,11 @@ fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {
     (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
 }
 
+/// The biggest `ult_cooldown_mult` on him (the data's refund buff carries 300 or more: `REFUND_MULT`).
+fn ult_cut_mult(e: &StableEntity<'_, '_>) -> i32 {
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.ult_cooldown_mult).max().unwrap_or(0)
+}
+
 /// 莎弥拉现在的评价（1..6 = E..S，0 = 没有）。
 fn samira_grade(e: &StableEntity<'_, '_>) -> usize {
     SAMIRA_GRADES.iter().rposition(|g| has_buff(e, g)).map_or(0, |i| i + 1)
@@ -1273,6 +1296,8 @@ struct UltPress {
     orders: [Option<Order>; 4],
     last_cds: [Option<usize>; 4],
     armed_at: Option<usize>,
+    /// 备好式大招观察期间冷却被别的东西缩短的第一下（按下后几 tick、少了多少；0.6.4，只记在 `R ARMED` 那一行）。
+    arm_cut: Option<(usize, usize)>,
     /// 上一次 think 时他的实体编号（`last_tick` 是那一 tick）：阵亡期间没有 think，复活是新的实体。日志用（`armed_at`、
     /// `cast_at` 的观察跨过一次阵亡就作废），不影响按什么。
     last_mid: Option<usize>,
@@ -1615,7 +1640,8 @@ impl UltPress {
             let me = pl.champion()?;
             let (mid, team) = (me.id(), me.team());
             let name = me.name().unwrap_or_default();
-            let holder = is_holder(&name);
+            // a Yuumi riding an ally is no holder: her "stay" is the ride (0.6.4)
+            let holder = holds(&name, has_buff(&me, YUUMI_RIDE));
             let slots = slots_of(&name);
             if slots.is_empty() && !holder {
                 return None;
@@ -1633,6 +1659,7 @@ impl UltPress {
                 self.walk_ticks = 0;
                 self.recalling = false;
                 self.armed_at = None;
+                self.arm_cut = None;
                 self.foe_cds.clear();
                 self.towers = None;
                 self.champ_at.clear();
@@ -1645,6 +1672,7 @@ impl UltPress {
             // (2026-10-30: 171 of 199 "refunded" lines had N above ARM_WATCH, up to 3300), and Twisted Fate's respawn
             // would read as a teleport. Those watches end here, unread - they only log, no press reads them
             if !unbroken(self.last_mid, self.last_tick, mid, tick) {
+                self.arm_cut = None;
                 if let Some(t0) = self.armed_at.take() {
                     if let Some(k) = counted(format!("{name} arm unread"), on_screen(&sim)) {
                         let why = match self.last_mid {
@@ -1700,15 +1728,26 @@ impl UltPress {
                             }
                             if is_armed_ult(&name) {
                                 self.armed_at = Some(tick);
+                                self.arm_cut = None;
                             }
                         }
                     } else if let Some(t0) = self.armed_at.filter(|_| ps.slot == SkillSlotV1::Ult) {
-                        // an armed ult the data did not use gives its cooldown back at once (a 3-tick cooldown buff)
-                        let refunded = prev > c + 10;
+                        // an armed ult the data did not use gives its cooldown back at once (a 3-tick cooldown buff): a
+                        // cut with that buff on him (0.6.4: a cut without it is something else, noted on the closing line)
+                        let refunded = refund_seen(prev, c, ult_cut_mult(&me));
+                        if !refunded && prev > c + 10 && self.arm_cut.is_none() {
+                            self.arm_cut = Some((tick - t0, prev - c));
+                        }
                         if refunded || tick > t0 + ARM_WATCH {
                             let what = if refunded { "refunded (not used)" } else { "kept (used)" };
+                            let cut = match self.arm_cut.take() {
+                                Some((dt, by)) if !refunded => {
+                                    format!(" (its cooldown cut by {by} {dt} ticks in, no refund buff)")
+                                }
+                                _ => String::new(),
+                            };
                             if let Some(k) = counted(format!("{name} arm {what}"), on_screen(&sim)) {
-                                wlog(format!("{} R ARMED {} ticks before: {what} #{k}", head(&sim, mid), tick - t0));
+                                wlog(format!("{} R ARMED {} ticks before: {what}{cut} #{k}", head(&sim, mid), tick - t0));
                             }
                             self.armed_at = None;
                         }
@@ -2622,6 +2661,32 @@ mod tests {
         // no think for longer than the refund test's margin, the same entity
         assert!(!unbroken(Some(139), 19_445, 139, 19_445 + THINK_GAP + 1));
         assert!(!unbroken(None, 0, 139, 30), "his first think");
+    }
+
+    #[test]
+    fn a_riding_yuumi_is_no_holder() {
+        // 11-08, on screen m=4156: 8 of 10 A ORDERs to Yuumi while she rode ("held 19 ticks, league_rakan 48604 away")
+        assert!(holds("league_yuumi", false));
+        assert!(!holds("league_yuumi", true));
+        assert!(holds("league_garen", false) && !holds("someone_elses_hero", false));
+        // the buff league_yuumi puts on her while she rides
+        let src = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../league_yuumi/src/lib.rs")).unwrap();
+        assert!(src.contains(&format!("pub const RIDING: &str = \"{YUUMI_RIDE}\";")), "league_yuumi rides on another buff");
+    }
+
+    #[test]
+    fn only_the_datas_refund_buff_is_a_refund() {
+        // the data's refund: a 3-tick buff with ult_cooldown_mult 4900 (Aphelios: 300) cuts the cooldown to about a second
+        assert!(refund_seen(2103, 60, 4900));
+        assert!(refund_seen(1140, 375, 300));
+        // 11-08: Tryndamere's real rage, then his cooldown cut 4 / 12 ticks on with no such buff: no refund
+        assert!(!refund_seen(2996, 2496, 0));
+        assert!(!refund_seen(2996, 2496, 20), "a little cooldown reduction");
+        // no cut beyond the tick's own count
+        assert!(!refund_seen(2996, 2995, 4900) && !refund_seen(100, 90, 4900));
+        // the smallest refund buff of an armed ult: Aphelios's r_reset
+        let kit = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_aphelios.py")).unwrap();
+        assert!(kit.contains(&format!("\"r_reset\": {REFUND_MULT},")), "Aphelios's r_reset is not {REFUND_MULT}");
     }
 
     /// The action-level `"range"` of a slot in the main pack's data (four spaces in, like `melee_list_matches_the_data`).

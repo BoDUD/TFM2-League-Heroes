@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Zed's Contempt for the Weak and Death Mark from real health and damage (needs League of Legends Heroes): replaces the main pack's Zed so his attacks on a champion below 50% health add 6/8/10% of its max health as magic damage (10 s per target), and his Death Mark bursts for its base damage plus 35% of the damage he dealt to the marked champion, instead of the data pack's stand-ins (an attack after a spell hit, three hits counted), which cannot read health or damage. Below 30% health while his Death Mark's shadow stands, he trades places with it. His AI presses his combos the way League's players do: Living Shadow onto the champion his Death Mark marked (R-W-E-Q), Death Mark when the combo can kill or a fight is on, the W-E-Q opener when he is not outnumbered, and Razor Shuriken while a shadow stands so that it throws one too. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-06",
+  "last_updated": "2026-11-08",
   "mod_id": "league_zed_mark",
   "mod_type": "native",
   "name": "League Heroes: Zed's Contempt and Death Mark from health and damage, his combos (test)",
-  "version": "0.2.2"
+  "version": "0.2.3"
 }

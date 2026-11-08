@@ -16,6 +16,8 @@
 //!
 //! 0.1.1（2026-11-08 日志审查）：日志每个阿狸各记前 120 行，每场 115 行左右，是合集里最大的日志（一次启动 8453 行 / 683 KB）；
 //! 改成这次启动所有阿狸合计前 `LOG_FIRST` 行，之后每 `LOG_EVERY` 行记一行。
+//! 0.1.2（2026-11-08 夜里的日志）：`SPAWN` 每次复活都写一整行参数、不算在条数里（878 行里 429 行）；现在 `SPAWN` 也按合计的条数限，
+//! 参数只在这次启动的第一条里写（`params_new`）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ahri.log`，每次启动游戏重写。
 
 use std::fs::OpenOptions;
@@ -166,10 +168,30 @@ fn timed(sim: &mut StableSim<'_>, id: usize, name: &str, ticks: usize) {
     sim.add_buff(id, &BuffV1::timed(name, ticks));
 }
 
-/// 这次启动所有阿狸一共记了几行：前 `LOG_FIRST` 行都写，之后每 `LOG_EVERY` 行写一行（只管日志，0.1.1）。
+/// 这次启动所有阿狸一共记了几行：前 `LOG_FIRST` 行都写，之后每 `LOG_EVERY` 行写一行（只管日志，0.1.1；0.1.2 起 `SPAWN` 也算在内）。
 static LOGGED: AtomicUsize = AtomicUsize::new(0);
 const LOG_FIRST: usize = 120;
 const LOG_EVERY: usize = 50;
+
+/// One more line of the launch (every Ahri, every kind): its number, and whether the cap lets it be written.
+fn line_no() -> (usize, bool) {
+    let n = LOGGED.fetch_add(1, Ordering::Relaxed) + 1;
+    (n, n <= LOG_FIRST || n % LOG_EVERY == 0)
+}
+
+/// The `Params` the log showed last (from the champion data: the same in every sim of a launch).
+static PARAMS_SHOWN: Mutex<Option<Params>> = Mutex::new(None);
+
+/// `p` not in the log yet: once a launch, again only if they ever differ (0.1.2, league_galio's way: the 11-08 night logs
+/// had a `SPAWN ... Params` line at every respawn of every presim's Ahri, uncapped - 429 of 878 lines).
+pub fn params_new(p: &Params) -> bool {
+    let mut shown = PARAMS_SHOWN.lock().unwrap_or_else(|e| e.into_inner());
+    if shown.as_ref() == Some(p) {
+        return false;
+    }
+    *shown = Some(p.clone());
+    true
+}
 
 /// 每个阿狸一份：参数、计数。
 #[derive(Clone, Default)]
@@ -180,8 +202,8 @@ struct Essence {
 
 impl Essence {
     fn note(&self, sim: &StableSim<'_>, me: usize, what: &str) {
-        let n = LOGGED.fetch_add(1, Ordering::Relaxed) + 1;
-        if n <= LOG_FIRST || n % LOG_EVERY == 0 {
+        let (n, write) = line_no();
+        if write {
             wlog(format!("{} {what} (essence {}, queued: takedowns {}, heals {}) #{n}", head(sim, me), self.c.essence,
                          self.c.takedowns, self.c.heals));
         }
@@ -208,8 +230,14 @@ impl StablePassive for Essence {
     }
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
-        wlog(format!("{} SPAWN: the add-on's Ahri (player {player}, team {team}), {:?}", head(sim, me), self.p));
+        // 0.1.2: under the launch's line cap like the others; the Params in the first SPAWN line of a launch only
+        let params = params_new(&self.p).then(|| format!(", {:?}", self.p));
+        let (n, write) = line_no();
+        if write || params.is_some() {
+            let team = sim.get_entity(me).map_or(0, |e| e.team());
+            wlog(format!("{} SPAWN: the add-on's Ahri (player {player}, team {team}){} #{n}", head(sim, me),
+                         params.unwrap_or_default()));
+        }
     }
 
     fn on_unit_kill(&mut self, sim: &mut StableSim<'_>, _: usize, me: usize, _victim: usize) {
@@ -310,5 +338,15 @@ mod tests {
         for x in ["tk_go", "k_go", "et_ready"] {
             assert!(ah(x).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    /// 0.1.2 (the 11-08 night logs: 429 of 878 lines were `SPAWN ... Params`, one at every respawn): the Params once a
+    /// launch, again only when they differ.
+    #[test]
+    fn the_params_are_logged_once() {
+        let p = Params::default();
+        assert!(params_new(&p));
+        assert!(!params_new(&p), "the next respawn: no Params");
+        assert!(params_new(&Params { k_need: 8, ..Params::default() }), "other Params: again");
     }
 }

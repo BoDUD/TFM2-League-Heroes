@@ -20,7 +20,8 @@
 //!
 //! 别的交给 AI。「Q 好着」= Q 的格子好了、主包标记 `league_zed_q_cd` 不在（W 的连招扔过诸刃只挂标记、不走格子的冷却），而且主包
 //! 这时 Q 的格子不是空分支（冲刺后 `r_wq` tick 内、`league_zed_w_cd` 不在时是）：空分支按下去只会白白进冷却。印记在、W 好着时
-//! 不按 Q（先 W）。正在回城、放技能或被位移（`BUSY`）、被控（`NO_CAST`）、他自己的 W / Q / R 动作还在播时不管；AI 这一 tick
+//! 不按 Q（先 W）。正在回城、放技能或被位移（`BUSY`）、被控（`NO_CAST`）、他自己的 W / Q / R 或普攻动作还在播（普攻是 0.2.3
+//! 加的，[`attack_playing`]：动作一播完就按）时不管；AI 这一 tick
 //! 已经按了排在第一的那个格子也不管，AI 自己按的 R 照放（接着第 1 条甩影子）；进攻的（R、起手的 W）在 AI 正带他远离目标
 //! （`AWAY`）时不按。日志 `COMBO`（`counted` 限条数），一串连按只记第一下。
 //!
@@ -71,9 +72,24 @@ pub const AWAY: f64 = 10_000.0;
 pub const W_ACT: usize = 31;
 pub const Q_ACT: usize = 26;
 pub const R_ACT: usize = 24;
+/// 他自己的普攻也一样（0.2.3，11-08 的日志：退避 19 次，「not taken」都在普攻开始后 4-23 tick——R 对着被晕住的 26% 杰斯没放出去，
+/// 歇了 30 tick 才放）：普攻动作 `ATK_DUR` tick（atk_dur），冷却 `ATK_CD`（atk_cd）。攻速把动作和冷却一起缩短（champion-data.md
+/// 第 3 节），所以按普攻栏这次的冷却折算（[`attack_act`]）；动作播完那一 tick 就按。
+pub const ATK_DUR: usize = 25;
+pub const ATK_CD: usize = 55;
 /// 同一个键连着按了这么多 tick 还没放出去：有东西挡着，歇 `BACKOFF` tick 再看（0.2.1，league_orianna 0.3.2 的数）。
 pub const PRESS_MAX: usize = 3;
 pub const BACKOFF: usize = 30;
+
+/// 普攻动作这次播多少 tick：`ATK_DUR` 按普攻栏的冷却（攻速缩短过的）对 `ATK_CD` 折算，向上取整。
+pub fn attack_act(cooltime: usize) -> usize {
+    (ATK_DUR * cooltime).div_ceil(ATK_CD)
+}
+
+/// 普攻还在播：冷却从满开始走了不到 [`attack_act`] tick（游戏这时不收技能键）。
+pub fn attack_playing(remaining: usize, cooltime: usize) -> bool {
+    remaining > 0 && cooltime.saturating_sub(remaining) < attack_act(cooltime)
+}
 
 /// 连按的记录：哪种、第一下、上一下、连着几下（league_orianna 的 `Presses`）。
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -348,11 +364,15 @@ impl StablePlayerAi for Combo {
             if !me.is_alive() || has_cc(&me, &BUSY) || has_cc(&me, &NO_CAST) {
                 return None;
             }
-            // his own W / Q / R still playing: a press now is dropped
+            // his own W / Q / R or basic attack still playing: a press now is dropped - it goes on the first free tick (0.2.3:
+            // the attack too, 11-08's 19 back-offs)
             let playing = |s: SkillSlotV1, act: usize| {
                 me.cooldown(s).is_some_and(|c| c.remaining > 0 && c.cooltime.saturating_sub(c.remaining) < act)
             };
-            if playing(SkillSlotV1::Skill, W_ACT) || playing(SkillSlotV1::Skill2, Q_ACT) || playing(SkillSlotV1::Ult, R_ACT) {
+            let attacking = me.cooldown(SkillSlotV1::Attack).is_some_and(|c| attack_playing(c.remaining, c.cooltime));
+            if playing(SkillSlotV1::Skill, W_ACT) || playing(SkillSlotV1::Skill2, Q_ACT) || playing(SkillSlotV1::Ult, R_ACT)
+                || attacking
+            {
                 return None;
             }
             let ready = |s: SkillSlotV1| me.cooldown(s).is_some_and(|c| c.unlocked && c.remaining == 0);
@@ -569,9 +589,11 @@ mod tests {
         let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_zed.py");
         let src = std::fs::read_to_string(path).expect("build_zed.py");
         for (key, v) in [("w_range", W_RANGE as usize), ("q_range", Q_RANGE as usize), ("r_range", R_RANGE as usize),
-                         ("q_dur", Q_ACT), ("r_dur", R_ACT), ("w_dur", 6)] {
+                         ("q_dur", Q_ACT), ("r_dur", R_ACT), ("w_dur", 6), ("atk_dur", ATK_DUR), ("atk_cd", ATK_CD)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_zed.P");
         }
+        // his attack is the kit's action of atk_dur ticks
+        assert!(src.contains("attack_a = action(\"attack\", p[\"atk_dur\"], p[\"atk_cd\"]"), "the attack is not atk_dur / atk_cd");
         // the slot holds back Q for W after the dash (r_wq), with W's flag w_cd: the names q_empty reads
         for flag in ["\"r_wq\"", "sw(\"r_wq\", sw(\"w_cd\", q_cast, NONE), q_cast)", "flag(\"q_cd\"", "refresh(\"r_on\""] {
             assert!(src.contains(flag), "build_zed.py has no {flag}");
@@ -587,6 +609,20 @@ mod tests {
             assert!(zd(x).len() <= BUFF_NAME_CAP);
             assert!(src.contains(&format!("\"{x}\"")), "build_zed.py never names {x}");
         }
+    }
+
+    #[test]
+    fn no_press_while_his_attack_plays() {
+        // 11-08, m=4753 t=7679: R on a stunned Jayce at 26%, attack 22/36 at the back-off - pressed at 11-13 ticks in
+        assert_eq!(attack_act(36), 17);
+        assert!((11..=13).all(|k| attack_playing(36 - k, 36)));
+        assert!(!attack_playing(36 - 17, 36), "free on the first tick after the attack");
+        // base speed: the whole atk_dur
+        assert_eq!(attack_act(ATK_CD), ATK_DUR);
+        assert!(attack_playing(ATK_CD - (ATK_DUR - 1), ATK_CD) && !attack_playing(ATK_CD - ATK_DUR, ATK_CD));
+        // the fastest of 11-08 (attack 10/18 at the back-off, 7 ticks in at the last press): still inside
+        assert!(attack_playing(18 - 7, 18));
+        assert!(!attack_playing(0, 54) && !attack_playing(10, 54));
     }
 
     #[test]

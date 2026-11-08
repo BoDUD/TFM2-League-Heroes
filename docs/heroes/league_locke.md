@@ -55,7 +55,7 @@
 
 ### 洛克附加包
 
-[洛克附加包](../../addons/league_locke/README.md)：`league_locke` v0.1.3
+[洛克附加包](../../addons/league_locke/README.md)：`league_locke` v0.1.4
 
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|

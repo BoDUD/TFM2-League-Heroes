@@ -22,22 +22,44 @@
 //! 存储：最多 `MAX_MATCHES` 场比赛；新比赛进来时先扔没有任何配对的、最久没更新的那场（11-06：服务器一个系列的第一小局同时
 //! 预演 7～10 场，旧版只记 3 场，看着的那场被挤掉、run 被重新编号，8/20 个小局没有 DIVERGE、END 错或没有）。每张快照的行
 //! 按名字表压缩存着，好在另一份后来走到同一 tick 时逐行对比：配上对的 run 全留，没配上的只留第一张和最近 `WINDOW` 张；总量
-//! 超过 `DETAIL_BUDGET` 时先扔没配对的、再扔最久没更新的 run 的行（哈希一直留着）。
+//! （行、细哈希、名字表）超过 `DETAIL_BUDGET` 时先扔没配对的、再扔最久没更新的 run 的行（哈希一直留着）。
 //!
 //! 日志（league.log），只写有配对的 run（11-06：SYNC 占 8.95 MB 里的 8.2 MB，93% 是没人看的单份预演）：
 //! - `SET [view m=2853 s=1 run 3 thr 39] same set as presim run 1, presim run 2 (rng … at its first tick; seed …)`：第一次配上时；
 //!   之前没写的 SYNC 行这时补上。
 //! - `SYNC [view m=2853 s=1 run 3 thr 39] t=600 rng=… n=93 h=…`（第一张带 `seed=`；t ≤ 1 和每 `SUMMARY_EVERY` tick 带
 //!   `| 玩家汇总`：`zed#18 L7 g1234 812/1000 (189901,96150) b5`，死了的 `zed dead r540 L7 g1234`）。
-//! - `DIVERGE [view …] vs [presim …] first seen at tick 4800 (agreed at 4200): player 3 zed (view run 3 vs presim run 1):
-//!   gold 1300 vs 1234, items [...] vs [...] | also: zed#18 champion (view run 3 vs presim run 1): pos (…) vs (…), buffs only
-//!   in view run 3: [...] | 6 rows differ: 1 player, 2 champion, 3 minion | n 93 vs 93, rng same | view run 3: … |
-//!   presim run 1: …`（之后再分开写 `again at tick T (equal again since E)`）
+//! - `DIVERGE [view …] vs [presim …] first seen at tick 4800 (agreed at 4200); first differs between t 4560 and t 4620,
+//!   player 3 zed: player 3 zed (view run 3 vs presim run 1): gold 1300 vs 1234, items [...] vs [...] | also: zed#18
+//!   champion (view run 3 vs presim run 1): pos (…) vs (…), buffs only in view run 3: [...] | structures: nexus#0 nexus (…):
+//!   buffs only in view run 3: [...] | 6 rows differ: 1 player, 2 champion, 1 nexus, 2 minion | n 93 vs 93, rng same |
+//!   view run 3: … | presim run 1: …`（之后再分开写 `again at tick T (equal again since E); first differs …`）
 //! - `EQUAL [view …] vs [presim …] equal again at tick 9000 (apart from 4800, 7 of 15 compared ticks differ so far)`
-//! - `END [view …] t=46800 n=… blue score diff=+5: vs presim run 1 agreed through 4200, diverged at 4800, apart at 70 of 78
-//!   compared ticks, equal again 1x (first at 9000), apart at the end; vs …`
+//! - `END [view …] t=46800 n=… blue score diff=+5 (kills 12:7): vs presim run 1 agreed through 4200, diverged at 4800,
+//!   apart at 70 of 78 compared ticks, equal again 1x (first at 9000), apart at the end; vs …`
 //! - `RNG [a] vs [b] …`：状态一样而钩子给的 rng 不同（每对只说一次，不算分开）。
-//! 开销：每 600 tick 把一两百个单位和十个玩家读一遍——可以忽略；存的行有总量上限。
+//! 开销：每 600 tick 把一两百个单位和十个玩家读一遍，有配对的 run 每 60 tick 再读一遍（600 tick 的快照之外只算细哈希、
+//! 不存行；没配对的后台预演不算）——可以忽略；存的行有总量上限。
+//!
+//! 0.9.21（2026-11-08 的日志）：
+//! - 名字表跟着行走：以前名字表只增不减、全局最多 65536 个，每份模拟（一次启动约 780 份没人看的后台预演）每张快照都往里
+//!   加，第三方 buff 名里还带着变化的数字（`tfm2_b2:2:1f7:0`、`sed_timer1:…`），开局 15 分钟就满了——之后的新名字都读
+//!   「?」：7 行 DIVERGE 写成「the kept rows agree - a name past the kept ones differs」，SYNC 汇总里英雄成了 `?#18`。现在每个
+//!   名字记着有几处留着的行用它，行扔掉时减一、到零就把名字连同编号放掉（编号再给新名字用），名字的字节也算进
+//!   `DETAIL_BUDGET`：只要行还留着，名字就在、而且是对的。
+//! - 细括号：除了每 600 tick 的快照，有配对的 run 每 `FINE`（60）tick 给每个玩家算一个细哈希（玩家那一行加他英雄那一行），
+//!   再加一个「其他单位」的；跟着下一张快照存（行扔掉时一起扔，算进 `DETAIL_BUDGET`）。两份在 600 tick 上第一次（或又一次）对不上时，在上一个对得上的
+//!   tick 之后逐个比细哈希：DIVERGE 写 `first differs between t 4260 and t 4320, player 0 akali, other units`——第一处不同在
+//!   哪 60 tick 之间、是哪些玩家。
+//! - 塔和水晶：不同的行按玩家、英雄、大型野怪、建筑……排，前 1 + `ALSO` 行常被玩家和英雄占满，建筑的不同（11-08 唯一的线索：
+//!   水晶上第三方插件的 buff，画面 `tfm2_b2:2:1f7:0` 对预演 `tfm2_b2:2:80:0`）就看不到了。现在没列出的塔 / 水晶的不同行
+//!   （连同 buff 差别）总是接在后面：`| structures: …`（最多 `STRUCTURES` 行）。
+//! - END 的比分：`blue score diff` 是模拟自己的比分差（score_diff），英雄每阵亡一次都给对方记一分，处决（被塔 / 小兵 / 野怪
+//!   杀死、没有玩家拿到人头）也算；游戏 log.log `[GamePlayDone]` 的 server_score 就是这个分（11-08 预演的 END 9/9 都对上），
+//!   live_score 却是两队玩家的击杀数之和（画面的 END 7/9 对上；差一分的 m=4152 s2「+14 对 17:4」和 m=4166 s1「+0 对
+//!   11:12」两局，全场阵亡数都比击杀数多一，正好一次处决）。所以 END 两个都写：`blue score diff=+14 (kills 17:4)`，括号里
+//!   是同一 tick 两队玩家的击杀数，和 live_score 比。读的时刻照旧是第一个 `is_end` 的 tick：9 局算上处决都对得上，看不出
+//!   游戏记比分的时刻和它不一样（找不到更准的时刻——两种比分的差别在定义，不在时刻）。
 
 use std::collections::{HashMap, VecDeque};
 use std::sync::{Arc, LazyLock, Mutex};
@@ -65,8 +87,17 @@ pub const DETAIL_BUDGET: usize = 16 << 20;
 pub const PAIR_LINES: u32 = 8;
 /// Differing rows named after the first.
 pub const ALSO: usize = 4;
-/// Distinct names (units, buffs, items) the kept rows can tell apart; later ones read "?" (the hash still sees them).
-pub const MAX_NAMES: usize = 1 << 16;
+/// Differing tower / nexus rows appended after those (`| structures: ...`) when they are not among them.
+pub const STRUCTURES: usize = 8;
+/// Distinct names (units, buffs, items) the kept rows can name at once - a safety cap far past what the budget lets
+/// them reach (a name goes with the last kept row naming it, and the names count in `DETAIL_BUDGET`); past it "?".
+pub const MAX_NAMES: usize = 1 << 20;
+/// What one name costs in the budget besides its text: its allocation, the map's entry, its slot.
+const NAME_COST: usize = 64;
+/// Ticks between the fine records (each player's row hash): a DIVERGE line brackets the first difference to these.
+pub const FINE: usize = 60;
+/// Players named in a fine bracket (the rest counted).
+const BRACKET_PLAYERS: usize = 4;
 
 /// One living entity as read from the simulation.
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
@@ -149,46 +180,110 @@ pub fn is_sim_tag(buff: &str) -> bool {
     buff.contains("_sim:")
 }
 
-/// FNV-1a 64 over every player then every unit in id order: stable across builds and platforms, unlike `DefaultHasher`.
+/// FNV-1a 64, fed field by field (each field closed by an 0xff byte): stable across builds and platforms, unlike
+/// `DefaultHasher`.
+struct Fnv(u64);
+
+impl Fnv {
+    fn new() -> Self {
+        Fnv(0xcbf2_9ce4_8422_2325)
+    }
+
+    fn feed(&mut self, bytes: &[u8]) {
+        for b in bytes {
+            self.0 ^= *b as u64;
+            self.0 = self.0.wrapping_mul(0x0000_0100_0000_01b3);
+        }
+        self.0 ^= 0xff;
+        self.0 = self.0.wrapping_mul(0x0000_0100_0000_01b3);
+    }
+
+    fn player(&mut self, p: &Player) {
+        for v in [p.id, p.team, p.champ, p.gold, p.level, p.respawn, p.alive as usize] {
+            self.feed(&v.to_le_bytes());
+        }
+        self.feed(p.name.as_bytes());
+        for v in p.kda.iter().chain(p.cds.iter()).chain(p.stat.iter()) {
+            self.feed(&v.to_le_bytes());
+        }
+        self.feed(&p.items.len().to_le_bytes());
+        for i in &p.items {
+            self.feed(i.as_bytes());
+        }
+    }
+
+    fn unit(&mut self, u: &Unit) {
+        self.feed(&u.id.to_le_bytes());
+        self.feed(u.name.as_bytes());
+        self.feed(&u.kind.to_le_bytes());
+        for v in [u.team, u.hp.0, u.hp.1, u.shield, u.cc, u.targetable as usize] {
+            self.feed(&v.to_le_bytes());
+        }
+        self.feed(&u.pos.0.to_le_bytes());
+        self.feed(&u.pos.1.to_le_bytes());
+        for b in u.buffs.iter().filter(|b| !is_sim_tag(b)) {
+            self.feed(b.as_bytes());
+        }
+    }
+
+    /// The hash folded to 32 bits (the fine records').
+    fn short(&self) -> u32 {
+        (self.0 ^ (self.0 >> 32)) as u32
+    }
+}
+
+/// FNV-1a 64 over every player then every unit in id order.
 pub fn hash_rows(players: &mut [Player], units: &mut [Unit]) -> u64 {
     players.sort_by_key(|p| p.id);
     units.sort_by_key(|u| u.id);
-    let mut h: u64 = 0xcbf2_9ce4_8422_2325;
-    let mut feed = |bytes: &[u8]| {
-        for b in bytes {
-            h ^= *b as u64;
-            h = h.wrapping_mul(0x0000_0100_0000_01b3);
-        }
-        h ^= 0xff;
-        h = h.wrapping_mul(0x0000_0100_0000_01b3);
-    };
+    let mut h = Fnv::new();
     for p in players.iter() {
-        for v in [p.id, p.team, p.champ, p.gold, p.level, p.respawn, p.alive as usize] {
-            feed(&v.to_le_bytes());
-        }
-        feed(p.name.as_bytes());
-        for v in p.kda.iter().chain(p.cds.iter()).chain(p.stat.iter()) {
-            feed(&v.to_le_bytes());
-        }
-        feed(&p.items.len().to_le_bytes());
-        for i in &p.items {
-            feed(i.as_bytes());
-        }
+        h.player(p);
     }
     for u in units.iter() {
-        feed(&u.id.to_le_bytes());
-        feed(u.name.as_bytes());
-        feed(&u.kind.to_le_bytes());
-        for v in [u.team, u.hp.0, u.hp.1, u.shield, u.cc, u.targetable as usize] {
-            feed(&v.to_le_bytes());
-        }
-        feed(&u.pos.0.to_le_bytes());
-        feed(&u.pos.1.to_le_bytes());
-        for b in u.buffs.iter().filter(|b| !is_sim_tag(b)) {
-            feed(b.as_bytes());
-        }
+        h.unit(u);
     }
-    h
+    h.0
+}
+
+/// One fine record (every `FINE` ticks): a hash of each player's row with his champion's, and one of every other
+/// unit - enough to tell between which ticks and in whose rows two runs first differ.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Fine {
+    pub tick: u32,
+    /// the units that are no player's champion
+    pub rest: u32,
+    /// (player id, the hash of his row and his champion's), in player id order
+    pub players: Box<[(u32, u32)]>,
+}
+
+impl Fine {
+    /// The fine record of a snapshot (its rows sorted by id, as `Snapshot::new` leaves them).
+    pub fn of(s: &Snapshot) -> Fine {
+        let players = s.players.iter().map(|p| {
+            let mut h = Fnv::new();
+            h.player(p);
+            if let Some(u) = s.units.iter().find(|u| u.id == p.champ) {
+                h.unit(u);
+            }
+            (p.id as u32, h.short())
+        }).collect();
+        let mut rest = Fnv::new();
+        for u in s.units.iter().filter(|u| !s.players.iter().any(|p| p.champ == u.id)) {
+            rest.unit(u);
+        }
+        Fine { tick: s.tick as u32, rest: rest.short(), players }
+    }
+
+    /// What it takes, about (the budget's unit).
+    fn bytes(&self) -> usize {
+        std::mem::size_of::<Fine>() + 16 + std::mem::size_of_val(&*self.players)
+    }
+}
+
+/// Each team's kills by its players (blue = team 0): what the game's log.log calls the live score.
+pub fn team_kills(players: &[Player]) -> (usize, usize) {
+    players.iter().fold((0, 0), |(b, r), p| if p.team == 0 { (b + p.kda[0], r) } else { (b, r + p.kda[0]) })
 }
 
 fn short(name: &str) -> &str {
@@ -240,32 +335,81 @@ fn none_dash(v: u64) -> String {
 
 // ---- the kept rows: names in a table, numbers as they are ----
 
-/// The names the kept rows refer to (each kept once).
+/// The names the kept rows refer to, each kept once with the number of kept references to it: a name goes with the
+/// last kept row naming it, and its id serves a new name (0.9.21 - the table only grew before, and was full 15 minutes
+/// into 11-08's launch).
 #[derive(Default)]
 struct Names {
     ids: HashMap<Arc<str>, u32>,
-    list: Vec<Arc<str>>,
+    /// by id: the name and its kept references (None: a free id)
+    list: Vec<Option<(Arc<str>, u32)>>,
+    free: Vec<u32>,
+    /// what the table takes, about (part of the budget)
+    bytes: usize,
 }
 
 const UNNAMED: u32 = u32::MAX;
 
 impl Names {
+    /// The id of `s`, one more kept reference to it.
     fn id(&mut self, s: &str) -> u32 {
         if let Some(&k) = self.ids.get(s) {
+            if let Some((_, n)) = self.list[k as usize].as_mut() {
+                *n += 1;
+            }
             return k;
         }
-        if self.list.len() >= MAX_NAMES {
+        if self.ids.len() >= MAX_NAMES {
             return UNNAMED;
         }
-        let k = self.list.len() as u32;
-        let s: Arc<str> = Arc::from(s);
-        self.list.push(s.clone());
-        self.ids.insert(s, k);
+        let name: Arc<str> = Arc::from(s);
+        let k = match self.free.pop() {
+            Some(k) => {
+                self.list[k as usize] = Some((name.clone(), 1));
+                k
+            }
+            None => {
+                self.list.push(Some((name.clone(), 1)));
+                (self.list.len() - 1) as u32
+            }
+        };
+        self.bytes += NAME_COST + name.len();
+        self.ids.insert(name, k);
         k
     }
 
+    /// One kept reference to `k` gone (the name with the last).
+    fn release(&mut self, k: u32) {
+        let Some(slot) = self.list.get_mut(k as usize) else { return };
+        let Some((_, n)) = slot.as_mut() else { return };
+        *n -= 1;
+        if *n == 0 {
+            if let Some((name, _)) = slot.take() {
+                self.ids.remove(&*name);
+                self.bytes -= NAME_COST + name.len();
+            }
+            self.free.push(k);
+        }
+    }
+
+    /// The references of rows that are no longer kept.
+    fn release_rows(&mut self, rows: &Rows) {
+        for p in &rows.players {
+            self.release(p.name);
+            for &i in p.items.iter() {
+                self.release(i);
+            }
+        }
+        for u in &rows.units {
+            self.release(u.name);
+            for &b in u.buffs.iter() {
+                self.release(b);
+            }
+        }
+    }
+
     fn get(&self, k: u32) -> &str {
-        self.list.get(k as usize).map_or("?", |s| s)
+        self.list.get(k as usize).and_then(Option::as_ref).map_or("?", |s| &s.0)
     }
 
     fn list(&self, ks: &[u32]) -> String {
@@ -471,9 +615,27 @@ fn unit_alone(u: &KeptUnit, names: &Names, side: &str) -> String {
             unit_kind(u.kind), u.team, u.pos.0, u.pos.1, u.hp.0, u.hp.1, names.list(&u.buffs))
 }
 
-/// Every row that differs between `a` (side `la`) and `b` (side `lb`) as a phrase naming its fields - players first,
-/// then champions, epic monsters, structures, summons, camps and minions, each by id - and the differing rows by class.
-fn differences(a: &Rows, b: &Rows, names: &Names, la: &str, lb: &str) -> (Vec<String>, Vec<(&'static str, usize)>) {
+/// The differing rows by class, in the order they are named.
+fn classes_of(found: &[(&'static str, String)]) -> Vec<(&'static str, usize)> {
+    let mut classes: Vec<(&'static str, usize)> = Vec::new();
+    for f in found {
+        match classes.iter_mut().find(|c| c.0 == f.0) {
+            Some(c) => c.1 += 1,
+            None => classes.push((f.0, 1)),
+        }
+    }
+    classes
+}
+
+/// Whether a row's class is a structure (a tower or a nexus).
+fn is_structure(class: &str) -> bool {
+    class == "tower" || class == "nexus"
+}
+
+/// Every row that differs between `a` (side `la`) and `b` (side `lb`) as (class, a phrase naming its fields), in the
+/// order they are named: players first, then champions, epic monsters, structures, summons, camps and minions, each by
+/// id.
+fn differing_rows(a: &Rows, b: &Rows, names: &Names, la: &str, lb: &str) -> Vec<(&'static str, String)> {
     let mut found: Vec<(u8, usize, &'static str, String)> = Vec::new();
     let mut ids: Vec<usize> = a.players.iter().chain(b.players.iter()).map(|p| p.id).collect();
     ids.sort_unstable();
@@ -518,14 +680,7 @@ fn differences(a: &Rows, b: &Rows, names: &Names, la: &str, lb: &str) -> (Vec<St
         found.push((unit_rank(row.kind), row.id, unit_kind(row.kind), phrase));
     }
     found.sort_by_key(|f| (f.0, f.1));
-    let mut classes: Vec<(&'static str, usize)> = Vec::new();
-    for f in &found {
-        match classes.iter_mut().find(|c| c.0 == f.2) {
-            Some(c) => c.1 += 1,
-            None => classes.push((f.2, 1)),
-        }
-    }
-    (found.into_iter().map(|f| f.3).collect(), classes)
+    found.into_iter().map(|f| (f.2, f.3)).collect()
 }
 
 // ---- runs, pairs and the store ----
@@ -560,6 +715,9 @@ struct Snap {
     count: usize,
     /// the rows, while kept (the budget)
     rows: Option<Rows>,
+    /// the fine records after the run's snapshot before this one, up to this tick - kept and dropped with the rows
+    fine: Option<Box<[Fine]>>,
+    /// what the rows and fine records take, while kept
     bytes: usize,
 }
 
@@ -577,6 +735,10 @@ struct Run {
     synced: bool,
     /// by the other run's number
     pairs: HashMap<u32, Pair>,
+    /// the fine records since its latest snapshot (the next one takes them)
+    pending: Vec<Fine>,
+    /// (player id, the champion he was last seen with): the fine brackets name them
+    champs: Vec<(usize, String)>,
 }
 
 impl Run {
@@ -593,14 +755,17 @@ impl Run {
         self.snaps.iter().rev().find(|s| s.tick == tick)
     }
 
-    /// Drops the rows of the snapshots at `range` -> the bytes freed.
-    fn drop_rows(&mut self, range: std::ops::Range<usize>) -> usize {
+    /// Drops the rows (and fine records) of the snapshots at `range`, their names' references with them -> the bytes
+    /// freed.
+    fn drop_rows(&mut self, range: std::ops::Range<usize>, names: &mut Names) -> usize {
         let mut freed = 0;
         for s in self.snaps.range_mut(range) {
-            if s.rows.take().is_some() {
-                freed += s.bytes;
-                s.bytes = 0;
+            if let Some(rows) = s.rows.take() {
+                names.release_rows(&rows);
             }
+            s.fine = None;
+            freed += s.bytes;
+            s.bytes = 0;
         }
         freed
     }
@@ -608,6 +773,63 @@ impl Run {
     fn kept_bytes(&self) -> usize {
         self.snaps.iter().map(|s| s.bytes).sum()
     }
+
+    /// Every kept row's references to the names given back (the run itself goes) -> the bytes it kept.
+    fn forget(&self, names: &mut Names) -> usize {
+        for rows in self.snaps.iter().filter_map(|s| s.rows.as_ref()) {
+            names.release_rows(rows);
+        }
+        self.kept_bytes()
+    }
+
+    /// The fine records kept from just after `from` to `to`, in tick order.
+    fn fines(&self, from: usize, to: usize) -> Vec<&Fine> {
+        self.snaps.iter().filter(|s| s.tick > from).filter_map(|s| s.fine.as_deref()).flatten()
+            .filter(|f| f.tick as usize > from && f.tick as usize <= to).collect()
+    }
+
+    fn champ(&self, player: usize) -> Option<&str> {
+        self.champs.iter().find(|c| c.0 == player).map(|c| c.1.as_str())
+    }
+}
+
+/// Between which fine records two runs first differ after `lo` (the last tick compared equal; None: none), up to
+/// `tick`: `first differs between t 4260 and t 4320, player 0 akali, other units` - None when no fine record kept on
+/// both sides differs.
+fn bracket(mine: &Run, other: &Run, lo: Option<usize>, tick: usize) -> Option<String> {
+    let from = lo.unwrap_or(0);
+    let theirs = other.fines(from, tick);
+    let mut last = lo;
+    for x in mine.fines(from, tick) {
+        let Some(y) = theirs.iter().find(|y| y.tick == x.tick) else { continue };
+        if x == *y {
+            last = Some(x.tick as usize);
+            continue;
+        }
+        let mut ids: Vec<u32> = x.players.iter().chain(y.players.iter()).map(|p| p.0).collect();
+        ids.sort_unstable();
+        ids.dedup();
+        let hash = |f: &Fine, id: u32| f.players.iter().find(|p| p.0 == id).map(|p| p.1);
+        let differ: Vec<u32> = ids.into_iter().filter(|&id| hash(x, id) != hash(y, id)).collect();
+        let mut who: Vec<String> = differ.iter().take(BRACKET_PLAYERS).map(|&id| {
+            match mine.champ(id as usize).or_else(|| other.champ(id as usize)) {
+                Some(c) => format!("player {id} {}", short(c)),
+                None => format!("player {id}"),
+            }
+        }).collect();
+        if differ.len() > BRACKET_PLAYERS {
+            who.push(format!("{} more players", differ.len() - BRACKET_PLAYERS));
+        }
+        if x.rest != y.rest {
+            who.push("other units".to_string());
+        }
+        let span = match last {
+            Some(a) => format!("between t {a} and t {}", x.tick),
+            None => format!("by t {}", x.tick),
+        };
+        return Some(format!("first differs {span}, {}", who.join(", ")));
+    }
+    None
 }
 
 struct Bucket {
@@ -655,22 +877,39 @@ impl Store {
         let bi = self.bucket_of(origin.match_id);
         let ri = self.run_of(bi, origin, snap.tick, snap.rng);
         let rows = Rows::keep(&snap, &mut self.names);
-        let bytes = rows.bytes();
-        self.bytes += bytes;
         let tick = snap.tick;
         {
             let b = &mut self.buckets[bi];
             b.updated = now;
             let run = &mut b.runs[ri];
+            // the fine records since its last snapshot, and this tick's own
+            let since = run.last_tick;
+            let mut fine: Vec<Fine> = std::mem::take(&mut run.pending).into_iter()
+                .filter(|f| f.tick as usize > since && (f.tick as usize) < tick).collect();
+            fine.push(Fine::of(&snap));
+            let bytes = rows.bytes() + fine.iter().map(Fine::bytes).sum::<usize>();
+            self.bytes += bytes;
+            for p in snap.players.iter().filter(|p| !p.name.is_empty()) {
+                match run.champs.iter_mut().find(|c| c.0 == p.id) {
+                    Some(c) if c.1 != p.name => c.1.clone_from(&p.name),
+                    Some(_) => {}
+                    None => run.champs.push((p.id, p.name.clone())),
+                }
+            }
             run.updated = now;
             run.last_tick = tick;
             if tick <= 1 {
                 run.key = Some(snap.rng);
             }
-            run.snaps.push_back(Snap { tick, hash: snap.hash, rng: snap.rng, count: snap.count, rows: Some(rows), bytes });
+            run.snaps.push_back(Snap { tick, hash: snap.hash, rng: snap.rng, count: snap.count, rows: Some(rows),
+                                       fine: Some(fine.into_boxed_slice()), bytes });
             while run.snaps.len() > KEEP {
-                let gone = run.snaps.pop_front().map_or(0, |s| s.bytes);
-                self.bytes -= gone;
+                if let Some(s) = run.snaps.pop_front() {
+                    if let Some(rows) = &s.rows {
+                        self.names.release_rows(rows);
+                    }
+                    self.bytes -= s.bytes;
+                }
             }
         }
         let mut out = Vec::new();
@@ -694,7 +933,9 @@ impl Store {
             // first the matches without a pair, then by the last update
             let victim = (0..self.buckets.len()).min_by_key(|&i| (self.buckets[i].paired(), self.buckets[i].updated)).unwrap();
             let b = self.buckets.remove(victim);
-            self.bytes -= b.runs.iter().map(Run::kept_bytes).sum::<usize>();
+            for r in &b.runs {
+                self.bytes -= r.forget(&mut self.names);
+            }
             if self.numbers.len() > 4096 {
                 self.numbers.clear();
             }
@@ -716,13 +957,36 @@ impl Store {
         while b.runs.len() >= MAX_RUNS {
             let victim = (0..b.runs.len()).min_by_key(|&i| (b.has_partner(i), b.runs[i].updated)).unwrap();
             let r = b.runs.remove(victim);
-            self.bytes -= r.kept_bytes();
+            self.bytes -= r.forget(&mut self.names);
         }
         let no = b.next_no;
         b.next_no += 1;
         b.runs.push(Run { origin, no, key: (tick <= 1).then_some(rng), snaps: VecDeque::new(), last_tick: 0,
-                          ended: false, updated: self.clock, synced: false, pairs: HashMap::new() });
+                          ended: false, updated: self.clock, synced: false, pairs: HashMap::new(), pending: Vec::new(),
+                          champs: Vec::new() });
         b.runs.len() - 1
+    }
+
+    /// Whether the latest run of `origin` is going and has a partner (another run of its set): the hook makes fine
+    /// records for those only - a background presim (most simulations, never paired) would only pay for them.
+    pub fn paired(&self, origin: Origin) -> bool {
+        self.buckets.iter().find(|b| b.match_id == origin.match_id).is_some_and(|b| {
+            b.runs.iter().rposition(|r| r.origin == origin).is_some_and(|i| !b.runs[i].ended && b.has_partner(i))
+        })
+    }
+
+    /// Files one fine record (every `FINE` ticks between the snapshots) with its run: the run's next snapshot keeps
+    /// it. Nothing for a run not seen yet or ended.
+    pub fn fine(&mut self, origin: Origin, fine: Fine) {
+        let Some(b) = self.buckets.iter_mut().find(|b| b.match_id == origin.match_id) else { return };
+        let Some(run) = b.runs.iter_mut().rev().find(|r| r.origin == origin) else { return };
+        if run.ended || fine.tick as usize <= run.last_tick {
+            return;
+        }
+        if run.pending.len() >= 2 * EVERY / FINE {
+            run.pending.remove(0);
+        }
+        run.pending.push(fine);
     }
 
     fn sync_line(&self, run: &Run, s: &Snap) -> String {
@@ -772,6 +1036,8 @@ impl Store {
         let (mine, other) = (&b.runs[ri], &b.runs[oi]);
         let (Some(a), Some(o)) = (mine.at(tick), other.at(tick)) else { return };
         let mut p = mine.pairs.get(&other.no).copied().unwrap_or_default();
+        // the last tick compared equal (the fine bracket starts after it)
+        let equal_at = if p.apart { None } else { p.last };
         p.compared += 1;
         p.last = Some(tick);
         let same = a.hash == o.hash && a.count == o.count;
@@ -810,6 +1076,10 @@ impl Store {
                 };
                 if p.lines < PAIR_LINES {
                     p.lines += 1;
+                    let when = match bracket(mine, other, equal_at, tick) {
+                        Some(fine) => format!("{when}; {fine}"),
+                        None => when,
+                    };
                     out.push(self.diverge_line(mine, other, a, o, &when));
                 }
             }
@@ -824,19 +1094,32 @@ impl Store {
         let (la, lb) = (mine.label(), other.label());
         let what = match (&a.rows, &o.rows) {
             (Some(x), Some(y)) => {
-                let (diffs, classes) = differences(x, y, &self.names, &la, &lb);
+                let diffs = differing_rows(x, y, &self.names, &la, &lb);
                 match diffs.split_first() {
                     Some((first, rest)) => {
-                        let mut s = first.clone();
+                        let mut s = first.1.clone();
                         if !rest.is_empty() {
-                            let also: Vec<&str> = rest.iter().take(ALSO).map(String::as_str).collect();
+                            let also: Vec<&str> = rest.iter().take(ALSO).map(|d| d.1.as_str()).collect();
                             s.push_str(&format!(" | also: {}", also.join("; ")));
                         }
-                        let by: Vec<String> = classes.iter().map(|(c, n)| format!("{n} {c}")).collect();
+                        // the towers and nexuses that differ, not named yet: always (11-08's one lead was the nexus's
+                        // third-party buffs, and players and champions fill the first rows)
+                        let structures: Vec<&str> =
+                            rest.iter().skip(ALSO).filter(|d| is_structure(d.0)).map(|d| d.1.as_str()).collect();
+                        if !structures.is_empty() {
+                            s.push_str(&format!(" | structures: {}", structures.iter().take(STRUCTURES).copied()
+                                .collect::<Vec<_>>().join("; ")));
+                            if structures.len() > STRUCTURES {
+                                s.push_str(&format!(" (+{} more)", structures.len() - STRUCTURES));
+                            }
+                        }
+                        let by: Vec<String> = classes_of(&diffs).iter().map(|(c, n)| format!("{n} {c}")).collect();
                         s.push_str(&format!(" | {} rows differ: {}", diffs.len(), by.join(", ")));
                         s
                     }
-                    None => "the kept rows agree - a name past the kept ones differs".to_string(),
+                    // the kept rows hold everything the hash sees, and a name goes only with the last row naming it:
+                    // only a name past MAX_NAMES (read "?" on both sides) could leave them agreeing
+                    None => "the kept rows agree - a name past the table's cap differs".to_string(),
                 }
             }
             (Some(_), None) => format!("{lb}'s rows at this tick are no longer kept: the hashes differ"),
@@ -855,10 +1138,10 @@ impl Store {
             let run = &mut self.buckets[bi].runs[ri];
             let n = run.snaps.len();
             if n > WINDOW + 1 {
-                self.bytes -= run.drop_rows(1..n - WINDOW);
+                self.bytes -= run.drop_rows(1..n - WINDOW, &mut self.names);
             }
         }
-        while self.bytes > DETAIL_BUDGET {
+        while self.bytes + self.names.bytes > DETAIL_BUDGET {
             let mut victim: Option<((bool, u64), usize, usize)> = None;
             for (b, bucket) in self.buckets.iter().enumerate() {
                 for (r, run) in bucket.runs.iter().enumerate() {
@@ -874,12 +1157,15 @@ impl Store {
             let Some((_, b, r)) = victim else { break };
             let run = &mut self.buckets[b].runs[r];
             let n = run.snaps.len();
-            self.bytes -= run.drop_rows(1..n);
+            self.bytes -= run.drop_rows(1..n, &mut self.names);
         }
     }
 
-    /// Marks the run ended and returns its END line (once, and only for a run with a partner).
-    pub fn end(&mut self, origin: Origin, tick: usize, count: usize, blue_diff: i32) -> Option<String> {
+    /// Marks the run ended and returns its END line (once, and only for a run with a partner): `blue_diff` the
+    /// simulation's score difference for blue, `kills` each team's kills by its players (blue, red) - log.log's
+    /// server_score and live_score respectively (the module's notes, 0.9.21).
+    pub fn end(&mut self, origin: Origin, tick: usize, count: usize, blue_diff: i32, kills: (usize, usize))
+               -> Option<String> {
         let bi = self.buckets.iter().position(|b| b.match_id == origin.match_id)?;
         let b = &mut self.buckets[bi];
         let ri = (0..b.runs.len()).filter(|&i| b.runs[i].origin == origin && !b.runs[i].ended)
@@ -897,7 +1183,8 @@ impl Store {
         }).collect();
         let verdict = if verdicts.is_empty() { "no other run of its set reached the same ticks".to_string() }
             else { verdicts.join("; ") };
-        Some(format!("END {} t={tick} n={count} blue score diff={blue_diff:+}: {verdict}", run.head()))
+        Some(format!("END {} t={tick} n={count} blue score diff={blue_diff:+} (kills {}:{}): {verdict}", run.head(),
+                     kills.0, kills.1))
     }
 
     /// The pair record between two runs of a match (tests).
@@ -918,9 +1205,57 @@ impl Store {
             .map_or_else(Vec::new, |r| r.snaps.iter().filter(|s| s.rows.is_some()).map(|s| s.tick).collect())
     }
 
-    /// Bytes of kept rows (tests).
+    /// Bytes of kept rows, fine records and names (tests).
     pub fn kept_bytes(&self) -> usize {
-        self.bytes
+        self.bytes + self.names.bytes
+    }
+
+    /// The ticks of the fine records kept with run `no`'s snapshot at `tick` (tests).
+    pub fn fine_ticks(&self, match_id: u64, no: u32, tick: usize) -> Vec<u32> {
+        let Some(b) = self.buckets.iter().find(|b| b.match_id == match_id) else { return Vec::new() };
+        b.runs.iter().find(|r| r.no == no).and_then(|r| r.at(tick)).and_then(|s| s.fine.as_deref())
+            .map_or_else(Vec::new, |f| f.iter().map(|f| f.tick).collect())
+    }
+
+    /// Names in the table now, and its slots (tests).
+    pub fn names_held(&self) -> (usize, usize) {
+        (self.names.ids.len(), self.names.list.len())
+    }
+
+    /// Every kept reference to a name counted again from the kept rows: Err with the first name whose count is off, or
+    /// a name kept with no row naming it (tests).
+    pub fn check_names(&self) -> Result<(), String> {
+        let mut refs: HashMap<u32, u32> = HashMap::new();
+        let mut add = |k: u32| *refs.entry(k).or_default() += 1;
+        for rows in self.buckets.iter().flat_map(|b| b.runs.iter()).flat_map(|r| r.snaps.iter())
+            .filter_map(|s| s.rows.as_ref()) {
+            for p in &rows.players {
+                add(p.name);
+                p.items.iter().for_each(|&i| add(i));
+            }
+            for u in &rows.units {
+                add(u.name);
+                u.buffs.iter().for_each(|&b| add(b));
+            }
+        }
+        for (k, slot) in self.names.list.iter().enumerate() {
+            let want = refs.get(&(k as u32)).copied().unwrap_or(0);
+            match slot {
+                Some((name, n)) if *n != want => return Err(format!("{name} (#{k}) counted {n}, named {want} times")),
+                Some((name, _)) if self.names.ids.get(&**name) != Some(&(k as u32)) => {
+                    return Err(format!("{name} (#{k}) is not in the map under its id"));
+                }
+                None if want > 0 => return Err(format!("#{k} is free and named {want} times")),
+                _ => {}
+            }
+        }
+        if refs.contains_key(&UNNAMED) {
+            return Err("a kept row reads ?".to_string());
+        }
+        if self.names.ids.len() != self.names.list.iter().flatten().count() {
+            return Err("the map and the slots disagree".to_string());
+        }
+        Ok(())
     }
 }
 
@@ -986,7 +1321,8 @@ pub fn snapshot(sim: &StableSim<'_>, rng: u64) -> Snapshot {
     Snapshot::new(tick, rng, players, units)
 }
 
-/// The match hook: a snapshot every `EVERY` ticks (and on the first tick), compared with the other runs of its set.
+/// The match hook: a snapshot every `EVERY` ticks (and on the first tick), compared with the other runs of its set,
+/// and a fine record every `FINE` ticks between them.
 pub struct Diverge;
 
 impl StableMatchHook for Diverge {
@@ -1002,19 +1338,31 @@ impl StableMatchHook for Diverge {
         let tick = sim.tick();
         let ended = sim.is_end();
         let on_grid = tick % EVERY == 0 || tick <= 1;
-        if !on_grid && !ended {
+        let fine = !on_grid && tick % FINE == 0;
+        if !on_grid && !ended && !fine {
             return;
         }
         // matchless simulations (the vanilla pairs the game runs at startup, m=-) go to a bucket of their own, paired by
         // their first rng like the rest
         let origin = Origin { kind: o.kind, match_id: o.match_id, set: o.set_index, seed: sim.seed(), thread: thread_no() };
+        // a fine record only for a run with a partner (it pairs when another run of its set files its first snapshot:
+        // the twins and the view start within a second of each other; a background presim never pairs)
+        if fine && !ended && !STORE.lock().unwrap_or_else(|e| e.into_inner()).paired(origin) {
+            return;
+        }
         let snap = snapshot(sim, rng_seed);
         let count = snap.count;
+        let kills = team_kills(&snap.players);
+        // between the snapshots only the fine record goes in (worked out before the lock)
+        let between = fine.then(|| Fine::of(&snap));
         let lines = {
             let mut store = STORE.lock().unwrap_or_else(|e| e.into_inner());
             let mut lines = if on_grid { store.record(origin, snap) } else { Vec::new() };
+            if let Some(f) = between {
+                store.fine(origin, f);
+            }
             if ended {
-                if let Some(end) = store.end(origin, tick, count, sim.score_diff(0)) {
+                if let Some(end) = store.end(origin, tick, count, sim.score_diff(0), kills) {
                     lines.push(end);
                 }
             }
@@ -1125,7 +1473,7 @@ mod tests {
             assert!(store.record(b, snap(t, 0xb, 800, &["x"], 300)).is_empty(), "another set: never compared");
         }
         assert_eq!(store.pair(2636, 1, 2), None);
-        assert_eq!(store.end(a, 1300, 4, 0), None, "no END without a partner");
+        assert_eq!(store.end(a, 1300, 4, 0, (0, 0)), None, "no END without a partner");
     }
 
     #[test]
@@ -1150,8 +1498,9 @@ mod tests {
         let lines = store.record(v, snap(600, 6, 900, &["league_recall"], 400));
         let div = with(&lines, "DIVERGE");
         assert_eq!(div.len(), 2, "{lines:?}");
-        assert!(div[0].contains("first seen at tick 600 (agreed at 1): u300#300 minion (view run 3 vs presim run 1): \
-                                 buffs only in view run 3: [league_recall] | 1 rows differ: 1 minion"), "{}", div[0]);
+        assert!(div[0].contains("first seen at tick 600 (agreed at 1); first differs between t 1 and t 600, other units: \
+                                 u300#300 minion (view run 3 vs presim run 1): buffs only in view run 3: [league_recall] | \
+                                 1 rows differ: 1 minion"), "{}", div[0]);
         assert!(div[0].contains("rng same"), "{}", div[0]);
         assert_eq!(store.pair(2636, 1, 2).unwrap().diverged, None);
         // tick 1200: equal again
@@ -1169,7 +1518,8 @@ mod tests {
         let lines = store.record(v, s);
         let div = with(&lines, "DIVERGE");
         assert_eq!(div.len(), 1, "{lines:?}");
-        assert!(div[0].contains("again at tick 1800 (equal again since 1200): player 1 c18 (view run 3 vs presim run 1): \
+        assert!(div[0].contains("again at tick 1800 (equal again since 1200); first differs between t 1200 and t 1800, \
+                                 player 1 c18: player 1 c18 (view run 3 vs presim run 1): \
                                  gold 425 vs 400, items [boots, league_doran] vs [boots] | also: u18#18 champion (view run 3 vs \
                                  presim run 1): pos (1,2) vs (18000,7), hp 690/1000 vs 700/1000 | 2 rows differ: 1 player, \
                                  1 champion"), "{}", div[0]);
@@ -1177,13 +1527,13 @@ mod tests {
         assert_eq!((p.agreed, p.diverged, p.again, p.agains, p.compared, p.differ, p.apart),
                    (Some(1), Some(600), Some(1200), 1, 4, 2, true));
         // the end line sums it up, once
-        let end = store.end(v, 1900, 4, 3).unwrap();
+        let end = store.end(v, 1900, 4, 3, (9, 6)).unwrap();
         assert!(end.contains("vs presim run 1 agreed through 1, diverged at 600, apart at 2 of 4 compared ticks, equal \
                               again 1x (first at 1200), apart at the end"), "{end}");
         assert!(end.contains("vs presim run 2 agreed through 1, diverged at 600"), "{end}");
-        assert!(end.contains("blue score diff=+3"), "{end}");
-        assert!(store.end(v, 1901, 4, 3).is_none(), "END once");
-        let end = store.end(p1, 1900, 4, 3).unwrap();
+        assert!(end.contains("blue score diff=+3 (kills 9:6): "), "{end}");
+        assert!(store.end(v, 1901, 4, 3, (9, 6)).is_none(), "END once");
+        let end = store.end(p1, 1900, 4, 3, (9, 6)).unwrap();
         assert!(end.contains("vs presim run 2 agreed through 600 (2 ticks compared)"), "{end}");
     }
 
@@ -1270,9 +1620,10 @@ mod tests {
         let (mut pb, mut ub) = world(900, &["b", "a", "c"], 400);
         let a = Rows::keep(&Snapshot::new(600, 1, pa.clone(), ua.clone()), &mut names);
         let b = Rows::keep(&Snapshot::new(600, 1, pb.clone(), ub.clone()), &mut names);
-        let (d, by) = differences(&a, &b, &names, "view run 3", "presim run 1");
-        assert_eq!(d, vec!["u300#300 minion (view run 3 vs presim run 1): buffs in another order [a, b, c] vs [b, a, c]"]);
-        assert_eq!(by, vec![("minion", 1)]);
+        let d = differing_rows(&a, &b, &names, "view run 3", "presim run 1");
+        assert_eq!(d, vec![("minion", "u300#300 minion (view run 3 vs presim run 1): buffs in another order [a, b, c] vs \
+                                       [b, a, c]".to_string())]);
+        assert_eq!(classes_of(&d), vec![("minion", 1)]);
         // a tower gone, a monster only on the other side, a player's level and stats
         ub.retain(|u| u.id != 40);
         ub.push(unit(55, EntityKindV1::Jungle, 700, &[]));
@@ -1280,12 +1631,12 @@ mod tests {
         pb[1].stat[0] = 66;
         pb[1].cds = [0, 0, 0, 600];
         let b = Rows::keep(&Snapshot::new(600, 1, pb, ub), &mut names);
-        let (d, by) = differences(&a, &b, &names, "x", "y");
-        assert_eq!(d[0], "player 2 c23 (x vs y): level 3 vs 4, cooldowns attack/skill/skill2/ult 0/120/0/600 vs 0/0/0/600, \
-                          attack 60 vs 66");
-        assert!(d[1].starts_with("u40#40 tower only in x (team 0, (40000,7), 3000/1000, buffs [])"), "{d:?}");
-        assert!(d[2].starts_with("u55#55 monster only in y"), "{d:?}");
-        assert_eq!(by, vec![("player", 1), ("tower", 1), ("monster", 1), ("minion", 1)]);
+        let d = differing_rows(&a, &b, &names, "x", "y");
+        assert_eq!(d[0].1, "player 2 c23 (x vs y): level 3 vs 4, cooldowns attack/skill/skill2/ult 0/120/0/600 vs \
+                            0/0/0/600, attack 60 vs 66");
+        assert!(d[1].1.starts_with("u40#40 tower only in x (team 0, (40000,7), 3000/1000, buffs [])"), "{d:?}");
+        assert!(d[2].1.starts_with("u55#55 monster only in y"), "{d:?}");
+        assert_eq!(classes_of(&d), vec![("player", 1), ("tower", 1), ("monster", 1), ("minion", 1)]);
         let s = summary(&a, &names);
         assert_eq!(s, "c18#18 L3 g400 900/1000 (18000,7) b1; c23#23 L3 g500 500/1000 (23000,7) b0");
         let mut dead = pa;
@@ -1294,6 +1645,196 @@ mod tests {
         let r = Rows::keep(&Snapshot::new(600, 1, dead, ua), &mut names);
         assert!(summary(&r, &names).starts_with("c18 dead r540 L3 g400; "));
         assert!(is_sim_tag("league_drmundo_sim:3") && !is_sim_tag("league_drmundo_w_on"));
+    }
+
+    #[test]
+    fn a_name_goes_with_its_last_reference_and_its_id_serves_the_next() {
+        let mut n = Names::default();
+        let a = n.id("league_akali");
+        let b = n.id("tfm2_b2:2:80:0");
+        assert_eq!(n.id("league_akali"), a, "a second reference");
+        n.release(b);
+        assert_eq!(n.get(b), "?", "its last reference gone");
+        let c = n.id("tfm2_b2:2:1f7:0");
+        assert_eq!(c, b, "the free id serves the next name");
+        assert_eq!((n.get(a), n.get(c)), ("league_akali", "tfm2_b2:2:1f7:0"));
+        n.release(a);
+        assert_eq!(n.get(a), "league_akali", "one reference left");
+        n.release(a);
+        assert_eq!((n.get(a), n.ids.len()), ("?", 1));
+        assert_eq!(n.bytes, NAME_COST + "tfm2_b2:2:1f7:0".len());
+        n.release(UNNAMED);
+        assert_eq!(n.ids.len(), 1);
+    }
+
+    /// 11-08: the names table only grew - every snapshot of every simulation (~780 background presims a launch) and
+    /// third-party buffs with changing numbers - and was full 15 minutes in: 7 DIVERGE lines "the kept rows agree - a
+    /// name past the kept ones differs", champions "?#18" in 259 of 554 summary lines. Now a name goes with the last kept
+    /// row naming it: over a launch's worth of background presims (576 000 names; the old table held 65 536) the table
+    /// stays small, and a match watched late names everything.
+    #[test]
+    fn names_stay_bounded_and_right_over_a_long_launch() {
+        let mut store = Store::default();
+        let background = |m: u64, tick: usize| {
+            let units = (0..12usize).map(|i| Unit {
+                id: 100 + i, name: format!("minion_{}", i % 3), kind: EntityKindV1::Minion.code(), team: i % 2,
+                pos: (tick as u64, i as u64), hp: (300, 300), shield: 0, cc: 0, targetable: true,
+                buffs: vec![format!("tfm2_b2:{i}:{:x}:0", tick as u64 * 7919 + m), format!("sed_timer1:{m}:{tick}")],
+            }).collect();
+            Snapshot::new(tick, 0x1000 + m, vec![player(1, 100, tick)], units)
+        };
+        let watched = |tick: usize, apart: bool| {
+            let (p, mut u) = world(1000, &[], 400);
+            u[3].buffs.push(format!("sed_timer1:w:{tick}"));
+            let nexus = if apart { "tfm2_b2:2:1f7:0" } else { "tfm2_b2:2:80:0" };
+            u.push(Unit { id: 0, name: "nexus".into(), kind: EntityKindV1::Nexus.code(), team: 0, pos: (5, 5),
+                          hp: (5000, 5000), shield: 0, cc: 0, targetable: true, buffs: vec![nexus.into()] });
+            if apart {
+                u[0].pos.0 += 3;
+            }
+            Snapshot::new(tick, 0x77, p, u)
+        };
+        let w = |kind, thread| Origin { kind, match_id: 4156, set: if kind == VIEW { 1 } else { SimOriginV1::NONE },
+                                        seed: 9, thread };
+        let (p1, p2, v) = (w(PRESIM, 13), w(PRESIM, 18), w(VIEW, 25));
+        let (mut lines, mut wt, mut most) = (Vec::new(), 0usize, (0usize, 0usize));
+        for m in 0..800u64 {
+            let o = Origin { kind: PRESIM, match_id: 10_000 + m, set: SimOriginV1::NONE, seed: m, thread: 30 };
+            for k in 0..30 {
+                assert!(store.record(o, background(m, if k == 0 { 1 } else { k * EVERY })).is_empty(), "unpaired: quiet");
+            }
+            // the watched match starts halfway, its names after 288 000 others
+            if m >= 400 && m % 4 == 0 {
+                let tick = if wt == 0 { 1 } else { wt * EVERY };
+                for (o, view) in [(p1, false), (p2, false), (v, true)] {
+                    lines.extend(store.record(o, watched(tick, view && wt >= 90)));
+                }
+                wt += 1;
+            }
+            let held = store.names_held();
+            most = (most.0.max(held.0), most.1.max(held.1));
+        }
+        assert!(most.1 < 1 << 16, "never more slots than the old table had: {most:?}");
+        assert!(store.kept_bytes() <= DETAIL_BUDGET, "{}", store.kept_bytes());
+        store.check_names().unwrap();
+        assert!(!lines.is_empty() && lines.iter().all(|l| !l.contains('?')), "{:?}", lines.iter().find(|l| l.contains('?')));
+        assert!(lines.iter().any(|l| l.starts_with("SYNC [view m=4156 s=1 run 3 thr 25] t=1 ")
+                                     && l.contains("c18#18 L3 g400 1000/1000 (18000,7) b1; c23#23")), "{lines:?}");
+        let div = with(&lines, "DIVERGE");
+        assert_eq!(div.len(), 2, "{div:?}");
+        assert!(div[0].contains("first seen at tick 54000 (agreed at 53400); first differs between t 53400 and t 54000, \
+                                 player 1 c18, other units: u18#18 champion (view run 3 vs presim run 1): pos (18003,7) vs \
+                                 (18000,7) | also: nexus#0 nexus (view run 3 vs presim run 1): buffs only in view run 3: \
+                                 [tfm2_b2:2:1f7:0]; buffs only in presim run 1: [tfm2_b2:2:80:0] | 2 rows differ: 1 \
+                                 champion, 1 nexus"), "{}", div[0]);
+    }
+
+    /// 11-08: players and champions fill the first 1 + ALSO rows, and the one lead of the day - the nexus's third-party
+    /// buffs - sat past them. The towers and nexuses not named yet are always appended.
+    #[test]
+    fn differing_structures_are_always_appended() {
+        let three = |gold: usize, hp: usize, nexus: &str, tower: usize| {
+            let players: Vec<Player> = (1..=3).map(|i| player(i, 17 + i, gold)).collect();
+            let mut units: Vec<Unit> = (18..=20).map(|id| unit(id, EntityKindV1::Champion, hp, &[])).collect();
+            units.push(Unit { id: 0, name: "nexus".into(), kind: EntityKindV1::Nexus.code(), team: 0, pos: (5, 5),
+                              hp: (5000, 5000), shield: 0, cc: 0, targetable: true, buffs: vec![nexus.into()] });
+            units.push(unit(40, EntityKindV1::Tower, tower, &[]));
+            units.push(unit(300, EntityKindV1::Minion, 300, &[]));
+            (players, units)
+        };
+        let snap = |(p, u): (Vec<Player>, Vec<Unit>), tick| Snapshot::new(tick, 3, p, u);
+        let mut names = Names::default();
+        let a = Rows::keep(&snap(three(400, 900, "tfm2_b2:2:1f7:0", 2900), 600), &mut names);
+        let b = Rows::keep(&snap(three(410, 800, "tfm2_b2:2:80:0", 3000), 600), &mut names);
+        let rows = differing_rows(&a, &b, &names, "view run 2", "presim run 1");
+        assert_eq!(rows.iter().map(|r| r.0).collect::<Vec<_>>(),
+                   vec!["player", "player", "player", "champion", "champion", "champion", "nexus", "tower"]);
+        // through the store: the line names the first, ALSO more, then the structures not named yet
+        let mut store = Store::default();
+        let (p1, v) = (origin(PRESIM, SimOriginV1::NONE, 7), origin(VIEW, SET4, 1));
+        store.record(p1, snap(three(400, 900, "tfm2_b2:2:80:0", 3000), 1));
+        store.record(v, snap(three(400, 900, "tfm2_b2:2:80:0", 3000), 1));
+        store.record(p1, snap(three(410, 800, "tfm2_b2:2:80:0", 3000), 600));
+        let lines = store.record(v, snap(three(400, 900, "tfm2_b2:2:1f7:0", 2900), 600));
+        let div = with(&lines, "DIVERGE");
+        assert!(div[0].contains(" | structures: nexus#0 nexus (view run 2 vs presim run 1): buffs only in view run 2: \
+                                 [tfm2_b2:2:1f7:0]; buffs only in presim run 1: [tfm2_b2:2:80:0]; u40#40 tower (view run 2 \
+                                 vs presim run 1): hp 2900/1000 vs 3000/1000 | 8 rows differ: 3 player, 3 champion, 1 \
+                                 nexus, 1 tower | "), "{}", div[0]);
+        assert!(!div[0].contains("u20#20"), "the third champion is counted, not named: {}", div[0]);
+        // a structure among the rows named already is not named twice
+        let mut store = Store::default();
+        store.record(p1, snap(three(400, 900, "tfm2_b2:2:80:0", 3000), 1));
+        store.record(v, snap(three(400, 900, "tfm2_b2:2:80:0", 3000), 1));
+        store.record(p1, snap(three(400, 900, "tfm2_b2:2:80:0", 3000), 600));
+        let lines = store.record(v, snap(three(400, 900, "tfm2_b2:2:1f7:0", 3000), 600));
+        let div = with(&lines, "DIVERGE");
+        assert!(div[0].contains("(agreed at 1); first differs between t 1 and t 600, other units: nexus#0 nexus"), "{}", div[0]);
+        assert!(!div[0].contains("structures:"), "{}", div[0]);
+    }
+
+    /// 11-08: EVERY (600 ticks) was all a DIVERGE line could say - the narrowest split (m=4160 s1) was "between 4200 and
+    /// 4800". Each player's row hash every FINE ticks narrows it to 60 ticks and names whose rows.
+    #[test]
+    fn fine_records_bracket_the_first_difference_to_sixty_ticks() {
+        let mut store = Store::default();
+        let (p1, v) = (origin(PRESIM, SimOriginV1::NONE, 7), origin(VIEW, SET4, 1));
+        // the view's champion #18 (player 1's) and a minion walk apart from tick 4320, are back by 5400; player 2's
+        // champion #23 alone differs from 5700
+        let state = |o: Origin, tick: usize| {
+            let (p, mut u) = world(1000, &[], 400);
+            if o == v && (4320..5400).contains(&tick) {
+                u[0].pos.0 += 2;
+                u[2].pos.1 += 1;
+            }
+            if o == v && tick >= 5700 {
+                u[1].hp.0 -= 7;
+            }
+            Snapshot::new(tick, 5, p, u)
+        };
+        let mut lines = Vec::new();
+        for o in [p1, v] {
+            for tick in std::iter::once(1).chain((1..=110).map(|k| k * FINE)) {
+                let s = state(o, tick);
+                if tick == 1 || tick % EVERY == 0 {
+                    lines.extend(store.record(o, s));
+                } else {
+                    store.fine(o, Fine::of(&s));
+                }
+            }
+        }
+        let div = with(&lines, "DIVERGE");
+        assert_eq!(div.len(), 2, "{lines:?}");
+        assert!(div[0].contains("first seen at tick 4800 (agreed at 4200); first differs between t 4260 and t 4320, player 1 \
+                                 c18, other units: u18#18 champion"), "{}", div[0]);
+        assert!(lines.iter().any(|l| l.starts_with("EQUAL") && l.contains("equal again at tick 5400")), "{lines:?}");
+        assert!(div[1].contains("again at tick 6000 (equal again since 5400); first differs between t 5640 and t 5700, \
+                                 player 2 c23: u23#23 champion"), "{}", div[1]);
+        // what a snapshot keeps: the fine records since the one before, its own tick's last
+        assert_eq!(store.fine_ticks(2636, 1, 600), (60..=600).step_by(60).collect::<Vec<u32>>());
+        assert_eq!(store.fine_ticks(2636, 1, 1), vec![1]);
+        // records waiting for a snapshot stay bounded; none for a run not seen yet or a tick its run has passed
+        store.fine(Origin { thread: 99, ..p1 }, Fine::of(&state(p1, 60)));
+        store.fine(p1, Fine::of(&state(p1, 6000)));
+        let lone = origin(PRESIM, SimOriginV1::NONE, 50);
+        let first = Snapshot { rng: 0xbad, ..state(lone, 1) };
+        store.record(lone, first);
+        // the hook makes them for runs with a partner only (a background presim never has one)
+        assert!(store.paired(p1) && store.paired(v) && !store.paired(lone) && !store.paired(Origin { thread: 99, ..p1 }));
+        for k in 1..100 {
+            store.fine(lone, Fine::of(&state(lone, k * FINE)));
+        }
+        store.record(lone, Snapshot { rng: 0xbad, ..state(lone, 6000) });
+        let kept = store.fine_ticks(2636, 3, 6000);
+        assert_eq!(kept.len(), 2 * EVERY / FINE + 1, "{kept:?}");
+        assert_eq!((kept[0], kept[kept.len() - 1]), (80 * FINE as u32, 6000), "the oldest went: {kept:?}");
+        store.end(v, 6600, 4, 0, (0, 0));
+        assert!(!store.paired(v), "an ended run makes no more");
+        // the END line's kills: each team's players' (blue = team 0)
+        let (mut p, _) = world(1000, &[], 400);
+        p[0].kda[0] = 5;
+        p[1].kda[0] = 3;
+        assert_eq!(team_kills(&p), (3, 5), "player 2 is team 0 (blue)");
     }
 
     // ---- snapshot() through the stable API, on a fake simulation ----

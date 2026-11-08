@@ -1,4 +1,4 @@
-# 卡莉丝塔附加包（测试版 v0.2.3，可选）
+# 卡莉丝塔附加包（测试版 v0.2.5，可选）
 
 **不装这个附加包，主包里的卡莉丝塔也是完整的**：普攻和 Q 穿刺插矛、E 撕裂（攒够矛自动拔）、W 灵魂绑定（被动）、武术姿态（每次投矛后往后跳）、
 R 命运的召唤都在主包数据里。主包是纯数据：**数据只能往后跳**（往前跳会一路冲到目标身上），**记不住和谁立了誓约**，**算不出一个落点让队友飞过去**。
@@ -43,6 +43,15 @@ R 命运的召唤都在主包数据里。主包是纯数据：**数据只能往�
   写出她身上的控制和标记、技能 2 和普攻的冷却、目标的状态（league_orianna 0.3.2 的做法）；一串连按只记第一下。
   另外（画面和预模拟分岔的排查）：撕裂斩杀拔谁以前按哈希表的顺序找第一个拔得死的（每份模拟顺序不同），两个人都拔得死时每份拔的
   不一样；现在按实体编号从小到大找（`rend_target`）。
+- 0.2.4（2026-11-08 的日志：一段 `rip now` 挂了 300 tick 没按、没拔，目标的血也几乎没掉）：钩子的每道门（歇着、技能 2 没解锁或试拔
+  的格子在冷却、正在出招、被控、目标、引擎不收）挡住时不再悄悄返回：一段「拔了能杀」挂过 30 tick（`RIP_QUIET`）还没按出去，就记
+  一行 `REND WAITS`，写出是哪道门、她身上的控制和引擎记的 tick、标记、技能 2 和普攻的冷却、目标多远、离他的塔多远（一段只记一次）。
+- 0.2.5（2026-11-08 夜里的日志）：48 条 `REND WAITS` 全写着 `target none`（27 条「skill 2 locked」都在 3 级以前，18 条「没有敌方英雄挂着
+  瞄准标记」）。原因：她身上的 `league_kalista_e_ok` 不只是本包挂的「拔了能杀」，也是数据阶梯的标记——矛 3 次打中英雄数据就挂 240 tick
+  （`tools/kit/build_kalista.py` 的 `step_to`），这时谁身上都没有 `league_kalista_e_aim`、钩子本来也不按，等的计时却开始了；更糟的是
+  被动的斩杀判定以前要等身上的 `e_ok` 下去才再算，阶梯一挂，本包的斩杀就停 240 tick。现在：等的计时只在有敌方英雄挂着瞄准标记时才开始
+  （`rip_timer`，没有就清掉）；斩杀判定只等本包自己上次挂的 6 tick（`rend_until`，`rend_rests`），能杀时数据已经挂着的 `e_ok` 不去
+  缩短（只在没有时才挂 6 tick），照样在那个敌人身上挂瞄准标记让钩子按。测试 `the_ladders_e_ok_neither_starts_the_wait_nor_pauses_the_lethal_check`。
 
 ## 和用户最初的方案不一样的地方
 
@@ -66,7 +75,10 @@ R 命运的召唤都在主包数据里。主包是纯数据：**数据只能往�
    - `REND n spears in … would deal … against … hp: rip now`：斩杀拔矛。
    - `REND PRESS: Skill2 on …`：钩子替她按了拔矛（0.1.3；0.2.3 起一串只记第一下）；
      `REND PRESS: Skill2 on …: pressed 3 ticks running since t=… and not taken (her cc […], flags […], E …/90 attack …/46; target …)
-     - backing off 30 ticks`（0.2.3）：连按没放出去，括号里是可能挡着的东西。
+     - backing off 30 ticks`（0.2.3）：连按没放出去，括号里是可能挡着的东西；
+   - `REND WAITS 30 ticks: <哪道门> (her cc […], flags […], E …/90 attack …/42; target …)`（0.2.4）：「拔了能杀」挂了 30 tick
+     还没按出去，是哪道门挡着（`backing off …`、`skill 2 locked or its try slot cooling`、`busy: …`、`held by crowd control`、
+     `the engine refuses the press`）；0.2.5 起只在有敌方英雄挂着瞄准标记时才记，不该再有 `target none`。
 
 ## 开发
 

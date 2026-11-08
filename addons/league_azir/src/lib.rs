@@ -54,6 +54,9 @@
 //!   （`s_spawn`），他身上挂 `league_azir_x<槽>`，数据不再让它刺、不让狂沙猛攻挪它、流沙移形不把它算作沙兵，这个槽位下一个
 //!   沙兵升起时数据摘掉。英雄联盟的沙兵在敌方塔的射程里老得快一倍：本包在塔下按两倍算，提前到 `s_life` 就塌。墙立 5 秒
 //!   （`r_hold` 300，英雄联盟 V10.1 起 5 秒）。太阳圆盘改成英雄联盟的 90 秒冷却（`d_cd`），敌方基地外倒下的敌方塔也能立。
+//! - 0.2.3（2026-11-08 夜里的日志）：升起中的沙兵在他够不着的地方也挂 `league_azir_o<槽>`（狂沙猛攻刚挪过去、还在升起的一组
+//!   照样刺了：`STAB CHECK FAILED` 19 次）；他死时留下的圆盘按（模拟、玩家）记，复活后的新身体拿得回来（`DISC BACK`）；
+//!   死后的脉冲每次死亡只记开始、结束两行（`PULSE START` / `PULSE END`，带次数），沙兵盖章、流沙线只记前几条和 10、20、50、100……条。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -137,6 +140,32 @@ fn bump(kind: &'static str) -> usize {
 fn counted(kind: &'static str) -> Option<usize> {
     let n = bump(kind);
     (n <= LOG_FIRST || n % LOG_EVERY == 0).then_some(n)
+}
+
+/// How many of a kind so far this launch (0 for none).
+fn count_of(kind: &'static str) -> usize {
+    COUNTS.lock().unwrap_or_else(|e| e.into_inner()).get(kind).copied().unwrap_or(0)
+}
+
+/// 0.2.3: the lines of a kind that comes by the million (a soldier's stamps, the line's pieces: 1.5 and 5.7 million in the
+/// 11-08 launch - every 500th / 5000th was still 3118 / 1136 lines): the first `SPARSE_FIRST`, then 10, 20, 50, 100, 200,
+/// 500, ... - each line's number keeps the count.
+pub const SPARSE_FIRST: usize = 6;
+
+pub fn sparse(k: usize) -> bool {
+    if k <= SPARSE_FIRST {
+        return true;
+    }
+    let mut d: usize = 10;
+    loop {
+        if k == d || k == 2 * d || k == 5 * d {
+            return true;
+        }
+        if d > k / 10 {
+            return false;
+        }
+        d *= 10;
+    }
 }
 
 /// Like `counted`, but every one in the match on screen (watched, spectated or replayed): the server's pre-simulations
@@ -479,7 +508,7 @@ impl StablePassive for Disc {
                      head(sim, me), self.towers.len() - his, reach_of(&self.p, body), self.p.s_tie, self.p));
     }
 
-    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
+    fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, player: usize, me: usize) {
         let tick = sim.tick();
         let Some(e) = sim.get_entity(me) else { return };
         let team = e.team();
@@ -500,8 +529,9 @@ impl StablePassive for Disc {
         if self.towers.is_empty() && tick < 600 {
             self.snapshot(sim, team);
         }
-        // 0.2.1: the disc the pulse kept while he was dead comes back to the passive
-        if let Some(up) = DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).remove(&wall_key(sim, me)) {
+        // 0.2.1: the disc the pulse kept while he was dead comes back to the passive - 0.2.3: kept by his player (a respawn
+        // is a new entity: keyed by his body it never came back, 0 `DISC BACK` in the 11-08 logs)
+        if let Some(up) = DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).remove(&disc_key(self.sim, player)) {
             if self.up.is_none() {
                 self.up = Some(up);
                 wlog(format!("{} DISC BACK with him at {}, {} ticks left", head(sim, me), pt(up.at), up.until.saturating_sub(tick)));
@@ -546,10 +576,16 @@ impl StablePassive for Disc {
         let disc = self.up.map(|up| format!("the disc at {} ({} ticks left)", pt(up.at), up.until.saturating_sub(tick)));
         let queued = pulse(sim, me);
         if queued {
-            // the pulse drives it from DEAD_DISCS; refused, it stays with the passive and freezes as before
+            // the pulse drives it from DEAD_DISCS; refused, it stays with the passive and freezes as before. 0.2.3: kept by
+            // (simulation, player), so his next life takes it back
+            let dk = disc_key(self.sim, player);
             if let Some(up) = self.up.take() {
-                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).insert(key, up);
+                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).insert(dk, up);
             }
+            // this death's pulse (its START / END lines); runs of this simulation that stopped without an end go
+            let mut runs = PULSES.lock().unwrap_or_else(|e| e.into_inner());
+            prune_runs(&mut runs, key.0, tick);
+            runs.insert(key, PulseRun { disc: dk, died: tick, last: tick, n: 0, told: None });
         }
         if let Some(k) = tally(sim, "dead") {
             wlog(format!("{} DEAD #{k}: {}{}{} - the pulse {}", head(sim, me), disc.clone().unwrap_or_default(),
@@ -560,8 +596,55 @@ impl StablePassive for Disc {
     }
 }
 
-/// 0.2.1: (sim, him) -> the disc he left standing when he died (the passive's on_update stops with him; [`Pulse`] drives it).
-static DEAD_DISCS: LazyLock<Mutex<HashMap<WallKey, Up>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// The disc's key while he is dead: (the simulation's number `SIM_TAG`, his player).
+pub type DiscKey = (u64, usize);
+
+pub fn disc_key(sim_no: u64, player: usize) -> DiscKey {
+    (sim_no, player)
+}
+
+/// 0.2.1: the disc he left standing when he died (the passive's on_update stops with him; [`Pulse`] drives it). 0.2.3: by
+/// (sim, his player) - 0.2.1-0.2.2 keyed it by (sim, his body), and a respawn is a new entity: his next life never found
+/// it (no `DISC BACK` in the 11-08 logs; the pulse drove it on the corpse to its end, 183 `DISC GONE ... (he is dead)`).
+static DEAD_DISCS: LazyLock<Mutex<HashMap<DiscKey, Up>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 0.2.3: one death's pulse, by (simulation, his body) like his walls: whose disc it drives (`disc`), the tick he died,
+/// its last pulse's tick, how many pulses so far, and the number of its START line (its END line goes with it). 0.2.1 wrote
+/// a `PULSE` line per launch-wide count (first 30, then every 50th): 7696 lines of 383300 pulses on 11-08.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct PulseRun {
+    pub disc: DiscKey,
+    pub died: usize,
+    pub last: usize,
+    pub n: usize,
+    pub told: Option<usize>,
+}
+
+impl PulseRun {
+    /// One more pulse at `tick`: whether it is the run's first (its START line).
+    pub fn step(&mut self, tick: usize) -> bool {
+        self.n += 1;
+        self.last = tick;
+        self.n == 1
+    }
+}
+
+static PULSES: LazyLock<Mutex<HashMap<(u64, usize), PulseRun>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// The runs of simulation `no` that stopped without their end (its match over mid-pulse) go at `tick` - a running one
+/// pulsed on the tick before; other simulations' runs stay.
+pub fn prune_runs(runs: &mut HashMap<(u64, usize), PulseRun>, no: u64, tick: usize) {
+    runs.retain(|k, r| k.0 != no || r.last + 2 >= tick);
+}
+
+/// A death's pulse is over (0.2.3): its END line (when its START was written) with this death's count and the launch's.
+fn end_run(sim: &StableSim<'_>, me: usize, key: WallKey, why: &str) {
+    let Some(r) = PULSES.lock().unwrap_or_else(|e| e.into_inner()).remove(&key) else { return };
+    if let Some(k) = r.told {
+        wlog(format!("{} PULSE END #{k}: {} pulses over {} ticks since his death ({why}); {} pulses in all this launch",
+                     head(sim, me), r.n, r.last.saturating_sub(r.died), count_of("pulse")));
+    }
+}
 
 /// One tick of a standing disc: its picture re-stamped every `s_step`, a shot at the nearest enemy every `d_per`.
 #[allow(clippy::too_many_arguments)]
@@ -592,37 +675,60 @@ fn pulse(sim: &mut StableSim<'_>, me: usize) -> bool {
 }
 
 /// 0.2.1: while he is dead, a tick of the disc and the standing walls (queued effects run for a dead caster; his passive
-/// does not): queues the next one as long as either stands. Stops as soon as he lives (on_update takes over).
+/// does not): queues the next one as long as either stands. The pulse runs on his body (a respawn is a new entity); his
+/// next life takes the disc back (0.2.3), the walls stay the pulse's till they fall.
 struct Pulse;
 
 impl StableEffectType for Pulse {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, _: InputTargetV1) {
         let tick = sim.tick();
-        let Some(e) = sim.get_entity(me) else { return };
+        let key = wall_key(sim, me);
+        let Some(e) = sim.get_entity(me) else {
+            end_run(sim, me, key, "his body is gone");
+            return;
+        };
         if e.is_alive() {
+            end_run(sim, me, key, "he lives");
             return;
         }
         let (team, ap) = (e.team(), e.stat().magic_power);
-        let key = wall_key(sim, me);
         let p = params_of(me);
-        if let Some(k) = counted("pulse") {
-            wlog(format!("{} PULSE #{k}: the disc and the walls run on while he is dead", head(sim, me)));
+        // 0.2.3: every pulse counted, one line as a death's pulse starts and one as it ends (was: a line by the launch's
+        // count, 7696 of them on 11-08); a run on_dead did not set up (none should) drives his walls only
+        let all = bump("pulse");
+        let (first, run) = {
+            let mut runs = PULSES.lock().unwrap_or_else(|e| e.into_inner());
+            let r = runs.entry(key).or_insert(PulseRun { disc: disc_key(key.0, usize::MAX), died: tick, last: tick, n: 0,
+                                                         told: None });
+            (r.step(tick), *r)
+        };
+        if first {
+            if let Some(k) = tally(sim, "pulse run") {
+                if let Some(r) = PULSES.lock().unwrap_or_else(|e| e.into_inner()).get_mut(&key) {
+                    r.told = Some(k);
+                }
+                wlog(format!("{} PULSE START #{k}: the disc and the walls run on while he is dead ({} ticks after his death, \
+                              pulse #{all} of the launch)", head(sim, me), tick.saturating_sub(run.died)));
+            }
         }
         walls_tick(sim, me, team, tick, &p);
         let mut more = WALLS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).is_some_and(|w| !w.is_empty());
-        let disc = DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied();
+        let disc = DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).get(&run.disc).copied();
         if let Some(mut up) = disc {
             if tick >= up.until {
-                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).remove(&key);
+                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).remove(&run.disc);
                 wlog(format!("{} DISC GONE at {} (he is dead)", head(sim, me), pt(up.at)));
             } else {
                 disc_tick(sim, me, team, tick, ap, &p, &mut up, true);
-                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).insert(key, up);
+                DEAD_DISCS.lock().unwrap_or_else(|e| e.into_inner()).insert(run.disc, up);
                 more = true;
             }
         }
-        if more && !pulse(sim, me) {
+        if !more {
+            end_run(sim, me, key, "nothing left to run: the disc gone or back with him, the walls down");
+        } else if !pulse(sim, me) {
             wlog(format!("{} queue_effect({ID}:pulse) refused", head(sim, me)));
+            end_run(sim, me, key, "queue_effect refused");
         }
     }
 }
@@ -1123,12 +1229,15 @@ struct Soldier {
     gone: bool,
     /// times it went out of reach or back (only the first `FLIPS_LOGGED` are logged: he can stand on the edge)
     flips: usize,
+    /// 0.2.3: the out-of-reach mark `league_azir_o<slot>` hangs on him for it now - rising or standing (`away` follows the
+    /// standing soldier only, for the log and the crumble).
+    marked: bool,
 }
 
 impl Soldier {
     fn new(at: (f64, f64), right: bool, chain: usize, until: usize, next: usize, tick: usize, up: usize) -> Self {
         Soldier { at, right, chain, stab: None, until, next, last: tick, up, born: tick, age: 0, out: 0, away: false,
-                  gone: false, flips: 0 }
+                  gone: false, flips: 0, marked: false }
     }
 }
 
@@ -1353,10 +1462,10 @@ impl StableEffectType for SoldierFx {
                 drop(map);
                 draw_soldier(sim, me, self.slot, s.at, what, right);
                 queue_stamp(sim, me, self.slot, s.at, s.chain, next);
-                if let Some(k) = counted("stamp") {
-                    if k <= 6 || k % 500 == 0 {
-                        wlog(format!("{} SOLDIER {s_} STAMP #{k} ({what})", head(sim, me)));
-                    }
+                // 0.2.3: the first few, then 10, 20, 50, 100, ... (`sparse`; every 500th was 3118 lines of a launch)
+                let k = bump("stamp");
+                if sparse(k) {
+                    wlog(format!("{} SOLDIER {s_} STAMP #{k} ({what})", head(sim, me)));
                 }
             }
         }
@@ -1539,11 +1648,11 @@ fn tethers(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, here: P
             continue;
         }
         drawn.push(c);
-        if let Some(k) = counted("tether") {
-            if k <= 6 || k % 5_000 == 0 {
-                wlog(format!("{} TETHER {} #{k}: tether_{len} drawn at {} pointing ({:.2},{:.2}), {} ticks in flight",
-                             head(sim, me), SLOTS[slot], pt(c), u.0, u.1, TETHER_MOVES));
-            }
+        // 0.2.3: the first few, then 10, 20, 50, 100, ... (`sparse`; every 5000th was 1136 lines of a launch)
+        let k = bump("tether");
+        if sparse(k) {
+            wlog(format!("{} TETHER {} #{k}: tether_{len} drawn at {} pointing ({:.2},{:.2}), {} ticks in flight",
+                         head(sim, me), SLOTS[slot], pt(c), u.0, u.1, TETHER_MOVES));
         }
     }
     if !drawn.is_empty() {
@@ -1570,8 +1679,8 @@ pub fn latch(slot: usize) -> String {
 /// slot takes it off before).
 const LATCH_SPARE: usize = 60;
 
-/// 0.2.1: the mark on him while slot `slot`'s soldier stands out of his reach right now (before it crumbles):
-/// `league_azir_o<slot>`, hung afresh every tick it is out (`OUT_MARK_T`), taken off when it comes back. The copy's stab
+/// 0.2.1: the mark on him while slot `slot`'s soldier stands (0.2.3: or rises) out of his reach right now (before it
+/// crumbles): `league_azir_o<slot>`, hung afresh every tick it is out (`OUT_MARK_T`), taken off when it comes back. The copy's stab
 /// skips it: the data's own `tied` check (RandomTarget s_tie from the zone, from_projectile) let 7 stabs a day through at
 /// 67157-75253 from him, all inside this window.
 pub fn out_mark(slot: usize) -> String {
@@ -1582,14 +1691,16 @@ pub fn out_mark(slot: usize) -> String {
 /// it lapses by itself when the passive stops - his death - or the soldier ends).
 pub const OUT_MARK_T: usize = 3;
 
-/// What to do with the out-of-reach mark this tick: `Some(true)` hang it afresh (the soldier stands out of reach),
-/// `Some(false)` take it off (it just came back), `None` nothing (in reach, or still rising: League does not check a
-/// dashing soldier).
-pub fn out_mark_step(standing: bool, away: bool, was_away: bool) -> Option<bool> {
-    match (standing, away, was_away) {
-        (true, true, _) => Some(true),
-        (true, false, true) => Some(false),
-        _ => None,
+/// What to do with the out-of-reach mark this tick: `Some(true)` hang it afresh (the soldier is out of reach, `away`),
+/// `Some(false)` take it off (it came back and the mark hangs, `marked`), `None` nothing (in reach, no mark).
+/// 0.2.3: rising soldiers too (0.2.1-0.2.2 marked only a standing one - "League does not check a dashing soldier" - and
+/// the 11-08 logs had 19 `STAB CHECK FAILED` at 67117-75869 from him, reach 66000: the cluster Q had just moved, still
+/// rising, stabbed out of reach; the crumble still counts only a standing soldier's time out, `soldier_step`).
+pub fn out_mark_step(away: bool, marked: bool) -> Option<bool> {
+    match (away, marked) {
+        (true, _) => Some(true),
+        (false, true) => Some(false),
+        (false, false) => None,
     }
 }
 
@@ -1624,8 +1735,10 @@ fn soldiers_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, h
             }
             let logged = flipped && s.flips <= FLIPS_LOGGED;
             let was_out = s.out;
-            // 0.2.1: the mark the copy's stab asks while it stands out of reach (hung afresh every tick, off when back)
-            marks.push((slot, out_mark_step(standing, away, s.away)));
+            // 0.2.1: the mark the copy's stab asks while it is out of reach (hung afresh every tick, off when back);
+            // 0.2.3: rising too
+            marks.push((slot, out_mark_step(away, s.marked)));
+            s.marked = away;
             s.out = out;
             s.age = age;
             if standing {
@@ -2159,16 +2272,77 @@ mod tests {
         }
     }
 
-    /// 0.2.1: the mark hangs every tick a standing soldier is out of reach, comes off when it is back; a rising soldier
-    /// is not checked.
+    /// 0.2.1: the mark hangs every tick a soldier is out of reach, comes off when it is back. 0.2.3: a rising soldier too.
     #[test]
     fn the_out_of_reach_mark_follows_the_soldier() {
-        assert_eq!(out_mark_step(true, true, false), Some(true), "just went out");
-        assert_eq!(out_mark_step(true, true, true), Some(true), "still out: hung afresh");
-        assert_eq!(out_mark_step(true, false, true), Some(false), "back in reach");
-        assert_eq!(out_mark_step(true, false, false), None);
-        assert_eq!(out_mark_step(false, true, false), None, "rising");
+        assert_eq!(out_mark_step(true, false), Some(true), "just went out");
+        assert_eq!(out_mark_step(true, true), Some(true), "still out: hung afresh");
+        assert_eq!(out_mark_step(false, true), Some(false), "back in reach");
+        assert_eq!(out_mark_step(false, false), None);
         assert!(OUT_MARK_T >= 2, "seen on OUT_MARK_T - 1 ticks, hung every tick");
+    }
+
+    /// 0.2.3 (the 11-08 logs: 19 `STAB CHECK FAILED` in ~28000 stabs, 67117-75869 from him against his reach 66000, all
+    /// presims; slots a, b and c on one tick at 74568 - the cluster Q had just moved, still rising): a soldier rising out
+    /// of his reach carries the mark from its first tick, so the copy's stab skips it; its time out of reach still counts
+    /// toward the crumble only once it stands.
+    #[test]
+    fn a_soldier_rising_out_of_reach_carries_the_mark() {
+        let (him, spot) = ((400_000.0, 400_000.0), (474_568.0, 400_000.0));
+        let reach = reach_of(&Params::default(), 10_000);
+        let away = !in_reach(him, spot, reach);
+        assert!(away && reach == 66_000.0);
+        // its rising ticks: the mark hangs (0.2.2: none - the stab went through), no crumble count
+        let mut marked = false;
+        let mut out = 0;
+        for lived in 1..=Params::default().ss_rise {
+            assert_eq!(out_mark_step(away, marked), Some(true), "rising tick {lived}: marked");
+            marked = away;
+            let (o, _, why) = soldier_step(out, lived - 1, lived, false, away, false, 480);
+            assert_eq!((o, why), (0, None), "rising: not counted toward the crumble");
+            out = o;
+        }
+        // standing: still marked, now counted; back in reach: the mark comes off
+        assert_eq!(soldier_step(out, 20, 21, true, away, false, 480).0, 1);
+        assert_eq!(out_mark_step(away, marked), Some(true));
+        assert_eq!(out_mark_step(false, marked), Some(false));
+    }
+
+    /// 0.2.3: the disc he left when he died comes back to his next life - a respawn is a new entity, so it is kept by
+    /// (simulation, player); 0.2.2 kept it by his body and no `DISC BACK` was ever written.
+    #[test]
+    fn the_disc_comes_back_to_his_next_life() {
+        // 11-08: `[view m=4160 s=1] t=32334 #688 DEAD #362: the disc at (368000,592000) (1711 ticks left)`
+        let up = Up { at: (368_000.0, 592_000.0), until: 32_334 + 1_711, next_shot: 32_340, next_stamp: 32_350 };
+        let mut discs: HashMap<DiscKey, Up> = HashMap::new();
+        discs.insert(disc_key(7, 4), up);
+        assert!(discs.remove(&disc_key(8, 4)).is_none(), "the twin simulation's Azir of player 4 does not take it");
+        let back = discs.remove(&disc_key(7, 4)).expect("his next life (another entity, player 4) takes it back");
+        assert_eq!((back.at, back.until), (up.at, up.until));
+    }
+
+    /// 0.2.3: a death's pulse writes a line as it starts and one as it ends (`PulseRun`; 0.2.2 wrote 7696 `PULSE` lines by
+    /// the launch's count); a run whose simulation stopped mid-pulse goes when that simulation starts another.
+    #[test]
+    fn a_deaths_pulse_has_one_line_at_its_start_and_one_at_its_end() {
+        let mut r = PulseRun { disc: disc_key(7, 4), died: 100, last: 100, n: 0, told: None };
+        let firsts: Vec<bool> = (101..=105).map(|t| r.step(t)).collect();
+        assert_eq!(firsts, [true, false, false, false, false], "one START");
+        assert_eq!((r.n, r.last), (5, 105), "the count kept for the END line");
+        let mut runs = HashMap::from([((7, 30), r), ((7, 31), PulseRun { last: 50, ..r }), ((8, 30), PulseRun { last: 50, ..r })]);
+        prune_runs(&mut runs, 7, 106);
+        assert!(runs.contains_key(&(7, 30)), "still pulsing (last tick 105)");
+        assert!(!runs.contains_key(&(7, 31)), "stopped at 50 without an end: its simulation's match is over");
+        assert!(runs.contains_key(&(8, 30)), "another simulation's run is not this one's to drop");
+    }
+
+    /// 0.2.3: the stamps' and the line's pieces' lines (millions a launch): the first few, then 10, 20, 50, 100, ...
+    #[test]
+    fn the_stamp_and_tether_lines_are_sparse() {
+        let logged: Vec<usize> = (1..=1_000_000).filter(|&k| sparse(k)).collect();
+        assert_eq!(&logged[..12], &[1, 2, 3, 4, 5, 6, 10, 20, 50, 100, 200, 500]);
+        assert_eq!(logged.len(), SPARSE_FIRST + 3 * 5 + 1, "a million stamps: 22 lines (every 500th: 2000)");
+        assert!(sparse(5_000_000) && !sparse(5_000_001) && !sparse(7) && !sparse(15) && !sparse(300));
     }
 
     /// League: a disc on the ruins of a turret destroyed outside the enemy base - his anywhere, theirs but their base's.

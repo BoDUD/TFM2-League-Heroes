@@ -119,3 +119,21 @@
   沙兵一下全没了（再找到时年龄、够不着的计数从头算：另一次崩塌、另一次盯人）；施法者身上没有编号时（上一条命排下的效果、别的英雄
   放了复制来的技能）按 (0, 实体) 记，所有模拟共用一行。现在新的沙兵进来时只删这份模拟里早就没了的沙兵（按它自己的 tick），没有编号
   的施法者借这份模拟里第一个挂着编号的单位的编号（打上记号，不会和那个单位自己的行撞上）。
+
+## 0.2.3：升起中的沙兵也不越界刺；圆盘还给复活的他；日志瘦身（2026-11-08，11-08 夜里的日志）
+
+- **`STAB CHECK FAILED` x19**（约 28000 次刺击里，67117-75869，指挥距离 66000，全在预模拟里；`:6337-6339` 槽位 a、b、c 同一 tick 74568）：
+  狂沙猛攻刚把一组沙兵挪过去、还在升起（`ss_rise` 20 tick），数据让它们一起刺（Q 落地 2 tick 后的 `cmd`），这时他够不着。原因：
+  `out_mark_step` 只在沙兵站起来以后才挂 `o<槽>`（0.2.1 的说明：「英雄联盟不查冲刺中的沙兵」）。现在升起中的沙兵够不着也挂（Q 落地那一
+  tick 被动就挂上，数据 2 tick 后的刺击看得见），回到指挥距离里摘掉；塌掉的计时照旧只算站着的时候（`soldier_step`）。测试
+  `a_soldier_rising_out_of_reach_carries_the_mark`。
+- **`DISC BACK` 从来没出现过**：他死时留下的圆盘按（模拟、他的身体）记，可复活是一个新的实体，新身体的被动按自己的编号找不到它；
+  脉冲就在尸体上一直跑到圆盘时间到（183 条 `DISC GONE … (he is dead)`）。现在按（模拟、玩家）记（`DEAD_DISCS`、`disc_key`），复活后
+  第一 tick 就接回去（`DISC BACK with him at …`），之后脉冲只跑还立着的墙。测试 `the_disc_comes_back_to_his_next_life`。
+- **日志瘦身**：一次启动 383300 次脉冲（每次启动前 30 条、之后每 50 条一行 = 7696 行），加上沙兵盖章（每 500 次一行 = 3118 行）、流沙线
+  （每 5000 段一行 = 1136 行），占了日志的 66%。现在每次死亡的脉冲只记两行：`PULSE START #n: … (k ticks after his death, pulse #m of
+  the launch)`、`PULSE END #n: p pulses over t ticks since his death (为什么停); m pulses in all this launch`（次数都在，按 `tally`
+  限条数：看的那场每条都记）；`SOLDIER … STAMP #k`、`TETHER … #k` 只记前 6 条和第 10、20、50、100、200、500……条（`sparse`，一百万次
+  22 行，行里的编号就是总数）。测试 `a_deaths_pulse_has_one_line_at_its_start_and_one_at_its_end`、`the_stamp_and_tether_lines_are_sparse`。
+
+下一局看：`STAB CHECK FAILED` 应该没有了；他死时有圆盘、复活时圆盘还立着的，要有 `DISC BACK with him`；`PULSE START` / `PULSE END` 成对。

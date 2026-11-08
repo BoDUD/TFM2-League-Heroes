@@ -21,6 +21,13 @@
 //! 照旧不动，不会除两次。下一帧更新看到的已是被附身英雄、自己还没有记录：从「画时」的记录接着算（0.7.1，用户：「佛耶戈
 //! 不能变身PPU英雄？」）——游戏没把 +0x1b4 写回自己的值时，否则会把画时写的 ÷ PPU 当成游戏的值再除一次，附身后小 PPU 倍。
 //!
+//! 更新按「谁写的这个值」认记录（league.dll 0.9.21，2026-11-08 日志：妮蔻假扮时 `league_neeko 0.400 -> 0.160`、扮金克丝 /
+//! 阿狸 `0.455 -> 0.207`、扮纳尔 / 李青 `0.667 -> 0.444`）：妮蔻附加包和佛耶戈一样在更新之后换身体资源名，可她（和 0.8.39 起
+//! 也是高清英雄的佛耶戈）换之前就有自己的记录，记的是换之前那个英雄的 ÷ PPU；以前更新先用自己的记录，画时按新英雄写的
+//! 值对不上，就当成游戏的新值再除一次。现在自己的（按实体号）、按地址的、「画时」的三份记录里，哪份写的正是 +0x1b4 现在的
+//! 值就按哪份的游戏值算（[`update_prev`]）；都不是才当作游戏的新值。三份都没有、值又已经不大于 1 ÷ PPU 的，和画时一样
+//! 当作已经除过（[`at_update`]）。照这样认的那一帧记一行「is the body draw's ... kept」（每个「实体 id > 画成的英雄」一次）。
+//!
 //! 只缩身体（0.6.30，用户：「回城时脚下的特效会被遮挡」「英雄脚下的阴影也被遮挡了」）：+0x1b4 套在战场画身体的函数
 //! 0x2aaf630 交出的整组绘制命令外面（0x2abfdc0：组头插一条缩放命令 0x…11、组尾一条恢复 0x…12），组里除了身体还有阴影、
 //! 脚下的圆圈、眩晕 / 嘲讽标记、读条——跟着缩成 1/PPU（艾希 1/5.5），看着像被身体挡住了。所以在 0x2aaf630 的入口挂钩：
@@ -86,12 +93,34 @@ pub fn next_scale(prev: Option<Scale>, cur: f32, ppu: f32) -> Scale {
     Scale { base, wrote: base / ppu }
 }
 
-/// The record the display update divides from: its own for this entity, else the body draw's. A body swapped after
-/// the update (league_viego_soul: the update saw league_viego) was first divided at the body draw; the next update sees
-/// the victim's name with no record of its own, and if the game left the body draw's value in +0x1b4 that value would
-/// be taken for the game's own and divided again (the possessed hero drawn PPU times too small).
-pub fn update_prev(own: Option<Scale>, drawn: Option<Scale>) -> Option<Scale> {
-    own.or(drawn)
+/// Whether +0x1b4 holding `cur` is the value the record `s` wrote.
+fn wrote_it(s: &Scale, cur: f32) -> bool {
+    (cur - s.wrote).abs() <= 1e-6
+}
+
+/// The record the display update divides from: whichever of its own for this entity (by key), the same by the entity
+/// value's address and the body draw's wrote the value +0x1b4 holds now (`cur`); None when none did - `cur` is the
+/// game's own value then. A body swapped after the update (league_viego_soul, league_neeko: the update saw the hero
+/// drawn before) is divided at the body draw for the hero it is drawn as now; the next update finds that value, and
+/// its own record's `wrote` is for the hero drawn before. Taking its own record whatever it wrote (league.dll 0.9.20
+/// and before) read the body draw's value as the game's and divided it again: 2026-11-08 Neeko 0.400 -> 0.160 back as
+/// herself, 0.455 -> 0.207 disguised as Jinx / Ahri, 0.667 -> 0.444 as Gnar / Lee Sin (the disguise drawn PPU times too
+/// small until the game wrote its own value again) - a dense Viego possessing a dense hero the same.
+pub fn update_prev(own: Option<Scale>, by_value: Option<Scale>, drawn: Option<Scale>, cur: f32) -> Option<Scale> {
+    [own, drawn, by_value].into_iter().flatten().find(|s| wrote_it(s, cur))
+}
+
+/// The scale the display update writes for a dense entity, `cur` being what +0x1b4 holds and `k` the divisor of the
+/// hero it is drawn as: from the record that wrote `cur` ([`update_prev`]), else from `cur` as the game's own value -
+/// but with no record at all and `cur` at or under a base of 1 divided, a copy of an entity shrunk before, taken as
+/// divided (the body draw's guard, [`at_draw`]; the game never scales a unit under 1 / PPU on its own). Never divides
+/// twice.
+pub fn at_update(own: Option<Scale>, by_value: Option<Scale>, drawn: Option<Scale>, cur: f32, k: f32) -> Scale {
+    let prev = update_prev(own, by_value, drawn, cur);
+    if prev.is_none() && own.is_none() && by_value.is_none() && drawn.is_none() && cur <= 1.0 / k + 1e-4 {
+        return Scale { base: cur * k, wrote: cur };
+    }
+    next_scale(prev, cur, k)
 }
 
 /// The registered hero an entity is drawn as: by its body's resource name (`.../league_zeri#anim` or the bare id) when
@@ -113,7 +142,7 @@ pub enum AtDraw {
 /// The scale at the body draw. `shrunk`: the display update's record for this entity, `drawn`: the body draw's own,
 /// `shown`: PPU / size of the hero it is drawn as now (None: not a dense hero). Never divides twice.
 pub fn at_draw(shrunk: Option<Scale>, drawn: Option<Scale>, cur: f32, shown: Option<f32>) -> AtDraw {
-    let ours = |s: &Scale| (cur - s.wrote).abs() <= 1e-6;
+    let ours = |s: &Scale| wrote_it(s, cur);
     match shown {
         Some(k) => {
             let prev = match shrunk {
@@ -162,12 +191,99 @@ struct State {
     grow_lines: usize,
     /// (entity value, size drawn, when) of the form rows' heroes (hd::Table::forms), eased from frame to frame
     forms: Vec<(usize, f32, std::time::Instant)>,
+    /// "id > hero" pairs whose update kept the body draw's value (a body swapped after the update) was logged
+    kept: Vec<String>,
 }
+
+/// What the display update did with one dense entity ([`State::update_dense`]).
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct Updated {
+    s: Scale,
+    /// the base differs from the entity's last record (or it had none)
+    changed: bool,
+    /// +0x1b4 held the body draw's value, not the update's own last one: a body swapped after the update
+    kept_drawn: bool,
+}
+
+/// The records' length cap (each of [`State::scales`], [`State::by_value`], [`State::drawn`]).
+const RECORDS: usize = 256;
 
 impl State {
     const fn new() -> Self {
         State { scales: Vec::new(), by_value: Vec::new(), drawn: Vec::new(), scale_lines: 0, scaled: Vec::new(),
-                body_lines: 0, seen: Vec::new(), noted: Vec::new(), grows: Vec::new(), grow_lines: 0, forms: Vec::new() }
+                body_lines: 0, seen: Vec::new(), noted: Vec::new(), grows: Vec::new(), grow_lines: 0, forms: Vec::new(),
+                kept: Vec::new() }
+    }
+
+    /// The display update for the dense entity (`world`, `key`) whose value is at `v`, +0x1b4 holding `cur`, drawn as
+    /// a hero of divisor `k`: the scale to write ([`at_update`]), its records brought up to date.
+    fn update_dense(&mut self, world: usize, key: u64, v: usize, cur: f32, k: f32) -> Updated {
+        let at = self.scales.iter().position(|e| e.0 == world && e.1 == key);
+        let own = at.map(|i| self.scales[i].2);
+        let by_value = self.by_value.iter().find(|e| e.0 == v).map(|e| e.1);
+        let drawn = self.drawn.iter().find(|e| e.0 == v).map(|e| e.1);
+        let s = at_update(own, by_value, drawn, cur, k);
+        let kept_drawn = own.is_some_and(|o| !wrote_it(&o, cur)) && drawn.is_some_and(|d| wrote_it(&d, cur));
+        match self.by_value.iter().position(|e| e.0 == v) {
+            Some(i) => self.by_value[i].1 = s,
+            None => {
+                self.by_value.push((v, s));
+                if self.by_value.len() > RECORDS {
+                    self.by_value.remove(0);
+                }
+            }
+        }
+        let changed = match at {
+            Some(i) => {
+                let b = self.scales[i].2.base != s.base;
+                self.scales[i].2 = s;
+                b
+            }
+            None => {
+                self.scales.push((world, key, s));
+                if self.scales.len() > RECORDS {
+                    self.scales.remove(0);
+                }
+                true
+            }
+        };
+        Updated { s, changed, kept_drawn }
+    }
+
+    /// The display update for an entity that is not drawn dense (any more: a possession over): its records go, and the
+    /// game's own value comes back (Some) while +0x1b4 still holds the one the update wrote.
+    fn update_plain(&mut self, world: usize, key: u64, v: usize, cur: f32) -> Option<f32> {
+        self.by_value.retain(|e| e.0 != v);
+        let at = self.scales.iter().position(|e| e.0 == world && e.1 == key)?;
+        let p = self.scales.remove(at).2;
+        wrote_it(&p, cur).then_some(p.base)
+    }
+
+    /// The body draw of the entity value `ent`, +0x1b4 holding `cur`, drawn as a dense hero of divisor `shown` (None:
+    /// not dense now): what to do ([`at_draw`]) and the display update's record it went by, the body draw's own record
+    /// brought up to date.
+    fn body(&mut self, ent: usize, cur: f32, shown: Option<f32>) -> (AtDraw, Option<Scale>) {
+        let shrunk = self.by_value.iter().find(|e| e.0 == ent).map(|e| e.1);
+        let at = self.drawn.iter().position(|e| e.0 == ent);
+        let d = at_draw(shrunk, at.map(|i| self.drawn[i].1), cur, shown);
+        match d {
+            AtDraw::Write(s) => match at {
+                Some(i) => self.drawn[i].1 = s,
+                None => {
+                    self.drawn.push((ent, s));
+                    if self.drawn.len() > RECORDS {
+                        self.drawn.remove(0);
+                    }
+                }
+            },
+            AtDraw::Restore(_) => self.drawn.retain(|e| e.0 != ent),
+            AtDraw::Leave => {
+                if at.is_some() {
+                    self.drawn.retain(|e| e.0 != ent);
+                }
+            }
+        }
+        (d, shrunk)
     }
 }
 
@@ -264,55 +380,35 @@ unsafe fn shrink(world: usize) {
         let res = string_at(v + RES_PTR, v + RES_LEN_AT);
         let key = q(elem) as u64;
         seen.push(key);
-        let at = st.scales.iter().position(|e| e.0 == world && e.1 == key);
+        let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
         let Some(hero) = drawn_as(heroes, res, id) else {
             // no longer drawn with dense frames (a possession ended): the game's own value back
-            st.by_value.retain(|e| e.0 != v);
-            if let Some(k) = at {
-                let p = st.scales.remove(k).2;
-                let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
-                let ours = (cur - p.wrote).abs() <= 1e-6;
-                if ours {
-                    std::ptr::write_unaligned((v + SCALE) as *mut f32, p.base);
-                }
-                if ours && st.scale_lines < SCALE_LINES {
+            if let Some(base) = st.update_plain(world, key, v, cur) {
+                std::ptr::write_unaligned((v + SCALE) as *mut f32, base);
+                if st.scale_lines < SCALE_LINES {
                     st.scale_lines += 1;
-                    wlog(format!("world {world:#x} #{key} {}: drawn as {} again, draw scale back to {:.3}",
-                        id.unwrap_or("?"), res.unwrap_or("?"), p.base));
+                    wlog(format!("world {world:#x} #{key} {}: drawn as {} again, draw scale back to {base:.3}",
+                        id.unwrap_or("?"), res.unwrap_or("?")));
                 }
             }
             continue;
         };
         let name = res.unwrap_or(hero.id);
-        let cur = std::ptr::read_unaligned((v + SCALE) as *const f32);
-        let s = next_scale(update_prev(at.map(|k| st.scales[k].2), st.drawn.iter().find(|e| e.0 == v).map(|e| e.1)),
-                           cur, hero.shown());
+        let u = st.update_dense(world, key, v, cur, hero.shown());
+        let s = u.s;
         std::ptr::write_unaligned((v + SCALE) as *mut f32, s.wrote);
-        match st.by_value.iter().position(|e| e.0 == v) {
-            Some(k) => st.by_value[k].1 = s,
-            None => {
-                st.by_value.push((v, s));
-                if st.by_value.len() > 256 {
-                    st.by_value.remove(0);
-                }
-            }
-        }
-        let changed = match at {
-            Some(k) => {
-                let b = st.scales[k].2.base != s.base;
-                st.scales[k].2 = s;
-                b
-            }
-            None => {
-                st.scales.push((world, key, s));
-                if st.scales.len() > 256 {
-                    st.scales.remove(0);
-                }
-                true
-            }
-        };
-        if changed && note_scale(&mut st, hero.id, s.base) {
+        if u.changed && note_scale(&mut st, hero.id, s.base) {
             wlog(format!("world {world:#x} #{key} {name}: draw scale {cur:.3} -> {:.3} (base {:.3})", s.wrote, s.base));
+        }
+        // a body swapped after the update (league_neeko, league_viego_soul): one line an "id > hero" pair a session
+        if u.kept_drawn && st.scale_lines < SCALE_LINES {
+            let pair = format!("{} > {}", id.unwrap_or("?"), hero.id);
+            if !st.kept.contains(&pair) {
+                st.scale_lines += 1;
+                wlog(format!("world {world:#x} #{key} {}: drawn as {name} - draw scale {cur:.3} is the body draw's \
+                              (base {:.3}), kept, not divided again", id.unwrap_or("?"), s.base));
+                st.kept.push(pair);
+            }
         }
     }
     keep_seen(&mut st.scales, world, &seen);
@@ -391,23 +487,12 @@ unsafe fn scale_at_draw(ent: usize) -> Option<(Scale, &'static Hero)> {
     let res = string_at(ent + RES_PTR, ent + RES_LEN_AT);
     let hero = drawn_as(hd::heroes(), res, id);
     let mut st = STATE.try_lock().ok()?;
-    let shrunk = st.by_value.iter().find(|e| e.0 == ent).map(|e| e.1);
-    let at = st.drawn.iter().position(|e| e.0 == ent);
     let cur = std::ptr::read_unaligned((ent + SCALE) as *const f32);
-    match at_draw(shrunk, at.map(|k| st.drawn[k].1), cur, hero.map(|h| h.shown())) {
-        AtDraw::Write(s) => {
+    match st.body(ent, cur, hero.map(|h| h.shown())) {
+        (AtDraw::Write(s), shrunk) => {
             let hero = hero?;
             std::ptr::write_unaligned((ent + SCALE) as *mut f32, s.wrote);
-            match at {
-                Some(k) => st.drawn[k].1 = s,
-                None => {
-                    st.drawn.push((ent, s));
-                    if st.drawn.len() > 256 {
-                        st.drawn.remove(0);
-                    }
-                }
-            }
-            let updated = shrunk.is_some_and(|p| (cur - p.wrote).abs() <= 1e-6);
+            let updated = shrunk.is_some_and(|p| wrote_it(&p, cur));
             // the pair's String only for a body the update did not shrink (not every dense body every frame)
             let pair =
                 if updated || st.body_lines >= BODY_LINES { None } else { Some(format!("{} > {}", id.unwrap_or("?"), hero.id)) };
@@ -419,17 +504,11 @@ unsafe fn scale_at_draw(ent: usize) -> Option<(Scale, &'static Hero)> {
             }
             Some((s, hero))
         }
-        AtDraw::Restore(base) => {
+        (AtDraw::Restore(base), _) => {
             std::ptr::write_unaligned((ent + SCALE) as *mut f32, base);
-            st.drawn.retain(|e| e.0 != ent);
             None
         }
-        AtDraw::Leave => {
-            if at.is_some() {
-                st.drawn.retain(|e| e.0 != ent);
-            }
-            None
-        }
+        (AtDraw::Leave, _) => None,
     }
 }
 
@@ -1288,15 +1367,167 @@ mod tests {
         // frame 1: the update saw league_viego (nothing), the add-on swapped the body, the body draw divided
         let AtDraw::Write(first) = at_draw(None, None, 1.0, Some(k)) else { panic!() };
         // frame 2, the game left the body draw's value: the update sees the victim with no record of its own
-        let s = next_scale(update_prev(None, Some(first)), 1.0 / k, k);
+        let s = at_update(None, None, Some(first), 1.0 / k, k);
         assert_eq!(s, Scale { base: 1.0, wrote: 1.0 / k });
         assert_ne!(next_scale(None, 1.0 / k, k).wrote, s.wrote); // without the body draw's record: divided twice
         // frame 2, the game wrote its own value again: the same
-        assert_eq!(next_scale(update_prev(None, Some(first)), 1.0, k), s);
+        assert_eq!(at_update(None, None, Some(first), 1.0, k), s);
         // the body draw of frame 2 keeps the update's value
         assert_eq!(at_draw(Some(s), Some(first), 1.0 / k, Some(k)), AtDraw::Write(s));
         // from frame 3 the update has its own record
-        assert_eq!(next_scale(update_prev(Some(s), Some(first)), 1.0 / k, k), s);
+        assert_eq!(at_update(Some(s), Some(s), Some(first), 1.0 / k, k), s);
+    }
+
+    /// 2026-11-08 (league.log:2900-2905, m=4152 s3): Neeko's disguise divided twice - `league_neeko 0.400 -> 0.160`,
+    /// `league_jinx 0.455 -> 0.207`, `league_gnar 0.667 -> 0.444`. Her own record held the hero drawn before the swap,
+    /// and the update took it whatever it wrote.
+    #[test]
+    fn the_update_divides_from_the_record_that_wrote_the_value() {
+        let (neeko, jinx) = (2.5, 2.2);
+        let own = Scale { base: 1.0, wrote: 1.0 / neeko }; // the update, as herself
+        let drawn = Scale { base: 1.0, wrote: 1.0 / jinx }; // the body draw, disguised as Jinx after the update
+        assert_eq!(update_prev(Some(own), Some(own), Some(drawn), 1.0 / jinx), Some(drawn));
+        assert_eq!(at_update(Some(own), Some(own), Some(drawn), 1.0 / jinx, jinx), drawn);
+        // the old way (its own record first): 0.455 taken for the game's value
+        let old = next_scale(Some(own), 1.0 / jinx, jinx);
+        assert!((old.base - 0.4545).abs() < 1e-3 && (old.wrote - 0.2066).abs() < 1e-3, "{old:?}");
+        // back as herself: the body draw's 0.400 kept (the old way: 0.400 -> 0.160)
+        let own = drawn;
+        let drawn = Scale { base: 1.0, wrote: 1.0 / neeko };
+        assert_eq!(at_update(Some(own), Some(own), Some(drawn), 1.0 / neeko, neeko), drawn);
+        // a value none of them wrote is the game's own: a new base
+        assert_eq!(update_prev(Some(own), Some(own), Some(drawn), 1.0), None);
+        assert_eq!(at_update(Some(own), Some(own), Some(drawn), 1.5, neeko), Scale { base: 1.5, wrote: 0.6 });
+        // its own record first when two wrote it (a hero drawn as itself: the body draw kept the update's value)
+        let same = Scale { base: 1.0, wrote: 1.0 / neeko };
+        assert_eq!(update_prev(Some(same), None, Some(same), 1.0 / neeko), Some(same));
+        // the body draw's guard: no record at all and a value at or under a base of 1 divided - a copy, taken as divided
+        assert_eq!(at_update(None, None, None, 0.4, neeko), Scale { base: 1.0, wrote: 0.4 });
+        assert_eq!(at_update(None, None, None, 1.0, neeko), Scale { base: 1.0, wrote: 0.4 });
+        assert_eq!(at_update(None, None, None, 1.5, neeko), Scale { base: 1.5, wrote: 0.6 });
+        // with a record (a hero on screen since its first frame) a fresh value is divided, as before
+        assert_eq!(at_update(Some(own), None, None, 0.3, neeko).base, 0.3);
+    }
+
+    const W: usize = 0x229c_2ce1_f48;
+    const V: usize = 0x7000_0000;
+
+    /// One entity frame after frame as the game runs it: the game's update (now and then writing its own value), the
+    /// display update (this pack), a body swapper chained after it (league_neeko and league_viego_soul rename the
+    /// body's resource), then the body draw - the battlefield draws with what +0x1b4 holds after the body draw.
+    struct Screen {
+        st: State,
+        cur: f32,
+    }
+
+    impl Screen {
+        fn new(game: f32) -> Self {
+            Screen { st: State::new(), cur: game }
+        }
+
+        /// One frame: `game` the value the game writes (None: it leaves +0x1b4 alone), `seen` the divisor of the hero
+        /// the display update sees (None: no dense frames), `drawn` the one the body draw sees after the swapper ->
+        /// what the body is drawn with.
+        fn frame(&mut self, game: Option<f32>, seen: Option<f32>, drawn: Option<f32>) -> f32 {
+            if let Some(g) = game {
+                self.cur = g;
+            }
+            match seen {
+                Some(k) => self.cur = self.st.update_dense(W, 22, V, self.cur, k).s.wrote,
+                None => {
+                    if let Some(base) = self.st.update_plain(W, 22, V, self.cur) {
+                        self.cur = base;
+                    }
+                }
+            }
+            match self.st.body(V, self.cur, drawn).0 {
+                AtDraw::Write(s) => self.cur = s.wrote,
+                AtDraw::Restore(base) => self.cur = base,
+                AtDraw::Leave => {}
+            }
+            self.cur
+        }
+    }
+
+    #[track_caller]
+    fn at(got: f32, want: f32) {
+        assert!((got - want).abs() < 1e-5, "drawn at {got}, want {want}");
+    }
+
+    /// A body resource swapped after the display update, frame after frame: always the game's value / the PPU of the
+    /// hero drawn - Neeko's disguise (2026-11-08), Viego's possession (dense since league.dll 0.8.39), and a plain
+    /// dense hero as before.
+    #[test]
+    fn a_body_swapped_after_the_update_is_drawn_at_one_over_its_ppu() {
+        let (neeko, jinx, gnar, ahri) = (2.5, 2.2, 1.5, 2.2);
+        let mut sc = Screen::new(1.0);
+        for _ in 0..3 {
+            at(sc.frame(None, Some(neeko), Some(neeko)), 1.0 / neeko);
+        }
+        // the disguise starts: the update still sees league_neeko, her add-on renames the body to Jinx's
+        at(sc.frame(None, Some(neeko), Some(jinx)), 1.0 / jinx);
+        // then both see Jinx; the game leaves the body draw's value (was 0.455 -> 0.207) or writes its own now and then
+        for g in [None, None, Some(1.0), None, None] {
+            at(sc.frame(g, Some(jinx), Some(jinx)), 1.0 / jinx);
+        }
+        // back as herself (was 0.400 -> 0.160)
+        at(sc.frame(None, Some(jinx), Some(neeko)), 1.0 / neeko);
+        for g in [None, Some(1.0), None] {
+            at(sc.frame(g, Some(neeko), Some(neeko)), 1.0 / neeko);
+        }
+        // as Gnar (was 0.667 -> 0.444), then Ahri straight from Gnar, then a hero with no dense frames and back
+        at(sc.frame(None, Some(neeko), Some(gnar)), 1.0 / gnar);
+        at(sc.frame(None, Some(gnar), Some(gnar)), 1.0 / gnar);
+        at(sc.frame(None, Some(gnar), Some(ahri)), 1.0 / ahri);
+        at(sc.frame(None, Some(ahri), Some(ahri)), 1.0 / ahri);
+        at(sc.frame(None, Some(ahri), None), 1.0);
+        at(sc.frame(None, None, None), 1.0);
+        at(sc.frame(None, None, Some(neeko)), 1.0 / neeko);
+        at(sc.frame(None, Some(neeko), Some(neeko)), 1.0 / neeko);
+        // a growth value of the game's own in the middle of it: its own base, divided once
+        at(sc.frame(Some(1.1), Some(neeko), Some(jinx)), 1.1 / jinx);
+        at(sc.frame(None, Some(jinx), Some(jinx)), 1.1 / jinx);
+        at(sc.frame(None, Some(jinx), Some(neeko)), 1.1 / neeko);
+        at(sc.frame(None, Some(neeko), Some(neeko)), 1.1 / neeko);
+
+        // Viego (dense) possessing a dense Yasuo, then a plain Amumu, then himself again
+        let (viego, yasuo) = (2.447, 2.2);
+        let mut sc = Screen::new(1.0);
+        at(sc.frame(None, Some(viego), Some(viego)), 1.0 / viego);
+        at(sc.frame(None, Some(viego), Some(yasuo)), 1.0 / yasuo);
+        for g in [None, Some(1.0), None] {
+            at(sc.frame(g, Some(yasuo), Some(yasuo)), 1.0 / yasuo);
+        }
+        at(sc.frame(None, Some(yasuo), None), 1.0); // Amumu swapped in after the update: the game's value back
+        at(sc.frame(None, None, None), 1.0);
+        at(sc.frame(None, None, Some(viego)), 1.0 / viego); // the possession over, renamed after the update
+        at(sc.frame(None, Some(viego), Some(viego)), 1.0 / viego);
+
+        // a dense hero drawn as itself: as before, whatever the game writes
+        let mut sc = Screen::new(1.0);
+        for (g, want) in [(None, 1.0), (None, 1.0), (Some(1.0), 1.0), (Some(1.05), 1.05), (None, 1.05), (Some(1.5), 1.5),
+                          (None, 1.5), (Some(1.0), 1.0)] {
+            at(sc.frame(g, Some(jinx), Some(jinx)), want / jinx);
+        }
+    }
+
+    /// The update notes a swap (a line in the log, once a pair) only when +0x1b4 held the body draw's value and not its
+    /// own: never for a dense hero drawn as itself.
+    #[test]
+    fn only_a_swapped_body_is_noted() {
+        let mut st = State::new();
+        let k = 2.2;
+        let u = st.update_dense(W, 22, V, 1.0, k);
+        assert!(u.changed && !u.kept_drawn);
+        let (d, _) = st.body(V, u.s.wrote, Some(k));
+        assert_eq!(d, AtDraw::Write(u.s));
+        let u2 = st.update_dense(W, 22, V, u.s.wrote, k);
+        assert!(!u2.changed && !u2.kept_drawn, "{u2:?}");
+        // swapped to a hero of another PPU at the body draw: the next update keeps the body draw's value
+        let (d, _) = st.body(V, u.s.wrote, Some(2.5));
+        let AtDraw::Write(s) = d else { panic!("{d:?}") };
+        let u3 = st.update_dense(W, 22, V, s.wrote, 2.5);
+        assert!(!u3.changed && u3.kept_drawn && u3.s == s, "{u3:?}");
     }
 
     #[test]
