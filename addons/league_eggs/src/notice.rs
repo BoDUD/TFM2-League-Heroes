@@ -44,6 +44,25 @@ pub enum What {
     Plants { zyra: String, maokai: String },
     Ninjas { ninjas: Vec<String>, hp: i32 },
     Charm { nidalee: String, allies: Vec<String> },
+    // ---- 0.2.0（用户 2026-11-09：「我需要所有彩蛋都要有提示 你看看哪些没有的补进去」）：玩法在主包的数据、别的附加包或
+    // shades_shark.rs 里，本包从 buff、击杀记录、阵容里认出来放提示（都是小提示）
+    /// 1 雷恩加尔 / 卡兹克第一次看见对方（他们数据里的愤怒标记和台词，一局一条）。
+    HuntSighted { seer: String, seen: String },
+    /// 1 的奖励：雷恩加尔击杀卡兹克的战利品、卡兹克击杀雷恩加尔的额外进化（攻击力 +pct%，每条命一次）。
+    Trophy { rengar: String, khazix: String, pct: i32 },
+    Evolved { khazix: String, rengar: String, pct: i32 },
+    /// 6 太阳镜防晒：一个戴墨镜的人第一次挂上墨镜（每人一局一条）。
+    Shades { wearer: String, leona: String },
+    /// 7 光合作用：蕾欧娜的阳光第一次让婕拉的植物变大（league_zyra，一局一条）。
+    Sunlit { leona: String, zyra: String },
+    /// 9 鲨鱼吃小矮子：每吞掉一具。
+    Swallowed { fizz: String, yordle: String },
+    /// 10 蛇女不需要鞋：开局。
+    Barefoot { cassiopeia: String },
+    /// 霞洛联动：开局；洛第一次分到霞的 W；洛的 E 第一次落在霞身上（各一局一条）。
+    DuoStart { xayah: String, rakan: String },
+    DuoW { rakan: String, xayah: String },
+    DuoE { rakan: String, xayah: String },
 }
 
 impl What {
@@ -210,6 +229,17 @@ pub fn join(lang: Lang, names: &[String]) -> String {
     names.join(if lang == Lang::En { ", " } else { "、" })
 }
 
+/// 6 太阳镜防晒：戴的是什么（简体、繁体、英文；`rules::SUNGLASSES` 挑的时候看的图）：薇恩、洛克的墨镜，黑默丁格、吉格斯的护目镜，
+/// 图奇的目镜，李青的蒙眼布。
+pub fn eyewear(id: &str) -> (&'static str, &'static str, &'static str) {
+    match id {
+        "league_heimerdinger" | "league_ziggs" => ("护目镜", "護目鏡", "goggles"),
+        "league_twitch" => ("目镜", "目鏡", "eyepieces"),
+        "league_leesin" => ("蒙眼布", "矇眼布", "a blindfold"),
+        _ => ("墨镜", "墨鏡", "sunglasses"),
+    }
+}
+
 /// 一条公告的字：(标题, 第二行)。`name` 把英雄 id 换成名字。
 pub fn words(lang: Lang, what: &What, name: &dyn Fn(&str) -> String) -> (String, String) {
     let names = |v: &[String]| join(lang, &v.iter().map(|x| name(x)).collect::<Vec<_>>());
@@ -310,6 +340,67 @@ pub fn words(lang: Lang, what: &What, name: &dyn Fn(&str) -> String) -> (String,
             hans = format!("熟女的魅力：{n} 带着 {a}，+5 金币|");
             hant = format!("熟女的魅力：{n} 帶著 {a}，+5 金幣|");
             en = format!("Cougar's Charm: {n} brings {a} along, +5 gold|");
+        }
+        What::HuntSighted { seer, seen } => {
+            let (a, b) = (name(seer), name(seen));
+            hans = format!("{a} 发现了 {b}！宿敌相见，分外眼红|");
+            hant = format!("{a} 發現了 {b}！宿敵相見，分外眼紅|");
+            en = format!("{a} has spotted {b}! The rivals meet|");
+        }
+        What::Trophy { rengar, khazix, pct } => {
+            let (r, k) = (name(rengar), name(khazix));
+            hans = format!("狩猎战利品：{r} 拿下了 {k} 的头，攻击力 +{pct}%|");
+            hant = format!("狩獵戰利品：{r} 拿下了 {k} 的頭，攻擊力 +{pct}%|");
+            en = format!("Hunter's Trophy: {r} takes {k}'s head, +{pct}% attack|");
+        }
+        What::Evolved { khazix, rengar, pct } => {
+            let (k, r) = (name(khazix), name(rengar));
+            hans = format!("额外进化：{k} 猎杀了 {r}，攻击力 +{pct}%|");
+            hant = format!("額外進化：{k} 獵殺了 {r}，攻擊力 +{pct}%|");
+            en = format!("Extra Evolution: {k} hunted down {r}, +{pct}% attack|");
+        }
+        What::Shades { wearer, leona } => {
+            let (w, l) = (name(wearer), name(leona));
+            let (gs, gt, ge) = eyewear(wearer);
+            hans = format!("太阳镜防晒：{w} 戴着{gs}，{l} 的烈阳每层少烧 1%|");
+            hant = format!("太陽鏡防曬：{w} 戴著{gt}，{l} 的烈陽每層少燒 1%|");
+            en = format!("Sunglasses: {w} wears {ge}, {l}'s Sunlight burns 1% less|");
+        }
+        What::Sunlit { leona, zyra } => {
+            let (l, z) = (name(leona), name(zyra));
+            hans = format!("光合作用：{l} 的阳光照在 {z} 的植物上，植物长大了一号|");
+            hant = format!("光合作用：{l} 的陽光照在 {z} 的植物上，植物長大了一號|");
+            en = format!("Photosynthesis: {l}'s sunlight grows {z}'s plant a size|");
+        }
+        What::Swallowed { fizz, yordle } => {
+            let (f, y) = (name(fizz), name(yordle));
+            hans = format!("鲨鱼吃小矮子：{f} 的鲨鱼把 {y} 一口吞了|");
+            hant = format!("鯊魚吃小矮子：{f} 的鯊魚把 {y} 一口吞了|");
+            en = format!("Shark Snack: {f}'s shark swallowed {y} whole|");
+        }
+        What::Barefoot { cassiopeia } => {
+            let c = name(cassiopeia);
+            hans = format!("蛇女不需要鞋：{c} 没有脚，不穿鞋，每升一级移速多涨一点|");
+            hant = format!("蛇女不需要鞋：{c} 沒有腳，不穿鞋，每升一級移速多漲一點|");
+            en = format!("No Feet, No Boots: {c} gains more move speed every level|");
+        }
+        What::DuoStart { xayah, rakan } => {
+            let (x, r) = (name(xayah), name(rakan));
+            hans = format!("霞洛联动：{x} 和 {r} 同队，她的羽衣分他一份，他的舞步飞得更远|");
+            hant = format!("情侶聯動：{x} 和 {r} 同隊，她的羽翼分他一份，他的舞步飛得更遠|");
+            en = format!("Lovers' Duo: {x} and {r} - shared plumage, a longer dance|");
+        }
+        What::DuoW { rakan, xayah } => {
+            let (r, x) = (name(rakan), name(xayah));
+            hans = format!("霞洛联动：{r} 分到了 {x} 的「致死羽衣」，攻速、移速提高|");
+            hant = format!("情侶聯動：{r} 分到了 {x} 的「奪命疾翼」，攻速、移速提高|");
+            en = format!("Lovers' Duo: {r} shares {x}'s Deadly Plumage|");
+        }
+        What::DuoE { rakan, xayah } => {
+            let (r, x) = (name(rakan), name(xayah));
+            hans = format!("霞洛联动：{r} 的「轻舞成双」飞到 {x} 身边，给她一层护盾|");
+            hant = format!("情侶聯動：{r} 的「戰鬥舞踊」飛到 {x} 身邊，給她一層護盾|");
+            en = format!("Lovers' Duo: {r}'s Battle Dance carries him to {x}'s side|");
         }
     }
     let line = match lang {
@@ -625,6 +716,16 @@ mod tests {
             What::Plants { zyra: s(), maokai: s() },
             What::Ninjas { ninjas: vec![s()], hp: -1 },
             What::Charm { nidalee: s(), allies: vec![s()] },
+            What::HuntSighted { seer: s(), seen: s() },
+            What::Trophy { rengar: s(), khazix: s(), pct: 15 },
+            What::Evolved { khazix: s(), rengar: s(), pct: 10 },
+            What::Shades { wearer: s(), leona: s() },
+            What::Sunlit { leona: s(), zyra: s() },
+            What::Swallowed { fizz: s(), yordle: s() },
+            What::Barefoot { cassiopeia: s() },
+            What::DuoStart { xayah: s(), rakan: s() },
+            What::DuoW { rakan: s(), xayah: s() },
+            What::DuoE { rakan: s(), xayah: s() },
         ];
         for w in &all {
             for lang in [Lang::Hans, Lang::Hant, Lang::En] {
@@ -633,6 +734,82 @@ mod tests {
                 // big notes carry a second line, toasts none
                 assert_eq!(!sub.is_empty(), w.big(), "{w:?} {lang:?}");
             }
+        }
+    }
+
+    /// 0.2.0's toasts with the game's names (the champion text of the main pack, zh-hans / zh-hant / en).
+    #[test]
+    fn the_new_toasts_read_with_the_names() {
+        let hans = |id: &str| {
+            match id {
+                "league_rengar" => "雷恩加尔",
+                "league_khazix" => "卡兹克",
+                "league_vayne" => "薇恩",
+                "league_leesin" => "李青",
+                "league_ziggs" => "吉格斯",
+                "league_leona" => "蕾欧娜",
+                "league_zyra" => "婕拉",
+                "league_fizz" => "菲兹",
+                "league_tristana" => "崔丝塔娜",
+                "league_cassiopeia" => "卡西奥佩娅",
+                "league_xayah" => "霞",
+                "league_rakan" => "洛",
+                x => x,
+            }
+            .to_string()
+        };
+        let t = |w: What| words(Lang::Hans, &w, &hans).0;
+        let id = |x: &str| x.to_string();
+        assert_eq!(t(What::HuntSighted { seer: id("league_rengar"), seen: id("league_khazix") }),
+                   "雷恩加尔 发现了 卡兹克！宿敌相见，分外眼红");
+        assert_eq!(t(What::Trophy { rengar: id("league_rengar"), khazix: id("league_khazix"), pct: 15 }),
+                   "狩猎战利品：雷恩加尔 拿下了 卡兹克 的头，攻击力 +15%");
+        assert_eq!(t(What::Evolved { khazix: id("league_khazix"), rengar: id("league_rengar"), pct: 10 }),
+                   "额外进化：卡兹克 猎杀了 雷恩加尔，攻击力 +10%");
+        assert_eq!(t(What::Shades { wearer: id("league_vayne"), leona: id("league_leona") }),
+                   "太阳镜防晒：薇恩 戴着墨镜，蕾欧娜 的烈阳每层少烧 1%");
+        // what each wearer has on his eyes
+        assert!(t(What::Shades { wearer: id("league_leesin"), leona: id("league_leona") }).contains("李青 戴着蒙眼布"));
+        assert!(t(What::Shades { wearer: id("league_ziggs"), leona: id("league_leona") }).contains("吉格斯 戴着护目镜"));
+        assert_eq!(eyewear("league_twitch").2, "eyepieces");
+        assert_eq!(t(What::Sunlit { leona: id("league_leona"), zyra: id("league_zyra") }),
+                   "光合作用：蕾欧娜 的阳光照在 婕拉 的植物上，植物长大了一号");
+        assert_eq!(t(What::Swallowed { fizz: id("league_fizz"), yordle: id("league_tristana") }),
+                   "鲨鱼吃小矮子：菲兹 的鲨鱼把 崔丝塔娜 一口吞了");
+        assert_eq!(t(What::Barefoot { cassiopeia: id("league_cassiopeia") }),
+                   "蛇女不需要鞋：卡西奥佩娅 没有脚，不穿鞋，每升一级移速多涨一点");
+        assert_eq!(t(What::DuoStart { xayah: id("league_xayah"), rakan: id("league_rakan") }),
+                   "霞洛联动：霞 和 洛 同队，她的羽衣分他一份，他的舞步飞得更远");
+        assert_eq!(t(What::DuoW { rakan: id("league_rakan"), xayah: id("league_xayah") }),
+                   "霞洛联动：洛 分到了 霞 的「致死羽衣」，攻速、移速提高");
+        assert_eq!(t(What::DuoE { rakan: id("league_rakan"), xayah: id("league_xayah") }),
+                   "霞洛联动：洛 的「轻舞成双」飞到 霞 身边，给她一层护盾");
+        // the other two languages
+        let en = |w: What| words(Lang::En, &w, &|x: &str| x.trim_start_matches("league_").to_string()).0;
+        assert_eq!(en(What::Swallowed { fizz: id("league_fizz"), yordle: id("league_lulu") }),
+                   "Shark Snack: fizz's shark swallowed lulu whole");
+        let hant = words(Lang::Hant, &What::Barefoot { cassiopeia: id("league_cassiopeia") }, &|_: &str| "卡莎碧雅".to_string());
+        assert_eq!(hant.0, "蛇女不需要鞋：卡莎碧雅 沒有腳，不穿鞋，每升一級移速多漲一點");
+        // all of them toasts, none a banner
+        for w in [What::HuntSighted { seer: id("a"), seen: id("b") }, What::Barefoot { cassiopeia: id("c") },
+                  What::DuoE { rakan: id("r"), xayah: id("x") }] {
+            assert!(!w.big());
+        }
+    }
+
+    /// The skill names in the duo's toasts are the game's own (the main pack's champion text).
+    #[test]
+    fn the_duo_toasts_name_the_game_s_skills() {
+        let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../league/text/champion.i18n"))
+            .expect("the main pack's champion text");
+        for (lang, plumage, dance) in [(Lang::Hans, "致死羽衣", "轻舞成双"), (Lang::Hant, "奪命疾翼", "戰鬥舞踊"),
+                                       (Lang::En, "Deadly Plumage", "Battle Dance")] {
+            // Xayah's skill2 is the plumage; Rakan's skill2 is "Grand Entrance + Battle Dance" (his W and E in one)
+            assert!(text.contains(&format!("\"skill2\": \"{plumage}\"")), "Xayah's W {lang:?}");
+            assert!(text.contains(&format!("{dance}\"")), "Rakan's E {lang:?}");
+            let w = |what: What| words(lang, &what, &|x: &str| x.to_string()).0;
+            assert!(w(What::DuoW { rakan: "r".into(), xayah: "x".into() }).contains(plumage), "{lang:?}");
+            assert!(w(What::DuoE { rakan: "r".into(), xayah: "x".into() }).contains(dance), "{lang:?}");
         }
     }
 

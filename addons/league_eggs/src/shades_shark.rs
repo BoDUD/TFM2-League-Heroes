@@ -13,6 +13,9 @@
 //! 锁定画面是菲兹的 `league_fizz_r_gulp`（水面合上、冒泡，0.58 秒，然后空帧）。被放逐的单位画成它的锁定画面而不是它自己
 //! （league_karthus 的灵体、league_zaahen 的复活）；客户端会不会也藏起死掉的被放逐的尸体，要等游戏里看（`EATEN` 一行写了宿主
 //! 收没收这个放逐）。
+//!
+//! 0.2.0（2026-11-09）：两个都有屏幕上的提示（`lib.rs` 放）：一个戴墨镜的人第一次挂上墨镜时「太阳镜防晒」（每人一局一条，
+//! [`shades_tick`] 告诉它谁新挂上了）；每吞掉一具「鲨鱼吃小矮子」（`Shark::eaten` 新多出的、宿主收了放逐的；不收就没吞，不提示）。
 
 use mod_api_stable::*;
 
@@ -60,9 +63,10 @@ fn layers(sim: &StableSim<'_>, id: usize) -> (usize, usize) {
     (sun, shades)
 }
 
-/// 每 tick：`wearers`（对面有莱昂娜的戴墨镜的玩家）里每个活着的，身上每层烈阳配一层墨镜。-> 这一 tick 新挂上的墨镜层数。
-pub fn shades_tick(sim: &mut StableSim<'_>, wearers: &[usize], screen: bool) -> usize {
-    let mut put = 0;
+/// 每 tick：`wearers`（对面有莱昂娜的戴墨镜的玩家）里每个活着的，身上每层烈阳配一层墨镜。-> 这一 tick 新挂上墨镜的
+/// (玩家, 新挂上的层数)（0.2.0：每人第一次挂上时放提示「太阳镜防晒」）。
+pub fn shades_tick(sim: &mut StableSim<'_>, wearers: &[usize], screen: bool) -> Vec<(usize, usize)> {
+    let mut put = Vec::new();
     for &p in wearers {
         let Some(e) = sim.get_player(p).and_then(|x| x.champion()) else { continue };
         if !e.is_alive() {
@@ -82,7 +86,9 @@ pub fn shades_tick(sim: &mut StableSim<'_>, wearers: &[usize], screen: bool) -> 
         }
         if add > shades {
             let got = layers(sim, id).1;
-            put += got.saturating_sub(shades);
+            if got > shades {
+                put.push((p, got - shades));
+            }
             if got < sun {
                 say(screen, "shades refused", format!("{} SHADES REFUSED {name}#{id}: Leona's Sunlight x{sun}, shades x{got} \
                                                        after adding {add}", head(sim)));

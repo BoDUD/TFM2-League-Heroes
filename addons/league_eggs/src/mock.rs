@@ -111,6 +111,12 @@ impl World {
     pub fn count(&self, player: usize, buff: &str) -> usize {
         self.champ(player).buffs.iter().filter(|b| b.name() == buff).count()
     }
+
+    /// A buff on the player's champion, as his kit or another add-on puts it there (the marks 0.2.0's notices read).
+    pub fn push(&mut self, player: usize, buff: BuffV1) {
+        let c = self.players[player].champ;
+        self.units[c].buffs.push(buff);
+    }
 }
 
 unsafe fn w<'a>(s: *const c_void) -> &'a mut World {
