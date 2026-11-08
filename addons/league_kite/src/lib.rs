@@ -19,6 +19,11 @@
 //! 优先级 `PRIORITY` 在英雄附加包和 league_macro / league_peel / league_focus 之后、league_lane（10:00 前的对线纪律）之前。只看
 //! 比赛状态，没有随机数，每个选手自己的钩子实例：服务器预演和客户端重演走的一样。
 //!
+//! 0.1.2（同一晚的日志：符合条件的 424 万个时刻里游戏的 AI 自己往外走的只有 6%，85% 没下指令；这个钩子走了 123 万 tick、
+//! 分成 35 万次，平均一次 3.5 tick；射手被贴脸后死的还是 27–29%，和没有它时差不多）：每次拉扯结束记一行 `KITE END`（走了几 tick、
+//! 挪开多远、为什么停：普攻好了、目标到了射程边上、没人压上来、被控、卡住、AI 自己下了命令、回城……），`COUNT` 行加上各种停法
+//! 的次数——看清是真的拉开了距离，还是被卡住 / 条件一闪一闪地断成一小段一小段。
+//!
 //! 0.1.1（用户 2026-11-08「还是有卡回城的BUG啊」）：回城引导时游戏的 AI 大多数 tick 不下指令，0.1.0 把那些 tick 当成「没下指令」照样拉扯，
 //! 有人压上来时把回城打断。现在从回城命令到 AI 下别的命令为止都不管（`still_recalling`）。
 //!
@@ -100,6 +105,19 @@ static MOMENTS: AtomicUsize = AtomicUsize::new(0);
 static ORDERS: [AtomicUsize; 5] =
     [AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0)];
 static STEPS: AtomicUsize = AtomicUsize::new(0);
+/// 拉扯怎么停的，各几次（`Stop` 的顺序；只管日志，0.1.2）。
+static STOPS: [AtomicUsize; 10] = [
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+    AtomicUsize::new(0),
+];
 static RUNS: AtomicUsize = AtomicUsize::new(0);
 
 fn log_path() -> PathBuf {
@@ -192,24 +210,67 @@ pub fn presser(m: &Moment, reach: f64) -> Option<Threat> {
         .min_by(|a, b| dist(m.me, a.at).total_cmp(&dist(m.me, b.at)))
 }
 
-/// The kite: the spot to walk toward this tick and whom he steps away from (None: the AI's order stands).
-pub fn kite_step(m: &Moment) -> Option<(Pos, Threat)> {
-    let reach = m.reach.filter(|r| *r > RANGED_MIN)?;
-    if m.busy || m.cooling <= LEAD {
-        return None;
+/// Why a kite stops (or does not start), 0.1.2.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Stop {
+    /// not ranged (any more), or none of his attacks seen yet
+    Melee,
+    /// held: an attack's wind-up, a push, a stun
+    Busy,
+    /// his attack about ready: the AI's attack is given back
+    Ready,
+    /// nobody pressing on him
+    Calm,
+    /// the target at the edge of his reach
+    Edge,
+    /// no ground gained (a wall)
+    Stuck,
+    /// the game's AI gave its own order (a walk, a cast)
+    Order,
+    /// the engine refused the walk
+    Refused,
+    Recall,
+    Dead,
+}
+
+impl Stop {
+    fn label(self) -> &'static str {
+        [
+            "not ranged",
+            "held (wind-up / push / stun)",
+            "attack ready: back to the AI's attack",
+            "nobody pressing",
+            "the target at the edge of his reach",
+            "stuck: no ground gained",
+            "the game's AI gave its own order",
+            "the walk refused",
+            "recalling",
+            "dead",
+        ][self as usize]
     }
-    let t = presser(m, reach)?;
+}
+
+/// The kite: the spot to walk toward this tick and whom he steps away from (Err: why the AI's order stands).
+pub fn kite_step(m: &Moment) -> Result<(Pos, Threat), Stop> {
+    let reach = m.reach.filter(|r| *r > RANGED_MIN).ok_or(Stop::Melee)?;
+    if m.busy {
+        return Err(Stop::Busy);
+    }
+    if m.cooling <= LEAD {
+        return Err(Stop::Ready);
+    }
+    let t = presser(m, reach).ok_or(Stop::Calm)?;
     // the target at the edge of his reach already: hold there (unless the presser is in melee reach)
     if dist(m.me, t.at) > HIT_R && m.target.is_some_and(|p| dist(m.me, p) >= reach - TARGET_MARGIN) {
-        return None;
+        return Err(Stop::Edge);
     }
     let away = unit((m.me.0 - t.at.0, m.me.1 - t.at.1));
     let home = m.home.map_or((0.0, 0.0), |h| unit((h.0 - m.me.0, h.1 - m.me.1)));
     let d = unit((away.0 + home.0 * HOME_BEND, away.1 + home.1 * HOME_BEND));
     if d == (0.0, 0.0) {
-        return None;
+        return Err(Stop::Calm);
     }
-    Some((((m.me.0 + d.0 * STEP).clamp(0.0, MAP_MAX), (m.me.1 + d.1 * STEP).clamp(0.0, MAP_MAX)), t))
+    Ok((((m.me.0 + d.0 * STEP).clamp(0.0, MAP_MAX), (m.me.1 + d.1 * STEP).clamp(0.0, MAP_MAX)), t))
 }
 
 /// His attack range as his own attacks show it: the distance to the unit the AI had him attack each time the attack's
@@ -279,6 +340,18 @@ fn pos(e: &StableEntity<'_, '_>) -> Pos {
     (e.pos().0 as f64, e.pos().1 as f64)
 }
 
+/// Short names of the stops for the COUNT line (the order of `Stop`).
+const STOP_NAMES: [&str; 10] = ["not ranged", "held", "ready", "nobody pressing", "edge", "stuck", "AI's order", "refused", "recall", "dead"];
+
+/// One kite going on: since when, from where, how many ticks stepped, its number (0.1.2).
+#[derive(Clone, Copy, Debug)]
+struct Run {
+    start: usize,
+    from: Pos,
+    steps: usize,
+    n: usize,
+}
+
 fn count(order: Order) {
     ORDERS[order.slot()].fetch_add(1, Ordering::Relaxed);
     let n = MOMENTS.fetch_add(1, Ordering::Relaxed) + 1;
@@ -286,14 +359,20 @@ fn count(order: Order) {
         let o: Vec<usize> = ORDERS.iter().map(|c| c.load(Ordering::Relaxed)).collect();
         wlog(format!(
             "COUNT moments to kite {n}: the game's AI walking away {} (its own kiting / running), walking at him {}, attacking \
-             (standing) {}, no order {}, casting / recalling {}; this hook stepped {} ticks in {} kites",
+             (standing) {}, no order {}, casting / recalling {}; this hook stepped {} ticks in {} kites; kites ended: {}",
             o[0],
             o[1],
             o[2],
             o[3],
             o[4],
             STEPS.load(Ordering::Relaxed),
-            RUNS.load(Ordering::Relaxed)
+            RUNS.load(Ordering::Relaxed),
+            STOPS
+                .iter()
+                .enumerate()
+                .map(|(i, c)| format!("{} {}", STOP_NAMES[i], c.load(Ordering::Relaxed)))
+                .collect::<Vec<_>>()
+                .join(", ")
         ));
     }
 }
@@ -311,8 +390,8 @@ pub struct Kite {
     /// our nexus (it never moves), looked for once
     home: Option<Pos>,
     home_looked: bool,
-    /// the kite going on: since which tick, from where (the stuck check)
-    run: Option<(usize, Pos)>,
+    /// the kite going on (the stuck check, its end line)
+    run: Option<Run>,
     /// stuck at a wall: no more steps till his next attack
     stuck: bool,
     /// a champion this hook leaves alone (`NO_KITE`), read once
@@ -331,6 +410,18 @@ pub fn still_recalling(was: bool, base: Option<&InputV1>) -> bool {
 }
 
 
+impl Kite {
+    /// The kite going on ends: counted, and its end line for the first `DETAIL_LINES` (0.1.2). `at`: where he stands now.
+    fn end_run(&mut self, at: Option<Pos>, stop: Stop) {
+        let Some(r) = self.run.take() else { return };
+        STOPS[stop as usize].fetch_add(1, Ordering::Relaxed);
+        if r.n <= DETAIL_LINES {
+            let moved = at.map_or_else(|| "?".to_string(), |p| format!("{:.1}k", dist(r.from, p) / 1000.0));
+            wlog(format!("KITE END #{}: stepped {} ticks, moved {moved}, stopped: {}", r.n, r.steps, stop.label()));
+        }
+    }
+}
+
 impl StablePlayerAi for Kite {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
         Box::new(self.clone())
@@ -348,7 +439,7 @@ impl StablePlayerAi for Kite {
         // the game's AI recalling: its ticks without an order are the recall, never a moment to kite (0.1.1)
         self.recalling = still_recalling(self.recalling, base.as_ref());
         if self.recalling {
-            self.run = None;
+            self.end_run(None, Stop::Recall);
             return None;
         }
         let (player, team, tick) = (ctx.player_id(), ctx.team(), ctx.tick());
@@ -359,7 +450,7 @@ impl StablePlayerAi for Kite {
             let sim = ctx.sim()?;
             let champ = sim.get_player(player)?.champion()?;
             if !champ.is_alive() {
-                self.run = None;
+                self.end_run(None, Stop::Dead);
                 return None;
             }
             let name = champ.name().unwrap_or_default();
@@ -383,6 +474,7 @@ impl StablePlayerAi for Kite {
             self.last_target = attack_on;
             // melee (or nothing seen yet): nothing more to look at
             if !self.reach.get().is_some_and(|r| r > RANGED_MIN) {
+                self.end_run(Some(me), Stop::Melee);
                 return None;
             }
             if !self.home_looked {
@@ -442,23 +534,29 @@ impl StablePlayerAi for Kite {
             };
             (m, name)
         };
-        let Some((to, from)) = kite_step(&m) else {
-            self.run = None;
-            return None;
+        let (to, from) = match kite_step(&m) {
+            Ok(step) => step,
+            Err(stop) => {
+                self.end_run(Some(m.me), stop);
+                return None;
+            }
         };
         // a moment to kite: what the game's AI does with it (its own kiting is a walk away)
         let order = order_of(base.as_ref(), m.me, from.at);
         count(order);
-        if !matches!(order, Order::Attack | Order::Idle) || self.stuck {
-            self.run = None;
+        if !matches!(order, Order::Attack | Order::Idle) {
+            self.end_run(Some(m.me), Stop::Order);
+            return None;
+        }
+        if self.stuck {
             return None;
         }
         let fresh = match self.run {
-            Some((t0, p0)) => {
-                if tick >= t0 + STUCK_TICKS && dist(m.me, p0) < STUCK_MOVE {
+            Some(r) => {
+                if tick >= r.start + STUCK_TICKS && dist(m.me, r.from) < STUCK_MOVE {
                     // against a wall: wait for the next attack
                     self.stuck = true;
-                    self.run = None;
+                    self.end_run(Some(m.me), Stop::Stuck);
                     return None;
                 }
                 false
@@ -467,11 +565,12 @@ impl StablePlayerAi for Kite {
         };
         let out = InputV1::move_to(to.0.round() as u64, to.1.round() as u64);
         if !ctx.is_valid_input(&out) {
+            self.end_run(Some(m.me), Stop::Refused);
             return None;
         }
         if fresh {
-            self.run = Some((tick, m.me));
             let n = RUNS.fetch_add(1, Ordering::Relaxed) + 1;
+            self.run = Some(Run { start: tick, from: m.me, steps: 0, n });
             if n <= DETAIL_LINES {
                 wlog(format!(
                     "KITE #{n} t={} {name} T{team}: #{} {:.0}k away walking {:.0}/tick at him, reach {:.0}k, attack ready in {} \
@@ -488,6 +587,9 @@ impl StablePlayerAi for Kite {
             }
         }
         STEPS.fetch_add(1, Ordering::Relaxed);
+        if let Some(r) = self.run.as_mut() {
+            r.steps += 1;
+        }
         Some(out)
     }
 }
@@ -533,6 +635,11 @@ mod tests {
         assert!(!still_recalling(false, None));
         assert!(!still_recalling(true, Some(&InputV1::move_to(1, 1))));
         assert!(!still_recalling(true, Some(&InputV1::action(InputKindV1::Attack, InputTargetV1::target(3)))));
+    }
+
+    /// The kite as an Option (the tests before 0.1.2); `super::kite_step` gives the stop.
+    fn kite_step(m: &Moment) -> Option<(Pos, Threat)> {
+        super::kite_step(m).ok()
     }
 
     const ME: Pos = (500_000.0, 500_000.0);
@@ -597,6 +704,20 @@ mod tests {
         // the diver in melee reach: step even with the target at the edge
         let close = Moment { target: Some((ME.0 + 53_000.0, ME.1)), ..moment(vec![diver(20_000.0, 900.0)]) };
         assert!(kite_step(&close).is_some());
+    }
+
+    #[test]
+    fn each_stop_is_told() {
+        let near = vec![diver(40_000.0, 900.0)];
+        assert_eq!(super::kite_step(&Moment { reach: None, ..moment(near.clone()) }).err(), Some(Stop::Melee));
+        assert_eq!(super::kite_step(&Moment { busy: true, ..moment(near.clone()) }).err(), Some(Stop::Busy));
+        assert_eq!(super::kite_step(&Moment { cooling: LEAD, ..moment(near.clone()) }).err(), Some(Stop::Ready));
+        assert_eq!(super::kite_step(&moment(vec![diver(40_000.0, 0.0)])).err(), Some(Stop::Calm));
+        let edge = Moment { target: Some((ME.0 + 53_000.0, ME.1)), ..moment(near.clone()) };
+        assert_eq!(super::kite_step(&edge).err(), Some(Stop::Edge));
+        assert!(super::kite_step(&moment(near)).is_ok());
+        assert_eq!(Stop::Dead.label(), "dead");
+        assert_eq!(STOP_NAMES.len(), Stop::Dead as usize + 1);
     }
 
     #[test]
