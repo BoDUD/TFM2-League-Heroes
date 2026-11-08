@@ -11,8 +11,15 @@
 //!   指向技能 → 改指向他（游戏认这个指令才改）；没有指令 → 打他。撤退、回城、给自己 / 队友的技能、方向 / 位置技能、
 //!   已经在打他的，都不动。
 //!
-//! 优先级 `PRIORITY` 在 league_macro（大龙后抱团 / 推基地）之后、英雄附加包之前：英雄的钩子（替 AI 放大招之类）还能在它
-//! 之后改。只看比赛状态，没有随机数：服务器预演和客户端重演走的一样。每个选手自己的钩子实例，不共用状态。
+//! 0.2.0（用户 2026-11-08「这两个也一起修一修」）：1189 场里射手每场被「贴脸」14 次，可对线时敌人站在射手 30k 内是平常的
+//! 站位，辅助被拉去打人；射手被贴脸时辅助在 60k 内的只有 35%。现在
+//!
+//! - 贴脸还要射手真的在挨打：最近 `HURT_WINDOW` tick 里掉了 `HURT_PCT`% 以上的血（`Peel::hurt`）；
+//! - **辅助跟着射手**（`escort`）：辅助离射手 `ESCORT_FAR` 以上、自己生命 `ESCORT_HP`% 以上、`ESCORT_CALM` 内没有看得见的
+//!   敌方英雄时，走回射手身边，走到 `ESCORT_NEAR` 以内为止；回城、在打敌方英雄、已经往射手那边走的不动。
+//!
+//! 优先级 `PRIORITY` 在 league_macro（大龙后抱团 / 推基地 / 抢龙）之后、英雄附加包之前：英雄的钩子（替 AI 放大招之类）
+//! 还能在它之后改。只看比赛状态，没有随机数：服务器预演和客户端重演走的一样。每个选手自己的钩子实例，不共用状态。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_peel.log`（每次启动重写，上一次的留在 .prev.log）。
 //! 只记服务器预演：射手每被贴脸一次（同一个保镖 `GAP` 内算一次）记下游戏 AI 原本让保镖做什么——这就是看游戏 AI 自己
@@ -51,6 +58,18 @@ pub const MOVE_HP: usize = 50;
 pub const RETREAT: f64 = 10_000.0;
 /// 同一个保镖两次贴脸隔这么久（tick，2 秒）以上才算新的一次。
 pub const GAP: usize = 120;
+/// 射手在挨打：这么多 tick 里（1 秒）……
+pub const HURT_WINDOW: usize = 60;
+/// ……掉了这么多（% 最大生命）以上的血。
+pub const HURT_PCT: usize = 5;
+/// 辅助离射手这么远以上就走回去……
+pub const ESCORT_FAR: f64 = 70_000.0;
+/// ……走到这么近为止。
+pub const ESCORT_NEAR: f64 = 40_000.0;
+/// 辅助跟回去时自己的生命下限（%）。
+pub const ESCORT_HP: usize = 30;
+/// 辅助这么近有看得见的敌方英雄就在打架：不拉它走。
+pub const ESCORT_CALM: f64 = 60_000.0;
 /// 地图外的坐标（死了、在泉水外面之类）不算。
 pub const MAP_MAX: f64 = 1_200_000.0;
 const TOP: u32 = 0;
@@ -122,16 +141,23 @@ pub struct View {
     pub lane: u32,
     /// 我方射手（活着、在地图上）。
     pub carry: Option<Pos>,
+    /// 射手的生命（%）。
+    pub carry_hp: usize,
+    /// 射手最近在挨打（钩子按它的生命记录填）。
+    pub hurt: bool,
     /// 贴脸的人：离射手最近、`DIVE_R` 以内、看得见的敌方英雄。
     pub diver: Option<(usize, Pos)>,
-    /// 看得见的敌方英雄。
-    pub enemies: Vec<usize>,
+    /// 看得见的敌方英雄（实体 id，位置）。
+    pub enemies: Vec<(usize, Pos)>,
 }
 
-/// 保镖这次要管就给出贴脸的人：位置对、血量够、够得着。
+/// 保镖这次要管就给出贴脸的人：射手在挨打、位置对、血量够、够得着。
 pub fn guarding(v: &View) -> Option<(usize, Pos)> {
     let carry = v.carry?;
     let diver = v.diver?;
+    if !v.hurt {
+        return None;
+    }
     let floor = match v.lane {
         SUPPORT => SUPPORT_HP,
         TOP | JUNGLE if dist(v.me, carry) <= GUARD_NEAR => GUARD_HP,
@@ -152,13 +178,34 @@ pub fn order(v: &View, base: Option<&InputV1>, valid: &dyn Fn(&InputV1) -> bool)
         Native::SkillOther => {
             let b = base?;
             // 只改对着别的敌方英雄放的指向技能：给自己、队友、小兵的和方向 / 位置技能都不动
-            if b.target.kind != InputTargetKindV1::Target.code() || !v.enemies.contains(&b.target.target_id) {
+            if b.target.kind != InputTargetKindV1::Target.code() || !v.enemies.iter().any(|e| e.0 == b.target.target_id) {
                 return None;
             }
             InputV1 { target: InputTargetV1::target(diver), ..*b }
         }
     };
     valid(&out).then_some(out)
+}
+
+/// 辅助跟着射手：离得远、没在打架时走回射手身边（`escorting`：已经在往回走，走到 `ESCORT_NEAR` 以内为止）。
+pub fn escort(v: &View, base: Option<&InputV1>, escorting: bool) -> Option<InputV1> {
+    let carry = v.carry?;
+    if v.lane != SUPPORT || v.hp_pct < ESCORT_HP || v.enemies.iter().any(|e| dist(e.1, v.me) <= ESCORT_CALM) {
+        return None;
+    }
+    let d = dist(v.me, carry);
+    if d <= if escorting { ESCORT_NEAR } else { ESCORT_FAR } {
+        return None;
+    }
+    if let Some(b) = base {
+        // recalling, already walking to the ADC, or hitting an enemy champion: its own
+        let walking_to = b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), carry) <= ESCORT_NEAR;
+        let fighting = b.target.kind == InputTargetKindV1::Target.code() && v.enemies.iter().any(|e| e.0 == b.target.target_id);
+        if b.kind == InputKindV1::Return.code() || walking_to || fighting {
+            return None;
+        }
+    }
+    Some(InputV1::move_to(carry.0 as u64, carry.1 as u64))
 }
 
 fn look(sim: &StableSim<'_>, player: usize, team: usize) -> Option<View> {
@@ -190,6 +237,8 @@ fn look(sim: &StableSim<'_>, player: usize, team: usize) -> Option<View> {
         if p.team() == team {
             if p.lane().map(|l| l.code()) == Some(BOTTOM) {
                 v.carry = Some(at);
+                let (hp, max) = c.hp();
+                v.carry_hp = if max > 0 { hp * 100 / max } else { 0 };
             }
         } else if sim.is_visible(team, c.id()) {
             enemies.push((c.id(), at));
@@ -202,7 +251,7 @@ fn look(sim: &StableSim<'_>, player: usize, team: usize) -> Option<View> {
             .min_by(|a, b| dist(a.1, carry).total_cmp(&dist(b.1, carry)))
             .copied();
     }
-    v.enemies = enemies.into_iter().map(|e| e.0).collect();
+    v.enemies = enemies;
     Some(v)
 }
 
@@ -212,12 +261,15 @@ static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
 static LINES: AtomicUsize = AtomicUsize::new(0);
 static SUM_HEADER: AtomicBool = AtomicBool::new(false);
 /// 服务器预演里的统计：贴脸次数按 [保镖位置][游戏 AI 原本的指令]，改过指令的 tick 按保镖位置。
-static BOOK: Mutex<Book> = Mutex::new(Book { episodes: [[0; 8]; 5], changed: [0; 5], total: 0 });
+static BOOK: Mutex<Book> = Mutex::new(Book { episodes: [[0; 8]; 5], changed: [0; 5], total: 0, escorts: 0, escort_ticks: 0 });
 
 struct Book {
     episodes: [[usize; 8]; 5],
     changed: [usize; 5],
     total: usize,
+    /// Supports that started walking back to the ADC, and the ticks they did.
+    escorts: usize,
+    escort_ticks: usize,
 }
 
 fn log_path() -> PathBuf {
@@ -289,7 +341,7 @@ fn lane_name(lane: u32) -> &'static str {
 }
 
 /// 汇总：游戏 AI 原本让保镖做什么（各位置），我们改了多少 tick。
-pub fn sum_line(episodes: &[[usize; 8]; 5], changed: &[usize; 5], total: usize) -> String {
+pub fn sum_line(episodes: &[[usize; 8]; 5], changed: &[usize; 5], total: usize, escorts: (usize, usize)) -> String {
     let all: Vec<usize> = (0..8).map(|k| episodes.iter().map(|r| r[k]).sum()).collect();
     let n: usize = all.iter().sum();
     let whole = NATIVE.iter().zip(&all).map(|(name, c)| format!("{name} {}", pct(*c, n))).collect::<Vec<_>>().join(", ");
@@ -303,11 +355,13 @@ pub fn sum_line(episodes: &[[usize; 8]; 5], changed: &[usize; 5], total: usize) 
         .collect::<Vec<_>>()
         .join(", ");
     format!(
-        "SUM {total} dives (a guard in reach when an enemy came within {}k of our ADC): the game's AI had the guard {whole} | by guard: {lanes} | ticks we changed: support {}, top {}, jungle {}",
+        "SUM {total} dives (a guard in reach when an enemy came within {}k of our ADC and hurt it): the game's AI had the guard {whole} | by guard: {lanes} | ticks we changed: support {}, top {}, jungle {} | supports back to the ADC {} ({} ticks)",
         DIVE_R / 1000.0,
         changed[SUPPORT as usize],
         changed[TOP as usize],
-        changed[JUNGLE as usize]
+        changed[JUNGLE as usize],
+        escorts.0,
+        escorts.1
     )
 }
 
@@ -325,7 +379,7 @@ fn note_dive(lane: u32, native: Native, detail: impl FnOnce() -> String) {
         }
         book.total += 1;
         let total = book.total;
-        let sum = (total % SUM_EVERY == 0).then(|| sum_line(&book.episodes, &book.changed, total));
+        let sum = (total % SUM_EVERY == 0).then(|| sum_line(&book.episodes, &book.changed, total, (book.escorts, book.escort_ticks)));
         (total, sum)
     };
     if total <= DETAIL_LINES {
@@ -334,6 +388,14 @@ fn note_dive(lane: u32, native: Native, detail: impl FnOnce() -> String) {
     if let Some(line) = sum {
         wlog(&line);
         sum_log(&line);
+    }
+}
+
+fn note_escort(started: bool) {
+    let mut book = BOOK.lock().unwrap_or_else(|e| e.into_inner());
+    book.escort_ticks += 1;
+    if started {
+        book.escorts += 1;
     }
 }
 
@@ -350,6 +412,30 @@ fn note_change(lane: u32) {
 struct Peel {
     /// 上次看到要保护射手的 tick（新的一次贴脸 = 隔了 `GAP` 以上，或者比赛重开、tick 倒回去了）。
     last_dive: Option<usize>,
+    /// 射手最近的生命（tick，%），最长 `HURT_WINDOW`。
+    carry_hp: std::collections::VecDeque<(usize, usize)>,
+    /// 辅助正在走回射手身边。
+    escorting: bool,
+}
+
+impl Peel {
+    /// Notes the ADC's health now and tells whether it lost `HURT_PCT`% or more in the last `HURT_WINDOW` ticks.
+    fn hurt(&mut self, tick: usize, carry: Option<usize>) -> bool {
+        let Some(hp) = carry else {
+            self.carry_hp.clear();
+            return false;
+        };
+        // a match started over (the tick went back): a new record
+        if self.carry_hp.back().is_some_and(|b| b.0 > tick) {
+            self.carry_hp.clear();
+        }
+        self.carry_hp.push_back((tick, hp));
+        while self.carry_hp.front().is_some_and(|f| f.0 + HURT_WINDOW < tick) {
+            self.carry_hp.pop_front();
+        }
+        let top = self.carry_hp.iter().map(|e| e.1).max().unwrap_or(hp);
+        top >= hp + HURT_PCT
+    }
 }
 
 impl StablePlayerAi for Peel {
@@ -372,14 +458,25 @@ impl StablePlayerAi for Peel {
         }
         let tick = ctx.tick();
         let (player, team) = (ctx.player_id(), ctx.team());
-        let (v, presim) = {
+        let (mut v, presim) = {
             let sim = ctx.sim()?;
             let presim = sim
                 .sim_origin()
                 .is_some_and(|o| SimOriginKindV1::from_code(o.kind) == Some(SimOriginKindV1::ServerPresim));
             (look(&sim, player, team)?, presim)
         };
-        let Some((diver, at)) = guarding(&v) else { return None };
+        v.hurt = self.hurt(tick, v.carry.map(|_| v.carry_hp));
+        let Some((diver, at)) = guarding(&v) else {
+            // no dive: the support walks back to the ADC when it strayed
+            let out = escort(&v, base.as_ref(), self.escorting);
+            let started = out.is_some() && !self.escorting;
+            self.escorting = out.is_some();
+            if out.is_some() && presim {
+                note_escort(started);
+            }
+            return out;
+        };
+        self.escorting = false;
         let fresh = self.last_dive.is_none_or(|t| tick < t || tick > t + GAP);
         self.last_dive = Some(tick);
         if fresh && presim {
@@ -448,8 +545,10 @@ mod tests {
             hp_pct: 80,
             lane,
             carry: Some(CARRY),
+            carry_hp: 70,
+            hurt: true,
             diver: Some((DIVER, (510_000.0, 690_000.0))),
-            enemies: vec![DIVER, 78, 79],
+            enemies: vec![(DIVER, (510_000.0, 690_000.0)), (78, (530_000.0, 680_000.0)), (79, (900_000.0, 100_000.0))],
         }
     }
 
@@ -505,6 +604,39 @@ mod tests {
         // no diver or no ADC: nothing
         assert!(guarding(&View { diver: None, ..view(SUPPORT) }).is_none());
         assert!(guarding(&View { carry: None, ..view(SUPPORT) }).is_none());
+        // an enemy that close but the ADC not hurt (lane spacing): nothing
+        assert!(guarding(&View { hurt: false, ..view(SUPPORT) }).is_none());
+    }
+
+    #[test]
+    fn hurt_is_a_drop_in_the_last_second() {
+        let mut p = Peel::default();
+        assert!(!p.hurt(0, Some(80)));
+        assert!(!p.hurt(30, Some(78)), "2% is a scratch");
+        assert!(p.hurt(50, Some(74)), "6% in under a second");
+        assert!(!p.hurt(200, Some(74)), "the drop is old now");
+        assert!(!p.hurt(210, None) && p.carry_hp.is_empty(), "no ADC: forgotten");
+        assert!(!p.hurt(5, Some(50)), "a new match: a new record");
+    }
+
+    #[test]
+    fn the_support_walks_back_to_its_adc() {
+        // far from the ADC, nobody near: walk to it
+        let far = View { me: (300_000.0, 900_000.0), diver: None, hurt: false, enemies: vec![(79, (900_000.0, 100_000.0))], ..view(SUPPORT) };
+        let go = escort(&far, None, false).expect("walks back");
+        assert_eq!((go.kind, go.x, go.y), (InputKindV1::Move.code(), 500_000, 700_000));
+        // already escorting: until ESCORT_NEAR; not yet: only beyond ESCORT_FAR
+        let mid = View { me: (550_000.0, 700_000.0), ..far.clone() };
+        assert!(escort(&mid, None, true).is_some() && escort(&mid, None, false).is_none());
+        // recalling, walking to the ADC, fighting, an enemy near, hurt, not the support: left alone
+        assert_eq!(escort(&far, Some(&InputV1::return_home()), false), None);
+        assert_eq!(escort(&far, Some(&InputV1::move_to(510_000, 700_000)), false), None);
+        assert_eq!(escort(&far, Some(&attack(79)), false), None);
+        assert!(escort(&View { enemies: vec![(78, (320_000.0, 880_000.0))], ..far.clone() }, None, false).is_none());
+        assert!(escort(&View { hp_pct: 20, ..far.clone() }, None, false).is_none());
+        assert!(escort(&View { lane: TOP, ..far.clone() }, None, false).is_none());
+        // a farm order far from the ADC: walk back instead
+        assert!(escort(&far, Some(&attack(5_000)), false).is_some());
     }
 
     #[test]
@@ -520,11 +652,11 @@ mod tests {
         e[SUPPORT as usize][Native::AttackOther as usize] = 3;
         e[SUPPORT as usize][Native::AttackDiver as usize] = 1;
         e[TOP as usize][Native::MoveIn as usize] = 1;
-        let line = sum_line(&e, &[2, 0, 0, 0, 7], 5);
+        let line = sum_line(&e, &[2, 0, 0, 0, 7], 5, (3, 40));
         assert!(line.starts_with("SUM 5 dives"), "{line}");
         assert!(line.contains("hit the diver 20%") && line.contains("hit something else 60%"), "{line}");
         assert!(line.contains("support 4 (on the diver 25%)") && line.contains("top 1 (on the diver 0%)"), "{line}");
-        assert!(line.ends_with("support 7, top 2, jungle 0"), "{line}");
+        assert!(line.contains("support 7, top 2, jungle 0") && line.ends_with("supports back to the ADC 3 (40 ticks)"), "{line}");
         assert_eq!(civil(20_400), (2025, 11, 8));
         assert_eq!(classify(None, DIVER, CARRY, CARRY), Native::Nothing);
         assert_eq!(clock(3_660), "1:01");
