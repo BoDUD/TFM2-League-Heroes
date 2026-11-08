@@ -1,0 +1,508 @@
+//! 对线纪律（用户 2026-11-08：「先让对线冷静」）。
+//!
+//! 打架记录器（league_fight_log）1189 场的底数：每场 41.8 个人头、每分钟 3.1 个，10:00 前就有 25.9 个（英雄联盟职业赛大约
+//! 每分钟 0.8–0.9 个、10 分钟 4–6 个）；阵亡里 50% 是以少打多、17% 死在自家塔下（被越塔）。游戏的 AI 前期一直在打。
+//!
+//! 一个 AI 钩子（`league_lane:calm`，所有选手），只在 `LANE_END`（10:00）之前、只管「对英雄出手」这一件事，补兵、换线、
+//! 打野怪、推塔、放不指着英雄的技能都照旧：
+//!
+//! - **残血就退**（`Rule::Low`）：自己生命低于 `LOW_HP`%、`DANGER` 内有敌方英雄。
+//! - **以少打多就撤**（`Rule::Outnumbered`）：`NEAR` 内的敌方英雄比我方（自己算上）多——对面打野来了。
+//! - **不越塔**（`Rule::Dive`）：不对站在对面防御塔射程里（`TOWER_REACH`，塔射程 75000 加一点余量）的英雄出手。
+//!
+//! 例外：目标生命 `KILL_HP`% 以下、能拿人头时照打；目标在对面塔下时要 `DIVE_KILL_HP`% 以下。
+//!
+//! 出手（普攻、技能、大招指着敌方英雄）被拦下时改成退回自家最近的塔后 `BEHIND`（没有塔就回基地）；残血或以少打多时，
+//! AI 在做别的事（没下新指令、打兵、回城）也先退，往安全的方向走的照旧，到了塔后就不再管。危险过去后再退 `RETREAT_HOLD`
+//! tick，不来回抖。
+//!
+//! 优先级 `PRIORITY` 排在所有英雄附加包和运营钩子之后（只低于兜底的 league_unlock_guard）：它们下的出手也一样拦。
+//! 只看比赛的状态，没有随机数，每个选手自己的钩子实例：服务器预演和客户端重演走的一样。只下走路，不按技能。
+//!
+//! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_lane.log`，每次启动游戏重写，上一次的留在 .prev.log：
+//! 前 `DETAIL_LINES` 次开始退各一行，之后每 `COUNT_EVERY` 次一行累计。效果看 league_fight_log 的 SUM 行（10:00 前的阵亡）。
+
+use std::fs::OpenOptions;
+use std::io::Write;
+use std::path::PathBuf;
+use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::{LazyLock, Mutex};
+
+use mod_api_stable::*;
+
+const ID: &str = "league_lane";
+/// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
+/// mod.mod_info 版本给它（ADDON_VERSION_<id>）。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_lane") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
+/// 钩子的优先级：英雄附加包（最高 1_000_000）、运营钩子之后，兜底的 league_unlock_guard（最大值）之前。
+pub const PRIORITY: i32 = 2_000_000_000;
+/// 对线期到几点（tick，10:00）。
+pub const LANE_END: usize = 36_000;
+/// 多久看一次场上（tick）。
+pub const LOOK: usize = 10;
+/// 残血：生命低于多少（%）就不再对英雄出手。
+pub const LOW_HP: usize = 40;
+/// 残血时这么近有敌方英雄才算危险。
+pub const DANGER: f64 = 60_000.0;
+/// 数人数的范围：这么近的敌方英雄比我方多就是以少打多。
+pub const NEAR: f64 = 70_000.0;
+/// 塔下：离对面防御塔这么近（塔射程 75000 加余量）。
+pub const TOWER_REACH: f64 = 80_000.0;
+/// 能拿人头：目标生命不超过多少（%）照打。
+pub const KILL_HP: usize = 25;
+/// 目标在对面塔下时，生命不超过多少（%）才追。
+pub const DIVE_KILL_HP: usize = 10;
+/// 退到自家塔后多远（朝自家基地）。
+pub const BEHIND: f64 = 15_000.0;
+/// 离退守点这么近就算到了。
+pub const ARRIVED: f64 = 12_000.0;
+/// 危险过去后还退多久（tick）。
+pub const RETREAT_HOLD: usize = 120;
+/// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
+pub const MAP_MAX: f64 = 1_200_000.0;
+/// 前多少次开始退各写一行。
+const DETAIL_LINES: usize = 40;
+/// 之后每多少次写一行累计。
+const COUNT_EVERY: usize = 2_000;
+/// 一次启动最多写多少行。
+const LOG_CAP: usize = 5_000;
+
+// ===================== 日志 =====================
+
+static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
+static LINES: AtomicUsize = AtomicUsize::new(0);
+/// Retreats started by rule (`Rule as usize`), and the ticks an order was changed.
+static STARTS: [AtomicUsize; 3] = [AtomicUsize::new(0), AtomicUsize::new(0), AtomicUsize::new(0)];
+static TICKS: AtomicUsize = AtomicUsize::new(0);
+
+fn log_path() -> PathBuf {
+    if let Some(path) = std::env::var_os("LEAGUE_LANE_LOG") {
+        return PathBuf::from(path);
+    }
+    if let Some(appdata) = std::env::var_os("APPDATA") {
+        let dir = PathBuf::from(appdata).join("TeamSamoyed").join("TeamfightManager2").join("data");
+        if dir.is_dir() {
+            return dir.join("league_lane.log");
+        }
+    }
+    PathBuf::from("league_lane.log")
+}
+
+static LOG_PATH: LazyLock<PathBuf> = LazyLock::new(log_path);
+
+fn wlog(msg: impl AsRef<str>) {
+    if LINES.fetch_add(1, Ordering::Relaxed) >= LOG_CAP {
+        return;
+    }
+    // the file stays open: opening and closing it for every line took 0.6 ms a line in game (memory log-open-once)
+    let mut file = LOG_FILE.lock().unwrap_or_else(|e| e.into_inner());
+    if file.is_none() {
+        *file = OpenOptions::new().create(true).append(true).open(&*LOG_PATH).ok();
+    }
+    if let Some(f) = file.as_mut() {
+        let _ = f.write_all(format!("{}\n", msg.as_ref()).as_bytes());
+    }
+}
+
+/// Counts a retreat starting; a line for the first few and every `COUNT_EVERY`.
+fn note(rule: Rule, detail: impl FnOnce() -> String) {
+    STARTS[rule as usize].fetch_add(1, Ordering::Relaxed);
+    let n: usize = STARTS.iter().map(|s| s.load(Ordering::Relaxed)).sum();
+    if n <= DETAIL_LINES {
+        wlog(detail());
+    } else if n % COUNT_EVERY == 0 {
+        wlog(format!(
+            "COUNT retreats so far: low {}, outnumbered {}, no dive {}; ticks with a changed order {}",
+            STARTS[Rule::Low as usize].load(Ordering::Relaxed),
+            STARTS[Rule::Outnumbered as usize].load(Ordering::Relaxed),
+            STARTS[Rule::Dive as usize].load(Ordering::Relaxed),
+            TICKS.load(Ordering::Relaxed)
+        ));
+    }
+}
+
+fn clock(t: usize) -> String {
+    format!("{}:{:02}", t / 3600, t / 60 % 60)
+}
+
+// ===================== 规则 =====================
+
+pub type Pos = (f64, f64);
+
+fn dist(a: Pos, b: Pos) -> f64 {
+    ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// An enemy champion seen: entity id, position, health %.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Foe {
+    pub id: usize,
+    pub at: Pos,
+    pub hp: usize,
+}
+
+/// What one look at the match saw, from one champion's side.
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct View {
+    pub me: Pos,
+    pub hp: usize,
+    /// Living allied champions, me included.
+    pub allies: Vec<Pos>,
+    pub foes: Vec<Foe>,
+    /// The enemy's standing towers.
+    pub enemy_towers: Vec<Pos>,
+    /// Where to back off to: behind our nearest standing tower, else our nexus.
+    pub safe: Option<Pos>,
+}
+
+/// Why a champion backs off.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Rule {
+    Low = 0,
+    Outnumbered = 1,
+    Dive = 2,
+}
+
+impl Rule {
+    fn name(self) -> &'static str {
+        match self {
+            Rule::Low => "low",
+            Rule::Outnumbered => "outnumbered",
+            Rule::Dive => "no dive",
+        }
+    }
+}
+
+impl View {
+    fn under_their_tower(&self, at: Pos) -> bool {
+        self.enemy_towers.iter().any(|t| dist(*t, at) <= TOWER_REACH)
+    }
+
+    /// The danger this champion is in, if any: outnumbered first, then low.
+    pub fn danger(&self) -> Option<Rule> {
+        let foes = self.foes.iter().filter(|f| dist(f.at, self.me) <= NEAR).count();
+        let friends = self.allies.iter().filter(|a| dist(**a, self.me) <= NEAR).count().max(1);
+        if foes > friends {
+            return Some(Rule::Outnumbered);
+        }
+        if self.hp < LOW_HP && self.foes.iter().any(|f| dist(f.at, self.me) <= DANGER) {
+            return Some(Rule::Low);
+        }
+        None
+    }
+
+    fn foe_near(&self) -> bool {
+        self.foes.iter().any(|f| dist(f.at, self.me) <= DANGER)
+    }
+
+    /// The way back, or `None` when already there (or nowhere to go).
+    fn retreat(&self) -> Option<InputV1> {
+        let safe = self.safe?;
+        (dist(self.me, safe) > ARRIVED).then(|| InputV1::move_to(safe.0 as u64, safe.1 as u64))
+    }
+}
+
+/// The enemy champion an order is aimed at (an attack, a skill or an ult with a champion target).
+fn aimed_at(base: Option<&InputV1>, foes: &[Foe]) -> Option<Foe> {
+    let b = base?;
+    if b.kind == InputKindV1::Move.code() || b.kind == InputKindV1::Return.code() || b.target.kind != InputTargetKindV1::Target.code() {
+        return None;
+    }
+    foes.iter().copied().find(|f| f.id == b.target.target_id)
+}
+
+/// What the discipline makes of the AI's order: the order to give instead (`None`: keep it) and why. `holding`: a
+/// retreat started a moment ago is still on.
+pub fn decide(v: &View, base: Option<&InputV1>, holding: bool) -> (Option<InputV1>, Option<Rule>) {
+    let danger = v.danger();
+    if let Some(target) = aimed_at(base, &v.foes) {
+        let dive = v.under_their_tower(target.at);
+        // a kill to take: on, unless it stands under its tower and is not about to fall
+        if target.hp <= KILL_HP && (!dive || target.hp <= DIVE_KILL_HP) {
+            return (None, None);
+        }
+        let rule = danger.or(holding.then_some(Rule::Low)).or(dive.then_some(Rule::Dive));
+        return match rule {
+            // already behind the tower: stand there rather than walk into the fight
+            Some(r) => (Some(v.retreat().unwrap_or_else(|| InputV1::move_to(v.me.0 as u64, v.me.1 as u64))), Some(r)),
+            None => (None, None),
+        };
+    }
+    // not a hit on a champion: only a champion in danger with a foe near backs off first
+    let Some(rule) = danger.or(holding.then_some(Rule::Low)) else { return (None, None) };
+    if !v.foe_near() {
+        return (None, None);
+    }
+    // walking toward safety already: fine
+    if let (Some(b), Some(safe)) = (base, v.safe) {
+        if b.kind == InputKindV1::Move.code() && dist((b.x as f64, b.y as f64), safe) < dist(v.me, safe) {
+            return (None, None);
+        }
+    }
+    match v.retreat() {
+        Some(go) => (Some(go), Some(rule)),
+        None => (None, None),
+    }
+}
+
+// ===================== 钩子 =====================
+
+fn pos(e: &StableEntity<'_, '_>) -> Pos {
+    (e.pos().0 as f64, e.pos().1 as f64)
+}
+
+fn pct((hp, max): (usize, usize)) -> usize {
+    if max == 0 {
+        100
+    } else {
+        hp * 100 / max
+    }
+}
+
+fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
+    let me = sim.get_entity(me_id)?;
+    let mut v = View { me: pos(&me), hp: pct(me.hp()), ..View::default() };
+    let mut own_towers = Vec::new();
+    let mut own_nexus = None;
+    for i in 0..sim.entity_count() {
+        let Some(e) = sim.entity_at(i) else { continue };
+        let at = pos(&e);
+        if at.0 > MAP_MAX || at.1 > MAP_MAX {
+            continue;
+        }
+        let ours = e.team() == team;
+        match e.kind() {
+            Some(EntityKindV1::Champion) if e.is_alive() => {
+                if ours {
+                    v.allies.push(at);
+                } else {
+                    v.foes.push(Foe { id: e.id(), at, hp: pct(e.hp()) });
+                }
+            }
+            Some(EntityKindV1::Tower) if e.is_alive() => {
+                if ours {
+                    own_towers.push(at);
+                } else {
+                    v.enemy_towers.push(at);
+                }
+            }
+            Some(EntityKindV1::Nexus) if ours => own_nexus = Some(at),
+            _ => {}
+        }
+    }
+    let nearest = own_towers.iter().copied().min_by(|a, b| dist(*a, v.me).total_cmp(&dist(*b, v.me)));
+    v.safe = match (nearest, own_nexus) {
+        (Some(t), Some(n)) => {
+            let d = dist(t, n).max(1.0);
+            let k = (BEHIND / d).min(1.0);
+            Some((t.0 + (n.0 - t.0) * k, t.1 + (n.1 - t.1) * k))
+        }
+        (Some(t), None) => Some(t),
+        (None, n) => n,
+    };
+    Some(v)
+}
+
+/// One champion's laning discipline: its last look and the retreat it is on.
+#[derive(Clone, Default)]
+pub struct Calm {
+    next_look: usize,
+    view: Option<View>,
+    hold_until: usize,
+    backing: bool,
+}
+
+impl StablePlayerAi for Calm {
+    fn clone_box(&self) -> Box<dyn StablePlayerAi> {
+        Box::new(self.clone())
+    }
+
+    fn id(&self) -> String {
+        format!("{ID}:calm")
+    }
+
+    fn priority(&self) -> i32 {
+        PRIORITY
+    }
+
+    fn think(&mut self, ctx: &mut StableAiContext<'_>, base: Option<InputV1>) -> Option<InputV1> {
+        let tick = ctx.tick();
+        if tick >= LANE_END {
+            return None;
+        }
+        let (player, team) = (ctx.player_id(), ctx.team());
+        let name = {
+            let sim = ctx.sim()?;
+            let champ = sim.get_player(player)?.champion()?;
+            if !champ.is_alive() {
+                self.view = None;
+                self.backing = false;
+                return None;
+            }
+            if tick >= self.next_look || tick + LOOK < self.next_look {
+                self.next_look = tick + LOOK;
+                self.view = look(&sim, champ.id(), team);
+            }
+            champ.name().unwrap_or_default()
+        };
+        let v = self.view.as_ref()?;
+        let holding = tick < self.hold_until;
+        let (out, rule) = decide(v, base.as_ref(), holding);
+        if v.danger().is_some() {
+            self.hold_until = tick + RETREAT_HOLD;
+        }
+        let Some(out) = out else {
+            self.backing = false;
+            return None;
+        };
+        TICKS.fetch_add(1, Ordering::Relaxed);
+        if !self.backing {
+            self.backing = true;
+            if let Some(rule) = rule {
+                let near = |r: f64| v.foes.iter().filter(|f| dist(f.at, v.me) <= r).count();
+                note(rule, || {
+                    format!(
+                        "RETREAT t={} {name} T{team}: {} (hp {}%, foes within {}k {}, allies {}; the AI's order: {})",
+                        clock(tick),
+                        rule.name(),
+                        v.hp,
+                        NEAR as u64 / 1000,
+                        near(NEAR),
+                        v.allies.iter().filter(|a| dist(**a, v.me) <= NEAR).count(),
+                        match base {
+                            None => "none".to_string(),
+                            Some(b) => match aimed_at(Some(&b), &v.foes) {
+                                Some(f) => format!("kind {} on a champion at {}% hp", b.kind, f.hp),
+                                None => format!("kind {}", b.kind),
+                            },
+                        }
+                    )
+                });
+            }
+        }
+        Some(out)
+    }
+}
+
+// ===================== 注册 =====================
+
+pub fn register(host: &StableHost, module: &mut StableMod) {
+    *LOG_FILE.lock().unwrap_or_else(|e| e.into_inner()) = None;
+    let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
+    let v = host.game_version();
+    wlog(format!(
+        "=== {ID} v{VERSION} (laning discipline before 10:00: back off when low or outnumbered, no tower dives) loaded: game {}.{}.{} abi {} log={} ===",
+        v.major,
+        v.minor,
+        v.patch,
+        host.abi_level(),
+        LOG_PATH.display()
+    ));
+    module.add_player_input_ai(Calm::default());
+    host.log(LogLevel::Info, "league_lane loaded (laning discipline before 10:00).");
+}
+
+#[cfg_attr(league_bundle, allow(dead_code))]
+fn init(host: &StableHost) -> StableMod {
+    let mut module = StableMod::new(ID);
+    register(host, &mut module);
+    module
+}
+
+#[cfg(not(league_bundle))]
+declare_stable_mod!(init, requires = 9);
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn hit(id: usize) -> InputV1 {
+        InputV1::action(InputKindV1::Attack, InputTargetV1::target(id))
+    }
+
+    /// Me mid lane at full health, one foe (#7) 40k ahead at 60%, our tower behind, theirs far.
+    fn lane() -> View {
+        View {
+            me: (480_000.0, 480_000.0),
+            hp: 100,
+            allies: vec![(480_000.0, 480_000.0)],
+            foes: vec![Foe { id: 7, at: (510_000.0, 450_000.0), hp: 60 }],
+            enemy_towers: vec![(650_000.0, 310_000.0)],
+            safe: Some((370_000.0, 590_000.0)),
+        }
+    }
+
+    #[test]
+    fn an_even_trade_goes_on() {
+        let v = lane();
+        assert_eq!(decide(&v, Some(&hit(7)), false), (None, None));
+        assert_eq!(decide(&v, None, false), (None, None));
+    }
+
+    #[test]
+    fn low_health_backs_off_unless_a_kill_is_there() {
+        let v = View { hp: 30, ..lane() };
+        let (out, rule) = decide(&v, Some(&hit(7)), false);
+        assert_eq!(rule, Some(Rule::Low));
+        let go = out.unwrap();
+        assert_eq!((go.kind, go.x, go.y), (InputKindV1::Move.code(), 370_000, 590_000), "back to our tower");
+        // the foe at 20%: take it
+        let v2 = View { foes: vec![Foe { hp: 20, ..lane().foes[0] }], ..v.clone() };
+        assert_eq!(decide(&v2, Some(&hit(7)), false), (None, None));
+        // farming with a foe near: back off too; walking home already: fine
+        let farm = hit(500);
+        assert_eq!(decide(&v, Some(&farm), false).1, Some(Rule::Low));
+        assert_eq!(decide(&v, Some(&InputV1::move_to(400_000, 560_000)), false), (None, None));
+        // nobody near: carry on
+        let alone = View { foes: vec![Foe { at: (900_000.0, 100_000.0), ..lane().foes[0] }], ..v };
+        assert_eq!(decide(&alone, Some(&farm), false), (None, None));
+    }
+
+    #[test]
+    fn outnumbered_backs_off() {
+        let mut v = lane();
+        v.foes.push(Foe { id: 8, at: (450_000.0, 520_000.0), hp: 100 });
+        let (out, rule) = decide(&v, Some(&hit(7)), false);
+        assert_eq!(rule, Some(Rule::Outnumbered));
+        assert!(out.is_some());
+        // an ally comes: 2 v 2, the trade is on again
+        v.allies.push((470_000.0, 490_000.0));
+        assert_eq!(decide(&v, Some(&hit(7)), false), (None, None));
+    }
+
+    #[test]
+    fn no_dives_before_ten_minutes() {
+        let mut v = lane();
+        v.foes[0].at = (630_000.0, 330_000.0);
+        let (out, rule) = decide(&v, Some(&hit(7)), false);
+        assert_eq!(rule, Some(Rule::Dive));
+        assert!(out.is_some());
+        // a kill at 20% under the tower is not worth it; at 8% it is
+        v.foes[0].hp = 20;
+        assert_eq!(decide(&v, Some(&hit(7)), false).1, Some(Rule::Dive));
+        v.foes[0].hp = 8;
+        assert_eq!(decide(&v, Some(&hit(7)), false), (None, None));
+        // a skill thrown at a spot is not a hit on a champion: left alone
+        let throw = InputV1::action(InputKindV1::Skill, InputTargetV1::pos(630_000, 330_000));
+        v.foes[0].hp = 60;
+        assert_eq!(decide(&v, Some(&throw), false), (None, None));
+    }
+
+    #[test]
+    fn a_retreat_holds_a_moment_and_stops_behind_the_tower() {
+        // the danger is over but the retreat still holds: no hit yet
+        let v = lane();
+        assert_eq!(decide(&v, Some(&hit(7)), true).1, Some(Rule::Low));
+        // behind our tower already: stand rather than walk up to hit
+        let home = View { me: (372_000.0, 588_000.0), hp: 30, foes: vec![Foe { at: (400_000.0, 560_000.0), ..lane().foes[0] }], ..lane() };
+        let (out, rule) = decide(&home, Some(&hit(7)), false);
+        assert_eq!(rule, Some(Rule::Low));
+        let stand = out.unwrap();
+        assert_eq!((stand.x, stand.y), (372_000, 588_000));
+        // and when not hitting a champion there, the AI does as it likes
+        assert_eq!(decide(&home, Some(&hit(500)), false), (None, None));
+    }
+}
