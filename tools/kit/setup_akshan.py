@@ -36,7 +36,7 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing, shields
 E = "<>"
 # champion_view (10-18 slim redo): face (4, -31) under the crown, banpick -8 (bp_card_audit rule, the gun now held lower)
-VIEW = {"face": {"x": 4, "y": -31}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}
+VIEW = {"face": {"x": -1, "y": -37}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phys(d, r):

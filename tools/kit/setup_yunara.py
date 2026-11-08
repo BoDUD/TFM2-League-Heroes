@@ -37,7 +37,7 @@ A = "<#ffb900ff>"      # durations, counts
 E = "<>"
 # champion_view: the face at her ornaments' crown (tfm2_ase.py face: 39 px over the feet); the idle tops 31 px over the
 # pivot, above -28 -> banpick_center y = -39 - (-31) (the card rule)
-VIEW = {"face": {"x": 1, "y": -39}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -8}}
+VIEW = {"face": {"x": 1, "y": -37}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -8}}
 
 
 def phy(d, r):

@@ -36,7 +36,7 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing, shields
 E = "<>"
 # champion_view: the face point between her eyes (set from tfm2_ase.py face once the frames exist)
-VIEW = {"face": {"x": 2, "y": -24}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 5, "y": -20}, "center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

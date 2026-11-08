@@ -35,7 +35,7 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing
 E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 0, "y": -34}, "center": {"x": 0, "y": -14}}
+VIEW = {"face": {"x": 10, "y": -31}, "center": {"x": 0, "y": -14}}
 
 
 def phy(k):

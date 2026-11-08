@@ -39,7 +39,7 @@ E = "<>"
 # PPU 1.5, at her standing point's column); the ban/pick card: her idle drawn at 0.90 (league.dll UI_SIZES: 43.3 game
 # rows bun top to soles) with its top 28.8 px over the frame centre at that size -> banpick_center -10
 # (tools/art/bp_card_audit.py, Zyra's value)
-VIEW = {"face": {"x": 0, "y": -30}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
+VIEW = {"face": {"x": 0, "y": -36}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):

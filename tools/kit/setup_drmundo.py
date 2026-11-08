@@ -40,7 +40,7 @@ E = "<>"
 # champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
 # 2026-10-18 ban/pick card audit (frame centre, HD from lo_idle / 1.5; user: 「还有哪些英雄BP位置不对的一起改了」): -8 -> -6: the hair was cut
 # face: what tools/art/ppu_restyle.py set later (RESTYLE drmundo face_to; rerunning this must not put (4, -34) back)
-VIEW = {"face": {"x": -1, "y": -38}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -10}}
+VIEW = {"face": {"x": 2, "y": -44}, "center": {"x": 0, "y": -16}, "banpick_center": {"x": 0, "y": -10}}
 
 # his damage reads his maximum health (2026-10-22, the user: 「蒙多加成怎么是攻击力不是生命值」); the heals stay on AD (no heal
 # effect has a health ratio)

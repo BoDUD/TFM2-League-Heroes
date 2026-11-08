@@ -40,7 +40,7 @@ E = "<>"
 # 2026-10-10 from the imported sprite: face = tfm2_ase.py face's suggestion; after the 85% shrink (「模型太大了」) the
 # crown stands 36 px over the feet and the idle's top (the cannon's claws) 27 px over the pivot - under the -28 line,
 # so the ban/pick card needs no banpick_center (card-banpick rule)
-VIEW = {"face": {"x": 3, "y": -36}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 1, "y": -31}, "center": {"x": 0, "y": -12}}
 DEATH = {"zh-hans": "（死亡清空）", "zh-hant": "（死亡清空）", "en": " (lost on death)", "ja": "（デスで失う）",
          "ko": "(사망 시 소멸)"}
 

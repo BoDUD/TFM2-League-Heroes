@@ -37,10 +37,11 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing
 E = "<>"
-# champion_view: the face point between his eyes (his head hangs low, 16 game px over his soles; tfm2_ase.py face puts
-# the crown at the scythe tips, 34 px up, where a portrait would show no head); no banpick_center - the idle's top is
-# 27.3 px over the frame centre, under the card rule's 28 (tools/art/bp_card_audit.py)
-VIEW = {"face": {"x": 11, "y": -5}, "center": {"x": 0, "y": -10}}
+# champion_view: the face point between his eyes (his eyes on rows 4-5 of the 9x9 portrait box, as #701 / #708; tfm2_ase.py
+# face puts the crown at the scythe tips, where a portrait would show no head); the ban/pick card: his reels drawn at
+# 0.60 (league.dll UI_SIZES: 65 game px from the spikes of the skill2 rear-up the reels hold to his soles) with their
+# top 31.6 px over the frame centre at that size -> banpick_center -7 (tools/art/bp_card_audit.py)
+VIEW = {"face": {"x": 15, "y": -23}, "center": {"x": 0, "y": -10}, "banpick_center": {"x": 0, "y": -7}}
 
 
 def mag(d, r):

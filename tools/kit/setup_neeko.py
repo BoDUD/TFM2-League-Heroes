@@ -38,7 +38,7 @@ E = "<>"
 # champion_view: the face point between her eyes (ppu_restyle.py RESTYLE face_to: 1 game px ahead of her standing point,
 # 27 over the ground) and the ban/pick card -10 (tools/art/bp_card_audit.py: the quill tips 1 game px under the card's
 # top, Zyra's value)
-VIEW = {"face": {"x": 1, "y": -27}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -10}}
+VIEW = {"face": {"x": 1, "y": -34}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def mag(d, r):
