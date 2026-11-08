@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / CC / Heal / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 2.2 |
 | 附加包 | 无 |
 
 ![萨勒芬妮演示](../preview/league_seraphine_showcase.gif)
@@ -77,6 +77,7 @@
 | 亚索联动 | 她有定身、眩晕和魅惑：同队时亚索每局放 R 1.52 次（同批蕾欧娜 2.33、风女 1.23、原版牧师 0.58），在已有的控制辅助范围里，亚索不用调 |
 | 精灵图 | 8 个动作 48 帧：待机、移动（踩着舞台滑行）、普攻、Q（`skill`）、E→W（`skill2`）、R（`ult`）、受击、死亡。造型连脚下的浮空舞台 43 × 31 px（身体 37 行、舞台 6 行；原来 52 × 38，用户在游戏里嫌太大、又嫌胖、又嫌头大，缩小变瘦了，头顶削圆，头再少 2 行、收 4 列），40 色。待机 6 帧，3–4 帧长发发梢往后飘一格；头像截取点 (3, −40)，选人卡片 `banpick_center` −8 |
 | 特效 | Codex 画的 25 张，按游戏尺寸交付，两张表 `league_seraphine_fx` / `league_seraphine_big`：普攻音球和带音符的彩色音球、Q 抛出的高音、E 的声波、R 的大音波（飞行，严格上下对称）；普攻、音符普攻、Q、E、R 的命中，Q 落地的声波环、对被控英雄的金色加伤星光，E 的定身五线谱环、头顶转的眩晕音符、减速时脚下的五线谱光，W 地上扩开的歌声光环、护盾泡泡（按游戏里的大小重画）、治疗的爱心，R 的舞台聚光灯、魅惑的爱心，回音的彩虹光环、回音就绪的舞台彩光，身边环绕的 1–4 个音符 |
+| 高清帧（PPU 2.2） | 2026-11-08 用 PPU 重做，和维迦、基兰、克格莫在同一个 PR（用户：「下一组重做 维迦 基兰 克格莫 萨勒芬妮」「萨勒芬尼2.2 其他都1.8」「codex交付了 如果你觉得有问题的地方麻烦帮我忙修复 做到完美后喊我review」「一定要注意模型不要变大变小」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 11.2 像素一格读回（67 × 101 格；头顶发卷到舞台底 101 行，旧精灵 46 行，PPU 2.2）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 15 张图、23 帧（滑行 8 帧只有 3 张，旧版就是 3 帧来回；普攻、Q、E 的第 1 帧是设计图，Q 第 3、6 帧和 E 第 2、8 帧用普攻的帧，E 第 4、7 帧和 R 第 3、4 帧用 Q 的帧，死亡第 6–8 帧同第 5 帧），透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧退回身高、头、面积、叠合四者的中位数）；站在浮空舞台上滑行，双脚一直踩在舞台上，死亡时从舞台上摔下来；Codex 为了填满旧帧的浅色轮廓把整个人（头和身子一起）画大了，只用叠合法时Q 第 5 帧那张（E、R 里也用）和受击帧比设计图大 12–14%；读回时每帧再按浮空舞台青色条的宽度的大小校正到设计图那么大（casts_seraphine_hd.py 的 FRAME_ZOOM，叠合法的值留在 FIT_ZOOM），校正后相差都在 2% 以内；没有烘焙的特效。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit -8 → -7（外描边加 2 格后头顶抬高了约 1 像素；头顶的发卷照旧被裁一点）；头像截取点按新脸挪到 (3,-37) → (4,-33)（旧点框在刘海上，眼睛贴着框底）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_seraphine.py`）：普攻、音符普攻，Q 施放、飞出、落地，E 声波、眩晕，W 歌声和护盾、治疗，回音，R 施放、音波、魅惑；Q、W、E、R 的中文配音（片段名 `league_seraphine_sfx_vo_*`，和声音名不同）。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64 |
 
@@ -92,6 +93,15 @@ python tools/art/rig_seraphine.py            # 动作：用造型自己的部件
 python tools/art/import_seraphine.py         # 特效
 python tools/art/import_native.py --hero seraphine   # 精灵
 python tools/art/preview_seraphine.py        # 逐帧预览、特效预览、演示 GIF
+# PPU 2.2 重做（2026-11-08）：
+python tools/art/pack_seraphine_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_seraphine_hd.py                      # Codex 的原图（hd/raw/seraphine-A.png）按原图约 11.2 像素一格读回 -> hd/design.png
+python tools/art/pack_seraphine_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_seraphine_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FRAME_ZOOM 的起点）；--heights / --heads 另两种量法
+python tools/art/rig_seraphine_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero seraphine && python tools/art/ppu_hd.py --hero seraphine
+python tools/art/ppu_one.py --hero seraphine && python tools/art/rig_seraphine_hd.py --one-ground && python tools/art/hero_reels.py --hero seraphine
+python tools/art/review_seraphine_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/seraphine/PICTURE_PROMPT.md`](../../assets/source/seraphine/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/seraphine/MODEL_PROMPTS.md)，动作的见 [`MODEL_STRIPS.md`](../../assets/source/seraphine/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/seraphine/PROMPTS_FX.md)；Codex 的交付在 [`codex_picture/`](../../assets/source/seraphine/codex_picture)、[`codex_model/`](../../assets/source/seraphine/codex_model)、[`codex_strips/`](../../assets/source/seraphine/codex_strips)、[`codex_fx/`](../../assets/source/seraphine/codex_fx)；附图包由 `tools/art/pack_seraphine_*.py` 在本地生成，英雄联盟的渲染不进仓库）：
@@ -109,4 +119,4 @@ python tools/art/preview_seraphine.py        # 逐帧预览、特效预览、演
 - 特效：Codex 第 3 步把 25 张都按游戏尺寸画了一份（[`codex_fx/seraphine-fx/pixel_1x/`](../../assets/source/seraphine/codex_fx/seraphine-fx/pixel_1x)），`tools/art/import_seraphine.py` 每格切出、按锚点（中心、前沿、脚底、音符区）放好，导入时逐格检查对称。E 眩晕和 Q 加伤用的两条看不见的「替身」投射物另起名字（`e_cc`、`q_amp_lob`），免得特效画面挂在上面飞。
 - 红色方：飞出去的音球、高音、声波、大音波严格上下对称；所有挂在人身上、脚下的画面和晚于动作第一 tick 播放的（歌声光环、聚光灯、回音）都严格左右对称、不跟随；地上的声波环、歌声光环上下左右都对称。她的手发出所有东西，没有画进动作帧的特效。演示 GIF 后半段她转身朝左放大招，就是红色方的样子。
 
-逐帧预览：[`docs/preview/league_seraphine_frames.png`](../preview/league_seraphine_frames.png?v=1014g)，特效：[`docs/preview/league_seraphine_effects.png`](../preview/league_seraphine_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_seraphine_frames.png`](../preview/league_seraphine_frames.png?v=1109hd)，特效：[`docs/preview/league_seraphine_effects.png`](../preview/league_seraphine_effects.png?v=1014g)。

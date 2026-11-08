@@ -1,0 +1,274 @@
+{
+ "square": 8,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "run": {
+   "4": "run 2",
+   "5": "run 1",
+   "6": "run 2",
+   "7": "run 3",
+   "8": "run 2"
+  },
+  "attack": {
+   "1": "design 0"
+  },
+  "skill": {
+   "1": "design 0",
+   "3": "attack 3",
+   "6": "attack 6"
+  },
+  "skill2": {
+   "1": "design 0",
+   "2": "attack 2",
+   "4": "skill 5",
+   "7": "skill 5",
+   "8": "attack 6"
+  },
+  "ult": {
+   "3": "skill 4",
+   "4": "skill 5"
+  },
+  "dead": {
+   "6": "dead 5",
+   "7": "dead 5",
+   "8": "dead 5"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "gliding (her move loop): she stands on the floating stage as it glides her along - her FEET STAY ON THE STAGE, she does not walk; her long hair and her skirt stream back (frames 1-3; frames 4-8 repeat them: 2, 1, 2, 3, 2)",
+   "ms": [
+    133,
+    133
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward.",
+   "legs": "Frame 1: HER FEET STAY ON THE STAGE: both shoes standing on the floating stage as the pale figure has them - she glides, she does not walk. Frame 2: HER FEET STAY ON THE STAGE: both shoes standing on the floating stage as the pale figure has them - she glides, she does not walk. She does NOT walk: the floating stage carries her - her feet stay on it in every frame; only her hair, her skirt and her hands move, as the pale figure has them."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "gliding (her move loop): she stands on the floating stage as it glides her along - her FEET STAY ON THE STAGE, she does not walk; her long hair and her skirt stream back (frames 1-3; frames 4-8 repeat them: 2, 1, 2, 3, 2)",
+   "ms": [
+    133
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward.",
+   "legs": "Frame 3: HER FEET STAY ON THE STAGE: both shoes standing on the floating stage as the pale figure has them - she glides, she does not walk. She does NOT walk: the floating stage carries her - her feet stay on it in every frame; only her hair, her skirt and her hands move, as the pale figure has them."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (a note): (frame 1 = the design) she raises the near hand (frames 2-3), thrusts the arm forward, pointing (frames 4-5), and draws it back (frame 6)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (a note): (frame 1 = the design) she raises the near hand (frames 2-3), thrusts the arm forward, pointing (frames 4-5), and draws it back (frame 6)",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a note): (frame 1 = the design) she raises the near hand (frames 2-3), thrusts the arm forward, pointing (frames 4-5), and draws it back (frame 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    2,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "High Note (Q): (frame 1 = the design) she raises the near hand (frame 2; frame 3 = attack 3), sweeps the arm up and forward (frame 4) and points it forward (frame 5; frame 6 = attack 6)",
+   "ms": [
+    60,
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "High Note (Q): (frame 1 = the design) she raises the near hand (frame 2; frame 3 = attack 3), sweeps the arm up and forward (frame 4) and points it forward (frame 5; frame 6 = attack 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    3,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Beat Drop into Surround Sound (E then W): (frame 1 = the design, frame 2 = attack 2) she stretches the arm straight out (frame 3; frame 4 = skill 5), draws the hand to her chest (frame 5) and sweeps it up and forward (frame 6; frame 7 = skill 5, frame 8 = attack 6)",
+   "ms": [
+    80,
+    60
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Beat Drop into Surround Sound (E then W): (frame 1 = the design, frame 2 = attack 2) she stretches the arm straight out (frame 3; frame 4 = skill 5), draws the hand to her chest (frame 5) and sweeps it up and forward (frame 6; frame 7 = skill 5, frame 8 = attack 6)",
+   "ms": [
+    80
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Encore (R): she points forward (frame 1) and gathers both hands (frame 2; frame 3 = skill 4, frame 4 = skill 5)",
+   "ms": [
+    80,
+    100
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "struck: jolted back on her stage (frames 1-2)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "death: struck (frames 1-2), she falls back off her stage (frames 3-4) and lies on the ground beside it, the long hair spread out (frame 5; frames 6-8 = frame 5) - the stage stays where the pale figure has it",
+   "ms": [
+    100,
+    110
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frames 1-2), she falls back off her stage (frames 3-4) and lies on the ground beside it, the long hair spread out (frame 5; frames 6-8 = frame 5) - the stage stays where the pale figure has it",
+   "ms": [
+    120
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frames 1-2), she falls back off her stage (frames 3-4) and lies on the ground beside it, the long hair spread out (frame 5; frames 6-8 = frame 5) - the stage stays where the pale figure has it",
+   "ms": [
+    130
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frames 1-2), she falls back off her stage (frames 3-4) and lies on the ground beside it, the long hair spread out (frame 5; frames 6-8 = frame 5) - the stage stays where the pale figure has it",
+   "ms": [
+    150
+   ],
+   "weapons": "HER HANDS go where the pale figure has them, frame by frame (image 3 shows them in colour): the white gloves raised, pointing or swept as the pale figure holds them. THE FLOATING STAGE stays under her feet in every frame (in the death it stays where the pale figure has it as she falls off), as big as in image 1. Only her: no music notes, no sound waves, no echoes, no glow; the stage's screen does not glow outward."
+  }
+ ]
+}

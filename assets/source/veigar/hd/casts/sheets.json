@@ -1,0 +1,425 @@
+{
+ "square": 10,
+ "square_of": {
+  "ult": 9
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "skill": {
+   "1": "design 0",
+   "6": "design 0"
+  },
+  "skill2": {
+   "1": "design 0",
+   "7": "design 0"
+  },
+  "hit": {
+   "2": "design 0"
+  },
+  "dead": {
+   "1": "design 0"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [
+  "ult"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): stepping forward, the staff upright in the hand on the picture's left, the silver claw gauntlet on the right, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    104,
+    104
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his grey boot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the hat, the staff and the gauntlet follow the pale figure. The staff's foot reaches the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): stepping forward, the staff upright in the hand on the picture's left, the silver claw gauntlet on the right, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    104,
+    104
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the hat, the staff and the gauntlet follow the pale figure. The staff's foot reaches the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): stepping forward, the staff upright in the hand on the picture's left, the silver claw gauntlet on the right, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    104,
+    104
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the hat, the staff and the gauntlet follow the pale figure. The staff's foot reaches the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): stepping forward, the staff upright in the hand on the picture's left, the silver claw gauntlet on the right, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    104,
+    105
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the hat, the staff and the gauntlet follow the pale figure. The staff's foot reaches the ground but is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "attack: (frame 1 = the design) he lifts the staff (frame 2), swings it back and up (frame 3) and thrusts its orange crystal forward, the staff held across him (frames 4-5; frame 6 = the design)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "attack: (frame 1 = the design) he lifts the staff (frame 2), swings it back and up (frame 3) and thrusts its orange crystal forward, the staff held across him (frames 4-5; frame 6 = the design)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Baleful Strike (Q): (frame 1 = the design) he swings the staff back, held out level, its crystal far behind him (frames 2-3), and brings it forward, the crystal before him (frames 4-5; frame 6 = the design)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Baleful Strike (Q): (frame 1 = the design) he swings the staff back, held out level, its crystal far behind him (frames 2-3), and brings it forward, the crystal before him (frames 4-5; frame 6 = the design)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Baleful Strike (Q): (frame 1 = the design) he swings the staff back, held out level, its crystal far behind him (frames 2-3), and brings it forward, the crystal before him (frames 4-5; frame 6 = the design)",
+   "ms": [
+    80,
+    90
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Event Horizon (E): (frame 1 = the design) he lifts the staff (frame 2), swings it back and down (frames 3-4), sweeps it out level behind him (frame 5) and raises it again (frame 6; frame 7 = the design)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Event Horizon (E): (frame 1 = the design) he lifts the staff (frame 2), swings it back and down (frames 3-4), sweeps it out level behind him (frame 5) and raises it again (frame 6; frame 7 = the design)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Event Horizon (E): (frame 1 = the design) he lifts the staff (frame 2), swings it back and down (frames 3-4), sweeps it out level behind him (frame 5) and raises it again (frame 6; frame 7 = the design)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Event Horizon (E): (frame 1 = the design) he lifts the staff (frame 2), swings it back and down (frames 3-4), sweeps it out level behind him (frame 5) and raises it again (frame 6; frame 7 = the design)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Event Horizon (E): (frame 1 = the design) he lifts the staff (frame 2), swings it back and down (frames 3-4), sweeps it out level behind him (frame 5) and raises it again (frame 6; frame 7 = the design)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Primordial Burst (R): he gathers himself (frames 1-3), leaps up, the staff raised high over his head and the gauntlet up (frame 4), and lands back in his stance (frames 5-7)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Primordial Burst (R): he gathers himself (frames 1-3), leaps up, the staff raised high over his head and the gauntlet up (frame 4), and lands back in his stance (frames 5-7)",
+   "ms": [
+    70,
+    90
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 9,
+   "action": "Primordial Burst (R): he gathers himself (frames 1-3), leaps up, the staff raised high over his head and the gauntlet up (frame 4), and lands back in his stance (frames 5-7)",
+   "ms": [
+    90,
+    90
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 9,
+   "action": "Primordial Burst (R): he gathers himself (frames 1-3), leaps up, the staff raised high over his head and the gauntlet up (frame 4), and lands back in his stance (frames 5-7)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "struck: jolted back (frame 1; frame 2 = the design)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: (frame 1 = the design) struck, the staff swung out behind him (frames 2-4), he topples backwards (frames 5-6) and lies on his back, his hat on the ground, the gauntlet up (frames 7-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: (frame 1 = the design) struck, the staff swung out behind him (frames 2-4), he topples backwards (frames 5-6) and lies on his back, his hat on the ground, the gauntlet up (frames 7-8)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: (frame 1 = the design) struck, the staff swung out behind him (frames 2-4), he topples backwards (frames 5-6) and lies on his back, his hat on the ground, the gauntlet up (frames 7-8)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: (frame 1 = the design) struck, the staff swung out behind him (frames 2-4), he topples backwards (frames 5-6) and lies on his back, his hat on the ground, the gauntlet up (frames 7-8)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: (frame 1 = the design) struck, the staff swung out behind him (frames 2-4), he topples backwards (frames 5-6) and lies on his back, his hat on the ground, the gauntlet up (frames 7-8)",
+   "ms": [
+    130
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: (frame 1 = the design) struck, the staff swung out behind him (frames 2-4), he topples backwards (frames 5-6) and lies on his back, his hat on the ground, the gauntlet up (frames 7-8)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_7",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: (frame 1 = the design) struck, the staff swung out behind him (frames 2-4), he topples backwards (frames 5-6) and lies on his back, his hat on the ground, the gauntlet up (frames 7-8)",
+   "ms": [
+    500
+   ],
+   "weapons": "THE STAFF AND THE GAUNTLET go where the pale figure has them, frame by frame (image 3 shows them in colour): the staff with its grey claw gripping the orange crystal, as long as in image 1, and the huge silver claw gauntlet, as big as in image 1 - raised, swung, thrust or held as the pale figure holds them. The tall hat with its curled magenta tip stays on his head (on the ground beside him in the last death frames, as the pale figure has it). Only him: no dark energy, no orbs, no cage, no glow; the eyes' yellow stays inside the shadow under the brim."
+  }
+ ]
+}

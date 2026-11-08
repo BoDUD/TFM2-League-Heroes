@@ -1,0 +1,359 @@
+{
+ "square": 10,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "attack": {
+   "3": "attack 2",
+   "6": "design 0"
+  },
+  "skill": {
+   "3": "skill 2",
+   "6": "design 0"
+  },
+  "w": {
+   "3": "w 2",
+   "5": "design 0"
+  },
+  "skill2": {
+   "3": "skill2 2",
+   "6": "design 0"
+  },
+  "hit": {
+   "2": "design 0"
+  },
+  "dead": {
+   "6": "dead 5",
+   "7": "dead 5",
+   "8": "dead 5"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [
+  "attack",
+  "w",
+  "skill2"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop, a drifting walk): stepping forward, the long robe's hem streaming back, the clock on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    97,
+    97
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his grey shoe flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the beard, the hands and the clock follow the pale figure. His long robe covers his legs: show each foot stepping out under its hem, the hem swinging with them."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop, a drifting walk): stepping forward, the long robe's hem streaming back, the clock on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    97
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the beard, the hands and the clock follow the pale figure. His long robe covers his legs: show each foot stepping out under its hem, the hem swinging with them."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop, a drifting walk): stepping forward, the long robe's hem streaming back, the clock on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    97
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow.",
+   "legs": "Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the beard, the hands and the clock follow the pale figure. His long robe covers his legs: show each foot stepping out under its hem, the hem swinging with them."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop, a drifting walk): stepping forward, the long robe's hem streaming back, the clock on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    97
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the beard, the hands and the clock follow the pale figure. His long robe covers his legs: show each foot stepping out under its hem, the hem swinging with them."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop, a drifting walk): stepping forward, the long robe's hem streaming back, the clock on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    97,
+    97
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow.",
+   "legs": "Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the beard, the hands and the clock follow the pale figure. His long robe covers his legs: show each foot stepping out under its hem, the hem swinging with them."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop, a drifting walk): stepping forward, the long robe's hem streaming back, the clock on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    97
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow.",
+   "legs": "Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the beard, the hands and the clock follow the pale figure. His long robe covers his legs: show each foot stepping out under its hem, the hem swinging with them."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "attack (a time bolt): he gathers time in the near hand (frames 1-2; frame 3 = frame 2), draws it back (frame 4) and flings it forward, the arm stretched out (frame 5; frame 6 = the design)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a time bolt): he gathers time in the near hand (frames 1-2; frame 3 = frame 2), draws it back (frame 4) and flings it forward, the arm stretched out (frame 5; frame 6 = the design)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a time bolt): he gathers time in the near hand (frames 1-2; frame 3 = frame 2), draws it back (frame 4) and flings it forward, the arm stretched out (frame 5; frame 6 = the design)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Time Bomb (Q): he lifts the bomb in the near hand (frames 1-2; frame 3 = frame 2), raises the hand high (frame 4) and tosses it forward (frame 5; frame 6 = the design)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Time Bomb (Q): he lifts the bomb in the near hand (frames 1-2; frame 3 = frame 2), raises the hand high (frame 4) and tosses it forward (frame 5; frame 6 = the design)",
+   "ms": [
+    90,
+    100
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "w",
+   "name": "w_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Rewind (W): he turns his open hands, palms up, winding time back (frames 1-4; frame 3 = frame 2, frame 5 = the design)",
+   "ms": [
+    80,
+    80
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "w",
+   "name": "w_2",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Rewind (W): he turns his open hands, palms up, winding time back (frames 1-4; frame 3 = frame 2, frame 5 = the design)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Time Warp (E): he points the near hand at the foe (frames 1-2; frame 3 = frame 2), draws it in (frame 4) and thrusts it forward, the arm out (frame 5; frame 6 = the design)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Time Warp (E): he points the near hand at the foe (frames 1-2; frame 3 = frame 2), draws it in (frame 4) and thrusts it forward, the arm out (frame 5; frame 6 = the design)",
+   "ms": [
+    90,
+    100
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "struck: jolted back (frame 1; frame 2 = the design)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers, the arms flung up (frames 1-2), falls back, an arm raised (frame 3), tumbles down, the clock tipping (frame 4), and lies on his back upon the clock (frame 5; frames 6-8 = frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers, the arms flung up (frames 1-2), falls back, an arm raised (frame 3), tumbles down, the clock tipping (frame 4), and lies on his back upon the clock (frame 5; frames 6-8 = frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers, the arms flung up (frames 1-2), falls back, an arm raised (frame 3), tumbles down, the clock tipping (frame 4), and lies on his back upon the clock (frame 5; frames 6-8 = frame 5)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers, the arms flung up (frames 1-2), falls back, an arm raised (frame 3), tumbles down, the clock tipping (frame 4), and lies on his back upon the clock (frame 5; frames 6-8 = frame 5)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers, the arms flung up (frames 1-2), falls back, an arm raised (frame 3), tumbles down, the clock tipping (frame 4), and lies on his back upon the clock (frame 5; frames 6-8 = frame 5)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE HANDS AND THE CLOCK go where the pale figure has them, frame by frame (image 3 shows them in colour): his open hands as the pale figure holds them; the big golden clock with its cream face, teal numerals, pendulum and golden hand on his back, as big as in image 1 (tipping with him as he falls). Only him: no time glow, no sand, no bombs, no rewinding rings; the clock does not glow."
+  }
+ ]
+}

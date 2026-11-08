@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range / Dot |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.79 |
 | 附加包 | [游戏 AI 不按的技能替它按](#附加包)（`league_ult_press`） |
 
 ![克格莫演示](../preview/league_kogmaw_showcase.gif)
@@ -93,6 +93,7 @@
 | 数值 | 攻击 106（+18）、生命 950（+88）、护甲 20（+7）、魔抗 15（+3）、移速 870（+9）。数值是自己设计的，用 SDK 对战模拟调：ADC，对 5 个原版射手（`archer`、`gunner`、`boomerang_hunter`、`poison_dart_hunter`、`bomber`），3 套阵容、两边各打，10 分钟。初稿 −1.01（输出 7274，同一批图奇 +1.79、韦鲁斯 +1.51、金克丝 +4.46）；攻击 90 → 106、Q 攻速 15% → 35%、W 冷却 17 → 12 秒、%生命 4 → 5、Q / E / R 基础 +20、生命 950、射程 55000：种子 1–12 +1.67、25–36 +1.69（同一批图奇 +1.18）。再加 W 6% 和 R 110 那组 +2.23，偏强 |
 | 精灵图 | 8 个动作 56 帧：待机 8、移动 8、普攻 6、Q（`skill`）8、E（`skill2`）8、R（`ult`）8、受击 2、死亡 8。高 34 px，41 px 宽，20 色。头像截取点 (8, −23)（眼睛在骨板中下部，比头顶低 4 行）；待机最高到 −23.5，不用 `banpick_center` |
 | 特效 | Codex 生图的 18 张（`import_kogmaw.py` 缩成游戏像素）：`league_kogmaw_fx` 酸液弹和命中、W 开启和脚下电弧、腐蚀唾液和命中、减甲酸泡、淤泥弹和命中、减速淤泥、炮弹命中、虚空分身命中；`league_kogmaw_big` 淤泥带、虚空分身、警告圈、落下的炮弹、尸体上的虚空爆发、分身爆炸。飞行的和淤泥带朝飞行方向转（上下对称），其余左右对称 |
+| 高清帧（PPU 1.79） | 2026-11-08 用 PPU 重做，和维迦、基兰、萨勒芬妮在同一个 PR（用户：「下一组重做 维迦 基兰 克格莫 萨勒芬妮」「萨勒芬尼2.2 其他都1.8」「codex交付了 如果你觉得有问题的地方麻烦帮我忙修复 做到完美后喊我review」「一定要注意模型不要变大变小」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 16.3 像素一格读回（67 × 61 格；背刺尖到脚底 61 行，旧精灵 34 行，PPU 1.79）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 26 张图、28 帧（Q 第 1–3 帧、E 第 1、2、7 帧、R 第 1、2 帧、受击两帧、死亡第 1 帧用普攻的帧，R 第 7 帧用 Q 第 4 帧，普攻第 6 帧和 Q、E、R 的第 8 帧是设计图，死亡第 5–8 帧同第 4 帧），透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧退回身高、头、面积、叠合四者的中位数）；嘴在普攻、Q（往前）、E（往地上）、R（立起来朝天）伸成肉管，普攻第 1 帧 Codex 重画成闭嘴蓄势；Codex 为了填满旧帧的浅色轮廓把整个人（头和身子一起）画大了，只用叠合法时整只比设计图大 0–20%；读回时每帧再按眼睛和头骨亮米色（两者的几何平均）的大小校正到设计图那么大（casts_kogmaw_hd.py 的 FRAME_ZOOM，叠合法的值留在 FIT_ZOOM），校正后相差都在 5% 以内；四条短腿和旧版一样是碎步；没有烘焙的特效。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 不设值不变（矮，头顶离卡顶约 8 像素）；头像截取点按新脸挪到 (8,-23) → (9,-18)（旧点框在背上，眼睛在框右下角外）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_kogmaw.py`）：吐酸和命中、W 开启、Q 出手 / 发射 / 命中、E 出手 / 发射 / 命中、R 发射 / 下落哨声（警告圈出现时就开始，最响处正好在落地前后）/ 爆炸、被动爆发和爆炸；Q、W、E、R 和死亡的配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
 
@@ -107,6 +108,15 @@ python tools/art/design_kogmaw.py --final     # 字母格子 -> 8 倍原尺寸�
 python tools/art/rig_kogmaw.py          # 动作：造型自己的零件无损摆姿势（整格平移、90° 旋转、整行移动、叠放）
 python tools/art/import_native.py --hero kogmaw
 python tools/art/import_kogmaw.py       # 特效；--raw assets/source/kogmaw/codex_fx 先把生图原稿缩成游戏尺寸的原尺寸条
+# PPU 1.79 重做（2026-11-08）：
+python tools/art/pack_kogmaw_ppu.py --out <文件夹>          # 给 Codex 的设计图包（照旧精灵描密）
+python tools/art/design_kogmaw_hd.py                      # Codex 的原图（hd/raw/kogmaw-A.png）按原图约 16.3 像素一格读回 -> hd/design.png
+python tools/art/pack_kogmaw_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_kogmaw_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FRAME_ZOOM 的起点）；--heights / --heads 另两种量法
+python tools/art/rig_kogmaw_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero kogmaw && python tools/art/ppu_hd.py --hero kogmaw
+python tools/art/ppu_one.py --hero kogmaw && python tools/art/rig_kogmaw_hd.py --one-ground && python tools/art/hero_reels.py --hero kogmaw
+python tools/art/review_kogmaw_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（动作的提示词见 [`assets/source/kogmaw/MODEL_STRIPS.md`](../../assets/source/kogmaw/MODEL_STRIPS.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/kogmaw/PROMPTS_FX.md)；Codex 的交付在 [`codex_model/`](../../assets/source/kogmaw/codex_model)、[`codex_strips/`](../../assets/source/kogmaw/codex_strips)、[`codex_fx/`](../../assets/source/kogmaw/codex_fx)）：
@@ -117,4 +127,4 @@ python tools/art/import_kogmaw.py       # 特效；--raw assets/source/kogmaw/co
 - 特效：Codex 第 3 步的 18 张（`import_kogmaw.py --raw`：按交付的 `manifest.json` 切帧，颜色归到包里给每张的色阶：绿色酸液、黄绿唾液、紫色虚空、黄绿警告；Codex 是按 4 像素一格画在 16 像素一格的画布上的，按每张的游戏尺寸缩放，不按格子取色；炮弹和虚空爆发用交付标好的落地点对齐）。
 - 红色方：飞行的酸液弹、唾液、淤泥、虚空分身和淤泥带上下对称；其余命中、地面圈、身上的光、炮弹和光柱左右对称，不需要画进动作帧。
 
-逐帧预览：[`docs/preview/league_kogmaw_frames.png`](../preview/league_kogmaw_frames.png?v=1014g)，特效：[`docs/preview/league_kogmaw_effects.png`](../preview/league_kogmaw_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_kogmaw_frames.png`](../preview/league_kogmaw_frames.png?v=1109hd)，特效：[`docs/preview/league_kogmaw_effects.png`](../preview/league_kogmaw_effects.png?v=1014g)。
