@@ -13,10 +13,11 @@ Writes <out>/PICTURE_PROMPT.md, <out>/refs/1..3 (League renders through tools/lo
 chibi: head 1.35, legs 0.9), refs/6 (the front design his sprite was made from, assets/source/milio/hd/front.png at 6x -
 one square 6 px, this pack's grid: the boy's look, his fire spirit, the pose and the size), refs/7 (the layout guide:
 the boy alone, hd/front_boy.png, as a flat silhouette at that size) and <out>/style/8..10 (this pack's Veigar, Seraphine
-and Ezreal at their hd_idle, 8x), then <out>.zip. The renders hide the bin's own initialSubmeshToHide by name (HIDE) and
-give the backpack its own map (SUBTEX): poses.json's hide_submeshes (pose_ref --hide-submeshes) hid the backpack too -
-pose_ref.hidden_submeshes takes every bin string made only of submesh names, and the material override naming the
-Backpack alone is one.
+and Ezreal at their hd_idle, 8x), then <out>.zip. The renders hide by name (HIDE) the bin's own initialSubmeshToHide
+(the spirit buddies BuddyA / BuddyB and their eyes) and the fire buddy's face in the backpack's back window (FireBuddy
+eyes and mouth: shown in League, but flipbook maps pose_ref would draw as a whole atlas), and give the backpack its own
+map (SUBTEX): poses.json's hide_submeshes (pose_ref --hide-submeshes) hid the backpack too - pose_ref.hidden_submeshes
+takes every bin string made only of submesh names, and the material override naming the Backpack alone is one.
 """
 import argparse
 import os
@@ -34,7 +35,7 @@ REPO = SP.REPO
 SRC, CHAMPS, GREY = SP.SRC, SP.CHAMPS, SP.GREY
 IDLE = "spell4_idle_in@600"                              # League's idle (poses.json "design")
 HIDE = ["BuddyA", "BuddyB", "BuddyA_Eyes", "BuddyB_Eyes", "FireBuddy_Eye_Left", "FireBuddy_Eye_Right",
-        "FireBuddy_Mouth"]   # (the bin's initialSubmeshToHide: the spirit buddies)
+        "FireBuddy_Mouth"]   # (the bin's initialSubmeshToHide, BuddyA/B, + the fire buddy's flipbook face)
 SUBTEX = {"Backpack": "Milio_Base_Backpack_TX_CM"}   # (the backpack's own map, not the body's)
 FLAGS = []  # (the bin's own hide list by name: HIDE; --hide-submeshes hid the backpack too)
 # name -> (yaw, size, width, crop "box" or fractions of the figure's box, frame); not mirrored (the camera)

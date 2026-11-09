@@ -64,7 +64,7 @@ Then, from the SAME finished picture (do not redraw), save two layers on the sam
 ## Claude 收到后（给 Claude 看）
 
 - 这次是**照现在的男孩、加上英雄联盟的背包**（用户：「再补一个吧 米利欧 现在我们做的背后没有葫芦」）。
-- 以前的渲染没有背包：poses.json 的 `hide_submeshes`（pose_ref 的 `--hide-submeshes`）把背包也藏了——`pose_ref.hidden_submeshes` 把蒙皮 bin 里所有"只由子网格名组成"的字符串都当成隐藏名单，而单独写着 `Backpack` 的材质替换（背包自己的贴图）也算一条。这次的渲染只按名字藏 bin 自己的 `initialSubmeshToHide`（几个小火灵，`pack_milio_ppu.py` 的 HIDE），背包用它自己的贴图 `Milio_Base_Backpack_TX_CM`（SUBTEX）。**以后渲染他的动作参考也要这样，不能再用 `--hide-submeshes`。**
+- 以前的渲染没有背包：poses.json 的 `hide_submeshes`（pose_ref 的 `--hide-submeshes`）把背包也藏了——`pose_ref.hidden_submeshes` 把蒙皮 bin 里所有"只由子网格名组成"的字符串都当成隐藏名单，而单独写着 `Backpack` 的材质替换（背包自己的贴图）也算一条。这次的渲染按名字只藏 bin 自己的 `initialSubmeshToHide`（字段哈希 0x80b7f78f：BuddyA / BuddyB 两个小火灵和它们的眼睛），再加上背包背面窗口里火精灵的脸（FireBuddy 的两只眼睛和嘴：英雄联盟里平时是显示的，但它们是逐帧动画贴图，pose_ref 会把整张图集都画上去），都在 `pack_milio_ppu.py` 的 HIDE 里；背包用它自己的贴图 `Milio_Base_Backpack_TX_CM`（SUBTEX）。**以后渲染他的动作参考也要这样，不能再用 `--hide-submeshes`。**
 - **读原图，不读导出图**：原画、两层和 raw/ 放进 `assets/source/milio/hd/`（新文件名，别盖掉 front*.png），照 `tools/art/design_khazix_hd.py`（按原图自己的格子读、每条线贴着最近的色边；脸照格子读，FACES 留空（平均色会把眼睛糊掉）；细线沿骨架铺（THIN）；几种 PPU 给用户选）读回；和本包其他英雄、现在的米利欧按游戏里的大小并排，给用户确认大小、脸、粗细、背包和火精灵的位置。
 - 他的 1 倍精灵现在是 33 行（league_main 的 hd.rs 里 PPU 2.2，ppu_restyle 外描边 1）：新设计图按 33 行定 PPU；火精灵是单独一层（`rig_milio.py` 每帧放在他身后、飘动），新的一层照样用。
 - **对齐点**：用设计图里的男孩和旧 idle_base 的剪影重叠来定（背包、火精灵不算）。
