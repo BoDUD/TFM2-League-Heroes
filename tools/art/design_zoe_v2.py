@@ -9,7 +9,7 @@ dark blue ankle wraps and bare toes) read back on its own squares, design_khazix
 Codex delivered (2026-11-09, Documents/Codex/2026-11-09/new-chat/outputs/zoe_ppu_done.zip, the five of this PR together)
 zoe-ppu/raw/zoe-original.png - its raw generation: 1254 x 1254 with soft alpha, not cut to 6-px squares, kept as
 hd/raw/zoe-A.png (Codex's own zoe-A.png is that re-placed on 6-px squares by nearest-neighbour sampling: not read). Its
-squares drift (no one grid fits the whole picture) and its outline is about two of them thick - so it is read at three
+squares drift (no one grid fits the whole picture) and its outline is about two of them thick - so it is read at 3
 pitches (PITCHES: 14.1 px ~ PPU 2.2, 11.64 px ~ PPU 2.65, 17.21 px ~ PPU 1.8) for the user to choose from, the face on
 the same snapped lines (FACES empty: batch 4 found each square's mean dulls small eyes into what rings them). Syndra's
 reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped to the strongest colour edge near it, each
@@ -38,10 +38,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "zoe", "hd")
-AH.RAW, AH.PITCH = "zoe-A.png", (14.04, 14.16)    # the default read (14.1 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-09): 「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」
+AH.RAW, AH.PITCH = "zoe-A.png", (11.58, 11.7)    # 11.64 px, the user's pick: PPU 2.64
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"zoe-A.png": {"14.1": ((14.04, 14.16), 6), "11.64": ((11.58, 11.7), 5), "17.21": ((17.15, 17.27), 8)}}
-DEFAULT = ("zoe-A.png", "14.1")
+DEFAULT = ("zoe-A.png", "11.64")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

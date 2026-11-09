@@ -10,12 +10,12 @@ Codex delivered (2026-11-09, Documents/Codex/2026-11-09/new-chat/outputs/zeri_pp
 together) zeri-ppu/raw/zeri-original.png - its raw generation: 1254 x 1254 with soft alpha, not cut to 6-px squares,
 kept as hd/raw/zeri-A.png (Codex's own zeri-A.png is that re-placed on 6-px squares by nearest-neighbour sampling: not
 read). Its squares drift (no one grid fits the whole picture) and its outline is about two of them thick - so it is read
-at three pitches (PITCHES: 10.72 px ~ PPU 2.2, 8.86 px ~ PPU 2.65, 13.11 px ~ PPU 1.8) for the user to choose from, the
-face on the same snapped lines (FACES empty: batch 4 found each square's mean dulls small eyes into what rings them).
-Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped to the strongest colour edge near it,
-each square the palette colour most of its middle has, the outline closed where the read lost it. Its rows from the tips
-of her hair buns to her soles over her 1x sprite's 37 make the PPU (the user, 2026-11-09: 「泽丽虽然是高清帧了 但是模型我不满意」, then
-「照英雄联盟原版重新设计」).
+at 4 pitches (PITCHES: 10.72 px ~ PPU 2.2, 8.86 px ~ PPU 2.65, 13.11 px ~ PPU 1.8, 11.23 px ~ PPU 2.1) for the user to
+choose from, the face on the same snapped lines (FACES empty: batch 4 found each square's mean dulls small eyes into
+what rings them). Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped to the strongest
+colour edge near it, each square the palette colour most of its middle has, the outline closed where the read lost it.
+Its rows from the tips of her hair buns to her soles over her 1x sprite's 37 make the PPU (the user, 2026-11-09:
+「泽丽虽然是高清帧了 但是模型我不满意」, then 「照英雄联盟原版重新设计」).
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png. With --review DIR: <dir>/zeri_ppu_size*.png (the
 design beside Veigar, Seraphine, Ezreal and her sprite now, as the game draws them) and <dir>/zeri_ppu_closeup*.png (the
 picture | the read).
@@ -38,10 +38,12 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "zeri", "hd")
-AH.RAW, AH.PITCH = "zeri-A.png", (10.66, 10.78)    # the default read (10.72 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-09): 「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」
+AH.RAW, AH.PITCH = "zeri-A.png", (11.17, 11.29)    # 11.23 px, the user's pick: PPU 2.08
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
-PITCHES = {"zeri-A.png": {"10.72": ((10.66, 10.78), 5), "8.86": ((8.8, 8.92), 4), "13.11": ((13.05, 13.17), 6)}}
-DEFAULT = ("zeri-A.png", "10.72")
+PITCHES = {"zeri-A.png": {"10.72": ((10.66, 10.78), 5), "8.86": ((8.8, 8.92), 4), "13.11": ((13.05, 13.17), 6),
+                          "11.23": ((11.17, 11.29), 5)}}
+DEFAULT = ("zeri-A.png", "11.23")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

@@ -10,7 +10,7 @@ Codex delivered (2026-11-09, Documents/Codex/2026-11-09/new-chat/outputs/teemo_p
 together) teemo-ppu/raw/teemo-original.png - its raw generation: 1254 x 1254 with soft alpha, not cut to 6-px squares,
 kept as hd/raw/teemo-A.png (Codex's own teemo-A.png is that re-placed on 6-px squares by nearest-neighbour sampling: not
 read). Its squares drift (no one grid fits the whole picture) and its outline is about two of them thick - so it is read
-at three pitches (PITCHES: 13.24 px ~ PPU 2.2, 10.97 px ~ PPU 2.65, 16.49 px ~ PPU 1.8) for the user to choose from, the
+at 3 pitches (PITCHES: 13.24 px ~ PPU 2.2, 10.97 px ~ PPU 2.65, 16.49 px ~ PPU 1.8) for the user to choose from, the
 face on the same snapped lines (FACES empty: batch 4 found each square's mean dulls small eyes into what rings them).
 Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped to the strongest colour edge near it,
 each square the palette colour most of its middle has, the outline closed where the read lost it. Its rows from the tip
@@ -38,10 +38,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "teemo", "hd")
-AH.RAW, AH.PITCH = "teemo-A.png", (13.18, 13.3)    # the default read (13.24 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-09): 「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」
+AH.RAW, AH.PITCH = "teemo-A.png", (16.43, 16.55)    # 16.49 px, the user's pick: PPU 1.79
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"teemo-A.png": {"13.24": ((13.18, 13.3), 6), "10.97": ((10.91, 11.03), 5), "16.49": ((16.43, 16.55), 7)}}
-DEFAULT = ("teemo-A.png", "13.24")
+DEFAULT = ("teemo-A.png", "16.49")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)

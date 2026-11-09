@@ -11,8 +11,8 @@ Codex delivered (2026-11-09, Documents/Codex/2026-11-09/new-chat/outputs/milio_p
 together) milio-ppu/raw/milio-original.png - its raw generation: 1254 x 1254 with soft alpha, not cut to 6-px squares,
 kept as hd/raw/milio-A.png (Codex's own milio-A.png is that re-placed on 6-px squares by nearest-neighbour sampling: not
 read). Its squares drift (no one grid fits the whole picture) and its outline is about two of them thick - so it is read
-at three pitches (PITCHES: 11.83 px ~ PPU 2.2, 9.91 px ~ PPU 2.65, 14.58 px ~ PPU 1.8) for the user to choose from, the
-face on the same snapped lines (FACES empty: batch 4 found each square's mean dulls small eyes into what rings them).
+at 3 pitches (PITCHES: 11.83 px ~ PPU 2.2, 9.91 px ~ PPU 2.65, 14.58 px ~ PPU 1.8) for the user to choose from, the face
+on the same snapped lines (FACES empty: batch 4 found each square's mean dulls small eyes into what rings them).
 Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped to the strongest colour edge near it,
 each square the palette colour most of its middle has, the outline closed where the read lost it. Its rows from the top
 of his hair to his soles over his 1x sprite's 33 make the PPU (the user, 2026-11-09: 「再补一个吧 米利欧 现在我们做的背后没有葫芦」). The
@@ -40,7 +40,8 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "milio", "hd")
-AH.RAW, AH.PITCH = "milio-A.png", (11.77, 11.89)    # the default read (11.83 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-09): 「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」
+AH.RAW, AH.PITCH = "milio-A.png", (11.77, 11.89)    # 11.83 px, the user's pick: PPU 2.21
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"milio-A.png": {"11.83": ((11.77, 11.89), 5), "9.91": ((9.85, 9.97), 4), "14.58": ((14.52, 14.64), 7)}}
 DEFAULT = ("milio-A.png", "11.83")

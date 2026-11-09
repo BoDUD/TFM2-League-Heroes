@@ -10,7 +10,7 @@ Codex delivered (2026-11-09, Documents/Codex/2026-11-09/new-chat/outputs/fizz_pp
 together) fizz-ppu/raw/fizz-original.png - its raw generation: 1536 x 1024 with soft alpha, not cut to 6-px squares,
 kept as hd/raw/fizz-A.png (Codex's own fizz-A.png is that re-placed on 6-px squares by nearest-neighbour sampling: not
 read). Its squares drift (no one grid fits the whole picture) and its outline is about two of them thick - so it is read
-at three pitches (PITCHES: 12.44 px ~ PPU 2.2, 10.26 px ~ PPU 2.65, 14.95 px ~ PPU 1.8) for the user to choose from, the
+at 3 pitches (PITCHES: 12.44 px ~ PPU 2.2, 10.26 px ~ PPU 2.65, 14.95 px ~ PPU 1.8) for the user to choose from, the
 face on the same snapped lines (FACES empty: batch 4 found each square's mean dulls small eyes into what rings them).
 Syndra's reader: the grid fitted (design_fiora_hd.fit, PITCH), each line snapped to the strongest colour edge near it,
 each square the palette colour most of its middle has, the outline closed where the read lost it. Its rows from the top
@@ -38,10 +38,11 @@ import strips as G  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
 AH.HD = os.path.join(ROOT, "assets", "source", "fizz", "hd")
-AH.RAW, AH.PITCH = "fizz-A.png", (12.38, 12.5)    # the default read (12.44 px, PPU ~2.2) until the user picks
+# the user's picks (2026-11-09): 「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」
+AH.RAW, AH.PITCH = "fizz-A.png", (14.89, 15.01)    # 14.95 px, the user's pick: PPU 1.81
 # per picture: the squares read at (px range) and how far a line may snap to a colour edge (under half a square)
 PITCHES = {"fizz-A.png": {"12.44": ((12.38, 12.5), 6), "10.26": ((10.2, 10.32), 5), "14.95": ((14.89, 15.01), 7)}}
-DEFAULT = ("fizz-A.png", "12.44")
+DEFAULT = ("fizz-A.png", "14.95")
 # per picture: the face (x0, y0, x1, y1 px of the picture) read by the uniform grid at every pitch - none here: each
 # square's mean dulls small eyes into what rings them (batch 4: Kha'Zix's maw, Blitzcrank's and Lillia's eyes); the
 # snapped lines keep them (Kennen's and Lissandra's way)
