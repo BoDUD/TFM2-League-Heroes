@@ -1,0 +1,554 @@
+{
+ "square": 10,
+ "square_of": {},
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): trotting forward, the fists at his chest gripping the purple ropes, the BIG BACKPACK bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    117
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his brown sandal flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hands and the backpack follow the pale figure. The backpack rides on his back: it never touches the ground while he runs."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): trotting forward, the fists at his chest gripping the purple ropes, the BIG BACKPACK bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    117
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow.",
+   "legs": "Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hands and the backpack follow the pale figure. The backpack rides on his back: it never touches the ground while he runs."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): trotting forward, the fists at his chest gripping the purple ropes, the BIG BACKPACK bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    117
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hands and the backpack follow the pale figure. The backpack rides on his back: it never touches the ground while he runs."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): trotting forward, the fists at his chest gripping the purple ropes, the BIG BACKPACK bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    117
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow.",
+   "legs": "Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hands and the backpack follow the pale figure. The backpack rides on his back: it never touches the ground while he runs."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): trotting forward, the fists at his chest gripping the purple ropes, the BIG BACKPACK bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    117
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hands and the backpack follow the pale figure. The backpack rides on his back: it never touches the ground while he runs."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): trotting forward, the fists at his chest gripping the purple ropes, the BIG BACKPACK bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    117
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow.",
+   "legs": "Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hands and the backpack follow the pale figure. The backpack rides on his back: it never touches the ground while he runs."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): trotting forward, the fists at his chest gripping the purple ropes, the BIG BACKPACK bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    117
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hands and the backpack follow the pale figure. The backpack rides on his back: it never touches the ground while he runs."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): trotting forward, the fists at his chest gripping the purple ropes, the BIG BACKPACK bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    117
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow.",
+   "legs": "Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hands and the backpack follow the pale figure. The backpack rides on his back: it never touches the ground while he runs."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a little fireball): the fists at his chest (frame 1), he draws the near fist back (frame 2), punches it forward, the arm stretched out, the palm open (frames 3-4), and draws it back (frame 5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a little fireball): the fists at his chest (frame 1), he draws the near fist back (frame 2), punches it forward, the arm stretched out, the palm open (frames 3-4), and draws it back (frame 5)",
+   "ms": [
+    80
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a little fireball): the fists at his chest (frame 1), he draws the near fist back (frame 2), punches it forward, the arm stretched out, the palm open (frames 3-4), and draws it back (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a little fireball): the fists at his chest (frame 1), he draws the near fist back (frame 2), punches it forward, the arm stretched out, the palm open (frames 3-4), and draws it back (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a little fireball): the fists at his chest (frame 1), he draws the near fist back (frame 2), punches it forward, the arm stretched out, the palm open (frames 3-4), and draws it back (frame 5)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Ultra Mega Fire Kick (Q): he crouches (frame 1), steps up, the knee raised (frame 2), hops and swings the leg (frame 3), KICKS, the leg stretched out forward (frame 4), lands (frame 5) and stands (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Ultra Mega Fire Kick (Q): he crouches (frame 1), steps up, the knee raised (frame 2), hops and swings the leg (frame 3), KICKS, the leg stretched out forward (frame 4), lands (frame 5) and stands (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Ultra Mega Fire Kick (Q): he crouches (frame 1), steps up, the knee raised (frame 2), hops and swings the leg (frame 3), KICKS, the leg stretched out forward (frame 4), lands (frame 5) and stands (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Ultra Mega Fire Kick (Q): he crouches (frame 1), steps up, the knee raised (frame 2), hops and swings the leg (frame 3), KICKS, the leg stretched out forward (frame 4), lands (frame 5) and stands (frame 6)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Ultra Mega Fire Kick (Q): he crouches (frame 1), steps up, the knee raised (frame 2), hops and swings the leg (frame 3), KICKS, the leg stretched out forward (frame 4), lands (frame 5) and stands (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Ultra Mega Fire Kick (Q): he crouches (frame 1), steps up, the knee raised (frame 2), hops and swings the leg (frame 3), KICKS, the leg stretched out forward (frame 4), lands (frame 5) and stands (frame 6)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Warm Hugs (E) and Cozy Campfire (W): the fists at his chest (frame 1), he lifts the near hand up (frame 2), stretches it high, pointing up forward (frame 3), and brings it down (frames 4-5)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Warm Hugs (E) and Cozy Campfire (W): the fists at his chest (frame 1), he lifts the near hand up (frame 2), stretches it high, pointing up forward (frame 3), and brings it down (frames 4-5)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Warm Hugs (E) and Cozy Campfire (W): the fists at his chest (frame 1), he lifts the near hand up (frame 2), stretches it high, pointing up forward (frame 3), and brings it down (frames 4-5)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Warm Hugs (E) and Cozy Campfire (W): the fists at his chest (frame 1), he lifts the near hand up (frame 2), stretches it high, pointing up forward (frame 3), and brings it down (frames 4-5)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Warm Hugs (E) and Cozy Campfire (W): the fists at his chest (frame 1), he lifts the near hand up (frame 2), stretches it high, pointing up forward (frame 3), and brings it down (frames 4-5)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Breath of Life (R): he crouches (frame 1), rises (frame 2), throws both arms up high over his head (frame 3), flings them wide open to the sides (frames 4-5) and settles (frame 6)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Breath of Life (R): he crouches (frame 1), rises (frame 2), throws both arms up high over his head (frame 3), flings them wide open to the sides (frames 4-5) and settles (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Breath of Life (R): he crouches (frame 1), rises (frame 2), throws both arms up high over his head (frame 3), flings them wide open to the sides (frames 4-5) and settles (frame 6)",
+   "ms": [
+    100
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Breath of Life (R): he crouches (frame 1), rises (frame 2), throws both arms up high over his head (frame 3), flings them wide open to the sides (frames 4-5) and settles (frame 6)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Breath of Life (R): he crouches (frame 1), rises (frame 2), throws both arms up high over his head (frame 3), flings them wide open to the sides (frames 4-5) and settles (frame 6)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Breath of Life (R): he crouches (frame 1), rises (frame 2), throws both arms up high over his head (frame 3), flings them wide open to the sides (frames 4-5) and settles (frame 6)",
+   "ms": [
+    130
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "struck: jolted back (frames 1-2; the old frame 1 is a white flash - draw him in his own colours)",
+   "ms": [
+    90
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "struck: jolted back (frames 1-2; the old frame 1 is a white flash - draw him in his own colours)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers (frame 1), sinks to his knees (frame 2), falls forward (frame 3) and lies flat on his front on the ground, the backpack on his back on top of him (frames 4-6)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers (frame 1), sinks to his knees (frame 2), falls forward (frame 3) and lies flat on his front on the ground, the backpack on his back on top of him (frames 4-6)",
+   "ms": [
+    110
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers (frame 1), sinks to his knees (frame 2), falls forward (frame 3) and lies flat on his front on the ground, the backpack on his back on top of him (frames 4-6)",
+   "ms": [
+    120
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers (frame 1), sinks to his knees (frame 2), falls forward (frame 3) and lies flat on his front on the ground, the backpack on his back on top of him (frames 4-6)",
+   "ms": [
+    150
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers (frame 1), sinks to his knees (frame 2), falls forward (frame 3) and lies flat on his front on the ground, the backpack on his back on top of him (frames 4-6)",
+   "ms": [
+    200
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, he staggers (frame 1), sinks to his knees (frame 2), falls forward (frame 3) and lies flat on his front on the ground, the backpack on his back on top of him (frames 4-6)",
+   "ms": [
+    400
+   ],
+   "weapons": "HIS HANDS AND HIS BACKPACK: the hands where the pale figure has them, frame by frame (image 3 shows them in colour) - gripping the purple ropes at his chest, punching, raised or flung wide as the pale figure holds them. THE PALE FIGURE HAS NO BACKPACK (his old sprite lacked it): ADD the big gourd-shaped backpack of image 1 ON HIS BACK IN EVERY FRAME, as big as in image 1, moving with his back - tilting as he leans, bouncing as he runs, on top of him when he lies face down - its purple rope over his shoulders. THE ROUND FIRE SPIRIT the pale figure shows behind his shoulder is NOT drawn: the game floats his spirit in by itself. Only him: no fireballs, no flames on his hands or feet, no fire rings, no sparks, no glow."
+  }
+ ]
+}

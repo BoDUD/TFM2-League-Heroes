@@ -159,8 +159,8 @@ class Champ:
         self.tris, self.verts = P.read_skn(skn_bytes)
         if hide_submeshes:   # the props the skin shows only in some clips (Teemo's mushroom and harmonica)
             subs = P.skn_submeshes(skn_bytes)
-            # true: every submesh the skin hides at first; a list: exactly those submeshes (Yone's skin hides both
-            # swords at first, which his clips show again, and his demon, emote props and blade smears)
+            # true: the skin's own initialSubmeshToHide (pose_ref.hidden_submeshes); a list: exactly those submeshes
+            # (Yone's demon, emote props and blade smears - his swords are drawn, though the old guess hid them)
             names = set(hide_submeshes) if isinstance(hide_submeshes, list) else P.hidden_submeshes(skin_bin, {s[0] for s in subs})
             self.tris = P.drop_submeshes(self.tris, subs, names)
         self.joints, self.influences = P.read_skl(w.read_path(skl.lower()))

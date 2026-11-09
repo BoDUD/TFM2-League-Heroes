@@ -3,7 +3,7 @@
 
     python tools/art/preview_zoe.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_zoe_frames.png    every animation's dense frames (hd_, PPU 1.5, as league.dll shows them)
+  league_zoe_frames.png    every animation's dense frames (hd_, PPU 2.64, as league.dll shows them)
   league_zoe_effects.png   every effect animation, 3x
   league_zoe_showcase.gif  a scripted fight against Darius, timed like the kit (tools/kit/build_zoe.py, 60 ticks a
                            second): a little star; Paddle Star flying across the lane; More Sparkles!'s big star; the

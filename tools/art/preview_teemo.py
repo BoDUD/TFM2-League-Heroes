@@ -4,7 +4,7 @@ load).
 
     python tools/art/preview_teemo.py [--out docs/preview]
 
-  league_teemo_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_teemo_frames.png    every animation's dense frames (hd_, PPU 1.79, as league.dll shows them)
   league_teemo_effects.png   every effect animation, 3x
   league_teemo_showcase.gif  a scripted fight against Darius and Garen, timed like the kit: Teemo runs in,
                              the Blinding Dart splashes on Darius and wraps his eyes in smoke, Toxic Shot darts poison
@@ -25,6 +25,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_jinx import Arc, Walker  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -37,7 +38,9 @@ def faded(f, alpha=0.45):
     """A frame drawn see-through (Camouflage)."""
     a = np.asarray(f).copy()
     a[..., 3] = (a[..., 3] * alpha).astype(np.uint8)
-    return Image.fromarray(a, "RGBA")
+    g = Image.fromarray(a, "RGBA")
+    g.info.update(f.info)                      # (a dense frame keeps its 1x size)
+    return g
 
 
 def showcase(out, z=3, step=40):
@@ -53,7 +56,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False):
         nonlocal t
-        an = Anim(frames_of(teemo, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None)
+        an = Anim(dense(teemo, tag, "teemo", z), t, x, gy, loop=loop, until=(t + dur) if dur else None)
         body.append(an)
         t = an.until
 
@@ -76,7 +79,7 @@ def showcase(out, z=3, step=40):
         return arrive
 
     # he runs in (the run's head on his shoulders, the feet on the ground)
-    run_in = Anim(frames_of(teemo, "run"), 0.0, x - 34, gy, loop=True, until=632 * 1.5, x1=x)
+    run_in = Anim(dense(teemo, "run", "teemo", z), 0.0, x - 34, gy, loop=True, until=632 * 1.5, x1=x)
     body.append(run_in)
     t = run_in.until
     a("idle", 300, loop=True)
@@ -131,11 +134,11 @@ def showcase(out, z=3, step=40):
     end = t
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (px - f.width // 2, py - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in under:
             f = an.frame(tt)
             if f is not None:
@@ -153,7 +156,7 @@ def showcase(out, z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        frames.append(img.resize((W * z, H * z), Image.NEAREST).convert("RGB"))
+        frames.append(img.convert("RGB"))
         tt += step
     sample = frames[::6]                              # one palette for the whole clip
     strip = Image.new("RGB", (W * z, H * z * len(sample)))
@@ -171,7 +174,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_teemo_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_teemo_frames.png"), z=1))
     rows = []
     for name, path in FX.items():
         sp = load(path)

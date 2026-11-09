@@ -14,7 +14,13 @@
 //!   被动记下出手的位置，打中时按真实距离补上：`q_n0` 以内不加，到 `q_n1d` 加到 `q_far`%（中间线性）。
 //! - **窃法巧手**：敌方英雄放大招（大招冷却从 0 跳起来）时原地掉下一块法术碎片（`league_zoe_w_shard`，`s_t` tick），她走到 `s_r`
 //!   以内就捡起来：`w_n` 颗飞弹（每 `w_gap` tick 一颗，打 `w_r` 以内最近的敌方英雄，每颗 `w_dmg` + `w_ratio`% 法强魔法伤害）
-//!   和 `w_ms`% 移速 `w_ms_t` tick（英雄联盟：捡起召唤师技能 / 主动装备的碎片）。主包大招自己的 3 颗飞弹照旧。
+//!   和 `w_ms`% 移速 `w_ms_t` tick（英雄联盟：捡起召唤师技能 / 主动装备的碎片）。
+//! - **窃法巧手的飞弹**（0.7.0，用户 2026-11-09：「佐伊的飞弹做的要像英雄联盟那样啊 从背后过来的 现在不太像」）：大招的 3 颗和
+//!   碎片的 3 颗都由本包飞（副本的大招不再射数据里的直线飞弹；她身上的 `league_zoe_w_haste` 刚挂上就排好，第 `w_rel` tick 起
+//!   每 `w_gap` tick 一颗）：英雄联盟的飞弹（ZoeWPassiveMissile）先绕着她转（CircleMovement）再直线追（ZoeWPassiveMissileTwo）。
+//!   每颗在她身后出现，从头顶划半个椭圆到身前（[`orbit_at`]，`ORBIT_T` tick），再以 `w_speed` 追向目标的胸口（[`chase`]），
+//!   追上了才结算伤害、放 `w_hit` 的画面和声音，目标死了就消失。游戏的投射物只有直线和追踪，弧线是每 tick 放一段 `w_missile`
+//!   的画面拼出来的（[`piece_spec`]，league_azir 沙线的做法）。日志 `MISSILE`。
 //!
 //! - **召唤师技能**（0.2.0，用户：「可以改成召唤师技能那种效果吗 随机的」「能做成智能释放吗」）：窃法巧手每次发动（大招射
 //!   飞弹那一刻 = 身上的 `league_zoe_w_haste` 刚挂上，或捡起碎片时）先放一个召唤师技能，再射原来的飞弹：按局面挑（`summon.rs`：
@@ -66,6 +72,19 @@ const Q_WINDOW: usize = 60;
 const ULT_JUMP: usize = 60;
 /// 困倦结束后多少 tick 内看见眩晕才算这一泡的睡眠（数据里的眩晕在标记掉的那一 tick 前后落下）。
 pub const SLEEP_LATE: usize = 4;
+
+// 窃法巧手的飞弹（0.7.0，见开头）：绕着她胸口（脚下往上 CHEST）的半个椭圆，前后半径 ORBIT_RX、上下 ORBIT_RY（最高处刚过头顶：
+// 她 1 倍 36 行），ORBIT_T tick 从身后到身前；后一颗小 ORBIT_SHRINK（三颗不叠在一起），头 ORBIT_GROW tick 从胸口长出来；
+// 然后追目标脚下往上 AIM_LIFT 的地方。1000 = 1 像素。tools/art/review_zoe_missiles.py 画出来对照。
+pub const ORBIT_T: usize = 12;
+pub const ORBIT_RX: f64 = 15_000.0;
+pub const ORBIT_RY: f64 = 20_000.0;
+pub const ORBIT_SHRINK: f64 = 2_500.0;
+pub const ORBIT_GROW: usize = 3;
+pub const CHEST: f64 = 17_000.0;
+pub const AIM_LIFT: f64 = 12_000.0;
+/// 一段飞弹画面一步至少这么长（几乎没动的那一 tick 也画得出来）。
+const PIECE_MIN: f64 = 300.0;
 
 // 召唤师技能的数字（0.3.0 照创意工坊的 Summoner Spells 对齐，用户：「创意工坊里面有双召mod你直接参考」；它照英雄联盟）。
 // 点燃：每 S_IGN_PER tick 一跳、共 S_IGN_N 跳真实伤害 S_IGN_DMG + S_IGN_AP% 法强，期间受治疗 -S_IGN_CUT%；虚弱：移速
@@ -170,6 +189,9 @@ pub struct Params {
     pub w_r: usize,
     pub w_ms: usize,
     pub w_ms_t: usize,
+    /// 大招的飞弹从窃法巧手动起来（`w_haste` 挂上）后第几 tick 起射（数据的 `w_rel`），飞弹每 tick 追多远（`w_speed`）。
+    pub w_rel: usize,
+    pub w_speed: usize,
     /// 碎片：留在地上多少 tick，捡起的距离。
     pub s_t: usize,
     pub s_r: usize,
@@ -194,6 +216,8 @@ impl Default for Params {
             w_r: 70000,
             w_ms: 40,
             w_ms_t: 150,
+            w_rel: 4,
+            w_speed: 4000,
             s_t: 1200,
             s_r: 18000,
         }
@@ -225,6 +249,8 @@ pub fn parse_params(json: &str) -> Params {
             "w_r" => &mut p.w_r,
             "w_ms" => &mut p.w_ms,
             "w_ms_t" => &mut p.w_ms_t,
+            "w_rel" => &mut p.w_rel,
+            "w_speed" => &mut p.w_speed,
             "s_t" => &mut p.s_t,
             "s_r" => &mut p.s_r,
             _ => continue,
@@ -234,6 +260,7 @@ pub fn parse_params(json: &str) -> Params {
     p.q_n1d = p.q_n1d.max(p.q_n0 + 1);
     p.q_far = p.q_far.max(100);
     p.w_gap = p.w_gap.max(1);
+    p.w_speed = p.w_speed.max(1);
     p
 }
 
@@ -265,6 +292,73 @@ pub fn shard_damage(p: &Params, ap: usize) -> usize {
 /// 大招冷却从 `was` 变成 `now`：放了大招（从好着跳到 ULT_JUMP 以上）。
 pub fn ult_cast(was: usize, now: usize) -> bool {
     was == 0 && now > ULT_JUMP
+}
+
+/// 地图上的一个点（游戏单位，1000 = 1 像素；y 往下）。
+pub type Pt = (f64, f64);
+
+/// 单位向量；两点重合时 None。
+pub fn unit(v: Pt) -> Option<Pt> {
+    let d = (v.0 * v.0 + v.1 * v.1).sqrt();
+    (d > 1e-9).then(|| (v.0 / d, v.1 / d))
+}
+
+/// 朝目标的方向 `f` 的两条垂线里屏幕上朝上（y 小）的那条：飞弹从她身后经头顶到身前。
+pub fn up_of(f: Pt) -> Pt {
+    let (a, b) = ((f.1, -f.0), (-f.1, f.0));
+    if a.1 <= b.1 {
+        a
+    } else {
+        b
+    }
+}
+
+/// 第 `k` 颗飞弹出手后第 `age` tick 绕到哪：圆心是她的胸口 `c`，从身后（-`f`）经头顶（`p`）到身前（`f`）的半个椭圆
+/// （前后 ORBIT_RX、上下 ORBIT_RY，每颗小 ORBIT_SHRINK，头 ORBIT_GROW tick 从胸口长出来）；第 ORBIT_T - 1 tick 到身前。
+pub fn orbit_at(c: Pt, f: Pt, p: Pt, age: usize, k: usize) -> Pt {
+    let phi = std::f64::consts::PI * ((age + 1) as f64 / ORBIT_T as f64).min(1.0);
+    let grow = ((age + 1) as f64 / ORBIT_GROW as f64).min(1.0);
+    let shrink = ORBIT_SHRINK * k as f64;
+    let rx = (ORBIT_RX - shrink).max(4_000.0) * grow;
+    let ry = (ORBIT_RY - shrink).max(4_000.0) * grow;
+    (c.0 - rx * f.0 * phi.cos() + ry * p.0 * phi.sin(), c.1 - rx * f.1 * phi.cos() + ry * p.1 * phi.sin())
+}
+
+/// 追的一步：从 `at` 朝 `aim` 走 `speed`；这一步够得着就是打中（None）。
+pub fn chase(at: Pt, aim: Pt, speed: f64) -> Option<Pt> {
+    let (dx, dy) = (aim.0 - at.0, aim.1 - at.1);
+    let d = (dx * dx + dy * dy).sqrt();
+    if d <= speed {
+        return None;
+    }
+    Some((at.0 + dx / d * speed, at.1 + dy / d * speed))
+}
+
+fn ux(v: f64) -> u64 {
+    v.max(0.0).round() as u64
+}
+
+/// 这一 tick 的一段飞弹画面（`w_missile`；游戏把投射物的图转向它飞的方向）：画在 `at`、朝 `dir`、一步 `step`（至少
+/// PIECE_MIN）。从画的地方往回一步出发，第一步落到画的地方，这一 tick 结束时还在飞，下一 tick 才到头、那时下一段已经接上
+/// （league_azir 的 tether_flight：一 tick 内生成、移动、消失的投射物，画面一帧也画不出来）。
+pub fn piece_spec(me: usize, team: usize, at: Pt, dir: Pt, step: f64) -> ProjectileSpawnV1 {
+    let step = step.max(PIECE_MIN);
+    ProjectileSpawnV1 {
+        caster_id: me,
+        team,
+        x: ux(at.0 - dir.0 * step),
+        y: ux(at.1 - dir.1 * step),
+        radius: 1_000,
+        speed: step.round() as u64,
+        move_kind: ProjectileMoveKindV1::Linear.code(),
+        target_id: 0,
+        target_x: ux(at.0 + dir.0 * step),
+        target_y: ux(at.1 + dir.1 * step),
+        penetrate: true,
+        attack_type: AttackTypeV1::Skill.code(),
+        casting_type: CastingTypeV1::Position.code(),
+        casting_target: CastingTargetV1::None.code(),
+    }
 }
 
 fn dist(a: (u64, u64), b: (u64, u64)) -> u64 {
@@ -336,6 +430,21 @@ struct Shard {
     next_view: usize,
 }
 
+/// 一颗飞着的窃法巧手飞弹（0.7.0）：目标、伤害（出手时按她的法强算好）、出手的 tick、第几颗（绕圈的大小）、现在和上一 tick
+/// 的位置、出手时朝目标的方向和它朝上的垂线、哪来的（大招 / 碎片，日志用）。
+#[derive(Clone, Debug)]
+struct Missile {
+    target: usize,
+    dmg: usize,
+    born: usize,
+    k: usize,
+    at: Pt,
+    last: Pt,
+    f: Pt,
+    p: Pt,
+    from: &'static str,
+}
+
 /// 每个佐伊一份。
 #[derive(Clone, Default)]
 struct Sparkles {
@@ -351,8 +460,14 @@ struct Sparkles {
     /// 每个敌方英雄上一 tick 的大招冷却。
     ult_cd: Vec<(usize, usize)>,
     shards: Vec<Shard>,
-    /// 还要射的碎片飞弹：(射的 tick, 剩几颗)。
-    volleys: Vec<(usize, usize)>,
+    /// 还要射的飞弹：(射下一颗的 tick, 剩几颗, 哪来的)。大招的和碎片的都在这里（0.7.0）。
+    volleys: Vec<(usize, usize, &'static str)>,
+    /// 飞着的飞弹；射出、打中、目标没了消失、画面没放出来的颗数。
+    missiles: Vec<Missile>,
+    launched: usize,
+    hits: usize,
+    fizzled: usize,
+    refused: usize,
     stars: usize,
     sleeps: usize,
     /// 挨打叫醒的、睡眠被净化掉的。
@@ -713,7 +828,7 @@ impl Sparkles {
             }
             if alive && dist(pos, s.at) <= self.p.s_r as u64 {
                 self.picked += 1;
-                self.volleys.push((tick, self.p.w_n));
+                self.volleys.push((tick, self.p.w_n, "a shard"));
                 let mut b = BuffV1::timed(&zo("w_haste"), self.p.w_ms_t);
                 b.move_speed_mult = self.p.w_ms as i32;
                 sim.add_buff(me, &b);
@@ -734,11 +849,12 @@ impl Sparkles {
             keep.push(s);
         }
         self.shards = keep;
-        // the missiles: one every w_gap ticks at the nearest enemy champion within w_r
+        // the missiles (the ult's and the shards'): one every w_gap ticks at the nearest enemy champion within w_r, flown by
+        // fly() - out behind her, over her head, then after him (0.7.0; it was the hit at once, nothing flying)
         let mut left = Vec::new();
-        for (at, n) in std::mem::take(&mut self.volleys) {
+        for (at, n, from) in std::mem::take(&mut self.volleys) {
             if tick < at {
-                left.push((at, n));
+                left.push((at, n, from));
                 continue;
             }
             if !alive {
@@ -746,16 +862,77 @@ impl Sparkles {
             }
             let near = foes.iter().map(|&(id, p_)| (dist(pos, p_), id)).filter(|&(d, _)| d <= self.p.w_r as u64).min();
             if let Some((_, id)) = near {
-                let t = InputTargetV1::target(id);
-                sim.play_sfx(&zo("w_shot"), me, &t);
-                sim.deal_damage_typed(me, id, shard_damage(&self.p, ap), DamageTypeV1::Ap, AttackTypeV1::Skill);
-                sim.play_view_effect(&zo("w_hit"), me, &t, 0, 0, 0);
+                let her = (pos.0 as f64, pos.1 as f64 - CHEST);
+                let tp = foes.iter().find(|f_| f_.0 == id).map_or(pos, |f_| f_.1);
+                let f = unit((tp.0 as f64 - her.0, tp.1 as f64 - AIM_LIFT - her.1)).unwrap_or((1.0, 0.0));
+                let k = self.p.w_n.saturating_sub(n);
+                self.missiles.push(Missile { target: id, dmg: shard_damage(&self.p, ap), born: tick, k, at: her, last: her, f,
+                                             p: up_of(f), from });
+                sim.play_sfx(&zo("w_shot"), me, &InputTargetV1::target(me));
+                self.launched += 1;
+                if self.launched <= 12 || self.launched % 30 == 0 {
+                    wlog(format!("{} MISSILE #{} ({from}, {}/{}): at #{id} {} away", head(sim, me), self.launched, k + 1,
+                                 self.p.w_n, dist(pos, tp)));
+                }
             }
             if n > 1 {
-                left.push((tick + self.p.w_gap, n - 1));
+                left.push((tick + self.p.w_gap, n - 1, from));
             }
         }
         self.volleys = left;
+    }
+
+    /// 飞着的飞弹（0.7.0）：先绕着她（`orbit_at`，她走到哪绕到哪），再追目标（`chase`），追上了结算伤害、放 `w_hit` 的画面
+    /// 和声音；目标死了或没了就消失。她死了也飞完。每 tick 给每颗放一段 `w_missile` 的画面（`piece_spec`）。
+    fn fly(&mut self, sim: &mut StableSim<'_>, me: usize, team: usize, pos: (u64, u64), tick: usize) {
+        if self.missiles.is_empty() {
+            return;
+        }
+        let her = (pos.0 as f64, pos.1 as f64 - CHEST);
+        let speed = self.p.w_speed as f64;
+        let mut keep = Vec::new();
+        for mut m in std::mem::take(&mut self.missiles) {
+            let Some(tp) = sim.get_entity(m.target).filter(|e| e.is_alive()).map(|e| e.pos()) else {
+                self.fizzled += 1;
+                if self.fizzled <= 8 || self.fizzled % 20 == 0 {
+                    wlog(format!("{} MISSILE gone #{}: #{} died or left ({} ticks out)", head(sim, me), self.fizzled, m.target,
+                                 tick.saturating_sub(m.born)));
+                }
+                continue;
+            };
+            let age = tick.saturating_sub(m.born);
+            let next = if age < ORBIT_T {
+                Some(orbit_at(her, m.f, m.p, age, m.k))
+            } else {
+                chase(m.at, (tp.0 as f64, tp.1 as f64 - AIM_LIFT), speed)
+            };
+            let Some(next) = next else {
+                let t = InputTargetV1::target(m.target);
+                sim.deal_damage_typed(me, m.target, m.dmg, DamageTypeV1::Ap, AttackTypeV1::Skill);
+                sim.play_view_effect(&zo("w_hit"), me, &t, 0, 0, 0);
+                sim.play_sfx(&zo("w_hit"), me, &t);
+                self.hits += 1;
+                if self.hits <= 12 || self.hits % 30 == 0 {
+                    wlog(format!("{} MISSILE hit #{} ({}): #{} for {} after {age} ticks", head(sim, me), self.hits, m.from,
+                                 m.target, m.dmg));
+                }
+                continue;
+            };
+            m.last = m.at;
+            m.at = next;
+            let mv = (m.at.0 - m.last.0, m.at.1 - m.last.1);
+            let dir = unit(mv).unwrap_or(m.f);
+            let step = (mv.0 * mv.0 + mv.1 * mv.1).sqrt();
+            if !sim.spawn_projectile(&zo("w_missile"), &format!("{ID}:noop"), &piece_spec(me, team, m.at, dir, step)) {
+                self.refused += 1;
+                if self.refused <= 4 || self.refused % 100 == 0 {
+                    wlog(format!("{} MISSILE picture refused #{}: spawn_projectile {}", head(sim, me), self.refused,
+                                 zo("w_missile")));
+                }
+            }
+            keep.push(m);
+        }
+        self.missiles = keep;
     }
 }
 
@@ -782,10 +959,12 @@ impl StablePassive for Sparkles {
         let alive = e.is_alive();
         let tick = sim.tick();
         let foes = enemies(sim, team);
-        // the ult's Spell Thief: its w_haste just put on - the summoner spell first (the data fires the missiles)
+        // the ult's Spell Thief: its w_haste just put on - the summoner spell first, then its missiles from w_rel on (0.7.0:
+        // flown here, the copy's ult fires none of the data's)
         let haste = alive && has_buff(sim, me, &zo("w_haste"));
         if haste && !self.haste_was {
             self.summon(sim, me, ULT);
+            self.volleys.push((tick + self.p.w_rel.saturating_sub(1), self.p.w_n, ULT));
         }
         self.haste_was = haste;
         if tick > self.barrier_at + 1 && has_buff(sim, me, &zo("s_barrier")) && sim.get_entity(me).is_some_and(|e| e.shield() == 0) {
@@ -796,12 +975,13 @@ impl StablePassive for Sparkles {
         self.star(sim, me, team, pos, ap, tick);
         self.bubble(sim, me, &foes, ap, tick);
         self.shards(sim, me, &foes, pos, alive, ap, tick);
+        self.fly(sim, me, team, pos, tick);
         if tick >= self.next_report {
             self.next_report = tick + 1800;
             if tick > 0 {
-                wlog(format!("{} WATCH: stars {}, sleeps {}, wakes {}, freed {}, missed sleeps {}, shards dropped {} picked {}, summoner spells {}",
+                wlog(format!("{} WATCH: stars {}, sleeps {}, wakes {}, freed {}, missed sleeps {}, shards dropped {} picked {}, summoner spells {}, missiles {} hit {} gone {} refused {}",
                              head(sim, me), self.stars, self.sleeps, self.wakes, self.freed, self.misses, self.dropped, self.picked,
-                             self.summons));
+                             self.summons, self.launched, self.hits, self.fizzled, self.refused));
             }
         }
     }
@@ -815,7 +995,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (a sleep any damage breaks, Paddle Star by distance, Spell Thief's shards) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (a sleep any damage breaks, Paddle Star by distance, Spell Thief's shards, its missiles out behind her and over her head) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -823,7 +1003,16 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:sparkles"), Sparkles::default());
+    // 0.7.0: the missiles' pictures are projectiles spawned piece by piece; a projectile needs an effect to apply on a hit
+    module.add_native_effect(format!("{ID}:noop"), Noop);
     host.log(LogLevel::Info, "league_zoe v1 loaded (a sleep any damage breaks, Paddle Star by distance, Spell Thief's shards).");
+}
+
+/// 飞弹的画面一段一段地放（`piece_spec`），什么都不打（投射物要有一个打中时的效果）。
+struct Noop;
+
+impl StableEffectType for Noop {
+    fn apply(&self, _: &mut StableSim<'_>, _: u64, _: usize, _: InputTargetV1) {}
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -945,5 +1134,56 @@ mod tests {
         for s in summon::Spell::ALL {
             assert!(zo(&format!("sg_{}", s.key())).len() <= BUFF_NAME_CAP);
         }
+    }
+
+    #[test]
+    fn missiles_come_out_behind_her_over_her_head_to_her_front() {
+        // 「从背后过来的」: a foe on her right - the arc starts on her left (behind), tops above her head, ends on her right
+        let c = (100_000.0, 83_000.0); // her chest, her feet at y 100000
+        let f = unit((60_000.0, -3_000.0)).unwrap();
+        let p = up_of(f);
+        assert!(p.1 < -0.9, "the arc goes up the screen: {p:?}");
+        let first = orbit_at(c, f, p, 0, 0);
+        assert!(first.0 < c.0, "it appears behind her: {first:?}");
+        let top = (0..ORBIT_T).map(|a| orbit_at(c, f, p, a, 0)).fold(f64::MAX, |m, q| m.min(q.1));
+        assert!(100_000.0 - top > 36_000.0, "it passes over her head (36 rows): {}", 100_000.0 - top);
+        let last = orbit_at(c, f, p, ORBIT_T - 1, 0);
+        assert!(last.0 > c.0 + ORBIT_RX * 0.9 && (last.1 - c.1).abs() < 3_000.0, "it ends before her: {last:?}");
+        // a foe on her left: the mirror - starts on her right, still over the top
+        let f2 = unit((-60_000.0, 0.0)).unwrap();
+        let p2 = up_of(f2);
+        assert!(p2.1 < -0.9 && orbit_at(c, f2, p2, 0, 0).0 > c.0);
+        // the three stay apart: each later one a smaller arc
+        assert!(orbit_at(c, f, p, 5, 1).1 > orbit_at(c, f, p, 5, 0).1);
+    }
+
+    #[test]
+    fn a_missile_chases_until_the_step_reaches_him() {
+        let speed = Params::default().w_speed as f64;
+        let mut at = (0.0, 0.0);
+        let aim = (30_000.0, 4_000.0);
+        let mut steps = 0;
+        while let Some(n) = chase(at, aim, speed) {
+            at = n;
+            steps += 1;
+            assert!(steps < 20);
+        }
+        assert_eq!(steps, 7); // 30266 away at 4000 a tick
+        assert!(chase((0.0, 0.0), (100.0, 0.0), speed).is_none());
+    }
+
+    #[test]
+    fn a_missile_picture_lies_where_it_is_drawn_after_its_first_step() {
+        let s = piece_spec(1, 0, (50_000.0, 40_000.0), (1.0, 0.0), 4_000.0);
+        assert_eq!((s.x, s.y, s.target_x, s.target_y, s.speed), (46_000, 40_000, 54_000, 40_000, 4_000));
+        // a tick it hardly moved still gets a picture that outlives the tick
+        assert_eq!(piece_spec(1, 0, (50_000.0, 40_000.0), (0.0, -1.0), 0.0).speed, PIECE_MIN as u64);
+    }
+
+    #[test]
+    fn the_missiles_numbers_come_from_the_champion_data() {
+        let p = parse_params(r#"{"w_rel":5,"w_speed":3500}"#);
+        assert_eq!((p.w_rel, p.w_speed), (5, 3500));
+        assert_eq!(parse_params(r#"{"w_speed":0}"#).w_speed, 1);
     }
 }

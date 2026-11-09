@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 刺客（Assassin） · AP / Magic / Melee / CC / Dot |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.81 |
 | 附加包 | 无 |
 
 ![菲兹演示](../preview/league_fizz_showcase.gif)
@@ -75,6 +75,7 @@
 | 亚索联动 | R 的击飞是亚索大招要的控制：菲兹打中路、亚索打上路同队时，亚索每局 R 到被控英雄 1.06 次（同一批原版雷法 3.19、火法 0.65、维迦 2.44），亚索不用调 |
 | 精灵图 | 9 个动作 59 帧：待机、移动、普攻、强化刺击（W）、Q、E、R、受击、死亡。造型按用户在 Codex 里挑的原画（A：横握三叉戟、叉头朝右），由 Codex 直接按游戏尺寸画：蓝色鱼人、头顶白斑、带橙色鳍边的大耳鳍、绿眼睛、奶黄色的喉咙和肚皮、深海军蓝的小腿和蹼足，三叉戟是深红的杆、玉绿的叉头（钢色刃边、蓝宝石）、尾端金环。头顶到脚底 32 px，连横握的三叉戟 55 px 宽，23 色 |
 | 特效 | 普攻命中的小水花（14 px），W 强化刺击的青白三叉戟爆光（22 px），Q 穿过时的水花（20 px）和出发点的水痕（32 px），E 起跳的水花（24 px）、砸地的水冠（64 px 宽，半径 30000）和减速的水滴（18 px），R 飞行的小丑鱼（14 px，上下对称，游戏会转到飞的方向）、粘在英雄胸口右侧的鱼、脚下的鲨鱼齿环（48 / 60 / 72 px，跟着三档鲨鱼）、落空时在地上蹦的鱼、三档鲨鱼冲出水面（水圈 48 / 60 / 72 px，鲨鱼约 36 / 46 / 56 px 高） |
+| 高清帧（PPU 1.81） | 2026-11-09 用 PPU 重做，和提莫、泽丽、佐伊、米利欧在同一个 PR（用户：「最后重做提莫 菲兹 泽丽吧」「佐伊的模型我也不满意」「再补一个吧 米利欧」「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」「清理完成继续完成5个英雄的动作包 codex交付了」「千万别出现模型一大一小的问题 有问题的地方你帮忙修复」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 15 像素一格读回（95 × 58 格；头顶到脚底 58 行，旧精灵 32 行，PPU 1.81；tools/art/design_fizz_hd.py）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 47 张图、51 帧（E 第 5 帧同第 4 帧，第 8 帧用普攻第 6 帧），透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧退回身高、头、面积、叠合四者的中位数）；Q 按旧版不带特效的原生身体格画，冲刺的水花由 fizz_bake.json 重新叠在身下；头和整身每帧都和设计图一样大，缩放没再校正；跑步时三叉戟挡住腿，两条腿颜色几乎一样，看不出换腿的问题。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 不设值 → -9（举起的三叉戟尖原来会伸出卡顶）；头像截取点按新脸挪到 (0,-31) → (1,-22)（旧点框在头顶上）（眼睛落在 9x9 头像框的第 4–5 行）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 图标 | 官方技能图标（Q / E / R），64×64 |
 | 音频 | 从本地客户端提取的 13 条技能音效和 3 条中文语音（Q、E、R 的喊声），合成 12 个游戏音效。不提交到仓库，按下面的命令在本地生成 |
 
@@ -86,6 +87,15 @@ python tools/art/import_native.py --hero fizz
 python tools/art/import_fizz.py      # 特效；--native <Codex 的特效交付文件夹> 先把它的 1 倍成品转成原尺寸条（生图原稿用 --raw）
 python tools/kit/fizz_combos.py   # 连招写进技能数据（只跑一次，--check 查）
 python tools/art/preview_fizz.py
+# PPU 1.81 重做（2026-11-09）：
+python tools/art/pack_fizz_ppu.py --out <文件夹>          # 给 Codex 的设计图包
+python tools/art/design_fizz_hd.py                      # Codex 的原图（hd/raw/fizz-A.png）按原图约 15 像素一格读回 -> hd/design.png
+python tools/art/pack_fizz_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_fizz_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FRAME_ZOOM 的起点）；--heights / --heads 另两种量法
+python tools/art/rig_fizz_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero fizz && python tools/art/ppu_hd.py --hero fizz
+python tools/art/ppu_one.py --hero fizz && python tools/art/rig_fizz_hd.py --one-ground && python tools/art/hero_reels.py --hero fizz
+python tools/art/review_fizz_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（原画的提示词见 [`assets/source/fizz/PICTURE_PROMPT.md`](../../assets/source/fizz/PICTURE_PROMPT.md)，造型的见 [`MODEL_PROMPTS.md`](../../assets/source/fizz/MODEL_PROMPTS.md)，9 条动作的见 [`MODEL_STRIPS.md`](../../assets/source/fizz/MODEL_STRIPS.md)，移动返修的见 [`MODEL_RUN_REDO.md`](../../assets/source/fizz/MODEL_RUN_REDO.md)、三叉戟修正的见 [`MODEL_RUN_TRIDENT.md`](../../assets/source/fizz/MODEL_RUN_TRIDENT.md)，特效的见 [`PROMPTS_FX.md`](../../assets/source/fizz/PROMPTS_FX.md)；Codex 的交接说明在 [`codex_model/`](../../assets/source/fizz/codex_model)、[`codex_strips/`](../../assets/source/fizz/codex_strips)、[`codex_fx/`](../../assets/source/fizz/codex_fx)）：
@@ -97,4 +107,4 @@ python tools/art/preview_fizz.py
 - 特效用 Codex 画的 12 张（79 帧）。这次 Codex 直接交了按游戏尺寸整理好的成品（每张有 1 倍的逻辑像素图，颜色按包里的色阶，透明度只有 0 / 255，水花外面不再包一圈最深色）：`import_fizz.py --native` 按交付清单的窗口逐像素搬进来，不再缩放取样；三档鲨鱼按整格切（三行的窗口不一样大，但地面基线一致）。预警圈 Codex 只画了 48 px 一档，中、大鲨鱼要 60、72 px：按比例最近邻放大会让 1 格的圈边变成 1–2 格、牙齿变形，改成沿椭圆半径重映射（每个像素取原图同一角度、离外圈同样距离的像素），圈边和牙齿保持原来的像素宽度，只是间距变大。粘在身上的鱼按 Codex 的建议挂在胸口右侧（它把鱼画成贴在身侧、人物的位置留空）。时长按技能：普攻和 Q 命中 5 帧 × 50 ms，强化刺击 6 × 55 ms，Q 水痕 5 × 70 ms，E 起跳 5 × 60 ms、砸地 7 × 70 ms、减速 6 × 80 ms，飞行的鱼 4 帧循环 60 ms，粘住的鱼和鲨鱼齿环 4 帧循环 100 ms（2 秒），落地的鱼 4 帧循环 5 次（2 秒，到鲨鱼冲出），鲨鱼 8 帧 × 70 ms。演示 GIF 里菲兹画在德莱厄斯前面：Q 停在他身后 15000，正好在他的身体里。
 - 出手时刻和动画对齐：普攻第 3 帧（第 9 tick），强化刺击第 16 tick（动作的刺出帧），Q 碰到目标时命中，E 第 42 tick 砸下（动作第 7 帧），R 第 7 tick 扔出（动作第 3 帧）。
 
-逐帧预览：[`docs/preview/league_fizz_frames.png`](../preview/league_fizz_frames.png?v=1014g)，特效：[`docs/preview/league_fizz_effects.png`](../preview/league_fizz_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_fizz_frames.png`](../preview/league_fizz_frames.png?v=1109b)，特效：[`docs/preview/league_fizz_effects.png`](../preview/league_fizz_effects.png?v=1014g)。

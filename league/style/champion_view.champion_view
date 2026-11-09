@@ -131,11 +131,15 @@
     "league_teemo": {
       "face": {
         "x": 0,
-        "y": -27
+        "y": -22
       },
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_masteryi": {
@@ -390,8 +394,8 @@
     },
     "league_veigar": {
       "face": {
-        "x": 1,
-        "y": -24
+        "x": 0,
+        "y": -28
       },
       "center": {
         "x": 0,
@@ -466,12 +470,16 @@
     },
     "league_fizz": {
       "face": {
-        "x": 0,
-        "y": -31
+        "x": 1,
+        "y": -22
       },
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
       }
     },
     "league_shaco": {
@@ -630,8 +638,8 @@
     },
     "league_zilean": {
       "face": {
-        "x": 2,
-        "y": -23
+        "x": 1,
+        "y": -28
       },
       "center": {
         "x": 0,
@@ -930,8 +938,8 @@
     },
     "league_seraphine": {
       "face": {
-        "x": 4,
-        "y": -33
+        "x": 3,
+        "y": -37
       },
       "center": {
         "x": 0,
@@ -1024,8 +1032,8 @@
     },
     "league_kogmaw": {
       "face": {
-        "x": 9,
-        "y": -18
+        "x": 8,
+        "y": -23
       },
       "center": {
         "x": 0,
@@ -1166,12 +1174,16 @@
     },
     "league_zeri": {
       "face": {
-        "x": -1,
-        "y": -33
+        "x": 0,
+        "y": -28
       },
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -10
       }
     },
     "league_nautilus": {
@@ -1370,12 +1382,16 @@
     },
     "league_milio": {
       "face": {
-        "x": 0,
-        "y": -30
+        "x": 2,
+        "y": -26
       },
       "center": {
         "x": 0,
         "y": -12
+      },
+      "banpick_center": {
+        "x": 0,
+        "y": -9
       }
     },
     "league_jayce": {
@@ -1743,7 +1759,7 @@
     "league_zoe": {
       "face": {
         "x": 1,
-        "y": -24
+        "y": -25
       },
       "center": {
         "x": 0,

@@ -1,102 +1,91 @@
 #!/usr/bin/env python3
-"""Zoe's actions as the game shows them (the sheet's hd_ frames: tools/art/rig_zoe.py -> ppu_restyle.py -> ppu_hd.py)
-beside League's own clips, in ONE GIF for the user's review (memory one-gif-review), then the showcase
-(tools/art/preview_zoe.py: the stars, the bubble, the portals in a scripted fight).
+"""Zoe's redo for the user's review (memory one-gif-review): every tag of her old 1x sheet
+(assets/source/zoe/hd/old) beside the same tag of the sheet now (its hd_ frames, PPU 2.64), one game pixel the same
+size on both sides, the two frames' pivots (the frame's middle) on one point, each frame shown for its own duration -
+tools/art/review_viego_actions.py's.
 
-    python tools/art/review_zoe_actions.py --out DIR [--z 3]
+    python tools/art/review_zoe_actions.py --out DIR [--z 4] [--tags run,attack]
 
-League's frames are rig_zoe.lol_strip's: her clip at the very beat each of our frames stands for (rig_zoe.LOL;
-pose_ref.py, Riot's model - local only, never committed), side-on (yaw +15, mirrored) at chibi proportions, her props
-left out. Every tag plays twice with its name over it; the hit has no League clip (ours alone). Writes
-DIR/zoe_review.gif.
+Writes <out>/zoe_all_old_new.gif (every action tag in turn, each played twice) and <out>/zoe_<tag>_old_new.png (the
+old frames over the new ones).
 """
 import argparse
 import json
 import os
 import sys
 
-from PIL import Image, ImageDraw, ImageFont
+import numpy as np
+from PIL import Image, ImageDraw
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
-import rig_zoe as Z  # noqa: E402
+import casts_zoe_hd as CS  # noqa: E402
+import casts_rengar_hd as CR  # noqa: E402
 
+TAGS = ["idle_base", "run", "attack", "attack_p", "skill", "skill2", "ult", "skill_w", "ult_exit", "ult_back", "hit", "dead"]
+NAMES = {"idle_base": "idle", "run": "run", "attack": "attack", "attack_p": "Sparkles! (big star)",
+         "skill": "Q Paddle Star", "skill2": "E Sleepy Trouble Bubble", "ult": "R Portal Jump",
+         "skill_w": "W Spell Thief", "ult_exit": "R out of the portal", "ult_back": "R back",
+         "hit": "hit", "dead": "death"}
 STEM = os.path.join(ROOT, "league", "champions", "league_zoe")
-SHOWCASE = os.path.join(ROOT, "docs", "preview", "league_zoe_showcase.gif")
-BOX = (-45, -88, 45, 4)                 # squares round the standing point / the row under the soles
-BG = (92, 98, 86)
+BG = (96, 112, 96)
 
 
-def hd_frames(tag):
-    anims = json.load(open(Z.lp(STEM + "#anim.fanim"), encoding="utf-8-sig"))["anims"]
-    sheet = Image.open(Z.lp(STEM + "#sheet.png")).convert("RGBA")
-    out = []
-    for f in anims["hd_" + tag]["frames"]:
-        d = f["data"]
-        out.append((sheet.crop((int(d["x"]), int(d["y"]), int(d["x"] + d["w"]), int(d["y"] + d["h"]))),
-                    int(round(f["duration"] * 1000))))
+def sheet(png, fanim):
+    px = np.asarray(Image.open(CR.lp(png)).convert("RGBA"))
+    with open(CR.lp(fanim), encoding="utf-8-sig") as f:
+        anims = json.load(f)["anims"]
+    out = {}
+    for tag, a in anims.items():
+        out[tag] = []
+        for f_ in a["frames"]:
+            d = f_["data"]
+            x, y, w, h = (int(d[k]) for k in ("x", "y", "w", "h"))
+            out[tag].append((px[y:y + h, x:x + w].copy(), round(f_["duration"] * 1000)))
     return out
-
-
-def ours(frame, z):
-    """An hd frame (its pivot at its middle, the soles' bottom edge FEET x PPU under it) on the review box."""
-    x0, y0, x1, y1 = BOX
-    can = Image.new("RGBA", ((x1 - x0) * z, (y1 - y0) * z), (*BG, 255))
-    big = frame.resize((frame.width * z, frame.height * z), Image.NEAREST)
-    px = (-x0) * z - frame.width / 2 * z
-    py = (-y0) * z - (frame.height / 2 + 11.5 * Z.PPU) * z
-    can.alpha_composite(big, (int(round(px)), int(round(py))))
-    return can.convert("RGB")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
-    ap.add_argument("--z", type=int, default=3)
+    ap.add_argument("--z", type=float, default=4, help="screen px a game pixel")
+    ap.add_argument("--tags")
     a = ap.parse_args()
     os.makedirs(a.out, exist_ok=True)
-    z = a.z
-    font = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 20)
-    small = ImageFont.truetype("C:/Windows/Fonts/msyh.ttc", 15)
-    w, h = (BOX[2] - BOX[0]) * z, (BOX[3] - BOX[1]) * z
-    frames, durs = [], []
-    for tag in Z.TAGS:
-        hd = hd_frames(tag)
-        lol = [im.resize((w, int(im.height * w / im.width))) for im in Z.lol_strip(tag)] if tag in Z.LOL else None
-        for rep in range(2):
-            for i, (fr, ms) in enumerate(hd):
-                im = Image.new("RGB", (2 * w + 12, h + 58), (30, 30, 30))
-                if lol:
-                    t = lol[i % len(lol)]         # (the idle is a reel now: frame 0 held, snippets of her actions)
-                    im.paste(t.crop((0, max(0, t.height - h), w, t.height)), (0, 58 + max(0, h - t.height)))
-                else:
-                    ImageDraw.Draw(im).text((20, 58 + h // 2), "（英雄联盟没有对应动作）", fill=(170, 170, 170), font=small)
-                im.paste(ours(fr, z), (w + 12, 58))
-                d = ImageDraw.Draw(im)
-                d.text((12, 8), f"{Z.NAMES[tag]}  {i + 1}/{len(hd)}", fill=(255, 240, 160), font=font)
-                d.text((12, 34), "英雄联盟", fill=(200, 200, 200), font=small)
-                d.text((w + 24, 34), "我们的（游戏里的高清帧）", fill=(200, 200, 200), font=small)
-                frames.append(im)
-                durs.append(max(20, ms))
-    sc = Image.open(Z.lp(SHOWCASE))
-    W, H = frames[0].size
-    title = Image.new("RGB", (W, H), (30, 30, 30))
-    ImageDraw.Draw(title).text((20, H // 2 - 20), "实战演示：特效没动，换上新的动作帧", fill=(255, 240, 160), font=font)
-    frames.append(title)
-    durs.append(1200)
-    k = W / sc.width
-    for i in range(sc.n_frames):
-        sc.seek(i)
-        f = sc.convert("RGB").resize((W, int(round(sc.height * k))), Image.NEAREST)
-        im = Image.new("RGB", (W, H), (30, 30, 30))
-        im.paste(f, (0, (H - f.height) // 2))
-        frames.append(im)
-        durs.append(sc.info.get("duration", 60))
-    pal = [f.quantize(255, dither=Image.Dither.NONE) for f in frames]
-    path = os.path.join(a.out, "zoe_review.gif")
-    pal[0].save(path, save_all=True, append_images=pal[1:], duration=durs, loop=0)
-    print(path, len(frames), "frames")
+    old = sheet(os.path.join(CS.HD, "old", "sheet.png"), os.path.join(CS.HD, "old", "anim.fanim"))
+    new = sheet(STEM + "#sheet.png", STEM + "#anim.fanim")
+    ppu = CS.PPU
+    tags = a.tags.split(",") if a.tags else TAGS
+    W, H = 120 * a.z, 100 * a.z                                  # each side, in screen px
+    W, H = int(W), int(H)
+    cx, cy = W // 2, int(H * 0.6)                                 # the pivot on screen
+    gif, ms = [], []
+    for tag in tags:
+        pairs = list(zip(old[tag], new["hd_" + tag]))
+        rows = []
+        for (o, d), (n, _) in pairs:
+            can = Image.new("RGB", (2 * W + 8, H), (40, 40, 40))
+            for side, (img, k) in enumerate(((o, a.z), (n, a.z / ppu))):
+                im = Image.fromarray(img).resize((max(1, round(img.shape[1] * k)), max(1, round(img.shape[0] * k))),
+                                                 Image.NEAREST)
+                tile = Image.new("RGBA", (W, H), BG + (255,))
+                tile.alpha_composite(im, (int(cx - im.width / 2), int(cy - im.height / 2)))
+                can.paste(tile.convert("RGB"), (side * (W + 8), 0))
+            dr = ImageDraw.Draw(can)
+            dr.text((6, 4), f"old 1x - {NAMES[tag]}", fill=(255, 255, 255))
+            dr.text((W + 14, 4), f"new PPU {ppu:.3f} - {NAMES[tag]}", fill=(255, 255, 255))
+            rows.append((can, d))
+        for _ in range(2):
+            for can, d in rows:
+                gif.append(can)
+                ms.append(max(d, 40))
+        strip = Image.new("RGB", (2 * W + 8, len(rows) * (H + 4)), (40, 40, 40))
+        for i, (can, _) in enumerate(rows):
+            strip.paste(can, (0, i * (H + 4)))
+        strip.save(os.path.join(a.out, f"zoe_{tag}_old_new.png"))
+    gif[0].save(os.path.join(a.out, "zoe_all_old_new.gif"), save_all=True, append_images=gif[1:], duration=ms, loop=0)
+    print("written", a.out, len(gif), "frames")
 
 
 if __name__ == "__main__":
