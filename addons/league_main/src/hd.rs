@@ -14,7 +14,12 @@ use hd_engine::Table;
 pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_yasuo", 2.2, include_str!("../../../league/champions/league_yasuo#anim.fanim")),
     ("league_gragas", 1.45, include_str!("../../../league/champions/league_gragas#anim.fanim")),
-    ("league_zeri", 3.0, include_str!("../../../league/champions/league_zeri#anim.fanim")),
+    // Zeri (2026-11-09, 「最后重做提莫 菲兹 泽丽吧」「佐伊的模型我也不满意」「再补一个吧 米利欧」, picked 「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」): redesigned from League's Zeri, Codex's
+    // zeri-A read on its own ~11.2-px squares (46 x 77, tools/art/design_zeri_v2.py: 77 rows / 37 = 2.081); every action
+    // Codex's whole-frame redraw of her old frame read onto it at the zoom its fit over the old frame gives
+    // (tools/art/casts_zeri_hd.py, rig_zeri_hd.py; the run's boots shaded to take turns in frames 4-6); 105 % in game kept
+    // (SIZES), her frames a square higher by the restyle (RESTYLE zeri lift_sq)
+    ("league_zeri", 2.081, include_str!("../../../league/champions/league_zeri#anim.fanim")),
     ("league_vladimir", 1.8, include_str!("../../../league/champions/league_vladimir#anim.fanim")),
     ("league_karma", 2.2, include_str!("../../../league/champions/league_karma#anim.fanim")),
     ("league_ashe", 2.2, include_str!("../../../league/champions/league_ashe#anim.fanim")),
@@ -32,7 +37,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_malzahar", 1.38, include_str!("../../../league/champions/league_malzahar#anim.fanim")),
     // Smolder: PPU 1.5 (the user's pick), drawn at 85 % in his design itself (「感觉太大 得缩小一点」), so no SIZES row
     ("league_smolder", 1.5, include_str!("../../../league/champions/league_smolder#anim.fanim")),
-    ("league_milio", 2.2, include_str!("../../../league/champions/league_milio#anim.fanim")),
+    // Milio (the same release): his boy with League's backpack (the gourd) and his fire spirit, Codex's milio-A read on its
+    // own ~11.8-px squares (51 x 73, tools/art/design_milio_v2.py: 73 rows / 33 = 2.212; the backpack from the 14.58 read,
+    // 0.81 of the boy's size, as Codex drew it in every action - the idle holds the design); every action Codex's
+    // whole-frame redraw of his old frame read onto it, each tag scaled until his curls are the design's size
+    // (tools/art/casts_milio_hd.py, rig_milio_hd.py: the spirit its own layer floating over the backpack's cap); 33 game px
+    // as his 1x sprite, so no SIZES row
+    ("league_milio", 2.212, include_str!("../../../league/champions/league_milio#anim.fanim")),
     ("league_jayce", 1.5, include_str!("../../../league/champions/league_jayce#anim.fanim")),
     ("league_elise", 1.8, include_str!("../../../league/champions/league_elise#anim.fanim")),
     ("league_katarina", 1.5, include_str!("../../../league/champions/league_katarina#anim.fanim")),
@@ -105,9 +116,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // Rammus: posed by tools/art/rig_rammus.py from Codex's step-1 takes at the user's 1.2 squares a game pixel (36 game rows
     // spike tips to soles: 「36 像素」「PPU 1.2」; the ball b_* and curl c_* tags the add-on swaps in), so no SIZES row
     ("league_rammus", 1.2, include_str!("../../../league/champions/league_rammus#anim.fanim")),
-    // Zoe: posed by tools/art/rig_zoe.py from Codex's step-1 takes at the user's 1.5 squares a game pixel (35 game rows
-    // crown to soles: 「35 像素」「PPU 1.5」; skill_w / ult_exit / ult_back the kit's CasterAnimations), so no SIZES row
-    ("league_zoe", 1.5, include_str!("../../../league/champions/league_zoe#anim.fanim")),
+    // Zoe: redesigned from League's Zoe in the batch 8 redo (2026-11-09, her pink hair from its own texture), Codex's zoe-A
+    // read on its own ~11.6-px squares (82 x 95, tools/art/design_zoe_v2.py: 95 rows / 36 = 2.639); every action Codex's
+    // whole-frame redraw of her old frame read onto it, each tag scaled until her hair is the design's size (Codex drew her
+    // ~12 % big: tools/art/casts_zoe_hd.py, rig_zoe_hd.py); skill_w / ult_exit / ult_back the kit's CasterAnimations; 36
+    // game px as her 1x sprite, so no SIZES row
+    ("league_zoe", 2.639, include_str!("../../../league/champions/league_zoe#anim.fanim")),
     // Yuumi: posed by tools/art/rig_yuumi.py from Codex's step-1 takes at the user's 1.5 squares a game pixel (48 game rows
     // orb top to the book's bottom: 「32 像素」「PPU 1.5」), shown at 75 % (SIZES; 「还有模型太大」 -> 「75%（24 像素）」), her frames
     // lowered 6 squares by the restyle (RESTYLE yuumi lift_sq)
@@ -691,6 +705,18 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // (tools/art/casts_seraphine_hd.py, rig_seraphine_hd.py); she glides on the stage; nothing baked; 46 game px (the
     // curl on her head to the stage's bottom) as her 1x sprite, so no SIZES row
     ("league_seraphine", 2.196, include_str!("../../../league/champions/league_seraphine#anim.fanim")),
+    // Teemo (2026-11-09, 「最后重做提莫 菲兹 泽丽吧」「佐伊的模型我也不满意」「再补一个吧 米利欧」, picked 「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」): Codex's teemo-A after his sprite, read on
+    // its own ~16.5-px squares (68 x 68, tools/art/design_teemo_hd.py: 68 rows / 38 = 1.789); every action Codex's
+    // whole-frame redraw of his old frame read onto it at the zoom its fit over the old frame gives
+    // (tools/art/casts_teemo_hd.py, rig_teemo_hd.py; the run's legs shaded to take turns in frames 4-6); nothing baked; 38
+    // game px (the feather's tip to his soles) as his 1x sprite, so no SIZES row
+    ("league_teemo", 1.789, include_str!("../../../league/champions/league_teemo#anim.fanim")),
+    // Fizz (the same release): Codex's fizz-A after his sprite, read on its own ~15-px squares (95 x 58,
+    // tools/art/design_fizz_hd.py: 58 rows / 32 = 1.8125); every action Codex's whole-frame redraw of his old frame read
+    // onto it at the zoom its fit over the old frame gives (tools/art/casts_fizz_hd.py, rig_fizz_hd.py); Q's body from its
+    // native cells, its dash picture baked on again under him by fizz_bake.json; 32 game px as his 1x sprite, so no SIZES
+    // row
+    ("league_fizz", 1.8125, include_str!("../../../league/champions/league_fizz#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -703,7 +729,8 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// 2026-10-13 after the restyle 「酒桶可以稍微放大点吧 现在也太小了」 -> 90% from a size sheet, then 「还是太小啊」 -> 100% - judged on a preview GIF that
 /// drew him at 80% - then 「感觉又太大了？」 from a true-scale sheet -> 90% (40 game px, Darius 42); his frames
 /// lifted by the restyle (RESTYLE gragas lift_sq).
-/// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py).
+/// Zeri: 「等等泽丽感觉游戏里有点小」, picked 105% from the size sheet (drawn RAISE rows higher: tools/art/ppu_zeri.py); kept
+/// through the batch 8 redo (2026-11-09, PPU 2.081), her frames a square higher by the restyle (RESTYLE zeri lift_sq).
 /// Kassadin: 「在游戏太小了吧」, picked 115%, then 「感觉太大了点？调到110%差不多吧」 (41 game px); after the restyle
 /// 「刀妹和卡萨丁感觉在游戏里偏大啊」 -> 100% (39 game px; RESTYLE kassadin lift_sq -3 undoes the rig's 110% raise) and Irelia
 /// 115% -> 105% (44 game px with her blades); his hd frames drawn RAISE

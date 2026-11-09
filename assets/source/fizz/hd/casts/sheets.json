@@ -1,0 +1,699 @@
+{
+ "square": 10,
+ "square_of": {
+  "attack_w": 8,
+  "skill2": 5,
+  "dead": 8
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "skill2": {
+   "5": "skill2 4",
+   "8": "attack 6"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [
+  "skill"
+ ],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): bounding forward low, the trident held slanting down behind him, the prongs low at his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    107
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his blue webbed foot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the tendrils and the trident follow the pale figure. The trident is NOT a leg: his two legs with the webbed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): bounding forward low, the trident held slanting down behind him, the prongs low at his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    107
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow.",
+   "legs": "Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the tendrils and the trident follow the pale figure. The trident is NOT a leg: his two legs with the webbed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): bounding forward low, the trident held slanting down behind him, the prongs low at his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    107
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the tendrils and the trident follow the pale figure. The trident is NOT a leg: his two legs with the webbed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): bounding forward low, the trident held slanting down behind him, the prongs low at his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    107
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow.",
+   "legs": "Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the tendrils and the trident follow the pale figure. The trident is NOT a leg: his two legs with the webbed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): bounding forward low, the trident held slanting down behind him, the prongs low at his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    107
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the tendrils and the trident follow the pale figure. The trident is NOT a leg: his two legs with the webbed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): bounding forward low, the trident held slanting down behind him, the prongs low at his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    107
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow.",
+   "legs": "Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the tendrils and the trident follow the pale figure. The trident is NOT a leg: his two legs with the webbed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): bounding forward low, the trident held slanting down behind him, the prongs low at his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    107
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the tendrils and the trident follow the pale figure. The trident is NOT a leg: his two legs with the webbed feet carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): bounding forward low, the trident held slanting down behind him, the prongs low at his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    108
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow.",
+   "legs": "Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the tendrils and the trident follow the pale figure. The trident is NOT a leg: his two legs with the webbed feet carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a thrust): the trident held level before him (frame 1), drawn back (frame 2), thrust forward in a lunge, the legs wide (frames 3-5), and back in his stance (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a thrust): the trident held level before him (frame 1), drawn back (frame 2), thrust forward in a lunge, the legs wide (frames 3-5), and back in his stance (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a thrust): the trident held level before him (frame 1), drawn back (frame 2), thrust forward in a lunge, the legs wide (frames 3-5), and back in his stance (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a thrust): the trident held level before him (frame 1), drawn back (frame 2), thrust forward in a lunge, the legs wide (frames 3-5), and back in his stance (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a thrust): the trident held level before him (frame 1), drawn back (frame 2), thrust forward in a lunge, the legs wide (frames 3-5), and back in his stance (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a thrust): the trident held level before him (frame 1), drawn back (frame 2), thrust forward in a lunge, the legs wide (frames 3-5), and back in his stance (frame 6)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack_w",
+   "name": "attack_w_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered thrust (W Seastone Trident): (frame 1 his stance) he swings the trident up, the prongs high (frame 2), raises it straight up over his head (frames 3-4), slams it down forward, the prongs at the ground before him (frame 5), and levels it again (frames 6-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack_w",
+   "name": "attack_w_2",
+   "frames": [
+    2,
+    3
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "the empowered thrust (W Seastone Trident): (frame 1 his stance) he swings the trident up, the prongs high (frame 2), raises it straight up over his head (frames 3-4), slams it down forward, the prongs at the ground before him (frame 5), and levels it again (frames 6-7)",
+   "ms": [
+    60,
+    70
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack_w",
+   "name": "attack_w_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered thrust (W Seastone Trident): (frame 1 his stance) he swings the trident up, the prongs high (frame 2), raises it straight up over his head (frames 3-4), slams it down forward, the prongs at the ground before him (frame 5), and levels it again (frames 6-7)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack_w",
+   "name": "attack_w_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered thrust (W Seastone Trident): (frame 1 his stance) he swings the trident up, the prongs high (frame 2), raises it straight up over his head (frames 3-4), slams it down forward, the prongs at the ground before him (frame 5), and levels it again (frames 6-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack_w",
+   "name": "attack_w_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered thrust (W Seastone Trident): (frame 1 his stance) he swings the trident up, the prongs high (frame 2), raises it straight up over his head (frames 3-4), slams it down forward, the prongs at the ground before him (frame 5), and levels it again (frames 6-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack_w",
+   "name": "attack_w_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered thrust (W Seastone Trident): (frame 1 his stance) he swings the trident up, the prongs high (frame 2), raises it straight up over his head (frames 3-4), slams it down forward, the prongs at the ground before him (frame 5), and levels it again (frames 6-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Urchin Strike (Q): (frame 1 his stance) he dashes forward low, curled up (frame 2), vaults head over heels, upside down (frame 3), shoots forward stretched out flat, the trident pointing ahead (frame 4), lands crouched (frame 5) and rises into his stance (frames 6-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Urchin Strike (Q): (frame 1 his stance) he dashes forward low, curled up (frame 2), vaults head over heels, upside down (frame 3), shoots forward stretched out flat, the trident pointing ahead (frame 4), lands crouched (frame 5) and rises into his stance (frames 6-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Urchin Strike (Q): (frame 1 his stance) he dashes forward low, curled up (frame 2), vaults head over heels, upside down (frame 3), shoots forward stretched out flat, the trident pointing ahead (frame 4), lands crouched (frame 5) and rises into his stance (frames 6-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Urchin Strike (Q): (frame 1 his stance) he dashes forward low, curled up (frame 2), vaults head over heels, upside down (frame 3), shoots forward stretched out flat, the trident pointing ahead (frame 4), lands crouched (frame 5) and rises into his stance (frames 6-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Urchin Strike (Q): (frame 1 his stance) he dashes forward low, curled up (frame 2), vaults head over heels, upside down (frame 3), shoots forward stretched out flat, the trident pointing ahead (frame 4), lands crouched (frame 5) and rises into his stance (frames 6-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Urchin Strike (Q): (frame 1 his stance) he dashes forward low, curled up (frame 2), vaults head over heels, upside down (frame 3), shoots forward stretched out flat, the trident pointing ahead (frame 4), lands crouched (frame 5) and rises into his stance (frames 6-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Urchin Strike (Q): (frame 1 his stance) he dashes forward low, curled up (frame 2), vaults head over heels, upside down (frame 3), shoots forward stretched out flat, the trident pointing ahead (frame 4), lands crouched (frame 5) and rises into his stance (frames 6-7)",
+   "ms": [
+    57
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Playful / Trickster (E): (frame 1 his stance) he lifts the trident, the prongs up (frame 2), plants it upright on its prongs and balances UPSIDE DOWN on the top of its shaft, the legs up (frames 3-4; frame 5 = frame 4), drops off it tumbling, flat in the air (frame 6), and lands, the trident before him (frame 7; frame 8 = attack 6)",
+   "ms": [
+    50,
+    70
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Playful / Trickster (E): (frame 1 his stance) he lifts the trident, the prongs up (frame 2), plants it upright on its prongs and balances UPSIDE DOWN on the top of its shaft, the legs up (frames 3-4; frame 5 = frame 4), drops off it tumbling, flat in the air (frame 6), and lands, the trident before him (frame 7; frame 8 = attack 6)",
+   "ms": [
+    100,
+    200
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 5,
+   "action": "Playful / Trickster (E): (frame 1 his stance) he lifts the trident, the prongs up (frame 2), plants it upright on its prongs and balances UPSIDE DOWN on the top of its shaft, the legs up (frames 3-4; frame 5 = frame 4), drops off it tumbling, flat in the air (frame 6), and lands, the trident before him (frame 7; frame 8 = attack 6)",
+   "ms": [
+    80,
+    60
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Chum the Waters (R): (frame 1 his stance) he swings the trident back over his shoulder like a fishing rod, its butt end high behind his head and the prongs low before him (frames 2-4), casts it forward (frame 5) and levels it (frames 6-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Chum the Waters (R): (frame 1 his stance) he swings the trident back over his shoulder like a fishing rod, its butt end high behind his head and the prongs low before him (frames 2-4), casts it forward (frame 5) and levels it (frames 6-7)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Chum the Waters (R): (frame 1 his stance) he swings the trident back over his shoulder like a fishing rod, its butt end high behind his head and the prongs low before him (frames 2-4), casts it forward (frame 5) and levels it (frames 6-7)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Chum the Waters (R): (frame 1 his stance) he swings the trident back over his shoulder like a fishing rod, its butt end high behind his head and the prongs low before him (frames 2-4), casts it forward (frame 5) and levels it (frames 6-7)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Chum the Waters (R): (frame 1 his stance) he swings the trident back over his shoulder like a fishing rod, its butt end high behind his head and the prongs low before him (frames 2-4), casts it forward (frame 5) and levels it (frames 6-7)",
+   "ms": [
+    80
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Chum the Waters (R): (frame 1 his stance) he swings the trident back over his shoulder like a fishing rod, its butt end high behind his head and the prongs low before him (frames 2-4), casts it forward (frame 5) and levels it (frames 6-7)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Chum the Waters (R): (frame 1 his stance) he swings the trident back over his shoulder like a fishing rod, its butt end high behind his head and the prongs low before him (frames 2-4), casts it forward (frame 5) and levels it (frames 6-7)",
+   "ms": [
+    90
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "struck: jolted back, the eye squeezed (frame 1; frame 2 back in his stance)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "struck: jolted back, the eye squeezed (frame 1; frame 2 back in his stance)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1), knocked over backwards and rolling - on his back, upside down, flat, upside down, on his back again - the trident lying level beside him (frames 2-6), and lies flat on his belly on the ground, the trident beside him (frames 7-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1), knocked over backwards and rolling - on his back, upside down, flat, upside down, on his back again - the trident lying level beside him (frames 2-6), and lies flat on his belly on the ground, the trident beside him (frames 7-8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1), knocked over backwards and rolling - on his back, upside down, flat, upside down, on his back again - the trident lying level beside him (frames 2-6), and lies flat on his belly on the ground, the trident beside him (frames 7-8)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1), knocked over backwards and rolling - on his back, upside down, flat, upside down, on his back again - the trident lying level beside him (frames 2-6), and lies flat on his belly on the ground, the trident beside him (frames 7-8)",
+   "ms": [
+    120
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1), knocked over backwards and rolling - on his back, upside down, flat, upside down, on his back again - the trident lying level beside him (frames 2-6), and lies flat on his belly on the ground, the trident beside him (frames 7-8)",
+   "ms": [
+    130
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1), knocked over backwards and rolling - on his back, upside down, flat, upside down, on his back again - the trident lying level beside him (frames 2-6), and lies flat on his belly on the ground, the trident beside him (frames 7-8)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1), knocked over backwards and rolling - on his back, upside down, flat, upside down, on his back again - the trident lying level beside him (frames 2-6), and lies flat on his belly on the ground, the trident beside him (frames 7-8)",
+   "ms": [
+    250
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_8",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck (frame 1), knocked over backwards and rolling - on his back, upside down, flat, upside down, on his back again - the trident lying level beside him (frames 2-6), and lies flat on his belly on the ground, the trident beside him (frames 7-8)",
+   "ms": [
+    500
+   ],
+   "weapons": "THE TRIDENT goes where the pale figure has it, frame by frame (image 3 shows it in colour): the trident with its three dark teal prongs, dark red shaft and butt ring, as long as in image 1 - held level, slanted behind him, raised, slammed down, or planted upright under him as the pale figure holds it (lying beside him when he dies). The long tendrils and the fin follow his head. Only him: no water, no splashes, no fish, no shark, no dash streaks, no glow."
+  }
+ ]
+}

@@ -41,7 +41,7 @@ G = "<#66bb6aff>"      # healing
 E = "<>"
 # champion_view: the face point between her eyes (23.7 px over the soles; tfm2_ase.py face finds her crown 33 px up:
 # lint_mod allows 10 under the crown; ppu_restyle face_to the same)
-VIEW = {"face": {"x": 1, "y": -24}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 1, "y": -25}, "center": {"x": 0, "y": -12}}
 
 
 def mag(d, r):

@@ -1,0 +1,815 @@
+{
+ "square": 8,
+ "square_of": {
+  "ult": 7,
+  "ult_exit": 6,
+  "ult_back": 7
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "skill": {
+   "6": "attack 6",
+   "7": "attack 7",
+   "8": "attack 8"
+  },
+  "ult_exit": {
+   "3": "ult 3",
+   "4": "ult 3"
+  },
+  "ult_back": {
+   "2": "ult 6",
+   "4": "ult 7",
+   "5": "skill2 9",
+   "6": "design 0"
+  },
+  "dead": {
+   "4": "skill_w 4"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "skipping along (her move loop): skipping forward, the long hair streaming back behind her, the arms swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, her foot in its dark blue ankle wrap flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the long hair and the hands follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "skipping along (her move loop): skipping forward, the long hair streaming back behind her, the arms swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys.",
+   "legs": "Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the long hair and the hands follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "skipping along (her move loop): skipping forward, the long hair streaming back behind her, the arms swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the long hair and the hands follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "skipping along (her move loop): skipping forward, the long hair streaming back behind her, the arms swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the long hair and the hands follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "skipping along (her move loop): skipping forward, the long hair streaming back behind her, the arms swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the long hair and the hands follow the pale figure."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "skipping along (her move loop): skipping forward, the long hair streaming back behind her, the arms swinging, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys.",
+   "legs": "Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the long hair and the hands follow the pale figure."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a little star): she raises the near hand (frames 1-3), pushes it forward (frame 4), then FLIPS head over heels - upside down, the hair whirling round her (frames 5-7) - and lands, the near hand forward (frame 8)",
+   "ms": [
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a little star): she raises the near hand (frames 1-3), pushes it forward (frame 4), then FLIPS head over heels - upside down, the hair whirling round her (frames 5-7) - and lands, the near hand forward (frame 8)",
+   "ms": [
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a little star): she raises the near hand (frames 1-3), pushes it forward (frame 4), then FLIPS head over heels - upside down, the hair whirling round her (frames 5-7) - and lands, the near hand forward (frame 8)",
+   "ms": [
+    57
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (a little star): she raises the near hand (frames 1-3), pushes it forward (frame 4), then FLIPS head over heels - upside down, the hair whirling round her (frames 5-7) - and lands, the near hand forward (frame 8)",
+   "ms": [
+    60,
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    6,
+    7
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (a little star): she raises the near hand (frames 1-3), pushes it forward (frame 4), then FLIPS head over heels - upside down, the hair whirling round her (frames 5-7) - and lands, the near hand forward (frame 8)",
+   "ms": [
+    55,
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_6",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a little star): she raises the near hand (frames 1-3), pushes it forward (frame 4), then FLIPS head over heels - upside down, the hair whirling round her (frames 5-7) - and lands, the near hand forward (frame 8)",
+   "ms": [
+    58
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered attack (More Sparkles!): she draws the near hand back (frame 1), thrusts it out, the arm stretched forward (frames 2-5), and draws it back (frames 6-8)",
+   "ms": [
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered attack (More Sparkles!): she draws the near hand back (frame 1), thrusts it out, the arm stretched forward (frames 2-5), and draws it back (frames 6-8)",
+   "ms": [
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered attack (More Sparkles!): she draws the near hand back (frame 1), thrusts it out, the arm stretched forward (frames 2-5), and draws it back (frames 6-8)",
+   "ms": [
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered attack (More Sparkles!): she draws the near hand back (frame 1), thrusts it out, the arm stretched forward (frames 2-5), and draws it back (frames 6-8)",
+   "ms": [
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered attack (More Sparkles!): she draws the near hand back (frame 1), thrusts it out, the arm stretched forward (frames 2-5), and draws it back (frames 6-8)",
+   "ms": [
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "the empowered attack (More Sparkles!): she draws the near hand back (frame 1), thrusts it out, the arm stretched forward (frames 2-5), and draws it back (frames 6-8)",
+   "ms": [
+    60
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "attack_p",
+   "name": "attack_p_7",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "the empowered attack (More Sparkles!): she draws the near hand back (frame 1), thrusts it out, the arm stretched forward (frames 2-5), and draws it back (frames 6-8)",
+   "ms": [
+    60,
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Paddle Star (Q): she winds up, the near hand back, then forward (frames 1-4), and flips head over heels (frame 5; frames 6-8 = attack 6-8)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Paddle Star (Q): she winds up, the near hand back, then forward (frames 1-4), and flips head over heels (frame 5; frames 6-8 = attack 6-8)",
+   "ms": [
+    77
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Paddle Star (Q): she winds up, the near hand back, then forward (frames 1-4), and flips head over heels (frame 5; frames 6-8 = attack 6-8)",
+   "ms": [
+    55,
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Sleepy Trouble Bubble (E): she steps in (frames 1-2), flips head over heels, upside down, the hair whirling (frames 3-5), lands, the near arm thrust forward (frame 6), and settles, the hand forward (frames 7-9)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Sleepy Trouble Bubble (E): she steps in (frames 1-2), flips head over heels, upside down, the hair whirling (frames 3-5), lands, the near arm thrust forward (frame 6), and settles, the hand forward (frames 7-9)",
+   "ms": [
+    40
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Sleepy Trouble Bubble (E): she steps in (frames 1-2), flips head over heels, upside down, the hair whirling (frames 3-5), lands, the near arm thrust forward (frame 6), and settles, the hand forward (frames 7-9)",
+   "ms": [
+    40
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Sleepy Trouble Bubble (E): she steps in (frames 1-2), flips head over heels, upside down, the hair whirling (frames 3-5), lands, the near arm thrust forward (frame 6), and settles, the hand forward (frames 7-9)",
+   "ms": [
+    37
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Sleepy Trouble Bubble (E): she steps in (frames 1-2), flips head over heels, upside down, the hair whirling (frames 3-5), lands, the near arm thrust forward (frame 6), and settles, the hand forward (frames 7-9)",
+   "ms": [
+    60
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Sleepy Trouble Bubble (E): she steps in (frames 1-2), flips head over heels, upside down, the hair whirling (frames 3-5), lands, the near arm thrust forward (frame 6), and settles, the hand forward (frames 7-9)",
+   "ms": [
+    60
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_7",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Sleepy Trouble Bubble (E): she steps in (frames 1-2), flips head over heels, upside down, the hair whirling (frames 3-5), lands, the near arm thrust forward (frame 6), and settles, the hand forward (frames 7-9)",
+   "ms": [
+    60
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_8",
+   "frames": [
+    9
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Sleepy Trouble Bubble (E): she steps in (frames 1-2), flips head over heels, upside down, the hair whirling (frames 3-5), lands, the near arm thrust forward (frame 6), and settles, the hand forward (frames 7-9)",
+   "ms": [
+    53
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Portal Jump (R): she gathers herself (frames 1-3), leaps head over heels, upside down (frames 4-5), lands, the near arm thrust forward (frame 6), and settles (frames 7-8)",
+   "ms": [
+    66,
+    67
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Portal Jump (R): she gathers herself (frames 1-3), leaps head over heels, upside down (frames 4-5), lands, the near arm thrust forward (frame 6), and settles (frames 7-8)",
+   "ms": [
+    55,
+    55
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Portal Jump (R): she gathers herself (frames 1-3), leaps head over heels, upside down (frames 4-5), lands, the near arm thrust forward (frame 6), and settles (frames 7-8)",
+   "ms": [
+    55,
+    52
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Portal Jump (R): she gathers herself (frames 1-3), leaps head over heels, upside down (frames 4-5), lands, the near arm thrust forward (frame 6), and settles (frames 7-8)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Spell Thief (W): she spreads her arms wide (frames 1-2), turns to FACE THE VIEWER, the hair falling to both sides, the arms open (frames 3-4), and turns back to the right, the near hand forward (frames 5-7)",
+   "ms": [
+    35
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Spell Thief (W): she spreads her arms wide (frames 1-2), turns to FACE THE VIEWER, the hair falling to both sides, the arms open (frames 3-4), and turns back to the right, the near hand forward (frames 5-7)",
+   "ms": [
+    32
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Spell Thief (W): she spreads her arms wide (frames 1-2), turns to FACE THE VIEWER, the hair falling to both sides, the arms open (frames 3-4), and turns back to the right, the near hand forward (frames 5-7)",
+   "ms": [
+    40
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Spell Thief (W): she spreads her arms wide (frames 1-2), turns to FACE THE VIEWER, the hair falling to both sides, the arms open (frames 3-4), and turns back to the right, the near hand forward (frames 5-7)",
+   "ms": [
+    43
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Spell Thief (W): she spreads her arms wide (frames 1-2), turns to FACE THE VIEWER, the hair falling to both sides, the arms open (frames 3-4), and turns back to the right, the near hand forward (frames 5-7)",
+   "ms": [
+    40
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_6",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Spell Thief (W): she spreads her arms wide (frames 1-2), turns to FACE THE VIEWER, the hair falling to both sides, the arms open (frames 3-4), and turns back to the right, the near hand forward (frames 5-7)",
+   "ms": [
+    43
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "skill_w",
+   "name": "skill_w_7",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Spell Thief (W): she spreads her arms wide (frames 1-2), turns to FACE THE VIEWER, the hair falling to both sides, the arms open (frames 3-4), and turns back to the right, the near hand forward (frames 5-7)",
+   "ms": [
+    84
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "ult_exit",
+   "name": "ult_exit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 6,
+   "action": "Portal Jump's exit (R): she stands (frames 1-2; frames 3-4 = R 3)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "ult_back",
+   "name": "ult_back_1",
+   "frames": [
+    1,
+    3
+   ],
+   "cells": 2,
+   "square": 7,
+   "action": "Portal Jump's way back (R): she thrusts the near hand forward (frame 1; frame 2 = R 6) and settles (frame 3; frame 4 = R 7, frame 5 = E 9, frame 6 = the design)",
+   "ms": [
+    50,
+    50
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "struck: jolted back (frames 1-2; the old frame 1 is a white flash - draw her in her own colours)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    100
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    110
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    110
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    110
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_7",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    110
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_8",
+   "frames": [
+    9
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    120
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_9",
+   "frames": [
+    10
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "death: struck, the arms flung out (frames 1-2), she turns to face the viewer (frame 3; frame 4 = W 4), turns back and staggers (frames 5-6), topples over (frame 7) and lies on the ground, the long hair spread out (frames 8-10)",
+   "ms": [
+    240
+   ],
+   "weapons": "HER HANDS AND HER HAIR go where the pale figure has them, frame by frame (image 3 shows them in colour): the hands raised, thrust, spread or swung as the pale figure holds them; the very long pink hair (violet at its ends, braided, with gold rings) streaming, whirling or spread the way the pale figure's hair goes, as long and as full as in image 1. Only her: no stars, no sparkles, no bubbles, no portals, no glow, none of her toys."
+  }
+ ]
+}

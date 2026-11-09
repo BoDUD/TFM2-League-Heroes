@@ -53,14 +53,16 @@ WARPS = {}                          # (hero, tag, frame) -> the Warp used (the f
 KARMA_RING = [(62, 138, 103), (92, 195, 142), (35, 95, 75), (129, 209, 157), (14, 52, 46), (5, 26, 30)]
 # the PPU every hero's frames in assets/source/ppu/orig are drawn at (what its own tool writes there: rig_braum.py,
 # rig_mordekaiser.py, rig_kassadin.py, rig_corki_hd.py, ppu_zeri.py, ppu_gragas.py, import_ppu_strips.py)
-ORIG_PPU = {"zeri": 3, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
+ORIG_PPU = {"zeri": 77 / 37, "karma": 3, "braum": 2.881, "mordekaiser": 5, "corki": 5, "kassadin": 3.622, "ashe": 5.4571,
             "vladimir": 2, "yasuo": 3, "garen": 3, "gragas": 2, "irelia": 2, "soraka": 3, "nidalee": 3.8313,
-            "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 2.2, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
+            "nilah": 2.5, "kindred": 154 / 34, "malzahar": 1.38, "milio": 73 / 33, "jayce": 1.5, "elise": 1.8, "katarina": 1.5,
             "tahmkench": 1.2, "kalista": 1.4, "drmundo": 1.5, "pantheon": 1.5, "orianna": 2.25, "aphelios": 1.5, "rell": 1.5, "urgot": 1.2, "reksai": 1.58, "swain": 1.5, "nasus": 1.2, "renata": 1.5, "anivia": 1.2, "jarvaniv": 1.5, "ziggs": 1.5, "maokai": 1.5, "gangplank": 1.5, "wukong": 1.53, "cassiopeia": 1.3, "akshan": 1.61, "poppy": 1.3, "volibear": 1.2, "rammus": 1.2,
-            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "raptor": 1.56, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 1.5, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2, "skarner": 1.75, "zaahen": 1.75, "alune": 2.0, "silco": 2.0, "maddie": 1.5, "loris": 2.0, "kobuko": 2.0, "vander": 2.0, "violet": 2.0, "krug": 2.0, "aoshin": 2.0, "scar": 2.0, "renni": 2.0, "smeech": 2.4, "sevika": 1.8, "steb": 2.6, "nomsy": 2.6, "idas": 2.45, "daeja": 1.72, "shiohyu": 2.46, "syfen": 2.52, "sohm": 1.8, "terra": 1.45, "zippy": 2.2, "leesin": 2.1, "vayne": 2.55, "lucian": 2.02, "rengar": 59 / 40, "syndra": 78 / 42, "akali": 72 / 40, "sivir": 81 / 36, "tristana": 87 / 34, "zed": 65 / 40, "taric": 62 / 40, "kayle": 112 / 49, "leona": 72 / 41, "sona": 155 / 40, "briar": 135 / 46, "talon": 86 / 39, "thresh": 99 / 40, "missfortune": 105 / 38, "senna": 73 / 39, "evelynn": 114 / 41, "sett": 75 / 42, "viego": 115 / 47, "diana": 78 / 43, "masteryi": 125 / 56, "ryze": 68 / 41, "vi": 73 / 40, "twistedfate": 110 / 41, "ekko": 68 / 35, "shaco": 91 / 43, "nocturne": 72 / 40, "kennen": 65 / 36, "aatrox": 91 / 40, "lissandra": 76 / 42, "alistar": 76 / 44, "tryndamere": 67 / 37, "pyke": 73 / 41, "brand": 77 / 43, "khazix": 83 / 37, "viktor": 76 / 42, "nautilus": 92 / 51, "blitzcrank": 79 / 44, "lillia": 139 / 53, "jhin": 74 / 41, "yone": 90 / 41, "kayn": 72 / 40, "xayah": 79 / 44, "rakan": 72 / 40, "fiddlesticks": 83 / 46, "lulu": 70 / 39, "olaf": 77 / 43, "ezreal": 79 / 36, "hecarim": 81 / 45, "renekton": 67 / 37, "veigar": 72 / 40, "zilean": 72 / 40, "kogmaw": 61 / 34, "seraphine": 101 / 46, "sentinel": 1.7, "elderdragon": 2.84, "meepsie": 2.875, "murkwolf": 1.67, "gromp": 1.69, "scuttlecrab": 80 / 30, "sentry": 1.29, "brock": 1.16, "cinderling": 2.33, "riftherald": 2.0, "thex": 1.9, "baronnashor": 2.04, "mightymech": 2.0}
+            **{h: 1.5 for h in ('morgana', 'nami', 'janna', 'jax', 'xinzhao')}, "raptor": 1.56, "yunara": 1.5, "kaisa": 1.45, "camille": 1.5, "fiora": 1.5, "leblanc": 2.0, "darius": 1.45, "caitlyn": 1.45, "riven": 1.5, "zoe": 95 / 36, "quinn": 2.0, "yuumi": 1.5, "powder": 1.75, "chogath": 1.2, "karthus": 1.5, "vex": 1.5, "zyra": 1.7, "graves": 1.5, "warwick": 1.5, "gnar": 1.5, "sylas": 1.2, "mel": 1.5, "velkoz": 1.5, "shyvana": 1.5, "ornn": 1.5, "naafiri": 1.5, "xerath": 1.55, "heimerdinger": 1.5, "neeko": 2.5, "ksante": 1.5, "udyr": 1.5, "qiyana": 1.5, "hwei": 1.5, "ivern": 1.5, "illaoi": 1.5, "varus": 1.35, "aurora": 2.25, "nunu": 1.37, "azir": 1.5, "zac": 1.5, "jinx": 2.2, "lux": 2.2, "singed": 1.39, "belveth": 1.75, "taliyah": 1.75, "aurelionsol": 1.75, "sejuani": 2.0, "ahri": 2.2, "twitch": 2.2, "annie": 2.2, "kled": 2.0, "yorick": 1.75, "gwen": 2.84, "ambessa": 2.0, "rumble": 1.75, "trundle": 2.0, "samira": 2.84, "locke": 2.0, "draven": 2.2, "skarner": 1.75, "zaahen": 1.75, "alune": 2.0, "silco": 2.0, "maddie": 1.5, "loris": 2.0, "kobuko": 2.0, "vander": 2.0, "violet": 2.0, "krug": 2.0, "aoshin": 2.0, "scar": 2.0, "renni": 2.0, "smeech": 2.4, "sevika": 1.8, "steb": 2.6, "nomsy": 2.6, "idas": 2.45, "daeja": 1.72, "shiohyu": 2.46, "syfen": 2.52, "sohm": 1.8, "terra": 1.45, "zippy": 2.2, "leesin": 2.1, "vayne": 2.55, "lucian": 2.02, "rengar": 59 / 40, "syndra": 78 / 42, "akali": 72 / 40, "sivir": 81 / 36, "tristana": 87 / 34, "zed": 65 / 40, "taric": 62 / 40, "kayle": 112 / 49, "leona": 72 / 41, "sona": 155 / 40, "briar": 135 / 46, "talon": 86 / 39, "thresh": 99 / 40, "missfortune": 105 / 38, "senna": 73 / 39, "evelynn": 114 / 41, "sett": 75 / 42, "viego": 115 / 47, "diana": 78 / 43, "masteryi": 125 / 56, "ryze": 68 / 41, "vi": 73 / 40, "twistedfate": 110 / 41, "ekko": 68 / 35, "shaco": 91 / 43, "nocturne": 72 / 40, "kennen": 65 / 36, "aatrox": 91 / 40, "lissandra": 76 / 42, "alistar": 76 / 44, "tryndamere": 67 / 37, "pyke": 73 / 41, "brand": 77 / 43, "khazix": 83 / 37, "viktor": 76 / 42, "nautilus": 92 / 51, "blitzcrank": 79 / 44, "lillia": 139 / 53, "jhin": 74 / 41, "yone": 90 / 41, "kayn": 72 / 40, "xayah": 79 / 44, "rakan": 72 / 40, "fiddlesticks": 83 / 46, "lulu": 70 / 39, "olaf": 77 / 43, "ezreal": 79 / 36, "hecarim": 81 / 45, "renekton": 67 / 37, "veigar": 72 / 40, "zilean": 72 / 40, "kogmaw": 61 / 34, "seraphine": 101 / 46, "teemo": 68 / 38, "fizz": 58 / 32, "sentinel": 1.7, "elderdragon": 2.84, "meepsie": 2.875, "murkwolf": 1.67, "gromp": 1.69, "scuttlecrab": 80 / 30, "sentry": 1.29, "brock": 1.16, "cinderling": 2.33, "riftherald": 2.0, "thex": 1.9, "baronnashor": 2.04, "mightymech": 2.0}
 # face: (row0, row1, col0, col1) of the face to match in the idle's first dense frame; neck: (col, row) there
 RESTYLE = {
-    "zeri": dict(face=(25, 41, 22, 42), neck=None, neck_row=35, head=1.3, wide=1.45, short=0.88, band=2, edge=1, face_to=(-1, -33)),
+    # (batch 8: rig_zeri_hd.py, see "teemo"); 105 % in game (hd.rs SIZES, kept from her old sprite): a square higher
+    # (11.5 x 2.081 x (1 - 1 / 1.05) = 1.1) so her soles stay on the ground
+    "zeri": dict(ppu=77 / 37, edge=2, lift_sq=1, face_to=(0, -28)),
     # 「卡尔玛太壮了 还需要调」「头上的光环太大」「卡尔玛的像素还可以降一降吧？」
     "karma": dict(face=(38, 62, 33, 58), neck=(45, 64), head=1.2, wide=1.25, short=0.92, band=3, edge=1,
                   ring=0.6, ring_colours=KARMA_RING, ring_rows=40, ppu=2.2, max_err=2200, outline=(15, 3, 16)),
@@ -171,7 +173,7 @@ RESTYLE = {
     # tools/art/rig_milio.py (the boy 32 game rows from his hair top to his soles; one head brought down once for every
     # frame), so no proportion or density change here; the outer outline grown a square like the others; the face
     # point at his crown (rig_milio.face_point)
-    "milio": dict(ppu=2.2, edge=1, face_to=(0, -30)),
+    "milio": dict(ppu=73 / 33, edge=2, face_to=(2, -26)),          # (batch 8: rig_milio_hd.py, see "teemo")
     # league_jayce (#106): Codex's strips (both forms) on the design's grid brought to the user's 1.5 squares a game pixel
     # by tools/art/rig_jayce.py (38 game rows crown to soles; one head brought down once for every frame), so no
     # proportion or density change here; the outer outline grown a square like the others; the face point at his crown
@@ -442,7 +444,7 @@ RESTYLE = {
     # Codex's step-1 takes A-1 / S-1 read back on their own grids and cut to 53 rows crown to soles) by tools/art/rig_zoe.py,
     # so no proportion or density change here; the outer outline grown a square like the others; the face point between
     # her eyes
-    "zoe": dict(ppu=1.5, edge=1, face_to=(1, -24)),
+    "zoe": dict(ppu=95 / 36, edge=2, face_to=(1, -25)),            # (batch 8: rig_zoe_hd.py, see "teemo")
     # league_yuumi (#135): posed from the designs' own squares at the user's 1.5 squares a game pixel (「32 像素」「PPU 1.5」:
     # Codex's step-1 takes A-2 / S-1 / L-2 / R-2 / C-1 read back on their own grids and cut to 48 rows orb top to the
     # book's bottom) by tools/art/rig_yuumi.py, so no proportion or density change here; the outer outline grown a square
@@ -867,6 +869,14 @@ RESTYLE = {
     "zilean": dict(ppu=72 / 40, edge=2, fx=True, face_to=(1, -28)),
     "kogmaw": dict(ppu=61 / 34, edge=2, face_to=(8, -23)),
     "seraphine": dict(ppu=101 / 46, edge=2, face_to=(3, -37)),
+    # Teemo, Fizz, Zeri, Zoe, Milio (2026-11-09, 「最后重做提莫 菲兹 泽丽吧」「佐伊的模型我也不满意」「再补一个吧 米利欧」,
+    # then 「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」): Codex's <hero>-A read on its own squares (design_teemo_hd.py
+    # 68 rows / 1.79 = his 38, design_fizz_hd.py 58 / 32, Zeri, Zoe and Milio redesigned from League: design_zeri_v2.py
+    # 77 / 37, design_zoe_v2.py 95 / 36, design_milio_v2.py 73 / 33); every action Codex's whole-frame redraw of the old
+    # frame read onto it (tools/art/casts_<hero>_hd.py), so no density change; fx (Fizz): Q's dash picture laid on
+    # again under him (rig_fizz_hd, Rig.bake: fizz_bake.json); the outline grown by 2
+    "teemo": dict(ppu=68 / 38, edge=2, face_to=(0, -22)),
+    "fizz": dict(ppu=58 / 32, edge=2, fx=True, face_to=(1, -22)),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2
@@ -1204,7 +1214,6 @@ NIDALEE_COUGAR = {"c_idle": 6, "c_run": 8, "c_attack": 4, "c_skill": 5, "c_pounc
 # (hero, tag, frame) -> ("lie", "l" | "r", neck x, neck y from the pivot) | ("up", neck x, neck y from the pivot) |
 # ("body",) (no head: the body's change only) | ("none",)
 FRAMES = {
-    **{("zeri", "dead", i): ("lie", "r", 36.5, 3.5) for i in (4, 5, 6, 7)},
     **{("karma", "dead", i): ("lie", "r", 7.5, 17.5) for i in (2, 3, 4, 5, 6, 7)},
     ("karma", "dead", 1): ("up", 20.5, 13.5),
     **{("nidalee", t, i): ("none",) for t, n in NIDALEE_COUGAR.items() for i in range(n)},
