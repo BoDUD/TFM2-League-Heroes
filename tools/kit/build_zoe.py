@@ -35,7 +35,8 @@ Spell Thief (W) has no slot - its missiles fly with every R (her "summoner spell
 The add-on copy (--native, addons/league_zoe): the same sleep for e_sleep_n ticks, and the passive league_zoe:sparkles
 shows the Zz while it holds and wakes him on any damage (that hit again as true damage, up to e_cap + e_cap_ratio%
 AP: League's doubled first hit); Paddle Star scales with the real distance flown, and Spell Thief's shards: an enemy
-champion's ult drops one where he stood; when she walks over it she fires the three missiles.
+champion's ult drops one where he stood; when she walks over it she fires the three missiles. The copy's ult fires no
+missiles of its own: the add-on flies them all, out behind her and over her head, then after the foe (league_zoe 0.7.0).
 """
 import argparse
 import json
@@ -290,6 +291,8 @@ def build(p):
     missiles = [delayed(p["w_rel"] - 1 + p["w_gap"] * k, alive(sfx("w_shot"), homing(
         "w_missile", "EnemyWithoutTower", [ap(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")], p["w_speed"])))
         for k in range(p["w_n"])]
+    if native:          # the add-on flies them: out behind her, over her head, then after the foe (league_zoe 0.7.0, the
+        missiles = []   # user 2026-11-09: 「佐伊的飞弹做的要像英雄联盟那样啊 从背后过来的」); it starts them as w_haste goes on
     # the portal's star leaves on Paddle Star's throw frame; Spell Thief's toss (`skill_w`) follows the throw
     throw_r = combine(anim("skill", p["q_dur"]), sfx("q"), delayed(p["q_rel"] - 1, alive(star_r, sfx("q_fly"))),
                       delayed(p["r_w"], alive(anim("skill_w", p["w_dur"]), *missiles,
@@ -336,7 +339,8 @@ def build(p):
     if native:
         extra["passive"] = {"passive_ref": "league_zoe:sparkles", "params": {
             k: p[k] for k in ("q_dmg", "q_ratio", "q_far", "q_n0", "q_n1d", "e_drowsy", "e_sleep_n", "e_cap",
-                              "e_cap_ratio", "w_dmg", "w_ratio", "w_ms", "w_ms_t", "w_n", "w_gap", "w_r", "s_t", "s_r")}}
+                              "e_cap_ratio", "w_dmg", "w_ratio", "w_ms", "w_ms_t", "w_n", "w_gap", "w_r", "w_rel", "w_speed",
+                              "s_t", "s_r")}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "Range", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
