@@ -18,6 +18,7 @@ each square the palette colour most of its middle has, the outline closed where 
 of his hair to his soles over his 1x sprite's 33 make the PPU (the user, 2026-11-09: 「再补一个吧 米利欧 现在我们做的背后没有葫芦」). The
 picture holds the boy with his backpack and, apart above it, his fire spirit (a layer of its own in the rig): each is
 read alone on the one palette (PART; --spirit), the boy's rows making the PPU.
+The default read's backpack is the 14.58 read's (small_pack(): Codex drew it ~0.8 as big in every action frame).
 -> hd/design.png (the default read) or hd/design_<raw>_p<pitch>.png (the spirit: the same with _spirit). With --review
 DIR: <dir>/milio_ppu_size*.png (the design beside Veigar, Seraphine, Ezreal and his sprite now, as the game draws them)
 and <dir>/milio_ppu_closeup*.png (the picture | the read).
@@ -207,6 +208,94 @@ def design():
     return q, q.shape[0] / OLD
 
 
+# The backpack in every action frame Codex drew (casts_milio_hd) is ~0.8 as big as in this picture (its own colours'
+# squares and its box, his curls as big as here) - and the idle is this design held between snippets of those actions,
+# so the pack would shrink and grow (the user, 2026-11-09: 「千万别出现模型一大一小的问题」). The default read takes its
+# backpack from the read at PACK_PITCH (11.83 / 14.58 = 0.81 of the boy's size), behind the boy of its own read: the
+# foot of the pack's frame (PACK_FOOT, a square of the 11.83 read) kept where it was, PACK_IN squares in under his back
+# (it sits against him, as in the actions), the pack's colours the 11.83 read's nearest (one palette).
+PACK_PITCH = "14.58"
+PACK_FOOT = (59, 27)
+PACK_IN = (0, 2)
+# the boy from these squares of the 11.83 read rightwards, by rows (read off it at 18x: his hair's left edge, the rope
+# over his shoulder, his sleeve, the hand gripping the frame, his back, his legs); left of that the backpack
+BOY_FROM = [(0, 20, 26), (20, 24, 28), (24, 26, 27), (26, 34, 28), (34, 39, 23), (39, 56, 28), (56, 999, 27)]
+BOY_CUT = 24                    # his own colours: 90 % of their squares or more right of this column of the read
+GAP = 2                         # squares of ground between the pack and his back filled with the outline colour
+
+
+def boy_from(y):
+    return next(x for a, b, x in BOY_FROM if a <= y < b)
+
+
+def own_colours(q, cut):
+    """The boy's own colours in a read: 4 squares or more, 90 % of them or more right of `cut`, not near-black."""
+    op = q[..., 3] > 0
+    cols, inv = np.unique(q[op][:, :3], axis=0, return_inverse=True)
+    xs = np.nonzero(op)[1]
+    keep = []
+    for i, c in enumerate(cols):
+        x = xs[inv.ravel() == i]
+        if (x >= cut).sum() >= 4 and (x >= cut).sum() >= 0.9 * len(x) and c.max() >= 60:
+            keep.append(c)
+    return np.array(keep, int).reshape(-1, 3)
+
+
+def small_pack(fine, coarse):
+    """(the design, the columns cropped off its left): the fine read's boy over the coarse read's backpack."""
+    pf, pc = float(DEFAULT[1]), float(PACK_PITCH)
+    hf, wf = fine.shape[:2]
+    hc, wc = coarse.shape[:2]
+    boy = np.zeros((hf, wf), bool)
+    for y in range(hf):
+        boy[y, boy_from(y):] = True
+    boy &= fine[..., 3] > 0
+    # the coarse read's pack: left of the same line carried over (a point of the picture maps between the two reads by
+    # the bottom-right corner they share - his front and his soles), less the boy's own colours there, its largest piece
+    pack = np.zeros((hc, wc), bool)
+    for y in range(hc):
+        fy = max(0, int(hf + (y + 0.5 - hc) * pc / pf))
+        pack[y, :max(0, int(np.floor(wc + (boy_from(fy) - wf) * pf / pc)))] = True
+    own = own_colours(coarse, int(round(wc + (BOY_CUT - wf) * pf / pc)))
+    rgb = coarse[..., :3].astype(int)
+    mine = (np.abs(rgb[:, :, None, :] - own[None, None]).sum(-1) == 0).any(-1)
+    pack &= (coarse[..., 3] > 0) & ~mine
+    lbl, n = ndimage.label(pack, structure=np.ones((3, 3)))
+    pack = lbl == 1 + int(np.argmax(ndimage.sum(pack, lbl, range(1, n + 1))))
+    # its colours the fine read's nearest (Lab)
+    pal = np.unique(fine[fine[..., 3] > 0][:, :3], axis=0)
+    plab = V.srgb2lab(pal.astype(float))
+    src = coarse.copy()
+    ys, xs = np.nonzero(pack)
+    lab = V.srgb2lab(src[ys, xs, :3].astype(float))
+    src[ys, xs, :3] = pal[((lab[:, None] - plab[None]) ** 2).sum(-1).argmin(1)]
+    fy, fx = PACK_FOOT
+    oy = int(round(fy - (hc + (fy - hf) * pf / pc))) + PACK_IN[0]
+    ox = int(round(fx - (wc + (fx - wf) * pf / pc))) + PACK_IN[1]
+    m = 4
+    can = np.zeros((hf + 2 * m, wf + 2 * m, 4), np.uint8)
+    can[ys + oy + m, xs + ox + m] = src[ys, xs]
+    in_pack = np.zeros(can.shape[:2], bool)
+    in_pack[ys + oy + m, xs + ox + m] = True
+    by, bx = np.nonzero(boy)
+    can[by + m, bx + m] = fine[by, bx]
+    in_boy = np.zeros(can.shape[:2], bool)
+    in_boy[by + m, bx + m] = True
+    # ground left between the pack and his back (GAP squares or fewer in a row): the outline colour, where they meet
+    dark = pal[pal.max(1) < 40]
+    ocol = dark[np.argmax([((fine[..., :3] == c).all(-1) & (fine[..., 3] > 0)).sum() for c in dark])]
+    for y in range(can.shape[0]):
+        px, bxs = np.nonzero(in_pack[y])[0], np.nonzero(in_boy[y])[0]
+        if not len(px) or not len(bxs):
+            continue
+        a, b = px.max() + 1, bxs[bxs > px.max()].min() if (bxs > px.max()).any() else None
+        if b is not None and 0 < b - a <= GAP and not (can[y, a:b, 3] > 0).any():
+            can[y, a:b, :3] = ocol
+            can[y, a:b, 3] = 255
+    ys, xs = np.nonzero(can[..., 3])
+    return can[ys.min():ys.max() + 1, xs.min():xs.max() + 1], xs.min() - m
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--raw", default=DEFAULT[0], choices=sorted(PITCHES))
@@ -222,6 +311,14 @@ def main():
     AH.PITCH, SNAP = PITCHES[a.raw][p]
     d, ppu = design()
     stem = ("design" if (a.raw, p) == DEFAULT else f"design_{a.raw[:-4]}_p{p}") + ("_spirit" if a.spirit else "")
+    if stem == "design":
+        # the backpack as the actions draw it (small_pack()); the read with Codex's own backpack: design_bigpack.png
+        Image.fromarray(d).save(AH.lp(os.path.join(AH.HD, "design_bigpack.png")))
+        AH.PITCH, SNAP = PITCHES[a.raw][PACK_PITCH]
+        coarse = read()
+        AH.PITCH, SNAP = PITCHES[a.raw][p]
+        d, left = small_pack(d, coarse)
+        print(f"backpack from the {PACK_PITCH} read: {left} columns off the left")
     tail = "" if stem == "design" else stem[len("design"):]
     Image.fromarray(d).save(AH.lp(os.path.join(AH.HD, stem + ".png")))
     print(f"design {d.shape[1]}x{d.shape[0]} = PPU {ppu:.3f} at {OLD} rows, "

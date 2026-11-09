@@ -1,0 +1,418 @@
+{
+ "square": 10,
+ "square_of": {
+  "ult": 8
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {},
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): scampering forward, the blowgun held level in both hands, pointing forward, the backpack bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    79
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his green boot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hat, the blowgun and the backpack follow the pale figure. The blowgun is NOT a leg: his two short legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): scampering forward, the blowgun held level in both hands, pointing forward, the backpack bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    79
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow.",
+   "legs": "Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hat, the blowgun and the backpack follow the pale figure. The blowgun is NOT a leg: his two short legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): scampering forward, the blowgun held level in both hands, pointing forward, the backpack bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    79
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hat, the blowgun and the backpack follow the pale figure. The blowgun is NOT a leg: his two short legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "running (his move loop): scampering forward, the blowgun held level in both hands, pointing forward, the backpack bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    79
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow.",
+   "legs": "Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hat, the blowgun and the backpack follow the pale figure. The blowgun is NOT a leg: his two short legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_5",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): scampering forward, the blowgun held level in both hands, pointing forward, the backpack bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    79,
+    79
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hat, the blowgun and the backpack follow the pale figure. The blowgun is NOT a leg: his two short legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_6",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): scampering forward, the blowgun held level in both hands, pointing forward, the backpack bouncing on his back, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    79,
+    79
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hat, the blowgun and the backpack follow the pale figure. The blowgun is NOT a leg: his two short legs carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a dart): the blowgun held low (frame 1), he lifts it to his mouth, level (frame 2), blows a dart, the blowgun tipping up (frames 3-4), and lowers it again (frame 5)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a dart): the blowgun held low (frame 1), he lifts it to his mouth, level (frame 2), blows a dart, the blowgun tipping up (frames 3-4), and lowers it again (frame 5)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a dart): the blowgun held low (frame 1), he lifts it to his mouth, level (frame 2), blows a dart, the blowgun tipping up (frames 3-4), and lowers it again (frame 5)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a dart): the blowgun held low (frame 1), he lifts it to his mouth, level (frame 2), blows a dart, the blowgun tipping up (frames 3-4), and lowers it again (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "attack (a dart): the blowgun held low (frame 1), he lifts it to his mouth, level (frame 2), blows a dart, the blowgun tipping up (frames 3-4), and lowers it again (frame 5)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Blinding Dart (Q): the blowgun held low (frame 1), he raises it steeply to his mouth, aiming up (frame 2), brings the aim down (frame 3), blows it level forward (frame 4) and lowers it (frame 5)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Blinding Dart (Q): the blowgun held low (frame 1), he raises it steeply to his mouth, aiming up (frame 2), brings the aim down (frame 3), blows it level forward (frame 4) and lowers it (frame 5)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Blinding Dart (Q): the blowgun held low (frame 1), he raises it steeply to his mouth, aiming up (frame 2), brings the aim down (frame 3), blows it level forward (frame 4) and lowers it (frame 5)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Blinding Dart (Q): the blowgun held low (frame 1), he raises it steeply to his mouth, aiming up (frame 2), brings the aim down (frame 3), blows it level forward (frame 4) and lowers it (frame 5)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_5",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Blinding Dart (Q): the blowgun held low (frame 1), he raises it steeply to his mouth, aiming up (frame 2), brings the aim down (frame 3), blows it level forward (frame 4) and lowers it (frame 5)",
+   "ms": [
+    110
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "Move Quick (W): he leans into a hop, the blowgun low (frame 1), springs up into the air, the blowgun held upright (frame 2), and comes down, the blowgun swung up forward, the arms out (frame 3)",
+   "ms": [
+    70,
+    70
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Move Quick (W): he leans into a hop, the blowgun low (frame 1), springs up into the air, the blowgun held upright (frame 2), and comes down, the blowgun swung up forward, the arms out (frame 3)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Noxious Trap (R): the blowgun held out (frame 1), he crouches (frames 2-3), leaps up holding a small green mushroom out before him (frame 4), throws it from high over his head (frame 5), comes down (frame 6) and lands, an arm raised (frame 7)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Noxious Trap (R): the blowgun held out (frame 1), he crouches (frames 2-3), leaps up holding a small green mushroom out before him (frame 4), throws it from high over his head (frame 5), comes down (frame 6) and lands, an arm raised (frame 7)",
+   "ms": [
+    60,
+    60
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "Noxious Trap (R): the blowgun held out (frame 1), he crouches (frames 2-3), leaps up holding a small green mushroom out before him (frame 4), throws it from high over his head (frame 5), comes down (frame 6) and lands, an arm raised (frame 7)",
+   "ms": [
+    70,
+    60
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_4",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "Noxious Trap (R): the blowgun held out (frame 1), he crouches (frames 2-3), leaps up holding a small green mushroom out before him (frame 4), throws it from high over his head (frame 5), comes down (frame 6) and lands, an arm raised (frame 7)",
+   "ms": [
+    70
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "struck: jolted back (frames 1-2)",
+   "ms": [
+    120,
+    120
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "death: struck, the blowgun dropping (frame 1), knocked up into the air, limp (frame 2), falls, the blowgun on the ground (frame 3), sinks down (frame 4) and lies flat on the ground, the hat still on (frames 5-6)",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "death: struck, the blowgun dropping (frame 1), knocked up into the air, limp (frame 2), falls, the blowgun on the ground (frame 3), sinks down (frame 4) and lies flat on the ground, the hat still on (frames 5-6)",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, the blowgun dropping (frame 1), knocked up into the air, limp (frame 2), falls, the blowgun on the ground (frame 3), sinks down (frame 4) and lies flat on the ground, the hat still on (frames 5-6)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck, the blowgun dropping (frame 1), knocked up into the air, limp (frame 2), falls, the blowgun on the ground (frame 3), sinks down (frame 4) and lies flat on the ground, the hat still on (frames 5-6)",
+   "ms": [
+    500
+   ],
+   "weapons": "THE BLOWGUN AND THE BACKPACK go where the pale figure has them, frame by frame (image 3 shows them in colour): the long blowgun, as long as in image 1 - held level, raised to his mouth or tipped up as the pale figure holds it (on the ground beside him when he dies); the rolled backpack stays on his back. In R the small green mushroom is in his hand where the pale figure holds it. The green hat with its goggles and blue feather stays on his head. Only him: no darts, no poison, no smoke, no glow."
+  }
+ ]
+}
