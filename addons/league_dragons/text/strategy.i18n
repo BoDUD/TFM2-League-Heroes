@@ -1,0 +1,109 @@
+{
+  "zh-hans": {
+    "team": {
+      "object_buildup": {
+        "split": {
+          "desc": "在准备击杀史诗野怪（元素亚龙、纳什男爵）期间，对史诗野怪另一侧的兵线施压。"
+        },
+        "flexible": {
+          "desc": "在准备击杀史诗野怪（元素亚龙、纳什男爵）期间，根据实际情况灵活处理史诗野怪另一侧的兵线。"
+        },
+        "gather": {
+          "desc": "在史诗野怪（元素亚龙、纳什男爵）附近集合，即使这意味着另一侧兵线会有损失。"
+        }
+      },
+      "morgard_use": {
+        "split14": {
+          "desc": "一名选手在史诗野怪（元素亚龙、纳什男爵）的相反方向路线施加压力，其他四人集合对另一条线路施压。"
+        }
+      }
+    }
+  },
+  "zh-hant": {
+    "team": {
+      "early_serpen": {
+        "name": "對線期小龍嘗試",
+        "must": {
+          "desc": "在第一隻小龍出現前提前準備，滿足最低條件時在對線期必定嘗試一次。之後視情況判斷。"
+        },
+        "flexible": {
+          "desc": "根據局勢判斷，如果情況允許則嘗試爭奪小龍，處於劣勢時則會放棄。"
+        },
+        "giveup": {
+          "desc": "對線期即使對手擊殺小龍也不回應，直接放棄，專注於讓各路安全發育。"
+        }
+      },
+      "early_serpen_top": {
+        "name": "對線期上路小龍團參與",
+        "must": {
+          "desc": "對線期若出現吃小龍的機會，上路必定參與小龍團戰。"
+        },
+        "flexible": {
+          "desc": "上路在情況允許時參與小龍團戰；否則會專注於上路對線。"
+        },
+        "giveup": {
+          "desc": "對線期上路在任何情況下都不參與小龍團戰。"
+        }
+      },
+      "object_buildup": {
+        "split": {
+          "desc": "準備拿下史詩野怪（元素亞龍、巴龍）時，對物件遠側的線路施壓。"
+        },
+        "flexible": {
+          "desc": "準備拿下史詩野怪（元素亞龍、巴龍）時，根據局勢靈活處理物件遠側的兵線。"
+        },
+        "gather": {
+          "desc": "準備拿下史詩野怪（元素亞龍、巴龍）時，即使物件遠側兵線會出現損失，也會盡可能到物件附近集結。"
+        }
+      },
+      "morgard_use": {
+        "name": "巴龍Buff運用",
+        "gather": {
+          "desc": "擁有巴龍Buff時，全體隊員集合一起對一條線路施壓。"
+        },
+        "split14": {
+          "desc": "擁有巴龍Buff時，一名選手推進遠側兵線，其他四名選手則集結對另一條線路施壓。"
+        },
+        "split131": {
+          "desc": "擁有巴龍Buff時，三名選手推進中路兵線，其餘兩名選手分別施壓剩下兩條線路。"
+        }
+      }
+    }
+  },
+  "en": {
+    "team": {
+      "early_serpen": {
+        "name": "Early Drake Attempt",
+        "must": {
+          "desc": "Sets up ahead of the first drake spawn and, once the minimum conditions are met, makes one committed attempt during the laning phase. Plays it by ear afterwards."
+        },
+        "flexible": {
+          "desc": "Attempts to slay the drake if the situation allows, but gives up if disadvantageous."
+        },
+        "giveup": {
+          "desc": "Concedes the drake during the laning phase without contesting it, even if the enemy takes it, to focus on safe growth in each lane."
+        }
+      },
+      "early_serpen_top": {
+        "name": "Top Laner Join for Early Drake",
+        "must": {
+          "desc": "The Top laner always joins the fight for the drake during the laning phase."
+        },
+        "giveup": {
+          "desc": "The Top laner does not join the fight for the drake under any circumstances."
+        }
+      },
+      "object_buildup": {
+        "split": {
+          "desc": "Pressures the lane opposite the objective (Elemental Drake, Baron Nashor) while preparing to take it."
+        }
+      },
+      "morgard_use": {
+        "name": "Baron Buff Usage",
+        "gather": {
+          "desc": "All team members group up to pressure a lane together when holding the Baron buff."
+        }
+      }
+    }
+  }
+}

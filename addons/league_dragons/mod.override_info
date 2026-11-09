@@ -1,0 +1,78 @@
+{
+  "asset/base/text/object": {
+    "remapping": "asset/league_dragons/text/object",
+    "type": "merge"
+  },
+  "asset/base/text/ui": {
+    "remapping": "asset/league_dragons/text/ui",
+    "type": "merge"
+  },
+  "asset/base/text/strategy": {
+    "remapping": "asset/league_dragons/text/strategy",
+    "type": "merge"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_infernal#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_infernal#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_infernal#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_infernal#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_mountain#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_mountain#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_mountain#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_mountain#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_ocean#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_ocean#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_ocean#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_ocean#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_cloud#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_cloud#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_cloud#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_cloud#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_hextech#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_hextech#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_hextech#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_hextech#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_chemtech#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_chemtech#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_chemtech#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_chemtech#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_elder#sheet": {
+    "remapping": "asset/league_dragons/effects/league_drake_elder#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_drake_elder#anim": {
+    "remapping": "asset/league_dragons/effects/league_drake_elder#anim",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_baron#sheet": {
+    "remapping": "asset/league_dragons/effects/league_baron#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/league_baron#anim": {
+    "remapping": "asset/league_dragons/effects/league_baron#anim",
+    "type": "override"
+  }
+}

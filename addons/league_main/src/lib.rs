@@ -40,6 +40,10 @@
 //! hd_engine src/view.rs：妮蔻假扮（和高清的佛耶戈附身高清英雄）时身体的绘制缩放不再除两次（`league_neeko 0.400 -> 0.160`）。
 //! 0.9.20（科加斯 BP 格，没装过）一起带上。
 //!
+//! 0.9.25（用户 2026-11-09：「大小龙模型呢？codex做吗 还有攻击动画」「龙魂的也都交付了 你处理完」）：src/hd.rs 登记 league_dragons
+//! 的 8 张怪物图（六种元素亚龙、远古巨龙 1.8，纳什男爵 1.5；男爵也进 DRAWN_EFFECTS，他咬中的特效在点上画）。附加包的显示钩子
+//! 把小龙 / 莫尔加德的资源名换成这些图，身体按名字找到后按 1 / PPU 画。0.9.24 是特效 PPU（#730）的。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 //! 挂钩、取表、缩放的行写在挂钩的那个 DLL 的日志里：tft.dll 先加载时在 tft.log，这里只有一行「交给了谁」。
 
@@ -63,7 +67,7 @@ mod range_table;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.23";
+const VERSION: &str = "0.9.25";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);
