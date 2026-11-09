@@ -40,6 +40,12 @@
 //! hd_engine src/view.rs：妮蔻假扮（和高清的佛耶戈附身高清英雄）时身体的绘制缩放不再除两次（`league_neeko 0.400 -> 0.160`）。
 //! 0.9.20（科加斯 BP 格，没装过）一起带上。
 //!
+//! 0.9.24（2026-11-09，特效 PPU：「特效贴图做的非常粗糙 ... 能不能利用PPU来做精致一点」「继续完成别的英雄的技能特效的
+//! 修复」）：hd_engine 把高清特效图的 buff 画面（在身体绘制里）和弹道画面（Animated / ThreePhase 弹道各自的绘制函数，
+//! build.rs proj_render）也缩到 1 / PPU；tools/art/densify_fx.py 从 Codex 原图（和旧的真画稿）读出高清孪生帧的整套
+//! 特效图登记成高清（src/fx_ppu.rs，tools/art/fx_ppu_table.py 生成；hd.rs full_effects：只在本 DLL 挂钩、这些钩子都挂上时
+//! 才是高清，不交给别的 DLL 的引擎）。日志：`buff picture drawn` / `projectile picture drawn`、`full effects dense ...`。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 //! 挂钩、取表、缩放的行写在挂钩的那个 DLL 的日志里：tft.dll 先加载时在 tft.log，这里只有一行「交给了谁」。
 
@@ -55,6 +61,7 @@ use mod_api_stable::*;
 #[cfg(windows)]
 mod cache;
 pub mod diverge;
+pub mod fx_ppu;
 pub mod hd;
 pub mod low_hp;
 pub mod range;
@@ -63,7 +70,7 @@ mod range_table;
 mod warm;
 
 pub const ID: &str = "league";
-const VERSION: &str = "0.9.23";
+const VERSION: &str = "0.9.24";
 
 static LOG_LOCK: Mutex<()> = Mutex::new(());
 static LOG_FILE: Mutex<Option<std::fs::File>> = Mutex::new(None);

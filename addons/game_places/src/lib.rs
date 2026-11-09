@@ -275,6 +275,10 @@ pub struct Places {
     pub cmd_grow: usize,
     /// the view node draw (league.dll's dense effects: optional - 0 when not found)
     pub effect_draw: usize,
+    /// the Animated and ThreePhase projectile pictures' renders (league.dll's dense projectile pictures: optional - 0
+    /// when not found, and those effect sheets stay at 1x)
+    pub proj_render: usize,
+    pub proj_render3: usize,
     /// the tags of the scale / restore commands the entity render wraps the body draw's commands in
     pub cmd_scale: u64,
     pub cmd_restore: u64,
@@ -639,6 +643,18 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
             0
         })
     };
+    // 8. the projectile pictures' renders (league.dll's dense projectile pictures, optional): each by its 128-byte head,
+    // which only it has (2026-11-09: 64 bytes matched more than one), with the hooks' prologue
+    let proj = |what: &str, p: &Pattern, notes: &mut Vec<String>| -> usize {
+        let found: Vec<usize> =
+            img.find(p).into_iter().filter(|f| img.read(*f, PROLOGUE.len()) == Some(PROLOGUE)).collect();
+        one(what, &found).unwrap_or_else(|e| {
+            notes.push(format!("{e} (its dense effect sheets stay at 1x)"));
+            0
+        })
+    };
+    let proj_render = proj("the Animated projectiles' render", &PROJ_RENDER, &mut notes);
+    let proj_render3 = proj("the ThreePhase projectiles' render", &PROJ_RENDER3, &mut notes);
     // the hooks replace a 12-byte prologue + `sub rsp`
     for (name, f) in [("anim", anim), ("sheet", sheet), ("body draw", body_draw)] {
         if img.read(f, PROLOGUE.len()) != Some(PROLOGUE) {
@@ -663,6 +679,8 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         body_draw,
         cmd_grow,
         effect_draw,
+        proj_render,
+        proj_render3,
         cmd_scale,
         cmd_restore,
         notes,

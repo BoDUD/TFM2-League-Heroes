@@ -82,6 +82,10 @@ def old_build(path=BUILD_RS):
         sigs.append((int(m.group(1), 16), bytes(int(x, 16) for x in re.findall(r"0x([0-9a-f]{2})", m.group(2)))))
     b = {k: num(k) for k in ("anim", "sheet", "hash", "display_fn", "display_slot", "body_draw", "cmd_grow",
                                "cmd_by_name", "node_image", "effect_draw")}
+    # the projectile pictures' renders (2026-11-09, the effects PPU): 0 in a build listed before them
+    for k in ("proj_render", "proj_render3"):
+        m = re.search(rf"\b{k}: (0x[0-9a-f]+|0),", body)
+        b[k] = int(m.group(1), 16) if m and m.group(1) != "0" else 0
     b.update({k: nums(k) for k in ("battle_anim_ret", "battle_size_ret", "ui_anim_ret", "ui_size_ret")})
     b["name"] = re.search(r'name: "([^"]*)"', body).group(1)
     b["sigs"] = dict(sigs)
@@ -395,6 +399,13 @@ def search(e, b):
     found["effect_draw"] = eff[0] if len(eff) == 1 else 0
     if not found["effect_draw"]:
         notes.append(f"the view node draw: {len(eff)} candidates called by the body draw - effect_draw 0 (not hooked)")
+    # 8. the Animated and ThreePhase projectiles' renders (src/view.rs proj_detour): by the listed 128-byte heads, each
+    # its own function's; else not known (0: the effect sheets with projectile pictures stay at 1x)
+    for k, what in (("proj_render", "the Animated projectiles' render"), ("proj_render3", "the ThreePhase projectiles' render")):
+        hits = [f for f in e.find(wildcard(sig[b[k]], b[k])) if e.read(f, 12) == PROLOGUE] if b.get(k) in sig else []
+        found[k] = hits[0] if len(hits) == 1 else 0
+        if not found[k]:
+            notes.append(f"{what}: {len(hits)} candidates - {k} 0 (not hooked)")
     return found, notes, ui_rows
 
 
@@ -439,6 +450,7 @@ def rust(e, f):
            f"    cmd_by_name: {f['cmd_by_name']:#x},", f"    node_image: {f['node_image']:#x},",
            f"    body_draw: {f['body_draw']:#x},", f"    cmd_grow: {f['cmd_grow']:#x},",
            f"    effect_draw: {f['effect_draw']:#x},",
+           f"    proj_render: {f['proj_render']:#x},", f"    proj_render3: {f['proj_render3']:#x},",
            f"    cmd_scale: {f['cmd_tags'][0][1]:#x},", f"    cmd_restore: {f['cmd_tags'][1][1]:#x},", "    sigs: &[",
            "    // the anim-table lookup", f"    ({f['anim']:#x}, &[\n{hexes(e.read(f['anim'], 128))}\n    ]),",
            "    // the sheet (texture) lookup", f"    ({f['sheet']:#x}, &[\n{hexes(e.read(f['sheet'], 128))}\n    ]),",
@@ -447,6 +459,10 @@ def rust(e, f):
            f"    ({f['cmd_grow']:#x}, &[\n{hexes(e.read(f['cmd_grow'], 48))}\n    ]),"]
     if f["effect_draw"]:
         out += ["    // the view node draw", f"    ({f['effect_draw']:#x}, &[\n{hexes(e.read(f['effect_draw'], 24))}\n    ]),"]
+    for k, what in (("proj_render", "the Animated projectiles' render (128 bytes: 64 match more than one function)"),
+                    ("proj_render3", "the ThreePhase projectiles' render")):
+        if f[k]:
+            out += [f"    // {what}", f"    ({f[k]:#x}, &[\n{hexes(e.read(f[k], 128))}\n    ]),"]
     out += ["    // the entity render's call of the body draw, its read of the scale (+0x1b4 round the body draw's commands)",
             "    // and the tags of the scale / restore commands it wraps them in",
             f"    {at(f['render_call'])},", f"    {at(f['render_scale'])},",

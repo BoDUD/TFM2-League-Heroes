@@ -228,10 +228,19 @@ pub fn table() -> Table<'static> {
         sizes: SIZES.to_vec(),
         growth: GROWTH.to_vec(),
         forms: FORMS.iter().map(|&(id, buffs, size, secs)| (id, buffs.to_vec(), size, secs)).collect(),
-        effects: EFFECTS.to_vec(),
-        drawn_effects: DRAWN_EFFECTS.to_vec(),
+        effects: EFFECTS.iter().chain(crate::fx_ppu::SHEETS).copied().collect(),
+        drawn_effects: DRAWN_EFFECTS.iter().copied().chain(full_effects()).collect(),
         ui_sizes: UI_SIZES.to_vec(),
+        full_effects: full_effects(),
     }
+}
+
+/// Whole effect sheets dense (the effects PPU, 2026-11-09, the user: 「另外云顶英雄的也要调啊」): src/fx_ppu.rs, generated
+/// by `tools/art/fx_ppu_table.py --pack tft` from the sheets tools/art/densify_fx.py gave hd_ twins - league_main's
+/// full_effects() says why they are dense only where their buff and projectile pictures are shrunk too (a league.dll
+/// host takes them through its full door: hd_engine src/share.rs FULL_ENV).
+pub fn full_effects() -> Vec<&'static str> {
+    crate::fx_ppu::SHEETS.iter().map(|s| s.0).collect()
 }
 
 #[cfg(test)]
@@ -242,7 +251,7 @@ mod tests {
     #[test]
     fn heroes_are_found_by_id_and_resource_name() {
         let h = Heroes::of(&[&table()]);
-        assert_eq!(h.list.len(), HEROES.len() + EFFECTS.len());
+        assert_eq!(h.list.len(), HEROES.len() + EFFECTS.len() + crate::fx_ppu::SHEETS.len());
         for &(id, ..) in HEROES {
             assert_eq!(h.get(id).map(|x| x.id), Some(id));
             assert_eq!(h.of_name(&format!("asset/tft/champions/{id}#anim")).map(|x| x.id), Some(id));

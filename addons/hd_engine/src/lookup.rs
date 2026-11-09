@@ -111,9 +111,9 @@ pub(crate) unsafe fn q(addr: usize) -> usize {
 }
 
 /// The registered hero a resource name is of: `.../league_yasuo#anim` -> league_yasuo (every pack's registered so far:
-/// src/hd.rs heroes).
+/// src/hd.rs heroes; a full effect only once its projectile and buff pictures are shrunk too: [`hd::full_on`]).
 pub fn hero_of_name(name: &str) -> Option<&'static Hero> {
-    hd::heroes().of_name(name)
+    hd::heroes().dense_of_name(name)
 }
 
 /// The probe's lines are all written (MAX_LINES): from then on a lookup does not take its lock.
