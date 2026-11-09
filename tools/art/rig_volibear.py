@@ -64,6 +64,60 @@ def ringed(d, m):
     return m | (ndimage.binary_dilation(m, structure=R.CROSS) & dark(d))
 
 
+# ------------------------------------------------------------------------------------------------- the thigh ice
+# League's skin draws two plates of ice on his thighs (its submesh ice_legs), but pose_ref's old --hide-submeshes guess
+# left them out of every render he was drawn from (tools/lol/hide_audit.py; the user, 2026-11-09: 「沃利贝尔大腿上那两块
+# 冰补啊」). They are stamped here on every picture the rig uses, over his violet fur only (the outline, the white and
+# blue fur, the braids and the claws stay): each plate on the upper outer side of its thigh, as in League's idle - the
+# near one on the near thigh, the far one on the far thigh where it shows (on all fours only the near haunch shows).
+# ICE: the stamps' top-left squares on each picture, fitted so each stamp lies whole on that leg's fur.
+ICE_NEAR = (".WL.",
+            "WLMS",
+            "LMCS",
+            "MCMS",
+            "MMSD",
+            ".SD.")
+ICE_FAR = (".LM",
+           "LMS",
+           "MCS",
+           "MSD",
+           ".D.")
+ICE_COL = {"W": (253, 253, 253), "L": (193, 220, 252), "M": (150, 176, 236), "S": (126, 135, 191),
+           "D": (94, 82, 128), "C": (60, 41, 66)}           # the design's own ice-blue fur shades and violet darks
+ICE = {"modelB": ((15, 36), (32, 36)), "pose_up2": ((17, 50), (33, 50)), "pose_up1": ((16, 53), (33, 53)),
+       "pose_rake": ((16, 37), (33, 37)), "pose_maul": ((16, 37), (33, 37)), "run_0": ((15, 28), (27, 31)),
+       "run_1": ((15, 28), (26, 30)), "run_2": ((15, 26), (26, 30)), "run_3": ((14, 27), (26, 32)),
+       "run_4": ((16, 27), (27, 28)), "run_5": ((19, 29), (29, 28)), "run_6": ((21, 27), (31, 29)),
+       "run_7": ((17, 28), (29, 31)), "run_8": ((18, 27), (29, 27)), "q_charge_0": ((18, 12), None),
+       "q_charge_1": ((18, 12), None), "q_charge_2": ((18, 12), None), "q_charge_3": ((19, 10), None),
+       "q_charge_4": ((18, 11), None), "q_charge_5": ((16, 11), None), "q_charge_6": ((18, 10), None),
+       "q_charge_7": ((18, 12), None), "q_pounce_0": ((20, 30), None), "q_pounce_1": ((11, 45), (27, 47)),
+       "q_pounce_2": ((11, 49), (27, 49)), "q_pounce_3": ((15, 10), None), "q_pounce_4": ((6, 17), None)}
+
+
+def violet(d):
+    """His violet fur (legs, haunches, forearms) - not the outline, the white or blue fur, the braids or the claws."""
+    r, g, b = (d[..., i].astype(int) for i in range(3))
+    lum = 0.299 * r + 0.587 * g + 0.114 * b
+    return (d[..., 3] > 0) & (r > 30) & (lum > 35) & (lum < 165) & (b >= g)
+
+
+def iced(img, name):
+    """Picture `name` (assets/source/volibear/hd/<name>.png, as loaded) with the thigh ice stamped on its fur."""
+    out = img.copy()
+    fur = violet(img)
+    for rows, anchor in zip((ICE_NEAR, ICE_FAR), ICE[name]):
+        if anchor is None:
+            continue
+        ax, ay = anchor
+        for j, row in enumerate(rows):
+            for i, ch in enumerate(row):
+                y, x = ay + j, ax + i
+                if ch != "." and 0 <= y < out.shape[0] and 0 <= x < out.shape[1] and fur[y, x]:
+                    out[y, x, :3] = ICE_COL[ch]
+    return out
+
+
 # ------------------------------------------------------------------------------------------------- the design
 STAND = 25                     # the column between the feet: the standing point
 NEAR_SHOULDER = (13.0, 15.0)   # the near arm turned about this corner (the rejected posings only)
@@ -73,8 +127,12 @@ LEG_TOP = 42                   # the legs part from this row down: near columns 
 LEG_X = 25
 
 
-def front():
+def front(ice=False):
+    """The design cut into its parts; ice: with the thigh ice (the rig's frames; the design readers paste the design's
+    head and lower legs, which never carry it)."""
     d = load("modelB.png")
+    if ice:
+        d = iced(d, "modelB")
     D = CutDesign(d, px=STAND)
     op = d[..., 3] > 0
     lbl, _ = ndimage.label(op & ~dark(d))
@@ -122,7 +180,7 @@ class Form:
     """The design's layers, the Codex arm poses and the walk frames -> canvases of one rig."""
 
     def __init__(self):
-        self.D = front()
+        self.D = front(ice=True)
         D = self.D
         self.rig = R.Rig(D, pad=PAD)
         # slits closed after the rig's own finish too (its outline pass can close a gap between two thrust arms)
@@ -140,14 +198,14 @@ class Form:
         for k in POSES:
             with open(lp(os.path.join(SRC, f"pose_{k}.json")), encoding="utf-8") as f:
                 meta = json.load(f)
-            lay = placed(load(f"pose_{k}.png"), meta["origin"], D.H, D.W)
+            lay = placed(iced(load(f"pose_{k}.png"), f"pose_{k}"), meta["origin"], D.H, D.W)
             lay[legs] = 0                                   # the legs are the design's own layers
             self.U[k] = lay
         with open(lp(os.path.join(SRC, "run.json")), encoding="utf-8") as f:
             run = json.load(f)
         self.RUN = []
         for n, m in enumerate(run):
-            img = load(f"run_{n}.png")
+            img = iced(load(f"run_{n}.png"), f"run_{n}")
             oy = img.shape[0] - D.ground                     # the soles on the design's ground row
             self.RUN.append(placed(img, (m["origin"][0], oy), D.H, D.W))
         # Q (design_volibear_q.py): the charge on all fours and the pounce, placed by the head, soles on the ground
@@ -158,7 +216,7 @@ class Form:
         for key, metas in q.items():
             self.Q[key] = []
             for n, m in enumerate(metas):
-                img = load(f"q_{key}_{n}.png")
+                img = iced(load(f"q_{key}_{n}.png"), f"q_{key}_{n}")
                 oy = img.shape[0] - D.ground + m["lift"]
                 self.Q[key].append(placed(img, (m["origin"][0], oy), D.H, D.W))
         self.ref_holes = None
