@@ -429,8 +429,10 @@ RESTYLE = {
     # league_volibear (#131): posed by tools/art/rig_volibear.py at the user's 1.2 squares a game pixel (「44 像素，PPU 1.2」:
     # Codex's step-1 take B-2, 54 rows ear top to soles; Codex's arm poses, walk and Q on the same grid), so no proportion or
     # density change here; the outer outline grown a square like the others; the face point between his eyes. rim: R's storm
-    # form (tools/art/volibear_storm.py, his r_* twins, 「2 雷电蓝+描边」) with the outermost outline squares electric blue
-    "volibear": dict(ppu=1.2, edge=1, face_to=(6, -27), rim={"r_": (24, 110, 255)}),
+    # form (tools/art/volibear_storm.py, his r_* twins, 「2 雷电蓝+描边」) with the outermost outline squares electric blue.
+    # face_to: champion_view's own (6, -38), the face point the game has used since it was set on his eyes there (a run of
+    # this script with the old (6, -27) moved it back down to his chest)
+    "volibear": dict(ppu=1.2, edge=1, face_to=(6, -38), rim={"r_": (24, 110, 255)}),
     # league_rammus (#132): posed from the designs' own squares at the user's 1.2 squares a game pixel (「36 像素」「PPU 1.2」:
     # Codex's step-1 takes A-2 / S-1 / B / W read back on their own grids and cut to 43 rows spike tips to soles) by
     # tools/art/rig_rammus.py, so no proportion or density change here; the outer outline grown a square like the others;
