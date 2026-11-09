@@ -1,4 +1,4 @@
-# 英雄联盟的大小龙（league_dragons，测试版 v0.1.0）
+# 英雄联盟的大小龙（league_dragons，测试版 v0.2.0）
 
 用户 2026-11-09：订阅的创意工坊「Elemental Drakes & Baron」（smart_elemental_drakes 0.6.7）「没效果 不像lol 击杀后名字也不对」，
 「改到完美 … 我要明显的感受到小龙有属性加成 大龙能加强兵线之类的 还有龙魂的效果 远古龙的斩杀」。决定：做我们自己的（玩家关掉创意工坊
@@ -7,7 +7,7 @@
 本包的**玩法**：一个原生附加包，一个比赛钩子（`Dragons`，每份模拟每 tick 跑一次），不换任何数据。小龙、纳什男爵还是游戏
 自己刷的（游戏里叫 `Serpen` / `Morgard`，实体种类 `Serpen` / `Epic`，规则设定里是 `serpen_jungle` / `epic_jungle`），本包认出它们
 出生、被谁拿下，按英雄联盟的规矩给奖励。**画面**（下面「画面：名字、公告、HUD」）：游戏自己的文字改叫纳什男爵、元素亚龙
-（`text/`），屏幕上的公告和 HUD（客户端扩展，读「给画面的接口」里的 `feed`）；小龙按元素的皮肤等 Codex 的图。附加包合集里由
+（`text/`），屏幕上的公告和 HUD（客户端扩展，读「给画面的接口」里的 `feed`）；小龙按元素、远古巨龙和纳什男爵换成 Codex 的模型（下面「模型」）。附加包合集里由
 league_addons 的 `BundleMatch` 转发比赛钩子、`BundleClient` 调画面；单独装时本包自己设。
 
 ## 一、元素和刷新顺序
@@ -214,13 +214,22 @@ league_addons 的 `BundleMatch` 转发比赛钩子、`BundleClient` 调画面；
 纳什男爵之手的人：比赛下方玩家栏（`ingame.player_info`、宽屏的 `ingame.wide_data.player_info`）英雄头像左边一个小圆点（远古淡金在
 中间、男爵紫在下面；彩蛋的计数在右下、冠冕在上缘）。没有任何大小龙的事的模式（死斗）不画。
 
-### 小龙按元素的样子（还没做）
+### 模型（v0.2.0，`src/skin.rs`；用户：「大小龙模型呢？codex做吗 还有攻击动画」「你要参考英雄联盟里面的攻击姿势啊」）
 
-能读到对局实体的是显示钩子（`game_places::hook`），但显示世界收不到原生加的 buff（league_neeko view.rs，佛耶戈 0.1.3 / 0.1.6 的教训），
-小龙身上的 `league_dragons_el_<元素>` 在屏幕那一边看不见，显示实体里也没有已知的染色字段，所以先不染色。Codex 的七套图（六种元素 +
-远古，标签照 Serpen 的 idle / attack / dead）做好后：图放进本包（合集里是 `asset/league_addons/...`）；显示钩子按名字找到小龙的显示实体
-（名字在 +0x40，日志 `SPAWN` 核对是不是 `serpen_jungle`），按屏幕时钟取 `feed::record_at(m, s, t)` 的 `cur`（活着时）把它 +0x50 的身体
-资源名换成那套图（league_neeko 换身体的做法，动画名照留）；小龙若走 league.dll 的高清帧，高清的查表也要登记这几套怪物图。
+Codex 画了六种元素亚龙、远古巨龙和纳什男爵（第 1 步正面设计，第 2 步照英雄联盟的动作画的攻击和死亡帧），`tools/art/dragons_hd.py`
+读成本包 `effects/` 里的 8 张图：`league_drake_<元素>`、`league_drake_elder`、`league_baron`，动作名和原生怪物一样（双角巨蛇 idle 4 × 160、
+base、attack 5 × 80、dead 8 × 80；莫尔加德另有 attack_left / attack_right 5 × 80、attack_target_effect 7 × 60、dead 13 × 60），每个动作带
+`hd_` 高清帧（亚龙、远古 1.8，男爵 1.5），锚点、脚底（坑口线）和原生的一样：
+
+- 攻击：英雄联盟的普攻只动脖子、头和下巴，所以攻击帧是设计图本身，只有 Codex 画的头颈和喷出的元素那一块换上去（Codex 每帧把整个身子
+  都重画了，直接用会一闪一闪）；死亡帧照 Codex 的（躺下的几帧它画高了 19 格，压回地面），最后碎成块消散；男爵每帧按洋红的脊线对齐、
+  底边压在坑口线上，向右攻击是向左的镜像，咬中的特效 7 帧照 Codex 的。
+- 待机：设计图呼吸（小龙上身沉 0 / 2 / 4 / 2 格，男爵整个往坑里沉同样多），照原生的节奏。
+- 换上去：`mod.override_info` 把 `asset/base/aseprite_resources/ingame/<名字>` 指到这些图（合集里是 `asset/league_addons/effects/`）；
+  显示钩子（`game_places::hook`，和妮蔻、佛耶戈同一个）每帧把资源名最后一段是 `serpen` 的显示实体换成这一刻的元素亚龙、`epic` 的换成
+  `league_baron`（前缀照留）。显示世界收不到原生 buff，所以元素按屏幕时钟取 `feed` 里这一场到这一刻最近的一次「元素亚龙 / 远古巨龙
+  出生」；读不到时钟或还没有出生事件（比如模组冲突）就不换。league.dll 0.9.25 起这 8 张图登记成高清，身体按 1 / PPU 画。
+- 日志：`SKIN … a drake on screen, resource "…"`（第一次见到时它原来的资源名）、`SKIN … drawn as …`（换成了哪张）、`SKIN on / off`。
 
 ## 怎么做的
 
@@ -312,3 +321,4 @@ league_addons 的 `BundleMatch` 转发比赛钩子、`BundleClient` 调画面；
 8. 公告：每条小龙出现 / 被拿下的小提示（元素对、颜色对）、龙魂 / 远古巨龙 / 纳什男爵的大字、斩杀的红色提示；和彩蛋的公告同时出现时
    不叠（日志 `NOTE` 的 `eggs showing`）。
 9. HUD：左上角的框不挡时间控制、击杀记录和顶栏（日志 `HUD` 的位置和节点的位置），字看得清；拿着远古 / 男爵的人头像上的圆点（`HOLDER`）。
+10. 模型：小龙是这一条的元素的样子（`SKIN … drawn as league_drake_<元素>`），远古巨龙、纳什男爵是新模型，大小和原来差不多、脚踩在地上、攻击时只有头动、死亡倒地后碎掉；男爵咬中的特效大小正常。`SKIN … resource` 那行是游戏原来的资源名（没换上时看它）。

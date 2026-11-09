@@ -49,6 +49,8 @@ pub mod hud;
 pub mod notice;
 pub mod screen;
 pub mod words;
+// 画面上的身体：小龙按元素、远古巨龙、纳什男爵换成 Codex 的模型（显示钩子）
+pub mod skin;
 
 use rules::{Element, Ev, HoldRec, Record, DRAKES};
 
@@ -1656,7 +1658,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (League's elemental drakes in League's order with stacks that replace the game's drake buff, Dragon Soul, the Elder Dragon's burn and execute, Baron Nashor's hand and empowered minions; notices and a HUD on screen) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (League's elemental drakes in League's order with stacks that replace the game's drake buff, Dragon Soul, the Elder Dragon's burn and execute, Baron Nashor's hand and empowered minions; notices and a HUD on screen; the drakes drawn by element, the Elder and Baron Nashor as Codex's models) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1671,6 +1673,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     }
     #[cfg(league_bundle)]
     let _ = &module;
+    // the display hook (one a DLL, shared with Neeko, Viego...): the bodies by element
+    skin::install_once();
     host.log(LogLevel::Info, "league_dragons loaded (League's drakes, soul, Elder Dragon and Baron).");
 }
 

@@ -5,9 +5,9 @@
 //! notice.rs、league_akshan banner.rs 的做法）：事情按模拟的 tick 记下，客户端扩展按屏幕上的比赛时钟
 //! （`game_places::clock::screen_tick`）到了那一 tick 再画。屏幕那一场会跑两遍：同样的一条只记一次。换了一场就扔掉上一场的。
 //!
-//! 客户端扩展读不到对局里的实体，所以公告和 HUD 用这里的 [`events`] / [`record_at`]；画面里读得到实体的（league.dll 的显示
-//! 钩子：小龙的皮肤）读模拟里的 buff：活着的小龙身上的 `league_dragons_el_<元素>`、水晶上的 `league_dragons_st:…` 和
-//! `league_dragons_ev:…`（README「给画面的接口」）。
+//! 客户端扩展读不到对局里的实体，所以公告和 HUD 用这里的 [`events`] / [`record_at`]；显示钩子（[`super::skin`]：小龙按元素
+//! 换模型）也收不到原生 buff，同样按屏幕时钟读这里的出生事件。模拟里的 buff（`league_dragons_el_<元素>`、`league_dragons_st:…`、
+//! `league_dragons_ev:…`）留给别的模组读（README「给画面的接口」）。
 
 use std::sync::Mutex;
 
