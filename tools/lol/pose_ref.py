@@ -276,14 +276,26 @@ def skn_submeshes(b):
     return out
 
 
+# a skin bin's initialSubmeshToHide field: its name hash (FNV-1a of the lower-case name), then its type (16: a string)
+INITIAL_HIDE = struct.pack("<I", 0x80B7F78F) + b"\x10"
+
+
 def hidden_submeshes(skin_bin, names):
-    """The submeshes the skin hides until an animation shows them (the bin's initialSubmeshToHide: one
-    string of submesh names, e.g. Teemo's "Mushroom Harmonica")."""
+    """The submeshes the skin hides until an animation shows them: the bin's initialSubmeshToHide, one string of
+    submesh names (Teemo's "Mushroom Harmonica", Milio's "BuddyA, BuddyB, BuddyA_Eyes, BuddyB_Eyes"), read from the
+    field itself (a u16 length, then the text). Taking every bin string made only of submesh names (the old guess) is
+    not enough: a material override names its submesh alone, next to its own texture, and those parts are drawn -
+    Milio's Backpack (the user, 2026-11-09: 「现在我们做的背后没有葫芦」), Skarner's Claws, Zoe's hair; hide_audit.py
+    lists them all. No such field: nothing hidden (Karthus, Maokai and Sion each have a submesh named alone - their
+    body)."""
     hide = set()
-    for m in re.finditer(rb"[A-Za-z0-9_ ,]{3,}", skin_bin):
-        words = [w for w in re.split(r"[ ,]+", m.group(0).decode("latin1")) if w]
-        if words and all(w in names for w in words):
-            hide.update(words)
+    i = skin_bin.find(INITIAL_HIDE)
+    while i >= 0:
+        if i + 7 <= len(skin_bin):
+            (n,) = struct.unpack_from("<H", skin_bin, i + 5)
+            words = re.split(r"[ ,]+", skin_bin[i + 7:i + 7 + n].decode("latin1"))
+            hide.update(w for w in words if w in names)
+        i = skin_bin.find(INITIAL_HIDE, i + 1)
     return hide
 
 
@@ -619,10 +631,12 @@ def main():
                          "importers' head tracks; same camera, --mirror, --head and --legs as the references)")
     ap.add_argument("--track-ref", metavar="CLIP@MS", help="pose whose height is PX (default: the first --frame)")
     ap.add_argument("--hide-submeshes", action="store_true",
-                    help="leave out the submeshes the skin hides until an animation shows them (Teemo's mushroom and harmonica)")
+                    help="leave out the submeshes the skin hides until an animation shows them: its "
+                         "initialSubmeshToHide (Teemo's mushroom and harmonica)")
     ap.add_argument("--hide-submesh", action="append", default=[], metavar="NAME",
-                    help="leave out this submesh (repeatable; Yone's skin hides both swords at first, so name his demon, "
-                         "emote props and smears instead)")
+                    help="leave out this submesh (repeatable): a part the skin draws that a picture should not show "
+                         "(Yone's blade smears; his skin itself hides only his demon, bow smear and emote props, never "
+                         "his swords)")
     ap.add_argument("--hide-joints", metavar="REGEX",
                     help="leave out the triangles whose vertices mostly follow a joint matching REGEX or one below it "
                          "(a prop skinned into the body's one submesh: Orianna's ball, 'Ball|Spinnig')")
