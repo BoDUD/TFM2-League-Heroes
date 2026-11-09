@@ -875,6 +875,22 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // add-on banishes him for the whole of it, so his ghost is the banish's picture - his own idle_base squares at his
     // 1.5 in a pale glowing green, facing right and left (tools/art/draw_karthus_ghost.py)
     ("league_karthus_ghost", 1.5, include_str!("../../../league/effects/league_karthus_ghost#anim.fanim")),
+    // league_dragons' monsters (0.9.25, the user 2026-11-09: 「大小龙模型呢？codex做吗 还有攻击动画」「龙魂的也都交付了
+    // 你处理完」): Codex's six elemental drakes, the Elder and Baron Nashor (tools/art/dragons_hd.py), each a whole body
+    // sheet with the native monster's tags (serpen's idle / base / attack / dead, epic's idle / base / attack_left /
+    // attack_right / attack_target_effect / dead) and their hd_ twins, shipped in the add-on (addons/league_dragons/
+    // effects) under asset/base/aseprite_resources/ingame/<name>. The add-on's display hook (league_dragons src/skin.rs)
+    // renames the drake's and Baron's display entities' resource (…serpen -> …league_drake_<element>, …epic ->
+    // …league_baron): the body draw then finds these rows by that name and draws them at 1 / PPU, as Heimerdinger's
+    // turrets above. Drakes and the Elder at 1.8 (the design's 130 squares over 72 game px), Baron at 1.5.
+    ("league_drake_infernal", 1.8, include_str!("../../league_dragons/effects/league_drake_infernal#anim.fanim")),
+    ("league_drake_mountain", 1.8, include_str!("../../league_dragons/effects/league_drake_mountain#anim.fanim")),
+    ("league_drake_ocean", 1.8, include_str!("../../league_dragons/effects/league_drake_ocean#anim.fanim")),
+    ("league_drake_cloud", 1.8, include_str!("../../league_dragons/effects/league_drake_cloud#anim.fanim")),
+    ("league_drake_hextech", 1.8, include_str!("../../league_dragons/effects/league_drake_hextech#anim.fanim")),
+    ("league_drake_chemtech", 1.8, include_str!("../../league_dragons/effects/league_drake_chemtech#anim.fanim")),
+    ("league_drake_elder", 1.8, include_str!("../../league_dragons/effects/league_drake_elder#anim.fanim")),
+    ("league_baron", 1.5, include_str!("../../league_dragons/effects/league_baron#anim.fanim")),
 ];
 
 /// Effects whose pictures the view node draw (hd_engine/src/view.rs effect_detour) shrinks to 1 / PPU about their
@@ -922,7 +938,9 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
 /// tunnel's mouths (the kit's league_reksai_t_dig ... views, not following), dense at 1.2 - drawn 1.2 times her size
 /// until now. Every kit's view of a dense hero's own sheet must be listed here: test
 /// every_view_of_a_dense_heros_own_sheet_is_drawn_at_his_size.
-pub const DRAWN_EFFECTS: &[&str] = &["league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
+/// league_baron (0.9.25): Baron's attack_target_effect is played on the one he bites, from his own sheet - a picture at a
+/// point, so the node draw draws it and must shrink it (his body is the body draw's).
+pub const DRAWN_EFFECTS: &[&str] = &["league_baron", "league_ivern_daisy_drop", "league_ivern_daisy_punch", "league_ivern_daisy_slam",
                                      "league_ivern_daisy_bye", "league_azir_soldier", "league_azir_soldier_side",
                                      "league_zoe_spells", "league_zoe_spell_icons", "league_karthus_ghost",
                                      "league_yone", "league_reksai", "league_leblanc_clone", "league_zaahen_rise"];
