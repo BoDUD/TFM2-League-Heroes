@@ -3,7 +3,7 @@
 
     python tools/art/preview_zeri.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_zeri_frames.png    every animation's dense frames (hd_, PPU 3, as league.dll shows them), the game at 3x
+  league_zeri_frames.png    every animation's dense frames (hd_, PPU 2.08, as league.dll shows them), the game at 3x
   league_zeri_effects.png   every effect animation, 3x
   league_zeri_showcase.gif  a scripted fight against Darius with Garen behind him, timed like the kit
                             (tools/kit/build_zeri.py, 60 ticks a second): bursts of rounds into Darius charge the pack

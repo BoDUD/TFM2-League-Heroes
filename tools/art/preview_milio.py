@@ -3,7 +3,7 @@
 
     python tools/art/preview_milio.py [--out docs/preview] [--only frames|effects|showcase]
 
-  league_milio_frames.png    every animation's dense frames (hd_, PPU 2.2, as league.dll shows them)
+  league_milio_frames.png    every animation's dense frames (hd_, PPU 2.21, as league.dll shows them)
   league_milio_effects.png   every effect animation, 3x
   league_milio_showcase.gif  a scripted fight, Darius in his reach, Garen (his ally) a step ahead of him, timed like
                              the kit (tools/kit/build_milio.py, 60 ticks a second): two fireballs and their hits; Warm

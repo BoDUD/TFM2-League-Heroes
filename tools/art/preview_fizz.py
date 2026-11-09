@@ -3,7 +3,7 @@
 
     python tools/art/preview_fizz.py [--out docs/preview] [--frames-only]
 
-  league_fizz_frames.png    every animation, frame by frame, 3x on the arena colour
+  league_fizz_frames.png    every animation's dense frames (hd_, PPU 1.81, as league.dll shows them)
   league_fizz_effects.png   every effect animation, 3x
   league_fizz_showcase.gif  a scripted fight with Darius, timed like the kit (60 ticks a second), League's combo: Fizz
                             runs in and throws Chum the Waters from 70 px - the fish flies 10 ticks, past both caster
@@ -30,6 +30,7 @@ sys.path.insert(0, HERE)
 from preview_annie import Held, OnFoe  # noqa: E402
 from preview_ashe import Anim, tick  # noqa: E402
 from preview_garen import ARENA, T, contact, frames_of, load  # noqa: E402
+from preview_dense import dense, dense_rows, put  # noqa: E402
 from preview_yone import OnFoeFor, Path  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(HERE))
@@ -74,7 +75,7 @@ def showcase(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, way=None, flip=False):
         nonlocal t
-        an = Path(frames_of(fizz, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or (),
+        an = Path(dense(fizz, tag, "fizz", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or (),
                   flip=flip)
         body.append(an)
         t = an.until
@@ -174,11 +175,11 @@ def film(out, W, H, end, d, body, under, over, hidden, labels=(), z=3, step=40):
         return f
 
     def place(img, f, px, py):
-        img.alpha_composite(f, (int(px) - f.width // 2, int(py) - f.height // 2))
+        put(img, f, int(px), int(py), z)
 
     frames, tt = [], 0.0
     while tt < end:
-        img = Image.new("RGBA", (W, H), ARENA)
+        img = Image.new("RGBA", (W * z, H * z), ARENA)
         for an in sorted(under, key=lambda o: o.z):
             f = an.frame(tt)
             if f is not None:
@@ -196,7 +197,7 @@ def film(out, W, H, end, d, body, under, over, hidden, labels=(), z=3, step=40):
             f = an.frame(tt)
             if f is not None:
                 place(img, f, *an.pos(tt))
-        img = img.resize((W * z, H * z), Image.NEAREST).convert("RGB")
+        img = img.convert("RGB")
         for t0, t1, text in labels:
             if t0 <= tt < t1:
                 ImageDraw.Draw(img).text((4 * z, 2 * z), text, font=font, fill=(255, 236, 160),
@@ -229,7 +230,7 @@ def combos(out, z=3, step=40):
 
     def a(tag, dur=None, loop=False, way=None, flip=False):
         nonlocal t
-        an = Path(frames_of(fizz, tag), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or (),
+        an = Path(dense(fizz, tag, "fizz", z), t, x, gy, loop=loop, until=(t + dur) if dur else None, way=way or (),
                   flip=flip)
         body.append(an)
         t = an.until
@@ -321,7 +322,7 @@ def main():
     args = ap.parse_args()
     os.makedirs(T.long_path(args.out), exist_ok=True)
     s = load(CHAMP)
-    print("frames", contact([(s, t["name"], t["name"]) for t in s.tags], os.path.join(args.out, "league_fizz_frames.png")))
+    print("frames", contact(dense_rows(s), os.path.join(args.out, "league_fizz_frames.png"), z=1))
     if args.frames_only:
         return
     rows = []

@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / Dot / CC |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.79 |
 | 附加包 | [提莫蘑菇附加包](#附加包)（`league_teemo_shrooms`） |
 
 ![提莫演示](../preview/league_teemo_showcase.gif)
@@ -86,6 +86,7 @@
 | 数值 | 攻击 80（+6）、法术强度 40（+20）、生命 950（+100）、护甲 25（+7）、魔抗 25（+3）、移速 1000（+9）、射程 50000（原版法师 60000；英雄联盟里提莫的 500 也比拉克丝的 550 短）、攻击间隔 60 tick。LoL Reborn 里没有提莫，数值是自己设计的，用 SDK 对战模拟调：打上路、对 6 个原版上单（`fighter`、`executioner`、`lancer`、`pole_warrior`、`knight`、`berserker`），三套队友阵容平均团队击杀差 +1.0，和原版 `fighter`（+0.97）、本包德莱厄斯（+0.98）持平；初版（生命 900、攻击间隔 70、毒伤低一档）是 −2.1。提莫没有硬控（致盲和减速都不算亚索大招要的控制），亚索不用调 |
 | 精灵图 | 8 个动作 42 帧：待机、跑步、普攻、Q、W、R、受击、死亡。帽顶到脚底 34 px（羽毛另算），24 色，动作全部取自英雄联盟原版动画 |
 | 特效 | 毒镖、毒液命中、致盲飞镖、紫墨命中、致盲紫烟、起跑烟尘、伪装叶旋、中毒、飞在空中的蘑菇、蘑菇落地布置、潜伏的蘑菇、蘑菇毒云 |
+| 高清帧（PPU 1.79） | 2026-11-09 用 PPU 重做，和菲兹、泽丽、佐伊、米利欧在同一个 PR（用户：「最后重做提莫 菲兹 泽丽吧」「佐伊的模型我也不满意」「再补一个吧 米利欧」「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」「清理完成继续完成5个英雄的动作包 codex交付了」「千万别出现模型一大一小的问题 有问题的地方你帮忙修复」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 16.5 像素一格读回（68 × 68 格；羽毛尖到脚底 68 行，旧精灵 38 行，PPU 1.79；tools/art/design_teemo_hd.py）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 27 张图、36 帧，透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧退回身高、头、面积、叠合四者的中位数）；跑步每一帧 Codex 都把亮的近侧腿画在前面，第 4–6 帧该在后面，前后两半看起来是同一条腿在迈（「走路没有换腿」），读回时把这三帧两条腿的明暗对调（casts_teemo_hd.LEG_SWAP，按亮度排名互换颜色）；头和整身每帧都和设计图一样大，缩放没再校正；没有烘焙的特效。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 不设值 → -10（羽毛尖原来会伸出卡顶）；头像截取点按新脸挪到 (0,-27) → (0,-22)（新脸更低，旧点框在帽子上）（眼睛落在 9x9 头像框的第 4–5 行）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 图标 | 官方技能图标（Q / W / R），64×64 |
 | 音频 | 从本地客户端提取的 10 条技能音效和 3 条中文语音（Q、W 借被动伪装的台词、R）。不提交到仓库，按下面的命令在本地生成 |
 | 修正（死后的蘑菇，0.296.0，2026-11-02） | 查[茂凯](league_maokai.md)树苗「死后无限音效」时一起查出来的：蘑菇每 15 tick 的画面链在 `boom`（踩爆后 30 tick）时放毒云的画面和声音、点 3 tick 的 `fire`，毒云区在 `fire` 时上毒、减速。正式游戏里死人的延时效果继续跑、标记冻住：蘑菇踩爆后半秒内他死掉，剩下的十几秒里每 15 tick 响一次爆炸声；死在 `fire` 那 3 tick 里，毒云每 2 tick 上一次毒。[`tools/fix/fix_teemo_dead.py`](../../tools/fix/fix_teemo_dead.py) 给 147 处 `boom` 和 3 处 `fire` 加上 `alive()`（找自己加 1 tick 的标记，死人找不到）。附加包 `league_teemo_shrooms` 用自己的蘑菇，不受影响；塞拉斯偷来的 R 用的是这一份 |
@@ -97,6 +98,15 @@ python tools/art/restyle_native.py assets/source/teemo/poses.json --renders <渲
 python tools/art/import_native.py --hero teemo
 python tools/art/import_teemo.py      # 特效；--raw <Codex 的交付文件夹> 先把原始图转成原尺寸条
 python tools/art/preview_teemo.py
+# PPU 1.79 重做（2026-11-09）：
+python tools/art/pack_teemo_ppu.py --out <文件夹>          # 给 Codex 的设计图包
+python tools/art/design_teemo_hd.py                      # Codex 的原图（hd/raw/teemo-A.png）按原图约 16.5 像素一格读回 -> hd/design.png
+python tools/art/pack_teemo_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_teemo_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FRAME_ZOOM 的起点）；--heights / --heads 另两种量法
+python tools/art/rig_teemo_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero teemo && python tools/art/ppu_hd.py --hero teemo
+python tools/art/ppu_one.py --hero teemo && python tools/art/rig_teemo_hd.py --one-ground && python tools/art/hero_reels.py --hero teemo
+python tools/art/review_teemo_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/teemo/PROMPTS.md`](../../assets/source/teemo/PROMPTS.md)）：
@@ -111,4 +121,4 @@ python tools/art/preview_teemo.py
 - 出手时刻和动画对齐：普攻、Q 第 12 tick 吹出，R 第 15 tick（跳起扔出那一帧）扔出，R 动作 26 tick。
 - 结果：24 色，和右边像素同色的比例 46%（原版英雄 18%–46%）。头像截取点 (0, −27)：头顶下 7 格，卡片上能看到眼睛。
 
-逐帧预览：[`docs/preview/league_teemo_frames.png`](../preview/league_teemo_frames.png?v=1014g)，特效：[`docs/preview/league_teemo_effects.png`](../preview/league_teemo_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_teemo_frames.png`](../preview/league_teemo_frames.png?v=1109b)，特效：[`docs/preview/league_teemo_effects.png`](../preview/league_teemo_effects.png?v=1014g)。

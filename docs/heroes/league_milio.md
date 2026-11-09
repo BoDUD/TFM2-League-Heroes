@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 辅助 |
 | 分类 / 标签 | 功能型（Util） · AP / Magic / Range / Heal / Shield |
-| 高清帧 | PPU 2.2 |
+| 高清帧 | PPU 2.21 |
 | 附加包 | [米利欧附加包](#附加包)（`league_milio`） |
 
 ![米利欧演示](../preview/league_milio_showcase.gif)
@@ -88,6 +88,7 @@
 | 平衡 | 辅助位对五个基础辅助，两批 12 个种子：草案 d0 -2.02 偏弱，热情洋溢加到 30% / 5 秒、R 放宽、属性加上去后定下 d9：+0.28 / -0.25（平均 +0.02）。同组辅助（娑娜 +0.31、布隆 +0.28、娜美 +0.04、萨勒芬妮 0.00、璐璐 -0.07、巴德 -0.30、索拉卡 -1.07、迦娜 -1.15、卡尔玛 -1.71）的中间 |
 | 精灵图（高清帧 PPU 2.2） | Codex 画了两张原画（A 只有男孩，B 肩后飘着加载画面里的小火精灵），用户选 B、发顶到鞋底 32 个游戏行；第 1 步 Codex 在格子上重画了正面和两稿侧身，用户选侧身 B（稍带 3/4）。[`tools/art/design_milio_hd.py`](../../tools/art/design_milio_hd.py) 从 Codex 的原稿读回造型（Codex 自己整理的 12 px 版本又糊了），侧身贴上正面那颗头。Codex 照英雄联盟的骨架画了 36 张动作细稿，[`tools/art/import_milio_strips.py`](../../tools/art/import_milio_strips.py) 读回：每帧的比例取头发、衣服、凉鞋三种面积的中位数（Codex 每帧画的大小不一样），造型的头贴进每一帧（手臂从头前经过时手在前），Q、R 跳起的帧保持离地，收招帧用侧身造型。跑步第一版两腿一直一前一后（用户：「走路没后交叉步 步伐没有变化」），按加里奥的办法让 Codex 照每帧的腿部骨架线只重画腿，[`tools/art/import_milio_run.py`](../../tools/art/import_milio_run.py) 取 Codex 原稿里自己画的腿（它交的成品是把一条腿逐段拉伸套上去的），排成两腿轮流、从身下交叉前摆的跑步。[`tools/art/rig_milio.py`](../../tools/art/rig_milio.py) 降到 2.2（同一颗头只降一次，每帧一样）、火精灵在他身后肩膀高度慢半拍跟着飘（死亡时缩小飘散）、待机呼吸、受击闪白 |
 | 特效 | Codex 第 3 步的 15 个特效 + 8 张画进帧的图（`assets/source/milio/codex_fx`）。[`tools/art/import_milio_fx.py`](../../tools/art/import_milio_fx.py)：Codex 自己读回的小图太糊（暖焰的光丝成了点、Q 撞击的火环断开），15 张全部从原稿按我们的尺寸重读、逐格对称；Q 落地的火柱 Codex 画到他身高的两倍多，竖直压到 0.6。画进帧的 8 张（普攻手心的火球、Q 脚前的球和一脚踢飞、E 举手聚焰和送出、R 双手聚火 / 落地张臂的火和光环 / 余光）在 `rig_milio.py --pinholes` 叠到高清帧上。飞行物按画面定出手高度：手心、踢出去的脚、高举的手 |
+| 高清帧（PPU 2.21） | 2026-11-09 用 PPU 重做，和提莫、菲兹、泽丽、佐伊在同一个 PR（用户：「最后重做提莫 菲兹 泽丽吧」「佐伊的模型我也不满意」「再补一个吧 米利欧」「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」「清理完成继续完成5个英雄的动作包 codex交付了」「千万别出现模型一大一小的问题 有问题的地方你帮忙修复」「通过，开 PR 安装」）。设计图：男孩照旧设计、背后加上英雄联盟的大背包（葫芦）的原图，按原图约 11.8 像素一格读回（51 × 73 格；头发顶到脚底 73 行，旧精灵 33 行，PPU 2.21；tools/art/design_milio_v2.py）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 38 张图、38 帧，透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧退回身高、头、面积、叠合四者的中位数）；Codex 在所有动作里都把背包画成设计图的八成左右，而待机停着的就是设计图，背包会一大一小，所以设计图的背包换成 14.58 那一档读图里的背包（男孩的 0.81 倍，design_milio_v2.small_pack；原读图留作 design_bigpack.png），男孩一格没动；动作帧整体小了约 5%（背包让叠合法偏小），每个动作按头发统一放大；火精灵是单独一层（hd/design_spirit.png），浮在背包顶的青色盖子上方、慢半拍跟着他、上下飘，死亡时跟着背包落下并缩小。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 不设值 → -9（火精灵原来会伸出卡顶）；头像截取点按新脸挪到 (0,-30) → (2,-26)（眼睛落在 9x9 头像框的第 4–5 行）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_milio.py`，15 段）：普攻出手 / 打中、Q 踢出 / 撞上 / 落地、E 抱住、W 营火 / 回血、R 出手 / 回血、被动点燃，配音 Q / W / E / R |
 | 图标 | 官方技能图标（Q 火爆飞踢 / E 融融情谊 / R 生生不息，另有 W 依依不舍、被动热情洋溢），从本地客户端取 |
 
@@ -107,8 +108,17 @@ python tools/art/rig_milio.py --pinholes           # 补小洞、叠上画进帧
 python tools/art/ppu_hd.py --hero milio            # hd_ / lo_ 帧
 python tools/art/preview_milio.py                  # 预览和演示 GIF
 python addons/league_milio/make_override.py        # 附加包的副本（主包的米利欧改了就重跑）
+# PPU 2.21 重做（2026-11-09）：
+python tools/art/pack_milio_ppu.py --out <文件夹>          # 给 Codex 的设计图包
+python tools/art/design_milio_v2.py                      # Codex 的原图（hd/raw/milio-A.png）按原图约 11.8 像素一格读回 -> hd/design.png
+python tools/art/pack_milio_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_milio_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FRAME_ZOOM 的起点）；--heights / --heads 另两种量法
+python tools/art/rig_milio_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero milio && python tools/art/ppu_hd.py --hero milio
+python tools/art/ppu_one.py --hero milio && python tools/art/rig_milio_hd.py --one-ground && python tools/art/hero_reels.py --hero milio
+python tools/art/review_milio_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术提示词见 [`assets/source/milio/`](../../assets/source/milio) 里的 `PICTURE_PROMPT.md`、`MODEL_PROMPTS.md`、`MODEL_STRIPS.md`、`RUN_PROMPT.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_picture/`、`codex_model/`、`codex_strips/`、`codex_run/`、`codex_fx/`。
 
-逐帧预览：[`docs/preview/league_milio_frames.png`](../preview/league_milio_frames.png?v=1015a)，特效：[`docs/preview/league_milio_effects.png`](../preview/league_milio_effects.png?v=1015a)。
+逐帧预览：[`docs/preview/league_milio_frames.png`](../preview/league_milio_frames.png?v=1109b)，特效：[`docs/preview/league_milio_effects.png`](../preview/league_milio_effects.png?v=1015a)。

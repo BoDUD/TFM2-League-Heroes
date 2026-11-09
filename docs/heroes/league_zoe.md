@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 中单 |
 | 分类 / 标签 | 法师（Magician） · AP / Magic / Range / CC |
-| 高清帧 | PPU 1.5 |
+| 高清帧 | PPU 2.64 |
 | 附加包 | [佐伊附加包](#附加包)（`league_zoe`） |
 
 ![佐伊演示](../preview/league_zoe_showcase.gif)
@@ -95,6 +95,7 @@
 | 平衡 | 10 分钟经典引擎模拟，中路对五个原版法师（pyromancer / ice_mage / lightning_mage / wind_mage / white_mage），三套阵容、两边各打，每档两批种子（1–8、9–16）：初稿（生命 880、Q 70 + 50%、R 170 + 80% 每 40 秒、昏睡 1.5 秒）-1.37（同批吉格斯 +1.70）；Q 90 + 60%、R 停在 50000 外、昏睡 1.75 秒 +0.67；再加生命 920、R 每 30 秒、飞弹 45 +0.36；再加飞星远档 250%、被动 40 + 50% +1.07 / +1.18；Q 105 +1.41 / +1.47；按动作条的时间（门口的飞星在 Q 的出手帧、窃法巧手的扔飞弹动作、跳走动作：她在远处多待了一会儿）+1.30 / +0.16；昏睡 2 秒、生命 960、门口飞星 200 + 90% 定稿 +1.17 / +1.47（约 +1.3，沃利贝尔 +1.39） |
 | 精灵图（高清帧 PPU 1.5） | Codex 第 0 步画了待机（A：英雄联盟的待机，3/4 正面、上身后仰、头发向身后飘）和站直（B）两张原画（[`tools/art/pack_zoe_picture.py`](../../tools/art/pack_zoe_picture.py)），[`tools/art/design_zoe_hd.py`](../../tools/art/design_zoe_hd.py) 按各自的格子读回（8.5 px 一格），[`tools/art/review_zoe_size.py`](../../tools/art/review_zoe_size.py) 和中单、小个子女孩按游戏大小并排，用户：「A」「35 像素」「PPU 1.5」（发髻顶到脚底 53 格）。第 1 步 Codex 在游戏格子上画了待机 A、侧面 S 各两稿（[`tools/art/pack_zoe_model.py`](../../tools/art/pack_zoe_model.py)，每格 19 px），[`tools/art/design_zoe_model.py`](../../tools/art/design_zoe_model.py) 按各自的格子读回、整行整列删到 53 行（脸的行列不删），用户选了 A-1（59 × 53）和 S-1（48 × 53，脸同样朝右前方、两只眼睛都看得见），两张共用一套调色板。动作不找 Codex：[`tools/art/rig_zoe.py`](../../tools/art/rig_zoe.py) 用造型自己的像素无损摆，只整格平移、四分之一转、镜像，每个动作对照英雄联盟的动画（`tools/lol/anim_graph.py Zoe`、`pose_ref.py`，渲染时藏掉跳绳、球拍、溜溜球、冰淇淋）：待机（A 的身子坐下一行再起来）、跑（侧面的两条小腿整块迈步，蹦蹦跳跳）、普攻（蹲下、跳起、手一扬弹出星星，然后整个人头朝前扑出去、落地弯着腰，Zoe_attack1）、强化普攻（跳得更高再扔，Empowered_Attack）、Q（跳起、在空中前空翻一圈，翻到倒立时把飞星甩出去，落地后仰，Spell1）、E（跳起、在空中倒过来，然后上身后仰、一条腿笔直地往前蹬出去飞踢气泡，Spell3）、R（蹲下、跳起、头朝前扑进传送门，从远处的门里头朝下扑出来、落地张开手臂站稳，spell4_enter / Spell4）、W 扔飞弹（`skill_w`，spell2_missile）、从远处跳走（`ult_exit`，Spell4_Exit）和落回原地（`ult_back`，Spell4_B）、挨打（闪白后退）、阵亡 8 帧（往后倒、躺在头发上、回弹一下）。审查时用户：「你在对照一下英雄联盟有没有少动作帧的」——补了 W 扔飞弹和 R 跳走两个动作；「动作可以」。之后用户：「还有佐伊 感觉少了扑出去的动作？」（普攻、Q、E、R 都选了）——普攻加了往前扑、Q 改成前空翻、E 改成后仰飞踢（往前蹬的那条腿照她小腿自己的颜色重画）、R 改成头朝下扑进传送门，帧数和时长不变（技能数据的时机照旧）；「佐伊可以了」。手臂只往前、往后转（往上转会挡住脸），手臂离开后头发尖上留下的一小块碎片随手臂移走。2026-10-22 补全动作（用户：「佐伊只需要 完善动作帧 我觉得动作帧是不全的」，造型不动）：跑步的小腿原来几乎不动、空翻和倒地一两帧就跳过去。[`tools/art/rig_zoe.py`](../../tools/art/rig_zoe.py) 重写成奥莉安娜的做法：头连同整片头发一块整格移动，围巾、上衣、裙子是侧面造型自己的格子整块移动（前倾是上半身整行平移），手臂和腿用造型自己的肤色画成带描边的圆柱，手镯和手（8 个无损方向）、靴子照抄造型；每帧对照英雄联盟同一时刻的动作（`LOL` 表）。待机 8 帧（3/4 造型腰以上沉一行、裙子和腿不动，头发尾巴上下飘）、跑步 8（卡特琳娜的跑法，两脚交替，换脚时双脚离地蹦一下，手臂前后摆）、普攻 8（蹲、跳、手往后、第 4 帧甩出星星 = a_rel 10、抱膝前空翻三帧、落地）、强化普攻 8（跳到最高、双臂张开扔出、落地蹲下再站起）、Q 8（直着往上飘、手往后、第 4 帧扔出 = q_rel 13、抱膝前空翻、落地）、E 9（蹲、跳、直体空翻三帧、第 6 帧飞踢 = e_rel 13、落地）、R 8（蹲、起跳、第 3 帧跃起 = r_rel 8、头朝前、头朝下扑进传送门、从远端落下站稳）、W 7（右侧、正面、左侧、左前方转一圈，第 3 / 5 / 7 帧各飞出一颗飞弹 = w_rel 4 + w_gap 5）、从远端跳走 4、落回原地 6、受击 2、阵亡 10（受击、转一圈、手臂甩开往后倒、仰面躺下抬腿、躺平）；每个动作的总时长和出手帧都和技能数据一致，空翻和倒地都是整个人四分之一转（无损，任意角度会把脸转坏），手臂离开后背后露出来的缝补成头发的深色。对照动图：[`tools/art/review_zoe_actions.py`](../../tools/art/review_zoe_actions.py)；待机和 BP 卡片的小动作（[`tools/art/hero_reels.py`](../../tools/art/hero_reels.py)）改从新的 E、R 落地帧里截。主包 0.190.1、`league.dll` 0.7.109 |
 | 特效 | 第 3 步 18 张特效（[`tools/art/pack_zoe_fx.py`](../../tools/art/pack_zoe_fx.py)，颜色照英雄联盟：她的星星是金白色的星光、带粉紫色的星点和蓝色的星尘，催眠气泡是蓝、紫、粉的彩虹肥皂泡，传送门是一圈白光围着深紫色的星空，窃法巧手的飞弹是天蓝色）。弹道图（星星、气泡、飞弹）朝右画、上下对称（游戏按飞行方向转），其余全部左右对称（游戏不镜像特效图）。[`tools/art/import_zoe_fx.py`](../../tools/art/import_zoe_fx.py) 写成 `league_zoe_fx` 和 `league_zoe_big` |
+| 高清帧（PPU 2.64） | 2026-11-09 用 PPU 重做，和提莫、菲兹、泽丽、米利欧在同一个 PR（用户：「最后重做提莫 菲兹 泽丽吧」「佐伊的模型我也不满意」「再补一个吧 米利欧」「泽丽2.1 佐伊2.64 米利欧2.21 其他都1.8」「清理完成继续完成5个英雄的动作包 codex交付了」「千万别出现模型一大一小的问题 有问题的地方你帮忙修复」「通过，开 PR 安装」）。设计图：照英雄联盟原版重新设计的原图（粉色长发用它自己的贴图），按原图约 11.6 像素一格读回（82 × 95 格；头发顶到脚底 95 行，旧精灵 36 行，PPU 2.64；tools/art/design_zoe_v2.py）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 53 张图、68 帧（Q 第 6–8 帧用普攻第 6–8 帧，R 出门第 3、4 帧用 R 第 3 帧，R 回来第 2、4、5 帧用 R 第 6、7 帧和 E 第 9 帧、第 6 帧是设计图，死亡第 4 帧用 W 第 4 帧），透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定：把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例（重合不到 0.65 的帧退回身高、头、面积、叠合四者的中位数）；Codex 把动作帧画得比设计图大了约 12%，读回时每个动作的帧一起按头发的中位数缩放到设计图那么大（一个动作一个系数，帧与帧之间不抖；casts_zoe_hd.py 的 FRAME_ZOOM，叠合法的值留在 FIT_ZOOM）；没有烘焙的特效。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 不设值不变（头顶离卡顶约 4 像素）；头像截取点按新脸挪到 (1,-24) → (1,-25)（眼睛落在 9x9 头像框的第 4–5 行）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_zoe.py`](../../tools/lol/extract_zoe.py)，20 段）：普攻出手 / 打中，强化普攻出手 / 打中，Q 出手 / 飞行 / 打中，E 出手 / 飞行 / 打中 / 陷阱破开 / 昏睡 / 打醒，R 出手 / 回来，飞弹出手 / 打中；Q、E、R 的配音（片段名 `league_zoe_sfx_*`，和声音名不同）。2026-10-22 用户：「佐伊的音效也照奥莉安娜的办法调响」——第一版峰值 −11 到 −16 dBFS、音量 0.3–0.55，游戏里实际约 0.09（拉克丝约 0.53）：提取峰值 +8 dB（最高 −2），技能音量 0.7–0.9、普攻 0.5–0.65，实际中位约 0.40；配音不变 |
 | 图标 | 官方技能图标（飞星乱入！、催眠气泡、折返跃迁，另有窃法巧手和被动），从本地客户端取 |
 | 修正（催眠气泡的陷阱，0.296.0 / 附加包 0.5.1，2026-11-02） | 查[茂凯](league_maokai.md)树苗「死后无限音效」时一起查出来的同一类问题：气泡没打中人时留在地上的陷阱是落地时（弹道的 `end_effects`）开的区域，她死了也照样跑完 5 秒；死人身上的标记冻住，`e_tdone`（抓过人了）在她死时还没挂上，就再也挂不上，陷阱每 3 tick 把踩进去的人再抓一次（伤害、催眠、出声）。陷阱在这个标记后面先问 `alive()`（找自己加 1 tick 的标记，死人找不到）：她死后陷阱的画面还在，但不再抓人 |
@@ -114,6 +115,15 @@ python tools/art/ppu_hd.py --hero zoe               # hd_ / lo_ 帧
 python tools/art/import_zoe_fx.py                   # 特效
 python tools/art/preview_zoe.py                     # 预览和演示 GIF
 python addons/league_zoe/make_override.py           # 附加包的副本（主包的佐伊改了就重跑）
+# PPU 2.64 重做（2026-11-09）：
+python tools/art/pack_zoe_ppu.py --out <文件夹>          # 给 Codex 的设计图包
+python tools/art/design_zoe_v2.py                      # Codex 的原图（hd/raw/zoe-A.png）按原图约 11.6 像素一格读回 -> hd/design.png
+python tools/art/pack_zoe_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_zoe_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FRAME_ZOOM 的起点）；--heights / --heads 另两种量法
+python tools/art/rig_zoe_hd.py                         # 读回 -> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero zoe && python tools/art/ppu_hd.py --hero zoe
+python tools/art/ppu_one.py --hero zoe && python tools/art/rig_zoe_hd.py --one-ground && python tools/art/hero_reels.py --hero zoe
+python tools/art/review_zoe_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
-逐帧预览：[`docs/preview/league_zoe_frames.png`](../preview/league_zoe_frames.png?v=1019b)，特效：[`docs/preview/league_zoe_effects.png`](../preview/league_zoe_effects.png?v=1019a)。
+逐帧预览：[`docs/preview/league_zoe_frames.png`](../preview/league_zoe_frames.png?v=1109b)，特效：[`docs/preview/league_zoe_effects.png`](../preview/league_zoe_effects.png?v=1019a)。
