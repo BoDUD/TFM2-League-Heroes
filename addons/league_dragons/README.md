@@ -1,4 +1,4 @@
-# 英雄联盟的大小龙（league_dragons，测试版 v0.3.0）
+# 英雄联盟的大小龙（league_dragons，v0.3.5，单独可用）
 
 用户 2026-11-09：订阅的创意工坊「Elemental Drakes & Baron」（smart_elemental_drakes 0.6.7）「没效果 不像lol 击杀后名字也不对」，
 「改到完美 … 我要明显的感受到小龙有属性加成 大龙能加强兵线之类的 还有龙魂的效果 远古龙的斩杀」。决定：做我们自己的（玩家关掉创意工坊
@@ -244,15 +244,22 @@ base、attack 5 × 80、dead 8 × 80；莫尔加德另有 attack_left / attack_r
   显示钩子（`game_places::hook`，和妮蔻、佛耶戈同一个）每帧把资源名是 `serpen_monster`（游戏里小龙的资源名）的显示实体换成这一刻的元素亚龙、`epic_monster` 的
   换成 `league_baron`；游戏 0.6.3 起画身体按资源名取图，不认识的名字按英雄的 `aseprite_resources/champions/<名字>` 找，所以
   `mod.override_info` 把 champions 和 ingame 两种路径都指过来（0.3.0 第一次装时只认 `serpen`，小龙没换上，日志 `SKIN seen` 查出来的）。0.3.3 起元素先按实体编号找：屏幕那一场每条小龙出生时记下它的编号和元素（`feed::drake_born`，显示世界的实体是同一个编号），倒退 / 快进回放时屏幕时钟读不到也换得上（用户：「倒退看回放的时候小龙的模型又恢复成原样了」，日志里那几次重新出现都是 `screen tick None`）。显示世界收不到原生 buff，所以元素按屏幕时钟取 `feed` 里这一场到这一刻最近的一次「元素亚龙 / 远古巨龙
-  出生」；读不到时钟或还没有出生事件（比如模组冲突）就不换。league.dll 0.9.25 起这 8 张图登记成高清，身体按 1 / PPU 画。
+  出生」；读不到时钟或还没有出生事件（比如模组冲突）就不换。league.dll 0.9.25 起这 8 张图登记成高清，身体按 1 / PPU 画；0.3.5 起本包自己也登记（`src/hd.rs`），不装主包也是高清。
 - 日志：`SKIN … a drake on screen, resource "…"`（第一次见到时它原来的资源名）、`SKIN … drawn as …`（换成了哪张）、`SKIN on / off`。
 
 ## 安装和开关（v0.3.0）
 
 本包是单独的 mod：`<Teamfight Manager2>/mods/league_dragons`，里面是 `league_dragons.dll`、`mod.mod_info`、`mod.override_info`、
 `effects/`（8 张模型图）、`text/`（改名字的三份文字）。从仓库做这个文件夹：`cargo build --release -p league_dragons`，再
-`python -I addons/league_addons/assemble.py OUT --standalone league_dragons`。要求主包 `league` ≥ 0.329.0（league.dll 0.9.25 起登记了
-这 8 张高清图）。
+`python -I addons/league_addons/assemble.py OUT --standalone league_dragons`。
+
+**不依赖主包**（v0.3.5，用户：「不行 你要改成不依赖主包的」「就是用原版英雄也能用这个大小龙」「高清帧可以拆出来啊 云顶不就是么」）：
+`mod.mod_info` 只依赖游戏本身（`base`），只用原版英雄、没装英雄联盟主包也能用。高清帧本包自己登记（`src/hd.rs`：和云顶包一样带
+league.dll / tft.dll 共用的高清引擎 `hd_engine`）：进程里第一个调引擎的 DLL 挂钩（主），后来的把表交给它（客）——只装本包时本包挂钩
+画这 8 张；和主包、云顶包一起开着时谁先加载都行，主包 0.9.25 起自己也登记这 8 张，重复的那一份不算（数一样）。日志开头一行 `HD:`
+写本包是主、是客（交给了谁）还是只画 1 倍帧。语言识别不再用阿克尚的文字兜底，改用原版英雄的名字和技能名（`screen::lang`）。
+注意：本包当主时用的是它编进去的那份引擎，所以引擎改了（比如特效 PPU 的「完整通道」）要连本包一起重新编，不然它先加载时会替主包 /
+云顶包挂钩、用旧的引擎画它们。
 
 - 在游戏的模组列表里关掉它：小龙、纳什男爵变回游戏原来的（规则、名字、公告、HUD、模型都没有），别的英雄、附加包不受影响。
 - 小龙 2:00 首刷、每 2 分钟一条，纳什男爵的小兵增益 120 秒，是改在自定义数据库和存档的游戏设置里的（`scratchpad` 的

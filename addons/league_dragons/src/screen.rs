@@ -67,11 +67,26 @@ fn hero_name(ctx: &StableClient<'_>, id: &str) -> String {
         .unwrap_or_else(|| id.trim_start_matches("league_").to_string())
 }
 
+/// The language: this mod's own name for Baron (text/object.i18n), else - another mod renamed him - the game's own
+/// champions' names and skills (0.3.5: no League Heroes needed, the user: 「就是用原版英雄也能用这个大小龙」).
 fn lang(ctx: &StableClient<'_>) -> words::Lang {
     let baron = text(ctx, "asset/base/text/object?epic.name").unwrap_or_default();
-    let skill = text(ctx, "asset/base/text/champion?skill_name.league_akshan.skill1").unwrap_or_default();
-    words::lang_of(&baron, &skill)
+    let mut sample = String::new();
+    if !words::named_by_us(&baron) {
+        for id in NATIVE_SAMPLE {
+            for k in ["description.{id}.name", "skill_name.{id}.skill1", "skill_name.{id}.skill2"] {
+                if let Some(t) = text(ctx, &format!("asset/base/text/champion?{}", k.replace("{id}", id))) {
+                    sample.push_str(&t);
+                }
+            }
+        }
+    }
+    words::lang_of(&baron, &sample)
 }
+
+/// The game's own champions whose names and skills tell Simplified from Traditional Chinese (the display world's
+/// names, league_dragons.log `SKIN seen`).
+const NATIVE_SAMPLE: [&str; 4] = ["ghost", "necromancer", "shield_bearer", "hypnotist"];
 
 /// 节点和它的每一层父节点都显示着（league_ornn fx.rs）。
 fn shown(ctx: &StableClient<'_>, path: &str) -> bool {

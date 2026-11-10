@@ -16,7 +16,7 @@ pub enum Lang {
 
 /// 认游戏的语言。先看本包改过的纳什男爵的名字（`asset/base/text/object?epic.name`：纳什男爵 / 巴龍 / Baron Nashor），
 /// 认不出（别的语言、本包的文字没装上）再按阿克尚第一个技能名的写法（league_eggs、league_akshan 的做法）。
-pub fn lang_of(baron: &str, skill1: &str) -> Lang {
+pub fn lang_of(baron: &str, sample: &str) -> Lang {
     if baron.contains("纳什男爵") {
         return Lang::Hans;
     }
@@ -26,10 +26,13 @@ pub fn lang_of(baron: &str, skill1: &str) -> Lang {
     if baron.contains("Baron Nashor") {
         return Lang::En;
     }
-    let has = |lo: u32, hi: u32| skill1.chars().any(|c| (lo..=hi).contains(&(c as u32)));
+    // another mod's name for him: the game's own texts (src/screen.rs lang) - Korean or Japanese read English, and
+    // Chinese is Traditional when it has more of Traditional's own characters than of Simplified's
+    let has = |lo: u32, hi: u32| sample.chars().any(|c| (lo..=hi).contains(&(c as u32)));
+    let count = |set: &str| sample.chars().filter(|c| set.contains(*c)).count();
     if has(0xac00, 0xd7a3) || has(0x3040, 0x30ff) {
         Lang::En
-    } else if skill1.contains('復') || skill1.contains('還') {
+    } else if count(TRAD_ONLY) > count(SIMP_ONLY) {
         Lang::Hant
     } else if has(0x4e00, 0x9fff) {
         Lang::Hans
@@ -37,6 +40,15 @@ pub fn lang_of(baron: &str, skill1: &str) -> Lang {
         Lang::En
     }
 }
+
+/// This mod's own names for Baron (text/object.i18n): the language is known from them alone.
+pub fn named_by_us(baron: &str) -> bool {
+    ["纳什男爵", "巴龍", "Baron Nashor"].iter().any(|n| baron.contains(n))
+}
+
+/// Characters only Traditional Chinese writes, and their Simplified forms (common in skill and champion names).
+const TRAD_ONLY: &str = "復還靈術師實點種體場隊員頭開關劍為們個來說這時會對動戰擊龍彈護衛變轉發雙氣傷敵減範圍線傳華擁擋擺擴擲撲擾憶鬥盜獵飛鋼鐵";
+const SIMP_ONLY: &str = "复还灵术师实点种体场队员头开关剑为们个来说这时会对动战击龙弹护卫变转发双气伤敌减范围线传华拥挡摆扩掷扑扰忆斗盗猎飞钢铁";
 
 fn pick<T>(lang: Lang, hans: T, hant: T, en: T) -> T {
     match lang {
@@ -618,5 +630,9 @@ mod tests {
         assert_eq!(lang_of("Morgard", "復仇迴力鏢"), Lang::Hant);
         assert_eq!(lang_of("모르가드", "복수의 부메랑"), Lang::En);
         assert_eq!(lang_of("", "Avengerang"), Lang::En);
+        // no League Heroes: the game's own champions' texts
+        assert_eq!(lang_of("Morgard", "幽靈 亡靈法師 護盾衛士"), Lang::Hant);
+        assert_eq!(lang_of("莫尔加德", "幽灵 亡灵法师 护盾卫士"), Lang::Hans);
+        assert!(named_by_us("纳什男爵") && named_by_us("巴龍") && named_by_us("Baron Nashor") && !named_by_us("Morgard"));
     }
 }
