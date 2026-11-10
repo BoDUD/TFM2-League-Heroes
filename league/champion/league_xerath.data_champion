@@ -2162,6 +2162,18 @@
           "name": "league_xerath_r_h3"
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_xerath_r_miss"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_xerath_r_grace"
+        },
+        {
+          "type": "RemoveCasterBuff",
+          "name": "league_xerath_r_any"
+        },
+        {
           "type": "AddCasterBuff",
           "buff_state": {
             "name": "league_xerath_r_chan",
@@ -2259,6 +2271,27 @@
                                   "type": "Combine",
                                   "effects": [
                                     {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_xerath_r_s1",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "AddCasterBuff",
+                                        "buff_state": {
+                                          "name": "league_xerath_r_refund",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 3
+                                            }
+                                          },
+                                          "ult_cooldown_mult": 100
+                                        },
+                                        "only_to_enemy": false
+                                      }
+                                    },
+                                    {
                                       "type": "RemoveCasterBuff",
                                       "name": "league_xerath_r_chan"
                                     },
@@ -2297,8 +2330,185 @@
                                     {
                                       "type": "Sfx",
                                       "name": "league_xerath_r_end"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_xerath_r_miss"
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_xerath_r_grace"
                                     }
                                   ]
+                                }
+                              ]
+                            },
+                            "effect_none": {
+                              "type": "Combine",
+                              "effects": []
+                            }
+                          },
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_xerath_r_chan",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_xerath_r_any"
+                                },
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 220000,
+                                  "casting_target": "EnemyChampion",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_xerath_r_any",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_xerath_r_any",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_xerath_r_miss"
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_xerath_r_grace"
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_xerath_r_miss",
+                                    "effect_buff": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_xerath_r_grace",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_xerath_r_s1",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "AddCasterBuff",
+                                              "buff_state": {
+                                                "name": "league_xerath_r_refund",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 3
+                                                  }
+                                                },
+                                                "ult_cooldown_mult": 100
+                                              },
+                                              "only_to_enemy": false
+                                            }
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_xerath_r_chan"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_xerath_r_wait"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_xerath_r_s1"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_xerath_r_s2"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_xerath_r_s3"
+                                          },
+                                          {
+                                            "type": "RemoveCasterAnimation",
+                                            "name": "ult"
+                                          },
+                                          {
+                                            "type": "RemoveCasterAnimation",
+                                            "name": "ult_loop"
+                                          },
+                                          {
+                                            "type": "RemoveCasterAnimation",
+                                            "name": "ult_shot"
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_xerath_r_end"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_xerath_r_end"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_xerath_r_miss"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_xerath_r_grace"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_xerath_r_miss",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 360
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        },
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_xerath_r_grace",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 30
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    }
+                                  }
                                 }
                               ]
                             },
@@ -2882,6 +3092,14 @@
                                     "effect_buff": {
                                       "type": "Combine",
                                       "effects": [
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_xerath_r_miss"
+                                        },
+                                        {
+                                          "type": "RemoveCasterBuff",
+                                          "name": "league_xerath_r_grace"
+                                        },
                                         {
                                           "type": "Combine",
                                           "effects": [
