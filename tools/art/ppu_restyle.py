@@ -880,7 +880,7 @@ RESTYLE = {
     # Shen (2026-11-09, 「慎也需要重做」, then 「1.8」): Codex's shen-A traced from his sprite, read on its own squares
     # (design_shen_hd.py: 76 rows / 1.81 = his 42, the sword hilt's top to his soles); every action Codex's whole-frame
     # redraw of the old frame read onto it (tools/art/casts_shen_hd.py), so no density change; the outline grown by 2
-    "shen": dict(ppu=76 / 42, edge=2),
+    "shen": dict(ppu=76 / 42, edge=2, face_to=(5, -36)),
     # Vayne (2026-10-26, 「下一个英雄重做薇恩」): the user's own picture (「就用这个啊」) read on its own squares (85 x 102,
     # design_vayne_hd.py: 102 rows / 2.55 = her 40); every action Codex's whole-frame redraw of her old frame read onto
     # the design at the zoom her head gives (tools/art/casts_vayne_hd.py); drawn at 2.55 (ORIG_PPU), brought to 2.2

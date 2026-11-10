@@ -717,6 +717,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // native cells, its dash picture baked on again under him by fizz_bake.json; 32 game px as his 1x sprite, so no SIZES
     // row
     ("league_fizz", 1.8125, include_str!("../../../league/champions/league_fizz#anim.fanim")),
+    // Shen (2026-11-09, 「慎也需要重做」, picked 「1.8」): Codex's shen-A traced from his sprite, read on its own ~13.1-px
+    // squares (61 x 76, tools/art/design_shen_hd.py: 76 rows / 42 = 1.810, the sword hilt's top to his soles); every
+    // action Codex's whole-frame redraw of his old frame read onto it at the zoom its fit over the old frame gives
+    // (tools/art/casts_shen_hd.py, rig_shen_hd.py: twelve frames' heads, drawn 8-30 % off on a right-sized body, rescaled
+    // alone to the design's; the run's legs shaded to take turns in frame 5); nothing baked; 42 game px as his 1x sprite,
+    // so no SIZES row
+    ("league_shen", 1.810, include_str!("../../../league/champions/league_shen#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
