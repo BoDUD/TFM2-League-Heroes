@@ -1,4 +1,4 @@
-# 英雄联盟的大小龙（league_dragons，测试版 v0.2.0）
+# 英雄联盟的大小龙（league_dragons，测试版 v0.3.0）
 
 用户 2026-11-09：订阅的创意工坊「Elemental Drakes & Baron」（smart_elemental_drakes 0.6.7）「没效果 不像lol 击杀后名字也不对」，
 「改到完美 … 我要明显的感受到小龙有属性加成 大龙能加强兵线之类的 还有龙魂的效果 远古龙的斩杀」。决定：做我们自己的（玩家关掉创意工坊
@@ -7,8 +7,8 @@
 本包的**玩法**：一个原生附加包，一个比赛钩子（`Dragons`，每份模拟每 tick 跑一次），不换任何数据。小龙、纳什男爵还是游戏
 自己刷的（游戏里叫 `Serpen` / `Morgard`，实体种类 `Serpen` / `Epic`，规则设定里是 `serpen_jungle` / `epic_jungle`），本包认出它们
 出生、被谁拿下，按英雄联盟的规矩给奖励。**画面**（下面「画面：名字、公告、HUD」）：游戏自己的文字改叫纳什男爵、元素亚龙
-（`text/`），屏幕上的公告和 HUD（客户端扩展，读「给画面的接口」里的 `feed`）；小龙按元素、远古巨龙和纳什男爵换成 Codex 的模型（下面「模型」）。附加包合集里由
-league_addons 的 `BundleMatch` 转发比赛钩子、`BundleClient` 调画面；单独装时本包自己设。
+（`text/`），屏幕上的公告和 HUD（客户端扩展，读「给画面的接口」里的 `feed`）；小龙按元素、远古巨龙和纳什男爵换成 Codex 的模型（下面「模型」）。0.3.0 起
+是**单独的 mod**（自己的 `league_dragons.dll`，游戏的模组列表里单独开关；用户：「把我们的龙魂也单独做成mod开关啊」），不在附加包合集里，比赛钩子和客户端扩展本包自己设（下面「安装和开关」）。
 
 ## 一、元素和刷新顺序
 
@@ -128,7 +128,7 @@ league_addons 的 `BundleMatch` 转发比赛钩子、`BundleClient` 调画面；
 
 ### 客户端扩展读的：`feed`
 
-`league_dragons::feed`（附加包合集里是 `dragons::feed`）：屏幕上那一场（自己的比赛、观战、回放）的事和状态记录，**模拟从来不读它**。
+`league_dragons::feed`：屏幕上那一场（自己的比赛、观战、回放）的事和状态记录，**模拟从来不读它**。
 屏幕放的是跑在前面的模拟的回放：按模拟的 tick 记下，客户端扩展按屏幕上的比赛时钟（`game_places::clock::screen_tick`）到了那一 tick
 再画（league_eggs notice.rs 的做法）。屏幕那一场跑两遍，同样的一条只记一次；换了一场就扔掉上一场的。
 
@@ -164,7 +164,7 @@ league_addons 的 `BundleMatch` 转发比赛钩子、`BundleClient` 调画面；
 ### 游戏自己的文字（`text/`，用户：「击杀后名字显示也有问题」）
 
 游戏 0.7.0 的文字里叫莫尔加德（繁体莫加德、英文 Morgard）和双角巨蛇（蛇彭、Serpen）的键全部改掉，`mod.override_info` 按 merge 并进
-游戏的 `asset/base/text/object`、`ui`、`strategy`（附加包合集由 `assemble.py` 把各附加包的同名文字合成一份，各配一条 merge）：
+游戏的 `asset/base/text/object`、`ui`、`strategy`（本 mod 自己的 `mod.override_info` 各配一条 merge）：
 
 | 文件 | 键 | 改成 |
 |---|---|---|
@@ -183,7 +183,7 @@ league_addons 的 `BundleMatch` 转发比赛钩子、`BundleClient` 调画面；
 ### 公告（`src/notice.rs`，字在 `src/words.rs`）
 
 从 `feed` 来，按屏幕时钟到了那一 tick 才放；大字、小提示各一条道，几条挤在一起时排队。位置和彩蛋的公告一样（大字在高度 16% 处），
-附加包合集里彩蛋那条道上正放着东西时挪到它下面（合集的 `BundleClient` 把彩蛋在放什么传给 `screen::draw`）。
+彩蛋（在附加包合集里）那条道上正放着东西时挪到它下面（从 league_addons.dll 导出的 `league_addons_eggs_showing` 读，找到时日志一行 `EGGS`；合集没装就不挪）。
 
 | 事 | 样子 | 标题（简体） | 第二行 |
 |---|---|---|---|
@@ -225,11 +225,23 @@ base、attack 5 × 80、dead 8 × 80；莫尔加德另有 attack_left / attack_r
   都重画了，直接用会一闪一闪）；死亡帧照 Codex 的（躺下的几帧它画高了 19 格，压回地面），最后碎成块消散；男爵每帧按洋红的脊线对齐、
   底边压在坑口线上，向右攻击是向左的镜像，咬中的特效 7 帧照 Codex 的。
 - 待机：设计图呼吸（小龙上身沉 0 / 2 / 4 / 2 格，男爵整个往坑里沉同样多），照原生的节奏。
-- 换上去：`mod.override_info` 把 `asset/base/aseprite_resources/ingame/<名字>` 指到这些图（合集里是 `asset/league_addons/effects/`）；
+- 换上去：`mod.override_info` 把 `asset/base/aseprite_resources/ingame/<名字>` 指到这些图；
   显示钩子（`game_places::hook`，和妮蔻、佛耶戈同一个）每帧把资源名最后一段是 `serpen` 的显示实体换成这一刻的元素亚龙、`epic` 的换成
   `league_baron`（前缀照留）。显示世界收不到原生 buff，所以元素按屏幕时钟取 `feed` 里这一场到这一刻最近的一次「元素亚龙 / 远古巨龙
   出生」；读不到时钟或还没有出生事件（比如模组冲突）就不换。league.dll 0.9.25 起这 8 张图登记成高清，身体按 1 / PPU 画。
 - 日志：`SKIN … a drake on screen, resource "…"`（第一次见到时它原来的资源名）、`SKIN … drawn as …`（换成了哪张）、`SKIN on / off`。
+
+## 安装和开关（v0.3.0）
+
+本包是单独的 mod：`<Teamfight Manager2>/mods/league_dragons`，里面是 `league_dragons.dll`、`mod.mod_info`、`mod.override_info`、
+`effects/`（8 张模型图）、`text/`（改名字的三份文字）。从仓库做这个文件夹：`cargo build --release -p league_dragons`，再
+`python -I addons/league_addons/assemble.py OUT --standalone league_dragons`。要求主包 `league` ≥ 0.329.0（league.dll 0.9.25 起登记了
+这 8 张高清图）。
+
+- 在游戏的模组列表里关掉它：小龙、纳什男爵变回游戏原来的（规则、名字、公告、HUD、模型都没有），别的英雄、附加包不受影响。
+- 小龙 2:00 首刷、每 2 分钟一条，纳什男爵的小兵增益 120 秒，是改在自定义数据库和存档的游戏设置里的（`scratchpad` 的
+  `set_drakes.py`，安装时备份过），关掉本 mod 不会变回去：要原来的 4:00 / 4:00 和 60 秒，得把那两个值改回去。
+- 不要和创意工坊的「Elemental Drakes & Baron」同时开（本包检测到它就什么都不做，屏幕上黄色提示）。
 
 ## 怎么做的
 
@@ -288,7 +300,7 @@ base、attack 5 × 80、dead 8 × 80；莫尔加德另有 attack_left / attack_r
 
 ## 测试
 
-`cargo test -p league_dragons`（附加包合集的 `cargo test -p league_addons` 也跑一遍）：
+`cargo test -p league_dragons`：
 
 - 规则（`src/rules.rs`）：顺序（三个不同、同一个种子同样、每种元素都当过第一条和峡谷、第二条后都是峡谷的、龙魂后是远古）、每层的数值和
   海洋的回血、中和（2027 补丁的 4 + 1 两层取负加起来是 0、补丁加了生命和韧性：生命取负、韧性写出来）、龙魂正好 4 条且只给第一队、龙魂和
@@ -317,7 +329,7 @@ base、attack 5 × 80、dead 8 × 80；莫尔加德另有 attack_left / attack_r
 5. 预演和画面一样：league.log 里没有因为 `league_dragons_*` 的 buff 写出来的 DIVERGE。
 6. 创意工坊的「Elemental Drakes & Baron」关掉；没关的话日志 `CONFLICT`、本包什么都不做，屏幕上黄色的提示和 HUD 那一行。
 7. 名字：击杀记录「蓝方击杀了元素亚龙！」「红方击杀了纳什男爵！」，比赛里的大字、顶栏的纳什男爵增益计时、结算页和图表、百科都不再是
-   莫尔加德 / 双角巨蛇（附加包合集的文件夹里有 `text/object.i18n`、`ui.i18n`、`strategy.i18n`）。
+   莫尔加德 / 双角巨蛇（本 mod 的文件夹里有 `text/object.i18n`、`ui.i18n`、`strategy.i18n`）。
 8. 公告：每条小龙出现 / 被拿下的小提示（元素对、颜色对）、龙魂 / 远古巨龙 / 纳什男爵的大字、斩杀的红色提示；和彩蛋的公告同时出现时
    不叠（日志 `NOTE` 的 `eggs showing`）。
 9. HUD：左上角的框不挡时间控制、击杀记录和顶栏（日志 `HUD` 的位置和节点的位置），字看得清；拿着远古 / 男爵的人头像上的圆点（`HOLDER`）。
