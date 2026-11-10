@@ -49,8 +49,9 @@ pub mod hud;
 pub mod notice;
 pub mod screen;
 pub mod words;
-// 画面上的身体：小龙按元素、远古巨龙、纳什男爵换成 Codex 的模型（显示钩子）
+// 画面上的身体：小龙按元素、远古巨龙、纳什男爵换成 Codex 的模型（显示钩子），本包自己登记的高清帧
 pub mod skin;
+pub mod hd;
 
 use rules::{Element, Ev, HoldRec, Record, DRAKES};
 
@@ -1668,6 +1669,15 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    // its own dense frames since 0.3.5 (the user: 「不行 你要改成不依赖主包的」「就是用原版英雄也能用这个大小龙」): the 8 sheets
+    // to the engine league.dll and tft.dll share - it hooks the game from here, or hands the table to the pack DLL that did -
+    // before the display hook below swaps the slot (src/hd.rs)
+    #[cfg(all(windows, not(league_bundle)))]
+    match hd_engine::start(&hd::table(), &format!("league_dragons.dll {VERSION}"), |m: &str| wlog(m)) {
+        hd_engine::Role::Host => wlog("HD: dense frames for the dragons, hooked here (no League / TFT pack DLL before this one)"),
+        hd_engine::Role::Guest { host: by, .. } => wlog(format!("HD: dense frames for the dragons, drawn by {by}")),
+        hd_engine::Role::Off(why) => wlog(format!("HD: the dragons' 1x frames - {why}")),
+    }
     // its own mod since 0.3.0 (the user: 「把我们的龙魂也单独做成mod开关啊」): its own match hook and client extension
     #[cfg(not(league_bundle))]
     {
