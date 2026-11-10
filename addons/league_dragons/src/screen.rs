@@ -127,6 +127,10 @@ pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
     }
     let Some(t) = game_places::clock::screen_tick() else { return };
     let Some((m, s)) = feed::current() else { return };
+    // the match over on screen (the result screen still counts as in game, its clock still reads): no notice, HUD or dot
+    if hud::over(feed::ended_at(m, s), t) {
+        return;
+    }
     let events = feed::events(m, s);
     let rec = feed::record_at(m, s, t);
     if events.is_empty() && rec.is_none() {

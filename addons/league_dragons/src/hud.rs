@@ -77,6 +77,15 @@ pub fn hud(rec: &Record, t: usize) -> Hud {
     }
 }
 
+/// 屏幕时钟只到整秒：模拟结束前这么多 tick 起就算比赛结束了（[`over`]）。
+pub const END_MARGIN: usize = 60;
+
+/// 屏幕上这一场结束了没有：模拟结束在 `end`（[`super::feed::ended_at`]），屏幕时钟 `t` 到了它前一秒。倒回去看回放时
+/// `t` 小了，又画（用户 2026-11-10：「这东西一局对战结束了 还显示啊」）。
+pub fn over(end: Option<usize>, t: usize) -> bool {
+    end.is_some_and(|e| t + END_MARGIN >= e)
+}
+
 /// 要不要画：这一局到 `t` 有过大小龙的事，或者状态记录里有东西（活着的小龙 / 纳什男爵、层数、龙魂、远古 / 男爵、冲突）。
 /// 没有小龙的模式里状态记录也写着（开局一份），但什么都没有：不画。
 pub fn visible(rec: &Record, events: &[Event], t: usize) -> bool {
@@ -335,6 +344,15 @@ mod tests {
         assert_eq!(hud(&r, 200).soul_next, Element::from_code(4), "two taken: the rift's element");
         r.soul = Some((0, 4));
         assert_eq!(hud(&r, 200).soul_next, None, "claimed: the soul piece instead");
+    }
+
+    #[test]
+    fn nothing_shows_once_the_match_is_over() {
+        assert!(!over(None, 99_999), "not over yet");
+        assert!(!over(Some(40_878), 40_000), "playing");
+        assert!(over(Some(40_878), 40_818), "the clock's last second");
+        assert!(over(Some(40_878), 40_919), "the result screen");
+        assert!(!over(Some(40_878), 20_000), "wound back in the replay: drawn again");
     }
 
     #[test]
