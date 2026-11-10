@@ -20,15 +20,23 @@
 //!   （每节 `LINK_STEP` 远，投射物画面会转向）。他走出离灵魂 `e_leash` 外，或灵魂的 `e_t` tick 到了，就去掉
 //!   `e_spirit`、挂 `e_vessel`（`e_vt` tick），播灵魂碎裂，身边长一条触手。
 //!
+//! - **两张 5v5 地图**（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：第一次长触手时按这局的塔和水晶判断是哪张图
+//!   （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧（三张内置地图里挑）；Rin 的召唤师峡谷（1614545 见方）用峡谷
+//!   作者的墙体文件（`terrain::rift_walls`，295 x 296 格、每格 60000/11：找墙边、贴墙靠的 0.35 格都按它的格子），没有文件时
+//!   峡谷上不知道哪里有墙，触手都长在她身边（以前拿内置地图：峡谷近半边贴的是内置地图的墙、那里其实是空地）。
+//!
 //! 每个计时都在被动自己身上（被动跟着单位、每局一份，游戏并行跑的几局互不相干），不用全局变量。
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_illaoi.log`，每次启动游戏重写，上一次的留在 .prev.log。
 
+use std::borrow::Cow;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
 #[path = "../../league_camille_wall/src/maps.rs"]
@@ -54,7 +62,7 @@ pub const LINK_STEP: f64 = 10_000.0;
 pub const TURN: f64 = 300.0;
 /// 灵魂挨打时飞回本体的鬼手多快（一 tick）。
 pub const PULSE_SPEED: u64 = 8_000;
-/// 墙格子每格的世界单位（地图的 `walls`，卡密尔附加包同）。
+/// 游戏自己的地图的墙格子每格的世界单位（地图的 `walls`，卡密尔附加包同）。
 const CELL: f64 = 32000.0;
 
 fn il(x: &str) -> String {
@@ -227,15 +235,26 @@ pub fn parse_params(json: &str) -> Params {
 
 // ===================== 墙（单元测试用） =====================
 
-/// 一张墙格子：`cells[y][x]` 为真是墙（`maps.rs` 的 `#`）。
+/// 一张墙格子：`cells[y][x]` 为真是墙（`maps.rs` 的 `#`），每格 `cell` 见方，(0, 0) 格的角在 `origin`（游戏自己的地图
+/// 32000、(0, 0)；峡谷的墙体文件 60000/11、(30000/11, 0)）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Walls {
     pub cells: Vec<Vec<bool>>,
+    pub cell: f64,
+    pub origin: (f64, f64),
 }
 
 impl Walls {
     pub fn from_rows(rows: &[&str]) -> Walls {
-        Walls { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect() }
+        Walls { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), cell: CELL, origin: (0.0, 0.0) }
+    }
+
+    /// 峡谷的墙：有墙体文件就是文件的墙格；没有就是一格地图大小的空地（不知道哪里有墙：触手都长在她身边）。
+    pub fn rift(walls: Option<&terrain::Walls>) -> Walls {
+        match walls {
+            Some(w) => Walls { cells: w.cells.clone(), cell: w.cell, origin: w.origin },
+            None => Walls { cells: vec![vec![false]], cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0) },
+        }
     }
 
     fn wall_at(&self, cx: i64, cy: i64) -> bool {
@@ -247,10 +266,11 @@ impl Walls {
 
     /// 世界坐标在墙里吗（地图外算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
+        let (x, y) = (x - self.origin.0, y - self.origin.1);
         if x < 0.0 || y < 0.0 {
             return true;
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        let (cx, cy) = ((x / self.cell) as usize, (y / self.cell) as usize);
         self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
@@ -258,10 +278,12 @@ impl Walls {
         self.cells.iter().flatten().filter(|c| **c).count()
     }
 
-    /// `at` 附近 `reach` 内离 `at` 最近的墙边：挨着墙（上下左右）的空地格子的中心，往墙那边靠半格（触手贴着墙）。
+    /// `at` 附近 `reach` 内离 `at` 最近的墙边：挨着墙（上下左右）的空地格子的中心，往墙那边靠半格（触手贴着墙）。只看
+    /// `reach` 以内的格子（峡谷的格子小：60000 的半径约 25 x 25 格）。
     pub fn edge_near(&self, at: (f64, f64), reach: f64) -> Option<(f64, f64)> {
-        let (cx, cy) = ((at.0 / CELL).floor() as i64, (at.1 / CELL).floor() as i64);
-        let k = (reach / CELL).ceil() as i64 + 1;
+        let (ox, oy, cell) = (self.origin.0, self.origin.1, self.cell);
+        let (cx, cy) = (((at.0 - ox) / cell).floor() as i64, ((at.1 - oy) / cell).floor() as i64);
+        let k = (reach / cell).ceil() as i64 + 1;
         let mut best: Option<((f64, f64), f64)> = None;
         for y in cy - k..=cy + k {
             for x in cx - k..=cx + k {
@@ -281,7 +303,7 @@ impl Walls {
                 }
                 let n = toward.len() as f64;
                 let (sx, sy) = toward.iter().fold((0.0, 0.0), |a, b| (a.0 + b.0, a.1 + b.1));
-                let spot = ((x as f64 + 0.5 + 0.35 * sx / n) * CELL, (y as f64 + 0.5 + 0.35 * sy / n) * CELL);
+                let spot = (ox + (x as f64 + 0.5 + 0.35 * sx / n) * cell, oy + (y as f64 + 0.5 + 0.35 * sy / n) * cell);
                 let d = dist(spot, at);
                 if d <= reach && best.is_none_or(|(_, bd)| d < bd) {
                     best = Some((spot, d));
@@ -309,6 +331,17 @@ pub fn pick(points: &[(f64, f64)]) -> Walls {
         .min_by(|a, b| a.0.cmp(&b.0).then(b.1.cmp(&a.1)))
         .map(|(_, _, w)| w)
         .unwrap_or_else(|| builtin(GameModeKindV1::Moba))
+}
+
+/// 峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
+static RIFT_WALLS: LazyLock<Walls> = LazyLock::new(|| Walls::rift(terrain::rift_walls()));
+
+/// 这局的墙：峡谷（`map`）上是峡谷的（`rift`，第一次要时才取），游戏自己的地图照旧按单位的位置挑（[`pick`]）。
+pub fn walls_for(map: Map, rift: impl FnOnce() -> &'static Walls, points: &[(f64, f64)]) -> Cow<'static, Walls> {
+    match map {
+        Map::Rift => Cow::Borrowed(rift()),
+        Map::Native => Cow::Owned(pick(points)),
+    }
 }
 
 pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
@@ -464,7 +497,8 @@ struct Lash {
 #[derive(Clone, Default)]
 struct Prophet {
     p: Params,
-    walls: Option<Walls>,
+    /// 这局的墙（第一次长触手时定下；峡谷的是共用的那一份）。
+    walls: Option<Cow<'static, Walls>>,
     tentacles: Vec<Tentacle>,
     spirits: Vec<Spirit>,
     marked: Vec<(usize, usize)>,
@@ -563,10 +597,18 @@ impl Prophet {
         echo_fx(sim, me, s.spot, body);
     }
 
-    fn walls(&mut self, us: &[Unit]) -> &Walls {
+    fn walls(&mut self, sim: &StableSim<'_>, us: &[Unit]) -> &Walls {
         if self.walls.is_none() {
+            let map = terrain::map_of_sim(sim);
+            if map == Map::Rift {
+                static MET: AtomicBool = AtomicBool::new(false);
+                if !MET.swap(true, Ordering::Relaxed) {
+                    wlog(format!("== Rift: tentacles grow on the Rift's walls' edges (from its walls file; with no file \
+                                  no wall is known there and they grow beside her); {} ==", terrain::rift_status()));
+                }
+            }
             let points: Vec<(f64, f64)> = us.iter().map(|u| u.pos).collect();
-            self.walls = Some(pick(&points));
+            self.walls = Some(walls_for(map, || &*RIFT_WALLS, &points));
         }
         self.walls.as_ref().unwrap()
     }
@@ -574,7 +616,7 @@ impl Prophet {
     /// 在 `near` 附近长一条触手：先找墙边，没有就在 `fallback`；多了就让最老的那条沉下去。
     fn grow(&mut self, sim: &mut StableSim<'_>, me: usize, us: &[Unit], near: (f64, f64), fallback: (f64, f64), why: &str) {
         let reach = self.p.p_reach as f64;
-        let edge = self.walls(us).edge_near(near, reach);
+        let edge = self.walls(sim, us).edge_near(near, reach);
         let pos = edge.unwrap_or(fallback);
         let tick = sim.tick();
         while self.tentacles.len() >= self.p.t_most {
@@ -938,6 +980,90 @@ mod tests {
         let w = pick(&[(16000.0, 16000.0), (944000.0, 944000.0), (480000.0, 160000.0)]);
         assert_eq!(w, builtin(GameModeKindV1::Moba));
         assert_eq!(builtin(GameModeKindV1::Moba).count(), 90);
+    }
+
+    /// 世界坐标的一个矩形：(左上, 右下)。
+    type Rect = ((f64, f64), (f64, f64));
+
+    /// 峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// （世界坐标的 (左上, 右下)）里的格子是墙。
+    fn rift_walls(rects: &[Rect]) -> terrain::Walls {
+        let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
+        let rows: Vec<String> = (0..296)
+            .map(|cy| {
+                (0..295)
+                    .map(|cx| {
+                        let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
+                        let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
+                        if wall { '#' } else { '.' }
+                    })
+                    .collect()
+            })
+            .collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        terrain::Walls::from_rows(&rows, cell, origin, (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
+    }
+
+    #[test]
+    fn on_the_rift_tentacles_grow_on_the_rifts_walls_edges() {
+        // a wall in the Rift's far half, its west face 20000 east of her
+        let w = Walls::rift(Some(&rift_walls(&[((1_300_000.0, 1_100_000.0), (1_330_000.0, 1_200_000.0))])));
+        let her = (1_280_000.0, 1_150_000.0);
+        let e = w.edge_near(her, 60_000.0).expect("an edge of the Rift's wall");
+        assert!(!w.is_wall(e.0, e.1) && w.is_wall(e.0 + 0.2 * w.cell, e.1), "against the wall's face: {e:?}");
+        assert!((e.0 - 1_300_000.0).abs() < w.cell && (e.1 - her.1).abs() < w.cell, "{e:?}");
+        // the edge search looks only within reach: nothing found 60000 off
+        assert_eq!(w.edge_near((1_200_000.0, 1_150_000.0), 60_000.0), None);
+        // past 960000 it is the map on the Rift (the game's own grid called it all rock), and a wall of the game's own
+        // 5v5 map is none on it
+        assert!(!w.is_wall(1_000_000.0, 1_000_000.0) && builtin(GameModeKindV1::Moba).is_wall(1_000_000.0, 1_000_000.0));
+        let native = (15.5 * CELL, 3.5 * CELL);
+        assert!(builtin(GameModeKindV1::Moba).is_wall(native.0, native.1) && !w.is_wall(native.0, native.1));
+        assert!(builtin(GameModeKindV1::Moba).edge_near((native.0 - 40_000.0, native.1), 60_000.0).is_some());
+        assert_eq!(w.edge_near((native.0 - 40_000.0, native.1), 60_000.0), None);
+    }
+
+    /// 峡谷真的墙：开发者用 `LEAGUE_RIFT_WALLS` 指着作者的墙体文件时才跑（CI 没有文件，跳过）。
+    #[test]
+    fn on_the_rifts_real_walls_tentacles_stand_on_their_edges() {
+        let Some(path) = std::env::var_os(terrain::RIFT_WALLS_ENV) else { return };
+        let w = Walls::rift(Some(&terrain::load_rift_walls(&[path.into()]).unwrap()));
+        let (mut spots, mut edges) = (0, 0);
+        let mut y = 20_000.0;
+        while y < terrain::RIFT_EXTENT {
+            let mut x = 20_000.0;
+            while x < terrain::RIFT_EXTENT {
+                if !w.is_wall(x, y) {
+                    spots += 1;
+                    if let Some(e) = w.edge_near((x, y), 60_000.0) {
+                        assert!(!w.is_wall(e.0, e.1) && dist(e, (x, y)) <= 60_000.0, "({x},{y}) -> {e:?}");
+                        edges += 1;
+                    }
+                }
+                x += 40_000.0;
+            }
+            y += 40_000.0;
+        }
+        assert!(spots > 300 && edges > spots / 2, "{edges} edges from {spots} spots");
+    }
+
+    #[test]
+    fn on_the_rift_without_its_walls_file_tentacles_grow_beside_her() {
+        let open = Walls::rift(None);
+        for at in [(1_280_000.0, 1_150_000.0), (100_000.0, 100_000.0), (1_600_000.0, 1_600_000.0)] {
+            assert_eq!(open.edge_near(at, 60_000.0), None, "{at:?}");
+        }
+        assert!(!open.is_wall(1_500_000.0, 1_500_000.0) && open.is_wall(1_614_546.0, 10.0) && open.is_wall(-1.0, 10.0));
+    }
+
+    #[test]
+    fn the_rift_takes_its_own_walls_and_the_games_map_its_pick() {
+        static TEST_RIFT: LazyLock<Walls> = LazyLock::new(|| Walls::rift(None));
+        let corners = [(16000.0, 16000.0), (944000.0, 944000.0), (480000.0, 160000.0)];
+        let w = walls_for(Map::Rift, || &*TEST_RIFT, &corners);
+        assert!(matches!(w, Cow::Borrowed(_)) && std::ptr::eq(&*w, &*TEST_RIFT));
+        assert_eq!(*walls_for(Map::Native, || panic!("the Rift's walls read on the game's own map"), &corners),
+                   builtin(GameModeKindV1::Moba));
     }
 
     #[test]

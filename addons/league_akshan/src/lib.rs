@@ -30,6 +30,10 @@
 //! 永远不复活）。任何一步对不上就不写，只在日志里记一次：最坏只是不复活，不会出错。复活走的是游戏自己的复活流程（新英雄、满血、
 //! 等级装备不变）。比赛会被重算好几遍（预演、观看、回放）：只在模拟里的被动钩子里写，用的都是模拟里的数据，结果每遍一样。
 //!
+//! **两张 5v5 地图**（2026-11-10）：子弹飞到的地图边、E 荡的弧线夹的边、钩点偏向的地图中间，都按这一场的地图
+//! （`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，Rin 的召唤师峡谷 1614545 见方）；以前一律按 960000，
+//! 峡谷上过了 960000 的子弹停在半张图的边上、荡到一半被夹回去。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_akshan.log`，每次启动游戏重写，上一次的留在 .prev.log：`LAYOUT`
 //! （找到的偏移）、`MARK`、`REVIVE`、`VIEW`、`BANNER`、`REFRESH`、`R FIRE`、`R HELD` / `R CAST`、`R AIM`、`BULLET`、`R DONE`、
 //! `R MISS`、`SWING`（开始；被打断时带上身上的控制种类），限了条数；屏幕上放的那一场不限（0.2.7，`logged`）。
@@ -38,8 +42,10 @@ use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 pub mod banner;
@@ -133,6 +139,7 @@ pub const FIRE_T: usize = R_GAP + 1;
 const R_DONE_WAIT: usize = 12;
 /// How long the lock and the bullet counters stay on him.
 const R_BOOK_T: usize = 300;
+/// The game's own 5v5 map's side; the Rift's is `Map::extent` (the bullets stop at the edge of the map they fly on).
 const MAP_END: f64 = 960_000.0;
 const MARK_T: usize = 3600;
 const REVIVE_T: u64 = 60;
@@ -151,9 +158,8 @@ pub const ROPE_R: f64 = 42_000.0;
 const SWEEP: f64 = 2.0 * std::f64::consts::PI / 3.0; // 120 degrees round the hook
 const HOOK_OFF: f64 = std::f64::consts::PI / 3.0; // the hook 60 degrees off the line to the target
 const HAND: f64 = 20_000.0; // the rope at his hand's height (raised on the screen)
+/// The swing stays this far inside the map's edges (10000 .. side - 10000: 950000 on the game's own map).
 const MAP_LO: f64 = 10_000.0;
-const MAP_HI: f64 = 950_000.0;
-const MAP_MID: (f64, f64) = (480_000.0, 480_000.0);
 const HARD: [CcKindV1; 8] = [
     CcKindV1::Airborne,
     CcKindV1::Stun,
@@ -239,6 +245,20 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     };
     let m = |v: u64| if v == SimOriginV1::NONE { "-".to_string() } else { v.to_string() };
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
+}
+
+/// This launch's log has told the Rift already.
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// The map this sim plays on; the first Rift a launch, a line in the log.
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: R's bullets fly to the Rift's edge, E's swing stays {MAP_LO:.0} inside the Rift's {:.0} \
+                      square and its hook leans to the Rift's middle (not the game's own {MAP_END:.0}); {} ==",
+                     map.extent(), rift_status()));
+    }
+    map
 }
 
 /// The sims the screen replays (the client's own match view, spectating, a replay) - not the server's presims nor the
@@ -684,13 +704,19 @@ fn bullet_target(sim: &StableSim<'_>, me: usize) -> Option<(usize, bool)> {
         .map(|t| (t.id(), false))
 }
 
-/// 子弹的终点：从他朝目标飞 R_REACH，到地图边就停在边上（方向不变）。
+/// 游戏自己的地图上的 [`bullet_end_on`]。
 pub fn bullet_end(from: (f64, f64), to: (f64, f64)) -> (u64, u64) {
+    bullet_end_on(Map::Native, from, to)
+}
+
+/// 子弹的终点：从他朝目标飞 R_REACH，到 `map` 的边就停在边上（方向不变）。
+pub fn bullet_end_on(map: Map, from: (f64, f64), to: (f64, f64)) -> (u64, u64) {
     let (dx, dy) = (to.0 - from.0, to.1 - from.1);
     let d = (dx * dx + dy * dy).sqrt();
     let (ux, uy) = if d < 1.0 { (1.0, 0.0) } else { (dx / d, dy / d) };
     let r = R_REACH as f64;
-    let room = |p: f64, u: f64| if u > 0.0 { (MAP_END - p) / (u * r) } else if u < 0.0 { -p / (u * r) } else { 1.0 };
+    let end = map.extent();
+    let room = |p: f64, u: f64| if u > 0.0 { (end - p) / (u * r) } else if u < 0.0 { -p / (u * r) } else { 1.0 };
     let t = room(from.0, ux).min(room(from.1, uy)).clamp(0.0, 1.0);
     ((from.0 + ux * r * t).round().max(0.0) as u64, (from.1 + uy * r * t).round().max(0.0) as u64)
 }
@@ -783,7 +809,7 @@ fn aim(sim: &mut StableSim<'_>, me: usize) {
     let from = (at.0 as f64, at.1 as f64);
     let v = walk_of(sim, me, id);
     let ahead = lead(from, (to.0 as f64, to.1 as f64), v, R_SPEED as f64);
-    let end = bullet_end(from, ahead);
+    let end = bullet_end_on(map_here(sim), from, ahead);
     let spec = ProjectileSpawnV1 {
         caster_id: me,
         team,
@@ -879,9 +905,16 @@ fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
+/// 游戏自己的地图上的 [`swing_plan_on`]。
+pub fn swing_plan(me: (f64, f64), target: (f64, f64)) -> ((f64, f64), f64, f64) {
+    swing_plan_on(Map::Native, me, target)
+}
+
 /// 荡的安排：(钩点, 起始角, 方向 ±1)。钩点在他身边 ROPE_R 处、偏离指向目标的方向 HOOK_OFF（两边各试一次），绕钩点转
 /// SWEEP；钩点在他上方（屏幕上靠上、离镜头远的一侧，绳子从手往上拉，像荡秋千），其中选荡完离目标最近的那种（一样近时选钩点靠地图中间的）。英雄联盟里钩点是墙，TFM2 的地图没有这种墙，就挂在这一点。
-pub fn swing_plan(me: (f64, f64), target: (f64, f64)) -> ((f64, f64), f64, f64) {
+/// 地图中间是 `map` 的中间。
+pub fn swing_plan_on(map: Map, me: (f64, f64), target: (f64, f64)) -> ((f64, f64), f64, f64) {
+    let mid = map.center();
     let (dx, dy) = (target.0 - me.0, target.1 - me.1);
     let d = (dx * dx + dy * dy).sqrt();
     let base = if d < 1.0 { 0.0 } else { dy.atan2(dx) };
@@ -896,7 +929,7 @@ pub fn swing_plan(me: (f64, f64), target: (f64, f64)) -> ((f64, f64), f64, f64) 
             // the hook above him on the screen (a smaller y: farther from the camera) - the rope rises from his hand like a
             // swing's; below him it lay along his body down to his feet (「看着这么奇怪」)
             let below = if a.1 > me.1 { 100_000.0 } else { 0.0 };
-            let score = dist(end, target) + below + 0.1 * dist(a, MAP_MID);
+            let score = dist(end, target) + below + 0.1 * dist(a, mid);
             if best.is_none_or(|b| score < b.0) {
                 best = Some((score, a, a0, dir));
             }
@@ -906,10 +939,16 @@ pub fn swing_plan(me: (f64, f64), target: (f64, f64)) -> ((f64, f64), f64, f64) 
     (a, a0, dir)
 }
 
-/// 荡了 age tick 时他在哪（夹在地图里）。
+/// 游戏自己的地图上的 [`swing_at_on`]。
 pub fn swing_at(a: (f64, f64), a0: f64, dir: f64, age: usize) -> (f64, f64) {
+    swing_at_on(Map::Native, a, a0, dir, age)
+}
+
+/// 荡了 age tick 时他在哪（夹在 `map` 里，离边 MAP_LO）。
+pub fn swing_at_on(map: Map, a: (f64, f64), a0: f64, dir: f64, age: usize) -> (f64, f64) {
     let th = a0 + dir * SWEEP * (age.min(SWING_T) as f64) / SWING_T as f64;
-    ((a.0 + ROPE_R * th.cos()).clamp(MAP_LO, MAP_HI), (a.1 + ROPE_R * th.sin()).clamp(MAP_LO, MAP_HI))
+    let hi = map.extent() - MAP_LO;
+    ((a.0 + ROPE_R * th.cos()).clamp(MAP_LO, hi), (a.1 + ROPE_R * th.sin()).clamp(MAP_LO, hi))
 }
 
 fn sw_name(a: (f64, f64), a0: f64, dir: f64, t0: usize) -> String {
@@ -952,7 +991,7 @@ fn swing_start(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         _ => None,
     };
     let Some(t) = target else { return };
-    let (a, a0, dir) = swing_plan((here.0 as f64, here.1 as f64), (t.0 as f64, t.1 as f64));
+    let (a, a0, dir) = swing_plan_on(map_here(sim), (here.0 as f64, here.1 as f64), (t.0 as f64, t.1 as f64));
     for n in old {
         sim.entity_remove_buff(me, &n);
     }
@@ -1446,7 +1485,7 @@ fn swing_tick(sim: &mut StableSim<'_>, me: usize) {
         }
         return;
     }
-    let p = swing_at(a, a0, dir, age);
+    let p = swing_at_on(map_here(sim), a, a0, dir, age);
     sim.entity_set_pos(me, p.0.round() as u64, p.1.round() as u64);
     if !rope(sim, me, p, a) {
         if let Some(k) = logged(sim, "rope_refused") {
@@ -1751,6 +1790,42 @@ mod tests {
         assert!(name.len() <= 64, "{name}");
         let (pa, pa0, pdir, pt0) = parse_sw(&name).unwrap();
         assert!(dist(pa, a) < 1.0 && (pa0 - a0).abs() < 0.001 && pdir == dir && pt0 == 1234);
+    }
+
+    #[test]
+    fn on_the_rift_the_swing_and_the_bullets_use_its_bigger_square() {
+        // a swing in the Rift's far half: on the rope all the way, not held at the game's own 950000
+        let me = (1_300_000.0, 1_400_000.0);
+        let t = (1_360_000.0, 1_400_000.0);
+        let (a, a0, dir) = swing_plan_on(Map::Rift, me, t);
+        assert!(a.1 < me.1, "the hook is not above him: {a:?}");
+        assert!(dist(swing_at_on(Map::Rift, a, a0, dir, 0), me) < 2.0);
+        let end = swing_at_on(Map::Rift, a, a0, dir, SWING_T);
+        assert!((dist(end, a) - ROPE_R).abs() < 2.0 && dist(end, t) < dist(me, t), "{end:?}");
+        assert_eq!(swing_at(a, a0, dir, SWING_T), (MAP_END - MAP_LO, MAP_END - MAP_LO), "the game's own map holds him");
+        // the Rift's own edges, MAP_LO inside
+        let rift = Map::Rift.extent();
+        let edge = swing_at_on(Map::Rift, (rift, rift), 0.0, 1.0, 0);
+        assert_eq!(edge, (rift - MAP_LO, rift - MAP_LO));
+        // a tie between the two hooks goes to the one nearer the middle of the map he swings on
+        let (me, up) = ((700_000.0, 900_000.0), (700_000.0, 840_000.0));
+        assert!(swing_plan(me, up).0 .0 < me.0, "the game's own middle (480000) is to the west");
+        assert!(swing_plan_on(Map::Rift, me, up).0 .0 > me.0, "the Rift's middle (807272) is to the east");
+        assert_eq!(swing_plan_on(Map::Native, me, up), swing_plan(me, up));
+        // the buffs' names with the Rift's seven-digit places still fit the game's 64 bytes and read back
+        let name = sw_name((1_614_544.0, 1_614_544.0), -2.618, -1.0, 123_456);
+        assert!(name.len() <= BUFF_NAME_CAP, "{name}");
+        assert!(parse_sw(&name).is_some_and(|(pa, _, _, t0)| pa == (1_614_544.0, 1_614_544.0) && t0 == 123_456));
+        let p = path_name(123_456, (1_614_544, 1_614_544), (1_614_544, 0));
+        assert!(p.len() <= BUFF_NAME_CAP, "{p}");
+        assert_eq!(parse_path(&p), Some((123_456, (1_614_544.0, 1_614_544.0), (1_614_544.0, 0.0))));
+        // the bullets: the full reach past 960000 on the Rift, stopped at the Rift's own edge
+        let (x, y) = bullet_end_on(Map::Rift, (900_000.0, 500_000.0), (930_000.0, 540_000.0));
+        assert!((x as f64 - 900_000.0 - 0.6 * R_REACH as f64).abs() < 2.0 && (y as f64 - 500_000.0 - 0.8 * R_REACH as f64).abs() < 2.0);
+        assert_eq!(bullet_end((900_000.0, 500_000.0), (930_000.0, 540_000.0)).0, 960_000, "the game's own edge");
+        let (x, y) = bullet_end_on(Map::Rift, (1_554_545.0, 500_000.0), (1_584_545.0, 540_000.0));
+        assert_eq!(x, rift as u64);
+        assert!((y as f64 - 580_000.0).abs() < 2.0, "{y}");
     }
 
     #[test]

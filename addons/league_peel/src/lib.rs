@@ -27,6 +27,10 @@
 //! 0.2.2（用户 2026-11-08「还是有卡回城的BUG啊」）：回城引导时游戏的 AI 大多数 tick 不下指令，那些空 tick 被当成「没事干」，射手挨打时把正在
 //! 回城的辅助拉去射手身边，回城断掉、AI 再按。现在从回城命令到 AI 下别的命令为止都不管（`still_recalling`）。
 //!
+//! 两张 5v5 地图（2026-11-10）：按这一场的地图（每份模拟看一次 `game_places::terrain::map_of_sim`）：「在地图上」的上限是
+//! `Map::limit`（游戏自己的地图照旧 `MAP_MAX` 1200000，Rin 的召唤师峡谷 1.25 x 1614545；以前一律 1200000，峡谷上红方半边的
+//! 射手、敌人全看不见），「走回家」的 `HOME_NEAR` 跟着地图放大（`Map::scale`：峡谷的基地大 1.68 倍，泉水离基地更远）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_peel.log`（每次启动重写，上一次的留在 .prev.log）。
 //! 只记服务器预演：射手每被贴脸一次（同一个保镖 `GAP` 内算一次）记下游戏 AI 原本让保镖做什么——这就是看游戏 AI 自己
 //! 会不会保护射手；前 `DETAIL_LINES` 次各一行，每 `SUM_EVERY` 次一行汇总，汇总也追加到不随启动重写的 league_peel.sum.log。
@@ -38,6 +42,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_peel";
@@ -78,9 +83,9 @@ pub const ESCORT_REACH: f64 = 150_000.0;
 pub const ESCORT_HP: usize = 40;
 /// 辅助这么近有看得见的敌方英雄就在打自己的架：不拉它走。
 pub const ESCORT_CALM: f64 = 60_000.0;
-/// 走路的目的地离自家基地这么近 = 回家（补给、回城路上）：不拦。
+/// 走路的目的地离自家基地这么近 = 回家（补给、回城路上）：不拦。游戏自己的地图上的；峡谷上乘 `Map::scale`（基地跟着地图大）。
 pub const HOME_NEAR: f64 = 120_000.0;
-/// 地图外的坐标（死了、在泉水外面之类）不算。
+/// 游戏自己的地图外的坐标（死了、在泉水外面之类）不算（= `Map::Native.limit()`；这一场的看 `Map::limit`）。
 pub const MAP_MAX: f64 = 1_200_000.0;
 const TOP: u32 = 0;
 const JUNGLE: u32 = 1;
@@ -97,8 +102,39 @@ pub fn dist(a: Pos, b: Pos) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-fn on_map(p: Pos) -> bool {
-    (0.0..=MAP_MAX).contains(&p.0) && (0.0..=MAP_MAX).contains(&p.1)
+/// 在地图上：0..=`limit`（`Map::limit`：游戏自己的地图 `MAP_MAX`）。
+fn on_map(p: Pos, limit: f64) -> bool {
+    (0.0..=limit).contains(&p.0) && (0.0..=limit).contains(&p.1)
+}
+
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这个钩子实例所在那份模拟的地图：每份模拟看一次（按种子和来处认：实例可能跨场），第一次碰到峡谷（一次启动）时日志写一行。
+#[derive(Clone, Copy, Default)]
+struct MapOf(Option<(SimKey, Map)>);
+
+/// 一份模拟：种子和来处（kind、match、replay、set）。
+type SimKey = (u64, u32, u64, u64, u64);
+
+impl MapOf {
+    fn get(&mut self, sim: &StableSim<'_>) -> Map {
+        let o = sim.sim_origin().unwrap_or_default();
+        let key = (sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index);
+        match self.0 {
+            Some((k, map)) if k == key => map,
+            _ => {
+                let map = map_of_sim(sim);
+                if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+                    wlog(format!("== Rift: champions count as on the map up to {:.0} (1.25 x the Rift's side, not the game's \
+                                  own {MAP_MAX:.0}), a walk home is one within {:.0} of our nexus (HOME_NEAR x {:.2}); {} ==",
+                                 map.limit(), HOME_NEAR * map.scale(), map.scale(), rift_status()));
+                }
+                self.0 = Some((key, map));
+                map
+            }
+        }
+    }
 }
 
 // ===================== 决定 =====================
@@ -143,8 +179,10 @@ pub fn classify(base: Option<&InputV1>, diver: usize, diver_at: Pos, me: Pos) ->
 }
 
 /// 这一 tick 场上和这个保镖有关的东西。
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct View {
+    /// 这一场的地图（`HOME_NEAR` 跟着它的 `scale`）。
+    pub map: Map,
     pub me: Pos,
     pub hp_pct: usize,
     /// 自己的位置（LaneV1 代码）。
@@ -161,6 +199,24 @@ pub struct View {
     pub enemies: Vec<(usize, Pos)>,
     /// 自家基地。
     pub home: Option<Pos>,
+}
+
+impl Default for View {
+    /// 什么都没看到，在游戏自己的地图上。
+    fn default() -> Self {
+        View {
+            map: Map::Native,
+            me: (0.0, 0.0),
+            hp_pct: 0,
+            lane: 0,
+            carry: None,
+            carry_hp: 0,
+            hurt: false,
+            diver: None,
+            enemies: Vec::new(),
+            home: None,
+        }
+    }
 }
 
 /// 保镖这次要管就给出贴脸的人：射手在挨打、位置对、血量够、够得着。
@@ -217,7 +273,7 @@ pub fn escort(v: &View, base: Option<&InputV1>) -> Option<InputV1> {
         let to = (b.x as f64, b.y as f64);
         let moving = b.kind == InputKindV1::Move.code();
         let walking_to = moving && dist(to, carry) <= ESCORT_NEAR;
-        let home = moving && v.home.is_some_and(|h| dist(to, h) <= HOME_NEAR);
+        let home = moving && v.home.is_some_and(|h| dist(to, h) <= HOME_NEAR * v.map.scale());
         let fighting = b.target.kind == InputTargetKindV1::Target.code() && v.enemies.iter().any(|e| e.0 == b.target.target_id);
         if b.kind == InputKindV1::Return.code() || walking_to || home || fighting {
             return None;
@@ -234,7 +290,8 @@ fn own_nexus(sim: &StableSim<'_>, team: usize) -> Option<Pos> {
     })
 }
 
-fn look(sim: &StableSim<'_>, player: usize, team: usize) -> Option<View> {
+/// One look from `player`'s guard on `map` (champions past its `limit` are off the map).
+fn look(sim: &StableSim<'_>, player: usize, team: usize, map: Map) -> Option<View> {
     let me_p = sim.get_player(player)?;
     let champ = me_p.champion()?;
     if !champ.is_alive() {
@@ -243,11 +300,13 @@ fn look(sim: &StableSim<'_>, player: usize, team: usize) -> Option<View> {
     let (hp, max) = champ.hp();
     let (x, y) = champ.pos();
     let mut v = View {
+        map,
         me: (x as f64, y as f64),
         hp_pct: if max > 0 { hp * 100 / max } else { 0 },
         lane: me_p.lane()?.code(),
         ..View::default()
     };
+    let limit = map.limit();
     let mut enemies: Vec<(usize, Pos)> = Vec::new();
     for i in 0..sim.player_count() {
         let Some(p) = sim.player_at(i) else { continue };
@@ -257,7 +316,7 @@ fn look(sim: &StableSim<'_>, player: usize, team: usize) -> Option<View> {
         }
         let (x, y) = c.pos();
         let at = (x as f64, y as f64);
-        if !on_map(at) {
+        if !on_map(at, limit) {
             continue;
         }
         if p.team() == team {
@@ -447,6 +506,8 @@ struct Peel {
     last_tick: usize,
     /// 游戏的 AI 正在回城（[`still_recalling`]，0.2.2）。
     recalling: bool,
+    /// 这份模拟的地图（`MapOf`）。
+    map: MapOf,
 }
 
 /// The game's AI recalling (league_ult_press 0.5.0's rule): a Return starts it, the ticks it gives no order go on with it
@@ -513,7 +574,8 @@ impl StablePlayerAi for Peel {
                 self.home = own_nexus(&sim, team);
             }
             self.last_tick = tick;
-            (look(&sim, player, team)?, presim)
+            let map = self.map.get(&sim);
+            (look(&sim, player, team, map)?, presim)
         };
         v.home = self.home;
         v.hurt = self.hurt(tick, v.carry.map(|_| v.carry_hp));
@@ -603,6 +665,7 @@ mod tests {
 
     fn view(lane: u32) -> View {
         View {
+            map: Map::Native,
             me: (520_000.0, 700_000.0),
             hp_pct: 80,
             lane,
@@ -710,6 +773,32 @@ mod tests {
         assert_eq!(escort(&View { lane: TOP, ..far.clone() }, None), None);
         // walking somewhere else while its ADC is being hit: comes instead
         assert!(escort(&far, Some(&InputV1::move_to(450_000, 450_000))).is_some());
+    }
+
+    #[test]
+    fn on_the_rift_the_map_and_the_walk_home_follow_its_size() {
+        let (native, rift) = (Map::Native.limit(), Map::Rift.limit());
+        // red's half of the Rift (past 1200000): on the map there, never on the game's own
+        assert!(on_map((1_450_000.0, 160_000.0), rift) && !on_map((1_450_000.0, 160_000.0), native));
+        assert!(on_map((0.0, MAP_MAX), native) && !on_map((-1.0, 5.0), rift) && !on_map((3_000_000.0, 5.0), rift));
+        // red's support walks to red's fountain on the Rift, 170k from its nexus: a walk home there (HOME_NEAR x 1.68)
+        let nexus = (1_450_000.0, 160_000.0);
+        let far = View {
+            map: Map::Rift,
+            me: (1_250_000.0, 360_000.0),
+            carry: Some((1_150_000.0, 420_000.0)),
+            diver: None,
+            enemies: vec![(79, (1_110_000.0, 450_000.0))],
+            home: Some(nexus),
+            ..view(SUPPORT)
+        };
+        let fountain = InputV1::move_to(1_570_000, 40_000);
+        assert!(dist((1_570_000.0, 40_000.0), nexus) > HOME_NEAR && dist((1_570_000.0, 40_000.0), nexus) < HOME_NEAR * Map::Rift.scale());
+        assert_eq!(escort(&far, Some(&fountain)), None, "on its way home");
+        // the game's own map's 120k would have pulled it back to the ADC
+        assert!(escort(&View { map: Map::Native, ..far.clone() }, Some(&fountain)).is_some());
+        // anywhere else it still comes over
+        assert!(escort(&far, Some(&InputV1::move_to(1_300_000, 600_000))).is_some());
     }
 
     #[test]

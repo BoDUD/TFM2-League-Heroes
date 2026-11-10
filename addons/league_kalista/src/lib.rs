@@ -24,6 +24,8 @@
 //!   现在同一个目标同一个 tick 只记一根（`add_spear`）；E 拔矛那几下照旧在 `e_pop` 亮着时清掉。
 //!   0.2.5（2026-11-08 夜里的日志）：`e_ok` 也是数据阶梯的标记（3 根矛打中英雄就挂 240 tick），斩杀判定以前等身上的 `e_ok`
 //!   下去才再算，阶梯一挂就停 240 tick；现在只等本包自己上次挂的（`rend_until`），数据挂着的 `e_ok` 也不去缩短。
+//!   两张 5v5 地图（2026-11-10）：跳、飞都夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
+//!   Rin 的召唤师峡谷 1614545 见方），侧跳挑留在这张图上的那边；以前一律按 960000，峡谷上过了 960000 就被夹回半张图的边。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kalista.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -33,8 +35,10 @@ use std::collections::{BTreeMap, HashMap};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_kalista";
@@ -57,7 +61,7 @@ pub const E_CD: &str = "league_kalista_e_cd";
 pub const E_POP: &str = "league_kalista_e_pop";
 /// 附加包自己的：「拔了能杀」的那个敌人身上挂 6 tick，AI 钩子对它按技能 2（`FateAi::rend_now`）。
 pub const E_AIM: &str = "league_kalista_e_aim";
-/// 地图边长（坐标 0..MAP）。
+/// 游戏自己的 5v5 地图边长（坐标 0..MAP）；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
@@ -105,6 +109,19 @@ pub(crate) fn counted(kind: &'static str) -> Option<usize> {
     let n = c.entry(kind).or_insert(0);
     *n += 1;
     (*n <= LOG_FIRST || *n % LOG_EVERY == 0).then_some(*n)
+}
+
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: hops and Fate's Call flights kept on the Rift's {:.0} square, a side hop takes the side \
+                      that stays on it (not the game's own {MAP:.0}); {} ==", map.extent(), rift_status()));
+    }
+    map
 }
 
 fn head(sim: &StableSim<'_>, id: usize) -> String {
@@ -260,8 +277,13 @@ pub struct Turns {
 /// 除了追残血 / 逃跑都往后，日志 77 后 26 前，打小兵一律往后）。看攻击距离 1.4 倍内最近的敌方英雄：残血（< 40%），或者在逃
 /// （离她越来越远）而且快跑出射程（> 80% 攻击距离），就往前追；贴到射程 60% 以内、或者正冲过来，就往后拉开；其余（站着对射）
 /// 侧跳，左右交替，跳完离它一样远，接着打不用走回来。附近没有敌方英雄时看最近的其他敌方单位（小兵、野怪、塔），原地前后交替跳，
-/// 先往前；什么都没有就 None，数据照主包往后跳。hop_thr 不再用（第一版：贴近才往后跳）。
+/// 先往前；什么都没有就 None，数据照主包往后跳。hop_thr 不再用（第一版：贴近才往后跳）。游戏自己的地图上的 [`hop_choice_on`]。
 pub fn hop_choice(me: Pt, foes: &[Foe], units: &[Foe], turns: Turns, p: &Params) -> Option<(Hop, HopWhy)> {
+    hop_choice_on(Map::Native, me, foes, units, turns, p)
+}
+
+/// [`hop_choice`] 在 `map` 上：侧跳挑留在这张图上的那边。
+pub fn hop_choice_on(map: Map, me: Pt, foes: &[Foe], units: &[Foe], turns: Turns, p: &Params) -> Option<(Hop, HopWhy)> {
     let range = p.atk_range as f64;
     let nearest = |list: &[Foe]| {
         list.iter().filter(|f| dist(me, f.at) <= range * REACH).min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at))).copied()
@@ -285,7 +307,7 @@ pub fn hop_choice(me: Pt, foes: &[Foe], units: &[Foe], turns: Turns, p: &Params)
     }
     // the side that stays on the map
     let len = (p.hop_v * p.hop_t) as f64;
-    let ccw = if on_map(hop_end(me, Hop::Side(near, turns.ccw), len)) { turns.ccw } else { !turns.ccw };
+    let ccw = if inside(map, hop_end(me, Hop::Side(near, turns.ccw), len)) { turns.ccw } else { !turns.ccw };
     Some((Hop::Side(near, ccw), HopWhy::Strafe))
 }
 
@@ -321,8 +343,15 @@ pub fn hop_end(me: Pt, hop: Hop, len: f64) -> Pt {
     (me.0 + d.0 * len, me.1 + d.1 * len)
 }
 
+/// 在游戏自己的地图上（坐标 0..MAP）。
 pub fn on_map(p: Pt) -> bool {
-    (0.0..MAP).contains(&p.0) && (0.0..MAP).contains(&p.1)
+    inside(Map::Native, p)
+}
+
+/// 在 `map` 上（坐标 0..边长）。
+pub fn inside(map: Map, p: Pt) -> bool {
+    let e = map.extent();
+    (0.0..e).contains(&p.0) && (0.0..e).contains(&p.1)
 }
 
 /// 一名队友：玩家 id、是不是辅助、英雄位置。
@@ -387,19 +416,31 @@ pub fn landing_pick(me: Pt, foes: &[Foe], p: &Params) -> Option<Foe> {
     None
 }
 
-/// 飞行的一步：朝 `to` 走 `v`，到 `catch` 内就算到了（停在原地）。-> (下一步的位置, 到了没有)
+/// 游戏自己的地图上的 [`fly_step_on`]。
 pub fn fly_step(at: Pt, to: Pt, v: f64, catch: f64) -> (Pt, bool) {
+    fly_step_on(Map::Native, at, to, v, catch)
+}
+
+/// 飞行的一步：朝 `to` 走 `v`，到 `catch` 内就算到了（停在原地），夹在 `map` 上。-> (下一步的位置, 到了没有)
+pub fn fly_step_on(map: Map, at: Pt, to: Pt, v: f64, catch: f64) -> (Pt, bool) {
     let d = dist(at, to);
     if d <= catch {
         return (at, true);
     }
     let go = v.min(d - catch * 0.5);
     let next = (at.0 + (to.0 - at.0) / d * go, at.1 + (to.1 - at.1) / d * go);
-    (clamp(next), dist(next, to) <= catch)
+    (clamp_on(map, next), dist(next, to) <= catch)
 }
 
+/// 夹在游戏自己的地图上（坐标 0..MAP-1）。
 pub fn clamp(p: Pt) -> Pt {
-    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
+    clamp_on(Map::Native, p)
+}
+
+/// 夹在 `map` 上（坐标 0..边长-1）。
+pub fn clamp_on(map: Map, p: Pt) -> Pt {
+    let e = map.extent();
+    (p.0.clamp(0.0, e - 1.0), p.1.clamp(0.0, e - 1.0))
 }
 
 /// 拔 `n` 根矛的伤害（物理，护甲按 100 / (100 + 护甲) 算）。
@@ -594,7 +635,8 @@ impl Oath {
         if self.turns.wave_back && (tick < self.last_wave || tick - self.last_wave > WAVE_RESET) {
             self.turns.wave_back = false;
         }
-        let choice = hop_choice(at, &fs, &us, self.turns, p);
+        let map = map_here(sim);
+        let choice = hop_choice_on(map, at, &fs, &us, self.turns, p);
         // the side hop plays the hop up (hop_b), not the lunge
         let want = match choice {
             Some((Hop::Forward(_), _)) => Some(HOP_F),
@@ -649,7 +691,7 @@ impl Oath {
                 self.hopping = None;
             } else {
                 let step = p.hop_v as f64;
-                let next = clamp((at.0 + h.dir.0 * step, at.1 + h.dir.1 * step));
+                let next = clamp_on(map, (at.0 + h.dir.0 * step, at.1 + h.dir.1 * step));
                 if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
                     h.refused += 1;
                 }
@@ -704,7 +746,7 @@ impl Oath {
             let to = sim.get_entity(fl.foe).filter(|e| e.is_alive()).map(|e| (e.pos().0 as f64, e.pos().1 as f64));
             let done = match (alive, to) {
                 (true, Some(to)) if fl.ticks <= 40 => {
-                    let (next, arrived) = fly_step(a, to, p.r_fly_v as f64, p.r_catch as f64);
+                    let (next, arrived) = fly_step_on(map_here(sim), a, to, p.r_fly_v as f64, p.r_catch as f64);
                     sim.entity_set_pos(fl.ally, next.0.round() as u64, next.1.round() as u64);
                     arrived
                 }
@@ -1323,6 +1365,40 @@ mod tests {
         assert_eq!(side(t), side(Turns { ccw: true, ..t }));
         assert!(on_map(hop_end(low_edge, Hop::Side(it2, side(t)), len)));
         assert!(!on_map(hop_end(low_edge, Hop::Side(it2, !side(t)), len)));
+    }
+
+    #[test]
+    fn on_the_rift_hops_and_flights_stay_on_its_bigger_square() {
+        let p = Params::default();
+        let rift = Map::Rift.extent();
+        // past 960000 is the Rift's ground: on it, not clamped back to the game's own edge
+        assert!(inside(Map::Rift, (1_200_000.0, 1_500_000.0)) && !on_map((1_200_000.0, 1_500_000.0)));
+        assert!(!inside(Map::Rift, (rift, 10.0)) && !inside(Map::Rift, (-1.0, 10.0)));
+        assert_eq!(clamp_on(Map::Rift, (1_300_000.0, 2_000_000.0)), (1_300_000.0, rift - 1.0));
+        assert_eq!(clamp_on(Map::Native, (1_300_000.0, 5.0)), clamp((1_300_000.0, 5.0)));
+        // by the game's own far edge (y 955000): there both turns take the side on it; the Rift has room both ways
+        let edge = (500_000.0, 955_000.0);
+        let it = foe(2, (545_000.0, 955_000.0), 80);
+        let side = |map: Map, at: Pt, f: Foe, turns: Turns| match hop_choice_on(map, at, &[f], &[], turns, &p) {
+            Some((Hop::Side(_, ccw), HopWhy::Strafe)) => ccw,
+            x => panic!("{x:?}"),
+        };
+        let t = Turns::default();
+        let ccw = Turns { ccw: true, ..t };
+        assert_eq!(side(Map::Native, edge, it, t), side(Map::Native, edge, it, ccw));
+        assert_ne!(side(Map::Rift, edge, it, t), side(Map::Rift, edge, it, ccw), "the Rift: either side, by turns");
+        assert_eq!(hop_choice(edge, &[it], &[], t, &p), hop_choice_on(Map::Native, edge, &[it], &[], t, &p));
+        // at the Rift's own far edge both turns take the side that stays on it
+        let far = (1_000_000.0, rift - 5_000.0);
+        let it2 = foe(3, (1_045_000.0, far.1), 80);
+        assert_eq!(side(Map::Rift, far, it2, t), side(Map::Rift, far, it2, ccw));
+        let len = (p.hop_v * p.hop_t) as f64;
+        assert!(inside(Map::Rift, hop_end(far, Hop::Side(it2, side(Map::Rift, far, it2, t)), len)));
+        // Fate's Call flies on past 960000 on the Rift (the game's own map stops it at its edge)
+        let (from, to) = ((958_000.0, 500_000.0), (1_200_000.0, 500_000.0));
+        let (next, _) = fly_step_on(Map::Rift, from, to, p.r_fly_v as f64, p.r_catch as f64);
+        assert_eq!(next, (958_000.0 + p.r_fly_v as f64, 500_000.0));
+        assert_eq!(fly_step(from, to, p.r_fly_v as f64, p.r_catch as f64).0, (MAP - 1.0, 500_000.0));
     }
 
     #[test]

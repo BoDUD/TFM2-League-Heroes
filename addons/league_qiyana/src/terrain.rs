@@ -10,19 +10,28 @@
 //!   第一次进河的地方；
 //! - [`shockwave`] / [`Shock::caught`]：风停下后冲击波沿它路过的草丛（连着的那一片）、河道（交点前后 `span`）和撞上的那面墙
 //!   （连着的墙格子里离停点 `span` 内的，墙边 `border` 内；地图四边是停点前后 `span` 的一段）走，谁在里面、离起点多远。
+//!
+//! 峡谷（2026-11-10，用户：「要同时兼容原版地图和这个地图」；Rin 的召唤师峡谷 α 在自己的 DLL 里建 5v5 地图，1614545 见方，
+//! 不经过地图文档）：game_places 从塔和水晶看出这一局在峡谷上，[`rift_map`] 给峡谷的地形——墙是地图作者的墙格子（game_places
+//! 读墙体文件：格子 60000/11、从 x = 30000/11 起，格子外算墙；没有文件时一面墙都不知道，只有地图四边外算墙），没有草丛数据
+//! （只剩艾翁的草丛），河道是中间那条斜带按地图大小放大（`RIVER_BAND` x [`Map::scale`]）。地图文档里读到的格子是游戏自己的
+//! 5v5 地图的，峡谷上不用。每张格子带着自己的格子边长和原点（[`Grid::cell`]、[`Grid::origin`]），按格子数的上限
+//! （`WALL_CAP`、`BRUSH_CAP`）按面积换算（[`Grid::cells_for`]）。
 
-use std::collections::BTreeMap;
-use std::sync::{Arc, Mutex};
+use std::collections::{BTreeMap, HashSet, VecDeque};
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::{Arc, LazyLock, Mutex};
 
+use game_places::terrain::{self as places, Map, Walls};
 use mod_api_stable::*;
 
 use super::wlog;
 
 pub type Pt = (f64, f64);
 
-/// 地图格子的边长（世界单位，卡密尔附加包量过墙格子：30 x 32000 = 960000）。
+/// 游戏自己的地图格子的边长（世界单位，卡密尔附加包量过墙格子：30 x 32000 = 960000；峡谷的格子见 [`Grid::cell`]）。
 pub const CELL: f64 = 32_000.0;
-/// 地图的边长（30 格）：外面算墙。
+/// 游戏自己的地图的边长（30 格）：外面算墙（峡谷的见 [`MapGrids::size`]）。
 pub const MAP_SIZE: f64 = 960_000.0;
 /// 风一步走多远（查墙、草丛、河的步长）。
 pub const STEP: f64 = 1_000.0;
@@ -34,27 +43,38 @@ const RIVER_KEYS: [&str; 6] = ["river", "rivers", "river_grid", "water", "waters
 pub const RIVER_BAND: f64 = 48_000.0;
 /// 5v5 地图四边的墙面（上下的石墙、左右的石堆，league_camille_wall 的 MOBA_BOUNDS）：外面也算墙。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
-/// 冲击波沿草丛走：连着的草丛格子最多这么多格（一片草丛 2-6 格）。
+/// 冲击波沿草丛走：连着的草丛格子最多这么多格（一片草丛 2-6 格；游戏自己的格子，别的格子按面积换算：[`Grid::cells_for`]）。
 pub const BRUSH_CAP: usize = 16;
-/// 冲击波沿墙走：连着的墙格子最多这么多格。
+/// 冲击波沿墙走：连着的墙格子最多这么多格（游戏自己的格子；峡谷的墙格子按面积换算，约 826 格：[`Grid::cells_for`]）。
 pub const WALL_CAP: usize = 24;
+/// 冲击波的画面在墙边至少离停点（峡谷上还有彼此）这么远才放（游戏自己的地图的半格）。
+pub const PIC_GAP: f64 = CELL * 0.5;
 
 fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-/// 一张格子：`cells[y][x]`，非 0 为有。
-#[derive(Clone, Debug, PartialEq, Default)]
+/// 一张格子：`cells[y][x]`，非 0 为有；每格 `cell` 见方，(0, 0) 格的角在 `origin`（游戏自己的地图：[`CELL`]、(0, 0)；峡谷的
+/// 墙格子是墙体文件的：60000/11、(30000/11, 0)）。
+#[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<i64>>,
+    pub cell: f64,
+    pub origin: Pt,
 }
 
-/// (x, y) 所在的格子（可以在地图外，负数）。
+impl Default for Grid {
+    fn default() -> Self {
+        Grid::native(Vec::new())
+    }
+}
+
+/// (x, y) 所在的格子（游戏自己的地图的格子，可以在地图外，负数）。
 pub fn cell_of(x: f64, y: f64) -> (i64, i64) {
     ((x / CELL).floor() as i64, (y / CELL).floor() as i64)
 }
 
-/// (x, y) 到格子 (cx, cy) 的方块的距离（在里面为 0）和方块上离它最近的点。
+/// (x, y) 到格子 (cx, cy) 的方块的距离（在里面为 0）和方块上离它最近的点（游戏自己的地图的格子）。
 pub fn to_cell(cx: i64, cy: i64, x: f64, y: f64) -> (f64, Pt) {
     let (x0, y0) = (cx as f64 * CELL, cy as f64 * CELL);
     let p = (x.clamp(x0, x0 + CELL), y.clamp(y0, y0 + CELL));
@@ -62,9 +82,51 @@ pub fn to_cell(cx: i64, cy: i64, x: f64, y: f64) -> (f64, Pt) {
 }
 
 impl Grid {
+    /// 游戏自己的地图的格子（[`CELL`] 见方，从 (0, 0) 起）。
+    pub fn native(cells: Vec<Vec<i64>>) -> Grid {
+        Grid { cells, cell: CELL, origin: (0.0, 0.0) }
+    }
+
+    /// game_places 读的墙格子（峡谷的：它自己的格子边长和原点）。
+    pub fn from_walls(w: &Walls) -> Grid {
+        Grid { cells: w.cells.iter().map(|r| r.iter().map(|&b| b as i64).collect()).collect(), cell: w.cell, origin: w.origin }
+    }
+
     #[cfg(test)]
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect() }
+        Grid::native(rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect())
+    }
+
+    /// (x, y) 所在的格子（可以在格子外，负数）。
+    pub fn cell_of(&self, x: f64, y: f64) -> (i64, i64) {
+        (((x - self.origin.0) / self.cell).floor() as i64, ((y - self.origin.1) / self.cell).floor() as i64)
+    }
+
+    /// (x, y) 到格子 (cx, cy) 的方块的距离（在里面为 0）和方块上离它最近的点。
+    pub fn to_cell(&self, cx: i64, cy: i64, x: f64, y: f64) -> (f64, Pt) {
+        let (x0, y0) = (self.origin.0 + cx as f64 * self.cell, self.origin.1 + cy as f64 * self.cell);
+        let p = (x.clamp(x0, x0 + self.cell), y.clamp(y0, y0 + self.cell));
+        (dist(p, (x, y)), p)
+    }
+
+    /// 格子 (cx, cy) 的中心。
+    pub fn centre(&self, (cx, cy): (i64, i64)) -> Pt {
+        (self.origin.0 + (cx as f64 + 0.5) * self.cell, self.origin.1 + (cy as f64 + 0.5) * self.cell)
+    }
+
+    /// (x, y) 在这张格子铺到的地方（有没有都算）。
+    pub fn covers(&self, x: f64, y: f64) -> bool {
+        let (cx, cy) = self.cell_of(x, y);
+        cx >= 0 && cy >= 0 && self.cells.get(cy as usize).is_some_and(|row| (cx as usize) < row.len())
+    }
+
+    /// 按游戏自己的格子数的上限（`native` 格），在这张格子上是多少格：按面积换算（(CELL / cell)²；游戏自己的格子不变，
+    /// 峡谷的约 34 倍）。
+    pub fn cells_for(&self, native: usize) -> usize {
+        if self.cell.is_nan() || self.cell <= 0.0 || self.cell == CELL {
+            return native;
+        }
+        ((native as f64) * (CELL / self.cell).powi(2)).round().max(1.0) as usize
     }
 
     /// 格子 (cx, cy) 有没有（地图外算没有）。
@@ -77,7 +139,7 @@ impl Grid {
         if x < 0.0 || y < 0.0 {
             return false;
         }
-        let (cx, cy) = cell_of(x, y);
+        let (cx, cy) = self.cell_of(x, y);
         self.has(cx, cy)
     }
 
@@ -85,17 +147,17 @@ impl Grid {
         self.cells.iter().flatten().filter(|v| **v != 0).count()
     }
 
-    /// `reach` 内离 (x, y) 最近的有的格子：(距离，那格上离它最近的点)；在格子里为 0。
+    /// `reach` 内离 (x, y) 最近的有的格子：(距离，那格上离它最近的点)；在格子里为 0。只看 `reach` 内的格子。
     pub fn nearest(&self, x: f64, y: f64, reach: f64) -> Option<(f64, Pt)> {
-        let (lx, ly) = cell_of(x - reach, y - reach);
-        let (hx, hy) = cell_of(x + reach, y + reach);
+        let (lx, ly) = self.cell_of(x - reach, y - reach);
+        let (hx, hy) = self.cell_of(x + reach, y + reach);
         let mut best: Option<(f64, Pt)> = None;
         for cy in ly.max(0)..=hy {
             for cx in lx.max(0)..=hx {
                 if !self.has(cx, cy) {
                     continue;
                 }
-                let (d, p) = to_cell(cx, cy, x, y);
+                let (d, p) = self.to_cell(cx, cy, x, y);
                 if d <= reach && best.is_none_or(|b| d < b.0) {
                     best = Some((d, p));
                 }
@@ -109,23 +171,26 @@ impl Grid {
         self.nearest(x, y, reach).map(|(d, _)| d)
     }
 
-    /// 从 `seeds` 起连着（八个方向）的有的格子，`keep` 说留不留，最多 `cap` 格。
+    /// 从 `seeds` 起连着（八个方向）的有的格子，`keep` 说留不留，最多 `cap` 格。走的先后照旧（后面取、前面放），查走过没有用
+    /// 集合（峡谷的墙一次几百格）。
     pub fn flood(&self, seeds: &[(i64, i64)], cap: usize, keep: impl Fn(i64, i64) -> bool) -> Vec<(i64, i64)> {
         let mut out: Vec<(i64, i64)> = Vec::new();
-        let mut todo: Vec<(i64, i64)> = seeds.iter().copied().filter(|&(x, y)| self.has(x, y)).collect();
-        while let Some(c) = todo.pop() {
-            if out.contains(&c) || !keep(c.0, c.1) {
+        let mut taken: HashSet<(i64, i64)> = HashSet::new();
+        let mut todo: VecDeque<(i64, i64)> = seeds.iter().copied().filter(|&(x, y)| self.has(x, y)).collect();
+        while let Some(c) = todo.pop_back() {
+            if taken.contains(&c) || !keep(c.0, c.1) {
                 continue;
             }
             out.push(c);
+            taken.insert(c);
             if out.len() >= cap {
                 break;
             }
             for dy in -1..=1 {
                 for dx in -1..=1 {
                     let n = (c.0 + dx, c.1 + dy);
-                    if (dx, dy) != (0, 0) && self.has(n.0, n.1) && !out.contains(&n) {
-                        todo.insert(0, n);
+                    if (dx, dy) != (0, 0) && self.has(n.0, n.1) && !taken.contains(&n) {
+                        todo.push_front(n);
                     }
                 }
             }
@@ -195,7 +260,7 @@ pub fn parse_grid(json: &str) -> Option<Grid> {
         }
         rows.push(row);
     }
-    (!rows.is_empty()).then_some(Grid { cells: rows })
+    (!rows.is_empty()).then_some(Grid::native(rows))
 }
 
 /// 一个 JSON 对象最外层的键（日志用：地图文档里有什么）。
@@ -230,7 +295,7 @@ pub fn top_keys(json: &str) -> Vec<String> {
 }
 
 /// 一种模式的地图。
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct MapGrids {
     /// 模式（`GameModeKindV1::code`，读不到为 u32::MAX）。
     pub mode: u32,
@@ -238,6 +303,14 @@ pub struct MapGrids {
     pub bushes: Option<Grid>,
     /// 地图文档里的河流格子（没有就是 None：5v5 地图按 [`RIVER_BAND`]）。
     pub river: Option<Grid>,
+    /// 哪张地图：游戏自己的（地图文档读到的），或峡谷（[`rift_map`]）。
+    pub map: Map,
+}
+
+impl Default for MapGrids {
+    fn default() -> Self {
+        MapGrids { mode: 0, walls: None, bushes: None, river: None, map: Map::Native }
+    }
 }
 
 /// 地图的一条边（5v5 地图四边的石墙）。
@@ -254,18 +327,45 @@ impl MapGrids {
         self.mode == GameModeKindV1::Moba.code()
     }
 
-    /// 墙：墙格子、地图外、5v5 地图四边之外。
+    /// 地图的边长（外面算墙）：游戏自己的地图 [`MAP_SIZE`]，峡谷 1614545。
+    pub fn size(&self) -> f64 {
+        match self.map {
+            Map::Native => MAP_SIZE,
+            Map::Rift => self.map.extent(),
+        }
+    }
+
+    /// 地图四边的墙面：游戏自己的 5v5 地图是 [`MOBA_BOUNDS`]（别的模式没有）；峡谷是地图的四边（有墙体文件时四边的墙在墙格子里）。
+    pub fn bounds(&self) -> Option<(f64, f64, f64, f64)> {
+        match self.map {
+            Map::Native => self.moba().then_some(MOBA_BOUNDS),
+            Map::Rift => Some((0.0, 0.0, self.size(), self.size())),
+        }
+    }
+
+    /// 河道斜带 |x - y| 的半宽：游戏自己的 5v5 地图 [`RIVER_BAND`]，峡谷按地图的大小放大（[`Map::scale`]，约 80700）。
+    pub fn river_band(&self) -> f64 {
+        match self.map {
+            Map::Native => RIVER_BAND,
+            Map::Rift => RIVER_BAND * self.map.scale(),
+        }
+    }
+
+    /// 墙：墙格子、地图外、5v5 地图四边之外；峡谷的墙格子外也算（作者的格子铺在地图中间，game_places 的 `Walls::is_wall`）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
-        if x < 0.0 || y < 0.0 || x >= MAP_SIZE || y >= MAP_SIZE {
+        let size = self.size();
+        if x < 0.0 || y < 0.0 || x >= size || y >= size {
             return true;
         }
-        if self.moba() {
-            let (x0, y0, x1, y1) = MOBA_BOUNDS;
+        if let Some((x0, y0, x1, y1)) = self.bounds() {
             if x < x0 || y < y0 || x > x1 || y > y1 {
                 return true;
             }
         }
-        self.walls.as_ref().is_some_and(|g| g.at(x, y))
+        match (&self.walls, self.map) {
+            (Some(g), Map::Rift) => !g.covers(x, y) || g.at(x, y),
+            (walls, _) => walls.as_ref().is_some_and(|g| g.at(x, y)),
+        }
     }
 
     pub fn in_brush(&self, x: f64, y: f64) -> bool {
@@ -276,16 +376,13 @@ impl MapGrids {
     pub fn in_river(&self, x: f64, y: f64) -> bool {
         match &self.river {
             Some(g) => g.at(x, y),
-            None => self.moba() && (x - y).abs() <= RIVER_BAND,
+            None => self.moba() && (x - y).abs() <= self.river_band(),
         }
     }
 
     /// (x, y) 离 5v5 地图的哪条边最近、多远（别的模式没有边）。
     pub fn edge(&self, x: f64, y: f64) -> Option<(Edge, f64)> {
-        if !self.moba() {
-            return None;
-        }
-        let (x0, y0, x1, y1) = MOBA_BOUNDS;
+        let (x0, y0, x1, y1) = self.bounds()?;
         [(Edge::Left, x - x0), (Edge::Top, y - y0), (Edge::Right, x1 - x), (Edge::Bottom, y1 - y)]
             .into_iter()
             .map(|(e, d)| (e, d.max(0.0)))
@@ -324,7 +421,7 @@ pub fn river_point(m: &MapGrids, x: f64, y: f64, reach: f64) -> Option<(f64, Pt)
         Some(g) => g.nearest(x, y, reach),
         None if m.moba() => {
             let s = x - y;
-            let over = (s.abs() - RIVER_BAND).max(0.0);
+            let over = (s.abs() - m.river_band()).max(0.0);
             let d = over / std::f64::consts::SQRT_2;
             // step back across the band's edge along (-1, 1) (s > 0) or (1, -1) (s < 0)
             let k = s.signum() * over / 2.0;
@@ -337,7 +434,7 @@ pub fn river_point(m: &MapGrids, x: f64, y: f64, reach: f64) -> Option<(f64, Pt)
 /// 地图四边上离 (x, y) 最近的点和距离（5v5 地图）。
 pub fn edge_point(m: &MapGrids, x: f64, y: f64, reach: f64) -> Option<(f64, Pt)> {
     let (e, d) = m.edge(x, y)?;
-    let (x0, y0, x1, y1) = MOBA_BOUNDS;
+    let (x0, y0, x1, y1) = m.bounds()?;
     let p = match e {
         Edge::Left => (x0, y),
         Edge::Top => (x, y0),
@@ -425,7 +522,7 @@ pub fn windblast(m: &MapGrids, from: Pt, dir: Pt, len: f64) -> Blast {
         }
         b.stop = q;
         if m.in_brush(q.0, q.1) {
-            let c = cell_of(q.0, q.1);
+            let c = m.bushes.as_ref().map_or_else(|| cell_of(q.0, q.1), |g| g.cell_of(q.0, q.1));
             if !b.brush.contains(&c) {
                 b.brush.push(c);
             }
@@ -469,13 +566,17 @@ impl Shock {
                 best = Some(d);
             }
         };
+        // how far (x, y) is from a cell of `g` (the game's own cells when that grid is gone)
+        let off_cell = |g: Option<&Grid>, (cx, cy): (i64, i64)| match g {
+            Some(g) => g.to_cell(cx, cy, x, y).0,
+            None => to_cell(cx, cy, x, y).0,
+        };
         // the wall it reached: within `border` (+ the body) of its cells
-        if self.wall.iter().any(|&(cx, cy)| to_cell(cx, cy, x, y).0 <= border + r) {
+        if self.wall.iter().any(|&c| off_cell(m.walls.as_ref(), c) <= border + r) {
             take(dist(at, self.stop));
         }
         // the map's edge: within `border` of that edge, `span` along it from the stop point
-        if let Some(e) = self.edge {
-            let (x0, y0, x1, y1) = MOBA_BOUNDS;
+        if let (Some(e), Some((x0, y0, x1, y1))) = (self.edge, m.bounds()) {
             let (off, along, s_along) = match e {
                 Edge::Left => (x - x0, y, self.stop.1),
                 Edge::Top => (y - y0, x, self.stop.0),
@@ -488,7 +589,7 @@ impl Shock {
         }
         // the brush it crossed: in those cells (the centre within half a body of them)
         if let Some(b0) = self.brush_at {
-            if self.brush.iter().any(|&(cx, cy)| to_cell(cx, cy, x, y).0 <= r * 0.5) {
+            if self.brush.iter().any(|&c| off_cell(m.bushes.as_ref(), c) <= r * 0.5) {
                 take(dist(at, b0));
             }
         }
@@ -496,7 +597,7 @@ impl Shock {
         if let Some(c) = self.river {
             let inside = match &m.river {
                 Some(g) => g.dist(x, y, r * 0.5).is_some(),
-                None => ((x - y).abs() - RIVER_BAND) / std::f64::consts::SQRT_2 <= r * 0.5,
+                None => ((x - y).abs() - m.river_band()) / std::f64::consts::SQRT_2 <= r * 0.5,
             };
             let along = |p: Pt| (p.0 + p.1) / std::f64::consts::SQRT_2;
             let near_enough = match &m.river {
@@ -510,18 +611,40 @@ impl Shock {
         best
     }
 
-    /// 冲击波的画面放在哪几处（最多 `cap` 处）：墙边、草丛格子的中间、河道上交点前后。
-    pub fn spots(&self, span: f64, cap: usize) -> Vec<(Kind, Pt)> {
+    /// 冲击波的画面放在哪几处（最多 `cap` 处）：墙边、草丛格子的中间、河道上交点前后。墙边：游戏自己的地图取停点旁边的头
+    /// `cap / 2` 格（一格 32000，离停点 [`PIC_GAP`] 外的）；峡谷的墙格子小（约 5454），顺着墙取离停点、彼此都在 `PIC_GAP` 外的。
+    pub fn spots(&self, m: &MapGrids, span: f64, cap: usize) -> Vec<(Kind, Pt)> {
         let mut out = Vec::new();
-        let centre = |(cx, cy): (i64, i64)| ((cx as f64 + 0.5) * CELL, (cy as f64 + 0.5) * CELL);
+        let near_stop = |c: (i64, i64)| match m.walls.as_ref() {
+            Some(g) => g.to_cell(c.0, c.1, self.stop.0, self.stop.1).1,
+            None => to_cell(c.0, c.1, self.stop.0, self.stop.1).1,
+        };
+        let centre = |c: (i64, i64)| match m.bushes.as_ref() {
+            Some(g) => g.centre(c),
+            None => ((c.0 as f64 + 0.5) * CELL, (c.1 as f64 + 0.5) * CELL),
+        };
         if !self.wall.is_empty() || self.edge.is_some() {
             out.push((Kind::Wall, self.stop));
         }
-        for &c in self.wall.iter().take(cap / 2) {
-            let (_, p) = to_cell(c.0, c.1, self.stop.0, self.stop.1);
-            if dist(p, self.stop) > CELL * 0.5 {
-                out.push((Kind::Wall, p));
+        if m.map == Map::Native {
+            for &c in self.wall.iter().take(cap / 2) {
+                let p = near_stop(c);
+                if dist(p, self.stop) > PIC_GAP {
+                    out.push((Kind::Wall, p));
+                }
             }
+        } else {
+            let mut picked: Vec<Pt> = Vec::new();
+            for &c in &self.wall {
+                if picked.len() >= cap / 2 {
+                    break;
+                }
+                let p = near_stop(c);
+                if dist(p, self.stop) > PIC_GAP && picked.iter().all(|&q| dist(p, q) > PIC_GAP) {
+                    picked.push(p);
+                }
+            }
+            out.extend(picked.into_iter().map(|p| (Kind::Wall, p)));
         }
         for &c in &self.brush {
             out.push((Kind::Brush, centre(c)));
@@ -541,19 +664,43 @@ impl Shock {
 pub fn shockwave(m: &MapGrids, b: &Blast, span: f64) -> Shock {
     let mut s = Shock { stop: b.stop, brush_at: b.brush_at, river: b.river, ..Shock::default() };
     if let Some(w) = b.wall {
-        let cell = cell_of(w.0, w.1);
-        match m.walls.as_ref().filter(|g| g.has(cell.0, cell.1)) {
-            Some(g) => {
+        // the wall cell it struck (a cell of that map's own grid), else the map's edge
+        let struck = m.walls.as_ref().map(|g| (g, g.cell_of(w.0, w.1))).filter(|(g, c)| g.has(c.0, c.1));
+        match struck {
+            Some((g, cell)) => {
                 let stop = b.stop;
-                s.wall = g.flood(&[cell], WALL_CAP, |cx, cy| to_cell(cx, cy, stop.0, stop.1).0 <= span);
+                s.wall = g.flood(&[cell], g.cells_for(WALL_CAP), |cx, cy| g.to_cell(cx, cy, stop.0, stop.1).0 <= span);
             }
             None => s.edge = m.edge(w.0, w.1).map(|(e, _)| e),
         }
     }
     if let Some(g) = m.bushes.as_ref() {
-        s.brush = g.flood(&b.brush, BRUSH_CAP, |_, _| true);
+        s.brush = g.flood(&b.brush, g.cells_for(BRUSH_CAP), |_, _| true);
     }
     s
+}
+
+/// 峡谷的地图（第一次用到时从 game_places 的墙格子换算一次：约 8.7 万格，不每 tick 重建）。
+static RIFT_MAP: LazyLock<Arc<MapGrids>> = LazyLock::new(|| Arc::new(rift_grids(places::rift_walls())));
+/// 日志里写过峡谷那一行（每次启动一次）。
+static RIFT_SAID: AtomicBool = AtomicBool::new(false);
+
+/// 峡谷的地形：墙是 `walls`（game_places 读的作者的墙格子；None：没有墙体文件，一面墙都不知道，只有地图四边外算墙），没有
+/// 草丛（峡谷没有草丛数据），没有河流格子（河道按放大的斜带，[`MapGrids::river_band`]）。
+pub fn rift_grids(walls: Option<&Walls>) -> MapGrids {
+    MapGrids { mode: GameModeKindV1::Moba.code(), walls: walls.map(Grid::from_walls), bushes: None, river: None, map: Map::Rift }
+}
+
+/// 峡谷的地图（[`rift_grids`] 换算一次）；第一次碰到峡谷时在日志里记一行。
+pub fn rift_map() -> Arc<MapGrids> {
+    let m = RIFT_MAP.clone();
+    if !RIFT_SAID.swap(true, Ordering::Relaxed) {
+        let walls = m.walls.as_ref().map_or("none known - only the map's edges are wall".to_string(),
+                                            |g| format!("{} wall cells of {:.1}", g.count(), g.cell));
+        wlog(format!("== Rift: W and R read the Rift's walls ({walls}), no brush there (only Ivern's brush gives grass), the river \
+                      = the diagonal band |x - y| <= {:.0}; {} ==", m.river_band(), places::rift_status()));
+    }
+    m
 }
 
 /// 地图自定义钩子：读墙、草丛和河流，不改地图。
@@ -574,7 +721,8 @@ impl TerrainReader {
                 true
             }
         };
-        let m = MapGrids { mode: code, walls, bushes: bushes.as_ref().map(|b| b.1.clone()), river: river.as_ref().map(|r| r.1.clone()) };
+        let m = MapGrids { mode: code, walls, bushes: bushes.as_ref().map(|b| b.1.clone()), river: river.as_ref().map(|r| r.1.clone()),
+                           map: Map::Native };
         if first {
             let river_said = match &river {
                 Some((k, g)) => format!("river under `{k}`, {} cells", g.count()),
@@ -605,7 +753,8 @@ mod tests {
     use super::*;
 
     fn moba(walls: &[&str], bushes: &[&str]) -> MapGrids {
-        MapGrids { mode: GameModeKindV1::Moba.code(), walls: Some(Grid::from_rows(walls)), bushes: Some(Grid::from_rows(bushes)), river: None }
+        MapGrids { mode: GameModeKindV1::Moba.code(), walls: Some(Grid::from_rows(walls)), bushes: Some(Grid::from_rows(bushes)), river: None,
+                   map: Map::Native }
     }
 
     /// A 30 x 30 map: `#` at the listed cells.
@@ -749,7 +898,8 @@ mod tests {
     /// picks the same map in every simulation; 0.3.1 kept them in a HashMap, whose order broke the tie.
     #[test]
     fn a_tie_picks_the_same_map_every_time() {
-        let map = |mode: GameModeKindV1, row: &str| MapGrids { mode: mode.code(), walls: Some(Grid::from_rows(&[row])), bushes: None, river: None };
+        let map = |mode: GameModeKindV1, row: &str| MapGrids { mode: mode.code(), walls: Some(Grid::from_rows(&[row])), bushes: None, river: None,
+                                                               map: Map::Native };
         {
             let mut m = MAPS.lock().unwrap_or_else(|e| e.into_inner());
             m.insert(GameModeKindV1::DeathMatch.code(), Arc::new(map(GameModeKindV1::DeathMatch, "#.")));
@@ -760,5 +910,125 @@ mod tests {
         assert_eq!(all.iter().map(|m| m.mode).collect::<Vec<_>>(), [0, 1, 2]);
         let picked = pick_map(&[(CELL * 5.5, CELL * 5.5)], &all).expect("a map");
         assert!(picked.moba(), "picked mode {}", picked.mode);
+    }
+
+    // ===================== 峡谷 =====================
+
+    /// The Rift's cells (game_places' layout of the author's file: 60000/11 from x = 30000/11).
+    const RCELL: f64 = 60_000.0 / 11.0;
+    const R0: f64 = 30_000.0 / 11.0;
+
+    /// The Rift with wall cells `#` at `walls` (295 x 296 cells).
+    fn rift(walls: &[(usize, usize)]) -> MapGrids {
+        let rows: Vec<String> =
+            (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(|s| s.as_str()).collect();
+        let e = places::RIFT_EXTENT;
+        rift_grids(Some(&Walls::from_rows(&rows, RCELL, (R0, 0.0), (e, e))))
+    }
+
+    /// The Rift's cell (cx, cy) as a world point (fractions within the cell).
+    fn rc(cx: f64, cy: f64) -> Pt {
+        (R0 + cx * RCELL, cy * RCELL)
+    }
+
+    #[test]
+    fn on_the_rift_the_rifts_walls_not_the_game_maps() {
+        // a Rift wall cell far out (cell (250, 250), about (1366000, 1366000)); the game's own map with one at (10, 10)
+        let m = rift(&[(250, 250)]);
+        let native = map30(&[(10, 10)], &[]);
+        let w = rc(250.5, 250.5);
+        assert!(w.0 > 1_000_000.0 && m.is_wall(w.0, w.1));
+        // where only the game's own map has a wall: open ground on the Rift
+        let n = c(10.5, 10.5);
+        assert!(native.is_wall(n.0, n.1) && !m.is_wall(n.0, n.1));
+        // past 960000: off the game's own map (wall), open ground on the Rift
+        assert!(native.is_wall(1_200_000.0, 300_000.0) && !m.is_wall(1_200_000.0, 300_000.0));
+        // off the Rift, and off the author's grid (its left 2727): wall
+        assert!(m.is_wall(places::RIFT_EXTENT + 1.0, 500_000.0) && m.is_wall(1_000.0, 500_000.0) && m.is_wall(-1.0, 5.0));
+        // no brush data on the Rift
+        assert!(m.bushes.is_none() && !m.in_brush(w.0 - 6_000.0, w.1));
+        assert_eq!(near(&m, w.0 - 8_000.0, w.1, 64_000.0).grass, None);
+        // the nearest wall is that cell's face, and none where only the game's own map has one
+        let (d, p) = nearest_point(&m, Kind::Wall, w.0 - 10_000.0, w.1, 64_000.0).unwrap();
+        assert!((d - (10_000.0 - RCELL / 2.0)).abs() < 1.0 && (p.0 - rc(250.0, 0.0).0).abs() < 1.0, "{d} {p:?}");
+        assert_eq!(nearest_point(&m, Kind::Wall, n.0, n.1, 20_000.0), None);
+    }
+
+    #[test]
+    fn the_rifts_river_is_the_band_scaled_to_the_map() {
+        let m = rift(&[]);
+        let native = map30(&[], &[]);
+        assert!((m.river_band() - RIVER_BAND * places::RIFT_EXTENT / places::NATIVE_EXTENT).abs() < 1e-6);
+        assert_eq!(native.river_band(), RIVER_BAND);
+        // 70000 off the diagonal on |x - y|: past the game's own band (48000), inside the Rift's (about 80700)
+        assert!(m.in_river(1_000_000.0, 930_000.0) && !native.in_river(500_000.0, 430_000.0));
+        assert!(!m.in_river(1_000_000.0, 900_000.0));
+        let (d, p) = nearest_point(&m, Kind::River, 1_000_000.0, 900_000.0, 64_000.0).unwrap();
+        assert!((d - (100_000.0 - m.river_band()) / std::f64::consts::SQRT_2).abs() < 1.0, "{d}");
+        assert!(((p.0 - p.1) - m.river_band()).abs() < 1.0, "on the band's edge: {p:?}");
+    }
+
+    #[test]
+    fn without_the_walls_file_only_the_rifts_edges_are_wall() {
+        let m = rift_grids(None);
+        let e = places::RIFT_EXTENT;
+        // no wall anywhere inside: never "everything is wall"
+        for p in [(1_500_000.0, 1_500_000.0), (336_000.0, 336_000.0), (1_200_000.0, 300_000.0), (800_000.0, 100_000.0)] {
+            assert!(!m.is_wall(p.0, p.1), "{p:?}");
+        }
+        assert!(m.is_wall(-1.0, 5.0) && m.is_wall(5.0, e) && m.is_wall(e + 10.0, 800_000.0));
+        assert_eq!(near(&m, 1_200_000.0, 300_000.0, 64_000.0), Near::default());
+        // by the map's edge: rock
+        assert_eq!(near(&m, e - 30_000.0, 300_000.0, 64_000.0).rock, Some(30_000.0));
+        // the wind runs its whole length in the open, and stops at the map's edge
+        let free = windblast(&m, (1_200_000.0, 300_000.0), (1.0, 0.0), 60_000.0);
+        assert!(free.wall.is_none() && (free.stop.0 - 1_260_000.0).abs() < 1.0, "{:?}", free.stop);
+        let b = windblast(&m, (e - 30_000.0, 300_000.0), (1.0, 0.0), 60_000.0);
+        assert!(b.wall.is_some_and(|w| w.0 >= e), "{:?}", b.wall);
+        assert_eq!(shockwave(&m, &b, 96_000.0).edge, Some(Edge::Right));
+    }
+
+    #[test]
+    fn on_the_rift_the_wind_stops_at_its_wall_and_the_shockwave_runs_along_it() {
+        // a wall down the column x = 250 from row 100 to row 139 (about 218000 long, at x about 1366000)
+        let col: Vec<(usize, usize)> = (100..140).map(|y| (250, y)).collect();
+        let m = rift(&col);
+        let b = windblast(&m, rc(245.5, 120.5), (1.0, 0.0), 60_000.0);
+        let face = rc(250.0, 0.0).0;
+        assert!(b.wall.is_some() && b.stop.0 < face && face - b.stop.0 <= STEP + 1.0, "stops before the wall: {:?}", b.stop);
+        // along the wall within the span: more cells than the game's own cap (24 of its 32000 cells), its area's worth
+        let s = shockwave(&m, &b, 96_000.0);
+        let g = m.walls.as_ref().unwrap();
+        assert!(s.wall.len() > WALL_CAP && s.wall.len() <= g.cells_for(WALL_CAP), "{}", s.wall.len());
+        assert!(s.wall.iter().all(|&(x, _)| x == 250), "{:?}", s.wall);
+        // by the wall 80000 along it from the stop: caught; past the wall's end, or off it: not
+        let r = 10_000.0;
+        assert!(s.caught(&m, face - 8_000.0, b.stop.1 + 80_000.0, r, 12_000.0, 96_000.0).is_some());
+        assert!(s.caught(&m, face - 8_000.0, rc(0.0, 160.0).1, r, 12_000.0, 96_000.0).is_none());
+        assert!(s.caught(&m, face - 60_000.0, b.stop.1, r, 12_000.0, 96_000.0).is_none());
+        // the pictures: spread along it, no two within PIC_GAP
+        let pics: Vec<Pt> = s.spots(&m, 96_000.0, 8).into_iter().filter(|(k, _)| *k == Kind::Wall).map(|(_, p)| p).collect();
+        assert!(pics.len() >= 3, "{pics:?}");
+        for (i, a) in pics.iter().enumerate() {
+            for q in &pics[i + 1..] {
+                assert!(dist(*a, *q) > PIC_GAP - 1.0, "{a:?} {q:?}");
+            }
+        }
+    }
+
+    #[test]
+    fn cell_counts_follow_the_cells_area() {
+        let native = Grid::from_rows(&["#"]);
+        assert_eq!((native.cells_for(WALL_CAP), native.cells_for(BRUSH_CAP)), (WALL_CAP, BRUSH_CAP));
+        let e = places::RIFT_EXTENT;
+        let r = Grid::from_walls(&Walls::from_rows(&["#."], RCELL, (R0, 0.0), (e, e)));
+        // 24 x (32000 / 5454.5)^2
+        assert_eq!(r.cells_for(WALL_CAP), 826);
+        assert_eq!(r.cell_of(R0 + 1.0, 1.0), (0, 0));
+        let mid = r.centre((1, 0));
+        assert!((mid.0 - (R0 + 1.5 * RCELL)).abs() < 1e-6 && (mid.1 - RCELL / 2.0).abs() < 1e-6, "{mid:?}");
+        assert!(r.covers(R0 + 1.0, 1.0) && !r.covers(1.0, 1.0) && !r.covers(R0 + 2.5 * RCELL, 1.0));
+        assert!(r.at(R0 + 1.0, 1.0) && !r.at(R0 + 1.5 * RCELL, 1.0));
     }
 }

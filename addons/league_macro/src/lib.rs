@@ -40,6 +40,10 @@
 //!   不然去小龙（还是人数不吃亏就行）。
 //! - 0.1.6（用户 2026-11-08「辅助想回家 想游走全被限制住了」）：集结和跟大龙兵线时，AI 回城、往自家基地走（目的地离自家
 //!   基地 `HOME_NEAR` 以内）都放行（`going_home`），以前离得远就一律拉去龙坑 / 兵线。
+//! - 两张 5v5 地图（2026-11-10）：基地、龙坑、强化兵都是读模拟里活着的实体（`Nexus`、`Epic` / `Serpen`、小兵），两张图一样；
+//!   只有跟着地图大小走的长度按这一场的地图放大（`game_places::terrain::Map::scale`，每份模拟看一次 `map_of_sim`：游戏自己的
+//!   地图 1，Rin 的召唤师峡谷 1.68）：离对面基地多近算推基地（`FINISH_REACH`、`BASE_NEAR`）、中路有多宽（`MID_NEAR`）、
+//!   走回家（`HOME_NEAR`）——峡谷的基地大 1.68 倍，泉水离基地约 170000，以前按 120000 走回泉水会被拉回龙坑。打架的距离不变。
 //!
 //! 每 `SCAN` tick 看一次场上（每个选手自己的钩子实例里，不共用状态：游戏会并行跑好几场），两次之间沿用上次的打算。
 //! 只看比赛的状态，没有随机数：服务器预演和客户端重演走的一样。优先级 `PRIORITY` 比英雄附加包低，所以先跑，
@@ -51,9 +55,10 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_macro";
@@ -69,9 +74,9 @@ pub const PRIORITY: i32 = -500_000;
 pub const SCAN: usize = 15;
 /// 拿龙一方小兵身上的大龙 buff。
 pub const BARON_BUFF: &str = "epic_minion_buff";
-/// 推基地：自己离对面基地多近。
+/// 推基地：自己离对面基地多近（游戏自己的地图上的；峡谷上乘 `Map::scale`，基地跟着地图大）。
 pub const FINISH_REACH: f64 = 180_000.0;
-/// 推基地：数基地这么近的双方英雄。
+/// 推基地：数基地这么近的双方英雄（同上，乘 `Map::scale`）。
 pub const BASE_NEAR: f64 = 200_000.0;
 /// 跟强化兵推进：我方至少活着几个（而且不少于对面）。
 pub const JOIN_MIN_ALIVE: usize = 3;
@@ -87,7 +92,7 @@ pub const WITH_WAVE: f64 = 90_000.0;
 pub const BACK_OFF: f64 = 30_000.0;
 /// 战术里大龙 buff 的用法（`strategy_get_json` 的路径）。
 pub const MORGARD_USE: &str = "morgard_use";
-/// 1-3-1：离两边基地连线这么近的强化兵算中路。
+/// 1-3-1：离两边基地连线这么近的强化兵算中路（峡谷上乘 `Map::scale`）。
 pub const MID_NEAR: f64 = 120_000.0;
 /// 被指派分推时真去分推的位置（`LaneV1` 的 Top、Jungle）：能单挑的边路，和 LOL 一样；中单、射手、辅助跟大部队。
 pub const SPLIT_LANES: [u32; 2] = [0, 1];
@@ -106,7 +111,7 @@ pub const CONTEST_MIN: usize = 2;
 pub const GATHER_MAX: usize = 2_400;
 /// ……之后歇多久（tick，60 秒）。
 pub const GATHER_REST: usize = 3_600;
-/// 走路的目的地离自家基地这么近 = 回家（补给、回城路上）：集结、跟兵线时不拦。
+/// 走路的目的地离自家基地这么近 = 回家（补给、回城路上）：集结、跟兵线时不拦（峡谷上乘 `Map::scale`：泉水离基地更远）。
 pub const HOME_NEAR: f64 = 120_000.0;
 /// 前多少次改指令各写一行。
 const DETAIL_LINES: usize = 40;
@@ -192,6 +197,39 @@ fn note_split(detail: impl FnOnce() -> String) {
 
 fn clock(t: usize) -> String {
     format!("{}:{:02}", t / 3600, t / 60 % 60)
+}
+
+/// This launch's log has told the Rift already.
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// The map of the sim this hook instance runs in, looked up once a sim (keyed by its seed and origin: an instance may
+/// outlive a match); the first Rift a launch, a line in the log.
+#[derive(Clone, Copy, Default)]
+struct MapOf(Option<(SimKey, Map)>);
+
+/// A sim: its seed and origin (kind, match, replay, set).
+type SimKey = (u64, u32, u64, u64, u64);
+
+impl MapOf {
+    fn get(&mut self, sim: &StableSim<'_>) -> Map {
+        let o = sim.sim_origin().unwrap_or_default();
+        let key = (sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index);
+        match self.0 {
+            Some((k, map)) if k == key => map,
+            _ => {
+                let map = map_of_sim(sim);
+                if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+                    let s = map.scale();
+                    wlog(format!("== Rift: nexuses, pits and baron waves are read from the sim as ever; the base lengths x {s:.2}: \
+                                  finish the nexus from {:.0} (counting champions within {:.0}), mid {:.0} wide, a walk home \
+                                  within {:.0} of our nexus; {} ==", FINISH_REACH * s, BASE_NEAR * s, MID_NEAR * s,
+                                 HOME_NEAR * s, rift_status()));
+                }
+                self.0 = Some((key, map));
+                map
+            }
+        }
+    }
 }
 
 // ===================== 打算 =====================
@@ -297,8 +335,10 @@ pub fn baron_plan(json: &str) -> BaronPlan {
 }
 
 /// What one look at the match saw, from one champion's side.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct View {
+    /// The map the match is played on: the base lengths (`FINISH_REACH`, `BASE_NEAR`, `MID_NEAR`) times its `scale`.
+    pub map: Map,
     pub me: Pos,
     pub hp_pct: usize,
     /// Living allied champions, me included.
@@ -326,6 +366,29 @@ pub struct View {
     pub resting: Vec<usize>,
 }
 
+impl Default for View {
+    /// Nothing seen, on the game's own map.
+    fn default() -> Self {
+        View {
+            map: Map::Native,
+            me: (0.0, 0.0),
+            hp_pct: 0,
+            allies: Vec::new(),
+            enemies: Vec::new(),
+            enemy_nexus: None,
+            own_nexus: None,
+            baron_minions: Vec::new(),
+            plan: BaronPlan::default(),
+            named: BaronPlan::default(),
+            i_split: false,
+            group: Vec::new(),
+            tick: 0,
+            objectives: Vec::new(),
+            resting: Vec::new(),
+        }
+    }
+}
+
 /// A macro order this champion follows until the next look.
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Intent {
@@ -348,11 +411,13 @@ impl Intent {
 
 /// The order for this champion now, if any.
 pub fn plan(v: &View) -> Option<Intent> {
-    let near = |at: Pos, list: &mut dyn Iterator<Item = Pos>| list.filter(|p| dist(*p, at) <= BASE_NEAR).count();
+    // the lengths that follow the map's size (its base, its mid lane): 1 on the game's own map
+    let scale = v.map.scale();
+    let near = |at: Pos, list: &mut dyn Iterator<Item = Pos>| list.filter(|p| dist(*p, at) <= BASE_NEAR * scale).count();
     if let Some((nexus, at, true)) = v.enemy_nexus {
         let ours = near(at, &mut v.allies.iter().copied());
         let theirs = near(at, &mut v.enemies.iter().map(|e| e.1));
-        if dist(v.me, at) <= FINISH_REACH && v.hp_pct >= FINISH_HP && ours >= 3 && ours > theirs {
+        if dist(v.me, at) <= FINISH_REACH * scale && v.hp_pct >= FINISH_HP && ours >= 3 && ours > theirs {
             return Some(Intent::Finish { nexus, at });
         }
     }
@@ -379,7 +444,7 @@ pub fn plan(v: &View) -> Option<Intent> {
     let nearest = |waves: &mut dyn Iterator<Item = Pos>| waves.min_by(|a, b| dist(*a, centre).total_cmp(&dist(*b, centre)));
     let mid = match (v.plan, v.own_nexus) {
         (BaronPlan::Split131(..), Some(own)) => {
-            nearest(&mut v.baron_minions.iter().copied().filter(|p| seg_dist(*p, own, toward) <= MID_NEAR))
+            nearest(&mut v.baron_minions.iter().copied().filter(|p| seg_dist(*p, own, toward) <= MID_NEAR * scale))
         }
         _ => None,
     };
@@ -413,11 +478,18 @@ fn gather(v: &View) -> Option<Intent> {
     Some(Intent::Gather { at: (pit.0 + (home.0 - pit.0) * k, pit.1 + (home.1 - pit.1) * k), pit, id, epic })
 }
 
-/// Whether the AI's order takes the champion home: a recall, or a walk to within `HOME_NEAR` of our nexus.
+/// [`going_home_on`] on the game's own map.
 pub fn going_home(base: Option<&InputV1>, home: Option<Pos>) -> bool {
+    going_home_on(Map::Native, base, home)
+}
+
+/// Whether the AI's order takes the champion home: a recall, or a walk to within `HOME_NEAR` (times `map`'s scale) of
+/// our nexus.
+pub fn going_home_on(map: Map, base: Option<&InputV1>, home: Option<Pos>) -> bool {
+    let near = HOME_NEAR * map.scale();
     base.is_some_and(|b| {
         b.kind == InputKindV1::Return.code()
-            || (b.kind == InputKindV1::Move.code() && home.is_some_and(|h| dist((b.x as f64, b.y as f64), h) <= HOME_NEAR))
+            || (b.kind == InputKindV1::Move.code() && home.is_some_and(|h| dist((b.x as f64, b.y as f64), h) <= near))
     })
 }
 
@@ -483,11 +555,11 @@ pub fn order(intent: Intent, me: Pos, base: Option<&InputV1>, enemies: &[(usize,
 
 // ===================== 钩子 =====================
 
-fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
+fn look(sim: &StableSim<'_>, me_id: usize, team: usize, map: Map) -> Option<View> {
     let me = sim.get_entity(me_id)?;
     let (hp, max) = me.hp();
     let pos = |e: &StableEntity<'_, '_>| (e.pos().0 as f64, e.pos().1 as f64);
-    let mut v = View { me: pos(&me), hp_pct: if max == 0 { 100 } else { hp * 100 / max }, ..View::default() };
+    let mut v = View { map, me: pos(&me), hp_pct: if max == 0 { 100 } else { hp * 100 / max }, ..View::default() };
     // living allied champions by entity id: the group leaves out the Morgard plan's split pushers
     let mut mates: Vec<(usize, Pos)> = Vec::new();
     for i in 0..sim.entity_count() {
@@ -554,6 +626,8 @@ pub struct Macro {
     splitting: bool,
     /// The game's AI is recalling ([`still_recalling`], 0.1.8).
     recalling: bool,
+    /// The map of this sim (`MapOf`).
+    map: MapOf,
 }
 
 impl StablePlayerAi for Macro {
@@ -573,7 +647,7 @@ impl StablePlayerAi for Macro {
         let tick = ctx.tick();
         let (player, team) = (ctx.player_id(), ctx.team());
         let mut splitting = self.splitting;
-        let (me, me_id, now_head) = {
+        let (me, me_id, now_head, map) = {
             let sim = ctx.sim()?;
             let champ = sim.get_player(player)?.champion()?;
             if !champ.is_alive() {
@@ -581,9 +655,10 @@ impl StablePlayerAi for Macro {
                 return None;
             }
             let me_id = champ.id();
+            let map = self.map.get(&sim);
             if tick >= self.next_look || tick + SCAN < self.next_look {
                 self.next_look = tick + SCAN;
-                match look(&sim, me_id, team) {
+                match look(&sim, me_id, team, map) {
                     Some(mut v) => {
                         // a match started over (the tick went back): no rests from the old one
                         self.resting.retain(|r| r.1 > tick && r.1 <= tick + GATHER_REST);
@@ -612,7 +687,7 @@ impl StablePlayerAi for Macro {
                 }
             }
             let at = (champ.pos().0 as f64, champ.pos().1 as f64);
-            (at, me_id, champ.name().unwrap_or_default())
+            (at, me_id, champ.name().unwrap_or_default(), map)
         };
         // a split pusher left to the game's AI: noted when it starts
         if splitting != self.splitting {
@@ -635,7 +710,7 @@ impl StablePlayerAi for Macro {
         };
         // gathering or pushing with the baron waves: a recall (all of it: its ticks without an order too, 0.1.8) or a walk
         // home goes through
-        if !matches!(intent, Intent::Finish { .. }) && (self.recalling || going_home(base.as_ref(), self.home)) {
+        if !matches!(intent, Intent::Finish { .. }) && (self.recalling || going_home_on(map, base.as_ref(), self.home)) {
             return None;
         }
         let out = order(intent, me, base.as_ref(), &self.enemies, &|i| ctx.is_valid_input(i))?;
@@ -812,6 +887,30 @@ mod tests {
         assert_eq!(plan(&View { enemies: crowd, ..v.clone() }), None);
         assert_eq!(plan(&View { hp_pct: 10, ..v.clone() }), None);
         assert_eq!(plan(&View { me: (500_000.0, 500_000.0), ..v }), None, "too far from it");
+    }
+
+    #[test]
+    fn on_the_rift_the_base_lengths_follow_its_size() {
+        // blue at red's inhibitors on the Rift, 250k from red's open nexus (the Rift's base is 1.68 times the game's own)
+        let nexus = (1_450_000.0, 165_000.0);
+        let v = View {
+            map: Map::Rift,
+            me: (1_200_000.0, 165_000.0),
+            hp_pct: 80,
+            allies: vec![(1_200_000.0, 165_000.0), (1_210_000.0, 175_000.0), (1_190_000.0, 155_000.0), (700_000.0, 700_000.0)],
+            enemies: vec![(77, nexus)],
+            enemy_nexus: Some((9, nexus, true)),
+            own_nexus: Some((165_000.0, 1_450_000.0)),
+            ..View::default()
+        };
+        assert_eq!(plan(&v), Some(Intent::Finish { nexus: 9, at: nexus }), "within 180k x 1.68 of it, 3 of us near");
+        assert_eq!(plan(&View { map: Map::Native, ..v.clone() }), None, "the game's own 180k: too far");
+        // a walk to red's fountain, 170k from its nexus, is a walk home on the Rift (120k x 1.68)
+        let fountain = InputV1::move_to(1_570_000, 45_000);
+        assert!(going_home_on(Map::Rift, Some(&fountain), Some(nexus)));
+        assert!(!going_home(Some(&fountain), Some(nexus)) && !going_home_on(Map::Native, Some(&fountain), Some(nexus)));
+        assert!(!going_home_on(Map::Rift, Some(&InputV1::move_to(800_000, 800_000)), Some(nexus)));
+        assert_eq!(View::default().map, Map::Native);
     }
 
     #[test]

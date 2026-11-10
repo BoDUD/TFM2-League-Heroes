@@ -41,15 +41,20 @@
 //! 优先级 `PRIORITY` 排在所有英雄附加包和运营钩子之后（只低于兜底的 league_unlock_guard）：它们下的出手也一样拦。
 //! 只看比赛的状态，没有随机数，每个选手自己的钩子实例：服务器预演和客户端重演走的一样。只下走路，不按技能。
 //!
+//! 两张 5v5 地图（2026-11-10）：看场上时「在地图上」的上限按这一场的地图（`game_places::terrain::Map::limit`，每份模拟看
+//! 一次 `map_of_sim`）：游戏自己的地图照旧 `MAP_MAX`（1200000），Rin 的召唤师峡谷 1.25 x 1614545——以前一律 1200000，
+//! 峡谷上两边的基地（1400000 以外）连同那里的塔、英雄全看不见：蓝方找不到自家基地，红方连塔都没有，退不回去。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_lane.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! 前 `DETAIL_LINES` 次开始退各一行，之后每 `COUNT_EVERY` 次一行累计。效果看 league_fight_log 的 SUM 行（10:00 前的阵亡）。
 
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_lane";
@@ -91,7 +96,7 @@ pub const RECALL_SAFE: f64 = 45_000.0;
 pub const STEP_BACK: f64 = 8_000.0;
 /// 想打塔下的英雄时改打这么近的敌方小兵（0.1.5）。
 pub const FARM_R: f64 = 60_000.0;
-/// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
+/// 游戏自己的地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算（= `Map::Native.limit()`；这一场的看 `Map::limit`）。
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 前多少次开始退各写一行。
 const DETAIL_LINES: usize = 40;
@@ -158,12 +163,46 @@ fn clock(t: usize) -> String {
     format!("{}:{:02}", t / 3600, t / 60 % 60)
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这个钩子实例所在那份模拟的地图：每份模拟看一次（按种子和来处认：实例可能跨场），第一次碰到峡谷（一次启动）时日志写一行。
+#[derive(Clone, Copy, Default)]
+struct MapOf(Option<(SimKey, Map)>);
+
+/// 一份模拟：种子和来处（kind、match、replay、set）。
+type SimKey = (u64, u32, u64, u64, u64);
+
+impl MapOf {
+    fn get(&mut self, sim: &StableSim<'_>) -> Map {
+        let o = sim.sim_origin().unwrap_or_default();
+        let key = (sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index);
+        match self.0 {
+            Some((k, map)) if k == key => map,
+            _ => {
+                let map = map_of_sim(sim);
+                if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+                    wlog(format!("== Rift: champions, towers and nexuses count as on the map up to {:.0} (1.25 x the Rift's \
+                                  side, not the game's own {MAP_MAX:.0}); {} ==", map.limit(), rift_status()));
+                }
+                self.0 = Some((key, map));
+                map
+            }
+        }
+    }
+}
+
 // ===================== 规则 =====================
 
 pub type Pos = (f64, f64);
 
 fn dist(a: Pos, b: Pos) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 在地图上：不超过 `limit`（`Map::limit`：游戏自己的地图 `MAP_MAX`；被放逐、藏起来的英雄停在更远处）。
+pub fn on_map(p: Pos, limit: f64) -> bool {
+    p.0 <= limit && p.1 <= limit
 }
 
 /// An enemy champion seen: entity id, position, health %.
@@ -335,7 +374,8 @@ fn pct((hp, max): (usize, usize)) -> usize {
     }
 }
 
-fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
+/// One look at the match from `me_id`'s side; units past `limit` (`Map::limit`) are off the map.
+fn look(sim: &StableSim<'_>, me_id: usize, team: usize, limit: f64) -> Option<View> {
     let me = sim.get_entity(me_id)?;
     let undying = (0..me.buff_count()).filter_map(|i| me.buff_at(i)).any(|b| b.undying);
     let mut v = View { me: pos(&me), hp: pct(me.hp()), undying, ..View::default() };
@@ -344,7 +384,7 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<View> {
     for i in 0..sim.entity_count() {
         let Some(e) = sim.entity_at(i) else { continue };
         let at = pos(&e);
-        if at.0 > MAP_MAX || at.1 > MAP_MAX {
+        if !on_map(at, limit) {
             continue;
         }
         let ours = e.team() == team;
@@ -392,6 +432,8 @@ pub struct Calm {
     last_out: Option<usize>,
     /// A recall it let through is under way ([`still_recalling`], 0.1.4).
     recalling: bool,
+    /// The map of this sim (`MapOf`).
+    map: MapOf,
 }
 
 /// The game's AI recalling (league_ult_press 0.5.0's rule): a Return starts it, the ticks it gives no order go on with it
@@ -432,7 +474,8 @@ impl StablePlayerAi for Calm {
             }
             if tick >= self.next_look || tick + LOOK < self.next_look {
                 self.next_look = tick + LOOK;
-                self.view = look(&sim, champ.id(), team);
+                let limit = self.map.get(&sim).limit();
+                self.view = look(&sim, champ.id(), team, limit);
             }
             champ.name().unwrap_or_default()
         };
@@ -540,6 +583,19 @@ mod tests {
             undying: false,
             minions: Vec::new(),
         }
+    }
+
+    #[test]
+    fn on_the_map_is_up_to_the_limit_of_the_map_played_on() {
+        let (native, rift) = (Map::Native.limit(), Map::Rift.limit());
+        assert_eq!(native, MAP_MAX);
+        // the Rift's two bases (past 1200000): their nexuses, towers and champions are on the Rift's map
+        for base in [(165_000.0, 1_450_000.0), (1_450_000.0, 165_000.0)] {
+            assert!(on_map(base, rift) && !on_map(base, native), "{base:?}");
+        }
+        assert!(on_map((480_000.0, 480_000.0), native) && on_map((MAP_MAX, MAP_MAX), native));
+        // parked far past both (banished, hidden): never
+        assert!(!on_map((3_000_000.0, 10.0), rift) && !on_map((10.0, 2_100_000.0), rift));
     }
 
     #[test]

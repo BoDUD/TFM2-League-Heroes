@@ -15,6 +15,8 @@
 //! - **什么时候骑**（0.4.0，`ride_ai.rs`）：游戏的 AI 从来不按这一招，钩子照英雄联盟高手的用法替它按——走远路（回线、游走、
 //!   支援）且不在交战中就骑，远处有残血、她血量健康就骑过去追。
 //! - **骑乘的样子**（`view.rs`，游戏 0.6.4 起的 Windows 版）：骑着的时候站着、走着、挨打都是骑在华洛背上的 `r_idle` / `r_run` / `r_hit`。
+//! - **两张 5v5 地图**（2026-11-10）：翻回去夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
+//!   Rin 的召唤师峡谷 1614545 见方）；以前一律按 960000，峡谷上过了 960000 就被夹回半张图的边。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_quinn.log`，每次启动游戏重写，上一次的留在 .prev.log：`RIDE`（骑上、
 //! 出招落地 / 到时落地、骑了多久多远）、`E`（出 E、冲了几 tick）、`VAULT`（为什么翻、往哪翻、挪了多远）、`FORM`（画面里换形态），
@@ -24,8 +26,10 @@ use std::collections::{HashMap, VecDeque};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 pub mod ride_ai;
@@ -61,6 +65,7 @@ pub const STILL_T: usize = 10;
 pub const TRAIL: usize = 40;
 /// 离踢中的地方至少这么远的旧位置才算「从那边冲过来」。
 pub const CAME_MIN: f64 = 3000.0;
+/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
@@ -124,6 +129,19 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{id}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: the vault back after Harrier's kick is kept on the Rift's {:.0} square (not the game's own \
+                      {MAP:.0}); {} ==", map.extent(), rift_status()));
+    }
+    map
+}
+
 // ===================== 规则（单元测试用） =====================
 
 pub type Pt = (f64, f64);
@@ -144,8 +162,10 @@ pub fn vault_dir(at: Pt, trail: &[Pt], foe: Option<Pt>) -> Option<Pt> {
     came.and_then(unit).or_else(|| foe.and_then(|f| unit(f).map(|d| (-d.0, -d.1))))
 }
 
-pub fn clamp(p: Pt) -> Pt {
-    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
+/// 夹在 `map` 上（坐标 0..边长-1）。
+pub fn clamp(map: Map, p: Pt) -> Pt {
+    let e = map.extent();
+    (p.0.clamp(0.0, e - 1.0), p.1.clamp(0.0, e - 1.0))
 }
 
 /// 出 E 后第 `ticks` tick、这一 tick 挪了 `step`、之前冲起来过没有（`moved`）：冲刺是不是结束了（该翻了）。
@@ -265,7 +285,7 @@ impl Ride {
                 }
                 self.vault = None;
             } else {
-                let next = clamp((at.0 + d.0 * E_BACK, at.1 + d.1 * E_BACK));
+                let next = clamp(map_here(sim), (at.0 + d.0 * E_BACK, at.1 + d.1 * E_BACK));
                 if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
                     *refused += 1;
                 }
@@ -388,6 +408,15 @@ mod tests {
         let d = vault_dir((0.0, 0.0), &[(0.0, 0.0)], Some((0.0, 5000.0))).unwrap();
         assert!(d.0.abs() < 1e-9 && (d.1 + 1.0).abs() < 1e-9);
         assert_eq!(vault_dir((0.0, 0.0), &[], None), None);
+    }
+
+    #[test]
+    fn the_vault_stays_on_the_map_it_is_played_on() {
+        // the game's own map: its edge at 960000, as before
+        assert_eq!(clamp(Map::Native, (970_000.0, -5.0)), (MAP - 1.0, 0.0));
+        // the Rift: past 960000 is its ground, its own edge at 1614545
+        assert_eq!(clamp(Map::Rift, (1_300_000.0, 1_500_000.0)), (1_300_000.0, 1_500_000.0));
+        assert_eq!(clamp(Map::Rift, (2_000_000.0, -5.0)), (Map::Rift.extent() - 1.0, 0.0));
     }
 
     #[test]

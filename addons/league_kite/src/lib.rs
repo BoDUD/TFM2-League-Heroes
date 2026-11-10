@@ -32,6 +32,10 @@
 //! 0.1.1（用户 2026-11-08「还是有卡回城的BUG啊」）：回城引导时游戏的 AI 大多数 tick 不下指令，0.1.0 把那些 tick 当成「没下指令」照样拉扯，
 //! 有人压上来时把回城打断。现在从回城命令到 AI 下别的命令为止都不管（`still_recalling`）。
 //!
+//! 两张 5v5 地图（2026-11-10）：「在地图上」的上限和拉扯一步的夹边按这一场的地图（`game_places::terrain::Map::limit`，每份
+//! 模拟看一次 `map_of_sim`）：游戏自己的地图照旧 `MAP_MAX`（1200000），Rin 的召唤师峡谷 1.25 x 1614545——以前一律 1200000，
+//! 峡谷上红方半边的英雄不算压上来的人，拉扯的一步也被夹回 1200000。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_kite.log`，每次启动游戏重写，上一次的留在 .prev.log：前
 //! `DETAIL_LINES` 次拉扯各一行；每 `COUNT_EVERY` 个「该拉扯的 tick」一行累计——这些 tick 里游戏的 AI 自己在往外走（它自己的
 //! Kiting / 逃跑）、朝他走、站着普攻、没下指令、放技能各多少，这个钩子走了多少 tick、几次。效果看 league_fight_log 的 SUM
@@ -40,9 +44,10 @@
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_kite";
@@ -79,7 +84,7 @@ pub const TARGET_MARGIN: f64 = 3_000.0;
 /// 拉扯了这么多 tick 还没挪开这么远：卡住了，等下一下普攻。
 pub const STUCK_TICKS: usize = 4;
 pub const STUCK_MOVE: f64 = 1_000.0;
-/// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
+/// 游戏自己的地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算（= `Map::Native.limit()`；这一场的看 `Map::limit`）。
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 让他不能自己走的控制：普攻的前摇（`Animation`）、位移、击飞、眩晕、定身、嘲讽、恐惧、魅惑（沉默、缴械、禁位移技能不算）。
 pub const HELD: [CcKindV1; 8] = [
@@ -163,12 +168,47 @@ fn clock(t: usize) -> String {
     format!("{}:{:02}", t / 3600, t / 60 % 60)
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这个钩子实例所在那份模拟的地图：每份模拟看一次（按种子和来处认：实例可能跨场），第一次碰到峡谷（一次启动）时日志写一行。
+#[derive(Clone, Copy, Default)]
+struct MapOf(Option<(SimKey, Map)>);
+
+/// 一份模拟：种子和来处（kind、match、replay、set）。
+type SimKey = (u64, u32, u64, u64, u64);
+
+impl MapOf {
+    fn get(&mut self, sim: &StableSim<'_>) -> Map {
+        let o = sim.sim_origin().unwrap_or_default();
+        let key = (sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index);
+        match self.0 {
+            Some((k, map)) if k == key => map,
+            _ => {
+                let map = map_of_sim(sim);
+                if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+                    wlog(format!("== Rift: champions count as on the map up to {:.0} and a kite step stays within 0..{:.0} \
+                                  (1.25 x the Rift's side, not the game's own {MAP_MAX:.0}); {} ==", map.limit(), map.limit(),
+                                 rift_status()));
+                }
+                self.0 = Some((key, map));
+                map
+            }
+        }
+    }
+}
+
 // ===================== 拉扯 =====================
 
 pub type Pos = (f64, f64);
 
 fn dist(a: Pos, b: Pos) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 在地图上：不超过 `limit`（`Map::limit`：游戏自己的地图 `MAP_MAX`；被放逐、藏起来的英雄停在更远处）。
+pub fn on_map(p: Pos, limit: f64) -> bool {
+    p.0 <= limit && p.1 <= limit
 }
 
 fn unit(v: Pos) -> Pos {
@@ -189,8 +229,10 @@ pub struct Threat {
 }
 
 /// What the hook sees this tick.
-#[derive(Clone, Debug, Default, PartialEq)]
+#[derive(Clone, Debug, PartialEq)]
 pub struct Moment {
+    /// the map he plays on: a step stays within 0..its `limit` (`MAP_MAX` on the game's own)
+    pub map: Map,
     pub me: Pos,
     /// our nexus
     pub home: Option<Pos>,
@@ -206,6 +248,23 @@ pub struct Moment {
     pub target: Option<Pos>,
     /// the enemy champions within `THREAT_R`
     pub threats: Vec<Threat>,
+}
+
+impl Default for Moment {
+    /// Nothing seen, on the game's own map.
+    fn default() -> Self {
+        Moment {
+            map: Map::Native,
+            me: (0.0, 0.0),
+            home: None,
+            reach: None,
+            cooling: 0,
+            busy: false,
+            winding: false,
+            target: None,
+            threats: Vec::new(),
+        }
+    }
 }
 
 /// Who presses on him: the nearest enemy champion within `HIT_R`, or within `THREAT_R` (and his `reach` less `MARGIN`)
@@ -285,7 +344,8 @@ pub fn kite_step(m: &Moment) -> Result<(Pos, Threat), Stop> {
     if d == (0.0, 0.0) {
         return Err(Stop::Calm);
     }
-    Ok((((m.me.0 + d.0 * STEP).clamp(0.0, MAP_MAX), (m.me.1 + d.1 * STEP).clamp(0.0, MAP_MAX)), t))
+    let limit = m.map.limit();
+    Ok((((m.me.0 + d.0 * STEP).clamp(0.0, limit), (m.me.1 + d.1 * STEP).clamp(0.0, limit)), t))
 }
 
 /// His attack range as his own attacks show it: the distance to the unit the AI had him attack each time the attack's
@@ -430,6 +490,8 @@ pub struct Kite {
     /// when his attack last started, and until when he is in a fight ([`fight_until`], 0.1.3)
     attack_at: Option<usize>,
     fight_until: usize,
+    /// the map of this sim (`MapOf`)
+    map: MapOf,
 }
 
 /// The game's AI recalling (league_ult_press 0.5.0's rule): a Return starts it, the ticks it gives no order go on with it
@@ -490,12 +552,13 @@ impl StablePlayerAi for Kite {
                 return None;
             }
             let me = pos(&champ);
+            let map = self.map.get(&sim);
             let cd = champ.cooldown(SkillSlotV1::Attack).map_or(0, |c| c.remaining);
             // his attack started again: how far away was the unit the AI had him attack
             if cd > self.last_cd {
                 if let Some(t) = self.last_target.and_then(|t| sim.get_entity(t)) {
                     let d = dist(me, pos(&t));
-                    if d <= MAP_MAX {
+                    if d <= map.limit() {
                         self.reach.observe(d);
                     }
                 }
@@ -526,7 +589,7 @@ impl StablePlayerAi for Kite {
                 }
                 let Some(c) = p.champion() else { continue };
                 let at = pos(&c);
-                if !c.is_alive() || at.0 > MAP_MAX || at.1 > MAP_MAX || !sim.is_visible(team, c.id()) {
+                if !c.is_alive() || !on_map(at, map.limit()) || !sim.is_visible(team, c.id()) {
                     continue;
                 }
                 let id = c.id();
@@ -563,6 +626,7 @@ impl StablePlayerAi for Kite {
             self.fight_until = fight_until(self.fight_until, tick, base.is_some(), on_champ);
             let fight = tick < self.fight_until;
             let m = Moment {
+                map,
                 me,
                 home: self.home,
                 reach: self.reach.get(),
@@ -691,7 +755,7 @@ mod tests {
     const HOME: Pos = (100_000.0, 900_000.0);
 
     fn moment(threats: Vec<Threat>) -> Moment {
-        Moment { me: ME, home: Some(HOME), reach: Some(55_000.0), cooling: 20, busy: false, winding: false, target: None, threats }
+        Moment { map: Map::Native, me: ME, home: Some(HOME), reach: Some(55_000.0), cooling: 20, busy: false, winding: false, target: None, threats }
     }
 
     fn diver(d: f64, closing: f64) -> Threat {
@@ -734,6 +798,25 @@ mod tests {
         // the nearest of two
         let two = vec![diver(45_000.0, 900.0), Threat { id: 8, at: (ME.0 - 35_000.0, ME.1), closing: 600.0 }];
         assert_eq!(kite_step(&moment(two)).map(|(_, t)| t.id), Some(8));
+    }
+
+    #[test]
+    fn on_the_rift_he_steps_away_past_1200000() {
+        // red's ADC by red's base on the Rift (top right), a diver from the south-west
+        let me = (1_500_000.0, 300_000.0);
+        let home = (1_450_000.0, 160_000.0);
+        let diver = Threat { id: 7, at: (me.0 - 24_000.0, me.1 + 32_000.0), closing: 900.0 };
+        let rift = Moment { map: Map::Rift, me, home: Some(home), threats: vec![diver], ..moment(vec![]) };
+        let (to, from) = kite_step(&rift).expect("kites");
+        assert_eq!(from.id, 7);
+        assert!(to.0 > MAP_MAX && dist(to, diver.at) > dist(me, diver.at) + 15_000.0, "{to:?}");
+        // the game's own map's limit would have pulled the step back toward the diver (no such place there)
+        let (to, _) = kite_step(&Moment { map: Map::Native, ..rift.clone() }).expect("kites");
+        assert_eq!(to.0, MAP_MAX);
+        // red's champions there count as on the map on the Rift only
+        assert!(on_map(home, Map::Rift.limit()) && !on_map(home, Map::Native.limit()));
+        assert!(!on_map((3_000_000.0, 5.0), Map::Rift.limit()), "parked far past it: not on it");
+        assert_eq!(Moment::default().map, Map::Native);
     }
 
     #[test]

@@ -13,15 +13,20 @@
 //! 优先级 `PRIORITY` 在 league_macro / league_peel 之后、英雄附加包之前：英雄的钩子还能在它之后改。只看比赛状态，没有随机数，
 //! 每个选手自己的钩子实例：服务器预演和客户端重演走的一样。
 //!
+//! 两张 5v5 地图（2026-11-10）：「在地图上」的上限按这一场的地图（`game_places::terrain::Map::limit`，每份模拟看一次
+//! `map_of_sim`）：游戏自己的地图照旧 `MAP_MAX`（1200000），Rin 的召唤师峡谷 1.25 x 1614545——以前一律 1200000，峡谷上
+//! 红方半边（基地在 1400000 以外）的英雄全被当成「不在场」，那里从来不集火。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_focus.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! 前 `DETAIL_LINES` 次换目标各一行，之后每 `COUNT_EVERY` 次一行累计。效果看 league_fight_log 的 SUM（团战每次死几个）。
 
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_focus";
@@ -41,7 +46,7 @@ pub const SOFT_HP: usize = 50;
 pub const GAP_HP: usize = 30;
 /// 新目标最多比现在的目标远多少。
 pub const SLACK: f64 = 10_000.0;
-/// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算。
+/// 游戏自己的地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算（= `Map::Native.limit()`；这一场的看 `Map::limit`）。
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 前多少次换目标各写一行。
 const DETAIL_LINES: usize = 40;
@@ -89,12 +94,46 @@ fn clock(t: usize) -> String {
     format!("{}:{:02}", t / 3600, t / 60 % 60)
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这个钩子实例所在那份模拟的地图：每份模拟看一次（按种子和来处认：实例可能跨场），第一次碰到峡谷（一次启动）时日志写一行。
+#[derive(Clone, Copy, Default)]
+struct MapOf(Option<(SimKey, Map)>);
+
+/// 一份模拟：种子和来处（kind、match、replay、set）。
+type SimKey = (u64, u32, u64, u64, u64);
+
+impl MapOf {
+    fn get(&mut self, sim: &StableSim<'_>) -> Map {
+        let o = sim.sim_origin().unwrap_or_default();
+        let key = (sim.seed(), o.kind, o.match_id, o.replay_id, o.set_index);
+        match self.0 {
+            Some((k, map)) if k == key => map,
+            _ => {
+                let map = map_of_sim(sim);
+                if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+                    wlog(format!("== Rift: champions count as on the map up to {:.0} (1.25 x the Rift's side, not the game's \
+                                  own {MAP_MAX:.0}); {} ==", map.limit(), rift_status()));
+                }
+                self.0 = Some((key, map));
+                map
+            }
+        }
+    }
+}
+
 // ===================== 选目标 =====================
 
 pub type Pos = (f64, f64);
 
 fn dist(a: Pos, b: Pos) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
+}
+
+/// 在地图上：不超过 `limit`（`Map::limit`：游戏自己的地图 `MAP_MAX`；被放逐、藏起来的英雄停在更远处）。
+pub fn on_map(p: Pos, limit: f64) -> bool {
+    p.0 <= limit && p.1 <= limit
 }
 
 /// An enemy champion seen: entity id, position, health %.
@@ -132,8 +171,8 @@ fn pct((hp, max): (usize, usize)) -> usize {
     }
 }
 
-/// The visible living enemy champions: (my position, foes).
-fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<(Pos, Vec<Foe>)> {
+/// The visible living enemy champions on the map (not past `limit`): (my position, foes).
+fn look(sim: &StableSim<'_>, me_id: usize, team: usize, limit: f64) -> Option<(Pos, Vec<Foe>)> {
     let me = sim.get_entity(me_id)?;
     let at = |e: &StableEntity<'_, '_>| (e.pos().0 as f64, e.pos().1 as f64);
     let mut foes = Vec::new();
@@ -144,7 +183,7 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<(Pos, Vec<Foe>
         }
         let Some(c) = p.champion() else { continue };
         let pos = at(&c);
-        if !c.is_alive() || pos.0 > MAP_MAX || pos.1 > MAP_MAX || !sim.is_visible(team, c.id()) {
+        if !c.is_alive() || !on_map(pos, limit) || !sim.is_visible(team, c.id()) {
             continue;
         }
         foes.push(Foe { id: c.id(), at: pos, hp: pct(c.hp()) });
@@ -155,7 +194,9 @@ fn look(sim: &StableSim<'_>, me_id: usize, team: usize) -> Option<(Pos, Vec<Foe>
 // ===================== 钩子 =====================
 
 #[derive(Clone, Default)]
-pub struct Focus;
+pub struct Focus {
+    map: MapOf,
+}
 
 impl StablePlayerAi for Focus {
     fn clone_box(&self) -> Box<dyn StablePlayerAi> {
@@ -183,7 +224,8 @@ impl StablePlayerAi for Focus {
             if !champ.is_alive() {
                 return None;
             }
-            let (me, foes) = look(&sim, champ.id(), team)?;
+            let limit = self.map.get(&sim).limit();
+            let (me, foes) = look(&sim, champ.id(), team, limit)?;
             let target = attacked(Some(&b), &foes)?;
             let pick = better(me, target, &foes)?;
             (me, target, pick, champ.name().unwrap_or_default())
@@ -225,7 +267,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
-    module.add_player_input_ai(Focus);
+    module.add_player_input_ai(Focus::default());
     host.log(LogLevel::Info, "league_focus loaded (focus the weaker champion).");
 }
 
@@ -283,5 +325,18 @@ mod tests {
         assert_eq!(attacked(Some(&InputV1::action(InputKindV1::Attack, InputTargetV1::target(500))), &foes), None);
         assert_eq!(attacked(Some(&InputV1::move_to(1, 1)), &foes), None);
         assert_eq!(attacked(None, &foes), None);
+    }
+
+    #[test]
+    fn on_the_map_is_up_to_the_limit_of_the_map_played_on() {
+        let (native, rift) = (Map::Native.limit(), Map::Rift.limit());
+        assert_eq!(native, MAP_MAX);
+        // red's base on the Rift (past 1200000): on the Rift's map, off the game's own (where nothing stands there)
+        assert!(on_map((1_450_000.0, 160_000.0), rift) && !on_map((1_450_000.0, 160_000.0), native));
+        // anywhere on either map
+        assert!(on_map((480_000.0, 480_000.0), native) && on_map((480_000.0, 480_000.0), rift));
+        assert!(on_map((MAP_MAX, 5.0), native) && !on_map((MAP_MAX + 1.0, 5.0), native));
+        // parked far past both (banished, hidden)
+        assert!(!on_map((3_000_000.0, 10.0), rift) && !on_map((10.0, 2_100_000.0), rift));
     }
 }

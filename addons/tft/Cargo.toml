@@ -1,6 +1,6 @@
 [package]
 name = "tft"
-version = "0.54.0"
+version = "0.56.0"
 edition = "2021"
 publish = false
 
@@ -12,3 +12,4 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 mod-api-stable = { path = "../vendor/mod-api-stable" }
 hd_engine = { path = "../hd_engine" }
+game_places = { path = "../game_places" }

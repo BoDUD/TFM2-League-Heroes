@@ -14,6 +14,9 @@
 //! 本包放回，永恩的编号比他小时一直顶到 20 步的上限（2026-11-02 复查 11-01 的日志：64 次里 59 次；编号大时 107 次里 3 次，
 //! 到了的也多走 3-5 步）。
 //!
+//! 两张 5v5 地图（2026-11-10）：落点和每一步夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
+//! Rin 的召唤师峡谷 1614545 见方；以前一律按 960000，峡谷上过了 960000 的落点被夹回半张图的边）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yone_r.log`。你看的那场每行都写，服务器的预模拟每种先写
 //! `LOG_FIRST` 行、之后每 `LOG_EVERY` 次一行（见 `tally`）。
 
@@ -21,8 +24,10 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_yone_r";
@@ -51,6 +56,7 @@ pub const PULL_SPEED: usize = 2_000;
 pub const PULL_MAX: f64 = 16_000.0;
 /// 拉到他身前多远停（他的身体外面：停在 6000 的又被引擎推开）。
 pub const STOP: f64 = 12_000.0;
+/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
@@ -121,6 +127,19 @@ fn head(sim: &StableSim<'_>, me: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{me}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// This launch's log has told the Rift already.
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// The map this sim plays on; the first Rift a launch, a line in the log.
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: the landing behind the last one struck and the dash's steps are kept on the Rift's {:.0} \
+                      square (not the game's own {MAP:.0}); {} ==", map.extent(), rift_status()));
+    }
+    map
+}
+
 // ===================== 落脚点 =====================
 
 type Pt = (f64, f64);
@@ -129,8 +148,10 @@ fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-fn clamp(p: Pt) -> Pt {
-    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
+/// 夹在 `map` 上（坐标 0..边长-1）。
+fn clamp(map: Map, p: Pt) -> Pt {
+    let e = map.extent();
+    (p.0.clamp(0.0, e - 1.0), p.1.clamp(0.0, e - 1.0))
 }
 
 /// How far past the last one struck he lands: clear of both bodies (`my_r`, `their_r`; 0 = unknown, `BODY`).
@@ -139,13 +160,18 @@ pub fn back_of(my_r: f64, their_r: f64) -> f64 {
     r(my_r).max(r(their_r)) + BEHIND_GAP
 }
 
-/// Where he lands: `back` past `last` on the way from `me` (at `last` itself when they stand on one spot).
+/// [`behind_on`] on the game's own map.
 pub fn behind(me: Pt, last: Pt, back: f64) -> Pt {
+    behind_on(Map::Native, me, last, back)
+}
+
+/// Where he lands: `back` past `last` on the way from `me` (at `last` itself when they stand on one spot), on `map`.
+pub fn behind_on(map: Map, me: Pt, last: Pt, back: f64) -> Pt {
     let d = dist(me, last);
     if d < 1.0 {
         return last;
     }
-    clamp((last.0 + (last.0 - me.0) / d * back, last.1 + (last.1 - me.1) / d * back))
+    clamp(map, (last.0 + (last.0 - me.0) / d * back, last.1 + (last.1 - me.1) / d * back))
 }
 
 /// The steps a dash of `d` may take: at SPEED a step, `STEP_SPARE` more, at most `STEP_MAX`.
@@ -158,14 +184,19 @@ pub fn last_struck(me: Pt, struck: &[(usize, Pt)]) -> Option<(usize, Pt)> {
     struck.iter().copied().max_by(|a, b| dist(me, a.1).total_cmp(&dist(me, b.1)))
 }
 
-/// One dash step toward `goal` (None: there, within `ARRIVE`).
+/// [`step_on`] on the game's own map.
 pub fn step(at: Pt, goal: Pt) -> Option<Pt> {
+    step_on(Map::Native, at, goal)
+}
+
+/// One dash step toward `goal` on `map` (None: there, within `ARRIVE`).
+pub fn step_on(map: Map, at: Pt, goal: Pt) -> Option<Pt> {
     let d = dist(at, goal);
     if d < ARRIVE {
         return None;
     }
     let s = SPEED.min(d);
-    Some(clamp((at.0 + (goal.0 - at.0) / d * s, at.1 + (goal.1 - at.1) / d * s)))
+    Some(clamp(map, (at.0 + (goal.0 - at.0) / d * s, at.1 + (goal.1 - at.1) / d * s)))
 }
 
 /// Ticks to pull a champion `d` away toward him (0: close enough).
@@ -249,7 +280,7 @@ impl StablePassive for Dash {
                     return;
                 };
                 let their_r = sim.get_entity(who).map_or(0.0, |e| e.radius() as f64);
-                let land = behind(at, there, back_of(my_r, their_r));
+                let land = behind_on(map_here(sim), at, there, back_of(my_r, their_r));
                 self.n += 1;
                 self.shown = tally(sim, "R").is_some();
                 if self.shown {
@@ -275,7 +306,7 @@ impl Dash {
     /// One dash tick; at the end, pull the struck toward him.
     fn dash(&mut self, sim: &mut StableSim<'_>, me: usize, at: Pt) {
         let Phase::Dash(goal, struck, steps, budget) = &mut self.phase else { return };
-        if let Some(next) = step(at, *goal) {
+        if let Some(next) = step_on(map_here(sim), at, *goal) {
             if *steps < *budget && sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
                 *steps += 1;
                 return;
@@ -354,5 +385,20 @@ mod tests {
         assert_eq!(pull_ticks(12_000.0), 0);
         assert_eq!(pull_ticks(20_000.0), 4);
         assert_eq!(pull_ticks(60_000.0), 8);
+    }
+
+    #[test]
+    fn on_the_rift_he_lands_and_dashes_past_960000() {
+        let back = back_of(0.0, 0.0);
+        // the last one struck by the game's own far edge: there he lands on its edge, on the Rift behind him
+        let (me, last) = ((900_000.0, 400_000.0), (955_000.0, 400_000.0));
+        assert_eq!(behind(me, last, back), (MAP - 1.0, 400_000.0));
+        assert_eq!(behind_on(Map::Rift, me, last, back), (955_000.0 + back, 400_000.0));
+        // the Rift's own edge holds him
+        let rift = Map::Rift.extent();
+        assert_eq!(behind_on(Map::Rift, (rift - 60_000.0, 5.0), (rift - 5_000.0, 5.0), back), (rift - 1.0, 5.0));
+        // a dash step out past 960000
+        assert_eq!(step((955_000.0, 0.0), (1_100_000.0, 0.0)), Some((MAP - 1.0, 0.0)));
+        assert_eq!(step_on(Map::Rift, (955_000.0, 0.0), (1_100_000.0, 0.0)), Some((955_000.0 + SPEED, 0.0)));
     }
 }

@@ -23,6 +23,9 @@
 //!   朝起跳那一边（英雄联盟：越过他的头甩到背后，等于拖回自己这边）。主包数据只能用 `Pull` 往他身上拉：冲刺落在目标身上时
 //!   两人重叠，引擎把两人往随机方向推开，大约一半甩错了边（经典模拟 trace）。
 //!
+//! 两张 5v5 地图（2026-11-10）：甩人的落点夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
+//! Rin 的召唤师峡谷 1614545 见方，都留一个身位 `MAP_MIN`；以前一律夹在 12000..948000，峡谷上过了 948000 就被甩回半张图的边）。
+//!
 //! 数字：`EXECUTE`、`LEGS_FACING` 写在这里；其余从英雄数据来，`tests::the_numbers_match_the_kit` 读主包的参数表核对默认值。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_urgot.log`，每次启动游戏重写。
 
@@ -30,9 +33,10 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_urgot";
@@ -137,6 +141,19 @@ fn head(sim: &StableSim<'_>, id: usize) -> String {
 
 fn who(sim: &StableSim<'_>, id: usize) -> String {
     sim.get_entity(id).and_then(|e| e.name()).map_or_else(|| format!("#{id}"), |n| format!("{n}#{id}"))
+}
+
+/// This launch's log has told the Rift already.
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// The map this sim plays on; the first Rift a launch, a line in the log.
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: Disdain's fling lands within {MAP_MIN:.0} of the Rift's {:.0} square's edges (not the game's \
+                      own 960000); {} ==", map.extent(), rift_status()));
+    }
+    map
 }
 
 // ===================== 计算（单元测试用） =====================
@@ -245,13 +262,17 @@ pub struct Throw {
     pub ticks: u64,
 }
 
-/// 地图的边（单位坐标，留一个身位）。
+/// 地图的边（单位坐标，留一个身位）：0 + MAP_MIN .. 边长 - MAP_MIN（游戏自己的地图 12000..948000）。
 const MAP_MIN: f64 = 12_000.0;
-const MAP_MAX: f64 = 948_000.0;
+
+/// [`landing_on`] on the game's own map.
+pub fn landing(me: (f64, f64), from: Option<(f64, f64)>, target: (f64, f64), behind: f64) -> (f64, f64) {
+    landing_on(Map::Native, me, from, target, behind)
+}
 
 /// Where the caught one lands: `behind` past him, on the side he dashed from (from the target's side when he did not
-/// move: then straight over him).
-pub fn landing(me: (f64, f64), from: Option<(f64, f64)>, target: (f64, f64), behind: f64) -> (f64, f64) {
+/// move: then straight over him), a body's width inside `map`'s edges.
+pub fn landing_on(map: Map, me: (f64, f64), from: Option<(f64, f64)>, target: (f64, f64), behind: f64) -> (f64, f64) {
     let unit = |d: (f64, f64)| {
         let n = (d.0 * d.0 + d.1 * d.1).sqrt();
         (n > 1.0).then(|| (d.0 / n, d.1 / n))
@@ -260,7 +281,8 @@ pub fn landing(me: (f64, f64), from: Option<(f64, f64)>, target: (f64, f64), beh
         .and_then(|f| unit((f.0 - me.0, f.1 - me.1)))
         .or_else(|| unit((me.0 - target.0, me.1 - target.1)))
         .unwrap_or((1.0, 0.0));
-    let c = |v: f64| v.clamp(MAP_MIN, MAP_MAX);
+    let hi = map.extent() - MAP_MIN;
+    let c = |v: f64| v.clamp(MAP_MIN, hi);
     (c(me.0 + back.0 * behind), c(me.1 + back.1 * behind))
 }
 
@@ -367,7 +389,7 @@ impl StableEffectType for Fling {
 fn start_throw(sim: &StableSim<'_>, me: usize, s: &mut Legs, target: usize, now: u64) {
     s.due = None;
     let (Some(u), Some(at)) = (pos_of(sim, me), pos_of(sim, target)) else { return };
-    let end = landing(u, s.from.take(), at, s.p.e_behind as f64);
+    let end = landing_on(map_here(sim), u, s.from.take(), at, s.p.e_behind as f64);
     s.throw = Some(Throw { target, start: at, end, at: now, ticks: s.p.e_pull_t.max(1) });
     if let Some(n) = counted("fling") {
         wlog(format!("{} FLING #{n} {} from ({:.0}, {:.0}) over him at ({:.0}, {:.0}) to ({:.0}, {:.0})", head(sim, me),
@@ -551,6 +573,21 @@ mod tests {
         // never off the map
         let end = landing((14_000.0, 500_000.0), Some((0.0, 500_000.0)), (20_000.0, 500_000.0), 15_000.0);
         assert_eq!(end, (MAP_MIN, 500_000.0));
+    }
+
+    #[test]
+    fn on_the_rift_the_fling_lands_past_948000() {
+        // he dashed in from the west at (950000, 500000): the game's own map holds the landing at 948000, the Rift does not
+        let (me, from, target) = ((950_000.0, 500_000.0), Some((1_000_000.0, 500_000.0)), (950_000.0, 500_000.0));
+        assert_eq!(landing(me, from, target, 15_000.0), (960_000.0 - MAP_MIN, 500_000.0));
+        assert_eq!(landing_on(Map::Rift, me, from, target, 15_000.0), (965_000.0, 500_000.0));
+        // the Rift's own edge, a body's width in
+        let rift = Map::Rift.extent();
+        let end = landing_on(Map::Rift, (rift - 14_000.0, 500_000.0), Some((rift, 500_000.0)), (rift - 20_000.0, 500_000.0), 15_000.0);
+        assert_eq!(end, (rift - MAP_MIN, 500_000.0));
+        // the low edges stay the same on both
+        let low = landing_on(Map::Rift, (14_000.0, 500_000.0), Some((0.0, 500_000.0)), (20_000.0, 500_000.0), 15_000.0);
+        assert_eq!(low, (MAP_MIN, 500_000.0));
     }
 
     #[test]

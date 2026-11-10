@@ -18,6 +18,8 @@
 //! 0.1.3（2026-11-08 夜里的日志：还是每场预演开关 ~33 次，开着的中位数 8 tick，45 次关里 37 次是「6 tick not running」——她的普攻
 //! 动作 24 tick，6 tick 的宽限在一次前摇里就数完了）：站着的 tick 不数，只数「在走、却不是朝它走」的 tick（移速加成只在走的时候
 //! 有用，站着时开着关着都一样）；她往别处走 `TOWARD_GRACE` tick 照旧摘。
+//! 两张 5v5 地图（2026-11-10）：夜影翻的每一步夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
+//! Rin 的召唤师峡谷 1614545 见方；以前一律按 960000，峡谷上过了 960000 就被夹回半张图的边）。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yunara.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -28,8 +30,10 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 pub mod view;
@@ -49,7 +53,7 @@ pub const E_MS: &str = "league_yunara_e_ms";
 pub const E_TOWARD: &str = "league_yunara_e_toward";
 pub const R_OK: &str = "league_yunara_r_ok";
 pub const R_ON: &str = "league_yunara_r_on";
-/// 地图边长（坐标 0..MAP）。
+/// 游戏自己的 5v5 地图边长（坐标 0..MAP）；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 /// 明踪步朝英雄跑的加成：连着这么多 tick 在走、却不是朝它走才摘（2026-11-08 的日志里普攻前摇站一下就摘，1-20 tick 一开一关；
 /// 0.1.3 起站着的 tick 不数）。
@@ -122,6 +126,19 @@ fn who(sim: &StableSim<'_>, id: usize) -> String {
     sim.get_entity(id).and_then(|e| e.name()).map_or_else(|| format!("#{id}"), |n| format!("{n}#{id}"))
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: Untouchable Shadow's steps are kept on the Rift's {:.0} square (not the game's own {MAP:.0}); \
+                      {} ==", map.extent(), rift_status()));
+    }
+    map
+}
+
 // ===================== 参数 =====================
 
 /// 主包参数表 P 里本包用到的数字（`passive.params`，make_override.py 从 P 写进副本）。
@@ -177,8 +194,10 @@ pub fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
 
-pub fn clamp(p: Pt) -> Pt {
-    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
+/// 夹在 `map` 上（坐标 0..边长-1）。
+pub fn clamp(map: Map, p: Pt) -> Pt {
+    let e = map.extent();
+    (p.0.clamp(0.0, e - 1.0), p.1.clamp(0.0, e - 1.0))
 }
 
 /// 一个看得见的敌方英雄：id、位置、生命百分比。
@@ -417,7 +436,7 @@ impl Faith {
                 self.dashing = None;
             } else {
                 let step = p.re_v as f64;
-                let next = clamp((at.0 + d.dir.0 * step, at.1 + d.dir.1 * step));
+                let next = clamp(map_here(sim), (at.0 + d.dir.0 * step, at.1 + d.dir.1 * step));
                 if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
                     d.refused += 1;
                 }
@@ -566,6 +585,15 @@ mod tests {
         assert_eq!(parse_params("{}"), Params::default());
         let p = parse_params(r#"{"re_v":3000,"junk":3,"e_ms2":70}"#);
         assert_eq!((p.re_v, p.e_ms2, p.re_t), (3000, 70, 14));
+    }
+
+    #[test]
+    fn the_dash_stays_on_the_map_it_is_played_on() {
+        // the game's own map: its edge at 960000, as before
+        assert_eq!(clamp(Map::Native, (962_600.0, -5.0)), (MAP - 1.0, 0.0));
+        // the Rift: past 960000 is its ground, its own edge at 1614545
+        assert_eq!(clamp(Map::Rift, (962_600.0, 1_500_000.0)), (962_600.0, 1_500_000.0));
+        assert_eq!(clamp(Map::Rift, (2_000_000.0, -5.0)), (Map::Rift.extent() - 1.0, 0.0));
     }
 
     #[test]

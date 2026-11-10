@@ -12,6 +12,9 @@
 //! - **加速电炮挑目标**（AI 钩子 `league_jayce:gate`）：AI 要放大招时，射程（`gate_range`）内、线上没有别的敌方英雄挡着（电炮
 //!   停在第一个英雄身上）的敌方英雄里：先挑这一炮打得死的（生命 + 护盾不超过 (`gate_dmg` + `gate_ad`% 攻击力) x 100 / (100 +
 //!   护甲)，生命最少的先），再挑受了伤（生命低于 `WOUNDED`%）里生命比例最低的，都满血就挑最远的（英雄联盟玩家远距离开门打炮）。
+//! - **两张 5v5 地图**（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：雷霆一击避的墙按这局的塔和水晶判断是哪张图
+//!   （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧；Rin 的召唤师峡谷用峡谷作者的墙体文件（`terrain::rift_walls`，
+//!   295 x 296 格、每格 60000/11），没有文件时峡谷上只有地图外算墙（以前 960000 以外全算墙，峡谷远半边每一下都偏开或照直推）。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jayce.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -22,8 +25,10 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -204,30 +209,42 @@ fn rot(v: Pt, deg: f64) -> Pt {
     (v.0 * c - v.1 * s, v.0 * s + v.1 * c)
 }
 
-/// 墙格的边长（世界单位）和查一条线穿不穿墙的步长。
+/// 游戏自己的地图的墙格边长（世界单位）和查一条线穿不穿墙的步长。
 pub const CELL: f64 = 32_000.0;
 pub const STEP: f64 = 1_000.0;
 
-/// 地图的墙格（卡蜜尔附加包的内置地图，巴德附加包同样用它）。
+/// 地图的墙格（卡蜜尔附加包的内置地图，巴德附加包同样用它）：`cells[y][x]`，每格 `cell` 见方，(0, 0) 格的角在 `origin`
+/// （游戏自己的地图 32000、(0, 0)；峡谷的墙体文件 60000/11、(30000/11, 0)）。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
+    pub cell: f64,
+    pub origin: (f64, f64),
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect() }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), cell: CELL, origin: (0.0, 0.0) }
     }
 
     pub fn builtin() -> [Grid; 3] {
         [Grid::from_rows(&maps::MOBA), Grid::from_rows(&maps::SINGLE_LANE), Grid::from_rows(&maps::DEATH_MATCH)]
     }
 
+    /// 峡谷的墙：有墙体文件就是文件的墙格；没有就是一格地图大小的空地（只有地图外算墙）。
+    pub fn rift(walls: Option<&terrain::Walls>) -> Grid {
+        match walls {
+            Some(w) => Grid { cells: w.cells.clone(), cell: w.cell, origin: w.origin },
+            None => Grid { cells: vec![vec![false]], cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0) },
+        }
+    }
+
     /// 世界坐标落在墙格里吗（地图外算墙：推不出去）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
+        let (x, y) = (x - self.origin.0, y - self.origin.1);
         if x < 0.0 || y < 0.0 {
             return true;
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
+        let (cx, cy) = ((x / self.cell) as usize, (y / self.cell) as usize);
         self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
@@ -269,6 +286,25 @@ pub fn current(grids: &[Grid], champions: &[Pt]) -> Option<usize> {
             (inside, std::cmp::Reverse(g.walls()))
         })
         .map(|(i, _)| i)
+}
+
+/// 游戏的三张内置地图，和峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
+static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_walls()));
+
+/// 这局的墙：峡谷上是峡谷的（第一次遇到时日志里记一行），游戏自己的地图照旧从三张内置地图里挑（[`current`]）。
+fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
+    match terrain::map_of_sim(sim) {
+        Map::Rift => {
+            static MET: AtomicBool = AtomicBool::new(false);
+            if !MET.swap(true, Ordering::Relaxed) {
+                wlog(format!("== Rift: Thundering Blow turns off the Rift's walls (from its walls file; with no file only \
+                              the map's edges count); {} ==", terrain::rift_status()));
+            }
+            Some(&*RIFT_GRID)
+        }
+        Map::Native => current(&*GRIDS, &unit_points(sim)).map(|i| &GRIDS[i]),
+    }
 }
 
 /// 这么远内的友方英雄算「他这边的人」。
@@ -493,8 +529,7 @@ impl StableEffectType for Blow {
                 towers.push(at_u);
             }
         }
-        let grids = Grid::builtin();
-        let grid = current(&grids, &unit_points(sim)).map(|i| &grids[i]);
+        let grid = grid_now(sim);
         let reach = (p.kb_speed * p.kb_t) as f64;
         let plan = blow_plan(me, at, &allies, &towers, grid, reach);
         let mut cc = CcV1::of_kind(CcKindV1::ForceMove, p.kb_t as u64);
@@ -689,6 +724,59 @@ mod tests {
         let p = blow_plan((40_000.0, 48_000.0), (56_000.0, 48_000.0), &[(40_000.0, 10_000.0)], &[], Some(&g), 35_000.0);
         assert_eq!(p.why, Why::Away("walls on his side"));
         assert!(p.dir.0 > 0.99, "{p:?}");
+    }
+
+    /// 世界坐标的一个矩形：(左上, 右下)。
+    type Rect = ((f64, f64), (f64, f64));
+
+    /// 峡谷那样的墙格子（295 x 296 格，每格 60000/11，从 x = 30000/11 起，作者墙体文件的格子）：中心落在 `rects`
+    /// （世界坐标的 (左上, 右下)）里的格子是墙。
+    fn rift_walls(rects: &[Rect]) -> terrain::Walls {
+        let (cell, origin) = (60_000.0 / 11.0, (30_000.0 / 11.0, 0.0));
+        let rows: Vec<String> = (0..296)
+            .map(|cy| {
+                (0..295)
+                    .map(|cx| {
+                        let c = (origin.0 + (cx as f64 + 0.5) * cell, origin.1 + (cy as f64 + 0.5) * cell);
+                        let wall = rects.iter().any(|&(a, b)| c.0 >= a.0 && c.0 <= b.0 && c.1 >= a.1 && c.1 <= b.1);
+                        if wall { '#' } else { '.' }
+                    })
+                    .collect()
+            })
+            .collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        terrain::Walls::from_rows(&rows, cell, origin, (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
+    }
+
+    #[test]
+    fn on_the_rift_the_blow_turns_off_the_rifts_walls() {
+        // the Rift's far half: Jayce west of the target, his ally south of it, a wall cell 32000 south of the target
+        let me = (1_200_000.0, 1_300_000.0);
+        let at = (1_220_000.0, 1_300_000.0);
+        let ally = [(1_220_000.0, 1_370_000.0)];
+        let mut g = Grid::rift(Some(&rift_walls(&[])));
+        let (cx, cy) = (((at.0 - g.origin.0) / g.cell) as usize, ((at.1 + 32_000.0 - g.origin.1) / g.cell) as usize);
+        g.cells[cy][cx] = true;
+        assert!(g.is_wall(at.0, at.1 + 32_000.0) && !g.clear(at, (0.0, 1.0), 35_000.0));
+        let p = blow_plan(me, at, &ally, &[], Some(&g), 35_000.0);
+        assert_eq!((p.why, p.turn), (Why::Allies(1), 15.0), "{p:?}");
+        assert!(g.clear(at, p.dir, 35_000.0));
+        // the same in the Rift's own grid file read through terrain (a rectangle of wall cells there)
+        let walled = Grid::rift(Some(&rift_walls(&[((1_150_000.0, 1_310_000.0), (1_290_000.0, 1_340_000.0))])));
+        assert_eq!(blow_plan(me, at, &ally, &[], Some(&walled), 35_000.0).why, Why::Away("walls on his side"));
+        // the open Rift (no walls file): straight toward the ally - the game's own grid called it all wall out there
+        let open = Grid::rift(None);
+        assert!(!open.is_wall(1_000_000.0, 1_000_000.0) && open.is_wall(1_614_546.0, 800_000.0), "only off the map");
+        let p = blow_plan(me, at, &ally, &[], Some(&open), 35_000.0);
+        assert_eq!((p.why, p.turn), (Why::Allies(1), 0.0), "{p:?}");
+        let natives = Grid::builtin();
+        assert_eq!(blow_plan(me, at, &ally, &[], Some(&natives[0]), 35_000.0).why, Why::Away("walls on his side"));
+        // a wall of the game's own 5v5 map is none on the Rift
+        let native = (15.5 * CELL, 3.5 * CELL);
+        assert!(natives[0].is_wall(native.0, native.1) && !g.is_wall(native.0, native.1));
+        // the Rift's edge still stops a push off the map
+        let edge = (1_600_000.0, 800_000.0);
+        assert!(!open.clear(edge, (1.0, 0.0), 35_000.0) && open.clear(edge, (-1.0, 0.0), 35_000.0));
     }
 
     #[test]
