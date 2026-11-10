@@ -93,11 +93,16 @@ pub fn drake_at(events: &[feed::Event], t: usize) -> Option<String> {
         .map(|(_, name)| name)
 }
 
+/// Sim ticks the drake's display entity can show up before this add-on records its spawn (2026-11-10's log: the entity
+/// drawn at screen tick 16953, its spawn event at 16981, so it was the previous drake's element for half a second). The
+/// next drake spawns two minutes after a kill, so looking a second ahead never picks it early.
+const SPAWN_LEAD: usize = 60;
+
 /// What the drake should be drawn as now on screen: None when the screen's match, clock or drake is unknown.
 fn drake_now() -> Option<String> {
     let (m, s) = feed::current()?;
     let t = game_places::clock::screen_tick()?;
-    drake_at(&feed::events(m, s), t)
+    drake_at(&feed::events(m, s), t + SPAWN_LEAD)
 }
 
 static HOOK: Once = Once::new();
@@ -163,6 +168,11 @@ unsafe fn put_string(at: usize, want: &[u8]) -> bool {
     true
 }
 
+/// (display world, key, animation) of the monsters on screen: each animation they play is logged once (`SKIN ... plays`),
+/// and when one leaves the screen (`SKIN ... gone`) - to see their attack and death play (the user: 「小龙没有攻击动作 死亡动作」).
+static TRACK: Mutex<Vec<(usize, u64, String)>> = Mutex::new(Vec::new());
+static PLAYED: Mutex<Vec<(usize, u64, String)>> = Mutex::new(Vec::new());
+
 /// (display world, key) of every entity already written out by [`describe`].
 static SEEN: Mutex<Vec<(usize, u64)>> = Mutex::new(Vec::new());
 
@@ -176,8 +186,13 @@ unsafe fn describe(v: usize) -> String {
 
 unsafe fn dress(world: usize, ents: &[Ent]) {
     let mut drake: Option<Option<String>> = None; // asked once a frame, only when a drake is on screen
-    let (Ok(mut looks), Ok(mut seen)) = (LOOKS.try_lock(), SEEN.try_lock()) else { return };
+    let (Ok(mut looks), Ok(mut seen), Ok(mut track), Ok(mut played)) =
+        (LOOKS.try_lock(), SEEN.try_lock(), TRACK.try_lock(), PLAYED.try_lock())
+    else {
+        return;
+    };
     let mut described_here = seen.iter().filter(|s| s.0 == world).count();
+    let mut here: Vec<u64> = Vec::new();
     for e in ents {
         let v = e.elem + VALUE;
         let key = e.key;
@@ -196,6 +211,17 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
                          match kind { Some(Kind::Drake) => " (a drake)", Some(Kind::Baron) => " (Baron)", None => "" }, describe(v)));
         }
         let Some(kind) = kind else { continue };
+        here.push(key);
+        let anim = string_at(v + 0x68, 64).unwrap_or_default();
+        match track.iter_mut().find(|t| t.0 == world && t.1 == key) {
+            Some(t) => t.2.clone_from(&anim),
+            None => track.push((world, key, anim.clone())),
+        }
+        if !played.iter().any(|p| p.0 == world && p.1 == key && p.2 == anim) && played.len() < 400 {
+            played.push((world, key, anim.clone()));
+            wlog(format!("SKIN world {world:#x} #{key}: plays {anim:?} (resource {:?}, screen tick {:?})",
+                         string_at(v + RES_CAP, 160), game_places::clock::screen_tick()));
+        }
         let want = match kind {
             Kind::Baron => Some(BARON.to_string()),
             Kind::Drake => drake.get_or_insert_with(drake_now).clone(),
@@ -218,6 +244,14 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
             }
         }
     }
+    track.retain(|t| {
+        let stays = t.0 != world || here.contains(&t.1);
+        if !stays {
+            wlog(format!("SKIN world {world:#x} #{}: gone (last animation {:?}, screen tick {:?})", t.1, t.2,
+                         game_places::clock::screen_tick()));
+        }
+        stays
+    });
 }
 
 /// 加载时挂上显示钩子（一个 DLL 只挂一次）。

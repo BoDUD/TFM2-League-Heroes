@@ -18,8 +18,8 @@ anchor the game draws it on (a frame's centre), dense W = PPU x the 1x w exactly
    most of its drawn pixels (alpha >= 128) snap to; the palette a model's own: k-means (Lab, 40 shades, 48 for the
    Elder and Baron) over the design's squares and the frames' square centres, each shade a colour Codex drew. Codex's
    copies of the designs keep thousands of colours, so the design is snapped to the same palette.
-2. Drakes and the Elder: base = the design; idle = its upper 72 % sunk 0 / 2 / 4 / 2 squares behind the legs (native
-   serpen's idle sinks its top 0 / 2 / 5 / 2 px); attack = the design with Codex's frame inside the moving zone only
+2. Drakes and the Elder: base = the design; idle = its wings flapping (wing_flap: the tips up 0 / 2 / 3 / 2 squares,
+   the roots pinned, the body still - 0.2's sinking upper body squashed it); attack = the design with Codex's frame inside the moving zone only
    (League's attack1 moves only the neck, head and jaw: the squares whose silhouette moves in any attack frame, the
    central band, closed and filled, plus each frame's element where it differs strongly) - Codex redrew the whole body
    in every frame (a quarter of its squares the design's colour), which would shimmer; dead 1-6 = Codex's, each frame's
@@ -255,18 +255,48 @@ def spine_x(a, rows=24):
     return xs.mean() if len(xs) else None
 
 
+# the drakes' idle: the wings flap, everything else still (the user, 2026-11-10: 「小龙上下摆动会造成模型变形 请用别的
+# 动作」 - 0.2's idle sank the upper body 0 / 2 / 4 / 2 squares behind the legs and squashed it)
+WING_BAND = 0.20       # the body's half-width (head, neck, chest) over the design's width: never moves
+WING_LEGS = 0.66       # the legs' line over the design's height: below it nothing moves
+WING_LIFTS = (0, 2, 3, 2)   # squares the wing tips rise in the 4 idle frames (the roots pinned)
+
+
+def wing_flap(d, k):
+    """the design with its wings raised: each wing column (outside the body band, above the legs' line) up by k x its
+    distance out from the band, so the roots stay pinned and the tips rise k squares; where a wing column met the body at
+    the legs' line its lowest rows stay to bridge the gap; the body drawn on top"""
+    on = d[..., 3] > 0
+    ys, xs = np.nonzero(on)
+    top, bot = ys.min(), ys.max()
+    cx, W = (xs.min() + xs.max() + 1) / 2, xs.max() + 1 - xs.min()
+    leg = int(round(top + WING_LEGS * (bot + 1 - top)))
+    dist = np.abs(np.arange(d.shape[1]) - cx + 0.5) - WING_BAND * W
+    wing = on & (dist > 0)[None, :] & (np.arange(d.shape[0]) < leg)[:, None]
+    body = d.copy()
+    body[wing] = 0
+    out = np.zeros_like(d)
+    span = max(1.0, dist.max())
+    for x in range(d.shape[1]):
+        if dist[x] <= 0:
+            continue
+        s = int(round(k * dist[x] / span))
+        col = np.where(wing[:, x, None], d[:, x], 0)
+        if s:
+            moved = np.concatenate([col[s:], np.zeros((s, 4), np.uint8)])
+            if wing[leg - 1, x] and on[leg, x]:
+                moved[leg - s:leg] = np.where(moved[leg - s:leg, 3:4] > 0, moved[leg - s:leg], d[leg - s:leg, x])
+            col = moved
+        out[:, x] = col
+    return over(body, out)
+
+
 def drake_frames(model):
     d = READ[model]["design_flat"]
     ys = np.nonzero(d[..., 3].any(1))[0]
     top, bot = ys.min(), ys.max()                      # bot: the soles' last row
     tags = {"base": [d]}
-    split = int(round(top + 0.72 * (bot + 1 - top)))
-    idle = []
-    for k in (0, 2, 4, 2):
-        up = d.copy(); up[split:] = 0
-        lo = d.copy(); lo[:split] = 0
-        idle.append(over(lo, shift(up, k)))
-    tags["idle"] = idle
+    tags["idle"] = [wing_flap(d, k) for k in WING_LIFTS]
     _, fr, zs = zones(model)
     tags["attack"] = [np.where(zs[n][..., None], fr[n], d) for n in sorted(fr)]
     dead = []
@@ -282,7 +312,7 @@ def drake_frames(model):
     dead += shards(dead[-1], [0.55], seed=11)
     dead.append(np.zeros_like(d))
     tags["dead"] = dead
-    meta = {"ppu": 1.8, "anchor": [128.0, bot + 1 - 66.5], "dead_dy": dys, "idle_split": split}
+    meta = {"ppu": 1.8, "anchor": [128.0, bot + 1 - 66.5], "dead_dy": dys, "wing_lifts": WING_LIFTS}
     return tags, meta
 
 
