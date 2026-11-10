@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.109.0"
+      "version": ">=0.333.0"
     }
   ],
   "description": "Test build of Sion as in League (needs League of Legends Heroes): replaces the main pack's Sion so Glory in Death brings him back once a life as a zombie (full health draining away, faster attacks with full life steal, no abilities) and Soul Furnace grows his maximum health with every kill (champions more), kept through death. Other champions are untouched. Unstoppable Onslaught charges to save an ally only when that ally is held by hard crowd control (stunned, knocked up, rooted, taunted, feared, charmed or grounded) with an enemy beside him. Writes a log for testing (the zombie, the kills, and when Unstoppable Onslaught arms and charges, whom it saves).",
-  "last_updated": "2026-11-08",
+  "last_updated": "2026-11-11",
   "mod_id": "league_sion",
   "mod_type": "native",
   "name": "League Heroes: Sion's Glory in Death (test)",
-  "version": "0.3.1"
+  "version": "0.3.2"
 }

@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.308.0"
+      "version": ">=0.333.0"
     }
   ],
   "description": "Test build of Aurelion Sol as in League (needs League of Legends Heroes): replaces the main pack's Aurelion Sol so his Cosmic Creator stardust (ability power for every stack) stays through death (the data pack loses it when he dies), Singularity's centre executes champions below 5% of their maximum health plus 1% per stardust, by their real health, instead of the data pack's stand-in (a % of maximum health each second), which cannot read health, and Astral Flight is his own ability as in League: he flies over terrain to chase a low enemy, join his allies' fight or escape (22 s down to 14 s, 90% back on a takedown), Breath of Light's cooldown reset, and breathes as he flies - no cooldown and a longer channel in flight, the flight at half speed while he breathes (the data pack only flies after a takedown and hovers while it breathes). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-06",
+  "last_updated": "2026-11-11",
   "mod_id": "league_aurelionsol",
   "mod_type": "native",
   "name": "League Heroes: Aurelion Sol's stardust kept, the black hole's execute and Astral Flight (test)",
-  "version": "0.3.2"
+  "version": "0.3.3"
 }

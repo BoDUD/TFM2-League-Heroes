@@ -55,7 +55,7 @@
 
 ### 维迦法强常驻附加包
 
-[维迦法强常驻附加包](../../addons/league_veigar_power/README.md)：`league_veigar_power` v0.1.0
+[维迦法强常驻附加包](../../addons/league_veigar_power/README.md)：`league_veigar_power` v0.1.1
 
 这个附加包把主包的维迦换成 `override/` 里的副本（`make_override.py` 生成：技能一字不改，只加被动 `league_veigar_power:keep`，
 普攻说明里的「死亡时清空」换成「【扩展包】死后保留」），被动每 tick 看一次：

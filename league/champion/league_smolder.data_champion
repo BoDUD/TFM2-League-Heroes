@@ -2940,6 +2940,462 @@
       "tag": "e_haste",
       "repeat": true,
       "z": -1
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a4",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a5",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a5",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a6",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a6",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a7",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a7",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a8",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a8",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24a9",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24a9",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b4",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b5",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b5",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b6",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b6",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b7",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b7",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b8",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b8",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24b9",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24b9",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c0",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c0",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c4",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c5",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c5",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c6",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c6",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c7",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c7",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c8",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c8",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24c9",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24c9",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d4",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d5",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d5",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d6",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d6",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d7",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d7",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d8",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d8",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24d9",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24d9",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e0",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e0",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e4",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e5",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e5",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e6",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e6",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e7",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e7",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e8",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e8",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24e9",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24e9",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f0",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f0",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f4",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f5",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f5",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f6",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f6",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f7",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f7",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f8",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f8",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_smolder_sn_y24f9",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y24f9",
+      "repeat": true,
+      "z": 6
     }
   ]
 }

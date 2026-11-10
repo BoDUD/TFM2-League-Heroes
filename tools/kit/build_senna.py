@@ -45,6 +45,7 @@ copies the Mist layers it saw, so it needs no numbers); the kit is otherwise the
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll's stack numbers over the head)
 import range_buffs  # noqa: E402  (league.dll's league:range: the range buffs as markers)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -379,6 +380,11 @@ def nodes(o):
 # every kit with a range buff: the buffs carry no `range`, the attack reads them through league:range
 # (tools/kit/range_buffs.py, 2026-11-07)
 build = range_buffs.wrap(build)
+
+
+# the stack count over his head: league.dll's display buffs bound to the number sheet (tools/kit/stack_nums.py,
+# 2026-11-11)
+build = stack_nums.wrap(build)
 
 
 def main():

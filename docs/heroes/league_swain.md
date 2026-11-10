@@ -55,7 +55,7 @@
 
 ### 斯维因附加包
 
-[斯维因附加包](../../addons/league_swain/README.md)：`league_swain` v0.1.2
+[斯维因附加包](../../addons/league_swain/README.md)：`league_swain` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|
