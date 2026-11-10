@@ -70,6 +70,9 @@ def standalone(a):
     os.makedirs(a.out)
     for f in ("mod.mod_info", "mod.override_info"):
         shutil.copyfile(os.path.join(src, f), os.path.join(a.out, f))
+    # the players' settings file, where the add-on has one (league_dragons settings.ini)
+    if os.path.isfile(os.path.join(src, "settings.ini")):
+        shutil.copyfile(os.path.join(src, "settings.ini"), os.path.join(a.out, "settings.ini"))
     n = 0
     for d in ("effects", "override", "text"):
         if os.path.isdir(os.path.join(src, d)):

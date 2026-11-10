@@ -283,7 +283,7 @@ pub fn notice(lang: Lang, what: &What, name: &dyn Fn(&str) -> String) -> (String
             en = (format!("{} has claimed the {}!", team(Lang::En, *t), soul(Lang::En, e)), soul_effect(Lang::En, e));
         }
         What::ElderKilled { team: t, holders: ids } => {
-            let (s, p) = (secs(rules::ELDER_T), rules::EXECUTE_PCT);
+            let (s, p) = (secs(super::settings::elder_t()), rules::EXECUTE_PCT);
             let who = |l| holders(l, ids, name);
             hans = (format!("{}击杀了远古巨龙！", team(Lang::Hans, *t)),
                     format!("{}获得远古龙之力 {s} 秒：点燃敌方英雄，生命低于 {p}% 时斩杀", who(Lang::Hans)));
@@ -304,7 +304,7 @@ pub fn notice(lang: Lang, what: &What, name: &dyn Fn(&str) -> String) -> (String
             en = (format!("Aspect of the Dragon: {k} executed {v}!"), String::new());
         }
         What::BaronKilled { team: t, holders: ids } => {
-            let (s, p, r, a) = (secs(rules::BARON_T), rules::BARON_PCT, rules::MINION_REDUCE, rules::MINION_ATTACK);
+            let (s, p, r, a) = (secs(super::settings::baron_t()), rules::BARON_PCT, rules::MINION_REDUCE, rules::MINION_ATTACK);
             let who = |l| holders(l, ids, name);
             hans = (format!("{}击杀了纳什男爵！小兵得到强化", team(Lang::Hans, *t)),
                     format!("{}获得纳什男爵之手 {s} 秒：攻击力、法强 +{p}%，身边的己方小兵受到的伤害 -{r}%、攻击力 +{a}%",
@@ -421,12 +421,12 @@ pub fn tip_lines(lang: Lang, rec: &rules::Record) -> Vec<(String, u32, bool)> {
             }
         }
     }
-    let (s, p) = (secs(rules::ELDER_T), rules::EXECUTE_PCT);
+    let (s, p) = (secs(super::settings::elder_t()), rules::EXECUTE_PCT);
     out.push((pick(lang, format!("远古巨龙：龙魂之后刷新；击杀后 {s} 秒点燃敌方英雄，生命低于 {p}% 时斩杀"),
                      format!("遠古巨龍：龍魂之後刷新；擊殺後 {s} 秒點燃敵方英雄，生命低於 {p}% 時斬殺"),
                      format!("Elder Dragon: after a soul; its takers burn enemy champions for {s} s, executing below {p}%")),
               colour_text(Element::Elder), false));
-    let (s, p, r, a) = (secs(rules::BARON_T), rules::BARON_PCT, rules::MINION_REDUCE, rules::MINION_ATTACK);
+    let (s, p, r, a) = (secs(super::settings::baron_t()), rules::BARON_PCT, rules::MINION_REDUCE, rules::MINION_ATTACK);
     out.push((pick(lang, format!("纳什男爵之手：{s} 秒攻击力、法强 +{p}%，身边己方小兵受到的伤害 -{r}%、攻击力 +{a}%"),
                      format!("巴龍之手：{s} 秒攻擊力、法強 +{p}%，身邊己方小兵受到的傷害 -{r}%、攻擊力 +{a}%"),
                      format!("Hand of Baron: {s} s of +{p}% attack damage and ability power; minions near take {r}% less damage, hit {a}% harder")),
