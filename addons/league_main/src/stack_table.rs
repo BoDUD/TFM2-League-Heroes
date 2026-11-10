@@ -3,8 +3,9 @@
 
 use super::stacks::{Rule, Stack, Stat};
 
-pub const STACKS: [Stack; 9] = [
+pub const STACKS: [Stack; 10] = [
     Stack { hero: "league_aurelionsol", rule: Rule::Ladder("league_aurelionsol_d", 30), cap: 30, ys: &[39] },
+    Stack { hero: "league_belveth", rule: Rule::Ladder("league_belveth_l", 8), cap: 8, ys: &[40] },
     Stack { hero: "league_chogath", rule: Rule::Count("league_chogath_r_stack"), cap: 99, ys: &[57, 71, 86, 100, 107, 114, 122, 129, 136, 143, 150, 158] },
     Stack { hero: "league_kindred", rule: Rule::Count("league_kindred_p_mark"), cap: 99, ys: &[31] },
     Stack { hero: "league_nasus", rule: Rule::Sum("league_nasus_q_stack", Stat::MagicPower), cap: 999, ys: &[37] },

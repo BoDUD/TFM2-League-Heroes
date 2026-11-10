@@ -63,6 +63,8 @@ STACKS = [
     {"hero": "league_kindred", "count": "league_kindred_p_mark", "cap": 99, "label": "千珏「千珏之印」印记"},
     {"hero": "league_aurelionsol", "ladder": "league_aurelionsol_d", "rungs": 30, "cap": 30,
      "label": "奥瑞利安·索尔「星海焕然」星尘层数"},
+    {"hero": "league_belveth", "ladder": "league_belveth_l", "rungs": 8, "cap": 8,
+     "label": "卑尔维斯「溶烛化紫」永久攻速层数"},
 ]
 
 # the number's centre this many game px over the hero's highest pixel (its frame's outline then sits 2 px over him)
