@@ -8,8 +8,9 @@
 //! EFFECTS），身体绘制按资源名找到、按 1 / PPU 画。
 //!
 //! 显示钩子（`game_places::hook`，妮蔻、佛耶戈的那一个）每帧走显示世界的实体：资源名（值 +0x50 的 String）最后一段是
-//! `serpen` 的换成这一刻该是的元素亚龙，`epic` 的换成 `league_baron`；前面的部分（路径前缀）原样留着，游戏怎么拼路径都
-//! 对得上。哪一种元素：显示世界收不到原生加的 buff（佛耶戈 0.1.3 / 0.1.6、妮蔻的教训），所以按屏幕上的比赛时钟
+//! `serpen_monster`（游戏里小龙的资源名，日志 `SKIN seen`）的换成这一刻该是的元素亚龙，`epic_monster` 的换成 `league_baron`。
+//! 游戏 0.6.3 起画身体按这个资源名取图（妮蔻同一个字段；凯隐当初改的是名字字段，没用），不认识的名字按英雄的
+//! `aseprite_resources/champions/<名字>` 去找，所以 `mod.override_info` 把 champions 和 ingame 两种路径都指到本包的图。哪一种元素：显示世界收不到原生加的 buff（佛耶戈 0.1.3 / 0.1.6、妮蔻的教训），所以按屏幕上的比赛时钟
 //! （`game_places::clock::screen_tick`）在 [`super::feed`] 里找这一场到这一刻为止最近的一次「元素亚龙出生 / 远古巨龙
 //! 出生」；还没有（模组冲突时本包什么都不做，也就没有）或读不到时钟就不换，画原生的。每个实体换了什么记一行日志
 //! （`SKIN`），第一次见到小龙 / 莫尔加德时把它原来的资源名也记下来。
@@ -22,9 +23,12 @@ use game_places::hook::{Ent, NAME_LEN_AT, NAME_PTR, VALUE};
 
 /// The display entity value's body resource name: String {cap, ptr, len} at +0x50 (league_neeko view.rs).
 const RES_CAP: usize = 0x50;
-/// The native monsters' resource names (the last part).
+/// The native monsters' names: the display entity's resource (and name) is `serpen_monster` / `epic_monster` (league_dragons.log
+/// `SKIN seen`, 2026-11-10; the sprites are ingame/serpen and ingame/epic).
 const SERPEN: &str = "serpen";
 const EPIC: &str = "epic";
+const SERPEN_MONSTER: &str = "serpen_monster";
+const EPIC_MONSTER: &str = "epic_monster";
 const DRAKE_PREFIX: &str = "league_drake_";
 pub const BARON: &str = "league_baron";
 
@@ -47,9 +51,9 @@ fn split(res: &str) -> (&str, &str) {
 /// The monster a resource name draws: the native one or ours.
 pub fn kind_of(res: &str) -> Option<Kind> {
     let (_, last) = split(res);
-    if last == SERPEN || last.starts_with(DRAKE_PREFIX) {
+    if last == SERPEN || last == SERPEN_MONSTER || last.starts_with(DRAKE_PREFIX) {
         Some(Kind::Drake)
-    } else if last == EPIC || last == BARON {
+    } else if last == EPIC || last == EPIC_MONSTER || last == BARON {
         Some(Kind::Baron)
     } else {
         None
@@ -243,6 +247,8 @@ mod tests {
         assert_eq!(kind_of("asset/base/aseprite_resources/ingame/serpen"), Some(Kind::Drake));
         assert_eq!(kind_of("asset/base/aseprite_resources/ingame/league_drake_ocean"), Some(Kind::Drake));
         assert_eq!(kind_of("epic"), Some(Kind::Baron));
+        assert_eq!(kind_of("serpen_monster"), Some(Kind::Drake));
+        assert_eq!(kind_of("epic_monster"), Some(Kind::Baron));
         assert_eq!(kind_of("ingame/league_baron"), Some(Kind::Baron));
         assert_eq!(kind_of("ingame/serpentine"), None);
         assert_eq!(kind_of("league_jinx"), None);
@@ -260,6 +266,8 @@ mod tests {
     #[test]
     fn renaming_keeps_the_prefix_and_is_idempotent() {
         assert_eq!(renamed("serpen", "league_drake_infernal").as_deref(), Some("league_drake_infernal"));
+        assert_eq!(renamed("serpen_monster", "league_drake_ocean").as_deref(), Some("league_drake_ocean"));
+        assert_eq!(renamed("epic_monster", BARON).as_deref(), Some("league_baron"));
         assert_eq!(renamed("ingame/serpen", "league_drake_infernal").as_deref(), Some("ingame/league_drake_infernal"));
         assert_eq!(renamed("asset/base/aseprite_resources/ingame/epic", BARON).as_deref(),
                    Some("asset/base/aseprite_resources/ingame/league_baron"));
@@ -292,8 +300,8 @@ mod tests {
         // the add-on's own folder, also when league_addons compiles this file as one of its modules
         let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..").join("league_dragons").join("effects");
         for n in names {
-            for kind in ["sheet", "anim"] {
-                let key = format!("\"asset/base/aseprite_resources/ingame/{n}#{kind}\"");
+            for (dir, kind) in [("ingame", "sheet"), ("ingame", "anim"), ("champions", "sheet"), ("champions", "anim")] {
+                let key = format!("\"asset/base/aseprite_resources/{dir}/{n}#{kind}\"");
                 assert!(ov.contains(&key), "{key} not remapped");
                 assert!(ov.contains(&format!("\"asset/league_dragons/effects/{n}#{kind}\"")), "{n}#{kind} remapped elsewhere");
             }

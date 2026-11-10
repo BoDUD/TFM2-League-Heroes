@@ -226,8 +226,9 @@ base、attack 5 × 80、dead 8 × 80；莫尔加德另有 attack_left / attack_r
   底边压在坑口线上，向右攻击是向左的镜像，咬中的特效 7 帧照 Codex 的。
 - 待机：设计图呼吸（小龙上身沉 0 / 2 / 4 / 2 格，男爵整个往坑里沉同样多），照原生的节奏。
 - 换上去：`mod.override_info` 把 `asset/base/aseprite_resources/ingame/<名字>` 指到这些图；
-  显示钩子（`game_places::hook`，和妮蔻、佛耶戈同一个）每帧把资源名最后一段是 `serpen` 的显示实体换成这一刻的元素亚龙、`epic` 的换成
-  `league_baron`（前缀照留）。显示世界收不到原生 buff，所以元素按屏幕时钟取 `feed` 里这一场到这一刻最近的一次「元素亚龙 / 远古巨龙
+  显示钩子（`game_places::hook`，和妮蔻、佛耶戈同一个）每帧把资源名是 `serpen_monster`（游戏里小龙的资源名）的显示实体换成这一刻的元素亚龙、`epic_monster` 的
+  换成 `league_baron`；游戏 0.6.3 起画身体按资源名取图，不认识的名字按英雄的 `aseprite_resources/champions/<名字>` 找，所以
+  `mod.override_info` 把 champions 和 ingame 两种路径都指过来（0.3.0 第一次装时只认 `serpen`，小龙没换上，日志 `SKIN seen` 查出来的）。显示世界收不到原生 buff，所以元素按屏幕时钟取 `feed` 里这一场到这一刻最近的一次「元素亚龙 / 远古巨龙
   出生」；读不到时钟或还没有出生事件（比如模组冲突）就不换。league.dll 0.9.25 起这 8 张图登记成高清，身体按 1 / PPU 画。
 - 日志：`SKIN … a drake on screen, resource "…"`（第一次见到时它原来的资源名）、`SKIN … drawn as …`（换成了哪张）、`SKIN on / off`。
 
