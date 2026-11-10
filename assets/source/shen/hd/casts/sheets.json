@@ -1,0 +1,366 @@
+{
+ "square": 10,
+ "square_of": {
+  "attack": 8
+ },
+ "sheet": [
+  1536,
+  1024
+ ],
+ "ground": 924,
+ "same": {
+  "skill": {
+   "1": "design 0"
+  },
+  "ult": {
+   "1": "design 0"
+  },
+  "ult_loop": {
+   "1": "ult 2"
+  }
+ },
+ "dissolve": {},
+ "baked_body_frames": [],
+ "sheets": [
+  {
+   "tag": "run",
+   "name": "run_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): darting forward in his low ready stance, the pale curved blade held low in the bare hand on the viewer's left, the brown glove forward, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow.",
+   "legs": "Frame 1: SUPPORT ON THE NEAR LEG: the NEAR leg (the lighter one) straight down under his hips, his brown boot flat on the ground line; the FAR leg (the darker one) bent and kicked back behind him, its foot off the ground. Frame 2: SUPPORT ON THE NEAR LEG: the near leg still planted under his hips, bending; the far leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hood, the blade and the sword follow the pale figure. The blade is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_2",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): darting forward in his low ready stance, the pale curved blade held low in the bare hand on the viewer's left, the brown glove forward, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow.",
+   "legs": "Frame 3: PASSING: the FAR leg passing forward right beside the planted near leg, its foot just off the ground - the two feet side by side. Frame 4: STRIDE: the FAR leg reaching forward (the picture's right), its foot about to land; the NEAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hood, the blade and the sword follow the pale figure. The blade is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_3",
+   "frames": [
+    5,
+    6
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): darting forward in his low ready stance, the pale curved blade held low in the bare hand on the viewer's left, the brown glove forward, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow.",
+   "legs": "Frame 5: SUPPORT ON THE FAR LEG: now the FAR leg (the darker one) straight down under his hips, its foot flat on the ground line; the NEAR leg (the lighter one) bent and kicked back behind him, its foot off the ground. Frame 6: SUPPORT ON THE FAR LEG: the far leg still planted under his hips, bending; the near leg swinging down from behind, its foot low, just off the ground behind the planted one. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hood, the blade and the sword follow the pale figure. The blade is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "run",
+   "name": "run_4",
+   "frames": [
+    7,
+    8
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "running (his move loop): darting forward in his low ready stance, the pale curved blade held low in the bare hand on the viewer's left, the brown glove forward, the LEGS CHANGING OVER as written for each frame",
+   "ms": [
+    100,
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow.",
+   "legs": "Frame 7: PASSING: the NEAR leg passing forward right beside the planted far leg, its foot just off the ground - the two feet side by side. Frame 8: STRIDE: the NEAR leg reaching forward (the picture's right), its foot about to land; the FAR leg behind (the picture's left) pushing off, its toes on the ground - the feet wide apart. The two legs TAKE TURNS: in frames 1-4 the NEAR leg (the lighter one) carries him and the FAR leg comes forward, in frames 5-8 the FAR leg (the darker one) carries him and the NEAR leg comes forward - frames 1 and 5 must show a different leg planted. Draw the legs AS WRITTEN for each frame, not the pale figure's (the old 1x legs are too small to read; runs drawn after them kept the same legs in all 8 frames: 「走路没有换腿」). The body, the head, the hood, the blade and the sword follow the pale figure. The blade is NOT a leg: his two legs carry him."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_1",
+   "frames": [
+    1,
+    2
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (a sword cut): (frame 1 his stance) he springs up tall, the blade raised high over his head (frame 2), lunges forward low and slashes it out ahead at arm's length (frame 3), sweeps it low across in a crouch (frame 4), rises with the blade swung back and the other arm thrown up (frame 5) and settles back into his stance (frame 6)",
+   "ms": [
+    50,
+    60
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_2",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a sword cut): (frame 1 his stance) he springs up tall, the blade raised high over his head (frame 2), lunges forward low and slashes it out ahead at arm's length (frame 3), sweeps it low across in a crouch (frame 4), rises with the blade swung back and the other arm thrown up (frame 5) and settles back into his stance (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_3",
+   "frames": [
+    4,
+    5
+   ],
+   "cells": 2,
+   "square": 8,
+   "action": "attack (a sword cut): (frame 1 his stance) he springs up tall, the blade raised high over his head (frame 2), lunges forward low and slashes it out ahead at arm's length (frame 3), sweeps it low across in a crouch (frame 4), rises with the blade swung back and the other arm thrown up (frame 5) and settles back into his stance (frame 6)",
+   "ms": [
+    90,
+    80
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "attack",
+   "name": "attack_4",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 8,
+   "action": "attack (a sword cut): (frame 1 his stance) he springs up tall, the blade raised high over his head (frame 2), lunges forward low and slashes it out ahead at arm's length (frame 3), sweeps it low across in a crouch (frame 4), rises with the blade swung back and the other arm thrown up (frame 5) and settles back into his stance (frame 6)",
+   "ms": [
+    60
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill",
+   "name": "skill_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Twilight Assault (Q): (frame 1 = his idle pose) he thrusts the gloved hand forward, the palm out, calling his spirit blade back to him (frame 2)",
+   "ms": [
+    240
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Shadow Dash (E): he crouches, the blade swung back over his shoulder (frame 1), lunges forward low (frame 2), shoots forward flat, the body stretched out level in the air (frame 3) and dives on forward, still flying (frame 4)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Shadow Dash (E): he crouches, the blade swung back over his shoulder (frame 1), lunges forward low (frame 2), shoots forward flat, the body stretched out level in the air (frame 3) and dives on forward, still flying (frame 4)",
+   "ms": [
+    50
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_3",
+   "frames": [
+    3
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Shadow Dash (E): he crouches, the blade swung back over his shoulder (frame 1), lunges forward low (frame 2), shoots forward flat, the body stretched out level in the air (frame 3) and dives on forward, still flying (frame 4)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "skill2",
+   "name": "skill2_4",
+   "frames": [
+    4
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Shadow Dash (E): he crouches, the blade swung back over his shoulder (frame 1), lunges forward low (frame 2), shoots forward flat, the body stretched out level in the air (frame 3) and dives on forward, still flying (frame 4)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult",
+   "name": "ult_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "Stand United (R): (frame 1 = his idle pose) he straightens up, the hands joined at his chest in a ninja sign (frame 2)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "ult_loop",
+   "name": "ult_loop_1",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "R's channel: (frame 1 = R's frame 2) standing upright, the hands joined at his chest, breathing (frame 2)",
+   "ms": [
+    300
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "hit",
+   "name": "hit_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "struck: jolted back, leaning away, the arm thrown up (frame 1; the game flashes it white - draw him in his own colours)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_1",
+   "frames": [
+    1
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck backwards (frame 1), staggering (frame 2), straightening up dazed (frame 3), sinking to his knees (frames 4-5), falling forward onto his hands (frame 6), slumping low (frame 7) and lying flat on his front on the ground (frame 8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_2",
+   "frames": [
+    2
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck backwards (frame 1), staggering (frame 2), straightening up dazed (frame 3), sinking to his knees (frames 4-5), falling forward onto his hands (frame 6), slumping low (frame 7) and lying flat on his front on the ground (frame 8)",
+   "ms": [
+    100
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_3",
+   "frames": [
+    3,
+    4
+   ],
+   "cells": 2,
+   "square": 10,
+   "action": "death: struck backwards (frame 1), staggering (frame 2), straightening up dazed (frame 3), sinking to his knees (frames 4-5), falling forward onto his hands (frame 6), slumping low (frame 7) and lying flat on his front on the ground (frame 8)",
+   "ms": [
+    120,
+    150
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_4",
+   "frames": [
+    5
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck backwards (frame 1), staggering (frame 2), straightening up dazed (frame 3), sinking to his knees (frames 4-5), falling forward onto his hands (frame 6), slumping low (frame 7) and lying flat on his front on the ground (frame 8)",
+   "ms": [
+    150
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_5",
+   "frames": [
+    6
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck backwards (frame 1), staggering (frame 2), straightening up dazed (frame 3), sinking to his knees (frames 4-5), falling forward onto his hands (frame 6), slumping low (frame 7) and lying flat on his front on the ground (frame 8)",
+   "ms": [
+    200
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_6",
+   "frames": [
+    7
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck backwards (frame 1), staggering (frame 2), straightening up dazed (frame 3), sinking to his knees (frames 4-5), falling forward onto his hands (frame 6), slumping low (frame 7) and lying flat on his front on the ground (frame 8)",
+   "ms": [
+    250
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  },
+  {
+   "tag": "dead",
+   "name": "dead_7",
+   "frames": [
+    8
+   ],
+   "cells": 1,
+   "square": 10,
+   "action": "death: struck backwards (frame 1), staggering (frame 2), straightening up dazed (frame 3), sinking to his knees (frames 4-5), falling forward onto his hands (frame 6), slumping low (frame 7) and lying flat on his front on the ground (frame 8)",
+   "ms": [
+    400
+   ],
+   "weapons": "THE BLADE AND THE SWORD go where the pale figure has them, frame by frame (image 3 shows them in colour): the pale curved blade in the bare hand on the viewer's left - held low, raised over his head, slashed out, swept or swung back as the pale figure holds it (beside him on the ground when he dies); the sword on his back with the light blue gem on its hilt stays where the pale figure has it. The hood with its silver points, the grey mask and the shoulder pads stay on him. Only him: no spirit blade, no ki, no shields, no zones, no dash streaks, no glow."
+  }
+ ]
+}
