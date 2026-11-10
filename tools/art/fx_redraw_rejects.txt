@@ -1,0 +1,26 @@
+# Codex's effect redraws the review kept OFF (tools/art/import_fx_redraw.py): `sheet:tag  # why` - the tag keeps the dense
+# frames densify_fx.py gave it (Scale2x). A redraw is taken only when it is finer than those AND the same effect.
+#
+# Review 2026-11-10, pack 1 delivery 4 (Ahri, Ambessa, Amumu, Ashe; 44 tags, 25 taken): every distinct frame as 1x |
+# Scale2x | redraw read in, 6 screen px a game pixel. What went wrong, for the next deliveries: thin lines, '+' crosses
+# and 4-point stars drawn thicker; open shapes closed; rays merged into blobs; arrowheads rounded into balls; and a
+# whole hero (Amumu) traced block for block - no finer than Scale2x, blockier where Scale2x rounds the corners.
+league_ahri_fx:hit          # the thin 4-point star fattened, the checkered ring round it filled in
+league_ahri_fx:q_hit        # the burst's rays merged into a blob, the swirl drawn solid
+league_ahri_fx:q_true       # the thin + and the star drawn twice as thick
+league_ahri_fx:r_bolt       # the open C shapes closed into thick rings
+league_ahri_fx:r_hit        # the star's rays smudged together, holes in frame 4
+league_ambessa_fx:e_hit     # frame 1's capsule and band turned into a goblet
+league_ambessa_fx:q_tip     # an orange ring added in the middle of the X burst
+league_amumu_big:e_tantrum  # traced square for square: blockier than Scale2x
+league_amumu_big:r_burst    # traced square for square: no finer than Scale2x
+league_amumu_fx:curse       # traced square for square
+league_amumu_fx:despair     # traced square for square
+league_amumu_fx:hit         # the hit star fattened (the gems are fine)
+league_amumu_fx:q_bandage   # traced square for square
+league_amumu_fx:q_wrap      # the thin rays round the wrap drawn thick
+league_amumu_fx:r_wrap      # traced square for square
+league_ashe_fx:arrow        # the thin shaft drawn thick
+league_ashe_fx:hit          # the stars' rays fattened
+league_ashe_fx:volley       # the arrowheads rounded into balls, the shafts thicker
+league_ashe_r:arrow         # frames 2-3 messier: bigger shards and extra bits round the swirl

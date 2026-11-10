@@ -1,0 +1,451 @@
+{
+ "about": "Codex's redraws of this hero's effects on pack_fx_redraw.py's guides (8 px a game pixel, the guide's cells); tools/art/import_fx_redraw.py reads them into the sheets' hd_ frames",
+ "items": [
+  {
+   "sheet": "league_ambessa_big",
+   "tag": "q2_crack",
+   "file": "league_ambessa_big/q2_crack.png",
+   "pack": 1,
+   "source_entry_index": 102,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    43,
+    33
+   ],
+   "cell_8x": [
+    344,
+    264
+   ],
+   "guide_size": [
+    1376,
+    264
+   ],
+   "symmetry": "top-bottom",
+   "zoom": null,
+   "sha256": "edd362fbee17ad4132988cbe2bd218823f569ed84b4f1a47249740555e72d31d"
+  },
+  {
+   "sheet": "league_ambessa_big",
+   "tag": "r_blink",
+   "file": "league_ambessa_big/r_blink.png",
+   "pack": 1,
+   "source_entry_index": 103,
+   "kind": "effect",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    63,
+    53
+   ],
+   "cell_8x": [
+    504,
+    424
+   ],
+   "guide_size": [
+    2016,
+    424
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "c56d43986d1f7fdc37aa48d58086c11b652cd521965afb3cdd8bd3e1fd305b1c"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "a_hit",
+   "file": "league_ambessa_fx/a_hit.png",
+   "pack": 1,
+   "source_entry_index": 104,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    13,
+    37
+   ],
+   "cell_8x": [
+    104,
+    296
+   ],
+   "guide_size": [
+    312,
+    296
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "55804b345ae10d8a78ffa3d934d7fe30f7c738f252e6da527f651cab236560f8"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "e_hit",
+   "file": "league_ambessa_fx/e_hit.png",
+   "pack": 1,
+   "source_entry_index": 111,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    9,
+    39
+   ],
+   "cell_8x": [
+    72,
+    312
+   ],
+   "guide_size": [
+    216,
+    312
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "3cea9c0240537724c7c2641750f91dc500574a03dc33618cc6eae0fc73c5bc55"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "pw_aura",
+   "file": "league_ambessa_fx/pw_aura.png",
+   "pack": 1,
+   "source_entry_index": 106,
+   "kind": "buff",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    41,
+    25
+   ],
+   "cell_8x": [
+    328,
+    200
+   ],
+   "guide_size": [
+    1312,
+    200
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "a9b4376aead59b7faf47f34271e48b7e66606e5319dbbf437178f26cde0b23b1"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "pw_hit",
+   "file": "league_ambessa_fx/pw_hit.png",
+   "pack": 1,
+   "source_entry_index": 105,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    19,
+    49
+   ],
+   "cell_8x": [
+    152,
+    392
+   ],
+   "guide_size": [
+    456,
+    392
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "65465d0ecfef60305cc277b955363921bcb83f62ac18cd9929e9ec6d648cdf1b"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "q2_hit",
+   "file": "league_ambessa_fx/q2_hit.png",
+   "pack": 1,
+   "source_entry_index": 110,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    17,
+    25
+   ],
+   "cell_8x": [
+    136,
+    200
+   ],
+   "guide_size": [
+    408,
+    200
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "61078e23393733233b6a493d4591fe382d9253bf90c8409d18e38eae97ca88d8"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "q_hit",
+   "file": "league_ambessa_fx/q_hit.png",
+   "pack": 1,
+   "source_entry_index": 108,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    19,
+    35
+   ],
+   "cell_8x": [
+    152,
+    280
+   ],
+   "guide_size": [
+    456,
+    280
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "0611c30a4732d05d32008b915be07765c1fbe1592261957c9b7f0aedb715ccb8"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "q_tip",
+   "file": "league_ambessa_fx/q_tip.png",
+   "pack": 1,
+   "source_entry_index": 109,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    17,
+    45
+   ],
+   "cell_8x": [
+    136,
+    360
+   ],
+   "guide_size": [
+    408,
+    360
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "5d78eae78aa219ac90560bac3a7483e57dbae4be4b854e87a9497ddb373b1a91"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "r_pin",
+   "file": "league_ambessa_fx/r_pin.png",
+   "pack": 1,
+   "source_entry_index": 116,
+   "kind": "effect",
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    21,
+    25
+   ],
+   "cell_8x": [
+    168,
+    200
+   ],
+   "guide_size": [
+    672,
+    200
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "f274d38ce0f1cc7106e985d3cbb3f4431b87e4c4bb6551d7d6d1aff670981aab"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "slow",
+   "file": "league_ambessa_fx/slow.png",
+   "pack": 1,
+   "source_entry_index": 112,
+   "kind": "buff",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    13,
+    25
+   ],
+   "cell_8x": [
+    104,
+    200
+   ],
+   "guide_size": [
+    416,
+    200
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "b43043f240531b0d9bd2be81afe975a069954e84e5b0badf88a24fe0d9935855"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "st_land",
+   "file": "league_ambessa_fx/st_land.png",
+   "pack": 1,
+   "source_entry_index": 107,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    27,
+    25
+   ],
+   "cell_8x": [
+    216,
+    200
+   ],
+   "guide_size": [
+    648,
+    200
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "d23784859acb0bf43924dd060c1f53edba230e1174cc585fa8b72b89df48ea27"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "w_brace",
+   "file": "league_ambessa_fx/w_brace.png",
+   "pack": 1,
+   "source_entry_index": 113,
+   "kind": "effect",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    59,
+    59
+   ],
+   "cell_8x": [
+    472,
+    472
+   ],
+   "guide_size": [
+    1888,
+    472
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "7e69f95da2ae4c33ee5297c5e7727917797208b81421762494a03efcefbcea02"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "w_crit",
+   "file": "league_ambessa_fx/w_crit.png",
+   "pack": 1,
+   "source_entry_index": 115,
+   "kind": "effect",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    21,
+    47
+   ],
+   "cell_8x": [
+    168,
+    376
+   ],
+   "guide_size": [
+    672,
+    376
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "bf6e5be2bcd47f53e1ab87eb2ae7edaee159cbcdd0e2487ab5748cfedb782989"
+  },
+  {
+   "sheet": "league_ambessa_fx",
+   "tag": "w_hit",
+   "file": "league_ambessa_fx/w_hit.png",
+   "pack": 1,
+   "source_entry_index": 114,
+   "kind": "effect",
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "cell_1x": [
+    15,
+    41
+   ],
+   "cell_8x": [
+    120,
+    328
+   ],
+   "guide_size": [
+    360,
+    328
+   ],
+   "symmetry": "left-right",
+   "zoom": null,
+   "sha256": "071d458a4aba00097a9982e00e049ea1da66b56c13f427c9788031eddff8366b"
+  }
+ ]
+}

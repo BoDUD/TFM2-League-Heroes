@@ -1475,6 +1475,11 @@ def main():
         W, H = G.write_sheet(G.lp(out), tags, share=True)
         print(f"{out}#sheet.png {W}x{H}: {len(t1)} tags + hd_ twins ({st['raw']} frames from raws, {st['x2']} "
               f"Scale2x'd{': ' + ', '.join(st['tags_x2']) if st['tags_x2'] else ''})")
+    # Codex's redraws of this hero's Scale2x tags (tools/art/import_fx_redraw.py, kept in assets/source/<hero>/
+    # codex_fx_redraw): over what was just written, so a rerun keeps them
+    if os.path.normcase(os.path.abspath(a.out)) == os.path.normcase(os.path.abspath(fx_dir)) and a.ppu == 2:
+        import import_fx_redraw
+        import_fx_redraw.apply(a.hero, log=print)
     if a.report:
         with open(G.lp(a.report), "w", encoding="utf-8") as f:
             json.dump(report, f, ensure_ascii=False, indent=1)
