@@ -26,7 +26,7 @@ anchor the game draws it on (a frame's centre), dense W = PPU x the 1x w exactly
    main body put on the ground line (the lying frames were drawn 19 squares high), dead_6 at dead_5's height; dead 7 =
    dead_6 breaking into shards, dead 8 empty (as native). Attack frames 2-5 get the breath dragon_fx.py draws (gathering
    in the jaws, poured onto the ground in front of the feet, the blast there, the element's shockwave round the drake).
-3. Baron: base = the design; idle = he sways (sway); attack_left and dead 1-7 = Codex's, each frame's magenta spine
+3. Baron: base = the design; idle = his legs flexing and his seams glowing (baron_idle); attack_left and dead 1-7 = Codex's, each frame's magenta spine
    over the design's and its bottom on the pit line, nothing under the line; attack frames 2-5 get the acid he spits at
    the side he bites (dragon_fx.spit), attack_right = attack_left mirrored (the design is symmetric); dead 2-3 a shock
    ring as he screams, 8-15 = dead_7 slumping back into the pit (dragon_fx.sink), 16 empty; the target effect = the acid
@@ -347,19 +347,56 @@ def drake_frames(model):
     return tags, meta
 
 
-# Baron's idle: he sways (the user, 2026-11-10: 「大龙的动作也是上下摆动 很僵硬」 - 0.2 sank him 0 / 2 / 4 / 2 squares
-# into the pit): each row shifted sideways by its height over the pit, the top BARON_SWAY squares, the pit line still
-BARON_SWAY = (0, 1, 2, 3, 4, 4, 3, 2, 1, 0, -1, -2, -3, -4, -4, -3, -2, -1)
+# Baron's idle (the user, 2026-11-10: 「大龙的动作也是上下摆动 很僵硬」 - 0.2 sank him 0 / 2 / 4 / 2 squares into the
+# pit; then 「大龙左右晃动模型变形啊」 - 0.3.0's sway sheared the rows, slanting his heads and horn): his body, heads and
+# horn never move; his six clawed legs flex (each leg's root by the body pinned, its claw lifted up to ARM_LIFT squares,
+# eased, the right legs a quarter of the cycle behind the left), and the magenta seams on his back and his eyes glow
+# brighter and fade like breathing (the palette's magentas swapped for lighter ones, no pixel moved)
+BARON_IDLE_N = 16                 # frames (100 ms each)
+ARM_BAND = 24                     # squares either side of his middle that are his body (the legs start outside it)
+ARM_TOP = 56                      # squares over the pit line where his legs start (above it: his heads)
+ARM_LIFT = 3.0                    # squares a claw tip rises at most
+GLOW = {   # Codex's magentas -> a step lighter, two steps lighter
+    (246, 3, 252): ((250, 84, 252), (255, 150, 255)),
+    (219, 6, 233): ((240, 40, 246), (250, 92, 252)),
+    (186, 3, 202): ((214, 10, 228), (232, 32, 240)),
+    (161, 2, 182): ((186, 4, 204), (206, 8, 222)),
+}
 
 
-def sway(d, a, pit):
-    """d with its rows shifted sideways: row y by a x (pit - y) / (pit - top), the pit row not at all"""
-    ys = np.nonzero(d[..., 3].any(1))[0]
-    top = ys.min()
-    out = np.zeros_like(d)
-    for y in range(top, pit + 1):
-        k = int(round(a * (pit - y) / max(1, pit - top)))
-        out[y] = np.roll(d[y], k, axis=0) if k else d[y]
+def baron_idle(d, pit, k):
+    """idle frame k of BARON_IDLE_N: the legs lifted (column by column, the further from his body the more), the glow"""
+    n = BARON_IDLE_N
+    on = d[..., 3] > 0
+    ys, xs = np.nonzero(on)
+    cx = (xs.min() + xs.max() + 1) / 2
+    out = d.copy()
+    for side, lag in ((-1, 0.0), (1, 0.25)):
+        ease = 0.5 - 0.5 * np.cos(2 * np.pi * ((k / n - lag) % 1.0))
+        inner = cx + side * ARM_BAND
+        reach = abs((xs.min() if side < 0 else xs.max()) - inner)
+        for x in range(d.shape[1]):
+            off = (inner - x) * -side
+            if off <= 0:
+                continue
+            lift = int(round(ARM_LIFT * ease * (off / reach) ** 0.9))
+            if lift == 0:
+                continue
+            col = d[:, x].copy()
+            arm = np.zeros(d.shape[0], bool)
+            arm[pit - ARM_TOP:pit + 1] = on[pit - ARM_TOP:pit + 1, x]
+            new = col.copy()
+            new[arm] = 0
+            yy = np.nonzero(arm)[0]
+            new[yy - lift] = col[yy]
+            out[:, x] = new
+    p = 0.5 - 0.5 * np.cos(2 * np.pi * k / n)
+    level = 0 if p < 0.35 else (1 if p < 0.75 else 2)
+    if level:
+        rgb = out[..., :3]
+        for src, steps in GLOW.items():
+            m = (out[..., 3] > 0) & np.all(rgb == np.array(src, np.uint8), axis=-1)
+            rgb[m] = steps[level - 1]
     return out
 
 
@@ -369,7 +406,7 @@ def baron_frames():
     pit = ys.max()                                    # the pit line's last row
     sx0 = spine_x(d)
     tags = {"base": [d]}
-    tags["idle"] = [sway(d, a, pit) for a in BARON_SWAY]
+    tags["idle"] = [baron_idle(d, pit, k) for k in range(BARON_IDLE_N)]
     al, notes = [], {}
     for k in range(1, 6):
         a = READ[BARON][f"attack_left_{k}"]
@@ -516,7 +553,7 @@ def one_x(dense, ppu, w1, h1):
 
 
 DRAKE_MS = {"idle": [110] * 8, "dead": [100, 110, 120, 150, 240, 240, 180, 120]}
-BARON_MS = {"idle": [90] * 18,
+BARON_MS = {"idle": [100] * BARON_IDLE_N,
             "dead": [90, 110, 100, 100, 110, 130, 170] + [90] * 7 + [100] + [60]}   # 1.6 s: the poses, the sinking, nothing
 DURATIONS = {"idle": 160, "base": 100, "attack": 80, "attack_left": 80, "attack_right": 80, "attack_target_effect": 60}
 
