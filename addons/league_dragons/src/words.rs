@@ -402,7 +402,7 @@ pub fn tip_lines(lang: Lang, rec: &rules::Record) -> Vec<(String, u32, bool)> {
         Some((t, e)) => out.push((format!("{}{}{}：{}", team(lang, t), pick(lang, "拿到了", "拿到了", " claimed "), soul(lang, e),
                                           soul_effect(lang, e)), colour_text(e), false)),
         None => {
-            if let Some(e) = Element::from_code(rec.order[2]) {
+            if let Some(e) = rec.soul_shown() {
                 out.push((format!("{}（{}）：{}", soul(lang, e),
                                   pick(lang, "先拿满 4 条元素亚龙的一队获得", "先拿滿 4 隻元素亞龍的一隊獲得", "the first team to 4 drakes"),
                                   soul_effect(lang, e)), colour_text(e), false));
@@ -474,6 +474,16 @@ mod tests {
         assert!(all.contains("山脉龙魂（先拿满 4 条元素亚龙的一队获得）"), "{all}");
         assert!(all.contains("远古巨龙：龙魂之后刷新") && all.contains("纳什男爵之手："), "{all}");
         assert_eq!(soul_hint(Lang::Hans, Element::Mountain), "龙魂：山脉");
+        // the soul's element only once the third drake is out (the user: 「第三条小龙出来时才显示龙魂吧」)
+        let early = |taken: [u8; 6], alive: bool| {
+            let mut e = rules::Record { order: [6, 3, 2], serpen_alive: alive, ..rules::Record::default() };
+            e.stacks[0] = taken;
+            tip_lines(Lang::Hans, &e).into_iter().map(|l| l.0).collect::<Vec<_>>().join("
+")
+        };
+        assert!(!early([0; 6], true).contains("龙魂（"), "the first drake");
+        assert!(!early([1, 0, 0, 0, 0, 1], false).contains("龙魂（"), "two taken, the third not out yet");
+        assert!(early([1, 0, 0, 0, 0, 1], true).contains("山脉龙魂（"), "two taken, the third out");
         // a soul claimed: who has it instead of the hint
         r.soul = Some((1, 2));
         let all: String = tip_lines(Lang::Hans, &r).into_iter().map(|l| l.0).collect::<Vec<_>>().join("

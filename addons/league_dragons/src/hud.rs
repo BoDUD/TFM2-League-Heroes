@@ -73,7 +73,7 @@ pub fn hud(rec: &Record, t: usize) -> Hud {
         baron_alive: rec.epic_alive,
         rows,
         conflict: rec.conflict,
-        soul_next: rec.soul.is_none().then(|| Element::from_code(rec.order[2])).flatten(),
+        soul_next: rec.soul_shown(),
     }
 }
 
@@ -321,6 +321,19 @@ mod tests {
         r.elder = Some(HoldRec { team: 1, lanes: 0, until: 10_000 });
         r.stacks[1] = [0; 6];
         assert_eq!(hud(&r, 9_500).rows[1], vec![Piece::Tag(1), Piece::Nothing]);
+    }
+
+    #[test]
+    fn the_soul_shows_once_the_third_drake_is_out() {
+        let mut r = rec();
+        assert_eq!(hud(&r, 200).soul_next, None, "the first drake");
+        r.stacks[0] = [1, 0, 0, 0, 0, 0];
+        r.stacks[1] = [0, 0, 1, 0, 0, 0];
+        assert_eq!(hud(&r, 200).soul_next, None, "two taken, the third not out yet");
+        r.serpen_alive = true;
+        assert_eq!(hud(&r, 200).soul_next, Element::from_code(4), "the third drake out");
+        r.soul = Some((0, 4));
+        assert_eq!(hud(&r, 200).soul_next, None, "claimed: the soul piece instead");
     }
 
     #[test]

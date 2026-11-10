@@ -846,6 +846,9 @@ impl Sim {
                     sim.add_buff(ent, &BuffV1::named(&rules::marker(element)));
                     self.serpen = Some(Alive { ent, element: Some(element), pos, born: now });
                     let n = self.drakes + 1;
+                    if let Some((m, s)) = screen {
+                        feed::drake_born(m, s, ent, element);
+                    }
                     say(screen.is_some(), "spawn", format!("{} SPAWN sim #{} serpent #{ent} '{name}': {} ({})", head(sim), self.no,
                                                            element.key(), if element == Element::Elder {
                                                                "the Elder Dragon".to_string()

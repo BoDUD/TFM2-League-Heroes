@@ -12,7 +12,9 @@
 //! 游戏 0.6.3 起画身体按这个资源名取图（妮蔻同一个字段；凯隐当初改的是名字字段，没用），不认识的名字按英雄的
 //! `aseprite_resources/champions/<名字>` 去找，所以 `mod.override_info` 把 champions 和 ingame 两种路径都指到本包的图。哪一种元素：显示世界收不到原生加的 buff（佛耶戈 0.1.3 / 0.1.6、妮蔻的教训），所以按屏幕上的比赛时钟
 //! （`game_places::clock::screen_tick`）在 [`super::feed`] 里找这一场到这一刻为止最近的一次「元素亚龙出生 / 远古巨龙
-//! 出生」；还没有（模组冲突时本包什么都不做，也就没有）或读不到时钟就不换，画原生的。每个实体换了什么记一行日志
+//! 出生」；还没有（模组冲突时本包什么都不做，也就没有）或读不到时钟就不换，画原生的。0.3.3 起先按实体编号找（屏幕那一场
+//! 小龙出生时 [`super::feed::drake_born`] 记下编号和元素，显示世界的实体是同一个编号）：倒退 / 快进回放时屏幕时钟读不到，
+//! 只按时钟找会画回原生的（用户：「倒退看回放的时候小龙的模型又恢复成原样了」）；两样都没有时用这个实体上次换成的。每个实体换了什么记一行日志
 //! （`SKIN`），第一次见到小龙 / 莫尔加德时把它原来的资源名也记下来。
 
 use std::sync::{Mutex, Once};
@@ -98,9 +100,20 @@ pub fn drake_at(events: &[feed::Event], t: usize) -> Option<String> {
 /// next drake spawns two minutes after a kill, so looking a second ahead never picks it early.
 const SPAWN_LEAD: usize = 60;
 
-/// What the drake should be drawn as now on screen: None when the screen's match, clock or drake is unknown.
-fn drake_now() -> Option<String> {
+/// Our sheet for an element (the Elder's too).
+pub fn sheet_of(element: super::rules::Element) -> String {
+    format!("{DRAKE_PREFIX}{}", element.key())
+}
+
+/// What the drake with entity id `key` should be drawn as: the element its spawn recorded (the display world's entities
+/// carry the simulation's ids), else the last drake / Elder spawn before the screen clock; None when neither is known.
+/// The id comes first: while a replay is wound back or forward the clock reads nothing (2026-11-10's log: the drake back
+/// on screen with `screen tick None`, drawn native - the user: 「倒退看回放的时候小龙的模型又恢复成原样了」).
+fn drake_for(key: u64) -> Option<String> {
     let (m, s) = feed::current()?;
+    if let Some(e) = feed::drake_of(m, s, key as usize) {
+        return Some(sheet_of(e));
+    }
     let t = game_places::clock::screen_tick()?;
     drake_at(&feed::events(m, s), t + SPAWN_LEAD)
 }
@@ -185,7 +198,6 @@ unsafe fn describe(v: usize) -> String {
 }
 
 unsafe fn dress(world: usize, ents: &[Ent]) {
-    let mut drake: Option<Option<String>> = None; // asked once a frame, only when a drake is on screen
     let (Ok(mut looks), Ok(mut seen), Ok(mut track), Ok(mut played)) =
         (LOOKS.try_lock(), SEEN.try_lock(), TRACK.try_lock(), PLAYED.try_lock())
     else {
@@ -224,7 +236,9 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
         }
         let want = match kind {
             Kind::Baron => Some(BARON.to_string()),
-            Kind::Drake => drake.get_or_insert_with(drake_now).clone(),
+            // by id, by the clock, else what this entity was last drawn as (it is the same drake)
+            Kind::Drake => drake_for(key)
+                .or_else(|| looks.iter().find(|l| l.0 == world && l.1 == key).map(|l| l.2.clone())),
         };
         let Some(want) = want else { continue };
         // only a resource whose last part is the native monster's (or ours) is renamed, and only an owned String
