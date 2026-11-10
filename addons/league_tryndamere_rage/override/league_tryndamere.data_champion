@@ -2371,70 +2371,6 @@
       "tag": "w_slow",
       "repeat": true,
       "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_tryndamere_sn_y30b2",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y30b2",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_tryndamere_sn_y30b4",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y30b4",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_tryndamere_sn_y30b6",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y30b6",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_tryndamere_sn_y30b8",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y30b8",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_tryndamere_sn_y30c0",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y30c0",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_tryndamere_sn_y30d1",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y30d1",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_tryndamere_sn_y30e0",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y30e0",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_tryndamere_sn_y30f0",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y30f0",
-      "repeat": true,
-      "z": 6
     }
   ],
   "passive": {
@@ -2460,5 +2396,6 @@
       "burst_left": 40,
       "burst_t": 60
     }
-  }
+  },
+  "stack_skill_index": 0
 }

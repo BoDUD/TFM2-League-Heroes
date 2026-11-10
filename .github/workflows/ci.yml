@@ -86,7 +86,7 @@ jobs:
         run: python -I tools/kit/check_arm_refund.py
       - name: Range buffs are league.dll's league:range markers (no `range` on a buff, the attack reads them, table up to date)
         run: python -I tools/kit/range_buffs.py --check
-      - name: Stack numbers over the heads - the number sheet, the heroes' bindings and league.dll's table agree
+      - name: Stack counts in the champion panel - the heroes' stack_skill_index and league.dll's table agree
         run: |
           python -I tools/kit/stack_nums.py --check
           python -I tools/art/fx_kindred_hunt.py --check

@@ -1260,46 +1260,7 @@
       "anim": "asset/league/effects/league_darius_fx",
       "tag": "w_ready",
       "z": -1
-    },
-    {
-      "type": "Animated",
-      "name": "league_darius_sn_y35a1",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y35a1",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_darius_sn_y35a2",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y35a2",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_darius_sn_y35a3",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y35a3",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_darius_sn_y35a4",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y35a4",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_darius_sn_y35a5",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y35a5",
-      "repeat": true,
-      "z": 6
     }
-  ]
+  ],
+  "stack_skill_index": 2
 }

@@ -5068,70 +5068,7 @@
       "tag": "e_storm",
       "repeat": true,
       "z": 3
-    },
-    {
-      "type": "Animated",
-      "name": "league_belveth_sn_y40a1",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y40a1",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_belveth_sn_y40a2",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y40a2",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_belveth_sn_y40a3",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y40a3",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_belveth_sn_y40a4",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y40a4",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_belveth_sn_y40a5",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y40a5",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_belveth_sn_y40a6",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y40a6",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_belveth_sn_y40a7",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y40a7",
-      "repeat": true,
-      "z": 6
-    },
-    {
-      "type": "Animated",
-      "name": "league_belveth_sn_y40a8",
-      "anim": "asset/league/effects/league_stack_num",
-      "tag": "y40a8",
-      "repeat": true,
-      "z": 6
     }
-  ]
+  ],
+  "stack_skill_index": 0
 }

@@ -12,8 +12,7 @@ gains one (league/effects/league_kindred_fx `p_stack`, Codex's step-3 drawing) -
 - `on`   - the hunt is on: the swirl as drawn.
 
 The swirl's centre sits Y game px over the champion's position (a frame is drawn with its centre on the unit), higher
-than the main pack's pips (27-40) and the stack numbers of tools/kit/stack_nums.py (their top rows reach ~42), so it
-crosses neither.
+than the main pack's target pips (27-40 px up), so it crosses none of them.
 """
 import argparse
 import json

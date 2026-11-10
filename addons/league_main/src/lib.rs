@@ -44,9 +44,10 @@
 //! 的 8 张怪物图（六种元素亚龙、远古巨龙 1.8，纳什男爵 1.5；男爵也进 DRAWN_EFFECTS，他咬中的特效在点上画）。附加包的显示钩子
 //! 把小龙 / 莫尔加德的资源名换成这些图，身体按名字找到后按 1 / PPU 画。0.9.24 是特效 PPU（#730）的。
 //!
-//! src/stacks.rs（0.9.29，用户 2026-11-11：「现在叠层数的技能英雄在游戏里看不到多少层」）：比赛钩子每 6 tick 数一次
-//! src/stack_table.rs 里英雄身上的层数（同名 buff 有几个，或梯子爬到第几级），给他挂不带数值的显示 buff，一位数字一个；
-//! 主包里他的 view_buffs 把它们画成头顶的数字（公用图 league_stack_num，表和图都由 tools/kit/stack_nums.py 生成）。
+//! src/stacks.rs（0.9.29，用户 2026-11-11：「现在叠层数的技能英雄在游戏里看不到多少层」「不能放技能栏里面吗 和联盟一样」）：
+//! 比赛钩子每 6 tick 数一次 src/stack_table.rs 里英雄身上的层数（同名 buff 有几个、数值加起来，或梯子爬到第几级），写进他的
+//! 属性 `stack`：游戏自己的英雄信息面板在技能图标旁边显示它（数据里的 `stack_skill_index` 选图标，tools/kit/stack_nums.py
+//! 生成表和这个字段）。基础属性按宿主自己的机器码读出布局、原样读出来只换 `stack` 再写回，布局对不上就不写。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 //! 挂钩、取表、缩放的行写在挂钩的那个 DLL 的日志里：tft.dll 先加载时在 tft.log，这里只有一行「交给了谁」。
@@ -145,14 +146,14 @@ fn init(host: &StableHost) -> StableMod {
     module.add_native_effect(range::NODE, range::Range);
     // `league:low_hp`: a flag for the data when the caster's health is low - the data reads no health (src/low_hp.rs)
     module.add_native_effect(low_hp::NODE, low_hp::LowHp);
-    // the only match hook this module may set: the stack numbers over the heads (src/stacks.rs), then the
+    // the only match hook this module may set: the stack counts for the champion panel (src/stacks.rs), then the
     // per-600-tick simulation checksum (src/diverge.rs)
     module.set_match_hook(Match);
     module
 }
 
-/// The module's one match hook (`StableMod::set_match_hook` keeps only the last): the stack numbers first, so the
-/// checksum's snapshot sees this tick's display buffs in every run alike.
+/// The module's one match hook (`StableMod::set_match_hook` keeps only the last): the stack counts first, so the
+/// checksum's snapshot sees this tick's `stack` in every run alike.
 struct Match;
 
 impl StableMatchHook for Match {
