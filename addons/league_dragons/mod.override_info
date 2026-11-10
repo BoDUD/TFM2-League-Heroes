@@ -138,5 +138,13 @@
   "asset/base/aseprite_resources/champions/league_baron#anim": {
     "remapping": "asset/league_dragons/effects/league_baron#anim",
     "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/epic#sheet": {
+    "remapping": "asset/league_dragons/effects/league_baron#sheet",
+    "type": "override"
+  },
+  "asset/base/aseprite_resources/ingame/epic#anim": {
+    "remapping": "asset/league_dragons/effects/league_baron#anim",
+    "type": "override"
   }
 }

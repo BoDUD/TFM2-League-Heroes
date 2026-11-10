@@ -163,7 +163,59 @@ pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
         }
     }
     hud::draw(ctx, at, &h, lang, &mx);
+    if !h.conflict && cursor_ui(ui).is_some_and(|(cx, cy)| cx >= at.0 && cx < at.0 + at.2 && cy >= at.1 && cy < at.1 + at.3) {
+        hud::draw_tip(ctx, at, &rec, lang, &mx, ui);
+    }
     dots(ctx, &rec, t, m, s);
+}
+
+/// Where the mouse is in the UI's own coordinates, when the game's window is the one in front: the stable API has no
+/// mouse position, so the cursor's place in the window (Win32) times the UI's size over the window's client size.
+#[cfg(windows)]
+pub fn cursor_ui(ui: (f32, f32)) -> Option<(f32, f32)> {
+    #[repr(C)]
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+    #[repr(C)]
+    struct WinRect {
+        l: i32,
+        t: i32,
+        r: i32,
+        b: i32,
+    }
+    #[link(name = "user32")]
+    extern "system" {
+        fn GetCursorPos(p: *mut Point) -> i32;
+        fn GetForegroundWindow() -> isize;
+        fn GetWindowThreadProcessId(h: isize, pid: *mut u32) -> u32;
+        fn ScreenToClient(h: isize, p: *mut Point) -> i32;
+        fn GetClientRect(h: isize, r: *mut WinRect) -> i32;
+    }
+    #[link(name = "kernel32")]
+    extern "system" {
+        fn GetCurrentProcessId() -> u32;
+    }
+    unsafe {
+        let hwnd = GetForegroundWindow();
+        let mut pid = 0u32;
+        if hwnd == 0 || GetWindowThreadProcessId(hwnd, &mut pid) == 0 || pid != GetCurrentProcessId() {
+            return None;
+        }
+        let mut p = Point { x: 0, y: 0 };
+        let mut r = WinRect { l: 0, t: 0, r: 0, b: 0 };
+        if GetCursorPos(&mut p) == 0 || ScreenToClient(hwnd, &mut p) == 0 || GetClientRect(hwnd, &mut r) == 0 {
+            return None;
+        }
+        let (cw, ch) = ((r.r - r.l) as f32, (r.b - r.t) as f32);
+        (cw > 0.0 && ch > 0.0).then(|| (p.x as f32 * ui.0 / cw, p.y as f32 * ui.1 / ch))
+    }
+}
+
+#[cfg(not(windows))]
+pub fn cursor_ui(_ui: (f32, f32)) -> Option<(f32, f32)> {
+    None
 }
 
 /// 玩家栏头像上的小圆点：拿着远古龙之力（淡金，头像左边中间）/ 纳什男爵之手（紫，左下）的人。

@@ -259,7 +259,7 @@ def spine_x(a, rows=24):
 # 动作」 - 0.2's idle sank the upper body 0 / 2 / 4 / 2 squares behind the legs and squashed it)
 WING_BAND = 0.20       # the body's half-width (head, neck, chest) over the design's width: never moves
 WING_LEGS = 0.66       # the legs' line over the design's height: below it nothing moves
-WING_LIFTS = (0, 2, 3, 2)   # squares the wing tips rise in the 4 idle frames (the roots pinned)
+WING_LIFTS = (0, 1, 2, 3, 3, 2, 1, 0)   # squares the wing tips rise in the 8 idle frames (eased; the roots pinned)
 
 
 def wing_flap(d, k):
@@ -291,6 +291,82 @@ def wing_flap(d, k):
     return over(body, out)
 
 
+# the drakes' attack shockwave (the user, 2026-11-10: 「攻击特效看起来好像没有」): the native serpen's attack draws a ring
+# round itself in frames 3-5 (radius 96 / 98 / 111 game px: a spiked band, then thinner, then dashed and fading); ours the
+# same size and timing in the element's colours, centred on the anchor (the unit's position), round the drake.
+RING_TONES = {   # outline, deep, base, light, highlight
+    "infernal": [(58, 12, 10), (150, 32, 18), (236, 96, 28), (255, 178, 64), (255, 238, 150)],
+    "mountain": [(46, 30, 20), (110, 74, 44), (176, 128, 78), (222, 188, 132), (250, 236, 200)],
+    "ocean": [(8, 34, 52), (18, 96, 128), (36, 176, 204), (126, 228, 240), (226, 252, 255)],
+    "cloud": [(40, 52, 72), (106, 130, 166), (170, 196, 226), (220, 236, 250), (255, 255, 255)],
+    "hextech": [(30, 18, 66), (78, 52, 170), (122, 112, 255), (150, 222, 255), (240, 252, 255)],
+    "chemtech": [(20, 40, 12), (60, 112, 22), (128, 206, 40), (204, 246, 96), (246, 255, 196)],
+    "elder": [(30, 14, 46), (92, 44, 140), (156, 92, 220), (118, 232, 240), (236, 255, 255)],
+}
+RING = [  # per attack frame (0-based 2, 3, 4): radius, band, spikes (length), dashed, fading (tones shifted lighter)
+    (150, 12, 14, False, 0),
+    (175, 8, 9, False, 0),
+    (195, 3, 0, True, 1),
+]
+RING_INNER = 32        # frames 3 and 4 also have a thin ring this many squares inside, as the native one
+RING_MARGIN = 220      # squares every drake canvas is padded by on each side so the ring fits
+
+
+def ring_layer(shape, anchor, element, radius, band, spike, dashed, fade):
+    """the shockwave ring on a transparent canvas: a band `band` squares wide round the anchor, a dark outline on both
+    edges, its middle the element's base tone with a light rim inside; `spike`-square spikes out of it every 6 degrees
+    (alternately long and short); dashed (12-square dashes) when fading"""
+    H, W = shape
+    ax, ay = anchor
+    yy, xx = np.mgrid[0:H, 0:W]
+    dx, dy = xx + 0.5 - ax, yy + 0.5 - ay
+    d = np.hypot(dx, dy)
+    ang = np.degrees(np.arctan2(dy, dx)) % 360
+    tones = [np.array(t, np.uint8) for t in RING_TONES[element]]
+    if fade:
+        tones = tones[1:] + tones[-1:]
+    out = np.zeros((H, W, 4), np.uint8)
+    lo, hi = radius - band / 2, radius + band / 2
+    in_band = (d >= lo) & (d < hi)
+    if dashed:
+        in_band &= (np.radians(ang) * radius) // 12 % 2 == 0
+    rel = np.where(in_band, (d - lo) / max(band, 1), 0)
+    for lo_r, hi_r, t in ((0.0, 0.18, 0), (0.18, 0.42, 3), (0.42, 0.82, 2), (0.82, 1.01, 0)):
+        m = in_band & (rel >= lo_r) & (rel < hi_r)
+        out[m, :3] = tones[t]
+        out[m, 3] = 255
+    if spike:
+        step = 6.0
+        k = np.round(ang / step)
+        off = np.abs(ang - k * step)                     # degrees from the nearest spike's axis
+        length = np.where(k % 2 == 0, spike, spike * 0.6)
+        half = np.degrees(3.0 / np.maximum(d, 1))        # 3 squares wide at the base
+        t = (d - hi) / np.maximum(length, 1)
+        m = (d >= hi) & (t < 1) & (off <= half * (1 - t)) & ~in_band
+        out[m, :3] = np.where((t[m] > 0.55)[:, None], tones[4], tones[2])
+        out[m, 3] = 255
+        edge = m & ~np.roll(m, 1, 0) | m & ~np.roll(m, -1, 0) | m & ~np.roll(m, 1, 1) | m & ~np.roll(m, -1, 1)
+        out[edge, :3] = tones[1]
+    return out
+
+
+def with_rings(frames, anchor, element):
+    """attack frames 3-5 with the shockwave under them (frames padded to RING_MARGIN by the caller)"""
+    out = []
+    for i, a in enumerate(frames):
+        if 2 <= i <= 4:
+            r = RING[i - 2]
+            a = over(a, ring_layer(a.shape[:2], anchor, element, *r))
+            if i < 4:
+                a = over(a, ring_layer(a.shape[:2], anchor, element, r[0] - RING_INNER, 3, 0, False, 1))
+        out.append(a)
+    return out
+
+
+def pad(a, m):
+    return np.pad(a, ((m, m), (m, m), (0, 0)))
+
+
 def drake_frames(model):
     d = READ[model]["design_flat"]
     ys = np.nonzero(d[..., 3].any(1))[0]
@@ -299,6 +375,7 @@ def drake_frames(model):
     tags["idle"] = [wing_flap(d, k) for k in WING_LIFTS]
     _, fr, zs = zones(model)
     tags["attack"] = [np.where(zs[n][..., None], fr[n], d) for n in sorted(fr)]
+    anchor = (128.0, bot + 1 - 66.5)
     dead = []
     dys = {}
     for k in range(1, 7):
@@ -312,8 +389,28 @@ def drake_frames(model):
     dead += shards(dead[-1], [0.55], seed=11)
     dead.append(np.zeros_like(d))
     tags["dead"] = dead
-    meta = {"ppu": 1.8, "anchor": [128.0, bot + 1 - 66.5], "dead_dy": dys, "wing_lifts": WING_LIFTS}
+    # every frame padded (the shockwave reaches 200 squares round the anchor), then the rings
+    tags = {t: [pad(a, RING_MARGIN) for a in frs] for t, frs in tags.items()}
+    big = (anchor[0] + RING_MARGIN, anchor[1] + RING_MARGIN)
+    tags["attack"] = with_rings(tags["attack"], big, model)
+    meta = {"ppu": 1.8, "anchor": list(big), "dead_dy": dys, "wing_lifts": WING_LIFTS, "durations": DRAKE_MS}
     return tags, meta
+
+
+# Baron's idle: he sways (the user, 2026-11-10: 「大龙的动作也是上下摆动 很僵硬」 - 0.2 sank him 0 / 2 / 4 / 2 squares
+# into the pit): each row shifted sideways by its height over the pit, the top BARON_SWAY squares, the pit line still
+BARON_SWAY = (0, 1, 2, 3, 4, 4, 3, 2, 1, 0, -1, -2, -3, -4, -4, -3, -2, -1)
+
+
+def sway(d, a, pit):
+    """d with its rows shifted sideways: row y by a x (pit - y) / (pit - top), the pit row not at all"""
+    ys = np.nonzero(d[..., 3].any(1))[0]
+    top = ys.min()
+    out = np.zeros_like(d)
+    for y in range(top, pit + 1):
+        k = int(round(a * (pit - y) / max(1, pit - top)))
+        out[y] = np.roll(d[y], k, axis=0) if k else d[y]
+    return out
 
 
 def baron_frames():
@@ -322,7 +419,7 @@ def baron_frames():
     pit = ys.max()                                    # the pit line's last row
     sx0 = spine_x(d)
     tags = {"base": [d]}
-    tags["idle"] = [clip(shift(d, k), pit) for k in (0, 2, 4, 2)]
+    tags["idle"] = [sway(d, a, pit) for a in BARON_SWAY]
     al, notes = [], {}
     for k in range(1, 6):
         a = READ[BARON][f"attack_left_{k}"]
@@ -336,7 +433,7 @@ def baron_frames():
     dead.append(np.zeros_like(d))
     tags["dead"] = dead
     tags["attack_target_effect"] = target_effect()
-    meta = {"ppu": 1.5, "anchor": [85.0, pit + 1 - 82.5], "spine": sx0, "placed": notes,
+    meta = {"ppu": 1.5, "anchor": [85.0, pit + 1 - 82.5], "spine": sx0, "placed": notes, "durations": BARON_MS,
             "effect_anchor": [EFX_W / 2, EFX_H / 2]}
     return tags, meta
 
@@ -458,6 +555,8 @@ def one_x(dense, ppu, w1, h1):
     return out
 
 
+DRAKE_MS = {"idle": [110] * 8, "dead": [100, 110, 120, 150, 240, 240, 180, 120]}
+BARON_MS = {"idle": [90] * 18, "dead": [70, 70, 80, 90, 100, 110, 130, 200, 120, 100, 90, 80, 60]}
 DURATIONS = {"idle": 160, "base": 100, "attack": 80, "attack_left": 80, "attack_right": 80, "attack_target_effect": 60}
 
 
@@ -470,11 +569,12 @@ def build(model, review=None):
     for t in order:
         if t not in tags:
             continue
-        ms = DURATIONS.get(t, 80 if model != BARON else 60)
+        per = meta.get("durations", {}).get(t)
+        ms = [per[k] if per else DURATIONS.get(t, 80 if model != BARON else 60) for k in range(len(tags[t]))]
         anchor = meta["effect_anchor"] if t == "attack_target_effect" else meta["anchor"]
         pairs = [crop_pair(a, anchor, ppu) for a in tags[t]]
-        hd["hd_" + t] = [(d, ms) for d, _ in pairs]
-        one[t] = [(o, ms) for _, o in pairs]
+        hd["hd_" + t] = [(d, m) for (d, _), m in zip(pairs, ms)]
+        one[t] = [(o, m) for (_, o), m in zip(pairs, ms)]
     W, H = G.write_sheet(os.path.join(OUT_DIR, NAMES[model]), {**one, **hd}, share=True)
     if review:
         os.makedirs(review, exist_ok=True)
