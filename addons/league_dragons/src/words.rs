@@ -474,7 +474,7 @@ mod tests {
         assert!(all.contains("山脉龙魂（先拿满 4 条元素亚龙的一队获得）"), "{all}");
         assert!(all.contains("远古巨龙：龙魂之后刷新") && all.contains("纳什男爵之手："), "{all}");
         assert_eq!(soul_hint(Lang::Hans, Element::Mountain), "龙魂：山脉");
-        // the soul's element only once the third drake is out (the user: 「第三条小龙出来时才显示龙魂吧」)
+        // the soul's element only once the second drake is taken, as in League (the user: 「改成第二条死后显示」)
         let early = |taken: [u8; 6], alive: bool| {
             let mut e = rules::Record { order: [6, 3, 2], serpen_alive: alive, ..rules::Record::default() };
             e.stacks[0] = taken;
@@ -482,8 +482,8 @@ mod tests {
 ")
         };
         assert!(!early([0; 6], true).contains("龙魂（"), "the first drake");
-        assert!(!early([1, 0, 0, 0, 0, 1], false).contains("龙魂（"), "two taken, the third not out yet");
-        assert!(early([1, 0, 0, 0, 0, 1], true).contains("山脉龙魂（"), "two taken, the third out");
+        assert!(!early([1, 0, 0, 0, 0, 0], true).contains("龙魂（"), "one taken, the second alive");
+        assert!(early([1, 0, 0, 0, 0, 1], false).contains("山脉龙魂（"), "two taken, the third not out yet");
         // a soul claimed: who has it instead of the hint
         r.soul = Some((1, 2));
         let all: String = tip_lines(Lang::Hans, &r).into_iter().map(|l| l.0).collect::<Vec<_>>().join("

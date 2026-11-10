@@ -324,14 +324,15 @@ mod tests {
     }
 
     #[test]
-    fn the_soul_shows_once_the_third_drake_is_out() {
+    fn the_soul_shows_once_the_second_drake_is_taken() {
         let mut r = rec();
+        r.serpen_alive = true;
         assert_eq!(hud(&r, 200).soul_next, None, "the first drake");
         r.stacks[0] = [1, 0, 0, 0, 0, 0];
+        assert_eq!(hud(&r, 200).soul_next, None, "one taken, the second alive");
         r.stacks[1] = [0, 0, 1, 0, 0, 0];
-        assert_eq!(hud(&r, 200).soul_next, None, "two taken, the third not out yet");
-        r.serpen_alive = true;
-        assert_eq!(hud(&r, 200).soul_next, Element::from_code(4), "the third drake out");
+        r.serpen_alive = false;
+        assert_eq!(hud(&r, 200).soul_next, Element::from_code(4), "two taken: the rift's element");
         r.soul = Some((0, 4));
         assert_eq!(hud(&r, 200).soul_next, None, "claimed: the soul piece instead");
     }

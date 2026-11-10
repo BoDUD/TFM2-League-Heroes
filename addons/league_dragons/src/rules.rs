@@ -481,14 +481,14 @@ impl Record {
         self.stacks.iter().flatten().map(|&n| n as u32).sum()
     }
 
-    /// HUD、说明框能说出来的龙魂元素：第三条小龙出现了才说（用户 2026-11-10：「为什么现在开局就显示龙魂是什么了 不符合逻辑
-    /// 应该和英雄联盟一样啊 第三条小龙出来时才显示龙魂吧」）——拿了两条、第三条活着，或者已经拿了三条以上；龙魂被拿走了就不再说。
+    /// HUD、说明框能说出来的龙魂元素：和英雄联盟一样，第二条小龙被拿下后峡谷才变成龙魂的元素（用户 2026-11-10：「为什么现在
+    /// 开局就显示龙魂是什么了 不符合逻辑 应该和英雄联盟一样啊」，又「改成第二条死后显示」）——两队一共拿了两条以上才说；龙魂被
+    /// 拿走了就不再说。
     pub fn soul_shown(&self) -> Option<Element> {
         if self.soul.is_some() {
             return None;
         }
-        let n = self.drakes_taken();
-        (n >= 3 || (n == 2 && self.serpen_alive)).then(|| Element::from_code(self.order[2])).flatten()
+        (self.drakes_taken() >= 2).then(|| Element::from_code(self.order[2])).flatten()
     }
 
     /// 挂在水晶上的名字（61 个字节，buff 名最多 64）。
