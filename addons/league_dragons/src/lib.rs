@@ -1621,6 +1621,9 @@ impl Sim {
     }
 
     fn end(&mut self, sim: &StableSim<'_>, screen: Option<(u64, u64)>) {
+        if let Some((m, s)) = screen {
+            feed::ended(m, s, sim.tick());
+        }
         let stacks = |t: usize| -> String {
             let v: Vec<String> = DRAKES.iter().filter_map(|e| {
                 let n = self.stacks[t][e.slot().unwrap_or(0)];
