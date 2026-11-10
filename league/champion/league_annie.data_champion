@@ -2161,6 +2161,38 @@
       "anim": "asset/league/effects/league_annie_fx",
       "tag": "e_shield",
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_annie_sn_y27a1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y27a1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_annie_sn_y27a2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y27a2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_annie_sn_y27a3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y27a3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_annie_sn_y27a4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y27a4",
+      "repeat": true,
+      "z": 6
     }
   ]
 }

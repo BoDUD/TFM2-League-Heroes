@@ -1729,38 +1729,6 @@
     },
     {
       "type": "Animated",
-      "name": "league_kindred_hunt_wait_b",
-      "anim": "asset/league_kindred/effects/league_kindred_hunt",
-      "tag": "wait",
-      "repeat": true,
-      "z": 4
-    },
-    {
-      "type": "Animated",
-      "name": "league_kindred_hunt_wait_r",
-      "anim": "asset/league_kindred/effects/league_kindred_hunt",
-      "tag": "wait",
-      "repeat": true,
-      "z": 4
-    },
-    {
-      "type": "Animated",
-      "name": "league_kindred_hunted_b",
-      "anim": "asset/league_kindred/effects/league_kindred_hunt",
-      "tag": "on",
-      "repeat": true,
-      "z": 4
-    },
-    {
-      "type": "Animated",
-      "name": "league_kindred_hunted_r",
-      "anim": "asset/league_kindred/effects/league_kindred_hunt",
-      "tag": "on",
-      "repeat": true,
-      "z": 4
-    },
-    {
-      "type": "Animated",
       "name": "league_kindred_sn_y31a1",
       "anim": "asset/league/effects/league_stack_num",
       "tag": "y31a1",
@@ -1982,6 +1950,38 @@
       "tag": "y31c9",
       "repeat": true,
       "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_kindred_hunt_wait_b",
+      "anim": "asset/league_kindred/effects/league_kindred_hunt",
+      "tag": "wait",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "league_kindred_hunt_wait_r",
+      "anim": "asset/league_kindred/effects/league_kindred_hunt",
+      "tag": "wait",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "league_kindred_hunted_b",
+      "anim": "asset/league_kindred/effects/league_kindred_hunt",
+      "tag": "on",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "league_kindred_hunted_r",
+      "anim": "asset/league_kindred/effects/league_kindred_hunt",
+      "tag": "on",
+      "repeat": true,
+      "z": 4
     }
   ],
   "passive": {

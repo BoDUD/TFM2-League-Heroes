@@ -55,7 +55,7 @@
 
 ### 兰博附加包
 
-[兰博附加包](../../addons/league_rumble/README.md)：`league_rumble` v0.2.0
+[兰博附加包](../../addons/league_rumble/README.md)：`league_rumble` v0.2.1
 
 |  | 主包（纯数据） | 附加包 |
 |---|---|---|

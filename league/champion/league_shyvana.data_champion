@@ -7228,6 +7228,110 @@
       "tag": "e_slow",
       "repeat": true,
       "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b4",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b5",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b5",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b6",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b6",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b7",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b7",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b8",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b8",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35b9",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35b9",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35c0",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35c0",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35d1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35d1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35e0",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35e0",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_shyvana_sn_y35f0",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y35f0",
+      "repeat": true,
+      "z": 6
     }
   ]
 }

@@ -48,7 +48,9 @@ sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scr
 #   sum:    one stat of those instances added up, when a stack is not always one (Veigar's champion stack is 5 ability
 #           power: League counts it 5 stacks, the number is his ability power from it; Nasus's Siphoning Strike damage;
 #           Sion's health from kills) - "stat" names the field (magic_power / hp / attack)
-#   ladder: the highest k with <prefix><k> on him, k = 1..rungs
+#   ladder: the highest k with <prefix><k> on him, k = 1..rungs, times "step" (default 1: Rumble's heat and Gnar's /
+#           Shyvana's rage 10 a rung, Tryndamere's fury 20 - League's 0..100); with "full" (a flag buff: Darius's Noxian
+#           Might, Gnar's full Rage) on him, the number is "top"
 # cap: the most the number shows (also how many digits it can have); label: what the number is (for --list and the docs)
 STACKS = [
     {"hero": "league_veigar", "sum": "league_veigar_p_stack", "stat": "magic_power", "cap": 999,
@@ -65,6 +67,30 @@ STACKS = [
      "label": "奥瑞利安·索尔「星海焕然」星尘层数"},
     {"hero": "league_belveth", "ladder": "league_belveth_l", "rungs": 8, "cap": 8,
      "label": "卑尔维斯「溶烛化紫」永久攻速层数"},
+    # the capped counters League shows that had no picture, or one only when full (the user, 2026-11-11: 「加常见的那些」)
+    {"hero": "league_caitlyn", "ladder": "league_caitlyn_hs_", "rungs": 5, "cap": 5,
+     "label": "凯特琳「爆头」计数（第 6 发爆头）"},
+    {"hero": "league_darius", "ladder": "league_darius_hemo_", "rungs": 4, "full": "league_darius_might", "top": 5,
+     "cap": 5, "label": "德莱厄斯「出血」层数（5 = 诺克萨斯之力）"},
+    {"hero": "league_pantheon", "ladder": "league_pantheon_m", "rungs": 4, "full": "league_pantheon_pw", "top": 5,
+     "cap": 5, "label": "潘森「矢志不退」层数（5 = 下一个技能强化）"},
+    {"hero": "league_kennen", "ladder": "league_kennen_a_", "rungs": 4, "cap": 4, "label": "凯南「电刃」普攻计数（第 5 下）"},
+    {"hero": "league_jinx", "ladder": "league_jinx_revup_", "rungs": 3, "cap": 3, "label": "金克丝「砰砰」攻速层数"},
+    {"hero": "league_masteryi", "ladder": "league_masteryi_ds_", "rungs": 3, "cap": 3, "label": "易「双重打击」计数"},
+    {"hero": "league_twistedfate", "ladder": "league_twistedfate_e", "rungs": 3, "cap": 3,
+     "label": "崔斯特「卡牌骗术」计数（第 4 下）"},
+    {"hero": "league_rumble", "ladder": "league_rumble_h", "rungs": 9, "step": 10, "full": "league_rumble_oh", "top": 100,
+     "cap": 100, "label": "兰博「机械重组」热量（100 = 过热）"},
+    {"hero": "league_annie", "ladder": "league_annie_pyro_", "rungs": 3, "full": "league_annie_pyro_ready", "top": 4,
+     "cap": 4, "label": "安妮「嗜火」层数（4 = 下一个技能晕人）"},
+    {"hero": "league_irelia", "ladder": "league_irelia_pv", "rungs": 4, "cap": 4, "label": "艾瑞莉娅「艾欧尼亚热诚」层数"},
+    {"hero": "league_kayle", "ladder": "league_kayle_zeal", "rungs": 5, "cap": 5, "label": "凯尔「狂热」层数"},
+    {"hero": "league_gnar", "ladder": "league_gnar_rg", "rungs": 9, "step": 10, "full": "league_gnar_full", "top": 100,
+     "cap": 100, "label": "纳尔「狂怒基因」怒气（100 = 满怒）"},
+    {"hero": "league_shyvana", "ladder": "league_shyvana_fy", "rungs": 9, "step": 10, "full": "league_shyvana_full",
+     "top": 100, "cap": 100, "label": "希瓦娜「魔龙降世」龙怒（100 = 满）"},
+    {"hero": "league_tryndamere", "ladder": "league_tryndamere_f_", "rungs": 5, "step": 20, "cap": 100,
+     "label": "泰达米尔「战斗狂怒」怒气"},
 ]
 
 # the number's centre this many game px over the hero's highest pixel (its frame's outline then sits 2 px over him)
@@ -180,11 +206,20 @@ def y_for(row_ys, n):
     return row_ys[min(n, len(row_ys)) - 1]
 
 
+def values(row):
+    """Every number the counter can show the hero (a ladder only its rungs' and the full flag's)."""
+    if "ladder" in row:
+        step = row.get("step", 1)
+        out = {k * step for k in range(1, row["rungs"] + 1)} | ({row["top"]} if "full" in row else set())
+        return sorted(v for v in out if 1 <= v <= row["cap"])
+    return list(range(1, row["cap"] + 1))
+
+
 def shows(row):
     """Every (Y, slot, digit) the counter can put on the hero."""
     hy = ys(row)
     out = set()
-    for n in range(1, row["cap"] + 1):
+    for n in values(row):
         y = y_for(hy, n)
         out.update((y, s, d) for s, d in slots(n))
     return sorted(out)
@@ -252,13 +287,17 @@ def views(hero):
 
 
 def apply(champ):
-    """The champion with its stack-number bindings (any old ones replaced; other views kept in their order)."""
+    """The champion with its stack-number bindings: any old ones replaced where the first of them stood (an add-on's copy
+    keeps its own views after the main pack's, whichever way it was made), else added last; other views keep their order."""
     hero = champ.get("id", "")
     prefix = f"{hero}_sn_"
-    vb = [v for v in champ.get("view_buffs", []) if not str(v.get("name", "")).startswith(prefix)]
+    old = champ.get("view_buffs", [])
+    mine = [i for i, v in enumerate(old) if str(v.get("name", "")).startswith(prefix)]
+    at = mine[0] if mine else len(old)
+    rest = [v for v in old if not str(v.get("name", "")).startswith(prefix)]
     add = views(hero)
     if add or "view_buffs" in champ:
-        champ["view_buffs"] = vb + add
+        champ["view_buffs"] = rest[:at] + add + rest[at:]
     return champ
 
 
@@ -314,7 +353,9 @@ def rule_rs(r):
         return f'Rule::Count("{r["count"]}")'
     if "sum" in r:
         return f'Rule::Sum("{r["sum"]}", Stat::{STATS[r["stat"]]})'
-    return f'Rule::Ladder("{r["ladder"]}", {r["rungs"]})'
+    full = f'Some(("{r["full"]}", {r["top"]}))' if "full" in r else "None"
+    return (f'Rule::Ladder {{ prefix: "{r["ladder"]}", rungs: {r["rungs"]}, step: {r.get("step", 1)}, '
+            f'full: {full} }}')
 
 
 def table_rs():
@@ -342,7 +383,7 @@ def rules_problems():
     for r in STACKS:
         raw = open(os.path.join(LEAGUE, "champion", r["hero"] + ".data_champion"), encoding="utf-8").read()
         names = ([r["count"]] if "count" in r else [r["sum"]] if "sum" in r else
-                 [f'{r["ladder"]}{k}' for k in (1, r["rungs"])])
+                 [f'{r["ladder"]}{k}' for k in (1, r["rungs"])] + ([r["full"]] if "full" in r else []))
         if "sum" in r and f'"{r["stat"]}"' not in raw:
             out.append(f"{r['hero']}: no buff of it carries {r['stat']}")
         for n in names:

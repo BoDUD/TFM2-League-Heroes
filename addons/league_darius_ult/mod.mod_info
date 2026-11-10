@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.81.3"
+      "version": ">=0.333.0"
     }
   ],
   "description": "Test build of a patient Noxian Guillotine (needs League of Legends Heroes): Darius's AI casts R only when the strike kills a champion in range - it reads health, shields and his Hemorrhage stacks; Noxian Might only makes the strike bigger - and keeps attacking otherwise, instead of the data pack's cue (any champion his team hit lately, often at full health). The damage, the reset on a kill and every picture stay the main pack's. Writes a log for testing.",
@@ -16,5 +16,5 @@
   "mod_id": "league_darius_ult",
   "mod_type": "native",
   "name": "League Heroes: Darius ult timing (test)",
-  "version": "0.1.4"
+  "version": "0.1.5"
 }

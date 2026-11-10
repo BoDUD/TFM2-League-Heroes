@@ -28,8 +28,9 @@ pub enum Rule {
     Count(&'static str),
     /// 这个 buff 的一项数值加起来（一层的大小不一样时：维迦击杀英雄那一层 5 点法强，英雄联盟算 5 层）。
     Sum(&'static str, Stat),
-    /// 梯子 `<前缀>1`..`<前缀>n` 里身上最高的那一级。
-    Ladder(&'static str, usize),
+    /// 梯子 `<前缀>1`..`<前缀>rungs` 里身上最高的那一级乘 `step`（兰博的热量一级 10、泰达米尔的怒气一级 20：照英雄联盟的
+    /// 0..100）；身上有 `full`（满了的旗子：德莱厄斯的诺克萨斯之力、纳尔的满怒）就是它后面的那个数。
+    Ladder { prefix: &'static str, rungs: usize, step: usize, full: Option<(&'static str, usize)> },
 }
 
 /// [`Rule::Sum`] 加哪一项。
@@ -100,12 +101,20 @@ pub fn count(rule: Rule, buffs: &[BuffV1]) -> usize {
         Rule::Sum(name, stat) => {
             buffs.iter().filter(|b| b.name() == name).map(|b| stat.of(b)).sum::<i64>().max(0) as usize
         }
-        Rule::Ladder(prefix, rungs) => buffs
-            .iter()
-            .filter_map(|b| b.name().strip_prefix(prefix)?.parse::<usize>().ok())
-            .filter(|k| (1..=rungs).contains(k))
-            .max()
-            .unwrap_or(0),
+        Rule::Ladder { prefix, rungs, step, full } => {
+            if let Some((flag, top)) = full {
+                if buffs.iter().any(|b| b.name() == flag) {
+                    return top;
+                }
+            }
+            buffs
+                .iter()
+                .filter_map(|b| b.name().strip_prefix(prefix)?.parse::<usize>().ok())
+                .filter(|k| (1..=rungs).contains(k))
+                .max()
+                .unwrap_or(0)
+                * step
+        }
     }
 }
 
@@ -201,8 +210,13 @@ mod tests {
         Stack { hero: "league_veigar", rule: Rule::Sum("league_veigar_p_stack", Stat::MagicPower), cap: 999, ys: &[34] };
     const GROWING: Stack = Stack { hero: "league_chogath", rule: Rule::Count("league_chogath_r_stack"), cap: 99,
                                    ys: &[57, 71, 86] };
-    const LADDER: Stack = Stack { hero: "league_aurelionsol", rule: Rule::Ladder("league_aurelionsol_d", 30), cap: 30,
-                                  ys: &[39] };
+    const LADDER: Stack = Stack {
+        hero: "league_aurelionsol",
+        rule: Rule::Ladder { prefix: "league_aurelionsol_d", rungs: 30, step: 1, full: None },
+        cap: 30,
+        ys: &[39],
+    };
+    const HEAT: Rule = Rule::Ladder { prefix: "league_rumble_h", rungs: 9, step: 10, full: Some(("league_rumble_oh", 100)) };
 
     #[test]
     fn a_number_is_one_buff_a_digit_in_its_slots() {
@@ -244,6 +258,9 @@ mod tests {
                         "league_aurelionsol_d31"]);
         assert_eq!(count(LADDER.rule, &l), 12, "the top rung, nothing past the ladder, no other name with the prefix");
         assert_eq!(count(LADDER.rule, &buffs(&["league_aurelionsol_c1"])), 0);
+        assert_eq!(count(HEAT, &buffs(&["league_rumble_h3", "league_rumble_hot"])), 30, "a step of heat is 10");
+        assert_eq!(count(HEAT, &buffs(&["league_rumble_h9", "league_rumble_oh"])), 100, "overheated: the flag's number");
+        assert_eq!(count(HEAT, &[]), 0);
     }
 
     #[test]
@@ -273,7 +290,10 @@ mod tests {
             }
             match st.rule {
                 Rule::Count(b) | Rule::Sum(b, _) => assert!(b.starts_with(st.hero), "{} counts {b}", st.hero),
-                Rule::Ladder(p, n) => assert!(p.starts_with(st.hero) && n > 0, "{} climbs {p}", st.hero),
+                Rule::Ladder { prefix, rungs, step, full } => {
+                    assert!(prefix.starts_with(st.hero) && rungs > 0 && step > 0, "{} climbs {prefix}", st.hero);
+                    assert!(full.is_none_or(|(f, top)| f.starts_with(st.hero) && top <= st.cap), "{}", st.hero);
+                }
             }
         }
     }

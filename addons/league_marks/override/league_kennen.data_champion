@@ -1533,7 +1533,40 @@
       "is_follow": true
     }
   ],
-  "view_buffs": [],
+  "view_buffs": [
+    {
+      "type": "Animated",
+      "name": "league_kennen_sn_y30a1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y30a1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_kennen_sn_y30a2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y30a2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_kennen_sn_y30a3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y30a3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_kennen_sn_y30a4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y30a4",
+      "repeat": true,
+      "z": 6
+    }
+  ],
   "passive": {
     "passive_ref": "league_marks:kennen",
     "params": {}

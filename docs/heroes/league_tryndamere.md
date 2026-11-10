@@ -55,7 +55,7 @@
 
 ### 蛮王残血开大附加包
 
-[蛮王残血开大附加包](../../addons/league_tryndamere_rage/README.md)：`league_tryndamere_rage` v0.3.0
+[蛮王残血开大附加包](../../addons/league_tryndamere_rage/README.md)：`league_tryndamere_rage` v0.3.1
 
 0.2.2（2026-11-05）：待命式大招没用掉时的冷却退还不稳：原来在窗口结束前 1 tick 读待命标记（n tick 的标记只有 n - 1 tick 看得见），经典 SDK 追踪里悟空 53 次过期有 7 次读到时标记已经没了、白等完整冷却；塞恩、艾尼维亚等在前 3 tick 读的 177/177 都退了。现在统一在窗口结束前 3 tick 读（`tools/kit/build_tryndamere.py`，主包和副本的 JSON 由 `tools/fix/arm_refund_read.py` 改（蛮王的烘焙表在 assets/ 里，这里重建不了）），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 

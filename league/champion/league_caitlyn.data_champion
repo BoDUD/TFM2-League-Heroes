@@ -4003,6 +4003,46 @@
       "tag": "e_slow",
       "repeat": true,
       "z": 1
+    },
+    {
+      "type": "Animated",
+      "name": "league_caitlyn_sn_y36a1",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y36a1",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_caitlyn_sn_y36a2",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y36a2",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_caitlyn_sn_y36a3",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y36a3",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_caitlyn_sn_y36a4",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y36a4",
+      "repeat": true,
+      "z": 6
+    },
+    {
+      "type": "Animated",
+      "name": "league_caitlyn_sn_y36a5",
+      "anim": "asset/league/effects/league_stack_num",
+      "tag": "y36a5",
+      "repeat": true,
+      "z": 6
     }
   ]
 }
