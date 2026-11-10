@@ -49,8 +49,11 @@ pub mod hud;
 pub mod notice;
 pub mod screen;
 pub mod words;
-// 画面上的身体：小龙按元素、远古巨龙、纳什男爵换成 Codex 的模型（显示钩子）
+// 画面上的身体：小龙按元素、远古巨龙、纳什男爵换成 Codex 的模型（显示钩子），本包自己登记的高清帧
 pub mod skin;
+pub mod hd;
+// 玩家可调的持续时间（settings.ini）
+pub mod settings;
 
 use rules::{Element, Ev, HoldRec, Record, DRAKES};
 
@@ -976,7 +979,7 @@ impl Sim {
                     let lanes = self.start_hold(sim, now, true, team);
                     let holders = self.holder_names(true, team);
                     say(screen.is_some(), "elder", format!("{} ELDER ON sim #{} {} took the Elder Dragon (by {how}{late}): Aspect of the Dragon on [{}] until t={}",
-                                                           head(sim), self.no, side(team), holders.join(", "), now + rules::ELDER_T));
+                                                           head(sim), self.no, side(team), holders.join(", "), now + settings::elder_t()));
                     let ids = self.holder_ids(true, team);
                     self.emit(sim, now, Ev::ElderKilled { team, lanes }, feed::What::ElderKilled { team, holders: ids }, screen);
                 } else {
@@ -1006,7 +1009,7 @@ impl Sim {
                 let lanes = self.start_hold(sim, now, false, team);
                 let holders = self.holder_names(false, team);
                 say(screen.is_some(), "baron", format!("{} BARON ON sim #{} {} took Baron Nashor (by {how}{late}): Hand of Baron on [{}] until t={} (minions within {} of them stronger)",
-                                                       head(sim), self.no, side(team), holders.join(", "), now + rules::BARON_T, rules::MINION_R));
+                                                       head(sim), self.no, side(team), holders.join(", "), now + settings::baron_t(), rules::MINION_R));
                 let ids = self.holder_ids(false, team);
                 self.emit(sim, now, Ev::BaronKilled { team, lanes }, feed::What::BaronKilled { team, holders: ids }, screen);
             }
@@ -1021,7 +1024,7 @@ impl Sim {
             .filter_map(|i| champ_of(sim, self.seats[i].player).filter(|c| c.1).map(|c| (i, c.0)))
             .collect();
         let lanes = holders.iter().fold(0u8, |m, &(i, _)| m | 1 << self.seats[i].lane);
-        let t = if elder { rules::ELDER_T } else { rules::BARON_T };
+        let t = if elder { settings::elder_t() } else { settings::baron_t() };
         let hold = Hold { team, start: now, until: now + t, holders, executes: 0, boosted: 0, scans: 0 };
         if elder {
             self.elder[team] = Some(hold);
@@ -1620,6 +1623,9 @@ impl Sim {
     }
 
     fn end(&mut self, sim: &StableSim<'_>, screen: Option<(u64, u64)>) {
+        if let Some((m, s)) = screen {
+            feed::ended(m, s, sim.tick());
+        }
         let stacks = |t: usize| -> String {
             let v: Vec<String> = DRAKES.iter().filter_map(|e| {
                 let n = self.stacks[t][e.slot().unwrap_or(0)];
@@ -1668,6 +1674,15 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    // its own dense frames since 0.3.5 (the user: 「不行 你要改成不依赖主包的」「就是用原版英雄也能用这个大小龙」): the 8 sheets
+    // to the engine league.dll and tft.dll share - it hooks the game from here, or hands the table to the pack DLL that did -
+    // before the display hook below swaps the slot (src/hd.rs)
+    #[cfg(all(windows, not(league_bundle)))]
+    match hd_engine::start(&hd::table(), &format!("league_dragons.dll {VERSION}"), |m: &str| wlog(m)) {
+        hd_engine::Role::Host => wlog("HD: dense frames for the dragons, hooked here (no League / TFT pack DLL before this one)"),
+        hd_engine::Role::Guest { host: by, .. } => wlog(format!("HD: dense frames for the dragons, drawn by {by}")),
+        hd_engine::Role::Off(why) => wlog(format!("HD: the dragons' 1x frames - {why}")),
+    }
     // its own mod since 0.3.0 (the user: 「把我们的龙魂也单独做成mod开关啊」): its own match hook and client extension
     #[cfg(not(league_bundle))]
     {
@@ -1678,6 +1693,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = &module;
     // the display hook (one a DLL, shared with Neeko, Viego...): the bodies by element
     skin::install_once();
+    // the players' durations (settings.ini in this mod's folder), read once before any match
+    wlog(settings::init(settings::dll_dir()));
     host.log(LogLevel::Info, "league_dragons loaded (League's drakes, soul, Elder Dragon and Baron).");
 }
 
