@@ -479,6 +479,7 @@ fn gather(v: &View) -> Option<Intent> {
 }
 
 /// [`going_home_on`] on the game's own map.
+#[cfg(test)]
 pub fn going_home(base: Option<&InputV1>, home: Option<Pos>) -> bool {
     going_home_on(Map::Native, base, home)
 }

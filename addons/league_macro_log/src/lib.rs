@@ -77,6 +77,7 @@ pub const MORGARD_USE: &str = "morgard_use";
 /// 大龙 buff 的几种用法（SUM 行按这几种分开平均；读不到是 `-`）。
 pub const PLANS: [&str; 4] = ["Gather", "Split14", "Split131", "-"];
 /// 游戏自己的地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算（= `Map::Native.limit()`；这一场的看 `Map::limit`）。
+#[allow(dead_code)] // the game's own map's limit, = `Map::Native.limit()` (docs)
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 同时跟着的比赛最多几场（没结束就被丢掉的比赛不会一直占着）。
 const RUNS_KEPT: usize = 64;

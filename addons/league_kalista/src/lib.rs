@@ -278,6 +278,7 @@ pub struct Turns {
 /// （离她越来越远）而且快跑出射程（> 80% 攻击距离），就往前追；贴到射程 60% 以内、或者正冲过来，就往后拉开；其余（站着对射）
 /// 侧跳，左右交替，跳完离它一样远，接着打不用走回来。附近没有敌方英雄时看最近的其他敌方单位（小兵、野怪、塔），原地前后交替跳，
 /// 先往前；什么都没有就 None，数据照主包往后跳。hop_thr 不再用（第一版：贴近才往后跳）。游戏自己的地图上的 [`hop_choice_on`]。
+#[cfg(test)]
 pub fn hop_choice(me: Pt, foes: &[Foe], units: &[Foe], turns: Turns, p: &Params) -> Option<(Hop, HopWhy)> {
     hop_choice_on(Map::Native, me, foes, units, turns, p)
 }
@@ -344,6 +345,7 @@ pub fn hop_end(me: Pt, hop: Hop, len: f64) -> Pt {
 }
 
 /// 在游戏自己的地图上（坐标 0..MAP）。
+#[cfg(test)]
 pub fn on_map(p: Pt) -> bool {
     inside(Map::Native, p)
 }
@@ -417,6 +419,7 @@ pub fn landing_pick(me: Pt, foes: &[Foe], p: &Params) -> Option<Foe> {
 }
 
 /// 游戏自己的地图上的 [`fly_step_on`]。
+#[cfg(test)]
 pub fn fly_step(at: Pt, to: Pt, v: f64, catch: f64) -> (Pt, bool) {
     fly_step_on(Map::Native, at, to, v, catch)
 }
@@ -433,6 +436,7 @@ pub fn fly_step_on(map: Map, at: Pt, to: Pt, v: f64, catch: f64) -> (Pt, bool) {
 }
 
 /// 夹在游戏自己的地图上（坐标 0..MAP-1）。
+#[cfg(test)]
 pub fn clamp(p: Pt) -> Pt {
     clamp_on(Map::Native, p)
 }

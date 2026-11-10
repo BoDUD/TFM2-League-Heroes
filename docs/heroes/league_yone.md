@@ -55,7 +55,7 @@
 
 ### 永恩 R 附加包
 
-[永恩 R 附加包](../../addons/league_yone_r/README.md)：`league_yone_r` v0.1.2
+[永恩 R 附加包](../../addons/league_yone_r/README.md)：`league_yone_r` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

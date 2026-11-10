@@ -55,7 +55,7 @@
 
 ### 阿克尚扩展包
 
-[阿克尚扩展包](../../addons/league_akshan/README.md)：`league_akshan` v0.2.7
+[阿克尚扩展包](../../addons/league_akshan/README.md)：`league_akshan` v0.2.8
 
 |  | 主包（纯数据） | 扩展包 |
 |---|---|---|
