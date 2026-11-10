@@ -18,7 +18,7 @@ use std::sync::{Mutex, Once};
 
 use super::feed::{self, What};
 use super::wlog;
-use game_places::hook::{Ent, VALUE};
+use game_places::hook::{Ent, NAME_LEN_AT, NAME_PTR, VALUE};
 
 /// The display entity value's body resource name: String {cap, ptr, len} at +0x50 (league_neeko view.rs).
 const RES_CAP: usize = 0x50;
@@ -50,6 +50,19 @@ pub fn kind_of(res: &str) -> Option<Kind> {
     if last == SERPEN || last.starts_with(DRAKE_PREFIX) {
         Some(Kind::Drake)
     } else if last == EPIC || last == BARON {
+        Some(Kind::Baron)
+    } else {
+        None
+    }
+}
+
+/// The monster an entity's name says it is: the simulation calls the drake `serpen_monster` (league_dragons.log SPAWN),
+/// and the display entity may carry such a name rather than a resource ending in `serpen`.
+pub fn kind_of_name(name: &str) -> Option<Kind> {
+    let n = name.to_ascii_lowercase();
+    if n.contains(SERPEN) || n.contains("league_drake_") {
+        Some(Kind::Drake)
+    } else if n.starts_with(EPIC) || n.contains("_epic") || n.contains("morgard") || n.contains(BARON) {
         Some(Kind::Baron)
     } else {
         None
@@ -110,9 +123,27 @@ unsafe fn string_at(at: usize, max: usize) -> Option<String> {
     std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)).ok().map(str::to_string)
 }
 
-/// A new String in the game's heap at `at` (the old one freed the game's way, league_neeko view.rs).
+/// A String {cap, ptr, len} the game owns on its heap: a capacity no bigger than 1 GiB and at least the length. Only such
+/// a String is replaced (a borrowed or static one starts with no such capacity, and freeing it would crash the game).
+unsafe fn owned_string_at(at: usize, max: usize) -> Option<String> {
+    let cap = q(at);
+    (cap <= 1 << 30).then(|| string_at(at, max)).flatten().filter(|s| s.len() <= cap)
+}
+
+/// The display entity's name: +0x40 pointer, +0x48 length (game_places::hook).
+unsafe fn name_of(v: usize) -> Option<String> {
+    let (n, p) = (q(v + NAME_LEN_AT), q(v + NAME_PTR));
+    ((1..=64).contains(&n) && plausible(p))
+        .then(|| String::from_utf8_lossy(std::slice::from_raw_parts(p as *const u8, n)).into_owned())
+}
+
+/// A new String in the game's heap at `at` (the old one freed the game's way, league_neeko view.rs) - only over an owned
+/// String ([`owned_string_at`]).
 unsafe fn put_string(at: usize, want: &[u8]) -> bool {
     let (cap, ptr) = (q(at), q(at + 8));
+    if cap > 1 << 30 {
+        return false;
+    }
     let heap = GetProcessHeap();
     let fresh = HeapAlloc(heap, 0, want.len().max(1));
     if fresh.is_null() {
@@ -128,23 +159,49 @@ unsafe fn put_string(at: usize, want: &[u8]) -> bool {
     true
 }
 
+/// (display world, key) of every entity already written out by [`describe`].
+static SEEN: Mutex<Vec<(usize, u64)>> = Mutex::new(Vec::new());
+
+/// One log line of a display entity as it is: its name, its resource and animation read as Strings, and the raw words
+/// from +0x38 to +0xa0 of its value (to see how a monster's differ from a champion's).
+unsafe fn describe(v: usize) -> String {
+    let words: Vec<String> = (0..14).map(|i| format!("{:x}", q(v + 0x38 + 8 * i))).collect();
+    format!("name {:?}, resource {:?} (owned {}), animation {:?}, words +0x38.. [{}]", name_of(v), string_at(v + RES_CAP, 160),
+            owned_string_at(v + RES_CAP, 160).is_some(), string_at(v + 0x68, 64), words.join(" "))
+}
+
 unsafe fn dress(world: usize, ents: &[Ent]) {
     let mut drake: Option<Option<String>> = None; // asked once a frame, only when a drake is on screen
-    let Ok(mut looks) = LOOKS.try_lock() else { return };
+    let (Ok(mut looks), Ok(mut seen)) = (LOOKS.try_lock(), SEEN.try_lock()) else { return };
+    let mut described_here = seen.iter().filter(|s| s.0 == world).count();
     for e in ents {
         let v = e.elem + VALUE;
-        let Some(res) = string_at(v + RES_CAP, 160) else { continue };
-        let Some(kind) = kind_of(&res) else { continue };
+        let key = e.key;
+        let res = string_at(v + RES_CAP, 160);
+        let name = name_of(v);
+        let by_res = res.as_deref().and_then(kind_of);
+        let kind = by_res.or_else(|| name.as_deref().and_then(kind_of_name));
+        // every monster once, and the first four entities of a world (champions) to compare with
+        if (kind.is_some() || described_here < 4) && !seen.contains(&(world, key)) {
+            seen.push((world, key));
+            if seen.len() > 512 {
+                seen.remove(0);
+            }
+            described_here += 1;
+            wlog(format!("SKIN seen world {world:#x} #{key}{}: {}",
+                         match kind { Some(Kind::Drake) => " (a drake)", Some(Kind::Baron) => " (Baron)", None => "" }, describe(v)));
+        }
+        let Some(kind) = kind else { continue };
         let want = match kind {
             Kind::Baron => Some(BARON.to_string()),
             Kind::Drake => drake.get_or_insert_with(drake_now).clone(),
         };
         let Some(want) = want else { continue };
-        let key = e.key;
-        if !looks.iter().any(|l| l.0 == world && l.1 == key) {
-            wlog(format!("SKIN world {world:#x} #{key}: a {} on screen, resource {res:?}",
-                         if kind == Kind::Drake { "drake" } else { "Baron" }));
+        // only a resource whose last part is the native monster's (or ours) is renamed, and only an owned String
+        if by_res.is_none() {
+            continue;
         }
+        let Some(res) = owned_string_at(v + RES_CAP, 160) else { continue };
         if let Some(new) = renamed(&res, &want) {
             if put_string(v + RES_CAP, new.as_bytes()) && !looks.iter().any(|l| l.0 == world && l.1 == key && l.2 == want) {
                 looks.retain(|l| !(l.0 == world && l.1 == key));
@@ -155,8 +212,6 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
                 wlog(format!("SKIN world {world:#x} #{key}: drawn as {new} (screen tick {:?})",
                              game_places::clock::screen_tick()));
             }
-        } else if !looks.iter().any(|l| l.0 == world && l.1 == key) {
-            looks.push((world, key, want));
         }
     }
 }
@@ -192,6 +247,14 @@ mod tests {
         assert_eq!(kind_of("ingame/serpentine"), None);
         assert_eq!(kind_of("league_jinx"), None);
         assert_eq!(kind_of("ingame/epic_buff_animation"), None);
+    }
+
+    #[test]
+    fn the_simulations_monster_names_are_recognised_too() {
+        assert_eq!(kind_of_name("serpen_monster"), Some(Kind::Drake));
+        assert_eq!(kind_of_name("epic_monster"), Some(Kind::Baron));
+        assert_eq!(kind_of_name("league_jinx"), None);
+        assert_eq!(kind_of_name("blue_minion"), None);
     }
 
     #[test]
