@@ -5,7 +5,8 @@
 //! `league_veigar_p_stack`），或者梯子爬上一级（奥瑞利安·索尔的 `league_aurelionsol_d1`..`d30`）；游戏的显示世界一个名字
 //! 也只记一个（hd_engine 的 `grow_count`），客户端也数不出来。所以在模拟里数：比赛钩子每 [`EVERY`] tick 看一次
 //! [`STACKS`]（src/stack_table.rs，tools/kit/stack_nums.py 生成）里的英雄——[`Rule::Count`] 数他身上那个 buff 有几个，
-//! [`Rule::Ladder`] 看梯子爬到第几级——给他挂不带任何数值的显示 buff，一位数字一个：`<英雄>_sn_y<高>槽<数字>`
+//! [`Rule::Sum`] 把那些 buff 的一项数值加起来（维迦击杀英雄那一层是 5 点法强：英雄联盟的层数就是法强），[`Rule::Ladder`]
+//! 看梯子爬到第几级——给他挂不带任何数值的显示 buff，一位数字一个：`<英雄>_sn_y<高>槽<数字>`
 //! （[`names`]）。主包里这个英雄的 view_buffs（和附加包的副本里的）把每个名字画成公用图 league_stack_num 里的那一格：
 //! 数字的中心在他头顶 Y 个游戏像素（stack_nums.py 按他的帧量的；科加斯按盛宴的层数长高，[`Stack::ys`] 一层一个高度）。
 //!
@@ -25,8 +26,28 @@ pub use crate::stack_table::STACKS;
 pub enum Rule {
     /// 这个 buff 有几个（一层多一个）。
     Count(&'static str),
+    /// 这个 buff 的一项数值加起来（一层的大小不一样时：维迦击杀英雄那一层 5 点法强，英雄联盟算 5 层）。
+    Sum(&'static str, Stat),
     /// 梯子 `<前缀>1`..`<前缀>n` 里身上最高的那一级。
     Ladder(&'static str, usize),
+}
+
+/// [`Rule::Sum`] 加哪一项。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Stat {
+    MagicPower,
+    Hp,
+    Attack,
+}
+
+impl Stat {
+    pub fn of(self, b: &BuffV1) -> i64 {
+        match self {
+            Stat::MagicPower => b.magic_power as i64,
+            Stat::Hp => b.hp as i64,
+            Stat::Attack => b.attack as i64,
+        }
+    }
 }
 
 /// 一个显示层数的英雄。
@@ -72,13 +93,16 @@ pub fn names(st: &Stack, n: usize) -> Vec<String> {
     slots(n).into_iter().map(|(c, d)| format!("{}{MARK}y{y}{c}{d}", st.hero)).collect()
 }
 
-/// 他身上的 buff 名 -> 层数。
-pub fn count<'a>(rule: Rule, buffs: impl IntoIterator<Item = &'a str>) -> usize {
+/// 他身上的 buff -> 层数。
+pub fn count(rule: Rule, buffs: &[BuffV1]) -> usize {
     match rule {
-        Rule::Count(name) => buffs.into_iter().filter(|b| *b == name).count(),
+        Rule::Count(name) => buffs.iter().filter(|b| b.name() == name).count(),
+        Rule::Sum(name, stat) => {
+            buffs.iter().filter(|b| b.name() == name).map(|b| stat.of(b)).sum::<i64>().max(0) as usize
+        }
         Rule::Ladder(prefix, rungs) => buffs
-            .into_iter()
-            .filter_map(|b| b.strip_prefix(prefix)?.parse::<usize>().ok())
+            .iter()
+            .filter_map(|b| b.name().strip_prefix(prefix)?.parse::<usize>().ok())
             .filter(|k| (1..=rungs).contains(k))
             .max()
             .unwrap_or(0),
@@ -129,14 +153,13 @@ pub fn on_tick(sim: &mut StableSim<'_>) {
         let mut buffs = Vec::new();
         let mut shown = Vec::new();
         for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
-            let name = b.name();
-            if name.starts_with(&prefix) {
-                shown.push(name.to_string());
+            if b.name().starts_with(&prefix) {
+                shown.push(b.name().to_string());
             } else {
-                buffs.push(name.to_string());
+                buffs.push(b);
             }
         }
-        let n = if alive { count(st.rule, buffs.iter().map(String::as_str)) } else { 0 };
+        let n = if alive { count(st.rule, &buffs) } else { 0 };
         let want = names(st, n);
         let (drop, add) = diff(&shown, &want);
         if drop.is_empty() && add.is_empty() {
@@ -174,7 +197,8 @@ pub fn shown_number(st: &Stack, shown: &[String]) -> usize {
 mod tests {
     use super::*;
 
-    const VEIGAR: Stack = Stack { hero: "league_veigar", rule: Rule::Count("league_veigar_p_stack"), cap: 999, ys: &[34] };
+    const VEIGAR: Stack =
+        Stack { hero: "league_veigar", rule: Rule::Sum("league_veigar_p_stack", Stat::MagicPower), cap: 999, ys: &[34] };
     const GROWING: Stack = Stack { hero: "league_chogath", rule: Rule::Count("league_chogath_r_stack"), cap: 99,
                                    ys: &[57, 71, 86] };
     const LADDER: Stack = Stack { hero: "league_aurelionsol", rule: Rule::Ladder("league_aurelionsol_d", 30), cap: 30,
@@ -198,14 +222,28 @@ mod tests {
         assert_eq!(names(&GROWING, 12), vec!["league_chogath_sn_y86b1", "league_chogath_sn_y86c2"], "past the table: its last");
     }
 
+    fn buffs(names: &[&str]) -> Vec<BuffV1> {
+        names.iter().map(|n| BuffV1::named(n)).collect()
+    }
+
+    fn power(name: &str, ap: i32) -> BuffV1 {
+        let mut b = BuffV1::named(name);
+        b.magic_power = ap;
+        b
+    }
+
     #[test]
-    fn counts_and_ladders() {
-        let b = ["league_veigar_p_stack", "x", "league_veigar_p_stack", "league_veigar_p_stack_old"];
-        assert_eq!(count(VEIGAR.rule, b), 2);
-        let l = ["league_aurelionsol_d1", "league_aurelionsol_d2", "league_aurelionsol_d12", "league_aurelionsol_dash",
-                 "league_aurelionsol_d31"];
-        assert_eq!(count(LADDER.rule, l), 12, "the top rung, nothing past the ladder, no other name with the prefix");
-        assert_eq!(count(LADDER.rule, ["league_aurelionsol_c1"]), 0);
+    fn counts_sums_and_ladders() {
+        let b = buffs(&["league_veigar_p_stack", "x", "league_veigar_p_stack", "league_veigar_p_stack_old"]);
+        assert_eq!(count(Rule::Count("league_veigar_p_stack"), &b), 2);
+        let s = [power("league_veigar_p_stack", 1), power("league_veigar_p_stack", 5), power("x", 9),
+                 power("league_veigar_p_stack", 1)];
+        assert_eq!(count(VEIGAR.rule, &s), 7, "a champion's stack is 5 ability power: League's 5 stacks");
+        assert_eq!(count(Rule::Sum("league_veigar_p_stack", Stat::Hp), &s), 0);
+        let l = buffs(&["league_aurelionsol_d1", "league_aurelionsol_d2", "league_aurelionsol_d12", "league_aurelionsol_dash",
+                        "league_aurelionsol_d31"]);
+        assert_eq!(count(LADDER.rule, &l), 12, "the top rung, nothing past the ladder, no other name with the prefix");
+        assert_eq!(count(LADDER.rule, &buffs(&["league_aurelionsol_c1"])), 0);
     }
 
     #[test]
@@ -234,7 +272,7 @@ mod tests {
                 }
             }
             match st.rule {
-                Rule::Count(b) => assert!(b.starts_with(st.hero), "{} counts {b}", st.hero),
+                Rule::Count(b) | Rule::Sum(b, _) => assert!(b.starts_with(st.hero), "{} counts {b}", st.hero),
                 Rule::Ladder(p, n) => assert!(p.starts_with(st.hero) && n > 0, "{} climbs {p}", st.hero),
             }
         }
