@@ -38,7 +38,7 @@ S = "<#9fd8ffff>"      # shields
 G = "<#7cfc00ff>"      # heals
 E = "<>"
 # champion_view: the face point at his crown (tools/art/rig_milio.py face_point; ppu_restyle RESTYLE milio face_to)
-VIEW = {"face": {"x": 2, "y": -26}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}
+VIEW = {"face": {"x": 2, "y": -31}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -9}}
 
 
 def mag(k):
