@@ -17,7 +17,8 @@ strip is the guide's size: its cells side by side, each the guide's cell (the ta
 pixel, each distinct 1x frame centred in its cell (pack_fx_redraw.guide) - so the cell IS a raw on an exact grid and
 needs no fit: game = raw / 8 - (ox, oy), (ox, oy) the frame's place in the cell. Each frame then goes through what a raw
 does in densify_fx.py: the gate at 1x (F, colours), refine (the dense silhouette within one fine pixel of the 1x squares,
-inner squares solid, each fine pixel coloured by a vote over the 1x frame's own colours - the tag's palette), mirrored
+inner squares solid, each fine pixel coloured by a vote over the 1x frame's own colours - the tag's palette), outside
+the squares only at their steps' inner corners (corners_only: a thin line or a dot never reads in thicker), mirrored
 where the 1x frame is its own mirror, the read-back gate; a tag takes its redraw only when every drawn frame of it passes
 (specks aside), else it keeps the hd_ frames it has (Scale2x). The tag's 1x frames must still be the ones the pack drew
 from (same distinct cells, same cell size): a tag changed since is left alone (said in the log). A redraw wins over the
@@ -114,6 +115,25 @@ def distinct_of(frames):
     return distinct, index
 
 
+def corners_only(g, arr, P=PPU):
+    """the dense frame g drawn outside arr's squares only at the inner corners of arr's steps - the fine pixel of an
+    empty square whose two neighbours on that corner's sides are both drawn, where Scale2x itself may draw: a thin line,
+    a ring or a speck never reads in thicker than its squares. refine() lets a fine pixel within one of the squares be
+    drawn where a quarter of it is covered, and Codex's strokes and dots are soft-edged and a little wide (review of the
+    2026-11-10 delivery after the first: Akali's and Akshan's dots read in as crosses, their thin slashes, rings and
+    sights twice as thick)"""
+    t = arr[..., 3] > 0
+    pad = np.pad(t, 1)
+    above, below, left, right = pad[:-2, 1:-1], pad[2:, 1:-1], pad[1:-1, :-2], pad[1:-1, 2:]
+    ok = np.repeat(np.repeat(t, P, 0), P, 1)
+    for fy, ny in ((0, above), (P - 1, below)):
+        for fx, nx in ((0, left), (P - 1, right)):
+            ok[fy::P, fx::P] |= ~t & ny & nx
+    out = g.copy()
+    out[~ok] = 0
+    return out
+
+
 def redraw_tag(entry, frames, strip):
     """(dense frames or None, per-frame measures, why not): the tag's frames from its stored strip"""
     distinct, index = distinct_of(frames)
@@ -145,7 +165,7 @@ def redraw_tag(entry, frames, strip):
             out.append(None)
             continue
         fq, iou, gap = D.fidelity(raw, arr, s, ty, tx)
-        g = D.refine(arr, raw, s, ty, tx, PPU, pal)
+        g = corners_only(D.refine(arr, raw, s, ty, tx, PPU, pal), arr)
         for axis in (1, 0):
             if D.symmetric(arr, axis):
                 g = D.symmetrize(g, axis)
