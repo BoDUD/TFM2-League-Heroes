@@ -303,7 +303,7 @@ pub fn spit_spot(grid: &Grid, at: (f64, f64), spot: (f64, f64)) -> (f64, f64) {
 
 /// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格）。
 static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_walls()));
+static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
 /// 这次启动第一次碰到峡谷时在日志里记一行。
 static RIFT_SEEN: Once = Once::new();
 

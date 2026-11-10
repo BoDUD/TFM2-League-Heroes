@@ -32,7 +32,9 @@
 //!
 //! **两张 5v5 地图**（2026-11-10）：子弹飞到的地图边、E 荡的弧线夹的边、钩点偏向的地图中间，都按这一场的地图
 //! （`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，Rin 的召唤师峡谷 1614545 见方）；以前一律按 960000，
-//! 峡谷上过了 960000 的子弹停在半张图的边上、荡到一半被夹回去。
+//! 峡谷上过了 960000 的子弹停在半张图的边上、荡到一半被夹回去。峡谷上荡的每一点还要落在能站的地方
+//! （`game_places::terrain::stand_ok`：峡谷的墙往外长一格，和作者的寻路一致）：弧线上下一点站不住就荡到这里为止、松手，
+//! 他停在上一个能站的地方，从不挪进墙里（用户 2026-11-10：「有的地方会走路卡住」）。没有墙体文件时只有地图边。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_akshan.log`，每次启动游戏重写，上一次的留在 .prev.log：`LAYOUT`
 //! （找到的偏移）、`MARK`、`REVIVE`、`VIEW`、`BANNER`、`REFRESH`、`R FIRE`、`R HELD` / `R CAST`、`R AIM`、`BULLET`、`R DONE`、
@@ -45,7 +47,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, Map};
+use game_places::terrain::{map_of_sim, rift_status, stand_ok, Map};
 use mod_api_stable::*;
 
 pub mod banner;
@@ -255,8 +257,8 @@ fn map_here(sim: &StableSim<'_>) -> Map {
     let map = map_of_sim(sim);
     if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
         wlog(format!("== Rift: R's bullets fly to the Rift's edge, E's swing stays {MAP_LO:.0} inside the Rift's {:.0} \
-                      square and its hook leans to the Rift's middle (not the game's own {MAP_END:.0}); {} ==",
-                     map.extent(), rift_status()));
+                      square and its hook leans to the Rift's middle (not the game's own {MAP_END:.0}), the swing lets go \
+                      at the last spot off the Rift's walls (stand_ok); {} ==", map.extent(), rift_status()));
     }
     map
 }
@@ -951,6 +953,14 @@ pub fn swing_at_on(map: Map, a: (f64, f64), a0: f64, dir: f64, age: usize) -> (f
     ((a.0 + ROPE_R * th.cos()).clamp(MAP_LO, hi), (a.1 + ROPE_R * th.sin()).clamp(MAP_LO, hi))
 }
 
+/// [`swing_at_on`] 挨着峡谷的墙：弧线上这一刻的点站不住（`ok` 说不行：运行时是 `stand_ok`，峡谷的墙往外长一格；游戏自己的
+/// 地图上总是行）就是 None：荡到这里为止、松手，他停在上一个能站的地方。
+pub fn swing_step(map: Map, a: (f64, f64), a0: f64, dir: f64, age: usize, ok: impl Fn((f64, f64)) -> bool)
+    -> Option<(f64, f64)> {
+    let p = swing_at_on(map, a, a0, dir, age);
+    ok(p).then_some(p)
+}
+
 fn sw_name(a: (f64, f64), a0: f64, dir: f64, t0: usize) -> String {
     format!(
         "{SW}:{}:{}:{}:{}:{t0}",
@@ -1485,7 +1495,16 @@ fn swing_tick(sim: &mut StableSim<'_>, me: usize) {
         }
         return;
     }
-    let p = swing_at_on(map_here(sim), a, a0, dir, age);
+    let map = map_here(sim);
+    // 峡谷上弧线的这一点站不住（离墙比峡谷的寻路允许的近）就荡到这里为止、松手：他停在上一个能站的地方，不进墙
+    // （游戏自己的地图上 stand_ok 总是 true，照旧荡满）
+    let Some(p) = swing_step(map, a, a0, dir, age, |q| stand_ok(map, q)) else {
+        sim.entity_remove_buff(me, &name);
+        if let Some(k) = logged(sim, "swing_wall") {
+            wlog(format!("{} SWING stopped at the Rift's wall at {age} #{k}", head(sim, me)));
+        }
+        return;
+    };
     sim.entity_set_pos(me, p.0.round() as u64, p.1.round() as u64);
     if !rope(sim, me, p, a) {
         if let Some(k) = logged(sim, "rope_refused") {
@@ -1707,6 +1726,7 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+    use game_places::terrain::Walls;
 
     fn hex(s: &str) -> Vec<u8> {
         let mut v: Vec<u8> = (0..s.len()).step_by(2).map(|i| u8::from_str_radix(&s[i..i + 2], 16).unwrap()).collect();
@@ -1826,6 +1846,43 @@ mod tests {
         let (x, y) = bullet_end_on(Map::Rift, (1_554_545.0, 500_000.0), (1_584_545.0, 540_000.0));
         assert_eq!(x, rift as u64);
         assert!((y as f64 - 580_000.0).abs() < 2.0, "{y}");
+    }
+
+    /// 2026-11-10 (the user on the Rift: 「有的地方会走路卡住」): the swing set him down on its arc inside the Rift's walls
+    /// and he stood stuck there. A piece of the Rift as `stand_ok` sees it with the walls file (`!is_wall` on
+    /// `rift_ground`): cells of 60000/11, 40 x 40 from (1100000, 1100000) - past the game's own 960000 - columns 20 and 21
+    /// wall, grown by one cell (`padded`): no hero stands at x 1203636..1225455.
+    #[test]
+    fn on_the_rift_the_swing_lets_go_at_its_walls() {
+        let e = Map::Rift.extent();
+        let row = format!("{}##{}", ".".repeat(20), ".".repeat(18));
+        let g = Walls::from_rows(&vec![row.as_str(); 40], 60_000.0 / 11.0, (1_100_000.0, 1_100_000.0), (e, e)).padded();
+        let ok = |q: (f64, f64)| !g.is_wall(q.0, q.1);
+        // swinging at someone across the wall: the arc (all on the piece) runs into it 14 ticks in
+        let (me, t) = ((1_190_000.0, 1_200_000.0), (1_240_000.0, 1_200_000.0));
+        let (a, a0, dir) = swing_plan_on(Map::Rift, me, t);
+        let arc: Vec<Option<(f64, f64)>> = (0..=SWING_T).map(|k| swing_step(Map::Rift, a, a0, dir, k, ok)).collect();
+        let stop = arc.iter().position(Option::is_none);
+        assert_eq!(stop, Some(14), "{a:?}");
+        // every spot before it is his on the arc, on ground; the one he stays on is the last of them
+        for (k, p) in arc[..14].iter().enumerate() {
+            assert_eq!(*p, Some(swing_at_on(Map::Rift, a, a0, dir, k)));
+        }
+        let (last, next) = (swing_at_on(Map::Rift, a, a0, dir, 13), swing_at_on(Map::Rift, a, a0, dir, 14));
+        assert!(ok(last) && !ok(next), "{last:?} {next:?}");
+        // the full swing would have put him past the wall's near edge (the old swing, into it)
+        assert!(swing_at_on(Map::Rift, a, a0, dir, SWING_T).0 > next.0);
+        // nothing in the way (away from the wall): the whole swing, past 960000
+        let back = (1_140_000.0, 1_200_000.0);
+        let (b, b0, bdir) = swing_plan_on(Map::Rift, me, back);
+        assert!((0..=SWING_T).all(|k| swing_step(Map::Rift, b, b0, bdir, k, ok) == Some(swing_at_on(Map::Rift, b, b0, bdir, k))));
+        // the game's own map: stand_ok never lets go of him - every spot as before
+        let native = |q: (f64, f64)| stand_ok(Map::Native, q);
+        let (n, n0, ndir) = swing_plan((300_000.0, 500_000.0), (360_000.0, 500_000.0));
+        assert!((0..=SWING_T).all(|k| swing_step(Map::Native, n, n0, ndir, k, native) == Some(swing_at(n, n0, ndir, k))));
+        let edge = swing_plan((900_000.0, 900_000.0), (960_000.0, 960_000.0));
+        assert!((0..=SWING_T).all(|k| swing_step(Map::Native, edge.0, edge.1, edge.2, k, native)
+            == Some(swing_at(edge.0, edge.1, edge.2, k))));
     }
 
     #[test]

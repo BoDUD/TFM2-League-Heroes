@@ -32,7 +32,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, rift_walls, Map, Walls};
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 pub mod maps;
@@ -418,7 +418,7 @@ fn field(sim: &StableSim<'_>, me: usize, team: usize) -> Field {
             wlog(format!("== Rift: Valkyrie and the Package land on the Rift's 1614545 square clear of its walls (none known \
                           without the walls file: only its edge), the missiles fly there; {} ==", rift_status()));
         }
-        Ground::Rift(rift_walls())
+        Ground::Rift(rift_ground())
     } else {
         Ground::Native(walls)
     };

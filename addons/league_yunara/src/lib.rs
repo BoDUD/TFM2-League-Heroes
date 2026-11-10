@@ -19,7 +19,9 @@
 //! 动作 24 tick，6 tick 的宽限在一次前摇里就数完了）：站着的 tick 不数，只数「在走、却不是朝它走」的 tick（移速加成只在走的时候
 //! 有用，站着时开着关着都一样）；她往别处走 `TOWARD_GRACE` tick 照旧摘。
 //! 两张 5v5 地图（2026-11-10）：夜影翻的每一步夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
-//! Rin 的召唤师峡谷 1614545 见方；以前一律按 960000，峡谷上过了 960000 就被夹回半张图的边）。
+//! Rin 的召唤师峡谷 1614545 见方；以前一律按 960000，峡谷上过了 960000 就被夹回半张图的边）。峡谷上每一步还要落在能站的
+//! 地方（`game_places::terrain::stand_ok`：峡谷的墙往外长一格，和作者的寻路一致）：下一步站不住就冲到这里为止，停在上一个
+//! 能站的地方，从不挪进墙里（用户 2026-11-10：「有的地方会走路卡住」）。没有墙体文件时只有地图边。
 //!
 //! 只有单元测试（经典 SDK 跑不了原生代码），要在游戏里看日志：
 //! `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_yunara.log`，每次启动游戏重写，上一次的留在 .prev.log：
@@ -33,7 +35,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, Map};
+use game_places::terrain::{map_of_sim, rift_status, stand_ok, Map};
 use mod_api_stable::*;
 
 pub mod view;
@@ -133,8 +135,8 @@ static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
 fn map_here(sim: &StableSim<'_>) -> Map {
     let map = map_of_sim(sim);
     if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: Untouchable Shadow's steps are kept on the Rift's {:.0} square (not the game's own {MAP:.0}); \
-                      {} ==", map.extent(), rift_status()));
+        wlog(format!("== Rift: Untouchable Shadow's steps are kept on the Rift's {:.0} square (not the game's own {MAP:.0}) \
+                      and stop at the last spot off the Rift's walls (stand_ok); {} ==", map.extent(), rift_status()));
     }
     map
 }
@@ -258,6 +260,13 @@ pub fn dash_dir(me: Pt, dash: Dash) -> Pt {
         return (sign, 0.0);
     }
     (sign * dx / l, sign * dy / l)
+}
+
+/// 冲的一步：从 `at` 朝 `dir` 走 `step`，夹在 `map` 上；落点站不住（`ok` 说不行：运行时是 `stand_ok`，峡谷的墙往外长一格；
+/// 游戏自己的地图上总是行）就不走（None：冲到这里为止，她停在上一个能站的地方）。
+pub fn dash_step(map: Map, at: Pt, dir: Pt, step: f64, ok: impl Fn(Pt) -> bool) -> Option<Pt> {
+    let next = clamp(map, (at.0 + dir.0 * step, at.1 + dir.1 * step));
+    ok(next).then_some(next)
 }
 
 /// 「在走」：从 `before` 到 `now` 走了 `min_step` 以上（往哪都算）。
@@ -428,19 +437,29 @@ impl Faith {
         }
         if let Some(d) = self.dashing.as_mut() {
             let held = hard_cc(sim, me);
-            if d.left == 0 || held {
-                if let Some(k) = counted("dash_done") {
-                    wlog(format!("{} DASH DONE moved {:.0} of {} ({} steps refused{}) #{k}", head(sim, me), dist(d.from, at),
-                                 p.re_v * p.re_t, d.refused, if held { ", cut by CC" } else { "" }));
-                }
-                self.dashing = None;
+            // 峡谷上这一步落在站不住的地方（离墙比峡谷的寻路允许的近）就冲到这里为止：她停在上一个能站的地方，不进墙
+            // （游戏自己的地图上 stand_ok 总是 true，照旧冲满 re_t 步）
+            let next = if d.left == 0 || held {
+                None
             } else {
-                let step = p.re_v as f64;
-                let next = clamp(map_here(sim), (at.0 + d.dir.0 * step, at.1 + d.dir.1 * step));
-                if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
-                    d.refused += 1;
+                let map = map_here(sim);
+                dash_step(map, at, d.dir, p.re_v as f64, |q| stand_ok(map, q))
+            };
+            match next {
+                Some(next) => {
+                    if !sim.entity_set_pos(me, next.0.round() as u64, next.1.round() as u64) {
+                        d.refused += 1;
+                    }
+                    d.left -= 1;
                 }
-                d.left -= 1;
+                None => {
+                    if let Some(k) = counted("dash_done") {
+                        let why = if held { ", cut by CC" } else if d.left > 0 { ", stopped at the Rift's wall" } else { "" };
+                        wlog(format!("{} DASH DONE moved {:.0} of {} ({} steps refused{why}) #{k}", head(sim, me),
+                                     dist(d.from, at), p.re_v * p.re_t, d.refused));
+                    }
+                    self.dashing = None;
+                }
             }
         }
     }
@@ -575,6 +594,7 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+    use game_places::terrain::Walls;
 
     fn foe(id: usize, at: Pt, hp_pct: usize) -> Foe {
         Foe { id, at, hp_pct }
@@ -594,6 +614,38 @@ mod tests {
         // the Rift: past 960000 is its ground, its own edge at 1614545
         assert_eq!(clamp(Map::Rift, (962_600.0, 1_500_000.0)), (962_600.0, 1_500_000.0));
         assert_eq!(clamp(Map::Rift, (2_000_000.0, -5.0)), (Map::Rift.extent() - 1.0, 0.0));
+    }
+
+    /// 2026-11-10 (the user on the Rift: 「有的地方会走路卡住」): the dash moved her step by step into the Rift's walls and
+    /// she stood stuck there. A piece of the Rift as `stand_ok` sees it with the walls file (`!is_wall` on `rift_ground`):
+    /// cells of 60000/11, 40 x 40 from (1100000, 1100000), columns 20 and 21 wall, grown by one cell (`padded`): no hero
+    /// stands at x 1203636..1225455.
+    #[test]
+    fn on_the_rift_the_dash_stops_at_its_walls() {
+        let p = Params::default();
+        let e = Map::Rift.extent();
+        let row = format!("{}##{}", ".".repeat(20), ".".repeat(18));
+        let g = Walls::from_rows(&vec![row.as_str(); 40], 60_000.0 / 11.0, (1_100_000.0, 1_100_000.0), (e, e)).padded();
+        let ok = |q: Pt| !g.is_wall(q.0, q.1);
+        let dash = |map: Map, from: Pt, dir: Pt, ok: &dyn Fn(Pt) -> bool| {
+            let (mut at, mut steps) = (from, 0);
+            while steps < p.re_t {
+                let Some(next) = dash_step(map, at, dir, p.re_v as f64, ok) else { break };
+                (at, steps) = (next, steps + 1);
+            }
+            (at, steps)
+        };
+        let y = 1_200_000.0;
+        assert!(ok((1_150_000.0, y)) && !ok((1_205_600.0, y)), "past 960000 is ground; the wall's cell is not");
+        // dashing at the wall: 5 of 14 steps, on her last good spot (the 6th, 1205600, is in the grown wall)
+        assert_eq!(dash(Map::Rift, (1_190_000.0, y), (1.0, 0.0), &ok), ((1_203_000.0, y), 5));
+        // away from it: the whole dash
+        assert_eq!(dash(Map::Rift, (1_190_000.0, y), (-1.0, 0.0), &ok), ((1_153_600.0, y), p.re_t));
+        // the game's own map: stand_ok never stops her - every step as before
+        let native = |q: Pt| stand_ok(Map::Native, q);
+        assert_eq!(dash(Map::Native, (500_000.0, 500_000.0), (1.0, 0.0), &native), ((536_400.0, 500_000.0), p.re_t));
+        assert_eq!(dash_step(Map::Native, (958_000.0, 5.0), (1.0, 0.0), 2_600.0, native),
+                   Some(clamp(Map::Native, (960_600.0, 5.0))));
     }
 
     #[test]

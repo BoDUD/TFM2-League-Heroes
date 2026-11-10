@@ -44,7 +44,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, rift_walls, Map};
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map};
 use mod_api_stable::*;
 
 mod maps;
@@ -549,7 +549,7 @@ fn ground(sim: &StableSim<'_>) -> summon::Ground<'static> {
         wlog(format!("== Rift: Zoe's Flash lands on the Rift's 1614545 square clear of its walls (none known without the walls \
                       file: only its edge); {} ==", rift_status()));
     }
-    summon::Ground::Rift(rift_walls())
+    summon::Ground::Rift(rift_ground())
 }
 
 /// Living enemy champions of `team`: (id, position).

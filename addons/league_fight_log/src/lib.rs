@@ -133,10 +133,9 @@ fn sum_log(line: &str) {
         let secs = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_secs());
         let (y, m, d) = civil(secs / 86_400);
         text.push_str(&format!(
-            "=== {y}-{m:02}-{d:02} {:02}:{:02} UTC: {ID} v{VERSION}, league_macro v{} ===\n",
+            "=== {y}-{m:02}-{d:02} {:02}:{:02} UTC: {ID} v{VERSION} ===\n",
             secs / 3600 % 24,
             secs / 60 % 60,
-            option_env!("ADDON_VERSION_league_macro").unwrap_or("?")
         ));
     }
     text.push_str(line);

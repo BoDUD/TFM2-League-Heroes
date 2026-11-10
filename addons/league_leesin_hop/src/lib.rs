@@ -40,7 +40,8 @@
 //!
 //! 2026-11-08 日志审查：
 //! - 10:00 前的 W 开团 24% 白冲（10:00 后 4%）：league_lane 在对线期拦下他落地后的普攻（目标在他们塔下 80000 内、李青以少
-//!   打多）。对线期 `engage_target` 照 league_lane 的规则挑目标（`LANE_*`），它会拦的就不冲。
+//!   打多）。对线期 `engage_target` 照 league_lane 的规则挑目标，它会拦的就不冲。2026-11-10（0.1.16）用户把运营钩子
+//!   （league_lane 在内）删了，这条规则也删了：「删了吧 李青的」——对线期和之后一样挑。
 //! - Q 的「预判」从来没放出去过（两次启动 0 行 `Q AIM`）：主包的 Q 是指向技能（Targeting），方向在按下那一刻朝目标站的地方
 //!   定死，方向输入引擎不收，一直悄悄退回了内置 AI 的 Q。现在只决定放不放：朝他现在的位置飞、他照现在的速度走，波飞到时
 //!   还在波的宽度里（`Q_RADIUS` + 他的半径）就放（`QPlan::Keep`），会走出波就先不放（`Skip`）。
@@ -62,7 +63,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, rift_walls, Map, Walls};
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 const ID: &str = "league_leesin_hop";
@@ -99,16 +100,6 @@ pub const LOW_HP: f64 = 0.3;
 pub const DANGER_R: f64 = 40_000.0;
 /// 追击：敌人血量比例、至少离多远（近了直接打）、停在他身前多远。
 pub const CHASE_HP: f64 = 0.25;
-/// league_lane（对线纪律）管到几点（tick，10:00）：之前的开团照它的规则挑目标，它会拦下落地后的普攻就不冲。
-pub const LANE_END: usize = 36_000;
-/// league_lane：目标离他们的塔这么近就不打（塔射程 75000 加余量）……
-pub const LANE_TOWER_R: f64 = 80_000.0;
-/// ……除非他只剩这么多生命。
-pub const LANE_DIVE_HP: f64 = 0.10;
-/// league_lane：这么近的敌方英雄比我方多就是以少打多……
-pub const LANE_NEAR: f64 = 70_000.0;
-/// ……除非目标只剩这么多生命（而且不在塔下）。
-pub const LANE_KILL_HP: f64 = 0.25;
 pub const CHASE_MIN: f64 = 25_000.0;
 pub const CHASE_STOP: f64 = 8_000.0;
 /// 被动每隔几 tick 看一次。
@@ -477,7 +468,7 @@ fn scan(sim: &StableSim<'_>) -> (Vec<Champ>, Ground<'static>) {
         wlog(format!("== Rift: Lee Sin's W and insec land on the Rift's 1614545 square clear of its walls (none known without \
                       the walls file: only its edge); {} ==", rift_status()));
     }
-    (champs, Ground::Rift(rift_walls()))
+    (champs, Ground::Rift(rift_ground()))
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
@@ -735,9 +726,8 @@ pub fn walking_at(lee: (f64, f64), v_lee: (f64, f64), foes: &[Foe]) -> Vec<usize
 /// 突进开团的目标和落点：李青这次和上次（`before`）看都正对着他走（`walking_at`）、他离 `ENGAGE_MIN` 以外、
 /// 他站着或横着走（朝李青走过来的不用冲；跑开的是追击，只追残血的）、W 够得着（`chase_spot`：落在他身前 `CHASE_STOP`）、
 /// 不在他们自己的塔下（`ENGAGE_TOWER_R`，他残血时照冲）、他身边 `ENGAGE_CROWD_R` 内的敌方英雄不到三个
-/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。`lane`：对线期（10:00 前），照 league_lane 的
-/// 规则：目标在他们塔下 `LANE_TOWER_R` 内（生命 `LANE_DIVE_HP` 以上）、落点 `LANE_NEAR` 内敌方英雄比我方多（目标残血、
-/// 不在塔下的除外）都不冲——落地后的普攻会被它拦下，W 白交。
+/// （或我方 `allies` 也有人在附近）。几个都行时挑李青最正对着走的那个。对线期（10:00 前）和之后一样挑（0.1.16：以前照
+/// 对线纪律附加包 league_lane 的规则少冲，2026-11-10 用户把运营钩子连同这条规则一起删了：「删了吧 李青的」）。
 #[allow(clippy::too_many_arguments)]
 pub fn engage_target<'a>(
     walls: impl Into<Ground<'a>>,
@@ -747,24 +737,14 @@ pub fn engage_target<'a>(
     before: &[usize],
     allies: &[(f64, f64)],
     their_towers: &[(f64, f64)],
-    lane: bool,
 ) -> Option<(usize, (f64, f64))> {
     let walls: Ground = walls.into();
     let now = walking_at(lee, v_lee, foes);
-    let (tower_r, dive_hp) = if lane { (LANE_TOWER_R, LANE_DIVE_HP) } else { (ENGAGE_TOWER_R, CHASE_HP) };
-    let under = |at: (f64, f64)| their_towers.iter().any(|t| dist(*t, at) <= tower_r);
+    let under = |at: (f64, f64)| their_towers.iter().any(|t| dist(*t, at) <= ENGAGE_TOWER_R);
     foes.iter()
         .filter(|f| now.contains(&f.id) && before.contains(&f.id) && dist(lee, f.at) >= ENGAGE_MIN)
         .filter(|f| !moving_away(lee, f.v, f.at) && !moving_away(f.at, f.v, lee))
-        .filter(|f| f.hp <= dive_hp || !under(f.at))
-        .filter(|f| {
-            if !lane || (f.hp <= LANE_KILL_HP && !under(f.at)) {
-                return true;
-            }
-            let theirs = foes.iter().filter(|o| dist(o.at, f.at) <= LANE_NEAR).count();
-            let ours = allies.iter().filter(|a| dist(**a, f.at) <= LANE_NEAR).count() + 1;
-            theirs <= ours
-        })
+        .filter(|f| f.hp <= CHASE_HP || !under(f.at))
         .filter(|f| {
             let crowd = foes.iter().filter(|o| dist(o.at, f.at) <= ENGAGE_CROWD_R).count();
             crowd < 3 || allies.iter().any(|a| dist(*a, f.at) <= ENGAGE_CROWD_R + 15_000.0)
@@ -808,8 +788,7 @@ fn hop(
             Some((_, w)) => (Some(w), "CHASE", None),
             None if mine.hp >= ENGAGE_HP => {
                 let allies: Vec<(f64, f64)> = champs.iter().filter(|c| c.team == team && c.id != lee).map(|c| c.at).collect();
-                let lane = sim.tick() < LANE_END;
-                let hit = engage_target(walls, here, v_lee, foes, before, &allies, &towers(sim, team, false), lane);
+                let hit = engage_target(walls, here, v_lee, foes, before, &allies, &towers(sim, team, false));
                 (hit.map(|(_, w)| w), "ENGAGE", hit.map(|(id, _)| id))
             }
             None => (None, "CHASE", None),
@@ -1379,24 +1358,24 @@ mod tests {
         assert!(matches!(plan_q(&InputTargetV1::target(7), me, &[runner]).0, QPlan::Skip(_)));
     }
 
+    /// 0.1.16: no lane-phase rule any more (league_lane is gone): the same picks before and after 10:00.
     #[test]
-    fn before_ten_minutes_lee_does_not_leap_where_league_lane_stops_his_hits() {
+    fn lee_picks_the_same_targets_before_and_after_ten_minutes() {
         let lee = (480_000.0, 480_000.0);
         let him = Foe { id: 7, at: (520_000.0, 480_000.0), v: (0.0, 0.0), hp: 1.0 };
-        let go = |foes: &[Foe], allies: &[(f64, f64)], towers: &[(f64, f64)], lane: bool| {
-            engage_target(true, lee, (900.0, 0.0), foes, &[7], allies, towers, lane)
+        let go = |foes: &[Foe], allies: &[(f64, f64)], towers: &[(f64, f64)]| {
+            engage_target(true, lee, (900.0, 0.0), foes, &[7], allies, towers)
         };
-        // his tower 60000 behind him: beyond ENGAGE_TOWER_R, inside LANE_TOWER_R
+        // his tower 60000 behind him: beyond ENGAGE_TOWER_R - Lee goes (the lane rule stopped him here before 10:00)
         let tower = [(580_000.0, 480_000.0)];
-        assert!(go(&[him], &[], &tower, false).is_some());
-        assert!(go(&[him], &[], &tower, true).is_none(), "league_lane would stop the hits");
-        assert!(go(&[Foe { hp: 0.08, ..him }], &[], &tower, true).is_some(), "at 8% it is worth it");
-        // a second enemy beside him and nobody of ours: outnumbered there
+        assert!(go(&[him], &[], &tower).is_some());
+        // a second enemy beside him and nobody of ours: still fewer than three, Lee goes
         let mate = Foe { id: 8, at: (530_000.0, 470_000.0), v: (0.0, 0.0), hp: 1.0 };
-        assert!(go(&[him, mate], &[], &[], true).is_none());
-        assert!(go(&[him, mate], &[(500_000.0, 490_000.0)], &[], true).is_some(), "2 v 2 with our jungler near");
-        assert!(go(&[him, mate], &[], &[], false).is_some(), "after 10:00: as before");
-        assert!(go(&[Foe { hp: 0.2, ..him }, mate], &[], &[], true).is_some(), "a kill at 20%");
+        assert!(go(&[him, mate], &[], &[]).is_some());
+        // right under his tower (inside ENGAGE_TOWER_R) a healthy target is left alone, a low one is not
+        let close = [(545_000.0, 480_000.0)];
+        assert!(go(&[him], &[], &close).is_none());
+        assert!(go(&[Foe { hp: 0.2, ..him }], &[], &close).is_some());
     }
 
     #[test]
@@ -1490,7 +1469,7 @@ mod tests {
         let lee = (480_000.0, 480_000.0);
         let him = Foe { id: 7, at: (520_000.0, 480_000.0), v: (0.0, 0.0), hp: 1.0 };
         let go = |foes: &[Foe], before: &[usize], allies: &[(f64, f64)], towers: &[(f64, f64)]| {
-            engage_target(true, lee, (900.0, 0.0), foes, before, allies, towers, false)
+            engage_target(true, lee, (900.0, 0.0), foes, before, allies, towers)
         };
         // 李青一直往东走、他站着、40000：冲到他身前 8000
         let (id, w) = go(&[him], &[7], &[], &[]).unwrap();
@@ -1501,9 +1480,9 @@ mod tests {
         // 上次看时还没朝他走（刚转过来 / 路过）：不冲
         assert!(go(&[him], &[], &[], &[]).is_none());
         // 站着不动 / 往回走 / 斜着走（偏 45°）：不冲
-        assert!(engage_target(true, lee, (0.0, 0.0), &[him], &[7], &[], &[], false).is_none());
-        assert!(engage_target(true, lee, (-900.0, 0.0), &[him], &[7], &[], &[], false).is_none());
-        assert!(engage_target(true, lee, (700.0, 700.0), &[him], &[7], &[], &[], false).is_none());
+        assert!(engage_target(true, lee, (0.0, 0.0), &[him], &[7], &[], &[]).is_none());
+        assert!(engage_target(true, lee, (-900.0, 0.0), &[him], &[7], &[], &[]).is_none());
+        assert!(engage_target(true, lee, (700.0, 700.0), &[him], &[7], &[], &[]).is_none());
         // 他朝李青走过来（不冲也碰上）/ 他跑开（满血的不追）：不冲
         assert!(go(&[Foe { v: (-900.0, 0.0), ..him }], &[7], &[], &[]).is_none());
         assert!(go(&[Foe { v: (900.0, 0.0), ..him }], &[7], &[], &[]).is_none());

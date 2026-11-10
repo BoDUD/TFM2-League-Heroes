@@ -15,7 +15,7 @@
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::LazyLock;
 
-use game_places::terrain::{map_of_sim, rift_status, rift_walls, Map, Walls};
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 #[path = "../../league_camille_wall/src/maps.rs"]
@@ -85,7 +85,7 @@ pub fn rift_grid(walls: Option<&Walls>) -> Grid {
 }
 
 /// 峡谷的墙，换成本包的格子一次（87000 多格，不每 tick 重建）。
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_walls()));
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_ground()));
 /// 这次启动已经在日志里说过峡谷了。
 static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
 

@@ -185,7 +185,7 @@ pub fn current(grids: &[Grid], points: &[Pt]) -> Option<usize> {
 
 /// 游戏的三张内置地图，和召唤师峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
 static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static SR_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::summoners_rift(terrain::rift_walls()));
+static SR_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::summoners_rift(terrain::rift_ground()));
 
 /// 这局的墙：召唤师峡谷上是峡谷的（第一次遇到时日志里记一行），游戏自己的地图照旧从三张内置地图里挑（[`current`]）。
 fn walls_now(sim: &StableSim<'_>) -> Option<&'static Grid> {

@@ -34,7 +34,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, rift_walls, Map, Walls};
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
 pub mod maps;
@@ -243,7 +243,7 @@ pub fn rift_grid(walls: Option<&Walls>) -> Grid {
 }
 
 /// 峡谷的墙，换成本包的格子一次（87000 多格，不每次 W 重建）。
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_walls()));
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_ground()));
 /// 这次启动已经在日志里说过峡谷了。
 static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
 
@@ -938,7 +938,7 @@ mod tests {
         let (name, g) = grid_of(Map::Rift, &[(1_500_000.0, 1_500_000.0)]);
         assert_eq!(name, "Rift");
         assert!(matches!(g, Cow::Borrowed(_)) && std::ptr::eq(&*g, &*RIFT_GRID), "converted once, not per pulse");
-        assert_eq!(*g, rift_grid(rift_walls()));
+        assert_eq!(*g, rift_grid(rift_ground()));
         let (name, g) = grid_of(Map::Native, &[(480_000.0, 480_000.0), (50_000.0, 50_000.0), (900_000.0, 900_000.0)]);
         assert_eq!((name, g.bounds, g.cell), ("Moba", Some(MOBA_BOUNDS), CELL));
     }

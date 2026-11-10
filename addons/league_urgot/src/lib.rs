@@ -25,6 +25,9 @@
 //!
 //! 两张 5v5 地图（2026-11-10）：甩人的落点夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的 960000 见方，
 //! Rin 的召唤师峡谷 1614545 见方，都留一个身位 `MAP_MIN`；以前一律夹在 12000..948000，峡谷上过了 948000 就被甩回半张图的边）。
+//! 峡谷上落点进了墙（离墙比作者的寻路允许的近，`game_places::terrain::stand_ok`：峡谷的墙往外长一格）就挪到 `LAND_REACH`
+//! 内最近能站的地方（`stand_spot`）；甩的每一步落在站不住的地方就甩到这里为止，被甩的人停在上一个能站的地方。以前一步步
+//! 挪进墙里，人就卡在那里（用户 2026-11-10：「有的地方会走路卡住」）。没有墙体文件时只有地图边。
 //!
 //! 数字：`EXECUTE`、`LEGS_FACING` 写在这里；其余从英雄数据来，`tests::the_numbers_match_the_kit` 读主包的参数表核对默认值。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_urgot.log`，每次启动游戏重写。
@@ -36,7 +39,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, Map};
+use game_places::terrain::{map_of_sim, rift_status, stand_ok, stand_spot, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_urgot";
@@ -151,7 +154,8 @@ fn map_here(sim: &StableSim<'_>) -> Map {
     let map = map_of_sim(sim);
     if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
         wlog(format!("== Rift: Disdain's fling lands within {MAP_MIN:.0} of the Rift's {:.0} square's edges (not the game's \
-                      own 960000); {} ==", map.extent(), rift_status()));
+                      own 960000), off its walls (stand_spot within {LAND_REACH:.0}), the throw stops at the last spot off \
+                      them (stand_ok); {} ==", map.extent(), rift_status()));
     }
     map
 }
@@ -264,6 +268,8 @@ pub struct Throw {
 
 /// 地图的边（单位坐标，留一个身位）：0 + MAP_MIN .. 边长 - MAP_MIN（游戏自己的地图 12000..948000）。
 const MAP_MIN: f64 = 12_000.0;
+/// 峡谷上落点进了墙时，在这么远内找最近能站的地方（`stand_spot`；落点在他身后 e_behind 15000 处）。
+pub const LAND_REACH: f64 = 20_000.0;
 
 /// [`landing_on`] on the game's own map.
 pub fn landing(me: (f64, f64), from: Option<(f64, f64)>, target: (f64, f64), behind: f64) -> (f64, f64) {
@@ -286,10 +292,25 @@ pub fn landing_on(map: Map, me: (f64, f64), from: Option<(f64, f64)>, target: (f
     (c(me.0 + back.0 * behind), c(me.1 + back.1 * behind))
 }
 
+/// [`landing_on`] off the Rift's walls: the landing through `spot` - the runtime's `stand_spot(map, p, LAND_REACH)`: on the
+/// Rift the nearest spot within `LAND_REACH` a hero can stand on (the landing itself when it is one, or none is that
+/// near), the landing as it was on the game's own map.
+pub fn landing_in(map: Map, me: (f64, f64), from: Option<(f64, f64)>, target: (f64, f64), behind: f64,
+                  spot: impl Fn((f64, f64)) -> (f64, f64)) -> (f64, f64) {
+    spot(landing_on(map, me, from, target, behind))
+}
+
 /// The thrown one's spot `k` ticks into the throw (the last tick on the landing).
 pub fn step(t: &Throw, k: u64) -> (f64, f64) {
     let f = (k as f64 / t.ticks.max(1) as f64).min(1.0);
     (t.start.0 + (t.end.0 - t.start.0) * f, t.start.1 + (t.end.1 - t.start.1) * f)
+}
+
+/// [`step`] by the Rift's walls: None when the spot is one no hero can stand on (`ok` says no: the runtime's `stand_ok`,
+/// always yes on the game's own map) - the throw ends there, the thrown one stays on his last good spot.
+pub fn throw_step(t: &Throw, k: u64, ok: impl Fn((f64, f64)) -> bool) -> Option<(f64, f64)> {
+    let p = step(t, k);
+    ok(p).then_some(p)
 }
 
 static STATE: LazyLock<Mutex<HashMap<(u64, usize), Legs>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
@@ -389,11 +410,17 @@ impl StableEffectType for Fling {
 fn start_throw(sim: &StableSim<'_>, me: usize, s: &mut Legs, target: usize, now: u64) {
     s.due = None;
     let (Some(u), Some(at)) = (pos_of(sim, me), pos_of(sim, target)) else { return };
-    let end = landing_on(map_here(sim), u, s.from.take(), at, s.p.e_behind as f64);
+    let map = map_here(sim);
+    let (from, behind) = (s.from.take(), s.p.e_behind as f64);
+    // 峡谷上落点进了墙（离墙比峡谷的寻路允许的近）：LAND_REACH 内最近能站的地方（游戏自己的地图上原样）
+    let end = landing_in(map, u, from, at, behind, |q| stand_spot(map, q, LAND_REACH));
     s.throw = Some(Throw { target, start: at, end, at: now, ticks: s.p.e_pull_t.max(1) });
     if let Some(n) = counted("fling") {
-        wlog(format!("{} FLING #{n} {} from ({:.0}, {:.0}) over him at ({:.0}, {:.0}) to ({:.0}, {:.0})", head(sim, me),
-                     who(sim, target), at.0, at.1, u.0, u.1, end.0, end.1));
+        let raw = landing_on(map, u, from, at, behind);
+        let off = ((end.0 - raw.0).powi(2) + (end.1 - raw.1).powi(2)).sqrt();
+        wlog(format!("{} FLING #{n} {} from ({:.0}, {:.0}) over him at ({:.0}, {:.0}) to ({:.0}, {:.0}){}", head(sim, me),
+                     who(sim, target), at.0, at.1, u.0, u.1, end.0, end.1,
+                     if off > 0.5 { format!(" (moved {off:.0} off the Rift's wall)") } else { String::new() }));
     }
 }
 
@@ -473,11 +500,25 @@ impl StablePassive for Passive {
         let throw = STATE.lock().unwrap_or_else(|e| e.into_inner()).get(&key).and_then(|s| s.throw);
         let Some(t) = throw else { return };
         let k = (sim.tick() as u64).saturating_sub(t.at) + 1;
+        let mut walled = false;
         if pos_of(sim, t.target).is_some() {
-            let (x, y) = step(&t, k);
-            sim.entity_set_pos(t.target, x.round() as u64, y.round() as u64);
+            // 峡谷上这一步站不住（离墙比峡谷的寻路允许的近）就甩到这里为止：他停在上一个能站的地方（游戏自己的地图上
+            // stand_ok 总是 true）
+            let map = map_here(sim);
+            match throw_step(&t, k, |q| stand_ok(map, q)) {
+                Some((x, y)) => {
+                    sim.entity_set_pos(t.target, x.round() as u64, y.round() as u64);
+                }
+                None => walled = true,
+            }
         }
-        if k >= t.ticks || pos_of(sim, t.target).is_none() {
+        if walled {
+            if let Some(n) = counted("fling_wall") {
+                wlog(format!("{} FLING STOPPED #{n} {} at the Rift's wall, {} of {} ticks into the throw", head(sim, me),
+                             who(sim, t.target), k - 1, t.ticks));
+            }
+        }
+        if walled || k >= t.ticks || pos_of(sim, t.target).is_none() {
             if let Some(s) = STATE.lock().unwrap_or_else(|e| e.into_inner()).get_mut(&key) {
                 s.throw = None;
             }
@@ -522,6 +563,7 @@ declare_stable_mod!(init, requires = 10);
 #[cfg(test)]
 mod tests {
     use super::*;
+    use game_places::terrain::Walls;
 
     #[test]
     fn the_leg_facing_the_target() {
@@ -588,6 +630,43 @@ mod tests {
         // the low edges stay the same on both
         let low = landing_on(Map::Rift, (14_000.0, 500_000.0), Some((0.0, 500_000.0)), (20_000.0, 500_000.0), 15_000.0);
         assert_eq!(low, (MAP_MIN, 500_000.0));
+    }
+
+    /// 2026-11-10 (the user on the Rift: 「有的地方会走路卡住」): the fling set champions down in the Rift's walls and they
+    /// stood stuck there. A piece of the Rift as `stand_ok` / `stand_spot` see it with the walls file (`rift_ground`): cells
+    /// of 60000/11, 40 x 40 from (1100000, 1100000) - past the game's own 960000 - columns 20 and 21 wall, grown by one
+    /// cell (`padded`): no hero stands at x 1203636..1225455.
+    #[test]
+    fn on_the_rift_the_fling_keeps_off_its_walls() {
+        let e = Map::Rift.extent();
+        let row = format!("{}##{}", ".".repeat(20), ".".repeat(18));
+        let g = Walls::from_rows(&vec![row.as_str(); 40], 60_000.0 / 11.0, (1_100_000.0, 1_100_000.0), (e, e)).padded();
+        let ok = |q: (f64, f64)| !g.is_wall(q.0, q.1);
+        let spot = |q: (f64, f64)| g.nearest_open(q, LAND_REACH).unwrap_or(q);
+        let y = 1_200_000.0;
+        let west = 1_100_000.0 + 19.0 * 60_000.0 / 11.0;
+        // he dashed in from the wall's side: 15000 behind him is in the wall, so the landing is the nearest spot off it
+        let (me, from) = ((1_195_000.0, y), Some((1_199_000.0, y)));
+        let raw = landing_on(Map::Rift, me, from, me, 15_000.0);
+        assert!(raw == (1_210_000.0, y) && !ok(raw));
+        let end = landing_in(Map::Rift, me, from, me, 15_000.0, spot);
+        assert!(ok(end) && (end.0 - (west - 1.0)).abs() < 0.01 && end.1 == y, "{end:?}");
+        // and the throw gets there step by step, every step on ground
+        let t = Throw { target: 9, start: me, end, at: 100, ticks: 3 };
+        assert!((1..=3).all(|k| throw_step(&t, k, ok) == Some(step(&t, k))));
+        // a throw across the wall: it stops at the first step in it, he stays on his last good spot
+        let across = Throw { end: (1_235_000.0, y), ..t };
+        assert!(ok(across.end) && !ok(step(&across, 1)), "1208333 is in the grown wall");
+        assert_eq!(throw_step(&across, 1, ok), None);
+        // past 960000 with nothing in the way: as before
+        let clear = landing_on(Map::Rift, (1_150_000.0, y), Some((1_140_000.0, y)), (1_150_000.0, y), 15_000.0);
+        assert_eq!(landing_in(Map::Rift, (1_150_000.0, y), Some((1_140_000.0, y)), (1_150_000.0, y), 15_000.0, spot), clear);
+        // the game's own map: the landing and every step as before (stand_spot / stand_ok never change them)
+        let native = |q: (f64, f64)| stand_ok(Map::Native, q);
+        let (m, f, tg) = ((950_000.0, 500_000.0), Some((1_000_000.0, 500_000.0)), (950_000.0, 500_000.0));
+        assert_eq!(landing_in(Map::Native, m, f, tg, 15_000.0, |q| stand_spot(Map::Native, q, LAND_REACH)),
+                   landing(m, f, tg, 15_000.0));
+        assert!((1..=5).all(|k| throw_step(&across, k, native) == Some(step(&across, k))));
     }
 
     #[test]

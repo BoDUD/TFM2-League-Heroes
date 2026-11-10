@@ -334,7 +334,7 @@ pub fn pick(points: &[(f64, f64)]) -> Walls {
 }
 
 /// 峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
-static RIFT_WALLS: LazyLock<Walls> = LazyLock::new(|| Walls::rift(terrain::rift_walls()));
+static RIFT_WALLS: LazyLock<Walls> = LazyLock::new(|| Walls::rift(terrain::rift_ground()));
 
 /// 这局的墙：峡谷（`map`）上是峡谷的（`rift`，第一次要时才取），游戏自己的地图照旧按单位的位置挑（[`pick`]）。
 pub fn walls_for(map: Map, rift: impl FnOnce() -> &'static Walls, points: &[(f64, f64)]) -> Cow<'static, Walls> {

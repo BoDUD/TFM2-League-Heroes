@@ -681,7 +681,7 @@ pub fn shockwave(m: &MapGrids, b: &Blast, span: f64) -> Shock {
 }
 
 /// 峡谷的地图（第一次用到时从 game_places 的墙格子换算一次：约 8.7 万格，不每 tick 重建）。
-static RIFT_MAP: LazyLock<Arc<MapGrids>> = LazyLock::new(|| Arc::new(rift_grids(places::rift_walls())));
+static RIFT_MAP: LazyLock<Arc<MapGrids>> = LazyLock::new(|| Arc::new(rift_grids(places::rift_ground())));
 /// 日志里写过峡谷那一行（每次启动一次）。
 static RIFT_SAID: AtomicBool = AtomicBool::new(false);
 

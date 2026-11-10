@@ -361,7 +361,7 @@ impl StableEffectType for CoreFx {
 /// 游戏的三张内置地图的墙（每次看局面时按单位的位置挑当前这张）。
 static GRIDS: LazyLock<Vec<flight::Grid>> = LazyLock::new(flight::Grid::builtin);
 /// 召唤师峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
-static RIFT_GRID: LazyLock<flight::Grid> = LazyLock::new(|| flight::Grid::rift(terrain::rift_walls()));
+static RIFT_GRID: LazyLock<flight::Grid> = LazyLock::new(|| flight::Grid::rift(terrain::rift_ground()));
 
 /// 这一次飞行。
 #[derive(Clone, Debug)]

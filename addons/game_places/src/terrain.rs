@@ -188,6 +188,79 @@ impl Walls {
         (self.origin.0 + (cx as f64 + 0.5) * self.cell, self.origin.1 + (cy as f64 + 0.5) * self.cell)
     }
 
+    /// The walls grown by one cell all round (the 8 neighbours of every wall cell): where a hero's centre cannot stand.
+    /// The map's author paths heroes with a 5000 radius (its 寻路半径: the pathing grid keeps a hero's centre that far
+    /// from terrain); one cell is 5454.5. A spot or a landing taken off these is one the Rift's pathing can walk from:
+    /// a hero set down closer to a wall than that is off its pathing grid and stands stuck (2026-11-10, the user:
+    /// 「有的地方会走路卡住」).
+    pub fn padded(&self) -> Walls {
+        let (rows, cols) = (self.rows(), self.cols());
+        let mut cells = vec![vec![false; cols]; rows];
+        for (y, row) in self.cells.iter().enumerate() {
+            for (x, w) in row.iter().enumerate() {
+                if *w {
+                    for yy in y.saturating_sub(1)..(y + 2).min(rows) {
+                        for xx in x.saturating_sub(1)..(x + 2).min(cols) {
+                            cells[yy][xx] = true;
+                        }
+                    }
+                }
+            }
+        }
+        Walls { cells, ..self.clone() }
+    }
+
+    /// The nearest point within `max` of `p` that is in no wall cell (cell by cell outward from `p`'s; the point of the
+    /// open cell nearest to `p`, a unit inside it), or None. `p` itself when it is open.
+    pub fn nearest_open(&self, p: (f64, f64), max: f64) -> Option<(f64, f64)> {
+        if !self.is_wall(p.0, p.1) {
+            return Some(p);
+        }
+        let (rows, cols) = (self.rows() as i64, self.cols() as i64);
+        if rows == 0 || cols == 0 {
+            return None;
+        }
+        let c = |v: f64, o: f64, n: i64| (((v - o) / self.cell).floor() as i64).clamp(0, n - 1);
+        let (px, py) = (c(p.0, self.origin.0, cols), c(p.1, self.origin.1, rows));
+        let rings = (max / self.cell).ceil() as i64 + 1;
+        let mut best: Option<(f64, (f64, f64))> = None;
+        for k in 0..=rings {
+            // a ring's cells are no nearer than (k - 1) cells: stop once that is past the best found (or past max)
+            let floor = (k - 1).max(0) as f64 * self.cell;
+            if floor > max || best.is_some_and(|b| floor > b.0) {
+                break;
+            }
+            for cy in (py - k)..=(py + k) {
+                for cx in (px - k)..=(px + k) {
+                    if (cx - px).abs().max((cy - py).abs()) != k || cx < 0 || cy < 0 || cx >= cols || cy >= rows {
+                        continue;
+                    }
+                    if self.cells[cy as usize][cx as usize] {
+                        continue;
+                    }
+                    let (x0, y0) = (self.origin.0 + cx as f64 * self.cell, self.origin.1 + cy as f64 * self.cell);
+                    let inset = 1.0_f64.min(self.cell / 4.0);
+                    let q = (p.0.clamp(x0 + inset, x0 + self.cell - inset), p.1.clamp(y0 + inset, y0 + self.cell - inset));
+                    let d = ((q.0 - p.0).powi(2) + (q.1 - p.1).powi(2)).sqrt();
+                    if d <= max && best.is_none_or(|b| d < b.0) {
+                        best = Some((d, q));
+                    }
+                }
+            }
+        }
+        best.map(|b| b.1)
+    }
+
+    /// Is the straight line from `a` to `b` clear of wall cells (looked at every `step`, both ends included)?
+    pub fn line_clear(&self, a: (f64, f64), b: (f64, f64), step: f64) -> bool {
+        let len = ((b.0 - a.0).powi(2) + (b.1 - a.1).powi(2)).sqrt();
+        let n = (len / step.max(1.0)).ceil().max(1.0) as usize;
+        (0..=n).all(|i| {
+            let t = i as f64 / n as f64;
+            !self.is_wall(a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t)
+        })
+    }
+
     /// The grid as `#` / `.` rows (tests, logs).
     pub fn rows_text(&self) -> Vec<String> {
         self.cells.iter().map(|r| r.iter().map(|w| if *w { '#' } else { '.' }).collect()).collect()
@@ -357,6 +430,35 @@ pub fn version_note(file: &str, installed: Option<&str>) -> String {
     }
 }
 
+static GROUND: OnceLock<Option<Walls>> = OnceLock::new();
+
+/// The Rift's walls grown by one cell ([`Walls::padded`]): what an add-on keeps a hero's spot, push or landing off on
+/// the Rift, so the Rift's pathing can walk him on from there. None without the walls file.
+pub fn rift_ground() -> Option<&'static Walls> {
+    GROUND.get_or_init(|| rift_walls().map(Walls::padded)).as_ref()
+}
+
+/// Can a hero stand at `p` on `map`: anywhere on the game's own map (its add-ons' own checks stand as they were); on
+/// the Rift off its grown walls ([`rift_ground`]), or anywhere inside its square without the walls file.
+pub fn stand_ok(map: Map, p: (f64, f64)) -> bool {
+    match map {
+        Map::Native => true,
+        Map::Rift => match rift_ground() {
+            Some(g) => !g.is_wall(p.0, p.1),
+            None => p.0 >= 0.0 && p.1 >= 0.0 && p.0 <= RIFT_EXTENT && p.1 <= RIFT_EXTENT,
+        },
+    }
+}
+
+/// The spot to send a hero to instead of `p` on `map`: `p` on the game's own map; on the Rift the nearest spot within
+/// `max` off its grown walls (`p` when it is open, there is none that near, or no walls file).
+pub fn stand_spot(map: Map, p: (f64, f64), max: f64) -> (f64, f64) {
+    match (map, rift_ground()) {
+        (Map::Rift, Some(g)) => g.nearest_open(p, max).unwrap_or(p),
+        _ => p,
+    }
+}
+
 /// One line for an add-on's log the first time it meets the Rift.
 pub fn rift_status() -> String {
     match RIFT.get_or_init(|| load_rift_walls(&candidates())) {
@@ -434,6 +536,49 @@ mod tests {
         assert_eq!(Map::Rift.center(), (807_272.5, 807_272.5));
         assert!((Map::Rift.scale() - 1.6818).abs() < 0.001);
         assert_eq!(Map::Native.clamp((-5.0, 2_000_000.0)), (0.0, 960_000.0));
+    }
+
+    /// A 5 x 5 grid of cells of 10 with one wall cell in the middle (2, 2).
+    fn one_block() -> Walls {
+        Walls::from_rows(&[".....", ".....", "..#..", ".....", "....."], 10.0, (0.0, 0.0), (50.0, 50.0))
+    }
+
+    #[test]
+    fn padded_grows_every_wall_by_one_cell() {
+        let p = one_block().padded();
+        assert_eq!(p.rows_text(), vec![".....", ".###.", ".###.", ".###.", "....."]);
+        // a wall on the border grows inward only
+        let edge = Walls::from_rows(&["#..", "...", "..."], 10.0, (0.0, 0.0), (30.0, 30.0)).padded();
+        assert_eq!(edge.rows_text(), vec!["##.", "##.", "..."]);
+        assert_eq!(p.cell, 10.0);
+    }
+
+    #[test]
+    fn the_nearest_open_spot() {
+        let p = one_block().padded();
+        // open already: itself
+        assert_eq!(p.nearest_open((5.0, 5.0), 30.0), Some((5.0, 5.0)));
+        // the middle of the grown block: out to the nearest open cell (row 0..1 boundary is 10 away from y = 20)
+        let q = p.nearest_open((25.0, 12.0), 30.0).unwrap();
+        assert!(!p.is_wall(q.0, q.1) && (q.1 - 9.0).abs() < 0.01 && (q.0 - 25.0).abs() < 0.01, "{q:?}");
+        // none within the reach asked for
+        assert_eq!(p.nearest_open((25.0, 25.0), 2.0), None);
+        // a spot off the grid: the nearest cell on it
+        let r = p.nearest_open((25.0, -8.0), 30.0).unwrap();
+        assert!(!p.is_wall(r.0, r.1), "{r:?}");
+    }
+
+    #[test]
+    fn a_line_through_a_wall_is_not_clear() {
+        let w = one_block();
+        assert!(w.line_clear((5.0, 5.0), (45.0, 5.0), 1.0));
+        assert!(!w.line_clear((5.0, 25.0), (45.0, 25.0), 1.0));
+    }
+
+    #[test]
+    fn standing_on_the_game_s_own_map_is_never_refused() {
+        assert!(stand_ok(Map::Native, (-5.0, 9_999_999.0)));
+        assert_eq!(stand_spot(Map::Native, (1.0, 2.0), 50_000.0), (1.0, 2.0));
     }
 
     #[test]
