@@ -10,13 +10,16 @@
   `StableMod`。SDK 里这些都是列表（地图读取只有一个：合集的 `MapReaders` 先调卡密尔的读墙、再调雷恩加尔的读草丛），名字只是约定加前缀，所以名字照旧（`league_nocturne_dark:start`
   等），各附加包的英雄数据原样可用。
 - 只能有一个的三样由合集自己设、在 `src/lib.rs` 里转发，设在所有 `register` 之后：地图读取 `MapReaders`、客户端扩展 `BundleClient`
-  （佛耶戈的时钟、阿克尚的复活大字、奥恩的锻造光晕、英雄联盟彩蛋的公告和头像计数）、比赛钩子 `BundleMatch`（2026-11-05 起：先卡尔萨斯的
-  `Respawns`，再英雄联盟彩蛋 league_eggs 的 `Eggs`，2026-11-06 起再卢锡安开大朝向子弹的 `Aim`）。哪个附加包要用这三样，加进转发里，
+  （佛耶戈的时钟、阿克尚的复活大字、奥恩的锻造光晕、英雄联盟彩蛋的公告和头像计数；英雄联盟大小龙 2026-11-10 起是单独的 mod，它的公告读合集导出的 `league_addons_eggs_showing` 避开彩蛋的公告）、比赛钩子 `BundleMatch`（2026-11-05 起：先卡尔萨斯的
+  `Respawns`，再英雄联盟彩蛋 league_eggs 的 `Eggs`，2026-11-06 起再卢锡安开大朝向子弹的 `Aim`，最后是只读的运营、打架记录）。哪个附加包要用这三样，加进转发里，
   别在 `register` 里自己设（后设的会把前面的整个换掉，不报错）。
 - `build.rs` 打开 `league_bundle`：各附加包源码里的 `declare_stable_mod!` 只在单独编译时生效，合集只导出自己的入口。
   单独编译每个附加包还是它自己的 DLL（`cargo build --release` 一次全编）。
 - 数据由 `assemble.py` 合成：复制各附加包的 `override/`、`effects/`，里面和 `mod.override_info` 里的 `asset/<附加包>/` 改成
   `asset/league_addons/`；文字合并成一个 `text/champion.i18n`（键是各附加包自己的 id，如 `description.league_leesin_hop`，不会撞）；
+  别的游戏文字按文件名各合并成一份（2026-11-09 起；当时是 league_dragons 改纳什男爵、元素亚龙名字的三份，它 2026-11-10 起
+  单独成 mod、自己带着这三份），各配一条 `asset/base/text/<名字>` 的 merge（以前只认 `champion.i18n`，别的文字的
+  remap 会照抄进来却没有文件）；
   `mod.mod_info` 要求的主包版本取各附加包里最高的。
 - 合集和单独的附加包不能同时启用：两边替换同一个英雄、注册同名的原生效果。
 
@@ -77,6 +80,7 @@ AI 钩子在大招解锁（5 级）前按 R、技能 2 解锁（3 级）前按�
 | league_renata | 被狂暴的英雄走向最近的自己人 | 不会：只下走路 |
 | league_akshan（2026-10-30 加 `league_akshan:screen`） | 只记屏幕在放哪一场（复活大字只画这一场的），挂在每场的 0 号玩家身上 | 不会：只旁观 |
 | league_teemo_shrooms（2026-10-30 加） | 不打架、R 多于一次充能时把 R 按在身边最近的草丛里（`src/sow.rs`） | 不会：主动按要 R 已解锁、有充能 |
+| league_dragons（2026-11-09 加，比赛钩子；**2026-11-10 起单独成 mod，不在合集里**：`assemble.py` 的 `STANDALONE`） | 不按技能：每 tick 认小龙 / 纳什男爵出生和被谁拿下（统计 `serpen_secure` / `epic_secure`），给活着的小龙挂元素标记，给拿龙的一队挂亚龙层数（中和游戏自己的小龙 buff）、龙魂、远古龙之力（点燃、斩杀）、纳什男爵之手（身边的己方小兵加强），水晶上挂状态记录和事件给画面读（[README](../league_dragons/README.md)） | 不会：不按任何技能，也不改输入 |
 
 游戏里核对（只读观察包 `league_ai_watch` 的 SUM 行，每行有等级和技能 2、R 的次数）：#337 装上之后的一轮（10-18 02:00 起，
 4246 行、97 个英雄）没有一个 5 级前放过 R 或 3 级前放过技能 2，`log.log` 里没有 `panic occurred`；布隆、诺手、伊莉丝、

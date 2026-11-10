@@ -439,8 +439,9 @@ impl StableMapCustomizer for MapReaders {
 
 /// A mod has one client extension slot (set_extension keeps only the last): Viego's ClockReader (the screen's match
 /// clock for his possession, fed to game_places::clock for Neeko's disguise, Akshan's banner and Ornn's forge glow),
-/// Akshan's revive banner and Ornn's forged items glowing on the scoreboard, drawn over the screen. Set after every
-/// register, so it replaces the ClockReader viego_soul::register sets.
+/// Akshan's revive banner, Ornn's forged items glowing on the scoreboard and the easter eggs' notices, drawn over the
+/// screen (League's dragons are their own mod since league_dragons 0.3.0 and draw their notices below the eggs' ones:
+/// [`league_addons_eggs_showing`]). Set after every register, so it replaces the ClockReader viego_soul::register sets.
 struct BundleClient;
 impl StableExtension for BundleClient {
     fn post_update(&self, ctx: &mut StableClient<'_>, dt: u64) {
@@ -454,10 +455,22 @@ impl StableExtension for BundleClient {
     }
 }
 
+/// For league_dragons.dll (its own mod since its 0.3.0, the user 2026-11-10: 「把我们的龙魂也单独做成mod开关啊」): the
+/// easter eggs' notice lanes in use on screen at sim tick `t` of the match and set (m, s) - bit 0 a banner, bit 1 a toast
+/// - so that its notices go below them (as when the bundle drew both). It looks this up in league_addons.dll by name
+/// each frame until found (GetProcAddress); 0 when the notes are busy.
+#[no_mangle]
+pub extern "C" fn league_addons_eggs_showing(m: u64, s: u64, t: usize) -> u32 {
+    let Ok(notes) = eggs::notice::NOTES.try_lock() else { return 0 };
+    let banner = eggs::notice::showing(&notes, Some((m, s)), true, t).is_some();
+    let toast = eggs::notice::showing(&notes, Some((m, s)), false, t).is_some();
+    banner as u32 | (toast as u32) << 1
+}
+
 /// A mod has one match hook too (set_match_hook keeps only the last): Karthus's `Respawns` (a fallen spirit's respawn
 /// cut), the League easter eggs (league_eggs), Lucian's `Aim` (the flag of the side his R fires to, read by his
-/// display hook) and the read-only macro and fight logs (league_macro_log, league_fight_log, last: they only read) all
-/// watch every tick of every simulation, called here one after the other, Karthus's first as it always ran. Set after every register, so it replaces the one karthus::register sets.
+/// display hook) and the read-only macro and fight logs (league_macro_log, league_fight_log, last: they only
+/// read) all watch every tick of every simulation, called here one after the other, Karthus's first as it always ran. Set after every register, so it replaces the one karthus::register sets.
 struct BundleMatch;
 impl StableMatchHook for BundleMatch {
     fn on_match_start(&self, sim: &mut StableSim<'_>) {

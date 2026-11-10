@@ -131,7 +131,7 @@
     "league_teemo": {
       "face": {
         "x": 0,
-        "y": -22
+        "y": -27
       },
       "center": {
         "x": 0,
@@ -471,7 +471,7 @@
     "league_fizz": {
       "face": {
         "x": 1,
-        "y": -22
+        "y": -27
       },
       "center": {
         "x": 0,
@@ -1175,7 +1175,7 @@
     "league_zeri": {
       "face": {
         "x": 0,
-        "y": -28
+        "y": -33
       },
       "center": {
         "x": 0,
@@ -1383,7 +1383,7 @@
     "league_milio": {
       "face": {
         "x": 2,
-        "y": -26
+        "y": -31
       },
       "center": {
         "x": 0,

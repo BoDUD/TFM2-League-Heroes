@@ -62,7 +62,7 @@ ORIG_PPU = {"zeri": 77 / 37, "karma": 3, "braum": 2.881, "mordekaiser": 5, "cork
 RESTYLE = {
     # (batch 8: rig_zeri_hd.py, see "teemo"); 105 % in game (hd.rs SIZES, kept from her old sprite): a square higher
     # (11.5 x 2.081 x (1 - 1 / 1.05) = 1.1) so her soles stay on the ground
-    "zeri": dict(ppu=77 / 37, edge=2, lift_sq=1, face_to=(0, -28)),
+    "zeri": dict(ppu=77 / 37, edge=2, lift_sq=1, face_to=(0, -33)),
     # 「卡尔玛太壮了 还需要调」「头上的光环太大」「卡尔玛的像素还可以降一降吧？」
     "karma": dict(face=(38, 62, 33, 58), neck=(45, 64), head=1.2, wide=1.25, short=0.92, band=3, edge=1,
                   ring=0.6, ring_colours=KARMA_RING, ring_rows=40, ppu=2.2, max_err=2200, outline=(15, 3, 16)),
@@ -173,7 +173,7 @@ RESTYLE = {
     # tools/art/rig_milio.py (the boy 32 game rows from his hair top to his soles; one head brought down once for every
     # frame), so no proportion or density change here; the outer outline grown a square like the others; the face
     # point at his crown (rig_milio.face_point)
-    "milio": dict(ppu=73 / 33, edge=2, face_to=(2, -26)),          # (batch 8: rig_milio_hd.py, see "teemo")
+    "milio": dict(ppu=73 / 33, edge=2, face_to=(2, -31)),          # (batch 8: rig_milio_hd.py, see "teemo")
     # league_jayce (#106): Codex's strips (both forms) on the design's grid brought to the user's 1.5 squares a game pixel
     # by tools/art/rig_jayce.py (38 game rows crown to soles; one head brought down once for every frame), so no
     # proportion or density change here; the outer outline grown a square like the others; the face point at his crown
@@ -875,8 +875,8 @@ RESTYLE = {
     # 77 / 37, design_zoe_v2.py 95 / 36, design_milio_v2.py 73 / 33); every action Codex's whole-frame redraw of the old
     # frame read onto it (tools/art/casts_<hero>_hd.py), so no density change; fx (Fizz): Q's dash picture laid on
     # again under him (rig_fizz_hd, Rig.bake: fizz_bake.json); the outline grown by 2
-    "teemo": dict(ppu=68 / 38, edge=2, face_to=(0, -22)),
-    "fizz": dict(ppu=58 / 32, edge=2, fx=True, face_to=(1, -22)),
+    "teemo": dict(ppu=68 / 38, edge=2, face_to=(0, -27)),
+    "fizz": dict(ppu=58 / 32, edge=2, fx=True, face_to=(1, -27)),
     # Shen (2026-11-09, 「慎也需要重做」, then 「1.8」): Codex's shen-A traced from his sprite, read on its own squares
     # (design_shen_hd.py: 76 rows / 1.81 = his 42, the sword hilt's top to his soles); every action Codex's whole-frame
     # redraw of the old frame read onto it (tools/art/casts_shen_hd.py), so no density change; the outline grown by 2
