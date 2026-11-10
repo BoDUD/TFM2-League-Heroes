@@ -176,6 +176,53 @@ empty tooltip). That is why the linter exists - run it after every edit.
   left; the user kept the funnel: 「亚索的旋风特效还是用这个 右边的话你想办法处理一下」; `tools/fix/fix_yasuo_q3_stamps.py`).
   `lint_mod.py` warns on every zone with a picture and measures how much of it moves when turned (champion-data
   section 6).
+- **Kit traps found 2026-10-29 .. 11-10 (each cost a fix across many heroes; details in champion-data):**
+  - A zone's `first_delay` 0 is not "at once": its first hit comes a whole `period` later, and a one-shot zone never
+    hits. Write 1 (champion-data section 4, the projectile table; league #700 moved 42 zones of 25 heroes).
+  - A buff's `range` makes the AI stand at the longer reach but attack only within the action's own range - the unit
+    parks and never swings. Lengthen reach with `range_adjust`. In the league repo that is league.dll's native
+    `league:range` marker (champion-data section 3; `tools/kit/range_buffs.py --check` runs in CI).
+  - A dead caster's zones run on. A zone started from a projectile's `end_effects` outlives him, and his buffs freeze
+    as they were at death: guard what the zone applies with an alive check (champion-data "A dead caster"; Maokai's
+    sapling sounded every tick after he died).
+  - Data `Banish` ignores `cc_immune` (a devour swallows a spell-shielded enemy). Only add-on code can read the target's
+    immunity.
+  - The game's own AI ignores enemies standing in their fountain but crowds round one it cannot hit elsewhere: send an
+    untargetable body home rather than leaving it where it fell (league_karthus' spirit, 2026-11-10).
+  - A flag of n ticks is read on n - 1 ticks; `ult_cooldown_mult` caps the ult's remaining cooldown at
+    cooltime / (1 + m/100), which is how a refund is written (`tools/kit/check_arm_refund.py` in CI).
+- **A career save keeps its own copy of every hero (league, 2026-10-31).** When a career starts, the game copies every
+  champion definition into the save: seven rulesets, one full list each. It adds new champions later but never
+  refreshes a changed one.
+  - So a data fix (`.data_champion`, an add-on's override file) does not reach a career that is already running;
+    add-on code does.
+  - After every data install, run `tools/save/refresh_save_heroes.py SAVE` to report the stale copies. Then run it
+    with an OUT path: it writes our heroes from the installed mods, keeps the career's patch ratios, and reads the
+    save back. Repeat until 0 copies are stale.
+  - Views are not in the save: picture-only changes need no refresh.
+- **The game patches mod heroes too.** Each of its balance patches buffs and nerfs champions by their data, base or
+  mod alike (reasons such as nerf_meta and unpicked; caps in `asset/base/setting/patch_setting`). A season start also
+  changes the match rules (`game_setting`). A career's numbers are not your kit's, and pace tuning drifts.
+- **Dense (PPU) frames keep the hero's size (league `docs/tech-notes.md`, 高清帧).** A redraw read back over the old
+  frames must not make the model grow or shrink from frame to frame. An image model fills the outline by drawing the
+  whole hero bigger, or draws only the head too big.
+  - Measure each placed frame's head AND a rigid part against the design: a weapon gem or a pommel, measured on the
+    raw (tens of pixels). Scale each frame by the body, not by the head alone (league Sett, Zilean, Shen).
+  - Register the hero in `addons/league_main/src/hd.rs` (`HEROES`, `SIZES`). `tools/package_mod.py` cuts its UI
+    sheets, and CI (`tools/ci/ui_sheets.py`) keeps their budget.
+- **An image model's delivery can pass its own check by copying the guide.** Read every strip back against its guide
+  frame at game size.
+  - A strip whose edges all run on the guide's 8 x 8 grid (each block copied whole or left out) is a trace. It is no
+    finer than the game's picture: send it back (league effects review, 2026-11-10: 26 of 35 strips).
+  - Thin lines, rings and dots stay as thick as the guide's; open shapes stay open; separate dots stay separate.
+  - A reader must not let soft edges grow a shape past its squares: soft dots read in as crosses, and thin slashes
+    twice as thick, until the read-back was limited to the squares plus the inner corners of their steps.
+- **Installs in the league repo.**
+  - `league.dll` embeds every dense hero's tables, and the add-on bundle is one DLL. Build an install from main plus
+    every PR that is installed but not merged (a temp merge); otherwise that PR's heroes and fixes go back.
+  - Before writing, check the game is closed by its process name, `TeamfightManager2.exe` (no spaces).
+  - `make_override.py --check` only checks for the add-ons in CI's list; the other add-ons' scripts rewrite
+    `override/` and `text/`.
 
 ## Bundled resources
 
