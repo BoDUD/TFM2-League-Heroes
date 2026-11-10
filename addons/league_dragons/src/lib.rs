@@ -846,6 +846,9 @@ impl Sim {
                     sim.add_buff(ent, &BuffV1::named(&rules::marker(element)));
                     self.serpen = Some(Alive { ent, element: Some(element), pos, born: now });
                     let n = self.drakes + 1;
+                    if let Some((m, s)) = screen {
+                        feed::drake_born(m, s, ent, element);
+                    }
                     say(screen.is_some(), "spawn", format!("{} SPAWN sim #{} serpent #{ent} '{name}': {} ({})", head(sim), self.no,
                                                            element.key(), if element == Element::Elder {
                                                                "the Elder Dragon".to_string()
@@ -1665,7 +1668,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
-    // one match hook and one client extension a mod: league_addons forwards to Dragons and calls screen::draw itself
+    // its own mod since 0.3.0 (the user: 「把我们的龙魂也单独做成mod开关啊」): its own match hook and client extension
     #[cfg(not(league_bundle))]
     {
         module.set_match_hook(Dragons);

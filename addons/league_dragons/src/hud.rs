@@ -40,6 +40,8 @@ pub struct Hud {
     pub rows: [Vec<Piece>; 2],
     /// 撞上创意工坊的大小龙 mod：本包什么都不做，HUD 只写一行请玩家关掉它。
     pub conflict: bool,
+    /// 还没有哪一队拿到龙魂时，龙魂会是的元素（峡谷的元素）。
+    pub soul_next: Option<Element>,
 }
 
 /// 屏幕时钟 `t` 时的 HUD（`rec`：写在 `t` 或之前的最后一份状态记录）。
@@ -71,6 +73,7 @@ pub fn hud(rec: &Record, t: usize) -> Hud {
         baron_alive: rec.epic_alive,
         rows,
         conflict: rec.conflict,
+        soul_next: rec.soul_shown(),
     }
 }
 
@@ -143,6 +146,9 @@ pub fn row_w(row: &[Piece], lang: Lang, m: &Metrics) -> f32 {
 /// 顶上一行（圆点、这一条 / 下一条龙，纳什男爵活着时再写一句）多宽。
 pub fn top_w(h: &Hud, lang: Lang, m: &Metrics) -> f32 {
     let mut w = m.disc + m.gap + em(&words::dragon_status(lang, h.element, h.alive)) * m.small;
+    if let Some(e) = h.soul_next {
+        w += 3.0 * m.gap + em(&words::soul_hint(lang, e)) * m.small;
+    }
     if h.baron_alive {
         w += 3.0 * m.gap + em(words::baron_status(lang)) * m.small;
     }
@@ -202,8 +208,14 @@ pub fn draw(ctx: &mut StableClient<'_>, at: Rect, h: &Hud, lang: Lang, m: &Metri
     let sw = em(&status) * m.small + 2.0;
     let tc = if h.alive { 0xf4_ee_dc_ff } else { 0xb4_b0_a8_ff };
     draw_text_in(ctx, &status, FONT, (sx, y0, sw + 2.0 * m.small, m.row), 902, m.small, tc, TextAlignXV1::Left);
+    let mut bx = sx + sw + 3.0 * m.gap;
+    if let Some(e) = h.soul_next {
+        let hint = words::soul_hint(lang, e);
+        let hw = em(&hint) * m.small + 2.0;
+        draw_text_in(ctx, &hint, FONT, (bx, y0, hw + 2.0 * m.small, m.row), 902, m.small, colour(e) | 0xff, TextAlignXV1::Left);
+        bx += hw + 3.0 * m.gap;
+    }
     if h.baron_alive {
-        let bx = sx + sw + 3.0 * m.gap;
         let bs = words::baron_status(lang);
         draw_text_in(ctx, bs, FONT, (bx, y0, (em(bs) + 2.0) * m.small, m.row), 902, m.small, BARON | 0xff, TextAlignXV1::Left);
     }
@@ -216,6 +228,23 @@ pub fn draw(ctx: &mut StableClient<'_>, at: Rect, h: &Hud, lang: Lang, m: &Metri
             piece(ctx, (px, ry, pw, m.row), p, lang, m);
             px += pw + m.gap;
         }
+    }
+}
+
+/// 鼠标停在 HUD（`at`）上时：框下面一个说明框（[`words::tip_lines`]），太宽就把字缩小，不出画面。
+pub fn draw_tip(ctx: &mut StableClient<'_>, at: Rect, rec: &Record, lang: Lang, m: &Metrics, ui: (f32, f32)) {
+    let lines = words::tip_lines(lang, rec);
+    let widest = lines.iter().map(|l| em(&l.0)).fold(0.0f32, f32::max);
+    let room = ui.0 - at.0 - 16.0 * m.s;
+    let size = (m.small * 0.95).min(room / (widest + 1.0)).max(9.0);
+    let row = size * 1.45;
+    let (w, h) = (widest * size + 2.0 * m.pad + 4.0, row * lines.len() as f32 + 2.0 * m.pad);
+    let (x, y) = (at.0, at.1 + at.3 + 6.0 * m.s);
+    ctx.draw_rect(UI, x, y, w, h, 940, 6.0 * m.s, 0x0c_0e_16_f0);
+    ctx.draw_rect(UI, x, y, w, 2.0 * m.s, 941, 0.0, 0xff_d8_8a_c0);
+    for (i, (text, colour, bold)) in lines.iter().enumerate() {
+        let ly = y + m.pad + row * i as f32;
+        draw_text_in(ctx, text, if *bold { BOLD } else { FONT }, (x + m.pad, ly, w, row), 942, size, *colour, TextAlignXV1::Left);
     }
 }
 
@@ -295,6 +324,20 @@ mod tests {
     }
 
     #[test]
+    fn the_soul_shows_once_the_second_drake_is_taken() {
+        let mut r = rec();
+        r.serpen_alive = true;
+        assert_eq!(hud(&r, 200).soul_next, None, "the first drake");
+        r.stacks[0] = [1, 0, 0, 0, 0, 0];
+        assert_eq!(hud(&r, 200).soul_next, None, "one taken, the second alive");
+        r.stacks[1] = [0, 0, 1, 0, 0, 0];
+        r.serpen_alive = false;
+        assert_eq!(hud(&r, 200).soul_next, Element::from_code(4), "two taken: the rift's element");
+        r.soul = Some((0, 4));
+        assert_eq!(hud(&r, 200).soul_next, None, "claimed: the soul piece instead");
+    }
+
+    #[test]
     fn nothing_shows_in_a_mode_without_dragons() {
         let r = rec();
         assert!(!visible(&r, &[], 5_000));
@@ -320,7 +363,8 @@ mod tests {
                  Piece::Stack(Element::Hextech, 1), Piece::Soul(Element::Chemtech),
                  Piece::Timer { baron: false, left: 90, n: 5 }, Piece::Timer { baron: true, left: 120, n: 5 }]
         };
-        let worst = Hud { element: Element::Chemtech, alive: false, baron_alive: true, rows: [full(0), full(1)], conflict: false };
+        let worst = Hud { element: Element::Chemtech, alive: false, baron_alive: true, rows: [full(0), full(1)], conflict: false,
+                          soul_next: Some(Element::Chemtech) };
         let m = metrics(ui.1);
         for lang in [Lang::Hans, Lang::Hant, Lang::En] {
             for h in [worst.clone(), Hud { conflict: true, ..worst.clone() }] {

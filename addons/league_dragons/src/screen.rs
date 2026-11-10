@@ -5,11 +5,13 @@
 //! （`game_places::clock::screen_tick`）取到那一刻（league_eggs notice.rs 的做法）。文字按游戏的语言（简体、繁体，其他语言用英文，
 //! [`super::words`]），英雄名按游戏自己的文字。
 //!
-//! 游戏每个 mod 只有一个客户端扩展槽：附加包合集里由 league_addons 的 `BundleClient` 调 [`draw`]（同时告诉它彩蛋的公告道上正放着
-//! 什么，本包的挪开），单独的 league_dragons.dll 用 [`Overlay`]（也喂屏幕时钟）。
+//! 本包是单独的 mod（0.3.0 起，用户 2026-11-10：「把我们的龙魂也单独做成mod开关啊」）：league_dragons.dll 自己的客户端扩展
+//! [`Overlay`] 喂屏幕时钟、画公告和 HUD。彩蛋（在附加包合集里）的公告道上正放着什么，从 league_addons.dll 导出的
+//! `league_addons_eggs_showing` 读（[`eggs_showing`]；合集没装就当没有），本包的公告挪到它们下面，和以前编在合集里一样。
 //!
 //! 小龙按元素换模型、远古巨龙和纳什男爵的模型在 [`super::skin`]（显示钩子，同样按屏幕时钟读 `feed`）；这里只画公告和 HUD。
 
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Mutex;
 
 use mod_api_stable::*;
@@ -103,8 +105,7 @@ fn first_time<T: PartialEq>(list: &Mutex<Vec<T>>, key: T) -> bool {
     true
 }
 
-/// 画（客户端扩展的 post_render 里调）。`eggs` = 彩蛋的公告道上正放着 (大字, 小提示)：本包的挪到它们下面（只有附加包合集
-/// 知道，单独装时是 (false, false)）。
+/// 画（客户端扩展的 post_render 里调）。`eggs` = 彩蛋的公告道上正放着 (大字, 小提示)：本包的挪到它们下面（[`eggs_showing`]）。
 pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
     if !ctx.is_in_game() {
         return;
@@ -162,7 +163,59 @@ pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
         }
     }
     hud::draw(ctx, at, &h, lang, &mx);
+    if !h.conflict && cursor_ui(ui).is_some_and(|(cx, cy)| cx >= at.0 && cx < at.0 + at.2 && cy >= at.1 && cy < at.1 + at.3) {
+        hud::draw_tip(ctx, at, &rec, lang, &mx, ui);
+    }
     dots(ctx, &rec, t, m, s);
+}
+
+/// Where the mouse is in the UI's own coordinates, when the game's window is the one in front: the stable API has no
+/// mouse position, so the cursor's place in the window (Win32) times the UI's size over the window's client size.
+#[cfg(windows)]
+pub fn cursor_ui(ui: (f32, f32)) -> Option<(f32, f32)> {
+    #[repr(C)]
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+    #[repr(C)]
+    struct WinRect {
+        l: i32,
+        t: i32,
+        r: i32,
+        b: i32,
+    }
+    #[link(name = "user32")]
+    extern "system" {
+        fn GetCursorPos(p: *mut Point) -> i32;
+        fn GetForegroundWindow() -> isize;
+        fn GetWindowThreadProcessId(h: isize, pid: *mut u32) -> u32;
+        fn ScreenToClient(h: isize, p: *mut Point) -> i32;
+        fn GetClientRect(h: isize, r: *mut WinRect) -> i32;
+    }
+    #[link(name = "kernel32")]
+    extern "system" {
+        fn GetCurrentProcessId() -> u32;
+    }
+    unsafe {
+        let hwnd = GetForegroundWindow();
+        let mut pid = 0u32;
+        if hwnd == 0 || GetWindowThreadProcessId(hwnd, &mut pid) == 0 || pid != GetCurrentProcessId() {
+            return None;
+        }
+        let mut p = Point { x: 0, y: 0 };
+        let mut r = WinRect { l: 0, t: 0, r: 0, b: 0 };
+        if GetCursorPos(&mut p) == 0 || ScreenToClient(hwnd, &mut p) == 0 || GetClientRect(hwnd, &mut r) == 0 {
+            return None;
+        }
+        let (cw, ch) = ((r.r - r.l) as f32, (r.b - r.t) as f32);
+        (cw > 0.0 && ch > 0.0).then(|| (p.x as f32 * ui.0 / cw, p.y as f32 * ui.1 / ch))
+    }
+}
+
+#[cfg(not(windows))]
+pub fn cursor_ui(_ui: (f32, f32)) -> Option<(f32, f32)> {
+    None
 }
 
 /// 玩家栏头像上的小圆点：拿着远古龙之力（淡金，头像左边中间）/ 纳什男爵之手（紫，左下）的人。
@@ -221,8 +274,52 @@ impl StableExtension for Overlay {
     }
 
     fn post_render(&self, ctx: &mut StableClient<'_>) {
-        draw(ctx, (false, false));
+        draw(ctx, eggs_showing());
     }
+}
+
+/// league_addons.dll's `league_addons_eggs_showing(m, s, t)`: the easter eggs' notice lanes in use (bit 0 a banner, bit 1
+/// a toast) at sim tick t of the screen's match.
+type EggsShowing = extern "C" fn(u64, u64, usize) -> u32;
+static EGGS: AtomicUsize = AtomicUsize::new(0);
+
+/// The easter eggs' notice lanes in use on screen now (a banner, a toast), from the add-on bundle when it is loaded (its
+/// export looked up each frame until found: the mods load in any order); (false, false) without it.
+pub fn eggs_showing() -> (bool, bool) {
+    let (Some(t), Some((m, s))) = (game_places::clock::screen_tick(), feed::current()) else { return (false, false) };
+    let Some(f) = eggs_query() else { return (false, false) };
+    let bits = f(m, s, t);
+    (bits & 1 != 0, bits & 2 != 0)
+}
+
+#[cfg(windows)]
+fn eggs_query() -> Option<EggsShowing> {
+    #[link(name = "kernel32")]
+    extern "system" {
+        fn GetModuleHandleW(name: *const u16) -> isize;
+        fn GetProcAddress(module: isize, name: *const u8) -> usize;
+    }
+    let got = EGGS.load(Ordering::Relaxed);
+    if got != 0 {
+        return Some(unsafe { std::mem::transmute::<usize, EggsShowing>(got) });
+    }
+    let name: Vec<u16> = "league_addons.dll".encode_utf16().chain([0]).collect();
+    let module = unsafe { GetModuleHandleW(name.as_ptr()) };
+    if module == 0 {
+        return None;
+    }
+    let p = unsafe { GetProcAddress(module, b"league_addons_eggs_showing\0".as_ptr()) };
+    if p == 0 {
+        return None;
+    }
+    EGGS.store(p, Ordering::Relaxed);
+    wlog("EGGS: league_addons.dll's notice lanes found - this mod's notices go below the easter eggs' ones");
+    Some(unsafe { std::mem::transmute::<usize, EggsShowing>(p) })
+}
+
+#[cfg(not(windows))]
+fn eggs_query() -> Option<EggsShowing> {
+    None
 }
 
 #[cfg(test)]
