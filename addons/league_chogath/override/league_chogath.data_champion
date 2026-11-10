@@ -1384,6 +1384,7 @@
       "z": 3
     }
   ],
+  "stack_skill_index": 2,
   "passive": {
     "passive_ref": "league_chogath:keep",
     "params": {}

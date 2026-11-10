@@ -37,7 +37,7 @@
   },
   "attack": {
     "action_name": "attack",
-    "description": "#asset/base/text/champion?description.league_kindred.attack",
+    "description": "#asset/base/text/champion?description.league_kindred_respite.attack",
     "duration": 26,
     "cooltime": 56,
     "start_timing": 14,
@@ -164,362 +164,6 @@
                   "type": "Combine",
                   "effects": []
                 }
-              }
-            }
-          ]
-        },
-        {
-          "type": "TargetProjectile",
-          "name": "league_kindred_a_twin",
-          "speed": 6000,
-          "y_offset": -6500,
-          "applied_target": "EnemyChampion",
-          "applied_effects": [
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "RemoveCasterBuff",
-                    "name": "league_kindred_k_a"
-                  },
-                  {
-                    "type": "AddCasterBuff",
-                    "buff_state": {
-                      "name": "league_kindred_k_a",
-                      "duration": {
-                        "Time": {
-                          "tick": 40
-                        }
-                      }
-                    },
-                    "only_to_enemy": false
-                  }
-                ]
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "AddCasted",
-                    "casted_type": "Bleed",
-                    "duration": 180,
-                    "period": 1,
-                    "effects": [
-                      {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_kindred_p_alive"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_kindred_p_alive",
-                              "duration": {
-                                "Time": {
-                                  "tick": 2
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "target": "AllyOnlySelf",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_kindred_p_alive"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_kindred_p_alive",
-                              "duration": {
-                                "Time": {
-                                  "tick": 3
-                                }
-                              }
-                            },
-                            "only_to_enemy": false
-                          }
-                        ]
-                      },
-                      {
-                        "type": "AddCasted",
-                        "casted_type": "Heal",
-                        "duration": 178,
-                        "period": 1,
-                        "effects": [
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_kindred_p_alive",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "SwitchByBuff",
-                              "buff_name": "league_kindred_p_lock",
-                              "effect_buff": {
-                                "type": "Combine",
-                                "effects": []
-                              },
-                              "effect_none": {
-                                "type": "Combine",
-                                "effects": [
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_kindred_p_lock"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kindred_p_lock",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 180
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_kindred_p_alive"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kindred_p_alive",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 180
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kindred_p_mark",
-                                      "duration": "Permanent",
-                                      "attack_speed_mult": 4,
-                                      "magic_power": 1
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_kindred_p_has",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    },
-                                    "effect_none": {
-                                      "type": "AddCasterBuff",
-                                      "buff_state": {
-                                        "name": "league_kindred_p_has",
-                                        "duration": "Permanent"
-                                      },
-                                      "only_to_enemy": false
-                                    }
-                                  },
-                                  {
-                                    "type": "RemoveCasterBuff",
-                                    "name": "league_kindred_p_stack"
-                                  },
-                                  {
-                                    "type": "AddCasterBuff",
-                                    "buff_state": {
-                                      "name": "league_kindred_p_stack",
-                                      "duration": {
-                                        "Time": {
-                                          "tick": 90
-                                        }
-                                      }
-                                    },
-                                    "only_to_enemy": false
-                                  },
-                                  {
-                                    "type": "Sfx",
-                                    "name": "league_kindred_p"
-                                  }
-                                ]
-                              }
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Combine",
-                "effects": [
-                  {
-                    "type": "AddCasted",
-                    "casted_type": "Bleed",
-                    "duration": 3,
-                    "period": 1,
-                    "effects": [
-                      {
-                        "type": "RemoveCasterBuff",
-                        "name": "league_kindred_k_a"
-                      }
-                    ]
-                  },
-                  {
-                    "type": "RangeEffect",
-                    "shape": {
-                      "Circle": {
-                        "radius": 1000
-                      }
-                    },
-                    "target": "AllyOnlySelf",
-                    "apply_type": "AroundCaster",
-                    "effects": [
-                      {
-                        "type": "Delayed",
-                        "tick": 4,
-                        "effects": [
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_kindred_k_a",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "RemoveCasterBuff",
-                                  "name": "league_kindred_k_a"
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_kindred_p_lock",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_kindred_p_lock"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kindred_p_lock",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 180
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_kindred_p_alive"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kindred_p_alive",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 180
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kindred_p_mark",
-                                          "duration": "Permanent",
-                                          "attack_speed_mult": 4,
-                                          "magic_power": 1
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "SwitchByBuff",
-                                        "buff_name": "league_kindred_p_has",
-                                        "effect_buff": {
-                                          "type": "Combine",
-                                          "effects": []
-                                        },
-                                        "effect_none": {
-                                          "type": "AddCasterBuff",
-                                          "buff_state": {
-                                            "name": "league_kindred_p_has",
-                                            "duration": "Permanent"
-                                          },
-                                          "only_to_enemy": false
-                                        }
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_kindred_p_stack"
-                                      },
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_kindred_p_stack",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 90
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_kindred_p"
-                                      }
-                                    ]
-                                  }
-                                }
-                              ]
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": []
-                            }
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
               }
             }
           ]
@@ -2082,6 +1726,47 @@
       "tag": "p_stack",
       "repeat": true,
       "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_kindred_hunt_wait_b",
+      "anim": "asset/league_kindred/effects/league_kindred_hunt",
+      "tag": "wait",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "league_kindred_hunt_wait_r",
+      "anim": "asset/league_kindred/effects/league_kindred_hunt",
+      "tag": "wait",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "league_kindred_hunted_b",
+      "anim": "asset/league_kindred/effects/league_kindred_hunt",
+      "tag": "on",
+      "repeat": true,
+      "z": 4
+    },
+    {
+      "type": "Animated",
+      "name": "league_kindred_hunted_r",
+      "anim": "asset/league_kindred/effects/league_kindred_hunt",
+      "tag": "on",
+      "repeat": true,
+      "z": 4
     }
-  ]
+  ],
+  "stack_skill_index": 0,
+  "passive": {
+    "passive_ref": "league_kindred:hunt",
+    "params": {
+      "ap": 1,
+      "as": 4,
+      "show": 90
+    }
+  }
 }

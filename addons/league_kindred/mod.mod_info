@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.109.0"
+      "version": ">=0.333.0"
     }
   ],
-  "description": "Test build of Kindred's Lamb's Respite as in League (needs League of Legends Heroes): replaces the main pack's Kindred so R goes out only when an allied champion in her circle - a teammate or Kindred herself - is about to die (below 30% health, or 30% lost within a second, with an enemy champion close), read from their health, instead of the data pack's guess from crowd control and enemies around. The circle, the undying, the heal and every picture stay the main pack's. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-07",
+  "description": "Test build of Kindred as in League (needs League of Legends Heroes): Mark of the Kindred hunts - every 75 s Lamb names an enemy champion she has not fought in the last 6 s (a mark over him, live after 8 s); a takedown on the hunted champion gives a mark (not again on him for 240 s), and her marks stay through death - instead of the data pack's mark for any champion takedown, lost on death. And her R goes out only when an allied champion in her circle - a teammate or Kindred herself - is about to die (below 30% health, or 30% lost within a second, with an enemy champion close), read from their health. Other champions are untouched. Writes a log for testing.",
+  "last_updated": "2026-11-11",
   "mod_id": "league_kindred",
   "mod_type": "native",
-  "name": "League Heroes: Kindred's Lamb's Respite only to save (test)",
-  "version": "0.1.6"
+  "name": "League Heroes: Kindred - Lamb's hunts and Lamb's Respite only to save (test)",
+  "version": "0.2.0"
 }

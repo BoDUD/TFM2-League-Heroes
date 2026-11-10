@@ -40,6 +40,7 @@ health and the kill check finds the eaten.
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll's stack numbers over the head)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -333,6 +334,11 @@ def nodes(o):
     if isinstance(o, list):
         return sum(nodes(v) for v in o)
     return 0
+
+
+# the stack count over his head: league.dll's display buffs bound to the number sheet (tools/kit/stack_nums.py,
+# 2026-11-11)
+build = stack_nums.wrap(build)
 
 
 def main():

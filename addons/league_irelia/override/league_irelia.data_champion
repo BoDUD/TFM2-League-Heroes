@@ -3355,5 +3355,6 @@
       "hop_reach": 90000,
       "hop_hp": 40
     }
-  }
+  },
+  "stack_skill_index": 0
 }
