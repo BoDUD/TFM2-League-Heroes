@@ -16,13 +16,25 @@
 //! - 它们把名字交出去的函数（cmd_by_name / node_image / cmd_uv）：入口挂一段保存寄存器的跳板，名字正是刚才换过图的那个，
 //!   就换成小图集的名字——画的时候游戏取到的就是小图集。别的调用原样放过。
 //!
-//! 游戏 0.7.2（2026-11-11）：图鉴 / 头像和选人位不再调图片节点，自己拼一条贴图绘制命令（标签 0x…03，名字复制一份放在
-//! +8 的 String 里）交给设置 UV 的函数（cmd_uv，rdx = 这条命令，它把命令连同 String 整个搬进输出）。这里在它入口把
-//! String 里的名字原地换成小图集的（小图集的名字比整张图集的短，直接写进原来的缓冲；更长时用和游戏同一个进程堆
-//! 重新分配，旧的释放）。
+//! 游戏 0.7.2（2026-11-11）：「设置图片节点」被编译器内联进了图鉴 / 头像和选人位（game-view/src/ui/champion_info_ui.rs，
+//! 0x2684090 / 0x267ed60）：取完尺寸以后它们把刚才取贴图用的那个名字直接复制进节点的几个 String，不再调任何函数，没有
+//! 入口可挂（Build::ui_inline）。所以改成在它们取贴图的那一刻把名字**就地改名**：这个名字是绘制处自己刚拼出来的
+//! String（`asset/base/aseprite_resources/champions/<id>#sheet`），把其中的 `champions/` 换成一样长的替身
+//! （[`STAND_INS`]：`ui~~idle~/`），它接着复制进节点的就是替身名；画这一帧时渲染器按替身名取贴图，取贴图的钩子
+//! （src/lookup.rs sheet_detour）把替身名换回小图集真正的名字再查（[`stand_in_real`]）。游戏里所有贴图都从这一个函数取
+//! （74 处调用；贴图这个类型的 TypeId 整个 EXE 只在它里面比较过），所以不管名字后来被复制到哪儿都认得；渲染器
+//! （0xf4f20）取不到一个名字时什么都不画，不报错。只在名字确实是进程堆上一块自己的内存时才改（HeapValidate；游戏的
+//! String 就是进程堆分配的——取贴图的函数里释放用的是 HeapFree(GetProcessHeap())）。另外在绘制处自己的栈帧里找拥有
+//! 这个名字的 String（{cap, ptr, len}，cap 等于那块堆内存的大小：0.7.2 两处分别在返回地址上方 0x50 / 0x40）
+//! （[`local_string`]）：运行时自己找到的游戏版本必须找得到才改——没人读过它的反汇编，借来的名字（游戏数据里共用
+//! 的）绝不能改；版本表里列着的版本（人读过）只把找没找到写进日志。
+//! 0.9.31（#744）认错了这两处（见 build.rs 开头），它们一直在画整张图集，BP 界面又卡了；cmd_uv 那个入口留给运行时
+//! 查找到的版本用。
 //!
 //! 保护：一处画英雄的地方取了 40 次小图集、一次都没把名字交到这几个函数（游戏又改了交名字的地方），就不再给它小图集——
-//! 不然它会用小图集的 UV 去画整张图集。0.7.1 实测每 300 次有 297~299 次交到。
+//! 不然它会用小图集的 UV 去画整张图集。0.7.1 实测每 300 次有 297~299 次交到。就地改名的两处：改了 120 个名字、过了
+//! 3 秒，渲染器一次都没来取过替身名（它取贴图不走这个函数了），先关掉；之后它来取了（那些节点当时只是还没上屏——
+//! 先建好、藏着的界面），马上再打开（[`asked`]）。
 //!
 //! 战场不动（它画整张图集里的高清帧）。没有小图集的英雄（别的模组的、还没打包的）、找不到这些地址的游戏版本：照旧画整张
 //! 图集。
@@ -31,8 +43,9 @@ use std::alloc::{GlobalAlloc, Layout, System};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::ffi::c_void;
-use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
+use std::time::Instant;
 
 use super::build::Build;
 use super::hd::{self, Hero};
@@ -76,12 +89,34 @@ const MAX_LINES: usize = 600;
 const TALLY: usize = 300;
 /// after this many UI sheet lookups by a drawer none of which reached a sink, the drawer gets no UI sheets any more
 const GUARD: usize = 40;
+/// an inline drawer's names: this long after the first one was renamed, and after this many, the renderer must have
+/// asked for a stand-in (a few renamed for nodes that are not drawn at the moment prove nothing)
+const RESOLVE_WAIT_MS: u64 = 3000;
+const RESOLVE_MIN: usize = 120;
+
+/// How far above an inline drawer's lookup the stack is searched for the String that owns the name (bytes above the
+/// return address; 0.7.2's two drawers keep it 0x50 / 0x40 above, in frames of 0x198 bytes), and where the drawer's own
+/// locals begin: above the return address and the four register homes it reserves for the lookup.
+const FRAME_SPAN: usize = 0x600;
+const FRAME_LOCALS: usize = 0x28;
+
+/// The battle sheets' folder in a drawer's resource names, and what stands in for its last ten letters in the name an
+/// inline drawer copies into its image node (Build::ui_inline), by kind ([`IDLE`], [`REEL`]): the same length, so the
+/// name is rewritten where it stands. No asset has such a name; the sheet lookup's hook turns it back into the UI
+/// sheet's ([`stand_in_real`]) when the frame is drawn.
+pub const BATTLE_DIR: &str = "asset/base/aseprite_resources/champions/";
+pub const STAND_INS: [&str; 2] = ["ui~~idle~/", "ui~~~~bp~/"];
+/// where the stand-in starts in a name: BATTLE_DIR ends in `champions/`, ten letters
+const STAND_AT: usize = BATTLE_DIR.len() - 10;
 
 /// The sinks hooked: the drawers draw from the UI sheets.
 pub static ON: AtomicBool = AtomicBool::new(false);
 
 #[link(name = "kernel32")]
 extern "system" {
+    fn GetProcessHeap() -> isize;
+    fn HeapValidate(heap: isize, flags: u32, mem: *const c_void) -> i32;
+    fn HeapSize(heap: isize, flags: u32, mem: *const c_void) -> usize;
     fn GetCurrentProcess() -> isize;
     fn VirtualProtect(addr: *mut c_void, size: usize, new: u32, old: *mut u32) -> i32;
     fn VirtualAlloc(addr: *mut c_void, size: usize, kind: u32, protect: u32) -> *mut c_void;
@@ -272,6 +307,121 @@ static HANDED: [AtomicUsize; 8] = [const { AtomicUsize::new(0) }; 8];
 /// per drawer: no UI sheets any more - its first GUARD UI sheet lookups reached no sink: it hands the name on somewhere
 /// this build's places do not know, and would draw the battle sheet with the UI sheet's UV
 static OFF: [AtomicBool; 8] = [const { AtomicBool::new(false) }; 8];
+/// per drawer: turned off by the stand-in guard ([`inline`]) while the renderer had not asked for one - on again the
+/// moment it does ([`asked`]): the names renamed so far were of nodes not on screen yet (a panel built hidden)
+static WAITING: [AtomicBool; 8] = [const { AtomicBool::new(false) }; 8];
+/// names renamed where they stand (the inline drawers'), stand-in names the sheet lookup was asked for, and when the
+/// first one was renamed (ms on [`now_ms`]'s clock, 0: none yet)
+static RENAMED: AtomicUsize = AtomicUsize::new(0);
+static RESOLVED: AtomicUsize = AtomicUsize::new(0);
+static FIRST_RENAME: AtomicU64 = AtomicU64::new(0);
+static EPOCH: LazyLock<Instant> = LazyLock::new(Instant::now);
+
+fn now_ms() -> u64 {
+    EPOCH.elapsed().as_millis() as u64 + 1
+}
+
+/// `name` (a battle sheet's) with kind `kd`'s stand-in in its folder: what an inline drawer's own String holds after
+/// [`rename_in_place`].
+#[cfg(test)]
+pub fn stand_in(name: &str, kd: usize) -> Option<String> {
+    let rest = name.strip_prefix(BATTLE_DIR)?;
+    Some(format!("{}{}{rest}", &BATTLE_DIR[..STAND_AT], STAND_INS.get(kd)?))
+}
+
+/// A stand-in name -> (its kind, the hero's UI sheets), when the hero is one of `packs`'.
+fn stand_in_names(name: &str, packs: &[&'static str]) -> Option<(usize, &'static Names)> {
+    // most names are not one: a single byte tells
+    if name.as_bytes().get(STAND_AT + 2) != Some(&b'~') {
+        return None;
+    }
+    let tail = name.strip_prefix(&BATTLE_DIR[..STAND_AT])?;
+    let (kd, rest) = (0..STAND_INS.len()).find_map(|kd| tail.strip_prefix(STAND_INS[kd]).map(|rest| (kd, rest)))?;
+    let (id, pack) = hero_id(rest, packs)?;
+    Some((kd, names_of(id, pack)?))
+}
+
+/// The UI sheet a stand-in name stands for (None: not a stand-in): the sheet lookup's hook looks this one up instead
+/// (src/lookup.rs sheet_detour) - the renderer asking for an image node's sheet when the frame is drawn.
+pub(crate) fn stand_in_real(name: &str) -> Option<&'static str> {
+    let (kd, n) = stand_in_names(name, &hd::heroes().packs)?;
+    asked();
+    Some(n.sheet[kd].as_str())
+}
+
+/// The renderer asked for a stand-in: counted; the first time, the inline drawers the guard had turned off for want of
+/// one ([`WAITING`]) get their UI sheets again.
+fn asked() {
+    if RESOLVED.fetch_add(1, Ordering::Relaxed) != 0 {
+        return;
+    }
+    for (k, w) in WAITING.iter().enumerate() {
+        if w.swap(false, Ordering::Relaxed) {
+            OFF[k].store(false, Ordering::Relaxed);
+            line(|| format!("UI drawer {k}: the renderer asked for a stand-in after all - UI sheets for it again"));
+        }
+    }
+}
+
+/// The inline drawers' hand-over: the `len` bytes at `ptr` are the name the drawer just looked up and is about to copy
+/// into its image node - its own String, formatted a moment ago. The battle folder in it becomes kind `kd`'s stand-in
+/// (the same length). Only a name that starts with the battle folder and is a block of the process heap starting at
+/// this very byte (a String's buffer; a name borrowed from somewhere else - the middle of a block, static data - is
+/// left alone). True when renamed.
+unsafe fn rename_in_place(ptr: usize, len: usize, kd: usize) -> bool {
+    let Some(to) = STAND_INS.get(kd) else { return false };
+    if !own_block(ptr, len) {
+        return false;
+    }
+    std::ptr::copy_nonoverlapping(to.as_ptr(), (ptr + STAND_AT) as *mut u8, to.len());
+    true
+}
+
+/// The `len` bytes at `ptr` are a battle sheet's name and a block of the process heap that starts at this very byte.
+unsafe fn own_block(ptr: usize, len: usize) -> bool {
+    len > BATTLE_DIR.len()
+        && plausible(ptr)
+        && std::slice::from_raw_parts(ptr as *const u8, BATTLE_DIR.len()) == BATTLE_DIR.as_bytes()
+        && HeapValidate(GetProcessHeap(), 0, ptr as *const c_void) != 0
+}
+
+/// The end of this thread's stack (the TEB's StackBase): nothing at or above it is read.
+unsafe fn stack_top() -> usize {
+    let top: usize;
+    std::arch::asm!("mov {}, gs:[0x08]", out(reg) top, options(nostack, readonly, preserves_flags));
+    top
+}
+
+/// The String that owns the `len` bytes at `ptr` (a heap block of `size` bytes), among the locals of the function
+/// whose call pushed its return address at `sp`: a {cap, ptr, len} header with this ptr and len whose capacity is the
+/// block's size, in the `span` bytes above the return address -> how far above. None: no such local - the name is not
+/// (shown to be) the caller's own `format!` result; a borrowed name's (ptr, len) pair spilled to the stack has no
+/// capacity before it, and whatever sits there is not the block's size.
+unsafe fn local_string(sp: usize, span: usize, ptr: usize, len: usize, size: usize) -> Option<usize> {
+    if size < len || size == usize::MAX {
+        return None;
+    }
+    let end = sp + 8 + span;
+    let mut at = sp + FRAME_LOCALS;
+    while at + 24 <= end {
+        if q(at) == size && q(at + 8) == ptr && q(at + 16) == len {
+            return Some(at - sp);
+        }
+        at += 8;
+    }
+    None
+}
+
+/// [`local_string`] for a lookup of the game's, on this thread's stack: the block's size from the heap, the search
+/// kept below the stack's end.
+unsafe fn owner_in_frame(sp: usize, ptr: usize, len: usize) -> Option<usize> {
+    let top = stack_top();
+    if sp == 0 || sp % 8 != 0 || top <= sp + FRAME_LOCALS {
+        return None;
+    }
+    let size = HeapSize(GetProcessHeap(), 0, ptr as *const c_void);
+    local_string(sp, FRAME_SPAN.min(top - sp - 8), ptr, len, size)
+}
 
 fn line(msg: impl FnOnce() -> String) {
     if LINES.fetch_add(1, Ordering::Relaxed) < MAX_LINES {
@@ -291,7 +441,12 @@ fn tally(k: usize) {
                          from now on (it draws its battle sheet)"));
     }
     if n == TALLY {
-        line(|| format!("UI drawer {k}: {TALLY} UI sheet lookups, {handed} of them handed on to be drawn"));
+        if lookup::build().ui_inline.contains(&k) {
+            line(|| format!("UI drawer {k}: {TALLY} UI sheet lookups, {handed} of them renamed where they stand; the \
+                             renderer asked for a stand-in {} times so far", RESOLVED.load(Ordering::Relaxed)));
+        } else {
+            line(|| format!("UI drawer {k}: {TALLY} UI sheet lookups, {handed} of them handed on to be drawn"));
+        }
     }
 }
 
@@ -302,6 +457,14 @@ pub(crate) unsafe fn anim(ctx: usize, name: &str, got: usize, k: usize, hero: Op
         return None;
     }
     let b = lookup::build();
+    // a drawer this build has no hand-over for (a build found at run time lists its sheet lookup as 0): the battle sheet
+    if b.ui_sheet_ret.get(k).copied().unwrap_or(0) == 0 {
+        return None;
+    }
+    // an inline drawer's names are renamed where they stand: only names of the battle folder's shape
+    if b.ui_inline.contains(&k) && !name.starts_with(BATTLE_DIR) {
+        return None;
+    }
     let (id, pack) = hero_id(name, &hd::heroes().packs)?;
     let n = names_of(id, pack)?;
     let kd = kind(b, k);
@@ -329,27 +492,38 @@ pub(crate) unsafe fn anim(ctx: usize, name: &str, got: usize, k: usize, hero: Op
     Some(t)
 }
 
-/// The sheet lookup of `name` from UI drawer `k` right after its redirected anim lookup: the UI sheet's entry - its
-/// sizes divided as the hero's battle sheet's - and the next sink call handing on this name gets the UI sheet's name.
-/// None (no redirected anim lookup before it, another hero): the battle sheet.
-pub(crate) unsafe fn sheet(ctx: usize, name: &str, k: usize, hero: Option<&Hero>) -> Option<usize> {
+/// The sheet lookup of the name at `ptr` (`len` bytes of UTF-8: the caller checked) from UI drawer `k` right after its
+/// redirected anim lookup: the UI sheet's entry - its sizes divided as the hero's battle sheet's - and the next sink
+/// call handing on this name gets the UI sheet's name; an inline drawer's name is renamed where it stands instead
+/// ([`inline`]). None (no redirected anim lookup before it, another hero): the battle sheet, the name untouched.
+/// The name comes as (ptr, len), not as a `&str`: nothing may borrow the bytes across an inline drawer's rename - they
+/// are read here through a local that is not used again after it, and the caller does not read its own either once
+/// this returned Some.
+/// `sp`: where the lookup's return address sits on the drawer's stack (an inline drawer's own String is looked for
+/// above it).
+pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, len: usize, sp: usize, k: usize, hero: Option<&Hero>) -> Option<usize> {
     let mut from = None;
     with_state(|s| {
         from = s.anim.take();
         s.swap = None;
     });
+    let name = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)).ok()?;
     let (id, pack) = hero_id(name, &hd::heroes().packs)?;
     let n = names_of(id, pack)?;
     if from != Some((k, n as *const Names as usize)) {
         return None;
     }
-    let kd = kind(lookup::build(), k);
+    let b = lookup::build();
+    let kd = kind(b, k);
     let ue = lookup::orig_sheet(ctx, &n.sheet[kd]);
     if !plausible(ue) {
         return None;
     }
     if let Some(h) = hero {
         lookup::proxy_of(ue, h);
+    }
+    if b.ui_inline.contains(&k) {
+        return inline(ptr, len, sp, n, kd, k).then_some(ue);
     }
     with_state(|s| {
         s.name.clear();
@@ -392,6 +566,56 @@ unsafe fn swap_in_command(cmd: usize, name: &[u8], new: &str) -> bool {
         System.dealloc(ptr as *mut u8, Layout::from_size_align_unchecked(cap, 1));
     }
     std::ptr::write_unaligned((cmd + 24) as *mut usize, n);
+    true
+}
+
+/// An inline drawer's sheet lookup (Build::ui_inline): no sink will see the name - the drawer copies the name it gave
+/// the lookup (`len` bytes at `ptr`) into its image node itself - so it is renamed where it stands ([`rename_in_place`]). False
+/// when it cannot be (not the drawer's own String): the drawer is turned off and this lookup keeps the battle sheet.
+/// "Its own": a block of the process heap that starts at the name, and - a must on a build found at run time, whose
+/// drawers nobody read - owned by a String among the drawer's locals ([`local_string`], `sp` its lookup's return
+/// address).
+/// Turned off as well when [`RESOLVE_WAIT_MS`] after the first rename, [`RESOLVE_MIN`] names on, the renderer never
+/// asked for a stand-in (it would be drawing nothing for them) - until it does ([`asked`]).
+unsafe fn inline(ptr: usize, len: usize, sp: usize, n: &'static Names, kd: usize, k: usize) -> bool {
+    let first = RENAMED.load(Ordering::Relaxed) == 0;
+    // the name as it was, for the log: copied out before the rename
+    let was = first.then(|| String::from_utf8_lossy(std::slice::from_raw_parts(ptr as *const u8, len)).into_owned());
+    let owner = if own_block(ptr, len) { owner_in_frame(sp, ptr, len) } else { None };
+    let listed = super::build::BUILDS.iter().any(|b| std::ptr::eq(b, lookup::build()));
+    if (owner.is_none() && !listed) || !rename_in_place(ptr, len, kd) {
+        if let Some(o) = OFF.get(k) {
+            o.store(true, Ordering::Relaxed);
+        }
+        line(|| format!("UI drawer {k}: the name it looked up is not its own heap String{} - not renamed, no UI sheets \
+                         for it from now on (it draws its battle sheet)",
+                        if owner.is_none() { " (no String of its own frame holds it)" } else { "" }));
+        return false;
+    }
+    RENAMED.fetch_add(1, Ordering::Relaxed);
+    let _ = FIRST_RENAME.compare_exchange(0, now_ms(), Ordering::Relaxed, Ordering::Relaxed);
+    if let Some(c) = HANDED.get(k) {
+        c.fetch_add(1, Ordering::Relaxed);
+    }
+    if let Some(was) = was {
+        let held = match owner {
+            Some(up) => format!("its own String, {up:#x} above the lookup's return address"),
+            None => "no String of its own frame was found holding it - a listed build: renamed all the same".into(),
+        };
+        line(|| format!("UI drawer {k}: {was} renamed where it stands to the stand-in of {} ({held}; the drawer copies \
+                         it into its image node; the sheet lookup resolves the stand-in when the frame is drawn)",
+                        n.sheet[kd]));
+    }
+    tally(k);
+    let since = now_ms().saturating_sub(FIRST_RENAME.load(Ordering::Relaxed));
+    if RESOLVED.load(Ordering::Relaxed) == 0 && since > RESOLVE_WAIT_MS && RENAMED.load(Ordering::Relaxed) >= RESOLVE_MIN {
+        if let (Some(o), Some(w)) = (OFF.get(k), WAITING.get(k)) {
+            o.store(true, Ordering::Relaxed);
+            w.store(true, Ordering::Relaxed);
+        }
+        line(|| format!("UI drawer {k}: {} names renamed in {since} ms and the renderer never asked for a stand-in - no \
+                         UI sheets for it until it does (it draws its battle sheet)", RENAMED.load(Ordering::Relaxed)));
+    }
     true
 }
 
@@ -495,9 +719,7 @@ unsafe fn hook_sink(func: usize, sink: u32) -> Result<(), String> {
 /// The sinks hooked (src/lookup.rs install_once, after the lookups): on when the build knows the drawers' sheet lookups,
 /// the draw command made from a name and the image node's setter or the UV setter (0.7.2), and every known one is in.
 pub fn install(b: &Build, module: usize) {
-    if b.ui_anim_ret.is_empty() || b.ui_sheet_ret.len() != b.ui_anim_ret.len() || b.cmd_by_name == 0
-        || (b.node_image == 0 && b.cmd_uv == 0)
-    {
+    if b.ui_anim_ret.is_empty() || b.ui_sheet_ret.len() != b.ui_anim_ret.len() || b.cmd_by_name == 0 {
         wlog("UI sheets off: this game build's UI sheet places are not known - the UI draws the battle sheets");
         return;
     }
@@ -510,8 +732,11 @@ pub fn install(b: &Build, module: usize) {
         ON.store(true, Ordering::Release);
     }
     let said: Vec<String> = hooks.iter().map(|(sink, rva, r)| format!("{} {rva:#x} {r:?}", SINKS[*sink as usize])).collect();
+    let off: Vec<usize> = (0..b.ui_sheet_ret.len()).filter(|k| b.ui_sheet_ret[*k] == 0).collect();
     wlog(format!("UI sheets {}: {}; the encyclopedia / faces, pick slots, pick moment and scoreboard draw {DIR}/idle, the \
-                  BP grid {DIR}/bp", if ON.load(Ordering::Relaxed) { "on" } else { "off" }, said.join(", ")));
+                  BP grid {DIR}/bp; drawers that copy the name themselves (renamed where it stands): {:?}; drawers \
+                  without a hand-over (battle sheets): {off:?}",
+                 if ON.load(Ordering::Relaxed) { "on" } else { "off" }, said.join(", "), b.ui_inline));
 }
 
 #[cfg(test)]
@@ -560,6 +785,113 @@ mod tests {
         assert_eq!(prologue_len(&[0x55, 0x48, 0x8b, 0x05, 1, 2, 3, 4, 0x41, 0x56, 0x56, 0x57, 0x53]), None); // a rip load
         assert_eq!(prologue_len(&[0x55, 0x41, 0x56]), None); // cut short
         assert_eq!(prologue_len(&[0x56, 0x48, 0x83, 0xec, 0x20, 0x48, 0xb8, 0, 0, 0, 0, 0, 0]), None); // movabs cut short
+    }
+
+    #[test]
+    fn a_stand_in_is_as_long_as_the_name_and_means_the_ui_sheet() {
+        for s in STAND_INS {
+            assert_eq!(s.len(), 10);
+            assert_eq!(BATTLE_DIR.len() - STAND_AT, s.len());
+            assert_eq!(s.as_bytes()[2], b'~');
+        }
+        assert!(BATTLE_DIR.ends_with("champions/") && BATTLE_DIR.as_bytes()[STAND_AT + 2] != b'~');
+        let both = ["league", "tft"];
+        let name = "asset/base/aseprite_resources/champions/league_akshan#sheet";
+        let idle = stand_in(name, IDLE).unwrap();
+        assert_eq!(idle, "asset/base/aseprite_resources/ui~~idle~/league_akshan#sheet");
+        assert_eq!(idle.len(), name.len());
+        let (kd, n) = stand_in_names(&idle, &both).expect("a stand-in");
+        assert_eq!((kd, n.sheet[kd].as_str()), (IDLE, "asset/league/ui_sheets/idle/league_akshan#sheet"));
+        let reel = stand_in("asset/base/aseprite_resources/champions/tft_powder#sheet", REEL).unwrap();
+        let (kd, n) = stand_in_names(&reel, &both).expect("a stand-in");
+        assert_eq!((kd, n.sheet[kd].as_str()), (REEL, "asset/tft/ui_sheets/bp/tft_powder#sheet"));
+        // the real names, another pack's hero, a base hero: not stand-ins
+        assert!(stand_in_names(name, &both).is_none());
+        assert!(stand_in_names("asset/league/ui_sheets/idle/league_akshan#sheet", &both).is_none());
+        assert!(stand_in_names(&reel, &["league"]).is_none());
+        assert!(stand_in_names("asset/base/aseprite_resources/ui~~idle~/alchemist#sheet", &both).is_none());
+        // only a battle sheet's name gets one
+        assert_eq!(stand_in("asset/league/champions/league_akshan#sheet", IDLE), None);
+    }
+
+    #[test]
+    fn a_drawers_own_name_is_renamed_where_it_stands() {
+        let battle = "asset/base/aseprite_resources/champions/league_akshan#sheet";
+        unsafe {
+            // the drawer's own String: a block of the process heap
+            let mut own = battle.as_bytes().to_vec();
+            assert!(rename_in_place(own.as_mut_ptr() as usize, own.len(), IDLE));
+            assert_eq!(own, stand_in(battle, IDLE).unwrap().as_bytes());
+            // a name that is not a heap block's start: static data, the middle of a block - left alone
+            assert!(!rename_in_place(battle.as_ptr() as usize, battle.len(), IDLE));
+            let boxed = format!("xx{battle}");
+            assert!(!rename_in_place(boxed.as_ptr() as usize + 2, battle.len(), IDLE));
+            assert_eq!(&boxed[2..], battle);
+            // another folder, a name too short: left alone
+            let other = String::from("asset/league/champions/league_akshan#sheet#############");
+            assert!(!rename_in_place(other.as_ptr() as usize, other.len(), IDLE));
+            assert!(other.starts_with("asset/league/champions/"));
+            let short = String::from(BATTLE_DIR);
+            assert!(!rename_in_place(short.as_ptr() as usize, short.len(), IDLE));
+        }
+    }
+
+    #[test]
+    fn the_string_that_owns_a_name_is_found_among_the_callers_locals() {
+        let name = "asset/base/aseprite_resources/champions/league_akshan#sheet".as_bytes().to_vec();
+        let (cap, ptr, len) = (name.capacity(), name.as_ptr() as usize, name.len());
+        unsafe {
+            let size = HeapSize(GetProcessHeap(), 0, ptr as *const c_void);
+            assert_eq!(size, cap, "a String's capacity is its heap block's size");
+            // a drawer's frame as 0.7.2 lays it out: the return address, four register homes (rcx, the name's ptr and
+            // len, r9), then locals - the name's (ptr, len) 0x58 above the return address, `before` the word before them
+            let frame = |before: usize| {
+                let mut f = [0usize; 24];
+                f[1..5].copy_from_slice(&[0x7ff6_0000_1000, ptr, len, 7]);
+                f[10..13].copy_from_slice(&[before, ptr, len]);
+                f
+            };
+            let span = 8 * 23;
+            let found = |f: &[usize; 24], span: usize, size: usize| local_string(f.as_ptr() as usize, span, ptr, len, size);
+            // the String's header {cap, ptr, len}: found where it begins
+            let own = frame(cap);
+            assert_eq!(found(&own, span, size), Some(0x50));
+            // the (ptr, len) pair in the register homes is not it, nor is a borrowed name's pair spilled among the
+            // locals behind some other word
+            assert_eq!(found(&frame(0x7ff6_0000_2000), span, size), None);
+            assert_eq!(found(&frame(cap + 1), span, size), None);
+            // a header past the searched span, a block whose size is not known: not found
+            assert_eq!(found(&own, 0x50, size), None);
+            assert_eq!(found(&own, span, usize::MAX), None);
+            // on this thread's own stack, with the heap's word for the size
+            let sp = own.as_ptr() as usize;
+            assert!(stack_top() > sp);
+            assert_eq!(owner_in_frame(sp, ptr, len), Some(0x50));
+            assert_eq!(owner_in_frame(0, ptr, len), None);
+        }
+    }
+
+    #[test]
+    fn the_stand_in_guard_gives_way_once_the_renderer_asks() {
+        // drawer 7 is nobody's: turned off by the guard (waiting), drawer 6 turned off for another reason
+        RESOLVED.store(0, Ordering::Relaxed);
+        OFF[7].store(true, Ordering::Relaxed);
+        WAITING[7].store(true, Ordering::Relaxed);
+        OFF[6].store(true, Ordering::Relaxed);
+        asked();
+        assert!(!OFF[7].load(Ordering::Relaxed) && !WAITING[7].load(Ordering::Relaxed));
+        assert!(OFF[6].load(Ordering::Relaxed));
+        assert_eq!(RESOLVED.load(Ordering::Relaxed), 1);
+        // only the first ask opens anything: a drawer turned off later stays off
+        OFF[7].store(true, Ordering::Relaxed);
+        WAITING[7].store(true, Ordering::Relaxed);
+        asked();
+        assert!(OFF[7].load(Ordering::Relaxed));
+        for k in [6, 7] {
+            OFF[k].store(false, Ordering::Relaxed);
+            WAITING[k].store(false, Ordering::Relaxed);
+        }
+        RESOLVED.store(0, Ordering::Relaxed);
     }
 
     /// A sprite command as a 0.7.2 drawer builds it: its tag, then the name copied into a buffer of `cap` bytes from the
