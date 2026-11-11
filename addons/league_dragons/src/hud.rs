@@ -241,8 +241,9 @@ pub fn draw(ctx: &mut StableClient<'_>, at: Rect, h: &Hud, lang: Lang, m: &Metri
 }
 
 /// 鼠标停在 HUD（`at`）上时：框下面一个说明框（[`words::tip_lines`]），太宽就把字缩小，不出画面。
-pub fn draw_tip(ctx: &mut StableClient<'_>, at: Rect, rec: &Record, lang: Lang, m: &Metrics, ui: (f32, f32)) {
-    let lines = words::tip_lines(lang, rec);
+pub fn draw_tip(ctx: &mut StableClient<'_>, at: Rect, rec: &Record, terrain: Option<Element>, lang: Lang, m: &Metrics,
+                ui: (f32, f32)) {
+    let lines = words::tip_lines(lang, rec, terrain);
     let widest = lines.iter().map(|l| em(&l.0)).fold(0.0f32, f32::max);
     let room = ui.0 - at.0 - 16.0 * m.s;
     let size = (m.small * 0.95).min(room / (widest + 1.0)).max(9.0);
