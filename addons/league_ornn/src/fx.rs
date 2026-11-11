@@ -6,6 +6,8 @@
 //! 画在哪一格（0.4.1，[`icon_index`]）：玩家栏不一定一件装备一个图标——用户 11-11 的截图里 4+6 装备 mod 的玩家栏每行第一格是
 //! 一个符文图标，后面才是装备（装备栏里却有四个符文）。所以不按装备栏的格子数，按这一行实际有几个图标：开局就有的东西（符文、
 //! 出门装）显示出来的那几个排在前面，后面是别的装备、顺序和装备栏一样。Riot 装备 mod 的玩家栏（没有符文）就是装备栏的顺序。
+//! 0.4.3：图标不比装备栏里的东西少的玩家栏是一格一样（游戏 0.7.2 自带的固定 4 格、0.7.2 版 4+6 装备 mod 的固定 10 格，空格子
+//! 也在），杰作就在装备栏的那一格；上面那条只用在图标比装备栏里的东西少的玩家栏上。`FX ROWS` 多记每个图标显示着没有。
 //!
 //! 锻造在模拟里做（`Forge::forge`），屏幕放的是跑在前面的模拟的回放：屏幕上那一场（`ClientMatchView`、观战、回放）里被动每
 //! `FORGE_EVERY` tick 记下友方每个选手（队伍、分路）的杰作在装备栏的第几格（变了才记），加的属性变多就记一次锻造（[`record`]）；
@@ -44,17 +46,27 @@ const UI: &str = "UI";
 const GOLD: u32 = 0xf2_c4_4a_00;
 const GOLD_HI: u32 = 0xff_e8_96_00;
 
-/// 杰作那件装备在这个人的装备里排第几（开局就有的符文、出门装不算）、这样的装备一共几件。
+/// 杰作那件装备：在装备栏的第几格（`place`）、装备栏里一共几样（`held`，符文、出门装都算）；在这个人的装备里排第几（`item`，
+/// 开局就有的符文、出门装不算）、这样的装备一共几件（`items`）。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Slot {
+    pub place: usize,
+    pub held: usize,
     pub item: usize,
     pub items: usize,
 }
 
-/// 玩家栏这一行有 `icons` 个图标时，杰作那件是第几个：开局就有的东西显示出来的那几个（图标比装备多出来的）排在前面，后面是
-/// 装备、顺序和装备栏一样。超出这一行的图标就不画（None）。
+/// 玩家栏这一行有 `icons` 个图标时，杰作那件是第几个。
+///
+/// - 图标不比装备栏里的东西少（一格一样；游戏 0.7.2 自带的玩家栏固定 4 格 `slot0`…`slot3`、空着的格子也在，0.7.2 版 4+6 装备
+///   mod 固定 10 格 = 4 个符文 + 6 件装备，Riot 装备 mod 有几件放几个图标）：就是装备栏的第几格。0.4.1–0.4.2 这里也按下面那条算，
+///   固定格子的玩家栏上光晕画到了后面的空格上（2026-11-11 的日志：只有一件装备的人 `item 0 of 1 -> icon Some(3)`）。
+/// - 图标比装备栏里的东西少（0.7.1 的 4+6 装备 mod：四个符文只显示成第一格的一个图标）：开局就有的东西显示出来的那几个排在
+///   前面，后面是装备、顺序和装备栏一样。
+///
+/// 超出这一行的图标就不画（None）。
 pub fn icon_index(icons: usize, s: Slot) -> Option<usize> {
-    let i = icons.saturating_sub(s.items) + s.item;
+    let i = if icons >= s.held { s.place } else { icons.saturating_sub(s.items) + s.item };
     (i < icons).then_some(i)
 }
 
@@ -249,10 +261,16 @@ pub fn draw(ctx: &mut StableClient<'_>) {
                     let kda = ctx.ui_text(&format!("{base}.kda")).unwrap_or_default();
                     let cs = ctx.ui_text(&format!("{base}.cs.value")).unwrap_or_default();
                     let forged = state.and_then(|(_, s, _)| s.slot).map_or("-".to_string(), |s| {
-                        format!("masterwork = item {} of {} -> icon {:?}", s.item, s.items, icon_index(icons.len(), s))
+                        format!("masterwork = place {} of {} in the item bar, item {} of {} -> icon {:?}", s.place, s.held,
+                                s.item, s.items, icon_index(icons.len(), s))
                     });
-                    seen.push(format!("{row}.{side} {kda} cs {cs} icons {} {icons:?} [team {team} lane {lane}: {forged}]",
-                                      icons.len()));
+                    // which of the row's icons are shown: a row of fixed slots keeps its empty ones
+                    let on: String = icons
+                        .iter()
+                        .map(|i| if ctx.ui_visible(&format!("{items}.{i}")) == Some(true) { '1' } else { '0' })
+                        .collect();
+                    seen.push(format!("{row}.{side} {kda} cs {cs} icons {} {icons:?} shown {on} [team {team} lane {lane}: \
+                                       {forged}]", icons.len()));
                 }
                 let Some(&(_, s, flash)) = state else { continue };
                 let Some(icon) = s.slot.and_then(|sl| icon_index(icons.len(), sl)).and_then(|i| icons.get(i)) else { continue };
@@ -355,7 +373,7 @@ mod tests {
         let mut b = Board::default();
         let key = (0, 2);
         // no masterwork yet, then his first legendary item (his second item of three) forged, then it becomes its radiant version
-        let s1 = Slot { item: 1, items: 3 };
+        let s1 = Slot { place: 1, held: 3, item: 1, items: 3 };
         record(&mut b, 1, 30, key, None, true, [0; 6]);
         record(&mut b, 1, 60, key, Some(s1), true, [0, 0, 6, 100, 0, 0]);
         record(&mut b, 1, 90, key, Some(s1), true, [0, 0, 6, 100, 0, 0]);
@@ -372,7 +390,7 @@ mod tests {
         assert_eq!(flash_age(tr, 130), Some(10));
         assert_eq!(flash_age(tr, 120 + FLASH_T), None);
         // the ally's masterwork: a flash on his one item
-        record(&mut b, 1, 150, (0, 3), Some(Slot { item: 0, items: 2 }), false, [10, 0, 0, 0, 0, 0]);
+        record(&mut b, 1, 150, (0, 3), Some(Slot { place: 0, held: 2, item: 0, items: 2 }), false, [10, 0, 0, 0, 0, 0]);
         assert_eq!(b.tracks[&(0, 3)].flashes, [150]);
         // another sim (number or tick back): from scratch
         record(&mut b, 1, 30, key, None, true, [0; 6]);
@@ -384,17 +402,26 @@ mod tests {
     #[test]
     fn the_glow_finds_its_icon_on_any_item_mods_scoreboard() {
         // the Riot item pack's row: one icon an item, in the item bar's order
-        assert_eq!(icon_index(5, Slot { item: 2, items: 5 }), Some(2));
-        // the 4+6 item pack's row in the user's screenshot: the rune icon first, then the items (four runes in the item bar)
-        assert_eq!(icon_index(4, Slot { item: 0, items: 3 }), Some(1));
-        assert_eq!(icon_index(4, Slot { item: 2, items: 3 }), Some(3));
+        assert_eq!(icon_index(5, Slot { place: 2, held: 5, item: 2, items: 5 }), Some(2));
+        // game 0.7.2's own row: four slots that are always there. One item held, forged: its slot, not the last empty
+        // one (0.4.1 drew on slot3 - the 11-11 log's `item 0 of 1 -> icon Some(3)`)
+        assert_eq!(icon_index(4, Slot { place: 0, held: 1, item: 0, items: 1 }), Some(0));
+        assert_eq!(icon_index(4, Slot { place: 2, held: 3, item: 2, items: 3 }), Some(2));
+        // the 4+6 item pack for game 0.7.2: ten slots, the four runes in front; his first finished item is his third
+        // thing after them
+        assert_eq!(icon_index(10, Slot { place: 6, held: 8, item: 2, items: 4 }), Some(6));
+        assert_eq!(icon_index(10, Slot { place: 9, held: 10, item: 5, items: 6 }), Some(9));
+        // the older 4+6 item pack's row in the user's screenshot: one rune icon first, then the items (four runes in
+        // the item bar) - fewer icons than the bar holds
+        assert_eq!(icon_index(4, Slot { place: 4, held: 7, item: 0, items: 3 }), Some(1));
+        assert_eq!(icon_index(4, Slot { place: 6, held: 7, item: 2, items: 3 }), Some(3));
         // a starting item still held and shown: it stays in front
-        assert_eq!(icon_index(6, Slot { item: 0, items: 5 }), Some(1));
+        assert_eq!(icon_index(6, Slot { place: 1, held: 6, item: 0, items: 5 }), Some(1));
         // no rune shown at all
-        assert_eq!(icon_index(3, Slot { item: 1, items: 3 }), Some(1));
+        assert_eq!(icon_index(3, Slot { place: 5, held: 7, item: 1, items: 3 }), Some(1));
         // icons not there yet: nothing drawn rather than the wrong one
-        assert_eq!(icon_index(1, Slot { item: 2, items: 3 }), None);
-        assert_eq!(icon_index(0, Slot { item: 0, items: 1 }), None);
+        assert_eq!(icon_index(1, Slot { place: 2, held: 3, item: 2, items: 3 }), None);
+        assert_eq!(icon_index(0, Slot { place: 0, held: 1, item: 0, items: 1 }), None);
     }
 
     #[test]
