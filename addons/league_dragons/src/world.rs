@@ -675,23 +675,111 @@ pub fn view(ctx: &StableClient<'_>, m: u64, s: u64, t: usize) -> Option<View> {
     Some(at(made))
 }
 
+/// 宿主正在攒的这一帧（渲染钩子里）。
+pub fn frame_of(ctx: &StableClient<'_>) -> Result<usize, String> {
+    let state = host_state(ctx).ok_or_else(|| "the host's state is not where it was".to_string())?;
+    bytes(&Process, state + STATE_FRAME, 8).map(|b| u64_in(&b, 0) as usize).filter(|f| plausible(*f))
+        .ok_or_else(|| "no frame in the host's state".to_string())
+}
+
+/// 往自己的进程里写（地址不对只是写不进去，不会崩）。
+#[cfg(windows)]
+pub fn poke(addr: usize, data: &[u8]) -> bool {
+    #[link(name = "kernel32")]
+    extern "system" {
+        fn GetCurrentProcess() -> isize;
+        fn WriteProcessMemory(process: isize, base: *mut std::ffi::c_void, buf: *const std::ffi::c_void, size: usize,
+                              written: *mut usize) -> i32;
+    }
+    if data.is_empty() || !plausible(addr) {
+        return false;
+    }
+    let mut done = 0usize;
+    let ok = unsafe { WriteProcessMemory(GetCurrentProcess(), addr as *mut _, data.as_ptr() as *const _, data.len(), &mut done) };
+    ok != 0 && done == data.len()
+}
+
+#[cfg(not(windows))]
+pub fn poke(_addr: usize, _data: &[u8]) -> bool {
+    false
+}
+
+/// `[恢复, c1 … ck]` -> `[c1 … ck, 恢复]`（每条 [`CMD`] 字节）。
+pub fn pop_last(block: &[u8]) -> Vec<u8> {
+    let mut out = Vec::with_capacity(block.len());
+    out.extend_from_slice(&block[CMD.min(block.len())..]);
+    out.extend_from_slice(&block[..CMD.min(block.len())]);
+    out
+}
+
+/// 把刚推进 `"Game"` 的 `k` 条命令（世界的「恢复」后面紧跟着的那 `k` 条，表里再没有别的）挪进世界里：恢复挪到它们后面，
+/// 它们就和游戏自己的命令一样在世界的平移里面（坐标直接用世界像素）。-> (恢复原来在第几条, 表里一共几条)。
+pub fn move_into_world(ctx: &StableClient<'_>, k: usize) -> Result<(usize, usize), String> {
+    let p = Process;
+    let (list, n) = game_list(&p, frame_of(ctx)?)?;
+    let pop = find_scope(&p, list, n, true)?.pop_at.ok_or_else(|| "the world's pop is not in the list".to_string())?;
+    if k == 0 || pop + 1 + k != n {
+        return Err(format!("{} commands after the world's pop (at {pop} of {n}), {k} expected", n - pop - 1));
+    }
+    let block = bytes(&p, list + pop * CMD, (k + 1) * CMD).ok_or_else(|| "the list's tail cannot be read".to_string())?;
+    if u64_in(&block, 0) != TAG_POP {
+        return Err("the command at the pop's place is no pop".to_string());
+    }
+    if poke(list + pop * CMD, &pop_last(&block)) {
+        Ok((pop, n))
+    } else {
+        Err("the list's tail cannot be written".to_string())
+    }
+}
+
+/// `"Game"` 那张表头 `n` 条命令：种类和 +8 起的四个数（镜头、平移的参数）——校准的日志用。
+pub fn head(ctx: &StableClient<'_>, n: usize) -> Vec<String> {
+    let p = Process;
+    let Ok((list, len)) = frame_of(ctx).and_then(|f| game_list(&p, f)) else { return vec!["?".to_string()] };
+    let take = n.min(len);
+    let Some(block) = bytes(&p, list, take * CMD) else { return vec![format!("{len} commands, not read")] };
+    let mut out: Vec<String> = (0..take)
+        .map(|i| {
+            let c = &block[i * CMD..(i + 1) * CMD];
+            format!("{:x}: {:.1} {:.1} {:.1} {:.1}", kind(u64_in(c, 0)), f32_in(c, AT_XY), f32_in(c, AT_XY + 4), f32_in(c, AT_WH),
+                    f32_in(c, AT_WH + 4))
+        })
+        .collect();
+    out.push(format!("{len} in all"));
+    out
+}
+
+/// 画一帧动画，它的**左上角**放在渲染层 `map` 的 `(x, y)`。
+///
+/// 引擎的 `pivot` 不是接口文档说的「x、y 指的那一点」：2026-11-11 的校准截图里，给了锚点的比例（脚在图里的位置），图的
+/// 左上角落在 x、y **加**锚点的地方——整张图往右下偏了两个锚点（60 × 84 的光柱偏了 (60, 144)，`"Game"` 和 `"UI"` 上一样）。
+/// 所以锚点自己减，`pivot` 给 0：不管引擎怎么用它，0 就是左上角。
+pub fn sprite_top_left(ctx: &mut StableClient<'_>, map: &str, z: i32, a: &Anim, frame: usize, x: f32, y: f32) -> bool {
+    let (uv, _) = uv_of(a, frame);
+    ctx.draw_sprite(map, SHEET_TEX, &StableSpriteParams {
+        x,
+        y,
+        z,
+        pivot_x: 0.0,
+        pivot_y: 0.0,
+        uv,
+        sample_nearest: true,
+        ..StableSpriteParams::default()
+    })
+}
+
+/// 一帧动画的左上角在哪：它的锚点（脚）放在 `"Game"` 里的 `feet` 上。
+pub fn corner(a: &Anim, feet: (f32, f32)) -> (f32, f32) {
+    (feet.0 - a.ax as f32, feet.1 - a.ay as f32)
+}
+
 /// 画一帧动画：`frame` 那一帧的锚点放在模拟里的 `at` 上。
 pub fn sprite(ctx: &mut StableClient<'_>, v: &View, a: &Anim, frame: usize, at: (u64, u64)) -> bool {
     if !v.sprites {
         return false;
     }
-    let (uv, pivot) = uv_of(a, frame);
-    let (x, y) = v.map(at);
-    ctx.draw_sprite(GAME, SHEET_TEX, &StableSpriteParams {
-        x,
-        y,
-        z: v.z,
-        pivot_x: pivot.0,
-        pivot_y: pivot.1,
-        uv,
-        sample_nearest: true,
-        ..StableSpriteParams::default()
-    })
+    let (x, y) = corner(a, v.map(at));
+    sprite_top_left(ctx, GAME, v.z, a, frame, x, y)
 }
 
 /// 画一帧动画，锚点放在 `"Game"` 里的 `at`（不跟着世界走的东西：海洋峡谷的雨铺在镜头看着的那一块上）。
@@ -699,17 +787,8 @@ pub fn sprite_on_map(ctx: &mut StableClient<'_>, v: &View, a: &Anim, frame: usiz
     if !v.sprites {
         return false;
     }
-    let (uv, pivot) = uv_of(a, frame);
-    ctx.draw_sprite(GAME, SHEET_TEX, &StableSpriteParams {
-        x: at.0,
-        y: at.1,
-        z: v.z,
-        pivot_x: pivot.0,
-        pivot_y: pivot.1,
-        uv,
-        sample_nearest: true,
-        ..StableSpriteParams::default()
-    })
+    let (x, y) = corner(a, at);
+    sprite_top_left(ctx, GAME, v.z, a, frame, x, y)
 }
 
 /// 世界里的一横条像素（`x`、`y` 是世界像素，`w` 条宽）：`0xRRGGBBAA`。
@@ -1061,6 +1140,24 @@ pub(crate) mod tests {
         assert_eq!((kind(TAG_PUSH), kind(TAG_POP), kind(TAG_CAMERA)), (0x12, 0x13, 0x00));
     }
 
+    /// Commands pushed after the world's pop go into the world when the pop is moved behind them.
+    #[test]
+    fn the_pop_moves_behind_what_was_pushed_after_it() {
+        let block = [tagged(TAG_POP), rect_cmd(1), rect_cmd(2)].concat();
+        let out = pop_last(&block);
+        assert_eq!(out.len(), block.len());
+        assert_eq!(out[..CMD], rect_cmd(1)[..]);
+        assert_eq!(out[CMD..2 * CMD], rect_cmd(2)[..]);
+        assert_eq!(out[2 * CMD..], tagged(TAG_POP)[..]);
+        // the list as the game then reads it: the world ends after them
+        let mut cmds = vec![camera(512.0, 512.0, 1024.0, 1024.0), push(904.0, 126.0, 1.0), rect_cmd(0)];
+        cmds.extend(out.chunks(CMD).map(|c| c.to_vec()));
+        let fake = frame(&[("Game", cmds)]);
+        let (list, n) = game_list(&fake, FRAME).unwrap();
+        let sc = find_scope(&fake, list, n, true).unwrap();
+        assert_eq!((sc.push_at, sc.pop_at, census(&fake, list, &sc, 0).z), (1, Some(5), Some((0, 2))));
+    }
+
     /// The sheet ships with the add-on, at the size its table says, where the mod looks for it.
     #[test]
     fn the_sheet_is_in_the_add_ons_folder_at_the_tables_size() {
@@ -1085,6 +1182,9 @@ pub(crate) mod tests {
         assert_eq!(pivot, (a.ax as f32 / a.w as f32, a.ay as f32 / a.h as f32));
         // past the last frame: the last one
         assert_eq!(uv_of(a, 999), uv_of(a, a.frames as usize - 1));
+        // drawn by its top left corner: the feet at (500, 300) put the 96 x 136 picture's corner its anchor up and left
+        assert_eq!(corner(a, (500.0, 300.0)), (500.0 - a.ax as f32, 300.0 - a.ay as f32));
+        assert_eq!((a.ax, a.ay), (48, 116));
         // every cell inside the sheet, every anchor inside its cell
         for a in ANIMS {
             let lines = (a.frames as usize).div_ceil(a.per_row as usize);

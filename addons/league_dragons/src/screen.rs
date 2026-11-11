@@ -172,6 +172,9 @@ pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
     if hud::over(feed::ended_at(m, s), t) {
         return;
     }
+    // the calibration squares (settings.ini: world_probe = 1; the first 30 s of a match) - before anything else of this
+    // mod goes into the match's world
+    super::probe::after(ctx, m, s, t);
     let events = feed::events(m, s);
     // the rift's terrain once it has turned (the last such event up to now), then the effects on the battlefield (the
     // souls' triggers, the Elder's burn and execute, a gate's flash), all under the notices and the HUD

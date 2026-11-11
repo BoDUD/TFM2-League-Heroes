@@ -54,6 +54,7 @@ pub mod rules;
 pub mod fx;
 pub mod fx_atlas;
 pub mod world;
+pub mod probe;
 // 元素峡谷的地形（第二条小龙被拿下后）：风道、传送门、草丛和蜂蜜果实、岩石
 pub mod rift;
 // 画面那一半（客户端扩展里画，只读 feed）：公告、HUD 和它们的字
