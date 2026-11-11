@@ -1758,7 +1758,8 @@ mod tests {
     }
 
     // TeamfightManager2.exe 0.7.1 (94,043,136 bytes, 2026-11-04): player_respawn_time 0x143498fe0, player_is_alive
-    // 0x143497240 - 0.6.5's code and fields again (the 0.7.0 compiler's build of the same getters)
+    // 0x143497240 - 0.6.5's code and fields again (the 0.7.0 compiler's build of the same getters). 0.7.2 (94,603,776
+    // bytes, 2026-11-11): these bytes again, at 0x143555970 / 0x143553a90
     const RESPAWN_TIME_071: &str = "554883ec30488d6c243048c745f8feffffff4885d2742348ffca488b014c8b41084889c141ff9058010000904885c0740980b8b808000000740831c04883c4305dc3488b80c00800004883c4305dc3";
     const IS_ALIVE_071: &str = "554883ec30488d6c243048c745f8feffffff4885d2742748ffca488b014c8b41084889c141ff9058010000904885c0740d0fb680b80800004883c4305dc331c04883c4305dc3";
 

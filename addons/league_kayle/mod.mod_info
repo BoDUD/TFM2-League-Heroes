@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.76.1"
+      "version": ">=0.333.0"
     }
   ],
   "description": "Test build of Kayle's ascension at her real levels, kept through death (needs League of Legends Heroes): replaces the main pack's Kayle so her stages (levels 5, 8 and 12: her range, attack speed and the wings behind her) come at those levels, read from her real level instead of the main pack's maximum-health probe (which health from items gave levels early), and come back the moment death clears them, instead of at her first attack after respawning as the data pack must. New stages still come with their ceremony. Other champions are untouched. Writes a log for testing.",
@@ -16,5 +16,5 @@
   "mod_id": "league_kayle",
   "mod_type": "native",
   "name": "League Heroes: Kayle's ascension kept through death (test)",
-  "version": "0.2.2"
+  "version": "0.2.3"
 }

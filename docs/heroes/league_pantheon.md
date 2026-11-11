@@ -55,7 +55,7 @@
 
 ### 潘森附加包
 
-[潘森附加包](../../addons/league_pantheon/README.md)：`league_pantheon` v0.1.5
+[潘森附加包](../../addons/league_pantheon/README.md)：`league_pantheon` v0.1.6
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

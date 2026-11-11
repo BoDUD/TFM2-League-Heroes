@@ -86,6 +86,10 @@ jobs:
         run: python -I tools/kit/check_arm_refund.py
       - name: Range buffs are league.dll's league:range markers (no `range` on a buff, the attack reads them, table up to date)
         run: python -I tools/kit/range_buffs.py --check
+      - name: Stack counts in the champion panel - the heroes' stack_skill_index and league.dll's table agree
+        run: |
+          python -I tools/kit/stack_nums.py --check
+          python -I tools/art/fx_kindred_hunt.py --check
       - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
         run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges

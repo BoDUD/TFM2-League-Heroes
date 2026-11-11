@@ -1132,8 +1132,8 @@
     },
     "league_shen": {
       "face": {
-        "x": 3,
-        "y": -38
+        "x": 5,
+        "y": -36
       },
       "center": {
         "x": 0,
@@ -1141,7 +1141,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -9
+        "y": -8
       }
     },
     "league_syndra": {
@@ -2283,7 +2283,7 @@
     "league_zaahen": {
       "face": {
         "x": 1,
-        "y": -41
+        "y": -35
       },
       "center": {
         "x": 0,
@@ -2291,7 +2291,7 @@
       },
       "banpick_center": {
         "x": 0,
-        "y": -11
+        "y": -13
       }
     }
   }

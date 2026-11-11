@@ -11,6 +11,10 @@
 //!   列出的版本的特征码找不到时按形状兜底（0.6.5 → 0.7.0 实测：旧特征码 + 兜底在 0.7.0 上找全，与 build.rs 一致）：取表函数按
 //!   「开头 + 拼键调用 + 哈希调用」，身体绘制的四次取尺寸按间距不管寄存器，缩放读取认 r12 的 SIB 写法，缩放 / 恢复命令的标签从
 //!   实体渲染的代码里读，按名字出命令的函数按调用者和长度检查认。
+//! - 界面画英雄的五处（0.7.2 起）：取尺寸认「它取图之后的头四次间接调用」（0.7.2 图鉴和选人位把取图挪到选帧之后，
+//!   从取表调用往后数会数到别的调用）；五处认不全时只是没有界面小图集、界面英雄按普通界面大小画，战场的地址照样用
+//!   （0.9.30 在 0.7.2 上因为认不出图鉴整个放弃，英雄全画成 1x）。图鉴和选人位交名字的函数：0.7.1 以前是图片节点，
+//!   0.7.2 是给它们自己拼的贴图命令设 UV 的函数（cmd_uv），按特征码找，找不到按「写完命令标签后的第一个调用」认。
 //! - [`display`]：显示更新函数和它的槽，所有挂这个槽的 DLL 共用；第一个找到的写进进程环境变量
 //!   `LEAGUE_DISPLAY_PLACES`（在任何钩子改槽之前），后来的直接读——槽被改过以后就搜不到原指针了。
 //!
@@ -269,9 +273,11 @@ pub struct Places {
     pub ui_sized_size_ret: Vec<usize>,
     /// the UI drawers' own sheet lookups (league.dll's UI sheets: optional - empty when not found)
     pub ui_sheet_ret: Vec<usize>,
-    /// the functions they hand the sheet's name to (0: not found)
+    /// the functions they hand the sheet's name to (0: not found): the draw command made from a name, the image node's
+    /// setter (to 0.7.1), the UV setter of the sprite command the encyclopedia and the pick slot build (0.7.2)
     pub cmd_by_name: usize,
     pub node_image: usize,
+    pub cmd_uv: usize,
     pub body_draw: usize,
     pub cmd_grow: usize,
     /// the view node draw (league.dll's dense effects: optional - 0 when not found)
@@ -296,6 +302,44 @@ fn indirect_call(code: &[u8], i: usize) -> Option<usize> {
         (0x41, 0xff, Some(m)) if (0x50..=0x57).contains(&m) && m != 0x54 => Some(4),
         _ => None,
     }
+}
+
+/// A caller of the anim lookup at `c` -> (its first call of the sheet lookup after it in the same function, the first four
+/// indirect calls after that and their lengths: a UI drawer's size asks), else None. A drawer looks the hero's sheet up
+/// after its anim lookup and asks the sheet's size right after (UV = frame / size); 0.7.2 moved the encyclopedia's and
+/// the pick slot's sheet lookup after their frame choice (tools/re/find_build.py drawer_window, the same rule).
+fn drawer_window(img: &Image, c: usize, sheet: usize) -> Option<(usize, [usize; 4], [usize; 4])> {
+    let end = img.func_of(c).map_or(c + 0x800, |f| f.1.min(c + 0x800));
+    let s = (c + 5..end).find(|a| img.call_target(*a) == Some(sheet))?;
+    let code = img.read(s + 5, 0x400)?;
+    let (mut asks, mut lens, mut n, mut i) = ([0; 4], [0; 4], 0, 0);
+    while i < code.len() && n < 4 {
+        match indirect_call(code, i) {
+            Some(len) => {
+                (asks[n], lens[n]) = (s + 5 + i, len);
+                n += 1;
+                i += len;
+            }
+            None => i += 1,
+        }
+    }
+    (n == 4).then_some((s, asks, lens))
+}
+
+/// The first direct call within 0x40 bytes after each `movabs r64, 0x80000000000000xx` (a draw command's tag) in
+/// [from, to): the function a drawer hands the draw command it just built to (0.7.2's UV setter; find_build.py
+/// tagged_calls).
+fn tagged_calls(img: &Image, from: usize, to: usize) -> HashSet<usize> {
+    let mut out = HashSet::new();
+    let Some(w) = img.read(from, to.saturating_sub(from)) else { return out };
+    for i in 0..w.len().saturating_sub(9) {
+        if (w[i] == 0x48 || w[i] == 0x49) && (0xb8..=0xbf).contains(&w[i + 1]) && w[i + 3..i + 10] == [0, 0, 0, 0, 0, 0, 0x80] {
+            let call = (i + 10..(i + 0x40).min(w.len().saturating_sub(4)))
+                .find_map(|j| img.call_target(from + j).filter(|t| img.func_of(*t).is_some_and(|f| f.0 == *t)));
+            out.extend(call);
+        }
+    }
+    out
 }
 
 /// `movss xmm, [reg+0x1b4]` (mod 10) at the start of `w`, with or without a REX prefix (0.6.4 read it through rdi,
@@ -487,38 +531,26 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         Some(d) => d,
         None => display_in(img)?,
     };
-    // 5. the UI drawers: every caller of the anim lookup scored by its four indirect calls' spacing
+    // 5. the UI drawers: every caller of the anim lookup with a sheet lookup after it, scored by the spacing of the four
+    // indirect calls after that sheet lookup (its size asks, drawer_window). Not told apart clearly: no UI drawers
+    // (Places::ui_* empty) - the UI draws the battle sheets and dense heroes at the plain UI size, the battlefield's
+    // places stand on their own (0.7.2: league.dll 0.9.30 gave up the whole build over the encyclopedia and drew 1x)
     let aset: HashSet<usize> = [anim].into_iter().collect();
     let anim_callers = img.calls_to(&aset).remove(&anim).unwrap_or_default();
+    let windows: HashMap<usize, (usize, [usize; 4], [usize; 4])> =
+        anim_callers.iter().filter_map(|c| drawer_window(img, *c, sheet).map(|w| (*c, w))).collect();
     let mut sites: Vec<(usize, Vec<Scored>)> = Vec::new();
     for (old_call, old) in UI {
-        let mut scored = Vec::new();
-        for c in &anim_callers {
-            let Some(code) = img.read(*c, 0x800) else { continue };
-            let mut asks = Vec::new();
-            let mut i = 5;
-            while i < code.len() {
-                if let Some(n) = indirect_call(code, i) {
-                    asks.push((c + i, c + i + n - (c + 5)));
-                    i += n;
-                } else {
-                    i += 1;
-                }
-            }
-            let mut best: Option<(usize, [usize; 4])> = None;
-            for s in 0..asks.len().saturating_sub(3) {
-                let w: Vec<usize> = asks[s..s + 4].iter().map(|a| a.1).collect();
-                let d = (0..4).map(|j| (w[j] as i64 - w[0] as i64 - (old[j] as i64 - old[0] as i64)).unsigned_abs() as usize)
-                    .sum::<usize>()
-                    + (w[0] as i64 - old[0] as i64).unsigned_abs() as usize / 16;
-                if best.is_none_or(|b| d < b.0) {
-                    best = Some((d, [asks[s].0, asks[s + 1].0, asks[s + 2].0, asks[s + 3].0]));
-                }
-            }
-            if let Some((d, w)) = best {
-                scored.push((d, *c, w));
-            }
-        }
+        let o: Vec<i64> = old.iter().map(|x| *x as i64).collect();
+        let mut scored: Vec<Scored> = windows
+            .iter()
+            .map(|(c, (_, asks, lens))| {
+                let w: Vec<i64> = (0..4).map(|j| (asks[j] + lens[j]) as i64 - (c + 5) as i64).collect();
+                let d = (0..4).map(|j| (w[j] - w[0] - (o[j] - o[0])).unsigned_abs() as usize).sum::<usize>()
+                    + (w[0] - o[0]).unsigned_abs() as usize / 16;
+                (d, *c, *asks)
+            })
+            .collect();
         scored.sort_unstable();
         sites.push((*old_call, scored));
     }
@@ -530,6 +562,7 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
             }
         }
     }
+    let mut unclear = None;
     for (k, (old_call, scored)) in sites.iter().enumerate() {
         if chosen.contains_key(&k) {
             continue;
@@ -567,68 +600,99 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
             Some((_, s, true)) => {
                 chosen.insert(k, (s, "next to a found drawer".into()));
             }
-            _ => return Err(format!("UI drawer {k}: no clear match (best spacing scores {:?})",
-                                    sites[k].1.iter().take(2).map(|s| s.0).collect::<Vec<_>>())),
-        }
-    }
-    let mut ui_anim_ret = Vec::new();
-    let mut ui_size_ret = Vec::new();
-    for k in 0..sites.len() {
-        let ((d, c, w), how) = &chosen[&k];
-        ui_anim_ret.push(c + 5);
-        for a in w {
-            let n = img.read(*a, 4).and_then(|b| indirect_call(b, 0)).unwrap_or(2);
-            ui_size_ret.push(a + n);
-        }
-        notes.push(format!("UI drawer {k}: call {c:#x}, spacing {d}, {how}"));
-    }
-    let ui_sized_anim_ret: Vec<usize> = UI_SIZED.iter().map(|k| ui_anim_ret[*k]).collect();
-    let ui_sized_size_ret: Vec<usize> = UI_SIZED.iter().flat_map(|k| ui_size_ret[4 * k..4 * k + 4].to_vec()).collect();
-    // 6. league.dll's UI sheets (optional: not found, the UI keeps drawing from the battle sheets): each drawer's first
-    // call of the sheet lookup between its anim lookup and its first size ask, and the two functions the drawers hand
-    // the sheet's name to - by their heads, the one the BP grid (the draw command) / the encyclopedia (the image node)
-    // calls
-    let mut ui_sheet_ret = Vec::new();
-    for k in 0..ui_anim_ret.len() {
-        match (ui_anim_ret[k]..ui_size_ret[4 * k]).find(|a| img.call_target(*a) == Some(sheet)) {
-            Some(c) => ui_sheet_ret.push(c + 5),
-            None => {
-                notes.push(format!("UI drawer {k}: no call of the sheet lookup before its size asks (no UI sheets)"));
-                ui_sheet_ret.clear();
+            _ => {
+                unclear = Some(format!("UI drawer {k}: no clear match (best spacing scores {:?})",
+                                       scored.iter().take(2).map(|s| s.0).collect::<Vec<_>>()));
                 break;
             }
         }
     }
-    let sink = |what: &str, p: &Pattern, drawer: usize, notes: &mut Vec<String>| -> usize {
-        let inside: HashSet<usize> = img.func_of(drawer).map(|f| img.calls_in(f.0, f.1)).unwrap_or_default().into_iter().collect();
-        let found: Vec<usize> = img.find(p).into_iter().filter(|f| inside.contains(f)).collect();
-        one(what, &found).unwrap_or_else(|e| {
-            notes.push(format!("{e} (no UI sheets)"));
-            0
-        })
-    };
-    let mut cmd_by_name = sink("the draw command by a sheet's name", &CMD_BY_NAME, ui_anim_ret[2], &mut notes);
-    if cmd_by_name == 0 {
-        // its head changed (0.6.5 -> 0.7.0: one push more): the function both the BP grid and the scoreboard portraits
-        // call with `mov rdi, r8; test r8, r8` (the name's length) in its first 0x60 bytes
+    let (mut ui_anim_ret, mut ui_size_ret, mut ui_sheet_ret) = (Vec::new(), Vec::new(), Vec::new());
+    match &unclear {
+        Some(why) => notes.push(format!("{why}: no UI drawers - the UI draws the battle sheets, dense heroes at the plain \
+                                         UI size")),
+        None => {
+            for k in 0..sites.len() {
+                let ((d, c, w), how) = &chosen[&k];
+                let (s, _, lens) = windows[c];
+                ui_anim_ret.push(c + 5);
+                ui_size_ret.extend(w.iter().zip(lens).map(|(a, n)| a + n));
+                ui_sheet_ret.push(s + 5);
+                notes.push(format!("UI drawer {k}: call {c:#x}, spacing {d}, {how}"));
+            }
+        }
+    }
+    let drawers = !ui_anim_ret.is_empty();
+    let ui_sized_anim_ret: Vec<usize> = if drawers { UI_SIZED.iter().map(|k| ui_anim_ret[*k]).collect() } else { Vec::new() };
+    let ui_sized_size_ret: Vec<usize> =
+        if drawers { UI_SIZED.iter().flat_map(|k| ui_size_ret[4 * k..4 * k + 4].to_vec()).collect() } else { Vec::new() };
+    // 6. league.dll's UI sheets (optional: not found, the UI keeps drawing from the battle sheets): each drawer's sheet
+    // lookup (the one its size asks follow, step 5), the draw command made from a name - by its head, the one the BP
+    // grid calls - and whatever the encyclopedia and the pick slot hand the name to after their sheet lookup: the image
+    // node's setter (to 0.7.1) or the UV setter of the sprite command they build themselves (0.7.2) - by the listed
+    // build's heads, the UV setter else as the call right after both write a draw command's tag; each of the two drawers
+    // must call one of them
+    let (mut cmd_by_name, mut node_image, mut cmd_uv) = (0, 0, 0);
+    if drawers {
         let callees = |drawer: usize| -> HashSet<usize> {
             img.func_of(drawer).map(|f| img.calls_in(f.0, f.1)).unwrap_or_default().into_iter().collect()
         };
-        let mark: &[u8] = &[0x4c, 0x89, 0xc7, 0x4d, 0x85, 0xc0];
-        let mut both: Vec<usize> = callees(ui_anim_ret[2])
-            .intersection(&callees(ui_anim_ret[4]))
-            .copied()
-            .filter(|f| img.read(*f, 0x60).is_some_and(|h| h.windows(mark.len()).any(|w| w == mark)))
-            .collect();
-        both.sort_unstable();
-        if let [f] = both[..] {
-            cmd_by_name = f;
-            notes.retain(|n| !n.starts_with("the draw command by a sheet's name"));
-            notes.push(format!("the draw command by a sheet's name: {f:#x}, by its callers and its length check"));
+        let end_of = |k: usize| img.func_of(ui_sheet_ret[k]).map_or(ui_sheet_ret[k], |f| f.1);
+        let after: Vec<HashSet<usize>> =
+            (0..2).map(|k| img.calls_in(ui_sheet_ret[k], end_of(k)).into_iter().collect()).collect();
+        let either: HashSet<usize> = after[0].union(&after[1]).copied().collect();
+        let by_head = |what: &str, p: Option<Pattern>, near: &HashSet<usize>, notes: &mut Vec<String>| -> usize {
+            let Some(p) = p else { return 0 };
+            let mut found: Vec<usize> = img.find(&p).into_iter().filter(|f| near.contains(f)).collect();
+            found.sort_unstable();
+            found.dedup();
+            one(what, &found).unwrap_or_else(|e| {
+                notes.push(e);
+                0
+            })
+        };
+        cmd_by_name = by_head("the draw command by a sheet's name", Some(CMD_BY_NAME), &callees(ui_anim_ret[2]), &mut notes);
+        if cmd_by_name == 0 {
+            // its head changed (0.6.5 -> 0.7.0: one push more): the function both the BP grid and the scoreboard portraits
+            // call with `mov rdi, r8; test r8, r8` (the name's length) in its first 0x60 bytes
+            let mark: &[u8] = &[0x4c, 0x89, 0xc7, 0x4d, 0x85, 0xc0];
+            let mut both: Vec<usize> = callees(ui_anim_ret[2])
+                .intersection(&callees(ui_anim_ret[4]))
+                .copied()
+                .filter(|f| img.read(*f, 0x60).is_some_and(|h| h.windows(mark.len()).any(|w| w == mark)))
+                .collect();
+            both.sort_unstable();
+            if let [f] = both[..] {
+                cmd_by_name = f;
+                notes.retain(|n| !n.starts_with("the draw command by a sheet's name"));
+                notes.push(format!("the draw command by a sheet's name: {f:#x}, by its callers and its length check"));
+            }
+        }
+        node_image = by_head("the image node's setter", NODE_IMAGE, &either, &mut notes);
+        cmd_uv = by_head("the UV setter", CMD_UV, &either, &mut notes);
+        if cmd_uv == 0 {
+            let tagged: Vec<HashSet<usize>> = (0..2).map(|k| tagged_calls(img, ui_sheet_ret[k], end_of(k))).collect();
+            let mut both: Vec<usize> = tagged[0].intersection(&tagged[1]).copied().collect();
+            both.sort_unstable();
+            if let [f] = both[..] {
+                cmd_uv = f;
+                notes.retain(|n| !n.starts_with("the UV setter"));
+                notes.push(format!("the UV setter: {f:#x}, the call after both write a draw command's tag"));
+            }
+        }
+        let sinks: HashSet<usize> = [node_image, cmd_uv].into_iter().filter(|f| *f != 0).collect();
+        for (k, a) in after.iter().enumerate() {
+            if a.is_disjoint(&sinks) {
+                notes.push(format!("UI drawer {k}: calls neither the image node's setter {node_image:#x} nor the UV setter \
+                                    {cmd_uv:#x} after its sheet lookup"));
+                (node_image, cmd_uv) = (0, 0);
+            }
         }
     }
-    let node_image = sink("the image node's setter", &NODE_IMAGE, ui_anim_ret[0], &mut notes);
-    if cmd_by_name == 0 || node_image == 0 {
+    if cmd_by_name == 0 || (node_image == 0 && cmd_uv == 0) {
+        if drawers {
+            notes.push("no UI sheets: a function the drawers hand the sheet's name to is not known".into());
+        }
         ui_sheet_ret.clear();
     }
     // 7. the view node draw (league.dll's dense effects, optional): the function with its head the body draw calls
@@ -661,6 +725,7 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         ui_sheet_ret,
         cmd_by_name,
         node_image,
+        cmd_uv,
         body_draw,
         cmd_grow,
         effect_draw,

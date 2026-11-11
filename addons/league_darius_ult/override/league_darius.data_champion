@@ -1273,6 +1273,7 @@
       "z": -1
     }
   ],
+  "stack_skill_index": 2,
   "passive": {
     "passive_ref": "league_darius_ult:own_kill",
     "params": {}

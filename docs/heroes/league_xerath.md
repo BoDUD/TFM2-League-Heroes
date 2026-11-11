@@ -43,7 +43,7 @@
 
 *冷却 50 秒 · 施放距离 220000 · 施放：指定目标 · 敌方英雄*
 
-飞升并原地引导，向远处的敌方英雄连发4次魔法炮击，落点预警后爆炸，每发造成120 + 45% 法强魔法伤害；每次命中英雄，之后的炮击伤害+20%。被控制会打断。
+飞升并原地引导，向远处的敌方英雄连发4次魔法炮击，落点预警后爆炸，每发造成120 + 45% 法强魔法伤害；每次命中英雄，之后的炮击伤害+20%。射程内没有敌方英雄时提前结束，被控制会打断；一发都没打出去就返还一半冷却。
 
 ### 数值
 
@@ -117,3 +117,5 @@ python tools/art/preview_xerath.py
 1 倍时代的 `design_xerath.py`（44 行的造型）、`fix_xerath_strips.py` 和 `import_native.py --hero xerath`（Codex 的动作条）不再跑：它们写的是 1 倍的图，会盖掉高清帧。
 
 逐帧预览（高清帧）：[`docs/preview/league_xerath_frames.png`](../preview/league_xerath_frames.png?v=1021xs)，特效：[`docs/preview/league_xerath_effects.png`](../preview/league_xerath_effects.png?v=1021xs)。
+
+大招收招（2026-11-10，玩家反馈「泽拉斯开大后如果范围内英雄死了或者没英雄会原地罚站很久」，主包 0.331.0）：奥术仪式的引导（`r_chan` 360 tick、`ult_loop` 330 tick）每 6 tick 向 220000 内的敌方英雄打一发，没有目标时什么也不打、也没有东西让它结束，他就站满 6 秒。现在同一个周期里先看 220000 内还有没有敌方英雄（`r_any`），连着 30 tick 都没有（`r_miss` / `r_grace`）就像被控制那样收招；收招时一发都没打出去（身上没有第一发挂上的 `r_s1`）就挂 3 tick 的 `r_refund`（`ult_cooldown_mult` 100：剩下的冷却封顶在一半，别的英雄退冷却用的 4900 同一个办法），英雄联盟的规则。被控制打断、一发没打也返还。数据由 [`tools/kit/xerath_r_end.py`](../../tools/kit/xerath_r_end.py) 就地改（`build_xerath.py` 已经和数据对不上，不能重跑），塞拉斯的副本重新生成。

@@ -54,6 +54,7 @@ import argparse
 import json
 import os
 import range_buffs  # noqa: E402  (league.dll's league:range: the range buffs as markers)
+import stack_nums  # noqa: E402  (league.dll's stack numbers over the head)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
@@ -93,6 +94,10 @@ P = {
     # passive Mark of the Kindred (League: marks from hunted champions and monsters; at 4 marks +75 range, +25 every 3
     # more; Dance of Arrows +5% attack speed a mark, Mounting Dread +0.5% missing health a mark)
     "p_win": 180, "p_range": 1500, "p_as": 4, "p_ap": 1, "p_show": 90,
+    # p_native=1 (addons/league_kindred's copy, 2026-11-11: 「千珏印记是不是不能印记英雄啊」): the marks come from its native
+    # passive league_kindred:hunt - League's Lamb hunts (a named enemy champion, armed after 8 s, a takedown on him is a
+    # mark, kept through death) - so the attack's champion-only twin carries no takedown tracking
+    "p_native": 0,
     # Q Dance of Arrows (League: dash 300, arrows at up to 3 enemies, 40-140 + bonus AD, +35% attack speed 4 s; cd 9 s,
     # 4-2 s in Wolf's Frenzy)
     "q_cd": 480, "q_range": 60000, "q_anim": 25, "q_go": 4, "q_move_t": 10, "q_at": 19, "q_near": 20000,
@@ -354,8 +359,8 @@ def build(p):
     e_climb = sw("e_live", sw("e_2", combine(*rm("e_1", "e_2", "e_live"), flag("e_boom", 4)),
                               sw("e_1", combine(*rm("e_1"), flag("e_2", p["e_t"])), flag("e_1", p["e_t"]))))
     shot = homing("a_arrow", p["a_speed"], p["a_y"], "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit"), e_climb])
-    twin = homing("a_twin", p["a_speed"], p["a_y"], "EnemyChampion",
-                  [k_set, track, k_read] + ([fight_up()] if fights else []))
+    twin_fx = ([] if p["p_native"] else [k_set, track, k_read]) + ([fight_up()] if fights else [])
+    twin = homing("a_twin", p["a_speed"], p["a_y"], "EnemyChampion", twin_fx) if twin_fx else None
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["a_st"], p["atk_range"], "Targeting", "Enemy",
                       flat(combine(sfx("a_shot"), r_check, shot, twin)), atype="BaseAttack", cancel=True)
 
@@ -471,6 +476,8 @@ def nodes(o):
 # every kit with a range buff: the buffs carry no `range`, the attack reads them through league:range
 # (tools/kit/range_buffs.py, 2026-11-07)
 build = range_buffs.wrap(build)
+# her marks' count over her head: league.dll's display buffs bound to the number sheet (tools/kit/stack_nums.py, 2026-11-11)
+build = stack_nums.wrap(build)
 
 
 def main():

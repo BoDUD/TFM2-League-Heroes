@@ -55,7 +55,7 @@
 
 ### 卑尔维斯附加包
 
-[卑尔维斯附加包](../../addons/league_belveth/README.md)：`league_belveth` v0.1.2
+[卑尔维斯附加包](../../addons/league_belveth/README.md)：`league_belveth` v0.1.3
 
 | 技能 | 主包（纯数据） | 附加包 |
 |---|---|---|

@@ -4,7 +4,8 @@
 //! 被动挂本包的 `league_anivia:rebirth`，冰墙没有主包那圈 99% 减速（本包让墙真的挡路），E 不再用主包「被控 / 风暴成形」的近似翻倍。
 //!
 //! - **寒霜涅槃**：每 `egg_cd` tick 一次（阵亡不重置），受到致命伤害时不倒下（本包一直挂着「不死」`league_anivia_p_guard`，
-//!   生命停在 1 就触发），变成冰蛋 `egg_t` tick：生命回满当作蛋的生命，禁普攻、禁技能；主包数据看到 `league_anivia_egg_go`
+//!   生命停在 1 就触发），变成冰蛋 `egg_t` tick：生命回满当作蛋的生命，**不能动**、不能普攻、不能放技能（[`EGG_CC`]，被净化掉
+//!   就补挂；0.1.7 前蛋还能走，AI 带着它跑开、满血孵化）；主包数据看到 `league_anivia_egg_go`
 //!   播缩进蛋里的动作、挂双抗降低的 `league_anivia_egg_on`、每 30 tick 续一次蛋的动作。蛋被打碎就是她阵亡（击杀算打碎蛋的人）；
 //!   撑过 `egg_t` tick 就挂 `league_anivia_egg_hatch`，数据播孵化，她带着蛋剩下的生命继续打（英雄联盟一样）。
 //!   别人给的「不死」在身上时不触发。
@@ -55,6 +56,10 @@ pub const NEAR_ME: u64 = 3000;
 pub const WALL_LOOK: usize = 3;
 /// 一 tick 走了这么远以上算冲刺（走路约 1000，加速后约 1500，冲刺 2500 起；同奥恩附加包的柱子）：冲刺撞上墙停住，走路的贴着墙滑。
 pub const DASH_STEP: f64 = 2_200.0;
+/// 蛋里的控制（0.1.7，用户 2026-11-11：「冰鸟死后满血复活」）：英雄联盟的蛋「无法行动」——不能动、不能普攻、不能放技能。
+/// 0.1.6 只禁了普攻和技能：数据播的蛋动作（`CasterAnimation`）不定身，AI 带着蛋走开（卢锡安大招的笔记：动作照放、人照滑），
+/// 敌人追不上、换了目标，蛋几乎不掉血，6 秒后她满血孵化。
+pub const EGG_CC: [CcKindV1; 3] = [CcKindV1::Bind, CcKindV1::BlockSkill, CcKindV1::BlockAttack];
 
 fn sn(x: &str) -> String {
     format!("league_anivia_{x}")
@@ -148,6 +153,8 @@ fn who(sim: &StableSim<'_>, id: usize) -> String {
 pub struct Params {
     pub egg_t: usize,
     pub egg_cd: usize,
+    /// 蛋的护甲、魔抗降低多少（0.1.8 起本包自己挂蛋的形态 `egg_on` 时用，数据的 `egg_on` 是同样的数）。
+    pub egg_def: i32,
     pub w_t: usize,
     pub w_w: u64,
     pub w_h: u64,
@@ -156,7 +163,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Params { egg_t: 360, egg_cd: 14400, w_t: 300, w_w: 8000, w_h: 50000, ice_t: 180 }
+        Params { egg_t: 360, egg_cd: 14400, egg_def: 20, w_t: 300, w_w: 8000, w_h: 50000, ice_t: 180 }
     }
 }
 
@@ -170,6 +177,7 @@ pub fn parse_params(json: &str) -> Params {
         match k {
             "egg_t" => p.egg_t = v as usize,
             "egg_cd" => p.egg_cd = v as usize,
+            "egg_def" => p.egg_def = v as i32,
             "w_t" => p.w_t = v as usize,
             "w_w" => p.w_w = v,
             "w_h" => p.w_h = v,
@@ -271,6 +279,29 @@ pub fn other_undying(names_undying: &[(String, bool)]) -> bool {
     names_undying.iter().any(|(name, undying)| *undying && !ours(name))
 }
 
+/// 蛋的控制里她身上缺了哪几种（`on`：她身上还剩 tick 的控制的种类码）：被净化掉、或者一开始就没挂上，补挂剩下的时间。
+pub fn egg_cc_missing(on: &[u32]) -> Vec<CcKindV1> {
+    EGG_CC.iter().copied().filter(|k| !on.contains(&k.code())).collect()
+}
+
+/// 蛋这一 tick 该在哪（`last`：上一 tick 的位置，`rooted`：身上有定身）：定身挂不上（免控）时走路的放回上一 tick 的位置，
+/// 被击退、拉扯这种一 tick 走了 `DASH_STEP` 以上的照走（英雄联盟的蛋也会被位移）。
+pub fn egg_hold(last: (u64, u64), now: (u64, u64), rooted: bool) -> Option<(u64, u64)> {
+    let step = (now.0 as f64 - last.0 as f64).hypot(now.1 as f64 - last.1 as f64);
+    (!rooted && step > 0.0 && step < DASH_STEP).then_some(last)
+}
+
+/// 蛋的形态 `egg_on`（0.1.8 起本包自己挂，`left` tick）：显示钩子（`view.rs`）看到它就把她站着、挨打的画面换成蛋，护甲、魔抗
+/// 降低 `egg_def`（数据的 `egg_on` 一样：数据的守望看到 `egg_go` 时 `refresh` 换掉它，不会叠两份）。用户 11-11 的动图：
+/// 致命伤被接住、血回满、禁普攻和技能都有了，可数据的守望没接上（它在这条命第一次普攻或 R 时才开始），没有缩进蛋的动作、
+/// 没有 `egg_on`，她一直是鸟的样子、满血走开。
+pub fn egg_form(p: &Params, left: usize) -> BuffV1 {
+    let mut b = BuffV1::timed(FORM, left);
+    b.defence = -p.egg_def;
+    b.magic_resistance = -p.egg_def;
+    b
+}
+
 // ===================== 被动 =====================
 
 fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
@@ -289,6 +320,9 @@ struct Rebirth {
     egg_ready_at: usize,
     /// 蛋开始的 tick（不在蛋里时 None）。
     egg: Option<usize>,
+    /// 蛋立在哪、上一 tick 在哪（只有被击退才会动）。
+    egg_at: (u64, u64),
+    egg_last: (u64, u64),
     next_guard: usize,
     /// 这条命里见过她 1 血以上（0.6.4 开局第 0 tick 读到的血量是 0，那不是致命伤）。
     alive_seen: bool,
@@ -317,26 +351,75 @@ impl Rebirth {
     }
 
     fn curl(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize) {
-        let max = sim.get_entity(me).map_or(0, |e| e.hp().1);
+        let (max, at) = sim.get_entity(me).map_or((0, (0, 0)), |e| (e.hp().1, e.pos()));
         self.egg = Some(now);
+        self.egg_at = at;
+        self.egg_last = at;
         self.egg_ready_at = now + self.p.egg_cd;
         sim.entity_remove_buff(me, &sn("p_guard"));
         sim.entity_set_hp(me, max);
         sim.add_buff(me, &BuffV1::timed(&sn("egg_go"), FLAG_T));
-        sim.apply_cc(me, &CcV1::of_kind(CcKindV1::BlockSkill, self.p.egg_t as u64));
-        sim.apply_cc(me, &CcV1::of_kind(CcKindV1::BlockAttack, self.p.egg_t as u64));
-        if let Some(k) = counted("egg") {
-            wlog(format!("{} EGG #{k}: lethal damage caught at 1 hp, the egg holds {max} hp for {} ticks", head(sim, me),
-                         self.p.egg_t));
+        // the egg's form and its armour / MR drop from here, not only from the data's watch (0.1.8)
+        sim.entity_remove_buff(me, FORM);
+        sim.add_buff(me, &egg_form(&self.p, self.p.egg_t));
+        for k in EGG_CC {
+            sim.apply_cc(me, &CcV1::of_kind(k, self.p.egg_t as u64));
+        }
+        if let Some(k) = tally(sim, "egg") {
+            wlog(format!("{} EGG #{k}: lethal damage caught at 1 hp, the egg holds {max} hp for {} ticks, rooted at ({}, {}), \
+                          armour / MR -{}", head(sim, me), self.p.egg_t, at.0, at.1, self.p.egg_def));
+        }
+    }
+
+    /// 蛋里的每一 tick：蛋的控制被净化掉了就补挂剩下的时间；定身挂不上（免控）时走路的放回原处。
+    fn hold_egg(&mut self, sim: &mut StableSim<'_>, me: usize, left: usize) {
+        let Some(e) = sim.get_entity(me) else { return };
+        let now_at = e.pos();
+        let on: Vec<u32> = (0..e.cc_count()).filter_map(|i| e.cc_at(i)).filter(|c| c.tick > 0).map(|c| c.kind).collect();
+        let formed = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == FORM);
+        let missing = egg_cc_missing(&on);
+        // the form gone before the hatch (removed by someone, or the data's own one ran out): back on for what is left
+        if !formed {
+            sim.add_buff(me, &egg_form(&self.p, left));
+            if let Some(n) = tally(sim, "egg form") {
+                wlog(format!("{} EGG FORM #{n}: {FORM} gone with {left} ticks of the egg left - put back", head(sim, me)));
+            }
+        }
+        for &k in &missing {
+            sim.apply_cc(me, &CcV1::of_kind(k, left as u64));
+        }
+        if !missing.is_empty() {
+            if let Some(n) = tally(sim, "egg cc") {
+                wlog(format!("{} EGG CC #{n}: {missing:?} gone with {left} ticks of the egg left (cleansed?) - put back",
+                             head(sim, me)));
+            }
+        }
+        // after putting it back: a root the engine refused (cc immune) is not there
+        let rooted = sim.get_entity(me).is_some_and(|e| {
+            (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| c.tick > 0 && c.kind == CcKindV1::Bind.code())
+        });
+        match egg_hold(self.egg_last, now_at, rooted) {
+            Some(back) => {
+                sim.entity_set_pos(me, back.0, back.1);
+                if let Some(n) = tally(sim, "egg walk") {
+                    wlog(format!("{} EGG WALK #{n}: no root on the egg (cc immune?) - kept at ({}, {})", head(sim, me),
+                                 back.0, back.1));
+                }
+            }
+            None => self.egg_last = now_at,
         }
     }
 
     fn hatch(&mut self, sim: &mut StableSim<'_>, me: usize) {
         self.egg = None;
+        // the data's watch plays the hatch on `egg_hatch` (and clears its own flags); the form ends here either way
+        sim.entity_remove_buff(me, FORM);
         sim.add_buff(me, &BuffV1::timed(&sn("egg_hatch"), FLAG_T));
-        if let Some(k) = counted("hatch") {
-            let (hp, max) = sim.get_entity(me).map_or((0, 0), |e| e.hp());
-            wlog(format!("{} HATCH #{k}: reborn with the egg's {hp} / {max} hp", head(sim, me)));
+        if let Some(k) = tally(sim, "hatch") {
+            let (hp, max, at) = sim.get_entity(me).map_or((0, 0, (0, 0)), |e| (e.hp().0, e.hp().1, e.pos()));
+            let moved = (at.0 as f64 - self.egg_at.0 as f64).hypot(at.1 as f64 - self.egg_at.1 as f64);
+            wlog(format!("{} HATCH #{k}: reborn with the egg's {hp} / {max} hp ({}%), {moved:.0} from where the egg rose",
+                         head(sim, me), hp * 100 / max.max(1)));
         }
     }
 
@@ -493,6 +576,8 @@ impl StablePassive for Rebirth {
         if let Some(t0) = self.egg {
             if now >= t0 + self.p.egg_t {
                 self.hatch(sim, me);
+            } else {
+                self.hold_egg(sim, me, t0 + self.p.egg_t - now);
             }
             return;
         }
@@ -572,8 +657,23 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let q = parse_params(r#"{"egg_cd":14400,"egg_t":360,"ice_t":180,"w_h":50000,"w_t":300,"w_w":8000}"#);
+        let q = parse_params(r#"{"egg_cd":14400,"egg_def":20,"egg_t":360,"ice_t":180,"w_h":50000,"w_t":300,"w_w":8000}"#);
         assert_eq!(q, Params::default());
+        // the copy's own params, as make_override.py writes them
+        let copy = include_str!("../override/league_anivia.data_champion");
+        let at = copy.find("\"params\"").expect("passive params in the copy");
+        let body = &copy[at..];
+        let params = &body[body.find('{').unwrap()..=body.find('}').unwrap()];
+        assert_eq!(parse_params(params), Params::default(), "the copy's passive params: {params}");
+    }
+
+    #[test]
+    fn the_add_on_puts_the_egg_on_itself() {
+        // the display hook draws the egg from this buff, and the armour / MR drop is the data's egg_def
+        let b = egg_form(&p(), 360);
+        assert_eq!(b.name(), FORM);
+        assert_eq!((b.defence, b.magic_resistance), (-20, -20));
+        assert_eq!(BuffDurationV1::from_code(b.duration_kind), Some(BuffDurationV1::Time));
     }
 
     #[test]
@@ -681,5 +781,32 @@ mod tests {
     fn only_someone_elses_undying_holds_the_egg_back() {
         assert!(!other_undying(&[("league_anivia_p_guard".to_string(), true)]));
         assert!(other_undying(&[("league_zilean_r_rune".to_string(), true)]));
+    }
+
+    #[test]
+    fn the_egg_cannot_move_attack_or_cast() {
+        // League: unable to act. 0.1.6 had only the attack and the skills blocked: the AI walked the egg away
+        assert!(EGG_CC.contains(&CcKindV1::Bind), "rooted");
+        assert!(EGG_CC.contains(&CcKindV1::BlockAttack) && EGG_CC.contains(&CcKindV1::BlockSkill));
+        let all: Vec<u32> = EGG_CC.iter().map(|k| k.code()).collect();
+        assert!(egg_cc_missing(&all).is_empty());
+        // a cleanse took the root: only the root is put back
+        let no_root: Vec<u32> = all.iter().copied().filter(|&c| c != CcKindV1::Bind.code()).collect();
+        assert_eq!(egg_cc_missing(&no_root), vec![CcKindV1::Bind]);
+        // someone else's stun on her does not count as the egg's root
+        assert_eq!(egg_cc_missing(&[CcKindV1::Stun.code()]).len(), 3);
+    }
+
+    #[test]
+    fn an_unrooted_egg_stays_put_but_can_be_knocked_away() {
+        let at = (500_000, 400_000);
+        // rooted: whatever moved it (a knock-back) stands
+        assert_eq!(egg_hold(at, (500_900, 400_000), true), None);
+        // no root (cc immune): a walking step goes back
+        assert_eq!(egg_hold(at, (500_900, 400_300), false), Some(at));
+        // a knock-back (a big step in one tick) is not undone
+        assert_eq!(egg_hold(at, (505_000, 400_000), false), None);
+        // standing still: nothing to do
+        assert_eq!(egg_hold(at, at, false), None);
     }
 }

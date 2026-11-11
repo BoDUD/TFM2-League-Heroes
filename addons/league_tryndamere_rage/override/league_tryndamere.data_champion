@@ -2396,5 +2396,6 @@
       "burst_left": 40,
       "burst_t": 60
     }
-  }
+  },
+  "stack_skill_index": 0
 }

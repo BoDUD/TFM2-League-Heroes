@@ -55,7 +55,7 @@
 
 ### 诺手大招读血附加包
 
-[诺手大招读血附加包](../../addons/league_darius_ult/README.md)：`league_darius_ult` v0.1.4
+[诺手大招读血附加包](../../addons/league_darius_ult/README.md)：`league_darius_ult` v0.1.5
 
 |  | 主包 | 附加包 |
 |---|---|---|

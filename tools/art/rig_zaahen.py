@@ -22,8 +22,9 @@ standing column (his back to the front for a moment, the glaive sweeping round t
 The revive (the add-on's: he is banished while he rises, so his rising is an effect picture, not his own frames - and
 an effect picture is never mirrored on the red side) is drawn twice, facing right (rise_r) and left (rise_l), in front
 of the cleaned light column rv_glow (tools/art/clean_zaahen_fx.py), as a dense effect sheet like league_leblanc_clone
-(league_main hd.rs EFFECTS at PPU 1.75): collapsed (d_down), kneeling with the glaive planted (rv_kneel), standing with
-the wings spread (hd/wings.png); the add-on plays the side facing the nearest enemy champion.
+(league_main hd.rs EFFECTS at PPU 1.75 / SIZE: drawn at his 85 %, write_rise): collapsed (d_down), kneeling with the
+glaive planted (rv_kneel), standing with the wings spread (hd/wings.png); the add-on plays the side facing the nearest
+enemy champion.
 """
 import argparse
 import json
@@ -44,6 +45,11 @@ import pack_zaahen_poses as PK  # noqa: E402
 
 HERO = "zaahen"
 PPU = 1.75
+# on the battlefield he is drawn at 85 % (the user, 2026-11-11: 「亚恒模型在局内偏大了」; league_main hd.rs SIZES), his dense
+# frames 4 squares lower so his soles stay on the ground (ppu_restyle.py RESTYLE zaahen lift_sq: 11.5 x 1.75 x
+# (1 / 0.85 - 1) = 3.6). His revive picture goes with him (write_rise): its sheet's PPU in hd.rs EFFECTS is PPU / SIZE.
+SIZE = 0.85
+LIFT_SQ = 4
 SRC = os.path.join(ROOT, "assets", "source", "zaahen", "hd")
 FXSRC = os.path.join(ROOT, "assets", "source", "zaahen", "gemini_fx", "clean", "pixel_1x")
 RISE = os.path.join(ROOT, "league", "effects", "league_zaahen_rise")
@@ -216,22 +222,30 @@ def rise_canvases(C):
 
 
 def write_rise(C):
-    """league/effects/league_zaahen_rise: tags rise_r / rise_l (1x) and their hd_ twins (PPU), every frame centred on
-    the pivot like a hero's frame (ppu_rig.Rig.export's one_of / crop_dense), rise_l the mirror of rise_r; idle / hd_idle
-    = rise_r (league.dll tells a dense effect sheet by its idle, rig_azir's way; shared frames, no room taken)."""
+    """league/effects/league_zaahen_rise: tags rise_r / rise_l (1x) and their hd_ twins, every frame centred on the
+    pivot like a hero's frame (ppu_rig.Rig.export's one_of / crop_dense), rise_l the mirror of rise_r; idle / hd_idle
+    = rise_r (league.dll tells a dense effect sheet by its idle, rig_azir's way; shared frames, no room taken).
+    He is drawn at SIZE on the battlefield and an effect sheet has no SIZES row (the effect draw shrinks it to 1 / its
+    PPU), so the dense frames are canvases PPU / SIZE times the 1x frames (hd.rs EFFECTS at PPU / SIZE; the DLL takes a
+    dense table only when hd_idle is that many times as wide) holding the picture at PPU, LIFT_SQ squares lower like his
+    own dense frames: drawn at SIZE / PPU, the risen Zaahen is as big as he is and stands where his soles do. The 1x
+    frames (the game without league.dll, where he is 100 %) as before."""
     rig = C.rig
     px = float(rig.CX)
     py = rig.GY - R.FEET * PPU
+    shown = PPU / SIZE
     cans = rise_canvases(C)
     allc = np.stack([c for c, _ in cans])
     ys, xs = np.nonzero(allc[..., 3].max(0) > 0)
     hw = int(np.ceil(max(px - xs.min(), xs.max() + 1 - px) / PPU - 0.5))
     hh = int(np.ceil(max(py - ys.min(), ys.max() + 1 - py) / PPU - 0.5))
-    W, H = round((2 * hw + 1) * PPU), round((2 * hh + 1) * PPU)
+    W, H = round((2 * hw + 1) * shown), round((2 * hh + 1) * shown)
+    # the picture lowered LIFT_SQ squares inside the canvas still fits (it reaches (hh + 0.5) x PPU from the pivot)
+    assert (hh + 0.5) * PPU + LIFT_SQ <= H / 2 and (hw + 0.5) * PPU <= W / 2, (hw, hh, W, H)
     tags = {"rise_r": [], "hd_rise_r": [], "rise_l": [], "hd_rise_l": []}
     for can, ms in cans:
         one = G.complete_outline(R.one_of(can, px, py, hw, hh, PPU), color=C.outline)[0]
-        hd = R.crop_dense(can, px, py, W, H)
+        hd = R.crop_dense(can, px, py - LIFT_SQ, W, H)
         tags["rise_r"].append((one, float(ms)))
         tags["hd_rise_r"].append((hd, float(ms)))
         tags["rise_l"].append((one[:, ::-1].copy(), float(ms)))
