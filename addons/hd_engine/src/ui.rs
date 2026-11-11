@@ -32,9 +32,12 @@
 //! 查找到的版本用。
 //!
 //! 保护：一处画英雄的地方取了 40 次小图集、一次都没把名字交到这几个函数（游戏又改了交名字的地方），就不再给它小图集——
-//! 不然它会用小图集的 UV 去画整张图集。0.7.1 实测每 300 次有 297~299 次交到。就地改名的两处：改了 120 个名字、过了
-//! 3 秒，渲染器一次都没来取过替身名（它取贴图不走这个函数了），先关掉；之后它来取了（那些节点当时只是还没上屏——
-//! 先建好、藏着的界面），马上再打开（[`asked`]）。
+//! 不然它会用小图集的 UV 去画整张图集。0.7.1 实测每 300 次有 297~299 次交到。就地改名的两处不因为「游戏还没来取过
+//! 替身名」关掉：0.9.32 那样做过（改了 120 个名字、过了 3 秒没人来取就关，来取了再开），可游戏会把整块界面先建好、
+//! 藏着——启动时 212 个头像，BP 一开始各队的英雄池——这两处在自己的东西上屏之前就都被关了，之后建的头像和选人位又画
+//! 整张图集（2026-11-11 19:20 的日志）。现在：版本表里列着的版本（读过它的反汇编：贴图只从这一个函数取）一直改；
+//! 运行时自己找到的版本，游戏第一次来取替身名之前最多改 [`PROBATION`] 个（[`may_rename`]）——万一它的渲染器不走这个
+//! 函数，画不出来的最多这么多，其余照旧画整张图集。
 //!
 //! 战场不动（它画整张图集里的高清帧）。没有小图集的英雄（别的模组的、还没打包的）、找不到这些地址的游戏版本：照旧画整张
 //! 图集。
@@ -43,9 +46,8 @@ use std::alloc::{GlobalAlloc, Layout, System};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::ffi::c_void;
-use std::sync::atomic::{AtomicBool, AtomicU64, AtomicUsize, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
-use std::time::Instant;
 
 use super::build::Build;
 use super::hd::{self, Hero};
@@ -89,10 +91,9 @@ const MAX_LINES: usize = 600;
 const TALLY: usize = 300;
 /// after this many UI sheet lookups by a drawer none of which reached a sink, the drawer gets no UI sheets any more
 const GUARD: usize = 40;
-/// an inline drawer's names: this long after the first one was renamed, and after this many, the renderer must have
-/// asked for a stand-in (a few renamed for nodes that are not drawn at the moment prove nothing)
-const RESOLVE_WAIT_MS: u64 = 3000;
-const RESOLVE_MIN: usize = 120;
+/// a build found at run time: this many names at most are renamed before the game has asked for a stand-in once
+/// (nobody read that build - were its renderer to fetch sheets some other way, a renamed node would draw nothing)
+const PROBATION: usize = 24;
 
 /// How far above an inline drawer's lookup the stack is searched for the String that owns the name (bytes above the
 /// return address; 0.7.2's two drawers keep it 0x50 / 0x40 above, in frames of 0x198 bytes), and where the drawer's own
@@ -307,18 +308,22 @@ static HANDED: [AtomicUsize; 8] = [const { AtomicUsize::new(0) }; 8];
 /// per drawer: no UI sheets any more - its first GUARD UI sheet lookups reached no sink: it hands the name on somewhere
 /// this build's places do not know, and would draw the battle sheet with the UI sheet's UV
 static OFF: [AtomicBool; 8] = [const { AtomicBool::new(false) }; 8];
-/// per drawer: turned off by the stand-in guard ([`inline`]) while the renderer had not asked for one - on again the
-/// moment it does ([`asked`]): the names renamed so far were of nodes not on screen yet (a panel built hidden)
-static WAITING: [AtomicBool; 8] = [const { AtomicBool::new(false) }; 8];
-/// names renamed where they stand (the inline drawers'), stand-in names the sheet lookup was asked for, and when the
-/// first one was renamed (ms on [`now_ms`]'s clock, 0: none yet)
+/// per drawer: said once that it is held back on probation ([`may_rename`])
+static HELD: [AtomicBool; 8] = [const { AtomicBool::new(false) }; 8];
+/// names renamed where they stand (the inline drawers'), and stand-in names the sheet lookup was asked for
 static RENAMED: AtomicUsize = AtomicUsize::new(0);
 static RESOLVED: AtomicUsize = AtomicUsize::new(0);
-static FIRST_RENAME: AtomicU64 = AtomicU64::new(0);
-static EPOCH: LazyLock<Instant> = LazyLock::new(Instant::now);
 
-fn now_ms() -> u64 {
-    EPOCH.elapsed().as_millis() as u64 + 1
+/// The build in use is one of the listed ones (src/build.rs BUILDS: read by hand), not one found at run time.
+fn listed() -> bool {
+    super::build::BUILDS.iter().any(|b| std::ptr::eq(b, lookup::build()))
+}
+
+/// May an inline drawer rename one more name? Always on a listed build. On a build found at run time only [`PROBATION`]
+/// names until the game has asked for a stand-in (`resolved` > 0: its image nodes' names do come through the sheet
+/// lookup) - never a switch that stays off: names renamed for panels built hidden are asked for when the panel shows.
+fn may_rename(listed: bool, resolved: usize, renamed: usize) -> bool {
+    listed || resolved > 0 || renamed < PROBATION
 }
 
 /// `name` (a battle sheet's) with kind `kd`'s stand-in in its folder: what an inline drawer's own String holds after
@@ -343,23 +348,21 @@ fn stand_in_names(name: &str, packs: &[&'static str]) -> Option<(usize, &'static
 
 /// The UI sheet a stand-in name stands for (None: not a stand-in): the sheet lookup's hook looks this one up instead
 /// (src/lookup.rs sheet_detour) - the renderer asking for an image node's sheet when the frame is drawn.
-pub(crate) fn stand_in_real(name: &str) -> Option<&'static str> {
+/// `rva`: where the lookup was called from (for the log).
+pub(crate) fn stand_in_real(name: &str, rva: usize) -> Option<&'static str> {
     let (kd, n) = stand_in_names(name, &hd::heroes().packs)?;
-    asked();
+    asked(rva);
     Some(n.sheet[kd].as_str())
 }
 
-/// The renderer asked for a stand-in: counted; the first time, the inline drawers the guard had turned off for want of
-/// one ([`WAITING`]) get their UI sheets again.
-fn asked() {
-    if RESOLVED.fetch_add(1, Ordering::Relaxed) != 0 {
-        return;
-    }
-    for (k, w) in WAITING.iter().enumerate() {
-        if w.swap(false, Ordering::Relaxed) {
-            OFF[k].store(false, Ordering::Relaxed);
-            line(|| format!("UI drawer {k}: the renderer asked for a stand-in after all - UI sheets for it again"));
-        }
+/// The game asked for a stand-in (the sheet lookup called with one, from `rva`): counted, the first one logged - the
+/// in-game proof that the image nodes' names are resolved by the hooked lookup; a build found at run time renames
+/// freely from then on ([`may_rename`]).
+fn asked(rva: usize) {
+    if RESOLVED.fetch_add(1, Ordering::Relaxed) == 0 {
+        // not through `line`: this one must not be lost to the cap on this module's lines
+        wlog(format!("the game asked for a stand-in for the first time (from rva {rva:#x}, {} names renamed so far): \
+                      the image nodes' names are resolved by the sheet lookup", RENAMED.load(Ordering::Relaxed)));
     }
 }
 
@@ -442,8 +445,9 @@ fn tally(k: usize) {
     }
     if n == TALLY {
         if lookup::build().ui_inline.contains(&k) {
-            line(|| format!("UI drawer {k}: {TALLY} UI sheet lookups, {handed} of them renamed where they stand; the \
-                             renderer asked for a stand-in {} times so far", RESOLVED.load(Ordering::Relaxed)));
+            // not through `line` (its cap): the count of stand-ins asked for is this mechanism's in-game check
+            wlog(format!("UI drawer {k}: {TALLY} UI sheet lookups, {handed} of them renamed where they stand; the game \
+                          asked for a stand-in {} times so far", RESOLVED.load(Ordering::Relaxed)));
         } else {
             line(|| format!("UI drawer {k}: {TALLY} UI sheet lookups, {handed} of them handed on to be drawn"));
         }
@@ -461,9 +465,19 @@ pub(crate) unsafe fn anim(ctx: usize, name: &str, got: usize, k: usize, hero: Op
     if b.ui_sheet_ret.get(k).copied().unwrap_or(0) == 0 {
         return None;
     }
-    // an inline drawer's names are renamed where they stand: only names of the battle folder's shape
-    if b.ui_inline.contains(&k) && !name.starts_with(BATTLE_DIR) {
-        return None;
+    if b.ui_inline.contains(&k) {
+        // an inline drawer's names are renamed where they stand: only names of the battle folder's shape
+        if !name.starts_with(BATTLE_DIR) {
+            return None;
+        }
+        // a build found at run time is on probation until the game asks for a stand-in
+        if !may_rename(listed(), RESOLVED.load(Ordering::Relaxed), RENAMED.load(Ordering::Relaxed)) {
+            if HELD.get(k).is_some_and(|h| !h.swap(true, Ordering::Relaxed)) {
+                line(|| format!("UI drawer {k}: {PROBATION} names renamed and the game has not asked for a stand-in yet \
+                                 (a build found at run time) - it draws its battle sheets until it does"));
+            }
+            return None;
+        }
     }
     let (id, pack) = hero_id(name, &hd::heroes().packs)?;
     let n = names_of(id, pack)?;
@@ -575,14 +589,14 @@ unsafe fn swap_in_command(cmd: usize, name: &[u8], new: &str) -> bool {
 /// "Its own": a block of the process heap that starts at the name, and - a must on a build found at run time, whose
 /// drawers nobody read - owned by a String among the drawer's locals ([`local_string`], `sp` its lookup's return
 /// address).
-/// Turned off as well when [`RESOLVE_WAIT_MS`] after the first rename, [`RESOLVE_MIN`] names on, the renderer never
-/// asked for a stand-in (it would be drawing nothing for them) - until it does ([`asked`]).
+/// Never turned off for the game not having asked for a stand-in yet (0.9.32 did, and panels built hidden turned both
+/// drawers off before anything of theirs was on screen): see [`may_rename`].
 unsafe fn inline(ptr: usize, len: usize, sp: usize, n: &'static Names, kd: usize, k: usize) -> bool {
     let first = RENAMED.load(Ordering::Relaxed) == 0;
     // the name as it was, for the log: copied out before the rename
     let was = first.then(|| String::from_utf8_lossy(std::slice::from_raw_parts(ptr as *const u8, len)).into_owned());
     let owner = if own_block(ptr, len) { owner_in_frame(sp, ptr, len) } else { None };
-    let listed = super::build::BUILDS.iter().any(|b| std::ptr::eq(b, lookup::build()));
+    let listed = listed();
     if (owner.is_none() && !listed) || !rename_in_place(ptr, len, kd) {
         if let Some(o) = OFF.get(k) {
             o.store(true, Ordering::Relaxed);
@@ -593,7 +607,6 @@ unsafe fn inline(ptr: usize, len: usize, sp: usize, n: &'static Names, kd: usize
         return false;
     }
     RENAMED.fetch_add(1, Ordering::Relaxed);
-    let _ = FIRST_RENAME.compare_exchange(0, now_ms(), Ordering::Relaxed, Ordering::Relaxed);
     if let Some(c) = HANDED.get(k) {
         c.fetch_add(1, Ordering::Relaxed);
     }
@@ -607,15 +620,6 @@ unsafe fn inline(ptr: usize, len: usize, sp: usize, n: &'static Names, kd: usize
                         n.sheet[kd]));
     }
     tally(k);
-    let since = now_ms().saturating_sub(FIRST_RENAME.load(Ordering::Relaxed));
-    if RESOLVED.load(Ordering::Relaxed) == 0 && since > RESOLVE_WAIT_MS && RENAMED.load(Ordering::Relaxed) >= RESOLVE_MIN {
-        if let (Some(o), Some(w)) = (OFF.get(k), WAITING.get(k)) {
-            o.store(true, Ordering::Relaxed);
-            w.store(true, Ordering::Relaxed);
-        }
-        line(|| format!("UI drawer {k}: {} names renamed in {since} ms and the renderer never asked for a stand-in - no \
-                         UI sheets for it until it does (it draws its battle sheet)", RENAMED.load(Ordering::Relaxed)));
-    }
     true
 }
 
@@ -872,25 +876,21 @@ mod tests {
     }
 
     #[test]
-    fn the_stand_in_guard_gives_way_once_the_renderer_asks() {
-        // drawer 7 is nobody's: turned off by the guard (waiting), drawer 6 turned off for another reason
+    fn a_listed_build_renames_freely_and_a_found_one_only_so_many_before_the_game_asks() {
+        // a listed build: however many names were renamed with no stand-in asked for (212 faces built hidden at
+        // start-up, the user's log of 2026-11-11), the next one is renamed too
+        assert!(may_rename(true, 0, 0));
+        assert!(may_rename(true, 0, 100_000));
+        // a build found at run time: PROBATION names, then none until the game has asked for a stand-in once
+        assert!(may_rename(false, 0, PROBATION - 1));
+        assert!(!may_rename(false, 0, PROBATION));
+        assert!(!may_rename(false, 0, 100_000));
+        assert!(may_rename(false, 1, 100_000));
+        // every ask is counted (the tally's line says how many)
         RESOLVED.store(0, Ordering::Relaxed);
-        OFF[7].store(true, Ordering::Relaxed);
-        WAITING[7].store(true, Ordering::Relaxed);
-        OFF[6].store(true, Ordering::Relaxed);
-        asked();
-        assert!(!OFF[7].load(Ordering::Relaxed) && !WAITING[7].load(Ordering::Relaxed));
-        assert!(OFF[6].load(Ordering::Relaxed));
-        assert_eq!(RESOLVED.load(Ordering::Relaxed), 1);
-        // only the first ask opens anything: a drawer turned off later stays off
-        OFF[7].store(true, Ordering::Relaxed);
-        WAITING[7].store(true, Ordering::Relaxed);
-        asked();
-        assert!(OFF[7].load(Ordering::Relaxed));
-        for k in [6, 7] {
-            OFF[k].store(false, Ordering::Relaxed);
-            WAITING[k].store(false, Ordering::Relaxed);
-        }
+        asked(0xf4f6a);
+        asked(0xf4f6a);
+        assert_eq!(RESOLVED.load(Ordering::Relaxed), 2);
         RESOLVED.store(0, Ordering::Relaxed);
     }
 
