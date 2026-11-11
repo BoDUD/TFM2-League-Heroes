@@ -1,0 +1,20 @@
+{
+  "author": "BoDUD",
+  "contains_code": true,
+  "dependencies": [
+    {
+      "mod_id": "base",
+      "version": ">=0.4.11"
+    },
+    {
+      "mod_id": "league",
+      "version": ">=0.113.1"
+    }
+  ],
+  "description": "Read-only AI log for League of Legends Heroes: for every main-pack champion in a match it counts what the game's AI has her do while an enemy champion stands within her attack range and her attack is ready (attack the champion, attack something else, walk toward, walk away, cast, nothing), her attacks and casts, and writes it to league_ai_watch.log (idle stretches for the marksmen). Changes nothing in the game.",
+  "last_updated": "2026-11-11",
+  "mod_id": "league_ai_watch",
+  "mod_type": "native",
+  "name": "League Heroes: champion AI log (diagnostic)",
+  "version": "0.3.0"
+}

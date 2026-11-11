@@ -862,6 +862,66 @@ pub fn ranged_poke(
     poke_target(me, hp, enemies, reach, engaged)
 }
 
+/// 0.6.5（用户 2026-11-11：「卡莎是真有点问题」「也不平A」）：**被 AI 冷落的射手**。只读观察包（league_ai_watch）四轮的数字：
+/// 游戏 0.7.2 的 AI 几乎从不给卡莎下「普攻英雄」的命令——屏幕上那局 23 分钟她打英雄 18 次，对面的韦鲁斯 105 次，两人射程内
+/// 有敌方英雄的时间一样长（约 62 秒）；敌方英雄进了她的射程、普攻也好了，AI 75% 让她往后走，其余时间打小兵。德莱文、莎弥拉、
+/// 格雷福斯、奎因、阿克尚也是这样（每分钟 0.1–1.7 次，别的射手 3–8 次）。数据里找不出原因：普攻改成一颗弹（league_marks
+/// 0.1.5）、E 的范围收到射程内（0.1.6）都没变；逆向 AI 的伤害估算（每种效果的 expected_damage）、对线单挑的击杀时间比较、动作的
+/// 标志位，对她算出来的和正常射手没有区别。上面 `ranged_poke` 只在她被停住 8–15 tick 后补一下，而 AI 让她「往后走」不算停住，
+/// 所以几乎轮不到。
+///
+/// 现在：射手（数据里 `category` 是 `Range`、普攻是远程，[`MARKSMEN`]）普攻好了、自己的普攻距离内站着敌方英雄、AI 这一 tick 又
+/// 不是在打英雄，这样的 tick 一个一个记（[`neglect_ticks`]）；AI 自己下一次「普攻英雄」的命令抵掉 [`NEGLECT_PAID`] 个（不清零：
+/// AI 一局也给卡莎下十几次，清零的话补刀大半时间都被压着）。攒到 [`NEGLECT_T`] 就算被冷落：只要普攻好了、射程内有敌方英雄，
+/// 立刻打最近的那个（[`neglect_poke`]）——不往前走一步（只打已经在射程里的），打完 AI 的走位照旧，就是走 A。
+/// 用 2026-11-11 21:30 的观察日志按 30 秒一步算过（scratchpad kai_neglect_sim）：卡莎 59 局全部进入冷落、中位数 3.5 分钟起、
+/// 之后约三分之二的存活时间都在；AI 正常让打英雄的射手一次命令抵 60、两次命令之间只攒十几二十个，大部分时间是 0——韦鲁斯
+/// 约 10%、霞约 18% 的存活时间会进（AI 自己好几秒不出手的那几段），进了也只是把射程内站着不打的那几下补上。
+pub const NEGLECT_T: usize = 180;
+/// AI 自己下一次「普攻英雄」的命令抵掉这么多个被冷落的 tick。
+pub const NEGLECT_PAID: usize = 60;
+/// 计数的上限：AI 开始正常让她打英雄以后，几次命令就退出冷落。
+pub const NEGLECT_CAP: usize = 2 * NEGLECT_T;
+/// AI 下了补刀的命令以后这么多 tick 内不抢它的普攻（普攻前摇最长的十几 tick）。
+pub const LAST_HIT_TICKS: usize = 15;
+/// 被冷落的射手出手时，她身边 `CROWD_R` 内的敌方英雄最多比我方英雄（含她）多这么多个：一打二照打，一打三不打。
+pub const NEGLECT_OUTNUMBERED: usize = 1;
+/// 数据里 `category` 是 `Range`、普攻距离超过 `MELEE_RANGE` 的英雄（单元测试 `marksmen_match_the_data` 对照
+/// league/champion；尼菈是 `Range` 但近战，不在里面）。
+pub const MARKSMEN: [&str; 28] = [
+    "league_akshan", "league_aphelios", "league_ashe", "league_caitlyn", "league_corki", "league_draven", "league_ezreal",
+    "league_graves", "league_jhin", "league_jinx", "league_kaisa", "league_kalista", "league_kindred", "league_kogmaw",
+    "league_lucian", "league_missfortune", "league_quinn", "league_samira", "league_senna", "league_sivir", "league_smolder",
+    "league_tristana", "league_twitch", "league_varus", "league_vayne", "league_xayah", "league_yunara", "league_zeri",
+];
+
+pub fn is_marksman(name: &str) -> bool {
+    MARKSMEN.contains(&name)
+}
+
+/// 被冷落的计数走一 tick：普攻好了（调用的地方已经看过）、`in_range` 自己的普攻距离内有敌方英雄、AI 这一 tick 的命令不是
+/// 普攻英雄就加一（到 `NEGLECT_CAP` 为止）；AI 自己下了普攻英雄就减 `NEGLECT_PAID`；别的不动。
+pub fn neglect_ticks(open: usize, in_range: bool, ai_on_champion: bool) -> usize {
+    if ai_on_champion {
+        open.saturating_sub(NEGLECT_PAID)
+    } else if in_range {
+        (open + 1).min(NEGLECT_CAP)
+    } else {
+        open
+    }
+}
+
+/// 被冷落的射手打谁（不打就 `None`）：自己不在敌方塔下、生命不低于 `POKE_MIN_HP`（[`ranged_poke`]），打自己普攻距离 `range` 内
+/// 最近的敌方英雄——不追出射程；她身边 `CROWD_R` 内的敌方英雄比我方英雄（含她）多出不超过 `NEGLECT_OUTNUMBERED` 个。
+pub fn neglect_poke(me: (f64, f64), hp: f64, allies: &[Unit], enemies: &[Unit], towers: &[(f64, f64)], range: f64) -> Option<usize> {
+    let theirs = enemies.iter().filter(|u| dist(me, u.at) <= CROWD_R).count();
+    let ours = 1 + allies.iter().filter(|u| dist(me, u.at) <= CROWD_R).count();
+    if theirs > ours + NEGLECT_OUTNUMBERED {
+        return None;
+    }
+    ranged_poke(me, hp, enemies, towers, (range, range), None)
+}
+
 /// AI 还在不在回城（0.5.0，游戏 0.6.5 改进了「什么时候回城买装备」：回城是它的决定，钩子不再打断）：回城命令开始，别的
 /// 命令结束；引擎只在它判断的那些 tick 下命令（回城时隔一阵再发一次回城），其余 tick 没有命令，照旧。0.4.x 只看这一 tick
 /// 是不是回城命令，回城引导中没命令的 tick 被当成「原地站着」，站够 `HOLD_STILL` tick 就让他普攻。
@@ -1325,6 +1385,16 @@ struct UltPress {
     atk_ready_prev: bool,
     /// 走着不打：普攻好了、敌方英雄在 `HOLD_REACH` 内、AI 只下走路命令（不是撤）连着几 tick。
     walk_ticks: usize,
+    /// 0.6.5 被冷落的射手：普攻好了、射程内有敌方英雄、AI 没让她打英雄的 tick 累计（[`neglect_ticks`]）；到 `NEGLECT_T` 记过
+    /// 一行日志没有。
+    open_ticks: usize,
+    neglect_noted: bool,
+    /// AI 下了一次补刀（这一下打得死的小兵、野怪）：到这一 tick 为止不抢它的普攻。
+    last_hit_until: usize,
+    /// 被冷落时补的普攻：上一次按下的 tick、这一局按了几轮、按下后普攻真的出手了几次（日志用）。
+    poke_at: Option<usize>,
+    pokes: usize,
+    poke_hits: usize,
     /// AI 在回城（[`still_recalling`]）。
     recalling: bool,
     /// 这一局敌方的塔（实体编号、位置）：一局找一次，之后每 tick 只看还在不在（塔不会动、不会复活）。
@@ -1657,6 +1727,12 @@ impl UltPress {
                 self.volley_tick = tick;
                 self.engage = None;
                 self.walk_ticks = 0;
+                self.open_ticks = 0;
+                self.neglect_noted = false;
+                self.last_hit_until = 0;
+                self.poke_at = None;
+                self.pokes = 0;
+                self.poke_hits = 0;
                 self.recalling = false;
                 self.armed_at = None;
                 self.arm_cut = None;
@@ -1784,6 +1860,10 @@ impl UltPress {
             let atk_ready = ready[0];
             if self.atk_ready_prev && !atk_ready {
                 self.engage = None;
+                // 0.6.5: the attack a neglected marksman was told to make went out
+                if self.poke_at.take().is_some_and(|t| tick <= t + ORDER_FRESH) {
+                    self.poke_hits += 1;
+                }
             }
             self.atk_ready_prev = atk_ready;
             // recalling: nothing pressed and no hold - when to go home (and buy) is the AI's call (game 0.6.5)
@@ -1898,6 +1978,44 @@ impl UltPress {
                             hold = Some((t, format!("{how}, {} {d:.0} away", who(&sim, t))));
                         }
                         None => self.engage = None,
+                    }
+                }
+                // 0.6.5: a marksman the AI never has attack champions (her own range, no range buff)
+                if is_marksman(&name) && !stretched {
+                    let range = reach.0;
+                    let ai_on_champion = swing.is_some_and(|(c, _)| c);
+                    let in_range = nearest_in(my_at, range, &enemies).is_some();
+                    self.open_ticks = neglect_ticks(self.open_ticks, in_range, ai_on_champion);
+                    if self.open_ticks < NEGLECT_T {
+                        self.neglect_noted = false;
+                    } else if !self.neglect_noted {
+                        self.neglect_noted = true;
+                        if let Some(k) = counted(format!("{name} neglected"), on_screen(&sim)) {
+                            wlog(format!("{} NEGLECTED: {NEGLECT_T} ticks with an enemy champion in her range ({range:.0}), her \
+                                          attack ready and no attack order of the AI's at a champion (each of its own pays \
+                                          {NEGLECT_PAID}) - she pokes whoever stands in her range #{k}", head(&sim, mid)));
+                        }
+                    }
+                    // the AI's cast, recall or last hit is its call; so is its own attack at a champion
+                    let ai_busy = base.is_some_and(|b| {
+                        [InputKindV1::Skill, InputKindV1::Skill2, InputKindV1::Ult, InputKindV1::Return].iter().any(|k| b.kind == k.code())
+                    });
+                    // its last hit on a minion or monster stands until it is out (the AI orders once, the wind-up follows)
+                    if swing.is_some_and(|(c, l)| !c && l) {
+                        self.last_hit_until = tick + LAST_HIT_TICKS;
+                    }
+                    let last_hit = tick <= self.last_hit_until;
+                    if hold.is_none() && self.open_ticks >= NEGLECT_T && !ai_busy && !last_hit && !ai_on_champion {
+                        if let Some(t) = neglect_poke(my_at, hp_share(me.hp()), &allies, &enemies, &towers, range) {
+                            let d = enemies.iter().find(|u| u.id == t).map_or(f64::NAN, |u| dist(my_at, u.at));
+                            // a new round of presses (the hook presses every tick until the attack is out)
+                            if self.poke_at.is_none_or(|t0| tick > t0 + 3) {
+                                self.pokes += 1;
+                            }
+                            self.poke_at = Some(tick);
+                            hold = Some((t, format!("neglected by the AI, {} {d:.0} away in her range (poke {} of this match, {} \
+                                                     attacks out after the ones before)", who(&sim, t), self.pokes, self.poke_hits)));
+                        }
                     }
                 }
             } else {
@@ -2079,7 +2197,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (presses for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E, Zed W, Gwen E, Viego E, Katarina W and R, Orianna E and R, Sivir E, Sona W, Zilean E, Kalista E, the R of Janna, Syndra, Xerath, Kayle, Jhin, Karma, Evelynn, Fiddlesticks, Ryze, Aphelios, Vladimir, Swain and Renata; held champions attack: all {} League champions, the {} melee within {}, the ranged within their own attack range; nothing while casting or moved) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (presses for the AI: Samira R, Twisted Fate R, Kog'Maw R, Camille E, Zed W, Gwen E, Viego E, Katarina W and R, Orianna E and R, Sivir E, Sona W, Zilean E, Kalista E, the R of Janna, Syndra, Xerath, Kayle, Jhin, Karma, Evelynn, Fiddlesticks, Ryze, Aphelios, Vladimir, Swain and Renata; held champions attack: all {} League champions, the {} melee within {}, the ranged within their own attack range; a marksman the AI never has attack champions pokes whoever stands in her range; nothing while casting or moved) loaded: game {}.{}.{} abi {} log={} ===",
         ATTACK_RANGE.len(),
         ATTACK_RANGE.iter().filter(|(_, r)| *r <= MELEE_RANGE).count(),
         HOLD_REACH,
@@ -2326,6 +2444,90 @@ mod tests {
         assert!(kog_targets((0.0, 0.0), &[u(3, 140_000.0, 0.0, 0.1)]).is_empty());
         let many: Vec<Unit> = (0..8).map(|i| u(i, 1_000.0 * i as f64, 0.0, 1.0 - 0.1 * i as f64)).collect();
         assert_eq!(kog_targets((0.0, 0.0), &many).len(), KOG_ASK);
+    }
+
+    /// 0.6.5: the marksman the AI neglects. The counter runs only while a champion stands in her range with her attack
+    /// ready and the AI is not attacking a champion; one attack order of the AI's own at a champion clears it (Varus,
+    /// Jinx: never neglected); past NEGLECT_T she pokes the nearest in her range - never one outside it, not under an
+    /// enemy tower, not too hurt, not badly outnumbered.
+    #[test]
+    fn a_neglected_marksman_pokes_in_her_own_range() {
+        // the watched game's Kai'Sa: an enemy in range and her attack ready tick after tick, the AI walking her away
+        let mut open = 0;
+        for _ in 0..NEGLECT_T {
+            open = neglect_ticks(open, true, false);
+        }
+        assert_eq!(open, NEGLECT_T);
+        // out of range: the count waits; an attack order of the AI's own at a champion pays NEGLECT_PAID of it
+        assert_eq!(neglect_ticks(open, false, false), NEGLECT_T);
+        assert_eq!(neglect_ticks(open, true, true), NEGLECT_T - NEGLECT_PAID);
+        assert_eq!(neglect_ticks(7, false, true), 0);
+        // it stops at the cap, so a champion the AI starts attacking with leaves after a few of its orders
+        let mut full = open;
+        for _ in 0..10_000 {
+            full = neglect_ticks(full, true, false);
+        }
+        assert_eq!(full, NEGLECT_CAP);
+        let orders = (0..).scan(full, |o, _| { *o = neglect_ticks(*o, true, true); Some(*o) }).position(|o| o < NEGLECT_T).unwrap() + 1;
+        assert!(orders <= 4, "{orders} orders of the AI's own to leave");
+        // Varus in the watched game: an order of the AI's own every 15 open ticks - never neglected
+        let mut varus = 0;
+        for k in 0..6_000 {
+            varus = neglect_ticks(varus, true, k % 15 == 0);
+            assert!(varus < NEGLECT_T);
+        }
+        // Kai'Sa there: one every 123 open ticks - neglected after 3 s of them, and stays
+        let (mut kaisa, mut since) = (0, None);
+        for k in 0..2_220 {
+            kaisa = neglect_ticks(kaisa, true, k % 123 == 122);
+            if kaisa >= NEGLECT_T && since.is_none() {
+                since = Some(k);
+            }
+        }
+        assert!(since.is_some_and(|k| k < 400) && kaisa >= NEGLECT_T, "{since:?} {kaisa}");
+        let u = |id: usize, x: f64, hp: f64| Unit { id, at: (x, 0.0), hp };
+        let far_tower = [(400_000.0, 0.0)];
+        let foes = [u(1, 50_000.0, 0.9), u(2, 30_000.0, 0.9), u(3, 58_000.0, 0.2)];
+        // the nearest inside her 55000; the one at 58000 is never chased
+        assert_eq!(neglect_poke((0.0, 0.0), 0.9, &[], &foes[..2], &far_tower, 55_000.0), Some(2));
+        assert_eq!(neglect_poke((0.0, 0.0), 0.9, &[], &foes[2..], &far_tower, 55_000.0), None);
+        // one against two she still shoots; one against three she does not; with a friend beside her she does
+        assert_eq!(neglect_poke((0.0, 0.0), 0.9, &[], &foes, &far_tower, 55_000.0), None);
+        assert_eq!(neglect_poke((0.0, 0.0), 0.9, &[u(9, 10_000.0, 1.0)], &foes, &far_tower, 55_000.0), Some(2));
+        // too hurt, or standing under an enemy tower: the AI's retreat stands
+        assert_eq!(neglect_poke((0.0, 0.0), 0.25, &[], &foes[..2], &far_tower, 55_000.0), None);
+        assert_eq!(neglect_poke((0.0, 0.0), 0.9, &[], &foes[..2], &[(60_000.0, 0.0)], 55_000.0), None);
+        // marksmen only: the mages and the melee keep the held rules
+        assert!(is_marksman("league_kaisa") && is_marksman("league_draven") && is_marksman("league_varus"));
+        assert!(!is_marksman("league_orianna") && !is_marksman("league_nilah") && !is_marksman("league_garen"));
+    }
+
+    #[test]
+    fn marksmen_match_the_data() {
+        // every hero of the main pack whose category is Range and whose attack is ranged, and nothing else
+        let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
+        let mut found = Vec::new();
+        for entry in std::fs::read_dir(&dir).expect("league/champion") {
+            let path = entry.unwrap().path();
+            if path.extension().and_then(|x| x.to_str()) != Some("data_champion") {
+                continue;
+            }
+            let raw = std::fs::read_to_string(&path).unwrap().replace("\r\n", "\n");
+            let raw = raw.trim_start_matches('\u{feff}');
+            let id = raw
+                .lines()
+                .find_map(|l| l.strip_prefix("  \"id\": \""))
+                .map(|r| r.trim_end_matches(',').trim_end_matches('"').to_string())
+                .expect("id");
+            let range = raw.lines().any(|l| l == "  \"category\": \"Range\",");
+            if range && attack_range(&id).is_some_and(|r| r > MELEE_RANGE) {
+                found.push(id);
+            }
+        }
+        found.sort();
+        let mut listed: Vec<String> = MARKSMEN.iter().map(|n| n.to_string()).collect();
+        listed.sort();
+        assert_eq!(listed, found, "MARKSMEN must list every ranged hero of category Range in league/champion");
     }
 
     #[test]

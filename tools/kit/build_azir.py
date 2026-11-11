@@ -492,6 +492,12 @@ def build(p):
     views_e += [E(f"sold_{s}_rise", SOLDIER, 1, False, f"soldier_{s}_rise") for s in SLOTS]
     views_e += [E(f"r_guards_{side}{k_}", GUARD, 2, False, f"charge_{d_}_{k_}") for side, d_ in (("", "r"), ("l", "l"))
                 for k_ in "ab"]
+    if p["native"]:
+        # one guard alone (league_azir 0.2.4): the add-on stands them in one line across the charge, whatever its
+        # direction - its three stamps of three guards overlapped into three ranks (the user, 2026-11-11: 「沙皇R的大招推起来
+        # 像是有三排士兵」); the main pack's own hops keep the three-guard stamps
+        views_e += [E(f"r_one_{side}{k_}", GUARD, 2, False, f"one_{d_}_{k_}") for side, d_ in (("", "r"), ("l", "l"))
+                    for k_ in "ab"]
     views_e += [E("r_dust", FX, 1, False)]
     # the Sun Disc's (the add-on plays them: the disc's rise and stamps, its ring, its solar ray)
     views_e += [E("disc_rise", DISC, 1, False, "disc_rise"), E("disc", DISC, 1, False, "disc"), E("d_rise", BIG, 1, False),
