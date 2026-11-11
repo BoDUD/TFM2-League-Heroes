@@ -55,6 +55,15 @@ def rs_pattern(name, doc, code, rva):
             f"    mask: &[\n{rs_bytes(m)}\n    ],\n}};\n")
 
 
+def rs_optional(name, doc, sig, rva):
+    """An Option<Pattern> for a place the listed build may not have (0: None)."""
+    if not rva:
+        return f"/// {doc}\n/// (the listed build has none)\npub const {name}: Option<Pattern> = None;\n"
+    b, m = pattern(sig[rva], rva)
+    return (f"/// {doc}\npub const {name}: Option<Pattern> = Some(Pattern {{\n    bytes: &[\n{rs_bytes(b)}\n    ],\n"
+            f"    mask: &[\n{rs_bytes(m)}\n    ],\n}});\n")
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--exe", default=fb.GAME)
@@ -109,8 +118,10 @@ def main():
            rs_pattern("DISPLAY", "The display-update handler's head.", sig[b["display_fn"]], b["display_fn"]),
            rs_pattern("CMD_BY_NAME", "The draw command made from a sheet's name (out, name ptr, len, ...): its head - the one the "
                       "BP grid calls (league.dll's UI sheets).", sig[b["cmd_by_name"]], b["cmd_by_name"]),
-           rs_pattern("NODE_IMAGE", "The image node's setter (node, &String name, &uv): its head - the one the encyclopedia "
-                      "calls (league.dll's UI sheets).", sig[b["node_image"]], b["node_image"]),
+           rs_optional("NODE_IMAGE", "The image node's setter (node, &String name, &uv): its head - the one the encyclopedia "
+                       "calls to 0.7.1 (league.dll's UI sheets).", sig, b["node_image"]),
+           rs_optional("CMD_UV", "The UV setter (out, &draw command, &uv): its head - the one the encyclopedia and the pick "
+                       "slot hand the sprite command they build to from 0.7.2 (league.dll's UI sheets).", sig, b["cmd_uv"]),
            rs_pattern("EFFECT", "The view node draw (out Option<Vec>, node, ctx, -): its head - shared with other functions, the "
                       "one the body draw calls (league.dll's dense effects).", sig[b["effect_draw"]], b["effect_draw"]),
            "/// The battlefield frame lookup: its two size asks after its call of the anim lookup (offset from the call, bytes).",
@@ -138,7 +149,11 @@ def main():
         f.write(text)
     # each pattern finds exactly its place in this EXE
     for name, rva in (("anim", b["anim"]), ("hash", b["hash"]), ("display_fn", b["display_fn"]),
-                      ("cmd_by_name", b["cmd_by_name"]), ("node_image", b["node_image"]), ("effect_draw", b["effect_draw"])):
+                      ("cmd_by_name", b["cmd_by_name"]), ("node_image", b["node_image"]), ("cmd_uv", b["cmd_uv"]),
+                      ("effect_draw", b["effect_draw"])):
+        if not rva:
+            print(f"{name}: none in the listed build")
+            continue
         hits = e.find(fb.wildcard(sig[rva], rva))
         print(f"{name}: {len(hits)} hits, the listed one among them: {rva in hits}")
     print("wrote", OUT)

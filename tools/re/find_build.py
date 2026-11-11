@@ -19,10 +19,12 @@ of its call sites - and finds every place again in the new EXE, the way 0.6.4 wa
    grow_one of the draw commands: called by the body draw, `mov qword [rsp+0x28], 0xd0` inside;
 4. the display handler: the old handler's 48-byte head; its slot: the .rdata qword pointing at it;
 5. the UI drawers (encyclopedia, pick slot, BP grid, pick moment, scoreboard portraits): every caller of the anim
-   lookup scored by how close its four following size asks sit to the old drawer's spacing - this step is a
-   heuristic, the table it prints (best and second best) is for a human to confirm;
+   lookup with a sheet lookup after it, scored by how close the first four indirect calls after that sheet lookup (its
+   size asks) sit to the old drawer's spacing - this step is a heuristic, the table it prints (best and second best)
+   is for a human to confirm (`--drawer <k>=<call rva>` decides a drawer);
 6. the UI sheets' places (src/ui.rs): each drawer's own sheet lookup, the draw command made from a name, the image
-   node's setter; 7. the view node draw (src/view.rs effect_detour) among the body draw's callees;
+   node's setter and the UV setter (whichever the encyclopedia and the pick slot call); 7. the view node draw
+   (src/view.rs effect_detour) among the body draw's callees;
 8. the hooks' assumptions asserted on the new EXE (the 12-byte prologue the hooks replace, the slot pointing at
    the handler, the 0x1b4 scale read, 0xd0-byte commands).
 
@@ -30,6 +32,13 @@ of its call sites - and finds every place again in the new EXE, the way 0.6.4 wa
 the lookups by their shape), the body draw's size asks through other registers (step 3 by their spacing alone), the
 scale read through r12 (a SIB form), the scale / restore command tags moved by one (read from the entity render), the
 draw command made from a name pushing one register more (its prologue is decoded, not compared).
+
+0.7.1 -> 0.7.2 (2026-11-11), the same compiler: the encyclopedia and the pick slot no longer hand the sheet's name to the
+image node's setter - they build the sprite draw command themselves (tag 0x…03, the name cloned into its String at +8)
+and give it to the function that sets its UV (`cmd_uv`, rdx = the command), and they look the sheet up after choosing
+the frame. Step 5 therefore takes a drawer's size asks as the first four indirect calls after its first sheet lookup
+(the rule holds for all five drawers of 0.7.2) and the encyclopedia's spacing no longer resembles 0.7.1's (best score
+232, a look-alike first): it was given as `--drawer 0=0x2939214`; step 6 finds the UV setter and leaves node_image 0.
 
 Then a match in game confirms it: league.log `game build: <name>`, the "lookup anim from rva" / "texture width
 asked from rva" lines of every screen. The structures (display world table, entity value fields, draw command
@@ -71,7 +80,10 @@ def old_build(path=BUILD_RS):
     body = body[:min(ends)]
 
     def num(field):
-        return int(re.search(rf"\b{field}: (0x[0-9a-f]+),", body).group(1), 16)
+        m = re.search(rf"\b{field}: (0x[0-9a-f]+|0),", body)
+        if m is None and field == "cmd_uv":
+            return 0  # builds listed before 0.7.2 may lack it
+        return int(m.group(1), 16)
 
     def nums(field):
         m = re.search(rf"\b{field}: &\[([^\]]*)\]", body)
@@ -81,7 +93,7 @@ def old_build(path=BUILD_RS):
     for m in re.finditer(r"\((0x[0-9a-f]+),\s*&\[([^\]]*)\]\)", body[body.index("sigs: &["):]):
         sigs.append((int(m.group(1), 16), bytes(int(x, 16) for x in re.findall(r"0x([0-9a-f]{2})", m.group(2)))))
     b = {k: num(k) for k in ("anim", "sheet", "hash", "display_fn", "display_slot", "body_draw", "cmd_grow",
-                               "cmd_by_name", "node_image", "effect_draw")}
+                               "cmd_by_name", "node_image", "cmd_uv", "effect_draw")}
     b.update({k: nums(k) for k in ("battle_anim_ret", "battle_size_ret", "ui_anim_ret", "ui_size_ret")})
     b["name"] = re.search(r'name: "([^"]*)"', body).group(1)
     b["sigs"] = dict(sigs)
@@ -198,26 +210,80 @@ def is_call_reg(e, rva):
 
 def prologue_len(code):
     """The length of a push / `sub rsp` prologue at the start of `code` once it covers the 12 bytes a hook overwrites
-    (push r64: 50..57 or 41 50..57; sub rsp, imm8 / imm32: 48 83 ec ib / 48 81 ec id), else None - src/ui.rs runs those
-    whole instructions from its trampoline."""
+    (push r64: 50..57 or 41 50..57; sub rsp, imm8 / imm32: 48 83 ec ib / 48 81 ec id; movabs r64, imm64: 48 / 49
+    b8..bf, 0.7.2's UV setter), else None - src/ui.rs runs those whole instructions from its trampoline."""
     i = 0
     while i < 12:
-        if 0x50 <= code[i] <= 0x57:
+        b = code[i:i + 3]
+        if len(b) >= 1 and 0x50 <= b[0] <= 0x57:
             i += 1
-        elif code[i] == 0x41 and 0x50 <= code[i + 1] <= 0x57:
+        elif len(b) >= 2 and b[0] == 0x41 and 0x50 <= b[1] <= 0x57:
             i += 2
-        elif code[i:i + 3] == b"\x48\x83\xec":
+        elif b == b"\x48\x83\xec":
             i += 4
-        elif code[i:i + 3] == b"\x48\x81\xec":
+        elif b == b"\x48\x81\xec":
             i += 7
+        elif len(b) >= 2 and b[0] in (0x48, 0x49) and 0xB8 <= b[1] <= 0xBF:
+            i += 10
         else:
             return None
-    return i
+    return i if i <= len(code) else None
+
+
+def indirect_len(code, i):
+    """`call r64` / `call [r64+disp8]` (ff d0..d7, ff 50..57 but 54, the same after 41) at code[i]: its length, else
+    None - the byte rule game_places' indirect_call uses at run time (no disassembler there)."""
+    b = code[i:i + 3]
+    if len(b) >= 2 and b[0] == 0xFF and 0xD0 <= b[1] <= 0xD7:
+        return 2
+    if len(b) == 3 and b[0] == 0xFF and 0x50 <= b[1] <= 0x57 and b[1] != 0x54:
+        return 3
+    if len(b) == 3 and b[0] == 0x41 and b[1] == 0xFF and 0xD0 <= b[2] <= 0xD7:
+        return 3
+    if len(b) == 3 and b[0] == 0x41 and b[1] == 0xFF and 0x50 <= b[2] <= 0x57 and b[2] != 0x54:
+        return 4
+    return None
+
+
+def drawer_window(e, c, sheet):
+    """A caller of the anim lookup at `c` -> (its first call of the sheet lookup after it in the same function, the first
+    four indirect calls after that as [(rva, length)]: a UI drawer's size asks), else None (game_places drawer_window)."""
+    f = e.func_of(c)
+    end = min(f[1], c + 0x800) if f else c + 0x800
+    s = next((a for a in range(c + 5, end) if e.call_target(a) == sheet), None)
+    if s is None:
+        return None
+    code = e.read(s + 5, 0x400) or b""
+    asks, i = [], 0
+    while i < len(code) and len(asks) < 4:
+        n = indirect_len(code, i)
+        if n:
+            asks.append((s + 5 + i, n))
+            i += n
+        else:
+            i += 1
+    return (s, asks) if len(asks) == 4 else None
+
+
+def tagged_calls(e, s, end):
+    """The first direct call within 0x40 bytes after each `movabs r64, 0x80000000000000xx` (a draw command's tag) in
+    [s, end): the function a drawer hands the command it just built to (0.7.2's UV setter; game_places tagged_calls)."""
+    out = set()
+    code = e.read(s, end - s) or b""
+    for i in range(len(code) - 9):
+        if code[i] in (0x48, 0x49) and 0xB8 <= code[i + 1] <= 0xBF and code[i + 3:i + 10] == b"\0\0\0\0\0\0\x80":
+            for j in range(i + 10, min(i + 0x40, len(code) - 4)):
+                t = e.call_target(s + j)
+                if t is not None and e.func_of(t) and e.func_of(t)[0] == t:
+                    out.add(t)
+                    break
+    return out
 
 
 # ---- the search --------------------------------------------------------------------------------------------------
 
-def search(e, b):
+def search(e, b, forced=None):
+    forced = forced or {}
     sig = b["sigs"]
     found, notes = {}, []
     # 1. hash and lookups: the listed build's lookup head first, else the lookups' shape (0.6.5 -> 0.7.0)
@@ -312,31 +378,33 @@ def search(e, b):
     want = struct.pack("<Q", e.base + found["display_fn"])
     found["display_slot"] = one("the display slot", [va + m.start() for m in re.finditer(re.escape(want), rdata)
                                                      if m.start() % 8 == 0])
-    # 5. the UI drawers by the spacing of their size asks (return addresses relative to the anim call's). Spacing alone
-    # can pick a look-alike (0.6.4: a champion effect drawer, 0x1fc5510, has the old pick slot's exact spacing), so a
-    # drawer not clearly ahead of the rest is also asked to sit where the old one sat next to a drawer already found
-    # (0.6.4's pick slot: 0x3bd7 before the encyclopedia's call, 0.6.3's 0x3be5 - the same code unit).
-    callers = e.calls_to(anim)
+    # 5. the UI drawers by the spacing of their size asks (return addresses relative to the anim call's): a drawer looks
+    # the hero's sheet up after its anim lookup and asks the sheet's width / height right after (UV = frame / size), so
+    # its asks are the first four indirect calls after its first sheet lookup (drawer_window; 0.7.2 moved the
+    # encyclopedia's and the pick slot's sheet lookup after the frame choice, so asks counted from the anim call alone
+    # took other calls). Spacing alone can pick a look-alike (0.6.4: a champion effect drawer, 0x1fc5510, has the old
+    # pick slot's exact spacing), so a drawer not clearly ahead of the rest is also asked to sit where the old one sat
+    # next to a drawer already found (0.6.4's pick slot: 0x3bd7 before the encyclopedia's call, 0.6.3's 0x3be5 - the
+    # same code unit); `forced` (--drawer) decides a drawer outright.
+    windows = {c: w for c in e.calls_to(anim) if (w := drawer_window(e, c, found["sheet"]))}
     sites = []
     for k, ret in enumerate(b["ui_anim_ret"]):
         old = [r - ret for r in b["ui_size_ret"][4 * k:4 * k + 4]]
         scored = []
-        for c in callers:
-            new_asks = [i for i in e.md.disasm(e.read(c, 0x800), c)
-                        if i.mnemonic == "call" and i.operands[0].type != X86.X86_OP_IMM]
-            best = None
-            for s in range(len(new_asks) - 3):
-                w = [i.address + i.size - (c + 5) for i in new_asks[s:s + 4]]
-                d = sum(abs((w[j] - w[0]) - (old[j] - old[0])) for j in range(4)) + abs(w[0] - old[0]) // 16
-                if best is None or d < best[0]:
-                    best = (d, [i.address for i in new_asks[s:s + 4]])
-            if best:
-                scored.append((best[0], c, best[1]))
+        for c, (_, asks) in windows.items():
+            w = [a + n - (c + 5) for a, n in asks]
+            d = sum(abs((w[j] - w[0]) - (old[j] - old[0])) for j in range(4)) + abs(w[0] - old[0]) // 16
+            scored.append((d, c, [a for a, _ in asks]))
         scored.sort()
         sites.append((ret - 5, scored))
     chosen = {}
+    for k, c in forced.items():
+        if c not in windows:
+            sys.exit(f"--drawer {k}={c:#x}: not a call of the anim lookup with a sheet lookup and four size asks after it")
+        chosen[k] = (next(s for s in sites[k][1] if s[1] == c), "given (--drawer)")
     for k, (_, scored) in enumerate(sites):
-        if scored[0][0] <= 1 and (len(scored) == 1 or scored[1][0] >= scored[0][0] + 5):
+        if k not in chosen and scored[0][0] <= 1 and (len(scored) == 1 or scored[1][0] >= scored[0][0] + 5) \
+                and scored[0][1] not in {v[0][1] for v in chosen.values()}:
             chosen[k] = (scored[0], "clear")
     for k, (old_call, scored) in enumerate(sites):
         if k in chosen:
@@ -362,15 +430,15 @@ def search(e, b):
         ui_rows.append(f"  {name:26s} call {c:#x} in {e.func_of(c)[0]:#x}: spacing {d}, {how}{second}")
     found["ui"] = ui
     found["battle_asks"] = battle_asks
-    # 6. src/ui.rs (the UI sheets): each drawer's own call of the sheet lookup between its anim call and its first size
-    # ask, and the two functions they hand the sheet's name to - the draw command made from a name (called by the BP
-    # grid and the scoreboard portraits after their sheet lookup; `mov rdi, r8; test r8, r8` in its head: 0.6.5 and
-    # 0.7.0) and the image node's setter (called by the encyclopedia and the pick slot; the listed build's head)
+    # 6. src/ui.rs (the UI sheets): each drawer's own call of the sheet lookup (the one its size asks follow), and the
+    # functions they hand the sheet's name to - the draw command made from a name (called by the BP grid and the
+    # scoreboard portraits after their sheet lookup; `mov rdi, r8; test r8, r8` in its head: 0.6.5 to 0.7.2), and
+    # whichever the encyclopedia and the pick slot both call after theirs: the image node's setter (to 0.7.1; the listed
+    # build's head) or the UV setter (0.7.2: the listed build's head, else the call right after each writes a draw
+    # command's tag) - each of the two must call one of them
     sheet_calls, after = [], []
     for c, w in ui:
-        s = next((a for a in range(c + 5, w[0]) if e.call_target(a) == found["sheet"]), None)
-        if s is None:
-            sys.exit(f"UI drawer at {c:#x}: no call of the sheet lookup before its size asks")
+        s = windows[c][0]
         sheet_calls.append(s)
         f = e.func_of(c)
         after.append({i.operands[0].imm for i in e.md.disasm(e.read(s + 5, f[1] - s - 5), s + 5)
@@ -379,11 +447,27 @@ def search(e, b):
     mark = b"\x4c\x89\xc7\x4d\x85\xc0"
     found["cmd_by_name"] = one("the draw command made from a sheet's name",
                                sorted(t for t in after[2] & after[4] if mark in (e.read(t, 0x60) or b"")))
-    node_heads = set(e.find(wildcard(sig[b["node_image"]], b["node_image"])))
-    found["node_image"] = one("the image node's setter", sorted(after[0] & after[1] & node_heads))
-    for k in ("cmd_by_name", "node_image"):
-        if prologue_len(e.read(found[k], 24)) is None:
-            sys.exit(f"{k} {found[k]:#x}: not a push / sub rsp prologue src/ui.rs can run from its trampoline")
+
+    def by_head(field):
+        if not b[field] or b[field] not in sig:
+            return []
+        return sorted((after[0] | after[1]) & set(e.find(wildcard(sig[b[field]], b[field]))))
+
+    node = by_head("node_image")
+    found["node_image"] = one("the image node's setter", node) if node else 0
+    uv = by_head("cmd_uv")
+    how_uv = "the listed head"
+    if not uv:
+        tagged = [tagged_calls(e, s + 5, e.func_of(c)[1]) for (c, _), s in zip(ui[:2], sheet_calls[:2])]
+        uv, how_uv = sorted(tagged[0] & tagged[1]), "the call after both write a draw command's tag"
+    found["cmd_uv"] = one(f"the UV setter ({how_uv})", uv) if uv else 0
+    for k in (0, 1):
+        if not (({found["node_image"], found["cmd_uv"]} - {0}) & after[k]):
+            sys.exit(f"UI drawer {k} ({UI_NAMES[k]}): calls neither the image node's setter {found['node_image']:#x} "
+                     f"nor the UV setter {found['cmd_uv']:#x} after its sheet lookup - where does it hand the name on?")
+    for k in ("cmd_by_name", "node_image", "cmd_uv"):
+        if found[k] and prologue_len(e.read(found[k], 24)) is None:
+            sys.exit(f"{k} {found[k]:#x}: not a push / sub rsp / movabs prologue src/ui.rs can run from its trampoline")
     # 7. the view node draw (src/view.rs effect_detour): a function with the listed head (prologue, sub rsp, lea rbp -
     # 38 in 0.7.0) that the body draw calls (it and the world's effects do; 0.7.0 0x245f150), else not known (0: dense
     # effects drawn PPU times big)
@@ -437,6 +521,7 @@ def rust(e, f):
            "    ui_sized_size_ret: &[" + rets([r for k in sized for r in ui_size[4 * k:4 * k + 4]], 25) + "],",
            "    ui_sheet_ret: &[" + ", ".join(f"{s + 5:#x}" for s in f["ui_sheet_calls"]) + "],",
            f"    cmd_by_name: {f['cmd_by_name']:#x},", f"    node_image: {f['node_image']:#x},",
+           f"    cmd_uv: {f['cmd_uv']:#x},",
            f"    body_draw: {f['body_draw']:#x},", f"    cmd_grow: {f['cmd_grow']:#x},",
            f"    effect_draw: {f['effect_draw']:#x},",
            f"    cmd_scale: {f['cmd_tags'][0][1]:#x},", f"    cmd_restore: {f['cmd_tags'][1][1]:#x},", "    sigs: &[",
@@ -459,9 +544,13 @@ def rust(e, f):
     out += ["    // the same drawers' own calls of the sheet lookup (src/ui.rs)",
             "    " + ", ".join(at(s) for s in f["ui_sheet_calls"]) + ",",
             "    // the draw command made from a sheet's name (src/ui.rs hooks its prologue)",
-            f"    ({f['cmd_by_name']:#x}, &[\n{hexes(e.read(f['cmd_by_name'], 48))}\n    ]),",
-            "    // the image node's setter (src/ui.rs hooks its prologue)",
-            f"    ({f['node_image']:#x}, &[\n{hexes(e.read(f['node_image'], 48))}\n    ]),"]
+            f"    ({f['cmd_by_name']:#x}, &[\n{hexes(e.read(f['cmd_by_name'], 48))}\n    ]),"]
+    if f["node_image"]:
+        out += ["    // the image node's setter (src/ui.rs hooks its prologue)",
+                f"    ({f['node_image']:#x}, &[\n{hexes(e.read(f['node_image'], 48))}\n    ]),"]
+    if f["cmd_uv"]:
+        out += ["    // the UV setter of a draw command the encyclopedia / pick slot built (src/ui.rs hooks its prologue)",
+                f"    ({f['cmd_uv']:#x}, &[\n{hexes(e.read(f['cmd_uv'], 48))}\n    ]),"]
     out += ["    // the anim tables' hash", f"    ({f['hash']:#x}, &[\n{hexes(e.read(f['hash'], 48))}\n    ]),",
             "    // the display-update handler",
             f"    ({f['display_fn']:#x}, &[\n{hexes(e.read(f['display_fn'], 48))}\n    ]),",
@@ -476,13 +565,17 @@ def main():
     ap.add_argument("--exe", default=GAME)
     ap.add_argument("--build-rs", default=BUILD_RS, help="the build.rs whose build is the starting point")
     ap.add_argument("--out")
+    ap.add_argument("--drawer", action="append", default=[], metavar="K=RVA",
+                    help="UI drawer K (0 encyclopedia / faces, 1 pick slot, 2 BP grid, 3 pick moment, 4 scoreboard) is "
+                         "the anim lookup call at RVA (when step 5's table is not clear)")
     a = ap.parse_args()
     b = old_build(a.build_rs)
     e = Exe(a.exe)
     if all(e.read(r, len(x)) == x for r, x in b["sigs"].items()):
         print(f"this EXE is the build build.rs lists ({b['name']}): nothing to find")
         return
-    found, notes, ui_rows = search(e, b)
+    forced = {int(k): int(v, 16) for k, v in (d.split("=") for d in a.drawer)}
+    found, notes, ui_rows = search(e, b, forced)
     check(e, found)
     for n in notes:
         print(n)
@@ -491,7 +584,8 @@ def main():
           f"{found['render_call']:#x} / scale {found['render_scale']:#x}, grow_one {found['cmd_grow']:#x}, display "
           f"{found['display_fn']:#x} / slot {found['display_slot']:#x}")
     print(f"scale / restore command tags {found['cmd_tags'][0][1]:#x} / {found['cmd_tags'][1][1]:#x}; UI sheet sinks: draw "
-          f"command {found['cmd_by_name']:#x}, image node {found['node_image']:#x}; view node draw {found['effect_draw']:#x}")
+          f"command {found['cmd_by_name']:#x}, image node {found['node_image']:#x}, UV setter {found['cmd_uv']:#x}; "
+          f"view node draw {found['effect_draw']:#x}")
     print("UI drawers (confirm by eye: the lower the score the closer to the old layout):")
     print("\n".join(ui_rows))
     print(f"whole-body add-ons (view.rs): FN_RVA {found['display_fn']:#x}, SLOT_RVA {found['display_slot']:#x}")

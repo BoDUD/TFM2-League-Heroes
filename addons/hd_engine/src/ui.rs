@@ -13,12 +13,21 @@
 //! - 这五处取动画表（src/lookup.rs after_anim）：给游戏那张表的一份拷贝，每个动作的帧换成小图集里的帧（BP 格子每个动作
 //!   是 reel、dead 是 dead；别处每个动作是 idle），矩形除以它原来的除数——画出来的大小、锚点和以前一样；
 //! - 紧接着它们自己取图（src/build.rs ui_sheet_ret）：给小图集的条目（PPU 英雄照样报 ÷ 除数的宽高），UV 落在小图集上；
-//! - 它们把名字交出去的两个函数（cmd_by_name / node_image）：入口挂一段保存寄存器的跳板，名字正是刚才换过图的那个，
+//! - 它们把名字交出去的函数（cmd_by_name / node_image / cmd_uv）：入口挂一段保存寄存器的跳板，名字正是刚才换过图的那个，
 //!   就换成小图集的名字——画的时候游戏取到的就是小图集。别的调用原样放过。
+//!
+//! 游戏 0.7.2（2026-11-11）：图鉴 / 头像和选人位不再调图片节点，自己拼一条贴图绘制命令（标签 0x…03，名字复制一份放在
+//! +8 的 String 里）交给设置 UV 的函数（cmd_uv，rdx = 这条命令，它把命令连同 String 整个搬进输出）。这里在它入口把
+//! String 里的名字原地换成小图集的（小图集的名字比整张图集的短，直接写进原来的缓冲；更长时用和游戏同一个进程堆
+//! 重新分配，旧的释放）。
+//!
+//! 保护：一处画英雄的地方取了 40 次小图集、一次都没把名字交到这几个函数（游戏又改了交名字的地方），就不再给它小图集——
+//! 不然它会用小图集的 UV 去画整张图集。0.7.1 实测每 300 次有 297~299 次交到。
 //!
 //! 战场不动（它画整张图集里的高清帧）。没有小图集的英雄（别的模组的、还没打包的）、找不到这些地址的游戏版本：照旧画整张
 //! 图集。
 
+use std::alloc::{GlobalAlloc, Layout, System};
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::ffi::c_void;
@@ -36,11 +45,12 @@ const KINDS: [&str; 2] = ["idle", "bp"];
 const IDLE: usize = 0;
 const REEL: usize = 1;
 
-/// The length of the sinks' first whole instructions the trampoline runs before it jumps back: pushes and `sub rsp`
-/// (no rip-relative operand) until the 12 bytes the jump overwrites are covered - push r64 (50..57, 41 50..57), sub
-/// rsp imm8 / imm32 (48 83 ec ib / 48 81 ec id). 0.6.5's draw command: push rbp / r14 / rsi / rdi / rbx, sub rsp 0xc0
-/// (13 bytes); 0.7.0's pushes r15 too, sub rsp 0xc8 (15); the image node's: push r15 / r14 / r12 / rsi / rdi / rbx,
-/// sub rsp 0x28 (13) in both. A sink starting otherwise gets no hook (and the UI no UI sheets).
+/// The length of the sinks' first whole instructions the trampoline runs before it jumps back: pushes, `sub rsp` and
+/// `movabs` (no rip-relative operand) until the 12 bytes the jump overwrites are covered - push r64 (50..57, 41 50..57),
+/// sub rsp imm8 / imm32 (48 83 ec ib / 48 81 ec id), movabs r64, imm64 (48 / 49 b8..bf). 0.6.5's draw command: push
+/// rbp / r14 / rsi / rdi / rbx, sub rsp 0xc0 (13 bytes); 0.7.0's pushes r15 too, sub rsp 0xc8 (15); the image node's:
+/// push r15 / r14 / r12 / rsi / rdi / rbx, sub rsp 0x28 (13); 0.7.2's UV setter: push rsi, sub rsp 0x20, movabs rax,
+/// 0x8000000000000000 (15). A sink starting otherwise gets no hook (and the UI no UI sheets).
 pub fn prologue_len(code: &[u8]) -> Option<usize> {
     let mut i = 0;
     while i < 12 {
@@ -49,19 +59,25 @@ pub fn prologue_len(code: &[u8]) -> Option<usize> {
             [0x41, 0x50..=0x57, ..] => i += 2,
             [0x48, 0x83, 0xec, _, ..] => i += 4,
             [0x48, 0x81, 0xec, _, _, _, _, ..] => i += 7,
+            [0x48 | 0x49, 0xb8..=0xbf, _, _, _, _, _, _, _, _, ..] => i += 10,
             _ => return None,
         }
     }
     Some(i)
 }
-/// which sink called [`swap`]: the draw command (name ptr in rdx, len in r8), the image node (&String in rdx)
+/// which sink called [`swap`]: the draw command (name ptr in rdx, len in r8), the image node (&String in rdx), the UV
+/// setter (rdx = &draw command: its tag at +0, the name String {cap, ptr, len} at +8)
 const CMD: u32 = 0;
 const NODE: u32 = 1;
+const UV: u32 = 2;
+const SINKS: [&str; 3] = ["draw command", "image node", "UV command"];
 const MAX_LINES: usize = 600;
 /// after this many UI sheet lookups by a drawer, the log says how many of them reached a sink
 const TALLY: usize = 300;
+/// after this many UI sheet lookups by a drawer none of which reached a sink, the drawer gets no UI sheets any more
+const GUARD: usize = 40;
 
-/// Both sinks hooked: the drawers draw from the UI sheets.
+/// The sinks hooked: the drawers draw from the UI sheets.
 pub static ON: AtomicBool = AtomicBool::new(false);
 
 #[link(name = "kernel32")]
@@ -248,11 +264,14 @@ static LINES: AtomicUsize = AtomicUsize::new(0);
 /// (hero names, drawer) logged; heroes without UI sheets logged
 static SEEN: Mutex<Vec<(usize, usize)>> = Mutex::new(Vec::new());
 static MISSING: Mutex<Vec<String>> = Mutex::new(Vec::new());
-static SWAPS: [AtomicUsize; 2] = [AtomicUsize::new(0), AtomicUsize::new(0)];
+static SWAPS: [AtomicUsize; 3] = [const { AtomicUsize::new(0) }; 3];
 /// per drawer: its UI sheet lookups, and the names of them handed on to a sink (fewer: the BP grid's cards scrolled out of
 /// sight and the pick moment's layout passes look the sheet up and draw nothing)
 static LOOKED: [AtomicUsize; 8] = [const { AtomicUsize::new(0) }; 8];
 static HANDED: [AtomicUsize; 8] = [const { AtomicUsize::new(0) }; 8];
+/// per drawer: no UI sheets any more - its first GUARD UI sheet lookups reached no sink: it hands the name on somewhere
+/// this build's places do not know, and would draw the battle sheet with the UI sheet's UV
+static OFF: [AtomicBool; 8] = [const { AtomicBool::new(false) }; 8];
 
 fn line(msg: impl FnOnce() -> String) {
     if LINES.fetch_add(1, Ordering::Relaxed) < MAX_LINES {
@@ -260,18 +279,28 @@ fn line(msg: impl FnOnce() -> String) {
     }
 }
 
-/// The in-game check of this module: after TALLY UI sheet lookups by drawer `k`, how many reached a sink (none would mean
-/// the drawer hands its name on somewhere else and draws the battle sheet with the UI sheet's UV).
+/// The in-game check of this module: after TALLY UI sheet lookups by drawer `k`, how many reached a sink; none of the
+/// first GUARD (the drawer hands its name on somewhere else and draws the battle sheet with the UI sheet's UV): the
+/// drawer is turned off ([`OFF`]) and keeps the battle sheet.
 fn tally(k: usize) {
-    if LOOKED.get(k).is_some_and(|c| c.fetch_add(1, Ordering::Relaxed) + 1 == TALLY) {
-        line(|| format!("UI drawer {k}: {TALLY} UI sheet lookups, {} of them handed on to be drawn",
-                        HANDED[k].load(Ordering::Relaxed)));
+    let Some(n) = LOOKED.get(k).map(|c| c.fetch_add(1, Ordering::Relaxed) + 1) else { return };
+    let handed = HANDED[k].load(Ordering::Relaxed);
+    if n == GUARD && handed == 0 {
+        OFF[k].store(true, Ordering::Relaxed);
+        line(|| format!("UI drawer {k}: {GUARD} UI sheet lookups and none handed on to a hooked sink - no UI sheets for it \
+                         from now on (it draws its battle sheet)"));
+    }
+    if n == TALLY {
+        line(|| format!("UI drawer {k}: {TALLY} UI sheet lookups, {handed} of them handed on to be drawn"));
     }
 }
 
 /// The anim lookup of `name` from UI drawer `k` (src/lookup.rs after_anim) returned `got`: the copy drawing from the
 /// hero's UI sheet, or None - no UI sheets for it: the drawer keeps the battle sheet's frames, as before.
 pub(crate) unsafe fn anim(ctx: usize, name: &str, got: usize, k: usize, hero: Option<&Hero>) -> Option<usize> {
+    if OFF.get(k).is_none_or(|o| o.load(Ordering::Relaxed)) {
+        return None;
+    }
     let b = lookup::build();
     let (id, pack) = hero_id(name, &hd::heroes().packs)?;
     let n = names_of(id, pack)?;
@@ -331,30 +360,72 @@ pub(crate) unsafe fn sheet(ctx: usize, name: &str, k: usize, hero: Option<&Hero>
     Some(ue)
 }
 
+/// `len` bytes at `ptr` are `name`.
+unsafe fn is_name(ptr: usize, len: usize, name: &[u8]) -> bool {
+    len == name.len() && plausible(ptr) && std::slice::from_raw_parts(ptr as *const u8, len) == name
+}
+
+/// The UV setter's sink: `cmd` is a draw command whose tag is a niche value (0x80000000000000xx) and whose String at +8
+/// ({cap, ptr, len}, the drawer's own copy, moved into the out command and freed by the game later) holds `name` - its
+/// text becomes `new`: written into the same buffer when it fits (the UI sheets' names are shorter than the battle
+/// sheets'), else into a buffer from the process heap (std's System allocator: HeapAlloc / HeapFree on the process heap,
+/// as the game's own) with the old one freed. False (nothing written) for any other command.
+unsafe fn swap_in_command(cmd: usize, name: &[u8], new: &str) -> bool {
+    if !plausible(cmd) || q(cmd) & !0xff != 1 << 63 {
+        return false;
+    }
+    let (cap, ptr, len) = (q(cmd + 8), q(cmd + 16), q(cmd + 24));
+    if cap < len || cap > 1 << 20 || !is_name(ptr, len, name) {
+        return false;
+    }
+    let n = new.len();
+    if n <= cap {
+        std::ptr::copy_nonoverlapping(new.as_ptr(), ptr as *mut u8, n);
+    } else {
+        let buf = System.alloc(Layout::from_size_align_unchecked(n, 1));
+        if buf.is_null() {
+            return false;
+        }
+        std::ptr::copy_nonoverlapping(new.as_ptr(), buf, n);
+        std::ptr::write_unaligned((cmd + 8) as *mut usize, n);
+        std::ptr::write_unaligned((cmd + 16) as *mut usize, buf as usize);
+        System.dealloc(ptr as *mut u8, Layout::from_size_align_unchecked(cap, 1));
+    }
+    std::ptr::write_unaligned((cmd + 24) as *mut usize, n);
+    true
+}
+
 /// Called by the sinks' stub with the caller's registers [r9, r8, rdx, rcx, return address]: the name handed on is the
-/// one the last UI sheet lookup redirected - swapped for the UI sheet's (rdx / r8 rewritten).
+/// one the last UI sheet lookup redirected - swapped for the UI sheet's (rdx / r8 rewritten; the UV setter's command
+/// rewritten in place).
 unsafe extern "system" fn swap(sink: u32, regs: *mut [usize; 5]) {
     let _ = std::panic::catch_unwind(|| unsafe {
         with_state(|s| {
             let Some((n, kd, k)) = s.swap else { return };
             let r = &mut *regs;
-            let (ptr, len) = if sink == CMD { (r[2], r[1]) } else if plausible(r[2]) { (q(r[2] + 8), q(r[2] + 16)) } else { return };
-            if len != s.name.len() || !plausible(ptr) || std::slice::from_raw_parts(ptr as *const u8, len) != s.name {
+            let done = match sink {
+                CMD if is_name(r[2], r[1], &s.name) => {
+                    r[2] = n.sheet[kd].as_ptr() as usize;
+                    r[1] = n.sheet[kd].len();
+                    true
+                }
+                NODE if plausible(r[2]) && is_name(q(r[2] + 8), q(r[2] + 16), &s.name) => {
+                    r[2] = n.string[kd].as_ptr() as usize;
+                    true
+                }
+                UV => swap_in_command(r[2], &s.name, &n.sheet[kd]),
+                _ => false,
+            };
+            if !done {
                 return;
-            }
-            if sink == CMD {
-                r[2] = n.sheet[kd].as_ptr() as usize;
-                r[1] = n.sheet[kd].len();
-            } else {
-                r[2] = n.string[kd].as_ptr() as usize;
             }
             s.swap = None;
             if let Some(c) = HANDED.get(k) {
                 c.fetch_add(1, Ordering::Relaxed);
             }
-            if SWAPS[sink as usize].fetch_add(1, Ordering::Relaxed) == 0 {
+            if SWAPS.get(sink as usize).is_some_and(|c| c.fetch_add(1, Ordering::Relaxed) == 0) {
                 line(|| format!("UI drawer {k}: {} handed on as {} ({})", String::from_utf8_lossy(&s.name), n.sheet[kd],
-                                if sink == CMD { "draw command" } else { "image node" }));
+                                SINKS[sink as usize]));
             }
         });
     });
@@ -421,22 +492,26 @@ unsafe fn hook_sink(func: usize, sink: u32) -> Result<(), String> {
     Ok(())
 }
 
-/// The sinks hooked (src/lookup.rs install_once, after the lookups): on when both are in and the build knows the drawers'
-/// sheet lookups.
+/// The sinks hooked (src/lookup.rs install_once, after the lookups): on when the build knows the drawers' sheet lookups,
+/// the draw command made from a name and the image node's setter or the UV setter (0.7.2), and every known one is in.
 pub fn install(b: &Build, module: usize) {
-    if b.ui_sheet_ret.len() != b.ui_anim_ret.len() || b.cmd_by_name == 0 || b.node_image == 0 {
+    if b.ui_anim_ret.is_empty() || b.ui_sheet_ret.len() != b.ui_anim_ret.len() || b.cmd_by_name == 0
+        || (b.node_image == 0 && b.cmd_uv == 0)
+    {
         wlog("UI sheets off: this game build's UI sheet places are not known - the UI draws the battle sheets");
         return;
     }
-    let (c, n) = unsafe {
-        (hook_sink(module + b.cmd_by_name, CMD), hook_sink(module + b.node_image, NODE))
-    };
-    if c.is_ok() && n.is_ok() {
+    let hooks: Vec<(u32, usize, Result<(), String>)> = [(CMD, b.cmd_by_name), (NODE, b.node_image), (UV, b.cmd_uv)]
+        .into_iter()
+        .filter(|(_, rva)| *rva != 0)
+        .map(|(sink, rva)| (sink, rva, unsafe { hook_sink(module + rva, sink) }))
+        .collect();
+    if hooks.iter().all(|h| h.2.is_ok()) {
         ON.store(true, Ordering::Release);
     }
-    wlog(format!("UI sheets {}: draw command {:#x} {c:?}, image node {:#x} {n:?}; the encyclopedia / faces, pick slots, pick \
-                  moment and scoreboard draw {DIR}/idle, the BP grid {DIR}/bp",
-                 if ON.load(Ordering::Relaxed) { "on" } else { "off" }, b.cmd_by_name, b.node_image));
+    let said: Vec<String> = hooks.iter().map(|(sink, rva, r)| format!("{} {rva:#x} {r:?}", SINKS[*sink as usize])).collect();
+    wlog(format!("UI sheets {}: {}; the encyclopedia / faces, pick slots, pick moment and scoreboard draw {DIR}/idle, the \
+                  BP grid {DIR}/bp", if ON.load(Ordering::Relaxed) { "on" } else { "off" }, said.join(", ")));
 }
 
 #[cfg(test)]
@@ -469,14 +544,110 @@ mod tests {
     fn the_hooked_prologues_are_the_listed_builds() {
         for b in crate::build::BUILDS {
             let head = |rva: usize| b.sigs.iter().find(|s| s.0 == rva).map(|s| s.1).unwrap();
-            // 0.7.0: push rbp / r15 / r14 / rsi / rdi / rbx, sub rsp 0xc8; push r15 / r14 / r12 / rsi / rdi / rbx, sub rsp 0x28
+            // 0.7.0 to 0.7.2: push rbp / r15 / r14 / rsi / rdi / rbx, sub rsp 0xc8
             assert_eq!(prologue_len(head(b.cmd_by_name)), Some(15), "{}", b.name);
-            assert_eq!(prologue_len(head(b.node_image)), Some(13), "{}", b.name);
+            // to 0.7.1: push r15 / r14 / r12 / rsi / rdi / rbx, sub rsp 0x28
+            if b.node_image != 0 {
+                assert_eq!(prologue_len(head(b.node_image)), Some(13), "{}", b.name);
+            }
+            // 0.7.2: push rsi, sub rsp 0x20, movabs rax, 0x8000000000000000
+            if b.cmd_uv != 0 {
+                assert_eq!(prologue_len(head(b.cmd_uv)), Some(15), "{}", b.name);
+            }
         }
         // 0.6.5's draw command (push rbp / r14 / rsi / rdi / rbx, sub rsp 0xc0) and what the hook must not take
         assert_eq!(prologue_len(&[0x55, 0x41, 0x56, 0x56, 0x57, 0x53, 0x48, 0x81, 0xec, 0xc0, 0, 0, 0, 0x48]), Some(13));
         assert_eq!(prologue_len(&[0x55, 0x48, 0x8b, 0x05, 1, 2, 3, 4, 0x41, 0x56, 0x56, 0x57, 0x53]), None); // a rip load
         assert_eq!(prologue_len(&[0x55, 0x41, 0x56]), None); // cut short
+        assert_eq!(prologue_len(&[0x56, 0x48, 0x83, 0xec, 0x20, 0x48, 0xb8, 0, 0, 0, 0, 0, 0]), None); // movabs cut short
+    }
+
+    /// A sprite command as a 0.7.2 drawer builds it: its tag, then the name copied into a buffer of `cap` bytes from the
+    /// process heap (as the game's HeapAlloc).
+    unsafe fn command(text: &str, cap: usize) -> [usize; 4] {
+        let p = System.alloc(Layout::from_size_align(cap, 1).unwrap());
+        std::ptr::copy_nonoverlapping(text.as_ptr(), p, text.len());
+        [0x8000000000000003, cap, p as usize, text.len()]
+    }
+
+    unsafe fn text_of(c: &[usize; 4]) -> Vec<u8> {
+        std::slice::from_raw_parts(c[2] as *const u8, c[3]).to_vec()
+    }
+
+    unsafe fn free(c: [usize; 4]) {
+        System.dealloc(c[2] as *mut u8, Layout::from_size_align(c[1], 1).unwrap());
+    }
+
+    #[test]
+    fn the_uv_setters_command_gets_the_ui_sheets_name() {
+        let old = "asset/base/aseprite_resources/champions/league_akshan#sheet";
+        let ui = "asset/league/ui_sheets/idle/league_akshan#sheet";
+        unsafe {
+            // shorter (every UI sheet's name is): written into the same buffer, the capacity kept
+            let mut c = command(old, old.len());
+            let p0 = c[2];
+            assert!(swap_in_command(c.as_mut_ptr() as usize, old.as_bytes(), ui));
+            assert_eq!((c[0], c[1], c[2], c[3]), (0x8000000000000003, old.len(), p0, ui.len()));
+            assert_eq!(text_of(&c), ui.as_bytes());
+            // another hero's name, a tag that is not a niche value: left as they were
+            let mut d = command(old, old.len());
+            let before = d;
+            assert!(!swap_in_command(d.as_mut_ptr() as usize, b"asset/base/aseprite_resources/champions/league_zed#sheet", ui));
+            d[0] = 7;
+            assert!(!swap_in_command(d.as_mut_ptr() as usize, old.as_bytes(), ui));
+            d[0] = before[0];
+            assert_eq!(d, before);
+            assert_eq!(text_of(&d), old.as_bytes());
+            // longer than the copy's buffer: a buffer of its own from the process heap, the old one freed
+            let short = "asset/x/league_akshan#sheet";
+            let mut e = command(short, short.len());
+            assert!(swap_in_command(e.as_mut_ptr() as usize, short.as_bytes(), ui));
+            assert_eq!((e[1], e[3]), (ui.len(), ui.len()));
+            assert_eq!(text_of(&e), ui.as_bytes());
+            for x in [c, d, e] {
+                free(x);
+            }
+        }
+    }
+
+    #[test]
+    fn the_armed_name_is_swapped_once_by_whichever_sink_gets_it_first() {
+        let old = "asset/base/aseprite_resources/champions/league_akshan#sheet";
+        let n = names_of("league_akshan", "league").unwrap();
+        let arm = || with_state(|s| {
+            s.name = old.as_bytes().to_vec();
+            s.swap = Some((n, IDLE, 0));
+        });
+        unsafe {
+            // 0.7.2's encyclopedia: the UV setter gets its command
+            arm();
+            let mut c = command(old, old.len());
+            let mut regs = [0, 0, c.as_mut_ptr() as usize, 0, 0];
+            swap(UV, &mut regs);
+            assert_eq!(text_of(&c), n.sheet[IDLE].as_bytes());
+            // once: the next command with the same name (another drawing) keeps it
+            let mut c2 = command(old, old.len());
+            let mut regs = [0, 0, c2.as_mut_ptr() as usize, 0, 0];
+            swap(UV, &mut regs);
+            assert_eq!(text_of(&c2), old.as_bytes());
+            // the BP grid: the draw command by name gets the UI sheet's ptr / len; the UV setter after it sees nothing armed
+            arm();
+            let mut regs = [9, old.len(), old.as_ptr() as usize, 1, 0];
+            swap(CMD, &mut regs);
+            assert_eq!(regs, [9, n.sheet[IDLE].len(), n.sheet[IDLE].as_ptr() as usize, 1, 0]);
+            let mut regs = [0, 0, c2.as_mut_ptr() as usize, 0, 0];
+            swap(UV, &mut regs);
+            assert_eq!(text_of(&c2), old.as_bytes());
+            // the image node (to 0.7.1): rdx = &String
+            arm();
+            let s = [old.len(), old.as_ptr() as usize, old.len()];
+            let mut regs = [0, 0, s.as_ptr() as usize, 0, 0];
+            swap(NODE, &mut regs);
+            assert_eq!(regs[2], n.string[IDLE].as_ptr() as usize);
+            for x in [c, c2] {
+                free(x);
+            }
+        }
     }
 
     fn frames(v: &[[f32; 5]]) -> Vec<u8> {
