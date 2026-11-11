@@ -442,15 +442,20 @@ pub(crate) unsafe fn anim(ctx: usize, name: &str, got: usize, k: usize, hero: Op
     Some(t)
 }
 
-/// The sheet lookup of `name` from UI drawer `k` right after its redirected anim lookup: the UI sheet's entry - its
-/// sizes divided as the hero's battle sheet's - and the next sink call handing on this name gets the UI sheet's name.
-/// None (no redirected anim lookup before it, another hero): the battle sheet.
-pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, name: &str, k: usize, hero: Option<&Hero>) -> Option<usize> {
+/// The sheet lookup of the name at `ptr` (`len` bytes of UTF-8: the caller checked) from UI drawer `k` right after its
+/// redirected anim lookup: the UI sheet's entry - its sizes divided as the hero's battle sheet's - and the next sink
+/// call handing on this name gets the UI sheet's name; an inline drawer's name is renamed where it stands instead
+/// ([`inline`]). None (no redirected anim lookup before it, another hero): the battle sheet, the name untouched.
+/// The name comes as (ptr, len), not as a `&str`: nothing may borrow the bytes across an inline drawer's rename - they
+/// are read here through a local that is not used again after it, and the caller does not read its own either once
+/// this returned Some.
+pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, len: usize, k: usize, hero: Option<&Hero>) -> Option<usize> {
     let mut from = None;
     with_state(|s| {
         from = s.anim.take();
         s.swap = None;
     });
+    let name = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)).ok()?;
     let (id, pack) = hero_id(name, &hd::heroes().packs)?;
     let n = names_of(id, pack)?;
     if from != Some((k, n as *const Names as usize)) {
@@ -466,7 +471,7 @@ pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, name: &str, k: usize, hero: O
         lookup::proxy_of(ue, h);
     }
     if b.ui_inline.contains(&k) {
-        return inline(ptr, name, n, kd, k).then_some(ue);
+        return inline(ptr, len, n, kd, k).then_some(ue);
     }
     with_state(|s| {
         s.name.clear();
@@ -512,15 +517,16 @@ unsafe fn swap_in_command(cmd: usize, name: &[u8], new: &str) -> bool {
     true
 }
 
-/// An inline drawer's sheet lookup (Build::ui_inline): no sink will see the name - the drawer copies `name`, the
-/// `ptr` it gave the lookup, into its image node itself - so it is renamed where it stands ([`rename_in_place`]). False
+/// An inline drawer's sheet lookup (Build::ui_inline): no sink will see the name - the drawer copies the name it gave
+/// the lookup (`len` bytes at `ptr`) into its image node itself - so it is renamed where it stands ([`rename_in_place`]). False
 /// when it cannot be (not the drawer's own String): the drawer is turned off and this lookup keeps the battle sheet.
 /// Turned off as well when [`RESOLVE_WAIT_MS`] after the first rename, [`RESOLVE_MIN`] names on, the renderer never
 /// asked for a stand-in (it would be drawing nothing for them) - until it does ([`asked`]).
-unsafe fn inline(ptr: usize, name: &str, n: &'static Names, kd: usize, k: usize) -> bool {
+unsafe fn inline(ptr: usize, len: usize, n: &'static Names, kd: usize, k: usize) -> bool {
     let first = RENAMED.load(Ordering::Relaxed) == 0;
-    let was = first.then(|| name.to_string());
-    if !rename_in_place(ptr, name.len(), kd) {
+    // the name as it was, for the log: copied out before the rename
+    let was = first.then(|| String::from_utf8_lossy(std::slice::from_raw_parts(ptr as *const u8, len)).into_owned());
+    if !rename_in_place(ptr, len, kd) {
         if let Some(o) = OFF.get(k) {
             o.store(true, Ordering::Relaxed);
         }
@@ -528,7 +534,6 @@ unsafe fn inline(ptr: usize, name: &str, n: &'static Names, kd: usize, k: usize)
                          it from now on (it draws its battle sheet)"));
         return false;
     }
-    // `name` reads the renamed bytes from here on: not used again
     RENAMED.fetch_add(1, Ordering::Relaxed);
     let _ = FIRST_RENAME.compare_exchange(0, now_ms(), Ordering::Relaxed, Ordering::Relaxed);
     if let Some(c) = HANDED.get(k) {
@@ -751,9 +756,9 @@ mod tests {
         let battle = "asset/base/aseprite_resources/champions/league_akshan#sheet";
         unsafe {
             // the drawer's own String: a block of the process heap
-            let own = String::from(battle);
-            assert!(rename_in_place(own.as_ptr() as usize, own.len(), IDLE));
-            assert_eq!(std::slice::from_raw_parts(own.as_ptr(), own.len()), stand_in(battle, IDLE).unwrap().as_bytes());
+            let mut own = battle.as_bytes().to_vec();
+            assert!(rename_in_place(own.as_mut_ptr() as usize, own.len(), IDLE));
+            assert_eq!(own, stand_in(battle, IDLE).unwrap().as_bytes());
             // a name that is not a heap block's start: static data, the middle of a block - left alone
             assert!(!rename_in_place(battle.as_ptr() as usize, battle.len(), IDLE));
             let boxed = format!("xx{battle}");

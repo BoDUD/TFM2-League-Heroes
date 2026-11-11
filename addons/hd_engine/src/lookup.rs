@@ -667,7 +667,8 @@ unsafe extern "system" fn sheet_detour(ctx: usize, ptr: usize, len: usize, sp: u
         note(1, rva, name, got, hero.is_some());
         // a UI drawer's own lookup right after its redirected anim lookup: the hero's UI sheet (src/ui.rs)
         let ui = match build().ui_sheet_ret.iter().position(|r| *r == rva) {
-            Some(k) if super::ui::ON.load(Ordering::Relaxed) && plausible(got) => super::ui::sheet(ctx, ptr, name, k, hero),
+            // (an inline drawer's name is renamed in there: `name` is not read again once it returned Some)
+            Some(k) if super::ui::ON.load(Ordering::Relaxed) && plausible(got) => super::ui::sheet(ctx, ptr, len, k, hero),
             _ => {
                 super::ui::seen_lookup();
                 None
