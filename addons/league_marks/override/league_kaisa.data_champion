@@ -109,7 +109,7 @@
           },
           "effect_none": {
             "type": "RandomTarget",
-            "range": 55000,
+            "range": 75000,
             "casting_target": "EnemyChampion",
             "from_projectile": false,
             "effects": [

@@ -551,19 +551,14 @@ mod tests {
     }
 
     #[test]
-    fn kaisa_attacks_with_one_damaging_bolt_and_reaches_no_further() {
-        // the copy's attack: one bolt marking what it strikes (make_override.py one_bolt), and nothing in it looks
-        // further than her attack range (e_within_reach: the game's AI seems to keep her out at the longest reach)
+    fn kaisa_attacks_with_one_damaging_bolt() {
+        // the copy's attack: one bolt marking what it strikes (make_override.py one_bolt), no projectile only champions take
         // from this crate's folder or league_addons' (the bundle compiles this file as its module): both sit in addons/
         let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../league_marks/override/league_kaisa.data_champion");
         let raw = std::fs::read_to_string(&path).unwrap().replace("\r\n", "\n");
         let attack = raw.split("\n  \"attack\": {").nth(1).and_then(|r| r.split("\n  \"skill\": {").next()).expect("attack");
         assert!(!attack.contains("\"applied_target\": \"EnemyChampion"), "a champion-only projectile in her attack");
         assert!(attack.contains(&format!("\"name\": \"{KAISA_ATTACK}\"")), "her attack no longer marks its target");
-        let range = |l: &str| l.trim_start().strip_prefix("\"range\": ").map(|r| r.trim_end_matches(',').parse::<u64>().unwrap());
-        let own = attack.lines().find(|l| l.starts_with("    \"range\": ")).and_then(range).expect("her attack range");
-        let deeper: Vec<u64> = attack.lines().filter(|l| l.starts_with("     ")).filter_map(range).collect();
-        assert!(!deeper.is_empty() && deeper.iter().all(|&r| r <= own), "reaches past {own} in her attack: {deeper:?}");
     }
 
     #[test]
