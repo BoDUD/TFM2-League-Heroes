@@ -24,7 +24,10 @@
 //! （src/lookup.rs sheet_detour）把替身名换回小图集真正的名字再查（[`stand_in_real`]）。游戏里所有贴图都从这一个函数取
 //! （74 处调用；贴图这个类型的 TypeId 整个 EXE 只在它里面比较过），所以不管名字后来被复制到哪儿都认得；渲染器
 //! （0xf4f20）取不到一个名字时什么都不画，不报错。只在名字确实是进程堆上一块自己的内存时才改（HeapValidate；游戏的
-//! String 就是进程堆分配的——取贴图的函数里释放用的是 HeapFree(GetProcessHeap())）。
+//! String 就是进程堆分配的——取贴图的函数里释放用的是 HeapFree(GetProcessHeap())）。另外在绘制处自己的栈帧里找拥有
+//! 这个名字的 String（{cap, ptr, len}，cap 等于那块堆内存的大小：0.7.2 两处分别在返回地址上方 0x50 / 0x40）
+//! （[`local_string`]）：运行时自己找到的游戏版本必须找得到才改——没人读过它的反汇编，借来的名字（游戏数据里共用
+//! 的）绝不能改；版本表里列着的版本（人读过）只把找没找到写进日志。
 //! 0.9.31（#744）认错了这两处（见 build.rs 开头），它们一直在画整张图集，BP 界面又卡了；cmd_uv 那个入口留给运行时
 //! 查找到的版本用。
 //!
@@ -91,6 +94,12 @@ const GUARD: usize = 40;
 const RESOLVE_WAIT_MS: u64 = 3000;
 const RESOLVE_MIN: usize = 120;
 
+/// How far above an inline drawer's lookup the stack is searched for the String that owns the name (bytes above the
+/// return address; 0.7.2's two drawers keep it 0x50 / 0x40 above, in frames of 0x198 bytes), and where the drawer's own
+/// locals begin: above the return address and the four register homes it reserves for the lookup.
+const FRAME_SPAN: usize = 0x600;
+const FRAME_LOCALS: usize = 0x28;
+
 /// The battle sheets' folder in a drawer's resource names, and what stands in for its last ten letters in the name an
 /// inline drawer copies into its image node (Build::ui_inline), by kind ([`IDLE`], [`REEL`]): the same length, so the
 /// name is rewritten where it stands. No asset has such a name; the sheet lookup's hook turns it back into the UI
@@ -107,6 +116,7 @@ pub static ON: AtomicBool = AtomicBool::new(false);
 extern "system" {
     fn GetProcessHeap() -> isize;
     fn HeapValidate(heap: isize, flags: u32, mem: *const c_void) -> i32;
+    fn HeapSize(heap: isize, flags: u32, mem: *const c_void) -> usize;
     fn GetCurrentProcess() -> isize;
     fn VirtualProtect(addr: *mut c_void, size: usize, new: u32, old: *mut u32) -> i32;
     fn VirtualAlloc(addr: *mut c_void, size: usize, kind: u32, protect: u32) -> *mut c_void;
@@ -360,17 +370,57 @@ fn asked() {
 /// left alone). True when renamed.
 unsafe fn rename_in_place(ptr: usize, len: usize, kd: usize) -> bool {
     let Some(to) = STAND_INS.get(kd) else { return false };
-    if len <= BATTLE_DIR.len() || !plausible(ptr) {
-        return false;
-    }
-    if std::slice::from_raw_parts(ptr as *const u8, BATTLE_DIR.len()) != BATTLE_DIR.as_bytes() {
-        return false;
-    }
-    if HeapValidate(GetProcessHeap(), 0, ptr as *const c_void) == 0 {
+    if !own_block(ptr, len) {
         return false;
     }
     std::ptr::copy_nonoverlapping(to.as_ptr(), (ptr + STAND_AT) as *mut u8, to.len());
     true
+}
+
+/// The `len` bytes at `ptr` are a battle sheet's name and a block of the process heap that starts at this very byte.
+unsafe fn own_block(ptr: usize, len: usize) -> bool {
+    len > BATTLE_DIR.len()
+        && plausible(ptr)
+        && std::slice::from_raw_parts(ptr as *const u8, BATTLE_DIR.len()) == BATTLE_DIR.as_bytes()
+        && HeapValidate(GetProcessHeap(), 0, ptr as *const c_void) != 0
+}
+
+/// The end of this thread's stack (the TEB's StackBase): nothing at or above it is read.
+unsafe fn stack_top() -> usize {
+    let top: usize;
+    std::arch::asm!("mov {}, gs:[0x08]", out(reg) top, options(nostack, readonly, preserves_flags));
+    top
+}
+
+/// The String that owns the `len` bytes at `ptr` (a heap block of `size` bytes), among the locals of the function
+/// whose call pushed its return address at `sp`: a {cap, ptr, len} header with this ptr and len whose capacity is the
+/// block's size, in the `span` bytes above the return address -> how far above. None: no such local - the name is not
+/// (shown to be) the caller's own `format!` result; a borrowed name's (ptr, len) pair spilled to the stack has no
+/// capacity before it, and whatever sits there is not the block's size.
+unsafe fn local_string(sp: usize, span: usize, ptr: usize, len: usize, size: usize) -> Option<usize> {
+    if size < len || size == usize::MAX {
+        return None;
+    }
+    let end = sp + 8 + span;
+    let mut at = sp + FRAME_LOCALS;
+    while at + 24 <= end {
+        if q(at) == size && q(at + 8) == ptr && q(at + 16) == len {
+            return Some(at - sp);
+        }
+        at += 8;
+    }
+    None
+}
+
+/// [`local_string`] for a lookup of the game's, on this thread's stack: the block's size from the heap, the search
+/// kept below the stack's end.
+unsafe fn owner_in_frame(sp: usize, ptr: usize, len: usize) -> Option<usize> {
+    let top = stack_top();
+    if sp == 0 || sp % 8 != 0 || top <= sp + FRAME_LOCALS {
+        return None;
+    }
+    let size = HeapSize(GetProcessHeap(), 0, ptr as *const c_void);
+    local_string(sp, FRAME_SPAN.min(top - sp - 8), ptr, len, size)
 }
 
 fn line(msg: impl FnOnce() -> String) {
@@ -449,7 +499,9 @@ pub(crate) unsafe fn anim(ctx: usize, name: &str, got: usize, k: usize, hero: Op
 /// The name comes as (ptr, len), not as a `&str`: nothing may borrow the bytes across an inline drawer's rename - they
 /// are read here through a local that is not used again after it, and the caller does not read its own either once
 /// this returned Some.
-pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, len: usize, k: usize, hero: Option<&Hero>) -> Option<usize> {
+/// `sp`: where the lookup's return address sits on the drawer's stack (an inline drawer's own String is looked for
+/// above it).
+pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, len: usize, sp: usize, k: usize, hero: Option<&Hero>) -> Option<usize> {
     let mut from = None;
     with_state(|s| {
         from = s.anim.take();
@@ -471,7 +523,7 @@ pub(crate) unsafe fn sheet(ctx: usize, ptr: usize, len: usize, k: usize, hero: O
         lookup::proxy_of(ue, h);
     }
     if b.ui_inline.contains(&k) {
-        return inline(ptr, len, n, kd, k).then_some(ue);
+        return inline(ptr, len, sp, n, kd, k).then_some(ue);
     }
     with_state(|s| {
         s.name.clear();
@@ -520,18 +572,24 @@ unsafe fn swap_in_command(cmd: usize, name: &[u8], new: &str) -> bool {
 /// An inline drawer's sheet lookup (Build::ui_inline): no sink will see the name - the drawer copies the name it gave
 /// the lookup (`len` bytes at `ptr`) into its image node itself - so it is renamed where it stands ([`rename_in_place`]). False
 /// when it cannot be (not the drawer's own String): the drawer is turned off and this lookup keeps the battle sheet.
+/// "Its own": a block of the process heap that starts at the name, and - a must on a build found at run time, whose
+/// drawers nobody read - owned by a String among the drawer's locals ([`local_string`], `sp` its lookup's return
+/// address).
 /// Turned off as well when [`RESOLVE_WAIT_MS`] after the first rename, [`RESOLVE_MIN`] names on, the renderer never
 /// asked for a stand-in (it would be drawing nothing for them) - until it does ([`asked`]).
-unsafe fn inline(ptr: usize, len: usize, n: &'static Names, kd: usize, k: usize) -> bool {
+unsafe fn inline(ptr: usize, len: usize, sp: usize, n: &'static Names, kd: usize, k: usize) -> bool {
     let first = RENAMED.load(Ordering::Relaxed) == 0;
     // the name as it was, for the log: copied out before the rename
     let was = first.then(|| String::from_utf8_lossy(std::slice::from_raw_parts(ptr as *const u8, len)).into_owned());
-    if !rename_in_place(ptr, len, kd) {
+    let owner = if own_block(ptr, len) { owner_in_frame(sp, ptr, len) } else { None };
+    let listed = super::build::BUILDS.iter().any(|b| std::ptr::eq(b, lookup::build()));
+    if (owner.is_none() && !listed) || !rename_in_place(ptr, len, kd) {
         if let Some(o) = OFF.get(k) {
             o.store(true, Ordering::Relaxed);
         }
-        line(|| format!("UI drawer {k}: the name it looked up is not its own heap String - not renamed, no UI sheets for \
-                         it from now on (it draws its battle sheet)"));
+        line(|| format!("UI drawer {k}: the name it looked up is not its own heap String{} - not renamed, no UI sheets \
+                         for it from now on (it draws its battle sheet)",
+                        if owner.is_none() { " (no String of its own frame holds it)" } else { "" }));
         return false;
     }
     RENAMED.fetch_add(1, Ordering::Relaxed);
@@ -540,8 +598,13 @@ unsafe fn inline(ptr: usize, len: usize, n: &'static Names, kd: usize, k: usize)
         c.fetch_add(1, Ordering::Relaxed);
     }
     if let Some(was) = was {
-        line(|| format!("UI drawer {k}: {was} renamed where it stands to the stand-in of {} (the drawer copies it into \
-                         its image node; the sheet lookup resolves the stand-in when the frame is drawn)", n.sheet[kd]));
+        let held = match owner {
+            Some(up) => format!("its own String, {up:#x} above the lookup's return address"),
+            None => "no String of its own frame was found holding it - a listed build: renamed all the same".into(),
+        };
+        line(|| format!("UI drawer {k}: {was} renamed where it stands to the stand-in of {} ({held}; the drawer copies \
+                         it into its image node; the sheet lookup resolves the stand-in when the frame is drawn)",
+                        n.sheet[kd]));
     }
     tally(k);
     let since = now_ms().saturating_sub(FIRST_RENAME.load(Ordering::Relaxed));
@@ -770,6 +833,41 @@ mod tests {
             assert!(other.starts_with("asset/league/champions/"));
             let short = String::from(BATTLE_DIR);
             assert!(!rename_in_place(short.as_ptr() as usize, short.len(), IDLE));
+        }
+    }
+
+    #[test]
+    fn the_string_that_owns_a_name_is_found_among_the_callers_locals() {
+        let name = "asset/base/aseprite_resources/champions/league_akshan#sheet".as_bytes().to_vec();
+        let (cap, ptr, len) = (name.capacity(), name.as_ptr() as usize, name.len());
+        unsafe {
+            let size = HeapSize(GetProcessHeap(), 0, ptr as *const c_void);
+            assert_eq!(size, cap, "a String's capacity is its heap block's size");
+            // a drawer's frame as 0.7.2 lays it out: the return address, four register homes (rcx, the name's ptr and
+            // len, r9), then locals - the name's (ptr, len) 0x58 above the return address, `before` the word before them
+            let frame = |before: usize| {
+                let mut f = [0usize; 24];
+                f[1..5].copy_from_slice(&[0x7ff6_0000_1000, ptr, len, 7]);
+                f[10..13].copy_from_slice(&[before, ptr, len]);
+                f
+            };
+            let span = 8 * 23;
+            let found = |f: &[usize; 24], span: usize, size: usize| local_string(f.as_ptr() as usize, span, ptr, len, size);
+            // the String's header {cap, ptr, len}: found where it begins
+            let own = frame(cap);
+            assert_eq!(found(&own, span, size), Some(0x50));
+            // the (ptr, len) pair in the register homes is not it, nor is a borrowed name's pair spilled among the
+            // locals behind some other word
+            assert_eq!(found(&frame(0x7ff6_0000_2000), span, size), None);
+            assert_eq!(found(&frame(cap + 1), span, size), None);
+            // a header past the searched span, a block whose size is not known: not found
+            assert_eq!(found(&own, 0x50, size), None);
+            assert_eq!(found(&own, span, usize::MAX), None);
+            // on this thread's own stack, with the heap's word for the size
+            let sp = own.as_ptr() as usize;
+            assert!(stack_top() > sp);
+            assert_eq!(owner_in_frame(sp, ptr, len), Some(0x50));
+            assert_eq!(owner_in_frame(0, ptr, len), None);
         }
     }
 
