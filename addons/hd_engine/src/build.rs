@@ -4,22 +4,31 @@
 //! another build is looked for at run time ([`from_places`]); the earlier wish to know two builds at once (2026-10-12:
 //! 「就是你要兼容0.6.3和0.7」) is why this is a list.
 //!
-//! 0.7.2's places were found from 0.7.1's (2026-11-11, tools/re/find_build.py --drawer 0=0x2939214; the user: 「游戏更新到
-//! SDK0.7.2了 我们要进行适配」): the same compiler; the anim / sheet lookups and the hash stayed (0x261e90 / 0x158fa0 /
-//! 0x5e840), the rest moved (display 0x290be40 -> 0x2bd9920, body draw 0x2abd430 -> 0x2c45d60, ...). The installed
-//! league.dll 0.9.30 found nothing at run time: the encyclopedia / face icons and the pick slot were rewritten - they
-//! look the sheet up after choosing the frame (the encyclopedia's size asks no longer resemble 0.7.1's: spacing 232) and
-//! no longer call the image node's setter: they clone the sheet's name into a sprite draw command of their own (tag
-//! 0x…03, the name String at +8) and hand it to the command's UV setter ([`Build::cmd_uv`], 0x1c9570: rcx = the out
-//! command, rdx = that command, r8 = &uv), so src/ui.rs swaps the name inside the command there; node_image is 0. The
-//! BP grid, the pick moment and the scoreboard portraits are 0.7.1's layout exactly (spacing 0) and still name their
-//! sprite through the draw command made from a name (0x1c9710). Checked against 0.7.1: the hooked functions' listed
-//! heads are 0.7.1's byte for byte (the hash's but for its call / rip bytes); the display handler, the body draw and the
-//! entity render read the world table at +0x138 / +0x140 / +0x150 (0x1d0-byte entries) and the entity value's +0x40 /
-//! +0x48, +0x50..+0x60, +0x68, +0xb8 / +0xc0, +0x17c / +0x18c, +0x1b4 as before; the drawers walk the anim table's
-//! 0x30-byte buckets and 20-byte frames (duration +0x10) and ask the texture entry's vtable +0x28 / +0x30; draw commands
-//! are 0xd0 bytes (sprite 0x…03, scale / restore 0x…12 / 0x…13); the game allocates with HeapAlloc on the process heap
-//! and frees with HeapFree (std's System allocator does the same, which the UV swap relies on).
+//! 0.7.2's places were found from 0.7.1's (2026-11-11, tools/re/find_build.py --drawer 0=0x268415f --drawer 1=0x267ee32;
+//! the user: 「游戏更新到SDK0.7.2了 我们要进行适配」): the same compiler; the anim / sheet lookups and the hash stayed
+//! (0x261e90 / 0x158fa0 / 0x5e840), the rest moved (display 0x290be40 -> 0x2bd9920, body draw 0x2abd430 -> 0x2c45d60,
+//! ...). The installed league.dll 0.9.30 found nothing at run time and drew every hero at 1x. What changed in the UI:
+//! the image node's setter is INLINED into the encyclopedia / face icons and the pick slot (0x2684090 / 0x267ed60,
+//! game-view/src/ui/champion_info_ui.rs) - after their size asks they copy the name they looked up straight into the
+//! node's Strings (three / four states), no function is called with it - [`Build::ui_inline`]: src/ui.rs renames that
+//! name where it stands. node_image and cmd_uv are 0. The BP grid, the pick moment and the scoreboard portraits are
+//! 0.7.1's layout exactly (spacing 0) and still name their sprite through the draw command made from a name (0x1c9710).
+//!
+//! The first 0.7.2 table (league.dll 0.9.31, PR #744, the same day) was wrong about those two: it took 0x2939100 /
+//! 0x2935ba0 (functions that build a sprite command and call its UV setter 0x1c9570 - the only candidates with a sink)
+//! for the encyclopedia and the pick slot. The game never drew a hero through them in the user's matches, and the real
+//! two drew from the battle sheets: 87 heroes through the pick slot in one BP, the GPU cache at 1.1 GiB, the BP screen
+//! slow again (the user: 「BP界面反应卡顿」). league.log told: `lookup anim from rva 0x2684164 / 0x267ee37`, `texture
+//! width asked from rva 0x268431f / 0x267f07a`, and no `UI drawer 0 / 1 draws` line. A drawer is confirmed by that log,
+//! not by having a sink.
+//!
+//! Checked against 0.7.1: the hooked functions' listed heads are 0.7.1's byte for byte (the hash's but for its call /
+//! rip bytes); the display handler, the body draw and the entity render read the world table at +0x138 / +0x140 /
+//! +0x150 (0x1d0-byte entries) and the entity value's +0x40 / +0x48, +0x50..+0x60, +0x68, +0xb8 / +0xc0, +0x17c /
+//! +0x18c, +0x1b4 as before; the drawers walk the anim table's 0x30-byte buckets and 20-byte frames (duration +0x10) and
+//! ask the texture entry's vtable +0x28 / +0x30; draw commands are 0xd0 bytes (sprite 0x…03, scale / restore 0x…12 /
+//! 0x…13); every sheet is looked up through the one function (74 call sites: the drawers', and the renderer's when a
+//! frame is drawn), which the stand-in names rely on.
 //!
 //! 0.7.1's places were found from 0.7.0's (2026-11-04, tools/re/find_build.py; the user: 「游戏更新到SDK0.7.1了 我们要
 //! 进行适配」): the same compiler, every place moved (anim 0x261f50 -> 0x261e90, sheet 0x159060 -> 0x158fa0, display
@@ -110,10 +119,17 @@ pub struct Build {
     /// where the encyclopedia and the pick slot build their sprite command themselves ([`Build::cmd_uv`]).
     pub cmd_by_name: usize,
     pub node_image: usize,
-    /// (out, &draw command, &uv) -> the command with its UV (0.7.2): the encyclopedia / face icons and the pick slot clone
-    /// the sheet's name into a sprite command (tag 0x…03, String {cap, ptr, len} at +8) and hand it here, which moves it
-    /// into the out command - src/ui.rs puts the UI sheet's name into that String at its entry. 0: none (to 0.7.1).
+    /// (out, &draw command, &uv) -> the command with its UV: a drawer that builds its sprite command itself (tag 0x…03,
+    /// the sheet's name in the String {cap, ptr, len} at +8) hands it here, which moves it into the out command -
+    /// src/ui.rs puts the UI sheet's name into that String at its entry. 0: no listed drawer does (the run-time finder
+    /// looks for one when the encyclopedia and the pick slot call it).
     pub cmd_uv: usize,
+    /// the UI drawers (their places in `ui_anim_ret`) that hand the sheet's name on themselves - they copy the very
+    /// name they looked up into their image node (0.7.2: the node's setter inlined into the encyclopedia / face icons
+    /// and the pick slot), so there is no function to hook: src/ui.rs renames that name where it stands - the drawer's
+    /// own freshly formatted String - to a stand-in of the same length, which the sheet lookup's hook resolves to the
+    /// UI sheet when the frame is drawn.
+    pub ui_inline: &'static [usize],
     /// the battlefield body draw (rcx = the command Vec it fills, rdx = the display entity value; src/view.rs)
     pub body_draw: usize,
     /// RawVec<draw command>::grow_one (0xd0-byte commands)
@@ -140,17 +156,18 @@ pub static BUILDS: &[Build] = &[Build {
     display_slot: 0x429ab30,
     battle_anim_ret: &[0x2c7a1e0],
     battle_size_ret: &[0x2c7a42f, 0x2c7a438, 0x2c46aba, 0x2c46ada, 0x2c46aed, 0x2c46afc],
-    ui_anim_ret: &[0x2939219, 0x2935cb3, 0x2c3a389, 0x2f9fcbd, 0x280cf76],
-    ui_size_ret: &[0x2939492, 0x29394a5, 0x29394b5, 0x29394c5, 0x2935edd, 0x2935ef2, 0x2935f03, 0x2935f14,
+    ui_anim_ret: &[0x2684164, 0x267ee37, 0x2c3a389, 0x2f9fcbd, 0x280cf76],
+    ui_size_ret: &[0x268431f, 0x268432e, 0x2684339, 0x2684343, 0x267f07a, 0x267f087, 0x267f090, 0x267f09a,
                    0x2c3a6c2, 0x2c3a6d6, 0x2c3a6e5, 0x2c3a6f6, 0x2fa0058, 0x2fa0066, 0x2fa0070, 0x2fa007b,
                    0x280d1de, 0x280d1fd, 0x280d217, 0x280d22c],
-    ui_sized_anim_ret: &[0x2935cb3, 0x2c3a389, 0x2f9fcbd],
-    ui_sized_size_ret: &[0x2935edd, 0x2935ef2, 0x2935f03, 0x2935f14, 0x2c3a6c2, 0x2c3a6d6, 0x2c3a6e5, 0x2c3a6f6,
+    ui_sized_anim_ret: &[0x267ee37, 0x2c3a389, 0x2f9fcbd],
+    ui_sized_size_ret: &[0x267f07a, 0x267f087, 0x267f090, 0x267f09a, 0x2c3a6c2, 0x2c3a6d6, 0x2c3a6e5, 0x2c3a6f6,
                          0x2fa0058, 0x2fa0066, 0x2fa0070, 0x2fa007b],
-    ui_sheet_ret: &[0x2939472, 0x2935dd1, 0x2c3a6a3, 0x2f9fe1a, 0x280d01d],
+    ui_sheet_ret: &[0x2684187, 0x267ee5b, 0x2c3a6a3, 0x2f9fe1a, 0x280d01d],
     cmd_by_name: 0x1c9710,
     node_image: 0,
-    cmd_uv: 0x1c9570,
+    cmd_uv: 0,
+    ui_inline: &[0, 1],
     body_draw: 0x2c45d60,
     cmd_grow: 0x3f73550,
     effect_draw: 0x3068f40,
@@ -202,10 +219,10 @@ pub static BUILDS: &[Build] = &[Build {
     (0x2809a22, &[0x48, 0xb8, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80]), (0x2809a83, &[0x48, 0xb8, 0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80]),
     // the UI's calls of the anim lookup (encyclopedia, pick slot, BP grid, pick moment, scoreboard portraits) and
     // their size asks
-    (0x2939214, &[0xe8, 0x77, 0x8c, 0x92, 0xfd]), // encyclopedia / face icons
-    (0x2939490, &[0xff, 0xd6]), (0x29394a3, &[0xff, 0xd7]), (0x29394b3, &[0xff, 0xd6]), (0x29394c3, &[0xff, 0xd7]),
-    (0x2935cae, &[0xe8, 0xdd, 0xc1, 0x92, 0xfd]), // pick slot
-    (0x2935eda, &[0x41, 0xff, 0xd7]), (0x2935eef, &[0x41, 0xff, 0xd6]), (0x2935f00, &[0x41, 0xff, 0xd7]), (0x2935f11, &[0x41, 0xff, 0xd6]),
+    (0x268415f, &[0xe8, 0x2c, 0xdd, 0xbd, 0xfd]), // encyclopedia / face icons
+    (0x268431c, &[0x41, 0xff, 0xd7]), (0x268432b, &[0x41, 0xff, 0xd5]), (0x2684336, &[0x41, 0xff, 0xd7]), (0x2684340, &[0x41, 0xff, 0xd5]),
+    (0x267ee32, &[0xe8, 0x59, 0x30, 0xbe, 0xfd]), // pick slot
+    (0x267f078, &[0xff, 0xd6]), (0x267f085, &[0xff, 0xd3]), (0x267f08e, &[0xff, 0xd6]), (0x267f098, &[0xff, 0xd3]),
     (0x2c3a384, &[0xe8, 0x07, 0x7b, 0x62, 0xfd]), // BP grid
     (0x2c3a6c0, &[0xff, 0xd7]), (0x2c3a6d3, &[0x41, 0xff, 0xd6]), (0x2c3a6e3, &[0xff, 0xd7]), (0x2c3a6f3, &[0x41, 0xff, 0xd6]),
     (0x2f9fcb8, &[0xe8, 0xd3, 0x21, 0x2c, 0xfd]), // pick moment
@@ -213,18 +230,12 @@ pub static BUILDS: &[Build] = &[Build {
     (0x280cf71, &[0xe8, 0x1a, 0x4f, 0xa5, 0xfd]), // scoreboard portraits
     (0x280d1dc, &[0xff, 0xd3]), (0x280d1fa, &[0x41, 0xff, 0xd7]), (0x280d215, &[0xff, 0xd3]), (0x280d229, &[0x41, 0xff, 0xd7]),
     // the same drawers' own calls of the sheet lookup (src/ui.rs)
-    (0x293946d, &[0xe8, 0x2e, 0xfb, 0x81, 0xfd]), (0x2935dcc, &[0xe8, 0xcf, 0x31, 0x82, 0xfd]), (0x2c3a69e, &[0xe8, 0xfd, 0xe8, 0x51, 0xfd]), (0x2f9fe15, &[0xe8, 0x86, 0x91, 0x1b, 0xfd]), (0x280d018, &[0xe8, 0x83, 0xbf, 0x94, 0xfd]),
+    (0x2684182, &[0xe8, 0x19, 0x4e, 0xad, 0xfd]), (0x267ee56, &[0xe8, 0x45, 0xa1, 0xad, 0xfd]), (0x2c3a69e, &[0xe8, 0xfd, 0xe8, 0x51, 0xfd]), (0x2f9fe15, &[0xe8, 0x86, 0x91, 0x1b, 0xfd]), (0x280d018, &[0xe8, 0x83, 0xbf, 0x94, 0xfd]),
     // the draw command made from a sheet's name (src/ui.rs hooks its prologue)
     (0x1c9710, &[
         0x55, 0x41, 0x57, 0x41, 0x56, 0x56, 0x57, 0x53, 0x48, 0x81, 0xec, 0xc8, 0x00, 0x00, 0x00, 0x48,
         0x8d, 0xac, 0x24, 0x80, 0x00, 0x00, 0x00, 0x44, 0x0f, 0x29, 0x6d, 0x30, 0x44, 0x0f, 0x29, 0x65,
         0x20, 0x44, 0x0f, 0x29, 0x5d, 0x10, 0x44, 0x0f, 0x29, 0x55, 0x00, 0x44, 0x0f, 0x29, 0x4d, 0xf0,
-    ]),
-    // the UV setter of a draw command the encyclopedia / pick slot built (src/ui.rs hooks its prologue)
-    (0x1c9570, &[
-        0x56, 0x48, 0x83, 0xec, 0x20, 0x48, 0xb8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x4c,
-        0x8b, 0x0a, 0x4d, 0x89, 0xca, 0x49, 0x31, 0xc2, 0x4d, 0x85, 0xc9, 0x41, 0xb9, 0x07, 0x00, 0x00,
-        0x00, 0x4d, 0x0f, 0x48, 0xca, 0x49, 0x83, 0xf9, 0x03, 0x0f, 0x84, 0xa4, 0x00, 0x00, 0x00, 0x49,
     ]),
     // the anim tables' hash
     (0x5e840, &[
@@ -265,6 +276,7 @@ pub static BUILDS: &[Build] = &[Build {
     cmd_by_name: 0x1c9710,
     node_image: 0x2729d90,
     cmd_uv: 0,
+    ui_inline: &[],
     body_draw: 0x2abd430,
     cmd_grow: 0x3ef9f20,
     effect_draw: 0x2ab6180,
@@ -379,6 +391,7 @@ pub static BUILDS: &[Build] = &[Build {
     cmd_by_name: 0x1c97d0,
     node_image: 0x2beb0c0,
     cmd_uv: 0,
+    ui_inline: &[],
     body_draw: 0x2466400,
     cmd_grow: 0x3e65ef0,
     effect_draw: 0x245f150,
@@ -519,6 +532,7 @@ pub fn from_places(p: game_places::Places, name: String) -> &'static Build {
         cmd_by_name: p.cmd_by_name,
         node_image: p.node_image,
         cmd_uv: p.cmd_uv,
+        ui_inline: keep(p.ui_inline),
         body_draw: p.body_draw,
         cmd_grow: p.cmd_grow,
         effect_draw: p.effect_draw,
@@ -589,6 +603,7 @@ mod tests {
         assert_eq!(p.ui_sized_size_ret, b.ui_sized_size_ret);
         assert_eq!(p.ui_sheet_ret, b.ui_sheet_ret);
         assert_eq!((p.cmd_by_name, p.node_image, p.cmd_uv), (b.cmd_by_name, b.node_image, b.cmd_uv));
+        assert_eq!(p.ui_inline, b.ui_inline);
         assert_eq!((p.effect_draw, p.cmd_scale, p.cmd_restore), (b.effect_draw, b.cmd_scale, b.cmd_restore));
     }
 
@@ -638,17 +653,23 @@ mod tests {
         }
     }
 
-    /// Each listed build hands the encyclopedia's and the pick slot's names on somewhere src/ui.rs hooks (to 0.7.1 the
-    /// image node, from 0.7.2 the UV setter), and a build found without its UI drawers has no BP grid to panic on.
+    /// Each listed build hands the encyclopedia's and the pick slot's names on somewhere src/ui.rs reaches (to 0.7.1 the
+    /// image node's setter; 0.7.2: the two copy it into the node themselves - ui_inline), and a build found without its
+    /// UI drawers has no BP grid to panic on.
     #[test]
     fn every_build_has_a_sink_for_the_encyclopedia_and_a_safe_bp_grid() {
         for b in BUILDS {
-            assert!(b.cmd_by_name != 0 && (b.node_image != 0 || b.cmd_uv != 0), "{}", b.name);
+            assert!(b.cmd_by_name != 0, "{}", b.name);
+            for k in [0, 1] {
+                assert!(b.node_image != 0 || b.cmd_uv != 0 || b.ui_inline.contains(&k), "{}: drawer {k}", b.name);
+            }
+            // an inline drawer is one of the two face / slot drawers, never the BP grid (it draws the reel's sheet)
+            assert!(b.ui_inline.iter().all(|k| *k < 2), "{}", b.name);
         }
         let none = from_places(game_places::Places {
             anim: 1, sheet: 2, hash: 3, display_fn: 4, display_slot: 5, battle_anim_ret: vec![6],
             battle_size_ret: vec![7; 6], ui_anim_ret: vec![], ui_size_ret: vec![], ui_sized_anim_ret: vec![],
-            ui_sized_size_ret: vec![], ui_sheet_ret: vec![], cmd_by_name: 0, node_image: 0, cmd_uv: 0, body_draw: 8,
+            ui_sized_size_ret: vec![], ui_sheet_ret: vec![], cmd_by_name: 0, node_image: 0, cmd_uv: 0, ui_inline: vec![], body_draw: 8,
             cmd_grow: 9, effect_draw: 0, cmd_scale: 0x8000000000000012, cmd_restore: 0x8000000000000013, notes: vec![],
         }, "test".into());
         assert_eq!(none.bp_grid(), (usize::MAX, &[][..]));
