@@ -331,7 +331,8 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
             if let Some(k) = counted("fx") {
                 let at = v.map(f.at);
                 wlog(format!("FX m={m} s={s} t={} on screen at {t}: {:?} at ({}, {}) -> ({:.0}, {:.0}) on the \"Game\" map, \
-                              {} more place(s), z {} #{k}", f.tick, f.kind, f.at.0, f.at.1, at.0, at.1, f.to.len(), v.z));
+                              {} more place(s), z {}, sprites {} #{k}", f.tick, f.kind, f.at.0, f.at.1, at.0, at.1, f.to.len(), v.z,
+                             if v.sprites { "on" } else { "OFF" }));
             }
         }
     }

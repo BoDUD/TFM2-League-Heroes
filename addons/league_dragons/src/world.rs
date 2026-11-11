@@ -21,8 +21,15 @@
 //! 平移 (904.0, 78.8)——但世界的范围认短了。有缩放的单位（防御塔、水晶、变大的英雄）在世界里各自再套一对平移 / 恢复
 //! （比赛渲染函数 0x2809a22：单位的命令表头上插一条、尾上加一条），0.4.0 把头一个恢复当成了世界的结束，302 条命令只数了
 //! 地图那 6 张图（z −3…1），于是特效画在 z 2、贴图也因为「没见到 `#sheet` 结尾的名字」关着。现在恢复按层数配对；z 按命令的
-//! 种类取（[`z_at`]，单位用的是另一种命令，不是贴图命令）；贴图不再要求见到 `#sheet`（地图的图名本来就没有这个结尾，
-//! 引擎取图时自己补），名字找不到时引擎改按矢量图去找、不崩（0x24e7d0 / 0x24f590）。
+//! 种类取（[`z_at`]）；贴图不再要求见到 `#sheet`（地图的图名本来就没有这个结尾，引擎取图时自己补），名字找不到时引擎
+//! 改按矢量图去找、不崩（0x24e7d0 / 0x24f590）。
+//!
+//! 0.4.2（同一天装了 0.4.1 的那一局，`WORLD first` / `WORLD later`）：范围对了（302 条全在里面）。世界的层：白底 −10、
+//! 背景和草丛的影子 −3、墙的影子和单位脚下的圆影 −2、**墙、草丛、塔的影子、回城特效的后半 −1**、**单位（英雄、塔、小兵）0**、
+//! **墙的前脸、塔的宝珠、技能特效（`asset/league/effects/…`）、回城特效的前半 1**、血条 3、增益图标 4–5、四个矩形 100。
+//! 所以本包的特效照游戏自己的技能特效画在墙的前脸那一层（单位上面、血条下面），不再画到所有东西上面；躺在地上的画在
+//! 墙那一层（和回城特效的后半一样）。另外有的贴图命令不是按名字指图的（血条里的色块：名字的位置上不是 String），0.4.1 把
+//! 它们算成「名字不像样」又把贴图关了——现在读不出名字的不算。
 
 use std::sync::Mutex;
 
@@ -62,12 +69,26 @@ const AT_SPRITE_UV: usize = 0x68;
 const AT_SPRITE_XY: usize = 0x78;
 /// 第一个字不带最高位的命令是「文字」（它的第一个字段是 String，别的种类的标记占着 String 容量取不到的值）：算第 7 种。
 pub const KIND_TEXT: u8 = 0x07;
-/// 认得的种类（镜头、贴图、矩形、平移、恢复、文字）：别的头两条原样写进日志。
-const KNOWN: [u8; 6] = [0x00, 0x03, 0x0a, 0x12, 0x13, KIND_TEXT];
+/// 认得的种类（镜头、贴图、平移、恢复、文字）：别的头两条（矩形头四条）原样写进日志。
+const KNOWN: [u8; 5] = [0x00, 0x03, 0x12, 0x13, KIND_TEXT];
+const KIND_RECT: u8 = 0x0a;
 /// 名字也在 +8 的种类（矢量图、单位的图……）：写日志时读出来。
 const NAMED: [u8; 3] = [0x02, 0x04, 0x06];
-/// 地图的墙那张图的名字的结尾（游戏自带的 5v5 地图）。
-pub const WALL: &str = "/wall_5v5";
+/// 地图的墙那张图、墙的前脸那张图的文件名（`wall_5v5`、`wall_5v5_front`；别的地图照这个样子起名的也认）。
+pub fn is_wall(name: &str) -> bool {
+    let file = name.rsplit('/').next().unwrap_or("");
+    file.starts_with("wall_") && !file.ends_with("_front") && !file.contains("shadow")
+}
+
+pub fn is_wall_front(name: &str) -> bool {
+    let file = name.rsplit('/').next().unwrap_or("");
+    file.starts_with("wall_") && file.ends_with("_front")
+}
+
+/// 英雄的图（`…/champions/<英雄>#sheet`）。
+pub fn is_champion(name: &str) -> bool {
+    name.contains("/champions/")
+}
 /// 日志里最多记这么多个不同的 z。
 const LAYERS: usize = 40;
 
@@ -292,11 +313,15 @@ pub struct Census {
     /// 世界里面又套的平移：几个、头几个的 (平移, 缩放)。
     pub pushes: usize,
     pub inner: Vec<((f32, f32), (f32, f32))>,
-    /// 贴图命令（本包画贴图用的就是这一种）几条；它们的名字都以 `asset/` 开头（一条都没有：false）。
+    /// 贴图命令（本包画贴图用的就是这一种）几条；其中不是按名字指图的几条（名字的位置上不是 String：血条里的色块）；
+    /// 读得出的名字都以 `asset/` 开头（一个都读不出：false）。
     pub sprites: usize,
+    pub nameless: usize,
     pub asset_names: bool,
-    /// 地图的墙那张图（名字以 [`WALL`] 结尾）的 z。
+    /// 地图的墙那张图（[`is_wall`]）、墙的前脸那张图（[`is_wall_front`]）、头一个英雄（[`is_champion`]）的 z。
     pub ground: Option<i32>,
+    pub front: Option<i32>,
+    pub units: Option<i32>,
     /// 头几条、最后几条贴图命令。
     pub first: Vec<SpriteLine>,
     pub last: Vec<SpriteLine>,
@@ -347,6 +372,7 @@ pub fn census(p: &dyn Peek, list: usize, scope: &Scope, keep: usize) -> Census {
     let end = scope.pop_at.unwrap_or(scope.n).min(scope.n);
     let mut raw_seen: Vec<(u8, usize)> = Vec::new();
     let mut named = 0usize;
+    let mut named_sprites = 0usize;
     let mut at = scope.push_at + 1;
     while at < end {
         let take = BLOCK.min(end - at);
@@ -377,12 +403,25 @@ pub fn census(p: &dyn Peek, list: usize, scope: &Scope, keep: usize) -> Census {
                 if wanted {
                     match &name {
                         Some(n) => {
+                            named_sprites += 1;
                             out.asset_names &= n.starts_with("asset/");
-                            if out.ground.is_none() && n.ends_with(WALL) {
+                            if out.ground.is_none() && is_wall(n) {
                                 out.ground = z;
                             }
+                            if out.front.is_none() && is_wall_front(n) {
+                                out.front = z;
+                            }
+                            if out.units.is_none() && is_champion(n) {
+                                out.units = z;
+                            }
                         }
-                        None => out.asset_names = false,
+                        // a texture that is no name (a block of colour in a gauge): says nothing about the names
+                        None => {
+                            out.nameless += 1;
+                            if keep > 0 && out.nameless <= 2 && out.raw.len() < 16 {
+                                out.raw.push(raw_line(p, c, kd, out.nameless - 1, z));
+                            }
+                        }
                     }
                 }
                 if keep > 0 {
@@ -403,7 +442,7 @@ pub fn census(p: &dyn Peek, list: usize, scope: &Scope, keep: usize) -> Census {
             if keep > 0 && !KNOWN.contains(&kd) {
                 bump(&mut raw_seen, kd, 24);
                 let nth = raw_seen.iter().find(|r| r.0 == kd).map_or(usize::MAX, |r| r.1);
-                if nth <= 2 && out.raw.len() < 16 {
+                if nth <= (if kd == KIND_RECT { 4 } else { 2 }) && out.raw.len() < 16 {
                     out.raw.push(raw_line(p, c, kd, nth - 1, z));
                 }
             }
@@ -427,7 +466,7 @@ pub fn census(p: &dyn Peek, list: usize, scope: &Scope, keep: usize) -> Census {
         at += take;
     }
     out.layers.sort_by_key(|l| l.z);
-    out.asset_names &= out.sprites > 0;
+    out.asset_names &= named_sprites > 0;
     out
 }
 
@@ -436,10 +475,11 @@ pub fn census(p: &dyn Peek, list: usize, scope: &Scope, keep: usize) -> Census {
 pub struct View {
     pub scale: (f32, f32),
     pub shift: (f32, f32),
-    /// 特效画在哪个 z：游戏世界里最高的上面一层。
+    /// 特效画在哪个 z：墙的前脸那一层——游戏自己的技能特效也在这一层，单位上面、血条下面（本包的命令排在游戏的
+    /// 后面，同一个 z 上后推的画在上面）。认不出墙的前脸：英雄上面一层；也认不出英雄：世界里最高的上面一层。
     pub z: i32,
-    /// 躺在地上的东西画在哪个 z：地图的墙那一层（本包的命令排在游戏的后面，同一个 z 上后推的画在上面：在墙和草丛
-    /// 上面、z 更高的单位下面）；认不出墙：同 `z`。
+    /// 躺在地上的东西画在哪个 z：地图的墙那一层（墙和草丛上面、单位下面；游戏的回城特效的后半也在这一层）；
+    /// 认不出墙：同 `z`。
     pub ground: i32,
     pub sprites: bool,
     /// 镜头这一帧看着的矩形（`"Game"` 里的左上角和宽高；游戏没推镜头命令：None）。
@@ -470,17 +510,18 @@ pub const Z_ALONE: i32 = 100;
 /// 本包画在哪：特效的 z、躺在地上的东西的 z、贴图画不画。
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Layers {
-    pub top: i32,
+    pub fx: i32,
     pub ground: i32,
     pub sprites: bool,
 }
 
 /// 数出来的东西 -> 本包的层和贴图画不画（`settings.ini` 的 `battlefield_effects` 是 2、游戏的贴图命令的名字是 `asset/…`、
-/// 本包的图也在盘上）。
+/// 本包的图也在盘上）。特效：墙的前脸那一层，没有就英雄上面一层，再没有就世界里最高的上面一层。
 pub fn plan(census: &Census, sheet_on_disk: bool, mode: usize) -> Layers {
     let top = census.z.map_or(Z_ALONE, |z| z.1.saturating_add(1));
+    let fx = census.front.or(census.units.map(|z| z.saturating_add(1))).unwrap_or(top);
     let sprites = mode == super::settings::EFFECTS_AUTO && sheet_on_disk && census.asset_names;
-    Layers { top, ground: census.ground.unwrap_or(top), sprites }
+    Layers { fx, ground: census.ground.unwrap_or(fx), sprites }
 }
 
 /// 一帧动画在图上的位置：(UV 的 x, y, 宽, 高)、(锚点 x, y)，都按比例。
@@ -542,12 +583,13 @@ fn dump(what: &str, at: (u64, u64, usize), size: Option<(f32, f32)>, scope: &Sco
     let (m, s, t) = at;
     wlog(format!("WORLD {what} m={m} s={s} screen t={t}: the match's render map \"Game\" (size {size:?}) holds {} commands; camera \
                   rect {:?}; the game's world from command {} to {:?}, shifted by {:?} (scale {:?}); in it {} commands with a z \
-                  {:?} ({} more on further z), {} transforms of its own (the first {:?}); kinds [{}]; {} sprite commands, their \
-                  names asset/.. {}; the map's walls at z {:?}; this mod's sheet on disk {}, battlefield_effects {}; this mod \
-                  draws its effects at z {}, what lies on the ground at z {}, with sprites {} #{k}",
+                  {:?} ({} more on further z), {} transforms of its own (the first {:?}); kinds [{}]; {} sprite commands ({} \
+                  without a name), their names asset/.. {}; the map's walls at z {:?}, their fronts at z {:?}, the champions \
+                  at z {:?}; this mod's sheet on disk {}, battlefield_effects {}; this mod draws its effects at z {}, what \
+                  lies on the ground at z {}, with sprites {} #{k}",
                  scope.n, v.camera, scope.push_at, scope.pop_at, scope.shift, scope.scale, c.drawn, c.z, c.beyond, c.pushes,
-                 c.inner, kinds_text(&c.kinds), c.sprites, c.asset_names, c.ground, on_disk.0, on_disk.1, v.z, v.ground,
-                 if v.sprites { "on" } else { "OFF" }));
+                 c.inner, kinds_text(&c.kinds), c.sprites, c.nameless, c.asset_names, c.ground, c.front, c.units, on_disk.0,
+                 on_disk.1, v.z, v.ground, if v.sprites { "on" } else { "OFF" }));
     for l in &c.layers {
         wlog(format!("WORLD   z {}: {} commands [{}]{}", l.z, l.n, kinds_text(&l.kinds),
                      l.name.as_ref().map_or(String::new(), |n| format!(" e.g. {n:?}"))));
@@ -596,7 +638,7 @@ pub fn view(ctx: &StableClient<'_>, m: u64, s: u64, t: usize) -> Option<View> {
     let sheet = *seen.sheet.get_or_insert_with(|| {
         super::settings::dll_dir().is_some_and(|d| d.join("effects").join(SHEET_FILE).is_file())
     });
-    let at = |l: Layers| View { scale: scope.scale, shift: scope.shift, z: l.top, ground: l.ground, sprites: l.sprites,
+    let at = |l: Layers| View { scale: scope.scale, shift: scope.shift, z: l.fx, ground: l.ground, sprites: l.sprites,
                                 camera: scope.camera };
     if count {
         let c = census(&p, list, &scope, if first || later { 24 } else { 0 });
@@ -606,7 +648,7 @@ pub fn view(ctx: &StableClient<'_>, m: u64, s: u64, t: usize) -> Option<View> {
         made.sprites = match seen.sprites {
             Some((of, yes)) if of == (m, s) => yes,
             _ => {
-                if c.sprites > 0 {
+                if c.sprites > c.nameless {
                     seen.sprites = Some(((m, s), made.sprites));
                 }
                 made.sprites
@@ -622,7 +664,7 @@ pub fn view(ctx: &StableClient<'_>, m: u64, s: u64, t: usize) -> Option<View> {
         }
     }
     seen.age += 1;
-    let made = seen.plan.unwrap_or(Layers { top: Z_ALONE, ground: Z_ALONE, sprites: false });
+    let made = seen.plan.unwrap_or(Layers { fx: Z_ALONE, ground: Z_ALONE, sprites: false });
     tell(&mut seen, format!("WORLD on: this mod's effects are drawn in the match world (sprites {})",
                             if made.sprites { "on" } else { "OFF: only what is drawn square by square" }));
     Some(at(made))
@@ -865,14 +907,15 @@ pub(crate) mod tests {
         assert_eq!((c.sprites, c.drawn, c.z), (2, 3, Some((-50, 410))), "what follows the pop is not the world");
         assert_eq!(c.kinds, vec![(0x03, 2), (0x0a, 1), (0x0f, 1)]);
         assert!(c.asset_names, "the map's own pictures have no '#sheet' in their names");
-        assert_eq!(c.ground, None, "no map of the game's own 5v5 walls here");
+        assert_eq!((c.ground, c.front, c.units, c.nameless), (None, None, None, 0), "no map with walls, no champion here");
         assert_eq!(c.first[1], (jinx.to_string(), 300.0, 410.0, 410, 0.25, 0.5));
-        // a kind that is not known: as it stands, for the log
-        assert_eq!(c.raw.len(), 1);
-        assert!(c.raw[0].starts_with("kind 0xf #0 (z None): words [800000000000000f 0 "), "{}", c.raw[0]);
-        // above the game's highest; sprites only with the sheet on disk
+        // the rects and a kind that is not known: as they stand, for the log
+        assert_eq!(c.raw.len(), 2);
+        assert!(c.raw[0].starts_with("kind 0xa #0 (z Some(0)): words [800000000000000a 0 "), "{}", c.raw[0]);
+        assert!(c.raw[1].starts_with("kind 0xf #0 (z None): words [800000000000000f 0 "), "{}", c.raw[1]);
+        // nothing known of the game's layers: above its highest; sprites only with the sheet on disk
         use super::super::settings::{EFFECTS_AUTO, EFFECTS_SQUARES};
-        let top = Layers { top: 411, ground: 411, sprites: true };
+        let top = Layers { fx: 411, ground: 411, sprites: true };
         assert_eq!(plan(&c, true, EFFECTS_AUTO), top);
         assert_eq!(plan(&c, false, EFFECTS_AUTO), Layers { sprites: false, ..top });
         // the player asked for squares only (settings.ini): no sprites
@@ -881,21 +924,29 @@ pub(crate) mod tests {
         assert_eq!(plan(&Census { asset_names: false, ..c.clone() }, true, EFFECTS_AUTO), Layers { sprites: false, ..top });
         // the map's walls known: what lies on the ground goes to their layer
         assert_eq!(plan(&Census { ground: Some(-1), ..c.clone() }, true, EFFECTS_AUTO), Layers { ground: -1, ..top });
+        // the champions known: the effects one layer over them; the walls' fronts known: on that layer, as the game's own
+        assert_eq!(plan(&Census { units: Some(0), ..c.clone() }, true, EFFECTS_AUTO), Layers { fx: 1, ground: 1, sprites: true });
+        assert_eq!(plan(&Census { units: Some(0), front: Some(2), ground: Some(-1), ..c.clone() }, true, EFFECTS_AUTO),
+                   Layers { fx: 2, ground: -1, sprites: true });
         // nothing drawn by the game: this mod's own layer, no sprites
-        assert_eq!(plan(&Census::default(), true, EFFECTS_AUTO), Layers { top: Z_ALONE, ground: Z_ALONE, sprites: false });
+        assert_eq!(plan(&Census::default(), true, EFFECTS_AUTO), Layers { fx: Z_ALONE, ground: Z_ALONE, sprites: false });
         // between two pieces of the log (every 30 frames): the same layers, nothing kept
         let quick = census(&fake, list, &sc, 0);
         assert_eq!((quick.z, quick.drawn, quick.asset_names, quick.raw.len(), quick.first.len()), (c.z, 3, true, 0, 0));
     }
 
-    /// The frame of the user's first match with 0.4.0 (2026-11-11, league_dragons.log): scaled units have a transform pair of
-    /// their own inside the world's, so the world ends at the pop that matches its push - 0.4.0 took the first pop and
-    /// counted the map's six pictures only (z -3..1), drew at z 2 and kept the sprites off.
+    /// The frame of the user's first matches with 0.4.0 / 0.4.1 (2026-11-11, league_dragons.log): scaled units have a
+    /// transform pair of their own inside the world's, so the world ends at the pop that matches its push - 0.4.0 took the
+    /// first pop and counted the map's six pictures only (z -3..1), drew at z 2 and kept the sprites off. A gauge's block of
+    /// colour is a sprite command without a name - 0.4.1 took that for a name of another shape and kept the sprites off.
     #[test]
     fn the_world_ends_at_the_pop_that_matches_its_push() {
         let dir = "asset/base/aseprite_resources/ingame/5v5/";
         let names: Vec<String> = ["background_5v5", "wall_shadow_5v5", "bush_shadow_5v5", "wall_5v5", "bush_5v5", "wall_5v5_front"]
-            .iter().map(|n| format!("{dir}{n}")).chain(["tower".to_string(), "league_kaisa".to_string()]).collect();
+            .iter().map(|n| format!("{dir}{n}"))
+            .chain(["asset/base/sprite/circle".to_string(), "asset/base/sprite/white".to_string(),
+                    "asset/base/aseprite_resources/champions/league_ornn#sheet".to_string()])
+            .collect();
         let base = 0x50_0000;
         let mut blob = Vec::new();
         let mut at = Vec::new();
@@ -908,36 +959,48 @@ pub(crate) mod tests {
         for (i, z) in [-3, -2, -3, -1, -1, 1].into_iter().enumerate() {
             cmds.push(sprite_cmd(at[i].0, at[i].1, -160.0, -160.0, z));
         }
-        // two towers, each scaled: a transform pair of its own round its picture
+        // two scaled units' shadows, each in a transform pair of its own
         for _ in 0..2 {
-            cmds.extend([push(-12.5, -80.0, 1.25), named(unit, at[6].0, at[6].1, 0), tagged(TAG_POP)]);
+            cmds.extend([push(-12.5, -80.0, 1.25), named(unit, at[6].0, at[6].1, -2), tagged(TAG_POP)]);
         }
-        // a hero, its health bar, a text over it; the world's own pop; then a mod's rect
-        cmds.extend([named(unit, at[7].0, at[7].1, 0), rect_cmd(5), text_cmd(6), tagged(TAG_POP), rect_cmd(900)]);
+        // a gauge's back, a champion, the gauge's block of colour (a sprite without a name), a rect, a text; the world's
+        // own pop; then a mod's rect
+        cmds.extend([named(unit, at[7].0, at[7].1, 3), sprite_cmd(at[8].0, at[8].1, 200.0, -1.0, 0), sprite_cmd(0, 0, 231.0, 66.0, 3),
+                     rect_cmd(100), text_cmd(0), tagged(TAG_POP), rect_cmd(900)]);
         let mut fake = frame(&[("Game", cmds)]);
         fake.regions.push((base, blob));
         let (list, n) = game_list(&fake, FRAME).unwrap();
         let sc = find_scope(&fake, list, n, true).unwrap();
         assert_eq!((sc.push_at, sc.pop_at, sc.shift), (1, Some(n - 2), (904.0, 78.83197)));
         let c = census(&fake, list, &sc, 24);
-        assert_eq!((c.drawn, c.z, c.sprites, c.pushes, c.beyond), (11, Some((-3, 6)), 6, 2, 0));
+        assert_eq!((c.drawn, c.z, c.sprites, c.nameless, c.pushes, c.beyond), (13, Some((-3, 100)), 8, 1, 2, 0));
         assert_eq!(c.inner, vec![((-12.5, -80.0), (1.25, 1.25)); 2]);
-        assert_eq!(c.kinds, vec![(0x03, 6), (0x12, 2), (0x04, 3), (0x13, 2), (0x0a, 1), (KIND_TEXT, 1)]);
-        assert_eq!(kinds_text(&c.kinds), "3 x6, 12 x2, 4 x3, 13 x2, a x1, text x1");
-        // the layers from the lowest: the map, the units between its walls and their fronts, what is over them
+        assert_eq!(c.kinds, vec![(0x03, 8), (0x12, 2), (0x04, 3), (0x13, 2), (0x0a, 1), (KIND_TEXT, 1)]);
+        assert_eq!(kinds_text(&c.kinds), "3 x8, 12 x2, 4 x3, 13 x2, a x1, text x1");
+        // the layers from the lowest: the map and the shadows, the units between its walls and their fronts, the gauges
         let layers: Vec<(i32, usize)> = c.layers.iter().map(|l| (l.z, l.n)).collect();
-        assert_eq!(layers, vec![(-3, 2), (-2, 1), (-1, 2), (0, 3), (1, 1), (5, 1), (6, 1)]);
-        assert_eq!((c.layers[3].kinds.clone(), c.layers[3].name.as_deref()), (vec![(0x04, 3)], Some("tower")));
-        assert_eq!(c.layers[0].name.as_deref(), Some(names[0].as_str()));
-        // the units' command is not one this mod knows: its first two as they stand, with the name found in them
-        assert_eq!(c.raw.len(), 2);
-        assert!(c.raw[0].starts_with("kind 0x4 #0 (z Some(0)): words [8000000000000004 5 ") && c.raw[0].ends_with("strings [+0x8 \"tower\"]"),
-                "{}", c.raw[0]);
-        // the map's walls give the ground's layer; the effects go over everything; the sheet is drawn (asset/.. names)
+        assert_eq!(layers, vec![(-3, 2), (-2, 3), (-1, 2), (0, 2), (1, 1), (3, 2), (100, 1)]);
+        assert_eq!((c.layers[1].kinds.clone(), c.layers[1].name.as_deref()), (vec![(0x03, 1), (0x04, 2)], Some(names[1].as_str())));
+        assert_eq!((c.layers[3].kinds.clone(), c.layers[3].name.as_deref()), (vec![(0x03, 1), (KIND_TEXT, 1)], Some(names[8].as_str())));
+        assert_eq!(c.layers[5].name.as_deref(), Some("asset/base/sprite/white"));
+        // what this mod does not know as it stands: the other kind of picture (its first two, with the names found in
+        // them), the sprite without a name, the rect
+        let of = |k: &str| c.raw.iter().filter(|r| r.starts_with(k)).count();
+        assert_eq!((c.raw.len(), of("kind 0x4 "), of("kind 0x3 "), of("kind 0xa ")), (4, 2, 1, 1));
+        assert!(c.raw[0].starts_with("kind 0x4 #0 (z Some(-2)): words [8000000000000004 18 ")
+                && c.raw[0].ends_with("strings [+0x8 \"asset/base/sprite/circle\"]"), "{}", c.raw[0]);
+        // the sprite without a name says nothing about the names: the sheet is drawn
         assert!(c.asset_names);
-        assert_eq!(c.ground, Some(-1));
+        // the map's walls give the ground's layer, their fronts the effects' - where the game's own skill effects are,
+        // over the units and under the gauges
+        assert_eq!((c.ground, c.front, c.units), (Some(-1), Some(1), Some(0)));
         use super::super::settings::EFFECTS_AUTO;
-        assert_eq!(plan(&c, true, EFFECTS_AUTO), Layers { top: 7, ground: -1, sprites: true });
+        assert_eq!(plan(&c, true, EFFECTS_AUTO), Layers { fx: 1, ground: -1, sprites: true });
+        // only sprites without a name (no name read at all): no sheet
+        let blind = frame(&[("Game", vec![push(0.0, 0.0, 1.0), sprite_cmd(0, 0, 1.0, 1.0, 3), tagged(TAG_POP)])]);
+        let (bl, bn) = game_list(&blind, FRAME).unwrap();
+        let bc = census(&blind, bl, &find_scope(&blind, bl, bn, true).unwrap(), 0);
+        assert_eq!((bc.sprites, bc.nameless, bc.asset_names), (1, 1, false));
         // every frame only the transform is looked for: the same push
         assert_eq!(find_scope(&fake, list, n, false).unwrap().push_at, 1);
         // a world whose pop never comes (a list cut short): to the list's end
@@ -946,6 +1009,11 @@ pub(crate) mod tests {
         let sc = find_scope(&open, list, n, true).unwrap();
         assert_eq!((sc.push_at, sc.pop_at), (0, None));
         assert_eq!(census(&open, list, &sc, 0).z, Some((3, 4)));
+        // the map's pictures by their file names
+        assert!(is_wall("asset/base/aseprite_resources/ingame/5v5/wall_5v5") && is_wall("a/wall_3v3"));
+        assert!(!is_wall("a/wall_5v5_front") && !is_wall("a/wall_shadow_5v5") && !is_wall("a/tower_shadow") && !is_wall("a/bush_5v5"));
+        assert!(is_wall_front("a/wall_5v5_front") && !is_wall_front("a/wall_5v5") && !is_wall_front("a/red_tower_front"));
+        assert!(is_champion("asset/base/aseprite_resources/champions/league_ornn#sheet") && !is_champion("asset/league/effects/x#sheet"));
     }
 
     /// Where each kind of command keeps its z - as the game's own renderer reads them (0.7.2, 0x1e6d90).
