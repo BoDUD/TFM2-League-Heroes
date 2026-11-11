@@ -304,8 +304,8 @@ def build(p):
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Position", "EnemyWithoutTower", frost)
 
     # ------------------------------------------------------------------ skill2: E Frostbite
-    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
-                    combine(sfx("e"), voice("vo_e", p), delayed(p["e_rel"] - 1, shard("e_shard"))))
+    e_fx = combine(sfx("e"), voice("vo_e", p), delayed(p["e_rel"] - 1, shard("e_shard")))
+    skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower", e_fx)
 
     # ------------------------------------------------------------------ ult: R Glacial Storm (dropped by the watch)
     def ring(k, r, t, first, dmg, slow, formed):
@@ -357,6 +357,13 @@ def build(p):
     # in the add-on's copy the storm waits while she is an egg
     watch = on_me(casted(1000000, tick, count, delayed(1, sw("egg_on", NONE, fire) if native else fire)), egg_watch)
     life = sw("init", NONE, combine(flag("init", None), watch))
+    # the add-on's copy: Q and E start the watches too (the user's GIF, 2026-11-11: an egg nobody saw - the add-on had
+    # caught the lethal hit, but no curl-up, no egg picture: the watches start with a life's first attack or R only)
+    if native:
+        skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Position", "EnemyWithoutTower",
+                       combine(life, frost))
+        skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
+                        combine(life, e_fx))
 
     # ------------------------------------------------------------------ attack: the ice bolt
     bolt = combine(sfx("a"), homing("a_bolt", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")], p["a_speed"]),
@@ -396,8 +403,8 @@ def build(p):
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_anivia:rebirth", "params": {
-            "egg_t": p["egg_t"], "egg_cd": p["egg_cd"], "w_t": p["w_t"], "w_w": p["w_w"], "w_h": p["w_h"],
-            "ice_t": p["ice_t"]}}
+            "egg_t": p["egg_t"], "egg_cd": p["egg_cd"], "egg_def": p["egg_def"], "w_t": p["w_t"], "w_w": p["w_w"],
+            "w_h": p["w_h"], "ice_t": p["ice_t"]}}
     return {
         "id": ID, "category": "Magician", "tags": ["AP", "Magic", "CC"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

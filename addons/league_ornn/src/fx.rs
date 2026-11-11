@@ -1,7 +1,11 @@
 //! 锻造看得见（用户 2026-11-01：「锻造后装备上加点特效？不然看不出啊」，选了样式 2「金色光晕 + 角上小铁砧」）：锻造成杰作的那一件
 //! 装备，在比赛下方玩家栏里图标外一圈金色光晕、右下角一个小铁砧；奥恩自己的亮，队友的淡；刚锻造（新锻造、杰作那件升级成光辉版）
-//! 时图标闪一下金光（`FLASH_T` tick）。0.4.0 起一人只有一件杰作（英雄联盟的大师工匠），只画那一件（装备栏里的第几格）；
-//! 0.3.x 画在这个人前几个图标上（他有几件就几个，4+6 装备 mod 的符文图标也算进去）。
+//! 时图标闪一下金光（`FLASH_T` tick）。0.4.0 起一人只有一件杰作（英雄联盟的大师工匠），只画那一件；0.3.x 画在这个人前几个
+//! 图标上（他有几件就几个，4+6 装备 mod 的符文图标也算进去）。
+//!
+//! 画在哪一格（0.4.1，[`icon_index`]）：玩家栏不一定一件装备一个图标——用户 11-11 的截图里 4+6 装备 mod 的玩家栏每行第一格是
+//! 一个符文图标，后面才是装备（装备栏里却有四个符文）。所以不按装备栏的格子数，按这一行实际有几个图标：开局就有的东西（符文、
+//! 出门装）显示出来的那几个排在前面，后面是别的装备、顺序和装备栏一样。Riot 装备 mod 的玩家栏（没有符文）就是装备栏的顺序。
 //!
 //! 锻造在模拟里做（`Forge::forge`），屏幕放的是跑在前面的模拟的回放：屏幕上那一场（`ClientMatchView`、观战、回放）里被动每
 //! `FORGE_EVERY` tick 记下友方每个选手（队伍、分路）的杰作在装备栏的第几格（变了才记），加的属性变多就记一次锻造（[`record`]）；
@@ -40,11 +44,25 @@ const UI: &str = "UI";
 const GOLD: u32 = 0xf2_c4_4a_00;
 const GOLD_HI: u32 = 0xff_e8_96_00;
 
-/// 一个选手某一刻的锻造：杰作在装备栏的第几格（None = 没有杰作）、是不是奥恩自己（亮）。
+/// 杰作那件装备在这个人的装备里排第几（开局就有的符文、出门装不算）、这样的装备一共几件。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct Slot {
+    pub item: usize,
+    pub items: usize,
+}
+
+/// 玩家栏这一行有 `icons` 个图标时，杰作那件是第几个：开局就有的东西显示出来的那几个（图标比装备多出来的）排在前面，后面是
+/// 装备、顺序和装备栏一样。超出这一行的图标就不画（None）。
+pub fn icon_index(icons: usize, s: Slot) -> Option<usize> {
+    let i = icons.saturating_sub(s.items) + s.item;
+    (i < icons).then_some(i)
+}
+
+/// 一个选手某一刻的锻造：杰作那件（None = 没有杰作）、是不是奥恩自己（亮）。
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Forged {
     pub tick: usize,
-    pub slot: Option<usize>,
+    pub slot: Option<Slot>,
     pub own: bool,
 }
 
@@ -90,9 +108,9 @@ pub fn screen_gen() -> u64 {
     GEN.lock().map_or(0, |g| g.0)
 }
 
-/// 记一个选手（`key` = (队伍, 分路)）这一刻的锻造：杰作在第 `slot` 格，`want` 是杰作加在他身上的属性。编号换了、tick 往回走
+/// 记一个选手（`key` = (队伍, 分路)）这一刻的锻造：杰作那件 `slot`，`want` 是杰作加在他身上的属性。编号换了、tick 往回走
 /// （同一个编号里换了模拟）就从头记；属性比上次多（新锻造、那件升级成光辉版）记一次锻造。
-pub fn record(board: &mut Board, gen: u64, tick: usize, key: (usize, usize), slot: Option<usize>, own: bool, want: [i32; 6]) {
+pub fn record(board: &mut Board, gen: u64, tick: usize, key: (usize, usize), slot: Option<Slot>, own: bool, want: [i32; 6]) {
     if board.gen != gen || tick < board.tick {
         *board = Board { gen, tick, tracks: HashMap::new() };
     }
@@ -107,7 +125,7 @@ pub fn record(board: &mut Board, gen: u64, tick: usize, key: (usize, usize), slo
     tr.last = Some(want);
 }
 
-pub fn publish(gen: u64, tick: usize, key: (usize, usize), slot: Option<usize>, own: bool, want: [i32; 6]) {
+pub fn publish(gen: u64, tick: usize, key: (usize, usize), slot: Option<Slot>, own: bool, want: [i32; 6]) {
     if let Ok(mut b) = BOARD.lock() {
         record(b.get_or_insert_with(Board::default), gen, tick, key, slot, own, want);
     }
@@ -192,7 +210,7 @@ fn paint(ctx: &mut StableClient<'_>, r: (f32, f32, f32, f32), own: bool, flash: 
     }
 }
 
-/// 画（客户端扩展的 post_render 里调）：屏幕上那一场里锻造过杰作的选手，玩家栏里那一件装备的图标（装备栏的第几格就是第几个）。
+/// 画（客户端扩展的 post_render 里调）：屏幕上那一场里锻造过杰作的选手，玩家栏里那一件装备的图标（[`icon_index`]）。
 pub fn draw(ctx: &mut StableClient<'_>) {
     if !ctx.is_in_game() {
         return;
@@ -230,12 +248,14 @@ pub fn draw(ctx: &mut StableClient<'_>) {
                 if log_rows {
                     let kda = ctx.ui_text(&format!("{base}.kda")).unwrap_or_default();
                     let cs = ctx.ui_text(&format!("{base}.cs.value")).unwrap_or_default();
-                    let forged = state.and_then(|(_, s, _)| s.slot).map_or("-".to_string(), |i| format!("masterwork in slot {i}"));
+                    let forged = state.and_then(|(_, s, _)| s.slot).map_or("-".to_string(), |s| {
+                        format!("masterwork = item {} of {} -> icon {:?}", s.item, s.items, icon_index(icons.len(), s))
+                    });
                     seen.push(format!("{row}.{side} {kda} cs {cs} icons {} {icons:?} [team {team} lane {lane}: {forged}]",
                                       icons.len()));
                 }
                 let Some(&(_, s, flash)) = state else { continue };
-                let Some(icon) = s.slot.and_then(|i| icons.get(i)) else { continue };
+                let Some(icon) = s.slot.and_then(|sl| icon_index(icons.len(), sl)).and_then(|i| icons.get(i)) else { continue };
                 let Some(r) = ctx.ui_node_rect(&format!("{items}.{icon}")).filter(|r| r.2 > 1.0 && r.3 > 1.0) else {
                     continue;
                 };
@@ -334,30 +354,47 @@ mod tests {
     fn the_board_keeps_changes_and_flashes_on_more_stats() {
         let mut b = Board::default();
         let key = (0, 2);
-        // no masterwork yet, then his first legendary item (slot 1) forged, then it becomes its radiant version
+        // no masterwork yet, then his first legendary item (his second item of three) forged, then it becomes its radiant version
+        let s1 = Slot { item: 1, items: 3 };
         record(&mut b, 1, 30, key, None, true, [0; 6]);
-        record(&mut b, 1, 60, key, Some(1), true, [0, 0, 6, 100, 0, 0]);
-        record(&mut b, 1, 90, key, Some(1), true, [0, 0, 6, 100, 0, 0]);
-        record(&mut b, 1, 120, key, Some(1), true, [0, 0, 10, 140, 0, 0]);
+        record(&mut b, 1, 60, key, Some(s1), true, [0, 0, 6, 100, 0, 0]);
+        record(&mut b, 1, 90, key, Some(s1), true, [0, 0, 6, 100, 0, 0]);
+        record(&mut b, 1, 120, key, Some(s1), true, [0, 0, 10, 140, 0, 0]);
         record(&mut b, 1, 120, (0, 3), None, false, [0; 6]);
         let tr = &b.tracks[&key];
-        assert_eq!(tr.states.iter().map(|s| (s.tick, s.slot)).collect::<Vec<_>>(), [(30, None), (60, Some(1))]);
+        assert_eq!(tr.states.iter().map(|s| (s.tick, s.slot)).collect::<Vec<_>>(), [(30, None), (60, Some(s1))]);
         assert_eq!(tr.flashes, [60, 120], "the masterwork, then its item's upgrade");
         assert!(b.tracks[&(0, 3)].flashes.is_empty(), "an ally not forged yet");
         // the screen lags behind the sim
         assert_eq!(state_at(tr, 10), None);
         assert_eq!(state_at(tr, 45).map(|s| s.slot), Some(None));
-        assert_eq!(state_at(tr, 9_000).map(|s| s.slot), Some(Some(1)));
+        assert_eq!(state_at(tr, 9_000).map(|s| s.slot), Some(Some(s1)));
         assert_eq!(flash_age(tr, 130), Some(10));
         assert_eq!(flash_age(tr, 120 + FLASH_T), None);
         // the ally's masterwork: a flash on his one item
-        record(&mut b, 1, 150, (0, 3), Some(0), false, [10, 0, 0, 0, 0, 0]);
+        record(&mut b, 1, 150, (0, 3), Some(Slot { item: 0, items: 2 }), false, [10, 0, 0, 0, 0, 0]);
         assert_eq!(b.tracks[&(0, 3)].flashes, [150]);
         // another sim (number or tick back): from scratch
         record(&mut b, 1, 30, key, None, true, [0; 6]);
         assert_eq!(b.tracks.len(), 1);
         record(&mut b, 2, 60, key, None, true, [0; 6]);
         assert_eq!((b.gen, b.tracks[&key].states.len()), (2, 1));
+    }
+
+    #[test]
+    fn the_glow_finds_its_icon_on_any_item_mods_scoreboard() {
+        // the Riot item pack's row: one icon an item, in the item bar's order
+        assert_eq!(icon_index(5, Slot { item: 2, items: 5 }), Some(2));
+        // the 4+6 item pack's row in the user's screenshot: the rune icon first, then the items (four runes in the item bar)
+        assert_eq!(icon_index(4, Slot { item: 0, items: 3 }), Some(1));
+        assert_eq!(icon_index(4, Slot { item: 2, items: 3 }), Some(3));
+        // a starting item still held and shown: it stays in front
+        assert_eq!(icon_index(6, Slot { item: 0, items: 5 }), Some(1));
+        // no rune shown at all
+        assert_eq!(icon_index(3, Slot { item: 1, items: 3 }), Some(1));
+        // icons not there yet: nothing drawn rather than the wrong one
+        assert_eq!(icon_index(1, Slot { item: 2, items: 3 }), None);
+        assert_eq!(icon_index(0, Slot { item: 0, items: 1 }), None);
     }
 
     #[test]
