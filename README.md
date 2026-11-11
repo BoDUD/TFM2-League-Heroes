@@ -63,7 +63,7 @@
   - 提莫把蘑菇种进草丛（[#627](https://github.com/BoDUD/TFM2-League-Heroes/pull/627)）；阿兹尔和沙兵之间的流沙线（[#625](https://github.com/BoDUD/TFM2-League-Heroes/pull/625)）。
 - **引擎和工具**：
   - 高清帧引擎 `hd_engine` 由 league.dll 和 tft.dll 共用，只开 tft 包也有高清帧（[#666](https://github.com/BoDUD/TFM2-League-Heroes/pull/666) [#667](https://github.com/BoDUD/TFM2-League-Heroes/pull/667)）。
-  - 游戏的 GPU 图片缓存放大，现在是 1.5 GiB（[#622](https://github.com/BoDUD/TFM2-League-Heroes/pull/622)）；适配游戏 0.7.1（[#690](https://github.com/BoDUD/TFM2-League-Heroes/pull/690)）。
+  - 游戏的 GPU 图片缓存放大，现在是 1.5 GiB（[#622](https://github.com/BoDUD/TFM2-League-Heroes/pull/622)）；适配游戏 0.7.1（[#690](https://github.com/BoDUD/TFM2-League-Heroes/pull/690)）、0.7.2（[#744](https://github.com/BoDUD/TFM2-League-Heroes/pull/744)，同一个 PR 里冰鸟的蛋改成按屏幕时钟画）。
   - 加射程改走官方的 `range_adjust`（[#703](https://github.com/BoDUD/TFM2-League-Heroes/pull/703)）；区域 `first_delay` 从 0 改成 1（[#700](https://github.com/BoDUD/TFM2-League-Heroes/pull/700)）；英雄死后不再反复触发（[#668](https://github.com/BoDUD/TFM2-League-Heroes/pull/668)）。
   - 存档里英雄副本的迁移工具（[#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#647](https://github.com/BoDUD/TFM2-League-Heroes/pull/647)）；`pose_ref` 读皮肤真正的隐藏名单（[#726](https://github.com/BoDUD/TFM2-League-Heroes/pull/726)）；撤掉 Mac 版（[#642](https://github.com/BoDUD/TFM2-League-Heroes/pull/642)）。
   - 每天按对局日志修 bug（[#618](https://github.com/BoDUD/TFM2-League-Heroes/pull/618) [#632](https://github.com/BoDUD/TFM2-League-Heroes/pull/632) [#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#659](https://github.com/BoDUD/TFM2-League-Heroes/pull/659) [#674](https://github.com/BoDUD/TFM2-League-Heroes/pull/674) [#685](https://github.com/BoDUD/TFM2-League-Heroes/pull/685) [#692](https://github.com/BoDUD/TFM2-League-Heroes/pull/692) [#699](https://github.com/BoDUD/TFM2-League-Heroes/pull/699) [#718](https://github.com/BoDUD/TFM2-League-Heroes/pull/718) [#721](https://github.com/BoDUD/TFM2-League-Heroes/pull/721)）。
@@ -124,15 +124,15 @@ python addons/league_addons/assemble.py <输出文件夹>       # 全部附加�
 
 ## 游戏版本更新时
 
-高清帧引擎（`league.dll` / `tft.dll`）和整身变身的附加包要在游戏的 EXE 里找函数。[`build.rs`](addons/hd_engine/src/build.rs) 列着认得的游戏版本（现在是 0.7.1 和 0.7.0），逐字节核对每一处要改、要调用的代码；对不上（游戏更新了）就由 [`addons/game_places`](addons/game_places/src/lib.rs) 在运行时按特征码找（日志 `game build: found at run time in … ms`），找不到或不唯一才退回 1 倍帧。游戏改了代码形状时：
+高清帧引擎（`league.dll` / `tft.dll`）和整身变身的附加包要在游戏的 EXE 里找函数。[`build.rs`](addons/hd_engine/src/build.rs) 列着认得的游戏版本（现在是 0.7.2、0.7.1 和 0.7.0），逐字节核对每一处要改、要调用的代码；对不上（游戏更新了）就由 [`addons/game_places`](addons/game_places/src/lib.rs) 在运行时按特征码找（日志 `game build: found at run time in … ms`），找不到或不唯一才退回 1 倍帧；只是界面画英雄的五处认不全时（0.7.2 改过一次），战场照样高清，只有界面不用小图集。游戏改了代码形状时：
 
 ```bash
-python tools/re/find_build.py        # 从上一版 build.rs 在新 EXE 里重新找出地址，更新 build.rs
+python tools/re/find_build.py        # 从上一版 build.rs 在新 EXE 里重新找出地址，更新 build.rs（界面某处认不出：--drawer <k>=<rva>）
 python tools/re/make_sigs.py         # 重新生成 addons/game_places/src/sigs.rs
 cargo test -p hd_engine              # 拿游戏目录里的 EXE 跑一遍：动态找出的每个地址都和 build.rs 一致
 ```
 
-结构体里的偏移没有做成动态的。0.6.4、0.6.5、0.7.0、0.7.1 四次更新改了什么（地址、新编译器、玩家结构体、官方 AI、放逐和韧性、睡眠、射程和定身修复、各英雄表）见 [docs/tech-notes.md](docs/tech-notes.md) 的「游戏 0.6.4」「动态寻址」「游戏 0.6.5」「游戏 0.7.0」「游戏 0.7.1」五节。
+结构体里的偏移没有做成动态的。0.6.4、0.6.5、0.7.0、0.7.1、0.7.2 五次更新改了什么（地址、新编译器、玩家结构体、官方 AI、放逐和韧性、睡眠、射程和定身修复、界面绘制重写、各英雄表）见 [docs/tech-notes.md](docs/tech-notes.md) 的「游戏 0.6.4」「动态寻址」「游戏 0.6.5」「游戏 0.7.0」「游戏 0.7.1」「游戏 0.7.2」六节。
 
 ## 持续集成
 
