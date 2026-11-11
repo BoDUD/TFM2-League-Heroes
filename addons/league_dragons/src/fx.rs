@@ -364,7 +364,7 @@ const RAIN_MOST: usize = 240;
 
 /// 峡谷变成 `element`（在 tick `since`）以后的地形：变形后 [`rift::RISE_T`] tick 才有（岩石从变形那一刻开始往上升）。
 /// 躺在地上的（风纹、门、草丛、果实、岩石）画在地上那一层（[`world::View::on_ground`]：墙和草丛上面、单位下面——英雄走在
-/// 上面看得见）；墙上的火、雨画在最上面。-> 画了几样。
+/// 上面看得见）；墙上的火、雨画在特效那一层（单位上面、血条下面）。-> 画了几样。
 pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: usize, element: Element, since: usize) -> usize {
     let age = t.saturating_sub(since);
     let live = age >= rift::RISE_T;
@@ -460,7 +460,7 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize, rift: Option<(
                 if let Some(k) = counted("terrain") {
                     wlog(format!("TERRAIN m={m} s={s} screen t={t}: the {} rift (turned at t={since}, live {}) - {n} pictures \
                                   drawn in the match world: what lies on the ground at z {} (the map's walls' layer, under the \
-                                  units), fire and rain at z {}, sprites {} #{k}", element.key(), key.3, v.ground, v.z, v.sprites));
+                                  units), fire and rain at z {} (over the units, under the gauges), sprites {} #{k}", element.key(), key.3, v.ground, v.z, v.sprites));
                 }
             }
         }
@@ -508,7 +508,8 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize, rift: Option<(
             if let Some(k) = counted("fx") {
                 let at = v.map(f.at);
                 wlog(format!("FX m={m} s={s} t={} on screen at {t}: {:?} at ({}, {}) -> ({:.0}, {:.0}) on the \"Game\" map, \
-                              {} more place(s), z {} #{k}", f.tick, f.kind, f.at.0, f.at.1, at.0, at.1, f.to.len(), v.z));
+                              {} more place(s), z {}, sprites {} #{k}", f.tick, f.kind, f.at.0, f.at.1, at.0, at.1, f.to.len(), v.z,
+                             if v.sprites { "on" } else { "OFF" }));
             }
         }
     }
