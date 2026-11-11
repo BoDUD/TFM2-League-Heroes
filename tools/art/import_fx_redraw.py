@@ -7,10 +7,11 @@
 
 --store: DELIVERY is Codex's outputs/fx_redraw_<n>/ (its manifest.json: one entry a delivered strip with the sheet and the
 source_entry_index of PACK_MANIFEST, the pack's own manifest.json, whose entries hold the frames' distinct cells); every
-delivered strip is copied to assets/source/<hero>/codex_fx_redraw/<sheet>/<tag>.png and listed in that folder's
-manifest.json (sheet, tag, the guide's cells and cell size, symmetry, zoom, the pack it came in). Names repeat across a
-hero's sheets (Ashe's arrow and hit in league_ashe_fx and league_ashe_r: the pack wrote one guide over the other, Codex
-kept them apart by sheet), so the sheet is part of the path.
+strip the delivery holds, whatever its entry's status says ("delivered"; a repair after a review came as
+"repair_submitted_for_user_review", 2026-11-11), is copied to assets/source/<hero>/codex_fx_redraw/<sheet>/<tag>.png
+and listed in that folder's manifest.json (sheet, tag, the guide's cells and cell size, symmetry, zoom, the pack it came
+in). Names repeat across a hero's sheets (Ashe's arrow and hit in league_ashe_fx and league_ashe_r: the pack wrote one
+guide over the other, Codex kept them apart by sheet), so the sheet is part of the path.
 
 Without --store every stored strip of the heroes asked (default: every hero with one) gives its tag new hd_ frames. A
 strip is the guide's size: its cells side by side, each the guide's cell (the tag's largest frame, odd sizes) 8 px a game
@@ -67,7 +68,8 @@ def store(delivery, pack_manifest):
     theirs = json.load(open(G.lp(os.path.join(delivery, "manifest.json")), encoding="utf-8-sig"))
     by_hero = {}
     for it in theirs["items"]:
-        if it.get("status", "delivered") != "delivered":
+        if not os.path.isfile(G.lp(os.path.join(delivery, it["file"]))):
+            print(f"  {it['file']}: not in the delivery ({it.get('status', 'no status')}) - skipped")
             continue
         o = ours["items"][it["source_entry_index"]]
         if (o["sheet"], o["tag"]) != (it["sheet"], it["tag"]):
