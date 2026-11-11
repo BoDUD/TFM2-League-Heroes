@@ -13,8 +13,10 @@
 //!   实体渲染的代码里读，按名字出命令的函数按调用者和长度检查认。
 //! - 界面画英雄的五处（0.7.2 起）：取尺寸认「它取图之后的头四次间接调用」（0.7.2 图鉴和选人位把取图挪到选帧之后，
 //!   从取表调用往后数会数到别的调用）；五处认不全时只是没有界面小图集、界面英雄按普通界面大小画，战场的地址照样用
-//!   （0.9.30 在 0.7.2 上因为认不出图鉴整个放弃，英雄全画成 1x）。图鉴和选人位交名字的函数：0.7.1 以前是图片节点，
-//!   0.7.2 是给它们自己拼的贴图命令设 UV 的函数（cmd_uv），按特征码找，找不到按「写完命令标签后的第一个调用」认。
+//!   （0.9.30 在 0.7.2 上因为认不出图鉴整个放弃，英雄全画成 1x）。图鉴和选人位交名字的地方：0.7.1 以前调图片节点的
+//!   设置函数；0.7.2 把它内联了，这两处自己把名字复制进节点（[`Places::ui_inline`]：取贴图后不调任何认得的函数，而且
+//!   名字是它自己拼的——取动画表之前同一个函数调了两次），由 hd_engine 就地改名；自己拼贴图命令再设 UV 的写法（cmd_uv）
+//!   也认。两样都不是的那一处不用小图集（它的 `ui_sheet_ret` 记 0），别的几处照用。
 //! - [`display`]：显示更新函数和它的槽，所有挂这个槽的 DLL 共用；第一个找到的写进进程环境变量
 //!   `LEAGUE_DISPLAY_PLACES`（在任何钩子改槽之前），后来的直接读——槽被改过以后就搜不到原指针了。
 //!
@@ -270,13 +272,18 @@ pub struct Places {
     pub ui_size_ret: Vec<usize>,
     pub ui_sized_anim_ret: Vec<usize>,
     pub ui_sized_size_ret: Vec<usize>,
-    /// the UI drawers' own sheet lookups (league.dll's UI sheets: optional - empty when not found)
+    /// the UI drawers' own sheet lookups (league.dll's UI sheets: optional - empty when not found; 0 for a drawer whose
+    /// hand-over of the name is not known: that one keeps the battle sheets)
     pub ui_sheet_ret: Vec<usize>,
     /// the functions they hand the sheet's name to (0: not found): the draw command made from a name, the image node's
     /// setter (to 0.7.1), the UV setter of the sprite command the encyclopedia and the pick slot build (0.7.2)
     pub cmd_by_name: usize,
     pub node_image: usize,
     pub cmd_uv: usize,
+    /// the encyclopedia / pick slot (0, 1) when they hand the name on themselves: no sink called after the sheet lookup,
+    /// the name copied into the image node by the drawer (0.7.2: the node's setter inlined) - hd_engine renames it where
+    /// it stands
+    pub ui_inline: Vec<usize>,
     pub body_draw: usize,
     pub cmd_grow: usize,
     /// the view node draw (league.dll's dense effects: optional - 0 when not found)
@@ -627,11 +634,12 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         if drawers { UI_SIZED.iter().flat_map(|k| ui_size_ret[4 * k..4 * k + 4].to_vec()).collect() } else { Vec::new() };
     // 6. league.dll's UI sheets (optional: not found, the UI keeps drawing from the battle sheets): each drawer's sheet
     // lookup (the one its size asks follow, step 5), the draw command made from a name - by its head, the one the BP
-    // grid calls - and whatever the encyclopedia and the pick slot hand the name to after their sheet lookup: the image
-    // node's setter (to 0.7.1) or the UV setter of the sprite command they build themselves (0.7.2) - by the listed
-    // build's heads, the UV setter else as the call right after both write a draw command's tag; each of the two drawers
-    // must call one of them
+    // grid calls - and how the encyclopedia and the pick slot hand the name on after their sheet lookup: to the image
+    // node's setter (to 0.7.1) or to the UV setter of a sprite command they build themselves - by the listed build's
+    // heads, the UV setter else as the call right after both write a draw command's tag - or, calling neither, by
+    // copying it into their image node themselves (0.7.2: the setter inlined; ui_inline)
     let (mut cmd_by_name, mut node_image, mut cmd_uv) = (0, 0, 0);
+    let mut ui_inline = Vec::new();
     if drawers {
         let callees = |drawer: usize| -> HashSet<usize> {
             img.func_of(drawer).map(|f| img.calls_in(f.0, f.1)).unwrap_or_default().into_iter().collect()
@@ -681,18 +689,32 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         }
         let sinks: HashSet<usize> = [node_image, cmd_uv].into_iter().filter(|f| *f != 0).collect();
         for (k, a) in after.iter().enumerate() {
-            if a.is_disjoint(&sinks) {
-                notes.push(format!("UI drawer {k}: calls neither the image node's setter {node_image:#x} nor the UV setter \
-                                    {cmd_uv:#x} after its sheet lookup"));
-                (node_image, cmd_uv) = (0, 0);
+            if !a.is_disjoint(&sinks) {
+                continue;
+            }
+            // no sink called: the drawer hands the name on itself. hd_engine renames it where it stands, which is only
+            // right for the drawer's own String - it formats its names itself: the same function called twice before
+            // its anim lookup (0.7.2's two: `format` for `…#sheet` and `…#anim`). Else it keeps the battle sheets.
+            let call = ui_anim_ret[k] - 5;
+            let before = img.calls_in(img.func_of(call).map_or(call, |f| f.0), call);
+            if before.iter().any(|t| before.iter().filter(|u| *u == t).count() >= 2) {
+                ui_inline.push(k);
+                notes.push(format!("UI drawer {k}: hands the sheet's name on itself (no sink called after its sheet \
+                                    lookup, it formats its names): renamed where it stands"));
+            } else {
+                ui_sheet_ret[k] = 0;
+                notes.push(format!("UI drawer {k}: no sink called after its sheet lookup (image node setter \
+                                    {node_image:#x}, UV setter {cmd_uv:#x}) and its names are not its own: it keeps the \
+                                    battle sheets"));
             }
         }
     }
-    if cmd_by_name == 0 || (node_image == 0 && cmd_uv == 0) {
+    if cmd_by_name == 0 {
         if drawers {
-            notes.push("no UI sheets: a function the drawers hand the sheet's name to is not known".into());
+            notes.push("no UI sheets: the draw command made from a sheet's name is not known".into());
         }
         ui_sheet_ret.clear();
+        ui_inline.clear();
     }
     // 7. the view node draw (league.dll's dense effects, optional): the function with its head the body draw calls
     let effect_draw = {
@@ -725,6 +747,7 @@ pub fn resolve_with(img: &Image, display: Option<(usize, usize)>) -> Result<Plac
         cmd_by_name,
         node_image,
         cmd_uv,
+        ui_inline,
         body_draw,
         cmd_grow,
         effect_draw,
