@@ -3,6 +3,9 @@
 //! `mod.override_info` 把主包的艾尼维亚换成 `override/` 里的副本（tools/kit/build_anivia.py 的 native=1）：数据和主包一样，只是
 //! 被动挂本包的 `league_anivia:rebirth`，冰墙没有主包那圈 99% 减速（本包让墙真的挡路），E 不再用主包「被控 / 风暴成形」的近似翻倍。
 //!
+//! - **蛋的样子**（0.1.9，`view.rs`）：显示世界收不到原生加的 buff，游戏画定身的英雄时还会把存着的 `run` 画成普通的 `idle`，
+//!   所以不再靠 `egg_on` 和「正在播 idle / hit」：被动在屏幕放的那场模拟里记下每颗蛋的起止 tick，显示钩子按屏幕上的比赛
+//!   时钟把她整段画成蛋，缩进蛋、孵化的动作也由钩子播。
 //! - **寒霜涅槃**：每 `egg_cd` tick 一次（阵亡不重置），受到致命伤害时不倒下（本包一直挂着「不死」`league_anivia_p_guard`，
 //!   生命停在 1 就触发），变成冰蛋 `egg_t` tick：生命回满当作蛋的生命，**不能动**、不能普攻、不能放技能（[`EGG_CC`]，被净化掉
 //!   就补挂；0.1.7 前蛋还能走，AI 带着它跑开、满血孵化）；主包数据看到 `league_anivia_egg_go`
@@ -123,6 +126,34 @@ fn on_screen(sim: &StableSim<'_>) -> bool {
         matches!(k, SimOriginKindV1::ClientMatchView | SimOriginKindV1::ClientSpectate | SimOriginKindV1::ClientReplay)
     })
 }
+
+/// The match and set of a sim the screen replays, else None: the display hook draws its eggs by the screen clock
+/// (`view.rs`; the display world's entity keys are this sim's entity ids).
+fn screen_of(sim: &StableSim<'_>) -> Option<(u64, u64)> {
+    let o = sim.sim_origin()?;
+    on_screen(sim).then_some((o.match_id, o.set_index))
+}
+
+/// An egg of the screen's sim begins (`due`: the tick it hatches if it is not broken) / ends, for the display hook.
+#[cfg(windows)]
+fn note_egg(sim: &StableSim<'_>, me: usize, from: usize, due: usize) {
+    if let Some((m, s)) = screen_of(sim) {
+        view::note_egg(m, s, me, from, due);
+    }
+}
+
+#[cfg(windows)]
+fn note_end(sim: &StableSim<'_>, me: usize, hatched: bool) {
+    if let Some((m, s)) = screen_of(sim) {
+        view::note_end(m, s, me, sim.tick(), hatched);
+    }
+}
+
+#[cfg(not(windows))]
+fn note_egg(_: &StableSim<'_>, _: usize, _: usize, _: usize) {}
+
+#[cfg(not(windows))]
+fn note_end(_: &StableSim<'_>, _: usize, _: bool) {}
 
 /// Like `counted`, but every line of the match on screen: only the presims capped.
 fn tally(sim: &StableSim<'_>, kind: &'static str) -> Option<usize> {
@@ -312,6 +343,25 @@ fn has(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     buffs(sim, id).iter().any(|b| b.name() == name)
 }
 
+/// What the copy's watch shows and plays when she curls up (`egg_go`) and when she hatches (`egg_hatch`): (the view
+/// effect, the sounds). The watch starts with a life's first attack or ability and raises `init`; in a life without it
+/// (and in the copies old career saves keep, whose Q and E do not start it) the add-on plays them itself (0.1.9).
+pub const EGG_SHOW: (&str, [&str; 1]) = ("p_egg_in", ["p_egg"]);
+pub const HATCH_SHOW: (&str, [&str; 2]) = ("p_hatch", ["p_hatch", "vo_p"]);
+
+/// Plays `show` on her unless the copy's watch runs in this life (it plays the same by itself).
+fn show(sim: &mut StableSim<'_>, me: usize, show: (&str, &[&str])) -> bool {
+    if has(sim, me, &sn("init")) {
+        return false;
+    }
+    let at = InputTargetV1::target(me);
+    sim.play_view_effect(&sn(show.0), me, &at, 0, 0, 0);
+    for s in show.1 {
+        sim.play_sfx(&sn(s), me, &at);
+    }
+    true
+}
+
 #[derive(Clone, Default)]
 struct Rebirth {
     p: Params,
@@ -365,9 +415,14 @@ impl Rebirth {
         for k in EGG_CC {
             sim.apply_cc(me, &CcV1::of_kind(k, self.p.egg_t as u64));
         }
+        // the screen's sim: the display hook draws the egg from here by the screen clock (0.1.9)
+        note_egg(sim, me, now, now + self.p.egg_t);
+        let own = show(sim, me, (EGG_SHOW.0, &EGG_SHOW.1));
         if let Some(k) = tally(sim, "egg") {
             wlog(format!("{} EGG #{k}: lethal damage caught at 1 hp, the egg holds {max} hp for {} ticks, rooted at ({}, {}), \
                           armour / MR -{}", head(sim, me), self.p.egg_t, at.0, at.1, self.p.egg_def));
+            wlog(format!("{}   its sound and picture by {}", head(sim, me),
+                         if own { "the add-on (the copy's watch is not running in this life)" } else { "the copy's watch" }));
         }
     }
 
@@ -415,6 +470,8 @@ impl Rebirth {
         // the data's watch plays the hatch on `egg_hatch` (and clears its own flags); the form ends here either way
         sim.entity_remove_buff(me, FORM);
         sim.add_buff(me, &BuffV1::timed(&sn("egg_hatch"), FLAG_T));
+        note_end(sim, me, true);
+        show(sim, me, (HATCH_SHOW.0, &HATCH_SHOW.1));
         if let Some(k) = tally(sim, "hatch") {
             let (hp, max, at) = sim.get_entity(me).map_or((0, 0, (0, 0)), |e| (e.hp().0, e.hp().1, e.pos()));
             let moved = (at.0 as f64 - self.egg_at.0 as f64).hypot(at.1 as f64 - self.egg_at.1 as f64);
@@ -556,6 +613,10 @@ impl StablePassive for Rebirth {
         self.prev_proj.clear();
         self.rising = None;
         let team = sim.get_entity(me).map_or(0, |e| e.team());
+        #[cfg(windows)]
+        if let Some((m, s)) = screen_of(sim) {
+            view::note_view(m, s);
+        }
         if let Some(k) = counted("spawn") {
             wlog(format!("{} SPAWN #{k}: the add-on's Anivia (player {player}, team {team}), {:?}, egg ready at t={}",
                          head(sim, me), self.p, self.egg_ready_at));
@@ -609,6 +670,7 @@ impl StablePassive for Rebirth {
 
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
         if self.egg.take().is_some() {
+            note_end(sim, self.me, false);
             if let Some(k) = counted("broken") {
                 wlog(format!("{} BROKEN #{k}: the egg was broken - she is dead", head(sim, self.me)));
             }
@@ -632,7 +694,13 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:rebirth"), Rebirth::default());
     #[cfg(windows)]
-    view::install_once();
+    {
+        let known = view::set_game(v.major, v.minor, v.patch);
+        wlog(format!("FORM the egg's stun / airborne display timers and the animation clock: {}",
+                     if known { "cleared / restarted by the hook (fields read from game 0.7.2's code)" }
+                     else { "left alone on this game version (checked on 0.7.2 only): a stunned egg shows the bird's hit pose" }));
+        view::install_once();
+    }
     host.log(LogLevel::Info, "league_anivia loaded (Rebirth's egg, a real wall, Frostbite on Iced).");
 }
 
@@ -665,6 +733,21 @@ mod tests {
         let body = &copy[at..];
         let params = &body[body.find('{').unwrap()..=body.find('}').unwrap()];
         assert_eq!(parse_params(params), Params::default(), "the copy's passive params: {params}");
+    }
+
+    #[test]
+    fn the_add_on_plays_what_the_copys_watch_plays() {
+        // the names the add-on plays itself in a life without the watch are the copy's own (its view effects, its sounds),
+        // and the watch's flag is the one all four of the copy's actions raise
+        let copy: String = include_str!("../override/league_anivia.data_champion").split_whitespace().collect();
+        for view in [EGG_SHOW.0, HATCH_SHOW.0] {
+            assert!(copy.contains(&format!("\"type\":\"CasterViewEffect\",\"name\":\"{}\"", sn(view))), "{view}");
+        }
+        for sfx in EGG_SHOW.1.iter().chain(&HATCH_SHOW.1) {
+            assert!(copy.contains(&format!("\"type\":\"Sfx\",\"name\":\"{}\"", sn(sfx))), "{sfx}");
+        }
+        let init = format!("\"type\":\"SwitchByBuff\",\"buff_name\":\"{}\"", sn("init"));
+        assert_eq!(copy.matches(&init).count(), 4, "attack, Q, E and R each start the watch once a life");
     }
 
     #[test]
