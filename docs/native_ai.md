@@ -94,6 +94,61 @@ Environment switches read once (printed with `eprintln!`): `SHOP_TRACE`, `SUPFR_
 | `0x161d880` | the trace recorder push (114 callers) |
 | `0xfb57e0` | rl.rs `rlp` header parser; loader `0x9b7df0`, registered as type `rlp` in `0xccd3e0` |
 
+## Game 0.7.2 (2026-11-11): how the AI estimates a kit
+
+Read while looking for why the 0.7.2 AI hardly ever orders Kai'Sa (and Draven, Samira, Graves) to attack champions (the
+user: 「卡莎是真有点问题」「也不平A」). The cause was **not** found here - for her these estimates come out like any other
+marksman's - but this is what the AI reads from a hero's data, with the RVAs of the 0.7.2 EXE (94,603,776 bytes;
+`re_ai.py --work <dir> index` again for every new EXE, then `tools/re/ai/effect_types.py --work <dir>`).
+
+- **Effects are trait objects.** The data's `DataEffectDef::X` becomes a runtime `XEffect` struct behind an `EffectType`
+  vtable (167 types, 285 vtables; `effect_types.py` lists them by the name their +0x18 method writes). The slots the AI
+  calls:
+
+  | slot | what | notes |
+  |---|---|---|
+  | `+0x30` | expected damage (AD, AP) | `AttackEffect`: damage + ratios x the caster's stats; `CombineEffect` / `DelayedEffect` / `WithSelfEffect` / `RandomTargetEffect` / `MoveTo*` / the projectiles: the sum of their children; `SwitchByBuffEffect`: the branch the caster's **current** buffs pick; `HealEffect`, `ShieldEffect`, `AddBuff*`, every CC, `CasterInvisibleEffect`: 0 |
+  | `+0x38` | the same against one target, as an Option | a container sums `+0x38` where a child answers and `+0x30` where it does not (helper `0x1a97390`) |
+  | `+0x58` | percent of the target's health | callers add target hp x it / 100 |
+  | `+0x60` | expected damage against one target | what the DPS estimate calls on an action's effect |
+  | `+0xb8` | expected CC time (Option) | `StunEffect`, `BindEffect`, `AirborneEffect`, `BlockAttackEffect`, ... return their duration; containers forward |
+  | `+0x240` | a mask | 0 for most; **0xff for `CasterInvisibleEffect` and `ModEffect`** (a mod's `Native` effect), 2 / 4 / 8 for a few base ults; containers OR their children (a `SwitchByBuffEffect` both branches). Non-zero: the kit ledger does not cache the action |
+
+  A mod's native effect is a `ModEffect`: its `+0x30` asks the mod (`StableEffectType::expected_damage`, `expected_cc_time`,
+  `expected_heal`, ... in the stable API - all default to nothing). A hero whose damage lives in a native effect or a
+  native passive is worth 0 to these estimates unless the add-on answers.
+- **DPS** `0x1039250(sim, entity, target)`: for the attack (`entity+0x488`), skill (`+0x4c0`) and skill2 (`+0x4f8`, when
+  the hero has three actions) it takes `effect.+0x60(...)`, runs it through the damage formula against the target
+  (`0x1e93a40`), x 100000 and divides by the action's interval (cooldown `+0x568` / `+0x578` / `+0x588` scaled by attack
+  speed `+0x3f4` or haste `+0x3f8`). The ult is not in it. 0.5.1's `utils::dps_ratio` is the same sum (its `select_tactic`
+  compared the attack's share of it with 30 %).
+- **Who wins a duel** (`plan/handler/lane_ops.rs`, fn `0x10c57a0`): for me and an enemy laner, time to kill =
+  hp (`+0x620`) x 100000 / the other's DPS on him; when I need longer to kill him than he needs to kill me a flag is set
+  on the lane's verdict (bit 1). The same DPS is used by `passive_jungle.rs`, `free_dist.rs` and two small comparers
+  (`0xf84020`, `0x1063f00`).
+- **The fighter snapshot** `0x1850c50` (30 callers, almost all in `fight_check.rs`, one in `big_plan/battle.rs`): the
+  four actions' intervals, the effective health, and per action a bit for "mask `+0x240` not 0", "`+0x238`" and the
+  expected CC - what the time-to-die model starts from.
+- **Kit ledger** (`kit_ledger.rs`, `0x10a6b90` / `0x10a6ff0` / `0x10a7550`): a per-tick cache of those estimates by
+  (player 0-9, action 0-3, target 0-9) and a signature of level and buffs (`0x10b5d40`); an action whose mask is not 0 is
+  never cached.
+- **Tactics** are still `Standard, Frontline, Backline, DPS, Skill, Burst, Peel, AllIn` (the strings sit next to
+  `Prep / Trade / Play / Trace` and `TryKill / Response`); where 0.7.2 picks one is not located.
+- **Decision trace**: `decision_trace.rs` builds a record per player (`0x1162100`, 11.8 KB) when a byte at `+0x3c` of
+  the flags behind the AI context (`[ctx+8]`) is set - the per-player update `0x1173810` tests it (in the 11-04 build
+  the trace gate was `+0x3b`). `game-view/src/ui/decision_trace_card.rs` shows it in debug cards whose layouts ship in
+  the bundle (`asset/base/ui/layout/debug_decision_card`: title, scene, objective, objective_why, plan, plan_why, sub,
+  action, roster, verdict; `debug_fight_card`, `debug_scene_nav`, `debug_op_inspector`), all `visible: false`. What sets
+  the byte in a release game was not found (no environment switch names it: `TFM_FRAME_PROFILE`, `TFM_UI_SCRIPT`,
+  `TFM_PRINT_DEBUG_LOGS`, `TFM2_PLAN_THREADS`, `TFM2_LIMIT_CHAMPS`, `TFM_CONSOLE` are the ones there).
+- **Hooks run from the lowest priority up**: league_ai_watch (-2,000,000) sees the game's own order, league_ult_press
+  (100) presses after it - so the watch log's "attacks at champions" counts only the attacks the game's AI ordered.
+- **What ruled Kai'Sa's data out**: her attack is `Combine[Sfx, TargetProjectile{Attack}, SwitchByBuff{... the E's
+  buffs, CasterInvisible}]` - the estimate is one `Attack` like Varus's; her mask is 0xff, but so is Varus's (a `Native`
+  in his attack) and the AI attacks with him. Stats, tags, category, ranges and the two data experiments
+  (league_marks 0.1.5 / 0.1.6) made no difference. league_ult_press 0.6.5 works round it (a marksman the AI neglects
+  pokes whoever stands in her own range).
+
 ## What is done with it
 
 - 2026-11-08 `league_peel` 0.1.0: the support and nearby top / jungle hit whoever dives our ADC, and its log records

@@ -57,6 +57,12 @@
 //! - 0.2.3（2026-11-08 夜里的日志）：升起中的沙兵在他够不着的地方也挂 `league_azir_o<槽>`（狂沙猛攻刚挪过去、还在升起的一组
 //!   照样刺了：`STAB CHECK FAILED` 19 次）；他死时留下的圆盘按（模拟、玩家）记，复活后的新身体拿得回来（`DISC BACK`）；
 //!   死后的脉冲每次死亡只记开始、结束两行（`PULSE START` / `PULSE END`，带次数），沙兵盖章、流沙线只记前几条和 10、20、50、100……条。
+//! - 0.2.4（用户 2026-11-11：「沙皇R的大招推起来像是有三排士兵」）：**禁军站成一排**。一张禁军图里是前后错开的三个兵（rig_azir.py
+//!   `GUARDS`：沿冲锋方向错 6 像素、纵深错 14 像素，只照朝右冲画），立着的墙又在横向 ±`STAND_SPREAD`（18 像素）各盖一张：横着冲时
+//!   九个兵的盾牌错成三列，竖着冲时是三乘三的方阵，一张图本身也是前后三个。现在主包的禁军图多了单个禁军的帧
+//!   （`one_<r|l>_<a|b>`），副本登记成 `r_one_*` 画面；每一跳和立着的墙都是 `GUARD_COUNT`（7，英雄联盟 R 二级的人数）个单个的
+//!   禁军，站在过墙中点、垂直于冲锋方向的一条线上，横向排满墙宽（`r_half` 两边，和挡人的宽度一样），后面的先画（`guard_line`）。
+//!   副本里没有这几个画面（存档里留着的旧副本）就照旧盖三个兵一张的图（日志 `OLD COPY`）。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -765,8 +771,9 @@ impl StableEffectType for Wall {
             }
         }
         if let Some(k) = tally(sim, "wall") {
-            wlog(format!("{} WALL #{k} from {} toward {}: facing {}, {} stops, stands at {} from tick {}", head(sim, me),
-                         pt(from), pt(to), if right { "right" } else { "left" }, stops.len(), pt(up_mid), up_from));
+            wlog(format!("{} WALL #{k} from {} toward {}: facing {}, {} stops, stands at {} from tick {}; {GUARD_COUNT} guards \
+                          a hop in one line across the charge", head(sim, me), pt(from), pt(to),
+                         if right { "right" } else { "left" }, stops.len(), pt(up_mid), up_from));
         }
     }
 }
@@ -777,8 +784,11 @@ impl StableEffectType for Wall {
 pub const WALL_THICK: f64 = 6_000.0;
 /// 立着的墙隔多少 tick 重新盖一次禁军（一跳的画面长度：r_len / r_stamps / r_speed）。
 pub const STAND_STEP: usize = 4;
-/// 立着的墙除了中间那一组禁军，两边各再盖一组，离中间这么远（横向）。
+/// 0.2.4 以前立着的墙除了中间那一组禁军，两边各再盖一组，离中间这么远（横向）：三张三个兵一张的图前后错成三排。现在只给
+/// 没有单个禁军画面的旧副本用（`stamp_line`）。
 pub const STAND_SPREAD: f64 = 18_000.0;
+/// 0.2.4：一排禁军几个（英雄联盟 R 二级的 7 个；一级 6、三级 8），一个一个站在垂直于冲锋方向的一条线上（`guard_line`）。
+pub const GUARD_COUNT: usize = 7;
 /// 反推找「他的队伍」：这么近的我方英雄（不算他自己），没有就最近的我方防御塔。
 pub const HOME_R: f64 = 90_000.0;
 /// 墙打中的人带到墙停下的地方再往外：墙的厚度一半（`WALL_THICK`）再多这么远（身体落在墙外，不贴着墙）。
@@ -794,6 +804,47 @@ pub type Pt = (f64, f64);
 fn unit(v: Pt) -> Option<Pt> {
     let d = (v.0 * v.0 + v.1 * v.1).sqrt();
     (d > 1.0).then(|| (v.0 / d, v.1 / d))
+}
+
+/// 0.2.4：一排禁军站在哪：过 `mid`、垂直于冲锋方向 `dir` 的线上，从 -`half` 到 `half` 均匀 `n` 个；按 y 从小到大排（后面的
+/// 先画，前面的盖在上面）。横着冲是一列（x 都一样），竖着冲是一行（y 都一样），斜着冲是一条斜线：从来不前后错开。
+pub fn guard_line(mid: Pt, dir: Pt, half: f64, n: usize) -> Vec<Pt> {
+    let d = unit(dir).or_else(|| unit((dir.0 * 1e6, dir.1 * 1e6))).unwrap_or((1.0, 0.0));
+    let across = (-d.1, d.0);
+    let mut out: Vec<Pt> = (0..n.max(1))
+        .map(|i| {
+            let s = if n <= 1 { 0.0 } else { -half + 2.0 * half * i as f64 / (n - 1) as f64 };
+            (mid.0 + across.0 * s, mid.1 + across.1 * s)
+        })
+        .collect();
+    out.sort_by(|a, b| a.1.total_cmp(&b.1).then(a.0.total_cmp(&b.0)));
+    out
+}
+
+/// 0.2.4：盖一排单个的禁军（`one`，`r_one_a` 之类）在 `guard_line` 上，返回盖了几个；副本里没有单个禁军的画面（游戏不收：
+/// 存档里留着的 0.2.4 以前的副本）就照旧盖三个兵一张的 `group`：中间一张，`spread` 不是 0 时横向两边再各一张，返回 0。
+#[allow(clippy::too_many_arguments)]
+fn stamp_line(sim: &mut StableSim<'_>, me: usize, one: &str, group: &str, mid: Pt, dir: Pt, half: f64, spread: f64) -> usize {
+    let mut shown = 0;
+    for at in guard_line(mid, dir, half, GUARD_COUNT) {
+        if !sim.play_view_effect(&az(one), me, &pos_input(at), 0, 0, 0) {
+            break;
+        }
+        shown += 1;
+    }
+    if shown == 0 {
+        let n = (-dir.1, dir.0);
+        let ks: &[f64] = if spread > 0.0 { &[-1.0, 0.0, 1.0] } else { &[0.0] };
+        for &k in ks {
+            let at = (mid.0 + n.0 * spread * k, mid.1 + n.1 * spread * k);
+            sim.play_view_effect(&az(group), me, &pos_input(at), 0, 0, 0);
+        }
+        if let Some(k) = tally(sim, "old_copy") {
+            wlog(format!("{} OLD COPY #{k}: no single guard ({}) in his data - a copy from before 0.2.4 (refresh the save): \
+                          the three-guard stamps", head(sim, me), az(one)));
+        }
+    }
+    shown
 }
 
 /// 一道墙：冲锋时（从 `start`、`launch` 那个 tick 起，每 tick `speed`，半径 `reach`）和立住时（中点、冲锋方向的单位向量、
@@ -1009,12 +1060,9 @@ fn walls_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, p: &
             continue;
         }
         if tick >= w.next_stamp {
-            let n = (-w.dir.1, w.dir.0);
-            let view = az(if w.right { "r_guards_a" } else { "r_guards_la" });
-            for k in [-1.0, 0.0, 1.0] {
-                let at = (w.mid.0 + n.0 * STAND_SPREAD * k, w.mid.1 + n.1 * STAND_SPREAD * k);
-                sim.play_view_effect(&view, me, &pos_input(at), 0, 0, 0);
-            }
+            // 0.2.4: one line of single guards across the charge (was three stamps of three: 「三排士兵」)
+            let (one, group) = if w.right { ("r_one_a", "r_guards_a") } else { ("r_one_la", "r_guards_la") };
+            stamp_line(sim, me, one, group, w.mid, w.dir, half, STAND_SPREAD);
             w.next_stamp = tick + STAND_STEP;
         }
         let foes: Vec<(usize, Pt, bool)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
@@ -1170,14 +1218,28 @@ impl StableEffectType for Carry {
     }
 }
 
-/// One hop's guards (and the dust at their feet) where the input says.
+/// One hop's guards (and the dust at their feet) where the input says: 0.2.4 one line of single guards (`one`) across the
+/// charge of his wall that is still charging (`WALLS`, recorded by `league_azir:r_wall` before it queued the hops); the
+/// three-guard picture (`view`) for an old copy or when no wall of his is charging.
 struct Stamp {
     view: &'static str,
+    one: &'static str,
 }
 
 impl StableEffectType for Stamp {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
-        sim.play_view_effect(&az(self.view), me, &input, 0, 0, 0);
+        let at = (input.x as f64, input.y as f64);
+        let (tick, key) = (sim.tick(), wall_key(sim, me));
+        let dir = WALLS.lock().unwrap_or_else(|e| e.into_inner()).get(&key)
+            .and_then(|ws| ws.iter().rev().find(|w| tick >= w.launch && tick <= w.from + 1).map(|w| w.dir));
+        match dir {
+            Some(dir) => {
+                stamp_line(sim, me, self.one, self.view, at, dir, params_of(me).r_half as f64, 0.0);
+            }
+            None => {
+                sim.play_view_effect(&az(self.view), me, &input, 0, 0, 0);
+            }
+        }
         sim.play_view_effect(&az("r_dust"), me, &input, 0, 0, 0);
     }
 }
@@ -1831,8 +1893,10 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     // the passive's sweep does it too (walls_tick), this is the second way in
     module.add_native_effect(format!("{ID}:r_carry"), Carry);
     // the data's stamps alternate the guards' two steps: an odd hop b, an even one a (build_azir.py: "ab"[i % 2])
-    for (suffix, view) in [("ra", "r_guards_a"), ("rb", "r_guards_b"), ("la", "r_guards_la"), ("lb", "r_guards_lb")] {
-        module.add_native_effect(format!("{ID}:stamp_{suffix}"), Stamp { view });
+    // 0.2.4: each hop a line of single guards across the charge (`one`); the three-guard picture for an old copy
+    for (suffix, view, one) in [("ra", "r_guards_a", "r_one_a"), ("rb", "r_guards_b", "r_one_b"),
+                                ("la", "r_guards_la", "r_one_la"), ("lb", "r_guards_lb", "r_one_lb")] {
+        module.add_native_effect(format!("{ID}:stamp_{suffix}"), Stamp { view, one });
     }
     for (slot, s) in SLOTS.iter().enumerate() {
         for (what, step) in [("rise", Step::Rise), ("sold", Step::Seen), ("stab", Step::Stab), ("ss", Step::Stamp)] {
@@ -2052,6 +2116,52 @@ mod tests {
         assert_eq!((w.sides.get(&900), w.moved), (None, 2));
         // past it already: left alone
         assert_eq!(take(&mut w, 8, (175_000.0, 100_000.0), true, 1005), None);
+    }
+
+    /// 2026-11-11 「沙皇R的大招推起来像是有三排士兵」: three stamps of three guards (each stamp's guards 6 px apart along a
+    /// rightward charge, 14 px in depth) stood in three ranks; 0.2.4 stands single guards on the one line through the wall's
+    /// middle across the charge, as wide as the wall holds, back to front.
+    #[test]
+    fn the_guards_stand_in_one_line_across_the_charge() {
+        let mid = (500_000.0, 400_000.0);
+        for dir in [(1.0, 0.0), (0.0, -1.0), (-0.6, 0.8), (0.70710678, 0.70710678), (-1.0, 0.0)] {
+            let line = guard_line(mid, dir, 30_000.0, GUARD_COUNT);
+            assert_eq!(line.len(), GUARD_COUNT);
+            for &p in &line {
+                let along = (p.0 - mid.0) * dir.0 + (p.1 - mid.1) * dir.1;
+                assert!(along.abs() < 1.0, "{dir:?}: a guard {along:.1} off the line, along the charge");
+                assert!(dist(p, mid) <= 30_000.0 + 1.0);
+            }
+            assert!(line.windows(2).all(|w| w[0].1 <= w[1].1), "{dir:?}: back to front {line:?}");
+            let far = line.iter().map(|&p| dist(p, mid)).fold(0.0, f64::max);
+            assert!((far - 30_000.0).abs() < 1.0, "{dir:?}: the ends at the wall's half width, {far}");
+        }
+        // a push to the right is one column (one x), a push up one row (one y)
+        assert!(guard_line(mid, (1.0, 0.0), 30_000.0, GUARD_COUNT).iter().all(|p| (p.0 - mid.0).abs() < 1e-6));
+        assert!(guard_line(mid, (0.0, -1.0), 30_000.0, GUARD_COUNT).iter().all(|p| (p.1 - mid.1).abs() < 1e-6));
+        // no direction (a target on him): across a rightward charge
+        assert!(guard_line(mid, (0.0, 0.0), 30_000.0, 3).iter().all(|p| (p.0 - mid.0).abs() < 1e-6));
+        assert_eq!(guard_line(mid, (1.0, 0.0), 30_000.0, 1), vec![mid]);
+    }
+
+    /// The copy's single-guard views (make_override.py) play tags the main pack's guard sheet has, each with its dense
+    /// twin (league.dll's hd.rs EFFECTS draws league_azir_guard dense), one hop long like the three-guard stamps.
+    #[test]
+    fn the_single_guards_are_in_the_copy_and_the_sheet() {
+        let copy = include_str!("../override/league_azir.data_champion");
+        let fanim = include_str!("../../../league/effects/league_azir_guard#anim.fanim");
+        let p = Params::default();
+        let hop = (p.r_len / p.r_stamps / p.r_speed) as f64 / 60.0;
+        for (view, tag) in [("r_one_a", "one_r_a"), ("r_one_b", "one_r_b"), ("r_one_la", "one_l_a"), ("r_one_lb", "one_l_b")] {
+            let at = copy.find(&format!("\"name\": \"{}\"", az(view))).unwrap_or_else(|| panic!("no {view} in the copy"));
+            let body = &copy[at..at + copy[at..].find('}').unwrap()];
+            assert!(body.contains(&format!("\"tag\": \"{tag}\"")) && body.contains("league/effects/league_azir_guard"), "{body}");
+            for t in [tag.to_string(), format!("hd_{tag}")] {
+                let at = fanim.find(&format!("\"{t}\":{{")).unwrap_or_else(|| panic!("no {t} in the sheet"));
+                let d: f64 = fanim[at..].split("\"duration\":").nth(1).unwrap().split(',').next().unwrap().trim().parse().unwrap();
+                assert!((d - hop).abs() < 0.002, "{t}: {d} s a frame against a hop's {hop}");
+            }
+        }
     }
 
     #[test]

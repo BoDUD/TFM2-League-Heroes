@@ -190,8 +190,38 @@ def kaisa(c):
     d = walk(d)
     if sorted(found) != sorted([c["KAISA_ATTACK"], c["KAISA_CC"], c["KAISA_W2"], c["KAISA_W3"]]):
         sys.exit(f"Kai'Sa's Plasma ladders changed ({found}): update this script")
+    one_bolt(d, c)
     d["passive"] = {"passive_ref": MOD_ID + ":kaisa", "params": params}
     return d, [("league_kaisa", "attack")]
+
+
+def one_bolt(d, c):
+    """Her attack is one damaging bolt (0.1.5, the user 2026-11-11: 「卡莎是真有点问题」「也不平A」). The marks had
+    turned her two champion-only twins (league_kaisa_bolt_c on EnemyChampion, _bolt_cc on EnemyChampionInCC) into
+    projectiles that carry no damage, and 0.1.5 took them for why the game's AI (0.7.2) almost never ordered her to
+    attack a champion (league_ai_watch: 12 attacks at champions a minute in reach against 100-157 for Jinx, Ashe ...).
+    It was not that: the next match day she made 9, and 0.1.6's E trigger cut to her 55000 (a RandomTarget reaching
+    past the attack range, another guess) changed nothing either: 0.46 a minute alive against 0.42, so 0.1.7 put
+    75000 back. The one bolt stays - the same play with two
+    projectiles fewer: the KAISA_ATTACK mark rides on the plain bolt, which strikes everything (src/lib.rs counts
+    champions only), and src/lib.rs adds the crowd-control stack itself when the champion struck is crowd-controlled
+    (the six states of EnemyChampionInCC)."""
+    eff = d["attack"]["effect"]["effects"]
+    at = {x.get("name"): i for i, x in enumerate(eff) if x.get("type") == "TargetProjectile"}
+    names = ("league_kaisa_bolt", "league_kaisa_bolt_c", "league_kaisa_bolt_cc")
+    if sorted(at) != sorted(names):
+        sys.exit(f"Kai'Sa's attack bolts changed ({sorted(at)}): update this script")
+    bolt, twin, cc = (eff[at[n]] for n in names)
+    want = [("league_kaisa_bolt", "Enemy"), ("league_kaisa_bolt_c", "EnemyChampion"), ("league_kaisa_bolt_cc", "EnemyChampionInCC")]
+    if [(x["name"], x["applied_target"]) for x in (bolt, twin, cc)] != want:
+        sys.exit("Kai'Sa's attack bolts no longer strike Enemy / EnemyChampion / EnemyChampionInCC: update this script")
+    marked = {"casting_type": "Targeting", "effect": mark(c["KAISA_ATTACK"])}
+    late_cc = {"casting_type": "Targeting", "effect": {"type": "Delayed", "tick": 1, "effects": [mark(c["KAISA_CC"])]}}
+    if twin["applied_effects"] != [marked] or cc["applied_effects"] != [late_cc]:
+        sys.exit("Kai'Sa's champion twins carry more than their marks: update this script")
+    bolt["applied_effects"].append(marked)
+    eff[:] = [x for x in eff if x.get("name") not in names[1:]]
+
 
 
 def lux(c):
