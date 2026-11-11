@@ -227,8 +227,8 @@ pub fn kaisa_hit(n: usize, add: usize, attack: bool) -> (usize, Option<usize>, b
 
 /// Kai'Sa: the Plasma hits to count this tick out of the marks `gathered` ((target, kind): 0 her attack, 1 the
 /// crowd-control stack, 2 / 3 W) - 0.1.5, the user 2026-11-11 「卡莎是真有点问题」「也不平A」. Her copy's attack is one
-/// bolt now that marks whatever it strikes (make_override.py `one_bolt`: an attack with a champion-only twin that deals
-/// no damage reads to the game's AI as doing none to champions), so only champions count; a champion struck while
+/// bolt now that marks whatever it strikes (make_override.py `one_bolt`: the same play with two projectiles fewer),
+/// so only champions count; a champion struck while
 /// `in_cc` gets the crowd-control stack too, unless its own `KAISA_CC` mark is among them (an older copy of her kit in a
 /// career save still has the twin). Her attack first (its extra hit reads the stacks before it), then CC, then W.
 pub fn kaisa_hits(
@@ -551,15 +551,19 @@ mod tests {
     }
 
     #[test]
-    fn kaisa_attacks_with_one_damaging_bolt() {
-        // the copy's attack holds no projectile that only champions take (make_override.py one_bolt): the game's AI
-        // reads one that carries no damage as an attack doing none to champions
+    fn kaisa_attacks_with_one_damaging_bolt_and_reaches_no_further() {
+        // the copy's attack: one bolt marking what it strikes (make_override.py one_bolt), and nothing in it looks
+        // further than her attack range (e_within_reach: the game's AI seems to keep her out at the longest reach)
         // from this crate's folder or league_addons' (the bundle compiles this file as its module): both sit in addons/
         let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../league_marks/override/league_kaisa.data_champion");
         let raw = std::fs::read_to_string(&path).unwrap().replace("\r\n", "\n");
         let attack = raw.split("\n  \"attack\": {").nth(1).and_then(|r| r.split("\n  \"skill\": {").next()).expect("attack");
         assert!(!attack.contains("\"applied_target\": \"EnemyChampion"), "a champion-only projectile in her attack");
         assert!(attack.contains(&format!("\"name\": \"{KAISA_ATTACK}\"")), "her attack no longer marks its target");
+        let range = |l: &str| l.trim_start().strip_prefix("\"range\": ").map(|r| r.trim_end_matches(',').parse::<u64>().unwrap());
+        let own = attack.lines().find(|l| l.starts_with("    \"range\": ")).and_then(range).expect("her attack range");
+        let deeper: Vec<u64> = attack.lines().filter(|l| l.starts_with("     ")).filter_map(range).collect();
+        assert!(!deeper.is_empty() && deeper.iter().all(|&r| r <= own), "reaches past {own} in her attack: {deeper:?}");
     }
 
     #[test]

@@ -191,18 +191,20 @@ def kaisa(c):
     if sorted(found) != sorted([c["KAISA_ATTACK"], c["KAISA_CC"], c["KAISA_W2"], c["KAISA_W3"]]):
         sys.exit(f"Kai'Sa's Plasma ladders changed ({found}): update this script")
     one_bolt(d, c)
+    e_within_reach(d)
     d["passive"] = {"passive_ref": MOD_ID + ":kaisa", "params": params}
     return d, [("league_kaisa", "attack")]
 
 
 def one_bolt(d, c):
-    """Her attack becomes one damaging bolt (0.1.5, the user 2026-11-11: 「卡莎是真有点问题」「也不平A」). The marks
+    """Her attack is one damaging bolt (0.1.5, the user 2026-11-11: 「卡莎是真有点问题」「也不平A」). The marks had
     turned her two champion-only twins (league_kaisa_bolt_c on EnemyChampion, _bolt_cc on EnemyChampionInCC) into
-    projectiles that carry no damage, and the game's AI (0.7.2) reads such an attack as doing none to champions: it
-    never ordered her to attack one (league_ai_watch: 12 attacks at champions a minute in reach against 100-157 for the
-    marksmen without such a twin; Draven, Samira and Graves the same). So the KAISA_ATTACK mark rides on the plain bolt,
-    which strikes everything (src/lib.rs counts champions only), and the crowd-control twin goes: src/lib.rs adds its
-    stack itself when the champion struck is crowd-controlled (the six states of EnemyChampionInCC)."""
+    projectiles that carry no damage, and 0.1.5 took them for why the game's AI (0.7.2) almost never ordered her to
+    attack a champion (league_ai_watch: 12 attacks at champions a minute in reach against 100-157 for Jinx, Ashe ...).
+    It was not that: the next match day she made 9 (see e_within_reach). The one bolt stays - the same play with two
+    projectiles fewer: the KAISA_ATTACK mark rides on the plain bolt, which strikes everything (src/lib.rs counts
+    champions only), and src/lib.rs adds the crowd-control stack itself when the champion struck is crowd-controlled
+    (the six states of EnemyChampionInCC)."""
     eff = d["attack"]["effect"]["effects"]
     at = {x.get("name"): i for i, x in enumerate(eff) if x.get("type") == "TargetProjectile"}
     names = ("league_kaisa_bolt", "league_kaisa_bolt_c", "league_kaisa_bolt_cc")
@@ -218,6 +220,24 @@ def one_bolt(d, c):
         sys.exit("Kai'Sa's champion twins carry more than their marks: update this script")
     bolt["applied_effects"].append(marked)
     eff[:] = [x for x in eff if x.get("name") not in names[1:]]
+
+
+def e_within_reach(d):
+    """Supercharge's trigger looks for an enemy champion within her attack range, not 75000 (0.1.6, 2026-11-11, a
+    test). Her attack starts E by itself when one is near (SwitchByBuff league_kaisa_e_cd -> RandomTarget on
+    EnemyChampion), and that RandomTarget, in the branch that holds whenever E is ready, reached past her 55000. Over
+    league_ai_watch's two match days every champion with such a longer RandomTarget in its attack hardly attacked
+    champions (attacks at champions a minute alive: Kai'Sa 0.4, Draven 0.2 with W's 70000, Ornn 1.0 with W's 30000,
+    against 5 for Jinx, Ashe, Miss Fortune and 4 for the melee without one) and was ordered away 67-84 % of the time an
+    enemy champion stood in her range: the AI seems to keep her out at the longest reach in her attack, as it does
+    with a range buff (league_kogmaw 2026-11-07), while her attack still starts only within 55000. If the next match
+    day does not bring her attacks back, this goes again."""
+    eff = d["attack"]["effect"]["effects"]
+    sw = [x for x in eff if x.get("type") == "SwitchByBuff" and x.get("buff_name") == "league_kaisa_e_cd"]
+    rt = sw[0]["effect_none"] if len(sw) == 1 else {}
+    if rt.get("type") != "RandomTarget" or rt.get("casting_target") != "EnemyChampion":
+        sys.exit("Kai'Sa's E trigger (SwitchByBuff league_kaisa_e_cd -> RandomTarget on EnemyChampion) changed: update this script")
+    rt["range"] = min(rt["range"], d["attack"]["range"])
 
 
 def lux(c):
