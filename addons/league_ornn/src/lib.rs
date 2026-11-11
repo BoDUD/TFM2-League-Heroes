@@ -18,7 +18,8 @@
 //!   `P_MASTER_LV` 级（英雄联盟 13 级），队友 10、10、11、12 级（英雄联盟 14–17 级）按下路、中路、打野、上路、辅助的先后；锻造的是
 //!   装备栏里第一件**传说装备**，只有这一件的主属性 +`P_MASTER`%。开局就有的东西（4+6 装备 mod 的符文、出门装）不锻造、不算进被动；
 //!   传说装备按引擎装备表的阶认（最高两阶），表拿不到时查名单（游戏自带的第 4、5 阶、Riot 装备 mod 的传说装备和 `radiant_` 光辉版）。
-//!   装备的属性从身上的装备 buff 读（任何 mod 的装备都一样），读不到才退回游戏的装备表 `ITEMS`。只补差额的永久 buff（重挂生命会掉血）。
+//!   装备的属性从身上的装备 buff 读（名字等于 key 的永久 buff；4+6 装备 mod 的是 `item_owned_…`，0.4.4），4+6 的读不到再查它
+//!   自带的装备目录，最后才退回游戏的装备表 `ITEMS`（`forge::item_stats`，日志 `SOURCE`）。只补差额的永久 buff（重挂生命会掉血）。
 //!   0.3.x 是对全部装备按百分比加（他自己 +20%、9 级满装 +35%，满装的队友 +10%），4+6 装备 mod 的符文也一起加。
 //!   主包：护甲、魔抗 +10%、生命 +6%（数据读不到装备）。
 //! - **锻造看得见**（`fx.rs`，用户 2026-11-01：「锻造后装备上加点特效？不然看不出啊」，选了样式 2）：比赛下方玩家栏里锻造成杰作的
@@ -616,6 +617,48 @@ struct Row {
     first: Option<(usize, String)>,
 }
 
+/// 日志 `SOURCE` 记过的装备 key（整个游戏进程里一个 key 记一次）。
+static SOURCES: LazyLock<Mutex<HashSet<String>>> = LazyLock::new(|| Mutex::new(HashSet::new()));
+/// 预模拟里最多记这么多个 key 的 `SOURCE`（屏幕上那一场的都记）；一行里最多列这么多个 buff。
+const SOURCE_PRESIM: usize = 40;
+const SOURCE_BUFFS: usize = 48;
+
+/// 日志 `SOURCE`：这件装备的主属性是从哪里读到的（`forge::item_stats`），一个 key 记一次。不是从带着主属性的 buff 读到的
+/// （4+6 装备 mod 的装备目录、游戏的装备表、哪里都没有），再记下这个人身上有名字的永久 buff（主属性不全是 0 的带着数）：
+/// 4+6 装备 mod 到底把属性挂在哪里，看这一行。
+fn source_line(sim: &StableSim<'_>, me: usize, r: &Row, key: &str, catalog: Option<&forge::Catalog>) {
+    let n = {
+        let mut seen = SOURCES.lock().unwrap_or_else(|e| e.into_inner());
+        if seen.contains(key) || (!on_screen(sim) && seen.len() >= SOURCE_PRESIM) {
+            return;
+        }
+        seen.insert(key.to_string());
+        seen.len()
+    };
+    let found = forge::item_stats(&r.on, key, &[], catalog);
+    let what = match &found {
+        Some((s, source, at)) => {
+            format!("{source:?} {s:?}{}", at.map_or(String::new(), |i| format!(" (his buff `{}`)", r.on[i].0)))
+        }
+        None => "nowhere".to_string(),
+    };
+    let from_a_buff = found.is_some_and(|(s, source, _)| {
+        source == forge::Source::Named || (source == forge::Source::Owned && s != [0; 6])
+    });
+    let buffs = if from_a_buff {
+        String::new()
+    } else {
+        let named: Vec<&(String, bool, [i32; 6])> = r.on.iter().filter(|(name, permanent, _)| *permanent && !name.is_empty()).collect();
+        let list: Vec<String> = named
+            .iter()
+            .take(SOURCE_BUFFS)
+            .map(|(name, _, s)| if *s == [0; 6] { name.clone() } else { format!("{name} {s:?}") })
+            .collect();
+        format!("; no buff of his carries them - his {} named permanent buffs: {list:?}", named.len())
+    };
+    wlog(format!("{} SOURCE {key} of {}: {what}{buffs} #{n}", head(sim, me), who(sim, r.id)));
+}
+
 /// 屏幕上那一场每 `fx::STATS_EVERY` tick：每个选手的队伍、分路、英雄、KDA、补刀（日志 `STATS`，和客户端的 `FX ROWS` 对玩家栏的行）。
 fn stats(sim: &StableSim<'_>, me: usize) {
     let mut parts = Vec::new();
@@ -652,9 +695,15 @@ impl Forge {
                 level = pl.level();
                 mine = Some(pl.id());
             }
-            // what one has from the start (the 4+6 item mod's runes, a starting item) is never forged
-            if now < forge::START_T {
-                self.start.entry(pl.id()).or_default().extend(keys.iter().cloned());
+            // what one has from the start (a starting item) is never forged, and neither are the 4+6 item mod's runes
+            // whenever they come (a rune slot is upgraded through its tiers during the match)
+            if now < forge::START_T || keys.iter().any(|k| forge::is_rune(k)) {
+                let start = self.start.entry(pl.id()).or_default();
+                for k in keys.iter().filter(|k| now < forge::START_T || forge::is_rune(k)) {
+                    if !start.contains(k.as_str()) {
+                        start.insert(k.clone());
+                    }
+                }
             }
             let on: Vec<(String, bool, [i32; 6])> = (0..c.buff_count())
                 .filter_map(|j| c.buff_at(j))
@@ -678,7 +727,13 @@ impl Forge {
                         .iter()
                         .filter(|k| !start.contains(k.as_str()) && forge::is_legendary(tiers.as_ref(), k))
                         .collect();
-                    let by = if tiers.is_some() { "the engine's tiers, else the list" } else { "the list" };
+                    let alele = r.keys.iter().any(|k| forge::is_rune(k) || forge::alele_tier(k).is_some());
+                    let by = match (alele, tiers.is_some()) {
+                        (true, true) => "the 4+6 pack's keys, else the engine's tiers, else the list",
+                        (true, false) => "the 4+6 pack's keys, else the list",
+                        (false, true) => "the engine's tiers, else the list",
+                        (false, false) => "the list",
+                    };
                     wlog(format!("{} ITEMS of #{} {:?}: from the start {from_start:?}, legendary {legendary:?} (by {by}), \
                                   the first {:?} #{k}", head(sim, me), r.id, r.keys, shown.1));
                 }
@@ -686,6 +741,10 @@ impl Forge {
             }
         }
         self.masterworks(sim, me, level, mine, &rows);
+        // the 4+6 item pack's own catalog (read once), only when someone holds one of its items: where its items' main
+        // stats come from when no buff of theirs carries them
+        let alele = rows.iter().any(|r| r.keys.iter().any(|k| forge::alele_tier(k).is_some()));
+        let catalog = if alele { forge::catalog() } else { None };
         // the match on screen: the forged item's icon on the scoreboard glows (fx.rs)
         let screen = on_screen(sim) && now >= FORGE_EVERY;
         let gen = fx::screen_gen();
@@ -694,16 +753,22 @@ impl Forge {
             let own = r.id == me;
             let forged = self.forged_players.contains(&r.pid);
             let mw = match (&r.first, forged) {
-                (Some((_, k)), true) => forge::key_stats(&r.on, k).map_or([0; 6], forge::masterwork),
+                (Some((_, k)), true) => {
+                    source_line(sim, me, r, k, catalog);
+                    forge::key_stats(&r.on, k, catalog).map_or([0; 6], forge::masterwork)
+                }
                 _ => [0; 6],
             };
             if screen {
                 if let Some(lane) = r.lane {
-                    // the masterwork among his items (what he had from the start - runes, a starting item - left out): the
-                    // scoreboard row may show fewer icons than his item bar holds (4+6's four runes as one icon)
+                    // the masterwork's place in his item bar, and among his items (what he had from the start - runes, a
+                    // starting item - left out): a scoreboard row is either one slot per place of the item bar or
+                    // shows fewer icons than the bar holds (the older 4+6's four runes as one icon)
                     let start = self.start.get(&r.pid);
                     let item = |k: &String| start.is_none_or(|s| !s.contains(k.as_str()));
                     let slot = r.first.as_ref().filter(|_| forged).map(|&(slot, _)| fx::Slot {
+                        place: slot,
+                        held: r.keys.len(),
                         item: r.keys[..slot].iter().filter(|k| item(k)).count(),
                         items: r.keys.iter().filter(|k| item(k)).count(),
                     });
@@ -715,7 +780,10 @@ impl Forge {
             }
             if own {
                 let start = self.start.get(&r.pid).cloned().unwrap_or_default();
-                let passive = forge::passive_bonus(forge::sum_stats(&r.on, &r.keys, &start), made);
+                for k in r.keys.iter().filter(|k| !start.contains(k.as_str())) {
+                    source_line(sim, me, r, k, catalog);
+                }
+                let passive = forge::passive_bonus(forge::sum_stats(&r.on, &r.keys, &start, catalog), made);
                 self.apply(sim, me, r.id, "forged", passive);
             }
             self.apply(sim, me, r.id, "masterwork", mw);
