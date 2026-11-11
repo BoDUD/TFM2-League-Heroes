@@ -7,7 +7,7 @@
 //! | 山脉龙魂上盾 | 碎石从地上升起、合成一层琥珀色的壳（`mountain_shield`） |
 //! | 海洋龙魂回血 | 一圈水收到脚下、涌起、水珠往上飘（`ocean_heal`） |
 //! | 云端龙魂放大招后的加速 | 一阵风卷、几道速度线（`cloud_gust`） |
-//! | 海克斯龙魂的连锁闪电 | 从放的人到每个被打的人一道闪电（一格一格画的折线），落点一团电光（`hex_spark`） |
+//! | 海克斯龙魂的连锁闪电 | 从放的人到每个被打的人一道闪电（折线，三层线），落点一团电光（`hex_spark`） |
 //! | 化学科技龙魂残血 | 毒液窜起、冒泡（`chem_rage`） |
 //! | 拿到龙魂 | 那一队每个活着的英雄脚下一圈元素、一根元素的光柱（`soul_<元素>`） |
 //! | 远古龙之力点燃 | 一小团远古的火（`elder_burn`；已经烧着的人再被打到不再放） |
@@ -18,7 +18,6 @@
 //! 「哪个 tick、在哪、什么特效」（[`super::feed::fx`]，模拟不读它），客户端扩展按屏幕时钟画（[`draw`]）：特效不跟着英雄走，
 //! 留在发生的地方（半秒左右）。画法在 [`super::world`]。
 
-use std::collections::BTreeMap;
 use std::sync::{Mutex, OnceLock};
 
 use mod_api_stable::*;
@@ -179,8 +178,9 @@ const BOLT_FULL: usize = 9;
 const BOLT_SHAPE: usize = 3;
 /// 闪电两头离脚底多高（世界像素，英雄的胸口）。
 const CHEST: i32 = 14;
-/// 描边、蓝边、白芯（tools/art/dragon_fx.py 的海克斯色）。
+/// 描边、蓝边、白芯（tools/art/dragon_fx.py 的海克斯色）和各自的线宽（世界像素）。
 const BOLT_COLOURS: [u32; 3] = [0x16_14_4e_ff, 0x4c_90_ff_ff, 0xda_f6_ff_ff];
+const BOLT_WIDTHS: [f32; 3] = [5.0, 3.0, 1.4];
 
 /// -1 .. 1，`salt` 定。
 fn jitter(salt: u64) -> f32 {
@@ -207,60 +207,24 @@ pub fn bolt_path(a: (i32, i32), b: (i32, i32), salt: u64) -> Vec<(i32, i32)> {
     pts
 }
 
-/// 折线经过的每个像素（Bresenham）。
-fn pixels(pts: &[(i32, i32)]) -> Vec<(i32, i32)> {
-    let mut out = Vec::new();
-    for w in pts.windows(2) {
-        let ((mut x, mut y), (x1, y1)) = (w[0], w[1]);
-        let (dx, dy) = ((x1 - x).abs(), -(y1 - y).abs());
-        let (sx, sy) = (if x < x1 { 1 } else { -1 }, if y < y1 { 1 } else { -1 });
-        let mut err = dx + dy;
-        loop {
-            out.push((x, y));
-            if x == x1 && y == y1 {
-                break;
-            }
-            let e2 = 2 * err;
-            if e2 >= dy {
-                err += dy;
-                x += sx;
-            }
-            if e2 <= dx {
-                err += dx;
-                y += sy;
-            }
-        }
-    }
-    out
+/// 一道闪电画哪几层线：(线宽, 颜色)，从下往上——整道是描边、蓝边、白芯，`full` false 只剩芯。
+pub fn bolt_layers(full: bool) -> Vec<(f32, u32)> {
+    (if full { 0 } else { 2 }..3).map(|i| (BOLT_WIDTHS[i], BOLT_COLOURS[i])).collect()
 }
 
-/// 一道闪电画成的横条：(x, y, 宽, 哪一层：0 描边、1 蓝边、2 白芯)，从上到下、从左到右。`full` false 只有芯。
-pub fn bolt_runs(pts: &[(i32, i32)], full: bool) -> Vec<(i32, i32, i32, u8)> {
-    let core = pixels(pts);
-    let mut grid: BTreeMap<(i32, i32), u8> = BTreeMap::new();
-    let mut put = |x: i32, y: i32, layer: u8| {
-        let e = grid.entry((y, x)).or_insert(layer);
-        *e = (*e).max(layer);
-    };
-    for &(x, y) in &core {
-        if full {
-            for (ox, oy) in [(-2, 0), (2, 0), (0, -2), (0, 2), (-1, -1), (1, -1), (-1, 1), (1, 1)] {
-                put(x + ox, y + oy, 0);
-            }
-            for (ox, oy) in [(-1, 0), (1, 0), (0, -1), (0, 1)] {
-                put(x + ox, y + oy, 1);
-            }
-        }
-        put(x, y, 2);
-    }
-    let mut runs: Vec<(i32, i32, i32, u8)> = Vec::new();
-    for (&(y, x), &layer) in &grid {
-        match runs.last_mut() {
-            Some(r) if r.1 == y && r.0 + r.2 == x && r.3 == layer => r.2 += 1,
-            _ => runs.push((x, y, 1, layer)),
+/// 画一道闪电：折线的每一段一条线，一层画完再画上面一层（同一个 z 上后推的在上面）。用线不用一格一格的横条：1 个世界
+/// 像素高的矩形在 `"Game"` 上几乎是透明的（2026-11-11 装了 0.4.1 的那一局：四种特效都一格一格画了，玩家什么都没看到）。
+fn bolt(ctx: &mut StableClient<'_>, v: &world::View, pts: &[(i32, i32)], full: bool) -> bool {
+    let mut drawn = false;
+    for (width, colour) in bolt_layers(full) {
+        for w in pts.windows(2) {
+            // through the middle of the pixels
+            let a = v.px((w[0].0 as f32 + 0.5, w[0].1 as f32 + 0.5));
+            let b = v.px((w[1].0 as f32 + 0.5, w[1].1 as f32 + 0.5));
+            drawn |= ctx.draw_line(world::GAME, a.0, a.1, b.0, b.1, width * v.scale.0, v.z, colour);
         }
     }
-    runs
+    drawn
 }
 
 /// 一次连锁闪电在 `age` 时的每一道：放的人 -> 第一个，第一个 -> 第二个……（世界像素的折线）。
@@ -310,9 +274,7 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
             Kind::HexBolt => {
                 if age < BOLT_T {
                     for path in bolt_paths(f, age) {
-                        for (x, y, w, layer) in bolt_runs(&path, age < BOLT_FULL) {
-                            drawn |= world::run(ctx, &v, x, y, w, BOLT_COLOURS[layer.min(2) as usize]);
-                        }
+                        drawn |= bolt(ctx, &v, &path, age < BOLT_FULL);
                     }
                 }
                 if let Some((a, fr)) = f.kind.anim().and_then(|a| frame_at(a, age).map(|fr| (a, fr))) {
@@ -400,17 +362,10 @@ mod tests {
         }
         // on top of each other: no bolt, no panic
         assert_eq!(bolt_path(a, a, 1), vec![a, a]);
-        // the runs: every core pixel once, the full bolt wider, rows in order and no two runs overlapping
-        let thin = bolt_runs(&p, false);
-        let wide = bolt_runs(&p, true);
-        assert!(thin.iter().all(|r| r.3 == 2));
-        let area = |runs: &[(i32, i32, i32, u8)]| runs.iter().map(|r| r.2).sum::<i32>();
-        assert!(area(&wide) > 3 * area(&thin));
-        assert_eq!(wide.iter().filter(|r| r.3 == 2).map(|r| r.2).sum::<i32>(), area(&thin), "the core is whole inside it");
-        for w in wide.windows(2) {
-            assert!(w[1].1 > w[0].1 || w[1].0 >= w[0].0 + w[0].2, "{:?} then {:?}", w[0], w[1]);
-        }
-        assert!(wide.len() < 400, "{} rectangles for one bolt", wide.len());
+        // drawn as lines, the widest first: outline, edge, core - later only the core
+        let widths = |full: bool| bolt_layers(full).iter().map(|l| l.0).collect::<Vec<f32>>();
+        assert_eq!(widths(true), vec![5.0, 3.0, 1.4]);
+        assert_eq!(bolt_layers(false), vec![(1.4, BOLT_COLOURS[2])]);
     }
 
     #[test]

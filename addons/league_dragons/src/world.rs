@@ -744,23 +744,37 @@ pub fn head(ctx: &StableClient<'_>, n: usize) -> Vec<String> {
     out
 }
 
+/// 画一帧动画，它的**左上角**放在渲染层 `map` 的 `(x, y)`。
+///
+/// 引擎的 `pivot` 不是接口文档说的「x、y 指的那一点」：2026-11-11 的校准截图里，给了锚点的比例（脚在图里的位置），图的
+/// 左上角落在 x、y **加**锚点的地方——整张图往右下偏了两个锚点（60 × 84 的光柱偏了 (60, 144)，`"Game"` 和 `"UI"` 上一样）。
+/// 所以锚点自己减，`pivot` 给 0：不管引擎怎么用它，0 就是左上角。
+pub fn sprite_top_left(ctx: &mut StableClient<'_>, map: &str, z: i32, a: &Anim, frame: usize, x: f32, y: f32) -> bool {
+    let (uv, _) = uv_of(a, frame);
+    ctx.draw_sprite(map, SHEET_TEX, &StableSpriteParams {
+        x,
+        y,
+        z,
+        pivot_x: 0.0,
+        pivot_y: 0.0,
+        uv,
+        sample_nearest: true,
+        ..StableSpriteParams::default()
+    })
+}
+
+/// 一帧动画的左上角在哪：它的锚点（脚）放在 `"Game"` 里的 `feet` 上。
+pub fn corner(a: &Anim, feet: (f32, f32)) -> (f32, f32) {
+    (feet.0 - a.ax as f32, feet.1 - a.ay as f32)
+}
+
 /// 画一帧动画：`frame` 那一帧的锚点放在模拟里的 `at` 上。
 pub fn sprite(ctx: &mut StableClient<'_>, v: &View, a: &Anim, frame: usize, at: (u64, u64)) -> bool {
     if !v.sprites {
         return false;
     }
-    let (uv, pivot) = uv_of(a, frame);
-    let (x, y) = v.map(at);
-    ctx.draw_sprite(GAME, SHEET_TEX, &StableSpriteParams {
-        x,
-        y,
-        z: v.z,
-        pivot_x: pivot.0,
-        pivot_y: pivot.1,
-        uv,
-        sample_nearest: true,
-        ..StableSpriteParams::default()
-    })
+    let (x, y) = corner(a, v.map(at));
+    sprite_top_left(ctx, GAME, v.z, a, frame, x, y)
 }
 
 /// 世界里的一横条像素（`x`、`y` 是世界像素，`w` 条宽）：`0xRRGGBBAA`。
@@ -1152,6 +1166,9 @@ pub(crate) mod tests {
         assert_eq!(pivot, (a.ax as f32 / a.w as f32, a.ay as f32 / a.h as f32));
         // past the last frame: the last one
         assert_eq!(uv_of(a, 999), uv_of(a, a.frames as usize - 1));
+        // drawn by its top left corner: the feet at (500, 300) put the 96 x 136 picture's corner its anchor up and left
+        assert_eq!(corner(a, (500.0, 300.0)), (500.0 - a.ax as f32, 300.0 - a.ay as f32));
+        assert_eq!((a.ax, a.ay), (48, 116));
         // every cell inside the sheet, every anchor inside its cell
         for a in ANIMS {
             let lines = (a.frames as usize).div_ceil(a.per_row as usize);

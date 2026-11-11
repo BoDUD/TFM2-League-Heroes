@@ -339,16 +339,6 @@ impl StableExtension for Overlay {
         game_places::clock::observe(true, text.as_deref());
     }
 
-    fn pre_render(&self, ctx: &mut StableClient<'_>) {
-        // only the calibration draws before the game's own commands
-        if !super::probe::on() || !on_match_screen(ctx) {
-            return;
-        }
-        if let (Some(t), Some((m, s))) = (game_places::clock::screen_tick(), feed::current()) {
-            super::probe::before(ctx, m, s, t);
-        }
-    }
-
     fn post_render(&self, ctx: &mut StableClient<'_>) {
         draw(ctx, eggs_showing());
     }
