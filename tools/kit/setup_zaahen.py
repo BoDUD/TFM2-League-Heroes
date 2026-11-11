@@ -17,7 +17,9 @@ make_override.py). No combo sentence in any text (the user's rule: the combos ar
 champion_view's face is his crown under the horns (text-audio.md: base heroes' face points sit at the crown), measured
 up from the feet on hd/idle.png (the circlet's top at row 13 of 84, 71 rows = 41 game px at PPU 1.75; the head's
 middle column 55.5 against the standing column 54: 1 px ahead) - tfm2_ase.py face took the glaive's blade tip, high on
-the image left, for a crown.
+the image left, for a crown. Since 2026-11-11 he is drawn at 85 % (league_main hd.rs SIZES, 「亚恒模型在局内偏大了」):
+the face 0.85 times that from the feet (1, -35) and the card's banpick_center -13 (UI_SIZES 0.92 keeps the card's size;
+his frames 4 squares lower, tools/art/bp_card_audit.py: the soles 2.0 px over the canvas bottom, 1.6 before).
 """
 import argparse
 import json
@@ -40,7 +42,7 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#7ae582ff>"      # heals, shields
 E = "<>"
-VIEW = {"face": {"x": 1, "y": -41}, "center": {"x": 0, "y": -12}}
+VIEW = {"face": {"x": 1, "y": -35}, "center": {"x": 0, "y": -12}}   # the face at his 85 % (2026-11-11; 1, -41 before)
 
 
 def phys(d, r):

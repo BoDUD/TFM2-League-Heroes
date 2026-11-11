@@ -666,7 +666,10 @@ RESTYLE = {
     # league_zaahen (the user's pick, top): the design (Codex's step-0 A-2 brought to 84 rows, 48 game px horn tips to
     # soles, PPU 1.75) and Codex's 20 poses on skeletons (their bodies brought to the design's size round the design's
     # head), posed by tools/art/rig_zaahen.py after League's clips: no proportion change here
-    "zaahen": dict(ppu=1.75, edge=1, pinholes=True),
+    # 2026-11-11: 85 % in game (「亚恒模型在局内偏大了」, hd.rs SIZES): 11.5 x 1.75 x (1 / 0.85 - 1) = 3.6 -> 4 squares
+    # lower; the face point x 0.85 from the soles (1, -41 -> -35). Written by moving his committed strips 4 rows down
+    # (this table's other steps now close more pinholes than when they were made), so a rerun lands them here too
+    "zaahen": dict(ppu=1.75, edge=1, pinholes=True, lift_sq=-4, face_to=(1, -35)),
     # Lee Sin (2026-10-26, 「下一个英雄重做盲僧」): Codex's picture traced from his sprite read on its own squares (68 x 86,
     # design_leesin_hd.py: 86 rows / 2.1 = his 41); every action Codex's whole-frame redraw of his old frame read onto
     # the design at the zoom his head gives (tools/art/casts_leesin_hd.py), so no density change

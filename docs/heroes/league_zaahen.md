@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee |
-| 高清帧 | PPU 1.75 |
+| 高清帧 | PPU 1.75（画成 85%） |
 | 附加包 | [亚恒附加包](#附加包)（`league_zaahen`） |
 
 ![亚恒演示](../preview/league_zaahen_showcase.gif)
@@ -97,7 +97,8 @@
 | 特效 | 16 张（[`tools/art/pack_zaahen_fx.py`](../../tools/art/pack_zaahen_fx.py) 的提示词，参考是英雄联盟里亚恒自己的贴图，[`tools/lol/fx_ref_zaahen.py`](../../tools/lol/fx_ref_zaahen.py)），用户用 Gemini 画的（「gemini做的 你得处理一下」）：[`tools/art/clean_zaahen_fx.py`](../../tools/art/clean_zaahen_fx.py) 按格切（有的画成 2×2、2×3、2×4 的格子）、从格子边缘往里洗掉黑底 / 白底 / 白色补丁、颜色收进暗裔金 / 暗裔红 / 翅膀深蓝 / 星光 / 尘土五套色板、左右（W 的弹道上下）对称；复活的光柱 Gemini 画在白底上分不出来，按提示词用代码画（金红符文圈、一道道光束、往上飘的花瓣）；[`tools/art/import_zaahen_fx.py`](../../tools/art/import_zaahen_fx.py) 切成 `league_zaahen_fx` / `league_zaahen_big`。大招本来还有一圈金色护体光环，人升空后它停在地面高度、套在腿上，去掉了 |
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_zaahen.py`](../../tools/lol/extract_zaahen.py)，21 段）：普攻的出手和打中，Q 的出手、强化斩打中、再按、上挑打中，W 的出手和打中英雄，E 的出手和外圈打中，大招的出手、砸地、打中英雄，果决叠满，复活；配音：Q、W、E、R、果决叠满、复活 |
 | 图标 | 官方技能图标（暗裔长刀、厄影回锋、大赦，另有赤金突袭、Q 再按、不落之志），从本地客户端取 |
-| 选人卡片 | 角尖到脚底 48 游戏像素、带长刀和翅膀 50 宽，普攻和 Q 把长刀举得更高：UI_SIZES 0.78、`banpick_center` −11（和约里克一样，长刀的细尖在卡片顶上被裁掉，`tools/art/bp_card_audit.py`）。脸 (1, −41)：头冠顶上、两只角下面（`tfm2_ase.py face` 会把左上方的刀刃尖当成头顶）。待机按 `tools/art/hero_reels.py` 剪进一小段举刀（普攻的第一帧） |
+| 选人卡片 | 角尖到脚底 48 游戏像素、带长刀和翅膀 50 宽，普攻和 Q 把长刀举得更高：UI_SIZES 0.78、`banpick_center` −11（和约里克一样，长刀的细尖在卡片顶上被裁掉，`tools/art/bp_card_audit.py`）。脸 (1, −41)：头冠顶上、两只角下面（`tfm2_ase.py face` 会把左上方的刀刃尖当成头顶）。待机按 `tools/art/hero_reels.py` 剪进一小段举刀（普攻的第一帧）。11 月 11 日局内缩到 85% 以后：UI_SIZES 0.92（0.78 ÷ 0.85，卡片上还是原来的大小）、`banpick_center` −13（高清帧往下挪了 4 格，−13 时脚离卡片底 2.0 像素，原来 1.6）、脸 (1, −35) |
+| 局内大小 | 11 月 11 日用户：「亚恒模型在局内偏大了」。量下来站着 49×51 游戏像素（角尖到脚底 48，长刀和翅膀横在身前身后），跑起来翅膀张开 46×62；亚托克斯、盖伦 42，安蓓萨缩到 85% 以后 41。`league.dll` 的 `SIZES` 把他画成 **85%**（站着 42×44、跑 39×53，安蓓萨、扎克的做法），高清帧往下挪 4 格（11.5 × 1.75 × (1 ÷ 0.85 − 1) = 3.6），脚还踩在地上。挪的是仓库里现成的高清帧（`assets/source/ppu/zaahen_*`）：重跑 `ppu_restyle.py` 会顺带多补一些描边小洞（光跑步就有 76 个），和这次无关，没带进来；`RESTYLE` 里记了 `lift_sq` −4，以后重跑也落在同一个位置。附加包复活的特效表跟着缩：`hd.rs` 的 `EFFECTS` 里是 1.75 ÷ 0.85，高清帧的画布按这个比例放大、人还是 1.75 的格子并同样往下挪 4 格（`rig_zaahen.py --rise`），复活时站起来和他本人一样大 |
 | 俄洛伊的灵魂 | `tools/art/illaoi_souls.py` 加上亚恒（173 个），`league_illaoi` 0.2.12 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -105,7 +106,7 @@
 ```bash
 python tools/lol/extract_zaahen.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
 python tools/kit/build_zaahen.py                # 技能数据，数字都在脚本的参数表 P 里
-python tools/kit/setup_zaahen.py --banpick -11  # 五种语言的文字、音效配置、共享文件里他的键（脸 1,-41）
+python tools/kit/setup_zaahen.py --banpick -13  # 五种语言的文字、音效配置、共享文件里他的键（脸 1,-35）
 python tools/art/design_zaahen_hd.py            # Codex 第 0 步的原图读回（A-1 / A-2 / B-2）
 python tools/art/design_zaahen_model.py         # 定稿 A-2 缩到 84 行（补眼睛和嘴），B-2 同比例
 python tools/art/design_zaahen_poses.py         # Codex 的姿势读回（按头的格子，身体缩回定稿大小，贴回定稿的头）
@@ -113,7 +114,7 @@ python tools/art/clean_zaahen_fx.py             # Gemini 的特效清理成游�
 python tools/art/import_zaahen_fx.py            # 特效 -> league_zaahen_fx / league_zaahen_big
 python tools/art/rig_zaahen.py                  # 1 倍帧和 1.75 的原帧
 python tools/art/rig_zaahen.py --rise           # 附加包复活的高清特效表 league_zaahen_rise
-python tools/art/ppu_restyle.py --hero zaahen   # 外描边（补描边围出来的小洞）
+python tools/art/ppu_restyle.py --hero zaahen   # 外描边（补描边围出来的小洞），局内 85% 的下移 4 格
 python tools/art/ppu_hd.py --hero zaahen        # hd_ / lo_ 帧（要在 hero_reels 之前）
 python tools/art/hero_reels.py --hero zaahen    # 待机和选人卡片的小动作
 python tools/art/preview_zaahen.py              # 预览和每个技能单独的 GIF
