@@ -29,6 +29,9 @@
 //! 创意工坊的「Elemental Drakes & Baron」也开着时（水晶上有它的 `sed_*` 记录）本包什么都不做，记一行 `CONFLICT`，水晶上的状态
 //! 记录带着冲突的标记、放一件 `C`（画面请玩家关掉它）。
 //!
+//! 战场上的特效（0.4.0）：屏幕放的那场模拟里每次龙魂触发、拿到龙魂、远古龙之力点燃和斩杀记一条（[`show`] -> [`feed::fx`]，
+//! 模拟不读），客户端扩展自己画进比赛的渲染层（[`fx`]、[`world`]）——本包没有英雄，`play_view_effect` 的名字用不了。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_dragons.log`，每次启动游戏重写，上一次的留在 .prev.log。屏幕上那一场
 //! 每行都记，预演、后台比赛每种前 40 行、之后每 100 行一行：`MATCH`（顺序）、`SPAWN`（元素、实体名）、`KILL`、`SOUL`、`ELDER ON`
 //! / `ELDER OFF` / `EXECUTE`、`BARON ON` / `BARON OFF` / `BOOST`（加强的小兵数）、`NEUTRALIZE`、`PROC`（龙魂）、`CONFLICT`、`END`。
@@ -44,6 +47,10 @@ use mod_api_stable::*;
 
 pub mod feed;
 pub mod rules;
+// 本包自己画在战场上的特效（龙魂触发、拿到龙魂、远古龙之力的点燃和斩杀）：图在哪、怎么画进比赛世界
+pub mod fx;
+pub mod fx_atlas;
+pub mod world;
 // 画面那一半（客户端扩展里画，只读 feed）：公告、HUD 和它们的字
 pub mod hud;
 pub mod notice;
@@ -187,6 +194,13 @@ fn buffs_on(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
 fn champ_of(sim: &StableSim<'_>, player: usize) -> Option<(usize, bool)> {
     let e = sim.get_player(player)?.champion()?;
     Some((e.id(), e.is_alive()))
+}
+
+/// 屏幕那一场放一次战场特效（[`fx`]；预演、后台比赛不记：模拟不读它，玩法一样）。
+fn show(screen: Option<(u64, u64)>, tick: usize, kind: fx::Kind, at: (u64, u64), to: Vec<(u64, u64)>) {
+    if let Some((m, s)) = screen {
+        feed::fx(fx::Fx { m, s, tick, kind, at, to });
+    }
 }
 
 fn d2(a: (u64, u64), b: (u64, u64)) -> u64 {
@@ -1002,6 +1016,14 @@ impl Sim {
                         say(screen.is_some(), "soul", format!("{} SOUL sim #{} {} claims the {} soul with {total} drakes - every dragon from now on is the Elder",
                                                               head(sim), self.no, side(team), soul.key()));
                         self.emit(sim, now, Ev::Soul { team, element: soul }, feed::What::Soul { team, element: soul }, screen);
+                        // the element rises round every living champion of the team
+                        for i in (0..self.seats.len()).filter(|&i| self.seats[i].team == team) {
+                            let at = champ_of(sim, self.seats[i].player).filter(|c| c.1)
+                                .and_then(|(ent, _)| sim.get_entity(ent).map(|e| e.pos()));
+                            if let Some(at) = at {
+                                show(screen, now, fx::Kind::Soul(soul), at, Vec::new());
+                            }
+                        }
                     }
                 }
             }
@@ -1335,6 +1357,7 @@ impl Sim {
                             self.procs[1] += 1;
                             self.proc_say(screen, format!("{} PROC mountain soul {}: shield up to {want} (5 s untouched)",
                                                                   head(sim), self.who(i)));
+                            show(screen, now, fx::Kind::MountainShield, l.pos, Vec::new());
                         }
                     }
                 }
@@ -1348,6 +1371,7 @@ impl Sim {
                             self.procs[5] += 1;
                             self.proc_say(screen, format!("{} PROC chemtech soul {}: below half health ({}/{}) - tenacity, damage and less damage taken",
                                                                   head(sim), self.who(i), l.hp, l.max));
+                            show(screen, now, fx::Kind::ChemRage, l.pos, Vec::new());
                         }
                     }
                 }
@@ -1360,6 +1384,7 @@ impl Sim {
                             self.procs[3] += 1;
                             self.proc_say(screen, format!("{} PROC cloud soul {}: ultimate cast - +{}% move speed for 6 s",
                                                                   head(sim), self.who(i), rules::CLOUD_HASTE_MS));
+                            show(screen, now, fx::Kind::CloudGust, l.pos, Vec::new());
                         }
                     }
                     self.pls[i].ult_prev = ult;
@@ -1408,6 +1433,7 @@ impl Sim {
         self.procs[0] += 1;
         self.proc_say(screen, format!("{} PROC infernal soul {} on {}: {amount} magic damage to [{}]", head(sim),
                                               self.who(h), self.who(v), hit.join(", ")));
+        show(screen, now, fx::Kind::InfernalBlast, looks[v].pos, Vec::new());
     }
 
     /// 海洋龙魂：4 秒里回血。
@@ -1419,6 +1445,7 @@ impl Sim {
         self.pls[h].ocean = Some((rules::OCEAN_SOUL_PULSES, per, now + rules::OCEAN_SOUL_EVERY));
         self.procs[2] += 1;
         self.proc_say(screen, format!("{} PROC ocean soul {}: {total} health over 4 s", head(sim), self.who(h)));
+        show(screen, now, fx::Kind::OceanHeal, looks[h].pos, Vec::new());
     }
 
     /// 海克斯龙魂：从 `v` 起的连锁闪电，最多 3 个敌方英雄，减速。
@@ -1446,12 +1473,17 @@ impl Sim {
         let names: Vec<String> = chain.iter().map(|&x| self.who(x)).collect();
         self.proc_say(screen, format!("{} PROC hextech soul {}: lightning {amount} magic damage and a slow on [{}]",
                                               head(sim), self.who(h), names.join(", ")));
+        show(screen, now, fx::Kind::HexBolt, looks[h].pos, chain.iter().map(|&x| looks[x].pos).collect());
     }
 
     /// 远古龙之力：点燃 `v`（再打到就重新烧 1.5 秒）；他已经低于 20% 就处决。
     fn burn(&mut self, sim: &mut StableSim<'_>, h: usize, v: usize, looks: &[Look], now: usize, screen: Option<(u64, u64)>) {
         let (ad, _) = ad_ap(sim, looks[h].ent);
         let per = (rules::burn_total(ad) / rules::BURN_PULSES as usize).max(1);
+        // the flame catches once: a champion already burning is only kept burning
+        if !self.burns.iter().any(|b| b.vent == looks[v].ent) {
+            show(screen, now, fx::Kind::ElderBurn, looks[v].pos, Vec::new());
+        }
         self.burns.retain(|b| b.vent != looks[v].ent);
         self.burns.push(Burn { victim: v, vent: looks[v].ent, holder: h, hent: looks[h].ent, next: now + rules::BURN_EVERY,
                                left: rules::BURN_PULSES, per });
@@ -1503,6 +1535,7 @@ impl Sim {
         sim.add_buff(vent, &BuffV1::timed(rules::EXECUTED, rules::EXECUTED_T));
         self.executed.push((vent, now));
         self.executes += 1;
+        show(screen, now, fx::Kind::Execute, l.pos, Vec::new());
         self.quiet(h, now);
         let team = self.seats[h].team;
         if let Some(hold) = self.elder[team].as_mut() {
@@ -1667,7 +1700,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (League's elemental drakes in League's order with stacks that replace the game's drake buff, Dragon Soul, the Elder Dragon's burn and execute, Baron Nashor's hand and empowered minions; notices and a HUD on screen; the drakes drawn by element, the Elder and Baron Nashor as Codex's models) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (League's elemental drakes in League's order with stacks that replace the game's drake buff, Dragon Soul, the Elder Dragon's burn and execute, Baron Nashor's hand and empowered minions; notices and a HUD on screen; the drakes drawn by element, the Elder and Baron Nashor as Codex's models; the souls' triggers, the soul taken, the Elder's burn and execute as effects on the battlefield) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

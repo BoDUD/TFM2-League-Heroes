@@ -17,7 +17,7 @@ use std::sync::Mutex;
 use mod_api_stable::*;
 
 use super::rules::Element;
-use super::{counted, feed, hud, notice, wlog, words};
+use super::{counted, feed, fx, hud, notice, wlog, words};
 
 pub const UI: &str = "UI";
 pub const FONT: &str = "asset/base/font/set/regular";
@@ -172,6 +172,8 @@ pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
     if hud::over(feed::ended_at(m, s), t) {
         return;
     }
+    // the effects on the battlefield (the souls' triggers, the Elder's burn and execute), under the notices and the HUD
+    fx::draw(ctx, m, s, t);
     let events = feed::events(m, s);
     let rec = feed::record_at(m, s, t);
     if events.is_empty() && rec.is_none() {

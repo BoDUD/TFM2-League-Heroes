@@ -4,6 +4,9 @@
 //!
 //! 刷新时间不在这里：远古巨龙就是游戏的小龙营地刷的，和元素亚龙共用游戏数据库编辑器里「元素亚龙」的刷新时间（文件里写明）。
 //! 游戏自己的文字（`text/`，百科、增益说明）是写死的文件，还写默认的秒数；本包的公告、HUD、说明框写这里的。
+//!
+//! 0.4.0 加一项 `battlefield_effects`（战场上的特效怎么画，[`super::world`]）：0 不画、1 只一格一格画、2（默认）能画贴图
+//! 就画贴图。只管画面，模拟不读它。
 use std::path::{Path, PathBuf};
 use std::sync::OnceLock;
 
@@ -18,13 +21,20 @@ pub struct Settings {
     pub elder_buff_s: usize,
     /// 纳什男爵之手持续多少秒
     pub baron_buff_s: usize,
+    /// 战场上的特效：0 不画，1 只一格一格画，2 能画贴图就画贴图
+    pub effects: usize,
 }
 
 impl Default for Settings {
     fn default() -> Self {
-        Settings { elder_buff_s: super::rules::ELDER_T / TPS, baron_buff_s: super::rules::BARON_T / TPS }
+        Settings { elder_buff_s: super::rules::ELDER_T / TPS, baron_buff_s: super::rules::BARON_T / TPS, effects: EFFECTS_AUTO }
     }
 }
+
+/// `battlefield_effects`: nothing drawn, square by square only, the sheet when it is safe.
+pub const EFFECTS_OFF: usize = 0;
+pub const EFFECTS_SQUARES: usize = 1;
+pub const EFFECTS_AUTO: usize = 2;
 
 /// A key of the file: its name, the range it takes, where it goes.
 struct Key {
@@ -34,9 +44,10 @@ struct Key {
     set: fn(&mut Settings, usize),
 }
 
-const KEYS: [Key; 2] = [
+const KEYS: [Key; 3] = [
     Key { name: "elder_buff_seconds", lo: 10, hi: 600, set: |s, v| s.elder_buff_s = v },
     Key { name: "baron_buff_seconds", lo: 10, hi: 600, set: |s, v| s.baron_buff_s = v },
+    Key { name: "battlefield_effects", lo: EFFECTS_OFF, hi: EFFECTS_AUTO, set: |s, v| s.effects = v },
 ];
 
 /// The settings in `text` (the file's), and a note for every line not taken (the log's).
@@ -60,7 +71,7 @@ pub fn parse(text: &str) -> (Settings, Vec<String>) {
         match v.parse::<usize>() {
             Ok(n) if (key.lo..=key.hi).contains(&n) => (key.set)(&mut s, n),
             Ok(n) => notes.push(format!("line {}: {k} = {n} is outside {}-{} - the default kept", i + 1, key.lo, key.hi)),
-            Err(_) => notes.push(format!("line {}: {k} = {v:?} is not a whole number of seconds - the default kept", i + 1)),
+            Err(_) => notes.push(format!("line {}: {k} = {v:?} is not a whole number - the default kept", i + 1)),
         }
     }
     (s, notes)
@@ -82,6 +93,11 @@ pub fn baron_t() -> usize {
     get().baron_buff_s * TPS
 }
 
+/// 战场上的特效怎么画（[`EFFECTS_OFF`] / [`EFFECTS_SQUARES`] / [`EFFECTS_AUTO`]）。
+pub fn effects() -> usize {
+    get().effects
+}
+
 /// Read `dir`/settings.ini once (at load, before any match): -> the log line.
 pub fn init(dir: Option<PathBuf>) -> String {
     let path = dir.map(|d| d.join(FILE));
@@ -94,9 +110,11 @@ pub fn init(dir: Option<PathBuf>) -> String {
         notes.push("already set - kept as it was".into());
     }
     let s = get();
-    format!("SETTINGS {}: elder_buff_seconds {} (default {}), baron_buff_seconds {} (default {}){}",
+    format!("SETTINGS {}: elder_buff_seconds {} (default {}), baron_buff_seconds {} (default {}), battlefield_effects {} \
+             (default {}: 0 none, 1 square by square, 2 the sheet when it is safe){}",
             path.as_deref().map_or_else(|| "-".into(), |p: &Path| p.display().to_string()), s.elder_buff_s,
-            Settings::default().elder_buff_s, s.baron_buff_s, Settings::default().baron_buff_s,
+            Settings::default().elder_buff_s, s.baron_buff_s, Settings::default().baron_buff_s, s.effects,
+            Settings::default().effects,
             if notes.is_empty() { String::new() } else { format!("; {}", notes.join("; ")) })
 }
 
@@ -142,6 +160,12 @@ mod tests {
         let (s, notes) = parse("\u{feff}# comment\n[远古巨龙]\nelder_buff_seconds = 150   # 远古龙之力\nBARON_BUFF_SECONDS=180\n");
         assert_eq!((s.elder_buff_s, s.baron_buff_s), (150, 180));
         assert!(notes.is_empty(), "{notes:?}");
+        // how the battlefield effects are drawn: 0, 1 or 2 (the default)
+        assert_eq!(d.effects, EFFECTS_AUTO);
+        assert_eq!(parse("battlefield_effects = 1").0.effects, EFFECTS_SQUARES);
+        assert_eq!(parse("battlefield_effects = 0").0.effects, EFFECTS_OFF);
+        let (s, notes) = parse("battlefield_effects = 3");
+        assert!(s.effects == EFFECTS_AUTO && notes[0].contains("outside 0-2"), "{notes:?}");
     }
 
     #[test]

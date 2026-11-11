@@ -367,8 +367,12 @@ fn the_workshop_mod_makes_it_stand_aside() {
 
 /// Gives team 0 `soul` straight in its state (as if it had its four drakes) and puts red's 5, 6, 7 next to blue's top.
 fn soul_match(seed: u64, soul: Element) -> World {
+    soul_world(seed, soul, SimOriginKindV1::ServerPresim)
+}
+
+fn soul_world(seed: u64, soul: Element, kind: SimOriginKindV1) -> World {
     log_to_temp();
-    let mut w = World::new(seed, SimOriginKindV1::ServerPresim, CAST);
+    let mut w = World::new(seed, kind, CAST);
     start(&mut w);
     tick(&mut w);
     state(&w, |s| {
@@ -481,8 +485,12 @@ fn the_chemtech_soul_holds_on_below_half() {
 
 /// Puts the Aspect of the Dragon on red straight in its state (taken at tick `w.tick`).
 fn elder_match(seed: u64) -> World {
+    elder_world(seed, SimOriginKindV1::ServerPresim)
+}
+
+fn elder_world(seed: u64, kind: SimOriginKindV1) -> World {
     log_to_temp();
-    let mut w = World::new(seed, SimOriginKindV1::ServerPresim, CAST);
+    let mut w = World::new(seed, kind, CAST);
     start(&mut w);
     tick(&mut w);
     mock::with_sim(&mut w, |sim| {
@@ -657,6 +665,126 @@ fn the_screen_feed_gets_each_event_once() {
     let mut p = World::new(seed, SimOriginKindV1::ServerPresim, CAST);
     script(&mut p);
     assert_eq!(feed::events(77, 2), first);
+    feed::clear();
+}
+
+/// The effects of the match on screen (0.4.0): every trigger of a soul, the soul taken, the Elder's flame and its
+/// execute leave one where it happened - once, whatever the screen runs again; a presim leaves none.
+#[test]
+fn the_screens_match_gets_its_effects_where_they_happen() {
+    use fx::Kind;
+    let _g = GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
+    let view = SimOriginKindV1::ClientMatchView;
+    // every effect of the match so far: (kind, where, to whom)
+    let all = |w: &World| -> Vec<(Kind, (u64, u64), Vec<(u64, u64)>)> {
+        let mut v: Vec<_> = feed::fx_live(77, 2, w.tick, w.tick + 1).into_iter().map(|f| (f.kind, f.at, f.to)).collect();
+        v.sort();
+        v
+    };
+    let at = |w: &World, p: usize| w.champ(p).at;
+
+    // ---- Infernal: the blast on the champion hit
+    feed::clear();
+    let mut w = soul_world(131, Element::Infernal, view);
+    w.hit(0, 5, 30);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::InfernalBlast, at(&w, 5), vec![])]);
+    let blast = feed::fx_live(77, 2, w.tick, 600)[0].clone();
+    assert_eq!(blast.tick, w.tick - 1, "at the tick it went off");
+    // still cooling down a second later: nothing new
+    advance(&mut w, 60);
+    w.hit(0, 5, 30);
+    tick(&mut w);
+    assert_eq!(feed::fx_count(77, 2), 1);
+    // the screen's second run of the same set: the same effect, kept once
+    let mut again = soul_world(131, Element::Infernal, view);
+    again.hit(0, 5, 30);
+    tick(&mut again);
+    assert_eq!(feed::fx_count(77, 2), 1);
+    // a presim of it: nothing
+    let mut pre = soul_world(131, Element::Infernal, SimOriginKindV1::ServerPresim);
+    advance(&mut pre, rules::INFERNAL_SOUL_CD + 80);
+    pre.hit(0, 5, 30);
+    tick(&mut pre);
+    assert_eq!(feed::fx_count(77, 2), 1);
+
+    // ---- Hextech: a bolt from the one who hit to the three it chains through, in that order
+    feed::clear();
+    let mut w = soul_world(132, Element::Hextech, view);
+    w.hit(0, 5, 30);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::HexBolt, at(&w, 0), vec![at(&w, 5), at(&w, 6), at(&w, 7)])]);
+
+    // ---- Ocean: the water on the one who heals
+    feed::clear();
+    let mut w = soul_world(133, Element::Ocean, view);
+    w.hit(0, 5, 30);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::OceanHeal, at(&w, 0), vec![])]);
+
+    // ---- Mountain: the shell on each of the five as their shields go up
+    feed::clear();
+    let mut w = soul_world(134, Element::Mountain, view);
+    run_to(&mut w, rules::MOUNTAIN_SOUL_IDLE + 10);
+    let mut want: Vec<_> = (0..5).map(|p| (Kind::MountainShield, at(&w, p), vec![])).collect();
+    want.sort();
+    assert_eq!(all(&w), want);
+
+    // ---- Cloud: the gust on the one who cast his ultimate
+    feed::clear();
+    let mut w = soul_world(135, Element::Cloud, view);
+    w.players[2].cds[3] = 3000;
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::CloudGust, at(&w, 2), vec![])]);
+
+    // ---- Chemtech: the flare when he drops below half, not again while he stays there
+    feed::clear();
+    let mut w = soul_world(136, Element::Chemtech, view);
+    w.champ_mut(1).hp = 400;
+    tick(&mut w);
+    advance(&mut w, 30);
+    assert_eq!(all(&w), vec![(Kind::ChemRage, at(&w, 1), vec![])]);
+
+    // ---- the soul taken: the element round each living champion of the team (blue's top is dead)
+    feed::clear();
+    let seed = seed_for(Element::Ocean, 9_000);
+    let mut w = World::new(seed, view, CAST);
+    start(&mut w);
+    tick(&mut w);
+    for k in 0..4 {
+        let s = spawn_serpen(&mut w);
+        if k == 3 {
+            w.die(0);
+        }
+        w.secure(s, 1);
+        tick(&mut w);
+    }
+    assert_eq!(record(&w, 0).soul, Some((0, Element::Ocean.code())));
+    let mut want: Vec<_> = (1..5).map(|p| (Kind::Soul(Element::Ocean), at(&w, p), vec![])).collect();
+    want.sort();
+    assert_eq!(all(&w), want);
+
+    // ---- the Elder: its flame catches once on a champion (hit again while burning: not again), the execute's shaft
+    feed::clear();
+    let mut w = elder_world(141, view);
+    w.hit(6, 2, 50);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![]);
+    place(&mut w, 2, (30_000, 120_000));
+    tick(&mut w);
+    w.hit(6, 2, 50);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::ElderBurn, at(&w, 2), vec![])]);
+    advance(&mut w, 10);
+    w.hit(6, 2, 50);
+    tick(&mut w);
+    assert_eq!(feed::fx_count(77, 2), 1, "already burning");
+    w.champ_mut(0).hp = 150;
+    w.hit(6, 0, 10);
+    tick(&mut w);
+    let got = all(&w);
+    assert!(got.contains(&(Kind::Execute, at(&w, 0), vec![])), "{got:?}");
+    assert_eq!(got.iter().filter(|f| f.0 == Kind::Execute).count(), 1);
     feed::clear();
 }
 

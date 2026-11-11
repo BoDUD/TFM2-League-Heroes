@@ -11,6 +11,7 @@
 
 use std::sync::Mutex;
 
+use super::fx::Fx;
 use super::rules::{Element, Record};
 
 /// 一件事（屏幕上那一场的）。英雄都是英雄 id（`league_jinx`），画的时候换成游戏里的名字；队伍 0 蓝、1 红。
@@ -54,6 +55,10 @@ static DRAKES: Mutex<Vec<(u64, u64, usize, Element)>> = Mutex::new(Vec::new());
 /// (比赛, 局, tick)：屏幕那一场的模拟在哪个 tick 结束（比赛钩子的 `end`）。屏幕时钟走到这里以后本包什么都不画——结算画面上
 /// 游戏还当是在比赛里、时钟也还读得到（用户 2026-11-10：「这东西一局对战结束了 还显示啊」）。
 static ENDED: Mutex<Vec<(u64, u64, usize)>> = Mutex::new(Vec::new());
+/// 屏幕那一场画在战场上的特效（[`super::fx`]）：哪个 tick、在哪、哪一种。
+static FXS: Mutex<Vec<Fx>> = Mutex::new(Vec::new());
+/// 特效最多留这么多条（很长的一局）：满了丢掉最早的四分之一。
+const FX_MOST: usize = 16_384;
 
 /// 屏幕在放这一场（比赛钩子在每个屏幕模拟里每 tick 记）：换了一场就只留这一场的。-> 是不是换了一场。
 pub fn view(m: u64, s: u64) -> bool {
@@ -75,7 +80,34 @@ pub fn view(m: u64, s: u64) -> bool {
     if let Ok(mut d) = ENDED.lock() {
         d.retain(|x| (x.0, x.1) == (m, s));
     }
+    if let Ok(mut f) = FXS.lock() {
+        f.retain(|x| (x.m, x.s) == (m, s));
+    }
     true
+}
+
+/// 屏幕模拟里放了一次特效（同一场再放一遍时同样的一条不再记）。
+pub fn fx(f: Fx) {
+    if let Ok(mut l) = FXS.lock() {
+        if !l.contains(&f) {
+            if l.len() >= FX_MOST {
+                l.drain(..FX_MOST / 4);
+            }
+            l.push(f);
+        }
+    }
+}
+
+/// 这一场在屏幕时钟 `t` 时还在放的特效：开始在 `t` 或之前、不超过 `longest` tick 之前的（每种放多久由画的那边定）。
+pub fn fx_live(m: u64, s: u64, t: usize, longest: usize) -> Vec<Fx> {
+    FXS.lock()
+        .map(|l| l.iter().filter(|f| (f.m, f.s) == (m, s) && f.tick <= t && t - f.tick < longest).cloned().collect())
+        .unwrap_or_default()
+}
+
+/// 这一场一共记了几次特效（日志、测试）。
+pub fn fx_count(m: u64, s: u64) -> usize {
+    FXS.lock().map(|l| l.iter().filter(|f| (f.m, f.s) == (m, s)).count()).unwrap_or(0)
 }
 
 /// 屏幕那一场的模拟在 `tick` 结束了（同一场再放一遍时记第一次的）。
@@ -150,6 +182,7 @@ pub(crate) fn clear() {
     RECORDS.lock().unwrap().clear();
     DRAKES.lock().unwrap().clear();
     ENDED.lock().unwrap().clear();
+    FXS.lock().unwrap().clear();
     *VIEW.lock().unwrap() = None;
 }
 
@@ -190,8 +223,20 @@ mod tests {
         ended(5, 1, 40878);
         ended(5, 1, 40900);
         assert_eq!(ended_at(5, 1), Some(40878));
+        // the effects: once each, alive from their tick for as long as asked
+        let blast = Fx { m: 5, s: 1, tick: 1000, kind: super::super::fx::Kind::InfernalBlast, at: (10, 20), to: vec![] };
+        fx(blast.clone());
+        fx(blast.clone());
+        fx(Fx { tick: 1040, ..blast.clone() });
+        assert_eq!(fx_count(5, 1), 2);
+        assert!(fx_live(5, 1, 999, 50).is_empty());
+        assert_eq!(fx_live(5, 1, 1000, 50), vec![blast.clone()]);
+        assert_eq!(fx_live(5, 1, 1045, 50).len(), 2);
+        assert_eq!(fx_live(5, 1, 1050, 50).iter().map(|f| f.tick).collect::<Vec<_>>(), vec![1040]);
+        assert!(fx_live(4, 1, 1000, 50).is_empty());
         // another match on screen: the last one's go
         assert!(view(6, 1));
+        assert_eq!(fx_count(5, 1), 0);
         assert!(events(5, 1).is_empty() && record_at(5, 1, 5000).is_none());
         assert_eq!(drake_of(5, 1, 266), None);
         assert_eq!(ended_at(5, 1), None);
