@@ -363,16 +363,19 @@ fn loop_frame(a: &Anim, t: usize) -> usize {
 const RAIN_MOST: usize = 240;
 
 /// 峡谷变成 `element`（在 tick `since`）以后的地形：变形后 [`rift::RISE_T`] tick 才有（岩石从变形那一刻开始往上升）。
-/// -> 画了几样。
+/// 躺在地上的（风纹、门、草丛、果实、岩石）画在地上那一层（[`world::View::on_ground`]：墙和草丛上面、单位下面——英雄走在
+/// 上面看得见）；墙上的火、雨画在最上面。-> 画了几样。
 pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: usize, element: Element, since: usize) -> usize {
     let age = t.saturating_sub(since);
     let live = age >= rift::RISE_T;
     let mut n = 0;
-    let mut put = |ctx: &mut StableClient<'_>, name: &str, fr: Option<usize>, at: (u64, u64)| {
+    let ground = v.on_ground();
+    let mut put_on = |ctx: &mut StableClient<'_>, on: &world::View, name: &str, fr: Option<usize>, at: (u64, u64)| {
         if let Some(a) = anim(name) {
-            n += frame(ctx, v, a, fr.unwrap_or_else(|| loop_frame(a, t)), at) as usize;
+            n += frame(ctx, on, a, fr.unwrap_or_else(|| loop_frame(a, t)), at) as usize;
         }
     };
+    let mut put = |ctx: &mut StableClient<'_>, name: &str, fr: Option<usize>, at: (u64, u64)| put_on(ctx, &ground, name, fr, at);
     match element {
         Element::Cloud if live => {
             for (a, b) in rift::CURRENTS {
@@ -416,7 +419,7 @@ pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: u
             for (i, at) in rift::EMBERS.iter().enumerate() {
                 // not all in step
                 let fr = anim("ember").map(|a| loop_frame(a, t + i * 7));
-                put(ctx, "ember", fr, *at);
+                put_on(ctx, v, "ember", fr, *at);
             }
         }
         _ => {}
@@ -456,7 +459,8 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize, rift: Option<(
                 *shown = Some(key);
                 if let Some(k) = counted("terrain") {
                     wlog(format!("TERRAIN m={m} s={s} screen t={t}: the {} rift (turned at t={since}, live {}) - {n} pictures \
-                                  drawn in the match world, z {}, sprites {} #{k}", element.key(), key.3, v.z, v.sprites));
+                                  drawn in the match world: what lies on the ground at z {} (the map's walls' layer, under the \
+                                  units), fire and rain at z {}, sprites {} #{k}", element.key(), key.3, v.ground, v.z, v.sprites));
                 }
             }
         }
