@@ -19,6 +19,11 @@
 //!   mod 的第 4、5 阶，游戏自带装备的第 4、5 阶），任何 mod 的装备都一样；装备表由装备构筑钩子 [`Watch`] 记下（只看不改）。Riot 装备
 //!   mod 自己接管了出装（它的 DLL 里有 find_item_build_hook），引擎可能不再问钩子：这时查名单——游戏自带的第 4、5 阶
 //!   [`BASE_LEGENDARY`]、Riot 装备 mod 的第 4 阶 [`RIOT_LEGENDARY`]，`radiant_` 开头的都算。
+//! - **4+6 装备 mod 按它自己的 key 认**（0.4.3，[`alele_tier`] / [`is_rune`]，用户 11-11 把游戏 0.7.2 版的 4+6 装进了游戏）：它的
+//!   装备 key 是 `item_t<阶>_…`，只有第 5 阶是成装（传说装备），第 4 阶还是合成到一半的部件；符文 `runes…` 在引擎的装备表里也排在
+//!   第 5 阶，而且符文是一阶一阶换上来的、不一定开局就在——所以它既不能查名单（名单里没有），也不能照「最高的两阶」，符文也不能
+//!   只靠 [`START_T`]：符文什么时候到手都当开局就有的东西（不锻造、不算进被动）。2026-11-11 游戏 0.7.2 的日志里引擎一次都
+//!   没有问过装备构筑钩子（没有 `TIERS`，131 行 `ITEMS` 全是 `by the list`），而它的成装不在名单里：0.4.3 以前在 4+6 下锻造不出杰作。
 
 use std::collections::{HashMap, HashSet};
 use std::sync::Mutex;
@@ -39,6 +44,14 @@ pub const ALLY_ORDER: [u32; 5] = [3, 2, 1, 0, 4];
 pub const START_T: usize = 300;
 /// Riot 装备 mod 的光辉版：`radiant_` + 传说装备的 key（它的第 5 阶 104 件全是这样）。
 pub const RADIANT: &str = "radiant_";
+/// alele 的 4+6 符文装备 mod（创意工坊 3785335066，游戏 0.7.2 版是 `alele_runes_and_items`；key 见它的 item-catalog.json）的
+/// 装备：`item_t<阶>_…`，331 件。第 1–4 阶是部件和合成到一半的（第 4 阶 99 件，「净蚀 + 十字镐」这种），第 5 阶 143 件是成装
+/// （黑色切割者 `item_t5_134_1_2_101_0_0_0`）。
+pub const ALELE_ITEM: &str = "item_t";
+/// 4+6 装备 mod 从这一阶起是成装（传说装备）。
+pub const ALELE_LEGENDARY_TIER: usize = 5;
+/// 4+6 装备 mod 的符文：70 个 `runes<系>_…`、4 个换阶用的 `runes_transition_t<阶>`（引擎的装备表里符文也是第 5 阶）。
+pub const ALELE_RUNE: &str = "runes";
 
 /// 游戏自带装备每条线的第 4、5 阶（`ITEMS` 的顺序；Riot 装备 mod 把它们改名成传说装备和光辉版：征服者大剑 = 饮血剑）。
 pub const BASE_LEGENDARY: [&str; 12] = [
@@ -159,8 +172,29 @@ impl StableItemBuildHook for Watch {
 
 // ===================== 计算（单元测试用） =====================
 
-/// 是不是传说装备（杰作只锻造传说装备：鞋、小件、符文、出门装都不算）：引擎的装备表里有它就看阶；没有就查名单，`radiant_` 开头的都算。
+/// 4+6 装备 mod 的符文（`runes` 后面跟着数字或下划线）：什么时候到手都当开局就有的东西——不锻造、不算进他的被动、玩家栏里
+/// 排在装备前面。
+pub fn is_rune(key: &str) -> bool {
+    key.strip_prefix(ALELE_RUNE)
+        .and_then(|rest| rest.chars().next())
+        .is_some_and(|c| c.is_ascii_digit() || c == '_')
+}
+
+/// 4+6 装备 mod 的装备 key 里写着的阶（`item_t5_…` -> 5）；不是它的 key：None。
+pub fn alele_tier(key: &str) -> Option<usize> {
+    let (tier, _) = key.strip_prefix(ALELE_ITEM)?.split_once('_')?;
+    tier.parse().ok()
+}
+
+/// 是不是传说装备（杰作只锻造传说装备：鞋、小件、符文、出门装都不算）：4+6 装备 mod 的 key 自己写着阶（第 5 阶才是成装，
+/// 符文不算）；别的装备引擎的装备表里有它就看阶；没有就查名单，`radiant_` 开头的都算。
 pub fn is_legendary(tiers: Option<&Tiers>, key: &str) -> bool {
+    if is_rune(key) {
+        return false;
+    }
+    if let Some(t) = alele_tier(key) {
+        return t >= ALELE_LEGENDARY_TIER;
+    }
     if let Some(l) = tiers.and_then(|t| t.legendary(key)) {
         return l;
     }
@@ -285,6 +319,38 @@ mod tests {
         assert!(is_legendary(Some(&t), "terminus") && !is_legendary(Some(&t), "something_else"));
         // a flat table says nothing
         assert_eq!(Tiers::from(&["a", "b"], &[Some(1), Some(1)]), None);
+    }
+
+    #[test]
+    fn the_4_plus_6_packs_keys_say_what_they_are() {
+        // its finished items are tier 5; tier 4 is still a part on the way (item-catalog.json: 99 of them)
+        assert_eq!(alele_tier("item_t5_134_1_2_101_0_0_0"), Some(5));
+        assert_eq!(alele_tier("item_t4_0_0_0_0_0_0_2"), Some(4));
+        assert_eq!((alele_tier("item_tome_of_x"), alele_tier("item_t5"), alele_tier("infinity_edge")), (None, None, None));
+        assert!(is_legendary(None, "item_t5_134_1_2_101_0_0_0") && is_legendary(None, "item_t5_0_0_0_0_0_0_2"));
+        assert!(!is_legendary(None, "item_t4_0_0_0_0_0_0_2") && !is_legendary(None, "item_t1_0_0_0_0_0_0_0"));
+        // its runes, the ones a slot is upgraded through as well
+        assert!(is_rune("runes0_0_0_0") && is_rune("runes3_1_0_1") && is_rune("runes_transition_t4"));
+        assert!(!is_rune("runaans_hurricane") && !is_rune("runes") && !is_rune("runestone") && !is_rune("item_t5_7_0_0_101_0_0_3"));
+        assert!(!is_legendary(None, "runes0_0_0_0") && !is_legendary(None, "runes_transition_t4"));
+        // the engine's table puts the runes on its top tier and the tier-4 parts one below: the keys still decide,
+        // the game's own items in the same table go by the table
+        let t = Tiers::from(&["ironsword", "item_t3_0_0_0_1_0_0_0", "item_t4_0_0_0_0_0_0_2", "item_t5_134_1_2_101_0_0_0",
+                              "runes2_0_0_1", "conquerors_greatsword"],
+                            &[Some(1), Some(3), Some(4), Some(5), Some(5), Some(4)])
+            .unwrap();
+        assert_eq!(t.top, 5);
+        assert!(is_legendary(Some(&t), "item_t5_134_1_2_101_0_0_0") && is_legendary(Some(&t), "conquerors_greatsword"));
+        assert!(!is_legendary(Some(&t), "item_t4_0_0_0_0_0_0_2") && !is_legendary(Some(&t), "runes2_0_0_1"));
+        assert!(!is_legendary(Some(&t), "ironsword"));
+        // a 4+6 item bar: four runes, a part, a half-built item, then his first finished one - with nothing noted
+        // from the start (a rune slot filled late)
+        let ks = keys(&["runes2_0_0_1", "runes2_1_0_2", "runes4_0_0_2", "runes_transition_t3", "item_t3_0_0_0_1_0_0_0",
+                        "item_t4_0_0_0_0_0_0_2", "item_t5_134_1_2_101_0_0_0", "item_t5_13_0_0_101_0_0_0"]);
+        let leg = |k: &str| is_legendary(None, k);
+        assert_eq!(first_legendary(&ks, &HashSet::new(), leg), Some((6, "item_t5_134_1_2_101_0_0_0")));
+        // parts only: nothing to forge yet
+        assert_eq!(first_legendary(&ks[..6], &HashSet::new(), leg), None);
     }
 
     #[test]

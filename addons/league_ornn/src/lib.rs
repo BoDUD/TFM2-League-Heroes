@@ -652,9 +652,15 @@ impl Forge {
                 level = pl.level();
                 mine = Some(pl.id());
             }
-            // what one has from the start (the 4+6 item mod's runes, a starting item) is never forged
-            if now < forge::START_T {
-                self.start.entry(pl.id()).or_default().extend(keys.iter().cloned());
+            // what one has from the start (a starting item) is never forged, and neither are the 4+6 item mod's runes
+            // whenever they come (a rune slot is upgraded through its tiers during the match)
+            if now < forge::START_T || keys.iter().any(|k| forge::is_rune(k)) {
+                let start = self.start.entry(pl.id()).or_default();
+                for k in keys.iter().filter(|k| now < forge::START_T || forge::is_rune(k)) {
+                    if !start.contains(k.as_str()) {
+                        start.insert(k.clone());
+                    }
+                }
             }
             let on: Vec<(String, bool, [i32; 6])> = (0..c.buff_count())
                 .filter_map(|j| c.buff_at(j))
@@ -678,7 +684,13 @@ impl Forge {
                         .iter()
                         .filter(|k| !start.contains(k.as_str()) && forge::is_legendary(tiers.as_ref(), k))
                         .collect();
-                    let by = if tiers.is_some() { "the engine's tiers, else the list" } else { "the list" };
+                    let alele = r.keys.iter().any(|k| forge::is_rune(k) || forge::alele_tier(k).is_some());
+                    let by = match (alele, tiers.is_some()) {
+                        (true, true) => "the 4+6 pack's keys, else the engine's tiers, else the list",
+                        (true, false) => "the 4+6 pack's keys, else the list",
+                        (false, true) => "the engine's tiers, else the list",
+                        (false, false) => "the list",
+                    };
                     wlog(format!("{} ITEMS of #{} {:?}: from the start {from_start:?}, legendary {legendary:?} (by {by}), \
                                   the first {:?} #{k}", head(sim, me), r.id, r.keys, shown.1));
                 }
@@ -699,11 +711,14 @@ impl Forge {
             };
             if screen {
                 if let Some(lane) = r.lane {
-                    // the masterwork among his items (what he had from the start - runes, a starting item - left out): the
-                    // scoreboard row may show fewer icons than his item bar holds (4+6's four runes as one icon)
+                    // the masterwork's place in his item bar, and among his items (what he had from the start - runes, a
+                    // starting item - left out): a scoreboard row is either one slot per place of the item bar or
+                    // shows fewer icons than the bar holds (the older 4+6's four runes as one icon)
                     let start = self.start.get(&r.pid);
                     let item = |k: &String| start.is_none_or(|s| !s.contains(k.as_str()));
                     let slot = r.first.as_ref().filter(|_| forged).map(|&(slot, _)| fx::Slot {
+                        place: slot,
+                        held: r.keys.len(),
                         item: r.keys[..slot].iter().filter(|k| item(k)).count(),
                         items: r.keys.iter().filter(|k| item(k)).count(),
                     });
