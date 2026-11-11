@@ -1,6 +1,7 @@
-"""The dragons mod's own effects on the battlefield (league_dragons 0.4.0; the user, 2026-11-11: 「拿了龙魂没有特效的 都要补
-还有远古龙斩杀特效的」): what a Dragon Soul does each time it triggers, the soul taken, the Elder Dragon's burn and its
-execute. Pixel art drawn square by square with tools/art/dragon_fx.py's brushes (a few flat tones of the element, a dark
+"""The dragons mod's own pictures on the battlefield. 0.4.0 (the user, 2026-11-11: 「拿了龙魂没有特效的 都要补 还有远古龙
+斩杀特效的」): what a Dragon Soul does each time it triggers, the soul taken, the Elder Dragon's burn and its execute.
+0.5.0, the elemental rift's terrain: the Cloud rift's wind currents, the Hextech rift's gates, the Ocean rift's brush,
+honeyfruit and rain, the Chemtech rift's fog, the Mountain rift's rocks, the Infernal rift's burning walls. Pixel art drawn square by square with tools/art/dragon_fx.py's brushes (a few flat tones of the element, a dark
 outline, no blur, no half-transparent pixels), one square = one game pixel (1000 simulation units): the mod's client
 extension draws these frames itself on the match's own render map (addons/league_dragons/src/world.rs), no champion's
 data needed.
@@ -328,12 +329,275 @@ def elder_execute():
     return w, h, anchor, 5, out
 
 
+# ---- the elemental rift's terrain (league_dragons 0.5.0) ------------------------------------------------------------------
+
+LEAF = {
+    # outline, deep, base, light, highlight
+    "ocean": [(8, 52, 50), (18, 104, 88), (36, 152, 112), (98, 204, 140), (186, 240, 186)],
+    # outline, deep purple, light purple, toxic green, pale green
+    "chemtech": [(40, 16, 62), (88, 44, 132), (140, 84, 180), (150, 210, 60), (226, 250, 150)],
+}
+
+
+def wind(direction):
+    """a tile of a Cloud rift's wind current: streaks running along the flow ("h" to the right, "v" downward, "d" down the
+    river's diagonal). It repeats every 48 squares along the flow (the diagonal one every (24, 24)), and its 8 frames
+    carry the streaks one whole period on, so the tiles laid end to end flow without a seam"""
+    n = 8
+    w, h = {"h": (48, 32), "v": (32, 48), "d": (48, 48)}[direction]
+    period = 48.0 if direction != "d" else 24.0 * math.sqrt(2)
+    rng = np.random.default_rng(1200)
+    streaks = [(rng.uniform(-11, 11), rng.uniform(0, period), rng.uniform(9, 15), int(rng.integers(3, 5)))
+               for _ in range(7 if direction != "d" else 5)]
+    c = math.sqrt(0.5)
+    out = []
+    for f in range(n):
+        layer = blank(w, h)
+        for across, phase, length, k in streaks:
+            head = (phase + f * period / n) % period
+            for rep in range(-3, 4):
+                s1 = head + rep * period
+                s0 = s1 - length
+                if direction == "h":
+                    p0, p1 = (s0, h / 2 + across), (s1, h / 2 + across)
+                elif direction == "v":
+                    p0, p1 = (w / 2 + across, s0), (w / 2 + across, s1)
+                else:   # along (c, c) from the tile's top-left corner, `across` to its side
+                    p0, p1 = (s0 * c + across * c, s0 * c - across * c), (s1 * c + across * c, s1 * c - across * c)
+                fx.stroke(layer, [p0, p1], tone("cloud", k), 1)
+                fx.stroke(layer, [((p0[0] + 2 * p1[0]) / 3, (p0[1] + 2 * p1[1]) / 3), p1], tone("cloud", 5), 1)
+        out.append(fx.outline_layer(layer, tone("cloud", 1)))
+    return w, h, ((w // 2, h // 2) if direction != "d" else (0, 0)), 5, out
+
+
+def gate():
+    """a hex-gate (Hextech rift): a six-sided ring of Hextech blue on the ground with brass corners, a glint running
+    round it, a shimmer rising from its middle"""
+    w, h, anchor = 60, 48, (30, 28)
+    brass = [np.array(c, np.uint8) for c in [(60, 40, 10), (150, 108, 30), (226, 180, 70), (255, 232, 150)]]
+    cx, cy = anchor
+    R, sq = 22.0, 0.74
+    corners = [(cx + math.cos(k / 6 * 2 * math.pi) * R, cy + math.sin(k / 6 * 2 * math.pi) * R * sq) for k in range(7)]
+    inner = [(cx + (x - cx) * 0.7, cy + (y - cy) * 0.7) for x, y in corners]
+    out = []
+    for i in range(8):
+        ring = blank(w, h)
+        fx.stroke(ring, corners, tone("hextech", 2), 2)
+        fx.stroke(ring, inner, tone("hextech", 1), 1)
+        k = i * 6 // 8
+        fx.stroke(ring, [corners[k], corners[k + 1]], tone("hextech", 4), 2)
+        t = (i * 6 / 8) % 1
+        gx = corners[k][0] + (corners[k + 1][0] - corners[k][0]) * t
+        gy = corners[k][1] + (corners[k + 1][1] - corners[k][1]) * t
+        fx.disc(ring, gx, gy, 1.7, tone("hextech", 5))
+        f = fx.outline_layer(ring, tone("hextech", 0))
+        for x, y in corners[:6]:
+            fx.disc(f, x, y, 2.3, brass[2], brass[0], brass[3])
+        rng = np.random.default_rng(1300 + i)
+        for _ in range(4):
+            x = cx + rng.uniform(-10, 10)
+            y = cy - rng.uniform(2, 16) - (i % 4) * 2
+            fx.stroke(f, [(x, y), (x, y - rng.uniform(2, 4))], tone("hextech", 4), 1)
+        out.append(f)
+    return w, h, anchor, 6, out
+
+
+def gate_flash():
+    """a champion going through a hex-gate: a quick column of Hextech light and a ring, at both gates"""
+    w, h, anchor = 48, 76, (24, 62)
+    out = []
+    for i in range(6):
+        f = blank(w, h)
+        col = pillar((h, w), anchor[0], anchor[1], (5, 10, 12, 9, 6, 3)[i], (30, 58, 62, 58, 46, 30)[i], "hextech", 1400 + i,
+                     strength=(0.9, 1.0, 1.0, 0.9, 0.75, 0.55)[i])
+        f = fx.over(col, f)
+        ring = ground_ring((h, w), anchor[0], anchor[1], (8, 14, 19, 22, 24, 25)[i], (6, 6, 5, 4, 4, 3)[i], "hextech", 1420 + i,
+                           cuts=(0.1, 0.32, 0.58, 0.82, 0.95), squash=0.74)
+        f = fx.over(f, ring)
+        rng = np.random.default_rng(1440 + i)
+        for _ in range((0, 4, 6, 6, 5, 3)[i]):
+            x = anchor[0] + rng.uniform(-16, 16)
+            y = anchor[1] - rng.uniform(6, 56)
+            fx.stroke(f, [(x, y), (x + rng.uniform(-2, 2), y - rng.uniform(3, 6))], tone("hextech", 5), 1)
+        out.append(f)
+    return w, h, anchor, 4, out
+
+
+def brush(kind):
+    """a patch of the rift's new brush (Ocean) / chem-fog (Chemtech), 38 squares round its middle: a ring of clumps with
+    tufts inside, open enough to see who stands in it; 4 frames swaying. From above, like the map: no squash"""
+    w, h, anchor = 96, 92, (48, 48)
+    pal = [np.array(c, np.uint8) for c in LEAF[kind]]
+    rng = np.random.default_rng(1500 if kind == "ocean" else 1600)
+    n = 16
+    clumps = []
+    for k in range(n):
+        a = (k + rng.uniform(-0.25, 0.25)) / n * 2 * math.pi
+        rad = 33 + rng.uniform(-3, 3)
+        clumps.append((anchor[0] + math.cos(a) * rad, anchor[1] + math.sin(a) * rad, rng.uniform(5.5, 8.0),
+                       rng.uniform(0, 2 * math.pi)))
+    tufts = [(anchor[0] + rng.uniform(-22, 22), anchor[1] + rng.uniform(-20, 24), rng.uniform(0, 2 * math.pi)) for _ in range(13)]
+    bubbles = [(anchor[0] + rng.uniform(-30, 30), anchor[1] + rng.uniform(-26, 30), rng.uniform(1.8, 3.0), int(rng.integers(0, 4)))
+               for _ in range(9)]
+    out = []
+    for i in range(4):
+        f = blank(w, h)
+        turn = i / 4 * 2 * math.pi
+        for x, y, ph in tufts:
+            lean = math.sin(ph + turn) * 1.6
+            for dx, ln in ((-2, 4), (0, 6), (2, 4)):
+                fx.stroke(f, [(x + dx, y), (x + dx + lean, y - ln)], pal[3 if dx == 0 else 2], 1)
+        f = fx.outline_layer(f, pal[0])
+        for x, y, r, ph in sorted(clumps, key=lambda c: c[1]):
+            ox = math.sin(ph + turn) * 1.0
+            fx.disc(f, x + ox, y, r, pal[1], pal[0])
+            fx.disc(f, x + ox - r * 0.2, y - r * 0.25, r * 0.62, pal[2])
+            fx.disc(f, x + ox - r * 0.36, y - r * 0.42, r * 0.3, pal[3])
+        if kind == "chemtech":
+            for x, y, r, ph in bubbles:
+                rise = ((i + ph) % 4) * 3
+                fx.ring_dot(f, x, y - rise, r, pal[0], pal[4])
+                fx.disc(f, x + 1, y - rise + 1, max(0.8, r * 0.35), pal[3])
+        out.append(f)
+    return w, h, anchor, 15, out
+
+
+def fruit():
+    """a honeyfruit plant (Ocean rift): a stem, leaves and three glowing fruits that bob"""
+    w, h, anchor = 28, 34, (14, 29)
+    stem = np.array((30, 96, 60), np.uint8)
+    leaf = np.array((60, 150, 80), np.uint8)
+    edge = np.array((14, 52, 40), np.uint8)
+    gold = [np.array(c, np.uint8) for c in [(120, 70, 10), (236, 170, 40), (255, 226, 110), (255, 250, 210)]]
+    out = []
+    for i in range(4):
+        f = blank(w, h)
+        bob = (0, -1, 0, 1)[i]
+        fx.stroke(f, [(14, 29), (14, 15)], stem, 2)
+        fx.stroke(f, [(14, 22), (8, 17)], stem, 1)
+        fx.stroke(f, [(14, 20), (20, 15)], stem, 1)
+        f = fx.outline_layer(f, edge)
+        for x, y in ((7, 25), (21, 25), (14, 28)):
+            fx.disc(f, x, y, 3.3, leaf, edge)
+        for x, y, r in ((8, 15, 3.6), (20, 13, 3.6), (14, 9, 4.2)):
+            fx.disc(f, x, y + bob, r, gold[1], gold[0], gold[3])
+            fx.disc(f, x - 1, y + bob - 1, r * 0.45, gold[2])
+        out.append(f)
+    return w, h, anchor, 12, out
+
+
+def fruit_eat():
+    """a honeyfruit eaten: its glow bursts into drops and a ring of water"""
+    w, h, anchor = 44, 48, (22, 36)
+    gold = [np.array(c, np.uint8) for c in [(120, 70, 10), (236, 170, 40), (255, 226, 110), (255, 250, 210)]]
+    out = []
+    for i in range(5):
+        rng = np.random.default_rng(1700 + i)
+        f = ground_ring((h, w), anchor[0], anchor[1], (6, 11, 15, 18, 20)[i], (5, 5, 4, 3, 3)[i], "ocean", 1720 + i,
+                        cuts=(0.1, 0.3, 0.55, 0.8, 0.95), squash=0.7)
+        for _ in range((8, 10, 9, 7, 4)[i]):
+            a = rng.uniform(-math.pi, 0)
+            d = rng.uniform(4, 16) + i * 2
+            x, y = anchor[0] + math.cos(a) * d, anchor[1] - 10 + math.sin(a) * d - i * 3
+            fx.disc(f, x, y, rng.uniform(1.2, 2.2) - i * 0.15, gold[1 + (i < 2)], gold[0], gold[3])
+        out.append(f)
+    return w, h, anchor, 5, out
+
+
+def boulder(layer, cx, cy, rx, ry, seed):
+    """a round lump of rock: a lumpy outline, lit from the upper left (light, mid, dark faces), outlined"""
+    from scipy import ndimage
+    X, Y = fx.grid(layer.shape[:2])
+    nz = fx.Noise(seed)
+    nx, ny = (X - cx) / rx, (Y - cy) / ry
+    m = np.hypot(nx, ny) + (nz.fbm(X / 5.0, Y / 5.0) - 0.5) * 0.4 < 1
+    lit = -(nx * 0.6 + ny * 0.8) + (nz.fbm(X / 3.0 + 9, Y / 3.0) - 0.5) * 0.55
+    face = np.where(lit > 0.5, 4, np.where(lit > 0.1, 3, np.where(lit > -0.35, 2, 1)))
+    for k in (1, 2, 3, 4):
+        sel = m & (face == k)
+        layer[sel, :3] = np.array(fx.ROCK[k], np.uint8)
+        layer[sel, 3] = 255
+    edge = m & ~ndimage.binary_erosion(m, structure=fx.CROSS)
+    layer[edge, :3] = np.array(fx.ROCK[0], np.uint8)
+    layer[edge, 3] = 255
+
+
+def rock():
+    """a Mountain rift's rock: dust breaks the ground, the boulders rise out of it; the last frame is the rock standing.
+    Its foot lies just under the anchor (the middle of the round thing champions cannot enter)"""
+    w, h, anchor = 64, 66, (32, 42)
+    cx, cy = anchor
+    full = blank(w, h)
+    for k, (x, y, rx, ry) in enumerate(sorted([(cx - 1, cy - 14, 15, 14), (cx - 14, cy - 3, 11, 10), (cx + 13, cy - 2, 12, 11),
+                                               (cx + 1, cy + 4, 9, 7), (cx - 21, cy + 7, 4.5, 3.5), (cx + 22, cy + 8, 4, 3.2)],
+                                              key=lambda b: b[1])):
+        boulder(full, x, y, rx, ry, 1800 + k)
+    ground = cy + 12
+    full[ground:, :] = 0
+    out = []
+    for i, frac in enumerate((0.12, 0.32, 0.56, 0.8, 1.0, 1.0)):
+        f = blank(w, h)
+        drop = int(round((1 - frac) * 34))
+        if drop:
+            f[drop:ground] = full[:ground - drop]
+        else:
+            f[:ground] = full[:ground]
+        if i < 5:   # the dust it throws up, thinning as it settles
+            dust = ground_ring((h, w), cx, ground - 2, (14, 19, 23, 26, 28)[i], (9, 9, 8, 6, 4)[i], "mountain", 1820 + i,
+                               cuts=(0.1, 0.34, 0.6, 0.86, 1.5), squash=0.5)
+            f = fx.over(f, dust)
+            r2 = np.random.default_rng(1840 + i)
+            for _ in range((6, 7, 6, 4, 2)[i]):
+                fx.chunk(f, cx + r2.uniform(-24, 24), ground - r2.uniform(4, 26) - i * 2, r2.uniform(1.6, 2.8), r2)
+        out.append(f)
+    return w, h, anchor, 30, out
+
+
+def ember():
+    """a wall on fire (Infernal rift): a flame that flickers, a spark or two off its top"""
+    w, h, anchor = 24, 34, (12, 30)
+    out = []
+    for i in range(6):
+        f = pillar((h, w), anchor[0], anchor[1], (4, 5, 6, 5, 4, 5)[i], (14, 19, 23, 20, 16, 20)[i], "infernal", 1900 + i,
+                   strength=(0.9, 1.0, 1.0, 0.95, 0.9, 1.0)[i], cuts=(0.1, 0.3, 0.52, 0.74, 0.9))
+        rng = np.random.default_rng(1920 + i)
+        sparks(f, rng, anchor[0], anchor[1] - 12, (1, 2, 3, 2, 2, 3)[i], 8, (4, 8, 12, 16, 20, 10)[i], "infernal", r=(0.6, 1.0), k=4)
+        out.append(f)
+    return w, h, anchor, 6, out
+
+
+def rain():
+    """a tile of the Ocean rift's rain: thin streaks falling down and a little left. It repeats every 128 squares both
+    ways; each of its 8 frames is the last one moved on by (-16, 32), a whole tile every 4 and 8 frames"""
+    w = h = 128
+    rng = np.random.default_rng(2000)
+    drops = [(rng.uniform(0, w), rng.uniform(0, h), rng.uniform(4, 8), int(rng.integers(3, 5))) for _ in range(40)]
+    out = []
+    for i in range(8):
+        f = blank(w, h)
+        for x, y, ln, k in drops:
+            px, py = (x - i * 16) % w, (y + i * 32) % h
+            for ox in (-w, 0, w):
+                for oy in (-h, 0, h):
+                    fx.stroke(f, [(px + ox, py + oy), (px + ox - ln * 0.5, py + oy + ln)], tone("ocean", k), 1)
+        out.append(f)
+    return w, h, (0, 0), 3, out
+
+
+def terrain():
+    """the elemental rift's pictures, in the sheet's order after the effects"""
+    return [("wind_h",) + wind("h"), ("wind_v",) + wind("v"), ("wind_d",) + wind("d"), ("gate",) + gate(),
+            ("gate_flash",) + gate_flash(), ("brush_ocean",) + brush("ocean"), ("brush_chem",) + brush("chemtech"),
+            ("fruit",) + fruit(), ("fruit_eat",) + fruit_eat(), ("rock",) + rock(), ("ember",) + ember(), ("rain",) + rain()]
+
+
 def animations():
     """[(name, frame width, frame height, anchor, ticks a frame, frames)] in the sheet's order"""
     out = [("infernal_blast",) + infernal_blast(), ("hex_spark",) + hex_spark(), ("mountain_shield",) + mountain_shield(),
            ("ocean_heal",) + ocean_heal(), ("cloud_gust",) + cloud_gust(), ("chem_rage",) + chem_rage(),
            ("elder_burn",) + elder_burn(), ("elder_execute",) + elder_execute()]
     out += [(f"soul_{el}",) + soul_claim(el) for el in ELEMENTS]
+    out += terrain()
     return out
 
 

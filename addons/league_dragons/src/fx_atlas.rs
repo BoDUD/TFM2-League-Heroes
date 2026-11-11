@@ -18,9 +18,9 @@ pub struct Anim {
 }
 
 /// The sheet's size in pixels.
-pub const SHEET: (u16, u16) = (1056, 1040);
+pub const SHEET: (u16, u16) = (1056, 1788);
 
-pub const ANIMS: [Anim; 14] = [
+pub const ANIMS: [Anim; 26] = [
     Anim { name: "infernal_blast", x: 0, y: 0, w: 72, h: 64, frames: 7, per_row: 7, ax: 36, ay: 50, ticks: 4 },
     Anim { name: "hex_spark", x: 0, y: 64, w: 44, h: 44, frames: 5, per_row: 5, ax: 22, ay: 26, ticks: 4 },
     Anim { name: "mountain_shield", x: 0, y: 108, w: 60, h: 64, frames: 7, per_row: 7, ax: 30, ay: 54, ticks: 5 },
@@ -35,4 +35,16 @@ pub const ANIMS: [Anim; 14] = [
     Anim { name: "soul_cloud", x: 0, y: 788, w: 60, h: 84, frames: 9, per_row: 9, ax: 30, ay: 72, ticks: 5 },
     Anim { name: "soul_hextech", x: 0, y: 872, w: 60, h: 84, frames: 9, per_row: 9, ax: 30, ay: 72, ticks: 5 },
     Anim { name: "soul_chemtech", x: 0, y: 956, w: 60, h: 84, frames: 9, per_row: 9, ax: 30, ay: 72, ticks: 5 },
+    Anim { name: "wind_h", x: 0, y: 1040, w: 48, h: 32, frames: 8, per_row: 8, ax: 24, ay: 16, ticks: 5 },
+    Anim { name: "wind_v", x: 0, y: 1072, w: 32, h: 48, frames: 8, per_row: 8, ax: 16, ay: 24, ticks: 5 },
+    Anim { name: "wind_d", x: 0, y: 1120, w: 48, h: 48, frames: 8, per_row: 8, ax: 0, ay: 0, ticks: 5 },
+    Anim { name: "gate", x: 0, y: 1168, w: 60, h: 48, frames: 8, per_row: 8, ax: 30, ay: 28, ticks: 6 },
+    Anim { name: "gate_flash", x: 0, y: 1216, w: 48, h: 76, frames: 6, per_row: 6, ax: 24, ay: 62, ticks: 4 },
+    Anim { name: "brush_ocean", x: 0, y: 1292, w: 96, h: 92, frames: 4, per_row: 4, ax: 48, ay: 48, ticks: 15 },
+    Anim { name: "brush_chem", x: 0, y: 1384, w: 96, h: 92, frames: 4, per_row: 4, ax: 48, ay: 48, ticks: 15 },
+    Anim { name: "fruit", x: 0, y: 1476, w: 28, h: 34, frames: 4, per_row: 4, ax: 14, ay: 29, ticks: 12 },
+    Anim { name: "fruit_eat", x: 0, y: 1510, w: 44, h: 48, frames: 5, per_row: 5, ax: 22, ay: 36, ticks: 5 },
+    Anim { name: "rock", x: 0, y: 1558, w: 64, h: 66, frames: 6, per_row: 6, ax: 32, ay: 42, ticks: 30 },
+    Anim { name: "ember", x: 0, y: 1624, w: 24, h: 34, frames: 6, per_row: 6, ax: 12, ay: 30, ticks: 6 },
+    Anim { name: "rain", x: 0, y: 1658, w: 128, h: 128, frames: 8, per_row: 8, ax: 0, ay: 0, ticks: 3 },
 ];

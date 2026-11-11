@@ -33,6 +33,8 @@ pub enum What {
     BaronKilled { team: usize, holders: Vec<String> },
     /// 撞上创意工坊的「Elemental Drakes & Baron」：本包什么都没做，请玩家关掉那个 mod。
     Conflict,
+    /// 峡谷变成这种元素，地形跟着变（第二条元素亚龙被拿下时；只有游戏自带的 5v5 地图）。
+    Rift { element: Element },
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
@@ -103,6 +105,11 @@ pub fn fx_live(m: u64, s: u64, t: usize, longest: usize) -> Vec<Fx> {
     FXS.lock()
         .map(|l| l.iter().filter(|f| (f.m, f.s) == (m, s) && f.tick <= t && t - f.tick < longest).cloned().collect())
         .unwrap_or_default()
+}
+
+/// 这一场到 `t` 为止的某一类特效（蜂蜜果实什么时候被吃掉：画面按它算果实长好了没有）。
+pub fn fx_where(m: u64, s: u64, t: usize, want: impl Fn(&Fx) -> bool) -> Vec<Fx> {
+    FXS.lock().map(|l| l.iter().filter(|f| (f.m, f.s) == (m, s) && f.tick <= t && want(f)).cloned().collect()).unwrap_or_default()
 }
 
 /// 这一场一共记了几次特效（日志、测试）。

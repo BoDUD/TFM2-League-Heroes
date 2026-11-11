@@ -22,12 +22,16 @@ pub struct Unit {
     pub max: usize,
     pub shield: usize,
     pub stat: StatV1,
+    /// Hidden from the other team until this tick (`entity_set_invisible`); hidden by something of its own (a skill).
+    pub unseen_until: usize,
+    pub stealth: bool,
 }
 
 impl Unit {
     pub fn new(kind: EntityKindV1, team: usize, at: (u64, u64), name: &str, max: usize) -> Unit {
         let stat = StatV1 { attack: 100, magic_power: 50, hp: max, ..StatV1::default() };
-        Unit { kind, team, at, alive: true, name: name.to_string(), buffs: Vec::new(), hp: max, max, shield: 0, stat }
+        Unit { kind, team, at, alive: true, name: name.to_string(), buffs: Vec::new(), hp: max, max, shield: 0, stat,
+               unseen_until: 0, stealth: false }
     }
 }
 
@@ -403,6 +407,24 @@ unsafe extern "C" fn add_shield(s: *mut c_void, h: EntityHandleV1, amount: usize
 unsafe extern "C" fn kill_count(_s: *const c_void) -> usize {
     0
 }
+unsafe extern "C" fn set_pos(s: *mut c_void, h: EntityHandleV1, x: u64, y: u64) -> bool {
+    let Some(e) = u(s, h) else { return false };
+    e.at = (x, y);
+    true
+}
+unsafe extern "C" fn set_invisible(s: *mut c_void, h: EntityHandleV1, ticks: usize) -> bool {
+    let now = w(s).tick;
+    let Some(e) = u(s, h) else { return false };
+    e.unseen_until = now + ticks;
+    true
+}
+unsafe extern "C" fn is_visible(s: *const c_void, team: usize, id: usize) -> bool {
+    let now = w(s).tick;
+    w(s).units.get(id).is_some_and(|e| e.alive && (e.team == team || (now >= e.unseen_until && !e.stealth)))
+}
+unsafe extern "C" fn radius(_s: *const c_void, _h: EntityHandleV1) -> usize {
+    8_000
+}
 
 /// `f` run on a simulation of `world`.
 pub fn with_sim<R>(world: &mut World, f: impl FnOnce(&mut StableSim<'_>) -> R) -> R {
@@ -446,6 +468,10 @@ pub fn with_sim<R>(world: &mut World, f: impl FnOnce(&mut StableSim<'_>) -> R) -
     vt.heal = Some(heal);
     vt.entity_add_shield = Some(add_shield);
     vt.kill_log_count = Some(kill_count);
+    vt.entity_set_pos = Some(set_pos);
+    vt.entity_set_invisible = Some(set_invisible);
+    vt.is_visible = Some(is_visible);
+    vt.entity_radius = Some(radius);
     let mut ctx = SimCtxV1 {
         size: size_of::<SimCtxV1>(),
         sim: &vt,

@@ -12,6 +12,11 @@
 //! | 拿到龙魂 | 那一队每个活着的英雄脚下一圈元素、一根元素的光柱（`soul_<元素>`） |
 //! | 远古龙之力点燃 | 一小团远古的火（`elder_burn`；已经烧着的人再被打到不再放） |
 //! | 远古龙之力斩杀 | 一道远古的火柱从天上砸下来、地上炸开、一圈冲击波（`elder_execute`） |
+//! | 走进海克斯传送门（0.5.0） | 两头的门各一道海克斯的光柱（`gate_flash`） |
+//! | 吃掉蜂蜜果实（0.5.0） | 果实的光炸成水珠、一圈水（`fruit_eat`） |
+//!
+//! 元素峡谷的地形（0.5.0，[`super::rift`] 的位置）也在这里画（[`terrain`]）：云端的风道（一格格接起来的流动的风）、
+//! 海克斯的门、海洋的草丛 / 蜂蜜果实 / 雨、化学科技的毒雾、山脉的岩石（从地里升起来）、炼狱着火的墙。
 //!
 //! 图是 tools/art/dragons_soul_fx.py 一格一格画的像素图（1 格 = 1 个游戏像素）：能画贴图时整帧一条贴图命令；不能时
 //! （[`super::world::plan`]）按编进 DLL 的同一份图（`fx_runs.bin`：每帧拆成一条条同色的横条）一条一条画，不靠任何文件。比赛钩子在屏幕放的那场模拟里记下
@@ -24,8 +29,8 @@ use std::sync::{Mutex, OnceLock};
 use mod_api_stable::*;
 
 use super::fx_atlas::{Anim, ANIMS};
-use super::rules::{mix, Element};
-use super::{counted, feed, wlog, world};
+use super::rules::{mix, Element, DRAKES};
+use super::{counted, feed, rift, wlog, world};
 
 /// 一种特效。
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
@@ -41,6 +46,10 @@ pub enum Kind {
     Execute,
     /// 拿到龙魂（每个英雄一份）。
     Soul(Element),
+    /// 一个英雄走进海克斯传送门：`at` 是进的那扇，`to` 是出来的那扇（两头各放一次）。
+    Gate,
+    /// 第几个蜂蜜果实被吃掉了（画面也按它算果实什么时候再长出来）。
+    Fruit(u8),
 }
 
 impl Kind {
@@ -62,6 +71,8 @@ impl Kind {
             Kind::Soul(Element::Hextech) => "soul_hextech",
             // the Elder has no soul; were it ever asked for, Chemtech's
             Kind::Soul(Element::Chemtech) | Kind::Soul(Element::Elder) => "soul_chemtech",
+            Kind::Gate => "gate_flash",
+            Kind::Fruit(_) => "fruit_eat",
         }
     }
 
@@ -88,9 +99,18 @@ pub struct Fx {
     pub to: Vec<(u64, u64)>,
 }
 
+/// 每一种特效（龙魂按元素各一种；果实只列一个）。
+pub fn kinds() -> Vec<Kind> {
+    let mut v = vec![Kind::InfernalBlast, Kind::HexBolt, Kind::MountainShield, Kind::OceanHeal, Kind::CloudGust,
+                     Kind::ChemRage, Kind::ElderBurn, Kind::Execute, Kind::Gate, Kind::Fruit(0)];
+    v.extend(DRAKES.iter().map(|&e| Kind::Soul(e)));
+    v
+}
+
 /// 最长的一种放多少 tick（[`super::feed::fx_live`] 往回找这么远）。
 pub fn longest() -> usize {
-    ANIMS.iter().map(|a| a.frames as usize * a.ticks as usize).max().unwrap_or(0).max(BOLT_T)
+    static LONGEST: OnceLock<usize> = OnceLock::new();
+    *LONGEST.get_or_init(|| kinds().iter().map(|k| k.ticks()).max().unwrap_or(0))
 }
 
 /// 开始 `age` tick 后是第几帧（放完了：None）。
@@ -293,10 +313,154 @@ fn first_time(m: u64, s: u64, kind: Kind) -> bool {
     true
 }
 
-/// 屏幕时钟 `t` 时正在放的特效（客户端扩展的 post_render 里调）。世界认不出来（[`world::view`]）就不画。
-pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
+// ===================== 元素峡谷的地形 =====================
+
+fn anim(name: &str) -> Option<&'static Anim> {
+    ANIMS.iter().find(|a| a.name == name)
+}
+
+/// 一条风道铺成的格子：(哪张图, 每一格放在哪)。横的、竖的每 48 像素一格（放格子的中心），河道那条斜的每 (24, 24) 一格
+/// （放格子的左上角：图里的风沿着格子的对角线）。
+pub fn wind_tiles(a: (u64, u64), b: (u64, u64)) -> (&'static str, Vec<(u64, u64)>) {
+    let mut at = Vec::new();
+    if a.1 == b.1 {
+        let mut x = a.0.min(b.0) + 24_000;
+        while x < a.0.max(b.0) {
+            at.push((x, a.1));
+            x += 48_000;
+        }
+        ("wind_h", at)
+    } else if a.0 == b.0 {
+        let mut y = a.1.min(b.1) + 24_000;
+        while y < a.1.max(b.1) {
+            at.push((a.0, y));
+            y += 48_000;
+        }
+        ("wind_v", at)
+    } else {
+        let (mut x, mut y) = (a.0.min(b.0), a.1.min(b.1));
+        while x + 24_000 < a.0.max(b.0) {
+            at.push((x, y));
+            x += 24_000;
+            y += 24_000;
+        }
+        ("wind_d", at)
+    }
+}
+
+/// 第 `i` 个蜂蜜果实在屏幕时钟 `t` 时长好了没有：峡谷变成海洋后 [`rift::FRUIT_FIRST`] tick 长好，被吃掉（`eaten`：
+/// 到 `t` 为止它被吃掉的那些 tick）后 [`rift::FRUIT_RESPAWN`] tick 再长好。和模拟里一样。
+pub fn fruit_ripe(since: usize, eaten: &[usize], t: usize) -> bool {
+    t >= since + rift::FRUIT_FIRST && !eaten.iter().any(|&e| e <= t && t < e + rift::FRUIT_RESPAWN)
+}
+
+/// 一圈一圈循环的动画现在是第几帧。
+fn loop_frame(a: &Anim, t: usize) -> usize {
+    (t / a.ticks.max(1) as usize) % a.frames.max(1) as usize
+}
+
+/// 雨最多铺这么多格（镜头拉得再远也不多画）。
+const RAIN_MOST: usize = 240;
+
+/// 峡谷变成 `element`（在 tick `since`）以后的地形：变形后 [`rift::RISE_T`] tick 才有（岩石从变形那一刻开始往上升）。
+/// -> 画了几样。
+pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: usize, element: Element, since: usize) -> usize {
+    let age = t.saturating_sub(since);
+    let live = age >= rift::RISE_T;
+    let mut n = 0;
+    let mut put = |ctx: &mut StableClient<'_>, name: &str, fr: Option<usize>, at: (u64, u64)| {
+        if let Some(a) = anim(name) {
+            n += frame(ctx, v, a, fr.unwrap_or_else(|| loop_frame(a, t)), at) as usize;
+        }
+    };
+    match element {
+        Element::Cloud if live => {
+            for (a, b) in rift::CURRENTS {
+                let (name, tiles) = wind_tiles(a, b);
+                for at in tiles {
+                    put(ctx, name, None, at);
+                }
+            }
+        }
+        Element::Hextech if live => {
+            for (a, b) in rift::GATES {
+                put(ctx, "gate", None, a);
+                put(ctx, "gate", None, b);
+            }
+        }
+        Element::Ocean if live => {
+            for at in rift::OCEAN_BRUSH {
+                put(ctx, "brush_ocean", None, at);
+            }
+            let eaten = feed::fx_where(m, s, t, |f| matches!(f.kind, Kind::Fruit(_)));
+            for (i, at) in rift::FRUITS.iter().enumerate() {
+                let mine: Vec<usize> = eaten.iter().filter(|f| f.kind == Kind::Fruit(i as u8)).map(|f| f.tick).collect();
+                if fruit_ripe(since, &mine, t) {
+                    put(ctx, "fruit", None, *at);
+                }
+            }
+        }
+        Element::Chemtech if live => {
+            for at in rift::CHEM_BRUSH {
+                put(ctx, "brush_chem", None, at);
+            }
+        }
+        Element::Mountain => {
+            // rising from the moment the rift turns: its frames spread over the time until it stands
+            let fr = anim("rock").map(|a| (age * a.frames as usize / rift::RISE_T.max(1)).min(a.frames as usize - 1));
+            for at in rift::ROCKS {
+                put(ctx, "rock", fr, at);
+            }
+        }
+        Element::Infernal if live => {
+            for (i, at) in rift::EMBERS.iter().enumerate() {
+                // not all in step
+                let fr = anim("ember").map(|a| loop_frame(a, t + i * 7));
+                put(ctx, "ember", fr, *at);
+            }
+        }
+        _ => {}
+    }
+    // the Ocean rift's rain: tiles over what the camera sees (the map's own coordinates: it does not move with the world)
+    if element == Element::Ocean && live {
+        if let (Some(a), Some((x, y, w, h))) = (anim("rain"), v.camera) {
+            let (tw, th) = (a.w as f32, a.h as f32);
+            let fr = loop_frame(a, t);
+            let (x0, y0) = ((x / tw).floor() * tw, (y / th).floor() * th);
+            let (cols, rows) = (((x + w - x0) / tw).ceil() as usize, ((y + h - y0) / th).ceil() as usize);
+            if cols > 0 && rows > 0 && cols * rows <= RAIN_MOST {
+                for r in 0..rows {
+                    for c in 0..cols {
+                        n += world::sprite_on_map(ctx, v, a, fr, (x0 + c as f32 * tw, y0 + r as f32 * th)) as usize;
+                    }
+                }
+            }
+        }
+    }
+    n
+}
+
+/// 画过地形的 (比赛, 局, 元素)：第一次画出来时记一行日志。
+static TERRAIN_SHOWN: Mutex<Option<(u64, u64, Element, bool)>> = Mutex::new(None);
+
+/// 屏幕时钟 `t` 时的地形（`rift`：峡谷变成了什么、哪个 tick）和正在放的特效（客户端扩展的 post_render 里调）。世界认不
+/// 出来（[`world::view`]）就不画。
+pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize, rift: Option<(Element, usize)>) {
     // every frame of a match, also with nothing to draw: the first one writes what the game's world looks like (WORLD)
     let Some(v) = world::view(ctx, m, s, t) else { return };
+    if let Some((element, since)) = rift {
+        let n = terrain(ctx, &v, m, s, t, element, since);
+        let key = (m, s, element, t >= since + rift::RISE_T);
+        if let Ok(mut shown) = TERRAIN_SHOWN.lock() {
+            if n > 0 && *shown != Some(key) {
+                *shown = Some(key);
+                if let Some(k) = counted("terrain") {
+                    wlog(format!("TERRAIN m={m} s={s} screen t={t}: the {} rift (turned at t={since}, live {}) - {n} pictures \
+                                  drawn in the match world, z {}, sprites {} #{k}", element.key(), key.3, v.z, v.sprites));
+                }
+            }
+        }
+    }
     let mut live = feed::fx_live(m, s, t, longest());
     if live.is_empty() {
         return;
@@ -321,6 +485,15 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
                     }
                 }
             }
+            Kind::Gate => {
+                // the same flash at the gate he walked onto and at the one he comes out of
+                if let Some((a, fr)) = f.kind.anim().and_then(|a| frame_at(a, age).map(|fr| (a, fr))) {
+                    drawn |= frame(ctx, &v, a, fr, f.at);
+                    for to in &f.to {
+                        drawn |= frame(ctx, &v, a, fr, *to);
+                    }
+                }
+            }
             kind => {
                 if let Some((a, fr)) = kind.anim().and_then(|a| frame_at(a, age).map(|fr| (a, fr))) {
                     drawn |= frame(ctx, &v, a, fr, f.at);
@@ -340,13 +513,11 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use super::super::rules::DRAKES;
 
     #[test]
     fn every_effect_has_its_animation_on_the_sheet() {
-        let mut kinds = vec![Kind::InfernalBlast, Kind::HexBolt, Kind::MountainShield, Kind::OceanHeal, Kind::CloudGust,
-                             Kind::ChemRage, Kind::ElderBurn, Kind::Execute];
-        kinds.extend(DRAKES.iter().map(|&e| Kind::Soul(e)));
+        let kinds = kinds();
+        assert_eq!(kinds.len(), 16);
         let mut names: Vec<&str> = kinds.iter().map(|k| k.anim_name()).collect();
         for k in &kinds {
             let a = k.anim().unwrap_or_else(|| panic!("{k:?}: no animation {}", k.anim_name()));
@@ -355,9 +526,14 @@ mod tests {
             assert_eq!(frame_at(a, a.ticks as usize), Some(1));
             assert_eq!(frame_at(a, k.ticks()), None, "{k:?} is over after its last frame");
         }
+        // every animation of the sheet is an effect's or a piece of the rift's terrain, none is both or neither
+        names.extend(TERRAIN);
         names.sort();
         names.dedup();
-        assert_eq!(names.len(), ANIMS.len(), "an animation nothing plays, or two effects on one");
+        assert_eq!(names.len(), kinds.len() + TERRAIN.len(), "two effects on one animation");
+        let mut all: Vec<&str> = ANIMS.iter().map(|a| a.name).collect();
+        all.sort();
+        assert_eq!(names, all, "an animation nothing plays, or one that is not on the sheet");
         // half a second to a second: read in a fight, gone before the next one
         assert!((40..=70).contains(&longest()), "{}", longest());
     }
@@ -410,6 +586,53 @@ mod tests {
             assert!(w[1].1 > w[0].1 || w[1].0 >= w[0].0 + w[0].2, "{:?} then {:?}", w[0], w[1]);
         }
         assert!(wide.len() < 400, "{} rectangles for one bolt", wide.len());
+    }
+
+    /// The pictures of the rift's terrain (not effects: drawn for as long as the rift lasts).
+    const TERRAIN: [&str; 10] = ["wind_h", "wind_v", "wind_d", "gate", "brush_ocean", "brush_chem", "fruit", "rock", "ember",
+                                 "rain"];
+
+    #[test]
+    fn the_wind_is_tiled_along_each_current() {
+        let mut seen = Vec::new();
+        for (a, b) in rift::CURRENTS {
+            let (name, tiles) = wind_tiles(a, b);
+            let tile = anim(name).expect(name);
+            seen.push(name);
+            assert!(tiles.len() >= 5, "{name}: {} tiles", tiles.len());
+            // every tile's picture lies on the current: its middle within the current's half width
+            for at in &tiles {
+                let mid = if name == "wind_d" { (at.0 + 24_000, at.1 + 24_000) } else { *at };
+                assert!(rift::seg_d2(mid, a, b) <= 1_000 * 1_000, "{name} tile at {at:?} is off its current");
+            }
+            // end to end without a gap: the step is the picture's period along the flow
+            let step = (tiles[1].0 - tiles[0].0).max(tiles[1].1 - tiles[0].1);
+            assert_eq!(step, if name == "wind_d" { 24_000 } else { 48_000 });
+            assert!(tile.w.max(tile.h) as u64 * 1000 >= step, "{name}: the picture is shorter than its step");
+            // they cover the current from one end to the other (to within a tile)
+            let last = tiles[tiles.len() - 1];
+            assert!(a.0.max(b.0) - last.0 <= 48_000 && a.1.max(b.1) - last.1 <= 48_000, "{name}: ends at {last:?}");
+        }
+        seen.sort();
+        seen.dedup();
+        assert_eq!(seen, vec!["wind_d", "wind_h", "wind_v"], "the river's diagonal, the two ways of the jungles'");
+    }
+
+    #[test]
+    fn a_fruit_is_drawn_while_the_simulation_has_it_ripe() {
+        let since = 10_000;
+        assert!(!fruit_ripe(since, &[], since + rift::FRUIT_FIRST - 1));
+        assert!(fruit_ripe(since, &[], since + rift::FRUIT_FIRST));
+        let eaten = [since + 2_000];
+        assert!(fruit_ripe(since, &eaten, since + 1_999), "wound back before it was eaten: there again");
+        assert!(!fruit_ripe(since, &eaten, since + 2_000));
+        assert!(!fruit_ripe(since, &eaten, since + 2_000 + rift::FRUIT_RESPAWN - 1));
+        assert!(fruit_ripe(since, &eaten, since + 2_000 + rift::FRUIT_RESPAWN));
+        // the simulation's own clock says the same (rift.rs)
+        let mut t = rift::Terrain::default();
+        t.start(Element::Ocean, since);
+        assert_eq!(t.ripe(0, since + rift::FRUIT_FIRST - 1), fruit_ripe(since, &[], since + rift::FRUIT_FIRST - 1));
+        assert_eq!(t.ripe(0, since + rift::FRUIT_FIRST), fruit_ripe(since, &[], since + rift::FRUIT_FIRST));
     }
 
     #[test]

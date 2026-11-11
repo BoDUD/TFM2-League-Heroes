@@ -6,7 +6,8 @@
 //! 游戏自己的文字（`text/`，百科、增益说明）是写死的文件，还写默认的秒数；本包的公告、HUD、说明框写这里的。
 //!
 //! 0.4.0 加一项 `battlefield_effects`（战场上的特效怎么画，[`super::world`]）：0 不画、1 只一格一格画、2（默认）能画贴图
-//! 就画贴图。只管画面，模拟不读它。
+//! 就画贴图。只管画面，模拟不读它。0.5.0 加一项 `rift_terrain`（元素峡谷的地形，[`super::rift`]）：1（默认）有、0 没有
+//! ——这一项是玩法，和持续时间一样加载时读一次，所有模拟都用这一份。
 use std::path::{Path, PathBuf};
 use std::sync::OnceLock;
 
@@ -23,11 +24,14 @@ pub struct Settings {
     pub baron_buff_s: usize,
     /// 战场上的特效：0 不画，1 只一格一格画，2 能画贴图就画贴图
     pub effects: usize,
+    /// 元素峡谷的地形：1 有，0 没有
+    pub terrain: usize,
 }
 
 impl Default for Settings {
     fn default() -> Self {
-        Settings { elder_buff_s: super::rules::ELDER_T / TPS, baron_buff_s: super::rules::BARON_T / TPS, effects: EFFECTS_AUTO }
+        Settings { elder_buff_s: super::rules::ELDER_T / TPS, baron_buff_s: super::rules::BARON_T / TPS, effects: EFFECTS_AUTO,
+                   terrain: 1 }
     }
 }
 
@@ -44,10 +48,11 @@ struct Key {
     set: fn(&mut Settings, usize),
 }
 
-const KEYS: [Key; 3] = [
+const KEYS: [Key; 4] = [
     Key { name: "elder_buff_seconds", lo: 10, hi: 600, set: |s, v| s.elder_buff_s = v },
     Key { name: "baron_buff_seconds", lo: 10, hi: 600, set: |s, v| s.baron_buff_s = v },
     Key { name: "battlefield_effects", lo: EFFECTS_OFF, hi: EFFECTS_AUTO, set: |s, v| s.effects = v },
+    Key { name: "rift_terrain", lo: 0, hi: 1, set: |s, v| s.terrain = v },
 ];
 
 /// The settings in `text` (the file's), and a note for every line not taken (the log's).
@@ -98,6 +103,11 @@ pub fn effects() -> usize {
     get().effects
 }
 
+/// 元素峡谷的地形开着没有。
+pub fn terrain_on() -> bool {
+    get().terrain != 0
+}
+
 /// Read `dir`/settings.ini once (at load, before any match): -> the log line.
 pub fn init(dir: Option<PathBuf>) -> String {
     let path = dir.map(|d| d.join(FILE));
@@ -111,10 +121,10 @@ pub fn init(dir: Option<PathBuf>) -> String {
     }
     let s = get();
     format!("SETTINGS {}: elder_buff_seconds {} (default {}), baron_buff_seconds {} (default {}), battlefield_effects {} \
-             (default {}: 0 none, 1 square by square, 2 the sheet when it is safe){}",
+             (default {}: 0 none, 1 square by square, 2 the sheet when it is safe), rift_terrain {} (default 1: 0 off){}",
             path.as_deref().map_or_else(|| "-".into(), |p: &Path| p.display().to_string()), s.elder_buff_s,
             Settings::default().elder_buff_s, s.baron_buff_s, Settings::default().baron_buff_s, s.effects,
-            Settings::default().effects,
+            Settings::default().effects, s.terrain,
             if notes.is_empty() { String::new() } else { format!("; {}", notes.join("; ")) })
 }
 
@@ -166,6 +176,8 @@ mod tests {
         assert_eq!(parse("battlefield_effects = 0").0.effects, EFFECTS_OFF);
         let (s, notes) = parse("battlefield_effects = 3");
         assert!(s.effects == EFFECTS_AUTO && notes[0].contains("outside 0-2"), "{notes:?}");
+        // the rift's terrain: on unless the file says 0
+        assert_eq!((d.terrain, parse("rift_terrain = 0").0.terrain, parse("rift_terrain = 1").0.terrain), (1, 0, 1));
     }
 
     #[test]

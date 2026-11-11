@@ -29,6 +29,9 @@
 //! 创意工坊的「Elemental Drakes & Baron」也开着时（水晶上有它的 `sed_*` 记录）本包什么都不做，记一行 `CONFLICT`，水晶上的状态
 //! 记录带着冲突的标记、放一件 `C`（画面请玩家关掉它）。
 //!
+//! 元素峡谷的地形（0.5.0，[`rift`]）：第二条元素亚龙被拿下后峡谷变成第三种元素，游戏自带的 5v5 地图上地形跟着变——云端的
+//! 风道、海克斯的传送门、海洋的草丛和蜂蜜果实、化学科技的毒雾、山脉的岩石（炼狱只有画面）。全在模拟里，画面由客户端扩展画。
+//!
 //! 战场上的特效（0.4.0）：屏幕放的那场模拟里每次龙魂触发、拿到龙魂、远古龙之力点燃和斩杀记一条（[`show`] -> [`feed::fx`]，
 //! 模拟不读），客户端扩展自己画进比赛的渲染层（[`fx`]、[`world`]）——本包没有英雄，`play_view_effect` 的名字用不了。
 //!
@@ -51,6 +54,8 @@ pub mod rules;
 pub mod fx;
 pub mod fx_atlas;
 pub mod world;
+// 元素峡谷的地形（第二条小龙被拿下后）：风道、传送门、草丛和蜂蜜果实、岩石
+pub mod rift;
 // 画面那一半（客户端扩展里画，只读 feed）：公告、HUD 和它们的字
 pub mod hud;
 pub mod notice;
@@ -613,6 +618,9 @@ struct Sim {
     neutralized: usize,
     proc_lines: usize,
     rebuilt: bool,
+    /// 小龙坑在哪（第一次看见小龙时记下：认地图用）；元素峡谷的地形（第二条元素亚龙被拿下后）。
+    pit: Option<(u64, u64)>,
+    terrain: rift::Terrain,
 }
 
 impl Sim {
@@ -661,6 +669,8 @@ impl Sim {
             neutralized: 0,
             proc_lines: 0,
             rebuilt: false,
+            pit: None,
+            terrain: rift::Terrain::default(),
         }
     }
 
@@ -693,6 +703,7 @@ impl Sim {
             self.ocean(sim, now);
             self.combat(sim, now, screen);
             self.boost(sim, now, screen);
+            self.terrain_step(sim, now, screen);
         }
         self.flush(sim, now, screen);
         if sim.is_end() {
@@ -758,6 +769,10 @@ impl Sim {
             }
         }
         self.ver = [self.ver[0] + 1, self.ver[1] + 1];
+        // the rift had turned already (two drakes taken): its terrain again, rising from now
+        if self.drakes >= 2 && !self.conflict && settings::terrain_on() && rift::is_base_map(&self.nexus_at(sim), None) {
+            self.terrain.start(self.order[2], now);
+        }
         say(screen.is_some(), "rebuilt", format!("{} REBUILT sim #{} from the nexus record: blue {:?} red {:?} soul {:?}{}",
                                                  head(sim), self.no, r.stacks[0], r.stacks[1], self.soul,
                                                  if r.conflict { " CONFLICT" } else { "" }));
@@ -862,6 +877,7 @@ impl Sim {
                     let element = rules::next_element(&self.order, self.drakes, self.soul.is_some());
                     sim.add_buff(ent, &BuffV1::named(&rules::marker(element)));
                     self.serpen = Some(Alive { ent, element: Some(element), pos, born: now });
+                    self.pit.get_or_insert(pos);
                     let n = self.drakes + 1;
                     if let Some((m, s)) = screen {
                         feed::drake_born(m, s, ent, element);
@@ -1010,6 +1026,9 @@ impl Sim {
                                                           head(sim), self.no, side(team), element.key(), total,
                                                           if total == 1 { "" } else { "s" }, list.join(", ")));
                     self.emit(sim, now, Ev::Drake { team, element, total }, feed::What::Drake { team, element, total }, screen);
+                    if self.drakes == 2 {
+                        self.rift_turns(sim, now, screen);
+                    }
                     if rules::soul_claimed(total, self.soul.is_some()) {
                         let soul = self.order[2];
                         self.soul = Some((team, soul));
@@ -1073,6 +1092,73 @@ impl Sim {
     fn holding(&self, elder: bool, seat: usize, ent: usize, now: usize) -> Option<usize> {
         let team = self.seats.get(seat)?.team;
         self.hold(elder, team).filter(|h| now < h.until && h.holders.contains(&(seat, ent))).map(|h| h.until)
+    }
+
+    // ---------- 元素峡谷的地形 ----------
+
+    fn nexus_at(&self, sim: &StableSim<'_>) -> Vec<(u64, u64)> {
+        self.nexus.iter().filter_map(|&n| sim.get_entity(n).map(|e| e.pos())).collect()
+    }
+
+    /// 第二条元素亚龙被拿下：峡谷变成第三种元素。游戏自带的 5v5 地图上地形跟着变（[`rift`]），别的地图没有。
+    fn rift_turns(&mut self, sim: &mut StableSim<'_>, now: usize, screen: Option<(u64, u64)>) {
+        let element = self.order[2];
+        if !settings::terrain_on() {
+            say(screen.is_some(), "rift", format!("{} RIFT sim #{} the rift turns {} - no terrain: rift_terrain = 0 in settings.ini",
+                                                  head(sim), self.no, element.key()));
+            return;
+        }
+        let nexus = self.nexus_at(sim);
+        if !rift::is_base_map(&nexus, self.pit) {
+            say(screen.is_some(), "rift", format!(
+                "{} RIFT sim #{} the rift turns {} - no terrain here: not the game's own 5v5 map (nexuses at {nexus:?}, the dragon pit at {:?})",
+                head(sim), self.no, element.key(), self.pit));
+            return;
+        }
+        self.terrain.start(element, now);
+        let what = match element {
+            Element::Cloud => format!("{} wind currents, +{}% move speed in them", rift::CURRENTS.len(), rift::WIND_MS),
+            Element::Hextech => format!("{} pairs of hex-gates", rift::GATES.len()),
+            Element::Ocean => format!("{} patches of brush, {} honeyfruit", rift::OCEAN_BRUSH.len(), rift::FRUITS.len()),
+            Element::Chemtech => format!("{} patches of chem-fog", rift::CHEM_BRUSH.len()),
+            Element::Mountain => format!("{} rocks", rift::ROCKS.len()),
+            _ => "burning walls on screen only".to_string(),
+        };
+        say(screen.is_some(), "rift", format!("{} RIFT sim #{} the rift turns {}: {what}, live from t={}", head(sim), self.no,
+                                              element.key(), now + rift::RISE_T));
+        self.emit(sim, now, Ev::Rift { element }, feed::What::Rift { element }, screen);
+    }
+
+    /// 地形的每一 tick（[`rift::Terrain::step`]），发生的事记日志、给画面放特效。
+    fn terrain_step(&mut self, sim: &mut StableSim<'_>, now: usize, screen: Option<(u64, u64)>) {
+        if self.terrain.rift.is_none() {
+            return;
+        }
+        let seats: Vec<(usize, usize)> = self.seats.iter().map(|s| (s.player, s.team)).collect();
+        let mut out = Vec::new();
+        self.terrain.step(sim, now, &seats, &mut out);
+        for h in out {
+            match h {
+                rift::Happening::Gate { seat, from, to } => {
+                    say(screen.is_some(), "gate", format!("{} GATE sim #{} {} walks onto the hex-gate at {from:?}: now at {to:?} (jump {})",
+                                                          head(sim), self.no, self.who(seat), self.terrain.jumps));
+                    show(screen, now, fx::Kind::Gate, from, vec![to]);
+                }
+                rift::Happening::Fruit { seat, fruit, heal } => {
+                    say(screen.is_some(), "fruit", format!("{} FRUIT sim #{} {} eats honeyfruit {fruit}: {heal} health (the next there at t={})",
+                                                           head(sim), self.no, self.who(seat), now + rift::FRUIT_RESPAWN));
+                    show(screen, now, fx::Kind::Fruit(fruit as u8), rift::FRUITS[fruit], Vec::new());
+                }
+                rift::Happening::Hidden { seat, brush } => {
+                    say(screen.is_some(), "brush", format!("{} BRUSH sim #{} {} is hidden in patch {brush} (hide {})", head(sim),
+                                                           self.no, self.who(seat), self.terrain.hides));
+                }
+                rift::Happening::Through { seat, rock } => {
+                    say(screen.is_some(), "rock", format!("{} ROCK sim #{} {} was held by rock {rock} for {} ticks: let through to its far side",
+                                                          head(sim), self.no, self.who(seat), rift::STUCK_T));
+                }
+            }
+        }
     }
 
     // ---------- 英雄身上的 buff ----------
@@ -1668,12 +1754,15 @@ impl Sim {
         };
         let count = |c: char| self.events.iter().filter(|e| e.1.code() == c).count();
         say(screen.is_some(), "end", format!(
-            "{} END sim #{} (from t={}): order {}/{}/{}{}; blue {} red {}; soul {}; elders {} barons {} executes {}; procs infernal {} mountain {} ocean {} cloud {} hextech {} chemtech {}; burn damage {}, ocean heals {}, shields {}, minion boosts {}, neutralizers hung {}; stats {:?} / hits by {:?}",
+            "{} END sim #{} (from t={}): order {}/{}/{}{}; blue {} red {}; soul {}; elders {} barons {} executes {}; procs infernal {} mountain {} ocean {} cloud {} hextech {} chemtech {}; burn damage {}, ocean heals {}, shields {}, minion boosts {}, neutralizers hung {}; terrain {}: wind {} gate jumps {} fruit {} (+{}) hides {} rock pushes {} let through {}; stats {:?} / hits by {:?}",
             head(sim), self.no, self.born, self.order[0].key(), self.order[1].key(), self.order[2].key(),
             if self.conflict { " CONFLICT (nothing applied)" } else { "" }, stacks(0), stacks(1),
             self.soul.map_or("none".to_string(), |(t, e)| format!("{} {}", side(t), e.key())), count('K'), count('B'),
             self.executes, self.procs[0], self.procs[1], self.procs[2], self.procs[3], self.procs[4], self.procs[5], self.burnt,
-            self.ocean_healed, self.shields, self.boosts, self.neutralized, self.stats, self.deal_way));
+            self.ocean_healed, self.shields, self.boosts, self.neutralized,
+            self.terrain.rift.map_or("none".to_string(), |r| format!("{} from t={}", r.0.key(), r.1)), self.terrain.winds,
+            self.terrain.jumps, self.terrain.eaten, self.terrain.healed, self.terrain.hides, self.terrain.pushes,
+            self.terrain.through, self.stats, self.deal_way));
     }
 }
 
@@ -1700,7 +1789,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (League's elemental drakes in League's order with stacks that replace the game's drake buff, Dragon Soul, the Elder Dragon's burn and execute, Baron Nashor's hand and empowered minions; notices and a HUD on screen; the drakes drawn by element, the Elder and Baron Nashor as Codex's models; the souls' triggers, the soul taken, the Elder's burn and execute as effects on the battlefield) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (League's elemental drakes in League's order with stacks that replace the game's drake buff, Dragon Soul, the Elder Dragon's burn and execute, Baron Nashor's hand and empowered minions; notices and a HUD on screen; the drakes drawn by element, the Elder and Baron Nashor as Codex's models; the souls' triggers, the soul taken, the Elder's burn and execute as effects on the battlefield; the elemental rift's terrain after the second drake) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,

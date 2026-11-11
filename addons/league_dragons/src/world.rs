@@ -302,6 +302,8 @@ pub struct View {
     pub shift: (f32, f32),
     pub z: i32,
     pub sprites: bool,
+    /// 镜头这一帧看着的矩形（`"Game"` 里的左上角和宽高；游戏没推镜头命令：None）。
+    pub camera: Option<(f32, f32, f32, f32)>,
 }
 
 impl View {
@@ -441,7 +443,7 @@ pub fn view(ctx: &StableClient<'_>, m: u64, s: u64, t: usize) -> Option<View> {
     let (z, sprites) = seen.plan.unwrap_or((Z_ALONE, false));
     tell(&mut seen, format!("WORLD on: this mod's effects are drawn in the match world (sprites {})",
                             if sprites { "on" } else { "OFF: only what is drawn square by square" }));
-    Some(View { scale: scope.scale, shift: scope.shift, z, sprites })
+    Some(View { scale: scope.scale, shift: scope.shift, z, sprites, camera: scope.camera })
 }
 
 /// 画一帧动画：`frame` 那一帧的锚点放在模拟里的 `at` 上。
@@ -454,6 +456,24 @@ pub fn sprite(ctx: &mut StableClient<'_>, v: &View, a: &Anim, frame: usize, at: 
     ctx.draw_sprite(GAME, SHEET_TEX, &StableSpriteParams {
         x,
         y,
+        z: v.z,
+        pivot_x: pivot.0,
+        pivot_y: pivot.1,
+        uv,
+        sample_nearest: true,
+        ..StableSpriteParams::default()
+    })
+}
+
+/// 画一帧动画，锚点放在 `"Game"` 里的 `at`（不跟着世界走的东西：海洋峡谷的雨铺在镜头看着的那一块上）。
+pub fn sprite_on_map(ctx: &mut StableClient<'_>, v: &View, a: &Anim, frame: usize, at: (f32, f32)) -> bool {
+    if !v.sprites {
+        return false;
+    }
+    let (uv, pivot) = uv_of(a, frame);
+    ctx.draw_sprite(GAME, SHEET_TEX, &StableSpriteParams {
+        x: at.0,
+        y: at.1,
         z: v.z,
         pivot_x: pivot.0,
         pivot_y: pivot.1,
@@ -597,7 +617,7 @@ pub(crate) mod tests {
         assert_eq!(Scope { pop_at: sc.pop_at, ..quick }, sc);
         assert_eq!(sc.camera, Some((704.0, 844.0, 640.0, 360.0)));
         // a point of the simulation lands where the game draws it: 1000 units a pixel, then the game's shift
-        let v = View { scale: sc.scale, shift: sc.shift, z: 7, sprites: true };
+        let v = View { scale: sc.scale, shift: sc.shift, z: 7, sprites: true, camera: sc.camera };
         assert_eq!(v.map((672_000, 672_000)), (672.0 + 544.0, 672.0 + 380.5));
         // on the world's whole pixels like the game's own pictures, the camera's fraction of a pixel on top
         assert_eq!(v.map((672_400, 671_600)), (672.0 + 544.0, 672.0 + 380.5));

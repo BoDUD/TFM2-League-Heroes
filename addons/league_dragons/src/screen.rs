@@ -172,9 +172,14 @@ pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
     if hud::over(feed::ended_at(m, s), t) {
         return;
     }
-    // the effects on the battlefield (the souls' triggers, the Elder's burn and execute), under the notices and the HUD
-    fx::draw(ctx, m, s, t);
     let events = feed::events(m, s);
+    // the rift's terrain once it has turned (the last such event up to now), then the effects on the battlefield (the
+    // souls' triggers, the Elder's burn and execute, a gate's flash), all under the notices and the HUD
+    let terrain = events.iter().rev().find_map(|e| match e.what {
+        feed::What::Rift { element } if e.tick <= t => Some((element, e.tick)),
+        _ => None,
+    });
+    fx::draw(ctx, m, s, t, terrain);
     let rec = feed::record_at(m, s, t);
     if events.is_empty() && rec.is_none() {
         return;
@@ -226,7 +231,7 @@ pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
     }
     hud::draw(ctx, at, &h, lang, &mx);
     if !h.conflict && cursor_ui(ui).is_some_and(|(cx, cy)| cx >= at.0 && cx < at.0 + at.2 && cy >= at.1 && cy < at.1 + at.3) {
-        hud::draw_tip(ctx, at, &rec, lang, &mx, ui);
+        hud::draw_tip(ctx, at, &rec, terrain.map(|r| r.0), lang, &mx, ui);
     }
     dots(ctx, &rec, t, m, s);
 }

@@ -238,6 +238,49 @@ pub fn soul_effect(lang: Lang, e: Element) -> String {
     }
 }
 
+/// 峡谷的名字：云端峡谷 / 雲端峽谷 / Cloud Rift。
+pub fn rift(lang: Lang, e: Element) -> String {
+    let n = element(lang, e);
+    pick(lang, format!("{n}峡谷"), format!("{n}峽谷"), format!("{n} Rift"))
+}
+
+/// 这种峡谷的地形做什么（数字从 `rift.rs` 来）。
+pub fn rift_effect(lang: Lang, e: Element) -> String {
+    use super::rift;
+    match e {
+        Element::Cloud => {
+            let p = rift::WIND_MS;
+            pick(lang, format!("河道和野区吹起风道：英雄在风道里移速 +{p}%"), format!("河道和野區吹起風道：英雄在風道裡移速 +{p}%"),
+                 format!("wind currents in the river and the jungle: +{p}% move speed inside them"))
+        }
+        Element::Hextech => {
+            let s = secs(rift::GATE_CD);
+            pick(lang, format!("野区和龙坑、男爵坑旁出现成对的传送门：脱战时朝着另一头走上去就传过去（每人 {s} 秒一次）"),
+                 format!("野區和龍坑、巴龍坑旁出現成對的傳送門：脫戰時朝著另一頭走上去就傳過去（每人 {s} 秒一次）"),
+                 format!("paired hex-gates in the jungle and by the pits: out of combat, walk onto one toward its twin to travel (once every {s} s)"))
+        }
+        Element::Ocean => {
+            pick(lang, "河道和野区长出新的草丛和蜂蜜果实：草丛里藏身（出手就现形），受伤的英雄吃果实回血".to_string(),
+                 "河道和野區長出新的草叢和蜂蜜果實：草叢裡藏身（出手就現形），受傷的英雄吃果實回血".to_string(),
+                 "new brush and honeyfruit in the river and the jungle: hide in the brush (attacking reveals), the hurt eat fruit to heal".to_string())
+        }
+        Element::Chemtech => {
+            pick(lang, "野区和龙坑旁升起毒雾：站在雾里敌人看不见（出手就现形）".to_string(),
+                 "野區和龍坑旁升起毒霧：站在霧裡敵人看不見（出手就現形）".to_string(),
+                 "chem-fog in the jungle and by the dragon pit: unseen inside it (attacking reveals)".to_string())
+        }
+        Element::Mountain => {
+            pick(lang, "河道口和野区升起岩石，挡住去路".to_string(), "河道口和野區升起岩石，擋住去路".to_string(),
+                 "rocks rise at the pits' mouths and in the jungle, blocking the way".to_string())
+        }
+        Element::Infernal => {
+            pick(lang, "龙坑和男爵坑的岩壁燃起烈火（草丛和墙不变）".to_string(), "龍坑和巴龍坑的岩壁燃起烈火（草叢和牆不變）".to_string(),
+                 "the pits' walls catch fire (brush and walls stay as they are)".to_string())
+        }
+        Element::Elder => String::new(),
+    }
+}
+
 /// 拿到远古龙之力 / 纳什男爵之手的人：全队都拿到（5 个）写「全队」，一个都没有（都死着）写空。
 fn holders(lang: Lang, ids: &[String], name: &dyn Fn(&str) -> String) -> String {
     if ids.len() >= 5 {
@@ -318,6 +361,12 @@ pub fn notice(lang: Lang, what: &What, name: &dyn Fn(&str) -> String) -> (String
             en = (format!("{} has slain Baron Nashor! Minions empowered", team(Lang::En, *t)),
                   if w.is_empty() { fx } else { format!("{w}: {fx}") });
         }
+        What::Rift { element } => {
+            let e = *element;
+            hans = (format!("峡谷变成了{}！", rift(Lang::Hans, e)), rift_effect(Lang::Hans, e));
+            hant = (format!("峽谷變成了{}！", rift(Lang::Hant, e)), rift_effect(Lang::Hant, e));
+            en = (format!("The rift has turned into the {}!", rift(Lang::En, e)), rift_effect(Lang::En, e));
+        }
         What::Conflict => {
             hans = ("检测到创意工坊模组 Elemental Drakes & Baron".into(), "请在模组列表里关掉它，本模组的龙才会生效".into());
             hant = ("偵測到創意工坊模組 Elemental Drakes & Baron".into(), "請在模組列表裡關掉它，本模組的龍才會生效".into());
@@ -389,7 +438,7 @@ pub fn stack_total(lang: Lang, e: Element, n: u8) -> String {
 
 /// 鼠标停在 HUD 上时的说明框：每一行 (文字, 颜色 0xRRGGBBAA, 粗体)。两队现在的加成、每种元素每层的加成、龙魂、远古巨龙、
 /// 纳什男爵（用户：「这个面板里面我也看不到详细的小龙加成说明 起码也要做到我悬浮的时候 有个说明框吧」）。
-pub fn tip_lines(lang: Lang, rec: &rules::Record) -> Vec<(String, u32, bool)> {
+pub fn tip_lines(lang: Lang, rec: &rules::Record, terrain: Option<Element>) -> Vec<(String, u32, bool)> {
     const GOLD: u32 = 0xff_d8_8a_ff;
     const DIM: u32 = 0xa8_a4_9c_ff;
     let mut out = vec![(pick(lang, "元素亚龙：拿下后全队永久加成，可以叠加", "元素亞龍：拿下後全隊永久加成，可以疊加",
@@ -420,6 +469,10 @@ pub fn tip_lines(lang: Lang, rec: &rules::Record) -> Vec<(String, u32, bool)> {
                                   soul_effect(lang, e)), colour_text(e), false));
             }
         }
+    }
+    // the rift's terrain, once it has changed (only on the game's own 5v5 map)
+    if let Some(e) = terrain {
+        out.push((format!("{}：{}", rift(lang, e), rift_effect(lang, e)), colour_text(e), false));
     }
     let (s, p) = (secs(super::settings::elder_t()), rules::EXECUTE_PCT);
     out.push((pick(lang, format!("远古巨龙：龙魂之后刷新；击杀后 {s} 秒点燃敌方英雄，生命低于 {p}% 时斩杀"),
@@ -478,7 +531,7 @@ mod tests {
         let mut r = rules::Record { order: [6, 3, 2], ..rules::Record::default() };
         r.stacks[1] = [0, 0, 0, 0, 0, 1];           // red: one chemtech
         r.stacks[0] = [2, 0, 0, 0, 0, 0];           // blue: two infernal
-        let lines: Vec<String> = tip_lines(Lang::Hans, &r).into_iter().map(|l| l.0).collect();
+        let lines: Vec<String> = tip_lines(Lang::Hans, &r, None).into_iter().map(|l| l.0).collect();
         let all = lines.join("
 ");
         assert!(all.contains("蓝色方：炼狱 ×2（攻击力、法强 +16%）") || all.contains("蓝方：炼狱 ×2（攻击力、法强 +16%）"), "{all}");
@@ -490,7 +543,7 @@ mod tests {
         let early = |taken: [u8; 6], alive: bool| {
             let mut e = rules::Record { order: [6, 3, 2], serpen_alive: alive, ..rules::Record::default() };
             e.stacks[0] = taken;
-            tip_lines(Lang::Hans, &e).into_iter().map(|l| l.0).collect::<Vec<_>>().join("
+            tip_lines(Lang::Hans, &e, None).into_iter().map(|l| l.0).collect::<Vec<_>>().join("
 ")
         };
         assert!(!early([0; 6], true).contains("龙魂（"), "the first drake");
@@ -498,9 +551,14 @@ mod tests {
         assert!(early([1, 0, 0, 0, 0, 1], false).contains("山脉龙魂（"), "two taken, the third not out yet");
         // a soul claimed: who has it instead of the hint
         r.soul = Some((1, 2));
-        let all: String = tip_lines(Lang::Hans, &r).into_iter().map(|l| l.0).collect::<Vec<_>>().join("
+        let all: String = tip_lines(Lang::Hans, &r, None).into_iter().map(|l| l.0).collect::<Vec<_>>().join("
 ");
         assert!(all.contains("拿到了山脉龙魂："), "{all}");
+        // the rift's terrain once it has turned (the game's own 5v5 map): its own line, in every language
+        assert!(!all.contains("峡谷："), "{all}");
+        let with = |lang| tip_lines(lang, &r, Some(Element::Cloud)).into_iter().map(|l| l.0).collect::<Vec<_>>();
+        assert!(with(Lang::Hans).contains(&"云端峡谷：河道和野区吹起风道：英雄在风道里移速 +20%".to_string()), "{:?}", with(Lang::Hans));
+        assert!(with(Lang::Hant).iter().any(|l| l.starts_with("雲端峽谷：")) && with(Lang::En).iter().any(|l| l.starts_with("Cloud Rift:") || l.starts_with("Cloud Rift：")));
     }
 
     use super::*;
@@ -527,6 +585,7 @@ mod tests {
             v.push(What::Drake { team: 0, element: e, total: 1 });
             v.push(What::Drake { team: 1, element: e, total: 3 });
             v.push(What::Soul { team: 1, element: e });
+            v.push(What::Rift { element: e });
         }
         v
     }
@@ -564,6 +623,25 @@ mod tests {
         assert_eq!(d(What::Soul { team: 0, element: Element::Hextech }), "每 2.5 秒，下一次命中放出连锁闪电，减速敌人");
         assert_eq!(d(What::Soul { team: 0, element: Element::Chemtech }), "生命低于 50% 时韧性 +15%、伤害 +12%、受到的伤害 -12%");
         assert!(d(What::Execute { team: 0, killer: "a".into(), victim: "b".into() }).is_empty());
+    }
+
+    /// The rift's turn: its name and what its terrain does, the numbers from rift.rs.
+    #[test]
+    fn the_rifts_turn_is_announced_with_what_it_does() {
+        let n = |lang, e| notice(lang, &What::Rift { element: e }, &name);
+        assert_eq!(n(Lang::Hans, Element::Cloud),
+                   ("峡谷变成了云端峡谷！".to_string(), "河道和野区吹起风道：英雄在风道里移速 +20%".to_string()));
+        assert_eq!(n(Lang::Hans, Element::Hextech).1,
+                   "野区和龙坑、男爵坑旁出现成对的传送门：脱战时朝着另一头走上去就传过去（每人 20 秒一次）");
+        assert_eq!(n(Lang::Hant, Element::Mountain), ("峽谷變成了山脈峽谷！".to_string(), "河道口和野區升起岩石，擋住去路".to_string()));
+        assert_eq!(n(Lang::En, Element::Ocean).0, "The rift has turned into the Ocean Rift!");
+        assert!(n(Lang::Hans, Element::Infernal).1.contains("草丛和墙不变"), "the Infernal rift says what it cannot do");
+        for e in rules::DRAKES {
+            for lang in [Lang::Hans, Lang::Hant, Lang::En] {
+                assert!(!rift_effect(lang, e).is_empty() && rift(lang, e).contains(element(lang, e)));
+            }
+        }
+        assert!(rift_effect(Lang::En, Element::Elder).is_empty());
     }
 
     #[test]
