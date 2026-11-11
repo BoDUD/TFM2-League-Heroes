@@ -56,6 +56,10 @@ pub const KAISA_CC: &str = "league_marks_kaisa_c";
 pub const KAISA_W2: &str = "league_marks_kaisa_w2";
 pub const KAISA_W3: &str = "league_marks_kaisa_w3";
 pub const KAISA_LIFE: usize = 240;
+/// The six crowd-control states of `EnemyChampionInCC` (the SDK's `CastingTarget::check`, mask 0x347): a champion struck
+/// in one of them gets the extra Plasma stack (0.1.5: the copy's twin on that target is gone, see [`kaisa_hits`]).
+const IN_CC: [CcKindV1; 6] =
+    [CcKindV1::Airborne, CcKindV1::Stun, CcKindV1::Bind, CcKindV1::ForceMove, CcKindV1::Fear, CcKindV1::Charm];
 pub const LUX_LIT: &str = "league_marks_lux_lit";
 pub const LUX_HIT: &str = "league_marks_lux_hit";
 pub const MF_ASK: &str = "league_marks_mf_ask";
@@ -221,6 +225,26 @@ pub fn kaisa_hit(n: usize, add: usize, attack: bool) -> (usize, Option<usize>, b
     }
 }
 
+/// Kai'Sa: the Plasma hits to count this tick out of the marks `gathered` ((target, kind): 0 her attack, 1 the
+/// crowd-control stack, 2 / 3 W) - 0.1.5, the user 2026-11-11 「卡莎是真有点问题」「也不平A」. Her copy's attack is one
+/// bolt now that marks whatever it strikes (make_override.py `one_bolt`: an attack with a champion-only twin that deals
+/// no damage reads to the game's AI as doing none to champions), so only champions count; a champion struck while
+/// `in_cc` gets the crowd-control stack too, unless its own `KAISA_CC` mark is among them (an older copy of her kit in a
+/// career save still has the twin). Her attack first (its extra hit reads the stacks before it), then CC, then W.
+pub fn kaisa_hits(
+    gathered: &[(usize, usize)],
+    champion: impl Fn(usize) -> bool,
+    in_cc: impl Fn(usize) -> bool,
+) -> Vec<(usize, usize)> {
+    let mut out: Vec<(usize, usize)> = gathered.iter().copied().filter(|&(t, _)| champion(t)).collect();
+    let twin = |t: usize, out: &[(usize, usize)]| out.iter().any(|&(u, k)| u == t && k == 1);
+    let extra: Vec<(usize, usize)> =
+        out.iter().filter(|&&(t, k)| k == 0 && in_cc(t) && !twin(t, &out)).map(|&(t, _)| (t, 1)).collect();
+    out.extend(extra);
+    out.sort_by_key(|&(_, k)| k);
+    out
+}
+
 /// (target, which of `marks`) for every mark on a living enemy of `team` (twice when it carries two).
 fn gather(sim: &StableSim<'_>, team: usize, marks: &[&str]) -> Vec<(usize, usize)> {
     let mut out = Vec::new();
@@ -333,9 +357,17 @@ impl StablePassive for Kaisa {
         let Some(e) = sim.get_entity(me) else { return };
         let (team, attack, power) = (e.team(), e.stat().attack, e.stat().magic_power);
         let now = sim.tick();
-        // her attack first (its extra hit reads the stacks before it), then the CC twin, then W
-        let mut hits = gather(sim, team, &[KAISA_ATTACK, KAISA_CC, KAISA_W2, KAISA_W3]);
-        hits.sort_by_key(|&(_, k)| k);
+        // champions only, the crowd-control stack added (kaisa_hits); the marks on minions, monsters and towers run out
+        let gathered = gather(sim, team, &[KAISA_ATTACK, KAISA_CC, KAISA_W2, KAISA_W3]);
+        let hits = kaisa_hits(
+            &gathered,
+            |t| sim.get_entity(t).is_some_and(|e| e.is_champion()),
+            |t| {
+                sim.get_entity(t).is_some_and(|e| {
+                    (0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| IN_CC.iter().any(|k| k.code() == c.kind)))
+                })
+            },
+        );
         for name in [KAISA_ATTACK, KAISA_CC, KAISA_W2, KAISA_W3] {
             for &(target, _) in hits.iter() {
                 sim.entity_remove_buff(target, name);
@@ -506,6 +538,28 @@ mod tests {
         assert_eq!(kaisa_hit(4, 1, true), (0, Some(4), true));
         assert_eq!(kaisa_hit(2, 3, false), (0, None, true));
         assert_eq!(kaisa_hit(1, 2, false), (3, None, false));
+    }
+
+    #[test]
+    fn kaisa_counts_champions_and_adds_the_cc_stack() {
+        let champ = |t: usize| t != 9; // 9: a minion the bolt struck
+        let cc = |t: usize| t == 3;
+        assert_eq!(kaisa_hits(&[(9, 0), (3, 0), (4, 0)], champ, cc), vec![(3, 0), (4, 0), (3, 1)]);
+        // an older copy (twin still in a career save) marks KAISA_CC itself: no second stack
+        assert_eq!(kaisa_hits(&[(3, 0), (3, 1)], champ, cc), vec![(3, 0), (3, 1)]);
+        assert_eq!(kaisa_hits(&[(4, 2), (4, 0), (9, 3)], champ, cc), vec![(4, 0), (4, 2)]);
+    }
+
+    #[test]
+    fn kaisa_attacks_with_one_damaging_bolt() {
+        // the copy's attack holds no projectile that only champions take (make_override.py one_bolt): the game's AI
+        // reads one that carries no damage as an attack doing none to champions
+        // from this crate's folder or league_addons' (the bundle compiles this file as its module): both sit in addons/
+        let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../league_marks/override/league_kaisa.data_champion");
+        let raw = std::fs::read_to_string(&path).unwrap().replace("\r\n", "\n");
+        let attack = raw.split("\n  \"attack\": {").nth(1).and_then(|r| r.split("\n  \"skill\": {").next()).expect("attack");
+        assert!(!attack.contains("\"applied_target\": \"EnemyChampion"), "a champion-only projectile in her attack");
+        assert!(attack.contains(&format!("\"name\": \"{KAISA_ATTACK}\"")), "her attack no longer marks its target");
     }
 
     #[test]

@@ -3,9 +3,13 @@
 //! 电竞大脑的两轮平衡补丁都给她加强（她的胜率低），同一版却削了金克丝、泽丽、赛娜、千珏。旧版 AI（经典 SDK 0.5.1 的模拟）里
 //! 她 10 分钟普攻英雄 47–58 次，和韦鲁斯一样；现在的 AI 那时让她干什么，现有的日志都看不出来。
 //!
-//! 观察钩子 `league_ai_watch:watch` 挂在所有玩家上，优先级最低，**永远不改 AI 的输入**（think 一律返回 None），只看射手
-//! （[`RANGES`]：主包 category 为 Range 的英雄）。游戏的 AI 只在它做决定的 tick 下命令，别的 tick 没有命令、英雄照着上一道
-//! 命令做（league_recall_log 0.1.3 的发现），所以这里按「她手上的命令」（AI 最近下的那一道）分类。
+//! 观察钩子 `league_ai_watch:watch` 挂在所有玩家上，优先级最低，**永远不改 AI 的输入**（think 一律返回 None），看主包的
+//! 每位英雄（[`RANGES`]；0.2.0 只看射手：category 为 Range 的 29 位）。游戏的 AI 只在它做决定的 tick 下命令，别的 tick 没有
+//! 命令、英雄照着上一道命令做（league_recall_log 0.1.3 的发现），所以这里按「她手上的命令」（AI 最近下的那一道）分类。
+//!
+//! 0.2.0 的第一个比赛日（5v5，射手）：敌方英雄在普攻距离内的时间人人差不多（每活 1 分钟 2.5–3 秒），但卡莎、德莱文、
+//! 莎弥拉、男枪在那时几乎不打英雄（折合每分钟 3–12 次，别的射手 100–157 次）。四个人的普攻里都有一颗只打英雄、自己不带
+//! 伤害的投射物（击杀判定、标记），别的射手没有。这种投射物近战、法师身上也有，0.3.0 起每个人都记，好和没有的比。
 //!
 //! 她活着的每一 tick：
 //! - 最近的、看得见、选得中的敌方英雄有多远；在她的普攻距离内（中心到中心）算「够得着」；
@@ -14,9 +18,9 @@
 //!   没有命令；人在不在动；
 //! - 普攻出手几次（普攻冷却从 0 开始走），打的是英雄还是别的（出手前最近那道普攻命令的目标）；Q / W / R 各放了几次。
 //!
-//! 一连 [`IDLE_MIN`] tick 够得着、普攻好了却没出手，结束时写一行 `IDLE`：多久、那段时间她手上的命令、敌人多远、她离敌方
-//! 的塔多远、血量、Q / W 好没好、怎么结束的。每 [`SUM_EVERY`] tick 每个射手写一行 `SUM`：这一局到这时的累计（一局的最后一行
-//! 就是整局）。
+//! 射手一连 [`IDLE_MIN`] tick 够得着、普攻好了却没出手，结束时写一行 `IDLE`：多久、那段时间她手上的命令、敌人多远、她离
+//! 敌方的塔多远、血量、Q / W 好没好、怎么结束的（别的英雄只计数）。每 [`SUM_EVERY`] tick 每个射手、每 [`SUM_EVERY_OTHERS`]
+//! tick 别的英雄写一行 `SUM`：这一局到这时的累计（一局的最后一行就是整局）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ai_watch.log`，每次启动游戏重写，上一次的留在 .prev.log；
 //! 你看的那场全记，其余（服务端的预模拟）一次启动最多 [`LOG_CAP`] 行。
@@ -39,47 +43,195 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_ai_watch") {
 /// 观察钩子的优先级：最低（只看不改）。
 const WATCH_PRIORITY: i32 = -2_000_000;
 
-/// 主包的射手（数据里 category 为 Range）和她们的普攻距离（attack.range；测试拿数据对）。引擎的接口在运行时读不到普攻距离。
-pub const RANGES: [(&str, u64); 29] = [
-    ("league_akshan", 55000),
-    ("league_aphelios", 55000),
-    ("league_ashe", 60000),
-    ("league_caitlyn", 65000),
-    ("league_corki", 55000),
-    ("league_draven", 55000),
-    ("league_ezreal", 55000),
-    ("league_graves", 46000),
-    ("league_jhin", 55000),
-    ("league_jinx", 64500),
-    ("league_kaisa", 55000),
-    ("league_kalista", 52500),
-    ("league_kindred", 55000),
-    ("league_kogmaw", 55000),
-    ("league_lucian", 55000),
-    ("league_missfortune", 55000),
-    ("league_nilah", 30000),
-    ("league_quinn", 52500),
-    ("league_samira", 55000),
-    ("league_senna", 62000),
-    ("league_sivir", 55000),
-    ("league_smolder", 55000),
-    ("league_tristana", 55000),
-    ("league_twitch", 55000),
-    ("league_varus", 57500),
-    ("league_vayne", 55000),
-    ("league_xayah", 57500),
-    ("league_yunara", 57500),
-    ("league_zeri", 60000),
+/// 主包的每位英雄、普攻距离（数据的 attack.range）和 category（测试拿数据对）。引擎的接口在运行时读不到普攻距离。
+/// 0.3.0（2026-11-11）：从射手扩到全部英雄——射手的数据显示，普攻里有一颗只打英雄、不带伤害的投射物的人，游戏的 AI
+/// 几乎不让她打英雄；这种投射物（击杀判定、标记）近战、法师身上也有，要和没有的比。
+pub const RANGES: [(&str, u64, &str); 173] = [
+    ("league_aatrox", 26000, "Melee"),
+    ("league_ahri", 55000, "Magician"),
+    ("league_akali", 24000, "Assassin"),
+    ("league_akshan", 55000, "Range"),
+    ("league_alistar", 25000, "Util"),
+    ("league_ambessa", 25000, "Melee"),
+    ("league_amumu", 25000, "Melee"),
+    ("league_anivia", 55000, "Magician"),
+    ("league_annie", 60000, "Magician"),
+    ("league_aphelios", 55000, "Range"),
+    ("league_ashe", 60000, "Range"),
+    ("league_aurelionsol", 55000, "Magician"),
+    ("league_aurora", 55000, "Magician"),
+    ("league_azir", 52500, "Magician"),
+    ("league_bard", 52000, "Util"),
+    ("league_belveth", 24000, "Melee"),
+    ("league_blitzcrank", 25000, "Util"),
+    ("league_brand", 52000, "Magician"),
+    ("league_braum", 25000, "Util"),
+    ("league_briar", 24000, "Assassin"),
+    ("league_caitlyn", 65000, "Range"),
+    ("league_camille", 25000, "Melee"),
+    ("league_cassiopeia", 60000, "Magician"),
+    ("league_chogath", 26000, "Melee"),
+    ("league_corki", 55000, "Range"),
+    ("league_darius", 25000, "Melee"),
+    ("league_diana", 24000, "Assassin"),
+    ("league_draven", 55000, "Range"),
+    ("league_drmundo", 25000, "Melee"),
+    ("league_ekko", 24000, "Assassin"),
+    ("league_elise", 23000, "Assassin"),
+    ("league_evelynn", 24000, "Assassin"),
+    ("league_ezreal", 55000, "Range"),
+    ("league_fiddlesticks", 50000, "Magician"),
+    ("league_fiora", 25000, "Melee"),
+    ("league_fizz", 24000, "Assassin"),
+    ("league_galio", 25000, "Melee"),
+    ("league_gangplank", 26000, "Melee"),
+    ("league_garen", 25000, "Melee"),
+    ("league_gnar", 25000, "Melee"),
+    ("league_gragas", 25000, "Melee"),
+    ("league_graves", 46000, "Range"),
+    ("league_gwen", 24000, "Assassin"),
+    ("league_hecarim", 25000, "Melee"),
+    ("league_heimerdinger", 55000, "Magician"),
+    ("league_hwei", 55000, "Magician"),
+    ("league_illaoi", 25000, "Melee"),
+    ("league_irelia", 25000, "Melee"),
+    ("league_ivern", 47500, "Util"),
+    ("league_janna", 60000, "Util"),
+    ("league_jarvaniv", 26000, "Melee"),
+    ("league_jax", 25000, "Melee"),
+    ("league_jayce", 25000, "Melee"),
+    ("league_jhin", 55000, "Range"),
+    ("league_jinx", 64500, "Range"),
+    ("league_kaisa", 55000, "Range"),
+    ("league_kalista", 52500, "Range"),
+    ("league_karma", 55000, "Util"),
+    ("league_karthus", 50000, "Magician"),
+    ("league_kassadin", 24000, "Assassin"),
+    ("league_katarina", 23000, "Assassin"),
+    ("league_kayle", 25000, "Magician"),
+    ("league_kayn", 24000, "Assassin"),
+    ("league_kennen", 55000, "Magician"),
+    ("league_khazix", 23000, "Assassin"),
+    ("league_kindred", 55000, "Range"),
+    ("league_kled", 25000, "Melee"),
+    ("league_kogmaw", 55000, "Range"),
+    ("league_ksante", 25000, "Melee"),
+    ("league_leblanc", 52500, "Magician"),
+    ("league_leesin", 23000, "Assassin"),
+    ("league_leona", 25000, "Util"),
+    ("league_lillia", 25000, "Melee"),
+    ("league_lissandra", 55000, "Magician"),
+    ("league_locke", 23000, "Assassin"),
+    ("league_lucian", 55000, "Range"),
+    ("league_lulu", 55000, "Util"),
+    ("league_lux", 55000, "Magician"),
+    ("league_malphite", 25000, "Melee"),
+    ("league_malzahar", 52000, "Magician"),
+    ("league_maokai", 26000, "Util"),
+    ("league_masteryi", 25000, "Assassin"),
+    ("league_mel", 55000, "Magician"),
+    ("league_milio", 53000, "Util"),
+    ("league_missfortune", 55000, "Range"),
+    ("league_mordekaiser", 25000, "Melee"),
+    ("league_morgana", 50000, "Util"),
+    ("league_naafiri", 23000, "Assassin"),
+    ("league_nami", 55000, "Util"),
+    ("league_nasus", 26000, "Melee"),
+    ("league_nautilus", 25000, "Util"),
+    ("league_neeko", 55000, "Magician"),
+    ("league_nidalee", 23000, "Assassin"),
+    ("league_nilah", 30000, "Range"),
+    ("league_nocturne", 23000, "Assassin"),
+    ("league_nunu", 25000, "Melee"),
+    ("league_olaf", 25000, "Melee"),
+    ("league_orianna", 55000, "Magician"),
+    ("league_ornn", 25000, "Melee"),
+    ("league_pantheon", 27000, "Melee"),
+    ("league_poppy", 25000, "Util"),
+    ("league_pyke", 24000, "Assassin"),
+    ("league_qiyana", 25000, "Assassin"),
+    ("league_quinn", 52500, "Range"),
+    ("league_rakan", 40000, "Util"),
+    ("league_rammus", 25000, "Melee"),
+    ("league_reksai", 26000, "Melee"),
+    ("league_rell", 25000, "Util"),
+    ("league_renata", 55000, "Util"),
+    ("league_renekton", 25000, "Melee"),
+    ("league_rengar", 23000, "Assassin"),
+    ("league_riven", 25000, "Melee"),
+    ("league_rumble", 25000, "Melee"),
+    ("league_ryze", 55000, "Magician"),
+    ("league_samira", 55000, "Range"),
+    ("league_sejuani", 25000, "Melee"),
+    ("league_senna", 62000, "Range"),
+    ("league_seraphine", 55000, "Util"),
+    ("league_sett", 25000, "Melee"),
+    ("league_shaco", 23000, "Assassin"),
+    ("league_shen", 25000, "Melee"),
+    ("league_shyvana", 25000, "Melee"),
+    ("league_singed", 20000, "Melee"),
+    ("league_sion", 25000, "Melee"),
+    ("league_sivir", 55000, "Range"),
+    ("league_skarner", 25000, "Melee"),
+    ("league_smolder", 55000, "Range"),
+    ("league_sona", 55000, "Util"),
+    ("league_soraka", 60000, "Util"),
+    ("league_swain", 52000, "Magician"),
+    ("league_sylas", 26000, "Assassin"),
+    ("league_syndra", 55000, "Magician"),
+    ("league_tahmkench", 28000, "Util"),
+    ("league_taliyah", 55000, "Magician"),
+    ("league_talon", 23000, "Assassin"),
+    ("league_taric", 25000, "Util"),
+    ("league_teemo", 50000, "Magician"),
+    ("league_thresh", 48000, "Util"),
+    ("league_tristana", 55000, "Range"),
+    ("league_trundle", 25000, "Melee"),
+    ("league_tryndamere", 25000, "Melee"),
+    ("league_twistedfate", 57500, "Magician"),
+    ("league_twitch", 55000, "Range"),
+    ("league_udyr", 25000, "Melee"),
+    ("league_urgot", 38000, "Melee"),
+    ("league_varus", 57500, "Range"),
+    ("league_vayne", 55000, "Range"),
+    ("league_veigar", 55000, "Magician"),
+    ("league_velkoz", 55000, "Magician"),
+    ("league_vex", 55000, "Magician"),
+    ("league_vi", 24000, "Melee"),
+    ("league_viego", 26000, "Melee"),
+    ("league_viktor", 55000, "Magician"),
+    ("league_vladimir", 48000, "Magician"),
+    ("league_volibear", 25000, "Melee"),
+    ("league_warwick", 25000, "Melee"),
+    ("league_wukong", 26000, "Melee"),
+    ("league_xayah", 57500, "Range"),
+    ("league_xerath", 55000, "Magician"),
+    ("league_xinzhao", 26000, "Melee"),
+    ("league_yasuo", 25000, "Melee"),
+    ("league_yone", 25000, "Assassin"),
+    ("league_yorick", 25000, "Melee"),
+    ("league_yunara", 57500, "Range"),
+    ("league_yuumi", 50000, "Util"),
+    ("league_zaahen", 25000, "Melee"),
+    ("league_zac", 25000, "Melee"),
+    ("league_zed", 23000, "Assassin"),
+    ("league_zeri", 60000, "Range"),
+    ("league_ziggs", 55000, "Magician"),
+    ("league_zilean", 55000, "Util"),
+    ("league_zoe", 55000, "Magician"),
+    ("league_zyra", 55000, "Magician"),
 ];
 
-pub fn range_of(name: &str) -> Option<u64> {
-    RANGES.iter().find(|(n, _)| *n == name).map(|&(_, r)| r)
+/// Her attack range and whether she is a marksman (category Range), for a main-pack champion.
+pub fn champion_of(name: &str) -> Option<(u64, bool)> {
+    RANGES.iter().find(|(n, _, _)| *n == name).map(|&(_, r, c)| (r, c == "Range"))
 }
 
 /// 一连这么多 tick 够得着、普攻好了却没出手，写一行 `IDLE`（半秒）。
 pub const IDLE_MIN: usize = 30;
-/// 多久写一行 `SUM`（tick，30 秒）。
+/// 多久写一行 `SUM`（tick）：射手 30 秒，别的英雄 60 秒（0.3.0）。
 pub const SUM_EVERY: usize = 1_800;
+pub const SUM_EVERY_OTHERS: usize = 3_600;
 /// 「走到她脚下」：走路命令的目的地离她这么近，算让她站着。
 pub const HERE: f64 = 3_000.0;
 /// 走路命令的目的地离敌人比她现在近（远）这么多以上，算往敌人走（往回撤）；之间算横着走。
@@ -88,8 +240,8 @@ pub const MOVE_SLACK: f64 = 2_000.0;
 pub const ATTACK_LOOKBACK: usize = 60;
 /// `SUM` 里「最近的敌方英雄」的第一档：她的普攻距离再加这么多。
 pub const NEAR_PAD: u64 = 10_000;
-/// 一次启动最多写多少行不在屏幕上的（服务端的预模拟）。
-pub const LOG_CAP: usize = 40_000;
+/// 一次启动最多写多少行不在屏幕上的（服务端的预模拟）：0.3.0 每场十个人都记。
+pub const LOG_CAP: usize = 120_000;
 
 /// 放技能（施法动作还在播）或被强制位移：这时不算「普攻好了却不出手」。
 const BUSY: [CcKindV1; 2] = [CcKindV1::Animation, CcKindV1::ForceMove];
@@ -341,9 +493,11 @@ impl Run {
 
 #[derive(Clone, Default)]
 struct Watch {
-    /// her champion's id and attack range (0: not a marksman, nothing to watch); `checked` once she was seen
+    /// her champion's id and attack range (0: not a main-pack champion, nothing to watch), whether she is a marksman
+    /// (IDLE lines, a SUM every 30 s); `checked` once she was seen
     name: String,
     range: u64,
+    marksman: bool,
     checked: bool,
     /// the tick last seen: a lower one is a new sim on this hook object (start over)
     last_tick: Option<usize>,
@@ -363,6 +517,14 @@ struct Watch {
 }
 
 impl Watch {
+    fn sum_every(&self) -> usize {
+        if self.marksman {
+            SUM_EVERY
+        } else {
+            SUM_EVERY_OTHERS
+        }
+    }
+
     fn end_run(&mut self, sim: &StableSim<'_>, team: usize, why: &str) {
         let Some(run) = self.run.take() else { return };
         if run.len < IDLE_MIN {
@@ -371,7 +533,7 @@ impl Watch {
         self.tally.idle_runs += 1;
         self.tally.idle_ticks += run.len;
         self.tally.idle_longest = self.tally.idle_longest.max(run.len);
-        if room(sim) {
+        if self.marksman && room(sim) {
             wlog(format!("IDLE {} {} T{team}: {}", head(sim), self.name, run.line(why)));
         }
     }
@@ -425,8 +587,8 @@ impl StablePlayerAi for Watch {
         if !self.checked {
             self.checked = true;
             self.name = me.name().unwrap_or_default();
-            self.range = range_of(&self.name).unwrap_or(0);
-            self.next_sum = tick + SUM_EVERY;
+            (self.range, self.marksman) = champion_of(&self.name).unwrap_or((0, false));
+            self.next_sum = tick + self.sum_every();
             if self.range == 0 {
                 return None;
             }
@@ -545,7 +707,7 @@ impl StablePlayerAi for Watch {
             }
         }
         if tick >= self.next_sum {
-            self.next_sum = tick + SUM_EVERY;
+            self.next_sum = tick + self.sum_every();
             if room(&sim) {
                 wlog(format!("SUM {} {} T{team} {} {}", head(&sim), self.name, lane_name(lane), self.tally.line(self.range)));
             }
@@ -565,7 +727,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (read-only: what the game's AI has each marksman do while an enemy champion is in reach and her \
+        "=== {ID} v{VERSION} (read-only: what the game's AI has each champion do while an enemy champion is in reach and her \
          attack is ready) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
@@ -574,7 +736,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_player_input_ai(Watch::default());
-    host.log(LogLevel::Info, "league_ai_watch loaded (read-only marksman AI log).");
+    host.log(LogLevel::Info, "league_ai_watch loaded (read-only champion AI log).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]
@@ -597,9 +759,9 @@ mod tests {
     }
 
     #[test]
-    fn ranges_are_the_marksmen_of_the_data() {
-        // every main-pack hero of category Range with her attack range, and nothing else: a new marksman fails this until
-        // she is added to RANGES (the engine's API cannot read an attack range at run time)
+    fn ranges_are_the_champions_of_the_data() {
+        // every main-pack hero with her attack range and category, and nothing else: a new hero fails this until she is
+        // added to RANGES (the engine's API cannot read an attack range at run time)
         let dir = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../league/champion");
         let mut found = Vec::new();
         for entry in std::fs::read_dir(&dir).expect("league/champion") {
@@ -614,9 +776,6 @@ mod tests {
                     .find_map(|l| l.strip_prefix(&format!("  \"{name}\": \"")))
                     .map(|r| r.trim_end_matches(',').trim_end_matches('"').to_string())
             };
-            if field("category").as_deref() != Some("Range") {
-                continue;
-            }
             let range: u64 = raw
                 .lines()
                 .skip_while(|l| *l != "  \"attack\": {")
@@ -625,12 +784,15 @@ mod tests {
                 .find_map(|l| l.strip_prefix("    \"range\": "))
                 .map(|r| r.trim_end_matches(',').parse().unwrap())
                 .unwrap_or_else(|| panic!("no attack range in {}", path.display()));
-            found.push((field("id").expect("id"), range));
+            found.push((field("id").expect("id"), range, field("category").expect("category")));
         }
         found.sort();
-        let listed: Vec<(String, u64)> = RANGES.iter().map(|&(n, r)| (n.to_string(), r)).collect();
-        assert!(found.len() >= 25, "read only {} marksmen from {}", found.len(), dir.display());
+        let listed: Vec<(String, u64, String)> = RANGES.iter().map(|&(n, r, c)| (n.to_string(), r, c.to_string())).collect();
+        assert!(found.len() > 100, "read only {} heroes from {}", found.len(), dir.display());
         assert_eq!(listed, found);
+        assert_eq!(champion_of("league_kaisa"), Some((55_000, true)));
+        assert_eq!(champion_of("league_darius"), Some((25_000, false)));
+        assert_eq!(champion_of("tft_gromp"), None);
     }
 
     #[test]
