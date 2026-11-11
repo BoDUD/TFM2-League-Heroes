@@ -24,9 +24,18 @@
 //!   第 5 阶，而且符文是一阶一阶换上来的、不一定开局就在——所以它既不能查名单（名单里没有），也不能照「最高的两阶」，符文也不能
 //!   只靠 [`START_T`]：符文什么时候到手都当开局就有的东西（不锻造、不算进被动）。2026-11-11 游戏 0.7.2 的日志里引擎一次都
 //!   没有问过装备构筑钩子（没有 `TIERS`，131 行 `ITEMS` 全是 `by the list`），而它的成装不在名单里：0.4.3 以前在 4+6 下锻造不出杰作。
+//! - **4+6 的装备属性从哪里读**（0.4.4，[`item_stats`]）：0.4.3 装进游戏后的第一局（2026-11-11 21:2x）五件杰作都锻造了、光晕也
+//!   画对了格，可是整份日志没有一行 `FORGE`——杰作和他自己的被动加的都是 0：4+6 的装备身上没有「名字等于 key 的永久 buff」。
+//!   它的 DLL 里每件装备另有一个名字 `item_owned_<mod id>_<key>_<8 位十六进制>`（buff 名最长 64 字节，key 放不下就只留开头
+//!   一段，[`owned_buff_of`]），405 件里 392 件有。所以一件装备的主属性依次从这几处读：名字等于 key 的永久 buff（游戏自带的、
+//!   数据 mod 的、Riot 装备 mod 的）→ 4+6 的 `item_owned_…` 永久 buff（主属性不全是 0 才算）→ 4+6 自带的装备目录
+//!   `mods/alele_runes_and_items/item-catalog.json` 里这件的属性（[`catalog`]，只读它的文件，不随我们的 mod 发）→ 游戏的装备表
+//!   `ITEMS`。`item_owned_…` 是不是真的带着属性是从它的 DLL 的字符串推的，没在游戏里看过：日志 `SOURCE` 记下每件装备的属性
+//!   是从哪一处读到的，读不到 buff 的还记下这个人身上的永久 buff。
 
 use std::collections::{HashMap, HashSet};
-use std::sync::Mutex;
+use std::path::PathBuf;
+use std::sync::{Mutex, OnceLock};
 
 use mod_api_stable::*;
 
@@ -52,6 +61,20 @@ pub const ALELE_ITEM: &str = "item_t";
 pub const ALELE_LEGENDARY_TIER: usize = 5;
 /// 4+6 装备 mod 的符文：70 个 `runes<系>_…`、4 个换阶用的 `runes_transition_t<阶>`（引擎的装备表里符文也是第 5 阶）。
 pub const ALELE_RUNE: &str = "runes";
+/// 4+6 装备 mod 给每件装备（符文也是）起的 buff 名的开头：`item_owned_<mod id>_<key>_<8 位十六进制>`。
+pub const OWNED: &str = "item_owned_";
+/// 这种名字最长这么多个字符（buff 名最长 64 字节）：key 放不下时只留开头的一段——`alele_runes_and_items` 留 20 个字符：
+/// `item_owned_alele_runes_and_items_item_t5_134_1_2_101__8c2bbef1` 是 `item_t5_134_1_2_101_0_0_0` 的。
+pub const OWNED_NAME_MAX: usize = 62;
+/// key（和它截短后留下的那一段）至少这么多个字符才认：mod id 里也有下划线，短了分不清哪里是 mod id、哪里是 key
+/// （它的 key 最短的是 12 个字符的符文 `runes0_0_0_0`）。
+pub const OWNED_STEM_MIN: usize = 8;
+/// 4+6 装备 mod 的文件夹名（mod id）和它的装备目录；目录也可以用这个环境变量指到别处（开发、测试用）。
+pub const ALELE_MOD: &str = "alele_runes_and_items";
+pub const ALELE_CATALOG: &str = "item-catalog.json";
+pub const ALELE_CATALOG_ENV: &str = "LEAGUE_ALELE_CATALOG";
+/// 装备目录里主属性的名字，顺序和 `main_stats` 一样（攻击、法强、护甲、生命、魔抗、攻速 %）。
+pub const CATALOG_STATS: [&str; 6] = ["attack", "magic_power", "defence", "hp", "magic_resistance", "attack_speed_mult"];
 
 /// 游戏自带装备每条线的第 4、5 阶（`ITEMS` 的顺序；Riot 装备 mod 把它们改名成传说装备和光辉版：征服者大剑 = 饮血剑）。
 pub const BASE_LEGENDARY: [&str; 12] = [
@@ -234,36 +257,165 @@ pub fn masterwork(item: [i32; 6]) -> [i32; 6] {
     item.map(|v| v * P_MASTER as i32 / 100)
 }
 
-/// 一件装备的主属性：他身上名字等于它的 key 的永久 buff（任何 mod 的装备都这样挂属性）；没有就查游戏的装备表 `ITEMS`。
-pub fn key_stats(buffs: &[(String, bool, [i32; 6])], key: &str) -> Option<[i32; 6]> {
-    buffs
-        .iter()
-        .find(|(name, permanent, _)| *permanent && name == key)
-        .map(|&(_, _, s)| s)
-        .or_else(|| ITEMS.iter().find(|(name, _)| *name == key).map(|&(_, s)| s))
+/// 一个英雄身上的 buff：名字、永久不永久、主属性（攻击、法强、护甲、生命、魔抗、攻速 %）。
+pub type Buffs = [(String, bool, [i32; 6])];
+/// 4+6 装备 mod 的装备目录：key -> 主属性。
+pub type Catalog = HashMap<String, [i32; 6]>;
+
+/// 一件装备的主属性是从哪里读到的（日志 `SOURCE`）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Source {
+    /// 名字等于 key 的永久 buff：游戏自带的、数据 mod 的、Riot 装备 mod 的装备。
+    Named,
+    /// 4+6 装备 mod 的 `item_owned_…` 永久 buff。
+    Owned,
+    /// 4+6 装备 mod 的装备目录。
+    Catalog,
+    /// 游戏的装备表 `ITEMS`。
+    Table,
+}
+
+/// buff `name` 是不是装备 `key` 的 `item_owned_<mod id>_<key>_<8 位十六进制>`：`<mod id>_` 后面是整个 key，或者——名字已经是
+/// 最长（[`OWNED_NAME_MAX`]）时——key 开头放得下的那一段。key 开头一样长到放不下的几件（`item_t5_213456_0_0_101…` 到
+/// `…104…`）分不开：都算。
+pub fn owned_buff_of(name: &str, key: &str) -> bool {
+    let Some((body, hash)) = name.strip_prefix(OWNED).and_then(|rest| rest.rsplit_once('_')) else { return false };
+    if key.len() < OWNED_STEM_MIN || hash.len() != 8 || !hash.bytes().all(|b| b.is_ascii_hexdigit()) {
+        return false;
+    }
+    // "<mod id>_<stem>": something, an underscore, then the stem
+    let ends = |stem: &str| body.strip_suffix(stem).is_some_and(|m| m.len() > 1 && m.ends_with('_'));
+    ends(key)
+        || (name.len() == OWNED_NAME_MAX
+            && (OWNED_STEM_MIN..key.len()).rev().any(|n| key.is_char_boundary(n) && ends(&key[..n])))
+}
+
+/// 一件装备的主属性，和它是从哪里读到的、用的是哪个 buff（`buffs` 里的位置）：名字等于 key 的永久 buff；4+6 的
+/// `item_owned_…` 永久 buff（主属性不全是 0 才算数）；4+6 的装备目录；`item_owned_…` 是全 0 的也认（只有副属性的装备）；
+/// 最后是游戏的装备表 `ITEMS`。`taken` 是已经算给别的装备的 buff（同一件出了两件：两个 buff 各算一次）。
+pub fn item_stats(buffs: &Buffs, key: &str, taken: &[usize], catalog: Option<&Catalog>)
+                  -> Option<([i32; 6], Source, Option<usize>)> {
+    let find = |named: bool| {
+        (0..buffs.len()).find(|i| {
+            let (name, permanent, _) = &buffs[*i];
+            *permanent && !taken.contains(i) && if named { name == key } else { owned_buff_of(name, key) }
+        })
+    };
+    if let Some(i) = find(true) {
+        return Some((buffs[i].2, Source::Named, Some(i)));
+    }
+    let owned = find(false);
+    if let Some(i) = owned.filter(|&i| buffs[i].2 != [0; 6]) {
+        return Some((buffs[i].2, Source::Owned, Some(i)));
+    }
+    if let Some(&s) = catalog.and_then(|c| c.get(key)) {
+        // its buff without main stats (if there is one) goes with it: a second copy of the item finds its own
+        return Some((s, Source::Catalog, owned));
+    }
+    if let Some(i) = owned {
+        return Some((buffs[i].2, Source::Owned, Some(i)));
+    }
+    ITEMS.iter().find(|(name, _)| *name == key).map(|&(_, s)| (s, Source::Table, None))
+}
+
+/// 一件装备的主属性（[`item_stats`]）。
+pub fn key_stats(buffs: &Buffs, key: &str, catalog: Option<&Catalog>) -> Option<[i32; 6]> {
+    item_stats(buffs, key, &[], catalog).map(|(s, _, _)| s)
 }
 
 /// 一个人这些装备的主属性加起来（`keys` 里每一件，开局就有的不算；同一件出了两件就算两次）。
-pub fn sum_stats(buffs: &[(String, bool, [i32; 6])], keys: &[String], start: &HashSet<String>) -> [i32; 6] {
+pub fn sum_stats(buffs: &Buffs, keys: &[String], start: &HashSet<String>, catalog: Option<&Catalog>) -> [i32; 6] {
     let mut sum = [0; 6];
-    // two copies of an item: two buffs of that name
-    let mut used: HashMap<&str, usize> = HashMap::new();
+    // two copies of an item: two buffs, each counted once
+    let mut taken = Vec::new();
     for k in keys.iter().filter(|k| !start.contains(k.as_str())) {
-        let nth = used.entry(k.as_str()).or_insert(0);
-        let s = buffs
-            .iter()
-            .filter(|(name, permanent, _)| *permanent && name == k)
-            .nth(*nth)
-            .map(|&(_, _, s)| s)
-            .or_else(|| ITEMS.iter().find(|(name, _)| *name == k.as_str()).map(|&(_, s)| s));
-        *nth += 1;
-        if let Some(s) = s {
+        if let Some((s, _, used)) = item_stats(buffs, k, &taken, catalog) {
+            taken.extend(used);
             for i in 0..6 {
                 sum[i] += s[i];
             }
         }
     }
     sum
+}
+
+// ===================== 4+6 装备 mod 的装备目录 =====================
+
+/// `: "…"` 开头的那个字符串（它的 key 里没有转义）。
+fn string_value(text: &str) -> Option<&str> {
+    let t = text.trim_start().strip_prefix(':')?.trim_start().strip_prefix('"')?;
+    t.find('"').map(|end| &t[..end])
+}
+
+/// `text` 里 `name` 后面那个 `{ … }` 里面的字（值是对象才有，`null` 就是 None；里面没有再套对象）。
+fn object_of<'a>(text: &'a str, name: &str) -> Option<&'a str> {
+    let t = &text[text.find(name)? + name.len()..];
+    let t = t.trim_start().strip_prefix(':')?.trim_start().strip_prefix('{')?;
+    t.find('}').map(|end| &t[..end])
+}
+
+/// `{ … }` 里 `"name": 数字` 的那个数字。
+fn number_of(object: &str, name: &str) -> Option<f64> {
+    let quoted = format!("\"{name}\"");
+    let t = &object[object.find(&quoted)? + quoted.len()..];
+    let t = t.trim_start().strip_prefix(':')?.trim_start();
+    let end = t.find(|c: char| !(c.is_ascii_digit() || matches!(c, '-' | '+' | '.' | 'e' | 'E'))).unwrap_or(t.len());
+    t[..end].parse().ok()
+}
+
+/// 4+6 装备 mod 的装备目录（它的 `item-catalog.json`，405 件）里每件装备的主属性。每件是 `"gameKey": "<key>"`，后面跟着
+/// `"packageValues": { … "stats": { "attack": 25, … } }`（它出厂的数值；符文的 `stats` 是空的，`runtimeEffective` 的是
+/// `null`）。附加包没有 JSON 库，照这个样子找。
+pub fn parse_catalog(json: &str) -> Catalog {
+    const KEY: &str = "\"gameKey\"";
+    let mut out = Catalog::new();
+    let mut rest = json;
+    while let Some(i) = rest.find(KEY) {
+        rest = &rest[i + KEY.len()..];
+        // this item's text: up to the next one's key
+        let item = &rest[..rest.find(KEY).unwrap_or(rest.len())];
+        let Some(key) = string_value(item) else { continue };
+        let Some(stats) = item.find("\"packageValues\"").and_then(|p| object_of(&item[p..], "\"stats\"")) else { continue };
+        let mut s = [0; 6];
+        for (slot, name) in s.iter_mut().zip(CATALOG_STATS) {
+            *slot = number_of(stats, name).map_or(0, |v| v.round() as i32);
+        }
+        out.insert(key.to_string(), s);
+    }
+    out
+}
+
+/// 装备目录可能在哪里：环境变量 [`ALELE_CATALOG_ENV`]，再是游戏 EXE 旁边的 `mods/alele_runes_and_items/item-catalog.json`。
+pub fn catalog_paths() -> Vec<PathBuf> {
+    let mut out = Vec::new();
+    if let Some(p) = std::env::var_os(ALELE_CATALOG_ENV).filter(|p| !p.is_empty()) {
+        out.push(PathBuf::from(p));
+    }
+    if let Some(game) = std::env::current_exe().ok().and_then(|exe| exe.parent().map(|d| d.to_path_buf())) {
+        out.push(game.join("mods").join(ALELE_MOD).join(ALELE_CATALOG));
+    }
+    out
+}
+
+static CATALOG: OnceLock<Option<Catalog>> = OnceLock::new();
+
+/// 4+6 装备 mod 的装备目录：第一次用到时读一次（记一行 `CATALOG`）；没装它、读不到就是 None。只读它的文件，不随我们的 mod 发。
+pub fn catalog() -> Option<&'static Catalog> {
+    CATALOG
+        .get_or_init(|| {
+            for p in catalog_paths() {
+                let Ok(text) = std::fs::read_to_string(&p) else { continue };
+                let c = parse_catalog(&text);
+                if !c.is_empty() {
+                    let with = c.values().filter(|s| **s != [0; 6]).count();
+                    super::wlog(format!("CATALOG {}: {} items of the 4+6 item pack, {with} of them with main stats",
+                                        p.display(), c.len()));
+                    return Some(c);
+                }
+            }
+            None
+        })
+        .as_ref()
 }
 
 #[cfg(test)]
@@ -386,8 +538,148 @@ mod tests {
         let start: HashSet<String> = ["rune_a".to_string()].into();
         let ks = keys(&["rune_a", "heartsteel", "long_sword", "long_sword", "steel_armor"]);
         // two long swords, the game's own steel armour from its table, not the rune
-        assert_eq!(sum_stats(&on, &ks, &start), [20, 0, 20, 600, 0, 0]);
-        assert_eq!(key_stats(&on, "heartsteel"), Some([0, 0, 0, 600, 0, 0]));
-        assert_eq!(key_stats(&on, "nothing"), None);
+        assert_eq!(sum_stats(&on, &ks, &start, None), [20, 0, 20, 600, 0, 0]);
+        assert_eq!(key_stats(&on, "heartsteel", None), Some([0, 0, 0, 600, 0, 0]));
+        assert_eq!(key_stats(&on, "nothing", None), None);
+        assert_eq!(item_stats(&on, "heartsteel", &[], None), Some(([0, 0, 0, 600, 0, 0], Source::Named, Some(1))));
+        assert_eq!(item_stats(&on, "steel_armor", &[], None).map(|(_, source, at)| (source, at)), Some((Source::Table, None)));
+    }
+
+    /// The names are the 4+6 item pack's own (read out of its DLL, 0.10.6-python.1).
+    const CLEAVER: &str = "item_owned_alele_runes_and_items_item_t5_134_1_2_101__8c2bbef1";
+    const BOOTS_PART: &str = "item_owned_alele_runes_and_items_item_t1_4_0_0_50_0_0_d8a6e90b";
+    const RUNE: &str = "item_owned_alele_runes_and_items_runes1_0_0_2_12e07535";
+    const RUNE_STEP: &str = "item_owned_alele_runes_and_items_runes_transition_t1_cb081e99";
+
+    #[test]
+    fn the_4_plus_6_packs_buffs_are_named_item_owned() {
+        // the key cut to what fits a 64-byte buff name, then a hash
+        assert_eq!(CLEAVER.len(), OWNED_NAME_MAX);
+        assert!(owned_buff_of(CLEAVER, "item_t5_134_1_2_101_0_0_0"));
+        assert!(owned_buff_of(BOOTS_PART, "item_t1_4_0_0_50_0_0_0"));
+        // a key that fits is there whole
+        assert!(owned_buff_of(RUNE, "runes1_0_0_2") && owned_buff_of(RUNE_STEP, "runes_transition_t1"));
+        // another item's, another rune's
+        assert!(!owned_buff_of(CLEAVER, "item_t5_134_1_2_102_0_0_0") && !owned_buff_of(CLEAVER, "item_t5_13_0_0_101_0_0_0"));
+        assert!(!owned_buff_of(RUNE, "runes1_0_0_20") && !owned_buff_of(RUNE, "runes1_0_0") && !owned_buff_of(RUNE, "0_0_2"));
+        // a short name only for the whole key: `runes1_0_0_2…` cut short is not a thing
+        assert!(!owned_buff_of(RUNE, "runes1_0_0_2_1"));
+        // not such a name: no hash, the key itself, an empty key
+        assert!(!owned_buff_of("item_owned_alele_runes_and_items_runes1_0_0_2", "runes1_0_0_2"));
+        assert!(!owned_buff_of("runes1_0_0_2", "runes1_0_0_2") && !owned_buff_of(RUNE, ""));
+        assert!(!owned_buff_of("item_owned_runes1_0_0_2_12e07535", "runes1_0_0_2"), "no mod id in front");
+        // any mod id: the same maker's names under another pack's id
+        assert!(owned_buff_of("item_owned_some_item_pack_long_sword_0a1b2c3d", "long_sword"));
+        // four of its finished items start alike for longer than fits: one name stands for each of them
+        let shared = "item_owned_alele_runes_and_items_item_t5_213456_0_0_1_aaaaaaaa";
+        assert_eq!(shared.len(), OWNED_NAME_MAX);
+        assert!(owned_buff_of(shared, "item_t5_213456_0_0_101_0_0_0") && owned_buff_of(shared, "item_t5_213456_0_0_104_0_0_5"));
+    }
+
+    #[test]
+    fn a_4_plus_6_items_stats_come_from_its_buff_else_its_catalog() {
+        let key = "item_t5_134_1_2_101_0_0_0";
+        let catalog: Catalog = [(key.to_string(), [40, 0, 0, 400, 0, 0])].into();
+        // its buff carries the stats: the buff's (what the unit really has), not the catalog's
+        let on = vec![(RUNE.to_string(), true, [0; 6]), (CLEAVER.to_string(), true, [44, 0, 0, 440, 0, 0])];
+        assert_eq!(item_stats(&on, key, &[], Some(&catalog)), Some(([44, 0, 0, 440, 0, 0], Source::Owned, Some(1))));
+        assert_eq!(key_stats(&on, key, None), Some([44, 0, 0, 440, 0, 0]));
+        // its buff is only a mark (no main stats on it): the catalog's, the mark still taken with it
+        let mark = vec![(CLEAVER.to_string(), true, [0; 6])];
+        assert_eq!(item_stats(&mark, key, &[], Some(&catalog)), Some(([40, 0, 0, 400, 0, 0], Source::Catalog, Some(0))));
+        // no buff of it at all (13 of its 405 have no such name): the catalog's
+        assert_eq!(item_stats(&[], key, &[], Some(&catalog)), Some(([40, 0, 0, 400, 0, 0], Source::Catalog, None)));
+        // neither: a mark without main stats says zero, nothing at all says nothing
+        assert_eq!(item_stats(&mark, key, &[], None), Some(([0; 6], Source::Owned, Some(0))));
+        assert_eq!(item_stats(&[], key, &[], None), None);
+        // a buff that is not permanent is not the item's
+        let timed = vec![(CLEAVER.to_string(), false, [44, 0, 0, 440, 0, 0])];
+        assert_eq!(item_stats(&timed, key, &[], None), None);
+        // his passive: his items' buffs, each once (two copies: two buffs), the runes left out
+        let two = vec![
+            (RUNE.to_string(), true, [0, 0, 9, 90, 9, 0]),
+            (CLEAVER.to_string(), true, [40, 0, 0, 400, 0, 0]),
+            (CLEAVER.to_string(), true, [40, 0, 0, 400, 0, 0]),
+            ("eternal_iron_plate".to_string(), true, [0, 0, 60, 300, 0, 0]),
+        ];
+        let start: HashSet<String> = ["runes1_0_0_2".to_string()].into();
+        let ks = keys(&["runes1_0_0_2", key, key, "eternal_iron_plate"]);
+        assert_eq!(sum_stats(&two, &ks, &start, None), [80, 0, 60, 1100, 0, 0]);
+        // a third copy with no buff left: nothing more without the catalog, the catalog's with it
+        let ks3 = keys(&[key, key, key]);
+        assert_eq!(sum_stats(&two, &ks3, &start, None), [80, 0, 0, 800, 0, 0]);
+        assert_eq!(sum_stats(&two, &ks3, &start, Some(&catalog)), [120, 0, 0, 1200, 0, 0]);
+    }
+
+    #[test]
+    fn the_4_plus_6_packs_catalog_gives_each_items_main_stats() {
+        // the shape of its item-catalog.json: an item, a rune (no stats), an item with only side stats
+        let json = r#"{
+  "version": 2,
+  "counts": { "total": 3 },
+  "items": [
+    {
+      "id": "item_t5_134_1_2_101_0_0_0",
+      "gameKey": "item_t5_134_1_2_101_0_0_0",
+      "oldIds": ["item_t5_0_0_0_0_0_0_2"],
+      "name": "黑色切割者",
+      "tier": 5,
+      "previousIds": ["item_t4_0_0_0_0_0_0_2"],
+      "packageValues": {
+        "status": "generated-package",
+        "price": 1025,
+        "stats": {
+          "attack": 40,
+          "hp": 400,
+          "skill_cooldown_mult": 20,
+          "attack_speed_mult": 12.5
+        }
+      },
+      "runtimeEffective": { "status": "not_deployed", "price": null, "stats": null }
+    },
+    {
+      "id": "runes1_0_0_2",
+      "gameKey": "runes1_0_0_2",
+      "packageValues": { "status": "generated-package", "price": 0, "stats": {} },
+      "runtimeEffective": { "status": "not_deployed", "stats": null }
+    },
+    {
+      "id": "item_t5_0_1_1_105_0_0_1",
+      "gameKey": "item_t5_0_1_1_105_0_0_1",
+      "packageValues": { "status": "generated-package", "price": 900, "stats": {"skill_cooldown_mult": 20, "defence": 25, "magic_resistance": -5} },
+      "runtimeEffective": { "status": "deployed", "stats": {"defence": 99} }
+    },
+    { "id": "no_package", "gameKey": "no_package", "runtimeEffective": { "stats": {"attack": 7} } }
+  ]
+}"#;
+        let c = parse_catalog(json);
+        assert_eq!(c.len(), 3, "an item without packaged stats is left out");
+        assert_eq!(c["item_t5_134_1_2_101_0_0_0"], [40, 0, 0, 400, 0, 13]);
+        assert_eq!(c["runes1_0_0_2"], [0; 6]);
+        assert_eq!(c["item_t5_0_1_1_105_0_0_1"], [0, 0, 25, 0, -5, 0], "its packaged stats, not the run-time block's");
+        assert!(parse_catalog("{}").is_empty() && parse_catalog("not json at all \"gameKey\"").is_empty());
+        // the file names are where the pack keeps it
+        let paths = catalog_paths();
+        assert!(paths.iter().any(|p| p.ends_with(std::path::Path::new("mods").join(ALELE_MOD).join(ALELE_CATALOG))));
+    }
+
+    /// The pack's real file when the developer points at it (`LEAGUE_ALELE_CATALOG`); skipped elsewhere (CI has none).
+    #[test]
+    fn the_real_catalog_reads() {
+        let Some(path) = std::env::var_os(ALELE_CATALOG_ENV).filter(|p| !p.is_empty()) else { return };
+        let c = parse_catalog(&std::fs::read_to_string(&path).expect("LEAGUE_ALELE_CATALOG names a file"));
+        // 0.10.6-python.1: 405 items = 331 pieces of equipment + 74 runes; a finished item has main stats
+        assert!(c.len() >= 300, "{} items", c.len());
+        let equipment = c.keys().filter(|k| alele_tier(k).is_some()).count();
+        let runes = c.keys().filter(|k| is_rune(k)).count();
+        assert_eq!(equipment + runes, c.len(), "every key is the pack's");
+        // (a rune may carry a main stat - 蛹化 `runes3_1_2_3` has 60 health - which is why runes are left out by key)
+        let finished: Vec<_> = c.iter().filter(|(k, _)| alele_tier(k) == Some(ALELE_LEGENDARY_TIER)).collect();
+        let with = finished.iter().filter(|(_, s)| **s != [0; 6]).count();
+        assert!(with * 10 >= finished.len() * 9, "{with} of {} finished items have main stats", finished.len());
+        if let Some(cleaver) = c.get("item_t5_134_1_2_101_0_0_0") {
+            assert_eq!((cleaver[0], cleaver[3]), (40, 400), "the Black Cleaver: attack 40, health 400");
+        }
+        println!("{} items, {equipment} equipment, {runes} runes, {with} of {} finished with main stats", c.len(), finished.len());
     }
 }
