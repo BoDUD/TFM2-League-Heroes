@@ -33,12 +33,17 @@ the lookups by their shape), the body draw's size asks through other registers (
 scale read through r12 (a SIB form), the scale / restore command tags moved by one (read from the entity render), the
 draw command made from a name pushing one register more (its prologue is decoded, not compared).
 
-0.7.1 -> 0.7.2 (2026-11-11), the same compiler: the encyclopedia and the pick slot no longer hand the sheet's name to the
-image node's setter - they build the sprite draw command themselves (tag 0x…03, the name cloned into its String at +8)
-and give it to the function that sets its UV (`cmd_uv`, rdx = the command), and they look the sheet up after choosing
-the frame. Step 5 therefore takes a drawer's size asks as the first four indirect calls after its first sheet lookup
-(the rule holds for all five drawers of 0.7.2) and the encyclopedia's spacing no longer resembles 0.7.1's (best score
-232, a look-alike first): it was given as `--drawer 0=0x2939214`; step 6 finds the UV setter and leaves node_image 0.
+0.7.1 -> 0.7.2 (2026-11-11), the same compiler: the image node's setter was INLINED into the encyclopedia / face icons
+and the pick slot (game-view/src/ui/champion_info_ui.rs, 0x2684090 / 0x267ed60): after their size asks they copy the
+name they looked up straight into the node's Strings - no function is called with it, so step 6 finds no sink for them
+and lists them in `ui_inline` (src/ui.rs renames the name where it stands). Their size asks sit closer together than
+0.7.1's (the spacing scores 249 and 51: look-alikes first), so they are given: `--drawer 0=0x268415f --drawer
+1=0x267ee32`. The first 0.7.2 table (league.dll 0.9.31, PR #744) took two other functions for them - 0x2939100 /
+0x2935ba0, which build a sprite command and call the UV setter 0x1c9570, the only candidates that matched a sink at
+all - and the game never drew a hero through those in the user's matches, while the real two drew from the battle
+sheets (the BP screen lagged again). Lesson: a drawer is confirmed by the game's own log (league.log `lookup anim from
+rva …` / `texture … asked from rva …` on the screens it draws), not by having a sink. Step 5 takes a drawer's size
+asks as the first four indirect calls after its first sheet lookup.
 
 Then a match in game confirms it: league.log `game build: <name>`, the "lookup anim from rva" / "texture width
 asked from rva" lines of every screen. The structures (display world table, entity value fields, draw command
@@ -436,10 +441,11 @@ def search(e, b, forced=None):
     found["battle_asks"] = battle_asks
     # 6. src/ui.rs (the UI sheets): each drawer's own call of the sheet lookup (the one its size asks follow), and the
     # functions they hand the sheet's name to - the draw command made from a name (called by the BP grid and the
-    # scoreboard portraits after their sheet lookup; `mov rdi, r8; test r8, r8` in its head: 0.6.5 to 0.7.2), and
-    # whichever the encyclopedia and the pick slot both call after theirs: the image node's setter (to 0.7.1; the listed
-    # build's head) or the UV setter (0.7.2: the listed build's head, else the call right after each writes a draw
-    # command's tag) - each of the two must call one of them
+    # scoreboard portraits after their sheet lookup; `mov rdi, r8; test r8, r8` in its head: 0.6.5 to 0.7.2), and for
+    # the encyclopedia and the pick slot the image node's setter (to 0.7.1; the listed build's head) or a UV setter (the
+    # listed build's head, else the call right after each writes a draw command's tag). One of the two that calls
+    # neither hands the name on itself (0.7.2: the node's setter inlined) - `ui_inline`, when it formats its names
+    # itself (the same function called twice before its anim lookup: the name is its own String, safe to rename)
     sheet_calls, after = [], []
     for c, w in ui:
         s = windows[c][0]
@@ -465,10 +471,19 @@ def search(e, b, forced=None):
         tagged = [tagged_calls(e, s + 5, e.func_of(c)[1]) for (c, _), s in zip(ui[:2], sheet_calls[:2])]
         uv, how_uv = sorted(tagged[0] & tagged[1]), "the call after both write a draw command's tag"
     found["cmd_uv"] = one(f"the UV setter ({how_uv})", uv) if uv else 0
+    found["ui_inline"] = []
     for k in (0, 1):
-        if not (({found["node_image"], found["cmd_uv"]} - {0}) & after[k]):
+        if ({found["node_image"], found["cmd_uv"]} - {0}) & after[k]:
+            continue
+        c = ui[k][0]
+        before = call_targets(e, e.func_of(c)[0], c - e.func_of(c)[0])
+        if not any(before.count(t) >= 2 for t in before):
             sys.exit(f"UI drawer {k} ({UI_NAMES[k]}): calls neither the image node's setter {found['node_image']:#x} "
-                     f"nor the UV setter {found['cmd_uv']:#x} after its sheet lookup - where does it hand the name on?")
+                     f"nor the UV setter {found['cmd_uv']:#x} after its sheet lookup, and does not format its names "
+                     f"itself - where does it hand the name on?")
+        found["ui_inline"].append(k)
+        notes.append(f"UI drawer {k} ({UI_NAMES[k]}) hands the sheet's name on itself (no sink called after its sheet "
+                     f"lookup; it formats its names): ui_inline")
     for k in ("cmd_by_name", "node_image", "cmd_uv"):
         if found[k] and prologue_len(e.read(found[k], 24)) is None:
             sys.exit(f"{k} {found[k]:#x}: not a push / sub rsp / movabs prologue src/ui.rs can run from its trampoline")
@@ -533,6 +548,7 @@ def rust(e, f):
            "    ui_sheet_ret: &[" + ", ".join(f"{s + 5:#x}" for s in f["ui_sheet_calls"]) + "],",
            f"    cmd_by_name: {f['cmd_by_name']:#x},", f"    node_image: {f['node_image']:#x},",
            f"    cmd_uv: {f['cmd_uv']:#x},",
+           "    ui_inline: &[" + ", ".join(str(k) for k in f["ui_inline"]) + "],",
            f"    body_draw: {f['body_draw']:#x},", f"    cmd_grow: {f['cmd_grow']:#x},",
            f"    effect_draw: {f['effect_draw']:#x},",
            f"    proj_render: {f['proj_render']:#x},", f"    proj_render3: {f['proj_render3']:#x},",
