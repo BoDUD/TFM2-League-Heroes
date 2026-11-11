@@ -21,7 +21,7 @@ pub const FADE_T: usize = 40;
 
 /// 大字的几件事：龙魂、远古巨龙出现、远古巨龙和纳什男爵被击杀。
 pub fn big(w: &What) -> bool {
-    matches!(w, What::ElderSpawn | What::Soul { .. } | What::ElderKilled { .. } | What::BaronKilled { .. })
+    matches!(w, What::ElderSpawn | What::Soul { .. } | What::ElderKilled { .. } | What::BaronKilled { .. } | What::Rift { .. })
 }
 
 /// 这一条放多久。
@@ -44,7 +44,9 @@ pub enum Tone {
 
 pub fn tone(w: &What) -> Tone {
     match w {
-        What::DrakeSpawn { element } | What::Drake { element, .. } | What::Soul { element, .. } => Tone::Element(*element),
+        What::DrakeSpawn { element } | What::Drake { element, .. } | What::Soul { element, .. } | What::Rift { element } => {
+            Tone::Element(*element)
+        }
         What::ElderSpawn | What::ElderKilled { .. } => Tone::Element(Element::Elder),
         What::Execute { .. } => Tone::Execute,
         What::BaronKilled { .. } => Tone::Baron,
@@ -71,7 +73,7 @@ pub const BARON_DEATH_T: usize = 96;
 /// 这件事的公告比它发生晚多少 tick 出。
 pub fn lead(w: &What) -> usize {
     match w {
-        What::Drake { .. } | What::Soul { .. } | What::ElderKilled { .. } => DRAKE_DEATH_T,
+        What::Drake { .. } | What::Soul { .. } | What::ElderKilled { .. } | What::Rift { .. } => DRAKE_DEATH_T,
         What::BaronKilled { .. } => BARON_DEATH_T,
         _ => 0,
     }

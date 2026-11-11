@@ -22619,6 +22619,38 @@
     },
     {
       "type": "Animation",
+      "name": "league_azir_r_one_a",
+      "anim": "asset/league/effects/league_azir_guard",
+      "tag": "one_r_a",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_r_one_b",
+      "anim": "asset/league/effects/league_azir_guard",
+      "tag": "one_r_b",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_r_one_la",
+      "anim": "asset/league/effects/league_azir_guard",
+      "tag": "one_l_a",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_azir_r_one_lb",
+      "anim": "asset/league/effects/league_azir_guard",
+      "tag": "one_l_b",
+      "z": 2,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_azir_r_dust",
       "anim": "asset/league/effects/league_azir_fx",
       "tag": "r_dust",

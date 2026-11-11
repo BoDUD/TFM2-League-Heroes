@@ -571,6 +571,8 @@ pub enum Ev {
     BaronKilled { team: usize, lanes: u8 },
     /// 撞上创意工坊的大小龙 mod（C）：本包什么都不做。
     Conflict,
+    /// 第二条元素亚龙被拿下，峡谷变成这种元素、地形跟着变（R；只有游戏自带的 5v5 地图有）。
+    Rift { element: Element },
 }
 
 impl Ev {
@@ -584,12 +586,13 @@ impl Ev {
             Ev::Execute { .. } => 'X',
             Ev::BaronKilled { .. } => 'B',
             Ev::Conflict => 'C',
+            Ev::Rift { .. } => 'R',
         }
     }
 
     fn args(&self) -> String {
         match *self {
-            Ev::DrakeSpawn { element } => hex(element.code() as usize, 1),
+            Ev::DrakeSpawn { element } | Ev::Rift { element } => hex(element.code() as usize, 1),
             Ev::ElderSpawn | Ev::Conflict => String::new(),
             Ev::Drake { team, element, total } => format!("{}{}{}", team.min(1), hex(element.code() as usize, 1),
                                                           hex(total as usize, 1)),
@@ -627,6 +630,7 @@ pub fn parse_event(name: &str) -> Option<(u8, usize, Ev)> {
         b'X' => Ev::Execute { team: num(8, 1)?, lane: num(9, 1)? as u8, victim_lane: num(10, 1)? as u8 },
         b'B' => Ev::BaronKilled { team: num(8, 1)?, lanes: num(9, 2)? as u8 },
         b'C' => Ev::Conflict,
+        b'R' => Ev::Rift { element: el(8)? },
         _ => return None,
     };
     Some((seq, tick, ev))
@@ -807,6 +811,7 @@ mod tests {
             Ev::Execute { team: 0, lane: 3, victim_lane: 2 },
             Ev::BaronKilled { team: 0, lanes: 0b11111 },
             Ev::Conflict,
+            Ev::Rift { element: Element::Hextech },
         ];
         for (i, ev) in all.iter().enumerate() {
             let seq = (i as u8).wrapping_add(250);

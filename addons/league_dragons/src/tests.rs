@@ -367,8 +367,12 @@ fn the_workshop_mod_makes_it_stand_aside() {
 
 /// Gives team 0 `soul` straight in its state (as if it had its four drakes) and puts red's 5, 6, 7 next to blue's top.
 fn soul_match(seed: u64, soul: Element) -> World {
+    soul_world(seed, soul, SimOriginKindV1::ServerPresim)
+}
+
+fn soul_world(seed: u64, soul: Element, kind: SimOriginKindV1) -> World {
     log_to_temp();
-    let mut w = World::new(seed, SimOriginKindV1::ServerPresim, CAST);
+    let mut w = World::new(seed, kind, CAST);
     start(&mut w);
     tick(&mut w);
     state(&w, |s| {
@@ -481,8 +485,12 @@ fn the_chemtech_soul_holds_on_below_half() {
 
 /// Puts the Aspect of the Dragon on red straight in its state (taken at tick `w.tick`).
 fn elder_match(seed: u64) -> World {
+    elder_world(seed, SimOriginKindV1::ServerPresim)
+}
+
+fn elder_world(seed: u64, kind: SimOriginKindV1) -> World {
     log_to_temp();
-    let mut w = World::new(seed, SimOriginKindV1::ServerPresim, CAST);
+    let mut w = World::new(seed, kind, CAST);
     start(&mut w);
     tick(&mut w);
     mock::with_sim(&mut w, |sim| {
@@ -658,6 +666,443 @@ fn the_screen_feed_gets_each_event_once() {
     script(&mut p);
     assert_eq!(feed::events(77, 2), first);
     feed::clear();
+}
+
+/// The effects of the match on screen (0.4.0): every trigger of a soul, the soul taken, the Elder's flame and its
+/// execute leave one where it happened - once, whatever the screen runs again; a presim leaves none.
+#[test]
+fn the_screens_match_gets_its_effects_where_they_happen() {
+    use fx::Kind;
+    let _g = GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
+    let view = SimOriginKindV1::ClientMatchView;
+    // every effect of the match so far: (kind, where, to whom)
+    let all = |w: &World| -> Vec<(Kind, (u64, u64), Vec<(u64, u64)>)> {
+        let mut v: Vec<_> = feed::fx_live(77, 2, w.tick, w.tick + 1).into_iter().map(|f| (f.kind, f.at, f.to)).collect();
+        v.sort();
+        v
+    };
+    let at = |w: &World, p: usize| w.champ(p).at;
+
+    // ---- Infernal: the blast on the champion hit
+    feed::clear();
+    let mut w = soul_world(131, Element::Infernal, view);
+    w.hit(0, 5, 30);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::InfernalBlast, at(&w, 5), vec![])]);
+    let blast = feed::fx_live(77, 2, w.tick, 600)[0].clone();
+    assert_eq!(blast.tick, w.tick - 1, "at the tick it went off");
+    // still cooling down a second later: nothing new
+    advance(&mut w, 60);
+    w.hit(0, 5, 30);
+    tick(&mut w);
+    assert_eq!(feed::fx_count(77, 2), 1);
+    // the screen's second run of the same set: the same effect, kept once
+    let mut again = soul_world(131, Element::Infernal, view);
+    again.hit(0, 5, 30);
+    tick(&mut again);
+    assert_eq!(feed::fx_count(77, 2), 1);
+    // a presim of it: nothing
+    let mut pre = soul_world(131, Element::Infernal, SimOriginKindV1::ServerPresim);
+    advance(&mut pre, rules::INFERNAL_SOUL_CD + 80);
+    pre.hit(0, 5, 30);
+    tick(&mut pre);
+    assert_eq!(feed::fx_count(77, 2), 1);
+
+    // ---- Hextech: a bolt from the one who hit to the three it chains through, in that order
+    feed::clear();
+    let mut w = soul_world(132, Element::Hextech, view);
+    w.hit(0, 5, 30);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::HexBolt, at(&w, 0), vec![at(&w, 5), at(&w, 6), at(&w, 7)])]);
+
+    // ---- Ocean: the water on the one who heals
+    feed::clear();
+    let mut w = soul_world(133, Element::Ocean, view);
+    w.hit(0, 5, 30);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::OceanHeal, at(&w, 0), vec![])]);
+
+    // ---- Mountain: the shell on each of the five as their shields go up
+    feed::clear();
+    let mut w = soul_world(134, Element::Mountain, view);
+    run_to(&mut w, rules::MOUNTAIN_SOUL_IDLE + 10);
+    let mut want: Vec<_> = (0..5).map(|p| (Kind::MountainShield, at(&w, p), vec![])).collect();
+    want.sort();
+    assert_eq!(all(&w), want);
+
+    // ---- Cloud: the gust on the one who cast his ultimate
+    feed::clear();
+    let mut w = soul_world(135, Element::Cloud, view);
+    w.players[2].cds[3] = 3000;
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::CloudGust, at(&w, 2), vec![])]);
+
+    // ---- Chemtech: the flare when he drops below half, not again while he stays there
+    feed::clear();
+    let mut w = soul_world(136, Element::Chemtech, view);
+    w.champ_mut(1).hp = 400;
+    tick(&mut w);
+    advance(&mut w, 30);
+    assert_eq!(all(&w), vec![(Kind::ChemRage, at(&w, 1), vec![])]);
+
+    // ---- the soul taken: the element round each living champion of the team (blue's top is dead)
+    feed::clear();
+    let seed = seed_for(Element::Ocean, 9_000);
+    let mut w = World::new(seed, view, CAST);
+    start(&mut w);
+    tick(&mut w);
+    for k in 0..4 {
+        let s = spawn_serpen(&mut w);
+        if k == 3 {
+            w.die(0);
+        }
+        w.secure(s, 1);
+        tick(&mut w);
+    }
+    assert_eq!(record(&w, 0).soul, Some((0, Element::Ocean.code())));
+    let mut want: Vec<_> = (1..5).map(|p| (Kind::Soul(Element::Ocean), at(&w, p), vec![])).collect();
+    want.sort();
+    assert_eq!(all(&w), want);
+
+    // ---- the Elder: its flame catches once on a champion (hit again while burning: not again), the execute's shaft
+    feed::clear();
+    let mut w = elder_world(141, view);
+    w.hit(6, 2, 50);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![]);
+    place(&mut w, 2, (30_000, 120_000));
+    tick(&mut w);
+    w.hit(6, 2, 50);
+    tick(&mut w);
+    assert_eq!(all(&w), vec![(Kind::ElderBurn, at(&w, 2), vec![])]);
+    advance(&mut w, 10);
+    w.hit(6, 2, 50);
+    tick(&mut w);
+    assert_eq!(feed::fx_count(77, 2), 1, "already burning");
+    w.champ_mut(0).hp = 150;
+    w.hit(6, 0, 10);
+    tick(&mut w);
+    let got = all(&w);
+    assert!(got.contains(&(Kind::Execute, at(&w, 0), vec![])), "{got:?}");
+    assert_eq!(got.iter().filter(|f| f.0 == Kind::Execute).count(), 1);
+    feed::clear();
+}
+
+// ===================== the elemental rift's terrain (0.5.0) =====================
+
+/// The game's own 5v5 map in the mock: the nexuses where the game has them, the champions parked in their bases (clear
+/// of every piece of terrain), two drakes at the dragon pit taken, one a team - the rift has turned `element`. `live`:
+/// run on until its terrain is in effect.
+fn rift_world(element: Element, kind: SimOriginKindV1, live: bool) -> World {
+    log_to_temp();
+    let seed = seed_for(element, 20_000);
+    let mut w = World::new(seed, kind, CAST);
+    w.units[0].at = rift::NEXUS[0];
+    w.units[1].at = rift::NEXUS[1];
+    for p in 0..10 {
+        let k = (p % 5) as u64;
+        place(&mut w, p, if p < 5 { (60_000 + 10_000 * k, 900_000) } else { (900_000, 60_000 + 10_000 * k) });
+    }
+    start(&mut w);
+    tick(&mut w);
+    for by in [1, 6] {
+        let s = w.spawn(Unit::new(EntityKindV1::Serpen, 2, rift::SERPEN, "serpen_jungle", 5000));
+        let t = w.tick + SCAN + 1;
+        run_to(&mut w, t);
+        w.secure(s, by);
+        tick(&mut w);
+    }
+    if live {
+        advance(&mut w, rift::RISE_T + rift::SCAN);
+    }
+    w
+}
+
+fn turned(w: &World) -> usize {
+    state(w, |s| s.terrain.rift.expect("the rift has turned").1)
+}
+
+fn hidden(w: &World, p: usize) -> bool {
+    w.champ(p).unseen_until > w.tick
+}
+
+/// The second drake turns the rift on the game's own 5v5 map: the event on the nexus and in the screen's feed, its
+/// terrain live after it has risen; one drake is not enough; another map has no terrain.
+#[test]
+fn the_rift_turns_with_the_second_drake_on_the_games_own_map() {
+    let _g = GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
+    let view = SimOriginKindV1::ClientMatchView;
+    for e in rules::DRAKES {
+        feed::clear();
+        let mut w = rift_world(e, view, false);
+        let since = turned(&w);
+        state(&w, |s| {
+            assert_eq!(s.terrain.rift, Some((e, since)));
+            assert_eq!(s.terrain.live(since + rift::RISE_T - 1), None, "{e:?} is still rising");
+            assert_eq!(s.terrain.live(since + rift::RISE_T), Some(e));
+            assert_eq!(s.pit, Some(rift::SERPEN));
+        });
+        assert_eq!(since, w.tick - 1, "at the second drake's capture");
+        assert!(events(&w).contains(&Ev::Rift { element: e }), "{:?}", events(&w));
+        let whats: Vec<feed::What> = feed::events(77, 2).into_iter().map(|x| x.what).collect();
+        assert_eq!(whats.iter().filter(|x| **x == feed::What::Rift { element: e }).count(), 1, "{whats:?}");
+        // the third drake changes nothing more
+        let s = w.spawn(Unit::new(EntityKindV1::Serpen, 2, rift::SERPEN, "serpen_jungle", 5000));
+        let t = w.tick + SCAN + 1;
+        run_to(&mut w, t);
+        w.secure(s, 1);
+        tick(&mut w);
+        assert_eq!(turned(&w), since);
+        assert_eq!(events(&w).iter().filter(|x| matches!(x, Ev::Rift { .. })).count(), 1);
+    }
+    // the mock's own little map (its nexuses at (0, 0), its serpent elsewhere): the rift's element as ever, no terrain
+    feed::clear();
+    let mut w = World::new(seed_for(Element::Cloud, 20_000), view, CAST);
+    start(&mut w);
+    tick(&mut w);
+    for by in [1, 6] {
+        let s = spawn_serpen(&mut w);
+        w.secure(s, by);
+        tick(&mut w);
+    }
+    state(&w, |s| assert!(s.terrain.rift.is_none() && s.drakes == 2));
+    assert!(!events(&w).iter().any(|x| matches!(x, Ev::Rift { .. })));
+    assert_eq!(record(&w, 0).cur, Element::Cloud.code(), "the third drake is the rift's all the same");
+    // a presim of the 5v5 map: the same terrain, nothing for the screen
+    feed::clear();
+    let p = rift_world(Element::Ocean, SimOriginKindV1::ServerPresim, true);
+    state(&p, |s| assert_eq!(s.terrain.rift.map(|r| r.0), Some(Element::Ocean)));
+    assert!(feed::events(77, 2).is_empty() && feed::fx_count(77, 2) == 0);
+    feed::clear();
+}
+
+/// Cloud: a champion in a current runs 20% faster (one buff, kept up while he is in it); outside it nothing; nothing
+/// before the terrain has risen.
+#[test]
+fn the_cloud_rifts_currents_speed_champions_up() {
+    let mut w = rift_world(Element::Cloud, SimOriginKindV1::ServerPresim, false);
+    place(&mut w, 0, (488_000, 488_000));
+    advance(&mut w, rift::SCAN);
+    assert!(w.has(0, rift::WIND).is_none(), "the currents are not blowing yet");
+    advance(&mut w, rift::RISE_T);
+    // blue's top in the river's current, red's mid in the current of blue's upper jungle, blue's jungler on the top lane
+    place(&mut w, 7, (240_000, 600_000));
+    place(&mut w, 1, (48_000, 500_000));
+    advance(&mut w, rift::SCAN);
+    assert_eq!(w.has(0, rift::WIND).map(|b| (b.move_speed_mult, b.duration_tick)), Some((rift::WIND_MS, rift::WIND_T)));
+    assert!(w.has(7, rift::WIND).is_some(), "the wind is everybody's");
+    assert!(w.has(1, rift::WIND).is_none() && w.has(5, rift::WIND).is_none());
+    advance(&mut w, 10 * rift::SCAN);
+    assert_eq!(w.count(0, rift::WIND), 1, "kept up, not stacked");
+    state(&w, |s| assert!(s.terrain.winds >= 20));
+    // the dead get nothing
+    w.die(7);
+    w.champ_mut(7).buffs.clear();
+    advance(&mut w, 2 * rift::SCAN);
+    assert!(w.has(7, rift::WIND).is_none());
+}
+
+/// Hextech: a champion out of combat who walks onto a gate toward its twin comes out of the twin; then 20 s without;
+/// one just hit, one who just attacked, one walking across the gate stay where they are.
+#[test]
+fn a_hex_gate_takes_a_champion_walking_toward_its_twin() {
+    let _g = GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
+    feed::clear();
+    let mut w = rift_world(Element::Hextech, SimOriginKindV1::ClientMatchView, true);
+    let (gate, twin) = rift::GATES[0];
+    let walk = |w: &mut World, p: usize, from: (u64, u64), to: (u64, u64)| {
+        place(w, p, from);
+        advance(w, rift::SCAN);
+        place(w, p, to);
+        advance(w, rift::SCAN);
+    };
+    // blue's top walks east over the gate in blue's upper jungle: he comes out by the dragon pit
+    walk(&mut w, 0, (gate.0 - 9_000, gate.1 - 3_000), (gate.0 - 2_000, gate.1 - 1_000));
+    assert_eq!(w.champ(0).at, twin);
+    let fxs = feed::fx_where(77, 2, w.tick, |f| f.kind == fx::Kind::Gate);
+    assert_eq!(fxs.iter().map(|f| (f.at, f.to.clone())).collect::<Vec<_>>(), vec![(gate, vec![twin])]);
+    // 20 s before a gate takes him again: walking back over the twin toward the first gate
+    walk(&mut w, 0, (twin.0 + 9_000, twin.1 + 4_000), (twin.0 + 1_000, twin.1));
+    assert_eq!(w.champ(0).at, (twin.0 + 1_000, twin.1));
+    advance(&mut w, rift::GATE_CD);
+    walk(&mut w, 0, (twin.0 + 9_000, twin.1 + 4_000), (twin.0 + 1_000, twin.1));
+    assert_eq!(w.champ(0).at, gate, "back through, the other way");
+    // red's are taken as well (the gates are everybody's)
+    walk(&mut w, 8, (gate.0 - 9_000, gate.1 - 3_000), (gate.0 - 2_000, gate.1 - 1_000));
+    assert_eq!(w.champ(8).at, twin);
+    // just hit: not out of combat
+    place(&mut w, 1, (gate.0 - 9_000, gate.1 - 3_000));
+    advance(&mut w, rift::SCAN);
+    w.champ_mut(1).hp -= 40;
+    place(&mut w, 1, (gate.0 - 2_000, gate.1 - 1_000));
+    advance(&mut w, rift::SCAN);
+    assert_eq!(w.champ(1).at, (gate.0 - 2_000, gate.1 - 1_000));
+    // just attacked (his attack's cooldown went up)
+    place(&mut w, 2, (gate.0 - 9_000, gate.1 - 3_000));
+    advance(&mut w, rift::SCAN);
+    w.players[2].cds[0] = 50;
+    place(&mut w, 2, (gate.0 - 2_000, gate.1 - 1_000));
+    advance(&mut w, rift::SCAN);
+    assert_eq!(w.champ(2).at, (gate.0 - 2_000, gate.1 - 1_000));
+    // 3 s later he is out of combat again: walking on east over the gate takes him
+    w.players[2].cds[0] = 0;
+    advance(&mut w, rift::GATE_CALM);
+    walk(&mut w, 2, (gate.0 - 9_000, gate.1 - 3_000), (gate.0 - 2_000, gate.1 - 1_000));
+    assert_eq!(w.champ(2).at, twin);
+    // walking down the jungle's corridor across the gate: not toward the twin
+    walk(&mut w, 3, (gate.0, gate.1 - 9_000), (gate.0, gate.1 - 1_000));
+    assert_eq!(w.champ(3).at, (gate.0, gate.1 - 1_000));
+    // standing on it: nothing
+    advance(&mut w, 4 * rift::SCAN);
+    assert_eq!(w.champ(3).at, (gate.0, gate.1 - 1_000));
+    state(&w, |s| assert_eq!(s.terrain.jumps, 4));
+    assert_eq!(feed::fx_where(77, 2, w.tick, |f| f.kind == fx::Kind::Gate).len(), 4);
+    feed::clear();
+}
+
+/// Ocean: a champion alone in a patch of the new brush is hidden from the other team (not one with an enemy in the same
+/// patch, not one who just attacked, not one whose own stealth hides him already); a hurt champion eats a ripe
+/// honeyfruit, which grows again 45 s later.
+#[test]
+fn the_ocean_rifts_brush_hides_and_its_fruit_heals() {
+    let _g = GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
+    feed::clear();
+    let mut w = rift_world(Element::Ocean, SimOriginKindV1::ClientMatchView, true);
+    let patch = rift::OCEAN_BRUSH[2];
+    assert!(!hidden(&w, 0));
+    place(&mut w, 0, patch);
+    advance(&mut w, rift::SCAN);
+    assert!(hidden(&w, 0), "alone in the brush");
+    advance(&mut w, 20 * rift::SCAN);
+    assert!(hidden(&w, 0), "for as long as he stays");
+    state(&w, |s| assert_eq!(s.terrain.hides, 1, "counted once a stay"));
+    // an enemy walks into the same patch: both in sight of each other again
+    place(&mut w, 6, (patch.0 + 12_000, patch.1 - 6_000));
+    advance(&mut w, rift::HIDE_T + rift::SCAN);
+    assert!(!hidden(&w, 0) && !hidden(&w, 6));
+    // the enemy in another patch instead: each hidden in his own
+    place(&mut w, 6, rift::OCEAN_BRUSH[3]);
+    advance(&mut w, rift::SCAN);
+    assert!(hidden(&w, 0) && hidden(&w, 6));
+    // he attacks out of the brush: in sight for a second, then hidden again
+    w.players[0].cds[0] = 45;
+    advance(&mut w, rift::HIDE_T + rift::SCAN);
+    assert!(!hidden(&w, 0), "attacking gives him away");
+    w.players[0].cds[0] = 0;
+    advance(&mut w, rift::REVEAL_T + rift::SCAN);
+    assert!(hidden(&w, 0));
+    // out of the brush: in sight as soon as the last hiding runs out
+    place(&mut w, 0, (patch.0 + rift::BRUSH_R + 20_000, patch.1));
+    advance(&mut w, rift::HIDE_T + rift::SCAN);
+    assert!(!hidden(&w, 0));
+    // one hidden by his own skill is left to it (this mod never shortens another's stealth)
+    w.champ_mut(1).stealth = true;
+    place(&mut w, 1, rift::OCEAN_BRUSH[4]);
+    advance(&mut w, 3 * rift::SCAN);
+    assert_eq!(w.champ(1).unseen_until, 0);
+    // the Chemtech rift's fog is somewhere else: nothing there now
+    place(&mut w, 2, rift::CHEM_BRUSH[0]);
+    advance(&mut w, rift::SCAN);
+    assert!(!hidden(&w, 2));
+
+    // ---- honeyfruit: ripe 10 s after the rift turned
+    let since = turned(&w);
+    let fruit = rift::FRUITS[0];
+    assert!(w.tick < since + rift::FRUIT_FIRST);
+    w.champ_mut(3).hp = 400;
+    place(&mut w, 3, fruit);
+    advance(&mut w, 2 * rift::SCAN);
+    assert!(w.heals.is_empty(), "not grown yet");
+    run_to(&mut w, since + rift::FRUIT_FIRST + rift::SCAN);
+    assert_eq!(w.heals, vec![(ent(&w, 3), rift::fruit_heal(400, 1000))]);
+    assert_eq!(w.champ(3).hp, 400 + 80 + 60);
+    // eaten: nothing for the next one until it has grown again; a healthy champion never eats
+    advance(&mut w, 10 * rift::SCAN);
+    assert_eq!(w.heals.len(), 1);
+    w.champ_mut(3).hp = 1000;
+    place(&mut w, 4, rift::FRUITS[2]);
+    advance(&mut w, 2 * rift::SCAN);
+    assert_eq!(w.heals.len(), 1, "full health: the fruit stays");
+    w.champ_mut(4).hp = 900;
+    advance(&mut w, rift::SCAN);
+    assert_eq!(w.heals.last(), Some(&(ent(&w, 4), rift::fruit_heal(900, 1000))));
+    advance(&mut w, rift::FRUIT_RESPAWN);
+    w.champ_mut(3).hp = 500;
+    advance(&mut w, rift::SCAN);
+    assert_eq!(w.heals.len(), 3, "the first one has grown again");
+    let eaten: Vec<fx::Kind> = feed::fx_where(77, 2, w.tick, |f| matches!(f.kind, fx::Kind::Fruit(_))).into_iter().map(|f| f.kind).collect();
+    assert_eq!(eaten, vec![fx::Kind::Fruit(0), fx::Kind::Fruit(2), fx::Kind::Fruit(0)]);
+    state(&w, |s| assert_eq!((s.terrain.eaten, s.terrain.healed), (3, 140 + 90 + 130)));
+    feed::clear();
+}
+
+/// Chemtech: its fog hides like the Ocean rift's brush, at its own places.
+#[test]
+fn the_chemtech_rifts_fog_hides_too() {
+    let mut w = rift_world(Element::Chemtech, SimOriginKindV1::ServerPresim, true);
+    place(&mut w, 5, rift::CHEM_BRUSH[4]);
+    place(&mut w, 0, rift::OCEAN_BRUSH[2]);
+    advance(&mut w, rift::SCAN);
+    assert!(hidden(&w, 5) && !hidden(&w, 0));
+    assert!(w.heals.is_empty(), "no honeyfruit in this rift");
+}
+
+/// Mountain: nobody stands inside a rock once it has risen - pushed out every tick; one held by the same rock for 2.5 s
+/// is let through to its far side.
+#[test]
+fn the_mountain_rifts_rocks_keep_champions_out() {
+    let mut w = rift_world(Element::Mountain, SimOriginKindV1::ServerPresim, false);
+    let rock = rift::ROCKS[0];
+    let min = rift::ROCK_R + 8_000;
+    let d2 = |a: (u64, u64), b: (u64, u64)| a.0.abs_diff(b.0).pow(2) + a.1.abs_diff(b.1).pow(2);
+    place(&mut w, 0, (rock.0 - 10_000, rock.1));
+    advance(&mut w, 10);
+    assert_eq!(w.champ(0).at, (rock.0 - 10_000, rock.1), "the rock has not risen yet");
+    advance(&mut w, rift::RISE_T);
+    let at = w.champ(0).at;
+    assert!(at.1 == rock.1 && at.0 < rock.0 && d2(at, rock) >= min * min, "pushed out to the west: {at:?}");
+    // left alone there
+    tick(&mut w);
+    assert_eq!(w.champ(0).at, at);
+    // he keeps walking into it: out again every tick, and after STUCK_T ticks through to the far side
+    let mut pushed = 0;
+    for _ in 0..rift::STUCK_T + 5 {
+        place(&mut w, 0, (rock.0 - 12_000, rock.1));
+        tick(&mut w);
+        if w.champ(0).at.0 > rock.0 {
+            break;
+        }
+        pushed += 1;
+        assert!(d2(w.champ(0).at, rock) >= min * min);
+    }
+    assert!(pushed >= rift::STUCK_T as usize - 2, "held for {pushed} ticks");
+    let far = w.champ(0).at;
+    assert!(far.0 > rock.0 + rift::ROCK_R && d2(far, rock) >= min * min, "let through to the east: {far:?}");
+    state(&w, |s| assert!(s.terrain.through == 1 && s.terrain.pushes >= 100));
+    // the dead and the far away are not touched; the other rocks hold as well (red's too)
+    for (k, r) in rift::ROCKS.iter().enumerate() {
+        place(&mut w, 6, (r.0 + 5_000, r.1 + 5_000));
+        tick(&mut w);
+        assert!(d2(w.champ(6).at, *r) >= min * min, "rock {k}");
+    }
+    w.die(7);
+    w.champ_mut(7).at = rock;
+    tick(&mut w);
+    assert_eq!(w.champ(7).at, rock);
+}
+
+/// Infernal: the burning walls are pictures only - nothing in the simulation moves, hides or speeds up.
+#[test]
+fn the_infernal_rift_changes_nothing_in_the_simulation() {
+    let mut w = rift_world(Element::Infernal, SimOriginKindV1::ServerPresim, true);
+    for (p, at) in [(0, rift::OCEAN_BRUSH[0]), (1, rift::ROCKS[0]), (2, rift::GATES[0].0), (3, (488_000, 488_000))] {
+        place(&mut w, p, at);
+    }
+    advance(&mut w, 5 * rift::SCAN);
+    assert_eq!(w.champ(1).at, rift::ROCKS[0]);
+    assert_eq!(w.champ(2).at, rift::GATES[0].0);
+    assert!(!hidden(&w, 0) && w.has(3, rift::WIND).is_none() && w.heals.is_empty());
+    state(&w, |s| assert_eq!(s.terrain.live(w.tick), Some(Element::Infernal)));
 }
 
 #[test]

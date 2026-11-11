@@ -83,16 +83,7 @@
                 "type": "TargetSfx",
                 "name": "league_kaisa_attack_hit"
               }
-            }
-          ]
-        },
-        {
-          "type": "TargetProjectile",
-          "name": "league_kaisa_bolt_c",
-          "speed": 7000,
-          "y_offset": -3000,
-          "applied_target": "EnemyChampion",
-          "applied_effects": [
+            },
             {
               "casting_type": "Targeting",
               "effect": {
@@ -105,35 +96,6 @@
                     }
                   }
                 }
-              }
-            }
-          ]
-        },
-        {
-          "type": "TargetProjectile",
-          "name": "league_kaisa_bolt_cc",
-          "speed": 7000,
-          "y_offset": -3000,
-          "applied_target": "EnemyChampionInCC",
-          "applied_effects": [
-            {
-              "casting_type": "Targeting",
-              "effect": {
-                "type": "Delayed",
-                "tick": 1,
-                "effects": [
-                  {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "league_marks_kaisa_c",
-                      "duration": {
-                        "Time": {
-                          "tick": 3
-                        }
-                      }
-                    }
-                  }
-                ]
               }
             }
           ]
