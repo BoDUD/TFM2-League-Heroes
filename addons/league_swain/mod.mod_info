@@ -8,13 +8,13 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.132.0"
+      "version": ">=0.333.0"
     }
   ],
   "description": "Test build of Swain as in League (needs League of Legends Heroes): replaces the main pack's Swain so his Soul Fragments (max health) are kept through death and, during Demonic Ascension, he stands, walks and flinches as the demon with his whole body (game 0.6.4). His ult's moment stays the main pack's. Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-03",
+  "last_updated": "2026-11-11",
   "mod_id": "league_swain",
   "mod_type": "native",
   "name": "League Heroes: Swain's fragments kept, whole-body demon (test)",
-  "version": "0.1.2"
+  "version": "0.1.3"
 }

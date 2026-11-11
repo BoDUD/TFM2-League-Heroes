@@ -29,7 +29,8 @@ def own_effects(hd_rs, pack):
     hd = open(hd_rs, encoding="utf-8").read()
     i = hd.index("pub const EFFECTS")
     block = hd[i:hd.index("];", i)]
-    return set(re.findall(rf'\("({pack}_[a-z0-9_]+)", [0-9.]+, include_str!', block))
+    # the PPU may be written as a quotient (main's league_zaahen_rise: 1.75 / 0.85, 2026-11-11)
+    return set(re.findall(rf'\("({pack}_[a-z0-9_]+)", [0-9.]+(?:\s*/\s*[0-9.]+)?, include_str!', block))
 
 
 def sheets(pack):

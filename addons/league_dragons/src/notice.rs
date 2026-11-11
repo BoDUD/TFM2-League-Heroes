@@ -62,15 +62,30 @@ pub fn tone_colour(t: Tone) -> u32 {
     }
 }
 
-/// 一条道（大字或小提示）上的公告排队：按发生的 tick（同一 tick 的按发生的先后），前一条没放完的往后排。
+/// 小龙 / 远古龙 / 纳什男爵被打死时先让死亡动画放完再出公告（用户 2026-11-10：「大龙的死亡帧还是没有」——男爵死的那一刻
+/// 本包的大字正好弹出来，可能挡住他）：小龙和远古龙的死亡 1.26 秒，男爵的 1.6 秒（tools/art/dragons_hd.py 的 DRAKE_MS /
+/// BARON_MS，tick 60 一秒）。龙魂跟着第四条小龙一起来，也等。
+pub const DRAKE_DEATH_T: usize = 76;
+pub const BARON_DEATH_T: usize = 96;
+
+/// 这件事的公告比它发生晚多少 tick 出。
+pub fn lead(w: &What) -> usize {
+    match w {
+        What::Drake { .. } | What::Soul { .. } | What::ElderKilled { .. } => DRAKE_DEATH_T,
+        What::BaronKilled { .. } => BARON_DEATH_T,
+        _ => 0,
+    }
+}
+
+/// 一条道（大字或小提示）上的公告排队：按发生的 tick 加上 [`lead`]（同一 tick 的按发生的先后），前一条没放完的往后排。
 /// -> (开始的 tick, 在 `events` 里第几条)
 pub fn schedule(events: &[Event], big_lane: bool) -> Vec<(usize, usize)> {
     let mut v: Vec<usize> = (0..events.len()).filter(|&i| big(&events[i].what) == big_lane).collect();
-    v.sort_by_key(|&i| events[i].tick); // stable: the same tick keeps the order they came in
+    v.sort_by_key(|&i| events[i].tick + lead(&events[i].what)); // stable: the same tick keeps the order they came in
     let mut end = 0;
     v.into_iter()
         .map(|i| {
-            let start = events[i].tick.max(end);
+            let start = (events[i].tick + lead(&events[i].what)).max(end);
             end = start + show_t(&events[i].what);
             (start, i)
         })
@@ -248,18 +263,26 @@ mod tests {
 
     #[test]
     fn notes_queue_one_after_another_in_their_own_lane() {
-        // two drakes taken a moment apart, a soul at the second: the toasts queue, the soul's banner shows at once
+        // two drakes taken a moment apart, a soul at the second: the toasts queue, the soul's banner shows once the
+        // drake has finished dying (as its toast does); the Elder's appearance at once
+        let l = DRAKE_DEATH_T;
         let events = vec![drake(1000, 3), drake(1010, 4), ev(1010, What::Soul { team: 0, element: Element::Infernal }),
                           ev(5000, What::ElderSpawn)];
         let small = schedule(&events, false);
-        assert_eq!(small, vec![(1000, 0), (1000 + SMALL_T, 1)]);
+        assert_eq!(small, vec![(1000 + l, 0), (1000 + l + SMALL_T, 1)]);
         let big_ = schedule(&events, true);
-        assert_eq!(big_, vec![(1010, 2), (5000, 3)]);
-        assert_eq!(showing(&events, false, 1100), Some((0, 100, SMALL_T)));
-        assert_eq!(showing(&events, false, 1000 + SMALL_T + 5), Some((1, 5, SMALL_T)));
-        assert_eq!(showing(&events, true, 1100), Some((2, 90, BIG_T)));
-        assert_eq!(showing(&events, true, 1010 + BIG_T), None);
-        assert_eq!(showing(&events, false, 999), None);
+        assert_eq!(big_, vec![(1010 + l, 2), (5000, 3)]);
+        assert_eq!(showing(&events, false, 1100 + l), Some((0, 100, SMALL_T)));
+        assert_eq!(showing(&events, false, 1000 + l + SMALL_T + 5), Some((1, 5, SMALL_T)));
+        assert_eq!(showing(&events, true, 1100 + l), Some((2, 90, BIG_T)));
+        assert_eq!(showing(&events, true, 1010 + l + BIG_T), None);
+        assert_eq!(showing(&events, false, 999 + l), None);
+        assert_eq!(showing(&events, true, 1009 + l), None);
+        // Baron's banner waits for his longer death
+        let b = vec![ev(2000, What::BaronKilled { team: 1, holders: vec![] })];
+        assert_eq!(schedule(&b, true), vec![(2000 + BARON_DEATH_T, 0)]);
+        assert_eq!(lead(&What::ElderSpawn), 0);
+        assert_eq!(lead(&What::Execute { team: 1, killer: "a".into(), victim: "b".into() }), 0);
         // the conflict warning stays longer
         let c = vec![ev(300, What::Conflict)];
         assert!(showing(&c, false, 300 + SMALL_T + 10).is_some());

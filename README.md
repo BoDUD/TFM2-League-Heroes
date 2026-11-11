@@ -5,17 +5,73 @@
 - **每位英雄现在的技能、附加包、高清帧和开发记录**：见下面的 [英雄一览](#英雄一览)，或者 [`docs/heroes/`](docs/heroes/) 里每位英雄一页；表格版是 [`docs/heroes.xlsx`](docs/heroes.xlsx)。
 - 原来 README 里很长的技术说明搬到了 [`docs/tech-notes.md`](docs/tech-notes.md)，演示动图在 [`docs/gallery.md`](docs/gallery.md)，不属于某位英雄的几节在 [`docs/dev-notes.md`](docs/dev-notes.md)，性能调查在 [`docs/perf.md`](docs/perf.md)。
 
+<table>
+<tr>
+<td align="center"><a href="docs/heroes/league_shen.md"><img src="docs/preview/league_shen_showcase.gif" width="400" alt="慎"></a><br>慎</td>
+<td align="center"><a href="docs/heroes/league_zoe.md"><img src="docs/preview/league_zoe_showcase.gif" width="400" alt="佐伊"></a><br>佐伊</td>
+</tr>
+<tr>
+<td align="center"><a href="docs/heroes/league_milio.md"><img src="docs/preview/league_milio_showcase.gif" width="400" alt="米利欧"></a><br>米利欧</td>
+<td align="center"><a href="docs/heroes/league_seraphine.md"><img src="docs/preview/league_seraphine_showcase.gif" width="400" alt="萨勒芬妮"></a><br>萨勒芬妮</td>
+</tr>
+<tr>
+<td align="center"><a href="docs/heroes/league_hecarim.md"><img src="docs/preview/league_hecarim_showcase.gif" width="400" alt="赫卡里姆"></a><br>赫卡里姆</td>
+<td align="center"><a href="docs/heroes/league_jhin.md"><img src="docs/preview/league_jhin_showcase.gif" width="400" alt="烬"></a><br>烬</td>
+</tr>
+</table>
+
+上面是最近用 PPU 重做的几位（点图看那位英雄的一页）。全部演示动图见 [`docs/gallery.md`](docs/gallery.md)，每位英雄的动图也在他自己那一页。
+
 ## 目录
 
+- [最近的改动](#最近的改动)
 - [安装测试](#安装测试)
 - [附加包](#附加包)
 - [高清帧（PPU）和界面](#高清帧ppu和界面)
 - [游戏版本更新时](#游戏版本更新时)
 - [持续集成](#持续集成)
+- [踩坑记录](#踩坑记录)
 - [金铲铲之战系列（tft 包）](#金铲铲之战系列tft-包)
 - [英雄一览](#英雄一览)
 - [英雄文档怎么生成](#英雄文档怎么生成)
 - [仓库里的 skill](#仓库里的-skill) · [快速开始](#快速开始) · [知识来源](#知识来源) · [声明](#声明)
+
+## 最近的改动
+
+2026-10-29 到 11-10 合并了约 120 个 PR，按类别列（编号是 PR）：
+
+- **英雄模型用 PPU 重做**（Codex 画设计图和整帧动作，读回成高清帧，登记进 `league.dll`）：
+  - 10-30：娑娜、蕾欧娜、贝蕾亚（[#628](https://github.com/BoDUD/TFM2-League-Heroes/pull/628) [#626](https://github.com/BoDUD/TFM2-League-Heroes/pull/626) [#630](https://github.com/BoDUD/TFM2-League-Heroes/pull/630)）；10-31：泰隆、锤石、厄运小姐（[#643](https://github.com/BoDUD/TFM2-League-Heroes/pull/643)）。
+  - 11-01：赛娜、伊芙琳、瑟提、佛耶戈（[#655](https://github.com/BoDUD/TFM2-League-Heroes/pull/655)）；11-02：黛安娜、易、瑞兹（[#665](https://github.com/BoDUD/TFM2-League-Heroes/pull/665)）。
+  - 11-03：蔚、崔斯特、艾克、萨科（[#680](https://github.com/BoDUD/TFM2-League-Heroes/pull/680)），魔腾、凯南、亚托克斯、丽桑卓（[#682](https://github.com/BoDUD/TFM2-League-Heroes/pull/682)）。
+  - 11-04：阿利斯塔、泰达米尔、派克、布兰德（[#686](https://github.com/BoDUD/TFM2-League-Heroes/pull/686)）；11-05：卡兹克、布里茨、莉莉娅、烬（[#691](https://github.com/BoDUD/TFM2-League-Heroes/pull/691)）。
+  - 11-06：凯隐、维克托、永恩、诺提勒斯（[#694](https://github.com/BoDUD/TFM2-League-Heroes/pull/694)）；11-07：霞、洛、费德提克、璐璐（[#706](https://github.com/BoDUD/TFM2-League-Heroes/pull/706)）。
+  - 11-08：奥拉夫、伊泽瑞尔、赫卡里姆、雷克顿（[#713](https://github.com/BoDUD/TFM2-League-Heroes/pull/713)），维迦、基兰、克格莫、萨勒芬妮（[#723](https://github.com/BoDUD/TFM2-League-Heroes/pull/723)）。
+  - 11-09：提莫、菲兹、泽丽、佐伊、米利欧（[#729](https://github.com/BoDUD/TFM2-League-Heroes/pull/729)）；11-10：慎（[#738](https://github.com/BoDUD/TFM2-League-Heroes/pull/738)）。
+  - 每批之后，头像截取点都按新模型对准眼睛（[#701](https://github.com/BoDUD/TFM2-League-Heroes/pull/701) [#708](https://github.com/BoDUD/TFM2-League-Heroes/pull/708) [#715](https://github.com/BoDUD/TFM2-League-Heroes/pull/715) [#727](https://github.com/BoDUD/TFM2-League-Heroes/pull/727) [#732](https://github.com/BoDUD/TFM2-League-Heroes/pull/732)）。
+- **金铲铲之战（tft 包）新增 22 位**：艾达丝、迭嘉、石傲玉、索姆、赛芬、泰拉、呲呲、苍蓝雕纹魔像、绯红印记树怪、深红锋喙鸟、远古巨龙、小木灵、暗影狼、迅捷蟹、魔沼蛙、苍蓝哨戒、岩宝、绯红树怪、峡谷先锋、海克斯霸龙、超级机甲、纳什男爵。另外 13 位补全了台词（[#671](https://github.com/BoDUD/TFM2-League-Heroes/pull/671)）。
+- **新的 mod 和附加包**：
+  - 英雄联盟的小龙、龙魂、远古巨龙和纳什男爵（`league_dragons`，[#725](https://github.com/BoDUD/TFM2-League-Heroes/pull/725)）。从 [#731](https://github.com/BoDUD/TFM2-League-Heroes/pull/731) 起单独成 mod，不依赖主包，原版英雄也能用（[#733](https://github.com/BoDUD/TFM2-League-Heroes/pull/733)）；持续时间可以在 `settings.ini` 里改（[#736](https://github.com/BoDUD/TFM2-League-Heroes/pull/736)）。
+  - 彩蛋 `league_eggs`：宿命对决、趣味属性互动，每个彩蛋都有提示（[#693](https://github.com/BoDUD/TFM2-League-Heroes/pull/693) [#724](https://github.com/BoDUD/TFM2-League-Heroes/pull/724)）。
+  - 比赛 AI 的运营、对线、保护射手、集火、拉扯钩子（[#695](https://github.com/BoDUD/TFM2-League-Heroes/pull/695) 至 [#722](https://github.com/BoDUD/TFM2-League-Heroes/pull/722)），以及游戏自带比赛 AI 的逆向笔记（[docs/native_ai.md](docs/native_ai.md)，[#712](https://github.com/BoDUD/TFM2-League-Heroes/pull/712)）。
+- **按英雄联盟改机制**：
+  - 奇亚娜、奥瑞利安·索尔、阿萝拉、阿兹尔按 V26.21 改（[#688](https://github.com/BoDUD/TFM2-League-Heroes/pull/688)）。
+  - 卡尔萨斯灵体选不中、原地施法，敌人不再围着等（[#672](https://github.com/BoDUD/TFM2-League-Heroes/pull/672) [#673](https://github.com/BoDUD/TFM2-League-Heroes/pull/673) [#683](https://github.com/BoDUD/TFM2-League-Heroes/pull/683) [#689](https://github.com/BoDUD/TFM2-League-Heroes/pull/689) [#737](https://github.com/BoDUD/TFM2-League-Heroes/pull/737)）；泽拉斯大招没目标就收招并返还冷却（[#737](https://github.com/BoDUD/TFM2-League-Heroes/pull/737)）。
+  - 塞拉斯偷到的大招留到放出（[#711](https://github.com/BoDUD/TFM2-League-Heroes/pull/711) [#717](https://github.com/BoDUD/TFM2-League-Heroes/pull/717)）；沃利贝尔开大变大、跳进人堆（[#648](https://github.com/BoDUD/TFM2-League-Heroes/pull/648) [#668](https://github.com/BoDUD/TFM2-League-Heroes/pull/668)）。
+  - 佐伊的闪现和 W 飞弹（[#651](https://github.com/BoDUD/TFM2-League-Heroes/pull/651) [#728](https://github.com/BoDUD/TFM2-League-Heroes/pull/728)）；奥莉安娜 Q+R 连招（[#670](https://github.com/BoDUD/TFM2-League-Heroes/pull/670)）；薇恩 E 撞墙才晕（[#659](https://github.com/BoDUD/TFM2-League-Heroes/pull/659)）。
+  - 卡莉丝塔前后左右跳（[#654](https://github.com/BoDUD/TFM2-League-Heroes/pull/654)）；悠米看局势换宿主（[#658](https://github.com/BoDUD/TFM2-League-Heroes/pull/658)）；奥恩出满装备才锻造（[#656](https://github.com/BoDUD/TFM2-League-Heroes/pull/656) [#679](https://github.com/BoDUD/TFM2-League-Heroes/pull/679)）。
+  - 提莫把蘑菇种进草丛（[#627](https://github.com/BoDUD/TFM2-League-Heroes/pull/627)）；阿兹尔和沙兵之间的流沙线（[#625](https://github.com/BoDUD/TFM2-League-Heroes/pull/625)）。
+- **引擎和工具**：
+  - 高清帧引擎 `hd_engine` 由 league.dll 和 tft.dll 共用，只开 tft 包也有高清帧（[#666](https://github.com/BoDUD/TFM2-League-Heroes/pull/666) [#667](https://github.com/BoDUD/TFM2-League-Heroes/pull/667)）。
+  - 游戏的 GPU 图片缓存放大，现在是 1.5 GiB（[#622](https://github.com/BoDUD/TFM2-League-Heroes/pull/622)）；适配游戏 0.7.1（[#690](https://github.com/BoDUD/TFM2-League-Heroes/pull/690)）。
+  - 加射程改走官方的 `range_adjust`（[#703](https://github.com/BoDUD/TFM2-League-Heroes/pull/703)）；区域 `first_delay` 从 0 改成 1（[#700](https://github.com/BoDUD/TFM2-League-Heroes/pull/700)）；英雄死后不再反复触发（[#668](https://github.com/BoDUD/TFM2-League-Heroes/pull/668)）。
+  - 存档里英雄副本的迁移工具（[#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#647](https://github.com/BoDUD/TFM2-League-Heroes/pull/647)）；`pose_ref` 读皮肤真正的隐藏名单（[#726](https://github.com/BoDUD/TFM2-League-Heroes/pull/726)）；撤掉 Mac 版（[#642](https://github.com/BoDUD/TFM2-League-Heroes/pull/642)）。
+  - 每天按对局日志修 bug（[#618](https://github.com/BoDUD/TFM2-League-Heroes/pull/618) [#632](https://github.com/BoDUD/TFM2-League-Heroes/pull/632) [#645](https://github.com/BoDUD/TFM2-League-Heroes/pull/645) [#659](https://github.com/BoDUD/TFM2-League-Heroes/pull/659) [#674](https://github.com/BoDUD/TFM2-League-Heroes/pull/674) [#685](https://github.com/BoDUD/TFM2-League-Heroes/pull/685) [#692](https://github.com/BoDUD/TFM2-League-Heroes/pull/692) [#699](https://github.com/BoDUD/TFM2-League-Heroes/pull/699) [#718](https://github.com/BoDUD/TFM2-League-Heroes/pull/718) [#721](https://github.com/BoDUD/TFM2-League-Heroes/pull/721)）。
+- **进行中（还没合并）**：
+  - 全部英雄的技能特效改成 PPU 2 高清帧，并接入 Codex 重画（[#730](https://github.com/BoDUD/TFM2-League-Heroes/pull/730)）。
+  - 召唤师峡谷地图兼容（[#734](https://github.com/BoDUD/TFM2-League-Heroes/pull/734)）。这个 PR 同时删掉了上面那组比赛 AI 钩子。
+
+下面 [踩坑记录](#踩坑记录) 一节是这段时间吃过的亏。
 
 ## 安装测试
 
@@ -63,19 +119,20 @@ python addons/league_addons/assemble.py <输出文件夹>       # 全部附加�
 - **高清帧**：登记在 [`addons/league_main/src/hd.rs`](addons/league_main/src/hd.rs)（tft 包的在 [`addons/tft/src/hd.rs`](addons/tft/src/hd.rs)）`HEROES` 里的英雄（每位的 PPU 见英雄一览，画出来的大小 `SIZES`）在自己的图里多一套 `hd_<动作>` 帧，每帧是 1 倍帧的 PPU 倍大。游戏里画出来大小不变、像素细 PPU 倍：高清帧引擎 [`addons/hd_engine`](addons/hd_engine/src/lib.rs)（`league.dll` 和 `tft.dll` 共用）挂在游戏按名字取动画表和贴图的函数上，把每个动作换成高清帧、矩形和贴图尺寸除以 PPU；战场画真实的高清帧、实体的绘制缩放写成 1/PPU。两个包都开着时，先加载的那个 DLL 挂钩、画两个包的英雄，后加载的只把自己的表交给它（[`src/share.rs`](addons/hd_engine/src/share.rs)），Mods 菜单里谁先谁后都一样。没有 DLL 或游戏版本不认得时，照旧画 1 倍帧。
 - **工具**：[`tools/art/ppu_hd.py`](tools/art/ppu_hd.py) 把高清帧写进图里（`python tools/art/ppu_hd.py --hero <英雄>`）；[`tools/art/ppu_restyle.py`](tools/art/ppu_restyle.py) 把原来的高清帧（`assets/source/ppu/orig/`）统一成泽丽那样「像素多但清晰」的画风（每个游戏像素约 2.2 格）；[`pack_ppu_strips.py`](tools/art/pack_ppu_strips.py) / [`import_ppu_strips.py`](tools/art/import_ppu_strips.py) 把动作打包给美术重画、再读回；[`ppu_one.py`](tools/art/ppu_one.py) 把 1 倍帧按高清帧缩回。
 - **界面**：图鉴、头像、选人槽位、选中特写用每个游戏像素 1.5 格的 `lo_<动作>` 帧；选人网格（BP 格子）用战场那套 `hd_` 帧播 `bp` 动画（[`tools/art/hero_reels.py`](tools/art/hero_reels.py)：只用图里已有的帧重排，挑哪几帧记在 [`hero_reels.json`](tools/art/hero_reels.json)）；待机 `idle` 不再上下呼吸，而是定住、随机冒一个小动作。
-- **界面小图集**：一屏画全部英雄时，整张战斗图集装不进游戏 256 MiB 的图片缓存。`tools/package_mod.py` 给每个英雄打出两张只有界面帧的小图集（`ui_sheets/idle/`、`ui_sheets/bp/`），高清帧引擎让界面改画它们（[`src/ui.rs`](addons/hd_engine/src/ui.rs)），战场照旧。见 [docs/perf.md](docs/perf.md) 第 9 节。
+- **界面小图集**：一屏画全部英雄时，整张战斗图集装不进游戏原本 256 MiB 的 GPU 图片缓存，BP 和英雄界面每帧都在重新解码。所以 `tools/package_mod.py` 给每个英雄打出两张只有界面帧的小图集（`ui_sheets/idle/`、`ui_sheets/bp/`），高清帧引擎让界面改画它们（[`src/ui.rs`](addons/hd_engine/src/ui.rs)），战场照旧。见 [docs/perf.md](docs/perf.md) 第 9 节。
+- **GPU 图片缓存**：小图集的预算后来也满了，`league.dll` 又把游戏的缓存从 256 MiB 放大到 1.5 GiB（[`src/cache.rs`](addons/league_main/src/cache.rs)）。找不到缓存对象时不改，日志写原因。
 
 ## 游戏版本更新时
 
-高清帧引擎（`league.dll` / `tft.dll`）和整身变身的附加包要在游戏的 EXE 里找函数。[`build.rs`](addons/hd_engine/src/build.rs) 列着认得的游戏版本（现在是 0.7.1 和 0.7.0），逐字节核对每一处要改、要调用的代码；对不上（游戏更新了）就由 [`addons/game_places`](addons/game_places/src/lib.rs) 在运行时按特征码找（日志 `game build: found at run time in … ms`），找不到或不唯一才退回 1 倍帧。游戏改了代码形状时：
+高清帧引擎（`league.dll` / `tft.dll`）和整身变身的附加包要在游戏的 EXE 里找函数。[`build.rs`](addons/hd_engine/src/build.rs) 列着认得的游戏版本（现在是 0.7.2、0.7.1 和 0.7.0），逐字节核对每一处要改、要调用的代码；对不上（游戏更新了）就由 [`addons/game_places`](addons/game_places/src/lib.rs) 在运行时按特征码找（日志 `game build: found at run time in … ms`），找不到或不唯一才退回 1 倍帧；只是界面画英雄的五处认不全时（0.7.2 改过一次），战场照样高清，只有界面不用小图集。游戏改了代码形状时：
 
 ```bash
-python tools/re/find_build.py        # 从上一版 build.rs 在新 EXE 里重新找出地址，更新 build.rs
+python tools/re/find_build.py        # 从上一版 build.rs 在新 EXE 里重新找出地址，更新 build.rs（界面某处认不出：--drawer <k>=<rva>）
 python tools/re/make_sigs.py         # 重新生成 addons/game_places/src/sigs.rs
 cargo test -p hd_engine              # 拿游戏目录里的 EXE 跑一遍：动态找出的每个地址都和 build.rs 一致
 ```
 
-结构体里的偏移没有做成动态的。0.6.4、0.6.5、0.7.0、0.7.1 四次更新改了什么（地址、新编译器、玩家结构体、官方 AI、放逐和韧性、睡眠、射程和定身修复、各英雄表）见 [docs/tech-notes.md](docs/tech-notes.md) 的「游戏 0.6.4」「动态寻址」「游戏 0.6.5」「游戏 0.7.0」「游戏 0.7.1」五节。
+结构体里的偏移没有做成动态的。0.6.4、0.6.5、0.7.0、0.7.1、0.7.2 五次更新改了什么（地址、新编译器、玩家结构体、官方 AI、放逐和韧性、睡眠、射程和定身修复、界面绘制重写、各英雄表）见 [docs/tech-notes.md](docs/tech-notes.md) 的「游戏 0.6.4」「动态寻址」「游戏 0.6.5」「游戏 0.7.0」「游戏 0.7.1」「游戏 0.7.2」六节。
 
 ## 持续集成
 
@@ -86,6 +143,45 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 - `cargo test`：高清帧引擎 hd_engine（高清帧、小图集、运行时寻址、两个 DLL 的主 / 客交接）、league.dll 和 tft.dll 的表、game_places、附加包合集和 tft.dll 的全部测试。
 
 合并进 main 后再构建 league.dll 和附加包合集，打成一个下载附件（Actions 页面那次运行的 Artifacts）；英雄的图、数据和语音不在里面，完整安装和创意工坊上传照旧在本地用 `tools/package_mod.py`。检查红了：PR 页面点 Details 看是哪一步；`make_override.py` 过期就在装着游戏的电脑上重跑那个脚本再提交。
+
+## 踩坑记录
+
+最近几周吃过的亏，以后照这些做。细节在各条的链接和英雄页的「开发记录」里。
+
+**数据和机制**
+
+- **存档里有每位英雄的一份副本。** 生涯开始时，游戏把全部英雄的定义抄进存档（7 套规则，每套一整份）。之后改了英雄的数据（`.data_champion`、附加包的 override），已经开着的生涯还是旧的；只有附加包的代码改动会生效。
+  - 装完数据，先用 [`tools/save/refresh_save_heroes.py`](tools/save/refresh_save_heroes.py) `存档` 报告哪些副本过期，再加一个输出路径写新存档（存档里的平衡补丁按比例保留）并读回核对，直到 0 份过期。
+  - 画面（view）不在存档里，只改图不用刷。
+- **游戏自己会打平衡补丁，mod 英雄也打。** 每个补丁按数据挑英雄加强或削弱，不分原版和 mod。赛季开始时还会改比赛规则（比赛太长就改塔的血量和击杀金币），调过的比赛节奏会被它改回去。
+- **区域的 `first_delay` 写 0 不是「马上生效」。** 区域出现后要过一整个周期才第一次生效；一次性的区域（周期比持续时间长）写 0 就永远不生效。要立刻生效写 1。25 位英雄的 42 个区域都是这样改的，奥瑞利安·索尔的大招在这之前一直打不中人（[#700](https://github.com/BoDUD/TFM2-League-Heroes/pull/700)）。
+- **加射程不要用 buff 的 `range`。** AI 会站到加长后的距离，普攻却只在动作自己的射程里出手，结果站着不打（克格莫 W）。用官方的 `range_adjust`：主包统一走 league.dll 的 `league:range` 标记（[#703](https://github.com/BoDUD/TFM2-League-Heroes/pull/703)），`tools/kit/range_buffs.py --check` 在 CI 里核对。
+- **英雄死了，他放下的区域和召唤物还在跑。** 从投射物 `end_effects` 起的区域比施法者活得久，而施法者的 buff 停在死前的状态。茂凯死后，他的树苗每 tick 都在放音效、打伤害（[#668](https://github.com/BoDUD/TFM2-League-Heroes/pull/668)）。区域里真正生效的部分要包一层「施法者活着」。
+- **数据里的放逐（`Banish`）不看 `cc_immune`。** 塔姆可以吞开着护盾的希维尔。要判断免疫，只能在附加包的代码里做（[#612](https://github.com/BoDUD/TFM2-League-Heroes/pull/612)）。
+- **游戏自带的 AI 不打躲在泉水里的敌人，但会在旁边等。** 卡尔萨斯的灵体原来留在死的地方，敌人就围着等；改成灵体回泉水后，敌人就散了（[#737](https://github.com/BoDUD/TFM2-League-Heroes/pull/737)）。
+- **n tick 的标记只在 n−1 个 tick 里读得到。** `ult_cooldown_mult` 会把大招剩余冷却封顶在 冷却 /(1 + m/100)，可以拿来做返还冷却。`tools/kit/check_arm_refund.py` 在 CI 里核对这两点。
+
+**美术和 PPU**
+
+- **重画的模型不能一帧大一帧小。** Codex 常把整个人画大来填满轮廓，也会只把头画大。每帧要量头，还要量一个硬部件（武器上的宝石、剑柄），按身体缩放，而不是只按头（瑟提、基兰、慎）。
+- **图像模型交回来的图要自己逐帧看。** 它自己的验收只和底稿比，照着底稿的 8×8 方块整块照抄也算通过，但这样放进游戏和原来一样，要退回重画。
+- **读回重画时，软边的细线和小点会被读粗。** 小圆点会读成十字，细斜线会读成两倍粗；所以读回只能落在原来的方块里，方块外面只补台阶的内角。
+- **皮肤的隐藏部件以 bin 里的 `initialSubmeshToHide` 为准。** 以前按名字猜，把卡尔萨斯、茂凯、塞恩的整个身体都藏了（[#726](https://github.com/BoDUD/TFM2-League-Heroes/pull/726)，`tools/lol/hide_audit.py`）。
+- **界面一次要画全部英雄。** 整张战斗图集装不进游戏原本 256 MiB 的 GPU 缓存，BP 和英雄界面会卡。现在每位英雄另打两张界面小图集，league.dll 还把缓存放大到 1.5 GiB（见 [高清帧（PPU）和界面](#高清帧ppu和界面)）。
+
+**安装和发布**
+
+- **league.dll 和附加包合集都是整个文件装的。** league.dll 里内嵌了每位高清英雄的帧表，附加包合集也是一个 DLL。如果用一个缺了「已装但还没合并的 PR」的分支编译再装，那个 PR 的英雄和修复就被换回去了。所以装之前，要把所有已装、未合并的 PR 临时合在一起编。
+- **装之前确认游戏已关闭，进程名是 `TeamfightManager2.exe`。** 文件夹名有空格，进程名没有；用错名字会以为游戏没开，结果 DLL 被占用、写不进去。
+- **`make_override.py --check` 只对 CI 列表里的附加包是只检查。** 其余附加包的这个脚本会直接重写 `override/` 和 `text/`。
+- **main 要求 CI 通过才能合并。** CI 加进来之前切出的分支，PR 会一直等一个不会来的检查，要先把 main 合进分支。
+- **生涯里一个 mod 英雄都没有。** 新建生涯时「英雄类型」默认是「经典」，mod 英雄不在经典名单里。要选「自定义」→ 英雄设置 → 全选；代码 mod 还要在 Mods 菜单里手动启用一次，再重启游戏。
+
+**性能**
+
+- **掉帧先看是哪块显卡在画。** 显示器接在主板（核显）上时，游戏在核显上画，独显闲着；实测核显 93–99% 满载。把显示器接到独显，或在 Windows 设置的「图形」里给 `TeamfightManager2.exe` 选高性能显卡。
+- **别的 mod 也会拖慢。** 第三方的「防御塔镀层」比赛中每 5 秒往盘里写一次观战压缩包，可能造成周期性的小卡顿。
+- **游戏每 tick 都要深拷贝每位英雄的技能树。** 技能树越大越费 CPU，写新英雄时要让 `skill` / `skill2` 保持精简（[docs/perf.md](docs/perf.md) 第 8 节，skill 里也有这条规矩）。
 
 ## 金铲铲之战系列（tft 包）
 
@@ -133,7 +229,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 | <img src="docs/heroes/img/league_riven.png" width="32"> | [锐雯](docs/heroes/league_riven.md)<br>Riven | 上单 | 被动 符文之刃 · 折翼之舞 · 勇往直前 · 大招 放逐之锋 | [斩杀附加包：伊芙琳、阿卡丽、锐雯](addons/league_executes/README.md) | PPU 1.5 |
 | <img src="docs/heroes/img/league_rumble.png" width="32"> | [兰博](docs/heroes/league_rumble.md)<br>Rumble | 上单 | 纵火盛宴 · 电子鱼叉 · 大招 恒温灼烧 | [兰博附加包](addons/league_rumble/README.md) | PPU 1.75 |
 | <img src="docs/heroes/img/league_sett.png" width="32"> | [瑟提](docs/heroes/league_sett.md)<br>Sett | 上单 | 被动 沙场豪情 · 强手裂颅 · 蓄意轰拳 · 大招 叹为观止 | [瑟提豪意附加包](addons/league_sett_grit/README.md) | PPU 1.79 |
-| <img src="docs/heroes/img/league_shen.png" width="32"> | [慎](docs/heroes/league_shen.md)<br>Shen | 上单 | 奥义！暮临 · 奥义！影缚 · 大招 秘奥义！慈悲度魂落 | [慎「秘奥义！慈悲度魂落」护盾按生命值附加包](addons/league_shen_shield/README.md) | — |
+| <img src="docs/heroes/img/league_shen.png" width="32"> | [慎](docs/heroes/league_shen.md)<br>Shen | 上单 | 奥义！暮临 · 奥义！影缚 · 大招 秘奥义！慈悲度魂落 | [慎「秘奥义！慈悲度魂落」护盾按生命值附加包](addons/league_shen_shield/README.md) | PPU 1.81 |
 | <img src="docs/heroes/img/league_singed.png" width="32"> | [辛吉德](docs/heroes/league_singed.md)<br>Singed | 上单 | 过肩摔 · 强力粘胶 · 大招 疯狂药剂 | [辛吉德附加包](addons/league_singed/README.md) | PPU 1.39 |
 | <img src="docs/heroes/img/league_sion.png" width="32"> | [赛恩](docs/heroes/league_sion.md)<br>Sion | 上单 | 残虐猛击 · 杀手怒吼 · 大招 蛮横冲撞 | [赛恩附加包](addons/league_sion/README.md) | — |
 | <img src="docs/heroes/img/league_teemo.png" width="32"> | [提莫](docs/heroes/league_teemo.md)<br>Teemo | 上单 | 被动 毒性射击 · 致盲吹箭 · 小莫快跑 · 大招 种蘑菇 | [提莫蘑菇附加包](addons/league_teemo_shrooms/README.md) | PPU 1.79 |
@@ -370,7 +466,9 @@ python tools/docs/gen_hero_docs.py --check                    # 只检查：有�
 | `scripts/lint_mod.py` | 整包校验：路径、动画 tag、特效绑定、文本 key、音效注入、override 目标等 |
 | `scripts/tfm2_ase.py` | 精灵图查看、预览和量化：身高、描边、颜色数、半透明像素等 |
 | `scripts/strips.py` | 把 AI 生成的动作条导入成游戏精灵图：切帧、对齐、像素化、调色板、描边、导出 |
+| `scripts/regrid.py` | 把图像模型按游戏大小画的「像素画」（边缘发虚、方块大小不匀）按它自己的格子读回，一格一个像素 |
 | `scripts/bundle_tool.py` | 只读浏览游戏本体资源：可引用的原版特效、音效名、官方英雄数据 |
+| `scripts/sdk_probe.rs` | 用经典 mod SDK（game_core 0.5.1）引擎自己的类型解析技能或单个效果：查可用的枚举值、引擎忽略的字段、默认值 |
 | `templates/mymod/` | 可直接复制的示例 mod，已通过校验 |
 
 ## 快速开始

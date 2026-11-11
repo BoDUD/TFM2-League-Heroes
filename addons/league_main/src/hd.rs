@@ -271,7 +271,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_skarner", 1.75, include_str!("../../../league/champions/league_skarner#anim.fanim")),
     // Zaahen: posed by tools/art/rig_zaahen.py on Codex's step-0 take A-2 brought to 84 rows (48 game px horn tips to
     // soles, the glaive and the wings out to 50) and Codex's key poses after League's clips (read back at the design's
-    // size, the design's head put back) at the user's 1.75 squares a game pixel (3/4 only), so no SIZES row
+    // size, the design's head put back) at the user's 1.75 squares a game pixel (3/4 only), shown at 85 % (SIZES)
     ("league_zaahen", 1.75, include_str!("../../../league/champions/league_zaahen#anim.fanim")),
     // Neeko: posed by tools/art/rig_neeko.py on Codex's step-1 take A-1 and its key poses at the user's 2.5 squares a
     // game pixel (100 game rows quill tips to soles: 「40」, then 「1.5也挺糊的 还得往上调整吧」; 3/4 only; league_neeko's
@@ -717,6 +717,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     // native cells, its dash picture baked on again under him by fizz_bake.json; 32 game px as his 1x sprite, so no SIZES
     // row
     ("league_fizz", 1.8125, include_str!("../../../league/champions/league_fizz#anim.fanim")),
+    // Shen (2026-11-09, 「慎也需要重做」, picked 「1.8」): Codex's shen-A traced from his sprite, read on its own ~13.1-px
+    // squares (61 x 76, tools/art/design_shen_hd.py: 76 rows / 42 = 1.810, the sword hilt's top to his soles); every
+    // action Codex's whole-frame redraw of his old frame read onto it at the zoom its fit over the old frame gives
+    // (tools/art/casts_shen_hd.py, rig_shen_hd.py: twelve frames' heads, drawn 8-30 % off on a right-sized body, rescaled
+    // alone to the design's; the run's legs shaded to take turns in frame 5); nothing baked; 42 game px as his 1x sprite,
+    // so no SIZES row
+    ("league_shen", 1.810, include_str!("../../../league/champions/league_shen#anim.fanim")),
 ];
 
 /// Champion id, its size everywhere the dense frames are drawn (1.0 = the 1x frames' size): the anim tables' rects and
@@ -780,6 +787,12 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// 11.5 x 1.5 x (1 / 0.85 - 1) = 3.0).
 /// Talon: 90 % (the user, 2026-10-31: 「男刀局内体型有点过大了 缩小一点」 - 39 game px hood to soles), his frames 2 squares
 /// lower (RESTYLE talon lift_sq: 11.5 x 1.5 x (1 / 0.9 - 1) = 1.9).
+/// Zaahen: 85 % (the user, 2026-11-11: 「亚恒模型在局内偏大了」 - 49 x 51 game px standing, 48 horn tips to soles with the
+/// glaive and the wings across him, and 46 x 62 running with the wings spread, against Aatrox's and Garen's 42 and
+/// Ambessa's 41 (her 85 %); 85 % = 42 x 44 standing, 39 x 53 running, Ambessa's way), his dense frames 4 squares lower
+/// (RESTYLE zaahen lift_sq: 11.5 x 1.75 x (1 / 0.85 - 1) = 3.6), moved in his strips as they were - the restyle's
+/// shared steps have closed more outline pinholes since his frames were made (76 in the run alone), left out. His
+/// revive picture goes with him: EFFECTS league_zaahen_rise at 1.75 / 0.85.
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
@@ -788,7 +801,7 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_nami", 0.90), ("league_hwei", 0.85),
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
-                                    ("league_zac", 0.85), ("league_talon", 0.90)];
+                                    ("league_zac", 0.85), ("league_talon", 0.90), ("league_zaahen", 0.85)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack).
 /// Cho'Gath's Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent
@@ -869,8 +882,10 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     // league_zaahen's revive (the add-on banishes him while he rises again, so his rising is an effect picture): his
     // frames over the light column at his own 1.75, facing right and left (tools/art/rig_zaahen.py --rise; the add-on
     // plays the side facing the nearest enemy champion: an effect picture is never mirrored); at his size only since it
-    // is a DRAWN_EFFECTS row (0.9.14) - until then 1.75 times it
-    ("league_zaahen_rise", 1.75, include_str!("../../../league/effects/league_zaahen_rise#anim.fanim")),
+    // is a DRAWN_EFFECTS row (0.9.14) - until then 1.75 times it. Since he is drawn at 85 % (SIZES, 2026-11-11) the
+    // sheet is at 1.75 / 0.85: its dense canvases that many times the 1x frames, the picture in them still 1.75 squares
+    // a game pixel and 4 squares lower like his own frames, so the effect draw's 1 / PPU shows him at his 85 %
+    ("league_zaahen_rise", 1.75 / 0.85, include_str!("../../../league/effects/league_zaahen_rise#anim.fanim")),
     // league_karthus's spirit (0.5.0, the user 2026-11-03: 「死了灵体还能移动 还能有残血？」「这能和英雄联盟一样吗」): the
     // add-on banishes him for the whole of it, so his ghost is the banish's picture - his own idle_base squares at his
     // 1.5 in a pale glowing green, facing right and left (tools/art/draw_karthus_ghost.py)
@@ -921,9 +936,10 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
 /// effect sheet at his own PPU - LeBlanc's passive clone where she stood (the kit's league_leblanc_p_clone, a
 /// CasterViewEffect at a point: her own 31 x 63 idle, dense 62 x 128) and Zaahen rising again inside the add-on's banish
 /// (league_zaahen_rv_rise_r / _l, the banish's picture following him, Karthus's ghost's way: 73 x 117 with the light
-/// column, dense 128 x 205). Unlisted, both were drawn a square a game pixel: the clone twice her size, the risen Zaahen
-/// 1.75 times his, hanging right and down from the corner. Listed, they come out at the hero's size (neither hero has a
-/// SIZES row): test a_heros_figure_on_an_effect_sheet_is_drawn_at_his_size.
+/// column, dense 128 x 205; 150 x 241 since his 85 %). Unlisted, both were drawn a square a game pixel: the clone twice
+/// her size, the risen Zaahen 1.75 times his, hanging right and down from the corner. Listed, they come out at the
+/// hero's size - LeBlanc has no SIZES row; Zaahen's 85 % (2026-11-11) is in his sheet's PPU, 1.75 / 0.85
+/// (tools/art/rig_zaahen.py write_rise): test a_heros_figure_on_an_effect_sheet_is_drawn_at_his_size.
 /// league_yone - a hero's own sheet (the user, 2026-11-06: 「永恩有bug吧放完E技能后模型变大？」): Spirit Cleave leaves his
 /// body where he cast it, the kit's view league_yone_e_body - tag e_body of his own sheet, played at that point (the end
 /// of the anchor projectile) for its 4 s until the spirit snaps back. Dense since his PPU redo (#694), the node draw drew
@@ -1030,8 +1046,8 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     ("league_locke", 0.85),
     // Zaahen: 48 game px from his horn tips to his soles at PPU 1.75 (the card's canvas is 40 tall), 50 wide with the
     // glaive across him and the wings, the glaive raised high in his attack and Q; UI size and card value set with
-    // bp_card_audit.py
-    ("league_zaahen", 0.78),
+    // bp_card_audit.py; 0.92 since his frames are drawn at 85 % (SIZES, 2026-11-11): 0.78 / 0.85, the card as before
+    ("league_zaahen", 0.92),
     // K'Sante: 45 game px from his hair and the two Ntofos' heads to his soles (lo_idle, his 90 % SIZES in it), 46 wide
     // with the Ntofos on both sides - at 1.0 / -6 he filled the card and 7 px of his legs hid under the name (the user,
     // 2026-10-27: 「奎桑提在BP格太大了吧 学学其他英雄怎么缩放的」); 0.82 with -10 as Ambessa's / Trundle's / Bel'Veth's:
@@ -1291,18 +1307,24 @@ mod tests {
     }
 
     /// A hero himself on an effect sheet at his own PPU - LeBlanc's passive clone, Zaahen rising again, Karthus's ghost -
-    /// is shrunk by the node draw to his size (none of them has a SIZES row): the sheet in DRAWN_EFFECTS at the hero's
-    /// PPU. Unlisted, the clone was drawn twice LeBlanc's size and the risen Zaahen 1.75 times his (2026-11-06).
+    /// is shrunk by the node draw to his size: the sheet in DRAWN_EFFECTS at the hero's PPU / his SIZES size (the node
+    /// draw's shrink is 1 / the sheet's PPU; Zaahen's 85 %, 2026-11-11: 1.75 / 0.85, the sheet's dense canvases that
+    /// many times its 1x frames). Unlisted, the clone was drawn twice LeBlanc's size and the risen Zaahen 1.75 times his
+    /// (2026-11-06).
     #[test]
     fn a_heros_figure_on_an_effect_sheet_is_drawn_at_his_size() {
         for (sheet, hero) in [("league_leblanc_clone", "league_leblanc"), ("league_zaahen_rise", "league_zaahen"),
                               ("league_karthus_ghost", "league_karthus")] {
-            let (_, ppu, _) = *EFFECTS.iter().find(|e| e.0 == sheet).unwrap_or_else(|| panic!("{sheet}"));
+            let (_, ppu, fanim) = *EFFECTS.iter().find(|e| e.0 == sheet).unwrap_or_else(|| panic!("{sheet}"));
             let (_, hero_ppu, _) = *HEROES.iter().find(|h| h.0 == hero).unwrap_or_else(|| panic!("{hero}"));
+            let size = SIZES.iter().find(|s| s.0 == hero).map_or(1.0, |s| s.1);
             assert!(DRAWN_EFFECTS.contains(&sheet), "{sheet}: drawn PPU times big");
-            assert_eq!(ppu, hero_ppu, "{sheet}: not at {hero}'s density");
-            assert!(!SIZES.iter().any(|s| s.0 == hero), "{hero}: a SIZES row - 1 / PPU would not be his size");
+            assert!((ppu - hero_ppu / size).abs() < 1e-4, "{sheet}: {ppu}, not at {hero}'s {hero_ppu} / {size}");
+            // the DLL takes the sheet's table only when hd_idle is PPU times as wide as idle (hd_engine/src/lookup.rs)
+            let ((w1, _), (wd, _)) = (first_frame(fanim, "idle"), first_frame(fanim, "hd_idle"));
+            assert!((wd - w1 * ppu).abs() <= 0.5, "{sheet}: idle {w1} wide, hd_idle {wd}: not {ppu} times");
         }
+        assert_eq!(SIZES.iter().find(|s| s.0 == "league_zaahen").map(|s| s.1), Some(0.85));
         // the clone is her own idle: the same 1x frame as hers
         let clone = EFFECTS.iter().find(|e| e.0 == "league_leblanc_clone").unwrap().2;
         let leblanc = HEROES.iter().find(|h| h.0 == "league_leblanc").unwrap().2;

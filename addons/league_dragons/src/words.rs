@@ -16,7 +16,7 @@ pub enum Lang {
 
 /// 认游戏的语言。先看本包改过的纳什男爵的名字（`asset/base/text/object?epic.name`：纳什男爵 / 巴龍 / Baron Nashor），
 /// 认不出（别的语言、本包的文字没装上）再按阿克尚第一个技能名的写法（league_eggs、league_akshan 的做法）。
-pub fn lang_of(baron: &str, skill1: &str) -> Lang {
+pub fn lang_of(baron: &str, sample: &str) -> Lang {
     if baron.contains("纳什男爵") {
         return Lang::Hans;
     }
@@ -26,10 +26,13 @@ pub fn lang_of(baron: &str, skill1: &str) -> Lang {
     if baron.contains("Baron Nashor") {
         return Lang::En;
     }
-    let has = |lo: u32, hi: u32| skill1.chars().any(|c| (lo..=hi).contains(&(c as u32)));
+    // another mod's name for him: the game's own texts (src/screen.rs lang) - Korean or Japanese read English, and
+    // Chinese is Traditional when it has more of Traditional's own characters than of Simplified's
+    let has = |lo: u32, hi: u32| sample.chars().any(|c| (lo..=hi).contains(&(c as u32)));
+    let count = |set: &str| sample.chars().filter(|c| set.contains(*c)).count();
     if has(0xac00, 0xd7a3) || has(0x3040, 0x30ff) {
         Lang::En
-    } else if skill1.contains('復') || skill1.contains('還') {
+    } else if count(TRAD_ONLY) > count(SIMP_ONLY) {
         Lang::Hant
     } else if has(0x4e00, 0x9fff) {
         Lang::Hans
@@ -37,6 +40,15 @@ pub fn lang_of(baron: &str, skill1: &str) -> Lang {
         Lang::En
     }
 }
+
+/// This mod's own names for Baron (text/object.i18n): the language is known from them alone.
+pub fn named_by_us(baron: &str) -> bool {
+    ["纳什男爵", "巴龍", "Baron Nashor"].iter().any(|n| baron.contains(n))
+}
+
+/// Characters only Traditional Chinese writes, and their Simplified forms (common in skill and champion names).
+const TRAD_ONLY: &str = "復還靈術師實點種體場隊員頭開關劍為們個來說這時會對動戰擊龍彈護衛變轉發雙氣傷敵減範圍線傳華擁擋擺擴擲撲擾憶鬥盜獵飛鋼鐵";
+const SIMP_ONLY: &str = "复还灵术师实点种体场队员头开关剑为们个来说这时会对动战击龙弹护卫变转发双气伤敌减范围线传华拥挡摆扩掷扑扰忆斗盗猎飞钢铁";
 
 fn pick<T>(lang: Lang, hans: T, hant: T, en: T) -> T {
     match lang {
@@ -271,7 +283,7 @@ pub fn notice(lang: Lang, what: &What, name: &dyn Fn(&str) -> String) -> (String
             en = (format!("{} has claimed the {}!", team(Lang::En, *t), soul(Lang::En, e)), soul_effect(Lang::En, e));
         }
         What::ElderKilled { team: t, holders: ids } => {
-            let (s, p) = (secs(rules::ELDER_T), rules::EXECUTE_PCT);
+            let (s, p) = (secs(super::settings::elder_t()), rules::EXECUTE_PCT);
             let who = |l| holders(l, ids, name);
             hans = (format!("{}击杀了远古巨龙！", team(Lang::Hans, *t)),
                     format!("{}获得远古龙之力 {s} 秒：点燃敌方英雄，生命低于 {p}% 时斩杀", who(Lang::Hans)));
@@ -292,7 +304,7 @@ pub fn notice(lang: Lang, what: &What, name: &dyn Fn(&str) -> String) -> (String
             en = (format!("Aspect of the Dragon: {k} executed {v}!"), String::new());
         }
         What::BaronKilled { team: t, holders: ids } => {
-            let (s, p, r, a) = (secs(rules::BARON_T), rules::BARON_PCT, rules::MINION_REDUCE, rules::MINION_ATTACK);
+            let (s, p, r, a) = (secs(super::settings::baron_t()), rules::BARON_PCT, rules::MINION_REDUCE, rules::MINION_ATTACK);
             let who = |l| holders(l, ids, name);
             hans = (format!("{}击杀了纳什男爵！小兵得到强化", team(Lang::Hans, *t)),
                     format!("{}获得纳什男爵之手 {s} 秒：攻击力、法强 +{p}%，身边的己方小兵受到的伤害 -{r}%、攻击力 +{a}%",
@@ -331,6 +343,110 @@ pub fn dragon_status(lang: Lang, e: Element, alive: bool) -> String {
     }
 }
 
+/// HUD 顶上一行：龙魂会是哪种元素（峡谷的元素，这一局的第三种），还没有哪一队拿到龙魂时写（用户：「龙魂是哪条元素的龙也没提示」）。
+pub fn soul_hint(lang: Lang, e: Element) -> String {
+    let el = element(lang, e);
+    pick(lang, format!("龙魂：{el}"), format!("龍魂：{el}"), format!("Soul: {el}"))
+}
+
+/// `n` 层这种元素亚龙一共多的（`rules::drake_buff(e, n)` 的数字；海洋每层回复的百分比相加）。
+pub fn stack_total(lang: Lang, e: Element, n: u8) -> String {
+    if n <= 1 {
+        return stack_effect(lang, e);
+    }
+    let b = rules::drake_buff(e, n);
+    match e {
+        Element::Infernal => {
+            let p = b.attack_mult;
+            pick(lang, format!("攻击力、法强 +{p}%"), format!("攻擊力、法強 +{p}%"), format!("+{p}% attack damage and ability power"))
+        }
+        Element::Mountain => {
+            let p = b.defence_mult;
+            pick(lang, format!("护甲、魔抗 +{p}%"), format!("護甲、魔抗 +{p}%"), format!("+{p}% armor and magic resist"))
+        }
+        Element::Ocean => {
+            let (s, p) = (secs(rules::OCEAN_EVERY), rules::OCEAN_PCT * n as usize);
+            pick(lang, format!("每 {s} 秒回复 {p}% 已损生命"), format!("每 {s} 秒回復 {p}% 已損生命"),
+                 format!("{p}% missing health back every {s} s"))
+        }
+        Element::Cloud => {
+            let p = b.move_speed_mult;
+            pick(lang, format!("移速 +{p}%"), format!("移速 +{p}%"), format!("+{p}% move speed"))
+        }
+        Element::Hextech => {
+            let a = b.attack_speed_mult;
+            pick(lang, format!("攻速 +{a}%、技能冷却更快"), format!("攻速 +{a}%、技能冷卻更快"),
+                 format!("+{a}% attack speed, faster cooldowns"))
+        }
+        Element::Chemtech => {
+            let (t, v) = (b.toughness, b.vamp);
+            pick(lang, format!("韧性 +{t}%、生命偷取 +{v}%"), format!("韌性 +{t}%、生命偷取 +{v}%"),
+                 format!("+{t}% tenacity, +{v}% life steal"))
+        }
+        Element::Elder => String::new(),
+    }
+}
+
+/// 鼠标停在 HUD 上时的说明框：每一行 (文字, 颜色 0xRRGGBBAA, 粗体)。两队现在的加成、每种元素每层的加成、龙魂、远古巨龙、
+/// 纳什男爵（用户：「这个面板里面我也看不到详细的小龙加成说明 起码也要做到我悬浮的时候 有个说明框吧」）。
+pub fn tip_lines(lang: Lang, rec: &rules::Record) -> Vec<(String, u32, bool)> {
+    const GOLD: u32 = 0xff_d8_8a_ff;
+    const DIM: u32 = 0xa8_a4_9c_ff;
+    let mut out = vec![(pick(lang, "元素亚龙：拿下后全队永久加成，可以叠加", "元素亞龍：拿下後全隊永久加成，可以疊加",
+                             "Elemental drakes: a permanent bonus for the whole team, stacking").to_string(), GOLD, true)];
+    let sep = pick(lang, "、", "、", ", ");
+    for t in 0..2 {
+        let mut parts = Vec::new();
+        for e in rules::DRAKES {
+            let n = rec.stacks[t][e.slot().unwrap_or(0)];
+            if n > 0 {
+                parts.push(format!("{} ×{n}（{}）", element(lang, e), stack_total(lang, e, n)));
+            }
+        }
+        let have = if parts.is_empty() { pick(lang, "还没有", "還沒有", "none yet").to_string() } else { parts.join(sep) };
+        out.push((format!("{}：{have}", team(lang, t)), if t == 0 { 0x8c_9c_ff_ff } else { 0xff_8c_96_ff }, false));
+    }
+    out.push((pick(lang, "每一层：", "每一層：", "Each stack:").to_string(), DIM, false));
+    for e in rules::DRAKES {
+        out.push((format!("  {}  {}", drake(lang, e), stack_effect(lang, e)), colour_text(e), false));
+    }
+    match rec.soul.and_then(|(t, c)| Element::from_code(c).map(|e| (t, e))) {
+        Some((t, e)) => out.push((format!("{}{}{}：{}", team(lang, t), pick(lang, "拿到了", "拿到了", " claimed "), soul(lang, e),
+                                          soul_effect(lang, e)), colour_text(e), false)),
+        None => {
+            if let Some(e) = rec.soul_shown() {
+                out.push((format!("{}（{}）：{}", soul(lang, e),
+                                  pick(lang, "先拿满 4 条元素亚龙的一队获得", "先拿滿 4 隻元素亞龍的一隊獲得", "the first team to 4 drakes"),
+                                  soul_effect(lang, e)), colour_text(e), false));
+            }
+        }
+    }
+    let (s, p) = (secs(super::settings::elder_t()), rules::EXECUTE_PCT);
+    out.push((pick(lang, format!("远古巨龙：龙魂之后刷新；击杀后 {s} 秒点燃敌方英雄，生命低于 {p}% 时斩杀"),
+                     format!("遠古巨龍：龍魂之後刷新；擊殺後 {s} 秒點燃敵方英雄，生命低於 {p}% 時斬殺"),
+                     format!("Elder Dragon: after a soul; its takers burn enemy champions for {s} s, executing below {p}%")),
+              colour_text(Element::Elder), false));
+    let (s, p, r, a) = (secs(super::settings::baron_t()), rules::BARON_PCT, rules::MINION_REDUCE, rules::MINION_ATTACK);
+    out.push((pick(lang, format!("纳什男爵之手：{s} 秒攻击力、法强 +{p}%，身边己方小兵受到的伤害 -{r}%、攻击力 +{a}%"),
+                     format!("巴龍之手：{s} 秒攻擊力、法強 +{p}%，身邊己方小兵受到的傷害 -{r}%、攻擊力 +{a}%"),
+                     format!("Hand of Baron: {s} s of +{p}% attack damage and ability power; minions near take {r}% less damage, hit {a}% harder")),
+              0xc8_9c_ff_ff, false));
+    out
+}
+
+/// 说明框里一种元素的字色（元素颜色，太暗的提亮）。
+fn colour_text(e: Element) -> u32 {
+    match e {
+        Element::Infernal => 0xff_8a_5a_ff,
+        Element::Mountain => 0xe0_b8_7a_ff,
+        Element::Ocean => 0x6c_e0_f0_ff,
+        Element::Cloud => 0xe4_f2_ff_ff,
+        Element::Hextech => 0xb0_a8_ff_ff,
+        Element::Chemtech => 0xb4_f0_5a_ff,
+        Element::Elder => 0xff_e0_a0_ff,
+    }
+}
+
 /// HUD 顶上一行：纳什男爵活着。
 pub fn baron_status(lang: Lang) -> &'static str {
     pick(lang, "纳什男爵 已刷新", "巴龍 已出現", "Baron Nashor is up")
@@ -357,6 +473,36 @@ pub fn conflict_line(lang: Lang) -> &'static str {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn the_tooltip_says_each_teams_bonus_the_soul_and_the_epic_monsters() {
+        let mut r = rules::Record { order: [6, 3, 2], ..rules::Record::default() };
+        r.stacks[1] = [0, 0, 0, 0, 0, 1];           // red: one chemtech
+        r.stacks[0] = [2, 0, 0, 0, 0, 0];           // blue: two infernal
+        let lines: Vec<String> = tip_lines(Lang::Hans, &r).into_iter().map(|l| l.0).collect();
+        let all = lines.join("
+");
+        assert!(all.contains("蓝色方：炼狱 ×2（攻击力、法强 +16%）") || all.contains("蓝方：炼狱 ×2（攻击力、法强 +16%）"), "{all}");
+        assert!(all.contains("化学科技 ×1（韧性 +"), "{all}");
+        assert!(all.contains("山脉龙魂（先拿满 4 条元素亚龙的一队获得）"), "{all}");
+        assert!(all.contains("远古巨龙：龙魂之后刷新") && all.contains("纳什男爵之手："), "{all}");
+        assert_eq!(soul_hint(Lang::Hans, Element::Mountain), "龙魂：山脉");
+        // the soul's element only once the second drake is taken, as in League (the user: 「改成第二条死后显示」)
+        let early = |taken: [u8; 6], alive: bool| {
+            let mut e = rules::Record { order: [6, 3, 2], serpen_alive: alive, ..rules::Record::default() };
+            e.stacks[0] = taken;
+            tip_lines(Lang::Hans, &e).into_iter().map(|l| l.0).collect::<Vec<_>>().join("
+")
+        };
+        assert!(!early([0; 6], true).contains("龙魂（"), "the first drake");
+        assert!(!early([1, 0, 0, 0, 0, 0], true).contains("龙魂（"), "one taken, the second alive");
+        assert!(early([1, 0, 0, 0, 0, 1], false).contains("山脉龙魂（"), "two taken, the third not out yet");
+        // a soul claimed: who has it instead of the hint
+        r.soul = Some((1, 2));
+        let all: String = tip_lines(Lang::Hans, &r).into_iter().map(|l| l.0).collect::<Vec<_>>().join("
+");
+        assert!(all.contains("拿到了山脉龙魂："), "{all}");
+    }
+
     use super::*;
 
     fn name(id: &str) -> String {
@@ -484,5 +630,9 @@ mod tests {
         assert_eq!(lang_of("Morgard", "復仇迴力鏢"), Lang::Hant);
         assert_eq!(lang_of("모르가드", "복수의 부메랑"), Lang::En);
         assert_eq!(lang_of("", "Avengerang"), Lang::En);
+        // no League Heroes: the game's own champions' texts
+        assert_eq!(lang_of("Morgard", "幽靈 亡靈法師 護盾衛士"), Lang::Hant);
+        assert_eq!(lang_of("莫尔加德", "幽灵 亡灵法师 护盾卫士"), Lang::Hans);
+        assert!(named_by_us("纳什男爵") && named_by_us("巴龍") && named_by_us("Baron Nashor") && !named_by_us("Morgard"));
     }
 }

@@ -10,8 +10,8 @@
 //!   AI还攻击灵体 很奇怪啊」）：0.4.x 的灵体是 1 血、活着的他——游戏只认放逐是选不中，它只放了开头 12 tick：之后小兵、塔照打
 //!   （1 血的英雄正是 AI 最想补的），挨每个英雄的钩子 `shun` 拦下的出手也照样飞来，头上挂着一条残血，移速 −100% 也挡不住位移。
 //!   现在**整个灵体放逐着**（`entity_banish` `p_t` tick，扎亨复活的做法）：谁都选不中、打不到，没有血条，不能走、不能回城；
-//!   放逐的锁定画面是他的灵体（`league_karthus_p_ghost_r` / `_l`，`tools/art/draw_karthus_ghost.py`，面朝最近的敌方英雄），
-//!   每 tick 钉在倒下的地方。放逐也锁住他自己出手，所以**灵体的技能由本包放**（`spirit_casts`，数字、画面照主包）：亵渎一直
+//!   倒下的地方画着他的灵体（`league_karthus_p_ghost_r` / `_l`，`tools/art/draw_karthus_ghost.py`，面朝最近的敌方英雄；0.5.6
+//!   以前是放逐的锁定画面），身体每 tick 钉住（0.5.7 起等在泉水里，见下）。放逐也锁住他自己出手，所以**灵体的技能由本包放**（`spirit_casts`，数字、画面照主包）：亵渎一直
 //!   烧（每 `E_PER` tick 圈里每个敌人），荒芜每 `Q_CD` tick 落在射程里最近的敌方英雄（没有就别的单位）脚下（`Q_DELAY` tick 后
 //!   炸开，只炸到一个两倍），安魂曲好了又值得（`r_worth`）时引导 `R_CH` tick 打每个敌方英雄。击杀照样算他的。
 //! - **灵体就是已经死了**（0.4.1，用户 2026-11-03：「灵体死了还能回城的？？？」「灵体出现就代表已经是死亡了 懂吗」「有时候
@@ -41,6 +41,13 @@
 //!   自己的眼睛（射程里的都算，亵渎和荒芜的爆炸本来就不挑）。痛苦之墙主包挂在普攻上，灵体不能普攻，一面都没立过；现在 W 好了
 //!   （他身上没有 `w_cd` 标记）就立在 `W_R` 里最近的敌方英雄身上，照主包的墙减速、减魔抗。`FALL` 记下这个灵体放了几次 Q、W、
 //!   E、R。
+//! - **敌人不再围着灵体等**（0.5.7，玩家反馈 2026-11-10：「死歌灵体后 AI 会在附近一直等着」）：放逐着的身体对游戏的 AI 还是
+//!   一个活着的敌方英雄，站在倒下的地方，周围的敌人就围着等到他倒下（11-10 的日志：灵体期间几乎没人对他下命令，`SHUN` 只在
+//!   灵体开头和倒下那一刻）。游戏的 AI 不管泉水里的敌人（0.5.1 SDK 带符号的 game_core 里的 `is_ignored_battle_enemy`，0.7.1 的
+//!   EXE 里同样的范围比较有一百多处），所以灵体期间身体等在自家泉水（出生点，[`body_at`]），放逐结束前 `BACK_EARLY` tick 回到
+//!   倒下的地方，倒下、死亡动作照旧在那里。灵体的画面改成倒下的地方单独放的一张图（放逐的锁定画面跟着身体走），技能本来就按
+//!   倒下的地方放；`shun` 让人退出亵渎圈也按倒下的地方算（身上挂着 [`SPOT_TAG`]）。`SPAWN` 记下出生点在不在游戏认的泉水里，
+//!   `FALL` 记下倒下的地方附近的敌方英雄（化成灵体时、灵体期间平均、最后）。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_karthus.log`，每次启动游戏重写。
 
@@ -74,6 +81,23 @@ pub const FALL_SLACK: usize = 60;
 pub const REBANISH_AFTER: usize = 2;
 /// 复活倒计时（`cut_respawns`）：阵亡后最多等游戏这么多 tick 把他登记成阵亡（按这份模拟的 tick；0.5.5 起不再按真实时间丢记录）。
 pub const CUT_WAIT: usize = 30;
+/// 灵体期间身体等在他的泉水里（0.5.7，[`body_at`]），灵体的放逐结束前这么多 tick 回到倒下的地方：倒下、死亡动作还在那里，
+/// 回去时他还放逐着（看不见），画面上的位置有几帧跟过去也没人看见。
+pub const BACK_EARLY: usize = 12;
+/// `FALL` 数倒下的地方附近的敌方英雄（0.5.7）：这么近以内、每隔这么多 tick 数一次。
+pub const NEAR_R: f64 = 60000.0;
+pub const NEAR_EVERY: usize = 30;
+/// 倒下的地方挂在他身上（0.5.7，buff `league_karthus_spot:<x>,<y>`，没有数值、没有画面）：身体在泉水里时，`shun` 让人退出亵渎圈
+/// 要按倒下的地方算。
+pub const SPOT_TAG: &str = "league_karthus_spot:";
+/// 游戏 AI 认的泉水（0.5.7）：0.5.1 SDK 带符号的 game_core 里 `plan_legacy::old::battle::is_ignored_battle_enemy` 的范围，
+/// 0.7.1 的 EXE 里同样的比较内联在一百多处。蓝方（队伍 0）在左下角：x < `WELL_NEAR` 且 `WELL_FAR` <= y < `MAP_END`，或者
+/// x < `WELL_WIDE` 且 `WELL_DEEP` <= y < `MAP_END`；红方（队伍 1）在右上角，x、y 对调。
+pub const WELL_NEAR: u64 = 64001;
+pub const WELL_WIDE: u64 = 160001;
+pub const WELL_FAR: u64 = 800000;
+pub const WELL_DEEP: u64 = 896000;
+pub const MAP_END: u64 = 960001;
 // 0.4.0 只在化成灵体时放逐他 12 tick（`FLUSH_T`，正在打他、追他的单位丢了目标）、之后免控（`p_ward`）：游戏里只有放逐让单位
 // 选不中（tfm2-hero-mod 的 champion-data「Invisible is not untargetable」），放逐完小兵、塔、英雄又打上来。0.5.0 整个灵体放逐。
 
@@ -191,6 +215,70 @@ pub fn stage(k: usize, p_t: usize, laid_down: bool) -> Stage {
         Stage::LayDown
     } else {
         Stage::Cast
+    }
+}
+
+/// 灵体第 `k` tick 他的身体在哪（0.5.7，玩家反馈 2026-11-10：「死歌灵体后 AI 会在附近一直等着」）：放逐着的身体对游戏的 AI
+/// 还是一个活着的敌方英雄，站在倒下的地方，周围的敌人围着等它（灵体期间几乎不对它下命令，`SHUN` 只出现在灵体开头和倒下那一刻），
+/// 要等 7 秒他倒下才走。游戏的 AI 不管泉水里的敌人（[`in_well`]），所以身体等在自家泉水 `home`（出生点），放逐结束前
+/// `BACK_EARLY` tick 回到倒下的地方 `spot`；不知道出生点就一直钉在倒下的地方（0.5.6 的做法）。灵体的画面和技能都在倒下的地方，
+/// 不跟着身体走。
+pub fn body_at(k: usize, p_t: usize, home: Option<(u64, u64)>, spot: (u64, u64)) -> (u64, u64) {
+    match home {
+        Some(h) if k + BACK_EARLY < p_t => h,
+        _ => spot,
+    }
+}
+
+/// 队伍 `team` 的英雄站在 `at` 是不是在游戏 AI 认的泉水里（[`WELL_NEAR`] 那几个范围）。
+pub fn in_well(team: usize, at: (u64, u64)) -> bool {
+    let (a, b) = if team == 0 { at } else { (at.1, at.0) };
+    b < MAP_END && ((a < WELL_NEAR && b >= WELL_FAR) || (a < WELL_WIDE && b >= WELL_DEEP))
+}
+
+/// 倒下的地方挂在他身上的 buff 名（[`SPOT_TAG`]）。
+pub fn spot_tag(spot: (u64, u64)) -> String {
+    format!("{SPOT_TAG}{},{}", spot.0, spot.1)
+}
+
+/// 从 buff 名读回倒下的地方（不是这种 buff 就 None）。
+pub fn parse_spot(buff: &str) -> Option<(u64, u64)> {
+    let (x, y) = buff.strip_prefix(SPOT_TAG)?.split_once(',')?;
+    Some((x.parse().ok()?, y.parse().ok()?))
+}
+
+/// 出生点（0.5.7，[`body_at`] 的 `home`）：出生时站的地方；读到 (0, 0)（还没摆上地图）就按队伍取游戏的泉水角落。
+pub fn home_of(team: usize, spawned_at: (u64, u64)) -> (u64, u64) {
+    if spawned_at != (0, 0) {
+        spawned_at
+    } else if team == 0 {
+        (WELL_NEAR / 2, (WELL_DEEP + MAP_END) / 2)
+    } else {
+        ((WELL_DEEP + MAP_END) / 2, WELL_NEAR / 2)
+    }
+}
+
+/// 灵体期间倒下的地方附近的敌方英雄（0.5.7，记进 `FALL`）：化成灵体时几个，之后每 `NEAR_EVERY` tick 数一次（几次、加起来几个），
+/// 最后一次几个。
+#[derive(Clone, Copy, Debug, Default)]
+pub struct Near {
+    pub at_rise: usize,
+    pub samples: usize,
+    pub sum: usize,
+    pub last: usize,
+    /// 身体不在该在的地方的 tick（[`body_at`]；身体搬过去之后：游戏要是把放逐着的单位按回原处，这里会接近整个灵体）。
+    pub body_off: usize,
+}
+
+impl Near {
+    pub fn add(&mut self, n: usize) {
+        self.samples += 1;
+        self.sum += n;
+        self.last = n;
+    }
+
+    pub fn mean(&self) -> f64 {
+        if self.samples == 0 { 0.0 } else { self.sum as f64 / self.samples as f64 }
     }
 }
 
@@ -522,13 +610,12 @@ struct Falling {
     forced: bool,
 }
 
-/// 灵体由本包放的技能（他放逐着自己出不了手）：钉住的位置，灵体的画面朝哪边（重新放逐用），下一次荒芜、亵渎、亵渎圈画面的
-/// tick，落下的荒芜（位置、炸开的 tick），立着的痛苦之墙（位置、倒下的 tick），安魂曲打下来的 tick，这个灵体放过安魂曲没有，
-/// 放了些什么。
+/// 灵体由本包放的技能（他放逐着自己出不了手）：倒下的地方（技能和灵体的画面都在这里，0.5.7 起身体不在），下一次荒芜、亵渎、
+/// 亵渎圈画面的 tick，落下的荒芜（位置、炸开的 tick），立着的痛苦之墙（位置、倒下的 tick），安魂曲打下来的 tick，这个灵体放过
+/// 安魂曲没有，放了些什么。
 #[derive(Clone, Default)]
 struct Cast {
     anchor: (u64, u64),
-    face: &'static str,
     q_next: usize,
     e_next: usize,
     ring_next: usize,
@@ -614,6 +701,10 @@ struct DeathDefied {
     anchor_next: usize,
     /// `ANCHOR REFUSED` 记过了（每份模拟一行）。
     anchor_told: bool,
+    /// 出生点（0.5.7，[`home_of`]）：灵体期间身体等在这里（[`body_at`]）。
+    home: Option<(u64, u64)>,
+    /// 这次灵体期间倒下的地方附近的敌方英雄（0.5.7，记进 `FALL`）。
+    near: Near,
 }
 
 /// A try to re-banish at `now` after the last one at `last`: the same run when it is the very next tick (the banish did not
@@ -692,22 +783,38 @@ impl DeathDefied {
         let Some((pos, team)) = sim.get_entity(me).map(|e| (e.pos(), e.team())) else { return };
         let nearest = foes_by_distance(sim, team, (pos.0 as f64, pos.1 as f64)).first().and_then(|f| sim.get_entity(f.0));
         let face = side(pos.0, nearest.map(|e| e.pos().0));
-        // the whole spirit banished (0.5.0): untargetable for everyone, no health bar, rooted, recall-proof; the banish's
-        // lock picture is his ghost where he fell (league_zaahen's revive) - before anything cc_immune, which it refuses.
-        // 0.5.1: it ends with the spirit's time (it was p_t + 2), so the strike after it finds him targetable
-        let banished = sim.entity_banish(me, me, self.p.p_t, &sn(&format!("p_ghost_{face}")), "");
+        // the whole spirit banished (0.5.0): untargetable for everyone, no health bar, rooted, recall-proof - before anything
+        // cc_immune, which it refuses. 0.5.1: it ends with the spirit's time (it was p_t + 2), so the strike after it finds
+        // him targetable. 0.5.7: no lock picture - it goes where his body goes, and the body waits in his well (`body_at`);
+        // his ghost is a picture of its own where he fell (one 7.68 s play of the tag, longer than the spirit, as the lock
+        // picture was)
+        let banished = sim.entity_banish(me, me, self.p.p_t, "", "");
+        sim.play_view_effect(&sn(&format!("p_ghost_{face}")), me, &InputTargetV1::pos(pos.0, pos.1), 0, 0, 0);
         sim.add_buff(me, &spirit_buff(self.p.p_t + 2));
-        self.cast = Cast { anchor: pos, face, q_next: now + 1, e_next: now + 1, ..Cast::default() };
+        // where he fell, for `shun` (an older one first: a revive mid-spirit keeps his buffs)
+        for old in buffs(sim, me).iter().map(|b| b.name().to_string()).filter(|b| parse_spot(b).is_some()) {
+            sim.entity_remove_buff(me, &old);
+        }
+        sim.add_buff(me, &BuffV1::named(&spot_tag(pos)));
+        self.cast = Cast { anchor: pos, q_next: now + 1, e_next: now + 1, ..Cast::default() };
         self.rose_at = Some(now);
         self.fall = None;
         self.rebanished = None;
+        let spot = (pos.0 as f64, pos.1 as f64);
+        self.near = Near { at_rise: foes_near(sim, team, spot, NEAR_R, false).0.len(), ..Near::default() };
         sim.play_sfx(&sn("p"), me, &InputTargetV1::target(me));
         sim.play_sfx(&sn("vo_p"), me, &InputTargetV1::target(me));
+        let body = body_at(0, self.p.p_t, self.home, pos);
+        let moved = body != pos && sim.entity_set_pos(me, body.0, body.1);
         if let Some(k) = counted("spirit") {
-            wlog(format!("{} SPIRIT #{k}: lethal damage caught at 1 hp (last hit by {}), a spirit for {} ticks{}", head(sim, me),
+            wlog(format!("{} SPIRIT #{k}: lethal damage caught at 1 hp (last hit by {}), a spirit for {} ticks{}{}", head(sim, me),
                          self.last_hit.map_or_else(|| "-".to_string(), |a| who(sim, a)), self.p.p_t,
                          if banished { format!(", banished with his ghost facing {face}") }
-                         else { " - entity_banish refused: he stays targetable".to_string() }));
+                         else { " - entity_banish refused: he stays targetable".to_string() },
+                         if moved { format!("; his body waits in his well {body:?}, {} foes within {NEAR_R} of where he fell",
+                                            self.near.at_rise) }
+                         else if body != pos { format!(" - entity_set_pos refused: his body stays at {pos:?}") }
+                         else { String::new() }));
         }
     }
 
@@ -837,10 +944,10 @@ impl DeathDefied {
     }
 
     /// 灵体中途又能被选中了（0.5.1：韧性缩短了放逐，游戏 0.6.5 起放逐吃韧性）：照灵体剩下的时间重新放逐（league_mordekaiser
-    /// 的做法）。
+    /// 的做法）。0.5.7 起不带锁定画面：灵体的画面在倒下的地方接着放（`rise`），身体在泉水里。
     fn rebanish(&mut self, sim: &mut StableSim<'_>, me: usize, k: usize) {
         let left = self.p.p_t.saturating_sub(k);
-        let ok = sim.entity_banish(me, me, left, &sn(&format!("p_ghost_{}", self.cast.face)), "");
+        let ok = sim.entity_banish(me, me, left, "", "");
         let now = sim.tick();
         self.cast.tally.rebanish += 1;
         // one line a run: targetable again the very next tick means the banish did not take (0.5.5; the tries in FALL)
@@ -951,10 +1058,15 @@ impl StablePassive for DeathDefied {
                               the buildings {:?} carry it) #{k}", c.line, c.body, c.anchors));
             }
         }
-        let team = sim.get_entity(me).map_or(0, |e| e.team());
+        let (team, spawned_at) = sim.get_entity(me).map_or((0, (0, 0)), |e| (e.team(), e.pos()));
+        // where his body waits while he is a spirit (0.5.7): the spawn point, his well
+        let home = home_of(team, spawned_at);
+        self.home = Some(home);
+        self.near = Near::default();
         if let Some(k) = counted("spawn") {
-            wlog(format!("{} SPAWN #{k}: the add-on's Karthus (player {player}, team {team}, sim #{}), {:?}", head(sim, me),
-                         self.sim, self.p));
+            wlog(format!("{} SPAWN #{k}: the add-on's Karthus (player {player}, team {team}, sim #{}), {:?}, home {home:?}{}",
+                         head(sim, me), self.sim, self.p,
+                         if in_well(team, home) { " (the game's well)" } else { " - NOT in the box the game's AI takes for the well" }));
         }
     }
 
@@ -967,19 +1079,36 @@ impl StablePassive for DeathDefied {
         }
         let (hp, _) = e.hp();
         let pos = e.pos();
+        let team = e.team();
         let targetable = e.is_targetable();
         let now = sim.tick();
         self.keep_anchored(sim, now);
         if let Some(t0) = self.spirit {
             let k = now.saturating_sub(t0);
-            // a dead man does not walk: rooted where he fell (League's spirit stands and casts)
-            if pos != self.cast.anchor {
-                sim.entity_set_pos(me, self.cast.anchor.0, self.cast.anchor.1);
+            // a dead man does not walk: his body waits in his well, back where he fell for the fall (0.5.7, `body_at`; the
+            // spirit stands and casts there, League's)
+            let want = body_at(k, self.p.p_t, self.home, self.cast.anchor);
+            if pos != want {
+                // moved there on the tick before (the rise, or the way back): the game put him back
+                if k >= 1 && want == body_at(k - 1, self.p.p_t, self.home, self.cast.anchor) {
+                    self.near.body_off += 1;
+                    if self.near.body_off == 1 {
+                        if let Some(c) = counted("body_held") {
+                            wlog(format!("{} BODY HELD #{c}: {k} ticks into the spirit his body is at {pos:?}, not at {want:?} \
+                                          where it was put", head(sim, me)));
+                        }
+                    }
+                }
+                sim.entity_set_pos(me, want.0, want.1);
             }
             match stage(k, self.p.p_t, self.fall.is_some()) {
                 Stage::Cast => {
                     if targetable && k >= REBANISH_AFTER {
                         self.rebanish(sim, me, k);
+                    }
+                    if k > 0 && k.is_multiple_of(NEAR_EVERY) {
+                        let spot = (self.cast.anchor.0 as f64, self.cast.anchor.1 as f64);
+                        self.near.add(foes_near(sim, team, spot, NEAR_R, false).0.len());
                     }
                     self.spirit_casts(sim, me, now, k);
                 }
@@ -1040,13 +1169,15 @@ impl StablePassive for DeathDefied {
         let now = sim.tick();
         if let Some(f) = self.fall.take() {
             if let Some(k) = counted("fall") {
-                let (h, c) = (self.hits, self.cast.tally);
+                let (h, c, n) = (self.hits, self.cast.tally, self.near);
                 wlog(format!("{} FALL #{k}: the spirit's time is up, he fell {} ticks after it laid down - blow {} by {}{}; \
                               cast as a spirit: Q {} ({} hit), W {} ({} touches), E {} burns, R {}; struck as a spirit by \
-                              champions {} times, minions {}, towers {}, others {}; re-banished {} times", head(sim, self.me),
+                              champions {} times, minions {}, towers {}, others {}; re-banished {} times; foes within {NEAR_R} \
+                              of where he fell: {} at the rise, {:.1} on average over the spirit (every {NEAR_EVERY} ticks), {} \
+                              at the end; his body off its place {} ticks", head(sim, self.me),
                              now.saturating_sub(f.since), f.tries, f.killer.map_or_else(|| "-".to_string(), |a| who(sim, a)),
                              if f.forced { ", hp set to 0 first" } else { "" }, c.q, c.q_hits, c.w, c.w_hits, c.e_hits, c.r,
-                             h.champions, h.minions, h.towers, h.others, c.rebanish));
+                             h.champions, h.minions, h.towers, h.others, c.rebanish, n.at_rise, n.mean(), n.last, n.body_off));
             }
         } else if self.spirit.is_some() {
             if let Some(k) = counted("spirit_died") {
@@ -1208,6 +1339,14 @@ fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
 
 fn at(e: &StableEntity<'_, '_>) -> (f64, f64) {
     (e.pos().0 as f64, e.pos().1 as f64)
+}
+
+/// 灵体倒下的地方（0.5.7：身体等在泉水里，倒下的地方挂在他身上，[`SPOT_TAG`]）；没挂就是身体站的地方。
+fn spot_of(e: &StableEntity<'_, '_>) -> (f64, f64) {
+    (0..e.buff_count())
+        .filter_map(|i| e.buff_at(i))
+        .find_map(|b| parse_spot(b.name()))
+        .map_or_else(|| at(e), |p| (p.0 as f64, p.1 as f64))
 }
 
 /// 队伍 `team` 看得见的 `foes_near`：游戏的 AI 下的命令只能点看得见的目标（灵体自己按 Q 的 0.4.x，对着射程里的英雄按了几十到
@@ -1509,7 +1648,7 @@ impl StablePlayerAi for Shun {
             };
             let names: HashMap<usize, String> =
                 cands.iter().chain([&s.id()]).map(|&t| (t, who(&sim, t))).collect();
-            (cands, here, at(&s), ally, format!("{} {}", head(&sim, me.id()), who(&sim, me.id())), names)
+            (cands, here, spot_of(&s), ally, format!("{} {}", head(&sim, me.id()), who(&sim, me.id())), names)
         };
         let name = |t: usize| names.get(&t).cloned().unwrap_or_else(|| format!("#{t}"));
         let other = cands.into_iter().find_map(|t| {
@@ -1618,6 +1757,47 @@ mod tests {
         assert!(spirit_hit_counts(None));
         assert!(spirit_hit_counts(Some(0)), "laid down, no blow yet");
         assert!(!spirit_hit_counts(Some(1)) && !spirit_hit_counts(Some(3)));
+    }
+
+    #[test]
+    fn the_body_waits_in_his_well_and_falls_where_he_fell() {
+        let (home, spot) = ((32000, 928000), (400000, 500000));
+        let p_t = 420;
+        assert_eq!(body_at(0, p_t, Some(home), spot), home, "from the first tick");
+        assert_eq!(body_at(p_t - BACK_EARLY - 1, p_t, Some(home), spot), home);
+        assert_eq!(body_at(p_t - BACK_EARLY, p_t, Some(home), spot), spot, "back while still banished");
+        assert_eq!(body_at(p_t - 1, p_t, Some(home), spot), spot, "the lay-down tick");
+        assert_eq!(body_at(p_t + 5, p_t, Some(home), spot), spot, "the strike, however long it takes");
+        assert_eq!(body_at(0, p_t, None, spot), spot, "no spawn point known: 0.5.6's pin");
+        // the stage machine lays him down after he is back
+        assert_eq!(stage(p_t - BACK_EARLY, p_t, false), Stage::Cast);
+        assert!(BACK_EARLY > 1 && BACK_EARLY + 1 < p_t);
+    }
+
+    #[test]
+    fn the_wells_the_games_ai_ignores() {
+        // the map's nexuses (league_macro_log MAP line): T0 (96000, 864000), T1 (864000, 96000)
+        assert!(in_well(0, (32000, 928000)) && in_well(1, (928000, 32000)));
+        assert!(in_well(0, (150000, 950000)), "the wide strip along the bottom edge");
+        assert!(!in_well(0, (150000, 850000)), "beside the nexus, outside the box");
+        assert!(!in_well(0, (928000, 32000)) && !in_well(1, (32000, 928000)), "the other side's well");
+        assert!(!in_well(0, (32000, 960001)), "off the map");
+        assert!(in_well(0, home_of(0, (0, 0))) && in_well(1, home_of(1, (0, 0))), "the fallback corners");
+        assert_eq!(home_of(1, (900000, 40000)), (900000, 40000));
+    }
+
+    #[test]
+    fn the_spot_rides_on_a_buff_name() {
+        let spot = (412345, 98765);
+        assert_eq!(parse_spot(&spot_tag(spot)), Some(spot));
+        assert_eq!(parse_spot("league_karthus_sim:3"), None);
+        assert_eq!(parse_spot("league_karthus_spot:12"), None);
+        assert_eq!(parse_spot("league_karthus_spot:a,b"), None);
+        let mut n = Near { at_rise: 3, ..Near::default() };
+        assert_eq!(n.mean(), 0.0);
+        n.add(2);
+        n.add(0);
+        assert_eq!((n.samples, n.sum, n.last, n.mean()), (2, 2, 0, 1.0));
     }
 
     fn note(sim: u64, at: usize) -> Cut {
@@ -1999,5 +2179,6 @@ mod tests {
         for x in ["p_guard", "p_spirit", "p_fall", "p_ward", "p", "vo_p", "e_on", "w_cd"] {
             assert!(sn(x).len() <= BUFF_NAME_CAP);
         }
+        assert!(spot_tag((u32::MAX as u64, u32::MAX as u64)).len() <= BUFF_NAME_CAP, "the spot, whatever the map");
     }
 }

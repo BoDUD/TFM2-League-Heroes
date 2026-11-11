@@ -88,6 +88,10 @@ jobs:
         run: python -I tools/kit/range_buffs.py --check
       - name: The effects PPU - league.dll's table lists every effect sheet with dense twins (fx_ppu.rs up to date)
         run: python -I tools/art/fx_ppu_table.py --check
+      - name: Stack counts in the champion panel - the heroes' stack_skill_index and league.dll's table agree
+        run: |
+          python -I tools/kit/stack_nums.py --check
+          python -I tools/art/fx_kindred_hunt.py --check
       - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
         run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges
@@ -115,8 +119,8 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: addons -> target
-      - name: league.dll and the add-on bundle
-        run: cargo build --release --manifest-path addons/Cargo.toml -p league_main -p league_addons
+      - name: league.dll, the add-on bundle and League's dragons (their own mod)
+        run: cargo build --release --manifest-path addons/Cargo.toml -p league_main -p league_addons -p league_dragons
       # The repo has no League audio (Riot's, never committed): a whole `league` package from here has no clips and its
       # mod.override_info points the clips back at sound/sfx - copied over an install it would silence every hero. So
       # the artifact holds what can be dropped into <game>/mods as it is: league.dll, the UI sheets and the add-on
@@ -132,13 +136,14 @@ jobs:
           cp -r build/tft/ui_sheets dist/tft/
           cp build/tft/tft.dll dist/tft/
           python -I addons/league_addons/assemble.py dist/league_addons --dll addons/target/release/league_addons.dll
+          python -I addons/league_addons/assemble.py dist/league_dragons --standalone league_dragons
           v=$(python -I -c "import json; print(json.load(open('league/mod.mod_info', encoding='utf-8'))['version'])")
           echo "name=TFM2-League-Heroes-$v-${GITHUB_SHA::9}" >> "$GITHUB_OUTPUT"
           {
             echo "### main $v ($GITHUB_SHA)"
             echo
-            echo "关掉游戏，把压缩包里的 league、tft、league_addons 三个文件夹复制进 <Teamfight Manager2>/mods（合并、覆盖同名文件）："
-            echo "league.dll、每个英雄的界面小图集、附加包合集。英雄的图、数据、语音不在里面，完整安装和创意工坊上传照旧在本地用 tools/package_mod.py。"
+            echo "关掉游戏，把压缩包里的 league、tft、league_addons、league_dragons 四个文件夹复制进 <Teamfight Manager2>/mods（合并、覆盖同名文件）："
+            echo "league.dll、每个英雄的界面小图集、附加包合集、英雄联盟大小龙（单独的 mod，模组列表里可以单独开关）。英雄的图、数据、语音不在里面，完整安装和创意工坊上传照旧在本地用 tools/package_mod.py。"
             echo "合集会换掉游戏里的 league_addons：还没合并的分支装进去的附加包会被盖掉。"
             echo
             du -sh dist/* | sed 's/^/    /'

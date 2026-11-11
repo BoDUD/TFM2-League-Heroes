@@ -29,6 +29,7 @@ add-on addons/league_tryndamere_rage, which reads his health - the data pack kee
 import argparse
 import json
 import os
+import stack_nums  # noqa: E402  (league.dll's stack numbers over the head)
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "fix"))
@@ -308,6 +309,11 @@ def nodes(o):
     if isinstance(o, list):
         return sum(nodes(v) for v in o)
     return 0
+
+
+# the stack count over the head: league.dll's display buffs bound to the number sheet (tools/kit/stack_nums.py,
+# 2026-11-11)
+build = stack_nums.wrap(build)
 
 
 def main():

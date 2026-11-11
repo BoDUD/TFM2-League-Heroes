@@ -55,7 +55,7 @@
 
 ### 赛恩附加包
 
-[赛恩附加包](../../addons/league_sion/README.md)：`league_sion` v0.3.1
+[赛恩附加包](../../addons/league_sion/README.md)：`league_sion` v0.3.2
 
 主包 `league` 保持纯数据。用户选了「主包数据 + 附加包复活」。这个附加包用原生代码做主包数据做不到的两件事：
 

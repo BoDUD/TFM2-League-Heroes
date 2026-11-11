@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.305.0"
+      "version": ">=0.333.0"
     }
   ],
   "description": "Test build of four takedown effects as in League (needs League of Legends Heroes): Jinx's Get Excited! and Tristana's Rocket Jump reset on every champion kill and assist (the main pack sees only their own kills) and Jinx sprints while Get Excited!'s first two speed boosts last (a faster, leant run with afterimages; the main pack: her jog), and Master Yi's takedowns cut Alpha Strike's and Wuju Style's cooldowns by 70% and extend Highlander, his attacks cut Alpha Strike's by 1 s, and Highlander makes him immune to slows; Twitch's Ambush resets on assists too (the main pack resets it on his own kills) and his Contaminate waits for a champion at 6 venom stacks or one it would kill (the main pack pops it after any 3 hits). Other champions are untouched. Writes a log for testing.",
@@ -16,5 +16,5 @@
   "mod_id": "league_takedowns",
   "mod_type": "native",
   "name": "League Heroes: Jinx, Tristana, Master Yi and Twitch on every takedown (test)",
-  "version": "0.5.3"
+  "version": "0.5.4"
 }

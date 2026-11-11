@@ -1,4 +1,6 @@
-//! 千珏附加包：R「羊灵生息」只在法阵里有人快要阵亡时放（用户：「千珏r大招逻辑不要乱放」）。
+//! 千珏附加包：R「羊灵生息」只在法阵里有人快要阵亡时放（用户：「千珏r大招逻辑不要乱放」）；0.2.0 起千珏之印照英雄联盟
+//! 狩猎——指名一个敌方英雄，他头顶出现印记，8 秒后生效，参与击杀他得一层印记，印记死了不掉（src/hunt.rs，用户 2026-11-11：
+//! 「千珏印记是不是不能印记英雄啊 你看看 如果不能的话就要改了」）。
 //!
 //! 主包是纯数据，读不到当前生命：R 由 AI 在敌方英雄 70000 内时放出、待命 900 tick，待命期间她每支箭查一次数据看得见的
 //! 「危险」（被控制的友方英雄身边有敌方英雄，或交战中某个友方英雄被两名以上敌方英雄围住），常常有人还满血就交了。
@@ -26,6 +28,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+pub mod hunt;
 
 const ID: &str = "league_kindred";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -538,7 +542,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Kindred: Lamb's Respite only to save someone about to die) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Kindred: Lamb's Respite only to save someone about to die; Lamb's hunts) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -546,7 +550,9 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_player_input_ai(UltAi::default());
-    host.log(LogLevel::Info, "league_kindred loaded (Lamb's Respite only to save someone about to die).");
+    // the copy's passive (make_override.py): League's Lamb hunts and marks kept through death (src/hunt.rs)
+    module.add_native_passive(format!("{ID}:hunt"), hunt::Hunt::default());
+    host.log(LogLevel::Info, "league_kindred loaded (Lamb's Respite only to save someone about to die; Lamb's hunts).");
 }
 
 #[cfg_attr(league_bundle, allow(dead_code))]

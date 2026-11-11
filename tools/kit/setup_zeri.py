@@ -38,7 +38,7 @@ R = "<#ef5350ff>"      # crowd control
 Wh = "<#ffffffff>"     # true damage
 E = "<>"
 # champion_view: set from tfm2_ase.py face once the sprite is in
-VIEW = {"face": {"x": 0, "y": -28}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -10}}
+VIEW = {"face": {"x": 0, "y": -33}, "center": {"x": 0, "y": -12}, "banpick_center": {"x": 0, "y": -10}}
 # face: tfm2_ase.py face's rule on the dense idle as league.dll shows it on the cards, the encyclopedia and the face icons
 # (105%, tools/art/ppu_zeri.py SCALE: the crown 36 px above the feet; the 1x design's was (2, -38)).
 # No banpick_center: the dense idle tops at -27.5 from the frame centre, under the card's -28 (the 1x one, at -28.5,

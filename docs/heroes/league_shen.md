@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 上单 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / Tank / CC / Shield |
-| 高清帧 | 1 倍像素（无高清帧） |
+| 高清帧 | PPU 1.81 |
 | 附加包 | [慎「秘奥义！慈悲度魂落」护盾按生命值附加包](#附加包)（`league_shen_shield`） |
 
 ![慎演示](../preview/league_shen_showcase.gif)
@@ -90,6 +90,7 @@
 | 技能树大小 | 普攻 42、Q 96、E 116、R 184 个节点（都在 300 以内） |
 | 精灵图 | 9 个动作 41 帧：待机 8（腰带以上无损下沉的呼吸）、移动 8、普攻 6、Q（`skill`）2、E（`skill2`）4、R（`ult`）2 + 引导循环（`ult_loop`）2、受击 1、死亡 8。兜帽顶到脚底 38 行（连背上的刀柄 42 行，缩到 90%：用户「慎的模型太大 缩小一点」），待机 33 × 42，30 色。头像截取点 (0, −38)，选人卡片 −9（背上的刀柄顶在 −30，默认位置会顶出卡片） |
 | 特效 | Codex 第 3 步的 15 张（`import_shen.py` 按 16 px 一格读回）：`league_shen_fx` 普攻弧光、强化普攻双弧光、飞回的灵剑、灵剑命中、减速波纹、强化待命的三团灵气、气合盾、结界里友方的护光、E 冲刺拖影和命中；`league_shen_big` 魂佑结界、R 起手螺旋光、引导光柱、队友护盾（头顶朝下的箭头）、传送落地光柱。颜色照英雄联盟慎：紫色灵光、蓝色结界、暗紫影子烟。灵剑和冲刺拖影朝右画（转到飞行方向，叠上自己的上下翻转），其余左右对称 |
+| 高清帧（PPU 1.81） | 2026-11-09 用 PPU 重做（用户：「慎也需要重做」「1.8」「codex交付了 有问题的地方你帮忙修复 做到完美后喊我review」「还有模型不要变大变小 这个问题一定要注意」「通过，开 PR 安装」）。设计图：Codex 照旧精灵描密的原图，按原图约 13.1 像素一格读回（61 × 76 格；剑柄顶到脚底 76 行，旧精灵 42 行，PPU 1.81；tools/art/design_shen_hd.py）；外描边加 2 格。动作：Codex 照旧版同一帧整帧重画，交了 23 张图、30 帧（Q 第 1 帧和 R 第 1 帧是设计图，R 引导第 1 帧同 R 第 2 帧；它图片额度用完后用脚本画的第二份交付没有用），透明底的原图按透明度抠出、读回到设计图的格子上：每帧的缩放先按叠合法定（把 Codex 的画缩放后叠到模板的浅色人影上，取重合最好的比例）；十二帧 Codex 把头画得和身体不成比例（E 四帧、死亡第 4–8 帧大 10–30%，普攻第 5 帧和 R 引导第 2 帧大约 10%，普攻第 6 帧小约 8%），身体按剑柄的宝石、靴子和手套和跑步帧对过是对的，所以只把头单独缩放到设计图那么大（casts_shen_hd.HEAD_RESCALE / rescale_head：椭圆框住头、绕脖子缩放，剑柄、宝石和剑刃留在原位，空出来的地方被身体围住的补身体的颜色、其余透明），不再整帧缩放——那样头对了身体就小了（「还有模型不要变大变小」）；跑步第 5 帧 Codex 画得和第 1 帧同一条腿在迈，读回时两条腿的明暗对调（casts_shen_hd.LEG_SWAP），左右腿交替；没有烘焙的特效。待机和选人卡轮播是 hero_reels 从新动作剪的；选人卡偏移按 bp_card_audit 量头顶 -9 → -8（剑柄的宝石像枪尖一样裁在卡顶外）；头像截取点按新脸挪到 (3,-38) → (5,-36)（游戏取点下面第 2–10 行的 9x9 框，眼睛落在第 4–5 行）；附身的灵魂表、俄洛伊的灵魂图跟着换成新帧。|
 | 音效 | 英雄联盟的音效和配音（`tools/lol/extract_shen.py`）：普攻挥剑和命中、强化普攻、被动护盾、Q 召剑 / 命中 / 回手、W、E 冲刺 / 命中、R 起手 / 队友护盾 / 落地；Q、W、E、R 的配音。版权属于 Riot Games，**不提交到仓库**，按下面的命令在本地生成 |
 | 图标 | 官方技能图标（Q / E / R），从本地客户端提取，缩到 64×64；W 自动，没有技能位 |
 
@@ -104,6 +105,15 @@ python tools/art/fix_shen_strips.py     # 动作：Codex 逐帧原稿读回 + �
 python tools/art/import_native.py --hero shen
 python tools/art/import_shen.py --raw assets/source/shen/codex_fx   # 特效
 python tools/art/preview_shen.py        # 预览和演示 GIF
+# PPU 1.81 重做（2026-11-09）：
+python tools/art/pack_shen_ppu.py --out <文件夹>          # 给 Codex 的设计图包
+python tools/art/design_shen_hd.py                      # Codex 的原图（hd/raw/shen-A.png）按原图约 13.1 像素一格读回 -> hd/design.png
+python tools/art/pack_shen_actions.py --out <文件夹>      # 给 Codex 的动作包（照旧版同一帧整帧重画）
+python tools/art/casts_shen_hd.py --fits <模板文件夹>   # 每帧叠到模板浅色人影上的缩放（FIT_ZOOM）；--heights / --heads 另两种量法
+python tools/art/rig_shen_hd.py                         # 读回（HEAD_RESCALE 的帧先单独缩放头）-> 原始条和 1 倍图
+python tools/art/ppu_restyle.py --hero shen && python tools/art/ppu_hd.py --hero shen
+python tools/art/ppu_one.py --hero shen && python tools/art/rig_shen_hd.py --one-ground && python tools/art/hero_reels.py --hero shen
+python tools/art/review_shen_actions.py --out <文件夹>    # 旧版 / 新版对照动图
 ```
 
 美术（提示词见 [`assets/source/shen/`](../../assets/source/shen) 里的 `MODEL_STRIPS.md`、`PROMPTS_FX.md`；Codex 的交付在 `codex_model/`、`codex_model_v2/`、`codex_strips/`、`codex_fx/`、`codex_run_swap/`）：
@@ -115,4 +125,4 @@ python tools/art/preview_shen.py        # 预览和演示 GIF
 - 缩小：用户「慎的模型太大 缩小一点」，缩到 90%（整行整列去掉、不重采样，眼睛和面罩不删）。待机和跑步是拼出来的，在每帧上删会删到移动的腿的不同列（「还有轻微的变形」），所以先把定稿和它的每个部件按同一套删法缩小、再拼；Codex 画的动作按动作整组缩。
 - 特效：Codex 第 3 步的 15 张按要求的 16 px 格子画好，直接读回；落地光柱最后一帧只剩一条横线和一个点，去掉。
 
-逐帧预览：[`docs/preview/league_shen_frames.png`](../preview/league_shen_frames.png?v=1014g)，特效：[`docs/preview/league_shen_effects.png`](../preview/league_shen_effects.png?v=1014g)。
+逐帧预览：[`docs/preview/league_shen_frames.png`](../preview/league_shen_frames.png?v=1110s)，特效：[`docs/preview/league_shen_effects.png`](../preview/league_shen_effects.png?v=1014g)。

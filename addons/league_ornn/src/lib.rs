@@ -12,15 +12,17 @@
 //! - **易碎记在每个英雄身上**（原生效果 `league_ornn:shatter`，普攻打中时）：只有身上带着 `league_ornn_brittle` 的英雄被引爆：
 //!   最大生命 `BR_HP`% 真实伤害、击飞 `BR_UP` tick、从他身边击退 `BR_KB_SPEED` x `BR_KB_T`，易碎随之去掉。主包：W / E / R
 //!   打中英雄后他的下一下普攻打中任何英雄都引爆。
-//! - **活体锻炉加强装备**（被动 `league_ornn:forge`，用户：「有装备系统吧 你可以加强装备属性吧」）：每 `FORGE_EVERY` tick 按他身上的
-//!   装备把主属性（攻击、法强、护甲、生命、魔抗、攻速）再加 `P_ITEM`%：装备的属性从他身上的装备 buff 读（`item_buff_stats`），
-//!   游戏的、数据 mod 的、原生 mod 的装备都一样（用户：「你也要能兼容mod的装备啊」）；一条都认不出来才退回游戏的装备表 `ITEMS`；`P_MASTER_LV` 级起锻造杰作
-//!   （英雄联盟 13 级）：**装备出完了（装备栏满 `FULL_BUILD` 件）的人**才锻造——他自己 +`P_MASTER`%，友方英雄的装备 +`P_ALLY`%
-//!   （0.3.0，用户 2026-11-03：「应该是所有装备出完了以后才开始锻造吧 现在造成几乎所有英雄的装备都能锻造」，以前一到这一级每个
-//!   队友都锻造）。只补差额的永久 buff（重挂生命会掉血）。主包：护甲、魔抗 +10%、生命 +6%（数据读不到装备）。
-//! - **锻造看得见**（`fx.rs`，用户 2026-11-01：「锻造后装备上加点特效？不然看不出啊」，选了样式 2）：比赛下方玩家栏里被锻造的装备
-//!   图标外一圈金色光晕、右下角一个小铁砧（他自己的亮、队友的淡；0.3.0 起只画锻造杰作过的，他自己活体锻炉的加成不发光），刚锻造时
-//!   闪一下金光；按屏幕上的比赛时钟画，
+//! - **活体锻炉照英雄联盟**（被动 `league_ornn:forge`，`forge.rs`；用户：「有装备系统吧 你可以加强装备属性吧」「你也要能兼容mod的装备啊」，
+//!   0.4.0：「奥恩锻造会强化所有装备 而不是和lol一样」「4+6 mod兼容吗 创意工坊的」）：每 `FORGE_EVERY` tick 读每个友方选手的装备。
+//!   他自己的被动：装备的护甲、魔抗、生命 +`P_ITEM`%，每锻造过一件杰作再 +`P_STEP`%。**锻造杰作**一共 5 件、每人一件：他自己
+//!   `P_MASTER_LV` 级（英雄联盟 13 级），队友 10、10、11、12 级（英雄联盟 14–17 级）按下路、中路、打野、上路、辅助的先后；锻造的是
+//!   装备栏里第一件**传说装备**，只有这一件的主属性 +`P_MASTER`%。开局就有的东西（4+6 装备 mod 的符文、出门装）不锻造、不算进被动；
+//!   传说装备按引擎装备表的阶认（最高两阶），表拿不到时查名单（游戏自带的第 4、5 阶、Riot 装备 mod 的传说装备和 `radiant_` 光辉版）。
+//!   装备的属性从身上的装备 buff 读（任何 mod 的装备都一样），读不到才退回游戏的装备表 `ITEMS`。只补差额的永久 buff（重挂生命会掉血）。
+//!   0.3.x 是对全部装备按百分比加（他自己 +20%、9 级满装 +35%，满装的队友 +10%），4+6 装备 mod 的符文也一起加。
+//!   主包：护甲、魔抗 +10%、生命 +6%（数据读不到装备）。
+//! - **锻造看得见**（`fx.rs`，用户 2026-11-01：「锻造后装备上加点特效？不然看不出啊」，选了样式 2）：比赛下方玩家栏里锻造成杰作的
+//!   那一件装备的图标外一圈金色光晕、右下角一个小铁砧（他自己的亮、队友的淡），刚锻造时闪一下金光；按屏幕上的比赛时钟画，
 //!   只画屏幕上那一场的（AI 钩子 `league_ornn:screen` 记屏幕在放哪一个模拟）。
 //! - **连招**（AI 钩子 `league_ornn:combo`，`combo.rs`）：AI 想放 E 而 Q 好着时先放 Q 立柱（Q → E）；柱子立着、E 好了、
 //!   柱子旁边有敌方英雄时替 AI 按 E 撞过去；身边有易碎的英雄时普攻改打他。
@@ -29,11 +31,12 @@
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_ornn.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `SPAWN`、`PILLAR`（立柱、推开）、`HOLD` / `PUSH`（第一次挡住一个单位）、`HELD`（柱子倒了：挡过几个单位、多少 tick）、`CHARGE`（撞柱 / 撞墙 / 没撞）、`BROKEN`（柱子碎了）、
-//! `SHATTER`（引爆易碎）、`Q FIRST` / `E PILLAR` / `BRITTLE`（连招），限了条数（整个游戏一个计数）；`ITEMS`（友方玩家的装备，
-//! 变了才记：你看的那场每条都记，预模拟限条数）；锻造光晕：`STATS`（你看的那场每 30 秒每个选手的队伍、分路、英雄、KDA、补刀）、
+//! `SHATTER`（引爆易碎）、`Q FIRST` / `E PILLAR` / `BRITTLE`（连招），限了条数（整个游戏一个计数）；`ITEMS`（友方玩家的装备：
+//! 哪些开局就有、哪些算传说装备、第一件是哪件，变了才记：你看的那场每条都记，预模拟限条数）、`TIERS`（引擎的装备表：几件、几阶）、
+//! `MASTERWORK`（锻造了谁的哪一件，第几件）、`FORGE`（加在谁身上多少）；锻造光晕：`STATS`（你看的那场每 30 秒每个选手的队伍、分路、英雄、KDA、补刀）、
 //! `FX ROWS`（屏幕上玩家栏每一行的 KDA、补刀和当它是哪条分路，1、3、6 分钟各一次）、`FX DRAW`（第一次画）。
 
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
@@ -46,6 +49,7 @@ use mod_api_stable::*;
 mod maps;
 
 pub mod combo;
+pub mod forge;
 pub mod fx;
 
 pub const ID: &str = "league_ornn";
@@ -66,17 +70,15 @@ pub const E_QUAKE_R: usize = 30_000;
 pub const E_ANIM: usize = 20;
 pub const E_RANGE: usize = 55_000;
 pub const Q_RANGE: usize = 75_000;
-/// 活体锻炉：他的装备主属性 +`P_ITEM`%，`P_MASTER_LV` 级起锻造杰作：他自己 +`P_MASTER`%，每个友方英雄 +`P_ALLY`%。
-pub const P_ITEM: usize = 20;
-pub const P_MASTER: usize = 35;
-pub const P_ALLY: usize = 10;
+/// 活体锻炉（英雄联盟：额外护甲、魔抗、生命 +10%，每升级一件杰作再 +4%）：他的装备的护甲、魔抗、生命 +`P_ITEM`%，每锻造过一件
+/// 杰作再 +`P_STEP`%。杰作（英雄联盟：那一件装备加 1000 金币的属性，约四成）：那一件装备的主属性 +`P_MASTER`%；他自己的那件在
+/// `P_MASTER_LV` 级（英雄联盟 13 级，TFM2 12 级封顶），队友的见 `forge::UPGRADE_LV`。
+pub const P_ITEM: usize = 10;
+pub const P_STEP: usize = 4;
+pub const P_MASTER: usize = 40;
 pub const P_MASTER_LV: usize = 9;
 /// 多久按装备重算一次。
 pub const FORGE_EVERY: usize = 30;
-/// 一套装备出完（装备栏满了）才锻造杰作（0.3.0，用户 2026-11-03：「奥恩的锻造逻辑有点问题 应该是所有装备出完了以后才开始锻造吧
-/// 现在造成几乎所有英雄的装备都能锻造」）：以前他一到 `P_MASTER_LV` 级每个队友的装备都锻造、都发光。日志里一个人最多 6 件装备
-/// （装备 mod 的 6 格）。
-pub const FULL_BUILD: usize = 6;
 
 /// 装备的主属性（攻击、法强、护甲、生命、魔抗、攻速 %），游戏 0.6.4 的 `asset/base/setting/item_setting`（字典的键和
 /// 装备自己的 `key` 都列上：铁剑的两个不一样）。吸血、暴击、穿透、减伤、韧性、冷却这些副属性不放大。
@@ -399,24 +401,6 @@ pub fn item_buff_stats<S: AsRef<str>>(buffs: &[(String, bool, [i32; 6])], keys: 
     any.then_some(sum)
 }
 
-/// 放大的那部分：每项的 `pct`%（向下取整）。
-pub fn forged(sum: [i32; 6], pct: usize) -> [i32; 6] {
-    sum.map(|v| v * pct as i32 / 100)
-}
-
-/// 这个英雄（`own`：奥恩自己）的装备放大多少 %、算不算锻造过（锻造过的装备图标才发光）。奥恩自己一直有活体锻炉的 `P_ITEM`%
-/// （被动的加成，不算锻造）；锻造杰作要他到 `P_MASTER_LV` 级，而且这个英雄的装备出完了（`items` 件，满 `FULL_BUILD`）：奥恩自己
-/// `P_MASTER`%，队友 `P_ALLY`%。
-pub fn forge_pct(level: usize, own: bool, items: usize) -> (usize, bool) {
-    let master = level >= P_MASTER_LV && items >= FULL_BUILD;
-    match (own, master) {
-        (true, true) => (P_MASTER, true),
-        (true, false) => (P_ITEM, false),
-        (false, true) => (P_ALLY, true),
-        (false, false) => (0, false),
-    }
-}
-
 /// 已经加上的 `have` 要变成 `want`：只多不少就补一个差额 buff（不动已有的，免得重挂生命时掉血），否则整个换掉。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Change {
@@ -610,12 +594,26 @@ struct Forge {
     last_pos: HashMap<usize, Pt>,
     /// 每根柱子挡过谁：单位编号 -> (挡了几 tick, 是不是英雄)；柱子倒了记一行 `HELD`。
     held: Vec<(Pt, HashMap<usize, (usize, bool)>)>,
-    /// 锻造已经加在每个单位身上的属性（单位编号 -> 主属性）：他自己的 `forged`、友方英雄的 `masterwork`。
-    forged: HashMap<usize, [i32; 6]>,
-    /// 锻造杰作记过日志没有。
-    master_seen: bool,
-    /// 日志里每个友方玩家（玩家编号）上一次记下的装备：装备、从哪里读的、主属性加起来。只在变了的时候再记 `ITEMS`。
-    items_shown: HashMap<usize, (Vec<String>, &'static str, [i32; 6])>,
+    /// 锻造已经加在每个单位身上的属性：(单位编号, `forged` 他自己的活体锻炉 / `masterwork` 杰作) -> 主属性。
+    applied: HashMap<(usize, &'static str), [i32; 6]>,
+    /// 每个友方选手（玩家编号）开局就有的东西（4+6 装备 mod 的符文、出门装）：不锻造、不算进他的被动。
+    start: HashMap<usize, HashSet<String>>,
+    /// 锻造过杰作的选手（玩家编号），按先后；一局一人一次，最多 `forge::UPGRADE_LV` 件（他自己的也在里面）。
+    forged_players: Vec<usize>,
+    /// 日志里每个友方玩家（玩家编号）上一次记下的装备和第一件传说装备：变了才再记 `ITEMS`。
+    items_shown: HashMap<usize, (Vec<String>, Option<String>)>,
+}
+
+/// 活体锻炉读到的一个友方选手：玩家编号、英雄的单位编号、活着没有、分路、装备栏（顺序就是格子的顺序）、身上的 buff
+/// （名字、永久不永久、主属性），和他装备栏里第一件传说装备（位置、key）。
+struct Row {
+    pid: usize,
+    id: usize,
+    alive: bool,
+    lane: Option<LaneV1>,
+    keys: Vec<String>,
+    on: Vec<(String, bool, [i32; 6])>,
+    first: Option<(usize, String)>,
 }
 
 /// 屏幕上那一场每 `fx::STATS_EVERY` tick：每个选手的队伍、分路、英雄、KDA、补刀（日志 `STATS`，和客户端的 `FX ROWS` 对玩家栏的行）。
@@ -634,92 +632,153 @@ fn stats(sim: &StableSim<'_>, me: usize) {
 }
 
 impl Forge {
-    /// 活体锻炉：每 `FORGE_EVERY` tick 按身上的装备补上放大的那部分（他自己；杰作后还有每个友方英雄）。
+    /// 活体锻炉（`forge.rs`）：每 `FORGE_EVERY` tick 读每个友方选手的装备，到了等级就锻造杰作（一人一件：装备栏里第一件传说装备），
+    /// 补上他自己的被动（护甲、魔抗、生命）和每件杰作加的属性。
     fn forge(&mut self, sim: &mut StableSim<'_>, me: usize) {
         let Some(team) = sim.get_entity(me).map(|e| e.team()) else { return };
+        let now = sim.tick();
+        let tiers = forge::tiers();
         let mut level = 1;
-        let mut rows = Vec::new();
+        let mut mine = None;
+        let mut rows: Vec<Row> = Vec::new();
         for i in 0..sim.player_count() {
             let Some(pl) = sim.player_at(i) else { continue };
             if pl.team() != team {
                 continue;
             }
             let Some(c) = pl.champion() else { continue };
-            let id = c.id();
             let keys = pl.item_keys();
-            let items = keys.len();
-            if id == me {
+            if c.id() == me {
                 level = pl.level();
+                mine = Some(pl.id());
+            }
+            // what one has from the start (the 4+6 item mod's runes, a starting item) is never forged
+            if now < forge::START_T {
+                self.start.entry(pl.id()).or_default().extend(keys.iter().cloned());
             }
             let on: Vec<(String, bool, [i32; 6])> = (0..c.buff_count())
                 .filter_map(|j| c.buff_at(j))
                 .map(|b| (b.name().to_string(), BuffDurationV1::from_code(b.duration_kind) == Some(BuffDurationV1::Permanent),
                           main_stats(&b)))
                 .collect();
-            // the item buffs on him (any mod's items); none found: the game's table
-            let (sum, from) = match item_buff_stats(&on, &keys) {
-                Some(s) => (s, "item buffs"),
-                None => (item_stats(&keys), "the table"),
-            };
-            // a player's items when they change (read every FORGE_EVERY ticks for each, they were logged every 200th read
-            // of the launch: 2026-10-30, 805 lines of 435 bytes, 65% of a 519 KB log), the presims' capped
-            let changed = self.items_shown.get(&pl.id()).is_none_or(|(k0, f0, s0)| *k0 != keys || *f0 != from || *s0 != sum);
-            if !keys.is_empty() && changed {
-                if let Some(k) = tally(sim, if from == "the table" { "items table" } else { "items buffs" }) {
-                    let names: Vec<&str> = on.iter().filter(|(_, p, _)| *p).map(|(n, _, _)| n.as_str()).collect();
-                    wlog(format!("{} ITEMS of #{id} {keys:?} read from {from}: {sum:?}; his permanent buffs {names:?} #{k}",
-                                 head(sim, me)));
+            rows.push(Row { pid: pl.id(), id: c.id(), alive: c.is_alive(), lane: pl.lane(), keys, on, first: None });
+        }
+        let none = HashSet::new();
+        for r in &mut rows {
+            let start = self.start.get(&r.pid).unwrap_or(&none);
+            r.first = forge::first_legendary(&r.keys, start, |k| forge::is_legendary(tiers.as_ref(), k))
+                .map(|(slot, k)| (slot, k.to_string()));
+            // a player's items when they change (the presims' capped): what was there from the start, the legendary ones
+            let shown = (r.keys.clone(), r.first.as_ref().map(|(_, k)| k.clone()));
+            if !r.keys.is_empty() && self.items_shown.get(&r.pid) != Some(&shown) {
+                if let Some(k) = tally(sim, "items") {
+                    let from_start: Vec<&String> = r.keys.iter().filter(|k| start.contains(k.as_str())).collect();
+                    let legendary: Vec<&String> = r
+                        .keys
+                        .iter()
+                        .filter(|k| !start.contains(k.as_str()) && forge::is_legendary(tiers.as_ref(), k))
+                        .collect();
+                    let by = if tiers.is_some() { "the engine's tiers, else the list" } else { "the list" };
+                    wlog(format!("{} ITEMS of #{} {:?}: from the start {from_start:?}, legendary {legendary:?} (by {by}), \
+                                  the first {:?} #{k}", head(sim, me), r.id, r.keys, shown.1));
                 }
-                self.items_shown.insert(pl.id(), (keys, from, sum));
-            }
-            rows.push((id, c.is_alive(), sum, pl.lane(), items));
-        }
-        if level >= P_MASTER_LV && !self.master_seen {
-            self.master_seen = true;
-            if let Some(k) = tally(sim, "masterwork") {
-                wlog(format!("{} MASTERWORK at level {level}: forging the items of whoever has a full build ({FULL_BUILD}): \
-                              his +{P_MASTER}%, an ally's +{P_ALLY}% #{k}", head(sim, me)));
+                self.items_shown.insert(r.pid, shown);
             }
         }
-        // the match on screen: which item icons on the scoreboard glow (forged ones only), and when (fx.rs)
-        let now = sim.tick();
-        if on_screen(sim) && now >= FORGE_EVERY {
-            let gen = fx::screen_gen();
-            for &(id, _, sum, lane, items) in &rows {
-                let Some(lane) = lane else { continue };
-                let own = id == me;
-                let (pct, done) = forge_pct(level, own, items);
-                let shown = if done { pct } else { 0 };
-                fx::publish(gen, now, (team, lane.code() as usize), items, shown, own, forged(sum, shown));
+        self.masterworks(sim, me, level, mine, &rows);
+        // the match on screen: the forged item's icon on the scoreboard glows (fx.rs)
+        let screen = on_screen(sim) && now >= FORGE_EVERY;
+        let gen = fx::screen_gen();
+        let made = self.forged_players.len();
+        for r in &rows {
+            let own = r.id == me;
+            let forged = self.forged_players.contains(&r.pid);
+            let mw = match (&r.first, forged) {
+                (Some((_, k)), true) => forge::key_stats(&r.on, k).map_or([0; 6], forge::masterwork),
+                _ => [0; 6],
+            };
+            if screen {
+                if let Some(lane) = r.lane {
+                    // the masterwork among his items (what he had from the start - runes, a starting item - left out): the
+                    // scoreboard row may show fewer icons than his item bar holds (4+6's four runes as one icon)
+                    let start = self.start.get(&r.pid);
+                    let item = |k: &String| start.is_none_or(|s| !s.contains(k.as_str()));
+                    let slot = r.first.as_ref().filter(|_| forged).map(|&(slot, _)| fx::Slot {
+                        item: r.keys[..slot].iter().filter(|k| item(k)).count(),
+                        items: r.keys.iter().filter(|k| item(k)).count(),
+                    });
+                    fx::publish(gen, now, (team, lane.code() as usize), slot, own, mw);
+                }
             }
-            if now % fx::STATS_EVERY == 0 {
-                stats(sim, me);
-            }
-        }
-        for (id, alive, sum, _, items) in rows {
-            if !alive {
+            if !r.alive {
                 continue;
             }
-            let own = id == me;
-            let want = forged(sum, forge_pct(level, own, items).0);
-            let name = n(if own { "forged" } else { "masterwork" });
-            let have = if has_buff(sim, id, &name) { self.forged.get(&id).copied().unwrap_or([0; 6]) } else { [0; 6] };
-            match change(have, want) {
-                Change::Keep => continue,
-                Change::Add(d) => sim.add_buff(id, &stat_buff(&name, d)),
-                Change::Replace(w) => {
-                    sim.entity_remove_buff(id, &name);
-                    if w != [0; 6] {
-                        sim.add_buff(id, &stat_buff(&name, w));
-                    }
+            if own {
+                let start = self.start.get(&r.pid).cloned().unwrap_or_default();
+                let passive = forge::passive_bonus(forge::sum_stats(&r.on, &r.keys, &start), made);
+                self.apply(sim, me, r.id, "forged", passive);
+            }
+            self.apply(sim, me, r.id, "masterwork", mw);
+        }
+        if screen && now % fx::STATS_EVERY == 0 {
+            stats(sim, me);
+        }
+    }
+
+    /// 到了等级就锻造杰作：他自己的那件（第一件）要他手上有传说装备，之后每件给一名还没锻造过、手上有传说装备的队友（先后见
+    /// `forge::ALLY_ORDER`）；轮到时没人有传说装备就先等着。
+    fn masterworks(&mut self, sim: &StableSim<'_>, me: usize, level: usize, mine: Option<usize>, rows: &[Row]) {
+        let can = forge::upgrades_at(level);
+        let mut new = Vec::new();
+        if let Some(p) = mine.filter(|p| can >= 1 && !self.forged_players.contains(p)) {
+            if rows.iter().any(|r| r.pid == p && r.first.is_some()) {
+                new.push(p);
+            }
+        }
+        let allies_done = self.forged_players.iter().filter(|&&p| Some(p) != mine).count();
+        for _ in allies_done..can.saturating_sub(1) {
+            let cands: Vec<(usize, Option<u32>)> = rows
+                .iter()
+                .filter(|r| {
+                    Some(r.pid) != mine && r.first.is_some() && !self.forged_players.contains(&r.pid) && !new.contains(&r.pid)
+                })
+                .map(|r| (r.pid, r.lane.map(|l| l.code())))
+                .collect();
+            let Some(p) = forge::next_ally(&cands) else { break };
+            new.push(p);
+        }
+        for p in new {
+            self.forged_players.push(p);
+            let Some(r) = rows.iter().find(|r| r.pid == p) else { continue };
+            if let Some(k) = tally(sim, "masterwork") {
+                let (slot, key) = r.first.clone().unwrap_or_default();
+                let made = self.forged_players.len();
+                wlog(format!("{} MASTERWORK {made}/{} at his level {level}: {} (lane {:?}) - {key} in slot {slot} \
+                              +{P_MASTER}%; his Living Forge now +{}% armour / MR / health #{k}", head(sim, me),
+                             forge::UPGRADE_LV.len(), who(sim, r.id), r.lane.map(|l| l.code()), forge::passive_pct(made)));
+            }
+        }
+    }
+
+    /// 单位 `id` 身上 `which`（`forged` / `masterwork`）的属性变成 `want`：只补差额（重挂生命会掉血）。
+    fn apply(&mut self, sim: &mut StableSim<'_>, me: usize, id: usize, which: &'static str, want: [i32; 6]) {
+        let name = n(which);
+        let have = if has_buff(sim, id, &name) { self.applied.get(&(id, which)).copied().unwrap_or([0; 6]) } else { [0; 6] };
+        match change(have, want) {
+            Change::Keep => return,
+            Change::Add(d) => sim.add_buff(id, &stat_buff(&name, d)),
+            Change::Replace(w) => {
+                sim.entity_remove_buff(id, &name);
+                if w != [0; 6] {
+                    sim.add_buff(id, &stat_buff(&name, w));
                 }
             }
-            self.forged.insert(id, want);
-            // 0.3.1: every one of the match on screen (11-04's logs: none in the watched sets, the presims used the cap up)
-            if let Some(k) = tally(sim, if own { "forge" } else { "forge ally" }) {
-                wlog(format!("{} FORGE {}: +{:?} (attack, AP, armour, health, MR, attack speed %) #{k}", head(sim, me),
-                             who(sim, id), want));
-            }
+        }
+        self.applied.insert((id, which), want);
+        // every one of the match on screen, the presims' capped
+        if let Some(k) = tally(sim, if which == "forged" { "forge" } else { "forge masterwork" }) {
+            wlog(format!("{} FORGE {} {which}: +{:?} (attack, AP, armour, health, MR, attack speed %) #{k}", head(sim, me),
+                         who(sim, id), want));
         }
     }
 
@@ -866,6 +925,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     module.add_native_effect(format!("{ID}:charge"), Step(charge));
     module.add_native_effect(format!("{ID}:shatter"), Step(shatter));
     module.add_native_passive(format!("{ID}:forge"), Forge::default());
+    // only reads the engine's item table (each item's tier: which ones are legendary); changes no one's build
+    module.add_item_build_hook(forge::Watch);
     module.add_player_input_ai(combo::Combo::default());
     module.add_player_input_ai(fx::Screen::default());
     // the forged items' glow: a single league_ornn.dll draws it itself; in league_addons the bundle's one client extension
@@ -948,22 +1009,16 @@ mod tests {
     }
 
     #[test]
-    fn the_forge_scales_the_items_main_stats() {
+    fn the_games_item_table_still_reads() {
         let s = item_stats(&["giants_horn_shard", "impregnable_fortress", "night_hood", "a_mod_item"]);
         assert_eq!(s, [0, 0, 130, 950, 60, 0]);
-        assert_eq!(forged(s, P_ITEM), [0, 0, 26, 190, 12, 0]);
-        // his own Living Forge from the start (no glow); a masterwork only for a full build at his level 9
-        assert_eq!(forge_pct(1, true, FULL_BUILD), (P_ITEM, false));
-        assert_eq!(forge_pct(P_MASTER_LV, true, FULL_BUILD - 1), (P_ITEM, false));
-        assert_eq!(forge_pct(P_MASTER_LV, true, FULL_BUILD), (P_MASTER, true));
-        // an ally (「几乎所有英雄的装备都能锻造」): nothing until his items are all bought
-        assert_eq!(forge_pct(P_MASTER_LV, false, 3), (0, false));
-        assert_eq!(forge_pct(P_MASTER_LV, false, FULL_BUILD - 1), (0, false));
-        assert_eq!(forge_pct(P_MASTER_LV, false, FULL_BUILD), (P_ALLY, true));
-        assert_eq!(forge_pct(P_MASTER_LV - 1, false, FULL_BUILD), (0, false));
+        // his Living Forge on them (League: armour, MR, health +10%), no masterwork made yet
+        assert_eq!(forge::passive_bonus(s, 0), [0, 0, 13, 95, 6, 0]);
         // both spellings of the iron sword
         assert_eq!(item_stats(&["ironsword"]), item_stats(&["iron_blade"]));
         assert_eq!(ITEMS.len(), 31);
+        // every one of the game's tier 4 / 5 items is in the table
+        assert!(forge::BASE_LEGENDARY.iter().all(|k| ITEMS.iter().any(|(n, _)| n == k)));
     }
 
     #[test]

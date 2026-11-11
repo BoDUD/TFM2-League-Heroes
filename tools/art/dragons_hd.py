@@ -18,17 +18,19 @@ anchor the game draws it on (a frame's centre), dense W = PPU x the 1x w exactly
    most of its drawn pixels (alpha >= 128) snap to; the palette a model's own: k-means (Lab, 40 shades, 48 for the
    Elder and Baron) over the design's squares and the frames' square centres, each shade a colour Codex drew. Codex's
    copies of the designs keep thousands of colours, so the design is snapped to the same palette.
-2. Drakes and the Elder: base = the design; idle = its upper 72 % sunk 0 / 2 / 4 / 2 squares behind the legs (native
-   serpen's idle sinks its top 0 / 2 / 5 / 2 px); attack = the design with Codex's frame inside the moving zone only
+2. Drakes and the Elder: base = the design; idle = its wings flapping (wing_flap: the tips up 0 / 2 / 3 / 2 squares,
+   the roots pinned, the body still - 0.2's sinking upper body squashed it); attack = the design with Codex's frame inside the moving zone only
    (League's attack1 moves only the neck, head and jaw: the squares whose silhouette moves in any attack frame, the
    central band, closed and filled, plus each frame's element where it differs strongly) - Codex redrew the whole body
    in every frame (a quarter of its squares the design's colour), which would shimmer; dead 1-6 = Codex's, each frame's
    main body put on the ground line (the lying frames were drawn 19 squares high), dead_6 at dead_5's height; dead 7 =
-   dead_6 breaking into shards, dead 8 empty (as native).
-3. Baron: base = the design; idle = it sunk 0 / 2 / 4 / 2 squares into the pit; attack_left and dead 1-8 = Codex's,
-   each frame's magenta spine over the design's and its bottom on the pit line, nothing under the line; attack_right =
-   attack_left mirrored (the design is symmetric); dead 9-12 = dead_8 breaking into shards, 13 empty; the target effect
-   = Codex's 7 cells read about each cell's target point (the template's cross).
+   dead_6 breaking into shards, dead 8 empty (as native). Attack frames 2-5 get the breath dragon_fx.py draws (gathering
+   in the jaws, poured onto the ground in front of the feet, the blast there, the element's shockwave round the drake).
+3. Baron: base = the design; idle = his legs flexing and his seams glowing (baron_idle); attack_left and dead 1-7 = Codex's, each frame's magenta spine
+   over the design's and its bottom on the pit line, nothing under the line; attack frames 2-5 get the acid he spits at
+   the side he bites (dragon_fx.spit), attack_right = attack_left mirrored (the design is symmetric); dead 2-3 a shock
+   ring as he screams, 8-15 = dead_7 slumping back into the pit (dragon_fx.sink), 16 empty; the target effect = the acid
+   splashing on the target (dragon_fx.splash, 7 frames, the target the frame's centre).
 """
 import argparse
 import json
@@ -44,6 +46,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import strips as G  # noqa: E402
+sys.path.insert(0, HERE)
+import dragon_fx as fx  # noqa: E402
 
 DES = ACT = None
 SQ = 6
@@ -255,20 +259,70 @@ def spine_x(a, rows=24):
     return xs.mean() if len(xs) else None
 
 
+# the drakes' idle: the wings flap, everything else still (the user, 2026-11-10: 「小龙上下摆动会造成模型变形 请用别的
+# 动作」 - 0.2's idle sank the upper body 0 / 2 / 4 / 2 squares behind the legs and squashed it)
+WING_BAND = 0.20       # the body's half-width (head, neck, chest) over the design's width: never moves
+WING_LEGS = 0.66       # the legs' line over the design's height: below it nothing moves
+WING_LIFTS = (0, 1, 2, 3, 3, 2, 1, 0)   # squares the wing tips rise in the 8 idle frames (eased; the roots pinned)
+
+
+def wing_flap(d, k):
+    """the design with its wings raised: each wing column (outside the body band, above the legs' line) up by k x its
+    distance out from the band, so the roots stay pinned and the tips rise k squares; where a wing column met the body at
+    the legs' line its lowest rows stay to bridge the gap; the body drawn on top"""
+    on = d[..., 3] > 0
+    ys, xs = np.nonzero(on)
+    top, bot = ys.min(), ys.max()
+    cx, W = (xs.min() + xs.max() + 1) / 2, xs.max() + 1 - xs.min()
+    leg = int(round(top + WING_LEGS * (bot + 1 - top)))
+    dist = np.abs(np.arange(d.shape[1]) - cx + 0.5) - WING_BAND * W
+    wing = on & (dist > 0)[None, :] & (np.arange(d.shape[0]) < leg)[:, None]
+    body = d.copy()
+    body[wing] = 0
+    out = np.zeros_like(d)
+    span = max(1.0, dist.max())
+    for x in range(d.shape[1]):
+        if dist[x] <= 0:
+            continue
+        s = int(round(k * dist[x] / span))
+        col = np.where(wing[:, x, None], d[:, x], 0)
+        if s:
+            moved = np.concatenate([col[s:], np.zeros((s, 4), np.uint8)])
+            if wing[leg - 1, x] and on[leg, x]:
+                moved[leg - s:leg] = np.where(moved[leg - s:leg, 3:4] > 0, moved[leg - s:leg], d[leg - s:leg, x])
+            col = moved
+        out[:, x] = col
+    return over(body, out)
+
+
+# the drakes' attack (the user, 2026-11-10: 「攻击特效看起来好像没有」, then 「小龙攻击的时候火焰不够大啊 看不出来在攻击」
+# 「大龙 远古龙应该也是 看不出喷射的火焰」 - Codex's breath is a puff on the chest): frame 2 the breath gathering in the jaws,
+# 3-5 the breath poured from the lowered head onto the ground in front of the feet, the blast there, and the native
+# serpen's shockwave (its frames 3-5 draw a ring round itself, radius 96 / 98 / 111 game px) made of the element -
+# dragon_fx.py draws them
+RINGS = (160.0, 180.0, 200.0)   # the shockwave's radius in attack frames 3, 4, 5 (squares)
+RING_MARGIN = 220               # squares every drake canvas is padded by on each side so the shockwave fits
+# the jaws, squares under the anchor, read off Codex's frames (a ruler every 10 squares): of the raised head in attack
+# frame 2 (the breath gathers there) and of the lowered head in frame 3 (it leaves there); the heads are centred
+JAWS = {
+    "infernal": (-19.5, 30.5), "mountain": (-17.5, 38.5), "ocean": (-18.5, 34.5), "cloud": (-17.5, 34.5),
+    "hextech": (-13.5, 36.5), "chemtech": (-13.5, 32.5), "elder": (-33.5, 30.5),
+}
+
+
+def pad(a, m):
+    return np.pad(a, ((m, m), (m, m), (0, 0)))
+
+
 def drake_frames(model):
     d = READ[model]["design_flat"]
     ys = np.nonzero(d[..., 3].any(1))[0]
     top, bot = ys.min(), ys.max()                      # bot: the soles' last row
     tags = {"base": [d]}
-    split = int(round(top + 0.72 * (bot + 1 - top)))
-    idle = []
-    for k in (0, 2, 4, 2):
-        up = d.copy(); up[split:] = 0
-        lo = d.copy(); lo[:split] = 0
-        idle.append(over(lo, shift(up, k)))
-    tags["idle"] = idle
+    tags["idle"] = [wing_flap(d, k) for k in WING_LIFTS]
     _, fr, zs = zones(model)
     tags["attack"] = [np.where(zs[n][..., None], fr[n], d) for n in sorted(fr)]
+    anchor = (128.0, bot + 1 - 66.5)
     dead = []
     dys = {}
     for k in range(1, 7):
@@ -282,8 +336,68 @@ def drake_frames(model):
     dead += shards(dead[-1], [0.55], seed=11)
     dead.append(np.zeros_like(d))
     tags["dead"] = dead
-    meta = {"ppu": 1.8, "anchor": [128.0, bot + 1 - 66.5], "dead_dy": dys, "idle_split": split}
+    # every frame padded (the shockwave reaches 230 squares round the anchor), then the breath
+    tags = {t: [pad(a, RING_MARGIN) for a in frs] for t, frs in tags.items()}
+    big = (anchor[0] + RING_MARGIN, anchor[1] + RING_MARGIN)
+    glow = (big[0], big[1] + JAWS[model][0])
+    mouth = (big[0], big[1] + JAWS[model][1])
+    tags["attack"] = fx.drake_attack(tags["attack"], big, model, mouth, bot + RING_MARGIN, RINGS, glow)
+    meta = {"ppu": 1.8, "anchor": list(big), "dead_dy": dys, "wing_lifts": WING_LIFTS, "durations": DRAKE_MS,
+            "mouth": list(mouth), "glow": list(glow)}
     return tags, meta
+
+
+# Baron's idle (the user, 2026-11-10: 「大龙的动作也是上下摆动 很僵硬」 - 0.2 sank him 0 / 2 / 4 / 2 squares into the
+# pit; then 「大龙左右晃动模型变形啊」 - 0.3.0's sway sheared the rows, slanting his heads and horn): his body, heads and
+# horn never move; his six clawed legs flex (each leg's root by the body pinned, its claw lifted up to ARM_LIFT squares,
+# eased, the right legs a quarter of the cycle behind the left), and the magenta seams on his back and his eyes glow
+# brighter and fade like breathing (the palette's magentas swapped for lighter ones, no pixel moved)
+BARON_IDLE_N = 16                 # frames (100 ms each)
+ARM_BAND = 24                     # squares either side of his middle that are his body (the legs start outside it)
+ARM_TOP = 56                      # squares over the pit line where his legs start (above it: his heads)
+ARM_LIFT = 3.0                    # squares a claw tip rises at most
+GLOW = {   # Codex's magentas -> a step lighter, two steps lighter
+    (246, 3, 252): ((250, 84, 252), (255, 150, 255)),
+    (219, 6, 233): ((240, 40, 246), (250, 92, 252)),
+    (186, 3, 202): ((214, 10, 228), (232, 32, 240)),
+    (161, 2, 182): ((186, 4, 204), (206, 8, 222)),
+}
+
+
+def baron_idle(d, pit, k):
+    """idle frame k of BARON_IDLE_N: the legs lifted (column by column, the further from his body the more), the glow"""
+    n = BARON_IDLE_N
+    on = d[..., 3] > 0
+    ys, xs = np.nonzero(on)
+    cx = (xs.min() + xs.max() + 1) / 2
+    out = d.copy()
+    for side, lag in ((-1, 0.0), (1, 0.25)):
+        ease = 0.5 - 0.5 * np.cos(2 * np.pi * ((k / n - lag) % 1.0))
+        inner = cx + side * ARM_BAND
+        reach = abs((xs.min() if side < 0 else xs.max()) - inner)
+        for x in range(d.shape[1]):
+            off = (inner - x) * -side
+            if off <= 0:
+                continue
+            lift = int(round(ARM_LIFT * ease * (off / reach) ** 0.9))
+            if lift == 0:
+                continue
+            col = d[:, x].copy()
+            arm = np.zeros(d.shape[0], bool)
+            arm[pit - ARM_TOP:pit + 1] = on[pit - ARM_TOP:pit + 1, x]
+            new = col.copy()
+            new[arm] = 0
+            yy = np.nonzero(arm)[0]
+            new[yy - lift] = col[yy]
+            out[:, x] = new
+    p = 0.5 - 0.5 * np.cos(2 * np.pi * k / n)
+    level = 0 if p < 0.35 else (1 if p < 0.75 else 2)
+    if level:
+        rgb = out[..., :3]
+        for src, steps in GLOW.items():
+            m = (out[..., 3] > 0) & np.all(rgb == np.array(src, np.uint8), axis=-1)
+            rgb[m] = steps[level - 1]
+    return out
 
 
 def baron_frames():
@@ -292,23 +406,58 @@ def baron_frames():
     pit = ys.max()                                    # the pit line's last row
     sx0 = spine_x(d)
     tags = {"base": [d]}
-    tags["idle"] = [clip(shift(d, k), pit) for k in (0, 2, 4, 2)]
+    tags["idle"] = [baron_idle(d, pit, k) for k in range(BARON_IDLE_N)]
     al, notes = [], {}
     for k in range(1, 6):
         a = READ[BARON][f"attack_left_{k}"]
         al.append(place(a, sx0, pit, notes, f"attack_left_{k}"))
     tags["attack_left"] = al
-    tags["attack_right"] = [np.ascontiguousarray(a[:, ::-1]) for a in al]
-    dead = []
-    for k in range(1, 9):
-        dead.append(place(READ[BARON][f"dead_{k}"], sx0, pit, notes, f"dead_{k}"))
-    dead += shards(dead[7], [0.3, 0.5, 0.7, 0.88], seed=41, block=6, rise=12)
-    dead.append(np.zeros_like(d))
-    tags["dead"] = dead
-    tags["attack_target_effect"] = target_effect()
-    meta = {"ppu": 1.5, "anchor": [85.0, pit + 1 - 82.5], "spine": sx0, "placed": notes,
-            "effect_anchor": [EFX_W / 2, EFX_H / 2]}
+    tags["dead"] = [place(READ[BARON][f"dead_{k}"], sx0, pit, notes, f"dead_{k}") for k in range(1, 8)]
+    # every frame padded (the spat acid reaches 150 squares out of his jaws)
+    M = BARON_MARGIN
+    tags = {t: [pad(a, M) for a in frs] for t, frs in tags.items()}
+    pitp = pit + M
+    anchor = (85.0 + M, pit + 1 - 82.5 + M)
+    # the bite (the user, 2026-11-10: 「大龙没有攻击特效」「大龙 远古龙应该也是 看不出喷射的火焰」): frame 2 the acid
+    # gathering in the biting head's jaws, 3 spat out toward the side he bites at, 4 its tail and drops, 5 drops falling
+    spat, mouths = [], []
+    for i, a in enumerate(tags["attack_left"]):
+        if i >= 1:
+            mx, my = mouth_left(a)
+            mouths.append([mx, my])
+            a = over(fx.spit(a.shape[:2], (mx, my), (mx + SPIT_AIM[0], my + SPIT_AIM[1]), i - 1, 51 + i), a)
+        spat.append(a)
+    tags["attack_left"] = spat
+    tags["attack_right"] = [np.ascontiguousarray(a[:, ::-1]) for a in spat]
+    # the death (the user: 「大龙的死亡帧还是没有」): Codex's 7 poses with a shock ring as he screams (2, 3), then he
+    # slumps back into his pit, melting at the pit line (8 frames), then nothing
+    dd = tags["dead"]
+    dd[1] = over(dd[1], fx.roar(dd[1].shape[:2], (anchor[0], pitp - 6), 66.0))
+    dd[2] = over(dd[2], fx.roar(dd[2].shape[:2], (anchor[0], pitp - 6), 92.0, seed=82))
+    dd += fx.sink(dd[-1], pitp, SINK_STEPS)
+    dd.append(np.zeros_like(dd[0]))
+    tags["dead"] = dd
+    tags["attack_target_effect"] = [fx.splash(k, EFX) for k in range(7)]
+    meta = {"ppu": 1.5, "anchor": list(anchor), "spine": sx0, "placed": notes, "durations": BARON_MS,
+            "effect_anchor": [EFX / 2, EFX / 2], "mouths": mouths}
     return tags, meta
+
+
+BARON_MARGIN = 130                  # squares every Baron canvas is padded by on each side so the spat acid fits
+SPIT_AIM = (-118.0, 24.0)           # where the spit flies from the jaws (squares; attack_left, mirrored for the right)
+SINK_STEPS = (0.06, 0.15, 0.26, 0.39, 0.53, 0.68, 0.84, 0.96)   # how far into the pit, death frames 8-15
+EFX = 150                           # the target effect's dense canvas (squares, square), the target at its centre
+
+
+def mouth_left(a):
+    """the biting head's jaws in an attack_left frame: the leftmost drawn square in the rows of his heads (the snout's
+    tip, 35-75 squares under his top), 4 squares in and 3 down"""
+    m = a[..., 3] > 0
+    top = np.nonzero(m.any(1))[0].min()
+    sub = m[top + 35:top + 75]
+    x = np.nonzero(sub.any(0))[0].min()
+    yy = np.nonzero(sub[:, x])[0]
+    return float(x + 4), float(top + 35 + yy.mean() + 3)
 
 
 def clip(a, pit):
@@ -325,31 +474,6 @@ def place(a, sx0, pit, notes, name):
     dy = pit - (b[3] - 1)
     notes[name] = [int(dx), int(dy)]
     return clip(shift(a, dy, dx), pit)
-
-
-EFX_W, EFX_H = 64, 86          # the target effect's dense canvas (squares): the cell's grey box and more, the target at its centre
-
-
-def target_effect():
-    """the 7 cells of Codex's effect sheet read on 6 px squares about each cell's target point (the template's cross:
-    the cell's centre, 40 px down), the target the frame's centre"""
-    a = np.asarray(Image.open(os.path.join(ACT, BARON, "attack_target_effect.png")).convert("RGBA"))
-    pal = PALETTES[BARON]
-    pl = lab(pal)
-    out = []
-    for i in range(7):
-        x0, y0 = (i % 4) * 384, (i // 4) * 512
-        px, py = x0 + 192, y0 + 256 + 40
-        cx0, cy0 = px - EFX_W // 2 * 6, py - EFX_H // 2 * 6
-        cell = np.zeros((EFX_H * 6, EFX_W * 6, 4), np.uint8)
-        sx0, sy0 = max(cx0, x0), max(cy0, y0)
-        sx1, sy1 = min(cx0 + EFX_W * 6, x0 + 384), min(cy0 + EFX_H * 6, y0 + 512)
-        cell[sy0 - cy0:sy1 - cy0, sx0 - cx0:sx1 - cx0] = a[sy0:sy1, sx0:sx1]
-        fr, ph, pur = read(cell, pal, pl)
-        out.append(fr[:EFX_H, :EFX_W])
-    return out
-
-
 
 
 def read_model(model):
@@ -428,6 +552,9 @@ def one_x(dense, ppu, w1, h1):
     return out
 
 
+DRAKE_MS = {"idle": [110] * 8, "dead": [100, 110, 120, 150, 240, 240, 180, 120]}
+BARON_MS = {"idle": [100] * BARON_IDLE_N,
+            "dead": [90, 110, 100, 100, 110, 130, 170] + [90] * 7 + [100] + [60]}   # 1.6 s: the poses, the sinking, nothing
 DURATIONS = {"idle": 160, "base": 100, "attack": 80, "attack_left": 80, "attack_right": 80, "attack_target_effect": 60}
 
 
@@ -440,11 +567,12 @@ def build(model, review=None):
     for t in order:
         if t not in tags:
             continue
-        ms = DURATIONS.get(t, 80 if model != BARON else 60)
+        per = meta.get("durations", {}).get(t)
+        ms = [per[k] if per else DURATIONS.get(t, 80 if model != BARON else 60) for k in range(len(tags[t]))]
         anchor = meta["effect_anchor"] if t == "attack_target_effect" else meta["anchor"]
         pairs = [crop_pair(a, anchor, ppu) for a in tags[t]]
-        hd["hd_" + t] = [(d, ms) for d, _ in pairs]
-        one[t] = [(o, ms) for _, o in pairs]
+        hd["hd_" + t] = [(d, m) for (d, _), m in zip(pairs, ms)]
+        one[t] = [(o, m) for (_, o), m in zip(pairs, ms)]
     W, H = G.write_sheet(os.path.join(OUT_DIR, NAMES[model]), {**one, **hd}, share=True)
     if review:
         os.makedirs(review, exist_ok=True)
