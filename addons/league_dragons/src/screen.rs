@@ -132,7 +132,7 @@ pub fn off_match(scene: Option<ClientSceneKindV1>) -> bool {
 
 /// 这一帧屏幕上是不是比赛画面。`is_in_game()` 说的是整份经营游戏（经营主界面、阵容、结算都算），不是「在比赛里」；离开比赛
 /// 画面后时钟的标签没了，`game_places::clock` 还留着最后读到的那一秒，比赛没放到结束就离开（跳过、中途退出观战 / 回放）时
-/// [`hud::over`] 也拦不住——0.3.9 以前框就一直画在经营界面上（玩家 2026-11-11：「战斗结束了 这个框还显示」，截图是经营主界面）。
+/// [`hud::over`] 也拦不住——0.3.11 以前框就一直画在经营界面上（玩家 2026-11-11：「战斗结束了 这个框还显示」，截图是经营主界面）。
 /// 所以两样都要：游戏说的界面不是认得出的非比赛界面（[`off_match`]），比赛时钟的标签这一帧就在屏幕上。
 pub fn match_screen(in_game: bool, scene: Option<ClientSceneKindV1>, clock_shown: bool) -> bool {
     in_game && clock_shown && !off_match(scene)
