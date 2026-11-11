@@ -120,9 +120,50 @@ fn first_time<T: PartialEq>(list: &Mutex<Vec<T>>, key: T) -> bool {
     true
 }
 
+/// 认得出**不是**比赛画面的界面：经营主界面、阵容、入场、结算、休息室、夺冠庆典、颁奖、局间反馈。游戏没说（读不到、这份
+/// 接口还不认识的新界面）不算，由比赛时钟的标签在不在屏幕上说了算（[`match_screen`]）。
+pub fn off_match(scene: Option<ClientSceneKindV1>) -> bool {
+    use ClientSceneKindV1::*;
+    match scene {
+        Some(Main | Lineup | StadiumEntrance | MatchResult | LockerRoom | ChampionshipCelebration | AwardsCeremony | SetFeedback) => true,
+        Some(Match | InGame | Prologue | PrologueFirst | TutorialMorgad | TutorialSerpen | Tutorial5v5) | None => false,
+    }
+}
+
+/// 这一帧屏幕上是不是比赛画面。`is_in_game()` 说的是整份经营游戏（经营主界面、阵容、结算都算），不是「在比赛里」；离开比赛
+/// 画面后时钟的标签没了，`game_places::clock` 还留着最后读到的那一秒，比赛没放到结束就离开（跳过、中途退出观战 / 回放）时
+/// [`hud::over`] 也拦不住——0.3.9 以前框就一直画在经营界面上（玩家 2026-11-11：「战斗结束了 这个框还显示」，截图是经营主界面）。
+/// 所以两样都要：游戏说的界面不是认得出的非比赛界面（[`off_match`]），比赛时钟的标签这一帧就在屏幕上。
+pub fn match_screen(in_game: bool, scene: Option<ClientSceneKindV1>, clock_shown: bool) -> bool {
+    in_game && clock_shown && !off_match(scene)
+}
+
+/// 上一帧是不是比赛画面、游戏说的界面、时钟标签在不在：变了记一行日志（`SCREEN`）。
+static SCREEN: Mutex<Option<(bool, Option<u32>, bool)>> = Mutex::new(None);
+
+/// 这一帧画不画（[`match_screen`]），变了时记一行。
+fn on_match_screen(ctx: &StableClient<'_>) -> bool {
+    let in_game = ctx.is_in_game();
+    let scene = in_game.then(|| ctx.client_scene_kind()).flatten();
+    let clock = in_game && shown(ctx, game_places::clock::CLOCK_PATH);
+    let on = match_screen(in_game, scene, clock);
+    if let Ok(mut last) = SCREEN.lock() {
+        let key = (on, scene.map(|k| k.code()), clock);
+        if *last != Some(key) {
+            *last = Some(key);
+            if let Some(k) = counted("screen") {
+                wlog(format!("SCREEN {}: in a career {in_game}, the game's screen {scene:?}, the match clock's label {} #{k}",
+                             if on { "the match screen - notices, HUD and dots drawn" } else { "not the match screen - nothing drawn" },
+                             if clock { "shown" } else { "not shown" }));
+            }
+        }
+    }
+    on
+}
+
 /// 画（客户端扩展的 post_render 里调）。`eggs` = 彩蛋的公告道上正放着 (大字, 小提示)：本包的挪到它们下面（[`eggs_showing`]）。
 pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
-    if !ctx.is_in_game() {
+    if !on_match_screen(ctx) {
         return;
     }
     let Some(t) = game_places::clock::screen_tick() else { return };
@@ -283,7 +324,8 @@ pub struct Overlay;
 
 impl StableExtension for Overlay {
     fn post_update(&self, ctx: &mut StableClient<'_>, _dt: u64) {
-        if !ctx.is_in_game() {
+        // off the match (the management screens are "in game" too): the clock goes - it would keep the last second it read
+        if !ctx.is_in_game() || off_match(ctx.client_scene_kind()) {
             game_places::clock::observe(false, None);
             return;
         }
@@ -356,6 +398,31 @@ mod tests {
         assert_eq!(c.len(), n);
         // colours carry no alpha: it is or-ed in when drawn
         assert!(c.iter().all(|x| x & 0xff == 0) && BLUE & 0xff == 0 && RED & 0xff == 0);
+    }
+
+    /// The player's report (2026-11-11, the box left over the management screen after a match): "in game" is the whole
+    /// career, so the game's own screen and the match clock's label decide.
+    #[test]
+    fn nothing_is_drawn_off_the_match_screen() {
+        use ClientSceneKindV1::*;
+        // the match: the play screen, whatever the game calls it, with its clock on screen
+        for scene in [InGame, Match, Tutorial5v5, TutorialSerpen, TutorialMorgad, Prologue, PrologueFirst] {
+            assert!(match_screen(true, Some(scene), true), "{scene:?}");
+            assert!(!match_screen(true, Some(scene), false), "{scene:?} without its clock (the pick screen, a full-screen panel)");
+        }
+        // back in the management screens the clock's label may still read (a match skipped or left half-way): nothing
+        for scene in [Main, Lineup, StadiumEntrance, MatchResult, LockerRoom, ChampionshipCelebration, AwardsCeremony, SetFeedback] {
+            assert!(off_match(Some(scene)), "{scene:?}");
+            assert!(!match_screen(true, Some(scene), true), "{scene:?} with a stale clock label");
+            assert!(!match_screen(true, Some(scene), false), "{scene:?}");
+        }
+        // every screen the game can name is decided one way or the other
+        assert_eq!(ClientSceneKindV1::VARIANTS.len(), 15, "a new screen: is it a match? (off_match)");
+        // a screen this API cannot name yet: the clock's label decides
+        assert!(match_screen(true, None, true));
+        assert!(!match_screen(true, None, false));
+        // not in a career at all (the title, the database editor)
+        assert!(!match_screen(false, None, true) && !match_screen(false, Some(InGame), true));
     }
 
     #[test]
