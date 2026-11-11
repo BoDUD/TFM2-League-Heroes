@@ -29,7 +29,7 @@ M, O, A, R, E = setup.M, setup.O, setup.A, setup.R, setup.E
 mag = setup.mag
 TEXT = {
     "zh-hans": {
-        "attack": "冰弹。" + O + "寒霜涅槃" + E + "：受到致命伤害时变成冰蛋" + A + "{egg_t}秒" + E + "（生命回满，双抗降低），蛋被打碎才阵亡；"
+        "attack": "冰弹。" + O + "寒霜涅槃" + E + "：受到致命伤害时变成冰蛋" + A + "{egg_t}秒" + E + "（生命回满、不能动，双抗降低），蛋被打碎才阵亡；"
                   "撑过去就带着蛋剩下的生命复活。冷却" + A + "{egg_cd}秒" + E + "，阵亡不重置。",
         "skill": "射出冰球，穿过的敌人受到" + mag("q_pass", "q_pass_r") + "并" + R + "减速{q_slow}%" + E + "；碰到英雄或到达落点时引爆：" +
                  mag("q_dmg", "q_ratio") + M + "魔法伤害" + E + "并" + R + "眩晕{q_stun}秒" + E + "。" + O + "寒冰屏障" + E + "：晕到英雄时在原地竖起冰墙" +
@@ -38,7 +38,7 @@ TEXT = {
                   "）时伤害翻倍。",
     },
     "zh-hant": {
-        "attack": "冰彈。" + O + "寒霜涅槃" + E + "：受到致命傷害時變成冰蛋" + A + "{egg_t}秒" + E + "（生命回滿，雙抗降低），蛋被打碎才陣亡；"
+        "attack": "冰彈。" + O + "寒霜涅槃" + E + "：受到致命傷害時變成冰蛋" + A + "{egg_t}秒" + E + "（生命回滿、不能動，雙抗降低），蛋被打碎才陣亡；"
                   "撐過去就帶著蛋剩下的生命復活。冷卻" + A + "{egg_cd}秒" + E + "，陣亡不重置。",
         "skill": "射出冰球，穿過的敵人受到" + mag("q_pass", "q_pass_r") + "並" + R + "緩速{q_slow}%" + E + "；碰到英雄或到達落點時引爆：" +
                  mag("q_dmg", "q_ratio") + M + "魔法傷害" + E + "並" + R + "暈眩{q_stun}秒" + E + "。" + O + "寒冰屏障" + E + "：暈到英雄時在原地豎起冰牆" +
@@ -48,7 +48,7 @@ TEXT = {
     },
     "en": {
         "attack": "An ice bolt. " + O + "Rebirth" + E + ": lethal damage turns her into an egg for " + A + "{egg_t}s" + E +
-                  " (full health, lower armour and magic resistance); only breaking the egg kills her, if it survives she "
+                  " (full health, rooted, lower armour and magic resistance); only breaking the egg kills her, if it survives she "
                   "is reborn with its health. Cooldown " + A + "{egg_cd}s" + E + ", kept through death.",
         "skill": "An ice ball: " + mag("q_pass", "q_pass_r") + " " + M + "magic damage" + E + " and a " + R + "{q_slow}% slow" + E +
                  " to enemies it passes; it bursts on the first champion or at its spot for " + mag("q_dmg", "q_ratio") + " " + M +
@@ -58,7 +58,7 @@ TEXT = {
                   "Flash Frost or the formed Glacial Storm in the last " + A + "{ice_t}s" + E + ").",
     },
     "ko": {
-        "attack": "얼음 화살. " + O + "환생" + E + ": 치명적인 피해를 받으면 " + A + "{egg_t}초" + E + "간 알로 변함(체력 회복, 방어력·마법 저항력 감소). "
+        "attack": "얼음 화살. " + O + "환생" + E + ": 치명적인 피해를 받으면 " + A + "{egg_t}초" + E + "간 알로 변함(체력 회복, 이동 불가, 방어력·마법 저항력 감소). "
                   "알이 깨져야 사망하고, 버티면 알의 체력으로 부활. 재사용 대기시간 " + A + "{egg_cd}초" + E + ", 사망해도 유지.",
         "skill": "얼음 구체: 지나간 적에게 " + mag("q_pass", "q_pass_r") + " 피해와 " + R + "{q_slow}% 둔화" + E + "; 첫 챔피언이나 목표 지점에서 폭발해 " +
                  mag("q_dmg", "q_ratio") + "의 " + M + "마법 피해" + E + "와 " + R + "{q_stun}초 기절" + E + ". " + O + "결정화" + E +
@@ -67,7 +67,7 @@ TEXT = {
                   "완성된 얼음 폭풍에 맞음) 대상에게 2배.",
     },
     "ja": {
-        "attack": "氷の弾。" + O + "再誕" + E + "：致死ダメージで" + A + "{egg_t}秒" + E + "卵になる（体力全快、物理・魔法防御低下）。卵が壊されると死亡、"
+        "attack": "氷の弾。" + O + "再誕" + E + "：致死ダメージで" + A + "{egg_t}秒" + E + "卵になる（体力全快・移動不可、物理・魔法防御低下）。卵が壊されると死亡、"
                   "耐えれば卵の体力で復活。クールダウン" + A + "{egg_cd}秒" + E + "、死亡後も継続。",
         "skill": "氷の球：通過した敵に" + mag("q_pass", "q_pass_r") + "と" + R + "スロウ{q_slow}%" + E + "。最初のチャンピオンか着弾点で炸裂し" +
                  mag("q_dmg", "q_ratio") + "の" + M + "魔法ダメージ" + E + "と" + R + "スタン{q_stun}秒" + E + "。" + O + "アイスウォール" + E +

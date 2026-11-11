@@ -54,10 +54,11 @@ P = {
     # and a short knock-back on his next attack, CC +30%)
     "p_def": 10, "p_hp": 6, "br_t": 180, "br_hp": 8, "br_up": 15, "br_kb_speed": 1500, "br_kb_t": 8,
     "br_speed": 6000,
-    # the add-on's forge (the user, 2026-10-21: 「有装备系统吧 你可以加强装备属性吧」, picked "himself + allies' masterwork",
-    # "+20%, masterwork +35%"): his items' main stats +p_item%, from level p_master_lv (League's 13 of 18; TFM2 has 12)
-    # +p_master%, and every allied champion's +p_ally%
-    "p_item": 20, "p_master": 35, "p_ally": 10, "p_master_lv": 9,
+    # the add-on's forge, League's Living Forge and Master Craftsman (the user, 2026-11-11: 「奥恩锻造会强化所有装备 而不是和lol
+    # 一样」): his items' armour, MR and health +p_item%, +p_step% per masterwork made (League: bonus armour / MR / health +10%,
+    # +4% each); five masterworks, one item each - the first legendary one's main stats +p_master% (League: 1000 gold of its
+    # stats) - his own at level p_master_lv (League's 13 of 18 on TFM2's 12), then an ally at 10, 10, 11 and 12
+    "p_item": 10, "p_step": 4, "p_master": 40, "p_master_lv": 9,
     # W Bellows Breath (League: 0.75 s unstoppable, 12-20% max health magic over the breath, cd 17-13)
     "w_cd": 720, "w_go": 30000, "w_t": 45, "w_n": 5, "w_gap": 9, "w_first": 6, "w_len": 40000, "w_cone": 700,
     "w_dmg": 10, "w_hp": 1, "w_thp": 2, "w_sh": 120, "w_sh_t": 120,
@@ -329,7 +330,7 @@ def build(p):
     if nat:
         extra["passive"] = {"passive_ref": f"{ID}:forge", "params": {
             k: p[k] for k in ("q_life", "br_hp", "br_up", "br_kb_speed", "br_kb_t", "e_quake_r", "e_anim", "p_item",
-                              "p_master", "p_ally", "p_master_lv")}}
+                              "p_step", "p_master", "p_master_lv")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee", "Tank", "CC", "Shield"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
