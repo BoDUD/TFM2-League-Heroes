@@ -27,7 +27,8 @@ The summons are effect pictures (tools/kit/build_azir.py's views; league_illaoi'
 1x tags and their hd_ twins (PPU 1.5, league_main hd.rs EFFECTS), drawn as stored on both sides (the client never
 mirrors an effect): the soldier from the front, the disc from the front, the guard from the side in a right-facing and a
 mirrored left-facing tag (the add-on picks one by the wall's direction; the main pack's data cannot see it and draws the
-right-facing one), and the soldier from the side (league_azir_soldier_side: stand, rise and stab, each right and left,
+right-facing one) - three guards a stamp (charge_<r|l>_<a|b>, the main pack's hops) and one guard alone (one_<r|l>_<a|b>:
+league_azir 0.2.4 lines them up across the charge itself, the user 2026-11-11: 「沙皇R的大招推起来像是有三排士兵」), and the soldier from the side (league_azir_soldier_side: stand, rise and stab, each right and left,
 ss_stand / ss_rise / ss_stab ticks long - the add-on stamps them where the data's soldier stands, facing the nearest
 enemy, the stab when it strikes).
 """
@@ -249,6 +250,11 @@ def summon_tags():
         for k, pic in (("a", g1), ("b", g2)):
             sign = -1 if mirror else 1
             guard[f"charge_{side}_{k}"] = [(W.frame([(pic, (sign * dx, dy), 0, mirror) for dx, dy in GUARDS]), G_STEP)]
+    # one guard alone on the pivot (league_azir 0.2.4): the add-on stands them in one line across the charge, whatever
+    # its direction - its three stamps of three overlapped into three ranks (「推起来像是有三排士兵」)
+    for side, mirror in (("r", False), ("l", True)):
+        for k, pic in (("a", g1), ("b", g2)):
+            guard[f"one_{side}_{k}"] = [(W.frame([(pic, (0, 0), 0, mirror)]), G_STEP)]
     D = Summon(120, 160)
     disc_tags = {"disc_rise": [(D.frame([(disc, (0, 0), n, False)]), 90) for n in (60, 45, 30, 15)]
                  + [(D.frame([(disc, (0, 0), 0, False)]), 200)],

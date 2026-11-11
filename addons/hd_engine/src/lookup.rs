@@ -659,11 +659,11 @@ unsafe extern "system" fn sheet_detour(ctx: usize, ptr: usize, len: usize, sp: u
         let Ok(name) = std::str::from_utf8(std::slice::from_raw_parts(ptr as *const u8, len)) else { return got };
         // a stand-in an inline UI drawer left in its image node (src/ui.rs): the UI sheet it stands for, looked up as
         // if the game had asked for that one
-        if let Some(real) = super::ui::stand_in_real(name) {
+        let rva = q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed));
+        if let Some(real) = super::ui::stand_in_real(name, rva) {
             return sheet_detour(ctx, real.as_ptr() as usize, real.len(), sp);
         }
         let hero = hero_of_name(name);
-        let rva = q(sp).wrapping_sub(MODULE.load(Ordering::Relaxed));
         note(1, rva, name, got, hero.is_some());
         // a UI drawer's own lookup right after its redirected anim lookup: the hero's UI sheet (src/ui.rs)
         let ui = match build().ui_sheet_ret.iter().position(|r| *r == rva) {

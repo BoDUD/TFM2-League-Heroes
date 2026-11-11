@@ -18,7 +18,10 @@ defaults in src/lib.rs's Params are P's numbers, and writes addons/league_azir/o
     flies two ticks, or the screen never drew it; lengths up to 80 px);
   * 0.2.0: the soldiers' stabs, Q's move and E's need of a soldier skip a soldier the add-on crumbled (`league_azir_x<s>`
     on him, taken off by the slot's next rise); the passive's params add s_life, s_tie (League's 660 less his body) and
-    d_cd (the Sun Disc's 90-second cooldown, its sentence below).
+    d_cd (the Sun Disc's 90-second cooldown, its sentence below);
+  * 0.2.4: view_effects `league_azir_r_one_<a|b|la|lb>`, one guard alone (league/effects/league_azir_guard's
+    one_<r|l>_<a|b>, tools/art/rig_azir.py): the add-on stands them in one line across the charge (the user 2026-11-11:
+    「沙皇R的大招推起来像是有三排士兵」 - three stamps of three guards overlapped into three ranks).
 Every other champion stays untouched. Run it again whenever the main pack's Azir changes.
 """
 import json
@@ -98,6 +101,12 @@ def main():
         sys.exit("the copy has no league_azir:disc passive: update this script")
     if '"league_azir:r_wall"' not in json.dumps(champion):
         sys.exit("the copy's wall does not call league_azir:r_wall: update this script")
+    ones = [v for v in champion["view_effects"] if v["name"].startswith(HERO + "_r_one_")]
+    with open(lp(os.path.join(ROOT, "league", "effects", "league_azir_guard#anim.fanim")), encoding="utf-8-sig") as f:
+        guard_tags = json.load(f)["anims"]
+    if len(ones) != 4 or any(v["tag"] not in guard_tags or "hd_" + v["tag"] not in guard_tags for v in ones):
+        sys.exit("the copy's single guards (r_one_*) are not all in league/effects/league_azir_guard: "
+                 "run tools/art/rig_azir.py --summons")
     champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
     tethers = tether_views()
     if {v["name"] for v in champion["view_projectiles"]} & {v["name"] for v in tethers}:
