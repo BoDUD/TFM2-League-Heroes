@@ -1,27 +1,21 @@
-//! 画法校准（`settings.ini` 里加一行 `world_probe = 1`；每场比赛头 30 秒）。
+//! 特效预览（`settings.ini` 里加一行 `world_probe = 1`；每场比赛头 30 秒）：本包的每一种战场特效在镜头中心排成两排循环
+//! 播放，下面写着名字——不用等到有队伍拿龙魂就能看到它们长什么样、位置对不对。默认不开。
 //!
-//! 往比赛世界里画东西是照反汇编推出来的，哪一种画法在这个版本的游戏里真的显示得出来、位置对不对，只有看画面才知道。
-//! 所以把几种画法各画一个颜色不同的方块，排在镜头中心上面一排，下面各画一张本包的特效图，玩家截一张图就都清楚了：
+//! 这个开关原来是**画法校准**。往比赛世界里画东西是照反汇编推出来的，哪一种画法真的显示得出来、位置对不对，只有看
+//! 画面才知道，所以 0.4.3 把几种画法各画一个颜色不同的方块、各带一张本包的图，让玩家截图。两张截图（2026-11-11）定下来的：
 //!
-//! | 方块 | 画法 | 下面那张图 |
-//! |---|---|---|
-//! | A 红 | `"Game"`，排在游戏的命令后面（世界的平移外面，自己加平移），z 101 | 同一帧**一格一格**画（横条） |
-//! | B 橙 | 同 A，z 1（游戏自己的技能特效那一层）——本包特效的画法 | 贴图 |
-//! | C 黄 | `"Game"`，推进去之后把世界的「恢复」挪到它后面：在世界的平移里面，和游戏自己的命令一样 | 贴图 |
-//! | F 蓝 | `"UI"`，自己把世界坐标换成屏幕坐标 | —— |
-//!
-//! 白框是按 F 的换算每个方块应该在的位置，白十字是每张图的脚（锚点）应该在的位置和屏幕中心；图例右边还有一张画在 `"UI"`
-//! 上的贴图。日志 `PROBE` 行写下每个数。
-//!
-//! **第一次校准（2026-11-11，0.4.3，玩家的截图）定下来的事**：
-//! - A、B、C 都显示、位置都对：排在游戏的命令后面、自己加平移的画法没有问题（z 101 和 z 1 都看得见）；挪进世界里也行，
-//!   用不着。pre_render 里画的排在游戏的镜头命令前面，按另一个镜头画（1 : 1、不放大），前面先推一条一样的镜头命令就对了。
-//! - 画面是 1 个世界像素 = 2 个屏幕像素：`"Game"` 那张 2048 × 2048 的图按原大小居中放在屏幕上，镜头看着的 1024 × 1024
-//!   铺满它，所以屏幕上看得到的是镜头中心周围 960 × 540 个世界像素（当时的换算按 1.875 算，白框偏了）。
+//! - **排在游戏的命令后面、自己加平移的画法没有问题**：z 101 和 z 1 的方块都显示、位置都对。把世界的「恢复」挪到刚推进去
+//!   的命令后面（它们就在世界的平移里面，和游戏自己的命令一样）也行，用不着。pre_render 里画的排在游戏的镜头命令前面，
+//!   按另一个镜头画（1 : 1、不放大），前面先推一条和游戏一样的镜头命令就对了。
+//! - **1 个世界像素 = 2 个屏幕像素**：`"Game"` 那张 2048 × 2048 的图按原大小居中放在屏幕上，镜头看着的 1024 × 1024 铺满
+//!   它，屏幕上看得到镜头中心周围 960 × 540 个世界像素（推在 (852, 892.3) 的方块左上角正好在屏幕的 (616, 276.6)）。
+//!   [`to_ui`] 就是这个换算。
 //! - **贴图画得出来**（`"Game"` 和 `"UI"` 上都是），但 `pivot` 不是接口文档说的「x、y 指的那一点」：给了锚点的比例，图的
-//!   左上角落在 x、y **加**锚点的地方，整张图往右下偏了两个锚点。所以锚点自己减、`pivot` 给 0（[`world::sprite_top_left`]）。
-//! - 上一局（0.4.1）特效看不见：那一局贴图关着，特效是一格一格画的——1 个世界像素高的横条在 `"Game"` 上几乎是透明的
-//!   （这一版把它画在 A 下面，再看一眼）。
+//!   左上角落在 x、y **加**锚点的地方，整张图往右下偏两个锚点。锚点自己减、`pivot` 给 0（[`world::sprite_top_left`]）之后，
+//!   第二张截图里三张图的脚都踩在该在的十字上。
+//! - **一格一格画（横条）也显示得好好的**：第二张截图里同一帧用 701 条横条画出来，和贴图一样实。（0.4.4 的说明里猜过
+//!   「1 个世界像素高的横条几乎是透明的」，错了。）所以装了 0.4.1 的那一局玩家「没看到特效啊」不是画不出来——四种特效
+//!   日志里都画了，位置也在镜头里；是没注意到（每个不到一秒），还是别的原因，没有定论。
 
 use std::sync::{Mutex, OnceLock};
 
@@ -30,20 +24,23 @@ use mod_api_stable::*;
 use super::fx_atlas::{Anim, ANIMS};
 use super::screen::{draw_text_in, FONT, UI};
 use super::world::{self, View, GAME};
-use super::{counted, wlog};
+use super::{counted, fx, wlog};
 
 /// 每场比赛头这么多 tick 画（30 秒）。
 pub const PROBE_T: usize = 1800;
-/// 方块的边、相邻两个的间隔、在镜头中心上面多高、图的脚在方块下面多远（世界像素）。
-const SIDE: f32 = 24.0;
-const GAP: f32 = 80.0;
-const UP: f32 = 120.0;
-const BELOW: f32 = 96.0;
+/// 一段动画放完后歇这么多 tick 再放。
+const REST: usize = 36;
+/// 两排：(动画, 名字)。上面一排是拿到龙魂时每个英雄脚下的光柱，下面一排是龙魂触发和远古龙之力。
+const SOULS: [(&str, &str); 6] = [("soul_infernal", "炼狱龙魂"), ("soul_mountain", "山脉龙魂"), ("soul_ocean", "海洋龙魂"),
+                                  ("soul_cloud", "云端龙魂"), ("soul_hextech", "海克斯龙魂"), ("soul_chemtech", "化学科技龙魂")];
+const PROCS: [(&str, &str); 8] = [("infernal_blast", "炼狱：爆炸"), ("mountain_shield", "山脉：护盾"), ("ocean_heal", "海洋：回血"),
+                                  ("cloud_gust", "云端：加速"), ("hex_spark", "海克斯：闪电"), ("chem_rage", "化学：残血"),
+                                  ("elder_burn", "远古龙：点燃"), ("elder_execute", "远古龙：斩杀")];
+/// 一排里相邻两个隔多远、两排的脚各在镜头中心上面 / 下面多远（世界像素）。
+const GAP: f32 = 84.0;
+const SOULS_UP: f32 = 50.0;
+const PROCS_DOWN: f32 = 118.0;
 
-const RED: u32 = 0xff_28_28_ff;
-const ORANGE: u32 = 0xff_96_20_ff;
-const YELLOW: u32 = 0xff_f0_30_ff;
-const BLUE: u32 = 0x40_68_ff_ff;
 const WHITE: u32 = 0xff_ff_ff_ff;
 
 /// `text`（settings.ini）里有没有 `world_probe = 1`（`#` 后面是说明）。
@@ -55,7 +52,7 @@ pub fn wanted(text: &str) -> bool {
     })
 }
 
-/// 校准开着没有（加载后第一次问时读一次 settings.ini）。
+/// 预览开着没有（加载后第一次问时读一次 settings.ini）。
 pub fn on() -> bool {
     static ON: OnceLock<bool> = OnceLock::new();
     *ON.get_or_init(|| {
@@ -63,8 +60,8 @@ pub fn on() -> bool {
             .and_then(|d| std::fs::read(d.join("settings.ini")).ok())
             .is_some_and(|b| wanted(&String::from_utf8_lossy(&b)));
         if on {
-            wlog("PROBE on: settings.ini has world_probe = 1 - the first 30 s of every match show the calibration squares \
-                  (take the line out to stop them)");
+            wlog("PROBE on: settings.ini has world_probe = 1 - the first 30 s of every match show every effect of this mod in \
+                  two rows (take the line out to stop it)");
         }
         on
     })
@@ -72,11 +69,15 @@ pub fn on() -> bool {
 
 static FRAMES: Mutex<((u64, u64), usize)> = Mutex::new(((0, 0), 0));
 
-/// 第 `k` 个方块左上角的世界像素：镜头中心上面一排，`k` = 0 在正中。
-pub fn place(v: &View, k: i32) -> Option<(f32, f32)> {
+/// 镜头中心的世界像素。
+pub fn centre(v: &View) -> Option<(f32, f32)> {
     let cam = v.camera?;
-    let centre = (cam.0 + cam.2 / 2.0 - v.shift.0, cam.1 + cam.3 / 2.0 - v.shift.1);
-    Some(((centre.0 + k as f32 * GAP - SIDE / 2.0).round(), (centre.1 - UP - SIDE / 2.0).round()))
+    Some((cam.0 + cam.2 / 2.0 - v.shift.0, cam.1 + cam.3 / 2.0 - v.shift.1))
+}
+
+/// 一排 `n` 个里第 `i` 个的脚：镜头中心左右排开，`dy` 是在中心下面多远。
+pub fn slot(centre: (f32, f32), i: usize, n: usize, dy: f32) -> (f32, f32) {
+    ((centre.0 + (i as f32 - (n as f32 - 1.0) / 2.0) * GAP).round(), (centre.1 + dy).round())
 }
 
 /// 世界像素 -> `"UI"` 里的坐标和一个世界像素是几个 `"UI"` 像素：`"Game"` 那张图（宽 `game`）按原大小居中放在屏幕上，镜头
@@ -88,97 +89,66 @@ pub fn to_ui(v: &View, game: f32, ui: (f32, f32), world: (f32, f32)) -> Option<(
     Some((ui.0 / 2.0 + (map.0 - (cam.0 + cam.2 / 2.0)) * k, ui.1 / 2.0 + (map.1 - (cam.1 + cam.3 / 2.0)) * k, k))
 }
 
-/// 本包特效图里的一帧（拿到龙魂的光柱的中间一帧）。
-fn picture() -> Option<(&'static Anim, usize)> {
-    let a = ANIMS.iter().find(|a| a.name == "soul_infernal")?;
-    Some((a, a.frames as usize / 2))
+/// 循环播放的动画在 tick `t` 是第几帧（第 `i` 个错开一点，不一起闪）；放完到再放之间：None。
+pub fn looping(a: &Anim, t: usize, i: usize) -> Option<usize> {
+    let period = a.frames as usize * a.ticks.max(1) as usize + REST;
+    fx::frame_at(a, (t + i * 11) % period)
 }
 
-/// 那一帧一格一格画（横条），脚在世界像素 `feet`。-> 推进去几条。
-fn squares(ctx: &mut StableClient<'_>, v: &View, feet: (f32, f32)) -> usize {
-    let Some((a, fr)) = picture() else { return 0 };
+/// 一帧画在世界像素 `feet`（它的锚点）：贴图画得了就一条贴图命令，不然一条条横条。
+fn picture(ctx: &mut StableClient<'_>, v: &View, a: &'static Anim, fr: usize, feet: (f32, f32)) -> bool {
+    if v.sprites {
+        let (x, y) = world::corner(a, v.px(feet));
+        return world::sprite_top_left(ctx, GAME, v.z, a, fr, x, y);
+    }
     let Some(list) = ANIMS.iter().position(|x| x.name == a.name)
-        .and_then(|i| super::fx::runs().and_then(|r| r.frames.get(i).and_then(|f| f.get(fr)).map(|l| (l, &r.colours))))
+        .and_then(|i| fx::runs().and_then(|r| r.frames.get(i).and_then(|f| f.get(fr)).map(|l| (l, &r.colours))))
     else {
-        return 0;
+        return false;
     };
     let (bx, by) = (feet.0.round() as i32 - a.ax as i32, feet.1.round() as i32 - a.ay as i32);
-    list.0.iter().filter(|r| world::run(ctx, v, bx + r[0] as i32, by + r[1] as i32, r[2] as i32, list.1[r[3] as usize])).count()
+    let mut drawn = false;
+    for r in list.0 {
+        drawn |= world::run(ctx, v, bx + r[0] as i32, by + r[1] as i32, r[2] as i32, list.1[r[3] as usize]);
+    }
+    drawn
 }
 
-/// 一个空心的框、一个十字（`"UI"`）。
-fn outline(ctx: &mut StableClient<'_>, r: (f32, f32, f32, f32), z: i32, colour: u32) {
-    let t = 2.0;
-    ctx.draw_rect(UI, r.0, r.1, r.2, t, z, 0.0, colour);
-    ctx.draw_rect(UI, r.0, r.1 + r.3 - t, r.2, t, z, 0.0, colour);
-    ctx.draw_rect(UI, r.0, r.1, t, r.3, z, 0.0, colour);
-    ctx.draw_rect(UI, r.0 + r.2 - t, r.1, t, r.3, z, 0.0, colour);
-}
-
-fn cross(ctx: &mut StableClient<'_>, at: (f32, f32), arm: f32, z: i32) {
-    ctx.draw_rect(UI, at.0 - arm, at.1 - 1.0, arm * 2.0, 2.0, z, 0.0, WHITE);
-    ctx.draw_rect(UI, at.0 - 1.0, at.1 - arm, 2.0, arm * 2.0, z, 0.0, WHITE);
-}
-
-/// post_render 里（本包别的东西之前）：C（挪进世界里）、A、B、F，各自的图，图例，日志。
+/// post_render 里（本包别的东西之前）：两排特效、它们的名字、标题，日志。
 pub fn after(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
     if !on() || t >= PROBE_T {
         return;
     }
     let Some(v) = world::view(ctx, m, s, t) else { return };
-    let (Some(a), Some(b), Some(c), Some(f), Some((anim, fr))) = (place(&v, -2), place(&v, -1), place(&v, 0), place(&v, 1), picture())
+    let (Some(c), Some(ui), Some(game)) = (centre(&v), ctx.draw_map_size(UI).filter(|s| s.0 > 0.0 && s.1 > 0.0), ctx.draw_map_size(GAME))
     else {
         return;
     };
-    let feet = |sq: (f32, f32)| (sq.0 + SIDE / 2.0, sq.1 + SIDE + BELOW);
-    let top_left = |p: (f32, f32)| (p.0 - anim.ax as f32, p.1 - anim.ay as f32);
-    // C first - straight after the world's pop - in the world's own coordinates, then the pop moved behind it
-    let c_ok = ctx.draw_rect(GAME, c.0, c.1, SIDE, SIDE, 1, 0.0, YELLOW);
-    let cp = top_left(feet(c));
-    let c_pic = world::sprite_top_left(ctx, GAME, 1, anim, fr, cp.0, cp.1);
-    let moved = match (c_ok, c_pic) {
-        (true, true) => world::move_into_world(ctx, 2),
-        (true, false) => world::move_into_world(ctx, 1),
-        _ => Err("the square was not taken".to_string()),
-    };
-    // A, B after the pop: the game's shift added. A's picture square by square, B's the sheet.
-    let (am, bm) = (v.px(a), v.px(b));
-    let a_ok = ctx.draw_rect(GAME, am.0, am.1, SIDE, SIDE, 101, 0.0, RED);
-    let a_runs = squares(ctx, &v, feet(a));
-    let b_ok = ctx.draw_rect(GAME, bm.0, bm.1, SIDE, SIDE, 1, 0.0, ORANGE);
-    let bp = v.px(top_left(feet(b)));
-    let b_pic = world::sprite_top_left(ctx, GAME, 1, anim, fr, bp.0, bp.1);
-    // the UI map: F, where every square and every picture's feet should be, the screen's centre, the legend
-    let (Some(ui), Some(game)) = (ctx.draw_map_size(UI).filter(|s| s.0 > 0.0 && s.1 > 0.0), ctx.draw_map_size(GAME)) else { return };
-    let mut f_at = (0.0, 0.0, 0.0);
-    if let Some(p) = to_ui(&v, game.0, ui, f) {
-        f_at = p;
-        ctx.draw_rect(UI, p.0, p.1, SIDE * p.2, SIDE * p.2, 950, 0.0, BLUE);
-    }
-    for sq in [a, b, c] {
-        if let Some(p) = to_ui(&v, game.0, ui, sq) {
-            outline(ctx, (p.0 - 4.0, p.1 - 4.0, SIDE * p.2 + 8.0, SIDE * p.2 + 8.0), 951, WHITE);
-        }
-        if let Some(p) = to_ui(&v, game.0, ui, feet(sq)) {
-            cross(ctx, (p.0, p.1), 10.0, 951);
+    let mut drawn = 0usize;
+    let rows: [(&[(&str, &str)], f32); 2] = [(&SOULS, -SOULS_UP), (&PROCS, PROCS_DOWN)];
+    for (row, dy) in rows {
+        for (i, (name, label)) in row.iter().enumerate() {
+            let Some(a) = ANIMS.iter().find(|a| a.name == *name) else { continue };
+            let feet = slot(c, i, row.len(), dy);
+            // the Hextech soul's bolt runs into its spark from the left, a new shape every 3 ticks
+            if *name == "hex_spark" && looping(a, t, i).is_some() {
+                let (x, y) = (feet.0 as i32, feet.1 as i32 - 14);
+                fx::bolt(ctx, &v, &fx::bolt_path((x - 64, y - 26), (x, y), (t / 3) as u64), true);
+            }
+            if let Some(fr) = looping(a, t, i) {
+                drawn += picture(ctx, &v, a, fr, feet) as usize;
+            }
+            if let Some(p) = to_ui(&v, game.0, ui, feet) {
+                ctx.draw_rect(UI, p.0 - 58.0, p.1 + 8.0, 116.0, 24.0, 948, 6.0, 0x10_14_22_c8);
+                draw_text_in(ctx, label, FONT, (p.0 - 58.0, p.1 + 8.0, 116.0, 24.0), 949, 15.0, WHITE, TextAlignXV1::Center);
+            }
         }
     }
-    cross(ctx, (ui.0 / 2.0, ui.1 / 2.0), 30.0, 951);
-    let (lx, ly, lw) = (ui.0 / 2.0 - 380.0, 100.0, 760.0);
-    ctx.draw_rect(UI, lx, ly, lw, 78.0, 948, 8.0, 0x10_14_22_e6);
-    draw_text_in(ctx, "大小龙 · 画法校准（每局开头 30 秒）：请把这一屏截图发给 Claude", FONT, (lx + 14.0, ly + 4.0, lw - 28.0, 30.0), 949, 20.0,
-                 WHITE, TextAlignXV1::Left);
-    let chips = [("A", RED), ("B", ORANGE), ("C", YELLOW), ("F", BLUE)];
-    for (i, (name, colour)) in chips.iter().enumerate() {
-        let x = lx + 14.0 + i as f32 * 70.0;
-        ctx.draw_rect(UI, x, ly + 44.0, 20.0, 20.0, 949, 0.0, *colour);
-        draw_text_in(ctx, name, FONT, (x + 26.0, ly + 40.0, 30.0, 28.0), 949, 20.0, WHITE, TextAlignXV1::Left);
-    }
-    draw_text_in(ctx, "白框 / 白十字 = 方块和图的脚该在的位置　G →", FONT, (lx + 300.0, ly + 40.0, 400.0, 28.0), 949, 18.0, WHITE,
-                 TextAlignXV1::Left);
-    // G: the same picture on the UI map, its feet on the legend's lower right corner
-    let g = (lx + lw - 30.0 - anim.ax as f32, ly + 76.0 - anim.ay as f32);
-    let g_pic = world::sprite_top_left(ctx, UI, 949, anim, fr, g.0, g.1);
+    let (lx, ly, lw) = (ui.0 / 2.0 - 400.0, 100.0, 800.0);
+    ctx.draw_rect(UI, lx, ly, lw, 64.0, 948, 8.0, 0x10_14_22_e6);
+    draw_text_in(ctx, "大小龙 · 特效预览（每局开头 30 秒）", FONT, (lx + 14.0, ly + 2.0, lw - 28.0, 30.0), 949, 20.0, WHITE, TextAlignXV1::Center);
+    draw_text_in(ctx, "上排：拿到龙魂时每个英雄脚下升起的光柱　下排：龙魂触发、远古龙之力", FONT, (lx + 14.0, ly + 32.0, lw - 28.0, 26.0), 949,
+                 16.0, 0xd8_e0_f0_ff, TextAlignXV1::Center);
     // the log: the first frames of a match, then now and then
     let n = FRAMES.lock().map_or(0, |mut fr| {
         if fr.0 != (m, s) {
@@ -187,14 +157,12 @@ pub fn after(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
         fr.1 += 1;
         fr.1
     });
-    if n <= 3 || n % 240 == 0 {
+    if n <= 2 || n % 300 == 0 {
         if let Some(k) = counted("probe") {
-            wlog(format!("PROBE m={m} s={s} screen t={t} frame {n}: camera {:?}, shift {:?}, Game {game:?}, UI {ui:?} (x{:.3}); C \
-                          world ({}, {}) {c_ok} picture {c_pic} moved into the world {moved:?}; A map ({:.1}, {:.1}) z 101 {a_ok}, \
-                          its picture in {a_runs} squares; B map ({:.1}, {:.1}) z 1 {b_ok} picture {b_pic} at ({:.1}, {:.1}); F ui \
-                          ({:.1}, {:.1}); G picture {g_pic}; the list starts [{}] #{k}",
-                         v.camera, v.shift, f_at.2, c.0, c.1, am.0, am.1, bm.0, bm.1, bp.0, bp.1, f_at.0, f_at.1,
-                         world::head(ctx, 3).join(" | ")));
+            wlog(format!("PROBE m={m} s={s} screen t={t} frame {n}: the preview - {drawn} of {} effects on show this frame (sprites \
+                          {}), z {}; camera {:?}, shift {:?}, its centre in the world ({:.1}, {:.1}); Game {game:?}, UI {ui:?} #{k}",
+                         SOULS.len() + PROCS.len(), if v.sprites { "on" } else { "OFF: square by square" }, v.z, v.camera, v.shift,
+                         c.0, c.1));
         }
     }
 }
@@ -206,25 +174,53 @@ mod tests {
     #[test]
     fn the_switch_is_a_line_of_the_settings_file() {
         assert!(wanted("elder_buff_seconds = 90\nworld_probe = 1\n"));
-        assert!(wanted("\u{feff}world_probe=1 # the calibration squares"));
+        assert!(wanted("\u{feff}world_probe=1 # the preview"));
         assert!(!wanted("world_probe = 0") && !wanted("# world_probe = 1") && !wanted("world_probes = 1") && !wanted(""));
     }
 
-    /// The numbers of the user's screenshot (2026-11-11, 0.4.3): the red square pushed at map (844, 902) showed with its
-    /// left edge at screen x 600 and its top at 292 - two screen pixels a world pixel, the camera's centre the screen's.
+    /// The numbers of the user's screenshots (2026-11-11): a square pushed at map (852, 892.3) showed with its corner at
+    /// screen (616, 276.6) - two screen pixels a world pixel, the camera's centre the screen's.
     #[test]
     fn a_world_pixel_is_two_of_the_screens() {
-        let v = View { scale: (1.0, 1.0), shift: (904.0, 85.0), z: 1, ground: -1, sprites: true,
+        let v = View { scale: (1.0, 1.0), shift: (904.0, 118.3), z: 1, ground: -1, sprites: true,
                        camera: Some((512.0, 512.0, 1024.0, 1024.0)) };
         let (game, ui) = (2048.0, (1920.0, 1080.0));
-        // the camera's centre in the world: (1024 - 904, 1024 - 85)
-        assert_eq!(to_ui(&v, game, ui, (120.0, 939.0)), Some((960.0, 540.0, 2.0)));
-        // that square: world (844 - 904, 902 - 85)
-        assert_eq!(to_ui(&v, game, ui, (-60.0, 817.0)), Some((600.0, 296.0, 2.0)));
-        // the squares in a row over the centre, the pictures' feet under them
-        assert_eq!(place(&v, 0), Some((120.0 - 12.0, 939.0 - 120.0 - 12.0)));
-        assert_eq!(place(&v, -2).unwrap().0, 120.0 - 160.0 - 12.0);
-        assert_eq!(place(&View { camera: None, ..v }, 0), None);
-        assert!(picture().is_some());
+        let c = centre(&v).unwrap();
+        assert_eq!(c, (120.0, 1024.0 - 118.3));
+        assert_eq!(to_ui(&v, game, ui, c), Some((960.0, 540.0, 2.0)));
+        let p = to_ui(&v, game, ui, (852.0 - 904.0, 892.3 - 118.3)).unwrap();
+        assert!((p.0 - 616.0).abs() < 0.01 && (p.1 - 276.6).abs() < 0.01 && p.2 == 2.0, "{p:?}");
+        assert_eq!(centre(&View { camera: None, ..v }), None);
+    }
+
+    #[test]
+    fn every_effect_has_its_place_in_the_two_rows() {
+        // every animation of an effect is on show, each once
+        let mut names: Vec<&str> = SOULS.iter().chain(PROCS.iter()).map(|x| x.0).collect();
+        for n in &names {
+            assert!(ANIMS.iter().any(|a| a.name == *n), "{n}");
+        }
+        names.sort_unstable();
+        names.dedup();
+        assert_eq!(names.len(), SOULS.len() + PROCS.len(), "an effect twice");
+        // the six souls' pillars and every effect a soul or the Elder's fire plays
+        for a in ANIMS.iter().filter(|a| a.name.starts_with("soul_")) {
+            assert!(SOULS.iter().any(|x| x.0 == a.name), "{}", a.name);
+        }
+        for n in ["infernal_blast", "mountain_shield", "ocean_heal", "cloud_gust", "hex_spark", "chem_rage", "elder_burn", "elder_execute"] {
+            assert!(PROCS.iter().any(|x| x.0 == n), "{n}");
+        }
+        // the rows are centred on the camera and fit between the side panels (the screen shows 960 world pixels, the
+        // panels leave about 650 of them)
+        let c = (500.0, 400.0);
+        assert_eq!(slot(c, 0, 6, -SOULS_UP), (500.0 - 2.5 * GAP, 350.0));
+        assert_eq!(slot(c, 7, 8, PROCS_DOWN), (500.0 + 3.5 * GAP, 518.0));
+        assert!(7.0 * GAP + 96.0 < 700.0);
+        // an animation plays, rests, plays again; its neighbours not in step
+        let a = ANIMS.iter().find(|a| a.name == "soul_ocean").unwrap();
+        let len = a.frames as usize * a.ticks as usize;
+        assert_eq!((looping(a, 0, 0), looping(a, len - 1, 0), looping(a, len, 0)), (Some(0), Some(a.frames as usize - 1), None));
+        assert_eq!(looping(a, len + REST, 0), Some(0));
+        assert_ne!(looping(a, 0, 0), looping(a, 0, 1));
     }
 }

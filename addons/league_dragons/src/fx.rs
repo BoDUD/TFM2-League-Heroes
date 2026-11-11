@@ -212,9 +212,9 @@ pub fn bolt_layers(full: bool) -> Vec<(f32, u32)> {
     (if full { 0 } else { 2 }..3).map(|i| (BOLT_WIDTHS[i], BOLT_COLOURS[i])).collect()
 }
 
-/// 画一道闪电：折线的每一段一条线，一层画完再画上面一层（同一个 z 上后推的在上面）。用线不用一格一格的横条：1 个世界
-/// 像素高的矩形在 `"Game"` 上几乎是透明的（2026-11-11 装了 0.4.1 的那一局：四种特效都一格一格画了，玩家什么都没看到）。
-fn bolt(ctx: &mut StableClient<'_>, v: &world::View, pts: &[(i32, i32)], full: bool) -> bool {
+/// 画一道闪电：折线的每一段一条线，一层画完再画上面一层（同一个 z 上后推的在上面）。0.4.4 起用线（每道 3–9 段 × 三层），
+/// 之前是一格一格的横条（每道几百条矩形）——横条也显示得出来（校准的第二张截图），线只是命令少。
+pub fn bolt(ctx: &mut StableClient<'_>, v: &world::View, pts: &[(i32, i32)], full: bool) -> bool {
     let mut drawn = false;
     for (width, colour) in bolt_layers(full) {
         for w in pts.windows(2) {
