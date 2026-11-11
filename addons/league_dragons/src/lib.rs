@@ -51,6 +51,7 @@ pub mod rules;
 pub mod fx;
 pub mod fx_atlas;
 pub mod world;
+pub mod probe;
 // 画面那一半（客户端扩展里画，只读 feed）：公告、HUD 和它们的字
 pub mod hud;
 pub mod notice;

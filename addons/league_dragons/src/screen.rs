@@ -172,6 +172,9 @@ pub fn draw(ctx: &mut StableClient<'_>, eggs: (bool, bool)) {
     if hud::over(feed::ended_at(m, s), t) {
         return;
     }
+    // the calibration squares (settings.ini: world_probe = 1; the first 30 s of a match) - before anything else of this
+    // mod goes into the match's world
+    super::probe::after(ctx, m, s, t);
     // the effects on the battlefield (the souls' triggers, the Elder's burn and execute), under the notices and the HUD
     fx::draw(ctx, m, s, t);
     let events = feed::events(m, s);
@@ -334,6 +337,16 @@ impl StableExtension for Overlay {
         let path = game_places::clock::CLOCK_PATH;
         let text = shown(ctx, path).then(|| ctx.ui_text(path)).flatten();
         game_places::clock::observe(true, text.as_deref());
+    }
+
+    fn pre_render(&self, ctx: &mut StableClient<'_>) {
+        // only the calibration draws before the game's own commands
+        if !super::probe::on() || !on_match_screen(ctx) {
+            return;
+        }
+        if let (Some(t), Some((m, s))) = (game_places::clock::screen_tick(), feed::current()) {
+            super::probe::before(ctx, m, s, t);
+        }
     }
 
     fn post_render(&self, ctx: &mut StableClient<'_>) {
