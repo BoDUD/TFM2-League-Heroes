@@ -11,10 +11,10 @@
       "version": ">=0.185.0"
     }
   ],
-  "description": "Test build of Ornn as in League (needs League of Legends Heroes): replaces the main pack's Ornn so Volcanic Rupture's magma pillar is real terrain that blocks everyone, Searing Charge quakes only when it slams into a pillar or a wall (the main pack: any charge within 4 s of a Q), Brittle sits on each champion and only his attack on that champion breaks it, Living Forge as in League: his items' armour, magic resistance and health +10% (+4% per masterwork made) and five masterworks - his own at level 9, then one ally a level - each raising only that champion's first legendary item by 40% (runes and starting items such as the 4+6 item pack's are never forged; legendary items known from the engine's item tiers or the Riot item pack's list; the forged item glows gold with a little anvil on the scoreboard), and the AI plays his combos (the pillar before the charge, a champion beside the pillar charged into it, Brittle champions hit first). Other champions are untouched. Writes a log for testing.",
+  "description": "Test build of Ornn as in League (needs League of Legends Heroes): replaces the main pack's Ornn so Volcanic Rupture's magma pillar is real terrain that blocks everyone, Searing Charge quakes only when it slams into a pillar or a wall (the main pack: any charge within 4 s of a Q), Brittle sits on each champion and only his attack on that champion breaks it, Living Forge as in League: his items' armour, magic resistance and health +10% (+4% per masterwork made) and five masterworks - his own at level 9, then one ally a level - each raising only that champion's first legendary item by 40% (starting items are never forged, the 4+6 item pack's runes neither whenever they come; legendary items known from the 4+6 item pack's own keys - its tier-5 finished items - the engine's item tiers or the Riot item pack's list; a 4+6 item's stats read from the buff the pack gives it, else from the pack's own catalog; the forged item glows gold with a little anvil on its slot of the scoreboard), and the AI plays his combos (the pillar before the charge, a champion beside the pillar charged into it, Brittle champions hit first). Other champions are untouched. Writes a log for testing.",
   "last_updated": "2026-11-11",
   "mod_id": "league_ornn",
   "mod_type": "native",
   "name": "League Heroes: Ornn's real pillar, wall quakes, Brittle, forge and combos (test)",
-  "version": "0.4.2"
+  "version": "0.4.5"
 }
