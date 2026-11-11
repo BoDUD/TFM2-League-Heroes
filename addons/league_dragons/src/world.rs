@@ -11,10 +11,18 @@
 //! - 全部用 `ReadProcessMemory` 读自己的进程，地址不对只是读不到，不会崩；
 //! - 每一步都验（表头像不像哈希表、名字是不是 `Game`、命令表的长度、平移是不是正常的数、缩放是不是 1）；
 //! - 认不出来就什么都不画，日志一行 `WORLD off`（写明卡在哪一步、看到了什么），玩法、公告、HUD 不受影响；
-//! - 游戏自己的贴图名长得不像本包预想的（`asset/…#sheet`）时不画贴图（引擎找不到贴图会怎样没试过，不冒这个险）。
+//! - 游戏自己的贴图命令的名字不是 `asset/…` 的样子时不画贴图（改成一格一格画）。
 //!
-//! 每场比赛第一次读成功时日志一段 `WORLD`：镜头、平移、游戏自己的贴图命令的 z 范围和头几条（贴图名、坐标），以后改画法、
-//! 定层级照着它。本包的东西画在游戏世界里最高的 z 上面一层。
+//! 每场比赛日志两段 `WORLD`（第一帧、2 分钟时）：镜头、平移、世界里每个 z 上画的是什么（哪种命令几条、头一个名字）、头几条
+//! 贴图命令、认不得的命令的原样，以后改画法、定层级照着它。本包的特效画在游戏世界里最高的 z 上面一层；躺在地上的东西
+//! （[`View::ground`]）画在地图的墙那一层——同一个 z 上后推的画在上面，所以在墙和草丛上面、z 更高的单位下面。
+//!
+//! 0.4.1（用户 2026-11-11 装了 0.4.0 打的第一局，league_dragons.log 的 `WORLD`）：读是读对了——镜头 (512, 512, 1024, 1024)、
+//! 平移 (904.0, 78.8)——但世界的范围认短了。有缩放的单位（防御塔、水晶、变大的英雄）在世界里各自再套一对平移 / 恢复
+//! （比赛渲染函数 0x2809a22：单位的命令表头上插一条、尾上加一条），0.4.0 把头一个恢复当成了世界的结束，302 条命令只数了
+//! 地图那 6 张图（z −3…1），于是特效画在 z 2、贴图也因为「没见到 `#sheet` 结尾的名字」关着。现在恢复按层数配对；z 按命令的
+//! 种类取（[`z_at`]，单位用的是另一种命令，不是贴图命令）；贴图不再要求见到 `#sheet`（地图的图名本来就没有这个结尾，
+//! 引擎取图时自己补），名字找不到时引擎改按矢量图去找、不崩（0x24e7d0 / 0x24f590）。
 
 use std::sync::Mutex;
 
@@ -45,19 +53,56 @@ pub const TAG_SPRITE: u64 = 0x8000_0000_0000_0003;
 pub const TAG_RECT: u64 = 0x8000_0000_0000_000a;
 pub const TAG_PUSH: u64 = 0x8000_0000_0000_0012;
 pub const TAG_POP: u64 = 0x8000_0000_0000_0013;
-/// 命令里的位置：镜头 / 平移的两个数，平移的缩放，贴图命令的名字、UV、坐标、z，矩形的 z。
+/// 命令里的位置：镜头 / 平移的两个数，平移的缩放，贴图命令的名字、UV、坐标（z：[`z_at`]）。
 const AT_XY: usize = 0x08;
 const AT_WH: usize = 0x10;
 const AT_PUSH_SCALE: usize = 0x24;
 const AT_SPRITE_NAME: usize = 0x08;
 const AT_SPRITE_UV: usize = 0x68;
 const AT_SPRITE_XY: usize = 0x78;
-const AT_SPRITE_Z: usize = 0x80;
-const AT_RECT_Z: usize = 0x68;
+/// 第一个字不带最高位的命令是「文字」（它的第一个字段是 String，别的种类的标记占着 String 容量取不到的值）：算第 7 种。
+pub const KIND_TEXT: u8 = 0x07;
+/// 认得的种类（镜头、贴图、矩形、平移、恢复、文字）：别的头两条原样写进日志。
+const KNOWN: [u8; 6] = [0x00, 0x03, 0x0a, 0x12, 0x13, KIND_TEXT];
+/// 名字也在 +8 的种类（矢量图、单位的图……）：写日志时读出来。
+const NAMED: [u8; 3] = [0x02, 0x04, 0x06];
+/// 地图的墙那张图的名字的结尾（游戏自带的 5v5 地图）。
+pub const WALL: &str = "/wall_5v5";
+/// 日志里最多记这么多个不同的 z。
+const LAYERS: usize = 40;
+
+/// 一条命令是哪一种：标记的最低一个字节；文字是 [`KIND_TEXT`]。
+pub fn kind(tag: u64) -> u8 {
+    if tag >> 63 == 0 {
+        KIND_TEXT
+    } else {
+        tag as u8
+    }
+}
+
+/// 一条命令的 z（i32）在哪：游戏排一张渲染层的命令时按种类到这些位置上取（0.7.2 的 0x1e6d90 里的跳转表 0x405004c，逐项
+/// 抄的；贴图 0x80、矩形 0x68 和宿主的 `draw_sprite` / `draw_rect` 写的位置对得上）。没有 z 的种类（镜头、平移、恢复……）：None。
+pub fn z_at(tag: u64) -> Option<usize> {
+    match kind(tag) {
+        0x02 | 0x04 => Some(0x88),
+        0x03 | 0x06 => Some(0x80),
+        0x05 => Some(0xa8),
+        KIND_TEXT => Some(0xb8),
+        0x08 => Some(0x3c),
+        0x09 | 0x0d => Some(0x30),
+        0x0a => Some(0x68),
+        0x0b => Some(0x44),
+        0x0c => Some(0x6c),
+        0x0e => Some(0x64),
+        _ => None,
+    }
+}
 /// 一次读多少条命令；一张命令表最多认这么多条（再多就不是命令表了）。
 const BLOCK: usize = 64;
-/// 平时数的时候只读头这么多条贴图命令的名字（看游戏的贴图名长什么样）。
+/// 平时数的时候只读头这么多条贴图命令的名字（看游戏的贴图名长什么样、地图的墙在哪一层）。
 const NAMES: usize = 48;
+/// 写日志时别的有名字的种类最多读这么多条的名字。
+const NAMES_FOR_LOG: usize = 600;
 /// 每帧找平移只看命令表的头这么多条（别的模组在游戏之前推的再多也不会有这么多）。
 const HEAD: usize = 4096;
 const MOST: usize = 1 << 20;
@@ -152,7 +197,7 @@ pub fn game_list(p: &dyn Peek, frame: usize) -> Result<(usize, usize), String> {
 }
 
 /// 游戏这一帧的世界：平移那条命令在第几条、它的缩放和平移（世界像素 × 缩放 + 平移 = `"Game"` 里的坐标）、镜头的矩形
-/// （左上角和宽高）、恢复那条在第几条。
+/// （左上角和宽高）、和它配对的恢复在第几条。
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct Scope {
     pub n: usize,
@@ -163,12 +208,14 @@ pub struct Scope {
     pub camera: Option<(f32, f32, f32, f32)>,
 }
 
-/// 在 `n` 条命令里找游戏的平移（第一条）；`to_pop`：接着找到它的恢复（要数里面的命令时才用：那是整张表）。找不到、数不
-/// 像样：说明看到了什么。
+/// 在 `n` 条命令里找游戏的平移（第一条）；`to_pop`：接着找到**和它配对的**恢复（要数里面的命令时才用：那是整张表）。
+/// 世界里面有缩放的单位各自再套一对平移 / 恢复，所以恢复按层数配。找不到、数不像样：说明看到了什么。
 pub fn find_scope(p: &dyn Peek, list: usize, n: usize, to_pop: bool) -> Result<Scope, String> {
     let mut camera = None;
     let mut seen: Vec<u64> = Vec::new();
     let mut found: Option<Scope> = None;
+    // transforms open inside the world's
+    let mut depth = 0usize;
     let mut at = 0;
     while at < n {
         // every frame only the list's head is looked at: the game's transform is among its first commands
@@ -200,9 +247,13 @@ pub fn find_scope(p: &dyn Peek, list: usize, n: usize, to_pop: bool) -> Result<S
                         return Ok(found.unwrap());
                     }
                 }
+                (TAG_PUSH, Some(_)) => depth += 1,
                 (TAG_POP, Some(s)) => {
-                    s.pop_at = Some(at + k);
-                    return Ok(*s);
+                    if depth == 0 {
+                        s.pop_at = Some(at + k);
+                        return Ok(*s);
+                    }
+                    depth -= 1;
                 }
                 _ => {}
             }
@@ -215,82 +266,167 @@ pub fn find_scope(p: &dyn Peek, list: usize, n: usize, to_pop: bool) -> Result<S
     })
 }
 
-/// 游戏在世界里画的贴图命令：几条、z 的范围、贴图名都是 `asset/…` 的样子没有，头几条（名字、坐标、z、UV 的宽高）。
+/// 世界里同一个 z 上的命令：几条、各种各几条、头一条有名字的命令的名字（写日志时才读）。
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct Layer {
+    pub z: i32,
+    pub n: usize,
+    pub kinds: Vec<(u8, usize)>,
+    pub name: Option<String>,
+}
+
+/// 一条贴图命令：名字、坐标、z、UV 的宽高。
+pub type SpriteLine = (String, f32, f32, i32, f32, f32);
+
+/// 游戏在世界里画的东西（平移和它配对的恢复之间的所有命令，套在里面的也算）。
 #[derive(Clone, Debug, Default, PartialEq)]
 pub struct Census {
-    pub sprites: usize,
-    pub rects: usize,
-    pub others: Vec<(u64, usize)>,
+    /// 有 z 的命令一共几条、z 的范围。
+    pub drawn: usize,
     pub z: Option<(i32, i32)>,
-    pub rect_z: Option<(i32, i32)>,
-    /// 贴图名都以 `asset/` 开头（一条都没有：false）。
+    /// 每个 z 上有什么（z 从小到大，最多 [`LAYERS`] 个；再多的 z 上的命令只记条数）。
+    pub layers: Vec<Layer>,
+    pub beyond: usize,
+    /// 各种命令各几条。
+    pub kinds: Vec<(u8, usize)>,
+    /// 世界里面又套的平移：几个、头几个的 (平移, 缩放)。
+    pub pushes: usize,
+    pub inner: Vec<((f32, f32), (f32, f32))>,
+    /// 贴图命令（本包画贴图用的就是这一种）几条；它们的名字都以 `asset/` 开头（一条都没有：false）。
+    pub sprites: usize,
     pub asset_names: bool,
-    /// 有以 `#sheet` 结尾的贴图名。
-    pub sheet_names: bool,
-    pub first: Vec<(String, f32, f32, i32, f32, f32)>,
-    /// 最后几条（画在最上面的）。
-    pub last: Vec<(String, f32, f32, i32, f32, f32)>,
+    /// 地图的墙那张图（名字以 [`WALL`] 结尾）的 z。
+    pub ground: Option<i32>,
+    /// 头几条、最后几条贴图命令。
+    pub first: Vec<SpriteLine>,
+    pub last: Vec<SpriteLine>,
+    /// 认不得的种类头两条的原样。
+    pub raw: Vec<String>,
 }
 
 fn widen(r: &mut Option<(i32, i32)>, z: i32) {
     *r = Some(r.map_or((z, z), |(a, b)| (a.min(z), b.max(z))));
 }
 
-/// 数一遍平移和恢复之间的命令（`keep`：头几条贴图命令留下来写日志）。
+fn bump(v: &mut Vec<(u8, usize)>, kd: u8, most: usize) {
+    match v.iter().position(|o| o.0 == kd) {
+        Some(i) => v[i].1 += 1,
+        None if v.len() < most => v.push((kd, 1)),
+        None => {}
+    }
+}
+
+/// `3 x6, 4 x140, text x2`。
+pub fn kinds_text(v: &[(u8, usize)]) -> String {
+    let all: Vec<String> = v.iter().map(|(k, n)| if *k == KIND_TEXT { format!("text x{n}") } else { format!("{k:x} x{n}") }).collect();
+    all.join(", ")
+}
+
+/// 命令里 `at` 上的 String {容量, 指针, 长度} 读成字（不像 String、不是能看的字：None）。借来的字（容量位置上是标记）也认。
+fn name_at(p: &dyn Peek, c: &[u8], at: usize) -> Option<String> {
+    let (cap, ptr, len) = (u64_in(c, at), u64_in(c, at + 8) as usize, u64_in(c, at + 16) as usize);
+    if len == 0 || len > 200 || (cap >> 63 == 0 && (cap as usize) < len) {
+        return None;
+    }
+    let s = String::from_utf8(bytes(p, ptr, len)?).ok()?;
+    s.chars().all(|ch| !ch.is_control()).then_some(s)
+}
+
+/// 一条认不得的命令的原样：26 个字（十六进制）和里面像 String 的东西。
+fn raw_line(p: &dyn Peek, c: &[u8], kd: u8, i: usize, z: Option<i32>) -> String {
+    let words: Vec<String> = (0..CMD / 8).map(|w| format!("{:x}", u64_in(c, w * 8))).collect();
+    let strings: Vec<String> = (8..=CMD - 24).step_by(8)
+        .filter_map(|at| name_at(p, c, at).map(|s| format!("+{at:#x} {s:?}")))
+        .collect();
+    format!("kind {kd:#x} #{i} (z {z:?}): words [{}]; strings [{}]", words.join(" "), strings.join(", "))
+}
+
+/// 数一遍世界里的命令（`keep`：头这么多条贴图命令留下来、每个 z 的头一个名字和认不得的命令的原样也读——写日志时用）。
 pub fn census(p: &dyn Peek, list: usize, scope: &Scope, keep: usize) -> Census {
     let mut out = Census { asset_names: true, ..Census::default() };
     let end = scope.pop_at.unwrap_or(scope.n).min(scope.n);
+    let mut raw_seen: Vec<(u8, usize)> = Vec::new();
+    let mut named = 0usize;
     let mut at = scope.push_at + 1;
     while at < end {
         let take = BLOCK.min(end - at);
         let Some(block) = bytes(p, list + at * CMD, take * CMD) else { break };
         for k in 0..take {
             let c = &block[k * CMD..(k + 1) * CMD];
-            match u64_in(c, 0) {
-                TAG_SPRITE => {
-                    out.sprites += 1;
-                    let z = i32_in(c, AT_SPRITE_Z);
-                    widen(&mut out.z, z);
-                    // the names of the first ones tell how the game names its textures (each is a read of its own);
-                    // all of them only when they are kept for the log
-                    if keep == 0 && out.sprites > NAMES {
-                        continue;
-                    }
-                    let (ptr, len) = (u64_in(c, AT_SPRITE_NAME + 8) as usize, u64_in(c, AT_SPRITE_NAME + 16) as usize);
-                    let name = (len <= 200).then(|| bytes(p, ptr, len)).flatten().map(|b| String::from_utf8_lossy(&b).into_owned());
+            let tag = u64_in(c, 0);
+            let kd = kind(tag);
+            bump(&mut out.kinds, kd, 24);
+            if tag == TAG_PUSH {
+                out.pushes += 1;
+                if out.inner.len() < 4 {
+                    out.inner.push(((f32_in(c, AT_XY), f32_in(c, AT_XY + 4)),
+                                    (f32_in(c, AT_PUSH_SCALE), f32_in(c, AT_PUSH_SCALE + 4))));
+                }
+            }
+            let z = z_at(tag).map(|o| i32_in(c, o));
+            // the sprite commands' names tell how the game names its textures and where the map's walls are (each a read of
+            // its own: the first ones, all of them for the log); the other named kinds' only for the log
+            let wanted = if tag == TAG_SPRITE {
+                keep > 0 || out.sprites < NAMES
+            } else {
+                keep > 0 && NAMED.contains(&kd) && named < NAMES_FOR_LOG
+            };
+            let name = if wanted { name_at(p, c, AT_SPRITE_NAME) } else { None };
+            if tag == TAG_SPRITE {
+                out.sprites += 1;
+                if wanted {
                     match &name {
                         Some(n) => {
                             out.asset_names &= n.starts_with("asset/");
-                            out.sheet_names |= n.ends_with("#sheet");
+                            if out.ground.is_none() && n.ends_with(WALL) {
+                                out.ground = z;
+                            }
                         }
                         None => out.asset_names = false,
                     }
-                    if keep > 0 {
-                        let line = (name.unwrap_or_else(|| "?".into()), f32_in(c, AT_SPRITE_XY), f32_in(c, AT_SPRITE_XY + 4), z,
-                                    f32_in(c, AT_SPRITE_UV + 8), f32_in(c, AT_SPRITE_UV + 12));
-                        if out.first.len() < keep {
-                            out.first.push(line);
-                        } else {
-                            if out.last.len() >= keep / 3 {
-                                out.last.remove(0);
-                            }
-                            out.last.push(line);
+                }
+                if keep > 0 {
+                    let line = (name.clone().unwrap_or_else(|| "?".into()), f32_in(c, AT_SPRITE_XY), f32_in(c, AT_SPRITE_XY + 4),
+                                z.unwrap_or(0), f32_in(c, AT_SPRITE_UV + 8), f32_in(c, AT_SPRITE_UV + 12));
+                    if out.first.len() < keep {
+                        out.first.push(line);
+                    } else {
+                        if out.last.len() >= keep / 3 {
+                            out.last.remove(0);
                         }
+                        out.last.push(line);
                     }
                 }
-                TAG_RECT => {
-                    out.rects += 1;
-                    widen(&mut out.rect_z, i32_in(c, AT_RECT_Z));
+            } else if name.is_some() {
+                named += 1;
+            }
+            if keep > 0 && !KNOWN.contains(&kd) {
+                bump(&mut raw_seen, kd, 24);
+                let nth = raw_seen.iter().find(|r| r.0 == kd).map_or(usize::MAX, |r| r.1);
+                if nth <= 2 && out.raw.len() < 16 {
+                    out.raw.push(raw_line(p, c, kd, nth - 1, z));
                 }
-                tag => match out.others.iter().position(|o| o.0 == tag) {
-                    Some(i) => out.others[i].1 += 1,
-                    None if out.others.len() < 24 => out.others.push((tag, 1)),
-                    None => {}
-                },
+            }
+            if let Some(z) = z {
+                out.drawn += 1;
+                widen(&mut out.z, z);
+                match out.layers.iter().position(|l| l.z == z) {
+                    Some(i) => {
+                        let l = &mut out.layers[i];
+                        l.n += 1;
+                        bump(&mut l.kinds, kd, 8);
+                        if l.name.is_none() {
+                            l.name = name;
+                        }
+                    }
+                    None if out.layers.len() < LAYERS => out.layers.push(Layer { z, n: 1, kinds: vec![(kd, 1)], name }),
+                    None => out.beyond += 1,
+                }
             }
         }
         at += take;
     }
+    out.layers.sort_by_key(|l| l.z);
     out.asset_names &= out.sprites > 0;
     out
 }
@@ -300,8 +436,14 @@ pub fn census(p: &dyn Peek, list: usize, scope: &Scope, keep: usize) -> Census {
 pub struct View {
     pub scale: (f32, f32),
     pub shift: (f32, f32),
+    /// 特效画在哪个 z：游戏世界里最高的上面一层。
     pub z: i32,
+    /// 躺在地上的东西画在哪个 z：地图的墙那一层（本包的命令排在游戏的后面，同一个 z 上后推的画在上面：在墙和草丛
+    /// 上面、z 更高的单位下面）；认不出墙：同 `z`。
+    pub ground: i32,
     pub sprites: bool,
+    /// 镜头这一帧看着的矩形（`"Game"` 里的左上角和宽高；游戏没推镜头命令：None）。
+    pub camera: Option<(f32, f32, f32, f32)>,
 }
 
 impl View {
@@ -322,15 +464,23 @@ pub fn whole_px(sim: u64) -> i32 {
     ((sim + 500) / 1000).min(i32::MAX as u64) as i32
 }
 
-/// 本包画在游戏世界里最高的 z 上面一层；游戏一条贴图都没画时画在这一层。
+/// 本包画在游戏世界里最高的 z 上面一层；游戏什么都没画时画在这一层。
 pub const Z_ALONE: i32 = 100;
 
-/// 数出来的东西 -> 本包的 z 和贴图画不画（`settings.ini` 的 `battlefield_effects` 是 2、游戏的贴图名是 `asset/…` 而且有
-/// `…#sheet` 的、本包的图也在盘上）。
-pub fn plan(census: &Census, sheet_on_disk: bool, mode: usize) -> (i32, bool) {
-    let top = [census.z, census.rect_z].iter().flatten().map(|r| r.1).max();
-    let sprites = mode == super::settings::EFFECTS_AUTO && sheet_on_disk && census.asset_names && census.sheet_names;
-    (top.map_or(Z_ALONE, |z| z.saturating_add(1)), sprites)
+/// 本包画在哪：特效的 z、躺在地上的东西的 z、贴图画不画。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Layers {
+    pub top: i32,
+    pub ground: i32,
+    pub sprites: bool,
+}
+
+/// 数出来的东西 -> 本包的层和贴图画不画（`settings.ini` 的 `battlefield_effects` 是 2、游戏的贴图命令的名字是 `asset/…`、
+/// 本包的图也在盘上）。
+pub fn plan(census: &Census, sheet_on_disk: bool, mode: usize) -> Layers {
+    let top = census.z.map_or(Z_ALONE, |z| z.1.saturating_add(1));
+    let sprites = mode == super::settings::EFFECTS_AUTO && sheet_on_disk && census.asset_names;
+    Layers { top, ground: census.ground.unwrap_or(top), sprites }
 }
 
 /// 一帧动画在图上的位置：(UV 的 x, y, 宽, 高)、(锚点 x, y)，都按比例。
@@ -346,18 +496,24 @@ pub fn uv_of(a: &Anim, frame: usize) -> ((f32, f32, f32, f32), (f32, f32)) {
 
 /// 上一次数的结果留多少帧（z 和贴图名的样子不会一帧一变）。
 const CENSUS_EVERY: u32 = 30;
+/// 比赛到了这么多 tick 再写一段 `WORLD`（小兵、技能、血条都有了：它们的 z）。
+const LATER_T: usize = 7200;
 
 struct Seen {
     /// 上次说过的话（认不出来的原因、认出来了）：变了才记日志。
     told: String,
-    /// 写过 `WORLD` 那一段的比赛。
+    /// 写过 `WORLD` 第一段、第二段的比赛。
     dumped: Option<(u64, u64)>,
-    plan: Option<(i32, bool)>,
+    later: Option<(u64, u64)>,
+    plan: Option<Layers>,
     age: u32,
     sheet: Option<bool>,
+    /// 这一场贴图画不画（看过游戏的贴图名之后就定下来，一场里不来回变）。
+    sprites: Option<((u64, u64), bool)>,
 }
 
-static SEEN: Mutex<Seen> = Mutex::new(Seen { told: String::new(), dumped: None, plan: None, age: 0, sheet: None });
+static SEEN: Mutex<Seen> = Mutex::new(Seen { told: String::new(), dumped: None, later: None, plan: None, age: 0, sheet: None,
+                                             sprites: None });
 
 /// 宿主的状态（每个接口函数的第一个参数）：`StableClient` 里就一个指向 `ClientCtxV1` 的指针。
 fn host_state(ctx: &StableClient<'_>) -> Option<usize> {
@@ -380,6 +536,32 @@ fn tell(seen: &mut Seen, line: String) {
     }
 }
 
+/// 日志的 `WORLD` 那一段：这一帧游戏的世界长什么样、本包画在哪。
+fn dump(what: &str, at: (u64, u64, usize), size: Option<(f32, f32)>, scope: &Scope, c: &Census, v: &View, on_disk: (bool, usize)) {
+    let Some(k) = counted("world dump") else { return };
+    let (m, s, t) = at;
+    wlog(format!("WORLD {what} m={m} s={s} screen t={t}: the match's render map \"Game\" (size {size:?}) holds {} commands; camera \
+                  rect {:?}; the game's world from command {} to {:?}, shifted by {:?} (scale {:?}); in it {} commands with a z \
+                  {:?} ({} more on further z), {} transforms of its own (the first {:?}); kinds [{}]; {} sprite commands, their \
+                  names asset/.. {}; the map's walls at z {:?}; this mod's sheet on disk {}, battlefield_effects {}; this mod \
+                  draws its effects at z {}, what lies on the ground at z {}, with sprites {} #{k}",
+                 scope.n, v.camera, scope.push_at, scope.pop_at, scope.shift, scope.scale, c.drawn, c.z, c.beyond, c.pushes,
+                 c.inner, kinds_text(&c.kinds), c.sprites, c.asset_names, c.ground, on_disk.0, on_disk.1, v.z, v.ground,
+                 if v.sprites { "on" } else { "OFF" }));
+    for l in &c.layers {
+        wlog(format!("WORLD   z {}: {} commands [{}]{}", l.z, l.n, kinds_text(&l.kinds),
+                     l.name.as_ref().map_or(String::new(), |n| format!(" e.g. {n:?}"))));
+    }
+    for (what, list) in [("first", &c.first), ("last", &c.last)] {
+        for (i, (name, x, y, z, w, h)) in list.iter().enumerate() {
+            wlog(format!("WORLD   {what} sprite {i}: {name:?} at ({x:.1}, {y:.1}) z {z}, uv size ({w:.4}, {h:.4})"));
+        }
+    }
+    for r in &c.raw {
+        wlog(format!("WORLD   {r}"));
+    }
+}
+
 /// 这一帧的世界怎么画（渲染钩子里调）。认不出来：None，日志 `WORLD off`（原因变了才再记）。
 pub fn view(ctx: &StableClient<'_>, m: u64, s: u64, t: usize) -> Option<View> {
     let mode = super::settings::effects();
@@ -388,9 +570,10 @@ pub fn view(ctx: &StableClient<'_>, m: u64, s: u64, t: usize) -> Option<View> {
     }
     let Ok(mut seen) = SEEN.lock() else { return None };
     let p = Process;
-    // the first frame of a match and every CENSUS_EVERY frames: the whole world counted (its z, its texture names)
+    // the first frame of a match, once more two minutes in, and every CENSUS_EVERY frames: the whole world counted
     let first = seen.dumped != Some((m, s));
-    let count = first || seen.plan.is_none() || seen.age >= CENSUS_EVERY;
+    let later = !first && t >= LATER_T && seen.later != Some((m, s));
+    let count = first || later || seen.plan.is_none() || seen.age >= CENSUS_EVERY;
     let found = host_state(ctx)
         .ok_or_else(|| "the host's state is not where it was".to_string())
         .and_then(|state| {
@@ -413,35 +596,36 @@ pub fn view(ctx: &StableClient<'_>, m: u64, s: u64, t: usize) -> Option<View> {
     let sheet = *seen.sheet.get_or_insert_with(|| {
         super::settings::dll_dir().is_some_and(|d| d.join("effects").join(SHEET_FILE).is_file())
     });
+    let at = |l: Layers| View { scale: scope.scale, shift: scope.shift, z: l.top, ground: l.ground, sprites: l.sprites,
+                                camera: scope.camera };
     if count {
-        let c = census(&p, list, &scope, if first { 24 } else { 0 });
-        let made = plan(&c, sheet, mode);
+        let c = census(&p, list, &scope, if first || later { 24 } else { 0 });
+        let mut made = plan(&c, sheet, mode);
+        // sprites or squares: settled by the first frame that has the game's own sprite commands (the map's pictures come
+        // first), then kept for the match - 0.4.0 went back and forth with what happened to be in the frame
+        made.sprites = match seen.sprites {
+            Some((of, yes)) if of == (m, s) => yes,
+            _ => {
+                if c.sprites > 0 {
+                    seen.sprites = Some(((m, s), made.sprites));
+                }
+                made.sprites
+            }
+        };
         seen.plan = Some(made);
         seen.age = 0;
-        if first {
+        if first || later {
+            // a match joined late: one piece is enough
+            seen.later = (later || t >= LATER_T).then_some((m, s));
             seen.dumped = Some((m, s));
-            if let Some(k) = counted("world dump") {
-                let others: Vec<String> = c.others.iter().map(|(t, n)| format!("{t:#x} x{n}")).collect();
-                wlog(format!("WORLD m={m} s={s} screen t={t}: the match's render map \"Game\" (size {:?}) holds {} commands; \
-                              camera rect {:?}; the game's world from command {} to {:?}, shifted by {:?} (scale {:?}); in it \
-                              {} sprites z {:?}, {} rects z {:?}, others [{}]; texture names asset/.. {}, ..#sheet {}; this \
-                              mod's sheet on disk {sheet}, battlefield_effects {mode}; this mod draws at z {} with sprites {} #{k}",
-                             ctx.draw_map_size(GAME), scope.n, scope.camera, scope.push_at, scope.pop_at, scope.shift,
-                             scope.scale, c.sprites, c.z, c.rects, c.rect_z, others.join(", "), c.asset_names, c.sheet_names,
-                             made.0, if made.1 { "on" } else { "OFF" }));
-                for (what, list) in [("first", &c.first), ("last", &c.last)] {
-                    for (i, (name, x, y, z, w, h)) in list.iter().enumerate() {
-                        wlog(format!("WORLD   {what} sprite {i}: {name:?} at ({x:.1}, {y:.1}) z {z}, uv size ({w:.4}, {h:.4})"));
-                    }
-                }
-            }
+            dump(if first { "first" } else { "later" }, (m, s, t), ctx.draw_map_size(GAME), &scope, &c, &at(made), (sheet, mode));
         }
     }
     seen.age += 1;
-    let (z, sprites) = seen.plan.unwrap_or((Z_ALONE, false));
+    let made = seen.plan.unwrap_or(Layers { top: Z_ALONE, ground: Z_ALONE, sprites: false });
     tell(&mut seen, format!("WORLD on: this mod's effects are drawn in the match world (sprites {})",
-                            if sprites { "on" } else { "OFF: only what is drawn square by square" }));
-    Some(View { scale: scope.scale, shift: scope.shift, z, sprites })
+                            if made.sprites { "on" } else { "OFF: only what is drawn square by square" }));
+    Some(at(made))
 }
 
 /// 画一帧动画：`frame` 那一帧的锚点放在模拟里的 `at` 上。
@@ -534,9 +718,37 @@ pub(crate) mod tests {
         put64(&mut c, AT_SPRITE_NAME + 16, name_len as u64);
         put32f(&mut c, AT_SPRITE_XY, x);
         put32f(&mut c, AT_SPRITE_XY + 4, y);
-        c[AT_SPRITE_Z..AT_SPRITE_Z + 4].copy_from_slice(&z.to_le_bytes());
+        let at = z_at(TAG_SPRITE).unwrap();
+        c[at..at + 4].copy_from_slice(&z.to_le_bytes());
         put32f(&mut c, AT_SPRITE_UV + 8, 0.25);
         put32f(&mut c, AT_SPRITE_UV + 12, 0.5);
+        c
+    }
+
+    /// A rect command at layer `z`.
+    pub fn rect_cmd(z: i32) -> Vec<u8> {
+        let mut c = tagged(TAG_RECT);
+        let at = z_at(TAG_RECT).unwrap();
+        c[at..at + 4].copy_from_slice(&z.to_le_bytes());
+        c
+    }
+
+    /// A text command: a String's capacity where the other kinds have their tag.
+    pub fn text_cmd(z: i32) -> Vec<u8> {
+        let mut c = tagged(24);
+        let at = z_at(24).unwrap();
+        c[at..at + 4].copy_from_slice(&z.to_le_bytes());
+        c
+    }
+
+    /// A command of kind `tag` with a name where the sprite's is (the units' pictures).
+    pub fn named(tag: u64, name_at: usize, name_len: usize, z: i32) -> Vec<u8> {
+        let mut c = tagged(tag);
+        put64(&mut c, AT_SPRITE_NAME, name_len as u64);
+        put64(&mut c, AT_SPRITE_NAME + 8, name_at as u64);
+        put64(&mut c, AT_SPRITE_NAME + 16, name_len as u64);
+        let at = z_at(tag).unwrap();
+        c[at..at + 4].copy_from_slice(&z.to_le_bytes());
         c
     }
 
@@ -597,7 +809,7 @@ pub(crate) mod tests {
         assert_eq!(Scope { pop_at: sc.pop_at, ..quick }, sc);
         assert_eq!(sc.camera, Some((704.0, 844.0, 640.0, 360.0)));
         // a point of the simulation lands where the game draws it: 1000 units a pixel, then the game's shift
-        let v = View { scale: sc.scale, shift: sc.shift, z: 7, sprites: true };
+        let v = View { scale: sc.scale, shift: sc.shift, z: 7, ground: -1, sprites: true, camera: sc.camera };
         assert_eq!(v.map((672_000, 672_000)), (672.0 + 544.0, 672.0 + 380.5));
         // on the world's whole pixels like the game's own pictures, the camera's fraction of a pixel on top
         assert_eq!(v.map((672_400, 671_600)), (672.0 + 544.0, 672.0 + 380.5));
@@ -637,34 +849,123 @@ pub(crate) mod tests {
     }
 
     #[test]
-    fn the_census_gives_the_layer_and_whether_sprites_are_safe() {
-        let (map, jinx) = ("asset/base/aseprite_resources/ingame/5v5/map#sheet", "asset/league/champion/league_jinx#sheet");
+    fn the_census_gives_the_layers_and_whether_sprites_are_safe() {
+        let (map, jinx) = ("asset/base/aseprite_resources/ingame/5v5/map", "asset/league/champion/league_jinx#sheet");
         let names = [map.as_bytes(), jinx.as_bytes()].concat();
         let (a, b) = (map.len(), jinx.len());
         let base = 0x50_0000;
         let cmds = vec![camera(0.0, 0.0, 1.0, 1.0), push(544.0, 544.0, 1.0), sprite_cmd(base, a, 0.0, 0.0, -50),
-                        sprite_cmd(base + a, b, 300.0, 410.0, 410), tagged(TAG_RECT), tagged(0x8000_0000_0000_0007),
+                        sprite_cmd(base + a, b, 300.0, 410.0, 410), rect_cmd(0), tagged(0x8000_0000_0000_000f),
                         tagged(TAG_POP), sprite_cmd(base, a, 9.0, 9.0, 99_999)];
         let mut fake = frame(&[("Game", cmds)]);
         fake.regions.push((base, names));
         let (list, n) = game_list(&fake, FRAME).unwrap();
         let sc = find_scope(&fake, list, n, true).unwrap();
         let c = census(&fake, list, &sc, 8);
-        assert_eq!((c.sprites, c.rects, c.z, c.rect_z), (2, 1, Some((-50, 410)), Some((0, 0))), "what follows the pop is not the world");
-        assert_eq!(c.others, vec![(0x8000_0000_0000_0007, 1)]);
-        assert!(c.asset_names && c.sheet_names);
-        assert_eq!(c.first[1], ("asset/league/champion/league_jinx#sheet".to_string(), 300.0, 410.0, 410, 0.25, 0.5));
+        assert_eq!((c.sprites, c.drawn, c.z), (2, 3, Some((-50, 410))), "what follows the pop is not the world");
+        assert_eq!(c.kinds, vec![(0x03, 2), (0x0a, 1), (0x0f, 1)]);
+        assert!(c.asset_names, "the map's own pictures have no '#sheet' in their names");
+        assert_eq!(c.ground, None, "no map of the game's own 5v5 walls here");
+        assert_eq!(c.first[1], (jinx.to_string(), 300.0, 410.0, 410, 0.25, 0.5));
+        // a kind that is not known: as it stands, for the log
+        assert_eq!(c.raw.len(), 1);
+        assert!(c.raw[0].starts_with("kind 0xf #0 (z None): words [800000000000000f 0 "), "{}", c.raw[0]);
         // above the game's highest; sprites only with the sheet on disk
         use super::super::settings::{EFFECTS_AUTO, EFFECTS_SQUARES};
-        assert_eq!(plan(&c, true, EFFECTS_AUTO), (411, true));
-        assert_eq!(plan(&c, false, EFFECTS_AUTO), (411, false));
+        let top = Layers { top: 411, ground: 411, sprites: true };
+        assert_eq!(plan(&c, true, EFFECTS_AUTO), top);
+        assert_eq!(plan(&c, false, EFFECTS_AUTO), Layers { sprites: false, ..top });
         // the player asked for squares only (settings.ini): no sprites
-        assert_eq!(plan(&c, true, EFFECTS_SQUARES), (411, false));
+        assert_eq!(plan(&c, true, EFFECTS_SQUARES), Layers { sprites: false, ..top });
         // texture names of another shape: no sprites
-        assert_eq!(plan(&Census { asset_names: false, ..c.clone() }, true, EFFECTS_AUTO), (411, false));
-        assert_eq!(plan(&Census { sheet_names: false, ..c.clone() }, true, EFFECTS_AUTO), (411, false));
+        assert_eq!(plan(&Census { asset_names: false, ..c.clone() }, true, EFFECTS_AUTO), Layers { sprites: false, ..top });
+        // the map's walls known: what lies on the ground goes to their layer
+        assert_eq!(plan(&Census { ground: Some(-1), ..c.clone() }, true, EFFECTS_AUTO), Layers { ground: -1, ..top });
         // nothing drawn by the game: this mod's own layer, no sprites
-        assert_eq!(plan(&Census::default(), true, EFFECTS_AUTO), (Z_ALONE, false));
+        assert_eq!(plan(&Census::default(), true, EFFECTS_AUTO), Layers { top: Z_ALONE, ground: Z_ALONE, sprites: false });
+        // between two pieces of the log (every 30 frames): the same layers, nothing kept
+        let quick = census(&fake, list, &sc, 0);
+        assert_eq!((quick.z, quick.drawn, quick.asset_names, quick.raw.len(), quick.first.len()), (c.z, 3, true, 0, 0));
+    }
+
+    /// The frame of the user's first match with 0.4.0 (2026-11-11, league_dragons.log): scaled units have a transform pair of
+    /// their own inside the world's, so the world ends at the pop that matches its push - 0.4.0 took the first pop and
+    /// counted the map's six pictures only (z -3..1), drew at z 2 and kept the sprites off.
+    #[test]
+    fn the_world_ends_at_the_pop_that_matches_its_push() {
+        let dir = "asset/base/aseprite_resources/ingame/5v5/";
+        let names: Vec<String> = ["background_5v5", "wall_shadow_5v5", "bush_shadow_5v5", "wall_5v5", "bush_5v5", "wall_5v5_front"]
+            .iter().map(|n| format!("{dir}{n}")).chain(["tower".to_string(), "league_kaisa".to_string()]).collect();
+        let base = 0x50_0000;
+        let mut blob = Vec::new();
+        let mut at = Vec::new();
+        for n in &names {
+            at.push((base + blob.len(), n.len()));
+            blob.extend_from_slice(n.as_bytes());
+        }
+        let unit = 0x8000_0000_0000_0004;
+        let mut cmds = vec![camera(512.0, 512.0, 1024.0, 1024.0), push(904.0, 78.83197, 1.0)];
+        for (i, z) in [-3, -2, -3, -1, -1, 1].into_iter().enumerate() {
+            cmds.push(sprite_cmd(at[i].0, at[i].1, -160.0, -160.0, z));
+        }
+        // two towers, each scaled: a transform pair of its own round its picture
+        for _ in 0..2 {
+            cmds.extend([push(-12.5, -80.0, 1.25), named(unit, at[6].0, at[6].1, 0), tagged(TAG_POP)]);
+        }
+        // a hero, its health bar, a text over it; the world's own pop; then a mod's rect
+        cmds.extend([named(unit, at[7].0, at[7].1, 0), rect_cmd(5), text_cmd(6), tagged(TAG_POP), rect_cmd(900)]);
+        let mut fake = frame(&[("Game", cmds)]);
+        fake.regions.push((base, blob));
+        let (list, n) = game_list(&fake, FRAME).unwrap();
+        let sc = find_scope(&fake, list, n, true).unwrap();
+        assert_eq!((sc.push_at, sc.pop_at, sc.shift), (1, Some(n - 2), (904.0, 78.83197)));
+        let c = census(&fake, list, &sc, 24);
+        assert_eq!((c.drawn, c.z, c.sprites, c.pushes, c.beyond), (11, Some((-3, 6)), 6, 2, 0));
+        assert_eq!(c.inner, vec![((-12.5, -80.0), (1.25, 1.25)); 2]);
+        assert_eq!(c.kinds, vec![(0x03, 6), (0x12, 2), (0x04, 3), (0x13, 2), (0x0a, 1), (KIND_TEXT, 1)]);
+        assert_eq!(kinds_text(&c.kinds), "3 x6, 12 x2, 4 x3, 13 x2, a x1, text x1");
+        // the layers from the lowest: the map, the units between its walls and their fronts, what is over them
+        let layers: Vec<(i32, usize)> = c.layers.iter().map(|l| (l.z, l.n)).collect();
+        assert_eq!(layers, vec![(-3, 2), (-2, 1), (-1, 2), (0, 3), (1, 1), (5, 1), (6, 1)]);
+        assert_eq!((c.layers[3].kinds.clone(), c.layers[3].name.as_deref()), (vec![(0x04, 3)], Some("tower")));
+        assert_eq!(c.layers[0].name.as_deref(), Some(names[0].as_str()));
+        // the units' command is not one this mod knows: its first two as they stand, with the name found in them
+        assert_eq!(c.raw.len(), 2);
+        assert!(c.raw[0].starts_with("kind 0x4 #0 (z Some(0)): words [8000000000000004 5 ") && c.raw[0].ends_with("strings [+0x8 \"tower\"]"),
+                "{}", c.raw[0]);
+        // the map's walls give the ground's layer; the effects go over everything; the sheet is drawn (asset/.. names)
+        assert!(c.asset_names);
+        assert_eq!(c.ground, Some(-1));
+        use super::super::settings::EFFECTS_AUTO;
+        assert_eq!(plan(&c, true, EFFECTS_AUTO), Layers { top: 7, ground: -1, sprites: true });
+        // every frame only the transform is looked for: the same push
+        assert_eq!(find_scope(&fake, list, n, false).unwrap().push_at, 1);
+        // a world whose pop never comes (a list cut short): to the list's end
+        let open = frame(&[("Game", vec![push(1.0, 2.0, 1.0), push(0.0, 0.0, 2.0), rect_cmd(3), tagged(TAG_POP), rect_cmd(4)])]);
+        let (list, n) = game_list(&open, FRAME).unwrap();
+        let sc = find_scope(&open, list, n, true).unwrap();
+        assert_eq!((sc.push_at, sc.pop_at), (0, None));
+        assert_eq!(census(&open, list, &sc, 0).z, Some((3, 4)));
+    }
+
+    /// Where each kind of command keeps its z - as the game's own renderer reads them (0.7.2, 0x1e6d90).
+    #[test]
+    fn every_kind_of_command_has_its_z_where_the_game_reads_it() {
+        let top = 1u64 << 63;
+        assert_eq!((z_at(TAG_SPRITE), z_at(TAG_RECT), z_at(top | 4), z_at(top | 2)), (Some(0x80), Some(0x68), Some(0x88), Some(0x88)));
+        // a text's first word is its String's capacity
+        assert_eq!((kind(24), z_at(24), kind(0), z_at(0)), (KIND_TEXT, Some(0xb8), KIND_TEXT, Some(0xb8)));
+        // the camera, the transforms and the kinds between them have none
+        for k in [0u64, 1, 0x0f, 0x10, 0x11, 0x12, 0x13, 0x14, 0xff] {
+            assert_eq!(z_at(top | k), None, "{k:#x}");
+        }
+        let with: Vec<u64> = (0..0x20).filter(|k| z_at(top | k).is_some()).collect();
+        // (7 is the text's place among the kinds: no command carries it as a tag)
+        assert_eq!(with, vec![2, 3, 4, 5, 6, 7, 8, 9, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e]);
+        for k in with {
+            assert!(z_at(top | k).unwrap() + 4 <= CMD);
+        }
+        assert_eq!((kind(TAG_PUSH), kind(TAG_POP), kind(TAG_CAMERA)), (0x12, 0x13, 0x00));
     }
 
     /// The sheet ships with the add-on, at the size its table says, where the mod looks for it.
