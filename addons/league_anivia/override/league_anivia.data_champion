@@ -11,6 +11,7 @@
     "params": {
       "egg_t": 360,
       "egg_cd": 14400,
+      "egg_def": 20,
       "w_t": 300,
       "w_w": 8000,
       "w_h": 50000,
@@ -1246,12 +1247,8 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "league_anivia_q"
-        },
-        {
           "type": "SwitchByBuff",
-          "buff_name": "league_anivia_vo_cd",
+          "buff_name": "league_anivia_init",
           "effect_buff": {
             "type": "Combine",
             "effects": []
@@ -1262,150 +1259,1142 @@
               {
                 "type": "AddCasterBuff",
                 "buff_state": {
-                  "name": "league_anivia_vo_cd",
-                  "duration": {
-                    "Time": {
-                      "tick": 600
-                    }
-                  }
+                  "name": "league_anivia_init",
+                  "duration": "Permanent"
                 },
                 "only_to_enemy": false
               },
               {
-                "type": "Sfx",
-                "name": "league_anivia_vo_q"
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 1000000,
+                    "period": 12,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_anivia_c_e1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_anivia_c_e2"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 45000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_anivia_c_e1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_anivia_c_e2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_anivia_c_e1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_anivia_egg_on",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_anivia_r_arm",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 75000,
+                                    "casting_target": "EnemyChampionInCC",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_anivia_r_arm"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_anivia_r_fired"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_anivia_r_fired",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 4
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "ult",
+                                            "tick": 24
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_anivia_r_cast"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_anivia_r"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_anivia_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_anivia_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_anivia_vo_r"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 9,
+                                            "effects": [
+                                              {
+                                                "type": "ParabolicProjectile",
+                                                "name": "league_anivia_r_lob",
+                                                "travel_time": 1,
+                                                "range": 400000,
+                                                "range_effect_name": "",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1
+                                                  }
+                                                },
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_anivia_r_storm"
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_anivia_r_storm"
+                                                  },
+                                                  {
+                                                    "type": "RangePeriodProjectile",
+                                                    "name": "league_anivia_r_s0",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 12000
+                                                      }
+                                                    },
+                                                    "tick": 30,
+                                                    "period": 30,
+                                                    "first_delay": 1,
+                                                    "applied_target": "EnemyWithoutTower",
+                                                    "applied_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "ApAttack",
+                                                          "damage": 32,
+                                                          "attack_ratio": 13,
+                                                          "hp_ratio": 0,
+                                                          "can_crit": false
+                                                        }
+                                                      },
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_anivia_r_slow",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 40
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -25
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_anivia_r_hit"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "end_effects": []
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 30,
+                                                    "effects": [
+                                                      {
+                                                        "type": "RangePeriodProjectile",
+                                                        "name": "league_anivia_r_s1",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 18000
+                                                          }
+                                                        },
+                                                        "tick": 30,
+                                                        "period": 30,
+                                                        "first_delay": 1,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 32,
+                                                              "attack_ratio": 13,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_anivia_r_slow",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 40
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": -25
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_anivia_r_hit"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 60,
+                                                    "effects": [
+                                                      {
+                                                        "type": "RangePeriodProjectile",
+                                                        "name": "league_anivia_r_s2",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 24000
+                                                          }
+                                                        },
+                                                        "tick": 30,
+                                                        "period": 30,
+                                                        "first_delay": 1,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 32,
+                                                              "attack_ratio": 13,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_anivia_r_slow",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 40
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": -25
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_anivia_r_hit"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 90,
+                                                    "effects": [
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_anivia_r_formed"
+                                                      },
+                                                      {
+                                                        "type": "RangePeriodProjectile",
+                                                        "name": "league_anivia_r_s3",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 32000
+                                                          }
+                                                        },
+                                                        "tick": 270,
+                                                        "period": 30,
+                                                        "first_delay": 1,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 96,
+                                                              "attack_ratio": 39,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_anivia_r_slow",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 40
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": -45
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_anivia_r_hit"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": []
+                                                      },
+                                                      {
+                                                        "type": "RangePeriodProjectile",
+                                                        "name": "league_anivia_r_s3c",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 32000
+                                                          }
+                                                        },
+                                                        "tick": 270,
+                                                        "period": 30,
+                                                        "first_delay": 1,
+                                                        "applied_target": "EnemyChampion",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_anivia_r_ice"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_anivia_r_ice",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 60
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_anivia_iced",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 180
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 1,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_anivia_r_fired",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_anivia_c_e2",
+                                          "effect_buff": {
+                                            "type": "RandomTarget",
+                                            "range": 75000,
+                                            "casting_target": "EnemyChampionRecentlyAttacked",
+                                            "from_projectile": false,
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_anivia_r_arm"
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_anivia_r_fired"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_anivia_r_fired",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 4
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "CasterAnimation",
+                                                    "name": "ult",
+                                                    "tick": 24
+                                                  },
+                                                  {
+                                                    "type": "CasterViewEffect",
+                                                    "name": "league_anivia_r_cast"
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_anivia_r"
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_anivia_vo_cd",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_anivia_vo_cd",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 600
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        {
+                                                          "type": "Sfx",
+                                                          "name": "league_anivia_vo_r"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 9,
+                                                    "effects": [
+                                                      {
+                                                        "type": "ParabolicProjectile",
+                                                        "name": "league_anivia_r_lob",
+                                                        "travel_time": 1,
+                                                        "range": 400000,
+                                                        "range_effect_name": "",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 1
+                                                          }
+                                                        },
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [],
+                                                        "end_effects": [
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_anivia_r_storm"
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_anivia_r_storm"
+                                                          },
+                                                          {
+                                                            "type": "RangePeriodProjectile",
+                                                            "name": "league_anivia_r_s0",
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 12000
+                                                              }
+                                                            },
+                                                            "tick": 30,
+                                                            "period": 30,
+                                                            "first_delay": 1,
+                                                            "applied_target": "EnemyWithoutTower",
+                                                            "applied_effects": [
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 32,
+                                                                  "attack_ratio": 13,
+                                                                  "hp_ratio": 0,
+                                                                  "can_crit": false
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_anivia_r_slow",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 40
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": -25
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "TargetSfx",
+                                                                  "name": "league_anivia_r_hit"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "end_effects": []
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 30,
+                                                            "effects": [
+                                                              {
+                                                                "type": "RangePeriodProjectile",
+                                                                "name": "league_anivia_r_s1",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 18000
+                                                                  }
+                                                                },
+                                                                "tick": 30,
+                                                                "period": 30,
+                                                                "first_delay": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 32,
+                                                                      "attack_ratio": 13,
+                                                                      "hp_ratio": 0,
+                                                                      "can_crit": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_anivia_r_slow",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 40
+                                                                          }
+                                                                        },
+                                                                        "move_speed_mult": -25
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_anivia_r_hit"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": []
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 60,
+                                                            "effects": [
+                                                              {
+                                                                "type": "RangePeriodProjectile",
+                                                                "name": "league_anivia_r_s2",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 24000
+                                                                  }
+                                                                },
+                                                                "tick": 30,
+                                                                "period": 30,
+                                                                "first_delay": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 32,
+                                                                      "attack_ratio": 13,
+                                                                      "hp_ratio": 0,
+                                                                      "can_crit": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_anivia_r_slow",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 40
+                                                                          }
+                                                                        },
+                                                                        "move_speed_mult": -25
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_anivia_r_hit"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": []
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 90,
+                                                            "effects": [
+                                                              {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_anivia_r_formed"
+                                                              },
+                                                              {
+                                                                "type": "RangePeriodProjectile",
+                                                                "name": "league_anivia_r_s3",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 32000
+                                                                  }
+                                                                },
+                                                                "tick": 270,
+                                                                "period": 30,
+                                                                "first_delay": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 96,
+                                                                      "attack_ratio": 39,
+                                                                      "hp_ratio": 0,
+                                                                      "can_crit": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_anivia_r_slow",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 40
+                                                                          }
+                                                                        },
+                                                                        "move_speed_mult": -45
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_anivia_r_hit"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": []
+                                                              },
+                                                              {
+                                                                "type": "RangePeriodProjectile",
+                                                                "name": "league_anivia_r_s3c",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 32000
+                                                                  }
+                                                                },
+                                                                "tick": 270,
+                                                                "period": 30,
+                                                                "first_delay": 1,
+                                                                "applied_target": "EnemyChampion",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_anivia_r_ice"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_anivia_r_ice",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 60
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_anivia_iced",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 180
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 1000000,
+                    "period": 2,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_anivia_egg_go",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_anivia_egg_go"
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_anivia_egg_on"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_anivia_egg_on",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "defence": -20,
+                                    "magic_resistance": -20
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_anivia_egg_hold"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_anivia_egg_hold",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 12
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "egg_in",
+                              "tick": 14
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_anivia_p_egg_in"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_anivia_p_egg"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_anivia_egg_on",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_anivia_egg_hold",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_anivia_egg_hold",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 30
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "egg",
+                                "tick": 32
+                              }
+                            ]
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_anivia_egg_hatch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_anivia_egg_hatch"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_anivia_egg_on"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_anivia_egg_hold"
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "hatch",
+                              "tick": 18
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_anivia_p_hatch"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_anivia_p_hatch"
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_anivia_vo_cd",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_anivia_vo_cd",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 600
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_anivia_vo_p"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
         },
         {
-          "type": "Delayed",
-          "tick": 8,
+          "type": "Combine",
           "effects": [
             {
-              "type": "Combine",
+              "type": "Sfx",
+              "name": "league_anivia_q"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_anivia_vo_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_anivia_vo_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 600
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_anivia_vo_q"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Delayed",
+              "tick": 8,
               "effects": [
                 {
-                  "type": "LinearProjectile",
-                  "name": "league_anivia_q_hide",
-                  "speed": 1600,
-                  "range": 115000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 5000
-                    }
-                  },
-                  "penetrate": true,
-                  "y_offset": 0,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
+                  "type": "Combine",
+                  "effects": [
                     {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 55,
-                        "attack_ratio": 32,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_anivia_q_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 180
-                            }
-                          },
-                          "move_speed_mult": -30
-                        }
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_anivia_q_pass"
-                      }
-                    }
-                  ],
-                  "end_effects": []
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_anivia_q_ice",
-                  "speed": 1600,
-                  "range": 115000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 5000
-                    }
-                  },
-                  "penetrate": true,
-                  "y_offset": 0,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "league_anivia_iced",
-                          "duration": {
-                            "Time": {
-                              "tick": 180
-                            }
-                          }
-                        }
-                      }
-                    }
-                  ],
-                  "end_effects": []
-                },
-                {
-                  "type": "LinearProjectile",
-                  "name": "league_anivia_q_ball",
-                  "speed": 1600,
-                  "range": 115000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 5000
-                    }
-                  },
-                  "penetrate": false,
-                  "y_offset": 0,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [],
-                  "end_effects": [
-                    {
-                      "type": "ViewEffect",
-                      "name": "league_anivia_q_blast"
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "league_anivia_q_blast"
-                    },
-                    {
-                      "type": "RangeProjectile",
-                      "name": "league_anivia_q_burst",
+                      "type": "LinearProjectile",
+                      "name": "league_anivia_q_hide",
+                      "speed": 1600,
+                      "range": 115000,
                       "shape": {
                         "Circle": {
-                          "radius": 14000
+                          "radius": 5000
                         }
                       },
-                      "delay": 1,
-                      "apply": 1,
+                      "penetrate": true,
+                      "y_offset": 0,
                       "applied_target": "EnemyWithoutTower",
                       "applied_effects": [
                         {
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "ApAttack",
-                            "damage": 95,
-                            "attack_ratio": 65,
+                            "damage": 55,
+                            "attack_ratio": 32,
                             "hp_ratio": 0,
                             "can_crit": false
                           }
@@ -1413,36 +2402,40 @@
                         {
                           "casting_type": "Targeting",
                           "effect": {
-                            "type": "Stun",
-                            "duration": 66
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "ViewEffect",
-                            "name": "league_anivia_q_stun"
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "league_anivia_q_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
                           }
                         },
                         {
                           "casting_type": "Targeting",
                           "effect": {
                             "type": "TargetSfx",
-                            "name": "league_anivia_q_hit"
+                            "name": "league_anivia_q_pass"
                           }
                         }
-                      ]
+                      ],
+                      "end_effects": []
                     },
                     {
-                      "type": "RangeProjectile",
-                      "name": "league_anivia_q_burst_c",
+                      "type": "LinearProjectile",
+                      "name": "league_anivia_q_ice",
+                      "speed": 1600,
+                      "range": 115000,
                       "shape": {
                         "Circle": {
-                          "radius": 14000
+                          "radius": 5000
                         }
                       },
-                      "delay": 1,
-                      "apply": 1,
+                      "penetrate": true,
+                      "y_offset": 0,
                       "applied_target": "EnemyChampion",
                       "applied_effects": [
                         {
@@ -1458,153 +2451,252 @@
                               }
                             }
                           }
+                        }
+                      ],
+                      "end_effects": []
+                    },
+                    {
+                      "type": "LinearProjectile",
+                      "name": "league_anivia_q_ball",
+                      "speed": 1600,
+                      "range": 115000,
+                      "shape": {
+                        "Circle": {
+                          "radius": 5000
+                        }
+                      },
+                      "penetrate": false,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [],
+                      "end_effects": [
+                        {
+                          "type": "ViewEffect",
+                          "name": "league_anivia_q_blast"
                         },
                         {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "Combine",
-                            "effects": [
-                              {
-                                "type": "RemoveCasterBuff",
-                                "name": "league_anivia_fight"
-                              },
-                              {
-                                "type": "AddCasterBuff",
+                          "type": "Sfx",
+                          "name": "league_anivia_q_blast"
+                        },
+                        {
+                          "type": "RangeProjectile",
+                          "name": "league_anivia_q_burst",
+                          "shape": {
+                            "Circle": {
+                              "radius": 14000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ApAttack",
+                                "damage": 95,
+                                "attack_ratio": 65,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Stun",
+                                "duration": 66
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "league_anivia_q_stun"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "league_anivia_q_hit"
+                              }
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RangeProjectile",
+                          "name": "league_anivia_q_burst_c",
+                          "shape": {
+                            "Circle": {
+                              "radius": 14000
+                            }
+                          },
+                          "delay": 1,
+                          "apply": 1,
+                          "applied_target": "EnemyChampion",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "AddBuff",
                                 "buff_state": {
-                                  "name": "league_anivia_fight",
+                                  "name": "league_anivia_iced",
                                   "duration": {
                                     "Time": {
                                       "tick": 180
                                     }
                                   }
-                                },
-                                "only_to_enemy": false
+                                }
                               }
-                            ]
-                          }
-                        },
-                        {
-                          "casting_type": "Targeting",
-                          "effect": {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_anivia_e_cc",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
                             },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_anivia_e_cc",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 300
-                                      }
-                                    }
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RemoveCasterBuff",
+                                    "name": "league_anivia_fight"
                                   },
-                                  "only_to_enemy": false
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_anivia_fight",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 180
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_anivia_e_cc",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
                                 },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 10,
+                                "effect_none": {
+                                  "type": "Combine",
                                   "effects": [
                                     {
-                                      "type": "Sfx",
-                                      "name": "league_anivia_e"
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_anivia_e_cc",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 300
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
                                     },
                                     {
-                                      "type": "Combine",
+                                      "type": "Delayed",
+                                      "tick": 10,
                                       "effects": [
                                         {
-                                          "type": "TargetProjectile",
-                                          "name": "league_anivia_e_combo",
-                                          "speed": 2700,
-                                          "y_offset": 0,
-                                          "applied_target": "EnemyWithoutTower",
-                                          "applied_effects": [
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_anivia_e_now"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_anivia_e_now",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 1
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ApAttack",
-                                                "damage": 75,
-                                                "attack_ratio": 65,
-                                                "hp_ratio": 0,
-                                                "can_crit": false
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "ViewEffect",
-                                                "name": "league_anivia_e_hit"
-                                              }
-                                            },
-                                            {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "TargetSfx",
-                                                "name": "league_anivia_e_hit"
-                                              }
-                                            }
-                                          ]
+                                          "type": "Sfx",
+                                          "name": "league_anivia_e"
                                         },
                                         {
-                                          "type": "TargetProjectile",
-                                          "name": "league_anivia_e_combo_st",
-                                          "speed": 2700,
-                                          "y_offset": 0,
-                                          "applied_target": "EnemyChampion",
-                                          "applied_effects": [
+                                          "type": "Combine",
+                                          "effects": [
                                             {
-                                              "casting_type": "Targeting",
-                                              "effect": {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_anivia_fight"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_anivia_fight",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 180
-                                                        }
+                                              "type": "TargetProjectile",
+                                              "name": "league_anivia_e_combo",
+                                              "speed": 2700,
+                                              "y_offset": 0,
+                                              "applied_target": "EnemyWithoutTower",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_anivia_e_now"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_anivia_e_now",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 1
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
                                                       }
-                                                    },
-                                                    "only_to_enemy": false
+                                                    ]
                                                   }
-                                                ]
-                                              }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ApAttack",
+                                                    "damage": 75,
+                                                    "attack_ratio": 65,
+                                                    "hp_ratio": 0,
+                                                    "can_crit": false
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_anivia_e_hit"
+                                                  }
+                                                },
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "TargetSfx",
+                                                    "name": "league_anivia_e_hit"
+                                                  }
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "type": "TargetProjectile",
+                                              "name": "league_anivia_e_combo_st",
+                                              "speed": 2700,
+                                              "y_offset": 0,
+                                              "applied_target": "EnemyChampion",
+                                              "applied_effects": [
+                                                {
+                                                  "casting_type": "Targeting",
+                                                  "effect": {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_anivia_fight"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_anivia_fight",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 180
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              ]
                                             }
                                           ]
                                         }
@@ -1612,150 +2704,150 @@
                                     }
                                   ]
                                 }
-                              ]
-                            }
-                          }
-                        }
-                      ]
-                    },
-                    {
-                      "type": "RandomTarget",
-                      "range": 14000,
-                      "casting_target": "EnemyChampion",
-                      "from_projectile": true,
-                      "effects": [
-                        {
-                          "type": "AddCasterBuff",
-                          "buff_state": {
-                            "name": "league_anivia_w_in",
-                            "duration": {
-                              "Time": {
-                                "tick": 1
                               }
                             }
+                          ]
+                        },
+                        {
+                          "type": "RandomTarget",
+                          "range": 14000,
+                          "casting_target": "EnemyChampion",
+                          "from_projectile": true,
+                          "effects": [
+                            {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "league_anivia_w_in",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                }
+                              },
+                              "only_to_enemy": false
+                            }
+                          ]
+                        },
+                        {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_anivia_w_in",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_anivia_w_in"
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_anivia_w_cd",
+                                "effect_buff": {
+                                  "type": "Combine",
+                                  "effects": []
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "league_anivia_w_cd",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 900
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    },
+                                    {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_anivia_vo_cd",
+                                      "effect_buff": {
+                                        "type": "Combine",
+                                        "effects": []
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_anivia_vo_cd",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 600
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_anivia_vo_w"
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "type": "ViewEffect",
+                                      "name": "league_anivia_w_wall"
+                                    },
+                                    {
+                                      "type": "Sfx",
+                                      "name": "league_anivia_w"
+                                    },
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_anivia_w_out",
+                                      "shape": {
+                                        "Rect": {
+                                          "width": 8000,
+                                          "height": 50000
+                                        }
+                                      },
+                                      "tick": 24,
+                                      "period": 2,
+                                      "first_delay": 1,
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Grab",
+                                            "speed": 2500,
+                                            "tick": 2
+                                          }
+                                        }
+                                      ],
+                                      "end_effects": []
+                                    },
+                                    {
+                                      "type": "RangePeriodProjectile",
+                                      "name": "league_anivia_w_mark",
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 1
+                                        }
+                                      },
+                                      "tick": 300,
+                                      "period": 300,
+                                      "first_delay": 300,
+                                      "applied_target": "EnemyChampion",
+                                      "applied_effects": [],
+                                      "end_effects": []
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
                           },
-                          "only_to_enemy": false
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": []
+                          }
                         }
                       ]
-                    },
-                    {
-                      "type": "SwitchByBuff",
-                      "buff_name": "league_anivia_w_in",
-                      "effect_buff": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_anivia_w_in"
-                          },
-                          {
-                            "type": "SwitchByBuff",
-                            "buff_name": "league_anivia_w_cd",
-                            "effect_buff": {
-                              "type": "Combine",
-                              "effects": []
-                            },
-                            "effect_none": {
-                              "type": "Combine",
-                              "effects": [
-                                {
-                                  "type": "AddCasterBuff",
-                                  "buff_state": {
-                                    "name": "league_anivia_w_cd",
-                                    "duration": {
-                                      "Time": {
-                                        "tick": 900
-                                      }
-                                    }
-                                  },
-                                  "only_to_enemy": false
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_anivia_vo_cd",
-                                  "effect_buff": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "AddCasterBuff",
-                                        "buff_state": {
-                                          "name": "league_anivia_vo_cd",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 600
-                                            }
-                                          }
-                                        },
-                                        "only_to_enemy": false
-                                      },
-                                      {
-                                        "type": "Sfx",
-                                        "name": "league_anivia_vo_w"
-                                      }
-                                    ]
-                                  }
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "league_anivia_w_wall"
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_anivia_w"
-                                },
-                                {
-                                  "type": "RangePeriodProjectile",
-                                  "name": "league_anivia_w_out",
-                                  "shape": {
-                                    "Rect": {
-                                      "width": 8000,
-                                      "height": 50000
-                                    }
-                                  },
-                                  "tick": 24,
-                                  "period": 2,
-                                  "first_delay": 1,
-                                  "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": [
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "Grab",
-                                        "speed": 2500,
-                                        "tick": 2
-                                      }
-                                    }
-                                  ],
-                                  "end_effects": []
-                                },
-                                {
-                                  "type": "RangePeriodProjectile",
-                                  "name": "league_anivia_w_mark",
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 1
-                                    }
-                                  },
-                                  "tick": 300,
-                                  "period": 300,
-                                  "first_delay": 300,
-                                  "applied_target": "EnemyChampion",
-                                  "applied_effects": [],
-                                  "end_effects": []
-                                }
-                              ]
-                            }
-                          }
-                        ]
-                      },
-                      "effect_none": {
-                        "type": "Combine",
-                        "effects": []
-                      }
                     }
                   ]
                 }
@@ -1781,12 +2873,8 @@
       "type": "Combine",
       "effects": [
         {
-          "type": "Sfx",
-          "name": "league_anivia_e"
-        },
-        {
           "type": "SwitchByBuff",
-          "buff_name": "league_anivia_vo_cd",
+          "buff_name": "league_anivia_init",
           "effect_buff": {
             "type": "Combine",
             "effects": []
@@ -1797,116 +2885,1211 @@
               {
                 "type": "AddCasterBuff",
                 "buff_state": {
-                  "name": "league_anivia_vo_cd",
-                  "duration": {
-                    "Time": {
-                      "tick": 600
-                    }
-                  }
+                  "name": "league_anivia_init",
+                  "duration": "Permanent"
                 },
                 "only_to_enemy": false
               },
               {
-                "type": "Sfx",
-                "name": "league_anivia_vo_e"
+                "type": "RangeEffect",
+                "shape": {
+                  "Circle": {
+                    "radius": 1000
+                  }
+                },
+                "target": "AllyOnlySelf",
+                "apply_type": "AroundCaster",
+                "effects": [
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 1000000,
+                    "period": 12,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_anivia_c_e1"
+                          },
+                          {
+                            "type": "RemoveCasterBuff",
+                            "name": "league_anivia_c_e2"
+                          },
+                          {
+                            "type": "RangeEffect",
+                            "shape": {
+                              "Circle": {
+                                "radius": 45000
+                              }
+                            },
+                            "target": "EnemyChampion",
+                            "apply_type": "AroundCaster",
+                            "effects": [
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_anivia_c_e1",
+                                "effect_buff": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_anivia_c_e2",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                },
+                                "effect_none": {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_anivia_c_e1",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "Delayed",
+                        "tick": 1,
+                        "effects": [
+                          {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_anivia_egg_on",
+                            "effect_buff": {
+                              "type": "Combine",
+                              "effects": []
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_anivia_r_arm",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "RandomTarget",
+                                    "range": 75000,
+                                    "casting_target": "EnemyChampionInCC",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_anivia_r_arm"
+                                          },
+                                          {
+                                            "type": "Combine",
+                                            "effects": [
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_anivia_r_fired"
+                                              },
+                                              {
+                                                "type": "AddCasterBuff",
+                                                "buff_state": {
+                                                  "name": "league_anivia_r_fired",
+                                                  "duration": {
+                                                    "Time": {
+                                                      "tick": 4
+                                                    }
+                                                  }
+                                                },
+                                                "only_to_enemy": false
+                                              }
+                                            ]
+                                          },
+                                          {
+                                            "type": "CasterAnimation",
+                                            "name": "ult",
+                                            "tick": 24
+                                          },
+                                          {
+                                            "type": "CasterViewEffect",
+                                            "name": "league_anivia_r_cast"
+                                          },
+                                          {
+                                            "type": "Sfx",
+                                            "name": "league_anivia_r"
+                                          },
+                                          {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_anivia_vo_cd",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": []
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "AddCasterBuff",
+                                                  "buff_state": {
+                                                    "name": "league_anivia_vo_cd",
+                                                    "duration": {
+                                                      "Time": {
+                                                        "tick": 600
+                                                      }
+                                                    }
+                                                  },
+                                                  "only_to_enemy": false
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_anivia_vo_r"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          {
+                                            "type": "Delayed",
+                                            "tick": 9,
+                                            "effects": [
+                                              {
+                                                "type": "ParabolicProjectile",
+                                                "name": "league_anivia_r_lob",
+                                                "travel_time": 1,
+                                                "range": 400000,
+                                                "range_effect_name": "",
+                                                "shape": {
+                                                  "Circle": {
+                                                    "radius": 1
+                                                  }
+                                                },
+                                                "applied_target": "EnemyWithoutTower",
+                                                "applied_effects": [],
+                                                "end_effects": [
+                                                  {
+                                                    "type": "ViewEffect",
+                                                    "name": "league_anivia_r_storm"
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_anivia_r_storm"
+                                                  },
+                                                  {
+                                                    "type": "RangePeriodProjectile",
+                                                    "name": "league_anivia_r_s0",
+                                                    "shape": {
+                                                      "Circle": {
+                                                        "radius": 12000
+                                                      }
+                                                    },
+                                                    "tick": 30,
+                                                    "period": 30,
+                                                    "first_delay": 1,
+                                                    "applied_target": "EnemyWithoutTower",
+                                                    "applied_effects": [
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "ApAttack",
+                                                          "damage": 32,
+                                                          "attack_ratio": 13,
+                                                          "hp_ratio": 0,
+                                                          "can_crit": false
+                                                        }
+                                                      },
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "AddBuff",
+                                                          "buff_state": {
+                                                            "name": "league_anivia_r_slow",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 40
+                                                              }
+                                                            },
+                                                            "move_speed_mult": -25
+                                                          }
+                                                        }
+                                                      },
+                                                      {
+                                                        "casting_type": "Targeting",
+                                                        "effect": {
+                                                          "type": "TargetSfx",
+                                                          "name": "league_anivia_r_hit"
+                                                        }
+                                                      }
+                                                    ],
+                                                    "end_effects": []
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 30,
+                                                    "effects": [
+                                                      {
+                                                        "type": "RangePeriodProjectile",
+                                                        "name": "league_anivia_r_s1",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 18000
+                                                          }
+                                                        },
+                                                        "tick": 30,
+                                                        "period": 30,
+                                                        "first_delay": 1,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 32,
+                                                              "attack_ratio": 13,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_anivia_r_slow",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 40
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": -25
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_anivia_r_hit"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 60,
+                                                    "effects": [
+                                                      {
+                                                        "type": "RangePeriodProjectile",
+                                                        "name": "league_anivia_r_s2",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 24000
+                                                          }
+                                                        },
+                                                        "tick": 30,
+                                                        "period": 30,
+                                                        "first_delay": 1,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 32,
+                                                              "attack_ratio": 13,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_anivia_r_slow",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 40
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": -25
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_anivia_r_hit"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": []
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 90,
+                                                    "effects": [
+                                                      {
+                                                        "type": "ViewEffect",
+                                                        "name": "league_anivia_r_formed"
+                                                      },
+                                                      {
+                                                        "type": "RangePeriodProjectile",
+                                                        "name": "league_anivia_r_s3",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 32000
+                                                          }
+                                                        },
+                                                        "tick": 270,
+                                                        "period": 30,
+                                                        "first_delay": 1,
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "ApAttack",
+                                                              "damage": 96,
+                                                              "attack_ratio": 39,
+                                                              "hp_ratio": 0,
+                                                              "can_crit": false
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_anivia_r_slow",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 40
+                                                                  }
+                                                                },
+                                                                "move_speed_mult": -45
+                                                              }
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "TargetSfx",
+                                                              "name": "league_anivia_r_hit"
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": []
+                                                      },
+                                                      {
+                                                        "type": "RangePeriodProjectile",
+                                                        "name": "league_anivia_r_s3c",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 32000
+                                                          }
+                                                        },
+                                                        "tick": 270,
+                                                        "period": 30,
+                                                        "first_delay": 1,
+                                                        "applied_target": "EnemyChampion",
+                                                        "applied_effects": [
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "Combine",
+                                                              "effects": [
+                                                                {
+                                                                  "type": "RemoveCasterBuff",
+                                                                  "name": "league_anivia_r_ice"
+                                                                },
+                                                                {
+                                                                  "type": "AddCasterBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_anivia_r_ice",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 60
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  "only_to_enemy": false
+                                                                }
+                                                              ]
+                                                            }
+                                                          },
+                                                          {
+                                                            "casting_type": "Targeting",
+                                                            "effect": {
+                                                              "type": "AddBuff",
+                                                              "buff_state": {
+                                                                "name": "league_anivia_iced",
+                                                                "duration": {
+                                                                  "Time": {
+                                                                    "tick": 180
+                                                                  }
+                                                                }
+                                                              }
+                                                            }
+                                                          }
+                                                        ],
+                                                        "end_effects": []
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "type": "Delayed",
+                                    "tick": 1,
+                                    "effects": [
+                                      {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_anivia_r_fired",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_anivia_c_e2",
+                                          "effect_buff": {
+                                            "type": "RandomTarget",
+                                            "range": 75000,
+                                            "casting_target": "EnemyChampionRecentlyAttacked",
+                                            "from_projectile": false,
+                                            "effects": [
+                                              {
+                                                "type": "Combine",
+                                                "effects": [
+                                                  {
+                                                    "type": "RemoveCasterBuff",
+                                                    "name": "league_anivia_r_arm"
+                                                  },
+                                                  {
+                                                    "type": "Combine",
+                                                    "effects": [
+                                                      {
+                                                        "type": "RemoveCasterBuff",
+                                                        "name": "league_anivia_r_fired"
+                                                      },
+                                                      {
+                                                        "type": "AddCasterBuff",
+                                                        "buff_state": {
+                                                          "name": "league_anivia_r_fired",
+                                                          "duration": {
+                                                            "Time": {
+                                                              "tick": 4
+                                                            }
+                                                          }
+                                                        },
+                                                        "only_to_enemy": false
+                                                      }
+                                                    ]
+                                                  },
+                                                  {
+                                                    "type": "CasterAnimation",
+                                                    "name": "ult",
+                                                    "tick": 24
+                                                  },
+                                                  {
+                                                    "type": "CasterViewEffect",
+                                                    "name": "league_anivia_r_cast"
+                                                  },
+                                                  {
+                                                    "type": "Sfx",
+                                                    "name": "league_anivia_r"
+                                                  },
+                                                  {
+                                                    "type": "SwitchByBuff",
+                                                    "buff_name": "league_anivia_vo_cd",
+                                                    "effect_buff": {
+                                                      "type": "Combine",
+                                                      "effects": []
+                                                    },
+                                                    "effect_none": {
+                                                      "type": "Combine",
+                                                      "effects": [
+                                                        {
+                                                          "type": "AddCasterBuff",
+                                                          "buff_state": {
+                                                            "name": "league_anivia_vo_cd",
+                                                            "duration": {
+                                                              "Time": {
+                                                                "tick": 600
+                                                              }
+                                                            }
+                                                          },
+                                                          "only_to_enemy": false
+                                                        },
+                                                        {
+                                                          "type": "Sfx",
+                                                          "name": "league_anivia_vo_r"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  {
+                                                    "type": "Delayed",
+                                                    "tick": 9,
+                                                    "effects": [
+                                                      {
+                                                        "type": "ParabolicProjectile",
+                                                        "name": "league_anivia_r_lob",
+                                                        "travel_time": 1,
+                                                        "range": 400000,
+                                                        "range_effect_name": "",
+                                                        "shape": {
+                                                          "Circle": {
+                                                            "radius": 1
+                                                          }
+                                                        },
+                                                        "applied_target": "EnemyWithoutTower",
+                                                        "applied_effects": [],
+                                                        "end_effects": [
+                                                          {
+                                                            "type": "ViewEffect",
+                                                            "name": "league_anivia_r_storm"
+                                                          },
+                                                          {
+                                                            "type": "Sfx",
+                                                            "name": "league_anivia_r_storm"
+                                                          },
+                                                          {
+                                                            "type": "RangePeriodProjectile",
+                                                            "name": "league_anivia_r_s0",
+                                                            "shape": {
+                                                              "Circle": {
+                                                                "radius": 12000
+                                                              }
+                                                            },
+                                                            "tick": 30,
+                                                            "period": 30,
+                                                            "first_delay": 1,
+                                                            "applied_target": "EnemyWithoutTower",
+                                                            "applied_effects": [
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "ApAttack",
+                                                                  "damage": 32,
+                                                                  "attack_ratio": 13,
+                                                                  "hp_ratio": 0,
+                                                                  "can_crit": false
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "AddBuff",
+                                                                  "buff_state": {
+                                                                    "name": "league_anivia_r_slow",
+                                                                    "duration": {
+                                                                      "Time": {
+                                                                        "tick": 40
+                                                                      }
+                                                                    },
+                                                                    "move_speed_mult": -25
+                                                                  }
+                                                                }
+                                                              },
+                                                              {
+                                                                "casting_type": "Targeting",
+                                                                "effect": {
+                                                                  "type": "TargetSfx",
+                                                                  "name": "league_anivia_r_hit"
+                                                                }
+                                                              }
+                                                            ],
+                                                            "end_effects": []
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 30,
+                                                            "effects": [
+                                                              {
+                                                                "type": "RangePeriodProjectile",
+                                                                "name": "league_anivia_r_s1",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 18000
+                                                                  }
+                                                                },
+                                                                "tick": 30,
+                                                                "period": 30,
+                                                                "first_delay": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 32,
+                                                                      "attack_ratio": 13,
+                                                                      "hp_ratio": 0,
+                                                                      "can_crit": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_anivia_r_slow",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 40
+                                                                          }
+                                                                        },
+                                                                        "move_speed_mult": -25
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_anivia_r_hit"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": []
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 60,
+                                                            "effects": [
+                                                              {
+                                                                "type": "RangePeriodProjectile",
+                                                                "name": "league_anivia_r_s2",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 24000
+                                                                  }
+                                                                },
+                                                                "tick": 30,
+                                                                "period": 30,
+                                                                "first_delay": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 32,
+                                                                      "attack_ratio": 13,
+                                                                      "hp_ratio": 0,
+                                                                      "can_crit": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_anivia_r_slow",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 40
+                                                                          }
+                                                                        },
+                                                                        "move_speed_mult": -25
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_anivia_r_hit"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": []
+                                                              }
+                                                            ]
+                                                          },
+                                                          {
+                                                            "type": "Delayed",
+                                                            "tick": 90,
+                                                            "effects": [
+                                                              {
+                                                                "type": "ViewEffect",
+                                                                "name": "league_anivia_r_formed"
+                                                              },
+                                                              {
+                                                                "type": "RangePeriodProjectile",
+                                                                "name": "league_anivia_r_s3",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 32000
+                                                                  }
+                                                                },
+                                                                "tick": 270,
+                                                                "period": 30,
+                                                                "first_delay": 1,
+                                                                "applied_target": "EnemyWithoutTower",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "ApAttack",
+                                                                      "damage": 96,
+                                                                      "attack_ratio": 39,
+                                                                      "hp_ratio": 0,
+                                                                      "can_crit": false
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_anivia_r_slow",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 40
+                                                                          }
+                                                                        },
+                                                                        "move_speed_mult": -45
+                                                                      }
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "TargetSfx",
+                                                                      "name": "league_anivia_r_hit"
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": []
+                                                              },
+                                                              {
+                                                                "type": "RangePeriodProjectile",
+                                                                "name": "league_anivia_r_s3c",
+                                                                "shape": {
+                                                                  "Circle": {
+                                                                    "radius": 32000
+                                                                  }
+                                                                },
+                                                                "tick": 270,
+                                                                "period": 30,
+                                                                "first_delay": 1,
+                                                                "applied_target": "EnemyChampion",
+                                                                "applied_effects": [
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RemoveCasterBuff",
+                                                                          "name": "league_anivia_r_ice"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_anivia_r_ice",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 60
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  {
+                                                                    "casting_type": "Targeting",
+                                                                    "effect": {
+                                                                      "type": "AddBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_anivia_iced",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 180
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
+                                                                ],
+                                                                "end_effects": []
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "effect_none": {
+                                            "type": "Combine",
+                                            "effects": []
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": []
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "type": "AddCasted",
+                    "casted_type": "Heal",
+                    "duration": 1000000,
+                    "period": 2,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_anivia_egg_go",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_anivia_egg_go"
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_anivia_egg_on"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_anivia_egg_on",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 360
+                                      }
+                                    },
+                                    "defence": -20,
+                                    "magic_resistance": -20
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "league_anivia_egg_hold"
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_anivia_egg_hold",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 12
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "egg_in",
+                              "tick": 14
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_anivia_p_egg_in"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_anivia_p_egg"
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_anivia_egg_on",
+                        "effect_buff": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_anivia_egg_hold",
+                          "effect_buff": {
+                            "type": "Combine",
+                            "effects": []
+                          },
+                          "effect_none": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_anivia_egg_hold",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 30
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
+                              },
+                              {
+                                "type": "CasterAnimation",
+                                "name": "egg",
+                                "tick": 32
+                              }
+                            ]
+                          }
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      },
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_anivia_egg_hatch",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_anivia_egg_hatch"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_anivia_egg_on"
+                            },
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_anivia_egg_hold"
+                            },
+                            {
+                              "type": "CasterAnimation",
+                              "name": "hatch",
+                              "tick": 18
+                            },
+                            {
+                              "type": "CasterViewEffect",
+                              "name": "league_anivia_p_hatch"
+                            },
+                            {
+                              "type": "Sfx",
+                              "name": "league_anivia_p_hatch"
+                            },
+                            {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_anivia_vo_cd",
+                              "effect_buff": {
+                                "type": "Combine",
+                                "effects": []
+                              },
+                              "effect_none": {
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "AddCasterBuff",
+                                    "buff_state": {
+                                      "name": "league_anivia_vo_cd",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 600
+                                        }
+                                      }
+                                    },
+                                    "only_to_enemy": false
+                                  },
+                                  {
+                                    "type": "Sfx",
+                                    "name": "league_anivia_vo_p"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": []
+                        }
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           }
         },
         {
-          "type": "Delayed",
-          "tick": 8,
+          "type": "Combine",
           "effects": [
             {
-              "type": "Combine",
+              "type": "Sfx",
+              "name": "league_anivia_e"
+            },
+            {
+              "type": "SwitchByBuff",
+              "buff_name": "league_anivia_vo_cd",
+              "effect_buff": {
+                "type": "Combine",
+                "effects": []
+              },
+              "effect_none": {
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_anivia_vo_cd",
+                      "duration": {
+                        "Time": {
+                          "tick": 600
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  },
+                  {
+                    "type": "Sfx",
+                    "name": "league_anivia_vo_e"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "Delayed",
+              "tick": 8,
               "effects": [
                 {
-                  "type": "TargetProjectile",
-                  "name": "league_anivia_e_shard",
-                  "speed": 2700,
-                  "y_offset": 0,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
+                  "type": "Combine",
+                  "effects": [
                     {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_anivia_e_now"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_anivia_e_now",
-                              "duration": {
-                                "Time": {
-                                  "tick": 1
-                                }
+                      "type": "TargetProjectile",
+                      "name": "league_anivia_e_shard",
+                      "speed": 2700,
+                      "y_offset": 0,
+                      "applied_target": "EnemyWithoutTower",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_anivia_e_now"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_anivia_e_now",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 1
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
                               }
-                            },
-                            "only_to_enemy": false
+                            ]
                           }
-                        ]
-                      }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ApAttack",
+                            "damage": 75,
+                            "attack_ratio": 65,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "ViewEffect",
+                            "name": "league_anivia_e_hit"
+                          }
+                        },
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "TargetSfx",
+                            "name": "league_anivia_e_hit"
+                          }
+                        }
+                      ]
                     },
                     {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ApAttack",
-                        "damage": 75,
-                        "attack_ratio": 65,
-                        "hp_ratio": 0,
-                        "can_crit": false
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "league_anivia_e_hit"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "league_anivia_e_hit"
-                      }
-                    }
-                  ]
-                },
-                {
-                  "type": "TargetProjectile",
-                  "name": "league_anivia_e_shard_st",
-                  "speed": 2700,
-                  "y_offset": 0,
-                  "applied_target": "EnemyChampion",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Combine",
-                        "effects": [
-                          {
-                            "type": "RemoveCasterBuff",
-                            "name": "league_anivia_fight"
-                          },
-                          {
-                            "type": "AddCasterBuff",
-                            "buff_state": {
-                              "name": "league_anivia_fight",
-                              "duration": {
-                                "Time": {
-                                  "tick": 180
-                                }
+                      "type": "TargetProjectile",
+                      "name": "league_anivia_e_shard_st",
+                      "speed": 2700,
+                      "y_offset": 0,
+                      "applied_target": "EnemyChampion",
+                      "applied_effects": [
+                        {
+                          "casting_type": "Targeting",
+                          "effect": {
+                            "type": "Combine",
+                            "effects": [
+                              {
+                                "type": "RemoveCasterBuff",
+                                "name": "league_anivia_fight"
+                              },
+                              {
+                                "type": "AddCasterBuff",
+                                "buff_state": {
+                                  "name": "league_anivia_fight",
+                                  "duration": {
+                                    "Time": {
+                                      "tick": 180
+                                    }
+                                  }
+                                },
+                                "only_to_enemy": false
                               }
-                            },
-                            "only_to_enemy": false
+                            ]
                           }
-                        ]
-                      }
+                        }
+                      ]
                     }
                   ]
                 }

@@ -699,7 +699,14 @@ impl Forge {
             };
             if screen {
                 if let Some(lane) = r.lane {
-                    let slot = r.first.as_ref().filter(|_| forged).map(|&(slot, _)| slot);
+                    // the masterwork among his items (what he had from the start - runes, a starting item - left out): the
+                    // scoreboard row may show fewer icons than his item bar holds (4+6's four runes as one icon)
+                    let start = self.start.get(&r.pid);
+                    let item = |k: &String| start.is_none_or(|s| !s.contains(k.as_str()));
+                    let slot = r.first.as_ref().filter(|_| forged).map(|&(slot, _)| fx::Slot {
+                        item: r.keys[..slot].iter().filter(|k| item(k)).count(),
+                        items: r.keys.iter().filter(|k| item(k)).count(),
+                    });
                     fx::publish(gen, now, (team, lane.code() as usize), slot, own, mw);
                 }
             }

@@ -153,6 +153,8 @@ fn who(sim: &StableSim<'_>, id: usize) -> String {
 pub struct Params {
     pub egg_t: usize,
     pub egg_cd: usize,
+    /// 蛋的护甲、魔抗降低多少（0.1.8 起本包自己挂蛋的形态 `egg_on` 时用，数据的 `egg_on` 是同样的数）。
+    pub egg_def: i32,
     pub w_t: usize,
     pub w_w: u64,
     pub w_h: u64,
@@ -161,7 +163,7 @@ pub struct Params {
 
 impl Default for Params {
     fn default() -> Self {
-        Params { egg_t: 360, egg_cd: 14400, w_t: 300, w_w: 8000, w_h: 50000, ice_t: 180 }
+        Params { egg_t: 360, egg_cd: 14400, egg_def: 20, w_t: 300, w_w: 8000, w_h: 50000, ice_t: 180 }
     }
 }
 
@@ -175,6 +177,7 @@ pub fn parse_params(json: &str) -> Params {
         match k {
             "egg_t" => p.egg_t = v as usize,
             "egg_cd" => p.egg_cd = v as usize,
+            "egg_def" => p.egg_def = v as i32,
             "w_t" => p.w_t = v as usize,
             "w_w" => p.w_w = v,
             "w_h" => p.w_h = v,
@@ -288,6 +291,17 @@ pub fn egg_hold(last: (u64, u64), now: (u64, u64), rooted: bool) -> Option<(u64,
     (!rooted && step > 0.0 && step < DASH_STEP).then_some(last)
 }
 
+/// 蛋的形态 `egg_on`（0.1.8 起本包自己挂，`left` tick）：显示钩子（`view.rs`）看到它就把她站着、挨打的画面换成蛋，护甲、魔抗
+/// 降低 `egg_def`（数据的 `egg_on` 一样：数据的守望看到 `egg_go` 时 `refresh` 换掉它，不会叠两份）。用户 11-11 的动图：
+/// 致命伤被接住、血回满、禁普攻和技能都有了，可数据的守望没接上（它在这条命第一次普攻或 R 时才开始），没有缩进蛋的动作、
+/// 没有 `egg_on`，她一直是鸟的样子、满血走开。
+pub fn egg_form(p: &Params, left: usize) -> BuffV1 {
+    let mut b = BuffV1::timed(FORM, left);
+    b.defence = -p.egg_def;
+    b.magic_resistance = -p.egg_def;
+    b
+}
+
 // ===================== 被动 =====================
 
 fn buffs(sim: &StableSim<'_>, id: usize) -> Vec<BuffV1> {
@@ -345,12 +359,15 @@ impl Rebirth {
         sim.entity_remove_buff(me, &sn("p_guard"));
         sim.entity_set_hp(me, max);
         sim.add_buff(me, &BuffV1::timed(&sn("egg_go"), FLAG_T));
+        // the egg's form and its armour / MR drop from here, not only from the data's watch (0.1.8)
+        sim.entity_remove_buff(me, FORM);
+        sim.add_buff(me, &egg_form(&self.p, self.p.egg_t));
         for k in EGG_CC {
             sim.apply_cc(me, &CcV1::of_kind(k, self.p.egg_t as u64));
         }
         if let Some(k) = tally(sim, "egg") {
-            wlog(format!("{} EGG #{k}: lethal damage caught at 1 hp, the egg holds {max} hp for {} ticks, rooted at ({}, {})",
-                         head(sim, me), self.p.egg_t, at.0, at.1));
+            wlog(format!("{} EGG #{k}: lethal damage caught at 1 hp, the egg holds {max} hp for {} ticks, rooted at ({}, {}), \
+                          armour / MR -{}", head(sim, me), self.p.egg_t, at.0, at.1, self.p.egg_def));
         }
     }
 
@@ -359,7 +376,15 @@ impl Rebirth {
         let Some(e) = sim.get_entity(me) else { return };
         let now_at = e.pos();
         let on: Vec<u32> = (0..e.cc_count()).filter_map(|i| e.cc_at(i)).filter(|c| c.tick > 0).map(|c| c.kind).collect();
+        let formed = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == FORM);
         let missing = egg_cc_missing(&on);
+        // the form gone before the hatch (removed by someone, or the data's own one ran out): back on for what is left
+        if !formed {
+            sim.add_buff(me, &egg_form(&self.p, left));
+            if let Some(n) = tally(sim, "egg form") {
+                wlog(format!("{} EGG FORM #{n}: {FORM} gone with {left} ticks of the egg left - put back", head(sim, me)));
+            }
+        }
         for &k in &missing {
             sim.apply_cc(me, &CcV1::of_kind(k, left as u64));
         }
@@ -387,6 +412,8 @@ impl Rebirth {
 
     fn hatch(&mut self, sim: &mut StableSim<'_>, me: usize) {
         self.egg = None;
+        // the data's watch plays the hatch on `egg_hatch` (and clears its own flags); the form ends here either way
+        sim.entity_remove_buff(me, FORM);
         sim.add_buff(me, &BuffV1::timed(&sn("egg_hatch"), FLAG_T));
         if let Some(k) = tally(sim, "hatch") {
             let (hp, max, at) = sim.get_entity(me).map_or((0, 0, (0, 0)), |e| (e.hp().0, e.hp().1, e.pos()));
@@ -630,8 +657,23 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let q = parse_params(r#"{"egg_cd":14400,"egg_t":360,"ice_t":180,"w_h":50000,"w_t":300,"w_w":8000}"#);
+        let q = parse_params(r#"{"egg_cd":14400,"egg_def":20,"egg_t":360,"ice_t":180,"w_h":50000,"w_t":300,"w_w":8000}"#);
         assert_eq!(q, Params::default());
+        // the copy's own params, as make_override.py writes them
+        let copy = include_str!("../override/league_anivia.data_champion");
+        let at = copy.find("\"params\"").expect("passive params in the copy");
+        let body = &copy[at..];
+        let params = &body[body.find('{').unwrap()..=body.find('}').unwrap()];
+        assert_eq!(parse_params(params), Params::default(), "the copy's passive params: {params}");
+    }
+
+    #[test]
+    fn the_add_on_puts_the_egg_on_itself() {
+        // the display hook draws the egg from this buff, and the armour / MR drop is the data's egg_def
+        let b = egg_form(&p(), 360);
+        assert_eq!(b.name(), FORM);
+        assert_eq!((b.defence, b.magic_resistance), (-20, -20));
+        assert_eq!(BuffDurationV1::from_code(b.duration_kind), Some(BuffDurationV1::Time));
     }
 
     #[test]
