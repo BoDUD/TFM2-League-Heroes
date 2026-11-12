@@ -1,0 +1,512 @@
+{
+ "about": "Codex's redraws of this hero's effects on pack_fx_redraw.py's guides (8 px a game pixel, the guide's cells); tools/art/import_fx_redraw.py reads them into the sheets' hd_ frames",
+ "items": [
+  {
+   "sheet": "league_ahri_big",
+   "tag": "r_dash",
+   "file": "league_ahri_big/r_dash.png",
+   "pack": 1,
+   "source_entry_index": 40,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    23,
+    35
+   ],
+   "cell_8x": [
+    184,
+    280
+   ],
+   "guide_size": [
+    1104,
+    280
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "4d18976adc282642e22803632aad32f94e22565aa8386addcf6501743a74f997"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "e_charm",
+   "file": "league_ahri_fx/e_charm.png",
+   "pack": 1,
+   "source_entry_index": 50,
+   "kind": "effect",
+   "frames": 10,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "cell_1x": [
+    19,
+    77
+   ],
+   "cell_8x": [
+    152,
+    616
+   ],
+   "guide_size": [
+    1520,
+    616
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "de6def16f6236abd73f6fda4bda2b0269b3bac7297b8e398cf328e378cf6a943"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "e_kiss",
+   "file": "league_ahri_fx/e_kiss.png",
+   "pack": 1,
+   "source_entry_index": 49,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    21,
+    11
+   ],
+   "cell_8x": [
+    168,
+    88
+   ],
+   "guide_size": [
+    672,
+    88
+   ],
+   "symmetry": "top-bottom",
+   "zoom": null,
+   "sha256": "912131a3049d9c561875e234ad1363da3be0dbc33c5bd95bc01e98eeb7d8ec32"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "essence",
+   "file": "league_ahri_fx/essence.png",
+   "pack": 1,
+   "source_entry_index": 54,
+   "kind": "buff",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    25,
+    15
+   ],
+   "cell_8x": [
+    200,
+    120
+   ],
+   "guide_size": [
+    1200,
+    120
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "f5410835a6e9e67c367a1a7ed988d6bd980d24ea0ad40b1fdda370bc2595b3c3"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "heal",
+   "file": "league_ahri_fx/heal.png",
+   "pack": 1,
+   "source_entry_index": 53,
+   "kind": "effect",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    31,
+    49
+   ],
+   "cell_8x": [
+    248,
+    392
+   ],
+   "guide_size": [
+    1488,
+    392
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "76e05ae887568676aa736f35d085346c8a78d9a2339154914b9793e1e401cbc4"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "hit",
+   "file": "league_ahri_fx/hit.png",
+   "pack": 1,
+   "source_entry_index": 42,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    11,
+    29
+   ],
+   "cell_8x": [
+    88,
+    232
+   ],
+   "guide_size": [
+    440,
+    232
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "b62fe6fe968aa046f91358cb35c728297dfbb55abc73d8957f8a2ddd301f5fa4"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "orb",
+   "file": "league_ahri_fx/orb.png",
+   "pack": 1,
+   "source_entry_index": 41,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    11,
+    5
+   ],
+   "cell_8x": [
+    88,
+    40
+   ],
+   "guide_size": [
+    352,
+    40
+   ],
+   "symmetry": "top-bottom",
+   "zoom": null,
+   "sha256": "b0431fda142018319bd62b897bd715715ee860bea1579d5f6e43b874308d0eb5"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "q_hit",
+   "file": "league_ahri_fx/q_hit.png",
+   "pack": 1,
+   "source_entry_index": 44,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    17,
+    33
+   ],
+   "cell_8x": [
+    136,
+    264
+   ],
+   "guide_size": [
+    680,
+    264
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "579a161df1b4d827578a25113ffefc75ca55e22c4ce98d710ed3e0d16f19cd6f"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "q_orb",
+   "file": "league_ahri_fx/q_orb.png",
+   "pack": 1,
+   "source_entry_index": 43,
+   "kind": "projectile",
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "cell_1x": [
+    29,
+    15
+   ],
+   "cell_8x": [
+    232,
+    120
+   ],
+   "guide_size": [
+    1392,
+    120
+   ],
+   "symmetry": "top-bottom",
+   "zoom": null,
+   "sha256": "762c5359e5e8931cf8488d5c21cd08bcfdae1a9218dbb44644acb04d8f68dc0a"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "q_true",
+   "file": "league_ahri_fx/q_true.png",
+   "pack": 1,
+   "source_entry_index": 45,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    13,
+    31
+   ],
+   "cell_8x": [
+    104,
+    248
+   ],
+   "guide_size": [
+    520,
+    248
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "66fc72d96f8a8e4836e1e190b8d58791bcb431f2364806eb5a499462b79169c0"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "r_bolt",
+   "file": "league_ahri_fx/r_bolt.png",
+   "pack": 1,
+   "source_entry_index": 51,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    17,
+    9
+   ],
+   "cell_8x": [
+    136,
+    72
+   ],
+   "guide_size": [
+    544,
+    72
+   ],
+   "symmetry": "top-bottom",
+   "zoom": null,
+   "sha256": "f8964811b9fc14c5c5b61b20a5c6dff388ec6268953edf429d36d5c3b4b2a716"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "r_hit",
+   "file": "league_ahri_fx/r_hit.png",
+   "pack": 1,
+   "source_entry_index": 52,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    0
+   ],
+   "cell_1x": [
+    15,
+    29
+   ],
+   "cell_8x": [
+    120,
+    232
+   ],
+   "guide_size": [
+    480,
+    232
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "eed7b017110bdae31693471e57381f7973e8a79a0e39f20afc7f509e12209a32"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "w_fire",
+   "file": "league_ahri_fx/w_fire.png",
+   "pack": 1,
+   "source_entry_index": 47,
+   "kind": "projectile",
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "cell_1x": [
+    17,
+    7
+   ],
+   "cell_8x": [
+    136,
+    56
+   ],
+   "guide_size": [
+    544,
+    56
+   ],
+   "symmetry": "top-bottom",
+   "zoom": null,
+   "sha256": "a1c6ce70fa7b828ead6b72f8f839c93062855ad9b08fc875158f360f9dbf08d9"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "w_hit",
+   "file": "league_ahri_fx/w_hit.png",
+   "pack": 1,
+   "source_entry_index": 48,
+   "kind": "effect",
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "cell_1x": [
+    15,
+    31
+   ],
+   "cell_8x": [
+    120,
+    248
+   ],
+   "guide_size": [
+    600,
+    248
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "21ad929905bc9a9ec95858a16e0425009b47e04fbeecfc1121279420817dd0c9"
+  },
+  {
+   "sheet": "league_ahri_fx",
+   "tag": "w_orbit",
+   "file": "league_ahri_fx/w_orbit.png",
+   "pack": 1,
+   "source_entry_index": 46,
+   "kind": "effect",
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "cell_1x": [
+    33,
+    45
+   ],
+   "cell_8x": [
+    264,
+    360
+   ],
+   "guide_size": [
+    2112,
+    360
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "0442d8163c4b1a9863208913dfe9ae08a7ff545d5dc037182110d049c0db5fce"
+  },
+  {
+   "sheet": "league_ahri_sym",
+   "tag": "w_orbit",
+   "file": "league_ahri_sym/w_orbit.png",
+   "pack": 1,
+   "source_entry_index": 55,
+   "kind": "effect",
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "cell_1x": [
+    33,
+    77
+   ],
+   "cell_8x": [
+    264,
+    616
+   ],
+   "guide_size": [
+    2112,
+    616
+   ],
+   "symmetry": "none",
+   "zoom": null,
+   "sha256": "23a5b27a14e4e1a1e4168403838f779e1721d7cb5865b261c069efe44546254c"
+  }
+ ]
+}

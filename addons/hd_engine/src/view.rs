@@ -471,6 +471,8 @@ unsafe extern "system" fn body_detour(out: usize, ent: usize, a3: usize, _sp: us
     let was = IN_BODY.with(|c| c.replace(ent));
     let r = f(out, ent, a3, 0, a5, a6, a7, a8);
     IN_BODY.with(|c| c.set(was));
+    // the buffs' dense pictures (before the extras go back to the game's size round them, as the effects' pairs do)
+    let _ = std::panic::catch_unwind(|| unsafe { shrink_buffs(out, ent) });
     if let Some((s, hero)) = sc {
         let _ = std::panic::catch_unwind(|| unsafe { unshrink_extras(out, ent, s, hero) });
     }
@@ -691,7 +693,8 @@ pub fn restore_cmd(ours: bool) -> [u8; CMD] {
 }
 
 static ORIG_EFFECT: AtomicUsize = AtomicUsize::new(0);
-static EFFECTS_SEEN: Mutex<Vec<&'static str>> = Mutex::new(Vec::new());
+/// The drawn effects shrunk so far, each once a draw it was shrunk in (the log's first line for each).
+static EFFECTS_SEEN: Mutex<Vec<(&'static str, Pic)>> = Mutex::new(Vec::new());
 
 type EffectDraw = unsafe extern "system" fn(usize, usize, usize, usize) -> usize;
 
@@ -704,28 +707,68 @@ type EffectDraw = unsafe extern "system" fn(usize, usize, usize, usize) -> usize
 unsafe extern "system" fn effect_detour(out: usize, node: usize, a3: usize, a4: usize) -> usize {
     let f: EffectDraw = std::mem::transmute(ORIG_EFFECT.load(Ordering::Acquire));
     let r = f(out, node, a3, a4);
-    let _ = std::panic::catch_unwind(|| unsafe { shrink_effects(out) });
+    let _ = std::panic::catch_unwind(|| unsafe { shrink_sprites(out, None, Pic::Effect) });
     if !PIC_DONE.load(Ordering::Relaxed) {
         let _ = std::panic::catch_unwind(|| unsafe { note_picture(out, node) });
     }
     r
 }
 
-unsafe fn shrink_effects(out: usize) {
+/// Which draw a dense picture was shrunk in (the log's word for it).
+#[derive(Clone, Copy, Debug, PartialEq)]
+enum Pic {
+    /// a kit's view effect (the view node draw)
+    Effect,
+    /// a buff's view (the body draw appends each buff's sprite to its own list)
+    Buff,
+    /// a projectile's view (its own render)
+    Projectile,
+}
+
+impl Pic {
+    fn word(self) -> &'static str {
+        match self {
+            Pic::Effect => "effect",
+            Pic::Buff => "buff",
+            Pic::Projectile => "projectile",
+        }
+    }
+}
+
+/// Every sprite command of a drawn effect's sheet ([`hd::Table::drawn_effects`]) in the command Vec at `out` wrapped in a
+/// 1 / PPU scale about the sprite's top-left corner (+0x78 / +0x7c): the game placed that corner with the frame's size
+/// divided by PPU (the anim table, src/lookup.rs) but draws the picture UV x the texture's real pixels - a square a game
+/// pixel, PPU times too big, hanging right and down from the corner; shrunk about the corner it covers its frame at
+/// 1 / PPU. The renderer applies the sprite's own pivot, flips and rotation inside that (a turned projectile too:
+/// 0.7.1's per-command draw scales everything after the corner with the drawn size). Left alone: a sprite this pack
+/// wrapped already (the node draw's, inside the body draw) and, in a body draw, the unit's own body (`body`: the last
+/// part of its body resource, the sheet's id). A full effect ([`hd::Table::full_effects`]) only while it is dense.
+unsafe fn shrink_sprites(out: usize, body: Option<&str>, what: Pic) {
     if !plausible(out) {
         return;
     }
     let (cap, len) = (q(out), q(out + 0x10));
-    // cap usize::MAX: the caller's None (0x1b2c388 checks it)
+    // cap usize::MAX: the node draw's None (its caller checks it); a projectile's render returns {0, 8, 0} for none
     if cap == usize::MAX || len == 0 || len > 256 || cap < len || !plausible(q(out + 8)) {
         return;
     }
     let heroes = hd::heroes();
+    if heroes.drawn_effects.is_empty() {
+        return;
+    }
     let mut i = 0;
     while i < q(out + 0x10) {
         let c = q(out + 8) + i * CMD;
-        let hero = sprite_name(c).and_then(|n| heroes.of_name(n)).filter(|h| heroes.drawn_effects.contains(&h.id));
-        let Some(hero) = hero else {
+        let Some(name) = sprite_name(c) else {
+            i += 1;
+            continue;
+        };
+        let wrapped = i > 0 && {
+            let p = c - CMD;
+            q(p) as u64 == scale_tag() && q(p + OURS_AT) as u64 == OURS
+        };
+        let hero = heroes.dense_of_name(name).filter(|h| heroes.drawn_effects.contains(&h.id));
+        let Some(hero) = hero.filter(|_| !wrapped && !body.is_some_and(|b| is_body(name, b))) else {
             i += 1;
             continue;
         };
@@ -735,12 +778,47 @@ unsafe fn shrink_effects(out: usize) {
         insert(out, i, &scale_cmd(k, x, y, true));
         i += 3;
         if let Ok(mut seen) = EFFECTS_SEEN.try_lock() {
-            if !seen.contains(&hero.id) {
-                seen.push(hero.id);
-                wlog(format!("{}: effect picture drawn x{k:.3} about its corner ({x:.1}, {y:.1})", hero.id));
+            if !seen.iter().any(|s| s.0 == hero.id && s.1 == what) {
+                seen.push((hero.id, what));
+                wlog(format!("{}: {} picture drawn x{k:.3} about its corner ({x:.1}, {y:.1})", hero.id, what.word()));
             }
         }
     }
+}
+
+/// The body draw's own list after the game made it: the buffs' pictures among it shrunk (src/build.rs: the body draw
+/// renders each buff's view and appends its sprite) - not the unit's body, nor its view effects the node draw shrank
+/// inside it already.
+unsafe fn shrink_buffs(out: usize, ent: usize) {
+    if !plausible(ent) || hd::heroes().drawn_effects.is_empty() {
+        return;
+    }
+    let res = string_at(ent + RES_PTR, ent + RES_LEN_AT).or_else(|| string_at(ent + NAME_PTR, ent + NAME_LEN_AT));
+    let Some(body) = res.and_then(|r| r.rsplit('/').next()).and_then(|r| r.split('#').next()) else { return };
+    shrink_sprites(out, Some(body), Pic::Buff);
+}
+
+static ORIG_PROJ: AtomicUsize = AtomicUsize::new(0);
+static ORIG_PROJ3: AtomicUsize = AtomicUsize::new(0);
+
+/// A projectile view's render (rcx = the command Vec it returns, rdx = the system, r8 = the projectiles, r9 = the assets,
+/// the 5th on the stack = the projectile's id): {0, 8, 0} when the projectile is gone, else one sprite.
+type ProjRender = unsafe extern "system" fn(usize, usize, usize, usize, usize) -> usize;
+
+/// The Animated projectiles' render (Build::proj_render): as the game draws it, then its dense sprite shrunk.
+unsafe extern "system" fn proj_detour(out: usize, sys: usize, list: usize, assets: usize, id: usize) -> usize {
+    let f: ProjRender = std::mem::transmute(ORIG_PROJ.load(Ordering::Acquire));
+    let r = f(out, sys, list, assets, id);
+    let _ = std::panic::catch_unwind(|| unsafe { shrink_sprites(out, None, Pic::Projectile) });
+    r
+}
+
+/// The ThreePhase projectiles' render (Build::proj_render3), the same way.
+unsafe extern "system" fn proj3_detour(out: usize, sys: usize, list: usize, assets: usize, id: usize) -> usize {
+    let f: ProjRender = std::mem::transmute(ORIG_PROJ3.load(Ordering::Acquire));
+    let r = f(out, sys, list, assets, id);
+    let _ = std::panic::catch_unwind(|| unsafe { shrink_sprites(out, None, Pic::Projectile) });
+    r
 }
 
 /// The drawn effects' draw log, `PIC` lines (league.dll 0.9.16; the module's notes say why): lines in all a session.
@@ -855,7 +933,7 @@ impl PicLog {
 
 /// The drawn effect a sheet or sprite name is (`asset/league/champions/league_yone#sheet` -> league_yone).
 fn drawn_of(heroes: &hd::Heroes, name: &str) -> Option<&'static str> {
-    heroes.of_name(name).filter(|h| heroes.drawn_effects.contains(&h.id)).map(|h| h.id)
+    heroes.dense_of_name(name).filter(|h| heroes.drawn_effects.contains(&h.id)).map(|h| h.id)
 }
 
 /// Whether an effect sheet goes with a drawn effect's hero (`league_yone_sym` with `league_yone`): the tally's other
@@ -1136,15 +1214,39 @@ pub fn install_once(b: &'static Build) {
                     as usize, &ORIG_BODY)
         };
         wlog(format!("body draw hooked ({r:?}): shadows, rings and marks round a dense hero at the game's size"));
+        let body_ok = r.is_ok();
+        let mut effect_ok = false;
         if b.effect_draw != 0 {
             let r = unsafe {
                 super::lookup::hook_keeping_r9(module + b.effect_draw,
                     effect_detour as EffectDraw as usize, &ORIG_EFFECT)
             };
+            effect_ok = r.is_ok();
             // the host's own table's (a guest's come in later and are shrunk the same)
             let drawn = &hd::heroes().drawn_effects;
             wlog(format!("effect draw hooked ({r:?}): {} at 1 / PPU",
                          if drawn.is_empty() { "the drawn effects".to_string() } else { drawn.join(", ") }));
+        }
+        // the projectiles' pictures (2026-11-09, the effects PPU): the renders the data's view_projectiles play, each
+        // reading r9 (the assets) and a fifth argument
+        let mut proj_ok = false;
+        for (rva, detour, orig, what) in [(b.proj_render, proj_detour as ProjRender, &ORIG_PROJ, "Animated"),
+                                          (b.proj_render3, proj3_detour as ProjRender, &ORIG_PROJ3, "ThreePhase")] {
+            if rva == 0 {
+                wlog(format!("{what} projectiles' render not known: their dense pictures are not shrunk"));
+                continue;
+            }
+            let r = unsafe { super::lookup::hook_keeping_r9(module + rva, detour as usize, orig) };
+            proj_ok |= what == "Animated" && r.is_ok();
+            wlog(format!("{what} projectiles' render hooked ({r:?})"));
+        }
+        // the full effects (a hero's whole effect sheets dense: view effects, buffs and projectiles) only with all three
+        let on = body_ok && effect_ok && proj_ok;
+        hd::set_full_on(on);
+        let full = &hd::heroes().full_effects;
+        if !full.is_empty() {
+            wlog(format!("full effects {}: {}", if on { "dense (buff and projectile pictures shrunk too)" } else {
+                "at 1x (a draw they need was not hooked)" }, full.join(", ")));
         }
     });
 }

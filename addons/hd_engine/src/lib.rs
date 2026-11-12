@@ -47,7 +47,8 @@ pub(crate) fn wlog(msg: impl AsRef<str>) {
 /// pack's heroes ([`Role::Host`]); a later one hands its table to that one and hooks nothing ([`Role::Guest`]).
 pub fn start(table: &Table<'_>, who: &str, log: fn(&str)) -> Role {
     let _ = LOG.set(log);
-    share::start_with(&share::ProcessEnv, &hd::REGISTRY, &share::process_tag(), table, who, share::door, install)
+    share::start_with(&share::ProcessEnv, &hd::REGISTRY, &share::process_tag(), table, who, share::door, share::door_full,
+                      install)
 }
 
 /// The game EXE's base in this process.

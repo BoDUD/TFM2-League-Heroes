@@ -1,0 +1,65 @@
+# Codex's effect redraws the review kept OFF (tools/art/import_fx_redraw.py): `sheet:tag  # why` - the tag keeps the dense
+# frames densify_fx.py gave it (Scale2x). A redraw is taken only when it is finer than those AND the same effect.
+#
+# Review 2026-11-10, pack 1 delivery 4 (Ahri, Ambessa, Amumu, Ashe; 44 tags, 25 taken): every distinct frame as 1x |
+# Scale2x | redraw read in, 6 screen px a game pixel. What went wrong, for the next deliveries: thin lines, '+' crosses
+# and 4-point stars drawn thicker; open shapes closed; rays merged into blobs; arrowheads rounded into balls; and a
+# whole hero (Amumu) traced block for block - no finer than Scale2x, blockier where Scale2x rounds the corners.
+league_ahri_fx:hit          # the thin 4-point star fattened, the checkered ring round it filled in
+league_ahri_fx:q_hit        # the burst's rays merged into a blob, the swirl drawn solid
+league_ahri_fx:q_true       # the thin + and the star drawn twice as thick
+league_ahri_fx:r_bolt       # the open C shapes closed into thick rings
+league_ahri_fx:r_hit        # the star's rays smudged together, holes in frame 4
+league_ambessa_fx:e_hit     # frame 1's capsule and band turned into a goblet; repair 1 (11-11) no better: see below
+league_amumu_big:e_tantrum  # traced square for square: blockier than Scale2x
+league_amumu_big:r_burst    # traced square for square: no finer than Scale2x
+league_amumu_fx:curse       # traced square for square
+league_amumu_fx:despair     # traced square for square
+league_amumu_fx:hit         # the hit star fattened (the gems are fine)
+league_amumu_fx:q_bandage   # traced square for square
+league_amumu_fx:q_wrap      # the thin rays round the wrap drawn thick
+league_amumu_fx:r_wrap      # traced square for square
+league_ashe_fx:arrow        # the thin shaft drawn thick
+league_ashe_fx:hit          # the stars' rays fattened
+league_ashe_fx:volley       # the arrowheads rounded into balls, the shafts thicker
+league_ashe_r:arrow         # frames 2-3 messier: bigger shards and extra bits round the swirl
+#
+# Review 2026-11-10, the delivery after the first (fx_completed_after_first: Akali, Akshan, Alistar new - 35 tags, 5 taken;
+# Ambessa, Amumu, Ashe the same files as delivery 4). Read in with corners_only (outside the squares only at their steps'
+# inner corners). Most of the new strips are the guide's 8 x 8 blocks copied whole (their edge blocks all or nothing):
+# no finer than Scale2x - Alistar's five, Akshan's hits, Akali's marks and smoke.
+league_akali_big:e_dash      # traced square for square
+league_akali_big:q_fan       # traced square for square
+league_akali_big:r_dash      # traced square for square; the last frame's dotted chevrons read in solid
+league_akali_big:w_smoke     # the smoke traced square for square (Scale2x rounds it), the thin green leaves drawn as blobs
+league_akali_fx:e_hit        # the ring dented at the left (frame 3), the cross inside it broken up (frame 2)
+league_akali_fx:e_mark       # traced square for square
+league_akali_fx:e_shuriken   # traced square for square
+league_akali_fx:p_ready      # traced square for square
+league_akali_fx:p_ring       # traced square for square
+league_akali_fx:q_hit        # the thin star's middle grown into a solid diamond
+league_akali_fx:r1_hit       # traced square for square
+league_akshan_big:r_lock     # traced square for square
+league_akshan_fx:a_hit       # traced square for square
+league_akshan_fx:a_shot      # traced square for square: blockier than Scale2x
+league_akshan_fx:e_rope      # traced square for square
+league_akshan_fx:p_hit       # traced square for square
+league_akshan_fx:p_sh        # traced square for square
+league_akshan_fx:q_catch     # traced square for square: the ring blockier than Scale2x
+league_akshan_fx:q_hit       # traced square for square
+league_akshan_fx:q_rang      # traced square for square
+league_akshan_fx:r_hit       # frame 4's rays heavier, its yellow core turned into a salmon blob
+league_akshan_fx:w_mark      # traced square for square
+league_akshan_fx:w_ms        # traced square for square; the 6-shaped swirl came out messier
+league_akshan_rv:w_revive    # traced square for square (the beam and the ring)
+league_alistar_fx:a_hit      # traced square for square
+league_alistar_fx:e_hit      # traced square for square
+league_alistar_fx:e_hit_stun # traced square for square; frame 4's dotted ring read in joined into lines
+league_alistar_fx:p_heal     # traced square for square
+league_alistar_fx:w_hit      # traced square for square
+#
+# Review 2026-11-11, feedback repair 1 (fx_feedback_repair_01: three of the tags above redrawn after the feedback). Taken:
+# Ambessa's q_tip (the ring gone, the X's arms smooth slashes) and Akshan's r_bullet (the tail's dark red, orange and
+# yellow back where the guide has them, the slopes smooth). Ambessa's e_hit stays off: frame 1's slot read in jagged,
+# the white cap bulging past the grey rim at the shoulders; frame 2's shoulder stripes (pale yellow / orange / pale
+# yellow) one pale band; frame 3's two pieces swollen into lumps, the white middle smaller.

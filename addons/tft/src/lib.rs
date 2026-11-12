@@ -8,6 +8,11 @@
 //! hooks nothing (hd_engine src/share.rs). Before 0.42.0 league.dll drew these heroes' dense frames, only with both packs
 //! enabled. The engine's lines: `%APPDATA%\TeamSamoyed\TeamfightManager2\data\tft.log`, new each start (the last one
 //! kept as tft.prev.log); each hero module keeps its own log.
+//!
+//! The effects too (0.55.0, 2026-11-09: 「补画你要成压缩包给我啊 另外云顶英雄的也要调啊」): every hero's effect sheet carries
+//! `hd_` twins (tools/art/densify_fx.py: redrawn from Codex's raws where those are faithful, else Scale2x'd), listed in
+//! src/fx_ppu.rs (tools/art/fx_ppu_table.py --pack tft). hd_engine draws them dense only where it shrinks every effect,
+//! buff and projectile picture (`full_effects`), and hands them to a league.dll host only through its full door.
 
 pub mod alune;
 pub mod aoshin;
@@ -17,6 +22,7 @@ pub mod brock;
 pub mod cinderling;
 pub mod daeja;
 pub mod elderdragon;
+pub mod fx_ppu;
 pub mod gromp;
 pub mod hd;
 pub mod sentry;
