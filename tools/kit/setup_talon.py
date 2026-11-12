@@ -34,8 +34,10 @@ A = "<#ffb900ff>"      # durations, counts
 R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing
 E = "<>"
-# champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28)
-VIEW = {"face": {"x": 10, "y": -31}, "center": {"x": 0, "y": -14}}
+# champion_view: set from the imported sprite (tfm2_ase.py face; banpick_center when the idle tops -28: -39 - top).
+# banpick_center -10 (2026-11-13, the user: 「泰隆BP格位置不太对」): the PPU redo (2026-10-31, drawn at 90 %) brought the
+# idle's top from -38 to -28.7, but the card kept the old sprite's -1 - he sat 9 game px low, his legs cut by the canvas.
+VIEW = {"face": {"x": 10, "y": -31}, "center": {"x": 0, "y": -14}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phy(k):
