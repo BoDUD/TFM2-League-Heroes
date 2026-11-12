@@ -1,4 +1,4 @@
-# 嘉文四世附加包（测试版 v0.1.2）
+# 嘉文四世附加包（测试版 v0.1.4）
 
 0.1.2（2026-11-05）：待命式大招没用掉时的冷却退还从来没生效过：n tick 的待命标记只有 n - 1 tick 看得见（经典 SDK 探针 lr1105/fix_j：n - 1 之前 148/148 次看得见，第 n tick 0 次），退还在窗口最后一 tick 读它时已经没了，所以每次待命过期都要等完整冷却（塞恩追踪：过期到再待命 3558 tick，改读后 877）。现在在窗口结束前 3 tick 读（`tools/kit/build_jarvaniv.py`），副本跟着主包重新生成；DLL 没变。看 `league_ult_press.log` 的 `R ARMED … refunded (not used)`。
 
@@ -30,13 +30,14 @@
 5. 日志在 `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jarvaniv.log`，每次启动游戏重写（上一次的留在 `.prev.log`）：
    - `SPAWN`：出生；`RING`：立墙（圆心、半径、持续 tick）；
    - `KEPT IN` / `KEPT OUT`：把单位挡在圈里 / 圈外（0.1.2，2026-11-05：一个单位一道墙只记第一下；11-04 的日志 42 道墙记了 976 行，
-     挡着的每 tick 一行）。
+     挡着的每 tick 一行）；
+   - `LEAPT IN` / `LEAPT OUT`：闪现、飞越过墙放行（0.1.3）；`THROUGH IN` / `THROUGH OUT`：无视地形的单位穿过墙（0.1.4）。
 
 ## 开发
 
 - `python addons/league_jarvaniv/make_override.py`：从参数表重新生成 `override/` 和 `text/`（先核对主包的嘉文四世和参数表一致）。
   主包的嘉文四世改了以后要重跑。
-- 在 `addons/` 下 `cargo test --release -p league_jarvaniv`：单元测试（参数、圈里的出不去、圈外的进不来、按立墙时的一侧判断、闪现和飞越过墙放行）。
+- 在 `addons/` 下 `cargo test --release -p league_jarvaniv`：单元测试（参数、圈里的出不去、圈外的进不来、按立墙时的一侧判断、闪现和飞越过墙放行、无视地形的单位穿墙）。
 - 在 `addons/` 下 `cargo build --release -p league_jarvaniv`（Windows）得到 `target/release/league_jarvaniv.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
 
@@ -52,3 +53,14 @@
 - 日志 `LEAPT OUT` / `LEAPT IN`：谁、从哪到哪。
 - 单元测试 `a_blink_or_a_flight_crosses_the_wall`。
 
+## 0.1.4：无视地形的单位穿得过岩墙环（2026-11-12）
+
+用户：「我们的蝎子能穿墙吗」「不能的话就改 联盟的可以穿墙」。斯卡纳的以绪塔尔冲击带无视地形（`league_skarner_e_ghost`，`ignore_wall`），地图上的墙挡不住他（经典引擎的模拟：48 局里冲锋时他和目标隔着墙格的 41 次，全都直接穿了过去）。可岩墙环只放过一 tick 挪 `BLINK` 以上的闪现和飞越，他冲锋每 tick 3000，撞上就被放回原处。
+
+英雄联盟里英雄造的墙也算地形，无视地形的位移穿得过去。现在：
+- 身上有 `ignore_wall` 的 buff 的单位不碰墙，穿过去；以后按它站的那一侧算（和闪现一样）。
+- 带这种 buff 的：斯卡纳的以绪塔尔冲击、凯隐的掠影步、奥瑞利安·索尔和斯莫德的飞行，附加包里泰隆、巴德、阿萝拉的穿墙位移。
+- 日志 `THROUGH OUT` / `THROUGH IN`：谁、哪个 buff、在哪；一个单位一道墙只记一次。
+- 单元测试 `a_unit_ignoring_terrain_walks_through_the_wall`、`only_a_buff_ignoring_terrain_goes_through`。
+
+冰鸟的冰墙（`league_anivia` 0.1.10）、巨魔的冰柱（`league_trundle` 0.1.3）、奥恩的熔岩柱、塔莉垭的墙幔同样放过。

@@ -58,3 +58,7 @@ Q 的「用过的地面」（`q_ground`，每 3 tick）开头 3 tick 不算；E 
 （`count restarted N (a clear of the walls, b walking along it)`）。单元测试 `a_unit_that_stops_jitters_and_is_pushed_is_still_stepped_round`、
 `the_count_starts_again_only_clear_of_every_wall`。下一局看：挡了 100 tick 以上的 `HOLD` 少了、`stepped along it` 占挡的大半；`count restarted`
 多半是 `clear of the walls`。
+
+## 无视地形的单位穿得过墙（2026-11-12）
+
+用户：「我们的蝎子能穿墙吗」「不能的话就改 联盟的可以穿墙」。英雄联盟里墙幔是地形，无视地形的位移穿得过去；这里以前谁都挡（斯卡纳冲锋每 tick 3000，撞上就被放回原处）。现在身上有无视地形的 buff（`ignore_wall`：斯卡纳的以绪塔尔冲击、凯隐的掠影步、奥瑞利安·索尔和斯莫德的飞行，附加包里泰隆、巴德、阿萝拉的穿墙位移）的单位不挡，穿过去；日志 `THROUGH`（走进墙的那一 tick 记一行）；单元测试 `only_a_buff_ignoring_terrain_goes_through`。

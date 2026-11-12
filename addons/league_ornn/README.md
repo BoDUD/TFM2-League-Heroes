@@ -24,7 +24,9 @@ W / E / R 让敌方英雄易碎，下一下普攻引爆。主包是纯数据：*
   普攻、Q、E 的说明开头加【扩展包】。
 - **熔岩柱**：位置记在他身上的 buff 名里（`league_ornn_pillar@x,y`，同一局的两份预模拟各记各的），被动每 tick 读它：中心进了柱子
   （`PILLAR_R` + 单位半径）的单位：走路的贴着柱子的边绕过去（游戏的寻路不知道柱子，原来放回上一 tick 的位置会一直卡到柱子倒），
-  一 tick 走了 `DASH_STEP` 以上（冲刺）的放回上一 tick 的位置。
+  一 tick 走了 `DASH_STEP` 以上（冲刺）的放回上一 tick 的位置。身上有无视地形的 buff（`ignore_wall`）的单位不挡，穿过去
+  （2026-11-12，用户：「我们的蝎子能穿墙吗」「不能的话就改 联盟的可以穿墙」：英雄联盟里柱子是地形，斯卡纳的以绪塔尔冲击、
+  凯隐的掠影步这类穿得过），日志 `THROUGH`（走进柱子的那一 tick 记一行）。
 - **地震**：`league_ornn:charge` 判断撞上的是柱子还是墙（`wall_ahead` 读 `league_camille_wall` 的地图墙格），给他挂 1 tick 后数据读的
   `league_ornn_e_quake_go`（周围击飞、伤害、易碎都是主包的数据），撞上的柱子从 buff 名里去掉。
 - **易碎**：英雄身上的 `league_ornn_brittle`；引爆用 `deal_damage_typed(Fixed)`、击飞和击退，易碎随之去掉。

@@ -15,12 +15,17 @@
 //!   个为止（他身上的 `league_skarner_rc_<他>`），每个受到 `R_DMG` + `R_RATIO`% 攻击力的**魔法伤害**、压制 `R_SUP` 拍并立刻战栗；
 //!   压制期间被动每拍把它们放在他身边、保持被打中时的方向，离他最多 `R_GAP`（他走到哪拖到哪）。主包：线上所有英雄都中，物理
 //!   伤害，每 3 拍往他身上拽一下。被拽时每拍最多走 `R_PULL`：远的先被拽到他身边（不是一下瞬移）。
+//! - **拖到英雄造的墙上也晕**（2026-11-12，用户：「要做」「放进同一个pr」）：地图墙格里没有英雄造的墙（嘉文的岩墙环、冰鸟的
+//!   冰墙、巨魔的冰柱、奥恩的熔岩柱、塔莉垭的墙幔，那些附加包把碰墙的单位放回原处），所以拖着走的英雄挂 `league_skarner_ec_<他>`，
+//!   被动每拍看它走了多远：走起来以后一拍走不到 `STALL` 成（或者 `STALL_T` 拍都没走起来）就是半路撞上了墙，当场砸、晕
+//!   （同撞地图的墙）。被别人定身、眩晕时不算，免疫控制的不砸。英雄联盟里英雄造的墙也是地形，拖到上面一样晕。
 //!
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。计数在目标身上（按斯卡纳的编号起名）
 //! 和被动自己身上，不用全局变量，服务端预模拟和你看的那场各算各的。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_skarner.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `SPAWN`、`QUAKE`（叠层 / 战栗）、`IMPACT`（撞墙 / 没墙）、`WALL`（撞墙眩晕）、`IMPALE`（压制 / 超过 R_N 个）、`DRAG`，限了条数。
+//! `SPAWN`、`QUAKE`（叠层 / 战栗）、`IMPACT`（撞墙 / 没墙）、`WALL`（撞墙眩晕；半路撞上英雄造的墙是 `slammed into a wall the map
+//! does not show`）、`IMPALE`（压制 / 超过 R_N 个）、`DRAG`，限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -164,6 +169,10 @@ fn dragged_name(me: usize) -> String {
 fn count_name(me: usize) -> String {
     n(&format!("rc_{me}"))
 }
+/// 这个斯卡纳正拖着它走（以绪塔尔冲击，最后一步之前）。
+fn carry_name(me: usize) -> String {
+    n(&format!("ec_{me}"))
+}
 
 pub fn dist(a: Pt, b: Pt) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
@@ -267,6 +276,19 @@ pub fn pull_step(at: Pt, to: Pt) -> Pt {
     }
 }
 
+/// 拖着走的英雄一拍至少该走 `E_KB_SPEED` 的这么多成：不到就是停下了（撞上了墙）。
+pub const STALL: f64 = 0.4;
+/// 一拍走了 `E_KB_SPEED` 的这么多成就算走起来了。
+pub const MOVING: f64 = 0.6;
+/// 看到它这么多拍还没走起来：一抓住就顶在墙上了（强制位移晚一拍才开始走，所以不是一看到就算）。
+pub const STALL_T: usize = 3;
+
+/// 拖着走的英雄这一拍停下了吗（撞上了地图墙格里没有的墙）：这一拍只走了 `step`，不到 `STALL` 成，并且之前走起来过
+/// （`moved`）、或者已经看了它 `seen_for` 拍还没走起来。
+pub fn stalled(step: f64, moved: bool, seen_for: usize) -> bool {
+    step < E_KB_SPEED as f64 * STALL && (moved || seen_for >= STALL_T)
+}
+
 /// 被拖着的英雄相对他的位置：保持方向 `off`，离他不超过 `R_GAP`（太近就不动它的距离）。
 pub fn drag_offset(off: Pt) -> Pt {
     let d = (off.0 * off.0 + off.1 * off.1).sqrt();
@@ -328,6 +350,21 @@ fn shove(sim: &mut StableSim<'_>, target: usize, dir: Pt, len: f64, speed: usize
     cc.speed = speed as u64;
     sim.apply_cc(target, &cc);
     ticks
+}
+
+/// 拖着走 `ticks` 拍的英雄挂上 `league_skarner_ec_<他>`，少挂一拍（最后一步可能不满一步，不算停下）：被动看它半路停没停。
+fn carried(sim: &mut StableSim<'_>, me: usize, target: usize, ticks: usize) {
+    if ticks >= 2 {
+        retimed(sim, target, &carry_name(me), ticks - 1);
+    }
+}
+
+/// 挡住单位的控制（不算强制位移和施法动作）：被别人定住时停下不是撞墙。
+const HELD: [CcKindV1; 6] =
+    [CcKindV1::Bind, CcKindV1::Stun, CcKindV1::Airborne, CcKindV1::Taunt, CcKindV1::Fear, CcKindV1::Charm];
+
+fn held(sim: &StableSim<'_>, id: usize) -> bool {
+    sim.get_entity(id).is_some_and(|e| (0..e.cc_count()).filter_map(|i| e.cc_at(i)).any(|c| HELD.iter().any(|k| k.code() == c.kind)))
 }
 
 fn alive_champion(sim: &StableSim<'_>, id: usize) -> bool {
@@ -406,12 +443,14 @@ fn impact(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
             let ticks = if len >= 1.0 { shove(sim, target, dir, len, E_KB_SPEED) } else { 0 };
             retimed(sim, target, &wall_due_name(me), ticks.max(1));
             retimed(sim, target, &wall_go_name(me), ticks + 4);
+            carried(sim, me, target, ticks);
             if let Some(k) = counted("impact") {
                 wlog(format!("{} IMPACT #{target} at {}: a wall {len:.0} away, slams in {ticks} ticks #{k}", head(sim, me), pt(at)));
             }
         }
         None => {
-            shove(sim, target, dir, reach, E_KB_SPEED);
+            let ticks = shove(sim, target, dir, reach, E_KB_SPEED);
+            carried(sim, me, target, ticks);
             if let Some(k) = counted("impact") {
                 wlog(format!("{} IMPACT #{target} at {}: no wall within {reach:.0}, dragged, no stun #{k}", head(sim, me), pt(at)));
             }
@@ -455,10 +494,20 @@ impl StableEffectType for Step {
 
 // ===================== 被动：撞墙到达、拖人 =====================
 
+/// 以绪塔尔冲击拖着走的一个英雄：上一拍在哪、第一次看到的 tick、走起来过没有。
+#[derive(Clone, Copy)]
+struct Carry {
+    last: Pt,
+    since: usize,
+    moved: bool,
+}
+
 #[derive(Clone, Default)]
 struct Sovereign {
     /// 被毒刺拖着的英雄 -> 相对他的位置。
     dragged: HashMap<usize, Pt>,
+    /// 以绪塔尔冲击拖着走的英雄（看它半路停没停）。
+    carried: HashMap<usize, Carry>,
 }
 
 impl Sovereign {
@@ -468,6 +517,44 @@ impl Sovereign {
             return;
         }
         sim.entity_remove_buff(foe, &wall_go_name(me));
+        Self::slam(sim, me, foe, "the wall");
+    }
+
+    /// 拖着走的英雄半路停下了（[`stalled`]）：撞上了地图墙格里没有的墙（英雄造的墙），当场砸、晕，地图墙的那一下不再来。
+    /// 被别人定身、眩晕时停下不算；免疫控制的不砸（挣脱了）。
+    fn carry(&mut self, sim: &mut StableSim<'_>, me: usize, foe: usize) {
+        let carrying = has_buff(sim, foe, &carry_name(me)) && sim.get_entity(foe).is_some_and(|e| e.is_alive());
+        let (Some(at), true) = (pos(sim, foe), carrying) else {
+            self.carried.remove(&foe);
+            return;
+        };
+        let now = sim.tick();
+        let Some(c) = self.carried.get_mut(&foe) else {
+            self.carried.insert(foe, Carry { last: at, since: now, moved: false });
+            return;
+        };
+        let step = dist(at, c.last);
+        c.last = at;
+        if !stalled(step, c.moved, now.saturating_sub(c.since)) {
+            c.moved |= step >= E_KB_SPEED as f64 * MOVING;
+            return;
+        }
+        let ticks = now.saturating_sub(c.since);
+        self.carried.remove(&foe);
+        if held(sim, foe) {
+            return;   // someone else's stun or root stopped it, not a wall
+        }
+        sim.entity_remove_buff(foe, &carry_name(me));
+        sim.entity_remove_buff(foe, &wall_due_name(me));
+        sim.entity_remove_buff(foe, &wall_go_name(me));
+        if cc_immune(sim, foe) {
+            return;
+        }
+        Self::slam(sim, me, foe, &format!("a wall the map does not show at {} ({ticks} ticks into the carry)", pt(at)));
+    }
+
+    /// 撞墙：`E_WALL_DMG` + `E_RATIO`% 攻击力 + 它最大生命 `E_WALL_HP`% 的物理伤害，眩晕 `E_STUN` 拍（免疫控制的不晕）。
+    fn slam(sim: &mut StableSim<'_>, me: usize, foe: usize, what: &str) {
         let Some(max_hp) = sim.get_entity(foe).filter(|e| e.is_alive()).map(|e| e.hp().1) else { return };
         let ad = sim.get_entity(me).map_or(0, |e| e.stat().attack);
         sim.deal_damage_typed(me, foe, wall_damage(ad, max_hp), DamageTypeV1::Ad, AttackTypeV1::Skill);
@@ -479,7 +566,7 @@ impl Sovereign {
             retimed(sim, foe, &n("e_stun"), E_STUN);
         }
         if let Some(k) = counted("wall") {
-            wlog(format!("{} WALL #{foe} slammed into the wall: {} physical, stunned {E_STUN} ticks #{k}", head(sim, me), wall_damage(ad, max_hp)));
+            wlog(format!("{} WALL #{foe} slammed into {what}: {} physical, stunned {E_STUN} ticks #{k}", head(sim, me), wall_damage(ad, max_hp)));
         }
     }
 
@@ -512,6 +599,7 @@ impl StablePassive for Sovereign {
 
     fn on_spawn(&mut self, sim: &mut StableSim<'_>, player: usize, me: usize) {
         self.dragged.clear();
+        self.carried.clear();
         let team = sim.get_entity(me).map_or(usize::MAX, |e| e.team());
         wlog(format!("{} SPAWN: the add-on's Skarner (player {player}, team {team})", head(sim, me)));
     }
@@ -526,6 +614,7 @@ impl StablePassive for Sovereign {
             .collect();
         for foe in foes {
             Self::walls(sim, me, foe);
+            self.carry(sim, me, foe);
             if alive {
                 self.drag(sim, me, foe, him);
             } else {
@@ -610,9 +699,26 @@ mod tests {
     }
 
     #[test]
+    fn a_carry_that_stops_short_hit_a_wall() {
+        let full = E_KB_SPEED as f64;
+        // carried along at full speed: on it goes
+        assert!(!stalled(full, true, 5));
+        assert!(!stalled(full * 0.5, true, 5), "slowed a little (slid along a wall's face): not a slam");
+        // it was moving and a champion-made wall put it back: a wall
+        assert!(stalled(0.0, true, 5));
+        assert!(stalled(full * 0.3, true, 2));
+        // the forced move starts a tick late: not moving on the first ticks is no wall yet
+        assert!(!stalled(0.0, false, 1));
+        assert!(!stalled(0.0, false, STALL_T - 1));
+        // never moved at all: it stood against the wall when he grabbed it
+        assert!(stalled(0.0, false, STALL_T));
+        assert!(MOVING > STALL, "a step that counts as moving never counts as stopped");
+    }
+
+    #[test]
     fn names_fit_a_buff() {
         for s in [stacks_name(usize::MAX), quaking_name(usize::MAX), wall_go_name(usize::MAX), wall_due_name(usize::MAX),
-                  dragged_name(usize::MAX), count_name(usize::MAX), n("p_quake"), n("r_held"), n("e_stun")] {
+                  dragged_name(usize::MAX), count_name(usize::MAX), carry_name(usize::MAX), n("p_quake"), n("r_held"), n("e_stun")] {
             assert!(s.len() <= BUFF_NAME_CAP, "{s}");
         }
     }

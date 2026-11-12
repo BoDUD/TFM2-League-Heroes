@@ -10,6 +10,9 @@
 //! - **闪现、飞越过墙**（0.1.3，英雄联盟：天崩地裂的墙挡不住闪现和越墙的位移）：一 tick 里挪了 `BLINK` 以上（闪现、加里奥的
 //!   英雄登场这类瞬移）不算碰墙，放过去，这个单位以后按它落在的那一侧算（飞出去的进不来，飞进来的出不去）。11-12 的日志：加里奥
 //!   8 次大招没飞起来（`NO FLIGHT`），6 局里都有嘉文，同一 tick 记到 `KEPT OUT ... league_galio`——飞出去的那一下被放回了原地。
+//! - **无视地形的单位穿墙**（0.1.4，英雄联盟：英雄造的墙也是地形，无视地形的位移穿得过去）：身上有 `ignore_wall` 的 buff
+//!   （斯卡纳的以绪塔尔冲击、凯隐的掠影步、奥瑞利安·索尔和斯莫德的飞行，附加包里泰隆、巴德、阿萝拉的穿墙位移）时不碰墙，这个单位以后按它站的
+//!   那一侧算。用户：「我们的蝎子能穿墙吗」「不能的话就改 联盟的可以穿墙」——斯卡纳冲锋每 tick 3000，不到 `BLINK`，撞上就被放回原处。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jarvaniv.log`，每次启动游戏重写。
 
@@ -187,10 +190,16 @@ pub enum Wall {
     Held((u64, u64)),
     /// 闪现 / 飞越：放过去，以后它在这一侧（true：圈里）。
     Leapt(bool),
+    /// 无视地形（身上有 `ignore_wall` 的 buff，0.1.4）：穿过去，以后它在这一侧（true：圈里）。
+    Ghost(bool),
 }
 
-/// 这一 tick 墙怎么处理这个单位：一下挪了 BLINK 以上的放过去（落在哪一侧就算哪一侧），别的照 [`hold`]。
-pub fn wall(r: &Ring, p: &Params, inside: bool, last: Option<(u64, u64)>, now: (u64, u64), body: u64) -> Wall {
+/// 这一 tick 墙怎么处理这个单位：无视地形的（`ghost`，0.1.4）穿过去、一下挪了 BLINK 以上的放过去（在哪一侧就算哪一侧），
+/// 别的照 [`hold`]。
+pub fn wall(r: &Ring, p: &Params, inside: bool, last: Option<(u64, u64)>, now: (u64, u64), body: u64, ghost: bool) -> Wall {
+    if ghost {
+        return Wall::Ghost(starts_inside(r, p, now.0, now.1));
+    }
     if leapt(last, now) {
         return Wall::Leapt(starts_inside(r, p, now.0, now.1));
     }
@@ -217,6 +226,12 @@ fn has(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
     sim.get_entity(id).is_some_and(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
 }
 
+/// 这些 buff 里无视地形的那个（`ignore_wall`）的名字：英雄联盟里英雄造的墙也是地形，斯卡纳的以绪塔尔冲击、凯隐的掠影步这类
+/// 无视地形的位移穿得过去（2026-11-12，用户：「我们的蝎子能穿墙吗」「不能的话就改 联盟的可以穿墙」）。
+pub fn ghost_of(buffs: impl IntoIterator<Item = BuffV1>) -> Option<String> {
+    buffs.into_iter().find(|b| b.ignore_wall).map(|b| b.name().to_string())
+}
+
 #[derive(Clone, Default)]
 struct Cataclysm {
     p: Params,
@@ -231,6 +246,8 @@ struct Cataclysm {
     logged: HashSet<usize>,
     /// 这道墙已经记过 `LEAPT` 的单位（0.1.3）。
     leapt_logged: HashSet<usize>,
+    /// 这道墙已经记过 `THROUGH` 的单位（0.1.4）。
+    ghost_logged: HashSet<usize>,
 }
 
 impl Cataclysm {
@@ -243,6 +260,7 @@ impl Cataclysm {
             self.last_pos.clear();
             self.logged.clear();
             self.leapt_logged.clear();
+            self.ghost_logged.clear();
             if let Some(k) = counted("ring") {
                 wlog(format!("{} RING #{k}: rock ring at ({x}, {y}), radius {}, {} ticks", head(sim, me), self.p.r_r,
                              self.p.r_t));
@@ -275,7 +293,8 @@ impl Cataclysm {
             let body = match e.radius() as u64 { 0 => BODY, r => r };
             let inside = *self.side.entry(id).or_insert_with(|| starts_inside(&ring, &self.p, pos.0, pos.1));
             let last = self.last_pos.get(&id).copied();
-            let at = match wall(&ring, &self.p, inside, last, pos, body) {
+            let ghost = ghost_of((0..e.buff_count()).filter_map(|i| e.buff_at(i)));
+            let at = match wall(&ring, &self.p, inside, last, pos, body, ghost.is_some()) {
                 Wall::Held(q) => {
                     moves.push((id, q, inside));
                     q
@@ -289,6 +308,18 @@ impl Cataclysm {
                             wlog(format!("{} LEAPT {} #{k}: {} crossed the wall in one tick, ({}, {}) -> ({}, {}) - let through",
                                          head(sim, self.me), if now_inside { "IN" } else { "OUT" }, who(sim, id), from.0,
                                          from.1, pos.0, pos.1));
+                        }
+                    }
+                    pos
+                }
+                Wall::Ghost(now_inside) => {
+                    // ignoring terrain (0.1.4): through the wall, on the side it stands from now on
+                    self.side.insert(id, now_inside);
+                    if now_inside != inside && self.ghost_logged.insert(id) {
+                        if let Some(k) = counted("through") {
+                            wlog(format!("{} THROUGH {} #{k}: {} ignores terrain ({}) - walked through the wall at ({}, {})",
+                                         head(sim, self.me), if now_inside { "IN" } else { "OUT" }, who(sim, id),
+                                         ghost.as_deref().unwrap_or("?"), pos.0, pos.1));
                         }
                     }
                     pos
@@ -405,17 +436,39 @@ mod tests {
     #[test]
     fn a_blink_or_a_flight_crosses_the_wall() {
         // walking out of the ring: held back (as before)
-        assert_eq!(wall(&RING, &p(), true, Some((525000, 400000)), (532000, 400000), 6000),
+        assert_eq!(wall(&RING, &p(), true, Some((525000, 400000)), (532000, 400000), 6000, false),
                    Wall::Held((525000, 400000)));
         // Galio's flight out of it (11-12: 80000 to 330000 in one tick): let through, outside from now on
-        assert_eq!(wall(&RING, &p(), true, Some((510000, 400000)), (600000, 450000), 6000), Wall::Leapt(false));
+        assert_eq!(wall(&RING, &p(), true, Some((510000, 400000)), (600000, 450000), 6000, false), Wall::Leapt(false));
         // a Flash in from outside: let through, inside from now on
-        assert_eq!(wall(&RING, &p(), false, Some((540000, 400000)), (515000, 400000), 6000), Wall::Leapt(true));
+        assert_eq!(wall(&RING, &p(), false, Some((540000, 400000)), (515000, 400000), 6000, false), Wall::Leapt(true));
         // a fast dash step (under BLINK a tick) still meets the wall
-        assert_eq!(wall(&RING, &p(), true, Some((525000, 400000)), (539000, 400000), 6000),
+        assert_eq!(wall(&RING, &p(), true, Some((525000, 400000)), (539000, 400000), 6000, false),
                    Wall::Held((525000, 400000)));
         assert!(!leapt(None, (900000, 900000)), "a unit first seen did not leap");
         assert!(leapt(Some((0, 0)), (BLINK + 1, 0)) && !leapt(Some((0, 0)), (BLINK, 0)));
+    }
+
+    #[test]
+    fn a_unit_ignoring_terrain_walks_through_the_wall() {
+        // Skarner's Ixtal's Impact (3000 a tick, ignore_wall) out of the ring: through, outside once past the radius
+        assert_eq!(wall(&RING, &p(), true, Some((528000, 400000)), (531000, 400000), 6000, true), Wall::Ghost(true));
+        assert_eq!(wall(&RING, &p(), true, Some((534000, 400000)), (537000, 400000), 6000, true), Wall::Ghost(false));
+        // and in from outside
+        assert_eq!(wall(&RING, &p(), false, Some((539000, 400000)), (533000, 400000), 6000, true), Wall::Ghost(true));
+        // the same step without it: held (back onto the inner side, the last tick was in the wall too)
+        assert_eq!(wall(&RING, &p(), true, Some((534000, 400000)), (537000, 400000), 6000, false),
+                   Wall::Held((500000 + 29999, 400000)));
+    }
+
+    #[test]
+    fn only_a_buff_ignoring_terrain_goes_through() {
+        // Skarner's Ixtal's Impact carries `league_skarner_e_ghost` with ignore_wall; a plain buff lets nobody through
+        let mut dash = BuffV1::timed("league_skarner_e_ghost", 44);
+        assert_eq!(ghost_of([BuffV1::timed("jungle_move_speed", 60), dash]), None);
+        dash.ignore_wall = true;
+        assert_eq!(ghost_of([BuffV1::timed("jungle_move_speed", 60), dash]).as_deref(), Some("league_skarner_e_ghost"));
+        assert_eq!(ghost_of([]), None);
     }
 
     #[test]
