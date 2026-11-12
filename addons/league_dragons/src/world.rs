@@ -708,15 +708,6 @@ pub fn sprite(ctx: &mut StableClient<'_>, v: &View, a: &Anim, frame: usize, at: 
     sprite_top_left(ctx, GAME, v.z, a, frame, x, y)
 }
 
-/// 画一帧动画，锚点放在 `"Game"` 里的 `at`（不跟着世界走的东西：海洋峡谷的雨铺在镜头看着的那一块上）。
-pub fn sprite_on_map(ctx: &mut StableClient<'_>, v: &View, a: &Anim, frame: usize, at: (f32, f32)) -> bool {
-    if !v.sprites {
-        return false;
-    }
-    let (x, y) = corner(a, at);
-    sprite_top_left(ctx, GAME, v.z, a, frame, x, y)
-}
-
 /// 世界里的一横条像素（`x`、`y` 是世界像素，`w` 条宽）：`0xRRGGBBAA`。
 pub fn run(ctx: &mut StableClient<'_>, v: &View, x: i32, y: i32, w: i32, colour: u32) -> bool {
     let (mx, my) = v.px((x as f32, y as f32));

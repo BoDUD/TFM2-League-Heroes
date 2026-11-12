@@ -1,7 +1,7 @@
 """The dragons mod's own pictures on the battlefield. 0.4.0 (the user, 2026-11-11: 「拿了龙魂没有特效的 都要补 还有远古龙
 斩杀特效的」): what a Dragon Soul does each time it triggers, the soul taken, the Elder Dragon's burn and its execute.
 0.5.0, the elemental rift's terrain: the Cloud rift's wind currents, the Hextech rift's gates, the Ocean rift's brush,
-honeyfruit and rain, the Chemtech rift's fog, the Mountain rift's rocks, the Infernal rift's burning walls. Pixel art drawn square by square with tools/art/dragon_fx.py's brushes (a few flat tones of the element, a dark
+honeyfruit (its rain went in 0.5.2), the Chemtech rift's fog, the Mountain rift's rocks, the Infernal rift's burning walls. Pixel art drawn square by square with tools/art/dragon_fx.py's brushes (a few flat tones of the element, a dark
 outline, no blur, no half-transparent pixels), one square = one game pixel (1000 simulation units): the mod's client
 extension draws these frames itself on the match's own render map (addons/league_dragons/src/world.rs), no champion's
 data needed.
@@ -624,29 +624,11 @@ def ember():
     return w, h, anchor, 6, out
 
 
-def rain():
-    """a tile of the Ocean rift's rain: thin streaks falling down and a little left. It repeats every 128 squares both
-    ways; each of its 8 frames is the last one moved on by (-16, 32), a whole tile every 4 and 8 frames"""
-    w = h = 128
-    rng = np.random.default_rng(2000)
-    drops = [(rng.uniform(0, w), rng.uniform(0, h), rng.uniform(4, 8), int(rng.integers(3, 5))) for _ in range(40)]
-    out = []
-    for i in range(8):
-        f = blank(w, h)
-        for x, y, ln, k in drops:
-            px, py = (x - i * 16) % w, (y + i * 32) % h
-            for ox in (-w, 0, w):
-                for oy in (-h, 0, h):
-                    fx.stroke(f, [(px + ox, py + oy), (px + ox - ln * 0.5, py + oy + ln)], tone("ocean", k), 1)
-        out.append(f)
-    return w, h, (0, 0), 3, out
-
-
 def terrain():
     """the elemental rift's pictures, in the sheet's order after the effects"""
     return [("wind_h",) + wind("h"), ("wind_v",) + wind("v"), ("wind_d",) + wind("d"), ("gate",) + gate(),
             ("gate_flash",) + gate_flash(), ("brush_ocean",) + brush("ocean"), ("brush_chem",) + brush("chemtech"),
-            ("fruit",) + fruit(), ("fruit_eat",) + fruit_eat(), ("rock",) + rock(), ("ember",) + ember(), ("rain",) + rain()]
+            ("fruit",) + fruit(), ("fruit_eat",) + fruit_eat(), ("rock",) + rock(), ("ember",) + ember()]
 
 
 def animations():

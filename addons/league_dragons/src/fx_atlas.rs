@@ -18,9 +18,9 @@ pub struct Anim {
 }
 
 /// The sheet's size in pixels.
-pub const SHEET: (u16, u16) = (1056, 1788);
+pub const SHEET: (u16, u16) = (1056, 1660);
 
-pub const ANIMS: [Anim; 26] = [
+pub const ANIMS: [Anim; 25] = [
     Anim { name: "infernal_blast", x: 0, y: 0, w: 72, h: 64, frames: 7, per_row: 7, ax: 36, ay: 50, ticks: 4 },
     Anim { name: "hex_spark", x: 0, y: 64, w: 44, h: 44, frames: 5, per_row: 5, ax: 22, ay: 26, ticks: 4 },
     Anim { name: "mountain_shield", x: 0, y: 108, w: 60, h: 64, frames: 7, per_row: 7, ax: 30, ay: 54, ticks: 5 },
@@ -46,5 +46,4 @@ pub const ANIMS: [Anim; 26] = [
     Anim { name: "fruit_eat", x: 0, y: 1510, w: 44, h: 48, frames: 5, per_row: 5, ax: 22, ay: 36, ticks: 5 },
     Anim { name: "rock", x: 0, y: 1558, w: 64, h: 66, frames: 6, per_row: 6, ax: 32, ay: 42, ticks: 30 },
     Anim { name: "ember", x: 0, y: 1624, w: 24, h: 34, frames: 6, per_row: 6, ax: 12, ay: 30, ticks: 6 },
-    Anim { name: "rain", x: 0, y: 1658, w: 128, h: 128, frames: 8, per_row: 8, ax: 0, ay: 0, ticks: 3 },
 ];

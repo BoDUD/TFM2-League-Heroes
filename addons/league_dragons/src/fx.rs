@@ -16,7 +16,7 @@
 //! | 吃掉蜂蜜果实（0.5.0） | 果实的光炸成水珠、一圈水（`fruit_eat`） |
 //!
 //! 元素峡谷的地形（0.5.0，[`super::rift`] 的位置）也在这里画（[`terrain`]）：云端的风道（一格格接起来的流动的风）、
-//! 海克斯的门、海洋的草丛 / 蜂蜜果实 / 雨、化学科技的毒雾、山脉的岩石（从地里升起来）、炼狱着火的墙。
+//! 海克斯的门、海洋的草丛 / 蜂蜜果实（0.5.2 起不再下雨）、化学科技的毒雾、山脉的岩石（从地里升起来）、炼狱着火的墙。
 //!
 //! 图是 tools/art/dragons_soul_fx.py 一格一格画的像素图（1 格 = 1 个游戏像素）：能画贴图时整帧一条贴图命令；不能时
 //! （[`super::world::plan`]）按编进 DLL 的同一份图（`fx_runs.bin`：每帧拆成一条条同色的横条）一条一条画，不靠任何文件。比赛钩子在屏幕放的那场模拟里记下
@@ -323,12 +323,9 @@ fn loop_frame(a: &Anim, t: usize) -> usize {
     (t / a.ticks.max(1) as usize) % a.frames.max(1) as usize
 }
 
-/// 雨最多铺这么多格（镜头拉得再远也不多画）。
-const RAIN_MOST: usize = 240;
-
 /// 峡谷变成 `element`（在 tick `since`）以后的地形：变形后 [`rift::RISE_T`] tick 才有（岩石从变形那一刻开始往上升）。
 /// 躺在地上的（风纹、门、草丛、果实、岩石）画在地上那一层（[`world::View::on_ground`]：墙和草丛上面、单位下面——英雄走在
-/// 上面看得见）；墙上的火、雨画在特效那一层（单位上面、血条下面）。-> 画了几样。
+/// 上面看得见）；墙上的火画在特效那一层（单位上面、血条下面）。-> 画了几样。
 pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: usize, element: Element, since: usize) -> usize {
     let age = t.saturating_sub(since);
     let live = age >= rift::RISE_T;
@@ -388,22 +385,6 @@ pub fn terrain(ctx: &mut StableClient<'_>, v: &world::View, m: u64, s: u64, t: u
         }
         _ => {}
     }
-    // the Ocean rift's rain: tiles over what the camera sees (the map's own coordinates: it does not move with the world)
-    if element == Element::Ocean && live {
-        if let (Some(a), Some((x, y, w, h))) = (anim("rain"), v.camera) {
-            let (tw, th) = (a.w as f32, a.h as f32);
-            let fr = loop_frame(a, t);
-            let (x0, y0) = ((x / tw).floor() * tw, (y / th).floor() * th);
-            let (cols, rows) = (((x + w - x0) / tw).ceil() as usize, ((y + h - y0) / th).ceil() as usize);
-            if cols > 0 && rows > 0 && cols * rows <= RAIN_MOST {
-                for r in 0..rows {
-                    for c in 0..cols {
-                        n += world::sprite_on_map(ctx, v, a, fr, (x0 + c as f32 * tw, y0 + r as f32 * th)) as usize;
-                    }
-                }
-            }
-        }
-    }
     n
 }
 
@@ -424,7 +405,7 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize, rift: Option<(
                 if let Some(k) = counted("terrain") {
                     wlog(format!("TERRAIN m={m} s={s} screen t={t}: the {} rift (turned at t={since}, live {}) - {n} pictures \
                                   drawn in the match world: what lies on the ground at z {} (the map's walls' layer, under the \
-                                  units), fire and rain at z {} (over the units, under the gauges), sprites {} #{k}", element.key(), key.3, v.ground, v.z, v.sprites));
+                                  units), fire at z {} (over the units, under the gauges), sprites {} #{k}", element.key(), key.3, v.ground, v.z, v.sprites));
                 }
             }
         }
@@ -549,8 +530,7 @@ mod tests {
     }
 
     /// The pictures of the rift's terrain (not effects: drawn for as long as the rift lasts).
-    const TERRAIN: [&str; 10] = ["wind_h", "wind_v", "wind_d", "gate", "brush_ocean", "brush_chem", "fruit", "rock", "ember",
-                                 "rain"];
+    const TERRAIN: [&str; 9] = ["wind_h", "wind_v", "wind_d", "gate", "brush_ocean", "brush_chem", "fruit", "rock", "ember"];
 
     #[test]
     fn the_wind_is_tiled_along_each_current() {
