@@ -339,34 +339,92 @@ LEAF = {
 }
 
 
+# a leaf the Cloud rift's wind carries: outline, deep, base, light; four turns of it tumbling (dx, dy, colour) round
+# its middle - lying flat, tipped up, edge on, tipped down
+WIND_LEAF = [(40, 62, 26), (96, 140, 44), (156, 196, 78), (206, 228, 132)]
+WIND_LEAF_TURNS = [
+    [(-2, 0, 1), (-1, 0, 2), (0, 0, 2), (1, 0, 3), (2, -1, 2), (-1, 1, 1), (0, 1, 1), (1, 1, 2)],
+    [(-1, 1, 1), (0, 0, 2), (1, -1, 3), (1, 0, 2), (0, 1, 1), (2, -2, 2)],
+    [(-2, 0, 1), (-1, 0, 2), (0, 0, 3), (1, 0, 2), (2, 0, 1)],
+    [(-1, -1, 1), (0, 0, 2), (1, 1, 3), (0, -1, 2), (1, 0, 1), (2, 2, 2)],
+]
+# the gusts of a tile: across the flow (squares, + = the flow's right-hand side for "h"), where the head starts (part of
+# the period), length, wave height, wavelength (part of the period: whole waves per period keep the tiles seamless),
+# wave phase, and whether the head curls round (into the current, so the loop never leaves the tile)
+WIND_GUSTS = {
+    "hv": [(-9.0, 0.0, 26, 2.8, 1.0, 0.3, True), (0.5, 0.42, 20, 2.2, 0.5, 1.9, False),
+           (9.0, 0.76, 24, 2.6, 1.0, 3.6, True)],
+    "d": [(-6.5, 0.0, 24, 2.6, 1.0, 0.4, True), (6.0, 0.55, 20, 2.2, 1.0, 2.2, False)],
+}
+
+
 def wind(direction):
-    """a tile of a Cloud rift's wind current: streaks running along the flow ("h" to the right, "v" downward, "d" down the
-    river's diagonal). It repeats every 48 squares along the flow (the diagonal one every (24, 24)), and its 8 frames
-    carry the streaks one whole period on, so the tiles laid end to end flow without a seam"""
+    """a tile of a Cloud rift's wind current ("h" running right, "v" up the screen, "d" up the river's diagonal): gusts of
+    air, each a wavy line thin at its tail, thicker and whiter towards its head, a deep line under it (it reads on the
+    grass), the outer two curling round at the head like the Cloud drake's breath, and a leaf tumbling along between
+    them. 0.5.2 (the user, 2026-11-12: 「风龙的特效有点怪 看起来像下雨」): until then the tiles were short straight streaks,
+    parallel and evenly spaced, the vertical and diagonal ones running down the screen - rain. Now no line is straight,
+    and nothing falls: the vertical and diagonal currents blow up the screen. It repeats every 48 squares along the flow
+    (the diagonal one every (24, 24)), and its 8 frames carry the gusts one whole period on, so the tiles laid end to
+    end flow without a seam"""
     n = 8
     w, h = {"h": (48, 32), "v": (32, 48), "d": (48, 48)}[direction]
     period = 48.0 if direction != "d" else 24.0 * math.sqrt(2)
-    rng = np.random.default_rng(1200)
-    streaks = [(rng.uniform(-11, 11), rng.uniform(0, period), rng.uniform(9, 15), int(rng.integers(3, 5)))
-               for _ in range(7 if direction != "d" else 5)]
     c = math.sqrt(0.5)
+    t = fx.tones("cloud")
+
+    def at(s, u):
+        """flow coordinates (s along the flow, u across it) -> the tile's squares"""
+        if direction == "h":
+            return s, h / 2 + u
+        if direction == "v":
+            return w / 2 + u, h - s
+        return w - (s + u) * c, h - (s - u) * c
+
+    def line(layer, pts, rgb, dy=0):
+        for p, q in zip(pts[:-1], pts[1:]):
+            fx.stroke(layer, [(p[0], p[1] + dy), (q[0], q[1] + dy)], rgb, 1)
+
     out = []
     for f in range(n):
-        layer = blank(w, h)
-        for across, phase, length, k in streaks:
-            head = (phase + f * period / n) % period
+        shade, body = blank(w, h), blank(w, h)
+        for across, start, length, amp, waves, wphase, curls in WIND_GUSTS["d" if direction == "d" else "hv"]:
+            wl = period * waves
+            head = (start * period + f * period / n) % period
             for rep in range(-3, 4):
                 s1 = head + rep * period
                 s0 = s1 - length
-                if direction == "h":
-                    p0, p1 = (s0, h / 2 + across), (s1, h / 2 + across)
-                elif direction == "v":
-                    p0, p1 = (w / 2 + across, s0), (w / 2 + across, s1)
-                else:   # along (c, c) from the tile's top-left corner, `across` to its side
-                    p0, p1 = (s0 * c + across * c, s0 * c - across * c), (s1 * c + across * c, s1 * c - across * c)
-                fx.stroke(layer, [p0, p1], tone("cloud", k), 1)
-                fx.stroke(layer, [((p0[0] + 2 * p1[0]) / 3, (p0[1] + 2 * p1[1]) / 3), p1], tone("cloud", 5), 1)
-        out.append(fx.outline_layer(layer, tone("cloud", 1)))
+                pts = [at(s, across + amp * math.sin(2 * math.pi * s / wl + wphase))
+                       for s in (s0 + (s1 - s0) * k / 36 for k in range(37))]
+                loop = []
+                if curls:
+                    # past the head the line turns round on itself into the current: a loop 3.5 squares across
+                    # shrinking to 1.5
+                    (hx, hy), (px, py) = pts[-1], pts[-4]
+                    a0 = math.atan2(hy - py, hx - px)
+                    ix, iy = (q - p for p, q in zip(at(s1, across), at(s1, across - math.copysign(1.0, across))))
+                    side = 1 if math.cos(a0 + math.pi / 2) * ix + math.sin(a0 + math.pi / 2) * iy > 0 else -1
+                    cx, cy = hx + math.cos(a0 + side * math.pi / 2) * 3.5, hy + math.sin(a0 + side * math.pi / 2) * 3.5
+                    a1 = math.atan2(hy - cy, hx - cx)
+                    loop = [(cx + (3.5 - 2.0 * k / 21) * math.cos(a1 + side * k / 21 * 2.4 * math.pi),
+                             cy + (3.5 - 2.0 * k / 21) * math.sin(a1 + side * k / 21 * 2.4 * math.pi)) for k in range(1, 22)]
+                line(shade, pts + loop, t[1], 1)
+                line(body, pts[:11], t[2])                                  # the tail
+                line(body, pts[10:29], t[3])                                # the body,
+                line(body, pts[13:27], t[4], -1)                            # thicker in its middle
+                line(body, pts[28:], t[5])                                  # the head
+                if loop:
+                    line(body, [pts[-1]] + loop, t[4])
+        layer = fx.over(body, shade)
+        # the leaf: one turn every two frames, bobbing across the current
+        s = period * 0.15 + f * period / n
+        for rep in range(-2, 3):
+            x, y = at(s + rep * period, (-3.5 if direction != "d" else 0.0) + 2.0 * math.sin(2 * math.pi * f / n))
+            tmp = blank(w, h)
+            for dx, dy, k in WIND_LEAF_TURNS[(f // 2) % 4]:
+                fx.put(tmp, np.array([int(round(y)) + dy]), np.array([int(round(x)) + dx]), WIND_LEAF[k])
+            layer = fx.over(fx.outline_layer(tmp, WIND_LEAF[0]), layer)
+        out.append(layer)
     return w, h, ((w // 2, h // 2) if direction != "d" else (0, 0)), 5, out
 
 
