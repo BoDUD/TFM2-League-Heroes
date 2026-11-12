@@ -270,8 +270,9 @@ pub fn rift_effect(lang: Lang, e: Element) -> String {
                  "chem-fog in the jungle and by the dragon pit: unseen inside it (attacking reveals)".to_string())
         }
         Element::Mountain => {
-            pick(lang, "河道口和野区升起岩石，挡住去路".to_string(), "河道口和野區升起岩石，擋住去路".to_string(),
-                 "rocks rise at the pits' mouths and in the jungle, blocking the way".to_string())
+            let p = -rift::RUBBLE_MS;
+            pick(lang, format!("河道口和野区出现碎石堆：英雄走在上面移速 -{p}%"), format!("河道口和野區出現碎石堆：英雄走在上面移速 -{p}%"),
+                 format!("rubble at the pits' mouths and in the jungle: -{p}% move speed on it"))
         }
         Element::Infernal => {
             pick(lang, "龙坑和男爵坑的岩壁燃起烈火（草丛和墙不变）".to_string(), "龍坑和巴龍坑的岩壁燃起烈火（草叢和牆不變）".to_string(),
@@ -633,7 +634,7 @@ mod tests {
                    ("峡谷变成了云端峡谷！".to_string(), "河道和野区吹起风道：英雄在风道里移速 +20%".to_string()));
         assert_eq!(n(Lang::Hans, Element::Hextech).1,
                    "野区和龙坑、男爵坑旁出现成对的传送门：脱战时朝着另一头走上去就传过去（每人 20 秒一次）");
-        assert_eq!(n(Lang::Hant, Element::Mountain), ("峽谷變成了山脈峽谷！".to_string(), "河道口和野區升起岩石，擋住去路".to_string()));
+        assert_eq!(n(Lang::Hant, Element::Mountain), ("峽谷變成了山脈峽谷！".to_string(), "河道口和野區出現碎石堆：英雄走在上面移速 -30%".to_string()));
         assert_eq!(n(Lang::En, Element::Ocean).0, "The rift has turned into the Ocean Rift!");
         assert!(n(Lang::Hans, Element::Infernal).1.contains("草丛和墙不变"), "the Infernal rift says what it cannot do");
         for e in rules::DRAKES {

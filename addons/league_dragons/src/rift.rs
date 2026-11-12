@@ -9,12 +9,17 @@
 //! | 海克斯 | 四对传送门（每队两对：本方上野区 ↔ 龙坑旁，本方下野区 ↔ 男爵坑旁）：脱战、朝着另一头走的英雄踩上去立刻传过去，每人 20 秒冷却 |
 //! | 海洋 | 六片新草丛（站在里面、里面没有敌方英雄、刚才没出手：敌人看不见）；四个蜂蜜果实（受了伤的英雄走过去吃掉回血，45 秒再长）；画面下雨 |
 //! | 化学科技 | 六片毒雾草丛（和海洋的草丛一样的规矩，位置不同） |
-//! | 山脉 | 六块岩石（英雄进不去：每 tick 推到石头外面；被同一块石头顶住太久就放他过去） |
+//! | 山脉 | 六堆碎石（不挡人：英雄走在上面移速 -30%，[`RUBBLE`]，下来后不到 0.2 秒就没了） |
 //! | 炼狱 | 只有画面（龙坑、男爵坑周围的墙上着火）：游戏烘好的草丛和墙局内改不了 |
 //!
-//! 游戏的接口改不了烘好的寻路、草丛和视野，所以都是「模拟出来的」：草丛是 `entity_set_invisible`（敌人丢视野和目标），岩石是
-//! 每 tick 改位置，比赛 AI 不知道有它们。位置只有游戏自带的 5v5 地图的（[`is_base_map`]：两个水晶和小龙坑在原来的地方），
+//! 游戏的接口改不了烘好的寻路、草丛和视野，所以都是「模拟出来的」：草丛是 `entity_set_invisible`（敌人丢视野和目标），碎石是
+//! 减速 buff，比赛 AI 不知道有它们。位置只有游戏自带的 5v5 地图的（[`is_base_map`]：两个水晶和小龙坑在原来的地方），
 //! 别的地图（召唤师峡谷布局、第三方地图）这一局没有地形。全部在模拟里、只按模拟的 tick，预演和画面一样。
+//!
+//! 山脉 0.5.1（用户 2026-11-12：「这里改了后 AI不会自动然后去 反正看起来像是瞬移」「会卡住人的」）：0.5.0 的岩石挡人——每 tick
+//! 把站进石头的英雄推到外面，被同一块顶住 150 tick 就放到对面。AI 的寻路不知道有石头，只会直直撞上去：那一局推了 18147 次、
+//! 放过去 82 次（韦鲁斯在同一块上 10 秒里来回 5 次），看上去就是卡住和瞬移。问过之后改成「减速碎石」：谁都能走过去，英雄走在
+//! 上面变慢；画面还是那几块升起来的岩石（画在单位下面，英雄从上面走过）。
 //!
 //! 这里是规则和位置（纯函数、表）；[`Terrain`] 是一份模拟里的地形状态，`lib.rs` 每 tick 调 [`Terrain::step`]。
 
@@ -137,7 +142,7 @@ pub fn is_base_map(nexus: &[(u64, u64)], pit: Option<(u64, u64)>) -> bool {
 
 /// 第二条小龙被拿下后这么多 tick 地形生效（画面上岩石升起、草丛长出来的时间）。
 pub const RISE_T: usize = 180;
-/// 风道、传送门、草丛、果实多久看一次（岩石每 tick）。
+/// 风道、传送门、草丛、果实、碎石多久看一次。
 pub const SCAN: usize = 6;
 
 /// 云端：风道（一段段直线，两边各 [`WIND_HALF`] 宽）。英雄联盟的风道在野区和龙坑；这里是河道一条（男爵坑到龙坑）、
@@ -201,15 +206,23 @@ pub fn fruit_heal(hp: usize, max: usize) -> usize {
     max * 8 / 100 + max.saturating_sub(hp) * 10 / 100
 }
 
-/// 山脉：岩石（圆，半径 [`ROCK_R`]）——河道上龙坑口一块、男爵坑口一块，龙坑的西南口和东北口各一块，两边上野区的
-/// 过道里各一块。每块四面都留着路（离最近的墙 35000 以上）。
+/// 山脉：碎石堆（圆，半径 [`ROCK_R`] 加上英雄的身体）——河道上龙坑口一块、男爵坑口一块，龙坑的西南口和东北口各一块，
+/// 两边上野区的过道里各一块。每块四面都留着路（离最近的墙 35000 以上：0.5.0 的岩石挡人时要的）。
 pub const ROCKS: [(u64, u64); 6] =
     [(608_000, 608_000), (344_000, 344_000), (592_000, 736_000), (736_000, 592_000), (240_000, 640_000), (640_000, 240_000)];
 pub const ROCK_R: u64 = 20_000;
 /// 英雄的身体算这么大（读不到半径时）。
 pub const BODY: u64 = 8_000;
-/// 被同一块石头连着顶了这么多 tick：放他到石头对面去（游戏的寻路不知道有石头，免得一直顶着）。
-pub const STUCK_T: u32 = 150;
+/// 碎石上的移速（`league_dragons_rift_rubble`，每次看到站在上面续 [`RUBBLE_T`] tick：下来后不到 0.2 秒就没了）。
+pub const RUBBLE: &str = "league_dragons_rift_rubble";
+pub const RUBBLE_MS: i32 = -30;
+pub const RUBBLE_T: usize = 12;
+
+pub fn rubble_buff() -> BuffV1 {
+    let mut b = BuffV1::timed(RUBBLE, RUBBLE_T);
+    b.move_speed_mult = RUBBLE_MS;
+    b
+}
 
 /// 炼狱：着火的墙（墙格子的中心，英雄走不到那里）——龙坑和男爵坑周围的墙。
 pub const EMBERS: [(u64, u64); 16] = [
@@ -274,47 +287,10 @@ pub fn brush_at(e: Element, p: (u64, u64)) -> Option<usize> {
     brush_of(e).iter().position(|c| d2(p, *c) <= BRUSH_R * BRUSH_R)
 }
 
-/// 把 `p` 从离它最近的那块岩石里推出来（身体半径 `body`）：(第几块, 推到哪)；不在任何一块里：None。推出去的地方是墙就
-/// 沿着石头边换个方向找（每次 30 度，先顺时针），都不行就不动（`at == p`）。
-pub fn push_out(p: (u64, u64), body: u64) -> Option<(usize, (u64, u64))> {
-    let min = ROCK_R + body;
-    let (i, c) = ROCKS.iter().enumerate().find(|(_, c)| d2(p, **c) < min * min).map(|(i, c)| (i, *c))?;
-    let (dx, dy) = (p.0 as i128 - c.0 as i128, p.1 as i128 - c.1 as i128);
-    let d = ((dx * dx + dy * dy) as u64).isqrt().max(1) as i128;
-    // straight out; standing on its centre: to the right
-    let (ux, uy) = if dx == 0 && dy == 0 { (1000, 0) } else { (dx * 1000 / d, dy * 1000 / d) };
-    // rotations by 0, +-30, +-60, +-90 degrees: (cos, sin) x 1000
-    const TURNS: [(i128, i128); 7] = [(1000, 0), (866, 500), (866, -500), (500, 866), (500, -866), (0, 1000), (0, -1000)];
-    let reach = (min + 500) as i128;
-    for (cos, sin) in TURNS {
-        let (vx, vy) = ((ux * cos - uy * sin) / 1000, (ux * sin + uy * cos) / 1000);
-        let (x, y) = (c.0 as i128 + vx * reach / 1000, c.1 as i128 + vy * reach / 1000);
-        if x < 0 || y < 0 {
-            continue;
-        }
-        let at = (x as u64, y as u64);
-        if !wall_at(at) {
-            return Some((i, at));
-        }
-    }
-    Some((i, p))
-}
-
-/// 被石头 `rock` 顶住太久的人放到它对面：石头心的另一边、石头外面一点；那里是墙就绕着石头换个地方（对面的两侧 45 度、
-/// 再两侧 90 度），都是墙就不动（None）。
-pub fn let_through(p: (u64, u64), rock: usize, body: u64) -> Option<(u64, u64)> {
-    let c = ROCKS[rock];
-    let (dx, dy) = (c.0 as i128 - p.0 as i128, c.1 as i128 - p.1 as i128);
-    let d = ((dx * dx + dy * dy) as u64).isqrt().max(1) as i128;
-    let (ux, uy) = if dx == 0 && dy == 0 { (1000, 0) } else { (dx * 1000 / d, dy * 1000 / d) };
-    let reach = (ROCK_R + body + 2_000) as i128;
-    // straight across, then 45 and 90 degrees to either side of it: (cos, sin) x 1000
-    const TURNS: [(i128, i128); 5] = [(1000, 0), (707, 707), (707, -707), (0, 1000), (0, -1000)];
-    TURNS.iter().find_map(|&(cos, sin)| {
-        let (vx, vy) = ((ux * cos - uy * sin) / 1000, (ux * sin + uy * cos) / 1000);
-        let (x, y) = (c.0 as i128 + vx * reach / 1000, c.1 as i128 + vy * reach / 1000);
-        (x >= 0 && y >= 0).then_some((x as u64, y as u64)).filter(|at| !wall_at(*at))
-    })
+/// 这一点（身体半径 `body`）踩在哪堆碎石上（第几块）。
+pub fn rock_at(p: (u64, u64), body: u64) -> Option<usize> {
+    let reach = ROCK_R + body;
+    ROCKS.iter().position(|c| d2(p, *c) < reach * reach)
 }
 
 // ===================== 一份模拟里的地形 =====================
@@ -328,8 +304,8 @@ pub enum Happening {
     Fruit { seat: usize, fruit: usize, heal: usize },
     /// 一个英雄第一次（这一次进草丛）藏进了第 `brush` 片草丛。
     Hidden { seat: usize, brush: usize },
-    /// 一个英雄被第 `rock` 块岩石顶住太久，放到了对面。
-    Through { seat: usize, rock: usize },
+    /// 一个英雄踩上了第 `rock` 堆碎石（这一次踩上去；在上面移速 [`RUBBLE_MS`]%）。
+    Rubble { seat: usize, rock: usize },
 }
 
 /// 一个座位在地形里记着的（跟着这条命：换了实体就重来）。
@@ -348,8 +324,8 @@ struct Walker {
     /// 本包把他藏到哪个 tick；这一次进草丛说过没有。
     hid_until: usize,
     hid_told: bool,
-    /// 被哪块岩石连着顶了几 tick。
-    stuck: Option<(usize, u32)>,
+    /// 上一次看的时候站在哪堆碎石上。
+    on_rock: Option<usize>,
 }
 
 /// 一份模拟里的地形：哪种峡谷、从哪个 tick 起，每个座位的状态，每个果实什么时候长好；`END` 用的计数。
@@ -362,8 +338,9 @@ pub struct Terrain {
     pub eaten: usize,
     pub healed: usize,
     pub hides: usize,
-    pub pushes: usize,
-    pub through: usize,
+    /// 踩上碎石几次、碎石减速续了几次。
+    pub rubble: usize,
+    pub slowed: usize,
     pub winds: usize,
 }
 
@@ -390,11 +367,7 @@ impl Terrain {
         if self.walkers.len() != seats.len() {
             self.walkers = vec![Walker::default(); seats.len()];
         }
-        let scan = now % SCAN == 0;
-        if element == Element::Mountain {
-            self.rocks(sim, seats, out);
-        }
-        if !scan || element == Element::Infernal || element == Element::Mountain {
+        if now % SCAN != 0 || element == Element::Infernal {
             return;
         }
         // every champion as it stands now: (entity, where, health + shield, max health)
@@ -411,6 +384,7 @@ impl Terrain {
                 here.push(None);
                 w.ent = None;
                 w.at = None;
+                w.on_rock = None;
                 continue;
             };
             if w.ent != Some(ent) {
@@ -438,6 +412,7 @@ impl Terrain {
                 self.fruit(sim, now, &here, out);
             }
             Element::Chemtech => self.brush(sim, now, element, seats, &here, out),
+            Element::Mountain => self.rubble(sim, &here, out),
             _ => {}
         }
         for (i, h) in here.iter().enumerate() {
@@ -527,35 +502,25 @@ impl Terrain {
         }
     }
 
-    fn rocks(&mut self, sim: &mut StableSim<'_>, seats: &[(usize, usize)], out: &mut Vec<Happening>) {
-        for (i, &(player, _)) in seats.iter().enumerate() {
-            let Some(ent) = living(sim, player) else {
-                self.walkers[i].stuck = None;
-                continue;
-            };
-            let Some((at, body)) = sim.get_entity(ent).map(|e| (e.pos(), e.radius() as u64)) else { continue };
+    fn rubble(&mut self, sim: &mut StableSim<'_>, here: &[Option<(usize, (u64, u64), usize, usize)>],
+              out: &mut Vec<Happening>) {
+        for (i, h) in here.iter().enumerate() {
+            let Some((ent, at, _, _)) = *h else { continue };
+            let body = sim.get_entity(ent).map_or(0, |e| e.radius() as u64);
             let body = if body == 0 { BODY } else { body.min(2 * BODY) };
-            let Some((rock, to)) = push_out(at, body) else {
-                self.walkers[i].stuck = None;
+            let Some(rock) = rock_at(at, body) else {
+                self.walkers[i].on_rock = None;
                 continue;
             };
-            let n = match self.walkers[i].stuck {
-                Some((r, n)) if r == rock => n + 1,
-                _ => 1,
-            };
-            if n >= STUCK_T {
-                if let Some(far) = let_through(at, rock, body) {
-                    if sim.entity_set_pos(ent, far.0, far.1) {
-                        self.walkers[i].stuck = None;
-                        self.through += 1;
-                        out.push(Happening::Through { seat: i, rock });
-                        continue;
-                    }
-                }
+            if sim.entity_stack_buff(ent, &rubble_buff(), 1, true) == 0 {
+                sim.entity_remove_buff(ent, RUBBLE);
+                sim.add_buff(ent, &rubble_buff());
             }
-            self.walkers[i].stuck = Some((rock, n));
-            if to != at && sim.entity_set_pos(ent, to.0, to.1) {
-                self.pushes += 1;
+            self.slowed += 1;
+            if self.walkers[i].on_rock != Some(rock) {
+                self.walkers[i].on_rock = Some(rock);
+                self.rubble += 1;
+                out.push(Happening::Rubble { seat: i, rock });
             }
         }
     }
@@ -707,30 +672,19 @@ mod tests {
     }
 
     #[test]
-    fn a_rock_pushes_out_and_lets_through() {
-        let rock = ROCKS[0];
-        let min = ROCK_R + BODY;
-        // from its west side: straight back out to the west, just outside
-        let (i, at) = push_out((rock.0 - 10_000, rock.1), BODY).expect("inside");
-        assert_eq!((i, at.1), (0, rock.1));
-        assert!(rock.0 - at.0 > min && rock.0 - at.0 < min + 1_000, "{at:?}");
-        // on its centre: somewhere outside, off the walls
-        let (_, at) = push_out(rock, BODY).unwrap();
-        assert!(d2(at, rock) > min * min && !wall_at(at));
-        // outside: left alone
-        assert_eq!(push_out((rock.0 - min - 100, rock.1), BODY), None);
-        // every rock, from every side: a place outside it that is no wall
+    fn the_rubble_is_where_the_rocks_are() {
+        let reach = ROCK_R + BODY;
         for (k, r) in ROCKS.iter().enumerate() {
-            for (dx, dy) in [(1i64, 0i64), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, 1), (1, -1), (-1, -1)] {
-                let p = ((r.0 as i64 + dx * 9_000) as u64, (r.1 as i64 + dy * 9_000) as u64);
-                let (i, at) = push_out(p, BODY).unwrap();
-                assert_eq!(i, k);
-                assert!(at != p && !wall_at(at) && d2(at, *r) >= min * min, "rock {k} from ({dx}, {dy}): {at:?}");
-                // let through: the far side, outside, no wall
-                let far = let_through(at, k, BODY).unwrap_or_else(|| panic!("rock {k} from ({dx}, {dy}): a wall behind it"));
-                assert!(d2(far, *r) > min * min && d2(far, at) > ROCK_R * ROCK_R, "rock {k}: {far:?}");
-            }
+            assert_eq!(rock_at(*r, BODY), Some(k));
+            assert_eq!(rock_at((r.0 + reach - 100, r.1), BODY), Some(k), "rock {k}: its edge, a body's width out");
+            assert_eq!(rock_at((r.0, r.1 - reach - 100), BODY), None, "rock {k}: beyond it");
+            // a bigger body reaches it from farther
+            assert_eq!(rock_at((r.0 + reach + 2_000, r.1), BODY + 4_000), Some(k));
         }
+        // slower on it, for a moment longer than two looks
+        let b = rubble_buff();
+        assert_eq!((b.move_speed_mult, b.duration_tick), (RUBBLE_MS, RUBBLE_T));
+        assert!(RUBBLE_MS < 0 && RUBBLE_T == 2 * SCAN);
     }
 
     #[test]

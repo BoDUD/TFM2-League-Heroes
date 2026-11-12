@@ -1047,48 +1047,42 @@ fn the_chemtech_rifts_fog_hides_too() {
     assert!(w.heals.is_empty(), "no honeyfruit in this rift");
 }
 
-/// Mountain: nobody stands inside a rock once it has risen - pushed out every tick; one held by the same rock for 2.5 s
-/// is let through to its far side.
+/// Mountain (0.5.1, user 2026-11-12: 「会卡住人的」): the rocks are rubble - nobody is moved; a champion on a pile is slowed
+/// (one buff kept up while he is on it); nothing before they have risen; both teams; each step onto a pile counted once;
+/// the dead get nothing.
 #[test]
-fn the_mountain_rifts_rocks_keep_champions_out() {
+fn the_mountain_rifts_rubble_slows_and_moves_nobody() {
     let mut w = rift_world(Element::Mountain, SimOriginKindV1::ServerPresim, false);
     let rock = rift::ROCKS[0];
-    let min = rift::ROCK_R + 8_000;
-    let d2 = |a: (u64, u64), b: (u64, u64)| a.0.abs_diff(b.0).pow(2) + a.1.abs_diff(b.1).pow(2);
     place(&mut w, 0, (rock.0 - 10_000, rock.1));
-    advance(&mut w, 10);
-    assert_eq!(w.champ(0).at, (rock.0 - 10_000, rock.1), "the rock has not risen yet");
+    advance(&mut w, rift::SCAN);
+    assert!(w.has(0, rift::RUBBLE).is_none(), "the rocks have not risen yet");
     advance(&mut w, rift::RISE_T);
-    let at = w.champ(0).at;
-    assert!(at.1 == rock.1 && at.0 < rock.0 && d2(at, rock) >= min * min, "pushed out to the west: {at:?}");
-    // left alone there
-    tick(&mut w);
-    assert_eq!(w.champ(0).at, at);
-    // he keeps walking into it: out again every tick, and after STUCK_T ticks through to the far side
-    let mut pushed = 0;
-    for _ in 0..rift::STUCK_T + 5 {
-        place(&mut w, 0, (rock.0 - 12_000, rock.1));
-        tick(&mut w);
-        if w.champ(0).at.0 > rock.0 {
-            break;
-        }
-        pushed += 1;
-        assert!(d2(w.champ(0).at, rock) >= min * min);
-    }
-    assert!(pushed >= rift::STUCK_T as usize - 2, "held for {pushed} ticks");
-    let far = w.champ(0).at;
-    assert!(far.0 > rock.0 + rift::ROCK_R && d2(far, rock) >= min * min, "let through to the east: {far:?}");
-    state(&w, |s| assert!(s.terrain.through == 1 && s.terrain.pushes >= 100));
-    // the dead and the far away are not touched; the other rocks hold as well (red's too)
-    for (k, r) in rift::ROCKS.iter().enumerate() {
-        place(&mut w, 6, (r.0 + 5_000, r.1 + 5_000));
-        tick(&mut w);
-        assert!(d2(w.champ(6).at, *r) >= min * min, "rock {k}");
-    }
+    // red's jungler on red's jungle pile, blue's jungler next to blue's but off it
+    place(&mut w, 6, rift::ROCKS[5]);
+    place(&mut w, 1, (rift::ROCKS[4].0 + rift::ROCK_R + 2 * rift::BODY + 1_000, rift::ROCKS[4].1));
+    advance(&mut w, rift::SCAN);
+    assert_eq!(w.champ(0).at, (rock.0 - 10_000, rock.1), "the rubble moves nobody");
+    assert_eq!(w.champ(6).at, rift::ROCKS[5]);
+    assert_eq!(w.has(0, rift::RUBBLE).map(|b| (b.move_speed_mult, b.duration_tick)), Some((rift::RUBBLE_MS, rift::RUBBLE_T)));
+    assert!(w.has(6, rift::RUBBLE).is_some(), "the rubble is everybody's");
+    assert!(w.has(1, rift::RUBBLE).is_none() && w.has(5, rift::RUBBLE).is_none());
+    advance(&mut w, 10 * rift::SCAN);
+    assert_eq!(w.count(0, rift::RUBBLE), 1, "kept up, not stacked");
+    state(&w, |s| assert!(s.terrain.rubble == 2 && s.terrain.slowed >= 20, "two steps onto the rubble"));
+    // off it and back on: a second step of his
+    place(&mut w, 0, (rock.0 - 60_000, rock.1));
+    advance(&mut w, rift::SCAN);
+    place(&mut w, 0, rock);
+    advance(&mut w, rift::SCAN);
+    state(&w, |s| assert_eq!(s.terrain.rubble, 3));
+    assert_eq!(w.champ(0).at, rock, "standing on the rock's centre: still not moved");
+    // the dead get nothing
     w.die(7);
-    w.champ_mut(7).at = rock;
-    tick(&mut w);
-    assert_eq!(w.champ(7).at, rock);
+    w.champ_mut(7).buffs.clear();
+    w.champ_mut(7).at = rift::ROCKS[1];
+    advance(&mut w, 2 * rift::SCAN);
+    assert!(w.has(7, rift::RUBBLE).is_none());
 }
 
 /// Infernal: the burning walls are pictures only - nothing in the simulation moves, hides or speeds up.
@@ -1101,7 +1095,7 @@ fn the_infernal_rift_changes_nothing_in_the_simulation() {
     advance(&mut w, 5 * rift::SCAN);
     assert_eq!(w.champ(1).at, rift::ROCKS[0]);
     assert_eq!(w.champ(2).at, rift::GATES[0].0);
-    assert!(!hidden(&w, 0) && w.has(3, rift::WIND).is_none() && w.heals.is_empty());
+    assert!(!hidden(&w, 0) && w.has(3, rift::WIND).is_none() && w.has(1, rift::RUBBLE).is_none() && w.heals.is_empty());
     state(&w, |s| assert_eq!(s.terrain.live(w.tick), Some(Element::Infernal)));
 }
 

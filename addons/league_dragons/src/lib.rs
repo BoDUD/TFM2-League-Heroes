@@ -1122,7 +1122,7 @@ impl Sim {
             Element::Hextech => format!("{} pairs of hex-gates", rift::GATES.len()),
             Element::Ocean => format!("{} patches of brush, {} honeyfruit", rift::OCEAN_BRUSH.len(), rift::FRUITS.len()),
             Element::Chemtech => format!("{} patches of chem-fog", rift::CHEM_BRUSH.len()),
-            Element::Mountain => format!("{} rocks", rift::ROCKS.len()),
+            Element::Mountain => format!("{} rubble piles, {}% move speed on them", rift::ROCKS.len(), rift::RUBBLE_MS),
             _ => "burning walls on screen only".to_string(),
         };
         say(screen.is_some(), "rift", format!("{} RIFT sim #{} the rift turns {}: {what}, live from t={}", head(sim), self.no,
@@ -1154,9 +1154,11 @@ impl Sim {
                     say(screen.is_some(), "brush", format!("{} BRUSH sim #{} {} is hidden in patch {brush} (hide {})", head(sim),
                                                            self.no, self.who(seat), self.terrain.hides));
                 }
-                rift::Happening::Through { seat, rock } => {
-                    say(screen.is_some(), "rock", format!("{} ROCK sim #{} {} was held by rock {rock} for {} ticks: let through to its far side",
-                                                          head(sim), self.no, self.who(seat), rift::STUCK_T));
+                rift::Happening::Rubble { seat, rock } => {
+                    // every step onto a pile is one: only the first ones and every 100th are written
+                    say(false, if screen.is_some() { "rubble on screen" } else { "rubble" },
+                        format!("{} ROCK sim #{} {} steps onto rubble {rock}: {}% move speed while on it (step {})", head(sim),
+                                self.no, self.who(seat), rift::RUBBLE_MS, self.terrain.rubble));
                 }
             }
         }
@@ -1755,15 +1757,15 @@ impl Sim {
         };
         let count = |c: char| self.events.iter().filter(|e| e.1.code() == c).count();
         say(screen.is_some(), "end", format!(
-            "{} END sim #{} (from t={}): order {}/{}/{}{}; blue {} red {}; soul {}; elders {} barons {} executes {}; procs infernal {} mountain {} ocean {} cloud {} hextech {} chemtech {}; burn damage {}, ocean heals {}, shields {}, minion boosts {}, neutralizers hung {}; terrain {}: wind {} gate jumps {} fruit {} (+{}) hides {} rock pushes {} let through {}; stats {:?} / hits by {:?}",
+            "{} END sim #{} (from t={}): order {}/{}/{}{}; blue {} red {}; soul {}; elders {} barons {} executes {}; procs infernal {} mountain {} ocean {} cloud {} hextech {} chemtech {}; burn damage {}, ocean heals {}, shields {}, minion boosts {}, neutralizers hung {}; terrain {}: wind {} gate jumps {} fruit {} (+{}) hides {} rubble steps {} slowed {}; stats {:?} / hits by {:?}",
             head(sim), self.no, self.born, self.order[0].key(), self.order[1].key(), self.order[2].key(),
             if self.conflict { " CONFLICT (nothing applied)" } else { "" }, stacks(0), stacks(1),
             self.soul.map_or("none".to_string(), |(t, e)| format!("{} {}", side(t), e.key())), count('K'), count('B'),
             self.executes, self.procs[0], self.procs[1], self.procs[2], self.procs[3], self.procs[4], self.procs[5], self.burnt,
             self.ocean_healed, self.shields, self.boosts, self.neutralized,
             self.terrain.rift.map_or("none".to_string(), |r| format!("{} from t={}", r.0.key(), r.1)), self.terrain.winds,
-            self.terrain.jumps, self.terrain.eaten, self.terrain.healed, self.terrain.hides, self.terrain.pushes,
-            self.terrain.through, self.stats, self.deal_way));
+            self.terrain.jumps, self.terrain.eaten, self.terrain.healed, self.terrain.hides, self.terrain.rubble,
+            self.terrain.slowed, self.stats, self.deal_way));
     }
 }
 
