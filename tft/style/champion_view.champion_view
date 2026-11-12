@@ -359,15 +359,15 @@
     "tft_raptor": {
       "face": {
         "x": 8,
-        "y": -17
+        "y": -15
       },
       "center": {
         "x": 0,
-        "y": -8
+        "y": -6
       },
       "banpick_center": {
         "x": 0,
-        "y": -14
+        "y": -16
       }
     },
     "tft_elderdragon": {

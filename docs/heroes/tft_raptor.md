@@ -10,7 +10,7 @@
 | 所属的包 | tft 包（金铲铲之战系列，mod_id `tft`） |
 | 分路 | ADC |
 | 分类 / 标签 | 射手（Range） · AD / Range |
-| 高清帧 | PPU 1.56 |
+| 高清帧 | PPU 1.56（画成 85%） |
 | 附加包 | 无 |
 
 其他预览：[skills](../preview/tft_raptor_skills.gif)、[逐帧预览](../preview/tft_raptor_frames.png)、[特效表](../preview/tft_raptor_effects.png)
@@ -74,6 +74,7 @@
 | 特效 | 10 张 + 3 个技能图标，Codex 画（[`tools/art/pack_raptor_fx.py`](../../tools/art/pack_raptor_fx.py) 的提示词，参考是霞的羽毛、羽刃和命中，奎因的风和烟，嘉文四世的粒子贴图 [`tools/lol/fx_ref_raptor.py`](../../tools/lol/fx_ref_raptor.py)）。[`tools/art/import_raptor_fx.py`](../../tools/art/import_raptor_fx.py)：飞出的羽毛、羽刃、小鸟扑啄当初给的格子太小，Codex 缩成了一团，从原稿重新切进更大的格子（18×7、26×10、16×8，每帧按自己的范围居中，上下对称），羽毛命中也重切（16×16）；鸟群按原稿 9.5 px 一格重读（每只小鸟约 11 格高），左右各往外挪 4 格不压脸；3 个图标从原稿重新缩到 64 |
 | 音效 | 甩羽、命中、尖叫和死亡是它自己的（峡谷锋喙鸟的音效包 `npc_map11_razorbeak_sfx_`，没名字的事件按 id 听出来）；大招的小鸟用小锋喙鸟自己的（`npc_map11_razorbeakmini_sfx_`：出场、啄、啄中、飞走）；羽刃借霞，后跳借薇恩的翻滚，攻速借奎因的 W，破甲借嘉文四世的 Q（[`tools/lol/extract_raptor.py`](../../tools/lol/extract_raptor.py)，15 个） |
 | 选人卡片 | 羽冠到爪子 36 游戏像素：`banpick_center` (0, −14)，脸 (8, −17)（近处那只眼睛），中心 (0, −18)。待机按 `tools/art/hero_reels.py` 剪进普攻的第一帧，卡片轮播普攻、羽刃扇射、惊飞跃退、鸟群之家 |
+| 局内大小 | 11 月 12 日用户：「卑尔维斯和深红锋啄鸟的模型有点大了」。量下来 37×49 游戏像素，圆滚滚的身子实打实 1120 平方游戏像素，和英雄一样重（盖伦 1051）。`tft.dll` 的 `SIZES` 把它画成 **85%**（32×42，魔沼蛙的做法），高清帧往下挪 3 格（爪子在中心下 12.2 游戏像素：12.2 × 1.56 × (1/0.85 − 1) = 3.4），爪子还踩在原来的地面上（`ppu_restyle.py` 的 `lift_sq −3` 直接写出，像素逐格没变）。tft 包的 SIZES 不进界面用的 lo_ 帧（`tools/art/pixel_down.py` 的 `sizes_of` 只读主包），界面上只多了下移的 3 格（1.9 游戏像素）：`banpick_center` −14 → −16、脸 (8, −17) → (8, −15)、`center` −8 → −6（百科按 League 的规则，战斗里受击也还在身上同一处），卡片和头像和原来一样 |
 
 重新生成（素材来自本机的英雄联盟 / 金铲铲客户端，音频和 Riot 的渲染不进仓库）：
 
@@ -86,7 +87,7 @@ python tools/art/design_raptor_model.py                   # 定稿 A-1（75×56�
 python tools/art/design_raptor_poses.py                   # Codex 的姿势：按定稿的体型从原稿读回、换成定稿的颜色、贴定稿的脸
 python tools/art/import_raptor_fx.py                      # 特效 -> tft_raptor_fx / tft_raptor_big，图标
 python tools/art/rig_raptor.py                            # 1 倍帧和 1.56 的原帧（跑在定稿待机上走）
-python tools/art/ppu_restyle.py --hero raptor             # 外描边
+python tools/art/ppu_restyle.py --hero raptor             # 外描边，局内 85% 的下移 3 格
 python tools/art/ppu_hd.py --hero raptor                  # hd_ / lo_ 帧（要在 hero_reels 之前）
 python tools/art/hero_reels.py --hero tft_raptor          # 待机和选人卡片的小动作（之后再跑佛耶戈的 make_override）
 python tools/art/preview_raptor.py                        # 预览和每个技能单独的 GIF
