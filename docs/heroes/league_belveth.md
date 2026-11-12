@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / CC |
-| 高清帧 | PPU 1.75 |
+| 高清帧 | PPU 1.75（画成 85%） |
 | 附加包 | [卑尔维斯附加包](#附加包)（`league_belveth`） |
 
 ![卑尔维斯演示](../preview/league_belveth_showcase.gif)
@@ -96,19 +96,20 @@
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_belveth.py`](../../tools/lol/extract_belveth.py)）：翼刃挥动和劈中，Q 的出手和命中，W 的出手、砸地和命中，大招的出手、珊瑚爆发和命中，风暴和每一下斩击（很轻：每 10 tick 一下），吃珊瑚；W、风暴的台词；Q 和大招在英雄联盟里没有台词，用她普攻的一句和嘲讽 |
 | 图标 | 官方技能图标（虚空激流、上觐沉渊、万载豪筵，另有搠面皇锋、溶烛化紫），从本地客户端取 |
 | 选人卡片 | 肩刺到爪尖 47 游戏像素：`league.dll` 的 UI_SIZES 画成 0.82、`banpick_center` −8（`tools/art/bp_card_audit.py`：肩刺在画布顶下 1 像素，爪子踩在下沿）。待机按 `tools/art/hero_reels.py` 剪：蜷缩、滑行的上下浮动（举翼和扬尾那两帧比定稿高，放进待机卡片会切掉头）；卡片放普攻、甩尾、大招 |
+| 局内大小 | 11 月 12 日用户：「卑尔维斯和深红锋啄鸟的模型有点大了」。量下来站着 48×50 游戏像素（肩刺到爪尖），217 位里第 15 高、也是最宽的一批；亚托克斯、盖伦 42。`league.dll` 的 `SIZES` 把她画成 **85%**（站着 41×43，亚恒的做法），高清帧往下挪 4 格（爪尖在中心下 12 游戏像素：12 × 1.75 × (1/0.85 − 1) = 3.7），爪子还踩在原来的地面上（`ppu_restyle.py` 的 `lift_sq −4` 直接写出，像素逐格没变）。选人格子画的是高清帧、只按 UI_SIZES 缩放，所以 UI_SIZES 留在 0.82、`banpick_center` −8 → −10（抵掉下移的 4 格），卡片和原来一样；脸 (0, −34) → (0, −27)、`center` −17 → −13，都是她 85% 的 lo_ 帧里同一个位置（头像、百科按它裁和摆，战斗里受击也打在同一处） |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
 
 ```bash
 python tools/lol/extract_belveth.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
 python tools/kit/build_belveth.py                    # 技能数据，数字都在脚本的参数表 P 里
-python tools/kit/setup_belveth.py                    # 五种语言的文字、音效配置、共享文件里她的键（脸 0,-34，卡片 -8）
+python tools/kit/setup_belveth.py                    # 五种语言的文字、音效配置、共享文件里她的键（脸 0,-27，卡片 -10）
 python tools/art/design_belveth_hd.py                # Codex 第 0 步的原图读回（A、B）
 python tools/art/design_belveth_model.py             # Codex 第 1 步的造型读回（A-1 裁到 82 行）
 python tools/art/design_belveth_poses.py             # Codex 的姿势读回（贴回定稿的头，身体缩回定稿大小）
 python tools/art/import_belveth_fx.py                # 特效 -> league_belveth_fx / league_belveth_big
 python tools/art/rig_belveth.py                      # 1 倍帧和 1.75 的原帧
-python tools/art/ppu_restyle.py --hero belveth       # 外描边、脸的位置
+python tools/art/ppu_restyle.py --hero belveth       # 外描边、脸的位置，局内 85% 的下移 4 格
 python tools/art/ppu_hd.py --hero belveth            # hd_ / lo_ 帧
 python tools/art/hero_reels.py --hero belveth        # 待机和选人卡片的小动作
 python tools/art/preview_belveth.py                  # 预览和演示 GIF

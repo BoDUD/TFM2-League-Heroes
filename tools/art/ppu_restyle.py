@@ -602,8 +602,11 @@ RESTYLE = {
     # claws at the user's pick, PPU 1.75, 3/4 only, the wing-arms folded like a cloak) with Codex's key poses after
     # League's clips (the design's head put back, the bodies brought to the design's size), posed by
     # tools/art/rig_belveth.py, so no proportion or density change here; the outer outline grown a square like the
-    # others; the face point between her eyes (over the standing point, 34 game px over the ground)
-    "belveth": dict(ppu=1.75, edge=1, face_to=(0, -34)),
+    # others; the face point between her eyes (over the standing point, 34 game px over the ground).
+    # 2026-11-12: 85 % in game (「卑尔维斯和深红锋啄鸟的模型有点大了」, hd.rs SIZES): 12 x 1.75 x (1 / 0.85 - 1) = 3.7 -> 4
+    # squares lower (her claws 12 game px under her centre); the face point where her lo_ frames (made at 85 %, the 4
+    # squares in them) put her eyes: (-34 + 4 / 1.75) x 0.85 = -27
+    "belveth": dict(ppu=1.75, edge=1, lift_sq=-4, face_to=(0, -27)),
     # league_taliyah (group I mid): the design (Codex's step-1 A-2 cut to 70 rows: 40 game px hair top to soles at the
     # user's PPU 1.75, 3/4 only) with Codex's key poses after League's clips (read at their bodies' scale, the design's
     # head put back), posed by tools/art/rig_taliyah.py, so no proportion or density change here; the outer outline grown
@@ -1125,8 +1128,11 @@ RESTYLE = {
     # size: read on squares of the design's body, the commonest design colour each, the design's upper face where the
     # head is level: design_raptor_poses.py), posed by tools/art/rig_raptor.py (the run walks the idle), so no proportion
     # or density change here; the outer outline grown a square like the others, its one-square cracks closed and the
-    # small holes filled; the face point on its near eye (8 game px ahead of its standing point and 17 over the ground)
-    "raptor": dict(ppu=1.56, edge=1, face_to=(8, -17), cracks=True, fill_holes=15),
+    # small holes filled; the face point on its near eye (8 game px ahead of its standing point and 17 over the ground).
+    # 2026-11-12: 85 % in game (「卑尔维斯和深红锋啄鸟的模型有点大了」, addons/tft/src/hd.rs SIZES): 12.2 x 1.56 x (1 / 0.85
+    # - 1) = 3.4 -> 3 squares lower (its talons 12.2 game px under its centre); its lo_ frames carry no tft SIZES, so
+    # the face point only goes down with the 3 squares: -17 + 3 / 1.56 = -15
+    "raptor": dict(ppu=1.56, edge=1, lift_sq=-3, face_to=(8, -15), cracks=True, fill_holes=15),
     # tft_elderdragon (the tft pack, top): the design (Codex's step-0 A-1, the winged dragon low on four legs at 3/4, its
     # 125 rows 1:1 for the user's picks 「A-1 44像素 PPU2.84」) and Codex's key poses after League's Elder Dragon clips
     # (each read at its own body size on the design's palette, the design's face where the jaws are shut:

@@ -229,7 +229,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_singed", 1.39, include_str!("../../../league/champions/league_singed#anim.fanim")),
     // Bel'Veth: posed by tools/art/rig_belveth.py on Codex's step-1 take A-1 cut to 82 rows and its key poses after
     // League's clips (the design's head put back, the bodies brought to the design's size) at the user's 1.75 squares a
-    // game pixel (71 game rows head top to claws = 40 game px, the shoulder spikes above; 3/4 only), so no SIZES row
+    // game pixel (71 game rows head top to claws = 40 game px, the shoulder spikes above; 3/4 only), shown at 85 % (SIZES)
     ("league_belveth", 1.75, include_str!("../../../league/champions/league_belveth#anim.fanim")),
     // Taliyah: posed by tools/art/rig_taliyah.py on Codex's step-1 take A-2 cut to 70 rows and its key poses after
     // League's clips (read at their bodies' scale, the design's head put back) at the user's 1.75 squares a game pixel
@@ -793,6 +793,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// (RESTYLE zaahen lift_sq: 11.5 x 1.75 x (1 / 0.85 - 1) = 3.6), moved in his strips as they were - the restyle's
 /// shared steps have closed more outline pinholes since his frames were made (76 in the run alone), left out. His
 /// revive picture goes with him: EFFECTS league_zaahen_rise at 1.75 / 0.85.
+/// Bel'Veth: 85 % (the user, 2026-11-12: 「卑尔维斯和深红锋啄鸟的模型有点大了」 - 48 x 50 game px standing, shoulder
+/// spikes to claws, 15th tallest of 217 and among the widest, against Aatrox's and Garen's 42; 85 % = 41 x 43, Zaahen's
+/// way), her dense frames 4 squares lower (RESTYLE belveth lift_sq: 12 x 1.75 x (1 / 0.85 - 1) = 3.7, the claws 12 game
+/// px under her centre), written by the restyle itself (it reproduces her committed strips bit for bit).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
@@ -801,7 +805,8 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_nami", 0.90), ("league_hwei", 0.85),
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
-                                    ("league_zac", 0.85), ("league_talon", 0.90), ("league_zaahen", 0.85)];
+                                    ("league_zac", 0.85), ("league_talon", 0.90), ("league_zaahen", 0.85),
+                                    ("league_belveth", 0.85)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack).
 /// Cho'Gath's Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent
@@ -1005,7 +1010,9 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // card value set with bp_card_audit.py (the tank under the canvas top, the soles on its bottom)
     ("league_singed", 0.80),
     // Bel'Veth: 47 game px from her shoulder spikes to her claws at PPU 1.75 (the raised wings of the reel higher); UI
-    // size and card value set with bp_card_audit.py
+    // size and card value set with bp_card_audit.py. Kept at 0.82 when she went to 85 % (SIZES, 2026-11-12): the BP grid
+    // draws her hd_ frames at UI_SIZES alone (hd_engine Hero::bp_hd, SIZES not in it), and 0.82 / 0.85 = 0.965 would
+    // stand her 46 px tall on the 40 px canvas; the lo_ drawers (pick slot, pick moment) show her at 0.85 x 0.82
     ("league_belveth", 0.82),
     // Taliyah: 40 game px from her piled hair to her soles at PPU 1.75 (shorter than Bel'Veth: 0.82 left her head 15 px
     // under the card's top); UI size 0.98 and card value -10 set with bp_card_audit.py

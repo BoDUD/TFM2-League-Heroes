@@ -36,8 +36,11 @@ R = "<#ef5350ff>"      # crowd control
 G = "<#66bb6aff>"      # healing, shields
 E = "<>"
 # champion_view: the face point between her eyes (ppu_restyle.py RESTYLE face_to) and the ban/pick card
-# (bp_card_audit.py with hd.rs UI_SIZES)
-VIEW = {"face": {"x": 0, "y": -34}, "center": {"x": 0, "y": -17}, "banpick_center": {"x": 0, "y": -8}}
+# (bp_card_audit.py with hd.rs UI_SIZES). Since 2026-11-12 she is drawn at 85 % (hd.rs SIZES, 「卑尔维斯和深红锋啄鸟的
+# 模型有点大了」), her dense frames 4 squares lower: the face and center on the same spots of her 85 % lo_ frames
+# ((y + 4 / 1.75) x 0.85: -34 -> -27, -17 -> -13; center is where hits land), the card 2 px up for the 4 squares
+# (the BP grid draws her hd_ frames at UI_SIZES 0.82 alone: the card as before)
+VIEW = {"face": {"x": 0, "y": -27}, "center": {"x": 0, "y": -13}, "banpick_center": {"x": 0, "y": -10}}
 
 
 def phys(d, r):

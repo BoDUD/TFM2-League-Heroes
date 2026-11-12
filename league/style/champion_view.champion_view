@@ -2137,15 +2137,15 @@
     "league_belveth": {
       "face": {
         "x": 0,
-        "y": -34
+        "y": -27
       },
       "center": {
         "x": 0,
-        "y": -17
+        "y": -13
       },
       "banpick_center": {
         "x": 0,
-        "y": -8
+        "y": -10
       }
     },
     "league_taliyah": {

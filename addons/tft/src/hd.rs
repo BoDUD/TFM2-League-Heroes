@@ -115,7 +115,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("tft_brambleback", 1.7, include_str!("../../../tft/champions/tft_brambleback#anim.fanim")),
     // the Crimson Raptor (tft_raptor, the tft pack): the raptor crouched at 3/4, step 0's A-1 at the user's 36 game px
     // from the crest to its talons, PPU 1.56 (「A-1 36 PPU 1.56」: 56 rows 1:1), and Codex's key poses after its own TFT
-    // clips, posed by tools/art/rig_raptor.py, so no SIZES row
+    // clips, posed by tools/art/rig_raptor.py, shown at 85 % (SIZES)
     ("tft_raptor", 1.56, include_str!("../../../tft/champions/tft_raptor#anim.fanim")),
     // the Elder Dragon (tft_elderdragon, the tft pack): the winged dragon low on four legs at 3/4, step 0's A-1 at the
     // user's 44 game px from the highest wing tip to its claws, PPU 2.84 (「A-1 44像素 PPU2.84」: 125 rows 1:1), and Codex's
@@ -178,7 +178,13 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// Gromp (tft_gromp): 85 % (the user, 2026-11-04: 「魔沼蛙的尺寸感觉在局内有点大 整体需要缩小一点」 - 32 game px tall but
 /// 69 wide with its belly; 85 % = 27 x 59), its battlefield frames 3.5 squares lower (tools/art/lower_hd_frames.py --rows 7:
 /// soles 20.5 squares under the frame's centre, 2 x 20.5 x (1 / 0.85 - 1) = 7.2); the BP card's frames and UI size stay.
-pub const SIZES: &[(&str, f32)] = &[("tft_powder", 0.90), ("tft_gromp", 0.85)];
+/// Crimson Raptor (tft_raptor): 85 % (the user, 2026-11-12: 「卑尔维斯和深红锋啄鸟的模型有点大了」 - 37 x 49 game px, a
+/// round bird as heavy as a champion (1120 solid game px, Garen 1051); 85 % = 32 x 42, Gromp's), its dense frames 3
+/// squares lower (RESTYLE raptor lift_sq: 12.2 x 1.56 x (1 / 0.85 - 1) = 3.4, the talons 12.2 game px under its
+/// centre), written by the restyle itself (it reproduces its committed strips bit for bit); the UI frames (lo_) carry
+/// no tft SIZES (tools/art/pixel_down.py sizes_of), so only the 3 squares reach the cards: banpick_center and the face
+/// point moved with them.
+pub const SIZES: &[(&str, f32)] = &[("tft_powder", 0.90), ("tft_gromp", 0.85), ("tft_raptor", 0.85)];
 
 /// Heroes whose body grows with a stack (league_main/src/hd.rs GROWTH: Cho'Gath's Feast): none in this pack yet.
 pub const GROWTH: &[(&str, &str, f32)] = &[];
