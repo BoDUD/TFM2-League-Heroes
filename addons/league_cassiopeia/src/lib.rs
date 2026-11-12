@@ -19,11 +19,17 @@
 //!   最低，引擎挑的成装里还是有鞋就换成同一档里还没出的别的装备（法强的先，[`without_boots`]）。被动每 `ITEMS_EVERY` tick 看她
 //!   身上的装备，还是买了鞋（钩子被别的 mod 盖掉了）就把鞋的属性 buff（名字就是装备的 key，league_ornn 认装备的办法）摘掉
 //!   ——没有脚穿不上；鞋还在装备栏里，钱也花了。第一次记一行 `BOOTS`。
+//!   0.1.4：4+6 装备 mod（`alele_runes_and_items`）的鞋 key 不带名字（成装鞋 `item_t5_0_…`，四阶的鞋见 [`ALELE_BOOTS_T4`]），
+//!   属性挂在 `item_owned_<mod id>_<key 开头>_<8 位十六进制>` 这种永久 buff 上（[`owned_buff_of`]，和 league_ornn 同一规则）：
+//!   0.1.3 两样都认不出，4+6 下她的鞋照常生效。现在 [`is_boots`] 也认 4+6 的鞋，被动把这两种 buff 都摘掉（[`boot_buffs`]）。
+//!   4+6 的选择器规定满 6 件的路线里必须有一双鞋，所以她总会带一双；能摘的只有鞋打包的属性，4+6 自己的代码加的固定移速和
+//!   鞋的特效（比如不朽之路的吸血）摘不掉。摘掉以后属性又回来了（4+6 自己补回去）就再摘，第二次记一行 `BOOTS AGAIN`。
 //!
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_cassiopeia.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `FANG`（毒牙加成）、`GAZE`（石化或减速、朝向）、`BUILD`（她的成装里的鞋换掉了）、`BOOTS`（她还是买了鞋，属性摘掉了），限了条数。
+//! `FANG`（毒牙加成）、`GAZE`（石化或减速、朝向）、`BUILD`（她的成装里的鞋换掉了）、`BOOTS`（她还是买了鞋，属性摘掉了）、
+//! `BOOTS AGAIN`（摘掉的属性又回来了，又摘了一次），限了条数。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -70,6 +76,25 @@ pub const BOOTS: [&str; 11] = [
     "chainlaced_crushers",
     "forever_forward",
 ];
+/// 4+6 装备 mod 的成装鞋：五阶装备 key 第三段是 0（它的选择器认鞋也是这一条），0.10.9 里是 6 双：不朽之路、带链碾碎者、
+/// 灵能使之靴、炮铜胫甲、猩红明朗、装甲战靴（`item_t5_0_1_1_101_0_0_1` 到 `…106…`）。
+pub const ALELE_BOOTS_T5: &str = "item_t5_0_";
+/// 4+6 装备 mod 的四阶鞋（成装鞋的上一阶，0.10.9-python.2 的装备目录）。更低阶的「鞋子 + 长剑」这类是两件合成的一件，属性全是
+/// 另一件的（长剑的攻击力），不算鞋；一阶的「鞋子」没有属性。
+pub const ALELE_BOOTS_T4: [&str; 6] = [
+    "item_t4_0_0_0_14_0_0_1", // 暴食胫甲 -> 不朽之路
+    "item_t4_1_0_0_16_0_0_1", // 铁板靴 -> 装甲战靴
+    "item_t4_1_0_0_17_0_0_1", // 水银之靴 -> 带链碾碎者
+    "item_t4_2_0_0_20_0_0_1", // 狂战士胫甲 -> 炮铜胫甲
+    "item_t4_4_0_0_17_0_0_1", // 法师之靴 -> 灵能使之靴
+    "item_t4_5_0_0_5_0_0_1",  // 明朗之靴 -> 猩红明朗
+];
+/// 4+6 装备 mod 给每件装备挂的属性 buff 名的开头：`item_owned_<mod id>_<key>_<8 位十六进制>`（league_ornn 的 forge 同一规则）。
+pub const OWNED: &str = "item_owned_";
+/// 这种名字最长这么多个字符（buff 名最长 64 字节）：key 放不下时只留开头一段（`alele_runes_and_items` 留 20 个字符）。
+pub const OWNED_NAME_MAX: usize = 62;
+/// key（和截短后留下的那一段）至少这么长才认：mod id 里也有下划线，太短分不清哪里是 mod id、哪里是 key。
+pub const OWNED_STEM_MIN: usize = 8;
 /// 她的成装里鞋的分数（引擎按分数挑成装；替换成这个就挑不上）。
 pub const BOOTS_SCORE: f32 = -1.0e6;
 /// 构筑钩子的优先级：只对她做决定，排在别的装备 mod 前面。
@@ -175,10 +200,38 @@ pub fn faces(left: bool, at_x: u64, her_x: u64) -> bool {
     }
 }
 
-/// 这件装备是不是鞋（按名字，大小写不论）。
+/// 这件装备是不是鞋：按名字（大小写不论），或者是 4+6 装备 mod 的鞋（[`is_alele_boots`]）。
 pub fn is_boots(key: &str) -> bool {
+    if is_alele_boots(key) {
+        return true;
+    }
     let k = key.to_ascii_lowercase();
     BOOTS.iter().any(|b| k.contains(b))
+}
+
+/// 4+6 装备 mod 的鞋（它的 key 不带名字）：成装鞋 [`ALELE_BOOTS_T5`] 开头，四阶的鞋 [`ALELE_BOOTS_T4`]。
+pub fn is_alele_boots(key: &str) -> bool {
+    key.starts_with(ALELE_BOOTS_T5) || ALELE_BOOTS_T4.contains(&key)
+}
+
+/// buff `name` 是不是装备 `key` 的 4+6 属性 buff `item_owned_<mod id>_<key>_<8 位十六进制>`：`<mod id>_` 后面是整个 key，或者
+/// ——名字已经是最长（[`OWNED_NAME_MAX`]）时——key 开头放得下的那一段（league_ornn 的 `forge::owned_buff_of`，同样的测试）。
+pub fn owned_buff_of(name: &str, key: &str) -> bool {
+    let Some((body, hash)) = name.strip_prefix(OWNED).and_then(|rest| rest.rsplit_once('_')) else { return false };
+    if key.len() < OWNED_STEM_MIN || hash.len() != 8 || !hash.bytes().all(|b| b.is_ascii_hexdigit()) {
+        return false;
+    }
+    // "<mod id>_<stem>": something, an underscore, then the stem
+    let ends = |stem: &str| body.strip_suffix(stem).is_some_and(|m| m.len() > 1 && m.ends_with('_'));
+    ends(key)
+        || (name.len() == OWNED_NAME_MAX
+            && (OWNED_STEM_MIN..key.len()).rev().any(|n| key.is_char_boundary(n) && ends(&key[..n])))
+}
+
+/// 她身上的 buff `names` 里哪些是这些鞋 `boots`（装备 key）的属性：名字就是 key 的（别的装备 mod、原版的办法），或者 4+6 的
+/// `item_owned_…`。
+pub fn boot_buffs<'a>(names: &[&'a str], boots: &[String]) -> Vec<&'a str> {
+    names.iter().copied().filter(|b| boots.iter().any(|k| *b == k.as_str() || owned_buff_of(b, k))).collect()
 }
 
 /// 引擎给她挑的成装 `base`（`keys` 的下标）里有鞋：去掉鞋，每双换成一件同档（成装里最高那一档）、还没在成装里的别的装备，
@@ -332,8 +385,8 @@ struct Track {
 #[derive(Clone, Default)]
 struct Venom {
     seen: HashMap<usize, Track>,
-    /// 摘鞋的属性已经记过一行 `BOOTS`（每份模拟里的她一次）。
-    boots_told: bool,
+    /// 摘过几次鞋的属性（每份模拟里的她）：第一次记 `BOOTS`，第二次（属性又回来了）记 `BOOTS AGAIN`。
+    boots_removed: usize,
 }
 
 impl Venom {
@@ -363,15 +416,28 @@ impl StablePassive for Venom {
             // boots she owns anyway (another mod's build won over the hook): their stats come off her (no feet to wear them)
             let boots: Vec<String> =
                 sim.get_player(player).map(|p| p.item_keys()).unwrap_or_default().into_iter().filter(|k| is_boots(k)).collect();
-            let worn: Vec<&String> = boots.iter().filter(|k| has_buff(sim, me, k)).collect();
-            for k in &worn {
-                sim.entity_remove_buff(me, k);
-            }
-            if !worn.is_empty() && !self.boots_told {
-                self.boots_told = true;
-                if let Some(k) = counted("boots") {
-                    wlog(format!("{} BOOTS: she owns {boots:?} - the build hook was overridden; their stats taken off her #{k}",
-                                 head(sim, me)));
+            if !boots.is_empty() {
+                let names: Vec<String> = sim
+                    .get_entity(me)
+                    .map(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()).collect())
+                    .unwrap_or_default();
+                let refs: Vec<&str> = names.iter().map(String::as_str).collect();
+                let worn: Vec<String> = boot_buffs(&refs, &boots).into_iter().map(str::to_string).collect();
+                for b in &worn {
+                    sim.entity_remove_buff(me, b);
+                }
+                if !worn.is_empty() {
+                    self.boots_removed += 1;
+                    let what = match self.boots_removed {
+                        1 => Some(("boots", "the build hook was overridden; their stats taken off her")),
+                        2 => Some(("boots_again", "AGAIN: the stats came back (the item mod put them back); taken off again")),
+                        _ => None,
+                    };
+                    if let Some((kind, text)) = what {
+                        if let Some(k) = counted(kind) {
+                            wlog(format!("{} BOOTS {text}: she owns {boots:?}, buffs {worn:?} #{k}", head(sim, me)));
+                        }
+                    }
                 }
             }
         }
@@ -496,6 +562,43 @@ mod tests {
                   "runic_compass", "staff_of_rapture", "world_atlas", "bamis_cinder"] {
             assert!(!is_boots(k), "{k} is not boots");
         }
+    }
+
+    #[test]
+    fn alele_boots_by_key() {
+        // the 4+6 pack's finished boots (0.10.9) and the tier-4 boots before them
+        for k in ["item_t5_0_1_1_101_0_0_1", "item_t5_0_1_1_102_0_0_1", "item_t5_0_1_1_103_0_0_1", "item_t5_0_1_1_104_0_0_1",
+                  "item_t5_0_1_1_105_0_0_1", "item_t5_0_1_1_106_0_0_1", "item_t4_0_0_0_14_0_0_1", "item_t4_1_0_0_16_0_0_1",
+                  "item_t4_1_0_0_17_0_0_1", "item_t4_2_0_0_20_0_0_1", "item_t4_4_0_0_17_0_0_1", "item_t4_5_0_0_5_0_0_1"] {
+            assert!(is_boots(k) && is_alele_boots(k), "{k} is boots");
+        }
+        // her 4+6 route without the boots (Rod of Ages, the Archangel tear, Rylai's, Blighting Jewel, Liandry's), other finished
+        // items, the boots + component bundles (their stats are the other part's), tier-1 boots (no stats), a tier-4 part with
+        // the same first numbers, runes
+        for k in ["item4_0_0_0_classic_rod_of_ages", "item4_0_0_0_tm_mage_5", "item_t5_546_0_0_105_0_0_0", "item_t5_546_1_2_101_0_0_0",
+                  "item_t5_54_0_0_107_0_0_0", "item_t5_3_0_0_112_0_0_5", "item_t5_134_1_2_101_0_0_0", "item_t3_4_0_0_9_0_0_1",
+                  "item_t2_4_0_0_5_0_0_1", "item_t3_0_0_0_11_0_0_1", "item_t2_1_0_0_2_0_0_0", "item_t1_0_0_0_1_0_0_1",
+                  "item_t4_0_0_0_0_0_0_2", "runes0_0_0_0", "runes_transition_t1"] {
+            assert!(!is_boots(k), "{k} is not boots");
+        }
+    }
+
+    #[test]
+    fn the_boots_stat_buffs_come_off_and_nothing_else() {
+        // 4+6 names: the key cut to 20 characters when the whole name would pass 62
+        const SORC: &str = "item_owned_alele_runes_and_items_item_t5_0_1_1_103_0__0a1b2c3d";
+        const MAGE_T4: &str = "item_owned_alele_runes_and_items_item_t4_4_0_0_17_0_0_5e6f7a8b";
+        const LIANDRY: &str = "item_owned_alele_runes_and_items_item_t5_54_0_0_107_0_12345678";
+        const ROD: &str = "item_owned_alele_runes_and_items_item4_0_0_0_classic__9abcdef0";
+        assert_eq!(SORC.len(), OWNED_NAME_MAX);
+        assert!(owned_buff_of(SORC, "item_t5_0_1_1_103_0_0_1") && !owned_buff_of(SORC, "item_t5_0_1_1_104_0_0_1"));
+        assert!(owned_buff_of(MAGE_T4, "item_t4_4_0_0_17_0_0_1") && !owned_buff_of(MAGE_T4, "item_t4_1_0_0_17_0_0_1"));
+        assert!(!owned_buff_of("item_owned_alele_runes_and_items_item_t5_0_1_1_103_0_", "item_t5_0_1_1_103_0_0_1"), "no hash");
+        assert!(!owned_buff_of("item_t5_0_1_1_103_0_0_1", "item_t5_0_1_1_103_0_0_1"), "not an item_owned_ name");
+        let names = [SORC, MAGE_T4, LIANDRY, ROD, "league_cassiopeia_poison", "sorcerers_shoes", "rylais_crystal_scepter"];
+        let boots = vec!["item_t5_0_1_1_103_0_0_1".to_string(), "item_t4_4_0_0_17_0_0_1".to_string(), "sorcerers_shoes".to_string()];
+        assert_eq!(boot_buffs(&names, &boots), vec![SORC, MAGE_T4, "sorcerers_shoes"]);
+        assert!(boot_buffs(&names, &[]).is_empty());
     }
 
     #[test]
