@@ -11,6 +11,8 @@
 //! [`STACKS`]（src/stack_table.rs，stack_nums.py 生成）里活着的英雄：[`Rule::Count`] 数那个 buff 有几个，[`Rule::Sum`] 把它们的
 //! 一项数值加起来（维迦击杀英雄那一层 5 点法强，英雄联盟算 5 层），[`Rule::Ladder`] 看梯子爬到第几级（乘 `step`，满了的旗子
 //! 另算），截到 [`Stack::cap`]。
+//! 附加包自己的数也走梯子（0.9.36）：普朗克附加包把手里的银蛇币挂成 `league_gangplank_sv_<n>`（rungs 9999），只有附加包的
+//! 副本有 `stack_skill_index`（stack_nums.py 的 `passive`：主包的普朗克没有银蛇币，不露出层数格）。
 //!
 //! **写进 `stack`。** 稳定接口改属性只有 `entity_set_base_stat`：整块换掉基础属性（9 项）。可 `stat()` 读到的是算好的那块
 //! （经典 SDK 0.5.1 的 `Entity::calculate_stat_cached`：每项 = (基础 + buff 的加值) x (100 + buff 的倍率) / 100，

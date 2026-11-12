@@ -3,13 +3,14 @@
 
 use super::stacks::{Rule, Stack, Stat};
 
-pub const STACKS: [Stack; 24] = [
+pub const STACKS: [Stack; 25] = [
     Stack { hero: "league_annie", rule: Rule::Ladder { prefix: "league_annie_pyro_", rungs: 3, step: 1, full: Some(("league_annie_pyro_ready", 4)) }, cap: 4 },
     Stack { hero: "league_aurelionsol", rule: Rule::Ladder { prefix: "league_aurelionsol_d", rungs: 30, step: 1, full: None }, cap: 30 },
     Stack { hero: "league_belveth", rule: Rule::Ladder { prefix: "league_belveth_l", rungs: 8, step: 1, full: None }, cap: 8 },
     Stack { hero: "league_caitlyn", rule: Rule::Ladder { prefix: "league_caitlyn_hs_", rungs: 5, step: 1, full: None }, cap: 5 },
     Stack { hero: "league_chogath", rule: Rule::Count("league_chogath_r_stack"), cap: 999 },
     Stack { hero: "league_darius", rule: Rule::Ladder { prefix: "league_darius_hemo_", rungs: 4, step: 1, full: Some(("league_darius_might", 5)) }, cap: 5 },
+    Stack { hero: "league_gangplank", rule: Rule::Ladder { prefix: "league_gangplank_sv_", rungs: 9999, step: 1, full: None }, cap: 9999 },
     Stack { hero: "league_gnar", rule: Rule::Ladder { prefix: "league_gnar_rg", rungs: 9, step: 10, full: Some(("league_gnar_full", 100)) }, cap: 100 },
     Stack { hero: "league_irelia", rule: Rule::Ladder { prefix: "league_irelia_pv", rungs: 4, step: 1, full: None }, cap: 4 },
     Stack { hero: "league_jinx", rule: Rule::Ladder { prefix: "league_jinx_revup_", rungs: 3, step: 1, full: None }, cap: 3 },
