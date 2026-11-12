@@ -22,6 +22,14 @@
 //!   手里还有桶：用掉一个桶，往他脚下扔第三个（落地画面），离他最近的那个桶炸开（桶边没人由本包空炸，有人由数据照常炸），
 //!   连锁带上另一个，`THIRD_FUSE` tick 后第三个桶在他脚下炸开：伤害、无视护甲、减速、摘 `p_cd`、被动加速都照数据的桶。
 //!   本包不按任何技能键。
+//! - **银蛇币**（v0.3.0，用户：「船长银蛇币的系统能做吗」「回泉水才能买 购买顺序按照对局智能判断 数值也是按照这个游戏的节奏来」；
+//!   英雄联盟：枪火谈判击杀掠夺 4-8 枚银蛇币和 3-7 金币，商店里 500 枚一个给加农炮幕买升级）：枪火谈判打死目标（数据的
+//!   击杀检查挂 3 tick 的 `q_kill`）掠夺 [`plunder`] 枚银蛇币（`sv_scale`%：经典引擎里他一局的枪火谈判击杀只有英雄联盟的十分
+//!   之一左右）和 [`plunder_gold`] 金币（`player_add_gold`），枪火谈判的等级跟比赛时钟走（每 `sv_rank_t` tick 一级）。他在泉水
+//!   （出生、复活的地方 `sv_home` 以内）、手里够 `sv_cost` 枚就按局势买一个升级（[`choose`]：人头差、两队护甲、他的炮幕平均
+//!   罩住几个敌我英雄），旗子 `league_gangplank_up_dd` / `up_faw` / `up_rm` 挂在他身上（复活后补回），数据的加农炮幕读它：死神的
+//!   女儿（中间砸一颗大炮弹：真实伤害、强减速）、开火（同样时间打 18 波）、鼓舞士气（炮幕里的友方英雄加速）。手里的银蛇币挂成
+//!   `league_gangplank_sv_<n>`，league.dll 的技能栏层数格显示它。日志：`HOME` / `PLUNDER` / `BARRAGE` / `BUY`。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gangplank.log`，每次启动游戏重写。
 
@@ -145,6 +153,13 @@ pub struct Params {
     pub e_pen: usize,
     pub e_slow: i32,
     pub e_slow_t: usize,
+    /// 银蛇币（0.3.0）：一次枪火谈判击杀给英雄联盟 4-8 枚的百分之几（按这个游戏的节奏放大）、枪火谈判每隔多少 tick
+    /// 升一级（英雄联盟 1/3/5/7/9 级加点）、一个升级多少枚、击杀多给的金币是英雄联盟 3-7 的百分之几、离出生点多近算在泉水。
+    pub sv_scale: u64,
+    pub sv_rank_t: usize,
+    pub sv_cost: u64,
+    pub sv_gold: u64,
+    pub sv_home: u64,
 }
 
 impl Default for Params {
@@ -165,6 +180,11 @@ impl Default for Params {
             e_pen: 40,
             e_slow: 40,
             e_slow_t: 120,
+            sv_scale: 1000,
+            sv_rank_t: 10800,
+            sv_cost: 500,
+            sv_gold: 100,
+            sv_home: 60000,
         }
     }
 }
@@ -192,6 +212,11 @@ pub fn parse_params(json: &str) -> Params {
             "e_pen" => p.e_pen = v as usize,
             "e_slow" => p.e_slow = v as i32,
             "e_slow_t" => p.e_slow_t = v as usize,
+            "sv_scale" => p.sv_scale = v,
+            "sv_rank_t" => p.sv_rank_t = v as usize,
+            "sv_cost" => p.sv_cost = v,
+            "sv_gold" => p.sv_gold = v,
+            "sv_home" => p.sv_home = v,
             _ => {}
         }
     }
@@ -329,6 +354,153 @@ pub fn late_blows(handed: &mut Vec<Handed>, now: usize, kegs: &[Option<(u64, u64
     out
 }
 
+// ===================== 银蛇币（0.3.0） =====================
+
+/// 枪火谈判在 `tick` 时是几级（1..=5）：每 `sv_rank_t` tick 升一级（英雄联盟 1/3/5/7/9 级加点：这里跟着比赛时钟）。
+pub fn q_rank(p: &Params, tick: usize) -> u64 {
+    (1 + tick / p.sv_rank_t.max(1)).min(5) as u64
+}
+
+/// 一次枪火谈判击杀掠夺的银蛇币：英雄联盟 4-8 枚（按级）的 `sv_scale`%。
+pub fn plunder(p: &Params, tick: usize) -> u64 {
+    ((3 + q_rank(p, tick)) * p.sv_scale + 50) / 100
+}
+
+/// 一次枪火谈判击杀多给的金币：英雄联盟 3-7（按级）的 `sv_gold`%。
+pub fn plunder_gold(p: &Params, tick: usize) -> i64 {
+    (((2 + q_rank(p, tick)) * p.sv_gold + 50) / 100) as i64
+}
+
+/// 加农炮幕的三个升级（英雄联盟商店里各 500 银蛇币）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Upgrade {
+    /// 死神的女儿：开始 0.5 秒后中间砸一颗超大炮弹（一波的 300% 真实伤害、强减速）。
+    Daughter,
+    /// 开火：同样的时间里多打 6 波（18 波）。
+    FireAtWill,
+    /// 鼓舞士气：炮幕里的友方英雄加速，离开后还有 2 秒。
+    Morale,
+}
+
+impl Upgrade {
+    /// 平手时的先后（死神的女儿最先：开团抓人最显眼）。
+    pub const ALL: [Upgrade; 3] = [Upgrade::Daughter, Upgrade::FireAtWill, Upgrade::Morale];
+
+    pub fn index(self) -> usize {
+        match self {
+            Upgrade::Daughter => 0,
+            Upgrade::FireAtWill => 1,
+            Upgrade::Morale => 2,
+        }
+    }
+
+    /// 数据读的旗子（数据：`SwitchByBuff league_gangplank_up_*`）。
+    pub fn flag(self) -> &'static str {
+        match self {
+            Upgrade::Daughter => "up_dd",
+            Upgrade::FireAtWill => "up_faw",
+            Upgrade::Morale => "up_rm",
+        }
+    }
+
+    pub fn label(self) -> &'static str {
+        match self {
+            Upgrade::Daughter => "Death's Daughter",
+            Upgrade::FireAtWill => "Fire at Will",
+            Upgrade::Morale => "Raise Morale",
+        }
+    }
+}
+
+/// 买的那一刻对局的样子。
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct Situation {
+    /// 他这一队的击杀减对面的。
+    pub kill_diff: i64,
+    /// 对面活着的英雄平均护甲是他这一队的几倍（真实伤害对厚的人更值）。
+    pub foe_armour: f64,
+    /// 他的炮幕落地时平均罩住几个敌方英雄、几个己方英雄，一共落过几次。
+    pub foes_per: f64,
+    pub allies_per: f64,
+    pub barrages: u32,
+}
+
+/// 落后这么多个人头、领先这么多个人头。
+pub const BEHIND: i64 = -3;
+pub const AHEAD: i64 = 3;
+/// 对面护甲是这一队的这么多倍算「厚」。
+pub const TANKY: f64 = 1.25;
+/// 炮幕平均罩住这么多敌人算「打得到人堆」、这么多队友算「队友在炮幕里打」；至少看过这么多次才算数。
+pub const CROWD: f64 = 2.0;
+pub const WITH_ALLIES: f64 = 1.0;
+pub const SEEN: u32 = 2;
+
+/// 按局势挑下一个升级（用户：「购买顺序按照对局智能判断」）：
+/// - 死神的女儿 2 分，落后再加 2（真实伤害的大炮弹抓人、守），对面比这一队厚再加 1；
+/// - 开火 2 分，领先再加 2（多 6 波滚雪球），炮幕常罩住人堆再加 1；
+/// - 鼓舞士气 1 分，队友常在炮幕里一起打再加 2。
+/// 分高的先买，一样高按 [`Upgrade::ALL`] 的先后。返回升级和理由（日志用）。
+pub fn choose(bought: [bool; 3], s: &Situation) -> Option<(Upgrade, String)> {
+    let seen = s.barrages >= SEEN;
+    let mut best: Option<(Upgrade, u32, String)> = None;
+    for u in Upgrade::ALL {
+        if bought[u.index()] {
+            continue;
+        }
+        let (score, why) = match u {
+            Upgrade::Daughter => {
+                let behind = s.kill_diff <= BEHIND;
+                let tanky = s.foe_armour >= TANKY;
+                (2 + 2 * behind as u32 + tanky as u32,
+                 format!("{}{}", if behind { "behind, " } else { "" }, if tanky { "tanky foes, " } else { "" }))
+            }
+            Upgrade::FireAtWill => {
+                let ahead = s.kill_diff >= AHEAD;
+                let crowd = seen && s.foes_per >= CROWD;
+                (2 + 2 * ahead as u32 + crowd as u32,
+                 format!("{}{}", if ahead { "ahead, " } else { "" }, if crowd { "barrages hit crowds, " } else { "" }))
+            }
+            Upgrade::Morale => {
+                let with = seen && s.allies_per >= WITH_ALLIES;
+                (1 + 2 * with as u32, if with { "allies fight in the barrages, ".to_string() } else { String::new() })
+            }
+        };
+        if best.as_ref().is_none_or(|b| score > b.1) {
+            best = Some((u, score, why));
+        }
+    }
+    best.map(|(u, score, why)| {
+        let why = why.trim_end_matches(", ");
+        (u, format!("score {score}{}", if why.is_empty() { String::new() } else { format!(": {why}") }))
+    })
+}
+
+/// 面板上显示的银蛇币数：league.dll 的层数格读 `league_gangplank_sv_<n>`（tools/kit/stack_nums.py 的梯子规则）。
+pub fn count_name(coins: u64) -> String {
+    sn(&format!("sv_{coins}"))
+}
+
+/// 一局里这个普朗克的银蛇币。
+#[derive(Clone, Default)]
+pub struct Serpents {
+    pub coins: u64,
+    pub bought: [bool; 3],
+    /// 他的泉水：出生、复活时站的地方（复活是新的实体 `body`；原地复活的还是那个身子，不算）。
+    pub home: Option<(u64, u64)>,
+    body: Option<usize>,
+    pub player: Option<usize>,
+    pub kills: u32,
+    pub gold: i64,
+    pub barrages: u32,
+    pub foes_in: u32,
+    pub allies_in: u32,
+    had_kill: bool,
+    had_land: bool,
+    /// 炮幕落地后数罩住了几个英雄的那个 tick（标记比 `r_land` 晚一 tick 挂上）。
+    count_at: Option<usize>,
+    shown: Option<u64>,
+}
+
 // ===================== 被动 =====================
 
 /// 算「被控」的硬控（游戏 0.6.4 把施法动作也记成一种控制 Animation，不能用 cc_count() > 0）。
@@ -364,6 +536,30 @@ fn far(d: Option<f64>) -> String {
     d.map_or("no enemy".to_string(), |d| format!("{d:.0} away"))
 }
 
+/// 每隔这么多 tick 看一眼升级的旗子和面板上的数（死了复活后旗子没了，补回去）。
+const KEEP_EVERY: usize = 6;
+
+/// 带着炮幕落地标记（`r_in` 敌方英雄、`r_ally` 己方英雄，3 tick）的英雄各有几个。
+fn marked(sim: &StableSim<'_>) -> (u32, u32) {
+    let (foe, ally) = (sn("r_in"), sn("r_ally"));
+    let mut out = (0, 0);
+    for e in (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|e| e.is_champion()) {
+        let names: Vec<String> = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()).collect();
+        out.0 += names.iter().any(|n| *n == foe) as u32;
+        out.1 += names.iter().any(|n| *n == ally) as u32;
+    }
+    out
+}
+
+/// 一队活着的英雄的平均护甲（`own`：他这一队）；没人就是 None。
+fn mean_armour(sim: &StableSim<'_>, team: usize, own: bool) -> Option<f64> {
+    let v: Vec<f64> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
+        .filter(|e| e.is_champion() && e.is_alive() && (e.team() == team) == own)
+        .map(|e| e.stat().defence as f64)
+        .collect();
+    (!v.is_empty()).then(|| v.iter().sum::<f64>() / v.len() as f64)
+}
+
 fn refresh(sim: &mut StableSim<'_>, me: usize, buff: &BuffV1) {
     sim.entity_remove_buff(me, buff.name());
     sim.add_buff(me, buff);
@@ -384,9 +580,126 @@ struct Scurvy {
     third: Vec<(usize, (u64, u64))>,
     /// 交给数据炸、等着再看一眼的桶（0.2.3）。
     handed: Vec<Handed>,
+    /// 银蛇币（0.3.0）。
+    sv: Serpents,
 }
 
 impl Scurvy {
+    /// 银蛇币（0.3.0，用户：「船长银蛇币的系统能做吗」「回泉水才能买 购买顺序按照对局智能判断 数值也是按照这个游戏的节奏来」）：
+    /// 枪火谈判击杀（数据挂 3 tick 的 `q_kill`）掠夺银蛇币和金币；炮幕落地（`r_land`）后一 tick 数罩住了几个敌方、己方英雄；
+    /// 在泉水（出生、复活的地方 `sv_home` 以内）攒够 `sv_cost` 就按局势买一个升级。
+    fn serpents(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, alive: bool) {
+        let Some((team, pos)) = sim.get_entity(me).map(|e| (e.team(), e.pos())) else { return };
+        // the first tick of a new body (a respawn is a new entity) he stands in his fountain; a revive where he fell
+        // (the same body) is not his fountain
+        if alive && self.sv.body != Some(me) {
+            self.fountain(sim, me, pos);
+        }
+
+        let kill = has(sim, me, &sn("q_kill"));
+        if kill && !self.sv.had_kill {
+            let gain = plunder(&self.p, now);
+            let gold = plunder_gold(&self.p, now);
+            self.sv.coins += gain;
+            self.sv.kills += 1;
+            let paid = gold > 0 && self.sv.player.is_some_and(|pl| sim.player_add_gold(pl, gold));
+            if paid {
+                self.sv.gold += gold;
+            }
+            if let Some(k) = counted("plunder") {
+                wlog(format!("{} PLUNDER #{k}: Parrrley kill {} (rank {}): +{gain} serpents = {}, +{gold} gold{}",
+                             head(sim, me), self.sv.kills, q_rank(&self.p, now), self.sv.coins,
+                             if paid { "" } else { " (not paid)" }));
+            }
+        }
+        self.sv.had_kill = kill;
+
+        // the marks on the champions in the barrage come a tick after `r_land`
+        let land = has(sim, me, &sn("r_land"));
+        if land && !self.sv.had_land {
+            self.sv.count_at = Some(now + 1);
+        }
+        self.sv.had_land = land;
+        if self.sv.count_at.is_some_and(|t| now >= t) {
+            self.sv.count_at = None;
+            let (foes, allies) = marked(sim);
+            self.sv.barrages += 1;
+            self.sv.foes_in += foes;
+            self.sv.allies_in += allies;
+            if let Some(k) = counted("barrage") {
+                wlog(format!("{} BARRAGE #{k}: landed on {foes} enemy and {allies} allied champion(s) ({} so far)",
+                             head(sim, me), self.sv.barrages));
+            }
+        }
+
+        let at_home = self.sv.home.is_some_and(|h| within(pos, h, self.p.sv_home));
+        if alive && at_home && self.sv.coins >= self.p.sv_cost {
+            let s = self.situation(sim, team);
+            if let Some((u, why)) = choose(self.sv.bought, &s) {
+                self.sv.bought[u.index()] = true;
+                self.sv.coins -= self.p.sv_cost;
+                if let Some(k) = counted("buy") {
+                    wlog(format!("{} BUY #{k}: {} for {} serpents at the fountain ({why}; kills {:+}, foe armour x{:.2}, \
+                                  {} barrage(s), {:.1} foes / {:.1} allies in each) - {} left",
+                                 head(sim, me), u.label(), self.p.sv_cost, s.kill_diff, s.foe_armour, s.barrages,
+                                 s.foes_per, s.allies_per, self.sv.coins));
+                }
+            }
+        }
+        if now % KEEP_EVERY == 0 {
+            self.keep(sim, me);
+        }
+    }
+
+    /// 他的泉水：新的身子（出生、复活）第一次站的地方。
+    fn fountain(&mut self, sim: &StableSim<'_>, me: usize, pos: (u64, u64)) {
+        self.sv.body = Some(me);
+        if self.sv.home != Some(pos) {
+            if let Some(k) = counted("home") {
+                wlog(format!("{} HOME #{k}: his fountain at ({}, {})", head(sim, me), pos.0, pos.1));
+            }
+            self.sv.home = Some(pos);
+        }
+    }
+
+    /// 对局的样子：击杀记录里两队的人头、两队活着的英雄的平均护甲、他的炮幕平均罩住几个人。
+    fn situation(&self, sim: &StableSim<'_>, team: usize) -> Situation {
+        let (mut mine, mut theirs) = (0i64, 0i64);
+        for k in (0..sim.kill_log_count()).filter_map(|i| sim.kill_log_at(i)) {
+            if k.killer_team == team {
+                mine += 1;
+            } else {
+                theirs += 1;
+            }
+        }
+        let foe_armour = match (mean_armour(sim, team, true), mean_armour(sim, team, false)) {
+            (Some(m), Some(f)) if m > 0.0 => f / m,
+            _ => 1.0,
+        };
+        let n = self.sv.barrages.max(1) as f64;
+        Situation { kill_diff: mine - theirs, foe_armour, foes_per: self.sv.foes_in as f64 / n,
+                    allies_per: self.sv.allies_in as f64 / n, barrages: self.sv.barrages }
+    }
+
+    /// 买过的升级的旗子挂在他身上（数据的 `SwitchByBuff` 读施法者的；死了复活旗子会没，这里补回去。塞拉斯偷到的、佛耶戈
+    /// 附身用的加农炮幕是主包那份，没有升级），面板上的数（`league_gangplank_sv_<n>`）跟着银蛇币改。
+    fn keep(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        for u in Upgrade::ALL.iter().filter(|u| self.sv.bought[u.index()]) {
+            let flag = sn(u.flag());
+            if !has(sim, me, &flag) {
+                sim.add_buff(me, &BuffV1::named(&flag));
+            }
+        }
+        let name = count_name(self.sv.coins);
+        if let Some(old) = self.sv.shown.filter(|&c| c != self.sv.coins) {
+            sim.entity_remove_buff(me, &count_name(old));
+        }
+        if !has(sim, me, &name) {
+            sim.add_buff(me, &BuffV1::named(&name));
+        }
+        self.sv.shown = Some(self.sv.coins);
+    }
+
     /// W 吃下去的那个 tick 清掉他身上的硬控。
     fn cleanse(&mut self, sim: &mut StableSim<'_>, me: usize) {
         let w_now = has(sim, me, &sn("w_now"));
@@ -679,6 +992,11 @@ impl StablePassive for Scurvy {
             wlog(format!("{} SPAWN #{k}: the add-on's Gangplank (player {player}, team {team}), {:?}", head(sim, me),
                          self.p));
         }
+        // the Silver Serpents' gold goes to his player; he spawns in his fountain
+        self.sv.player = Some(player);
+        if let Some(pos) = sim.get_entity(me).map(|e| e.pos()) {
+            self.fountain(sim, me, pos);
+        }
     }
 
     fn on_update(&mut self, sim: &mut StableSim<'_>, _: u64, _: usize, me: usize) {
@@ -703,6 +1021,7 @@ impl StablePassive for Scurvy {
         self.charges(sim, me, now);
         self.triple_barrel(sim, me, now);
         self.third_boom(sim, me, now);
+        self.serpents(sim, me, now, alive);
         self.prev = mine;
     }
 }
@@ -748,8 +1067,66 @@ mod tests {
     fn params_from_the_kit() {
         assert_eq!(parse_params(concat!(r#"{"e_chain":70000,"e_champ":60,"e_dmg":40,"e_gap":60,"e_link":10,"e_pen":40,"#,
                                         r#""e_r":30000,"e_range":70000,"e_ratio":100,"e_slow":40,"e_slow_t":120,"#,
-                                        r#""e_stock":3,"p_ms":20,"p_ms_t":120,"w_low":40}"#)),
+                                        r#""e_stock":3,"p_ms":20,"p_ms_t":120,"sv_cost":500,"sv_gold":100,"#,
+                                        r#""sv_home":60000,"sv_rank_t":10800,"sv_scale":1000,"w_low":40}"#)),
                    Params::default());
+        let read = parse_params(r#"{"sv_scale":700,"sv_rank_t":9000,"sv_cost":400,"sv_gold":50,"sv_home":1}"#);
+        assert_eq!((read.sv_scale, read.sv_rank_t, read.sv_cost, read.sv_gold, read.sv_home), (700, 9000, 400, 50, 1));
+    }
+
+    #[test]
+    fn plunder_follows_the_clock() {
+        let pp = p();
+        let at = |rank: usize| (rank - 1) * pp.sv_rank_t;
+        // League's 4-8 serpents and 3-7 gold a kill at Parrrley's ranks 1-5; x10 serpents here (sv_scale 1000)
+        assert_eq!((q_rank(&pp, 0), plunder(&pp, 0), plunder_gold(&pp, 0)), (1, 40, 3));
+        assert_eq!((q_rank(&pp, at(2) - 1), plunder(&pp, at(2) - 1)), (1, 40));
+        assert_eq!((q_rank(&pp, at(2)), plunder(&pp, at(2)), plunder_gold(&pp, at(2))), (2, 50, 4));
+        assert_eq!((q_rank(&pp, at(5)), plunder(&pp, at(5)), plunder_gold(&pp, at(5))), (5, 80, 7));
+        assert_eq!((q_rank(&pp, at(9)), plunder(&pp, at(9))), (5, 80), "rank 5 is the last");
+        // at 100 % it is League's own count
+        let league = Params { sv_scale: 100, ..pp };
+        assert_eq!((plunder(&league, 0), plunder(&league, at(5))), (4, 8));
+        // sv_rank_t 0 does not divide by zero
+        assert_eq!(q_rank(&Params { sv_rank_t: 0, ..pp }, 5), 5);
+    }
+
+    #[test]
+    fn upgrades_follow_the_match() {
+        let none = [false; 3];
+        let pick = |bought: [bool; 3], s: Situation| choose(bought, &s).map(|c| c.0);
+        let even = Situation { foe_armour: 1.0, ..Situation::default() };
+        // even and no barrage seen yet: Death's Daughter, then Fire at Will, then Raise Morale (ties go by ALL)
+        assert_eq!(pick(none, even), Some(Upgrade::Daughter));
+        assert_eq!(pick([true, false, false], even), Some(Upgrade::FireAtWill));
+        assert_eq!(pick([true, true, false], even), Some(Upgrade::Morale));
+        assert_eq!(pick([true; 3], even), None);
+        // ahead: Fire at Will; behind: Death's Daughter, even with his barrages on crowds
+        let ahead = Situation { kill_diff: AHEAD, ..even };
+        assert_eq!(pick(none, ahead), Some(Upgrade::FireAtWill));
+        assert_eq!(pick(none, Situation { kill_diff: AHEAD - 1, ..even }), Some(Upgrade::Daughter));
+        assert_eq!(pick(none, Situation { kill_diff: BEHIND, foes_per: 3.0, barrages: 5, ..even }), Some(Upgrade::Daughter));
+        // his barrages on crowds: Fire at Will; foes tankier than his team on top of that: Death's Daughter (a tie)
+        let crowd = Situation { foes_per: CROWD, barrages: SEEN, ..even };
+        assert_eq!(pick(none, crowd), Some(Upgrade::FireAtWill));
+        assert_eq!(pick(none, Situation { foe_armour: TANKY, ..crowd }), Some(Upgrade::Daughter));
+        // allies in his barrages: Raise Morale - not before SEEN barrages
+        let allies = Situation { allies_per: WITH_ALLIES, foes_per: 1.0, barrages: SEEN, ..even };
+        assert_eq!(pick(none, allies), Some(Upgrade::Morale));
+        assert_eq!(pick(none, Situation { barrages: SEEN - 1, ..allies }), Some(Upgrade::Daughter));
+        assert_eq!(pick([false, false, true], allies), Some(Upgrade::Daughter));
+        // the reason for the log
+        assert_eq!(choose(none, &ahead).unwrap().1, "score 4: ahead");
+        assert_eq!(choose(none, &even).unwrap().1, "score 2");
+        assert_eq!(choose(none, &Situation { kill_diff: BEHIND, foe_armour: 2.0, ..even }).unwrap().1,
+                   "score 5: behind, tanky foes");
+    }
+
+    #[test]
+    fn serpent_count_on_the_panel() {
+        // league.dll's stack box reads the number after `league_gangplank_sv_` (tools/kit/stack_nums.py)
+        assert_eq!(count_name(0), "league_gangplank_sv_0");
+        assert_eq!(count_name(1230), "league_gangplank_sv_1230");
     }
 
     #[test]

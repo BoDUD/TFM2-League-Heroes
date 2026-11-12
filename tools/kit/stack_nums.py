@@ -40,7 +40,9 @@ FIELD = "stack_skill_index"
 #           Shyvana's rage 10 a rung, Tryndamere's fury 20 - League's 0..100); with "full" (a flag buff: Darius's Noxian
 #           Might, Gnar's full Rage) on him, the number is "top"
 # cap: the most the number shows; skill: whose icon the panel shows beside it (0 skill, 1 skill2, 2 ult - the ability
-# the stacks feed, else the first); label: what the number is (for --list and the docs)
+# the stacks feed, else the first); label: what the number is (for --list and the docs); passive: an add-on's own
+# counter (its code writes the rungs, no data does) - only the copy whose passive is that native shows the box, the
+# main pack's kit (no add-on, the number would stay 0) does not
 STACKS = [
     {"hero": "league_veigar", "sum": "league_veigar_p_stack", "stat": "magic_power", "cap": 999, "skill": 0,
      "label": "维迦「超凡邪力」叠的法术强度（英雄联盟的层数）"},
@@ -83,12 +85,22 @@ STACKS = [
      "top": 100, "cap": 100, "skill": 2, "label": "希瓦娜「魔龙降世」龙怒（100 = 满）"},
     {"hero": "league_tryndamere", "ladder": "league_tryndamere_f_", "rungs": 5, "step": 20, "cap": 100, "skill": 0,
      "label": "泰达米尔「战斗狂怒」怒气"},
+    # the add-on's Silver Serpents in hand (2026-11-12, the user: 「船长银蛇币的系统能做吗」): league_gangplank writes
+    # league_gangplank_sv_<n> (its unit test serpent_count_on_the_panel)
+    {"hero": "league_gangplank", "ladder": "league_gangplank_sv_", "rungs": 9999, "cap": 9999, "skill": 2,
+     "passive": "league_gangplank:scurvy", "label": "普朗克「银蛇币」（附加包）"},
 ]
 
 
 # --------------------------------------------------------------------------------------------------------- the data
 def row(hero):
     return next((r for r in STACKS if r["hero"] == hero), None)
+
+
+def passive_ref(champ):
+    """The native passive a copy calls (an add-on's), or None."""
+    p = champ.get("passive")
+    return p.get("passive_ref") if isinstance(p, dict) else None
 
 
 def apply(champ):
@@ -99,6 +111,9 @@ def apply(champ):
     if any(str(v.get("name", "")).startswith(prefix) for v in champ.get("view_buffs", [])):
         champ["view_buffs"] = [v for v in champ["view_buffs"] if not str(v.get("name", "")).startswith(prefix)]
     r = row(hero)
+    if r is not None and r.get("passive", passive_ref(champ)) != passive_ref(champ):
+        champ.pop(FIELD, None)      # an add-on's counter: not in a copy without its passive
+        r = None
     if r is not None:
         champ[FIELD] = r["skill"]
     return champ
@@ -180,12 +195,20 @@ def table_problems():
 
 def rules_problems():
     """Every counted buff / ladder rung exists in the hero's own data (a renamed buff would count nothing), every icon
-    is one of his three, and nothing still draws the old over-head numbers."""
+    is one of his three, and nothing still draws the old over-head numbers. An add-on's own counter ("passive"): some
+    copy of the hero calls that passive (its code writes the rungs, its unit tests check the names)."""
     out = []
     for r in STACKS:
-        raw = open(os.path.join(LEAGUE, "champion", r["hero"] + ".data_champion"), encoding="utf-8").read()
-        names = ([r["count"]] if "count" in r else [r["sum"]] if "sum" in r else
-                 [f'{r["ladder"]}{k}' for k in (1, r["rungs"])] + ([r["full"]] if "full" in r else []))
+        if "passive" in r:
+            mine = [p for p in copies() if os.path.basename(p) == r["hero"] + ".data_champion"
+                    and passive_ref(json.loads(open(p, "rb").read().decode("utf-8"))) == r["passive"]]
+            if not mine:
+                out.append(f"{r['hero']}: no copy of it calls {r['passive']}")
+            names = []
+        else:
+            raw = open(os.path.join(LEAGUE, "champion", r["hero"] + ".data_champion"), encoding="utf-8").read()
+            names = ([r["count"]] if "count" in r else [r["sum"]] if "sum" in r else
+                     [f'{r["ladder"]}{k}' for k in (1, r["rungs"])] + ([r["full"]] if "full" in r else []))
         if "sum" in r and f'"{r["stat"]}"' not in raw:
             out.append(f"{r['hero']}: no buff of it carries {r['stat']}")
         for n in names:

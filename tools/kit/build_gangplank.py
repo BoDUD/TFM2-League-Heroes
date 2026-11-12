@@ -69,12 +69,18 @@ import argparse
 import json
 import os
 
+import stack_nums  # the add-on copy's Silver Serpents count in the skill bar
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 OUT = os.path.join(REPO, "league", "champion", "league_gangplank.data_champion")
 ID = "league_gangplank"
 FX = "asset/league/effects/league_gangplank_fx"
 BIG = "asset/league/effects/league_gangplank_big"
+# the Silver Serpents' pictures (the add-on's copy only): the mega-cannonball's mark, fall and blast, Raise Morale, the
+# coin of a plunder - a sheet of their own (tools/art/gangplank_sv_fx.py), the two above being redrawn by the effects'
+# PPU work (PR #730)
+SV = "asset/league/effects/league_gangplank_sv"
 
 # League units x 100 = ours (Q range 625 -> 62500); radii count the unit's collision radius (~15000) on top. Timings
 # match the strips (tools/art/rig_gangplank.py MS: attack 433 ms = 26 ticks, Q 24, E 22, W 20, R 24).
@@ -100,6 +106,20 @@ P = {
     # R Cannon Barrage (League: global, r 580 (inner 170), 12 waves 40-100 + 10% AP, slow 30% 0.5 s, cd 160-120)
     "r_cd": 3600, "r_range": 400000, "r_arm": 600, "r_wait": 300, "r_dur": 24, "r_rel": 10, "r_call": 60,
     "r_waves": 12, "r_p": 30, "r_r": 58000, "r_dmg": 60, "r_ratio": 50, "r_slow": 30, "r_slow_t": 30,
+    # the add-on's Silver Serpents (2026-11-12, the user: 「船长银蛇币的系统能做吗」「开始做」): League's Parrrley kill
+    # plunders 4-8 serpents (by its rank) and 3-7 bonus gold; the shop sells three Cannon Barrage upgrades at 500 each.
+    # Here Parrrley's rank follows the match clock (one more every sv_rank_t ticks: League ranks it at levels 1/3/5/7/9),
+    # a kill brings sv_scale % of League's serpents (the game's pace: set from the classic-SDK count of his kills) and
+    # sv_gold % of its gold, and he buys at his fountain (within sv_home of where he spawned or respawned), the add-on
+    # choosing which upgrade by the game (「购买顺序按照对局智能判断」)
+    # (classic-SDK count, 6 games of 9-14 minutes, top: 1.33 Parrrley kills a minute, most in the first four - at
+    # League's 4-8 a kill he had about 50 serpents at 7 minutes and 100 at 13; at x10 the first 500 comes about the
+    # 7th minute, the second about the 13th, the third only in long games)
+    "sv_scale": 1000, "sv_rank_t": 10800, "sv_cost": 500, "sv_gold": 100, "sv_home": 60000,
+    # the upgrades (League: Fire at Will six more waves in the same time; Death's Daughter a mega-cannonball on the
+    # middle 0.5 s in, 300% of a wave as true damage, slowing 60%; Raise Morale 40% faster allies in it and 2 s after)
+    "r_faw": 18, "r_dd_t": 30, "r_dd_r": 25000, "r_dd_pct": 300, "r_dd_slow": 60, "r_dd_slow_t": 30,
+    "r_rm_ms": 40, "r_rm_t": 120,
     "watch_p": 12,
     "vo_gap": 600,
     "native": 0,
@@ -249,6 +269,14 @@ def field(name, radius, tick, period, effects, target="EnemyWithoutTower", first
             "applied_effects": [T(e) for e in effects], "end_effects": []}
 
 
+def kill_check(src, reward):
+    """(before the hit, after it) on the unit hit - league_draven's: the flag on him first, the living unit's clear
+    after, his read 4 ticks later (a dead unit's `AddCasted` adds nothing, so the flag stays: the hit killed it)."""
+    k = f"k_{src}"
+    return (combine(*rm(k), flag(k, 40)),
+            combine(casted(3, 1, *rm(k)), on_me(delayed(4, sw(k, combine(*rm(k), reward))))))
+
+
 def voice(name, p):
     """His spoken line, at most one every vo_gap ticks."""
     return sw("vo_cd", NONE, combine(flag("vo_cd", p["vo_gap"]), sfx(name)))
@@ -333,10 +361,37 @@ def build(p):
     cast_w = {"type": "SwitchByLevel3", "effect_start": NONE, "effect_level3": sw("w_cd", NONE, want)}
 
     # ------------------------------------------------------------------ ult: R Cannon Barrage
-    wave = combine(view("r_wave"), sfx("r_wave"), zone("r_z", p["r_r"], [
-        attack(p["r_dmg"], p["r_ratio"]), buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]),
-        view("r_hit")]))
-    barrage = [sfx("r_call")] + [delayed(k * p["r_p"], wave) for k in range(p["r_waves"])]
+    def wave(period):
+        """One wave; the add-on's copy with Raise Morale bought also speeds the allies in it (`period` ticks: a wave's
+        buff ends as the next one comes, so two never add up)."""
+        morale = [sw("up_rm", zone("r_rm_z", p["r_r"], [buff("r_rm", period, move_speed_mult=p["r_rm_ms"])],
+                                   target="AllyChampion"))] if native else []
+        return combine(view("r_wave"), sfx("r_wave"), zone("r_z", p["r_r"], [
+            attack(p["r_dmg"], p["r_ratio"]), buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]),
+            view("r_hit")]), *morale)
+
+    waves = [delayed(k * p["r_p"], wave(p["r_p"])) for k in range(p["r_waves"])]
+    if native:
+        # the Silver Serpents' upgrades (the add-on gives the `up_*` flags; none of them in the plain copy):
+        # Fire at Will - r_faw waves in the same time; Death's Daughter - the mega-cannonball r_dd_t ticks in, r_dd_pct %
+        # of a wave as true damage within r_dd_r and a slow; Raise Morale - allies in it r_rm_ms % faster (each wave),
+        # and r_rm_t ticks more for those in it as it ends. `r_land` and the marks on the champions in it at the landing
+        # tell the add-on how the barrages go (its choice of upgrade)
+        per = p["r_p"] * p["r_waves"] // p["r_faw"]
+        faw = [delayed(k * per, wave(per)) for k in range(p["r_faw"])]
+        pct = p["r_dd_pct"]
+        dd = combine(view("r_dd_boom"), sfx("e_boom"), zone("r_dd_z", p["r_dd_r"], [
+            true_dmg(p["r_dmg"] * pct // 100, p["r_ratio"] * pct // 100),
+            buff("r_dd_slow", p["r_dd_slow_t"], move_speed_mult=-p["r_dd_slow"]), view("r_hit")]))
+        land = combine(refresh("r_land", 3), zone("r_seen_e", p["r_r"], [buff("r_in", 3)], target="EnemyChampion"),
+                       zone("r_seen_a", p["r_r"], [buff("r_ally", 3)], target="AllyChampion"))
+        morale_end = zone("r_rm_end", p["r_r"], [buff("r_rm", p["r_rm_t"], move_speed_mult=p["r_rm_ms"])],
+                          target="AllyChampion")
+        barrage = [sfx("r_call"), land, sw("up_faw", combine(*faw), combine(*waves)),
+                   sw("up_dd", combine(view("r_dd_warn"), view("r_dd_fall"), delayed(p["r_dd_t"], dd))),
+                   sw("up_rm", delayed(p["r_p"] * p["r_waves"], morale_end))]
+    else:
+        barrage = [sfx("r_call")] + waves
     call = combine(*rm("r_arm", "r_late"), refresh("r_fired", 4), refresh("busy", p["r_dur"]),
                    anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                    delayed(p["r_rel"] - 1, alive(lob("r_flare", p["r_call"], barrage,
@@ -367,6 +422,9 @@ def build(p):
 
     # ------------------------------------------------------------------ skill: Q Parrrley
     shot = [attack(p["q_dmg"], p["q_ratio"]), refresh("q_fire", p["e_arm"]), view("q_hit"), tsfx("q_hit")]
+    if native:   # a kill raises `q_kill` (3 ticks) for the add-on's plunder, and a silver coin pops over him
+        k_set, k_read = kill_check("q", combine(refresh("q_kill", 3), cview("sv_coin")))
+        shot = [k_set, shot[0], k_read] + shot[1:]
     bang = combine(sfx("q_shot"),
                    sw("p_cd", homing("q_bullet", "EnemyWithoutTower", shot, p["q_speed"]),
                       combine(lit, homing("q_bullet_p", "EnemyWithoutTower", shot + fire_on, p["q_speed"]))),
@@ -410,9 +468,14 @@ def build(p):
     views_b = [B_("e_slow", FX, 3), B_("r_slow", FX, 3), B_("p_ms", FX, -1), B_("w_imm", FX, 3)]
     extra = {}
     if native:
+        views_e += [E("r_dd_warn", SV, -2, False), E("r_dd_fall", SV, 2, False), E("r_dd_boom", SV, 2, False),
+                    E("sv_coin", SV, 3)]
+        views_b += [B_("r_rm", SV, -1), {"type": "Animated", "name": n("r_dd_slow"), "anim": FX, "tag": "r_slow",
+                                         "repeat": True, "z": 3}]
         extra["passive"] = {"passive_ref": "league_gangplank:scurvy", "params": {
             k: p[k] for k in ("w_low", "e_chain", "e_r", "e_link", "p_ms", "p_ms_t", "e_stock", "e_gap", "e_range",
-                              "e_dmg", "e_ratio", "e_champ", "e_pen", "e_slow", "e_slow_t")}}
+                              "e_dmg", "e_ratio", "e_champ", "e_pen", "e_slow", "e_slow_t",
+                              "sv_scale", "sv_rank_t", "sv_cost", "sv_gold", "sv_home")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AD", "Melee"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
@@ -434,6 +497,10 @@ def nodes(o):
     if isinstance(o, list):
         return sum(nodes(v) for v in o)
     return 0
+
+# the add-on copy's Silver Serpents in the champion panel's stack box (tools/kit/stack_nums.py: only the copy with
+# the add-on's passive, 2026-11-12)
+build = stack_nums.wrap(build)
 
 
 def main():
