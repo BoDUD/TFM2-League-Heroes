@@ -7,6 +7,9 @@
 //!   立一圈墙 `r_t` tick。立墙时在圈里的单位（英雄、小兵、野怪、召唤物，两边都算，他自己也算）出不去，在圈外的进不来：
 //!   每 tick 单位的中心一碰到墙（圈里的离圆心超过 `r_r` - 单位半径，圈外的不到 `r_r` + 单位半径），就放回上一 tick 的位置
 //!   （上一 tick 也不在该在的一侧时，沿圆心方向推回墙内侧 / 外侧）。
+//! - **闪现、飞越过墙**（0.1.3，英雄联盟：天崩地裂的墙挡不住闪现和越墙的位移）：一 tick 里挪了 `BLINK` 以上（闪现、加里奥的
+//!   英雄登场这类瞬移）不算碰墙，放过去，这个单位以后按它落在的那一侧算（飞出去的进不来，飞进来的出不去）。11-12 的日志：加里奥
+//!   8 次大招没飞起来（`NO FLIGHT`），6 局里都有嘉文，同一 tick 记到 `KEPT OUT ... league_galio`——飞出去的那一下被放回了原地。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_jarvaniv.log`，每次启动游戏重写。
 
@@ -28,6 +31,9 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_jarvaniv") {
 
 /// 单位半径读不到时用的值。
 pub const BODY: u64 = 6000;
+/// 一 tick 里挪了这么远就是闪现 / 飞越（0.1.3）：走路每 tick 几百、数据的冲刺最快几千，加里奥的英雄登场一下 8 万到 30 多万，
+/// 闪现约 4 万。英雄联盟里这类位移越得过天崩地裂的墙。
+pub const BLINK: u64 = 15000;
 
 fn sn(x: &str) -> String {
     format!("league_jarvaniv_{x}")
@@ -164,6 +170,36 @@ pub fn clamp(r: &Ring, p: &Params, inside: bool, x: u64, y: u64, body: u64) -> (
     (nx, ny)
 }
 
+/// 这一 tick 和上一 tick 之间挪了 BLINK 以上：闪现 / 飞越过来的（0.1.3）。
+pub fn leapt(last: Option<(u64, u64)>, now: (u64, u64)) -> bool {
+    last.is_some_and(|l| {
+        let (dx, dy) = (now.0 as f64 - l.0 as f64, now.1 as f64 - l.1 as f64);
+        (dx * dx + dy * dy).sqrt() > BLINK as f64
+    })
+}
+
+/// 墙对这个单位这一 tick 的处理（0.1.3）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Wall {
+    /// 没碰墙。
+    Free,
+    /// 碰墙：放回这里。
+    Held((u64, u64)),
+    /// 闪现 / 飞越：放过去，以后它在这一侧（true：圈里）。
+    Leapt(bool),
+}
+
+/// 这一 tick 墙怎么处理这个单位：一下挪了 BLINK 以上的放过去（落在哪一侧就算哪一侧），别的照 [`hold`]。
+pub fn wall(r: &Ring, p: &Params, inside: bool, last: Option<(u64, u64)>, now: (u64, u64), body: u64) -> Wall {
+    if leapt(last, now) {
+        return Wall::Leapt(starts_inside(r, p, now.0, now.1));
+    }
+    match hold(r, p, inside, last, now, body) {
+        Some(q) => Wall::Held(q),
+        None => Wall::Free,
+    }
+}
+
 /// 这一 tick 单位该在哪（None：不用动）：碰墙就回到上一 tick 的位置，上一 tick 也不合法就推回去。
 pub fn hold(r: &Ring, p: &Params, inside: bool, last: Option<(u64, u64)>, now: (u64, u64), body: u64) -> Option<(u64, u64)> {
     if allowed(r, p, inside, now.0, now.1, body) {
@@ -193,6 +229,8 @@ struct Cataclysm {
     last_pos: HashMap<usize, (u64, u64)>,
     /// 这道墙已经记过 `KEPT` 的单位（0.1.2：一个单位一道墙一行，以前每 tick 一行）。
     logged: HashSet<usize>,
+    /// 这道墙已经记过 `LEAPT` 的单位（0.1.3）。
+    leapt_logged: HashSet<usize>,
 }
 
 impl Cataclysm {
@@ -204,6 +242,7 @@ impl Cataclysm {
             self.side.clear();
             self.last_pos.clear();
             self.logged.clear();
+            self.leapt_logged.clear();
             if let Some(k) = counted("ring") {
                 wlog(format!("{} RING #{k}: rock ring at ({x}, {y}), radius {}, {} ticks", head(sim, me), self.p.r_r,
                              self.p.r_t));
@@ -236,12 +275,25 @@ impl Cataclysm {
             let body = match e.radius() as u64 { 0 => BODY, r => r };
             let inside = *self.side.entry(id).or_insert_with(|| starts_inside(&ring, &self.p, pos.0, pos.1));
             let last = self.last_pos.get(&id).copied();
-            let at = match hold(&ring, &self.p, inside, last, pos, body) {
-                Some(q) => {
+            let at = match wall(&ring, &self.p, inside, last, pos, body) {
+                Wall::Held(q) => {
                     moves.push((id, q, inside));
                     q
                 }
-                None => pos,
+                Wall::Leapt(now_inside) => {
+                    // a blink or a flight over the wall (0.1.3): let through, on the side it landed from now on
+                    self.side.insert(id, now_inside);
+                    if now_inside != inside && self.leapt_logged.insert(id) {
+                        if let Some(k) = counted("leapt") {
+                            let from = last.unwrap_or(pos);
+                            wlog(format!("{} LEAPT {} #{k}: {} crossed the wall in one tick, ({}, {}) -> ({}, {}) - let through",
+                                         head(sim, self.me), if now_inside { "IN" } else { "OUT" }, who(sim, id), from.0,
+                                         from.1, pos.0, pos.1));
+                        }
+                    }
+                    pos
+                }
+                Wall::Free => pos,
             };
             seen.insert(id, at);
         }
@@ -348,6 +400,22 @@ mod tests {
         assert_eq!(hold(&RING, &p(), false, Some((550000, 400000)), (538000, 400000), 6000), Some((550000, 400000)));
         assert_eq!(hold(&RING, &p(), false, Some((560000, 400000)), (555000, 400000), 6000), None);
         assert_eq!(hold(&RING, &p(), false, None, (500000, 430000), 6000), Some((500000, 400000 + 42001)));
+    }
+
+    #[test]
+    fn a_blink_or_a_flight_crosses_the_wall() {
+        // walking out of the ring: held back (as before)
+        assert_eq!(wall(&RING, &p(), true, Some((525000, 400000)), (532000, 400000), 6000),
+                   Wall::Held((525000, 400000)));
+        // Galio's flight out of it (11-12: 80000 to 330000 in one tick): let through, outside from now on
+        assert_eq!(wall(&RING, &p(), true, Some((510000, 400000)), (600000, 450000), 6000), Wall::Leapt(false));
+        // a Flash in from outside: let through, inside from now on
+        assert_eq!(wall(&RING, &p(), false, Some((540000, 400000)), (515000, 400000), 6000), Wall::Leapt(true));
+        // a fast dash step (under BLINK a tick) still meets the wall
+        assert_eq!(wall(&RING, &p(), true, Some((525000, 400000)), (539000, 400000), 6000),
+                   Wall::Held((525000, 400000)));
+        assert!(!leapt(None, (900000, 900000)), "a unit first seen did not leap");
+        assert!(leapt(Some((0, 0)), (BLINK + 1, 0)) && !leapt(Some((0, 0)), (BLINK, 0)));
     }
 
     #[test]

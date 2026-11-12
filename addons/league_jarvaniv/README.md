@@ -36,6 +36,19 @@
 
 - `python addons/league_jarvaniv/make_override.py`：从参数表重新生成 `override/` 和 `text/`（先核对主包的嘉文四世和参数表一致）。
   主包的嘉文四世改了以后要重跑。
-- 在 `addons/` 下 `cargo test --release -p league_jarvaniv`：单元测试（参数、圈里的出不去、圈外的进不来、按立墙时的一侧判断）。
+- 在 `addons/` 下 `cargo test --release -p league_jarvaniv`：单元测试（参数、圈里的出不去、圈外的进不来、按立墙时的一侧判断、闪现和飞越过墙放行）。
 - 在 `addons/` 下 `cargo build --release -p league_jarvaniv`（Windows）得到 `target/release/league_jarvaniv.dll`；`league_addons` 合集也会编进本包。
 - 经典 SDK 的模拟器跑不了原生代码，本包只做了单元测试，要在游戏里看日志确认。
+
+## 0.1.3：闪现、飞越过墙放行（2026-11-12）
+
+11-12 的日志（用户：「和前几次一样 分析一下今天跑的日志 看看有没有bug」）：加里奥 71 次大招里 8 次没飞起来（`league_galio.log` 的 `NO FLIGHT`：`set_pos` 成功了，下一 tick 他又站回原地）。这 8 次所在的 6 局里都有嘉文四世，其中两次同一 tick 就记到 `KEPT OUT ... league_galio`（嘉文的 `KEPT` 一个单位一道墙只记一行，之后每 100 行记一行，所以另外几次没记下来）。
+
+原因：岩墙环每 tick 把碰墙的单位放回上一 tick 的位置，不管它是走过来的还是一下瞬移过来的。加里奥的英雄登场一 tick 飞出去 8 万到 30 多万，正好越过墙，就被放回了原地。
+
+英雄联盟里天崩地裂的墙挡不住闪现和越墙的位移（加里奥的大招、闪现）。现在：
+- 一 tick 里挪了 `BLINK`（15000）以上算闪现 / 飞越，不碰墙，放过去。走路每 tick 几百，数据里的冲刺最快几千，闪现约 4 万。
+- 放过去以后这个单位按落在的那一侧算：飞出去的进不来，飞进来的出不去。
+- 日志 `LEAPT OUT` / `LEAPT IN`：谁、从哪到哪。
+- 单元测试 `a_blink_or_a_flight_crosses_the_wall`。
+
