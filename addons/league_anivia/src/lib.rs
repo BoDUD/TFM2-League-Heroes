@@ -16,6 +16,8 @@
 //!   区域的位置（投射物信息里没有名字，只有位置）。之后 `w_t` tick 里，每个单位（英雄、小兵、野怪，两边都算，她自己也算）的中心
 //!   一进墙（竖着的长方形，半宽 `w_w`/2 + 单位半径，半高 `w_h`/2 + 单位半径）：走路的贴着墙滑（这一步顺着墙面的那一份照走，
 //!   进墙的那一份只走到墙面），冲刺的放回上一 tick 的位置；立墙时站在墙上的被推到她那一侧（和主包数据的拖出一样：墙在被晕的人身后）。
+//!   身上有无视地形的 buff（`ignore_wall`：斯卡纳的以绪塔尔冲击、凯隐的掠影步这类）的单位不挡，穿过去（0.1.10，英雄联盟：
+//!   英雄造的墙也是地形）。
 //! - **冰冻翻倍**：数据给 Q 打中、成形风暴打中的英雄挂 `league_anivia_iced`（`ice_t` tick）；E 打中时她身上亮 1 tick 的
 //!   `league_anivia_e_now`，本包在 `on_attack` 里看到它、目标身上又有冰冻，就把这一下伤害翻倍。
 //!
@@ -259,6 +261,12 @@ pub fn hold(walls: &[Wall], p: &Params, last: Option<(u64, u64)>, now: (u64, u64
         }
         _ => Some((push_out(w, p, r), now.1)),
     }
+}
+
+/// 这些 buff 里无视地形的那个（`ignore_wall`）的名字：英雄联盟里英雄造的墙也是地形，斯卡纳的以绪塔尔冲击、凯隐的掠影步这类
+/// 无视地形的位移穿得过去（2026-11-12，用户：「我们的蝎子能穿墙吗」「不能的话就改 联盟的可以穿墙」）。
+pub fn ghost_of(buffs: impl IntoIterator<Item = BuffV1>) -> Option<String> {
+    buffs.into_iter().find(|b| b.ignore_wall).map(|b| b.name().to_string())
 }
 
 /// 走进墙 `w` 的一步（`l` -> `now`）贴着墙滑到哪：这一步顺着墙面的那一份照走，进墙的那一份只走到墙面，不会停在墙里。
@@ -568,6 +576,20 @@ impl Rebirth {
             let now_pos = e.pos();
             let r = match e.radius() as u64 { 0 => BODY, r => r };
             let last = self.last_pos.get(&id).copied();
+            // ignoring terrain (0.1.10, League: champion-made terrain is terrain - Ixtal's Impact, Shadow Step and the like
+            // go through it): not held; one line the tick it walks into a wall
+            if let Some(buff) = ghost_of((0..e.buff_count()).filter_map(|i| e.buff_at(i))) {
+                let was_out = last.is_none_or(|l| self.walls.iter().all(|w| !inside(w, &self.p, l.0, l.1, r)));
+                let into = self.walls.iter().copied().find(|w| inside(w, &self.p, now_pos.0, now_pos.1, r));
+                if let Some(w) = into.filter(|_| was_out) {
+                    if let Some(k) = tally(sim, "through") {
+                        wlog(format!("{} THROUGH #{k}: {} ignores terrain ({buff}) - walks through the wall at ({}, {})",
+                                     head(sim, self.me), who(sim, id), w.x, w.y));
+                    }
+                }
+                seen.insert(id, now_pos);
+                continue;
+            }
             let at = match hold(&self.walls, &self.p, last, now_pos, r) {
                 Some(q) => {
                     // the wall it went into, and whether it was out of every wall the tick before (HOLD) or on one (PUSH)
@@ -787,6 +809,16 @@ mod tests {
         assert!(at.0 > 510000, "still behind the wall at {at:?}");
         // past the wall's end: free
         assert_eq!(hold(&w, &p(), Some((495000, 440000)), (500000, 440000), 6000), None);
+    }
+
+    #[test]
+    fn only_a_buff_ignoring_terrain_goes_through() {
+        // Skarner's Ixtal's Impact carries `league_skarner_e_ghost` with ignore_wall; a plain buff lets nobody through
+        let mut dash = BuffV1::timed("league_skarner_e_ghost", 44);
+        assert_eq!(ghost_of([BuffV1::timed("jungle_move_speed", 60), dash]), None);
+        dash.ignore_wall = true;
+        assert_eq!(ghost_of([BuffV1::timed("jungle_move_speed", 60), dash]).as_deref(), Some("league_skarner_e_ghost"));
+        assert_eq!(ghost_of([]), None);
     }
 
     #[test]

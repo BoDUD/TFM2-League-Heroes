@@ -482,6 +482,12 @@ pub fn push_clear(walls: &[Wall], now: (u64, u64), r: u64) -> Option<(u64, u64)>
     None
 }
 
+/// 这些 buff 里无视地形的那个（`ignore_wall`）的名字：英雄联盟里英雄造的墙也是地形，斯卡纳的以绪塔尔冲击、凯隐的掠影步这类
+/// 无视地形的位移穿得过去（2026-11-12，用户：「我们的蝎子能穿墙吗」「不能的话就改 联盟的可以穿墙」）。
+pub fn ghost_of(buffs: impl IntoIterator<Item = BuffV1>) -> Option<String> {
+    buffs.into_iter().find(|b| b.ignore_wall).map(|b| b.name().to_string())
+}
+
 /// 横墙第 k 段算出来的墙心：从她脚下朝目标 k×`r_seg`（目标就在她脚下时朝右）。
 pub fn stretch_at(p: &Params, from: (u64, u64), to: (u64, u64), k: usize) -> (u64, u64) {
     let (dx, dy) = (to.0 as f64 - from.0 as f64, to.1 as f64 - from.1 as f64);
@@ -728,6 +734,20 @@ impl Blocker {
             }
             let id = e.id();
             let now_pos = e.pos();
+            // ignoring terrain (League: her wall is terrain - Ixtal's Impact, Shadow Step and the like go through it): not
+            // held; one line the tick it walks into a wall
+            if let Some(buff) = ghost_of((0..e.buff_count()).filter_map(|i| e.buff_at(i))) {
+                let r = match e.radius() as u64 { 0 => BODY, r => r };
+                let was_out = self.last_pos.get(&id).is_none_or(|&l| clear(&self.walls, l, r));
+                if let Some(w) = self.walls.iter().find(|w| inside(w, now_pos, r)).filter(|_| was_out) {
+                    if let Some(k) = counted("through") {
+                        wlog(format!("{} THROUGH #{k}: {} ignores terrain ({buff}) - walks through the wall at ({}, {})",
+                                     head(sim, me), who(sim, id), w.x, w.y));
+                    }
+                }
+                seen.insert(id, now_pos);
+                continue;
+            }
             if riding && id == me {
                 seen.insert(id, now_pos);
                 continue;
@@ -944,6 +964,16 @@ mod tests {
         assert_eq!(hold(&w, Some((512000, 410000)), (509000, 410000), 6000), Some((512000, 410000)));
         // past its end: free
         assert_eq!(hold(&w, Some((495000, 470000)), (500000, 470000), 6000), None);
+    }
+
+    #[test]
+    fn only_a_buff_ignoring_terrain_goes_through() {
+        // Skarner's Ixtal's Impact carries `league_skarner_e_ghost` with ignore_wall; a plain buff lets nobody through
+        let mut dash = BuffV1::timed("league_skarner_e_ghost", 44);
+        assert_eq!(ghost_of([BuffV1::timed("jungle_move_speed", 60), dash]), None);
+        dash.ignore_wall = true;
+        assert_eq!(ghost_of([BuffV1::timed("jungle_move_speed", 60), dash]).as_deref(), Some("league_skarner_e_ghost"));
+        assert_eq!(ghost_of([]), None);
     }
 
     #[test]

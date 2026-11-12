@@ -277,6 +277,12 @@ pub fn hold(pillars: &[Pt], radius: f64, last: Option<Pt>, now: Pt, r: f64) -> O
     Some((p.0 + ux * (reach + 1.0), p.1 + uy * (reach + 1.0)))
 }
 
+/// 这些 buff 里无视地形的那个（`ignore_wall`）的名字：英雄联盟里英雄造的墙也是地形，斯卡纳的以绪塔尔冲击、凯隐的掠影步这类
+/// 无视地形的位移穿得过去（2026-11-12，用户：「我们的蝎子能穿墙吗」「不能的话就改 联盟的可以穿墙」）。
+pub fn ghost_of(buffs: impl IntoIterator<Item = BuffV1>) -> Option<String> {
+    buffs.into_iter().find(|b| b.ignore_wall).map(|b| b.name().to_string())
+}
+
 fn has(e: &StableEntity<'_, '_>, name: &str) -> bool {
     (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
 }
@@ -332,6 +338,8 @@ struct Troll {
     n_domain: usize,
     n_pillar: usize,
     n_push: usize,
+    /// Units that walked into a pillar ignoring terrain (0.1.3).
+    n_through: usize,
     n_chomp: usize,
     n_drain: usize,
 }
@@ -492,6 +500,20 @@ impl Troll {
             let now = (u.pos().0 as f64, u.pos().1 as f64);
             let r = match u.radius() as f64 { r if r > 0.0 => r, _ => BODY };
             let last = self.last_pos.iter().find(|&&(k, _)| k == id).map(|&(_, q)| q);
+            // ignoring terrain (0.1.3, League: a pillar is terrain - Ixtal's Impact, Shadow Step and the like go through
+            // it): not held; one line the tick it walks into a pillar
+            if let Some(buff) = ghost_of((0..u.buff_count()).filter_map(|i| u.buff_at(i))) {
+                let into = centres.iter().any(|&c| fdist(c, now) < radius + r);
+                if into && last.is_none_or(|l| centres.iter().all(|&c| fdist(c, l) >= radius + r)) {
+                    self.n_through += 1;
+                    if self.n_through <= 40 || self.n_through % 500 == 0 {
+                        wlog(format!("{} THROUGH {} ignores terrain ({buff}) - walks through a pillar at ({:.0}, {:.0}) ({} in all)",
+                                     head(sim, me), name_of(sim, id), now.0, now.1, self.n_through));
+                    }
+                }
+                seen.push((id, now));
+                continue;
+            }
             let at = match hold(&centres, radius, last, now, r) {
                 Some(q) => {
                     moves.push((id, q, last.is_some_and(|l| centres.iter().all(|&c| fdist(c, l) >= radius + r))));
@@ -723,6 +745,16 @@ mod tests {
         assert!(q.1 < 50000.0 && fdist(q, p[0]) >= radius + r - 1e-6, "{q:?}");
         // far away: free
         assert_eq!(hold(&p, radius, Some((0.0, 0.0)), (1000.0, 0.0), r), None);
+    }
+
+    #[test]
+    fn only_a_buff_ignoring_terrain_goes_through() {
+        // Skarner's Ixtal's Impact carries `league_skarner_e_ghost` with ignore_wall; a plain buff lets nobody through
+        let mut dash = BuffV1::timed("league_skarner_e_ghost", 44);
+        assert_eq!(ghost_of([BuffV1::timed("jungle_move_speed", 60), dash]), None);
+        dash.ignore_wall = true;
+        assert_eq!(ghost_of([BuffV1::timed("jungle_move_speed", 60), dash]).as_deref(), Some("league_skarner_e_ghost"));
+        assert_eq!(ghost_of([]), None);
     }
 
     #[test]
