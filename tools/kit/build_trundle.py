@@ -27,8 +27,9 @@ cast while its flag is up does nothing (a 3-tick idle). Flags die with him: a re
           r_p ticks for r_t ticks; it has r_arm% less defence and magic resistance for r_t + r_keep ticks, he r_arm% more.
   combos  E -> Q: the pillar holding an enemy champion takes `q_cd` off; the controller bites the first champion in
           reach (`q_go`, q_go_t ticks). Q -> W: the bite on a champion with W ready raises `w_go`; the controller freezes
-          the ground once the bite's animation is over (`busy`). R -> Q + E: the drain takes `q_cd` off (`q_go`) and
-          raises a pillar on the target (not E's cooldown). Domain -> King's Tribute: the kill heal doubles under `w_on`.
+          the ground once the bite's animation is over (`busy`). R -> Q: the drain takes `q_cd` off (`q_go`) - it raised a
+          pillar on the target too until 2026-11-12 (League's ult raises none; with E's pillar up he had two).
+          Domain -> King's Tribute: the kill heal doubles under `w_on`.
   controller An AddCasted pulse on him every ctl_p ticks (league_sejuani's, hung by his attack and the ult, only for
           Trundle himself: `own`): the combos' casts.
 The add-on copy (--native, addons/league_trundle: every place the data is not League's): the passive league_trundle:troll
@@ -322,9 +323,10 @@ def build(p):
                  buff("r_sap", p["r_t"] + p["r_keep"], defence_mult=-p["r_arm"], magic_resistance_mult=-p["r_arm"]),
                  casted(p["r_t"], p["r_p"], *tick_, kind="Fire")]
         mine = refresh("r_gain", p["r_t"] + p["r_keep"], defence_mult=p["r_arm"], magic_resistance_mult=p["r_arm"])
-    # R -> Q + E: Q ready and a pillar on the champion (Trundle's own: `own`)
-    drain += [casted(p["r_t"], 60, view("r_chain")), sw("own", combine(*rm("q_cd"), refresh("q_go", p["r_go_t"]))),
-              pillar(False)]
+    # R -> Q: Q ready (Trundle's own: `own`). Until 2026-11-12 the ult raised a pillar on the champion too (R -> Q + E);
+    # League's Subjugate raises none, and with E's pillar still up he had two at once (the user: 「巨魔有bug吧？怎么能放
+    # 两个柱子的」 - in that day's logs 63 of 290 pillars were the ult's, and each of the 49 times two stood one was)
+    drain += [casted(p["r_t"], 60, view("r_chain")), sw("own", combine(*rm("q_cd"), refresh("q_go", p["r_go_t"])))]
     r_cast = combine(anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                      delayed(p["r_rel"] - 1, alive(mine, homing("r_grab", "EnemyChampion", drain))))
 
