@@ -2,49 +2,50 @@
 
     python tools/kit/build_zaahen.py [--set key=value ...] [--out file] [--params json] [--nodes] [--native]
 
-Kit (the user's picks, 2026-10-26: TOP, layout A - Q / W / R, Aureate Rush (E) folded into W; combos all four: W's pull
-on a champion -> Q ready, Q's knock-up on a champion -> R's cooldown cut, R's slam on a champion -> Determination up a
-long way, Determination full -> Q and W ready; an add-on for every place that is not League's).
+Kit (the user's picks, 2026-10-26: TOP, layout A - Q / W / R, Aureate Rush (E) folded into W; an add-on for every place
+that is not League's). 2026-11-12, the user 「全部按联盟改」: the four combos of 10-26 are gone (League has none: W's pull
+no longer readies Q, Q's knock-up no longer cuts R, R's slam is one Determination hit a champion, Determination full no
+longer readies Q and W); W strikes twice and pulls a short way, R's slam is League's size, Q heals once a cast.
 TFM2 has three active slots for League's four buttons: The Darkin Glaive (Q) is `skill`, Dreaded Return (W) `skill2`,
-Grim Deliverance (R) the `ult`. Q and W keep their cooldowns in flags (`q_cd`, `w_cd`; league_trundle's) so the combos
-can cast or refresh them; a slot cast while its flag is up does nothing (a 3-tick idle). Flags die with him.
-  passive Cultivation of War (不落之志): every hit of his on an enemy champion (attack, both Q slashes, the knock-up, W,
-          the folded E) raises `dh`; the controller turns it into one level of Determination - a ladder of det_n flags
-          d1..dN, each det_ad% attack, all refreshed to det_t ticks by every new level (League: 5 s, refreshed per hit).
-          R's slam on a champion raises `dh3`: det_r levels at once. The last level clears the ladder for `full`:
-          full_ad% attack for full_t ticks, refreshed by every hit while it lasts. League's revive at full Determination
-          cannot be read by the data: the main pack's stand-in is a shield (rv_sh + rv_sh_r% AD, rv_t ticks) when he
-          fills up, at most once every rv_cd ticks.
+Grim Deliverance (R) the `ult`. Q and W keep their cooldowns in flags (`q_cd`, `w_cd`; league_trundle's); a slot cast
+while its flag is up does nothing (a 3-tick idle). Flags die with him.
+  passive Cultivation of War (不落之志): every hit of his on an enemy champion (attack, both Q slashes, the knock-up, both
+          passes of W, the folded E, R's slam) raises `dh`; the controller turns it into one level of Determination - a
+          ladder of det_n flags d1..dN, each det_ad% attack, all refreshed to det_t ticks by every new level (League: 5 s,
+          refreshed per hit). The last level clears the ladder for `full`: full_ad% attack (League doubles the stacks at
+          full: 2 x det_n x det_ad) for full_t ticks, refreshed by every hit while it lasts. League's revive at full
+          Determination cannot be read by the data: the main pack's stand-in is a shield (rv_sh + rv_sh_r% AD, rv_t
+          ticks) when he fills up, at most once every rv_sh_cd ticks (League's revive cooldown at levels 11-15).
   attack  A glaive sweep (100% AD) by a hidden homing hit on `Enemy` (towers too) on a_hit.
   skill   Q The Darkin Glaive (暗裔长刀), `Targeting` on `EnemyWithoutTower` in his reach (q_range): the first cast (`q_cd`
-          free) slashes twice (q_h1, q_h2: q_dmg + q_ratio% AD each) and heals him q_heal + q_heal_r% AD for every slash
-          on a champion (half on other units); it opens the recast (`q2`, q_win ticks, usable after q_gap): the next cast
-          strikes once more for q3_dmg + q3_ratio% AD and knocks the unit up for q_air ticks. q_cd starts at the first cast.
+          free) slashes twice (q_h1, q_h2: q_dmg + q_ratio% AD each); the first slash heals him q_heal + q_heal_r% AD on a
+          champion (half on other units; League heals once a cast); it opens the recast (`q2`, q_win ticks, usable after
+          q_gap): the next cast strikes once more for q3_dmg + q3_ratio% AD and knocks the unit up for q_air ticks. q_cd
+          starts at the first cast.
   skill2  W Dreaded Return (厄影回锋), `Targeting` on `EnemyWithoutTower` within w_range: on w_rel the glaive flies out
-          w_len (a `LinearProjectile` through everyone): w_dmg + w_ratio% AD, a w_stun-tick stun and a pull to him
-          (`Grab`, league_thresh's). Aureate Rush (E) folded in: on w_e he spins the glaive round him (e_r): e_dmg +
-          e_ratio% AD - the pulled units stand there.
+          w_len (a `LinearProjectile` through everyone): w_dmg + w_ratio% AD; at its end a hidden BackToCaster line
+          (w_back a tick) strikes everyone on it again: w2_dmg + w2_ratio% AD, a w_stun-tick stun and a pull of
+          w_pull_v x w_pull_t toward him (`Grab` with a tick: League's 225 of 850). Aureate Rush (E) folded in: on w_e he
+          spins the glaive round him (e_r): e_dmg + e_ratio% AD.
   ult     R Grim Deliverance (大赦), `Targeting` on `EnemyChampion` within r_range: he rises (cc immune and r_dr% less
           damage taken for r_dur ticks), on r_jump he dives at the champion (`MoveToTarget`) and on r_slam the glaive
-          strikes the ground: r_dmg + r_ratio% AD round him (r_r), r_heal + r_heal_r% AD healed per champion hit.
-  combos  W -> Q: the glaive pulling a champion takes `q_cd` and `q2` off; the controller casts Q's first slashes on the
-          first champion in reach (`q_go`, q_go_t ticks). Q -> R: the knock-up on a champion adds a 3-tick caster buff
-          with ult_cooldown_mult r_cut (the cap at cooltime x 100 / (100 + r_cut), champion-data section 5). R -> P: the
-          slam on a champion adds det_r levels (`dh3`). P full -> Q + W: filling up takes `q_cd`, `q2` and `w_cd` off.
+          strikes the ground: r_dmg + r_ratio% AD round him (r_r, League's 550), r_heal + r_heal_r% AD healed per
+          champion hit (League: a third of the damage).
   controller An AddCasted pulse on him every ctl_p ticks (league_trundle's, hung by his attack and the ult, only for
-          Zaahen himself: `own`): Determination, the combos' casts.
+          Zaahen himself: `own`): Determination, the add-on copy's E.
 The add-on copy (--native, addons/league_zaahen: every place the data is not League's): the passive league_zaahen:darkin
-counts Determination itself (League's 12 stacks from every damage instance on a champion, det_pct% attack each
-and twice that at full, the decay after det_t ticks: 1 more stack every 30 ticks), revives him once filled (lethal
-damage held at 1 health, rv_rise ticks invulnerable and unable to act while rv_hp% of his maximum health comes back,
-then up with Determination full again; rv_cd ticks between revives; banished meanwhile, the revive drawn by its
-picture rv_rise_r / rv_rise_l, the side facing the nearest enemy champion); gives Aureate
-Rush its own slot back (every e_cd ticks, an enemy champion within e_reach: he dashes up to e_dash toward it, the
-data playing the rush on `e_rush` (e_rush_t ticks), and spins on `e_go` - inner e_r0 / outer e_r ring, the outer edge e_out% more and e_pct% of the
-unit's maximum health, all dealt by the add-on); and heals Q by League's share of his maximum health (q_hp% of it a
-slash on a champion, half on other units: the data marks `q_mark`, its flat heal goes). Both packs: R's passive r_pen%
-defence penetration on his `own` flag; R's heal per champion hit is League's (fixed + AD, not a share of the damage);
-W's stun and pull are data (`Grab`), its two damage instances one.
+counts Determination itself (League's 12 stacks from every damage instance on a champion, det_lo..det_hi hundredths of
+a % attack each by level and twice that at full, the decay after det_t ticks: 1 / 2 / 3 / 4 / 5 stacks every 30 ticks,
+faster as it goes), revives him once filled (lethal damage held at 1 health, rv_rise ticks invulnerable and unable to
+act while his level's share of his maximum health comes back - rv_hp plus rv_hp_step% a tier of rv_lv levels - then up
+with Determination full again; rv_cd minus rv_cd_step a tier between revives; banished meanwhile, the revive drawn by
+its picture rv_rise_r / rv_rise_l, the side facing the nearest enemy champion); gives Aureate Rush its own slot back
+(every e_cd ticks, an enemy champion within e_reach: he dashes up to e_dash toward it, the data playing the rush on
+`e_rush` (e_rush_t ticks), and spins on `e_go` - inner e_r0 / outer e_r ring, the outer edge e_out% more and e_pct% of
+the unit's maximum health, all dealt by the add-on); heals Q once a cast by League's share of his maximum health (q_hp +
+q_hp_step% a rank of the glaive on a champion, half on other units: the data marks `q_mark` on the first slash's unit,
+its flat heal goes); and adds R's armour penetration by the ult's rank (r_pen_step% a rank over the copy's r_pen_n on
+`own`). Both packs: R's heal per champion hit is League's share of the damage; W's stun and pull are data (`Grab`).
 Timings: drafts until the frames exist (tools/art/rig_zaahen.py retimes them).
 Numbers: League 16.21 read into the top fighter range (league_darius, league_aatrox, league_ambessa), balanced on the
 classic-SDK simulations (kd.py --lane 0 against fighter, executioner, knight, berserker, lancer and pole_warrior,
@@ -52,7 +53,11 @@ C:/t/za_sim, 2026-10-26; base:fighter the control +1.33, league_ambessa shipped 
 Q 20 + 70% a slash, W 70 + 60%, E 50 + 50%, R 160 + 150%) -1.72 (1-8); attack 94 and Q 30 + 85% +0.27; with W 90 + 80%,
 E 70 + 70%, R 200 + 180% (P) +0.76 / +0.47 (1-8 / 9-16; mean +0.62); P with hp 1150, defence 38 and Determination 3% / 40%
 +1.68; P a step down (attack 92, W 80 + 70%, E 60 + 60%, R 180 + 160%) +0.27 (1-16). The add-on's rules cannot run in that
-engine (Native effects dropped).
+engine (Native effects dropped). 2026-11-12, League's rules (no combos, W in two passes and a short pull, Q's heal once,
+R's 36000, full Determination 48%): the 10-26 kit +0.60 / +0.32 / +0.44 (seeds 1-8 / 9-16 / 17-24, mean +0.45); the
+same numbers under the new rules -0.56 / -0.93 (mean -0.75); damage +20% +0.15 / +0.15, with hp 1150 and defence 38
++0.59 / -0.26, Determination 3% / 72% -0.01, +30% +0.19 / +1.53; +25% (Q 38 + 105%, W 62 + 62% then 50 + 38%, E 88 +
+88%, R 250 + 225% healing 83 + 74%: P) +0.75 / +0.02 / +1.08 (mean +0.62).
 """
 import argparse
 import json
@@ -81,32 +86,50 @@ P = {
     # the controller
     "ctl_t": 3600, "ctl_p": 3,
     # passive: Determination
-    "det_n": 12, "det_ad": 2, "det_t": 300, "det_r": 4, "full_ad": 30, "full_t": 300,
-    "rv_sh": 120, "rv_sh_r": 100, "rv_t": 180, "rv_cd": 3600,
+    # (2026-11-12, the user 「全部按联盟改」: full = League's doubling, 2 x det_n x det_ad; the stand-in shield once
+    # every rv_sh_cd - League's revive is 300 / 240 / 180 / 120 s by level, the data cannot read a level: the 180 s)
+    "det_n": 12, "det_ad": 2, "det_t": 300, "full_ad": 48, "full_t": 300,
+    "rv_sh": 120, "rv_sh_r": 100, "rv_t": 180, "rv_sh_cd": 10800,
     # skill: Q The Darkin Glaive
-    "q_cd": 420, "q_range": 27000, "q_dur": 34, "q_h1": 12, "q_h2": 22, "q_dmg": 30, "q_ratio": 85,
-    "q_heal": 30, "q_heal_r": 15, "q_gap": 90, "q_win": 330,
-    "q3_dur": 30, "q3_hit": 14, "q3_dmg": 60, "q3_ratio": 60, "q_air": 45, "q_go_t": 120,
+    "q_cd": 420, "q_range": 27000, "q_dur": 34, "q_h1": 12, "q_h2": 22, "q_dmg": 38, "q_ratio": 105,
+    # (11-12: League heals once a cast - the first slash - not once a slash)
+    "q_heal": 60, "q_heal_r": 40, "q_gap": 90, "q_win": 330,
+    "q3_dur": 30, "q3_hit": 14, "q3_dmg": 60, "q3_ratio": 60, "q_air": 45,
     # skill2: W Dreaded Return (+ E Aureate Rush folded in)
     "w_cd": 780, "w_range": 52000, "w_dur": 30, "w_rel": 7, "w_len": 56000, "w_wid": 6000, "w_speed": 5000,
-    "w_dmg": 90, "w_ratio": 80, "w_stun": 15, "w_grab": 3500,
-    "w_e": 34, "w_e_dur": 56, "e_r": 20000, "e_dmg": 70, "e_ratio": 70,
+    # (11-12, League's two passes: the stab out w_dmg + w_ratio%, at full length the return w2_dmg + w2_ratio%, the
+    # stun and a pull of w_pull_v x w_pull_t toward him - League 225 of 850 (a quarter of the reach), as long as the stun;
+    # the return a hidden BackToCaster line at w_back a tick: it meets everyone on the line within 2 ticks)
+    "w_dmg": 62, "w_ratio": 62, "w2_dmg": 50, "w2_ratio": 38, "w_stun": 15, "w_pull_v": 1000, "w_pull_t": 15,
+    "w_back": 28000,
+    "w_e": 34, "w_e_dur": 56, "e_r": 25000, "e_dmg": 88, "e_ratio": 88,
     # ult: R Grim Deliverance
     "r_cd": 4800, "r_range": 40000, "r_dur": 60, "r_dr": 50, "r_jump": 26, "r_speed": 4000, "r_slam": 40,
-    "r_r": 22000, "r_dmg": 200, "r_ratio": 180, "r_heal": 60, "r_heal_r": 40, "r_cut": 100,
+    # (11-12: League's slam radius 550 at the kit's 66 units a League unit - his W 850 -> 56000, R 600 -> 40000, E's
+    # dash 350 -> 22000 - and its heal a third of the damage, 33% of the base and of the ratio)
+    "r_r": 36000, "r_dmg": 250, "r_ratio": 225, "r_heal": 83, "r_heal_r": 74,
     # his spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     # 1 = the copy for addons/league_zaahen (League's rules the data cannot read, see the docstring); its parameters
-    "native": 0, "det_pct": 1, "rv_rise": 240, "rv_hp": 50, "e_cd": 540, "e_reach": 48000, "e_dash": 22000,
-    "e_r0": 11000, "e_out": 50, "e_pct": 5, "e_dur": 26, "e_hit": 14, "e_rush_t": 10, "q_hp": 6,
-    # R's passive armour penetration (League 10-30%; on his `own` flag, both packs)
+    # (11-12, League's numbers by level: Determination det_lo..det_hi hundredths of a % attack a stack from level 1 to
+    # det_lv, doubled when full; the revive's cooldown rv_cd minus rv_cd_step and its heal rv_hp plus rv_hp_step% every
+    # rv_lv levels (League 300 / 240 / 180 / 120 s and 30 / 45 / 60 / 75% at 1 / 6 / 11 / 16); Q's heal q_hp% + q_hp_step
+    # a rank of the glaive (League 5-9%, ranked at levels 1 / 4 / 5 / 7 / 9); R's armour penetration r_pen_n + r_pen_step%
+    # a rank of the ult (League 10 / 20 / 30% at 6 / 11 / 16); E's rings League's 200 / 375)
+    "native": 0, "det_lo": 150, "det_hi": 295, "det_lv": 18, "rv_rise": 240, "rv_cd": 18000, "rv_cd_step": 3600,
+    "rv_hp": 30, "rv_hp_step": 15, "rv_lv": 5, "e_cd": 540, "e_reach": 48000, "e_dash": 22000,
+    "e_r0": 13000, "e_out": 50, "e_pct": 5, "e_dur": 26, "e_hit": 14, "e_rush_t": 10, "q_hp": 5, "q_hp_step": 1,
+    "r_pen_n": 10, "r_pen_step": 10,
+    # R's passive armour penetration (League 10-30% by the ult's rank; on his own flag; the add-on's copy starts at
+    # r_pen_n and the add-on adds the rest by level)
     "r_pen": 20,
 }
 
 
 # the numbers addons/league_zaahen reads from passive.params (its Params, in this order)
-NATIVE_KEYS = ("det_n", "det_pct", "det_t", "rv_rise", "rv_hp", "rv_cd", "e_cd", "e_reach", "e_dash", "e_r0", "e_r",
-               "e_out", "e_pct", "e_dmg", "e_ratio", "e_hit", "q_hp", "atk_range")
+NATIVE_KEYS = ("det_n", "det_lo", "det_hi", "det_lv", "det_t", "rv_rise", "rv_hp", "rv_hp_step", "rv_cd", "rv_cd_step",
+               "rv_lv", "e_cd", "e_reach", "e_dash", "e_r0", "e_r", "e_out", "e_pct", "e_dmg", "e_ratio", "e_hit", "q_hp",
+               "q_hp_step", "r_pen_n", "r_pen_step", "atk_range")
 
 
 def lp(path):
@@ -264,38 +287,39 @@ def build(p):
         return combine(*rm(*levels), refresh("full", p["full_t"], attack_mult=p["full_ad"]), refresh("fill", 2))
 
     def fill():
-        """Determination full: Q and W ready (the combo), the picture and the line, the stand-in shield."""
+        """Determination full: the picture and the line, the stand-in shield (League's revive the data cannot read)."""
         shield = None
         if not native:
-            shield = sw("rv_cd", NONE, combine(refresh("rv_cd", p["rv_cd"]),
+            shield = sw("rv_cd", NONE, combine(refresh("rv_cd", p["rv_sh_cd"]),
                                                on_me({"type": "Shield", "amount": p["rv_sh"],
                                                       "attack_ratio": p["rv_sh_r"], "ap_ratio": 0,
                                                       "tick": p["rv_t"]}, view("p_shield"))))
-        return combine(*rm("fill", "q_cd", "q2", "w_cd"), on_me(view("p_full")), sfx("p_full"), voice("vo_p", p),
-                       shield)
+        return combine(*rm("fill"), on_me(view("p_full")), sfx("p_full"), voice("vo_p", p), shield)
 
     # ------------------------------------------------------------------ Q The Darkin Glaive
-    def slash(name, hit_view):
-        # half the heal on every unit, the other half on a champion (no target picks minions and monsters only)
-        # (the add-on heals by League's share of his maximum health instead: `q_mark` on the unit, one a slash)
-        half = buff("q_mark", 3) if native else heal(p["q_heal"] // 2, p["q_heal_r"] // 2)
+    def slash(name, hit_view, heals):
+        # League heals once a cast (11-12): only the first slash (heals). Half the heal on every unit, the other half
+        # on a champion (no target picks minions and monsters only); the add-on heals by League's share of his maximum
+        # health instead: q_mark on the unit the first slash hits
+        half = None
+        if heals:
+            half = buff("q_mark", 3) if native else heal(p["q_heal"] // 2, p["q_heal_r"] // 2)
         champ = None if native else homing(name + "c", "EnemyChampion", [half, dh])
         return combine(sfx("q_hit"), homing(name, "EnemyWithoutTower", [
             attack(p["q_dmg"], p["q_ratio"]), half, view(hit_view), tsfx("q_hit")]), champ)
 
     def q_first():
         return combine(refresh("q_cd", p["q_cd"]), refresh("q2", p["q_win"]), refresh("q_gap", p["q_gap"]),
-                       refresh("busy", p["q_dur"]), *rm("q_go"), anim("skill", p["q_dur"]), sfx("q"),
-                       voice("vo_q", p), delayed(p["q_h1"] - 1, alive(slash("q_s1", "q_hit"))),
-                       delayed(p["q_h2"] - 1, alive(slash("q_s2", "q_hit2"))))
+                       refresh("busy", p["q_dur"]), anim("skill", p["q_dur"]), sfx("q"),
+                       voice("vo_q", p), delayed(p["q_h1"] - 1, alive(slash("q_s1", "q_hit", True))),
+                       delayed(p["q_h2"] - 1, alive(slash("q_s2", "q_hit2", False))))
 
     def q_recast():
-        # Q -> R: the knock-up on a champion caps R's cooldown (a 3-tick ult_cooldown_mult buff)
-        champ = homing("q_upc", "EnemyChampion", [dh, refresh("r_cut", 3, ult_cooldown_mult=p["r_cut"])])
+        champ = homing("q_upc", "EnemyChampion", [dh])
         up = combine(sfx("q_up"), homing("q_up", "EnemyWithoutTower", [
             attack(p["q3_dmg"], p["q3_ratio"]), {"type": "Airborne", "duration": p["q_air"]}, view("q_uphit"),
             tsfx("q_up")]), champ)
-        return combine(*rm("q2", "q_go"), refresh("busy", p["q3_dur"]), anim("skill_up", p["q3_dur"]), sfx("q2"),
+        return combine(*rm("q2"), refresh("busy", p["q3_dur"]), anim("skill_up", p["q3_dur"]), sfx("q2"),
                        delayed(p["q3_hit"] - 1, alive(up)))
 
     def q_slot():
@@ -303,12 +327,20 @@ def build(p):
 
     # ------------------------------------------------------------------ W Dreaded Return (+ E folded in)
     def w_cast():
-        # W -> Q: the glaive pulling a champion takes Q's cooldown and recast off (`q_go`: the controller slashes)
-        champ = [dh, combine(*rm("q_cd", "q2"), refresh("q_go", p["q_go_t"]))]
+        # League (11-12): the stab out hits everyone on its way; at full length the glaive strikes them again, stuns
+        # them and pulls them a quarter of its reach toward him (a Grab of w_pull_v x w_pull_t, as long as the stun).
+        # The second strike is a hidden line back to him from the stab's end (w_back a tick: everyone on the line)
+        back = {"type": "BackToCasterLinearProjectile", "name": n("w_back"), "speed": p["w_back"],
+                "range": p["w_len"] + 20000, "shape": circle(p["w_wid"]), "penetrate": True,
+                "applied_target": "EnemyWithoutTower", "applied_effects": [T(e) for e in (
+                    attack(p["w2_dmg"], p["w2_ratio"]), {"type": "Stun", "duration": p["w_stun"]},
+                    {"type": "Grab", "speed": p["w_pull_v"], "tick": p["w_pull_t"]}, view("w_hit"), tsfx("w_hit"))],
+                "end_effects": []}
+        back_c = dict(back, name=n("w_backc"), applied_target="EnemyChampion", applied_effects=[T(dh)])
         stab = line("w_glaive", p["w_speed"], p["w_len"], p["w_wid"], "EnemyWithoutTower", [
-            attack(p["w_dmg"], p["w_ratio"]), {"type": "Stun", "duration": p["w_stun"]},
-            {"type": "Grab", "speed": p["w_grab"]}, view("w_hit"), tsfx("w_hit")])
-        stab_c = line("w_glaivec", p["w_speed"], p["w_len"], p["w_wid"], "EnemyChampion", champ)
+            attack(p["w_dmg"], p["w_ratio"]), view("w_hit"), tsfx("w_hit")])
+        stab["end_effects"] = [back, back_c]
+        stab_c = line("w_glaivec", p["w_speed"], p["w_len"], p["w_wid"], "EnemyChampion", [dh])
         spin = None
         if not native:   # Aureate Rush folded in: the spin round him once the pulled units are there
             spin = delayed(p["w_e"] - 1, alive(sfx("e"), on_me(view("e_spin")), around(
@@ -331,20 +363,18 @@ def build(p):
     # skill and skill2 are cloned every tick (champion-data 8), a periodic AddCasted hung on him is not (league_zac):
     # his attacks and the ult hang one (ctl_t ticks, period ctl_p) unless `polling` says one runs; only for Zaahen
     # himself (`own`, a flag his attack raises: league_sylas's stolen ult hangs it too)
-    det = sw("fill", fill())   # the add-on fills him itself (its `fill` flag): the combo and the picture stay data
-    if not native:   # R's slam on a champion: det_r levels at once (a buff added is seen by the next test, same tick)
-        det = combine(sw("dh3", combine(*rm("dh3"), *[level_up() for _ in range(p["det_r"])])),
-                      sw("dh", combine(*rm("dh"), level_up())), sw("fill", fill()),
+    det = sw("fill", fill())   # the add-on fills him itself (its fill flag): the picture stays data
+    if not native:
+        det = combine(sw("dh", combine(*rm("dh"), level_up())), sw("fill", fill()),
                       sw("det_live", NONE, sw(levels[0], combine(*rm(*levels)))))
     ctl = combine(refresh("polling", ctl_p + 2), sw("own", combine(
         det,
         sw("e_go", sw("busy", NONE, e_spin())) if native else None,
-        sw("e_rush", combine(*rm("e_rush"), anim("dash", p["e_rush_t"]))) if native else None,
-        sw("q_go", sw("busy", NONE, sw("q_cd", NONE, pick(p["q_range"], "EnemyChampion", q_first())))))))
+        sw("e_rush", combine(*rm("e_rush"), anim("dash", p["e_rush_t"]))) if native else None)))
     hang = on_me(sw("polling", NONE, combine(refresh("polling", ctl_p + 2), casted(p["ctl_t"], ctl_p, ctl))))
 
     # ------------------------------------------------------------------ R Grim Deliverance
-    slam_c = [heal(p["r_heal"], p["r_heal_r"]), refresh("dh3", ctl_p + 1)]
+    slam_c = [heal(p["r_heal"], p["r_heal_r"]), dh]
     slam = combine(sfx("r_slam"), on_me(view("r_slam")),
                    around(p["r_r"], "EnemyWithoutTower", attack(p["r_dmg"], p["r_ratio"]), view("r_hit"),
                           tsfx("r_hit")),
@@ -359,7 +389,8 @@ def build(p):
     blow = combine(sfx("a"), homing("a_blow", "Enemy", [attack(0, 100), view("a_hit"), tsfx("a_hit")]),
                    homing("a_c", "EnemyChampion", [dh]))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], 1, p["atk_range"], "Targeting", "Enemy",
-                      combine(decoy(0, 100), sw("own", NONE, flag("own", None, defence_penetration=p["r_pen"])), hang,
+                      combine(decoy(0, 100), sw("own", NONE, flag("own", None, defence_penetration=p["r_pen_n"] if native
+                                                                  else p["r_pen"])), hang,
                               delayed(p["a_hit"] - 1, alive(blow))),
                       atype="BaseAttack", cancel=True)
 

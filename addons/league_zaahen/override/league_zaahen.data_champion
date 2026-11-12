@@ -9,22 +9,30 @@
     "passive_ref": "league_zaahen:darkin",
     "params": {
       "det_n": 12,
-      "det_pct": 1,
+      "det_lo": 150,
+      "det_hi": 295,
+      "det_lv": 18,
       "det_t": 300,
       "rv_rise": 240,
-      "rv_hp": 50,
-      "rv_cd": 3600,
+      "rv_hp": 30,
+      "rv_hp_step": 15,
+      "rv_cd": 18000,
+      "rv_cd_step": 3600,
+      "rv_lv": 5,
       "e_cd": 540,
       "e_reach": 48000,
       "e_dash": 22000,
-      "e_r0": 11000,
-      "e_r": 20000,
+      "e_r0": 13000,
+      "e_r": 25000,
       "e_out": 50,
       "e_pct": 5,
-      "e_dmg": 70,
-      "e_ratio": 70,
+      "e_dmg": 88,
+      "e_ratio": 88,
       "e_hit": 14,
-      "q_hp": 6,
+      "q_hp": 5,
+      "q_hp_step": 1,
+      "r_pen_n": 10,
+      "r_pen_step": 10,
       "atk_range": 25000
     }
   },
@@ -125,7 +133,7 @@
             "buff_state": {
               "name": "league_zaahen_own",
               "duration": "Permanent",
-              "defence_penetration": 20
+              "defence_penetration": 10
             },
             "only_to_enemy": false
           }
@@ -216,18 +224,6 @@
                                       {
                                         "type": "RemoveCasterBuff",
                                         "name": "league_zaahen_fill"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_q_cd"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_q2"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_w_cd"
                                       },
                                       {
                                         "type": "RangeEffect",
@@ -435,7 +431,7 @@
                                                         "type": "RangeEffect",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 20000
+                                                            "radius": 25000
                                                           }
                                                         },
                                                         "target": "EnemyChampion",
@@ -511,379 +507,6 @@
                                         "tick": 10
                                       }
                                     ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  }
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_zaahen_q_go",
-                                  "effect_buff": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_zaahen_busy",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zaahen_q_cd",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      },
-                                      "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 27000,
-                                        "casting_target": "EnemyChampion",
-                                        "from_projectile": false,
-                                        "effects": [
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_zaahen_q_cd"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zaahen_q_cd",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 420
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_zaahen_q2"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zaahen_q2",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 330
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_zaahen_q_gap"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zaahen_q_gap",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 90
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_zaahen_busy"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zaahen_busy",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 34
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_zaahen_q_go"
-                                              },
-                                              {
-                                                "type": "CasterAnimation",
-                                                "name": "skill",
-                                                "tick": 34
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_zaahen_q"
-                                              },
-                                              {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_zaahen_vo_cd",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_zaahen_vo_cd",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 600
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    },
-                                                    {
-                                                      "type": "Sfx",
-                                                      "name": "league_zaahen_vo_q"
-                                                    }
-                                                  ]
-                                                }
-                                              },
-                                              {
-                                                "type": "Delayed",
-                                                "tick": 11,
-                                                "effects": [
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RandomTarget",
-                                                        "range": 1,
-                                                        "casting_target": "AllyOnlySelf",
-                                                        "from_projectile": false,
-                                                        "effects": [
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_zaahen_lives",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 1
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_zaahen_lives",
-                                                        "effect_buff": {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "Sfx",
-                                                                  "name": "league_zaahen_q_hit"
-                                                                },
-                                                                {
-                                                                  "type": "TargetProjectile",
-                                                                  "name": "league_zaahen_q_s1",
-                                                                  "speed": 40000,
-                                                                  "y_offset": 0,
-                                                                  "applied_target": "EnemyWithoutTower",
-                                                                  "applied_effects": [
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "Attack",
-                                                                        "damage": 30,
-                                                                        "attack_ratio": 85,
-                                                                        "hp_ratio": 0,
-                                                                        "target_hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "AddBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_zaahen_q_mark",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 3
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "ViewEffect",
-                                                                        "name": "league_zaahen_q_hit"
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "TargetSfx",
-                                                                        "name": "league_zaahen_q_hit"
-                                                                      }
-                                                                    }
-                                                                  ]
-                                                                }
-                                                              ]
-                                                            }
-                                                          ]
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "Combine",
-                                                          "effects": []
-                                                        }
-                                                      },
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_zaahen_lives"
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Delayed",
-                                                "tick": 21,
-                                                "effects": [
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RandomTarget",
-                                                        "range": 1,
-                                                        "casting_target": "AllyOnlySelf",
-                                                        "from_projectile": false,
-                                                        "effects": [
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_zaahen_lives",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 1
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_zaahen_lives",
-                                                        "effect_buff": {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "Sfx",
-                                                                  "name": "league_zaahen_q_hit"
-                                                                },
-                                                                {
-                                                                  "type": "TargetProjectile",
-                                                                  "name": "league_zaahen_q_s2",
-                                                                  "speed": 40000,
-                                                                  "y_offset": 0,
-                                                                  "applied_target": "EnemyWithoutTower",
-                                                                  "applied_effects": [
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "Attack",
-                                                                        "damage": 30,
-                                                                        "attack_ratio": 85,
-                                                                        "hp_ratio": 0,
-                                                                        "target_hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "AddBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_zaahen_q_mark",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 3
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "ViewEffect",
-                                                                        "name": "league_zaahen_q_hit2"
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "TargetSfx",
-                                                                        "name": "league_zaahen_q_hit"
-                                                                      }
-                                                                    }
-                                                                  ]
-                                                                }
-                                                              ]
-                                                            }
-                                                          ]
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "Combine",
-                                                          "effects": []
-                                                        }
-                                                      },
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_zaahen_lives"
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    }
                                   },
                                   "effect_none": {
                                     "type": "Combine",
@@ -1076,8 +699,8 @@
               },
               "effect_none": {
                 "type": "Attack",
-                "damage": 60,
-                "attack_ratio": 170,
+                "damage": 76,
+                "attack_ratio": 210,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -1105,10 +728,6 @@
                 {
                   "type": "RemoveCasterBuff",
                   "name": "league_zaahen_q2"
-                },
-                {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_zaahen_q_go"
                 },
                 {
                   "type": "Combine",
@@ -1251,31 +870,6 @@
                                             }
                                           ]
                                         }
-                                      },
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "Combine",
-                                          "effects": [
-                                            {
-                                              "type": "RemoveCasterBuff",
-                                              "name": "league_zaahen_r_cut"
-                                            },
-                                            {
-                                              "type": "AddCasterBuff",
-                                              "buff_state": {
-                                                "name": "league_zaahen_r_cut",
-                                                "duration": {
-                                                  "Time": {
-                                                    "tick": 3
-                                                  }
-                                                },
-                                                "ult_cooldown_mult": 100
-                                              },
-                                              "only_to_enemy": false
-                                            }
-                                          ]
-                                        }
                                       }
                                     ]
                                   }
@@ -1394,10 +988,6 @@
                   ]
                 },
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "league_zaahen_q_go"
-                },
-                {
                   "type": "CasterAnimation",
                   "name": "skill",
                   "tick": 34
@@ -1486,8 +1076,8 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "Attack",
-                                          "damage": 30,
-                                          "attack_ratio": 85,
+                                          "damage": 38,
+                                          "attack_ratio": 105,
                                           "hp_ratio": 0,
                                           "target_hp_ratio": 0,
                                           "attack_effect_type": "Target"
@@ -1591,25 +1181,11 @@
                                         "casting_type": "Targeting",
                                         "effect": {
                                           "type": "Attack",
-                                          "damage": 30,
-                                          "attack_ratio": 85,
+                                          "damage": 38,
+                                          "attack_ratio": 105,
                                           "hp_ratio": 0,
                                           "target_hp_ratio": 0,
                                           "attack_effect_type": "Target"
-                                        }
-                                      },
-                                      {
-                                        "casting_type": "Targeting",
-                                        "effect": {
-                                          "type": "AddBuff",
-                                          "buff_state": {
-                                            "name": "league_zaahen_q_mark",
-                                            "duration": {
-                                              "Time": {
-                                                "tick": 3
-                                              }
-                                            }
-                                          }
                                         }
                                       },
                                       {
@@ -1695,8 +1271,8 @@
               },
               "effect_none": {
                 "type": "Attack",
-                "damage": 90,
-                "attack_ratio": 80,
+                "damage": 62,
+                "attack_ratio": 62,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -1849,25 +1425,11 @@
                                   "casting_type": "Targeting",
                                   "effect": {
                                     "type": "Attack",
-                                    "damage": 90,
-                                    "attack_ratio": 80,
+                                    "damage": 62,
+                                    "attack_ratio": 62,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Stun",
-                                    "duration": 15
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Grab",
-                                    "speed": 3500
                                   }
                                 },
                                 {
@@ -1885,7 +1447,104 @@
                                   }
                                 }
                               ],
-                              "end_effects": []
+                              "end_effects": [
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_zaahen_w_back",
+                                  "speed": 28000,
+                                  "range": 76000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 6000
+                                    }
+                                  },
+                                  "penetrate": true,
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Attack",
+                                        "damage": 50,
+                                        "attack_ratio": 38,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Stun",
+                                        "duration": 15
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Grab",
+                                        "speed": 1000,
+                                        "tick": 15
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "ViewEffect",
+                                        "name": "league_zaahen_w_hit"
+                                      }
+                                    },
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "TargetSfx",
+                                        "name": "league_zaahen_w_hit"
+                                      }
+                                    }
+                                  ],
+                                  "end_effects": []
+                                },
+                                {
+                                  "type": "BackToCasterLinearProjectile",
+                                  "name": "league_zaahen_w_backc",
+                                  "speed": 28000,
+                                  "range": 76000,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 6000
+                                    }
+                                  },
+                                  "penetrate": true,
+                                  "applied_target": "EnemyChampion",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "Combine",
+                                        "effects": [
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_zaahen_dh"
+                                          },
+                                          {
+                                            "type": "AddCasterBuff",
+                                            "buff_state": {
+                                              "name": "league_zaahen_dh",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 4
+                                                }
+                                              }
+                                            },
+                                            "only_to_enemy": false
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ],
+                                  "end_effects": []
+                                }
+                              ]
                             },
                             {
                               "type": "LinearProjectile",
@@ -1921,43 +1580,6 @@
                                           }
                                         },
                                         "only_to_enemy": false
-                                      }
-                                    ]
-                                  }
-                                },
-                                {
-                                  "casting_type": "Targeting",
-                                  "effect": {
-                                    "type": "Combine",
-                                    "effects": [
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_q_cd"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_q2"
-                                      },
-                                      {
-                                        "type": "Combine",
-                                        "effects": [
-                                          {
-                                            "type": "RemoveCasterBuff",
-                                            "name": "league_zaahen_q_go"
-                                          },
-                                          {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_zaahen_q_go",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 120
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          }
-                                        ]
                                       }
                                     ]
                                   }
@@ -2029,8 +1651,8 @@
               },
               "effect_none": {
                 "type": "Attack",
-                "damage": 200,
-                "attack_ratio": 180,
+                "damage": 250,
+                "attack_ratio": 225,
                 "hp_ratio": 0,
                 "target_hp_ratio": 0,
                 "attack_effect_type": "Target"
@@ -2128,18 +1750,6 @@
                                       {
                                         "type": "RemoveCasterBuff",
                                         "name": "league_zaahen_fill"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_q_cd"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_q2"
-                                      },
-                                      {
-                                        "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_w_cd"
                                       },
                                       {
                                         "type": "RangeEffect",
@@ -2347,7 +1957,7 @@
                                                         "type": "RangeEffect",
                                                         "shape": {
                                                           "Circle": {
-                                                            "radius": 20000
+                                                            "radius": 25000
                                                           }
                                                         },
                                                         "target": "EnemyChampion",
@@ -2423,379 +2033,6 @@
                                         "tick": 10
                                       }
                                     ]
-                                  },
-                                  "effect_none": {
-                                    "type": "Combine",
-                                    "effects": []
-                                  }
-                                },
-                                {
-                                  "type": "SwitchByBuff",
-                                  "buff_name": "league_zaahen_q_go",
-                                  "effect_buff": {
-                                    "type": "SwitchByBuff",
-                                    "buff_name": "league_zaahen_busy",
-                                    "effect_buff": {
-                                      "type": "Combine",
-                                      "effects": []
-                                    },
-                                    "effect_none": {
-                                      "type": "SwitchByBuff",
-                                      "buff_name": "league_zaahen_q_cd",
-                                      "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      },
-                                      "effect_none": {
-                                        "type": "RandomTarget",
-                                        "range": 27000,
-                                        "casting_target": "EnemyChampion",
-                                        "from_projectile": false,
-                                        "effects": [
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_zaahen_q_cd"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zaahen_q_cd",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 420
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_zaahen_q2"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zaahen_q2",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 330
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_zaahen_q_gap"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zaahen_q_gap",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 90
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Combine",
-                                                "effects": [
-                                                  {
-                                                    "type": "RemoveCasterBuff",
-                                                    "name": "league_zaahen_busy"
-                                                  },
-                                                  {
-                                                    "type": "AddCasterBuff",
-                                                    "buff_state": {
-                                                      "name": "league_zaahen_busy",
-                                                      "duration": {
-                                                        "Time": {
-                                                          "tick": 34
-                                                        }
-                                                      }
-                                                    },
-                                                    "only_to_enemy": false
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "RemoveCasterBuff",
-                                                "name": "league_zaahen_q_go"
-                                              },
-                                              {
-                                                "type": "CasterAnimation",
-                                                "name": "skill",
-                                                "tick": 34
-                                              },
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_zaahen_q"
-                                              },
-                                              {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_zaahen_vo_cd",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": []
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "AddCasterBuff",
-                                                      "buff_state": {
-                                                        "name": "league_zaahen_vo_cd",
-                                                        "duration": {
-                                                          "Time": {
-                                                            "tick": 600
-                                                          }
-                                                        }
-                                                      },
-                                                      "only_to_enemy": false
-                                                    },
-                                                    {
-                                                      "type": "Sfx",
-                                                      "name": "league_zaahen_vo_q"
-                                                    }
-                                                  ]
-                                                }
-                                              },
-                                              {
-                                                "type": "Delayed",
-                                                "tick": 11,
-                                                "effects": [
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RandomTarget",
-                                                        "range": 1,
-                                                        "casting_target": "AllyOnlySelf",
-                                                        "from_projectile": false,
-                                                        "effects": [
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_zaahen_lives",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 1
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_zaahen_lives",
-                                                        "effect_buff": {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "Sfx",
-                                                                  "name": "league_zaahen_q_hit"
-                                                                },
-                                                                {
-                                                                  "type": "TargetProjectile",
-                                                                  "name": "league_zaahen_q_s1",
-                                                                  "speed": 40000,
-                                                                  "y_offset": 0,
-                                                                  "applied_target": "EnemyWithoutTower",
-                                                                  "applied_effects": [
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "Attack",
-                                                                        "damage": 30,
-                                                                        "attack_ratio": 85,
-                                                                        "hp_ratio": 0,
-                                                                        "target_hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "AddBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_zaahen_q_mark",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 3
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "ViewEffect",
-                                                                        "name": "league_zaahen_q_hit"
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "TargetSfx",
-                                                                        "name": "league_zaahen_q_hit"
-                                                                      }
-                                                                    }
-                                                                  ]
-                                                                }
-                                                              ]
-                                                            }
-                                                          ]
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "Combine",
-                                                          "effects": []
-                                                        }
-                                                      },
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_zaahen_lives"
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "Delayed",
-                                                "tick": 21,
-                                                "effects": [
-                                                  {
-                                                    "type": "Combine",
-                                                    "effects": [
-                                                      {
-                                                        "type": "RandomTarget",
-                                                        "range": 1,
-                                                        "casting_target": "AllyOnlySelf",
-                                                        "from_projectile": false,
-                                                        "effects": [
-                                                          {
-                                                            "type": "AddCasterBuff",
-                                                            "buff_state": {
-                                                              "name": "league_zaahen_lives",
-                                                              "duration": {
-                                                                "Time": {
-                                                                  "tick": 1
-                                                                }
-                                                              }
-                                                            },
-                                                            "only_to_enemy": false
-                                                          }
-                                                        ]
-                                                      },
-                                                      {
-                                                        "type": "SwitchByBuff",
-                                                        "buff_name": "league_zaahen_lives",
-                                                        "effect_buff": {
-                                                          "type": "Combine",
-                                                          "effects": [
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": [
-                                                                {
-                                                                  "type": "Sfx",
-                                                                  "name": "league_zaahen_q_hit"
-                                                                },
-                                                                {
-                                                                  "type": "TargetProjectile",
-                                                                  "name": "league_zaahen_q_s2",
-                                                                  "speed": 40000,
-                                                                  "y_offset": 0,
-                                                                  "applied_target": "EnemyWithoutTower",
-                                                                  "applied_effects": [
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "Attack",
-                                                                        "damage": 30,
-                                                                        "attack_ratio": 85,
-                                                                        "hp_ratio": 0,
-                                                                        "target_hp_ratio": 0,
-                                                                        "attack_effect_type": "Target"
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "AddBuff",
-                                                                        "buff_state": {
-                                                                          "name": "league_zaahen_q_mark",
-                                                                          "duration": {
-                                                                            "Time": {
-                                                                              "tick": 3
-                                                                            }
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "ViewEffect",
-                                                                        "name": "league_zaahen_q_hit2"
-                                                                      }
-                                                                    },
-                                                                    {
-                                                                      "casting_type": "Targeting",
-                                                                      "effect": {
-                                                                        "type": "TargetSfx",
-                                                                        "name": "league_zaahen_q_hit"
-                                                                      }
-                                                                    }
-                                                                  ]
-                                                                }
-                                                              ]
-                                                            }
-                                                          ]
-                                                        },
-                                                        "effect_none": {
-                                                          "type": "Combine",
-                                                          "effects": []
-                                                        }
-                                                      },
-                                                      {
-                                                        "type": "RemoveCasterBuff",
-                                                        "name": "league_zaahen_lives"
-                                                      }
-                                                    ]
-                                                  }
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        ]
-                                      }
-                                    }
                                   },
                                   "effect_none": {
                                     "type": "Combine",
@@ -3012,7 +2249,7 @@
                                 "type": "RangeEffect",
                                 "shape": {
                                   "Circle": {
-                                    "radius": 22000
+                                    "radius": 36000
                                   }
                                 },
                                 "target": "EnemyWithoutTower",
@@ -3020,8 +2257,8 @@
                                 "effects": [
                                   {
                                     "type": "Attack",
-                                    "damage": 200,
-                                    "attack_ratio": 180,
+                                    "damage": 250,
+                                    "attack_ratio": 225,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
@@ -3040,7 +2277,7 @@
                                 "type": "RangeEffect",
                                 "shape": {
                                   "Circle": {
-                                    "radius": 22000
+                                    "radius": 36000
                                   }
                                 },
                                 "target": "EnemyChampion",
@@ -3048,8 +2285,8 @@
                                 "effects": [
                                   {
                                     "type": "Heal",
-                                    "amount": 60,
-                                    "attack_ratio": 40,
+                                    "amount": 83,
+                                    "attack_ratio": 74,
                                     "ap_ratio": 0,
                                     "heal_type": "Caster"
                                   },
@@ -3058,12 +2295,12 @@
                                     "effects": [
                                       {
                                         "type": "RemoveCasterBuff",
-                                        "name": "league_zaahen_dh3"
+                                        "name": "league_zaahen_dh"
                                       },
                                       {
                                         "type": "AddCasterBuff",
                                         "buff_state": {
-                                          "name": "league_zaahen_dh3",
+                                          "name": "league_zaahen_dh",
                                           "duration": {
                                             "Time": {
                                               "tick": 4
