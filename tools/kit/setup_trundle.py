@@ -37,7 +37,11 @@ R = "<#ef5350ff>"      # crowd control
 E = "<>"
 # champion_view: the face point between his eyes (ppu_restyle.py RESTYLE face_to) and the ban/pick card
 # (bp_card_audit.py with hd.rs UI_SIZES)
-VIEW = {"face": {"x": 5, "y": -27}, "center": {"x": 0, "y": -15}, "banpick_center": {"x": 0, "y": -12}}
+# Since 2026-11-12 he is drawn at 85 % (hd.rs SIZES, 「巨魔的模型也有点大 想办法调整一下」), his dense frames 4 squares
+# lower: the face and center on the same spots of his 85 % lo_ frames ((y + 4 / 2.0) x 0.85: -27 -> -21 (x 5 -> 4),
+# -15 -> -11; center is where hits land), the card 2 px up for the 4 squares (the BP grid draws his hd_ frames at
+# UI_SIZES 0.82 alone: the card as before)
+VIEW = {"face": {"x": 4, "y": -21}, "center": {"x": 0, "y": -11}, "banpick_center": {"x": 0, "y": -14}}
 
 
 def phys(d, r):

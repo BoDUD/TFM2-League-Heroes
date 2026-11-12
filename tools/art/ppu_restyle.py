@@ -657,8 +657,11 @@ RESTYLE = {
     # at the user's picks 「A-1 原样 PPU 2.0」, 3/4 only) with Codex's key poses after League's clips (his design head put
     # back; run1 read from its raw draft, the export had shrunk it), posed by tools/art/rig_trundle.py, so no proportion
     # or density change here; the outer outline grown a square like the others; the face point between his eyes (5 game
-    # px ahead of the standing point, 27 over the ground)
-    "trundle": dict(ppu=2.0, edge=1, face_to=(5, -27)),
+    # px ahead of the standing point, 27 over the ground).
+    # 2026-11-12: 85 % in game (「巨魔的模型也有点大 想办法调整一下」, hd.rs SIZES): 12 x 2.0 x (1 / 0.85 - 1) = 4.2 -> 4
+    # squares lower (his feet 12 game px under his centre); the face point where his lo_ frames (made at 85 %, the 4
+    # squares in them) put his eyes: ((5, -27) + (0, 4 / 2.0)) x 0.85 = (4, -21)
+    "trundle": dict(ppu=2.0, edge=1, lift_sq=-4, face_to=(4, -21)),
     # league_locke (2026's new champion, mid): the design (Codex's step-0 A-1 brought to 88 rows, 44 game px hair to soles,
     # at the user's picks 「A-1 44 PPU 2.0」, 3/4 only) with Codex's key poses after League's clips (his design head put
     # back, the bodies Codex drew ~14% bigger read at the design's size), posed by tools/art/rig_locke.py, his W look in
