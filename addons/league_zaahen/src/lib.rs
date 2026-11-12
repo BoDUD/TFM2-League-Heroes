@@ -12,6 +12,7 @@
 //!   1 时不倒下：放逐他 `rv_rise` 拍（无敌、选不中、不能行动；画面是数据的 `league_zaahen_rv_rise_r` / `_l`：他跪起、展翼站起来，
 //!   朝着最近的敌方英雄——特效图不会镜像，所以左右各画一份），这段时间里慢慢回到最大生命的 30/45/60/75%，冷却 300/240/180/120 秒
 //!   （1/6/11/16 级起，英雄联盟的数：`rv_hp` + `rv_hp_step`、`rv_cd` - `rv_cd_step`，每 `rv_lv` 级一档），起来后果决重新叠满。
+//!   放逐期间他的生命就是复活的进度（0.2.1，英雄联盟：这段时间别的治疗不起作用；11-12 的日志有一次站起来时 83%，该是 60%）。
 //!   别人给的「不死」在身上时不触发。
 //! - **赤金突袭有自己的技能位**：主包三个技能位放不下第四个技能，只能把 E 并进 W（拽完人原地绕身一斩）。本包每 `e_cd` 拍一次：
 //!   `e_reach` 内有敌方英雄、他能行动时，朝最近的那个冲过去（最多 `e_dash`，停在让对方正好落在外圈的地方；冲的时候挂
@@ -269,6 +270,12 @@ pub fn rise_step(p: &Params, max_hp: usize, hp_pct: usize) -> usize {
     (share(max_hp, hp_pct) / steps).max(1)
 }
 
+/// 复活开始 `elapsed` 拍后他的生命：1 加上已经过去的每一步（0.2.1，英雄联盟把生命强制成这个进度：别的治疗不加）。
+pub fn rise_hp(p: &Params, max_hp: usize, hp_pct: usize, elapsed: usize) -> usize {
+    let steps = elapsed.min(p.rv_rise) / RISE_STEP;
+    (1 + rise_step(p, max_hp, hp_pct) * steps).min(max_hp.max(1))
+}
+
 /// 暗裔长刀的技能等级：英雄联盟主升 Q，1/4/5/7/9 级升到 1–5 级。
 pub fn q_rank(level: usize) -> usize {
     match level {
@@ -505,11 +512,14 @@ impl Darkin {
         }
     }
 
-    /// While banished: health back a step every RISE_STEP ticks; at the end Determination full again.
+    /// While banished: his health is the revive's running total, a step every RISE_STEP ticks (0.2.1, League forces it:
+    /// other heals do nothing meanwhile - 11-12's log had one rise end at 83% where 60% was due); at the end
+    /// Determination full again.
     fn rise(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, t0: usize) {
         let (hp, max) = sim.get_entity(me).map_or((0, 0), |e| e.hp());
-        if (now - t0) % RISE_STEP == 0 && now > t0 {
-            sim.entity_set_hp(me, (hp + rise_step(&self.p, max, self.rise_pct)).min(max));
+        let due = rise_hp(&self.p, max, self.rise_pct, now - t0);
+        if max > 0 && hp != due {
+            sim.entity_set_hp(me, due);
         }
         if now >= t0 + self.p.rv_rise {
             sim.entity_remove_buff(me, &sn("rv_hold"));
@@ -838,6 +848,19 @@ mod tests {
         let steps = p.rv_rise / RISE_STEP;
         assert_eq!(rise_step(&p, 3000, 50) * steps, 1500);
         assert_eq!(rise_step(&p, 3000, revive_hp(&p, 1)) * steps, 900);
+    }
+
+    #[test]
+    fn the_rise_forces_its_running_total() {
+        let p = Params::default();
+        // 60% of 3000 over 240 ticks: 60 a step of 8 ticks, from the 1 health he was caught at - whatever else heals him
+        assert_eq!(rise_hp(&p, 3000, 60, 0), 1);
+        assert_eq!(rise_hp(&p, 3000, 60, 7), 1);
+        assert_eq!(rise_hp(&p, 3000, 60, 8), 61);
+        assert_eq!(rise_hp(&p, 3000, 60, 120), 901);
+        assert_eq!(rise_hp(&p, 3000, 60, 240), 1801);
+        assert_eq!(rise_hp(&p, 3000, 60, 400), 1801, "no more after the rise");
+        assert_eq!(rise_hp(&p, 0, 60, 240), 1, "no maximum read: he keeps 1");
     }
 
     #[test]
