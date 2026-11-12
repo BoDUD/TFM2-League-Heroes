@@ -55,7 +55,7 @@
 
 ### 奇亚娜附加包
 
-[奇亚娜附加包](../../addons/league_qiyana/README.md)：`league_qiyana` v0.3.3
+[奇亚娜附加包](../../addons/league_qiyana/README.md)：`league_qiyana` v0.3.4
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

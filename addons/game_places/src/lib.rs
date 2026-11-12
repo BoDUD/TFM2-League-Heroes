@@ -31,6 +31,7 @@ use std::collections::{HashMap, HashSet};
 pub mod clock;
 pub mod hook;
 pub mod sigs;
+pub mod terrain;
 
 /// 一段特征码：`mask` 为 0 的字节不比。
 #[derive(Clone, Copy, Debug)]

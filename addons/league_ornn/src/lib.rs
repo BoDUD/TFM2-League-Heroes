@@ -7,8 +7,9 @@
 //!   贴着柱子的边绕过去，冲刺的放回上一 tick 的位置。柱子的位置记在他身上的 buff 名里（`league_ornn_pillar@x,y`），被动读它：同一局的两份预模拟各记各的。
 //!   主包：柱子只是画面，冲撞读他身上的 `league_ornn_q_pillar`。
 //! - **撞上柱子或墙才地震**（原生效果 `league_ornn:from` 记冲撞的起点、`league_ornn:charge` 在撞上目标时判断）：撞上的那一刻
-//!   柱子离他不到 `E_QUAKE_R` + `PILLAR_R`，或沿冲撞的方向 `WALL_REACH` 内是墙（卡蜜尔附加包的墙格、5v5 地图的四边），就给他挂
-//!   1 tick 后数据读的 `league_ornn_e_quake_go`（周围击飞、伤害、易碎），柱子碎掉。主包：Q 后 4 秒内的冲撞都算撞上柱子。
+//!   柱子离他不到 `E_QUAKE_R` + `PILLAR_R`，或沿冲撞的方向 `WALL_REACH` 内是墙（卡蜜尔附加包的墙格、5v5 地图的四边；峡谷地图上
+//!   是峡谷的墙格，`game_places::terrain`，没有墙体文件时只有地图四边外算墙），就给他挂 1 tick 后数据读的
+//!   `league_ornn_e_quake_go`（周围击飞、伤害、易碎），柱子碎掉。主包：Q 后 4 秒内的冲撞都算撞上柱子。
 //! - **易碎记在每个英雄身上**（原生效果 `league_ornn:shatter`，普攻打中时）：只有身上带着 `league_ornn_brittle` 的英雄被引爆：
 //!   最大生命 `BR_HP`% 真实伤害、击飞 `BR_UP` tick、从他身边击退 `BR_KB_SPEED` x `BR_KB_T`，易碎随之去掉。主包：W / E / R
 //!   打中英雄后他的下一下普攻打中任何英雄都引爆。
@@ -41,8 +42,9 @@ use std::collections::{HashMap, HashSet};
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::{LazyLock, Mutex};
+use std::sync::{LazyLock, Mutex, Once};
 
+use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -129,7 +131,7 @@ pub const BODY: f64 = 6_000.0;
 pub const DASH_STEP: f64 = 2_200.0;
 /// 5v5 地图四边的可走范围（卡蜜尔附加包量的）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
-/// 墙格的边长（世界单位）和查墙的步长。
+/// 墙格的边长（世界单位，游戏自己的地图）和查墙的步长。
 pub const CELL: f64 = 32_000.0;
 pub const STEP: f64 = 1_000.0;
 
@@ -248,15 +250,19 @@ pub fn untag(prefix: &str, name: &str) -> Option<Pt> {
     Some((x.parse::<f64>().ok()?, y.parse::<f64>().ok()?))
 }
 
-/// 地图的墙格（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它）；5v5 地图另加四边。
+/// 地图的墙格：游戏自己的三张图（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它；每格 `CELL`，从 (0, 0) 起；5v5 地图
+/// 另加四边），或峡谷的墙格（[`Grid::rift`]：格子有它自己的边长和起点）。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
+    /// 一格的边长、格子 (0, 0) 的角（游戏自己的地图：`CELL`、(0, 0)）。
+    pub cell: f64,
+    pub origin: Pt,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL, origin: (0.0, 0.0) }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -268,7 +274,19 @@ impl Grid {
         ]
     }
 
-    /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
+    /// 峡谷的墙格（`game_places::terrain`）：读到墙体文件就用它的格子（格子外算墙）；没有文件时不知道哪里是墙，只有地图四边外
+    /// 算墙（整张图一格空地）——冲撞在峡谷上只有撞柱子才地震，不会像以前拿游戏自己的墙格那样把 960000 以外全当成墙。
+    pub fn rift(walls: Option<&Walls>) -> Grid {
+        match walls {
+            Some(w) => Grid { cells: w.cells.clone(), bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)), cell: w.cell, origin: w.origin },
+            None => {
+                let e = terrain::RIFT_EXTENT;
+                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0) }
+            }
+        }
+    }
+
+    /// 世界坐标落在墙里吗（地图外、5v5 的四边外、格子外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
         if x < 0.0 || y < 0.0 {
             return true;
@@ -278,8 +296,11 @@ impl Grid {
                 return true;
             }
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
-        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
+        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
+        if fx < 0.0 || fy < 0.0 {
+            return true;
+        }
+        self.cells.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
@@ -480,10 +501,24 @@ fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
         .collect()
 }
 
-fn grid_now(sim: &StableSim<'_>) -> Option<Grid> {
-    let grids = Grid::builtin();
-    let i = current(&grids, &unit_points(sim))?;
-    grids.into_iter().nth(i)
+/// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格，不每 tick 重建）。
+static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
+/// 这次启动第一次碰到峡谷时在日志里记一行。
+static RIFT_SEEN: Once = Once::new();
+
+/// 当前对局的墙格：峡谷（塔、水晶站在游戏自己的地图外，`terrain::map_of_sim`）用峡谷的墙格；游戏自己的地图照旧在三张内置图
+/// 里挑单位站进墙里最少的那张。
+fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
+    match terrain::map_of_sim(sim) {
+        Map::Rift => {
+            RIFT_SEEN.call_once(|| {
+                wlog(format!("== Rift: the charge quakes on the Rift's walls (and on the pillar); {} ==", terrain::rift_status()))
+            });
+            Some(&*RIFT)
+        }
+        Map::Native => current(&*BUILTIN, &unit_points(sim)).map(|i| &BUILTIN[i]),
+    }
 }
 
 fn target_of(input: &InputTargetV1) -> Option<usize> {
@@ -528,7 +563,7 @@ fn charge(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         .and_then(|f| unit((at.0 - f.0, at.1 - f.1)))
         .or_else(|| target_of(&input).and_then(|t| pos(sim, t)).and_then(|t| unit((t.0 - at.0, t.1 - at.1))));
     let grid = grid_now(sim);
-    let hit = charge_hit(at, body, &points, || match (&grid, dir) {
+    let hit = charge_hit(at, body, &points, || match (grid, dir) {
         (Some(g), Some(d)) => wall_ahead(g, at, d, WALL_REACH, body),
         _ => false,
     });
@@ -1049,6 +1084,15 @@ mod tests {
     }
 
     #[test]
+    fn a_place_on_the_rift_fits_its_buff_name() {
+        // the Rift is 1614545 square: seven digits a side still fit
+        let s = tag(PILLAR_TAG, (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT));
+        assert!(s.len() <= BUFF_NAME_CAP, "{s}");
+        assert_eq!(untag(PILLAR_TAG, &s), Some((terrain::RIFT_EXTENT, terrain::RIFT_EXTENT)));
+        assert!(tag(FROM_TAG, (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT)).len() <= BUFF_NAME_CAP);
+    }
+
+    #[test]
     fn the_charge_quakes_on_a_near_pillar_first() {
         let at = (500_000.0, 400_000.0);
         let near = (530_000.0, 400_000.0);
@@ -1064,6 +1108,41 @@ mod tests {
         let g = &Grid::builtin()[0];
         // near the left edge, charging left: the edge is within reach
         assert!(wall_ahead(g, (30_000.0, 480_000.0), (-1.0, 0.0), WALL_REACH, 6000.0));
+    }
+
+    /// 峡谷大小的假墙格：295 x 296 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
+    fn rift_walls(walls: &[(usize, usize)]) -> Walls {
+        let rows: Vec<String> = (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
+    }
+
+    /// 一堵 3 格厚、5 格长的墙，左边在 `x` 附近，`y` 那一行在中间：(格子, 墙的左边)。
+    fn rift_block(x: f64, y: f64) -> (Vec<(usize, usize)>, f64) {
+        let (cell, x0) = (60_000.0 / 11.0, 30_000.0 / 11.0);
+        let (cx, cy) = (((x - x0) / cell) as usize, (y / cell) as usize);
+        ((cx..cx + 3).flat_map(|x| (cy - 2..=cy + 2).map(move |y| (x, y))).collect(), x0 + cx as f64 * cell)
+    }
+
+    #[test]
+    fn on_the_rift_its_walls_quake() {
+        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
+        let g = Grid::rift(Some(&rift_walls(&block)));
+        // charging into a wall of the Rift past 1000000: a quake
+        let at = (left - 10_000.0, 1_300_000.0);
+        assert_eq!(charge_hit(at, 6000.0, &[], || wall_ahead(&g, at, (1.0, 0.0), WALL_REACH, 6000.0)), Hit::Wall);
+        // past 960000 on open ground: none (the game's own grid called it all wall)
+        let far = (1_100_000.0, 1_100_000.0);
+        assert!(!wall_ahead(&g, far, (1.0, 0.0), WALL_REACH, 6000.0));
+        assert!(wall_ahead(&Grid::builtin()[0], far, (1.0, 0.0), WALL_REACH, 6000.0));
+        // where the game's own 5v5 has a wall (row 3, columns 15-16) the Rift has none
+        let by = (15.5 * CELL, 3.5 * CELL + 20_000.0);
+        assert!(wall_ahead(&Grid::builtin()[0], by, (0.0, -1.0), WALL_REACH, 6000.0));
+        assert!(!wall_ahead(&g, by, (0.0, -1.0), WALL_REACH, 6000.0));
+        // no walls file: no wall known inside, only the map's edges
+        let open = Grid::rift(None);
+        assert_eq!(charge_hit(at, 6000.0, &[], || wall_ahead(&open, at, (1.0, 0.0), WALL_REACH, 6000.0)), Hit::Nothing);
+        assert!(wall_ahead(&open, (terrain::RIFT_EXTENT - 10_000.0, 800_000.0), (1.0, 0.0), WALL_REACH, 6000.0));
     }
 
     #[test]

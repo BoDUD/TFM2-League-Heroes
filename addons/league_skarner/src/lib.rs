@@ -11,6 +11,7 @@
 //!   地图的四边）：拖 `E_KB_SPEED` x `E_KB_T` 的路上碰到墙就拖到墙边，到的那一刻（被动看它身上的 `league_skarner_ed_<他>` 到期）
 //!   受到 `E_WALL_DMG` + `E_RATIO`% 攻击力 + 它最大生命 `E_WALL_HP`% 的物理伤害并眩晕 `E_STUN` 拍；没碰到墙就照常拖走、不晕
 //!   （英雄联盟）。主包：每次拖完都砸一下、晕一下。冲锋时他穿过地形（两边一样：`league_skarner_e_ghost`，ignore_wall）。
+//!   峡谷地图（Rin 的召唤师峡谷 α，`game_places::terrain`）上查峡谷的墙格（没有墙体文件时只有地图四边外算墙）。
 //! - **毒刺贯体只压前 `R_N` 个英雄，并拖在身后**（原生效果 `league_skarner:impale`，尾巴打中英雄时）：一次施法数到第 `R_N`
 //!   个为止（他身上的 `league_skarner_rc_<他>`），每个受到 `R_DMG` + `R_RATIO`% 攻击力的**魔法伤害**、压制 `R_SUP` 拍并立刻战栗；
 //!   压制期间被动每拍把它们放在他身边、保持被打中时的方向，离他最多 `R_GAP`（他走到哪拖到哪）。主包：线上所有英雄都中，物理
@@ -31,8 +32,9 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::{LazyLock, Mutex};
+use std::sync::{LazyLock, Mutex, Once};
 
+use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -75,7 +77,7 @@ pub const R_COUNT_T: usize = 30;
 pub const WALL_GAP: f64 = 1_000.0;
 /// 5v5 地图四边的可走范围（卡蜜尔附加包量的）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
-/// 墙格的边长（世界单位）和查墙的步长。
+/// 墙格的边长（世界单位，游戏自己的地图）和查墙的步长。
 pub const CELL: f64 = 32_000.0;
 pub const STEP: f64 = 1_000.0;
 
@@ -183,15 +185,19 @@ fn unit(v: Pt) -> Option<Pt> {
     (l > 1.0).then_some((v.0 / l, v.1 / l))
 }
 
-/// 地图的墙格（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它）；5v5 地图另加四边。
+/// 地图的墙格：游戏自己的三张图（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它；每格 `CELL`，从 (0, 0) 起；5v5 地图
+/// 另加四边），或峡谷的墙格（[`Grid::rift`]：格子有它自己的边长和起点）。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
+    /// 一格的边长、格子 (0, 0) 的角（游戏自己的地图：`CELL`、(0, 0)）。
+    pub cell: f64,
+    pub origin: Pt,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds }
+        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL, origin: (0.0, 0.0) }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -203,7 +209,19 @@ impl Grid {
         ]
     }
 
-    /// 世界坐标落在墙里吗（地图外、5v5 的四边外都算墙）。
+    /// 峡谷的墙格（`game_places::terrain`）：读到墙体文件就用它的格子（格子外算墙）；没有文件时不知道哪里是墙，只有地图四边外
+    /// 算墙（整张图一格空地）——以绪塔尔冲击在峡谷上找不到墙，不会像以前拿游戏自己的墙格那样把 960000 以外全当成墙。
+    pub fn rift(walls: Option<&Walls>) -> Grid {
+        match walls {
+            Some(w) => Grid { cells: w.cells.clone(), bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)), cell: w.cell, origin: w.origin },
+            None => {
+                let e = terrain::RIFT_EXTENT;
+                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0) }
+            }
+        }
+    }
+
+    /// 世界坐标落在墙里吗（地图外、5v5 的四边外、格子外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
         if x < 0.0 || y < 0.0 {
             return true;
@@ -213,8 +231,11 @@ impl Grid {
                 return true;
             }
         }
-        let (cx, cy) = ((x / CELL) as usize, (y / CELL) as usize);
-        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
+        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
+        if fx < 0.0 || fy < 0.0 {
+            return true;
+        }
+        self.cells.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
@@ -330,10 +351,25 @@ fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
         .collect()
 }
 
-fn grid_now(sim: &StableSim<'_>) -> Option<Grid> {
-    let grids = Grid::builtin();
-    let i = current(&grids, &unit_points(sim))?;
-    grids.into_iter().nth(i)
+/// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格，不每 tick 重建）。
+static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
+static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
+/// 这次启动第一次碰到峡谷时在日志里记一行。
+static RIFT_SEEN: Once = Once::new();
+
+/// 当前对局的墙格：峡谷（塔、水晶站在游戏自己的地图外，`terrain::map_of_sim`）用峡谷的墙格；游戏自己的地图照旧在三张内置图
+/// 里挑单位站进墙里最少的那张。
+fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
+    match terrain::map_of_sim(sim) {
+        Map::Rift => {
+            RIFT_SEEN.call_once(|| {
+                wlog(format!("== Rift: Ixtal's Impact stuns on the Rift's walls, Impale drags no one into them; {} ==",
+                             terrain::rift_status()))
+            });
+            Some(&*RIFT)
+        }
+        Map::Native => current(&*BUILTIN, &unit_points(sim)).map(|i| &BUILTIN[i]),
+    }
 }
 
 fn retimed(sim: &mut StableSim<'_>, id: usize, name: &str, ticks: usize) {
@@ -438,7 +474,7 @@ fn impact(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let (Some(him), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
     let dir = unit((at.0 - him.0, at.1 - him.1)).unwrap_or((1.0, 0.0));
     let reach = (E_KB_SPEED * E_KB_T) as f64;
-    match grid_now(sim).and_then(|g| wall_travel(&g, at, dir, reach, body)) {
+    match grid_now(sim).and_then(|g| wall_travel(g, at, dir, reach, body)) {
         Some(len) => {
             let ticks = if len >= 1.0 { shove(sim, target, dir, len, E_KB_SPEED) } else { 0 };
             retimed(sim, target, &wall_due_name(me), ticks.max(1));
@@ -671,6 +707,43 @@ mod tests {
         assert!((to - (40_000.0 - MOBA_BOUNDS.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
         // open ground in the middle of the map, along the river: nothing within reach
         assert_eq!(wall_travel(g, (480_000.0, 480_000.0), (0.0, 1.0), 30_000.0, 6_000.0), None);
+    }
+
+    /// 峡谷大小的假墙格：295 x 296 格（每格 60000/11，从 x = 30000/11 起，同作者的墙体文件），`walls` 里的格子 (x, y) 是墙。
+    fn rift_walls(walls: &[(usize, usize)]) -> Walls {
+        let rows: Vec<String> = (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (terrain::RIFT_EXTENT, terrain::RIFT_EXTENT))
+    }
+
+    /// 一堵 3 格厚、5 格长的墙，左边在 `x` 附近，`y` 那一行在中间：(格子, 墙的左边)。
+    fn rift_block(x: f64, y: f64) -> (Vec<(usize, usize)>, f64) {
+        let (cell, x0) = (60_000.0 / 11.0, 30_000.0 / 11.0);
+        let (cx, cy) = (((x - x0) / cell) as usize, (y / cell) as usize);
+        ((cx..cx + 3).flat_map(|x| (cy - 2..=cy + 2).map(move |y| (x, y))).collect(), x0 + cx as f64 * cell)
+    }
+
+    #[test]
+    fn the_rifts_walls_stop_the_carry() {
+        let reach = (E_KB_SPEED * E_KB_T) as f64;
+        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
+        let g = Grid::rift(Some(&rift_walls(&block)));
+        // dragged toward a wall of the Rift past 1000000: up to it, the stun
+        let to = wall_travel(&g, (left - 30_000.0, 1_300_000.0), (1.0, 0.0), reach, 6_000.0).expect("the Rift's wall");
+        assert!((to - (30_000.0 - 6_000.0 - WALL_GAP)).abs() <= STEP, "{to}");
+        // past 960000 is open ground on the Rift (the game's own grid called it all wall): no stun, the drag goes on
+        let far = (1_100_000.0, 1_100_000.0);
+        assert!(!g.is_wall(far.0, far.1) && Grid::builtin()[0].is_wall(far.0, far.1));
+        assert_eq!(wall_travel(&g, far, (1.0, 0.0), reach, 6_000.0), None);
+        // where the game's own 5v5 has a wall (row 3, columns 15-16) the Rift has none
+        let at = (15.5 * CELL, 3.5 * CELL + 20_000.0);
+        assert!(wall_travel(&Grid::builtin()[0], at, (0.0, -1.0), reach, 6_000.0).is_some());
+        assert_eq!(wall_travel(&g, at, (0.0, -1.0), reach, 6_000.0), None);
+        // no walls file: no wall known inside, only the map's edges
+        let open = Grid::rift(None);
+        assert_eq!(wall_travel(&open, (left - 30_000.0, 1_300_000.0), (1.0, 0.0), reach, 6_000.0), None);
+        assert!(!open.is_wall(at.0, at.1) && !open.is_wall(far.0, far.1));
+        assert!(open.is_wall(terrain::RIFT_EXTENT + 1.0, 800_000.0) && open.is_wall(800_000.0, -1.0));
     }
 
     #[test]

@@ -55,7 +55,7 @@
 
 ### 斯卡纳附加包
 
-[斯卡纳附加包](../../addons/league_skarner/README.md)：`league_skarner` v0.1.1
+[斯卡纳附加包](../../addons/league_skarner/README.md)：`league_skarner` v0.1.2
 
 | 机制 | 主包（纯数据） | 附加包 |
 |---|---|---|

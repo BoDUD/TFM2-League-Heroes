@@ -55,7 +55,7 @@
 
 ### 佐伊附加包
 
-[佐伊附加包](../../addons/league_zoe/README.md)：`league_zoe` v0.7.0
+[佐伊附加包](../../addons/league_zoe/README.md)：`league_zoe` v0.7.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

@@ -244,12 +244,15 @@ pub fn launch(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         None => "no map read: every one on its way struck as in the main pack".to_string(),
         Some(b) => {
             let stop_said = match (b.wall, map.as_ref()) {
-                (Some(w), Some(m)) if m.walls.as_ref().is_some_and(|g| g.at(w.0, w.1)) => {
-                    let c = terrain::cell_of(w.0, w.1);
-                    format!("stops at the wall cell ({}, {})", c.0, c.1)
-                }
-                (Some(w), Some(m)) => format!("stops at the map's {} edge",
-                                              m.edge(w.0, w.1).map_or("?".to_string(), |e| format!("{:?}", e.0))),
+                // a cell of that map's own grid (the Rift's are its own)
+                (Some(w), Some(m)) => match m.walls.as_ref().filter(|g| g.at(w.0, w.1)) {
+                    Some(g) => {
+                        let c = g.cell_of(w.0, w.1);
+                        format!("stops at the wall cell ({}, {})", c.0, c.1)
+                    }
+                    None => format!("stops at the map's {} edge",
+                                    m.edge(w.0, w.1).map_or("?".to_string(), |e| format!("{:?}", e.0))),
+                },
                 _ => "blows its whole length".to_string(),
             };
             format!("{stop_said} after {:.0}; brush {} cells; river {}", dist(here, b.stop), b.brush.len(),
@@ -355,7 +358,7 @@ pub fn boom(sim: &mut StableSim<'_>, me: usize, _input: InputTargetV1) {
                 others += 1;
             }
         }
-        for (kind, at) in shock.spots(p.r_span as f64, SPOTS) {
+        for (kind, at) in shock.spots(&m, p.r_span as f64, SPOTS) {
             let view = match kind {
                 Kind::Wall => "q_r_hit",
                 Kind::River => "q_w_hit",
@@ -383,7 +386,8 @@ pub fn boom(sim: &mut StableSim<'_>, me: usize, _input: InputTargetV1) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use super::super::terrain::{Grid, CELL};
+    use super::super::terrain::{rift_grids, Grid, CELL};
+    use game_places::terrain::{Map, Walls, RIFT_EXTENT};
 
     fn map(walls: &[(usize, usize)]) -> MapGrids {
         let rows: Vec<String> = (0..30).map(|y| (0..30).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
@@ -393,7 +397,16 @@ mod tests {
             walls: Some(Grid::from_rows(&rows.iter().map(|s| s.as_str()).collect::<Vec<_>>())),
             bushes: Some(Grid::from_rows(&empty.iter().map(|s| s.as_str()).collect::<Vec<_>>())),
             river: None,
+            map: Map::Native,
         }
+    }
+
+    /// The Rift (game_places' layout of the author's walls: 295 x 296 cells of 60000/11 from x = 30000/11), `#` at `walls`.
+    fn rift(walls: &[(usize, usize)]) -> MapGrids {
+        let rows: Vec<String> =
+            (0..296).map(|y| (0..295).map(|x| if walls.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(|s| s.as_str()).collect();
+        rift_grids(Some(&Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (RIFT_EXTENT, RIFT_EXTENT))))
     }
 
     fn champ(id: usize, at: Pt) -> Foe {
@@ -477,5 +490,32 @@ mod tests {
         assert_eq!(push_len(Some(&m), at, (1.0, 0.0), 10_000.0, 25_000.0), 21_000.0);
         assert_eq!(push_len(Some(&m), at, (-1.0, 0.0), 10_000.0, 25_000.0), 25_000.0);
         assert_eq!(push_len(None, at, (1.0, 0.0), 10_000.0, 25_000.0), 25_000.0);
+    }
+
+    /// 2026-11-10: the Rift's walls, at the Rift's places (past 1000000), never the game's own map's.
+    #[test]
+    fn on_the_rift_the_shockwave_finds_the_one_pushed_into_a_rift_wall() {
+        // the native test above on the Rift, far out: a wall down the column x = 250 (rows 100..139, its face at about
+        // 1366364); Qiyana 57600 from the face, the champion 32500 from it
+        let col: Vec<(usize, usize)> = (100..140).map(|y| (250, y)).collect();
+        let m = rift(&col);
+        let p = Params::default();
+        let (face, y) = (30_000.0 / 11.0 + 250.0 * 60_000.0 / 11.0, 120.5 * 60_000.0 / 11.0);
+        let me = (face - 57_600.0, y);
+        let him = champ(1, (face - 32_500.0, y));
+        assert!(me.0 > 1_000_000.0);
+        assert_eq!(push_len(Some(&m), him.at, (1.0, 0.0), 10_000.0, 25_000.0), 22_000.0);
+        assert_eq!(caught_by(&m, me, him.at, &[him], &p), vec![1]);
+        // where only the game's own map has that wall (the native test's places): caught there, nothing on the Rift
+        let wall15 = map(&[(15, 1), (15, 2), (15, 3), (15, 4), (15, 5)]);
+        let (me_n, him_n) = ((13.2 * CELL, 3.5 * CELL), champ(2, (14.0 * CELL, 3.5 * CELL)));
+        assert_eq!(caught_by(&wall15, me_n, him_n.at, &[him_n], &p), vec![2]);
+        assert_eq!(caught_by(&m, me_n, him_n.at, &[him_n], &p), Vec::<usize>::new());
+        // past 960000 with no wall known (no walls file): open ground on the Rift; the game's own map took it all as wall
+        let bare = rift_grids(None);
+        let (me_f, him_f) = ((1_150_000.0, 300_000.0), champ(3, (1_175_000.0, 300_000.0)));
+        assert_eq!(caught_by(&map(&[]), me_f, him_f.at, &[him_f], &p), vec![3]);
+        assert_eq!(caught_by(&bare, me_f, him_f.at, &[him_f], &p), Vec::<usize>::new());
+        assert_eq!(push_len(Some(&bare), him_f.at, (1.0, 0.0), 10_000.0, 25_000.0), 25_000.0);
     }
 }

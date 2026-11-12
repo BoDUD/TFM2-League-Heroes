@@ -23,6 +23,10 @@
 //!   她死时有墙立着，墙交给排在她身上的原生效果 `league_taliyah:pulse`（死了也照跑），每 tick 挡一次，墙都倒了为止；日志
 //!   `DEAD`（交出去几块墙）、`PULSE`（替她挡了几 tick）。
 //!
+//! - **两张 5v5 地图**（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：墙不读地图的墙，两张地图上一样挡人；只有顺着墙
+//!   挪人（[`step_off_in`]）不出地图，地图的边长按这一局的地图（game_places 从塔和水晶看出来：游戏自己的 960000，Rin 的召唤师
+//!   峡谷 α 1614545）——以前一律夹到 960000，峡谷远的那一半被挡的单位会被挪到地图中间。
+//!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。状态都在被动自己身上（每局一份）。
 //! - **脱战骑石头**（0.2.0，[`view`]）：没在打架时把移动动画 `run`（用脚跑）换成 `surf`（冲浪），打起来换回来。
 //!
@@ -32,9 +36,10 @@ use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{self as places, Map};
 use mod_api_stable::*;
 
 pub mod view;
@@ -71,7 +76,7 @@ pub const OFF_STEPS: u64 = 2;
 pub const CLEAR: u64 = (OFF_STEPS + 2) * STEP_MAX;
 /// 横墙相邻两段的墙心相距不超过半宽的这么多倍就是同一道墙（铺下时相距一段 = 2 个半宽）。
 pub const LINK_HW: u64 = 3;
-/// 地图边长（坐标 0..MAP）。
+/// 游戏自己的 5v5 地图的边长（坐标 0..MAP）；峡谷的是 1614545（[`map_side`]，[`Blocker`] 记着这一局的）。
 const MAP: u64 = 960_000;
 
 fn sn(x: &str) -> String {
@@ -343,8 +348,13 @@ pub fn nearer_end(line: &(F2, F2), p: (u64, u64)) -> bool {
     t * 2.0 >= fdist(line.0, line.1)
 }
 
-/// 顺着这道墙挪 `step`（`plus` 往 b 头），再往 `p` 这一侧、离开墙的方向挪 `off` 个 `step`；不出地图。
+/// 顺着这道墙挪 `step`（`plus` 往 b 头），再往 `p` 这一侧、离开墙的方向挪 `off` 个 `step`；不出游戏自己的地图（[`step_off_in`]）。
 pub fn step_off(line: &(F2, F2), p: (u64, u64), plus: bool, step: u64, off: u64) -> (u64, u64) {
+    step_off_in(line, p, plus, step, off, MAP)
+}
+
+/// [`step_off`]，不出边长 `side` 的地图（游戏自己的 [`MAP`]，峡谷 1614545：[`map_side`]）。
+pub fn step_off_in(line: &(F2, F2), p: (u64, u64), plus: bool, step: u64, off: u64, side: u64) -> (u64, u64) {
     let d = unit(line.0, line.1);
     let (px, py) = (p.0 as f64, p.1 as f64);
     let cross = (px - line.0 .0) * d.1 - (py - line.0 .1) * d.0;
@@ -352,7 +362,7 @@ pub fn step_off(line: &(F2, F2), p: (u64, u64), plus: bool, step: u64, off: u64)
     let (sg, k) = (if plus { 1.0 } else { -1.0 }, step as f64 * off as f64);
     let x = px + sg * d.0 * step as f64 + n.0 * k;
     let y = py + sg * d.1 * step as f64 + n.1 * k;
-    let clampf = |v: f64| v.round().clamp(0.0, (MAP - 1) as f64) as u64;
+    let clampf = |v: f64| v.round().clamp(0.0, (side.max(1) - 1) as f64) as u64;
     (clampf(x), clampf(y))
 }
 
@@ -365,7 +375,13 @@ pub fn step_off(line: &(F2, F2), p: (u64, u64), plus: bool, step: u64, off: u64)
 /// 0.2.6（11-08 的日志：235 次 HOLD 里 45 次超过 100 tick，只有 8 次顺着墙挪了一半以上，夏亚 274 tick 只挪 13、她自己 247 只挪 18）：
 /// 以前被放回的地方挪出 `STALL_MOVE`（1000，一步都不到）就从头数，挡人的那一段每个被推的 tick、每个没往墙里走的 tick 也把账删了，
 /// 数满 20 tick 的很少。现在账记到它离开所有的墙（[`walls_tick`]）；数满时它自己顺着墙走了 [`going`] 以上（在绕）才从这里重数。
+/// 挪的时候不出游戏自己的地图（[`unstick_in`]）。
 pub fn unstick(walls: &[Wall], s: &mut Stall, held: (u64, u64), tried: (u64, u64), r: u64, step: u64) -> (u64, u64) {
+    unstick_in(walls, s, held, tried, r, step, MAP)
+}
+
+/// [`unstick`]，顺着墙挪的时候不出边长 `side` 的地图（[`map_side`]）。
+pub fn unstick_in(walls: &[Wall], s: &mut Stall, held: (u64, u64), tried: (u64, u64), r: u64, step: u64, side: u64) -> (u64, u64) {
     let Some(w) = walls.iter().find(|w| inside(w, tried, r)) else { return held };
     let line = line_of(walls, w);
     if s.dir.is_none() {
@@ -391,7 +407,7 @@ pub fn unstick(walls: &[Wall], s: &mut Stall, held: (u64, u64), tried: (u64, u64
     let d = s.dir.unwrap_or(true);
     for plus in [d, !d] {
         for off in 0..=OFF_STEPS {
-            let q = step_off(&line, held, plus, step, off);
+            let q = step_off_in(&line, held, plus, step, off, side);
             if q != held && clear(walls, q, r) {
                 s.dir = Some(plus);
                 return q;
@@ -411,9 +427,15 @@ pub struct Moved {
 
 /// 一个单位这一 tick 碰到墙（挡人那一段的单位部分，0.2.6 拿出来测）：`last` 它上一 tick 在哪，`now` 它这一 tick 走到哪，
 /// `stalls` 被挡的账（按单位）。往墙里走：[`hold`] 放回、[`unstick`] 数着挪；墙立起压着它：推出去。账一直留着（被推、某一 tick
-/// 没往墙里走都不删），直到它这一 tick 落脚的地方离所有的墙都在 `CLEAR` 外，才重数（`clear` 加一）。
+/// 没往墙里走都不删），直到它这一 tick 落脚的地方离所有的墙都在 `CLEAR` 外，才重数（`clear` 加一）。游戏自己的地图（[`walls_tick_in`]）。
 pub fn walls_tick(walls: &[Wall], stalls: &mut HashMap<usize, Stall>, id: usize, last: Option<(u64, u64)>, now: (u64, u64),
                   r: u64) -> Moved {
+    walls_tick_in(walls, stalls, id, last, now, r, MAP)
+}
+
+/// [`walls_tick`] 在边长 `side` 的地图上（顺着墙挪不出这张地图：[`map_side`]）。
+pub fn walls_tick_in(walls: &[Wall], stalls: &mut HashMap<usize, Stall>, id: usize, last: Option<(u64, u64)>, now: (u64, u64),
+                     r: u64, side: u64) -> Moved {
     let mut out = Moved::default();
     if let Some(q) = hold(walls, last, now, r) {
         out.held = last.is_some_and(|l| clear(walls, l, r));
@@ -421,7 +443,7 @@ pub fn walls_tick(walls: &[Wall], stalls: &mut HashMap<usize, Stall>, id: usize,
         if out.held {
             // walking into the wall: held, and stepped along it after STALL_T ticks
             let step = last.map_or(0, |l| l.0.abs_diff(now.0).max(l.1.abs_diff(now.1)));
-            to = unstick(walls, stalls.entry(id).or_default(), q, now, r, step);
+            to = unstick_in(walls, stalls.entry(id).or_default(), q, now, r, step, side);
             out.stepped = to != q;
         }
         out.to = Some(to);
@@ -570,6 +592,8 @@ struct Blocker {
     stalls: HashMap<usize, Stall>,
     /// (单位, 墙心) -> 这块墙挡了它几 tick、其中顺着墙挪了几 tick、它是谁这边的；墙倒了每个单位记一行 HOLD。
     held: HashMap<(usize, (u64, u64)), Held>,
+    /// 这一局的地图边长（[`map_side`]；0：她的被动还没看，按游戏自己的地图）：顺着墙挪人不出这张地图。
+    side: u64,
 }
 
 impl Blocker {
@@ -579,6 +603,31 @@ impl Blocker {
         self.last_pos.extend(o.last_pos);
         self.stalls.extend(o.stalls);
         self.held.extend(o.held);
+        if self.side == 0 {
+            self.side = o.side;
+        }
+    }
+
+    /// 这一局的地图边长（没看过：游戏自己的地图 [`MAP`]）。
+    fn side(&self) -> u64 {
+        if self.side == 0 { MAP } else { self.side }
+    }
+}
+
+/// 日志里写过峡谷那一行（每次启动一次）。
+static RIFT_SAID: AtomicBool = AtomicBool::new(false);
+
+/// 这一局的 5v5 地图的边长（game_places 从塔和水晶看出来：游戏自己的 [`MAP`]，峡谷 1614545）；第一次碰到峡谷时在日志里记一行。
+fn map_side(sim: &StableSim<'_>) -> u64 {
+    match places::map_of_sim(sim) {
+        Map::Native => MAP,
+        Map::Rift => {
+            if !RIFT_SAID.swap(true, Ordering::Relaxed) {
+                wlog(format!("== Rift: Weaver's Wall blocks as on the game's own map (it reads no map walls); a unit stepped along \
+                              it stays inside the Rift's {:.0} square; {} ==", Map::Rift.extent(), places::rift_status()));
+            }
+            Map::Rift.extent() as u64
+        }
     }
 }
 
@@ -723,6 +772,7 @@ impl Blocker {
         }
         let mut moves = Vec::new();
         let mut seen = HashMap::new();
+        let side = self.side();
         for i in 0..sim.entity_count() {
             let Some(e) = sim.entity_at(i) else { continue };
             if !e.is_alive() {
@@ -754,8 +804,8 @@ impl Blocker {
             }
             let r = match e.radius() as u64 { 0 => BODY, r => r };
             let last = self.last_pos.get(&id).copied();
-            // held / pushed / free, and the stall kept till it is clear of every wall (0.2.6)
-            let m = walls_tick(&self.walls, &mut self.stalls, id, last, now_pos, r);
+            // held / pushed / free, and the stall kept till it is clear of every wall (0.2.6); stepped inside this map
+            let m = walls_tick_in(&self.walls, &mut self.stalls, id, last, now_pos, r, side);
             if m.held {
                 if let Some(w) = self.walls.iter().find(|w| inside(w, now_pos, r)) {
                     let side = if id == me { "herself" } else if e.team() == team { "her ally" } else { "an enemy" };
@@ -811,6 +861,10 @@ impl StablePassive for Weave {
         // walls a pulse kept up while she was dead: hers again (a revive - the same unit lives again)
         if let Some(d) = DEAD.lock().unwrap_or_else(|e| e.into_inner()).remove(&(self.sim, me)) {
             self.b.take_back(d.b);
+        }
+        // which map (once a life: the walls go to the pulse with it when she dies)
+        if self.b.side == 0 {
+            self.b.side = map_side(sim);
         }
         if sim.get_entity(me).is_some_and(|e| e.is_alive()) {
             self.watch(sim, me, now);
@@ -1231,5 +1285,40 @@ mod tests {
             // the next tick it stands clear: nothing more to do
             assert_eq!(hold(&walls, Some(q), q, r), None);
         }
+    }
+
+    /// 2026-11-10: on the Rift (1614545 square) a unit stepped along her wall past 960000 stays out there - clamped to the
+    /// game's own map's side (960000) it was put back across the map.
+    #[test]
+    fn on_the_rift_units_are_stepped_inside_the_rifts_square() {
+        let side = Map::Rift.extent() as u64;
+        let w = [Wall::upright(&p(), (1_300_000, 400_000), true, 300)];
+        let r = 6000;
+        // walking straight into it from the left, far out on the Rift: held, then stepped up its face (the nearer end)
+        let mut stalls = HashMap::new();
+        let mut at = (1_288_000u64, 410_000u64);
+        let mut stepped = false;
+        for _ in 0..STALL_T + 5 {
+            let tried = (at.0 + 400, at.1);
+            let m = walls_tick_in(&w, &mut stalls, 7, Some(at), tried, r, side);
+            let to = m.to.unwrap_or(tried);
+            assert!(to.0 > 1_000_000 && clear(&w, to, r), "{to:?}");
+            stepped |= m.stepped;
+            at = to;
+        }
+        assert!(stepped && at.0 == 1_288_000 && at.1 > 410_000, "{at:?}");
+        // that step with the game's own map's side lands on its edge, 328000 away
+        let line = line_of(&w, &w[0]);
+        assert_eq!(step_off(&line, (1_288_000, 410_000), true, 400, 0), (MAP - 1, 410_400));
+        assert_eq!(step_off_in(&line, (1_288_000, 410_000), true, 400, 0, side), (1_288_000, 410_400));
+        // the Rift's own edge holds
+        let f = Wall::flat(&p(), (1_604_545, 500_000), 300);
+        let fl = line_of(&[f], &f);
+        assert_eq!(step_off_in(&fl, (1_614_000, 488_000), true, 2000, 0, side), (side - 1, 488_000));
+        // a blocker her passive has not set yet: the game's own map's; a revive keeps the side the pulse had
+        assert_eq!(Blocker::default().side(), MAP);
+        let mut b = Blocker::default();
+        b.take_back(Blocker { side, ..Blocker::default() });
+        assert_eq!(b.side(), side);
     }
 }

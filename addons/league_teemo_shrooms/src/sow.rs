@@ -13,9 +13,14 @@
 //!   就会被踩）、离自己水晶 `HOME_R` 以外（家里不种）。
 //! - 日志：按下记 `SOW`（从哪、种到哪、R 剩几次、地上几个、AI 原来在干什么），引擎不收这个输入记 `SOW ... REFUSED`；按下后
 //!   `WATCH` tick 内那里长出了他的蘑菇记 `SOWN`，没长出来记 `SOW MISSED`。你看的那场每条都记，预模拟先记 30 条、之后每 50 条记一条。
+//! - **峡谷**（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：Rin 的召唤师峡谷 α 没有草丛数据（地图文档里的草丛是游戏
+//!   自己的 5v5 地图的），本钩子在峡谷上不种（[`grid_on`]），第一次碰到峡谷时记一行；R 照样由游戏的 AI 往敌方英雄脚下扔，
+//!   扔下的蘑菇照样一直埋着（被动不看地图）。不在别处种：没有草丛数据就挑不出视野死角，空地上的蘑菇看得见、躲得开，墙格子
+//!   又可能没有（没有墙体文件），乱种只是浪费留给打架的充能。
 //!
 //! 他埋着的蘑菇由被动记（`FIELDS`，按模拟和玩家），本钩子只读。
 
+use game_places::terrain::Map;
 use mod_api_stable::*;
 
 use super::{bush, dist, field_of, head, tally, wlog, Pt, HERO, ID};
@@ -71,6 +76,15 @@ pub fn pick_grid(points: &[Pt], maps: &[bush::MapGrids]) -> Option<bush::Grid> {
     maps.iter()
         .min_by_key(|m| m.walls.as_ref().map_or(usize::MAX / 2, |w| points.iter().filter(|p| w.at(p.0, p.1)).count()))
         .and_then(|m| m.bushes.clone())
+}
+
+/// The bushes he sows in on `map`: none on the Rift (no bush data there: the document's bushes are the game's own 5v5
+/// map's), [`pick_grid`] on the game's own maps.
+pub fn grid_on(map: Map, points: &[Pt], maps: &[bush::MapGrids]) -> Option<bush::Grid> {
+    match map {
+        Map::Rift => None,
+        Map::Native => pick_grid(points, maps),
+    }
 }
 
 /// The centre of every bush cell, world units.
@@ -217,13 +231,19 @@ impl StablePlayerAi for Sow {
                 return None;
             }
             if self.grid.is_none() {
+                // the Rift (game_places: its towers and nexuses) has no bush data: he sows nowhere there
+                let map = bush::match_map(&sim, "no bush data there - Teemo sows no shrooms out of fights (the AI still throws \
+                                                 R at champions, and every shroom thrown stays in the ground)");
                 let points: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).filter(|u| u.is_alive())
                     .map(|u| pt(&u)).collect();
-                let g = pick_grid(&points, &bush::maps());
+                let g = grid_on(map, &points, &bush::maps());
                 // once a Teemo a sim, but every presim's: the launch's count (0.2.2; 203 lines on 11-01)
                 if tally(&sim, "bushes").is_some() {
                     wlog(match &g {
                         Some(g) => format!("{} BUSHES: {} bush cells to sow in", head(&sim, id), g.count()),
+                        None if map == Map::Rift => {
+                            format!("{} BUSHES: the Rift - no bush data, no shrooms sown, only the AI's throws", head(&sim, id))
+                        }
                         None => format!("{} BUSHES: no bush grid - no shrooms sown, only the AI's throws", head(&sim, id)),
                     });
                 }
@@ -306,6 +326,17 @@ mod tests {
         // units in the 5v5 map's open cells, the lane map's walls: the 5v5 map's bushes
         assert_eq!(pick_grid(&[in_cell(1.0, 1.0), in_cell(1.0, 0.0)], &[lane, moba.clone()]), moba.bushes);
         assert_eq!(pick_grid(&[], &[]), None);
+    }
+
+    /// 2026-11-10: on the Rift (no bush data) he sows nowhere - never at the game's own 5v5 map's bushes.
+    #[test]
+    fn no_sowing_on_the_rift() {
+        let grid = |rows: &[&str]| bush::Grid { cells: rows.iter().map(|r| r.chars().map(|c| (c == '#') as i64).collect()).collect() };
+        let moba = bush::MapGrids { walls: Some(grid(&["..", ".."])), bushes: Some(grid(&["..", ".#"])) };
+        let here = [(1_200_000.0, 300_000.0), (0.5 * bush::CELL, 0.5 * bush::CELL)];
+        assert_eq!(grid_on(Map::Native, &here, std::slice::from_ref(&moba)), moba.bushes);
+        assert_eq!(grid_on(Map::Rift, &here, std::slice::from_ref(&moba)), None);
+        assert_eq!(grid_on(Map::Rift, &[], &[]), None);
     }
 
     #[test]
