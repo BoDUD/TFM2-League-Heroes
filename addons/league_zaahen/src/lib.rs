@@ -4,20 +4,25 @@
 //! `league_zaahen:darkin`：
 //!
 //! - **不落之志照英雄联盟叠**：主包只能用一串标记一层一层叠（控制器 3 拍看一次，同一拍里的几下只算一层）。本包每一下打在敌方英雄身上的
-//!   伤害（普攻、Q 的每一斩、挑飞、W、E、R）都算一层，最多 `det_n` 层，每层攻击力 +`det_pct`%（`league_zaahen_det`）；最后一下
-//!   之后 `det_t` 拍没再打中英雄，就每 30 拍掉一层。叠满时攻击力翻倍（`league_zaahen_full`：主包数据用它播身后的暗裔气焰），并挂
-//!   `league_zaahen_fill` 让数据播叠满的画面、刷新 Q 和 W（连招）。
+//!   伤害（普攻、Q 的每一斩、挑飞、W 的两段、E、R）都算一层，最多 `det_n` 层，每层攻击力 +`det_lo`..`det_hi` 万分之（随等级，
+//!   英雄联盟 1.5%–2.95%，`league_zaahen_det`）；最后一下之后 `det_t` 拍没再打中英雄就开始掉：每 30 拍掉 1/2/3/4/5 层（掉了几秒，
+//!   英雄联盟的越掉越快）。叠满时攻击力翻倍（`league_zaahen_full`：主包数据用它播身后的暗裔气焰），并挂 `league_zaahen_fill` 让
+//!   数据播叠满的画面（2026-11-12 起不再刷新 Q 和 W：英雄联盟没有这个连招）。
 //! - **叠满就能复活**：主包数据看不到致命伤害，只能叠满时给一个护盾。本包在他叠满、复活冷却好了的时候一直给他挂「不死」，生命停在
 //!   1 时不倒下：放逐他 `rv_rise` 拍（无敌、选不中、不能行动；画面是数据的 `league_zaahen_rv_rise_r` / `_l`：他跪起、展翼站起来，
-//!   朝着最近的敌方英雄——特效图不会镜像，所以左右各画一份），这段时间
-//!   里慢慢回到最大生命的 `rv_hp`%，起来后果决重新叠满；下一次要等 `rv_cd` 拍。别人给的「不死」在身上时不触发。
+//!   朝着最近的敌方英雄——特效图不会镜像，所以左右各画一份），这段时间里慢慢回到最大生命的 30/45/60/75%，冷却 300/240/180/120 秒
+//!   （1/6/11/16 级起，英雄联盟的数：`rv_hp` + `rv_hp_step`、`rv_cd` - `rv_cd_step`，每 `rv_lv` 级一档），起来后果决重新叠满。
+//!   别人给的「不死」在身上时不触发。
 //! - **赤金突袭有自己的技能位**：主包三个技能位放不下第四个技能，只能把 E 并进 W（拽完人原地绕身一斩）。本包每 `e_cd` 拍一次：
 //!   `e_reach` 内有敌方英雄、他能行动时，朝最近的那个冲过去（最多 `e_dash`，停在让对方正好落在外圈的地方；冲的时候挂
 //!   `league_zaahen_e_rush`，数据播冲刺的动作），落地挂
 //!   `league_zaahen_e_go`，数据播绕身斩（skill3），`e_hit` 拍后本包按英雄联盟结算：内圈 `e_r0`、外圈 `e_r` 里的敌人受到
 //!   `e_dmg` + `e_ratio`% 攻击力的物理伤害，外圈多 `e_out`%，外圈再加最大生命 `e_pct`% 的魔法伤害。
-//! - **暗裔长刀按最大生命回血**：主包回固定的血。副本给每一斩打中的单位挂 3 拍 `league_zaahen_q_mark`；本包看到就给他回最大生命的
-//!   `q_hp`%（英雄联盟：打英雄 5–9%，打别的一半）。
+//! - **暗裔长刀按最大生命回血**：主包回固定的血。副本给第一斩打中的单位挂 3 拍 `league_zaahen_q_mark`（一次 Q 回一次，2026-11-12
+//!   以前每斩都回）；本包看到就给他回最大生命的 5–9%（`q_hp` + `q_hp_step` 乘技能等级 - 1：英雄联盟主升 Q 在 1/4/5/7/9 级升级；
+//!   打别的单位一半）。
+//! - **大赦的护甲穿透随技能等级**：副本的 `own` 给 `r_pen_n`%，本包按等级再加（`league_zaahen_pen`：英雄联盟 10/20/30%，大招
+//!   在 6/11/16 级升级）。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
 //! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_zaahen.log`，每次启动游戏重写。
@@ -126,14 +131,19 @@ fn name_of(sim: &StableSim<'_>, id: usize) -> String {
 /// 主包参数表 P 里本包用到的数字（`passive.params`，build_zaahen.NATIVE_KEYS）。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct Params {
-    /// 果决最多几层、每层攻击力百分比、最后一下之后多少拍开始掉。
+    /// 果决最多几层；每层攻击力（万分之一，1 级 `det_lo`、`det_lv` 级 `det_hi`，中间按等级线性）；最后一下之后多少拍开始掉。
     pub det_n: usize,
-    pub det_pct: usize,
+    pub det_lo: usize,
+    pub det_hi: usize,
+    pub det_lv: usize,
     pub det_t: usize,
-    /// 复活：放逐多少拍、回到最大生命的百分比、两次复活之间的拍数。
+    /// 复活：放逐多少拍；回到最大生命的百分比和每档多加的；两次复活之间的拍数和每档少的；每几级一档。
     pub rv_rise: usize,
     pub rv_hp: usize,
+    pub rv_hp_step: usize,
     pub rv_cd: usize,
+    pub rv_cd_step: usize,
+    pub rv_lv: usize,
     /// 赤金突袭：冷却、找目标的范围、最远冲多远。
     pub e_cd: usize,
     pub e_reach: u64,
@@ -146,15 +156,22 @@ pub struct Params {
     pub e_dmg: usize,
     pub e_ratio: usize,
     pub e_hit: usize,
-    /// 暗裔长刀每一斩打中英雄回最大生命的百分比（别的单位一半）。
+    /// 暗裔长刀（一次 Q 第一斩）打中英雄回最大生命的百分比、技能每升一级多的（别的单位一半）。
     pub q_hp: usize,
+    pub q_hp_step: usize,
+    /// 大赦的护甲穿透：副本自带的（技能 1 级）、每升一级多的。
+    pub r_pen_n: usize,
+    pub r_pen_step: usize,
     /// 他的普攻距离（赤金突袭在这个距离里也会用：英雄联盟里它也拿来打伤害）。
     pub atk_range: u64,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { det_n: 12, det_pct: 1, det_t: 300, rv_rise: 240, rv_hp: 50, rv_cd: 3600, e_cd: 540, e_reach: 48000, e_dash: 22000, e_r0: 11000, e_r: 20000, e_out: 50, e_pct: 5, e_dmg: 70, e_ratio: 70, e_hit: 14, q_hp: 6, atk_range: 25000 }
+        Self { det_n: 12, det_lo: 150, det_hi: 295, det_lv: 18, det_t: 300, rv_rise: 240, rv_hp: 30, rv_hp_step: 15,
+               rv_cd: 18000, rv_cd_step: 3600, rv_lv: 5, e_cd: 540, e_reach: 48000, e_dash: 22000, e_r0: 13000,
+               e_r: 25000, e_out: 50, e_pct: 5, e_dmg: 88, e_ratio: 88, e_hit: 14, q_hp: 5, q_hp_step: 1, r_pen_n: 10,
+               r_pen_step: 10, atk_range: 25000 }
     }
 }
 
@@ -169,11 +186,16 @@ pub fn parse_params(json: &str) -> Params {
         let u = v as usize;
         match k {
             "det_n" => p.det_n = u,
-            "det_pct" => p.det_pct = u,
+            "det_lo" => p.det_lo = u,
+            "det_hi" => p.det_hi = u,
+            "det_lv" => p.det_lv = u,
             "det_t" => p.det_t = u,
             "rv_rise" => p.rv_rise = u,
             "rv_hp" => p.rv_hp = u,
+            "rv_hp_step" => p.rv_hp_step = u,
             "rv_cd" => p.rv_cd = u,
+            "rv_cd_step" => p.rv_cd_step = u,
+            "rv_lv" => p.rv_lv = u,
             "e_cd" => p.e_cd = u,
             "e_reach" => p.e_reach = v,
             "e_dash" => p.e_dash = v,
@@ -185,6 +207,9 @@ pub fn parse_params(json: &str) -> Params {
             "e_ratio" => p.e_ratio = u,
             "e_hit" => p.e_hit = u,
             "q_hp" => p.q_hp = u,
+            "q_hp_step" => p.q_hp_step = u,
+            "r_pen_n" => p.r_pen_n = u,
+            "r_pen_step" => p.r_pen_step = u,
             "atk_range" => p.atk_range = v,
             _ => {}
         }
@@ -199,25 +224,80 @@ pub fn share(of: usize, pct: usize) -> usize {
     if of == 0 { 0 } else { (of * pct / 100).max(1) }
 }
 
-/// 果决的攻击力百分比：每层 det_pct，叠满翻倍。
-pub fn det_attack(p: &Params, stacks: usize) -> i32 {
-    let a = (stacks.min(p.det_n) * p.det_pct) as i32;
-    if stacks >= p.det_n { a * 2 } else { a }
+/// 果决每层的攻击力（万分之一）：1 级 det_lo，det_lv 级 det_hi，中间按等级线性（英雄联盟 1.5%–2.95%）。
+pub fn det_per_stack(p: &Params, level: usize) -> usize {
+    let span = p.det_lv.max(2) - 1;
+    let k = level.clamp(1, p.det_lv.max(1)) - 1;
+    p.det_lo + (p.det_hi.saturating_sub(p.det_lo)) * k / span
 }
 
-/// 果决这一拍要掉几层：最后一下之后 det_t 拍内不掉，之后每 DECAY_EVERY 拍一层。
+/// 果决的攻击力百分比：每层 det_per_stack，叠满翻倍（英雄联盟 1 级满层 36%、18 级 70.87%）。
+pub fn det_attack(p: &Params, stacks: usize, level: usize) -> i32 {
+    let a = stacks.min(p.det_n) * det_per_stack(p, level) * if stacks >= p.det_n { 2 } else { 1 };
+    ((a + 50) / 100) as i32
+}
+
+/// 果决这一拍要掉几层：最后一下之后 det_t 拍内不掉；之后每 DECAY_EVERY 拍掉一次，第 k 次（从 0 数）掉 1 + k / 2 层、最多 5
+/// （英雄联盟：每 0.5 秒掉 1/2/3/4/5 层，按掉了几秒）。
 pub fn decayed(p: &Params, last_hit: usize, now: usize, already: usize) -> usize {
     if now < last_hit + p.det_t {
         return 0;
     }
-    let due = (now - last_hit - p.det_t) / DECAY_EVERY + 1;
+    let k = (now - last_hit - p.det_t) / DECAY_EVERY;
+    let due: usize = (0..=k).map(|i| (1 + i / 2).min(5)).sum();
     due.saturating_sub(already)
 }
 
-/// 复活期间第 k 次补血补多少（一共 rv_hp% 最大生命，分成 rv_rise / RISE_STEP 次）。
-pub fn rise_step(p: &Params, max_hp: usize) -> usize {
+/// 复活的档：每 rv_lv 级一档，最多 3（英雄联盟 1/6/11/16 级）。
+pub fn revive_tier(p: &Params, level: usize) -> usize {
+    ((level.max(1) - 1) / p.rv_lv.max(1)).min(3)
+}
+
+/// 这一级复活回到最大生命的百分比（30/45/60/75）。
+pub fn revive_hp(p: &Params, level: usize) -> usize {
+    p.rv_hp + p.rv_hp_step * revive_tier(p, level)
+}
+
+/// 这一级两次复活之间的拍数（300/240/180/120 秒）。
+pub fn revive_cd(p: &Params, level: usize) -> usize {
+    p.rv_cd.saturating_sub(p.rv_cd_step * revive_tier(p, level))
+}
+
+/// 复活期间每次补多少（一共 hp_pct% 最大生命，分成 rv_rise / RISE_STEP 次）。
+pub fn rise_step(p: &Params, max_hp: usize, hp_pct: usize) -> usize {
     let steps = (p.rv_rise / RISE_STEP).max(1);
-    (share(max_hp, p.rv_hp) / steps).max(1)
+    (share(max_hp, hp_pct) / steps).max(1)
+}
+
+/// 暗裔长刀的技能等级：英雄联盟主升 Q，1/4/5/7/9 级升到 1–5 级。
+pub fn q_rank(level: usize) -> usize {
+    match level {
+        0..=3 => 1,
+        4 => 2,
+        5 | 6 => 3,
+        7 | 8 => 4,
+        _ => 5,
+    }
+}
+
+/// 一次暗裔长刀回最大生命的百分比：打英雄 q_hp + q_hp_step x (技能等级 - 1)（英雄联盟 5–9%），别的单位一半。
+pub fn glaive_pct(p: &Params, level: usize, champion: bool) -> usize {
+    let pct = p.q_hp + p.q_hp_step * (q_rank(level) - 1);
+    if champion { pct } else { (pct / 2).max(1) }
+}
+
+/// 大赦的技能等级：英雄联盟 6/11/16 级升级（这里 11 级前都是 1 级）。
+pub fn r_rank(level: usize) -> usize {
+    match level {
+        0..=10 => 1,
+        11..=15 => 2,
+        _ => 3,
+    }
+}
+
+/// 本包在副本自带的 r_pen_n 之外再加的护甲穿透（英雄联盟 10/20/30%）。
+pub fn extra_pen(p: &Params, level: usize) -> usize {
+    p.r_pen_step * (r_rank(level) - 1)
 }
 
 /// 赤金突袭冲到哪：朝目标冲，停在目标正好落在内外圈中间的地方；最多 e_dash，离得太近时往后退最多一半。
@@ -308,6 +388,12 @@ struct Darkin {
     lost: usize,
     /// The attack bonus last written into the buffs (so they change only when it does).
     shown: i32,
+    /// His level at the last look (Determination, the revive, the glaive's heal and R's penetration go by it) and the
+    /// extra armour penetration last written.
+    level: usize,
+    pen_shown: Option<usize>,
+    /// The revive under way: the share of his maximum health it gives back (its level's).
+    rise_pct: usize,
     /// The revive: ready from this tick (kept across lives), the tick the banish began (None when not rising),
     /// the next guard renewal, and whether this life has been seen above 1 health.
     revive_at: usize,
@@ -321,10 +407,10 @@ struct Darkin {
 }
 
 impl Darkin {
-    /// The Determination buffs as the stacks stand: `det` (det_pct% a stack) below the top, `full` (twice that) at it;
-    /// reaching the top raises `fill` for the data (the picture, Q and W ready).
+    /// The Determination buffs as the stacks stand: `det` (his level's share a stack) below the top, `full` (twice
+    /// that) at it; reaching the top raises `fill` for the data (the picture).
     fn show(&mut self, sim: &mut StableSim<'_>, me: usize, filled_now: bool) {
-        let a = det_attack(&self.p, self.stacks);
+        let a = det_attack(&self.p, self.stacks, self.level);
         let full = self.stacks >= self.p.det_n;
         if a != self.shown || filled_now {
             sim.entity_remove_buff(me, &sn("det"));
@@ -352,8 +438,8 @@ impl Darkin {
         self.show(sim, me, filled);
         if filled {
             if let Some(k) = counted("full") {
-                wlog(format!("{} FULL #{k}: Determination {} / {} on {} (attack +{}%), revive {}", head(sim, me),
-                             self.stacks, self.p.det_n, name_of(sim, target), self.shown,
+                wlog(format!("{} FULL #{k}: Determination {} / {} on {} at level {} (attack +{}%), revive {}",
+                             head(sim, me), self.stacks, self.p.det_n, name_of(sim, target), self.level, self.shown,
                              if sim.tick() >= self.revive_at { "ready" } else { "on cooldown" }));
             }
         }
@@ -409,12 +495,13 @@ impl Darkin {
         hold.undying = true;
         sim.add_buff(me, &hold);
         self.rising = Some(now);
-        self.revive_at = now + self.p.rv_cd;
+        self.rise_pct = revive_hp(&self.p, self.level);
+        self.revive_at = now + revive_cd(&self.p, self.level);
         sim.play_sfx(&sn("rv"), me, &InputTargetV1::target(me));       // League's revive and his line
         sim.play_sfx(&sn("vo_rv"), me, &InputTargetV1::target(me));
         if let Some(k) = counted("revive") {
-            wlog(format!("{} REVIVE #{k}: lethal damage caught at 1 hp, rising for {} ticks (next at t={})",
-                         head(sim, me), self.p.rv_rise, self.revive_at));
+            wlog(format!("{} REVIVE #{k}: lethal damage caught at 1 hp at level {}, rising for {} ticks to {}% health \
+                          (next at t={})", head(sim, me), self.level, self.p.rv_rise, self.rise_pct, self.revive_at));
         }
     }
 
@@ -422,7 +509,7 @@ impl Darkin {
     fn rise(&mut self, sim: &mut StableSim<'_>, me: usize, now: usize, t0: usize) {
         let (hp, max) = sim.get_entity(me).map_or((0, 0), |e| e.hp());
         if (now - t0) % RISE_STEP == 0 && now > t0 {
-            sim.entity_set_hp(me, (hp + rise_step(&self.p, max)).min(max));
+            sim.entity_set_hp(me, (hp + rise_step(&self.p, max, self.rise_pct)).min(max));
         }
         if now >= t0 + self.p.rv_rise {
             sim.entity_remove_buff(me, &sn("rv_hold"));
@@ -520,7 +607,36 @@ impl Darkin {
         }
     }
 
-    /// The Darkin Glaive's heal: q_hp% of his maximum health for each slash on a champion, half on other units.
+    /// His level now: Determination's share follows it at once; R's extra armour penetration (`pen`, on top of the
+    /// copy's r_pen_n on `own`) is rewritten when it changes or a new life lost it.
+    fn levels(&mut self, sim: &mut StableSim<'_>, me: usize) {
+        let level = sim.get_entity(me).map_or(1, |e| e.level()).max(1);
+        if level != self.level {
+            self.level = level;
+            self.show(sim, me, false);
+        }
+        let pen = extra_pen(&self.p, level);
+        let have = has(sim, me, &sn("pen"));
+        if self.pen_shown != Some(pen) || (pen > 0 && !have) {
+            sim.entity_remove_buff(me, &sn("pen"));
+            if pen > 0 {
+                let mut b = BuffV1::named(&sn("pen"));
+                b.duration_kind = BuffDurationV1::Permanent.code();
+                b.defence_penetration = pen;
+                sim.add_buff(me, &b);
+            }
+            if self.pen_shown.is_some_and(|old| old != pen) {
+                if let Some(k) = counted("pen") {
+                    wlog(format!("{} PEN #{k}: level {level}, Grim Deliverance's armour penetration {}% + {pen}%",
+                                 head(sim, me), self.p.r_pen_n));
+                }
+            }
+            self.pen_shown = Some(pen);
+        }
+    }
+
+    /// The Darkin Glaive's heal: once a cast (the data marks the unit its first slash hits), his level's share of his
+    /// maximum health on a champion, half on other units.
     fn glaive_heal(&mut self, sim: &mut StableSim<'_>, me: usize) {
         let Some(e) = sim.get_entity(me) else { return };
         let (team, max) = (e.team(), e.hp().1);
@@ -534,10 +650,12 @@ impl Darkin {
         }
         for (id, champ) in marked {
             sim.entity_remove_buff(id, &mark);
-            let h = share(max, if champ { self.p.q_hp } else { self.p.q_hp / 2 }.max(1));
+            let pct = glaive_pct(&self.p, self.level, champ);
+            let h = share(max, pct);
             sim.heal(me, me, h);
             if let Some(k) = counted("glaive") {
-                wlog(format!("{} GLAIVE #{k}: a slash on {} heals {h}", head(sim, me), name_of(sim, id)));
+                wlog(format!("{} GLAIVE #{k}: the glaive on {} heals {h} ({pct}% at level {})", head(sim, me),
+                             name_of(sim, id), self.level));
             }
         }
     }
@@ -557,6 +675,8 @@ impl StablePassive for Darkin {
         self.stacks = 0;
         self.lost = 0;
         self.shown = 0;
+        self.pen_shown = None;
+        self.level = sim.get_entity(me).map_or(1, |e| e.level()).max(1);
         self.rising = None;
         self.next_guard = 0;
         self.alive_seen = false;
@@ -594,6 +714,7 @@ impl StablePassive for Darkin {
         if hp > 1 {
             self.alive_seen = true;
         }
+        self.levels(sim, me);
         self.decay(sim, me);
         self.glaive_heal(sim, me);
         self.dashing(sim, me, now);
@@ -622,6 +743,7 @@ impl StablePassive for Darkin {
     fn on_dead(&mut self, sim: &mut StableSim<'_>, _: usize) {
         self.stacks = 0;
         self.shown = 0;
+        self.pen_shown = None;
         self.dash = None;
         self.strike_at = None;
         if self.rising.take().is_some() {
@@ -639,7 +761,8 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Zaahen: Determination, the revive, Aureate Rush, the glaive's heal as in League) loaded: \
+        "=== {ID} v{VERSION} (Zaahen: Determination, the revive, Aureate Rush, the glaive's heal, R's penetration as in \
+         League, by level) loaded: \
          game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
@@ -668,35 +791,69 @@ mod tests {
 
     #[test]
     fn params_from_the_kit() {
-        let kit = r#"{"atk_range":25000,"det_n":12,"det_pct":1,"det_t":300,"e_cd":540,"e_dash":22000,"e_dmg":70,"e_hit":14,"e_out":50,"e_pct":5,"e_r":20000,"e_r0":11000,"e_ratio":70,"e_reach":48000,"q_hp":6,"rv_cd":3600,"rv_hp":50,"rv_rise":240}"#;
+        let kit = concat!(r#"{"atk_range":25000,"det_hi":295,"det_lo":150,"det_lv":18,"det_n":12,"det_t":300,"e_cd":540,"#,
+                          r#""e_dash":22000,"e_dmg":88,"e_hit":14,"e_out":50,"e_pct":5,"e_r":25000,"e_r0":13000,"#,
+                          r#""e_ratio":88,"e_reach":48000,"q_hp":5,"q_hp_step":1,"r_pen_n":10,"r_pen_step":10,"#,
+                          r#""rv_cd":18000,"rv_cd_step":3600,"rv_hp":30,"rv_hp_step":15,"rv_lv":5,"rv_rise":240}"#);
         assert_eq!(parse_params(kit), Params::default());
         assert_eq!(parse_params(r#"{"det_n":8}"#).det_n, 8);
     }
 
     #[test]
-    fn determination_doubles_at_the_top() {
+    fn determination_goes_by_level_and_doubles_at_the_top() {
         let p = Params::default();
-        assert_eq!(det_attack(&p, 0), 0);
-        assert_eq!(det_attack(&p, 11), 11);
-        assert_eq!(det_attack(&p, 12), 24);
-        assert_eq!(det_attack(&p, 30), 24);
+        // League: 1.5% a stack at level 1, 2.95% at 18; full (12) doubled: 36% - 70.87%
+        assert_eq!((det_per_stack(&p, 1), det_per_stack(&p, 18), det_per_stack(&p, 30)), (150, 295, 295));
+        assert_eq!(det_attack(&p, 0, 1), 0);
+        assert_eq!(det_attack(&p, 11, 1), 17);      // 16.5
+        assert_eq!(det_attack(&p, 12, 1), 36);
+        assert_eq!(det_attack(&p, 12, 18), 71);     // 70.8
+        assert_eq!(det_attack(&p, 30, 18), 71);
+        assert!(det_attack(&p, 12, 9) > det_attack(&p, 12, 8));
     }
 
     #[test]
-    fn determination_waits_then_falls_a_stack_every_half_second() {
+    fn determination_waits_then_falls_faster_and_faster() {
         let p = Params::default();
         assert_eq!(decayed(&p, 100, 399, 0), 0);
+        // 0.0 s and 0.5 s after the 5 s: 1 each; 1.0 s and 1.5 s: 2 each; 2.0 s and 2.5 s: 3 each - all 12 gone
         assert_eq!(decayed(&p, 100, 400, 0), 1);
         assert_eq!(decayed(&p, 100, 429, 1), 0);
         assert_eq!(decayed(&p, 100, 430, 1), 1);
-        assert_eq!(decayed(&p, 100, 520, 1), 4);
+        assert_eq!(decayed(&p, 100, 460, 2), 2);
+        assert_eq!(decayed(&p, 100, 490, 4), 2);
+        assert_eq!(decayed(&p, 100, 550, 6), 6);
+        // past 4 s: 5 a step
+        assert_eq!(decayed(&p, 100, 640, 0) - decayed(&p, 100, 610, 0), 5);
     }
 
     #[test]
-    fn the_rise_gives_back_its_share() {
+    fn the_revive_goes_by_level() {
         let p = Params::default();
+        // League: 30 / 45 / 60 / 75% of his health and 300 / 240 / 180 / 120 s at levels 1 / 6 / 11 / 16
+        for (level, hp, cd) in [(1, 30, 18000), (5, 30, 18000), (6, 45, 14400), (11, 60, 10800), (16, 75, 7200),
+                                (18, 75, 7200)] {
+            assert_eq!((revive_hp(&p, level), revive_cd(&p, level)), (hp, cd), "level {level}");
+        }
         let steps = p.rv_rise / RISE_STEP;
-        assert_eq!(rise_step(&p, 3000) * steps, 1500);
+        assert_eq!(rise_step(&p, 3000, 50) * steps, 1500);
+        assert_eq!(rise_step(&p, 3000, revive_hp(&p, 1)) * steps, 900);
+    }
+
+    #[test]
+    fn the_glaive_heals_once_by_its_rank() {
+        let p = Params::default();
+        // League's Q ranked first: 1 / 4 / 5 / 7 / 9 -> 5 / 6 / 7 / 8 / 9% on a champion, half on other units
+        let got: Vec<usize> = [1, 3, 4, 5, 7, 9, 12].iter().map(|&l| glaive_pct(&p, l, true)).collect();
+        assert_eq!(got, vec![5, 5, 6, 7, 8, 9, 9]);
+        assert_eq!((glaive_pct(&p, 1, false), glaive_pct(&p, 9, false)), (2, 4));
+    }
+
+    #[test]
+    fn grim_deliverance_pierces_more_by_rank() {
+        let p = Params::default();
+        // League 10 / 20 / 30%: the copy's own flag gives 10, the add-on the rest (ranks at 11 / 16 here)
+        assert_eq!((extra_pen(&p, 5), extra_pen(&p, 10), extra_pen(&p, 11), extra_pen(&p, 16)), (0, 0, 10, 20));
     }
 
     #[test]
@@ -714,8 +871,8 @@ mod tests {
     #[test]
     fn the_outer_edge_hits_harder() {
         let p = Params::default();
-        assert_eq!(spin_damage(&p, 100, 5000.0, 6000.0, 2000), (140, 0));
-        assert_eq!(spin_damage(&p, 100, 18000.0, 6000.0, 2000), (210, 100));
+        assert_eq!(spin_damage(&p, 100, 5000.0, 6000.0, 2000), (176, 0));
+        assert_eq!(spin_damage(&p, 100, 20000.0, 6000.0, 2000), (264, 100));
     }
 
     #[test]
@@ -736,7 +893,7 @@ mod tests {
     fn the_kit_names_what_this_add_on_reads_and_writes() {
         let kit = include_str!("../../../tools/kit/build_zaahen.py");
         for flag in ["\"e_go\"", "\"e_rush\"", "\"fill\"", "\"q_mark\"", "\"busy\"", "\"r_guard\"", "\"full\"",
-                     "rv_rise_{side}"] {
+                     "rv_rise_{side}", "\"own\"", "r_pen_n"] {
             assert!(kit.contains(flag), "build_zaahen.py no longer names {flag}");
         }
     }

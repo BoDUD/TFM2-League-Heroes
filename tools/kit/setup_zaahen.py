@@ -70,10 +70,10 @@ TEXT = {
         "name": "亚恒",
         "attack": "长刀横扫。" + n("不落之志") + "：打中英雄叠果决，每层攻击力+{det_ad}%，叠满{det_n}层攻击力+{full_ad}%并得" +
                   heal("rv_sh", "rv_sh_r") + "护盾（每" + t("{rv_cd}秒") + "一次）；" + t("{det_t}秒") + "没打中英雄就清空。",
-        "skill": "两连斩，每斩" + phys("q_dmg", "q_ratio") + "物理伤害、打中英雄回复" + heal("q_heal", "q_heal_r") + "（别的单位一半）。" +
+        "skill": "两连斩，每斩" + phys("q_dmg", "q_ratio") + "物理伤害，第一斩打中英雄回复" + heal("q_heal", "q_heal_r") + "（别的单位一半）。" +
                  t("{q_win}秒") + "内再按：上挑造成" + phys("q3_dmg", "q3_ratio") + "并" + cc("击飞") + t("{q_air}秒") + "。",
-        "skill2": "往前刺出长刀：沿途敌人受到" + phys("w_dmg", "w_ratio") + "物理伤害、" + cc("晕眩") + t("{w_stun}秒") +
-                  "并被拽回身边；接着" + n("赤金突袭") + "绕身一斩，" + phys("e_dmg", "e_ratio") + "。",
+        "skill2": "往前刺出长刀：沿途敌人受到" + phys("w_dmg", "w_ratio") + "物理伤害；刺到尽头再受" + phys("w2_dmg", "w2_ratio") +
+                  "、" + cc("晕眩") + t("{w_stun}秒") + "并被往回拽一段；接着" + n("赤金突袭") + "绕身一斩，" + phys("e_dmg", "e_ratio") + "。",
         "ult": "展翼升空（免控、受到伤害-{r_dr}%），冲向敌方英雄插刀落地：周围敌人受到" + phys("r_dmg", "r_ratio") +
                "物理伤害，每打中一个英雄回复" + heal("r_heal", "r_heal_r") + "。被动：攻击无视{r_pen}%护甲。",
         "names": ("暗裔长刀", "厄影回锋", "大赦"),
@@ -82,10 +82,11 @@ TEXT = {
         "name": "薩亨",
         "attack": "長刀橫掃。" + n("邪心修真") + "：打中英雄疊決心，每層攻擊力+{det_ad}%，疊滿{det_n}層攻擊力+{full_ad}%並得" +
                   heal("rv_sh", "rv_sh_r") + "護盾（每" + t("{rv_cd}秒") + "一次）；" + t("{det_t}秒") + "沒打中英雄就清空。",
-        "skill": "兩連斬，每斬" + phys("q_dmg", "q_ratio") + "物理傷害、打中英雄回復" + heal("q_heal", "q_heal_r") + "（其他單位一半）。" +
+        "skill": "兩連斬，每斬" + phys("q_dmg", "q_ratio") + "物理傷害，第一斬打中英雄回復" + heal("q_heal", "q_heal_r") + "（其他單位一半）。" +
                  t("{q_win}秒") + "內再按：上挑造成" + phys("q3_dmg", "q3_ratio") + "並" + cc("擊飛") + t("{q_air}秒") + "。",
-        "skill2": "往前刺出長刀：沿途敵人受到" + phys("w_dmg", "w_ratio") + "物理傷害、" + cc("暈眩") + t("{w_stun}秒") +
-                  "並被拽回身邊；接著" + n("偃月天衝") + "繞身一斬，" + phys("e_dmg", "e_ratio") + "。",
+        "skill2": "往前刺出長刀：沿途敵人受到" + phys("w_dmg", "w_ratio") + "物理傷害；刺到盡頭再受" + phys("w2_dmg", "w2_ratio") +
+                  "、" + cc("暈眩") + t("{w_stun}秒") +
+                  "並被往回拽一段；接著" + n("偃月天衝") + "繞身一斬，" + phys("e_dmg", "e_ratio") + "。",
         "ult": "展翼升空（免控、受到傷害-{r_dr}%），衝向敵方英雄插刀落地：周圍敵人受到" + phys("r_dmg", "r_ratio") +
                "物理傷害，每打中一個英雄回復" + heal("r_heal", "r_heal_r") + "。被動：攻擊無視{r_pen}%護甲。",
         "names": ("冥血大刀", "冥厄鉤鐮", "冥聖裁決"),
@@ -95,11 +96,13 @@ TEXT = {
         "attack": "Glaive sweeps. " + n("Cultivation of War") + ": hits on champions stack Determination, +{det_ad}% attack "
                   "each; at {det_n} stacks +{full_ad}% attack and a " + heal("rv_sh", "rv_sh_r") + " shield (once every " +
                   t("{rv_cd}s") + "); the stacks drop after " + t("{det_t}s") + " without a champion hit.",
-        "skill": "Slashes twice, " + phys("q_dmg", "q_ratio") + " physical damage each, healing " + heal("q_heal", "q_heal_r") +
-                 " per slash on a champion (half on other units). Recast within " + t("{q_win}s") + ": an uppercut for " +
+        "skill": "Slashes twice, " + phys("q_dmg", "q_ratio") + " physical damage each; the first heals " +
+                 heal("q_heal", "q_heal_r") + " on a champion (half on other units). Recast within " + t("{q_win}s") +
+                 ": an uppercut for " +
                  phys("q3_dmg", "q3_ratio") + " that " + cc("knocks up") + " for " + t("{q_air}s") + ".",
-        "skill2": "Stabs the glaive forward: enemies in its path take " + phys("w_dmg", "w_ratio") + " physical damage, are " +
-                  cc("stunned") + " for " + t("{w_stun}s") + " and pulled to him; then " + n("Aureate Rush") +
+        "skill2": "Stabs the glaive forward: enemies in its path take " + phys("w_dmg", "w_ratio") + " physical damage; at "
+                  "full length it strikes them again for " + phys("w2_dmg", "w2_ratio") + ", " + cc("stuns") + " them for " +
+                  t("{w_stun}s") + " and pulls them a short way back; then " + n("Aureate Rush") +
                   " spins the glaive round him for " + phys("e_dmg", "e_ratio") + ".",
         "ult": "Rises on his wings (crowd-control immune, {r_dr}% less damage taken) and dives on an enemy champion, driving "
                "the glaive into the ground: enemies around take " + phys("r_dmg", "r_ratio") + " physical damage; he heals " +
@@ -111,11 +114,12 @@ TEXT = {
         "attack": "글레이브 휩쓸기. " + n("전쟁 단련") + ": 챔피언 적중마다 결의 중첩, 중첩당 공격력 +{det_ad}%; {det_n}중첩이면 공격력 "
                   "+{full_ad}%와 " + heal("rv_sh", "rv_sh_r") + " 보호막(" + t("{rv_cd}초") + "마다); " + t("{det_t}초") +
                   " 동안 챔피언을 못 맞히면 사라짐.",
-        "skill": "두 번 벰: 한 번에 " + phys("q_dmg", "q_ratio") + " 물리 피해, 챔피언 적중 시 " + heal("q_heal", "q_heal_r") +
+        "skill": "두 번 벰: 한 번에 " + phys("q_dmg", "q_ratio") + " 물리 피해, 첫 베기 챔피언 적중 시 " + heal("q_heal", "q_heal_r") +
                  " 회복(다른 유닛은 절반). " + t("{q_win}초") + " 안에 재사용: 올려 베기로 " + phys("q3_dmg", "q3_ratio") + " 피해와 " +
                  t("{q_air}초") + " " + cc("에어본") + ".",
-        "skill2": "글레이브로 앞을 찌름: 경로의 적에게 " + phys("w_dmg", "w_ratio") + " 물리 피해, " + t("{w_stun}초") + " " +
-                  cc("기절") + "시키고 끌어당김; 이어서 " + n("찬란한 쇄도") + "로 주변을 베어 " + phys("e_dmg", "e_ratio") + ".",
+        "skill2": "글레이브로 앞을 찌름: 경로의 적에게 " + phys("w_dmg", "w_ratio") + " 물리 피해; 끝까지 뻗으면 다시 " +
+                  phys("w2_dmg", "w2_ratio") + " 피해와 " + t("{w_stun}초") + " " + cc("기절") + ", 조금 끌어당김; 이어서 " +
+                  n("찬란한 쇄도") + "로 주변을 베어 " + phys("e_dmg", "e_ratio") + ".",
         "ult": "날개를 펴고 솟아올라(군중 제어 면역, 받는 피해 -{r_dr}%) 적 챔피언에게 내리꽂음: 주변 적에게 " + phys("r_dmg", "r_ratio") +
                " 물리 피해, 챔피언 적중마다 " + heal("r_heal", "r_heal_r") + " 회복. 기본 지속 효과: 방어구 {r_pen}% 관통.",
         "names": ("다르킨의 글레이브", "공포의 귀환", "단호한 판결"),
@@ -125,11 +129,12 @@ TEXT = {
         "attack": "グレイヴで薙ぎ払う。" + n("戦威修養") + "：チャンピオンへの命中で決意スタック、1スタック攻撃力+{det_ad}%；{det_n}スタックで"
                   "攻撃力+{full_ad}%とシールド" + heal("rv_sh", "rv_sh_r") + "（" + t("{rv_cd}秒") + "毎）；" + t("{det_t}秒") +
                   "命中がないと消える。",
-        "skill": "2回斬る：1回" + phys("q_dmg", "q_ratio") + "の物理ダメージ、チャンピオン命中で" + heal("q_heal", "q_heal_r") +
+        "skill": "2回斬る：1回" + phys("q_dmg", "q_ratio") + "の物理ダメージ、1回目のチャンピオン命中で" + heal("q_heal", "q_heal_r") +
                  "回復（他は半分）。" + t("{q_win}秒") + "内に再使用：斬り上げで" + phys("q3_dmg", "q3_ratio") + "と" + t("{q_air}秒") +
                  cc("ノックアップ") + "。",
-        "skill2": "グレイヴを前方へ突き出す：通過した敵に" + phys("w_dmg", "w_ratio") + "の物理ダメージ、" + t("{w_stun}秒") +
-                  cc("スタン") + "して引き寄せる；続けて" + n("絢爛たる進撃") + "で周囲を斬る、" + phys("e_dmg", "e_ratio") + "。",
+        "skill2": "グレイヴを突き出す：通過した敵に" + phys("w_dmg", "w_ratio") + "の物理ダメージ；伸び切ると再び" +
+                  phys("w2_dmg", "w2_ratio") + "、" + t("{w_stun}秒") + cc("スタン") + "で少し引き寄せる；続けて" + n("絢爛たる進撃") +
+                  "で周囲を斬る、" + phys("e_dmg", "e_ratio") + "。",
         "ult": "翼を広げて舞い上がり（CC無効、被ダメージ-{r_dr}%）、敵チャンピオンへ降下して突き立てる：周囲の敵に" +
                phys("r_dmg", "r_ratio") + "の物理ダメージ、チャンピオン1体ごとに" + heal("r_heal", "r_heal_r") + "回復。"
                "自動効果：物理防御{r_pen}%貫通。",
@@ -152,10 +157,12 @@ def secs(tk):
 
 def values(p):
     v = {k: p[k] for k in ("det_ad", "det_n", "full_ad", "rv_sh", "rv_sh_r", "q_dmg", "q_ratio", "q3_dmg", "q3_ratio",
-                           "w_dmg", "w_ratio", "e_dmg", "e_ratio", "r_dmg", "r_ratio", "r_heal", "r_heal_r", "r_dr", "r_pen")}
+                           "w_dmg", "w_ratio", "w2_dmg", "w2_ratio", "e_dmg", "e_ratio", "r_dmg", "r_ratio", "r_heal",
+                           "r_heal_r", "r_dr", "r_pen")}
     v["q_heal"], v["q_heal_r"] = p["q_heal"], p["q_heal_r"]
-    for k in ("rv_cd", "det_t", "q_win", "q_air", "w_stun"):
+    for k in ("det_t", "q_win", "q_air", "w_stun"):
         v[k] = secs(p[k])
+    v["rv_cd"] = secs(p["rv_sh_cd"])   # the stand-in shield's (2026-11-12: the add-on's revive has its own by level)
     return v
 
 
