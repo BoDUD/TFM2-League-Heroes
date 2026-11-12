@@ -10,7 +10,7 @@
 | 所属的包 | 主包（mod_id `league`） |
 | 分路 | 打野 |
 | 分类 / 标签 | 近战（Melee） · AD / Melee / Tank |
-| 高清帧 | PPU 2 |
+| 高清帧 | PPU 2（画成 85%） |
 | 附加包 | [特朗德尔附加包](#附加包)（`league_trundle`） |
 
 ![特朗德尔演示](../preview/league_trundle_showcase.gif)
@@ -101,6 +101,7 @@
 | 音效 | 英雄联盟的音效和配音（[`tools/lol/extract_trundle.py`](../../tools/lol/extract_trundle.py)，15 段）：普攻的出手和打中，咬的出手和咬中，冰封领域，冰柱的出手、升起和罩住，大招的出手和吸取，贡品回血；配音：Q、W、E、R |
 | 图标 | 官方技能图标（利齿撕咬、寒冰之柱、强权至上，另有冰封领域、国王的贡品），从本地客户端取 |
 | 选人卡片 | 头发到脚底 42.5 游戏像素、连冰棒 52 宽：界面缩到 0.82（`league.dll` 的 UI_SIZES），脸 (5, −27)、`banpick_center` −12（`tools/art/bp_card_audit.py`）。待机按 `tools/art/hero_reels.py` 剪进蹲身蓄力和挥棒各一帧 |
+| 局内大小 | 11 月 12 日用户：「巨魔的模型也有点大 想办法调整一下」。量下来站着 43.5×53 游戏像素（连冰棒），身子实打实 1601 平方游戏像素，和奥恩（1583）一样是最重的一档；盖伦 42×48、1051。`league.dll` 的 `SIZES` 把他画成 **85%**（37×45、1157，卑尔维斯、亚恒的做法），高清帧往下挪 4 格（脚在中心下 12 游戏像素：12 × 2.0 × (1/0.85 − 1) = 4.2），脚还踩在原来的地面上（`ppu_restyle.py` 的 `lift_sq −4` 直接写出，像素逐格没变）。选人格子画的是高清帧、只按 UI_SIZES 缩放，所以 UI_SIZES 留在 0.82、`banpick_center` −12 → −14（抵掉下移的 4 格），卡片和原来一样；脸 (5, −27) → (4, −21)、`center` −15 → −11，都是他 85% 的 lo_ 帧里同一个位置（头像、百科按它裁和摆，战斗里受击也打在身上同一处） |
 | 俄洛伊的灵魂 | `tools/art/illaoi_souls.py` 加上特朗德尔（170 个），`league_illaoi` 0.2.7 |
 
 重新生成（素材来自本机的英雄联盟客户端，音频不进仓库）：
@@ -108,13 +109,13 @@
 ```bash
 python tools/lol/extract_trundle.py --lol "D:\WeGameApps\lol" --vgmstream <vgmstream-cli.exe>
 python tools/kit/build_trundle.py                # 技能数据，数字都在脚本的参数表 P 里
-python tools/kit/setup_trundle.py                # 五种语言的文字、音效配置、共享文件里他的键（脸 5,-27，卡片 -12）
+python tools/kit/setup_trundle.py                # 五种语言的文字、音效配置、共享文件里他的键（脸 4,-21，卡片 -14）
 python tools/art/design_trundle_hd.py            # Codex 第 0 步的原图读回（A-1 / A-2 / B-1 / B-2）
 python tools/art/design_trundle_model.py         # 定稿 A-1 原样（远处的眼睛补成 2×1）
 python tools/art/design_trundle_poses.py         # Codex 的姿势读回（贴回定稿的头）
 python tools/art/import_trundle_fx.py            # 特效 -> league_trundle_fx / league_trundle_big（重画的冰面优先）
 python tools/art/rig_trundle.py                  # 1 倍帧和 2.0 的原帧
-python tools/art/ppu_restyle.py --hero trundle   # 外描边、脸的位置
+python tools/art/ppu_restyle.py --hero trundle   # 外描边、脸的位置，局内 85% 的下移 4 格
 python tools/art/ppu_hd.py --hero trundle        # hd_ / lo_ 帧（要在 hero_reels 之前）
 python tools/art/hero_reels.py --hero trundle    # 待机和选人卡片的小动作
 python tools/art/preview_trundle.py              # 预览、演示 GIF 和每个技能单独的 GIF

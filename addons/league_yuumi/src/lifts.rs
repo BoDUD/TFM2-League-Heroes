@@ -149,7 +149,7 @@ pub const CROWNS: &[(&str, i32)] = &[
     ("league_teemo", 27),
     ("league_thresh", 24),
     ("league_tristana", 22),
-    ("league_trundle", 28),
+    ("league_trundle", 24),
     ("league_tryndamere", 24),
     ("league_twistedfate", 29),
     ("league_twitch", 21),

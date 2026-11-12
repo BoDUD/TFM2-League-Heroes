@@ -263,7 +263,7 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("league_rumble", 1.75, include_str!("../../../league/champions/league_rumble#anim.fanim")),
     // Trundle: posed by tools/art/rig_trundle.py on Codex's step-0 take A-1 as drawn (85 rows mane to feet = 42.5 game
     // px, hunched, the ice club out to 52 px) and its key poses after League's clips (the design's head put back) at the
-    // user's 2.0 squares a game pixel (3/4 only), so no SIZES row
+    // user's 2.0 squares a game pixel (3/4 only), shown at 85 % (SIZES)
     ("league_trundle", 2.0, include_str!("../../../league/champions/league_trundle#anim.fanim")),
     // Skarner: posed by tools/art/rig_skarner.py on Codex's step-0 picture A as drawn (59 rows stinger tips to feet = 33.7
     // game px, 80 squares = 46 px wide) and Codex's key poses after League's clips (read back at the body's size, the
@@ -797,6 +797,10 @@ pub const HEROES: &[(&str, f32, &str)] = &[
 /// spikes to claws, 15th tallest of 217 and among the widest, against Aatrox's and Garen's 42; 85 % = 41 x 43, Zaahen's
 /// way), her dense frames 4 squares lower (RESTYLE belveth lift_sq: 12 x 1.75 x (1 / 0.85 - 1) = 3.7, the claws 12 game
 /// px under her centre), written by the restyle itself (it reproduces her committed strips bit for bit).
+/// Trundle: 85 % (the user, 2026-11-12: 「巨魔的模型也有点大 想办法调整一下」 - 43.5 x 53 game px standing with the ice
+/// club, his body 1601 solid game px, the heaviest with Ornn's 1583, against Garen's 42 x 48 / 1051; 85 % = 37 x 45,
+/// 1157), his dense frames 4 squares lower (RESTYLE trundle lift_sq: 12 x 2.0 x (1 / 0.85 - 1) = 4.2, his feet 12 game
+/// px under his centre), written by the restyle itself (it reproduces his committed strips bit for bit).
 pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.05), ("league_kassadin", 1.00),
                                     ("league_braum", 0.95), ("league_mordekaiser", 1.10),
                                     ("league_irelia", 1.05), ("league_soraka", 1.10), ("league_galio", 1.10), ("league_nilah", 0.90),
@@ -806,7 +810,7 @@ pub const SIZES: &[(&str, f32)] = &[("league_gragas", 0.90), ("league_zeri", 1.0
                                     ("league_ksante", 0.90), ("league_warwick", 0.90), ("league_caitlyn", 0.90),
                                     ("league_ambessa", 0.85),
                                     ("league_zac", 0.85), ("league_talon", 0.90), ("league_zaahen", 0.85),
-                                    ("league_belveth", 0.85)];
+                                    ("league_belveth", 0.85), ("league_trundle", 0.85)];
 
 /// Heroes whose body grows with a stack: (id, the buff whose instances on him are the stacks, growth a stack).
 /// Cho'Gath's Feast (the user, 2026-10-19: 「变大可以无限 加生命」): every champion it eats is one more Permanent
@@ -1033,7 +1037,8 @@ pub const UI_SIZES: &[(&str, f32)] = &[
     // -10 - hair to soles on the card, the raised blades' tips over the top
     ("league_ambessa", 0.81),
     // Trundle: 42.5 game px from his mane to his feet at PPU 2.0 but 52 wide with the ice club (the card's canvas is 59.5):
-    // at 1.0 the club and his feet ran off the card; UI size and card value set with bp_card_audit.py
+    // at 1.0 the club and his feet ran off the card; UI size and card value set with bp_card_audit.py. Kept at 0.82 when
+    // he went to 85 % (SIZES, 2026-11-12): the BP grid draws his hd_ frames at UI_SIZES alone (hd_engine Hero::bp_hd)
     ("league_trundle", 0.82),
     // Locke: 44 game px from his hair to his soles at PPU 2.0 (the card's canvas is 40 tall), the case swung out in his
     // ult; UI size and card value set with bp_card_audit.py
