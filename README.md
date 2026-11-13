@@ -156,6 +156,7 @@ GitHub Actions（[`.github/workflows/ci.yml`](.github/workflows/ci.yml)，Window
 - **游戏自己会打平衡补丁，mod 英雄也打。** 每个补丁按数据挑英雄加强或削弱，不分原版和 mod。赛季开始时还会改比赛规则（比赛太长就改塔的血量和击杀金币），调过的比赛节奏会被它改回去。
 - **区域的 `first_delay` 写 0 不是「马上生效」。** 区域出现后要过一整个周期才第一次生效；一次性的区域（周期比持续时间长）写 0 就永远不生效。要立刻生效写 1。25 位英雄的 42 个区域都是这样改的，奥瑞利安·索尔的大招在这之前一直打不中人（[#700](https://github.com/BoDUD/TFM2-League-Heroes/pull/700)）。
 - **加射程不要用 buff 的 `range`。** AI 会站到加长后的距离，普攻却只在动作自己的射程里出手，结果站着不打（克格莫 W）。用官方的 `range_adjust`：主包统一走 league.dll 的 `league:range` 标记（[#703](https://github.com/BoDUD/TFM2-League-Heroes/pull/703)），`tools/kit/range_buffs.py --check` 在 CI 里核对。
+- **普攻出手时别在自己身上放范围效果。** 普攻的效果树里、弹道命中之外，只要有目标是自己或友军的 `RangeEffect`（各个包里的「给自己放」：自动开的技能、计数、整套技能的轮询光环），游戏的 AI 就几乎不下「打这个英雄」的指令：奥瑞利安·索尔每存活分钟 0.06 次、德莱文 0.16 次，没有这种效果的射手 4.5～7 次；补兵、放技能照常，AI 自己的 DPS 估算也看不出来（`league_ai_watch` 的日志）。能挪到弹道命中后的就挪（德莱文的自动 W，游戏里 0.16 → 6.5）；挪不了的，打包器给普攻最外层补一个 `league:range` 节点（已经带这个节点的 7 位英雄都正常），[`tools/kit/range_buffs.py`](tools/kit/range_buffs.py) `--check` 列出名单。仓库里的数据没有这个节点，装进游戏的才有：手抄 `.data_champion` 进游戏会绕过打包器，要抄打包后的那份。
 - **英雄死了，他放下的区域和召唤物还在跑。** 从投射物 `end_effects` 起的区域比施法者活得久，而施法者的 buff 停在死前的状态。茂凯死后，他的树苗每 tick 都在放音效、打伤害（[#668](https://github.com/BoDUD/TFM2-League-Heroes/pull/668)）。区域里真正生效的部分要包一层「施法者活着」。
 - **数据里的放逐（`Banish`）不看 `cc_immune`。** 塔姆可以吞开着护盾的希维尔。要判断免疫，只能在附加包的代码里做（[#612](https://github.com/BoDUD/TFM2-League-Heroes/pull/612)）。
 - **游戏自带的 AI 不打躲在泉水里的敌人，但会在旁边等。** 卡尔萨斯的灵体原来留在死的地方，敌人就围着等；改成灵体回泉水后，敌人就散了（[#737](https://github.com/BoDUD/TFM2-League-Heroes/pull/737)）。
