@@ -4,10 +4,10 @@
 //! 并返还一半冷却。`mod.override_info` 把主包的诺提勒斯换成 `override/` 里的副本（tools/kit/build_nautilus.py 的
 //! native=1）：数据和主包一样，锚飞出去的那一 tick 多调一次本包的原生效果 `league_nautilus:hook`（输入是 Q 的方向）。
 //!
-//! - `hook`：沿 Q 的方向从他脚下往前找，`q_reach` 内先碰到敌人（离锚的路线 `q_rad` + 身体以内）就什么都不做——主包的锚会
-//!   钩住它；先碰到墙（引擎的碰撞墙，5v5 地图野区的 90 格，卡蜜尔附加包的 `maps.rs`）就按锚飞到墙的时间排一个 `pull`。
-//!   0.1.6（2026-11-14）：主包的锚按英雄联盟改成停在路上第一个敌人身上（小兵、野怪也算，用户当初选的也是「小兵会挡」），
-//!   所以这里墙前的敌方小兵、野怪、召唤物也算「先碰到」（以前只看英雄：墙前有个小兵时，数据钩住小兵、本包又把他拉去墙边）。
+//! - `hook`：沿 Q 的方向从他脚下往前找，`q_reach` 内先碰到敌方英雄（离锚的路线 `q_rad` + 身体以内）就什么都不做——主包的锚会
+//!   钩住他；先碰到墙（引擎的碰撞墙，5v5 地图野区的 90 格，卡蜜尔附加包的 `maps.rs`）就按锚飞到墙的时间排一个 `pull`。
+//!   主包的锚穿过小兵和野怪，所以这里也只看英雄。0.1.6（2026-11-14）曾跟着主包按英雄联盟改成「停在第一个敌人身上」（小兵、
+//!   野怪也算）；模拟里他明显变弱，用户看了以后同一天说「泰坦的钩子恢复穿过小兵」，0.1.7 改回只看英雄（钩中的眩晕留着）。
 //! - `pull`：锚咬在墙上：他被拉到墙边（强制位移，速度 `q_dash`，停在离墙 `GAP` 处），播主包的 skill_pull 动作、钩墙音效和
 //!   钩中的水花，Q 冷却返还一半（`skill_cooldown_mult` +100 的 3 tick buff：剩下的冷却封顶到冷却时间的一半；W+E 若剩得更多
 //!   也一起封顶，引擎没有只给一个技能的字段；`ult_cooldown_mult` -100 让大招不跟着封顶，0.1.2）。之后每 tick 看一次（`watch`），宿主没挪他就逐 tick 自己走一步。
@@ -242,13 +242,7 @@ pub enum Hit {
     Nothing,
 }
 
-/// The main pack's anchor bites this enemy unit (its `EnemyWithoutTower`): a champion, a minion, a monster, a summon -
-/// not a tower or the nexus (0.1.6; before, champions only).
-pub fn bitten(kind: Option<EntityKindV1>) -> bool {
-    !matches!(kind, Some(EntityKindV1::Tower) | Some(EntityKindV1::Nexus))
-}
-
-/// 沿 Q 的方向：`foes` 里离路线 `Q_RAD + BODY` 以内、在墙前的敌方单位先被钩；否则 `Q_REACH` 内的墙（不近于 `HOOK_MIN`）。
+/// 沿 Q 的方向：`foes`（敌方英雄）里离路线 `Q_RAD + BODY` 以内、在墙前的先被钩；否则 `Q_REACH` 内的墙（不近于 `HOOK_MIN`）。
 pub fn trace(g: &Grid, from: (f64, f64), dir: (f64, f64), foes: &[(f64, f64)]) -> Hit {
     let wall = g.first_wall(from, dir, Q_REACH);
     let limit = wall.unwrap_or(Q_REACH);
@@ -417,7 +411,7 @@ fn hook(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let mut foes = Vec::new();
     for i in 0..sim.entity_count() {
         let Some(u) = sim.entity_at(i) else { continue };
-        if !u.is_alive() || !bitten(u.kind()) {
+        if !u.is_champion() || !u.is_alive() {
             continue;
         }
         let (x, y) = u.pos();
@@ -526,7 +520,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Nautilus's Dredge Line hooks walls: pulled to the wall, half the cooldown back; any enemy unit before the wall is the data's catch) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Nautilus's Dredge Line hooks walls: pulled to the wall, half the cooldown back; an enemy champion before the wall is the data's catch) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -582,19 +576,16 @@ mod tests {
     }
 
     #[test]
-    fn minions_and_monsters_block_the_anchor_too() {
-        // 0.1.6: the main pack's anchor stops on the first enemy (League: "stops on the first enemy or terrain hit"),
-        // so any enemy unit before the wall is the data's catch - only towers and the nexus are not
-        for k in [EntityKindV1::Champion, EntityKindV1::Minion, EntityKindV1::Jungle, EntityKindV1::Epic,
-                  EntityKindV1::Serpen, EntityKindV1::Summon] {
-            assert!(bitten(Some(k)), "{k:?}");
-        }
-        assert!(!bitten(Some(EntityKindV1::Tower)) && !bitten(Some(EntityKindV1::Nexus)));
-        assert!(bitten(None), "a kind this build does not know: the data's target list decides, count it");
+    fn the_main_pack_anchor_passes_minions_again() {
+        // 0.1.7: the copy's anchor targets enemy champions only (q_block 0), so only champions before the wall are
+        // the data's catch - `hook` looks at champions alone (u.is_champion())
+        let path = concat!(env!("CARGO_MANIFEST_DIR"), "/../../tools/kit/build_nautilus.py");
+        let src = std::fs::read_to_string(path).expect("build_nautilus.py");
+        assert!(src.contains("\"q_block\": 0,"), "build_nautilus.P's q_block is not 0: hook must count minions again");
     }
 
     #[test]
-    fn a_unit_before_the_wall_is_hooked_by_the_main_pack() {
+    fn a_champion_before_the_wall_is_hooked_by_the_main_pack() {
         let g = wall();
         let from = at(3.0, 4.5);
         assert_eq!(trace(&g, from, (1.0, 0.0), &[at(4.0, 4.6)]), Hit::Unit);

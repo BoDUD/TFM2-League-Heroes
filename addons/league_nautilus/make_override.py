@@ -7,8 +7,8 @@ pack's league/champion/league_nautilus.data_champion byte for byte (so the copy 
 writes addons/league_nautilus/override/league_nautilus.data_champion and .../text/champion.i18n: the build with
 native=1 -
   * everything of the main pack's kit;
-  * Q's anchor also calls league_nautilus:hook as it flies (a wall on its line before any enemy unit the anchor
-    bites - a champion, a minion, a monster: pulled to the wall, half the cooldown back);
+  * Q's anchor also calls league_nautilus:hook as it flies (a wall on its line before any enemy champion the anchor
+    bites - it passes minions and monsters: pulled to the wall, half the cooldown back);
   * Q's tooltip points to description.league_nautilus_wall.skill with the add-on's wording, so the tooltip in game shows
     whether the override took.
 Every other champion stays untouched. Run it again whenever the main pack's Nautilus changes.

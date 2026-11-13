@@ -9,9 +9,9 @@ champion in reach; the passive in the main pack; a native add-on for Q on a wall
           rest is his). Champions only: a champion-only twin of the attack (league_viego's) carries it.
   attack  The anchor swung, the hit a_st ticks in (the strip's swing frame 4).
   skill   Q Dredge Line (疏通航道): a `Direction` cast on `EnemyChampion` (q_range): on tick q_at the anchor flies
-          (q_speed, q_reach) to the first enemy it meets - a minion or a monster too (q_block; League: it "stops on
-          the first enemy or terrain hit"; the user's pick on 2026-10-11 was that minions block, and until 2026-11-14
-          it flew past them to the first champion) - (league_amumu Q's bandage, wide: q_rad): q_dmg +
+          (q_speed, q_reach) to the first enemy champion, past minions and monsters (q_block 0; League's anchor
+          "stops on the first enemy or terrain hit" - q_block 1 does that, tried on 2026-11-14 and taken back the same
+          day at the user's word: 「泰坦的钩子恢复穿过小兵」) - (league_amumu Q's bandage, wide: q_rad): q_dmg +
           q_ratio% AP, a q_stun-tick stun (League: 1 s), and the two are pulled together: the unit is dragged toward him (`Grab`, q_pull a tick, no
           `tick`, so its length is the whole gap) while he hauls on the chain (the skill_pull strip); q_catch ticks
           later, when the longest drag is over, he dashes onto it (`MoveToTarget` q_dash a tick) to close what the drag
@@ -65,10 +65,11 @@ P = {
     "q_y": 3000, "q_dmg": 75, "q_ratio": 60, "q_pull": 2500, "q_catch": 33, "q_dash": 2500, "q_anim": 24, "q_land": 120,
     # League (the wiki, V26.18): the anchor "stops on the first enemy or terrain hit" - a minion or a monster is hooked
     # like a champion - and "stuns them for 1 second" while it "drags them toward Nautilus while he also dashes toward
-    # them" (the user, 2026-11-14, on the list of differences from League: 「全改吧」; his own pick on 2026-10-11 was
-    # that minions block). Before: the anchor flew past minions and monsters to the first champion, and only the drag
-    # held it (0.2-0.57 s). q_block 0 = past them as before
-    "q_block": 1, "q_stun": 60,
+    # them". 2026-11-14 (the user on the list of differences from League: 「全改吧」) both came in: q_block 1 + q_stun.
+    # The block cost him about 2.5 kills of difference in the classic simulation (the AI throws through the wave: 48 of
+    # 91 hooks caught a champion before, 38 of 100 after), and the user, shown that, said the same day
+    # 「泰坦的钩子恢复穿过小兵」: q_block 0 (past minions and monsters to the first champion, as before), the stun kept
+    "q_block": 0, "q_stun": 60,
     # skill2: W Titan's Wrath (League: 45-165 + 8-12% bonus hp shield 6 s, attacks deal 30-110 + 40% AP round the
     # target) + E Riptide (League: 3 waves 55-215 + 50% AP, slow 30-50% decaying over 1.25 s, cd 7-5 s)
     "c_cd": 480, "c_range": 25000, "c_dur": 31, "w_shield": 110, "w_ap": 60, "w_t": 360, "w_dmg": 15, "w_ratio": 20,
@@ -222,7 +223,7 @@ def build(p):
     # ------------------------------------------------------------------ skill: Q Dredge Line
     # no `tick` on the Grab: its length is the gap when the anchor bites. His dash waits q_catch ticks, until the
     # longest drag (q_reach / q_pull) is over, and closes only what is left
-    # q_land (the combos' window) only for a champion: the anchor now bites minions and monsters too
+    # q_land (the combos' window) only for a champion: with q_block 1 the anchor bites minions and monsters too
     land = pick(1, "EnemyChampion", refresh("q_land", p["q_land"]), fp=True) if p["q_block"] else \
         on_me(refresh("q_land", p["q_land"]))
     hooked = [magic(p["q_dmg"], p["q_ratio"]), {"type": "Grab", "speed": p["q_pull"]},

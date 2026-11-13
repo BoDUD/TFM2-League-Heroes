@@ -51,7 +51,7 @@ TEXT = {
         "name": "诺提勒斯",
         "attack": O + "排山倒海" + E + "：普攻敌方英雄时将其" + R + "禁锢{p_root}秒" + E + "，并额外造成" + mag("p") + M + "魔法伤害" + E +
                   "，之后" + A + "{p_cd}秒" + E + "内不再触发。",
-        "skill": "抛出铁锚，钩中路上第一个敌人（小兵、野怪也算），造成" + mag("q") + M + "魔法伤害" + E + "并" + R + "眩晕" + E + A +
+        "skill": "抛出铁锚，钩中第一个敌方英雄（穿过小兵和野怪），造成" + mag("q") + M + "魔法伤害" + E + "并" + R + "眩晕" + E + A +
                  "{q_stun}秒" + E + "，把双方拉向彼此。",
         "skill2": O + "泰坦之怒" + E + "：获得" + SH + S + "护盾" + E + "，" + A + "{w_t}秒" + E + "内普攻还会伤及目标周围的敌人" + mag("w") + "。" +
                   O + "暗流涌动" + E + "：地面震荡三波，周围敌人受到" + mag("e") + M + "魔法伤害" + E + "并" + R + "减速{e_slow}%" + E +
@@ -64,7 +64,7 @@ TEXT = {
         "name": "納帝魯斯",
         "attack": O + "沉重打擊" + E + "：普攻敵方英雄時將其" + R + "定身{p_root}秒" + E + "，並額外造成" + mag("p") + M + "魔法傷害" + E +
                   "，之後" + A + "{p_cd}秒" + E + "內不再觸發。",
-        "skill": "拋出鐵錨，鉤中路上第一個敵人（小兵、野怪也算），造成" + mag("q") + M + "魔法傷害" + E + "並" + R + "暈眩" + E + A +
+        "skill": "拋出鐵錨，鉤中第一個敵方英雄（穿過小兵和野怪），造成" + mag("q") + M + "魔法傷害" + E + "並" + R + "暈眩" + E + A +
                  "{q_stun}秒" + E + "，把雙方拉向彼此。",
         "skill2": O + "巨人之怒" + E + "：獲得" + SH + S + "護盾" + E + "，" + A + "{w_t}秒" + E + "內普攻還會傷及目標周圍的敵人" + mag("w") + "。" +
                   O + "鋼鐵怒濤" + E + "：地面震盪三波，周圍敵人受到" + mag("e") + M + "魔法傷害" + E + "並" + R + "緩速{e_slow}%" + E +
@@ -77,7 +77,7 @@ TEXT = {
         "name": "Nautilus",
         "attack": O + "Staggering Blow" + E + ": his attack on an enemy champion " + R + "roots it {p_root}s" + E + " and deals " + mag("p") +
                   " " + M + "magic damage" + E + " more, then rests " + A + "{p_cd}s" + E + ".",
-        "skill": "Throws his anchor at the first enemy in its way (minions and monsters too): " + mag("q") + " " + M +
+        "skill": "Throws his anchor at the first enemy champion (it passes minions and monsters): " + mag("q") + " " + M +
                  "magic damage" + E + ", a " + A + "{q_stun}s" + E + " " + R + "stun" + E + ", and the two are pulled toward each other.",
         "skill2": O + "Titan's Wrath" + E + ": a " + SH + " " + S + "shield" + E + "; for " + A + "{w_t}s" + E + " his attacks also hit enemies "
                   "round the target for " + mag("w") + ". " + O + "Riptide" + E + ": three waves round him deal " + mag("e") + " " + M +
@@ -90,7 +90,7 @@ TEXT = {
         "name": "노틸러스",
         "attack": O + "강력한 일격" + E + ": 적 챔피언을 기본 공격하면 " + R + "{p_root}초 속박" + E + "하고 " + mag("p") + " " + M + "마법 피해" +
                   E + "를 추가로 입힘. 이후 " + A + "{p_cd}초" + E + " 동안 발동하지 않음.",
-        "skill": "닻을 던져 처음 맞은 적(미니언·몬스터 포함)에게 " + mag("q") + " " + M + "마법 피해" + E + "와 " + A + "{q_stun}초" + E + " " +
+        "skill": "닻을 던져 처음 맞은 적 챔피언(미니언·몬스터는 통과)에게 " + mag("q") + " " + M + "마법 피해" + E + "와 " + A + "{q_stun}초" + E + " " +
                  R + "기절" + E + "을 입히고 서로를 끌어당김.",
         "skill2": O + "타이탄의 분노" + E + ": " + SH + " " + S + "보호막" + E + ", " + A + "{w_t}초" + E + " 동안 기본 공격이 대상 주변 적에게도 " +
                   mag("w") + " 피해. " + O + "역조" + E + ": 주변에 세 번 파동, " + mag("e") + " " + M + "마법 피해" + E + "와 " + A +
@@ -103,7 +103,7 @@ TEXT = {
         "name": "ノーチラス",
         "attack": O + "鉄の錨" + E + "：敵チャンピオンへの通常攻撃で" + R + "{p_root}秒スネア" + E + "し、" + mag("p") + "の" + M + "魔法ダメージ" +
                   E + "を追加。その後" + A + "{p_cd}秒" + E + "は発動しない。",
-        "skill": "錨を投げ、最初に当たった敵（ミニオン・モンスターも）に" + mag("q") + "の" + M + "魔法ダメージ" + E + "と" + A + "{q_stun}秒" + E +
+        "skill": "錨を投げ、最初に当たった敵チャンピオン（ミニオン・モンスターは素通り）に" + mag("q") + "の" + M + "魔法ダメージ" + E + "と" + A + "{q_stun}秒" + E +
                  R + "スタン" + E + "、互いを引き寄せる。",
         "skill2": O + "大海の激憤" + E + "：" + SH + "の" + S + "シールド" + E + "、" + A + "{w_t}秒" + E + "間通常攻撃が対象周囲の敵にも" +
                   mag("w") + "。" + O + "粉砕水" + E + "：周囲に3回の波、" + mag("e") + "の" + M + "魔法ダメージ" + E + "と" + A +

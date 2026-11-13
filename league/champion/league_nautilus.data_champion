@@ -368,7 +368,7 @@
               "type": "LinearProjectile",
               "name": "league_nautilus_q_anchor",
               "penetrate": false,
-              "applied_target": "EnemyWithoutTower",
+              "applied_target": "EnemyChampion",
               "applied_effects": [
                 {
                   "casting_type": "Targeting",
@@ -412,10 +412,14 @@
                 {
                   "casting_type": "Targeting",
                   "effect": {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "EnemyChampion",
-                    "from_projectile": true,
+                    "type": "RangeEffect",
+                    "shape": {
+                      "Circle": {
+                        "radius": 1000
+                      }
+                    },
+                    "target": "AllyOnlySelf",
+                    "apply_type": "AroundCaster",
                     "effects": [
                       {
                         "type": "Combine",
