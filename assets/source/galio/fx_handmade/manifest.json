@@ -3,6 +3,49 @@
  "items": [
   {
    "sheet": "league_galio_big",
+   "tag": "q_tornado",
+   "file": "league_galio_big/q_tornado.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     25,
+     23
+    ],
+    [
+     41,
+     49
+    ],
+    [
+     41,
+     49
+    ],
+    [
+     41,
+     49
+    ],
+    [
+     41,
+     49
+    ]
+   ],
+   "of_1x": "ac8429ae12a4d7f38b64941891855c93096fc9eb428878d1f0cd6c496efd6ddf",
+   "by": "fx_vector 4",
+   "sha256": "996678e92eb5ef8d3762579afe25d83aff669b3a3accbd777ef4785413773aeb",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_galio_big",
    "tag": "w_burst",
    "file": "league_galio_big/w_burst.png",
    "ppu": 2,

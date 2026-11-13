@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_fiddlesticks_big",
+   "tag": "e_reap",
+   "file": "league_fiddlesticks_big/e_reap.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     13,
+     45
+    ],
+    [
+     21,
+     47
+    ],
+    [
+     29,
+     49
+    ],
+    [
+     21,
+     47
+    ],
+    [
+     21,
+     45
+    ],
+    [
+     17,
+     43
+    ]
+   ],
+   "of_1x": "c101d397d62f945c598d7a71c0db8348a28adf41473d66f8f9a03178cef9bfae",
+   "by": "fx_vector 4",
+   "sha256": "65913fe159899abd1124a060b344145266d55209a657608c5eb523ce01d3ae82",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_fiddlesticks_big",
    "tag": "r_mark",
    "file": "league_fiddlesticks_big/r_mark.png",
    "ppu": 2,
@@ -55,6 +100,41 @@
    "by": "fx_vector 3",
    "sha256": "6e1a487af78d2eac0437593575f2e3228b7d609ddc92f1a4821e160af9c982fb",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_fiddlesticks_big",
+   "tag": "w_souls",
+   "file": "league_fiddlesticks_big/w_souls.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     69
+    ],
+    [
+     39,
+     65
+    ],
+    [
+     35,
+     57
+    ],
+    [
+     45,
+     69
+    ]
+   ],
+   "of_1x": "22fed077ffb620a81a94b4c69cbb02a5e3c337bc09eb8b655f0d12d14e83d79d",
+   "by": "fx_vector 4",
+   "sha256": "0eeb38c905c028e4f9b0f811c6c62e36dc0c308232ecf010e5fbced6d993b1b8",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
   },
   {
    "sheet": "league_fiddlesticks_sym",

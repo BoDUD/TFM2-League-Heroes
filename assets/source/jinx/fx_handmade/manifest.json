@@ -57,6 +57,41 @@
    "note": "pilot 2026-11-14"
   },
   {
+   "sheet": "league_jinx_big",
+   "tag": "r_rocket",
+   "file": "league_jinx_big/r_rocket.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     125,
+     33
+    ],
+    [
+     113,
+     33
+    ],
+    [
+     113,
+     33
+    ],
+    [
+     119,
+     33
+    ]
+   ],
+   "of_1x": "0147e84960360b4a7459c00bcb520d000e575bdca552f3e468645bb0465e179e",
+   "by": "fx_vector 4",
+   "sha256": "a18d63c6f81ff86d975761720b44f8b29fddce702d3b93feb3374d33cf9bce41",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_jinx_fx",
    "tag": "rocket_hit",
    "file": "league_jinx_fx/rocket_hit.png",

@@ -58,6 +58,73 @@
   },
   {
    "sheet": "league_twistedfate_big",
+   "tag": "r_gate",
+   "file": "league_twistedfate_big/r_gate.png",
+   "ppu": 2,
+   "frames": 20,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     29,
+     33
+    ],
+    [
+     31,
+     89
+    ],
+    [
+     31,
+     89
+    ],
+    [
+     31,
+     89
+    ],
+    [
+     31,
+     87
+    ],
+    [
+     31,
+     89
+    ],
+    [
+     31,
+     89
+    ],
+    [
+     31,
+     89
+    ]
+   ],
+   "of_1x": "8d3a4a493c72528597d3c23d54fced17c54cd11bfeb2ea300299e4a2e451c157",
+   "by": "fx_vector 4",
+   "sha256": "626bcd5d0609f210a8577fa0e27b1727351ff3201fa8f3d99d1512e5344431de",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_twistedfate_big",
    "tag": "wr_burst",
    "file": "league_twistedfate_big/wr_burst.png",
    "ppu": 2,

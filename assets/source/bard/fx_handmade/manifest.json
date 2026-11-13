@@ -3,6 +3,171 @@
  "items": [
   {
    "sheet": "league_bard_big",
+   "tag": "e_door",
+   "file": "league_bard_big/e_door.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     31,
+     61
+    ],
+    [
+     31,
+     61
+    ],
+    [
+     27,
+     63
+    ],
+    [
+     27,
+     67
+    ],
+    [
+     23,
+     59
+    ],
+    [
+     31,
+     61
+    ]
+   ],
+   "of_1x": "ac3bbd59410707a64482585996c66c95634219359d2de66b3a3632a414f0e983",
+   "by": "fx_vector 4",
+   "sha256": "4ccd3427f85bd0485c081851eb12effa16e0eef83ad97daeb2a101f536767bee",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
+   "tag": "e_door_out",
+   "file": "league_bard_big/e_door_out.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     31,
+     61
+    ],
+    [
+     31,
+     61
+    ],
+    [
+     27,
+     63
+    ],
+    [
+     27,
+     67
+    ],
+    [
+     23,
+     59
+    ],
+    [
+     31,
+     61
+    ]
+   ],
+   "of_1x": "ac3bbd59410707a64482585996c66c95634219359d2de66b3a3632a414f0e983",
+   "by": "fx_vector 4",
+   "sha256": "4ccd3427f85bd0485c081851eb12effa16e0eef83ad97daeb2a101f536767bee",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
+   "tag": "e_portal",
+   "file": "league_bard_big/e_portal.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    2,
+    3,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     119
+    ],
+    [
+     49,
+     125
+    ],
+    [
+     49,
+     125
+    ],
+    [
+     45,
+     127
+    ]
+   ],
+   "of_1x": "30cebbf8f57a67ac52b2f1f63e46bb6703eb5fcdb203c899e9ebea17eaccf84d",
+   "by": "fx_vector 4",
+   "sha256": "a7eefed642b5e5ac1802e494d4205194d8d4d66b580a5b06c96ebcc1b37b5118",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
+   "tag": "e_portal_out",
+   "file": "league_bard_big/e_portal_out.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    0,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     125
+    ],
+    [
+     45,
+     127
+    ],
+    [
+     49,
+     125
+    ],
+    [
+     21,
+     119
+    ]
+   ],
+   "of_1x": "b6343d1c3e32092b0115e066770e84159ca2a2f9859b2d607a13dbf59e80ec8a",
+   "by": "fx_vector 4",
+   "sha256": "b20173d015476453bbed664cad8298d774c64b5fce145400154f92880ff9ad1c",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
    "tag": "r_free",
    "file": "league_bard_big/r_free.png",
    "ppu": 2,

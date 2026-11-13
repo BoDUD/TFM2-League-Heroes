@@ -3,6 +3,41 @@
  "items": [
   {
    "sheet": "league_warwick_big",
+   "tag": "e_guard",
+   "file": "league_warwick_big/e_guard.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     65,
+     77
+    ],
+    [
+     65,
+     77
+    ],
+    [
+     63,
+     81
+    ],
+    [
+     63,
+     81
+    ]
+   ],
+   "of_1x": "a08e013bf28c19b9ce3d0bb4bec96a9338087c54a4dc64fba2e10ae16bb2acad",
+   "by": "fx_vector 4",
+   "sha256": "58e94103b4b936ee902ff140f99b5b4d64e5a4a896628a17b43e5a9ebe6d63b9",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_warwick_big",
    "tag": "e_howl",
    "file": "league_warwick_big/e_howl.png",
    "ppu": 2,

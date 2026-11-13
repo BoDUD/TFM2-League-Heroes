@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_vi_fx",
+   "tag": "e_wave",
+   "file": "league_vi_fx/e_wave.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     57,
+     23
+    ],
+    [
+     63,
+     23
+    ],
+    [
+     65,
+     31
+    ],
+    [
+     63,
+     29
+    ],
+    [
+     61,
+     23
+    ],
+    [
+     59,
+     19
+    ]
+   ],
+   "of_1x": "1b83be51b00f6babb1caafac82534bb2d30252d98418ac3be7562080e5aa6cd8",
+   "by": "fx_vector 4",
+   "sha256": "fe57d41e3d0ece4bba09cc6378081aae64ba631ec0858d2af5c0ad02e7f43844",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  }
+ ]
+}

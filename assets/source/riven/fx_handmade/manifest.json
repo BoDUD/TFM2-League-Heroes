@@ -108,6 +108,31 @@
   },
   {
    "sheet": "league_riven_fx",
+   "tag": "r_wave",
+   "file": "league_riven_fx/r_wave.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     89,
+     89
+    ],
+    [
+     87,
+     87
+    ]
+   ],
+   "of_1x": "dc80aa4f7937f02ec114910294a3e9c237f74ef563ec05f4ee7d71cca11c9ca7",
+   "by": "fx_vector 4",
+   "sha256": "afb3b4875660421e4712afce3b725c3605bdf67b5edc93226b8e97a64b2838c2",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_riven_fx",
    "tag": "stun",
    "file": "league_riven_fx/stun.png",
    "ppu": 2,

@@ -52,6 +52,107 @@
    "note": "batch 05 beams and slashes 2026-11-14"
   },
   {
+   "sheet": "league_thresh_big",
+   "tag": "r_box",
+   "file": "league_thresh_big/r_box.png",
+   "ppu": 2,
+   "frames": 46,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "sizes": [
+    [
+     77,
+     57
+    ],
+    [
+     85,
+     59
+    ],
+    [
+     83,
+     59
+    ],
+    [
+     83,
+     59
+    ],
+    [
+     85,
+     59
+    ],
+    [
+     87,
+     59
+    ],
+    [
+     87,
+     59
+    ],
+    [
+     87,
+     61
+    ],
+    [
+     87,
+     57
+    ],
+    [
+     77,
+     53
+    ]
+   ],
+   "of_1x": "5ca0e73817492faf5d8660122b98bf14fd2d1bb48581fab8f8fe165b9bdac5e0",
+   "by": "fx_vector 4",
+   "sha256": "16781ee0413a39335a3f52cda2352896587d5c221852d003903bc2733a549686",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_thresh_fx",
    "tag": "flay_hit",
    "file": "league_thresh_fx/flay_hit.png",

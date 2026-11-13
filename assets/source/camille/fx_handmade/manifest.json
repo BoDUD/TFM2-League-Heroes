@@ -52,6 +52,156 @@
    "note": "batch 06 large bursts 2026-11-14"
   },
   {
+   "sheet": "league_camille_big",
+   "tag": "r_field",
+   "file": "league_camille_big/r_field.png",
+   "ppu": 2,
+   "frames": 38,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "sizes": [
+    [
+     33,
+     59
+    ],
+    [
+     81,
+     67
+    ],
+    [
+     89,
+     65
+    ],
+    [
+     75,
+     61
+    ],
+    [
+     73,
+     67
+    ],
+    [
+     73,
+     67
+    ],
+    [
+     73,
+     57
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ]
+   ],
+   "of_1x": "226f354b4917c081b02156c6a4c2a2a95281448ebde4c814f0b4ef9b2a9c0601",
+   "by": "fx_vector 4",
+   "sha256": "12d71339924113798c157453987482703fc3203d8c3180566e38563783ea3687",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_camille_big",
+   "tag": "r_zone",
+   "file": "league_camille_big/r_zone.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ]
+   ],
+   "of_1x": "d4ec9c701f543ebbd88ba6933d489418d4af70fc942cf40fc3fb15a787f6df34",
+   "by": "fx_vector 4",
+   "sha256": "4963ba04783e702e117e2e8baca082d962e1d76c9d407c7fdffe5a8c0af92acb",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_camille_fx",
    "tag": "r_mark",
    "file": "league_camille_fx/r_mark.png",
@@ -85,6 +235,51 @@
    "by": "fx_vector 3",
    "sha256": "24d4ef2ed96d73379f7b8294070fd8468a45b334744dfd8a34e41e9dd6c56e84",
    "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_camille_fx",
+   "tag": "w_arc",
+   "file": "league_camille_fx/w_arc.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     25,
+     61
+    ],
+    [
+     61,
+     63
+    ],
+    [
+     61,
+     61
+    ],
+    [
+     61,
+     63
+    ],
+    [
+     59,
+     61
+    ],
+    [
+     35,
+     57
+    ]
+   ],
+   "of_1x": "48fbeff2a15c5b6c894c784aadebee13510622ceceb055340c0f857491080f11",
+   "by": "fx_vector 4",
+   "sha256": "4eacc40dcf13766eb36146a7a17718dbf2d563bc2c3e864c4e73cf4245e0eb76",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
   }
  ]
 }

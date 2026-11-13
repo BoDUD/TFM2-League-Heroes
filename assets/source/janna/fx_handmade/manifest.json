@@ -102,6 +102,41 @@
    "note": "batch 02 rings and zones 2026-11-14"
   },
   {
+   "sheet": "league_janna_big",
+   "tag": "tornado",
+   "file": "league_janna_big/tornado.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     43,
+     27
+    ],
+    [
+     43,
+     27
+    ],
+    [
+     43,
+     27
+    ],
+    [
+     43,
+     27
+    ]
+   ],
+   "of_1x": "836ad76e92cfd3f3e72be33121594afb748c12e1889e028846d1ecd426b59743",
+   "by": "fx_vector 4",
+   "sha256": "2b46b755bba27495fd0a7f5d93282e953770ed3d995a016fac5f2ba332a513eb",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_janna_fx",
    "tag": "e_cast",
    "file": "league_janna_fx/e_cast.png",

@@ -2,6 +2,51 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_akali_big",
+   "tag": "q_fan",
+   "file": "league_akali_big/q_fan.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     45,
+     11
+    ],
+    [
+     45,
+     21
+    ],
+    [
+     43,
+     29
+    ],
+    [
+     43,
+     39
+    ],
+    [
+     43,
+     29
+    ],
+    [
+     35,
+     31
+    ]
+   ],
+   "of_1x": "b5c9022d53210cc3781c5bd1232e78d064bf179be182b45478c4f4e86cf5b696",
+   "by": "fx_vector 4",
+   "sha256": "4383f9920401e311c4f7632b8ec864745e2c97080151f543339dc61e07ed3991",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_akali_fx",
    "tag": "e_hit",
    "file": "league_akali_fx/e_hit.png",

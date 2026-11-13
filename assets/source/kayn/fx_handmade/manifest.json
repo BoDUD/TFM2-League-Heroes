@@ -3,6 +3,96 @@
  "items": [
   {
    "sheet": "league_kayn_fx",
+   "tag": "form_d",
+   "file": "league_kayn_fx/form_d.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     51
+    ],
+    [
+     37,
+     67
+    ],
+    [
+     37,
+     59
+    ],
+    [
+     37,
+     59
+    ],
+    [
+     39,
+     67
+    ],
+    [
+     39,
+     51
+    ]
+   ],
+   "of_1x": "4e7e363ee79f28e92c030eb202ba023fc204aace5e0125223d0c7b48e7a8feba",
+   "by": "fx_vector 4",
+   "sha256": "83c5d88ba3282a3b1ba628026609dd0172f2797ba7de3cf251ffc5dd99e9af03",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_kayn_fx",
+   "tag": "form_s",
+   "file": "league_kayn_fx/form_s.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     37,
+     47
+    ],
+    [
+     37,
+     55
+    ],
+    [
+     37,
+     65
+    ],
+    [
+     37,
+     73
+    ],
+    [
+     39,
+     73
+    ],
+    [
+     39,
+     51
+    ]
+   ],
+   "of_1x": "df18428f557057088b5e1611adb57285a40088c30f90238dfb9b6edc9d785be4",
+   "by": "fx_vector 4",
+   "sha256": "362b4094334b093eda7268dfc04a70570d23c9aa630e221cff7b17e70f29bb34",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_kayn_fx",
    "tag": "q_spin",
    "file": "league_kayn_fx/q_spin.png",
    "ppu": 2,
@@ -175,6 +265,46 @@
    "by": "fx_vector 4",
    "sha256": "14d0df328da1c5781abefd1681f99807b86d2bba9effcf4093c4501b9fa64d37",
    "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_kayn_fx",
+   "tag": "w_line_s",
+   "file": "league_kayn_fx/w_line_s.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     79,
+     3
+    ],
+    [
+     79,
+     53
+    ],
+    [
+     81,
+     61
+    ],
+    [
+     77,
+     49
+    ],
+    [
+     73,
+     39
+    ]
+   ],
+   "of_1x": "946b5f5f6ee68efec7c4795f87c3573099a7498699725cb8f53804819892d7ec",
+   "by": "fx_vector 4",
+   "sha256": "7dd4b5cd8de435681d4775f2d9e0f85dfa8386c873953baacb8be1bd77a49579",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
   },
   {
    "sheet": "league_kayn_fx",

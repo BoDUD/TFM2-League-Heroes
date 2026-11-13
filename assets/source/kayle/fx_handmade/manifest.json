@@ -52,6 +52,41 @@
    "note": "batch 06 large bursts 2026-11-14"
   },
   {
+   "sheet": "league_kayle_ascend",
+   "tag": "wings3",
+   "file": "league_kayle_ascend/wings3.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     83,
+     99
+    ],
+    [
+     83,
+     99
+    ],
+    [
+     83,
+     99
+    ],
+    [
+     83,
+     99
+    ]
+   ],
+   "of_1x": "049a22d0ed70675a6ae35999ecd4e21c306641f46f8444402bb4e55216a5c7e3",
+   "by": "fx_vector 4",
+   "sha256": "64f5dc3b85a984d08da7dbe428c86a0c70b6932c73c10793a3bbef8c9fce40f5",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_kayle_big",
    "tag": "ascend",
    "file": "league_kayle_big/ascend.png",
@@ -215,6 +250,61 @@
    "by": "fx_vector 3",
    "sha256": "f80ee76bbd1d40c4a5666196c6add502698c90321c2cb639ff4e234f7d3ac21f",
    "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
+   "tag": "r_blades",
+   "file": "league_kayle_big/r_blades.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     81,
+     37
+    ],
+    [
+     81,
+     225
+    ],
+    [
+     81,
+     197
+    ],
+    [
+     81,
+     173
+    ],
+    [
+     89,
+     193
+    ],
+    [
+     89,
+     207
+    ],
+    [
+     87,
+     165
+    ],
+    [
+     83,
+     57
+    ]
+   ],
+   "of_1x": "b2cdf99031f27e68cf8da2a231dbbfe7a09729cfe2178f2bdebd0d2bb5fbb6a7",
+   "by": "fx_vector 4",
+   "sha256": "3e8de886893599488fee30d8551921fa44fc8cab99d58da251d8e4e466ece997",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
   },
   {
    "sheet": "league_kayle_big",

@@ -2,6 +2,52 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_renata_big",
+   "tag": "r_wave",
+   "file": "league_renata_big/r_wave.png",
+   "ppu": 2,
+   "frames": 11,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     3,
+     3
+    ],
+    [
+     17,
+     33
+    ],
+    [
+     21,
+     35
+    ],
+    [
+     19,
+     33
+    ],
+    [
+     21,
+     33
+    ]
+   ],
+   "of_1x": "59d3e2b82495d8ec51df375bab61a5ae407ed05caaac7e4fa786c893647a1d4f",
+   "by": "fx_vector 4",
+   "sha256": "66c9b4af3bc8f25465574473f54aa4a7dcabc5e23d29b6ee219fb602f2493404",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_renata_fx",
    "tag": "e_shield",
    "file": "league_renata_fx/e_shield.png",

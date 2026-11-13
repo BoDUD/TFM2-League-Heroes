@@ -2,6 +2,41 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_ezreal_big",
+   "tag": "r_wave",
+   "file": "league_ezreal_big/r_wave.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     37,
+     37
+    ],
+    [
+     37,
+     37
+    ],
+    [
+     39,
+     37
+    ],
+    [
+     37,
+     37
+    ]
+   ],
+   "of_1x": "89bb9d1598ecd5e9c029c68ca3256f6c3f47a6b333e42031eb9825798191777c",
+   "by": "fx_vector 4",
+   "sha256": "231f477344ffd39745934a1e3f71947c9ab3036d0388024bdea193a0f686629c",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_ezreal_fx",
    "tag": "w_boom",
    "file": "league_ezreal_fx/w_boom.png",

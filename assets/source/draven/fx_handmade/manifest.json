@@ -2,6 +2,41 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_draven_big",
+   "tag": "r_axes",
+   "file": "league_draven_big/r_axes.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     39,
+     35
+    ],
+    [
+     37,
+     35
+    ],
+    [
+     41,
+     33
+    ],
+    [
+     41,
+     33
+    ]
+   ],
+   "of_1x": "cbe08d2e95ce724324f925e6dc256561023ea127d9b3d9f4d5716c89efc229a5",
+   "by": "fx_vector 4",
+   "sha256": "915d34ffe765dcb88f5b8c9f6332881cd16dead0e9480b348f3389617665e55b",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_draven_fx",
    "tag": "q_zone",
    "file": "league_draven_fx/q_zone.png",

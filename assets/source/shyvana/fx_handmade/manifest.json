@@ -168,6 +168,41 @@
   },
   {
    "sheet": "league_shyvana_big",
+   "tag": "r_breath",
+   "file": "league_shyvana_big/r_breath.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     19
+    ],
+    [
+     45,
+     19
+    ],
+    [
+     45,
+     19
+    ],
+    [
+     45,
+     19
+    ]
+   ],
+   "of_1x": "7be43c1bb2c00edf334668244c141e6df4cf20d12896aa11197e37f6b9c050bb",
+   "by": "fx_vector 4",
+   "sha256": "d26e764b0dc8e6f0e61547a5148d8b3a250bccecd5654537a3e921a14d1f021d",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_shyvana_big",
    "tag": "r_land",
    "file": "league_shyvana_big/r_land.png",
    "ppu": 2,

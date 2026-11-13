@@ -132,6 +132,81 @@
    "note": "batch 02 rings and zones 2026-11-14"
   },
   {
+   "sheet": "league_chogath_big",
+   "tag": "w_wave",
+   "file": "league_chogath_big/w_wave.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     11
+    ],
+    [
+     55,
+     27
+    ],
+    [
+     57,
+     33
+    ],
+    [
+     55,
+     33
+    ],
+    [
+     55,
+     33
+    ]
+   ],
+   "of_1x": "3ff5480b17d4df1096bca0242e6ae3290b1ceee5b12c388d34bdcca893d2bfbd",
+   "by": "fx_vector 4",
+   "sha256": "9f97702f302c599a7a4afb27d4770486b45959b085fa23422af83c8b8ea074a1",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_fx",
+   "tag": "e_arm",
+   "file": "league_chogath_fx/e_arm.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     41,
+     39
+    ],
+    [
+     43,
+     41
+    ],
+    [
+     49,
+     43
+    ],
+    [
+     41,
+     39
+    ]
+   ],
+   "of_1x": "da5b516c6b645e4dea3ad89cf58e762196dbb0bbf9c396cfa48cef46347dc0a8",
+   "by": "fx_vector 4",
+   "sha256": "e2afef85ef316c9d33d32570e40eee728ba52dc0c353f85d5bf5f5f442231496",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
    "sheet": "league_chogath_fx",
    "tag": "w_hit",
    "file": "league_chogath_fx/w_hit.png",

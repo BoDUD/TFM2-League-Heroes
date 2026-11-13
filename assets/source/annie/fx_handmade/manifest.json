@@ -113,6 +113,51 @@
   },
   {
    "sheet": "league_annie_big",
+   "tag": "tibbers_drop",
+   "file": "league_annie_big/tibbers_drop.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     29,
+     127
+    ],
+    [
+     59,
+     77
+    ],
+    [
+     57,
+     127
+    ],
+    [
+     51,
+     83
+    ],
+    [
+     53,
+     87
+    ],
+    [
+     47,
+     83
+    ]
+   ],
+   "of_1x": "c51cf1a36f12c05fd37ef9c7109cfcf0d1c565c58ec0ba1b891bf3ca43299e3a",
+   "by": "fx_vector 4",
+   "sha256": "864525383f707595618311ee831e2756e4acba90065672876208c33098c0a2a6",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_annie_big",
    "tag": "w_cone",
    "file": "league_annie_big/w_cone.png",
    "ppu": 2,

@@ -120,6 +120,66 @@
    "by": "fx_vector 4",
    "sha256": "20f3f3b71b2311f0aa3ca52c58d19d4f51e74be024607acd57f11ea3702a26bc",
    "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_fiora_fx",
+   "tag": "w_guard",
+   "file": "league_fiora_fx/w_guard.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     35,
+     43
+    ],
+    [
+     33,
+     43
+    ],
+    [
+     31,
+     43
+    ],
+    [
+     31,
+     43
+    ],
+    [
+     29,
+     43
+    ],
+    [
+     29,
+     43
+    ],
+    [
+     27,
+     43
+    ],
+    [
+     27,
+     43
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "of_1x": "a0eddc10fb420818c802846e4446706cdceda5b40559736a27da908794bcd9cc",
+   "by": "fx_vector 4",
+   "sha256": "24cfc943ce653ea0343e1e29ceead6b5498f2b33b0b0e1c4d52030f3aac14e47",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
   }
  ]
 }
