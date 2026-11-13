@@ -30,7 +30,9 @@ has Q and W ready.
           swing, on the first champion it hits).
   ult     R Glacial Prison (极冰寒狱), `Targeting` on `EnemyChampion` within r_range: on r_rel the bola flies (a line
           stopping on the first champion, r_speed, r_len): r_stun ticks stunned, r_dmg + r_ap% AP; where it stops an
-          ice storm (r_sr) slows every enemy r_slow% for r_storm ticks.
+          ice storm (r_sr) slows every enemy r_slow% for r_storm ticks, then bursts (League's shatter, 2026-11-14): the
+          enemies still inside take r2_dmg + r2_ap% AP and are slowed r2_slow% for r2_slow_t ticks (the zone's end
+          effects) - not the champion the bola froze, which takes no damage in the ticks of the burst (`r_spare`).
   combos  Q -> W: a charge through an enemy champion takes `w_cd` off and has the controller swing W at the first
           champion in reach (once she has cast W herself this life, `w_lv`). W -> freeze: W's two swings bring the Frost to four. Stun ->
           shatter (above). R -> Q: the bola's stun takes `q_cd` off and the controller charges Q at a
@@ -39,7 +41,8 @@ has Q and W ready.
           Sejuani herself: `own`): the Frost Armour, the combos' casts.
 The add-on copy (--native, addons/league_sejuani: everything League does that the data cannot): the passive
 league_sejuani:frost keeps the Frost stacks on each champion (the data adds a `frost` buff to it, f_n of them freeze
-it: stunned e_stun ticks, e_dmg + e_ap% AP), shatters every champion she hits while it is stunned or knocked up by
+it: stunned e_stun ticks, e_dmg + e_ap% AP, and no Frost lands on it for the next f_im ticks), shatters every
+champion she hits while it is stunned or knocked up by
 anyone (her allies too: a 3-tick `hit` mark from her attack and W; sh_cd ticks a champion), clears every slow off her
 while the Frost Armour lasts (no tenacity stand-in) and puts her in combat (`fight`) when she takes damage, and stops
 Arctic Assault at the first enemy champion (`q_stop`: she is held where she hit it for the rest of the charge).
@@ -78,6 +81,10 @@ P = {
     "fa_out": 300, "fa_keep": 120, "fa_def": 40, "fa_mr": 40, "fa_tough": 30,
     # passive: Permafrost (Frost stacks -> freeze) and the shatter
     "f_t": 300, "f_n": 4, "e_stun": 60, "e_dmg": 60, "e_ap": 40,
+    # the add-on only (Frost on each champion): League's "Enemy champions cannot be affected by Frost for 8 seconds
+    # after having it consumed" (2026-11-14, 「全改吧」; before: a frozen champion could be stacked again at once). Not in
+    # the main pack: its stacks are counted on her for every champion together, a wait there would be hers
+    "f_im": 480,
     "sh_win": 90, "sh_cd": 300, "sh_dmg": 30, "sh_ap": 40, "sh_pct": 6,
     # skill: Q Arctic Assault
     "q_cd": 420, "q_range": 45000, "q_dur": 24, "q_go": 6, "q_speed": 6000, "q_t": 8, "q_dmg": 80, "q_ap": 70,
@@ -93,6 +100,12 @@ P = {
     # ult: R Glacial Prison
     "r_cd": 4200, "r_range": 70000, "r_dur": 30, "r_rel": 14, "r_speed": 12000, "r_len": 80000, "r_w": 8000, "r_dmg": 170,
     "r_ap": 80, "r_stun": 75, "r_sr": 26000, "r_slow": 35, "r_storm": 120,
+    # League: "After 2 seconds, the storm shatters" - the bola's increased damage again to the enemies still inside and
+    # "slow them by 80% for 1 second"; "The enemy hit by the bola is unaffected by the storm's effects" (the wiki; the
+    # user, 2026-11-14, on the list of differences from League: 「全改吧」). Before: the storm only slowed r_slow% and
+    # faded. r2_spare: the champion the bola froze takes no damage from that many ticks before the burst to as many
+    # after it (the storm bursts r_storm ticks after the hit in the classic engine: trace.exe, 2026-11-14)
+    "r2_dmg": 170, "r2_ap": 80, "r2_slow": 80, "r2_slow_t": 60, "r2_spare": 3,
     # her spoken lines, at most one every vo_gap ticks
     "vo_gap": 600,
     "native": 0,
@@ -224,10 +237,11 @@ def casted(duration, period, *effects, kind="Heal"):
     return {"type": "AddCasted", "casted_type": kind, "duration": duration, "period": period, "effects": list(effects)}
 
 
-def field(name, radius, tick, period, effects, target="EnemyWithoutTower", first=None):
+def field(name, radius, tick, period, effects, target="EnemyWithoutTower", first=None, end=()):
+    """`end`: run on every unit of `target` still inside when the zone ends (champion-data section 4)."""
     return {"type": "RangePeriodProjectile", "name": n(name), "shape": circle(radius), "tick": tick, "period": period,
             "first_delay": period if first is None else first, "applied_target": target,
-            "applied_effects": [T(e) for e in effects], "end_effects": []}
+            "applied_effects": [T(e) for e in effects], "end_effects": [T(e) for e in end]}
 
 
 def voice(name, p):
@@ -317,11 +331,19 @@ def build(p):
 
     # ------------------------------------------------------------------ R Glacial Prison
     # R -> Q: the frozen champion takes q_cd off her and the controller charges at it (Sejuani's own: `own`)
+    # the storm's burst passes the champion the bola froze by (League: "unaffected by the storm's effects"): data
+    # cannot leave one unit out of an area, so for r2_spare ticks either side of the burst it takes no damage (every
+    # hit deals 1: league_lillia Q's way of keeping units out of an area hit); the burst's slow still lands on it
     prison = [stun(p["r_stun"]), ap(p["r_dmg"], p["r_ap"]), view("r_hit"), tsfx("r_hit"),
-              open_shatter(p["r_stun"] + p["sh_win"]), sw("own", combine(*rm("q_cd"), refresh("q_go", p["r_stun"])))]
+              open_shatter(p["r_stun"] + p["sh_win"]), sw("own", combine(*rm("q_cd"), refresh("q_go", p["r_stun"]))),
+              delayed(p["r_storm"] - p["r2_spare"], buff("r_spare", 2 * p["r2_spare"] + 1, damaged_reduce=100))]
+    # the burst: the zone's end effects run on every enemy still inside; its picture and sound once on the spot
+    burst = [ap(p["r2_dmg"], p["r2_ap"]), buff("r_chill", p["r2_slow_t"], move_speed_mult=-p["r2_slow"]),
+             view("sh_hit")]
     storm = [view("r_storm"), sfx("r_storm"),
              field("r_ice", p["r_sr"], p["r_storm"], 10,
-                   [buff("r_slow", 20, move_speed_mult=-p["r_slow"])], first=1)]
+                   [buff("r_slow", 20, move_speed_mult=-p["r_slow"])], first=1, end=burst),
+             delayed(p["r_storm"], view("r_burst"), tsfx("sh_hit"))]
     bola = line("r_bola", p["r_speed"], p["r_len"], p["r_w"], "EnemyChampion", prison, penetrate=False, end=storm)
     r_cast = combine(fight(), anim("ult", p["r_dur"]), sfx("r"), voice("vo_r", p),
                      delayed(p["r_rel"] - 1, alive(sfx("r_throw"), bola)))
@@ -353,8 +375,11 @@ def build(p):
     views_p = [Pj("w_line"), Pj("r_bola")]
     views_e = [E("a_hit"), E("q_dash", FX, -1, False), E("q_hit"), E("f_mark"), E("w_sweep", BIG, -1, False),
                E("w_hit"), E("e_freeze"), E("sh_hit"), E("r_hit"),
-               E("r_storm", BIG, -1, False)]
-    views_b = [B_("fa", FX, -1, "fa_armour"), B_("w_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow")]
+               E("r_storm", BIG, -1, False),
+               # the storm's burst: the ice ring breaking into shards (Winter's Wrath's sweep frames, on the spot)
+               {"type": "Animation", "name": n("r_burst"), "anim": BIG, "tag": "w_sweep", "z": -1, "is_follow": False}]
+    views_b = [B_("fa", FX, -1, "fa_armour"), B_("w_slow", FX, -1, "slow"), B_("r_slow", FX, -1, "slow"),
+               B_("r_chill", FX, -1, "slow")]
     # the Queen of the Freljord's ice crown: addons/league_eggs hangs the buff on the War for the Freljord's winner for
     # the rest of the match (the sheet: addons/league_eggs/make_fx.py, a tag a queen; tools/fix/eggs_crown_views.py)
     views_b.append({"type": "Animated", "name": "league_eggs_crown_sejuani", "anim": "asset/league/effects/league_eggs_crown_1x",
@@ -364,7 +389,7 @@ def build(p):
         views_b.append(B_("frost", FX, 3, "frost"))
         extra["passive"] = {"passive_ref": "league_sejuani:frost",
                             "params": {k: p[k] for k in ("f_n", "e_stun", "e_dmg", "e_ap", "sh_cd", "sh_dmg", "sh_ap",
-                                                         "sh_pct", "q_t", "fa_out")}}
+                                                         "sh_pct", "q_t", "fa_out", "f_im")}}
     return {
         "id": ID, "category": "Melee", "tags": ["AP", "Melee", "CC", "Tank"], **extra,
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",

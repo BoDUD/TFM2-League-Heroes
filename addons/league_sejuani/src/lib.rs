@@ -5,7 +5,8 @@
 //!
 //! - **霜冻层数记在每个敌人身上**：副本的普攻和 W 每打中一个敌方英雄，就往它身上挂一层 `league_sejuani_frost`（主包读不到
 //!   目标身上的 buff，只能在瑟庄妮身上共用一个计数）。本包每 tick 数每个敌方英雄身上的层数，满 `f_n` 层就摘掉、把它
-//!   冻住（晕 `e_stun` tick，`e_dmg` + `e_ap`% 法强的魔法伤害）——永冻领域。
+//!   冻住（晕 `e_stun` tick，`e_dmg` + `e_ap`% 法强的魔法伤害）——永冻领域。被冻住的英雄之后 `f_im` tick 叠不上霜冻
+//!   （0.1.5；英雄联盟：霜冻被消耗后 8 秒内不受霜冻影响），期间挂上去的层数当拍摘掉。
 //! - **碎冰对谁的晕眩都算**：她的普攻和 W 打中敌方英雄时挂 3 tick 的 `league_sejuani_hit`；本包看到这个标记时，那个英雄
 //!   正被晕住或击飞（不管是谁控的，队友的也算），就碎冰：`sh_dmg` + `sh_ap`% 法强 + 它最大生命的 `sh_pct`% 魔法伤害，
 //!   同一个英雄 `sh_cd` tick 一次。标记看一次就摘，冻住的那一下不会马上碎。
@@ -165,11 +166,14 @@ pub struct Params {
     pub q_t: usize,
     /// 受伤后多少 tick 内算在战斗中（冰霜护甲不续）。
     pub fa_out: usize,
+    /// 被冻住的英雄多少 tick 内叠不上霜冻（英雄联盟 8 秒）。
+    pub f_im: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
-        Self { f_n: 4, e_stun: 60, e_dmg: 60, e_ap: 40, sh_cd: 300, sh_dmg: 30, sh_ap: 40, sh_pct: 6, q_t: 8, fa_out: 300 }
+        Self { f_n: 4, e_stun: 60, e_dmg: 60, e_ap: 40, sh_cd: 300, sh_dmg: 30, sh_ap: 40, sh_pct: 6, q_t: 8, fa_out: 300,
+               f_im: 480 }
     }
 }
 
@@ -192,6 +196,7 @@ pub fn parse_params(json: &str) -> Params {
             "sh_pct" => p.sh_pct = v,
             "q_t" => p.q_t = v,
             "fa_out" => p.fa_out = v,
+            "f_im" => p.f_im = v,
             _ => {}
         }
     }
@@ -234,6 +239,8 @@ struct Frost {
     pin: Option<(u64, u64, usize)>,
     /// (champion id, tick its shatter is ready again).
     sh_ready: Vec<(usize, usize)>,
+    /// (champion id, tick Frost lands on it again): League's 8 s without Frost after a freeze.
+    frost_ready: Vec<(usize, usize)>,
     freezes: usize,
     shatters: usize,
     slows: usize,
@@ -248,6 +255,18 @@ impl Frost {
     fn set_shatter_cd(&mut self, id: usize, at: usize) {
         self.sh_ready.retain(|&(c, _)| c != id);
         self.sh_ready.push((id, at));
+    }
+
+    /// Frost lands on this champion (not frozen in the last `f_im` ticks).
+    fn frost_open(&self, id: usize, tick: usize) -> bool {
+        self.frost_ready.iter().all(|&(c, at)| c != id || tick >= at)
+    }
+
+    fn set_frost_wait(&mut self, id: usize, at: usize) {
+        // the ones whose wait is over go too (ids of old lives)
+        let now = at.saturating_sub(self.p.f_im);
+        self.frost_ready.retain(|&(c, t)| c != id && t > now);
+        self.frost_ready.push((id, at));
     }
 
     /// Arctic Assault: hold her where she hit the first champion until the charge would have ended.
@@ -308,7 +327,7 @@ impl Frost {
                 continue;
             }
             let hits = count(&c, HIT);
-            let frost = count(&c, FROST);
+            let mut frost = count(&c, FROST);
             let stun = stunned(&c);
             let (_, max) = c.hp();
             let on = InputTargetV1::target(id);
@@ -328,9 +347,15 @@ impl Frost {
                     }
                 }
             }
+            // no Frost on a champion frozen in the last f_im ticks (League: 8 s after its Frost was consumed)
+            if frost > 0 && !self.frost_open(id, tick) {
+                sim.entity_remove_buff(id, FROST);
+                frost = 0;
+            }
             // Permafrost: f_n Frost stacks freeze it
             if frost >= self.p.f_n {
                 sim.entity_remove_buff(id, FROST);
+                self.set_frost_wait(id, tick + self.p.f_im);
                 sim.apply_cc(id, &CcV1::stun(self.p.e_stun as u64));
                 let dmg = freeze_damage(&self.p, ap);
                 sim.deal_damage(me, id, 0, dmg, AttackTypeV1::Skill);
@@ -338,8 +363,8 @@ impl Frost {
                 sim.play_sfx(&format!("{ID}_e_freeze"), me, &on);
                 self.freezes += 1;
                 if let Some(k) = tally(sim, "freeze") {
-                    wlog(format!("{} FREEZE {} ({frost} Frost, stunned {} ticks, {dmg} magic before resistance; {} in all) #{k}",
-                                 head(sim, me), name_of(sim, id), self.p.e_stun, self.freezes));
+                    wlog(format!("{} FREEZE {} ({frost} Frost, stunned {} ticks, {dmg} magic before resistance, no Frost on it for {} ticks; {} in all) #{k}",
+                                 head(sim, me), name_of(sim, id), self.p.e_stun, self.p.f_im, self.freezes));
                 }
             }
         }
@@ -427,9 +452,9 @@ mod tests {
 
     #[test]
     fn params_come_from_the_champion_data() {
-        let p = parse_params(r#"{"e_ap":50,"e_dmg":30,"e_stun":70,"f_n":3,"fa_out":240,"q_t":9,"sh_ap":30,"sh_cd":200,"sh_dmg":10,"sh_pct":8,"x":1}"#);
+        let p = parse_params(r#"{"e_ap":50,"e_dmg":30,"e_stun":70,"f_im":420,"f_n":3,"fa_out":240,"q_t":9,"sh_ap":30,"sh_cd":200,"sh_dmg":10,"sh_pct":8,"x":1}"#);
         assert_eq!(p, Params { f_n: 3, e_stun: 70, e_dmg: 30, e_ap: 50, sh_cd: 200, sh_dmg: 10, sh_ap: 30, sh_pct: 8, q_t: 9,
-                               fa_out: 240 });
+                               fa_out: 240, f_im: 420 });
         assert_eq!(parse_params("{}"), Params::default());
     }
 
@@ -463,6 +488,22 @@ mod tests {
         assert!(f.shatter_ready(8, 10));
         f.set_shatter_cd(7, 500);
         assert_eq!(f.sh_ready.len(), 1);
+    }
+
+    #[test]
+    fn a_frozen_champion_takes_no_frost_for_eight_seconds() {
+        // League: "Enemy champions cannot be affected by Frost for 8 seconds after having it consumed"
+        let mut f = Frost::default();
+        assert_eq!(f.p.f_im, 480);
+        assert!(f.frost_open(7, 0));
+        f.set_frost_wait(7, 1000 + f.p.f_im);
+        assert!(!f.frost_open(7, 1479) && f.frost_open(7, 1480));
+        assert!(f.frost_open(8, 1001), "each champion its own wait");
+        // a later freeze of another champion drops the waits that are over
+        f.set_frost_wait(8, 2000 + f.p.f_im);
+        assert_eq!(f.frost_ready, vec![(8, 2480)]);
+        f.set_frost_wait(9, 2100 + f.p.f_im);
+        assert_eq!(f.frost_ready.len(), 2);
     }
 
     #[test]
