@@ -82,12 +82,12 @@ jobs:
           python -I addons/league_yasuo_wall/make_override.py --check
           python -I addons/league_kayle/make_override.py --check
           python -I addons/league_rumble/make_override.py --check
+      - name: Attacks - what one does to its own caster is packed under a hidden projectile's hit (settles, undoes to the source)
+        run: python -I tools/kit/attack_self.py --check
       - name: Armed ults' refunds read a flag that is still up (a flag of n ticks is seen on n - 1 of them)
         run: python -I tools/kit/check_arm_refund.py
       - name: Range buffs are league.dll's league:range markers (no `range` on a buff, the attack reads them, table up to date)
         run: python -I tools/kit/range_buffs.py --check
-      - name: Attacks - what one does to its own caster is packed under a hidden projectile's hit (settles, undoes to the source)
-        run: python -I tools/kit/attack_self.py --check
       - name: Stack counts in the champion panel - the heroes' stack_skill_index and league.dll's table agree
         run: |
           python -I tools/kit/stack_nums.py --check
