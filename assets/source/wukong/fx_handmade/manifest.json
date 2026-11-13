@@ -1,0 +1,80 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_wukong_big",
+   "tag": "r_on",
+   "file": "league_wukong_big/r_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     69,
+     35
+    ],
+    [
+     69,
+     35
+    ],
+    [
+     71,
+     37
+    ],
+    [
+     69,
+     35
+    ]
+   ],
+   "of_1x": "bc8f942c43b970294d687e9993324a477743268b93c1fe20ae78b970d0370888",
+   "by": "fx_vector 3",
+   "sha256": "fbeb35fe47f3c158a43fc8c87f30359633324e4e5d0f5eb95545df9f2482ef6e",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_wukong_big",
+   "tag": "w_poof",
+   "file": "league_wukong_big/w_poof.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     31,
+     43
+    ],
+    [
+     43,
+     59
+    ],
+    [
+     43,
+     67
+    ],
+    [
+     43,
+     67
+    ],
+    [
+     43,
+     65
+    ]
+   ],
+   "of_1x": "b1071ca0e3268a85d06a65bac7b17a7a8d5f264bda72abbf633130f20c3f0d49",
+   "by": "fx_vector 4",
+   "sha256": "a1f173cfed1ecb94e18b7fbb231ed2be388622a6be5e87393ae2e11fd4cb303c",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

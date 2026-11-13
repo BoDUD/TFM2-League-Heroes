@@ -1,0 +1,125 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_veigar_big",
+   "tag": "w_fall",
+   "file": "league_veigar_big/w_fall.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     21,
+     231
+    ],
+    [
+     19,
+     201
+    ],
+    [
+     21,
+     177
+    ],
+    [
+     21,
+     145
+    ],
+    [
+     19,
+     115
+    ],
+    [
+     49,
+     79
+    ],
+    [
+     43,
+     49
+    ],
+    [
+     43,
+     43
+    ],
+    [
+     27,
+     27
+    ]
+   ],
+   "of_1x": "36c2531934b58748ac519054e840fbbb5eccacad373c356ad09ca04a31cf7897",
+   "by": "fx_vector 4",
+   "sha256": "4554200421494a3e4123cc5095f6e282757bbeaa096fbe33172cb29ec3533665",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_veigar_big",
+   "tag": "w_mark",
+   "file": "league_veigar_big/w_mark.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     45,
+     31
+    ],
+    [
+     45,
+     31
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     49,
+     33
+    ],
+    [
+     49,
+     35
+    ],
+    [
+     49,
+     33
+    ],
+    [
+     43,
+     33
+    ]
+   ],
+   "of_1x": "9405fe2909f84c090d961a34a745dab424e899003880f91e07de9dc86602a096",
+   "by": "fx_vector 4",
+   "sha256": "1ebe9740edd7bd60a27d40e0141c068cfe8ee364f8ca0a5a35505c1ff3a4b604",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

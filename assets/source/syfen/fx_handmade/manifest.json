@@ -1,0 +1,140 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_syfen_big",
+   "tag": "e_sweep",
+   "file": "tft_syfen_big/e_sweep.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     53,
+     47
+    ],
+    [
+     63,
+     47
+    ],
+    [
+     63,
+     47
+    ],
+    [
+     63,
+     47
+    ],
+    [
+     63,
+     47
+    ],
+    [
+     47,
+     45
+    ]
+   ],
+   "of_1x": "933f1b20bcc6d4fc9faedf82b0586cbfa39e58ddcf21a796d86c167540f9c95e",
+   "by": "fx_vector 4",
+   "sha256": "a1d48b66c9da0e600d30e9f3a1f364595778cdcbc41567699d572f236f935264",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_syfen_big",
+   "tag": "p_rage",
+   "file": "tft_syfen_big/p_rage.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     39
+    ],
+    [
+     53,
+     53
+    ],
+    [
+     53,
+     63
+    ],
+    [
+     51,
+     57
+    ],
+    [
+     53,
+     43
+    ],
+    [
+     53,
+     39
+    ]
+   ],
+   "of_1x": "b032f1f6303eeefafeb1c16b60797ce7e2a5c9df81e588a129693173379242dc",
+   "by": "fx_vector 4",
+   "sha256": "8c55bea34c4336c302d929b4ac5459e8fa5b2ab74ce652cdff1a9ba4f42a93e4",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_syfen_big",
+   "tag": "r",
+   "file": "tft_syfen_big/r.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     53,
+     53
+    ],
+    [
+     55,
+     63
+    ],
+    [
+     55,
+     71
+    ],
+    [
+     53,
+     63
+    ],
+    [
+     49,
+     63
+    ],
+    [
+     47,
+     59
+    ]
+   ],
+   "of_1x": "54d56def5e836ce8b66f6aebc8588f4fc1bbdfbb16f4bcced16ed329c6aafc26",
+   "by": "fx_vector 4",
+   "sha256": "05b4170c384b8ca302a5004147df3c962a8a37390950b00585c6353f8989caeb",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

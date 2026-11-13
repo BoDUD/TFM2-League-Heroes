@@ -1,0 +1,60 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_sevika_big",
+   "tag": "r_kill",
+   "file": "tft_sevika_big/r_kill.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     43,
+     59
+    ],
+    [
+     43,
+     43
+    ],
+    [
+     43,
+     43
+    ],
+    [
+     43,
+     49
+    ],
+    [
+     43,
+     53
+    ],
+    [
+     43,
+     51
+    ],
+    [
+     31,
+     45
+    ],
+    [
+     23,
+     41
+    ]
+   ],
+   "of_1x": "67e9cba6238d755cdfaf4b0f89f117baddfdad9ebe9f8baac94280a8f4a9a66d",
+   "by": "fx_vector 4",
+   "sha256": "b7dc447c3386045b473438d64b36f3e361d5582e7652142dceac4e0eb09261e8",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

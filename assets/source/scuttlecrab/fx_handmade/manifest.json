@@ -1,0 +1,80 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_scuttlecrab_big",
+   "tag": "q_shrine",
+   "file": "tft_scuttlecrab_big/q_shrine.png",
+   "ppu": 2,
+   "frames": 36,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     85,
+     45
+    ],
+    [
+     83,
+     45
+    ],
+    [
+     87,
+     47
+    ],
+    [
+     85,
+     47
+    ],
+    [
+     87,
+     49
+    ],
+    [
+     85,
+     49
+    ]
+   ],
+   "of_1x": "84a7a53b980119cc088f165239e0a3cfc08ff36fa7cbcb45858110c572f43602",
+   "by": "fx_vector 4",
+   "sha256": "fd8873c4ef72de85fbf814dd3e42cdd9ebf2249afdec8660ce5987013baed6cf",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

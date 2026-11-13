@@ -1,0 +1,120 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_drmundo_big",
+   "tag": "w_burst",
+   "file": "league_drmundo_big/w_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     41,
+     63
+    ],
+    [
+     51,
+     37
+    ],
+    [
+     59,
+     85
+    ],
+    [
+     61,
+     85
+    ],
+    [
+     59,
+     49
+    ]
+   ],
+   "of_1x": "bdc34a443b1b1145498015bea95a8440695b7a963e0a2a5802384d0fad06a6cc",
+   "by": "fx_vector 4",
+   "sha256": "be8f916a0121c5a51e2a1f98a0936f153ffed0a5b0d9bb6d3cac7de79b81b550",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_drmundo_big",
+   "tag": "w_on",
+   "file": "league_drmundo_big/w_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     55,
+     55
+    ],
+    [
+     53,
+     53
+    ],
+    [
+     55,
+     53
+    ],
+    [
+     55,
+     53
+    ]
+   ],
+   "of_1x": "f1b731c03e53f0b0c77359bbc4e8f2b7661d5420f9ca8d17e777e2f800181ca7",
+   "by": "fx_vector 3",
+   "sha256": "29bbb3630e62dce86c4377e5285f713cc948e7461a823dddd201ce0354574383",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_drmundo_fx",
+   "tag": "p_shake",
+   "file": "league_drmundo_fx/p_shake.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     43,
+     33
+    ],
+    [
+     45,
+     43
+    ],
+    [
+     45,
+     47
+    ],
+    [
+     39,
+     41
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "of_1x": "b93c4e13696a8b741231b4b69ab083f052532971efd5632a74ee7be9b60efb01",
+   "by": "fx_vector 3",
+   "sha256": "a28dba75f1551555d82d9eb6999df0dd80578d48fcf9ce434f91b7b2a26c8b92",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

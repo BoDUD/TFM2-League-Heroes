@@ -1,0 +1,310 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_pantheon_big",
+   "tag": "e_bash",
+   "file": "league_pantheon_big/e_bash.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     21,
+     19
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     51,
+     25
+    ],
+    [
+     51,
+     27
+    ],
+    [
+     51,
+     23
+    ]
+   ],
+   "of_1x": "9dcccd3c6b1134a1a55a9069f38686a758aa686e89706bedb7559355dc0e2af1",
+   "by": "fx_vector 4",
+   "sha256": "7b5d73460d25e21056b0e6d44b3f90f0229df96e4e6f5e69a7425e3241037afb",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_pantheon_big",
+   "tag": "e_shield",
+   "file": "league_pantheon_big/e_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     45,
+     67
+    ],
+    [
+     49,
+     71
+    ],
+    [
+     45,
+     77
+    ],
+    [
+     45,
+     65
+    ],
+    [
+     45,
+     75
+    ],
+    [
+     45,
+     77
+    ]
+   ],
+   "of_1x": "cf2bb6fbd073dd4549e051e8a18d46eab493b6506c24d67ece2eac4df2692918",
+   "by": "fx_vector 4",
+   "sha256": "633eca621d2443c203efd021b371d9e07627642c14b49dd7639abfe09f2d7754",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_pantheon_big",
+   "tag": "r_cast",
+   "file": "league_pantheon_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     73
+    ],
+    [
+     41,
+     73
+    ],
+    [
+     41,
+     93
+    ],
+    [
+     43,
+     99
+    ],
+    [
+     41,
+     99
+    ],
+    [
+     21,
+     99
+    ]
+   ],
+   "of_1x": "62f1d86bde72da952fbc3a4b164f5e4b8f9464a649093742df0c5f52f9f426df",
+   "by": "fx_vector 4",
+   "sha256": "64f9ea85bb2feba39dfc91b854350e47299d0aaed6a57dfeebc9c8b35592ac3b",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_pantheon_big",
+   "tag": "r_land",
+   "file": "league_pantheon_big/r_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     13,
+     31
+    ],
+    [
+     73,
+     87
+    ],
+    [
+     59,
+     83
+    ],
+    [
+     67,
+     51
+    ],
+    [
+     41,
+     31
+    ]
+   ],
+   "of_1x": "8c59cc0a3e0148d4a895a6a41f9f43751d77f206773c38a2890bf273f7070930",
+   "by": "fx_vector 4",
+   "sha256": "773ac0505b4c7a53e8dd43a84fb95dffadd65eb16cf20d5a77123bcfb5abb069",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_pantheon_big",
+   "tag": "r_mark",
+   "file": "league_pantheon_big/r_mark.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     57,
+     41
+    ],
+    [
+     59,
+     41
+    ],
+    [
+     59,
+     41
+    ],
+    [
+     57,
+     41
+    ],
+    [
+     63,
+     41
+    ],
+    [
+     63,
+     39
+    ]
+   ],
+   "of_1x": "24fb9b4dc8242856882a2e174fe32a97f634dcc8401ebc87404181e3ecb5837c",
+   "by": "fx_vector 3",
+   "sha256": "6d518d36cf15692e25e554dcc22f2fa4ab6af86977e12a016eae7da2f7587ce5",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_pantheon_fx",
+   "tag": "e_def",
+   "file": "league_pantheon_fx/e_def.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     29,
+     79
+    ],
+    [
+     29,
+     79
+    ],
+    [
+     29,
+     79
+    ],
+    [
+     29,
+     79
+    ]
+   ],
+   "of_1x": "67270cd18c63267d267a30e458cb1a8ab887da8dafaa7780409d04d48669ee9f",
+   "by": "fx_vector 3",
+   "sha256": "1bcd550450baf56244b013ac6c0bb1c371d55dfad19b960c3f7e838b50e86d00",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_pantheon_jump",
+   "tag": "r_jump",
+   "file": "league_pantheon_jump/r_jump.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     31,
+     27
+    ],
+    [
+     47,
+     149
+    ],
+    [
+     53,
+     265
+    ],
+    [
+     71,
+     265
+    ],
+    [
+     81,
+     265
+    ],
+    [
+     81,
+     265
+    ],
+    [
+     81,
+     265
+    ],
+    [
+     77,
+     193
+    ]
+   ],
+   "of_1x": "f56cee4c1a961489c53e9f698dd4251f2aa924a66a96478d192efc42ba8e13b2",
+   "by": "fx_vector 4",
+   "sha256": "fccfc6c921245f3a3d87dbb3dc515e52d0f307ec82008ee5d36385a6fa668ff7",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

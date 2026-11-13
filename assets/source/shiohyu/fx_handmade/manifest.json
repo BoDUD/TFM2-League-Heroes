@@ -1,0 +1,175 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_shiohyu_big",
+   "tag": "p",
+   "file": "tft_shiohyu_big/p.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     41,
+     57
+    ],
+    [
+     41,
+     71
+    ],
+    [
+     41,
+     69
+    ],
+    [
+     41,
+     57
+    ],
+    [
+     31,
+     55
+    ]
+   ],
+   "of_1x": "a13e1ae5a230215bfb9b52caa7646869a70e560fd23c87f33a561a9286840fff",
+   "by": "fx_vector 4",
+   "sha256": "7e0a4fe65f5e2482b83c6fb32c593ff313885901df68f015555508ccf1dd1597",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_shiohyu_big",
+   "tag": "p_skin",
+   "file": "tft_shiohyu_big/p_skin.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     43
+    ],
+    [
+     35,
+     43
+    ],
+    [
+     35,
+     43
+    ],
+    [
+     35,
+     43
+    ],
+    [
+     35,
+     45
+    ],
+    [
+     35,
+     45
+    ]
+   ],
+   "of_1x": "fb0930ecfb668561f03cdfd67a16cdec200f1f7889f8be2e73e88dda2dd04195",
+   "by": "fx_vector 4",
+   "sha256": "92884e1772bc58664a1c3fd44243084bc41c5aaec2405cbc3277ccda82de9d19",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_shiohyu_big",
+   "tag": "r",
+   "file": "tft_shiohyu_big/r.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     33,
+     31
+    ],
+    [
+     33,
+     59
+    ],
+    [
+     37,
+     71
+    ],
+    [
+     35,
+     71
+    ],
+    [
+     27,
+     63
+    ]
+   ],
+   "of_1x": "90a30882bfdb90392247d63ce907219f77a349f9a71655333f3faf7695c573f8",
+   "by": "fx_vector 4",
+   "sha256": "de44be6fbe7ba3c75b1a33d0d66aaaaa014826fe325e5a9a50f4092b082f97f8",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_shiohyu_big",
+   "tag": "r_jade",
+   "file": "tft_shiohyu_big/r_jade.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     37,
+     57
+    ],
+    [
+     37,
+     57
+    ],
+    [
+     37,
+     57
+    ],
+    [
+     37,
+     57
+    ],
+    [
+     37,
+     57
+    ],
+    [
+     37,
+     57
+    ]
+   ],
+   "of_1x": "f158c0ff4e9adfd5c1ac97c0098cbce88749743977a889318afca8ec71a17a71",
+   "by": "fx_vector 4",
+   "sha256": "1ec9f836e5ba016f93e078c7cef39030665461b50a362266c955f4704f03a62e",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

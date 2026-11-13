@@ -1,0 +1,164 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_malzahar_big",
+   "tag": "q_rift",
+   "file": "league_malzahar_big/q_rift.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     33,
+     25
+    ],
+    [
+     39,
+     25
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     43,
+     25
+    ],
+    [
+     35,
+     25
+    ]
+   ],
+   "of_1x": "1183ddf3b102e7441ff986e28820d76ed3883da7ea113e4dbbeb9f6f6057fb13",
+   "by": "fx_vector 3",
+   "sha256": "d6ec46b21188a4da60510096ea6d659656f99d165b107fd96ac2031305d969ff",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_malzahar_big",
+   "tag": "r_pool",
+   "file": "league_malzahar_big/r_pool.png",
+   "ppu": 2,
+   "frames": 32,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     41,
+     37
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     41,
+     37
+    ]
+   ],
+   "of_1x": "26b665caca51ab3c7d34a3d7116589021813ba79daed0e8240cef7262d972f04",
+   "by": "fx_vector 3",
+   "sha256": "2988da84db84fed6aad08c18e86dde5bb686ea96ac131b261efc084fd86026e9",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_malzahar_fx",
+   "tag": "p_shift",
+   "file": "league_malzahar_fx/p_shift.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     37,
+     67
+    ],
+    [
+     37,
+     67
+    ],
+    [
+     37,
+     67
+    ],
+    [
+     39,
+     67
+    ]
+   ],
+   "of_1x": "a13b261e4cc8980708fa39d2f59515cb4c8d398db5006c3d02981705e1e2f088",
+   "by": "fx_vector 3",
+   "sha256": "9d0d2c0d9d624a3ed9bed922b987a284042c4d0f89e35942a45e5e0db9e58b39",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

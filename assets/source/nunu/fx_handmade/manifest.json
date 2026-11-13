@@ -1,0 +1,155 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_nunu_big",
+   "tag": "r_storm",
+   "file": "league_nunu_big/r_storm.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     109,
+     59
+    ],
+    [
+     111,
+     59
+    ],
+    [
+     109,
+     59
+    ],
+    [
+     111,
+     59
+    ],
+    [
+     111,
+     59
+    ],
+    [
+     111,
+     59
+    ]
+   ],
+   "of_1x": "4d7124e170c9fbed22fc069baef43656d80ffb902c4d1736d9aededfda34dbcd",
+   "by": "fx_vector 3",
+   "sha256": "a26754a844b267dfc864f669f99658a8d1a946fa393201aeff601f28f9f8b5b6",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_nunu_fx",
+   "tag": "p_on",
+   "file": "league_nunu_fx/p_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     41,
+     35
+    ],
+    [
+     41,
+     35
+    ],
+    [
+     41,
+     35
+    ],
+    [
+     41,
+     35
+    ]
+   ],
+   "of_1x": "7d56d2152da61ed5a9abe9bcf6dc2be01694026161cd834356f1d982411239d1",
+   "by": "fx_vector 3",
+   "sha256": "507060c2f78091eb864e25f10b8426c281594ad0effcf3ba538d8d581b0b8d67",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_nunu_fx",
+   "tag": "r_shield",
+   "file": "league_nunu_fx/r_shield.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ]
+   ],
+   "of_1x": "001cff79992b98b2fd30cbb1ae433ff12c97e8bdb51be0236300928d7f758db9",
+   "by": "fx_vector 3",
+   "sha256": "f20ea70d1787a1bd75278f853c4d0fb82498cf8c7dfb7c0f14d78359fc86874c",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_nunu_fx",
+   "tag": "r_slow",
+   "file": "league_nunu_fx/r_slow.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     19,
+     25
+    ],
+    [
+     19,
+     25
+    ],
+    [
+     19,
+     25
+    ]
+   ],
+   "of_1x": "1977f6363ec0b513d6ee24ebc59be90bca0e3b44a21d5884cd2132f16d32d77c",
+   "by": "fx_vector 3",
+   "sha256": "2fa2627fe44dcbf79bcb0a27b655218dda8fcda499f34ef810f2c739fffd9081",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

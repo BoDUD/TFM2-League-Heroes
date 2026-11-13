@@ -1,0 +1,531 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q2_body",
+   "file": "league_aatrox_big/q2_body.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     55,
+     41
+    ],
+    [
+     55,
+     41
+    ],
+    [
+     53,
+     41
+    ]
+   ],
+   "of_1x": "d8e43519c574ae2734c5af2d03c6d7a4796d8c4847c7508e6116a7a61a63d9c4",
+   "by": "fx_vector 4",
+   "sha256": "3129b5be4af38ea3c2e8d82d6be9507d84fbee19ede1b39f8f3d44dfd599d8df",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q2_tele",
+   "file": "league_aatrox_big/q2_tele.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "11f394887b5f66835b50470adaca09051f2068658adda59561188ea9ecc16f3b",
+   "by": "fx_vector 3",
+   "sha256": "bcb45542bf59cd10893fa9bfb07473bd5ada0d1a749c499710bba72165da9641",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q2_tele_b",
+   "file": "league_aatrox_big/q2_tele_b.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "36e320720cb4b9b1b8bac3cc38388a83287f24f243548c2c941e3d0ffa47089c",
+   "by": "fx_vector 3",
+   "sha256": "40a0efa22e25f36d431a4c8b71d76513653523009389576a3f94bde649524994",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q2_tele_c",
+   "file": "league_aatrox_big/q2_tele_c.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "f66dfb0005ae1f8a5791b16e1b106c6b0ed21a2a58943405aed3c984a4cef0e5",
+   "by": "fx_vector 3",
+   "sha256": "06efeb075dda96b58571044168fb380e7f3d9fa9e73da13ae75334b14d51a1d2",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q3_body",
+   "file": "league_aatrox_big/q3_body.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     47,
+     57
+    ],
+    [
+     47,
+     53
+    ],
+    [
+     49,
+     55
+    ],
+    [
+     47,
+     53
+    ]
+   ],
+   "of_1x": "cf8a7f5b7b4bbba1604ad26cfe287c13f464f76884a901f491e96ece8afcf1e7",
+   "by": "fx_vector 4",
+   "sha256": "1aa82ba286ecf1fa6700b82209343f6db8062d2dddd89af26d7e2e9d1f56e365",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q3_tele",
+   "file": "league_aatrox_big/q3_tele.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ]
+   ],
+   "of_1x": "bbf3447bfdfc30426ef5ec0ee83c8d1cd79277412ca352d2610057fa953b0510",
+   "by": "fx_vector 3",
+   "sha256": "30d23ba3dd969bdfb045117edab1f01a34fc96e8681fff52d6d204a536603bec",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q3_tele_b",
+   "file": "league_aatrox_big/q3_tele_b.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ]
+   ],
+   "of_1x": "6953561f204c934e75cfa9d9a1fed39f12bd13f491912d5e2a6d7170a83be600",
+   "by": "fx_vector 3",
+   "sha256": "9818b5f8d7c571d4a0c659ee8024d306a1357d2a3e4be8094df0570895e9b589",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "q3_tele_c",
+   "file": "league_aatrox_big/q3_tele_c.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ],
+    [
+     49,
+     67
+    ]
+   ],
+   "of_1x": "02a969ce037471d4b24551baba9928a0310cfae233472f3e5c262f9eb40b6348",
+   "by": "fx_vector 3",
+   "sha256": "1049d683078d7fc2be3720dde46b2ec34a4e8c59c0ee21778b30709eb2b08b7c",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "r_aura",
+   "file": "league_aatrox_big/r_aura.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    0
+   ],
+   "sizes": [
+    [
+     49,
+     51
+    ],
+    [
+     49,
+     51
+    ],
+    [
+     51,
+     51
+    ],
+    [
+     51,
+     51
+    ],
+    [
+     49,
+     51
+    ]
+   ],
+   "of_1x": "f7a9c54e1a716f3d35322e56169e60045f70b6f6a70fcd29b853ba2465b8bed8",
+   "by": "fx_vector 3",
+   "sha256": "b4094c92853c46fefe33982fc53b4a57748e528fd214946f33c1241aeab18bba",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "w_ring",
+   "file": "league_aatrox_big/w_ring.png",
+   "ppu": 2,
+   "frames": 19,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    5
+   ],
+   "sizes": [
+    [
+     25,
+     41
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     69,
+     63
+    ]
+   ],
+   "of_1x": "6f4af745f345f03ef6efa460abacc50157853f493ba29c69a49a904d8a8aab6d",
+   "by": "fx_vector 3",
+   "sha256": "052ed9698e6b184996201e6418fd4b94818bca1ab764d92ea57c30e194a9a8fa",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_big",
+   "tag": "w_snap",
+   "file": "league_aatrox_big/w_snap.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     65,
+     61
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     69,
+     61
+    ],
+    [
+     65,
+     61
+    ],
+    [
+     33,
+     43
+    ]
+   ],
+   "of_1x": "d06fc780fd3941811f848a958ea4b99908a6646a32b3645431df92d6511e0cd9",
+   "by": "fx_vector 4",
+   "sha256": "e3cbf7e08b2f2ab70ef4e22e7116778c78579e8b679047cfc27a62ca3a7f64f2",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_aatrox_fx",
+   "tag": "r_feared",
+   "file": "league_aatrox_fx/r_feared.png",
+   "ppu": 2,
+   "frames": 15,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2,
+    3,
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     21,
+     27
+    ],
+    [
+     21,
+     27
+    ],
+    [
+     21,
+     27
+    ],
+    [
+     21,
+     27
+    ]
+   ],
+   "of_1x": "3d80cadc32e4a7118ca10d36687d697a4d0345cad62118d2bcdbbec8fcc42563",
+   "by": "fx_vector 3",
+   "sha256": "8508ea7a302d82d09aadc43f607ee0d1ce848235d41ef4dde25f80c3ea9ccee3",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

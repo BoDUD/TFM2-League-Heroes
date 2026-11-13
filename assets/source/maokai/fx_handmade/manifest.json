@@ -1,0 +1,95 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_maokai_big",
+   "tag": "p_heal",
+   "file": "league_maokai_big/p_heal.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     29
+    ],
+    [
+     51,
+     33
+    ],
+    [
+     51,
+     35
+    ],
+    [
+     51,
+     61
+    ],
+    [
+     51,
+     59
+    ],
+    [
+     51,
+     19
+    ]
+   ],
+   "of_1x": "f5b746ac57bc2dd252eab4039f417b03f38729e6a21f5f01417cb33398f4489f",
+   "by": "fx_vector 4",
+   "sha256": "a058cd8d1d0e6debac418db96ec764272c0eece899c913189ba690518848e62e",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_maokai_big",
+   "tag": "q_cast",
+   "file": "league_maokai_big/q_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     55,
+     31
+    ],
+    [
+     55,
+     35
+    ],
+    [
+     59,
+     35
+    ],
+    [
+     61,
+     37
+    ],
+    [
+     61,
+     33
+    ],
+    [
+     61,
+     33
+    ]
+   ],
+   "of_1x": "ce8499780125a0e81b0947b60c5c5fbca4f3639affc8c135108e3bf726a4097c",
+   "by": "fx_vector 4",
+   "sha256": "17507277465c956acaaaef8490b27fc76a9f65e55e36544c329480ab2a338546",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

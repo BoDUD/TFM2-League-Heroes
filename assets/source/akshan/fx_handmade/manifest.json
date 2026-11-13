@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_akshan_fx",
+   "tag": "p_sh",
+   "file": "league_akshan_fx/p_sh.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     35,
+     61
+    ],
+    [
+     35,
+     61
+    ],
+    [
+     35,
+     61
+    ],
+    [
+     35,
+     61
+    ]
+   ],
+   "of_1x": "d04debabc8a7a4207b9e83cf329ee861efbab32f645b1e46e34e91fcc73c19ee",
+   "by": "fx_vector 3",
+   "sha256": "883536ca14360d6ff06d0416f4430c64f61e6bdc792aa2dfc4dfb6bf66e91300",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

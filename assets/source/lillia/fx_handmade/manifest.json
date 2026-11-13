@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_lillia_big",
+   "tag": "q_spin",
+   "file": "league_lillia_big/q_spin.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     25,
+     33
+    ],
+    [
+     45,
+     41
+    ],
+    [
+     55,
+     43
+    ],
+    [
+     55,
+     43
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     55,
+     41
+    ]
+   ],
+   "of_1x": "097acecb4ff27d343bdd1204cd603323318c805b3cb6b9417fb42332b7916bbe",
+   "by": "fx_vector 4",
+   "sha256": "79228fe1b5d401a7277931ba6b7fcefbd5f6347999fd1bebaa4ba7cb8417f04b",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  }
+ ]
+}

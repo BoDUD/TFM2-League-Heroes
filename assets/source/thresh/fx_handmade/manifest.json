@@ -1,0 +1,246 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_thresh_big",
+   "tag": "e_sweep",
+   "file": "league_thresh_big/e_sweep.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     63,
+     49
+    ],
+    [
+     65,
+     59
+    ],
+    [
+     67,
+     59
+    ],
+    [
+     67,
+     59
+    ],
+    [
+     67,
+     59
+    ],
+    [
+     67,
+     55
+    ],
+    [
+     63,
+     51
+    ]
+   ],
+   "of_1x": "e7fd5bd7d01db8afceabd70152e04be8d671498315a357d004efb415d7c45b4a",
+   "by": "fx_vector 4",
+   "sha256": "1f68b5128989c1c72bc3c51dbada4c89df368ca044539aa977d5593d523afc56",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_thresh_big",
+   "tag": "r_box",
+   "file": "league_thresh_big/r_box.png",
+   "ppu": 2,
+   "frames": 46,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "sizes": [
+    [
+     77,
+     57
+    ],
+    [
+     85,
+     59
+    ],
+    [
+     83,
+     59
+    ],
+    [
+     83,
+     59
+    ],
+    [
+     85,
+     59
+    ],
+    [
+     87,
+     59
+    ],
+    [
+     87,
+     59
+    ],
+    [
+     87,
+     61
+    ],
+    [
+     87,
+     57
+    ],
+    [
+     77,
+     53
+    ]
+   ],
+   "of_1x": "5ca0e73817492faf5d8660122b98bf14fd2d1bb48581fab8f8fe165b9bdac5e0",
+   "by": "fx_vector 4",
+   "sha256": "16781ee0413a39335a3f52cda2352896587d5c221852d003903bc2733a549686",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_thresh_fx",
+   "tag": "flay_hit",
+   "file": "league_thresh_fx/flay_hit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     21
+    ],
+    [
+     19,
+     35
+    ],
+    [
+     23,
+     47
+    ],
+    [
+     23,
+     39
+    ],
+    [
+     19,
+     35
+    ],
+    [
+     11,
+     27
+    ]
+   ],
+   "of_1x": "618f6f1a547707387ea5985e31784f9570394c7b92d7d17d1b93bbe0215a7697",
+   "by": "fx_vector 4",
+   "sha256": "87169a76491ec90f0fd152d2d2f15aafa940aba9284aa5c14efd3f67b0010078",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_thresh_fx",
+   "tag": "w_shield",
+   "file": "league_thresh_fx/w_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     61
+    ],
+    [
+     33,
+     61
+    ],
+    [
+     33,
+     57
+    ],
+    [
+     33,
+     57
+    ],
+    [
+     33,
+     57
+    ],
+    [
+     33,
+     57
+    ]
+   ],
+   "of_1x": "204a3cacc0347224f89ab12cb0c018dfb745c5fce7faa6cb2250f2e86288d4bb",
+   "by": "fx_vector 3",
+   "sha256": "03dec1379a79c8981020ed4bdc02f5694754026ed5c199925590a0ddf9ce80a9",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

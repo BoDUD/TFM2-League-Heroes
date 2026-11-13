@@ -1,0 +1,180 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_riven_big",
+   "tag": "r_aura",
+   "file": "league_riven_big/r_aura.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     43,
+     83
+    ],
+    [
+     43,
+     77
+    ],
+    [
+     43,
+     71
+    ],
+    [
+     43,
+     79
+    ],
+    [
+     43,
+     73
+    ],
+    [
+     43,
+     81
+    ]
+   ],
+   "of_1x": "0a12beca902b464a622d7db156defe53999e02c1c03a4a8835fc2eb8e9e132a3",
+   "by": "fx_vector 3",
+   "sha256": "4df113769600ccaf471b931f7857d9c1b4fdf0776a3da91447606f29d785e48d",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_riven_big",
+   "tag": "shield",
+   "file": "league_riven_big/shield.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     25
+    ],
+    [
+     43,
+     25
+    ],
+    [
+     45,
+     25
+    ],
+    [
+     43,
+     25
+    ]
+   ],
+   "of_1x": "4280f13077beafeaab710c13884ff17f84b3413f8e26066d5c56a839a0d4e364",
+   "by": "fx_vector 3",
+   "sha256": "14b2966fa1166eb1bd3f6d36d0c57803bc5665030485cf627c8a5cbd401e3da3",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_riven_big",
+   "tag": "shield_in",
+   "file": "league_riven_big/shield_in.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     27,
+     21
+    ],
+    [
+     43,
+     19
+    ]
+   ],
+   "of_1x": "3ce529009b215ce58d06248b4919d64ab3479f466f3c3b8233fbcb3b318c99c0",
+   "by": "fx_vector 3",
+   "sha256": "8311a5f43c5c4c1c93393872e69dbc4302dcf2d3ac2fbb7a421dc4644ca7f334",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_riven_fx",
+   "tag": "r_wave",
+   "file": "league_riven_fx/r_wave.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     89,
+     89
+    ],
+    [
+     87,
+     87
+    ]
+   ],
+   "of_1x": "dc80aa4f7937f02ec114910294a3e9c237f74ef563ec05f4ee7d71cca11c9ca7",
+   "by": "fx_vector 4",
+   "sha256": "afb3b4875660421e4712afce3b725c3605bdf67b5edc93226b8e97a64b2838c2",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_riven_fx",
+   "tag": "stun",
+   "file": "league_riven_fx/stun.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     21,
+     65
+    ],
+    [
+     21,
+     65
+    ],
+    [
+     21,
+     65
+    ],
+    [
+     23,
+     65
+    ],
+    [
+     21,
+     65
+    ],
+    [
+     21,
+     65
+    ]
+   ],
+   "of_1x": "a845ab61e10ffd3c72f6513177af6e5fafb594ebb91088174b5d328b2d23e504",
+   "by": "fx_vector 3",
+   "sha256": "583b0e474fe7dd377740aad03023b261883c952729bcafe7c0e5671e72bdd029",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

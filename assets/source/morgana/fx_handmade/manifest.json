@@ -1,0 +1,237 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_morgana_big",
+   "tag": "r_cast",
+   "file": "league_morgana_big/r_cast.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     43,
+     63
+    ],
+    [
+     85,
+     77
+    ],
+    [
+     105,
+     93
+    ],
+    [
+     121,
+     99
+    ],
+    [
+     101,
+     85
+    ],
+    [
+     93,
+     81
+    ],
+    [
+     67,
+     77
+    ]
+   ],
+   "of_1x": "7456272ee3792d24fc850de6c0cd98e42844b805d97983d9946102219c25c78d",
+   "by": "fx_vector 1",
+   "sha256": "a01ed0ef915058be38b492e217ac97d8f32d1cfebdf8e682b821e6c60fd0e452",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_morgana_big",
+   "tag": "w_pool",
+   "file": "league_morgana_big/w_pool.png",
+   "ppu": 2,
+   "frames": 40,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     19,
+     29
+    ],
+    [
+     43,
+     45
+    ],
+    [
+     43,
+     45
+    ],
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ],
+    [
+     35,
+     41
+    ],
+    [
+     17,
+     29
+    ]
+   ],
+   "of_1x": "8070fb887b9e5b67223f2aa8f53b1d7bddef437258304f00d60dc6fd5df5bead",
+   "by": "fx_vector 1",
+   "sha256": "cd77b7577ad3f5091787a55167a5931c0e110a4d9efc56930893833327a94da5",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_morgana_fx",
+   "tag": "e_shield",
+   "file": "league_morgana_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     35,
+     63
+    ],
+    [
+     35,
+     67
+    ],
+    [
+     35,
+     63
+    ],
+    [
+     41,
+     63
+    ]
+   ],
+   "of_1x": "9fea6071eaa4c27ee43e161e6235eb93aed4bfe581169fff47c7644ae04f47dd",
+   "by": "fx_vector 1",
+   "sha256": "03940890584f6964eec567384d3c50985f1be9be7068d52cdfc19e9da8fd07dd",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_morgana_fx",
+   "tag": "e_shield_in",
+   "file": "league_morgana_fx/e_shield_in.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     35,
+     25
+    ],
+    [
+     37,
+     27
+    ],
+    [
+     35,
+     63
+    ]
+   ],
+   "of_1x": "c2230dc9dcb51df63be4e8550ff14963a7b25b26f6e4bbb5728fd5ac9c67e0e6",
+   "by": "fx_vector 1",
+   "sha256": "5703ff6e86ae45d047e5bac0fb6094dd35aa1f90659220a461f6fb956e1d9f7f",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_morgana_fx",
+   "tag": "e_shield_out",
+   "file": "league_morgana_fx/e_shield_out.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     35,
+     61
+    ],
+    [
+     47,
+     57
+    ],
+    [
+     17,
+     13
+    ]
+   ],
+   "of_1x": "8f0ed565f8dcf579f892c875b372a185770dd0cf7b297050d1d20e7b1faae967",
+   "by": "fx_vector 1",
+   "sha256": "28a3b97e3720106d4dc318041726e99c3158848eb683688c747acd96158a6cb5",
+   "note": "pilot 2026-11-14"
+  }
+ ]
+}

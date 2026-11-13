@@ -1,0 +1,116 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_sentry_big",
+   "tag": "r_sweep",
+   "file": "tft_sentry_big/r_sweep.png",
+   "ppu": 2,
+   "frames": 20,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    0
+   ],
+   "sizes": [
+    [
+     3,
+     3
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ],
+    [
+     231,
+     71
+    ]
+   ],
+   "of_1x": "34bc25ec87f41d41d84ee7545317f784a65f5a4bafb7e5a8f6a0b1f78814ae16",
+   "by": "fx_vector 4",
+   "sha256": "c6874217b2aae8d5634ba59a0a7544e09fc1739287f56e971372ad7212658314",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

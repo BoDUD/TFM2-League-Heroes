@@ -1,0 +1,255 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_rakan_big",
+   "tag": "q_burst",
+   "file": "league_rakan_big/q_burst.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     45
+    ],
+    [
+     49,
+     45
+    ],
+    [
+     85,
+     99
+    ],
+    [
+     73,
+     95
+    ],
+    [
+     57,
+     65
+    ],
+    [
+     29,
+     49
+    ]
+   ],
+   "of_1x": "a94c12726e7b28ec1d99f49133f7d64183c048a74646559dc6f2fee34d1a2539",
+   "by": "fx_vector 4",
+   "sha256": "9ac25e6d1387c532b63f55d8adcd58a4f94c102e92ec61ae2e50e5d1cf7e49cb",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_rakan_fx",
+   "tag": "e_on",
+   "file": "league_rakan_fx/e_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     23,
+     45
+    ],
+    [
+     21,
+     47
+    ],
+    [
+     21,
+     43
+    ],
+    [
+     23,
+     45
+    ],
+    [
+     21,
+     45
+    ],
+    [
+     23,
+     45
+    ]
+   ],
+   "of_1x": "948f4b9438895bc67a4bc3f5420942de3adf1b5835d86895883460f2c84e8c82",
+   "by": "fx_vector 3",
+   "sha256": "e388336071345c7b34081b687e49817c4f89ee9fc406f62903917cc9aeac6f5d",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_rakan_fx",
+   "tag": "e_shield",
+   "file": "league_rakan_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     15,
+     35
+    ],
+    [
+     17,
+     39
+    ],
+    [
+     17,
+     45
+    ],
+    [
+     17,
+     49
+    ],
+    [
+     17,
+     45
+    ],
+    [
+     17,
+     35
+    ]
+   ],
+   "of_1x": "a9824aa7f5229508750ff557bde0411b093e251a9c0b3e913e16ada5507f28c0",
+   "by": "fx_vector 3",
+   "sha256": "0a0c0c9c102a3d7031d62248b92881db340cecf2522d2c59dbc44bdfc7d5ba2e",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_rakan_fx",
+   "tag": "p_on",
+   "file": "league_rakan_fx/p_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     63
+    ],
+    [
+     33,
+     63
+    ],
+    [
+     33,
+     63
+    ],
+    [
+     33,
+     63
+    ],
+    [
+     35,
+     63
+    ],
+    [
+     35,
+     63
+    ]
+   ],
+   "of_1x": "29751df64b9c907b064c0b3d50ab97dad2110e474efd32f879a109770cd1f2c5",
+   "by": "fx_vector 3",
+   "sha256": "32696b71a5e06b0db79ce4f564432fa2439211d4668f22442e116b9eaeca1bd3",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_rakan_fx",
+   "tag": "q_heal",
+   "file": "league_rakan_fx/q_heal.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     33,
+     27
+    ],
+    [
+     33,
+     27
+    ],
+    [
+     33,
+     29
+    ],
+    [
+     31,
+     35
+    ]
+   ],
+   "of_1x": "318e896cbbbc0fa2f11286aa9e06dec8dacb910b151d808595788aa16376be3d",
+   "by": "fx_vector 3",
+   "sha256": "c5ffc99c5f5a44d6a65ec2f906078a81bab7078ae580867595013513405cc7c7",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_rakan_fx",
+   "tag": "r_on",
+   "file": "league_rakan_fx/r_on.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     89,
+     39
+    ],
+    [
+     91,
+     37
+    ],
+    [
+     93,
+     37
+    ],
+    [
+     93,
+     37
+    ]
+   ],
+   "of_1x": "36565edb7a3520e25e920680e1983339ef0ab1673288b99cc2124b1efb6c5543",
+   "by": "fx_vector 3",
+   "sha256": "bd51746f62404e35cb29772f37e893adeff243c160626e99f1f2f372367109ec",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

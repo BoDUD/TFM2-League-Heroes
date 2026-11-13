@@ -1,0 +1,80 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_brock_big",
+   "tag": "e_shield",
+   "file": "tft_brock_big/e_shield.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     45,
+     65
+    ],
+    [
+     47,
+     73
+    ],
+    [
+     39,
+     69
+    ],
+    [
+     37,
+     69
+    ],
+    [
+     47,
+     81
+    ]
+   ],
+   "of_1x": "92a1f99108e1c88a571661a22743b7901e012d7366da7c8ed09a0873cdf7568c",
+   "by": "fx_vector 4",
+   "sha256": "19608ef8ceac27da68d8ce993f7021192ab6fa808de6aaa3160af73a98340357",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_brock_fx",
+   "tag": "a_quake",
+   "file": "tft_brock_fx/a_quake.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     31,
+     31
+    ],
+    [
+     33,
+     33
+    ],
+    [
+     31,
+     35
+    ],
+    [
+     29,
+     31
+    ]
+   ],
+   "of_1x": "b16385ef68c05e59748dfde932707f7f3ff21609edbfedbef227c96b71812193",
+   "by": "fx_vector 4",
+   "sha256": "44e7be515393ade312cc3174a45fcc7587c2532b67fa4f3d6f8670bdf17ee986",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

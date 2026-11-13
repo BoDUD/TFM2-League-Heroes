@@ -1,0 +1,195 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_renekton_big",
+   "tag": "q_spin_e",
+   "file": "league_renekton_big/q_spin_e.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     71,
+     13
+    ],
+    [
+     75,
+     21
+    ],
+    [
+     75,
+     33
+    ],
+    [
+     73,
+     23
+    ],
+    [
+     73,
+     23
+    ],
+    [
+     63,
+     15
+    ]
+   ],
+   "of_1x": "0e61a426bf9e0077b81c49a6e758a81ab036b6c04d6451bc90b90c5aa015f36a",
+   "by": "fx_vector 4",
+   "sha256": "a2caf60ac256e758ae05888ab06756f0420fbcf260cbbd571abc8872d22ef7a7",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_renekton_big",
+   "tag": "r_cast",
+   "file": "league_renekton_big/r_cast.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     75,
+     25
+    ],
+    [
+     75,
+     25
+    ],
+    [
+     75,
+     79
+    ],
+    [
+     75,
+     95
+    ],
+    [
+     75,
+     75
+    ],
+    [
+     75,
+     67
+    ],
+    [
+     75,
+     27
+    ],
+    [
+     73,
+     23
+    ]
+   ],
+   "of_1x": "15cb4925f60ddb00a133f7715c32ee21db961064e5f64f938b876f082364e1c2",
+   "by": "fx_vector 3",
+   "sha256": "66f865a687799eb841be3b08937df260372a7587207349b47a14463d8da0588b",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_renekton_big",
+   "tag": "r_on",
+   "file": "league_renekton_big/r_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     65,
+     33
+    ],
+    [
+     65,
+     33
+    ],
+    [
+     65,
+     33
+    ],
+    [
+     65,
+     33
+    ],
+    [
+     65,
+     33
+    ],
+    [
+     65,
+     33
+    ]
+   ],
+   "of_1x": "3a6e723e6ac42a81639b626d06f492cfeb3a6b412407d0791c380c18dc74ea4e",
+   "by": "fx_vector 3",
+   "sha256": "97e2a1a78eb9b87a5d3868555a1f8b941a3b16b02f5ff38467c8d6fd7bf7afb2",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_renekton_fx",
+   "tag": "f5",
+   "file": "league_renekton_fx/f5.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     49,
+     59
+    ],
+    [
+     49,
+     65
+    ],
+    [
+     49,
+     65
+    ],
+    [
+     49,
+     59
+    ],
+    [
+     49,
+     63
+    ],
+    [
+     49,
+     63
+    ]
+   ],
+   "of_1x": "5b2fea9d0c28b283221ed65e6cca997086727eb86301ba4fa8f27295a246698c",
+   "by": "fx_vector 3",
+   "sha256": "b084561e4cdb8b5369cbbf82a3c0bc3d7d836c260614cd54d1dc29468a31bea0",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

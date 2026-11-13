@@ -1,0 +1,80 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_vex_fx",
+   "tag": "r_hit",
+   "file": "league_vex_fx/r_hit.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     11,
+     39
+    ],
+    [
+     21,
+     45
+    ],
+    [
+     23,
+     51
+    ],
+    [
+     21,
+     45
+    ]
+   ],
+   "of_1x": "384b18102b61ef30d5ff3710cf2be2a98331f806263fb0e89aaff938383ff55d",
+   "by": "fx_vector 3",
+   "sha256": "97dc7cec4af73028be3f0b04ec697c6154e595640a2457d88cce8eb99aaf68c0",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_vex_fx",
+   "tag": "w_shield",
+   "file": "league_vex_fx/w_shield.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     33,
+     37
+    ],
+    [
+     29,
+     57
+    ],
+    [
+     33,
+     57
+    ],
+    [
+     33,
+     57
+    ],
+    [
+     31,
+     43
+    ]
+   ],
+   "of_1x": "4820b9dde4b7b21b3e789fea09f0bd6f0583ed1a63a23c7f914485aa723a98aa",
+   "by": "fx_vector 4",
+   "sha256": "25e5a242d02f228e8a9cde453fcbb69c2904572d2b6a3b892ad3fce5485162a0",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

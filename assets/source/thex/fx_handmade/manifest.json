@@ -1,0 +1,70 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_thex_big",
+   "tag": "p_blast",
+   "file": "tft_thex_big/p_blast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     15,
+     15
+    ],
+    [
+     45,
+     31
+    ],
+    [
+     81,
+     79
+    ],
+    [
+     81,
+     77
+    ],
+    [
+     81,
+     35
+    ]
+   ],
+   "of_1x": "db81d5045211d8bb9f3989df849e5587a9e49f6aefecc4035aeef6374a11490c",
+   "by": "fx_vector 4",
+   "sha256": "e70825190f69795422d945351db3a77d0492fa86ad500a39fcee25c74dd16acb",
+   "note": "batch 09 TFT pack 2026-11-14"
+  },
+  {
+   "sheet": "tft_thex_big",
+   "tag": "r_shield",
+   "file": "tft_thex_big/r_shield.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     61,
+     69
+    ],
+    [
+     61,
+     69
+    ]
+   ],
+   "of_1x": "ed1961c90a92dcb6e2c8bc1a501341eaabafde1e7b93125b4c934b884fdfb3a9",
+   "by": "fx_vector 4",
+   "sha256": "5565b58be707f4e0e5a5b7a945671c86a5c63a9702c04967bd004bde43d7ef4a",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

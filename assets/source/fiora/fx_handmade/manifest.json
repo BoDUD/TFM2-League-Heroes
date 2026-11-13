@@ -1,0 +1,185 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_fiora_big",
+   "tag": "r_zone",
+   "file": "league_fiora_big/r_zone.png",
+   "ppu": 2,
+   "frames": 28,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     15,
+     41
+    ],
+    [
+     73,
+     59
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     57
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     69,
+     55
+    ],
+    [
+     71,
+     51
+    ]
+   ],
+   "of_1x": "1835d224216e2ee819906d7bd20db5367984b771f8f6804a9007f91c5dc3a57b",
+   "by": "fx_vector 3",
+   "sha256": "befd6f902b4ee85035cbe48d70ca3c429a8e87e1aab58d5b814d90d1b08fec47",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_fiora_fx",
+   "tag": "r_on",
+   "file": "league_fiora_fx/r_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     39,
+     47
+    ],
+    [
+     41,
+     43
+    ],
+    [
+     43,
+     49
+    ],
+    [
+     39,
+     47
+    ],
+    [
+     37,
+     47
+    ],
+    [
+     39,
+     47
+    ]
+   ],
+   "of_1x": "9492bd0131bfd1b639273bbd12a405df8e3657d79f61264c11ee17006e7b4437",
+   "by": "fx_vector 4",
+   "sha256": "20f3f3b71b2311f0aa3ca52c58d19d4f51e74be024607acd57f11ea3702a26bc",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_fiora_fx",
+   "tag": "w_guard",
+   "file": "league_fiora_fx/w_guard.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     35,
+     43
+    ],
+    [
+     33,
+     43
+    ],
+    [
+     31,
+     43
+    ],
+    [
+     31,
+     43
+    ],
+    [
+     29,
+     43
+    ],
+    [
+     29,
+     43
+    ],
+    [
+     27,
+     43
+    ],
+    [
+     27,
+     43
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "of_1x": "a0eddc10fb420818c802846e4446706cdceda5b40559736a27da908794bcd9cc",
+   "by": "fx_vector 4",
+   "sha256": "24cfc943ce653ea0343e1e29ceead6b5498f2b33b0b0e1c4d52030f3aac14e47",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,152 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_nocturne_big",
+   "tag": "r_burst",
+   "file": "league_nocturne_big/r_burst.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     57,
+     39
+    ],
+    [
+     113,
+     43
+    ],
+    [
+     115,
+     47
+    ],
+    [
+     113,
+     49
+    ]
+   ],
+   "of_1x": "833a9f1ea5ea110c0c42ba790c187fbc70f4c5169708a4376044f06d1a9ae171",
+   "by": "fx_vector 4",
+   "sha256": "a85468b3f107c4814eeab82270391616d680cf21afb8c80d01b99423714f328d",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_nocturne_big",
+   "tag": "r_hit",
+   "file": "league_nocturne_big/r_hit.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     43,
+     39
+    ],
+    [
+     69,
+     39
+    ],
+    [
+     77,
+     51
+    ],
+    [
+     73,
+     43
+    ]
+   ],
+   "of_1x": "dac1f6aa8bac9fa92f46831f1328e024a5827f738a6139ee933ccfe2a1f3c8c3",
+   "by": "fx_vector 4",
+   "sha256": "2eb4e322ee9a3c6e8a7453383e1debc939754693bad3032d776d25496b76b10b",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_nocturne_fx",
+   "tag": "p_spin",
+   "file": "league_nocturne_fx/p_spin.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     41,
+     21
+    ],
+    [
+     67,
+     27
+    ],
+    [
+     73,
+     31
+    ],
+    [
+     73,
+     29
+    ]
+   ],
+   "of_1x": "8b0a203e9c92e7e99207860e8e160aa76a62046e335b00af7f2a695e005bb010",
+   "by": "fx_vector 4",
+   "sha256": "706c4a00091cdae702eefa2c2b5780fabda17ae648393d57ecdb81ccea157efa",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_nocturne_fx",
+   "tag": "w_shroud",
+   "file": "league_nocturne_fx/w_shroud.png",
+   "ppu": 2,
+   "frames": 15,
+   "distinct": [
+    0,
+    1,
+    2,
+    1,
+    0,
+    1,
+    2,
+    1,
+    0,
+    1,
+    2,
+    1,
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     49,
+     69
+    ],
+    [
+     49,
+     73
+    ],
+    [
+     51,
+     75
+    ]
+   ],
+   "of_1x": "7b59630cc0b4d727689a1e8f918dc15af7fd581929cf04ad72f2f90b2be36613",
+   "by": "fx_vector 3",
+   "sha256": "3521e717059f86175d5a8dec137ff165a5c969d69535926b8bb7a6c1d26e60c1",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

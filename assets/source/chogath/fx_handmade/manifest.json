@@ -1,0 +1,240 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_chogath_big",
+   "tag": "q_crack",
+   "file": "league_chogath_big/q_crack.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     17,
+     29
+    ],
+    [
+     41,
+     41
+    ],
+    [
+     51,
+     39
+    ],
+    [
+     55,
+     39
+    ],
+    [
+     55,
+     43
+    ],
+    [
+     55,
+     39
+    ]
+   ],
+   "of_1x": "a9a4d37d6690a07912e963a0db23f0372afdeb89abb50486246a400939ed8773",
+   "by": "fx_vector 4",
+   "sha256": "e9d1340a6862ade9a63789edc2e5bcc0eac852f4d325cfa6dcb60e862e254b63",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_big",
+   "tag": "q_spikes",
+   "file": "league_chogath_big/q_spikes.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     55,
+     35
+    ],
+    [
+     49,
+     39
+    ],
+    [
+     41,
+     55
+    ],
+    [
+     49,
+     55
+    ],
+    [
+     51,
+     37
+    ],
+    [
+     55,
+     35
+    ]
+   ],
+   "of_1x": "d3b9245fbb2f0132acf10224d90fdadd14b488e8bb526cc093d6af447325354c",
+   "by": "fx_vector 4",
+   "sha256": "5c004eadfbe389884a959f7a45cc032a116bdbeadc95a7e283e4220b284133e7",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_big",
+   "tag": "r_grow",
+   "file": "league_chogath_big/r_grow.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     55,
+     37
+    ],
+    [
+     59,
+     39
+    ],
+    [
+     63,
+     47
+    ],
+    [
+     55,
+     55
+    ],
+    [
+     49,
+     49
+    ]
+   ],
+   "of_1x": "a851d1316b21e3817583623037d940e33f5f7aae3e86a7c5f9b1a29a61e7adc1",
+   "by": "fx_vector 3",
+   "sha256": "8532161eeac046796e31751d26b3e8c33c2b7f79527039d11b259168b0379a5b",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_big",
+   "tag": "w_wave",
+   "file": "league_chogath_big/w_wave.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     11
+    ],
+    [
+     55,
+     27
+    ],
+    [
+     57,
+     33
+    ],
+    [
+     55,
+     33
+    ],
+    [
+     55,
+     33
+    ]
+   ],
+   "of_1x": "3ff5480b17d4df1096bca0242e6ae3290b1ceee5b12c388d34bdcca893d2bfbd",
+   "by": "fx_vector 4",
+   "sha256": "9f97702f302c599a7a4afb27d4770486b45959b085fa23422af83c8b8ea074a1",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_fx",
+   "tag": "e_arm",
+   "file": "league_chogath_fx/e_arm.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     41,
+     39
+    ],
+    [
+     43,
+     41
+    ],
+    [
+     49,
+     43
+    ],
+    [
+     41,
+     39
+    ]
+   ],
+   "of_1x": "da5b516c6b645e4dea3ad89cf58e762196dbb0bbf9c396cfa48cef46347dc0a8",
+   "by": "fx_vector 4",
+   "sha256": "e2afef85ef316c9d33d32570e40eee728ba52dc0c353f85d5bf5f5f442231496",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_fx",
+   "tag": "w_hit",
+   "file": "league_chogath_fx/w_hit.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     7,
+     35
+    ],
+    [
+     17,
+     45
+    ],
+    [
+     17,
+     45
+    ]
+   ],
+   "of_1x": "ebc181fd5d0d82f0522bf5584de11538d38734a682900c90cbc615f14d00d801",
+   "by": "fx_vector 3",
+   "sha256": "d3fb17db0249698bc2c373d22304ad2776c4ea6c507f7a6fb15598384d13c411",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

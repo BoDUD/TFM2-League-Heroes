@@ -1,0 +1,275 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_orianna_big",
+   "tag": "r_wave",
+   "file": "league_orianna_big/r_wave.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     65,
+     57
+    ],
+    [
+     83,
+     67
+    ],
+    [
+     75,
+     61
+    ],
+    [
+     77,
+     59
+    ],
+    [
+     33,
+     41
+    ],
+    [
+     83,
+     89
+    ],
+    [
+     77,
+     61
+    ],
+    [
+     85,
+     65
+    ],
+    [
+     79,
+     41
+    ]
+   ],
+   "of_1x": "c7b7bde5bc09cb7bd02a29b254917887e12c2508a4a0fc5aed50d345903aab64",
+   "by": "fx_vector 1",
+   "sha256": "94e2e3173415118a323d2e97b47044aa5a37303a2f7ad291afb9102980956ca1",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_orianna_big",
+   "tag": "w_ring",
+   "file": "league_orianna_big/w_ring.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     33,
+     39
+    ],
+    [
+     49,
+     49
+    ],
+    [
+     51,
+     61
+    ],
+    [
+     51,
+     61
+    ],
+    [
+     51,
+     59
+    ],
+    [
+     57,
+     57
+    ]
+   ],
+   "of_1x": "123ffe2a80ab52deb0fbb8b05bc76a63b22a32fae215cccdf1db1739bcaff3c2",
+   "by": "fx_vector 3",
+   "sha256": "b00e23e04fa9aa38b71c81d8938db2f671b8e96e34a6792c497e58ed18bb86b4",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_orianna_fx",
+   "tag": "ball_ground",
+   "file": "league_orianna_fx/ball_ground.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     15,
+     23
+    ],
+    [
+     15,
+     23
+    ]
+   ],
+   "of_1x": "59372fdb8fa1b6a24bc94dfd4c581255a3c4cc228612e3953f42e36a8d667044",
+   "by": "fx_vector 3",
+   "sha256": "5831f8b6e32a6b64f00cb4bf779087bdc467780c4e6defd654f8c2c350a2e942",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_orianna_fx",
+   "tag": "ball_side",
+   "file": "league_orianna_fx/ball_side.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    0,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     33
+    ],
+    [
+     51,
+     35
+    ],
+    [
+     47,
+     35
+    ],
+    [
+     51,
+     31
+    ],
+    [
+     47,
+     31
+    ]
+   ],
+   "of_1x": "ee39a045bd85252247e53b5e7437b8805987fd8193a3b9f0d7a79a3bb196cf69",
+   "by": "fx_vector 3",
+   "sha256": "b8656ba70916a532b94e6d2c1a0a860cbdbc0131397f3b797c81a1505b03bcc3",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_orianna_fx",
+   "tag": "e_shield",
+   "file": "league_orianna_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 20,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    0,
+    1,
+    2,
+    3,
+    4,
+    0,
+    1,
+    2,
+    3,
+    4,
+    0,
+    1,
+    2,
+    3,
+    5
+   ],
+   "sizes": [
+    [
+     29,
+     59
+    ],
+    [
+     29,
+     59
+    ],
+    [
+     31,
+     59
+    ],
+    [
+     31,
+     59
+    ],
+    [
+     29,
+     59
+    ],
+    [
+     29,
+     59
+    ]
+   ],
+   "of_1x": "101efdcb26bbcc63d641ca32afb4c6c87a32e4d7efcc40c867160889ab4baac6",
+   "by": "fx_vector 1",
+   "sha256": "eb149c3238d23ad39cc443d16ace94f69d3da4eb8ef182031f42c53482d8a72d",
+   "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_orianna_fx",
+   "tag": "q_land",
+   "file": "league_orianna_fx/q_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     25,
+     35
+    ],
+    [
+     31,
+     37
+    ],
+    [
+     35,
+     41
+    ],
+    [
+     35,
+     41
+    ],
+    [
+     35,
+     31
+    ]
+   ],
+   "of_1x": "1435502424f968866f79c4c3c6700c5407d61c53aa35efd8e4206b2471806e64",
+   "by": "fx_vector 4",
+   "sha256": "815039acea3af83d7152894f2f46abb955df077f7a6143bf34d8c5618902412a",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

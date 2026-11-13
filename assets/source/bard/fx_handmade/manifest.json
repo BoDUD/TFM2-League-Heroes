@@ -1,0 +1,250 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_bard_big",
+   "tag": "e_door",
+   "file": "league_bard_big/e_door.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     31,
+     61
+    ],
+    [
+     31,
+     61
+    ],
+    [
+     27,
+     63
+    ],
+    [
+     27,
+     67
+    ],
+    [
+     23,
+     59
+    ],
+    [
+     31,
+     61
+    ]
+   ],
+   "of_1x": "ac3bbd59410707a64482585996c66c95634219359d2de66b3a3632a414f0e983",
+   "by": "fx_vector 4",
+   "sha256": "4ccd3427f85bd0485c081851eb12effa16e0eef83ad97daeb2a101f536767bee",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
+   "tag": "e_door_out",
+   "file": "league_bard_big/e_door_out.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     31,
+     61
+    ],
+    [
+     31,
+     61
+    ],
+    [
+     27,
+     63
+    ],
+    [
+     27,
+     67
+    ],
+    [
+     23,
+     59
+    ],
+    [
+     31,
+     61
+    ]
+   ],
+   "of_1x": "ac3bbd59410707a64482585996c66c95634219359d2de66b3a3632a414f0e983",
+   "by": "fx_vector 4",
+   "sha256": "4ccd3427f85bd0485c081851eb12effa16e0eef83ad97daeb2a101f536767bee",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
+   "tag": "e_portal",
+   "file": "league_bard_big/e_portal.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    2,
+    3,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     119
+    ],
+    [
+     49,
+     125
+    ],
+    [
+     49,
+     125
+    ],
+    [
+     45,
+     127
+    ]
+   ],
+   "of_1x": "30cebbf8f57a67ac52b2f1f63e46bb6703eb5fcdb203c899e9ebea17eaccf84d",
+   "by": "fx_vector 4",
+   "sha256": "a7eefed642b5e5ac1802e494d4205194d8d4d66b580a5b06c96ebcc1b37b5118",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
+   "tag": "e_portal_out",
+   "file": "league_bard_big/e_portal_out.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    0,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     49,
+     125
+    ],
+    [
+     45,
+     127
+    ],
+    [
+     49,
+     125
+    ],
+    [
+     21,
+     119
+    ]
+   ],
+   "of_1x": "b6343d1c3e32092b0115e066770e84159ca2a2f9859b2d607a13dbf59e80ec8a",
+   "by": "fx_vector 4",
+   "sha256": "b20173d015476453bbed664cad8298d774c64b5fce145400154f92880ff9ad1c",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
+   "tag": "r_free",
+   "file": "league_bard_big/r_free.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     31,
+     39
+    ],
+    [
+     35,
+     41
+    ],
+    [
+     33,
+     41
+    ],
+    [
+     31,
+     31
+    ]
+   ],
+   "of_1x": "40115694e2e09d040b49950a879a17dd9a18c126e6715cddf37ccd5904262923",
+   "by": "fx_vector 4",
+   "sha256": "f7addb6580ab78ad9f3f8434029d1eb4a3147c0e07bf8436ec0dd5705f98ceb7",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
+   "tag": "r_mark",
+   "file": "league_bard_big/r_mark.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     71,
+     43
+    ],
+    [
+     69,
+     47
+    ],
+    [
+     69,
+     49
+    ],
+    [
+     69,
+     51
+    ],
+    [
+     69,
+     51
+    ],
+    [
+     71,
+     51
+    ]
+   ],
+   "of_1x": "5e9ade26827694a7ca74e1ec73ee4e300576cc7b3ddb1bbfa6b65f3fc680f671",
+   "by": "fx_vector 3",
+   "sha256": "ec95f6370a581f3a1336b3d590cb7ffdbe08357622bf76af1f322e60eae1a451",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

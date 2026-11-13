@@ -1,0 +1,45 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_katarina_big",
+   "tag": "spin",
+   "file": "league_katarina_big/spin.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     55,
+     27
+    ],
+    [
+     57,
+     27
+    ],
+    [
+     63,
+     25
+    ],
+    [
+     57,
+     27
+    ],
+    [
+     61,
+     27
+    ]
+   ],
+   "of_1x": "00dca362421f796a2b23e11419cabb5be722b479265005378fecce0655216523",
+   "by": "fx_vector 4",
+   "sha256": "f397db2aa2a2b38b45be78a033ab378f2b985f875fa35ed7dad6ae6cf3033dce",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  }
+ ]
+}

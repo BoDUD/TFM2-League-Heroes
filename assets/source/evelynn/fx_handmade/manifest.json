@@ -1,0 +1,170 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_evelynn_big",
+   "tag": "r_slash",
+   "file": "league_evelynn_big/r_slash.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     47,
+     27
+    ],
+    [
+     91,
+     51
+    ],
+    [
+     89,
+     57
+    ],
+    [
+     83,
+     45
+    ],
+    [
+     73,
+     43
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "of_1x": "f001d4a69794e4ec7d0def0133ce0f7f31f3438e9c47740f60ba19550593f043",
+   "by": "fx_vector 4",
+   "sha256": "99a13eb9816a1deb93708444818fce05ff1571aefef1f42a83d425a7e7ff2552",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_evelynn_big",
+   "tag": "sh_in",
+   "file": "league_evelynn_big/sh_in.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     37,
+     23
+    ],
+    [
+     39,
+     31
+    ],
+    [
+     39,
+     51
+    ],
+    [
+     39,
+     57
+    ],
+    [
+     35,
+     59
+    ]
+   ],
+   "of_1x": "7ca187b2043ba88444ce209b27dd65ed320ee36a6973c7c9018febd2e54392fd",
+   "by": "fx_vector 3",
+   "sha256": "4007b96d89919c281aa63375f35c7d5ce023eea186dda796605d4faaf7470a6d",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_evelynn_big",
+   "tag": "sh_loop",
+   "file": "league_evelynn_big/sh_loop.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     35,
+     59
+    ],
+    [
+     33,
+     61
+    ],
+    [
+     33,
+     63
+    ],
+    [
+     35,
+     67
+    ],
+    [
+     35,
+     61
+    ],
+    [
+     37,
+     59
+    ]
+   ],
+   "of_1x": "5d21cc05dc0351f57a3b872986936859ffa2c6b7e222e7c8f3b571520a4711a8",
+   "by": "fx_vector 3",
+   "sha256": "e41b52cc0c163e59da19f0c12e758cb297592c3b8d32d7d6d19bd6e876bf71a6",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_evelynn_big",
+   "tag": "sh_out",
+   "file": "league_evelynn_big/sh_out.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     35,
+     59
+    ],
+    [
+     45,
+     53
+    ],
+    [
+     43,
+     61
+    ],
+    [
+     37,
+     53
+    ]
+   ],
+   "of_1x": "bb0bc4ce0f265d36347dca0edf45a8749f5f6b3bbac507ee66b576cd0bb66c99",
+   "by": "fx_vector 3",
+   "sha256": "0bd9f18bd517bccf36ae83c116d0a7ff403a1cdd1f9caa62e9a12477b74e0817",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

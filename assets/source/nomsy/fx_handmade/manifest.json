@@ -1,0 +1,55 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_nomsy_big",
+   "tag": "q_hit",
+   "file": "tft_nomsy_big/q_hit.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     35,
+     19
+    ],
+    [
+     39,
+     19
+    ],
+    [
+     43,
+     29
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     43,
+     43
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     39,
+     33
+    ]
+   ],
+   "of_1x": "fc39c4478362e2118219263f32b4c32151a8475df53c47898b2ce737e5eca5e7",
+   "by": "fx_vector 4",
+   "sha256": "a52d0210e08afe0a96c4642f61500e70874ceb4f83287433b535f44e9a654380",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

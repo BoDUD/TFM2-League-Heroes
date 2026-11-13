@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "tft_silco_big",
+   "tag": "r_fog",
+   "file": "tft_silco_big/r_fog.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     81,
+     45
+    ],
+    [
+     81,
+     45
+    ],
+    [
+     79,
+     45
+    ],
+    [
+     79,
+     45
+    ],
+    [
+     81,
+     45
+    ],
+    [
+     81,
+     45
+    ]
+   ],
+   "of_1x": "a7b4ad4005e99b9be672f13e0d0bf46ecbae04dda52f12366a6a24554ec20b2f",
+   "by": "fx_vector 4",
+   "sha256": "3cbb7d4259821644c8c2bd8c05718a28aff01a88afc629f94ff4ce958915ccf0",
+   "note": "batch 09 TFT pack 2026-11-14"
+  }
+ ]
+}

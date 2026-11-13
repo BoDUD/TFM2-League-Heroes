@@ -1,0 +1,205 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_warwick_big",
+   "tag": "e_guard",
+   "file": "league_warwick_big/e_guard.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     65,
+     77
+    ],
+    [
+     65,
+     77
+    ],
+    [
+     63,
+     81
+    ],
+    [
+     63,
+     81
+    ]
+   ],
+   "of_1x": "a08e013bf28c19b9ce3d0bb4bec96a9338087c54a4dc64fba2e10ae16bb2acad",
+   "by": "fx_vector 4",
+   "sha256": "58e94103b4b936ee902ff140f99b5b4d64e5a4a896628a17b43e5a9ebe6d63b9",
+   "note": "batch 08 league projectiles and figurative 2026-11-14"
+  },
+  {
+   "sheet": "league_warwick_big",
+   "tag": "e_howl",
+   "file": "league_warwick_big/e_howl.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     29,
+     43
+    ],
+    [
+     65,
+     57
+    ],
+    [
+     89,
+     59
+    ],
+    [
+     85,
+     59
+    ],
+    [
+     87,
+     57
+    ],
+    [
+     83,
+     57
+    ]
+   ],
+   "of_1x": "47ede697d99a450741695b1fade7f543d6b8f39aa220270fc3075d9621ee0202",
+   "by": "fx_vector 3",
+   "sha256": "5eba972dce802f877814f1e6cd644fbf77f1cbd218d66bfb1b11f849f52c4900",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_warwick_fx",
+   "tag": "e_roar",
+   "file": "league_warwick_fx/e_roar.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     13,
+     69
+    ],
+    [
+     21,
+     79
+    ],
+    [
+     25,
+     87
+    ],
+    [
+     29,
+     103
+    ],
+    [
+     37,
+     107
+    ],
+    [
+     37,
+     103
+    ]
+   ],
+   "of_1x": "fa407a88c9223630de7946e96026dd96329fbe4c99b35d461239c59b285daa39",
+   "by": "fx_vector 4",
+   "sha256": "3cf09deb813a9d9d4db24e194c3dad43216506bf9952387be59c108284f2ce3c",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_warwick_fx",
+   "tag": "q_heal",
+   "file": "league_warwick_fx/q_heal.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     45,
+     31
+    ],
+    [
+     45,
+     29
+    ],
+    [
+     43,
+     41
+    ],
+    [
+     43,
+     65
+    ],
+    [
+     43,
+     27
+    ]
+   ],
+   "of_1x": "5c41c1c7d03c7cc3c2662f025d25356d576116ae3552fac2a36303563e56576a",
+   "by": "fx_vector 3",
+   "sha256": "f96d0b66974f2ecd7489de310b3df695634b05003d46782d4318a42ebc6ed4e5",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_warwick_fx",
+   "tag": "w_hunt",
+   "file": "league_warwick_fx/w_hunt.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     53,
+     35
+    ],
+    [
+     53,
+     35
+    ],
+    [
+     51,
+     33
+    ],
+    [
+     53,
+     33
+    ]
+   ],
+   "of_1x": "48a9f8a52c2553daacb4c7e5132d64b70d641172a763936f5d41850e77e344b4",
+   "by": "fx_vector 3",
+   "sha256": "49e9279823a53295f8ab7c56e68567595300d8c942bea48a0d8d43be005e986a",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

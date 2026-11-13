@@ -1,0 +1,40 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_karthus_fx",
+   "tag": "q_lone",
+   "file": "league_karthus_fx/q_lone.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     11,
+     37
+    ],
+    [
+     17,
+     43
+    ],
+    [
+     17,
+     47
+    ],
+    [
+     17,
+     47
+    ]
+   ],
+   "of_1x": "6561ada16f83f84375cafa4bc588769f559e092740a21e89b77acf3166ed3cbf",
+   "by": "fx_vector 3",
+   "sha256": "f4b09bbf5e7d462e9be98d031c5a6ca2f5138a4a064eede0228777f627a5e132",
+   "note": "batch 03 rings and zones 2026-11-14"
+  }
+ ]
+}

@@ -1,0 +1,140 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_blitzcrank_big",
+   "tag": "r_charge",
+   "file": "league_blitzcrank_big/r_charge.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     45,
+     55
+    ],
+    [
+     51,
+     57
+    ],
+    [
+     55,
+     61
+    ],
+    [
+     57,
+     69
+    ],
+    [
+     57,
+     57
+    ]
+   ],
+   "of_1x": "c8b7bc87509d3e459111a86d05774685fec97dce9fcda07d50637ac229a6844b",
+   "by": "fx_vector 4",
+   "sha256": "6565f9abb580a63d16822fdc669ee93605507cd2225b1a9c445e85945616c000",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_blitzcrank_big",
+   "tag": "r_field",
+   "file": "league_blitzcrank_big/r_field.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     61,
+     53
+    ],
+    [
+     121,
+     73
+    ],
+    [
+     127,
+     87
+    ],
+    [
+     119,
+     81
+    ],
+    [
+     119,
+     65
+    ],
+    [
+     117,
+     69
+    ],
+    [
+     101,
+     51
+    ]
+   ],
+   "of_1x": "dde10733985d8041290c03c5a991b8c3d570483bb01d9476a5299d4d5bd5818f",
+   "by": "fx_vector 3",
+   "sha256": "05b0d75e1e9e28eaf510399a47c91f5230ed34947f063c98a2186b7ba1485d2f",
+   "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_blitzcrank_fx",
+   "tag": "mb_on",
+   "file": "league_blitzcrank_fx/mb_on.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     55,
+     59
+    ],
+    [
+     55,
+     65
+    ],
+    [
+     55,
+     71
+    ],
+    [
+     55,
+     65
+    ],
+    [
+     55,
+     63
+    ],
+    [
+     55,
+     61
+    ]
+   ],
+   "of_1x": "a33315bcbee7f72b998b56c4dfd334e8395484168541d695cca37dc4e8f2f808",
+   "by": "fx_vector 3",
+   "sha256": "7d06b7f4f60e7ce41eeff3bb642fe8168125e39a984730d7593e14ce8e101646",
+   "note": "batch 04 auras and buffs 2026-11-14"
+  }
+ ]
+}

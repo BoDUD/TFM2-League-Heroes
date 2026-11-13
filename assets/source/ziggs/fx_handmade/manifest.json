@@ -1,0 +1,145 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_ziggs_big",
+   "tag": "e_field",
+   "file": "league_ziggs_big/e_field.png",
+   "ppu": 2,
+   "frames": 3,
+   "distinct": [
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     53,
+     45
+    ],
+    [
+     53,
+     45
+    ],
+    [
+     53,
+     45
+    ]
+   ],
+   "of_1x": "e02e76f6789b5495a2647c383db855ce86bef42e5b6592ed559e98555476537f",
+   "by": "fx_vector 3",
+   "sha256": "da8575c3e3f94a5d1a6aeb017adc1dd6e1668aeccd6337d9224c5c51bf93baa4",
+   "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_ziggs_big",
+   "tag": "r_boom",
+   "file": "league_ziggs_big/r_boom.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     109,
+     57
+    ],
+    [
+     113,
+     73
+    ],
+    [
+     125,
+     125
+    ],
+    [
+     113,
+     157
+    ],
+    [
+     119,
+     159
+    ],
+    [
+     119,
+     157
+    ],
+    [
+     111,
+     159
+    ],
+    [
+     95,
+     123
+    ]
+   ],
+   "of_1x": "1e66bd105cf1e1e5e697f3e647bddcbd7ba4233cd7079d59108d7ab1a96dff19",
+   "by": "fx_vector 4",
+   "sha256": "af53b9f166bcc28d5831dcbe40144207f21c6d45539d58bf38c61d4ba7e1e1d0",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_ziggs_big",
+   "tag": "r_warn",
+   "file": "league_ziggs_big/r_warn.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     101,
+     63
+    ],
+    [
+     103,
+     63
+    ]
+   ],
+   "of_1x": "e0a557c344f120177e62f4936f1fd207ba0eb53eb444931cb3fceeaa9c63b6c7",
+   "by": "fx_vector 3",
+   "sha256": "2e526b37965baef38f37c72f4adca64c3dade3b89b6ad9383206a594d56069a6",
+   "note": "batch 02 rings and zones 2026-11-14"
+  }
+ ]
+}

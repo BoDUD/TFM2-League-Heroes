@@ -90,6 +90,8 @@ jobs:
         run: python -I tools/kit/range_buffs.py --check
       - name: The effects PPU - league.dll's table lists every effect sheet with dense twins (fx_ppu.rs up to date)
         run: python -I tools/art/fx_ppu_table.py --check
+      - name: The effects redrawn by our own code - every stored tag is in its sheet as stored (assets/source/*/fx_handmade)
+        run: python -I tools/art/fx_handmade.py --check
       - name: Stack counts in the champion panel - the heroes' stack_skill_index and league.dll's table agree
         run: |
           python -I tools/kit/stack_nums.py --check

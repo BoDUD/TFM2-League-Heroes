@@ -1,0 +1,90 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_xinzhao_big",
+   "tag": "e_land",
+   "file": "league_xinzhao_big/e_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     41,
+     33
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     39,
+     39
+    ],
+    [
+     41,
+     33
+    ],
+    [
+     41,
+     31
+    ]
+   ],
+   "of_1x": "2d21688570049de9c7d431eb4dd8c75354ac0a757f2310d2b99ea3a41e852864",
+   "by": "fx_vector 4",
+   "sha256": "4664db1ecc5fa4d47fdf21443838b3b8c7225b645214bb49eb576262d75ea8ed",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_xinzhao_big",
+   "tag": "r_sweep",
+   "file": "league_xinzhao_big/r_sweep.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     71,
+     47
+    ],
+    [
+     71,
+     59
+    ],
+    [
+     73,
+     59
+    ],
+    [
+     77,
+     57
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     73,
+     51
+    ]
+   ],
+   "of_1x": "1853a1a59e3bbaf23ffe36391c1a26501996508bae000809640ef8fba0bb4aaf",
+   "by": "fx_vector 4",
+   "sha256": "5b74759c1d939f45ea65d72e4b02e228aaeb3fa479b32c94fa51167339acaa09",
+   "note": "batch 05 beams and slashes 2026-11-14"
+  }
+ ]
+}
