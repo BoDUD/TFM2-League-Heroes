@@ -831,9 +831,19 @@ pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_
 /// seconds from the cast and shrunk back when it ends - here from the leap (`league_volibear_r_air`, 1 s) through the
 /// 12 s storm form after the landing (`league_volibear_r_form`), main pack data both. 1.35 at first; 1.15 at the user's
 /// word (2026-11-02: 「开大模型变的实在太大了」 - 61 game px against Darius' and Garen's 42, his own 45 already the
-/// tallest of them; 1.15: 52)
+/// tallest of them; 1.15: 52).
+///
+/// Bel'Veth's true form (the user, 2026-11-14: 「阿尔卑斯的变为真身是不是要做个变形啊 和联盟一样」 - 「卑尔维斯」, picked
+/// 「先变大再张翼」 of the three ways): League's Endless Banquet turns her into a bigger body with the wings spread; here her R was the
+/// stats and a purple glow only. The first half is this row - 18 % bigger while `league_belveth_r_on` is on her (15 s,
+/// renewed by a takedown; the main pack's data and the add-on league_belveth's copy both give it under this name),
+/// grown over a second: on her SIZES 0.85 that is the size her model was drawn at (0.85 x 1.18 = 1.00; standing,
+/// spikes to claws, 41 x 43 game px -> 48 x 50). Her shadow and the glow on the ground stay as they are (not her
+/// sheet). The second half - the spread-wings body as her own frames in true form - waits for its pictures
+/// (docs/heroes/league_belveth.md); with them the wings carry the bigger outline and this factor is judged again.
 pub const FORMS: &[(&str, &[&str], f32, f32)] =
-    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25)];
+    &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25),
+      ("league_belveth", &["league_belveth_r_on"], 1.18, 1.0)];
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_heimerdinger's turrets, league_leblanc_clone (below) and the rest
@@ -1153,6 +1163,23 @@ mod tests {
             assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives him {b}");
         }
         assert!(FORMS.iter().all(|f| !GROWTH.iter().any(|g| g.0 == f.0)), "a hero grows one way");
+    }
+
+    /// Bel'Veth's form row: her true form's buff under the same name in the main pack's data and in the add-on
+    /// league_belveth's copy of it (the copy replaces the main pack's when the add-on is on - she grows either way),
+    /// and with her base size the true form is the size her model was drawn at.
+    #[test]
+    fn belveth_grows_in_her_true_form() {
+        let main = include_str!("../../../league/champion/league_belveth.data_champion");
+        let addon = include_str!("../../league_belveth/override/league_belveth.data_champion");
+        let (_, buffs, s, t) = *FORMS.iter().find(|f| f.0 == "league_belveth").expect("Bel'Veth grows in her true form");
+        assert_eq!((buffs, s, t), (&["league_belveth_r_on"][..], 1.18, 1.0));
+        for (data, whose) in [(main, "the main pack"), (addon, "the add-on's copy")] {
+            assert!(data.contains("\"name\": \"league_belveth_r_on\""), "{whose} never gives her the true form's buff");
+        }
+        let base = SIZES.iter().find(|r| r.0 == "league_belveth").expect("Bel'Veth's base size").1;
+        assert!((base * s - 1.0).abs() < 0.01, "true form x{:.3} of the drawn model", base * s);
+        assert_eq!(FORMS.iter().filter(|f| f.0 == "league_belveth").count(), 1);
     }
 
     /// The text of every flat object (no brace inside it: a view, a ViewEffect) of a .data_champion holding `needle`.
