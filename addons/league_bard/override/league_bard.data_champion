@@ -30,7 +30,9 @@
       "r_r": 36000,
       "r_t": 150,
       "r_lag": 15,
-      "r_travel": 24
+      "r_travel": 24,
+      "q_speed": 6000,
+      "q_win": 9
     }
   },
   "sprite": "asset/league/champions/league_bard",
@@ -1146,6 +1148,10 @@
           "name": "league_bard_q_two"
         },
         {
+          "type": "RemoveCasterBuff",
+          "name": "league_bard_q_wall"
+        },
+        {
           "type": "Sfx",
           "name": "league_bard_q_cast"
         },
@@ -1288,6 +1294,10 @@
                       "only_to_enemy": false
                     },
                     {
+                      "type": "Native",
+                      "effect_ref": "league_bard:bind"
+                    },
+                    {
                       "type": "ApAttack",
                       "damage": 100,
                       "attack_ratio": 75,
@@ -1331,6 +1341,18 @@
                               {
                                 "type": "ViewEffect",
                                 "name": "league_bard_q_bind"
+                              },
+                              {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_bard_q_wall",
+                                "effect_buff": {
+                                  "type": "TargetSfx",
+                                  "name": "league_bard_q_bind"
+                                },
+                                "effect_none": {
+                                  "type": "Combine",
+                                  "effects": []
+                                }
                               }
                             ]
                           },

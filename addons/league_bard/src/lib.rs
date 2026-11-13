@@ -22,12 +22,18 @@
 //! 他出口旁，再不行就不带）；到了出口门在他身后打开（buff 画面 `league_bard_e_outb`），队友身上的 `league_bard_e_rideb`，都加速 `e_ms`%
 //! `e_ms_t` tick（主包的 `league_bard_e_haste`，画面也是主包的）。宿主没挪人时逐 tick 自己走一步（`entity_set_pos`，泰隆的做法）。
 //!
+//! **星界束缚撞墙也眩晕**（0.6.6，2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）：英雄联盟的 Q 打中第一个
+//! 敌人后接着飞一段，"If the bolt hits terrain or a second enemy" 两者都眩晕；主包只认第二个敌人（数据读不到墙）。副本的 Q 打中
+//! 第一个单位时调原生效果 `league_bard:bind`（[`bind`]）：沿弹道方向往他身后 `Q_SPEED` x `Q_WIN` 查这份地图的墙（5v5 的四边
+//! 也算），有墙就给巴德挂上 `league_bard_q_two`，数据照「身后有第二个敌人」的那条路把第一个人眩晕。日志 `BIND` 行。
+//!
 //! 数字都从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去）。不用全局变量，服务端预模拟和你看的那场各算各的。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_bard.log`，每次启动游戏重写。
 
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
@@ -570,6 +576,75 @@ fn pos(sim: &StableSim<'_>, id: usize) -> Option<(f64, f64)> {
     })
 }
 
+// ===================== Q 星界束缚：撞墙也眩晕 =====================
+
+/// 星界束缚打中第一个单位后，弹道接着飞 `Q_SPEED` x `Q_WIN` 找墙：主包参数表 P 的 `q_speed`、`q_win`（6000 x 9），和数据里
+/// 那颗隐形弹找第二个敌人的一段一样长。英雄联盟：打中后接着飞 300 码，"If the bolt hits terrain or a second enemy" 两者都
+/// 眩晕；主包只认第二个敌人（数据读不到墙）。副本的 `passive.params` 里带着这两个数，单元测试核对。
+pub const Q_SPEED: usize = 6_000;
+pub const Q_WIN: usize = 9;
+/// 5v5 地图四边的可走范围（卡蜜尔附加包量的，波比附加包用的同一份）：弹道飞出去也算碰到地形。
+pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
+
+/// 从 `at` 沿 `dir`（单位向量）飞 `reach`：碰到墙格、或飞出地图（`bounds`：5v5 的四边），返回飞了多远；一路都没有就是 None。
+pub fn wall_behind(
+    g: &Grid,
+    bounds: Option<(f64, f64, f64, f64)>,
+    at: (f64, f64),
+    dir: (f64, f64),
+    reach: f64,
+) -> Option<f64> {
+    let mut s = STEP;
+    while s <= reach + 0.5 {
+        let (x, y) = (at.0 + dir.0 * s, at.1 + dir.1 * s);
+        let out = x < 0.0 || y < 0.0 || bounds.is_some_and(|(x0, y0, x1, y1)| x < x0 || y < y0 || x > x1 || y > y1);
+        if out || g.is_wall(x, y) {
+            return Some(s);
+        }
+        s += STEP;
+    }
+    None
+}
+
+/// 日志里 `BIND` 行的条数（只管日志，不是对局状态）。
+static BINDS: AtomicUsize = AtomicUsize::new(0);
+
+/// 副本 Q 的 `Native league_bard:bind`，星界束缚打中第一个单位的那一刻（`input` 是被打中的单位）：沿弹道的方向（巴德 -> 他）
+/// 往他身后查墙。有墙就给巴德挂上主包第二下命中时挂的 `league_bard_q_two`（数据在 `q_win` + 1 tick 后读它，把第一个人眩晕）
+/// 和 `league_bard_q_wall`（数据读它在他身上播束缚的声音）。没有墙什么都不做：只减速，或者由数据去找第二个敌人。
+fn bind(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
+    if InputTargetKindV1::from_code(input.kind) != Some(InputTargetKindV1::Target) {
+        return;
+    }
+    let target = input.target_id;
+    let (Some(from), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
+    let Some(dir) = unit((at.0 - from.0, at.1 - from.1)) else { return };
+    let grids = Grid::builtin();
+    let Some(gi) = current(&grids, &unit_points(sim)) else { return };
+    let reach = (Q_SPEED * Q_WIN) as f64;
+    let Some(d) = wall_behind(&grids[gi], (gi == 0).then_some(MOBA_BOUNDS), at, dir, reach) else { return };
+    for flag in ["q_two", "q_wall"] {
+        sim.entity_remove_buff(me, &bd(flag));
+        sim.add_buff(me, &BuffV1::timed(&bd(flag), Q_WIN + 4));
+    }
+    let k = BINDS.fetch_add(1, Ordering::Relaxed) + 1;
+    if k <= 60 || k % 25 == 0 {
+        wlog(format!(
+            "{} BIND #{k}: the bolt from {} hit #{target} at {}, a wall {d:.0} behind it: stunned",
+            head(sim, me),
+            pt(from),
+            pt(at)
+        ));
+    }
+}
+
+struct Step(fn(&mut StableSim<'_>, usize, InputTargetV1));
+impl StableEffectType for Step {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, input: InputTargetV1) {
+        (self.0)(sim, caster, input);
+    }
+}
+
 // ===================== 被动 =====================
 
 /// Crowd control that holds a unit in place - from game 0.7.0 also when laid by native code ("movement continuing while
@@ -1010,7 +1085,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Bard's Magical Journey: the door's exit back toward his side, clear of the map's rocks) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Bard's Magical Journey: the door's exit back toward his side, clear of the map's rocks; Cosmic Binding stuns against walls) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -1018,6 +1093,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:door"), Door::default());
+    module.add_native_effect(format!("{ID}:bind"), Step(bind));
     module.add_player_input_ai(DrakeAi);
     host.log(LogLevel::Info, "league_bard v1 loaded (Bard's Magical Journey exits clear of walls).");
 }
@@ -1199,6 +1275,47 @@ mod tests {
     #[test]
     fn the_names_fit() {
         for x in ["e_cd", "e_haste", "e_ghost", "e_doorb", "e_outb", "e_rideb"] {
+            assert!(bd(x).len() <= BUFF_NAME_CAP);
+        }
+    }
+
+    /// 2026-11-14: Cosmic Binding stuns against terrain too (League: "If the bolt hits terrain or a second enemy").
+    #[test]
+    fn the_bolt_binds_against_a_wall() {
+        let g = wall();
+        let reach = (Q_SPEED * Q_WIN) as f64;
+        // half a cell left of the wall, the bolt flying right: the wall is right behind the unit
+        let d = wall_behind(&g, None, at(4.5, 4.5), (1.0, 0.0), reach).expect("the wall behind him");
+        assert!((d - 0.5 * CELL).abs() <= STEP, "{d}");
+        // flying away from the wall, the wall farther than the bolt flies on (3 cells), or past the wall's rows: nothing
+        assert_eq!(wall_behind(&g, None, at(4.5, 4.5), (-1.0, 0.0), reach), None);
+        assert_eq!(wall_behind(&g, None, at(2.0, 4.5), (1.0, 0.0), reach), None);
+        assert_eq!(wall_behind(&g, None, at(4.5, 8.5), (1.0, 0.0), reach), None);
+    }
+
+    #[test]
+    fn on_the_moba_map_rocks_and_the_edge_are_terrain() {
+        let g = &Grid::builtin()[0];
+        let reach = (Q_SPEED * Q_WIN) as f64;
+        // a unit near the left edge, the bolt flying left: the map's edge
+        let d = wall_behind(g, Some(MOBA_BOUNDS), (60_000.0, 480_000.0), (-1.0, 0.0), reach).expect("the edge");
+        assert!((d - (60_000.0 - MOBA_BOUNDS.0)).abs() <= STEP, "{d}");
+        // the middle of the map, along the river: open ground
+        assert_eq!(wall_behind(g, Some(MOBA_BOUNDS), (480_000.0, 480_000.0), (0.0, 1.0), reach), None);
+        // a rock of the grid (row 3, columns 15-16), the unit half a cell below it, the bolt flying up
+        let d = wall_behind(g, Some(MOBA_BOUNDS), (15.5 * CELL, 4.5 * CELL), (0.0, -1.0), reach).expect("the rock");
+        assert!((d - 0.5 * CELL).abs() <= STEP, "{d}");
+    }
+
+    #[test]
+    fn the_copy_asks_for_the_wall() {
+        let copy = include_str!("../override/league_bard.data_champion");
+        assert!(copy.contains("\"effect_ref\": \"league_bard:bind\""), "the copy's Q never asks league_bard:bind");
+        assert!(copy.contains(&format!("\"q_speed\": {Q_SPEED}")), "q_speed is not {Q_SPEED} in the copy's passive params");
+        assert!(copy.contains(&format!("\"q_win\": {Q_WIN}")), "q_win is not {Q_WIN} in the copy's passive params");
+        // the flags the data reads q_win + 1 ticks after the hit
+        assert!(copy.contains("\"buff_name\": \"league_bard_q_two\"") && copy.contains("\"buff_name\": \"league_bard_q_wall\""));
+        for x in ["q_two", "q_wall"] {
             assert!(bd(x).len() <= BUFF_NAME_CAP);
         }
     }

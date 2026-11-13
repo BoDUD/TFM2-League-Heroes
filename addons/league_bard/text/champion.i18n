@@ -2,6 +2,7 @@
   "zh-hans": {
     "description": {
       "league_bard": {
+        "skill": "射出星界能量，命中的第一个敌人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法伤害<>并<#ef5350ff>减速60%<>；若其身后还有敌人，两者都受到伤害并<#ef5350ff>眩晕1.5秒<>。身后是墙壁时同样被<#ef5350ff>眩晕<>。",
         "skill2": "【穿墙门】<#ff9028ff>游神圣坛<>：向交战中的友方英雄（或自己）投出圣坛，治疗<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>，移速+30%。<#ff9028ff>神奇旅程<>：在附近的墙上开门穿到另一边：被近身或残血时往己方撤，墙后有残血敌人就追，或去支援交战的队友，带上身边的友方英雄，移速+40%（<#ffb900ff>16秒<>一次）。"
       }
     }
@@ -9,6 +10,7 @@
   "zh-hant": {
     "description": {
       "league_bard": {
+        "skill": "射出星界能量，命中的第一個敵人受到<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<><#a974ffff>魔法傷害<>並<#ef5350ff>緩速60%<>；若其身後還有敵人，兩者都受到傷害並<#ef5350ff>暈眩1.5秒<>。身後是牆壁時同樣被<#ef5350ff>暈眩<>。",
         "skill2": "【穿牆門】<#ff9028ff>守望神龕<>：向交戰中的友方英雄（或自己）投出神龕，治療<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>，跑速+30%。<#ff9028ff>奇幻旅程<>：在附近的牆上開門穿到另一邊：被近身或殘血時往己方撤，牆後有殘血敵人就追，或去支援交戰的隊友，帶上身邊的友方英雄，跑速+40%（<#ffb900ff>16秒<>一次）。"
       }
     }
@@ -16,6 +18,7 @@
   "en": {
     "description": {
       "league_bard": {
+        "skill": "Fires a bolt of cosmic energy: the first enemy hit takes <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>magic damage<> and is <#ef5350ff>slowed by 60%<>; if another enemy is behind it, both take the damage and are <#ef5350ff>stunned for 1.5s<>. A wall behind it <#ef5350ff>stuns<> it as well.",
         "skill2": "[Wall door] <#ff9028ff>Caretaker's Shrine<>: throws a shrine to an allied champion in a fight (or himself), healing <#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<> and giving 30% move speed. <#ff9028ff>Magical Journey<>: opens a door through a nearby wall: home when dived or hurt, after a hurt foe behind it, or to an ally in a fight, with nearby allies, +40% move speed (every <#ffb900ff>16s<>)."
       }
     }
@@ -23,6 +26,7 @@
   "ko": {
     "description": {
       "league_bard": {
+        "skill": "우주 에너지를 발사해 처음 맞은 적에게 <#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<> <#a974ffff>마법 피해<>와 <#ef5350ff>60% 둔화<>; 뒤에 다른 적이 있으면 둘 다 피해를 입고 <#ef5350ff>1.5초 기절<>. 뒤에 벽이 있어도 <#ef5350ff>기절<>.",
         "skill2": "[벽 문] <#ff9028ff>수호자의 성소<>: 교전 중인 아군 챔피언(또는 자신)에게 성소를 던져 <#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<> 회복, 이동 속도 +30%. <#ff9028ff>신비한 차원문<>: 근처 벽에 문을 열어 넘어가: 붙거나 약하면 아군 쪽으로, 벽 뒤 약한 적은 추격, 싸우는 아군은 지원, 주변 아군과 함께하며 이동 속도 +40% (<#ffb900ff>16초<>마다)."
       }
     }
@@ -30,6 +34,7 @@
   "ja": {
     "description": {
       "league_bard": {
+        "skill": "宇宙の力を放ち、最初に当たった敵に<#a974ffff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75%<>の<#a974ffff>魔法ダメージ<>と<#ef5350ff>60%スロウ<>；後ろに別の敵がいれば両方にダメージと<#ef5350ff>1.5秒スタン<>。後ろが壁でも<#ef5350ff>スタン<>。",
         "skill2": "【壁の扉】<#ff9028ff>回復の遺物<>：交戦中の味方チャンピオン（か自分）に遺物を投げ<#7cfc00ff>140<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7cfc00ff>60%<>回復、移動速度+30%。<#ff9028ff>精霊の旅路<>：近くの壁に扉を開け向こう側へ：詰められるか瀕死で自陣へ、壁裏の弱った敵は追い、交戦中の味方へ援護、近くの味方と共に、移動速度+40%（<#ffb900ff>16秒<>ごと）。"
       }
     }
