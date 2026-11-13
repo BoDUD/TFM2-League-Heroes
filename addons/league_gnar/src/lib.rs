@@ -14,9 +14,9 @@
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gnar.log`，每次启动游戏重写，上一次的留在 .prev.log：
 //! `THROW`（往哪边掀、几个会撞墙）、`WALL`（撞墙眩晕）、`SHORT`（停在墙前面，不晕），限了条数；还有整身变巨型的显示统计。
 //!
-//! 0.1.6（2026-11-13，用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：引擎把每种控制的时长按目标的韧性
-//! 缩短（强制位移也一样），掀人按韧性放长（`push_rules`），到点正好到墙边；到点还在位移就等一拍，停下了却不在墙边（被别人的
-//! 控制打断、自己的位移技能顶掉）就不砸、不晕（原来到点就砸，空地上也晕）；一次大招掀几个人时，盯撞墙的 `r_watch` 按最远的
+//! 0.1.6 / 0.1.7（2026-11-13，用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：撞墙到点还在位移就等
+//! 一拍，停下了却不在墙边（被别人的控制打断、自己的位移技能顶掉）就不砸、不晕（原来到点就砸，空地上也晕）；0.1.6 还把掀人
+//! 按目标的韧性放长过，0.1.7 撤了（引擎不按韧性缩短强制位移，见 `push_rules`，放长只会推过头）；一次大招掀几个人时，盯撞墙的 `r_watch` 按最远的
 //! 那一个算（原来每个目标都重设成自己的，后算的近的把远的盖掉，远的那个撞了墙也不晕）。
 
 use std::collections::HashMap;
@@ -290,8 +290,7 @@ fn shove(sim: &mut StableSim<'_>, target: usize, dir: Pt, len: f64) -> usize {
     cc.dx = (dir.0 * len).round() as i64;
     cc.dy = (dir.1 * len).round() as i64;
     cc.speed = R_PUSH_V as u64;
-    // 0.1.6: lengthened by his tenacity (the engine cuts every crowd control by it, forced moves too)
-    push_rules::force_move_full(sim, target, cc);
+    sim.apply_cc(target, &cc);
     sim.add_buff(target, &BuffV1::timed(&n("r_push"), ticks + 2));
     ticks
 }

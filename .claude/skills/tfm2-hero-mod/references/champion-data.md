@@ -123,6 +123,30 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   game's balance patches read). A kit script does `build = range_buffs.wrap(build)`; a new marker goes into
   RANGE_BUFFS (`--write` regenerates league.dll's table, `--check` in CI fails on any buff left with `range`).
   #702 had folded league_kogmaw's W into a 65000 attack for a day; W is League's again (55000, +18000).
+- **Keep what an attack does to its own caster out of the attack's cast: put it under a projectile's hit**
+  *(league_ai_watch, 2026-11-13: the game AI's own attack orders at champions per alive minute; three rounds in
+  the game)*. The kits' "on me" is `RangeEffect` target `AllyOnlySelf`, a circle of radius 1000 round the caster
+  (an automatic W or E, a count, the start of a kit's polling aura). Run when the attack is thrown - anywhere in
+  the attack's effect outside a projectile's hit - it took the attack away from the AI: league_aurelionsol 0.06
+  (168 games), league_azir 0.07, league_ahri 0.13, league_draven 0.16, league_swain 0.21 (357), league_anivia
+  0.26, league_kaisa 0.60, league_sejuani 0.83, against 4.5-7 for marksmen and 2.3-3.3 for mages; they last-hit
+  and cast as usual. Moved under a projectile's hit and nothing else changed, the attacks came back:
+  league_draven's W under his twin's hit 0.16 -> 6.5; the block wrapped where it stood in a hidden homing
+  projectile at the attack's target (`<id>_a_self`, speed 60000, no view) league_kaisa 0.60 -> 5.51 (91 games),
+  league_azir 0.07 -> 1.91 (66), league_sejuani 0.83 -> 2.36, league_ahri 0.13 -> 2.61, league_anivia 0.26 ->
+  1.60, with the skills cast as often as before and untouched heroes of the pattern where they were. So: in a
+  new kit put it under the attack's own projectile's hit (or a twin's); for the kits there are, the packers do
+  the wrap (`tools/kit/attack_self.py`: 52 heroes on 2026-11-13; `--check` in CI lists them) - the installed
+  file has the hidden projectile, the repository's does not; a hand-copied `.data_champion` skips it. The tool
+  leaves a hero alone when the move could change his kit: another cast-time effect reads in the same tick what
+  the block writes (league_aatrox, league_quinn, league_nocturne ...), or the attack's own damage can land before
+  the hidden projectile does (a direct `Attack`, a fast melee blow: league_leesin, league_xinzhao,
+  league_tryndamere ...; a projectile at a dead target hits nothing, the block would be lost on killing blows) -
+  22 heroes, to be done by hand. **What does not help:** league.dll's `league:range` node in such an attack
+  (tried on 62 heroes: league_aurelionsol 0.03, league_azir 0.06 afterwards). What the engine reads was not
+  found: the AI's decision trace gives these attacks the right reach, damage, picks and fight verdicts
+  (docs/native_ai.md), and eleven heroes with the area at cast time were never neglected (league_belveth 5.26
+  with league_aurelionsol's very skeleton, league_senna ...).
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
@@ -402,8 +426,11 @@ still about 13000 short of its centre, not once he is behind it *(measured in th
 marker effect, league_leesin R, 2026-09-29)*. `Teleport` copies
 the target unit's coordinates (`Targeting`) or the cast point (`Position`) onto the caster and does
 nothing for `Direction`. `Airborne` on a unit that is already airborne keeps the longer of the two
-remaining times; every CC's duration is cut by the target's `toughness` (x (100 - toughness) / 100),
-and airborne also cancels the target's dash.
+remaining times; every CC's duration is cut by the target's `toughness` (x (100 - toughness) / 100)
+*(read from 0.5.1's game_core)* - **but not a forced move in game 0.7.2** *(measured 2026-11-13: 70 carries by
+league_azir's wall, each `ForceMove` lengthened by 1 / (1 - toughness), went exactly that much too far - 1.13x at
+toughness 10, 1.45x at 30, 2.00x at 50, 2.84x at 65; never lengthen a push for tenacity)*; airborne also cancels the
+target's dash.
 `MoveTo` in a `Targeting` action dashes all the way to where the target stood when the dash began: its
 `range` does not cap the distance *(measured in the SDK simulation for league_ekko E: speed 3000, range
 15000, dashes of 12500 to 54000 units that each ended on the target's spot)*.

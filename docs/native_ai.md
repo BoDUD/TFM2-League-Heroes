@@ -149,6 +149,40 @@ marksman's - but this is what the AI reads from a hero's data, with the RVAs of 
   (league_marks 0.1.5 / 0.1.6) made no difference. league_ult_press 0.6.5 works round it (a marksman the AI neglects
   pokes whoever stands in her own range).
 
+## 2026-11-13: the AI will not attack champions with some heroes (fixed by a move, the cause open)
+
+The Kai'Sa question above, a step further. league_ai_watch 0.3.0 counts an attack when the attack's cooldown starts,
+by the target of the AI's last attack order; five launches, per alive minute at champions: marksmen 4.5-7, mages
+2.3-3.3 (Lux, Ryze, Malzahar, Annie), and far below them Aurelion Sol 0.06 (168 games), Azir 0.07, Ahri 0.13, Draven
+0.16, Swain 0.21 (357 games), Anivia 0.26, Aatrox 0.38, Kai'Sa 0.60, Sejuani 0.83 - who all last-hit and cast as
+usual.
+
+- **The fix, proven in game twice:** Draven's automatic W - a `RangeEffect` on himself run from the attack's top
+  `Combine` when the axe is thrown - moved under his hidden twin projectile's hit, nothing else changed: 0.16 -> 6.5.
+  Then the same for seven heroes of different shapes, the block wrapped where it stood in a hidden homing
+  projectile at the attack's target (a tick later; a new career's presims): Kai'Sa 0.60 -> 5.51 (91 games), Azir
+  0.07 -> 1.91 (66), Sejuani 0.83 -> 2.36 (11), Ahri 0.13 -> 2.61 (5), Anivia 0.26 -> 1.60 (3), Aurelion Sol 0.06
+  -> 1.08 (1); untouched heroes of the pattern flat (Orianna 0.18 in 64 games, Xin Zhao 0.95 in 77), skills cast
+  as often as before. The packers now do it for every hero it is safe for (`tools/kit/attack_self.py`, 52
+  heroes; 22 are left for a hand: a same-tick reader of the block, or the attack's own damage landing first).
+  Stripped attacks (one projectile with `Attack`) did the same for Kai'Sa (0.60 -> 4.9, 88 games) and Ahri (0.13 ->
+  3.9). Heroes whose only area on themselves sits under a projectile's hit are normal (Sivir, Varus, Kalista,
+  Alistar, Mordekaiser, Nautilus).
+- **It is not a rule yet:** of 30 heroes with such an area at cast time 19 are under 1.75, but 11 are not (Bel'Veth
+  5.26 with Aurelion Sol's very attack skeleton, Senna, Seraphine, Wukong, Renekton, Blitzcrank, Xayah, Akshan ...).
+- **Refuted in game:** adding league.dll's `league:range` to such an attack (the 7 heroes with both looked normal:
+  a coincidence) - installed on 62 heroes, Aurelion Sol 0.03, Azir 0.06, Ahri 0.10, Swain 0.13 afterwards.
+- **Not the AI's picture of the attack** (league_ai_trace's lines, players named by the reaches of their actions:
+  reach = range / 1000 + 20): `[TBEVAL]` gives the neglected heroes' attack the right reach (Aurelion Sol 75k, Swain
+  72k) and damage in 60-90 % of the evaluations at champions; `TBPICK` picks `Attack` at a champion as often per game
+  (Swain 14, Sejuani 14, Aurelion Sol 5; Kalista 7, Annie 7); `FIGHTDIR` is Commit / Hold / Disengage in the same
+  shares with the same times to die. Most attacks at champions do not come from those picks at all (Kalista: 7 picks,
+  about 49 attacks a game) but from the `Trace` action's kiting, which the trace does not print - that is where the
+  neglected heroes' attacks are missing (Swain, a 23-minute game: 2 attacks at champions, 125 at others, his order
+  in hand `away` on 89 % of the ticks with a champion in reach and the attack ready).
+- Not looked at yet: the generated attacks' shape (start_timing 1, the projectile fired from a `Delayed` behind the
+  `lives` check), the `Heal`-type `AddCasted` these kits keep on the caster, what `Trace` asks before it attacks.
+
 ## What is done with it
 
 - 2026-11-08 `league_peel` 0.1.0: the support and nearby top / jungle hit whoever dives our ADC, and its log records

@@ -1,9 +1,9 @@
 //! 薇恩附加包：圣银弩箭数的是「同一个目标」挨的连续 3 下（用户：「薇恩也顺便做了」）。
 //!
-//! 2026-11-13（用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：恶魔审判推向墙的那一下按目标的韧性放长
-//! （引擎把每种控制的时长按韧性缩短，强制位移也一样；`push_rules`），到点正好到墙边；推的时候记下落点，到点还在位移就再等
-//! 一拍，停下了却离落点超过 `AT_WALL`（被别人的控制打断、自己的位移技能顶掉）就不按住，也摘掉薇恩的 `WALL`，数据的撞墙
-//! 伤害和眩晕不打（日志 `SHORT`）。
+//! 2026-11-13（用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：恶魔审判推向墙的时候记下落点，到点还在
+//! 位移就再等一拍，停下了却离落点超过 `AT_WALL`（被别人的控制打断、自己的位移技能顶掉）就不按住，也摘掉薇恩的 `WALL`，
+//! 数据的撞墙伤害和眩晕不打（日志 `SHORT`）。当天下午还把这一下按目标的韧性放长过，晚上撤了：引擎不按韧性缩短强制位移
+//! （见 `push_rules`），放长只会推过头。
 //!
 //! 主包保持纯数据：数据分不清一次攻击打中的是谁，圣银弩箭的两层（`league_vayne_sb1` / `sb2`）记在薇恩自己身上，
 //! 她轮流打两个人也会凑满 3 下，在第三个被打中的人身上爆。`mod.override_info` 把主包的薇恩换成 `override/` 里的副本
@@ -357,8 +357,7 @@ fn condemn(sim: &mut StableSim<'_>, vayne: usize, input: InputTargetV1) {
         cc.dx = (dir.0 * len).round() as i64;
         cc.dy = (dir.1 * len).round() as i64;
         cc.speed = speed as u64;
-        // 2026-11-13: lengthened by his tenacity (the engine cuts every crowd control by it, forced moves too)
-        push_rules::force_move_full(sim, target, cc);
+        sim.apply_cc(target, &cc);
         ticks
     } else {
         1

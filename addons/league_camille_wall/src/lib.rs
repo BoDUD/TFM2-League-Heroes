@@ -1,8 +1,8 @@
 //! 青钢影钩墙附加包 v4：E「钩索」钩墙、地图四边和防御塔。
 //!
-//! 2026-11-13（用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：她自己的钩索、扑击（强制位移）按她的
-//! 韧性放长（引擎把每种控制的时长按韧性缩短，她自己的冲刺也一样；英雄联盟的冲刺不吃韧性；`push_rules`）；扑到半路被击飞、
-//! 眩晕……按住就算扑断了，不再落地打伤害、晕人（原来下一 tick 在原地照样落地）。
+//! 2026-11-13（用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：扑到半路被击飞、眩晕……按住就算
+//! 扑断了，不再落地打伤害、晕人（原来下一 tick 在原地照样落地）。当天下午还把她的钩索、扑击按她的韧性放长过，晚上撤了：
+//! 引擎不按韧性缩短强制位移（见 `push_rules`），放长只会冲过头。
 //!
 //! 数据层没有任何效果能「看见」墙，所以钩墙放在这个原生附加包里。`mod.override_info`
 //! 把主包的青钢影换成 `override/` 里的副本，E 的出手交给本包：
@@ -943,9 +943,7 @@ fn force_move(sim: &mut StableSim<'_>, id: usize, from: (f64, f64), to: (f64, f6
     cc.dx = (to.0 - from.0).round() as i64;
     cc.dy = (to.1 - from.1).round() as i64;
     cc.speed = (d / ticks).ceil() as u64;
-    // 2026-11-13: lengthened by her tenacity (the engine cuts every crowd control by it, her own dashes too; League's dashes
-    // ignore it) and marked, so the bundle's keep_tick does not finish it a second time
-    push_rules::force_move_full(sim, id, cc);
+    sim.apply_cc(id, &cc);
     ticks as usize
 }
 

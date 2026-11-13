@@ -6,12 +6,12 @@
 //!   光环（`W_R` + 他的身体）里的每个敌方英雄：一 tick 里移动了至少 `DASH_STEP`、也超过他自己移速的 `DASH_WALK` 倍（远超
 //!   走路，不到 `BLINK_MAX`：闪现、传送不算）就是在突进——击飞 `W_UP` tick（击飞会打断突进）、`W_DMG` + `W_AP`% 法强魔法
 //!   伤害，然后缚地（不能位移）并减速 `W_SLOW`% `W_GROUND` tick；每次光环每人只挡一次（他身上的 `league_poppy_w_hit`）。
-//!   被她自己推着飞的（E、R，`league_poppy_push`）不算；2026-11-13 起别人推着走的也不算（`external_push`：按韧性放长过的推，
-//!   或者在强制位移却不在放技能——队友的击退穿过光环原来被当成突进击飞，击飞又把那一下推打断）。
-//! - 2026-11-13（用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：引擎把每种控制的时长按目标的韧性缩短
-//!   （强制位移也一样），E、R 的推都按韧性放长（`push_rules`）；E 撞墙到点还在位移就等一拍，停下了却不在墙边（被别人的控制
-//!   打断、自己的位移技能顶掉）就不砸不晕（日志 `SHORT`）；5v5 的裁决先击飞再推（给正在位移的单位上击飞会把位移停掉，原来
-//!   先推后击飞，一个人都送不回家），击飞也不吃韧性（英雄联盟的击飞不吃韧性）。
+//!   被她自己推着飞的（E、R，`league_poppy_push`）不算；2026-11-13 起别人推着走的也不算（`external_push`：在强制位移却不在
+//!   放技能——队友的击退穿过光环原来被当成突进击飞，击飞又把那一下推打断）。
+//! - 2026-11-13（用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：E 撞墙到点还在位移就等一拍，停下了
+//!   却不在墙边（被别人的控制打断、自己的位移技能顶掉）就不砸不晕（日志 `SHORT`）；5v5 的裁决先击飞再推（给正在位移的单位上
+//!   击飞会把位移停掉，原来先推后击飞）。当天下午还把推和击飞按目标的韧性放长过，晚上撤了：引擎不按韧性缩短强制位移（见
+//!   `push_rules`），放长只会推过头。
 //!   主包：光环里的敌方英雄放不出新的位移技能。
 //! - **坚定风采低血翻倍**：生命低于 `W_LOW`% 时护甲、魔抗再 +`W_DEF`%（`league_poppy_w_low`）。主包：一直 +`W_DEF`%。
 //! - **英勇冲锋撞墙才晕**（原生效果 `league_poppy:charge`，撞上目标时）：沿推的方向查墙（卡蜜尔附加包的墙格、5v5 地图的四边）：
@@ -309,18 +309,16 @@ pub fn near_wall(grid: &Grid, at: Pt, body: f64) -> bool {
     })
 }
 
-/// 2026-11-13：别人推着他走（不是他自己的突进）：一下按韧性放长过的推（`push_rules::FULL`：附加包推的、补上的那一截），
-/// 或者在强制位移却不在放技能（自己的突进带着施法动作，数据的击退、拉人没有）。原来只认她自己的推（`push`），队友的击退
-/// 穿过光环被当成突进击飞，击飞又把那一下推打断。
-pub fn external_push(full: bool, force_move: bool, casting: bool) -> bool {
-    full || (force_move && !casting)
+/// 2026-11-13：别人推着他走（不是他自己的突进）：在强制位移却不在放技能（自己的突进带着施法动作，数据的击退、拉人、别的
+/// 附加包的推没有）。原来只认她自己的推（`push`），队友的击退穿过光环被当成突进击飞，击飞又把那一下推打断。
+pub fn external_push(force_move: bool, casting: bool) -> bool {
+    force_move && !casting
 }
 
 fn pushed_by_another(sim: &StableSim<'_>, id: usize) -> bool {
     let Some(e) = sim.get_entity(id) else { return false };
-    let full = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == push_rules::FULL);
     let kinds: Vec<u32> = (0..e.cc_count()).filter_map(|i| e.cc_at(i)).map(|c| c.kind).collect();
-    external_push(full, kinds.contains(&CcKindV1::ForceMove.code()), kinds.contains(&CcKindV1::Animation.code()))
+    external_push(kinds.contains(&CcKindV1::ForceMove.code()), kinds.contains(&CcKindV1::Animation.code()))
 }
 
 /// 强制位移 `target` 沿 `dir` 走 `len`，速度 `speed`；返回 tick 数。
@@ -330,8 +328,7 @@ fn shove(sim: &mut StableSim<'_>, target: usize, dir: Pt, len: f64, speed: usize
     cc.dx = (dir.0 * len).round() as i64;
     cc.dy = (dir.1 * len).round() as i64;
     cc.speed = speed as u64;
-    // 2026-11-13: lengthened by his tenacity (the engine cuts every crowd control by it, forced moves too)
-    push_rules::force_move_full(sim, target, cc);
+    sim.apply_cc(target, &cc);
     sim.add_buff(target, &BuffV1::timed(&n("push"), ticks + 2));
     ticks
 }
@@ -389,19 +386,17 @@ fn verdict(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
             let len = (R_FAR as f64).min(dist(h, at));
             // 2026-11-13: knocked up FIRST - a knock-up given to a moving unit stops its move (champion-data.md), so the
             // carry given first was cancelled by it (the data's Verdict went this way round: "an Airborne beside the
-            // Knockback still lets it carry them - measured"); the knock-up ignores tenacity as in League
+            // Knockback still lets it carry them - measured")
             let ticks = ((len / R_FAR_SPEED as f64).ceil() as usize).max(1);
-            let air = push_rules::full_ticks(ticks.max(R_AIR), push_rules::toughness_of(sim, target)).unwrap_or(0);
-            sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, air as u64));
+            sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, ticks.max(R_AIR) as u64));
             let ticks = shove(sim, target, dir, len, R_FAR_SPEED);
             if let Some(k) = counted("verdict") {
                 wlog(format!("{} VERDICT #{target} at {}: toward his nexus {} - {len:.0} in {ticks} ticks #{k}", head(sim, me), pt(at), pt(h)));
             }
         }
         None => {
-            let air = push_rules::full_ticks(R_AIR, push_rules::toughness_of(sim, target)).unwrap_or(0);
-            sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, air as u64));
-            push_rules::knockback_full(sim, me, target, R_KB_SPEED, R_KB_T);
+            sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, R_AIR as u64));
+            sim.entity_knockback(me, target, R_KB_SPEED, R_KB_T);
             sim.add_buff(target, &BuffV1::timed(&n("push"), R_KB_T + 2));
             if let Some(k) = counted("verdict") {
                 wlog(format!("{} VERDICT #{target} at {}: knocked away from her (no nexus here) #{k}", head(sim, me), pt(at)));
@@ -685,11 +680,11 @@ mod tests {
         assert!(near_wall(g, (MOBA_BOUNDS.0 + body + 1_000.0, 480_000.0), body));
         assert!(!near_wall(g, (MOBA_BOUNDS.0 + body + 17_500.0, 480_000.0), body));
         assert!(!near_wall(g, (480_000.0, 480_000.0), body));
-        // his own dash comes with his cast: still stopped; a knockback (no cast) or a lengthened push: let through
-        assert!(!external_push(false, true, true));
-        assert!(external_push(false, true, false));
-        assert!(external_push(true, true, true));
+        // his own dash comes with his cast: still stopped; a knockback or another add-on's push (no cast): let through
+        assert!(!external_push(true, true));
+        assert!(external_push(true, false));
         // a blink (no forced move) is a dash as before
-        assert!(!external_push(false, false, false));
+        assert!(!external_push(false, false));
+        assert!(!external_push(false, true));
     }
 }

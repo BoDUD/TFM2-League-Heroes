@@ -83,6 +83,7 @@ from PIL import Image
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(REPO, "tools", "kit"))
 import slim  # noqa: E402  the exact effect-tree rewrites
+import attack_self  # noqa: E402  what an attack does to its caster goes under a hidden projectile's hit
 GAME_DIRS = [
     r"C:\Program Files (x86)\Steam\steamapps\common\Teamfight Manager2",
     r"C:\Program Files\Steam\steamapps\common\Teamfight Manager2",
@@ -582,9 +583,11 @@ def build(src, heroes, everything, workers):
             raw = read(path)
             if rel.endswith(".data_champion"):
                 kit = parse_json(raw, rel)
-                lean = slim.slim_champion(kit)
+                # then tools/kit/attack_self.py: an area on the caster run when the attack is thrown keeps the game's AI
+                # from attacking champions with the hero; it goes under a hidden projectile's hit (league_ heroes)
+                lean = attack_self.settle(slim.slim_champion(kit))
                 small = dump_min(lean)
-                if parse_json(small, rel) != lean or slim.slim_champion(lean) != lean:
+                if parse_json(small, rel) != lean or attack_self.settle(slim.slim_champion(lean)) != lean:
                     raise ValueError(f"{rel}: the slimmed kit does not read back as itself")
                 copied = ("skill", "skill2")
                 return [(rel, small)], ("nodes", (sum(slim.count(kit.get(s) or {}) for s in copied),

@@ -65,14 +65,17 @@
 //!   副本里没有这几个画面（存档里留着的旧副本）就照旧盖三个兵一张的图（日志 `OLD COPY`）。
 //! - 0.2.5（用户 2026-11-13：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」）：**墙一直带到墙外**。日志里墙倒的时候被带走
 //!   的英雄大多还在阿兹尔这边几万远，一次都没被墙挡过：强制位移没把他带到墙外，他落在墙这边，墙反倒把他挡在阿兹尔这边。
-//!   强制位移会半路停：被别人的控制按住（眩晕、定身、击飞……宿主这时停下强制位移）、他自己的位移技能把它顶掉、带着韧性
-//!   （4+6 的出装里 66 个英雄有 20%～30% 韧性的装备；引擎把每种控制的时长按目标的韧性缩短，x (100 - 韧性) / 100，强制位移也
-//!   一样：.claude/skills/tfm2-hero-mod/references/champion-data.md，读的 game_core）。英雄联盟的位移不吃韧性：现在强制位移按
-//!   他的韧性把时长放长（`push_rules::full_ticks`），缩短以后正好走满（墙带人、反推绕到身后都是）。现在墙还记着带的每个人
+//!   强制位移会半路停：被别人的控制按住（眩晕、定身、击飞……）、他自己的位移技能把它顶掉。现在墙记着带的每个人
 //!   （`Ride`：落点、要走的路），被动每 tick 看一眼（`ride_tick`）：还在位移、被按住就等；走完了还没到墙外那条线就把剩下的路
 //!   再推一次（`next_push`），直到到了、推不动了（`PUSH_GAIN`：撞到地形）、往回跑出去很远（闪现、冲刺，不追）、推满
 //!   `MAX_PUSHES` 次或者墙倒了。每个人第一次落地记一行 `LANDED`（带了多远、还差多远、身上的韧性、为什么），补推过的
 //!   结束时记一行 `RIDE`。
+//! - 0.2.6（用户 2026-11-13 晚：「还有沙皇的大招推人没效果」）：**0.2.5 把带人按韧性放长是错的，撤了。** 那一版照「引擎按韧性
+//!   缩短每种控制，强制位移也一样」把带人和反推的冲刺都放长了；装进游戏后 70 次带人的 `LANDED` 说明引擎根本不缩短强制位移：
+//!   没被打断的带人，实际走的路 / 计划的路正好是 1 / (1 - 韧性)（韧性 10 是 1.13，30 是 1.45，50 是 2.00，65 是 2.84）——
+//!   带韧性的人被推过头，韧性高的推出去两三倍远。落点短一截的那三成（韧性 0 的也有）是别的原因（被控住、被顶掉），补推照旧
+//!   管它。另外：大招的目标在墙出来之前没了（死了），原来本包直接不记这道墙（没有立着的墙、不带人、没有禁军的画面）；现在
+//!   朝反推冲刺时看到他的位置出墙（`LAST_TARGET`，日志 `the target is gone`）。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -86,7 +89,7 @@ use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
-use push_rules::{force_move_full, held, toughness};
+use push_rules::{held, toughness};
 
 pub mod combo;
 
@@ -760,10 +763,20 @@ impl StableEffectType for Wall {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
         let Some(e) = sim.get_entity(me) else { return };
         let (from, team) = (at_of(&e), e.team());
+        let key0 = wall_key(sim, me);
         let to = match InputTargetKindV1::from_code(input.kind) {
             Some(InputTargetKindV1::Target) => match sim.get_entity(input.target_id) {
                 Some(t) => at_of(&t),
-                None => return,
+                // 0.2.6: the target is gone (dead and removed): toward where the dash behind saw it a moment ago
+                None => match last_target(key0, sim.tick()) {
+                    Some(at) => {
+                        if let Some(k) = tally(sim, "target gone") {
+                            wlog(format!("{} WALL: the target is gone - toward where it stood, {} #{k}", head(sim, me), pt(at)));
+                        }
+                        at
+                    }
+                    None => return,
+                },
             },
             Some(InputTargetKindV1::Pos) => (input.x as f64, input.y as f64),
             _ => return,
@@ -1050,6 +1063,21 @@ fn wall_key(sim: &StableSim<'_>, me: usize) -> WallKey {
     (sim_no(sim, me), me)
 }
 
+/// 0.2.6：反推冲刺时看到的大招目标的位置（哪个 tick、在哪）：墙出来时目标没了就朝这里出墙。
+static LAST_TARGET: LazyLock<Mutex<HashMap<WallKey, (usize, Pt)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 0.2.6：冲刺到出墙隔 10 tick；过了这么久的不算这一次大招的。
+pub const LAST_TARGET_T: usize = 30;
+
+fn last_target(key: WallKey, now: usize) -> Option<Pt> {
+    let seen = LAST_TARGET.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied();
+    seen.filter(|(t, _)| fresh_target(*t, now)).map(|(_, at)| at)
+}
+
+/// 0.2.6：`seen` 那个 tick 记下的目标位置在 `now` 还算这一次大招的。
+pub fn fresh_target(seen: usize, now: usize) -> bool {
+    now >= seen && now - seen <= LAST_TARGET_T
+}
+
 /// 正在被推、在冲刺的人不挡（被墙推过去的那一下、闪现和突进都能过墙，同英雄联盟）。
 fn flying(u: &StableEntity<'_, '_>) -> bool {
     (0..u.cc_count()).any(|i| u.cc_at(i).is_some_and(|c| c.kind == CcKindV1::ForceMove.code() || c.kind == CcKindV1::Airborne.code()))
@@ -1134,8 +1162,7 @@ fn shove(sim: &mut StableSim<'_>, id: usize, at: Pt, (dest, _, ticks, speed): (P
     cc.dx = (dest.0 - at.0).round() as i64;
     cc.dy = (dest.1 - at.1).round() as i64;
     cc.speed = speed as u64;
-    // 0.2.5: as long again as his tenacity cuts it
-    force_move_full(sim, id, cc);
+    sim.apply_cc(id, &cc);
 }
 
 /// 墙冲锋的那几 tick（每 tick，他的被动里）：本包自己扫墙的路线（`swept`，和数据那道墙一样的圆心、半径、速度），扫到的
@@ -1278,6 +1305,7 @@ impl StableEffectType for Behind {
             let n = friends.len() as f64;
             Some((friends.iter().map(|f| f.0).sum::<f64>() / n, friends.iter().map(|f| f.1).sum::<f64>() / n))
         };
+        LAST_TARGET.lock().unwrap_or_else(|e| e.into_inner()).insert(wall_key(sim, me), (sim.tick(), target));
         let spot = behind(&p, here, target, home);
         let (dx, dy) = (spot.0 - here.0, spot.1 - here.1);
         let len = (dx * dx + dy * dy).sqrt();
@@ -1288,8 +1316,7 @@ impl StableEffectType for Behind {
         cc.dx = dx.round() as i64;
         cc.dy = dy.round() as i64;
         cc.speed = ((len / ticks as f64).ceil() as u64).max(1);
-        // 0.2.5: his own tenacity cuts his dash too
-        force_move_full(sim, me, cc);
+        sim.apply_cc(me, &cc);
         if let Some(k) = tally(sim, "behind") {
             wlog(format!("{} BEHIND #{k}: from {} round the target at {} to {} ({:.0} in {ticks} ticks), his team {}",
                          head(sim, me), pt(here), pt(target), pt(spot), len,
@@ -2668,6 +2695,16 @@ mod tests {
         // the landing line is where the plan ends
         assert!(ride_left(&w, plan.0).abs() < 1e-6);
         assert!((ride_left(&w, (130_000.0, 100_000.0)) - plan.1).abs() < 1e-6);
+    }
+
+    /// 0.2.6: the wall still comes out when the ult's target died after the dash behind - toward where it stood, if that
+    /// was this cast (the wall follows the dash by 10 ticks).
+    #[test]
+    fn a_wall_without_its_target_goes_where_it_stood() {
+        assert!(fresh_target(1000, 1010));
+        assert!(fresh_target(1000, 1000 + LAST_TARGET_T));
+        assert!(!fresh_target(1000, 1001 + LAST_TARGET_T));
+        assert!(!fresh_target(1000, 990), "another simulation's clock");
     }
 
 }
