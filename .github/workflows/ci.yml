@@ -82,6 +82,8 @@ jobs:
           python -I addons/league_yasuo_wall/make_override.py --check
           python -I addons/league_kayle/make_override.py --check
           python -I addons/league_rumble/make_override.py --check
+      - name: Attacks - what one does to its own caster is packed under a hidden projectile's hit (settles, undoes to the source)
+        run: python -I tools/kit/attack_self.py --check
       - name: Armed ults' refunds read a flag that is still up (a flag of n ticks is seen on n - 1 of them)
         run: python -I tools/kit/check_arm_refund.py
       - name: Range buffs are league.dll's league:range markers (no `range` on a buff, the attack reads them, table up to date)
@@ -94,7 +96,7 @@ jobs:
           python -I tools/art/fx_kindred_hunt.py --check
           python -I tools/art/gangplank_sv_fx.py --check
       - name: league.dll and the dense-frame engine - PPU, UI sheets, run-time places, host / guest
-        run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places
+        run: cargo test --manifest-path addons/Cargo.toml -p hd_engine -p league_main -p game_places -p push_rules
       - name: Sylas's steal table, Viego's possession, Neeko's disguise, Kayn's ranges
         run: cargo test --manifest-path addons/Cargo.toml -p league_sylas -p league_viego_soul -p league_neeko -p league_kayn_form
       - name: Every add-on (the league_addons bundle)

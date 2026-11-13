@@ -1,0 +1,12 @@
+[package]
+name = "push_rules"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# What the add-ons that push or pull ask about a unit (2026-11-13, the user: 「沙皇的反推 好像推不到人 整体检查一下各个推的
+# 逻辑」): held by hard crowd control, still in a forced move, its toughness for the logs. The engine does NOT cut forced
+# moves by toughness (measured that evening, src/lib.rs): nothing here lengthens anything. A library, not a mod: the
+# add-ons and league_addons (which compiles their sources) link it.
+[dependencies]
+mod-api-stable = { path = "../vendor/mod-api-stable" }

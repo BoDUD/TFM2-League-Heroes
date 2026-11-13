@@ -1,5 +1,9 @@
 //! 青钢影钩墙附加包 v4：E「钩索」钩墙、地图四边和防御塔。
 //!
+//! 2026-11-13（用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：扑到半路被击飞、眩晕……按住就算
+//! 扑断了，不再落地打伤害、晕人（原来下一 tick 在原地照样落地）。当天下午还把她的钩索、扑击按她的韧性放长过，晚上撤了：
+//! 引擎不按韧性缩短强制位移（见 `push_rules`），放长只会冲过头。
+//!
 //! 数据层没有任何效果能「看见」墙，所以钩墙放在这个原生附加包里。`mod.override_info`
 //! 把主包的青钢影换成 `override/` 里的副本，E 的出手交给本包：
 //!
@@ -1313,6 +1317,14 @@ fn dash(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: bo
     }
     if !has_cc(sim, caster, &[CcKindV1::ForceMove]) && !step_toward(sim, caster, here, goal, E2_SPEED, stop - 2_000.0) {
         sim.entity_remove_buff(caster, DASH);
+        // 2026-11-13: knocked up, stunned... mid-dive (step_toward refuses a held Camille): the dive is broken - no landing
+        // hit, no stun (it used to land on the next tick wherever she was)
+        if has_cc(sim, caster, &HELD) {
+            if !escape {
+                wlog(format!("{} dive broken at {} by crowd control: no landing", head(sim, caster), pt(here)));
+            }
+            return;
+        }
     }
     queue(sim, if escape { "dash_escape" } else { "dash" }, caster, input, 1);
 }

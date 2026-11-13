@@ -2,9 +2,10 @@
 # installed as its own mod folder next to the main `league` pack; league_addons compiles all of them into one DLL
 # (the add-on bundle players subscribe to, league_addons/README.md). The stable mod API is vendored
 # once in vendor/mod-api-stable (the game's mod-sdk-stable, ABI level 9). game_places (the game's places found at run
-# time) and hd_engine (the dense frames league.dll and tft.dll share) are libraries the DLLs link, no mods themselves.
+# time) and hd_engine (the dense frames league.dll and tft.dll share) are libraries the DLLs link, no mods themselves; so is push_rules
+# (what the add-ons that push or pull an enemy ask about a unit: held, still moving).
 [workspace]
-members = ["league_*", "tft", "game_places", "hd_engine", "lol_audio"]
+members = ["league_*", "tft", "game_places", "hd_engine", "lol_audio", "push_rules"]
 resolver = "2"
 
 [profile.release]

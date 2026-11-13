@@ -267,6 +267,14 @@ pub fn wall_travel(grid: &Grid, at: Pt, dir: Pt, reach: f64, body: f64) -> Optio
     None
 }
 
+/// 2026-11-13：拖到点了，他在不在墙边：从 `at` 沿 `dir` 往前 `AT_WALL`（加身体）以内有墙格。
+pub fn at_wall(grid: &Grid, at: Pt, dir: Pt, body: f64) -> bool {
+    wall_travel(grid, at, dir, AT_WALL, body).is_some()
+}
+
+/// 2026-11-13：离墙这么近（身体之外）才算拖到了墙边。
+pub const AT_WALL: f64 = 4_000.0;
+
 /// 撞墙的伤害（减免前）：攻击力 `ad`、目标最大生命 `max_hp`。
 pub fn wall_damage(ad: usize, max_hp: usize) -> usize {
     E_WALL_DMG + E_RATIO * ad / 100 + E_WALL_HP * max_hp / 100
@@ -547,13 +555,28 @@ struct Sovereign {
 }
 
 impl Sovereign {
-    /// 被拖到墙边的英雄到了：撞墙伤害 + 眩晕。
+    /// 被拖到墙边的英雄到了：撞墙伤害 + 眩晕。2026-11-13（用户：「整体检查一下各个推的逻辑」）：到点了还在位移就等一拍；
+    /// 停下了却不在墙边（被别人的控制打断、自己的位移技能顶掉）就不砸——原来到点就砸，空地上也晕。
     fn walls(sim: &mut StableSim<'_>, me: usize, foe: usize) {
         if !has_buff(sim, foe, &wall_go_name(me)) || has_buff(sim, foe, &wall_due_name(me)) {
             return;
         }
+        if push_rules::moving_id(sim, foe) {
+            return; // not there yet: the next tick (wall_go lasts a few ticks past the due one)
+        }
         sim.entity_remove_buff(foe, &wall_go_name(me));
-        Self::slam(sim, me, foe, "the wall");
+        let (Some(at), Some(him)) = (pos(sim, foe), pos(sim, me)) else {
+            Self::slam(sim, me, foe, "the wall");
+            return;
+        };
+        let body = sim.get_entity(foe).map_or(0.0, |e| e.radius() as f64);
+        let dir = unit((at.0 - him.0, at.1 - him.1)).unwrap_or((1.0, 0.0));
+        if grid_now(sim).is_some_and(|g| at_wall(&g, at, dir, body)) {
+            Self::slam(sim, me, foe, "the wall");
+        } else if let Some(k) = counted("short") {
+            wlog(format!("{} SHORT #{foe} at {}: stopped short of the wall (another's crowd control or a dash of his own): \
+                          no slam #{k}", head(sim, me), pt(at)));
+        }
     }
 
     /// 拖着走的英雄半路停下了（[`stalled`]）：撞上了地图墙格里没有的墙（英雄造的墙），当场砸、晕，地图墙的那一下不再来。
@@ -579,6 +602,15 @@ impl Sovereign {
         self.carried.remove(&foe);
         if held(sim, foe) {
             return;   // someone else's stun or root stopped it, not a wall
+        }
+        if !push_rules::moving_id(sim, foe) {
+            // 2026-11-13: the forced move is over (cut short, or his own dash took over): standing still is no wall - the
+            // carry's mark outlasts a move tenacity cut, and it slammed him in open ground
+            if let Some(k) = counted("carry end") {
+                wlog(format!("{} CARRY END #{foe} at {}: the forced move ended {ticks} ticks into the carry, no wall #{k}",
+                             head(sim, me), pt(at)));
+            }
+            return;
         }
         sim.entity_remove_buff(foe, &carry_name(me));
         sim.entity_remove_buff(foe, &wall_due_name(me));
@@ -611,6 +643,22 @@ impl Sovereign {
         let held = has_buff(sim, foe, &dragged_name(me)) && sim.get_entity(foe).is_some_and(|e| e.is_alive());
         if !held {
             self.dragged.remove(&foe);
+            return;
+        }
+        // 2026-11-13: cleansed, or immune now: no longer suppressed, no longer dragged
+        if !push_rules::held_id(sim, foe) || cc_immune(sim, foe) {
+            let left = sim.get_entity(foe)
+                .and_then(|e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == dragged_name(me)))
+                .map_or(0, |b| b.duration_tick);
+            self.dragged.remove(&foe);
+            sim.entity_remove_buff(foe, &dragged_name(me));
+            // the last tick or two of a drag that ran its time are no cleanse
+            if left > 3 {
+                if let Some(k) = counted("drag free") {
+                    wlog(format!("{} DRAG FREE #{foe}: no longer suppressed {left} ticks before the drag ends (cleansed, immune \
+                                  or the stun cut short), let go #{k}", head(sim, me)));
+                }
+            }
             return;
         }
         let Some(at) = pos(sim, foe) else { return };
@@ -810,5 +858,21 @@ mod tests {
         }
         assert!(!copy.contains("\"type\": \"Knockback\""), "the copy still drags in data");
         assert!(!copy.contains("\"type\": \"Grab\""), "the copy still pulls in data");
+    }
+
+    /// 2026-11-13: the map wall's slam needs him at the wall - one stopped short by another's crowd control stands in open
+    /// ground and is not slammed.
+    #[test]
+    fn the_slam_needs_the_wall_right_ahead() {
+        let grids = Grid::builtin();
+        let g = &grids[0];
+        let body = 6_000.0;
+        let edge = MOBA_BOUNDS.0;
+        // pushed left against the map's left edge: at the wall
+        assert!(at_wall(g, (edge + body + 1_000.0, 480_000.0), (-1.0, 0.0), body));
+        // well short of it (17500 past his body), facing away from it, or in open ground: not
+        assert!(!at_wall(g, (40_000.0, 480_000.0), (-1.0, 0.0), body));
+        assert!(!at_wall(g, (edge + body + 1_000.0, 480_000.0), (1.0, 0.0), body));
+        assert!(!at_wall(g, (480_000.0, 480_000.0), (0.0, 1.0), body));
     }
 }

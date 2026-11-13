@@ -63,6 +63,19 @@
 //!   （`one_<r|l>_<a|b>`），副本登记成 `r_one_*` 画面；每一跳和立着的墙都是 `GUARD_COUNT`（7，英雄联盟 R 二级的人数）个单个的
 //!   禁军，站在过墙中点、垂直于冲锋方向的一条线上，横向排满墙宽（`r_half` 两边，和挡人的宽度一样），后面的先画（`guard_line`）。
 //!   副本里没有这几个画面（存档里留着的旧副本）就照旧盖三个兵一张的图（日志 `OLD COPY`）。
+//! - 0.2.5（用户 2026-11-13：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」）：**墙一直带到墙外**。日志里墙倒的时候被带走
+//!   的英雄大多还在阿兹尔这边几万远，一次都没被墙挡过：强制位移没把他带到墙外，他落在墙这边，墙反倒把他挡在阿兹尔这边。
+//!   强制位移会半路停：被别人的控制按住（眩晕、定身、击飞……）、他自己的位移技能把它顶掉。现在墙记着带的每个人
+//!   （`Ride`：落点、要走的路），被动每 tick 看一眼（`ride_tick`）：还在位移、被按住就等；走完了还没到墙外那条线就把剩下的路
+//!   再推一次（`next_push`），直到到了、推不动了（`PUSH_GAIN`：撞到地形）、往回跑出去很远（闪现、冲刺，不追）、推满
+//!   `MAX_PUSHES` 次或者墙倒了。每个人第一次落地记一行 `LANDED`（带了多远、还差多远、身上的韧性、为什么），补推过的
+//!   结束时记一行 `RIDE`。
+//! - 0.2.6（用户 2026-11-13 晚：「还有沙皇的大招推人没效果」）：**0.2.5 把带人按韧性放长是错的，撤了。** 那一版照「引擎按韧性
+//!   缩短每种控制，强制位移也一样」把带人和反推的冲刺都放长了；装进游戏后 70 次带人的 `LANDED` 说明引擎根本不缩短强制位移：
+//!   没被打断的带人，实际走的路 / 计划的路正好是 1 / (1 - 韧性)（韧性 10 是 1.13，30 是 1.45，50 是 2.00，65 是 2.84）——
+//!   带韧性的人被推过头，韧性高的推出去两三倍远。落点短一截的那三成（韧性 0 的也有）是别的原因（被控住、被顶掉），补推照旧
+//!   管它。另外：大招的目标在墙出来之前没了（死了），原来本包直接不记这道墙（没有立着的墙、不带人、没有禁军的画面）；现在
+//!   朝反推冲刺时看到他的位置出墙（`LAST_TARGET`，日志 `the target is gone`）。
 //!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。服务端预模拟和你看的那场各算各的
 //! （被动是每个阿兹尔一份；墙的路线只用施放那一刻的位置）。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_azir.log`，
@@ -76,6 +89,7 @@ use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+use push_rules::{held, toughness};
 
 pub mod combo;
 
@@ -749,10 +763,20 @@ impl StableEffectType for Wall {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, me: usize, input: InputTargetV1) {
         let Some(e) = sim.get_entity(me) else { return };
         let (from, team) = (at_of(&e), e.team());
+        let key0 = wall_key(sim, me);
         let to = match InputTargetKindV1::from_code(input.kind) {
             Some(InputTargetKindV1::Target) => match sim.get_entity(input.target_id) {
                 Some(t) => at_of(&t),
-                None => return,
+                // 0.2.6: the target is gone (dead and removed): toward where the dash behind saw it a moment ago
+                None => match last_target(key0, sim.tick()) {
+                    Some(at) => {
+                        if let Some(k) = tally(sim, "target gone") {
+                            wlog(format!("{} WALL: the target is gone - toward where it stood, {} #{k}", head(sim, me), pt(at)));
+                        }
+                        at
+                    }
+                    None => return,
+                },
             },
             Some(InputTargetKindV1::Pos) => (input.x as f64, input.y as f64),
             _ => return,
@@ -798,6 +822,14 @@ pub const CARRY_MAX_SPEED: usize = 12_000;
 /// 本包扫到一个单位后等这么多 tick 再带走：数据那道墙（伤害在它身上）先打中他，带走以后它追不上（它的圆心还比本包算的
 /// 偏一点：经典模拟器里飞行物从他身上 5000 外出发）。
 pub const SWEEP_LAG: usize = 2;
+/// 0.2.5：离墙外那条落点线（沿冲锋方向）不到这么远就算带到了。
+pub const LAND_NEAR: f64 = 1_500.0;
+/// 0.2.5：补推一次至少要往前带这么远，不然就是地形挡着（强制位移撞墙会停），不再补。
+pub const PUSH_GAIN: f64 = 2_000.0;
+/// 0.2.5：比墙打中他时离落点还远这么多：他自己闪现、冲刺跑回去了，不追。
+pub const RAN_BACK: f64 = 10_000.0;
+/// 0.2.5：一个人最多补推几次（韧性每次都截一截，剩下的路一次比一次短）。
+pub const MAX_PUSHES: usize = 6;
 
 pub type Pt = (f64, f64);
 
@@ -871,6 +903,34 @@ pub struct Standing {
     pub moved: usize,
     pub took: Vec<usize>,
     pub skipped: Vec<usize>,
+    /// 0.2.5：正被带着的单位（`ride_tick` 看他们到没到）。
+    pub rides: HashMap<usize, Ride>,
+}
+
+/// 0.2.5：墙正带着的一个单位：落点、墙打中他时要走的路、上一次推之前还差多远、补推了几次、哪个 tick 打中的、是不是英雄。
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Ride {
+    pub dest: Pt,
+    pub planned: f64,
+    pub left: f64,
+    pub pushes: usize,
+    pub since: usize,
+    pub champ: bool,
+}
+
+/// 0.2.5：带人的强制位移走完了以后怎么办（`next_push`）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Next {
+    /// 到墙外了。
+    Landed,
+    /// 还差一段：再推。
+    Push,
+    /// 补推了也没往前挪（地形挡着）。
+    Stuck,
+    /// 比墙打中他时离落点还远：自己跑回去了。
+    RanBack,
+    /// 推满 `MAX_PUSHES` 次了。
+    Spent,
 }
 
 /// 墙立在哪：数据那道墙最后一跳停下的地方（从他站的地方朝目标 r_len），r_len / r_speed tick 后立住，再立 r_hold tick。
@@ -881,7 +941,7 @@ pub fn standing(p: &Params, from: Pt, to: Pt, tick: usize, right: bool) -> Stand
     Standing { start: from, launch: tick, speed: p.r_speed.max(1), reach: p.r_w as f64,
                mid: (from.0 + dir.0 * len, from.1 + dir.1 * len), dir, from: up, until: up + p.r_hold, right,
                sides: HashMap::new(), next_stamp: up, held: 0, carried: HashMap::new(), once: Vec::new(), pending: HashMap::new(), moved: 0,
-               took: Vec::new(), skipped: Vec::new() }
+               took: Vec::new(), skipped: Vec::new(), rides: HashMap::new() }
 }
 
 /// 冲锋的墙在 `tick` 的圆心：和数据那道墙一样从 `start` 每 tick `speed` 朝冲锋方向走，冲到立住的地方停下。
@@ -906,6 +966,7 @@ pub fn take(w: &mut Standing, id: usize, at: Pt, champ: bool, now: usize) -> Opt
     }
     let plan = carry_plan(w, at, now, w.speed)?;
     w.carried.insert(id, now + plan.2 + 2);
+    w.rides.insert(id, Ride { dest: plan.0, planned: plan.1, left: plan.1, pushes: 0, since: now, champ });
     w.once.push(id);
     w.pending.remove(&id);
     w.moved += 1;
@@ -935,6 +996,27 @@ pub fn carry_plan(w: &Standing, at: Pt, now: usize, wall_speed: usize) -> Option
     let ticks = ((len / fast as f64).ceil() as usize).max(1);
     let speed = (len / ticks as f64).ceil() as usize;
     Some(((at.0 + w.dir.0 * len, at.1 + w.dir.1 * len), len, ticks, speed))
+}
+
+/// 0.2.5：在 `at` 的单位离墙外那条落点线还差多远（沿冲锋方向；带到了是 0 或负数）。
+pub fn ride_left(w: &Standing, at: Pt) -> f64 {
+    WALL_THICK + CARRY_PAST - along(w, at)
+}
+
+/// 0.2.5：带人的强制位移走完了，他离落点线还差 `left`，上一次推之前差 `before`，墙打中他时差 `planned`，补推过 `pushes` 次。
+/// 第一次落地（`pushes` 是 0）就算一步没动也再推一次（宿主没执行那一下）；补推过的没往前挪 `PUSH_GAIN` 就是地形挡着。
+pub fn next_push(left: f64, before: f64, planned: f64, pushes: usize) -> Next {
+    if left <= LAND_NEAR {
+        Next::Landed
+    } else if left > planned + RAN_BACK {
+        Next::RanBack
+    } else if pushes >= MAX_PUSHES {
+        Next::Spent
+    } else if pushes > 0 && before - left < PUSH_GAIN {
+        Next::Stuck
+    } else {
+        Next::Push
+    }
 }
 
 /// 被带走的人落地后在墙的哪一边：到了墙里或墙外就是墙那一边（+1，之后墙挡着他回不来）；离墙还远（被地形挡住）就是
@@ -981,6 +1063,21 @@ fn wall_key(sim: &StableSim<'_>, me: usize) -> WallKey {
     (sim_no(sim, me), me)
 }
 
+/// 0.2.6：反推冲刺时看到的大招目标的位置（哪个 tick、在哪）：墙出来时目标没了就朝这里出墙。
+static LAST_TARGET: LazyLock<Mutex<HashMap<WallKey, (usize, Pt)>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+/// 0.2.6：冲刺到出墙隔 10 tick；过了这么久的不算这一次大招的。
+pub const LAST_TARGET_T: usize = 30;
+
+fn last_target(key: WallKey, now: usize) -> Option<Pt> {
+    let seen = LAST_TARGET.lock().unwrap_or_else(|e| e.into_inner()).get(&key).copied();
+    seen.filter(|(t, _)| fresh_target(*t, now)).map(|(_, at)| at)
+}
+
+/// 0.2.6：`seen` 那个 tick 记下的目标位置在 `now` 还算这一次大招的。
+pub fn fresh_target(seen: usize, now: usize) -> bool {
+    now >= seen && now - seen <= LAST_TARGET_T
+}
+
 /// 正在被推、在冲刺的人不挡（被墙推过去的那一下、闪现和突进都能过墙，同英雄联盟）。
 fn flying(u: &StableEntity<'_, '_>) -> bool {
     (0..u.cc_count()).any(|i| u.cc_at(i).is_some_and(|c| c.kind == CcKindV1::ForceMove.code() || c.kind == CcKindV1::Airborne.code()))
@@ -988,6 +1085,75 @@ fn flying(u: &StableEntity<'_, '_>) -> bool {
 
 fn immune(u: &StableEntity<'_, '_>) -> bool {
     (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| b.cc_immune)
+}
+
+
+
+/// 0.2.5（用户 2026-11-13：「沙皇的反推 好像推不到人」）：墙带着的人每 tick 看一眼（他的被动里，墙立着的时候）。还在强制位移、
+/// 被按住就等着；走完了还没到墙外那条落点线就把剩下的路再推一次（`next_push`）：别人的控制打断了、他自己的位移技能
+/// 顶掉了（韧性截短的那一截 `push_rules` 已经放长补上），原来都落在墙这边，墙再把他挡在阿兹尔这边。到了、推不动、跑回去、推满了、墙倒了就不带了，`carried` 落地，
+/// 墙按他现在在哪边挡他。英雄第一次落地记 `LANDED`，补推过的结束时记 `RIDE`。
+fn ride_tick(sim: &mut StableSim<'_>, me: usize, w: &mut Standing, tick: usize) {
+    let mut ids: Vec<usize> = w.rides.keys().copied().collect();
+    ids.sort_unstable();
+    for id in ids {
+        let Some(ride) = w.rides.get(&id).copied() else { continue };
+        let Some((at, busy, immune_now, tough)) = sim.get_entity(id).filter(|u| u.is_alive())
+            .map(|u| (at_of(&u), flying(&u) || held(&u), immune(&u), toughness(&u))) else {
+            w.rides.remove(&id);
+            continue;
+        };
+        let down = tick >= w.until;
+        if busy && !down {
+            // still moving, or held: he lands later
+            w.carried.insert(id, tick + 1);
+            continue;
+        }
+        let left = ride_left(w, at);
+        let next = next_push(left, ride.left, ride.planned, ride.pushes);
+        let push = next == Next::Push && !immune_now && !down;
+        if ride.champ && ride.pushes == 0 {
+            if let Some(k) = tally(sim, "land") {
+                let why = match next {
+                    _ if down => "the wall is down: left where he is".to_string(),
+                    _ if immune_now && next == Next::Push => "immune to crowd control now: left there".to_string(),
+                    Next::Landed => "past the wall".to_string(),
+                    Next::Push => format!("pushed on {left:.0}"),
+                    Next::RanBack => "ran back (a dash or a flash): left alone".to_string(),
+                    Next::Stuck | Next::Spent => "left there".to_string(),
+                };
+                wlog(format!("{} LANDED #{k} #{id}: carried {:.0} of {:.0} in {} ticks, {left:.0} short of past the wall \
+                              (toughness {tough}): {why}", head(sim, me), ride.planned - left, ride.planned,
+                             tick.saturating_sub(ride.since)));
+            }
+        }
+        if push {
+            let speed = CARRY_MAX_SPEED.max(w.speed);
+            let ticks = ((left / speed as f64).ceil() as usize).max(1);
+            let speed = (left / ticks as f64).ceil() as usize;
+            let dest = (at.0 + w.dir.0 * left, at.1 + w.dir.1 * left);
+            shove(sim, id, at, (dest, left, ticks, speed));
+            w.rides.insert(id, Ride { left, pushes: ride.pushes + 1, ..ride });
+            w.carried.insert(id, tick + ticks + 2);
+            continue;
+        }
+        w.rides.remove(&id);
+        w.carried.insert(id, tick);
+        if ride.champ && ride.pushes > 0 {
+            if let Some(k) = tally(sim, "ride") {
+                let why = match next {
+                    _ if down => "the wall is down",
+                    Next::Landed => "past the wall",
+                    Next::Stuck => "no further: the map in the way",
+                    Next::RanBack => "ran back",
+                    Next::Spent => "pushed as often as it goes",
+                    Next::Push => "immune to crowd control now",
+                };
+                wlog(format!("{} RIDE #{k} #{id}: {why} after {} more push(es), {left:.0} short (toughness {tough})",
+                             head(sim, me), ride.pushes));
+            }
+        }
+    }
 }
 
 /// 用强制位移把 `id` 带到计划的落点（`carry_plan`：速度 x tick 就是那段距离）。
@@ -1056,6 +1222,7 @@ fn walls_tick(sim: &mut StableSim<'_>, me: usize, team: usize, tick: usize, p: &
         if tick <= w.from + SWEEP_LAG {
             sweep(sim, me, team, tick, w);
         }
+        ride_tick(sim, me, w, tick);
         if tick < w.from {
             continue;
         }
@@ -1138,6 +1305,7 @@ impl StableEffectType for Behind {
             let n = friends.len() as f64;
             Some((friends.iter().map(|f| f.0).sum::<f64>() / n, friends.iter().map(|f| f.1).sum::<f64>() / n))
         };
+        LAST_TARGET.lock().unwrap_or_else(|e| e.into_inner()).insert(wall_key(sim, me), (sim.tick(), target));
         let spot = behind(&p, here, target, home);
         let (dx, dy) = (spot.0 - here.0, spot.1 - here.1);
         let len = (dx * dx + dy * dy).sqrt();
@@ -2501,4 +2669,42 @@ mod tests {
         assert!(!fanim.contains(&format!("\"tether_{}\":", TETHER_MAX + 2)));
         assert!(copy.contains("\"anim\": \"asset/league_azir/effects/league_azir_tether\""));
     }
+
+    /// 2026-11-13 「沙皇的反推 好像推不到人」: a carry that stops short (tenacity, others' crowd control, his own dash) is
+    /// pushed on until he is past the wall; not through the map, not after one who ran back, not for ever.
+    #[test]
+    fn a_carry_cut_short_is_pushed_on() {
+        // past the landing line (or nearly): there
+        assert_eq!(next_push(0.0, 50_000.0, 50_000.0, 0), Next::Landed);
+        assert_eq!(next_push(LAND_NEAR, 50_000.0, 50_000.0, 3), Next::Landed);
+        // the first landing short - a third cut by tenacity, or not moved at all (the host did not run it): pushed on
+        assert_eq!(next_push(17_000.0, 50_000.0, 50_000.0, 0), Next::Push);
+        assert_eq!(next_push(50_000.0, 50_000.0, 50_000.0, 0), Next::Push);
+        // a push on that gained: again; one that gained less than PUSH_GAIN: the map in the way
+        assert_eq!(next_push(5_000.0, 17_000.0, 50_000.0, 1), Next::Push);
+        assert_eq!(next_push(16_000.0, 17_000.0, 50_000.0, 1), Next::Stuck);
+        // ran back past where the wall found him: left alone; and never more than MAX_PUSHES
+        assert_eq!(next_push(50_000.0 + RAN_BACK + 1.0, 50_000.0, 50_000.0, 0), Next::RanBack);
+        assert_eq!(next_push(5_000.0, 9_000.0, 50_000.0, MAX_PUSHES), Next::Spent);
+        // the wall keeps what it carries: where to, how far, from when
+        let p = Params::default();
+        let mut w = standing(&p, (100_000.0, 100_000.0), (130_000.0, 100_000.0), 1000, true);
+        let plan = take(&mut w, 7, (130_000.0, 100_000.0), true, 1005).expect("short of the wall: carried");
+        let ride = w.rides[&7];
+        assert_eq!((ride.dest, ride.planned, ride.left, ride.pushes, ride.since, ride.champ), (plan.0, plan.1, plan.1, 0, 1005, true));
+        // the landing line is where the plan ends
+        assert!(ride_left(&w, plan.0).abs() < 1e-6);
+        assert!((ride_left(&w, (130_000.0, 100_000.0)) - plan.1).abs() < 1e-6);
+    }
+
+    /// 0.2.6: the wall still comes out when the ult's target died after the dash behind - toward where it stood, if that
+    /// was this cast (the wall follows the dash by 10 ticks).
+    #[test]
+    fn a_wall_without_its_target_goes_where_it_stood() {
+        assert!(fresh_target(1000, 1010));
+        assert!(fresh_target(1000, 1000 + LAST_TARGET_T));
+        assert!(!fresh_target(1000, 1001 + LAST_TARGET_T));
+        assert!(!fresh_target(1000, 990), "another simulation's clock");
+    }
+
 }

@@ -1,5 +1,10 @@
 //! 薇恩附加包：圣银弩箭数的是「同一个目标」挨的连续 3 下（用户：「薇恩也顺便做了」）。
 //!
+//! 2026-11-13（用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：恶魔审判推向墙的时候记下落点，到点还在
+//! 位移就再等一拍，停下了却离落点超过 `AT_WALL`（被别人的控制打断、自己的位移技能顶掉）就不按住，也摘掉薇恩的 `WALL`，
+//! 数据的撞墙伤害和眩晕不打（日志 `SHORT`）。当天下午还把这一下按目标的韧性放长过，晚上撤了：引擎不按韧性缩短强制位移
+//! （见 `push_rules`），放长只会推过头。
+//!
 //! 主包保持纯数据：数据分不清一次攻击打中的是谁，圣银弩箭的两层（`league_vayne_sb1` / `sb2`）记在薇恩自己身上，
 //! 她轮流打两个人也会凑满 3 下，在第三个被打中的人身上爆。`mod.override_info` 把主包的薇恩换成 `override/` 里的副本
 //! （`make_override.py` 从主包生成）：每一处圣银弩箭的判定（普攻、翻滚后的强化普攻、恶魔审判）先调用本包的
@@ -286,6 +291,31 @@ pub fn wall_travel(grid: &Grid, at: Pt, dir: Pt, reach: f64, body: f64) -> Optio
 }
 
 /// 推 `len` 到墙边：几 tick、每 tick 多快（不快过主包的击退，正好停在墙边）。
+/// 2026-11-13：离记下的落点这么近才算推到了墙边。
+pub const AT_WALL: f64 = 4_000.0;
+
+/// 2026-11-13：落点记在他身上的 buff 名字（每份模拟各自的）。
+pub fn land_name(at: Pt) -> String {
+    format!("{ID}_land:{}:{}", at.0.round().max(0.0) as u64, at.1.round().max(0.0) as u64)
+}
+
+/// [`land_name`] 读回来。
+pub fn parse_land(name: &str) -> Option<Pt> {
+    let mut it = name.strip_prefix(&format!("{ID}_land:"))?.split(':');
+    let x: u64 = it.next()?.parse().ok()?;
+    let y: u64 = it.next()?.parse().ok()?;
+    it.next().is_none().then_some((x as f64, y as f64))
+}
+
+/// 2026-11-13：停在 `at` 算不算到了记下的落点 `land`。
+pub fn arrived(at: Pt, land: Pt) -> bool {
+    ((at.0 - land.0).powi(2) + (at.1 - land.1).powi(2)).sqrt() <= AT_WALL
+}
+
+fn buff_names(sim: &StableSim<'_>, id: usize) -> Vec<String> {
+    sim.get_entity(id).map_or_else(Vec::new, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).map(|b| b.name().to_string()).collect())
+}
+
 pub fn push_plan(len: f64) -> (usize, usize) {
     let ticks = ((len / E_KB_SPEED as f64).ceil() as usize).max(1);
     (ticks, (len / ticks as f64).ceil() as usize)
@@ -376,6 +406,12 @@ fn condemn(sim: &mut StableSim<'_>, vayne: usize, input: InputTargetV1) {
     sim.add_buff(vayne, &BuffV1::timed(WALL, WALL_T));
     sim.entity_remove_buff(target, PIN);
     sim.add_buff(target, &BuffV1::timed(PIN, PIN_T));
+    // 2026-11-13: where he should land (the pin checks he did)
+    let land = (at.0 + dir.0 * len, at.1 + dir.1 * len);
+    for b in buff_names(sim, target).into_iter().filter(|b| parse_land(b).is_some()) {
+        sim.entity_remove_buff(target, &b);
+    }
+    sim.add_buff(target, &BuffV1::timed(&land_name(land), PIN_T));
     let name = format!("{ID}:pin");
     if !sim.queue_effect(&name, AttackTypeV1::Skill, vayne, &InputTargetV1::target(target), ticks) {
         wlog(format!("{} queue_effect({name}) refused", head(sim, vayne)));
@@ -385,9 +421,32 @@ fn condemn(sim: &mut StableSim<'_>, vayne: usize, input: InputTargetV1) {
     }
 }
 
-/// 推到墙边的人到了：眩晕到数据的撞墙（他身上 `PIN` 剩下的时间）。
+/// 推到墙边的人到了：眩晕到数据的撞墙（他身上 `PIN` 剩下的时间）。2026-11-13：到点还在位移就下一 tick 再看；停下了却离
+/// 记下的落点超过 `AT_WALL`（被别人的控制打断、自己的位移技能顶掉）就不按住，也摘掉薇恩的 `WALL`，数据第 `E_KB_T` tick
+/// 的撞墙伤害和眩晕不打（原来到点就按住，数据也照打，空地上也晕）。
 fn pin(sim: &mut StableSim<'_>, vayne: usize, input: InputTargetV1) {
     let Some(target) = target_of(&input) else { return };
+    let names = buff_names(sim, target);
+    if push_rules::moving_id(sim, target) && names.iter().any(|b| b == PIN) {
+        let name = format!("{ID}:pin");
+        sim.queue_effect(&name, AttackTypeV1::Skill, vayne, &input, 1);
+        return;
+    }
+    let land = names.iter().find_map(|b| parse_land(b));
+    for b in names.iter().filter(|b| parse_land(b).is_some()) {
+        sim.entity_remove_buff(target, b);
+    }
+    if let (Some(land), Some(at)) = (land, sim.get_entity(target).map(|e| (e.pos().0 as f64, e.pos().1 as f64))) {
+        if !arrived(at, land) {
+            sim.entity_remove_buff(target, PIN);
+            sim.entity_remove_buff(vayne, WALL);
+            if let Some(k) = tally(sim, "short") {
+                wlog(format!("{} SHORT #{target} at {}: stopped short of the wall ({} to go), no pin, no slam #{k}",
+                             head(sim, vayne), pt(at), pt(land)));
+            }
+            return;
+        }
+    }
     let Some((at, hold, immune)) = sim.get_entity(target).filter(|e| e.is_alive()).map(|e| {
         let hold = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).find(|b| b.name() == PIN).map(|b| b.duration_tick);
         let immune = (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.cc_immune);
@@ -548,5 +607,17 @@ mod tests {
         }
         assert!(copy.contains(&format!("\"buff_name\": \"{WALL}\"")), "the copy's slam does not wait for {WALL}");
         assert!(!copy.contains("\"type\": \"Knockback\""), "the copy still knocks back in data");
+    }
+
+    /// 2026-11-13: the landing point reads back from its buff name; the pin only when he stopped at it.
+    #[test]
+    fn the_pin_needs_him_at_the_landing_point() {
+        let name = land_name((512_345.6, 7.4));
+        assert!(name.len() <= BUFF_NAME_CAP, "{name}");
+        assert_eq!(parse_land(&name), Some((512_346.0, 7.0)));
+        assert_eq!(parse_land(PIN), None);
+        assert_eq!(parse_land(&format!("{ID}_land:1:2:3")), None);
+        assert!(arrived((100_000.0, 100_000.0), (102_000.0, 101_000.0)));
+        assert!(!arrived((100_000.0, 100_000.0), (110_000.0, 100_000.0)));
     }
 }

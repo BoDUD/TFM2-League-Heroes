@@ -1,6 +1,6 @@
 [package]
 name = "league_gnar"
-version = "0.1.5"
+version = "0.1.7"
 edition = "2021"
 publish = false
 
@@ -10,6 +10,7 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 mod-api-stable = { path = "../vendor/mod-api-stable" }
 game_places = { path = "../game_places" }
+push_rules = { path = "../push_rules" }
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ["cfg(league_bundle)"] }

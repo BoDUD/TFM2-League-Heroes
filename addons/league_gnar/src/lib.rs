@@ -13,7 +13,12 @@
 //! 数字是主包参数表 P 的同名项（小写）；`make_override.py` 生成副本时核对，不一致就停。本包不按任何技能键。
 //!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gnar.log`，每次启动游戏重写，上一次的留在 .prev.log：
-//! `THROW`（往哪边掀、几个会撞墙）、`WALL`（撞墙眩晕），限了条数；还有整身变巨型的显示统计。
+//! `THROW`（往哪边掀、几个会撞墙）、`WALL`（撞墙眩晕）、`SHORT`（停在墙前面，不晕），限了条数；还有整身变巨型的显示统计。
+//!
+//! 0.1.6 / 0.1.7（2026-11-13，用户：「沙皇的反推 好像推不到人 整体检查一下各个推的逻辑」「接着修」）：撞墙到点还在位移就等
+//! 一拍，停下了却不在墙边（被别人的控制打断、自己的位移技能顶掉）就不砸、不晕（原来到点就砸，空地上也晕）；0.1.6 还把掀人
+//! 按目标的韧性放长过，0.1.7 撤了（引擎不按韧性缩短强制位移，见 `push_rules`，放长只会推过头）；一次大招掀几个人时，盯撞墙的 `r_watch` 按最远的
+//! 那一个算（原来每个目标都重设成自己的，后算的近的把远的盖掉，远的那个撞了墙也不晕）。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
@@ -229,6 +234,17 @@ pub struct Foe {
 }
 
 /// 掀飞的方向：DIRS 个方向里会撞墙的人最多的那个（英雄算 CHAMP_WEIGHT 个），返回 (方向, 分数)；哪个方向都没人撞墙就 None。
+/// 0.1.6：离墙这么近（身体之外）才算掀到了墙边。
+pub const AT_WALL: f64 = 4_000.0;
+
+/// 0.1.6：他在 `at` 贴着墙吗：16 个方向里有一个 `AT_WALL`（加身体）以内是墙格。
+pub fn near_wall(grid: &Grid, at: Pt, body: f64) -> bool {
+    (0..16).any(|k| {
+        let a = k as f64 * std::f64::consts::TAU / 16.0;
+        wall_travel(grid, at, (a.cos(), a.sin()), AT_WALL, body).is_some()
+    })
+}
+
 pub fn best_dir(grid: &Grid, foes: &[Foe], reach: f64) -> Option<(Pt, usize)> {
     let mut best: Option<(Pt, usize)> = None;
     for k in 0..DIRS {
@@ -352,7 +368,8 @@ fn wall(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
             sim.add_buff(target, &BuffV1::timed(&n("r_due"), ticks.max(1)));
             sim.add_buff(target, &BuffV1::timed(&n("r_go"), ticks + 4));
             sim.entity_remove_buff(me, &n("r_watch"));
-            sim.add_buff(me, &BuffV1::timed(&n("r_watch"), ticks + 8));
+            // 0.1.6: as long as the cast's longest throw (each target reset it to its own: a nearer one cut a farther one's)
+            sim.add_buff(me, &BuffV1::timed(&n("r_watch"), R_PUSH.div_ceil(R_PUSH_V).max(ticks) + 8));
             if let Some(k) = counted("throw") {
                 wlog(format!("{} THROW #{target} at {} toward ({:.2}, {:.2}): a wall {len:.0} away, slams in {ticks} ticks #{k}",
                              head(sim, me), pt(at), dir.0, dir.1));
@@ -399,9 +416,22 @@ impl StablePassive for Slam {
             .filter(|&id| has_buff(sim, id, &n("r_go")) && !has_buff(sim, id, &n("r_due")))
             .collect();
         for foe in arrived {
+            if push_rules::moving_id(sim, foe) {
+                continue; // 0.1.6: not there yet (r_go lasts a few ticks past r_due)
+            }
             sim.entity_remove_buff(foe, &n("r_go"));
             if !sim.get_entity(foe).is_some_and(|e| e.is_alive()) {
                 continue;
+            }
+            // 0.1.6: stopped short of the wall (another's crowd control, a dash of his own): no slam
+            let body = sim.get_entity(foe).map_or(0.0, |e| e.radius() as f64);
+            if let (Some(at), Some(g)) = (pos(sim, foe), grid_now(sim)) {
+                if !near_wall(&g, at, body) {
+                    if let Some(k) = counted("short") {
+                        wlog(format!("{} SHORT #{foe} at {}: stopped short of the wall, no slam #{k}", head(sim, me), pt(at)));
+                    }
+                    continue;
+                }
             }
             let ad = sim.get_entity(me).map_or(0, |e| e.stat().attack);
             let dmg = wall_damage(ad);
@@ -543,5 +573,20 @@ mod tests {
         }
         assert!(!copy.contains("\"type\": \"Knockback\""), "the copy still throws in data");
         assert!(copy.contains("\"name\": \"league_gnar_mg\""), "the copy never lays the Mega buff");
+    }
+
+    /// 0.1.6: the slam needs him at the wall - one stopped short in open ground is not slammed.
+    #[test]
+    fn the_slam_needs_him_at_the_wall() {
+        let grids = Grid::builtin();
+        let g = &grids[0];
+        let body = 6_000.0;
+        // against the map's left edge: at the wall, whichever way he faces
+        assert!(near_wall(g, (MOBA_BOUNDS.0 + body + 1_000.0, 480_000.0), body));
+        // 17500 past his body from it, or mid-river: not
+        assert!(!near_wall(g, (MOBA_BOUNDS.0 + body + 17_500.0, 480_000.0), body));
+        assert!(!near_wall(g, (480_000.0, 480_000.0), body));
+        // the watch covers the longest throw
+        assert!(R_PUSH.div_ceil(R_PUSH_V) >= ((R_PUSH as f64 / R_PUSH_V as f64).ceil() as usize));
     }
 }
