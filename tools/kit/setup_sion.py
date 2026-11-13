@@ -61,7 +61,7 @@ TEXT = {
     "zh-hans": {
         "name": "赛恩",
         "attack": O + "灵魂熔炉" + E + "被动：普攻每击杀一个单位，永久获得" + G + "{k_hp}" + E + "点最大生命值（阵亡后重新累积）。",
-        "skill": "蓄力" + A + "{q_ch}秒" + E + "后向前砸地，直线上的敌人受到" + phy("q_dmg", "q_ratio") + O + "物理伤害" + E + "并" + R + "击飞{q_up}秒" + E +
+        "skill": "蓄力" + A + "{q_ch}秒" + E + "后向前砸地，直线上的敌人受到" + phy("q_dmg", "q_ratio") + O + "物理伤害" + E + "并" + R + "击飞、眩晕共{q_stun}秒" + E +
                  "；蓄力时被控制会打断。",
         "skill2": "怒吼穿过小兵，造成" + mhp("e_dmg", "e_hp") + M + "魔法伤害" + E + "，" + R + "减速{e_slow}%" + E + "，护甲降低{e_shred}%。" + O + "灵魂熔炉" + E +
                   "：获得" + SH + "护盾，" + A + "{w_det}秒" + E + "后护盾仍在则爆炸，造成" + mhp("w_dmg", "w_hp") + M + "魔法伤害" + E + "。",
@@ -72,7 +72,7 @@ TEXT = {
     "zh-hant": {
         "name": "賽恩",
         "attack": O + "魂魄熔爐" + E + "被動：普攻每擊殺一個單位，永久獲得" + G + "{k_hp}" + E + "點最大生命值（陣亡後重新累積）。",
-        "skill": "蓄力" + A + "{q_ch}秒" + E + "後向前砸地，直線上的敵人受到" + phy("q_dmg", "q_ratio") + O + "物理傷害" + E + "並" + R + "擊飛{q_up}秒" + E +
+        "skill": "蓄力" + A + "{q_ch}秒" + E + "後向前砸地，直線上的敵人受到" + phy("q_dmg", "q_ratio") + O + "物理傷害" + E + "並" + R + "擊飛、暈眩共{q_stun}秒" + E +
                  "；蓄力時被控制會打斷。",
         "skill2": "怒吼穿過小兵，造成" + mhp("e_dmg", "e_hp") + M + "魔法傷害" + E + "，" + R + "緩速{e_slow}%" + E + "，護甲降低{e_shred}%。" + O + "魂魄熔爐" + E +
                   "：獲得" + SH + "護盾，" + A + "{w_det}秒" + E + "後護盾仍在則爆炸，造成" + mhp("w_dmg", "w_hp") + M + "魔法傷害" + E + "。",
@@ -85,7 +85,7 @@ TEXT = {
         "attack": O + "Soul Furnace" + E + " passive: each unit his attack kills grants " + G + "{k_hp}" + E +
                   " maximum health for good (lost on death).",
         "skill": "Charges for " + A + "{q_ch}s" + E + ", then smashes the line in front: " + phy("q_dmg", "q_ratio") + " " + O + "physical damage" + E +
-                 " and " + R + "knocked up {q_up}s" + E + ". Crowd control on him breaks the charge.",
+                 ", " + R + "knocked up and stunned {q_stun}s" + E + " in all. Crowd control on him breaks the charge.",
         "skill2": "Roars through minions: " + mhp("e_dmg", "e_hp") + " " + M + "magic damage" + E + ", " + R + "slowed {e_slow}%" + E + " and armour -{e_shred}%. " +
                   O + "Soul Furnace" + E + ": a " + SH + " shield; still holding it after " + A + "{w_det}s" + E + ", it blasts nearby enemies for " +
                   mhp("w_dmg", "w_hp") + " " + M + "magic damage" + E + ".",
@@ -97,7 +97,7 @@ TEXT = {
     "ko": {
         "name": "사이온",
         "attack": O + "영혼의 용광로" + E + " 기본 지속 효과: 기본 공격으로 처치한 대상마다 최대 체력 " + G + "{k_hp}" + E + " 영구 증가(사망 시 초기화).",
-        "skill": A + "{q_ch}초" + E + " 충전 후 앞의 직선을 내려찍어 " + phy("q_dmg", "q_ratio") + " " + O + "물리 피해" + E + "와 " + R + "{q_up}초 에어본" + E +
+        "skill": A + "{q_ch}초" + E + " 충전 후 앞의 직선을 내려찍어 " + phy("q_dmg", "q_ratio") + " " + O + "물리 피해" + E + "와 총 " + R + "{q_stun}초 에어본·기절" + E +
                  ". 충전 중 군중 제어에 걸리면 취소.",
         "skill2": "미니언을 꿰뚫는 포효로 " + mhp("e_dmg", "e_hp") + " " + M + "마법 피해" + E + ", " + R + "{e_slow}% 둔화" + E + ", 방어력 {e_shred}% 감소. " + O +
                   "영혼의 용광로" + E + ": " + SH + " 보호막, " + A + "{w_det}초" + E + " 후 남아 있으면 폭발해 " + mhp("w_dmg", "w_hp") + " " + M + "마법 피해" + E + ".",
@@ -108,7 +108,7 @@ TEXT = {
     "ja": {
         "name": "サイオン",
         "attack": O + "魂の炉心" + E + "自動効果：通常攻撃でユニットを倒すたび最大体力が" + G + "{k_hp}" + E + "永続増加（死亡でリセット）。",
-        "skill": A + "{q_ch}秒" + E + "溜めて前方の直線を叩きつけ、" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E + "と" + R + "{q_up}秒ノックアップ" + E +
+        "skill": A + "{q_ch}秒" + E + "溜めて前方の直線を叩きつけ、" + phy("q_dmg", "q_ratio") + "の" + O + "物理ダメージ" + E + "と合計" + R + "{q_stun}秒のノックアップ・スタン" + E +
                  "。溜め中に行動妨害を受けると中断。",
         "skill2": "ミニオンを貫く雄叫びで" + mhp("e_dmg", "e_hp") + "の" + M + "魔法ダメージ" + E + "、" + R + "{e_slow}%スロウ" + E + "、物理防御{e_shred}%低下。" + O +
                   "魂の炉心" + E + "：" + SH + "のシールド、" + A + "{w_det}秒" + E + "後に残っていれば爆発し" + mhp("w_dmg", "w_hp") + "の" + M + "魔法ダメージ" + E + "。",
@@ -137,7 +137,7 @@ def secs(t):
 def values(p):
     v = {k: p[k] for k in ("k_hp", "q_dmg", "q_ratio", "e_dmg", "e_hp", "e_slow", "e_shred", "w_sh", "w_ad", "w_dmg",
                            "w_hp", "r_dmg1", "r_dmg3", "r_ratio", "r_slow")}
-    v.update({k: secs(p[k]) for k in ("q_ch", "q_up", "w_det", "r_up1", "r_up3")})
+    v.update({k: secs(p[k]) for k in ("q_ch", "q_up", "q_stun", "w_det", "r_up1", "r_up3")})
     return v
 
 
