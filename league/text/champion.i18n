@@ -18,7 +18,7 @@
       "league_lux": {
         "name": "拉克丝",
         "attack": "普攻从法杖射出光弹，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻击力<>的<#ff9028ff>物理伤害<>。被动 <#ff9028ff>光芒四射<>：技能命中敌人后<#ffb900ff>5秒<>内，下一次普攻引爆光芒，额外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 法术强度<>的<#a974ffff>魔法伤害<>。",
-        "skill": "<#ff9028ff>光之束缚<>：向前方射出一颗光球，对路径上的每个敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>禁锢<><#ffb900ff>1.5秒<>。同时施放 <#ff9028ff>曲光屏障<>：拉克丝和身边的友方英雄获得<#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2.5秒<>。",
+        "skill": "<#ff9028ff>光之束缚<>：向前方射出一颗光球，对路径上最先碰到的两个敌人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 法术强度<>的<#a974ffff>魔法伤害<>并<#ef5350ff>禁锢<><#ffb900ff>1.5秒<>。同时施放 <#ff9028ff>曲光屏障<>：拉克丝和身边的友方英雄获得<#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 法术强度<>的<#e8d44dff>护盾<>，持续<#ffb900ff>2.5秒<>。",
         "skill2": "<#ff9028ff>透光奇点<>：向目标位置抛出光球，落地后形成光圈，使圈内敌人<#ef5350ff>减速<><#ffb900ff>20%<>。<#ffb900ff>1秒<>后光圈引爆，对圈内敌人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 法术强度<>的<#a974ffff>魔法伤害<>。",
         "ult": "<#ff9028ff>终极闪光<>：拉克丝跃起蓄力，<#ffb900ff>0.5秒<>后向目标方向发射一道极长的激光，对直线上所有敌人造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>115% 法术强度<>的<#a974ffff>魔法伤害<>。"
       },
@@ -2100,7 +2100,7 @@
       "league_lux": {
         "name": "拉克絲",
         "attack": "普攻從法杖射出光彈，造成<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% 攻擊力<>的<#ff9028ff>物理傷害<>。被動 <#ff9028ff>光芒四射<>：技能命中敵人後<#ffb900ff>5秒<>內，下一次普攻引爆光芒，額外造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% 魔法強度<>的<#a974ffff>魔法傷害<>。",
-        "skill": "<#ff9028ff>光明束縛<>：向前方射出一顆光球，對路徑上的每個敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>束縛<><#ffb900ff>1.5秒<>。同時施放 <#ff9028ff>稜光障壁<>：拉克絲和身邊的友方英雄獲得<#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2.5秒<>。",
+        "skill": "<#ff9028ff>光明束縛<>：向前方射出一顆光球，對路徑上最先碰到的兩個敵人造成<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% 魔法強度<>的<#a974ffff>魔法傷害<>並<#ef5350ff>束縛<><#ffb900ff>1.5秒<>。同時施放 <#ff9028ff>稜光障壁<>：拉克絲和身邊的友方英雄獲得<#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% 魔法強度<>的<#e8d44dff>護盾<>，持續<#ffb900ff>2.5秒<>。",
         "skill2": "<#ff9028ff>光明異點<>：向目標位置拋出光球，落地後形成光圈，使圈內敵人<#ef5350ff>緩速<><#ffb900ff>20%<>。<#ffb900ff>1秒<>後光圈引爆，對圈內敵人造成<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% 魔法強度<>的<#a974ffff>魔法傷害<>。",
         "ult": "<#ff9028ff>終極閃光<>：拉克絲躍起蓄力，<#ffb900ff>0.5秒<>後向目標方向發射一道極長的雷射，對直線上所有敵人造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>115% 魔法強度<>的<#a974ffff>魔法傷害<>。"
       },
@@ -4182,7 +4182,7 @@
       "league_lux": {
         "name": "Lux",
         "attack": "Basic attacks fire bolts of light from her wand that deal <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>100% AD<> <#ff9028ff>physical damage<>. Passive <#ff9028ff>Illumination<>: for <#ffb900ff>5s<> after her abilities hit an enemy, her next basic attack ignites the light for <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35% Ability Power<> bonus <#a974ffff>magic damage<>.",
-        "skill": "<#ff9028ff>Light Binding<>: Fires an orb of light that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% Ability Power<> <#a974ffff>magic damage<> to every enemy in its path and <#ef5350ff>roots<> them for <#ffb900ff>1.5s<>. Also casts <#ff9028ff>Prismatic Barrier<>: Lux and nearby allied champions gain a <#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>.",
+        "skill": "<#ff9028ff>Light Binding<>: Fires an orb of light that deals <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>75% Ability Power<> <#a974ffff>magic damage<> to the first two enemies in its path and <#ef5350ff>roots<> them for <#ffb900ff>1.5s<>. Also casts <#ff9028ff>Prismatic Barrier<>: Lux and nearby allied champions gain a <#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>40% Ability Power<> <#e8d44dff>shield<> for <#ffb900ff>2.5s<>.",
         "skill2": "<#ff9028ff>Lucent Singularity<>: Lobs an orb of light that lands as a glowing field, <#ef5350ff>slowing<> enemies inside by <#ffb900ff>20%<>. After <#ffb900ff>1s<> it detonates, dealing <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>80% Ability Power<> <#a974ffff>magic damage<> to enemies in the field.",
         "ult": "<#ff9028ff>Final Spark<>: Lux leaps up and gathers light, then after <#ffb900ff>0.5s<> fires a huge laser toward the target, dealing <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>115% Ability Power<> <#a974ffff>magic damage<> to all enemies in the line."
       },
@@ -6264,7 +6264,7 @@
       "league_lux": {
         "name": "럭스",
         "attack": "기본 공격으로 지팡이에서 빛의 탄환을 쏘아 <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>공격력의 100%<> <#ff9028ff>물리 피해<>를 입힙니다. 기본 지속 효과 <#ff9028ff>광채<>: 스킬이 적에게 적중한 뒤 <#ffb900ff>5초<> 안에 하는 다음 기본 공격이 빛을 폭발시켜 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 35%<> <#a974ffff>추가 마법 피해<>를 입힙니다.",
-        "skill": "<#ff9028ff>빛의 속박<>: 빛의 구체를 발사해 경로 위의 모든 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 75%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>속박<>합니다. 동시에 <#ff9028ff>프리즘 보호막<>을 사용해 럭스와 주변 아군 챔피언이 <#ffb900ff>2.5초<> 동안 <#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#e8d44dff>보호막<>을 얻습니다.",
+        "skill": "<#ff9028ff>빛의 속박<>: 빛의 구체를 발사해 경로에서 처음 맞은 두 적에게 <#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 75%<> <#a974ffff>마법 피해<>를 입히고 <#ffb900ff>1.5초<> 동안 <#ef5350ff>속박<>합니다. 동시에 <#ff9028ff>프리즘 보호막<>을 사용해 럭스와 주변 아군 챔피언이 <#ffb900ff>2.5초<> 동안 <#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 40%<> <#e8d44dff>보호막<>을 얻습니다.",
         "skill2": "<#ff9028ff>광휘의 특이점<>: 빛의 구체를 던져 떨어진 자리에 빛의 장을 만들고, 장 안의 적을 <#ffb900ff>20%<> <#ef5350ff>둔화<>시킵니다. <#ffb900ff>1초<> 뒤 폭발하여 장 안의 적에게 <#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 80%<> <#a974ffff>마법 피해<>를 입힙니다.",
         "ult": "<#ff9028ff>최후의 섬광<>: 럭스가 공중으로 떠올라 빛을 모은 뒤 <#ffb900ff>0.5초<> 후 대상 방향으로 거대한 레이저를 발사해 직선 위의 모든 적에게 <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>주문력의 115%<> <#a974ffff>마법 피해<>를 입힙니다."
       },
@@ -8346,7 +8346,7 @@
       "league_lux": {
         "name": "ラックス",
         "attack": "通常攻撃は杖から光弾を放ち、<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>攻撃力の100%<>の<#ff9028ff>物理ダメージ<>を与える。パッシブ <#ff9028ff>イルミネーション<>：スキルが敵に命中してから<#ffb900ff>5秒<>以内の次の通常攻撃が光を炸裂させ、<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の35%<>の<#a974ffff>追加魔法ダメージ<>を与える。",
-        "skill": "<#ff9028ff>ライトバインディング<>：光の球を放ち、通過した敵すべてに<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の75%<>の<#a974ffff>魔法ダメージ<>を与えて<#ffb900ff>1.5秒<>間<#ef5350ff>スネア<>状態にする。同時に<#ff9028ff>プリズムバリア<>を発動し、ラックスと周囲の味方チャンピオンが<#ffb900ff>2.5秒<>間<#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#e8d44dff>シールド<>を得る。",
+        "skill": "<#ff9028ff>ライトバインディング<>：光の球を放ち、最初に当たった敵2体に<#a974ffff>80<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の75%<>の<#a974ffff>魔法ダメージ<>を与えて<#ffb900ff>1.5秒<>間<#ef5350ff>スネア<>状態にする。同時に<#ff9028ff>プリズムバリア<>を発動し、ラックスと周囲の味方チャンピオンが<#ffb900ff>2.5秒<>間<#e8d44dff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の40%<>の<#e8d44dff>シールド<>を得る。",
         "skill2": "<#ff9028ff>ルーセントシンギュラリティ<>：光の球を投げ、着弾地点に光のフィールドを作り、内部の敵を<#ffb900ff>20%<><#ef5350ff>スロウ<>にする。<#ffb900ff>1秒<>後に炸裂し、フィールド内の敵に<#a974ffff>70<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の80%<>の<#a974ffff>魔法ダメージ<>を与える。",
         "ult": "<#ff9028ff>ファイナルスパーク<>：ラックスが宙に浮かんで光を集め、<#ffb900ff>0.5秒<>後に対象の方向へ巨大なレーザーを放ち、直線上のすべての敵に<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>魔力の115%<>の<#a974ffff>魔法ダメージ<>を与える。"
       },
