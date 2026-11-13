@@ -841,8 +841,8 @@ pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_
 /// her sheet's `r_` tags (tools/art/rig_belveth.py TRUE: hovering with both wings spread, from the poses Codex had
 /// drawn) played by the add-on league_belveth (0.2.0, src/view.rs) while the same buff is on her. 18 % at first, for
 /// the folded body alone (0.85 x 1.18 = 1.00, the size her model was drawn at: standing, spikes to claws, 41 x 43
-/// game px -> 48 x 50); 10 % with the wings, which carry the bigger outline themselves - the stance 48 game px tall
-/// and 51 wide at her 0.85, 53 x 57 grown (Volibear's storm form, 52 tall, is what the user took; his 61 was
+/// game px -> 48 x 50); 10 % with the wings, which carry the bigger outline themselves - the stance 47 game px tall
+/// and 52 wide at her 0.85, 52 x 58 grown (Volibear's storm form, 52 tall, is what the user took; his 61 was
 /// 「实在太大了」). Without the add-on she grows the same 10 % folded.
 pub const FORMS: &[(&str, &[&str], f32, f32)] =
     &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25),
