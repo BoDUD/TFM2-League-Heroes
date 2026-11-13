@@ -28,10 +28,15 @@ Final Chapter (R) the `ult`.
           ticks (+ the passive's kept heal on the jump).
           After w_t she jumps off beside him (`w_off`).
   ult     R Final Chapter (魔典终章), `Targeting` on `EnemyChampion` (r_range): she opens the book (`ult`, r_dur ticks)
-          and r_n waves leave her every r_gap ticks toward the target (penetrating lines, r_w wide): each enemy hit
-          takes r_dmg + r_ap% AP and r_slow% for r_slow_t, each ally on the line heals r_heal + r_hap% AP (a hidden
-          twin). League roots on the third wave that hits the same enemy; data counts no hits per enemy, so the
-          third wave roots (r_root ticks) whatever it hits. She may walk while the waves go on (League's channel).
+          and r_n waves leave her every r_gap ticks toward the target (penetrating lines, r_w wide): each ally on
+          the line heals r_heal + r_hap% AP (a hidden twin). As League's now (V26.12; the user, 2026-11-14, on the list of
+          differences from League: 「全改吧」 - the third wave used to root 1.25 s, League's rule until its rework): no
+          root; every wave slows r_slow% more, up to r_n x r_slow% (one more `r_slow` instance a wave - same-name buffs
+          add up - each lasting to r_slow_t after the LAST wave: League refreshes the whole stack on a hit, so a stack
+          holds while the waves keep landing; an enemy who steps out keeps his a little longer than League's 1.25 s);
+          the first wave takes r_dmg + r_ap% AP and each later one r_more% of that (League: 25% for an enemy a wave
+          already hit - data counts no hits per enemy, so the later waves are the reduced ones for whoever they hit).
+          She may walk while the waves go on (League's channel).
 The add-on copy (--native, addons/league_yuumi): the attach has no end - the jump marks the host (`w_host`) instead of the
 data's timed banish, the add-on keeps her banished and on the host, lifts the banish while she casts (her frames drawn
 blank: the cat stays on his head), heals him every w_p ticks and drops her off when he dies; riding, skill2 gives the
@@ -101,10 +106,12 @@ P = {
     # Zoomies' speed: 35% attack speed / 20% move speed until the first game (2026-10-19, the user: 「w附身上去属性加的太多了吧」
     # -> 「队友攻速/移速」, 「附身后ADC非常的强 移速又快」)
     "e_sh": 130, "e_ap": 60, "e_t": 180, "e_as": 20, "e_ms": 10,
-    # R Final Chapter (League: 1100 long, 5 waves 0.75 s apart over 3.5 s, 60-300 +20% AP each (one wave per enemy at
-    # full, -25% for more), slow 20-50%, root 1.25 s on three hits; heals allies 35-130 +12.5% AP a wave; cd 120-100 s)
+    # R Final Chapter (League V26.12: 1100 long, 5 waves over 3.5 s, 75-175 +25% AP the first hit and 25% of it for a
+    # wave on an enemy already hit, each wave a 10% slow for 1.25 s stacking to 50% and refreshed by a hit, no root;
+    # heals allies a wave; cd 120-100 s). Until 2026-11-14 every wave 110 + 35% AP, 20% slow, the third wave a 1.25 s
+    # root (550 + 175% AP on an enemy in all five): the first wave now carries half of that total, the rest 25% each.
     "r_cd": 2700, "r_range": 80000, "r_dur": 30, "r_st": 9, "r_n": 5, "r_gap": 45, "r_speed": 3000, "r_len": 100000,
-    "r_w": 12000, "r_y": -3000, "r_dmg": 110, "r_ap": 35, "r_slow": 20, "r_slow_t": 45, "r_root_k": 3, "r_root": 75,
+    "r_w": 12000, "r_y": -3000, "r_dmg": 275, "r_ap": 88, "r_more": 25, "r_slow": 10, "r_slow_t": 75,
     "r_heal": 60, "r_hap": 10,
     "vo_gap": 600,
     # the add-on (addons/league_yuumi): riding with no end - banished w_chunk ticks at a time, a cast window opened when a
@@ -365,10 +372,10 @@ def build(p):
 
     # ------------------------------------------------------------------ ult: R Final Chapter
     def wave(k):
-        hit = [magic(p["r_dmg"], p["r_ap"]), buff("r_slow", p["r_slow_t"], move_speed_mult=-p["r_slow"]), view("r_hit"),
-               tsfx("r_hit")]
-        if k + 1 == p["r_root_k"]:
-            hit += [{"type": "Bind", "duration": p["r_root"]}, buff("r_root", p["r_root"])]
+        part = 100 if k == 0 else p["r_more"]
+        hit = [magic(p["r_dmg"] * part // 100, p["r_ap"] * part // 100),
+               buff("r_slow", (p["r_n"] - 1 - k) * p["r_gap"] + p["r_slow_t"], move_speed_mult=-p["r_slow"]),
+               view("r_hit"), tsfx("r_hit")]
         foes = line("r_wave", p["r_speed"], p["r_len"], p["r_w"], p["r_y"], "EnemyWithoutTower", True, hit)
         friends = line("r_mend", p["r_speed"], p["r_len"], p["r_w"], p["r_y"] + 5000, "AllyNotSelf", True,
                        [heal_ally(p["r_heal"], p["r_hap"]), view("r_heal"), tsfx("r_heal")])
@@ -392,7 +399,7 @@ def build(p):
                E("w_jump", FX, 2, False), E("w_land", FX, 2, False), E("r_cast", BIG, -1), E("r_hit"), E("r_heal")]
     # w_ride: the cat lying on her open book, drawn over the host's head (a buff picture is never mirrored), one per lift
     views_b = [dict(B_(ride_buff(k), RIDE, 4), tag=ride_tag(k)) for k in RIDE_LIFTS] + [
-        B_("e_haste", FX, -1), B_("q_slow", FX, 1), B_("q_eslow", FX, 1), B_("r_root", FX, 1)]
+        B_("e_haste", FX, -1), B_("q_slow", FX, 1), B_("q_eslow", FX, 1)]
     extra = {}
     if native:
         extra["passive"] = {"passive_ref": "league_yuumi:bond", "params": {

@@ -17,7 +17,7 @@ run, hit and death are the add-on's view swap, league_gnar's way).
           (League's 40% bonus armour and magic resistance: no effect reads armour, so his health), slowed q_slow% for
           q_slow_t. A strike that hits anything is one stack (`q_s1`, then `q_s2`, each q_win ticks); at two stacks
           the next Q is Q3: a shockwave line (q3_range, q3_w) that pulls every enemy it crosses toward him (`Pull`)
-          for q3_dmg + q3_ratio% AD + q3_hp%. Tags skill (Q1), skill_b (Q2), skill_c (Q3); ao_skill / ao_skill_b /
+          and stuns it q3_stun ticks (League: 0.8 s) for q3_dmg + q3_ratio% AD + q3_hp%. Tags skill (Q1), skill_b (Q2), skill_c (Q3); ao_skill / ao_skill_b /
           ao_skill_c in All Out. All Out caps his skill cooldowns (`ao` skill_cooldown_mult ao_cdr: League's Q -33%).
   skill2  W Path Maker (辟路先锋, cooldown w_cd): a `Targeting` cast on `EnemyChampion` (w_range). He braces for
           w_charge ticks taking w_dr% less damage (All Out ao_w_dr%), shielded e_sh + e_ratio% AD (Footwork's
@@ -78,6 +78,9 @@ P = {
     "q_dmg": 35, "q_ratio": 70, "q_hp": 2, "q_slow": 50, "q_slow_t": 30, "q_win": 360,
     "q3_dur": 30, "q3_rel": 12, "q3_speed": 4500, "q3_range": 70000, "q3_w": 9000,
     "q3_dmg": 55, "q3_ratio": 70, "q3_hp": 3, "q3_pull": 1500, "q3_pull_t": 12,
+    # League's third strike pulls (0.65 s) and stuns 0.8 s - the stun was missing (the user, 2026-11-14, on the list of
+    # differences from League: 「全改吧」)
+    "q3_stun": 48,
     # W Path Maker (+ Footwork's shield)
     "w_cd": 660, "w_range": 45000, "w_charge": 45, "w_fast": 8, "w_dash_dur": 18, "w_speed": 4500,
     "w_dr": 25, "e_sh": 70, "e_ratio": 50, "e_sh_t": 120, "w_r": 16000,
@@ -256,7 +259,7 @@ def build(p):
     # Q3: the shockwave; a champion it crosses opens Q3 -> W
     q3_hits = [attack(p["q3_dmg"], p["q3_ratio"], p["q3_hp"]), {"type": "Pull", "speed": p["q3_pull"],
                                                                  "tick": p["q3_pull_t"]},
-               view("q3_hit"), tsfx("q3_hit")]
+               {"type": "Stun", "duration": p["q3_stun"]}, view("q3_hit"), tsfx("q3_hit")]
     q3_champ = line("q3_twin", p["q3_speed"], p["q3_range"], p["q3_w"], "EnemyChampion", False,
                     [refresh("w_go", p["win_w"]), mark])
     q3 = combine(*rm("q_s2"), stance(anim("ao_skill_c", p["q3_dur"]), anim("skill_c", p["q3_dur"])), sfx("q3"),

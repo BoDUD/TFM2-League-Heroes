@@ -713,7 +713,7 @@
         "attack": "<#ff9028ff>千珏之印<>：羊灵射箭。参与击杀被她攻击过的敌方英雄获得一层印记（阵亡清空）：射程+15、攻速+4%、<#ff9028ff>横生惧意<>+<#a974ffff>8魔法伤害<>。",
         "skill": "跃动一小段（被近身时向后），向附近最多<#ffb900ff>3名<>敌人各射一箭，造成<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<><#ff8a65ff>物理伤害<>，攻速+35%持续<#ffb900ff>4秒<>。在<#ff9028ff>狼灵狂热<>内冷却<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>横生惧意<>：标记敌人并<#ef5350ff>减速30%<>，此后第<#ffb900ff>3次<>攻击命中时狼灵扑咬被标记者，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<><#ff8a65ff>物理伤害<>（英雄额外4%最大生命）。冷却时放<#ff9028ff>狼灵狂热<>：<#ffb900ff>8.5秒<>领域，狼灵每秒撕咬其中一个敌人，造成<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<><#ff8a65ff>物理伤害<>。",
-        "ult": "友方英雄被控制且身边有敌方英雄，或持续交战中友方英雄（含自己）身边有2名以上敌方英雄时，祝福身边区域：<#ffb900ff>4秒<>内其中的友方英雄不会阵亡，结束时回复<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
+        "ult": "友方英雄被控制且身边有敌方英雄，或持续交战中友方英雄（含自己）身边有2名以上敌方英雄时，祝福身边区域：<#ffb900ff>4秒<>内其中的英雄<#ef5350ff>敌我都不会阵亡<>，结束时都回复<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
       },
       "league_malzahar": {
         "name": "玛尔扎哈",
@@ -790,7 +790,7 @@
         "attack": "发射发条弹。<#ff9028ff>发条协奏<>：普攻附带<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法伤害<>，<#ffb900ff>4秒<>内连续普攻再叠加，最多<#ffb900ff>2层<>。",
         "skill": "把球扔到敌方英雄脚下并停留，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法伤害<>。<#ff9028ff>指令：杂音<>：球附近有敌人时自动放电，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法伤害<>，<#ef5350ff>减速30%<>，队友<#7ee787ff>加速30%<>。",
         "skill2": "把球送给离敌人最近的队友（被贴身时给自己），提供<#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45%护盾<>，路过的敌人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法伤害<>。带球者+12护甲和魔抗。",
-        "ult": "待命<#ffb900ff>6秒<>，球附近有敌方英雄时放出冲击波：造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>并把敌人<#ef5350ff>甩向球<>。"
+        "ult": "待命<#ffb900ff>6秒<>，球附近有敌方英雄时放出冲击波：造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法伤害<>，把敌人<#ef5350ff>甩向球<>并<#ef5350ff>眩晕<>0.75秒。"
       },
       "league_aphelios": {
         "name": "厄斐琉斯",
@@ -944,7 +944,7 @@
         "attack": "射出书页光弹。<#ff9028ff>猫的博爱<>：每<#ffb900ff>6秒<>普攻命中英雄时多造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法伤害，回复自己<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>生命，下次附身时队友也回复同样多。",
         "skill": "发射飞弹，打中第一个敌人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法伤害并减速20%；飞了<#ffb900ff>0.33秒<>以上改为<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>，减速50%。",
         "skill2": "<#ff9028ff>悠米出动！<>：附身在交战中的队友身上<#ffb900ff>4秒<>（不可选取、跟着他走，照样能放摸鱼飞弹和魔典终章），他每秒回复<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>旺盛精力<>：给他<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>护盾，攻速+20%、移速+10%。",
-        "ult": "翻开魔典连发5道波纹，每道造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法伤害并减速，沿途友军回复<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命；第3道<#ef5350ff>定身<><#ffb900ff>1.25秒<>。"
+        "ult": "翻开魔典连发5道波纹：第一道造成<#a974ffff>275<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<>魔法伤害，之后每道25%；每道<#ef5350ff>减速<>10%（可叠到50%），沿途友军回复<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命。"
       },
       "league_chogath": {
         "name": "科加斯",
@@ -1054,7 +1054,7 @@
       "league_ksante": {
         "name": "奎桑提",
         "attack": "陀斧重击。<#ff9028ff>血性本能<>：技能命中后，下一次普攻额外造成<#ff9028ff>15<> + 目标2%最大生命值的物理伤害。",
-        "skill": "向前砸地，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理伤害并减速50%。命中叠一层，两层时变成冲击波，<#ef5350ff>拉回<>路径上的敌人，造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>物理伤害。",
+        "skill": "向前砸地，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理伤害并减速50%。命中叠一层，两层时变成冲击波，<#ef5350ff>拉回<>路径上的敌人并<#ef5350ff>眩晕<>0.8秒，造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>物理伤害。",
         "skill2": "蓄力，受到伤害降低25%并获得<#66bb6aff>护盾<>，然后冲撞，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 目标6%最大生命值的物理伤害，<#ef5350ff>击退<>并<#ef5350ff>晕眩<><#ffb900ff>0.83秒<>。全盛时不击退晕眩，改为9%。",
         "ult": "盾击敌方英雄，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理伤害并<#ef5350ff>击退<>，追上去砸地造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>物理伤害，进入全盛姿态<#ffb900ff>15秒<>：攻击+20%、攻速+40%、<#66bb6aff>吸血20%<>、技能冷却缩短，护甲和魔抗-25%。"
       },
@@ -2795,7 +2795,7 @@
         "attack": "<#ff9028ff>鏡爪印記<>：射出箭矢。參與擊殺被她攻擊過的敵方英雄獲得一層印記（陣亡清空）：射程+15、攻速+4%、<#ff9028ff>恐懼蔓延<>+<#a974ffff>8魔法傷害<>。",
         "skill": "躍動一小段（被近身時向後），向附近最多<#ffb900ff>3名<>敵人各射一箭，造成<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<><#ff8a65ff>物理傷害<>，攻速+35%持續<#ffb900ff>4秒<>。在<#ff9028ff>魔狼狂熱<>內冷卻<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>恐懼蔓延<>：標記敵人並<#ef5350ff>緩速30%<>，此後第<#ffb900ff>3次<>攻擊命中時魔狼撲咬被標記者，造成<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<><#ff8a65ff>物理傷害<>（英雄額外4%最大生命）。冷卻時放<#ff9028ff>魔狼狂熱<>：<#ffb900ff>8.5秒<>領域，魔狼每秒撕咬其中一個敵人，造成<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<><#ff8a65ff>物理傷害<>。",
-        "ult": "友方英雄被控制且身邊有敵方英雄，或持續交戰中友方英雄（含自己）身邊有2名以上敵方英雄時，祝福身邊區域：<#ffb900ff>4秒<>內其中的友方英雄不會陣亡，結束時回復<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
+        "ult": "友方英雄被控制且身邊有敵方英雄，或持續交戰中友方英雄（含自己）身邊有2名以上敵方英雄時，祝福身邊區域：<#ffb900ff>4秒<>內其中的英雄<#ef5350ff>敵我都不會陣亡<>，結束時都回復<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>生命。"
       },
       "league_malzahar": {
         "name": "馬爾札哈",
@@ -2872,7 +2872,7 @@
         "attack": "發射發條彈。<#ff9028ff>魔法發條<>：普攻附帶<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<><#a974ffff>魔法傷害<>，<#ffb900ff>4秒<>內連續普攻再疊加，最多<#ffb900ff>2層<>。",
         "skill": "把球擲到敵方英雄腳下並停留，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<><#a974ffff>魔法傷害<>。<#ff9028ff>指令：失衡<>：球附近有敵人時自動放電，造成<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<><#a974ffff>魔法傷害<>，<#ef5350ff>緩速30%<>，隊友<#7ee787ff>加速30%<>。",
         "skill2": "把球送給離敵人最近的隊友（被貼身時給自己），提供<#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45%護盾<>，路過的敵人受到<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<><#a974ffff>魔法傷害<>。帶球者+12護甲和魔抗。",
-        "ult": "待命<#ffb900ff>6秒<>，球附近有敵方英雄時放出脈衝：造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>並把敵人<#ef5350ff>甩向球<>。"
+        "ult": "待命<#ffb900ff>6秒<>，球附近有敵方英雄時放出脈衝：造成<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<><#a974ffff>魔法傷害<>，把敵人<#ef5350ff>甩向球<>並<#ef5350ff>暈眩<>0.75秒。"
       },
       "league_aphelios": {
         "name": "亞菲利歐",
@@ -3026,7 +3026,7 @@
         "attack": "射出書頁光彈。<#ff9028ff>貓貓摯友<>：每<#ffb900ff>6秒<>普攻命中英雄時多造成<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>魔法傷害，回復自己<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>生命，下次附身時隊友也回復同樣多。",
         "skill": "發射飛彈，打中第一個敵人造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>魔法傷害並緩速20%；飛了<#ffb900ff>0.33秒<>以上改為<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>，緩速50%。",
         "skill2": "<#ff9028ff>飛撲抱抱！<>：附身在交戰中的隊友身上<#ffb900ff>4秒<>（無法被選取、跟著他走，照樣能放奇幻圖騰和最終篇章），他每秒回復<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>生命。<#ff9028ff>蹦蹦衝刺<>：給他<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>護盾，攻速+20%、移速+10%。",
-        "ult": "翻開魔典連發5道波紋，每道造成<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>魔法傷害並緩速，沿途友軍回復<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命；第3道<#ef5350ff>定身<><#ffb900ff>1.25秒<>。"
+        "ult": "翻開魔典連發5道波紋：第一道造成<#a974ffff>275<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<>魔法傷害，之後每道25%；每道<#ef5350ff>緩速<>10%（可疊到50%），沿途友軍回復<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>生命。"
       },
       "league_chogath": {
         "name": "科加斯",
@@ -3136,7 +3136,7 @@
       "league_ksante": {
         "name": "卡桑帝",
         "attack": "恩屠浮重擊。<#ff9028ff>無畏本能<>：技能命中後，下一次普攻額外造成<#ff9028ff>15<> + 目標2%最大生命值的物理傷害。",
-        "skill": "向前砸地，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理傷害並緩速50%。命中疊一層，兩層時變成衝擊波，<#ef5350ff>拉回<>路徑上的敵人，造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>物理傷害。",
+        "skill": "向前砸地，造成<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>物理傷害並緩速50%。命中疊一層，兩層時變成衝擊波，<#ef5350ff>拉回<>路徑上的敵人並<#ef5350ff>暈眩<>0.8秒，造成<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>物理傷害。",
         "skill2": "蓄力，受到傷害降低25%並獲得<#66bb6aff>護盾<>，然後衝撞，造成<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 目標6%最大生命值的物理傷害，<#ef5350ff>擊退<>並<#ef5350ff>暈眩<><#ffb900ff>0.83秒<>。拼死一搏時不擊退暈眩，改為9%。",
         "ult": "盾擊敵方英雄，造成<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>物理傷害並<#ef5350ff>擊退<>，追上去砸地造成<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>物理傷害，進入拼死一搏<#ffb900ff>15秒<>：攻擊+20%、攻速+40%、<#66bb6aff>吸血20%<>、技能冷卻縮短，護甲和魔抗-25%。"
       },
@@ -4877,7 +4877,7 @@
         "attack": "<#ff9028ff>Mark of the Kindred<>: Lamb's arrows. Each takedown of an enemy champion she hit gives a mark (lost on death): +15 range, +4% attack speed, <#ff9028ff>Mounting Dread<> +<#a974ffff>8 magic damage<>.",
         "skill": "Leaps a short way (back when an enemy closes in) and shoots an arrow at each of up to <#ffb900ff>3<> nearby enemies for <#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<> <#ff8a65ff>physical damage<>; +35% attack speed for <#ffb900ff>4s<>. Inside <#ff9028ff>Wolf's Frenzy<> the cooldown is <#ffb900ff>4s<>.",
         "skill2": "<#ff9028ff>Mounting Dread<>: marks an enemy and <#ef5350ff>slows it 30%<>; her <#ffb900ff>3rd<> attack hit after it sends Wolf at the marked one for <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<> <#ff8a65ff>physical damage<> (+4% max health on champions). On cooldown, <#ff9028ff>Wolf's Frenzy<>: for <#ffb900ff>8.5s<> a zone where Wolf bites one enemy every second for <#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<> <#ff8a65ff>physical damage<>.",
-        "ult": "When an allied champion near her is crowd-controlled with an enemy champion beside him, or, in a sustained fight, an allied champion (or she) has 2 or more enemy champions beside him, she blesses the ground around her: for <#ffb900ff>4s<> allied champions in it cannot die, then they heal <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>."
+        "ult": "When an allied champion near her is crowd-controlled with an enemy champion beside him, or, in a sustained fight, an allied champion (or she) has 2 or more enemy champions beside him, she blesses the ground around her: for <#ffb900ff>4s<> nobody in it - <#ef5350ff>ally or enemy<> - can die, then they all heal <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>."
       },
       "league_malzahar": {
         "name": "Malzahar",
@@ -4954,7 +4954,7 @@
         "attack": "Fires a clockwork bolt. <#ff9028ff>Clockwork Windup<>: attacks deal <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<> <#a974ffff>magic damage<> more; attacks within <#ffb900ff>4s<> of each other stack it, up to <#ffb900ff>2<>.",
         "skill": "Throws the Ball at an enemy champion's feet, where it stays, dealing <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<> <#a974ffff>magic damage<>. <#ff9028ff>Command: Dissonance<>: with enemies near the Ball it pulses by itself for <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<> <#a974ffff>magic damage<>, <#ef5350ff>slowing enemies 30%<> and <#7ee787ff>hasting allies 30%<>.",
         "skill2": "Sends the Ball to the ally nearest the enemy (to herself when an enemy is on her), shielding them for <#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45%<> and dealing <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<> <#a974ffff>magic damage<> to enemies on the way. Its holder gains 12 Armor and Magic Resist.",
-        "ult": "Waits up to <#ffb900ff>6s<> for an enemy champion near the Ball, then the Ball sends out a shockwave: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<>, enemies <#ef5350ff>flung toward the Ball<>."
+        "ult": "Waits up to <#ffb900ff>6s<> for an enemy champion near the Ball, then the Ball sends out a shockwave: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<> <#a974ffff>magic damage<>, enemies <#ef5350ff>flung toward the Ball<> and <#ef5350ff>stunned<> for 0.75s."
       },
       "league_aphelios": {
         "name": "Aphelios",
@@ -5108,7 +5108,7 @@
         "attack": "Fires a page bolt. <#ff9028ff>Feline Friendship<>: every <#ffb900ff>6s<> an attack on a champion deals <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> <#a974ffff>magic damage<> more and heals her <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>; the ally she attaches to next is healed as much.",
         "skill": "Fires a missile at the first enemy hit: <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> <#a974ffff>magic damage<> and 20% slow; after <#ffb900ff>0.33s<> of flight <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<> and 50% slow instead.",
         "skill2": "<#ff9028ff>You and Me!<>: attaches to an ally in the fight for <#ffb900ff>4s<> (untargetable, moving with him, still casting Prowling Projectile and Final Chapter); he heals <#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> a second. <#ff9028ff>Zoomies<>: he gets a <#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<> shield, +20% attack speed and +10% move speed.",
-        "ult": "Opens the book and sends 5 waves: each deals <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> <#a974ffff>magic damage<> and slows, and heals allies on its way <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>; wave 3 <#ef5350ff>roots<> for <#ffb900ff>1.25s<>."
+        "ult": "Opens the book and sends 5 waves: the first deals <#a974ffff>275<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<> <#a974ffff>magic damage<>, each later one 25% of it; every wave <#ef5350ff>slows<> 10% more (up to 50%) and heals allies on its way <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>."
       },
       "league_chogath": {
         "name": "Cho'Gath",
@@ -5218,7 +5218,7 @@
       "league_ksante": {
         "name": "K'Sante",
         "attack": "A heavy ntofo strike. <#ff9028ff>Dauntless Instinct<>: after his abilities hit, his next attack deals <#ff9028ff>15<> + 2% of the target's max health bonus physical damage.",
-        "skill": "Strikes the ground ahead for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> physical damage, slowing 50%. Each hit is a stack; at two the strike becomes a shockwave that <#ef5350ff>pulls<> enemies in for <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<> physical damage.",
+        "skill": "Strikes the ground ahead for <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> physical damage, slowing 50%. Each hit is a stack; at two the strike becomes a shockwave that <#ef5350ff>pulls<> enemies in and <#ef5350ff>stuns<> them 0.8s for <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<> physical damage.",
         "skill2": "Braces, taking 25% less damage behind a <#66bb6aff>shield<>, then rams for <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 6% of each target's max health physical damage, <#ef5350ff>knocking back<> and <#ef5350ff>stunning<> for <#ffb900ff>0.83s<>. All Out: no knockback or stun, 9% instead.",
         "ult": "Bashes an enemy champion for <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> physical damage, <#ef5350ff>knocking it back<>, then slams it for <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>. He goes All Out for <#ffb900ff>15s<>: +20% attack, +40% attack speed, <#66bb6aff>20% lifesteal<>, shorter cooldowns, -25% armor and magic resist."
       },
@@ -6959,7 +6959,7 @@
         "attack": "<#ff9028ff>킨드레드의 표식<>: 양의 화살. 공격한 적 챔피언 처치에 관여하면 표식 획득(사망 시 소멸): 사거리 +15, 공격 속도 +4%, <#ff9028ff>차오르는 공포<> <#a974ffff>마법 피해 +8<>.",
         "skill": "짧게 도약(적이 붙으면 뒤로)한 뒤 주변 적 최대 <#ffb900ff>3명<>에게 화살을 한 발씩 쏴 <#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<> <#ff8a65ff>물리 피해<>, 공격 속도 +35% (<#ffb900ff>4초<>). <#ff9028ff>늑대의 광기<> 안에서는 재사용 대기시간 <#ffb900ff>4초<>.",
         "skill2": "<#ff9028ff>차오르는 공포<>: 적에게 표식을 남기고 <#ef5350ff>30% 둔화<>; 이후 <#ffb900ff>3번째<> 공격이 적중하면 늑대가 표식 대상을 덮쳐 <#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<> <#ff8a65ff>물리 피해<>(챔피언은 최대 체력의 4% 추가). 재사용 대기 중에는 <#ff9028ff>늑대의 광기<>: <#ffb900ff>8.5초<> 영역, 늑대가 매초 적 하나를 물어 <#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<> <#ff8a65ff>물리 피해<>.",
-        "ult": "근처 아군 챔피언이 군중 제어를 받는 중 옆에 적 챔피언이 있거나, 교전이 이어지는 중 아군 챔피언(자신 포함) 옆에 적 챔피언이 2명 이상이면 주변을 축복: <#ffb900ff>4초<> 동안 안의 아군 챔피언은 죽지 않고, 끝날 때 <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<> 회복."
+        "ult": "근처 아군 챔피언이 군중 제어를 받는 중 옆에 적 챔피언이 있거나, 교전이 이어지는 중 아군 챔피언(자신 포함) 옆에 적 챔피언이 2명 이상이면 주변을 축복: <#ffb900ff>4초<> 동안 안에서는 <#ef5350ff>아군도 적도<> 죽지 않고, 끝날 때 모두 <#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<> 회복."
       },
       "league_malzahar": {
         "name": "말자하",
@@ -7036,7 +7036,7 @@
         "attack": "태엽 탄환을 쏩니다. <#ff9028ff>시계태엽 감기<>: 기본 공격이 <#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>의 <#a974ffff>마법 피해<>를 추가로 입히며, <#ffb900ff>4초<> 안에 연속 공격하면 중첩(최대 <#ffb900ff>2<>).",
         "skill": "공을 적 챔피언 발밑에 던져 남겨 두고 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>의 <#a974ffff>마법 피해<>. <#ff9028ff>명령: 불협화음<>: 공 근처에 적이 있으면 저절로 <#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>의 <#a974ffff>마법 피해<>, 적 <#ef5350ff>30% 둔화<>, 아군 <#7ee787ff>30% 가속<>.",
         "skill2": "적에게 가장 가까운 아군에게 공을 보내(적이 붙으면 자신) <#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45% 보호막<>, 지나가는 적에게 <#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>의 <#a974ffff>마법 피해<>. 공을 가진 자는 방어력·마법 저항력 +12.",
-        "ult": "최대 <#ffb900ff>6초<> 동안 공 근처에 적 챔피언이 오면 충격파: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>, 적을 공 쪽으로 <#ef5350ff>날려 보냅니다<>."
+        "ult": "최대 <#ffb900ff>6초<> 동안 공 근처에 적 챔피언이 오면 충격파: <#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>의 <#a974ffff>마법 피해<>, 적을 공 쪽으로 <#ef5350ff>날려 보내고<> 0.75초 <#ef5350ff>기절<>."
       },
       "league_aphelios": {
         "name": "아펠리오스",
@@ -7190,7 +7190,7 @@
         "attack": "책장 탄을 쏜다. <#ff9028ff>야옹이 친구<>: <#ffb900ff>6초<>마다 챔피언을 기본 공격하면 <#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<> 마법 피해 추가, 자신 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<> 회복, 다음에 붙는 아군도 같은 만큼 회복.",
         "skill": "미사일을 쏴 처음 맞힌 적에게 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<> 마법 피해, 20% 둔화. <#ffb900ff>0.33초<> 넘게 날면 <#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>, 50% 둔화.",
         "skill2": "<#ff9028ff>너랑 유미랑!<>: 싸우는 아군에게 <#ffb900ff>4초<> 붙는다(대상 지정 불가, 함께 이동, 사르르탄과 대단원 사용 가능). 아군은 초당 <#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<> 회복. <#ff9028ff>슈우우웅<>: 보호막 <#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>, 공격 속도 +20%, 이동 속도 +10%.",
-        "ult": "책을 펼쳐 파동 5개를 보낸다. 파동마다 <#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<> 마법 피해와 둔화, 닿은 아군 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<> 회복. 3번째 파동은 <#ffb900ff>1.25초<> <#ef5350ff>속박<>."
+        "ult": "책을 펼쳐 파동 5개를 보낸다. 첫 파동 <#a974ffff>275<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<> 마법 피해, 이후 파동은 그 25%. 파동마다 <#ef5350ff>둔화<> 10%(최대 50%), 닿은 아군 <#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<> 회복."
       },
       "league_chogath": {
         "name": "초가스",
@@ -7300,7 +7300,7 @@
       "league_ksante": {
         "name": "크산테",
         "attack": "엔토포 강타. <#ff9028ff>불굴의 본능<>: 스킬 적중 후 다음 기본 공격이 <#ff9028ff>15<> + 대상 최대 체력의 2% 추가 물리 피해.",
-        "skill": "앞쪽 땅을 내리쳐 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> 물리 피해와 50% 둔화. 적중 시 중첩, 2중첩이면 충격파가 되어 적을 <#ef5350ff>끌어당기고<> <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<> 물리 피해.",
+        "skill": "앞쪽 땅을 내리쳐 <#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<> 물리 피해와 50% 둔화. 적중 시 중첩, 2중첩이면 충격파가 되어 적을 <#ef5350ff>끌어당겨<> 0.8초 <#ef5350ff>기절<>, <#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<> 물리 피해.",
         "skill2": "버티며 받는 피해 25% 감소와 <#66bb6aff>보호막<>을 얻고 돌진해 <#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + 대상 최대 체력의 6% 물리 피해, <#ef5350ff>밀쳐내기<>와 <#ffb900ff>0.83초<> <#ef5350ff>기절<>. 총공세 중에는 대신 9%.",
         "ult": "적 챔피언을 방패로 쳐 <#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> 물리 피해와 <#ef5350ff>밀쳐내기<>, 쫓아가 내리찍어 <#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>. <#ffb900ff>15초<> 동안 총공세: 공격력 +20%, 공격 속도 +40%, <#66bb6aff>생명력 흡수 20%<>, 재사용 대기시간 감소, 방어력과 마법 저항력 -25%."
       },
@@ -9041,7 +9041,7 @@
         "attack": "<#ff9028ff>キンドレッドの刻印<>：ラムの矢。攻撃した敵チャンピオンのキルに関与すると刻印（死亡で消滅）：射程+15、攻撃速度+4%、<#ff9028ff>忍び寄る恐怖<>の<#a974ffff>魔法ダメージ+8<>。",
         "skill": "短く跳び（詰められたら後ろへ）、周囲の敵最大<#ffb900ff>3体<>に矢を1本ずつ放ち<#ff8a65ff>45<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>65%<>の<#ff8a65ff>物理ダメージ<>、攻撃速度+35%（<#ffb900ff>4秒<>）。<#ff9028ff>狼の激昂<>の中ではクールダウン<#ffb900ff>4秒<>。",
         "skill2": "<#ff9028ff>忍び寄る恐怖<>：敵に刻印し<#ef5350ff>30%スロウ<>。その後<#ffb900ff>3回目<>の攻撃でウルフが飛びかかり<#ff8a65ff>60<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>90%<>の<#ff8a65ff>物理ダメージ<>（チャンピオンは最大体力の4%追加）。CD中は<#ff9028ff>狼の激昂<>：<#ffb900ff>8.5秒<>の領域、ウルフが毎秒敵1体を噛み<#ff8a65ff>25<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff8a65ff>25%<>の<#ff8a65ff>物理ダメージ<>。",
-        "ult": "近くの味方チャンピオンが行動妨害中で敵チャンピオンが傍にいるか、戦闘が続く中で味方チャンピオン（自身含む）の傍に敵チャンピオンが2体以上いると周囲を祝福：<#ffb900ff>4秒<>間、中の味方チャンピオンは倒れず、終了時に<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>回復。"
+        "ult": "近くの味方チャンピオンが行動妨害中で敵チャンピオンが傍にいるか、戦闘が続く中で味方チャンピオン（自身含む）の傍に敵チャンピオンが2体以上いると周囲を祝福：<#ffb900ff>4秒<>間、中では<#ef5350ff>敵も味方も<>倒れず、終了時に全員<#7dd87dff>150<>+<i#asset/base/ui/banpick/champion_stat_icon:ad_0><#7dd87dff>40%<>回復。"
       },
       "league_malzahar": {
         "name": "マルザハール",
@@ -9118,7 +9118,7 @@
         "attack": "ぜんまい弾を撃つ。<#ff9028ff>ぜんまい仕掛け<>：通常攻撃が<#a974ffff>18<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>15%<>の<#a974ffff>魔法ダメージ<>を追加、<#ffb900ff>4秒<>以内の連続攻撃でスタック（最大<#ffb900ff>2<>）。",
         "skill": "ボールを敵チャンピオンの足元へ投げて残し、<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>65%<>の<#a974ffff>魔法ダメージ<>。<#ff9028ff>オーダー: 乱磁場<>：ボールの近くに敵がいると自動で放電し<#a974ffff>85<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>85%<>の<#a974ffff>魔法ダメージ<>、敵を<#ef5350ff>30%スロウ<>、味方は<#7ee787ff>30%加速<>。",
         "skill2": "敵に最も近い味方へボールを送り（敵に詰められたら自分）、<#7ee787ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#7ee787ff>45%のシールド<>、通り道の敵に<#a974ffff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>30%<>の<#a974ffff>魔法ダメージ<>。持ち主は物理・魔法防御+12。",
-        "ult": "最大<#ffb900ff>6秒<>待機し、ボールの近くに敵チャンピオンがいれば衝撃波：<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>、敵をボールへ<#ef5350ff>引き寄せる<>。"
+        "ult": "最大<#ffb900ff>6秒<>待機し、ボールの近くに敵チャンピオンがいれば衝撃波：<#a974ffff>250<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>100%<>の<#a974ffff>魔法ダメージ<>、敵をボールへ<#ef5350ff>引き寄せ<>0.75秒<#ef5350ff>スタン<>。"
       },
       "league_aphelios": {
         "name": "アフェリオス",
@@ -9272,7 +9272,7 @@
         "attack": "ページ弾を撃つ。<#ff9028ff>ネコはトモダチ<>：<#ffb900ff>6秒<>ごとにチャンピオンへの通常攻撃が<#a974ffff>50<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>25%<>の魔法ダメージ追加、自身を<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>20%<>回復、次にくっつく味方も同じだけ回復。",
         "skill": "ミサイルを撃ち、最初に当たった敵に<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>50%<>の魔法ダメージと20%スロウ。<#ffb900ff>0.33秒<>以上飛ぶと<#a974ffff>170<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>70%<>、50%スロウ。",
         "skill2": "<#ff9028ff>ユー＆ミー！<>：戦闘中の味方に<#ffb900ff>4秒<>くっつく（対象指定不可、一緒に移動、きまぐれミサイルとファイナルチャプターは使える）。味方は毎秒<#66bb6aff>45<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>15%<>回復。<#ff9028ff>バビューン！<>：シールド<#66bb6aff>130<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>60%<>、攻撃速度+20%、移動速度+10%。",
-        "ult": "本を開き波を5つ放つ。1つごとに<#a974ffff>110<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>35%<>の魔法ダメージとスロウ、通った味方を<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>回復。3つ目は<#ffb900ff>1.25秒<><#ef5350ff>スネア<>。"
+        "ult": "本を開き波を5つ放つ。最初の波は<#a974ffff>275<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#a974ffff>88%<>の魔法ダメージ、以降はその25%。波ごとに<#ef5350ff>スロウ<>10%（最大50%）、通った味方を<#66bb6aff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ap_0><#66bb6aff>10%<>回復。"
       },
       "league_chogath": {
         "name": "チョ＝ガス",
@@ -9382,7 +9382,7 @@
       "league_ksante": {
         "name": "カ・サンテ",
         "attack": "エントーフォの重撃。<#ff9028ff>不屈の本能<>：スキル命中後、次の通常攻撃が<#ff9028ff>15<>＋対象の最大体力の2%の追加物理ダメージ。",
-        "skill": "前方の地面を打ち<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>の物理ダメージと50%スロウ。命中でスタック、2スタックで衝撃波になり、敵を<#ef5350ff>引き寄せ<><#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>の物理ダメージ。",
+        "skill": "前方の地面を打ち<#ff9028ff>35<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>2%<>の物理ダメージと50%スロウ。命中でスタック、2スタックで衝撃波になり、敵を<#ef5350ff>引き寄せ<>0.8秒<#ef5350ff>スタン<>、<#ff9028ff>55<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>70%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>3%<>の物理ダメージ。",
         "skill2": "構えて被ダメージ25%軽減と<#66bb6aff>シールド<>を得て突進し、<#ff9028ff>30<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<>＋対象の最大体力の6%の物理ダメージ、<#ef5350ff>ノックバック<>と<#ffb900ff>0.83秒<><#ef5350ff>スタン<>。オールアウト中はノックバック・スタンなしで9%。",
         "ult": "敵チャンピオンを盾で打ち<#ff9028ff>100<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の物理ダメージと<#ef5350ff>ノックバック<>、追って叩きつけ<#ff9028ff>60<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>60%<> + <i#asset/base/ui/banpick/champion_stat_icon:hp_0><#ff9028ff>4%<>。<#ffb900ff>15秒<>オールアウト：攻撃+20%、攻撃速度+40%、<#66bb6aff>ライフスティール20%<>、CD短縮、物防魔防-25%。"
       },

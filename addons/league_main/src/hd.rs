@@ -844,9 +844,16 @@ pub const GROWTH: &[(&str, &str, f32)] = &[("league_chogath", "league_chogath_r_
 /// game px -> 48 x 50); 10 % with the wings, which carry the bigger outline themselves - the stance 47 game px tall
 /// and 52 wide at her 0.85, 52 x 58 grown (Volibear's storm form, 52 tall, is what the user took; his 61 was
 /// 「实在太大了」). Without the add-on she grows the same 10 % folded.
+///
+/// Renekton's Dominus (the user, 2026-11-14, on the list of differences from League: 「全改吧」): League's R makes him
+/// 20 % bigger for its 15 s; here 「体型不变，脚下一圈沙暴」. 20 % while `league_renekton_r_on` is on him (10 s, main pack
+/// data), grown over half a second: standing 39 game px tall -> 47 (his 69 across with the tail and the blade -> 83).
+/// League's +25 attack range and wider Cull the Meek in Dominus are not made (a node more in his attack tree and twice
+/// the areas in a skill tree the game copies every tick, for a picture that would not widen).
 pub const FORMS: &[(&str, &[&str], f32, f32)] =
     &[("league_volibear", &["league_volibear_r_air", "league_volibear_r_form"], 1.15, 1.25),
-      ("league_belveth", &["league_belveth_r_on"], 1.10, 1.0)];
+      ("league_belveth", &["league_belveth_r_on"], 1.10, 1.0),
+      ("league_renekton", &["league_renekton_r_on"], 1.20, 0.5)];
 
 /// Effect sheets drawn dense like a hero's sheet (`idle` / `hd_idle` and any more tags, each with its hd_ twin; PPU squares
 /// a game pixel, hd_idle PPU times as wide): league_heimerdinger's turrets, league_leblanc_clone (below) and the rest
@@ -1206,6 +1213,24 @@ mod tests {
                 assert!(fanim.contains(&format!("\"{name}\":")), "{name} is not in her sheet");
             }
         }
+    }
+
+    /// Every form row's buffs are buffs the hero's main pack data gives under that name, the hero is a dense one of
+    /// this table, and no hero has two rows (Renekton's Dominus, League's 20 %).
+    #[test]
+    fn every_form_row_reads_a_buff_of_its_hero() {
+        let t = table();
+        for (i, &(id, buffs, size, secs)) in FORMS.iter().enumerate() {
+            assert!(t.heroes.iter().any(|h| h.0 == id), "{id} is no dense hero of this pack");
+            assert!(FORMS[..i].iter().all(|f| f.0 != id), "{id} has two form rows");
+            assert!(size > 1.0 && size <= 1.35 && secs > 0.0, "{id}: x{size} over {secs} s");
+            let path = format!("{}/../../league/champion/{id}.data_champion", env!("CARGO_MANIFEST_DIR"));
+            let data = std::fs::read_to_string(&path).unwrap_or_else(|e| panic!("{path}: {e}"));
+            for b in buffs {
+                assert!(data.contains(&format!("\"name\": \"{b}\"")), "the main pack never gives {id} {b}");
+            }
+        }
+        assert_eq!(FORMS.iter().find(|f| f.0 == "league_renekton").map(|f| (f.2, f.3)), Some((1.20, 0.5)));
     }
 
     /// The text of every flat object (no brace inside it: a view, a ViewEffect) of a .data_champion holding `needle`.
