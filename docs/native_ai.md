@@ -149,6 +149,22 @@ marksman's - but this is what the AI reads from a hero's data, with the RVAs of 
   (league_marks 0.1.5 / 0.1.6) made no difference. league_ult_press 0.6.5 works round it (a marksman the AI neglects
   pokes whoever stands in her own range).
 
+## 2026-11-13: why the AI would not attack champions with some heroes
+
+The Kai'Sa question above, answered from outside (league_ai_watch 0.3.0 counts the game's own attack orders per
+champion; `tools/kit/range_buffs.py` has the numbers): an attack whose effect runs a `RangeEffect` on the caster or
+on allies at cast time - the kits' "on me", a circle of radius 1000 round him - is hardly ever ordered at a
+champion (30 of 37 such heroes under 1.75 a minute, ranged ones near 0; marksmen without one 4.5-7), unless the
+attack's top `Combine` also holds league.dll's `league:range` (a `ModEffect` with `may_adjust_range`): all 7 heroes
+with both attack normally, league_belveth with the same attack skeleton as league_aurelionsol among them. Moving
+league_draven's automatic W from the cast under his projectile's hit brought him from 0.16 to 6.5 in game. Kai'Sa's
+automatic E is such an area - her attack is not "one `Attack` like Varus's" to whatever reads it. The estimates
+listed above (damage, DPS) are not what goes wrong: the neglected heroes' DPS came out like their neighbours'.
+Which slot the AI reads there is still open: an area's size taken as the attack's reach would fit (ranged heroes
+lost nearly every attack, melee ones part of them), and so would a query that a `ModEffect` in the tree answers
+differently. The packers now add the node to every such attack (`range_buffs.reach()`); league_ult_press's
+"neglected poke" stays until the logs show it is not needed.
+
 ## What is done with it
 
 - 2026-11-08 `league_peel` 0.1.0: the support and nearby top / jungle hit whoever dives our ADC, and its log records

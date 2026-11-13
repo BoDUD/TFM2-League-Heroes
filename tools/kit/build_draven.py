@@ -3,8 +3,8 @@
     python tools/kit/build_draven.py [--set key=value ...] [--out file] [--params json] [--nodes]
 
 Kit (the user's picks, 2026-10-10: ADC, Range, League's whole kit with the pros' play). TFM2 has three active slots:
-Spinning Axe is `skill`, Stand Aside `skill2`, Whirling Death the `ult`; Blood Rush turns itself on in the attack
-(League's W has no cast time and the pros press it after every catch).
+Spinning Axe is `skill`, Stand Aside `skill2`, Whirling Death the `ult`; Blood Rush turns itself on when an attack
+lands on a champion (League's W has no cast time and the pros press it after every catch).
   passive League of Draven (德莱文联盟): every axe he catches is one Adoration level more (p_1..p_n, each p_atk attack,
           kept while he lives). A champion he kills with an axe (attack or ult) cashes them in (League's bonus gold):
           p_heal health a level and p_as% attack speed for p_t ticks, and the count starts again.
@@ -17,8 +17,12 @@ Spinning Axe is `skill`, Stand Aside `skill2`, Whirling Death the `ult`; Blood R
           once (the AI catches like the pros, the user: 「捡斧头不是随机掉落位置吗 然后AI可以熟练的捡斧头」) and is
           on the spot two ticks before it lands: within catch_r then = caught: back in his hands spinning, Blood Rush
           ready again and one Adoration level; stunned or knocked away on the way = it falls and is gone.
-  W       Blood Rush (血性冲刺, automatic): with w_cd off and an enemy champion within w_r, the attack also rushes -
+  W       Blood Rush (血性冲刺, automatic): with w_cd off, an attack that lands on an enemy champion also rushes -
           w_ms% move speed for w_ms_t ticks and w_as% attack speed for w_as_t; w_cd after. A caught axe clears w_cd.
+          Until 2026-11-13 the check ran when the attack was thrown (an enemy champion within w_r): an area on himself
+          at the attack's cast time, and the game's AI ordered him to attack a champion 0.16 times a minute (marksmen
+          without one: 4.5-7; tools/kit/range_buffs.py `reach()`). Moved under the hidden twin's hit (the twin lands
+          on champions only) and nothing else changed, in game: 6.5 a minute.
   skill2  E Stand Aside (开道利斧): a `Direction` cast on `EnemyWithoutTower` (e_range); at the release the axes fly
           down a line through everything: e_dmg + e_ratio% AD, knocked back (e_kb speed, e_kb_t ticks) and e_slow%
           slow for e_slow_t.
@@ -249,7 +253,9 @@ def build(p):
 
     k_set, k_read = kill_check("a", on_me(cash_in()))
 
-    # ------------------------------------------------------------------ W Blood Rush (automatic, in the attack)
+    # ------------------------------------------------------------------ W Blood Rush (automatic, when the attack lands)
+    # under the twin's hit (below), not at the attack's cast: an area on himself there keeps the game's AI from
+    # ordering the attack at champions (the docstring's W)
     rush = combine(refresh("w_cd", p["w_cd"]), refresh("w_ms", p["w_ms_t"], move_speed_mult=p["w_ms"]),
                    refresh("w_as", p["w_as_t"], attack_speed_mult=p["w_as"]), cview("w_cast"), sfx("w"),
                    voice("vo_w", p))
@@ -289,12 +295,12 @@ def build(p):
     drop = to_enemy(p["q_far"])
     spin_hit = [attack(p["q_dmg"], 100 + p["q_ratio"]), view("q_hit"), tsfx("q_hit"), delayed(1, drop)]
     a_hit = [attack(0, 100), view("a_hit"), tsfx("a_hit")]
-    twin = homing("a_twin", p["axe_speed"], p["axe_y"], "EnemyChampion", [k_set, k_read])
+    twin = homing("a_twin", p["axe_speed"], p["axe_y"], "EnemyChampion", [k_set, k_read, w_check])
     throw = sw("ax1", combine(use_axe, sfx("q_throw"),
                               homing("q_axe", p["axe_speed"], p["axe_y"], "Enemy", spin_hit)),
                combine(sfx("a_throw"), homing("a_axe", p["axe_speed"], p["axe_y"], "Enemy", a_hit)))
     attack_a = action("attack", p["atk_dur"], p["atk_cd"], p["a_st"], p["atk_range"], "Targeting", "Enemy",
-                      combine(w_check, throw, twin), atype="BaseAttack", cancel=True)
+                      combine(throw, twin), atype="BaseAttack", cancel=True)
 
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "None", "EnemyWithoutTower",
                    combine(anim("skill", p["q_dur"]), add_axe(), sfx("q"), voice("vo_q", p)), cancel=True)

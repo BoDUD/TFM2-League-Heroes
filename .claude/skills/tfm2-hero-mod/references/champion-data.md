@@ -123,6 +123,26 @@ also means minions and monsters: a non-penetrating skillshot on it stops on the 
   game's balance patches read). A kit script does `build = range_buffs.wrap(build)`; a new marker goes into
   RANGE_BUFFS (`--write` regenerates league.dll's table, `--check` in CI fails on any buff left with `range`).
   #702 had folded league_kogmaw's W into a 65000 attack for a day; W is League's again (55000, +18000).
+- **An attack with an area on the caster or on allies at cast time needs that node too, or the AI does not attack
+  champions with it** *(league_ai_watch, five launches, 2026-11-13; the AI's own attack orders at champions per alive
+  minute)*. The kits' "on me" is `RangeEffect` target `AllyOnlySelf`, a circle of radius 1000 round the caster
+  (an automatic W, a count, a kit's whole polling aura). In an attack's effect, outside its projectile's hit (behind
+  a `Delayed`, a `SwitchByBuff` or a `RandomTarget` as well), it took the attack away from the AI: 30 of the 37
+  heroes measured with it and without the node were under 1.75 (league_aurelionsol 0.06 in 168 games, league_azir
+  0.07, league_ahri 0.13, league_draven 0.16, league_swain 0.21 in 357, league_anivia 0.26, league_kaisa 0.60,
+  league_sejuani 0.83 in 321; ranged ones nearly none, melee ones a few), marksmen without one 4.5-7 - and all 7
+  with the aura *and* `league:range` attacked normally (league_belveth 5.26 with league_aurelionsol's very attack
+  skeleton, league_senna 5.59, league_seraphine 4.79, league_wukong 4.65). They still last-hit and cast: only the
+  order "attack this champion" went missing, and the AI's own DPS estimate did not show it. In-game test: league_draven's
+  automatic W moved from the cast under his projectile's hit, nothing else changed: 0.16 -> 6.5. So: (1) put what
+  the attack does to the caster under the projectile's hit when the kit allows; (2) otherwise the packers add the
+  node (`range_buffs.reach()` in tools/package_mod.py and addons/league_addons/assemble.py: every league_
+  champion whose attack has such an area, 62 of them on 2026-11-13; `range_buffs.py --check` lists them) - the
+  installed file has it, the repository's does not. A hand-copied `.data_champion` skips the packers: copy the
+  packed one. What the engine reads from the area was not found in its code; an area's size taken for the attack's
+  reach would fit (ranged heroes lost nearly all their attacks, melee ones part). `RandomTarget` with
+  `AllyOnlySelf` (range 1, the `lives` check) did not do it (league_kalista 5.63, league_amumu 3.74). Not done
+  for skills: `league:range` would add the attack's markers to a skill's range.
 - `casting_target`: `Enemy`, `EnemyWithoutTower`, `EnemyChampion`, `EnemyChampionInCC`,
   `EnemyChampionRecentlyAttacked`, `AllyOnlySelf`, `AllyChampion`, `AllyNotSelf`,
   `AllyChampionInCC`, `BothWithoutTower`, `BothChampion` (the engine also has `Ally`, `Both`, `None`).
