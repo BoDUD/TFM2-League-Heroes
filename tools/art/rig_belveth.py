@@ -161,25 +161,12 @@ class Form:
         return can
 
     def varied(self, name, d, moves, sway, lit):
-        """The pose picture with parts of it moved (see posed), on a canvas VPAD squares bigger on every side."""
-        masks = {k: IB.cut(d.shape, polys=v) for k, v in PARTS[name].items()}
-        d0 = d
-        if lit:
-            d = IB.recolour(d, masks[lit], LIT)
-        for part, x0, x1, k, attach in sway:
-            d = IB.sway(d, masks[part], x0, x1, k, attach)
-        out = IB.repose(d, [(masks[part], off, how) for part, off, how in moves], self.D.outline, pad=VPAD)
-        # one approved head, and a body that never changes: the head box and every square in no part as the pose has them
-        touched = np.zeros(d0.shape[:2], bool)
-        for part in {lit} | {s_[0] for s_ in sway} | {m_[0] for m_ in moves}:
-            if part:
-                touched |= masks[part]
+        """The pose picture with parts of it moved (see posed), on a canvas VPAD squares bigger on every side; the head
+        and every square in no part checked as the pose has them (one approved head, a body that never changes)."""
         hx, hy = head_at(name)
-        head = np.zeros(d0.shape[:2], bool)
+        head = np.zeros(d.shape[:2], bool)
         head[hy:hy + HEAD_H, hx:hx + HEAD_W] = self.head()
-        if not IB.kept(d0, out, VPAD, only=head) or not IB.kept(d0, out, VPAD, but=touched):
-            sys.exit(f"{name}: an in-between changed the head or the body outside its parts")
-        return out
+        return IB.vary(d, PARTS[name], self.D.outline, moves, sway, (lit, LIT) if lit else None, head, VPAD, name)
 
     def head(self):
         """The head's squares in the head box: what every key pose holds of the design's there."""

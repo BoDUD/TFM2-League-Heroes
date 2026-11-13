@@ -15,10 +15,12 @@ stretched limbs, the head never touched). What it offers instead, all on whole s
                               (ppu_rig.fill_under); "gone" - taken off. The outline is closed again round what the move
                               bared, and only there: an edge the key pose draws open stays as drawn, so a key frame and
                               the frames made from it do not flicker;
-  sway(d, mask, x0, x1, k)    a part's whole columns lifted 0..k rows along its length (a tail's wave: ppu_rig.sway);
+  wave(shape, x0, x1, k)      the moves of a wave: a part's whole columns lifted 0..k rows along its length (a tail,
+                              a ribbon, a spread wing: ppu_rig.sway's shape), for repose;
   smear(a, mask, dx, dy, n)   a smear behind a part that moves fast: the air it swept over in its last n squares
                               filled flat in one of the part's own colours and joined to it;
   recolour(a, mask, table)    a part's colours changed for a frame (a blade's rim lit as it lands);
+  vary(d, parts, outline, ..) one in-between from a key pose: the three above by part name, with the checks below;
   audit(a)                    what a frame may not have: loose specks, pinholes;
   kept(d, out, ...)           that the head, and everything of a pose that is in no part, came through untouched;
   shared_head(...)            the head every key pose carries (the design's, pasted).
@@ -108,13 +110,15 @@ def padded(d, pad):
 def repose(d, moves, outline, pad=0, seam=True, crack=10, slit=40, fill_iters=12):
     """The pose picture d with parts moved by whole squares: moves = [(mask, (dx, dy), how)], how "under" (behind the
     rest of the figure; of two under parts the first named is in front), "over" (in front: laid on last, the squares
-    it left inside the figure filled from round them) or "gone" (taken off: a far limb gone behind the body).
+    it left inside the rest of the figure filled from round them) or "gone" (taken off: a far limb gone behind the
+    body). (dx, dy) may be two arrays the picture's size, a move for every square (wave: a tail's columns).
     -> the picture on a canvas `pad` squares bigger on every side (so a part may leave the picture's own box).
 
     The outline afterwards: a clear square next to a drawn one that is not near-black gets the outline colour where
     the move bared that edge (the two squares were both drawn in d, or a part now ends against air where it ran on
     under the body); seam: a part behind the figure gets the figure's outline drawn on it where the figure's edge
-    square is not near-black itself (the line a body throws on the wing behind it). Enclosed cracks the move opened
+    square is not near-black itself (the line a body throws on the wing behind it; not where the two squares lay
+    side by side in d already: a part cut out of what it belongs to, where it did not move). Enclosed cracks the move opened
     (at most `crack` squares, or `slit` squares one square across) are filled with the outline colour; the gaps the
     pose itself has stay open."""
     H, W = d.shape[:2]
@@ -130,6 +134,8 @@ def repose(d, moves, outline, pad=0, seam=True, crack=10, slit=40, fill_iters=12
 
     def lay(mask, dx, dy, under, n):
         ys, xs = np.nonzero(mask & op)
+        if isinstance(dx, np.ndarray):
+            dx, dy = dx[ys, xs], dy[ys, xs]
         ty, tx = ys + pad + dy, xs + pad + dx
         ok = (ty >= 0) & (ty < Ho) & (tx >= 0) & (tx < Wo)
         if not ok.all():
@@ -152,7 +158,7 @@ def repose(d, moves, outline, pad=0, seam=True, crack=10, slit=40, fill_iters=12
             holes |= padded(mask & op, pad)
     if holes.any():
         solid = out[..., 3] > 0
-        inside = ndimage.binary_fill_holes(solid | holes)
+        inside = ndimage.binary_fill_holes(solid)        # what the rest of the figure encloses (not the air round it)
         todo = holes & inside & ~solid
         out = R.fill_under(out, todo, iters=fill_iters)
         depth[todo & (out[..., 3] > 0)] = 1
@@ -180,12 +186,14 @@ def repose(d, moves, outline, pad=0, seam=True, crack=10, slit=40, fill_iters=12
             ok = (ty >= 0) & (ty < Ho) & (tx >= 0) & (tx < Wo)
             ring[ty[ok], tx[ok]] = True
         if seam:
-            # a square of a part behind, next to a light square of something in front of it
+            # a square of a part behind, next to a light square of something in front of it - unless the two lay
+            # side by side like this in d already (where a part is cut out of what it belongs to and did not move
+            # there: a wave's attached end), which stays as drawn
             behind = light & nb & (nb_depth > depth)
             ys, xs = np.nonzero(behind)
             ty, tx = ys + dy_, xs + dx_
-            ok = (ty >= 0) & (ty < Ho) & (tx >= 0) & (tx < Wo)
-            line[ty[ok], tx[ok]] = True
+            asd = (sy[ty, tx] == sy[ys, xs] + dy_) & (sx[ty, tx] == sx[ys, xs] + dx_)
+            line[ty[~asd], tx[~asd]] = True
     ring &= ~drawn
     out[ring, :3] = outline
     out[ring, 3] = 255
@@ -207,24 +215,22 @@ def repose(d, moves, outline, pad=0, seam=True, crack=10, slit=40, fill_iters=12
     return out
 
 
-def sway(d, mask, x0, x1, k, attach="right", under=True):
-    """The part's whole columns between x0 and x1 lifted up to k rows (negative: lowered): nothing at the attached end,
-    k at the free one - a tail's or a ribbon's wave (ppu_rig.sway on one part of a pose picture). A column that moved
-    leaves air where it was; where it comes to lie on the rest of the figure it goes behind it (under: a tail's tip
-    lifted against the wing over it), or over it. Columns step a square at a time, which keeps a drawn outline
-    closed."""
-    op = d[..., 3] > 0
-    m = mask & op
-    part = np.zeros_like(d)
-    part[m] = d[m]
-    out = d.copy()
-    out[m] = 0
-    sw = R.sway(part, x0, x1, k, attach)
-    mm = sw[..., 3] > 0
-    if under:
-        mm &= out[..., 3] == 0
-    out[mm] = sw[mm]
-    return out
+def wave(shape, x0, x1, k, attach="right"):
+    """The moves of a wave along a part lying across the picture: its whole columns between x0 and x1 lifted up to k
+    rows (negative: lowered), nothing at the attached end and k at the free one, as ppu_rig.sway - a tail's or a
+    ribbon's wave, a spread wing's beat. -> (dx, dy) arrays for repose. Columns step a square at a time, which keeps
+    a drawn outline closed."""
+    H, W = shape[:2]
+    dy = np.zeros((H, W), int)
+    n = max(1, x1 - x0)
+    for x in range(max(0, x0), min(W - 1, x1) + 1):
+        t = (x1 - x) / n if attach == "right" else (x - x0) / n
+        dy[:, x] = -int(round(k * t))
+    if attach == "right":
+        dy[:, :max(0, x0)] = -int(k)                       # what lies beyond the free end goes with it
+    else:
+        dy[:, min(W - 1, x1) + 1:] = -int(k)
+    return np.zeros((H, W), int), dy
 
 
 def smear(a, mask, dx, dy, n=3, colour=None):
@@ -285,6 +291,52 @@ def recolour(a, mask, table):
     for src, dst in table.items():
         hit = m & (rgb == np.array(src)).all(-1)
         out[hit, :3] = dst
+    return out
+
+
+def part_mask(shape, items):
+    """A part's mask from its items: polygons [(x, y), ...] (square edges) and boxes (x0, y0, x1, y1) (squares,
+    inclusive)."""
+    polys = [it for it in items if len(it) != 4 or not all(isinstance(v, (int, float)) for v in it)]
+    boxes = [it for it in items if len(it) == 4 and all(isinstance(v, (int, float)) for v in it)]
+    return cut(shape, polys=polys, boxes=boxes)
+
+
+def vary(d, parts, outline, moves=(), sway=(), lit=None, head=None, pad=30, name="pose"):
+    """One in-between from a key pose: the pose picture d with some of its parts moved, on a canvas `pad` squares
+    bigger on every side (place it `pad` further up and left than the pose itself).
+      parts  {part: [polygons / boxes in the picture's own squares]} (part_mask)
+      moves  [(part, (dx, dy), how)] - repose: "under" the rest of the figure, "over" it, or "gone"
+      sway   [(part, x0, x1, k, attach[, how])] - the part's columns lifted 0..k rows along its length (wave), behind
+             the rest of the figure ("under", the default) or over it; a part both moved and swayed does both
+      lit    (part, {rgb: rgb}) - the part's colours changed for the frame
+      head   (mask over d) the pose's head: checked untouched, as is every square of d that is in none of the parts
+             used (the body never changes between a key pose and the frames made from it); a fault stops the build."""
+    masks = {k: part_mask(d.shape, v) for k, v in parts.items()}
+    d0 = d
+    used = set()
+    if lit:
+        d = recolour(d, masks[lit[0]], lit[1])
+        used.add(lit[0])
+    plan = {}                                             # part -> [dx, dy, how], in the order named
+    for part, off, how in moves:
+        plan[part] = [off[0], off[1], how]
+    for part, x0, x1, k, attach, *how in sway:
+        wx, wy = wave(d.shape, x0, x1, k, attach)
+        if part in plan:
+            plan[part][0], plan[part][1] = plan[part][0] + wx, plan[part][1] + wy
+        else:
+            plan[part] = [wx, wy, how[0] if how else "under"]
+    out = repose(d, [(masks[part], (dx, dy), how) for part, (dx, dy, how) in plan.items()], outline, pad=pad)
+    used |= set(plan)
+    touched = np.zeros(d0.shape[:2], bool)
+    for part in used:
+        touched |= masks[part]
+    over = any(how == "over" for _, _, how in plan.values())
+    if head is not None and not kept(d0, out, pad, only=head):
+        raise SystemExit(f"{name}: an in-between changed the head")
+    if not over and not kept(d0, out, pad, but=touched):
+        raise SystemExit(f"{name}: an in-between changed the body outside its parts")
     return out
 
 
