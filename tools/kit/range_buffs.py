@@ -17,21 +17,6 @@ instance counts: league_senna_mist and league_kindred_p_mark stack), its apply d
 (they are the markers), and `apply()` puts the node last in the attack's top `Combine` (wrapping the attack's effect in
 one when it is not a Combine), so the first effect - what the game's balance patches read - stays the attack's own.
 `wrap()` does it to a kit script's `build()`; tools/kit/range_native_data.py did it once to the kits made by hand.
-
-The node's second job (2026-11-13, `reach()`): an attack that runs an area effect on allies or on the caster himself at
-cast time - `RangeEffect` with target AllyOnlySelf / AllyChampion / AllyNotSelf, the circle of radius 1000 round him
-that the kits use for "on me": an automatic W, the essence count, the whole kit's polling aura - is hardly ever ordered
-at a champion by the game's AI (0.7.2). league_ai_watch, 5 launches, the AI's own attacks at champions per alive
-minute: of the 37 heroes measured with such an aura and no node 30 were under 1.75 (Aurelion Sol 0.06 in 168 games,
-Azir 0.07, Ahri 0.13, Draven 0.16, Swain 0.21 in 357, Anivia 0.26, Kai'Sa 0.60, Sejuani 0.83 in 321), while all 7 with
-the aura AND the node attacked like everybody else (Bel'Veth 5.26 with the very skeleton of Aurelion Sol's attack,
-Senna 5.59, Seraphine 4.79, Wukong 4.65, Poppy 2.32, Rell 2.24; marksmen without either: 4.5-7). The in-game test of
-2026-11-13: Draven's aura moved under his projectile's hit, nothing else changed: 0.16 -> 6.5. So the packers
-(tools/package_mod.py, addons/league_addons/assemble.py) pass every league_ champion through `reach()`: an attack with
-such an aura gets the node, last in its top `Combine`, where a marker's attack has it. The repository's files and their
-generators stay as they are (129 make_override.py would each have to add it); `--check` lists what the packers add.
-league_sylas is left out as above. What the engine reads from the aura was not found in its code (a range check that
-takes the area's size for the attack's reach fits: ranged heroes were hit harder than melee ones).
 """
 import argparse
 import copy
@@ -136,51 +121,6 @@ def apply(champ, force=False):
     return champ
 
 
-# no node by `reach()`: league_sylas (see problems(): a stolen reach would be his to keep)
-NO_REACH = ("league_sylas",)
-
-
-def aura_at_cast(eff):
-    """The effect tree runs, outside every projectile's hit, a `RangeEffect` on allies or on the caster (target
-    Ally* / *Self): at cast time, also behind a Delayed, a SwitchByBuff, a RandomTarget or inside another area."""
-    if isinstance(eff, list):
-        return any(aura_at_cast(e) for e in eff)
-    if not isinstance(eff, dict):
-        return False
-    kind = str(eff.get("type", ""))
-    if kind.endswith("Projectile"):
-        return False                      # what a projectile does when it lands is not the cast
-    if kind == "RangeEffect":
-        target = str(eff.get("target", ""))
-        if "Ally" in target or "Self" in target:
-            return True
-    return any(aura_at_cast(v) for v in eff.values() if isinstance(v, (dict, list)))
-
-
-def needs_reach(champ):
-    """A league_ champion whose attack has such an aura and no node (the packers add it: `reach()`)."""
-    attack = champ.get("attack")
-    if not isinstance(attack, dict) or not str(champ.get("id", "")).startswith("league_") or champ.get("id") in NO_REACH:
-        return False
-    eff = attack.get("effect")
-    return aura_at_cast(eff) and not _has_node(eff)
-
-
-def _with_node(attack):
-    eff = attack.get("effect")
-    if isinstance(eff, dict) and eff.get("type") == "Combine":
-        return dict(attack, effect=dict(eff, effects=list(eff.get("effects", [])) + [copy.deepcopy(NODE)]))
-    return dict(attack, effect={"type": "Combine", "effects": ([eff] if eff else []) + [copy.deepcopy(NODE)]})
-
-
-def reach(champ):
-    """What the packers ship: the champion itself, or a copy with the node in its attack when `needs_reach` (see the
-    module's text). Nothing else changes; a second pass changes nothing."""
-    if not needs_reach(champ):
-        return champ
-    return dict(champ, attack=_with_node(champ["attack"]))
-
-
 def wrap(build):
     """`build = range_buffs.wrap(build)` under a kit script's build(): every caller gets the kit with the markers."""
     @functools.wraps(build)
@@ -218,23 +158,7 @@ def problems():
                 out.append(f"{rel}: buff {bs.get('name')} still has range {bs['range']}")
         if "attack" in c and reads_range(c) and not _has_node(c["attack"].get("effect")) and c.get("id") != "league_sylas":
             out.append(f"{rel}: lays a range marker but its attack has no {NODE_REF} node")
-        shipped = reach(c)
-        if needs_reach(shipped) or reach(shipped) != shipped:
-            out.append(f"{rel}: reach() does not settle (an aura at cast time and still no node)")
-        if shipped is not c and {k: v for k, v in shipped.items() if k != "attack"} != {k: v for k, v in c.items() if k != "attack"}:
-            out.append(f"{rel}: reach() changed more than the attack")
     return out
-
-
-def reached():
-    """The champions the packers add the node to (ids, sorted): the installed copy of each - an add-on's override
-    when there is one, else the main pack's file."""
-    final = {}
-    for path in sorted(glob.glob(os.path.join(ROOT, "league", "champion", "*.data_champion"))):
-        final[os.path.basename(path)] = path
-    for path in sorted(glob.glob(os.path.join(ROOT, "addons", "*", "override", "*.data_champion"))):
-        final[os.path.basename(path)] = path
-    return sorted(c["id"] for c in map(load, final.values()) if needs_reach(c))
 
 
 def main():
@@ -256,9 +180,6 @@ def main():
         if bad:
             sys.exit(f"{len(bad)} problem(s)")
         print("range buffs: table up to date, no `range` buff left, every marked attack has the node")
-        ids = reached()
-        print(f"reach: the packers add the node to {len(ids)} attacks with an aura at cast time: "
-              + ", ".join(i[len("league_"):] for i in ids))
 
 
 if __name__ == "__main__":

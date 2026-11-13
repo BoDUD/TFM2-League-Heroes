@@ -21,7 +21,7 @@ lands on a champion (League's W has no cast time and the pros press it after eve
           w_ms% move speed for w_ms_t ticks and w_as% attack speed for w_as_t; w_cd after. A caught axe clears w_cd.
           Until 2026-11-13 the check ran when the attack was thrown (an enemy champion within w_r): an area on himself
           at the attack's cast time, and the game's AI ordered him to attack a champion 0.16 times a minute (marksmen
-          without one: 4.5-7; tools/kit/range_buffs.py `reach()`). Moved under the hidden twin's hit (the twin lands
+          without one: 4.5-7; docs/native_ai.md, 2026-11-13). Moved under the hidden twin's hit (the twin lands
           on champions only) and nothing else changed, in game: 6.5 a minute.
   skill2  E Stand Aside (开道利斧): a `Direction` cast on `EnemyWithoutTower` (e_range); at the release the axes fly
           down a line through everything: e_dmg + e_ratio% AD, knocked back (e_kb speed, e_kb_t ticks) and e_slow%

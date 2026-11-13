@@ -31,7 +31,6 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ADDONS = os.path.dirname(HERE)
 sys.path.insert(0, os.path.join(os.path.dirname(ADDONS), "tools", "kit"))
 import slim  # noqa: E402  the exact effect-tree rewrites (fewer nodes for the trees the game copies every tick)
-import range_buffs  # noqa: E402  reach(): the league:range node for an attack with an aura at cast time
 ID = "league_addons"
 TEXTS = "asset/base/text/"
 
@@ -123,12 +122,7 @@ def main():
                         s = f.read().replace(old, new)
                     if fn.endswith(".data_champion"):        # the exact effect-tree rewrites, as tools/package_mod.py
                         # compact (league_sylas's copy carries every League champion's ult: 12 MB pretty-printed)
-                        # reach(): an attack with an area on allies / on the caster at cast time gets league.dll's
-                        # league:range node (the game's AI hardly orders it at champions otherwise: range_buffs.py)
-                        lean = range_buffs.reach(slim.slim_champion(json.loads(s)))
-                        if range_buffs.reach(slim.slim_champion(lean)) != lean:
-                            sys.exit(f"{name}/{sub}/{fn}: the packed copy does not read back as itself")
-                        s = json.dumps(lean, ensure_ascii=False, separators=(",", ":")) + "\n"
+                        s = json.dumps(slim.slim_champion(json.loads(s)), ensure_ascii=False, separators=(",", ":")) + "\n"
                     with open(dst, "w", encoding="utf-8", newline="\n") as f:
                         f.write(s)
         for k, v in load(os.path.join(src, "mod.override_info")).items():
