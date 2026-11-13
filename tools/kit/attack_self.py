@@ -40,6 +40,23 @@ as he is, and listed, when the move could change what his kit does:
 KEEP lists the heroes measured as attacking normally with the area where it is: not touched.
 The estimate stub of the generated attacks (AddCasterBuff x, SwitchByBuff x -> Attack, RemoveCasterBuff x) never runs
 and is not counted as damage. Not done: tft_ champions (the watch does not measure them), skills.
+
+The second carrier (2026-11-14), for a hero the first is not safe for: only the area itself - each cast-time
+`RangeEffect` on allies / the caster, the outermost of nested ones - is replaced, in place, by
+
+    {"type": "RandomTarget", "range": 1, "casting_target": "AllyOnlySelf", "from_projectile": false, "effects": [
+        {"type": "ParabolicProjectile", "name": "<id>_a_self", "travel_time": 1, "range": 400000,
+         "shape": {"Circle": {"radius": 1000}}, "range_effect_name": "", "applied_target": "AllyOnlySelf",
+         "applied_effects": [], "end_effects": [<the area, unchanged>]}]}
+
+a hidden one-tick lob onto the caster himself (league_draven's q_drop and league_leesin's w_probe are such lobs). It
+needs no enemy alive, so a killing blow loses nothing (league_tryndamere's fury on a kill sits in such an area), and
+everything round the area - the buffs an automatic W writes and the rest of the attack reads in the same tick - stays
+at the cast. Checked like the first on what the area itself writes and reads in its tick (A, B; a voice line's
+cooldown flag `...vo_cd` is not counted), and not used when
+  E  the area sits inside a cast-time AddCasted outside any area (a lob at every run of that aura);
+  F  the area reads the projectile it is under (`from_projectile` at its own level);
+  G  the area is not centred on the caster (`apply_type` other than AroundCaster: the lob lands on the caster).
 """
 import argparse
 import copy
@@ -60,6 +77,12 @@ NEAR = 20000           # two bodies touching, centre to centre: the shortest fli
 KEEP = {
     "league_belveth": "5.26 a minute in 119 games",
     "league_senna": "5.59 a minute in 10 games",
+    # 2026-11-14, all launches together
+    "league_zeri": "7.93 a minute in 125 games",
+    "league_renekton": "5.15 a minute in 137 games",
+    "league_wukong": "3.97 a minute in 137 games",
+    "league_seraphine": "3.97 a minute in 135 games",
+    "league_blitzcrank": "4.2 a minute in 51 games, a support",
 }
 
 
@@ -219,8 +242,58 @@ def hazards(champ, eff, blocks):
     return sorted(notes)
 
 
+def areas(e, out, bad, casted=False):
+    """the outermost cast-time areas on allies / the caster (the second carrier's blocks); E of the module's text"""
+    if is_proj(e):
+        return
+    if is_area(e):
+        if casted:
+            bad.append("E  an area inside a cast-time AddCasted")
+        out.append(e)
+        return
+    for _, _, c in kids(e):
+        areas(c, out, bad, casted or e.get("type") == "AddCasted")
+
+
+def _cosmetic(name):
+    return str(name).endswith("vo_cd")      # a voice line's cooldown: two lines in one tick at the worst
+
+
+def lob_hazards(champ, eff, blocks):
+    """the reasons (A, B, F, G of the module's text) not to put these areas under a lob onto the caster"""
+    cid = champ.get("id", "")
+    short = lambda s: str(s).replace(cid + "_", "")
+    tl = []
+    timeline(eff, 0, tl)
+    info = {id(n): (tick, k) for n, tick, k, _ in tl}
+    notes = set()
+    for blk in blocks:
+        bt, bk = info[id(blk)]
+        if bt is None:
+            notes.add("?  an area without a tick")
+            continue
+        if blk.get("apply_type") != "AroundCaster":
+            notes.add(f"G  an area with apply_type {blk.get('apply_type')}")
+        inside = {id(n) for n in nodes(blk)}
+        mine = _own_tick(blk)
+        if any(n.get("from_projectile") is True for n in mine):
+            notes.add("F  from_projectile at the area's own level")
+        w = {_writes(n) for n in mine} - {None}
+        r = {n.get("buff_name") for n in mine if n.get("type") == "SwitchByBuff"} - {None}
+        for n, tick, k, _ in tl:
+            if id(n) in inside or tick is None:
+                continue
+            near = (tick == bt and k > bk) or (bt < tick <= bt + LATE)
+            if near and n.get("type") == "SwitchByBuff" and n.get("buff_name") in w and not _cosmetic(n["buff_name"]):
+                notes.add(f"A  {short(n['buff_name'])} written by the area at tick {bt} is read at tick {tick}")
+            if near and _writes(n) in r and not _cosmetic(_writes(n)):
+                notes.add(f"B  {short(_writes(n))} read by the area at tick {bt} is written at tick {tick}")
+    return sorted(notes)
+
+
 def verdict(champ):
-    """("wrap", blocks) | ("keep", why) | ("left", [reasons]) | ("none", None) for a champion as slim.py leaves it"""
+    """("wrap", blocks) | ("lob", areas) | ("keep", why) | ("left", [reasons]) | ("none", None) for a champion as
+    slim.py leaves it: the first carrier where it is safe, else the second, else nothing"""
     cid = str(champ.get("id", ""))
     attack = champ.get("attack")
     eff = attack.get("effect") if isinstance(attack, dict) else None
@@ -231,9 +304,14 @@ def verdict(champ):
     blocks, bad = [], []
     plan(eff, blocks, bad)
     why = bad + hazards(champ, eff, blocks)
-    if why or not blocks:
-        return "left", why or ["nothing to wrap"]
-    return "wrap", blocks
+    if blocks and not why:
+        return "wrap", blocks
+    found, bad2 = [], []
+    areas(eff, found, bad2)
+    why2 = bad2 + lob_hazards(champ, eff, found)
+    if found and not why2:
+        return "lob", found
+    return "left", (why or ["nothing to wrap"]) + ["and the lob: " + w for w in (why2 or ["no area found"])]
 
 
 def _own_bolt(eff, blocks):
@@ -294,24 +372,49 @@ def _replace(e, table):
     return out if changed else e
 
 
+def _lob(cid, area):
+    """the second carrier: a one-tick hidden lob onto the caster himself, the area in its end effects"""
+    return {"type": "RandomTarget", "range": 1, "casting_target": "AllyOnlySelf", "from_projectile": False, "effects": [
+        {"type": "ParabolicProjectile", "name": name_of(cid), "travel_time": 1, "range": 400000,
+         "shape": {"Circle": {"radius": 1000}}, "range_effect_name": "", "applied_target": "AllyOnlySelf",
+         "applied_effects": [], "end_effects": [area]}]}
+
+
+def _is_lob(e, name):
+    """a RandomTarget made by `_lob` for this champion"""
+    if e.get("type") != "RandomTarget" or e.get("casting_target") != "AllyOnlySelf" or len(e.get("effects") or []) != 1:
+        return False
+    p = e["effects"][0]
+    return (isinstance(p, dict) and p.get("type") == "ParabolicProjectile" and p.get("name") == name
+            and not p.get("applied_effects") and len(p.get("end_effects") or []) == 1)
+
+
 def settle(champ):
     """What the packers ship: the champion itself, or a copy whose attack has its blocks under hidden projectiles."""
     kind, blocks = verdict(champ)
-    if kind != "wrap":
+    if kind not in ("wrap", "lob"):
         return champ
     cid, eff = champ["id"], champ["attack"]["effect"]
-    like = _own_bolt(eff, blocks)
-    table = {id(b): _carrier(cid, b, like) for b in blocks}
+    if kind == "wrap":
+        like = _own_bolt(eff, blocks)
+        table = {id(b): _carrier(cid, b, like) for b in blocks}
+    else:
+        table = {id(b): _lob(cid, b) for b in blocks}
     return dict(champ, attack=dict(champ["attack"], effect=_replace(eff, table)))
 
 
 def unwrap(champ):
-    """`settle` undone: every hidden projectile replaced by the effect it carries."""
+    """`settle` undone: every hidden projectile (and a lob's pick of the caster) replaced by the effect it carries."""
     attack = champ.get("attack")
     if not isinstance(attack, dict) or not isinstance(attack.get("effect"), dict):
         return champ
     name = name_of(str(champ.get("id", "")))
-    table = {id(n): n["applied_effects"][0]["effect"] for n in nodes(attack["effect"]) if is_proj(n) and n.get("name") == name}
+    table = {}
+    for n in nodes(attack["effect"]):
+        if _is_lob(n, name):
+            table[id(n)] = n["effects"][0]["end_effects"][0]
+        elif n.get("type") == "TargetProjectile" and n.get("name") == name:
+            table[id(n)] = n["applied_effects"][0]["effect"]
     if not table:
         return champ
     return dict(champ, attack=dict(attack, effect=_replace(attack["effect"], table)))
@@ -332,7 +435,7 @@ def check():
         kind, what = verdict(src)
         out = settle(src)
         final[os.path.basename(path)] = (src.get("id"), kind, what)      # an add-on's copy comes after the main pack's
-        if kind == "wrap":
+        if kind in ("wrap", "lob"):
             if out is src or unwrap(out) != src:
                 bad.append(f"{rel}: the wrap does not undo to the source")
             if area_at_cast(out["attack"]["effect"]):
@@ -361,9 +464,11 @@ def main():
         sys.exit(f"{len(bad)} problem(s)")
     short = lambda i: str(i)[len("league_"):]
     wrap = sorted(short(i) for i, k, _ in final.values() if k == "wrap")
+    lob = sorted(short(i) for i, k, _ in final.values() if k == "lob")
     keep = sorted(f"{short(i)} ({w})" for i, k, w in final.values() if k == "keep")
     left = sorted((short(i), w) for i, k, w in final.values() if k == "left")
     print(f"attack_self: {len(wrap)} attacks get their caster's block under a hidden projectile at packing: " + ", ".join(wrap))
+    print(f"and {len(lob)} get each area on the caster under a one-tick lob onto himself: " + ", ".join(lob))
     print(f"kept as they are ({len(keep)}, measured normal): " + ", ".join(keep))
     print(f"left as they are ({len(left)}, the move could change the kit):")
     for i, why in left:
