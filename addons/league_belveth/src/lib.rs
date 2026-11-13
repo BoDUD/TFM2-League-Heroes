@@ -11,6 +11,8 @@
 //! - 活着时把身上每一层 `league_belveth_l<n>` 原样记下来；少了（死亡清掉的）就原样补回（科加斯附加包的做法）。层数只会
 //!   变多（主包从不去掉一层），所以「身上比记下的少」只会是死亡清掉的。最多 `l_max` 层。
 //!
+//! 0.2.0（2026-11-14）：真身期间整套动作换成张翼的帧（src/view.rs，画面上按 buff 换正在播的动画名；league_swain 的做法）。
+//!
 //! 数字从英雄数据的 `passive.params` 来（`make_override.py` 从参数表 P 写进去），本包不另记一份。不用全局变量，服务端预模拟和
 //! 你看的那场各算各的。日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_belveth.log`，每次启动游戏重写。
 
@@ -20,6 +22,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+
+pub mod view;
 
 const ID: &str = "league_belveth";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -32,6 +36,9 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_belveth") {
 const LOW: &str = "league_belveth_low";
 /// Ticks the flag lasts: renewed every tick while she is low, gone 3 ticks after she is not.
 const LOW_TICKS: usize = 3;
+/// The true form's buff (the main pack's data and this add-on's copy: build_belveth.py `r_on`): src/view.rs draws her
+/// with the wings spread while it is on her.
+pub const FORM: &str = "league_belveth_r_on";
 /// A lavender stack's name: this and its number (build_belveth.py: `l1` .. `l<l_max>`).
 const STACK: &str = "league_belveth_l";
 
@@ -232,7 +239,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Royal Maelstrom at low health, lavender stacks kept through death) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Royal Maelstrom at low health, lavender stacks kept through death, the true form's spread wings) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -240,6 +247,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         LOG_PATH.display()
     ));
     module.add_native_passive(format!("{ID}:banquet"), Banquet::default());
+    view::install_once();
     host.log(LogLevel::Info, "league_belveth v1 loaded (Bel'Veth: the storm by her health, lavender stacks kept).");
 }
 

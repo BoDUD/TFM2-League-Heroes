@@ -131,9 +131,9 @@ class Form:
         ys = np.nonzero((d[..., 3] > 0).any(1))[0]
         return self.rig.GY - (ys.max() + 1) - AT[name][1] + head_at(name)[1]
 
-    def posed(self, name, dx=0, lift=0):
+    def posed(self, name, dx=0, lift=0, rise=0):
         """A Codex pose (hd/pose_<name>.png) with its head box on the design's, moved dx squares; its lowest square on
-        the ground, `lift` rows above it in the air."""
+        the ground, `lift` rows above it in the air; `rise` rows more on top of either placement (the true form's glide)."""
         rig = self.rig
         d = load(f"pose_{name}.png")
         ys = np.nonzero((d[..., 3] > 0).any(1))[0]
@@ -142,6 +142,7 @@ class Form:
         top = rig.GY - (ys.max() + 1) - lift
         if name in HEAD_UP:   # the group's heads on one row: the highest any of them stands with its claws grounded
             top = min(self.ground_head(g) for g in HEAD_UP) - hy
+        top -= rise
         can = rig.canvas()
         ys_, xs_ = np.nonzero(d[..., 3] > 0)
         ty, tx = ys_ + top, xs_ + left
@@ -167,7 +168,13 @@ MS = {"idle": [1000], "run": [110] * 6,
       "skill_e": [75] * 4,
       "ult": [333, 334],
       "hit": [100, 100],
-      "dead": [150, 250, 1000]}
+      "dead": [150, 250, 1000],
+      # the true form (TRUE below): the same timings as the folded form's tags - the kit plays one tag in both forms
+      "r_idle": [1000], "r_run": [110] * 6,
+      "r_attack": [133, 117, 117],
+      "r_skill": [250, 50],
+      "r_skill2": [200, 300],
+      "r_hit": [100, 100]}
 # the glide: per frame the figure's rise, the claws' (dx, dy), the tail's (dx, dy)
 GLIDE = [(0, (0, 0), (0, 0)), (1, (-1, 0), (0, -1)), (2, (-1, 0), (0, -1)),
          (2, (0, 0), (0, 0)), (1, (1, 0), (0, 1)), (0, (1, 0), (0, 0))]
@@ -178,6 +185,19 @@ AT = {"a_wind": (0, 0), "a_slash": (0, 0), "q_dash": (4, 6), "w_coil": (0, 0), "
 
 # poses played in turn fast (the storm): placed by the head's height, so the face does not jump between them
 HEAD_UP = {"e_spin1", "e_spin2"}
+
+# The true form (the user, 2026-11-14: 「阿尔卑斯的变为真身是不是要做个变形啊 和联盟一样」 - 「卑尔维斯」, 「先变大再张翼」): while
+# Endless Banquet's `league_belveth_r_on` is on her the add-on league_belveth plays `r_<tag>` for these tags (Swain's
+# and Kayn's way: the playing animation's name swapped in the display world; `r_` as league_volibear's storm twins -
+# hero_reels keeps `tf_` / `t_` tags out of the idles as transformations). League's true form is her body with the
+# wings spread; Codex's poses already hold her so, at the design's size with the design's head: TRUE, the storm's
+# swept-out pose (both wings spread out and down, the tail curled under her, off the ground - the storm itself then
+# starts from her stance), is how she stands, glides and reels in true form; she strikes from the rise (both wings
+# up, the ult's last frame) down through the slash. No new picture drawn. The idle is the stance alone, as the folded
+# form's is the design alone (hero_reels cuts the little moves: tools/art/hero_reels.json `r_idle`).
+TRUE = "e_spin2"
+# the glide in true form: rows risen per frame (the folded glide's own bob, a row more - nothing of her touches the ground)
+R_GLIDE = [0, 1, 2, 3, 2, 1]
 
 
 def actions(F):
@@ -203,6 +223,15 @@ def actions(F):
     out["hit"] = [R.flash(p(whole=(-2, 0))), p(whole=(-1, 0))]
     # death (League's Death: reeling back, sunk to the ground)
     out["dead"] = [R.flash(at("d_reel")), at("d_reel"), at("d_down")]
+    # the true form: hovering with the wings spread
+    out["r_idle"] = [at(TRUE)]
+    out["r_run"] = [q(TRUE, AT[TRUE][0], AT[TRUE][1], rise=r) for r in R_GLIDE]
+    out["r_attack"] = [at("r_rise"), at("a_slash"), at(TRUE)]
+    out["r_skill"] = [at("q_dash"), at(TRUE)]
+    # W: the coil's wings are folded round her - in true form that frame would read as her turning back (the user on
+    # Kayn, 2026-10-19: 「变身的时候中途有一段突然变回去」), so she winds up with both wings raised (the storm's first pose)
+    out["r_skill2"] = [at("e_spin1"), at("w_slam")]
+    out["r_hit"] = [R.flash(at(TRUE, -2)), at(TRUE, -1)]
     return out
 
 
