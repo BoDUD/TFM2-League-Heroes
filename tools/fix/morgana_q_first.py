@@ -14,6 +14,10 @@ heal and the league_morgana_q_bound flag that lets Tormented Shadow fall under i
 BIND / AP / CD: the retune that came with it (the classic-engine simulations in docs/heroes/league_morgana.md) - the
 root's ticks (League 2 - 3 s by rank), the damage's AP share (League 90%) and Q's cooldown; None leaves the number as
 it is.
+BLOCK: whom the orb stops on. True = any enemy unit (League's rule, the first version of this script); False = it flies
+past minions and monsters to the first enemy champion, who alone takes the damage and the root - the user, the same
+day, after the simulations showed the blocking orb catching far fewer champions (46 roots of 122 Qs -> 30 of 115):
+「莫甘娜q也要穿过小兵」 (as Nautilus's anchor before it: 「泰坦的钩子恢复穿过小兵」). League's numbers stay.
 Edits league/champion/league_morgana.data_champion and Q's five texts in league/text/champion.i18n in place.
 Idempotent; --check only says whether it is there; --out writes the kit elsewhere (a simulation's variant) and
 leaves the texts alone.
@@ -31,6 +35,8 @@ PATH, ORB = "league_morgana_q_path", "league_morgana_q_orb"
 BIND = 180                       # the root's ticks after the change (it was 120; League 2 - 3 s by rank)
 AP = 90                          # the damage's AP share after the change (it was 60; League 90%)
 CD = None                        # Q's cooldown after the change (None: as it was, 540)
+BLOCK = False                    # True: stops on any enemy unit; False: passes minions and monsters (the user's word)
+TARGET = {True: "EnemyWithoutTower", False: "EnemyChampion"}
 # lang -> (the damage's AP share, the root's seconds) as Q's text writes them: {} = the number
 NUMBERS = {"zh-hans": ("<#a974ffff>{}% 法术强度<>", "<#ffb900ff>{}秒<>。每"),
            "zh-hant": ("<#a974ffff>{}% 魔法強度<>", "<#ffb900ff>{}秒<>。每"),
@@ -55,6 +61,15 @@ WORDS = {
            ("を与え、最初の敵チャンピオンで止まって", "を与え、"),
            ("毎にその足元に", "毎にスネアしたチャンピオンの足元に")],
 }
+# lang -> [(the blocking orb's words, the passing orb's words)], applied after WORDS when BLOCK is False
+PASS_WORDS = {
+    "zh-hans": [("，对路上第一个敌人（小兵、野怪也算）造成", "，穿过小兵和野怪，对第一个敌方英雄造成")],
+    "zh-hant": [("，對路上第一個敵人（小兵、野怪也算）造成", "，穿過小兵和野怪，對第一個敵方英雄造成")],
+    "en": [(" hits the first enemy in its way (minions and monsters too), dealing ",
+            " flies through minions and monsters and hits the first enemy champion, dealing ")],
+    "ko": [("이 처음 맞은 적(미니언·몬스터 포함)에게 ", "이 미니언과 몬스터를 통과해 처음 맞은 적 챔피언에게 ")],
+    "ja": [("は最初に当たった敵（ミニオン・モンスターも）に", "はミニオンとモンスターを素通りし、最初に当たった敵チャンピオンに")],
+}
 
 
 def lp(path):
@@ -77,6 +92,25 @@ def dump(data, raw):
 
 def T(effect):
     return OrderedDict([("casting_type", "Targeting"), ("effect", effect)])
+
+
+def retarget(o, target):
+    """Every orb's applied_target set to `target` -> (orbs found, orbs changed)."""
+    found = changed = 0
+    if isinstance(o, dict):
+        if o.get("name") == ORB and "applied_target" in o:
+            found += 1
+            if o["applied_target"] != target:
+                o["applied_target"] = target
+                changed += 1
+        for v in o.values():
+            f, c = retarget(v, target)
+            found, changed = found + f, changed + c
+    elif isinstance(o, list):
+        for v in o:
+            f, c = retarget(v, target)
+            found, changed = found + f, changed + c
+    return found, changed
 
 
 def patch_list(effects, bind, ap):
@@ -130,22 +164,31 @@ def main():
     text, traw = load(TEXT)
     assert dump(text, traw) == traw, "champion.i18n is not in the form this script writes"
     q = {lang: text[lang]["description"]["league_morgana"]["skill"] for lang in WORDS}
-    worded = all(old not in q[lang] for lang, pairs in WORDS.items() for old, _ in pairs) and (
+    olds = [old for pairs in WORDS.values() for old, _ in pairs]
+    if not BLOCK:
+        olds += [old for pairs in PASS_WORDS.values() for old, _ in pairs]
+    worded = all(old not in q[lang] for lang in WORDS for old in olds) and (
         a.bind is None or all(NUMBERS[lang][1].format(f"{a.bind / 60:g}") in q[lang] for lang in WORDS))
+    aimed = retarget(json.loads(json.dumps(kit["skill"])), TARGET[BLOCK]) == (2, 0)
     if a.check:
-        print("Dark Binding stops on the first enemy:", "there" if done and worded else "NOT there")
-        sys.exit(0 if done and worded else 1)
+        ok = done and worded and aimed
+        print("Dark Binding as this script writes it:", "there" if ok else "NOT there")
+        sys.exit(0 if ok else 1)
     if not done:
         n = walk(kit["skill"]["effect"], a.bind, a.ap)
         if n != 2:
             sys.exit(f"{n} orbs patched, expected 2 (aimed at a champion, and down the cast's line): the kit changed")
         if a.cd is not None:
             kit["skill"]["cooltime"] = a.cd
+    if not done or not aimed:
+        found, _ = retarget(kit["skill"], TARGET[BLOCK])
+        if found != 2:
+            sys.exit(f"{found} orbs found, expected 2: the kit changed")
         open(lp(a.out or KIT), "w", encoding="utf-8", newline="").write(dump(kit, raw))
     if not worded and not a.out:
         for lang, pairs in WORDS.items():
             s = q[lang]
-            for old, new in pairs:
+            for old, new in pairs + ([] if BLOCK else PASS_WORDS[lang]):
                 if old not in s:         # this piece is rewritten already
                     continue
                 if s.count(old) != 1:
@@ -161,7 +204,8 @@ def main():
                 s = s.replace(form.format(was), form.format(now))
             text[lang]["description"]["league_morgana"]["skill"] = s
         open(lp(TEXT), "w", encoding="utf-8", newline="").write(dump(text, traw))
-    print("Dark Binding stops on the first enemy:", "already there" if done and worded else "written", a.out or "")
+    print("Dark Binding as this script writes it:", "already there" if done and worded and aimed else "written",
+          a.out or "")
 
 
 if __name__ == "__main__":
