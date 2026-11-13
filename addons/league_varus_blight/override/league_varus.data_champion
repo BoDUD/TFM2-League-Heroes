@@ -2058,7 +2058,7 @@
   },
   "ult": {
     "action_name": "ult",
-    "description": "#asset/base/text/champion?description.league_varus.ult",
+    "description": "#asset/base/text/champion?description.league_varus_blight.ult",
     "duration": 30,
     "cooltime": 3600,
     "start_timing": 15,
@@ -2352,43 +2352,8 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "Bind",
-                              "duration": 90
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_varus_r_bind",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 90
-                                  }
-                                }
-                              }
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_varus_r_spread_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "league_varus_b_v3"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_varus_r_spread"
+                              "type": "Native",
+                              "effect_ref": "league_varus_blight:spread"
                             }
                           }
                         ]

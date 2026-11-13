@@ -2,35 +2,40 @@
   "zh-hans": {
     "description": {
       "league_varus_blight": {
-        "attack": "【附加包】射箭攻击，附带<#a974ffff>20魔法伤害<>，命中英雄叠一层<#ff9028ff>枯萎<>（最多3层，每个英雄各算各的）。被动<#ff9028ff>复仇之欲<>：击杀英雄后攻速+<#ffb900ff>60%<>，击杀小兵野怪+<#ffb900ff>20%<>，持续5秒。"
+        "attack": "【附加包】射箭攻击，附带<#a974ffff>20魔法伤害<>，命中英雄叠一层<#ff9028ff>枯萎<>（最多3层，每个英雄各算各的）。被动<#ff9028ff>复仇之欲<>：击杀英雄后攻速+<#ffb900ff>60%<>，击杀小兵野怪+<#ffb900ff>20%<>，持续5秒。",
+        "ult": "射出腐败锁链，命中第一个敌方英雄：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理伤害<>、<#ef5350ff>禁锢2秒<>、叠满3层枯萎；锁链随后扩散到附近的敌方英雄，<#ef5350ff>禁锢1.5秒<>。【附加包】被禁锢的英雄也叠满枯萎，并继续向他们附近的英雄扩散，直到没有新目标。"
       }
     }
   },
   "zh-hant": {
     "description": {
       "league_varus_blight": {
-        "attack": "【附加包】射箭攻擊，附帶<#a974ffff>20魔法傷害<>，命中英雄疊一層<#ff9028ff>荒蕪<>（最多3層，每個英雄各算各的）。被動<#ff9028ff>復仇怒火<>：擊殺英雄後攻速+<#ffb900ff>60%<>，擊殺小兵野怪+<#ffb900ff>20%<>，持續5秒。"
+        "attack": "【附加包】射箭攻擊，附帶<#a974ffff>20魔法傷害<>，命中英雄疊一層<#ff9028ff>荒蕪<>（最多3層，每個英雄各算各的）。被動<#ff9028ff>復仇怒火<>：擊殺英雄後攻速+<#ffb900ff>60%<>，擊殺小兵野怪+<#ffb900ff>20%<>，持續5秒。",
+        "ult": "射出墮落連鎖，命中第一個敵方英雄：<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<><#ff9028ff>物理傷害<>、<#ef5350ff>定身2秒<>、疊滿3層荒蕪；連鎖隨後擴散到附近的敵方英雄，<#ef5350ff>定身1.5秒<>。【附加包】被定身的英雄也疊滿荒蕪，並繼續向他們附近的英雄擴散，直到沒有新目標。"
       }
     }
   },
   "en": {
     "description": {
       "league_varus_blight": {
-        "attack": "[Add-on] Shoots arrows dealing <#a974ffff>20 magic damage<> on hit; each champion hit adds a stack of <#ff9028ff>Blight<> on that champion (up to 3 each). Passive <#ff9028ff>Living Vengeance<>: a champion kill gives <#ffb900ff>+60%<> attack speed, a minion or monster kill <#ffb900ff>+20%<>, for 5s."
+        "attack": "[Add-on] Shoots arrows dealing <#a974ffff>20 magic damage<> on hit; each champion hit adds a stack of <#ff9028ff>Blight<> on that champion (up to 3 each). Passive <#ff9028ff>Living Vengeance<>: a champion kill gives <#ffb900ff>+60%<> attack speed, a minion or monster kill <#ffb900ff>+20%<>, for 5s.",
+        "ult": "Flings a tendril at the first enemy champion: <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<> <#ff9028ff>physical damage<>, <#ef5350ff>rooted<> for <#ffb900ff>2s<>, full Blight. The corruption then spreads to enemy champions nearby, <#ef5350ff>rooting<> them for <#ffb900ff>1.5s<>. [Add-on] Those rooted get full Blight too, and it spreads on from each of them until no new champion is near."
       }
     }
   },
   "ko": {
     "description": {
       "league_varus_blight": {
-        "attack": "[확장] 화살로 공격해 <#a974ffff>20의 마법 피해<>를 추가로 입히고, 챔피언에게 <#ff9028ff>역병<> 중첩을 그 챔피언에게 쌓습니다(각각 최대 3). 기본 지속 효과 <#ff9028ff>죽지 않는 복수심<>: 챔피언 처치 시 공격 속도 <#ffb900ff>+60%<>, 미니언·몬스터 처치 시 <#ffb900ff>+20%<> (5초)."
+        "attack": "[확장] 화살로 공격해 <#a974ffff>20의 마법 피해<>를 추가로 입히고, 챔피언에게 <#ff9028ff>역병<> 중첩을 그 챔피언에게 쌓습니다(각각 최대 3). 기본 지속 효과 <#ff9028ff>죽지 않는 복수심<>: 챔피언 처치 시 공격 속도 <#ffb900ff>+60%<>, 미니언·몬스터 처치 시 <#ffb900ff>+20%<> (5초).",
+        "ult": "첫 적 챔피언에게 덩굴을 던져 <#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>의 <#ff9028ff>물리 피해<>, <#ffb900ff>2초<> <#ef5350ff>속박<>, 역병 3중첩. 이어서 부패가 주변 적 챔피언에게 퍼져 <#ffb900ff>1.5초<> <#ef5350ff>속박<>합니다. [확장] 속박된 챔피언도 역병 3중첩이 되고, 그들 주변의 챔피언에게 계속 퍼집니다."
       }
     }
   },
   "ja": {
     "description": {
       "league_varus_blight": {
-        "attack": "【拡張】矢で攻撃し<#a974ffff>20の魔法ダメージ<>を追加、チャンピオンに<#ff9028ff>枯死<>をそのチャンピオンに付与（各最大3）。パッシブ <#ff9028ff>復讐の化身<>：チャンピオンを倒すと攻撃速度<#ffb900ff>+60%<>、ミニオン・モンスターで<#ffb900ff>+20%<>（5秒）。"
+        "attack": "【拡張】矢で攻撃し<#a974ffff>20の魔法ダメージ<>を追加、チャンピオンに<#ff9028ff>枯死<>をそのチャンピオンに付与（各最大3）。パッシブ <#ff9028ff>復讐の化身<>：チャンピオンを倒すと攻撃速度<#ffb900ff>+60%<>、ミニオン・モンスターで<#ffb900ff>+20%<>（5秒）。",
+        "ult": "最初の敵チャンピオンに蔓を放ち<#ff9028ff>150<> + <i#asset/base/ui/banpick/champion_stat_icon:ad_0><#ff9028ff>80%<>の<#ff9028ff>物理ダメージ<>、<#ffb900ff>2秒<>の<#ef5350ff>スネア<>、枯死3つ。続いて穢れが周囲の敵チャンピオンに広がり<#ffb900ff>1.5秒<><#ef5350ff>スネア<>。【拡張】スネアされた敵も枯死3つになり、その周囲のチャンピオンへさらに広がる。"
       }
     }
   }
