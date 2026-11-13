@@ -17,6 +17,7 @@ stretched limbs, the head never touched). What it offers instead, all on whole s
                               the frames made from it do not flicker;
   wave(shape, x0, x1, k)      the moves of a wave: a part's whole columns lifted 0..k rows along its length (a tail,
                               a ribbon, a spread wing: ppu_rig.sway's shape), for repose;
+  turn(shape, about, n)       the moves of n quarter turns about a square corner (a club about its grip), for repose;
   smear(a, mask, dx, dy, n)   a smear behind a part that moves fast: the air it swept over in its last n squares
                               filled flat in one of the part's own colours and joined to it;
   recolour(a, mask, table)    a part's colours changed for a frame (a blade's rim lit as it lands);
@@ -294,6 +295,19 @@ def recolour(a, mask, table):
     return out
 
 
+def turn(shape, about, quarters=1):
+    """The moves of a quarter turn (or two, three) clockwise on screen about the square corner `about` (x, y): one of
+    the grid's exact turns, every square lands on a square (art-spec: a weapon and the hand gripping it turn about the
+    grip by quarter turns, never by an arbitrary angle). -> (dx, dy) arrays for repose."""
+    H, W = shape[:2]
+    yy, xx = np.mgrid[0:H, 0:W]
+    ax, ay = about
+    nx, ny = xx, yy
+    for _ in range(quarters % 4):                         # (x, y) -> (ax + ay - y - 1, ay - ax + x)
+        nx, ny = ax + ay - ny - 1, ay - ax + nx
+    return nx - xx, ny - yy
+
+
 def part_mask(shape, items):
     """A part's mask from its items: polygons [(x, y), ...] (square edges) and boxes (x0, y0, x1, y1) (squares,
     inclusive)."""
@@ -302,13 +316,15 @@ def part_mask(shape, items):
     return cut(shape, polys=polys, boxes=boxes)
 
 
-def vary(d, parts, outline, moves=(), sway=(), lit=None, head=None, pad=30, name="pose"):
+def vary(d, parts, outline, moves=(), sway=(), lit=None, head=None, pad=30, name="pose", turns=()):
     """One in-between from a key pose: the pose picture d with some of its parts moved, on a canvas `pad` squares
     bigger on every side (place it `pad` further up and left than the pose itself).
       parts  {part: [polygons / boxes in the picture's own squares]} (part_mask)
       moves  [(part, (dx, dy), how)] - repose: "under" the rest of the figure, "over" it, or "gone"
       sway   [(part, x0, x1, k, attach[, how])] - the part's columns lifted 0..k rows along its length (wave), behind
              the rest of the figure ("under", the default) or over it; a part both moved and swayed does both
+      turns  [(part, (x, y), quarters, how)] - the part turned clockwise by quarter turns about the corner (x, y)
+             (turn): a club about its grip
       lit    (part, {rgb: rgb}) - the part's colours changed for the frame
       head   (mask over d) the pose's head: checked untouched, as is every square of d that is in none of the parts
              used (the body never changes between a key pose and the frames made from it); a fault stops the build."""
@@ -321,6 +337,9 @@ def vary(d, parts, outline, moves=(), sway=(), lit=None, head=None, pad=30, name
     plan = {}                                             # part -> [dx, dy, how], in the order named
     for part, off, how in moves:
         plan[part] = [off[0], off[1], how]
+    for part, about, quarters, how in turns:
+        tx, ty = turn(d.shape, about, quarters)
+        plan[part] = [tx, ty, how]
     for part, x0, x1, k, attach, *how in sway:
         wx, wy = wave(d.shape, x0, x1, k, attach)
         if part in plan:
