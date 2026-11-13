@@ -35,6 +35,96 @@
    "by": "fx_vector 3",
    "sha256": "54a9d38b31737e17d370db70975fe29307f32ade4b26fbf5fbf7213d243ae51c",
    "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_nami_fx",
+   "tag": "q_mark",
+   "file": "league_nami_fx/q_mark.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ],
+    [
+     45,
+     45
+    ]
+   ],
+   "of_1x": "583b6ad344213c842fe6f250327a24491f9d9dc512727d6262b04608784092aa",
+   "by": "fx_vector 4",
+   "sha256": "9205f79a1bb328565db23eb5ff9238c9c1b7149334ce52160d0e6c5e5952df29",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_nami_fx",
+   "tag": "q_prison",
+   "file": "league_nami_fx/q_prison.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     33,
+     45
+    ],
+    [
+     35,
+     53
+    ],
+    [
+     37,
+     41
+    ],
+    [
+     37,
+     41
+    ],
+    [
+     37,
+     47
+    ],
+    [
+     37,
+     41
+    ],
+    [
+     37,
+     59
+    ],
+    [
+     33,
+     43
+    ]
+   ],
+   "of_1x": "2abc908468bb8a8059d0cdd34b36439250d5d7f5389294d0ad1f15d04984f47e",
+   "by": "fx_vector 4",
+   "sha256": "5eecf4b36a17a91975ee72275eca136d6a4127749fda0dcade5602fec6bbcd3c",
+   "note": "batch 07 league other 2026-11-14"
   }
  ]
 }

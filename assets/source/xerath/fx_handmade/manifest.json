@@ -3,6 +3,56 @@
  "items": [
   {
    "sheet": "league_xerath_big",
+   "tag": "r_bolt",
+   "file": "league_xerath_big/r_bolt.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     23,
+     153
+    ],
+    [
+     43,
+     97
+    ],
+    [
+     43,
+     45
+    ],
+    [
+     43,
+     111
+    ],
+    [
+     43,
+     83
+    ],
+    [
+     43,
+     75
+    ],
+    [
+     43,
+     55
+    ]
+   ],
+   "of_1x": "fe2ebeeda1d5c9ab7d66ffc3c80e5f4bde56b75fbff6a4a8693d35a6dc5832c9",
+   "by": "fx_vector 4",
+   "sha256": "e0a58a55ed003982052af5016bcbc814101ff2aea1fecaff89bd4ea83414bcb8",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_xerath_big",
    "tag": "r_chan",
    "file": "league_xerath_big/r_chan.png",
    "ppu": 2,

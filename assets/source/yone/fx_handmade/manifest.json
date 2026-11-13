@@ -45,6 +45,51 @@
    "by": "fx_vector 3",
    "sha256": "4b2087c9b794903f3621d8f94b26e45efad74f177bbd5097f5996c651f98218b",
    "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_yone_sym",
+   "tag": "shield",
+   "file": "league_yone_sym/shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ],
+    [
+     43,
+     63
+    ]
+   ],
+   "of_1x": "70b0c70a2c4e54122655cdfcb7466c3e7b677ffc226e5e9f8038570eaca7fb14",
+   "by": "fx_vector 4",
+   "sha256": "6954a64814f65b544a1919bfec0758c8d1cbee5f6228f40739cf28fba9bba580",
+   "note": "batch 07 league other 2026-11-14"
   }
  ]
 }

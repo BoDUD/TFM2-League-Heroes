@@ -93,6 +93,51 @@
   },
   {
    "sheet": "league_zaahen_fx",
+   "tag": "p_full",
+   "file": "league_zaahen_fx/p_full.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     25
+    ],
+    [
+     41,
+     53
+    ],
+    [
+     41,
+     73
+    ],
+    [
+     37,
+     77
+    ],
+    [
+     41,
+     65
+    ],
+    [
+     41,
+     65
+    ]
+   ],
+   "of_1x": "93110532f1528150540bc9836c1cb80ce19c2617d291a712fcab21034d765d31",
+   "by": "fx_vector 4",
+   "sha256": "dcb04e5c4facc7433f207e842f4c7592e89f930558dae5fabfdccbfabce885c3",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_zaahen_fx",
    "tag": "p_shield",
    "file": "league_zaahen_fx/p_shield.png",
    "ppu": 2,

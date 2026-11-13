@@ -327,6 +327,46 @@
    "note": "batch 02 rings and zones 2026-11-14"
   },
   {
+   "sheet": "league_aatrox_big",
+   "tag": "w_snap",
+   "file": "league_aatrox_big/w_snap.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     65,
+     61
+    ],
+    [
+     67,
+     61
+    ],
+    [
+     69,
+     61
+    ],
+    [
+     65,
+     61
+    ],
+    [
+     33,
+     43
+    ]
+   ],
+   "of_1x": "d06fc780fd3941811f848a958ea4b99908a6646a32b3645431df92d6511e0cd9",
+   "by": "fx_vector 4",
+   "sha256": "e3cbf7e08b2f2ab70ef4e22e7116778c78579e8b679047cfc27a62ca3a7f64f2",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
    "sheet": "league_aatrox_fx",
    "tag": "r_feared",
    "file": "league_aatrox_fx/r_feared.png",

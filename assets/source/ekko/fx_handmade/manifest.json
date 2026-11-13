@@ -152,6 +152,41 @@
    "note": "batch 06 large bursts 2026-11-14"
   },
   {
+   "sheet": "league_ekko_big",
+   "tag": "w_sphere",
+   "file": "league_ekko_big/w_sphere.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     83,
+     79
+    ],
+    [
+     83,
+     79
+    ],
+    [
+     79,
+     79
+    ],
+    [
+     79,
+     79
+    ]
+   ],
+   "of_1x": "5322ca890b730fc337bf6b986ae8fb7121c48e2db13fb6ba75bee297c1d49f1c",
+   "by": "fx_vector 4",
+   "sha256": "49a767fd2e7c8747bf445f436346bb6b7594364706a400cec54d0fddae3e663e",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
    "sheet": "league_ekko_fx",
    "tag": "w_shield",
    "file": "league_ekko_fx/w_shield.png",

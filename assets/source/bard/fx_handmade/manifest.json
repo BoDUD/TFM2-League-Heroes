@@ -3,6 +3,41 @@
  "items": [
   {
    "sheet": "league_bard_big",
+   "tag": "r_free",
+   "file": "league_bard_big/r_free.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     31,
+     39
+    ],
+    [
+     35,
+     41
+    ],
+    [
+     33,
+     41
+    ],
+    [
+     31,
+     31
+    ]
+   ],
+   "of_1x": "40115694e2e09d040b49950a879a17dd9a18c126e6715cddf37ccd5904262923",
+   "by": "fx_vector 4",
+   "sha256": "f7addb6580ab78ad9f3f8434029d1eb4a3147c0e07bf8436ec0dd5705f98ceb7",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_bard_big",
    "tag": "r_mark",
    "file": "league_bard_big/r_mark.png",
    "ppu": 2,

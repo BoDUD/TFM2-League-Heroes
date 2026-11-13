@@ -287,6 +287,46 @@
    "by": "fx_vector 3",
    "sha256": "0efdb2c610f90070cc77bf681c1b2f3432233e108946382fb4596f033bb43389",
    "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_fx",
+   "tag": "r_heal",
+   "file": "league_nilah_fx/r_heal.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     33,
+     21
+    ],
+    [
+     41,
+     27
+    ],
+    [
+     43,
+     25
+    ],
+    [
+     41,
+     69
+    ],
+    [
+     41,
+     67
+    ]
+   ],
+   "of_1x": "7af070d4c648405f299092ab077d922bc06b9a193eea1ee08f42ef30112c7ae2",
+   "by": "fx_vector 4",
+   "sha256": "4dce60ddb62e48984cdfe869942df5db154985491e352f8d2bafd0cc86bcad41",
+   "note": "batch 07 league other 2026-11-14"
   }
  ]
 }

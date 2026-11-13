@@ -2,6 +2,51 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_velkoz_big",
+   "tag": "e_mark",
+   "file": "league_velkoz_big/e_mark.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     37
+    ],
+    [
+     45,
+     37
+    ],
+    [
+     45,
+     35
+    ],
+    [
+     47,
+     37
+    ]
+   ],
+   "of_1x": "228b18d3869be7a9fd48aba23eb55812dddd6f2498274042d002463e3e59ad8f",
+   "by": "fx_vector 4",
+   "sha256": "8990e56055016e4016308fe85a13f1c97f1f3895a7a309828f1bacd9e47ea708",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
    "sheet": "league_velkoz_fx",
    "tag": "q_hit",
    "file": "league_velkoz_fx/q_hit.png",

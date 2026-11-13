@@ -1,0 +1,121 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_ryze_big",
+   "tag": "r_dest",
+   "file": "league_ryze_big/r_dest.png",
+   "ppu": 2,
+   "frames": 16,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "sizes": [
+    [
+     37,
+     51
+    ],
+    [
+     57,
+     53
+    ],
+    [
+     61,
+     67
+    ],
+    [
+     63,
+     67
+    ],
+    [
+     61,
+     67
+    ],
+    [
+     63,
+     67
+    ],
+    [
+     63,
+     67
+    ],
+    [
+     63,
+     67
+    ],
+    [
+     61,
+     63
+    ],
+    [
+     25,
+     51
+    ]
+   ],
+   "of_1x": "f7b8143b3526e14b9bc707e906550c6090fb02a1bd66d155e736612ea98f3572",
+   "by": "fx_vector 4",
+   "sha256": "cbe97f91efac593893f4048b80f097559e5d628e24929ad44eb738d675e5ccf4",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_ryze_big",
+   "tag": "r_in",
+   "file": "league_ryze_big/r_in.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     27,
+     33
+    ],
+    [
+     27,
+     33
+    ],
+    [
+     31,
+     35
+    ],
+    [
+     29,
+     35
+    ],
+    [
+     29,
+     33
+    ],
+    [
+     25,
+     33
+    ]
+   ],
+   "of_1x": "c167fc9ac365eb78f574e27b8da5b9d07b3b34dad81e6db7cc7641be3fa85208",
+   "by": "fx_vector 4",
+   "sha256": "6e86a1566077cd04eadc4511bb9272136dc98c0f41c287d94aa4496d818f4772",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

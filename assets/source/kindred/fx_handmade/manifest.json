@@ -229,6 +229,51 @@
    "by": "fx_vector 3",
    "sha256": "ff42d74521d302ca0279e4bc646eaad1b1953258a9aca5fb4c3213ba76095016",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_kindred_fx",
+   "tag": "r_heal",
+   "file": "league_kindred_fx/r_heal.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     15,
+     21
+    ],
+    [
+     17,
+     21
+    ],
+    [
+     17,
+     43
+    ],
+    [
+     15,
+     37
+    ],
+    [
+     13,
+     21
+    ],
+    [
+     11,
+     21
+    ]
+   ],
+   "of_1x": "66c90e5847fb43258a5ae2e9c36c0ecd5468ed01f32b6eec26d869e498c50a71",
+   "by": "fx_vector 4",
+   "sha256": "3855cee792ff2b57d137b43d1e8f586048bbab027459246c1e6fbe8f740e9654",
+   "note": "batch 07 league other 2026-11-14"
   }
  ]
 }

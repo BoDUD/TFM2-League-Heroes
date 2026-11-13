@@ -48,6 +48,51 @@
   },
   {
    "sheet": "league_warwick_fx",
+   "tag": "e_roar",
+   "file": "league_warwick_fx/e_roar.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     13,
+     69
+    ],
+    [
+     21,
+     79
+    ],
+    [
+     25,
+     87
+    ],
+    [
+     29,
+     103
+    ],
+    [
+     37,
+     107
+    ],
+    [
+     37,
+     103
+    ]
+   ],
+   "of_1x": "fa407a88c9223630de7946e96026dd96329fbe4c99b35d461239c59b285daa39",
+   "by": "fx_vector 4",
+   "sha256": "3cf09deb813a9d9d4db24e194c3dad43216506bf9952387be59c108284f2ce3c",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_warwick_fx",
    "tag": "q_heal",
    "file": "league_warwick_fx/q_heal.png",
    "ppu": 2,

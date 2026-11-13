@@ -107,6 +107,51 @@
    "note": "batch 04 auras and buffs 2026-11-14"
   },
   {
+   "sheet": "league_sivir_big",
+   "tag": "r_cast",
+   "file": "league_sivir_big/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     53
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     65,
+     55
+    ],
+    [
+     65,
+     57
+    ],
+    [
+     61,
+     55
+    ],
+    [
+     57,
+     47
+    ]
+   ],
+   "of_1x": "c5be26bc73bdae50b23ad66dc770443d656d68baaf4365e6827f5bd1aba7f657",
+   "by": "fx_vector 4",
+   "sha256": "71efdbcb9db06eaf7db5d75d7843960488e38b99e8c052e4e0ebcdc321495f1c",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
    "sheet": "league_sivir_fx",
    "tag": "r_loop",
    "file": "league_sivir_fx/r_loop.png",

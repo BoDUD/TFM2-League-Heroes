@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_brand_big",
+   "tag": "e_flare",
+   "file": "league_brand_big/e_flare.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     25,
+     43
+    ],
+    [
+     41,
+     41
+    ],
+    [
+     57,
+     45
+    ],
+    [
+     59,
+     43
+    ],
+    [
+     55,
+     43
+    ],
+    [
+     57,
+     43
+    ]
+   ],
+   "of_1x": "ae5f23b58d2ec28f6a3282ae95e3eb3cfde3275c8172288a8bc2a1f8f28755bb",
+   "by": "fx_vector 4",
+   "sha256": "3be29c48141ef4f893f0f8af7a9d85b680370590b375dcd9f31426773967ec4f",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_brand_big",
    "tag": "p_boom",
    "file": "league_brand_big/p_boom.png",
    "ppu": 2,
@@ -50,6 +95,55 @@
    "by": "fx_vector 4",
    "sha256": "1a2862a9e21afcbada26b5b612e4e3e6dbd6fbb44caff90dda2f11a43b27448a",
    "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_brand_big",
+   "tag": "w_mark",
+   "file": "league_brand_big/w_mark.png",
+   "ppu": 2,
+   "frames": 10,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     43,
+     33
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     45,
+     33
+    ],
+    [
+     47,
+     35
+    ]
+   ],
+   "of_1x": "0e38fd7bf19467c0f958fb67e341c93bdff6d1824f36a2c1d4403a7e265c6a9a",
+   "by": "fx_vector 4",
+   "sha256": "59f3e5ebabd43f40018525db0df1ac63c56d9095c0dd4ba175107f695fbe6833",
+   "note": "batch 07 league other 2026-11-14"
   }
  ]
 }

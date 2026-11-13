@@ -3,6 +3,46 @@
  "items": [
   {
    "sheet": "league_vayne_fx",
+   "tag": "r_refresh",
+   "file": "league_vayne_fx/r_refresh.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     29,
+     37
+    ],
+    [
+     35,
+     43
+    ],
+    [
+     35,
+     57
+    ],
+    [
+     33,
+     61
+    ],
+    [
+     27,
+     45
+    ]
+   ],
+   "of_1x": "7ae4bea5503832dd2fff2ee875bffffa1eed959920fc944f8f222e0ee6b6c620",
+   "by": "fx_vector 4",
+   "sha256": "b08df4cd5c9f347b14a750f6e6d938777acbeda83882062cb9deb9bde13014fa",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_vayne_fx",
    "tag": "sb_proc",
    "file": "league_vayne_fx/sb_proc.png",
    "ppu": 2,

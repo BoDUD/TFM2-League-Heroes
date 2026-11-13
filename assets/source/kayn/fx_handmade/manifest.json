@@ -123,6 +123,61 @@
   },
   {
    "sheet": "league_kayn_fx",
+   "tag": "tf_s",
+   "file": "league_kayn_fx/tf_s.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     41,
+     39
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     45,
+     51
+    ],
+    [
+     47,
+     79
+    ],
+    [
+     45,
+     59
+    ],
+    [
+     35,
+     51
+    ],
+    [
+     35,
+     41
+    ],
+    [
+     25,
+     33
+    ]
+   ],
+   "of_1x": "77a23eb73512d1701a546ab416b5dfd31282820abac27efff7fb4cfcb8f018a0",
+   "by": "fx_vector 4",
+   "sha256": "14d0df328da1c5781abefd1681f99807b86d2bba9effcf4093c4501b9fa64d37",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_kayn_fx",
    "tag": "wall_aura_d",
    "file": "league_kayn_fx/wall_aura_d.png",
    "ppu": 2,

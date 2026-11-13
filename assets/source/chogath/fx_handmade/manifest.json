@@ -3,6 +3,96 @@
  "items": [
   {
    "sheet": "league_chogath_big",
+   "tag": "q_crack",
+   "file": "league_chogath_big/q_crack.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     17,
+     29
+    ],
+    [
+     41,
+     41
+    ],
+    [
+     51,
+     39
+    ],
+    [
+     55,
+     39
+    ],
+    [
+     55,
+     43
+    ],
+    [
+     55,
+     39
+    ]
+   ],
+   "of_1x": "a9a4d37d6690a07912e963a0db23f0372afdeb89abb50486246a400939ed8773",
+   "by": "fx_vector 4",
+   "sha256": "e9d1340a6862ade9a63789edc2e5bcc0eac852f4d325cfa6dcb60e862e254b63",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_big",
+   "tag": "q_spikes",
+   "file": "league_chogath_big/q_spikes.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     55,
+     35
+    ],
+    [
+     49,
+     39
+    ],
+    [
+     41,
+     55
+    ],
+    [
+     49,
+     55
+    ],
+    [
+     51,
+     37
+    ],
+    [
+     55,
+     35
+    ]
+   ],
+   "of_1x": "d3b9245fbb2f0132acf10224d90fdadd14b488e8bb526cc093d6af447325354c",
+   "by": "fx_vector 4",
+   "sha256": "5c004eadfbe389884a959f7a45cc032a116bdbeadc95a7e283e4220b284133e7",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_chogath_big",
    "tag": "r_grow",
    "file": "league_chogath_big/r_grow.png",
    "ppu": 2,

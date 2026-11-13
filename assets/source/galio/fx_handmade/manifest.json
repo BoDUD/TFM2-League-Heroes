@@ -74,6 +74,39 @@
   },
   {
    "sheet": "league_galio_fx",
+   "tag": "r_cast",
+   "file": "league_galio_fx/r_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    0,
+    1,
+    2
+   ],
+   "sizes": [
+    [
+     49,
+     79
+    ],
+    [
+     49,
+     91
+    ],
+    [
+     49,
+     99
+    ]
+   ],
+   "of_1x": "c28ac05c138ceb208ae4ca7f533d0b2e01e5ce3d76f8b97a37bff375ef960069",
+   "by": "fx_vector 4",
+   "sha256": "c3e6fb7234b75e67b97eb7612ca695a81febb0d7a543903b6cae36d0f357566a",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_galio_fx",
    "tag": "r_shield",
    "file": "league_galio_fx/r_shield.png",
    "ppu": 2,
@@ -101,6 +134,38 @@
    "by": "fx_vector 3",
    "sha256": "46416a367abe7e42e9fa98db5dcfd467a247c3ac401b335bec1879cd281a07b4",
    "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_galio_fx",
+   "tag": "w_ps",
+   "file": "league_galio_fx/w_ps.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    1,
+    0,
+    2
+   ],
+   "sizes": [
+    [
+     41,
+     25
+    ],
+    [
+     41,
+     25
+    ],
+    [
+     39,
+     25
+    ]
+   ],
+   "of_1x": "3e9a57f104abe8d31d1c34a0ebe07dba1f92ac123256a604d0d3c57bca861546",
+   "by": "fx_vector 4",
+   "sha256": "88bdf9a773e2b731f97acdbd2cb65ac228d6e5e6708701256ffd102982d58637",
+   "note": "batch 07 league other 2026-11-14"
   }
  ]
 }

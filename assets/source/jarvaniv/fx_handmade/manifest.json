@@ -2,6 +2,51 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_jarvaniv_big",
+   "tag": "w_cast",
+   "file": "league_jarvaniv_big/w_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     43
+    ],
+    [
+     37,
+     69
+    ],
+    [
+     43,
+     69
+    ],
+    [
+     47,
+     71
+    ],
+    [
+     41,
+     71
+    ],
+    [
+     39,
+     71
+    ]
+   ],
+   "of_1x": "70604874c854fe5ff876322015fceaa96258c681da4e29d52ed2276ae3a1d90b",
+   "by": "fx_vector 4",
+   "sha256": "9ffc6b4d3e2616f8d8d3efd929f04625fb97a54a8d334c4997aa7220e29707c0",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
    "sheet": "league_jarvaniv_fx",
    "tag": "w_on",
    "file": "league_jarvaniv_fx/w_on.png",

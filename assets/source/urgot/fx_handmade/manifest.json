@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_urgot_big",
+   "tag": "r_ex",
+   "file": "league_urgot_big/r_ex.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     9,
+     37
+    ],
+    [
+     23,
+     51
+    ],
+    [
+     35,
+     63
+    ],
+    [
+     35,
+     63
+    ],
+    [
+     31,
+     57
+    ],
+    [
+     29,
+     55
+    ]
+   ],
+   "of_1x": "52034d441d411acdccea41f34c28a6277aa32ff68edf56d60c41ffaf03b0e654",
+   "by": "fx_vector 4",
+   "sha256": "ccf331d8fe94c3ac408be223bccb56c1b5ba392e75880b6bbc6784b011a95b6c",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_urgot_big",
    "tag": "r_fear",
    "file": "league_urgot_big/r_fear.png",
    "ppu": 2,
@@ -45,6 +90,51 @@
    "by": "fx_vector 3",
    "sha256": "04d8528a197b3337a58dcf207ac873ef2e76d0eef3a7d1c734d25988ce0ccf81",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_urgot_fx",
+   "tag": "e_shield",
+   "file": "league_urgot_fx/e_shield.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     57,
+     45
+    ],
+    [
+     57,
+     65
+    ],
+    [
+     57,
+     77
+    ],
+    [
+     57,
+     77
+    ],
+    [
+     57,
+     77
+    ],
+    [
+     57,
+     77
+    ]
+   ],
+   "of_1x": "2d033a03b6a60f15d3b3152a158a0b42930c98198411f1e0ae05745afe2bcdf4",
+   "by": "fx_vector 4",
+   "sha256": "8d0d08ee258d8ef91b89fc655a8577bf3e31cc9c334eb44748e17b0b9ab0bdf3",
+   "note": "batch 07 league other 2026-11-14"
   },
   {
    "sheet": "league_urgot_fx",

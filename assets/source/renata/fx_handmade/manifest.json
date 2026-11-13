@@ -85,6 +85,51 @@
    "by": "fx_vector 3",
    "sha256": "e70f03de72518ff370e71b2c611ff75ff9548d3483ff49f2fa40d1c06acc2013",
    "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_renata_fx",
+   "tag": "w_save",
+   "file": "league_renata_fx/w_save.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     29
+    ],
+    [
+     19,
+     29
+    ],
+    [
+     21,
+     29
+    ],
+    [
+     23,
+     33
+    ],
+    [
+     23,
+     51
+    ],
+    [
+     19,
+     33
+    ]
+   ],
+   "of_1x": "fdf4d471f5979bc2b8554ae01f2d2b341943357016a422f4dde948642a6c19ce",
+   "by": "fx_vector 4",
+   "sha256": "74e03c4c4b5083b95390451cfb74d9329e88795d590e0159f6cdf4893b08882b",
+   "note": "batch 07 league other 2026-11-14"
   }
  ]
 }

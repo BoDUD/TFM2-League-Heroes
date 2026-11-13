@@ -53,6 +53,71 @@
   },
   {
    "sheet": "league_kayle_big",
+   "tag": "ascend",
+   "file": "league_kayle_big/ascend.png",
+   "ppu": 2,
+   "frames": 10,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ],
+   "sizes": [
+    [
+     29,
+     23
+    ],
+    [
+     29,
+     67
+    ],
+    [
+     31,
+     67
+    ],
+    [
+     43,
+     69
+    ],
+    [
+     47,
+     93
+    ],
+    [
+     45,
+     93
+    ],
+    [
+     37,
+     93
+    ],
+    [
+     39,
+     81
+    ],
+    [
+     25,
+     79
+    ],
+    [
+     15,
+     75
+    ]
+   ],
+   "of_1x": "6b1c37000a5f919ef769f2a7ed7f4a808c4033f950076ab7afcb973ed97708be",
+   "by": "fx_vector 4",
+   "sha256": "601862ff671d979f1a616c129f1bd554592380656e1c31bd01ad20ee16912146",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
    "tag": "e_blast",
    "file": "league_kayle_big/e_blast.png",
    "ppu": 2,

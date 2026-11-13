@@ -1,0 +1,84 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_gwen_big",
+   "tag": "w_mist",
+   "file": "league_gwen_big/w_mist.png",
+   "ppu": 2,
+   "frames": 32,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     37,
+     53
+    ],
+    [
+     75,
+     61
+    ],
+    [
+     73,
+     61
+    ],
+    [
+     73,
+     61
+    ],
+    [
+     75,
+     55
+    ],
+    [
+     75,
+     55
+    ],
+    [
+     73,
+     55
+    ],
+    [
+     59,
+     31
+    ]
+   ],
+   "of_1x": "2a38b7fd961b49a47d879742fc1402ee35be8df35def8ffaa383873543cc1234",
+   "by": "fx_vector 4",
+   "sha256": "f68f43155aca3a6a4eada057124ea7e254a3f1f2744bd8cee0d0bb3debc6dd4b",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

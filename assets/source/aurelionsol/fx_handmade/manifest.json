@@ -3,6 +3,85 @@
  "items": [
   {
    "sheet": "league_aurelionsol_big",
+   "tag": "e_hole_3",
+   "file": "league_aurelionsol_big/e_hole_3.png",
+   "ppu": 2,
+   "frames": 40,
+   "distinct": [
+    0,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     87,
+     37
+    ],
+    [
+     85,
+     35
+    ],
+    [
+     85,
+     35
+    ],
+    [
+     85,
+     35
+    ],
+    [
+     85,
+     35
+    ],
+    [
+     83,
+     39
+    ]
+   ],
+   "of_1x": "42bf5e7cf6cf613db7e237e21bc46984f56349dd213c106350629ec3ec872991",
+   "by": "fx_vector 4",
+   "sha256": "7c3e03bcc9a9fcd1441f8c9400d8e204db519600e22975db61832d8d53e53f0f",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_aurelionsol_big",
    "tag": "r_impact_5",
    "file": "league_aurelionsol_big/r_impact_5.png",
    "ppu": 2,

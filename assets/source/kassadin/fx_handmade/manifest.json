@@ -2,6 +2,56 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_kassadin_big",
+   "tag": "r_in",
+   "file": "league_kassadin_big/r_in.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     11,
+     45
+    ],
+    [
+     15,
+     51
+    ],
+    [
+     35,
+     39
+    ],
+    [
+     47,
+     45
+    ],
+    [
+     43,
+     41
+    ],
+    [
+     21,
+     41
+    ],
+    [
+     13,
+     31
+    ]
+   ],
+   "of_1x": "7f4c9c6733c8fb2faffa389db785ed6928d226f6c9a4fe778730b1c8c260fc15",
+   "by": "fx_vector 4",
+   "sha256": "a5b406024c7869b2f0f8d1686f11d7cfc2d6300e74bea35eb202d9dd8bcc1a76",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
    "sheet": "league_kassadin_fx",
    "tag": "q_shield",
    "file": "league_kassadin_fx/q_shield.png",

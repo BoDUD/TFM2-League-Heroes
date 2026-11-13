@@ -3,6 +3,89 @@
  "items": [
   {
    "sheet": "league_nasus_big",
+   "tag": "e_fire",
+   "file": "league_nasus_big/e_fire.png",
+   "ppu": 2,
+   "frames": 36,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     21,
+     37
+    ],
+    [
+     57,
+     41
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     57,
+     41
+    ]
+   ],
+   "of_1x": "034d3f717605677ab54486c7bb0432d18270111a73c31beed64a6e0a62e07cc5",
+   "by": "fx_vector 4",
+   "sha256": "949b470ebe872cd30e9fae62f764da9233ab7e2f5fbe9de396aa025df3ceb337",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_nasus_big",
    "tag": "r_on",
    "file": "league_nasus_big/r_on.png",
    "ppu": 2,

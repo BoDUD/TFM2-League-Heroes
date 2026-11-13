@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_janna_big",
+   "tag": "r_gale",
+   "file": "league_janna_big/r_gale.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     7,
+     25
+    ],
+    [
+     29,
+     31
+    ],
+    [
+     59,
+     45
+    ],
+    [
+     85,
+     59
+    ],
+    [
+     63,
+     47
+    ],
+    [
+     51,
+     43
+    ]
+   ],
+   "of_1x": "3b8c27a99e838d99ee67d4860d9e793f4fc7a9ae04cef937759c60c3e44cbfcc",
+   "by": "fx_vector 4",
+   "sha256": "a9ef2d9cb67bf26a435b3a7b6e51ea4abdf2348685acd5ecce4c6b7b8109e61e",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_janna_big",
    "tag": "r_storm",
    "file": "league_janna_big/r_storm.png",
    "ppu": 2,
@@ -95,6 +140,51 @@
    "by": "fx_vector 3",
    "sha256": "c54fc06e7c903a51ec310c2de2ba009a183262bb7e95acdcc668ca15782aaf1a",
    "note": "batch 04 auras and buffs 2026-11-14"
+  },
+  {
+   "sheet": "league_janna_fx",
+   "tag": "knockup",
+   "file": "league_janna_fx/knockup.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     27,
+     25
+    ],
+    [
+     25,
+     41
+    ],
+    [
+     25,
+     59
+    ],
+    [
+     29,
+     73
+    ],
+    [
+     23,
+     61
+    ],
+    [
+     15,
+     21
+    ]
+   ],
+   "of_1x": "ddf97c1fdc448e080398a91a1ac3acb6d51ba4dbbc6e3bc6075fa4d8ae89df62",
+   "by": "fx_vector 4",
+   "sha256": "5a7ff74910e89b4bc3d3d65db0bb81e6678a79eb86540dd3c377aade949a61f2",
+   "note": "batch 07 league other 2026-11-14"
   },
   {
    "sheet": "league_janna_fx",

@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_swain_big",
+   "tag": "r_flare",
+   "file": "league_swain_big/r_flare.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     53,
+     45
+    ],
+    [
+     87,
+     31
+    ],
+    [
+     99,
+     45
+    ],
+    [
+     103,
+     51
+    ],
+    [
+     103,
+     53
+    ],
+    [
+     101,
+     49
+    ]
+   ],
+   "of_1x": "564a396140962642189429c72c4c8bd42e4b88d252cf0563a464d7e1ca708f0e",
+   "by": "fx_vector 4",
+   "sha256": "877fe18410d33984cb71f1315cfa371a18f4a56b32e9b5b58f4d17bd389f5c43",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

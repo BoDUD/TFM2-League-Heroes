@@ -3,6 +3,61 @@
  "items": [
   {
    "sheet": "league_twistedfate_big",
+   "tag": "r_dest",
+   "file": "league_twistedfate_big/r_dest.png",
+   "ppu": 2,
+   "frames": 16,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3,
+    4,
+    5,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     11,
+     29
+    ],
+    [
+     41,
+     43
+    ],
+    [
+     39,
+     45
+    ],
+    [
+     41,
+     45
+    ],
+    [
+     41,
+     45
+    ],
+    [
+     41,
+     45
+    ]
+   ],
+   "of_1x": "d429f8906293b3ba249671bf3f8ec5b43391bea8f7a1a641b556c88303f5ef06",
+   "by": "fx_vector 4",
+   "sha256": "b31d02cd8a5d2f782293b3a8644b3ee758aae824d9e9457372d12e7ddc55bf67",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_twistedfate_big",
    "tag": "wr_burst",
    "file": "league_twistedfate_big/wr_burst.png",
    "ppu": 2,

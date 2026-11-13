@@ -1,0 +1,125 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_aphelios_big",
+   "tag": "q_g_cast",
+   "file": "league_aphelios_big/q_g_cast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     9,
+     21
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     35,
+     31
+    ],
+    [
+     27,
+     31
+    ],
+    [
+     21,
+     27
+    ]
+   ],
+   "of_1x": "fa471f22257c0bc93a1de784b583a1a7eb5dfb25255f93bb8fa89853faf9e6f3",
+   "by": "fx_vector 4",
+   "sha256": "c1732ccbefda0138bc7e901c546cfa0b653afb52f9badda55f49f5a640786211",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_aphelios_big",
+   "tag": "r_cast",
+   "file": "league_aphelios_big/r_cast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     27,
+     19
+    ],
+    [
+     29,
+     71
+    ],
+    [
+     33,
+     75
+    ],
+    [
+     35,
+     77
+    ],
+    [
+     29,
+     73
+    ]
+   ],
+   "of_1x": "10eccb66058bc8b60dff143c7315988a7f7ecce8008b8eac1b1c829b258ce01c",
+   "by": "fx_vector 4",
+   "sha256": "ba241341e0cc70872f259591180a3314eb1e0de2cc685fe27f1e67ba866c68ff",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_aphelios_fx",
+   "tag": "swap",
+   "file": "league_aphelios_fx/swap.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     19,
+     15
+    ],
+    [
+     25,
+     45
+    ],
+    [
+     23,
+     65
+    ],
+    [
+     23,
+     67
+    ],
+    [
+     23,
+     49
+    ]
+   ],
+   "of_1x": "9fa4da61657085cf156f71d2cf2d144ae0649299aa776eeb64192c4c3a057023",
+   "by": "fx_vector 4",
+   "sha256": "d2f8fe97b09782b531210938df0e0db90e5af92b47281f5820eafa8157f82a9a",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}

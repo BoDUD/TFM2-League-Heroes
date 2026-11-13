@@ -228,6 +228,46 @@
   },
   {
    "sheet": "league_shyvana_big",
+   "tag": "tf_human",
+   "file": "league_shyvana_big/tf_human.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     47,
+     49
+    ],
+    [
+     41,
+     55
+    ],
+    [
+     49,
+     65
+    ],
+    [
+     37,
+     57
+    ],
+    [
+     21,
+     47
+    ]
+   ],
+   "of_1x": "342a58a8816365650f43503f9f98dc31ca6e64edd5908f3d9460e0a909be5007",
+   "by": "fx_vector 4",
+   "sha256": "e31e42f0650d63ce413938dc15ce55687b23e57dd51cb6bfe235e78aa2e84fdc",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_shyvana_big",
    "tag": "w_aegis",
    "file": "league_shyvana_big/w_aegis.png",
    "ppu": 2,

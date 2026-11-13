@@ -3,6 +3,46 @@
  "items": [
   {
    "sheet": "league_blitzcrank_big",
+   "tag": "r_charge",
+   "file": "league_blitzcrank_big/r_charge.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     45,
+     55
+    ],
+    [
+     51,
+     57
+    ],
+    [
+     55,
+     61
+    ],
+    [
+     57,
+     69
+    ],
+    [
+     57,
+     57
+    ]
+   ],
+   "of_1x": "c8b7bc87509d3e459111a86d05774685fec97dce9fcda07d50637ac229a6844b",
+   "by": "fx_vector 4",
+   "sha256": "6565f9abb580a63d16822fdc669ee93605507cd2225b1a9c445e85945616c000",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_blitzcrank_big",
    "tag": "r_field",
    "file": "league_blitzcrank_big/r_field.png",
    "ppu": 2,

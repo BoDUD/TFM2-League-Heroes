@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_diana_fx",
+   "tag": "w_cast",
+   "file": "league_diana_fx/w_cast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     37,
+     29
+    ],
+    [
+     41,
+     27
+    ],
+    [
+     41,
+     27
+    ],
+    [
+     41,
+     27
+    ],
+    [
+     39,
+     25
+    ],
+    [
+     35,
+     25
+    ]
+   ],
+   "of_1x": "90586ace18507131ad19b9cd58e690c66bd47b231b4a49928b187584382633bc",
+   "by": "fx_vector 4",
+   "sha256": "261cfaf6333ab7388f64a31b2db6606959d5a2e7855538bedc888ed49969745c",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_diana_fx",
    "tag": "w_shield",
    "file": "league_diana_fx/w_shield.png",
    "ppu": 2,

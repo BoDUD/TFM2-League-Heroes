@@ -3,6 +3,46 @@
  "items": [
   {
    "sheet": "league_milio_fx",
+   "tag": "e_hug",
+   "file": "league_milio_fx/e_hug.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     23,
+     21
+    ],
+    [
+     25,
+     39
+    ],
+    [
+     25,
+     55
+    ],
+    [
+     25,
+     55
+    ],
+    [
+     21,
+     51
+    ]
+   ],
+   "of_1x": "004db57dd579bc7c0e35ba8040cb97c1da11a359c59e4c3b2b21ac8d531e75ae",
+   "by": "fx_vector 4",
+   "sha256": "7393d4f2d2fb668e94a04c9ceb200f6088ba1cd4b14f473e8ad3ff9e0fd9296f",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_milio_fx",
    "tag": "e_on",
    "file": "league_milio_fx/e_on.png",
    "ppu": 2,
@@ -35,6 +75,51 @@
    "by": "fx_vector 3",
    "sha256": "c874eb854881c9f2457530121060b71c01c223a258edebd0f208bc6468bc1610",
    "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_milio_fx_big",
+   "tag": "q_fall",
+   "file": "league_milio_fx_big/q_fall.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     49,
+     139
+    ],
+    [
+     49,
+     117
+    ],
+    [
+     49,
+     111
+    ],
+    [
+     49,
+     101
+    ],
+    [
+     49,
+     103
+    ],
+    [
+     51,
+     97
+    ]
+   ],
+   "of_1x": "9b3ec6a69d455d3783bc70414a5b785e06ac2b6b60ccb44b92e17b3363517ced",
+   "by": "fx_vector 4",
+   "sha256": "ec67d2733e55b7da27c0f2b622d5ff1d757a35001344bc36176331ef0cfd0185",
+   "note": "batch 07 league other 2026-11-14"
   },
   {
    "sheet": "league_milio_fx_big",

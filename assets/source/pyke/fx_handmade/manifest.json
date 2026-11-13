@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_pyke_big",
+   "tag": "r_mark",
+   "file": "league_pyke_big/r_mark.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     53,
+     51
+    ],
+    [
+     55,
+     51
+    ],
+    [
+     55,
+     51
+    ],
+    [
+     57,
+     51
+    ],
+    [
+     57,
+     51
+    ],
+    [
+     57,
+     51
+    ]
+   ],
+   "of_1x": "074d04f56c4b78523beb2b3a259f33a4d67e9cdb1e881599142ec5d683d06889",
+   "by": "fx_vector 4",
+   "sha256": "1eac0616219961086496c25453fe0523e8bcbb9077d5475e38c91485ed9bc3b3",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_pyke_big",
    "tag": "r_strike",
    "file": "league_pyke_big/r_strike.png",
    "ppu": 2,

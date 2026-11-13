@@ -48,6 +48,46 @@
   },
   {
    "sheet": "league_rell_fx",
+   "tag": "e_cast",
+   "file": "league_rell_fx/e_cast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     35,
+     23
+    ],
+    [
+     49,
+     25
+    ],
+    [
+     59,
+     35
+    ],
+    [
+     53,
+     21
+    ],
+    [
+     51,
+     21
+    ]
+   ],
+   "of_1x": "aa663800a1ffe419b22514101cafc64c39a89466369ff491f0aa1b82d89ab0b2",
+   "by": "fx_vector 4",
+   "sha256": "db45977eacf6343a2606db57d6c1f63e6bbc2fabacb2854c4ff3258ec5b7cbfc",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_rell_fx",
    "tag": "w_shield",
    "file": "league_rell_fx/w_shield.png",
    "ppu": 2,

@@ -3,6 +3,41 @@
  "items": [
   {
    "sheet": "league_talon_big",
+   "tag": "r_out",
+   "file": "league_talon_big/r_out.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     13,
+     23
+    ],
+    [
+     35,
+     27
+    ],
+    [
+     57,
+     35
+    ],
+    [
+     59,
+     33
+    ]
+   ],
+   "of_1x": "b6a7d0bf021b2b0da0f30bb9578dd6959110ee86cc29adcd0683342a15e2938f",
+   "by": "fx_vector 4",
+   "sha256": "ad245be0acd6fc6d49df88fe68afbd06fbe052a43d464ba3b7231b7c359a6672",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_talon_big",
    "tag": "r_ring0",
    "file": "league_talon_big/r_ring0.png",
    "ppu": 2,

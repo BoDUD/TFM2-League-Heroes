@@ -83,6 +83,41 @@
   },
   {
    "sheet": "league_tahmkench_fx",
+   "tag": "q_heal",
+   "file": "league_tahmkench_fx/q_heal.png",
+   "ppu": 2,
+   "frames": 4,
+   "distinct": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "sizes": [
+    [
+     43,
+     25
+    ],
+    [
+     43,
+     55
+    ],
+    [
+     45,
+     63
+    ],
+    [
+     43,
+     63
+    ]
+   ],
+   "of_1x": "309d51c6bb0dd31207fc3387bf9456ee380f2832a245297d90fffb3b84fa2bd0",
+   "by": "fx_vector 4",
+   "sha256": "f4ff0db24d0137845ea4a37d22134a2d6f57342c458ad53fc8842421932838d5",
+   "note": "batch 07 league other 2026-11-14"
+  },
+  {
+   "sheet": "league_tahmkench_fx",
    "tag": "r_bubble",
    "file": "league_tahmkench_fx/r_bubble.png",
    "ppu": 2,

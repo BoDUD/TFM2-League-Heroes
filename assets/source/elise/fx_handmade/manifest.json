@@ -1,0 +1,30 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_elise_fx",
+   "tag": "cw_frenzy",
+   "file": "league_elise_fx/cw_frenzy.png",
+   "ppu": 2,
+   "frames": 2,
+   "distinct": [
+    0,
+    1
+   ],
+   "sizes": [
+    [
+     41,
+     39
+    ],
+    [
+     53,
+     33
+    ]
+   ],
+   "of_1x": "6fc82b4cf71502b5b41637b8b90158f7621686efaf75d1e1123b1aa77956d626",
+   "by": "fx_vector 4",
+   "sha256": "07f2e0ff08d864e3294f557a7762482530803d1398f66d7baa4ae9e392f218a3",
+   "note": "batch 07 league other 2026-11-14"
+  }
+ ]
+}
