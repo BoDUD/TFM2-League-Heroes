@@ -53,6 +53,51 @@
   },
   {
    "sheet": "league_thresh_fx",
+   "tag": "flay_hit",
+   "file": "league_thresh_fx/flay_hit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     19,
+     21
+    ],
+    [
+     19,
+     35
+    ],
+    [
+     23,
+     47
+    ],
+    [
+     23,
+     39
+    ],
+    [
+     19,
+     35
+    ],
+    [
+     11,
+     27
+    ]
+   ],
+   "of_1x": "618f6f1a547707387ea5985e31784f9570394c7b92d7d17d1b93bbe0215a7697",
+   "by": "fx_vector 4",
+   "sha256": "87169a76491ec90f0fd152d2d2f15aafa940aba9284aa5c14efd3f67b0010078",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_thresh_fx",
    "tag": "w_shield",
    "file": "league_thresh_fx/w_shield.png",
    "ppu": 2,

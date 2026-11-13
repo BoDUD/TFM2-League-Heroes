@@ -230,6 +230,46 @@
    "by": "fx_vector 1",
    "sha256": "eb149c3238d23ad39cc443d16ace94f69d3da4eb8ef182031f42c53482d8a72d",
    "note": "pilot 2026-11-14"
+  },
+  {
+   "sheet": "league_orianna_fx",
+   "tag": "q_land",
+   "file": "league_orianna_fx/q_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     25,
+     35
+    ],
+    [
+     31,
+     37
+    ],
+    [
+     35,
+     41
+    ],
+    [
+     35,
+     41
+    ],
+    [
+     35,
+     31
+    ]
+   ],
+   "of_1x": "1435502424f968866f79c4c3c6700c5407d61c53aa35efd8e4206b2471806e64",
+   "by": "fx_vector 4",
+   "sha256": "815039acea3af83d7152894f2f46abb955df077f7a6143bf34d8c5618902412a",
+   "note": "batch 06 large bursts 2026-11-14"
   }
  ]
 }

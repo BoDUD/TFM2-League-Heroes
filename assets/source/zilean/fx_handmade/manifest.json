@@ -53,6 +53,61 @@
   },
   {
    "sheet": "league_zilean_big",
+   "tag": "q_boom2",
+   "file": "league_zilean_big/q_boom2.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     53,
+     51
+    ],
+    [
+     49,
+     43
+    ],
+    [
+     43,
+     49
+    ],
+    [
+     67,
+     49
+    ],
+    [
+     67,
+     49
+    ],
+    [
+     51,
+     49
+    ],
+    [
+     49,
+     31
+    ],
+    [
+     45,
+     21
+    ]
+   ],
+   "of_1x": "174f0e6686dc84ab1ff59c36c95201ed0f9b133290ab4ffc51369eaef779490e",
+   "by": "fx_vector 4",
+   "sha256": "29aebfed77c290abd029e90276e1da009c9a2fca6f88276307417c30d10b1df4",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_zilean_big",
    "tag": "r_cast",
    "file": "league_zilean_big/r_cast.png",
    "ppu": 2,

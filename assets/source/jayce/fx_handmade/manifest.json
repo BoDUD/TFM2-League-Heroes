@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_jayce_big",
+   "tag": "gq_boom",
+   "file": "league_jayce_big/gq_boom.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     17,
+     23
+    ],
+    [
+     27,
+     35
+    ],
+    [
+     33,
+     45
+    ],
+    [
+     43,
+     51
+    ],
+    [
+     33,
+     41
+    ],
+    [
+     25,
+     39
+    ]
+   ],
+   "of_1x": "693cf76c321aa68cd968d12e204d300cfa9d4f27f732637b31c57bf37d61c589",
+   "by": "fx_vector 4",
+   "sha256": "fb2af3092fde9f66cf0ea1b3f6d8eb7ba97709f8aad3a4b7d82b20e45daf17a0",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_jayce_big",
    "tag": "w_field",
    "file": "league_jayce_big/w_field.png",
    "ppu": 2,

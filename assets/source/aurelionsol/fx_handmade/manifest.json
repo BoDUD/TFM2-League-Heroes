@@ -3,6 +3,86 @@
  "items": [
   {
    "sheet": "league_aurelionsol_big",
+   "tag": "r_impact_5",
+   "file": "league_aurelionsol_big/r_impact_5.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     35,
+     33
+    ],
+    [
+     95,
+     39
+    ],
+    [
+     95,
+     49
+    ],
+    [
+     91,
+     49
+    ],
+    [
+     85,
+     37
+    ]
+   ],
+   "of_1x": "6db6e822426dfb9aaf791e3d6349326cfb8b51bb5f014a78f843a91720cddbca",
+   "by": "fx_vector 4",
+   "sha256": "b7455b2630bba8774f2767520f22c35d1b19b063d586bffe686f2de3feb0b7bd",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_aurelionsol_big",
+   "tag": "r_impact_6",
+   "file": "league_aurelionsol_big/r_impact_6.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     39,
+     35
+    ],
+    [
+     103,
+     43
+    ],
+    [
+     103,
+     53
+    ],
+    [
+     99,
+     53
+    ],
+    [
+     91,
+     39
+    ]
+   ],
+   "of_1x": "233d6c62a86a5ea231018d80db3e678531d9cb00f200cd0c4ca395c12beb29a1",
+   "by": "fx_vector 4",
+   "sha256": "e873d4199b796585e444230b044a804863f9735546478cdf2447350a4c9029dc",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_aurelionsol_big",
    "tag": "r_wave_1",
    "file": "league_aurelionsol_big/r_wave_1.png",
    "ppu": 2,

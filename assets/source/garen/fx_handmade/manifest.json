@@ -2,6 +2,66 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_garen_r",
+   "tag": "impact",
+   "file": "league_garen_r/impact.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     23,
+     197
+    ],
+    [
+     23,
+     165
+    ],
+    [
+     43,
+     111
+    ],
+    [
+     35,
+     137
+    ],
+    [
+     37,
+     119
+    ],
+    [
+     37,
+     99
+    ],
+    [
+     33,
+     79
+    ],
+    [
+     29,
+     69
+    ],
+    [
+     25,
+     25
+    ]
+   ],
+   "of_1x": "24d02ce1f2ec6150a6afb514733c3b7ddd0623854599862702e18ac03bdfefe4",
+   "by": "fx_vector 4",
+   "sha256": "289c07a127a9bd2f69fa15c39db40d8cdaa15f214a730a5f495cfbcd648d1cfe",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
    "sheet": "league_garen_sym",
    "tag": "spin",
    "file": "league_garen_sym/spin.png",

@@ -33,6 +33,61 @@
   },
   {
    "sheet": "league_ziggs_big",
+   "tag": "r_boom",
+   "file": "league_ziggs_big/r_boom.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     109,
+     57
+    ],
+    [
+     113,
+     73
+    ],
+    [
+     125,
+     125
+    ],
+    [
+     113,
+     157
+    ],
+    [
+     119,
+     159
+    ],
+    [
+     119,
+     157
+    ],
+    [
+     111,
+     159
+    ],
+    [
+     95,
+     123
+    ]
+   ],
+   "of_1x": "1e66bd105cf1e1e5e697f3e647bddcbd7ba4233cd7079d59108d7ab1a96dff19",
+   "by": "fx_vector 4",
+   "sha256": "af53b9f166bcc28d5831dcbe40144207f21c6d45539d58bf38c61d4ba7e1e1d0",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_ziggs_big",
    "tag": "r_warn",
    "file": "league_ziggs_big/r_warn.png",
    "ppu": 2,

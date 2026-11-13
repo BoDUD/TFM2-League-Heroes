@@ -3,6 +3,56 @@
  "items": [
   {
    "sheet": "league_jax_big",
+   "tag": "e_burst",
+   "file": "league_jax_big/e_burst.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     91,
+     49
+    ],
+    [
+     93,
+     53
+    ],
+    [
+     97,
+     79
+    ],
+    [
+     99,
+     61
+    ],
+    [
+     99,
+     77
+    ],
+    [
+     99,
+     71
+    ],
+    [
+     107,
+     49
+    ]
+   ],
+   "of_1x": "b9bac435938f853596a67d2db06c4cc7313150c253e9005f5bfd12f6b2a246c0",
+   "by": "fx_vector 4",
+   "sha256": "8223fbf4f7c959b5f32ed0e69a92c89fa9e83d2bd5cfca9d82c8746bee8362c2",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_jax_big",
    "tag": "r_aura",
    "file": "league_jax_big/r_aura.png",
    "ppu": 2,

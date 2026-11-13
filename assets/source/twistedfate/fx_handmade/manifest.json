@@ -1,0 +1,50 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_twistedfate_big",
+   "tag": "wr_burst",
+   "file": "league_twistedfate_big/wr_burst.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     47,
+     43
+    ],
+    [
+     51,
+     39
+    ],
+    [
+     51,
+     43
+    ],
+    [
+     53,
+     57
+    ],
+    [
+     53,
+     43
+    ],
+    [
+     49,
+     45
+    ]
+   ],
+   "of_1x": "f0b49511c478a3c59965ef8f095e2d630c52c5d29fb7c529b1e9365dcb5c240e",
+   "by": "fx_vector 4",
+   "sha256": "f18267c648d0ec946b6c93b49a82eb61f918674f98940c5f93e9bfafe6825f8d",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

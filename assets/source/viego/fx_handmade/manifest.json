@@ -151,6 +151,51 @@
   },
   {
    "sheet": "league_viego_big",
+   "tag": "r_land",
+   "file": "league_viego_big/r_land.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     11,
+     27
+    ],
+    [
+     23,
+     31
+    ],
+    [
+     35,
+     37
+    ],
+    [
+     45,
+     41
+    ],
+    [
+     45,
+     41
+    ],
+    [
+     43,
+     39
+    ]
+   ],
+   "of_1x": "75600efc5cad85060b732f9d1a44184d1fe3fd3bfa73ea71e00c61688a073666",
+   "by": "fx_vector 4",
+   "sha256": "8fc748db039ae4d743906b7a6c0ec25a7e6957b4f287be7f892166f23d6d91fa",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_viego_big",
    "tag": "s_ring",
    "file": "league_viego_big/s_ring.png",
    "ppu": 2,

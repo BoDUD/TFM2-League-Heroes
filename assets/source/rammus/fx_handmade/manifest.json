@@ -3,6 +3,46 @@
  "items": [
   {
    "sheet": "league_rammus_big",
+   "tag": "q_burst",
+   "file": "league_rammus_big/q_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     13,
+     33
+    ],
+    [
+     23,
+     31
+    ],
+    [
+     41,
+     37
+    ],
+    [
+     45,
+     39
+    ],
+    [
+     41,
+     31
+    ]
+   ],
+   "of_1x": "c329ba556bc80aba3eed7e15cd3f0270233d361ebdea7507658588b0f9a66bee",
+   "by": "fx_vector 4",
+   "sha256": "77d7ffabd202701549cdc938b634a0cfab22af11e08688707da2538a4e09795b",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_rammus_big",
    "tag": "r_shock",
    "file": "league_rammus_big/r_shock.png",
    "ppu": 2,

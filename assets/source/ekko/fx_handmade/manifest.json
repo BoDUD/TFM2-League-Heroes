@@ -102,6 +102,56 @@
    "note": "batch 02 rings and zones 2026-11-14"
   },
   {
+   "sheet": "league_ekko_big",
+   "tag": "w_shatter",
+   "file": "league_ekko_big/w_shatter.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     93,
+     99
+    ],
+    [
+     91,
+     153
+    ],
+    [
+     93,
+     117
+    ],
+    [
+     89,
+     131
+    ],
+    [
+     91,
+     139
+    ],
+    [
+     89,
+     157
+    ],
+    [
+     77,
+     67
+    ]
+   ],
+   "of_1x": "64dacbba6bb9704de172d61c2cd38929cc900ee24256f68f3fa5ed62eb3c8c64",
+   "by": "fx_vector 4",
+   "sha256": "51a0a792381413a5f36cf9a27b5d3b7aa118efadaef487d7e610ff684d7c1b07",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
    "sheet": "league_ekko_fx",
    "tag": "w_shield",
    "file": "league_ekko_fx/w_shield.png",

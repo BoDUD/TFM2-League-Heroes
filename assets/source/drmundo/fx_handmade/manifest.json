@@ -3,6 +3,46 @@
  "items": [
   {
    "sheet": "league_drmundo_big",
+   "tag": "w_burst",
+   "file": "league_drmundo_big/w_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     41,
+     63
+    ],
+    [
+     51,
+     37
+    ],
+    [
+     59,
+     85
+    ],
+    [
+     61,
+     85
+    ],
+    [
+     59,
+     49
+    ]
+   ],
+   "of_1x": "bdc34a443b1b1145498015bea95a8440695b7a963e0a2a5802384d0fad06a6cc",
+   "by": "fx_vector 4",
+   "sha256": "be8f916a0121c5a51e2a1f98a0936f153ffed0a5b0d9bb6d3cac7de79b81b550",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_drmundo_big",
    "tag": "w_on",
    "file": "league_drmundo_big/w_on.png",
    "ppu": 2,

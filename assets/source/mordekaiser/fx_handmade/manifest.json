@@ -38,6 +38,61 @@
   },
   {
    "sheet": "league_mordekaiser_big",
+   "tag": "q_slam",
+   "file": "league_mordekaiser_big/q_slam.png",
+   "ppu": 2,
+   "frames": 8,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "sizes": [
+    [
+     19,
+     33
+    ],
+    [
+     33,
+     33
+    ],
+    [
+     45,
+     47
+    ],
+    [
+     49,
+     43
+    ],
+    [
+     53,
+     33
+    ],
+    [
+     47,
+     33
+    ],
+    [
+     53,
+     33
+    ],
+    [
+     45,
+     33
+    ]
+   ],
+   "of_1x": "a92cf5418855f49c9cd09be56239b7a13bf40966d2f98d9779eeb45fa7309ddf",
+   "by": "fx_vector 4",
+   "sha256": "e0b949c79c41370ce2438b842035dfb4f810ead9daaf7de00b6f92a247aecdd7",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_mordekaiser_big",
    "tag": "r_realm",
    "file": "league_mordekaiser_big/r_realm.png",
    "ppu": 2,

@@ -1,0 +1,55 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_shaco_big",
+   "tag": "r_boom",
+   "file": "league_shaco_big/r_boom.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     57,
+     53
+    ],
+    [
+     61,
+     57
+    ],
+    [
+     61,
+     57
+    ],
+    [
+     59,
+     55
+    ],
+    [
+     59,
+     43
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     57,
+     45
+    ]
+   ],
+   "of_1x": "9145c5280c2a16b3a0975b02e515e666d65e26f91a2d635ca59cbf9852b3c196",
+   "by": "fx_vector 4",
+   "sha256": "05ca983f2542a25547c712328fbdb14499338c67fdf4e468654df2f922bf8f31",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

@@ -43,6 +43,46 @@
   },
   {
    "sheet": "league_nilah_big",
+   "tag": "r_burst",
+   "file": "league_nilah_big/r_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     37,
+     27
+    ],
+    [
+     57,
+     37
+    ],
+    [
+     81,
+     47
+    ],
+    [
+     81,
+     47
+    ],
+    [
+     71,
+     15
+    ]
+   ],
+   "of_1x": "b099fc93588c5aadcf800fdc8b35196e707613f11f0ec2c48bafe795f8b5e962",
+   "by": "fx_vector 4",
+   "sha256": "28292137c366ae16c8e5e0811d84b1a5eea712a881f24375297a6cb22e79e03b",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_nilah_big",
    "tag": "r_spin",
    "file": "league_nilah_big/r_spin.png",
    "ppu": 2,

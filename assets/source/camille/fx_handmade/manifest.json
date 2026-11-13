@@ -2,6 +2,56 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_camille_big",
+   "tag": "e_land",
+   "file": "league_camille_big/e_land.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     15,
+     39
+    ],
+    [
+     29,
+     41
+    ],
+    [
+     45,
+     43
+    ],
+    [
+     61,
+     45
+    ],
+    [
+     51,
+     45
+    ],
+    [
+     55,
+     41
+    ],
+    [
+     47,
+     39
+    ]
+   ],
+   "of_1x": "b6c1040daeba06e035317b5bea789b4320d3d83c3353be9724c0e4b9c1f8dfd7",
+   "by": "fx_vector 4",
+   "sha256": "35687c34c0e23e359a5bf392360e00bdb44b3ea6d12a9851064778d7df161d6d",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
    "sheet": "league_camille_fx",
    "tag": "r_mark",
    "file": "league_camille_fx/r_mark.png",

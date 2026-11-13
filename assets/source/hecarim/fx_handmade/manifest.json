@@ -45,6 +45,51 @@
    "by": "fx_vector 4",
    "sha256": "509420685a712cec2c56f969ad2932e20fced32902cfbb634d7ea2a2d094a3f5",
    "note": "batch 05 beams and slashes 2026-11-14"
+  },
+  {
+   "sheet": "league_hecarim_big",
+   "tag": "r_land",
+   "file": "league_hecarim_big/r_land.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     27
+    ],
+    [
+     47,
+     39
+    ],
+    [
+     53,
+     43
+    ],
+    [
+     53,
+     43
+    ],
+    [
+     51,
+     39
+    ],
+    [
+     45,
+     35
+    ]
+   ],
+   "of_1x": "8c3b44113e736bb0d4de24b295768c58aee5808bede4e688f2c592088a15577c",
+   "by": "fx_vector 4",
+   "sha256": "b1400f02e68e2f2c1600b15e472904740c804bac0d3c4841649aebe5e7d11a29",
+   "note": "batch 06 large bursts 2026-11-14"
   }
  ]
 }

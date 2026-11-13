@@ -3,6 +3,56 @@
  "items": [
   {
    "sheet": "league_fizz_big",
+   "tag": "e_slam",
+   "file": "league_fizz_big/e_slam.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     45,
+     25
+    ],
+    [
+     63,
+     51
+    ],
+    [
+     65,
+     51
+    ],
+    [
+     61,
+     51
+    ],
+    [
+     61,
+     51
+    ],
+    [
+     61,
+     43
+    ],
+    [
+     61,
+     43
+    ]
+   ],
+   "of_1x": "ea8b6ed6910e9731efd3f551467e45c28831e00becec09e527514580c2d2075b",
+   "by": "fx_vector 4",
+   "sha256": "795c1140390d5e47e26e0b6e5c0b6ca879e1e65c4c7389835a0785af3d04b881",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_fizz_big",
    "tag": "r_ring1",
    "file": "league_fizz_big/r_ring1.png",
    "ppu": 2,

@@ -38,6 +38,46 @@
   },
   {
    "sheet": "league_shen_big",
+   "tag": "r_land",
+   "file": "league_shen_big/r_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     3,
+     107
+    ],
+    [
+     15,
+     107
+    ],
+    [
+     49,
+     85
+    ],
+    [
+     49,
+     77
+    ],
+    [
+     45,
+     35
+    ]
+   ],
+   "of_1x": "7596d0a893f738db095eccd30d2d3828617f8b01d0752c4e1755b82ae03b0329",
+   "by": "fx_vector 4",
+   "sha256": "842da2f85017b09fd0f19e35c672d990b297f55d0e92402569530e4d99442782",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_shen_big",
    "tag": "r_shield",
    "file": "league_shen_big/r_shield.png",
    "ppu": 2,

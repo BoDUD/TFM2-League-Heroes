@@ -38,6 +38,46 @@
   },
   {
    "sheet": "league_sion_big",
+   "tag": "w_burst",
+   "file": "league_sion_big/w_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     23,
+     25
+    ],
+    [
+     51,
+     27
+    ],
+    [
+     53,
+     25
+    ],
+    [
+     53,
+     27
+    ],
+    [
+     51,
+     21
+    ]
+   ],
+   "of_1x": "e34d13768a15bead0f9a1846210a4d2d3e4b8ffc75460faff47f22a093282a5a",
+   "by": "fx_vector 4",
+   "sha256": "f3016b6cca37cfa252592bd62c59a478c6fea269921b028af42f15c735c41e02",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_sion_big",
    "tag": "w_sh",
    "file": "league_sion_big/w_sh.png",
    "ppu": 2,

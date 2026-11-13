@@ -2,6 +2,106 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_kayle_ascend",
+   "tag": "e_blast_x",
+   "file": "league_kayle_ascend/e_blast_x.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     27,
+     51
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     47,
+     51
+    ],
+    [
+     51,
+     53
+    ],
+    [
+     49,
+     51
+    ],
+    [
+     41,
+     51
+    ],
+    [
+     29,
+     51
+    ]
+   ],
+   "of_1x": "53aa34bc249d1405b7768afaed458b1bc2e6bd3dc13205e4dcb67ca8be7af749",
+   "by": "fx_vector 4",
+   "sha256": "48b82175cb40017b86408489773766449636a9317dda85cb1be2d5d78a50536a",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_kayle_big",
+   "tag": "e_blast",
+   "file": "league_kayle_big/e_blast.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     31,
+     39
+    ],
+    [
+     37,
+     31
+    ],
+    [
+     41,
+     33
+    ],
+    [
+     41,
+     57
+    ],
+    [
+     39,
+     31
+    ],
+    [
+     41,
+     31
+    ],
+    [
+     33,
+     33
+    ]
+   ],
+   "of_1x": "139e6620d909e8592e81e177c678ae391288692f91176a2627de832ce4f8ae37",
+   "by": "fx_vector 4",
+   "sha256": "7b52cf31ceb54919b7f71946cd63e799876375a5a186b7f279bc5f2d155e89d5",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
    "sheet": "league_kayle_big",
    "tag": "q_blast",
    "file": "league_kayle_big/q_blast.png",

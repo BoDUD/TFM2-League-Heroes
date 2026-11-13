@@ -2,6 +2,51 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_rakan_big",
+   "tag": "q_burst",
+   "file": "league_rakan_big/q_burst.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     45
+    ],
+    [
+     49,
+     45
+    ],
+    [
+     85,
+     99
+    ],
+    [
+     73,
+     95
+    ],
+    [
+     57,
+     65
+    ],
+    [
+     29,
+     49
+    ]
+   ],
+   "of_1x": "a94c12726e7b28ec1d99f49133f7d64183c048a74646559dc6f2fee34d1a2539",
+   "by": "fx_vector 4",
+   "sha256": "9ac25e6d1387c532b63f55d8adcd58a4f94c102e92ec61ae2e50e5d1cf7e49cb",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
    "sheet": "league_rakan_fx",
    "tag": "e_on",
    "file": "league_rakan_fx/e_on.png",

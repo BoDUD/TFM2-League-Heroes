@@ -3,6 +3,46 @@
  "items": [
   {
    "sheet": "league_pantheon_big",
+   "tag": "r_land",
+   "file": "league_pantheon_big/r_land.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     13,
+     31
+    ],
+    [
+     73,
+     87
+    ],
+    [
+     59,
+     83
+    ],
+    [
+     67,
+     51
+    ],
+    [
+     41,
+     31
+    ]
+   ],
+   "of_1x": "8c59cc0a3e0148d4a895a6a41f9f43751d77f206773c38a2890bf273f7070930",
+   "by": "fx_vector 4",
+   "sha256": "773ac0505b4c7a53e8dd43a84fb95dffadd65eb16cf20d5a77123bcfb5abb069",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_pantheon_big",
    "tag": "r_mark",
    "file": "league_pantheon_big/r_mark.png",
    "ppu": 2,

@@ -43,6 +43,51 @@
   },
   {
    "sheet": "league_zed_big",
+   "tag": "r_pop",
+   "file": "league_zed_big/r_pop.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     11,
+     37
+    ],
+    [
+     23,
+     45
+    ],
+    [
+     31,
+     57
+    ],
+    [
+     53,
+     49
+    ],
+    [
+     29,
+     55
+    ],
+    [
+     23,
+     49
+    ]
+   ],
+   "of_1x": "46c7013146538a9132bd813fadd14fdc43c303ce40bc443ab67c2f96f36d2150",
+   "by": "fx_vector 4",
+   "sha256": "f3c5ba59afedfda063f3c08f697f0578269f623fc77d67e5315661565153442b",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_zed_big",
    "tag": "sh_spin",
    "file": "league_zed_big/sh_spin.png",
    "ppu": 2,

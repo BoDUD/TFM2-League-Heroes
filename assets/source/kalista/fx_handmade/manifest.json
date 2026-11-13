@@ -79,6 +79,51 @@
    "by": "fx_vector 3",
    "sha256": "00cc51442dcf1a8e2e16d46b3d147c41ae5c86f88a836633c946b7ae4d45163b",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_kalista_big",
+   "tag": "r_land",
+   "file": "league_kalista_big/r_land.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     9,
+     37
+    ],
+    [
+     27,
+     45
+    ],
+    [
+     41,
+     45
+    ],
+    [
+     39,
+     45
+    ],
+    [
+     35,
+     45
+    ],
+    [
+     27,
+     41
+    ]
+   ],
+   "of_1x": "3f8732b637a24ec632a67acd8857d2559a11bae362aead85f69f8775d3018876",
+   "by": "fx_vector 4",
+   "sha256": "959e7a454a7ee3836470f57a8906fd65df73f2e245d409723c7382d09f1a1679",
+   "note": "batch 06 large bursts 2026-11-14"
   }
  ]
 }

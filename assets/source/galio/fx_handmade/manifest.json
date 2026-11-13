@@ -3,6 +3,46 @@
  "items": [
   {
    "sheet": "league_galio_big",
+   "tag": "w_burst",
+   "file": "league_galio_big/w_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     19,
+     25
+    ],
+    [
+     35,
+     29
+    ],
+    [
+     53,
+     33
+    ],
+    [
+     53,
+     33
+    ],
+    [
+     41,
+     31
+    ]
+   ],
+   "of_1x": "e9e00ab75ed2bfd4f6948b3692d8d41dd477c98ae123561e43b2b31984af62cb",
+   "by": "fx_vector 4",
+   "sha256": "f31d92f02c096c91d87fd97d3a48c08f75c096e0407ca3b298ebab6d41b0daf8",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_galio_big",
    "tag": "w_charge",
    "file": "league_galio_big/w_charge.png",
    "ppu": 2,

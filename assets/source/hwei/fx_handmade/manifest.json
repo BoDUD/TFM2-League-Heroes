@@ -3,6 +3,51 @@
  "items": [
   {
    "sheet": "league_hwei_big",
+   "tag": "q_w_hit",
+   "file": "league_hwei_big/q_w_hit.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     5,
+     69
+    ],
+    [
+     15,
+     69
+    ],
+    [
+     25,
+     69
+    ],
+    [
+     23,
+     69
+    ],
+    [
+     25,
+     25
+    ],
+    [
+     19,
+     17
+    ]
+   ],
+   "of_1x": "ddb221fc25bb1eaa358ebe8fb32ffb8babab58e2f6399be8898a47f882ae6625",
+   "by": "fx_vector 4",
+   "sha256": "9307bb17f8ceadb75904c3f86b62e66823d4f814e7a46a5797d0eb5d403f33fd",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_hwei_big",
    "tag": "w_pool",
    "file": "league_hwei_big/w_pool.png",
    "ppu": 2,

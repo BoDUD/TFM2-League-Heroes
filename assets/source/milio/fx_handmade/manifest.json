@@ -38,6 +38,51 @@
   },
   {
    "sheet": "league_milio_fx_big",
+   "tag": "q_land",
+   "file": "league_milio_fx_big/q_land.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     33,
+     31
+    ],
+    [
+     39,
+     33
+    ],
+    [
+     57,
+     53
+    ],
+    [
+     55,
+     41
+    ],
+    [
+     55,
+     33
+    ],
+    [
+     47,
+     33
+    ]
+   ],
+   "of_1x": "d1eb9f60bfe144ede58b93824f0f7c5e79e780ac8b10375da416db6ab80fa862",
+   "by": "fx_vector 4",
+   "sha256": "fa0255af5144b8255f937aa1eb39fe58565aacda601cdd0ab92d7f22f269975a",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_milio_fx_big",
    "tag": "w_fire",
    "file": "league_milio_fx_big/w_fire.png",
    "ppu": 2,

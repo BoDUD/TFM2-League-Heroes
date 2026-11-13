@@ -37,6 +37,51 @@
    "note": "batch 04 auras and buffs 2026-11-14"
   },
   {
+   "sheet": "league_braum_big",
+   "tag": "r_slam",
+   "file": "league_braum_big/r_slam.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     41,
+     57
+    ],
+    [
+     45,
+     59
+    ],
+    [
+     51,
+     63
+    ],
+    [
+     49,
+     63
+    ],
+    [
+     41,
+     57
+    ],
+    [
+     35,
+     57
+    ]
+   ],
+   "of_1x": "19a09abed3240a2074f5853f7b93a65d4c9881031d7099d0b2cfcb37a6aecebd",
+   "by": "fx_vector 4",
+   "sha256": "79edc70c1e219da45cc8789b66a84fe998700c01b5c51ef35dde0544a577d2e9",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
    "sheet": "league_braum_fx",
    "tag": "e_raise",
    "file": "league_braum_fx/e_raise.png",

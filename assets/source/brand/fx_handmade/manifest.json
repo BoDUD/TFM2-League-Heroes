@@ -1,0 +1,55 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_brand_big",
+   "tag": "p_boom",
+   "file": "league_brand_big/p_boom.png",
+   "ppu": 2,
+   "frames": 7,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "sizes": [
+    [
+     39,
+     61
+    ],
+    [
+     47,
+     85
+    ],
+    [
+     47,
+     115
+    ],
+    [
+     47,
+     75
+    ],
+    [
+     47,
+     101
+    ],
+    [
+     47,
+     97
+    ],
+    [
+     35,
+     83
+    ]
+   ],
+   "of_1x": "37fd9654612441e8303e12407f0d0b84580f2f347c7a0978d3daccd8269277d8",
+   "by": "fx_vector 4",
+   "sha256": "1a2862a9e21afcbada26b5b612e4e3e6dbd6fbb44caff90dda2f11a43b27448a",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

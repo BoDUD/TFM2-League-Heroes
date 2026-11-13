@@ -3,6 +3,96 @@
  "items": [
   {
    "sheet": "league_lissandra_big",
+   "tag": "p_burst",
+   "file": "league_lissandra_big/p_burst.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     51,
+     121
+    ],
+    [
+     51,
+     69
+    ],
+    [
+     51,
+     71
+    ],
+    [
+     51,
+     89
+    ],
+    [
+     51,
+     49
+    ],
+    [
+     51,
+     47
+    ]
+   ],
+   "of_1x": "5b49a973139f0fbc855a2bd14883e5440688cac3da934646ee630dca9007364c",
+   "by": "fx_vector 4",
+   "sha256": "a964ac1ab7d10acb36f8a3ab86e417fe16b54169b7a107f9862bfb5799851c8e",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_lissandra_big",
+   "tag": "r_burst",
+   "file": "league_lissandra_big/r_burst.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     57,
+     53
+    ],
+    [
+     57,
+     51
+    ],
+    [
+     57,
+     53
+    ],
+    [
+     57,
+     57
+    ],
+    [
+     55,
+     51
+    ],
+    [
+     45,
+     47
+    ]
+   ],
+   "of_1x": "b30e7ea7d32039abd1c7172981def67836bc5931aea338ffadbced2208dd66ba",
+   "by": "fx_vector 4",
+   "sha256": "1a7049d65e538da7d790ca9864eb77811e7339dfe1c3f2821d2b4ea32c6ef032",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_lissandra_big",
    "tag": "r_field",
    "file": "league_lissandra_big/r_field.png",
    "ppu": 2,

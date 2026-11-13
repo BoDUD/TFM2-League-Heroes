@@ -43,6 +43,91 @@
   },
   {
    "sheet": "league_shyvana_big",
+   "tag": "de_blast",
+   "file": "league_shyvana_big/de_blast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     31,
+     39
+    ],
+    [
+     49,
+     41
+    ],
+    [
+     57,
+     43
+    ],
+    [
+     55,
+     45
+    ],
+    [
+     51,
+     35
+    ],
+    [
+     51,
+     35
+    ]
+   ],
+   "of_1x": "0bda8079f40f11ee2ac002051a3127d61ef13bbd27eec552dd6dbffb425d6060",
+   "by": "fx_vector 4",
+   "sha256": "b946cd66e05c1425c0da22b287300ca7e174e3d5a8ece8717bfa79a1495008f1",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_shyvana_big",
+   "tag": "e_blast",
+   "file": "league_shyvana_big/e_blast.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     25,
+     31
+    ],
+    [
+     33,
+     33
+    ],
+    [
+     35,
+     33
+    ],
+    [
+     33,
+     31
+    ],
+    [
+     31,
+     31
+    ]
+   ],
+   "of_1x": "7d14eaec9555ec21b7754000160519bd055926e97b61d56557915d061d853f95",
+   "by": "fx_vector 4",
+   "sha256": "4e83ce316ed96afc21fc36608eb5d45ab906c6d9b53c99cb04c34e0e77b2cc01",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
+   "sheet": "league_shyvana_big",
    "tag": "q2_wave",
    "file": "league_shyvana_big/q2_wave.png",
    "ppu": 2,
@@ -80,6 +165,66 @@
    "by": "fx_vector 3",
    "sha256": "d522eefc7f9978356a83340b1f3496c11b5a18e8dce6517192a525e011f01b21",
    "note": "batch 03 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_shyvana_big",
+   "tag": "r_land",
+   "file": "league_shyvana_big/r_land.png",
+   "ppu": 2,
+   "frames": 9,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+   ],
+   "sizes": [
+    [
+     35,
+     37
+    ],
+    [
+     57,
+     47
+    ],
+    [
+     59,
+     45
+    ],
+    [
+     71,
+     49
+    ],
+    [
+     67,
+     45
+    ],
+    [
+     65,
+     45
+    ],
+    [
+     65,
+     47
+    ],
+    [
+     63,
+     43
+    ],
+    [
+     59,
+     39
+    ]
+   ],
+   "of_1x": "9e6366d062ef1aa56176186166b63dd3dd701b34ac040403efaf40a9dcadd255",
+   "by": "fx_vector 4",
+   "sha256": "bfda9041f2afdd38da7dea7624db46abd48c53edd6a89637ea6a8c1ad4c4ef7d",
+   "note": "batch 06 large bursts 2026-11-14"
   },
   {
    "sheet": "league_shyvana_big",
@@ -125,6 +270,51 @@
    "by": "fx_vector 3",
    "sha256": "a0856cc20e34d314753e18383d83d0bfc7dc06df6d40148a51c71dbd36f8f48a",
    "note": "batch 02 rings and zones 2026-11-14"
+  },
+  {
+   "sheet": "league_shyvana_big",
+   "tag": "w_blast",
+   "file": "league_shyvana_big/w_blast.png",
+   "ppu": 2,
+   "frames": 6,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "sizes": [
+    [
+     23,
+     35
+    ],
+    [
+     37,
+     37
+    ],
+    [
+     41,
+     53
+    ],
+    [
+     39,
+     49
+    ],
+    [
+     37,
+     45
+    ],
+    [
+     37,
+     39
+    ]
+   ],
+   "of_1x": "d48687d3a08a1ebb2bc7fb4460a13544d2f6403c83df0dc0f641e94acba3b739",
+   "by": "fx_vector 4",
+   "sha256": "5ae838a02fe99251f4b686b33d9f6d8ddf8bc7405629d678f211e3abc58a6863",
+   "note": "batch 06 large bursts 2026-11-14"
   }
  ]
 }

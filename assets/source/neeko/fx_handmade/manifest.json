@@ -1,0 +1,45 @@
+{
+ "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
+ "items": [
+  {
+   "sheet": "league_neeko_big",
+   "tag": "q_burst",
+   "file": "league_neeko_big/q_burst.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     19,
+     37
+    ],
+    [
+     43,
+     37
+    ],
+    [
+     43,
+     37
+    ],
+    [
+     43,
+     35
+    ],
+    [
+     31,
+     35
+    ]
+   ],
+   "of_1x": "81421b90c3e57ae539643185d1e1bbd5095fd2927629b9340f0f7163320aca3d",
+   "by": "fx_vector 4",
+   "sha256": "fc623b038054728a1143eb8f3767b9c59f329e91bbff02f43d5cb2f45f72d530",
+   "note": "batch 06 large bursts 2026-11-14"
+  }
+ ]
+}

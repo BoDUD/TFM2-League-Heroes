@@ -2,6 +2,46 @@
  "about": "Effect tags redrawn by tools/art/fx_vector.py (kept by tools/art/fx_handmade.py): each strip holds its tag's distinct hd_ frames (PPU 2), centred in cells twice the tag's largest 1x frame",
  "items": [
   {
+   "sheet": "league_gragas_big",
+   "tag": "w_hit",
+   "file": "league_gragas_big/w_hit.png",
+   "ppu": 2,
+   "frames": 5,
+   "distinct": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "sizes": [
+    [
+     9,
+     13
+    ],
+    [
+     31,
+     19
+    ],
+    [
+     39,
+     21
+    ],
+    [
+     35,
+     19
+    ],
+    [
+     33,
+     13
+    ]
+   ],
+   "of_1x": "20905ca12b5efc26e0d0c090a0dde706674c95b306c982d8d45987e02cfabacb",
+   "by": "fx_vector 4",
+   "sha256": "5848a5f30b0ecab4f6216eff97f041ab640634b657a1a1b0fae15bbdd5667795",
+   "note": "batch 06 large bursts 2026-11-14"
+  },
+  {
    "sheet": "league_gragas_fx",
    "tag": "q_barrel",
    "file": "league_gragas_fx/q_barrel.png",
