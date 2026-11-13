@@ -73,6 +73,13 @@ R_TAGS = {"attack_r": "attack", "attack2_r": "attack2", "attack3_r": "attack3", 
 # plays attack2 / attack3 by a counter (league_riven.data_champion); their timing is the first attack's.
 MORE_ATTACKS = {"attack": ["attack2", "attack3"], "attack_r": ["attack2_r", "attack3_r"]}
 R_FORM = {"r_slash"}                         # the wind slash: reforged throughout
+# Standing, running and reeling with the reforged sword while Blade of the Exile lasts (the user, 2026-11-14, on the
+# list of differences from League: 「全改吧」 - League's sword stays reforged for the whole 15 s; here her casts took the
+# reforged sword but between them she stood and ran with the broken one, a ring at her feet the only sign): the same
+# frames as idle / run / hit with Codex's reforged sword stamped in place of the broken one. The game plays these
+# three by name itself, so league.dll swaps them in while `league_riven_r` is on her (addons/league_main/src/
+# looks.rs). `rf_`: her sheet already has `r_slash`, and tools/art/hero_reels.py reads `<x>_idle` as form x's idle.
+R_STAND = {"rf_idle": "idle", "rf_run": "run", "rf_hit": "hit"}
 ULT_REFORGED = 2                             # the reforge (ult): reforged from this frame on
 
 # ------------------------------------------------------------------------------------------------- the swords
@@ -429,13 +436,13 @@ def leg_piece(D, lg):
     return out
 
 
-def idle_frame(rig, legs, sink, rest=0.0, front=False):
+def idle_frame(rig, legs, sink, rest=0.0, front=False, kind="normal"):
     lay = [("arm", dict(dy=sink, angle=0, about=SHOULDER))]
     lay += [(legs[lg["name"]], dict()) for lg in (BACK, FRONT)]
     lay += [("upper", dict(dy=sink)), ("forearm", dict(dy=sink, angle=0, about=ELBOW))]
     sword = ("sword", dict(dy=sink, angle=rest, about=GRIP))
     lay = lay[:-1] + [lay[-1], sword, lay[0]] if front else [sword] + lay
-    return with_sword(rig, rig.D.swords, lay, "normal")
+    return with_sword(rig, rig.D.swords, lay, kind)
 
 
 # ------------------------------------------------------------------------------------------------- the legs
@@ -648,6 +655,10 @@ def frames(rig, joints):
     legs = {lg["name"]: leg_piece(D, lg) for lg in (FRONT, BACK)}
     parts = leg_parts(D)
     sheet = R.sheet_of(HERO)
+    # the sheet as tools/art/hero_reels.py leaves it: the idle as drawn is `idle_base`, `idle` and `bp` are reels cut
+    # from the actions (rebuilt by hero_reels after this) - read the drawn idle's timing, skip the reels
+    if "idle_base" in sheet:
+        sheet = {t: (sheet["idle_base"] if t == "idle" else v) for t, v in sheet.items() if t not in ("idle_base", "bp")}
     bake = json.load(open(lp(os.path.join(R.ROOT, "assets", "source", "native", f"{HERO}_bake.json")), encoding="utf-8"))
     baked = {e["into"] for e in bake["items"] if "from" in e}
     out = {}
@@ -659,32 +670,38 @@ def frames(rig, joints):
             timing.setdefault(more, sheet[tag])
             if more not in sheet:
                 order.append(more)
+    for more, tag in R_STAND.items():
+        timing.setdefault(more, timing[tag])
+        if more not in order:
+            order.append(more)
     for tag in order:
         if tag in baked:
             continue
-        base = R_TAGS.get(tag, tag)
+        base = R_TAGS.get(tag, R_STAND.get(tag, tag))
+        reforged = tag in R_TAGS or tag in R_FORM or tag in R_STAND
         clip = tag if tag in joints["tags"] else base
         if clip not in joints["tags"]:
             sys.exit(f"{tag}: no League frames")
         rows = R.fit_rows(joints["tags"][clip], len(timing[tag]))
         ms = [m for _, m in timing[tag]]
-        drv = (drvs if tag in ("run", "hit", "dead") else swings)[tag in R_TAGS or tag in R_FORM]
+        drv = (drvs if base in ("run", "hit", "dead") else swings)[reforged]
         if base in REDRAWN:
             # Codex's frames, League's frame of the base tag each (the R forms take the same drawings)
             lg = joints["tags"][base]
             idx = [min(len(lg) - 1, int(i * len(lg) / len(ms))) for i in range(len(ms))] if len(lg) != len(ms) \
                 else list(range(len(ms)))
-            kind = "reforged" if (tag in R_TAGS or tag in R_FORM) else "normal"
+            kind = "reforged" if reforged else "normal"
             fr = [redrawn_frame(rig, drv, base, k + 1, lg[k]["j"], kind) for k in idx]
-        elif tag == "idle":
-            fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)], IDLE_HOLD) for i in range(len(ms))]
+        elif base == "idle":
+            fr = [idle_frame(rig, legs, IDLE_SINK[i % len(IDLE_SINK)], IDLE_HOLD, kind="reforged" if reforged else "normal")
+                  for i in range(len(ms))]
         elif base in LEG_TAGS:
             fr = [drawn_frame(rig, drv, joints, parts, r["j"]) for r in rows]
         elif tag == "ult":
             fr = [sword_frame(drvs[i >= ULT_REFORGED], r["j"])[0] for i, r in enumerate(rows)]
         else:
             fr = [sword_frame(drv, r["j"])[0] for r in rows]
-        if tag == "hit":
+        if base == "hit":
             fr[0] = R.flash(fr[0])
         if tag == "dead":
             # the sword pointing straight down in front of her first: laid a quarter turn it lies along the ground
