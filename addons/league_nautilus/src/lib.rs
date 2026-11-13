@@ -662,7 +662,7 @@ mod tests {
         assert!(matches!(trace(&Grid::builtin()[0], (native.0 - 40_000.0, native.1), (1.0, 0.0), &[]), Hit::Wall(..)));
         assert_eq!(trace(&g, (native.0 - 40_000.0, native.1), (1.0, 0.0), &[]), Hit::Nothing);
         // a champion before the Rift's wall is still the main pack's
-        assert_eq!(trace(&g, from, (1.0, 0.0), &[(1_280_000.0, 1_152_000.0)]), Hit::Champion);
+        assert_eq!(trace(&g, from, (1.0, 0.0), &[(1_280_000.0, 1_152_000.0)]), Hit::Unit);
     }
 
     #[test]
