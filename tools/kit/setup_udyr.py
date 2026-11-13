@@ -59,9 +59,9 @@ TEXT = {
         "attack": "拳击目标。" + O + "众灵纽带" + E + "：放技能后两次攻击攻速+{p_as}%。" + O + "坚铁甲胄" + E + "：每" + A + "{w_icd}秒" + E +
                   "首个技能附带" + grn("w_sh", "w_sh_r") + "护盾，之后两次攻击各回复" + grn("w_heal", "w_heal_r") + "生命。",
         "skill": "熊姿态：攻速+{q_as}%持续" + A + "{q_t}秒" + E + "，下两次攻击额外造成" + phys("q_dmg", "q_ratio") + "+目标{q_thp}%最大生命值。"
-                 "觉醒（熊姿态再放）：攻速+{q_as2}%，两次攻击引来闪电，造成" + mag("q2_dmg", "q2_ratio") + "魔法伤害。",
+                 "觉醒（熊姿态再放，和公羊共用" + A + "{aw_cd}秒" + E + "冷却）：攻速+{q_as2}%，两次攻击引来闪电，造成" + mag("q2_dmg", "q2_ratio") + "魔法伤害。",
         "skill2": "公羊姿态：移速+{e_ms}%，冲向敌方英雄，撞击造成" + phys("e_dmg", "e_full") + "物理伤害并" + R + "晕眩" + E + A + "{e_stun}秒" +
-                  E + "。觉醒（公羊姿态再放）：移速+{e_ms2}%，" + A + "{e_imm}秒" + E + "免疫控制。",
+                  E + "。觉醒（公羊姿态再放，和熊共用" + A + "{aw_cd}秒" + E + "冷却）：移速+{e_ms2}%，" + A + "{e_imm}秒" + E + "免疫控制。",
         "ult": "凤凰姿态：冰风暴环绕自身" + A + "{r_t}秒" + E + "，每" + A + "{r_gap}秒" + E + "对周围敌人造成" + mag("r_dmg", "r_ratio") + "魔法伤害并" +
                R + "减速" + E + "{r_slow}%；结束时风暴飞向一名敌方英雄，造成" + mag("r2_dmg", "r2_ratio") + "魔法伤害并减速{r2_slow}%。",
         "names": ("狂暴爪击", "踏火蛮冲", "极凌飓风"),
@@ -71,9 +71,9 @@ TEXT = {
         "attack": "拳擊目標。" + O + "人神一體" + E + "：施放技能後兩次攻擊攻速+{p_as}%。" + O + "鋼筋鐵骨" + E + "：每" + A + "{w_icd}秒" + E +
                   "首個技能附帶" + grn("w_sh", "w_sh_r") + "護盾，之後兩次攻擊各回復" + grn("w_heal", "w_heal_r") + "生命。",
         "skill": "熊姿態：攻速+{q_as}%持續" + A + "{q_t}秒" + E + "，下兩次攻擊額外造成" + phys("q_dmg", "q_ratio") + "+目標{q_thp}%最大生命值。"
-                 "覺醒（熊姿態再放）：攻速+{q_as2}%，兩次攻擊引來閃電，造成" + mag("q2_dmg", "q2_ratio") + "魔法傷害。",
+                 "覺醒（熊姿態再放，和公羊共用" + A + "{aw_cd}秒" + E + "冷卻）：攻速+{q_as2}%，兩次攻擊引來閃電，造成" + mag("q2_dmg", "q2_ratio") + "魔法傷害。",
         "skill2": "公羊姿態：移速+{e_ms}%，衝向敵方英雄，撞擊造成" + phys("e_dmg", "e_full") + "物理傷害並" + R + "暈眩" + E + A + "{e_stun}秒" +
-                  E + "。覺醒（公羊姿態再放）：移速+{e_ms2}%，" + A + "{e_imm}秒" + E + "免疫控制。",
+                  E + "。覺醒（公羊姿態再放，和熊共用" + A + "{aw_cd}秒" + E + "冷卻）：移速+{e_ms2}%，" + A + "{e_imm}秒" + E + "免疫控制。",
         "ult": "鳳凰姿態：冰風暴環繞自身" + A + "{r_t}秒" + E + "，每" + A + "{r_gap}秒" + E + "對周圍敵人造成" + mag("r_dmg", "r_ratio") + "魔法傷害並" +
                R + "緩速" + E + "{r_slow}%；結束時風暴飛向一名敵方英雄，造成" + mag("r2_dmg", "r2_ratio") + "魔法傷害並緩速{r2_slow}%。",
         "names": ("野蠻利爪", "熾熱衝撞", "霜翼風暴"),
@@ -84,10 +84,10 @@ TEXT = {
                   "Iron Mantle" + E + ": his first ability every " + A + "{w_icd}s" + E + " also shields him for " + grn("w_sh", "w_sh_r") +
                   " and his next two attacks heal him " + grn("w_heal", "w_heal_r") + " each.",
         "skill": "Bear stance: +{q_as}% attack speed for " + A + "{q_t}s" + E + " and his next two attacks deal " + phys("q_dmg", "q_ratio") +
-                 " + {q_thp}% of the target's max health more. Awakened (cast in the Bear stance): +{q_as2}% attack speed and both "
+                 " + {q_thp}% of the target's max health more. Awakened (cast in the Bear stance; one " + A + "{aw_cd}s" + E + " cooldown shared with the Ram's): +{q_as2}% attack speed and both "
                  "attacks call lightning for " + mag("q2_dmg", "q2_ratio") + " magic damage around the target.",
         "skill2": "Ram stance: +{e_ms}% move speed, he charges an enemy champion and rams it for " + phys("e_dmg", "e_full") +
-                  " physical damage, " + R + "stunning" + E + " it for " + A + "{e_stun}s" + E + ". Awakened (cast in the Ram stance): "
+                  " physical damage, " + R + "stunning" + E + " it for " + A + "{e_stun}s" + E + ". Awakened (cast in the Ram stance; one " + A + "{aw_cd}s" + E + " cooldown shared with the Bear's): "
                   "+{e_ms2}% move speed and immune to crowd control for " + A + "{e_imm}s" + E + ".",
         "ult": "Phoenix stance: a glacial storm whirls round him for " + A + "{r_t}s" + E + ", every " + A + "{r_gap}s" + E + " dealing " +
                mag("r_dmg", "r_ratio") + " magic damage to nearby enemies and " + R + "slowing" + E + " them {r_slow}%; at its end the "
@@ -100,10 +100,10 @@ TEXT = {
                   "{w_icd}초" + E + "마다 첫 스킬에 " + grn("w_sh", "w_sh_r") + " 보호막, 다음 두 번의 공격마다 체력 " + grn("w_heal", "w_heal_r") +
                   " 회복.",
         "skill": "곰 태세: " + A + "{q_t}초" + E + " 동안 공격 속도 +{q_as}%, 다음 두 번의 공격이 " + phys("q_dmg", "q_ratio") + " + 대상 최대 "
-                 "체력의 {q_thp}% 추가 피해. 각성(곰 태세에서 재사용): 공격 속도 +{q_as2}%, 두 번의 공격이 번개를 불러 " +
+                 "체력의 {q_thp}% 추가 피해. 각성(곰 태세에서 재사용, 숫양과 " + A + "{aw_cd}초" + E + " 대기 공유): 공격 속도 +{q_as2}%, 두 번의 공격이 번개를 불러 " +
                  mag("q2_dmg", "q2_ratio") + " 마법 피해.",
         "skill2": "숫양 태세: 이동 속도 +{e_ms}%, 적 챔피언에게 돌진해 " + phys("e_dmg", "e_full") + " 물리 피해와 " + A + "{e_stun}초" + E +
-                  " " + R + "기절" + E + ". 각성(숫양 태세에서 재사용): 이동 속도 +{e_ms2}%, " + A + "{e_imm}초" + E + " 동안 군중 제어 면역.",
+                  " " + R + "기절" + E + ". 각성(숫양 태세에서 재사용, 곰과 " + A + "{aw_cd}초" + E + " 대기 공유): 이동 속도 +{e_ms2}%, " + A + "{e_imm}초" + E + " 동안 군중 제어 면역.",
         "ult": "불사조 태세: " + A + "{r_t}초" + E + " 동안 얼음 폭풍이 주위를 돌며 " + A + "{r_gap}초" + E + "마다 주변 적에게 " +
                mag("r_dmg", "r_ratio") + " 마법 피해와 {r_slow}% " + R + "둔화" + E + "; 끝날 때 폭풍이 적 챔피언에게 날아가 " +
                mag("r2_dmg", "r2_ratio") + " 마법 피해와 {r2_slow}% 둔화.",
@@ -115,9 +115,9 @@ TEXT = {
                   "{w_icd}秒" + E + "ごとの最初のスキルで" + grn("w_sh", "w_sh_r") + "のシールド、続く2回の攻撃で体力" +
                   grn("w_heal", "w_heal_r") + "回復。",
         "skill": "熊の構え：" + A + "{q_t}秒" + E + "攻撃速度+{q_as}%、次の2回の攻撃が" + phys("q_dmg", "q_ratio") + "+対象の最大体力の{q_thp}%"
-                 "を追加。覚醒（熊の構えで再使用）：攻撃速度+{q_as2}%、2回の攻撃が雷を呼び" + mag("q2_dmg", "q2_ratio") + "の魔法ダメージ。",
+                 "を追加。覚醒（熊の構えで再使用、雄羊と共通CD" + A + "{aw_cd}秒" + E + "）：攻撃速度+{q_as2}%、2回の攻撃が雷を呼び" + mag("q2_dmg", "q2_ratio") + "の魔法ダメージ。",
         "skill2": "雄羊の構え：移動速度+{e_ms}%、敵チャンピオンへ突進し" + phys("e_dmg", "e_full") + "の物理ダメージと" + A + "{e_stun}秒" + E +
-                  "の" + R + "スタン" + E + "。覚醒（雄羊の構えで再使用）：移動速度+{e_ms2}%、" + A + "{e_imm}秒" + E + "行動妨害無効。",
+                  "の" + R + "スタン" + E + "。覚醒（雄羊の構えで再使用、熊と共通CD" + A + "{aw_cd}秒" + E + "）：移動速度+{e_ms2}%、" + A + "{e_imm}秒" + E + "行動妨害無効。",
         "ult": "不死鳥の構え：" + A + "{r_t}秒" + E + "氷の嵐がまとい、" + A + "{r_gap}秒" + E + "ごとに周囲の敵に" + mag("r_dmg", "r_ratio") +
                "の魔法ダメージと{r_slow}%の" + R + "スロウ" + E + "。終わりに嵐が敵チャンピオンへ飛び" + mag("r2_dmg", "r2_ratio") +
                "の魔法ダメージと{r2_slow}%スロウ。",
@@ -165,7 +165,7 @@ def values(p):
                            "q2_dmg", "q2_ratio", "e_ms", "e_ms2", "e_dmg", "r_dmg", "r_ratio", "r_slow", "r2_dmg",
                            "r2_ratio", "r2_slow")}
     v["e_full"] = 100                       # the ram's blow: e_dmg + 100% AD (build_udyr's attack(e_dmg, 100))
-    for k in ("w_icd", "q_t", "e_stun", "e_imm", "r_t", "r_gap"):
+    for k in ("w_icd", "q_t", "e_stun", "e_imm", "r_t", "r_gap", "aw_cd"):
         v[k] = secs(p[k])
     return v
 

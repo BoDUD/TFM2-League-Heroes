@@ -19,3 +19,7 @@ Log: `%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_udyr.log` (rewritten a
 as `.prev.log`): `MANTLE` lines and the display handler's stance counts.
 
 Build and test: `cargo test -p league_udyr`; it ships inside the `league_addons` bundle (`league_addons/assemble.py`).
+
+## 0.1.1: Awakened Spirit's one cooldown (2026-11-14)
+
+The main pack's Udyr now awakens as League's does - on one cooldown that the Bear and the Ram share (`aw_cd`, 30 s; League: 50 / 40 / 30 / 20 s by level): until it is over a second cast of the stance, or a Q in the Ram's stun window, is the plain version. The copy was rebuilt from the main pack; the add-on's code is unchanged.
