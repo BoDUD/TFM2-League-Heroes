@@ -5,7 +5,7 @@
 Rebuilds Tryndamere with tools/kit/build_tryndamere.py (its parameter table P), checks that the plain build is the main
 pack's league/champion/league_tryndamere.data_champion byte for byte (so the copy never drifts from the shipped kit),
 and writes addons/league_tryndamere_rage/override/league_tryndamere.data_champion and .../text/champion.i18n:
-the same kit with four changes -
+the same kit with three changes -
   * the main pack's danger check in his attack (two enemy champions on him, or hit at five checks in a row, while R
     is armed) is dropped; R still arms when cast (900 ticks, refunded when unused) - and the add-on's AI hook
     league_tryndamere_rage:ult presses R only when he is about to die (the AI armed it at full health on sight of an
@@ -14,10 +14,7 @@ the same kit with four changes -
     starts Undying Rage when his health drops low or a burst lands (an enemy champion close), and with R not armed it
     drinks Bloodlust when he is hurt;
   * R's tooltip points to description.league_tryndamere_rage.ult (a "low-health test build" lead, so the tooltip in
-    game shows whether the override took);
-  * Q Bloodlust's passive as League (2026-11-14): the copy's attack and its growth are P's n_q_base% lower and the
-    passive gives up to n_q_ad% of his attack by missing health (the most at n_q_at% missing); the attack's tooltip
-    points to description.league_tryndamere_rage.attack - the main pack's text with the add-on's sentence after it.
+    game shows whether the override took).
 Every other champion stays untouched. Run it again whenever the main pack's Tryndamere changes.
 """
 import json
@@ -52,15 +49,6 @@ TEXT = {
           "間体力が1未満にならない。終わりに" + O + "血の欲望" + E + "で" + G + "{q_heal}" + E + " + " + ADi + G + "{q_heal_ratio}%" + E + "、1つにつき" +
           G + "{q_per}" + E + " + " + ADi + G + "{q_per_ratio}%" + E + "回復。アルティメットがない時も瀕死なら血の欲望を使う。",
 }
-# after the main pack's attack text (the passive): Bloodlust's passive, the add-on's
-BLOODLUST = {
-    "zh-hans": "【附加包】" + O + "嗜血杀戮" + E + "：已损失的生命越多攻击力越高，损失{q_at}%时+" + A + "{q_ad}%" + E + "。",
-    "zh-hant": "【附加包】" + O + "嗜血殺戮" + E + "：已損失的生命越多攻擊力越高，損失{q_at}%時+" + A + "{q_ad}%" + E + "。",
-    "en": " [Add-on] " + O + "Bloodlust" + E + ": his attack rises with his missing health, up to " + A + "+{q_ad}%" + E +
-          " at {q_at}% missing.",
-    "ko": " [확장팩] " + O + "피의 갈망" + E + ": 잃은 체력이 많을수록 공격력 증가, {q_at}%를 잃으면 " + A + "+{q_ad}%" + E + ".",
-    "ja": "【拡張】" + O + "血の欲望" + E + "：減った体力が多いほど攻撃力上昇、{q_at}%減で" + A + "+{q_ad}%" + E + "。",
-}
 TOOLTIP_MAX = {"zh-hans": 130, "zh-hant": 130, "en": 334, "ja": 147, "ko": 185}
 
 
@@ -93,11 +81,6 @@ def main():
     if "league_tryndamere_r_armed" not in ult or "league_tryndamere_r_retry" not in ult:
         sys.exit("R no longer arms / refunds itself: update this script")
     champion["ult"]["description"] = "#asset/base/text/champion?" + TEXT_KEY
-    params = champion["passive"]["params"]
-    lower = round(p["atk"] * (100 - p["n_q_base"]) / 100)
-    if (params.get("q_ad"), params.get("q_at")) != (p["n_q_ad"], p["n_q_at"]) or champion["stat"]["attack"] != lower:
-        sys.exit("Bloodlust's passive is not in the copy (params q_ad / q_at, the lower attack): update this script")
-    champion["attack"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".attack"
     values = {k: p[k] for k in ("q_heal", "q_heal_ratio", "q_per", "q_per_ratio")}
     values.update(r_hp=p["n_r_hp"], r_t=f"{p['r_t'] / 60:g}")
     texts = {lang: t.format(**values) for lang, t in TEXT.items()}
@@ -115,20 +98,13 @@ def main():
     missing = set(main_text) - set(texts)
     if missing:
         sys.exit("no low-health text for %s" % sorted(missing))
-    attacks = {lang: main_text[lang]["description"]["league_tryndamere"]["attack"] +
-               BLOODLUST[lang].format(q_ad=p["n_q_ad"], q_at=p["n_q_at"]) for lang in main_text}
-    long = {lang: shown_length(t) for lang, t in attacks.items() if shown_length(t) > TOOLTIP_MAX.get(lang, 10 ** 6)}
-    if long:
-        sys.exit("the attack's tooltip is too long for the details panel: %s" % long)
-    text = {lang: {"description": {MOD_ID: {"attack": attacks[lang], "ult": texts[lang]}}} for lang in main_text}
+    text = {lang: {"description": {MOD_ID: {"ult": texts[lang]}}} for lang in main_text}
     out_text = os.path.join(ADDON, "text", "champion.i18n")
     os.makedirs(lp(os.path.dirname(out_text)), exist_ok=True)
     with open(lp(out_text), "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(text, ensure_ascii=False, indent=2) + "\n")
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), "- danger check dropped, passive =",
           champion["passive"]["passive_ref"], json.dumps(champion["passive"]["params"]))
-    print("attack", champion["stat"]["attack"], "+", champion["growth"]["attack"], "- tooltips",
-          {lang: f"{shown_length(t)}/{TOOLTIP_MAX[lang]}" for lang, t in attacks.items()})
 
 
 if __name__ == "__main__":

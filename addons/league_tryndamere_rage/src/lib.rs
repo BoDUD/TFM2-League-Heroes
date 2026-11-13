@@ -16,8 +16,6 @@
 //!   （打不到就走过去）；到了危险、R 冷却好、身边有敌方英雄时由它按下 R，下一 tick 被动就爆发——显示的「开大」就是爆发那一刻。
 //! - 嗜血杀戮：按身上的怒气层数回血（`q_heal` + `q_per` x 层数，加 `q_heal_ratio` + `q_per_ratio` x 层数 % 攻击力），
 //!   怒气清空，播 Q 的动作、画面和声音。
-//! - 嗜血杀戮的被动（0.3.2）：攻击力随已损失的生命增长（`bloodlust`：`q_ad`% × 已损失 / `q_at`，损失 `q_at`% 时到顶），挂成
-//!   `league_tryndamere_q_ad`（`attack_mult`），数值变了才换；副本的基础攻击力和成长低 6%（主包把这一份并进了基础攻击力）。
 //! - 接着打（0.3.0，工坊「backs off when low health/full rage」）：不死里、R 好着且生命低于 `FIGHT_HP`% 时，AI 要撤、回城或发呆，
 //!   钩子改成打身边（不在敌方塔下、不以少打多）的敌方英雄（`fight_on`）；AI 想放 R 被拦下时也不再走向敌方塔下的人。
 //!
@@ -129,9 +127,6 @@ pub struct Params {
     pub burst: usize,
     pub burst_left: usize,
     pub burst_t: usize,
-    /// 嗜血杀戮的被动：已损失 `q_at`% 生命时攻击力 +`q_ad`%，不到时按比例（0 = 没有）。
-    pub q_ad: usize,
-    pub q_at: usize,
 }
 
 impl Default for Params {
@@ -156,8 +151,6 @@ impl Default for Params {
             burst: 35,
             burst_left: 40,
             burst_t: 60,
-            q_ad: 20,
-            q_at: 90,
         }
     }
 }
@@ -190,8 +183,6 @@ pub fn parse_params(json: &str) -> Params {
             "burst" => &mut p.burst,
             "burst_left" => &mut p.burst_left,
             "burst_t" => &mut p.burst_t,
-            "q_ad" => &mut p.q_ad,
-            "q_at" => &mut p.q_at,
             _ => continue,
         };
         *slot = v;
@@ -240,15 +231,6 @@ pub fn decide(p: &Params, n: &Now) -> Option<Move> {
         return Some(Move::Drink);
     }
     None
-}
-
-/// 嗜血杀戮的被动（英雄联盟：攻击力随已损失的生命增长，损失 90% 时到顶）：生命 `hp`% 时攻击力加百分之几。
-pub fn bloodlust(p: &Params, hp: f64) -> usize {
-    if p.q_ad == 0 || p.q_at == 0 {
-        return 0;
-    }
-    let missing = (100.0 - hp).clamp(0.0, p.q_at as f64);
-    (p.q_ad as f64 * missing / p.q_at as f64).floor() as usize
 }
 
 // ===================== 小工具 =====================
@@ -350,9 +332,6 @@ fn drink(sim: &mut StableSim<'_>, me: usize, p: &Params, why: &str) {
 
 // ===================== 被动 =====================
 
-/// 嗜血杀戮的攻击力每变这么多个百分点记一行日志。
-const AD_LOG_STEP: usize = 10;
-
 /// 每个蛮王一份：参数，和最近 `burst_t` tick 的生命比例。
 #[derive(Clone, Default)]
 struct Guard {
@@ -362,39 +341,13 @@ struct Guard {
     was_armed: bool,
     /// This sim's number (`SIM_TAG`), drawn at his first spawn.
     sim_no: u64,
-    /// Bloodlust's attack bonus on him now (%), and the one the log last named.
-    ad: usize,
-    ad_logged: usize,
 }
 
 impl Guard {
-    /// Q Bloodlust's passive: his attack by his missing health, swapped only when the whole percent changes.
-    fn feed(&mut self, sim: &mut StableSim<'_>, me: usize, hp: f64) {
-        let want = bloodlust(&self.p, hp);
-        if want == self.ad {
-            return;
-        }
-        sim.entity_remove_buff(me, &tr("q_ad"));
-        if want > 0 {
-            let mut b = BuffV1::named(&tr("q_ad"));
-            b.attack_mult = want as i32;
-            sim.add_buff(me, &b);
-        }
-        self.ad = want;
-        // the log: only the steps of AD_LOG_STEP points, and the top
-        if want.abs_diff(self.ad_logged) >= AD_LOG_STEP || (want == self.p.q_ad && self.ad_logged != want) {
-            self.ad_logged = want;
-            wlog(format!("{} BLOODLUST: hp {hp:.0}% -> attack +{want}%", head(sim, me)));
-        }
-    }
-
     fn look(&mut self, sim: &mut StableSim<'_>, me: usize, from_hit: bool) {
         let Some(e) = sim.get_entity(me) else { return };
         if !e.is_alive() {
             self.seen.clear();
-            // death clears his buffs, Bloodlust's with them
-            self.ad = 0;
-            self.ad_logged = 0;
             return;
         }
         let (now, max) = e.hp();
@@ -404,7 +357,6 @@ impl Guard {
         if !from_hit {
             self.seen.retain(|(t, _)| t + self.p.burst_t >= tick);
             self.seen.push((tick, hp));
-            self.feed(sim, me, hp);
         }
         let top = self.seen.iter().map(|s| s.1).fold(hp, f64::max);
         let names = buff_names(sim, me);
@@ -875,7 +827,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     let _ = std::fs::rename(&*LOG_PATH, LOG_PATH.with_extension("prev.log"));
     let v = host.game_version();
     wlog(format!(
-        "=== {ID} v{VERSION} (Undying Rage at low health, R pressed only then; fights on while undying and with R up when hurt; Bloodlust's attack by missing health) loaded: game {}.{}.{} abi {} log={} ===",
+        "=== {ID} v{VERSION} (Undying Rage at low health, R pressed only then; fights on while undying and with R up when hurt) loaded: game {}.{}.{} abi {} log={} ===",
         v.major,
         v.minor,
         v.patch,
@@ -991,21 +943,6 @@ mod tests {
     }
 
     #[test]
-    fn bloodlust_grows_with_missing_health() {
-        // League: "bonus attack damage based on his missing health, up to a maximum amount at 90% missing health"
-        let p = Params::default();
-        assert_eq!(bloodlust(&p, 100.0), 0);
-        assert_eq!(bloodlust(&p, 55.0), 10, "half of the way to 90% missing");
-        assert_eq!(bloodlust(&p, 10.0), 20);
-        assert_eq!(bloodlust(&p, 1.0), 20, "no more past 90% missing");
-        assert_eq!(bloodlust(&p, 120.0), 0, "an over-heal reads as full");
-        assert!((0..=100).map(|hp| bloodlust(&p, hp as f64)).is_sorted_by(|a, b| a >= b), "never less with less health");
-        assert_eq!(bloodlust(&Params { q_ad: 0, ..Params::default() }, 5.0), 0, "off without the number");
-        assert_eq!(bloodlust(&Params { q_at: 0, ..Params::default() }, 5.0), 0);
-        assert!(tr("q_ad").len() <= BUFF_NAME_CAP);
-    }
-
-    #[test]
     fn rage_only_when_about_to_die() {
         let p = Params::default();
         assert_eq!(decide(&p, &now(14.0)), Some(Move::Rage));
@@ -1059,9 +996,6 @@ mod tests {
         let p = parse_params(json);
         let d = Params::default();
         assert_eq!((p.r_hp, p.burst, p.burst_left, p.burst_t, p.near), (d.r_hp, d.burst, d.burst_left, d.burst_t, d.near));
-        // Bloodlust's numbers reach the passive (the guard's configure) and are the defaults the tests use
-        assert_eq!((p.q_ad, p.q_at), (d.q_ad, d.q_at));
-        assert!(json.contains("\"q_ad\""), "the override's params carry q_ad: {json}");
     }
 
     #[test]
