@@ -3,8 +3,9 @@
 different pictures in an action without a new drawing from anyone (the user, 2026-11-14: 「还有有的动画感觉只有一帧 不如oppi的
 地方都要补 参考联盟的动画」, 「动画你觉得少的地方就想办法补」, 「不合格的特效和动画你可以手搓」).
 
-A key pose is one finished picture, so nothing here turns, scales or blends it (art-spec: no arbitrary turns, no
-stretched limbs, the head never touched). What it offers instead, all on whole squares:
+A key pose is one finished picture, so nothing here scales or blends it, and nothing turns it but by the grid's
+exact quarter turns (art-spec: no arbitrary turns, no stretched limbs, the head never touched). What it offers
+instead, all on whole squares:
 
   moved(can, dx, dy)          the whole figure moved (anticipation, lunge, overshoot, settle);
   cut(shape, polys, boxes)    a part's mask from polygons in the pose picture's own squares;
@@ -19,9 +20,11 @@ stretched limbs, the head never touched). What it offers instead, all on whole s
                               a ribbon, a spread wing: ppu_rig.sway's shape), for repose;
   turn(shape, about, n)       the moves of n quarter turns about a square corner (a club about its grip), for repose;
   smear(a, mask, dx, dy, n)   a smear behind a part that moves fast: the air it swept over in its last n squares
-                              filled flat in one of the part's own colours and joined to it;
+                              filled flat in one of the part's own colours and joined to it (tried on league_belveth's
+                              slash and not used: a band 1-2 squares deep along a slanted edge reads as a doubled,
+                              dotted outline at this size - only for a straight edge and 3 squares or more);
   recolour(a, mask, table)    a part's colours changed for a frame (a blade's rim lit as it lands);
-  vary(d, parts, outline, ..) one in-between from a key pose: the three above by part name, with the checks below;
+  vary(d, parts, outline, ..) one in-between from a key pose: the moves above by part name, with the checks below;
   audit(a)                    what a frame may not have: loose specks, pinholes;
   kept(d, out, ...)           that the head, and everything of a pose that is in no part, came through untouched;
   shared_head(...)            the head every key pose carries (the design's, pasted).
