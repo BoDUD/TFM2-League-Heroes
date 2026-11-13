@@ -49,6 +49,10 @@
 //! 属性 `stack`：游戏自己的英雄信息面板在技能图标旁边显示它（数据里的 `stack_skill_index` 选图标，tools/kit/stack_nums.py
 //! 生成表和这个字段）。基础属性按宿主自己的机器码读出布局、原样读出来只换 `stack` 再写回，布局对不上就不写。
 //!
+//! src/looks.rs（0.9.38，用户 2026-11-14 看了「和英雄联盟不一样的地方」的清单后说「全改吧」）：身上有某个 buff 时，游戏自己按名字
+//! 播的待机 / 移动 / 受击换成图里的另一套（锐雯开大后站着、跑着也拿重铸剑）。以前这样的英雄各带一个附加包来换，现在主包里
+//! 一张表，只开主包也生效；已经有自己附加包的英雄不进这张表。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league.log`，每次启动游戏重写（上一次的留作 league.prev.log）。
 //! 挂钩、取表、缩放的行写在挂钩的那个 DLL 的日志里：tft.dll 先加载时在 tft.log，这里只有一行「交给了谁」。
 
@@ -65,6 +69,7 @@ use mod_api_stable::*;
 mod cache;
 pub mod diverge;
 pub mod hd;
+pub mod looks;
 pub mod low_hp;
 pub mod range;
 mod range_table;
@@ -139,6 +144,10 @@ fn init(host: &StableHost) -> StableMod {
             &format!("League Heroes: dense (PPU) frames for the heroes that have them, drawn by {by}.")),
         Role::Off(why) => host.log(LogLevel::Info, &format!("League Heroes: 1x frames - {why}.")),
     }
+    // whole-body looks while a buff is on (Riven's reforged sword between her casts): the playing stand / run / hit
+    // names swapped in the display world (src/looks.rs), whoever draws the dense frames
+    #[cfg(windows)]
+    looks::install_once();
     let mut module = StableMod::new(ID);
     #[cfg(windows)]
     module.set_extension(warm::Warm);
