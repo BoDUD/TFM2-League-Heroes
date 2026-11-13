@@ -7368,6 +7368,134 @@
               "name": "league_jinx_r_fire"
             },
             {
+              "type": "RemoveCasterBuff",
+              "name": "league_jinx_r_d2"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jinx_r_d3"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jinx_r_d4"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jinx_r_d5"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jinx_r_d6"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jinx_r_d7"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jinx_r_d8"
+            },
+            {
+              "type": "RemoveCasterBuff",
+              "name": "league_jinx_r_d9"
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jinx_r_d2",
+                "duration": {
+                  "Time": {
+                    "tick": 4
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jinx_r_d3",
+                "duration": {
+                  "Time": {
+                    "tick": 8
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jinx_r_d4",
+                "duration": {
+                  "Time": {
+                    "tick": 12
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jinx_r_d5",
+                "duration": {
+                  "Time": {
+                    "tick": 15
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jinx_r_d6",
+                "duration": {
+                  "Time": {
+                    "tick": 19
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jinx_r_d7",
+                "duration": {
+                  "Time": {
+                    "tick": 23
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jinx_r_d8",
+                "duration": {
+                  "Time": {
+                    "tick": 26
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "league_jinx_r_d9",
+                "duration": {
+                  "Time": {
+                    "tick": 30
+                  }
+                }
+              },
+              "only_to_enemy": false
+            },
+            {
               "type": "LinearProjectile",
               "name": "league_jinx_r_rocket",
               "speed": 4500,
@@ -7420,17 +7548,226 @@
                               {
                                 "casting_type": "Targeting",
                                 "effect": {
-                                  "type": "Attack",
-                                  "damage": 175,
-                                  "attack_ratio": 90,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 10,
-                                  "attack_effect_type": "Target"
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_jinx_r_d2",
+                                  "effect_buff": {
+                                    "type": "Attack",
+                                    "damage": 45,
+                                    "attack_ratio": 18,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 8,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_jinx_r_d3",
+                                    "effect_buff": {
+                                      "type": "Attack",
+                                      "damage": 67,
+                                      "attack_ratio": 28,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 8,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_jinx_r_d4",
+                                      "effect_buff": {
+                                        "type": "Attack",
+                                        "damage": 90,
+                                        "attack_ratio": 37,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 8,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      "effect_none": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_jinx_r_d5",
+                                        "effect_buff": {
+                                          "type": "Attack",
+                                          "damage": 112,
+                                          "attack_ratio": 46,
+                                          "hp_ratio": 0,
+                                          "target_hp_ratio": 8,
+                                          "attack_effect_type": "Target"
+                                        },
+                                        "effect_none": {
+                                          "type": "SwitchByBuff",
+                                          "buff_name": "league_jinx_r_d6",
+                                          "effect_buff": {
+                                            "type": "Attack",
+                                            "damage": 134,
+                                            "attack_ratio": 55,
+                                            "hp_ratio": 0,
+                                            "target_hp_ratio": 8,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          "effect_none": {
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_jinx_r_d7",
+                                            "effect_buff": {
+                                              "type": "Attack",
+                                              "damage": 157,
+                                              "attack_ratio": 64,
+                                              "hp_ratio": 0,
+                                              "target_hp_ratio": 8,
+                                              "attack_effect_type": "Target"
+                                            },
+                                            "effect_none": {
+                                              "type": "SwitchByBuff",
+                                              "buff_name": "league_jinx_r_d8",
+                                              "effect_buff": {
+                                                "type": "Attack",
+                                                "damage": 179,
+                                                "attack_ratio": 74,
+                                                "hp_ratio": 0,
+                                                "target_hp_ratio": 8,
+                                                "attack_effect_type": "Target"
+                                              },
+                                              "effect_none": {
+                                                "type": "SwitchByBuff",
+                                                "buff_name": "league_jinx_r_d9",
+                                                "effect_buff": {
+                                                  "type": "Attack",
+                                                  "damage": 202,
+                                                  "attack_ratio": 83,
+                                                  "hp_ratio": 0,
+                                                  "target_hp_ratio": 8,
+                                                  "attack_effect_type": "Target"
+                                                },
+                                                "effect_none": {
+                                                  "type": "Attack",
+                                                  "damage": 224,
+                                                  "attack_ratio": 92,
+                                                  "hp_ratio": 0,
+                                                  "target_hp_ratio": 8,
+                                                  "attack_effect_type": "Target"
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
                                 }
                               }
                             ]
                           }
                         ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Delayed",
+                    "tick": 2,
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_jinx_r_d2",
+                        "effect_buff": {
+                          "type": "Attack",
+                          "damage": 11,
+                          "attack_ratio": 5,
+                          "hp_ratio": 0,
+                          "target_hp_ratio": 2,
+                          "attack_effect_type": "Target"
+                        },
+                        "effect_none": {
+                          "type": "SwitchByBuff",
+                          "buff_name": "league_jinx_r_d3",
+                          "effect_buff": {
+                            "type": "Attack",
+                            "damage": 17,
+                            "attack_ratio": 6,
+                            "hp_ratio": 0,
+                            "target_hp_ratio": 2,
+                            "attack_effect_type": "Target"
+                          },
+                          "effect_none": {
+                            "type": "SwitchByBuff",
+                            "buff_name": "league_jinx_r_d4",
+                            "effect_buff": {
+                              "type": "Attack",
+                              "damage": 22,
+                              "attack_ratio": 9,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 2,
+                              "attack_effect_type": "Target"
+                            },
+                            "effect_none": {
+                              "type": "SwitchByBuff",
+                              "buff_name": "league_jinx_r_d5",
+                              "effect_buff": {
+                                "type": "Attack",
+                                "damage": 28,
+                                "attack_ratio": 12,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 2,
+                                "attack_effect_type": "Target"
+                              },
+                              "effect_none": {
+                                "type": "SwitchByBuff",
+                                "buff_name": "league_jinx_r_d6",
+                                "effect_buff": {
+                                  "type": "Attack",
+                                  "damage": 34,
+                                  "attack_ratio": 14,
+                                  "hp_ratio": 0,
+                                  "target_hp_ratio": 2,
+                                  "attack_effect_type": "Target"
+                                },
+                                "effect_none": {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "league_jinx_r_d7",
+                                  "effect_buff": {
+                                    "type": "Attack",
+                                    "damage": 39,
+                                    "attack_ratio": 16,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 2,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  "effect_none": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_jinx_r_d8",
+                                    "effect_buff": {
+                                      "type": "Attack",
+                                      "damage": 45,
+                                      "attack_ratio": 18,
+                                      "hp_ratio": 0,
+                                      "target_hp_ratio": 2,
+                                      "attack_effect_type": "Target"
+                                    },
+                                    "effect_none": {
+                                      "type": "SwitchByBuff",
+                                      "buff_name": "league_jinx_r_d9",
+                                      "effect_buff": {
+                                        "type": "Attack",
+                                        "damage": 50,
+                                        "attack_ratio": 21,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 2,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      "effect_none": {
+                                        "type": "Attack",
+                                        "damage": 56,
+                                        "attack_ratio": 23,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 2,
+                                        "attack_effect_type": "Target"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
                       }
                     ]
                   }

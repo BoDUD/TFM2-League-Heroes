@@ -9,7 +9,10 @@ addons/league_bard/override/league_bard.data_champion and .../text/champion.i18n
     opens the door itself, only on a wall (League's corridor through terrain) - away when dived or hurt, after a hurt
     enemy champion behind a wall - and moves him and the allies near the door through it;
   * skill2's tooltip points to description.league_bard.skill2 with the add-on's wording, so the tooltip in game shows
-    whether the override took.
+    whether the override took;
+  * Q Cosmic Binding also stuns against terrain (League: "If the bolt hits terrain or a second enemy"; 2026-11-14):
+    the first hit runs the add-on's effect league_bard:bind, which reads the map's walls behind the unit; the Q's
+    tooltip gets one more sentence (NATIVE_Q).
 Every other champion stays untouched. Run it again whenever the main pack's Bard changes.
 """
 import json
@@ -38,6 +41,14 @@ NATIVE = {
     "ja": ("【壁の扉】", "敵に詰められると扉を開き、近くの味方と離脱、",
            "近くの壁に扉を開け向こう側へ：詰められるか瀕死で自陣へ、壁裏の弱った敵は追い、交戦中の味方へ援護、近くの味方と共に、"),
 }
+# lang -> the sentence the add-on adds to the main pack's Q text (the stun against terrain)
+NATIVE_Q = {
+    "zh-hans": "身后是墙壁时同样被" + setup.C + "眩晕" + setup.E + "。",
+    "zh-hant": "身後是牆壁時同樣被" + setup.C + "暈眩" + setup.E + "。",
+    "en": " A wall behind it " + setup.C + "stuns" + setup.E + " it as well.",
+    "ko": " 뒤에 벽이 있어도 " + setup.C + "기절" + setup.E + ".",
+    "ja": "後ろが壁でも" + setup.C + "スタン" + setup.E + "。",
+}
 
 
 def lp(path):
@@ -56,6 +67,8 @@ def main():
     if champion.get("passive", {}).get("passive_ref") != MOD_ID + ":door":
         sys.exit("the copy has no league_bard:door passive: update this script")
     champion["skill2"]["description"] = "#asset/base/text/champion?description." + MOD_ID + ".skill2"
+    if '"effect_ref": "league_bard:bind"' not in json.dumps(champion["skill"]):
+        sys.exit("the copy's Q never asks league_bard:bind: update this script")
 
     values = setup.values(p)
     texts = {}
@@ -63,9 +76,10 @@ def main():
         t = setup.TEXT[lang]["skill2"]
         if t.count(old) != 1:
             sys.exit(f"{lang} skill2: the main pack's text changed ({old!r} not found once): update NATIVE")
-        texts[lang] = {"skill2": (lead + t.replace(old, new)).format(**values)}
-    long = {f"{lang}.skill2": setup.shown_length(d["skill2"]) for lang, d in texts.items()
-            if setup.shown_length(d["skill2"]) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
+        texts[lang] = {"skill": (setup.TEXT[lang]["skill"] + NATIVE_Q[lang]).format(**values),
+                       "skill2": (lead + t.replace(old, new)).format(**values)}
+    long = {f"{lang}.{k}": setup.shown_length(d[k]) for lang, d in texts.items() for k in d
+            if setup.shown_length(d[k]) > setup.TOOLTIP_MAX.get(lang, 10 ** 6)}
     if long:
         sys.exit("tooltip too long for the details panel: %s" % long)
 
@@ -86,8 +100,8 @@ def main():
                            ensure_ascii=False, indent=2) + "\n")
     print("wrote", os.path.relpath(out, ROOT), "and", os.path.relpath(out_text, ROOT), "- passive =",
           champion["passive"]["passive_ref"], json.dumps(champion["passive"]["params"]))
-    print("tooltip lengths", {f"{lang}.skill2": f"{setup.shown_length(d['skill2'])}/{setup.TOOLTIP_MAX[lang]}"
-                              for lang, d in texts.items()})
+    print("tooltip lengths", {f"{lang}.{k}": f"{setup.shown_length(d[k])}/{setup.TOOLTIP_MAX[lang]}"
+                              for lang, d in texts.items() for k in d})
 
 
 if __name__ == "__main__":

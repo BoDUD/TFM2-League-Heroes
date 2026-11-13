@@ -7,11 +7,16 @@
 //! - R 是普通的点目标施放，放不放由本包的 AI 钩子看他的真实生命决定（主包是「最近挨打次数」）。
 //!
 //! - **走自己想去的地方**：被动好了（身上没有 `p_cd`）时，硬控落到他身上的那个 tick 就清掉（`entity_clear_cc`），扣当前生命的
-//!   7%，挂 `p_drop_n`：数据那边 3 tick 的自检看到它，就给 `p_cd`、短暂免控、丢药罐（药罐的区域、捡起回血和减冷却都还是
+//!   4%（英雄联盟 V12.23 起是 4%；0.1.11 及以前这里是旧版的 7%），挂 `p_drop_n`：数据那边 3 tick 的自检看到它，就给 `p_cd`、短暂免控、丢药罐（药罐的区域、捡起回血和减冷却都还是
 //!   数据）。数据的药罐跟着他飞 `p_fly` tick、落在他脚下（他身上挂上 `can`）：落地那个 tick 记下位置，`can` 没了（捡起、
 //!   被踩碎、过期）才忘掉。药罐在场、他生命不满 `CAN_PCT`%、身边 `SAFE` 以内没有敌方英雄时 AI 走过去捡；该放 R 的时候
 //!   先放 R。
 //! - **感染之锯**：打中英雄时按对方**当前生命**的 `q_pct`%（至少 `q_dmg`）算魔法伤害，补上主包那一下 `q_dmg` 的差额。
+//! - **技能耗血**（0.1.12，2026-11-14，用户看了「和英雄联盟不一样的地方」清单后说「全改吧」）：英雄联盟的蒙多没有法力，技能
+//!   耗生命——Q 50–90 点（命中返还一半，打英雄全额：返还是数据的回血），W 当前生命的 8%。主包用数据扣（Q 固定 `q_cost` 点、
+//!   W 最大生命的 `w_cost`%，数据读不到当前生命，而且数据扣血是一次真实伤害：会被护盾挡、算进受到的伤害）；副本里 Q 出手调
+//!   `league_drmundo:pay`、W 开启时（`league_drmundo:zap`）直接改他的生命：Q 扣 `q_cost` 点，W 扣当前生命的 `w_cost_n`%，
+//!   都至少留 1 点（耗血不会把自己耗死），不产生伤害事件，也不会被电击器存成灰色生命。日志 `PAY` 行。
 //! - **钝器创伤**：强化普攻按他**已损生命**最多再加 `e_miss`%（`e_dmg` + `e_hp`% 最大生命那部分）；他的攻击力随**额外生命**
 //!   （最大生命高出这一级本来的部分，装备给的）涨 `e_bonus`‰。
 //! - **心脏电击器**：开启后受到的伤害存 `w_store`% 成灰色生命；结束时数据的电击打中英雄（`w_full`）全回，只打中小兵野怪
@@ -50,8 +55,8 @@ pub const R_RANGE: f64 = 50_000.0;
 pub const R_NEAR: f64 = 40_000.0;
 /// 生命记录多久（看 1 秒内掉了多少）。
 pub const BURST_TICKS: usize = 60;
-/// 被动扣当前生命的 %。
-pub const SHAKE_PCT: usize = 7;
+/// 被动扣当前生命的 %（英雄联盟 V12.23 起 4%："pays a health cost equal to 4% of his current health"；0.1.11 及以前是改版前的 7%）。
+pub const SHAKE_PCT: usize = 4;
 /// 去捡药罐：生命低于这个 %、身边这么远没有敌方英雄、药罐不超过这么远（模拟器里有敌人时也去捡 15000 以内的药罐，
 /// 12 种子对六个基础上单 −0.26：只在安全时去）。
 pub const CAN_PCT: usize = 85;
@@ -224,6 +229,11 @@ pub fn shake_cost(hp: usize) -> usize {
     (hp * SHAKE_PCT / 100).min(hp.saturating_sub(1))
 }
 
+/// 技能耗血（0.1.12）：固定 `flat` 点加当前生命的 `pct`%，至少给他留 1 点——耗血不会把自己耗死。
+pub fn skill_cost(hp: usize, flat: usize, pct: usize) -> usize {
+    (flat + hp * pct / 100).min(hp.saturating_sub(1))
+}
+
 /// 「已经站在药罐上」的距离（0.1.8）：药罐落地后 p_arm tick 才能捡，0.1.1 让他站在上面干等，和塔姆对打时看着像卡住，0.1.2 起
 /// 站在上面就不走——可那时按 4000 算，药罐的圈却有 CAN_R 加上他的身体（`body`）那么大：11-03 夜里的日志 25 行 TANK、5 次「走过去」
 /// 都在 4.4k–6.4k 外，早就在圈里，药罐正好在生效那一 tick 捡起来，走不走都一样。现在中心离药罐 CAN_R + 身体 - TANK_EDGE 以内
@@ -335,12 +345,15 @@ pub struct Params {
     pub r_low: usize,
     pub r_burst: usize,
     pub r_miss: usize,
+    /// Q 的耗血（点）和 W 的耗血（当前生命的 %）。
+    pub q_cost: usize,
+    pub w_cost_n: usize,
 }
 
 impl Default for Params {
     fn default() -> Self {
         Params { p_cd: 2400, q_dmg: 140, q_pct: 20, e_dmg: 80, e_hp: 8, e_miss: 100, e_bonus: 25, hp: 1350, hp_g: 125,
-                 w_store: 75, r_low: 60, r_burst: 15, r_miss: 25 }
+                 w_store: 75, r_low: 60, r_burst: 15, r_miss: 25, q_cost: 60, w_cost_n: 8 }
     }
 }
 
@@ -365,6 +378,8 @@ pub fn parse_params(json: &str) -> Params {
             "r_low" => p.r_low = v,
             "r_burst" => p.r_burst = v,
             "r_miss" => p.r_miss = v,
+            "q_cost" => p.q_cost = v,
+            "w_cost_n" => p.w_cost_n = v,
             _ => {}
         }
     }
@@ -480,11 +495,34 @@ impl StableEffectType for Bonk {
     }
 }
 
-/// W 开启：开始存灰色生命。
+/// 技能耗血：直接改他的生命（不是伤害：不被护盾挡，不算进受到的伤害，电击器也不会把它存成灰色生命）。返回扣了多少。
+fn pay(sim: &mut StableSim<'_>, me: usize, what: &str, flat: usize, pct: usize) -> usize {
+    let Some(hp) = sim.get_entity(me).filter(|e| e.is_alive()).map(|e| e.hp().0) else { return 0 };
+    let cost = skill_cost(hp, flat, pct);
+    if cost > 0 {
+        sim.entity_set_hp(me, hp - cost);
+    }
+    if let Some(n) = counted("pay") {
+        wlog(format!("{} PAY #{n} {what}: {cost} of {hp} hp", head(sim, me)));
+    }
+    cost
+}
+
+/// Q 出手：耗 `q_cost` 点生命（命中返还一半、打英雄全额，是数据的回血）。
+struct Pay;
+
+impl StableEffectType for Pay {
+    fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
+        pay(sim, caster, "Q", params().q_cost, 0);
+    }
+}
+
+/// W 开启：耗当前生命的 `w_cost_n`%，然后开始存灰色生命。
 struct Zap;
 
 impl StableEffectType for Zap {
     fn apply(&self, sim: &mut StableSim<'_>, _: u64, caster: usize, _: InputTargetV1) {
+        pay(sim, caster, "W", 0, params().w_cost_n);
         let key = (sim_of(sim, caster), caster);
         with_state(key, |s| {
             s.grey = 0;
@@ -979,6 +1017,7 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     module.add_native_passive(format!("{ID}:pleases"), Pleases::default());
     module.add_native_effect(format!("{ID}:saw"), Saw);
+    module.add_native_effect(format!("{ID}:pay"), Pay);
     module.add_native_effect(format!("{ID}:bonk"), Bonk);
     module.add_native_effect(format!("{ID}:zap"), Zap);
     module.add_native_effect(format!("{ID}:zap_end"), ZapEnd);
@@ -1031,9 +1070,20 @@ mod tests {
 
     #[test]
     fn the_passive_never_kills() {
-        assert_eq!(shake_cost(1000), 70);
+        assert_eq!(shake_cost(1000), 40);
         assert_eq!(shake_cost(5), 0);
         assert_eq!(shake_cost(1), 0);
+    }
+
+    /// 0.1.12: Q costs a flat amount, W a share of current health, and neither takes his last point.
+    #[test]
+    fn skill_costs_never_kill() {
+        assert_eq!(skill_cost(1000, 60, 0), 60);
+        assert_eq!(skill_cost(1000, 0, 8), 80);
+        assert_eq!(skill_cost(40, 60, 0), 39, "he keeps 1");
+        assert_eq!(skill_cost(1, 60, 0), 0);
+        assert_eq!(skill_cost(0, 60, 8), 0);
+        assert_eq!(skill_cost(12, 0, 8), 0, "8% of 12 rounds to nothing");
     }
 
     #[test]
@@ -1101,7 +1151,7 @@ mod tests {
 
     #[test]
     fn params_parse() {
-        let p = parse_params(r#"{"e_bonus":25,"e_hp":8,"e_dmg":80,"e_miss":100,"hp":1350,"hp_g":125,"p_cd":2400,"q_dmg":140,"q_pct":20,"r_burst":15,"r_low":60,"r_miss":25,"w_store":75}"#);
+        let p = parse_params(r#"{"e_bonus":25,"e_hp":8,"e_dmg":80,"e_miss":100,"hp":1350,"hp_g":125,"p_cd":2400,"q_cost":60,"q_dmg":140,"q_pct":20,"r_burst":15,"r_low":60,"r_miss":25,"w_cost_n":8,"w_store":75}"#);
         assert_eq!(p, Params::default());
     }
 
@@ -1120,7 +1170,8 @@ mod tests {
         let d = Params::default();
         for (key, v) in [("p_cd", d.p_cd), ("q_dmg", d.q_dmg), ("q_pct", d.q_pct), ("e_dmg", d.e_dmg), ("e_hp", d.e_hp),
                          ("e_miss", d.e_miss), ("e_bonus", d.e_bonus), ("hp", d.hp), ("hp_g", d.hp_g),
-                         ("w_store", d.w_store), ("r_low", d.r_low), ("r_burst", d.r_burst), ("r_miss", d.r_miss)] {
+                         ("w_store", d.w_store), ("r_low", d.r_low), ("r_burst", d.r_burst), ("r_miss", d.r_miss),
+                         ("q_cost", d.q_cost), ("w_cost_n", d.w_cost_n)] {
             assert!(src.contains(&format!("\"{key}\": {v}")), "{key} is not {v} in build_drmundo.P");
         }
     }

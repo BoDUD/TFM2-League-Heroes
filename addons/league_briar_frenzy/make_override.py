@@ -8,7 +8,12 @@ addons/league_briar_frenzy/override/league_briar.data_champion and .../text/cham
     of src/lib.rs's E_MARK at the hit (the passive stuns the ones pushed short: a wall, the map's edge, a unit);
   * the passive league_briar_frenzy:frenzy (E's walls, R's frenzy kept while the prey lives); the AI hook
     league_briar_frenzy:lock needs nothing in the data;
-  * E's and R's tooltips pointing to description.league_briar_frenzy.<slot> with those words swapped.
+  * Crimson Curse's other half (0.1.4): every skill's cast (skill, skill2, ult) ends with the native effect
+    league_briar_frenzy:cost (5% of her current health), and each of her own heals - the bleed's ticks, Snack Attack,
+    the scream's charge - is the native league_briar_frenzy:mend_bleed / mend_snack / mend_scream instead of the
+    data's Heal (the same amounts, up to 40% more by her missing health; src/lib.rs's MEND_* are checked here);
+  * E's and R's tooltips pointing to description.league_briar_frenzy.<slot> with those words swapped, and the
+    attack's (it carries the passive) with the cost and the missing-health healing added.
 Every other champion stays untouched. Run it again whenever the main pack's Briar changes (--check: compare only).
 """
 import argparse
@@ -40,6 +45,15 @@ SWAPS = {
         "ja": (Y + "6秒" + E + "渇血状態", "獲物が倒れるまで渇血状態"),
     },
 }
+G = "<#6aff55ff>"
+# lang -> the sentence the add-on adds to the attack's text (Crimson Curse: the costs, the missing-health healing)
+CURSE = {
+    "zh-hans": "技能各耗当前生命{cost}%；生命越低回复越多（最多" + G + "+{mend}%" + E + "）。",
+    "zh-hant": "技能各耗目前生命{cost}%；生命越低回復越多（最多" + G + "+{mend}%" + E + "）。",
+    "en": " Each ability costs {cost}% of her current health; the lower her health, the more she heals (up to " + G + "+{mend}%" + E + ").",
+    "ko": " 스킬은 현재 체력 {cost}% 소모, 저체력 시 회복 " + G + "+{mend}%" + E + "까지.",
+    "ja": "各スキルは現在体力の{cost}%を消費。低体力ほど回復増加（最大" + G + "+{mend}%" + E + "）。",
+}
 
 
 def lp(path):
@@ -68,6 +82,12 @@ def build():
     src = open(lp(os.path.join(ADDON, "src", "lib.rs")), encoding="utf-8").read()
     mark = re.search(r'pub const E_MARK: &str = "([^"]+)";', src).group(1)
     knock = int(re.search(r"pub const KNOCK: usize = (\d+);", src).group(1))
+    cost_pct = int(re.search(r"pub const COST_PCT: usize = (\d+);", src).group(1))
+    mend_max = int(re.search(r"pub const MEND_MAX: usize = (\d+);", src).group(1))
+    mends = {tuple(int(x) for x in m.groups()[1:]): "mend_" + m.group(1).lower()
+             for m in re.finditer(r"pub const MEND_(BLEED|SNACK|SCREAM): \(usize, usize\) = \((\d+), (\d+)\);", src)}
+    if len(mends) != 3:
+        sys.exit("src/lib.rs: MEND_BLEED / MEND_SNACK / MEND_SCREAM not found, or two of them alike")
     with open(lp(os.path.join(ROOT, "league", "champion", HERO + ".data_champion")), encoding="utf-8-sig") as f:
         champion = json.load(f)
     if champion.get("passive"):
@@ -88,6 +108,28 @@ def build():
     if '"name": "league_briar_hema", "duration": {"Time": {"tick": 360}}, "attack_speed_mult": 70, "move_speed_mult": 45, ' \
        '"defence": 20, "magic_resistance": 20, "vamp": 10' not in json.dumps(champion["ult"]):
         sys.exit("Briar's Hemomania changed in the main pack: update src/lib.rs's HEMA_STATS")
+    # Crimson Curse natively: her own heals (heal_type Caster, no AP part) by her missing health, a cost a cast
+    seen = []
+
+    def is_heal(o):
+        return o.get("type") == "Heal"
+
+    def to_mend(o):
+        key = (o["amount"], o["attack_ratio"])
+        if o.get("heal_type") != "Caster" or o.get("ap_ratio") or key not in mends:
+            sys.exit(f"a Heal the add-on does not know ({o}): update src/lib.rs's MEND_* and this script")
+        seen.append(mends[key])
+        return {"type": "Native", "effect_ref": f"{MOD_ID}:{mends[key]}"}
+
+    for slot in ("attack", "skill", "skill2", "ult"):
+        champion[slot] = replace(champion[slot], is_heal, to_mend, [])
+    if set(seen) != set(mends.values()):
+        sys.exit(f"the main pack's Briar no longer has all three heals ({sorted(set(seen))}): update src/lib.rs and this script")
+    for slot in ("skill", "skill2", "ult"):
+        top = champion[slot]["effect"]
+        if top.get("type") != "Combine":
+            sys.exit(f"Briar's {slot} is no longer a Combine at the top: update this script")
+        top["effects"].append({"type": "Native", "effect_ref": f"{MOD_ID}:cost"})
     champion["passive"] = {"passive_ref": MOD_ID + ":frenzy", "params": {}}
     with open(lp(os.path.join(ROOT, "league", "text", "champion.i18n")), encoding="utf-8-sig") as f:
         main_text = json.load(f)
@@ -103,6 +145,12 @@ def build():
             if shown_length(t) > TOOLTIP_MAX[lang]:
                 sys.exit(f"{lang} {slot}: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")
             text[lang]["description"][MOD_ID][slot] = t
+    champion["attack"]["description"] = f"#asset/base/text/champion?description.{MOD_ID}.attack"
+    for lang, tab in main_text.items():
+        t = LEAD[lang] + tab["description"][HERO]["attack"] + CURSE[lang].format(cost=cost_pct, mend=mend_max)
+        if shown_length(t) > TOOLTIP_MAX[lang]:
+            sys.exit(f"{lang} attack: tooltip too long ({shown_length(t)} > {TOOLTIP_MAX[lang]})")
+        text[lang]["description"][MOD_ID]["attack"] = t
     return champion, text
 
 

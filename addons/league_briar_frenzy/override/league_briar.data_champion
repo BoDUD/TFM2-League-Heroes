@@ -39,7 +39,7 @@
   },
   "attack": {
     "action_name": "attack",
-    "description": "#asset/base/text/champion?description.league_briar.attack",
+    "description": "#asset/base/text/champion?description.league_briar_frenzy.attack",
     "duration": 25,
     "cooltime": 60,
     "start_timing": 8,
@@ -128,11 +128,8 @@
                         "attack_effect_type": "Target"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 1,
-                        "attack_ratio": 1,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
+                        "type": "Native",
+                        "effect_ref": "league_briar_frenzy:mend_bleed"
                       }
                     ]
                   }
@@ -218,11 +215,8 @@
                           "attack_effect_type": "Target"
                         },
                         {
-                          "type": "Heal",
-                          "amount": 1,
-                          "attack_ratio": 1,
-                          "ap_ratio": 0,
-                          "heal_type": "Caster"
+                          "type": "Native",
+                          "effect_ref": "league_briar_frenzy:mend_bleed"
                         }
                       ]
                     }
@@ -254,11 +248,8 @@
                 "target_hp_ratio": 4
               },
               {
-                "type": "Heal",
-                "amount": 20,
-                "attack_ratio": 20,
-                "ap_ratio": 0,
-                "heal_type": "Caster"
+                "type": "Native",
+                "effect_ref": "league_briar_frenzy:mend_snack"
               },
               {
                 "type": "ViewEffect",
@@ -308,11 +299,8 @@
                           "attack_effect_type": "Target"
                         },
                         {
-                          "type": "Heal",
-                          "amount": 1,
-                          "attack_ratio": 1,
-                          "ap_ratio": 0,
-                          "heal_type": "Caster"
+                          "type": "Native",
+                          "effect_ref": "league_briar_frenzy:mend_bleed"
                         }
                       ]
                     }
@@ -403,11 +391,8 @@
                           "attack_effect_type": "Target"
                         },
                         {
-                          "type": "Heal",
-                          "amount": 1,
-                          "attack_ratio": 1,
-                          "ap_ratio": 0,
-                          "heal_type": "Caster"
+                          "type": "Native",
+                          "effect_ref": "league_briar_frenzy:mend_bleed"
                         }
                       ]
                     }
@@ -493,11 +478,8 @@
                             "attack_effect_type": "Target"
                           },
                           {
-                            "type": "Heal",
-                            "amount": 1,
-                            "attack_ratio": 1,
-                            "ap_ratio": 0,
-                            "heal_type": "Caster"
+                            "type": "Native",
+                            "effect_ref": "league_briar_frenzy:mend_bleed"
                           }
                         ]
                       }
@@ -529,11 +511,8 @@
                   "target_hp_ratio": 4
                 },
                 {
-                  "type": "Heal",
-                  "amount": 20,
-                  "attack_ratio": 20,
-                  "ap_ratio": 0,
-                  "heal_type": "Caster"
+                  "type": "Native",
+                  "effect_ref": "league_briar_frenzy:mend_snack"
                 },
                 {
                   "type": "ViewEffect",
@@ -583,11 +562,8 @@
                             "attack_effect_type": "Target"
                           },
                           {
-                            "type": "Heal",
-                            "amount": 1,
-                            "attack_ratio": 1,
-                            "ap_ratio": 0,
-                            "heal_type": "Caster"
+                            "type": "Native",
+                            "effect_ref": "league_briar_frenzy:mend_bleed"
                           }
                         ]
                       }
@@ -650,11 +626,8 @@
                         "attack_effect_type": "Target"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 1,
-                        "attack_ratio": 1,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
+                        "type": "Native",
+                        "effect_ref": "league_briar_frenzy:mend_bleed"
                       }
                     ]
                   }
@@ -769,11 +742,8 @@
                                 "attack_effect_type": "Target"
                               },
                               {
-                                "type": "Heal",
-                                "amount": 1,
-                                "attack_ratio": 1,
-                                "ap_ratio": 0,
-                                "heal_type": "Caster"
+                                "type": "Native",
+                                "effect_ref": "league_briar_frenzy:mend_bleed"
                               }
                             ]
                           },
@@ -905,11 +875,8 @@
                         "attack_effect_type": "Target"
                       },
                       {
-                        "type": "Heal",
-                        "amount": 1,
-                        "attack_ratio": 1,
-                        "ap_ratio": 0,
-                        "heal_type": "Caster"
+                        "type": "Native",
+                        "effect_ref": "league_briar_frenzy:mend_bleed"
                       }
                     ]
                   },
@@ -972,6 +939,10 @@
               }
             ]
           }
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league_briar_frenzy:cost"
         }
       ]
     }
@@ -1027,11 +998,8 @@
               "apply_type": "AroundCaster",
               "effects": [
                 {
-                  "type": "Heal",
-                  "amount": 6,
-                  "attack_ratio": 4,
-                  "ap_ratio": 0,
-                  "heal_type": "Caster"
+                  "type": "Native",
+                  "effect_ref": "league_briar_frenzy:mend_scream"
                 }
               ]
             }
@@ -1052,11 +1020,8 @@
               "apply_type": "AroundCaster",
               "effects": [
                 {
-                  "type": "Heal",
-                  "amount": 6,
-                  "attack_ratio": 4,
-                  "ap_ratio": 0,
-                  "heal_type": "Caster"
+                  "type": "Native",
+                  "effect_ref": "league_briar_frenzy:mend_scream"
                 }
               ]
             }
@@ -1077,11 +1042,8 @@
               "apply_type": "AroundCaster",
               "effects": [
                 {
-                  "type": "Heal",
-                  "amount": 6,
-                  "attack_ratio": 4,
-                  "ap_ratio": 0,
-                  "heal_type": "Caster"
+                  "type": "Native",
+                  "effect_ref": "league_briar_frenzy:mend_scream"
                 }
               ]
             }
@@ -1102,11 +1064,8 @@
               "apply_type": "AroundCaster",
               "effects": [
                 {
-                  "type": "Heal",
-                  "amount": 6,
-                  "attack_ratio": 4,
-                  "ap_ratio": 0,
-                  "heal_type": "Caster"
+                  "type": "Native",
+                  "effect_ref": "league_briar_frenzy:mend_scream"
                 }
               ]
             }
@@ -1195,11 +1154,8 @@
                           "attack_effect_type": "Target"
                         },
                         {
-                          "type": "Heal",
-                          "amount": 1,
-                          "attack_ratio": 1,
-                          "ap_ratio": 0,
-                          "heal_type": "Caster"
+                          "type": "Native",
+                          "effect_ref": "league_briar_frenzy:mend_bleed"
                         }
                       ]
                     },
@@ -1240,6 +1196,10 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league_briar_frenzy:cost"
         }
       ]
     }
@@ -1401,11 +1361,8 @@
                                 "attack_effect_type": "Target"
                               },
                               {
-                                "type": "Heal",
-                                "amount": 1,
-                                "attack_ratio": 1,
-                                "ap_ratio": 0,
-                                "heal_type": "Caster"
+                                "type": "Native",
+                                "effect_ref": "league_briar_frenzy:mend_bleed"
                               }
                             ]
                           },
@@ -1488,6 +1445,10 @@
             }
           ],
           "end_effects": []
+        },
+        {
+          "type": "Native",
+          "effect_ref": "league_briar_frenzy:cost"
         }
       ]
     }
